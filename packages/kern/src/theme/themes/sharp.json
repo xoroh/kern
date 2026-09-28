@@ -1,0 +1,23 @@
+{
+  "$comment": "Sharp / premium preset. Same roles as m3.json, minimal radius + hairline borders + high contrast. New work — no private equivalent exists.",
+  "extends": "m3",
+  "color": {
+    "onSurface": "#111111"
+  },
+  "radius": {
+    "none": "0px",
+    "xs": "0px",
+    "sm": "2px",
+    "md": "2px",
+    "lg": "2px",
+    "xl": "2px",
+    "2xl": "2px",
+    "3xl": "2px",
+    "4xl": "2px",
+    "full": "2px"
+  },
+  "borders": {
+    "hairline": "1px solid currentColor"
+  },
+  "todo": ["Define sharp typography tweaks (tighter letter-spacing)", "Add sharp elevation scale"]
+}
