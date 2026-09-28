@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - run: bun install --frozen-lockfile
+
+      - name: Build MCP server
+        run: bun run build
+        working-directory: packages/mcp
+
+      - name: Validate agent skills
+        run: |
+          bun x skills-ref validate ./.agents/skills/kern
+          bun x skills-ref validate ./.agents/skills/docs
