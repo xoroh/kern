@@ -98,7 +98,7 @@ import { Button } from "@xoroh/kern/native";
 
 13 web components real (tested); 12 native components real (style maps
 plus Jest render tests). Stub files throw until implemented and stay out
-of the exports.
+of the exports. Full set with status: `docs/components.md`.
 
 ## Testing
 
