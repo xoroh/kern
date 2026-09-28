@@ -6,16 +6,17 @@ Layers and who may import whom:
 
 ```
 packages/kern/src/
-  theme/      # tokens + presets — bottom layer, imports nothing in src/
-  utils/      # pure helpers (cn) — imports theme types only
-  web/        # React components — imports theme, utils
-  native/     # React Native components — imports theme, utils
-  blocks/     # use-case packs — imports core, never each other
+  theme/        # tokens + presets — bottom layer, imports nothing in src/
+  utils/        # pure helpers (cn) — imports theme types only
+  react/        # React components — imports theme, utils
+  react-native/ # React Native components — imports theme, utils
+  blocks/       # use-case packs — imports core, never each other
 ```
 
 ## Rules
 
-1. **Core never imports blocks.** `web/`, `native/`, `theme/`, `utils/` must
+1. **Core never imports blocks.** `react/`, `react-native/`, `theme/`,
+   `utils/` must
    not reference `blocks/<anything>`.
 2. **Blocks are isolated.** `blocks/mobility` cannot import
    `blocks/<other>` — shared composition moves down into core.

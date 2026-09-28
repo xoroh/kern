@@ -1,6 +1,6 @@
 # Use-case blocks
 
-The core (`../web`, `../native`, `../theme`) is domain-neutral and never
+The core (`../react`, `../react-native`, `../theme`) is domain-neutral and never
 imports from here. A **block** is a use-case pack: composed components +
 preset theme built on core primitives.
 
