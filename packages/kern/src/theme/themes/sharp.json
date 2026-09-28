@@ -6,14 +6,14 @@
   },
   "radius": {
     "none": "0px",
-    "xs": "0px",
-    "sm": "2px",
-    "md": "2px",
-    "lg": "2px",
-    "xl": "2px",
-    "2xl": "2px",
-    "3xl": "2px",
-    "4xl": "2px",
+    "extra-small": "0px",
+    "small": "2px",
+    "medium": "2px",
+    "large": "2px",
+    "large-increased": "2px",
+    "extra-large": "2px",
+    "extra-large-increased": "2px",
+    "extra-extra-large": "2px",
     "full": "2px"
   },
   "borders": {

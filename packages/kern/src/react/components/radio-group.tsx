@@ -35,7 +35,7 @@ export function RadioGroupItem({
     >
       <RadioPrimitive.Root
         className={cn(
-          "size-5 shrink-0 rounded-full border-2 border-black/20 bg-white outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/40 data-checked:border-black",
+          "size-5 shrink-0 rounded-full border-2 border-black/20 bg-white outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/40 data-checked:border-(--md-sys-color-primary)",
         )}
         {...props}
       >
@@ -43,7 +43,7 @@ export function RadioGroupItem({
           data-slot="radio-group-indicator"
           className="flex size-5 items-center justify-center"
         >
-          <span className="size-2 rounded-full bg-black" />
+          <span className="size-2 rounded-full bg-(--md-sys-color-primary)" />
         </RadioPrimitive.Indicator>
       </RadioPrimitive.Root>
       {children}

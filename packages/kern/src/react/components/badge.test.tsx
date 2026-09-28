@@ -5,7 +5,7 @@ import { Badge } from "./badge";
 describe("Badge", () => {
   it("renders count content", () => {
     render(<Badge>3</Badge>);
-    expect(screen.getByText("3")).toHaveClass("bg-[#dc2626]");
+    expect(screen.getByText("3")).toHaveClass("bg-(--md-sys-color-error)");
   });
 
   it("renders the dot variant", () => {

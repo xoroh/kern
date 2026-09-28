@@ -24,15 +24,23 @@ export const tokens = {
       "950": { oklch: "oklch(28.2% 0.087 267.9)", srgb: "#172554" },
     },
     red: {
+      "100": { oklch: "oklch(93.6% 0.031 17.7)", srgb: "#fee2e2" },
+      "200": { oklch: "oklch(88.5% 0.059 18.3)", srgb: "#fecaca" },
       "400": { oklch: "oklch(71.1% 0.166 22.2)", srgb: "#f87171" },
       "600": { oklch: "oklch(57.7% 0.215 27.3)", srgb: "#dc2626" },
+      "900": { oklch: "oklch(39.6% 0.133 25.7)", srgb: "#7f1d1d" },
+      "950": { oklch: "oklch(25.8% 0.089 26)", srgb: "#450a0a" },
     },
     green: {
+      "100": { oklch: "oklch(96.2% 0.043 156.7)", srgb: "#dcfce7" },
       "600": { oklch: "oklch(62.7% 0.170 149.2)", srgb: "#16a34a" },
+      "900": { oklch: "oklch(39.3% 0.09 152.5)", srgb: "#14532d" },
     },
     amber: {
+      "100": { oklch: "oklch(97.3% 0.069 103.2)", srgb: "#fef9c3" },
       "400": { oklch: "oklch(86.1% 0.173 91.9)", srgb: "#facc15" },
       "700": { oklch: "oklch(55.4% 0.121 66.4)", srgb: "#a16207" },
+      "900": { oklch: "oklch(42.1% 0.09 57.7)", srgb: "#713f12" },
     },
   },
   base: {

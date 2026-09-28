@@ -7,6 +7,6 @@ describe("Textarea", () => {
     render(<Textarea aria-label="Notes" error />);
     const field = screen.getByRole("textbox");
     expect(field).toHaveAttribute("aria-invalid", "true");
-    expect(field).toHaveClass("border-[#dc2626]");
+    expect(field).toHaveClass("border-(--md-sys-color-error)");
   });
 });

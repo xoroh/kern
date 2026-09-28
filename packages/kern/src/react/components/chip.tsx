@@ -9,7 +9,7 @@ const chipVariants = cva(
       variant: {
         assist: "bg-[#efefef] text-black hover:bg-[#e5e5e5]",
         filter:
-          "bg-[#efefef] text-black hover:bg-[#e5e5e5] data-selected:bg-black data-selected:text-white",
+          "bg-[#efefef] text-black hover:bg-[#e5e5e5] data-selected:bg-(--md-sys-color-primary) data-selected:text-(--md-sys-color-on-primary)",
         suggestion:
           "border border-black/10 bg-white text-black hover:bg-[#efefef]",
       },

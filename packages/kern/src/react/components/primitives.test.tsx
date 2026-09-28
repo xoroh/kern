@@ -25,6 +25,6 @@ describe("FieldMessage", () => {
     render(<FieldMessage variant="error">Required</FieldMessage>);
     const message = screen.getByRole("alert");
     expect(message).toHaveTextContent("Required");
-    expect(message).toHaveClass("text-[#dc2626]");
+    expect(message).toHaveClass("text-(--md-sys-color-error)");
   });
 });

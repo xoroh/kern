@@ -6,7 +6,7 @@ const fieldMessageVariants = cva("kern-field-message text-xs", {
   variants: {
     variant: {
       description: "text-black/60",
-      error: "text-[#dc2626]",
+      error: "text-(--md-sys-color-error)",
     },
   },
   defaultVariants: { variant: "description" },
