@@ -12,9 +12,9 @@ const buttonVariants = cva(
         ghost: "text-black hover:bg-[#efefef]",
       },
       size: {
-        default: "h-9 px-4",
+        default: "h-10 px-4",
         sm: "h-8 px-3 text-[13px]",
-        icon: "h-9 w-9 px-0",
+        icon: "h-10 w-10 px-0",
       },
     },
     defaultVariants: { variant: "primary", size: "default" },

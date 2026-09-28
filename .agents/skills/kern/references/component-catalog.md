@@ -10,7 +10,7 @@ Complete reference for Material Design 3 components. **Primary mappings:** Jetpa
 
 MD3 has 5 button types ordered by emphasis: Filled > Filled Tonal > Elevated > Outlined > Text.
 
-> **Kern mapping:** Filled = black primary button (`bg-black text-white`), Filled Tonal = chip-gray button (`bg-[#efefef]`), Text = ghost. All buttons are `rounded-full`, height `h-9` (36px). See kern-tokens.md for role values.
+> **Kern mapping:** Filled = black primary button (`bg-black text-white`), Filled Tonal = chip-gray button (`bg-[#efefef]`), Text = ghost. All buttons are `rounded-full`, height `h-10` (40px, M3 S default). See kern-tokens.md for role values.
 
 **General attributes** (shared by all button types):
 
@@ -42,7 +42,7 @@ MD3 has 5 button types ordered by emphasis: Filled > Filled Tonal > Elevated > O
 Extended FAB is **not a pill** in M3: 3 sizes (small 56dp / medium 80dp / large 96dp), container + label + 24dp icon, **16dp corners**, 16dp screen margins, 6 container/on pairings, never paired with a FAB menu.
 
 ### Icon Button
-**Element**: `md-icon-button` (+ `filled`, `filled-tonal`, `outlined` variants). Kern toolbar buttons: `h-9 w-9 rounded-full bg-[#efefef]`. Always provide `aria-label`.
+**Element**: `md-icon-button` (+ `filled`, `filled-tonal`, `outlined` variants). Kern toolbar buttons: `h-10 w-10 rounded-full bg-[#efefef]`. Always provide `aria-label`.
 
 ### Segmented Buttons
 Implement with standard HTML + tokens; selected segment uses `secondary-container` (Kern: `#efefef`).
@@ -157,10 +157,10 @@ See [`navigation-patterns.md`](navigation-patterns.md) for full detail. Summary:
 M3 lists: **expressive (recommended)** — standard or **segmented** style with highlighted selection and shape morph — vs baseline (square, legacy). Item heights **56/72/88dp** by tallest element; ≥88dp or 3+ lines = top-align, else middle-align. Modes: single-action, multi-action, single-select, multi-select (**one selection control per item**). Interactions: expand/collapse, swipe-to-reveal (Android Views only). Custom slots carry screen-reader risk — keep the content slot widest, 48dp targets.
 
 ### Buttons — sizes, toggle, state layers
-M3: default + **toggle** variants; 5 styles; **5 sizes XS–XL (S default, 40dp high)**; round or square; pressed-corner morph table; toggle swaps round↔square when selected; small padding **16dp**; optional 20dp leading/**trailing** icon; sentence-case labels; elevated = elev 1 (0 when disabled); state layers hover 8%, focus/press 10%; 48dp targets for XS/S. Kern pins filled/tonal/text at `h-9` (36px) with `rounded-full` — record the 4dp-under-default height and the no-morph stance as deliberate overrides.
+M3: default + **toggle** variants; 5 styles; **5 sizes XS–XL (S default, 40dp high)**; round or square; pressed-corner morph table; toggle swaps round↔square when selected; small padding **16dp**; optional 20dp leading/**trailing** icon; sentence-case labels; elevated = elev 1 (0 when disabled); state layers hover 8%, focus/press 10%; 48dp targets for XS/S. Kern uses the S default (`h-10`, 40px) with `rounded-full`; the no-morph stance is a deliberate override.
 
 ### Icon Buttons — toggle, sizes, tooltips
-M3: default + **toggle** (outlined-icon unselected → filled-icon selected); styles filled/tonal/outlined/**standard**; **5 sizes XS–XL (S default), 3 widths** (narrow/default/wide); round/square + press/select morph; **tooltip on hover (web)**; XS/S need 48dp targets. Kern single `h-9` tonal pill is an override — add toggle + tooltip rules when adopting.
+M3: default + **toggle** (outlined-icon unselected → filled-icon selected); styles filled/tonal/outlined/**standard**; **5 sizes XS–XL (S default), 3 widths** (narrow/default/wide); round/square + press/select morph; **tooltip on hover (web)**; XS/S need 48dp targets. Kern single `h-10` tonal pill follows the S default — add toggle + tooltip rules when adopting.
 
 ### Dialogs — behavior law
 M3: **basic** (280–560dp wide, **28dp corners**, 24dp padding, 16dp title–body and icon–title, 24dp body–actions, 8dp between buttons, 24dp icon, scrim) vs **full-screen** (0dp radius, ≤560dp wide, **56dp header + 56dp bottom bar**). Modal-blocking; **max 2 actions**, confirm closest to trailing edge (disabled until a choice is made), dismissive never disabled and never trailing of confirm; stacked = confirm above dismiss; no third "Learn more"; succinct question-headlines.

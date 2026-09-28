@@ -48,10 +48,10 @@ Nav item states:
 | Hover | `#efefef` | `#000000` |
 | Active | `#000000` | `#ffffff` |
 
-Item: `h-9 px-3 rounded-full flex items-center gap-2 text-sm font-medium`.
+Item: `h-14 px-3 rounded-full flex items-center gap-2 text-sm font-medium` (M3 drawer active indicator, 56dp).
 
 M3 drawer canon: standard (persistent) vs modal (+ scrim, swipe-to-dismiss, blocked background). Measures: 360dp wide, full height, one-sided rounding (0,16,16,0); active indicator 56dp pill inset 12dp; 24dp icons; 28dp side padding. Content: headline + divider-separated sections; items = optional icon + required label + badge slot.
-M3 Expressive: standard drawer deprecated → use expanded navigation rail. Kern 220px sidebar + h-9 active pill are deliberate custom values; add the modal variant + scrim/dismiss, section/divider structure, and badge slot when adopting.
+M3 Expressive: standard drawer deprecated → use expanded navigation rail. Kern 220px sidebar follows the 360dp-canon proportions; add the modal variant + scrim/dismiss, section/divider structure, and badge slot when adopting.
 
 ## Navigation Bar (compact)
 
