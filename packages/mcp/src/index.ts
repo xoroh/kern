@@ -1,10 +1,10 @@
 #!/usr/bin/env node
+import { readFile } from "node:fs/promises";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
-import { readFile } from "node:fs/promises";
-import { fileURLToPath } from "node:url";
-import { dirname, resolve } from "node:path";
 import { COMPONENTS } from "./manifest.js";
 
 const server = new McpServer({ name: "@xoroh/kern-mcp", version: "0.0.0" });
@@ -23,7 +23,10 @@ function kernRootCandidates(): string[] {
 
 async function readKernFile(rel: string): Promise<string | null> {
   for (const root of kernRootCandidates()) {
-    for (const base of [resolve(root, "packages/kern", rel), resolve(root, "kern", rel)]) {
+    for (const base of [
+      resolve(root, "packages/kern", rel),
+      resolve(root, "kern", rel),
+    ]) {
       try {
         return await readFile(base, "utf8");
       } catch {
@@ -35,15 +38,26 @@ async function readKernFile(rel: string): Promise<string | null> {
 }
 
 function text(payload: unknown) {
-  return { content: [{ type: "text" as const, text: JSON.stringify(payload, null, 2) }] };
+  return {
+    content: [
+      { type: "text" as const, text: JSON.stringify(payload, null, 2) },
+    ],
+  };
 }
 
 server.tool(
   "list_components",
   "List Kern UI components with build status. Filter by platform.",
-  { platform: z.enum(["web", "native"]).optional().describe("web (React) or native (React Native)") },
+  {
+    platform: z
+      .enum(["web", "native"])
+      .optional()
+      .describe("web (React) or native (React Native)"),
+  },
   async ({ platform }) => {
-    const list = COMPONENTS.filter((c) => !platform || c.platform === platform).map((c) => ({
+    const list = COMPONENTS.filter(
+      (c) => !platform || c.platform === platform,
+    ).map((c) => ({
       name: c.name,
       export: c.export,
       platform: c.platform,
@@ -62,10 +76,18 @@ server.tool(
     platform: z.enum(["web", "native"]).default("web"),
   },
   async ({ name, platform }) => {
-    const entry = COMPONENTS.find((c) => c.name === name && c.platform === platform);
-    if (!entry) return text({ error: `unknown component: ${platform}/${name}` });
+    const entry = COMPONENTS.find(
+      (c) => c.name === name && c.platform === platform,
+    );
+    if (!entry)
+      return text({ error: `unknown component: ${platform}/${name}` });
     const source = await readKernFile(entry.path);
-    return text({ ...entry, sourceCode: source ?? "(not bundled — run inside the kern monorepo or set KERN_REPO_ROOT)" });
+    return text({
+      ...entry,
+      sourceCode:
+        source ??
+        "(not bundled — run inside the kern monorepo or set KERN_REPO_ROOT)",
+    });
   },
 );
 
@@ -74,9 +96,15 @@ server.tool(
   "Get Kern design tokens. 'base' for the shared source, or a theme preset.",
   { preset: z.enum(["base", "m3", "sharp", "brand"]).default("base") },
   async ({ preset }) => {
-    const rel = preset === "base" ? "src/theme/tokens.json" : `src/theme/themes/${preset}.json`;
+    const rel =
+      preset === "base"
+        ? "src/theme/tokens.json"
+        : `src/theme/themes/${preset}.json`;
     const raw = await readKernFile(rel);
-    if (!raw) return text({ error: `tokens unavailable outside the monorepo (wanted ${rel})` });
+    if (!raw)
+      return text({
+        error: `tokens unavailable outside the monorepo (wanted ${rel})`,
+      });
     return text({ preset, tokens: JSON.parse(raw) });
   },
 );

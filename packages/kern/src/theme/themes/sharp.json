@@ -19,5 +19,8 @@
   "borders": {
     "hairline": "1px solid currentColor"
   },
-  "todo": ["Define sharp typography tweaks (tighter letter-spacing)", "Add sharp elevation scale"]
+  "todo": [
+    "Define sharp typography tweaks (tighter letter-spacing)",
+    "Add sharp elevation scale"
+  ]
 }

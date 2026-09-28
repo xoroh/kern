@@ -1,5 +1,5 @@
-import type { AstroIntegration } from "astro";
 import { tokens } from "@xoroh/kern/tokens";
+import type { AstroIntegration } from "astro";
 
 export type KernEmdashOptions = {
   /** Theme preset applied to every page. Defaults to the M3 theme. */
