@@ -199,11 +199,4 @@ export const COMPONENTS: ComponentEntry[] = [
     path: "src/react-native/components/text.tsx",
     status: "real",
   },
-  {
-    name: "button",
-    export: "Button",
-    platform: "native",
-    path: "src/react-native/index.ts",
-    status: "real",
-  },
 ];

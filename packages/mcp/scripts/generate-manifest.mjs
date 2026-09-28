@@ -35,18 +35,9 @@ for (const { dir, platform } of AREAS) {
   }
 }
 
-// Native Button API lives in the entry point, not a component file.
-const nativeIndex = readFileSync(
-  join(ROOT, "packages/kern/src/react-native/index.ts"),
-  "utf8",
-);
-entries.push({
-  name: "button",
-  export: "Button",
-  platform: "native",
-  path: "src/react-native/index.ts",
-  status: nativeIndex.includes("not implemented yet") ? "stub" : "real",
-});
+// (No special cases: every export lives in its component file and the
+// entry points re-export. If that ever changes, add an explicit entry here
+// instead of guessing.)
 
 const render = (e) =>
   `  {\n    name: "${e.name}",\n    export: "${e.export}",\n    platform: "${e.platform}",\n    path: "${e.path}",\n    status: "${e.status}",\n  },`;
