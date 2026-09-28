@@ -8,5 +8,5 @@
   },
   "radius": "TODO: pick m3 scale or sharp scale",
   "typography": "TODO: typeface stack (default Inter)",
-  "todo": ["Fill brand values", "Register via defineVariant-equivalent when theme registry migrates"]
+  "todo": ["Fill brand values", "Register via the theme registry once it lands"]
 }

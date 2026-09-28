@@ -1,5 +1,4 @@
-// Source: libs/kern/expo/src/components/KernCountrySelect.tsx (private — do not copy directly)
-// Status: stub — DO NOT migrate yet. tangled: private @xoroh/countries dataset — inject list prop first
+// Status: stub — blocked: takes an injected list prop (no bundled dataset).
 export function CountrySelect(): never {
   throw new Error("@xoroh/kern CountrySelect: not implemented yet");
 }

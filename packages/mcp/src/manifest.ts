@@ -14,7 +14,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/alert-dialog.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernAlertDialog.tsx"
   },
   {
     "name": "alert",
@@ -22,7 +21,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/alert.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernAlert.tsx"
   },
   {
     "name": "avatar",
@@ -30,7 +28,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/avatar.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernAvatar.tsx"
   },
   {
     "name": "badge",
@@ -38,7 +35,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/badge.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernBadge.tsx"
   },
   {
     "name": "card",
@@ -46,7 +42,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/card.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernCard.tsx"
   },
   {
     "name": "checkbox",
@@ -54,7 +49,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/checkbox.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernCheckbox.tsx"
   },
   {
     "name": "chip",
@@ -62,7 +56,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/chip.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernChip.tsx"
   },
   {
     "name": "collapsible",
@@ -70,7 +63,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/collapsible.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernCollapsible.tsx"
   },
   {
     "name": "command",
@@ -78,7 +70,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/command.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernCommand.tsx"
   },
   {
     "name": "context-menu",
@@ -86,7 +77,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/context-menu.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernContextMenu.tsx"
   },
   {
     "name": "country-select",
@@ -94,7 +84,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/country-select.tsx",
     "status": "tangled",
-    "source": "libs/kern/start/src/components/KernCountrySelect.tsx"
   },
   {
     "name": "dialog",
@@ -102,7 +91,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/dialog.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernDialog.tsx"
   },
   {
     "name": "dropdown-menu",
@@ -110,7 +98,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/dropdown-menu.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernDropdownMenu.tsx"
   },
   {
     "name": "fab",
@@ -118,7 +105,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/fab.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernFAB.tsx"
   },
   {
     "name": "field-message",
@@ -126,7 +112,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/field-message.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernFieldMessage.tsx"
   },
   {
     "name": "input",
@@ -134,7 +119,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/input.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernInput.tsx"
   },
   {
     "name": "input-otp",
@@ -142,7 +126,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/input-otp.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernInputOTP.tsx"
   },
   {
     "name": "label",
@@ -150,7 +133,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/label.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernLabel.tsx"
   },
   {
     "name": "list-item",
@@ -158,7 +140,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/list-item.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernListItem.tsx"
   },
   {
     "name": "native-select",
@@ -166,7 +147,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/native-select.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernNativeSelect.tsx"
   },
   {
     "name": "popover",
@@ -174,7 +154,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/popover.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernPopover.tsx"
   },
   {
     "name": "radio-group",
@@ -182,7 +161,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/radio-group.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernRadioGroup.tsx"
   },
   {
     "name": "scroll-area",
@@ -190,7 +168,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/scroll-area.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernScrollArea.tsx"
   },
   {
     "name": "segmented-button",
@@ -198,7 +175,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/segmented-button.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernSegmentedButton.tsx"
   },
   {
     "name": "separator",
@@ -206,7 +182,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/separator.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernSeparator.tsx"
   },
   {
     "name": "sheet",
@@ -214,7 +189,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/sheet.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernSheet.tsx"
   },
   {
     "name": "select",
@@ -222,7 +196,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/select.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernSelect.tsx"
   },
   {
     "name": "slider",
@@ -230,7 +203,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/slider.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernSlider.tsx"
   },
   {
     "name": "sonner",
@@ -238,7 +210,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/sonner.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernSonner.tsx"
   },
   {
     "name": "switch",
@@ -246,7 +217,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/switch.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernSwitch.tsx"
   },
   {
     "name": "table",
@@ -254,7 +224,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/table.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernTable.tsx"
   },
   {
     "name": "tabs",
@@ -262,7 +231,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/tabs.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernTabs.tsx"
   },
   {
     "name": "text",
@@ -270,7 +238,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/text.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernText.tsx"
   },
   {
     "name": "textarea",
@@ -278,7 +245,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/textarea.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernTextarea.tsx"
   },
   {
     "name": "title",
@@ -286,7 +252,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/title.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernTitle.tsx"
   },
   {
     "name": "tooltip",
@@ -294,7 +259,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "web",
     "path": "src/web/components/tooltip.tsx",
     "status": "stub",
-    "source": "libs/kern/start/src/components/KernTooltip.tsx"
   },
   {
     "name": "app-search-bar",
@@ -302,7 +266,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/app-search-bar.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/AppSearchBar.tsx"
   },
   {
     "name": "banner",
@@ -310,7 +273,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/banner.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernBanner.tsx"
   },
   {
     "name": "badge",
@@ -318,7 +280,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/badge.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernBadge.tsx"
   },
   {
     "name": "bottom-navigation",
@@ -326,7 +287,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/bottom-navigation.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernBottomNavigation.tsx"
   },
   {
     "name": "bottom-sheet",
@@ -334,7 +294,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/bottom-sheet.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernBottomSheet.tsx"
   },
   {
     "name": "bottom-sheet-picker",
@@ -342,7 +301,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/bottom-sheet-picker.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernBottomSheetPicker.tsx"
   },
   {
     "name": "calendar",
@@ -350,7 +308,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/calendar.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernCalendar.tsx"
   },
   {
     "name": "card",
@@ -358,7 +315,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/card.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernCard.tsx"
   },
   {
     "name": "carousel",
@@ -366,7 +322,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/carousel.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernCarousel.tsx"
   },
   {
     "name": "chart",
@@ -374,7 +329,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/chart.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernChart.tsx"
   },
   {
     "name": "checkbox",
@@ -382,7 +336,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/checkbox.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernCheckbox.tsx"
   },
   {
     "name": "chip",
@@ -390,7 +343,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/chip.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernChip.tsx"
   },
   {
     "name": "confirm-dialog",
@@ -398,7 +350,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/confirm-dialog.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernConfirmDialog.tsx"
   },
   {
     "name": "contact-row",
@@ -406,7 +357,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/contact-row.tsx",
     "status": "review",
-    "source": "libs/kern/expo/src/components/ContactRow.tsx"
   },
   {
     "name": "context-selector",
@@ -414,7 +364,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/context-selector.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/ContextSelector.tsx"
   },
   {
     "name": "conversation-row",
@@ -422,7 +371,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/conversation-row.tsx",
     "status": "review",
-    "source": "libs/kern/expo/src/components/ConversationRow.tsx"
   },
   {
     "name": "country-select",
@@ -430,7 +378,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/country-select.tsx",
     "status": "tangled",
-    "source": "libs/kern/expo/src/components/KernCountrySelect.tsx"
   },
   {
     "name": "data-table",
@@ -438,7 +385,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/data-table.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernDataTable.tsx"
   },
   {
     "name": "divider",
@@ -446,7 +392,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/divider.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernDivider.tsx"
   },
   {
     "name": "dock-sheet/dock-sheet",
@@ -454,7 +399,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/dock-sheet/dock-sheet.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/dock-sheet/KernDockSheet.tsx"
   },
   {
     "name": "dock-sheet/grid",
@@ -462,7 +406,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/dock-sheet/grid.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/dock-sheet/DockSheetGrid.tsx"
   },
   {
     "name": "dock-sheet/tile",
@@ -470,7 +413,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/dock-sheet/tile.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/dock-sheet/DockSheetTile.tsx"
   },
   {
     "name": "dropdown",
@@ -478,7 +420,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/dropdown.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernDropdown.tsx"
   },
   {
     "name": "empty-state",
@@ -486,7 +427,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/empty-state.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernEmptyState.tsx"
   },
   {
     "name": "entity-sheet",
@@ -494,7 +434,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/entity-sheet.tsx",
     "status": "review",
-    "source": "libs/kern/expo/src/components/KernEntitySheet.tsx"
   },
   {
     "name": "fab",
@@ -502,7 +441,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/fab.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernFab.tsx"
   },
   {
     "name": "field-message",
@@ -510,7 +448,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/field-message.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernFieldMessage.tsx"
   },
   {
     "name": "flat-list",
@@ -518,7 +455,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/flat-list.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernFlatList.tsx"
   },
   {
     "name": "floating-fab",
@@ -526,7 +462,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/floating-fab.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernFloatingFab.tsx"
   },
   {
     "name": "floating-tabs",
@@ -534,7 +469,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/floating-tabs.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernFloatingTabs.tsx"
   },
   {
     "name": "input",
@@ -542,7 +476,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/input.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernInput.tsx"
   },
   {
     "name": "list",
@@ -550,7 +483,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/list.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernList.tsx"
   },
   {
     "name": "list-item",
@@ -558,7 +490,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/list-item.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernListItem.tsx"
   },
   {
     "name": "list-separator",
@@ -566,7 +497,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/list-separator.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/ListSeparator.tsx"
   },
   {
     "name": "menu-list",
@@ -574,7 +504,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/menu-list.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernMenuList.tsx"
   },
   {
     "name": "modal",
@@ -582,7 +511,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/modal.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernModal.tsx"
   },
   {
     "name": "outlined-icon-button",
@@ -590,7 +518,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/outlined-icon-button.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernOutlinedIconButton.tsx"
   },
   {
     "name": "placeholder-screen",
@@ -598,7 +525,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/placeholder-screen.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernPlaceholderScreen.tsx"
   },
   {
     "name": "portal",
@@ -606,7 +532,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/portal.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernPortal.tsx"
   },
   {
     "name": "progress-bar",
@@ -614,7 +539,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/progress-bar.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernProgressBar.tsx"
   },
   {
     "name": "radio",
@@ -622,7 +546,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/radio.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernRadio.tsx"
   },
   {
     "name": "searchbar",
@@ -630,7 +553,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/searchbar.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernSearchbar.tsx"
   },
   {
     "name": "section-header",
@@ -638,7 +560,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/section-header.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernSectionHeader.tsx"
   },
   {
     "name": "section-label",
@@ -646,7 +567,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/section-label.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernSectionLabel.tsx"
   },
   {
     "name": "section-list",
@@ -654,7 +574,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/section-list.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernSectionList.tsx"
   },
   {
     "name": "segmented-buttons",
@@ -662,7 +581,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/segmented-buttons.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernSegmentedButtons.tsx"
   },
   {
     "name": "skeleton",
@@ -670,7 +588,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/skeleton.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernSkeleton.tsx"
   },
   {
     "name": "sliders-icon",
@@ -678,7 +595,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/sliders-icon.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernSlidersIcon.tsx"
   },
   {
     "name": "snackbar",
@@ -686,7 +602,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/snackbar.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernSnackbar.tsx"
   },
   {
     "name": "snap-sheet",
@@ -694,7 +609,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/snap-sheet.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernSnapSheet.tsx"
   },
   {
     "name": "splash",
@@ -702,7 +616,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/splash.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernSplash.tsx"
   },
   {
     "name": "spinner",
@@ -710,7 +623,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/spinner.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernSpinner.tsx"
   },
   {
     "name": "surface",
@@ -718,7 +630,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/surface.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernSurface.tsx"
   },
   {
     "name": "switch",
@@ -726,7 +637,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/switch.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernSwitch.tsx"
   },
   {
     "name": "tabs",
@@ -734,7 +644,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/tabs.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernTabs.tsx"
   },
   {
     "name": "text",
@@ -742,7 +651,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/text.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernText.tsx"
   },
   {
     "name": "toggle-button",
@@ -750,7 +658,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/toggle-button.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernToggleButton.tsx"
   },
   {
     "name": "toolbar-button",
@@ -758,7 +665,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/toolbar-button.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernToolbarButton.tsx"
   },
   {
     "name": "tooltip",
@@ -766,7 +672,6 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/components/tooltip.tsx",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernTooltip.tsx"
   },
   {
     "name": "button",
@@ -774,6 +679,5 @@ export const COMPONENTS: ComponentEntry[] = [
     "platform": "native",
     "path": "src/native/index.ts",
     "status": "stub",
-    "source": "libs/kern/expo/src/components/KernButton.tsx"
   }
 ];

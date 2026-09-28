@@ -7,7 +7,6 @@ not here:
 
 - UI/components/tokens/theming/audits → `skills/kern/SKILL.md`
 - Keeping docs updated (what goes where, skill maintenance) → `skills/docs/SKILL.md`
-- Private → OSS map → `packages/kern/MIGRATION.md`
 - Token values → `packages/kern/src/theme/tokens.json`
 
 Always keep docs updated (see the docs skill). Never commit secrets.

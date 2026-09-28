@@ -22,7 +22,7 @@ bundled at publish — see below):
 | Tool | What it does |
 |---|---|
 | `list_components` | Component inventory with `real`/`stub`/`tangled`/`review` status |
-| `get_component` | Source of one component (code if migrated, pointer if stub) |
+| `get_component` | Source of one component (code if real, pointer if stub) |
 | `get_tokens` | `base` tokens or `m3`/`sharp`/`brand` presets |
 | `design_audit` | Compliance checklist (mirrors the skill's audit table) |
 

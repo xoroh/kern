@@ -1,5 +1,4 @@
-// Source: libs/kern/expo/src/components/KernEntitySheet.tsx (private — do not copy directly)
-// Status: stub — DO NOT migrate yet. review: domain — confirm generic before migrating
+// Status: stub — under domain review.
 export function EntitySheet(): never {
   throw new Error("@xoroh/kern EntitySheet: not implemented yet");
 }

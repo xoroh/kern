@@ -1,5 +1,5 @@
 {
-  "$comment": "Kern default theme (M3). Source of truth for web + native builds. Full role tables migrate from libs/kern/react/src/tokens + theme/ (private) — values below are the confirmed anchors.",
+  "$comment": "Kern default theme (M3). Source of truth for web + native builds. Values below are the confirmed anchors; remaining role tables, typography, elevation, motion, and state layers land next.",
   "color": {
     "onSurface": "#262626",
     "secondary": "#2563eb",
@@ -25,8 +25,8 @@
     "dialogsSheets": "2xl"
   },
   "todo": [
-    "Migrate full light/dark role tables (base -> contrast -> variant resolution)",
-    "Migrate 15-style typography scale (Inter)",
-    "Migrate elevation, motion, state-layer tokens"
+    "Land full light/dark role tables (base -> contrast -> variant resolution)",
+    "Land 15-style typography scale (Inter)",
+    "Land elevation, motion, state-layer tokens"
   ]
 }

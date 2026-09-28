@@ -40,7 +40,7 @@ function text(payload: unknown) {
 
 server.tool(
   "list_components",
-  "List Kern UI components with migration status. Filter by platform.",
+  "List Kern UI components with build status. Filter by platform.",
   { platform: z.enum(["web", "native"]).optional().describe("web (React) or native (React Native)") },
   async ({ platform }) => {
     const list = COMPONENTS.filter((c) => !platform || c.platform === platform).map((c) => ({
