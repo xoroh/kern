@@ -3,8 +3,16 @@
   "version": "0.0.0",
   "license": "Apache-2.0",
   "private": true,
+  "scripts": {
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "changeset publish"
+  },
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "devDependencies": {
+    "@changesets/cli": "^3.0.3"
+  }
 }
