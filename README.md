@@ -15,7 +15,7 @@ M3-based design system. Neutral core + use-case blocks (mobility first).
 - `packages/kern-emdash/` — EmDash adapter (`@xoroh/kern-emdash`): Astro integration + block plugin
 - `packages/cli/` — installer placeholder (`kern add <component>`)
 - `packages/mcp/` — MCP server (`@xoroh/kern-mcp`): list/get components, tokens, audits
-- `skills/kern/` — agent skill (design reference + 11 topic files, MIT-safe)
+- `.agents/skills/` — agent skills (kern design + docs upkeep, MIT-safe)
 
 ## License
 

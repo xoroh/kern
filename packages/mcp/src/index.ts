@@ -99,7 +99,7 @@ server.tool(
         "Theming (light + dark + contrast resolve; no hex)",
         "States (hover 8 / focus 10 / press 10 state layers)",
       ],
-      reference: "skills/kern/SKILL.md in the kern repo",
+      reference: ".agents/skills/kern/SKILL.md in the kern repo",
     });
   },
 );

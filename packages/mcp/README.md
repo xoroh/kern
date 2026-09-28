@@ -1,6 +1,6 @@
 # `@xoroh/kern-mcp`
 
-MCP server: the action layer for AI users of Kern. Skills (`skills/kern/`)
+MCP server: the action layer for AI users of Kern. Skills (`.agents/skills/kern/`)
 tell an agent what's right; this server lets it *do things* — list
 components, fetch source and tokens, audit screens.
 

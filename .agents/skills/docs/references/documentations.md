@@ -6,8 +6,8 @@ Where each change type goes. One rule above all: no detail in
 ```
 Code/behavior/token change  → apps/docs/ component page (+ llms content later)
                               + changeset if packages/ changed
-Design-canonical knowledge  → skills/kern/ (+ references/)
-Agent process knowledge     → skills/docs/ (this skill)
+Design-canonical knowledge  → .agents/skills/kern/ (+ references/)
+Agent process knowledge     → .agents/skills/docs/ (this skill)
 Repo process/decisions      → docs/ (+ ADRs for why)
 ```
 
