@@ -52,3 +52,6 @@ export const tokens = {
 } as const;
 
 export type KernTokens = typeof tokens;
+
+// Theme runtime (resolve/apply/hook) lives alongside the data.
+export * from './theme';

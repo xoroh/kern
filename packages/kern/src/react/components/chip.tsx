@@ -3,15 +3,15 @@ import type { ButtonHTMLAttributes } from "react";
 import { cn } from "../../utils/cn";
 
 const chipVariants = cva(
-  "kern-chip inline-flex h-8 shrink-0 items-center gap-1.5 rounded-full px-3 text-xs font-medium transition-colors outline-none select-none focus-visible:ring-2 focus-visible:ring-black/40 disabled:pointer-events-none disabled:opacity-50",
+  "kern-chip inline-flex h-8 shrink-0 items-center gap-1.5 rounded-full px-3 text-xs font-medium transition-colors outline-none select-none focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary) disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
-        assist: "bg-[#efefef] text-black hover:bg-[#e5e5e5]",
+        assist: "bg-(--md-sys-color-surface-tonal) text-(--md-sys-color-on-surface) hover:bg-(--md-sys-color-surface-container-high)",
         filter:
-          "bg-[#efefef] text-black hover:bg-[#e5e5e5] data-selected:bg-(--md-sys-color-primary) data-selected:text-(--md-sys-color-on-primary)",
+          "bg-(--md-sys-color-surface-tonal) text-(--md-sys-color-on-surface) hover:bg-(--md-sys-color-surface-container-high) data-selected:bg-(--md-sys-color-primary) data-selected:text-(--md-sys-color-on-primary)",
         suggestion:
-          "border border-black/10 bg-white text-black hover:bg-[#efefef]",
+          "border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface) text-(--md-sys-color-on-surface) hover:bg-(--md-sys-color-surface-tonal)",
       },
       selected: {
         true: "",

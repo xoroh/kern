@@ -174,7 +174,7 @@ Kern ships two token vocabularies. Author against either; keep them in sync.
 
 ## 7. Theme system
 
-Values live in `packages/kern/src/theme/` (`tokens.json` source → `tokens.ts` + `tokens.css`); the **mechanism** is the shared registry: `Scheme`/`Role` types, base + contrast tables, the `defineVariant`/`registerVariant` registry, and `resolveTheme({ mode, contrast, variantId })`. Web projects the table as CSS vars (`@xoroh/kern/theme` stylesheet + `applyKernTheme()` deltas); native resolves it to objects (`useKernTheme().scheme`). Full architecture: [`theming-and-dynamic-color.md`](theming-and-dynamic-color.md); authoring: [`theme-variants.md`](theme-variants.md).
+Values live in `packages/kern/src/theme/` (`tokens.json` source → `tokens.ts` + `tokens.css`); the **mechanism** is `resolveTheme(mode, contrast, variant)` + `applyKernTheme()` + `useKernTheme()` in `src/theme/theme.ts`, with role tables in `themes/m3.json`. Web projects the table as CSS vars (`@xoroh/kern/theme` stylesheet + `.dark` class); native resolves it to objects (hook lands with the native scheme — `useKernTheme().scheme` is web-only for now). Full architecture: [`theming-and-dynamic-color.md`](theming-and-dynamic-color.md); authoring: [`theme-variants.md`](theme-variants.md).
 
 The app-token bridge mirrors the same roles. Mapping:
 

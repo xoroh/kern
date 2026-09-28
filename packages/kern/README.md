@@ -73,6 +73,14 @@ import { Badge, Chip, Card, Text, Separator, FieldMessage } from "@xoroh/kern";
 Presets in `src/theme/themes/`: `m3` (default), `sharp` (premium),
 `brand` (customer template). Same components, swapped tokens.
 
+```tsx
+import { applyKernTheme, resolveTheme, useKernTheme } from "@xoroh/kern/tokens";
+
+resolveTheme("dark"); // role → value table
+applyKernTheme(document.documentElement, "dark"); // write vars + .dark
+const { mode, toggle } = useKernTheme(); // persisted + OS default
+```
+
 ## Blocks
 
 Use-case packs in `src/blocks/<usecase>/` (mobility first): composed

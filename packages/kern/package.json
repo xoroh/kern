@@ -25,7 +25,7 @@
   ],
   "scripts": {
     "build": "tsup src/index.ts src/react-native/index.ts src/theme/tokens.ts src/utils/cn.ts --format esm,cjs --external react --external react-native --external /^@base-ui\\// --out-dir dist --clean && tsc -p tsconfig.build.json",
-    "test": "vitest run",
+    "test": "vitest run --maxWorkers 4",
     "test:native": "jest",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "bun run build"

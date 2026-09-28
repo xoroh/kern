@@ -14,7 +14,7 @@ export function Separator({
       data-slot="separator"
       orientation={orientation}
       className={cn(
-        "kern-separator shrink-0 bg-black/10",
+        "kern-separator shrink-0 bg-(--md-sys-color-outline-variant)",
         orientation === "vertical" ? "h-full w-px" : "h-px w-full",
         className,
       )}

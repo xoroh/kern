@@ -11,7 +11,9 @@ describe("Button", () => {
 
   it("applies the tonal variant", () => {
     render(<Button variant="tonal">Save</Button>);
-    expect(screen.getByRole("button")).toHaveClass("bg-[#efefef]");
+    expect(screen.getByRole("button")).toHaveClass(
+      "bg-(--md-sys-color-surface-tonal)",
+    );
   });
 
   it("forwards disabled and handles clicks", async () => {

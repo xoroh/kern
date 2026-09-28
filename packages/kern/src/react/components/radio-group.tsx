@@ -35,7 +35,7 @@ export function RadioGroupItem({
     >
       <RadioPrimitive.Root
         className={cn(
-          "size-5 shrink-0 rounded-full border-2 border-black/20 bg-white outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/40 data-checked:border-(--md-sys-color-primary)",
+          "size-5 shrink-0 rounded-full border-2 border-(--md-sys-color-on-surface-variant) bg-white outline-none transition-colors focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary) data-checked:border-(--md-sys-color-primary)",
         )}
         {...props}
       >

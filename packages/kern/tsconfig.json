@@ -4,6 +4,7 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "jsx": "react-jsx",
+    "resolveJsonModule": true,
     "lib": ["es2022", "dom", "dom.iterable"],
     "strict": true,
     "skipLibCheck": true,

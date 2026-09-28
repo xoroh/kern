@@ -1,5 +1,5 @@
 {
-  "$comment": "Kern default theme (M3). Roles bind palette steps from tokens.json (OKLCH canonical, srgb compiled for native). Values below equal their ramp srgb by construction; source: skill kern-tokens role mapping.",
+  "$comment": "Kern default theme (M3). Roles bind palette steps from tokens.json (OKLCH canonical, srgb compiled for native). Values below equal their ramp srgb by construction; source: skill kern-tokens role mapping. surfaceTonal is a Kern addition (tonal emphasis fills; pairs with on-surface). Contrast overlays carry only skill-pinned values; unlisted roles inherit the base scheme.",
   "color": {
     "light": {
       "primary": "#000000",
@@ -41,7 +41,8 @@
       "inverseSurface": "#000000",
       "inverseOnSurface": "#ffffff",
       "inversePrimary": "#dbeafe",
-      "scrim": "#000000"
+      "scrim": "#000000",
+      "surfaceTonal": "#efefef"
     },
     "dark": {
       "primary": "#FFFFFF",
@@ -75,7 +76,8 @@
       "inverseSurface": "#ffffff",
       "inverseOnSurface": "#000000",
       "inversePrimary": "#000000",
-      "scrim": "#000000"
+      "scrim": "#000000",
+      "surfaceTonal": "#262626"
     }
   },
   "radius": {
@@ -97,9 +99,30 @@
     "dialogsSheets": "extra-large"
   },
   "todo": [
-    "Contrast modes (medium/high role overlays)",
     "Full 15-style typography scale (4 roles shipped)",
     "App-token bridge (--background/--primary set for app templates)",
-    "Theme registry functions (defineVariant/resolveTheme/applyKernTheme)"
-  ]
+    "Native useKernTheme().scheme (web hook ships now)"
+  ],
+  "contrast": {
+    "light-medium": {
+      "outline": "#545454",
+      "secondary": "#1e3a8a"
+    },
+    "dark-medium": {
+      "outline": "#a3a3a3",
+      "secondary": "#dbeafe"
+    },
+    "light-high": {
+      "surface": "#ffffff",
+      "onSurface": "#000000",
+      "outline": "#000000",
+      "outlineVariant": "#000000"
+    },
+    "dark-high": {
+      "surface": "#000000",
+      "onSurface": "#ffffff",
+      "outline": "#ffffff",
+      "outlineVariant": "#ffffff"
+    }
+  }
 }

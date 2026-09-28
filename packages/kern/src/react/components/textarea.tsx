@@ -15,7 +15,7 @@ export function Textarea({
       data-slot="textarea"
       aria-invalid={error || undefined}
       className={cn(
-        "kern-textarea min-h-[112px] w-full rounded-[8px] border border-black/10 bg-white px-4 py-3 text-base outline-none transition-colors placeholder:text-black/40 focus:border-(--md-sys-color-primary) disabled:cursor-not-allowed disabled:opacity-50",
+        "kern-textarea min-h-[112px] w-full rounded-[8px] border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface) px-4 py-3 text-base text-(--md-sys-color-on-surface) outline-none transition-colors placeholder:text-(--md-sys-color-on-surface-variant) focus:border-(--md-sys-color-primary) disabled:cursor-not-allowed disabled:opacity-50",
         error &&
           "border-(--md-sys-color-error) focus:border-(--md-sys-color-error)",
         className,
