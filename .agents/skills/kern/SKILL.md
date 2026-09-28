@@ -56,6 +56,7 @@ Responsive / breakpoints      → references/layout-and-responsive.md (breakpoin
 Theme tokens (CSS vars)       → references/theming-and-dynamic-color.md + kern-tokens.md § CSS token bridge
 Theme variants / re-skinning  → references/theme-variants.md
 States / selection / gestures → references/interaction-states.md
+Mobile foundation (Paper vs primitives) → references/mobile-foundation.md
 Icons                         → references/icons.md
 Content / writing / a11y copy → references/content-design.md
 ```
@@ -125,6 +126,7 @@ When asked to audit/review a screen, score 0–10 across these categories and pr
 - [`references/theming-and-dynamic-color.md`](references/theming-and-dynamic-color.md) — Theme architecture, ref→sys→comp, contexts, CSS custom properties
 - [`references/theme-variants.md`](references/theme-variants.md) — Variant registration and re-skinning
 - [`references/interaction-states.md`](references/interaction-states.md) — State layers, selection, gestures, inputs
+- [`references/mobile-foundation.md`](references/mobile-foundation.md) — Why native mirrors web (primitives, not Paper)
 - [`references/icons.md`](references/icons.md) — Material Symbols, sizes, pairing, a11y
 - [`references/content-design.md`](references/content-design.md) — Writing, notifications, alt text, truncation
 
