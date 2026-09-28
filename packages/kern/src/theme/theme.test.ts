@@ -13,7 +13,7 @@ describe("resolveTheme", () => {
 
   it("mirrors assignments in dark", () => {
     const scheme = resolveTheme("dark");
-    expect(scheme.primary).toBe("#FFFFFF");
+    expect(scheme.primary).toBe("#ffffff");
     expect(scheme.surface).toBe("#000000");
   });
 
@@ -39,7 +39,7 @@ describe("applyKernTheme", () => {
   it("writes vars onto the target", () => {
     const el = document.createElement("div");
     applyKernTheme(el, "dark");
-    expect(el.style.getPropertyValue("--md-sys-color-primary")).toBe("#FFFFFF");
+    expect(el.style.getPropertyValue("--md-sys-color-primary")).toBe("#ffffff");
   });
 });
 
