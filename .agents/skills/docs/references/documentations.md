@@ -1,20 +1,12 @@
 # Documentations
 
-Where each change type goes. One rule above all: no detail in
-`AGENTS.md` / `README.md` — one-line pointers only.
+Fast map. Detail lives with the docs themselves — this file only says
+what lives where.
 
-```
-Code/behavior/token change  → apps/docs/ component page (+ llms content later)
-                              + changeset if packages/ changed
-Design-canonical knowledge  → .agents/skills/kern/ (+ references/)
-Agent process knowledge     → .agents/skills/docs/ (this skill)
-Repo process/decisions      → docs/ (+ ADRs for why)
-Repo-wide rule              → docs/conventions/ (+ status label)
-```
+- Product docs → `apps/docs/` — for users, human and AI.
+- Contributor docs → `docs/` — releases, conventions, decisions.
+- Agent knowledge → `.agents/skills/` — design (`kern`), upkeep (`docs`).
 
-- Product docs (`apps/docs/`) are written for users, human and AI.
-- Contributor docs (`docs/`) are written for people working in this repo.
-- Agent knowledge (`.agents/skills/`) is written for agents; humans may
-  read it but never duplicate it elsewhere — link instead.
-- Voice and structure follow `docs/conventions/documentation.md`
-  (Diátaxis quadrants, Google style guide) — not house rules.
+Rules: same change as the code, never defer. Voice and structure per
+`docs/conventions/documentation.md`. One-line pointers only in
+`AGENTS.md` / `README.md`.
