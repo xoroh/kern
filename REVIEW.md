@@ -33,12 +33,25 @@
 > ```
 >
 > Audit v1: 2026-09-28 at commit `5e2a2f9` · Audit v2 (second agent, independent): 2026-09-28, re-verified at `5e2a2f9` + dirty-tree check.
+> Audit v3: 2026-09-28 at `fb94d1a` + `3cd749c`, clean tree. All commands re-run; counts corrected.
 > v2 keeps every v1 claim that re-verified, corrects counts/wording where v1 was slightly off, and adds §15–§21 (new blockers v1 underweighted).
 > Living doc: re-run with the prompt above, move fixes to ## Fixed log, delete obsolete — repeat till Blocking is empty.
 
 ## Fixed log
 
 > Move ✅ FIXED items here on each re-run. One line each: `YYYY-MM-DD @<commit> — §N title — proof (e.g. tokens.css now has 26 roles, grep var(-- = 34 hits)`. Delete the full blocker section when moved. Blocking is "perfect" when empty and this log holds everything.
+
+- 2026-09-28 @fb94d1a — license wording Apache-2.0 (root README, skills line).
+- 2026-09-28 @fb94d1a — CONTRIBUTING numbering 4,5,6.
+- 2026-09-28 @fb94d1a — releases.md inlines TODO content, dead pointer dropped.
+- 2026-09-28 @fb94d1a — manifest parses real exports (phantom Radio gone, vocab real|stub).
+- 2026-09-28 @fb94d1a — cli package.json placeholder; site license; author/repo/homepage/bugs ×3.
+- 2026-09-28 @fb94d1a — emdash enum tonal; README d1() import fixed.
+- 2026-09-28 @fb94d1a — toolchain pinned (packageManager bun@1.3.8, engines, CI 1.3.8 ×2); root typecheck/test/build via --filter.
+- 2026-09-28 @fb94d1a — tsconfig.build excludes *.rntest.*; native aria-invalid removed (RN drops it silently), FieldMessage-handoff comment.
+- 2026-09-28 @fb94d1a — M3 metrics (buttons h-10, fields h-14) + skill value updates; Biome kept, TS 5.9 pin.
+- 2026-09-28 @fb94d1a — native executes: Jest + RN 0.87 manual preset (mock bridge, haste→Platform map, IS_REACT_ACT_ENVIRONMENT), 4 render tests green.
+- 2026-09-28 @3cd749c — manifest native-button true-dupe eliminated (27 entries, zero dupes, lint-clean generator).
 
 ---
 
@@ -62,6 +75,8 @@ M bun.lock, M packages/kern/package.json
 ```
 
 That single untracked `.rntest.tsx` breaks `typecheck` and root `lint`. `packages/kern` has no `lint` script; root has no `typecheck`/`test`/`build` scripts — commands only work from specific directories. Recommendation: add root orchestration scripts, make `tsconfig.build.json` exclude `*.rntest.*`, and either wire or delete the stray jest/rntest files (see §18).
+
+**v3 ground truth (clean tree @fb94d1a):** `bun run lint` → 82 files clean. `bun run --filter @xoroh/kern typecheck` → clean. `bun run --filter @xoroh/kern test` → 13 files / 32 tests pass. `test:native` (Jest) → 4 pass. `bun run --filter @xoroh/kern build` → ESM+CJS+dts success. `bun run --filter site typecheck` → exit 0. tsconfig.build excludes `*.rntest.*` ✓. Root scripts exist ✓. `tsc -p tsconfig.build.json` still not in CI; `tsconfig.json types:["node","jest"]` vs build `types:[]` split remains.
 
 ---
 
@@ -192,13 +207,9 @@ All rows re-verified, zero hits in `src/` except noted:
 
 `m3.json:27-31` admits it in `todo`: *"Land full light/dark role tables."* Skills document as shipped what source marks not built.
 
-## 13. The showcase site does not exist — AGREE (v3: scaffold landed, still no site)
+## 13. The showcase site exists as scaffold, not a site — PARTIAL (v3)
 
 v1/v2: `apps/docs/index.html` (24 lines) self-declared *"Previews render here once the docs app is wired"*, dead `#tokens` link, no scripts, no `@xoroh/kern` dep, zero CI steps. v3: stub replaced — `apps/docs/` renamed `apps/site/` with a TanStack Start scaffold (router, Tailwind v4, Cloudflare entry, home renders real `Button` variants). Still open: no component pages, no `llms.txt`, no theme switcher. `README.md:7,12` advertises live `kern.xoroh.org` — not yet deployable until those land.
-
-## 14. `packages/mcp` advertises a nonexistent export — AGREE (v2 corrects count/wording)
-
-`manifest.ts:167-173` → `{name:"radio", export:"Radio", status:"real"}` but `radio.tsx` exports `RadioGroup` + `RadioItem` — no `Radio`. `generate-manifest.mjs:13-48` derives export mechanically with hardcoded special-case only for `Button`; any multi-export file breaks it. Duplicate `button/native` at `:111-117` + `:188-194` → **13 native entries for 12 files** (v1 said 14/13 — off by one, substance identical). v2 correction: `get_component` uses `Array.find` so first wins **deterministically**, not nondeterministically — still wrong, second entry dead. Also `mcp/README.md:24` documents `real/stub/tangled/review`; type is `"real"|"stub"` only.
 
 ---
 
@@ -210,15 +221,15 @@ v1/v2: `apps/docs/index.html` (24 lines) self-declared *"Previews render here on
 **Accessibility:** error color-only (violates own `component-catalog.md:175` error-icon rule); focus `ring-black/40` ≈2.8:1 fails WCAG 1.4.11 3:1 + invisible on dark; placeholder `#999`/`#a3a3a3` fail 4.5:1; `on-success #fff` on `success #16a34a` ≈3.3:1 fails AA while `outline #d4d4d4` documented "3:1" is 1.48:1; web Button 40/32/40 + Chip 32 vs own 48dp rule; `Text` always `<p>`, `Card` always `<div>` (no `as`/`asChild`); `RadioGroupItem` className lands on `<label>` not the circle; `Badge dot` empty span invisible to AT; no group label/error surface.
 **Discipline:** `card.tsx` shadow contradicts docs (16px blur vs 30) + violates "shadows floating-only, never standard cards" (v2 note: filled now `0_4px_16px :8`, elevated `0_8px_30px :10` — citation shifted, claim stands); `size="icon"` 40px < 48dp; `text-[13px]` off scale; duplication (focus ring 5×, `disabled:opacity-50` 7×, error border 2×, `border-black/20 bg-white` 3× — no shared `focusRing`/`control` cva); `variants` overloaded 6 ways; `Textarea` accepts `children`; 6/14 export `*Variants`, 8 don't.
 
-## React Native — AGREE (v2 corrects 2 bullets)
+## React Native — PARTIAL (v3: executes now)
 
-Parity renames confirmed (`Divider≠Separator`, `RadioItem≠RadioGroupItem`, `Native*Props≠*Props`, `label:string≠children`); `packages/kern/README.md:84` shows native `label="Save"` as web example; no `Label`/`Textarea` on native (all fields unlabelled, no `nativeID`/`accessibilityLabelledBy`); `alert` Android-only (no iOS path, no `accessibilityLiveRegion`/`announceForAccessibility`); `ListItem`/`Badge` no label (v2 correction: `Divider` **does** set `accessibilityRole="none"` `:39` — still hidden from AT); Checkbox `label` a11y-only, never rendered; `RadioItem` outside group silently no-ops (fake default context, not `null`); `useControllableState` correct shape but no updater form (double-press same frame → stuck), stale controlled→uncontrolled snap, no dev warning, **zero tests**; no `ThemeProvider`/`useColorScheme` (light-only, `tokens.base.background` unreferenced); no Inter/`fontFamily`/font asset; no `StyleSheet`/`memo`/`FlatList`/`KeyboardAvoidingView`/`SafeAreaView`/`hitSlop`/`maxFontSizeMultiplier`; `radio.tsx:53` UMD-global `React` with no import (resolves only via `tsconfig.json:11 types:["node"]`; `tsconfig.build.json:9 types:[]` builds a different program — CI typechecks one, builds the other); `radio.tsx` 2-components-1-file violates own `code-conventions.md:6` and causes MCP phantom-`Radio`.
+Render tests green (Button/Checkbox/Switch); RadioItem outside group still silently no-ops (fake default context, not `null`); `useControllableState` still no updater form, no dev warning; no `ThemeProvider`/`useColorScheme` (light-only); no Inter/`fontFamily` asset; no `hitSlop`/press feedback/`memo`; `radio.tsx` holds RadioGroup + RadioItem in one file. Remaining parity/a11y items: no `Label`/`Textarea` on native, `ListItem`/`Badge` unlabelled, Checkbox `label` a11y-only never rendered.
 
 ---
 
-# MAJOR — OSS hygiene (v1 kept, v2 adds packaging P0s)
+# MAJOR — OSS hygiene (v3: identity fixed, remainder below)
 
-All re-verified: **license contradiction** (`README:4` MIT + `:20` "MIT-safe" vs `:24` Apache + `LICENSE` Apache + 4 package.json `Apache-2.0`; v2 note: `apps/site/package.json` has no `license` at all); **unfilled `LICENSE:187` `Copyright [yyyy]`** + `author` absent from all 5; missing `author/repository/homepage/bugs`; `README:15` native "planned" (ships 13 native); `README:18` `packages/cli` "placeholder" with **no `package.json`** (not a workspace member); `CONTRIBUTING:11,13` double "4.", prescribes `bun run test` but `mcp`/`emdash` have no test script + CI never tests them + omits `skills-ref` step; `docs/releases.md:19` → `TODO.md` which is **gitignored** (`.gitignore:6`) + stale (`release.yml` "local-only" but committed); `SECURITY:6` promises `0.1.x`, everything `0.0.0`; changeset `tidy-pandas-shake` "Button (web)" ships 14 web + 13 native across 5 subpaths (becomes npm CHANGELOG); `kern-emdash` **no build script**, `main`/`exports` → raw `src/*.ts`, `release.yml` never builds it, `blocks/button.ts:17` enum omits `tonal`, `README:25` calls `d1()` with no import; `brand.json` TODO-as-value; `mcp/README:24` status vocab mismatch; **no `engines`/`packageManager`**, CI `bun-version: latest` (unreproducible); missing `CHANGELOG/GOVERNANCE/SUPPORT/FUNDING/ISSUE_TEMPLATE/CODEOWNERS`; **no `prepare`** (only `prepublishOnly` → fresh workspace install resolves `exports` to missing `dist/`); hard `react-native` peer (no `peerDependenciesMeta` optional → web consumers warn, pnpm strict fails); **`./native` no `"react-native"` export condition** → Metro falls to CJS; `tokens.json` + 4 theme presets **not in `files`**; no `publint`/`are-the-types-wrong` despite exports map being the product; tokens inlined 3× (tsup bundles, no sourcemaps); `documentation.md:44` `Status:` rule ignored (~30/33 missing); per-component docs rule unsatisfiable by `apps/docs`.
+Still open, re-verified: **unfilled `LICENSE:187` `Copyright [yyyy]`**; `SECURITY:6` promises `0.1.x`, everything `0.0.0`; changeset `tidy-pandas-shake` "Button (web)" now ships 13 web + 13 native across 5 subpaths (becomes npm CHANGELOG); `kern-emdash` **no build script**, `main`/`exports` → raw `src/*.ts`, `release.yml` never builds it; `brand.json` TODO-as-value; missing `CHANGELOG/GOVERNANCE/SUPPORT/FUNDING/ISSUE_TEMPLATE/CODEOWNERS`; **no `prepare`** (only `prepublishOnly` → fresh workspace install resolves `exports` to missing `dist/`); hard `react-native` peer (no `peerDependenciesMeta` optional → web consumers warn, pnpm strict fails); **`./native` no `"react-native"` export condition** → Metro falls to CJS; `tokens.json` + theme presets **not in `files`**; no `publint`/`are-the-types-wrong` despite exports map being the product; `documentation.md:44` `Status:` rule ignored on most new files.
 
 ---
 
@@ -228,70 +239,65 @@ All re-verified: **license contradiction** (`README:4` MIT + `:20` "MIT-safe" vs
 
 `packages/kern/package.json:47-50` peers `react ^19.3.0` only. React 19 ref-as-prop is load-bearing (9 components rely on it at runtime while rejecting it in types). Either widen to `^18 || ^19` with `ComponentPropsWithRef` + conditional handling, or document 19-only as intentional and fix the 9 type signatures. Right now 18 consumers get silent `null` refs.
 
-## 16. `tsconfig.json` ≠ `tsconfig.build.json` (footgun, promote to blocker)
+## 16. tsconfig split remains — PARTIAL (v3)
 
-`tsconfig.json:11 types:["node"]` vs `tsconfig.build.json:9 types:[]`; build `include:["src"]` excludes tests but `exclude` misses `*.rntest.*`. CI typechecks one program, builds another. The stray `.rntest.tsx` proves it. Fix: single base config, explicit `types:[]` + needed entries, `exclude: [test, rntest, setup]`, add `tsc -p tsconfig.build.json` to CI.
+Fixed: build excludes test/rntest files; root scripts work. Remaining: `tsc -p tsconfig.build.json` still not in CI (CI typechecks one program, builds another), and `tsconfig.json types:["node","jest"]` vs build `types:[]` is an undocumented split.
 
 ## 17. No API-stability / parity contract
 
 `variants` = emphasis/elevation/typescale/validation/shape/kind (6 meanings); `Separator/Divider`, `RadioGroupItem/RadioItem`, `*Props/Native*Props`, `children/label`; `*Variants` exported 6/14. Missing doc is `references/platform-parity.md` (prop table web↔native + naming rules + boolean convention `checked/onCheckedChange`). Freeze before building on top — renames after 0.1.0 cost 10×.
 
-## 18. Native has never executed (promote to blocker)
+## 18. Native executes now; example-app question remains — PARTIAL (v3)
 
-Null-stub double (`test-doubles/react-native.ts:4` `() => null` for View/Text/Pressable/TextInput, no `StyleSheet`/`Platform` exports — adopting correct fixes breaks the mock); both native test files import only pure style fns; 10/12 components zero behavioral coverage; `button.rntest.tsx` dead (vitest never matches `*.rntest.*`, uses `jest.fn` under vitest, queries `getByRole(name)` the Button never sets via `accessibilityLabel`); no RN/Expo app in monorepo. Decide: `react-native-web` render tests + minimal example app, or mark native `stub` in manifest + README and stop asserting 18dp/32dp as correct (`styles.test.ts:66-80` currently certifies HIG violations).
+Fixed: real Jest render tests (Button ×2, Checkbox, Switch) on RN 0.87 with a minimal documented mock bridge (`jest.setup.cjs`); async-render + act-flush rules recorded in package README. Remaining: no example/Expo app in monorepo; `useControllableState` still no updater form; hook tests absent; `test-doubles/` mock now only backs style-map unit tests.
 
-## 19. Packaging is not 0.1.0-shippable (promote to blocking batch)
+## 19. Packaging: identity fixed, shippability still gated — PARTIAL (v3)
 
-Beyond v1's list: merging the current changeset publishes a broken tarball (raw TS in emdash, missing tokens/themes in files, CJS-via-Metro on native, missing dist on fresh install). Gate the Version Packages PR on: `prepare` build, `react-native` condition, optional peer, `files` including `tokens.json`+`themes/`, `publint` + `attw` in CI, `changeset status` in CI.
+Fixed: license/author/repo/homepage/bugs, cli placeholder, site license, engines/packageManager, CI pins, root scripts, emdash enum + d1 import. Still gating 0.1.0: `prepare` build, `react-native` export condition, optional peer, `files` += `tokens.json`+`themes/`, `publint` + `attw` + `changeset status` + `tsc -p build` in CI, emdash build (raw TS), SECURITY promise vs `0.0.0`, changeset Button-only description.
 
 ## 20. No visual / a11y testing strategy
 
 Zero `axe`/`jest-axe`, zero keyboard/roving-focus (radiogroup), zero disabled-behavior, zero ref-merge tests; no Storybook/Ladle, no visual regression, no coverage thresholds; 4 tests assert hardcoded hex so tokenizing breaks the suite. For a design-system base this is P1, not polish.
 
-## 21. Root orchestration + toolchain pinning
+---
 
-Root scripts = changeset/version/release/lint/format only. No root `typecheck/test/build`, no workspace aggregation, no `engines`/`packageManager`, `bun-version: latest` in both workflows. Pin (`mise`/`.nvmrc`/exact bun), add `packageManager`, document `skills-ref` step in CONTRIBUTING.
+# Test coverage reality (v3)
+
+**Web:** 32 tests green, still zero axe/keyboard/disabled/ref-merge tests, no coverage config. `button.test.tsx` never asserts `onClick` *not* called when disabled; `radio-group.test.tsx` never tests arrow-key roving focus.
+**Native:** 4 Jest render tests green (Button/Checkbox/Switch execute for real) + 14 style-map unit tests. Still no axe/keyboard, no example app, hook updater form untested.
 
 ---
 
-# Test coverage reality (v1 kept)
-
-**Web:** 32 tests, zero axe/keyboard/disabled/ref/merge tests, no coverage config. `primitives.test.tsx` bucket for 3 homeless components; 4 tests assert hex; `button.test.tsx` never asserts `onClick` *not* called when disabled; `radio-group.test.tsx` never tests arrow-key roving focus.
-**Native:** null-stub double makes rendering impossible; style-fn-only tests; misnamed "error uses error role" asserts only `.color`; 18dp/32dp certified as correct; no RN app → native layer never executed. Fix per §18: replace double with `react-native-web` or declare native untested.
-
----
-
-# Prioritized roadmap (v2, supersedes v1)
+# Prioritized roadmap (v3, supersedes v2)
 
 ## Blocking (do not build on top until done)
 
-1. **Decide what Kern is** — (a) build role layer + `@theme` + dark mode now, or (b) rewrite skills to the 6 vars that exist. Unblocks everything. ~1 day.
-2. **De-fabricate skills** — delete `behavior-parts`/`variant-maps` example, icon registry, `@rn-primitives` claim, "220 swatches", phantom theme registry/CSS vars/elevation/space; or banner each `Status: draft`. Highest agent-safety ROI.
-3. **Web a11y 4-pack:** `data-disabled:` ×3, `data-indeterminate:` checkbox, `data-selected:` all chip variants, `type="button"` default.
-4. **Native correctness:** spread-first + destructure `style` + compose `onPress`; `hitSlop`; press feedback (`android_ripple`/pressed fn); `useControllableState` updater + transition warning + tests.
-5. **`Field` layer** (Base UI `field`/`fieldset`): `Root/Label/Description/Error`, `aria-describedby` generation, unified `error` convention — dissolves 5 blockers.
-6. **License + identity + packaging gate:** fix MIT/Apache contradiction, fill copyright, add `author/repository/bugs/homepage` ×5, correct `README:4,15,18`, add `prepare`, `react-native` condition, optional peer, `files` += tokens/themes, `publint`+`attw`+`changeset status`+`tsc -p build` in CI, pin toolchain. **Do not merge Version Packages PR before this.**
-7. **Native honesty gate:** `react-native-web` render tests or mark `stub`; fix/delete `button.rntest.tsx`, jest configs, tsconfig exclude; add or explicitly defer example app.
+1. **Role layer + `@theme` + dark mode** — or rewrite skills to the 6 vars that exist. Unblocks everything.
+2. **De-fabricate skills** — icon registry, `@rn-primitives` claim (not a dependency), "220 swatches", phantom theme registry/CSS vars/elevation/space; `code-conventions.md` teaches `variantMap()`/`Parts` symbols that don't exist (real code uses `cva`) — switch to real names or mark pseudocode; or banner each `Status: draft`. Highest agent-safety ROI.
+3. **Web a11y pack:** `data-disabled:` ×3, `data-indeterminate:` checkbox, `data-selected:` all chip variants, `type="button"` default.
+4. **Native correctness:** spread-first + destructure `style` + compose `onPress`; `hitSlop`; press feedback; `useControllableState` updater + transition warning + tests.
+5. **`Field` layer** (Base UI `field`/`fieldset`): `Root/Label/Description/Error`, `aria-describedby` generation, unified `error` convention.
+6. **Packaging gate (remainder):** fill copyright, `prepare`, `react-native` condition, optional peer, `files` += tokens/themes, `publint`+`attw`+`changeset status`+`tsc -p build` in CI, SECURITY promise, changeset description. **Do not merge Version Packages PR before this.**
 
 ## Foundational (next)
 
-8. `gen-tokens.mjs` + `prebuild` + equality test; extend `tokens.json` (spacing/radius/typography/elevation).
-9. `KernThemeProvider` + `useKernTheme` + `useColorScheme` + Inter.
-10. `ComponentPropsWithRef` ×9; fix `RadioGroup` generic; function-aware `cn`; export variant literal unions on web (native already does).
-11. `apps/site`: add component pages + `llms.txt` + theme switcher, wire CI build/typecheck, or remove the `kern.xoroh.org` claim.
-12. React 18-vs-19 decision (§15); `platform-parity.md` + naming/boolean freeze (§17).
+7. `gen-tokens.mjs` + `prebuild` + equality test; extend `tokens.json` (spacing/radius/typography/elevation).
+8. `KernThemeProvider` + `useKernTheme` + `useColorScheme` + Inter.
+9. Refs + `RadioGroup` generic + function-aware `cn` + web variant literal unions.
+10. `apps/site`: component pages + `llms.txt` + theme switcher (build/typecheck already in CI).
+11. React 18-vs-19 decision (§15); `platform-parity.md` + naming/boolean freeze (§17).
 
 ## Consistency (after)
 
-13. Reconcile ~9 web/native drifts; delete drift-certifying tests.
-14. `GOVERNANCE/SUPPORT/CHANGELOG`/templates; fix CONTRIBUTING numbering; inline `TODO.md` into `docs/releases.md`, delete `TODO.md` (un-ignore or keep ignored-but-unreferenced — not both).
-15. Missing references: forms/validation, a11y-as-practice, dark mode, RTL, motion, overlays, data tables, token pipeline, 0.x deprecation/migration policy.
-16. Visual regression + axe + keyboard + coverage thresholds; delete hex-asserting tests.
+12. Reconcile web/native drifts; delete drift-certifying tests.
+13. `GOVERNANCE/SUPPORT/CHANGELOG`/templates; delete local `TODO.md` (releases.md no longer references it).
+14. Missing references: forms/validation, a11y-as-practice, dark mode, RTL, motion, overlays, data tables, token pipeline, 0.x deprecation policy.
+15. Visual regression + axe + keyboard + coverage thresholds; delete hex-asserting tests.
 
 ---
 
-## Bottom line (v2)
+## Bottom line (v3)
 
-v1 was right and remains the most accurate document in the repo. v2's corrections are all sub-line (counts, determinism, 2 role/style nuances, provenance scope) — none overturn a blocker. v2's additions (§15–§21) promote three things to blocking that v1 left as background: **packaging is not shippable, native has never run, and the toolchain/typecheck split makes green fragile.**
+v1/v2 stand except where v3 marks fixed. Since the audits: native executes (Jest), toolchain pinned with root scripts, manifest exact, identity consistent, M3 metrics in code + skill. Still blocking 0.1.0: role layer, skill de-fabrication, component correctness (§3–9), Field layer, packaging gate. Everything else is sequenced above.
 
 Process discipline (CI perms, changesets, biome, exports map, skill structure) is above average for a first release. The system has one hardcoded hex per component and a docs layer describing a finished product. Fix items 1–7 above and you have something you can honestly build on; the rest is normal, tractable engineering.
