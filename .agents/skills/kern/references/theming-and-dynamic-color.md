@@ -1,6 +1,6 @@
 > **Kern note:** MD3 theming architecture. Kern does **not** generate schemes from a seed or use dynamic color — it ships fixed schemes resolved through a shared registry (`packages/kern/src/theme/`): base light/dark tables + contrast overlays + named variants. See [`theme-variants.md`](theme-variants.md) for authoring, [`kern-tokens.md`](kern-tokens.md) for values.
 >
-> **Color pipeline law:** canonical values are OKLCH on familiar 50–950 steps (`tokens.json`, each entry `{oklch, srgb}`). Web consumes `oklch()` verbatim; React Native consumes the compiled `srgb` hex (native cannot parse oklch). Steps fill in only with validated values — gaps are intentional. Roles bind steps per M3 rules, never raw values.
+> **Color pipeline law:** canonical values are OKLCH on familiar 50–950 steps (`tokens.json`, each entry `{oklch, srgb}`). Web consumes `oklch()` verbatim; React Native consumes the compiled `srgb` hex (native cannot parse oklch). Steps fill in only with validated values — gaps are intentional. Roles bind steps per M3 rules, never raw values. Preset themes are catalogued in `src/theme/themes/index.json` — the same file the visual builder, MCP `list_themes`, and copy-paste flows read.
 
 # MD3 Theming and Dynamic Color
 

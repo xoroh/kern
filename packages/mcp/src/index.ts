@@ -70,7 +70,7 @@ server.tool(
 
 server.tool(
   "get_component",
-  "Get a component's source. 'real' components return code; stubs return their status and private source pointer.",
+  "Get a component's source. 'real' components return code; stubs return their status.",
   {
     name: z.string().describe("kebab-case component name, e.g. button"),
     platform: z.enum(["web", "native"]).default("web"),
@@ -106,6 +106,20 @@ server.tool(
         error: `tokens unavailable outside the monorepo (wanted ${rel})`,
       });
     return text({ preset, tokens: JSON.parse(raw) });
+  },
+);
+
+server.tool(
+  "list_themes",
+  "List available theme presets with copy-paste pointers. Use get_tokens with an id for the full preset.",
+  {},
+  async () => {
+    const raw = await readKernFile("src/theme/themes/index.json");
+    if (!raw)
+      return text({
+        error: "theme catalog unavailable outside the monorepo",
+      });
+    return text(JSON.parse(raw));
   },
 );
 

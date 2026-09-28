@@ -24,6 +24,7 @@ bundled at publish — see below):
 | `list_components` | Component inventory with `real`/`stub`/`tangled`/`review` status |
 | `get_component` | Source of one component (code if real, pointer if stub) |
 | `get_tokens` | `base` tokens or `m3`/`sharp`/`brand` presets |
+| `list_themes` | Theme catalog (same file the visual builder will read) |
 | `design_audit` | Compliance checklist (mirrors the skill's audit table) |
 
 ## Next step before 0.1.0
