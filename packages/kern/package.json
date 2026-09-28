@@ -1,0 +1,16 @@
+{
+  "name": "@xoroh/kern",
+  "version": "0.0.0",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./components/*": "./src/components/*.tsx",
+    "./theme": "./src/theme/tokens.css",
+    "./utils": "./src/utils/cn.ts"
+  },
+  "peerDependencies": {
+    "react": "^18 || ^19"
+  }
+}
