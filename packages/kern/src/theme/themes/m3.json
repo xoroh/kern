@@ -1,5 +1,5 @@
 {
-  "$comment": "Kern default theme (M3). Source of truth for web + native builds. Values below are the confirmed anchors; remaining role tables, typography, elevation, motion, and state layers land next.",
+  "$comment": "Kern default theme (M3). Roles bind palette steps from tokens.json (OKLCH canonical, srgb compiled for native). Hexes below equal their ramp srgb values by construction.",
   "color": {
     "onSurface": "#262626",
     "secondary": "#2563eb",
