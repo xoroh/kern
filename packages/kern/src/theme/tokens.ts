@@ -1,6 +1,6 @@
 // Mirror of tokens.json (canonical color source).
 // oklch = canonical (math, web output). srgb = compiled native output.
-// Regenerate — do not hand-edit values.
+// Regenerate with scripts/gen-css.mjs — do not hand-edit values.
 export const tokens = {
   palettes: {
     neutral: {
@@ -34,6 +34,7 @@ export const tokens = {
     green: {
       "100": { oklch: "oklch(96.2% 0.043 156.7)", srgb: "#dcfce7" },
       "600": { oklch: "oklch(62.7% 0.170 149.2)", srgb: "#16a34a" },
+      "700": { oklch: "oklch(52.7% 0.138 149.8)", srgb: "#15803c" },
       "900": { oklch: "oklch(39.3% 0.09 152.5)", srgb: "#14532d" },
     },
     amber: {

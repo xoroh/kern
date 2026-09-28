@@ -20,7 +20,7 @@
   --md-sys-color-on-error: #ffffff;
   --md-sys-color-error-container: #fee2e2;
   --md-sys-color-on-error-container: #7f1d1d;
-  --md-sys-color-success: #16a34a;
+  --md-sys-color-success: #15803c;
   --md-sys-color-on-success: #ffffff;
   --md-sys-color-success-container: #dcfce7;
   --md-sys-color-on-success-container: #14532d;
@@ -122,4 +122,28 @@
   --color-surface-container: var(--md-sys-color-surface-container);
   --color-outline: var(--md-sys-color-outline);
   --color-outline-variant: var(--md-sys-color-outline-variant);
+}
+
+/* App-token bridge (skill kern-tokens §7). For app templates consuming
+ * Kern without the md-sys vocabulary. */
+:root {
+  --background: var(--md-sys-color-surface);
+  --foreground: var(--md-sys-color-on-surface);
+  --card: var(--md-sys-color-surface);
+  --primary: var(--md-sys-color-primary);
+  --primary-foreground: var(--md-sys-color-on-primary);
+  --secondary: var(--md-sys-color-surface-container-high);
+  --muted: var(--md-sys-color-surface-container-high);
+  --accent: var(--md-sys-color-surface-container-high);
+  --muted-foreground: var(--md-sys-color-on-surface-variant);
+  --border: var(--md-sys-color-outline-variant);
+  --destructive: var(--md-sys-color-error);
+  --radius: var(--md-sys-shape-corner-small);
+  --sidebar: var(--md-sys-color-surface);
+  --sidebar-foreground: var(--md-sys-color-on-surface);
+  --sidebar-primary: var(--md-sys-color-primary);
+  --sidebar-primary-foreground: var(--md-sys-color-on-primary);
+  --sidebar-accent: var(--md-sys-color-surface-container-high);
+  --sidebar-accent-foreground: var(--md-sys-color-on-surface);
+  --sidebar-border: var(--md-sys-color-outline-variant);
 }

@@ -1,5 +1,6 @@
-// Generates src/theme/tokens.css from tokens.json + themes/m3.json.
-// Run from the repo root: bun packages/kern/scripts/gen-css.mjs
+// Generates src/theme/tokens.css + src/theme/tokens.ts from tokens.json
+// (+ themes/m3.json for roles). Run from the repo root:
+// bun packages/kern/scripts/gen-css.mjs
 // Role vars are kebab-case per M3 (--md-sys-color-on-surface).
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
@@ -65,7 +66,61 @@ const C = [
     "outlineVariant",
   ].map((role) => `  --color-${kebab(role)}: var(${roleVar(role)});`),
   "}",
+  "",
+  "/* App-token bridge (skill kern-tokens §7). For app templates consuming",
+  " * Kern without the md-sys vocabulary. */",
+  ":root {",
+  "  --background: var(--md-sys-color-surface);",
+  "  --foreground: var(--md-sys-color-on-surface);",
+  "  --card: var(--md-sys-color-surface);",
+  "  --primary: var(--md-sys-color-primary);",
+  "  --primary-foreground: var(--md-sys-color-on-primary);",
+  "  --secondary: var(--md-sys-color-surface-container-high);",
+  "  --muted: var(--md-sys-color-surface-container-high);",
+  "  --accent: var(--md-sys-color-surface-container-high);",
+  "  --muted-foreground: var(--md-sys-color-on-surface-variant);",
+  "  --border: var(--md-sys-color-outline-variant);",
+  "  --destructive: var(--md-sys-color-error);",
+  "  --radius: var(--md-sys-shape-corner-small);",
+  "  --sidebar: var(--md-sys-color-surface);",
+  "  --sidebar-foreground: var(--md-sys-color-on-surface);",
+  "  --sidebar-primary: var(--md-sys-color-primary);",
+  "  --sidebar-primary-foreground: var(--md-sys-color-on-primary);",
+  "  --sidebar-accent: var(--md-sys-color-surface-container-high);",
+  "  --sidebar-accent-foreground: var(--md-sys-color-on-surface);",
+  "  --sidebar-border: var(--md-sys-color-outline-variant);",
+  "}",
 ];
 
 writeFileSync(join(THEME, "tokens.css"), `${C.join("\n")}\n`);
 console.log("tokens.css regenerated");
+
+const T2 = [
+  "// Mirror of tokens.json (canonical color source).",
+  "// oklch = canonical (math, web output). srgb = compiled native output.",
+  "// Regenerate with scripts/gen-css.mjs — do not hand-edit values.",
+  "export const tokens = {",
+  "  palettes: {",
+];
+for (const [hue, steps] of Object.entries(T.palettes)) {
+  T2.push(`    ${hue}: {`);
+  for (const [step, v] of Object.entries(steps)) {
+    T2.push(`      "${step}": { oklch: "${v.oklch}", srgb: "${v.srgb}" },`);
+  }
+  T2.push("    },");
+}
+T2.push("  },", "  base: {");
+for (const [name, v] of Object.entries(T.base)) {
+  T2.push(`    ${name}: { oklch: "${v.oklch}", srgb: "${v.srgb}" },`);
+}
+T2.push(
+  "  },",
+  "} as const;",
+  "",
+  "export type KernTokens = typeof tokens;",
+  "",
+  "// Theme runtime (resolve/apply/hook) lives alongside the data.",
+  'export * from "./theme";',
+);
+writeFileSync(join(THEME, "tokens.ts"), `${T2.join("\n")}\n`);
+console.log("tokens.ts regenerated");

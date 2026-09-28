@@ -28,3 +28,10 @@ export type { NativeSwitchProps } from "./components/switch";
 export { Switch } from "./components/switch";
 export type { NativeTextProps } from "./components/text";
 export { Text } from "./components/text";
+export type {
+  Contrast,
+  Mode,
+  NativeThemeOptions,
+  ThemeVariant,
+} from "./theme";
+export { useKernTheme } from "./theme";

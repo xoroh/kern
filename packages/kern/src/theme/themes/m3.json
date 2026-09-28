@@ -18,7 +18,7 @@
       "onError": "#ffffff",
       "errorContainer": "#fee2e2",
       "onErrorContainer": "#7f1d1d",
-      "success": "#16a34a",
+      "success": "#15803c",
       "onSuccess": "#ffffff",
       "successContainer": "#dcfce7",
       "onSuccessContainer": "#14532d",
@@ -99,9 +99,9 @@
     "dialogsSheets": "extra-large"
   },
   "todo": [
-    "Full 15-style typography scale (4 roles shipped)",
-    "App-token bridge (--background/--primary set for app templates)",
-    "Native useKernTheme().scheme (web hook ships now)"
+    "Contrast modes: full tables (overlays carry skill-pinned values only)",
+    "Variant registry (registerVariant for tenants; sharp hardcoded for now)",
+    "Native Inter font asset wiring"
   ],
   "contrast": {
     "light-medium": {

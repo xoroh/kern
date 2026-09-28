@@ -34,7 +34,7 @@ Every fill uses its matching `on-*` color. Never pair outside these pairs.
 | `on-error` | `#ffffff` | |
 | `error-container` | `#fee2e2` | Light error fill (validation banners) |
 | `on-error-container` | `#7f1d1d` | |
-| `success` | `#16a34a` | Kern green — healthy/go states (small text: green-900 `#14532d`) |
+| `success` | `#15803c` | Kern green — healthy/go states (AA on white; small text: green-900 `#14532d`) |
 | `on-success` | `#ffffff` | |
 | `success-container` | `#dcfce7` | |
 | `on-success-container` | `#14532d` | |
