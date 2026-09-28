@@ -30,8 +30,7 @@ import "@xoroh/kern/theme";
 ## Themes
 
 Presets in `src/theme/themes/`: `m3` (default), `sharp` (premium),
-`brand` (customer template). Same components, swapped tokens —
-see ADR-004 (`docs/decisions/004-themes-not-systems.md`).
+`brand` (customer template). Same components, swapped tokens.
 
 ## Blocks
 

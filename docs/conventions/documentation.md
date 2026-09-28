@@ -21,7 +21,7 @@ evolves, we re-align — this file records what we follow and where it lands.
 | Tutorials (learning) | `apps/docs/` getting-started | Install Kern, first Button |
 | How-to (task) | `apps/docs/` guides | Theme swapping, EmDash setup |
 | Reference (information) | Generated from code + tokens | Props tables, token values |
-| Explanation (understanding) | Concepts, `docs/decisions/`, skill canon | ADRs, theming model |
+| Explanation (understanding) | Concepts, skill canon | Theming model |
 
 Our addition on top: **skills as machine-readable reference**. Diátaxis
 predates AI agents; `.agents/skills/kern/` carries the same knowledge in
