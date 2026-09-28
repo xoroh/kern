@@ -8,7 +8,10 @@ Design system for mobility. Components, theme tokens, and docs for taxi and rela
 ## Structure
 
 - `apps/docs/` — ui.xoroh.org (component docs + playground)
-- `packages/kern/` — the library (`@xoroh/kern`)
+- `packages/kern/` — the library, single package with subpath exports:
+  - `@xoroh/kern` — web (React, on Base UI)
+  - `@xoroh/kern/native` — mobile (React Native, planned)
+  - `@xoroh/kern/theme` + `@xoroh/kern/tokens` — shared theme (CSS + TS, generated from `tokens.json`)
 - `packages/cli/` — installer placeholder (`kern add <component>`)
 
 ## License
