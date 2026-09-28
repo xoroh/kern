@@ -7,16 +7,16 @@ import {
   Divider,
   FieldMessage,
   Input,
+  Text as KernText,
   ListItem,
+  type Mode,
   RadioGroup,
   RadioItem,
   Switch,
-  Text as KernText,
   useKernTheme,
-  type Mode,
 } from "@xoroh/kern/native";
 import { StatusBar } from "expo-status-bar";
-import { useState, type ReactNode } from "react";
+import { type ReactNode, useState } from "react";
 import { SafeAreaView, ScrollView, View } from "react-native";
 
 function Section({ title, children }: { title: string; children: ReactNode }) {
@@ -38,9 +38,7 @@ export default function App() {
   const [email, setEmail] = useState("");
 
   return (
-    <SafeAreaView
-      style={{ flex: 1, backgroundColor: scheme.surface }}
-    >
+    <SafeAreaView style={{ flex: 1, backgroundColor: scheme.surface }}>
       <StatusBar style={mode === "dark" ? "light" : "dark"} />
       <ScrollView contentContainerStyle={{ padding: 16, gap: 8 }}>
         <KernText variant="headline">Kern</KernText>
@@ -78,7 +76,11 @@ export default function App() {
         <Divider />
 
         <Section title="Selection">
-          <Checkbox label="Accept terms" value={checked} onValueChange={setChecked} />
+          <Checkbox
+            label="Accept terms"
+            value={checked}
+            onValueChange={setChecked}
+          />
           <Switch value={on} onValueChange={setOn} />
           <RadioGroup value={plan} onValueChange={setPlan}>
             <RadioItem value="free" label="Free" />
