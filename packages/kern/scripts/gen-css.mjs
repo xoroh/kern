@@ -20,30 +20,50 @@ const C = [
   " * Do not hand-edit values. */",
   "",
   ":root {",
-  ...Object.entries(M.color.light).map(([role, value]) => `  ${roleVar(role)}: ${value};`),
+  ...Object.entries(M.color.light).map(
+    ([role, value]) => `  ${roleVar(role)}: ${value};`,
+  ),
   "}",
   "",
   ".dark {",
-  ...Object.entries(M.color.dark).map(([role, value]) => `  ${roleVar(role)}: ${value};`),
+  ...Object.entries(M.color.dark).map(
+    ([role, value]) => `  ${roleVar(role)}: ${value};`,
+  ),
   "}",
   "",
   "/* Shape, elevation, motion, state layers (mode-independent). */",
   ":root {",
-  ...Object.entries(T.shape).map(([name, value]) => `  --md-sys-shape-corner-${name}: ${value};`),
-  ...Object.entries(T.elevation).map(([level, value]) => `  --md-sys-elevation-${level}: ${value};`),
+  ...Object.entries(T.shape).map(
+    ([name, value]) => `  --md-sys-shape-corner-${name}: ${value};`,
+  ),
+  ...Object.entries(T.elevation).map(
+    ([level, value]) => `  --md-sys-elevation-${level}: ${value};`,
+  ),
   `  --md-sys-motion-easing-standard: ${T.motion["easing-standard"]};`,
   `  --md-sys-motion-duration-short: ${T.motion["duration-short"]};`,
   `  --md-sys-motion-duration-medium: ${T.motion["duration-medium"]};`,
   ...Object.entries(T.states).map(
-    ([name, value]) => `  --md-sys-state-${name.replace("-opacity", "")}: ${value};`,
+    ([name, value]) =>
+      `  --md-sys-state-${name.replace("-opacity", "")}: ${value};`,
   ),
   "}",
   "",
   "/* Tailwind v4 named utilities (member roles). Requires Tailwind v4. */",
   "@theme inline {",
-  ...["primary", "onPrimary", "secondary", "onSecondary", "surface", "onSurface",
-      "surfaceTonal", "error", "onError", "surfaceContainer", "outline", "outlineVariant"]
-    .map((role) => `  --color-${kebab(role)}: var(${roleVar(role)});`),
+  ...[
+    "primary",
+    "onPrimary",
+    "secondary",
+    "onSecondary",
+    "surface",
+    "onSurface",
+    "surfaceTonal",
+    "error",
+    "onError",
+    "surfaceContainer",
+    "outline",
+    "outlineVariant",
+  ].map((role) => `  --color-${kebab(role)}: var(${roleVar(role)});`),
   "}",
 ];
 

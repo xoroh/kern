@@ -8,8 +8,8 @@ export type ThemeVariant = "m3" | "sharp";
 type RoleTable = Record<string, string>;
 
 const baseRoles = m3.color as { light: RoleTable; dark: RoleTable };
-const contrastOverlays = (m3 as { contrast?: Record<string, RoleTable> })
-  .contrast ?? {};
+const contrastOverlays =
+  (m3 as { contrast?: Record<string, RoleTable> }).contrast ?? {};
 
 /** Sharp variant deltas over a resolved scheme. Radius ships via CSS. */
 const VARIANT_DELTAS: Record<ThemeVariant, Partial<RoleTable>> = {

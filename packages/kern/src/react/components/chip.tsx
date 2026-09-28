@@ -7,7 +7,8 @@ const chipVariants = cva(
   {
     variants: {
       variant: {
-        assist: "bg-(--md-sys-color-surface-tonal) text-(--md-sys-color-on-surface) hover:bg-(--md-sys-color-surface-container-high)",
+        assist:
+          "bg-(--md-sys-color-surface-tonal) text-(--md-sys-color-on-surface) hover:bg-(--md-sys-color-surface-container-high)",
         filter:
           "bg-(--md-sys-color-surface-tonal) text-(--md-sys-color-on-surface) hover:bg-(--md-sys-color-surface-container-high) data-selected:bg-(--md-sys-color-primary) data-selected:text-(--md-sys-color-on-primary)",
         suggestion:

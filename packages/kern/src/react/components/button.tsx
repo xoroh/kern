@@ -9,8 +9,10 @@ const buttonVariants = cva(
       variant: {
         primary:
           "bg-(--md-sys-color-primary) text-(--md-sys-color-on-primary) hover:bg-(--md-sys-color-primary)/90",
-        tonal: "bg-(--md-sys-color-surface-tonal) text-(--md-sys-color-on-surface) hover:bg-(--md-sys-color-surface-container-high)",
-        ghost: "text-(--md-sys-color-on-surface) hover:bg-(--md-sys-color-surface-tonal)",
+        tonal:
+          "bg-(--md-sys-color-surface-tonal) text-(--md-sys-color-on-surface) hover:bg-(--md-sys-color-surface-container-high)",
+        ghost:
+          "text-(--md-sys-color-on-surface) hover:bg-(--md-sys-color-surface-tonal)",
       },
       size: {
         default: "h-10 px-4",

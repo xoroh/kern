@@ -24,7 +24,9 @@ describe("resolveTheme", () => {
   });
 
   it("applies sharp deltas", () => {
-    expect(resolveTheme("light", "standard", "sharp").onSurface).toBe("#111111");
+    expect(resolveTheme("light", "standard", "sharp").onSurface).toBe(
+      "#111111",
+    );
     expect(resolveTheme("light").onSurface).toBe("#262626");
   });
 
