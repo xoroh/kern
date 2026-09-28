@@ -47,5 +47,5 @@ const C = [
   "}",
 ];
 
-writeFileSync(join(THEME, "tokens.css"), C.join("\n") + "\n");
+writeFileSync(join(THEME, "tokens.css"), `${C.join("\n")}\n`);
 console.log("tokens.css regenerated");
