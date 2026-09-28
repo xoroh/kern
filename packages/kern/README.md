@@ -23,7 +23,7 @@ import "@xoroh/kern/theme";
 | Import | What |
 |---|---|
 | `@xoroh/kern` | Web components (React) |
-| `@xoroh/kern/native` | Native components (React Native, planned) |
+| `@xoroh/kern/native` | Native components (React Native, StyleSheet + tokens) |
 | `@xoroh/kern/theme` | Theme CSS variables |
 | `@xoroh/kern/tokens` | Tokens as TypeScript (`tokens.json` is the source) |
 | `@xoroh/kern/utils` | `cn` and other pure helpers |
@@ -79,7 +79,15 @@ Use-case packs in `src/blocks/<usecase>/` (mobility first): composed
 components + preset themes on core primitives. Blocks depend on core,
 never the reverse — see `../../docs/conventions/file-ownership.md`.
 
+```tsx
+import { Button } from "@xoroh/kern/native";
+
+<Button variant="primary" label="Save" onPress={save} />;
+// same names, same variants, same tokens — StyleSheet, no styling deps
+```
+
 ## Status
 
-13 web components real (tested); native mirrors planned. Stub files
-throw until implemented and stay out of the exports.
+13 web components real (tested); 12 native components real (style maps
+tested — render tests need a Metro runner, tracked for the Expo
+playground). Stub files throw until implemented and stay out of the exports.
