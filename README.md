@@ -15,6 +15,7 @@ Design system for mobility. Components, theme tokens, and docs for taxi and rela
 - `packages/kern-emdash/` — EmDash adapter (`@xoroh/kern-emdash`): Astro integration + block plugin
 - `packages/cli/` — installer placeholder (`kern add <component>`)
 - `packages/kern/MIGRATION.md` — private → OSS map, phases, never-migrate list
+- `skills/kern/` — agent skill (design reference + 11 topic files, MIT-safe)
 
 ## License
 
