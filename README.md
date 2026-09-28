@@ -10,6 +10,7 @@ M3 is the ruleset Kern follows, not what it is.
 ## Structure
 
 - `apps/site/` — kern.xoroh.org (TanStack Start: component docs + playground)
+- `apps/mobile/` — "Kern" (Expo: native showcase + theme switcher)
 - `packages/kern/` — the library, single package with subpath exports:
   - `@xoroh/kern` — web (React, on Base UI)
   - `@xoroh/kern/native` — mobile (React Native, StyleSheet + tokens)

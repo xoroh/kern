@@ -54,8 +54,8 @@
     }
   },
   "peerDependencies": {
-    "react": "^19.3.0",
-    "react-native": "^0.87.0"
+    "react": "^19.0.0",
+    "react-native": "^0.86.0"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",

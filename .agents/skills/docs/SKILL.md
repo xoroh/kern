@@ -14,6 +14,7 @@ Docs update in the **same change** as the code. Never defer.
 ## Definition of done
 
 - `apps/site` page exists/updated for every user-facing change.
+- `apps/mobile` gallery section exists/updated for every real native component.
 - Changeset added for every `packages/` change.
 - Skill refs updated if agent guidance changed.
 - `bun run lint` clean, `Status:` lines correct.
