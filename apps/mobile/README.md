@@ -1,8 +1,7 @@
 # Kern mobile app — "Kern"
 
-Expo showcase for `@xoroh/kern/native`: every native component rendered
-live on theme tokens, with a light/dark switcher. Consumes the library
-via `workspace:*` — always the current source, never a published version.
+Expo shell for the future native showcase. Empty on purpose: gallery
+sections land here per component, once the set below is being built out.
 
 ## Run
 
@@ -19,5 +18,5 @@ library with native code. No EAS, no store builds — local showcase only.
 ## Convention
 
 Every real native component gets a gallery section here in the same
-change (see the docs skill). The switcher stays — dark mode you can see
-is a feature, not a demo trick.
+change (see the docs skill), with the theme switcher covering light
+and dark from day one.
