@@ -1,8 +1,10 @@
 # Kern UI — by Xoroh
 
-M3-based design system. Neutral core + use-case blocks (mobility first).
+Open design system implementing Material Design 3: tokens, components,
+blocks, showcase site, and tooling — MIT-licensed, human- and AI-usable.
+M3 is the ruleset Kern follows, not what it is.
 
-- Docs + playground: https://ui.xoroh.org
+- Showcase + playground: https://ui.xoroh.org
 - Hub: https://xoroh.org
 
 ## Structure
