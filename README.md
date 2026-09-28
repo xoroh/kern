@@ -12,6 +12,7 @@ Design system for mobility. Components, theme tokens, and docs for taxi and rela
   - `@xoroh/kern` — web (React, on Base UI)
   - `@xoroh/kern/native` — mobile (React Native, planned)
   - `@xoroh/kern/theme` + `@xoroh/kern/tokens` — shared theme (CSS + TS, generated from `tokens.json`)
+- `packages/kern-emdash/` — EmDash adapter (`@xoroh/kern-emdash`): Astro integration + block plugin
 - `packages/cli/` — installer placeholder (`kern add <component>`)
 
 ## License
