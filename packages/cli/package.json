@@ -1,0 +1,12 @@
+{
+  "name": "@xoroh/cli",
+  "version": "0.0.0",
+  "license": "Apache-2.0",
+  "private": true,
+  "author": "Xoroh",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xoroh/kern.git",
+    "directory": "packages/cli"
+  }
+}

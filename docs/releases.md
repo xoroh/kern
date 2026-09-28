@@ -13,10 +13,14 @@ as one.
 3. Merge the Version Packages PR when a batch feels ready → publishes to npm
    with provenance. Check status anytime: `bun x changeset status`.
 
-## One-time setup
+## One-time setup (do once, then ignore)
 
-- `NPM_TOKEN` repo secret (granular token, publish on `@xoroh/*`).
-  See `TODO.md` (local-only).
+- Push the release workflow: `gh auth refresh -s workflow` (interactive),
+  then `git push`. Needed once — the token that created it lacks the
+  `workflow` scope for workflow files.
+- `NPM_TOKEN` repo secret (granular token, publish on `@xoroh/*`):
+  repo Settings → Secrets → Actions. Without it the release workflow
+  versions but never publishes.
 
 ## Conventions
 

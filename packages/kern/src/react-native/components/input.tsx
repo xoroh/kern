@@ -27,10 +27,12 @@ export type NativeInputProps = TextInputProps & {
 };
 
 export function Input({ error = false, style, ...props }: NativeInputProps) {
+  // NOTE: React Native has no invalid state primitive (`aria-invalid` is
+  // dropped silently). Error announcement rides on FieldMessage
+  // (`accessibilityRole="alert"`) until the Field layer wires linkage.
   return (
     <TextInput
       testID={props.testID ?? "kern-input"}
-      aria-invalid={error || undefined}
       placeholderTextColor={tokens.palettes.neutral["400"].srgb}
       style={[inputStyles(error), style]}
       {...props}

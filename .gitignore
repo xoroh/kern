@@ -2,5 +2,9 @@ node_modules
 dist
 .DS_Store
 
+# TanStack Router generated route tree + Cloudflare local state
+apps/site/src/routeTree.gen.ts
+apps/site/.wrangler
+
 # Local-only reminders, never published
 TODO.md

@@ -2,6 +2,14 @@
   "name": "@xoroh/kern",
   "version": "0.0.0",
   "license": "Apache-2.0",
+  "author": "Xoroh",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xoroh/kern.git",
+    "directory": "packages/kern"
+  },
+  "homepage": "https://kern.xoroh.org",
+  "bugs": "https://github.com/xoroh/kern/issues",
   "publishConfig": {
     "access": "public",
     "provenance": true

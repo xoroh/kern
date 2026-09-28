@@ -14,7 +14,7 @@
 >    grep `var(--`, hardcoded hex, `@theme`, `tailwindcss`, `data-disabled` vs `disabled:`,
 >    `indeterminate`, `aria-describedby`/`aria-invalid`, `{...props}` order, `hitSlop`,
 >    `StyleSheet.create`, `Platform`, `aria-invalid` in RN types, tokens.json counts,
->    skill phantom symbols, apps/docs scripts + dead links, MCP manifest exports,
+>    skill phantom symbols, apps/site scripts + dead links, MCP manifest exports,
 >    license/author/files/peers/export-conditions/prepare/publint, tsconfig types split,
 >    React peer range, test-double stub vs real renders.
 > 3. For EACH item mark exactly one: ✅ FIXED (with commit + proof) | ❌ STILL OPEN (fresh evidence)
@@ -192,9 +192,9 @@ All rows re-verified, zero hits in `src/` except noted:
 
 `m3.json:27-31` admits it in `todo`: *"Land full light/dark role tables."* Skills document as shipped what source marks not built.
 
-## 13. The showcase site does not exist — AGREE
+## 13. The showcase site does not exist — AGREE (v3: scaffold landed, still no site)
 
-`apps/docs/index.html` (24 lines) self-declares: *"Previews render here once the docs app is wired."* `index.html:15` links `#tokens` — no such id. `package.json` has no `scripts`, no dependency on `@xoroh/kern` (cannot render Kern), appears in zero CI steps. `docs/README.md` promises `llms.txt` — missing. `README.md:7,12` advertises live `ui.xoroh.org`. Build it or delete it + remove claim.
+v1/v2: `apps/docs/index.html` (24 lines) self-declared *"Previews render here once the docs app is wired"*, dead `#tokens` link, no scripts, no `@xoroh/kern` dep, zero CI steps. v3: stub replaced — `apps/docs/` renamed `apps/site/` with a TanStack Start scaffold (router, Tailwind v4, Cloudflare entry, home renders real `Button` variants). Still open: no component pages, no `llms.txt`, no theme switcher. `README.md:7,12` advertises live `kern.xoroh.org` — not yet deployable until those land.
 
 ## 14. `packages/mcp` advertises a nonexistent export — AGREE (v2 corrects count/wording)
 
@@ -218,7 +218,7 @@ Parity renames confirmed (`Divider≠Separator`, `RadioItem≠RadioGroupItem`, `
 
 # MAJOR — OSS hygiene (v1 kept, v2 adds packaging P0s)
 
-All re-verified: **license contradiction** (`README:4` MIT + `:20` "MIT-safe" vs `:24` Apache + `LICENSE` Apache + 4 package.json `Apache-2.0`; v2 note: `apps/docs/package.json` has no `license` at all); **unfilled `LICENSE:187` `Copyright [yyyy]`** + `author` absent from all 5; missing `author/repository/homepage/bugs`; `README:15` native "planned" (ships 13 native); `README:18` `packages/cli` "placeholder" with **no `package.json`** (not a workspace member); `CONTRIBUTING:11,13` double "4.", prescribes `bun run test` but `mcp`/`emdash` have no test script + CI never tests them + omits `skills-ref` step; `docs/releases.md:19` → `TODO.md` which is **gitignored** (`.gitignore:6`) + stale (`release.yml` "local-only" but committed); `SECURITY:6` promises `0.1.x`, everything `0.0.0`; changeset `tidy-pandas-shake` "Button (web)" ships 14 web + 13 native across 5 subpaths (becomes npm CHANGELOG); `kern-emdash` **no build script**, `main`/`exports` → raw `src/*.ts`, `release.yml` never builds it, `blocks/button.ts:17` enum omits `tonal`, `README:25` calls `d1()` with no import; `brand.json` TODO-as-value; `mcp/README:24` status vocab mismatch; **no `engines`/`packageManager`**, CI `bun-version: latest` (unreproducible); missing `CHANGELOG/GOVERNANCE/SUPPORT/FUNDING/ISSUE_TEMPLATE/CODEOWNERS`; **no `prepare`** (only `prepublishOnly` → fresh workspace install resolves `exports` to missing `dist/`); hard `react-native` peer (no `peerDependenciesMeta` optional → web consumers warn, pnpm strict fails); **`./native` no `"react-native"` export condition** → Metro falls to CJS; `tokens.json` + 4 theme presets **not in `files`**; no `publint`/`are-the-types-wrong` despite exports map being the product; tokens inlined 3× (tsup bundles, no sourcemaps); `documentation.md:44` `Status:` rule ignored (~30/33 missing); per-component docs rule unsatisfiable by `apps/docs`.
+All re-verified: **license contradiction** (`README:4` MIT + `:20` "MIT-safe" vs `:24` Apache + `LICENSE` Apache + 4 package.json `Apache-2.0`; v2 note: `apps/site/package.json` has no `license` at all); **unfilled `LICENSE:187` `Copyright [yyyy]`** + `author` absent from all 5; missing `author/repository/homepage/bugs`; `README:15` native "planned" (ships 13 native); `README:18` `packages/cli` "placeholder" with **no `package.json`** (not a workspace member); `CONTRIBUTING:11,13` double "4.", prescribes `bun run test` but `mcp`/`emdash` have no test script + CI never tests them + omits `skills-ref` step; `docs/releases.md:19` → `TODO.md` which is **gitignored** (`.gitignore:6`) + stale (`release.yml` "local-only" but committed); `SECURITY:6` promises `0.1.x`, everything `0.0.0`; changeset `tidy-pandas-shake` "Button (web)" ships 14 web + 13 native across 5 subpaths (becomes npm CHANGELOG); `kern-emdash` **no build script**, `main`/`exports` → raw `src/*.ts`, `release.yml` never builds it, `blocks/button.ts:17` enum omits `tonal`, `README:25` calls `d1()` with no import; `brand.json` TODO-as-value; `mcp/README:24` status vocab mismatch; **no `engines`/`packageManager`**, CI `bun-version: latest` (unreproducible); missing `CHANGELOG/GOVERNANCE/SUPPORT/FUNDING/ISSUE_TEMPLATE/CODEOWNERS`; **no `prepare`** (only `prepublishOnly` → fresh workspace install resolves `exports` to missing `dist/`); hard `react-native` peer (no `peerDependenciesMeta` optional → web consumers warn, pnpm strict fails); **`./native` no `"react-native"` export condition** → Metro falls to CJS; `tokens.json` + 4 theme presets **not in `files`**; no `publint`/`are-the-types-wrong` despite exports map being the product; tokens inlined 3× (tsup bundles, no sourcemaps); `documentation.md:44` `Status:` rule ignored (~30/33 missing); per-component docs rule unsatisfiable by `apps/docs`.
 
 ---
 
@@ -278,7 +278,7 @@ Root scripts = changeset/version/release/lint/format only. No root `typecheck/te
 8. `gen-tokens.mjs` + `prebuild` + equality test; extend `tokens.json` (spacing/radius/typography/elevation).
 9. `KernThemeProvider` + `useKernTheme` + `useColorScheme` + Inter.
 10. `ComponentPropsWithRef` ×9; fix `RadioGroup` generic; function-aware `cn`; export variant literal unions on web (native already does).
-11. `apps/docs`: build properly or delete + remove `ui.xoroh.org` claim; add `llms.txt` or remove promise.
+11. `apps/site`: add component pages + `llms.txt` + theme switcher, wire CI build/typecheck, or remove the `kern.xoroh.org` claim.
 12. React 18-vs-19 decision (§15); `platform-parity.md` + naming/boolean freeze (§17).
 
 ## Consistency (after)

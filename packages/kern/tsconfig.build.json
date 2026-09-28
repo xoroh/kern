@@ -9,5 +9,10 @@
     "types": []
   },
   "include": ["src"],
-  "exclude": ["**/*.test.ts", "**/*.test.tsx", "**/*.rntest.ts", "**/*.rntest.tsx"]
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.rntest.ts",
+    "**/*.rntest.tsx"
+  ]
 }

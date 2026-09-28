@@ -10,26 +10,28 @@ const AREAS = [
   { dir: "packages/kern/src/react-native/components", platform: "native" },
 ];
 
-function toExport(base) {
-  return base
-    .split("-")
-    .map((p) => p[0].toUpperCase() + p.slice(1))
-    .join("");
-}
-
 const entries = [];
+const toName = (exportName) =>
+  exportName.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
 for (const { dir, platform } of AREAS) {
   for (const file of readdirSync(join(ROOT, dir)).sort()) {
     if (!file.endsWith(".tsx") || file.endsWith(".test.tsx")) continue;
     const src = readFileSync(join(ROOT, dir, file), "utf8");
-    const name = file.replace(/\.tsx$/, "");
-    entries.push({
-      name,
-      export: toExport(name),
-      platform,
-      path: `src/${platform === "web" ? "react" : "react-native"}/components/${file}`,
-      status: src.includes("not implemented yet") ? "stub" : "real",
-    });
+    const area = platform === "web" ? "react" : "react-native";
+    const path = `src/${area}/components/${file}`;
+    const status = src.includes("not implemented yet") ? "stub" : "real";
+    // One entry per exported component (types, variant maps, style
+    // functions excluded).
+    for (const [, exportName] of src.matchAll(/export function (\w+)/g)) {
+      if (exportName.endsWith("Styles")) continue;
+      entries.push({
+        name: toName(exportName),
+        export: exportName,
+        platform,
+        path,
+        status,
+      });
+    }
   }
 }
 

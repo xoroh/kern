@@ -74,6 +74,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    name: "radio-group-item",
+    export: "RadioGroupItem",
+    platform: "web",
+    path: "src/react/components/radio-group.tsx",
+    status: "real",
+  },
+  {
     name: "separator",
     export: "Separator",
     platform: "web",
@@ -165,8 +172,15 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
-    name: "radio",
-    export: "Radio",
+    name: "radio-group",
+    export: "RadioGroup",
+    platform: "native",
+    path: "src/react-native/components/radio.tsx",
+    status: "real",
+  },
+  {
+    name: "radio-item",
+    export: "RadioItem",
     platform: "native",
     path: "src/react-native/components/radio.tsx",
     status: "real",

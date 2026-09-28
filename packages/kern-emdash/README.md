@@ -18,6 +18,7 @@ bun add -d @astrojs/react
 ```typescript
 import { defineConfig } from "astro/config";
 import emdash from "emdash/astro";
+import { d1 } from "emdash/db";
 import react from "@astrojs/react";
 import { kernEmdash } from "@xoroh/kern-emdash";
 

@@ -3,7 +3,7 @@
 Fast map. Detail lives with the docs themselves — this file only says
 what lives where.
 
-- Product docs → `apps/docs/` — for users, human and AI.
+- Product docs → `apps/site/` — for users, human and AI.
 - Contributor docs → `docs/` — releases, conventions, decisions.
 - Agent knowledge → `.agents/skills/` — design (`kern`), upkeep (`docs`).
 

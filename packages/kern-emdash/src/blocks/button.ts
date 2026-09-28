@@ -14,7 +14,7 @@ export const buttonBlock = {
     label: { type: "string", required: true },
     variant: {
       type: "string",
-      enum: ["primary", "ghost"],
+      enum: ["primary", "tonal", "ghost"],
       default: "primary",
     },
   },

@@ -17,7 +17,7 @@ jobs:
 
       - uses: oven-sh/setup-bun@v2
         with:
-          bun-version: latest
+          bun-version: 1.3.8
 
       - run: bun install --frozen-lockfile
 
@@ -43,6 +43,14 @@ jobs:
       - name: Typecheck Kern library
         run: bun run typecheck
         working-directory: packages/kern
+
+      - name: Typecheck site
+        run: bun run typecheck
+        working-directory: apps/site
+
+      - name: Build site
+        run: bun run build
+        working-directory: apps/site
 
       - name: Validate agent skills
         run: |

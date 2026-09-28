@@ -2,7 +2,7 @@
 
 Three doc kinds. Don't mix them.
 
-- **Product docs** → `apps/docs/` (ui.xoroh.org): component pages, guides,
+- **Product docs** → `apps/site/` (kern.xoroh.org): component pages, guides,
   `llms.txt`. Written for users (human + AI).
 - **Contributor docs** → `docs/` (this folder): process and decisions for
   people working in this repo. See `releases.md`.

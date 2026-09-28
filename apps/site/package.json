@@ -1,0 +1,38 @@
+{
+  "name": "site",
+  "version": "0.0.0",
+  "license": "Apache-2.0",
+  "private": true,
+  "type": "module",
+  "imports": {
+    "#/*": "./src/*"
+  },
+  "scripts": {
+    "dev": "vite dev --port 3000",
+    "generate-routes": "tsr generate",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsr generate && tsc --noEmit",
+    "deploy": "bun run build && wrangler deploy"
+  },
+  "dependencies": {
+    "@tanstack/react-router": "latest",
+    "@tanstack/react-start": "latest",
+    "@xoroh/kern": "workspace:*",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.26.0",
+    "@tailwindcss/vite": "^4.0.0",
+    "@tanstack/router-cli": "^1.132.0",
+    "@types/node": "^26.6.3",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.0.1",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^6.0.2",
+    "vite": "^8.0.0",
+    "wrangler": "^4.70.0"
+  }
+}
