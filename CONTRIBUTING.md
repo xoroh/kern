@@ -8,8 +8,8 @@ Bun monorepo (`bun install` to start). Per-PR requirements:
    as appropriate. The docs skill (`.agents/skills/docs/SKILL.md`) says where.
 3. **Lint clean** — `bun run lint` passes (`bun run format` fixes).
    Config: `biome.json` (lint + format + import order).
-4. **Tests + types pass** — `bun run test` and `bun run typecheck` in
-   `packages/kern/`.
+4. **Tests + types pass** — `bun run test`, `bun run test:native`, and
+   `bun run typecheck` in `packages/kern/`.
 4. **Conventional commits** — `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`, `ci:`.
 5. **Design work** — read `.agents/skills/kern/SKILL.md` first. Core stays
    domain-neutral; use cases go in `src/blocks/<usecase>/`.

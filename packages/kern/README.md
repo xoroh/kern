@@ -89,5 +89,13 @@ import { Button } from "@xoroh/kern/native";
 ## Status
 
 13 web components real (tested); 12 native components real (style maps
-tested — render tests need a Metro runner, tracked for the Expo
-playground). Stub files throw until implemented and stay out of the exports.
+plus Jest render tests). Stub files throw until implemented and stay out
+of the exports.
+
+## Testing
+
+- Web + unit: `bun run test` (vitest).
+- Native render: `bun run test:native` (Jest + RN preset + RNTL).
+  Two rules: `await render(...)` (RNTL v14 renders async) and wrap
+  state-changing presses in `await act(async () => …)` (React 19
+  concurrent flush races plain assertions).
