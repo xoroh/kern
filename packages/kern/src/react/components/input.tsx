@@ -1,4 +1,21 @@
-// Status: stub — not implemented yet.
-export function Input(): never {
-  throw new Error("@xoroh/kern Input: not implemented yet");
+import type { InputHTMLAttributes } from "react";
+import { cn } from "../../utils/cn";
+
+export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
+  error?: boolean;
+};
+
+export function Input({ error = false, className, ...props }: InputProps) {
+  return (
+    <input
+      data-slot="input"
+      aria-invalid={error || undefined}
+      className={cn(
+        "kern-input h-10 w-full rounded-[8px] border border-black/10 bg-white px-3 text-sm outline-none transition-colors placeholder:text-black/40 focus:border-black disabled:cursor-not-allowed disabled:opacity-50",
+        error && "border-[#dc2626] focus:border-[#dc2626]",
+        className,
+      )}
+      {...props}
+    />
+  );
 }

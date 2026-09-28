@@ -11,20 +11,61 @@ one package, subpath exports.
 bun add @xoroh/kern
 ```
 
+Requires Tailwind CSS v4: map utilities to roles with `@theme inline`
+(see the theme stylesheet), and import the theme once:
+
+```tsx
+import "@xoroh/kern/theme";
+```
+
 ## Exports
 
 | Import | What |
 |---|---|
-| `@xoroh/kern` | Web components (React, Base-UI-based) |
+| `@xoroh/kern` | Web components (React) |
 | `@xoroh/kern/native` | Native components (React Native, planned) |
-| `@xoroh/kern/next` | Next.js App Router entry (added on first RSC need) |
 | `@xoroh/kern/theme` | Theme CSS variables |
 | `@xoroh/kern/tokens` | Tokens as TypeScript (`tokens.json` is the source) |
 | `@xoroh/kern/utils` | `cn` and other pure helpers |
 
+## Components (web)
+
 ```tsx
 import { Button } from "@xoroh/kern";
-import "@xoroh/kern/theme";
+
+<Button variant="primary">Save</Button>;
+// variant: primary | tonal | ghost — size: default | sm | icon
+```
+
+```tsx
+import { Input, Label, Textarea } from "@xoroh/kern";
+
+<Label htmlFor="email">Email</Label>;
+<Input id="email" placeholder="you@co.com" />;
+<Input id="email" error aria-describedby="email-error" />;
+<Textarea id="notes" placeholder="Details" />;
+```
+
+```tsx
+import { Checkbox, Switch, RadioGroup, RadioGroupItem } from "@xoroh/kern";
+
+<Checkbox aria-label="Accept" />;
+<Switch aria-label="Notifications" />;
+<RadioGroup aria-label="Plan" defaultValue="free">
+  <RadioGroupItem value="free">Free</RadioGroupItem>
+  <RadioGroupItem value="pro">Pro</RadioGroupItem>
+</RadioGroup>;
+```
+
+```tsx
+import { Badge, Chip, Card, Text, Separator, FieldMessage } from "@xoroh/kern";
+
+<Badge>3</Badge>; // variant: dot | count
+<Chip variant="filter" selected>Active</Chip>;
+<Card variant="filled">…</Card>; // filled | outlined | elevated
+<Text variant="title">Hello</Text>; // body | label | title | headline
+<Separator />;
+<FieldMessage variant="error">Required</FieldMessage>;
 ```
 
 ## Themes
@@ -36,10 +77,9 @@ Presets in `src/theme/themes/`: `m3` (default), `sharp` (premium),
 
 Use-case packs in `src/blocks/<usecase>/` (mobility first): composed
 components + preset themes on core primitives. Blocks depend on core,
-never the reverse — see `docs/conventions/file-ownership.md`.
+never the reverse — see `../../docs/conventions/file-ownership.md`.
 
-## Pre-release note
+## Status
 
-Only `Button` (web) is implemented; every other file is a status stub
-(see its header). Stubs join the exports only when they land with docs
-page + changeset.
+13 web components real (tested); native mirrors planned. Stub files
+throw until implemented and stay out of the exports.

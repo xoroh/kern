@@ -28,6 +28,18 @@ jobs:
         run: bun run build
         working-directory: packages/mcp
 
+      - name: Build Kern library
+        run: bun run build
+        working-directory: packages/kern
+
+      - name: Test Kern library
+        run: bun run test
+        working-directory: packages/kern
+
+      - name: Typecheck Kern library
+        run: bun run typecheck
+        working-directory: packages/kern
+
       - name: Validate agent skills
         run: |
           bun x skills-ref validate ./.agents/skills/kern

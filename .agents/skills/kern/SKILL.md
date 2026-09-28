@@ -51,6 +51,7 @@ Type sizes / weights          → references/typography-and-shape.md (Inter mapp
 Corner radius / pills         → references/typography-and-shape.md § Shape
 Elevation / shadows           → references/typography-and-shape.md § Elevation + kern-tokens.md § Elevation
 A component (button, card…)    → references/component-catalog.md → then apply Kern values from kern-tokens.md
+Authoring a component       → references/code-conventions.md (anatomy, variants, slots, mobile rules)
 Navigation (topbar/sidebar)   → references/navigation-patterns.md (§ Kern Sidebar)
 Responsive / breakpoints      → references/layout-and-responsive.md (breakpoints / adaptive design, scaffold, RTL)
 Theme tokens (CSS vars)       → references/theming-and-dynamic-color.md + kern-tokens.md § CSS token bridge
@@ -121,6 +122,7 @@ When asked to audit/review a screen, score 0–10 across these categories and pr
 - [`references/color-system.md`](references/color-system.md) — MD3 color roles, tonal palettes, pairing rules
 - [`references/typography-and-shape.md`](references/typography-and-shape.md) — Type scale, shape corners, elevation, motion
 - [`references/component-catalog.md`](references/component-catalog.md) — MD3 components and structure (incl. Expressive migrations)
+- [`references/code-conventions.md`](references/code-conventions.md) — Component authorship: anatomy, variants, slots, mobile rules
 - [`references/navigation-patterns.md`](references/navigation-patterns.md) — Navigation selection and adaptive shells
 - [`references/layout-and-responsive.md`](references/layout-and-responsive.md) — Breakpoints, scaffold, canonical layouts, RTL, foldables
 - [`references/theming-and-dynamic-color.md`](references/theming-and-dynamic-color.md) — Theme architecture, ref→sys→comp, contexts, CSS custom properties
