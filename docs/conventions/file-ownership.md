@@ -1,9 +1,8 @@
-# File ownership (FSD, Kern scale)
+# File ownership
 
 Status: draft
 
-Adapted from feature-sliced design for one design-system repo. Layers and
-who may import whom:
+Layers and who may import whom:
 
 ```
 packages/kern/src/

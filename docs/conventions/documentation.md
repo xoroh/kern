@@ -1,4 +1,4 @@
-# Documentation rules (trimmed governance)
+# Documentation rules
 
 Status: draft
 
