@@ -25,7 +25,9 @@ Kern takes MD3's **structure, color system, and rigor** (semantic color roles, t
 
 ## Philosophy
 
-Kern is a working tool, not a showcase. It is used by people doing real work — dispatching rides, managing fleets, coordinating drivers, running operations on the move. Every decision is filtered through one question: **does this help the operator move faster and make fewer mistakes?**
+Kern is a working tool, not a showcase. It is used by people doing real work — ops consoles, customer apps, field tools. Every decision is filtered through one question: **does this help the user move faster and make fewer mistakes?**
+
+Domain needs are never baked into the core. A use case (mobility, fleet, retail…) ships as a **block**: composed components + a preset theme on top of the neutral core (`packages/kern/src/blocks/<usecase>/`). Blocks depend on core; core never depends on blocks.
 
 MD3 gives Kern three things it keeps:
 - **Semantic roles** — never hardcode a hex; use a role (`primary`, `on-surface`, `surface-container`, `outline`) so light/dark and contrast modes just work.

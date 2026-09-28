@@ -1,6 +1,6 @@
 # Kern UI — by Xoroh
 
-Design system for mobility. Components, theme tokens, and docs for taxi and related products.
+M3-based design system. Neutral core + use-case blocks (mobility first).
 
 - Docs + playground: https://ui.xoroh.org
 - Hub: https://xoroh.org
