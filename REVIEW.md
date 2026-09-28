@@ -53,6 +53,7 @@
 - 2026-09-28 @fb94d1a — native executes: Jest + RN 0.87 manual preset (mock bridge, haste→Platform map, IS_REACT_ACT_ENVIRONMENT), 4 render tests green.
 - 2026-09-28 @3cd749c — manifest native-button true-dupe eliminated (27 entries, zero dupes, lint-clean generator).
 - 2026-09-28 @18f1fd3 — role layer landed: full light/dark tables, shape/type/elevation/motion/states/spacing in tokens, generated CSS with `.dark` + `@theme inline`, components on role vars. Remaining: contrast modes, full 15-style scale, app-token bridge, registry functions.
+- 2026-09-28 @0dcfc8a — token completion: full 15-style scale, app-token bridge aliases, native `useKernTheme().scheme`, contrast certification script (26/27 pass; success fixed green-700, all pass).
 
 ---
 
