@@ -1,12 +1,10 @@
 # AGENTS.md — Kern UI (`xoroh/kern`)
 
-Bun monorepo. `bun install` to start.
+Bun monorepo. `bun install` to start. Never commit secrets.
 
-Before substantive work, load the matching skill — specifics live there,
-not here:
+One topic per line — load the skill, specifics live there:
 
-- UI/components/tokens/theming/audits → `skills/kern/SKILL.md`
-- Keeping docs updated (what goes where, skill maintenance) → `skills/docs/SKILL.md`
+- Design (UI, tokens, theming, audits) → `skills/kern/SKILL.md`
+- Docs & skills upkeep → `skills/docs/SKILL.md`
+- Releases → `docs/releases.md`
 - Token values → `packages/kern/src/theme/tokens.json`
-
-Always keep docs updated (see the docs skill). Never commit secrets.
