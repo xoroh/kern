@@ -25,6 +25,7 @@ export function RadioGroupItem({
   ...props
 }: RadioGroupItemProps) {
   return (
+    // biome-ignore lint/a11y/noLabelWithoutControl: control is nested inside (implicit association).
     <label
       data-slot="radio-group-item"
       className={cn(
