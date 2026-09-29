@@ -1,35 +1,40 @@
 # File ownership
 
-Status: draft
+Status: current
 
 Layers and who may import whom:
 
 ```
-packages/kern/src/
-  theme/        # tokens + presets — bottom layer, imports nothing in src/
-  utils/        # pure helpers (cn) — imports theme types only
-  react/        # React components — imports theme, utils
-  react-native/ # React Native components — imports theme, utils
-  blocks/       # use-case packs — imports core, never each other
+packages/kern-theme/src/     # tokens.json + themes/*.json + resolver, contrast, tones, functional, generated CSS
+packages/kern/src/           # web-only React package
+  components/                # web components — imports ../web-theme, ../utils, @xoroh/kern-theme
+  utils/                     # pure helpers (cn, cnState) — imports nothing
+  web-theme.ts               # web theme runtime — imports @xoroh/kern-theme
+  theme.css                  # 1-line wrapper: @import "@xoroh/kern-theme/theme"
+  tokens.ts                  # re-export of @xoroh/kern-theme
+packages/kern-native/src/    # React Native package — imports @xoroh/kern-theme only
+packages/kern-icons/src/     # icon registry + Icon renderers — imports nothing from the above
+packages/kern-start/src/     # web composition (blocks, scaffolds) — imports @xoroh/kern only
+packages/mcp/src/            # MCP server — generated registry + bundled token data
 ```
 
 ## Rules
 
-1. **Core never imports blocks.** `react/`, `react-native/`, `theme/`,
-   `utils/` must
-   not reference `blocks/<anything>`.
-2. **Blocks are isolated.** `blocks/mobility` cannot import
-   `blocks/<other>` — shared composition moves down into core.
-3. **Theme is the bottom.** Nothing in `theme/` imports sibling layers.
-4. **Barrel discipline.** Consumers use package exports only
-   (`@xoroh/kern`, `@xoroh/kern/native`, …). Deep paths (`…/src/…`) are
-   blocked by the `exports` map — restructure freely inside, keep exports
+1. **kern-theme is the bottom.** It imports nothing from the other packages.
+   Web and native resolve roles/tokens through `@xoroh/kern-theme`.
+2. **kern (web) never imports kern-native, and vice versa.** They are peers
+   around the theme; genuinely shared logic belongs in `kern-theme` (pure) or
+   in the consuming app.
+3. **Barrel discipline.** Consumers use package exports only (`@xoroh/kern`,
+   `@xoroh/kern-native`, `@xoroh/kern-theme`, …). Deep `src/` paths are
+   blocked by the `exports` map — restructure inside freely, keep exports
    stable.
-5. **Stubs stay unwired.** A component joins `index.ts` only when its
-   implementation lands, with docs page + changeset in the same change.
+4. **Stubs stay unwired.** A component joins `index.ts` only when its
+   implementation lands, with docs + changeset in the same change.
+5. **Domain needs** ship as `@xoroh/kern-theme` presets plus composed screens
+   in the consuming app — use-case packs are not a core concept here.
 
 ## Enforcement
 
-Review-enforced until violations earn automation (candidate:
-dependency-cruiser with the rules above). No eslint in this repo yet —
-do not add lint machinery for boundaries alone.
+Review-enforced until violations earn automation (candidate: dependency-cruiser
+with the rules above). Do not add lint machinery for boundaries alone.

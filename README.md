@@ -1,25 +1,27 @@
 # Kern UI — by Xoroh
 
-Open design system implementing Material Design 3: tokens, components,
-blocks, showcase site, and tooling — Apache-2.0 licensed, human- and AI-usable.
-M3 is the ruleset Kern follows, not what it is.
+Status: current
 
-- Showcase + playground: https://kern.xoroh.org
+Open design system based on Material Design 3: tokens, web and native
+components, documentation, and tooling. MIT licensed and usable by
+people and AI agents.
+
+- Documentation: https://kern.xoroh.org
 - Hub: https://xoroh.org
 
 ## Structure
 
-- `apps/site/` — kern.xoroh.org (TanStack Start: component docs + playground)
-- `apps/mobile/` — "Kern" (Expo: native showcase + theme switcher)
-- `packages/kern/` — the library, single package with subpath exports:
-  - `@xoroh/kern` — web (React, on Base UI)
-  - `@xoroh/kern/native` — mobile (React Native, StyleSheet + tokens)
-  - `@xoroh/kern/theme` + `@xoroh/kern/tokens` — shared theme (CSS + TS, generated from `tokens.json`)
-- `packages/kern-emdash/` — EmDash adapter (`@xoroh/kern-emdash`): Astro integration + block plugin
-- `packages/cli/` — installer placeholder (`kern add <component>`)
+- `apps/site/` — kern.xoroh.org (TanStack Start: component docs and live examples)
+- `apps/mobile/` — "Kern" (empty Expo host with native theme and font wiring)
+- `packages/kern-theme/` — `@xoroh/kern-theme`: tokens + themes + tones + feedback spec (platform-free)
+- `packages/kern/` — `@xoroh/kern`: web components (React, on Base UI)
+- `packages/kern-native/` — `@xoroh/kern-native`: React Native components (StyleSheet + tokens)
+- `packages/kern-icons/` — `@xoroh/kern-icons`: multi-set icon registry + `Icon` (web + native)
+- `packages/kern-start/` — `@xoroh/kern-start`: web composition (blocks, navigation, panes, scaffolds)
+- `packages/cli/` — private, reserved for a future installer CLI
 - `packages/mcp/` — MCP server (`@xoroh/kern-mcp`): list/get components, tokens, audits
 - `.agents/skills/` — agent skills (kern design + docs upkeep)
 
 ## License
 
-Apache License 2.0 — see `LICENSE`.
+MIT License — see `LICENSE`.

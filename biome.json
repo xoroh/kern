@@ -27,5 +27,25 @@
         "organizeImports": "on"
       }
     }
-  }
+  },
+  "overrides": [
+    {
+      "includes": ["packages/mcp/src/component-sources.ts"],
+      "formatter": { "enabled": false },
+      "linter": { "enabled": false },
+      "assist": { "enabled": false }
+    },
+    {
+      "includes": ["packages/kern-icons/src/sets/**"],
+      "formatter": { "enabled": false },
+      "linter": { "enabled": false },
+      "assist": { "enabled": false }
+    },
+    {
+      "includes": ["**/routeTree.gen.ts"],
+      "formatter": { "enabled": false },
+      "linter": { "enabled": false },
+      "assist": { "enabled": false }
+    }
+  ]
 }

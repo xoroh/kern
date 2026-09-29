@@ -1,0 +1,14 @@
+{
+  "id": "brand",
+  "name": "Brand template",
+  "description": "Copy this preset and add reviewed role overrides for a brand.",
+  "extends": "m3",
+  "template": true,
+  "overrides": {
+    "color": {
+      "light": {},
+      "dark": {}
+    },
+    "shape": {}
+  }
+}

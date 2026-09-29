@@ -1,0 +1,15 @@
+import brand from "./themes/brand.json";
+import m3 from "./themes/m3.json";
+import sharp from "./themes/sharp.json";
+import data from "./tokens.json";
+
+/** Reference/system tokens. tokens.json is the canonical data source. */
+export const tokens = data;
+export type KernTokens = typeof tokens;
+
+/** Copyable named presets, shared by apps, docs, and automation. */
+export const themes = { m3, sharp, brand } as const;
+export type KernThemePresets = typeof themes;
+
+// Pure resolver is safe to import from web and native code.
+export * from "./resolve";

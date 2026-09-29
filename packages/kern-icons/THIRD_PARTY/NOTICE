@@ -1,0 +1,20 @@
+@xoroh/kern-icons
+Copyright (c) 2026 Xoroh
+
+This product includes generated icon path data derived from Material Symbols.
+
+  Material Symbols
+  Copyright 2022 The Material Symbols Authors
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use these files except in compliance with the License.
+  You may obtain a copy of the License in THIRD_PARTY/Apache-2.0.txt or at
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Canonical source: https://fonts.google.com/icons
+  Upstream extraction: https://github.com/marella/material-symbols
+  Distributed as: @material-symbols/svg-400@0.47.2 (style "rounded", wght 400)
+
+The path data in src/sets/** is re-based from the upstream 960-unit grid onto
+a 24-unit grid at build time. It is redistributed under the Apache License,
+Version 2.0; the terms are reproduced in THIRD_PARTY/Apache-2.0.txt. The
+remainder of this package is licensed under the MIT License (see LICENSE).

@@ -1,0 +1,15 @@
+# Reviewers required for every change.
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/managing-code-owners-for-your-repository
+#
+# The org owning this repo is `xoroh` (github.com/xoroh, an Organization).
+# CODEOWNERS needs a user or team slug — `@xoroh/kern` assumes the
+# conventional team name for this repo. Rename to your real maintainer
+# team/user (or delete this file) before enforcing code-owner reviews.
+
+* @xoroh/kern
+
+# Generated artifacts: their generators own them.
+packages/mcp/src/manifest.ts @xoroh/kern
+packages/mcp/src/component-sources.ts @xoroh/kern
+packages/kern/src/theme/tokens.css @xoroh/kern
+docs/components.md @xoroh/kern

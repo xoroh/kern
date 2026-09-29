@@ -1,10 +1,19 @@
-node_modules
-dist
-.DS_Store
+# Secrets
+.env
+.env.*
+!.env.example
 
-# TanStack Router generated route tree + Cloudflare local state
-apps/site/src/routeTree.gen.ts
-apps/site/.wrangler
+# Dependencies
+node_modules/
 
-# Local-only reminders, never published
+# Builds
+dist/
+.expo/
+.wrangler/
+
+# Tooling
 TODO.md
+*.tsbuildinfo
+
+# Assets cache (synced icon sources)
+packages/kern-icons/assets/material/

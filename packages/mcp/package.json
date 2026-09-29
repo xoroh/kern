@@ -1,7 +1,7 @@
 {
   "name": "@xoroh/kern-mcp",
   "version": "0.0.0",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "author": "Xoroh",
   "repository": {
     "type": "git",
@@ -25,7 +25,10 @@
   "scripts": {
     "build": "bun build src/index.ts --outdir dist --target node --format esm",
     "start": "bun src/index.ts",
-    "prepublishOnly": "bun run build"
+    "prepublishOnly": "bun run build",
+    "test": "bun test src/manifest.test.ts",
+    "typecheck": "tsc --noEmit",
+    "check:publish": "publint && attw --pack --ignore-rules=no-resolution"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.30.1",

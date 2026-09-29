@@ -1,0 +1,26 @@
+{
+  "$comment": "Theme catalog used by the MCP server and tooling. Add a theme by adding its file and one entry here.",
+  "themes": [
+    {
+      "id": "m3",
+      "file": "m3.json",
+      "name": "M3",
+      "description": "Default. Friendly rounded M3 expression.",
+      "template": false
+    },
+    {
+      "id": "sharp",
+      "file": "sharp.json",
+      "name": "Sharp",
+      "description": "Premium sharp-edge preset.",
+      "template": false
+    },
+    {
+      "id": "brand",
+      "file": "brand.json",
+      "name": "Brand",
+      "description": "Customer template. Copy to themes/<customer>.json and fill in.",
+      "template": true
+    }
+  ]
+}

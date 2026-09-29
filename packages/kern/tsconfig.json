@@ -9,7 +9,7 @@
     "strict": true,
     "skipLibCheck": true,
     "noEmit": true,
-    "types": ["node", "jest"]
+    "types": ["node", "jest", "@testing-library/jest-dom"]
   },
   "include": ["src", "vitest.config.ts", "vitest.setup.ts"]
 }

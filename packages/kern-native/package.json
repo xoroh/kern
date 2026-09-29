@@ -1,0 +1,89 @@
+{
+  "name": "@xoroh/kern-native",
+  "version": "0.0.0",
+  "license": "MIT",
+  "author": "Xoroh",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xoroh/kern.git",
+    "directory": "packages/kern-native"
+  },
+  "homepage": "https://kern.xoroh.org",
+  "bugs": "https://github.com/xoroh/kern/issues",
+  "engines": {
+    "node": ">=20.19"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --dts-resolve --external react --external react-native --out-dir dist --clean",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "check:publish": "publint && attw --pack --ignore-rules=no-resolution",
+    "prepare": "bun run build",
+    "test:jest": "NODE_OPTIONS=--preserve-symlinks jest"
+  },
+  "exports": {
+    ".": {
+      "react-native": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./native": {
+      "react-native": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "dependencies": {
+    "@xoroh/kern-theme": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-native": ">=0.86.0 <0.89"
+  },
+  "devDependencies": {
+    "@babel/runtime": "^7.28.0",
+    "@react-native/babel-preset": "^0.87.1",
+    "@testing-library/react-native": "^14.0.1",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^26.6.3",
+    "@types/react": "^19.3.0",
+    "jest": "^30.5.2",
+    "react": "^19.3.0",
+    "react-native": "^0.87.1",
+    "react-test-renderer": "^19.3.0",
+    "tsup": "^8.5.1",
+    "typescript": "5.9.3",
+    "vitest": "^5.0.2"
+  }
+}

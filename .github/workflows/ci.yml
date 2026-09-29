@@ -12,6 +12,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
 
@@ -19,14 +20,57 @@ jobs:
         with:
           bun-version: 1.3.8
 
-      - run: bun install --frozen-lockfile
+      - run: bun install --frozen-lockfile --ignore-scripts
 
       - name: Lint and format check
         run: bun run lint
 
+      - name: Check contrast and token sources
+        run: bun run check:contrast
+
+      - name: Check M3 contract
+        run: bun run check:m3
+
+      - name: Check icon pipeline
+        run: bun run icons:check
+
+      - name: Check generated files are in sync
+        run: |
+          bun run generate:tokens
+          bun run generate:tones
+          bun run generate:motion
+          bun run generate:components
+          bun run icons:generate
+          git add -N .
+          git diff --exit-code -- packages/kern-theme/src/tokens.css packages/kern-theme/src/tones.css packages/kern-theme/src/motion.css docs/components.md packages/mcp/src/manifest.ts packages/mcp/src/component-sources.ts packages/kern-icons/src/sets
+
       - name: Build MCP server
         run: bun run build
         working-directory: packages/mcp
+
+      - name: Typecheck MCP server
+        run: bun run typecheck
+        working-directory: packages/mcp
+
+      - name: Test MCP manifest
+        run: bun run test
+        working-directory: packages/mcp
+
+      - name: Build Kern theme
+        run: bun run build
+        working-directory: packages/kern-theme
+
+      - name: Test Kern theme
+        run: bun run test
+        working-directory: packages/kern-theme
+
+      - name: Typecheck Kern theme
+        run: bun run typecheck
+        working-directory: packages/kern-theme
+
+      - name: Check Kern theme package publishing
+        run: bun run check:publish
+        working-directory: packages/kern-theme
 
       - name: Build Kern library
         run: bun run build
@@ -36,13 +80,65 @@ jobs:
         run: bun run test
         working-directory: packages/kern
 
-      - name: Test Kern native render
-        run: bun run test:native
-        working-directory: packages/kern
-
       - name: Typecheck Kern library
         run: bun run typecheck
         working-directory: packages/kern
+
+      - name: Check Kern package publishing
+        run: bun run check:publish
+        working-directory: packages/kern
+
+      - name: Build Kern icons
+        run: bun run build
+        working-directory: packages/kern-icons
+
+      - name: Test Kern icons
+        run: bun run test
+        working-directory: packages/kern-icons
+
+      - name: Typecheck Kern icons
+        run: bun run typecheck
+        working-directory: packages/kern-icons
+
+      - name: Check Kern icons package publishing
+        run: bun run check:publish
+        working-directory: packages/kern-icons
+
+      - name: Build Kern start
+        run: bun run build
+        working-directory: packages/kern-start
+
+      - name: Test Kern start
+        run: bun run test
+        working-directory: packages/kern-start
+
+      - name: Typecheck Kern start
+        run: bun run typecheck
+        working-directory: packages/kern-start
+
+      - name: Check Kern start package publishing
+        run: bun run check:publish
+        working-directory: packages/kern-start
+
+      - name: Build Kern native
+        run: bun run build
+        working-directory: packages/kern-native
+
+      - name: Test Kern native render
+        run: bun run test
+        working-directory: packages/kern-native
+
+      - name: Typecheck Kern native
+        run: bun run typecheck
+        working-directory: packages/kern-native
+
+      - name: Check Kern native package publishing
+        run: bun run check:publish
+        working-directory: packages/kern-native
+
+      - name: Check MCP package publishing
+        run: bun run check:publish
+        working-directory: packages/mcp
 
       - name: Typecheck site
         run: bun run typecheck
@@ -52,11 +148,10 @@ jobs:
         run: bun run typecheck
         working-directory: apps/mobile
 
+      - name: Prove Metro bundles the mobile app
+        run: bun run bundle
+        working-directory: apps/mobile
+
       - name: Build site
         run: bun run build
         working-directory: apps/site
-
-      - name: Validate agent skills
-        run: |
-          bun x skills-ref validate ./.agents/skills/kern
-          bun x skills-ref validate ./.agents/skills/docs

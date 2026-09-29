@@ -1,7 +1,7 @@
 {
   "name": "kern",
   "version": "0.0.0",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "private": true,
   "packageManager": "bun@1.3.8",
   "engines": {
@@ -13,18 +13,32 @@
     "release": "changeset publish",
     "lint": "biome check .",
     "format": "biome check --write .",
-    "typecheck": "bun run --filter @xoroh/kern typecheck",
-    "test": "bun run --filter @xoroh/kern test",
-    "build": "bun run --filter @xoroh/kern build"
+    "generate:tokens": "bun packages/kern-theme/scripts/gen-css.mjs",
+    "generate:tones": "bun packages/kern-theme/scripts/gen-tones-css.mjs",
+    "generate:motion": "bun packages/kern-theme/scripts/gen-motion-css.mjs",
+    "generate:components": "bun packages/mcp/scripts/generate-manifest.mjs",
+    "icons:sync": "bun packages/kern-icons/tools/sync.ts",
+    "icons:generate": "bun packages/kern-icons/tools/generate.ts",
+    "icons:check": "bun packages/kern-icons/tools/check.ts",
+    "check:contrast": "bun packages/kern-theme/scripts/check-contrast.mjs",
+    "check:m3": "node scripts/check-m3.mjs",
+    "check:publish": "bun run --filter @xoroh/kern check:publish && bun run --filter @xoroh/kern-theme check:publish && bun run --filter @xoroh/kern-native check:publish && bun run --filter @xoroh/kern-icons check:publish && bun run --filter @xoroh/kern-start check:publish && bun run --filter @xoroh/kern-mcp check:publish",
+    "typecheck": "bun run --filter @xoroh/kern-theme typecheck && bun run --filter @xoroh/kern typecheck && bun run --filter @xoroh/kern-native typecheck && bun run --filter @xoroh/kern-icons typecheck && bun run --filter @xoroh/kern-start typecheck",
+    "test": "bun run --filter @xoroh/kern-theme test && bun run --filter @xoroh/kern test && bun run --filter @xoroh/kern-icons test && bun run --filter @xoroh/kern-start test",
+    "test:native": "bun run --filter @xoroh/kern-native test",
+    "test:all": "bun run test && bun run test:native",
+    "build": "bun run generate:tokens && bun run generate:tones && bun run generate:motion && bun run generate:components && bun run --filter @xoroh/kern-theme build && bun run --filter @xoroh/kern build && bun run --filter @xoroh/kern-native build && bun run --filter @xoroh/kern-icons build && bun run --filter @xoroh/kern-start build"
   },
   "workspaces": [
     "apps/*",
     "packages/*"
   ],
   "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
     "@biomejs/biome": "^2.5.14",
     "@changesets/cli": "^3.0.3",
     "culori": "^4.0.2",
-    "typescript": "6"
+    "publint": "^0.3.24",
+    "typescript": "5.9.3"
   }
 }

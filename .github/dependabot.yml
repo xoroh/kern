@@ -1,0 +1,36 @@
+version: 2
+updates:
+  # Workspace package.json + bun.lock version ranges (bun.lock is not npm's
+  # lockfile, so dependabot updates the manifests and we re-lock with
+  # `bun install` when a PR lands).
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10
+    labels:
+      - dependencies
+    groups:
+      tanstack:
+        patterns:
+          - "@tanstack/*"
+      base-ui:
+        patterns:
+          - "@base-ui/*"
+      expo:
+        patterns:
+          - "expo*"
+          - "@expo/*"
+          - "react-native*"
+      types:
+        patterns:
+          - "@types/*"
+          - "typescript*"
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    labels:
+      - dependencies
