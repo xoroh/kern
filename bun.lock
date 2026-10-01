@@ -39,8 +39,7 @@
         "@xoroh/kern": "workspace:*",
         "@xoroh/kern-icons": "workspace:*",
         "@xoroh/kern-native": "workspace:*",
-        "@xoroh/kern-start": "workspace:*",
-        "@xoroh/kern-theme": "workspace:*",
+        "@xoroh/kern-tokens": "workspace:*",
         "react": "^19.3.0",
         "react-dom": "^19.3.0",
         "react-native-web": "^0.21.0",
@@ -79,7 +78,7 @@
         "@types/node": "^26.6.3",
         "@types/react": "^19.0.0",
         "@types/react-dom": "^19.0.0",
-        "@xoroh/kern-theme": "workspace:*",
+        "@xoroh/kern-tokens": "workspace:*",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "jsdom": "^28.0.0",
@@ -91,7 +90,7 @@
       },
       "peerDependencies": {
         "@base-ui/react": "^1.8.0",
-        "@xoroh/kern-theme": "*",
+        "@xoroh/kern-tokens": "*",
         "react": ">=18",
         "react-dom": ">=18",
       },
@@ -131,7 +130,7 @@
         "@types/jest": "^30.0.0",
         "@types/node": "^26.6.3",
         "@types/react": "^19.3.0",
-        "@xoroh/kern-theme": "workspace:*",
+        "@xoroh/kern-tokens": "workspace:*",
         "jest": "^30.5.2",
         "jest-util": "30.5.1",
         "react": "^19.3.0",
@@ -142,39 +141,28 @@
         "vitest": "^5.0.2",
       },
       "peerDependencies": {
-        "@xoroh/kern-theme": "*",
+        "@xoroh/kern-tokens": "*",
         "react": "^19.0.0",
         "react-native": ">=0.86.0 <0.89",
       },
     },
-    "packages/kern-start": {
-      "name": "@xoroh/kern-start",
+    "packages/kern-primitives": {
+      "name": "@xoroh/kern-primitives",
       "version": "0.0.0",
       "devDependencies": {
-        "@testing-library/react": "^16.3.0",
         "@types/node": "^26.6.3",
         "@types/react": "^19.0.0",
-        "@types/react-dom": "^19.0.0",
-        "@xoroh/kern": "workspace:*",
-        "jsdom": "^28.0.0",
         "react": "^19.0.0",
-        "react-dom": "^19.0.0",
         "tsup": "^8.5.1",
         "typescript": "5.9.3",
         "vitest": "^5.0.2",
       },
       "peerDependencies": {
-        "@tanstack/react-router": ">=1",
-        "@xoroh/kern": "*",
         "react": ">=18",
-        "react-dom": ">=18",
       },
-      "optionalPeers": [
-        "@tanstack/react-router",
-      ],
     },
-    "packages/kern-theme": {
-      "name": "@xoroh/kern-theme",
+    "packages/kern-tokens": {
+      "name": "@xoroh/kern-tokens",
       "version": "0.0.0",
       "dependencies": {
         "@fontsource-variable/inter": "^5.3.0",
@@ -1098,9 +1086,9 @@
 
     "@xoroh/kern-native": ["@xoroh/kern-native@workspace:packages/kern-native"],
 
-    "@xoroh/kern-start": ["@xoroh/kern-start@workspace:packages/kern-start"],
+    "@xoroh/kern-primitives": ["@xoroh/kern-primitives@workspace:packages/kern-primitives"],
 
-    "@xoroh/kern-theme": ["@xoroh/kern-theme@workspace:packages/kern-theme"],
+    "@xoroh/kern-tokens": ["@xoroh/kern-tokens@workspace:packages/kern-tokens"],
 
     "abort-controller": ["abort-controller@3.0.0", "", { "dependencies": { "event-target-shim": "^5.0.0" } }, "sha512-h8lQ8tacZYnR3vNQTgibj+tODHI5/+l06Au2Pcriv/Gmet0eaj4TwWH41sO9wnHDiQsEj19q0drzdWdeAHtweg=="],
 
