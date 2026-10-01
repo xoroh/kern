@@ -15,13 +15,13 @@ export const button: ComponentDoc = {
       "variant: elevated · primary · tonal · outlined · ghost",
       "size: default · sm · icon",
     ],
-    // M3 assigns filled, tonal and outlined buttons to level 0 and the
-    // elevated button to level 1. kern ships no elevation token on the first
-    // three, and `m3-elevation.ts` calls a component that carries no token
-    // `null` — "surface". So the strip says surface, which is what renders,
-    // and the one variant that does lift is recorded in Customization rather
-    // than in the strip, which holds one value.
-    elevation: "surface",
+    // M3 tabulates buttons twice: "button (elevated)" at level 1 and
+    // "buttons (filled, tonal, outlined)" at level 0. kern's `variant` axis
+    // covers both rows, so `m3-elevation.ts` permits [0, 1] for this family.
+    // The default variant is `primary` (filled), which carries no elevation
+    // token and rests at level 0; `elevated` is the one that lifts, and it is
+    // recorded in Customization because the strip holds a single value.
+    elevation: 0,
   },
   parts: ["Button"],
   customization: {

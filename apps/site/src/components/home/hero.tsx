@@ -1,7 +1,20 @@
 import { buttonVariants, cn } from "@xoroh/kern";
+import { themes } from "@xoroh/kern-tokens";
 import { useState } from "react";
+import { COMPONENT_COUNT } from "../../generated/manifest";
 
 const COMMAND = "bun add @xoroh/kern";
+
+/**
+ * Every number on this card is derived, never typed.
+ *
+ * A hardcoded count is a value that goes stale silently, and this card proved
+ * it: it read "45 roles" while kern ships 58 (45 M3 + 13 kern), because it
+ * quoted the M3 subset as if it were the whole role space. The count now comes
+ * from the shipped scheme, so it cannot drift from the package. Consistency
+ * rule 2 for marketing surfaces: link the source, do not paste the value.
+ */
+const ROLE_COUNT = Object.keys(themes.m3.color.light).length;
 
 function Kicker({ children }: { children: React.ReactNode }) {
   return (
@@ -102,13 +115,16 @@ function ArtCard() {
       </svg>
       <div className="absolute right-6 bottom-6 left-6 flex flex-wrap items-center gap-2">
         <span className="rounded-(--md-sys-shape-corner-full) bg-(--md-sys-color-surface) px-4 py-1.5 text-sm font-medium text-(--md-sys-color-on-surface)">
-          45 roles
+          {ROLE_COUNT} color roles
+        </span>
+        <span className="rounded-(--md-sys-shape-corner-full) bg-(--md-sys-color-surface) px-4 py-1.5 text-sm font-medium text-(--md-sys-color-on-surface)">
+          {COMPONENT_COUNT} exports
         </span>
         <span className="rounded-(--md-sys-shape-corner-full) bg-(--md-sys-color-surface) px-4 py-1.5 text-sm font-medium text-(--md-sys-color-on-surface)">
           Web + Native
         </span>
         <span className="rounded-(--md-sys-shape-corner-full) bg-(--md-sys-color-surface) px-4 py-1.5 text-sm font-medium text-(--md-sys-color-on-surface)">
-          Agent-ready
+          Deviations registered
         </span>
       </div>
     </div>
@@ -132,7 +148,7 @@ export function Hero() {
               fontWeight: "var(--md-sys-typescale-display-large-font-weight)",
             }}
           >
-            Components, tokens, and docs from one source
+            Components, tokens and docs from one source
           </h1>
           <p
             className="mt-5 max-w-xl text-pretty text-(--md-sys-color-on-surface-variant) sm:text-lg"
@@ -141,8 +157,10 @@ export function Hero() {
               lineHeight: "var(--md-sys-typescale-body-large-line-height)",
             }}
           >
-            A Material 3 design system for React and React Native — with the
-            reference, tokens, and agent skills built in.
+            A Material 3 system for React and React Native. Every departure from
+            the Material 3 spec is declared and registered as a deviation id, so
+            strictness is something you can audit rather than something we ask
+            you to trust.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
             <a
