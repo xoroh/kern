@@ -1,3 +1,4 @@
+import { useControllableState } from "@xoroh/kern-primitives";
 import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
 import {
@@ -8,7 +9,6 @@ import {
   type ViewStyle,
 } from "react-native";
 import { useKernTheme } from "../theme";
-import { useControllableState } from "../utils/useControllableState";
 
 // M3 lists FOUR chip variants (m3.material.io/components/chips/overview):
 // assist, filter, input, suggestion. `input` was missing here too.

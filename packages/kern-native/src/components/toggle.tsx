@@ -1,8 +1,8 @@
+import { useControllableState } from "@xoroh/kern-primitives";
 import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
 import { Pressable, type PressableProps, type ViewStyle } from "react-native";
 import { useKernScheme } from "../theme";
-import { useControllableState } from "../utils/useControllableState";
 import { Text } from "./text";
 
 export function toggleStyles(

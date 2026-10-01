@@ -1,3 +1,4 @@
+import { useControllableState } from "@xoroh/kern-primitives";
 import { createContext, type ReactNode, useContext } from "react";
 import {
   Modal,
@@ -9,7 +10,6 @@ import {
   type ViewProps,
 } from "react-native";
 import { useKernScheme } from "../theme";
-import { useControllableState } from "../utils/useControllableState";
 import { Text } from "./text";
 
 /**

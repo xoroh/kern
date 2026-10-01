@@ -1,3 +1,4 @@
+import { useControllableState } from "@xoroh/kern-primitives";
 import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
 import {
   Pressable,
@@ -6,7 +7,6 @@ import {
   type ViewStyle,
 } from "react-native";
 import { useKernTheme } from "../theme";
-import { useControllableState } from "../utils/useControllableState";
 
 export function switchStyles(
   on: boolean,

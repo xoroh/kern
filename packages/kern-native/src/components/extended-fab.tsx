@@ -1,3 +1,4 @@
+import { useControllableState } from "@xoroh/kern-primitives";
 import {
   forwardRef,
   type ReactNode,
@@ -7,7 +8,6 @@ import {
 } from "react";
 import { Pressable, type PressableProps, View } from "react-native";
 import { useKernScheme } from "../theme";
-import { useControllableState } from "../utils/useControllableState";
 import { fabStyles } from "./fab";
 import { Text } from "./text";
 

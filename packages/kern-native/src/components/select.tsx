@@ -1,3 +1,4 @@
+import { useControllableState } from "@xoroh/kern-primitives";
 import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
 import { useState } from "react";
 import {
@@ -9,7 +10,6 @@ import {
 } from "react-native";
 import { useKernScheme } from "../theme";
 import { overlayStyles } from "../utils/overlay-styles";
-import { useControllableState } from "../utils/useControllableState";
 import { menuStyles } from "./menu";
 import { Text } from "./text";
 

@@ -1,3 +1,4 @@
+import { useControllableState } from "@xoroh/kern-primitives";
 import {
   type ResolvedTheme,
   resolveThemeDetails,
@@ -13,7 +14,6 @@ import {
   type ViewStyle,
 } from "react-native";
 import { useKernScheme, useKernTheme } from "../theme";
-import { useControllableState } from "../utils/useControllableState";
 import { Chip } from "./chip";
 import { Text } from "./text";
 

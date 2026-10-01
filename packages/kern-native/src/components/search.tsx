@@ -1,3 +1,4 @@
+import { useControllableState } from "@xoroh/kern-primitives";
 import { useState } from "react";
 import {
   Pressable,
@@ -9,7 +10,6 @@ import {
   type ViewStyle,
 } from "react-native";
 import { useKernScheme } from "../theme";
-import { useControllableState } from "../utils/useControllableState";
 import { Text } from "./text";
 
 const staticStyles = StyleSheet.create({

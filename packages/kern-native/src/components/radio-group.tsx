@@ -1,3 +1,4 @@
+import { useControllableState } from "@xoroh/kern-primitives";
 import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
 import { createContext, type ReactNode, useContext } from "react";
 import {
@@ -9,7 +10,6 @@ import {
   type ViewStyle,
 } from "react-native";
 import { useKernTheme } from "../theme";
-import { useControllableState } from "../utils/useControllableState";
 
 type RadioGroupContextValue = {
   value: string | undefined;

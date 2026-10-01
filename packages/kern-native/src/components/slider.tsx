@@ -1,3 +1,4 @@
+import { useControllableState } from "@xoroh/kern-primitives";
 import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
 import { useState } from "react";
 import {
@@ -8,7 +9,6 @@ import {
   type ViewStyle,
 } from "react-native";
 import { useKernScheme } from "../theme";
-import { useControllableState } from "../utils/useControllableState";
 
 export function sliderStyles(
   ratio: number,

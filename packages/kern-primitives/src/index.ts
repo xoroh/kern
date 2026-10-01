@@ -29,11 +29,12 @@
  * ## Order of extraction
  *
  * 1. this package + the gate, proven by an injected violation
- * 2. `useControllableState` — 21 consumers, already pure
+ * 2. `useControllableState` — 21 consumers. It existed as two byte-identical
+ *    copies, one per renderer; both now point here.
  * 3. the `SheetSurface` file split (done, `a835466`)
  * 4. surfaces, modality, roving focus, collection/selection
  *
  * Step 1 is this file. The rest follows.
  */
 
-export {};
+export { type StateAction, useControllableState } from "./useControllableState";

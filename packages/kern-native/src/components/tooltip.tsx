@@ -1,7 +1,7 @@
+import { useControllableState } from "@xoroh/kern-primitives";
 import type { ReactNode } from "react";
 import { Pressable, type PressableProps, StyleSheet, View } from "react-native";
 import { useKernScheme } from "../theme";
-import { useControllableState } from "../utils/useControllableState";
 import { Text } from "./text";
 
 /**
