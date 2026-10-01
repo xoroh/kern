@@ -24,6 +24,7 @@
     "check:m3": "node scripts/check-m3.mjs",
     "check:parity": "node scripts/check-parity.mjs",
     "check:layers": "node scripts/check-layers.mjs",
+    "check:primitives": "node scripts/check-primitives.mjs",
     "check:publish": "bun run --filter @xoroh/kern check:publish && bun run --filter @xoroh/kern-tokens check:publish && bun run --filter @xoroh/kern-native check:publish && bun run --filter @xoroh/kern-icons check:publish && bun run --filter @xoroh/kern-mcp check:publish && bun run preflight:publish",
     "preflight:publish": "node scripts/preflight-publish.mjs",
     "typecheck": "bun run --filter @xoroh/kern-tokens typecheck && bun run --filter @xoroh/kern typecheck && bun run --filter @xoroh/kern-native typecheck && bun run --filter @xoroh/kern-icons typecheck",

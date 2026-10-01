@@ -37,6 +37,9 @@ jobs:
       - name: Check the package layering (D-034)
         run: bun run check:layers
 
+      - name: Check the primitives boundary
+        run: bun run check:primitives
+
       - name: Check publishable packages are packable
         run: bun run preflight:publish
 
