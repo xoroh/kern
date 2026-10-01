@@ -3,7 +3,7 @@ import type { ComponentPropsWithRef } from "react";
 import { cn } from "../utils/cn";
 
 const fabVariants = cva(
-  "kern-fab relative inline-flex shrink-0 items-center justify-center gap-2 rounded-(--md-sys-shape-corner-large) text-sm font-medium shadow-(--md-sys-elevation-level1) transition-colors outline-none select-none focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary) disabled:pointer-events-none disabled:opacity-50 after:absolute after:-inset-2 after:content-[''] [&_svg]:size-5 [&_svg]:shrink-0",
+  "kern-fab relative inline-flex shrink-0 items-center justify-center gap-2 rounded-(--md-sys-shape-corner-large) text-sm font-medium shadow-(--md-sys-elevation-level3) transition-colors outline-none select-none focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary) disabled:pointer-events-none disabled:opacity-50 after:absolute after:-inset-2 after:content-[''] [&_svg]:size-5 [&_svg]:shrink-0",
   {
     variants: {
       variant: {

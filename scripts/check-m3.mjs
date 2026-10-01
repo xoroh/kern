@@ -7,6 +7,10 @@ const { M3_ROLES, KERN_EXTRA_ROLES, auditRoleInventory } = await import(
   join(ROOT, "packages/kern-theme/src/m3-roles.ts")
 );
 
+const { auditElevation, M3_ELEVATION_COMPONENTS } = await import(
+  join(ROOT, "packages/kern-theme/src/m3-elevation.ts")
+);
+
 const m3 = JSON.parse(
   readFileSync(join(ROOT, "packages/kern-theme/src/themes/m3.json"), "utf8"),
 );
@@ -65,6 +69,10 @@ const SCANNED = [
 ];
 
 const violations = [];
+
+// Resting-elevation conformance, filled in by leg 5b and reported in the summary.
+let elevationConformant = 0;
+let elevationTotal = 0;
 
 // 0. ROLE INVENTORY (D-029 / P1-0). Before this existed the gate had no target at all:
 // it only asserted that roles *referenced in source* exist, so a role deleted from
@@ -229,6 +237,58 @@ for (const entry of inventory.missingDeviation) {
   }
 }
 
+// 5b. RESTING ELEVATION (P2). M3 publishes a per-component resting-level table at
+// /styles/elevation/tokens; `m3-elevation.ts` is the transcribed target. Resolution is
+// TRANSITIVE through local imports on purpose: `menu`/`context-menu`/`menubar` carry their
+// elevation via `menu-classes.ts`, so a per-file grep reports them as carrying none and the
+// gate would pass on a component that is actually wrong.
+{
+  const webDir = join(ROOT, "packages/kern/src/components");
+  const closureOf = (file, seen = new Set()) => {
+    if (seen.has(file)) return seen;
+    seen.add(file);
+    const full = join(webDir, file);
+    if (!existsSync(full)) return seen;
+    for (const [, spec] of readFileSync(full, "utf8").matchAll(
+      /from\s+"\.\/([^"]+)"/g,
+    )) {
+      closureOf(spec.endsWith(".ts") ? spec : `${spec}.tsx`, seen);
+    }
+    return seen;
+  };
+
+  let conformant = 0;
+  for (const component of Object.keys(M3_ELEVATION_COMPONENTS)) {
+    const levels = new Set();
+    for (const file of closureOf(`${component}.tsx`)) {
+      const full = join(webDir, file);
+      if (!existsSync(full)) continue;
+      for (const [, level] of readFileSync(full, "utf8").matchAll(
+        /--md-sys-elevation-level(\d)/g,
+      )) {
+        levels.add(Number(level));
+      }
+    }
+    // Two levels in one closure means the component straddles spec rows; report
+    // the set rather than silently picking one.
+    if (levels.size > 1) {
+      violations.push(
+        `${component}: resolves elevation levels {${[...levels].sort().join(", ")}} ` +
+          `across its import closure — M3 assigns one resting level per component`,
+      );
+      continue;
+    }
+    const problems = auditElevation(
+      component,
+      levels.size === 1 ? [...levels][0] : null,
+    );
+    violations.push(...problems);
+    if (problems.length === 0 && levels.size === 1) conformant++;
+  }
+  elevationConformant = conformant;
+  elevationTotal = Object.keys(M3_ELEVATION_COMPONENTS).length;
+}
+
 // 6. GENERATED OUTPUT FRESHNESS (P1-7 / P1-8). `md.comp.*` and the Tailwind adapter are
 // generated, never hand-edited. If the committed CSS no longer matches what the
 // generators produce from tokens.json, the "one source of truth" invariant is broken —
@@ -290,7 +350,8 @@ console.log(
   `M3 contract passes: ${inventory.m3Present}/${M3_ROLES.length} M3 roles present ` +
     `(+${Object.keys(KERN_EXTRA_ROLES).length} kern deviations), ` +
     `${Object.keys(tokens.typography.scale).length}+${Object.keys(tokens.typography.scaleEmphasized ?? {}).length} typescale, ` +
-    `${Object.keys(tokens.spacing).length} spacing, elevation 0-5, shape 10, ` +
+    `${Object.keys(tokens.spacing).length} spacing, elevation 0-5, ` +
+    `resting elevation ${elevationConformant}/${elevationTotal} components, shape 10, ` +
     `motion ${Object.keys(tokens.motion.schemes ?? {}).join("/")}, ` +
     `roles complete in every scheme, tokens only, shape scale only`,
 );

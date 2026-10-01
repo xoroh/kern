@@ -40,7 +40,7 @@ import { cn } from "../utils/cn";
  *   longer rendered, so the name comes from `label` on the element. A collapsed
  *   FAB that left the label in the a11y tree would announce a longer name than
  *   it shows; one with neither announces nothing.
- * - Resting elevation is the plain FAB's `elevation-level1` and the shape is
+ * - Resting elevation is the plain FAB's `elevation-level3` and the shape is
  *   `corner-large`: the extended form is the same button at a different width,
  *   not a second component.
  */
@@ -134,7 +134,7 @@ export function ExtendedFab({
       aria-label={label}
       disabled={disabled}
       className={cn(
-        "kern-extended-fab relative inline-flex h-14 shrink-0 items-center gap-3 rounded-(--md-sys-shape-corner-large) pr-5 pl-4 text-(--md-sys-color-on-primary) shadow-(--md-sys-elevation-level1) transition-[padding] outline-none select-none focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary) disabled:pointer-events-none disabled:opacity-50 after:absolute after:-inset-2 after:content-[''] [&_svg]:size-6 [&_svg]:shrink-0",
+        "kern-extended-fab relative inline-flex h-14 shrink-0 items-center gap-3 rounded-(--md-sys-shape-corner-large) pr-5 pl-4 text-(--md-sys-color-on-primary) shadow-(--md-sys-elevation-level3) transition-[padding] outline-none select-none focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary) disabled:pointer-events-none disabled:opacity-50 after:absolute after:-inset-2 after:content-[''] [&_svg]:size-6 [&_svg]:shrink-0",
         isCollapsed && "w-14 justify-center px-0",
         className,
       )}

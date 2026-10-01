@@ -52,7 +52,7 @@ export function SheetContent({
         <DialogPrimitive.Popup
           data-slot="sheet-content"
           className={cnState(
-            "kern-sheet-popup flex h-full w-[min(24rem,calc(100vw-2rem))] flex-col gap-2 overflow-y-auto border-(--md-sys-color-outline) bg-(--md-sys-color-surface) p-6 shadow-(--md-sys-elevation-level2) outline-none " +
+            "kern-sheet-popup flex h-full w-[min(24rem,calc(100vw-2rem))] flex-col gap-2 overflow-y-auto border-(--md-sys-color-outline) bg-(--md-sys-color-surface) p-6 shadow-(--md-sys-elevation-level1) outline-none " +
               (side === "right"
                 ? "rounded-l-(--md-sys-shape-corner-extra-large) border-l"
                 : "rounded-r-(--md-sys-shape-corner-extra-large) border-r"),

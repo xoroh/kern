@@ -13,10 +13,15 @@
  *   4. Regen freshness — a fresh in-memory emit must byte-match what is
  *      committed under `src/sets/**`. (Commit coverage is CI's job; this leg
  *      only proves the tree is not stale.)
+ *   5. Name reachability — every curated name must be reachable from a real
+ *      consumer, and every name a consumer references must be curated. Without
+ *      this leg the other four certify assets nothing renders: the P2 audit
+ *      (2026-10-01) measured 1340 curated icons against 43 consumed.
  */
 
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 import { buildCatalog } from "./lib/catalog";
 import {
@@ -157,6 +162,98 @@ function checkFreshness(): void {
   log(`regen freshness ok — ${files.size} generated files byte-match`);
 }
 
+/**
+ * Collects the icon names the repo actually references, from the two places a
+ * consumer can name a glyph: the semantic alias table (a decision surface) and
+ * `<Icon name="…">` call sites (a usage surface).
+ *
+ * Returns `referenced` (glyph names) plus `unknown` (names a consumer asks for
+ * that the curated set does not contain). `unknown` is the load-bearing half —
+ * it is what catches a hand-inlined glyph drifting off the catalogue, which is
+ * how `pencil` (not a Material name; the real ones are `edit*`) got into a test.
+ */
+function collectReferencedNames(allowlist: ReadonlySet<string>): {
+  referenced: Set<string>;
+  unknown: Array<{ name: string; where: string }>;
+} {
+  const repoRoot = path.resolve(PACKAGE_ROOT, "..", "..");
+  const referenced = new Set<string>();
+  const unknown: Array<{ name: string; where: string }> = [];
+
+  // A `<Icon name>` may be EITHER a curated glyph name OR a semantic alias —
+  // `resolveIconName` (core/naming.ts) tries `set:name`, then the alias table,
+  // then the bare name. So `name="attach"` is valid even though the glyph is
+  // `attach-file`. Checking aliases against the glyph allow-list would fail
+  // correct code, which is how this leg was wrong on its first run.
+  const aliasToGlyph = new Map<string, string>();
+  const semantic = path.join(PACKAGE_ROOT, "src/core/semantic.ts");
+  const semanticSource = readFileSync(semantic, "utf8");
+  for (const [, alias, glyph] of semanticSource.matchAll(
+    /(\w+):\s*"material:([a-z0-9_-]+)"/g,
+  )) {
+    aliasToGlyph.set(alias, glyph);
+  }
+
+  const record = (raw: string | undefined, where: string): void => {
+    if (raw === undefined) return;
+    const name = raw.trim();
+    if (name === "" || !/^[a-z0-9][a-z0-9_-]*$/.test(name)) return;
+    const glyph = aliasToGlyph.get(name) ?? name;
+    if (allowlist.has(glyph)) {
+      referenced.add(glyph);
+    } else {
+      unknown.push({ name, where });
+    }
+  };
+
+  // (a) the semantic alias table — every alias target must be a curated glyph.
+  for (const glyph of aliasToGlyph.values()) record(glyph, rel(semantic));
+
+  // (b) `<Icon name="glyph">` / `name={cond ? "a" : "b"}` across the workspace.
+  const walk = (dir: string): void => {
+    let entries: Array<{ name: string; isDirectory(): boolean }>;
+    try {
+      entries = readdirSync(dir, { withFileTypes: true });
+    } catch {
+      return;
+    }
+    for (const entry of entries) {
+      if (entry.name === "node_modules" || entry.name === "dist") continue;
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        walk(full);
+        continue;
+      }
+      if (!/\.tsx?$/.test(entry.name)) continue;
+      // This file documents the very syntax it scans for, so its own doc
+      // comments would otherwise register phantom references.
+      if (full === fileURLToPath(import.meta.url)) continue;
+      const source = readFileSync(full, "utf8");
+      const where = path.relative(repoRoot, full);
+      // Only `<Icon …>` call sites — a bare `name="…"` is far too ambiguous
+      // (HTML form fields use it), which is exactly how `email` and `viewport`
+      // were false positives in the P2 audit.
+      for (const call of source.matchAll(/<Icon\b[^>]*?>/g)) {
+        for (const [, literal] of call[0].matchAll(
+          /name=\{?"([a-z0-9_-]+)"?/g,
+        )) {
+          record(literal, where);
+        }
+        for (const ternary of call[0].matchAll(
+          /name=\{[^}]*?\?\s*"([a-z0-9_-]+)"\s*:\s*"([a-z0-9_-]+)"/g,
+        )) {
+          record(ternary[1], where);
+          record(ternary[2], where);
+        }
+      }
+    }
+  };
+  walk(path.join(repoRoot, "apps"));
+  walk(path.join(repoRoot, "packages"));
+
+  return { referenced, unknown };
+}
+
 function main(): void {
   const catalog = buildCatalog({ strict: false });
 
@@ -234,6 +331,39 @@ function main(): void {
 
   // --- 4. Regen freshness --------------------------------------------------
   checkFreshness();
+
+  // --- 5. Name reachability ------------------------------------------------
+  // The other four legs validate the set against the catalogue. This one is the
+  // only leg that looks at CONSUMERS, and it is what stops "1340 icons ok" from
+  // reading as coverage when nothing references them. A reference the set does
+  // not contain is a hard failure (the catalogue drifted under a consumer); an
+  // unreferenced curated name is reported, not failed — the set is deliberately
+  // a catalogue, and pruning it is a design decision, not a lint rule.
+  {
+    const { referenced, unknown } = collectReferencedNames(new Set(allowlist));
+    if (unknown.length > 0) {
+      for (const { name, where } of unknown) {
+        process.stderr.write(
+          `[icons] ${where}: references "${name}", which is not in the curated set\n`,
+        );
+      }
+      fail(
+        `${unknown.length} referenced icon name(s) are not in ` +
+          `config/kern-icon-set.txt — add the name or fix the reference`,
+      );
+    }
+    const unconsumed = allowlist.length - referenced.size;
+    log(
+      `name reachability ok — ${referenced.size}/${allowlist.length} curated names ` +
+        `reachable from a consumer`,
+    );
+    if (unconsumed > 0) {
+      log(
+        `     ${unconsumed} curated name(s) have no consumer; the set is a ` +
+          `catalogue, so this is reported, not failed`,
+      );
+    }
+  }
 
   const material = catalog.entries.filter(
     (e) => e.origin === "material",

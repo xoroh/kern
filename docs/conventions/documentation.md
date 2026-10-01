@@ -24,6 +24,7 @@ evolves, we re-align — this file records what we follow and where it lands.
 | [`changesets.md`](changesets.md) | When a changeset is required, how to pick a bump, the `.changeset/` failure mode |
 | [`parity.md`](parity.md) | What web and native must match, what may differ, and the prohibitions |
 | [`stubs.md`](stubs.md) | What a stub is, why it stays unwired, and how to land one |
+| [`component-docs.md`](component-docs.md) | The section grammar every component reference page follows |
 
 ## Diátaxis mapping
 

@@ -18,7 +18,7 @@ import {
  * than a re-implementation with its own bugs. What kern owns, and what a
  * consumer should not have to build:
  *
- * - **The trigger is a FAB** — 56dp, `elevation-level1`, `primary` container,
+ * - **The trigger is a FAB** — 56dp, `elevation-level3`, `primary` container,
  *   and it shows the open state by rotating its icon rather than swapping
  *   colour, which is the M3 motion cue.
  * - **`aria-haspopup="menu"` and `aria-expanded`** on the trigger, so the
@@ -116,7 +116,7 @@ export function FabMenu({
           aria-label={name}
           data-testid={testID ?? "kern-fab-menu"}
           className={[
-            "kern-fab-menu-trigger relative inline-flex size-14 shrink-0 rotate-0 items-center justify-center rounded-(--md-sys-shape-corner-large) bg-(--md-sys-color-primary) text-(--md-sys-color-on-primary) shadow-(--md-sys-elevation-level1) transition-transform outline-none select-none focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary) disabled:pointer-events-none disabled:opacity-50 data-[open]:rotate-90 [&_svg]:size-6 [&_svg]:shrink-0",
+            "kern-fab-menu-trigger relative inline-flex size-14 shrink-0 rotate-0 items-center justify-center rounded-(--md-sys-shape-corner-large) bg-(--md-sys-color-primary) text-(--md-sys-color-on-primary) shadow-(--md-sys-elevation-level3) transition-transform outline-none select-none focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary) disabled:pointer-events-none disabled:opacity-50 data-[open]:rotate-90 [&_svg]:size-6 [&_svg]:shrink-0",
             triggerClassName ?? "",
           ]
             .filter(Boolean)

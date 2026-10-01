@@ -5,7 +5,7 @@ import { cnState } from "../utils/cnState";
 const backdropClass =
   "kern-alert-dialog-backdrop fixed inset-0 bg-black/30 transition-opacity";
 const popupClass =
-  "kern-alert-dialog-popup w-[min(28rem,calc(100vw-2rem))] rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-outline) bg-(--md-sys-color-surface) p-6 shadow-(--md-sys-elevation-level2) outline-none";
+  "kern-alert-dialog-popup w-[min(28rem,calc(100vw-2rem))] rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-outline) bg-(--md-sys-color-surface) p-6 shadow-(--md-sys-elevation-level3) outline-none";
 
 export type AlertDialogRootProps = ComponentProps<
   typeof AlertDialogPrimitive.Root
