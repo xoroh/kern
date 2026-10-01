@@ -49,16 +49,16 @@ export function menuGroupStyles(
 } {
   return {
     heading: {
-      paddingHorizontal: Number.parseFloat(tokens.spacing["4"]),
-      paddingTop: Number.parseFloat(tokens.spacing["4"]),
-      paddingBottom: Number.parseFloat(tokens.spacing["2"]),
+      paddingHorizontal: Number.parseFloat(tokens.spacing["space-200"]),
+      paddingTop: Number.parseFloat(tokens.spacing["space-200"]),
+      paddingBottom: Number.parseFloat(tokens.spacing["space-100"]),
     },
     action: {
       minHeight: 56,
       flexDirection: "row",
       alignItems: "center",
-      gap: Number.parseFloat(tokens.spacing["3"]),
-      paddingHorizontal: Number.parseFloat(tokens.spacing["4"]),
+      gap: Number.parseFloat(tokens.spacing["space-150"]),
+      paddingHorizontal: Number.parseFloat(tokens.spacing["space-200"]),
     },
   };
 }
@@ -76,7 +76,7 @@ export function MenuGroupList({
   return (
     <View
       testID={testID}
-      style={{ gap: Number.parseFloat(tokens.spacing["1"]) }}
+      style={{ gap: Number.parseFloat(tokens.spacing["space-50"]) }}
     >
       {groups.map((group, groupIndex) => (
         <View key={group.heading ?? `group-${groupIndex}`}>
@@ -147,7 +147,7 @@ export function MenuScreen({ groups, style, testID }: MenuScreenProps) {
       testID={testID ?? "kern-menu-screen"}
       style={[{ flex: 1, backgroundColor: scheme.color.surface }, style]}
       contentContainerStyle={{
-        paddingBottom: Number.parseFloat(tokens.spacing["8"]),
+        paddingBottom: Number.parseFloat(tokens.spacing["space-400"]),
       }}
     >
       <MenuGroupList groups={groups} />
@@ -183,7 +183,7 @@ export function MenuSheet({
           backgroundColor: scheme.color.surfaceContainerLow,
           borderTopLeftRadius: Number.parseFloat(scheme.shape["extra-large"]),
           borderTopRightRadius: Number.parseFloat(scheme.shape["extra-large"]),
-          paddingBottom: Number.parseFloat(tokens.spacing["8"]),
+          paddingBottom: Number.parseFloat(tokens.spacing["space-400"]),
           maxHeight: "80%",
         },
         style,
@@ -191,7 +191,7 @@ export function MenuSheet({
     >
       <SheetHandle />
       <View
-        style={{ paddingHorizontal: Number.parseFloat(tokens.spacing["4"]) }}
+        style={{ paddingHorizontal: Number.parseFloat(tokens.spacing["space-200"]) }}
       >
         <Text variant="title">{title}</Text>
       </View>
@@ -231,8 +231,8 @@ export function AppsSheet({
           backgroundColor: scheme.color.surfaceContainer,
           borderTopLeftRadius: Number.parseFloat(scheme.shape["extra-large"]),
           borderTopRightRadius: Number.parseFloat(scheme.shape["extra-large"]),
-          padding: Number.parseFloat(tokens.spacing["4"]),
-          gap: Number.parseFloat(tokens.spacing["3"]),
+          padding: Number.parseFloat(tokens.spacing["space-200"]),
+          gap: Number.parseFloat(tokens.spacing["space-150"]),
         },
         style,
       ]}
@@ -282,14 +282,14 @@ export function CreateSheet({
           backgroundColor: scheme.color.surfaceContainerHigh,
           borderTopLeftRadius: Number.parseFloat(scheme.shape["extra-large"]),
           borderTopRightRadius: Number.parseFloat(scheme.shape["extra-large"]),
-          padding: Number.parseFloat(tokens.spacing["4"]),
-          gap: Number.parseFloat(tokens.spacing["3"]),
+          padding: Number.parseFloat(tokens.spacing["space-200"]),
+          gap: Number.parseFloat(tokens.spacing["space-150"]),
         },
         style,
       ]}
     >
       <Text variant="title">{title}</Text>
-      <View style={{ gap: Number.parseFloat(tokens.spacing["2"]) }}>
+      <View style={{ gap: Number.parseFloat(tokens.spacing["space-100"]) }}>
         {actions.map((action) => (
           <NavigationBarItem
             key={action.key}

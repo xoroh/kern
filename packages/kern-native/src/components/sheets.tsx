@@ -35,9 +35,9 @@ export function bottomSheetStyles(
     backgroundColor: scheme.color.surfaceContainerLow,
     borderTopLeftRadius: Number.parseFloat(scheme.shape["extra-large"]),
     borderTopRightRadius: Number.parseFloat(scheme.shape["extra-large"]),
-    paddingHorizontal: Number.parseFloat(tokens.spacing["4"]),
-    paddingBottom: Number.parseFloat(tokens.spacing["8"]),
-    paddingTop: Number.parseFloat(tokens.spacing["2"]),
+    paddingHorizontal: Number.parseFloat(tokens.spacing["space-200"]),
+    paddingBottom: Number.parseFloat(tokens.spacing["space-400"]),
+    paddingTop: Number.parseFloat(tokens.spacing["space-100"]),
     maxHeight: size === "medium" ? "50%" : "92%",
   };
 }
@@ -57,7 +57,7 @@ export function SheetHandle({ testID }: { testID?: string }) {
         borderRadius: Number.parseFloat(scheme.shape.full),
         backgroundColor: scheme.color.onSurfaceVariant,
         opacity: 0.4,
-        marginBottom: Number.parseFloat(tokens.spacing["2"]),
+        marginBottom: Number.parseFloat(tokens.spacing["space-100"]),
       }}
     />
   );
@@ -183,7 +183,7 @@ export function SnapSheet({
               borderTopRightRadius: Number.parseFloat(
                 scheme.shape["extra-large"],
               ),
-              paddingBottom: Number.parseFloat(tokens.spacing["8"]),
+              paddingBottom: Number.parseFloat(tokens.spacing["space-400"]),
               maxHeight: `${Math.round(Math.min(point.fraction, 1) * 100)}%`,
             },
             style,
@@ -196,13 +196,13 @@ export function SnapSheet({
             onPress={() =>
               onIndexChange?.((safeIndex + 1) % Math.max(snapPoints.length, 1))
             }
-            style={{ paddingVertical: Number.parseFloat(tokens.spacing["2"]) }}
+            style={{ paddingVertical: Number.parseFloat(tokens.spacing["space-100"]) }}
           >
             <SheetHandle />
           </Pressable>
           <View
             style={{
-              paddingHorizontal: Number.parseFloat(tokens.spacing["4"]),
+              paddingHorizontal: Number.parseFloat(tokens.spacing["space-200"]),
             }}
           >
             <Text variant="title" numberOfLines={2}>
@@ -244,8 +244,8 @@ export function DockSheet({
         {
           flexDirection: "row",
           alignItems: "center",
-          gap: Number.parseFloat(tokens.spacing["2"]),
-          padding: Number.parseFloat(tokens.spacing["2"]),
+          gap: Number.parseFloat(tokens.spacing["space-100"]),
+          padding: Number.parseFloat(tokens.spacing["space-100"]),
           borderRadius: Number.parseFloat(scheme.shape["extra-large"]),
           backgroundColor: scheme.color.surfaceContainerHigh,
           shadowColor: scheme.color.scrim,
@@ -335,8 +335,8 @@ export function BottomSheetPicker({
               borderTopRightRadius: Number.parseFloat(
                 scheme.shape["extra-large"],
               ),
-              paddingBottom: Number.parseFloat(tokens.spacing["8"]),
-              paddingHorizontal: Number.parseFloat(tokens.spacing["3"]),
+              paddingBottom: Number.parseFloat(tokens.spacing["space-400"]),
+              paddingHorizontal: Number.parseFloat(tokens.spacing["space-150"]),
             },
             style,
           ]}
@@ -344,7 +344,7 @@ export function BottomSheetPicker({
           <SheetHandle />
           <View
             style={{
-              paddingHorizontal: Number.parseFloat(tokens.spacing["1"]),
+              paddingHorizontal: Number.parseFloat(tokens.spacing["space-50"]),
             }}
           >
             <Text variant="title">{title}</Text>
@@ -369,8 +369,8 @@ export function BottomSheetPicker({
                   minHeight: 56,
                   flexDirection: "row",
                   alignItems: "center",
-                  gap: Number.parseFloat(tokens.spacing["3"]),
-                  paddingHorizontal: Number.parseFloat(tokens.spacing["4"]),
+                  gap: Number.parseFloat(tokens.spacing["space-150"]),
+                  paddingHorizontal: Number.parseFloat(tokens.spacing["space-200"]),
                   opacity: option.disabled ? 0.38 : pressed ? 0.82 : 1,
                 })}
               >
@@ -467,11 +467,11 @@ export function EntitySheet({
               borderTopRightRadius: Number.parseFloat(
                 scheme.shape["extra-large"],
               ),
-              paddingHorizontal: Number.parseFloat(tokens.spacing["4"]),
-              paddingBottom: Number.parseFloat(tokens.spacing["8"]),
-              paddingTop: Number.parseFloat(tokens.spacing["2"]),
+              paddingHorizontal: Number.parseFloat(tokens.spacing["space-200"]),
+              paddingBottom: Number.parseFloat(tokens.spacing["space-400"]),
+              paddingTop: Number.parseFloat(tokens.spacing["space-100"]),
               maxHeight: "92%",
-              gap: Number.parseFloat(tokens.spacing["3"]),
+              gap: Number.parseFloat(tokens.spacing["space-150"]),
             },
             style,
           ]}
@@ -496,7 +496,7 @@ export function EntitySheet({
               style={{
                 backgroundColor: scheme.color.surfaceContainerHighest,
                 borderRadius: Number.parseFloat(scheme.shape.medium),
-                padding: Number.parseFloat(tokens.spacing["3"]),
+                padding: Number.parseFloat(tokens.spacing["space-150"]),
                 gap: 2,
               }}
             >

@@ -56,10 +56,14 @@ const C = [
   ...Object.entries(T.shape).map(
     ([name, value]) => `  --md-sys-shape-corner-${name}: ${value};`,
   ),
-  ...Object.entries(T.elevation).flatMap(([level, value]) => [
-    `  --md-sys-elevation-${level}: ${value.shadow};`,
-    `  --md-sys-elevation-${level}-dp: ${value.dp};`,
-  ]),
+  // Skip DTCG metadata keys (`$comment`, `$schema`, …). They are annotations, not
+  // tokens; emitting one produces an invalid custom-property name and a broken var.
+  ...Object.entries(T.elevation)
+    .filter(([level]) => !level.startsWith("$"))
+    .flatMap(([level, value]) => [
+      `  --md-sys-elevation-${level}: ${value.shadow};`,
+      `  --md-sys-elevation-${level}-dp: ${value.dp};`,
+    ]),
   ...Object.entries(T.typography.scale).flatMap(([name, style]) => [
     `  ${prefix(name)}-font-family: ${fontFamily};`,
     `  ${prefix(name)}-font-size: ${style.size};`,
@@ -109,7 +113,9 @@ const C = [
       `  --md-sys-state-${name.replace("-opacity", "")}: ${value};`,
   ),
   ...Object.entries(T.spacing).map(
-    ([step, value]) => `  --kern-space-${step}: ${value};`,
+    // M3 names spacing `space100 = 8dp` (P1-6). The key already carries the `space-`
+    // prefix, so the var is `--md-sys-spacing-space-100`.
+    ([step, value]) => `  --md-sys-spacing-${step}: ${value};`,
   ),
   ...Object.entries(T.spectrum).flatMap(([hue, ramp]) =>
     Object.entries(ramp).map(

@@ -40,16 +40,16 @@ export function drawerStyles(scheme: ResolvedTheme = resolveThemeDetails()): {
       maxWidth: "80%",
       flex: 1,
       backgroundColor: scheme.color.surfaceContainerLow,
-      paddingTop: Number.parseFloat(tokens.spacing["4"]),
+      paddingTop: Number.parseFloat(tokens.spacing["space-200"]),
     },
     header: {
-      paddingHorizontal: Number.parseFloat(tokens.spacing["4"]),
-      paddingBottom: Number.parseFloat(tokens.spacing["4"]),
-      gap: Number.parseFloat(tokens.spacing["1"]),
+      paddingHorizontal: Number.parseFloat(tokens.spacing["space-200"]),
+      paddingBottom: Number.parseFloat(tokens.spacing["space-200"]),
+      gap: Number.parseFloat(tokens.spacing["space-50"]),
     },
     body: {
-      paddingHorizontal: Number.parseFloat(tokens.spacing["3"]),
-      gap: Number.parseFloat(tokens.spacing["0"]),
+      paddingHorizontal: Number.parseFloat(tokens.spacing["space-150"]),
+      gap: Number.parseFloat(tokens.spacing["space-0"]),
     },
   };
 }

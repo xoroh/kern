@@ -94,7 +94,7 @@ export function Command({
           backgroundColor: scheme.color.surfaceContainerHigh,
           borderRadius: Number.parseFloat(scheme.shape["extra-large"]),
           maxHeight: "70%",
-          paddingBottom: Number.parseFloat(tokens.spacing["2"]),
+          paddingBottom: Number.parseFloat(tokens.spacing["space-100"]),
         },
         style,
       ]}
@@ -104,9 +104,9 @@ export function Command({
         style={{
           flexDirection: "row",
           alignItems: "center",
-          gap: Number.parseFloat(tokens.spacing["3"]),
-          marginHorizontal: Number.parseFloat(tokens.spacing["4"]),
-          marginBottom: Number.parseFloat(tokens.spacing["2"]),
+          gap: Number.parseFloat(tokens.spacing["space-150"]),
+          marginHorizontal: Number.parseFloat(tokens.spacing["space-200"]),
+          marginBottom: Number.parseFloat(tokens.spacing["space-100"]),
         }}
       >
         <TextInput
@@ -139,7 +139,7 @@ export function Command({
       </View>
       <ScrollView>
         {matches.length === 0 ? (
-          <View style={{ padding: Number.parseFloat(tokens.spacing["4"]) }}>
+          <View style={{ padding: Number.parseFloat(tokens.spacing["space-200"]) }}>
             <Text
               variant="label"
               style={{ color: scheme.color.onSurfaceVariant }}
@@ -153,9 +153,9 @@ export function Command({
               {group ? (
                 <View
                   style={{
-                    paddingHorizontal: Number.parseFloat(tokens.spacing["4"]),
-                    paddingTop: Number.parseFloat(tokens.spacing["3"]),
-                    paddingBottom: Number.parseFloat(tokens.spacing["1"]),
+                    paddingHorizontal: Number.parseFloat(tokens.spacing["space-200"]),
+                    paddingTop: Number.parseFloat(tokens.spacing["space-150"]),
+                    paddingBottom: Number.parseFloat(tokens.spacing["space-50"]),
                   }}
                 >
                   <Text variant="label" style={{ color: scheme.color.primary }}>
@@ -177,8 +177,8 @@ export function Command({
                       minHeight: 48,
                       flexDirection: "row",
                       alignItems: "center",
-                      gap: Number.parseFloat(tokens.spacing["3"]),
-                      paddingHorizontal: Number.parseFloat(tokens.spacing["4"]),
+                      gap: Number.parseFloat(tokens.spacing["space-150"]),
+                      paddingHorizontal: Number.parseFloat(tokens.spacing["space-200"]),
                       opacity: action.disabled ? 0.38 : pressed ? 0.82 : 1,
                     })}
                   >
@@ -296,8 +296,8 @@ export function SegmentedButton({
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "center",
-              gap: Number.parseFloat(tokens.spacing["2"]),
-              paddingHorizontal: Number.parseFloat(tokens.spacing["3"]),
+              gap: Number.parseFloat(tokens.spacing["space-100"]),
+              paddingHorizontal: Number.parseFloat(tokens.spacing["space-150"]),
               borderLeftWidth: index === 0 ? 0 : 1,
               borderLeftColor: scheme.color.outline,
               backgroundColor: active
@@ -373,8 +373,8 @@ export function CountrySelect({
           minHeight: 56,
           flexDirection: "row",
           alignItems: "center",
-          gap: Number.parseFloat(tokens.spacing["3"]),
-          paddingHorizontal: Number.parseFloat(tokens.spacing["4"]),
+          gap: Number.parseFloat(tokens.spacing["space-150"]),
+          paddingHorizontal: Number.parseFloat(tokens.spacing["space-200"]),
           borderWidth: 1,
           borderColor: scheme.color.outline,
           borderRadius: Number.parseFloat(scheme.shape.small),
@@ -431,8 +431,8 @@ export function bannerStyles(
     container: {
       flexDirection: "row",
       alignItems: "flex-start",
-      gap: Number.parseFloat(tokens.spacing["3"]),
-      padding: Number.parseFloat(tokens.spacing["4"]),
+      gap: Number.parseFloat(tokens.spacing["space-150"]),
+      padding: Number.parseFloat(tokens.spacing["space-200"]),
       borderRadius: Number.parseFloat(scheme.shape.medium),
       backgroundColor: fill,
     },

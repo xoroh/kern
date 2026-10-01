@@ -24,7 +24,7 @@ export function listItemStyles(scheme: ResolvedTheme = resolveThemeDetails()): {
       minHeight: 56,
       flexDirection: "row" as const,
       alignItems: "center" as const,
-      gap: Number.parseFloat(tokens.spacing["3"]),
+      gap: Number.parseFloat(tokens.spacing["space-150"]),
     },
     title: { fontSize: 14, color: scheme.color.onSurface },
     supporting: { fontSize: 12, color: scheme.color.onSurfaceVariant },

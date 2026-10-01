@@ -57,7 +57,7 @@ export function navigationBarStyles(
       flexDirection: "row",
       alignItems: "stretch",
       backgroundColor: scheme.color.surfaceContainer,
-      borderTopWidth: Number.parseFloat(tokens.spacing["0"]) || 1,
+      borderTopWidth: Number.parseFloat(tokens.spacing["space-0"]) || 1,
       borderTopColor: scheme.color.outlineVariant,
     },
     destination: {
@@ -66,7 +66,7 @@ export function navigationBarStyles(
       alignItems: "center",
       justifyContent: "center",
       gap: 4,
-      paddingHorizontal: Number.parseFloat(tokens.spacing["2"]),
+      paddingHorizontal: Number.parseFloat(tokens.spacing["space-100"]),
     },
     indicator: {
       minWidth: 64,
@@ -193,8 +193,8 @@ export function NavigationBarItem({
           minHeight: 56,
           flexDirection: "row",
           alignItems: "center",
-          paddingHorizontal: Number.parseFloat(tokens.spacing["4"]),
-          gap: Number.parseFloat(tokens.spacing["3"]),
+          paddingHorizontal: Number.parseFloat(tokens.spacing["space-200"]),
+          gap: Number.parseFloat(tokens.spacing["space-150"]),
           borderRadius: Number.parseFloat(scheme.shape.full),
           backgroundColor: selected
             ? scheme.color.secondaryContainer

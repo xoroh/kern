@@ -43,9 +43,15 @@ describe("tokens.css matches the JSON sources", () => {
   });
 
   it("contains the dark elevation overrides", () => {
-    for (const level of Object.keys(tokens.elevation)) {
+    // Skip DTCG metadata keys (`$comment`, `$schema`, …): the generator does not
+    // emit them as custom properties, so neither should this assert.
+    for (const level of Object.keys(tokens.elevation).filter(
+      (key) => !key.startsWith("$"),
+    )) {
       expect(css).toContain(`--md-sys-elevation-${level}:`);
     }
+    // And no metadata key may leak into the emitted CSS as an invalid var name.
+    expect(css).not.toMatch(/--md-sys-[a-z-]*-\$/);
     expect(css).toContain(".dark {");
   });
 });

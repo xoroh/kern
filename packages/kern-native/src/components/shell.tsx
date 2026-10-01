@@ -33,13 +33,13 @@ export function bootSplashStyles(
       flex: 1,
       alignItems: "center",
       justifyContent: "center",
-      gap: Number.parseFloat(tokens.spacing["4"]),
+      gap: Number.parseFloat(tokens.spacing["space-200"]),
       backgroundColor: scheme.color.surface,
     },
     mark: {
       alignItems: "center",
       justifyContent: "center",
-      gap: Number.parseFloat(tokens.spacing["3"]),
+      gap: Number.parseFloat(tokens.spacing["space-150"]),
     },
   };
 }

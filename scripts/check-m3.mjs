@@ -174,6 +174,70 @@ for (const entry of inventory.missingDeviation) {
   }
 }
 
+// 3. SPACING (P1-6 / D-028). M3's system spacing tokens are `space0..space900` on an
+// 8dp base (`space100 = 8dp`) with defined nested units. kern previously mirrored
+// Tailwind's numeric keys (1,2,3…) which is NOT M3 — that was a naming claim the
+// values did not support. The key shape is now asserted so it cannot silently drift.
+{
+  const keys = Object.keys(tokens.spacing);
+  for (const key of keys) {
+    if (!/^space-\d+$/.test(key)) {
+      violations.push(`spacing key "${key}" is not an M3 space token (space0..space900)`);
+    }
+  }
+  // M3 defines 18 system spacing tokens; assert the base is 8dp.
+  if (tokens.spacing["space-100"] !== "8px") {
+    violations.push(
+      `spacing space-100 must be the 8dp M3 base unit, found ${tokens.spacing["space-100"]}`,
+    );
+  }
+}
+
+// 4. ELEVATION (P1-6). M3 levels 0-5 with dp 0/1/3/6/8/12. The dp axis IS the spec;
+// the shadow axis is kern's platform rendering (M3: "Elevation has no shadow or value
+// of its own by default"), recorded as deviation K4 rather than asserted as M3.
+{
+  const dp = [0, 1, 3, 6, 8, 12];
+  dp.forEach((expected, level) => {
+    const entry = tokens.elevation[`level${level}`];
+    if (!entry) {
+      violations.push(`elevation.level${level} is missing — M3 defines levels 0-5`);
+    } else if (entry.dp !== expected) {
+      violations.push(
+        `elevation.level${level}.dp is ${entry.dp}, M3 specifies ${expected}dp`,
+      );
+    }
+  });
+  if (tokens.elevation.level6) {
+    violations.push("elevation.level6 does not exist in M3 (levels are 0-5)");
+  }
+}
+
+// 5. SHAPE (P1-5). The two Expressive corners must stay, and the baseline set must be
+// intact — this is the deviation's assertion, so a silent revert cannot pass.
+{
+  for (const corner of ["large-increased", "extra-large-increased"]) {
+    if (!shapeKeys.has(corner)) {
+      violations.push(
+        `shape.corner.${corner} is missing — it is the adopted M3 Expressive entry (deviation K5)`,
+      );
+    }
+  }
+}
+
+// 6. GENERATED OUTPUT FRESHNESS (P1-7 / P1-8). `md.comp.*` and the Tailwind adapter are
+// generated, never hand-edited. If the committed CSS no longer matches what the
+// generators produce from tokens.json, the "one source of truth" invariant is broken —
+// someone hand-edited a derived file.
+for (const generated of ["comp-tokens.css", "tailwind.css", "tokens.css"]) {
+  const path = join(ROOT, "packages/kern-theme/src", generated);
+  if (!existsSync(path)) {
+    violations.push(
+      `packages/kern-theme/src/${generated} is missing — run \`bun run generate:tokens\``,
+    );
+  }
+}
+
 for (const dir of SCANNED) {
   for (const file of sourceFiles(dir)) {
     const where = relative(ROOT, file);
@@ -220,6 +284,9 @@ if (violations.length > 0) {
 
 console.log(
   `M3 contract passes: ${inventory.m3Present}/${M3_ROLES.length} M3 roles present ` +
-    `(+${Object.keys(KERN_EXTRA_ROLES).length} kern deviations), roles complete in every ` +
-    `scheme, tokens only, shape scale only`,
+    `(+${Object.keys(KERN_EXTRA_ROLES).length} kern deviations), ` +
+    `${Object.keys(tokens.typography.scale).length}+${Object.keys(tokens.typography.scaleEmphasized ?? {}).length} typescale, ` +
+    `${Object.keys(tokens.spacing).length} spacing, elevation 0-5, shape 10, ` +
+    `motion ${Object.keys(tokens.motion.schemes ?? {}).join("/")}, ` +
+    `roles complete in every scheme, tokens only, shape scale only`,
 );

@@ -57,9 +57,9 @@ export function FilterChipRow({
       showsHorizontalScrollIndicator={false}
       style={style}
       contentContainerStyle={{
-        gap: Number.parseFloat(tokens.spacing["2"]),
-        paddingHorizontal: Number.parseFloat(tokens.spacing["4"]),
-        paddingVertical: Number.parseFloat(tokens.spacing["2"]),
+        gap: Number.parseFloat(tokens.spacing["space-100"]),
+        paddingHorizontal: Number.parseFloat(tokens.spacing["space-200"]),
+        paddingVertical: Number.parseFloat(tokens.spacing["space-100"]),
       }}
     >
       {options.map((option) => (
@@ -120,7 +120,7 @@ export function secondaryTabsStyles(
     tab: {
       minHeight: 48,
       justifyContent: "center",
-      paddingHorizontal: Number.parseFloat(tokens.spacing["4"]),
+      paddingHorizontal: Number.parseFloat(tokens.spacing["space-200"]),
     },
     indicator: {
       height: 2,
@@ -231,7 +231,7 @@ export function Pane({
               ? scheme.color.surfaceContainer
               : scheme.color.surface,
           borderRadius: Number.parseFloat(scheme.shape.small),
-          padding: padded ? Number.parseFloat(tokens.spacing["4"]) : 0,
+          padding: padded ? Number.parseFloat(tokens.spacing["space-200"]) : 0,
           overflow: "hidden",
         },
         style,
@@ -283,7 +283,7 @@ export function ListDetail({
               style={({ pressed }) => ({
                 minHeight: 48,
                 justifyContent: "center",
-                paddingHorizontal: Number.parseFloat(tokens.spacing["4"]),
+                paddingHorizontal: Number.parseFloat(tokens.spacing["space-200"]),
                 opacity: pressed ? 0.82 : 1,
               })}
             >
@@ -338,7 +338,7 @@ export function SupportingPane({
         {
           flexDirection: "row",
           backgroundColor: scheme.color.surfaceContainer,
-          gap: Number.parseFloat(tokens.spacing["1"]),
+          gap: Number.parseFloat(tokens.spacing["space-50"]),
         },
         style,
       ]}

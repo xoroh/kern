@@ -26,7 +26,7 @@ export function topAppBarStyles(
   size: TopAppBarSize,
   scheme: ResolvedTheme = resolveThemeDetails(),
 ): ViewStyle {
-  const padding = Number.parseFloat(tokens.spacing["2"]);
+  const padding = Number.parseFloat(tokens.spacing["space-100"]);
   return {
     minHeight: TOP_APP_BAR_HEIGHTS[size],
     flexDirection: "row",
@@ -34,7 +34,7 @@ export function topAppBarStyles(
     gap: padding,
     paddingHorizontal: padding,
     paddingBottom:
-      size === "medium" ? Number.parseFloat(tokens.spacing["3"]) : 0,
+      size === "medium" ? Number.parseFloat(tokens.spacing["space-150"]) : 0,
     backgroundColor: scheme.color.surface,
     borderBottomWidth: 1,
     borderBottomColor: scheme.color.outlineVariant,
