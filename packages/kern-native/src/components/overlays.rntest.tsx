@@ -8,6 +8,7 @@ import { Dialog } from "./dialog";
 import { Menu } from "./menu";
 import { Select } from "./select";
 import { Sheet } from "./sheet";
+import { BottomSheet } from "./sheets";
 import { Snackbar } from "./snackbar";
 import { Text } from "./text";
 
@@ -94,6 +95,35 @@ describe("native Sheet render", () => {
     expect(screen.getByText("Filters")).toBeTruthy();
     await act(async () => {
       fireEvent.press(screen.getByLabelText("Close sheet"));
+    });
+    expect(dismissed).toBe(1);
+  });
+});
+
+describe("SheetSurface dismissal (P2b-2)", () => {
+  it("gives BottomSheet a visible close affordance that fires onDismiss", async () => {
+    let dismissed = 0;
+    await render(
+      <BottomSheet open title="Filters" onDismiss={() => dismissed++}>
+        <Text variant="body">Body</Text>
+      </BottomSheet>,
+    );
+    expect(screen.getByText("Filters")).toBeTruthy();
+    await act(async () => {
+      fireEvent.press(screen.getByLabelText("Close Filters"));
+    });
+    expect(dismissed).toBe(1);
+  });
+
+  it("keeps the scrim as a second dismissal path", async () => {
+    let dismissed = 0;
+    await render(
+      <BottomSheet open title="Filters" onDismiss={() => dismissed++}>
+        <Text variant="body">Body</Text>
+      </BottomSheet>,
+    );
+    await act(async () => {
+      fireEvent.press(screen.getByLabelText("Dismiss Filters"));
     });
     expect(dismissed).toBe(1);
   });
