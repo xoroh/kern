@@ -900,6 +900,27 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    name: "navigation-bar",
+    export: "NavigationBar",
+    platform: "web",
+    path: "src/components/navigation-bar.tsx",
+    status: "real",
+  },
+  {
+    name: "navigation-bar-item",
+    export: "NavigationBarItem",
+    platform: "web",
+    path: "src/components/navigation-bar.tsx",
+    status: "real",
+  },
+  {
+    name: "navigation-drawer",
+    export: "NavigationDrawer",
+    platform: "web",
+    path: "src/components/navigation-drawer.tsx",
+    status: "real",
+  },
+  {
     name: "navigation-menu-root",
     export: "NavigationMenuRoot",
     platform: "web",
@@ -1135,6 +1156,13 @@ export const COMPONENTS: ComponentEntry[] = [
     export: "Search",
     platform: "web",
     path: "src/components/search.tsx",
+    status: "real",
+  },
+  {
+    name: "secondary-tabs",
+    export: "SecondaryTabs",
+    platform: "web",
+    path: "src/components/secondary-tabs.tsx",
     status: "real",
   },
   {

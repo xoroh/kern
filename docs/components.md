@@ -137,6 +137,9 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `meter-root` | `MeterRoot` | real |
 | `meter-value` | `MeterValue` | real |
 | `native-select` | `NativeSelect` | real |
+| `navigation-bar` | `NavigationBar` | real |
+| `navigation-bar-item` | `NavigationBarItem` | real |
+| `navigation-drawer` | `NavigationDrawer` | real |
 | `navigation-menu` | `NavigationMenu` | real |
 | `navigation-menu-content` | `NavigationMenuContent` | real |
 | `navigation-menu-item` | `NavigationMenuItem` | real |
@@ -171,6 +174,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `scroll-area-scrollbar` | `ScrollAreaScrollbar` | real |
 | `scroll-area-viewport` | `ScrollAreaViewport` | real |
 | `search` | `Search` | real |
+| `secondary-tabs` | `SecondaryTabs` | real |
 | `segmented-button` | `SegmentedButton` | real |
 | `segmented-button-item` | `SegmentedButtonItem` | real |
 | `segmented-button-root` | `SegmentedButtonRoot` | real |

@@ -52,22 +52,54 @@ again. Measured from the generated registry instead:
 
 | Measure | Value |
 |---|---|
-| Registry rows | **313** (web 236, native 77) |
-| **Shared** (already both sides) | **45** |
-| **Native-only → needs a web version** | **25** in **13 files** |
+| Registry rows | **317** (web 240, native 77) |
+| **Shared** (already both sides) | **48** |
+| **Native-only → needs a web version** | **22** in **11 files** |
 | **Web-only → needs a native version** | **34** in **25 files** |
 | Stub rows | **0** |
 
-<!-- gate:counts 45 25 34 0 -->
+<!-- gate:counts 48 22 34 0 -->
 
 Machine-readable line above: `check:parity` (`scripts/check-parity.mjs`) re-derives
 these from the registry and fails if they drift, so the prose above cannot quietly
 become false. Update the four numbers when a component lands, in the same change.
 
+## Web versions landed (P2b-2 navigation family)
+
+Three of the 25 native-only rows now ship on web, so the table below is 22.
+They are recorded here because a row moving between the two tables is the only
+trace the contract keeps of the change — the `gate:counts` line is the machine
+check, this is the reasoning.
+
+| Concept | Web | Behaviour owned on web | Test pointer |
+|---|---|---|---|
+| `navigation-bar` | `NavigationBar` + `NavigationBarItem` (`src/components/navigation-bar.tsx`) | `role="navigation"` + `aria-current="page"`; roving tabindex, Arrow/Home/End traversal that wraps and skips disabled; controlled *or* uncontrolled selection; 80dp bar with the `secondaryContainer` active pill; `floating` slot | `navigation-family.test.tsx` |
+| `navigation-drawer` | `NavigationDrawer` (`src/components/navigation-drawer.tsx`) | `role="dialog"` + `aria-modal`, scrim, Escape, focus returns to the trigger (composed on the Base UI dialog root, not re-implemented); **activating a destination reports the selection and then dismisses**; 360dp capped at 80vw | `navigation-family.test.tsx` |
+| `secondary-tabs` | `SecondaryTabs` (`src/components/secondary-tabs.tsx`) | `role="tablist"` with `aria-selected`; roving tabindex, Arrow/Home/End, wrapping; disabled tabs skipped and inert; `aria-controls`/`aria-labelledby` bound through `useId`; inactive panels unmounted rather than hidden | `navigation-family.test.tsx` |
+
+Two of these had to be **corrected against the contract as written**, which is
+the point of writing it down first:
+
+1. **Base UI's `Dialog.Popup` does not emit `aria-modal`.** It traps focus and
+   inerts the rest of the page, which is the behaviour, but the attribute the
+   contract names (and the one a screen reader needs) was absent. The drawer
+   sets it explicitly.
+2. **`navigation-bar` and `navigation-drawer` share one destination type.**
+   `NavigationDrawer` renders `NavigationBarItem`, not its own row component —
+   the same decomposition native uses, so the two renderers agree on which
+   element carries the active pill.
+
+The remaining 22 stay native-only. `navigation-bar`'s two siblings in
+`kern-start` (`Sidebar`, `NavigationRail`, `SectionDrawer`) keep their names per
+**D11** — the counterpart rule forces *existence*, not renames.
+
+---
+
 **Correction 1 — "12 native-only" undercounts by more than half.** The ladder's 12
-are the native-only **source files**; the same files contain **25 concepts**
+are the native-only **source files**; the same files contain **22 concepts**
 (5 sheets, 3 menu surfaces, 3 pane/layout pieces, etc.). Working from file names
-would have under-scoped P2b-2 by 14 components.
+would have under-scoped P2b-2 by 11 components. Three of the concepts have since
+landed on web (see the next section), which is what took the count from 25 to 22.
 
 **Correction 2 — my own first measurement was wrong twice, and caught both.**
 An early pass stripped `-button`/`-tab`/`-body` blindly, which turned
@@ -79,14 +111,14 @@ by name. The rule that holds: **a name is a sub-part when stripping a part suffi
 yields a name already registered on the same platform.** `table-body` is a part of
 a registered `table`; `segmented-button` is not a part of any registered
 `segmented`, so it stands alone. Both false results are fixed and
-`segmented-button` correctly appears in the 45 shared.
+`segmented-button` correctly appears in the 48 shared.
 
 I report these because the same registry is the input to the phase gate; a wrong
 set would have dispatched real work at phantom gaps.
 
 ---
 
-## Native-only concepts → need a web version (25)
+## Native-only concepts → need a web version (22)
 
 Grouped by surface. `M3 source` is the M3 spec tab that governs the behaviour.
 
@@ -101,24 +133,21 @@ Grouped by surface. `M3 source` is the M3 spec tab that governs the behaviour.
 | 7 | `menu-sheet` | Sheet wrapping a menu | `role="menu"`, arrow-key traversal | `MenuSheet` | M3 · Menus | GAP |
 | 8 | `menu-group-list` | Titled list of menu items | `role="group"` + `aria-label` = group heading | `MenuGroupList` + group label | M3 · Menus | GAP |
 | 9 | `action-sheet` | Titled surface with a dismiss path and a body (app switcher tiles or an action list) | `role="dialog"` + `aria-modal`, Escape + a visible close control, focus returns to trigger | `SheetSurface`-hosted: `Modal` + scrim + hardware back + close affordance | M3 · Menus | `composition.rntest.tsx` |
-| 10 | `navigation-bar` | Bottom nav bar, ≤5 destinations | `role="navigation"`, current item `aria-current="page"` | `accessibilityRole="tablist"`-style selected state | M3 · Navigation bar | GAP |
-| 11 | `navigation-drawer` | Modal side drawer (M3 modal variant) | `role="dialog"`, `aria-modal`, scrim, Escape closes | `NavigationDrawer` 360dp, composed from `NavigationBar` | M3 · Navigation drawer | GAP |
-| 12 | `top-app-bar` | Top app bar, small/center/medium | `role="banner"`, `aria-level` per size; medium wraps to 2 lines | `TopAppBar` 64/64/112dp | M3 · Top app bar | GAP |
-| 13 | `pane` | Single layout pane | `role="region"` + accessible name | `Pane` | M3 · Lists → Pane | GAP |
-| 14 | `list-detail` | Two-pane list→detail layout | `role="navigation"` per pane; selection announced | `ListDetail` | M3 · Lists | GAP |
-| 15 | `supporting-pane` | Optional supporting pane beside content | `role="complementary"` | `SupportingPane` | M3 · Lists | GAP |
-| 16 | `filter-chip-row` | Horizontal row of filter chips | `role="group"`, each chip `aria-pressed` | `FilterChipRow` | M3 · Chips → Filter chips | GAP |
-| 17 | `secondary-tabs` | Secondary tab set within a view | `role="tablist"`, `aria-selected` | `SecondaryTabs` | M3 · Tabs → Secondary tabs | GAP |
-| 18 | `milestone-trio` | Three-stage progress indicator (brand kit) | `role="progressbar"`, `aria-valuenow"` = stage | `MilestoneTrio` | Kern brand kit (M3 progress analogue) | `feedback.test.tsx` |
-| 19 | `success-transform` | Completion transition trio→check | `role="progressbar"` then `role="status"` "done" | `SuccessTransform`, `accessibilityRole="progressbar"` | Kern brand kit | `feedback.test.tsx` |
-| 20 | `shape` | Shape-scaled container primitive | web = `style` only, **no role** (decorative container) | `Shape` | M3 · Shape scale | GAP |
-| 21 | `shape-art` | Brand shape art | **decorative** → `aria-hidden="true"` | `ShapeArt` | Kern brand kit | GAP |
-| 22 | `aspect-ratio` | Fixed-ratio box | `style={{aspectRatio}}` — presentational | `aspectRatio` style | CSS/native analogue | GAP |
-| 23 | `sheet-surface` | Shared `Modal` + scrim primitive every kern sheet hosts through | web = `Dialog` root + portal scrim — the one place a sheet gets a dismissal path | `SheetSurface`: scrim press, `onRequestClose` (Android back) and a 48×48 close affordance all bound to `onDismiss` | M3 · Sheets | GAP |
-| 24 | `bottom-sheet-surface` | M3 bottom-sheet surface tokens (`surfaceContainerLow`, XL top corners) | presentational style accessor — CSS custom properties, not a component | `bottomSheetSurface(scheme)` | M3 · Sheets | GAP |
-| 25 | `boot-splash` | Native launch surface (the browser has no pre-first-paint phase) | **not applicable** — deliberately asymmetric | `BootSplash` | Kern shell (native-only) | GAP |
+| 10 | `top-app-bar` | Top app bar, small/center/medium | `role="banner"`, `aria-level` per size; medium wraps to 2 lines | `TopAppBar` 64/64/112dp | M3 · Top app bar | GAP |
+| 11 | `pane` | Single layout pane | `role="region"` + accessible name | `Pane` | M3 · Lists → Pane | GAP |
+| 12 | `list-detail` | Two-pane list→detail layout | `role="navigation"` per pane; selection announced | `ListDetail` | M3 · Lists | GAP |
+| 13 | `supporting-pane` | Optional supporting pane beside content | `role="complementary"` | `SupportingPane` | M3 · Lists | GAP |
+| 14 | `filter-chip-row` | Horizontal row of filter chips | `role="group"`, each chip `aria-pressed` | `FilterChipRow` | M3 · Chips → Filter chips | GAP |
+| 15 | `milestone-trio` | Three-stage progress indicator (brand kit) | `role="progressbar"`, `aria-valuenow"` = stage | `MilestoneTrio` | Kern brand kit (M3 progress analogue) | `feedback.test.tsx` |
+| 16 | `success-transform` | Completion transition trio→check | `role="progressbar"` then `role="status"` "done" | `SuccessTransform`, `accessibilityRole="progressbar"` | Kern brand kit | `feedback.test.tsx` |
+| 17 | `shape` | Shape-scaled container primitive | web = `style` only, **no role** (decorative container) | `Shape` | M3 · Shape scale | GAP |
+| 18 | `shape-art` | Brand shape art | **decorative** → `aria-hidden="true"` | `ShapeArt` | Kern brand kit | GAP |
+| 19 | `aspect-ratio` | Fixed-ratio box | `style={{aspectRatio}}` — presentational | `aspectRatio` style | CSS/native analogue | GAP |
+| 20 | `sheet-surface` | Shared `Modal` + scrim primitive every kern sheet hosts through | web = `Dialog` root + portal scrim — the one place a sheet gets a dismissal path | `SheetSurface`: scrim press, `onRequestClose` (Android back) and a 48×48 close affordance all bound to `onDismiss` | M3 · Sheets | GAP |
+| 21 | `bottom-sheet-surface` | M3 bottom-sheet surface tokens (`surfaceContainerLow`, XL top corners) | presentational style accessor — CSS custom properties, not a component | `bottomSheetSurface(scheme)` | M3 · Sheets | GAP |
+| 22 | `boot-splash` | Native launch surface (the browser has no pre-first-paint phase) | **not applicable** — deliberately asymmetric | `BootSplash` | Kern shell (native-only) | GAP |
 
-**Note on 20-22 and 24:** these are presentational or brand-kit. They are native-only
+**Note on 17-19 and 21:** these are presentational or brand-kit. They are native-only
 because RN has a layout primitive for them and the DOM equivalent is a CSS
 property, not a component. **P2b-2 should decide per row whether a web
 "component" is warranted at all** — building a `Shape` React component whose only
@@ -214,11 +243,12 @@ symmetrised, and P2b-2/3 must not "fix" them:
 
 ## Verification for this draft
 
-- **Registry source:** all 313 rows read from the generated
+- **Registry source:** all 317 rows read from the generated
   `packages/mcp/src/manifest.ts` (`bun run generate:components` output, idempotent —
   re-run leaves it byte-identical).
-- **Counts:** web 236 rows / 79 concepts; native 77 rows / 70 concepts; 45 shared;
-  25 native-only; 34 web-only. Reproducible by the script noted below.
+- **Counts:** web 240 rows; native 77 rows; 48 shared; 22 native-only; 34 web-only.
+  Reproducible by the script noted below. The three navigation-family rows moved
+  native-only → shared in this change, which is what took 45/25 to 48/22.
 - **ADR 002 boundary:** re-verified **0** imports of `@base-ui/react` across
   `packages/kern-native`, `packages/kern-theme`, `packages/kern-icons`; and
   **0** imports of `@xoroh/kern-native` in `packages/kern/src`. This manifest is a

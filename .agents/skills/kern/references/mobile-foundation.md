@@ -36,6 +36,13 @@ Inter however it likes; Kern components only ever set a weight.
 `@xoroh/kern-start`, a separate package. The tier model and the names match;
 only the package boundary differs.
 
+`NavigationBar`, `NavigationDrawer` and `SecondaryTabs` are the exception that
+proves the rule rather than contradicting it: they are M3 primitives with an M3
+name, so they live in `@xoroh/kern` (web) and `@xoroh/kern-native` (native) at
+the same tier, share one `NavigationDestination[]` shape, and are documented in
+[`navigation-patterns.md`](navigation-patterns.md). The kern-only constructs
+(`Sidebar`, `NavigationRail`, `SectionDrawer`) stay in `kern-start`.
+
 The sheets are built on RN primitives, not on `@gorhom/bottom-sheet` — the
 package still imports only `react`, `react-native`, and
 `@xoroh/kern-theme`. If gesture handling forces the Expo-only peer set, the

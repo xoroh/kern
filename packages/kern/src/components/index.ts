@@ -286,6 +286,22 @@ export { Meter, MeterLabel, MeterRoot, MeterValue } from "./meter";
 export type { NativeSelectProps } from "./native-select";
 export { NativeSelect } from "./native-select";
 export type {
+  NavigationBarItemProps,
+  NavigationBarProps,
+  NavigationDestination,
+} from "./navigation-bar";
+export {
+  NAVIGATION_BAR_HEIGHT,
+  NAVIGATION_BAR_MAX_DESTINATIONS,
+  NavigationBar,
+  NavigationBarItem,
+} from "./navigation-bar";
+export type { NavigationDrawerProps } from "./navigation-drawer";
+export {
+  NavigationDrawer,
+  SECTION_DRAWER_WIDTH,
+} from "./navigation-drawer";
+export type {
   NavigationMenuContentProps,
   NavigationMenuItemProps,
   NavigationMenuLinkProps,
@@ -360,6 +376,8 @@ export {
 } from "./scroll-area";
 export type { SearchProps } from "./search";
 export { Search } from "./search";
+export type { SecondaryTab, SecondaryTabsProps } from "./secondary-tabs";
+export { SecondaryTabs } from "./secondary-tabs";
 export type {
   SegmentedButtonItemProps,
   SegmentedButtonRootProps,

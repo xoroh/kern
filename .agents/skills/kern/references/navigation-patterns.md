@@ -119,3 +119,14 @@ Expanded (840dp+):  Navigation Drawer (side, standard)  ← Kern default
 ## Web and native (platform shells)
 
 Kern shells map to the drawer pattern above on expanded screens: the web shell (`@xoroh/kern`) uses the persistent sidebar drawer; the native shell (`@xoroh/kern-native`) uses the bottom navigation bar on compact screens and the rail/drawer as space allows. Destinations stay single-select with the active indicator in every shell.
+
+**The M3 navigation primitives now exist on both renderers** (D11: the counterpart rule forces *existence*, not renames — `Sidebar` / `NavigationRail` / `SectionDrawer` keep their kern names). One `NavigationDestination[]` feeds every container:
+
+| Concept | Web (`@xoroh/kern`) | Native (`@xoroh/kern-native`) |
+| --- | --- | --- |
+| Navigation bar | `NavigationBar` — `role="navigation"`, `aria-current="page"` on the active destination, roving tabindex with Arrow/Home/End that wraps and skips disabled, 80dp, `floating` slot for a FAB | same, `accessibilityRole="tab"` + `accessibilityState.selected` |
+| Navigation drawer (modal) | `NavigationDrawer` — `role="dialog"` + `aria-modal`, scrim, Escape, focus returns to the trigger; **picking a destination reports it and dismisses** | `NavigationDrawer` 360dp, `Modal` + scrim, same select-then-dismiss |
+| Destination row | `NavigationBarItem` — 56dp, `secondaryContainer` pill when selected | `NavigationBarItem`, same |
+| Secondary tabs | `SecondaryTabs` — `role="tablist"`, `aria-selected`, roving tabindex, inactive panels unmounted | `SecondaryTabs`, same data-array shape |
+
+Never hand-roll a nav bar's roving tabindex: the bar is **one** tab stop with arrow traversal inside it. A bar whose five destinations are all in the tab order is the most common nav bug on the web.
