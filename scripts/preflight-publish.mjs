@@ -16,12 +16,17 @@ import { resolve } from "node:path";
 
 const ROOT = resolve(import.meta.dirname, "..");
 
+// `@xoroh/kern/start` is a SUBPATH export of `@xoroh/kern` (D-034), not its own
+// package, so it is already covered by the `packages/kern` entry above. The
+// stale `packages/kern/src/start/package.json` path that used to sit here made
+// this script throw ENOENT — failing the whole publish gate on a file that
+// never existed.
 const MANIFESTS = [
+  "packages/kern-primitives/package.json",
   "packages/kern/package.json",
   "packages/kern-tokens/package.json",
   "packages/kern-native/package.json",
   "packages/kern-icons/package.json",
-  "packages/kern/src/start/package.json",
   "packages/mcp/package.json",
 ];
 
