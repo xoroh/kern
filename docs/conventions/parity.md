@@ -64,6 +64,44 @@ oversight in review.
 - **No `Native*` prefix on components.** The `Native*Props` *type* prefix is
   fine where RN event types force it; the component name stays canonical.
 
+## Counting a component (the concept rule)
+
+**Ratified 2026-10-01 (P2b-1).** This exists because the same set was measured
+three different ways in one task, giving three plausible numbers, and the wrong
+ones were silent.
+
+Source of truth is the generated registry,
+`packages/mcp/src/manifest.ts` (`name`, `export`, `platform`, `path`, `status`).
+Refresh with `bun run generate:components`. **A count is stated in concepts, never
+in source files.**
+
+A registered row is a **concept** unless it is a **sub-part**:
+
+> A name is a sub-part when stripping a part suffix yields a name that is **already
+> a registered row on the same platform**.
+
+So `table-body` is a part of a registered `table`, and `accordion-root` is a part
+of `accordion`. But `segmented-button` is **not** a part of any registered
+`segmented` — it stands alone as a concept.
+
+Two failure modes this rule exists to prevent, both of which shipped:
+
+- **Stripping too much.** Treating `-button`/`-tab`/`-body`/`-head` as always-part
+  suffixes rewrites `segmented-button` into `segmented`, which then looks
+  web-only. `segmented-button` ships on **both** sides, so the wrong set tells you
+  to build something that exists. Strip only when the result is a real row.
+- **Stripping nothing.** Counting every registry row as a concept invents
+  web-only rows for `table-body` / `tabs-tab`, whose parents are already shared.
+
+**Counts are claims about work; verify before dispatching.** Spot-check 2-3
+members you already know are symmetric (`segmented-button`, `command`,
+`snackbar`) before a derived set sends anyone to build. A wrong set is usually
+self-consistent and produces no error.
+
+Current measured state (registry: 314 rows, web 236 / native 78): **45 shared
+concepts, 26 native-only, 34 web-only, 0 stubs.** Per-component contracts live in
+[`../parity-contract.md`](../parity-contract.md).
+
 ## When you add or change a component
 
 1. Decide the concept and its canonical M3 name first. Check
@@ -74,8 +112,12 @@ oversight in review.
 3. Implement on the renderer family that owns the change.
 4. Update the coverage table and the gap list in the parity page. Counts
    come from `bun run generate:components`; never hand-edit
-   `docs/components.md`.
+   `docs/components.md`. **Count concepts per the rule above, not files.**
 5. If a prop differs, add a row to the prop-difference table with the reason.
+6. If the component is a **behaviour**, add its row to
+   [`../parity-contract.md`](../parity-contract.md) — written as `role` / label /
+   state, never as primitive internals, so no future primitive ruling can
+   invalidate it.
 
 Steps 4 and 5 are what make the parity page true. A component landed without
 them makes the page a lie within one commit.
