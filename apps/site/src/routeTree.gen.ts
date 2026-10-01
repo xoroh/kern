@@ -15,6 +15,7 @@ import { Route as ComponentsIndexRouteImport } from './routes/components/index'
 import { Route as DocsIndexRouteImport } from './routes/docs/index'
 import { Route as DocsGuidesRouteImport } from './routes/docs/guides'
 import { Route as ThemeIndexRouteImport } from './routes/theme/index'
+import { Route as ComponentsPlatformComponentRouteImport } from './routes/components/$platform/$component'
 import { Route as ComponentsMobileIndexRouteImport } from './routes/components/mobile/index'
 import { Route as ComponentsWebIndexRouteImport } from './routes/components/web/index'
 
@@ -48,6 +49,12 @@ const ThemeIndexRoute = ThemeIndexRouteImport.update({
   path: '/theme/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ComponentsPlatformComponentRoute =
+  ComponentsPlatformComponentRouteImport.update({
+    id: '/components/$platform/$component',
+    path: '/components/$platform/$component',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ComponentsMobileIndexRoute = ComponentsMobileIndexRouteImport.update({
   id: '/components/mobile/',
   path: '/components/mobile/',
@@ -66,6 +73,7 @@ export interface FileRoutesByFullPath {
   '/components/': typeof ComponentsIndexRoute
   '/docs/': typeof DocsIndexRoute
   '/theme/': typeof ThemeIndexRoute
+  '/components/$platform/$component': typeof ComponentsPlatformComponentRoute
   '/components/mobile/': typeof ComponentsMobileIndexRoute
   '/components/web/': typeof ComponentsWebIndexRoute
 }
@@ -76,6 +84,7 @@ export interface FileRoutesByTo {
   '/components': typeof ComponentsIndexRoute
   '/docs': typeof DocsIndexRoute
   '/theme': typeof ThemeIndexRoute
+  '/components/$platform/$component': typeof ComponentsPlatformComponentRoute
   '/components/mobile': typeof ComponentsMobileIndexRoute
   '/components/web': typeof ComponentsWebIndexRoute
 }
@@ -87,6 +96,7 @@ export interface FileRoutesById {
   '/components/': typeof ComponentsIndexRoute
   '/docs/': typeof DocsIndexRoute
   '/theme/': typeof ThemeIndexRoute
+  '/components/$platform/$component': typeof ComponentsPlatformComponentRoute
   '/components/mobile/': typeof ComponentsMobileIndexRoute
   '/components/web/': typeof ComponentsWebIndexRoute
 }
@@ -99,6 +109,7 @@ export interface FileRouteTypes {
     | '/components/'
     | '/docs/'
     | '/theme/'
+    | '/components/$platform/$component'
     | '/components/mobile/'
     | '/components/web/'
   fileRoutesByTo: FileRoutesByTo
@@ -109,6 +120,7 @@ export interface FileRouteTypes {
     | '/components'
     | '/docs'
     | '/theme'
+    | '/components/$platform/$component'
     | '/components/mobile'
     | '/components/web'
   id:
@@ -119,6 +131,7 @@ export interface FileRouteTypes {
     | '/components/'
     | '/docs/'
     | '/theme/'
+    | '/components/$platform/$component'
     | '/components/mobile/'
     | '/components/web/'
   fileRoutesById: FileRoutesById
@@ -130,6 +143,7 @@ export interface RootRouteChildren {
   ComponentsIndexRoute: typeof ComponentsIndexRoute
   DocsIndexRoute: typeof DocsIndexRoute
   ThemeIndexRoute: typeof ThemeIndexRoute
+  ComponentsPlatformComponentRoute: typeof ComponentsPlatformComponentRoute
   ComponentsMobileIndexRoute: typeof ComponentsMobileIndexRoute
   ComponentsWebIndexRoute: typeof ComponentsWebIndexRoute
 }
@@ -178,6 +192,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ThemeIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/components/$platform/$component': {
+      id: '/components/$platform/$component'
+      path: '/components/$platform/$component'
+      fullPath: '/components/$platform/$component'
+      preLoaderRoute: typeof ComponentsPlatformComponentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/components/mobile/': {
       id: '/components/mobile/'
       path: '/components/mobile'
@@ -202,6 +223,7 @@ const rootRouteChildren: RootRouteChildren = {
   ComponentsIndexRoute: ComponentsIndexRoute,
   DocsIndexRoute: DocsIndexRoute,
   ThemeIndexRoute: ThemeIndexRoute,
+  ComponentsPlatformComponentRoute: ComponentsPlatformComponentRoute,
   ComponentsMobileIndexRoute: ComponentsMobileIndexRoute,
   ComponentsWebIndexRoute: ComponentsWebIndexRoute,
 }

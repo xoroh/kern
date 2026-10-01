@@ -1,54 +1,106 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { SiteLayout } from "../../components/chrome/site-layout";
+import { Code, Step } from "../../components/docs/code";
+import { IconGallery } from "../../components/icons/icon-gallery";
+import { componentsOn } from "../../generated/manifest";
 
 export const Route = createFileRoute("/docs/guides")({
   component: Guides,
 });
 
+const WEB_PARITY = `// One contract, two platforms. Same name, same variant axis.
+import { Button } from "@xoroh/kern";        // web
+import { Button } from "@xoroh/kern-native"; // native
+
+// Web takes onClick and DOM props.
+<Button variant="primary" onClick={save}>Save</Button>
+
+// Native takes onPress.
+<Button variant="primary" onPress={save}>Save</Button>`;
+
+const SNACKBAR = `// Native: M3 transient messaging.
+import { Snackbar } from "@xoroh/kern-native";
+
+<Snackbar
+  visible={saved}
+  message="Build queued"
+  actionLabel="View"
+  onAction={open}
+/>;`;
+
+const ICON_ALIAS = `import { Icon } from "@xoroh/kern-icons";
+
+// A semantic alias is the unification decision: "close" means the same glyph
+// in every product. Prefer it over a raw glyph name.
+<Icon name="close" size={24} title="Close" />`;
+
+const REGISTRY = `import { getIconSet, listIconSets } from "@xoroh/kern-icons";
+
+listIconSets();            // every registered set
+getIconSet("material");    // one set's manifest`;
+
 function Guides() {
+  const web = componentsOn("web").length;
+  const mobile = componentsOn("mobile").length;
   return (
-    <main id="main">
-      <nav aria-label="Breadcrumb">
-        <p>
-          <a href="/">Kern</a> / <a href="/docs/components">Docs</a> / Guides
-        </p>
-      </nav>
-      <h1>Guides</h1>
+    <SiteLayout>
+      <section className="px-4 py-4 sm:px-6 sm:py-6">
+        <div className="mx-auto flex max-w-[64rem] flex-col gap-8 rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14">
+          <header className="flex flex-col gap-3">
+            <p className="m-0 text-sm font-medium tracking-[0.18em] text-(--md-sys-color-on-surface-variant) uppercase">
+              Docs / Guides
+            </p>
+            <h1 className="m-0 text-3xl font-semibold text-(--md-sys-color-on-surface)">
+              Guides
+            </h1>
+            <p className="m-0 text-(--md-sys-color-on-surface-variant)">
+              {web} web exports and {mobile} native exports, under one naming
+              law. These pages cover the rules that do not fit on a single
+              component page.
+            </p>
+          </header>
 
-      <h2>Swap the theme</h2>
-      <p>
-        Ship the <code>m3</code> default, offer <code>sharp</code> as a shape
-        variation, or author a customer theme with the validated helper:
-      </p>
-      <pre>
-        <code>{`import { applyKernTheme, defineThemePreset } from "@xoroh/kern";
+          <Step n={1} title="One component, two platforms">
+            <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
+              A component that exists on both platforms keeps its name and its
+              variant axis, and differs only where the platform genuinely does.
+              The event name is the visible case: <code>onClick</code> on the
+              web, <code>onPress</code> natively.
+            </p>
+            <Code>{WEB_PARITY}</Code>
+          </Step>
 
-const brand = defineThemePreset({
-  id: "acme",
-  extends: "m3",
-  overrides: { color: { light: { primary: "#1e3a8a" } } },
-});
+          <Step n={2} title="Deliberate asymmetries">
+            <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
+              Not every surface exists twice. M3 expresses transient messaging
+              as <code>Snackbar</code>, so the native package ships that and
+              stops. The web-only <code>Sonner</code> is a second name for one
+              idea, and is recorded as a deliberate asymmetry rather than a gap
+              to be closed.
+            </p>
+            <Code>{SNACKBAR}</Code>
+          </Step>
 
-applyKernTheme(document.documentElement, "dark", "standard", brand);`}</code>
-      </pre>
-      <p>
-        `defineThemePreset` rejects unknown roles, non-hex colors, and contrast
-        failures before anything renders.
-      </p>
+          <Step n={3} title="Icons: aliases over raw names">
+            <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
+              The semantic map is the unification table. Reach for an alias
+              first; a raw glyph name is for the icon that has no agreed meaning
+              yet.
+            </p>
+            <Code>{ICON_ALIAS}</Code>
+            <Code>{REGISTRY}</Code>
+          </Step>
 
-      <h2>Use Kern in React Native</h2>
-      <pre>
-        <code>{`import { KernThemeProvider, Button } from "@xoroh/kern-native";
-
-<KernThemeProvider>
-  <Button variant="primary" onPress={save}>
-    Save
-  </Button>
-</KernThemeProvider>;`}</code>
-      </pre>
-      <p>
-        Load `Inter_400Regular`, `Inter_500Medium`, and `Inter_600SemiBold` from
-        `@expo-google-fonts/inter` before rendering typography.
-      </p>
-    </main>
+          <Step n={4} title="The icon gallery">
+            <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
+              Every count and name below is read from the icon package at build
+              time. The grid paints the first 120 for server-render cost; the
+              filter reaches the rest.
+            </p>
+            <IconGallery />
+          </Step>
+        </div>
+      </section>
+    </SiteLayout>
   );
 }

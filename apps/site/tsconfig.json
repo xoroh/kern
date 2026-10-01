@@ -6,7 +6,8 @@
     "module": "ESNext",
     "paths": {
       "#/*": ["./src/*"],
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "react-native": ["./node_modules/react-native-web/dist/types/index.d.ts"]
     },
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "types": ["vite/client"],

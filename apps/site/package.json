@@ -10,10 +10,12 @@
   "scripts": {
     "dev": "vite dev --port 3000",
     "generate-routes": "tsr generate",
-    "build": "vite build",
+    "build": "bun run generate && vite build",
     "preview": "vite preview",
-    "typecheck": "tsr generate && tsc --noEmit",
-    "deploy": "bun run build && wrangler deploy"
+    "typecheck": "tsr generate && bun run generate && tsc --noEmit",
+    "deploy": "bun run build && wrangler deploy",
+    "generate": "bun run scripts/generate-manifest.mjs",
+    "check:snippets": "bun run scripts/check-snippets.mjs"
   },
   "dependencies": {
     "@tanstack/react-router": "latest",
