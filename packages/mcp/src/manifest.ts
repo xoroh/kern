@@ -1866,6 +1866,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    name: "fab-menu",
+    export: "FabMenu",
+    platform: "native",
+    path: "src/components/fab-menu.tsx",
+    status: "real",
+  },
+  {
     name: "fab",
     export: "Fab",
     platform: "native",
@@ -2199,6 +2206,13 @@ export const COMPONENTS: ComponentEntry[] = [
     export: "Snackbar",
     platform: "native",
     path: "src/components/snackbar.tsx",
+    status: "real",
+  },
+  {
+    name: "split-button",
+    export: "SplitButton",
+    platform: "native",
+    path: "src/components/split-button.tsx",
     status: "real",
   },
   {

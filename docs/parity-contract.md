@@ -52,13 +52,13 @@ again. Measured from the generated registry instead:
 
 | Measure | Value |
 |---|---|
-| Registry rows | **328** (web 248, native 80) |
-| **Shared** (already both sides) | **51** |
+| Registry rows | **330** (web 248, native 82) |
+| **Shared** (already both sides) | **53** |
 | **Native-only → needs a web version** | **22** in **11 files** |
-| **Web-only → needs a native version** | **39** in **31 files** |
+| **Web-only → needs a native version** | **37** in **28 files** |
 | Stub rows | **0** |
 
-<!-- gate:counts 51 22 39 0 -->
+<!-- gate:counts 53 22 37 0 -->
 
 Machine-readable line above: `check:parity` (`scripts/check-parity.mjs`) re-derives
 these from the registry and fails if they drift, so the prose above cannot quietly
@@ -304,7 +304,7 @@ were restored from backup afterwards.
 
 ---
 
-## Web-only concepts → need a native version (39)
+## Web-only concepts → need a native version (37)
 
 The heading previously read **34** while the machine gate read **42** — the
 `gate:counts` line was right and the sentence a human reads was stale, which is
@@ -340,10 +340,7 @@ a count moved.
 | 23 | `sonner` | Imperative transient messages | `role="status"`, `aria-live` | **deliberately no native counterpart** — D-026/S1.3 ruling: M3 = `Snackbar` | M3 · Snackbars | n/a |
 | 24 | `create-sonner-manager` | Imperative API factory | — | **no native counterpart by ruling** | M3 · Snackbars | n/a |
 | 25 | `icon-button` | Square icon-only action, 4 containers + toggle | `aria-pressed` on the toggle; name from one `label` prop | `Pressable` + `accessibilityRole="button"` + `accessibilityState.selected` | M3 · Buttons → Icon buttons | `m3-gaps.test.tsx` |
-| 26 | `extended-fab` | FAB with a visible label, collapses when it no longer fits | collapse via imperative handle; name survives collapse | `Pressable` + `accessibilityRole="button"`, label as `accessibilityLabel` | M3 · FAB → Extended FAB | `m3-gaps.test.tsx` |
-| 27 | `fab-menu` | FAB that opens a menu of actions | `aria-haspopup="menu"` + `aria-expanded`; select-then-dismiss | `accessibilityRole="menu"` + `accessibilityState.expanded` | M3 · FAB → FAB menu | `m3-gaps.test.tsx` |
-| 28 | `split-button` | One primary action + an overflow menu | two named controls; primary does not open the menu | `accessibilityRole="menu"` on the overflow half | M3 · Buttons → Split button | `m3-gaps.test.tsx` |
-| 29 | `time-picker` | Hour / minute / period | three `role="listbox"`es, roving tabindex per field, 24-hour state | `accessibilityRole="adjustable"`-style pickers, or a platform time picker | M3 · Date & time → Time picker | `m3-gaps.test.tsx` |
+| 26 | `time-picker` | Hour / minute / period | three `role="listbox"`es, roving tabindex per field, 24-hour state | `accessibilityRole="adjustable"`-style pickers, or a platform time picker | M3 · Date & time → Time picker | `m3-gaps.test.tsx` |
 | 30 | `carousel` | One item at a time with prev/next | `aria-roledescription="carousel"`/`"slide"`, `"n of m"` per slide | horizontal `ScrollView` + `accessibilityRole="adjustable"` paging | M3 · Carousel | `m3-gaps.test.tsx` |
 | 31 | `loading-indicator` | Indeterminate activity feedback (**replaces** indeterminate circular progress, T4-M5) | `role="status"`, no `aria-valuenow`, reduced-motion aware | `ActivityIndicator` + `accessibilityLabel`; **no** indeterminate circular-progress component | M3 · Progress → Loading indicator | `m3-gaps.test.tsx` |
 | 32 | `loading-region` | The region being loaded, with `aria-busy` | `aria-busy` on the region, `aria-live="polite"` | `accessibilityState.busy` on the container | M3 · Progress | `m3-gaps.test.tsx` |
@@ -355,7 +352,123 @@ Rows 25-32 are the P2-1 gap fill: **web-only went 34 → 42**, registry 317 → 
 They are web-first concepts, so the native column is a debt owed by P2b-3 rather
 than a claim that the work is done. **The table above was renumbered in P2b-3
 tranche 1**, when `autocomplete`, `input-otp` and `number-field` shipped on
-native and the count fell 42 → 39.
+native and the count fell 42 → 39, and again in **tranche 2**, when
+`extended-fab`, `fab-menu` and `split-button` shipped and it fell 39 → 37.
+
+---
+
+## Native versions of the FAB / overflow-action family (P2b-3, tranche 2)
+
+Three web-only rows shipped a native implementation: `extended-fab`, `fab-menu`,
+`split-button`. All three cleared the same bar — on RN there is **no Base UI to
+compose on**, so each one owns its behaviour outright rather than passing four
+props through a primitive, which is exactly what the web versions do.
+
+| Concept | Native | Behaviour owned natively | Verdict |
+|---|---|---|---|
+| `extended-fab` | `ExtendedFab` (`src/components/extended-fab.tsx`) | M3's collapse when the label no longer fits, plus **the accessible name surviving the collapse**. The trigger is an **imperative handle** (`NativeExtendedFabHandle`), not a gesture — scroll position is host state the component cannot see, and the web version reaches the same conclusion for the same reason. The handle is idempotent: two scrolls the same way report one collapse | shipped, **no contract row yet** (see below) |
+| `fab-menu` | `FabMenu` (`src/components/fab-menu.tsx`) | The trigger's **own name**, defaulting to the first action's; `accessibilityState.expanded`; the optional `openIcon` swap; **select-then-dismiss**; and disabled actions that are both announced and unreachable | shipped, **no contract row yet** (see below) |
+| `split-button` | `SplitButton` (`src/components/split-button.tsx`) | **Two named controls**, two tab stops; the **primary never opens the menu**; select-then-dismiss; the hairline divider that makes the two halves read as one pill; and `disabled` killing **both** halves together | shipped, **no contract row yet** (see below) |
+
+### These three carry NO cross-renderer contract row yet, and that is a debt
+
+Recorded here rather than glossed, because tranche 1 shipped `input-otp` and
+`number-field` **with** contract rows and it would be easy to read this table as
+saying the same happened here. It did not: `parity/contract.ts` has **no**
+`extended-fab`, `fab-menu` or `split-button` row, and
+`fab-family.rntest.tsx` imports nothing from `@kern-parity/contract`. What the
+suite pins is each renderer's behaviour **on its own floor**.
+
+The debt is real rather than cosmetic. A contract row is only sound once both
+sides have been **measured**, and the web side of all three is unmeasured: no
+probe was run against `packages/kern/src/components/{extended-fab,fab-menu,split-button}.tsx`.
+Writing a row from reading the web source would make it a coin flip — the exact
+failure `autocomplete`'s "no contract row" note exists to prevent, and the
+fourth time it has come up.
+
+The honest state of each, for whoever picks this up:
+
+- **`extended-fab`** — the strongest candidate. Both sides use the same
+  imperative-handle collapse for the same documented reason, so the row would be
+  about collapse/expand, idempotence and **the name surviving collapse**. Still
+  needs web measured first.
+- **`fab-menu`** — the closest match, and the strongest row after `extended-fab`.
+  Both sides default the trigger's name to `actions[0].label`
+  (`fab-menu.tsx:89` web, `fab-menu.tsx:96` native) with `menuLabel` overriding,
+  and both fall back to `"Actions"` on an empty list. Still needs web measured
+  before pinning.
+- **`split-button`** — two named controls agree on both sides. But web composes
+  on the Base UI menu root and native uses a `Modal`, so traversal/Escape/
+  typeahead/focus-return are the primitive's on web and absent natively. A row
+  asserting menu behaviour would be red on day one; a row asserting only the two
+  names and the primary-does-not-open separation would be sound.
+
+So: **tranche 2 shipped the native components and their behaviour tests; the
+contract rows are owed by P2b-4**, behind web-side measurement.
+
+### Two things the behaviour test forced, rather than the plan
+
+**An empty action list renders no surface.** The first `FabMenu` implementation
+opened a modal unconditionally, so `actions={[]}` produced a trigger that looked
+live and opened an empty box. The test caught it; the component now gates on
+`visible={isOpen && actions.length > 0}`. The trigger itself stays rendered so a
+host loading actions asynchronously does not shift the control.
+
+**`getByRole("menu")` does not work on this floor, and that is not a defect.**
+The menu assertions read the rendered a11y tree directly instead. This was
+verified rather than assumed: the **already-shipped** `Menu` component returns
+`null` from `getByRole("menu")` identically, so it is an RNTL limitation. A test
+that cannot see the surface it asserts on is worse than no test, and quietly
+replacing a working query with `getByLabelText` everywhere would have hidden the
+limitation instead of documenting it.
+
+### What the behaviour test cut
+
+**`icon-button` — cut, and it stays cut.** It was the closest call in the tranche,
+because `Fab` with `size="icon"` and `Toggle` between them already cover its
+substance: a 56dp square pressable (`fab`) and a pressed/selected control
+(`toggle`). What is left is *container variant* — `standard` / `filled` / `tonal` /
+`outlined` — which is four token fills over the same two behaviours. That is the
+CSS/shared-function/reject branch: a `NativeIconButton` whose only job is
+choosing `surfaceContainerHighest` vs `secondaryContainer` would be a new public
+name for an existing component, and the registry's concept rule would then have
+to defend it.
+
+**`tooltip` — cut, and the cut needs a ruling.** It looks like a deliberate
+asymmetry alongside `kbd` and `preview-card` (a hover/focus hint label has no
+touch analogue), but unlike those two it is **not yet in the asymmetry register**,
+and adding it there changes the counts `check:parity` enforces. So it is recorded
+as a **proposal for `review-m3`**, not claimed as ruled: either accept it into the
+deliberate set (register → 6, web-only → 37 stays, one row leaves the table) or
+build it. This is a judgement call about the founder's "every primitive = web +
+native" mandate, and it is not mine to make.
+
+Mutation-proven: the three component behaviours were reverted in isolation and
+the suite went red each time — see **Verification note** at the end of this
+section.
+
+### Verification note (P2b-3 tranche 2)
+
+Gates, all run on this change-set:
+
+| Gate | Result |
+|---|---|
+| `bun run check:parity` | passes — 330 rows (web 248, native 82); 53 shared / 22 native-only / **37 web-only**; 5 deliberate asymmetries intact |
+| `bun run typecheck` | passes — 5/5 packages exit 0 |
+| `bun run test:all` | passes — 41 vitest + **129 jest** in 11 suites (64 at tranche 1) |
+| `bun run check:m3` | passes — 45/45 M3 roles, 13 kern deviations, typescale/spacing/elevation/shape/motion intact |
+| `bun run lint` | 0 errors. The 1 remaining warning (`menus.tsx:46` unused param, `check-m3.mjs:222`) is **pre-existing at `c05da56`**, confirmed against a clean worktree of HEAD |
+
+Mutation proofs — each behaviour reverted on its own, suite re-run, then restored:
+
+| # | Mutation | Result |
+|---|---|---|
+| 1 | `dialog.tsx`: `role="dialog"` → `role="none"` (the shipped bug) | `dialog.rntest.tsx` **3 failed**, 2 passed |
+| 2 | `extended-fab.tsx`: `accessibilityLabel` dropped when collapsed | `fab-family.rntest.tsx` **2 failed**, 16 passed |
+| 3 | `fab-menu.tsx`: `visible={isOpen && actions.length > 0}` → `visible={isOpen}` | `fab-family.rntest.tsx` **1 failed**, 17 passed |
+| 4 | `split-button.tsx`: primary `onPress` also calls `setOpen` | `fab-family.rntest.tsx` **1 failed**, 17 passed |
+
+All four restored; the tree re-verified at 129/129 green afterwards.
 
 ---
 
@@ -411,11 +524,12 @@ symmetrised, and P2b-2/3 must not "fix" them:
 - **Registry source:** all rows read from the generated
   `packages/mcp/src/manifest.ts` (`bun run generate:components` output, idempotent —
   re-run leaves it byte-identical).
-- **Counts:** web 248 rows; native 80 rows; **51 shared; 22 native-only; 39
+- **Counts:** web 248 rows; native 82 rows; **53 shared; 22 native-only; 37
   web-only**. Reproducible by the script noted below. The three navigation-family
-  rows moved native-only → shared in P2b-2 (45/25 → 48/22), and P2b-3 tranche 1
+  rows moved native-only → shared in P2b-2 (45/25 → 48/22), P2b-3 tranche 1
   moved `autocomplete`, `input-otp` and `number-field` web-only → shared
-  (48/42 → 51/39).
+  (48/42 → 51/39), and tranche 2 moved `extended-fab`, `fab-menu` and
+  `split-button` (51/39 → 53/37).
 - **ADR 002 boundary:** re-verified **0** imports of `@base-ui/react` across
   `packages/kern-native`, `packages/kern-theme`, `packages/kern-icons`; and
   **0** imports of `@xoroh/kern-native` in `packages/kern/src`. This manifest is a

@@ -80,7 +80,14 @@ export function Dialog({
     >
       <View style={overlayStyles.scrim}>
         <View
-          accessibilityRole="none"
+          // `role`, NOT `accessibilityRole`, carries the dialog role: the
+          // platform-trait union (`AccessibilityRole`) has no `dialog` member,
+          // while the ARIA-aligned `Role` union does — Fabric resolves it to
+          // `Role::Dialog`. `accessibilityRole="alert"` is retained as the
+          // repo's existing dialog mapping (cf. alert-dialog.tsx), the closest
+          // real trait VoiceOver/TalkBack have for an interrupting container.
+          role="dialog"
+          accessibilityRole="alert"
           accessibilityLabel={title}
           testID={testID ?? "kern-dialog"}
           style={[styles.card, style]}

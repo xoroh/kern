@@ -290,6 +290,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `empty-state` | `EmptyState` | real |
 | `entity-sheet` | `EntitySheet` | real |
 | `fab` | `Fab` | real |
+| `fab-menu` | `FabMenu` | real |
 | `field` | `Field` | real |
 | `field-message` | `FieldMessage` | real |
 | `filter-chip-row` | `FilterChipRow` | real |
@@ -330,6 +331,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `slider` | `Slider` | real |
 | `snackbar` | `Snackbar` | real |
 | `snap-sheet` | `SnapSheet` | real |
+| `split-button` | `SplitButton` | real |
 | `success-transform` | `SuccessTransform` | real |
 | `supporting-pane` | `SupportingPane` | real |
 | `switch` | `Switch` | real |

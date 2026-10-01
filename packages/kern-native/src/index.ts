@@ -60,11 +60,21 @@ export { Dialog, dialogStyles } from "./components/dialog";
 export type { NativeEmptyStateProps } from "./components/empty-state";
 export { EmptyState } from "./components/empty-state";
 export type {
+  NativeExtendedFabHandle,
+  NativeExtendedFabProps,
+} from "./components/extended-fab";
+export { ExtendedFab } from "./components/extended-fab";
+export type {
   NativeFabProps,
   NativeFabSize,
   NativeFabVariant,
 } from "./components/fab";
 export { Fab, fabStyles } from "./components/fab";
+export type {
+  NativeFabMenuAction,
+  NativeFabMenuProps,
+} from "./components/fab-menu";
+export { FabMenu } from "./components/fab-menu";
 export type { NativeFieldRootProps } from "./components/field";
 export { Field, FieldRoot } from "./components/field";
 export type { NativeFieldMessageProps } from "./components/field-message";
@@ -218,6 +228,11 @@ export type { NativeSliderProps } from "./components/slider";
 export { Slider, sliderStyles } from "./components/slider";
 export type { NativeSnackbarProps } from "./components/snackbar";
 export { Snackbar, snackbarStyles } from "./components/snackbar";
+export type {
+  NativeSplitButtonAction,
+  NativeSplitButtonProps,
+} from "./components/split-button";
+export { SplitButton, splitButtonStyles } from "./components/split-button";
 export type {
   SuccessState,
   SuccessTransformProps,
