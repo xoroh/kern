@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import "@xoroh/kern-theme/theme";
+@import "@xoroh/kern-tokens/theme";
 @source "../../../packages/kern/src/components";
 
 * {

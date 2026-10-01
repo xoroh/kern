@@ -262,7 +262,9 @@ export function DialogDemo() {
               <Button variant="ghost">Cancel</Button>
             </Dialog.Close>
             <Dialog.Close>
-              <Button variant="destructive">Delete</Button>
+              <Button className="bg-(--md-sys-color-error) text-(--md-sys-color-on-error) hover:bg-(--md-sys-color-error)/90">
+                Delete
+              </Button>
             </Dialog.Close>
           </div>
         </Dialog.Content>

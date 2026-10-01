@@ -49,12 +49,32 @@ const Plus = (props: { className?: string }) => (
 export function ButtonDemo() {
   return (
     <PreviewStack>
-      <Preview label="variant — primary · tonal · ghost · destructive" span={3}>
+      <Preview
+        label="variant — elevated · primary · tonal · outlined · ghost"
+        span={3}
+      >
         <Row>
-          <Button>Primary</Button>
+          <Button variant="elevated">Elevated</Button>
+          <Button variant="primary">Primary</Button>
           <Button variant="tonal">Tonal</Button>
+          <Button variant="outlined">Outlined</Button>
           <Button variant="ghost">Ghost</Button>
-          <Button variant="destructive">Destructive</Button>
+        </Row>
+      </Preview>
+      <Preview
+        label="action — destructive is the error roles, not a variant"
+        span={3}
+      >
+        <Row>
+          <Button className="bg-(--md-sys-color-error) text-(--md-sys-color-on-error) hover:bg-(--md-sys-color-error)/90">
+            Delete
+          </Button>
+          <Button
+            variant="outlined"
+            className="border-(--md-sys-color-error) text-(--md-sys-color-error)"
+          >
+            Discard
+          </Button>
         </Row>
       </Preview>
       <Preview label="size — default · sm · icon" span={3}>
@@ -101,21 +121,33 @@ export function ButtonGroupDemo() {
 export function FabDemo() {
   return (
     <PreviewStack>
-      <Preview label="variant — primary · tonal" span={3}>
+      <Preview
+        label="size — small · default · medium · large (M3's FAB axis)"
+        span={3}
+      >
+        <Row>
+          <Fab size="sm">
+            <Plus />
+            Compose
+          </Fab>
+          <Fab>
+            <Plus />
+            Compose
+          </Fab>
+          <Fab size="medium" aria-label="Compose">
+            <Plus />
+          </Fab>
+          <Fab size="large" aria-label="Compose">
+            <Plus />
+          </Fab>
+        </Row>
+      </Preview>
+      <Preview label="form — extended · icon only" span={3}>
         <Row>
           <Fab>
             <Plus />
             Compose
           </Fab>
-          <Fab variant="tonal">
-            <Plus />
-            Compose
-          </Fab>
-        </Row>
-      </Preview>
-      <Preview label="size — default · sm · icon" span={3}>
-        <Row>
-          <Fab size="sm">Small</Fab>
           <Fab size="icon" aria-label="Add">
             <Plus />
           </Fab>

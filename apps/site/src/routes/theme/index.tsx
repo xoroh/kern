@@ -284,7 +284,9 @@ function ThemePage() {
                   <Button>Primary</Button>
                   <Button variant="tonal">Tonal</Button>
                   <Button variant="ghost">Ghost</Button>
-                  <Button variant="destructive">Destructive</Button>
+                  <Button className="bg-(--md-sys-color-error) text-(--md-sys-color-on-error) hover:bg-(--md-sys-color-error)/90">
+                    Error
+                  </Button>
                 </div>
               </Preview>
               <Preview label="Card · Chip · Badge" span={3}>
