@@ -24,6 +24,7 @@ export type { NativeAvatarProps, NativeAvatarSize } from "./components/avatar";
 export { Avatar, avatarStyles } from "./components/avatar";
 export type { NativeBadgeProps } from "./components/badge";
 export { Badge } from "./components/badge";
+export { bottomSheetSurface } from "./components/bottom-sheet-surface";
 export type { NativeButtonProps } from "./components/button";
 export { Button } from "./components/button";
 export type { NativeButtonGroupProps } from "./components/button-group";
@@ -191,7 +192,7 @@ export { ShapeArt, shapeArtStyles } from "./components/shape-art";
 export type { NativeSheetProps } from "./components/sheet";
 export { Sheet, sheetStyles } from "./components/sheet";
 export type { SheetSurfaceProps } from "./components/sheet-surface";
-export { bottomSheetSurface, SheetSurface } from "./components/sheet-surface";
+export { SheetSurface } from "./components/sheet-surface";
 export type {
   BottomSheetSize,
   EntityField,

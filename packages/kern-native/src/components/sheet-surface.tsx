@@ -1,8 +1,3 @@
-import {
-  type ResolvedTheme,
-  resolveThemeDetails,
-  tokens,
-} from "@xoroh/kern-theme";
 import type { ReactNode } from "react";
 import {
   Modal,
@@ -127,19 +122,4 @@ export function SheetSurface({
       </View>
     </Modal>
   );
-}
-
-/** M3 bottom-sheet surface tokens — `surfaceContainerLow`, XL top corners. */
-export function bottomSheetSurface(
-  scheme: ResolvedTheme = resolveThemeDetails(),
-): ViewStyle {
-  return {
-    backgroundColor: scheme.color.surfaceContainerLow,
-    borderTopLeftRadius: Number.parseFloat(scheme.shape["extra-large"]),
-    borderTopRightRadius: Number.parseFloat(scheme.shape["extra-large"]),
-    paddingHorizontal: Number.parseFloat(tokens.spacing["space-200"]),
-    paddingBottom: Number.parseFloat(tokens.spacing["space-400"]),
-    paddingTop: Number.parseFloat(tokens.spacing["space-100"]),
-    maxHeight: "50%",
-  };
 }
