@@ -102,6 +102,27 @@ export type ParityRow = {
    * what the role means, and the two must not be conflated.
    */
   interactive?: boolean;
+
+  /**
+   * For `named-surface`: the dismissal paths BOTH renderers must provide.
+   *
+   * This is the contract's whole reason for existing on a sheet. A modal surface
+   * that renders but cannot be dismissed is a trap — for a pointer user, and
+   * worse for a screen-reader user who may have no way to leave it at all. M3
+   * specifies the BEHAVIOUR (a scrim, and a close affordance); it does not
+   * specify that both renderers share an implementation, and they do not: web
+   * dismisses through a portal scrim and `Escape`, native through a `Pressable`
+   * scrim and the Android hardware back button.
+   *
+   * So the obligation is split rather than flattened. `dismissalRequired` is what
+   * both must do. `dismissalOnlyWeb` / `dismissalOnlyNative` record paths a
+   * platform has and the other cannot — the same shape as `errorViaHint`, where
+   * the delivery differs and the obligation does not. Asserting "native has
+   * Escape" would be asserting a platform detail as a Kern contract.
+   */
+  dismissalRequired?: readonly ("scrim" | "close-control")[];
+  dismissalOnlyWeb?: readonly "escape"[];
+  dismissalOnlyNative?: readonly "hardware-back"[];
   /** The role an actionable row must expose. `button` for an action,
    * `link` for navigation. Maps to native `accessibilityRole`. */
   interactiveRole?: string;
@@ -374,6 +395,33 @@ export const CONTRACTS: readonly ParityRow[] = [
     // explicitly, native has `accessibilityViewIsModal` on `Modal`.
     modal: true,
     nameMustContain: ["Discard draft?"],
+    expects: {
+      initial: false,
+      afterActivate: false,
+      afterDisabledActivate: false,
+    },
+    maxSelected: 1,
+  },
+  {
+    component: "sheet-surface",
+    role: "dialog",
+    axis: "selected",
+    interaction: "select",
+    name: "Filters",
+    family: "named-surface",
+    // Same modality obligation as `dialog`: a sheet is a modal surface, and a
+    // modal that only traps focus is still a trap to a screen reader.
+    modal: true,
+    nameMustContain: ["Filters"],
+    // The sheet contract proper. See the `dismissalRequired` doc comment: a sheet
+    // that renders without a way out is the defect this row exists to prevent,
+    // and `SheetSurface`'s own header records the four sheets that shipped with
+    // an `onDismiss` prop they never used.
+    dismissalRequired: ["scrim", "close-control"],
+    // Platform extras, recorded so neither renderer is asked to assert a
+    // mechanism it does not have.
+    dismissalOnlyWeb: ["escape"],
+    dismissalOnlyNative: ["hardware-back"],
     expects: {
       initial: false,
       afterActivate: false,
