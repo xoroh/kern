@@ -118,4 +118,4 @@ Expanded (840dp+):  Navigation Drawer (side, standard)  ← Kern default
 
 ## Web and native (platform shells)
 
-Kern shells map to the drawer pattern above on expanded screens: the web shell (`@xoroh/kern`) uses the persistent sidebar drawer; the native shell (`@xoroh/kern/native`) uses the bottom navigation bar on compact screens and the rail/drawer as space allows. Destinations stay single-select with the active indicator in every shell.
+Kern shells map to the drawer pattern above on expanded screens: the web shell (`@xoroh/kern`) uses the persistent sidebar drawer; the native shell (`@xoroh/kern-native`) uses the bottom navigation bar on compact screens and the rail/drawer as space allows. Destinations stay single-select with the active indicator in every shell.

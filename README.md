@@ -2,26 +2,99 @@
 
 Status: current
 
-Open design system based on Material Design 3: tokens, web and native
-components, documentation, and tooling. MIT licensed and usable by
-people and AI agents.
+An open Material Design 3 design system: tokens, web and native components,
+documentation, and tooling. MIT licensed and usable by people and AI agents.
 
 - Documentation: https://kern.xoroh.org
 - Hub: https://xoroh.org
 
-## Structure
+## Install
 
-- `apps/site/` — kern.xoroh.org (TanStack Start: component docs and live examples)
-- `apps/mobile/` — "Kern" (empty Expo host with native theme and font wiring)
-- `packages/kern-theme/` — `@xoroh/kern-theme`: tokens + themes + tones + feedback spec (platform-free)
-- `packages/kern/` — `@xoroh/kern`: web components (React, on Base UI)
-- `packages/kern-native/` — `@xoroh/kern-native`: React Native components (StyleSheet + tokens)
-- `packages/kern-icons/` — `@xoroh/kern-icons`: multi-set icon registry + `Icon` (web + native)
-- `packages/kern-start/` — `@xoroh/kern-start`: web composition (blocks, navigation, panes, scaffolds)
-- `packages/cli/` — private, reserved for a future installer CLI
-- `packages/mcp/` — MCP server (`@xoroh/kern-mcp`): list/get components, tokens, audits
-- `.agents/skills/` — agent skills (kern design + docs upkeep)
+```bash
+bun add @xoroh/kern @xoroh/kern-theme
+```
+
+Web components need `@base-ui/react`, `react`, `react-dom`, and Tailwind CSS
+v4 with utilities mapped to the MD3 roles:
+
+```tsx
+import "@xoroh/kern/theme";
+
+import { Button } from "@xoroh/kern";
+
+export function Save() {
+  return <Button variant="primary">Save</Button>;
+}
+```
+
+React Native:
+
+```tsx
+import { Button, KernThemeProvider } from "@xoroh/kern-native";
+
+export function Save({ onPress }: { onPress: () => void }) {
+  return (
+    <KernThemeProvider>
+      <Button variant="primary" onPress={onPress}>
+        Save
+      </Button>
+    </KernThemeProvider>
+  );
+}
+```
+
+Per-package detail lives in each package's README.
+
+## Packages
+
+| Package | Directory | What it is |
+| --- | --- | --- |
+| `@xoroh/kern-theme` | `packages/kern-theme` | Tokens (`tokens.json`), theme presets, contrast overlays, tones, feedback spec, variant registry. Platform-free: no React, no DOM |
+| `@xoroh/kern` | `packages/kern` | Web components (React, on Base UI) + the web theme runtime |
+| `@xoroh/kern-start` | `packages/kern-start` | Web composition: blocks, top app bar, navigation, panes, scaffolds |
+| `@xoroh/kern-native` | `packages/kern-native` | React Native components (StyleSheet + tokens) + the native scheme hook |
+| `@xoroh/kern-icons` | `packages/kern-icons` | Material Symbols registry and the `Icon` renderer (web + native) |
+| `@xoroh/kern-mcp` | `packages/mcp` | MCP server: list components, fetch source and tokens, audit screens |
+| `@xoroh/cli` | `packages/cli` | Private placeholder for a future `kern add` installer. Not implemented, never published |
+
+Six packages publish; each versions independently.
+
+## Apps
+
+- `apps/site/` — kern.xoroh.org (TanStack Start): the documentation site. It
+  imports and dogfoods `@xoroh/kern`, `@xoroh/kern-theme`,
+  `@xoroh/kern-icons`, and `@xoroh/kern-start`.
+- `apps/mobile/` — "Kern": an Expo host wiring the native theme and fonts.
+
+## Documentation
+
+| Where | What |
+| --- | --- |
+| https://kern.xoroh.org | Product docs for users: getting started, components, theme, guides |
+| [`docs/`](docs/README.md) | Contributor docs: architecture, parity, releases, conventions |
+| [`.agents/skills/`](.agents/skills/) | Agent knowledge: `kern` (design authority), `docs` (upkeep discipline) |
+
+## Contributing
+
+Read [`CONTRIBUTING.md`](CONTRIBUTING.md) first — it lists the per-PR
+requirements (changeset, docs in the same change, lint, tests, conventional
+commits). [`docs/architecture.md`](docs/architecture.md) explains how the
+packages fit together, and [`AGENTS.md`](AGENTS.md) routes an agent to the
+right skill.
+
+## Development
+
+```bash
+bun install
+bun run build          # generators + all package builds
+bun run lint
+bun run typecheck
+bun run test:all
+bun run check:m3       # M3 contract: roles, tokens, shape scale
+bun run check:contrast # WCAG across presets x modes x contrast levels
+bun run check:publish  # publint + are-the-types-wrong, all 6 packages
+```
 
 ## License
 
-MIT License — see `LICENSE`.
+MIT License — see [`LICENSE`](LICENSE).

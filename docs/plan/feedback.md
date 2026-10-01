@@ -17,7 +17,7 @@ loader + `useAppReady` handoff, `BootIndicator`. Every app boots through this.
 
 | Decision | Outcome |
 | --- | --- |
-| Spec home | `kern-theme/src/feedback.ts` — pure data + registry, both renderers consume |
+| Spec home | `packages/kern-theme/src/feedback.ts` — pure data + registry, both renderers consume |
 | Names | M3 canonical, unprefixed: `CircularProgress`, `LinearProgress`, `LoadingButton` (M3 progress-indicator canon). No legacy or bridge names anywhere — hard cut |
 | Styles shipped now | web: `spinner`, `dots`, `bar`, `shapes` (≈`heritage`); remaining 5 styles stubbed in spec, rendered later |
 | Critical loader | web-only constants (`CRITICAL_LOADER_CSS/HTML`) + `useAppReady`/`markAppReady` in `kern` |

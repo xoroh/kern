@@ -1,6 +1,6 @@
 # Kern Tokens — the MD3 role mapping
 
-Kern is founded on Material Design 3. This file maps every MD3 `md.sys` role to its Kern value. Read the MD3 canon in the sibling `references/*` files for structure and rules; read **this** file to translate that structure into Kern's expression. The canonical token values live in `packages/kern/src/theme/tokens.ts` (plus `tokens.css`, both generated from `tokens.json`).
+Kern is founded on Material Design 3. This file maps every MD3 `md.sys` role to its Kern value. Read the MD3 canon in the sibling `references/*` files for structure and rules; read **this** file to translate that structure into Kern's expression. The canonical token values live in `packages/kern-theme/src/tokens.json`, exposed as `tokens.ts` (re-exported by `@xoroh/kern/tokens`) and `tokens.css`, both generated from that source.
 
 Kern keeps MD3's **roles, color system, pairing rules, adaptive layout, and accessibility**. The chrome base is neutral (black / white / gray); functional color is used the way M3 prescribes it (Kern blue secondary for links, focus, and active accents; error / success / warning / info for status). Kern overrides MD3's **defaults** in expression only: no dynamic color, 9999px pills, Inter, and utility-only motion.
 
@@ -170,11 +170,11 @@ No shape morphing, no spring physics, no bounce, no entrance animation on conten
 Kern ships two token vocabularies. Author against either; keep them in sync.
 
 - **MD3 roles:** `--md-sys-color-*`, `--md-sys-shape-corner-*`, `--md-sys-typescale-*` (portable MD3 layer).
-- **Kern app tokens:** `--background`, `--foreground`, `--primary`, `--secondary`, `--muted`, `--accent`, `--border`, `--destructive`, `--radius`, plus the `--sidebar-*` set (what apps consume).
+- **Kern app tokens:** `--background`, `--foreground`, `--primary`, `--secondary`, `--muted`, `--accent`, `--border`, `--destructive`, `--radius`, plus the `--sidebar*` set (`--sidebar`, `--sidebar-primary`, `--sidebar-accent`, `--sidebar-border`, and their `-foreground` pairs). Each is a `var(--md-sys-*)` alias generated into `tokens.css` — they carry no values of their own.
 
 ## 7. Theme system
 
-Values live in `packages/kern/src/theme/` (`tokens.json` source → `tokens.ts` + `tokens.css`); the **mechanism** is `resolveTheme(mode, contrast, variant)` + `applyKernTheme()` + `useKernTheme()` in `src/theme/theme.ts`, with role tables in `themes/m3.json`. Web projects the table as CSS vars (`@xoroh/kern/theme` stylesheet + `.dark` class); native resolves it to objects (hook lands with the native scheme — `useKernTheme().scheme` is web-only for now). Full architecture: [`theming-and-dynamic-color.md`](theming-and-dynamic-color.md); authoring: [`theme-variants.md`](theme-variants.md).
+Values live in `packages/kern-theme/src/` (`tokens.json` source → `tokens.ts` + generated `tokens.css`); the **mechanism** is `resolveThemeDetails(mode, contrast, variant)` in `resolve.ts`, with role tables in `themes/m3.json`. `applyKernTheme()` + `useKernTheme()` (web) live in `packages/kern/src/web-theme.ts`; `KernThemeProvider` + `useKernScheme()` (native) live in `packages/kern-native/src/theme.tsx`. Web projects the table as CSS vars (`@xoroh/kern/theme` stylesheet + `.dark` class); native resolves the same table to objects. Both take the identical `(mode, contrast, variant)` triple, so one selection renders identically on both. Full architecture: [`theming-and-dynamic-color.md`](theming-and-dynamic-color.md); authoring: [`theme-variants.md`](theme-variants.md).
 
 The app-token bridge mirrors the same roles. Mapping:
 

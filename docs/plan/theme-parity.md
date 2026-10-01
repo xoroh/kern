@@ -18,7 +18,7 @@ no DOM.
 
 ## Shipped
 
-- `src/variants.ts`: runtime registry (module Map, fail-loud), deltas =
+- `packages/kern-theme/src/variants.ts`: runtime registry (module Map, fail-loud), deltas =
   changed roles only, CSS var emission.
 - Tests: registry semantics, deltas, completeness assertions, unknown-id throws.
 

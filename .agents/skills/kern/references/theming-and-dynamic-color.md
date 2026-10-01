@@ -1,6 +1,6 @@
-> **Kern note:** MD3 theming architecture. Kern does **not** generate schemes from a seed or use dynamic color — it ships fixed schemes resolved through a shared registry (`packages/kern/src/theme/`): base light/dark tables + contrast overlays + named variants. See [`theme-variants.md`](theme-variants.md) for authoring, [`kern-tokens.md`](kern-tokens.md) for values.
+> **Kern note:** MD3 theming architecture. Kern does **not** generate schemes from a seed or use dynamic color — it ships fixed schemes resolved through a shared registry (`packages/kern-theme/src/`): base light/dark tables + contrast overlays + named variants. See [`theme-variants.md`](theme-variants.md) for authoring, [`kern-tokens.md`](kern-tokens.md) for values.
 >
-> **Color pipeline law:** canonical values are OKLCH on familiar 50–950 steps (`tokens.json`, each entry `{oklch, srgb}`). Web consumes `oklch()` verbatim; React Native consumes the compiled `srgb` hex (native cannot parse oklch). Steps fill in only with validated values — gaps are intentional. Roles bind steps per M3 rules, never raw values. Preset themes are catalogued in `src/theme/themes/index.json` — the same file the visual builder, MCP `list_themes`, and copy-paste flows read.
+> **Color pipeline law:** canonical values are OKLCH on familiar 50–950 steps (`tokens.json`, each entry `{oklch, srgb}`). Web consumes `oklch()` verbatim; React Native consumes the compiled `srgb` hex (native cannot parse oklch). Steps fill in only with validated values — gaps are intentional. Roles bind steps per M3 rules, never raw values. Preset themes are catalogued in `packages/kern-theme/src/themes/index.json` — the same file the visual builder, MCP `list_themes`, and copy-paste flows read.
 
 # MD3 Theming and Dynamic Color
 
@@ -14,9 +14,9 @@ The same **semantic roles** (primary, onSurface, surface containers, etc.) appea
 |----------|----------------|
 | **Jetpack Compose** | `MaterialTheme(colorScheme, typography, shapes, …)` |
 | **Web** | CSS custom properties `--md-sys-*` on `:root`, `.dark` redefines them; `applyKernTheme()` layers variant/contrast deltas inline |
-| **Native** | Theme provider + `useKernTheme().scheme` hook (`@xoroh/kern/native`) |
+| **Native** | `KernThemeProvider` + `useKernScheme()` from `@xoroh/kern-native` |
 
-All three resolve the same registry (`resolveTheme({ mode, contrast, variantId })`) — one role table, three projections. Web CSS and the TS role tables are generated from the same `tokens.json` source so they cannot drift; native derives values from the same tables.
+All three resolve the same registry (`resolveThemeDetails(mode, contrast, variant)`) — one role table, three projections. Web CSS and the TS role tables are generated from the same `tokens.json` source so they cannot drift; native derives values from the same tables.
 
 ### Token Chain: ref → sys → comp
 
@@ -77,7 +77,7 @@ function setDark(isDark) {
 
 ### Runtime toggle (native)
 
-`KernThemeProvider` + `useKernTheme()` (`@xoroh/kern/native`): OS appearance default (live subscription), persisted manual override, `dark:` classes synced from the same mode. Components read `scheme` — never static imports.
+`KernThemeProvider` + `useKernTheme()` from `@xoroh/kern-native`: OS appearance default (live subscription), a persisted manual override, and the same `(mode, contrast, variant)` triple the web hook takes. Components read `useKernScheme()` — never a module-scope token read, or they will not follow a theme switch.
 
 ## Brand Color Integration
 

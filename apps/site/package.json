@@ -19,8 +19,13 @@
     "@tanstack/react-router": "latest",
     "@tanstack/react-start": "latest",
     "@xoroh/kern": "workspace:*",
+    "@xoroh/kern-icons": "workspace:*",
+    "@xoroh/kern-native": "workspace:*",
+    "@xoroh/kern-start": "workspace:*",
+    "@xoroh/kern-theme": "workspace:*",
     "react": "^19.3.0",
-    "react-dom": "^19.3.0"
+    "react-dom": "^19.3.0",
+    "react-native-web": "^0.21.0"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.26.0",

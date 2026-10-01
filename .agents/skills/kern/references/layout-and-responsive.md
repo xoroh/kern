@@ -44,7 +44,13 @@ On the web, 1dp ≈ 1px at standard density.
 
 ## Spacing System
 
-MD3 uses a 4dp base grid (with an 8dp scale for adaptive spacing). Use tokens, not scattered literals. Token names (`space0`–`space900`, `space100` = 8dp) live in code (`packages/kern/src/theme/`):
+MD3 uses a 4dp base grid (with an 8dp scale for adaptive spacing). Use tokens, not scattered literals. The scale is numeric, not a `space100`-style scale: `packages/kern-theme/src/tokens.json` keys `spacing` as 4dp steps, generated to CSS as `--spacing-<n>` and aliased `--kern-space-<n>`:
+
+| Step | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12 | 16 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| Value | 0 | 4 | 8 | 12 | 16 | 20 | 24 | 32 | 40 | 48 | 64px |
+
+There is no `space100`. Reach for the nearest step rather than inventing one.
 
 | Use | Values |
 |-----|--------|

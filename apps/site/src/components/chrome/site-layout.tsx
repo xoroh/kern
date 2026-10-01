@@ -55,9 +55,11 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         Skip to content
       </a>
       <AppRail />
-      <div className="flex min-h-screen flex-col md:pl-20">
+      <div className="flex flex-col md:pl-20">
         <MobileBar />
-        <main id="main" className="flex-1">
+        {/* Content fills the viewport so the footer starts below the fold —
+            only reachable by scrolling. */}
+        <main id="main" className="min-h-screen">
           {children}
         </main>
         <Footer />

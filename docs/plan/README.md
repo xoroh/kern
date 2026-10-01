@@ -1,6 +1,7 @@
 # Kern roadmap
 
-Status: current · recorded 2026-09-29 · update the table when a plan changes state
+Status: current · recorded 2026-09-29 · last reviewed 2026-10-01 (K-04) ·
+update the table when a plan changes state
 
 Work queue toward a complete 0.1.0: icons, tones, theme engine, feedback
 language, web and native composition. Kern is standalone — it knows nothing
@@ -21,12 +22,22 @@ done).
 | 3 | Theme engine | variant registry, `assertCompleteScheme`, layer deltas | `@xoroh/kern-theme` | P0 | [theme-parity](theme-parity.md) | done |
 | 4 | Feedback | boot, loader styles, tenant registry, critical loader | `kern` + `kern-native` | P0 | [feedback](feedback.md) | done |
 | 5 | Web composition | top-app-bar, sidebar/rail/drawer, panes, scaffolds, search, settings, status-bar | `@xoroh/kern-start` | P0 | [kern-start](kern-start.md) | done |
-| 6 | Native composition | sheets, shell, menu screens, splash, layouts, panes | `kern-native` | P1 | [native-composition](native-composition.md) | planned |
-| 7 | Web components | Command, Sonner, CountrySelect, SegmentedButton, Banner | `kern` | P1 | [web-extras](web-extras.md) | planned |
-| 8 | Fonts | Inter via `expo-font` (host loads fonts, components set weights) | `kern-native` | P1 | [native-composition](native-composition.md#8-fonts) | planned |
+| 6 | Native composition | sheets, shell, menu screens, splash, layouts, panes | `kern-native` | P1 | [native-composition](native-composition.md) | done |
+| 7 | Web components | Command, Sonner, CountrySelect, SegmentedButton, Banner | `kern` | P1 | [web-extras](web-extras.md) | done |
+| 8 | Fonts | Inter faces exported, host injects an `expo-font`-shaped loader | `kern-native` | P1 | [native-composition](native-composition.md#8-fonts) | done |
 | 9 | CLI | `kern add` installer | `@xoroh/cli` | P2 | — | not planned |
 | 10 | Composition tests | render tests per block | all | P2 | in each plan's acceptance | planned |
-| 11 | Docs | shell docs + parity page | `docs/` + `apps/site` | P2 | — | not planned |
+| 11 | Docs | shell docs + parity page | `docs/` + `apps/site` | P2 | — | in progress |
+
+Row 11 log: contributor docs restructured (`../architecture.md`,
+`../platform-parity.md` rebuilt from the generated inventory, conventions
+for changesets / parity / stubs, `change-routing.md` in the docs skill).
+Rows 6-8 landed while this pass was open, so the parity tables were
+recomputed against the new surface (236 web / 78 native exports).
+Remaining: the site shell docs, and a final parity re-pass once the K-02 and
+K-03 reports are written — their acceptance evidence may still change the
+surface. `docs/components.md` is stale by 53 entries and needs
+`bun run generate:components` (K-05 owns that script).
 
 ## Out of scope
 
