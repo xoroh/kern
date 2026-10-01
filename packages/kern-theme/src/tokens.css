@@ -48,6 +48,19 @@
   --md-sys-color-inverse-on-surface: #ffffff;
   --md-sys-color-inverse-primary: #dbeafe;
   --md-sys-color-scrim: #000000;
+  --md-sys-color-shadow: #000000;
+  --md-sys-color-primary-fixed: #171717;
+  --md-sys-color-primary-fixed-dim: #0a0a0a;
+  --md-sys-color-on-primary-fixed: #ffffff;
+  --md-sys-color-on-primary-fixed-variant: #f5f5f5;
+  --md-sys-color-secondary-fixed: #1e3a8a;
+  --md-sys-color-secondary-fixed-dim: #172554;
+  --md-sys-color-on-secondary-fixed: #ffffff;
+  --md-sys-color-on-secondary-fixed-variant: #f5f5f5;
+  --md-sys-color-tertiary-fixed: #14532d;
+  --md-sys-color-tertiary-fixed-dim: #052e16;
+  --md-sys-color-on-tertiary-fixed: #ffffff;
+  --md-sys-color-on-tertiary-fixed-variant: #f5f5f5;
   --md-sys-color-surface-tonal: #efefef;
 }
 
@@ -96,6 +109,19 @@
   --md-sys-color-inverse-on-surface: #000000;
   --md-sys-color-inverse-primary: #000000;
   --md-sys-color-scrim: #000000;
+  --md-sys-color-shadow: #000000;
+  --md-sys-color-primary-fixed: #171717;
+  --md-sys-color-primary-fixed-dim: #0a0a0a;
+  --md-sys-color-on-primary-fixed: #ffffff;
+  --md-sys-color-on-primary-fixed-variant: #f5f5f5;
+  --md-sys-color-secondary-fixed: #1e3a8a;
+  --md-sys-color-secondary-fixed-dim: #172554;
+  --md-sys-color-on-secondary-fixed: #ffffff;
+  --md-sys-color-on-secondary-fixed-variant: #f5f5f5;
+  --md-sys-color-tertiary-fixed: #14532d;
+  --md-sys-color-tertiary-fixed-dim: #052e16;
+  --md-sys-color-on-tertiary-fixed: #ffffff;
+  --md-sys-color-on-tertiary-fixed-variant: #f5f5f5;
   --md-sys-color-surface-tonal: #262626;
 }
 
@@ -231,9 +257,185 @@
   --md-sys-typescale-label-small-line-height: 16px;
   --md-sys-typescale-label-small-letter-spacing: 0.5px;
   --md-sys-typescale-label-small-font-weight: 500;
+  --md-sys-typescale-emphasized-display-large-font-family:
+    "Inter Variable", "Inter", sans-serif;
+  --md-sys-typescale-emphasized-display-large-font-size: 57px;
+  --md-sys-typescale-emphasized-display-large-line-height: 64px;
+  --md-sys-typescale-emphasized-display-large-letter-spacing: 0px;
+  --md-sys-typescale-emphasized-display-large-font-weight: 500;
+  --md-sys-typescale-emphasized-display-medium-font-family:
+    "Inter Variable", "Inter", sans-serif;
+  --md-sys-typescale-emphasized-display-medium-font-size: 45px;
+  --md-sys-typescale-emphasized-display-medium-line-height: 52px;
+  --md-sys-typescale-emphasized-display-medium-letter-spacing: 0px;
+  --md-sys-typescale-emphasized-display-medium-font-weight: 500;
+  --md-sys-typescale-emphasized-display-small-font-family:
+    "Inter Variable", "Inter", sans-serif;
+  --md-sys-typescale-emphasized-display-small-font-size: 36px;
+  --md-sys-typescale-emphasized-display-small-line-height: 44px;
+  --md-sys-typescale-emphasized-display-small-letter-spacing: 0px;
+  --md-sys-typescale-emphasized-display-small-font-weight: 500;
+  --md-sys-typescale-emphasized-headline-large-font-family:
+    "Inter Variable", "Inter", sans-serif;
+  --md-sys-typescale-emphasized-headline-large-font-size: 32px;
+  --md-sys-typescale-emphasized-headline-large-line-height: 40px;
+  --md-sys-typescale-emphasized-headline-large-letter-spacing: 0px;
+  --md-sys-typescale-emphasized-headline-large-font-weight: 500;
+  --md-sys-typescale-emphasized-headline-medium-font-family:
+    "Inter Variable", "Inter", sans-serif;
+  --md-sys-typescale-emphasized-headline-medium-font-size: 28px;
+  --md-sys-typescale-emphasized-headline-medium-line-height: 36px;
+  --md-sys-typescale-emphasized-headline-medium-letter-spacing: 0px;
+  --md-sys-typescale-emphasized-headline-medium-font-weight: 500;
+  --md-sys-typescale-emphasized-headline-small-font-family:
+    "Inter Variable", "Inter", sans-serif;
+  --md-sys-typescale-emphasized-headline-small-font-size: 24px;
+  --md-sys-typescale-emphasized-headline-small-line-height: 32px;
+  --md-sys-typescale-emphasized-headline-small-letter-spacing: 0px;
+  --md-sys-typescale-emphasized-headline-small-font-weight: 500;
+  --md-sys-typescale-emphasized-title-large-font-family:
+    "Inter Variable", "Inter", sans-serif;
+  --md-sys-typescale-emphasized-title-large-font-size: 22px;
+  --md-sys-typescale-emphasized-title-large-line-height: 28px;
+  --md-sys-typescale-emphasized-title-large-letter-spacing: 0px;
+  --md-sys-typescale-emphasized-title-large-font-weight: 500;
+  --md-sys-typescale-emphasized-title-medium-font-family:
+    "Inter Variable", "Inter", sans-serif;
+  --md-sys-typescale-emphasized-title-medium-font-size: 16px;
+  --md-sys-typescale-emphasized-title-medium-line-height: 24px;
+  --md-sys-typescale-emphasized-title-medium-letter-spacing: 0px;
+  --md-sys-typescale-emphasized-title-medium-font-weight: 700;
+  --md-sys-typescale-emphasized-title-small-font-family:
+    "Inter Variable", "Inter", sans-serif;
+  --md-sys-typescale-emphasized-title-small-font-size: 14px;
+  --md-sys-typescale-emphasized-title-small-line-height: 20px;
+  --md-sys-typescale-emphasized-title-small-letter-spacing: 0px;
+  --md-sys-typescale-emphasized-title-small-font-weight: 700;
+  --md-sys-typescale-emphasized-body-large-font-family:
+    "Inter Variable", "Inter", sans-serif;
+  --md-sys-typescale-emphasized-body-large-font-size: 16px;
+  --md-sys-typescale-emphasized-body-large-line-height: 24px;
+  --md-sys-typescale-emphasized-body-large-letter-spacing: 0px;
+  --md-sys-typescale-emphasized-body-large-font-weight: 500;
+  --md-sys-typescale-emphasized-body-medium-font-family:
+    "Inter Variable", "Inter", sans-serif;
+  --md-sys-typescale-emphasized-body-medium-font-size: 14px;
+  --md-sys-typescale-emphasized-body-medium-line-height: 20px;
+  --md-sys-typescale-emphasized-body-medium-letter-spacing: 0px;
+  --md-sys-typescale-emphasized-body-medium-font-weight: 500;
+  --md-sys-typescale-emphasized-body-small-font-family:
+    "Inter Variable", "Inter", sans-serif;
+  --md-sys-typescale-emphasized-body-small-font-size: 12px;
+  --md-sys-typescale-emphasized-body-small-line-height: 16px;
+  --md-sys-typescale-emphasized-body-small-letter-spacing: 0px;
+  --md-sys-typescale-emphasized-body-small-font-weight: 500;
+  --md-sys-typescale-emphasized-label-large-font-family:
+    "Inter Variable", "Inter", sans-serif;
+  --md-sys-typescale-emphasized-label-large-font-size: 14px;
+  --md-sys-typescale-emphasized-label-large-line-height: 20px;
+  --md-sys-typescale-emphasized-label-large-letter-spacing: 0px;
+  --md-sys-typescale-emphasized-label-large-font-weight: 700;
+  --md-sys-typescale-emphasized-label-medium-font-family:
+    "Inter Variable", "Inter", sans-serif;
+  --md-sys-typescale-emphasized-label-medium-font-size: 12px;
+  --md-sys-typescale-emphasized-label-medium-line-height: 16px;
+  --md-sys-typescale-emphasized-label-medium-letter-spacing: 0.1px;
+  --md-sys-typescale-emphasized-label-medium-font-weight: 700;
+  --md-sys-typescale-emphasized-label-small-font-family:
+    "Inter Variable", "Inter", sans-serif;
+  --md-sys-typescale-emphasized-label-small-font-size: 11px;
+  --md-sys-typescale-emphasized-label-small-line-height: 16px;
+  --md-sys-typescale-emphasized-label-small-letter-spacing: 0.1px;
+  --md-sys-typescale-emphasized-label-small-font-weight: 700;
   --md-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
   --md-sys-motion-duration-short: 100ms;
   --md-sys-motion-duration-medium: 200ms;
+  --md-sys-motion-easing-linear: cubic-bezier(0, 0, 1, 1);
+  --md-sys-motion-easing-standard-accelerate: cubic-bezier(0.3, 0, 1, 1);
+  --md-sys-motion-easing-standard-decelerate: cubic-bezier(0, 0, 0, 1);
+  --md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --md-sys-motion-easing-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --md-sys-motion-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --md-sys-motion-duration-short1: 50ms;
+  --md-sys-motion-duration-short2: 100ms;
+  --md-sys-motion-duration-short3: 150ms;
+  --md-sys-motion-duration-short4: 200ms;
+  --md-sys-motion-duration-medium1: 250ms;
+  --md-sys-motion-duration-medium2: 300ms;
+  --md-sys-motion-duration-medium3: 350ms;
+  --md-sys-motion-duration-medium4: 400ms;
+  --md-sys-motion-duration-long1: 450ms;
+  --md-sys-motion-duration-long2: 500ms;
+  --md-sys-motion-duration-long3: 550ms;
+  --md-sys-motion-duration-long4: 600ms;
+  --md-sys-motion-duration-extra-long1: 700ms;
+  --md-sys-motion-duration-extra-long2: 800ms;
+  --md-sys-motion-duration-extra-long3: 900ms;
+  --md-sys-motion-duration-extra-long4: 1000ms;
+  --md-sys-motion-spring-spatial-fast-stiffness: 1200;
+  --md-sys-motion-spring-spatial-fast-damping: 90;
+  --md-sys-motion-spring-spatial-default-stiffness: 700;
+  --md-sys-motion-spring-spatial-default-damping: 45;
+  --md-sys-motion-spring-spatial-slow-stiffness: 300;
+  --md-sys-motion-spring-spatial-slow-damping: 35;
+  --md-sys-motion-spring-effects-fast-stiffness: 3800;
+  --md-sys-motion-spring-effects-fast-damping: 1400;
+  --md-sys-motion-spring-effects-default-stiffness: 1600;
+  --md-sys-motion-spring-effects-default-damping: 700;
+  --md-sys-motion-spring-effects-slow-stiffness: 800;
+  --md-sys-motion-spring-effects-slow-damping: 550;
+  --md-sys-motion-scheme-standard-easing: var(--md-sys-motion-easing-standard);
+  --md-sys-motion-scheme-standard-easing-accelerate: var(
+    --md-sys-motion-easing-standard-accelerate
+  );
+  --md-sys-motion-scheme-standard-easing-decelerate: var(
+    --md-sys-motion-easing-standard-decelerate
+  );
+  --md-sys-motion-scheme-standard-spatial-fast: var(
+    --md-sys-motion-spring-spatial-fast
+  );
+  --md-sys-motion-scheme-standard-spatial-default: var(
+    --md-sys-motion-spring-spatial-default
+  );
+  --md-sys-motion-scheme-standard-spatial-slow: var(
+    --md-sys-motion-spring-spatial-slow
+  );
+  --md-sys-motion-scheme-standard-effects-fast: var(
+    --md-sys-motion-spring-effects-fast
+  );
+  --md-sys-motion-scheme-standard-effects-default: var(
+    --md-sys-motion-spring-effects-default
+  );
+  --md-sys-motion-scheme-standard-effects-slow: var(
+    --md-sys-motion-spring-effects-slow
+  );
+  --md-sys-motion-scheme-expressive-easing: var(
+    --md-sys-motion-easing-emphasized
+  );
+  --md-sys-motion-scheme-expressive-easing-accelerate: var(
+    --md-sys-motion-easing-emphasized-accelerate
+  );
+  --md-sys-motion-scheme-expressive-easing-decelerate: var(
+    --md-sys-motion-easing-emphasized-decelerate
+  );
+  --md-sys-motion-scheme-expressive-spatial-fast: var(
+    --md-sys-motion-spring-spatial-fast
+  );
+  --md-sys-motion-scheme-expressive-spatial-default: var(
+    --md-sys-motion-spring-spatial-default
+  );
+  --md-sys-motion-scheme-expressive-spatial-slow: var(
+    --md-sys-motion-spring-spatial-slow
+  );
+  --md-sys-motion-scheme-expressive-effects-fast: var(
+    --md-sys-motion-spring-effects-fast
+  );
+  --md-sys-motion-scheme-expressive-effects-default: var(
+    --md-sys-motion-spring-effects-default
+  );
+  --md-sys-motion-scheme-expressive-effects-slow: var(
+    --md-sys-motion-spring-effects-slow
+  );
   --md-sys-state-hover: 8%;
   --md-sys-state-focus: 10%;
   --md-sys-state-press: 10%;
@@ -458,6 +660,25 @@
   --color-inverse-on-surface: var(--md-sys-color-inverse-on-surface);
   --color-inverse-primary: var(--md-sys-color-inverse-primary);
   --color-scrim: var(--md-sys-color-scrim);
+  --color-shadow: var(--md-sys-color-shadow);
+  --color-primary-fixed: var(--md-sys-color-primary-fixed);
+  --color-primary-fixed-dim: var(--md-sys-color-primary-fixed-dim);
+  --color-on-primary-fixed: var(--md-sys-color-on-primary-fixed);
+  --color-on-primary-fixed-variant: var(
+    --md-sys-color-on-primary-fixed-variant
+  );
+  --color-secondary-fixed: var(--md-sys-color-secondary-fixed);
+  --color-secondary-fixed-dim: var(--md-sys-color-secondary-fixed-dim);
+  --color-on-secondary-fixed: var(--md-sys-color-on-secondary-fixed);
+  --color-on-secondary-fixed-variant: var(
+    --md-sys-color-on-secondary-fixed-variant
+  );
+  --color-tertiary-fixed: var(--md-sys-color-tertiary-fixed);
+  --color-tertiary-fixed-dim: var(--md-sys-color-tertiary-fixed-dim);
+  --color-on-tertiary-fixed: var(--md-sys-color-on-tertiary-fixed);
+  --color-on-tertiary-fixed-variant: var(
+    --md-sys-color-on-tertiary-fixed-variant
+  );
   --color-surface-tonal: var(--md-sys-color-surface-tonal);
   --radius-none: var(--md-sys-shape-corner-none);
   --radius-extra-small: var(--md-sys-shape-corner-extra-small);

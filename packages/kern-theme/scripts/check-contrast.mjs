@@ -1,11 +1,19 @@
 // Certifies semantic role-pair contrast in every shipped mode/context.
 // Run from repo root: bun packages/kern-theme/scripts/check-contrast.mjs
+//
+// GATE SHAPE (D-026.5', re-ruled by D-028): pairs are GENERATED from role
+// families, not hand-listed, and the ORPHAN LAW makes the gate falsifiable over
+// the role space — a role that exists in a scheme but is reached by no
+// generated pair, and is not explicitly waived, is a failure. A gate that
+// passes because it did not look is worse than a gate that fails.
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import {
+  activeWaivers,
   contrastIssues,
-  TEXT_ROLE_PAIRS,
-  UI_ROLE_PAIRS,
+  orphanedRoles,
+  textRolePairs,
+  uiRolePairs,
 } from "../src/contrast.ts";
 
 const ROOT = new URL("../../..", import.meta.url).pathname;
@@ -47,6 +55,11 @@ for (const roles of colorTables) {
   }
 }
 
+const textPairs = textRolePairs();
+const uiPairs = uiRolePairs();
+const orphansSeen = new Set();
+const waivedSeen = new Set();
+
 for (const [presetId, preset] of [
   ["m3", { overrides: {} }],
   ["sharp", SHARP],
@@ -68,6 +81,20 @@ for (const [presetId, preset] of [
         console.error(`FAIL ${presetId}/${mode}-${contrast}: ${failure}`);
         issues++;
       }
+
+      // Orphan law: every role in the scheme must be reached by a generated
+      // pair, or be an explicitly named waiver.
+      for (const orphan of orphanedRoles(roles)) {
+        const line = `FAIL orphan role: ${orphan}`;
+        if (!orphansSeen.has(line)) {
+          console.error(`${line} [${presetId}/${mode}-${contrast}]`);
+          orphansSeen.add(line);
+        }
+        issues++;
+      }
+      for (const [role, reason] of activeWaivers(roles)) {
+        waivedSeen.add(`${role}: ${reason}`);
+      }
     }
   }
 }
@@ -76,6 +103,13 @@ if (issues > 0) {
   console.error(`${issues} contrast check(s) failed`);
   process.exit(1);
 }
+const waived = [...waivedSeen];
 console.log(
-  `WCAG contrast passes: ${TEXT_ROLE_PAIRS.length + UI_ROLE_PAIRS.length} role pairs across 3 presets × 2 modes × 3 contrast levels; all colors are canonical tokens`,
+  `WCAG contrast passes: ${textPairs.length} text + ${uiPairs.length} UI GENERATED role pairs ` +
+    `across 3 presets x 2 modes x 3 contrast levels (${textPairs.length * 18 + uiPairs.length * 18} checks); ` +
+    `0 orphan roles; all colors are canonical tokens`,
 );
+if (waived.length > 0) {
+  console.log(`Waived from contrast gating (${waived.length}, per-role):`);
+  for (const line of waived) console.log(`  - ${line}`);
+}

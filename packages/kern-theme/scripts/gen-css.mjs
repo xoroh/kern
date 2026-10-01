@@ -15,6 +15,7 @@ const T = read("tokens.json");
 const M3 = read("themes/m3.json");
 const sharp = read("themes/sharp.json");
 const fontFamily = `"${T.typography.webFamily}", "${T.typography.family}", sans-serif`;
+const prefix = (name) => `--md-sys-typescale-${name}`;
 // Dark-mode shadows need higher opacity: black blurs are invisible on black
 // surfaces, so each level steps its alphas up from the light definition.
 const darkElevation = {
@@ -59,19 +60,50 @@ const C = [
     `  --md-sys-elevation-${level}: ${value.shadow};`,
     `  --md-sys-elevation-${level}-dp: ${value.dp};`,
   ]),
-  ...Object.entries(T.typography.scale).flatMap(([name, style]) => {
-    const prefix = `--md-sys-typescale-${name}`;
-    return [
-      `  ${prefix}-font-family: ${fontFamily};`,
-      `  ${prefix}-font-size: ${style.size};`,
-      `  ${prefix}-line-height: ${style.lineHeight};`,
-      `  ${prefix}-letter-spacing: ${style.tracking};`,
-      `  ${prefix}-font-weight: ${style.weight};`,
-    ];
-  }),
+  ...Object.entries(T.typography.scale).flatMap(([name, style]) => [
+    `  ${prefix(name)}-font-family: ${fontFamily};`,
+    `  ${prefix(name)}-font-size: ${style.size};`,
+    `  ${prefix(name)}-line-height: ${style.lineHeight};`,
+    `  ${prefix(name)}-letter-spacing: ${style.tracking};`,
+    `  ${prefix(name)}-font-weight: ${style.weight};`,
+  ]),
+  // Emphasized type scale (P1-3 / D-028): md.sys.typescale.emphasized.*.
+  ...Object.entries(T.typography.scaleEmphasized ?? {}).flatMap(
+    ([name, style]) => [
+      `  ${prefix(`emphasized-${name}`)}-font-family: ${fontFamily};`,
+      `  ${prefix(`emphasized-${name}`)}-font-size: ${style.size};`,
+      `  ${prefix(`emphasized-${name}`)}-line-height: ${style.lineHeight};`,
+      `  ${prefix(`emphasized-${name}`)}-letter-spacing: ${style.tracking};`,
+      `  ${prefix(`emphasized-${name}`)}-font-weight: ${style.weight};`,
+    ],
+  ),
+  // Motion (P1-4 / D-028). The three legacy keys stay verbatim at the top so existing
+  // consumers keep resolving; the full grid is emitted alongside them.
   `  --md-sys-motion-easing-standard: ${T.motion["easing-standard"]};`,
   `  --md-sys-motion-duration-short: ${T.motion["duration-short"]};`,
   `  --md-sys-motion-duration-medium: ${T.motion["duration-medium"]};`,
+  ...Object.entries(T.motion.easing ?? {})
+    // `easing-standard` is already emitted by the legacy triple above and is the
+    // same token (M3 names both). Emitting it twice trips Biome's
+    // noDuplicateCustomProperties, so the pool skips it — the value still
+    // resolves, and `schemes.standard.easing` points at it correctly.
+    .filter(([name]) => name !== "standard")
+    .map(([name, value]) => `  --md-sys-motion-easing-${name}: ${value};`),
+  ...Object.entries(T.motion.duration ?? {}).map(
+    ([name, value]) => `  --md-sys-motion-duration-${name}: ${value};`,
+  ),
+  ...Object.entries(T.motion.spring ?? {}).flatMap(([name, spring]) => [
+    `  --md-sys-motion-spring-${name}-stiffness: ${spring.stiffness};`,
+    `  --md-sys-motion-spring-${name}-damping: ${spring.damping};`,
+  ]),
+  ...Object.entries(T.motion.schemes ?? {}).flatMap(([scheme, refs]) =>
+    Object.entries(refs).map(
+      ([key, target]) =>
+        `  --md-sys-motion-scheme-${scheme}-${key}: var(--md-sys-motion-${
+          key.startsWith("easing") ? "easing" : "spring"
+        }-${target});`,
+    ),
+  ),
   ...Object.entries(T.states).map(
     ([name, value]) =>
       `  --md-sys-state-${name.replace("-opacity", "")}: ${value};`,

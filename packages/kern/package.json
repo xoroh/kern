@@ -73,11 +73,11 @@
   "peerDependencies": {
     "react": ">=18",
     "react-dom": ">=18",
-    "@base-ui/react": "^1.0.0",
+    "@base-ui/react": "^1.8.0",
     "@xoroh/kern-theme": "*"
   },
   "devDependencies": {
-    "@base-ui/react": "^1.0.0",
+    "@base-ui/react": "^1.8.0",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
     "@types/node": "^26.6.3",
