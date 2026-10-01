@@ -52,13 +52,13 @@ again. Measured from the generated registry instead:
 
 | Measure | Value |
 |---|---|
-| Registry rows | **330** (web 248, native 82) |
-| **Shared** (already both sides) | **53** |
-| **Native-only → needs a web version** | **22** in **11 files** |
-| **Web-only → needs a native version** | **37** in **28 files** |
+| Registry rows | **334** (web 248, native 86) |
+| **Shared** (already both sides) | **55** |
+| **Native-only → needs a web version** | **23** in **11 files** |
+| **Web-only → needs a native version** | **35** in **28 files** |
 | Stub rows | **0** |
 
-<!-- gate:counts 53 22 37 0 -->
+<!-- gate:counts 55 23 35 0 -->
 
 Machine-readable line above: `check:parity` (`scripts/check-parity.mjs`) re-derives
 these from the registry and fails if they drift, so the prose above cannot quietly
@@ -166,7 +166,7 @@ later reader does not "fix" them back:
 
 ---
 
-## Native-only concepts → need a web version (22)
+## Native-only concepts → need a web version (23)
 
 Grouped by surface. `M3 source` is the M3 spec tab that governs the behaviour.
 
@@ -304,7 +304,7 @@ were restored from backup afterwards.
 
 ---
 
-## Web-only concepts → need a native version (37)
+## Web-only concepts → need a native version (35)
 
 The heading previously read **34** while the machine gate read **42** — the
 `gate:counts` line was right and the sentence a human reads was stale, which is
@@ -434,14 +434,34 @@ choosing `surfaceContainerHighest` vs `secondaryContainer` would be a new public
 name for an existing component, and the registry's concept rule would then have
 to defend it.
 
-**`tooltip` — cut, and the cut needs a ruling.** It looks like a deliberate
-asymmetry alongside `kbd` and `preview-card` (a hover/focus hint label has no
-touch analogue), but unlike those two it is **not yet in the asymmetry register**,
-and adding it there changes the counts `check:parity` enforces. So it is recorded
-as a **proposal for `review-m3`**, not claimed as ruled: either accept it into the
-deliberate set (register → 6, web-only → 37 stays, one row leaves the table) or
-build it. This is a judgement call about the founder's "every primitive = web +
-native" mandate, and it is not mine to make.
+**`tooltip` — RULED A GAP, and now BUILT.** It was cut from tranche 2 as an
+open question ("looks like a deliberate asymmetry alongside `kbd` and
+`preview-card`, but it is not in the asymmetry register") and referred to
+`review-m3`. The ruling came back the other way:
+`.team/reports/reviews/m3/2026-10-01-tooltip-ruling.md` — **BUILD ITEM, tooltip
+is a GAP, not a registerable deliberate asymmetry.** M3 *has* a tooltip concept
+and specifies it for the touch platform (its own availability is
+Compose-first), so the asymmetry premise fails at the M3 source; and the record
+already said so (D-026.1′: "Absent native tooltip is MISSING, not divergent").
+
+So the native `Tooltip` shipped in this change. What diverges is the
+**trigger**, and only that:
+
+| | Web | Native | Why |
+|---|---|---|---|
+| Trigger | hover **or** focus | **focus only** | Touch has no hover. Focus genuinely exists on RN (keyboard, switch, TV, screen readers), so focus-only is M3-conformant as written rather than a substitute |
+| Hint delivery | the surface is linked to the trigger | folded into `accessibilityHint` on the trigger | RN has no `aria-describedby` |
+| Long-press / inline hint | n/a | **not implemented** | The touch affordance is `design-system-lead`'s open ruling (D-026.1′ / SPECS-6). Shipping a gesture before that ruling would make the behaviour a kern invention consumers must discover |
+
+**The hint is on the a11y tree whether or not the surface is showing.** That is
+what makes the component correct on touch rather than merely present: a surface
+that existed only while focused would put the text behind an interaction a touch
+user may never have, which is M3's NC-3 negative ("a tooltip must not hide
+crucial information"). The visible surface is a visual convenience on top of the
+hint, never its only delivery.
+
+`tooltip` is **not** in `DELIBERATE` and must not appear in
+`K-01-deviations.md`: M3 covers it and kern now ships it.
 
 Mutation-proven: the three component behaviours were reverted in isolation and
 the suite went red each time — see **Verification note** at the end of this
@@ -469,6 +489,82 @@ Mutation proofs — each behaviour reverted on its own, suite re-run, then resto
 | 4 | `split-button.tsx`: primary `onPress` also calls `setOpen` | `fab-family.rntest.tsx` **1 failed**, 17 passed |
 
 All four restored; the tree re-verified at 129/129 green afterwards.
+
+---
+
+## Native Tooltip (P2b-3 tranche 4) + a count-integrity defect in the generator
+
+Two changes landed together because the second is what made the first's numbers
+believable.
+
+### The generator was blind to three components, not one
+
+`packages/mcp/scripts/generate-manifest.mjs` collected candidates only from
+`export function X` and `export const X = {`. Three barrel-exported components
+matched neither and got **no registry row at all**:
+
+| Component | Shape | Registry row before |
+|---|---|---|
+| `ExtendedFab` (native) | `export const ExtendedFab = forwardRef<…>` | **missing** |
+| `ErrorBoundary` (native) | `export class ErrorBoundary extends Component` | **missing** |
+| `FieldRoot` (native) | `export { Root as FieldRoot }` | **missing** |
+
+All three are real, exported from `packages/kern-native/src/index.ts`, and
+consumable. `ExtendedFab` shipped in tranche 2 and `ErrorBoundary`/`FieldRoot`
+earlier; none had a row.
+
+**How it stayed invisible.** The generator is deterministic, so "re-run and the
+file is byte-identical" passed — that proves the generator is *stable*, not that
+it is *complete*. Every gate was green because every gate read the same
+incomplete registry. The tranche-2 commit message asserted the row had moved; it
+had not.
+
+**Fixed** by matching all five shapes, plus a hard failure when a barrel export
+produces no candidate. That assertion is the part that matters: both lists are in
+hand at that point, so "this component does not exist" and "this component exists
+and the generator cannot see it" are distinguishable — and a registry must never
+conflate them. Removing the `forwardRef` scanner now fails the generator loudly:
+
+```
+generate-manifest FAILED — 1 barrel export(s) no scanner recognises:
+  - native extended-fab.tsx: ExtendedFab
+```
+
+Seven SCREAMING_SNAKE barrel exports (`NAVIGATION_BAR_HEIGHT`,
+`SECTION_DRAWER_WIDTH`, `PANE_WIDTHS`, …) are measurement constants, not
+components, and are excluded by a name rule rather than by a list — the rule is
+stated where it is applied.
+
+### What the fix did to the counts
+
+| | Before | After |
+|---|---|---|
+| Registry rows | 330 | **334** |
+| Shared | 53 | **55** |
+| Native-only | 22 | **23** |
+| Web-only | 37 | **35** |
+
+`extended-fab`, `error-boundary` and `field-root` are native rows that were
+missing, so each adds a row; `extended-fab` is also a web concept, so it moves
+one concept web-only → shared. `error-boundary` is native-only (it has no web
+counterpart). Then `tooltip` itself landed natively and moved web-only → shared.
+
+**Every count quoted from `check:parity` before this change understated the
+shared side by three.** The 53/22/37 figures were not wrong arithmetic — they
+were the registry faithfully reporting a registry that was missing rows.
+
+### The native Tooltip
+
+M3's plain Tooltip, `packages/kern-native/src/components/tooltip.tsx`. The
+ruling and the declared trigger divergence are recorded above, under
+**What the behaviour test cut**. Contract row `tooltip`, family `hint-surface`,
+in `parity/contract.ts`, with **both** suites written: the web suite
+(`web-parity-tranche4.test.tsx`) was written from a measurement of the shipped
+web component, not from reading it, and that measurement is what constrained the
+row — the popup carries **no `role`** and the trigger carries **no
+`aria-describedby`**, so neither is asserted. Both are filed as web-side debt;
+asserting the missing link would be a red suite on day one and asserting its
+absence would bless the gap as the design.
 
 ---
 
@@ -524,12 +620,13 @@ symmetrised, and P2b-2/3 must not "fix" them:
 - **Registry source:** all rows read from the generated
   `packages/mcp/src/manifest.ts` (`bun run generate:components` output, idempotent —
   re-run leaves it byte-identical).
-- **Counts:** web 248 rows; native 82 rows; **53 shared; 22 native-only; 37
+- **Counts:** web 248 rows; native 86 rows; **55 shared; 23 native-only; 35
   web-only**. Reproducible by the script noted below. The three navigation-family
   rows moved native-only → shared in P2b-2 (45/25 → 48/22), P2b-3 tranche 1
   moved `autocomplete`, `input-otp` and `number-field` web-only → shared
-  (48/42 → 51/39), and tranche 2 moved `extended-fab`, `fab-menu` and
-  `split-button` (51/39 → 53/37).
+  (48/42 → 51/39), tranche 2 moved `extended-fab`, `fab-menu` and
+  `split-button` (51/39 → 53/37), and tranche 4 corrected the registry itself
+  (three components had no row at all) before moving `tooltip` (53/37 → 55/35).
 - **ADR 002 boundary:** re-verified **0** imports of `@base-ui/react` across
   `packages/kern-native`, `packages/kern-theme`, `packages/kern-icons`; and
   **0** imports of `@xoroh/kern-native` in `packages/kern/src`. This manifest is a

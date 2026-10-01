@@ -289,10 +289,13 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `dock-sheet` | `DockSheet` | real |
 | `empty-state` | `EmptyState` | real |
 | `entity-sheet` | `EntitySheet` | real |
+| `error-boundary` | `ErrorBoundary` | real |
+| `extended-fab` | `ExtendedFab` | real |
 | `fab` | `Fab` | real |
 | `fab-menu` | `FabMenu` | real |
 | `field` | `Field` | real |
 | `field-message` | `FieldMessage` | real |
+| `field-root` | `FieldRoot` | real |
 | `filter-chip-row` | `FilterChipRow` | real |
 | `input` | `Input` | real |
 | `input-otp` | `InputOTP` | real |
@@ -342,5 +345,6 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `toggle` | `Toggle` | real |
 | `toggle-group` | `ToggleGroup` | real |
 | `toolbar` | `Toolbar` | real |
+| `tooltip` | `Tooltip` | real |
 | `top-app-bar` | `TopAppBar` | real |
 | `top-app-bar-action` | `TopAppBarAction` | real |

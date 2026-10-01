@@ -1866,6 +1866,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    name: "extended-fab",
+    export: "ExtendedFab",
+    platform: "native",
+    path: "src/components/extended-fab.tsx",
+    status: "real",
+  },
+  {
     name: "fab-menu",
     export: "FabMenu",
     platform: "native",
@@ -1889,6 +1896,13 @@ export const COMPONENTS: ComponentEntry[] = [
   {
     name: "field",
     export: "Field",
+    platform: "native",
+    path: "src/components/field.tsx",
+    status: "real",
+  },
+  {
+    name: "field-root",
+    export: "FieldRoot",
     platform: "native",
     path: "src/components/field.tsx",
     status: "real",
@@ -2188,6 +2202,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    name: "error-boundary",
+    export: "ErrorBoundary",
+    platform: "native",
+    path: "src/components/shell.tsx",
+    status: "real",
+  },
+  {
     name: "skeleton",
     export: "Skeleton",
     platform: "native",
@@ -2276,6 +2297,13 @@ export const COMPONENTS: ComponentEntry[] = [
     export: "Toolbar",
     platform: "native",
     path: "src/components/toolbar.tsx",
+    status: "real",
+  },
+  {
+    name: "tooltip",
+    export: "Tooltip",
+    platform: "native",
+    path: "src/components/tooltip.tsx",
     status: "real",
   },
   {

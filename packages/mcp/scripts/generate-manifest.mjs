@@ -12,8 +12,22 @@ const AREAS = [
 
 const entries = [];
 const sourceFiles = new Map();
+// Barrel exports the scanners below cannot see, reported rather than swallowed.
+// See the `unseenExports` block at the bottom of the loop.
+const unseenExports = [];
 const toName = (exportName) =>
   exportName.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
+
+// A COMPONENT name, not a constant, a type, or a style helper.
+//
+// PascalCase with at least one lowercase letter and no underscore. The lowercase
+// requirement is what separates `ExtendedFab` from `TOP_APP_BAR_HEIGHTS`: both
+// start uppercase, and a registry that lists a layout constant as a component
+// dispatches work against a row no consumer can render. Seven barrel exports are
+// SCREAMING_SNAKE measurement constants (`NAVIGATION_BAR_HEIGHT`,
+// `SECTION_DRAWER_WIDTH`, `PANE_WIDTHS`, …) and are deliberately not components.
+const isComponentName = (name) =>
+  /^[A-Z][A-Za-z0-9]*$/.test(name) && /[a-z]/.test(name);
 for (const { dir, platform } of AREAS) {
   const barrelPkg =
     platform === "web"
@@ -34,21 +48,44 @@ for (const { dir, platform } of AREAS) {
     const status = isStub ? "stub" : "real";
     const filename = file.slice(0, -4);
     sourceFiles.set(path, src);
+    // VALUE exports only. `export type { X }` and an inline `type X` specifier
+    // are declarations, not components — collecting them was harmless while the
+    // candidate scan was narrow, and it is what made the unseen-export check
+    // below unreadable (339 hits, nearly all `…Props` types).
     const exportNames = new Set();
     for (const match of barrel.matchAll(
       new RegExp(
-        `export\\s*(?:type\\s*)?\\{([^}]+)\\}\\s*from\\s*["']\\./(?:components/)?${filename}["']`,
+        `export\\s*(type\\s*)?\\{([^}]+)\\}\\s*from\\s*["']\\./(?:components/)?${filename}["']`,
         "gs",
       ),
     )) {
-      for (const specifier of match[1].split(",")) {
-        const names = specifier.trim().split(/\s+as\s+/);
-        exportNames.add(names.at(-1));
+      if (match[1]) continue; // `export type { … }`
+      for (const specifier of match[2].split(",")) {
+        const spec = specifier.trim();
+        if (!spec || /^type\s/.test(spec)) continue; // `type X` inline
+        exportNames.add(
+          spec
+            .split(/\s+as\s+/)
+            .at(-1)
+            .trim(),
+        );
       }
     }
-    // One entry per exported component: function components plus
-    // PascalCase namespace objects (Dialog, Field, Tabs, …). Types, variant
-    // maps, and style helpers are excluded.
+
+    // One entry per exported component: function components, PascalCase
+    // namespace objects (Dialog, Field, Tabs, …), components wrapped in a HOC,
+    // class components, and aliased re-exports. Types, variant maps, and style
+    // helpers are excluded.
+    //
+    // Each of these shapes was added because the shape it covers was MISSING a
+    // registry row while every gate stayed green. Native `ExtendedFab` is
+    // `export const ExtendedFab = forwardRef<…>`; native `ErrorBoundary` is an
+    // `export class`; native `FieldRoot` is `export { Root as FieldRoot }`. All
+    // three are in the barrel, all three were invisible, and the generator was
+    // deterministic about it — so "re-run and the file is byte-identical"
+    // passed on a file that was wrong in the same way every time. Determinism
+    // is not currency. The `unseenExports` assertion is what stops the next one
+    // from being silent.
     const candidates = new Set();
     for (const [, exportName] of src.matchAll(/export function (\w+)/g)) {
       candidates.add(exportName);
@@ -58,6 +95,55 @@ for (const { dir, platform } of AREAS) {
     )) {
       candidates.add(exportName);
     }
+    for (const [, exportName] of src.matchAll(
+      /export const ([A-Z]\w*) = forwardRef</g,
+    )) {
+      candidates.add(exportName);
+    }
+    for (const [, exportName] of src.matchAll(
+      /export const ([A-Z]\w*) = memo\(/g,
+    )) {
+      candidates.add(exportName);
+    }
+    for (const [, exportName] of src.matchAll(/export class ([A-Z]\w*)/g)) {
+      candidates.add(exportName);
+    }
+    // Aliased re-exports: `export { Root as FieldRoot }`. The BARREL carries the
+    // aliased name, so that is the name the registry must record — matching the
+    // local identifier instead would produce `root`, which the concept rule
+    // would then collapse into `field` and the registry would report a name no
+    // consumer can import.
+    for (const block of src.matchAll(/export\s*\{([^}]+)\}/g)) {
+      for (const specifier of block[1].split(",")) {
+        const spec = specifier.trim();
+        if (!spec || /^type\s/.test(spec)) continue;
+        const parts = spec.split(/\s+as\s+/);
+        const local = parts[0].trim();
+        const exported = (parts.at(-1) ?? local).trim();
+        if (!/^[A-Z]/.test(exported)) continue;
+        // Only a local DECLARATION re-exported under another name — a
+        // `export … from "./other"` re-export is not a component of this file.
+        if (new RegExp(`(?:function|const|class)\\s+${local}\\b`).test(src)) {
+          candidates.add(exported);
+        }
+      }
+    }
+
+    // A barrel export no scanner recognised is either a component this
+    // generator cannot see, or a deliberate exclusion. Both need a name;
+    // silence is how the three components above lost their rows.
+    for (const exportName of exportNames) {
+      if (!isComponentName(exportName)) continue; // constant or lowercase value
+      if (
+        exportName.endsWith("Styles") ||
+        exportName.endsWith("Variants") ||
+        candidates.has(exportName)
+      ) {
+        continue;
+      }
+      unseenExports.push({ platform, file, exportName });
+    }
+
     for (const exportName of candidates) {
       if (
         exportName.endsWith("Styles") ||
@@ -80,6 +166,32 @@ for (const { dir, platform } of AREAS) {
 // (No special cases: every export lives in its component file and the
 // entry points re-export. If that ever changes, add an explicit entry here
 // instead of guessing.)
+
+// FAIL LOUDLY on a barrel export no scanner could see. Both lists are in hand
+// here, so the difference between "this component does not exist" and "this
+// component exists and the generator is blind to it" is knowable — and the two
+// must never be conflated. Silently dropping the second is exactly how native
+// `ExtendedFab` lost its registry row: the generator was deterministic, the
+// gate was green, and a "re-run is byte-identical" check passed on a file that
+// was wrong in the same way every time. Determinism is not currency.
+//
+// To exclude a name deliberately, teach a scanner about it above rather than
+// listing it here: this failure is for shapes the scanner does not recognise.
+if (unseenExports.length > 0) {
+  console.error(
+    `\ngenerate-manifest FAILED — ${unseenExports.length} barrel export(s) no scanner recognises:`,
+  );
+  for (const { platform, file, exportName } of unseenExports) {
+    console.error(`  - ${platform} ${file}: ${exportName}`);
+  }
+  console.error(
+    "\n  These are exported from the barrel but produced no candidate, so they " +
+      "would silently get NO registry row — the ExtendedFab defect. Either the " +
+      "export shape is not one the scanner matches, or the name needs an " +
+      "explicit exclusion. Do not 'fix' this by deleting the check.",
+  );
+  process.exit(1);
+}
 
 const render = (e) =>
   `  {\n    name: "${e.name}",\n    export: "${e.export}",\n    platform: "${e.platform}",\n    path: "${e.path}",\n    status: "${e.status}",\n  },`;

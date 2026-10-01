@@ -263,6 +263,8 @@ export type {
   NativeToolbarProps,
 } from "./components/toolbar";
 export { Toolbar, toolbarStyles } from "./components/toolbar";
+export type { NativeTooltipProps } from "./components/tooltip";
+export { Tooltip } from "./components/tooltip";
 export type {
   NativeTopAppBarProps,
   TopAppBarActionProps,

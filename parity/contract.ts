@@ -66,7 +66,13 @@ export type ParityRow = {
    * renderer does, which is worse than not asserting it. A row says which
    * family it is, and each suite asserts only that family's fields.
    */
-  family?: "toggle" | "named-surface" | "text-field" | "stepper" | "otp-field";
+  family?:
+    | "toggle"
+    | "named-surface"
+    | "text-field"
+    | "stepper"
+    | "otp-field"
+    | "hint-surface";
   /** For `named-surface`: substrings that must ALL appear in the accessible name. */
   nameMustContain?: readonly string[];
   /** For `text-field`: true when the field accepts multiple lines. */
@@ -130,6 +136,29 @@ export type ParityRow = {
    * typing one character into each, in order.
    */
   completedValue?: string;
+
+  /**
+   * For `hint-surface`: the supplementary text, which must REACH assistive
+   * technology as text and not merely appear as pixels.
+   *
+   * A tooltip's whole purpose is to carry what the trigger's own name cannot, so
+   * a renderer that only paints the text delivers nothing to a screen-reader
+   * user. This is M3's NC-3 negative ("a tooltip must not hide crucial
+   * information") stated as an assertion rather than a note.
+   *
+   * The delivery differs and the obligation does not: web links the surface to
+   * the trigger by description, native folds the text into `accessibilityHint`.
+   */
+  hintCarriesText?: string;
+  /**
+   * For `hint-surface`: the surface must be INERT — it takes no touch and
+   * exposes no interactive role.
+   *
+   * M3's plain tooltip holds a label and nothing else. A surface that could be
+   * pressed or focused would let a supplementary hint trap the user, which is
+   * the same NC-3 family from the other side.
+   */
+  surfaceInert?: boolean;
 };
 
 /**
@@ -374,6 +403,47 @@ export const CONTRACTS: readonly ParityRow[] = [
     family: "otp-field",
     positions: 4,
     completedValue: "1234",
+    expects: {
+      initial: false,
+      afterActivate: false,
+      afterDisabledActivate: false,
+    },
+    maxSelected: 1,
+  },
+
+  // ------------------------------------------------------------- tranche 4
+  // The M3 Tooltip, native side built after `review-m3` ruled it a GAP rather
+  // than a registerable asymmetry
+  // (`.team/reports/reviews/m3/2026-10-01-tooltip-ruling.md`). M3 has a tooltip
+  // concept and specifies it for the touch platform, so the component is owed
+  // on both sides; only the TRIGGER diverges.
+  {
+    // Measured on web before this row was written, not read off the source.
+    // Three findings constrained what could honestly be asserted:
+    //
+    //   1. Base UI's `Tooltip.Popup` renders with **no `role`** at all — not
+    //      `role="tooltip"`, not `role="none"`. So the row cannot assert a
+    //      role for the surface: there is nothing to assert on web.
+    //   2. The trigger carries **no `aria-describedby`**, before or after the
+    //      surface opens, so "the text is linked to the trigger" is NOT a
+    //      property of the shipped web component. Asserting it would land a red
+    //      suite on day one; asserting its absence would bless a gap as a
+    //      contract. Neither is asserted — recorded here as the web-side debt.
+    //   3. The popup is `tabindex="-1"`, i.e. focusable-but-not-tabbable, which
+    //      is the inert reading `surfaceInert` pins.
+    //
+    // So the row asserts the ONE obligation both renderers actually honour —
+    // the supplementary text is present as text — and leaves the linking
+    // mechanism free, which is the whole point of a contract row: it must
+    // survive a change of delivery mechanism.
+    component: "tooltip",
+    role: "button",
+    axis: "selected",
+    interaction: "select",
+    name: "Save",
+    family: "hint-surface",
+    hintCarriesText: "Saves your draft",
+    surfaceInert: true,
     expects: {
       initial: false,
       afterActivate: false,
