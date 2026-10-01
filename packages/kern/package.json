@@ -1,7 +1,7 @@
 {
   "name": "@xoroh/kern",
   "version": "0.0.0",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "author": "Xoroh",
   "repository": {
     "type": "git",
@@ -94,7 +94,9 @@
     "vitest": "^5.0.2"
   },
   "dependencies": {
+    "@base-ui/react": "^1.8.0",
     "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1"
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.7.0"
   }
 }
