@@ -227,13 +227,11 @@ for (const entry of inventory.missingDeviation) {
 
 // 5. SHAPE (P1-5). The two Expressive corners must stay, and the baseline set must be
 // intact — this is the deviation's assertion, so a silent revert cannot pass.
-{
-  for (const corner of ["large-increased", "extra-large-increased"]) {
-    if (!shapeKeys.has(corner)) {
-      violations.push(
-        `shape.corner.${corner} is missing — it is the adopted M3 Expressive entry (deviation K5)`,
-      );
-    }
+for (const corner of ["large-increased", "extra-large-increased"]) {
+  if (!shapeKeys.has(corner)) {
+    violations.push(
+      `shape.corner.${corner} is missing — it is the adopted M3 Expressive entry (deviation K5)`,
+    );
   }
 }
 

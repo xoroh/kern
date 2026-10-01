@@ -31,7 +31,7 @@ module.exports = {
     // major than this package develops against (workspace hoisting). Re-point
     // both entries at our own copy so the version under test is the one that
     // runs.
-    "^react-native/setup-env$": reactNativeDir + "/src/setup-env.js",
+    "^react-native/setup-env$": `${reactNativeDir}/src/setup-env.js`,
     "^react-native($|/.*)": `${reactNativeDir}/$1`,
     "^react$": path.join(__dirname, "node_modules/react"),
     "^react/jsx-runtime$": path.join(

@@ -42,8 +42,15 @@ export type MenuGroup = {
   actions: MenuAction[];
 };
 
+/**
+ * Menu group styles. Layout and spacing only — the group heading's COLOUR is
+ * applied by the caller (`MenuGroupList` uses `scheme.color.primary`), because
+ * this function is public API and its `scheme` parameter is retained for
+ * signature compatibility. It is prefixed `_` to say so plainly: the styles
+ * themselves are scheme-independent by design, not by oversight.
+ */
 export function menuGroupStyles(
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  _scheme: ResolvedTheme = resolveThemeDetails(),
 ): {
   heading: ViewStyle;
   action: ViewStyle;

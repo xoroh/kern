@@ -36,6 +36,9 @@ const staticStyles = StyleSheet.create({
  *   never has to and cannot forget to.
  * - **The trigger icon may swap while open** (`openIcon`), which is how M3
  *   signals that the press will close rather than open.
+ * - **No `variant` prop.** It was removed with the FAB emphasis axis: M3 gives a FAB
+ *   no emphasis variant (its variants are a SIZE axis — FAB / medium / large), so the
+ *   prop asserted a meaning the spec does not define and nothing consumed it.
  * - **Disabled actions** are announced disabled and refuse the press, rather
  *   than being silently inert.
  *
@@ -67,7 +70,6 @@ export type NativeFabMenuProps = {
   onOpenChange?: (open: boolean) => void;
   /** Overrides the trigger's accessible name (and therefore the menu's). */
   menuLabel?: string;
-  variant?: "primary" | "tonal";
   testID?: string;
 };
 
@@ -80,7 +82,6 @@ export function FabMenu({
   defaultOpen = false,
   onOpenChange,
   menuLabel,
-  variant = "primary",
   testID,
 }: NativeFabMenuProps) {
   const scheme = useKernScheme();
