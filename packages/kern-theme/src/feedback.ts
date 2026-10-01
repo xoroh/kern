@@ -225,3 +225,24 @@ export function resolveFeedbackVariant(tenantId?: string): FeedbackVariant {
   }
   return variant;
 }
+
+/**
+ * arcRotations — the two-half clipped-disc rotations (degrees) for a
+ * determinate arc. `lead` sweeps the first 50% from twelve o'clock, `trail`
+ * the rest; both sit at -180deg while their half is empty.
+ *
+ * Lives here, not in `kern-native`, because it is M3 *geometry* rather than a
+ * renderer concern: a determinate arc sweeps to the same angle in every
+ * renderer, so the value must be computed once, in the shared package, or the
+ * two sides drift by a rounding rule nobody wrote down. Native uses it directly;
+ * web currently expresses the same arc as an SVG `strokeDasharray` and may adopt
+ * it when the ring needs rotational geometry. `clamp01` is duplicated in both
+ * renderer packages — this export does not change that, see the parity contract.
+ */
+export function arcRotations(ratio: number): { lead: number; trail: number } {
+  const clamped = Math.min(1, Math.max(0, ratio));
+  return {
+    lead: Math.min(clamped, 0.5) * 360 - 180,
+    trail: Math.max(clamped - 0.5, 0) * 360 - 180,
+  };
+}

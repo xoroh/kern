@@ -115,7 +115,7 @@ Grouped by surface. `M3 source` is the M3 spec tab that governs the behaviour.
 | 21 | `shape` | Shape-scaled container primitive | web = `style` only, **no role** (decorative container) | `Shape` | M3 · Shape scale | GAP |
 | 22 | `shape-art` | Brand shape art | **decorative** → `aria-hidden="true"` | `ShapeArt` | Kern brand kit | GAP |
 | 23 | `aspect-ratio` | Fixed-ratio box | `style={{aspectRatio}}` — presentational | `aspectRatio` style | CSS/native analogue | GAP |
-| 24 | `arc-rotations` | Rotation helper for `CircularProgress` | presentational, no role | `arcRotations` | M3 · Progress | `styles.test.ts` |
+| 24 | `arc-rotations` | Rotation geometry for `CircularProgress` | presentational, no role | `arcRotations` — **now implemented in `@xoroh/kern-theme`** (shared M3 geometry, re-exported by native) | M3 · Progress | `feedback.test.tsx` |
 | 25 | `loader-color` | Loader colour accessor | presentational, no role | `loaderColor` | M3 · Progress | `styles.test.ts` |
 
 **Note on 21-25:** these are presentational or brand-kit. They are native-only

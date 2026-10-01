@@ -1,4 +1,5 @@
 import {
+  arcRotations,
   FEEDBACK_SIZE_DP,
   type FeedbackShapeKind,
   type FeedbackSize,
@@ -54,17 +55,12 @@ function clamp01(value: number): number {
 }
 
 /**
- * arcRotations — the two-half clipped-disc rotations (degrees) for a
- * determinate arc. `lead` sweeps the first 50% from twelve o'clock,
- * `trail` the rest; both sit at -180° while their half is empty.
+ * `arcRotations` now lives in `@xoroh/kern-theme` — it is M3 geometry (a
+ * determinate arc sweeps to the same angle in both renderers), so it is
+ * computed once in the shared package rather than per renderer. Re-exported
+ * here so the native public API is unchanged.
  */
-export function arcRotations(ratio: number): { lead: number; trail: number } {
-  const clamped = clamp01(ratio);
-  return {
-    lead: Math.min(clamped, 0.5) * 360 - 180,
-    trail: Math.max(clamped - 0.5, 0) * 360 - 180,
-  };
-}
+export { arcRotations };
 
 /**
  * ringStyles — M3 circular ring metrics from `FEEDBACK_SIZE_DP`:
