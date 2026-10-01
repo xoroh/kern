@@ -223,7 +223,13 @@ for (const name of [...docConcepts].sort()) {
 // --------------------------------------------------- 4. deliberate asymmetries
 // Ruled, not gaps. Recorded here so the gate does not flag them as missing, and
 // so deleting one is a visible change rather than a silent one.
-const DELIBERATE = ["sonner", "create-sonner-manager", "kbd", "native-select"];
+const DELIBERATE = [
+  "sonner",
+  "create-sonner-manager",
+  "kbd",
+  "native-select",
+  "preview-card",
+];
 for (const name of DELIBERATE) {
   const inDoc = docConcepts.has(name) || contract.includes(`\`${name}\``);
   if (!inDoc) {

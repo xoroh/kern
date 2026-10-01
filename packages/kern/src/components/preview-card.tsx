@@ -39,7 +39,7 @@ export function PreviewCardContent({
         <PreviewCardPrimitive.Popup
           data-slot="preview-card-content"
           className={cnState(
-            "kern-preview-card-popup w-72 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline) bg-(--md-sys-color-surface) p-4 text-sm text-(--md-sys-color-on-surface) shadow-(--md-sys-elevation-level2) outline-none",
+            "kern-preview-card-popup w-72 rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-surface) p-4 text-sm text-(--md-sys-color-on-surface) shadow-(--md-sys-elevation-level2) outline-none",
             className,
           )}
           {...props}

@@ -145,7 +145,7 @@ contract input.
 | 10 | `meter` | Scalar measurement in a range | `role="meter"` + `aria-valuenow/min/max` | `accessibilityRole="progressbar"` + `accessibilityValue` | M3 · Progress → Meter | `meter.test.tsx` |
 | 11 | `number-field` | Numeric stepper | spinbutton roles, `aria-valuenow` | `accessibilityRole="adjustable"`/stepper | M3 · Text fields | GAP |
 | 12 | `pagination` | Page navigation | `role="navigation"` + `aria-label="Pagination"`, current `aria-current` | `accessibilityRole="tablist"`-style selected | M3 · Lists → Pagination | GAP |
-| 13 | `preview-card` | Hover/focus preview surface | `role="group"`/`dialog` — **M3 has no preview-card** | needs an M3 source decision | *none — see note* | GAP |
+| 13 | `preview-card` | Hover/focus preview surface | `role="group"`/`dialog` — no M3-canonical name exists | **deliberate web-only asymmetry** — hover/focus preview has no touch analogue, same class as `kbd` | *none — K10 (kern extension, `ext:` band)* | n/a — ruled |
 | 14 | `scroll-area` | Custom scroll container | `role="group"` + scrollbar parts | `ScrollView` | M3 · Lists | GAP |
 | 15 | `scroll-area-scrollbar` | The scrollbar itself | `role="scrollbar"` + `aria-valuenow` | platform scroll indicator | M3 · Lists | GAP |
 | 16 | `slider-thumb` | The draggable handle | `role="slider"` + `aria-valuenow/min/max` | `accessibilityRole="adjustable"` + `accessibilityValue` | M3 · Sliders | `slider.test.tsx` |
@@ -186,9 +186,16 @@ symmetrised, and P2b-2/3 must not "fix" them:
    component. The contract is the *behaviour* (single-choice, opens a modal
    chooser, reports the selection), not a shared component name.
 
-`preview-card` is a fourth, unresolved: **M3 has no preview-card**. It is a web
-interaction affordance. Needs an explicit ruling from `review-m3`/`research-m3`
-rather than a unilateral symmetry decision — flagged in "what's left".
+4. **`preview-card`** — **RULED, K10** (`review-m3`,
+   `.team/reports/reviews/m3/2026-10-01-preview-card-ruling.md`, registered in
+   `.team/programs/K-01-deviations.md`). M3's component taxonomy contains no
+   preview-card, so no canonical name exists; the strict reading of the naming law
+   would fail. `review-m3` ruled **INVENTION → DEVIATION, taken and accepted**:
+   `preview-card` is a deliberate kern addition in the `ext:` extension band.
+   Link preview is a real web affordance M3 does not cover, and it is token-clean.
+   As a **web-only asymmetry** — hover/focus preview has no touch analogue, the
+   same asymmetry class as `kbd`. The allow-list entry is scoped to the `ext:` band
+   via T4-V2 rather than the naming law being silently broken.
 
 ---
 
@@ -196,7 +203,7 @@ rather than a unilateral symmetry decision — flagged in "what's left".
 
 - **Whether a presentational native-only (21-25) deserves a web component at all.**
   A contract row is not a mandate to build an empty wrapper.
-- **`preview-card`'s M3 source** — genuinely absent from M3.
+- **`preview-card`'s M3 source** — resolved by **K10**; see the asymmetry list above.
 - **Variant/emphasis axes.** Recorded per component in
   `docs/platform-parity.md`; `variants` keeps its frozen per-component meaning
   (S1.2/S1.3) and is not restated here. Re-stating it would create a second
