@@ -14,6 +14,7 @@ import {
 } from "react-native";
 import { useKernScheme } from "../theme";
 import { NavigationBarItem } from "./navigation-bar";
+import { SheetSurface } from "./sheet-surface";
 import { SheetHandle } from "./sheets";
 import { Text } from "./text";
 
@@ -164,7 +165,14 @@ export type MenuSheetProps = {
   testID?: string;
 };
 
-/** The same groups as {@link MenuScreen}, hosted in a sheet. */
+/**
+ * The same groups as {@link MenuScreen}, hosted in a sheet.
+ *
+ * P2b-2: previously a bare `<View>` with NO `Modal`, no scrim and no
+ * dismissal path, while declaring an `onDismiss` prop that it destructured
+ * and never used — identical to the `AppsSheet` defect. It now hosts through
+ * the shared `SheetSurface`, so scrim press and hardware back both dismiss.
+ */
 export function MenuSheet({
   open,
   title,
@@ -176,20 +184,21 @@ export function MenuSheet({
   const scheme = useKernScheme();
   if (!open) return null;
   return (
-    <View
+    <SheetSurface
+      open={open}
+      title={title}
+      onDismiss={onDismiss}
       testID={testID ?? "kern-menu-sheet"}
-      style={[
-        {
-          backgroundColor: scheme.color.surfaceContainerLow,
-          borderTopLeftRadius: Number.parseFloat(scheme.shape["extra-large"]),
-          borderTopRightRadius: Number.parseFloat(scheme.shape["extra-large"]),
-          paddingBottom: Number.parseFloat(tokens.spacing["space-400"]),
-          maxHeight: "80%",
-        },
-        style,
-      ]}
+      handle={<SheetHandle />}
+      surface={{
+        backgroundColor: scheme.color.surfaceContainerLow,
+        borderTopLeftRadius: Number.parseFloat(scheme.shape["extra-large"]),
+        borderTopRightRadius: Number.parseFloat(scheme.shape["extra-large"]),
+        paddingBottom: Number.parseFloat(tokens.spacing["space-400"]),
+        maxHeight: "80%",
+      }}
+      style={style}
     >
-      <SheetHandle />
       <View
         style={{
           paddingHorizontal: Number.parseFloat(tokens.spacing["space-200"]),
@@ -200,51 +209,11 @@ export function MenuSheet({
       <ScrollView>
         <MenuGroupList groups={groups} />
       </ScrollView>
-    </View>
+    </SheetSurface>
   );
 }
 
-export type AppsSheetProps = {
-  open: boolean;
-  title: string;
-  /** Slot-driven like the web app menus — hosts supply their own tiles. */
-  children?: ReactNode;
-  onDismiss?: () => void;
-  style?: StyleProp<ViewStyle>;
-  testID?: string;
-};
-
-/** App switcher surface. Kern ships no brand marks — apps bring their own. */
-export function AppsSheet({
-  open,
-  title,
-  children,
-  onDismiss,
-  style,
-  testID,
-}: AppsSheetProps) {
-  const scheme = useKernScheme();
-  if (!open) return null;
-  return (
-    <View
-      testID={testID ?? "kern-apps-sheet"}
-      style={[
-        {
-          backgroundColor: scheme.color.surfaceContainer,
-          borderTopLeftRadius: Number.parseFloat(scheme.shape["extra-large"]),
-          borderTopRightRadius: Number.parseFloat(scheme.shape["extra-large"]),
-          padding: Number.parseFloat(tokens.spacing["space-200"]),
-          gap: Number.parseFloat(tokens.spacing["space-150"]),
-        },
-        style,
-      ]}
-    >
-      <Text variant="title">{title}</Text>
-      {children}
-    </View>
-  );
-}
-
+/** One row in an {@link ActionSheet} list. */
 export type CreateSheetAction = {
   key: string;
   label: string;
@@ -253,66 +222,81 @@ export type CreateSheetAction = {
   onPress?: () => void;
 };
 
-export type CreateSheetProps = {
+/**
+ * ActionSheet — the one sheet for "a titled surface with a dismiss path and
+ * a body". P2b-2 MERGE: this replaces `AppsSheet` and `CreateSheet`, which
+ * were the same component written twice (`children` vs `actions`) and both
+ * rendered a bare `<View>` with NO `Modal`, NO scrim and NO dismissal path.
+ *
+ * `AppsSheet` additionally destructured `onDismiss` and never used it — a
+ * caller passing it got a sheet that could not be closed. `CreateSheet` used
+ * it only for a `Close` row, so the two were not even consistent with each
+ * other. Both now host through the shared `SheetSurface`, which wires scrim
+ * press AND hardware back to `onDismiss`.
+ *
+ * Supply `children` to own the body (app switcher tiles), `actions` to get
+ * the standard M3 action list, or neither for a plain titled surface.
+ */
+export type ActionSheetProps = {
   open: boolean;
   title: string;
-  actions: CreateSheetAction[];
+  /** Slot-driven body. Hosts supply their own tiles. */
+  children?: ReactNode;
+  /** Standard action list. Ignored when `children` is supplied. */
+  actions?: CreateSheetAction[];
+  /** Wired to scrim press and hardware back. */
   onDismiss?: () => void;
   style?: StyleProp<ViewStyle>;
   testID?: string;
 };
 
-/**
- * "Create" sheet: a grid of creation intents. M3 puts the primary intent in
- * the first cell at double emphasis — here, the first row.
- */
-export function CreateSheet({
+/** App switcher + "create" surface: one component, one dismissal contract. */
+export function ActionSheet({
   open,
   title,
+  children,
   actions,
   onDismiss,
   style,
   testID,
-}: CreateSheetProps) {
+}: ActionSheetProps) {
   const scheme = useKernScheme();
   if (!open) return null;
   return (
-    <View
-      testID={testID ?? "kern-create-sheet"}
-      style={[
-        {
-          backgroundColor: scheme.color.surfaceContainerHigh,
-          borderTopLeftRadius: Number.parseFloat(scheme.shape["extra-large"]),
-          borderTopRightRadius: Number.parseFloat(scheme.shape["extra-large"]),
-          padding: Number.parseFloat(tokens.spacing["space-200"]),
-          gap: Number.parseFloat(tokens.spacing["space-150"]),
-        },
-        style,
-      ]}
+    <SheetSurface
+      open={open}
+      title={title}
+      onDismiss={onDismiss}
+      testID={testID ?? "kern-action-sheet"}
+      handle={<SheetHandle />}
+      surface={{
+        backgroundColor: scheme.color.surfaceContainerHigh,
+        borderTopLeftRadius: Number.parseFloat(scheme.shape["extra-large"]),
+        borderTopRightRadius: Number.parseFloat(scheme.shape["extra-large"]),
+        padding: Number.parseFloat(tokens.spacing["space-200"]),
+        gap: Number.parseFloat(tokens.spacing["space-150"]),
+      }}
+      style={style}
     >
       <Text variant="title">{title}</Text>
-      <View style={{ gap: Number.parseFloat(tokens.spacing["space-100"]) }}>
-        {actions.map((action) => (
-          <NavigationBarItem
-            key={action.key}
-            label={action.label}
-            icon={action.icon}
-            accessibilityLabel={
-              action.supporting
-                ? `${action.label}, ${action.supporting}`
-                : action.label
-            }
-            onPress={action.onPress}
-          />
-        ))}
-        {onDismiss ? (
-          <NavigationBarItem
-            label="Close"
-            accessibilityLabel={`Close ${title}`}
-            onPress={onDismiss}
-          />
-        ) : null}
-      </View>
-    </View>
+      {children ??
+        (actions ? (
+          <View style={{ gap: Number.parseFloat(tokens.spacing["space-100"]) }}>
+            {actions.map((action) => (
+              <NavigationBarItem
+                key={action.key}
+                label={action.label}
+                icon={action.icon}
+                accessibilityLabel={
+                  action.supporting
+                    ? `${action.label}, ${action.supporting}`
+                    : action.label
+                }
+                onPress={action.onPress}
+              />
+            ))}
+          </View>
+        ) : null)}
+    </SheetSurface>
   );
 }

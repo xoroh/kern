@@ -3,7 +3,7 @@ import { act } from "react";
 import { Text } from "react-native";
 import { KernThemeProvider } from "../theme";
 import { FilterChipRow, ListDetail, Pane, SecondaryTabs } from "./layouts";
-import { AppsSheet, CreateSheet, MenuScreen, MenuSheet } from "./menus";
+import { ActionSheet, MenuScreen, MenuSheet } from "./menus";
 import { NavigationBar, NavigationBarItem } from "./navigation-bar";
 import { NavigationDrawer } from "./navigation-drawer";
 import {
@@ -145,7 +145,7 @@ describe("native menu render", () => {
     expect(screen.getByText("Sign out")).toBeTruthy();
   });
 
-  it("MenuSheet and CreateSheet stay hidden until opened", async () => {
+  it("MenuSheet and ActionSheet stay hidden until opened", async () => {
     await render(
       <MenuSheet
         open={false}
@@ -155,7 +155,7 @@ describe("native menu render", () => {
     );
     expect(screen.queryByText("Alpha")).toBeNull();
     await render(
-      <CreateSheet
+      <ActionSheet
         open
         title="Create"
         actions={[{ key: "trip", label: "New trip" }]}
@@ -164,11 +164,11 @@ describe("native menu render", () => {
     expect(screen.getByText("New trip")).toBeTruthy();
   });
 
-  it("AppsSheet renders host slots", async () => {
+  it("ActionSheet renders host slots", async () => {
     await render(
-      <AppsSheet open title="Apps">
+      <ActionSheet open title="Apps">
         <Text>Host tile</Text>
-      </AppsSheet>,
+      </ActionSheet>,
     );
     expect(screen.getByText("Host tile")).toBeTruthy();
   });

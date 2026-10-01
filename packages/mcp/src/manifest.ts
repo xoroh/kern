@@ -1740,13 +1740,6 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
-    name: "arc-rotations",
-    export: "arcRotations",
-    platform: "native",
-    path: "src/components/circular-progress.tsx",
-    status: "real",
-  },
-  {
     name: "circular-progress",
     export: "CircularProgress",
     platform: "native",
@@ -1866,13 +1859,6 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
-    name: "loader-color",
-    export: "loaderColor",
-    platform: "native",
-    path: "src/components/loader.tsx",
-    status: "real",
-  },
-  {
     name: "loader",
     export: "Loader",
     platform: "native",
@@ -1922,15 +1908,8 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
-    name: "apps-sheet",
-    export: "AppsSheet",
-    platform: "native",
-    path: "src/components/menus.tsx",
-    status: "real",
-  },
-  {
-    name: "create-sheet",
-    export: "CreateSheet",
+    name: "action-sheet",
+    export: "ActionSheet",
     platform: "native",
     path: "src/components/menus.tsx",
     status: "real",
@@ -2024,6 +2003,20 @@ export const COMPONENTS: ComponentEntry[] = [
     export: "Shape",
     platform: "native",
     path: "src/components/shape.tsx",
+    status: "real",
+  },
+  {
+    name: "sheet-surface",
+    export: "SheetSurface",
+    platform: "native",
+    path: "src/components/sheet-surface.tsx",
+    status: "real",
+  },
+  {
+    name: "bottom-sheet-surface",
+    export: "bottomSheetSurface",
+    platform: "native",
+    path: "src/components/sheet-surface.tsx",
     status: "real",
   },
   {

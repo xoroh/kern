@@ -89,7 +89,7 @@ export {
 export type { NativeListItemProps } from "./components/list-item";
 export { ListItem } from "./components/list-item";
 export type { NativeLoaderProps, NativeLoaderSize } from "./components/loader";
-export { Loader, loaderColor } from "./components/loader";
+export { Loader } from "./components/loader";
 export type { LoadingButtonProps } from "./components/loading-button";
 export { LoadingButton } from "./components/loading-button";
 export type { NativeMenuItem, NativeMenuProps } from "./components/menu";
@@ -100,17 +100,15 @@ export type {
 } from "./components/menubar";
 export { Menubar, menubarStyles } from "./components/menubar";
 export type {
-  AppsSheetProps,
+  ActionSheetProps,
   CreateSheetAction,
-  CreateSheetProps,
   MenuAction,
   MenuGroup,
   MenuScreenProps,
   MenuSheetProps,
 } from "./components/menus";
 export {
-  AppsSheet,
-  CreateSheet,
+  ActionSheet,
   MenuGroupList,
   MenuScreen,
   MenuSheet,
@@ -165,6 +163,8 @@ export type { ShapeArtLayout, ShapeArtProps } from "./components/shape-art";
 export { ShapeArt, shapeArtStyles } from "./components/shape-art";
 export type { NativeSheetProps } from "./components/sheet";
 export { Sheet, sheetStyles } from "./components/sheet";
+export type { SheetSurfaceProps } from "./components/sheet-surface";
+export { bottomSheetSurface, SheetSurface } from "./components/sheet-surface";
 export type {
   BottomSheetSize,
   EntityField,

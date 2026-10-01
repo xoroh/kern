@@ -251,9 +251,8 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | name | export | status |
 |---|---|---|
 | `accordion` | `Accordion` | real |
+| `action-sheet` | `ActionSheet` | real |
 | `alert-dialog` | `AlertDialog` | real |
-| `apps-sheet` | `AppsSheet` | real |
-| `arc-rotations` | `arcRotations` | real |
 | `aspect-ratio` | `AspectRatio` | real |
 | `avatar` | `Avatar` | real |
 | `badge` | `Badge` | real |
@@ -261,6 +260,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `boot-splash` | `BootSplash` | real |
 | `bottom-sheet` | `BottomSheet` | real |
 | `bottom-sheet-picker` | `BottomSheetPicker` | real |
+| `bottom-sheet-surface` | `bottomSheetSurface` | real |
 | `button` | `Button` | real |
 | `button-group` | `ButtonGroup` | real |
 | `calendar` | `Calendar` | real |
@@ -272,7 +272,6 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `command` | `Command` | real |
 | `context-menu` | `ContextMenu` | real |
 | `country-select` | `CountrySelect` | real |
-| `create-sheet` | `CreateSheet` | real |
 | `dialog` | `Dialog` | real |
 | `dock-sheet` | `DockSheet` | real |
 | `empty-state` | `EmptyState` | real |
@@ -287,7 +286,6 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `list-detail` | `ListDetail` | real |
 | `list-item` | `ListItem` | real |
 | `loader` | `Loader` | real |
-| `loader-color` | `loaderColor` | real |
 | `loading-button` | `LoadingButton` | real |
 | `menu` | `Menu` | real |
 | `menu-group-list` | `MenuGroupList` | real |
@@ -312,6 +310,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `shape-art` | `ShapeArt` | real |
 | `sheet` | `Sheet` | real |
 | `sheet-handle` | `SheetHandle` | real |
+| `sheet-surface` | `SheetSurface` | real |
 | `skeleton` | `Skeleton` | real |
 | `slider` | `Slider` | real |
 | `snackbar` | `Snackbar` | real |
