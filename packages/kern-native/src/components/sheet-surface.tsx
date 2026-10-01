@@ -2,12 +2,12 @@ import type { ReactNode } from "react";
 import {
   Modal,
   Pressable,
+  Text as RNText,
   type StyleProp,
   View,
   type ViewStyle,
 } from "react-native";
 import { overlayStyles } from "../utils/overlay-styles";
-import { Text } from "./text";
 
 /**
  * The shared Modal + scrim primitive for the kern sheet family (P2b-2).
@@ -48,6 +48,24 @@ export type SheetSurfaceProps = {
   dismissible?: boolean;
   /** Overrides the close button's accessible name. */
   closeLabel?: string;
+  /**
+   * The close affordance's glyph. A prop rather than kern's themed `<Text>` so
+   * this component stops reaching `tokens.typography` and becomes
+   * extraction-ready.
+   *
+   * Two reasons this is the better API, not just the convenient one:
+   *  - A close button's appearance is the caller's business. A sheet that wants a
+   *    real icon button, a themed label, or nothing at all can now say so.
+   *  - The hardcoded `×` was doing double duty as both the visual and the only
+   *    rendering, so the accessible name came from `closeLabel` while the visible
+   *    glyph was fixed. Those can now disagree, which is the caller's call.
+   *
+   * Defaults to an `×` in the platform's own Text — NOT kern's, which would
+   * re-couple this file to the token engine. RN's Text is a layout primitive and
+   * reads no kern token. (A bare string is not an option: React Native rejects a
+   * raw string inside a View, which the Pressable is.)
+   */
+  closeGlyph?: ReactNode;
   /** Places the card at the bottom edge (default) or centred. */
   placement?: "bottom" | "center";
   style?: StyleProp<ViewStyle>;
@@ -68,6 +86,7 @@ export function SheetSurface({
   handle,
   dismissible,
   closeLabel,
+  closeGlyph = <RNText>×</RNText>,
   placement = "bottom",
   style,
 }: SheetSurfaceProps) {
@@ -113,7 +132,7 @@ export function SheetSurface({
                 justifyContent: "center",
               }}
             >
-              <Text variant="title">×</Text>
+              {closeGlyph}
             </Pressable>
           ) : null}
           {handle}

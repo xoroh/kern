@@ -8,6 +8,7 @@ import { Dialog } from "./dialog";
 import { Menu } from "./menu";
 import { Select } from "./select";
 import { Sheet } from "./sheet";
+import { SheetSurface } from "./sheet-surface";
 import { BottomSheet } from "./sheets";
 import { Snackbar } from "./snackbar";
 import { Text } from "./text";
@@ -126,6 +127,49 @@ describe("SheetSurface dismissal (P2b-2)", () => {
       fireEvent.press(screen.getByLabelText("Dismiss Filters"));
     });
     expect(dismissed).toBe(1);
+  });
+
+  /**
+   * The close glyph is a prop so `SheetSurface` stops reading `tokens.typography`
+   * and can move into the primitives layer. Two separate tests, not one with a
+   * `render` + `unmount` between cases: unmounting mid-file tore down shared
+   * module state and broke four unrelated suites below, which is a property of
+   * the test harness rather than of the component.
+   *
+   * The default must still be `×` so no existing call site changed appearance.
+   */
+  it("defaults the close glyph to ×", async () => {
+    await render(
+      <SheetSurface
+        open
+        title="Filters"
+        onDismiss={() => {}}
+        surface={{}}
+        testID="sheet-default-glyph"
+      >
+        <Text variant="body">Body</Text>
+      </SheetSurface>,
+    );
+    expect(screen.getByText("×")).toBeTruthy();
+    // The accessible name still comes from `closeLabel`, not the glyph.
+    expect(screen.getByLabelText("Close Filters")).toBeTruthy();
+  });
+
+  it("lets a caller substitute the close glyph without changing the name", async () => {
+    await render(
+      <SheetSurface
+        open
+        title="Filters"
+        onDismiss={() => {}}
+        surface={{}}
+        testID="sheet-custom-glyph"
+        closeGlyph={<Text variant="label">Dismiss</Text>}
+      >
+        <Text variant="body">Body</Text>
+      </SheetSurface>,
+    );
+    expect(screen.getByText("Dismiss")).toBeTruthy();
+    expect(screen.getByLabelText("Close Filters")).toBeTruthy();
   });
 });
 
