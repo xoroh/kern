@@ -39,6 +39,59 @@ publishable packages. It catches the failures that only appear after
 side-effect files missing from `files`. Run it before merging any change that
 touches `package.json` `exports`, `files`, or `peerDependencies`.
 
+## Preflight: internal dependencies are peerDependencies, never `workspace:*`
+
+Requested by K-05 and enforced by `scripts/preflight-publish.mjs`, which runs
+as the last step of `bun run check:publish` (and standalone as
+`bun run preflight:publish`).
+
+**The rule: an internal `@xoroh/*` dependency that ships must be declared in
+`peerDependencies` with a real range. `workspace:` is never allowed in
+`dependencies`, `peerDependencies` or `optionalDependencies` — only in
+`devDependencies`.**
+
+Why it must be a peer: `kern-theme` ships the tokens and the theme runtime. A
+consumer must resolve **one** instance of it. Two copies split the token
+objects and scheme resolution apart and theming breaks in ways that are
+miserable to debug. That is the definition of a peer dependency. The same
+applies to `kern` for `kern-start`.
+
+Why `workspace:*` cannot be shipped: **npm does not rewrite the `workspace:`
+protocol on pack** — only pnpm and yarn do. A `workspace:*` spec in a shipped
+field therefore lands **verbatim** in the tarball and every consumer install
+dies:
+
+```
+npm pack <pkg> && npm i <pkg>.tgz
+-> npm error code EUNSUPPORTEDPROTOCOL  Unsupported URL Type "workspace:"
+```
+
+`publint` and `attw` do not catch this: they lint the manifest, not the packed
+tarball. That is the whole reason `preflight:publish` exists.
+
+### How Kern does it
+
+```
+packages/kern        peerDependencies  @xoroh/kern-theme: "*"
+                     devDependencies   @xoroh/kern-theme: "workspace:*"
+packages/kern-native peerDependencies  @xoroh/kern-theme: "*"
+                     devDependencies   @xoroh/kern-theme: "workspace:*"
+packages/kern-start  peerDependencies  @xoroh/kern: "*"
+                     devDependencies   @xoroh/kern: "workspace:*"
+```
+
+The `devDependencies` copy is what makes the monorepo resolve locally; the
+`peerDependencies` copy is what the consumer sees. Both are required.
+
+### Tightening the range
+
+The `"*"` ranges are deliberate **for 0.1.0 only**, and they are the last open
+item on this rule: every package is still at `"version": "0.0.0"`, so a
+`^0.1.0` range would exclude the only version that actually exists. The
+tightening to `^0.1.0` happens in the same commit that first sets `0.1.0`.
+Ruled and parked in `.team/reports/S1-rulings.md` §S1.4 — do not write the
+range early, and do not "fix" it to `^0.1.0` before the bump lands.
+
 ## One-time setup (founder-gated; do once, then ignore)
 
 - Push the release workflow: `gh auth refresh -s workflow` (interactive),

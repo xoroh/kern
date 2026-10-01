@@ -102,6 +102,37 @@ Current measured state (registry: 314 rows, web 236 / native 78): **45 shared
 concepts, 26 native-only, 34 web-only, 0 stubs.** Per-component contracts live in
 [`../parity-contract.md`](../parity-contract.md).
 
+## Does a concept warrant a web component? (the empty-abstraction test)
+
+**Ruled 2026-10-01 by `design-system-lead`, applied to the 5 presentational rows. Report:
+[`.team/reports/P2b-2-presentational-rows-ruling.md`](../../.team/reports/P2b-2-presentational-rows-ruling.md).**
+
+> **A web component exists only where there is honest behaviour to own.** A wrapper that only
+> emits a CSS property is an empty abstraction: it adds an import, a registry name, a parity row
+> and a doc section while owning nothing the browser does not already do. **CSS is the component.**
+
+**The test:** does the concept own *state, focus, dismissal, keyboard/pointer behaviour, or
+a11y semantics*? If not, it is CSS or arithmetic, and the correct record is "web via CSS" or
+"N/A" — **not** a component.
+
+Applied to the five rows filed as "native primitives needing web counterparts":
+
+| Concept | Ruling | Basis |
+|---|---|---|
+| `shape` | **CSS** — `clip-path` + shape-scale radii | `shapeStyles()` returns a style object for 6 decorative glyphs; no state, no role |
+| `shape-art` | **CSS** — absolutely-positioned spans | composition of `shape` into 3 decorative layouts |
+| `aspect-ratio` | **CSS** — the CSS property is literally the same name | native impl is 4 lines emitting `aspectRatio` |
+| `arc-rotations` | **shared pure function**, not a component | M3 determinate geometry (`lead = min(ratio,.5)*360-180`); both renderers must agree or a determinate ring diverges across platforms. Belongs in a shared module, not a component file. |
+| `loader-color` | **rejected as a row** | `loaderColor(scheme) => scheme.color.primary` is a one-line role selector; the web side is `border-t-(--md-sys-color-primary)` |
+
+**5 filed, 0 warranted a web component.** Apply this test to every native-only row before
+building a web counterpart — these five were all filed as missing counterparts and every one
+turned out to be CSS or arithmetic.
+
+**Gate consequence for `review-m3`:** a "native-only" row is not by itself a gap to close. Before
+authorising a build, confirm the concept owns behaviour. A row that fails this test should be
+recorded as "web via CSS" or removed, and `check:parity`'s expected counts adjusted with it.
+
 ## When you add or change a component
 
 1. Decide the concept and its canonical M3 name first. Check

@@ -10,12 +10,12 @@ paper bridge, haptics, fonts. Naming law: unprefixed, M3-canonical —
 
 ## Why
 
-`kern-native` today = primitives + feedback kit. Mobile apps need gorhom
-sheets, `NavigationBar`, `NavigationDrawer`, `BootSplash`, the menu screen
-system and pane layouts. Same composition model as [kern-start](kern-start.md):
-components → blocks → scaffolds, tiers never point upward. This is the RN
-**renderer family's** implementation of the same system language
-(`kern-theme` is shared, written once).
+`kern-native` was primitives + feedback kit only. The gap was sheets
+(RN-primitive, as shipped), `NavigationBar`, `NavigationDrawer`, `BootSplash`,
+the menu screen system and pane layouts. Same composition model as
+[kern-start](kern-start.md): components → blocks → scaffolds, tiers never
+point upward. This is the RN **renderer family's** implementation of the same
+system language (`kern-theme` is shared, written once).
 
 ## Decisions (locked 2026-09-29)
 
@@ -30,9 +30,10 @@ components → blocks → scaffolds, tiers never point upward. This is the RN
 
 ## Steps
 
-1. Split checklist first: if gorhom/reanimated/expo-blur peers bloat
-   `kern-native`, create `kern-expo` here; else keep flat. Decide in one ADR.
-2. Sheets: gorhom wrappers + picker + entity sheet + snap + dock.
+1. Split checklist first: evaluated, and the answer was **no** — no gorhom /
+   reanimated / expo-blur peer was needed, so no `kern-expo` split. It stays
+   open only if gesture handling proves inadequate (see Decisions).
+2. Sheets: RN-primitive wrappers + picker + entity sheet + snap + dock.
 3. Shell: `NavigationBar` (M3), `NavigationDrawer` (M3), `BootSplash` (declare
    `expo-splash-screen` + `expo-status-bar` as **real** peers), `AppsSheet`/
    `CreateSheet` (slot-driven like web menus), `ListSidebar`, `ErrorBoundary`
@@ -78,4 +79,5 @@ Deviations from the plan above, both deliberate:
 Router coupling stayed a seam: `NavigationDrawer` takes its destinations as
 props and takes no router dependency.
 
-Still open: render tests per composed block (roadmap row 10).
+Render tests per composed block landed with row 10 (roadmap closed
+2026-10-01): `composition.rntest.tsx` (17) + `composition.test.ts` (9).

@@ -26,18 +26,45 @@ done).
 | 7 | Web components | Command, Sonner, CountrySelect, SegmentedButton, Banner | `kern` | P1 | [web-extras](web-extras.md) | done |
 | 8 | Fonts | Inter faces exported, host injects an `expo-font`-shaped loader | `kern-native` | P1 | [native-composition](native-composition.md#8-fonts) | done |
 | 9 | CLI | `kern add` installer | `@xoroh/cli` | P2 | — | not planned |
-| 10 | Composition tests | render tests per block | all | P2 | in each plan's acceptance | planned |
+| 10 | Composition tests | render tests per block | all | P2 | in each plan's acceptance | done |
 | 11 | Docs | shell docs + parity page | `docs/` + `apps/site` | P2 | — | in progress |
+
+Row 10 log (2026-10-01): native composition render tests shipped —
+`packages/kern-native/src/components/composition.rntest.tsx` (**17** render
+tests across `NavigationBar`, `NavigationDrawer`, sheets, menus, layouts,
+web-parity) and `composition.test.ts` (**9** style-map tests: 80dp nav bar,
+360dp drawer, M3 top-app-bar heights, the 50% sheet cap, secondary-tab role,
+banner intents, boot splash, the three Inter faces). Verified green: 41 tests
+in `kern-native`.
+
+Two corrections to the record this row was closed from:
+
+- **Both files are in `kern-native`, not web.** The closing note cited
+  `composition.test.ts` as a web test; there is no web file by that name.
+  Web composition coverage is `packages/kern-start/src/kern-start.test.tsx`
+  (**15** tests — link seam, blocks, top app bar, navigation, panes,
+  scaffolds), green.
+- So the row is closed on **both** renderers' evidence, not on the 9 + 17 pair
+  alone, which covers native only.
 
 Row 11 log: contributor docs restructured (`../architecture.md`,
 `../platform-parity.md` rebuilt from the generated inventory, conventions
 for changesets / parity / stubs, `change-routing.md` in the docs skill).
 Rows 6-8 landed while this pass was open, so the parity tables were
 recomputed against the new surface (236 web / 78 native exports).
-Remaining: the site shell docs, and a final parity re-pass once the K-02 and
-K-03 reports are written — their acceptance evidence may still change the
-surface. `docs/components.md` is stale by 53 entries and needs
-`bun run generate:components` (K-05 owns that script).
+
+**Still open on row 11, stated honestly:** the *site* shell docs did not land.
+`apps/site` ships `/getting-started` (with a web-quickstart step that mounts
+`AppShell` from `@xoroh/kern-start`) and `/docs/guides`, but no dedicated
+shell/scaffold page — `apps/site/src/routes/` has no `shell` route, and
+`guides.tsx` covers one-contract/two-platforms, the `Sonner` asymmetry and
+icons only. The row therefore stays `in progress`; the remaining work is a
+shell + scaffold documentation page on the site.
+
+The stale-inventory note that used to sit here ("`docs/components.md` is stale
+by 53 entries") is **resolved**: `docs/components.md` now carries all 314
+rows and the parity coverage table matches it row-for-row (re-verified
+2026-10-01).
 
 ## Out of scope
 

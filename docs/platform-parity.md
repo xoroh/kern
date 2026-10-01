@@ -150,33 +150,59 @@ not a component-name one.
 These are real differences in the current tree. None is a naming violation.
 
 **Web-only concepts** (16): `autocomplete`, `combobox`, `drawer`, `fieldset`,
-`form`, `input-otp`, `kbd`, `meter`, `native-select`, `number-field`,
+`form`, `kbd`, `meter`, `native-select`, `number-field`, `page-loader`,
 `pagination`, `popover`, `preview-card`, `scroll-area`, `sonner`, `tooltip`.
 
 Most have an RN equivalent in the platform itself rather than a Kern
-component: `native-select` maps to RN `Picker`, `input-otp` to a `TextInput`
-composition, `scroll-area` to RN `ScrollView`. `tooltip` and `kbd` are
-web-interaction concepts with no mobile analogue. `sonner` is the one real
-gap here — a toast layer with no native counterpart yet, though native
-`Snackbar` covers the same need.
+component: `native-select` maps to RN `Picker`, `scroll-area` to RN
+`ScrollView`. `tooltip` and `kbd` are web-interaction concepts with no mobile
+analogue.
 
-**Native-only concepts** (15), in two groups:
+`input-otp` is **not** in this list: it is part of the shared `input` concept
+(row above), which ships on both platforms.
 
-*Platform primitives and brand kit* — `aspect-ratio` (RN layout primitive),
-`shape` / `shape-art` (brand-kit art), `milestone-trio` and
+### Deliberate asymmetry: `Sonner` has no native counterpart
+
+`sonner` is a **deliberate asymmetry, not a gap** — ruled 2026-10-01
+(`.team/reports/S1-rulings.md` §S1.3). Two reasons, both structural:
+
+1. **M3 expresses transient messaging as `Snackbar`**, which already ships on
+   both platforms. A second native component under a second name would break
+   the naming law ("unprefixed, M3-canonical, one name per concept").
+2. **`Sonner` is not a separate surface at all.** On web it is the *imperative*
+   API over the **same** Base UI `Toast` manager that backs web `Snackbar`:
+   `snackbar.tsx:137` exports `createSnackbarManager =
+   ToastPrimitive.createToastManager`, and `sonner.tsx:190` calls the same
+   factory. One primitive, two names, two call styles.
+
+So the correct statement is the asymmetry, not the gap: **web gets an
+imperative toast entry point (`Sonner`); native ships the declarative
+`Snackbar` only.** Both cover the same M3 need, neither is missing a feature,
+and shipping native `Sonner` would duplicate one surface under a forbidden
+name.
+
+**Native-only concepts** (18), in two groups:
+
+*Platform primitives and brand kit* (6) — `aspect-ratio` (RN layout
+primitive), `shape` / `shape-art` (brand-kit art), `milestone-trio` and
 `success-transform` (feedback brand kit), `arc-rotations` (a
 `CircularProgress` helper). These have no web counterpart by design.
 
-*Composition that exists only on native* — `bottom-sheet`, `snap-sheet`,
+*Composition that exists only on native* (12) — `bottom-sheet`, `snap-sheet`,
 `dock-sheet`, `entity-sheet`, `bottom-sheet-picker`, `apps-sheet`,
-`create-sheet`, `menu-screen`, `menu-sheet`, `menu-group-list`,
-`navigation-bar`, `navigation-drawer`, `top-app-bar`, `pane`,
-`supporting-pane`, `filter-chip-row`, `secondary-tabs`.
+`top-app-bar`, `top-app-bar-action`, `pane`, `supporting-pane`,
+`filter-chip-row`, `secondary-tabs`.
 
 That second group is the mirror of `@xoroh/kern-start`: native ships its
 composition tier inside `@xoroh/kern-native` rather than in a separate
 package. Web `TopAppBar` and native `TopAppBar` are the same concept
 implemented in each renderer family — the intended shape, not a divergence.
+
+Note what is **not** in this list, because it is already counted above as a
+shared concept: `create-sheet` (row `create`), `menu-screen` / `menu-sheet` /
+`menu-group-list` (row `menu`), and `navigation-bar` / `navigation-drawer`
+(row `navigation`). Those export on both platforms; listing them as
+native-only would double-count them against the coverage table.
 
 The native sheets are **not** a `@gorhom/bottom-sheet` wrapper.
 `@xoroh/kern-native` still imports only `react`, `react-native`, and
@@ -191,9 +217,53 @@ gesture handling proves inadequate, the plan is `@xoroh/kern-expo`.
 | `Loader` size | `sm`, `default`, `lg` | `small`, `large` | intentional — RN `ActivityIndicator` accepts only two sizes |
 | `Button` variant | `primary`, `tonal`, `ghost`, `destructive` | `primary`, `tonal`, `ghost` | **gap** — native omits `destructive` |
 | `Dialog` | Base UI primitives | RN `Modal` | intentional — different primitive, same M3 structure and two-action law |
-| `SegmentedButton` | `SegmentedButtonRoot` + `SegmentedButtonItem` | single `SegmentedButton` | intentional — API shape, not coverage |
-| `CountrySelect` | 7 multipart exports | none | **gap** — no native equivalent |
-| `Command` | 9 multipart exports | none | **gap** — no native equivalent |
+| `SegmentedButton` | compound `Root`/`Item` | single `SegmentedButton`, `options` prop | intentional — API shape, not coverage (ruled, see below) |
+| `CountrySelect` | 7 multipart exports | 1 flat `CountrySelect` | intentional — API shape, not coverage. **Corrected 2026-10-01:** this row previously said "no native equivalent"; native has shipped it since (`web-parity.tsx:346`) |
+| `Command` | 9 multipart exports | 1 flat `Command` | intentional — API shape, not coverage. Same correction: native ships it at `web-parity.tsx:50` |
+
+## Ruled differences (design authority, not workarounds)
+
+### `SegmentedButton` — selection behaviour is the meaning (ruled 2026-10-01)
+
+Ruled by `kern-lead` (`.team/reports/S1-rulings.md` §S1.2). Recorded because
+the plan that briefed this doc was **wrong about the component**.
+
+**What was claimed:** web shipped *intent*, native shipped *selection
+behaviour*, and the web `variants` axis needed renaming to match.
+
+**What is actually true:** both sides already implement M3 selection
+behaviour, and **there is no `variants` axis on web to rename.** The web
+component is 55 lines of thin wrapper over Base UI `ToggleGroup`/`Toggle`;
+`grep -n variants packages/kern/src/components/segmented-button.tsx` → 0
+hits. Its only axis is Base UI's own `multiple?: boolean`.
+
+Proof that web already does selection behaviour, not intent:
+
+- Web is exclusive **by construction** — Base UI `ToggleGroup` defaults to
+  `multiple: false`.
+- The web test asserts it directly: `web-extras.test.tsx:47`, *"keeps exactly
+  one segment pressed"*; `:63-66` click Grid → `aria-pressed` flips and
+  `onValueChange(["grid"])`.
+- Native infers the same thing from which value prop you pass
+  (`web-parity.tsx:240-241`: `multiple = controlledValues !== undefined ||
+  defaultValues !== undefined`), with `accessibilityRole` `radio` vs
+  `checkbox` (`:293`).
+
+What actually differs is **API shape**:
+
+| Axis | Web (`@xoroh/kern`) | Native (`@xoroh/kern-native`) |
+|---|---|---|
+| Shape | compound `Root`/`Item`, children authored by hand | flat, `options: SegmentedButtonOption[]` |
+| Value | array `value?: readonly Value[]` (Base UI shape) | scalar `value?: string` + `values?: string[]` |
+| Multi | `multiple?: boolean` prop | inferred from which value prop you pass |
+| Callback | `onValueChange(values[])` — **always an array** | `onValueChange(string)` / `onValuesChange(string[])` |
+| ARIA | `aria-pressed` on each item | `radiogroup` + `radio`/`checkbox` |
+
+**Consumer sharp edge:** web's `onValueChange` hands you an array even in
+single-selection mode. That is a Base UI passthrough, not a Kern decision, and
+Kern deliberately does **not** paper over it in 0.1.0. Wrapping it into a
+scalar for the exclusive case would be a breaking API change and needs its own
+brief — it is not a docs fix.
 
 ## Behavioral parity rules
 

@@ -10,6 +10,35 @@ license: MIT
 
 Kern takes MD3's **structure, color system, and rigor** (semantic color roles, tonal pairing, adaptive layout, accessibility) and applies it with a deliberately restrained expression. Where MD3 defaults to tonal shadows and spring motion, Kern chooses neutral/canvas contrast, M3 elevation levels, and utility-only motion. Functional color follows M3 roles: secondary blue for links, focus, and active accents; status roles for error / success / warning / info. **Kern embraces color for iconography and classification** (e.g. green for tasks, blue for calendar, purple for ticketing) to help operators scan dense information instantly.
 
+## Acceptance: when is a package actually complete?
+
+Added 2026-10-01 (`P-02-kern-plan.md` §Improvements #9). The old informal bar —
+"`check:m3` green, tests, exported" — left *"is anything actually using it?"*
+implicit, which is how four of six packages could be complete with zero
+external consumers.
+
+**A package is complete when all four hold:**
+
+1. **Its surface is in the generated manifest.** Every export appears in
+   `docs/components.md` / `packages/mcp/src/manifest.ts`, produced by
+   `bun run generate:components`. Hand-listing a surface is not the same thing.
+2. **Every export has a test, or a documented no-counterpart reason.** Not
+   "the package has tests" — *every export* is covered, and anything knowingly
+   uncovered carries the reason in
+   [`docs/platform-parity.md`](../../../docs/platform-parity.md).
+3. **The gates are green.** `lint`, `typecheck`, `test:all`, `test:jest`,
+   `check:m3`, `check:contrast`, `check:publish` — on the tree you are handing
+   off, not on an earlier one.
+4. **Something outside the package consumes it.** Real code, not a string in
+   a snippet. This is the clause that catches a finished package nobody uses;
+   `apps/site` importing all five packages as code is the standing proof.
+
+Clauses 1-3 are what most people mean by "done". **Clause 4 is the one that is
+easy to skip and expensive to skip** — it is the difference between a package
+that is complete and a package that is merely finished. When you cannot
+satisfy clause 4, say so in your report rather than declaring the package
+complete.
+
 ## Source of truth
 
 - **`packages/kern-theme/src/tokens.json`** is the canonical Kern token source (single source → TS role tables + CSS vars). Always consult it before making design decisions. `packages/kern/src/tokens.ts` re-exports it; the generator writes `tokens.css`.

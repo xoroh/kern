@@ -20,12 +20,20 @@ Docs update in the **same change** as the code. Never defer.
   component add/remove. `docs/components.md` is **generated** — never
   hand-edited.
 - `docs/platform-parity.md` coverage table and gap list updated in the same
-  change as the component surface.
+  change as the component surface. **Both, and their counts must reconcile
+  against `docs/components.md`** — a list that names 23 entries under a
+  "(15)" heading, or entries already counted in the coverage table, is a
+  defect, not prose.
 - Changeset added for every `packages/` change
   (`docs/conventions/changesets.md`).
 - Skill refs updated if agent guidance changed.
 - `bun run lint` clean, `Status:` lines correct and actually verified.
 - No detail creep into `AGENTS.md` / `README.md`.
+
+The four-clause **package** acceptance rule lives in the `kern` skill
+(*Acceptance: when is a package actually complete?*). Clause 1 is the
+generated-manifest one above; clause 2 is the no-counterpart-reason one; the
+docs surface owns clause 2's documentation.
 
 ## The two rules people break
 
