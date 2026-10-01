@@ -1,5 +1,5 @@
 /**
- * Cross-renderer parity contract — tranche 1.
+ * Cross-renderer parity contract — tranches 1 and 2.
  *
  * This file is DATA ONLY. It imports nothing, by design:
  *
@@ -16,7 +16,7 @@
  * web primitive, these rows are still the right assertions — which is the whole
  * test of whether a contract row was written correctly.
  *
- * Ladder: `.team/plans/K-01-ladder.md` §Phase 2b → P2b-4 tranche 1.
+ * Ladder: `.team/plans/K-01-ladder.md` §Phase 2b → P2b-4 tranches 1 and 2.
  */
 
 /** How a renderer reports a boolean state for a control. */
@@ -54,6 +54,28 @@ export type ParityRow = {
   };
   /** Native can express this many independent simultaneous selections; 1 = exclusive. */
   maxSelected: number;
+
+  /**
+   * Which assertion family this row belongs to. Absent on tranche-1 rows, which
+   * are all boolean-axis controls and use `expects` + `axis` alone.
+   *
+   * Tranche 2 added families because a boolean axis is the wrong shape for a
+   * name-bearing surface (a dialog, a list row) or a text field. Forcing those
+   * into `initial`/`afterActivate` booleans would have meant inventing a fake
+   * checked-state for them — the contract would then assert something neither
+   * renderer does, which is worse than not asserting it. A row says which
+   * family it is, and each suite asserts only that family's fields.
+   */
+  family?: "toggle" | "named-surface" | "text-field";
+  /** For `named-surface`: substrings that must ALL appear in the accessible name. */
+  nameMustContain?: readonly string[];
+  /** For `text-field`: true when the field accepts multiple lines. */
+  multiline?: boolean;
+  /** For `text-field`: true when a disabled field must refuse text entry. */
+  refusesTextWhenDisabled?: boolean;
+  /** For `text-field`: set when the error is announced through the hint (native),
+   *  because RN has no `accessibilityState.invalid`. Deliberate asymmetry. */
+  errorViaHint?: boolean;
 };
 
 /**
@@ -103,16 +125,151 @@ export const CONTRACTS: readonly ParityRow[] = [
     },
     maxSelected: 1,
   },
+
+  // ------------------------------------------------------------- tranche 2
+  // Measured on both renderers before being written down; see
+  // `.team/findings/2026-10-01-p2b4-tranche2-measured-divergences.md`.
+  //
+  // Each of these rows deliberately asserts the SUBSET both renderers actually
+  // honour today. Four further divergences were measured and are NOT encoded
+  // here, because writing them would have meant either landing a red suite or
+  // encoding one renderer's API into a cross-renderer contract: `list-item`
+  // interactive role (web `listitem` vs native `button`), `dialog` role (web
+  // `dialog`, native `none`), `dialog` `aria-modal` (absent on web, which is
+  // the same one-attribute gap the P2b-2 changeset fixed for `NavigationDrawer`),
+  // and native text-field `accessibilityRole` (undefined). Those need a design
+  // ruling before they can be a contract row.
+
+  {
+    // A filter chip is a toggle wearing the `pressed` axis: web reports
+    // `aria-pressed`, native reports `accessibilityState.selected`. That mapping
+    // is already this file's documented meaning of "pressed".
+    component: "chip",
+    role: "button",
+    axis: "pressed",
+    interaction: "toggle",
+    name: "Vegetarian",
+    family: "toggle",
+    expects: {
+      initial: false,
+      afterActivate: true,
+      afterDisabledActivate: false,
+    },
+    maxSelected: 1,
+  },
+  {
+    // An assist chip is NOT a toggle. Web omits `aria-pressed` entirely and
+    // native reports `selected: false`; neither may ever report a pressed state
+    // after activation. This is the row that catches an assist chip quietly
+    // growing toggle behaviour.
+    component: "chip",
+    role: "button",
+    axis: "pressed",
+    interaction: "toggle",
+    name: "Get directions",
+    family: "toggle",
+    expects: {
+      initial: false,
+      afterActivate: false,
+      afterDisabledActivate: false,
+    },
+    maxSelected: 1,
+  },
+  {
+    component: "list-item",
+    role: "listitem",
+    axis: "selected",
+    interaction: "select",
+    name: "Airplane mode, Updated 2 h ago",
+    family: "named-surface",
+    // Asserted as substrings, not as one exact string: web computes its
+    // accessible name from the DOM (space-joined) while native builds it with an
+    // explicit ", " join. The separator is an artefact of how each platform
+    // derives a name, not a Kern decision, so pinning it would be pinning an
+    // accident. What must hold is that BOTH lines are announced.
+    nameMustContain: ["Airplane mode", "Updated 2 h ago"],
+    expects: {
+      initial: false,
+      afterActivate: false,
+      afterDisabledActivate: false,
+    },
+    maxSelected: 1,
+  },
+  {
+    component: "dialog",
+    role: "dialog",
+    axis: "selected",
+    interaction: "select",
+    name: "Discard draft?",
+    family: "named-surface",
+    // The dialog must be findable BY its title on both sides — that is the
+    // whole contract for a modal surface. Not asserting the role here: web
+    // exposes `dialog`, native exposes `none`, and that gap is filed for a
+    // ruling rather than papered over here.
+    nameMustContain: ["Discard draft?"],
+    expects: {
+      initial: false,
+      afterActivate: false,
+      afterDisabledActivate: false,
+    },
+    maxSelected: 1,
+  },
+  {
+    component: "input",
+    role: "textbox",
+    axis: "checked",
+    interaction: "toggle",
+    name: "Full name",
+    family: "text-field",
+    multiline: false,
+    refusesTextWhenDisabled: true,
+    errorViaHint: true,
+    expects: {
+      initial: false,
+      afterActivate: false,
+      afterDisabledActivate: false,
+    },
+    maxSelected: 1,
+  },
+  {
+    component: "textarea",
+    role: "textbox",
+    axis: "checked",
+    interaction: "toggle",
+    name: "Notes",
+    family: "text-field",
+    multiline: true,
+    refusesTextWhenDisabled: true,
+    errorViaHint: true,
+    expects: {
+      initial: false,
+      afterActivate: false,
+      afterDisabledActivate: false,
+    },
+    maxSelected: 1,
+  },
 ] as const;
 
-/** Lookup for a test that knows its component by name. */
-export function contractFor(component: string): ParityRow {
-  const row = CONTRACTS.find((c) => c.component === component);
+/** Lookup for a test that knows its component by name.
+ *
+ *  Tranche 2 introduced a second `chip` row (filter vs assist), so a component
+ *  name alone is no longer a unique key. `contractFor("chip")` still resolves —
+ *  it returns the FIRST row for that component, which keeps every tranche-1 call
+ *  site working unchanged — but a test that needs the other variant asks for it
+ *  by name: `contractFor("chip", "assist")`. Looking a row up by position would
+ *  be a silent-breakage generator the moment a row is inserted.
+ */
+export function contractFor(component: string, variant?: string): ParityRow {
+  const rows = CONTRACTS.filter((c) => c.component === component);
+  const row = variant ? rows.find((c) => c.name === variant) : rows[0];
   if (!row) {
     throw new Error(
-      `no parity contract declared for "${component}". Add a row to CONTRACTS ` +
-        `(packages/kern/src/parity/contract.ts) — or, if the component is new, ` +
-        `decide the contract before asserting it.`,
+      rows.length > 0 && variant
+        ? `parity contract for "${component}" has no row named "${variant}". ` +
+            `Known: ${rows.map((c) => JSON.stringify(c.name)).join(", ")}.`
+        : `no parity contract declared for "${component}". Add a row to CONTRACTS ` +
+            `(kern/parity/contract.ts) — or, if the component is new, ` +
+            `decide the contract before asserting it.`,
     );
   }
   return row;
