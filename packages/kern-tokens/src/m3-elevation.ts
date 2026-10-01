@@ -121,6 +121,28 @@ export const M3_ELEVATION_COMPONENTS = Object.freeze({
     variants: [3],
   }),
   card: Object.freeze({ rows: ["card (elevated)"], variants: [1] }),
+  /**
+   * M3 tabulates buttons TWICE: "button (elevated)" at level 1 and
+   * "buttons (filled, tonal, outlined)" at level 0. Kern's Button implements both
+   * through its `variant` axis, so one component legitimately covers two rows —
+   * which is why `variants` accepts [0, 1].
+   *
+   * Button shipped level 1 ungated until this row: `check:docs` flagged it, and
+   * the fix is asserted rather than assumed — mutating Button's token to level 4
+   * now fails `check:m3` with
+   * "button: ships elevation level4, M3 assigns level0/1".
+   *
+   * Note for the next sweep: a row is only worth adding when the component
+   * actually emits `--md-sys-elevation-level<N>` in its import closure. Adding
+   * `chip`, `banner`, `slider`, `tabs`, `segmented-button` or `carousel` rows
+   * would measure `null` and assert nothing while making the summary read
+   * "resting elevation 18/18". Those components carry no elevation token today,
+   * so the honest fix is the token, not the row.
+   */
+  button: Object.freeze({
+    rows: ["button (elevated)", "buttons (filled, tonal, outlined)"],
+    variants: [0, 1],
+  }),
   "navigation-menu": Object.freeze({ rows: ["menu"], variants: [2] }),
   // M3's level-2 table also names "Navigation bar", "Rich tooltip" and
   // "Toolbar". kern ships all three, so they were silently UNGATED before this
