@@ -266,6 +266,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `action-sheet` | `ActionSheet` | real |
 | `alert-dialog` | `AlertDialog` | real |
 | `aspect-ratio` | `AspectRatio` | real |
+| `autocomplete` | `Autocomplete` | real |
 | `avatar` | `Avatar` | real |
 | `badge` | `Badge` | real |
 | `banner` | `Banner` | real |
@@ -293,6 +294,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `field-message` | `FieldMessage` | real |
 | `filter-chip-row` | `FilterChipRow` | real |
 | `input` | `Input` | real |
+| `input-otp` | `InputOTP` | real |
 | `label` | `Label` | real |
 | `linear-progress` | `LinearProgress` | real |
 | `list-detail` | `ListDetail` | real |
@@ -309,6 +311,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `navigation-bar-item` | `NavigationBarItem` | real |
 | `navigation-drawer` | `NavigationDrawer` | real |
 | `navigation-menu` | `NavigationMenu` | real |
+| `number-field` | `NumberField` | real |
 | `pane` | `Pane` | real |
 | `progress` | `Progress` | real |
 | `radio-group` | `RadioGroup` | real |

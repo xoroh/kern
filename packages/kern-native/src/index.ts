@@ -10,6 +10,16 @@ export type { NativeAlertDialogProps } from "./components/alert-dialog";
 export { AlertDialog, alertDialogStyles } from "./components/alert-dialog";
 export type { NativeAspectRatioProps } from "./components/aspect-ratio";
 export { AspectRatio } from "./components/aspect-ratio";
+export type {
+  AutocompleteSuggestion,
+  NativeAutocompleteProps,
+} from "./components/autocomplete";
+// `Autocomplete` only. `defaultAutocompleteFilter` is a pure matcher, not a
+// component: exported from its module for hosts and tests that want it, but
+// deliberately NOT re-exported here, because the generated registry treats
+// every barrel export as a component and a shared function published as a
+// component is a row that owns no behaviour.
+export { Autocomplete, autocompleteStyles } from "./components/autocomplete";
 export type { NativeAvatarProps, NativeAvatarSize } from "./components/avatar";
 export { Avatar, avatarStyles } from "./components/avatar";
 export type { NativeBadgeProps } from "./components/badge";
@@ -61,6 +71,11 @@ export type { NativeFieldMessageProps } from "./components/field-message";
 export { FieldMessage } from "./components/field-message";
 export type { NativeInputProps } from "./components/input";
 export { Input } from "./components/input";
+export type { NativeInputOTPProps } from "./components/input-otp";
+// `InputOTP` only. `toOTPPositions` (a splitter) and `OTPBox` (a presentational
+// box with no state) stay module-level exports — see the note on
+// `defaultAutocompleteFilter` above.
+export { InputOTP, inputOTPStyles } from "./components/input-otp";
 export type { LabelProps } from "./components/label";
 export { Label } from "./components/label";
 export type {
@@ -141,6 +156,9 @@ export type {
   NativeNavigationMenuProps,
 } from "./components/navigation-menu";
 export { NavigationMenu } from "./components/navigation-menu";
+export type { NativeNumberFieldProps } from "./components/number-field";
+// `NumberField` only; `clampToRange` is a pure clamp, not a component.
+export { NumberField, numberFieldStyles } from "./components/number-field";
 export type { NativeProgressProps } from "./components/progress";
 export { Progress, progressStyles } from "./components/progress";
 export type {

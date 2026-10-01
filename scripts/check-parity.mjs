@@ -274,6 +274,134 @@ console.log(
   `  canaries passed  ${["segmented-button", "command", "snackbar"].join(", ")}`,
 );
 
+/**
+ * Every PRESENT-TENSE count in the prose must match the registry.
+ *
+ * The `gate:counts` comment above is the machine check; the sentences around it
+ * are how a human actually reads this file, and they drift silently. That is
+ * not hypothetical: the section heading said "Web-only concepts → need a native
+ * version (34)" while the gate line correctly said 42. A gate that checks one
+ * line checks exactly the line nobody argues with.
+ *
+ * A sentence quoting a HISTORICAL figure is exempt, so a nearby past-tense
+ * marker ("was", "went", "from") excuses the number. Without that exemption
+ * this check would forbid the document from ever recording that a count moved,
+ * which is most of what this file is for.
+ */
+function proseCountViolations(registry) {
+  const out = [];
+  // Label → the registry figure that must back it. Labels are matched
+  // case-insensitively with hyphens/spaces folded, because the prose writes
+  // "web-only", "web only" and "Registry rows" for the same three numbers.
+  const wanted = [
+    { label: /web[- ]only/i, key: "web-only" },
+    { label: /native[- ]only/i, key: "native-only" },
+    { label: /\bshared\b/i, key: "shared" },
+    { label: /registry rows/i, key: "registry-rows" },
+  ];
+  // A HEADING states ONE count, and the label in the same line says which.
+  // Bind them: pick the label the line actually contains, then compare only
+  // that figure. Iterating every key and reporting the first mismatch is wrong
+  // in a way that looks right — "## Native-only … (22)" is correct, and a loop
+  // that tries `web-only` first calls it a violation.
+  for (const line of contract.split("\n")) {
+    if (!line.startsWith("#")) continue;
+    const found = wanted.find(({ label }) => label.test(line));
+    if (!found) continue;
+    for (const m of line.matchAll(/\((\d+)\)/g)) {
+      if (Number(m[1]) === registry[found.key]) continue; // right figure
+      out.push(
+        `parity-contract.md heading says ${m[1]} ${found.key}, registry has ${registry[found.key]}.\n` +
+          `    In: "${line.trim()}"\n` +
+          `    Fix the heading — this is the figure a reader acts on.`,
+      );
+    }
+  }
+
+  // A table row states one measurement per row: the label cell names it, the
+  // last numeric cell is the figure. Matched structurally rather than by
+  // distance, because `| **Shared** (already both sides) | **48** |` has a
+  // pipe, asterisks and three words between label and figure — none of which a
+  // prose-distance rule can see through.
+  for (const line of contract.split("\n")) {
+    if (!/^\s*\|/.test(line)) continue;
+    const cells = line.split("|").map((cell) => cell.trim());
+    const found = wanted.find(({ label }) => label.test(cells.join(" ")));
+    if (!found) continue;
+    for (const cell of cells) {
+      const m = cell.match(/\*\*(\d+)\*\*|\((\d+)\)/);
+      if (!m) continue;
+      if (Number(m[1] ?? m[2]) === registry[found.key]) continue;
+      out.push(
+        `parity-contract.md table says ${m[1] ?? m[2]} ${found.key}, registry has ${registry[found.key]}.\n` +
+          `    In: "${line.trim()}"`,
+      );
+    }
+  }
+
+  for (const { label, key } of wanted) {
+    const value = registry[key];
+    // Prose: the number must sit next to the label, either immediately or across a
+    // short run of counting words. Two widths, because the two places this
+    // actually bites are differently shaped:
+    //
+    //   "**Web-only** | **39**"      (table cell — a few chars between)
+    //   "need a native version (39)" (HEADING — the label is a whole clause
+    //                                  earlier, with the number in parentheses)
+    //
+    // A first version used a tight window and passed a document whose heading
+    // said "(34)". A second used 60 characters and fired 13 times on table row
+    // indices and the words "Correction 1". Both were wrong; the window is
+    // sized for a clause, and table rows plus arrows are excluded below.
+    const gap =
+      "(?:\\s*(?:→|-|—|of|=|:|\\(|\\)|was|were|went|goes|go|rows?|concepts?|in|needs?|native|version)\\s*){0,8}";
+    const near = new RegExp(
+      `(\\d+)${gap}${label.source}|${label.source}${gap}(\\d+)`,
+      "gi",
+    );
+    for (const match of contract.matchAll(near)) {
+      const quoted = Number(match[1] ?? match[2]);
+      if (quoted === value) continue;
+      const at = match.index ?? 0;
+      // A markdown table row's FIRST cell is a row index, not a measurement —
+      // but the measurement table's cells are exactly what must be checked, so
+      // only the leading cell is exempt, not the whole line. Excluding whole
+      // rows (the first attempt) passed a doc whose table said "Shared 48".
+      const lineStart = contract.lastIndexOf("\n", at) + 1;
+      const line = contract.slice(lineStart, contract.indexOf("\n", at));
+      if (/^\s*[|>]/.test(line)) {
+        const firstCellEnd = line.indexOf("|", 1);
+        if (firstCellEnd === -1 || at - lineStart < firstCellEnd) continue;
+      }
+      const context = contract
+        .slice(Math.max(0, at - 100), at + match[0].length + 60)
+        .replace(/\s+/g, " ")
+        .trim();
+      if (/\b(was|were|went|from)\b/i.test(context)) continue; // history
+      // An arrow is a TRANSITION, not a count: "web-only goes 34 → 42" states
+      // where the number came from and went, and neither figure is a claim
+      // about the present. The registry only knows the destination.
+      if (context.includes("→")) continue;
+      if (context.includes("gate:counts")) continue;
+      out.push(
+        `parity-contract.md prose says ${quoted} ${key}, registry has ${value}.\n` +
+          `    In: "${context}"\n` +
+          `    Fix the sentence, or mark it as history ("was"/"went"/"from").`,
+      );
+    }
+  }
+  return out;
+}
+
+violations.push(
+  ...proseCountViolations({
+    shared: shared.length,
+    "native-only": nativeOnly.length,
+    "web-only": webOnly.length,
+    "registry-rows": rows.length,
+  }),
+);
+
 if (violations.length > 0) {
   console.error(`\ncheck:parity FAILED — ${violations.length} violation(s):`);
   for (const v of violations) console.error(`  - ${v}`);

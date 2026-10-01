@@ -52,13 +52,13 @@ again. Measured from the generated registry instead:
 
 | Measure | Value |
 |---|---|
-| Registry rows | **325** (web 248, native 77) |
-| **Shared** (already both sides) | **48** |
+| Registry rows | **328** (web 248, native 80) |
+| **Shared** (already both sides) | **51** |
 | **Native-only → needs a web version** | **22** in **11 files** |
-| **Web-only → needs a native version** | **42** in **33 files** |
+| **Web-only → needs a native version** | **39** in **31 files** |
 | Stub rows | **0** |
 
-<!-- gate:counts 48 22 42 0 -->
+<!-- gate:counts 51 22 39 0 -->
 
 Machine-readable line above: `check:parity` (`scripts/check-parity.mjs`) re-derives
 these from the registry and fails if they drift, so the prose above cannot quietly
@@ -206,53 +206,156 @@ contract input.
 
 ---
 
-## Web-only concepts → need a native version (34)
+## Native versions of the input family (P2b-3, tranche 1)
+
+Three web-only rows shipped a native implementation in this tranche:
+`autocomplete`, `input-otp`, `number-field`. Two more were **cut by the
+behaviour test** and one is **deferred**, so the family moved 42 → 39 rather
+than the full family.
+
+| Concept | Native | Behaviour owned natively | Verdict |
+|---|---|---|---|
+| `autocomplete` | `Autocomplete` (`src/components/autocomplete.tsx`) | The query, the filtered set, the active suggestion, and both exits (commit / dismiss). RN has no combobox primitive, so unlike web — four pass-throughs over Base UI — this owns the behaviour outright. The popup opens on a **non-empty matching** query only, closes on commit and on blur, reports exactly one active suggestion, and **announces an empty result instead of opening an empty box** | shipped, **no contract row** (see below) |
+| `input-otp` | `InputOTP` (`src/components/input-otp.tsx`) | The segmented value, advance-on-fill, retreat-from-empty, and **paste distribution that overwrites from the pasted position**. Every position names itself, including the first — web cannot | shipped, contract row |
+| `number-field` | `NumberField` (`src/components/number-field.tsx`) | The stepper, the clamp, and the value the host is told. Both steppers announce themselves disabled at their bound, and a press that lands on the value already showing fires nothing | shipped, contract row |
+
+### What the behaviour test cut, and why that is the point
+
+**`combobox` — cut.** Measured on web: the web `Combobox` is a text input with a
+filtered popup and a clear button, which is `autocomplete` plus an affordance.
+Native already has `Select` (a trigger + modal chooser, single choice). What is
+left for a third component is a clear button — and a clear button is a
+**sub-part**, not a concept: the registry's own concept rule collapses
+`combobox-clear` into `combobox`, and building `ComboboxClear` as its own
+component would have created a row whose only behaviour is "empties the field
+it lives inside". Building it was the CSS/shared-function/reject branch of the
+test.
+
+**`combobox-clear` — cut**, as above. It is also already handled as a concept
+sub-part by `check:parity`.
+
+**`native-select` — deferred, and this is not new.** It is a **ruled deliberate
+asymmetry** (see the asymmetry list below): the RN form is the platform
+`Picker`, so there is no Kern component to build and the contract row is the
+*behaviour*, not a shared name. It was in the 42 because the registry counts the
+web wrapper; it is not 39 rows of work.
+
+**`autocomplete` — shipped but carries NO cross-renderer contract row.** This is
+the uncomfortable one and it is recorded rather than hidden. Measured on web:
+with a query that matches nothing, Base UI keeps `aria-expanded="true"` and emits
+**no empty node** — the popup is an expanded box containing zero options. So
+there were only two ways to write the row:
+
+- assert the **correct** behaviour (close, or announce "no matches") — which
+  would land a **red** web suite on day one, or
+- assert the **measured** behaviour — which would bless a defect as a contract
+  and make every future reader inherit it.
+
+Neither is acceptable, so the row is **not written**. The native side implements
+the correct behaviour and asserts it in its own suite. The web fix is owed by
+P2b-4 and is filed here rather than encoded as a shared contract. This is the
+fourth time the "measure both sides first, or the contract row is a coin flip"
+rule has paid for itself; the cost of getting it wrong is a permanent red gate
+that people learn to ignore.
+
+### Four defects this tranche found, three of them by measurement
+
+None of these are contract rows — they are divergences, and each is documented
+at its site rather than encoded as a rule both sides must satisfy:
+
+1. **Web's `NumberField` Increase button is not disabled at its maximum, and
+   pressing it there does not stay at the maximum.** Measured: `value=4, max=4`
+   reports `aria-disabled="false"` on Increase, and one press yields **1**. A
+   button that announces itself as available and then moves the value somewhere
+   else is worse than either behaviour alone. Native reports `disabled` at the
+   bound and clamps.
+2. **Web's `NumberField` exposes no `aria-valuenow`/`min`/`max`.** Measured: all
+   three are `null`. So a value-range contract row would be red on web; the row
+   asserts the arithmetic instead. Native does announce the range — an
+   improvement, recorded so nobody "reconciles" it away.
+3. **Web's OTP field cannot label its first position.** Base UI *ignores*
+   `aria-label` on the first `OTPField.Input` and logs a warning telling you to
+   label the group. So "every position names itself" cannot be a shared row
+   (false for web position 1). Native labels every position `Digit n of N`.
+4. **Web's autocomplete has no working empty state** — item 1 of the cut
+   discussion above.
+
+### Two bugs the native behaviour test caught in native code
+
+Recorded because both were invisible to typecheck, to lint, and to every gate —
+only a behaviour test finds them:
+
+- **The stepper snapped its own output to a `step` grid.** `clampToStep` did
+  `round(next / step) * step`, so at `value=5, step=2` one increment produced
+  **8** instead of 7. Web's measurement (5 − 2 = **3**, not a snapped 4) is what
+  proved the snap was wrong; the shared contract row then pinned the arithmetic
+  so it cannot come back. `clampToRange` now clamps and does not snap.
+- **A mid-field paste APPENDED instead of overwriting, and reported a code the
+  user never entered.** With "12" in positions 1-2, pasting "9876" at position 3
+  produced `"129876"` — six digits handed to the host from a four-position
+  field. The boxes rendered correctly, which is exactly why a screenshot review
+  would not have caught it. Fixed by slicing the tail at the paste position and
+  truncating the assembled value to `length`.
+
+Mutation-proven: each of the two component behaviours above was reverted in
+isolation and the suite went red (3 tests for the snap, 1 for the paste); the
+autocomplete expansion rule was forced to `true` and 6 tests failed. All three
+were restored from backup afterwards.
+
+---
+
+## Web-only concepts → need a native version (39)
+
+The heading previously read **34** while the machine gate read **42** — the
+`gate:counts` line was right and the sentence a human reads was stale, which is
+how a document lies convincingly. Both are now checked: `check:parity` asserts
+this heading's figure as well as the gate line's, and history sentences (the
+ones marked *was* / *went* / *from*) are exempt so the doc can still record that
+a count moved.
 
 | # | Component | Behaviour | Web contract (exists) | Native contract (to build) | M3 source | Test pointer |
 |---|---|---|---|---|---|---|
-| 1 | `autocomplete` | Text field + filtered suggestion list | `role="combobox"` + `aria-expanded`, `aria-activedescendant` | `TextInput` + `accessibilityRole="combobox"`, `aria-expanded` ≡ `accessibilityState.expanded` | M3 · Text fields → Autocomplete | `autocomplete.test.tsx` |
-| 2 | `combobox` | Select with a custom popup | `role="combobox"`, `aria-controls`, Escape | `accessibilityRole="combobox"` + `accessibilityState.expanded` | M3 · Menus → Combobox | `combobox.test.tsx` |
-| 3 | `combobox-clear` | Clear affordance inside a combobox | labelled button, `aria-label="Clear"` | `accessibilityRole="button"` + `accessibilityLabel` | M3 · Combobox | GAP |
-| 4 | `input-otp` | One-time-code segmented input | one input per char, `aria-label` per position | `TextInput` per position; **keyboard type** is the RN analogue | M3 · Text fields | GAP |
-| 5 | `native-select` | Native OS picker | `role="combobox"` | **`Picker`** — platform primitive, not a Kern component (see note) | M3 · Menus | GAP |
-| 6 | `drawer` | Side drawer | `role="dialog"` + `aria-modal` (M3 drawer = modal variant) | `Modal`-based drawer | M3 · Navigation drawer | `drawer.test.tsx` |
-| 7 | `popover` | Anchored non-modal popup | `role="dialog"`, trigger `aria-expanded` + `aria-haspopup` | `accessibilityRole="dialog"` + `accessibilityState.expanded` | M3 · Menus → Popover | `popover.test.tsx` |
-| 8 | `menu` group `menubar-menu` | One menu in a menubar | `role="menu"`, `aria-haspopup`, arrow keys | `accessibilityRole="menu"` | M3 · Menus | `menubar.test.tsx` |
-| 9 | `navigation-menu-link` | Link inside a navigation menu | `role="link"` | `accessibilityRole="link"` + `accessibilityState.selected` | M3 · Navigation | GAP |
-| 10 | `meter` | Scalar measurement in a range | `role="meter"` + `aria-valuenow/min/max` | `accessibilityRole="progressbar"` + `accessibilityValue` | M3 · Progress → Meter | `meter.test.tsx` |
-| 11 | `number-field` | Numeric stepper | spinbutton roles, `aria-valuenow` | `accessibilityRole="adjustable"`/stepper | M3 · Text fields | GAP |
-| 12 | `pagination` | Page navigation | `role="navigation"` + `aria-label="Pagination"`, current `aria-current` | `accessibilityRole="tablist"`-style selected | M3 · Lists → Pagination | GAP |
-| 13 | `preview-card` | Hover/focus preview surface | `role="group"`/`dialog` — no M3-canonical name exists | **deliberate web-only asymmetry** — hover/focus preview has no touch analogue, same class as `kbd` | *none — K10 (kern extension, `ext:` band)* | n/a — ruled |
-| 14 | `scroll-area` | Custom scroll container | `role="group"` + scrollbar parts | `ScrollView` | M3 · Lists | GAP |
-| 15 | `scroll-area-scrollbar` | The scrollbar itself | `role="scrollbar"` + `aria-valuenow` | platform scroll indicator | M3 · Lists | GAP |
-| 16 | `slider-thumb` | The draggable handle | `role="slider"` + `aria-valuenow/min/max` | `accessibilityRole="adjustable"` + `accessibilityValue` | M3 · Sliders | `slider.test.tsx` |
-| 17 | `table` parts (`head`/`body`/`cell`/`caption`) | Tabular data | `role="table"/"row"/"cell"/"columnheader"` | `role` equivalents via `accessibilityRole` | M3 · Data tables | GAP |
-| 18 | `tabs-tab` | One tab | `role="tab"` + `aria-selected`, arrow-key roving focus | `accessibilityRole="tab"` + `accessibilityState.selected` | M3 · Tabs | `tabs.test.tsx` |
-| 19 | `toolbar-button` | A toolbar action | `aria-pressed`/`aria-current`, arrow-key traversal | `accessibilityRole="button"` + `accessibilityState` | M3 · Toolbar | GAP |
-| 20 | `avatar-fallback` | Initials shown when no image | text alternative, `role="img"` on parent | `Text` fallback | M3 · Avatar | GAP |
-| 21 | `avatar-image` | The avatar image | `alt` text / `role="img"` | `Image` + `accessibilityLabel` | M3 · Avatar | GAP |
-| 22 | `boot-indicator` | Branded boot surface | `role="status"` + accessible label | `BootIndicator` exists natively as brand kit | Kern brand kit | GAP |
-| 23 | `page-loader` | Full-page loading | `role="status"`/`progressbar` | `ActivityIndicator` | M3 · Progress | GAP |
-| 24 | `fieldset` + form | Grouped form controls | `role="group"` + `<legend>` | `View` + `accessibilityRole="summary"`/label | M3 · Text fields | GAP |
-| 25 | `form` | Form container | landmark + validation association | `accessibilityRole="summary"` | M3 · Text fields | GAP |
-| 26 | `kbd` | Keyboard key glyph | `<kbd>`; **web-interaction concept** | **no mobile analogue** — deliberate asymmetry (see note) | none | n/a |
-| 27 | `sonner` | Imperative transient messages | `role="status"`, `aria-live` | **deliberately no native counterpart** — D-026/S1.3 ruling: M3 = `Snackbar` | M3 · Snackbars | n/a |
-| 28 | `create-sonner-manager` | Imperative API factory | — | **no native counterpart by ruling** | M3 · Snackbars | n/a |
-| 29 | `icon-button` | Square icon-only action, 4 containers + toggle | `aria-pressed` on the toggle; name from one `label` prop | `Pressable` + `accessibilityRole="button"` + `accessibilityState.selected` | M3 · Buttons → Icon buttons | `m3-gaps.test.tsx` |
-| 30 | `extended-fab` | FAB with a visible label, collapses when it no longer fits | collapse via imperative handle; name survives collapse | `Pressable` + `accessibilityRole="button"`, label as `accessibilityLabel` | M3 · FAB → Extended FAB | `m3-gaps.test.tsx` |
-| 31 | `fab-menu` | FAB that opens a menu of actions | `aria-haspopup="menu"` + `aria-expanded`; select-then-dismiss | `accessibilityRole="menu"` + `accessibilityState.expanded` | M3 · FAB → FAB menu | `m3-gaps.test.tsx` |
-| 32 | `split-button` | One primary action + an overflow menu | two named controls; primary does not open the menu | `accessibilityRole="menu"` on the overflow half | M3 · Buttons → Split button | `m3-gaps.test.tsx` |
-| 33 | `time-picker` | Hour / minute / period | three `role="listbox"`es, roving tabindex per field, 24-hour state | `accessibilityRole="adjustable"`-style pickers, or a platform time picker | M3 · Date & time → Time picker | `m3-gaps.test.tsx` |
-| 34 | `carousel` | One item at a time with prev/next | `aria-roledescription="carousel"`/`"slide"`, `"n of m"` per slide | horizontal `ScrollView` + `accessibilityRole="adjustable"` paging | M3 · Carousel | `m3-gaps.test.tsx` |
-| 35 | `loading-indicator` | Indeterminate activity feedback (**replaces** indeterminate circular progress, T4-M5) | `role="status"`, no `aria-valuenow`, reduced-motion aware | `ActivityIndicator` + `accessibilityLabel`; **no** indeterminate circular-progress component | M3 · Progress → Loading indicator | `m3-gaps.test.tsx` |
-| 36 | `loading-region` | The region being loaded, with `aria-busy` | `aria-busy` on the region, `aria-live="polite"` | `accessibilityState.busy` on the container | M3 · Progress | `m3-gaps.test.tsx` |
+| 1 | `combobox` | Select with a custom popup | `role="combobox"`, `aria-controls`, Escape | `accessibilityRole="combobox"` + `accessibilityState.expanded` — **deferred**: web = `autocomplete` + a clear affordance, and the clear affordance is a sub-part (see the P2b-3 section) | M3 · Menus → Combobox | `combobox.test.tsx` |
+| 2 | `native-select` | Native OS picker | `role="combobox"` | **`Picker`** — platform primitive, not a Kern component (see note) | M3 · Menus | GAP |
+| 3 | `drawer` | Side drawer | `role="dialog"` + `aria-modal` (M3 drawer = modal variant) | `Modal`-based drawer | M3 · Navigation drawer | `drawer.test.tsx` |
+| 4 | `popover` | Anchored non-modal popup | `role="dialog"`, trigger `aria-expanded` + `aria-haspopup` | `accessibilityRole="dialog"` + `accessibilityState.expanded` | M3 · Menus → Popover | `popover.test.tsx` |
+| 5 | `menu` group `menubar-menu` | One menu in a menubar | `role="menu"`, `aria-haspopup`, arrow keys | `accessibilityRole="menu"` | M3 · Menus | `menubar.test.tsx` |
+| 6 | `navigation-menu-link` | Link inside a navigation menu | `role="link"` | `accessibilityRole="link"` + `accessibilityState.selected` | M3 · Navigation | GAP |
+| 7 | `meter` | Scalar measurement in a range | `role="meter"` + `aria-valuenow/min/max` | `accessibilityRole="progressbar"` + `accessibilityValue` | M3 · Progress → Meter | `meter.test.tsx` |
+| 8 | `pagination` | Page navigation | `role="navigation"` + `aria-label="Pagination"`, current `aria-current` | `accessibilityRole="tablist"`-style selected | M3 · Lists → Pagination | GAP |
+| 9 | `preview-card` | Hover/focus preview surface | `role="group"`/`dialog` — no M3-canonical name exists | **deliberate web-only asymmetry** — hover/focus preview has no touch analogue, same class as `kbd` | *none — K10 (kern extension, `ext:` band)* | n/a — ruled |
+| 10 | `scroll-area` | Custom scroll container | `role="group"` + scrollbar parts | `ScrollView` | M3 · Lists | GAP |
+| 11 | `scroll-area-scrollbar` | The scrollbar itself | `role="scrollbar"` + `aria-valuenow` | platform scroll indicator | M3 · Lists | GAP |
+| 12 | `slider-thumb` | The draggable handle | `role="slider"` + `aria-valuenow/min/max` | `accessibilityRole="adjustable"` + `accessibilityValue` | M3 · Sliders | `slider.test.tsx` |
+| 13 | `table` parts (`head`/`body`/`cell`/`caption`) | Tabular data | `role="table"/"row"/"cell"/"columnheader"` | `role` equivalents via `accessibilityRole` | M3 · Data tables | GAP |
+| 14 | `tabs-tab` | One tab | `role="tab"` + `aria-selected`, arrow-key roving focus | `accessibilityRole="tab"` + `accessibilityState.selected` | M3 · Tabs | `tabs.test.tsx` |
+| 15 | `toolbar-button` | A toolbar action | `aria-pressed`/`aria-current`, arrow-key traversal | `accessibilityRole="button"` + `accessibilityState` | M3 · Toolbar | GAP |
+| 16 | `avatar-fallback` | Initials shown when no image | text alternative, `role="img"` on parent | `Text` fallback | M3 · Avatar | GAP |
+| 17 | `avatar-image` | The avatar image | `alt` text / `role="img"` | `Image` + `accessibilityLabel` | M3 · Avatar | GAP |
+| 18 | `boot-indicator` | Branded boot surface | `role="status"` + accessible label | `BootIndicator` exists natively as brand kit | Kern brand kit | GAP |
+| 19 | `page-loader` | Full-page loading | `role="status"`/`progressbar` | `ActivityIndicator` | M3 · Progress | GAP |
+| 20 | `fieldset` + form | Grouped form controls | `role="group"` + `<legend>` | `View` + `accessibilityRole="summary"`/label | M3 · Text fields | GAP |
+| 21 | `form` | Form container | landmark + validation association | `accessibilityRole="summary"` | M3 · Text fields | GAP |
+| 22 | `kbd` | Keyboard key glyph | `<kbd>`; **web-interaction concept** | **no mobile analogue** — deliberate asymmetry (see note) | none | n/a |
+| 23 | `sonner` | Imperative transient messages | `role="status"`, `aria-live` | **deliberately no native counterpart** — D-026/S1.3 ruling: M3 = `Snackbar` | M3 · Snackbars | n/a |
+| 24 | `create-sonner-manager` | Imperative API factory | — | **no native counterpart by ruling** | M3 · Snackbars | n/a |
+| 25 | `icon-button` | Square icon-only action, 4 containers + toggle | `aria-pressed` on the toggle; name from one `label` prop | `Pressable` + `accessibilityRole="button"` + `accessibilityState.selected` | M3 · Buttons → Icon buttons | `m3-gaps.test.tsx` |
+| 26 | `extended-fab` | FAB with a visible label, collapses when it no longer fits | collapse via imperative handle; name survives collapse | `Pressable` + `accessibilityRole="button"`, label as `accessibilityLabel` | M3 · FAB → Extended FAB | `m3-gaps.test.tsx` |
+| 27 | `fab-menu` | FAB that opens a menu of actions | `aria-haspopup="menu"` + `aria-expanded`; select-then-dismiss | `accessibilityRole="menu"` + `accessibilityState.expanded` | M3 · FAB → FAB menu | `m3-gaps.test.tsx` |
+| 28 | `split-button` | One primary action + an overflow menu | two named controls; primary does not open the menu | `accessibilityRole="menu"` on the overflow half | M3 · Buttons → Split button | `m3-gaps.test.tsx` |
+| 29 | `time-picker` | Hour / minute / period | three `role="listbox"`es, roving tabindex per field, 24-hour state | `accessibilityRole="adjustable"`-style pickers, or a platform time picker | M3 · Date & time → Time picker | `m3-gaps.test.tsx` |
+| 30 | `carousel` | One item at a time with prev/next | `aria-roledescription="carousel"`/`"slide"`, `"n of m"` per slide | horizontal `ScrollView` + `accessibilityRole="adjustable"` paging | M3 · Carousel | `m3-gaps.test.tsx` |
+| 31 | `loading-indicator` | Indeterminate activity feedback (**replaces** indeterminate circular progress, T4-M5) | `role="status"`, no `aria-valuenow`, reduced-motion aware | `ActivityIndicator` + `accessibilityLabel`; **no** indeterminate circular-progress component | M3 · Progress → Loading indicator | `m3-gaps.test.tsx` |
+| 32 | `loading-region` | The region being loaded, with `aria-busy` | `aria-busy` on the region, `aria-live="polite"` | `accessibilityState.busy` on the container | M3 · Progress | `m3-gaps.test.tsx` |
 
-Rows 26-28 are recorded so the set is complete and the **reasons are recorded**,
+Rows 22-24 are recorded so the set is complete and the **reasons are recorded**,
 per the S2.3-style bar of "either renders or carries an explicit prose reason".
 
-Rows 29-36 are the P2-1 gap fill, all landing in this change: **web-only 34 →
-42**, registry 317 → 325. They are web-first concepts, so the native column is a
-debt owed by P2b-3 rather than a claim that the work is done.
+Rows 25-32 are the P2-1 gap fill: **web-only went 34 → 42**, registry 317 → 325.
+They are web-first concepts, so the native column is a debt owed by P2b-3 rather
+than a claim that the work is done. **The table above was renumbered in P2b-3
+tranche 1**, when `autocomplete`, `input-otp` and `number-field` shipped on
+native and the count fell 42 → 39.
 
 ---
 
@@ -290,8 +393,10 @@ symmetrised, and P2b-2/3 must not "fix" them:
 
 ## What the manifest deliberately does NOT settle
 
-- **Whether a presentational native-only (20-22, 24) deserves a web component at all.**
-  A contract row is not a mandate to build an empty wrapper.
+- **Whether the presentational native-only rows (the four marked *presentational*
+  above — `shape`, `shape-art`, `aspect-ratio`, `bottom-sheet-surface`) deserve a
+  web component at all.** A contract row is not a mandate to build an empty
+  wrapper.
 - **`preview-card`'s M3 source** — resolved by **K10**; see the asymmetry list above.
 - **Variant/emphasis axes.** Recorded per component in
   `docs/platform-parity.md`; `variants` keeps its frozen per-component meaning
@@ -303,12 +408,14 @@ symmetrised, and P2b-2/3 must not "fix" them:
 
 ## Verification for this draft
 
-- **Registry source:** all 317 rows read from the generated
+- **Registry source:** all rows read from the generated
   `packages/mcp/src/manifest.ts` (`bun run generate:components` output, idempotent —
   re-run leaves it byte-identical).
-- **Counts:** web 240 rows; native 77 rows; 48 shared; 22 native-only; 34 web-only.
-  Reproducible by the script noted below. The three navigation-family rows moved
-  native-only → shared in this change, which is what took 45/25 to 48/22.
+- **Counts:** web 248 rows; native 80 rows; **51 shared; 22 native-only; 39
+  web-only**. Reproducible by the script noted below. The three navigation-family
+  rows moved native-only → shared in P2b-2 (45/25 → 48/22), and P2b-3 tranche 1
+  moved `autocomplete`, `input-otp` and `number-field` web-only → shared
+  (48/42 → 51/39).
 - **ADR 002 boundary:** re-verified **0** imports of `@base-ui/react` across
   `packages/kern-native`, `packages/kern-theme`, `packages/kern-icons`; and
   **0** imports of `@xoroh/kern-native` in `packages/kern/src`. This manifest is a

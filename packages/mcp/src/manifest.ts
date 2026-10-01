@@ -1768,6 +1768,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    name: "autocomplete",
+    export: "Autocomplete",
+    platform: "native",
+    path: "src/components/autocomplete.tsx",
+    status: "real",
+  },
+  {
     name: "avatar",
     export: "Avatar",
     platform: "native",
@@ -1877,6 +1884,13 @@ export const COMPONENTS: ComponentEntry[] = [
     export: "Field",
     platform: "native",
     path: "src/components/field.tsx",
+    status: "real",
+  },
+  {
+    name: "input-otp",
+    export: "InputOTP",
+    platform: "native",
+    path: "src/components/input-otp.tsx",
     status: "real",
   },
   {
@@ -2031,6 +2045,13 @@ export const COMPONENTS: ComponentEntry[] = [
     export: "NavigationMenu",
     platform: "native",
     path: "src/components/navigation-menu.tsx",
+    status: "real",
+  },
+  {
+    name: "number-field",
+    export: "NumberField",
+    platform: "native",
+    path: "src/components/number-field.tsx",
     status: "real",
   },
   {
