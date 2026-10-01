@@ -42,5 +42,15 @@ module.exports = {
       __dirname,
       "node_modules/react/jsx-dev-runtime",
     ),
+    // The cross-renderer parity contract lives at the repo root, outside any
+    // package, so kern-native never imports @xoroh/kern to read it (ADR 002).
+    // The web suite aliases the same path; both sides read one declaration.
+    "^@kern-parity/contract$": path.join(
+      __dirname,
+      "..",
+      "..",
+      "parity",
+      "contract.ts",
+    ),
   },
 };
