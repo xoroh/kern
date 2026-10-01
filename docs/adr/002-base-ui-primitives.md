@@ -18,4 +18,4 @@ primitives.
 
 - One behavior source on web; no re-implementing focus traps and menus.
 - `@base-ui/react` is a dependency of `@xoroh/kern` only — never of
-  `kern-theme`, `kern-icons`, or `kern-native`.
+  `kern-tokens`, `kern-icons`, or `kern-native`.

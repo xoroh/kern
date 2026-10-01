@@ -53,7 +53,7 @@ package — needs a changeset, not an ADR.
 | Decision | Decided by | Recorded in |
 | --- | --- | --- |
 | Component names, `variant` meanings | Design authority, enforced by `check:m3` | `docs/platform-parity.md` |
-| Token values | Design authority, enforced by `check:contrast` | `packages/kern-theme/src/tokens.json` |
+| Token values | Design authority, enforced by `check:contrast` | `packages/kern-tokens/src/tokens.json` |
 | Package boundaries, dependencies | Maintainers | ADR |
 | Deprecations and removals | Maintainers, with an ADR | ADR + changeset |
 | Release timing and publishing | Maintainers | `docs/releases.md` |

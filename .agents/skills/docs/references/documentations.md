@@ -17,4 +17,4 @@ Rules: same change as the code, never defer. Voice and structure per
 
 Generated, never hand-edited: `docs/components.md`,
 `packages/mcp/src/manifest.ts`, `packages/mcp/src/component-sources.ts`,
-`packages/kern-theme/src/{tokens,tones,motion}.css`.
+`packages/kern-tokens/src/{tokens,tones,motion}.css`.

@@ -48,7 +48,7 @@ A single row of facts, above the fold, before any prose:
 - **Status** — `real` or `stub`, matching the generated inventory. A page that
   disagrees with `docs/components.md` is stale by definition; the inventory is
   generated, so it is the authority.
-- **Package** — `@xoroh/kern`, `@xoroh/kern-native`, or `@xoroh/kern-start`.
+- **Package** — `@xoroh/kern`, `@xoroh/kern-native`, or `@xoroh/kern/start`.
 - **Native peer** — the counterpart export, or "none" where the component is
   deliberately single-renderer. Deliberate asymmetry is named in
   `docs/parity-contract.md`; a page that says "none" without that backing is
@@ -57,7 +57,7 @@ A single row of facts, above the fold, before any prose:
 - **Resting elevation** — the M3 level, or "surface".
 
 The elevation value is not free text. It comes from
-`packages/kern-theme/src/m3-elevation.ts`, which transcribes M3's
+`packages/kern-tokens/src/m3-elevation.ts`, which transcribes M3's
 [component elevation table](https://m3.material.io/styles/elevation/tokens), and
 it is asserted by `bun run check:m3`. A page whose elevation contradicts that
 module is a defect in the page.
@@ -101,7 +101,7 @@ describes differently. **Omit when** the component is conformant with no caveats
 
 Each entry names the deviation id, what M3 specifies, what kern does, and why.
 A deviation with no id is not a deviation, it is an undocumented fork: the ids
-live with the roles they justify, in `packages/kern-theme/src/m3-roles.ts`
+live with the roles they justify, in `packages/kern-tokens/src/m3-roles.ts`
 (`KERN_EXTRA_ROLES`) and `m3-elevation.ts` (`KERN_UNASSIGNED_ELEVATION`), and
 `bun run check:m3` fails on one that is not registered there.
 

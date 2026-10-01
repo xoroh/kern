@@ -11,7 +11,7 @@
 // cannot drift from the packages the way a hand-written list would.
 //
 // What it enforces:
-//   1. ADR 002 boundary — kern-native / kern-theme / kern-icons import no
+//   1. ADR 002 boundary — kern-native / kern-tokens / kern-icons import no
 //      behavior primitive; packages/kern imports no kern-native.
 //   2. The counts printed in parity-contract.md match reality.
 //   3. Every concept named in parity-contract.md exists in the registry.
@@ -122,7 +122,7 @@ const BEHAVIOR_PRIMITIVES = [
 ];
 const MUST_NOT_IMPORT_PRIMITIVE = [
   "packages/kern-native",
-  "packages/kern-theme",
+  "packages/kern-tokens",
   "packages/kern-icons",
 ];
 for (const dir of MUST_NOT_IMPORT_PRIMITIVE) {

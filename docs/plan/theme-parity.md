@@ -1,9 +1,9 @@
-# Plan — Theme engine in `kern-theme`
+# Plan — Theme engine in `kern-tokens`
 
 Status: done (2026-09-29) · log kept for revision
 
 The full theme engine under the naming law: variant registry, fail-loud
-completeness, layer deltas for appliers. Pure TS in `kern-theme` — no React,
+completeness, layer deltas for appliers. Pure TS in `kern-tokens` — no React,
 no DOM.
 
 ## Decisions (locked 2026-09-29)
@@ -18,7 +18,7 @@ no DOM.
 
 ## Shipped
 
-- `packages/kern-theme/src/variants.ts`: runtime registry (module Map, fail-loud), deltas =
+- `packages/kern-tokens/src/variants.ts`: runtime registry (module Map, fail-loud), deltas =
   changed roles only, CSS var emission.
 - Tests: registry semantics, deltas, completeness assertions, unknown-id throws.
 

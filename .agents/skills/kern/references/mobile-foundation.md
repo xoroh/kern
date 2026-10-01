@@ -2,7 +2,7 @@
 
 What native is built on: self-owned components on plain React Native plus
 Kern tokens. `@xoroh/kern-native` imports **only** `react`, `react-native`,
-and `@xoroh/kern-theme` — no third-party component library, no styling
+and `@xoroh/kern-tokens` — no third-party component library, no styling
 library. Behavior and accessibility are ours; everything visible is Kern code.
 
 That is a deliberate choice over pulling in `@rn-primitives/*` or React Native
@@ -15,7 +15,7 @@ dependency surface: nothing we ship can break under us.
   primitives directly.
 - Styling is `StyleSheet.create` plus values resolved from the scheme via
   `useKernScheme()`. No NativeWind, no Tamagui, no Paper theme.
-- Every color, radius, and elevation comes from `@xoroh/kern-theme`, the same
+- Every color, radius, and elevation comes from `@xoroh/kern-tokens`, the same
   tables the web renderer uses.
 
 ## Font loading is the host's job
@@ -33,7 +33,7 @@ Inter however it likes; Kern components only ever set a weight.
 `BottomSheetPicker`), menus (`MenuScreen`, `MenuSheet`, `AppsSheet`,
 `CreateSheet`, `MenuGroupList`), and layouts (`Pane`, `ListDetail`,
 `SupportingPane`, `FilterChipRow`, `SecondaryTabs`). On web the same tier is
-`@xoroh/kern-start`, a separate package. The tier model and the names match;
+`@xoroh/kern/start`, a separate package. The tier model and the names match;
 only the package boundary differs.
 
 `NavigationBar`, `NavigationDrawer` and `SecondaryTabs` are the exception that
@@ -41,11 +41,11 @@ proves the rule rather than contradicting it: they are M3 primitives with an M3
 name, so they live in `@xoroh/kern` (web) and `@xoroh/kern-native` (native) at
 the same tier, share one `NavigationDestination[]` shape, and are documented in
 [`navigation-patterns.md`](navigation-patterns.md). The kern-only constructs
-(`Sidebar`, `NavigationRail`, `SectionDrawer`) stay in `kern-start`.
+(`Sidebar`, `NavigationRail`, `SectionDrawer`) stay in `/kern/start`.
 
 The sheets are built on RN primitives, not on `@gorhom/bottom-sheet` — the
 package still imports only `react`, `react-native`, and
-`@xoroh/kern-theme`. If gesture handling forces the Expo-only peer set, the
+`@xoroh/kern-tokens`. If gesture handling forces the Expo-only peer set, the
 plan is an `@xoroh/kern-expo` split, decided in one ADR per
 `docs/plan/native-composition.md`.
 

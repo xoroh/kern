@@ -18,10 +18,10 @@ const ROOT = resolve(import.meta.dirname, "..");
 
 const MANIFESTS = [
   "packages/kern/package.json",
-  "packages/kern-theme/package.json",
+  "packages/kern-tokens/package.json",
   "packages/kern-native/package.json",
   "packages/kern-icons/package.json",
-  "packages/kern-start/package.json",
+  "packages/kern/src/start/package.json",
   "packages/mcp/package.json",
 ];
 

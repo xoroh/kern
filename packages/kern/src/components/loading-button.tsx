@@ -1,4 +1,4 @@
-import type { LoadingIndicatorStyle } from "@xoroh/kern-theme";
+import type { LoadingIndicatorStyle } from "@xoroh/kern-tokens";
 import { cn } from "../utils/cn";
 import { type ButtonProps, buttonVariants } from "./button";
 import { CircularProgress } from "./circular-progress";

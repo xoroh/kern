@@ -1,5 +1,5 @@
-import { cn } from "@xoroh/kern";
 import type { ComponentPropsWithRef, ReactNode } from "react";
+import { cn } from "../utils/cn";
 
 /** M3 search bar: leading icon slot + input + trailing actions. */
 export function SearchBar({

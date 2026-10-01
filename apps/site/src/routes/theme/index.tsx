@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Badge, Button, Card, Chip, Kbd } from "@xoroh/kern";
-import { resolveThemeDetails, resolveThemeLayers } from "@xoroh/kern-theme";
+import { resolveThemeDetails, resolveThemeLayers } from "@xoroh/kern-tokens";
 import { Text, View } from "react-native";
 import { SiteLayout } from "../../components/chrome/site-layout";
 import { Code } from "../../components/docs/code";
@@ -139,9 +139,9 @@ function ThemePage() {
               One theme source, both platforms
             </h1>
             <p className="m-0 text-(--md-sys-color-on-surface-variant)">
-              <code>@xoroh/kern-theme</code> is platform-free: no React, no DOM.
-              Web reads OKLCH CSS variables, native reads compiled sRGB, and
-              both resolve the same {ROLE_COUNT} roles. Every swatch on this
+              <code>@xoroh/kern-tokens</code> is platform-free: no React, no
+              DOM. Web reads OKLCH CSS variables, native reads compiled sRGB,
+              and both resolve the same {ROLE_COUNT} roles. Every swatch on this
               page is read from the package, not copied into the site.
             </p>
           </header>

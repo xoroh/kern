@@ -4,7 +4,7 @@ import {
   feedbackTiming,
   type ResolvedTheme,
   resolveThemeDetails,
-} from "@xoroh/kern-theme";
+} from "@xoroh/kern-tokens";
 import { useEffect, useRef } from "react";
 import {
   Animated,

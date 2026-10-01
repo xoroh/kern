@@ -1,4 +1,4 @@
-import type { LoadingIndicatorStyle } from "@xoroh/kern-theme";
+import type { LoadingIndicatorStyle } from "@xoroh/kern-tokens";
 import { type GestureResponderEvent, Pressable, Text } from "react-native";
 import { useKernScheme } from "../theme";
 import { buttonStyles, type NativeButtonProps } from "./button";

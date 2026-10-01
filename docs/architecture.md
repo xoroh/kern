@@ -20,9 +20,9 @@ resolve the same scheme, so a token change lands everywhere at once.
 
 | Package | Directory | Renderer | Owns |
 | --- | --- | --- | --- |
-| `@xoroh/kern-theme` | `packages/kern-theme` | platform-free | `tokens.json` (canonical source), theme presets, contrast overlays, tones, feedback spec, variant registry, generated CSS |
+| `@xoroh/kern-tokens` | `packages/kern-tokens` | platform-free | `tokens.json` (canonical source), theme presets, contrast overlays, tones, feedback spec, variant registry, generated CSS |
 | `@xoroh/kern` | `packages/kern` | web (DOM) | The web component set, the web theme runtime, `cn` helpers |
-| `@xoroh/kern-start` | `packages/kern-start` | web (DOM) | Composition: blocks, top app bar, navigation, panes, scaffolds, link seam |
+| `@xoroh/kern/start` | `packages/kern/src/start` | web (DOM) | Composition: blocks, top app bar, navigation, panes, scaffolds, link seam |
 | `@xoroh/kern-native` | `packages/kern-native` | native (RN) | The React Native component set and the native scheme hook |
 | `@xoroh/kern-icons` | `packages/kern-icons` | both | Material Symbols registry + `Icon` renderer (web and native) |
 | `@xoroh/kern-mcp` | `packages/mcp` | node | MCP server so agents can list components, fetch source, read tokens, audit screens |
@@ -38,28 +38,28 @@ Plus two apps:
 ## Dependency direction
 
 ```
-                    kern-theme  (tokens, themes, tones, feedback)
+                    kern-tokens  (tokens, themes, tones, feedback)
                    /     |      \
                   v      v       v
               kern    kern-native   (peers — never import each other)
                 |
                 v
-            kern-start
+            /kern/start
 
             kern-icons  (independent; peers react / react-native)
             kern-mcp    (reads everything, imports nothing from it)
 ```
 
-`kern-theme` imports nothing from the other packages. `kern` and
+`kern-tokens` imports nothing from the other packages. `kern` and
 `kern-native` are peers around it: genuinely shared logic belongs in
-`kern-theme` (pure) or in the consuming app, never duplicated across the
+`kern-tokens` (pure) or in the consuming app, never duplicated across the
 renderers.
 
-`kern-start` depends on `kern` and nothing else. Native composition lives
+`/kern/start` depends on `kern` and nothing else. Native composition lives
 inside `kern-native` rather than in a parallel package, because it needed no
 Expo-only peer — the sheets are built on RN primitives, so
 `@xoroh/kern-native` still imports only `react`, `react-native`, and
-`@xoroh/kern-theme`. See [plan/native-composition.md](plan/native-composition.md).
+`@xoroh/kern-tokens`. See [plan/native-composition.md](plan/native-composition.md).
 
 ## Why the split
 
@@ -70,12 +70,12 @@ on the platform it targets, and keeps the shared language free of both
 `window` and `View`.
 
 **Independent versioning.** Each package releases on its own bump. A change
-to `kern-theme` tokens should not force a `kern-icons` version, and a fix in
-`kern-start` should not re-version the component set. Consumers pay only for
+to `kern-tokens` tokens should not force a `kern-icons` version, and a fix in
+`/kern/start` should not re-version the component set. Consumers pay only for
 what they depend on.
 
 **Optional peers over bundled dependencies.** `@xoroh/kern` lists
-`react`, `react-dom`, `@base-ui/react`, and `@xoroh/kern-theme` as peers, so
+`react`, `react-dom`, `@base-ui/react`, and `@xoroh/kern-tokens` as peers, so
 a host app controls versions and gets no duplicate React.
 `@xoroh/kern-icons` marks `react-native` and `react-native-svg` as
 *optional* peers, so a web-only app never installs them.
@@ -105,7 +105,7 @@ tokens.json  (canonical: {oklch, srgb} per step)
 ```
 
 One resolver, `resolveThemeDetails(mode, contrast, variant)` in
-`@xoroh/kern-theme`, is the only place a scheme is built. Web projects the
+`@xoroh/kern-tokens`, is the only place a scheme is built. Web projects the
 result as CSS custom properties; native reads the same object. That is why a
 token change cannot drift between the two.
 
@@ -117,8 +117,8 @@ Contrast is a third input, not a separate scheme: `standard` / `medium` /
 | Tier | What | Web | Native |
 | --- | --- | --- | --- |
 | Component | one widget, variants + slots, no layout opinion | `@xoroh/kern` | `@xoroh/kern-native` |
-| Block | pattern composition, slot-driven, domain-free | `@xoroh/kern-start` | `@xoroh/kern-native` (`NavigationBar`, `NavigationDrawer`, `MenuScreen`, `BottomSheet`, …) |
-| Scaffold | page frame = named regions + behavior | `@xoroh/kern-start` (`AppShell`, `Document`) | `@xoroh/kern-native` (`BootSplash`, `Pane`, `ListDetail`) |
+| Block | pattern composition, slot-driven, domain-free | `@xoroh/kern/start` | `@xoroh/kern-native` (`NavigationBar`, `NavigationDrawer`, `MenuScreen`, `BottomSheet`, …) |
+| Scaffold | page frame = named regions + behavior | `@xoroh/kern/start` (`AppShell`, `Document`) | `@xoroh/kern-native` (`BootSplash`, `Pane`, `ListDetail`) |
 
 Lower tiers never import higher. Blocks carry no app domain: auth, routing,
 and tenancy arrive as props and slots. Product-shaped shells are *recipes*
@@ -130,7 +130,7 @@ because it needed no peer the component package did not already have. The
 tier model and the names are the same on both sides — `TopAppBar` is
 `TopAppBar` on both.
 
-See [`plan/kern-start.md`](plan/kern-start.md) for the web tier model and
+See [`plan/kern-start.md`](kern-start.md) for the web tier model and
 [`platform-parity.md`](platform-parity.md) for how the tiers correspond
 across renderers.
 
@@ -140,9 +140,9 @@ Six files are generated and must never be hand-edited:
 
 | File | Command |
 | --- | --- |
-| `packages/kern-theme/src/tokens.css` | `bun run generate:tokens` |
-| `packages/kern-theme/src/tones.css` | `bun run generate:tones` |
-| `packages/kern-theme/src/motion.css` | `bun run generate:motion` |
+| `packages/kern-tokens/src/tokens.css` | `bun run generate:tokens` |
+| `packages/kern-tokens/src/tones.css` | `bun run generate:tones` |
+| `packages/kern-tokens/src/motion.css` | `bun run generate:motion` |
 | `packages/mcp/src/manifest.ts` | `bun run generate:components` |
 | `packages/mcp/src/component-sources.ts` | `bun run generate:components` |
 | `docs/components.md` | `bun run generate:components` |

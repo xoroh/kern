@@ -1,5 +1,5 @@
 import { renderHook } from "@testing-library/react";
-import { themes } from "@xoroh/kern-theme";
+import { themes } from "@xoroh/kern-tokens";
 import { act } from "react";
 import { describe, expect, it } from "vitest";
 import { applyKernTheme, clearKernTheme, useKernTheme } from "./web-theme";
@@ -24,11 +24,11 @@ describe("applyKernTheme", () => {
 
 describe("useKernTheme", () => {
   it("restores an explicit saved preference after mounting", () => {
-    localStorage.setItem("kern-theme-mode", "dark");
+    localStorage.setItem("kern-tokens-mode", "dark");
     const { result, unmount } = renderHook(() => useKernTheme());
     expect(result.current.mode).toBe("dark");
     unmount();
-    localStorage.removeItem("kern-theme-mode");
+    localStorage.removeItem("kern-tokens-mode");
   });
 
   it("toggles mode and the dark class", async () => {

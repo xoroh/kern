@@ -22,7 +22,7 @@
  */
 import { assertParity, contractFor } from "@kern-parity/contract";
 import { render, screen } from "@testing-library/react-native";
-import { resolveThemeDetails } from "@xoroh/kern-theme";
+import { resolveThemeDetails } from "@xoroh/kern-tokens";
 import { act } from "react";
 import { type StyleProp, StyleSheet, type ViewStyle } from "react-native";
 import { Text } from "../components/text";

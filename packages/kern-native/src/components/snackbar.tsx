@@ -1,4 +1,4 @@
-import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-theme";
+import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
 import { Pressable, type StyleProp, View, type ViewStyle } from "react-native";
 import { useKernScheme } from "../theme";
 import { Text } from "./text";

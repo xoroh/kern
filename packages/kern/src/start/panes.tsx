@@ -1,5 +1,5 @@
-import { cn } from "@xoroh/kern";
 import type { ComponentPropsWithRef, ReactNode } from "react";
+import { cn } from "../utils/cn";
 
 export type PaneWidth = "narrow" | "default" | "wide" | "full";
 

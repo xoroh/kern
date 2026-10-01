@@ -2,7 +2,7 @@ import {
   type ResolvedTheme,
   resolveThemeDetails,
   tokens,
-} from "@xoroh/kern-theme";
+} from "@xoroh/kern-tokens";
 import type { ViewStyle } from "react-native";
 
 /**
@@ -11,7 +11,7 @@ import type { ViewStyle } from "react-native";
  * ## Why this file exists separately from `sheet-surface.tsx`
  *
  * `SheetSurface` is the first candidate for extraction into the primitives layer,
- * and that layer's gate forbids importing `kern-theme`. This function does
+ * and that layer's gate forbids importing `kern-tokens`. This function does
  * exactly that — it reads the resolved scheme and the spacing ramp — so leaving
  * it in the same module as `SheetSurface` would have put a theme-coupled export
  * inside the first extraction step and the gate would have failed on arrival
@@ -24,7 +24,7 @@ import type { ViewStyle } from "react-native";
  * (dialog, menu, select, drawer, sheet, menubar, …), so it cannot be moved
  * without touching all of them — and `SheetSurface` imports `overlayStyles`, so
  * placing this function there made the theme dependency **transitive**:
- * `sheet-surface` → `overlay-styles` → `kern-theme`. `SheetSurface`'s own source
+ * `sheet-surface` → `overlay-styles` → `kern-tokens`. `SheetSurface`'s own source
  * would have been clean and its dependency graph would still have crossed the
  * gate.
  *

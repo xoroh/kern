@@ -4,18 +4,18 @@ import { join, relative } from "node:path";
 const ROOT = new URL("..", import.meta.url).pathname;
 
 const { M3_ROLES, KERN_EXTRA_ROLES, auditRoleInventory } = await import(
-  join(ROOT, "packages/kern-theme/src/m3-roles.ts")
+  join(ROOT, "packages/kern-tokens/src/m3-roles.ts")
 );
 
 const { auditElevation, M3_ELEVATION_COMPONENTS } = await import(
-  join(ROOT, "packages/kern-theme/src/m3-elevation.ts")
+  join(ROOT, "packages/kern-tokens/src/m3-elevation.ts")
 );
 
 const m3 = JSON.parse(
-  readFileSync(join(ROOT, "packages/kern-theme/src/themes/m3.json"), "utf8"),
+  readFileSync(join(ROOT, "packages/kern-tokens/src/themes/m3.json"), "utf8"),
 );
 const tokens = JSON.parse(
-  readFileSync(join(ROOT, "packages/kern-theme/src/tokens.json"), "utf8"),
+  readFileSync(join(ROOT, "packages/kern-tokens/src/tokens.json"), "utf8"),
 );
 
 const shapeKeys = new Set(Object.keys(tokens.shape));
@@ -28,7 +28,7 @@ const schemes = [m3.color.light, m3.color.dark];
 for (const extra of ["sharp", "brand"]) {
   const theme = JSON.parse(
     readFileSync(
-      join(ROOT, `packages/kern-theme/src/themes/${extra}.json`),
+      join(ROOT, `packages/kern-tokens/src/themes/${extra}.json`),
       "utf8",
     ),
   );
@@ -65,7 +65,7 @@ function* sourceFiles(dir) {
 const SCANNED = [
   join(ROOT, "packages/kern/src/components"),
   join(ROOT, "packages/kern-native/src/components"),
-  join(ROOT, "packages/kern-start/src"),
+  join(ROOT, "packages/kern/src/start/src"),
 ];
 
 const violations = [];
@@ -292,10 +292,10 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
 // generators produce from tokens.json, the "one source of truth" invariant is broken —
 // someone hand-edited a derived file.
 for (const generated of ["comp-tokens.css", "tailwind.css", "tokens.css"]) {
-  const path = join(ROOT, "packages/kern-theme/src", generated);
+  const path = join(ROOT, "packages/kern-tokens/src", generated);
   if (!existsSync(path)) {
     violations.push(
-      `packages/kern-theme/src/${generated} is missing — run \`bun run generate:tokens\``,
+      `packages/kern-tokens/src/${generated} is missing — run \`bun run generate:tokens\``,
     );
   }
 }

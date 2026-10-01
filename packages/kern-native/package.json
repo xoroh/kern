@@ -65,7 +65,7 @@
     }
   },
   "peerDependencies": {
-    "@xoroh/kern-theme": "*",
+    "@xoroh/kern-tokens": "*",
     "react": "^19.0.0",
     "react-native": ">=0.86.0 <0.89"
   },
@@ -77,7 +77,7 @@
     "@types/jest": "^30.0.0",
     "@types/node": "^26.6.3",
     "@types/react": "^19.3.0",
-    "@xoroh/kern-theme": "workspace:*",
+    "@xoroh/kern-tokens": "workspace:*",
     "jest": "^30.5.2",
     "jest-util": "30.5.1",
     "@jest/create-cache-key-function": "^29.7.0",

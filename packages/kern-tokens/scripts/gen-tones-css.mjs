@@ -1,5 +1,5 @@
 // Generates src/tones.css from the functional map + hue registry.
-// Run from the repo root: bun packages/kern-theme/scripts/gen-tones-css.mjs
+// Run from the repo root: bun packages/kern-tokens/scripts/gen-tones-css.mjs
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
 import {

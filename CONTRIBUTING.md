@@ -45,7 +45,7 @@ freeze the `variant` meaning → export from the barrel with its props type →
 tests beside the file → changeset → regenerate the inventory → update the
 parity page.
 
-Composition (blocks, scaffolds) belongs in `@xoroh/kern-start` and stays
+Composition (blocks, scaffolds) belongs in `@xoroh/kern/start` and stays
 domain-free: auth, routing, and tenancy arrive as props and slots, never as
 dependencies.
 
@@ -54,9 +54,9 @@ dependencies.
 Never hand-edit these; fix the generator.
 
 ```
-packages/kern-theme/src/tokens.css      bun run generate:tokens
-packages/kern-theme/src/tones.css       bun run generate:tones
-packages/kern-theme/src/motion.css      bun run generate:motion
+packages/kern-tokens/src/tokens.css      bun run generate:tokens
+packages/kern-tokens/src/tones.css       bun run generate:tones
+packages/kern-tokens/src/motion.css      bun run generate:motion
 packages/mcp/src/manifest.ts            bun run generate:components
 packages/mcp/src/component-sources.ts   bun run generate:components
 docs/components.md                      bun run generate:components

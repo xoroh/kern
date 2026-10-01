@@ -19,7 +19,7 @@ shipped dependency field.
 `react-native >= 0.86` no longer bundles a `jest-preset.js`, so
 `@react-native/jest-preset` is now an explicit devDependency with the
 react-native path pinned per package. Per K-05's rule, the internal
-`@xoroh/kern-theme` dependency moves from `dependencies` to
+`@xoroh/kern-tokens` dependency moves from `dependencies` to
 `peerDependencies` (+ a devDependency for local builds) so the published
 tarball never carries a `workspace:` specifier.
 

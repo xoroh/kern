@@ -1,4 +1,4 @@
-import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-theme";
+import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
 import { type ReactNode, useState } from "react";
 import { Modal, Pressable, StyleSheet, View } from "react-native";
 import { useKernScheme } from "../theme";

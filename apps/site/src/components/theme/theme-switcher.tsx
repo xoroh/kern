@@ -1,12 +1,12 @@
 /**
- * Theme switcher — real code against `@xoroh/kern-theme`.
+ * Theme switcher — real code against `@xoroh/kern-tokens`.
  *
  * The variant list and the hue count both come from the theme package's own
  * registries (`listVariants`, `listHues`), not from a list copied into the
  * site. Registering a variant upstream makes it appear here with no site edit.
  */
 import { Button, useKernTheme } from "@xoroh/kern";
-import { listHues, listVariants } from "@xoroh/kern-theme";
+import { listHues, listVariants } from "@xoroh/kern-tokens";
 import { useId } from "react";
 
 const MODES = [

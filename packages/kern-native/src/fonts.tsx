@@ -1,4 +1,4 @@
-import { tokens } from "@xoroh/kern-theme";
+import { tokens } from "@xoroh/kern-tokens";
 import { useEffect, useState } from "react";
 
 /**

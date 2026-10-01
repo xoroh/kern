@@ -10,7 +10,7 @@ Running `changeset version` writes each package's history to
 
 Nothing published yet. The first release covers:
 
-- `@xoroh/kern-theme` — tokens + themes + tones + feedback spec (platform-free)
+- `@xoroh/kern-tokens` — tokens + themes + tones + feedback spec (platform-free)
 - `@xoroh/kern` — web (React) components on Base UI
 - `@xoroh/kern-native` — native (React Native) components
 - `@xoroh/kern-icons` — multi-set icon registry + `Icon` (web + native)

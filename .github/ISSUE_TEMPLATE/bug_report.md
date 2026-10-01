@@ -9,7 +9,7 @@ labels: bug
 
 ## Repro
 
-Package + version (`@xoroh/kern`, `@xoroh/kern-theme`, `@xoroh/kern-native`, `@xoroh/kern-icons`, `@xoroh/kern-start`, `@xoroh/kern-mcp`):
+Package + version (`@xoroh/kern`, `@xoroh/kern-tokens`, `@xoroh/kern-native`, `@xoroh/kern-icons`, `@xoroh/kern/start`, `@xoroh/kern-mcp`):
 
 ```tsx
 // minimal code that shows the problem

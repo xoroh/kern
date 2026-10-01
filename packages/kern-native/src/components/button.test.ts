@@ -5,7 +5,7 @@ vi.mock(
   async () => await import("../../test-doubles/react-native"),
 );
 
-import { themes } from "@xoroh/kern-theme";
+import { themes } from "@xoroh/kern-tokens";
 import { buttonStyles } from "./button";
 
 describe("native Button styles", () => {

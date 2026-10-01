@@ -1,4 +1,4 @@
-import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-theme";
+import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import {

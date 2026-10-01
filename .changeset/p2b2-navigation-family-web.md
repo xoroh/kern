@@ -9,7 +9,7 @@ concepts — components that existed in `@xoroh/kern-native` with no DOM
 counterpart, so a web host had to re-implement destination selection, modal
 dismissal and tab semantics by hand. D-026.3′ D11 ruled the web side REQUIRED:
 the counterpart rule forces *existence*, not renames, so `Sidebar`,
-`NavigationRail` and `SectionDrawer` in `@xoroh/kern-start` keep their kern
+`NavigationRail` and `SectionDrawer` in `@xoroh/kern/start` keep their kern
 names and a real M3 `NavigationBar` is built beside them.
 
 - **`NavigationBar`** + **`NavigationBarItem`** — the M3 bottom bar (80dp,

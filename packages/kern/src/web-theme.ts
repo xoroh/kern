@@ -6,7 +6,7 @@ import {
   shapeVarName,
   type ThemeSelection,
   varName,
-} from "@xoroh/kern-theme";
+} from "@xoroh/kern-tokens";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 export type {
@@ -21,7 +21,7 @@ export type {
   ThemeId,
   ThemeOverrides,
   ThemeSelection,
-} from "@xoroh/kern-theme";
+} from "@xoroh/kern-tokens";
 export {
   defineThemePreset,
   resolveTheme,
@@ -29,7 +29,7 @@ export {
   shapeVarName,
   themeIds,
   varName,
-} from "@xoroh/kern-theme";
+} from "@xoroh/kern-tokens";
 
 type ColorPreference = Mode | "system";
 
@@ -66,7 +66,7 @@ export function clearKernTheme(target: HTMLElement): void {
   delete target.dataset.kernContrast;
 }
 
-const STORAGE_KEY = "kern-theme-mode";
+const STORAGE_KEY = "kern-tokens-mode";
 
 export type WebThemeOptions = {
   contrast?: Contrast;

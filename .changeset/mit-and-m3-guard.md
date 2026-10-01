@@ -1,6 +1,6 @@
 ---
 "@xoroh/kern": minor
-"@xoroh/kern-theme": minor
+"@xoroh/kern-tokens": minor
 "@xoroh/kern-native": minor
 "@xoroh/kern-mcp": minor
 ---

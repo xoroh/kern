@@ -1,1 +1,1 @@
-export * from "@xoroh/kern-theme";
+export * from "@xoroh/kern-tokens";

@@ -4,11 +4,11 @@ Status: current
 
 Kern ships one system language across two renderer families:
 
-- **Web** — `@xoroh/kern` (components) + `@xoroh/kern-start` (composition),
+- **Web** — `@xoroh/kern` (components) + `@xoroh/kern/start` (composition),
   DOM, React.
 - **Native** — `@xoroh/kern-native`, React Native.
 
-Both resolve the *same* scheme from `@xoroh/kern-theme`, so a role value, a
+Both resolve the *same* scheme from `@xoroh/kern-tokens`, so a role value, a
 corner radius, or a contrast level cannot differ between platforms for the
 same theme selection. What differs is the renderer: DOM on one side,
 `StyleSheet` + RN primitives on the other.
@@ -26,12 +26,12 @@ component name, no bridge names, no product names.
 | --- | --- | --- |
 | `@xoroh/kern` | `@xoroh/kern` | web |
 | `@xoroh/kern/theme` | CSS custom properties (side-effect import) | web |
-| `@xoroh/kern/tokens` | TS role tables, re-exported from `kern-theme` | web + native |
+| `@xoroh/kern/tokens` | TS role tables, re-exported from `kern-tokens` | web + native |
 | `@xoroh/kern/utils` | `cn` and pure helpers | web |
-| `@xoroh/kern-theme` | tokens, themes, tones, feedback, variant registry | both |
+| `@xoroh/kern-tokens` | tokens, themes, tones, feedback, variant registry | both |
 | `@xoroh/kern-native` | React Native components | native |
 | `@xoroh/kern-icons` | icon registry + `Icon` (web + native) | both |
-| `@xoroh/kern-start` | web composition (blocks, navigation, panes, scaffolds) | web |
+| `@xoroh/kern/start` | web composition (blocks, navigation, panes, scaffolds) | web |
 
 `@xoroh/kern/native` is **not** an export of `@xoroh/kern`. Native lives in
 its own package, `@xoroh/kern-native` (which also accepts a `/native`
@@ -42,11 +42,11 @@ subpath for symmetry with the old single-package layout).
 | Tier | Web | Native |
 | --- | --- | --- |
 | Component | `@xoroh/kern` | `@xoroh/kern-native` |
-| Block (pattern composition, slot-driven) | `@xoroh/kern-start` (`TopAppBar`, `SearchBar`, `Sidebar`, `NavigationRail`, …) | `@xoroh/kern-native` (`NavigationBar`, `NavigationDrawer`, `MenuScreen`, `BottomSheet`, …) |
-| Scaffold (page frame = named regions) | `@xoroh/kern-start` (`AppShell`, `Document`) | `@xoroh/kern-native` (`BootSplash`, panes) |
+| Block (pattern composition, slot-driven) | `@xoroh/kern/start` (`TopAppBar`, `SearchBar`, `Sidebar`, `NavigationRail`, …) | `@xoroh/kern-native` (`NavigationBar`, `NavigationDrawer`, `MenuScreen`, `BottomSheet`, …) |
+| Scaffold (page frame = named regions) | `@xoroh/kern/start` (`AppShell`, `Document`) | `@xoroh/kern-native` (`BootSplash`, panes) |
 
 Same tier model, same names, different package boundary: web composition
-lives in `@xoroh/kern-start` because it is a separate dependency edge from
+lives in `@xoroh/kern/start` because it is a separate dependency edge from
 `@xoroh/kern`, while native composition lives inside
 `@xoroh/kern-native`. Where both sides ship a concept the names match —
 `TopAppBar` is `TopAppBar` on both.
@@ -211,7 +211,7 @@ primitive), `shape` / `shape-art` (brand-kit art), `milestone-trio` and
 `top-app-bar`, `top-app-bar-action`, `pane`, `supporting-pane`,
 `filter-chip-row`, `secondary-tabs`.
 
-That second group is the mirror of `@xoroh/kern-start`: native ships its
+That second group is the mirror of `@xoroh/kern/start`: native ships its
 composition tier inside `@xoroh/kern-native` rather than in a separate
 package. Web `TopAppBar` and native `TopAppBar` are the same concept
 implemented in each renderer family — the intended shape, not a divergence.
@@ -224,7 +224,7 @@ native-only would double-count them against the coverage table.
 
 The native sheets are **not** a `@gorhom/bottom-sheet` wrapper.
 `@xoroh/kern-native` still imports only `react`, `react-native`, and
-`@xoroh/kern-theme`; `BottomSheet`/`SnapSheet`/`DockSheet` are built on RN
+`@xoroh/kern-tokens`; `BottomSheet`/`SnapSheet`/`DockSheet` are built on RN
 primitives directly. That keeps the plan's split question open — if the
 gesture handling proves inadequate, the plan is `@xoroh/kern-expo`.
 
@@ -285,7 +285,7 @@ brief — it is not a docs fix.
 
 ## Behavioral parity rules
 
-1. **Sizes, touch targets, and state opacities come from `kern-theme`.**
+1. **Sizes, touch targets, and state opacities come from `kern-tokens`.**
    48dp minimum target, 24dp icons, M3 state-layer opacities — resolved
    from the same token set on both sides.
 2. **Color resolves through one scheme.** Web projects it as
@@ -297,7 +297,7 @@ brief — it is not a docs fix.
    `useKernScheme()`; web components read the CSS variable. A component that
    captures a value once will not follow a theme switch.
 4. **Fonts.** Web loads Inter through `@fontsource-variable/inter` (a
-   `kern-theme` dependency). Native leaves loading to the host: it exports
+   `kern-tokens` dependency). Native leaves loading to the host: it exports
    `kernFontFaces` and a `useKernFonts(loader)` hook that accepts any
    `loadAsync`-shaped loader, so `kern-native` takes no `expo-font` peer.
    Components only ever set a weight.

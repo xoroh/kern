@@ -1,12 +1,12 @@
 // Generates tokens.css from tokens.json + theme presets.
-// Run from the repo root: bun packages/kern-theme/scripts/gen-css.mjs
+// Run from the repo root: bun packages/kern-tokens/scripts/gen-css.mjs
 // tokens.ts imports the canonical JSON directly; it is not a mirrored file.
 import { spawnSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 const ROOT = new URL("../../..", import.meta.url).pathname;
-const THEME = join(ROOT, "packages/kern-theme/src");
+const THEME = join(ROOT, "packages/kern-tokens/src");
 const read = (file) => JSON.parse(readFileSync(join(THEME, file), "utf8"));
 const kebab = (name) => name.replace(/(?<!^)(?=[A-Z])/g, "-").toLowerCase();
 const roleVar = (role) => `--md-sys-color-${kebab(role)}`;

@@ -10,10 +10,10 @@ current state of parity — names, counts, gaps — is in
 
 **Same meanings, same tokens, same spec — different renderer.**
 
-The system language is written once, in `@xoroh/kern-theme` (tokens,
+The system language is written once, in `@xoroh/kern-tokens` (tokens,
 themes, tones, feedback) and `@xoroh/kern-icons` (registry). Those are
 platform-free and shared. Widgets and composition are implemented per
-renderer family: DOM (`kern` + `kern-start`) versus React Native
+renderer family: DOM (`kern` + `/kern/start`) versus React Native
 (`kern-native`). This mirrors how M3 ships Material Web, Material Compose,
 and Android from one specification.
 
@@ -31,7 +31,7 @@ both renderers change.
 | Concept name | Identical, M3-canonical, unprefixed (`Separator`, not `Divider` or `NativeSeparator`) |
 | `variant` meaning | Frozen per component, identical on both sides. One prop name, one meaning |
 | Size scale | Same scale where the platform allows it |
-| Color, shape, elevation, motion | Same resolved values — they come from `kern-theme` |
+| Color, shape, elevation, motion | Same resolved values — they come from `kern-tokens` |
 | Touch target | 48dp minimum on both |
 | Structure and behavior | M3 structure. The renderer differs; the anatomy does not |
 | Accessibility semantics | Same role and label intent |

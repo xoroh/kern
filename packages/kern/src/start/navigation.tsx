@@ -1,4 +1,3 @@
-import { cn } from "@xoroh/kern";
 import {
   type ComponentPropsWithRef,
   createContext,
@@ -6,6 +5,7 @@ import {
   useContext,
   useState,
 } from "react";
+import { cn } from "../utils/cn";
 import { Link } from "./link";
 
 export const SIDEBAR_WIDTHS = {

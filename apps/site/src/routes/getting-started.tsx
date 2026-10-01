@@ -44,7 +44,7 @@ const WEB_QUICKSTART = `import {
   AppShell,
   NavigationRail,
   NavigationRailButton,
-} from "@xoroh/kern-start";
+} from "@xoroh/kern/start";
 
 export function App() {
   return (
@@ -61,7 +61,7 @@ export function App() {
   );
 }`;
 
-const MOBILE_INSTALL = `bun add @xoroh/kern-native @xoroh/kern-theme`;
+const MOBILE_INSTALL = `bun add @xoroh/kern-native @xoroh/kern-tokens`;
 
 const MOBILE_QUICKSTART = `import {
   Button,
@@ -144,7 +144,7 @@ function GettingStarted() {
 
           <Step n={5} title="Web quickstart — the app shell">
             <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
-              <code>@xoroh/kern-start</code> ships the frame: a rail, a drawer,
+              <code>@xoroh/kern/start</code> ships the frame: a rail, a drawer,
               split panes, and top bars that take slots rather than baking in
               one app shape. Omit the slots you do not need and every other
               shell shape follows.

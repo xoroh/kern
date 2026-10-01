@@ -146,8 +146,8 @@ for (const [name, body] of snippets) {
             "@xoroh/kern-native": [
               join(APP, "node_modules/@xoroh/kern-native/dist/index.d.ts"),
             ],
-            "@xoroh/kern-start": [
-              join(APP, "node_modules/@xoroh/kern-start/dist/index.d.ts"),
+            "@xoroh/kern/start": [
+              join(APP, "node_modules/@xoroh/kern/start/dist/index.d.ts"),
             ],
             "@xoroh/kern-icons": [
               join(APP, "node_modules/@xoroh/kern-icons/dist/index.d.ts"),

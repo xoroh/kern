@@ -18,10 +18,10 @@ done).
 | # | Area | What ships | Package | P | Plan | State |
 |---|---|---|---|---|---|---|
 | 1 | Icons | name union, shape registry, codegen, `Icon` web + native | `@xoroh/kern-icons` | P0 | [kern-icons](kern-icons.md) | done |
-| 2 | Tones | spectrum ramps, status/user/avatar tones, 9 functional domains, tone CSS | `@xoroh/kern-theme` | P0 | [kern-tones](kern-tones.md) | done |
-| 3 | Theme engine | variant registry, `assertCompleteScheme`, layer deltas | `@xoroh/kern-theme` | P0 | [theme-parity](theme-parity.md) | done |
+| 2 | Tones | spectrum ramps, status/user/avatar tones, 9 functional domains, tone CSS | `@xoroh/kern-tokens` | P0 | [kern-tones](kern-tones.md) | done |
+| 3 | Theme engine | variant registry, `assertCompleteScheme`, layer deltas | `@xoroh/kern-tokens` | P0 | [theme-parity](theme-parity.md) | done |
 | 4 | Feedback | boot, loader styles, tenant registry, critical loader | `kern` + `kern-native` | P0 | [feedback](feedback.md) | done |
-| 5 | Web composition | top-app-bar, sidebar/rail/drawer, panes, scaffolds, search, settings, status-bar | `@xoroh/kern-start` | P0 | [kern-start](kern-start.md) | done |
+| 5 | Web composition | top-app-bar, sidebar/rail/drawer, panes, scaffolds, search, settings, status-bar | `@xoroh/kern/start` | P0 | [kern/start](/kern/start.md) | done |
 | 6 | Native composition | sheets, shell, menu screens, splash, layouts, panes | `kern-native` | P1 | [native-composition](native-composition.md) | done |
 | 7 | Web components | Command, Sonner, CountrySelect, SegmentedButton, Banner | `kern` | P1 | [web-extras](web-extras.md) | done |
 | 8 | Fonts | Inter faces exported, host injects an `expo-font`-shaped loader | `kern-native` | P1 | [native-composition](native-composition.md#8-fonts) | done |
@@ -41,7 +41,7 @@ Two corrections to the record this row was closed from:
 
 - **Both files are in `kern-native`, not web.** The closing note cited
   `composition.test.ts` as a web test; there is no web file by that name.
-  Web composition coverage is `packages/kern-start/src/kern-start.test.tsx`
+  Web composition coverage is `packages/kern/src/start/start.test.tsx`
   (**15** tests — link seam, blocks, top app bar, navigation, panes,
   scaffolds), green.
 - So the row is closed on **both** renderers' evidence, not on the 9 + 17 pair
@@ -55,7 +55,7 @@ recomputed against the new surface (236 web / 78 native exports).
 
 **Still open on row 11, stated honestly:** the *site* shell docs did not land.
 `apps/site` ships `/getting-started` (with a web-quickstart step that mounts
-`AppShell` from `@xoroh/kern-start`) and `/docs/guides`, but no dedicated
+`AppShell` from `@xoroh/kern/start`) and `/docs/guides`, but no dedicated
 shell/scaffold page — `apps/site/src/routes/` has no `shell` route, and
 `guides.tsx` covers one-contract/two-platforms, the `Sonner` asymmetry and
 icons only. The row therefore stays `in progress`; the remaining work is a
@@ -91,9 +91,9 @@ rows and the parity coverage table matches it row-for-row (re-verified
 
 ## Renderer split (no rewrites "per language")
 
-The system language is written **once** and shared: `kern-theme` (tokens,
+The system language is written **once** and shared: `kern-tokens` (tokens,
 themes, tones, feedback spec) + `kern-icons` registry — pure TS, any renderer.
 Widgets and composition (blocks/scaffolds) are implemented per **renderer
-family**: DOM (`kern` + `kern-start`; web *and* desktop reuse) vs React Native
+family**: DOM (`kern` + `/kern/start`; web *and* desktop reuse) vs React Native
 (`kern-native`; splits to `kern-expo` when Expo-only peers force it). Same
 model as M3 shipping Material Web + Material Compose + Android from one spec.

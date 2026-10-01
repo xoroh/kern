@@ -5,7 +5,7 @@ import {
   type FeedbackSize,
   type ResolvedTheme,
   resolveThemeDetails,
-} from "@xoroh/kern-theme";
+} from "@xoroh/kern-tokens";
 import {
   type StyleProp,
   Text,

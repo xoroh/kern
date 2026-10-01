@@ -1,12 +1,12 @@
 {
-  "name": "@xoroh/kern-theme",
+  "name": "@xoroh/kern-tokens",
   "version": "0.0.0",
   "license": "MIT",
   "author": "Xoroh",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/xoroh/kern.git",
-    "directory": "packages/kern-theme"
+    "directory": "packages/kern-tokens"
   },
   "homepage": "https://kern.xoroh.org",
   "bugs": "https://github.com/xoroh/kern/issues",

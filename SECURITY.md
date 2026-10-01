@@ -19,8 +19,8 @@ vulnerability — the six packages version independently.
 Report privately via **GitHub Security Advisories**
 (Security tab → Report a vulnerability) on the affected repo. Include:
 
-- Affected package and version (`@xoroh/kern`, `@xoroh/kern-theme`,
-  `@xoroh/kern-native`, `@xoroh/kern-icons`, `@xoroh/kern-start`,
+- Affected package and version (`@xoroh/kern`, `@xoroh/kern-tokens`,
+  `@xoroh/kern-native`, `@xoroh/kern-icons`, `@xoroh/kern/start`,
   `@xoroh/kern-mcp`)
 - Platform and runtime (web / React Native, React version, bundler)
 - Steps to reproduce and impact assessment

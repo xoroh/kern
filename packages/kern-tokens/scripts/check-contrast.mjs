@@ -1,5 +1,5 @@
 // Certifies semantic role-pair contrast in every shipped mode/context.
-// Run from repo root: bun packages/kern-theme/scripts/check-contrast.mjs
+// Run from repo root: bun packages/kern-tokens/scripts/check-contrast.mjs
 //
 // GATE SHAPE (D-026.5', re-ruled by D-028): pairs are GENERATED from role
 // families, not hand-listed, and the ORPHAN LAW makes the gate falsifiable over
@@ -18,16 +18,22 @@ import {
 
 const ROOT = new URL("../../..", import.meta.url).pathname;
 const M3 = JSON.parse(
-  readFileSync(join(ROOT, "packages/kern-theme/src/themes/m3.json"), "utf8"),
+  readFileSync(join(ROOT, "packages/kern-tokens/src/themes/m3.json"), "utf8"),
 );
 const SHARP = JSON.parse(
-  readFileSync(join(ROOT, "packages/kern-theme/src/themes/sharp.json"), "utf8"),
+  readFileSync(
+    join(ROOT, "packages/kern-tokens/src/themes/sharp.json"),
+    "utf8",
+  ),
 );
 const BRAND = JSON.parse(
-  readFileSync(join(ROOT, "packages/kern-theme/src/themes/brand.json"), "utf8"),
+  readFileSync(
+    join(ROOT, "packages/kern-tokens/src/themes/brand.json"),
+    "utf8",
+  ),
 );
 const TOKENS = JSON.parse(
-  readFileSync(join(ROOT, "packages/kern-theme/src/tokens.json"), "utf8"),
+  readFileSync(join(ROOT, "packages/kern-tokens/src/tokens.json"), "utf8"),
 );
 const allowedColors = new Set([
   ...Object.values(TOKENS.palettes).flatMap((palette) =>

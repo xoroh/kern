@@ -2,7 +2,7 @@ import {
   type ResolvedTheme,
   resolveThemeDetails,
   tokens,
-} from "@xoroh/kern-theme";
+} from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
 import {
   Pressable,
@@ -19,7 +19,7 @@ import { Text } from "./text";
 
 /**
  * Layout compositions: the filter chip row, secondary tabs, and pane
- * containers that mirror the web `kern-start` layouts at phone widths.
+ * containers that mirror the web `/kern/start` layouts at phone widths.
  */
 
 /**

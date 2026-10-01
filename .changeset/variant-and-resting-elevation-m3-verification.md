@@ -1,7 +1,7 @@
 ---
 "@xoroh/kern": minor
 "@xoroh/kern-native": minor
-"@xoroh/kern-theme": patch
+"@xoroh/kern-tokens": patch
 ---
 
 Variant + resting-elevation conformance against the M3 spec pages, verified from primary

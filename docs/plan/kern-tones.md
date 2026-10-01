@@ -1,8 +1,8 @@
-# Plan — Tone + functional color layer in `kern-theme`
+# Plan — Tone + functional color layer in `kern-tokens`
 
 Status: done (2026-09-29) · log kept for revision
 
-The classification-tone system in `@xoroh/kern-theme`: spectrum hues, status /
+The classification-tone system in `@xoroh/kern-tokens`: spectrum hues, status /
 user / avatar tones, 9-domain functional map, tone CSS utilities. Pure TS +
 JSON — works on web and React Native with zero new dependencies.
 
@@ -25,7 +25,7 @@ CI · OKLCH canonical + srgb compiled.
 | Step ladder | `50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950` |
 | Ramp families | Two namespaced families on the same ladder: `palettes` (role ramps → themes) + `spectrum` (classification hues → tone layer) |
 | Openness | Presets ship as data; any hue via `makeHueRamp(seed)` + `registerHue`; injectable hash rotations; open functional map with theme overrides |
-| Location | All of it in `kern-theme` (`kern`/`kern-native` unchanged) |
+| Location | All of it in `kern-tokens` (`kern`/`kern-native` unchanged) |
 | Functional values | Aliases first (`tone | hueRef + steps`); raw hex only as documented exemptions |
 
 ## Data model (`tokens.json`)
@@ -65,7 +65,7 @@ category, channel, planTier, fileType, taskStatus, presence).
 ## Files (shipped)
 
 ```
-packages/kern-theme/
+packages/kern-tokens/
   src/tokens.json            + spectrum block (11 hues × 11 steps)
   src/color.ts               OKLCH ↔ sRGB math (dep-free)
   src/tones.ts               SPECTRUM_HUES · TONE_ROLES · statusTone ·

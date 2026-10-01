@@ -1,7 +1,7 @@
 ---
 "@xoroh/kern": patch
 "@xoroh/kern-icons": patch
-"@xoroh/kern-theme": patch
+"@xoroh/kern-tokens": patch
 ---
 
 M3 resting-elevation conformance, an icon usage gate, and the per-component doc
@@ -14,7 +14,7 @@ caught it did not exist.** The P2 audit concluded that
 conclusion was wrong** — the overview page has no table, but
 `/styles/elevation/tokens` publishes a "Component elevation" table mapping
 resting level to component. Transcribed on 2026-10-01 into
-`packages/kern-theme/src/m3-elevation.ts`, which gives `check:m3` the target it
+`packages/kern-tokens/src/m3-elevation.ts`, which gives `check:m3` the target it
 lacked. Against the real spec, six components diverged:
 
 | component | was | now | M3 row |

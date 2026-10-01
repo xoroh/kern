@@ -90,7 +90,7 @@ the point of writing it down first:
    element carries the active pill.
 
 The remaining 22 stay native-only. `navigation-bar`'s two siblings in
-`kern-start` (`Sidebar`, `NavigationRail`, `SectionDrawer`) keep their names per
+`/kern/start` (`Sidebar`, `NavigationRail`, `SectionDrawer`) keep their names per
 **D11** — the counterpart rule forces *existence*, not renames.
 
 ---
@@ -636,7 +636,7 @@ symmetrised, and P2b-2/3 must not "fix" them:
   `docs/platform-parity.md`; `variants` keeps its frozen per-component meaning
   (S1.2/S1.3) and is not restated here. Re-stating it would create a second
   source of truth that drifts.
-- **`@xoroh/kern-theme` peer range** — D-026.1b, separate task.
+- **`@xoroh/kern-tokens` peer range** — D-026.1b, separate task.
 
 ---
 
@@ -653,7 +653,7 @@ symmetrised, and P2b-2/3 must not "fix" them:
   `split-button` (51/39 → 53/37), and tranche 4 corrected the registry itself
   (three components had no row at all) before moving `tooltip` (53/37 → 55/35).
 - **ADR 002 boundary:** re-verified **0** imports of `@base-ui/react` across
-  `packages/kern-native`, `packages/kern-theme`, `packages/kern-icons`; and
+  `packages/kern-native`, `packages/kern-tokens`, `packages/kern-icons`; and
   **0** imports of `@xoroh/kern-native` in `packages/kern/src`. This manifest is a
   markdown file in `docs/`, importing nothing.
 - **No `kern/` file was written by this task.** P2b-1 is a draft for `review-m3`.

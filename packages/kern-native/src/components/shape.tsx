@@ -3,7 +3,7 @@ import {
   type FeedbackShapeKind,
   type ResolvedTheme,
   resolveThemeDetails,
-} from "@xoroh/kern-theme";
+} from "@xoroh/kern-tokens";
 import {
   type StyleProp,
   View,

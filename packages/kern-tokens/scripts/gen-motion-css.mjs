@@ -1,5 +1,5 @@
 // Generates src/motion.css from the feedback timing spec.
-// Run from the repo root: bun packages/kern-theme/scripts/gen-motion-css.mjs
+// Run from the repo root: bun packages/kern-tokens/scripts/gen-motion-css.mjs
 // Deterministic: identical input always emits identical output.
 import { spawnSync } from "node:child_process";
 import { writeFileSync } from "node:fs";

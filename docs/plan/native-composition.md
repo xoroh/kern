@@ -13,9 +13,9 @@ paper bridge, haptics, fonts. Naming law: unprefixed, M3-canonical —
 `kern-native` was primitives + feedback kit only. The gap was sheets
 (RN-primitive, as shipped), `NavigationBar`, `NavigationDrawer`, `BootSplash`,
 the menu screen system and pane layouts. Same composition model as
-[kern-start](kern-start.md): components → blocks → scaffolds, tiers never
+[kern/start](/kern/start.md): components → blocks → scaffolds, tiers never
 point upward. This is the RN **renderer family's** implementation of the same
-system language (`kern-theme` is shared, written once).
+system language (`kern-tokens` is shared, written once).
 
 ## Decisions (locked 2026-09-29)
 
@@ -70,7 +70,7 @@ Deviations from the plan above, both deliberate:
 
 - **No `@gorhom/bottom-sheet`.** The sheets are hand-rolled on RN primitives.
   The package imports only `react`, `react-native`, and
-  `@xoroh/kern-theme`, so no Expo-only peer entered the dependency surface.
+  `@xoroh/kern-tokens`, so no Expo-only peer entered the dependency surface.
   `NavigationDrawer` composes from `NavigationBar` rather than a separate
   gesture system.
 - **No `paperTheme()` bridge** — nothing in the tree depends on React Native

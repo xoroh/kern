@@ -9,7 +9,7 @@ does not fail, so it drifts within a commit. This gate makes it falsifiable.
 
 What it enforces:
 
-1. **ADR 002 boundary** — `kern-native`, `kern-theme` and `kern-icons` import no
+1. **ADR 002 boundary** — `kern-native`, `kern-tokens` and `kern-icons` import no
    behavior primitive (Base UI, Radix, React Aria), and `packages/kern` imports
    no `@xoroh/kern-native`.
 2. **The contract's counts match reality** — re-derived from the generated

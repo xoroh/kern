@@ -9,7 +9,7 @@ import {
   type ResolvedTheme,
   resolveFeedbackVariant,
   resolveThemeDetails,
-} from "@xoroh/kern-theme";
+} from "@xoroh/kern-tokens";
 import { useEffect, useRef } from "react";
 import {
   Animated,
@@ -55,7 +55,7 @@ function clamp01(value: number): number {
 }
 
 /**
- * `arcRotations` now lives in `@xoroh/kern-theme` — it is M3 geometry (a
+ * `arcRotations` now lives in `@xoroh/kern-tokens` — it is M3 geometry (a
  * determinate arc sweeps to the same angle in both renderers), so it is
  * computed once in the shared package rather than per renderer. Re-exported
  * here so the native public API is unchanged.

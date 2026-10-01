@@ -4,7 +4,7 @@ Status: done (2026-09-29) · log kept for revision
 
 The branded loading/progress language — `BRAND_TRIO` shapes, `heritage` style,
 tenant overrides, boot handoff — for `kern` (web) and `kern-native`, one
-shared spec in `kern-theme`. Naming law: unprefixed, M3-canonical.
+shared spec in `kern-tokens`. Naming law: unprefixed, M3-canonical.
 
 ## Why
 
@@ -17,7 +17,7 @@ loader + `useAppReady` handoff, `BootIndicator`. Every app boots through this.
 
 | Decision | Outcome |
 | --- | --- |
-| Spec home | `packages/kern-theme/src/feedback.ts` — pure data + registry, both renderers consume |
+| Spec home | `packages/kern-tokens/src/feedback.ts` — pure data + registry, both renderers consume |
 | Names | M3 canonical, unprefixed: `CircularProgress`, `LinearProgress`, `LoadingButton` (M3 progress-indicator canon). No legacy or bridge names anywhere — hard cut |
 | Styles shipped now | web: `spinner`, `dots`, `bar`, `shapes` (≈`heritage`); remaining 5 styles stubbed in spec, rendered later |
 | Critical loader | web-only constants (`CRITICAL_LOADER_CSS/HTML`) + `useAppReady`/`markAppReady` in `kern` |
@@ -26,7 +26,7 @@ loader + `useAppReady` handoff, `BootIndicator`. Every app boots through this.
 
 ## Shipped
 
-1. Spec: `feedback.ts` + tests in `kern-theme`.
+1. Spec: `feedback.ts` + tests in `kern-tokens`.
 2. Web: `CircularProgress`, `LinearProgress`, `LoadingButton`, `BootIndicator`,
    `PageLoader`, `CRITICAL_LOADER_*`, `useAppReady`/`markAppReady`.
 3. Native: mirror + `Shape` primitive; brand-kit trio.

@@ -1,4 +1,4 @@
-// "@xoroh/kern-theme" — platform-free design tokens + theme spec.
+// "@xoroh/kern-tokens" — platform-free design tokens + theme spec.
 // No React, no DOM. Both @xoroh/kern (web) and @xoroh/kern-native
 // resolve one identical scheme from here.
 

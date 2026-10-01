@@ -5,7 +5,7 @@ vi.mock(
   async () => await import("../../test-doubles/react-native"),
 );
 
-import { themes } from "@xoroh/kern-theme";
+import { themes } from "@xoroh/kern-tokens";
 import { badgeStyles } from "./badge";
 import { cardStyles } from "./card";
 import { checkboxStyles } from "./checkbox";

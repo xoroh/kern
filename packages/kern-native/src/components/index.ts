@@ -1,5 +1,5 @@
 // Feedback kit — M3 loading + progress indicators and the brand trio.
-// Spec lives in `@xoroh/kern-theme`; these are the React Native projections.
+// Spec lives in `@xoroh/kern-tokens`; these are the React Native projections.
 
 export type { CircularProgressProps } from "./circular-progress";
 export {

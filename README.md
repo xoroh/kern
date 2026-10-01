@@ -11,7 +11,7 @@ documentation, and tooling. MIT licensed and usable by people and AI agents.
 ## Install
 
 ```bash
-bun add @xoroh/kern @xoroh/kern-theme
+bun add @xoroh/kern @xoroh/kern-tokens
 ```
 
 Web components need `@base-ui/react`, `react`, `react-dom`, and Tailwind CSS
@@ -49,9 +49,9 @@ Per-package detail lives in each package's README.
 
 | Package | Directory | What it is |
 | --- | --- | --- |
-| `@xoroh/kern-theme` | `packages/kern-theme` | Tokens (`tokens.json`), theme presets, contrast overlays, tones, feedback spec, variant registry. Platform-free: no React, no DOM |
+| `@xoroh/kern-tokens` | `packages/kern-tokens` | Tokens (`tokens.json`), theme presets, contrast overlays, tones, feedback spec, variant registry. Platform-free: no React, no DOM |
 | `@xoroh/kern` | `packages/kern` | Web components (React, on Base UI) + the web theme runtime |
-| `@xoroh/kern-start` | `packages/kern-start` | Web composition: blocks, top app bar, navigation, panes, scaffolds |
+| `@xoroh/kern/start` | `packages/kern/src/start` | Web composition: blocks, top app bar, navigation, panes, scaffolds |
 | `@xoroh/kern-native` | `packages/kern-native` | React Native components (StyleSheet + tokens) + the native scheme hook |
 | `@xoroh/kern-icons` | `packages/kern-icons` | Material Symbols registry and the `Icon` renderer (web + native) |
 | `@xoroh/kern-mcp` | `packages/mcp` | MCP server: list components, fetch source and tokens, audit screens |
@@ -62,8 +62,8 @@ Six packages publish; each versions independently.
 ## Apps
 
 - `apps/site/` — kern.xoroh.org (TanStack Start): the documentation site. It
-  imports and dogfoods `@xoroh/kern`, `@xoroh/kern-theme`,
-  `@xoroh/kern-icons`, and `@xoroh/kern-start`.
+  imports and dogfoods `@xoroh/kern`, `@xoroh/kern-tokens`,
+  `@xoroh/kern-icons`, and `@xoroh/kern/start`.
 - `apps/mobile/` — "Kern": an Expo host wiring the native theme and fonts.
 
 ## Documentation

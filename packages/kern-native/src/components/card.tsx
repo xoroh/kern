@@ -2,7 +2,7 @@ import {
   type ResolvedTheme,
   resolveThemeDetails,
   tokens,
-} from "@xoroh/kern-theme";
+} from "@xoroh/kern-tokens";
 import {
   type StyleProp,
   View,

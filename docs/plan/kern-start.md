@@ -1,4 +1,4 @@
-# Plan — `@xoroh/kern-start` (web composition layer)
+# Plan — `@xoroh/kern/start` (web composition layer)
 
 Status: done (2026-09-29) · log kept for revision
 
@@ -6,7 +6,7 @@ The app-frame layer for web apps: top-app-bar, navigation
 (sidebar/rail/section-drawer), panes, scaffolds, and the blocks that fill them
 (search, settings, status-bar). Naming law: unprefixed, M3-canonical —
 `TopAppBar`, `NavigationRail` are the M3 names. Package:
-`packages/kern-start` (`@xoroh/kern-start`), dependency `@xoroh/kern` only.
+`packages/kern/src/start` (`@xoroh/kern/start`), dependency `@xoroh/kern` only.
 
 ## Composition model
 
@@ -15,8 +15,8 @@ Three tiers, one direction of dependency:
 | Tier | What it is | Example | Lives in |
 | --- | --- | --- | --- |
 | Component | one widget, variants + slots, no layout opinion | `Button`, `Dialog` | `kern` / `kern-native` |
-| Block | pattern composition, slot-driven, domain-free | `TopAppBar`, `SearchBar` | `kern-start` (native sibling per [native-composition](native-composition.md)) |
-| Scaffold | page frame = named regions + behavior | `AppShell`, `Document` | `kern-start` |
+| Block | pattern composition, slot-driven, domain-free | `TopAppBar`, `SearchBar` | `/kern/start` (native sibling per [native-composition](native-composition.md)) |
+| Scaffold | page frame = named regions + behavior | `AppShell`, `Document` | `/kern/start` |
 
 Rules: lower tier never imports higher · blocks contain no app domain —
 those arrive as props/slots · scaffolds are *presets* composed from blocks.
@@ -43,7 +43,7 @@ those arrive as props/slots · scaffolds are *presets* composed from blocks.
 
 ## Acceptance
 
-- `apps/site` can render a docs shell from `kern-start` blocks.
+- `apps/site` can render a docs shell from `/kern/start` blocks.
 - Region permutations (rail-only, drawer-only, full) render without forks.
 - Theme variant swap restyles every block (token-only styling).
 - No app-domain or product names in source.

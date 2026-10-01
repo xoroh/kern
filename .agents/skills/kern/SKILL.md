@@ -41,7 +41,7 @@ complete.
 
 ## Source of truth
 
-- **`packages/kern-theme/src/tokens.json`** is the canonical Kern token source (single source → TS role tables + CSS vars). Always consult it before making design decisions. `packages/kern/src/tokens.ts` re-exports it; the generator writes `tokens.css`.
+- **`packages/kern-tokens/src/tokens.json`** is the canonical Kern token source (single source → TS role tables + CSS vars). Always consult it before making design decisions. `packages/kern/src/tokens.ts` re-exports it; the generator writes `tokens.css`.
 - **[`references/kern-tokens.md`](references/kern-tokens.md)** — the Kern **MD3 role mapping** for every role (light + dark). Read this to translate any MD3 guidance into Kern.
 - **`references/*`** — the vendored MD3 canon (color, typography/shape, components, navigation, layout, theming). Use these for MD3 structure; then apply the Kern overrides.
 
@@ -57,7 +57,7 @@ complete.
 
 Kern is a working tool, not a showcase. It is used by people doing real work — ops consoles, customer apps, field tools. Every decision is filtered through one question: **does this help the user move faster and make fewer mistakes?**
 
-Domain needs are never baked into the core. A use case (mobility, fleet, retail…) ships as **composition**: pattern blocks plus a preset theme on top of the neutral core. On web that is `@xoroh/kern-start` (`TopAppBar`, `SearchBar`, `Sidebar`, `AppShell`); on native it is inline in the consuming app for now. Blocks depend on core components; core never depends on blocks. See `references/code-conventions.md`.
+Domain needs are never baked into the core. A use case (mobility, fleet, retail…) ships as **composition**: pattern blocks plus a preset theme on top of the neutral core. On web that is `@xoroh/kern/start` (`TopAppBar`, `SearchBar`, `Sidebar`, `AppShell`); on native it is inline in the consuming app for now. Blocks depend on core components; core never depends on blocks. See `references/code-conventions.md`.
 
 MD3 gives Kern three things it keeps:
 - **Semantic roles** — never hardcode a hex; use a role (`primary`, `on-surface`, `surface-container`, `outline`) so light/dark and contrast modes just work.
@@ -118,7 +118,7 @@ Shape: `full` = 9999px (interactive), `small` = 8px (cards), `medium` = 12px (dr
 Kern inherits MD3's anti-patterns and adds its own:
 
 - **Don't hardcode colors** — use `var(--md-sys-color-*)` roles or the Kern app tokens (`--primary`, `--secondary`, `--muted`). Raw hex breaks dark mode and contrast. Except for specific category icons where distinct, colorful branding is required.
-- **Closed set (max colors)** — every shipped color must exist in `packages/kern-theme/src/tokens.json` (the single source: 220 spectrum swatches — 11 hues × 10 steps × light/dark — from which `tokens.ts` is generated). Roles for chrome/status; spectrum mirrors (gray, red, orange, amber, yellow, lime, green, teal, blue, purple, magenta) for icons/illustrations/charts/badges only. A hue with no palette entry doesn't ship.
+- **Closed set (max colors)** — every shipped color must exist in `packages/kern-tokens/src/tokens.json` (the single source: 220 spectrum swatches — 11 hues × 10 steps × light/dark — from which `tokens.ts` is generated). Roles for chrome/status; spectrum mirrors (gray, red, orange, amber, yellow, lime, green, teal, blue, purple, magenta) for icons/illustrations/charts/badges only. A hue with no palette entry doesn't ship.
 - **Don't introduce hue into the chrome background** — the backgrounds, app bars, and structural chrome stay neutral (black / white / gray). Functional color follows M3 roles: `primary` blue for links, focus, and active accents; status roles for error / success / warning / info; plus color for icons, badges, charts, and data elements.
 - **Don't break tonal pairing** — only pair a fill with its `on-*` color.
 - **Don't use heavy or layered shadows** — shadows are strictly for floating elements (max opacity `0.16`), never for standard cards on the page.
@@ -172,10 +172,10 @@ import — the map is the contract.
 | --- | --- | --- |
 | Web components | `@xoroh/kern` | React 18+, on `@base-ui/react` |
 | Theme CSS variables | `import "@xoroh/kern/theme"` | side-effect import; one per app |
-| Tokens as TypeScript | `@xoroh/kern/tokens` | re-exports `@xoroh/kern-theme` |
+| Tokens as TypeScript | `@xoroh/kern/tokens` | re-exports `@xoroh/kern-tokens` |
 | `cn` and helpers | `@xoroh/kern/utils` | pure, no theme dependency |
 | Native components | `@xoroh/kern-native` | React 19, React Native 0.86–0.88 |
-| Web composition | `@xoroh/kern-start` | `TopAppBar`, `Sidebar`, `AppShell`, panes |
+| Web composition | `@xoroh/kern/start` | `TopAppBar`, `Sidebar`, `AppShell`, panes |
 | Icons (either platform) | `@xoroh/kern-icons` | `Icon`, `SEMANTIC_ICONS` |
 
 There is **no** `@xoroh/kern/native` export. Native is its own package.

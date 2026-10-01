@@ -53,7 +53,7 @@ rasterizers). Stroke-only sets convert at set-build time or stay slot-based.
 - Match icon size and visual weight to adjacent text and control density.
 - Prefer 24dp standard; 20dp dense rows; 40/48dp display actions.
 - Semantic color roles for status/action icons; category hues via the tone
-  layer (`@xoroh/kern-theme`), never one-off hex.
+  layer (`@xoroh/kern-tokens`), never one-off hex.
 - Semantic aliases (`back`, `close`, `check`, …) are the unification table —
   add one only when a second surface shares the meaning.
 

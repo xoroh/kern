@@ -6,7 +6,7 @@ import {
   resolveThemeDetails,
   type ShapeRole,
   type ThemeSelection,
-} from "@xoroh/kern-theme";
+} from "@xoroh/kern-tokens";
 import {
   createContext,
   type PropsWithChildren,

@@ -1,21 +1,21 @@
 /**
- * Site chrome — built on the real `@xoroh/kern-start` scaffold.
+ * Site chrome — built on the real `@xoroh/kern/start` scaffold.
  *
- * The navigation rail and its destinations are the shipped kern-start
+ * The navigation rail and its destinations are the shipped /kern/start
  * components, not markup copied from them: this is the site's proof that
- * kern-start works outside its own test suite. The host router's link reaches
- * it through `LinkProvider`, the seam kern-start provides for exactly this
+ * /kern/start works outside its own test suite. The host router's link reaches
+ * it through `LinkProvider`, the seam /kern/start provides for exactly this
  * case, and the glyphs come from `@xoroh/kern-icons`.
  */
 import { useLocation } from "@tanstack/react-router";
 import { cn, useKernTheme } from "@xoroh/kern";
-import { Icon, type IconSemantic } from "@xoroh/kern-icons";
 import {
   type LinkComponent,
   LinkProvider,
   NavigationRail,
   NavigationRailButton,
-} from "@xoroh/kern-start";
+} from "@xoroh/kern/start";
+import { Icon, type IconSemantic } from "@xoroh/kern-icons";
 
 const ITEMS: { href: string; label: string; icon: IconSemantic }[] = [
   { href: "/", label: "Home", icon: "home" },
@@ -25,12 +25,12 @@ const ITEMS: { href: string; label: string; icon: IconSemantic }[] = [
   { href: "/getting-started", label: "Start", icon: "check" },
 ];
 
-/** Host router seam: kern-start renders every `to` through this component. */
+/** Host router seam: /kern/start renders every `to` through this component. */
 const RouterLink: LinkComponent = ({ to, href, ...props }) => (
   <a href={href ?? to} {...props} />
 );
 
-/** M3 navigation rail, rendered by kern-start. */
+/** M3 navigation rail, rendered by /kern/start. */
 export function AppRail() {
   const { pathname } = useLocation();
   const { mode, toggle } = useKernTheme();

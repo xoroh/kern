@@ -18,7 +18,7 @@ Composition (per `docs/plan/native-composition.md`):
 - Menus: `MenuScreen`, `MenuSheet`, `MenuGroupList`, `AppsSheet`,
   `CreateSheet`.
 - Layouts and panes: `FilterChipRow`, `SecondaryTabs`, `Pane`, `ListDetail`,
-  `SupportingPane` — the phone-width mirrors of the web `kern-start` layouts.
+  `SupportingPane` — the phone-width mirrors of the web `/kern/start` layouts.
 
 Fonts: `kernFontFaces`, `useKernFonts`, `KernFontGate`. The host loads Inter
 (via `expo-font` or any loader); components only set weights, so `kern-native`

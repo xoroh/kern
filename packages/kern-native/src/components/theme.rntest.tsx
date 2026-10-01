@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react-native";
-import { themes } from "@xoroh/kern-theme";
+import { themes } from "@xoroh/kern-tokens";
 import { Text } from "react-native";
 import { KernThemeProvider, useKernTheme } from "../theme";
 

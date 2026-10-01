@@ -8,10 +8,10 @@ Changesets. Six packages publish; each versions independently.
 | Package | Directory | Public | First release |
 |---|---|---|---|
 | `@xoroh/kern` | `packages/kern` | yes | `0.1.0` |
-| `@xoroh/kern-theme` | `packages/kern-theme` | yes | `0.1.0` |
+| `@xoroh/kern-tokens` | `packages/kern-tokens` | yes | `0.1.0` |
 | `@xoroh/kern-native` | `packages/kern-native` | yes | `0.1.0` |
 | `@xoroh/kern-icons` | `packages/kern-icons` | yes | `0.1.0` |
-| `@xoroh/kern-start` | `packages/kern-start` | yes | `0.1.0` |
+| `@xoroh/kern/start` | `packages/kern/src/start` | yes | `0.1.0` |
 | `@xoroh/kern-mcp` | `packages/mcp` | yes | `0.1.0` |
 | `@xoroh/cli` | `packages/cli` | no (`private: true`) | — |
 
@@ -50,11 +50,11 @@ as the last step of `bun run check:publish` (and standalone as
 `dependencies`, `peerDependencies` or `optionalDependencies` — only in
 `devDependencies`.**
 
-Why it must be a peer: `kern-theme` ships the tokens and the theme runtime. A
+Why it must be a peer: `kern-tokens` ships the tokens and the theme runtime. A
 consumer must resolve **one** instance of it. Two copies split the token
 objects and scheme resolution apart and theming breaks in ways that are
 miserable to debug. That is the definition of a peer dependency. The same
-applies to `kern` for `kern-start`.
+applies to `kern` for `/kern/start`.
 
 Why `workspace:*` cannot be shipped: **npm does not rewrite the `workspace:`
 protocol on pack** — only pnpm and yarn do. A `workspace:*` spec in a shipped
@@ -72,11 +72,11 @@ tarball. That is the whole reason `preflight:publish` exists.
 ### How Kern does it
 
 ```
-packages/kern        peerDependencies  @xoroh/kern-theme: "*"
-                     devDependencies   @xoroh/kern-theme: "workspace:*"
-packages/kern-native peerDependencies  @xoroh/kern-theme: "*"
-                     devDependencies   @xoroh/kern-theme: "workspace:*"
-packages/kern-start  peerDependencies  @xoroh/kern: "*"
+packages/kern        peerDependencies  @xoroh/kern-tokens: "*"
+                     devDependencies   @xoroh/kern-tokens: "workspace:*"
+packages/kern-native peerDependencies  @xoroh/kern-tokens: "*"
+                     devDependencies   @xoroh/kern-tokens: "workspace:*"
+packages/kern/src/start  peerDependencies  @xoroh/kern: "*"
                      devDependencies   @xoroh/kern: "workspace:*"
 ```
 

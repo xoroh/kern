@@ -23,8 +23,8 @@
     "@xoroh/kern": "workspace:*",
     "@xoroh/kern-icons": "workspace:*",
     "@xoroh/kern-native": "workspace:*",
-    "@xoroh/kern-start": "workspace:*",
-    "@xoroh/kern-theme": "workspace:*",
+    "@xoroh/kern/start": "workspace:*",
+    "@xoroh/kern-tokens": "workspace:*",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "react-native-web": "^0.21.0"

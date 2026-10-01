@@ -6,7 +6,7 @@ Split `bottomSheetSurface` out of `sheet-surface.tsx` — step 2 of the ratified
 `kern-primitives` extraction order.
 
 `SheetSurface` is the first candidate for extraction into the primitives layer,
-whose gate forbids importing `kern-theme`. It shared a file with
+whose gate forbids importing `kern-tokens`. It shared a file with
 `bottomSheetSurface`, which reads `scheme.color.surfaceContainerLow`, the XL corner
 radii and the `space-*` ramp — so extracting the file as it stood would have put
 a theme-coupled export inside the first extraction step, and the gate would have
@@ -21,7 +21,7 @@ token, or rendering change.
 1. **A single-file gate is not enough.** The obvious home was
    `utils/overlay-styles.ts`, but `SheetSurface` already imports `overlayStyles`
    from there, so putting the theme-coupled function in that module made the
-   dependency **transitive** — `sheet-surface` → `overlay-styles` → `kern-theme`.
+   dependency **transitive** — `sheet-surface` → `overlay-styles` → `kern-tokens`.
    The source file would have looked clean while its dependency graph still crossed
    the gate. `overlayStyles` is also shared by eleven components, so it cannot be
    moved. The new file is a leaf with one importer precisely so the dependency is

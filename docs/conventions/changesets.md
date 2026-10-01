@@ -39,12 +39,12 @@ a changeset body that says what broke — consumers are told to track latest.
 List exactly the packages whose **published surface or behavior** changed.
 A change confined to `packages/kern/src/components/button.tsx` needs
 `"@xoroh/kern": patch` only. Adding a component that depends on a token
-change in `kern-theme` needs both:
+change in `kern-tokens` needs both:
 
 ```md
 ---
 "@xoroh/kern": minor
-"@xoroh/kern-theme": patch
+"@xoroh/kern-tokens": patch
 ---
 
 Button: add `variant="tonal"`; `surface-tonal` role value adjusted for 4.5:1
