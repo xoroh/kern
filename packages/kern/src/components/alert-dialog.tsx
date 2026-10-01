@@ -56,6 +56,10 @@ export function AlertDialogContent({
       <AlertDialogPrimitive.Viewport className="kern-alert-dialog-viewport fixed inset-0 flex items-center justify-center p-4">
         <AlertDialogPrimitive.Popup
           data-slot="alert-dialog-content"
+          // Identical gap to `dialog.tsx`: Base UI's Popup never emits
+          // aria-modal. An alert dialog is modal by definition, and the parity
+          // contract requires the surface to say so.
+          aria-modal="true"
           className={cnState(popupClass, className)}
           {...props}
         />

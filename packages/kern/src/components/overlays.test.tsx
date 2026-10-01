@@ -31,6 +31,28 @@ describe("Dialog", () => {
     await user.click(screen.getByRole("button", { name: "Done" }));
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
+
+  it("announces itself as modal", async () => {
+    // Base UI's `Dialog.Popup` traps focus but emits no `aria-modal`; the
+    // parity contract requires a modal surface to say so, and the navigation
+    // drawer already had to set it by hand for the same reason. Asserted here
+    // so the attribute cannot be dropped silently — the focus-trap behaviour
+    // above still passes without it.
+    const user = userEvent.setup();
+    render(
+      <Dialog.Root>
+        <Dialog.Trigger>Open</Dialog.Trigger>
+        <Dialog.Content>
+          <Dialog.Title>Settings</Dialog.Title>
+        </Dialog.Content>
+      </Dialog.Root>,
+    );
+    await user.click(screen.getByRole("button", { name: "Open" }));
+    expect(await screen.findByRole("dialog")).toHaveAttribute(
+      "aria-modal",
+      "true",
+    );
+  });
 });
 
 describe("AlertDialog", () => {
@@ -48,6 +70,26 @@ describe("AlertDialog", () => {
     );
     await user.click(screen.getByRole("button", { name: "Delete" }));
     expect(await screen.findByRole("alertdialog")).toBeInTheDocument();
+  });
+
+  it("announces itself as modal", async () => {
+    // The identical `aria-modal` gap `Dialog` had: same primitive, same fix,
+    // one attribute. An alert dialog is modal by definition, so a surface that
+    // does not say so misreports the accessibility tree against the visual.
+    const user = userEvent.setup();
+    render(
+      <AlertDialog.Root>
+        <AlertDialog.Trigger>Delete</AlertDialog.Trigger>
+        <AlertDialog.Content>
+          <AlertDialog.Title>Confirm</AlertDialog.Title>
+        </AlertDialog.Content>
+      </AlertDialog.Root>,
+    );
+    await user.click(screen.getByRole("button", { name: "Delete" }));
+    expect(await screen.findByRole("alertdialog")).toHaveAttribute(
+      "aria-modal",
+      "true",
+    );
   });
 });
 

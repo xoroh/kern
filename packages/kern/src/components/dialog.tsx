@@ -40,6 +40,12 @@ export function DialogContent({ className, ...props }: DialogContentProps) {
       <DialogPrimitive.Viewport className="kern-dialog-viewport fixed inset-0 flex items-center justify-center p-4">
         <DialogPrimitive.Popup
           data-slot="dialog-content"
+          // Base UI's Popup traps focus and inerts the rest of the page but
+          // does not emit aria-modal; the parity contract requires a modal
+          // surface to announce itself as one, and a modal dialog that does
+          // not is a trap to a screen reader. Same attribute the navigation
+          // drawer sets (navigation-drawer.tsx).
+          aria-modal="true"
           className={cnState(popupClass, className)}
           {...props}
         />

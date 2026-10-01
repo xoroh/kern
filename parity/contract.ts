@@ -66,7 +66,7 @@ export type ParityRow = {
    * renderer does, which is worse than not asserting it. A row says which
    * family it is, and each suite asserts only that family's fields.
    */
-  family?: "toggle" | "named-surface" | "text-field";
+  family?: "toggle" | "named-surface" | "text-field" | "stepper" | "otp-field";
   /** For `named-surface`: substrings that must ALL appear in the accessible name. */
   nameMustContain?: readonly string[];
   /** For `text-field`: true when the field accepts multiple lines. */
@@ -76,6 +76,60 @@ export type ParityRow = {
   /** For `text-field`: set when the error is announced through the hint (native),
    *  because RN has no `accessibilityState.invalid`. Deliberate asymmetry. */
   errorViaHint?: boolean;
+  /** For `text-field`: true when an error message must REACH assistive tech as
+   *  text, not merely set a state bit. Web delivers it as a `role="alert"`
+   *  message via `aria-describedby`; native folds it into the hint. Both must
+   *  carry the text — the delivery differs, the obligation does not. */
+  errorMessageCarriesText?: boolean;
+
+  /**
+   * For `named-surface`: the surface is MODAL, so it must expose its modality
+   * to assistive tech (`aria-modal` web, `accessibilityViewIsModal` native).
+   * A modal that only traps focus is still a trap to a screen reader.
+   */
+  modal?: boolean;
+
+  /**
+   * For `named-surface`: the row is ACTIONABLE, so it is a control, not a
+   * display row. Stated as a field rather than left to the row's `role` because
+   * the STATIC row is the one carrying that `role` — an actionable row changes
+   * what the role means, and the two must not be conflated.
+   */
+  interactive?: boolean;
+  /** The role an actionable row must expose. `button` for an action,
+   * `link` for navigation. Maps to native `accessibilityRole`. */
+  interactiveRole?: string;
+
+  /**
+   * For `stepper`: the value the field shows before any interaction. A
+   * stepper's whole contract is arithmetic, so the row states the arithmetic
+   * rather than a boolean axis.
+   */
+  start?: number;
+  /** For `stepper`: the increment one press of each button applies. */
+  step?: number;
+  /** For `stepper`: inclusive lower bound. A press at the bound must be inert. */
+  min?: number;
+  /** For `stepper`: inclusive upper bound. A press at the bound must be inert. */
+  max?: number;
+  /**
+   * For `stepper`: the value after one press of the stepper named
+   * `stepperLabels[0]`. Stated explicitly because the observable is the value,
+   * not a state — the contract that matters is "it moved by exactly `step`".
+   */
+  afterDecrement?: number;
+  /** For `stepper`: the value after one press of the other stepper. */
+  afterIncrement?: number;
+  /** For `stepper`: the accessible names of the two steppers, in order. */
+  stepperLabels?: readonly [string, string];
+
+  /** For `otp-field`: how many character positions the field has. */
+  positions?: number;
+  /**
+   * For `otp-field`: the assembled value once every position has been filled by
+   * typing one character into each, in order.
+   */
+  completedValue?: string;
 };
 
 /**
@@ -131,14 +185,12 @@ export const CONTRACTS: readonly ParityRow[] = [
   // `.team/findings/2026-10-01-p2b4-tranche2-measured-divergences.md`.
   //
   // Each of these rows deliberately asserts the SUBSET both renderers actually
-  // honour today. Four further divergences were measured and are NOT encoded
-  // here, because writing them would have meant either landing a red suite or
-  // encoding one renderer's API into a cross-renderer contract: `list-item`
-  // interactive role (web `listitem` vs native `button`), `dialog` role (web
-  // `dialog`, native `none`), `dialog` `aria-modal` (absent on web, which is
-  // the same one-attribute gap the P2b-2 changeset fixed for `NavigationDrawer`),
-  // and native text-field `accessibilityRole` (undefined). Those need a design
-  // ruling before they can be a contract row.
+  // honour today. One divergence was measured and is still NOT encoded here
+  // because the fix is on the native side: the `dialog` ROLE (web exposes
+  // `dialog`, native `none` — ruled to `kern-lead`). The other three have since
+  // been ruled and encoded: `list-item` interactive role (`interactive` /
+  // `interactiveRole`), `dialog` `aria-modal` (`modal`), and `errorMessage`
+  // (`errorMessageCarriesText`).
 
   {
     // A filter chip is a toggle wearing the `pressed` axis: web reports
@@ -182,11 +234,37 @@ export const CONTRACTS: readonly ParityRow[] = [
     interaction: "select",
     name: "Airplane mode, Updated 2 h ago",
     family: "named-surface",
+    // STATIC row. A row that only displays carries no interactive role: web
+    // states `role="listitem"`, native reports `"none"` inside a labelled list
+    // — a documented mapping, since the DOM's list structure already supplies
+    // the list context RN has to be told about.
+    interactive: false,
     // Asserted as substrings, not as one exact string: web computes its
     // accessible name from the DOM (space-joined) while native builds it with an
     // explicit ", " join. The separator is an artefact of how each platform
     // derives a name, not a Kern decision, so pinning it would be pinning an
     // accident. What must hold is that BOTH lines are announced.
+    nameMustContain: ["Airplane mode", "Updated 2 h ago"],
+    expects: {
+      initial: false,
+      afterActivate: false,
+      afterDisabledActivate: false,
+    },
+    maxSelected: 1,
+  },
+  {
+    // ACTIONABLE row — the same component in its interactive variant. A row
+    // that acts or navigates IS a control: web renders `<button>`/`role="link"`,
+    // native sets `accessibilityRole="button"`/`"link"`. Keyed by `name` so
+    // `contractFor("list-item")` still resolves the static row above.
+    component: "list-item",
+    role: "listitem",
+    axis: "selected",
+    interaction: "select",
+    name: "Airplane mode, Updated 2 h ago",
+    family: "named-surface",
+    interactive: true,
+    interactiveRole: "button",
     nameMustContain: ["Airplane mode", "Updated 2 h ago"],
     expects: {
       initial: false,
@@ -203,9 +281,10 @@ export const CONTRACTS: readonly ParityRow[] = [
     name: "Discard draft?",
     family: "named-surface",
     // The dialog must be findable BY its title on both sides — that is the
-    // whole contract for a modal surface. Not asserting the role here: web
-    // exposes `dialog`, native exposes `none`, and that gap is filed for a
-    // ruling rather than papered over here.
+    // whole contract for a modal surface — and it must say it is MODAL. Base
+    // UI's `Dialog.Popup` traps focus but emits no `aria-modal`; web sets it
+    // explicitly, native has `accessibilityViewIsModal` on `Modal`.
+    modal: true,
     nameMustContain: ["Discard draft?"],
     expects: {
       initial: false,
@@ -224,6 +303,7 @@ export const CONTRACTS: readonly ParityRow[] = [
     multiline: false,
     refusesTextWhenDisabled: true,
     errorViaHint: true,
+    errorMessageCarriesText: true,
     expects: {
       initial: false,
       afterActivate: false,
@@ -248,6 +328,59 @@ export const CONTRACTS: readonly ParityRow[] = [
     },
     maxSelected: 1,
   },
+
+  // ------------------------------------------------------------- tranche 3
+  // The M3 input family (P2b-3 tranche 1). Every field below was MEASURED on
+  // both renderers before being written; see
+  // `docs/parity-contract.md` §"Native versions of the input family (P2b-3)".
+  //
+  // A stepper and an OTP field have no boolean state to assert, so forcing them
+  // into `expects.initial`/`afterActivate` would have meant asserting a state
+  // neither renderer has. They get their own families: the stepper's contract
+  // is arithmetic, the OTP field's is the assembled code.
+
+  {
+    // Measured on web (Base UI `NumberField`): at `value=5, step=2`, one
+    // press of Decrease yields **3** — an arithmetic step, NOT a value snapped
+    // to the nearest multiple of 2. That measurement is why `step` is an
+    // increment size and not a grid; an early native draft snapped and turned
+    // an increment into +3, and the shared test caught it.
+    component: "number-field",
+    role: "textbox",
+    axis: "checked",
+    interaction: "select",
+    name: "Count",
+    family: "stepper",
+    start: 5,
+    step: 2,
+    min: 0,
+    max: 10,
+    afterDecrement: 3,
+    afterIncrement: 7,
+    stepperLabels: ["Decrease", "Increase"],
+    expects: {
+      initial: false,
+      afterActivate: false,
+      afterDisabledActivate: false,
+    },
+    maxSelected: 1,
+  },
+  {
+    component: "input-otp",
+    role: "group",
+    axis: "checked",
+    interaction: "select",
+    name: "One-time code",
+    family: "otp-field",
+    positions: 4,
+    completedValue: "1234",
+    expects: {
+      initial: false,
+      afterActivate: false,
+      afterDisabledActivate: false,
+    },
+    maxSelected: 1,
+  },
 ] as const;
 
 /** Lookup for a test that knows its component by name.
@@ -265,11 +398,35 @@ export function contractFor(component: string, variant?: string): ParityRow {
   if (!row) {
     throw new Error(
       rows.length > 0 && variant
-        ? `parity contract for "${component}" has no row named "${variant}". ` +
+        ? `parity contract for "${component}" has no row named ${JSON.stringify(variant)}. ` +
             `Known: ${rows.map((c) => JSON.stringify(c.name)).join(", ")}.`
         : `no parity contract declared for "${component}". Add a row to CONTRACTS ` +
             `(kern/parity/contract.ts) — or, if the component is new, ` +
             `decide the contract before asserting it.`,
+    );
+  }
+  return row;
+}
+
+/**
+ * The ACTIONABLE row for a component that has both a static and an interactive
+ * variant.
+ *
+ *  `contractFor` keys variants by accessible NAME, which cannot separate these
+ *  two: the actionable row announces the same words as the static one — same
+ *  component, same content, different semantics. So the discriminator is the
+ *  `interactive` flag. Returning the static row for an interactive query would
+ *  silently assert the wrong thing (and vice versa), which is why this is a
+ *  separate function that throws rather than a defaulted parameter.
+ */
+export function contractForInteractive(component: string): ParityRow {
+  const row = CONTRACTS.find(
+    (c) => c.component === component && c.interactive === true,
+  );
+  if (!row) {
+    throw new Error(
+      `no INTERACTIVE parity contract declared for "${component}". Add a row to ` +
+        `CONTRACTS with \`interactive: true\` (kern/parity/contract.ts).`,
     );
   }
   return row;
