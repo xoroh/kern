@@ -732,14 +732,14 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
-    name: "input-otproot",
+    name: "input-otp-root",
     export: "InputOTPRoot",
     platform: "web",
     path: "src/components/input-otp.tsx",
     status: "real",
   },
   {
-    name: "input-otpinput",
+    name: "input-otp-input",
     export: "InputOTPInput",
     platform: "web",
     path: "src/components/input-otp.tsx",
@@ -2134,13 +2134,6 @@ export const COMPONENTS: ComponentEntry[] = [
   {
     name: "sheet-surface",
     export: "SheetSurface",
-    platform: "native",
-    path: "src/components/sheet-surface.tsx",
-    status: "real",
-  },
-  {
-    name: "bottom-sheet-surface",
-    export: "bottomSheetSurface",
     platform: "native",
     path: "src/components/sheet-surface.tsx",
     status: "real",

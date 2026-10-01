@@ -52,13 +52,13 @@ again. Measured from the generated registry instead:
 
 | Measure | Value |
 |---|---|
-| Registry rows | **334** (web 248, native 86) |
+| Registry rows | **333** (web 248, native 85) |
 | **Shared** (already both sides) | **55** |
-| **Native-only → needs a web version** | **23** in **11 files** |
-| **Web-only → needs a native version** | **35** in **28 files** |
+| **Native-only → needs a web version** | **22** in **11 files** |
+| **Web-only → needs a native version** | **33** in **28 files** |
 | Stub rows | **0** |
 
-<!-- gate:counts 55 23 35 0 -->
+<!-- gate:counts 55 22 33 0 -->
 
 Machine-readable line above: `check:parity` (`scripts/check-parity.mjs`) re-derives
 these from the registry and fails if they drift, so the prose above cannot quietly
@@ -166,7 +166,7 @@ later reader does not "fix" them back:
 
 ---
 
-## Native-only concepts → need a web version (23)
+## Native-only concepts → need a web version (22)
 
 Grouped by surface. `M3 source` is the M3 spec tab that governs the behaviour.
 
@@ -192,8 +192,7 @@ Grouped by surface. `M3 source` is the M3 spec tab that governs the behaviour.
 | 18 | `shape-art` | Brand shape art | **decorative** → `aria-hidden="true"` | `ShapeArt` | Kern brand kit | GAP |
 | 19 | `aspect-ratio` | Fixed-ratio box | `style={{aspectRatio}}` — presentational | `aspectRatio` style | CSS/native analogue | GAP |
 | 20 | `sheet-surface` | Shared `Modal` + scrim primitive every kern sheet hosts through | web = `Dialog` root + portal scrim — the one place a sheet gets a dismissal path | `SheetSurface`: scrim press, `onRequestClose` (Android back) and a 48×48 close affordance all bound to `onDismiss` | M3 · Sheets | GAP |
-| 21 | `bottom-sheet-surface` | M3 bottom-sheet surface tokens (`surfaceContainerLow`, XL top corners) | presentational style accessor — CSS custom properties, not a component | `bottomSheetSurface(scheme)` | M3 · Sheets | GAP |
-| 22 | `boot-splash` | Native launch surface (the browser has no pre-first-paint phase) | **not applicable** — deliberately asymmetric | `BootSplash` | Kern shell (native-only) | GAP |
+| 21 | `boot-splash` | Native launch surface (the browser has no pre-first-paint phase) | **not applicable** — deliberately asymmetric | `BootSplash` | Kern shell (native-only) | GAP |
 
 **Note on 17-19 and 21:** these are presentational or brand-kit. They are native-only
 because RN has a layout primitive for them and the DOM equivalent is a CSS
@@ -304,7 +303,7 @@ were restored from backup afterwards.
 
 ---
 
-## Web-only concepts → need a native version (35)
+## Web-only concepts → need a native version (33)
 
 The heading previously read **34** while the machine gate read **42** — the
 `gate:counts` line was right and the sentence a human reads was stale, which is
@@ -560,12 +559,15 @@ stated where it is applied.
 
 ### What the fix did to the counts
 
-| | Before | After |
-|---|---|---|
-| Registry rows | 330 | **334** |
-| Shared | 53 | **55** |
-| Native-only | 22 | **23** |
-| Web-only | 37 | **35** |
+Both sets of figures below are history — they record the registry at the moment
+that fix landed, not the counts now. The acronym-slug fix and the `SheetSurface`
+split have both moved them since.
+
+Before that fix the registry was 330 rows / 53 shared / 22 native-only /
+37 web-only. After it, the counts were 334 / 55 / 23 / 35. Both sets are
+history: the acronym-slug fix and the `SheetSurface` split have since moved the
+live figures, which are the ones at the top of this document and in the
+`gate:counts` line.
 
 `extended-fab`, `error-boundary` and `field-root` are native rows that were
 missing, so each adds a row; `extended-fab` is also a web concept, so it moves

@@ -115,8 +115,8 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `icon-button` | `IconButton` | real |
 | `input` | `Input` | real |
 | `input-otp` | `InputOTP` | real |
-| `input-otpinput` | `InputOTPInput` | real |
-| `input-otproot` | `InputOTPRoot` | real |
+| `input-otp-input` | `InputOTPInput` | real |
+| `input-otp-root` | `InputOTPRoot` | real |
 | `kbd` | `Kbd` | real |
 | `label` | `Label` | real |
 | `linear-progress` | `LinearProgress` | real |
@@ -273,7 +273,6 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `boot-splash` | `BootSplash` | real |
 | `bottom-sheet` | `BottomSheet` | real |
 | `bottom-sheet-picker` | `BottomSheetPicker` | real |
-| `bottom-sheet-surface` | `bottomSheetSurface` | real |
 | `button` | `Button` | real |
 | `button-group` | `ButtonGroup` | real |
 | `calendar` | `Calendar` | real |

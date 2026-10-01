@@ -15,8 +15,22 @@ const sourceFiles = new Map();
 // Barrel exports the scanners below cannot see, reported rather than swallowed.
 // See the `unseenExports` block at the bottom of the loop.
 const unseenExports = [];
+// `exportName` -> `export-name`, the registry's slug form.
+//
+// The naive `([a-z0-9])([A-Z])` split only breaks on a lower/digit followed by
+// an upper. It therefore cannot see an ACRONYM boundary: `InputOTPRoot` has `R`
+// preceded by `P`, both upper, so no split happened and the slug came out as
+// `input-otproot` — the `-root` sub-part welded onto the concept. That produced
+// two phantom web-only rows (`input-otpinput`, `input-otproot`) that inflated a
+// gated count without failing anything.
+//
+// Two passes handle it: split lower/digit -> Upper, then split an acronym run
+// from a following capitalised word (`OTPRoot` -> `OTP` + `Root`).
 const toName = (exportName) =>
-  exportName.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
+  exportName
+    .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
+    .replace(/([A-Z]+)([A-Z][a-z])/g, "$1-$2")
+    .toLowerCase();
 
 // A COMPONENT name, not a constant, a type, or a style helper.
 //
