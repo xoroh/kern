@@ -34,6 +34,9 @@ jobs:
       - name: Check web/native parity contract
         run: bun run check:parity
 
+      - name: Check the package layering (D-034)
+        run: bun run check:layers
+
       - name: Check publishable packages are packable
         run: bun run preflight:publish
 
