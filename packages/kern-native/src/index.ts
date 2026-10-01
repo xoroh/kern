@@ -63,6 +63,24 @@ export type { NativeInputProps } from "./components/input";
 export { Input } from "./components/input";
 export type { LabelProps } from "./components/label";
 export { Label } from "./components/label";
+export type {
+  FilterChipRowProps,
+  ListDetailProps,
+  PaneProps,
+  PaneWidth,
+  SecondaryTab,
+  SecondaryTabsProps,
+  SupportingPaneProps,
+} from "./components/layouts";
+export {
+  FilterChipRow,
+  ListDetail,
+  PANE_WIDTHS,
+  Pane,
+  SecondaryTabs,
+  SupportingPane,
+  secondaryTabsStyles,
+} from "./components/layouts";
 export type { LinearProgressProps } from "./components/linear-progress";
 export {
   LinearProgress,
@@ -81,11 +99,45 @@ export type {
   NativeMenubarProps,
 } from "./components/menubar";
 export { Menubar, menubarStyles } from "./components/menubar";
+export type {
+  AppsSheetProps,
+  CreateSheetAction,
+  CreateSheetProps,
+  MenuAction,
+  MenuGroup,
+  MenuScreenProps,
+  MenuSheetProps,
+} from "./components/menus";
+export {
+  AppsSheet,
+  CreateSheet,
+  MenuGroupList,
+  MenuScreen,
+  MenuSheet,
+  menuGroupStyles,
+} from "./components/menus";
 export type { MilestoneTrioProps } from "./components/milestone-trio";
 export {
   MilestoneTrio,
   milestoneStepStyles,
 } from "./components/milestone-trio";
+export type {
+  NativeNavigationBarProps,
+  NavigationBarItemProps,
+  NavigationDestination,
+} from "./components/navigation-bar";
+export {
+  NAVIGATION_BAR_HEIGHT,
+  NavigationBar,
+  NavigationBarItem,
+  navigationBarStyles,
+} from "./components/navigation-bar";
+export type { NativeNavigationDrawerProps } from "./components/navigation-drawer";
+export {
+  drawerStyles,
+  NavigationDrawer,
+  SECTION_DRAWER_WIDTH,
+} from "./components/navigation-drawer";
 export type {
   NativeNavigationMenuItem,
   NativeNavigationMenuProps,
@@ -113,6 +165,35 @@ export type { ShapeArtLayout, ShapeArtProps } from "./components/shape-art";
 export { ShapeArt, shapeArtStyles } from "./components/shape-art";
 export type { NativeSheetProps } from "./components/sheet";
 export { Sheet, sheetStyles } from "./components/sheet";
+export type {
+  BottomSheetSize,
+  EntityField,
+  NativeBottomSheetPickerProps,
+  NativeBottomSheetProps,
+  NativeDockSheetProps,
+  NativeEntitySheetProps,
+  NativeSnapSheetProps,
+  PickerOption,
+  SnapPoint,
+} from "./components/sheets";
+export {
+  BottomSheet,
+  BottomSheetPicker,
+  bottomSheetStyles,
+  DockSheet,
+  EntitySheet,
+  SheetHandle,
+  SnapSheet,
+} from "./components/sheets";
+export type {
+  BootSplashProps,
+  ErrorBoundaryProps,
+} from "./components/shell";
+export {
+  BootSplash,
+  bootSplashStyles,
+  ErrorBoundary,
+} from "./components/shell";
 export type { NativeSkeletonProps } from "./components/skeleton";
 export { Skeleton } from "./components/skeleton";
 export type { NativeSliderProps } from "./components/slider";
@@ -149,6 +230,38 @@ export type {
   NativeToolbarProps,
 } from "./components/toolbar";
 export { Toolbar, toolbarStyles } from "./components/toolbar";
+export type {
+  NativeTopAppBarProps,
+  TopAppBarActionProps,
+  TopAppBarSize,
+} from "./components/top-app-bar";
+export {
+  TOP_APP_BAR_HEIGHTS,
+  TopAppBar,
+  TopAppBarAction,
+  topAppBarStyles,
+} from "./components/top-app-bar";
+export type {
+  BannerVariant,
+  CommandAction,
+  CountryOption,
+  SegmentedButtonOption,
+} from "./components/web-parity";
+export {
+  Banner,
+  bannerStyles,
+  Command,
+  CountrySelect,
+  SegmentedButton,
+} from "./components/web-parity";
+export type {
+  KernFontAssets,
+  KernFontFace,
+  KernFontGateProps,
+  KernFontLoader,
+  KernFontState,
+} from "./fonts";
+export { KernFontGate, kernFontFaces, useKernFonts } from "./fonts";
 export type {
   Contrast,
   KernThemeProviderProps,

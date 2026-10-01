@@ -4,8 +4,10 @@
   "license": "Apache-2.0",
   "main": "index.ts",
   "dependencies": {
-    "@xoroh/kern": "workspace:*",
+    "@expo-google-fonts/inter": "^0.4.2",
+    "@xoroh/kern-native": "workspace:*",
     "expo": "~57.0.25",
+    "expo-font": "^57.0.4",
     "expo-status-bar": "~57.0.1",
     "react": "19.2.3",
     "react-native": "0.86.3"
