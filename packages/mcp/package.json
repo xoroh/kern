@@ -5,30 +5,65 @@
   "author": "Xoroh",
   "repository": {
     "type": "git",
-    "url": "https://github.com/xoroh/kern.git",
+    "url": "git+https://github.com/xoroh/kern.git",
     "directory": "packages/mcp"
   },
   "homepage": "https://kern.xoroh.org",
   "bugs": "https://github.com/xoroh/kern/issues",
+  "engines": {
+    "node": ">=20.19"
+  },
   "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "bin": {
     "kern-mcp": "./dist/index.js"
   },
   "files": [
     "dist",
+    "LICENSE",
     "README.md"
   ],
   "publishConfig": {
     "access": "public",
     "provenance": true
   },
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./manifest": {
+      "import": {
+        "types": "./dist/manifest.d.ts",
+        "default": "./dist/manifest.js"
+      },
+      "require": {
+        "types": "./dist/manifest.d.cts",
+        "default": "./dist/manifest.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
   "scripts": {
-    "build": "bun build src/index.ts --outdir dist --target node --format esm",
+    "build": "tsup src/index.ts src/manifest.ts --format esm,cjs --dts --dts-resolve --out-dir dist --clean",
     "start": "bun src/index.ts",
     "prepublishOnly": "bun run build",
     "test": "bun test src/manifest.test.ts",
     "typecheck": "tsc --noEmit",
     "check:publish": "publint && attw --pack --ignore-rules=no-resolution"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.3",
+    "tsup": "^8.5.1",
+    "typescript": "5.9.3"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.30.1",

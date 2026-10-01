@@ -32,7 +32,7 @@
     "typecheck": "tsc --noEmit",
     "check:publish": "publint && attw --pack --ignore-rules=no-resolution",
     "prepare": "bun run build",
-    "test:jest": "NODE_OPTIONS=--preserve-symlinks jest"
+    "test:jest": "jest"
   },
   "exports": {
     ".": {
@@ -64,21 +64,23 @@
       }
     }
   },
-  "dependencies": {
-    "@xoroh/kern-theme": "workspace:*"
-  },
   "peerDependencies": {
+    "@xoroh/kern-theme": "*",
     "react": "^19.0.0",
     "react-native": ">=0.86.0 <0.89"
   },
   "devDependencies": {
     "@babel/runtime": "^7.28.0",
     "@react-native/babel-preset": "^0.87.1",
+    "@react-native/jest-preset": "0.87.1",
     "@testing-library/react-native": "^14.0.1",
     "@types/jest": "^30.0.0",
     "@types/node": "^26.6.3",
     "@types/react": "^19.3.0",
+    "@xoroh/kern-theme": "workspace:*",
     "jest": "^30.5.2",
+    "jest-util": "30.5.1",
+    "@jest/create-cache-key-function": "^29.7.0",
     "react": "^19.3.0",
     "react-native": "^0.87.1",
     "react-test-renderer": "^19.3.0",
