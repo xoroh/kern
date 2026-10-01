@@ -31,6 +31,9 @@ jobs:
       - name: Check M3 contract
         run: bun run check:m3
 
+      - name: Check web/native parity contract
+        run: bun run check:parity
+
       - name: Check publishable packages are packable
         run: bun run preflight:publish
 

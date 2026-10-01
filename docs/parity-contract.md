@@ -53,12 +53,16 @@ again. Measured from the generated registry instead:
 | Measure | Value |
 |---|---|
 | Registry rows | **314** (web 236, native 78) |
-| Web concepts (parts collapsed) | **79** |
-| Native concepts (parts collapsed) | **71** |
 | **Shared** (already both sides) | **45** |
 | **Native-only → needs a web version** | **26** in **14 files** |
 | **Web-only → needs a native version** | **34** in **25 files** |
 | Stub rows | **0** |
+
+<!-- gate:counts 45 26 34 0 -->
+
+Machine-readable line above: `check:parity` (`scripts/check-parity.mjs`) re-derives
+these from the registry and fails if they drift, so the prose above cannot quietly
+become false. Update the four numbers when a component lands, in the same change.
 
 **Correction 1 — "12 native-only" undercounts by more than half.** The ladder's 12
 are the native-only **source files**; the same files contain **26 concepts**
@@ -95,7 +99,7 @@ Grouped by surface. `M3 source` is the M3 spec tab that governs the behaviour.
 | 5 | `bottom-sheet-picker` | Sheet as a single/multi selector | `role="listbox"` + `aria-multiselectable`, Escape closes | `ScrollView` + choice rows | M3 · Sheets → Picker | GAP |
 | 6 | `menu-screen` | Full-screen list of destinations | `role="list"`; web likely `NavigationMenu` for parity | `MenuScreen` rows | M3 · Menus | `composition.rntest.tsx` |
 | 7 | `menu-sheet` | Sheet wrapping a menu | `role="menu"`, arrow-key traversal | `MenuSheet` | M3 · Menus | GAP |
-| 8 | `menu-group` | Titled group of menu items | `role="group"` + `aria-label` = group heading | `MenuGroup` + group label | M3 · Menus | GAP |
+| 8 | `menu-group-list` | Titled list of menu items | `role="group"` + `aria-label` = group heading | `MenuGroupList` + group label | M3 · Menus | GAP |
 | 9 | `apps-sheet` | Sheet of app destinations | `role="menu"` | `AppsSheet` | M3 · Menus | GAP |
 | 10 | `create-sheet` | Sheet for a create action | `role="dialog"` | `CreateSheet` | M3 · Menus | GAP |
 | 11 | `navigation-bar` | Bottom nav bar, ≤5 destinations | `role="navigation"`, current item `aria-current="page"` | `accessibilityRole="tablist"`-style selected state | M3 · Navigation bar | GAP |
@@ -113,7 +117,6 @@ Grouped by surface. `M3 source` is the M3 spec tab that governs the behaviour.
 | 23 | `aspect-ratio` | Fixed-ratio box | `style={{aspectRatio}}` — presentational | `aspectRatio` style | CSS/native analogue | GAP |
 | 24 | `arc-rotations` | Rotation helper for `CircularProgress` | presentational, no role | `arcRotations` | M3 · Progress | `styles.test.ts` |
 | 25 | `loader-color` | Loader colour accessor | presentational, no role | `loaderColor` | M3 · Progress | `styles.test.ts` |
-| 26 | `filter-chip` | Single filter chip (as opposed to the row) | `role="checkbox"`/`aria-pressed` | `FilterChip` | M3 · Chips | GAP |
 
 **Note on 21-25:** these are presentational or brand-kit. They are native-only
 because RN has a layout primitive for them and the DOM equivalent is a CSS
@@ -151,7 +154,7 @@ contract input.
 | 19 | `toolbar-button` | A toolbar action | `aria-pressed`/`aria-current`, arrow-key traversal | `accessibilityRole="button"` + `accessibilityState` | M3 · Toolbar | GAP |
 | 20 | `avatar-fallback` | Initials shown when no image | text alternative, `role="img"` on parent | `Text` fallback | M3 · Avatar | GAP |
 | 21 | `avatar-image` | The avatar image | `alt` text / `role="img"` | `Image` + `accessibilityLabel` | M3 · Avatar | GAP |
-| 22 | `boot` | Branded boot surface | `role="status"` + accessible label | `BootIndicator` exists natively as brand kit | Kern brand kit | GAP |
+| 22 | `boot-indicator` | Branded boot surface | `role="status"` + accessible label | `BootIndicator` exists natively as brand kit | Kern brand kit | GAP |
 | 23 | `page-loader` | Full-page loading | `role="status"`/`progressbar` | `ActivityIndicator` | M3 · Progress | GAP |
 | 24 | `fieldset` + form | Grouped form controls | `role="group"` + `<legend>` | `View` + `accessibilityRole="summary"`/label | M3 · Text fields | GAP |
 | 25 | `form` | Form container | landmark + validation association | `accessibilityRole="summary"` | M3 · Text fields | GAP |

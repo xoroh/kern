@@ -22,6 +22,7 @@
     "icons:check": "bun packages/kern-icons/tools/check.ts",
     "check:contrast": "bun packages/kern-theme/scripts/check-contrast.mjs",
     "check:m3": "node scripts/check-m3.mjs",
+    "check:parity": "node scripts/check-parity.mjs",
     "check:publish": "bun run --filter @xoroh/kern check:publish && bun run --filter @xoroh/kern-theme check:publish && bun run --filter @xoroh/kern-native check:publish && bun run --filter @xoroh/kern-icons check:publish && bun run --filter @xoroh/kern-start check:publish && bun run --filter @xoroh/kern-mcp check:publish && bun run preflight:publish",
     "preflight:publish": "node scripts/preflight-publish.mjs",
     "typecheck": "bun run --filter @xoroh/kern-theme typecheck && bun run --filter @xoroh/kern typecheck && bun run --filter @xoroh/kern-native typecheck && bun run --filter @xoroh/kern-icons typecheck && bun run --filter @xoroh/kern-start typecheck",
