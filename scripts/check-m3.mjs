@@ -182,7 +182,9 @@ for (const entry of inventory.missingDeviation) {
   const keys = Object.keys(tokens.spacing);
   for (const key of keys) {
     if (!/^space-\d+$/.test(key)) {
-      violations.push(`spacing key "${key}" is not an M3 space token (space0..space900)`);
+      violations.push(
+        `spacing key "${key}" is not an M3 space token (space0..space900)`,
+      );
     }
   }
   // M3 defines 18 system spacing tokens; assert the base is 8dp.
@@ -201,7 +203,9 @@ for (const entry of inventory.missingDeviation) {
   dp.forEach((expected, level) => {
     const entry = tokens.elevation[`level${level}`];
     if (!entry) {
-      violations.push(`elevation.level${level} is missing — M3 defines levels 0-5`);
+      violations.push(
+        `elevation.level${level} is missing — M3 defines levels 0-5`,
+      );
     } else if (entry.dp !== expected) {
       violations.push(
         `elevation.level${level}.dp is ${entry.dp}, M3 specifies ${expected}dp`,

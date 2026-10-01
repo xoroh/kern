@@ -8,18 +8,14 @@ import {
   Calendar,
   Combobox,
   CountrySelect,
+  createSonnerManager,
   Menubar,
   NativeSelect,
   Snackbar,
   Sonner,
-  createSonnerManager,
 } from "@xoroh/kern";
 import { useState } from "react";
-import {
-  Preview,
-  PreviewStack,
-  Row,
-} from "../../components/preview/preview";
+import { Preview, PreviewStack, Row } from "../../components/preview/preview";
 
 export function AlertDialogDemo() {
   return (
@@ -31,7 +27,8 @@ export function AlertDialogDemo() {
         <AlertDialog.Content>
           <AlertDialog.Title>Delete this project?</AlertDialog.Title>
           <AlertDialog.Description>
-            The project and its build history are removed. This cannot be undone.
+            The project and its build history are removed. This cannot be
+            undone.
           </AlertDialog.Description>
           <div className="mt-6 flex justify-end gap-2">
             <AlertDialog.Close>
@@ -89,7 +86,13 @@ export function ComboboxDemo() {
           <div className="flex items-center gap-2">
             <Combobox.Input placeholder="Search styling" />
             <Combobox.Trigger aria-label="Open list">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                width="16"
+                height="16"
+                fill="currentColor"
+                aria-hidden="true"
+              >
                 <path d="m7 10 5 5 5-5Z" />
               </svg>
             </Combobox.Trigger>
@@ -218,7 +221,10 @@ export function SnackbarDemo() {
           </Snackbar.Root>
         </div>
       </Preview>
-      <Preview label="parts: Provider · Viewport · List · Root · Title · Description · Action · Close" span={3}>
+      <Preview
+        label="parts: Provider · Viewport · List · Root · Title · Description · Action · Close"
+        span={3}
+      >
         <p className="m-0 max-w-sm text-sm text-(--md-sys-color-on-surface-variant)">
           <code>Snackbar.Provider</code> owns the toast manager,{" "}
           <code>Snackbar.Viewport</code> positions it, and{" "}
@@ -248,7 +254,10 @@ export function SonnerDemo() {
               variant="tonal"
               size="sm"
               onClick={() =>
-                manager[intent]({ title: `${intent} toast`, description: "Sent by Sonner." })
+                manager[intent]({
+                  title: `${intent} toast`,
+                  description: "Sent by Sonner.",
+                })
               }
             >
               {intent}
@@ -259,7 +268,11 @@ export function SonnerDemo() {
       <Preview label="the surface Sonner.Root renders" span={3}>
         <div className="w-full max-w-sm">
           <Sonner.Root
-            toast={{ id: "demo", title: "Saved", description: "Your changes are live." }}
+            toast={{
+              id: "demo",
+              title: "Saved",
+              description: "Your changes are live.",
+            }}
             intent="success"
           >
             <div className="flex min-w-0 flex-col">

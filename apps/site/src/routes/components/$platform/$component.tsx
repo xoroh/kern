@@ -94,7 +94,9 @@ function ComponentBody() {
             <span aria-hidden="true">/</span>
             <Link to={platformHref}>{isWeb ? "Web" : "Mobile"}</Link>
             <span aria-hidden="true">/</span>
-            <span className="text-(--md-sys-color-on-surface)">{entry.name}</span>
+            <span className="text-(--md-sys-color-on-surface)">
+              {entry.name}
+            </span>
           </nav>
 
           <header className="flex flex-col gap-3">
@@ -120,7 +122,9 @@ function ComponentBody() {
             </div>
           ) : (
             <div className="flex flex-col gap-2 rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-outline) bg-(--md-sys-color-surface-container) p-6">
-              <h2 className="m-0 text-lg font-semibold">No preview on this page</h2>
+              <h2 className="m-0 text-lg font-semibold">
+                No preview on this page
+              </h2>
               <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
                 {PREVIEW_REASONS[entry.export] ??
                   "This export is in the manifest but has neither a live demo nor a stated reason. That is a gap in the site, not in the package — it is tracked in the Stage 2 report, not hidden here."}

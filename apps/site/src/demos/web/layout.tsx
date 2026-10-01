@@ -20,25 +20,30 @@ import {
   SegmentedButton,
   Select,
   Sheet,
-  Tabs,
   Table,
+  Tabs,
   Toolbar,
   Tooltip,
 } from "@xoroh/kern";
-import {
-  Preview,
-  PreviewStack,
-  Row,
-} from "../../components/preview/preview";
+import { Preview, PreviewStack, Row } from "../../components/preview/preview";
 
 export function AccordionDemo() {
   return (
-    <Preview label="Accordion — Root · Item · Header · Trigger · Panel" span={3}>
+    <Preview
+      label="Accordion — Root · Item · Header · Trigger · Panel"
+      span={3}
+    >
       <div className="w-full max-w-sm">
         <Accordion.Root>
           {[
-            ["What is Kern?", "An open-source design system following Material Design 3."],
-            ["Which platforms?", "Web (@xoroh/kern) and React Native (@xoroh/kern-native)."],
+            [
+              "What is Kern?",
+              "An open-source design system following Material Design 3.",
+            ],
+            [
+              "Which platforms?",
+              "Web (@xoroh/kern) and React Native (@xoroh/kern-native).",
+            ],
             ["What licence?", "Apache-2.0."],
           ].map(([question, answer]) => (
             <Accordion.Item key={question} value={question}>
@@ -439,13 +444,21 @@ export function PaginationDemo() {
 }
 
 export function ScrollAreaDemo() {
+  const ROWS = Array.from({ length: 20 }, (_, i) => ({
+    id: `row-${i + 1}`,
+    n: i + 1,
+  }));
   return (
     <Preview label="ScrollArea — clipped vertical overflow" span={3}>
       <ScrollArea.Root className="h-40 w-full max-w-xs rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant)">
         <ScrollArea.Viewport className="h-full p-4">
           <ul className="m-0 flex list-none flex-col gap-2 p-0 text-sm">
             {Array.from({ length: 20 }, (_, index) => (
-              <li key={index}>Scrollable row {index + 1}</li>
+              // The row's own ordinal is a stable identity for a fixed, never-
+              // reordered list, and it is already in hand — so no index key.
+              <li key={`scroll-row-${ROWS[index].id}`}>
+                Scrollable row {ROWS[index].n}
+              </li>
             ))}
           </ul>
         </ScrollArea.Viewport>

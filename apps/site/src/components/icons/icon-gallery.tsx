@@ -10,8 +10,8 @@ import {
   ICON_COUNT,
   ICON_NAMES,
   Icon,
-  SEMANTIC_ICONS,
   type IconSemantic,
+  SEMANTIC_ICONS,
 } from "@xoroh/kern-icons";
 import { useState } from "react";
 
@@ -22,10 +22,9 @@ export function IconGallery() {
   const [query, setQuery] = useState("");
 
   const matches = query.trim()
-    ? ICON_NAMES.filter((name) => name.includes(query.trim().toLowerCase())).slice(
-        0,
-        PAGE,
-      )
+    ? ICON_NAMES.filter((name) =>
+        name.includes(query.trim().toLowerCase()),
+      ).slice(0, PAGE)
     : ICON_NAMES.slice(0, PAGE);
 
   return (
@@ -54,14 +53,17 @@ export function IconGallery() {
         <ul className="m-0 flex list-none flex-wrap gap-2 p-0">
           {(Object.entries(SEMANTIC_ICONS) as [IconSemantic, string][]).map(
             ([semantic, name]) => (
-            <li
-              key={semantic}
-              className="flex items-center gap-2 rounded-(--md-sys-shape-corner-full) border border-(--md-sys-color-outline-variant) px-3 py-1.5"
-            >
-              <Icon name={SEMANTIC_ICONS[semantic] as `${string}:${string}`} size={18} />
-              <span className="text-sm">{semantic}</span>
-              <Kbd>{name}</Kbd>
-            </li>
+              <li
+                key={semantic}
+                className="flex items-center gap-2 rounded-(--md-sys-shape-corner-full) border border-(--md-sys-color-outline-variant) px-3 py-1.5"
+              >
+                <Icon
+                  name={SEMANTIC_ICONS[semantic] as `${string}:${string}`}
+                  size={18}
+                />
+                <span className="text-sm">{semantic}</span>
+                <Kbd>{name}</Kbd>
+              </li>
             ),
           )}
         </ul>

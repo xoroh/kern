@@ -283,7 +283,9 @@ export function ListDetail({
               style={({ pressed }) => ({
                 minHeight: 48,
                 justifyContent: "center",
-                paddingHorizontal: Number.parseFloat(tokens.spacing["space-200"]),
+                paddingHorizontal: Number.parseFloat(
+                  tokens.spacing["space-200"],
+                ),
                 opacity: pressed ? 0.82 : 1,
               })}
             >

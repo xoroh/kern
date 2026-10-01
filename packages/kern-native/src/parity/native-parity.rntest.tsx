@@ -15,9 +15,13 @@
  * be far harder to act on than the web suite's failure. Same report, both sides.
  */
 
+import {
+  assertParity,
+  contractFor,
+  type ParityRow,
+} from "@kern-parity/contract";
 import { fireEvent, render, screen } from "@testing-library/react-native";
 import { act } from "react";
-import { type ParityRow, assertParity, contractFor } from "@kern-parity/contract";
 import { Button } from "../components/button";
 import { Checkbox } from "../components/checkbox";
 import { Switch } from "../components/switch";

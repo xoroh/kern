@@ -145,9 +145,9 @@ function GettingStarted() {
           <Step n={5} title="Web quickstart — the app shell">
             <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
               <code>@xoroh/kern-start</code> ships the frame: a rail, a drawer,
-              split panes, and top bars that take slots rather than baking in one
-              app shape. Omit the slots you do not need and every other shell
-              shape follows.
+              split panes, and top bars that take slots rather than baking in
+              one app shape. Omit the slots you do not need and every other
+              shell shape follows.
             </p>
             <Code>{WEB_QUICKSTART}</Code>
           </Step>

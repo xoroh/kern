@@ -139,7 +139,9 @@ export function Command({
       </View>
       <ScrollView>
         {matches.length === 0 ? (
-          <View style={{ padding: Number.parseFloat(tokens.spacing["space-200"]) }}>
+          <View
+            style={{ padding: Number.parseFloat(tokens.spacing["space-200"]) }}
+          >
             <Text
               variant="label"
               style={{ color: scheme.color.onSurfaceVariant }}
@@ -153,9 +155,13 @@ export function Command({
               {group ? (
                 <View
                   style={{
-                    paddingHorizontal: Number.parseFloat(tokens.spacing["space-200"]),
+                    paddingHorizontal: Number.parseFloat(
+                      tokens.spacing["space-200"],
+                    ),
                     paddingTop: Number.parseFloat(tokens.spacing["space-150"]),
-                    paddingBottom: Number.parseFloat(tokens.spacing["space-50"]),
+                    paddingBottom: Number.parseFloat(
+                      tokens.spacing["space-50"],
+                    ),
                   }}
                 >
                   <Text variant="label" style={{ color: scheme.color.primary }}>
@@ -178,7 +184,9 @@ export function Command({
                       flexDirection: "row",
                       alignItems: "center",
                       gap: Number.parseFloat(tokens.spacing["space-150"]),
-                      paddingHorizontal: Number.parseFloat(tokens.spacing["space-200"]),
+                      paddingHorizontal: Number.parseFloat(
+                        tokens.spacing["space-200"],
+                      ),
                       opacity: action.disabled ? 0.38 : pressed ? 0.82 : 1,
                     })}
                   >

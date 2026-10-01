@@ -10,8 +10,8 @@
  * the Kern theme provider mounted, which is what a device provides.
  */
 import { KernThemeProvider } from "@xoroh/kern-native";
-import { StyleSheet, View } from "react-native";
 import type { ReactNode } from "react";
+import { StyleSheet, View } from "react-native";
 
 const styles = StyleSheet.create({
   frame: {
@@ -69,7 +69,12 @@ export function PhoneStack({ children }: { children: ReactNode }) {
 export function PhoneRow({ children }: { children: ReactNode }) {
   return (
     <View
-      style={{ flexDirection: "row", flexWrap: "wrap", gap: 8, alignItems: "center" }}
+      style={{
+        flexDirection: "row",
+        flexWrap: "wrap",
+        gap: 8,
+        alignItems: "center",
+      }}
     >
       {children}
     </View>

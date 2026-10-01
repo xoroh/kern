@@ -51,7 +51,6 @@ import {
   ToggleGroupDemo,
 } from "./forms";
 import {
-  AccordionDemo as WebAccordionDemo,
   CollapsibleDemo,
   CommandDemo,
   ContextMenuDemo,
@@ -72,6 +71,7 @@ import {
   TabsDemo,
   ToolbarDemo,
   TooltipDemo,
+  AccordionDemo as WebAccordionDemo,
 } from "./layout";
 import {
   AlertDialogDemo,

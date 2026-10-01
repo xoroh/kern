@@ -9,24 +9,26 @@
  * assertions should still be the right ones; that is the property being tested.
  */
 
+import {
+  contractFor,
+  divergenceMessage,
+  type ParityRow,
+} from "@kern-parity/contract";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { Button } from "../components/button";
 import { Checkbox } from "../components/checkbox";
 import { Switch } from "../components/switch";
-import {
-  type ParityRow,
-  contractFor,
-  divergenceMessage,
-} from "@kern-parity/contract";
 
 /** Render one contract row's component. Per-component wiring lives here, so the
  *  contract itself stays free of imports. */
 function mount(row: ParityRow) {
   switch (row.component) {
     case "switch":
-      return render(<Switch aria-label={row.name} defaultChecked={row.expects.initial} />);
+      return render(
+        <Switch aria-label={row.name} defaultChecked={row.expects.initial} />,
+      );
     case "checkbox":
       return render(<Checkbox aria-label={row.name} />);
     case "button":
@@ -49,22 +51,33 @@ function readAxis(row: ParityRow): boolean {
 }
 
 describe("web parity contract (tranche 1)", () => {
-  it.each(["switch", "checkbox"])("declares the role the contract names: %s", (name) => {
-    const row = contractFor(name);
-    mount(row);
-    const el = screen.getByRole(row.role, { name: row.name });
-    expect(
-      el,
-      divergenceMessage(row, "web", `expected role "${row.role}", found "${el.getAttribute("role") ?? el.tagName.toLowerCase()}"`),
-    ).toBeTruthy();
-  });
+  it.each(["switch", "checkbox"])(
+    "declares the role the contract names: %s",
+    (name) => {
+      const row = contractFor(name);
+      mount(row);
+      const el = screen.getByRole(row.role, { name: row.name });
+      expect(
+        el,
+        divergenceMessage(
+          row,
+          "web",
+          `expected role "${row.role}", found "${el.getAttribute("role") ?? el.tagName.toLowerCase()}"`,
+        ),
+      ).toBeTruthy();
+    },
+  );
 
   it("switch: initial state matches the contract", () => {
     const row = contractFor("switch");
     mount(row);
     expect(
       readAxis(row),
-      divergenceMessage(row, "web", `initial state should be ${row.expects.initial}`),
+      divergenceMessage(
+        row,
+        "web",
+        `initial state should be ${row.expects.initial}`,
+      ),
     ).toBe(row.expects.initial);
   });
 
@@ -75,7 +88,11 @@ describe("web parity contract (tranche 1)", () => {
     await user.click(screen.getByRole(row.role, { name: row.name }));
     expect(
       readAxis(row),
-      divergenceMessage(row, "web", `after one activation should be ${row.expects.afterActivate}`),
+      divergenceMessage(
+        row,
+        "web",
+        `after one activation should be ${row.expects.afterActivate}`,
+      ),
     ).toBe(row.expects.afterActivate);
   });
 
@@ -87,7 +104,11 @@ describe("web parity contract (tranche 1)", () => {
     await user.click(el);
     expect(
       readAxis(row),
-      divergenceMessage(row, "web", `disabled control must stay ${row.expects.afterDisabledActivate}`),
+      divergenceMessage(
+        row,
+        "web",
+        `disabled control must stay ${row.expects.afterDisabledActivate}`,
+      ),
     ).toBe(row.expects.afterDisabledActivate);
   });
 
@@ -120,7 +141,11 @@ describe("web parity contract (tranche 1)", () => {
     await user.click(screen.getByRole(row.role, { name: row.name }));
     expect(
       readAxis(row),
-      divergenceMessage(row, "web", `after one activation should be ${row.expects.afterActivate}`),
+      divergenceMessage(
+        row,
+        "web",
+        `after one activation should be ${row.expects.afterActivate}`,
+      ),
     ).toBe(row.expects.afterActivate);
   });
 
@@ -149,7 +174,11 @@ describe("web parity contract (tranche 1)", () => {
     await user.click(el);
     expect(
       readAxis(row),
-      divergenceMessage(row, "web", `disabled control must stay ${row.expects.afterDisabledActivate}`),
+      divergenceMessage(
+        row,
+        "web",
+        `disabled control must stay ${row.expects.afterDisabledActivate}`,
+      ),
     ).toBe(row.expects.afterDisabledActivate);
   });
 

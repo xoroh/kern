@@ -11,7 +11,13 @@
 // Reads (inside apps/site):  src/routes/{getting-started,theme/index}.tsx
 // Writes (inside apps/site): .snippet-check/<name>/  (removed on exit)
 import { execFileSync } from "node:child_process";
-import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -26,7 +32,16 @@ const WORK = join(APP, ".snippet-check");
  * commands, CSS, and a JSX fragment that deliberately shows sibling roots.
  * They are still checked by hand against the real APIs.
  */
-const NON_TS = new Set(["INSTALL", "STYLESHEET", "MOBILE_INSTALL", "WEB_PARITY", "SNACKBAR", "ICON_ALIAS", "REGISTRY", "ICONS"]);
+const NON_TS = new Set([
+  "INSTALL",
+  "STYLESHEET",
+  "MOBILE_INSTALL",
+  "WEB_PARITY",
+  "SNACKBAR",
+  "ICON_ALIAS",
+  "REGISTRY",
+  "ICONS",
+]);
 
 /**
  * Pulls `const NAME = \`...\`;` string constants out of a route file. The
@@ -36,7 +51,9 @@ const NON_TS = new Set(["INSTALL", "STYLESHEET", "MOBILE_INSTALL", "WEB_PARITY",
 function snippetsFrom(file) {
   const source = readFileSync(join(SRC, file), "utf8");
   const out = new Map();
-  for (const match of source.matchAll(/^const ([A-Z0-9_]+) = `([\s\S]*?)`;$/gm)) {
+  for (const match of source.matchAll(
+    /^const ([A-Z0-9_]+) = `([\s\S]*?)`;$/gm,
+  )) {
     out.set(match[1], match[2]);
   }
   return out;
@@ -93,7 +110,7 @@ for (const [name, body] of snippets) {
   // Bare JSX is when the snippet *starts* with an element. A snippet that
   // declares a function or const and uses JSX inside it is already a module.
   const firstLine = rest.split("\n").find((line) => line.trim() !== "");
-  const isJsx = firstLine !== undefined && firstLine.trimStart().startsWith("<");
+  const isJsx = firstLine?.trimStart().startsWith("<") ?? false;
   const source = isJsx
     ? `${head}\nconst el = (\n  <>\n${rest
         .split("\n")

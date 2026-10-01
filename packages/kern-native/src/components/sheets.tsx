@@ -196,7 +196,9 @@ export function SnapSheet({
             onPress={() =>
               onIndexChange?.((safeIndex + 1) % Math.max(snapPoints.length, 1))
             }
-            style={{ paddingVertical: Number.parseFloat(tokens.spacing["space-100"]) }}
+            style={{
+              paddingVertical: Number.parseFloat(tokens.spacing["space-100"]),
+            }}
           >
             <SheetHandle />
           </Pressable>
@@ -370,7 +372,9 @@ export function BottomSheetPicker({
                   flexDirection: "row",
                   alignItems: "center",
                   gap: Number.parseFloat(tokens.spacing["space-150"]),
-                  paddingHorizontal: Number.parseFloat(tokens.spacing["space-200"]),
+                  paddingHorizontal: Number.parseFloat(
+                    tokens.spacing["space-200"],
+                  ),
                   opacity: option.disabled ? 0.38 : pressed ? 0.82 : 1,
                 })}
               >

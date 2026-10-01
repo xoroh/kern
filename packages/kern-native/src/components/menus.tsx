@@ -191,7 +191,9 @@ export function MenuSheet({
     >
       <SheetHandle />
       <View
-        style={{ paddingHorizontal: Number.parseFloat(tokens.spacing["space-200"]) }}
+        style={{
+          paddingHorizontal: Number.parseFloat(tokens.spacing["space-200"]),
+        }}
       >
         <Text variant="title">{title}</Text>
       </View>

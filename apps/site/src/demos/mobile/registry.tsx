@@ -10,10 +10,6 @@ import {
   Avatar,
   Badge,
   Banner,
-  CountrySelect,
-  LoadingButton,
-  SegmentedButton,
-  Snackbar,
   Button,
   ButtonGroup,
   Card,
@@ -21,6 +17,7 @@ import {
   Chip,
   CircularProgress,
   Command,
+  CountrySelect,
   EmptyState,
   Fab,
   FieldMessage,
@@ -29,13 +26,16 @@ import {
   LinearProgress,
   ListItem,
   Loader,
+  LoadingButton,
   Progress,
   RadioGroup,
   RadioGroupItem,
   Search,
+  SegmentedButton,
   Separator,
   Skeleton,
   Slider,
+  Snackbar,
   Switch,
   Text,
   Textarea,
@@ -173,7 +173,11 @@ export function NativeInputDemo() {
       <PhonePreview label="Input — default and error">
         <View style={{ gap: 10 }}>
           <Input placeholder="you@example.com" />
-          <Input placeholder="bad@example" error errorMessage="Not a valid address" />
+          <Input
+            placeholder="bad@example"
+            error
+            errorMessage="Not a valid address"
+          />
         </View>
       </PhonePreview>
       <PhonePreview label="state: disabled">
@@ -391,12 +395,18 @@ export function NativeAspectRatioDemo() {
     <PhonePreview label="AspectRatio — ratio: 1 · 16/9">
       <View style={{ flexDirection: "row", gap: 12 }}>
         <AspectRatio ratio={1} style={{ flex: 1 }}>
-          <Card variant="outlined" style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+          <Card
+            variant="outlined"
+            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+          >
             <Text variant="body">1:1</Text>
           </Card>
         </AspectRatio>
         <AspectRatio ratio={16 / 9} style={{ flex: 1 }}>
-          <Card variant="outlined" style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+          <Card
+            variant="outlined"
+            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+          >
             <Text variant="body">16:9</Text>
           </Card>
         </AspectRatio>
@@ -440,7 +450,12 @@ export function NativeCommandDemo() {
         actions={[
           { key: "new", label: "New project", group: "Create" },
           { key: "settings", label: "Settings", group: "Configure" },
-          { key: "delete", label: "Delete project", group: "Danger", disabled: true },
+          {
+            key: "delete",
+            label: "Delete project",
+            group: "Danger",
+            disabled: true,
+          },
         ]}
       />
     </PhonePreview>
@@ -456,7 +471,11 @@ const NATIVE_COUNTRIES = [
 export function NativeCountrySelectDemo() {
   return (
     <PhonePreview label="CountrySelect — the host supplies the list">
-      <CountrySelect options={NATIVE_COUNTRIES} value="DE" onValueChange={() => {}} />
+      <CountrySelect
+        options={NATIVE_COUNTRIES}
+        value="DE"
+        onValueChange={() => {}}
+      />
     </PhonePreview>
   );
 }
@@ -503,49 +522,70 @@ export const PREVIEW_REASONS: Record<string, string> = {
     "Pure shape-art animation surface with no static state; the concrete animated consumers are listed above.",
   Shape:
     "The static shape primitive is internal to the shape-art surfaces above; on its own it renders an unstyled primitive with no consumer-facing contract.",
-  AppsSheet: "Sheet content is presented modally over a host screen; in isolation there is no host to present over. Its sibling sheets share one implementation, rendered under the native Sheet preview.",
+  AppsSheet:
+    "Sheet content is presented modally over a host screen; in isolation there is no host to present over. Its sibling sheets share one implementation, rendered under the native Sheet preview.",
   CreateSheet: "Modal flow with a host screen, same reason as AppsSheet.",
-  MenuScreen: "Full-screen menu destination, same host-screen reason as AppsSheet.",
+  MenuScreen:
+    "Full-screen menu destination, same host-screen reason as AppsSheet.",
   MenuSheet: "Modal sheet, same host-screen reason as AppsSheet.",
-  MenuGroupList: "Group list rendered inside MenuSheet, same host-screen reason.",
+  MenuGroupList:
+    "Group list rendered inside MenuSheet, same host-screen reason.",
   BottomSheet: "Modal sheet, same host-screen reason as AppsSheet.",
   BottomSheetPicker: "Modal picker driven by an open host screen, same reason.",
   SnapSheet: "Modal sheet with gesture-driven snap points, same reason.",
   DockSheet: "Modal sheet, same reason.",
   EntitySheet: "Modal detail sheet, same reason.",
-  SheetHandle: "The drag handle of the sheets above; it has no meaning detached from its sheet.",
-  NavigationBar: "Device chrome that owns the bottom safe area; in a browser frame it renders flush with the page edge and cannot show its inset behaviour honestly.",
+  SheetHandle:
+    "The drag handle of the sheets above; it has no meaning detached from its sheet.",
+  NavigationBar:
+    "Device chrome that owns the bottom safe area; in a browser frame it renders flush with the page edge and cannot show its inset behaviour honestly.",
   NavigationBarItem: "One segment of NavigationBar, same chrome reason.",
-  NavigationDrawer: "Full-screen drawer over a host screen, same host-screen reason as AppsSheet.",
-  NavigationMenu: "Platform menu surface with no static open state in the RNW renderer.",
-  Menubar: "Desktop-pattern menu bar with no native counterpart in a phone frame; the native Menu preview covers the same contract.",
+  NavigationDrawer:
+    "Full-screen drawer over a host screen, same host-screen reason as AppsSheet.",
+  NavigationMenu:
+    "Platform menu surface with no static open state in the RNW renderer.",
+  Menubar:
+    "Desktop-pattern menu bar with no native counterpart in a phone frame; the native Menu preview covers the same contract.",
   Menu: "Context menu surface whose open state is gesture-driven; RNW has no equivalent long-press, so any preview would be a fabricated interaction.",
   ContextMenu: "Same gesture-driven open state as Menu.",
-  Dialog: "Modal dialog over a host screen, same host-screen reason as AppsSheet.",
+  Dialog:
+    "Modal dialog over a host screen, same host-screen reason as AppsSheet.",
   AlertDialog: "Modal confirmation over a host screen, same reason.",
-  Collapsible: "Disclosure region; its open state is toggled by its own trigger, and the trigger composition is a platform convention this frame cannot supply.",
+  Collapsible:
+    "Disclosure region; its open state is toggled by its own trigger, and the trigger composition is a platform convention this frame cannot supply.",
   Accordion: "Same disclosure-composition reason as Collapsible.",
   Tabs: "Tab strip with platform-specific layout rules; rendered in the /getting-started mobile quickstart against a real screen.",
-  Select: "Modal option list over a host screen, same host-screen reason as AppsSheet.",
-  Search: "Rendered above; listed here only because the export also covers the modal suggestion sheet on device.",
+  Select:
+    "Modal option list over a host screen, same host-screen reason as AppsSheet.",
+  Search:
+    "Rendered above; listed here only because the export also covers the modal suggestion sheet on device.",
   Sheet:
     "Wraps a React Native `Modal`, which RNW renders as a full-viewport overlay. Inside the phone frame it would cover the frame itself, so the preview would show the sheet and nothing else. The sheet family (BottomSheet, SnapSheet, DockSheet) carries the same reason.",
   arcRotations:
     "Not a component: the per-shape arc rotation table that CircularProgress reads to draw its indeterminate arc. It is data consumed by the CircularProgress preview above, not a renderable surface.",
   loaderColor:
     "Not a component: a style helper resolving the spinner colour from a scheme. The Loader preview above renders the result.",
-  Toolbar: "Desktop-pattern toolbar; the native TopAppBar is the mobile equivalent and is listed below.",
-  Table: "Tables do not exist as a native pattern; this is the documented web-parity counterpart and is covered on /components/web.",
-  Calendar: "Full-screen month grid; the same reason as Tabs — it needs a real screen to own.",
-  Field: "A form-field composition requiring a host `Input` inside a real form context; the parts it composes are previewed above.",
+  Toolbar:
+    "Desktop-pattern toolbar; the native TopAppBar is the mobile equivalent and is listed below.",
+  Table:
+    "Tables do not exist as a native pattern; this is the documented web-parity counterpart and is covered on /components/web.",
+  Calendar:
+    "Full-screen month grid; the same reason as Tabs — it needs a real screen to own.",
+  Field:
+    "A form-field composition requiring a host `Input` inside a real form context; the parts it composes are previewed above.",
   Pane: "Split-view pane requiring a host navigation context to size against.",
-  ListDetail: "Master/detail layout requiring a host screen, same reason as Pane.",
-  SupportingPane: "Supporting pane requiring a host screen, same reason as Pane.",
-  FilterChipRow: "Horizontal chip row built on Chip, which is previewed above; the row adds scroll clipping, not a new component contract.",
+  ListDetail:
+    "Master/detail layout requiring a host screen, same reason as Pane.",
+  SupportingPane:
+    "Supporting pane requiring a host screen, same reason as Pane.",
+  FilterChipRow:
+    "Horizontal chip row built on Chip, which is previewed above; the row adds scroll clipping, not a new component contract.",
   SecondaryTabs: "Secondary tab strip; same reason as Tabs.",
-  TopAppBar: "Top app bar for a host screen; rendered in the mobile quickstart at full bleed.",
+  TopAppBar:
+    "Top app bar for a host screen; rendered in the mobile quickstart at full bleed.",
   TopAppBarAction: "One action of TopAppBar, same reason.",
-  WebParity: "Not a component: the file that hosts the web-parity counterparts (Command, SegmentedButton, CountrySelect, Banner), each of which is previewed on /components/web.",
+  WebParity:
+    "Not a component: the file that hosts the web-parity counterparts (Command, SegmentedButton, CountrySelect, Banner), each of which is previewed on /components/web.",
 };
 
 /** Every native export, mapped to a live preview. */

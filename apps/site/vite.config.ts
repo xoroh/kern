@@ -1,8 +1,8 @@
+import { fileURLToPath } from "node:url";
 import { cloudflare } from "@cloudflare/vite-plugin";
 import tailwindcss from "@tailwindcss/vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
-import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
 
 // react-native-web ships the `react-native` module surface on the web, so the
@@ -11,9 +11,7 @@ import { defineConfig } from "vite";
 // Absolute path: a bare specifier here is not resolved by the SSR bundler and
 // produces duplicated modules.
 const reactNativeAlias = {
-  "react-native": fileURLToPath(
-    import.meta.resolve("react-native-web"),
-  ),
+  "react-native": fileURLToPath(import.meta.resolve("react-native-web")),
 };
 
 const config = defineConfig({

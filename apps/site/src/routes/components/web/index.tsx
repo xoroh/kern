@@ -31,7 +31,10 @@ function WebComponents() {
               <strong>{WEB_EXPORT_COUNT}</strong> exports below has a live page
               with its real variants and states —{" "}
               <strong>{WEB_DEMO_COUNT}</strong> are live,{" "}
-              {WEB_EXPORT_COUNT - WEB_DEMO_COUNT === 0 ? "none are stubs" : "the rest are listed with a reason"}.
+              {WEB_EXPORT_COUNT - WEB_DEMO_COUNT === 0
+                ? "none are stubs"
+                : "the rest are listed with a reason"}
+              .
             </p>
           </header>
 

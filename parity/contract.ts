@@ -68,7 +68,11 @@ export const CONTRACTS: readonly ParityRow[] = [
     axis: "checked",
     interaction: "toggle",
     name: "Airplane mode",
-    expects: { initial: false, afterActivate: true, afterDisabledActivate: false },
+    expects: {
+      initial: false,
+      afterActivate: true,
+      afterDisabledActivate: false,
+    },
     maxSelected: 1,
   },
   {
@@ -77,7 +81,11 @@ export const CONTRACTS: readonly ParityRow[] = [
     axis: "checked",
     interaction: "toggle",
     name: "Accept terms",
-    expects: { initial: false, afterActivate: true, afterDisabledActivate: false },
+    expects: {
+      initial: false,
+      afterActivate: true,
+      afterDisabledActivate: false,
+    },
     maxSelected: 1,
   },
   {
@@ -88,7 +96,11 @@ export const CONTRACTS: readonly ParityRow[] = [
     name: "Save",
     // A button has no persistent pressed state; the contract here is that
     // activation does not leave one behind and does not report a toggle axis.
-    expects: { initial: false, afterActivate: false, afterDisabledActivate: false },
+    expects: {
+      initial: false,
+      afterActivate: false,
+      afterDisabledActivate: false,
+    },
     maxSelected: 1,
   },
 ] as const;

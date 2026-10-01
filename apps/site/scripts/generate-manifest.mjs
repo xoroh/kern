@@ -54,11 +54,10 @@ for (const list of Object.values(byPlatform)) {
 // (Button exists on both), so the route key is the platform-qualified slug.
 const seen = new Set();
 for (const entry of entries) {
-  const key = entry.platform + "/" + entry.name;
+  const key = `${entry.platform}/${entry.name}`;
   if (seen.has(key)) {
     throw new Error(
-      "duplicate manifest slug " + key +
-        " - components.md and the site would disagree",
+      `duplicate manifest slug ${key} - components.md and the site would disagree`,
     );
   }
   seen.add(key);
@@ -67,7 +66,7 @@ for (const entry of entries) {
 const PLATFORM_KEYS = Object.keys(byPlatform);
 
 const toEntry = (platform) => (c) => ({
-  slug: platform + "/" + c.name,
+  slug: `${platform}/${c.name}`,
   name: c.name,
   export: c.export,
   platform,
@@ -114,7 +113,33 @@ const target = join(APP, "src", "generated", "manifest.ts");
 mkdirSync(dirname(target), { recursive: true });
 writeFileSync(target, out, "utf8");
 
+// The output is a TRACKED, generated file (S2 co-sign ruling: "from a tracked
+// input -> track it"), so whatever this script writes must already satisfy the
+// repo formatter. Emitting unformatted code meant every `bun run generate` left
+// `apps/site/src/generated/manifest.ts` dirty, which fails `bun run lint` in CI
+// on a fresh checkout — the kind of gate failure that looks like someone broke
+// something when nobody did. Format here, at the source, rather than relying on
+// someone to remember to run `format` after generating.
+try {
+  const { execFileSync } = await import("node:child_process");
+  execFileSync("npx", ["biome", "check", "--write", target], {
+    stdio: "ignore",
+  });
+} catch {
+  // Formatter unavailable (offline / no npx). The file is still written and
+  // correct; only its formatting is not guaranteed, and `bun run lint` will say so.
+  console.warn(
+    "generate-manifest: could not run biome; run `bun run format` before lint",
+  );
+}
+
 console.log(
-  "generate-manifest: " + entries.length + " rows (web " + byPlatform.web.length +
-    ", mobile " + byPlatform.mobile.length + ") -> " + target,
+  "generate-manifest: " +
+    entries.length +
+    " rows (web " +
+    byPlatform.web.length +
+    ", mobile " +
+    byPlatform.mobile.length +
+    ") -> " +
+    target,
 );

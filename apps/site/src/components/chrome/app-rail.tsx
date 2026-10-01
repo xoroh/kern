@@ -11,10 +11,10 @@ import { useLocation } from "@tanstack/react-router";
 import { cn, useKernTheme } from "@xoroh/kern";
 import { Icon, type IconSemantic } from "@xoroh/kern-icons";
 import {
+  type LinkComponent,
   LinkProvider,
   NavigationRail,
   NavigationRailButton,
-  type LinkComponent,
 } from "@xoroh/kern-start";
 
 const ITEMS: { href: string; label: string; icon: IconSemantic }[] = [

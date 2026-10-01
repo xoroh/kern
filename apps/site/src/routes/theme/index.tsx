@@ -34,7 +34,12 @@ const ROLE_GROUPS: { title: string; roles: string[] }[] = [
   },
   {
     title: "Tertiary",
-    roles: ["tertiary", "onTertiary", "tertiaryContainer", "onTertiaryContainer"],
+    roles: [
+      "tertiary",
+      "onTertiary",
+      "tertiaryContainer",
+      "onTertiaryContainer",
+    ],
   },
   {
     title: "Error",
@@ -103,17 +108,19 @@ function RoleProof({ mode }: { mode: "light" | "dark" }) {
         Roles resolve natively
       </Text>
       <View style={{ flexDirection: "row", gap: 8 }}>
-        {(["primary", "secondary", "tertiary", "error"] as const).map((role) => (
-          <View
-            key={role}
-            style={{
-              flex: 1,
-              height: 40,
-              borderRadius: Number.parseFloat(scheme.shape.small),
-              backgroundColor: scheme.color[role],
-            }}
-          />
-        ))}
+        {(["primary", "secondary", "tertiary", "error"] as const).map(
+          (role) => (
+            <View
+              key={role}
+              style={{
+                flex: 1,
+                height: 40,
+                borderRadius: Number.parseFloat(scheme.shape.small),
+                backgroundColor: scheme.color[role],
+              }}
+            />
+          ),
+        )}
       </View>
     </View>
   );
@@ -133,9 +140,9 @@ function ThemePage() {
             </h1>
             <p className="m-0 text-(--md-sys-color-on-surface-variant)">
               <code>@xoroh/kern-theme</code> is platform-free: no React, no DOM.
-              Web reads OKLCH CSS variables, native reads compiled sRGB, and both
-              resolve the same {ROLE_COUNT} roles. Every swatch on this page is
-              read from the package, not copied into the site.
+              Web reads OKLCH CSS variables, native reads compiled sRGB, and
+              both resolve the same {ROLE_COUNT} roles. Every swatch on this
+              page is read from the package, not copied into the site.
             </p>
           </header>
 
@@ -242,8 +249,8 @@ function ThemePage() {
             <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
               The <code>brand</code> preset changes{" "}
               {Object.keys(BRAND_LAYERS.deltas).length} of {ROLE_COUNT} roles
-              against the <code>m3</code> base. A variant that changes nothing is
-              still valid, and still says so here.
+              against the <code>m3</code> base. A variant that changes nothing
+              is still valid, and still says so here.
             </p>
             <ul className="m-0 grid list-none grid-cols-1 gap-2 p-0 sm:grid-cols-2 lg:grid-cols-3">
               {Object.entries(BRAND_LAYERS.deltas).map(([role, value]) => (
@@ -265,7 +272,9 @@ function ThemePage() {
           </section>
 
           <section className="flex flex-col gap-4">
-            <h2 className="m-0 text-lg font-semibold">The same roles, rendering</h2>
+            <h2 className="m-0 text-lg font-semibold">
+              The same roles, rendering
+            </h2>
             <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
               These components read the roles above and nothing else.
             </p>
@@ -318,8 +327,7 @@ function ThemePage() {
             <Code>{PRESET}</Code>
             <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
               Every token is also a CSS variable, so a project can read one
-              without importing anything:{" "}
-              <Kbd>--md-sys-color-primary</Kbd>.
+              without importing anything: <Kbd>--md-sys-color-primary</Kbd>.
             </p>
           </section>
         </div>

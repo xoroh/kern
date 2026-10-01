@@ -20,11 +20,7 @@ import {
   Toggle,
   ToggleGroup,
 } from "@xoroh/kern";
-import {
-  Preview,
-  PreviewStack,
-  Row,
-} from "../../components/preview/preview";
+import { Preview, PreviewStack, Row } from "../../components/preview/preview";
 
 export function InputDemo() {
   return (
@@ -36,7 +32,11 @@ export function InputDemo() {
       </Preview>
       <Preview label="error" span={3}>
         <div className="w-full max-w-sm">
-          <Input placeholder="bad@example" error aria-label="Email with error" />
+          <Input
+            placeholder="bad@example"
+            error
+            aria-label="Email with error"
+          />
         </div>
       </Preview>
       <Preview label="state — disabled" span={3}>
@@ -117,7 +117,10 @@ export function FieldsetDemo() {
 
 export function CheckboxDemo() {
   return (
-    <Preview label="checked · unchecked · indeterminate · disabled · with label" span={3}>
+    <Preview
+      label="checked · unchecked · indeterminate · disabled · with label"
+      span={3}
+    >
       <Row>
         <Checkbox defaultChecked aria-label="Checked" />
         <Checkbox aria-label="Unchecked" />
@@ -251,7 +254,12 @@ export function NumberFieldDemo() {
   return (
     <Preview label="NumberField — increment and decrement" span={3}>
       <div className="w-full max-w-xs">
-        <NumberField.Root defaultValue={2} min={0} max={10} aria-label="Quantity">
+        <NumberField.Root
+          defaultValue={2}
+          min={0}
+          max={10}
+          aria-label="Quantity"
+        >
           <NumberField.Input />
         </NumberField.Root>
       </div>

@@ -16,17 +16,22 @@ const MODES = [
 ] as const;
 
 export function ThemeSwitcher() {
-  const { mode, setMode, useSystem, preference, contrast, variant } =
-    useKernTheme();
+  const {
+    mode,
+    setMode,
+    useSystem: setSystem,
+    preference,
+    contrast,
+    variant,
+  } = useKernTheme();
   const groupId = useId();
 
   const variants = listVariants();
   const hueCount = listHues().length;
 
   return (
-    <div
+    <section
       className="flex flex-col gap-3 rounded-(--md-sys-shape-corner-large) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container) p-4"
-      role="group"
       aria-labelledby={groupId}
     >
       <div className="flex flex-wrap items-baseline justify-between gap-2">
@@ -47,7 +52,7 @@ export function ThemeSwitcher() {
             variant={preference === entry.id ? "primary" : "tonal"}
             aria-pressed={preference === entry.id}
             onClick={() =>
-              entry.id === "system" ? useSystem() : setMode(entry.id)
+              entry.id === "system" ? setSystem() : setMode(entry.id)
             }
           >
             {entry.label}
@@ -63,6 +68,6 @@ export function ThemeSwitcher() {
         <dt className="font-medium">Registered hues</dt>
         <dd className="m-0 font-mono">{hueCount} in the spectrum</dd>
       </dl>
-    </div>
+    </section>
   );
 }
