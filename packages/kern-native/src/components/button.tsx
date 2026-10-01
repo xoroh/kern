@@ -11,7 +11,14 @@ import {
 } from "react-native";
 import { useKernTheme } from "../theme";
 
-export type NativeButtonVariant = "primary" | "tonal" | "ghost";
+// M3: elevated, filled, tonal, outlined, text (m3.material.io/components/buttons/overview).
+// Mirrors the web union exactly — the variant law requires one MEANING, not one name count.
+export type NativeButtonVariant =
+  | "elevated"
+  | "primary"
+  | "tonal"
+  | "outlined"
+  | "ghost";
 export type NativeButtonSize = "default" | "sm" | "icon";
 
 const HEIGHTS: Record<NativeButtonSize, number> = {
@@ -38,15 +45,27 @@ export function buttonStyles(
       variant === "primary"
         ? theme.color.primary
         : variant === "tonal"
-          ? theme.color.surfaceTonal
-          : "transparent",
+          ? theme.color.secondaryContainer
+          : variant === "elevated"
+            ? theme.color.surfaceContainerLow
+            : "transparent",
+    borderWidth: variant === "outlined" ? 1 : 0,
+    borderColor: variant === "outlined" ? theme.color.outline : "transparent",
     opacity: disabled ? 0.5 : 1,
   };
   const label: TextStyle = {
     fontSize: size === "sm" ? 13 : 14,
     fontWeight: "500",
     color:
-      variant === "primary" ? theme.color.onPrimary : theme.color.onSurface,
+      variant === "primary"
+        ? theme.color.onPrimary
+        : variant === "tonal"
+          ? theme.color.onSecondaryContainer
+          : variant === "elevated" ||
+              variant === "outlined" ||
+              variant === "ghost"
+            ? theme.color.primary
+            : theme.color.onSurface,
   };
   return { container, label };
 }

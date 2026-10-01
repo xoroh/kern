@@ -12,6 +12,10 @@ const chipVariants = cva(
           "bg-(--md-sys-color-surface-tonal) text-(--md-sys-color-on-surface) hover:bg-(--md-sys-color-surface-container-high)",
         filter:
           "bg-(--md-sys-color-surface-tonal) text-(--md-sys-color-on-surface) hover:bg-(--md-sys-color-surface-container-high) data-selected:bg-(--md-sys-color-primary) data-selected:text-(--md-sys-color-on-primary)",
+        // M3 lists FOUR chip variants (m3.material.io/components/chips/overview):
+        // assist, filter, input, suggestion. `input` was missing.
+        input:
+          "bg-(--md-sys-color-surface) text-(--md-sys-color-on-surface) hover:bg-(--md-sys-color-surface-tonal) pr-1",
         suggestion:
           "border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface) text-(--md-sys-color-on-surface) hover:bg-(--md-sys-color-surface-tonal)",
       },

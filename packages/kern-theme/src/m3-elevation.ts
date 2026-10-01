@@ -122,6 +122,14 @@ export const M3_ELEVATION_COMPONENTS = Object.freeze({
   }),
   card: Object.freeze({ rows: ["card (elevated)"], variants: [1] }),
   "navigation-menu": Object.freeze({ rows: ["menu"], variants: [2] }),
+  // M3's level-2 table also names "Navigation bar", "Rich tooltip" and
+  // "Toolbar". kern ships all three, so they were silently UNGATED before this
+  // row — a mutation that deleted their elevation token still passed
+  // `check:m3` (proved by mutation test). Adding them makes the spec claim
+  // executable rather than aspirational.
+  "navigation-bar": Object.freeze({ rows: ["navigation bar"], variants: [2] }),
+  tooltip: Object.freeze({ rows: ["rich tooltip"], variants: [2] }),
+  toolbar: Object.freeze({ rows: ["toolbar"], variants: [2] }),
   "fab-menu": Object.freeze({
     rows: ["fab menu (close button)", "fab menu (list items)"],
     variants: [0, 3],

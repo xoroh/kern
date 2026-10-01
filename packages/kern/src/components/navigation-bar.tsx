@@ -164,7 +164,7 @@ export function NavigationBar({
         data-slot="navigation-bar"
         data-testid={testID ?? "kern-navigation-bar"}
         className={cn(
-          "kern-navigation-bar flex h-20 items-stretch border-t border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container) text-(--md-sys-color-on-surface-variant)",
+          "kern-navigation-bar flex h-20 items-stretch border-t border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container) text-(--md-sys-color-on-surface-variant) shadow-(--md-sys-elevation-level2)",
           className,
         )}
       >

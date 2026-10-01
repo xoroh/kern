@@ -18,15 +18,24 @@ describe("native Button styles", () => {
   });
 
   it("resolves variants to roles", () => {
+    // M3's five colour configurations (m3.material.io/components/buttons/overview):
+    // elevated, filled, tonal, outlined, text. `tonal` is the SECONDARY container,
+    // not kern's `surfaceTonal`, and `outlined`/`text` have no fill.
     expect(
       buttonStyles("primary", "default", false).container.backgroundColor,
     ).toBe(themes.m3.color.light.primary);
     expect(
       buttonStyles("tonal", "default", false).container.backgroundColor,
-    ).toBe(themes.m3.color.light.surfaceTonal);
+    ).toBe(themes.m3.color.light.secondaryContainer);
+    expect(
+      buttonStyles("elevated", "default", false).container.backgroundColor,
+    ).toBe(themes.m3.color.light.surfaceContainerLow);
     expect(
       buttonStyles("ghost", "default", false).container.backgroundColor,
     ).toBe("transparent");
+    expect(
+      buttonStyles("outlined", "default", false).container.borderWidth,
+    ).toBe(1);
   });
 
   it("dims when disabled", () => {

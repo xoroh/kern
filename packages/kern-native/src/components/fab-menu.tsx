@@ -112,7 +112,7 @@ export function FabMenu({
         hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
         onPress={() => setOpen(!isOpen)}
         style={({ pressed }) => [
-          fabStyles(variant, "default", scheme),
+          fabStyles("default", scheme),
           { opacity: pressed ? 0.9 : 1 },
         ]}
       >

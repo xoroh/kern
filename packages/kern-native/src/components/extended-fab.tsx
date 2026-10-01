@@ -123,7 +123,7 @@ export const ExtendedFab = forwardRef<
     [apply],
   );
 
-  const base = fabStyles(variant, "default", scheme);
+  const base = fabStyles("default", scheme);
   return (
     <Pressable
       {...props}

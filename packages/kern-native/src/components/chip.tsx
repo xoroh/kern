@@ -10,7 +10,9 @@ import {
 import { useKernTheme } from "../theme";
 import { useControllableState } from "../utils/useControllableState";
 
-export type ChipVariant = "assist" | "filter" | "suggestion";
+// M3 lists FOUR chip variants (m3.material.io/components/chips/overview):
+// assist, filter, input, suggestion. `input` was missing here too.
+export type ChipVariant = "assist" | "filter" | "input" | "suggestion";
 
 export function chipStyles(
   variant: ChipVariant,

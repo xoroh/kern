@@ -36,7 +36,7 @@ export function TooltipContent({ className, ...props }: TooltipContentProps) {
         <TooltipPrimitive.Popup
           data-slot="tooltip-content"
           className={cnState(
-            "kern-tooltip-popup max-w-64 rounded-(--md-sys-shape-corner-extra-small) bg-(--md-sys-color-inverse-surface) px-2 py-1 text-xs text-(--md-sys-color-inverse-on-surface)",
+            "kern-tooltip-popup max-w-64 rounded-(--md-sys-shape-corner-extra-small) bg-(--md-sys-color-inverse-surface) px-2 py-1 text-xs text-(--md-sys-color-inverse-on-surface) shadow-(--md-sys-elevation-level2)",
             className,
           )}
           {...props}

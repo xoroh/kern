@@ -4,15 +4,25 @@ import { Pressable, type PressableProps, type ViewStyle } from "react-native";
 import { useKernScheme } from "../theme";
 import { Text } from "./text";
 
-export type NativeFabVariant = "primary" | "tonal";
-export type NativeFabSize = "default" | "small" | "icon";
+// M3 FAB variants are a SIZE axis — FAB / medium FAB / large FAB
+// (m3.material.io/components/floating-action-button/overview). The previous
+// `variant: primary | tonal` was an emphasis axis M3 does not define for FAB.
+export type NativeFabSize = "default" | "small" | "medium" | "large" | "icon";
 
 export function fabStyles(
-  variant: NativeFabVariant,
   size: NativeFabSize,
   scheme: ResolvedTheme = resolveThemeDetails(),
 ): ViewStyle {
-  const dimension = size === "small" ? 40 : 56;
+  // M3: small 56dp, medium 96dp, large 128dp (the 40dp `small` is kern's own
+  // extra-small, kept for the compact rail treatment).
+  const dimension =
+    size === "small"
+      ? 40
+      : size === "medium"
+        ? 96
+        : size === "large"
+          ? 128
+          : 56;
   return {
     minHeight: dimension,
     minWidth: size === "icon" ? dimension : 56,
@@ -22,8 +32,7 @@ export function fabStyles(
     gap: 8,
     borderRadius: Number.parseFloat(scheme.shape.large),
     paddingHorizontal: size === "icon" ? 0 : 20,
-    backgroundColor:
-      variant === "primary" ? scheme.color.primary : scheme.color.surfaceTonal,
+    backgroundColor: scheme.color.primaryContainer,
     elevation: 3,
     shadowColor: scheme.color.scrim,
     shadowOpacity: 0.3,
@@ -38,7 +47,6 @@ export type NativeFabProps = Omit<
 > & {
   children: ReactNode;
   label?: string;
-  variant?: NativeFabVariant;
   size?: NativeFabSize;
   onPress?: PressableProps["onPress"];
   style?: PressableProps["style"];
@@ -47,7 +55,6 @@ export type NativeFabProps = Omit<
 export function Fab({
   children,
   label,
-  variant = "primary",
   size = "default",
   onPress,
   disabled = false,
@@ -67,17 +74,12 @@ export function Fab({
       hitSlop={hitSlop ?? { top: 8, bottom: 8, left: 8, right: 8 }}
       onPress={onPress}
       style={({ pressed }) => [
-        fabStyles(variant, size, scheme),
+        fabStyles(size, scheme),
         { opacity: disabled ? 0.5 : pressed ? 0.9 : 1 },
         typeof style === "function" ? style({ pressed }) : style,
       ]}
     >
-      <Text
-        variant="label"
-        style={
-          variant === "primary" ? { color: scheme.color.onPrimary } : undefined
-        }
-      >
+      <Text variant="label" style={{ color: scheme.color.onPrimaryContainer }}>
         {children}
       </Text>
     </Pressable>

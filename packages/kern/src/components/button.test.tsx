@@ -12,10 +12,21 @@ describe("Button", () => {
   });
 
   it("applies the tonal variant", () => {
+    // M3's filled tonal button uses the SECONDARY container roles, not a
+    // kern-only `surface-tonal` (m3.material.io/components/buttons/overview).
     render(<Button variant="tonal">Save</Button>);
     expect(screen.getByRole("button")).toHaveClass(
-      "bg-(--md-sys-color-surface-tonal)",
+      "bg-(--md-sys-color-secondary-container)",
     );
+  });
+
+  it("offers M3's five colour configurations", () => {
+    // M3: elevated, filled, tonal, outlined, text. `destructive` is not one of them.
+    const { rerender } = render(<Button variant="elevated">Save</Button>);
+    for (const variant of ["primary", "tonal", "outlined", "ghost"] as const) {
+      rerender(<Button variant={variant}>Save</Button>);
+      expect(screen.getByRole("button")).toHaveAttribute("data-slot", "button");
+    }
   });
 
   it("forwards disabled and handles clicks", async () => {

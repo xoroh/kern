@@ -14,7 +14,7 @@ export function ToolbarRoot({ className, ...props }: ToolbarRootProps) {
     <ToolbarPrimitive.Root
       data-slot="toolbar"
       className={cnState(
-        "kern-toolbar flex h-14 items-center gap-1 rounded-(--md-sys-shape-corner-full) bg-(--md-sys-color-surface-tonal) px-2",
+        "kern-toolbar flex h-14 items-center gap-1 rounded-(--md-sys-shape-corner-full) bg-(--md-sys-color-surface-tonal) px-2 shadow-(--md-sys-elevation-level2)",
         className,
       )}
       {...props}

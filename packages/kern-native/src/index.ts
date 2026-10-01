@@ -67,7 +67,6 @@ export { ExtendedFab } from "./components/extended-fab";
 export type {
   NativeFabProps,
   NativeFabSize,
-  NativeFabVariant,
 } from "./components/fab";
 export { Fab, fabStyles } from "./components/fab";
 export type {

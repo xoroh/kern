@@ -58,13 +58,31 @@ platforms. One prop name never carries two meanings.
 
 | Component | `variant` means | Values |
 | --- | --- | --- |
-| `Button` | emphasis | `primary`, `tonal`, `ghost`, `destructive` |
+| `Button` | **colour configuration** | `elevated`, `primary` (filled), `tonal`, `outlined`, `ghost` (text) |
 | `Card` | elevation treatment | `filled`, `outlined`, `elevated` |
 | `Text` | type-scale role | `body`, `label`, `title`, `headline` |
 | `FieldMessage` | intent | `description`, `error` |
 | `Badge` | shape | `dot`, `count` |
-| `Chip` | kind | `assist`, `filter`, `suggestion` |
-| `Fab` | emphasis | `primary`, `tonal` |
+| `Chip` | kind | `assist`, `filter`, `input`, `suggestion` |
+| `Fab` | **size** — M3 has no FAB emphasis axis | *(`variant` removed; use `size`)* |
+
+**Verified against the M3 spec pages, 2026-10-01** (this table previously rested on secondary
+summaries and three rows were wrong):
+
+- **`Button`** — m3.material.io/components/buttons/overview: *"Five color options: elevated,
+  filled, tonal, outlined, and text."* The old row listed four values including
+  **`destructive`, which M3 does not define for buttons** — an error-coloured button is a
+  filled button on the error roles, so it is the caller's colour choice, not a sixth axis.
+  `tonal` now uses `secondaryContainer` (M3's filled tonal), not kern's `surfaceTonal`.
+- **`Chip`** — m3.material.io/components/chips/overview: *"Four variants: assist, filter,
+  input, and suggestion."* **`input` was missing** on both renderers.
+- **`Fab`** — m3.material.io/components/floating-action-button/overview: *"Three variants:
+  FAB, medium FAB, large FAB."* That is a **size** axis, so `variant: primary | tonal`
+  asserted an axis M3 does not define. The emphasis axis moved to `size`
+  (`default`/`medium`/`large`) and the FAB is `primaryContainer`, per M3.
+
+`Card`, `Text`, `FieldMessage` and `Badge` were checked against their spec pages and are
+**correct as written** — no change.
 
 `size` is a separate prop and never overloaded onto `variant`:
 `Button`/`Fab` take `size`, `Avatar`/`Loader` take `size`, and
