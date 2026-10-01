@@ -1,7 +1,7 @@
 {
   "name": "site",
   "version": "0.0.0",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "private": true,
   "type": "module",
   "imports": {
@@ -9,17 +9,17 @@
   },
   "scripts": {
     "dev": "vite dev --port 3000",
-    "generate-routes": "tsr generate",
-    "build": "bun run generate && vite build",
+    "build": "bun run generate:routes && bun run generate && vite build",
     "preview": "vite preview",
-    "typecheck": "tsr generate && bun run generate && tsc --noEmit",
+    "typecheck": "tsc --noEmit",
     "deploy": "bun run build && wrangler deploy",
     "generate": "bun run scripts/generate-manifest.mjs",
-    "check:snippets": "bun run scripts/check-snippets.mjs"
+    "check:snippets": "bun run scripts/check-snippets.mjs",
+    "generate:routes": "tsr generate"
   },
   "dependencies": {
-    "@tanstack/react-router": "latest",
-    "@tanstack/react-start": "latest",
+    "@tanstack/react-router": "^1.170.41",
+    "@tanstack/react-start": "^1.168.60",
     "@xoroh/kern": "workspace:*",
     "@xoroh/kern-icons": "workspace:*",
     "@xoroh/kern-native": "workspace:*",
