@@ -313,18 +313,41 @@ this heading's figure as well as the gate line's, and history sentences (the
 ones marked *was* / *went* / *from*) are exempt so the doc can still record that
 a count moved.
 
+**Two of the 35 are phantom part-names, so the true web-only count is 33**
+(`review-m3`). The registry carries `input-otp` **twice** — once `platform: "web"`,
+once `platform: "native"` — which makes it *shared*, not web-only, and it was
+already moved web-only → shared in P2b-3 tranche 1. Two sibling rows survive from
+the same source file and are **not components at all**:
+
+| Registry row | Reality |
+|---|---|
+| `input-otp` (web) | the real component; the native twin makes it shared |
+| `input-otpinput` | **malformed part-name** — the generator's `camel→kebab` of `InputOTPInput` produces a missing hyphen, so the `-input` sub-part collapses into the concept name instead of stripping |
+| `input-otproot` | same defect on `InputOTPRoot` |
+
+They inflate this heading by exactly 2 — so a human reading this table should
+subtract two to get the number of real components still owed a native version.
+The gate's figure (**35**) counts every registry row and is therefore the
+mechanical truth; the adjusted figure is analysis, not a count, and is stated
+here in prose on purpose so the two can never be confused. The registry defect
+is the same class `92b42e7` fixed for the `forwardRef` export — a generator
+blind spot that quietly inflates a gated count rather than failing. Not fixed in
+this commit: it needs a generator change plus a `gate:counts` correction, and a
+count that moves under a gate edit is exactly what the two-line `gate:counts`
+assertion exists to catch. Filed as follow-up below.
+
 | # | Component | Behaviour | Web contract (exists) | Native contract (to build) | M3 source | Test pointer |
 |---|---|---|---|---|---|---|
 | 1 | `combobox` | Select with a custom popup | `role="combobox"`, `aria-controls`, Escape | `accessibilityRole="combobox"` + `accessibilityState.expanded` — **deferred**: web = `autocomplete` + a clear affordance, and the clear affordance is a sub-part (see the P2b-3 section) | M3 · Menus → Combobox | `combobox.test.tsx` |
 | 2 | `native-select` | Native OS picker | `role="combobox"` | **`Picker`** — platform primitive, not a Kern component (see note) | M3 · Menus | GAP |
-| 3 | `drawer` | Side drawer | `role="dialog"` + `aria-modal` (M3 drawer = modal variant) | `Modal`-based drawer | M3 · Navigation drawer | `drawer.test.tsx` |
-| 4 | `popover` | Anchored non-modal popup | `role="dialog"`, trigger `aria-expanded` + `aria-haspopup` | `accessibilityRole="dialog"` + `accessibilityState.expanded` | M3 · Menus → Popover | `popover.test.tsx` |
+| 3 | `drawer` | Side drawer | `role="dialog"` + `aria-modal` (M3 drawer = modal variant) | **shipped, P2b-3 tranche 5** — `role="dialog"` + `accessibilityViewIsModal`; scrim is a labelled dismiss control | M3 · Navigation drawer | `overlay-surfaces.rntest.tsx` |
+| 4 | `popover` | Anchored non-modal popup | `role="dialog"`, trigger `aria-expanded` + `aria-haspopup` | **shipped, P2b-3 tranche 5** — `role="dialog"`, deliberately **not** modal | M3 · Menus → Popover | `overlay-surfaces.rntest.tsx` |
 | 5 | `menu` group `menubar-menu` | One menu in a menubar | `role="menu"`, `aria-haspopup`, arrow keys | `accessibilityRole="menu"` | M3 · Menus | `menubar.test.tsx` |
 | 6 | `navigation-menu-link` | Link inside a navigation menu | `role="link"` | `accessibilityRole="link"` + `accessibilityState.selected` | M3 · Navigation | GAP |
 | 7 | `meter` | Scalar measurement in a range | `role="meter"` + `aria-valuenow/min/max` | `accessibilityRole="progressbar"` + `accessibilityValue` | M3 · Progress → Meter | `meter.test.tsx` |
 | 8 | `pagination` | Page navigation | `role="navigation"` + `aria-label="Pagination"`, current `aria-current` | `accessibilityRole="tablist"`-style selected | M3 · Lists → Pagination | GAP |
 | 9 | `preview-card` | Hover/focus preview surface | `role="group"`/`dialog` — no M3-canonical name exists | **deliberate web-only asymmetry** — hover/focus preview has no touch analogue, same class as `kbd` | *none — K10 (kern extension, `ext:` band)* | n/a — ruled |
-| 10 | `scroll-area` | Custom scroll container | `role="group"` + scrollbar parts | `ScrollView` | M3 · Lists | GAP |
+| 10 | `scroll-area` | Custom scroll container | `role="group"` + scrollbar parts | **shipped, P2b-3 tranche 5** — labelled viewport + `role="group"` on the scrolling host | M3 · Lists | `overlay-surfaces.rntest.tsx` |
 | 11 | `scroll-area-scrollbar` | The scrollbar itself | `role="scrollbar"` + `aria-valuenow` | platform scroll indicator | M3 · Lists | GAP |
 | 12 | `slider-thumb` | The draggable handle | `role="slider"` + `aria-valuenow/min/max` | `accessibilityRole="adjustable"` + `accessibilityValue` | M3 · Sliders | `slider.test.tsx` |
 | 13 | `table` parts (`head`/`body`/`cell`/`caption`) | Tabular data | `role="table"/"row"/"cell"/"columnheader"` | `role` equivalents via `accessibilityRole` | M3 · Data tables | GAP |
