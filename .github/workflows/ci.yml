@@ -134,6 +134,10 @@ jobs:
         run: bun run test
         working-directory: packages/kern-native
 
+      - name: Test Kern native behaviour (jest)
+        run: bun run test:jest
+        working-directory: packages/kern-native
+
       - name: Typecheck Kern native
         run: bun run typecheck
         working-directory: packages/kern-native
