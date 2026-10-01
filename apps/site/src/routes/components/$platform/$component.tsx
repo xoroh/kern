@@ -16,8 +16,8 @@ import {
   notFound,
 } from "@tanstack/react-router";
 import { SiteLayout } from "../../../components/chrome/site-layout";
-import { MOBILE_DEMOS, PREVIEW_REASONS } from "../../../demos/mobile/registry";
-import { WEB_DEMOS } from "../../../demos/web/registry";
+import { ComponentPage as ComponentDocPage } from "../../../components/docs/component-page";
+import { docForExport } from "../../../content";
 import { getComponent } from "../../../generated/manifest";
 
 export const Route = createFileRoute("/components/$platform/$component")({
@@ -81,9 +81,13 @@ function ComponentBody() {
   }
 
   const isWeb = entry.platform === "web";
-  const demo = isWeb ? WEB_DEMOS[entry.export] : MOBILE_DEMOS[entry.export];
   const pkg = isWeb ? "@xoroh/kern" : "@xoroh/kern-native";
   const platformHref = isWeb ? "/components/web" : "/components/mobile";
+
+  // Consistency rule 1: one component, one page. A compound part has no page
+  // of its own — `dialog-content` resolves to the page that documents `Dialog`
+  // as a whole, and every part of the family is documented there.
+  const doc = docForExport(entry.platform, entry.export);
 
   return (
     <SiteLayout>
@@ -95,44 +99,60 @@ function ComponentBody() {
             <Link to={platformHref}>{isWeb ? "Web" : "Mobile"}</Link>
             <span aria-hidden="true">/</span>
             <span className="text-(--md-sys-color-on-surface)">
-              {entry.name}
+              {doc ? doc.name : entry.name}
             </span>
           </nav>
 
-          <header className="flex flex-col gap-3">
-            <h1 className="m-0 text-3xl font-semibold text-(--md-sys-color-on-surface)">
-              <code>{entry.export}</code>
-            </h1>
-            <p className="m-0 font-mono text-sm text-(--md-sys-color-secondary)">
-              {pkg}
-            </p>
-            <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
-              {entry.status === "real"
-                ? "Implemented and exported from the platform entry point."
-                : "Planned placeholder — not exported yet."}
-            </p>
-          </header>
-
-          {demo ? (
-            <div className="flex flex-col gap-4">
-              <h2 className="m-0 text-lg font-semibold text-(--md-sys-color-on-surface)">
-                Live
-              </h2>
-              {demo()}
-            </div>
+          {doc ? (
+            <ComponentDocPage doc={doc} platform={entry.platform} />
           ) : (
-            <div className="flex flex-col gap-2 rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-outline) bg-(--md-sys-color-surface-container) p-6">
-              <h2 className="m-0 text-lg font-semibold">
-                No preview on this page
-              </h2>
-              <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
-                {PREVIEW_REASONS[entry.export] ??
-                  "This export is in the manifest but has neither a live demo nor a stated reason. That is a gap in the site, not in the package — it is tracked in the Stage 2 report, not hidden here."}
-              </p>
-            </div>
+            <Undocumented entry={entry} pkg={pkg} />
           )}
         </div>
       </section>
     </SiteLayout>
+  );
+}
+
+/**
+ * A manifest row with no content page.
+ *
+ * This is a gap in the site, not in the package, and it is stated rather than
+ * papered over. `scripts/check-docs.mjs` counts these and fails when a family
+ * that claims a page is missing one of its parts, so the list shrinks under
+ * the gate instead of growing quietly.
+ */
+function Undocumented({
+  entry,
+  pkg,
+}: {
+  entry: { name: string; export: string; status: string };
+  pkg: string;
+}) {
+  return (
+    <div className="flex flex-col gap-6">
+      <header className="flex flex-col gap-3">
+        <h1 className="m-0 text-3xl font-semibold text-(--md-sys-color-on-surface)">
+          <code>{entry.export}</code>
+        </h1>
+        <p className="m-0 font-mono text-sm text-(--md-sys-color-secondary)">
+          {pkg}
+        </p>
+        <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
+          {entry.status === "real"
+            ? "Implemented and exported from the platform entry point."
+            : "Planned placeholder — not exported yet."}
+        </p>
+      </header>
+      <div className="flex flex-col gap-2 rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-outline) bg-(--md-sys-color-surface-container) p-6">
+        <h2 className="m-0 text-lg font-semibold">No documentation page yet</h2>
+        <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
+          This export is in the generated inventory but has no content folder
+          under <code>src/content/</code>. That is a gap in the site, not in the
+          package — it is tracked by <code>check:docs</code> rather than hidden
+          here.
+        </p>
+      </div>
+    </div>
   );
 }

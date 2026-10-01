@@ -1,0 +1,157 @@
+/**
+ * The per-component documentation contract.
+ *
+ * This is the schema `docs/conventions/component-docs.md` specifies, expressed
+ * as types. It is the interface between three owners: kern-lead (what the
+ * component is), docs-lead (how it is worded) and the site (how it renders).
+ * Adding a component to the site is adding a folder of this data — the route,
+ * the nav and the index already come from the generated manifest.
+ *
+ * It is deliberately pure data: no React, no imports beyond types. The same
+ * module is loaded by the site's renderer *and* by `scripts/check-docs.mjs`,
+ * so anything that cannot be read by a validator in Node does not belong here.
+ *
+ * Section order is not a preference — it is the order a reader needs the
+ * information, and it is what lets a page be checked by a gate instead of by
+ * eye. See the convention for the rationale.
+ */
+
+/**
+ * Resting elevation, per `packages/kern-tokens/src/m3-elevation.ts`.
+ *
+ * Not free text. A number is an M3 level (0-5); `"surface"` is for components
+ * that carry no elevation token at all. The validator asserts this against the
+ * token module, so a page cannot claim a level the system does not ship.
+ */
+export type RestingElevation = number | "surface";
+
+/** Where the component is exported from. Mirrors the parity contract's table. */
+export type PackageName =
+  | "@xoroh/kern"
+  | "@xoroh/kern-native"
+  | "@xoroh/kern/start";
+
+/**
+ * Section 1 — the metadata strip: a single row of facts above the fold.
+ *
+ * Every field is cross-checked by the validator against a generated or
+ * machine-audited source. A field that no gate can check is not metadata, it
+ * is prose, and prose does not go in the strip.
+ */
+export type MetadataStrip = {
+  /** `real` or `stub` — must match the generated inventory exactly. */
+  status: "real" | "stub";
+  package: PackageName;
+  /**
+   * The counterpart export on the other renderer, or `"none"` where the
+   * component is deliberately single-renderer. `"none"` is a claim: it must be
+   * backed by `docs/parity-contract.md`, which the validator checks.
+   */
+  nativePeer: string;
+  /**
+   * One entry per variant axis, rendered as its own chip:
+   * `"variant: elevated · primary · tonal · outlined · ghost"`. An empty array
+   * is the convention's `"none"` — the component exposes no variant axis. An
+   * axis listed here that the component does not actually accept is a defect,
+   * and the props table is where a reader would catch it.
+   */
+  variants: string[];
+  elevation: RestingElevation;
+};
+
+/** Section 6 — one row of the props table. Transcribed, never paraphrased. */
+export type PropRow = {
+  name: string;
+  type: string;
+  default?: string;
+  required?: boolean;
+  /**
+   * The load-bearing half of the row: what the prop *implies*. A prop that sets
+   * an ARIA attribute, controls focus or implies another prop says so here.
+   */
+  note?: string;
+};
+
+/**
+ * Section 5 — one deviation from the M3 spec.
+ *
+ * `id` is mandatory and must resolve to a registered id in
+ * `packages/kern-tokens/src/m3-roles.ts` (`KERN_EXTRA_ROLES`) or
+ * `m3-elevation.ts` (`KERN_UNASSIGNED_ELEVATION`). A deviation with no id is
+ * not a deviation, it is an undocumented fork — so the validator rejects it.
+ */
+export type Deviation = {
+  /** e.g. `"K6"`. Registered with the roles/elevation it justifies. */
+  id: string;
+  /** What the M3 spec specifies. */
+  m3: string;
+  /** What kern does instead. */
+  kern: string;
+  /** Why. One or two sentences — this is a decision record, not an apology. */
+  why: string;
+};
+
+/** Section 4 — customization. The `notSupported` half is the load-bearing one. */
+export type Customization = {
+  /** What is supported: `className` passthrough, tokens, variant props. */
+  supported: string[];
+  /** What is NOT available. Name the trap so a reader does not fall into it. */
+  notSupported: string[];
+};
+
+/**
+ * Section 6 — one part of a compound component's anatomy. Parts are documented
+ * on the parent's page (consistency rule 1), so this is where a reader learns
+ * what `DialogContent` is for relative to `DialogRoot`.
+ */
+export type PartRow = {
+  name: string;
+  /** What it is and what it wires up. One line. */
+  role: string;
+};
+
+/**
+ * One component page. The unit is the **component family**, not the export:
+ * compound parts (`DialogTrigger`, `DialogTitle`, …) are documented on their
+ * parent's page via `parts`, never given pages of their own.
+ */
+export type ComponentDoc = {
+  /** Route slug, e.g. `"button"`. Unique per platform. */
+  slug: string;
+  /** Display name in sentence case, per the Google style guide. */
+  name: string;
+  /** One sentence, no more. What it is. */
+  oneLiner: string;
+  /**
+   * Section 3 — Features. Two to five sentences, second person, present
+   * tense. The only section allowed to persuade. If the honest answer is "this
+   * wraps a Base UI primitive", say so and link it.
+   */
+  features: string;
+  meta: MetadataStrip;
+  /**
+   * Every export that belongs to this family, including the root. The first
+   * entry is the one the showcase is keyed by. The validator asserts every
+   * entry exists in the generated inventory and that none is claimed by two
+   * families.
+   */
+  parts: string[];
+  /** Section 4. Omit when the component is fully closed. */
+  customization?: Customization;
+  /** Section 5. Omit when the component is conformant with no caveats. */
+  deviations?: Deviation[];
+  /**
+   * Section 6. `anatomy` and `aria` are parts of the same section, not extra
+   * ones — the convention puts the props table, the events and the ARIA
+   * contract together as the reference tail.
+   */
+  anatomy?: PartRow[];
+  /** Section 6 — the props table for the whole family. */
+  api: PropRow[];
+  /**
+   * Section 6 — the ARIA contract: roles set, keys handled, what is handed to
+   * assistive tech. Sourced from the parity contract's assertions; a page that
+   * contradicts them is a defect in the page.
+   */
+  aria?: string[];
+};

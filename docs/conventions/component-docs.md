@@ -1,15 +1,18 @@
 # Per-component documentation grammar
 
-Status: draft
+Status: current
 
 Every component reference page in the site follows one fixed section order. The
 order is not a style preference: it is the order in which a reader actually
 needs the information, and it is the order that lets a page be checked by a gate
 rather than reviewed by eye.
 
-This file defines the grammar. It does not define the pages — those live in
-`apps/site/src/routes/components/` and are `oss-site-lead`'s to build. Where the
-grammar and an existing page disagree, the page is wrong until it is migrated.
+This file defines the grammar. It does not define the pages. Pages are **data**:
+one folder per component under `apps/site/src/content/<platform>/<slug>.ts`,
+typed by `apps/site/src/content/types.ts` and rendered by
+`apps/site/src/components/docs/component-page.tsx`. `apps/site/**` is `site-se`'s
+to own and build. Where the grammar and an existing page disagree, the page is
+wrong until it is migrated.
 
 ## Why a grammar and not a template
 
@@ -134,17 +137,34 @@ a defect in the page.
 
 ## Enforcement status
 
-**This grammar is not yet enforced.** The pages it describes do not exist —
-`apps/site/src/routes/components/web/index.tsx` is a list of links, and there is
-no per-component route to check. A validator that passes over zero pages is the
-"gate that passes while changing nothing" failure mode, so none is written yet.
+**This grammar is enforced.** The validator is
+`apps/site/scripts/check-docs.mjs`, run as `bun run check:docs` from
+`apps/site`. It landed with the first pages rather than before them, for the
+reason this section originally gave: a validator that passes over zero pages is
+the "gate that passes while changing nothing" failure mode.
 
-The validator lands with the first page, and asserts:
+It asserts, over the content folders:
 
-- the six sections, in order, with required/conditional respected;
-- the metadata strip's elevation matches `m3-elevation.ts`;
-- the status matches the generated inventory;
-- no page contains a raw hex colour or a dp literal (consistency rule 2).
+- every required section has content, and each conditional section is either
+  populated or absent — never present-but-empty;
+- the metadata strip's elevation agrees with `m3-elevation.ts`. Where M3 names
+  the component, the page must claim a level the spec permits. Where the level
+  is a kern decision, the page must carry that decision's deviation id;
+- a deviation id resolves to a registered id in `m3-roles.ts`
+  (`KERN_EXTRA_ROLES`) or `m3-elevation.ts` (`KERN_UNASSIGNED_ELEVATION`);
+- `meta.status` matches `docs/components.md`, and no family spans mixed
+  `real`/`stub` rows;
+- every part a family claims exists in the generated inventory, and no export
+  is claimed by two families (consistency rule 1);
+- no prose contains a raw hex colour or a dp literal (consistency rule 2);
+- at least one content page exists — the failure mode named above.
 
-Until then this file is `draft`, not `current`: the grammar is specified, the
-pages are unbuilt, and nothing verifies either.
+Coverage is printed on every run (`17/333` inventory exports at the time of
+writing) so the undocumented remainder is visible in the log rather than in an
+incident. A component that neither elevation inventory covers is reported as a
+**gap**, not a failure: its elevation is unasserted by any gate, and saying so
+is the honest state.
+
+The validator was mutation-tested on landing: twelve deliberate violations of
+the rules above, each one confirmed to fail the gate for the expected reason. A
+gate that passes is not evidence that it catches anything.
