@@ -5,7 +5,6 @@ import {
 } from "@xoroh/kern-theme";
 import type { ReactNode } from "react";
 import {
-  Modal,
   Pressable,
   Text as RNText,
   type StyleProp,
@@ -13,7 +12,7 @@ import {
   type ViewStyle,
 } from "react-native";
 import { useKernScheme } from "../theme";
-import { overlayStyles } from "../utils/overlay-styles";
+import { SheetSurface } from "./sheet-surface";
 import { Text } from "./text";
 
 /**
@@ -90,30 +89,24 @@ export function BottomSheet({
 }: NativeBottomSheetProps) {
   const scheme = useKernScheme();
   const cardStyle = bottomSheetStyles(size, scheme);
+  // P2b-2: the Modal+scrim shell lives in the shared `SheetSurface`, so a sheet
+  // cannot silently lose its dismissal path (scrim press AND hardware back).
   return (
-    <Modal
-      visible={open}
-      transparent
-      animationType="slide"
-      accessibilityViewIsModal
-      onRequestClose={onDismiss}
+    <SheetSurface
+      open={open}
+      title={title}
+      onDismiss={onDismiss}
+      testID={testID ?? "kern-bottom-sheet"}
+      handle={handle ? <SheetHandle /> : null}
+      surface={cardStyle}
+      style={style}
     >
-      <View style={overlayStyles.bottomScrim}>
-        <Pressable
-          accessibilityLabel={`Dismiss ${title}`}
-          onPress={onDismiss}
-          style={{ flex: 1 }}
-        />
-        <View testID={testID ?? "kern-bottom-sheet"} style={[cardStyle, style]}>
-          {handle ? <SheetHandle /> : null}
-          <Text variant="title" numberOfLines={2}>
-            {title}
-          </Text>
-          {children}
-          {actions}
-        </View>
-      </View>
-    </Modal>
+      <Text variant="title" numberOfLines={2}>
+        {title}
+      </Text>
+      {children}
+      {actions}
+    </SheetSurface>
   );
 }
 
@@ -158,63 +151,49 @@ export function SnapSheet({
     Math.max(snapPoints.length - 1, 0),
   );
   const point = snapPoints[safeIndex] ?? { fraction: 0.5, label: "" };
+  // P2b-2: shared Modal+scrim shell. Snap-specific behaviour — the adjustable
+  // handle that cycles snap points — stays here, in the `handle` slot.
   return (
-    <Modal
-      visible={open}
-      transparent
-      animationType="slide"
-      accessibilityViewIsModal
-      onRequestClose={onDismiss}
-    >
-      <View style={overlayStyles.bottomScrim}>
+    <SheetSurface
+      open={open}
+      title={title}
+      onDismiss={onDismiss}
+      testID={testID ?? "kern-snap-sheet"}
+      handle={
         <Pressable
-          accessibilityLabel={`Dismiss ${title}`}
-          onPress={onDismiss}
-          style={{ flex: 1 }}
-        />
-        <View
-          testID={testID ?? "kern-snap-sheet"}
-          style={[
-            {
-              backgroundColor: scheme.color.surfaceContainerLow,
-              borderTopLeftRadius: Number.parseFloat(
-                scheme.shape["extra-large"],
-              ),
-              borderTopRightRadius: Number.parseFloat(
-                scheme.shape["extra-large"],
-              ),
-              paddingBottom: Number.parseFloat(tokens.spacing["space-400"]),
-              maxHeight: `${Math.round(Math.min(point.fraction, 1) * 100)}%`,
-            },
-            style,
-          ]}
+          accessibilityRole="adjustable"
+          accessibilityLabel={`${title}, snap point ${safeIndex + 1} of ${snapPoints.length}`}
+          accessibilityValue={{ text: point.label }}
+          onPress={() =>
+            onIndexChange?.((safeIndex + 1) % Math.max(snapPoints.length, 1))
+          }
+          style={{
+            paddingVertical: Number.parseFloat(tokens.spacing["space-100"]),
+          }}
         >
-          <Pressable
-            accessibilityRole="adjustable"
-            accessibilityLabel={`${title}, snap point ${safeIndex + 1} of ${snapPoints.length}`}
-            accessibilityValue={{ text: point.label }}
-            onPress={() =>
-              onIndexChange?.((safeIndex + 1) % Math.max(snapPoints.length, 1))
-            }
-            style={{
-              paddingVertical: Number.parseFloat(tokens.spacing["space-100"]),
-            }}
-          >
-            <SheetHandle />
-          </Pressable>
-          <View
-            style={{
-              paddingHorizontal: Number.parseFloat(tokens.spacing["space-200"]),
-            }}
-          >
-            <Text variant="title" numberOfLines={2}>
-              {title}
-            </Text>
-            {children}
-          </View>
-        </View>
+          <SheetHandle />
+        </Pressable>
+      }
+      surface={{
+        backgroundColor: scheme.color.surfaceContainerLow,
+        borderTopLeftRadius: Number.parseFloat(scheme.shape["extra-large"]),
+        borderTopRightRadius: Number.parseFloat(scheme.shape["extra-large"]),
+        paddingBottom: Number.parseFloat(tokens.spacing["space-400"]),
+        maxHeight: `${Math.round(Math.min(point.fraction, 1) * 100)}%`,
+      }}
+      style={style}
+    >
+      <View
+        style={{
+          paddingHorizontal: Number.parseFloat(tokens.spacing["space-200"]),
+        }}
+      >
+        <Text variant="title" numberOfLines={2}>
+          {title}
+        </Text>
+        {children}
       </View>
-    </Modal>
+    </SheetSurface>
   );
 }
 
@@ -312,101 +291,82 @@ export function BottomSheetPicker({
   testID,
 }: NativeBottomSheetPickerProps) {
   const scheme = useKernScheme();
+  // P2b-2: shared Modal+scrim shell (see `SheetSurface`).
   return (
-    <Modal
-      visible={open}
-      transparent
-      animationType="slide"
-      accessibilityViewIsModal
-      onRequestClose={onDismiss}
+    <SheetSurface
+      open={open}
+      title={title}
+      onDismiss={onDismiss}
+      testID={testID ?? "kern-bottom-sheet-picker"}
+      handle={<SheetHandle />}
+      surface={{
+        backgroundColor: scheme.color.surfaceContainerLow,
+        borderTopLeftRadius: Number.parseFloat(scheme.shape["extra-large"]),
+        borderTopRightRadius: Number.parseFloat(scheme.shape["extra-large"]),
+        paddingBottom: Number.parseFloat(tokens.spacing["space-400"]),
+        paddingHorizontal: Number.parseFloat(tokens.spacing["space-150"]),
+      }}
+      style={style}
     >
-      <View style={overlayStyles.bottomScrim}>
-        <Pressable
-          accessibilityLabel={`Dismiss ${title}`}
-          onPress={onDismiss}
-          style={{ flex: 1 }}
-        />
-        <View
-          testID={testID ?? "kern-bottom-sheet-picker"}
-          style={[
-            {
-              backgroundColor: scheme.color.surfaceContainerLow,
-              borderTopLeftRadius: Number.parseFloat(
-                scheme.shape["extra-large"],
-              ),
-              borderTopRightRadius: Number.parseFloat(
-                scheme.shape["extra-large"],
-              ),
-              paddingBottom: Number.parseFloat(tokens.spacing["space-400"]),
-              paddingHorizontal: Number.parseFloat(tokens.spacing["space-150"]),
-            },
-            style,
-          ]}
-        >
-          <SheetHandle />
-          <View
-            style={{
-              paddingHorizontal: Number.parseFloat(tokens.spacing["space-50"]),
-            }}
-          >
-            <Text variant="title">{title}</Text>
-          </View>
-          {options.map((option) => {
-            const selected = option.value === value;
-            return (
-              <Pressable
-                key={option.value}
-                accessibilityRole="menuitem"
-                accessibilityState={{
-                  selected,
-                  disabled: Boolean(option.disabled),
-                }}
-                accessibilityLabel={option.label}
-                disabled={option.disabled}
-                onPress={() => {
-                  onSelect(option.value);
-                  onDismiss?.();
-                }}
-                style={({ pressed }) => ({
-                  minHeight: 56,
-                  flexDirection: "row",
-                  alignItems: "center",
-                  gap: Number.parseFloat(tokens.spacing["space-150"]),
-                  paddingHorizontal: Number.parseFloat(
-                    tokens.spacing["space-200"],
-                  ),
-                  opacity: option.disabled ? 0.38 : pressed ? 0.82 : 1,
-                })}
-              >
-                <View style={{ flex: 1 }}>
-                  <Text
-                    style={{
-                      color: selected
-                        ? scheme.color.onSurface
-                        : scheme.color.onSurfaceVariant,
-                      fontWeight: selected ? "600" : "400",
-                    }}
-                  >
-                    {option.label}
-                  </Text>
-                  {option.supporting ? (
-                    <Text
-                      variant="label"
-                      style={{ color: scheme.color.onSurfaceVariant }}
-                    >
-                      {option.supporting}
-                    </Text>
-                  ) : null}
-                </View>
-                {selected ? (
-                  <RNText style={{ color: scheme.color.primary }}>✓</RNText>
-                ) : null}
-              </Pressable>
-            );
-          })}
-        </View>
+      <View
+        style={{
+          paddingHorizontal: Number.parseFloat(tokens.spacing["space-50"]),
+        }}
+      >
+        <Text variant="title">{title}</Text>
       </View>
-    </Modal>
+      {options.map((option) => {
+        const selected = option.value === value;
+        return (
+          <Pressable
+            key={option.value}
+            accessibilityRole="menuitem"
+            accessibilityState={{
+              selected,
+              disabled: Boolean(option.disabled),
+            }}
+            accessibilityLabel={option.label}
+            disabled={option.disabled}
+            onPress={() => {
+              onSelect(option.value);
+              onDismiss?.();
+            }}
+            style={({ pressed }) => ({
+              minHeight: 56,
+              flexDirection: "row",
+              alignItems: "center",
+              gap: Number.parseFloat(tokens.spacing["space-150"]),
+              paddingHorizontal: Number.parseFloat(tokens.spacing["space-200"]),
+              opacity: option.disabled ? 0.38 : pressed ? 0.82 : 1,
+            })}
+          >
+            <View style={{ flex: 1 }}>
+              <Text
+                style={{
+                  color: selected
+                    ? scheme.color.onSurface
+                    : scheme.color.onSurfaceVariant,
+                  fontWeight: selected ? "600" : "400",
+                }}
+              >
+                {option.label}
+              </Text>
+              {option.supporting ? (
+                <Text
+                  variant="label"
+                  style={{ color: scheme.color.onSurfaceVariant }}
+                >
+                  {option.supporting}
+                </Text>
+              ) : null}
+            </View>
+            {selected ? (
+              <RNText style={{ color: scheme.color.primary }}>✓</RNText>
+            ) : null}
+          </Pressable>
+        );
+      })}
+    </SheetSurface>
   );
 }
 
@@ -447,83 +407,65 @@ export function EntitySheet({
 }: NativeEntitySheetProps) {
   const scheme = useKernScheme();
   return (
-    <Modal
-      visible={open}
-      transparent
-      animationType="slide"
-      accessibilityViewIsModal
-      onRequestClose={onDismiss}
+    <SheetSurface
+      open={open}
+      title={title}
+      onDismiss={onDismiss}
+      testID={testID ?? "kern-entity-sheet"}
+      handle={<SheetHandle />}
+      surface={{
+        backgroundColor: scheme.color.surfaceContainerLow,
+        borderTopLeftRadius: Number.parseFloat(scheme.shape["extra-large"]),
+        borderTopRightRadius: Number.parseFloat(scheme.shape["extra-large"]),
+        paddingHorizontal: Number.parseFloat(tokens.spacing["space-200"]),
+        paddingBottom: Number.parseFloat(tokens.spacing["space-400"]),
+        paddingTop: Number.parseFloat(tokens.spacing["space-100"]),
+        maxHeight: "92%",
+        gap: Number.parseFloat(tokens.spacing["space-150"]),
+      }}
+      style={style}
     >
-      <View style={overlayStyles.bottomScrim}>
-        <Pressable
-          accessibilityLabel={`Dismiss ${title}`}
-          onPress={onDismiss}
-          style={{ flex: 1 }}
-        />
-        <View
-          testID={testID ?? "kern-entity-sheet"}
-          style={[
-            {
-              backgroundColor: scheme.color.surfaceContainerLow,
-              borderTopLeftRadius: Number.parseFloat(
-                scheme.shape["extra-large"],
-              ),
-              borderTopRightRadius: Number.parseFloat(
-                scheme.shape["extra-large"],
-              ),
-              paddingHorizontal: Number.parseFloat(tokens.spacing["space-200"]),
-              paddingBottom: Number.parseFloat(tokens.spacing["space-400"]),
-              paddingTop: Number.parseFloat(tokens.spacing["space-100"]),
-              maxHeight: "92%",
-              gap: Number.parseFloat(tokens.spacing["space-150"]),
-            },
-            style,
-          ]}
-        >
-          <SheetHandle />
-          <View>
-            <Text variant="headline" numberOfLines={2}>
-              {title}
-            </Text>
-            {supporting ? (
-              <Text
-                variant="label"
-                style={{ color: scheme.color.onSurfaceVariant }}
-              >
-                {supporting}
-              </Text>
-            ) : null}
-          </View>
-          {fields.map((field) => (
-            <View
-              key={field.label}
-              style={{
-                backgroundColor: scheme.color.surfaceContainerHighest,
-                borderRadius: Number.parseFloat(scheme.shape.medium),
-                padding: Number.parseFloat(tokens.spacing["space-150"]),
-                gap: 2,
-              }}
-            >
-              <RNText
-                style={{ fontSize: 12, color: scheme.color.onSurfaceVariant }}
-              >
-                {field.label}
-              </RNText>
-              <RNText
-                style={{
-                  fontSize: field.data ? 13 : 15,
-                  fontWeight: field.data ? "500" : "400",
-                  color: scheme.color.onSurface,
-                }}
-              >
-                {field.value}
-              </RNText>
-            </View>
-          ))}
-          {children}
-          {actions}
-        </View>
+      <View>
+        <Text variant="headline" numberOfLines={2}>
+          {title}
+        </Text>
+        {supporting ? (
+          <Text
+            variant="label"
+            style={{ color: scheme.color.onSurfaceVariant }}
+          >
+            {supporting}
+          </Text>
+        ) : null}
       </View>
-    </Modal>
+      {fields.map((field) => (
+        <View
+          key={field.label}
+          style={{
+            backgroundColor: scheme.color.surfaceContainerHighest,
+            borderRadius: Number.parseFloat(scheme.shape.medium),
+            padding: Number.parseFloat(tokens.spacing["space-150"]),
+            gap: 2,
+          }}
+        >
+          <RNText
+            style={{ fontSize: 12, color: scheme.color.onSurfaceVariant }}
+          >
+            {field.label}
+          </RNText>
+          <RNText
+            style={{
+              fontSize: field.data ? 13 : 15,
+              fontWeight: field.data ? "500" : "400",
+              color: scheme.color.onSurface,
+            }}
+          >
+            {field.value}
+          </RNText>
+        </View>
+      ))}
+      {children}
+      {actions}
+    </SheetSurface>
   );
 }
