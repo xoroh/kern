@@ -1,7 +1,7 @@
 ---
 name: kern
 description: Kern UI by Xoroh — M3-based design system for @xoroh/kern (web React + native). Use as the primary design reference for UI, component, layout, color, typography, shape, or theming work with Kern tokens and MD3 structure.
-license: Apache-2.0
+license: MIT
 ---
 
 # Kern — Xoroh Design System (Material 3 foundation)

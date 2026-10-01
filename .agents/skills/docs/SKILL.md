@@ -1,7 +1,7 @@
 ---
 name: docs
 description: Discipline for keeping Kern docs and skills updated. Use when changing code, tokens, components, skills, or repo process — routes to documentations, skills, or the change-routing map for detail.
-license: Apache-2.0
+license: MIT
 ---
 
 # Docs & skills upkeep

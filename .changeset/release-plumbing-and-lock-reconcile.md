@@ -26,8 +26,9 @@ tarball never carries a `workspace:` specifier.
 `bun.lock` is reconciled against every manifest in the workspace and is
 verified deterministic (`bun install --frozen-lockfile` reports no changes).
 
-**NOTE — licence flag, needs a founder ruling.** `packages/kern/package.json`
-carries `"license": "Apache-2.0"` in this commit while `LICENSE`,
-`packages/kern/LICENSE`, `README.md` and `GOVERNANCE.md` all say MIT. This was
-already in the working tree before this commit; it is preserved verbatim, not
-adopted. Reverting or confirming it is a licence change and is founder-gated.
+**Licence — resolved by founder ruling D-025 (MIT everywhere).**
+`packages/kern/package.json`, `apps/mobile/package.json` and
+`packages/cli/package.json` carried `"license": "Apache-2.0"` while `LICENSE`,
+`packages/kern/LICENSE`, `README.md` and `GOVERNANCE.md` all said MIT. D-025
+ruled MIT as the design-system ecosystem standard; the manifests are now MIT
+and the stray Apache-2.0 values are gone.

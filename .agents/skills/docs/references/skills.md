@@ -6,7 +6,7 @@ no exceptions, no per-skill variants.
 - `SKILL.md` is a router (<150 lines): frontmatter, decision tree,
   pointers. Detail lives in `references/`.
 - Frontmatter carries `name`, `description` (what + when), and
-  `license: Apache-2.0`.
+  `license: MIT`.
 - After any edit: `bun x skills-ref validate ./.agents/skills/<name>`,
   grep stale paths, check relative links.
 - Porting from private sources: sweep leaks first

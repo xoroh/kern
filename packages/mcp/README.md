@@ -35,4 +35,4 @@ component sources + tokens too) so the published server works without
 
 ## License
 
-Apache License 2.0 — see root `LICENSE`.
+MIT — see root `LICENSE`.
