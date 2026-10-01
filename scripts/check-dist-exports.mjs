@@ -17,8 +17,8 @@
 //
 // Exit 0 = every declared export exists.
 
-import { readFile, access, readdir } from "node:fs/promises";
-import { resolve, dirname, join } from "node:path";
+import { access, readdir, readFile } from "node:fs/promises";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -85,9 +85,7 @@ for (const manifestPath of manifests) {
       try {
         await access(resolve(pkgDir, target));
       } catch {
-        failures.push(
-          `${manifest.name}${subpath.slice(1)} -> ${target}`,
-        );
+        failures.push(`${manifest.name}${subpath.slice(1)} -> ${target}`);
       }
     }
   }
@@ -100,7 +98,8 @@ if (failures.length > 0) {
       `This usually means a DTS step failed AFTER tsup --clean already emitted JS.\n` +
       `Re-run the build and read its FULL output — the real error is on stderr.\n\n`,
   );
-  for (const failure of failures) process.stderr.write(`  ${failure}  (missing)\n`);
+  for (const failure of failures)
+    process.stderr.write(`  ${failure}  (missing)\n`);
   process.stderr.write("\n");
   process.exit(1);
 }

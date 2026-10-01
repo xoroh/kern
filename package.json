@@ -27,6 +27,8 @@
     "check:primitives": "node scripts/check-primitives.mjs",
     "check:publish": "bun run --filter @xoroh/kern check:publish && bun run --filter @xoroh/kern-tokens check:publish && bun run --filter @xoroh/kern-native check:publish && bun run --filter @xoroh/kern-icons check:publish && bun run --filter @xoroh/kern-mcp check:publish && bun run preflight:publish",
     "preflight:publish": "node scripts/preflight-publish.mjs",
+    "check:dist": "node scripts/check-dist-exports.mjs",
+    "check:cold": "rm -rf node_modules packages/*/node_modules packages/*/dist apps/*/node_modules apps/*/dist && bun install --frozen-lockfile && bun run check:dist",
     "typecheck": "bun run --filter @xoroh/kern-tokens typecheck && bun run --filter @xoroh/kern typecheck && bun run --filter @xoroh/kern-native typecheck && bun run --filter @xoroh/kern-icons typecheck",
     "test": "bun run --filter @xoroh/kern-tokens test && bun run --filter @xoroh/kern test && bun run --filter @xoroh/kern-icons test",
     "test:native": "bun run --filter @xoroh/kern-native test",

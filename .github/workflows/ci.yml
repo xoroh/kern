@@ -56,9 +56,11 @@ jobs:
           git add -N .
           git diff --exit-code -- packages/kern-tokens/src/tokens.css packages/kern-tokens/src/tones.css packages/kern-tokens/src/motion.css docs/components.md packages/mcp/src/manifest.ts packages/mcp/src/component-sources.ts packages/kern-icons/src/sets
 
-      - name: Build MCP server
+      - name: Build all publishable packages
         run: bun run build
-        working-directory: packages/mcp
+
+      - name: Check every declared export exists in dist
+        run: bun run check:dist
 
       - name: Typecheck MCP server
         run: bun run typecheck
