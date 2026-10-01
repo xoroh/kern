@@ -7,7 +7,7 @@ import { cn } from "../utils/cn";
  * positive, cautionary, negative). One prop name, one meaning across the set.
  */
 const bannerVariants = cva(
-  "kern-banner flex items-start gap-3 rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-outline-variant) px-4 py-3 text-sm",
+  "kern-banner flex items-start gap-3 rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface) px-4 py-3 text-sm shadow-(--md-sys-elevation-level1)",
   {
     variants: {
       variant: {

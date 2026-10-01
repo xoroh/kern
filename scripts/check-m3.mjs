@@ -281,7 +281,23 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
       levels.size === 1 ? [...levels][0] : null,
     );
     violations.push(...problems);
-    if (problems.length === 0 && levels.size === 1) conformant++;
+    // A row is conformant when it has no violations AND its measurement is
+    // meaningful: either exactly one level resolved, or NO token at all for a
+    // row M3 places at level 0 (absence is the conformant state there — level0
+    // is `shadow: none`). The old `levels.size === 1` silently excluded those
+    // rows from the count, so the summary could read "12/19" while six of them
+    // asserted nothing — the proxy-for-the-property failure this sweep exists
+    // to prevent.
+    const levelZeroSpec = M3_ELEVATION_COMPONENTS[component]?.variants.every(
+      (level) => level === 0,
+    );
+    const measured =
+      levels.size === 1
+        ? [...levels][0]
+        : levels.size === 0 && levelZeroSpec
+          ? 0
+          : null;
+    if (problems.length === 0 && measured !== null) conformant++;
   }
   elevationConformant = conformant;
   elevationTotal = Object.keys(M3_ELEVATION_COMPONENTS).length;
