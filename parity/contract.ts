@@ -209,6 +209,65 @@ export const CONTRACTS: readonly ParityRow[] = [
     maxSelected: 1,
   },
 
+  // ---------------------------------------------- overlay surfaces (tranche 5)
+  //
+  // P2b-3 tranche 5: Drawer, Popover, ScrollArea. Written BEFORE the native
+  // implementation, so the declaration is the specification the native side was
+  // built against rather than a description of what it happened to do.
+  //
+  // The row pins the obligation BOTH renderers share — the surface is a labelled
+  // dialog that is not presented while closed, and a dismiss control that
+  // reports the closed state. It deliberately does NOT pin the trigger, because
+  // M3's popover trigger is click-or-hover and touch has neither; the trigger is
+  // kern's own per-renderer decision and is asserted in the native suite.
+  {
+    component: "drawer",
+    role: "dialog",
+    axis: "selected",
+    interaction: "toggle",
+    name: "Menu",
+    // M3's modal drawer variant: modal, so dismissal is the meaningful
+    // transition. Not "presented while closed" — that is asserted per-renderer,
+    // because web unmounts and native hides.
+    expects: {
+      initial: false,
+      afterActivate: true,
+      afterDisabledActivate: false,
+    },
+    maxSelected: 1,
+  },
+  {
+    component: "popover",
+    role: "dialog",
+    axis: "selected",
+    interaction: "toggle",
+    name: "Details",
+    // A popover is NOT modal: content behind it stays interactive. The row
+    // carries the role only; `accessibilityViewIsModal` is asserted natively,
+    // where RN has the prop that expresses it.
+    expects: {
+      initial: false,
+      afterActivate: true,
+      afterDisabledActivate: false,
+    },
+    maxSelected: 1,
+  },
+  {
+    component: "scroll-area",
+    role: "group",
+    axis: "selected",
+    interaction: "toggle",
+    name: "Rows",
+    // Scrollability is presentational state, not a toggle: neither renderer
+    // toggles it, so `afterActivate` is false on both sides by construction.
+    expects: {
+      initial: false,
+      afterActivate: false,
+      afterDisabledActivate: false,
+    },
+    maxSelected: 1,
+  },
+
   // ------------------------------------------------------------- tranche 2
   // Measured on both renderers before being written down; see
   // `.team/findings/2026-10-01-p2b4-tranche2-measured-divergences.md`.
