@@ -41,6 +41,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `button-group` | `ButtonGroup` | real |
 | `calendar` | `Calendar` | real |
 | `card` | `Card` | real |
+| `carousel` | `Carousel` | real |
 | `checkbox` | `Checkbox` | real |
 | `checkbox-group` | `CheckboxGroup` | real |
 | `checkbox-group-item` | `CheckboxGroupItem` | real |
@@ -98,7 +99,9 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `drawer-title` | `DrawerTitle` | real |
 | `drawer-trigger` | `DrawerTrigger` | real |
 | `empty-state` | `EmptyState` | real |
+| `extended-fab` | `ExtendedFab` | real |
 | `fab` | `Fab` | real |
+| `fab-menu` | `FabMenu` | real |
 | `field` | `Field` | real |
 | `field-description` | `FieldDescription` | real |
 | `field-error` | `FieldError` | real |
@@ -109,6 +112,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `fieldset-legend` | `FieldsetLegend` | real |
 | `fieldset-root` | `FieldsetRoot` | real |
 | `form` | `Form` | real |
+| `icon-button` | `IconButton` | real |
 | `input` | `Input` | real |
 | `input-otp` | `InputOTP` | real |
 | `input-otpinput` | `InputOTPInput` | real |
@@ -119,6 +123,8 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `list-item` | `ListItem` | real |
 | `loader` | `Loader` | real |
 | `loading-button` | `LoadingButton` | real |
+| `loading-indicator` | `LoadingIndicator` | real |
+| `loading-region` | `LoadingRegion` | real |
 | `menu` | `Menu` | real |
 | `menu-content` | `MenuContent` | real |
 | `menu-group-label` | `MenuGroupLabel` | real |
@@ -219,6 +225,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `sonner-root` | `SonnerRoot` | real |
 | `sonner-title` | `SonnerTitle` | real |
 | `sonner-viewport` | `SonnerViewport` | real |
+| `split-button` | `SplitButton` | real |
 | `switch` | `Switch` | real |
 | `table` | `Table` | real |
 | `table-body` | `TableBody` | real |
@@ -235,6 +242,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `tabs-tab` | `TabsTab` | real |
 | `text` | `Text` | real |
 | `textarea` | `Textarea` | real |
+| `time-picker` | `TimePicker` | real |
 | `toggle` | `Toggle` | real |
 | `toggle-group` | `ToggleGroup` | real |
 | `toggle-group-item` | `ToggleGroupItem` | real |

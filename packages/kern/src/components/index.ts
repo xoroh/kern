@@ -75,6 +75,8 @@ export type { CalendarProps } from "./calendar";
 export { Calendar } from "./calendar";
 export type { CardProps } from "./card";
 export { Card, cardVariants } from "./card";
+export type { CarouselProps } from "./carousel";
+export { Carousel } from "./carousel";
 export type { CheckboxProps } from "./checkbox";
 export { Checkbox } from "./checkbox";
 export type {
@@ -212,8 +214,16 @@ export {
 } from "./drawer";
 export type { EmptyStateProps } from "./empty-state";
 export { EmptyState } from "./empty-state";
+// P2-1 M3 gap fill: the seven components the ladder named as missing.
+export type {
+  ExtendedFabHandle,
+  ExtendedFabProps,
+} from "./extended-fab";
+export { ExtendedFab } from "./extended-fab";
 export type { FabProps } from "./fab";
 export { Fab, fabVariants } from "./fab";
+export type { FabMenuAction, FabMenuProps } from "./fab-menu";
+export { FabMenu } from "./fab-menu";
 export type {
   FieldDescriptionProps,
   FieldErrorProps,
@@ -233,6 +243,8 @@ export type { FieldsetLegendProps, FieldsetRootProps } from "./fieldset";
 export { Fieldset, FieldsetLegend, FieldsetRoot } from "./fieldset";
 export type { FormProps } from "./form";
 export { Form } from "./form";
+export type { IconButtonProps, IconButtonVariant } from "./icon-button";
+export { IconButton, iconButtonVariants } from "./icon-button";
 export type { InputProps } from "./input";
 export { Input } from "./input";
 export type { InputOTPInputProps, InputOTPRootProps } from "./input-otp";
@@ -249,6 +261,15 @@ export type { LoaderProps } from "./loader";
 export { Loader, loaderVariants } from "./loader";
 export type { LoadingButtonProps } from "./loading-button";
 export { LoadingButton } from "./loading-button";
+export type {
+  LoadingIndicatorProps,
+  LoadingRegionProps,
+} from "./loading-indicator";
+export {
+  LoadingIndicator,
+  LoadingRegion,
+  loadingIndicatorVariants,
+} from "./loading-indicator";
 export type {
   MenuContentProps,
   MenuGroupLabelProps,
@@ -486,6 +507,8 @@ export {
   SonnerTitle,
   SonnerViewport,
 } from "./sonner";
+export type { SplitButtonAction, SplitButtonProps } from "./split-button";
+export { SplitButton } from "./split-button";
 export type { SwitchProps } from "./switch";
 export { Switch } from "./switch";
 export type {
@@ -518,6 +541,12 @@ export type { TextProps } from "./text";
 export { Text, textVariants } from "./text";
 export type { TextareaProps } from "./textarea";
 export { Textarea } from "./textarea";
+export type {
+  TimePickerFormat,
+  TimePickerProps,
+  TimePickerValue,
+} from "./time-picker";
+export { formatClock, TimePicker } from "./time-picker";
 export type { ToggleProps } from "./toggle";
 export { Toggle } from "./toggle";
 export type {

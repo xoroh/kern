@@ -235,6 +235,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    name: "carousel",
+    export: "Carousel",
+    platform: "web",
+    path: "src/components/carousel.tsx",
+    status: "real",
+  },
+  {
     name: "checkbox-group-root",
     export: "CheckboxGroupRoot",
     platform: "web",
@@ -627,6 +634,20 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    name: "extended-fab",
+    export: "ExtendedFab",
+    platform: "web",
+    path: "src/components/extended-fab.tsx",
+    status: "real",
+  },
+  {
+    name: "fab-menu",
+    export: "FabMenu",
+    platform: "web",
+    path: "src/components/fab-menu.tsx",
+    status: "real",
+  },
+  {
     name: "fab",
     export: "Fab",
     platform: "web",
@@ -704,6 +725,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    name: "icon-button",
+    export: "IconButton",
+    platform: "web",
+    path: "src/components/icon-button.tsx",
+    status: "real",
+  },
+  {
     name: "input-otproot",
     export: "InputOTPRoot",
     platform: "web",
@@ -771,6 +799,20 @@ export const COMPONENTS: ComponentEntry[] = [
     export: "LoadingButton",
     platform: "web",
     path: "src/components/loading-button.tsx",
+    status: "real",
+  },
+  {
+    name: "loading-indicator",
+    export: "LoadingIndicator",
+    platform: "web",
+    path: "src/components/loading-indicator.tsx",
+    status: "real",
+  },
+  {
+    name: "loading-region",
+    export: "LoadingRegion",
+    platform: "web",
+    path: "src/components/loading-indicator.tsx",
     status: "real",
   },
   {
@@ -1481,6 +1523,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    name: "split-button",
+    export: "SplitButton",
+    platform: "web",
+    path: "src/components/split-button.tsx",
+    status: "real",
+  },
+  {
     name: "switch",
     export: "Switch",
     platform: "web",
@@ -1590,6 +1639,13 @@ export const COMPONENTS: ComponentEntry[] = [
     export: "Textarea",
     platform: "web",
     path: "src/components/textarea.tsx",
+    status: "real",
+  },
+  {
+    name: "time-picker",
+    export: "TimePicker",
+    platform: "web",
+    path: "src/components/time-picker.tsx",
     status: "real",
   },
   {

@@ -52,13 +52,13 @@ again. Measured from the generated registry instead:
 
 | Measure | Value |
 |---|---|
-| Registry rows | **317** (web 240, native 77) |
+| Registry rows | **325** (web 248, native 77) |
 | **Shared** (already both sides) | **48** |
 | **Native-only → needs a web version** | **22** in **11 files** |
-| **Web-only → needs a native version** | **34** in **25 files** |
+| **Web-only → needs a native version** | **42** in **33 files** |
 | Stub rows | **0** |
 
-<!-- gate:counts 48 22 34 0 -->
+<!-- gate:counts 48 22 42 0 -->
 
 Machine-readable line above: `check:parity` (`scripts/check-parity.mjs`) re-derives
 these from the registry and fails if they drift, so the prose above cannot quietly
@@ -115,6 +115,54 @@ a registered `table`; `segmented-button` is not a part of any registered
 
 I report these because the same registry is the input to the phase gate; a wrong
 set would have dispatched real work at phantom gaps.
+
+---
+
+## Web versions of the P2-1 gap fill (M3 components that did not exist on web)
+
+Phase 2 named seven M3 components as missing: Extended FAB, FAB menu, canonical
+icon button, split button, time picker, carousel, loading indicator. All seven
+now ship in `@xoroh/kern` as components that own behaviour rather than wrap a
+primitive, so **web-only goes 34 → 42** and the registry 317 → 325. That is the
+honest cost direction: these are web-first concepts whose native counterparts
+are owed by P2b-3, and the count moving is the record of the debt.
+
+| Concept | Web | Behaviour owned on web | Test pointer |
+|---|---|---|---|
+| `icon-button` | `IconButton` | Toggle state reported as `aria-pressed`, controlled **or** uncontrolled; a plain icon button never claims to be a toggle; the accessible name and the M3 tooltip come from one `label` prop so they cannot drift; 40dp visual box on a 48dp touch target | `m3-gaps.test.tsx` |
+| `extended-fab` | `ExtendedFab` | Scroll-driven collapse through an imperative handle (M3 triggers it on scroll, which the component cannot see, so a gesture was **not** invented); the accessible name survives collapse, because collapsed the visible label is gone | `m3-gaps.test.tsx` |
+| `fab-menu` | `FabMenu` | `aria-haspopup="menu"` + `aria-expanded` on the FAB; select-then-dismiss so the host never closes by hand; Escape returns focus to the trigger; a disabled action cannot be activated | `m3-gaps.test.tsx` |
+| `split-button` | `SplitButton` | Two tab stops with two names — a single element with two hit regions cannot be announced as either control; the primary action does **not** open the menu; disabling disables both halves | `m3-gaps.test.tsx` |
+| `time-picker` | `TimePicker` | One `TimePickerValue` normalised to 24-hour state whatever `format` renders; roving tabindex per field with Arrow/Home/End wrap and auto-selection; a step that cannot land on `:00` falls back to minute-accurate | `m3-gaps.test.tsx` |
+| `carousel` | `Carousel` | `aria-roledescription="carousel"`/`"slide"` with `"n of m"` per slide; one tab stop, Arrow-key traversal; clamp-and-disable or wrap; inactive slides are `aria-hidden`, not read out | `m3-gaps.test.tsx` |
+| `loading-indicator` | `LoadingIndicator` + `LoadingRegion` | `role="status"` so the label is announced when it appears; **no `aria-valuenow`** — there is no progress to report and a fabricated value is worse than none; `prefers-reduced-motion` stops the motion without removing the feedback | `m3-gaps.test.tsx` |
+
+Two of these carry rulings rather than preferences, and both are recorded so a
+later reader does not "fix" them back:
+
+- **`loading-indicator` replaces the indeterminate circular-progress pattern, it
+  does not sit beside it** (T4-M5, `.team/decisions/D-026-kern-council-forks.md`).
+  `CircularProgress` remains for the *determinate* case, which is a different
+  question. `Loader` is **not** retired in this change: that is a breaking export
+  removal and is `kern-lead`'s call under T4-M5, not a side effect of a
+  gap-fill batch.
+- **`time-picker` ships the listbox presentation, not the clock face.** M3
+  specifies a dial; the listbox is the form that is keyboard- and
+  screen-reader-correct without a pointer, and a host that wants a dial renders
+  one over the same value contract. This is a presentation deviation, recorded
+  here rather than hidden.
+
+### Two contract corrections this batch forced
+
+1. **Base UI's menu root emits `aria-labelledby` pointing at the trigger**, so a
+   popup that also carries `aria-label` has *two* competing names and the reader
+   picks one arbitrarily. `FabMenu` therefore sets no `aria-label` on the popup,
+   and `menuLabel` renames the **trigger** (the menu follows). Pinned by a test.
+2. **A permanently-controlled prop silently kills the component.** Passing the
+   component's own internal state back in as the root's `open` prop makes the
+   root controlled, so `setOpen` writes a value nothing reads and the menu can
+   never open. `FabMenu` passes `open` only when the host controls it. Caught by
+   the behaviour test, not by typecheck or any gate.
 
 ---
 
@@ -190,9 +238,21 @@ contract input.
 | 26 | `kbd` | Keyboard key glyph | `<kbd>`; **web-interaction concept** | **no mobile analogue** — deliberate asymmetry (see note) | none | n/a |
 | 27 | `sonner` | Imperative transient messages | `role="status"`, `aria-live` | **deliberately no native counterpart** — D-026/S1.3 ruling: M3 = `Snackbar` | M3 · Snackbars | n/a |
 | 28 | `create-sonner-manager` | Imperative API factory | — | **no native counterpart by ruling** | M3 · Snackbars | n/a |
+| 29 | `icon-button` | Square icon-only action, 4 containers + toggle | `aria-pressed` on the toggle; name from one `label` prop | `Pressable` + `accessibilityRole="button"` + `accessibilityState.selected` | M3 · Buttons → Icon buttons | `m3-gaps.test.tsx` |
+| 30 | `extended-fab` | FAB with a visible label, collapses when it no longer fits | collapse via imperative handle; name survives collapse | `Pressable` + `accessibilityRole="button"`, label as `accessibilityLabel` | M3 · FAB → Extended FAB | `m3-gaps.test.tsx` |
+| 31 | `fab-menu` | FAB that opens a menu of actions | `aria-haspopup="menu"` + `aria-expanded`; select-then-dismiss | `accessibilityRole="menu"` + `accessibilityState.expanded` | M3 · FAB → FAB menu | `m3-gaps.test.tsx` |
+| 32 | `split-button` | One primary action + an overflow menu | two named controls; primary does not open the menu | `accessibilityRole="menu"` on the overflow half | M3 · Buttons → Split button | `m3-gaps.test.tsx` |
+| 33 | `time-picker` | Hour / minute / period | three `role="listbox"`es, roving tabindex per field, 24-hour state | `accessibilityRole="adjustable"`-style pickers, or a platform time picker | M3 · Date & time → Time picker | `m3-gaps.test.tsx` |
+| 34 | `carousel` | One item at a time with prev/next | `aria-roledescription="carousel"`/`"slide"`, `"n of m"` per slide | horizontal `ScrollView` + `accessibilityRole="adjustable"` paging | M3 · Carousel | `m3-gaps.test.tsx` |
+| 35 | `loading-indicator` | Indeterminate activity feedback (**replaces** indeterminate circular progress, T4-M5) | `role="status"`, no `aria-valuenow`, reduced-motion aware | `ActivityIndicator` + `accessibilityLabel`; **no** indeterminate circular-progress component | M3 · Progress → Loading indicator | `m3-gaps.test.tsx` |
+| 36 | `loading-region` | The region being loaded, with `aria-busy` | `aria-busy` on the region, `aria-live="polite"` | `accessibilityState.busy` on the container | M3 · Progress | `m3-gaps.test.tsx` |
 
 Rows 26-28 are recorded so the set is complete and the **reasons are recorded**,
 per the S2.3-style bar of "either renders or carries an explicit prose reason".
+
+Rows 29-36 are the P2-1 gap fill, all landing in this change: **web-only 34 →
+42**, registry 317 → 325. They are web-first concepts, so the native column is a
+debt owed by P2b-3 rather than a claim that the work is done.
 
 ---
 
