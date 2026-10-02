@@ -67,7 +67,7 @@
       "version": "0.0.0",
       "dependencies": {
         "@base-ui/react": "^1.8.0",
-        "@xoroh/kern-primitives": "workspace:*",
+        "@xoroh/kern-primitives": "^0.0.0",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "tailwind-merge": "^3.7.0",
@@ -126,7 +126,7 @@
       "name": "@xoroh/kern-native",
       "version": "0.0.0",
       "dependencies": {
-        "@xoroh/kern-primitives": "workspace:*",
+        "@xoroh/kern-primitives": "^0.0.0",
       },
       "devDependencies": {
         "@babel/runtime": "^7.28.0",
@@ -196,6 +196,7 @@
       },
       "devDependencies": {
         "@types/node": "^26.6.3",
+        "bun-types": "^1.4.2",
         "tsup": "^8.5.1",
         "typescript": "5.9.3",
       },
@@ -1201,6 +1202,8 @@
     "bser": ["bser@2.1.1", "", { "dependencies": { "node-int64": "^0.4.0" } }, "sha512-gQxTNE/GAfIIrmHLUE3oJyp5FO6HRBfhjnw4/wMmA63ZGDJnWBmgY/lyQBpnDUkGmAhbSe39tx2d/iTOAfglwQ=="],
 
     "buffer-from": ["buffer-from@1.1.2", "", {}, "sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ=="],
+
+    "bun-types": ["bun-types@1.4.2", "", { "dependencies": { "@types/node": "*" } }, "sha512-bxV1FgK7yBIzjRe5zBozIM4Bem11ZJcCXSrjWRG3YWLt8yFDePu4cLjpebO8OvPeIE9trbyPF4fuj3Cia4Fj3w=="],
 
     "bundle-require": ["bundle-require@5.1.0", "", { "dependencies": { "load-tsconfig": "^0.2.3" }, "peerDependencies": { "esbuild": ">=0.18" } }, "sha512-3WrrOuZiyaaZPWiEt4G3+IffISVC9HYlWueJEBWED4ZH4aIAC2PnkdnuRrR94M+w6yGWn4AglWtJtBI8YqvgoA=="],
 
