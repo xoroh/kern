@@ -446,6 +446,27 @@ export {
   SheetTitle,
   SheetTrigger,
 } from "./sheet";
+export type {
+  ActionSheetAction,
+  ActionSheetProps,
+  BottomSheetPickerProps,
+  BottomSheetProps,
+  DockSheetProps,
+  EntityField,
+  EntitySheetProps,
+  PickerOption,
+  SheetSurfaceProps,
+  SnapSheetProps,
+} from "./sheet-family";
+export {
+  ActionSheet,
+  BottomSheet,
+  BottomSheetPicker,
+  DockSheet,
+  EntitySheet,
+  SheetSurface,
+  SnapSheet,
+} from "./sheet-family";
 export type { SkeletonProps } from "./skeleton";
 export { Skeleton } from "./skeleton";
 export type {

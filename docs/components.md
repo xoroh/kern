@@ -15,6 +15,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `accordion-panel` | `AccordionPanel` | real |
 | `accordion-root` | `AccordionRoot` | real |
 | `accordion-trigger` | `AccordionTrigger` | real |
+| `action-sheet` | `ActionSheet` | real |
 | `alert-dialog` | `AlertDialog` | real |
 | `alert-dialog-close` | `AlertDialogClose` | real |
 | `alert-dialog-content` | `AlertDialogContent` | real |
@@ -40,6 +41,8 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `banner` | `Banner` | real |
 | `banner-action` | `BannerAction` | real |
 | `boot-indicator` | `BootIndicator` | real |
+| `bottom-sheet` | `BottomSheet` | real |
+| `bottom-sheet-picker` | `BottomSheetPicker` | real |
 | `button` | `Button` | real |
 | `button-group` | `ButtonGroup` | real |
 | `calendar` | `Calendar` | real |
@@ -94,6 +97,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `dialog-root` | `DialogRoot` | real |
 | `dialog-title` | `DialogTitle` | real |
 | `dialog-trigger` | `DialogTrigger` | real |
+| `dock-sheet` | `DockSheet` | real |
 | `document` | `Document` | real |
 | `drawer` | `Drawer` | real |
 | `drawer-close` | `DrawerClose` | real |
@@ -103,6 +107,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `drawer-title` | `DrawerTitle` | real |
 | `drawer-trigger` | `DrawerTrigger` | real |
 | `empty-state` | `EmptyState` | real |
+| `entity-sheet` | `EntitySheet` | real |
 | `extended-fab` | `ExtendedFab` | real |
 | `fab` | `Fab` | real |
 | `fab-menu` | `FabMenu` | real |
@@ -216,6 +221,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `sheet-content` | `SheetContent` | real |
 | `sheet-description` | `SheetDescription` | real |
 | `sheet-root` | `SheetRoot` | real |
+| `sheet-surface` | `SheetSurface` | real |
 | `sheet-title` | `SheetTitle` | real |
 | `sheet-trigger` | `SheetTrigger` | real |
 | `sidebar` | `Sidebar` | real |
@@ -239,6 +245,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `snackbar-root` | `SnackbarRoot` | real |
 | `snackbar-title` | `SnackbarTitle` | real |
 | `snackbar-viewport` | `SnackbarViewport` | real |
+| `snap-sheet` | `SnapSheet` | real |
 | `sonner` | `Sonner` | real |
 | `sonner-action` | `SonnerAction` | real |
 | `sonner-close` | `SonnerClose` | real |
@@ -380,6 +387,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `slider` | `Slider` | real |
 | `snackbar` | `Snackbar` | real |
 | `snap-sheet` | `SnapSheet` | real |
+| `split` | `Split` | real |
 | `split-button` | `SplitButton` | real |
 | `success-transform` | `SuccessTransform` | real |
 | `supporting-pane` | `SupportingPane` | real |

@@ -52,13 +52,13 @@ again. Measured from the generated registry instead:
 
 | Measure | Value |
 |---|---|
-| Registry rows | **381** (web 279, native 102) |
-| **Shared** (already both sides) | **70** |
-| **Native-only → needs a web version** | **20** in **11 files** |
-| **Web-only → needs a native version** | **41** in **34** files |
+| Registry rows | **389** (web 286, native 103) |
+| **Shared** (already both sides) | **78** |
+| **Native-only → needs a web version** | **13** in **9 files** |
+| **Web-only → needs a native version** | **40** in **34** files |
 | Stub rows | **0** |
 
-<!-- gate:counts 70 20 41 0 -->
+<!-- gate:counts 78 13 40 0 -->
 
 Machine-readable line above: `check:parity` (`scripts/check-parity.mjs`) re-derives
 these from the registry and fails if they drift, so the prose above cannot quietly
@@ -166,33 +166,78 @@ later reader does not "fix" them back:
 
 ---
 
-## Native-only concepts → need a web version (20)
+## Native-only concepts → need a web version (13)
 
 Grouped by surface. `M3 source` is the M3 spec tab that governs the behaviour.
 
 | # | Component | Behaviour | Web contract (to build) | Native contract (exists) | M3 source | Test pointer |
 |---|---|---|---|---|---|---|
-| 1 | `bottom-sheet` | Modal sheet anchored to bottom edge | `role="dialog"`, `aria-modal`, focus trapped in, Escape closes, focus returns to trigger | `Modal` + `accessibilityRole="alert"` on `EntitySheet`; RN `Modal` handles dismissal | M3 · Sheets → Bottom sheet | `composition.rntest.tsx` |
-| 2 | `snap-sheet` | Bottom sheet with snap points | as above + `aria-valuenow`-equivalent detent announced | `Modal` + detent buttons | M3 · Sheets | GAP both sides |
-| 3 | `dock-sheet` | Docked bottom panel (persistent, not modal) | `role="region"`, **not** `aria-modal` — docked ≠ dialog | `Modal` currently; web must be non-modal | M3 · Sheets → Docked | GAP |
-| 4 | `entity-sheet` | Sheet presenting one entity + actions | `role="dialog"` + `aria-modal`, max 2 actions | `accessibilityRole="alert"`, `actionLabel` | M3 · Sheets | `composition.rntest.tsx` |
-| 5 | `bottom-sheet-picker` | Sheet as a single/multi selector | `role="listbox"` + `aria-multiselectable`, Escape closes | `ScrollView` + choice rows | M3 · Sheets → Picker | GAP |
+| 1 | `bottom-sheet` | Modal sheet anchored to bottom edge | `role="dialog"`, `aria-modal`, focus trapped in, Escape closes, focus returns to trigger | `Modal` + `accessibilityRole="alert"` on `EntitySheet`; RN `Modal` handles dismissal | M3 · Sheets → Bottom sheet | **BUILT 2026-10-03** — `sheet-family.tsx` |
+| 2 | `snap-sheet` | Bottom sheet with snap points | as above + `aria-valuenow`-equivalent detent announced | `Modal` + detent buttons | M3 · Sheets | **BUILT 2026-10-03** — `sheet-family.tsx` |
+| 3 | `dock-sheet` | Docked bottom panel (persistent, not modal) | `role="region"`, **not** `aria-modal` — docked ≠ dialog | `Modal` currently; web must be non-modal | M3 · Sheets → Docked | **BUILT 2026-10-03** — `sheet-family.tsx` |
+| 4 | `entity-sheet` | Sheet presenting one entity + actions | `role="dialog"` + `aria-modal`, max 2 actions | `accessibilityRole="alert"`, `actionLabel` | M3 · Sheets | **BUILT 2026-10-03** — `sheet-family.tsx` |
+| 5 | `bottom-sheet-picker` | Sheet as a single/multi selector | `role="listbox"` + `aria-multiselectable`, Escape closes | `ScrollView` + choice rows | M3 · Sheets → Picker | **BUILT 2026-10-03** — `sheet-family.tsx` |
 | 6 | `menu-screen` | Full-screen list of destinations | `role="list"`; web likely `NavigationMenu` for parity | `MenuScreen` rows | M3 · Menus | `composition.rntest.tsx` |
 | 7 | `menu-sheet` | Sheet wrapping a menu | `role="menu"`, arrow-key traversal | `MenuSheet` | M3 · Menus | GAP |
-| 8 | `menu-group-list` | Titled list of menu items | `role="group"` + `aria-label` = group heading | `MenuGroupList` + group label | M3 · Menus | GAP |
-| 9 | `action-sheet` | Titled surface with a dismiss path and a body (app switcher tiles or an action list) | `role="dialog"` + `aria-modal`, Escape + a visible close control, focus returns to trigger | `SheetSurface`-hosted: `Modal` + scrim + hardware back + close affordance | M3 · Menus | `composition.rntest.tsx` |
+| 8 | `menu-group-list` | Titled list of menu items | `role="group"` + `aria-label` = group heading | `MenuGroupList` + group label | M3 · Menus | **RULED OUT 2026-10-03** — see cut list |
+| 9 | `action-sheet` | Titled surface with a dismiss path and a body (app switcher tiles or an action list) | `role="dialog"` + `aria-modal`, Escape + a visible close control, focus returns to trigger | `SheetSurface`-hosted: `Modal` + scrim + hardware back + close affordance | M3 · Menus | **BUILT 2026-10-03** — `sheet-family.tsx` |
 | 10 | `top-app-bar` | Top app bar, small/center/medium | `role="banner"`, `aria-level` per size; medium wraps to 2 lines | `TopAppBar` 64/64/112dp | M3 · Top app bar | GAP |
 | 11 | `pane` | Single layout pane | `role="region"` + accessible name | `Pane` | M3 · Lists → Pane | GAP |
 | 12 | `list-detail` | Two-pane list→detail layout | `role="navigation"` per pane; selection announced | `ListDetail` | M3 · Lists | GAP |
-| 13 | `supporting-pane` | Optional supporting pane beside content | `role="complementary"` | `SupportingPane` | M3 · Lists | GAP |
+| 13 | `supporting-pane` | Optional supporting pane beside content | `role="complementary"` | `SupportingPane` | M3 · Lists | **RULED OUT 2026-10-03** — see cut list |
 | 14 | `filter-chip-row` | Horizontal row of filter chips | `role="group"`, each chip `aria-pressed` | `FilterChipRow` | M3 · Chips → Filter chips | GAP |
-| 15 | `milestone-trio` | Three-stage progress indicator (brand kit) | `role="progressbar"`, `aria-valuenow"` = stage | `MilestoneTrio` | Kern brand kit (M3 progress analogue) | `feedback.test.tsx` |
-| 16 | `success-transform` | Completion transition trio→check | `role="progressbar"` then `role="status"` "done" | `SuccessTransform`, `accessibilityRole="progressbar"` | Kern brand kit | `feedback.test.tsx` |
-| 17 | `shape` | Shape-scaled container primitive | web = `style` only, **no role** (decorative container) | `Shape` | M3 · Shape scale | GAP |
-| 18 | `shape-art` | Brand shape art | **decorative** → `aria-hidden="true"` | `ShapeArt` | Kern brand kit | GAP |
-| 19 | `aspect-ratio` | Fixed-ratio box | `style={{aspectRatio}}` — presentational | `aspectRatio` style | CSS/native analogue | GAP |
-| 20 | `sheet-surface` | Shared `Modal` + scrim primitive every kern sheet hosts through | web = `Dialog` root + portal scrim — the one place a sheet gets a dismissal path | `SheetSurface`: scrim press, `onRequestClose` (Android back) and a 48×48 close affordance all bound to `onDismiss` | M3 · Sheets | GAP |
-| 21 | `boot-splash` | Native launch surface (the browser has no pre-first-paint phase) | **not applicable** — deliberately asymmetric | `BootSplash` | Kern shell (native-only) | GAP |
+| 15 | `milestone-trio` | Three-stage progress indicator (brand kit) | `role="progressbar"`, `aria-valuenow"` = stage | `MilestoneTrio` | Kern brand kit (M3 progress analogue) | **RULED OUT 2026-10-03** — see cut list |
+| 16 | `success-transform` | Completion transition trio→check | `role="progressbar"` then `role="status"` "done" | `SuccessTransform`, `accessibilityRole="progressbar"` | Kern brand kit | **RULED OUT 2026-10-03** — see cut list |
+| 17 | `shape` | Shape-scaled container primitive | web = `style` only, **no role** (decorative container) | `Shape` | M3 · Shape scale | **RULED OUT 2026-10-03** — see cut list |
+| 18 | `shape-art` | Brand shape art | **decorative** → `aria-hidden="true"` | `ShapeArt` | Kern brand kit | **RULED OUT 2026-10-03** — see cut list |
+| 19 | `aspect-ratio` | Fixed-ratio box | `style={{aspectRatio}}` — presentational | `aspectRatio` style | CSS/native analogue | **RULED OUT 2026-10-03** — see cut list |
+| 20 | `sheet-surface` | Shared `Modal` + scrim primitive every kern sheet hosts through | web = `Dialog` root + portal scrim — the one place a sheet gets a dismissal path | `SheetSurface`: scrim press, `onRequestClose` (Android back) and a 48×48 close affordance all bound to `onDismiss` | M3 · Sheets | **BUILT 2026-10-03** — `sheet-family.tsx` |
+| 21 | `boot-splash` | Native launch surface (the browser has no pre-first-paint phase) | **not applicable** — deliberately asymmetric | `BootSplash` | Kern shell (native-only) | **RULED OUT 2026-10-03** — see cut list |
+
+### Resolved 2026-10-03 — tranche 1: the sheet family BUILT (native-only 20 → 13)
+
+Seven concepts landed in `packages/kern/src/components/sheet-family.tsx`, built on the same
+`@base-ui/react/dialog` primitive the existing side-drawer `Sheet` already uses — one behaviour
+layer, two surfaces. The web side previously had a side drawer only, so every bottom-anchored
+concept was registered native-only.
+
+| concept | web contract asserted | notes |
+|---|---|---|
+| `sheet-surface` | `role="dialog"` + `aria-modal`, scrim, Escape, focus return | the shared shell; the one place a kern sheet gets a dismissal path |
+| `bottom-sheet` | `role="dialog"`, named, optional close control | M3 Bottom sheet |
+| `dock-sheet` | `role="region"` — **deliberately not a dialog** | persistent quick-action bar; carries **no** elevation token |
+| `snap-sheet` | detent announced as `aria-valuenow`, cycles on activate | the web analogue of native `adjustable` |
+| `entity-sheet` | named dialog, `<dl>` field pairs, one action row | fields on `surface-container-highest` so the value outranks the label |
+| `bottom-sheet-picker` | `role="listbox"` + `aria-selected`; `aria-multiselectable` **only** when multi | selection carried by a check, never by a row fill |
+| `action-sheet` | named dialog + a list of actions | |
+
+**Assertions are role/label/state only** — never Base UI internals — so swapping the primitive
+breaks no consumer. `DockSheet`'s "no elevation token" is asserted by a test that reads the absence,
+because a persistent panel at modal elevation misreads as an overlay.
+
+**A contract test caught a real defect while writing this.** Base UI's `Dialog.Popup` traps focus
+and inerts the page but emits **no `aria-modal`** — without it a screen reader announces a dialog
+with no indication the rest of the page is unreachable. `dialog.tsx` carries the same hand-fix; this
+was found by the assertion, not by reading the primitive.
+
+### RULED OUT 2026-10-03 — eight of the twenty are not web components
+
+The behaviour test was re-applied to all 20 by reading each native body, not the ladder's count.
+Eight fail it — they are CSS, arithmetic, or parts of other concepts:
+
+| concept | verdict | evidence |
+|---|---|---|
+| `aspect-ratio` | **CSS** | `<View style={{aspectRatio}}>` — one property. A web component emitting only `aspect-ratio` is the empty abstraction. |
+| `supporting-pane` | **CSS** | `currentWidth < compactBreakpoint` — a media query. CSS owns this natively. |
+| `shape` | **CSS** | emits corner radius + rotation. `border-radius` / `transform` is the whole contract. |
+| `shape-art` | **decorative** | brand art; carries no behaviour and no role. |
+| `milestone-trio` | **duplicate** | a presentation of `progress`, which is already a SHARED concept. |
+| `success-transform` | **CSS** | the CSS border-tick; its only real behaviour is an `Animated.timing` pop, which is a transition. |
+| `menu-group-list` | **part** | an internal shared part of `MenuScreen`/`MenuSheet`, not a concept. |
+| `boot-splash` | **N/A** | a pre-first-paint launch surface; the browser has no equivalent phase. Already ruled deliberately asymmetric. |
+
+Remaining after tranche 1: **13** — `menu-screen`, `menu-sheet`, `filter-chip-row`, plus the shell
+surfaces queued for tranche 2.
 
 ### Resolved 2026-10-02 — three of these were never gaps (`pane`, `list-detail`, `top-app-bar`)
 
@@ -331,7 +376,7 @@ were restored from backup afterwards.
 
 ---
 
-## Web-only concepts → need a native version (41)
+## Web-only concepts → need a native version (40)
 
 The heading previously read **34** while the machine gate read **42** — the
 `gate:counts` line was right and the sentence a human reads was stale, which is
@@ -407,17 +452,26 @@ native and the count fell 42 → 39, and again in **tranche 2**, when
 | 28 | `section-drawer` | Section drawer within a navigation surface | `SectionDrawer` — labelled region | **covered, not separate work** — native `NavigationDrawer` (`destinations`, `title`, `footer`); web composes with children, native parameterises with items. API-shape difference, not a behavioural gap (ruled 2026-10-02, P2b-3 start tranche) | M3 · Navigation drawer | GAP |
 | 29 | `settings-row` | One row in a settings list | `SettingsRow` — a labelled row | **GAP** — no native version | — (composition tier; no governing component page verified) | GAP |
 | 30 | `sidebar` | Sidebar navigation | `Sidebar` — landmark + list **covered by the rail family** (the rail shipped with a persistent/expanded mode) — a persistent navigation region is behaviour native lacks (`NavigationDrawer` is `open`-controlled; a drawer you must open is not a sidebar). Per the Expressive mapping it is the expanded presentation of a navigation rail, so it is built as ONE family with a persistent mode, NOT as a separate Sidebar component (ruled 2026-10-02) | M3 · Navigation drawer | GAP |
-| 31 | `split` | Two-pane split layout | `Split` — the split container **GENUINE GAP** — a 2- or 3-column split. Native has no equivalent: `ListDetail` is a fixed 3-slot arrangement and `Pane` is a single region, so neither splits an arbitrary column count (ruled 2026-10-02) | — (composition tier; no governing component page verified) | GAP |
-| 32 | `status-bar` | Status bar surface | `StatusBar` — a status landmark | **GAP** — no native version | — (composition tier; no governing component page verified) | GAP |
-| 33 | `table-body` | Body region of a table (compound part of `table`) | `TableBody` — row group | **covered, not separate work** — native `Table` renders this from its `columns`/`rows` model; web's composable subpart is an API-shape difference, not a behavioural gap (ruled 2026-10-02) | M3 · Data tables | GAP |
-| 34 | `table-caption` | Caption of a table (compound part) | `TableCaption` — `caption` | **covered** — native `Table` takes a `caption` prop: text rendered AND appended to the accessible name (no caption element exists on this platform). No separate export, so the row stays web-only by export | M3 · Data tables | GAP |
-| 35 | `table-cell` | A cell (compound part of `table`) | `TableCell` — `cell` role | **covered, not separate work** — native `Table` renders this from its `columns`/`rows` model; web's composable subpart is an API-shape difference, not a behavioural gap (ruled 2026-10-02) | M3 · Data tables | GAP |
-| 36 | `table-head` | Header region of a table (compound part) | `TableHead` — columnheader group | **covered, not separate work** — native `Table` renders this from its `columns`/`rows` model; web's composable subpart is an API-shape difference, not a behavioural gap (ruled 2026-10-02) | M3 · Data tables | GAP |
-| 37 | `theme-toggle` | Toggle switching the theme | `ThemeToggle` — `aria-pressed` | **GAP** — no native version | — (composition tier; no governing component page verified) | GAP |
-| 38 | `top-app-bar-toggle` | Overflow toggle inside a top app bar | `TopAppBarToggle` — `aria-expanded` | **GAP** — no native version | — (composition tier; no governing component page verified) | GAP |
-| 39 | `top-bar-menu` | Generic menu slot in a top bar | `TopBarMenu` — a `menu` | **covered, not separate work** — native `Menubar` takes `menus: {label, items}[]`; web composes with children, native parameterises with items. API-shape difference, not a behavioural gap (ruled 2026-10-02, P2b-3 start tranche) | M3 · Menus | GAP |
-| 40 | `user-menu` | User/account menu in a top bar | `UserMenu` — a `menu` | **covered, not separate work** — native `Menubar` — web is a preset fixing the label; web composes with children, native parameterises with items. API-shape difference, not a behavioural gap (ruled 2026-10-02, P2b-3 start tranche) | M3 · Menus | GAP |
-| 41 | `navigation-rail-button` | One destination in a navigation rail | `NavigationRailButton` — a `role=tab` with a selected axis | **covered, not separate work** — native `NavigationRail` renders each destination as a `tab` with the same selected axis; web's separate export is an API-shape difference, and the family is ONE component by ruling (ruled 2026-10-02) | M3 · Navigation rail | `navigation-rail.rntest.tsx` |
+| 31 | `status-bar` | Status bar surface | `StatusBar` — a status landmark | **GAP** — no native version | — (composition tier; no governing component page verified) | GAP |
+| 32 | `table-body` | Body region of a table (compound part of `table`) | `TableBody` — row group | **covered, not separate work** — native `Table` renders this from its `columns`/`rows` model; web's composable subpart is an API-shape difference, not a behavioural gap (ruled 2026-10-02) | M3 · Data tables | GAP |
+| 33 | `table-caption` | Caption of a table (compound part) | `TableCaption` — `caption` | **covered** — native `Table` takes a `caption` prop: text rendered AND appended to the accessible name (no caption element exists on this platform). No separate export, so the row stays web-only by export | M3 · Data tables | GAP |
+| 34 | `table-cell` | A cell (compound part of `table`) | `TableCell` — `cell` role | **covered, not separate work** — native `Table` renders this from its `columns`/`rows` model; web's composable subpart is an API-shape difference, not a behavioural gap (ruled 2026-10-02) | M3 · Data tables | GAP |
+| 35 | `table-head` | Header region of a table (compound part) | `TableHead` — columnheader group | **covered, not separate work** — native `Table` renders this from its `columns`/`rows` model; web's composable subpart is an API-shape difference, not a behavioural gap (ruled 2026-10-02) | M3 · Data tables | GAP |
+| 36 | `theme-toggle` | Toggle switching the theme | `ThemeToggle` — `aria-pressed` | **GAP** — no native version | — (composition tier; no governing component page verified) | GAP |
+| 37 | `top-app-bar-toggle` | Overflow toggle inside a top app bar | `TopAppBarToggle` — `aria-expanded` | **GAP** — no native version | — (composition tier; no governing component page verified) | GAP |
+| 38 | `top-bar-menu` | Generic menu slot in a top bar | `TopBarMenu` — a `menu` | **covered, not separate work** — native `Menubar` takes `menus: {label, items}[]`; web composes with children, native parameterises with items. API-shape difference, not a behavioural gap (ruled 2026-10-02, P2b-3 start tranche) | M3 · Menus | GAP |
+| 39 | `user-menu` | User/account menu in a top bar | `UserMenu` — a `menu` | **covered, not separate work** — native `Menubar` — web is a preset fixing the label; web composes with children, native parameterises with items. API-shape difference, not a behavioural gap (ruled 2026-10-02, P2b-3 start tranche) | M3 · Menus | GAP |
+| 40 | `navigation-rail-button` | One destination in a navigation rail | `NavigationRailButton` — a `role=tab` with a selected axis | **covered, not separate work** — native `NavigationRail` renders each destination as a `tab` with the same selected axis; web's separate export is an API-shape difference, and the family is ONE component by ruling (ruled 2026-10-02) | M3 · Navigation rail | `navigation-rail.rntest.tsx` |
+
+
+### Split shipped (P2b-3) — removed from the work list
+
+`split` is now **shared**. Native gained `Split`: two or three equal columns,
+dividers drawn the way web draws them — a hairline gap over an outline-variant
+CONTAINER background rather than borders on the children, which would give the
+first column a leading border and the last a trailing one at every column count.
+
+This was the LAST genuine gap in the composition tranche.
 
 
 ### AppShell shipped (P2b-3) — removed from the work list
