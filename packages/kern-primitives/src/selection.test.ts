@@ -77,6 +77,66 @@ describe("isSelected", () => {
   });
 });
 
+/**
+ * Accordion selects by INDEX and `expanded: number[]` is public API, so the key
+ * type is generic rather than `string`. These pin that the selection rules never
+ * inspect the key — otherwise the generic would be a silent lie.
+ */
+describe("numeric keys (Accordion)", () => {
+  it("normalises a number to a single-entry array", () => {
+    expect(normalizeSelection(2, "single")).toEqual([2]);
+  });
+
+  it("toggles numeric keys in multiple mode", () => {
+    expect(toggleSelection([0, 2], 1, "multiple")).toEqual([0, 2, 1]);
+    expect(toggleSelection([0, 2], 0, "multiple")).toEqual([2]);
+  });
+
+  it("replaces on re-activation in single mode", () => {
+    expect(toggleSelection([1], 1, "single")).toEqual([1]);
+    expect(toggleSelection([1], 3, "single")).toEqual([3]);
+  });
+
+  it("does not confuse the number 1 with the string '1'", () => {
+    // A Set-based dedupe that stringified keys would merge them and report one
+    // selected item where there are two.
+    const mixed = normalizeSelection([1, "1"], "multiple");
+    expect(mixed).toEqual([1, "1"]);
+    expect(isSelected(mixed, 1 as never)).toBe(true);
+    expect(isSelected(mixed, "1")).toBe(true);
+  });
+});
+
+/**
+ * Accordion / disclosure: the ONE open item collapses when activated again.
+ *
+ * Distinct from radio semantics, and the distinction was found by a failing test
+ * rather than by reading the spec — applying radio rules to Accordion removed the
+ * collapse that component exists to provide.
+ */
+describe("single-toggle mode (Accordion / disclosure)", () => {
+  it("collapses when the open item is activated again", () => {
+    expect(toggleSelection([1], 1, "single-toggle")).toEqual([]);
+  });
+
+  it("moves the selection when a different item is activated", () => {
+    expect(toggleSelection([1], 2, "single-toggle")).toEqual([2]);
+  });
+
+  it("opens from empty", () => {
+    expect(toggleSelection([], 3, "single-toggle")).toEqual([3]);
+  });
+
+  it("never holds more than one entry", () => {
+    const out = toggleSelection([1, 2], 3, "single-toggle");
+    expect(out).toHaveLength(1);
+  });
+
+  it("normalises an over-long list to one entry, like single mode", () => {
+    expect(normalizeSelection([1, 2, 3], "single-toggle")).toEqual([1]);
+  });
+});
+
 describe("useSelection", () => {
   it("starts uncontrolled at defaultValue", () => {
     const { result } = renderHook(() =>

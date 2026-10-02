@@ -1,4 +1,4 @@
-import { useControllableState } from "@xoroh/kern-primitives";
+import { useSelection } from "@xoroh/kern-primitives";
 import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
 import {
@@ -60,17 +60,19 @@ export function Accordion({
   ...props
 }: NativeAccordionProps) {
   const scheme = useKernScheme();
-  const [open, setOpen] = useControllableState(
-    expanded,
-    defaultExpanded,
-    onExpandedChange,
-  );
+  // Shared selection primitive, keyed by SECTION INDEX: `expanded` is public API
+  // and has always been `number[]`, so the key type is generic rather than
+  // string. The alternative — stringifying indices — would change the public
+  // type to keep an internal detail tidy.
+  const [open, setOpen] = useSelection({
+    value: expanded,
+    defaultValue: defaultExpanded,
+    onChange: onExpandedChange as (next: readonly number[]) => void,
+    mode: multiple ? "multiple" : "single-toggle",
+  });
   const styles = accordionStyles(scheme);
   function toggle(index: number) {
-    const current = open ?? [];
-    const isOpen = current.includes(index);
-    if (isOpen) setOpen(current.filter((i) => i !== index));
-    else setOpen(multiple ? [...current, index] : [index]);
+    setOpen(index);
   }
   return (
     <View
@@ -79,7 +81,7 @@ export function Accordion({
       style={[styles.container, style]}
     >
       {sections.map((section, index) => {
-        const isOpen = (open ?? []).includes(index);
+        const isOpen = open.includes(index);
         const label = section.accessibilityLabel ?? section.title;
         return (
           <View key={section.title}>
