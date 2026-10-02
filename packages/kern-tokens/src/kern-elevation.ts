@@ -268,21 +268,42 @@ export const KERN_ELEVATION_COMPONENTS = Object.freeze({
  * name. Their level is a **kern decision**, not a spec claim — M3 only says
  * "most components have a default elevation" without tabulating these.
  *
- * Each maps to a deviation id so the choice is recorded rather than incidental.
- * They are NOT asserted against M3 (there is nothing to assert against); they
- * are inventoried so a new spec row has somewhere to land and so a silent
- * change to one is visible in the diff of this file.
+ * They are NOT asserted against M3 (there is nothing to assert against); they are
+ * inventoried so a new spec row has somewhere to land and so a silent change to
+ * one is visible in the diff of this file.
+ *
+ * ## CORRECTION — these were filed under K6, which is the WRONG ID
+ *
+ * Every entry used to read `K6`. K6 is the **Tones engine** deviation in
+ * `.team/programs/K-01-deviations.md` — a COLOUR decision about spectrum ramps
+ * and dynamic colour. It has nothing to do with elevation. Filing nine elevation
+ * decisions under a colour id put two id spaces in one field, which is how a
+ * wrong id survives review: nothing cross-checks the space, and the id reads as
+ * authoritative because it is shaped like one.
+ *
+ * The label was also simply wrong. M3 does not tabulate these components at all,
+ * so there is NO spec claim to deviate FROM; calling it a deviation asserted a
+ * conflict that does not exist. qa caught the collision and escalated rather than
+ * fudging it, which was the right call.
+ *
+ * The honest label is what it is: a kern decision where M3 is silent. If M3 ever
+ * tabulates one of these, it moves to KERN_ELEVATION_COMPONENTS and any real
+ * departure gets a real id.
+ *
+ * (Only the KEYS are consumed today — to build ELEVATED_COMPONENTS. Nothing
+ * reads the values, which is why this could sit wrong for so long: no gate
+ * consumed the lie.)
  */
 export const KERN_UNASSIGNED_ELEVATION = Object.freeze({
-  snackbar: "K6",
-  select: "K6",
-  "country-select": "K6",
-  combobox: "K6",
-  autocomplete: "K6",
-  popover: "K6",
-  command: "K6",
-  "preview-card": "K6",
-  sonner: "K6",
+  snackbar: "kern-decision: M3 does not tabulate this component",
+  select: "kern-decision: M3 does not tabulate this component",
+  "country-select": "kern-decision: M3 does not tabulate this component",
+  combobox: "kern-decision: M3 does not tabulate this component",
+  autocomplete: "kern-decision: M3 does not tabulate this component",
+  popover: "kern-decision: M3 does not tabulate this component",
+  command: "kern-decision: M3 does not tabulate this component",
+  "preview-card": "kern-decision: M3 does not tabulate this component",
+  sonner: "kern-decision: M3 does not tabulate this component",
 } as const);
 
 /** Every component kern ships a resting elevation for. */
