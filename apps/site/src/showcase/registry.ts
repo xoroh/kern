@@ -1,5 +1,6 @@
 import type { ExampleSpec } from "./example";
 import { BUTTON_EXAMPLES } from "./examples/button";
+import { CHECKBOX_EXAMPLES, INPUT_EXAMPLES } from "./examples/input";
 
 /**
  * The Example registry — export name → the examples for it.
@@ -14,6 +15,8 @@ import { BUTTON_EXAMPLES } from "./examples/button";
  */
 export const EXAMPLES: Record<string, ExampleSpec[]> = {
   Button: BUTTON_EXAMPLES,
+  Input: INPUT_EXAMPLES,
+  Checkbox: CHECKBOX_EXAMPLES,
 };
 
 /** Every export that has at least one registered example. */
