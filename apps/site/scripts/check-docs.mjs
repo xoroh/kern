@@ -435,6 +435,25 @@ function checkCanonicalSlug({ platform, file, doc }) {
   }
 }
 
+// ------------------------------------------------------- native peer
+// `meta.nativePeer` is a claim about the other renderer, and it is exactly the
+// kind of claim that gets written from memory and is wrong. It was: the
+// NavigationMenu page asserted native ships `NavigationDrawer`, and native
+// ships `NavigationMenu`. A claim no gate backs is a claim that will drift, so
+// this checks it against the generated inventory on the other platform.
+function checkNativePeer({ platform, file, doc }) {
+  const peer = doc.meta?.nativePeer;
+  if (!peer) return;
+  if (peer === "none") return; // deliberate single-renderer, allowed
+  const other = platform === "web" ? "mobile" : "web";
+  if (!inventory.has(`${other}:${peer}`)) {
+    fail(
+      `${file}: nativePeer "${peer}" is not an export in the generated inventory for ` +
+        `${other} — a peer that does not exist is worse than "none"`,
+    );
+  }
+}
+
 // ------------------------------------------------------------------- run
 for (const page of pages) {
   checkSections(page);
@@ -444,6 +463,7 @@ for (const page of pages) {
   checkNoRawValues(page);
   checkOwnership(page);
   checkCanonicalSlug(page);
+  checkNativePeer(page);
 }
 
 // Coverage: how much of the generated inventory has a page behind it. This is

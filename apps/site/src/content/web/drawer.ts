@@ -10,7 +10,12 @@ export const drawer: ComponentDoc = {
   meta: {
     status: "real",
     package: "@xoroh/kern",
-    nativePeer: "Drawer",
+    // Native has no `Drawer`. Its bottom-anchored surface is `Sheet`
+    // (`SheetSurface`, `SheetHandle`), and it has `NavigationDrawer` for the
+    // navigation case — neither is this component. Recorded in
+    // docs/parity-contract.md as a real coverage asymmetry, not disguised by
+    // pointing at a near-neighbour.
+    nativePeer: "none",
     variants: [],
     // `shadow-(--md-sys-elevation-level2)`. M3's table names no drawer row, so
     // this level is a kern decision, registered as K6 — see Deviations.

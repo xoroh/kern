@@ -10,7 +10,11 @@ export const checkboxGroup: ComponentDoc = {
   meta: {
     status: "real",
     package: "@xoroh/kern",
-    nativePeer: "CheckboxGroup",
+    // Native ships `Checkbox` but no checkbox GROUP — the aggregate-value
+    // model is web-only today. That is a coverage asymmetry, recorded in
+    // docs/parity-contract.md rather than papered over by pointing at
+    // `Checkbox`, which is not the same component.
+    nativePeer: "none",
     // No variant axis. The group is a data concern — the value and the
     // selection model — not a treatment.
     variants: [],
