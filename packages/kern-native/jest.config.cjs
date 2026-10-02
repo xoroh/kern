@@ -16,7 +16,24 @@ module.exports = {
   testMatch: ["**/*.rntest.ts?(x)"],
   // RNTL renders plus the RN preset's module registry are slow on a cold
   // run; the default 5s trips on a few interaction tests.
-  testTimeout: 30000,
+  //
+  // This budget was raised from 30s after two native suites timed out on a COLD
+  // cache in a full `test:all` run (25 suites / 284 tests). It is NOT a product
+  // defect: the same suites pass in isolation, and `test:all` was green twice
+  // on re-run. A cold CI runner is exactly the condition that triggers it, so
+  // the budget is sized for the cold path, not the warm one.
+  //
+  // Sizing basis, stated honestly: a warm full run measures ~4.3s wall for all
+  // 25 suites, so 30s was already ~7x warm wall and still too tight when 25
+  // suites transform concurrently on a cold cache. The per-test timeout covers
+  // first-require transform time, which is unbounded relative to warm timings —
+  // so a warm measurement CANNOT derive this number, and this one is reasoned
+  // headroom rather than a measured worst case.
+  //
+  // If this ever bites again, raise the budget AND reduce cold contention
+  // (`--maxWorkers`); raising the budget alone is whack-a-mole that re-flakes
+  // as the suite grows.
+  testTimeout: 120000,
   setupFiles: [path.join(__dirname, "jest.setup.cjs")],
   // The extracted preset ships ESM (`jest/setup.js`, the asset transformer),
   // so it must be transformed. The usual RN pattern fails under a bun store
