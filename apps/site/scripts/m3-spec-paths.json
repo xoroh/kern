@@ -40,12 +40,7 @@
     "toolbars",
     "tooltips"
   ],
-  "componentTabs": [
-    "accessibility",
-    "guidelines",
-    "overview",
-    "specs"
-  ],
+  "componentTabs": ["accessibility", "guidelines", "overview", "specs"],
   "sectionPaths": [
     "/foundations",
     "/styles",
