@@ -90,6 +90,76 @@ const NO_M3_SPEC = new Set([
   "input-otp",
 ]);
 
+/**
+ * Normalize a component name for comparison: lowercase, collapse separators,
+ * drop a trailing plural `s`. `Segmented buttons` and `segmented-button` both
+ * become `segmented button`.
+ */
+const normName = (s) =>
+  String(s ?? "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim()
+    .replace(/s$/, "");
+
+/**
+ * kern component name -> the slug Material 3 actually uses. Sourced from the
+ * verified-good sample set in
+ * .team/reports/reviews/m3/2026-10-02-spec-url-audit.md.
+ *
+ * Used by BOTH the static identity check and the live one, so they can never
+ * disagree about what a page is allowed to cite.
+ */
+const ALIASES = {
+  "top-app-bar": "app-bars",
+  "text-field": "text-fields",
+  "text-area": "text-fields",
+  autocomplete: "text-fields",
+  card: "cards",
+  dialog: "dialogs",
+  "bottom-sheet": "bottom-sheets",
+  "side-sheet": "side-sheets",
+  tooltip: "tooltips",
+  toolbar: "toolbars",
+  slider: "sliders",
+  badge: "badges",
+  chip: "chips",
+  divider: "divider",
+  list: "lists",
+  menu: "menus",
+  progress: "progress-indicators",
+  "date-picker": "date-pickers",
+  "time-picker": "time-pickers",
+  "segmented-button": "segmented-buttons",
+  "button-group": "button-groups",
+  "icon-button": "icon-buttons",
+  "radio-button": "radio-button",
+  checkbox: "checkbox",
+  switch: "switch",
+  tabs: "tabs",
+  search: "search",
+  carousel: "carousel",
+  snackbar: "snackbar",
+  "slider-row": "sliders",
+  "navigation-bar": "navigation-bar",
+  "navigation-rail": "navigation-rail",
+  "navigation-drawer": "navigation-drawer",
+  "loading-indicator": "loading-indicator",
+  "extended-fab": "extended-fab",
+  "fab-menu": "fab-menu",
+  "floating-action-button": "floating-action-button",
+  "split-button": "split-button",
+  "app-bar": "app-bars",
+  buttons: "buttons",
+  button: "buttons",
+};
+
+/** What Material 3 slug this page is ALLOWED to cite. */
+function allowedM3Slug(pageSlug) {
+  if (!pageSlug) return null;
+  return ALIASES[pageSlug] ?? ALIASES[normName(pageSlug)] ?? pageSlug;
+}
+
 // ------------------------------------------------------------- load content
 function loadFiles(dir) {
   const out = [];
@@ -209,13 +279,7 @@ for (const file of files) {
   // 3 origin. False in the opposite direction from a dead link and just as
   // damaging to the "M3 reference" claim — so it fails too.
   if (page.specUrl === "none" && page.slug) {
-    const norm = (s) =>
-      s
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, " ")
-        .trim()
-        .replace(/s$/, "");
-    const mapped = [...SLUGS].some((s) => norm(s) === norm(page.slug));
+    const mapped = [...SLUGS].some((s) => normName(s) === normName(page.slug));
     if (mapped) {
       fail(
         `${name}: specUrl is "none" but "${page.slug}" maps to a real ` +
@@ -228,7 +292,36 @@ for (const file of files) {
   if (page.specUrl && page.specUrl !== "none") {
     checked += 1;
     const reason = checkSpecUrl(page.specUrl);
-    if (reason) fail(`${name}: ${reason}`);
+    if (reason) {
+      fail(`${name}: ${reason}`);
+    } else if (page.slug) {
+      // IDENTITY MATCH — the check the gate's charter actually claims.
+      //
+      // Validity is not identity: `/components/checkbox` is a real spec page
+      // and returns 200, but a BUTTON page citing it is a wrong-component
+      // citation. review-m3 mutation-proved that case passing as "ok" while
+      // the gate called itself an identity gate — a provenance claim backed
+      // by nothing.
+      //
+      // This runs in the DEFAULT gate, not behind --live: the reader's trust
+      // does not depend on someone remembering to pass a flag.
+      // Strip the host BEFORE splitting. Splitting the full URL leaves
+      // "https:" as segments[0], so `cited` was always null and the check
+      // silently matched nothing — caught by the mutation harness.
+      const raw = page.specUrl.split(/[?#]/)[0].replace(/\/$/, "");
+      const path = raw.startsWith(HOST) ? raw.slice(HOST.length) : raw;
+      const segs = path.split("/").filter(Boolean);
+      const cited = segs[0] === "components" ? segs[1] : null;
+      const allowed = allowedM3Slug(page.slug);
+      if (cited && allowed && normName(cited) !== normName(allowed)) {
+        fail(
+          `${name}: this page documents "${page.slug}" but specUrl cites ` +
+            `"/components/${cited}" — a valid spec page for a DIFFERENT ` +
+            `component. Identity mismatch; a 200 from the wrong page is not ` +
+            `provenance. Allowed here: "/components/${allowed}".`,
+        );
+      }
+    }
   }
 
   if (page.apgUrl) {
@@ -304,58 +397,9 @@ async function liveIdentityCheck() {
     return 0;
   }
 
-  const norm = (s) =>
-    s
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, " ")
-      .trim()
-      .replace(/s$/, "");
-
-  /**
-   * kern name -> the name Material 3 actually uses. Without this the
-   * page-vs-landed cross-check below would false-positive on every legitimate
-   * naming difference. Sourced from the verified-good sample set in
-   * .team/reports/reviews/m3/2026-10-02-spec-url-audit.md.
-   */
-  const ALIASES = {
-    "top-app-bar": "app-bars",
-    "floating-action-button": "floating-action-button",
-    "text-field": "text-fields",
-    "text-area": "text-fields",
-    autocomplete: "text-fields",
-    card: "cards",
-    checkbox: "checkbox",
-    dialog: "dialogs",
-    "bottom-sheet": "bottom-sheets",
-    "side-sheet": "side-sheets",
-    "navigation-bar": "navigation-bar",
-    "navigation-rail": "navigation-rail",
-    "navigation-drawer": "navigation-drawer",
-    snackbar: "snackbar",
-    tooltip: "tooltips",
-    toolbar: "toolbars",
-    slider: "sliders",
-    switch: "switch",
-    tabs: "tabs",
-    search: "search",
-    badge: "badges",
-    carousel: "carousel",
-    chips: "chips",
-    divider: "divider",
-    lists: "lists",
-    menus: "menus",
-    progress: "progress-indicators",
-    "loading-indicator": "loading-indicator",
-    "date-picker": "date-pickers",
-    "time-picker": "time-pickers",
-    "segmented-button": "segmented-buttons",
-    "split-button": "split-button",
-    "button-group": "button-groups",
-    "icon-button": "icon-buttons",
-    "extended-fab": "extended-fab",
-    "fab-menu": "fab-menu",
-    "radio-button": "radio-button",
-  };
+  // normName / allowedM3Slug are module-scope and shared with the static
+  // identity check above, so the two can never disagree about what a page is
+  // allowed to cite.
 
   const bad = [];
   for (const t of targets) {
@@ -376,7 +420,7 @@ async function liveIdentityCheck() {
     // (a) D-2's rule: the landed page must name what the URL claims. This is
     //     the parent-family silent failure — /components/menus/combobox
     //     returns 200 and serves Menus.
-    if (norm(landedName) !== norm(t.claimed)) {
+    if (normName(landedName) !== normName(t.claimed)) {
       bad.push(
         `${t.file}: specUrl claims "${t.claimed}" but ${t.url} lands on ` +
           `"${landedName}" — the landed page does not name the claimed ` +
@@ -390,8 +434,8 @@ async function liveIdentityCheck() {
     //     not the component THIS PAGE documents — a Checkbox page citing the
     //     Buttons spec. The URL is real, so only the page-vs-landed
     //     comparison catches it.
-    const expected = ALIASES[t.pageSlug] ?? t.pageSlug;
-    if (t.pageSlug && norm(landedName) !== norm(expected)) {
+    const expected = allowedM3Slug(t.pageSlug);
+    if (t.pageSlug && normName(landedName) !== normName(expected)) {
       bad.push(
         `${t.file}: lands on "${landedName}" (a real page) but this page ` +
           `documents "${t.pageSlug}" — a citation to a different component. ` +
