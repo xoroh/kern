@@ -456,9 +456,9 @@ violations.push(
 
   const contractRows = readFileSync(CONTRACT_TS, "utf8");
   const rowBlocks = contractRows
-    .split(/\n  \{\n/)
+    .split(/\n\s{2}\{\n/)
     .slice(1)
-    .map((chunk) => chunk.split(/\n  \},?\n/)[0]);
+    .map((chunk) => chunk.split(/\n\s{2}\},?\n/)[0]);
 
   const provenanceProblems = [];
   const uncoveredRows = [];
