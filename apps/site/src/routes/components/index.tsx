@@ -1,74 +1,59 @@
+/**
+ * /components — the component gallery.
+ *
+ * Registry-driven (Q5.7/Q7.5): the cards come from the content registry and
+ * the generated manifest, grouped by the M3 purpose each family serves. This
+ * replaces the hand-written two-card platform chooser, which told a reader
+ * about the packages instead of showing them the components.
+ */
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "../../components/chrome/site-layout";
+import {
+  ComponentGallery,
+  GalleryLede,
+} from "../../components/docs/component-gallery";
+import { T_LABEL_LG, T_PAGE } from "../../type-scale";
 
 export const Route = createFileRoute("/components/")({
-  component: ComponentsIndex,
+  component: ComponentsGallery,
 });
 
-const PLATFORMS = [
-  {
-    href: "/components/web" as const,
-    title: "Web",
-    pkg: "@xoroh/kern",
-    body: "React components on Base UI. Compound parts, typed variants, Tailwind-class overrides. DOM elements, SSR-safe.",
-  },
-  {
-    href: "/components/mobile" as const,
-    title: "Mobile",
-    pkg: "@xoroh/kern-native",
-    body: "React Native components. StyleSheet output, single composed API per family. No DOM — phones and tablets only.",
-  },
-];
+const INK = "text-(--md-sys-color-on-surface)";
+const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";
+const CHIP = `inline-flex items-center rounded-(--md-sys-shape-corner-full) border px-3 py-1 ${T_LABEL_LG}`;
 
-function ComponentsIndex() {
+function ComponentsGallery() {
   return (
     <SiteLayout>
       <section className="px-4 py-4 sm:px-6 sm:py-6">
-        <div className="mx-auto flex max-w-[56rem] flex-col gap-8 rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14">
-          <div className="flex flex-col gap-4">
-            <p className="m-0 text-sm font-medium tracking-[0.18em] text-(--md-sys-color-on-surface-variant) uppercase">
-              Components
-            </p>
-            <h1
-              className="m-0"
-              style={{
-                fontFamily: "var(--kern-font-family)",
-                fontSize: "var(--md-sys-typescale-headline-large-font-size)",
-                lineHeight:
-                  "var(--md-sys-typescale-headline-large-line-height)",
-                letterSpacing:
-                  "var(--md-sys-typescale-headline-large-letter-spacing)",
-                fontWeight:
-                  "var(--md-sys-typescale-headline-large-font-weight)",
-              }}
+        <div className="mx-auto flex max-w-[72rem] flex-col gap-8 rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14">
+          <header className="flex flex-col gap-3">
+            <h1 className={`m-0 ${T_PAGE} ${INK}`}>Components</h1>
+            <GalleryLede />
+            <nav
+              className="flex flex-wrap items-center gap-2"
+              aria-label="Platform"
             >
-              Two platforms, one contract
-            </h1>
-            <p className="m-0 max-w-[42rem] text-(--md-sys-color-on-surface-variant)">
-              Every component exists twice: once for React (web), once for React
-              Native. Same names and same variants — different package,
-              different rendering. Pick your platform:
-            </p>
-          </div>
-          <div className="grid gap-3 sm:grid-cols-2">
-            {PLATFORMS.map((platform) => (
-              <Link
-                key={platform.href}
-                to={platform.href}
-                className="rounded-(--md-sys-shape-corner-large) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container) p-8 no-underline transition-colors hover:bg-(--md-sys-color-surface-container-high)"
+              <span
+                className={`${CHIP} border-(--md-sys-color-primary) bg-(--md-sys-color-primary-container) text-(--md-sys-color-on-primary-container) no-underline`}
               >
-                <p className="m-0 mb-1 text-lg font-semibold text-(--md-sys-color-on-surface)">
-                  {platform.title}
-                </p>
-                <p className="m-0 mb-3 font-mono text-sm text-(--md-sys-color-secondary)">
-                  {platform.pkg}
-                </p>
-                <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
-                  {platform.body}
-                </p>
+                All
+              </span>
+              <Link
+                to="/components/web"
+                className={`${CHIP} border-(--md-sys-color-outline) ${INK_SOFT} no-underline`}
+              >
+                Web
               </Link>
-            ))}
-          </div>
+              <Link
+                to="/components/mobile"
+                className={`${CHIP} border-(--md-sys-color-outline) ${INK_SOFT} no-underline`}
+              >
+                Native
+              </Link>
+            </nav>
+          </header>
+          <ComponentGallery />
         </div>
       </section>
     </SiteLayout>

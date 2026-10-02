@@ -77,6 +77,11 @@ jobs:
       - name: Check generated output and elevation truth
         run: |
           bun run check:generated
+          # The census proves the FRESHNESS LIST IS COMPLETE. Without it,
+          # check:generated proves only that the files it happens to name are
+          # current — three artifacts in the 23:38 batch were generated,
+          # committed, and claimed by nothing.
+          bun run check:generated:census
           bun run check:elevation
 
       - name: Check kernel consumption and the pack manifest
@@ -105,7 +110,7 @@ jobs:
           bun run audit:elevation
           bun run icons:generate
           git add -N .
-          git diff --exit-code -- packages/kern-tokens/src/tokens.css packages/kern-tokens/src/tones.css packages/kern-tokens/src/motion.css docs/components.md docs/elevation-audit.md packages/mcp/src/manifest.ts packages/mcp/src/component-sources.ts packages/kern-icons/src/sets
+          git diff --exit-code -- packages/kern-tokens/src/tokens.css packages/kern-tokens/src/tones.css packages/kern-tokens/src/motion.css docs/components.md docs/elevation-audit.md packages/mcp/src/manifest.ts packages/kern-icons/src/sets
 
       - name: Build all publishable packages
         run: bun run build

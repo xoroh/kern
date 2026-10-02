@@ -17,6 +17,7 @@
     "generate:tokens:only": "bun packages/kern-tokens/scripts/gen-css.mjs",
     "generate:comp-tokens": "bun packages/kern-tokens/scripts/gen-comp-css.mjs",
     "check:generated": "node scripts/check-generated-freshness.mjs",
+    "check:generated:census": "node scripts/check-generated-census.mjs",
     "hooks:install": "bash .githooks/install.sh",
     "audit:elevation": "bun scripts/audit-elevation.mjs",
     "check:elevation": "bun run audit:elevation",
