@@ -838,7 +838,7 @@ export const CONTRACTS: readonly ParityRow[] = [
     nativeContract:
       "The surface is announced as supplementary text on the trigger.",
     spec: "M3 Tooltip — short supplementary text on hover or long-press.",
-    testedBy: "web-parity-tranche4.test.tsx / none on native — GAP",
+    testedBy: "web-parity-tranche4.test.tsx / native-parity-tooltip.rntest.tsx",
     role: "button",
     axis: "selected",
     interaction: "select",
