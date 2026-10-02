@@ -74,13 +74,39 @@ for (const file of files) {
 console.log(`check-headings: ${files.length} .tsx file(s)`);
 console.log(`check-headings: ${scanned} heading(s) scanned`);
 
+/**
+ * m3 — a <dl> is a description list, so it must carry dt/dd pairs. A <dl>
+ * full of <div>/<span> is a fake description list: assistive tech announces
+ * groups and the term/value relationship is lost. The check is per-file and
+ * coarse on purpose — a file that renders a <dl> must render <dt> and <dd>
+ * into it.
+ */
+let dlCount = 0;
+for (const file of files) {
+  const text = readFileSync(file, "utf8")
+    .replace(/\/\*[\s\S]*?\*\//g, " ")
+    .replace(/(^|[^:])\/\/[^\n]*/g, "$1 ");
+  const rel = relative(APP, file);
+  const hasDl = /<dl[\s>]/.test(text);
+  if (!hasDl) continue;
+  dlCount += 1;
+  const hasDt = /<dt[\s>]/.test(text);
+  const hasDd = /<dd[\s>]/.test(text);
+  if (!hasDt || !hasDd) {
+    fail(
+      `${rel}: renders a <dl> but no ${!hasDt ? "<dt>" : "<dd>"} — a ` +
+        `description list without term/value pairs is a fake one. Use dt/dd, ` +
+        `or use ul/li if it is not a description list.`,
+    );
+  }
+}
+console.log(`check-headings: ${dlCount} description list(s) checked`);
+
 if (errors.length > 0) {
   console.error("");
   for (const e of errors) console.error(`  x ${e}`);
   console.error("");
-  console.error(
-    `check-headings: ${errors.length} heading(s) without a stable id`,
-  );
+  console.error(`check-headings: ${errors.length} markup error(s)`);
   process.exit(1);
 }
 console.log("check-headings: ok — every heading is addressable");

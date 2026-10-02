@@ -171,24 +171,21 @@ function Chip({
   value: string;
   warn?: boolean;
 }) {
+  const box = warn
+    ? "inline-flex items-center gap-1.5 rounded-full border border-(--md-sys-color-error) bg-(--md-sys-color-error-container) px-3 py-1 font-mono text-(--md-sys-color-on-error-container) [font-size:var(--md-sys-typescale-label-large-font-size)] [line-height:var(--md-sys-typescale-label-large-line-height)]"
+    : CHIP;
+  // m3 — the strip is a <dl>, so it must contain dt/dd pairs. A <dl> full of
+  // <div>/<span> is a fake description list: assistive tech announces it as a
+  // list of groups and the term/value relationship is lost. `dl > div > dt+dd`
+  // is valid HTML5 and keeps the visual chip intact.
   return (
-    <div
-      className={
-        warn
-          ? `inline-flex items-center gap-1.5 rounded-full border border-(--md-sys-color-error) bg-(--md-sys-color-error-container) px-3 py-1 font-mono text-(--md-sys-color-on-error-container) [font-size:var(--md-sys-typescale-label-large-font-size)] [line-height:var(--md-sys-typescale-label-large-line-height)]`
-          : CHIP
-      }
-    >
-      <span
-        className={
-          warn
-            ? "text-(--md-sys-color-on-error-container)"
-            : "text-(--md-sys-color-on-surface)"
-        }
-      >
-        {term ? `${term}: ` : ""}
-        {value}
-      </span>
+    <div className={box}>
+      {term ? (
+        <dt className="m-0 inline text-(--md-sys-color-on-surface)">
+          {term}:{" "}
+        </dt>
+      ) : null}
+      <dd className="m-0 inline text-(--md-sys-color-on-surface)">{value}</dd>
     </div>
   );
 }
@@ -209,25 +206,34 @@ function LinkChip({
   value: string;
   href?: string;
 }) {
+  // m3 — same rule as Chip: a <dl> must contain dt/dd pairs. The wrapper div
+  // is valid inside <dl> (HTML5 allows `dl > div > dt+dd`) and keeps the
+  // visual chip, including the linked variant.
   const inner = (
-    <span className="text-(--md-sys-color-on-surface)">
-      {term ? `${term}: ` : ""}
-      {value}
-    </span>
+    <>
+      {term ? (
+        <dt className="m-0 inline text-(--md-sys-color-on-surface)">
+          {term}:{" "}
+        </dt>
+      ) : null}
+      <dd className="m-0 inline text-(--md-sys-color-on-surface)">{value}</dd>
+    </>
   );
   if (!href) return <div className={CHIP}>{inner}</div>;
   return (
-    <a
-      className={`${CHIP} no-underline hover:border-(--md-sys-color-outline) hover:bg-(--md-sys-color-surface-container-high)`}
-      href={href}
-      rel="noreferrer"
-      target="_blank"
-    >
-      {inner}
-      <span aria-hidden="true" className="text-(--md-sys-color-primary)">
-        ↗
-      </span>
-    </a>
+    <div className={CHIP}>
+      <a
+        className="inline-flex items-center gap-1 text-(--md-sys-color-on-surface) no-underline hover:border-(--md-sys-color-outline) hover:bg-(--md-sys-color-surface-container-high)"
+        href={href}
+        rel="noreferrer"
+        target="_blank"
+      >
+        {inner}
+        <span aria-hidden="true" className="text-(--md-sys-color-primary)">
+          ↗
+        </span>
+      </a>
+    </div>
   );
 }
 
@@ -254,7 +260,11 @@ function MetadataStrip({ doc }: { doc: ComponentDoc }) {
       {meta.variants.length === 0 ? (
         <Chip term="Variants" value="none" />
       ) : (
-        meta.variants.map((axis) => <Chip key={axis} term="" value={axis} />)
+        // m3: a `dl > div` must contain a dt. Rendering the axis with no term
+        // produced dd-only groups, which is invalid and loses the pair.
+        meta.variants.map((axis) => (
+          <Chip key={axis} term="Variant" value={axis} />
+        ))
       )}
       {/*
         TRI-STATE, because the middle and the empty state are different
