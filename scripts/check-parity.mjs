@@ -206,6 +206,59 @@ if (docConcepts.size === 0) {
       "  Either the tables changed shape or the regex is wrong. Fix the regex; do not remove the check.",
   );
 }
+// --- web-only TABLE membership, not just row existence ------------------------
+// The check above proves a doc row names something real. It does NOT prove the
+// row is in the RIGHT table: a component that is registered on BOTH platforms
+// is "known", so listing it under web-only passed silently. Nine components
+// built natively this session (carousel, meter, drawer, popover, pagination,
+// icon-button, time-picker, loading-indicator, fieldset) were misclassified that
+// way, and the count marker was correct the whole time -- the count was right
+// and the work list was wrong, which is worse.
+//
+// Scoped to the web-only section so shared/native tables keep their own
+// treatment, and symmetric: a row in the wrong table AND a web-only concept
+// with no row both fail. One without the other would let the list silently rot
+// in whichever direction it happened to drift.
+const webOnlySection = contract.match(
+  /^## Web-only concepts[\s\S]*?(?=^## |Z)/m,
+);
+if (!webOnlySection) {
+  violations.push(
+    "parity-contract.md has no `## Web-only concepts` section.\n" +
+      "  The P2b-3 work list is derived from this table; without it the list is\n" +
+      "  unreproducible and this check would pass vacuously.",
+  );
+} else {
+  const docWebOnly = new Set(
+    [...webOnlySection[0].matchAll(docRowRx)].map((m) => m[2]),
+  );
+  if (docWebOnly.size === 0) {
+    violations.push(
+      "the web-only table matched 0 rows -- membership would pass vacuously.",
+    );
+  }
+  const realWebOnly = new Set(webOnly);
+
+  for (const name of [...docWebOnly].sort()) {
+    if (!realWebOnly.has(name)) {
+      violations.push(
+        `parity-contract.md lists "${name}" under Web-only, but the registry says it is not web-only.\n` +
+          "  Either it now exists on both platforms (move the row to Shared), or it\n" +
+          "  is native-only. A correct COUNT with a wrong TABLE still dispatches the\n" +
+          "  wrong work.",
+      );
+    }
+  }
+  for (const name of [...realWebOnly].sort()) {
+    if (!docWebOnly.has(name)) {
+      violations.push(
+        `web-only concept "${name}" has no row in the Web-only table.\n` +
+          "  The count marker matched but the work list is incomplete.",
+      );
+    }
+  }
+}
+
 // Check doc rows against the REGISTERED names (web ∪ native raw rows), not
 // against collapsed concepts: a doc row spells a component as registered
 // (`filter-chip-row`), and comparing it to a renamed concept would report a
@@ -292,6 +345,10 @@ const line = (label, n) => console.log(`  ${label.padEnd(16)}${n}`);
 console.log("check:parity — parity gate (concept rule, registry-backed)");
 console.log(
   `  registry rows    ${rows.length} (web ${web.length}, native ${native.length})`,
+  // The P2b-3 work list, from the gate that resolves families -- not from
+  // a hand-rolled parse of the markdown table, which is what produced three
+  // different answers (202 / 25 / 43) before this was printed here.
+  `  web-only (${webOnly.length}):\n${webOnly.map((c) => `    - ${c}`).join(`\n`)}`,
 );
 console.log("  concepts:");
 line("shared", shared.length);
