@@ -32,7 +32,7 @@
  * stable: skipping by deletion would renumber everything after it.
  */
 
-import { useReducer } from "react";
+import { useState } from "react";
 
 export type RovingOrientation = "horizontal" | "vertical" | "both";
 
@@ -186,15 +186,23 @@ export function createRovingModel(options: RovingOptions): RovingModel {
  * driven by their own prop and are not re-rendered from here.
  */
 export function useRovingModel(options: RovingOptions): RovingModel {
-  const [, bump] = useReducer((n: number) => n + 1, 0);
   const controlled = options.activeIndex !== undefined;
+  // Uncontrolled state MUST live in React. The plain model keeps `current` in a
+  // closure created per call, so rebuilding it on every render (as a hook
+  // naturally does) would reset the index to `defaultActiveIndex` each time —
+  // which is exactly the bug a model-only test cannot see, because the model
+  // has no render cycle.
+  const [internal, setInternal] = useState(() =>
+    clamp(options.defaultActiveIndex ?? 0, options.count),
+  );
+
   const model = createRovingModel({
     ...options,
-    activeIndex: controlled
-      ? (options.activeIndex ?? 0)
-      : (options.defaultActiveIndex ?? 0),
+    // Always pass the resolved value, so the model behaves as controlled and
+    // reports changes rather than mutating its own copy.
+    activeIndex: controlled ? (options.activeIndex ?? 0) : internal,
     onActiveIndexChange: (next) => {
-      if (!controlled) bump();
+      if (!controlled) setInternal(next);
       options.onActiveIndexChange?.(next);
     },
   });

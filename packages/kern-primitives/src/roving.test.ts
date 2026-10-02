@@ -1,5 +1,6 @@
+import { act, renderHook } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import { createRovingModel } from "./roving";
+import { createRovingModel, useRovingModel } from "./roving";
 
 /**
  * The model, tested as a plain object. The React binding is exercised by the
@@ -145,5 +146,73 @@ describe("createRovingModel", () => {
     });
     expect(model.orientation).toBe("vertical");
     expect(model.loop).toBe(true);
+  });
+});
+
+/**
+ * The React binding, tested through a render cycle.
+ *
+ * This suite exists because the model-only tests could not see the worst bug in
+ * the hook: the model holds its index in a closure created per call, so a hook
+ * that rebuilds it on every render resets to `defaultActiveIndex` each time. No
+ * amount of model testing finds that — the model has no renders. It surfaced
+ * when native Carousel, the first real consumer, reported the right index and
+ * rendered the wrong slide.
+ */
+describe("useRovingModel", () => {
+  it("persists an uncontrolled change across a re-render", () => {
+    const { result } = renderHook(() => useRovingModel({ count: 5 }));
+    act(() => {
+      result.current.next();
+    });
+    expect(result.current.activeIndex).toBe(1);
+    // Re-render explicitly: the old bug reset on the render the change caused.
+    act(() => {
+      result.current.next();
+    });
+    expect(result.current.activeIndex).toBe(2);
+  });
+
+  it("keeps exactly one item tabbable after moving", () => {
+    const { result } = renderHook(() => useRovingModel({ count: 4 }));
+    act(() => {
+      result.current.next();
+    });
+    const tabbable = [0, 1, 2, 3].filter(
+      (i) => result.current.describe(i).isTabbable,
+    );
+    expect(tabbable).toEqual([1]);
+  });
+
+  it("does not move a controlled model itself", () => {
+    const onActiveIndexChange = vi.fn();
+    const { result } = renderHook(() =>
+      useRovingModel({ count: 5, activeIndex: 0, onActiveIndexChange }),
+    );
+    act(() => {
+      result.current.next();
+    });
+    expect(onActiveIndexChange).toHaveBeenCalledWith(1);
+    expect(result.current.activeIndex).toBe(0);
+  });
+
+  it("follows a controlled prop when the host moves it", () => {
+    const { result, rerender } = renderHook(
+      ({ activeIndex }: { activeIndex: number }) =>
+        useRovingModel({ count: 5, activeIndex }),
+      { initialProps: { activeIndex: 0 } },
+    );
+    rerender({ activeIndex: 3 });
+    expect(result.current.activeIndex).toBe(3);
+  });
+
+  it("skips a disabled item and holds the result", () => {
+    const { result } = renderHook(() =>
+      useRovingModel({ count: 3, isDisabled: (i) => i === 0 }),
+    );
+    act(() => {
+      result.current.next();
+    });
+    expect(result.current.activeIndex).toBe(1);
   });
 });

@@ -33,6 +33,12 @@ export type { NativeCalendarProps } from "./components/calendar";
 export { Calendar } from "./components/calendar";
 export type { NativeCardProps } from "./components/card";
 export { Card } from "./components/card";
+export type {
+  CarouselItem,
+  CarouselLayout,
+  NativeCarouselProps,
+} from "./components/carousel";
+export { Carousel, carouselStyles } from "./components/carousel";
 export type { NativeCheckboxProps } from "./components/checkbox";
 export { Checkbox } from "./components/checkbox";
 export type {

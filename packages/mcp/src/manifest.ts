@@ -1817,6 +1817,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    name: "carousel",
+    export: "Carousel",
+    platform: "native",
+    path: "src/components/carousel.tsx",
+    status: "real",
+  },
+  {
     name: "checkbox-group",
     export: "CheckboxGroup",
     platform: "native",
@@ -2157,6 +2164,20 @@ export const COMPONENTS: ComponentEntry[] = [
     export: "NumberField",
     platform: "native",
     path: "src/components/number-field.tsx",
+    status: "real",
+  },
+  {
+    name: "page-window",
+    export: "pageWindow",
+    platform: "native",
+    path: "src/components/pagination.tsx",
+    status: "real",
+  },
+  {
+    name: "pagination",
+    export: "Pagination",
+    platform: "native",
+    path: "src/components/pagination.tsx",
     status: "real",
   },
   {

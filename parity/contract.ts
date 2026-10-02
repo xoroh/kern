@@ -537,6 +537,31 @@ export const CONTRACTS: readonly ParityRow[] = [
     maxSelected: 1,
   },
   {
+    // P2b-1 provenance: what this row is about, and where it came from.
+    id: "carousel-active-index",
+    component: "carousel",
+    behaviour:
+      "Reports which item is active and keeps the track on exactly one selected item.",
+    webContract:
+      "A named region announcing itself as a carousel, with one selected item in the item track and a roledescription on the region and on each item.",
+    nativeContract:
+      "A named group whose item track carries exactly one selected item, driven by the shared roving model; no roledescription exists natively, so the region is a group and the active item carries selection.",
+    spec: "M3 Carousel — a set of items with one active; the entire component, layouts included, was verified in research T4-M1.",
+    // The web side has NO carousel test on disk, so naming one would be exactly
+    // the false `testedBy` this gate was built to catch. Recorded as a gap.
+    testedBy: "carousel.rntest.tsx / none on web — GAP",
+    role: "group",
+    axis: "selected",
+    interaction: "select",
+    name: "Slide one",
+    expects: {
+      initial: true,
+      afterActivate: false,
+      afterDisabledActivate: true,
+    },
+    maxSelected: 1,
+  },
+  {
     component: "dialog",
     // Stable machine key. `behaviour` is prose, so a copy-edit
     // would silently rewrite identity if it were the key.
