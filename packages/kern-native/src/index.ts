@@ -214,6 +214,18 @@ export type {
   NativeNavigationMenuProps,
 } from "./components/navigation-menu";
 export { NavigationMenu } from "./components/navigation-menu";
+// The rail is its OWN module, not part of the bar: it is a different surface
+// (vertical and persistent vs horizontal and bottom-anchored), and merging the
+// exports would have hidden that.
+export type {
+  NativeNavigationRailProps,
+  NavigationRailMode,
+} from "./components/navigation-rail";
+export {
+  NAVIGATION_RAIL_EXPANDED_WIDTH,
+  NAVIGATION_RAIL_WIDTH,
+  NavigationRail,
+} from "./components/navigation-rail";
 export type { NativeNumberFieldProps } from "./components/number-field";
 // `NumberField` only; `clampToRange` is a pure clamp, not a component.
 export { NumberField, numberFieldStyles } from "./components/number-field";

@@ -356,6 +356,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `navigation-bar-item` | `NavigationBarItem` | real |
 | `navigation-drawer` | `NavigationDrawer` | real |
 | `navigation-menu` | `NavigationMenu` | real |
+| `navigation-rail` | `NavigationRail` | real |
 | `number-field` | `NumberField` | real |
 | `pagination` | `Pagination` | real |
 | `pane` | `Pane` | real |

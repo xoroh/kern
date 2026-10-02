@@ -2356,6 +2356,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    name: "navigation-rail",
+    export: "NavigationRail",
+    platform: "native",
+    path: "src/components/navigation-rail.tsx",
+    status: "real",
+  },
+  {
     name: "number-field",
     export: "NumberField",
     platform: "native",
