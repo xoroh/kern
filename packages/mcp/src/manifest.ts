@@ -816,6 +816,27 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    name: "menu-screen",
+    export: "MenuScreen",
+    platform: "web",
+    path: "src/components/menu-family.tsx",
+    status: "real",
+  },
+  {
+    name: "menu-sheet",
+    export: "MenuSheet",
+    platform: "web",
+    path: "src/components/menu-family.tsx",
+    status: "real",
+  },
+  {
+    name: "filter-chip-row",
+    export: "FilterChipRow",
+    platform: "web",
+    path: "src/components/menu-family.tsx",
+    status: "real",
+  },
+  {
     name: "menu-root",
     export: "MenuRoot",
     platform: "web",

@@ -120,6 +120,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `fieldset` | `Fieldset` | real |
 | `fieldset-legend` | `FieldsetLegend` | real |
 | `fieldset-root` | `FieldsetRoot` | real |
+| `filter-chip-row` | `FilterChipRow` | real |
 | `form` | `Form` | real |
 | `help-menu` | `HelpMenu` | real |
 | `icon-button` | `IconButton` | real |
@@ -144,7 +145,9 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `menu-group-label` | `MenuGroupLabel` | real |
 | `menu-item` | `MenuItem` | real |
 | `menu-root` | `MenuRoot` | real |
+| `menu-screen` | `MenuScreen` | real |
 | `menu-separator` | `MenuSeparator` | real |
+| `menu-sheet` | `MenuSheet` | real |
 | `menu-trigger` | `MenuTrigger` | real |
 | `menubar` | `Menubar` | real |
 | `menubar-content` | `MenubarContent` | real |
