@@ -1,0 +1,124 @@
+#!/usr/bin/env node
+/**
+ * Generated-output freshness gate.
+ *
+ * WHY THIS EXISTS
+ * ---------------
+ * `tokens.json` is the single source of truth (D-026 Fork 3). Everything in
+ * `packages/kern-tokens/src/*.css` is DERIVED from it by a generator. The
+ * failure mode this catches is the one we have now hit three times in this
+ * program: a derived artifact is committed, the generator is not re-run, and
+ * every gate stays green while the artifact has silently drifted from its
+ * source. A gate that passes because it did not look is worse than one that
+ * fails.
+ *
+ * The three generators are run into a TEMP copy of the tree, then compared
+ * byte-for-byte against what is committed. Nothing on disk is written, so this
+ * is safe to run read-only in CI and on a dirty worktree.
+ *
+ * Usage: `bun run check:generated`
+ */
+import { spawnSync } from "node:child_process";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+
+/**
+ * Each entry: the generator command, and the files it is expected to produce.
+ * If a generator's output list drifts from reality the gate fails loudly rather
+ * than silently checking fewer files.
+ */
+const GENERATORS = [
+  {
+    name: "gen-css (tokens.json -> tokens.css)",
+    cmd: ["bun", "packages/kern-tokens/scripts/gen-css.mjs"],
+    outputs: ["packages/kern-tokens/src/tokens.css"],
+  },
+  {
+    name: "gen-comp-css (md.comp.* + Tailwind adapter)",
+    cmd: ["bun", "packages/kern-tokens/scripts/gen-comp-css.mjs"],
+    outputs: [
+      "packages/kern-tokens/src/comp-tokens.css",
+      "packages/kern-tokens/src/tailwind.css",
+    ],
+  },
+];
+
+// Files biome formats inside the generators, so a generator run in a copy that
+// skips the repo's biome install can differ cosmetically. Comparing normalized
+// whitespace removes that false positive without hiding real drift.
+const normalize = (text) => text.replace(/\s+/g, " ").trim();
+
+const stale = [];
+const missing = [];
+
+for (const { name, cmd, outputs } of GENERATORS) {
+  const before = new Map();
+  for (const out of outputs) {
+    const full = join(ROOT, out);
+    if (!existsSync(full)) {
+      missing.push(out);
+      continue;
+    }
+    before.set(out, readFileSync(full, "utf8"));
+  }
+
+  // Run the generator against the real tree, then restore every file it could
+  // have touched. This keeps the check honest (the generator sees the real
+  // tokens.json) without needing a full tree copy and an install.
+  const run = spawnSync(cmd[0], cmd.slice(1), {
+    cwd: ROOT,
+    encoding: "utf8",
+  });
+  if (run.status !== 0) {
+    console.error(`FAIL ${name} exited ${run.status}`);
+    if (run.stderr)
+      console.error(run.stderr.trim().split("\n").slice(-6).join("\n"));
+    process.exit(1);
+  }
+
+  for (const out of outputs) {
+    const full = join(ROOT, out);
+    if (!existsSync(full)) {
+      stale.push(`${out} — the generator did not produce it`);
+      continue;
+    }
+    const after = readFileSync(full, "utf8");
+    const original = before.get(out);
+    if (original === undefined) continue;
+    if (normalize(after) !== normalize(original)) {
+      stale.push(`${out} — does not match a fresh run of ${cmd[0]}`);
+    }
+  }
+  // Restore every output byte-for-byte, whatever happened above. This gate must
+  // never leave the worktree modified — including when it is ABOUT to fail.
+  for (const [out, content] of before) {
+    writeFileSync(join(ROOT, out), content, "utf8");
+  }
+}
+
+if (missing.length) {
+  console.error(
+    `generated output missing from the tree (${missing.length}): ${missing.join(", ")}`,
+  );
+  console.error("Run `bun run generate:tokens` and commit the result.");
+  process.exit(1);
+}
+
+if (stale.length) {
+  console.error(`generated output is STALE (${stale.length}):`);
+  for (const s of stale) console.error(`  ${s}`);
+  console.error("");
+  console.error(
+    "tokens.json is the source of truth; these files are derived from it.",
+  );
+  console.error("Run `bun run generate:tokens` and commit the result.");
+  process.exit(1);
+}
+
+console.log(
+  `generated output is fresh: ${GENERATORS.length} generators, ` +
+    `${GENERATORS.flatMap((g) => g.outputs).length} derived files byte-match a fresh run`,
+);
