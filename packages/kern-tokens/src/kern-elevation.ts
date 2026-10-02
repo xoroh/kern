@@ -1,5 +1,5 @@
 /**
- * M3 RESTING-ELEVATION INVENTORY — the declared target for `check:m3`.
+ * M3 RESTING-ELEVATION INVENTORY — the declared target for `check:kern`.
  *
  * Why this module exists
  * ----------------------
@@ -145,7 +145,7 @@ export const KERN_ELEVATION_COMPONENTS = Object.freeze({
    *
    * Button shipped level 1 ungated until this row: `check:docs` flagged it, and
    * the fix is asserted rather than assumed — mutating Button's token to level 4
-   * now fails `check:m3` with
+   * now fails `check:kern` with
    * "button: ships elevation level4, M3 assigns level0/1".
    *
    * Note for the next sweep: a row is only worth adding when the component
@@ -205,7 +205,7 @@ export const KERN_ELEVATION_COMPONENTS = Object.freeze({
   // M3's level-2 table also names "Navigation bar", "Rich tooltip" and
   // "Toolbar". kern ships all three, so they were silently UNGATED before this
   // row — a mutation that deleted their elevation token still passed
-  // `check:m3` (proved by mutation test). Adding them makes the spec claim
+  // `check:kern` (proved by mutation test). Adding them makes the spec claim
   // executable rather than aspirational.
   "navigation-bar": Object.freeze({ rows: ["navigation bar"], variants: [2] }),
   tooltip: Object.freeze({ rows: ["rich tooltip"], variants: [2] }),

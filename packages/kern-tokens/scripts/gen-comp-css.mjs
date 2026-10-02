@@ -5,7 +5,7 @@
 //   1. src/comp-tokens.css   — `--md-comp-<component>-<slot>` per component
 //   2. src/tailwind.css      — a thin map FROM the CSS vars, never a second truth
 // Nothing here may be hand-edited; `bun run generate:tokens` regenerates both and
-// `check:m3` fails if the committed output is stale.
+// `check:kern` fails if the committed output is stale.
 import { spawnSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";

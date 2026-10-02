@@ -1,7 +1,7 @@
 /**
- * M3 COLOR ROLE INVENTORY — the single declared target for `check:m3`.
+ * M3 COLOR ROLE INVENTORY — the single declared target for `check:kern`.
  *
- * D-029/P1-0: `check:m3` previously had NO role inventory. It only asserted that roles
+ * D-029/P1-0: `check:kern` previously had NO role inventory. It only asserted that roles
  * *referenced in source* exist in every scheme, so a role missing from `m3.json` entirely
  * passed. This module is that missing target: a declared list of every color role
  * Material 3 defines, plus kern's own additive roles.
