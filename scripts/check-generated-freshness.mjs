@@ -70,6 +70,21 @@ const GENERATORS = [
     cmd: ["bun", "packages/mcp/scripts/generate-maturity.mjs"],
     outputs: ["packages/mcp/src/maturity.ts"],
   },
+  {
+    // The resting-elevation audit, which was the one derived file NOT listed here.
+    // It re-dirties on every elevation change and nothing noticed, because the
+    // tree simply carried the drift: `drawer` moved NO-SPEC -> ASSERTED at level
+    // 1 and the committed table still said NO-SPEC. That is precisely the
+    // "committed artifact, generator not re-run, every gate green" failure this
+    // gate exists for -- it was exempt from the very check that catches it.
+    //
+    // The file is markdown, so the whitespace-normalising compare below is what
+    // makes the comparison meaningful: a table re-render that only rewraps is
+    // not staleness, a changed VERDICT is.
+    name: "audit-elevation (registry + M3 elevation table -> elevation-audit.md)",
+    cmd: ["bun", "scripts/audit-elevation.mjs"],
+    outputs: ["docs/elevation-audit.md"],
+  },
 ];
 
 // Files biome formats inside the generators, so a generator run in a copy that

@@ -102,9 +102,10 @@ jobs:
           bun run generate:tones
           bun run generate:motion
           bun run generate:components
+          bun run audit:elevation
           bun run icons:generate
           git add -N .
-          git diff --exit-code -- packages/kern-tokens/src/tokens.css packages/kern-tokens/src/tones.css packages/kern-tokens/src/motion.css docs/components.md packages/mcp/src/manifest.ts packages/mcp/src/component-sources.ts packages/kern-icons/src/sets
+          git diff --exit-code -- packages/kern-tokens/src/tokens.css packages/kern-tokens/src/tones.css packages/kern-tokens/src/motion.css docs/components.md docs/elevation-audit.md packages/mcp/src/manifest.ts packages/mcp/src/component-sources.ts packages/kern-icons/src/sets
 
       - name: Build all publishable packages
         run: bun run build

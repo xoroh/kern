@@ -6,10 +6,10 @@ Web concepts in the registry: **291** (the ladder's "68 components" is stale).
 
 | verdict | count | meaning |
 |---|---:|---|
-| ASSERTED | 13 | carries a token; M3 names a level; `check:kern` covers it |
+| ASSERTED | 14 | carries a token; M3 names a level; `check:kern` covers it |
 | ABSENT-0 | 6 | M3 puts it at resting level 0 — `level0` is `shadow: none`, so **no token is the conformant state** |
 | GAP | 0 | **M3 names a level but the component carries no token** — the only real defect class |
-| NO-SPEC | 272 | M3 specifies no resting level — kern extension, CSS wrapper, or sub-part |
+| NO-SPEC | 271 | M3 specifies no resting level — kern extension, CSS wrapper, or sub-part |
 | MISMATCH | 0 | carries a level M3 does not assign to it — an UNEARNED shadow; this fails the audit |
 
 ## Why ABSENT-0 is not a gap
@@ -115,7 +115,7 @@ conformant state, and `check:kern` gates it that way — a row permitting 0 is c
 | `dialog-trigger` | — | — | — | NO-SPEC |
 | `dock-sheet` | — | — | — | NO-SPEC |
 | `document` | — | — | — | NO-SPEC |
-| `drawer` | 2 | — | — | NO-SPEC |
+| `drawer` | 1 | 1 | navigation drawer (modal) | ASSERTED |
 | `drawer-close` | — | — | — | NO-SPEC |
 | `drawer-content` | — | — | — | NO-SPEC |
 | `drawer-description` | — | — | — | NO-SPEC |
