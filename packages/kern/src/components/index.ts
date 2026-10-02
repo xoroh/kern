@@ -544,6 +544,8 @@ export {
 } from "./sonner";
 export type { SplitButtonAction, SplitButtonProps } from "./split-button";
 export { SplitButton } from "./split-button";
+export type { SplitProps } from "./split";
+export { Split } from "./split";
 export type { SwitchProps } from "./switch";
 export { Switch } from "./switch";
 export type {
