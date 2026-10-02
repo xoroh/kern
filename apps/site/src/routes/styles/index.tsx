@@ -10,9 +10,11 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "../../components/chrome/site-layout";
 import {
   COLOR_ROLES,
+  ELEVATION_LEVELS,
   KERN_EXTRA_COUNT,
   M3_ROLE_COUNT,
   ROLE_COUNT,
+  SHAPE,
   TYPE_STYLE_COUNT,
 } from "../../foundations/data";
 import { FOUNDATIONS } from "../../foundations/shell";
@@ -54,8 +56,11 @@ function StylesHub() {
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
             <Stat label="Colour roles" value={String(ROLE_COUNT)} />
             <Stat label="Type styles" value={String(TYPE_STYLE_COUNT)} />
-            <Stat label="Corner roles" value="10" />
-            <Stat label="Elevation levels" value="6" />
+            <Stat label="Corner roles" value={String(SHAPE.length)} />
+            <Stat
+              label="Elevation levels"
+              value={String(ELEVATION_LEVELS.length)}
+            />
           </div>
 
           <p className={`m-0 max-w-[62ch] ${T_BODY_SM} ${INK_SOFT}`}>

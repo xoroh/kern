@@ -14,6 +14,13 @@
  * The ROLE-COUNT-CORRECTION row binds here: kern ships 58 roles (45 M3 +
  * 13 kern deviations). Every number on the Foundations pages comes from these
  * accessors so the prose cannot assert something the package does not contain.
+ *
+ * MEASURED FIXES (post-reboot re-read, node script against the JSON sources):
+ *   - `typography` is structured as `scale.*` + `scaleEmphasized.*` + `roles.*`
+ *     + `family`/`fontFaces` — enumerating its top-level keys produced 6 empty
+ *     "styles". TYPE_STYLES now walks the two real scales (15 + 15 = 30).
+ *   - `$comment` keys are PROSE, not tokens; `group()` drops them so a comment
+ *     can never render as a value row (Elevation/States/Motion showed one).
  */
 
 import kernTheme from "@xoroh/kern-tokens/themes/kern.json";
@@ -32,6 +39,8 @@ function flatten(
 ) {
   if (node && typeof node === "object") {
     for (const [k, v] of Object.entries(node as Json)) {
+      // `$comment` is documentation riding along with the tokens, not a token.
+      if (k === "$comment") continue;
       if (v && typeof v === "object") flatten(v, `${prefix}${k}.`, out);
       else out[`${prefix}${k}`] = v;
     }
@@ -44,6 +53,14 @@ export type Leaf = { key: string; value: unknown };
 function group(name: string): Leaf[] {
   const flat = flatten(tokens[name] ?? {});
   return Object.entries(flat).map(([key, value]) => ({ key, value }));
+}
+
+/** The direct children of a token group, as `{ key, node }` pairs. */
+function subgroups(name: string): { key: string; node: Json }[] {
+  const node = (tokens[name] ?? {}) as Json;
+  return Object.entries(node)
+    .filter(([k, v]) => k !== "$comment" && v && typeof v === "object")
+    .map(([key, v]) => ({ key, node: v as Json }));
 }
 
 // ------------------------------------------------------------------ colour
@@ -98,26 +115,84 @@ export const COLOR_ROLES: ColorRole[] = Object.keys(light)
     kernExtra: KERN_EXTRA_ROLE_NAMES.has(name),
   }));
 
+/** Role lookup for the pairing-law specimens. */
+export const ROLE_BY_NAME: Map<string, ColorRole> = new Map(
+  COLOR_ROLES.map((r) => [r.name, r]),
+);
+
 export const ROLE_COUNT = COLOR_ROLES.length;
 export const M3_ROLE_COUNT =
   ROLE_COUNT - COLOR_ROLES.filter((r) => r.kernExtra).length;
 export const KERN_EXTRA_COUNT = COLOR_ROLES.length - M3_ROLE_COUNT;
 
 // ------------------------------------------------------------------ others
-export const ELEVATION: Leaf[] = group("elevation");
 export const MOTION: Leaf[] = group("motion");
 export const SHAPE: Leaf[] = group("shape");
 export const SPACING: Leaf[] = group("spacing");
 export const STATES: Leaf[] = group("states");
-export const TYPOGRAPHY: Leaf[] = group("typography");
 
+/**
+ * Elevation is one group per LEVEL with two axes (`dp`, `shadow`). The
+ * flattened form is kept for lookup; the structured form is what the page
+ * renders, so a level reads as a level and never as two loose leaves.
+ */
+export type ElevationLevel = { level: string; dp: unknown; shadow: unknown };
+
+export const ELEVATION: Leaf[] = group("elevation");
+
+export const ELEVATION_LEVELS: ElevationLevel[] = subgroups("elevation")
+  .sort((a, b) => a.key.localeCompare(b.key))
+  .map(({ key, node }) => ({
+    level: key,
+    dp: node.dp,
+    shadow: node.shadow,
+  }));
+
+// ------------------------------------------------------------------ motion
+/** The M3 easing curves kern ships (`motion.easing.*`). */
+export const MOTION_EASING: Leaf[] = group("motion").filter((l) =>
+  l.key.startsWith("easing."),
+);
+
+/** The duration ladder (`motion.duration.*`), short1 → extra-long4. */
+export const MOTION_DURATION: Leaf[] = group("motion").filter((l) =>
+  l.key.startsWith("duration."),
+);
+
+/** One spring's physics parameters, exactly as the token package declares. */
+export type Spring = {
+  name: string;
+  stiffness: number;
+  damping: number;
+};
+
+export const MOTION_SPRING: Spring[] = subgroups("motion")
+  .filter(({ key }) => key === "spring")
+  .flatMap(({ node }) =>
+    Object.entries(node).map(([name, params]) => {
+      const p = (params ?? {}) as Json;
+      return {
+        name,
+        stiffness: Number(p.stiffness ?? 0),
+        damping: Number(p.damping ?? 0),
+      };
+    }),
+  );
+
+// ------------------------------------------------------------- typography
 /**
  * The type styles, keyed by role. The Foundation Type page renders each one
  * with its OWN tokens — the specimen IS the token, so a wrong token is
  * visible rather than merely wrong.
+ *
+ * The token package keeps two scales: `typography.scale` (the base 15) and
+ * `typography.scaleEmphasized` (the emphasized 15). 30 styles total, which is
+ * what the page claims and what is counted below.
  */
 export type TypeStyle = {
+  /** `display-large` or `emphasized.display-large`. */
   role: string;
+  emphasized: boolean;
   fontFamily: string;
   fontSize: string;
   fontWeight: string;
@@ -126,20 +201,32 @@ export type TypeStyle = {
 };
 
 const typo = (tokens.typography ?? {}) as Json;
+const family = String(typo.webFamily ?? typo.family ?? "");
 
-export const TYPE_STYLES: TypeStyle[] = Object.keys(typo)
-  .filter((k) => k !== "$comment")
-  .sort()
-  .map((role) => {
-    const r = (typo[role] ?? {}) as Json;
-    return {
-      role,
-      fontFamily: String(r.fontFamily ?? ""),
-      fontSize: String(r.fontSize ?? ""),
-      fontWeight: String(r.fontWeight ?? ""),
-      lineHeight: String(r.lineHeight ?? ""),
-      letterSpacing: String(r.letterSpacing ?? ""),
-    };
-  });
+function stylesFrom(
+  scaleNode: unknown,
+  emphasized: boolean,
+): TypeStyle[] {
+  const scale = (scaleNode ?? {}) as Json;
+  return Object.keys(scale)
+    .sort()
+    .map((name) => {
+      const r = (scale[name] ?? {}) as Json;
+      return {
+        role: emphasized ? `emphasized.${name}` : name,
+        emphasized,
+        fontFamily: family,
+        fontSize: String(r.size ?? ""),
+        fontWeight: String(r.weight ?? ""),
+        lineHeight: String(r.lineHeight ?? ""),
+        letterSpacing: String(r.tracking ?? ""),
+      };
+    });
+}
+
+export const TYPE_STYLES: TypeStyle[] = [
+  ...stylesFrom(typo.scale, false),
+  ...stylesFrom(typo.scaleEmphasized, true),
+];
 
 export const TYPE_STYLE_COUNT = TYPE_STYLES.length;

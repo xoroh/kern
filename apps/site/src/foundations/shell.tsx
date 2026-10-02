@@ -21,6 +21,12 @@ export type FoundationPage = {
   title: string;
   /** One line under the title. */
   oneLiner: string;
+  /**
+   * The kern deviations this page carries, by registered id. The registry is
+   * the K-series allow-list (K1–K10) that review-m3 gates against — a
+   * deviation not on that list is a fail, so a chip here must name a real id.
+   */
+  deviations?: { id: string; note: string }[];
 };
 
 /** The family, in reading order. Prev/next walk this list. */
@@ -29,32 +35,65 @@ export const FOUNDATIONS: FoundationPage[] = [
     slug: "tokens",
     title: "Tokens",
     oneLiner: "The named values everything else is built from.",
+    deviations: [
+      {
+        id: "K6",
+        note: "the tones engine — kern's own ramps and overlays behind the roles",
+      },
+    ],
   },
   {
     slug: "color",
     title: "Color",
     oneLiner:
       "Roles are decisions, not colours — and kern ships more of them than Material 3 does.",
+    deviations: [
+      { id: "K2", note: "twelve status roles M3 has no vocabulary for" },
+      { id: "K3", note: "the surfaceTonal role" },
+      {
+        id: "K9",
+        note: "fixed accent roles and shadow — contrast-gated, not waived",
+      },
+    ],
   },
   {
     slug: "type",
     title: "Type",
     oneLiner: "Thirty styles, each rendered by its own tokens.",
+    deviations: [{ id: "K1", note: "Inter instead of Roboto" }],
   },
   {
     slug: "elevation",
     title: "Elevation",
     oneLiner: "Six levels, and which components rest at which.",
+    deviations: [
+      {
+        id: "K4",
+        note: "the per-level shadow — kern's platform rendering of the spec's dp axis",
+      },
+    ],
   },
   {
     slug: "shape",
     title: "Shape",
     oneLiner: "The corner scale, including the two Expressive additions.",
+    deviations: [
+      {
+        id: "K5",
+        note: "pill-heavy defaults; the two Expressive corners are adopted, not a deviation",
+      },
+    ],
   },
   {
     slug: "motion",
     title: "Motion",
     oneLiner: "Spring first, easing as the fallback.",
+    deviations: [
+      {
+        id: "K7",
+        note: "the complete motion grid — springs, easings, durations, both schemes",
+      },
+    ],
   },
   {
     slug: "states",
@@ -122,6 +161,45 @@ export function FH3({ id, children }: { id: string; children: ReactNode }) {
   );
 }
 
+/**
+ * The kern-deviation chips a foundation page carries. Every id is on the
+ * K1–K10 allow-list in the deviations registry — the list review-m3 gates
+ * against, where a deviation not on the list is a fail. A page with no chips
+ * says so, because "silent" and "conformant" must not look the same.
+ */
+export function FDeviations({
+  items,
+}: {
+  items: { id: string; note: string }[];
+}) {
+  return (
+    <div className="flex flex-col gap-2">
+      <div className="flex flex-wrap items-center gap-2">
+        {items.map((d) => (
+          <span
+            key={d.id}
+            className={`inline-flex items-center gap-1 rounded-(--md-sys-shape-corner-full) border border-(--md-sys-color-outline) px-2 py-0.5 ${T_BODY_SM} ${INK}`}
+          >
+            <strong className={INK}>{d.id}</strong>
+            <span className={INK_SOFT}>{d.note}</span>
+          </span>
+        ))}
+        {items.length === 0 ? (
+          <span className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
+            No kern deviations — this page is Material 3 exactly.
+          </span>
+        ) : null}
+      </div>
+      {items.length > 0 ? (
+        <p className={`m-0 max-w-[62ch] ${T_BODY_SM} ${INK_SOFT}`}>
+          Deviations are kern decisions, each on the K1–K10 registry allow-list
+          — a deviation not on that list is a gate failure, not a footnote.
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
 export const F_CARD = CARD;
 export const F_INK = INK;
 export const F_INK_SOFT = INK_SOFT;
@@ -162,6 +240,7 @@ export function FoundationLayout({
         <p className={`m-0 max-w-[62ch] ${T_LEAD} ${INK_SOFT}`}>
           {page.oneLiner}
         </p>
+        <FDeviations items={page.deviations ?? []} />
       </header>
 
       {children}

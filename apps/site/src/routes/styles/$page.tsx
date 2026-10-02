@@ -3,18 +3,23 @@
  *
  * The family is generated from the token package (../../foundations/data),
  * and each page renders its own values: the Type page renders each style with
- * its OWN tokens, the Color page draws each role with its OWN value. A wrong
- * token is therefore visible rather than merely wrong.
+ * its OWN tokens, the Color page draws each role with its OWN value, the
+ * Elevation page casts each level's OWN shadow. A wrong token is therefore
+ * visible rather than merely wrong.
  */
 
 import { createFileRoute, notFound } from "@tanstack/react-router";
+import { useEffect, useRef } from "react";
 import { SiteLayout } from "../../components/chrome/site-layout";
 import {
   COLOR_ROLES,
-  ELEVATION,
+  ELEVATION_LEVELS,
   KERN_EXTRA_COUNT,
   M3_ROLE_COUNT,
-  MOTION,
+  MOTION_DURATION,
+  MOTION_EASING,
+  MOTION_SPRING,
+  ROLE_BY_NAME,
   ROLE_COUNT,
   SHAPE,
   SPACING,
@@ -76,8 +81,8 @@ function TokensPage() {
           <li>Colour — {ROLE_COUNT} roles per scheme</li>
           <li>Type — {TYPE_STYLE_COUNT} styles</li>
           <li>Shape — {SHAPE.length} corner roles</li>
-          <li>Elevation — {ELEVATION.length} values</li>
-          <li>Motion — {MOTION.length} values</li>
+          <li>Elevation — {ELEVATION_LEVELS.length} levels (dp and shadow)</li>
+          <li>Motion — easings, durations, springs and two schemes</li>
           <li>Spacing — {SPACING.length} steps</li>
           <li>States — {STATES.length} layer opacities</li>
         </ul>
@@ -107,6 +112,35 @@ function ColorPage() {
           registered with an id in the deviations registry rather than quietly
           non-standard.
         </FProse>
+      </FSection>
+
+      <FSection id="the-pairing-law" title="The pairing law">
+        <FProse>
+          Text on a role uses that role's on-companion. Putting a role on top of
+          itself is the one pairing the system cannot promise — the two values
+          can converge, and the text disappears. The samples below are painted
+          with the real role values from the theme.
+        </FProse>
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+          <PairingSample
+            verdict="Do"
+            fill="primary"
+            ink="onPrimary"
+            note="The pair Material 3 defines: primary behind, onPrimary in front."
+          />
+          <PairingSample
+            verdict="Do"
+            fill="error"
+            ink="onError"
+            note="Same law on the error pair — the on-role is the only promised ink."
+          />
+          <PairingSample
+            verdict="Don't"
+            fill="primary"
+            ink="primary"
+            note="The same role on both sides. Nothing guarantees these two ever separate."
+          />
+        </div>
       </FSection>
 
       <FSection id="the-role-matrix" title="The role matrix">
@@ -160,10 +194,40 @@ function ColorPage() {
   );
 }
 
+/** One pairing-law sample, painted with the theme's own role values. */
+function PairingSample({
+  verdict,
+  fill,
+  ink,
+  note,
+}: {
+  verdict: "Do" | "Don't";
+  fill: string;
+  ink: string;
+  note: string;
+}) {
+  const fillRole = ROLE_BY_NAME.get(fill);
+  const inkRole = ROLE_BY_NAME.get(ink);
+  return (
+    <div className={`${F_CARD} flex flex-col gap-2 p-3`}>
+      <span className={`m-0 ${T_SMALL_TITLE} ${F_INK}`}>
+        {verdict} — {ink} on {fill}
+      </span>
+      <div
+        className="rounded-(--md-sys-shape-corner-small) p-3"
+        style={{ background: fillRole?.light, color: inkRole?.light }}
+      >
+        The quick brown fox
+      </div>
+      <span className={`m-0 ${T_BODY_SM} ${F_INK_SOFT}`}>{note}</span>
+    </div>
+  );
+}
+
 // --------------------------------------------------------------------- type
 function TypePage() {
   // The specimens render with their OWN tokens — each style is set with the
-  // same variables that components read, so a wrong token shows as a wrong
+  // same values the token package declares, so a wrong token shows as a wrong
   // specimen rather than hiding behind a hardcoded size.
   return (
     <>
@@ -206,21 +270,28 @@ function ElevationPage() {
   return (
     <FSection id="levels" title="The levels">
       <FProse>
-        Every elevation value kern defines, read from the token package. Level 0
-        is no shadow at all — that is a decision, not an absence of one.
+        {ELEVATION_LEVELS.length} levels, read from the token package. Level 0
+        is no shadow at all — that is a decision, not an absence of one. Each
+        card below is raised by its OWN shadow value, so the level is the thing
+        you are looking at.
       </FProse>
-      <ul className="m-0 flex flex-col gap-2">
-        {ELEVATION.map((leaf) => (
-          <li key={leaf.key} className={`${F_CARD} p-3`}>
-            <span className={`font-mono ${T_BODY_SM} ${F_INK}`}>
-              {leaf.key}
-            </span>{" "}
-            <span className={`font-mono ${T_BODY_SM} ${F_INK_SOFT}`}>
-              {String(leaf.value)}
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        {ELEVATION_LEVELS.map((level) => (
+          <div key={level.level} className="flex flex-col gap-2">
+            <div
+              className={`${F_CARD} flex h-24 items-center justify-center p-3`}
+              style={{ boxShadow: String(level.shadow) }}
+            >
+              <span className={`font-mono ${T_BODY_SM} ${F_INK}`}>
+                {level.level} · {String(level.dp)}
+              </span>
+            </div>
+            <span className={`font-mono ${T_LABEL} ${F_INK_SOFT}`}>
+              {String(level.shadow)}
             </span>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </FSection>
   );
 }
@@ -232,9 +303,12 @@ function ShapePage() {
       <FSection id="corner-scale" title="The corner scale">
         <FProse>
           {SHAPE.length} corner roles, from none to full. Components reference
-          the role, never a literal corner radius. The two{" "}
-          <code>*-increased</code> values are Material 3 Expressive additions
-          and are registered as a kern decision.
+          the role, never a literal corner radius. The Expressive additions —
+          large-increased 20px, extra-large-increased 32px, extra-extra-large
+          48px — are Material 3's own May-2025 tokens, adopted per D-026.4.
+          Adopting them is conformity, not a kern decision; the recorded
+          decision is the adoption itself. kern's own shape decision is the
+          pill-heavy defaults.
         </FProse>
       </FSection>
       <FSection id="ladder" title="The ladder">
@@ -261,30 +335,182 @@ function ShapePage() {
 }
 
 // ------------------------------------------------------------------- motion
+/**
+ * The easing demos: one bar per easing curve, animated by that curve's OWN
+ * value against a real duration token, looping forever (parked under
+ * prefers-reduced-motion). The keyframes live in one style block so the demo
+ * stays data — the timing is always the token's.
+ */
+const MOTION_STYLE = `
+@keyframes kern-f-march {
+  from { left: 0; }
+  to { left: calc(100% - 1.5rem); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kern-f-march { animation: none !important; left: calc(50% - 0.75rem); }
+}
+`;
+
 function MotionPage() {
+  const duration = String(
+    MOTION_DURATION.find((l) => l.key === "duration.long2")?.value ??
+      MOTION_DURATION[0]?.value ??
+      "0ms",
+  );
   return (
-    <FSection id="values" title="Motion values">
-      <FProse>
-        kern uses springs as the primary scheme and easing as the fallback — a
-        registered decision, not a default nobody chose. The values below are
-        the token package's, rendered live: each bar animates with the very
-        tokens being listed.
-      </FProse>
-      <ul className="m-0 flex flex-col gap-2">
-        {MOTION.slice(0, 16).map((leaf) => (
-          <li key={leaf.key} className={`${F_CARD} p-3`}>
-            <div className="flex items-center justify-between gap-4">
+    <>
+      <style>{MOTION_STYLE}</style>
+      <FSection id="scheme" title="Spring first, easing as the fallback">
+        <FProse>
+          kern animates with springs as the primary scheme and easing curves as
+          the fallback — a registered decision (K7), not a default nobody chose.
+          The full grid ships: {MOTION_SPRING.length} springs,{" "}
+          {MOTION_EASING.length} easings, {MOTION_DURATION.length} durations
+          and two named schemes. Every demo below runs on the token value shown
+          beside it.
+        </FProse>
+      </FSection>
+
+      <FSection id="springs" title="Springs, live">
+        <FProse>
+          Each dot is integrated by its own spring — stiffness and damping
+          straight from the token package. Watch the settle: a fast spring snaps,
+          a slow one overshoots and eases in.
+        </FProse>
+        <ul className="m-0 flex flex-col gap-2">
+          {MOTION_SPRING.map((s) => (
+            <li key={s.name} className={`${F_CARD} p-3`}>
+              <div className="flex items-center justify-between gap-4">
+                <span className={`font-mono ${T_BODY_SM} ${F_INK}`}>
+                  spring.{s.name}
+                </span>
+                <span className={`font-mono ${T_BODY_SM} ${F_INK_SOFT}`}>
+                  stiffness {s.stiffness} · damping {s.damping}
+                </span>
+              </div>
+              <SpringTrack stiffness={s.stiffness} damping={s.damping} />
+            </li>
+          ))}
+        </ul>
+      </FSection>
+
+      <FSection id="easings" title="Easing curves, live">
+        <FProse>
+          The easing grid, each bar eased by its own curve over a{" "}
+          <code>duration.long2</code> step, looping.
+        </FProse>
+        <ul className="m-0 flex flex-col gap-2">
+          {MOTION_EASING.map((leaf) => (
+            <li key={leaf.key} className={`${F_CARD} p-3`}>
+              <div className="flex items-center justify-between gap-4">
+                <span className={`font-mono ${T_BODY_SM} ${F_INK}`}>
+                  {leaf.key}
+                </span>
+                <span className={`font-mono ${T_BODY_SM} ${F_INK_SOFT}`}>
+                  {String(leaf.value)} · {duration}
+                </span>
+              </div>
+              <div className="relative mt-2 h-6 rounded-(--md-sys-shape-corner-full) bg-(--md-sys-color-surface-container-highest)">
+                <div
+                  className="kern-f-march absolute top-0 h-6 w-6 rounded-full bg-(--md-sys-color-primary)"
+                  style={{
+                    animationName: "kern-f-march",
+                    animationDuration: duration,
+                    animationTimingFunction: String(leaf.value),
+                    animationIterationCount: "infinite",
+                    animationDirection: "alternate",
+                  }}
+                  aria-hidden="true"
+                />
+              </div>
+            </li>
+          ))}
+        </ul>
+      </FSection>
+
+      <FSection id="durations" title="The duration ladder">
+        <ul className="m-0 flex flex-col gap-2">
+          {MOTION_DURATION.map((leaf) => (
+            <li
+              key={leaf.key}
+              className={`${F_CARD} flex items-center justify-between gap-4 p-3`}
+            >
               <span className={`font-mono ${T_BODY_SM} ${F_INK}`}>
                 {leaf.key}
               </span>
               <span className={`font-mono ${T_BODY_SM} ${F_INK_SOFT}`}>
                 {String(leaf.value)}
               </span>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </FSection>
+            </li>
+          ))}
+        </ul>
+      </FSection>
+    </>
+  );
+}
+
+/**
+ * One live spring: a dot integrated by `stiffness`/`damping` against a target
+ * that flips on a timer. The physics is the token's — if a spring value is
+ * wrong, the motion is wrong in exactly the way the token is.
+ */
+function SpringTrack({
+  stiffness,
+  damping,
+}: {
+  stiffness: number;
+  damping: number;
+}) {
+  const dotRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const dot = dotRef.current;
+    const track = trackRef.current;
+    if (!dot || !track) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      dot.style.transform = "translateX(50%)";
+      return;
+    }
+
+    let x = 0;
+    let v = 0;
+    let target = 1;
+    let last = performance.now();
+    let raf = 0;
+    const flip = window.setInterval(() => {
+      target = target === 1 ? 0 : 1;
+    }, 1600);
+
+    const tick = (now: number) => {
+      const dt = Math.min((now - last) / 1000, 0.032);
+      last = now;
+      // A unit-mass damped spring: F = k(target - x) - c·v.
+      const a = stiffness * (target - x) - damping * v;
+      v += a * dt;
+      x += v * dt;
+      const travel = track.clientWidth - dot.offsetWidth;
+      dot.style.transform = `translateX(${(Math.max(0, Math.min(1, x)) * travel).toFixed(1)}px)`;
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => {
+      cancelAnimationFrame(raf);
+      clearInterval(flip);
+    };
+  }, [stiffness, damping]);
+
+  return (
+    <div
+      ref={trackRef}
+      className="relative mt-2 h-6 rounded-(--md-sys-shape-corner-full) bg-(--md-sys-color-surface-container-highest)"
+    >
+      <div
+        ref={dotRef}
+        className="absolute top-0 h-6 w-6 rounded-full bg-(--md-sys-color-primary)"
+        aria-hidden="true"
+      />
+    </div>
   );
 }
 
@@ -294,16 +520,31 @@ function StatesPage() {
     <FSection id="state-layers" title="State layers">
       <FProse>
         A state layer is an overlay that says the surface is doing something.
-        Material 3 defines exactly five opacities; kern ships all five. These
-        are the token package's values.
+        Material 3 defines exactly five opacities; kern ships all five. Each
+        swatch below paints the layer at its own token opacity — the overlay is
+        the value, not a picture of it.
       </FProse>
       <ul className="m-0 flex flex-col gap-2">
         {STATES.map((leaf) => (
-          <li key={leaf.key} className={`${F_CARD} p-3`}>
-            <div className="flex items-center justify-between gap-4">
-              <span className={`font-mono ${T_BODY_SM} ${F_INK}`}>
-                {leaf.key}
-              </span>
+          <li
+            key={leaf.key}
+            className={`${F_CARD} flex items-center justify-between gap-4 p-3`}
+          >
+            <span className={`font-mono ${T_BODY_SM} ${F_INK}`}>
+              {leaf.key}
+            </span>
+            <div className="flex items-center gap-3">
+              <div className="relative h-8 w-14 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface)">
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    backgroundColor: "var(--md-sys-color-primary)",
+                    opacity:
+                      Number.parseInt(String(leaf.value), 10) / 100 || undefined,
+                  }}
+                  aria-hidden="true"
+                />
+              </div>
               <span className={`font-mono ${T_BODY_SM} ${F_INK_SOFT}`}>
                 {String(leaf.value)}
               </span>
