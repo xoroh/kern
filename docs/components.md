@@ -301,6 +301,8 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `fieldset-item` | `FieldsetItem` | real |
 | `fieldset-legend` | `FieldsetLegend` | real |
 | `filter-chip-row` | `FilterChipRow` | real |
+| `icon-button` | `IconButton` | real |
+| `icon-button-target` | `IconButtonTarget` | real |
 | `input` | `Input` | real |
 | `input-otp` | `InputOTP` | real |
 | `label` | `Label` | real |
@@ -323,6 +325,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `navigation-menu` | `NavigationMenu` | real |
 | `number-field` | `NumberField` | real |
 | `pane` | `Pane` | real |
+| `press-is-cancelled` | `pressIsCancelled` | real |
 | `progress` | `Progress` | real |
 | `radio-group` | `RadioGroup` | real |
 | `radio-group-item` | `RadioGroupItem` | real |
