@@ -1,3 +1,8 @@
+import {
+  createDismissPolicy,
+  type DismissTriggers,
+  dismissTriggersFor,
+} from "@xoroh/kern-primitives";
 import type { ReactNode } from "react";
 import {
   Modal,
@@ -90,19 +95,33 @@ export function SheetSurface({
   placement = "bottom",
   style,
 }: SheetSurfaceProps) {
-  // M3 sheets offer a close affordance IN ADDITION to the scrim. Without one,
-  // a touch-only user who does not know to tap outside the card has no way
-  // out, and `onDismiss` becomes unreachable — the exact defect the scrim-only
-  // shell shipped. Derived from `onDismiss` so a sheet cannot declare a
-  // dismissal path and render no control for it.
-  const showClose = dismissible ?? Boolean(onDismiss);
+  // The dismissal DECISION is the shared `dismiss-policy` primitive
+  // (P2c-2 Wave 1); the triggers below stay native. This line used to encode
+  // the rule by hand — `dismissible ?? Boolean(onDismiss)` — which is the
+  // `useControllableState` failure mode repeating: the web surface derives the
+  // same rule differently, so a fix to one did not reach the other.
+  //
+  // `open` is threaded through `shouldDismiss` rather than by nulling the
+  // handlers: a trigger bound to a CLOSED surface must do nothing, and
+  // unbinding it would change what the tree renders.
+  const policy = createDismissPolicy({
+    dismissible,
+    hasDismissHandler: Boolean(onDismiss),
+  });
+  const triggers = dismissTriggersFor({
+    modal: true,
+    hasVisibleClose: policy.showClose,
+  });
+  const canDismiss = (trigger: keyof DismissTriggers) =>
+    policy.shouldDismiss(trigger, open, triggers);
+  const dismiss = canDismiss("scrim") ? onDismiss : undefined;
   return (
     <Modal
       visible={open}
       transparent
       animationType="slide"
       accessibilityViewIsModal
-      onRequestClose={onDismiss}
+      onRequestClose={canDismiss("escape") ? onDismiss : undefined}
     >
       <View
         style={
@@ -114,16 +133,16 @@ export function SheetSurface({
         <Pressable
           accessibilityRole="button"
           accessibilityLabel={`Dismiss ${title}`}
-          onPress={onDismiss}
+          onPress={dismiss}
           style={{ flex: 1 }}
         />
         <View testID={testID} style={[surface, style]}>
-          {showClose ? (
+          {policy.showClose ? (
             <Pressable
               accessibilityRole="button"
               accessibilityLabel={closeLabel ?? `Close ${title}`}
               hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
-              onPress={onDismiss}
+              onPress={canDismiss("closeButton") ? onDismiss : undefined}
               style={{
                 alignSelf: "flex-end",
                 minWidth: 48,

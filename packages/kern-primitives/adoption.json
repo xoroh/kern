@@ -13,20 +13,6 @@
   ],
   "units": [
     {
-      "unit": "dismiss-policy",
-      "status": "not-yet-adopted",
-      "symbols": [
-        "createDismissPolicy",
-        "dismissTriggersFor",
-        "DismissPolicy",
-        "DismissPolicyOptions",
-        "DismissTriggers"
-      ],
-      "reason": "SheetSurface binds scrim press, Android back and the close affordance to one onDismiss today. The trigger SETS belong here, but the re-point is not built -- admitting the kernel without wiring it would recreate the 'exists but is unreachable' class this gate exists to prevent.",
-      "owner": "kern-lead",
-      "next": "P2c-4 second unit; separate commit from overlay-modality."
-    },
-    {
       "unit": "collection",
       "status": "not-yet-adopted",
       "symbols": [
