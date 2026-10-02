@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { T_BODY_SM, T_CODE, T_LEAD } from "../type-scale";
 
 /**
  * The Example tier — the first of the three showcase layers (Example → Block →
@@ -37,14 +38,14 @@ const FRAME =
 const STAGE =
   "flex flex-wrap items-center justify-center gap-4 rounded-(--md-sys-shape-corner-medium) bg-(--md-sys-color-surface-container-low) p-8";
 
-const BODY = "text-sm leading-relaxed text-(--md-sys-color-on-surface-variant)";
+const BODY = `text-(--md-sys-color-on-surface-variant) ${T_BODY_SM}`;
 
 /** One example: title, description, live stage, and the source when useful. */
 export function Example({ spec }: { spec: ExampleSpec }) {
   return (
     <figure className={`${FRAME} m-0 flex flex-col overflow-hidden`}>
       <figcaption className="flex flex-col gap-1 border-b border-(--md-sys-color-outline-variant) px-6 py-4">
-        <h3 className="m-0 text-base font-medium text-(--md-sys-color-on-surface)">
+        <h3 className={`m-0 ${T_LEAD} text-(--md-sys-color-on-surface)`}>
           {spec.title}
         </h3>
         <p className={`m-0 ${BODY}`}>{spec.description}</p>
@@ -53,7 +54,9 @@ export function Example({ spec }: { spec: ExampleSpec }) {
       <div className={STAGE}>{spec.render()}</div>
 
       {spec.code ? (
-        <pre className="m-0 overflow-x-auto border-t border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-high) p-6 text-sm text-(--md-sys-color-on-surface)">
+        <pre
+          className={`m-0 overflow-x-auto border-t border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-high) p-6 ${T_CODE} text-(--md-sys-color-on-surface)`}
+        >
           <code>{spec.code}</code>
         </pre>
       ) : null}

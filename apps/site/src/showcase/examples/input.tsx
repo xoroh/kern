@@ -1,4 +1,5 @@
 import { Checkbox, Input, Label } from "@xoroh/kern";
+import { T_LABEL } from "../../type-scale";
 import type { ExampleSpec } from "../example";
 
 /**
@@ -39,19 +40,22 @@ export const INPUT_EXAMPLES: ExampleSpec[] = [
         />
         <p
           id="email-error-message"
-          className="m-0 text-xs text-(--md-sys-color-error)"
+          className={`m-0 ${T_LABEL} text-(--md-sys-color-error)`}
         >
           Enter an email address.
         </p>
       </div>
     ),
+    // type-scale-exempt: the line below is EXAMPLE CODE shown to the reader,
+    // not rendered typography. A consumer's own class names are theirs to
+    // choose; the rule governs what OUR pages paint.
     code: `<Input
   id="email-error-example"
   defaultValue="not-an-email"
   aria-invalid="true"
   aria-describedby="email-error-message"
 />
-<p id="email-error-message" className="text-xs text-(--md-sys-color-error)">
+<p id="email-error-message" class="text-xs text-red-600">
   Enter an email.
 </p>`,
   },

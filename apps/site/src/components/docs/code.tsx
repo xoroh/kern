@@ -7,6 +7,7 @@
  */
 import { Icon } from "@xoroh/kern-icons";
 import { useState } from "react";
+import { T_CODE, T_LABEL_LG, T_SECTION } from "../../type-scale";
 
 export function Code({ children }: { children: string }) {
   const [copied, setCopied] = useState(false);
@@ -29,7 +30,9 @@ export function Code({ children }: { children: string }) {
       >
         <Icon name={copied ? "check" : "attach"} size={16} />
       </button>
-      <pre className="m-0 overflow-x-auto rounded-(--md-sys-shape-corner-large) bg-(--md-sys-color-surface-container-high) p-5 pr-12 font-mono text-sm text-(--md-sys-color-on-surface)">
+      <pre
+        className={`m-0 overflow-x-auto rounded-(--md-sys-shape-corner-large) bg-(--md-sys-color-surface-container-high) p-5 pr-12 ${T_CODE} text-(--md-sys-color-on-surface)`}
+      >
         <code>{children}</code>
       </pre>
     </div>
@@ -47,10 +50,12 @@ export function Step({
 }) {
   return (
     <section className="flex flex-col gap-3">
-      <h2 className="m-0 flex items-center gap-3 text-lg font-semibold text-(--md-sys-color-on-surface)">
+      <h2
+        className={`m-0 flex items-center gap-3 ${T_SECTION} text-(--md-sys-color-on-surface)`}
+      >
         <span
           aria-hidden="true"
-          className="flex size-7 shrink-0 items-center justify-center rounded-full bg-(--md-sys-color-secondary-container) text-sm font-semibold text-(--md-sys-color-on-secondary-container)"
+          className={`flex size-7 shrink-0 items-center justify-center rounded-full bg-(--md-sys-color-secondary-container) ${T_LABEL_LG} text-(--md-sys-color-on-secondary-container)`}
         >
           {n}
         </span>
