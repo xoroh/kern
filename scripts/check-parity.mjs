@@ -20,7 +20,7 @@
 //
 // Run: `bun run check:parity`. Exit 0 clean, 1 on violation.
 
-import { readdirSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 const ROOT = new URL("..", import.meta.url).pathname;
@@ -247,6 +247,45 @@ if (docConcepts.size === 0) {
       "  Either the tables changed shape or the regex is wrong. Fix the regex; do not remove the check.",
   );
 }
+// --- every primitives module must be re-exported from its barrel --------------
+// `overlayModality.ts` shipped with three exports and no barrel entry, so it was
+// importable by nobody -- and passed every gate, because every gate inspected
+// the code the module CONTAINED rather than whether anything could REACH it.
+// The reachability check above covers registry rows; this covers the primitives
+// package's public entry, which was the uncovered gap.
+//
+// The barrel is parsed with the TypeScript parser, not a regex: a regex would
+// miss a re-export written across a line break, and "missing something" is the
+// exact failure mode of this gate.
+{
+  const primitivesSrc = join(ROOT, "packages", "kern-primitives", "src");
+  if (existsSync(primitivesSrc)) {
+    const barrelPath = join(primitivesSrc, "index.ts");
+    const barrelText = readFileSync(barrelPath, "utf8");
+    const barrelExports = new Set();
+    for (const m of barrelText.matchAll(
+      /\bfrom\s*["']\.\/([A-Za-z0-9_.-]+)["']/g,
+    )) {
+      barrelExports.add(m[1]);
+    }
+    // Every sibling module must be named by the barrel. A test file is not a
+    // module of the package; neither is the barrel itself.
+    for (const entry of readdirSync(primitivesSrc)) {
+      if (!entry.endsWith(".ts")) continue;
+      if (entry === "index.ts" || /\.test\.ts$/.test(entry)) continue;
+      const mod = entry.replace(/\.ts$/, "");
+      if (!barrelExports.has(mod)) {
+        violations.push(
+          `packages/kern-primitives/src/${entry} is not re-exported from index.ts -- ` +
+            `its exports are importable by nobody. A committed module that no ` +
+            `consumer can reach is a library that silently does not exist ` +
+            `(this is how overlayModality shipped in bbd9ac7).`,
+        );
+      }
+    }
+  }
+}
+
 // --- web-only TABLE membership, not just row existence ------------------------
 // The check above proves a doc row names something real. It does NOT prove the
 // row is in the RIGHT table: a component that is registered on BOTH platforms
@@ -971,7 +1010,7 @@ if (violations.length > 0) {
 }
 
 console.log(
-  "\nparity contract passes: boundary held, counts match the registry, no phantom rows, ruled asymmetries intact",
+  "\nparity contract passes: boundary held, counts match the registry, no phantom rows, ruled asymmetries intact,\n and every kern-primitives module is reachable from its barrel",
 );
 
 // ------------------------------------------------------------------- helpers
