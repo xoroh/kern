@@ -53,7 +53,6 @@ export {
   toggleSelection,
   useSelection,
 } from "./selection";
-export { type StateAction, useControllableState } from "./useControllableState";
 export {
   formatTimeValue,
   minutesForStep,
@@ -62,3 +61,4 @@ export {
   type TimePickerValue,
   toTwentyFourHour,
 } from "./time";
+export { type StateAction, useControllableState } from "./useControllableState";

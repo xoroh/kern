@@ -67,7 +67,10 @@ export function formatTimeValue(
 ): { hours: number; period: "AM" | "PM" } {
   const normalised = normalizeTimeValue(value);
   if (format === "24h") {
-    return { hours: normalised.hours, period: normalised.hours < 12 ? "AM" : "PM" };
+    return {
+      hours: normalised.hours,
+      period: normalised.hours < 12 ? "AM" : "PM",
+    };
   }
   const twelve = normalised.hours % 12 === 0 ? 12 : normalised.hours % 12;
   return { hours: twelve, period: normalised.hours < 12 ? "AM" : "PM" };
