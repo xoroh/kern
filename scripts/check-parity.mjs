@@ -590,6 +590,53 @@ violations.push(
         provenanceProblems.push(`${where}: missing or empty \`${field}\``);
       }
     }
+    // Interactive fields: REQUIRED on a control, FORBIDDEN on a static row.
+    //
+    // Keyed on `interactive`, NOT on `family`. Family names which fields a suite
+    // ASSERTS, and `stepper` / `otp-field` / `hint-surface` are all real
+    // controls -- keying on family flagged 8 correct rows in an earlier attempt.
+    //
+    // `expects` is exempt from the prohibition: a static surface can still have
+    // an obligation, and `expects` is the only field that can state it. Making
+    // the rule symmetric (forbid all four) would have deleted the caption's
+    // entire contract.
+    //
+    // Comments are stripped before matching. A regex over the raw block reads
+    // PROSE: a row whose comment says "rather than a state axis: there" was
+    // scored as declaring `axis`. Same class as the import scanner matching the
+    // word "from" inside a comment.
+    const code = row
+      .replace(/\/\*[\s\S]*?\*\//g, "")
+      .replace(/^\s*\/\/.*$/gm, "");
+    // `interactive` is an unquoted BOOLEAN and `fieldValue` matches only quoted
+    // strings, so reading it that way made every row look interactive --
+    // including the static ones this rule exists to catch.
+    const interactiveLiteral = code.match(/\binteractive:\s*(true|false)\b/);
+    const isInteractive = interactiveLiteral
+      ? interactiveLiteral[1] !== "false"
+      : true;
+    const carries = (f) => new RegExp(`\\b${f}:`).test(code);
+    const CONTROL_FIELDS = ["axis", "interaction", "maxSelected"];
+    if (isInteractive) {
+      for (const f of [...CONTROL_FIELDS, "expects"]) {
+        if (!carries(f)) {
+          provenanceProblems.push(
+            `${where}: an interactive row must carry \`${f}\``,
+          );
+        }
+      }
+    } else {
+      for (const f of CONTROL_FIELDS) {
+        if (carries(f)) {
+          provenanceProblems.push(
+            `${where}: \`interactive: false\` so it must NOT carry \`${f}\` -- ` +
+              "that field describes a control's state, and a row that declares it " +
+              "is static cannot honestly assert one",
+          );
+        }
+      }
+    }
+
     const spec = fieldValue(row, "spec");
     if (spec && !/M3|Material/i.test(spec)) {
       provenanceProblems.push(

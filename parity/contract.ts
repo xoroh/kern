@@ -73,13 +73,17 @@ export type ParityRow = {
    *  `role="checkbox"` on the other: that is exactly the divergence a contract
    *  exists to catch. */
   role: string;
-  /** Which boolean axis carries this control's state. */
-  axis: StateAxis;
-  /** Whether pressing flips the state or moves a selection. */
-  interaction: Interaction;
+  /** Which boolean axis carries this control's state. REQUIRED when
+   *  `interactive` is true or absent; FORBIDDEN when it is false. */
+  axis?: StateAxis;
+  /** Whether pressing flips the state or moves a selection. Same rule as `axis`. */
+  interaction?: Interaction;
   /** Accessible name, so both sides are queried the same way. */
   name: string;
-  /** What must hold after one interaction. */
+  /** What must hold. Required on EVERY row, static included: a caption has no
+   *  state to flip, but "this text is announced" is an obligation, and this is
+   *  the only field that can state it. Optionality here would have forced six
+   *  existing suites to narrow a value that is always present in practice. */
   expects: {
     /** State before any interaction. */
     initial: boolean;
@@ -88,8 +92,9 @@ export type ParityRow = {
     /** State after activating a disabled control (must not change). */
     afterDisabledActivate: boolean;
   };
-  /** Native can express this many independent simultaneous selections; 1 = exclusive. */
-  maxSelected: number;
+  /** Native can express this many independent simultaneous selections; 1 = exclusive.
+   *  Same rule as `axis`. */
+  maxSelected?: number;
 
   /**
    * Which assertion family this row belongs to. Absent on tranche-1 rows, which
@@ -108,7 +113,10 @@ export type ParityRow = {
     | "text-field"
     | "stepper"
     | "otp-field"
-    | "hint-surface";
+    | "hint-surface"
+    /** Static content: a caption, summary or description. No state axis and no
+     *  interaction, so the control fields are omitted rather than invented. */
+    | "static-content";
   /** For `named-surface`: substrings that must ALL appear in the accessible name. */
   nameMustContain?: readonly string[];
   /** For `text-field`: true when the field accepts multiple lines. */
@@ -238,6 +246,9 @@ export const CONTRACTS: readonly ParityRow[] = [
     spec: "M3 Switch — toggles a single setting on/off.",
     testedBy: "web-parity.test.tsx / native-parity.rntest.tsx",
     role: "switch",
+
+    // Explicit interactivity marker; see the note on ParityRow.
+    interactive: true,
     axis: "checked",
     interaction: "toggle",
     name: "Airplane mode",
@@ -262,6 +273,9 @@ export const CONTRACTS: readonly ParityRow[] = [
     spec: "M3 Checkbox — selects one or more options from a set.",
     testedBy: "web-parity-tranche4.test.tsx / native-parity.rntest.tsx",
     role: "checkbox",
+
+    // Explicit interactivity marker; see the note on ParityRow.
+    interactive: true,
     axis: "checked",
     interaction: "toggle",
     name: "Accept terms",
@@ -288,6 +302,9 @@ export const CONTRACTS: readonly ParityRow[] = [
     testedBy:
       "web-parity-tranche4.test.tsx / native-parity-tranche2.rntest.tsx",
     role: "button",
+
+    // Explicit interactivity marker; see the note on ParityRow.
+    interactive: true,
     axis: "pressed",
     interaction: "toggle",
     name: "Save",
@@ -328,6 +345,9 @@ export const CONTRACTS: readonly ParityRow[] = [
     testedBy:
       "web-parity-overlays.test.tsx / native-parity-overlays.rntest.tsx",
     role: "dialog",
+
+    // Explicit interactivity marker; see the note on ParityRow.
+    interactive: true,
     axis: "selected",
     interaction: "toggle",
     name: "Menu",
@@ -357,6 +377,9 @@ export const CONTRACTS: readonly ParityRow[] = [
     testedBy:
       "web-parity-overlays.test.tsx / native-parity-overlays.rntest.tsx",
     role: "dialog",
+
+    // Explicit interactivity marker; see the note on ParityRow.
+    interactive: true,
     axis: "selected",
     interaction: "toggle",
     name: "Details",
@@ -385,6 +408,9 @@ export const CONTRACTS: readonly ParityRow[] = [
     testedBy:
       "web-parity-overlays.test.tsx / native-parity-overlays.rntest.tsx",
     role: "group",
+
+    // Explicit interactivity marker; see the note on ParityRow.
+    interactive: true,
     axis: "selected",
     interaction: "toggle",
     name: "Rows",
@@ -428,6 +454,9 @@ export const CONTRACTS: readonly ParityRow[] = [
     testedBy:
       "web-parity-tranche2.test.tsx / native-parity-tranche2.rntest.tsx",
     role: "button",
+
+    // Explicit interactivity marker; see the note on ParityRow.
+    interactive: true,
     axis: "pressed",
     interaction: "toggle",
     name: "Vegetarian",
@@ -458,6 +487,9 @@ export const CONTRACTS: readonly ParityRow[] = [
     testedBy:
       "web-parity-tranche2.test.tsx / native-parity-tranche2.rntest.tsx",
     role: "button",
+
+    // Explicit interactivity marker; see the note on ParityRow.
+    interactive: true,
     axis: "pressed",
     interaction: "toggle",
     name: "Get directions",
@@ -484,14 +516,19 @@ export const CONTRACTS: readonly ParityRow[] = [
     testedBy:
       "web-parity-tranche2.test.tsx / native-parity-tranche2.rntest.tsx",
     role: "listitem",
-    axis: "selected",
-    interaction: "select",
     name: "Airplane mode, Updated 2 h ago",
     family: "named-surface",
     // STATIC row. A row that only displays carries no interactive role: web
     // states `role="listitem"`, native reports `"none"` inside a labelled list
     // — a documented mapping, since the DOM's list structure already supplies
     // the list context RN has to be told about.
+    //
+    // It carried `axis: "selected"` and `interaction: "select"` before, which
+    // contradicted `interactive: false` on this very row: a state axis and a
+    // select interaction describe a CONTROL, and this row says it is not one.
+    // Removed rather than left as decoration — the actionable variant of
+    // `list-item` is the row that owns them, and it still does. `expects` stays,
+    // because a static row can still have an obligation.
     interactive: false,
     // Asserted as substrings, not as one exact string: web computes its
     // accessible name from the DOM (space-joined) while native builds it with an
@@ -504,7 +541,6 @@ export const CONTRACTS: readonly ParityRow[] = [
       afterActivate: false,
       afterDisabledActivate: false,
     },
-    maxSelected: 1,
   },
   {
     // ACTIONABLE row — the same component in its interactive variant. A row
@@ -557,6 +593,9 @@ export const CONTRACTS: readonly ParityRow[] = [
     testedBy:
       "web-parity-carousel-time.test.tsx / native-parity-carousel-time.rntest.tsx",
     role: "list",
+
+    // Explicit interactivity marker; see the note on ParityRow.
+    interactive: true,
     axis: "selected",
     interaction: "select",
     name: "Hour 09",
@@ -583,6 +622,9 @@ export const CONTRACTS: readonly ParityRow[] = [
     testedBy:
       "web-parity-carousel-time.test.tsx / native-parity-carousel-time.rntest.tsx",
     role: "group",
+
+    // Explicit interactivity marker; see the note on ParityRow.
+    interactive: true,
     axis: "selected",
     interaction: "select",
     name: "Slide one",
@@ -608,6 +650,9 @@ export const CONTRACTS: readonly ParityRow[] = [
     testedBy:
       "web-parity-tranche2.test.tsx / native-parity-tranche2.rntest.tsx",
     role: "dialog",
+
+    // Explicit interactivity marker; see the note on ParityRow.
+    interactive: true,
     axis: "selected",
     interaction: "select",
     name: "Discard draft?",
@@ -641,6 +686,9 @@ export const CONTRACTS: readonly ParityRow[] = [
     testedBy:
       "web-parity-tranche5.test.tsx / native-parity-tranche5.rntest.tsx",
     role: "dialog",
+
+    // Explicit interactivity marker; see the note on ParityRow.
+    interactive: true,
     axis: "selected",
     interaction: "select",
     name: "Filters",
@@ -681,6 +729,9 @@ export const CONTRACTS: readonly ParityRow[] = [
     testedBy:
       "web-parity-tranche2.test.tsx / native-parity-tranche2.rntest.tsx",
     role: "textbox",
+
+    // Explicit interactivity marker; see the note on ParityRow.
+    interactive: true,
     axis: "checked",
     interaction: "toggle",
     name: "Full name",
@@ -712,6 +763,9 @@ export const CONTRACTS: readonly ParityRow[] = [
     testedBy:
       "web-parity-tranche2.test.tsx / native-parity-tranche2.rntest.tsx",
     role: "textbox",
+
+    // Explicit interactivity marker; see the note on ParityRow.
+    interactive: true,
     axis: "checked",
     interaction: "toggle",
     name: "Notes",
@@ -758,6 +812,9 @@ export const CONTRACTS: readonly ParityRow[] = [
     testedBy:
       "web-parity-tranche3.test.tsx / native-parity-tranche3.rntest.tsx",
     role: "textbox",
+
+    // Explicit interactivity marker; see the note on ParityRow.
+    interactive: true,
     axis: "checked",
     interaction: "select",
     name: "Count",
@@ -792,6 +849,9 @@ export const CONTRACTS: readonly ParityRow[] = [
     testedBy:
       "web-parity-tranche3.test.tsx / native-parity-tranche3.rntest.tsx",
     role: "group",
+
+    // Explicit interactivity marker; see the note on ParityRow.
+    interactive: true,
     axis: "checked",
     interaction: "select",
     name: "One-time code",
@@ -845,6 +905,9 @@ export const CONTRACTS: readonly ParityRow[] = [
     spec: "M3 Tooltip — short supplementary text on hover or long-press.",
     testedBy: "web-parity-tranche4.test.tsx / native-parity-tooltip.rntest.tsx",
     role: "button",
+
+    // Explicit interactivity marker; see the note on ParityRow.
+    interactive: true,
     axis: "selected",
     interaction: "select",
     name: "Save",
@@ -857,6 +920,29 @@ export const CONTRACTS: readonly ParityRow[] = [
       afterDisabledActivate: false,
     },
     maxSelected: 1,
+  },
+  {
+    // The one row the static-row support exists for. A caption is CONTENT, not
+    // a control: there is no state to flip and nothing to press, so it carries
+    // `expects` (the obligation) and deliberately NO axis / interaction /
+    // maxSelected. Inventing those would assert a state neither renderer has.
+    component: "table-caption",
+    id: "table-caption",
+    interactive: false,
+    family: "static-content",
+    behaviour: "The table carries a caption summarising what it contains.",
+    webContract: "A real caption element, announced as the table's summary.",
+    nativeContract:
+      "No caption element exists on this platform; the text is rendered AND appended to the table's accessible name, so it reaches a screen reader.",
+    spec: "M3 - Data tables",
+    testedBy: "table.rntest.tsx",
+    role: "caption",
+    name: "Team roster",
+    expects: {
+      initial: true,
+      afterActivate: true,
+      afterDisabledActivate: true,
+    },
   },
 ] as const;
 
