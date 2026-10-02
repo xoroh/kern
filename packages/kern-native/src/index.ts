@@ -309,6 +309,8 @@ export {
   bootSplashStyles,
   ErrorBoundary,
 } from "./components/shell";
+export type { NativeSplitProps, SPLIT_GAP } from "./components/split";
+export { Split } from "./components/split";
 export type { NativeSkeletonProps } from "./components/skeleton";
 export { Skeleton } from "./components/skeleton";
 export type { NativeSliderProps } from "./components/slider";
