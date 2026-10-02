@@ -170,10 +170,27 @@ function MetadataStrip({ doc }: { doc: ComponentDoc }) {
       ) : (
         meta.variants.map((axis) => <Chip key={axis} term="" value={axis} />)
       )}
+      {/*
+        TRI-STATE, because the middle and the empty state are different
+        claims: "none" is RECORDED as having no Material 3 source, while
+        undefined is simply NOT RECORDED yet. Rendering the empty state as
+        "kern extension" would tell a reader that Button has no M3 origin —
+        an inverse fabrication, and just as damaging as a dead link.
+      */}
       <LinkChip
         term="M3 spec"
-        value={meta.specUrl ? "spec" : "none — kern extension"}
-        href={meta.specUrl}
+        value={
+          meta.specUrl === "none"
+            ? "none — kern extension"
+            : meta.specUrl
+              ? "spec"
+              : "not recorded"
+        }
+        href={
+          typeof meta.specUrl === "string" && meta.specUrl !== "none"
+            ? meta.specUrl
+            : undefined
+        }
       />
       {/*
         A chip that renders a label with no link promises a fact and delivers
@@ -270,8 +287,8 @@ function Installation({ doc }: { doc: ComponentDoc }) {
     <section className="flex flex-col gap-3">
       <h2 className={H2}>Installation</h2>
       <p className={PROSE}>
-        Every export on this page ships in <code>{target}</code> and is
-        imported from <code>{pkg}</code>. There is no per-component install.
+        Every export on this page ships in <code>{target}</code> and is imported
+        from <code>{pkg}</code>. There is no per-component install.
       </p>
       <div className={`${CARD} flex flex-col gap-2 p-4`}>
         <pre className="m-0 overflow-x-auto text-sm text-(--md-sys-color-on-surface)">
@@ -579,9 +596,11 @@ function Conformance({ doc }: { doc: ComponentDoc }) {
       <p className={CHIP}>{conformanceLine(doc)}</p>
       {!rows || rows.length === 0 ? (
         <p className={PROSE}>
-          {doc.meta.specUrl
-            ? "No registered deviations from the Material 3 spec."
-            : "No Material 3 source — this is a kern extension."}
+          {doc.meta.specUrl === "none"
+            ? "No Material 3 source — this is a kern extension."
+            : doc.meta.specUrl
+              ? "No registered deviations from the Material 3 spec."
+              : "Material 3 source not recorded for this page yet."}
         </p>
       ) : (
         <ul className="m-0 flex flex-col gap-4">

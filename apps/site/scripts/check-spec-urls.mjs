@@ -35,7 +35,7 @@
  * Exit 0 = every spec link resolves to a page that exists.
  */
 
-import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -120,7 +120,7 @@ function readPage(file) {
  * Validate one specUrl. Returns null when valid, or the reason it is not.
  * Exported shape kept flat so every rejection reads as a sentence.
  */
-function checkSpecUrl(url, page) {
+function checkSpecUrl(url) {
   if (!url.startsWith("https://")) {
     return `specUrl must be https:// — got "${url}"`;
   }
@@ -195,7 +195,7 @@ for (const file of files) {
   const slugBits = [page.slug, name].filter(Boolean).join(" ").toLowerCase();
 
   for (const trap of NO_M3_SPEC) {
-    if (slugBits.includes(trap) && page.specUrl) {
+    if (slugBits.includes(trap) && page.specUrl && page.specUrl !== "none") {
       fail(
         `${name}: "${trap}" is a kern extension with NO Material 3 component — ` +
           `a specUrl here is a fabricated citation. Drop the specUrl and state ` +
@@ -204,9 +204,30 @@ for (const file of files) {
     }
   }
 
-  if (page.specUrl) {
+  // THE INVERSE FABRICATION (D-1). Recording `specUrl: "none"` for something
+  // that IS in the measured M3 inventory tells a reader Button has no Material
+  // 3 origin. False in the opposite direction from a dead link and just as
+  // damaging to the "M3 reference" claim — so it fails too.
+  if (page.specUrl === "none" && page.slug) {
+    const norm = (s) =>
+      s
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, " ")
+        .trim()
+        .replace(/s$/, "");
+    const mapped = [...SLUGS].some((s) => norm(s) === norm(page.slug));
+    if (mapped) {
+      fail(
+        `${name}: specUrl is "none" but "${page.slug}" maps to a real ` +
+          `${HOST} component page — this is the inverse fabrication. Record ` +
+          `the URL, or correct the name.`,
+      );
+    }
+  }
+
+  if (page.specUrl && page.specUrl !== "none") {
     checked += 1;
-    const reason = checkSpecUrl(page.specUrl, page);
+    const reason = checkSpecUrl(page.specUrl);
     if (reason) fail(`${name}: ${reason}`);
   }
 
@@ -232,3 +253,171 @@ if (errors.length > 0) {
 }
 
 console.log("check-spec-urls: ok");
+
+// --------------------------------------------------- landed-page identity
+/**
+ * D-2 METHOD RULE — verify by LANDED-PAGE IDENTITY, never by status code.
+ *
+ * Measured 2026-10-02: `m3.material.io/components/menus/combobox` returns
+ * **HTTP 200** and serves the *Menus* page. A status check calls that
+ * healthy. It is a fabricated spec link landing on the wrong page — the
+ * silent flavour of the failure, and far more damaging than a loud 404,
+ * because it survives review.
+ *
+ * So the assertion is: the page that actually lands must NAME the component
+ * that was claimed. `/components/menus/combobox` lands on "Menus – Material
+ * Design 3" while claiming `combobox` — that fails identity even though it
+ * passes status.
+ *
+ * Run with --live. Network-bound, so it is opt-in and the static inventory
+ * check above always runs first.
+ */
+async function liveIdentityCheck() {
+  const targets = [];
+  for (const file of files) {
+    const page = readPage(file);
+    const url = page.specUrl;
+    if (!url || url === "none") continue;
+    // Strip the host BEFORE splitting — splitting the full URL leaves
+    // "https:" as segments[0] and the components check silently matches
+    // nothing. (Caught by probing: the gate reported "no URLs to check" while
+    // a recorded URL existed.)
+    const path = url.startsWith(HOST) ? url.slice(HOST.length) : url;
+    const segs = path.split(/[?#]/)[0].split("/").filter(Boolean);
+    if (segs[0] !== "components" || segs.length < 2) continue;
+    // The CLAIMED component is the slug segment, not the last segment — with
+    // a tab present (/components/buttons/specs) the last segment is "specs",
+    // and comparing that against the landed title would fail a good URL and
+    // pass a bad one.
+    targets.push({
+      file: page.file,
+      url,
+      claimed: segs[1],
+      pageSlug: page.slug,
+    });
+  }
+
+  if (targets.length === 0) {
+    console.log(
+      "check-spec-urls --live: no recorded spec URLs to identity-check",
+    );
+    return 0;
+  }
+
+  const norm = (s) =>
+    s
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, " ")
+      .trim()
+      .replace(/s$/, "");
+
+  /**
+   * kern name -> the name Material 3 actually uses. Without this the
+   * page-vs-landed cross-check below would false-positive on every legitimate
+   * naming difference. Sourced from the verified-good sample set in
+   * .team/reports/reviews/m3/2026-10-02-spec-url-audit.md.
+   */
+  const ALIASES = {
+    "top-app-bar": "app-bars",
+    "floating-action-button": "floating-action-button",
+    "text-field": "text-fields",
+    "text-area": "text-fields",
+    autocomplete: "text-fields",
+    card: "cards",
+    checkbox: "checkbox",
+    dialog: "dialogs",
+    "bottom-sheet": "bottom-sheets",
+    "side-sheet": "side-sheets",
+    "navigation-bar": "navigation-bar",
+    "navigation-rail": "navigation-rail",
+    "navigation-drawer": "navigation-drawer",
+    snackbar: "snackbar",
+    tooltip: "tooltips",
+    toolbar: "toolbars",
+    slider: "sliders",
+    switch: "switch",
+    tabs: "tabs",
+    search: "search",
+    badge: "badges",
+    carousel: "carousel",
+    chips: "chips",
+    divider: "divider",
+    lists: "lists",
+    menus: "menus",
+    progress: "progress-indicators",
+    "loading-indicator": "loading-indicator",
+    "date-picker": "date-pickers",
+    "time-picker": "time-pickers",
+    "segmented-button": "segmented-buttons",
+    "split-button": "split-button",
+    "button-group": "button-groups",
+    "icon-button": "icon-buttons",
+    "extended-fab": "extended-fab",
+    "fab-menu": "fab-menu",
+    "radio-button": "radio-button",
+  };
+
+  const bad = [];
+  for (const t of targets) {
+    let landed = "";
+    try {
+      const res = await fetch(t.url, { redirect: "follow" });
+      const html = await res.text();
+      const m = html.match(/<title[^>]*>([^<]*)<\/title>/i);
+      landed = (m?.[1] ?? "").trim();
+    } catch (err) {
+      bad.push(`${t.file}: fetch failed for ${t.url} — ${String(err)}`);
+      continue;
+    }
+
+    // "Buttons – Material Design 3" -> "Buttons"; "Menus – …" -> "Menus"
+    const landedName = landed.split(/\s+[–—-]\s+/)[0].trim();
+
+    // (a) D-2's rule: the landed page must name what the URL claims. This is
+    //     the parent-family silent failure — /components/menus/combobox
+    //     returns 200 and serves Menus.
+    if (norm(landedName) !== norm(t.claimed)) {
+      bad.push(
+        `${t.file}: specUrl claims "${t.claimed}" but ${t.url} lands on ` +
+          `"${landedName}" — the landed page does not name the claimed ` +
+          `component. A parent-family page returning 200 is the silent ` +
+          `failure this check exists for.`,
+      );
+      continue;
+    }
+
+    // (b) The MIS-CITATION: the landed page names the URL's component, but
+    //     not the component THIS PAGE documents — a Checkbox page citing the
+    //     Buttons spec. The URL is real, so only the page-vs-landed
+    //     comparison catches it.
+    const expected = ALIASES[t.pageSlug] ?? t.pageSlug;
+    if (t.pageSlug && norm(landedName) !== norm(expected)) {
+      bad.push(
+        `${t.file}: lands on "${landedName}" (a real page) but this page ` +
+          `documents "${t.pageSlug}" — a citation to a different component. ` +
+          `Real URL, wrong target.`,
+      );
+      continue;
+    }
+    console.log(
+      `  ok   ${t.file}: "${landedName}" matches claimed "${t.claimed}"`,
+    );
+  }
+
+  console.log(
+    `check-spec-urls --live: ${targets.length} URL(s) identity-checked`,
+  );
+  if (bad.length > 0) {
+    for (const b of bad) console.error(`  x ${b}`);
+    console.error(`check-spec-urls --live: ${bad.length} identity failure(s)`);
+    return 1;
+  }
+  console.log(
+    "check-spec-urls --live: ok — every landed page names its component",
+  );
+  return 0;
+}
+
+if (process.argv.includes("--live")) {
+  process.exit(await liveIdentityCheck());
+}

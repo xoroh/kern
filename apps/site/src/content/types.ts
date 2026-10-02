@@ -97,8 +97,23 @@ export type MetadataStrip = {
    * strip is never half-empty. They are the "reference" signal — the M3 spec
    * link in particular is the M3-nativeness proof.
    */
-  /** Canonical Material 3 spec page, e.g. `https://m3.material.io/components/buttons`. */
-  specUrl?: string;
+  /**
+   * Canonical Material 3 spec page — TRI-STATE, and the distinction matters:
+   *
+   *   a URL      the page IS M3-mapped and the link is recorded
+   *   "none"     RECORDED as having no Material 3 source — a kern extension
+   *   undefined  NOT RECORDED either way
+   *
+   * Collapsing the last two is an inverse fabrication: it makes a Button page
+   * claim "no M3 source — this is a kern extension", which is false in the
+   * opposite direction from a dead link and just as damaging to the "M3
+   * reference" claim. An empty state must never assert "none".
+   *
+   * A URL is only meaningful once the gate has identity-matched it (the
+   * landed page's title must name the claimed component) — see
+   * scripts/check-spec-urls.mjs --live.
+   */
+  specUrl?: string | "none";
   /** WAI-ARIA Authoring Practices pattern. */
   apgUrl?: string;
   /** Source on GitHub. */
