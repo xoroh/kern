@@ -248,9 +248,15 @@ function MetadataStrip({ doc }: { doc: ComponentDoc }) {
   const elev = elevationLabel(meta.elevation, meta.elevationBacked !== false);
   return (
     <dl className="m-0 flex flex-wrap items-center gap-2">
+      {/*
+        m6 — `meta.status` is the REGISTRY value (real/stub) and describes our
+        content file, not the component. Publishing it as "Status: real" leaks
+        an internal and tells the reader nothing. The release state
+        (meta.state: Preview / Stable / Maintained / …) is the fact about the
+        component, and that is what gets shown.
+      */}
       {meta.state ? <Chip term="State" value={meta.state} /> : null}
       {meta.version ? <Chip term="Version" value={meta.version} /> : null}
-      <Chip term="Status" value={meta.status} />
       <Chip term="Package" value={meta.package} />
       {meta.platforms?.length ? (
         <Chip term="Platforms" value={meta.platforms.join(" · ")} />
