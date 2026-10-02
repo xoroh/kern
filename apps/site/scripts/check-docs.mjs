@@ -255,9 +255,14 @@ function checkElevation({ file, doc }) {
     }
     // A row M3 places at 0 with no token on the component: conformant, and
     // gated on the absence of a shadow so an unearned one fails upstream.
-    if (level === 0 && spec.variants.every((v) => v === 0)) {
+    //
+    // `includes(0)`, not `every(v => v === 0)`. This is the same bug
+    // `f8de215` fixed in `auditElevation` and `check:m3`, one level up: a row
+    // like Card's [0, 1] permits level 0, so a card carrying no token is
+    // conformant, and `every` would deny it. The two gates must stay in step.
+    if (level === 0 && spec.variants.includes(0)) {
       conformant(
-        `${file}: ${spec.rows.join(", ")} at level 0 — conformant, no token (level 0 is \`shadow: none\`)`,
+        `${file}: ${spec.rows.join(", ")} permits level 0 — conformant, no token (level 0 is \`shadow: none\`)`,
       );
     }
     return;
@@ -296,8 +301,13 @@ function checkElevation({ file, doc }) {
   // Collapsing both into "gap" would say "we do not know" about the first
   // while burying the second.
   if (level === "surface") {
+    // Worded to say only what this gate can know. It reads kern's
+    // `M3_ELEVATION_COMPONENTS`, not M3's whole table, so it must not assert
+    // that M3 is silent about the component — only that nothing here claims a
+    // level. `navigation-drawer` is the case that showed the difference: M3
+    // names "navigation drawer (modal)" at level 1, kern has no row for it.
     noConcept(
-      `${file}: no elevation token, and M3 does not tabulate this component — nothing to assert`,
+      `${file}: carries no elevation token and m3-elevation.ts has no row for it — nothing asserted either way`,
     );
     return;
   }
@@ -486,7 +496,7 @@ if (conformantNoToken.length > 0) {
 }
 if (noElevationConcept.length > 0) {
   console.log(
-    `\ncheck-docs: ${noElevationConcept.length} with no elevation to assert — M3 does not tabulate them and they carry no token:`,
+    `\ncheck-docs: ${noElevationConcept.length} with no elevation asserted — no token on the component and no row in m3-elevation.ts:`,
   );
   for (const n of noElevationConcept) console.log(`  ok   ${n}`);
 }
