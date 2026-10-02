@@ -34,7 +34,7 @@ export const select: ComponentDoc = {
   deviations: [
     {
       id: "K6",
-      m3: 'M3\'s component elevation table does not name a select. It tabulates "menu" at resting level 2, and kern maps that row to `navigation-menu`, so there is no spec row a select could conform to.',
+      spec: 'M3\'s component elevation table does not name a select. It tabulates "menu" at resting level 2, and kern maps that row to `navigation-menu`, so there is no spec row a select could conform to.',
       kern: "The select popup rests at elevation level 2, matching the menu row's level.",
       why: "The open list behaves as an overlay above the page, so it needs the same lift a menu has — but claiming the menu row would assert something M3 never said about selects. The level is registered as K6 in m3-elevation.ts so the choice is a recorded decision rather than an incidental value in a stylesheet.",
     },

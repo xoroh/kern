@@ -37,13 +37,13 @@ export const sonner: ComponentDoc = {
   deviations: [
     {
       id: "K2",
-      m3: "Material 3 defines one semantic feedback pair — error, on-error, error-container, on-error-container. It has no success, warning or info colour roles at all.",
+      spec: "Material 3 defines one semantic feedback pair — error, on-error, error-container, on-error-container. It has no success, warning or info colour roles at all.",
       kern: "Sonner takes four intents — info, success, warning and error — backed by kern's twelve status roles.",
       why: "Tone is the whole reason to reach for sonner rather than a snackbar. A system with only 'error' cannot say 'it worked' or 'watch out', which are the two outcomes people most often need to distinguish. The status roles are registered as K2 in the role inventory, so the extension is a declared addition to the role space rather than a silent fork of it. This is the same deviation Banner carries; it shows up here because Sonner's intent axis is built on it.",
     },
     {
       id: "K6",
-      m3: "M3's component elevation table names no sonner and no toast. Menus and tooltips are tabulated at level 2, dialogs at level 3, and no row describes transient feedback.",
+      spec: "M3's component elevation table names no sonner and no toast. Menus and tooltips are tabulated at level 2, dialogs at level 3, and no row describes transient feedback.",
       kern: "The sonner surface rests at elevation level 2.",
       why: "A message has to clear the content it sits over without reaching dialog height. Level 2 places it with the other transient overlays, matching `Snackbar`. Registered as K6 in the elevation inventory so the level is a recorded decision rather than a value in a stylesheet.",
     },

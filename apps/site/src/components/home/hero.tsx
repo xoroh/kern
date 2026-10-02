@@ -21,7 +21,7 @@ const COMMAND = "bun add @xoroh/kern";
  */
 type Scheme = { color: { light: Record<string, string> } };
 const presets = themes as unknown as Record<string, Scheme>;
-const preset = presets.kern ?? presets.m3;
+const preset = presets.kern ?? Object.values(presets)[0];
 const ROLE_COUNT = Object.keys(preset.color.light).length;
 
 function Kicker({ children }: { children: React.ReactNode }) {

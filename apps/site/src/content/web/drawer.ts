@@ -65,7 +65,7 @@ export const drawer: ComponentDoc = {
   deviations: [
     {
       id: "K6",
-      m3: "M3's component elevation table does not name a drawer. It tabulates bottom sheet (modal) and side sheet (modal) at level 1 and side sheet (docked) at level 0 — those rows belong to kern's Sheet.",
+      spec: "M3's component elevation table does not name a drawer. It tabulates bottom sheet (modal) and side sheet (modal) at level 1 and side sheet (docked) at level 0 — those rows belong to kern's Sheet.",
       kern: "Drawer rests at elevation level 2.",
       why: "There is no spec row to conform to, so the level is a kern decision rather than a claim. Level 2 places the drawer above the app bar and the navigation bar, which also rest at 2, and below a modal dialog at 3, which is where a transient panel belongs in the stack. The choice is registered as K6 in m3-elevation.ts so a future spec row lands on this entry instead of being missed.",
     },

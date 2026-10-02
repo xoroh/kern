@@ -145,9 +145,9 @@ const rolesModule = await loadFirstModule([
   "packages/kern-tokens/src/m3-roles.ts",
 ]);
 
-const M3_ELEVATION_COMPONENTS = pickExport(
+const ELEVATION_COMPONENTS = pickExport(
   elevationModule,
-  ["KERN_ELEVATION_COMPONENTS", "M3_ELEVATION_COMPONENTS"],
+  ["KERN_ELEVATION_COMPONENTS", "ELEVATION_COMPONENTS"],
   "elevation",
 );
 const KERN_UNASSIGNED_ELEVATION = pickExport(
@@ -288,7 +288,7 @@ function checkElevation({ file, doc }) {
     return;
   }
 
-  const spec = M3_ELEVATION_COMPONENTS[slug];
+  const spec = ELEVATION_COMPONENTS[slug];
   const kernDecision = KERN_UNASSIGNED_ELEVATION[slug];
 
   if (spec) {
@@ -358,7 +358,7 @@ function checkElevation({ file, doc }) {
   // while burying the second.
   if (level === "surface") {
     // Worded to say only what this gate can know. It reads kern's
-    // `M3_ELEVATION_COMPONENTS`, not M3's whole table, so it must not assert
+    // `ELEVATION_COMPONENTS`, not M3's whole table, so it must not assert
     // that M3 is silent about the component — only that nothing here claims a
     // level. `navigation-drawer` is the case that showed the difference: M3
     // names "navigation drawer (modal)" at level 1, kern has no row for it.

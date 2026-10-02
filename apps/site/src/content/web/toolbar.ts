@@ -27,7 +27,7 @@ export const toolbar: ComponentDoc = {
   deviations: [
     {
       id: "K3",
-      m3: "Material 3 defines no tonal surface role. Its surface roles are the surface, surface-dim, surface-bright and the surface-container family.",
+      spec: "Material 3 defines no tonal surface role. Its surface roles are the surface, surface-dim, surface-bright and the surface-container family.",
       kern: "The toolbar's bar is painted with `--md-sys-color-surface-tonal`, a role kern adds beyond M3's 45.",
       why: "A toolbar needs a track that reads as a container for its controls rather than as content, and none of M3's surface-container roles is tuned for a rounded bar holding pressed states. The role is registered as K3 in the role inventory, so it is a declared addition rather than a colour invented in a stylesheet. The token is what deviates; this is the component whose whole surface depends on it.",
     },

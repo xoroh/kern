@@ -35,7 +35,7 @@ export const combobox: ComponentDoc = {
   deviations: [
     {
       id: "K6",
-      m3: 'M3\'s component elevation table names no combobox. It tabulates "menu" at level 2 and search at level 3; neither describes a typeahead selection field.',
+      spec: 'M3\'s component elevation table names no combobox. It tabulates "menu" at level 2 and search at level 3; neither describes a typeahead selection field.',
       kern: "The combobox popup rests at elevation level 2.",
       why: "The open list behaves as an overlay above the page and needs the lift the other anchored overlays have. Borrowing the menu row would assert M3 described this surface, which it does not. Registered as K6 in the elevation inventory so the level is a recorded decision.",
     },

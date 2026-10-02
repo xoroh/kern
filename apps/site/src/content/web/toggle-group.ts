@@ -20,7 +20,7 @@ export const toggleGroup: ComponentDoc = {
   deviations: [
     {
       id: "K3",
-      m3: "Material 3 defines no tonal surface role. Its surface roles are the surface, surface-dim, surface-bright and the surface-container family.",
+      spec: "Material 3 defines no tonal surface role. Its surface roles are the surface, surface-dim, surface-bright and the surface-container family.",
       kern: "The group's container is painted with `--md-sys-color-surface-tonal`, a role kern adds beyond M3's 45.",
       why: "A segmented control needs a track that reads as a container rather than as content, and none of M3's surface-container roles is tuned for a pill-shaped track holding pressed states. The role is registered as K3 in the role inventory, so it is a declared addition to the legal role space rather than a colour invented in a stylesheet. It is the token that deviates; this is simply the component whose whole look depends on it.",
     },

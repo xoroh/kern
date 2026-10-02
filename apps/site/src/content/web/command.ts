@@ -32,7 +32,7 @@ export const command: ComponentDoc = {
   deviations: [
     {
       id: "K6",
-      m3: "M3's component elevation table names no command palette and no searchable list. It tabulates menus at level 2 and modal dialogs at level 3; neither describes a filtered list of actions.",
+      spec: "M3's component elevation table names no command palette and no searchable list. It tabulates menus at level 2 and modal dialogs at level 3; neither describes a filtered list of actions.",
       kern: "The command surface rests at elevation level 3.",
       why: "A command palette is summoned over everything and dismissed on a keypress — it behaves like a dialog even though it is built on the combobox primitive. Dialog height is what keeps it visually above the page it interrupts. Registered as K6 in the elevation inventory so the level is a recorded decision rather than a number in a stylesheet.",
     },

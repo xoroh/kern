@@ -36,7 +36,7 @@ export const popover: ComponentDoc = {
   deviations: [
     {
       id: "K6",
-      m3: 'M3\'s component elevation table names no popover. It tabulates "menu" and "rich tooltip" at level 2, which kern maps to `navigation-menu` and `tooltip` respectively — neither row describes a popover.',
+      spec: 'M3\'s component elevation table names no popover. It tabulates "menu" and "rich tooltip" at level 2, which kern maps to `navigation-menu` and `tooltip` respectively — neither row describes a popover.',
       kern: "The popover surface rests at elevation level 2.",
       why: "The panel floats above the page and needs the same lift the other overlays at that height have, but borrowing the menu row would claim M3 said something about popovers it never said. The level is registered as K6 in m3-elevation.ts so the choice is a recorded decision rather than a number sitting in a stylesheet.",
     },

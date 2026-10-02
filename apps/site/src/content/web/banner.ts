@@ -21,7 +21,7 @@ export const banner: ComponentDoc = {
   deviations: [
     {
       id: "K2",
-      m3: "Material 3 defines one semantic feedback pair: error, on-error, error-container and on-error-container. It has no success, warning or info colour roles.",
+      spec: "Material 3 defines one semantic feedback pair: error, on-error, error-container and on-error-container. It has no success, warning or info colour roles.",
       kern: "Banner takes four intent variants — info, success, warning and error — backed by kern's status roles, which add success, warning and info in container and on-container forms.",
       why: "A system that can only say 'error' cannot report the three outcomes people actually distinguish: it worked, watch out, and for your information. The twelve status roles are registered as K2 in m3-roles.ts, so the extension is a declared addition to the role space rather than a silent fork of it.",
     },

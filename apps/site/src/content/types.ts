@@ -73,7 +73,7 @@ export type PropRow = {
 };
 
 /**
- * Section 5 — one deviation from the M3 spec.
+ * Section 5 — one deviation from the Material 3 spec.
  *
  * `id` is mandatory and must resolve to a registered id in
  * `packages/kern-tokens/src/m3-roles.ts` (`KERN_EXTRA_ROLES`) or
@@ -83,8 +83,8 @@ export type PropRow = {
 export type Deviation = {
   /** e.g. `"K6"`. Registered with the roles/elevation it justifies. */
   id: string;
-  /** What the M3 spec specifies. */
-  m3: string;
+  /** What the spec specifies. */
+  spec: string;
   /** What kern does instead. */
   kern: string;
   /** Why. One or two sentences — this is a decision record, not an apology. */

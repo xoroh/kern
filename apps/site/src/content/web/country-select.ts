@@ -30,7 +30,7 @@ export const countrySelect: ComponentDoc = {
   deviations: [
     {
       id: "K6",
-      m3: 'M3\'s component elevation table names no select. It tabulates "menu" at level 2, and kern maps that row to `navigation-menu`, so there is no spec row a country select could conform to.',
+      spec: 'M3\'s component elevation table names no select. It tabulates "menu" at level 2, and kern maps that row to `navigation-menu`, so there is no spec row a country select could conform to.',
       kern: "The country list rests at elevation level 2.",
       why: "The open list behaves as an overlay above the page and needs the same lift a menu has, but claiming the menu row would assert that M3 said something about selects it never said. Registered as K6 in the elevation inventory so the level is a recorded decision rather than a value in a stylesheet.",
     },

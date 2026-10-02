@@ -165,9 +165,9 @@ function DeviationRow({ row }: { row: Deviation }) {
       </div>
       <dl className="m-0 grid grid-cols-1 gap-2 sm:grid-cols-[6rem_1fr]">
         <dt className="m-0 text-sm font-medium text-(--md-sys-color-on-surface)">
-          M3
+          Material 3
         </dt>
-        <dd className={`m-0 text-sm ${BODY}`}>{row.m3}</dd>
+        <dd className={`m-0 text-sm ${BODY}`}>{row.spec}</dd>
         <dt className="m-0 text-sm font-medium text-(--md-sys-color-on-surface)">
           kern
         </dt>
