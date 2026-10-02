@@ -146,14 +146,39 @@ describe("Pagination", () => {
     expect(screen.getByLabelText("Page 19")).toBeTruthy();
   });
 
-  /** A pager that wraps from last to first is a different component. */
-  it("clamps at both ends rather than wrapping", async () => {
+  /**
+   * Prev/next are DISABLED at the ends, so the pager cannot be asked to wrap.
+   *
+   * Named for what it asserts: it checks the disabled state, not the clamp
+   * inside `go()`. Mutation "prev wraps instead of clamping" SURVIVED this
+   * suite, because a disabled Pressable never fires — so `go()` cannot receive
+   * an out-of-range value through the UI at all. That clamp is defence in depth
+   * behind the disabled state, unreachable from any test here.
+   *
+   * Recorded rather than papered over: a green suite is not a covered path.
+   */
+  it("disables the ends rather than wrapping", async () => {
     const onPageChange = jest.fn();
     await render(
       <Pagination count={3} defaultPage={3} onPageChange={onPageChange} />,
     );
+    const next = screen.getByLabelText("Next page");
+    expect(next.props.accessibilityState.disabled).toBe(true);
     await act(async () => {
-      fireEvent.press(screen.getByLabelText("Next page"));
+      fireEvent.press(next);
+    });
+    expect(onPageChange).not.toHaveBeenCalled();
+  });
+
+  it("disables previous on the first page too", async () => {
+    const onPageChange = jest.fn();
+    await render(
+      <Pagination count={3} defaultPage={1} onPageChange={onPageChange} />,
+    );
+    const prev = screen.getByLabelText("Previous page");
+    expect(prev.props.accessibilityState.disabled).toBe(true);
+    await act(async () => {
+      fireEvent.press(prev);
     });
     expect(onPageChange).not.toHaveBeenCalled();
   });
