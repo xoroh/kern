@@ -150,7 +150,13 @@ function ApiReference() {
             className="mb-10 rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-low) p-6"
           >
             <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-              <h2 className="m-0 text-xl font-semibold text-(--md-sys-color-on-surface)">
+              <h2
+                id={`api-${entry.name
+                  .toLowerCase()
+                  .replace(/[^a-z0-9]+/g, "-")
+                  .replace(/^-|-$/g, "")}`}
+                className="m-0 text-xl font-semibold text-(--md-sys-color-on-surface)"
+              >
                 {entry.name}
               </h2>
               <span className="rounded-full bg-(--md-sys-color-secondary-container) px-2.5 py-0.5 text-xs font-medium text-(--md-sys-color-on-secondary-container)">
@@ -169,7 +175,10 @@ function ApiReference() {
               <code>{entry.signature}</code>
             </pre>
 
-            <h3 className="mt-0 mb-2 text-sm font-medium text-(--md-sys-color-on-surface)">
+            <h3
+              id="api-contract"
+              className="mt-0 mb-2 text-sm font-medium text-(--md-sys-color-on-surface)"
+            >
               Contract
             </h3>
             <ul className="m-0 mb-0 list-disc space-y-2 pl-5 text-sm leading-relaxed text-(--md-sys-color-on-surface-variant)">
@@ -180,7 +189,10 @@ function ApiReference() {
 
             {entry.notes ? (
               <>
-                <h3 className="mt-5 mb-2 text-sm font-medium text-(--md-sys-color-on-surface)">
+                <h3
+                  id="api-notes"
+                  className="mt-5 mb-2 text-sm font-medium text-(--md-sys-color-on-surface)"
+                >
                   Notes
                 </h3>
                 <ul className="m-0 mb-0 list-disc space-y-2 pl-5 text-sm leading-relaxed text-(--md-sys-color-on-surface-variant)">

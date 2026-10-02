@@ -45,7 +45,10 @@ export function Example({ spec }: { spec: ExampleSpec }) {
   return (
     <figure className={`${FRAME} m-0 flex flex-col overflow-hidden`}>
       <figcaption className="flex flex-col gap-1 border-b border-(--md-sys-color-outline-variant) px-6 py-4">
-        <h3 className={`m-0 ${T_LEAD} text-(--md-sys-color-on-surface)`}>
+        <h3
+          id={`example-${spec.id}`}
+          className={`m-0 ${T_LEAD} text-(--md-sys-color-on-surface)`}
+        >
           {spec.title}
         </h3>
         <p className={`m-0 ${BODY}`}>{spec.description}</p>

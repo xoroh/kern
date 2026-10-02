@@ -45,7 +45,9 @@ export function IconGallery() {
       </div>
 
       <section className="flex flex-col gap-3">
-        <h2 className="m-0 text-lg font-semibold">Semantic map</h2>
+        <h2 id="semantic-map" className="m-0 text-lg font-semibold">
+          Semantic map
+        </h2>
         <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
           Kern maps a recurring meaning to one decided symbol, so every product
           picks the same glyph.
@@ -70,7 +72,7 @@ export function IconGallery() {
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="m-0 text-lg font-semibold">
+        <h2 id="icon-list" className="m-0 text-lg font-semibold">
           {query.trim() ? "Matches" : `First ${PAGE} of ${ICON_COUNT}`}
         </h2>
         {matches.length === 0 ? (

@@ -147,12 +147,16 @@ function ThemePage() {
           </header>
 
           <section className="flex flex-col gap-4">
-            <h2 className="m-0 text-lg font-semibold">Switch it yourself</h2>
+            <h2 id="switch-it-yourself" className="m-0 text-lg font-semibold">
+              Switch it yourself
+            </h2>
             <ThemeSwitcher />
           </section>
 
           <section className="flex flex-col gap-4">
-            <h2 className="m-0 text-lg font-semibold">Color roles</h2>
+            <h2 id="color-roles" className="m-0 text-lg font-semibold">
+              Color roles
+            </h2>
             <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
               A role is a decision, not a color. <code>primary</code> means
               &ldquo;the brand accent&rdquo;; the value behind it can change
@@ -161,7 +165,13 @@ function ThemePage() {
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               {ROLE_GROUPS.map((group) => (
                 <div key={group.title} className="flex flex-col gap-2">
-                  <h3 className="m-0 text-sm font-semibold text-(--md-sys-color-on-surface)">
+                  <h3
+                    id={`role-group-${group.title
+                      .toLowerCase()
+                      .replace(/[^a-z0-9]+/g, "-")
+                      .replace(/^-|-$/g, "")}`}
+                    className="m-0 text-sm font-semibold text-(--md-sys-color-on-surface)"
+                  >
                     {group.title}
                   </h3>
                   <ul className="m-0 flex list-none flex-col gap-2 p-0">
@@ -183,7 +193,9 @@ function ThemePage() {
           </section>
 
           <section className="flex flex-col gap-4">
-            <h2 className="m-0 text-lg font-semibold">Shape ladder</h2>
+            <h2 id="shape-ladder" className="m-0 text-lg font-semibold">
+              Shape ladder
+            </h2>
             <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
               {SHAPE_KEYS.length} corner roles, from <code>none</code> to{" "}
               <code>full</code>. Components reference the role, never a literal
@@ -202,7 +214,9 @@ function ThemePage() {
           </section>
 
           <section className="flex flex-col gap-4">
-            <h2 className="m-0 text-lg font-semibold">Contrast levels</h2>
+            <h2 id="contrast-levels" className="m-0 text-lg font-semibold">
+              Contrast levels
+            </h2>
             <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
               A contrast level resolves to a whole scheme, not a filter. Each
               tile below is read straight from the theme package.
@@ -245,7 +259,9 @@ function ThemePage() {
           </section>
 
           <section className="flex flex-col gap-4">
-            <h2 className="m-0 text-lg font-semibold">Preset deltas</h2>
+            <h2 id="preset-deltas" className="m-0 text-lg font-semibold">
+              Preset deltas
+            </h2>
             <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
               The <code>brand</code> preset changes{" "}
               {Object.keys(BRAND_LAYERS.deltas).length} of {ROLE_COUNT} roles
@@ -272,7 +288,10 @@ function ThemePage() {
           </section>
 
           <section className="flex flex-col gap-4">
-            <h2 className="m-0 text-lg font-semibold">
+            <h2
+              id="the-same-roles-rendering"
+              className="m-0 text-lg font-semibold"
+            >
               The same roles, rendering
             </h2>
             <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
@@ -304,7 +323,9 @@ function ThemePage() {
           </section>
 
           <section className="flex flex-col gap-4">
-            <h2 className="m-0 text-lg font-semibold">And on mobile</h2>
+            <h2 id="and-on-mobile" className="m-0 text-lg font-semibold">
+              And on mobile
+            </h2>
             <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
               The native side resolves the identical scheme, so a role means the
               same thing on both platforms.
@@ -320,7 +341,9 @@ function ThemePage() {
           </section>
 
           <section className="flex flex-col gap-4">
-            <h2 className="m-0 text-lg font-semibold">Author a theme</h2>
+            <h2 id="author-a-theme" className="m-0 text-lg font-semibold">
+              Author a theme
+            </h2>
             <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
               <code>defineThemePreset</code> rejects unknown roles, reserved
               ids, and non-hex values before anything renders, so a customer

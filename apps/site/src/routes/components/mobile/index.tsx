@@ -50,7 +50,10 @@ function MobileComponents() {
 
           {unaccounted.length > 0 ? (
             <div className="flex flex-col gap-2 rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-error) bg-(--md-sys-color-error-container) p-4 text-(--md-sys-color-on-error-container)">
-              <h2 className="m-0 text-sm font-semibold">
+              <h2
+                id="neither-previewed-nor-explained"
+                className="m-0 text-sm font-semibold"
+              >
                 Neither previewed nor explained
               </h2>
               <p className="m-0 font-mono text-xs">
@@ -60,7 +63,7 @@ function MobileComponents() {
           ) : null}
 
           <section className="flex flex-col gap-3">
-            <h2 className="m-0 text-lg font-semibold">
+            <h2 id="live-previews" className="m-0 text-lg font-semibold">
               Live previews ({previewed.length})
             </h2>
             <ul className="m-0 grid list-none grid-cols-1 gap-1 p-0 sm:grid-cols-2 lg:grid-cols-3">
@@ -82,7 +85,7 @@ function MobileComponents() {
           </section>
 
           <section className="flex flex-col gap-3">
-            <h2 className="m-0 text-lg font-semibold">
+            <h2 id="no-preview-here" className="m-0 text-lg font-semibold">
               No preview here, and why ({reasoned.length})
             </h2>
             <ul className="m-0 flex list-none flex-col gap-2 p-0">

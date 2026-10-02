@@ -162,7 +162,12 @@ function Undocumented({
         </p>
       </header>
       <div className="flex flex-col gap-2 rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-outline) bg-(--md-sys-color-surface-container) p-6">
-        <h2 className="m-0 text-lg font-semibold">No documentation page yet</h2>
+        <h2
+          id="no-documentation-page-yet"
+          className="m-0 text-lg font-semibold"
+        >
+          No documentation page yet
+        </h2>
         <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
           This export is in the generated inventory but has no content folder
           under <code>src/content/</code>. That is a gap in the site, not in the

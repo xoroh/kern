@@ -99,6 +99,42 @@ const TH = `py-2 pr-4 text-left text-(--md-sys-color-on-surface) ${ts("title-sma
 const TD = `py-3 pr-4 align-top ${ts("body-medium")}`;
 
 /**
+ * m1 — a stable id and a permalink on every heading.
+ *
+ * The ids are EXPLICIT, not slugified from the text: a copy-edit that rewords
+ * a heading must not silently change its anchor, and Part 3's TOC links into
+ * these. A derived id looks stable until someone fixes a typo.
+ *
+ * The permalink is a real anchor with an accessible name, so the heading is
+ * addressable without hunting for the right character to click.
+ */
+function Heading({
+  id,
+  level = 2,
+  children,
+  className = "",
+}: {
+  id: string;
+  level?: 2 | 3;
+  children: React.ReactNode;
+  className?: string;
+}) {
+  const Tag = level === 2 ? "h2" : "h3";
+  return (
+    <Tag id={id} className={`${level === 2 ? H2 : H3} ${className}`.trim()}>
+      {children}
+      <a
+        href={`#${id}`}
+        aria-label={`Permalink to ${id.replace(/-/g, " ")}`}
+        className="ml-2 inline-flex items-center text-(--md-sys-color-on-surface-variant) no-underline opacity-0 transition-opacity group-hover:opacity-100 focus-visible:opacity-100"
+      >
+        #
+      </a>
+    </Tag>
+  );
+}
+
+/**
  * The elevation chip. FOUR states, kept apart because `check:docs` keeps them
  * apart — collapsing them is how an unbacked claim ends up reading as a
  * measurement.
@@ -289,7 +325,7 @@ function Showcase({
   const examples = doc.parts.flatMap((part) => examplesFor(part));
   return (
     <section className="flex flex-col gap-3" aria-label="Showcase">
-      <h2 className={H2}>Showcase</h2>
+      <Heading id="showcase">Showcase</Heading>
       {examples.length > 0 ? (
         <ExampleList examples={examples} />
       ) : live ? (
@@ -335,7 +371,7 @@ function Installation({ doc }: { doc: ComponentDoc }) {
   const target = installTarget(pkg);
   return (
     <section className="flex flex-col gap-3">
-      <h2 className={H2}>Installation</h2>
+      <Heading id="installation">Installation</Heading>
       <p className={PROSE}>
         Every export on this page ships in <code>{target}</code> and is imported
         from <code>{pkg}</code>. There is no per-component install.
@@ -363,7 +399,7 @@ function Anatomy({ doc }: { doc: ComponentDoc }) {
   if (!rows || rows.length === 0) return null;
   return (
     <section className="flex flex-col gap-3">
-      <h2 className={H2}>Anatomy</h2>
+      <Heading id="anatomy">Anatomy</Heading>
       <p className={PROSE}>
         {doc.parts.length === 1
           ? "The parts this component is built from."
@@ -400,7 +436,7 @@ function AnatomyRow({ part }: { part: PartRow }) {
 function Features({ doc }: { doc: ComponentDoc }) {
   return (
     <section className="flex flex-col gap-3">
-      <h2 className={H2}>Features</h2>
+      <Heading id="features">Features</Heading>
       <p className={PROSE}>{doc.features}</p>
       <WhenToUse doc={doc} />
     </section>
@@ -421,7 +457,9 @@ function WhenToUse({ doc }: { doc: ComponentDoc }) {
       <div
         className={`${CARD} border-l-4 border-l-(--md-sys-color-primary) p-4`}
       >
-        <h3 className={H3}>Do</h3>
+        <Heading id="do" level={3}>
+          Do
+        </Heading>
         <ul
           className={`m-0 mt-2 flex list-disc flex-col gap-2 pl-5 ${SMALL} ${INK_SOFT}`}
         >
@@ -431,7 +469,9 @@ function WhenToUse({ doc }: { doc: ComponentDoc }) {
         </ul>
       </div>
       <div className={`${CARD} border-l-4 border-l-(--md-sys-color-error) p-4`}>
-        <h3 className={H3}>Don&rsquo;t</h3>
+        <Heading id="dont" level={3}>
+          Don&rsquo;t
+        </Heading>
         <ul
           className={`m-0 mt-2 flex list-disc flex-col gap-2 pl-5 ${SMALL} ${INK_SOFT}`}
         >
@@ -456,7 +496,7 @@ function Theming({ doc }: { doc: ComponentDoc }) {
   const tokens = doc.tokens;
   return (
     <section className="flex flex-col gap-3">
-      <h2 className={H2}>Theming and tokens</h2>
+      <Heading id="theming-and-tokens">Theming and tokens</Heading>
       <p className={PROSE}>
         What this component reads from the theme. Change the token and every
         instance changes — that is the point of the token layer.
@@ -528,7 +568,9 @@ function Customization({ doc }: { doc: ComponentDoc }) {
   if (!custom) return null;
   return (
     <div className="flex flex-col gap-3">
-      <h3 className={H3}>Customization</h3>
+      <Heading id="customization" level={3}>
+        Customization
+      </Heading>
       <ul className={`m-0 flex flex-col gap-2 pl-5 ${BODY}`}>
         {custom.supported.map((line) => (
           <li key={line}>{line}</li>
@@ -536,7 +578,9 @@ function Customization({ doc }: { doc: ComponentDoc }) {
       </ul>
       {custom.notSupported.length > 0 && (
         <>
-          <h3 className={H3}>Not supported</h3>
+          <Heading id="not-supported" level={3}>
+            Not supported
+          </Heading>
           <ul className={`m-0 flex flex-col gap-2 pl-5 ${BODY}`}>
             {custom.notSupported.map((line) => (
               <li key={line}>{line}</li>
@@ -574,7 +618,7 @@ function Accessibility({ doc }: { doc: ComponentDoc }) {
   if (!hasContent) {
     return (
       <section className="flex flex-col gap-4">
-        <h2 className={H2}>Accessibility</h2>
+        <Heading id="accessibility">Accessibility</Heading>
         <p className={PROSE}>
           {doc.nonInteractive
             ? "Not applicable. This is a non-interactive part — it takes no focus, has no keyboard interaction and exposes no ARIA state of its own, so there is no behaviour to contract for. Anything it does for assistive technology comes from the primitives it renders."
@@ -586,11 +630,13 @@ function Accessibility({ doc }: { doc: ComponentDoc }) {
 
   return (
     <section className="flex flex-col gap-4">
-      <h2 className={H2}>Accessibility</h2>
+      <Heading id="accessibility">Accessibility</Heading>
 
       {keyboard?.length ? (
         <>
-          <h3 className={H3}>Keyboard</h3>
+          <Heading id="keyboard" level={3}>
+            Keyboard
+          </Heading>
           <div className="overflow-x-auto">
             <table className={`w-full border-collapse ${SMALL}`}>
               <thead>
@@ -627,7 +673,9 @@ function Accessibility({ doc }: { doc: ComponentDoc }) {
 
       {aria.length > 0 && (
         <>
-          <h3 className={H3}>Contract</h3>
+          <Heading id="contract" level={3}>
+            Contract
+          </Heading>
           <ul className={`m-0 flex flex-col gap-2 pl-5 ${BODY}`}>
             {aria.map((line) => (
               <li key={line}>{line}</li>
@@ -638,9 +686,13 @@ function Accessibility({ doc }: { doc: ComponentDoc }) {
 
       {gaps.length > 0 && (
         <div className="rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-error) bg-(--md-sys-color-error-container) p-4">
-          <h3 className={`m-0 ${H3} text-(--md-sys-color-on-error-container)`}>
+          <Heading
+            id="known-gaps"
+            level={3}
+            className="text-(--md-sys-color-on-error-container)"
+          >
             Known gaps
-          </h3>
+          </Heading>
           <ul
             className={`m-0 mt-2 flex list-disc flex-col gap-2 pl-5 ${SMALL} text-(--md-sys-color-on-error-container)`}
           >
@@ -665,7 +717,7 @@ function Conformance({ doc }: { doc: ComponentDoc }) {
   const rows = doc.deviations;
   return (
     <section className="flex flex-col gap-3">
-      <h2 className={H2}>Material 3 conformance</h2>
+      <Heading id="material-3-conformance">Material 3 conformance</Heading>
       <p className={PROSE}>
         Strict to Material 3 by default. Anything below is a deliberate kern
         decision, registered with an id so it can be audited rather than
@@ -740,7 +792,7 @@ function DeviationRow({ row }: { row: Deviation }) {
 function ApiReference({ doc }: { doc: ComponentDoc }) {
   return (
     <section className="flex flex-col gap-4">
-      <h2 className={H2}>API reference</h2>
+      <Heading id="api-reference">API reference</Heading>
       <div className="overflow-x-auto">
         <table className={`w-full border-collapse text-left ${SMALL}`}>
           <thead>

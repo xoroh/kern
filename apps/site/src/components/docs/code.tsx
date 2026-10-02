@@ -51,6 +51,7 @@ export function Step({
   return (
     <section className="flex flex-col gap-3">
       <h2
+        id={`step-${n}`}
         className={`m-0 flex items-center gap-3 ${T_SECTION} text-(--md-sys-color-on-surface)`}
       >
         <span
