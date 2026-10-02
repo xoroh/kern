@@ -112,11 +112,7 @@ export function useOverlayRegistration(
   const latest = useRef({ registry, id, active });
   latest.current = { registry, id, active };
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: the effect reads
-  // through `latest`, a ref, on purpose. The deps ARE the three values that
-  // should re-register; adding `latest` would satisfy the rule by making the
-  // effect re-run on EVERY render, which is the exact tear-down this ref exists
-  // to prevent. See the comment above the ref.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: reads through `latest` on purpose -- adding it would re-run every render, the exact tear-down the ref prevents
   useEffect(() => {
     if (!latest.current.active) return;
     return latest.current.registry.register(latest.current.id);

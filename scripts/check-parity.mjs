@@ -295,7 +295,13 @@ if (docConcepts.size === 0) {
 // A missing dist is UNVERIFIABLE, never a pass: reporting "0 violations" from a
 // build that has not run is the gate-looks-green-because-it-did-not-look failure.
 {
-  const distDts = join(ROOT, "packages", "kern-primitives", "dist", "index.d.ts");
+  const distDts = join(
+    ROOT,
+    "packages",
+    "kern-primitives",
+    "dist",
+    "index.d.ts",
+  );
   const primitivesSrc = join(ROOT, "packages", "kern-primitives", "src");
   if (!existsSync(distDts)) {
     violations.push(
@@ -313,7 +319,11 @@ if (docConcepts.size === 0) {
     const exported = new Set();
     for (const b of exportBlocks) {
       for (const raw of b[1].split(",")) {
-        const name = raw.trim().split(/\s+as\s+/).pop()?.trim();
+        const name = raw
+          .trim()
+          .split(/\s+as\s+/)
+          .pop()
+          ?.trim();
         if (name) exported.add(name.replace(/^type\s+/, ""));
       }
     }
@@ -967,7 +977,7 @@ violations.push(
         typeof value === "string"
           ? value
           : (value?.import?.types ?? value?.require?.types ?? null);
-      if (!entry || !entry.endsWith(".d.ts")) continue;
+      if (!entry?.endsWith(".d.ts")) continue;
       out.add(join(ROOT, dir, entry.replace(/^\.\//, "")));
     }
     // A package with no `exports` map still has a main entry.

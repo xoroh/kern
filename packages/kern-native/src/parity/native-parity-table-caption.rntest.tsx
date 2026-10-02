@@ -1,6 +1,5 @@
 import { contractFor } from "@kern-parity/contract";
 import { render, screen } from "@testing-library/react-native";
-import { act } from "react";
 import { Table } from "@xoroh/kern-native";
 
 /**
@@ -34,9 +33,7 @@ describe("native parity contract: table-caption", () => {
 
   it("carries the caption text into the accessible name", async () => {
     const row = contractFor("table-caption");
-    await render(
-      <Table columns={columns} rows={rows} caption={row.name} />,
-    );
+    await render(<Table columns={columns} rows={rows} caption={row.name} />);
     // The substitution for the missing <caption> element. Without this the
     // caption is visible but silent, which is the failure a
     // presentational-only implementation would ship.
@@ -46,9 +43,7 @@ describe("native parity contract: table-caption", () => {
 
   it("keeps the table's own content", async () => {
     const row = contractFor("table-caption");
-    await render(
-      <Table columns={columns} rows={rows} caption={row.name} />,
-    );
+    await render(<Table columns={columns} rows={rows} caption={row.name} />);
     // The caption must not displace the header or the body.
     expect(screen.getByText("Name")).toBeTruthy();
     expect(screen.getByText("Ada")).toBeTruthy();

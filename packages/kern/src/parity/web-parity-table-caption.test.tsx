@@ -1,13 +1,10 @@
 import { contractFor } from "@kern-parity/contract";
 import { render, screen } from "@testing-library/react";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableRow,
-} from "@xoroh/kern";
+// The namespace form is used throughout (`Table.Caption`, `Table.Cell`), so
+// only the `Table` root itself is imported. The named imports this used to carry
+// were dead -- and biome's organise-imports will not remove them, because it
+// preserves specifiers it cannot prove unused across a namespace access.
+import { Table } from "@xoroh/kern";
 import { describe, expect, it } from "vitest";
 
 /**
