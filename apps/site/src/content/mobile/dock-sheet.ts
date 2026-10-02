@@ -10,11 +10,16 @@ export const dockSheet: ComponentDoc = {
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
-    // No web counterpart: the web `Sheet` is a titled side panel. No export
-    // to name as a peer.
-    nativePeer: "none",
+    // Web counterpart landed in the P2b-2 sheet family (6901013); checked in
+    // the web inventory. (This row read `none` before that landed — stale on
+    // arrival, caught while documenting the web side.)
+    nativePeer: "DockSheet",
     variants: [],
-    elevation: "surface",
+    // The native dock sheet is NOT flat: `sheets.tsx` ships `elevation: 3`
+    // with a designed shadow on the panel (measured from source). No registry
+    // row is keyed under this slug, so check:docs reports the claim as
+    // unasserted — a registry gap, not a page gap.
+    elevation: 3,
   },
   parts: ["DockSheet"],
   customization: {
