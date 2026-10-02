@@ -62,6 +62,55 @@ export type MetadataStrip = {
    */
   variants: string[];
   elevation: RestingElevation;
+
+  /**
+   * The four external references in the strip. OPTIONAL on purpose: a chip
+   * with no URL renders as plain text, so a page is never a dead link and the
+   * strip is never half-empty. They are the "reference" signal — the M3 spec
+   * link in particular is the M3-nativeness proof.
+   */
+  /** Canonical Material 3 spec page, e.g. `https://m3.material.io/components/buttons`. */
+  specUrl?: string;
+  /** WAI-ARIA Authoring Practices pattern. */
+  apgUrl?: string;
+  /** Source on GitHub. */
+  sourceUrl?: string;
+  /** Bundle-size report. */
+  bundleUrl?: string;
+};
+
+/**
+ * Section 6 — one row of the token table: which token this element reads at
+ * this state. Generated from `packages/kern-tokens` where it can be, and
+ * transcribed where it cannot. This is where "strict M3" becomes visible per
+ * component.
+ */
+export type TokenRow = {
+  element: string;
+  /** `resting`, `hover`, `pressed`, `disabled`, `focus` … */
+  state: string;
+  /** e.g. `md.comp.filled-button.container.color`. */
+  token: string;
+};
+
+/**
+ * Section 7 — one keyboard interaction. Radix's Key → Action shape: the table
+ * is only useful if it says what each key DOES, not merely that a key exists.
+ */
+export type KeyRow = {
+  /** `Enter`, `Space`, `ArrowDown`, `Escape` … */
+  key: string;
+  action: string;
+};
+
+/**
+ * Section 5 — the Do/Don't pair. The M3 Guidelines pattern: two cards side by
+ * side so the contrast is the argument. Both halves are required to render —
+ * a Do without a Don't states no rule.
+ */
+export type Usage = {
+  do: string[];
+  dont: string[];
 };
 
 /** Section 6 — one row of the props table. Transcribed, never paraphrased. */
@@ -159,4 +208,32 @@ export type ComponentDoc = {
    * contradicts them is a defect in the page.
    */
   aria?: string[];
+
+  /**
+   * Section 5 — the Do/Don't pair. Optional; renders only when both halves
+   * are present. Tasks before reference (Diátaxis), and the clearest way to
+   * state a usage rule.
+   */
+  usage?: Usage;
+
+  /**
+   * Section 6 — the token table. Optional today: generated where the token
+   * module can supply it, transcribed where it cannot. Absent, the section
+   * falls back to stating the resting elevation, which is always true.
+   */
+  tokens?: TokenRow[];
+
+  /**
+   * Section 7 — the keyboard contract. Optional: a component with no keyboard
+   * behaviour (a `Skeleton`, a `Separator`) has none to document, and an empty
+   * table is noise.
+   */
+  keyboard?: KeyRow[];
+
+  /**
+   * Section 7 — known accessibility gaps, stated plainly. The MUI
+   * "Limitations" spirit: a gap we know about is a fact, a gap we hide is a
+   * defect. Omit when there are none — do not write an empty reassurance.
+   */
+  accessibilityGaps?: string[];
 };
