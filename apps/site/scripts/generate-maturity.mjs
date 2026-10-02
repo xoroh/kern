@@ -16,6 +16,30 @@
  * Rule honoured: nothing here invents a maturity value. Rows come verbatim
  * from the source; a name the source does not know produces no row, and the
  * page then renders no state chip at all rather than a guessed one.
+ *
+ * The output is FORMATTED WITH THE REPO'S BIOME BEFORE WRITING, exactly as
+ * `packages/mcp/scripts/generate-maturity.mjs` does (c57014a, 22:42).
+ *
+ * That fix was applied to the MCP generator and NOT to this one, and the result
+ * is the defect the 23:38 dispatch describes: `maturity.ts` was lint-red (a
+ * formatter diff plus two `useTemplate` findings) while the tree sat there
+ * committed. The commit history shows why rather than assuming it:
+ *
+ *   22:09  0ff0c05  MCP generator lands — unformatted output
+ *   22:42  c57014a  MCP generator fixed to format its own output
+ *   23:06  33ea5ab  THIS generator lands, 24 minutes later, with no formatting
+ *
+ * So c57014a's claim was TRUE for the file it fixed and has never covered this
+ * one — the file was not re-dirtied, it was born red in a second generator
+ * written after the lesson was learned. `biome check` on the emitted file at
+ * 33ea5ab, c57014a and HEAD is red; the MCP source it did fix is clean at HEAD.
+ *
+ * Concretely the emit used `JSON.stringify(rows, null, 2)`, which is JSON
+ * syntax, not TypeScript: every object key comes out quoted, which biome's
+ * formatter rewrites. Writing JSON into a `.ts` file and letting the formatter
+ * fix it afterwards is the same generator-vs-formatter race c57014a closed for
+ * the other file — the formatter wins on commit and the freshness gate then
+ * disagrees with a fresh run.
  */
 import { writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -23,6 +47,10 @@ import { fileURLToPath } from "node:url";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const SITE = join(HERE, "..");
+// The repo's own biome binary, resolved rather than assumed. `npx biome` was
+// the first attempt and it re-downloads the package on a cold runner; the
+// workspace binary is already installed by `bun install`.
+const ROOT_BIOME = join(SITE, "..", "..", "node_modules", ".bin", "biome");
 const SOURCE = join(SITE, "..", "..", "packages", "mcp", "src", "maturity.ts");
 
 const { MATURITY, MATURITY_BY_STATE } = await import(SOURCE);
@@ -56,7 +84,7 @@ const BY_EXPORT = new Map<string, MaturityRow>();
 const BY_EXPORT_PLATFORM = new Map<string, MaturityRow>();
 for (const row of MATURITY) {
   BY_EXPORT.set(row.export, row);
-  BY_EXPORT_PLATFORM.set(row.export + "::" + row.platform, row);
+  BY_EXPORT_PLATFORM.set(\`\${row.export}::\${row.platform}\`, row);
 }
 
 /** Maturity of a single export on a single renderer. */
@@ -64,7 +92,10 @@ export function maturityForExport(
   exportName: string,
   platform: "web" | "native",
 ): MaturityRow | undefined {
-  return BY_EXPORT_PLATFORM.get(exportName + "::" + platform) ?? BY_EXPORT.get(exportName);
+  return (
+    BY_EXPORT_PLATFORM.get(\`\${exportName}::\${platform}\`) ??
+    BY_EXPORT.get(exportName)
+  );
 }
 
 /**
@@ -94,7 +125,31 @@ export const MATURITY_BY_STATE: Readonly<Record<MaturityState, readonly string[]
 `;
 
 const out = join(SITE, "src", "generated", "maturity.ts");
-writeFileSync(out, `${banner}\n${body}`);
+
+// Format with the repo's own biome BEFORE writing, so the generator and the
+// formatter agree instead of racing. Same reasoning and same fallback as
+// packages/mcp/scripts/generate-maturity.mjs — see the header for why the two
+// generators had drifted apart.
+const { execFileSync } = await import("node:child_process");
+const text = `${banner}\n${body}`;
+let formatted = text;
+try {
+  formatted = execFileSync(
+    join(ROOT_BIOME),
+    ["format", "--stdin-file-path=maturity.ts"],
+    { input: text, encoding: "utf8", cwd: SITE },
+  );
+} catch {
+  // biome absent (partial install, or the release runner): write unformatted
+  // rather than fail, and let the freshness gate report the difference
+  // honestly. A gate that invents coverage it does not have is how the last
+  // three defects got in.
+  console.warn(
+    "generate-maturity: could not run biome; wrote unformatted — run `bun run format` before lint",
+  );
+  formatted = text;
+}
+writeFileSync(out, formatted);
 
 const byState = rows.reduce((acc, r) => {
   acc[r.state] = (acc[r.state] ?? 0) + 1;

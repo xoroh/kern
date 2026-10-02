@@ -71,6 +71,20 @@ const GENERATORS = [
     outputs: ["packages/mcp/src/maturity.ts"],
   },
   {
+    // The SITE's copy of that table, written by a SECOND generator
+    // (`apps/site/scripts/generate-maturity.mjs`, 33ea5ab). It existed and no
+    // entry here claimed it — the same omission as elevation-audit.md, on the
+    // same file family, found the same way: the artifact was real, generated,
+    // and ungated. It was lint-red while committed.
+    //
+    // Listed after the MCP generator deliberately: this one IMPORTS
+    // packages/mcp/src/maturity.ts as a module, so it must run second or it
+    // reads a stale source and reports a false diff.
+    name: "site generate-maturity (mcp maturity.ts -> site maturity.ts)",
+    cmd: ["bun", "apps/site/scripts/generate-maturity.mjs"],
+    outputs: ["apps/site/src/generated/maturity.ts"],
+  },
+  {
     // The resting-elevation audit, which was the one derived file NOT listed here.
     // It re-dirties on every elevation change and nothing noticed, because the
     // tree simply carried the drift: `drawer` moved NO-SPEC -> ASSERTED at level
