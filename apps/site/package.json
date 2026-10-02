@@ -11,10 +11,10 @@
     "dev": "vite dev --port 3000",
     "build": "bun run generate:routes && bun run generate && vite build",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "bun run --cwd .. check:dist:types && tsc --noEmit",
     "deploy": "bun run build && wrangler deploy",
     "generate": "bun run scripts/generate-manifest.mjs",
-    "check:snippets": "bun run scripts/check-snippets.mjs",
+    "check:snippets": "bun run --cwd .. check:dist:types && bun run scripts/check-snippets.mjs",
     "check:docs": "bun run scripts/check-docs.mjs",
     "generate:routes": "tsr generate"
   },
