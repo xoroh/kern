@@ -41,6 +41,7 @@
  */
 
 import { existsSync, readdirSync, readFileSync } from "node:fs";
+import { builtinModules } from "node:module";
 import { join } from "node:path";
 import ts from "typescript";
 
@@ -93,6 +94,135 @@ for (const entry of readdirSync(PKGS, { withFileTypes: true })) {
 }
 
 const violations = [];
+
+// --- D-038: every bare import must resolve to a DECLARED dependency ---------
+// The `types[]` rule above reads what a tsconfig ASKS for. This reads what the
+// source IMPORTS — the axe-core class, where a test imports a package nobody
+// declares. It typechecks in a warm workspace (hoisted node_modules happens to
+// hold it) and fails on a cold install, which is how that defect shipped.
+//
+// Scoped deliberately to reduce false positives, because a gate that cries wolf
+// gets ignored:
+//   * bare specifiers only — a relative `./x` is not a dependency
+//   * builtins and `node:` are exempt
+//   * a SUBPATH resolves to its package (`react/jsx-runtime` -> `react`), the
+//     same rule the types[] check uses; demanding `@types/react/jsx-runtime`
+//     would be nonsense
+//   * type-only imports count: they are still a dependency
+
+/** `@scope/name/sub/path` -> `@scope/name`; `name/sub` -> `name` */
+function packageNameOf(id) {
+  const parts = id.split("/");
+  return id.startsWith("@") ? parts.slice(0, 2).join("/") : parts[0];
+}
+
+for (const entry of readdirSync(join(ROOT, "packages"), {
+  withFileTypes: true,
+})) {
+  if (!entry.isDirectory()) continue;
+  const dir = join(ROOT, "packages", entry.name);
+  const manifestPath = join(dir, "package.json");
+  if (!existsSync(manifestPath)) continue;
+  const pkg = JSON.parse(readFileSync(manifestPath, "utf8"));
+
+  const declared = new Set(
+    [
+      ...Object.keys(pkg.dependencies ?? {}),
+      ...Object.keys(pkg.devDependencies ?? {}),
+      ...Object.keys(pkg.peerDependencies ?? {}),
+      ...Object.keys(pkg.optionalDependencies ?? {}),
+    ].map((d) => d.toLowerCase()),
+  );
+
+  const undeclared = new Map();
+  const srcDir = join(dir, "src");
+  if (!existsSync(srcDir)) continue;
+
+  const walk = (d, depth = 0) => {
+    if (depth > 6) return;
+    let files;
+    try {
+      files = readdirSync(d, { withFileTypes: true });
+    } catch {
+      return;
+    }
+    for (const f of files) {
+      if (f.name === "node_modules" || f.name === "dist") continue;
+      const full = join(d, f.name);
+      if (f.isDirectory()) {
+        walk(full, depth + 1);
+        continue;
+      }
+      if (!/\.(ts|tsx|mts|cts|js|jsx|mjs|cjs)$/.test(f.name)) continue;
+      // Parse rather than regex. The AST sees only real module specifiers, so a
+      // comment saying `... from "x"` cannot invent an import. This gate's
+      // value depends entirely on not crying wolf: a false positive here gets
+      // the whole gate ignored, which is worse than having no gate.
+      const text = readFileSync(full, "utf8");
+      let sf;
+      try {
+        sf = ts.createSourceFile(
+          full,
+          text,
+          ts.ScriptTarget.Latest,
+          /* setParentNodes */ false,
+        );
+      } catch {
+        continue; // unreadable here; typecheck reports it properly
+      }
+
+      const specs = new Set();
+      const addSpec = (node) => {
+        if (node && ts.isStringLiteralLike(node)) specs.add(node.text);
+      };
+      const visit = (node) => {
+        // import x from "p" / export x from "p" / import "p"
+        if (ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) {
+          addSpec(node.moduleSpecifier);
+        }
+        // import("p") and require("p") -- both resolve at runtime
+        if (
+          ts.isCallExpression(node) &&
+          node.arguments.length === 1 &&
+          (node.expression.kind === ts.SyntaxKind.ImportKeyword ||
+            (ts.isIdentifier(node.expression) &&
+              node.expression.text === "require"))
+        ) {
+          addSpec(node.arguments[0]);
+        }
+        ts.forEachChild(node, visit);
+      };
+      visit(sf);
+
+      for (const spec of specs) {
+        if (
+          spec.startsWith(".") ||
+          spec.startsWith("/") ||
+          spec.startsWith("#")
+        )
+          continue;
+        if (spec.startsWith("node:") || spec.startsWith("bun:")) continue;
+        if (builtinModules.includes(spec)) continue;
+        // A package importing itself is a test convenience, not a dependency.
+        if (spec === pkg.name) continue;
+        // Repo-internal aliases, not packages: the parity contract lives at the
+        // repo root and is reached through a path alias on purpose (ADR 002 --
+        // neither renderer imports the other to read it).
+        if (spec.startsWith("@kern-parity/")) continue;
+        const pkgName = packageNameOf(spec).toLowerCase();
+        if (declared.has(pkgName)) continue;
+        if (!undeclared.has(pkgName)) undeclared.set(pkgName, full);
+      }
+    }
+  };
+  walk(srcDir);
+
+  for (const [name, file] of undeclared) {
+    violations.push(
+      `${pkg.name}: imports "${name}" but no dependency declares it (first seen in ${file.replace(`${ROOT}/`, "")})`,
+    );
+  }
+}
 
 // --- D-037: the build graph must be acyclic, and must COVER every buildable -----
 // Build order is derived from these same declarations, so a cycle here is a
@@ -310,5 +440,5 @@ if (violations.length) {
 }
 
 console.log(
-  "\npackage layering holds: no upward edges, no renderer-to-renderer edge,\n every tsconfig types[] entry is a declared dependency,\n and the build graph is acyclic and covers every buildable package",
+  "\npackage layering holds: no upward edges, no renderer-to-renderer edge,\n every tsconfig types[] entry is a declared dependency,\n every bare import resolves to a declared dependency,\n and the build graph is acyclic and covers every buildable package",
 );
