@@ -430,8 +430,13 @@ function MotionPage() {
 
       <FSection id="easings" title="Easing curves, live">
         <FProse>
-          The easing grid, each bar eased by its own curve over a{" "}
-          <code>duration.long2</code> step, looping.
+          The easing grid. Every bar is a real animation — its timing function
+          is the easing token printed beside it, over a{" "}
+          <code>duration.long2</code> step, looping. Seven tokens resolve to six
+          curves — <code>standard</code> and <code>emphasized</code> share
+          <code>cubic-bezier(0.2, 0, 0, 1)</code> — so the bars are
+          one-per-token rather than one-per-distinct-curve. Under{" "}
+          <code>prefers-reduced-motion</code> the bars stop and rest centred.
         </FProse>
         <ul className="m-0 flex flex-col gap-2">
           {MOTION_EASING.map((leaf) => (
