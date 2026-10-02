@@ -60,7 +60,7 @@ Verification: `typecheck` 5/5 exit 0 · `test:all` exit 0 (223 web incl. **66
 new**, 39 theme, 76 icons, 15 start, 41 native) · `check:parity` green at **325
 rows** (48 shared / 22 native-only / **42 web-only** / 0 stubs — web-only 34 → 42
 and the registry 317 → 325 because these are web-first concepts whose native
-counterparts are owed by P2b-3) · `check:m3` 45/45 · `check:contrast` 1,242
+counterparts are owed by P2b-3) · `check:kern` 45/45 · `check:contrast` 1,242
 checks, 0 orphans.
 
 Three defects were found by these tests rather than by a gate, and are fixed:

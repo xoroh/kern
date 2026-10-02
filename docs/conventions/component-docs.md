@@ -62,7 +62,7 @@ A single row of facts, above the fold, before any prose:
 The elevation value is not free text. It comes from
 `packages/kern-tokens/src/m3-elevation.ts`, which transcribes M3's
 [component elevation table](https://m3.material.io/styles/elevation/tokens), and
-it is asserted by `bun run check:m3`. A page whose elevation contradicts that
+it is asserted by `bun run check:kern`. A page whose elevation contradicts that
 module is a defect in the page.
 
 ### 2. Showcase — required
@@ -106,7 +106,7 @@ Each entry names the deviation id, what M3 specifies, what kern does, and why.
 A deviation with no id is not a deviation, it is an undocumented fork: the ids
 live with the roles they justify, in `packages/kern-tokens/src/m3-roles.ts`
 (`KERN_EXTRA_ROLES`) and `m3-elevation.ts` (`KERN_UNASSIGNED_ELEVATION`), and
-`bun run check:m3` fails on one that is not registered there.
+`bun run check:kern` fails on one that is not registered there.
 
 ### 6. API — required
 
@@ -133,7 +133,7 @@ a defect in the page.
 3. **The generated inventory is the index.** `docs/components.md` lists what
    exists; the pages explain it. Neither restates the other.
 4. **A page never claims a gate result.** "M3 conformant" is a claim
-   `check:m3` makes, not a page. Link the gate.
+   `check:kern` makes, not a page. Link the gate.
 
 ## Enforcement status
 

@@ -15,9 +15,9 @@ import { bootSplashStyles } from "./shell";
 import { topAppBarStyles } from "./top-app-bar";
 import { bannerStyles } from "./web-parity";
 
-const LIGHT = themes.m3.color.light;
-const radius = (role: keyof typeof themes.m3.radius) =>
-  Number.parseFloat(themes.m3.radius[role]);
+const LIGHT = themes.kern.color.light;
+const radius = (role: keyof typeof themes.kern.radius) =>
+  Number.parseFloat(themes.kern.radius[role]);
 
 describe("native composition style maps", () => {
   it("navigation bar is 80dp with a full indicator pill", () => {

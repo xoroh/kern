@@ -79,7 +79,7 @@ rows and the parity coverage table matches it row-for-row (re-verified
 
 - **Material 3 rules and principles govern** structure, behavior, and naming.
   Kern's expression (pills, neutral emphasis, flat elevation) is recorded per
-  component as an override and gate-checked (`check:m3`) — never an excuse to
+  component as an override and gate-checked (`check:kern`) — never an excuse to
   drift from M3 semantics.
 - **Naming law**: unprefixed PascalCase, M3-canonical concepts (`Button`,
   `TopAppBar`, `NavigationBar`, `CircularProgress`, `Icon`). No prefixes, no

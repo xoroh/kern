@@ -22,7 +22,7 @@ describe("native style maps", () => {
   it("badge dot is 6dp, count carries error fill", () => {
     expect(badgeStyles("dot").container).toMatchObject({ width: 6, height: 6 });
     expect(badgeStyles("count").container.backgroundColor).toBe(
-      themes.m3.color.light.error,
+      themes.kern.color.light.error,
     );
   });
 
@@ -30,16 +30,16 @@ describe("native style maps", () => {
     expect(cardStyles("outlined")).toMatchObject({ borderWidth: 1 });
     expect(cardStyles("elevated").elevation).toBe(1);
     expect(cardStyles("filled").borderRadius).toBe(
-      Number.parseFloat(themes.m3.radius.small),
+      Number.parseFloat(themes.kern.radius.small),
     );
   });
 
   it("chip selection flips to black", () => {
     expect(chipStyles("filter", true).container.backgroundColor).toBe(
-      themes.m3.color.light.primary,
+      themes.kern.color.light.primary,
     );
     expect(chipStyles("assist", false).container.backgroundColor).toBe(
-      themes.m3.color.light.surfaceTonal,
+      themes.kern.color.light.surfaceTonal,
     );
   });
 
@@ -49,13 +49,15 @@ describe("native style maps", () => {
   });
 
   it("field message error uses error role", () => {
-    expect(fieldMessageStyles("error").color).toBe(themes.m3.color.light.error);
+    expect(fieldMessageStyles("error").color).toBe(
+      themes.kern.color.light.error,
+    );
   });
 
   it("input is 56dp with error border swap", () => {
     expect(inputStyles(false, false).minHeight).toBe(56);
     expect(inputStyles(true, false).borderColor).toBe(
-      themes.m3.color.light.error,
+      themes.kern.color.light.error,
     );
   });
 
@@ -73,7 +75,7 @@ describe("native style maps", () => {
   it("checkbox box is 18dp with the M3 extra-small shape", () => {
     expect(checkboxStyles(false, false, false).box).toMatchObject({
       width: 18,
-      borderRadius: Number.parseFloat(themes.m3.radius["extra-small"]),
+      borderRadius: Number.parseFloat(themes.kern.radius["extra-small"]),
     });
   });
 

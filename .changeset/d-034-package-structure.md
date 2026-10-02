@@ -9,7 +9,7 @@ Two structural moves, both breaking, both free while every package is `0.0.0`:
 
 **1. `@xoroh/kern-theme` -> `@xoroh/kern-tokens`.** The package is a token engine
 plus the M3 conformance gate (`tokens`, `resolveThemeDetails`, `ResolvedTheme`,
-the spacing/typography/shape scales, `check:m3`). It ships no visual theme —
+the spacing/typography/shape scales, `check:kern`). It ships no visual theme —
 light and dark exist as *schemes* resolved from it. The old name promised
 something the package does not contain.
 
@@ -30,7 +30,7 @@ from a separate package and self-referential once they were core; that became
 `../utils/cn`.
 
 Verified: `typecheck` PASS (all four packages) · `test:all` PASS · `lint` PASS ·
-`build` PASS (all four) · `check:parity` PASS · `check:m3` PASS · registry
+`build` PASS (all four) · `check:parity` PASS · `check:kern` PASS · registry
 regeneration clean · and `@xoroh/kern/start` imports successfully from a real
 consumer with all symbols present.
 

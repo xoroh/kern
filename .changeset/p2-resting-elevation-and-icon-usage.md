@@ -14,7 +14,7 @@ caught it did not exist.** The P2 audit concluded that
 conclusion was wrong** — the overview page has no table, but
 `/styles/elevation/tokens` publishes a "Component elevation" table mapping
 resting level to component. Transcribed on 2026-10-01 into
-`packages/kern-tokens/src/m3-elevation.ts`, which gives `check:m3` the target it
+`packages/kern-tokens/src/m3-elevation.ts`, which gives `check:kern` the target it
 lacked. Against the real spec, six components diverged:
 
 | component | was | now | M3 row |
@@ -39,7 +39,7 @@ kern decisions, not asserted against a spec that does not speak about them.
 because `menu`/`context-menu`/`menubar` carry theirs via `menu-classes.ts`; a
 per-file grep reports them as carrying none.
 
-**`bun run check:m3` gains a resting-elevation leg** (8/8 components conformant)
+**`bun run check:kern` gains a resting-elevation leg** (8/8 components conformant)
 and reports the count. 5 mutations injected, 5 caught, files restored
 byte-identical.
 

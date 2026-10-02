@@ -16,7 +16,7 @@ packages/kern-native/src/    # React Native package — imports @xoroh/kern-toke
 packages/kern-icons/src/     # icon registry + Icon renderers (web + native) — imports nothing from the above
 packages/kern/src/start/src/     # web composition (blocks, navigation, panes, scaffolds, link) — imports @xoroh/kern only
 packages/mcp/src/            # MCP server — generated registry + bundled component sources and token data
-scripts/                     # repo gates: check-m3.mjs
+scripts/                     # repo gates: check-kern.mjs
 ```
 
 ## Rules
@@ -76,7 +76,7 @@ with the rules above). The gates that *are* automated:
 
 | Gate | Checks |
 | --- | --- |
-| `bun run check:m3` | Every role present in every scheme; tokens only, no raw values; shape scale only |
+| `bun run check:kern` | Every role present in every scheme; tokens only, no raw values; shape scale only |
 | `bun run check:contrast` | 4.5:1 text / 3:1 UI across presets × modes × contrast levels |
 | `bun run check:publish` | `publint` + `attw --pack` on all six publishable packages |
 | `bun run icons:check` | Committed icon registry matches the Material Symbols source |

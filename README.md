@@ -90,7 +90,7 @@ bun run build          # generators + all package builds
 bun run lint
 bun run typecheck
 bun run test:all
-bun run check:m3       # M3 contract: roles, tokens, shape scale
+bun run check:kern       # M3 contract: roles, tokens, shape scale
 bun run check:contrast # WCAG across presets x modes x contrast levels
 bun run check:publish  # publint + are-the-types-wrong, all 6 packages
 ```

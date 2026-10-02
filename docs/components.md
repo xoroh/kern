@@ -278,6 +278,8 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `calendar` | `Calendar` | real |
 | `card` | `Card` | real |
 | `checkbox` | `Checkbox` | real |
+| `checkbox-group` | `CheckboxGroup` | real |
+| `checkbox-group-item` | `CheckboxGroupItem` | real |
 | `chip` | `Chip` | real |
 | `circular-progress` | `CircularProgress` | real |
 | `collapsible` | `Collapsible` | real |
@@ -295,6 +297,9 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `field` | `Field` | real |
 | `field-message` | `FieldMessage` | real |
 | `field-root` | `FieldRoot` | real |
+| `fieldset` | `Fieldset` | real |
+| `fieldset-item` | `FieldsetItem` | real |
+| `fieldset-legend` | `FieldsetLegend` | real |
 | `filter-chip-row` | `FilterChipRow` | real |
 | `input` | `Input` | real |
 | `input-otp` | `InputOTP` | real |
@@ -304,11 +309,13 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `list-item` | `ListItem` | real |
 | `loader` | `Loader` | real |
 | `loading-button` | `LoadingButton` | real |
+| `loading-indicator` | `LoadingIndicator` | real |
 | `menu` | `Menu` | real |
 | `menu-group-list` | `MenuGroupList` | real |
 | `menu-screen` | `MenuScreen` | real |
 | `menu-sheet` | `MenuSheet` | real |
 | `menubar` | `Menubar` | real |
+| `meter` | `Meter` | real |
 | `milestone-trio` | `MilestoneTrio` | real |
 | `navigation-bar` | `NavigationBar` | real |
 | `navigation-bar-item` | `NavigationBarItem` | real |
@@ -347,3 +354,5 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `tooltip` | `Tooltip` | real |
 | `top-app-bar` | `TopAppBar` | real |
 | `top-app-bar-action` | `TopAppBarAction` | real |
+| `use-fieldset` | `useFieldset` | real |
+| `use-fieldset-disabled` | `useFieldsetDisabled` | real |

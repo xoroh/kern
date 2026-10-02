@@ -26,4 +26,4 @@ PascalCase is unaffected (`SegmentedButton`, `TopAppBar`, `InputOTP` all hold).
 Verified: reverting only the second pass brings both phantom rows back and
 flips the gate to web-only 35, which it then fails — so the defect was silent
 before and is caught now. Regeneration is byte-identical on re-run.
-`check:parity` PASS · `check:m3` PASS · `lint` PASS · `typecheck` PASS.
+`check:parity` PASS · `check:kern` PASS · `lint` PASS · `typecheck` PASS.

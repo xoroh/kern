@@ -103,7 +103,7 @@ packages/kern-icons/                  @xoroh/kern-icons — MIT
 
 - Root scripts: `icons:sync` · `icons:generate` · `icons:check`
   (= standards gate + platform-boundary assert + regen-freshness byte-compare).
-- `ci.yml`: `icons:check` step beside `check:m3`; commit coverage is CI's
+- `ci.yml`: `icons:check` step beside `check:kern`; commit coverage is CI's
   `git add -N` + diff gate.
 - Regen must be byte-identical (no timestamps/host paths; sorted keys).
 - Deps: peers `react`; optional peers `react-native` + `react-native-svg`.

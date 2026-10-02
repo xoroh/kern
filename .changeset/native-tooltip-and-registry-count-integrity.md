@@ -67,7 +67,7 @@ missing link would be a red suite on day one, and asserting its absence would
 bless the gap as the design. Both are recorded as web-side debt.
 
 **Verified:** `check:parity` (334 rows, 55/23/35) · `typecheck` 5/5 ·
-`check:m3` 45/45 roles + 8/8 elevation · `test:all` · `lint` byte-identical to
+`check:kern` 45/45 roles + 8/8 elevation · `test:all` · `lint` byte-identical to
 the `03e66ae` baseline (3 pre-existing findings, none from this change) ·
 **10 mutations injected, 10 caught** (7 native tooltip behaviours, 2 web, 1
 generator scanner), every file restored.

@@ -49,7 +49,7 @@ P2b-4 behind web-side measurement; `docs/parity-contract.md` records the debt an
 which row each would pin.
 
 Verified: `check:parity` (330 rows, 53 shared / 22 native-only / 37 web-only),
-`typecheck` (5/5), `test:all` (41 vitest + 129 jest, up from 64), `check:m3`
+`typecheck` (5/5), `test:all` (41 vitest + 129 jest, up from 64), `check:kern`
 (45/45), `lint` (0 errors). Mutation-proven: the dialog role, the collapse name
 survival, the empty-action gate and the primary/menu separation were each
 reverted in isolation and the suite went red every time.

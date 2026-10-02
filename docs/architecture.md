@@ -157,12 +157,12 @@ reproducible.
 | `bun run lint` | Biome: lint, format, import order |
 | `bun run typecheck` | `tsc --noEmit` across the five typed packages |
 | `bun run test:all` | vitest (theme, web, icons, start) + native render tests |
-| `bun run check:m3` | Roles complete in every scheme; tokens only; shape scale only |
+| `bun run check:kern` | Roles complete in every scheme; tokens only; shape scale only |
 | `bun run check:contrast` | 4.5:1 text and 3:1 UI across presets × modes × contrast |
 | `bun run check:publish` | `publint` + `are-the-types-wrong` on all six publishable packages |
 | `bun run icons:check` | Committed icon registry matches its source |
 
-`check:m3` and `check:contrast` are the design law made executable — the M3
+`check:kern` and `check:contrast` are the design law made executable — the M3
 semantics in [`plan/README.md`](plan/README.md) "System law" are not a
 guideline a reviewer has to remember.
 

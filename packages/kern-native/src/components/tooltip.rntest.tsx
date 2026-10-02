@@ -239,7 +239,7 @@ describe("tooltip trigger (native)", () => {
   });
 
   it("resolves the surface to M3's inverse-surface pair", async () => {
-    // The tokens law is enforced on SOURCE by `check:m3` (no raw hex in a
+    // The tokens law is enforced on SOURCE by `check:kern` (no raw hex in a
     // component file). What is worth asserting HERE is the resolution: the
     // surface must land on the M3 tooltip container roles — `inverseSurface` /
     // `inverseOnSurface`, the same pair `--md-comp-tooltip-container-*`
@@ -251,7 +251,7 @@ describe("tooltip trigger (native)", () => {
         <Text>Save</Text>
       </Tooltip>,
     );
-    const scheme = resolveThemeDetails("light", "standard", "m3");
+    const scheme = resolveThemeDetails("light", "standard", "kern");
     const surfaceStyle = flatten(
       screen.getByTestId("kern-tooltip-content").props.style,
     );

@@ -33,7 +33,7 @@ no elevation token" when that card is conformant. The correct test is
 0. Found by mutation-proving this fix: removing Card's token must pass, and it
 did not.
 
-`check-m3`'s conformant counter had the same bug in the opposite direction
+`check-kern`'s conformant counter had the same bug in the opposite direction
 (`every(level => level === 0)`), which made a fully green run report **18/19** —
 a number that looks like a defect and is not one. Both now use `includes(0)`, and
 the comment records why the two must stay in step.
@@ -45,5 +45,5 @@ Mutation-proven, each reverted byte-identical:
 - Card ships level 2 -> "ships elevation level2, M3 assigns level0/1"
 - Card carries no token (a filled card) -> PASSES, and reads 19/19
 
-Verified: `check:m3` 19/19 PASS, `check:parity` PASS, `typecheck` PASS,
+Verified: `check:kern` 19/19 PASS, `check:parity` PASS, `typecheck` PASS,
 kern-tokens 39/39.

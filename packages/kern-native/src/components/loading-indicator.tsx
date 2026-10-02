@@ -3,7 +3,7 @@ import {
   resolveThemeDetails,
   tokens,
 } from "@xoroh/kern-tokens";
-import { type ReactNode, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   AccessibilityInfo,
   Animated,

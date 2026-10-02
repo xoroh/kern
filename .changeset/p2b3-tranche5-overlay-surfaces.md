@@ -50,7 +50,7 @@ targets it, then the file is restored and re-verified green:
 2. The same applies to scrollability: `ScrollViewProps` extends `ViewProps`, whose
    union has no scrollable member, so `role="group"` is the correct signal.
 
-Verified on this tree: `typecheck` PASS (all 5 packages) · `check:m3` PASS ·
+Verified on this tree: `typecheck` PASS (all 5 packages) · `check:kern` PASS ·
 `check:parity` PASS (counts unchanged — no manifest regen, per the shared-tree
 boundary) · `bun run --filter @xoroh/kern test` PASS (web + cross-renderer
 parity) · `test:jest` PASS · native vitest PASS · biome clean on all three files
@@ -69,5 +69,5 @@ parity) · `test:jest` PASS · native vitest PASS · biome clean on all three fi
   a Kern component.
 - **`preview-card`, `kbd`, `sonner`** — ruled deliberate asymmetries, untouched.
 
-Three pre-existing lint errors remain (`jest.config.cjs:34`, `check-m3.mjs:230`,
+Three pre-existing lint errors remain (`jest.config.cjs:34`, `check-kern.mjs:230`,
 `fab-menu.tsx:83`) in files this tranche does not touch. Not fixed here.

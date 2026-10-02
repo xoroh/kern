@@ -143,9 +143,12 @@ export function Fieldset({
   // not derivation, because a derived value here is always undefined.
   const [legend, setLegend] = useState<string | undefined>(undefined);
 
+  // A `useState` setter is stable for the component's whole life, so it is
+  // deliberately NOT a dependency — the linter is right about this, and an
+  // earlier version of this comment claimed the opposite.
   const ctx = useMemo<FieldsetContextValue>(
     () => ({ disabled: effectiveDisabled, legend, setLegend }),
-    [effectiveDisabled, legend, setLegend],
+    [effectiveDisabled, legend],
   );
 
   return (
@@ -231,7 +234,6 @@ export function FieldsetItem({
   ...props
 }: FieldsetItemProps) {
   const disabled = useFieldsetDisabled();
-  const scheme = useKernScheme();
   return (
     <View
       {...props}

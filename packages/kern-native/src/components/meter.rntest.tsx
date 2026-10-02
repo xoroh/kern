@@ -68,7 +68,9 @@ describe("Meter", () => {
    * Chosen so the two computations differ: (5-4)/(6-4) = 50%, but 5/100 = 5%.
    */
   it("scales the indicator against the declared range, not an assumed 0-100", async () => {
-    await render(<Meter value={5} min={4} max={6} accessibilityLabel="Storage" />);
+    await render(
+      <Meter value={5} min={4} max={6} accessibilityLabel="Storage" />,
+    );
     // Read the RENDERED indicator width, not a re-computation of meterStyles —
     // the component's own ratio is what mutation B breaks.
     const tree = JSON.stringify(screen.toJSON());

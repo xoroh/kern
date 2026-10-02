@@ -13,7 +13,7 @@ describe("native Button styles", () => {
     const { container } = buttonStyles("primary", "default", false);
     expect(container.height).toBe(40);
     expect(container.borderRadius).toBe(
-      Number.parseFloat(themes.m3.radius.full),
+      Number.parseFloat(themes.kern.radius.full),
     );
   });
 
@@ -23,13 +23,13 @@ describe("native Button styles", () => {
     // not kern's `surfaceTonal`, and `outlined`/`text` have no fill.
     expect(
       buttonStyles("primary", "default", false).container.backgroundColor,
-    ).toBe(themes.m3.color.light.primary);
+    ).toBe(themes.kern.color.light.primary);
     expect(
       buttonStyles("tonal", "default", false).container.backgroundColor,
-    ).toBe(themes.m3.color.light.secondaryContainer);
+    ).toBe(themes.kern.color.light.secondaryContainer);
     expect(
       buttonStyles("elevated", "default", false).container.backgroundColor,
-    ).toBe(themes.m3.color.light.surfaceContainerLow);
+    ).toBe(themes.kern.color.light.surfaceContainerLow);
     expect(
       buttonStyles("ghost", "default", false).container.backgroundColor,
     ).toBe("transparent");

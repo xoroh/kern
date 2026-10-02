@@ -33,4 +33,4 @@ Fixes to the contract this gate found on its first run: `menu-group` →
 `filter-chip-row` row), `boot` → `boot-indicator`. All three named components that
 did not exist under those names.
 
-Wired into CI next to `check:m3`. No runtime change.
+Wired into CI next to `check:kern`. No runtime change.

@@ -203,7 +203,7 @@ describe("CircularProgress", () => {
     expect(rings.length).toBe(1);
     const ring = flattenStyle(rings[0].props.style);
     expect(ring.width).toBe(FEEDBACK_SIZE_DP.md.container);
-    expect(ring.borderTopColor).toBe(themes.m3.color.light.onSurface);
+    expect(ring.borderTopColor).toBe(themes.kern.color.light.onSurface);
     expect(ring.borderLeftColor).toBe("transparent");
   });
 
@@ -215,7 +215,9 @@ describe("CircularProgress", () => {
       const style = flattenStyle(dot.props.style);
       expect(style.width).toBe(FEEDBACK_SIZE_DP.md.shape / 2);
       expect(style.height).toBe(FEEDBACK_SIZE_DP.md.shape / 2);
-      expect(style.borderRadius).toBe(Number.parseFloat(themes.m3.radius.full));
+      expect(style.borderRadius).toBe(
+        Number.parseFloat(themes.kern.radius.full),
+      );
     }
   });
 
@@ -230,7 +232,7 @@ describe("CircularProgress", () => {
       "50%",
     ]);
     expect(flattenStyle(bars[0].props.style).width).toBe(
-      barStyles("md", themes.m3.color.light.onSurface).bar.width,
+      barStyles("md", themes.kern.color.light.onSurface).bar.width,
     );
   });
 
@@ -324,7 +326,7 @@ describe("resolveFeedbackVariant parity", () => {
 
 describe("Shape", () => {
   it("renders the six shapes with shape-scale radii", async () => {
-    const radius = themes.m3.radius;
+    const radius = themes.kern.radius;
     const tree = await render(
       FEEDBACK_SHAPES.map((kind) => (
         <Shape key={kind} kind={kind} testID={`shape-${kind}`} />
@@ -337,7 +339,7 @@ describe("Shape", () => {
       ]),
     );
     expect(styles.triangle.borderBottomColor).toBe(
-      themes.m3.color.light.onSurface,
+      themes.kern.color.light.onSurface,
     );
     expect(styles.triangle.borderLeftColor).toBe("transparent");
     expect(styles.circle.borderRadius).toBe(Number.parseFloat(radius.full));
@@ -411,7 +413,7 @@ describe("LoadingButton", () => {
       ).length,
     ).toBe(1);
     expect(hostsByTestID(busy, "kern-circular-progress").length).toBe(1);
-    expect(ringStyles("sm", themes.m3.color.light.onPrimary).box.width).toBe(
+    expect(ringStyles("sm", themes.kern.color.light.onPrimary).box.width).toBe(
       FEEDBACK_SIZE_DP.sm.container,
     );
   });

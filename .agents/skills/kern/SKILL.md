@@ -13,7 +13,7 @@ Kern takes MD3's **structure, color system, and rigor** (semantic color roles, t
 ## Acceptance: when is a package actually complete?
 
 Added 2026-10-01 (`P-02-kern-plan.md` §Improvements #9). The old informal bar —
-"`check:m3` green, tests, exported" — left *"is anything actually using it?"*
+"`check:kern` green, tests, exported" — left *"is anything actually using it?"*
 implicit, which is how four of six packages could be complete with zero
 external consumers.
 
@@ -27,7 +27,7 @@ external consumers.
    uncovered carries the reason in
    [`docs/platform-parity.md`](../../../docs/platform-parity.md).
 3. **The gates are green.** `lint`, `typecheck`, `test:all`, `test:jest`,
-   `check:m3`, `check:contrast`, `check:publish` — on the tree you are handing
+   `check:kern`, `check:contrast`, `check:publish` — on the tree you are handing
    off, not on an earlier one.
 4. **Something outside the package consumes it.** Real code, not a string in
    a snippet. This is the clause that catches a finished package nobody uses;

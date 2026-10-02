@@ -9,7 +9,7 @@ describe("applyKernTheme", () => {
     const el = document.createElement("div");
     applyKernTheme(el, "dark");
     expect(el.style.getPropertyValue("--md-sys-color-primary")).toBe(
-      themes.m3.color.dark.primary,
+      themes.kern.color.dark.primary,
     );
   });
 

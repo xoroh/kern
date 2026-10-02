@@ -38,7 +38,7 @@ export function applyKernTheme(
   target: HTMLElement,
   mode: Mode = "light",
   contrast: Contrast = "standard",
-  variant: ThemeSelection = "m3",
+  variant: ThemeSelection = "kern",
 ): ResolvedTheme {
   const resolved = resolveThemeDetails(mode, contrast, variant);
   for (const [role, value] of Object.entries(resolved.color)) {
@@ -55,10 +55,10 @@ export function applyKernTheme(
 
 /** Remove inline theme variables and return the target to the stylesheet default. */
 export function clearKernTheme(target: HTMLElement): void {
-  const m3 = resolveThemeDetails("light");
-  for (const role of Object.keys(m3.color))
+  const kern = resolveThemeDetails("light");
+  for (const role of Object.keys(kern.color))
     target.style.removeProperty(varName(role));
-  for (const shape of Object.keys(m3.shape)) {
+  for (const shape of Object.keys(kern.shape)) {
     target.style.removeProperty(shapeVarName(shape));
   }
   target.classList.remove("dark");
@@ -76,7 +76,7 @@ export type WebThemeOptions = {
 /** Theme state: persisted preference → OS default → resolved CSS variables. */
 export function useKernTheme(options: WebThemeOptions = {}) {
   const contrast = options.contrast ?? "standard";
-  const variant = options.variant ?? "m3";
+  const variant = options.variant ?? "kern";
   const [preference, setPreference] = useState<ColorPreference>("system");
   const [preferenceLoaded, setPreferenceLoaded] = useState(false);
   const [system, setSystem] = useState<Mode>("light");

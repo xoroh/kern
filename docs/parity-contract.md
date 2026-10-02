@@ -498,8 +498,8 @@ Gates, all run on this change-set:
 | `bun run check:parity` | passes — 330 rows (web 248, native 82); 53 shared / 22 native-only / **37 web-only**; 5 deliberate asymmetries intact |
 | `bun run typecheck` | passes — 5/5 packages exit 0 |
 | `bun run test:all` | passes — 41 vitest + **129 jest** in 11 suites (64 at tranche 1) |
-| `bun run check:m3` | passes — 45/45 M3 roles, 13 kern deviations, typescale/spacing/elevation/shape/motion intact |
-| `bun run lint` | 0 errors. The 1 remaining warning (`menus.tsx:46` unused param, `check-m3.mjs:222`) is **pre-existing at `c05da56`**, confirmed against a clean worktree of HEAD |
+| `bun run check:kern` | passes — 45/45 M3 roles, 13 kern deviations, typescale/spacing/elevation/shape/motion intact |
+| `bun run lint` | 0 errors. The 1 remaining warning (`menus.tsx:46` unused param, `check-kern.mjs:222`) is **pre-existing at `c05da56`**, confirmed against a clean worktree of HEAD |
 
 Mutation proofs — each behaviour reverted on its own, suite re-run, then restored:
 

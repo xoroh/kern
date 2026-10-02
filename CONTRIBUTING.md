@@ -24,9 +24,9 @@ anything to resolve. Understand the packages first:
 4. **Types and tests pass** — `bun run typecheck` and `bun run test:all`
    (vitest for theme/web/icons/start, Jest + React Native Testing Library for
    native).
-5. **Gates green** — `bun run check:m3`, `bun run check:contrast`, and
+5. **Gates green** — `bun run check:kern`, `bun run check:contrast`, and
    `bun run check:publish` when you touched `package.json` `exports`,
-   `files`, or peers. `check:m3` is the design law made executable, not a
+   `files`, or peers. `check:kern` is the design law made executable, not a
    formality.
 6. **Conventional commits** — `feat:`, `fix:`, `docs:`, `chore:`,
    `refactor:`, `ci:`.

@@ -32,10 +32,10 @@ token**. Fixed to `elevation-level2`.
 
 **Gate gap closed.** `m3-elevation.ts` did not tabulate those three components, so the
 conformance check asserted nothing about them: a mutation that deleted the newly-added token
-**still passed `check:m3`** (proved, then fixed). The three rows are now in
+**still passed `check:kern`** (proved, then fixed). The three rows are now in
 `M3_ELEVATION_COMPONENTS` and the count moves **8 → 11 components**, all conformant.
 
-Verified: `check:m3` 45/45 + 11/11 resting elevation · `check:contrast` 1242 checks, 0 orphans ·
+Verified: `check:kern` 45/45 + 11/11 resting elevation · `check:contrast` 1242 checks, 0 orphans ·
 `check:parity` passes · typecheck 5/5 · 424 tests · build 5/5. Four mutations proven to fail
 (stripped navigation-bar elevation, stripped tooltip elevation, wrong card level, reverted
 tonal colour).

@@ -157,7 +157,7 @@ them makes the page a lie within one commit.
 
 ```bash
 bun run generate:components   # refresh docs/components.md
-bun run check:m3              # naming law + token-only roles
+bun run check:kern              # naming law + token-only roles
 bun run check:contrast        # 4.5:1 text / 3:1 UI across presets and modes
 bun run test:all              # web + icons + start + native render tests
 ```

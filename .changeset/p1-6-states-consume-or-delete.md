@@ -24,7 +24,7 @@ re-typed by hand — now the token.
 sites) and `drag` (no implementation). Converting those is a visual change across the component
 set, not a token fix; recorded as P1-6 follow-up.
 
-**New gate.** `check:m3` now fails when a `tokens.json` group is generated but read by no source
+**New gate.** `check:kern` now fails when a `tokens.json` group is generated but read by no source
 file, unless it carries a written exemption. Two refinements made it honest rather than
 decorative:
 
@@ -39,5 +39,5 @@ decorative:
 fails with *"hover-opacity is consumed by NO source file"*; the original zero-consumer state is now
 unreachable without a gate failure.
 
-Verified: `check:m3` 45/45 + 19/19 resting elevation · `check:contrast` 1242 checks / 0 orphans ·
+Verified: `check:kern` 45/45 + 19/19 resting elevation · `check:contrast` 1242 checks / 0 orphans ·
 `check:parity` passes · `check:generated` fresh · 429 tests pass.

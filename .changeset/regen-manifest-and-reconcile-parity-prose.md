@@ -34,7 +34,7 @@ the next regen reintroduces the wrong call.
 native 86) → **55 shared · 23 native-only · 35 web-only · 0 stubs**. 5 ruled
 deliberate asymmetries.
 
-Verified: `check:parity` PASS · `check:m3` PASS · `bun run lint` PASS (0 errors,
+Verified: `check:parity` PASS · `check:kern` PASS · `bun run lint` PASS (0 errors,
 full repo, now that `2652367` cleared the residue) · `typecheck` PASS (all 5) ·
 `@xoroh/kern` test PASS (web + cross-renderer parity) · `test:jest` PASS ·
 native vitest PASS.

@@ -20,7 +20,7 @@ describe("native useKernTheme", () => {
       </KernThemeProvider>,
     );
     expect(screen.getByTestId("scheme")).toHaveStyle({
-      color: themes.m3.color.dark.onSurface,
+      color: themes.kern.color.dark.onSurface,
     });
   });
 });
