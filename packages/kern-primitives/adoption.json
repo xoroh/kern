@@ -1,0 +1,54 @@
+{
+  "$comment": [
+    "Exports of @xoroh/kern-primitives that exist in the built barrel but have no",
+    "first-party consumer yet. Each entry is a DELIBERATE decision, not an absence:",
+    "an export with no consumer and no entry here fails `check:consumption`.",
+    "",
+    "A unit is a group of exports that ship together. Its `symbols` must cover every",
+    "export in the unit -- a new symbol added to an adopted unit still has to be",
+    "listed, so widening an existing unit cannot quietly escape the gate.",
+    "",
+    "Removing an entry is the point of this file: the gate then demands a real",
+    "consumer, which is what turns adoption from a claim into a measurement."
+  ],
+  "units": [
+    {
+      "unit": "dismiss-policy",
+      "status": "not-yet-adopted",
+      "symbols": [
+        "createDismissPolicy",
+        "dismissTriggersFor",
+        "DismissPolicy",
+        "DismissPolicyOptions",
+        "DismissTriggers"
+      ],
+      "reason": "SheetSurface binds scrim press, Android back and the close affordance to one onDismiss today. The trigger SETS belong here, but the re-point is not built -- admitting the kernel without wiring it would recreate the 'exists but is unreachable' class this gate exists to prevent.",
+      "owner": "kern-lead",
+      "next": "P2c-4 second unit; separate commit from overlay-modality."
+    },
+    {
+      "unit": "collection",
+      "status": "not-yet-adopted",
+      "symbols": [
+        "createCollectionModel",
+        "useCollection",
+        "CollectionItem",
+        "CollectionModel",
+        "CollectionNode",
+        "CollectionOptions",
+        "CollectionOrientation"
+      ],
+      "reason": "NOT VERIFIED TO QUALIFY. No audit has established that any native menu or tree holds real collection state. Scheduling it on assumption is how the 6 phantom rows of P2b-3 happened.",
+      "owner": "kern-lead",
+      "next": "Audit native menus/trees for collection state BEFORE adopting."
+    },
+    {
+      "unit": "ref-composition",
+      "status": "not-yet-adopted",
+      "symbols": ["assignRef", "mergeRefs", "useMergeRefs", "PossibleRef"],
+      "reason": "Renderer-agnostic and correct, but low value: the duplicated ref-composition code it would replace is small, and there is no consumer whose behaviour is currently wrong.",
+      "owner": "kern-lead",
+      "next": "Measure the duplication before scheduling; do not adopt ahead of dismiss-policy."
+    }
+  ]
+}
