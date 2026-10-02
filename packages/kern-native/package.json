@@ -31,7 +31,6 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "check:publish": "publint && attw --pack --ignore-rules=no-resolution",
-    "prepare": "bun run build",
     "test:jest": "jest"
   },
   "exports": {

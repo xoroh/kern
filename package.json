@@ -40,7 +40,7 @@
     "test:native": "bun run --filter @xoroh/kern-native test",
     "test:native:jest": "bun run --filter @xoroh/kern-native test:jest",
     "test:all": "bun run test && bun run test:native && bun run test:native:jest",
-    "build": "bun run generate:tokens && bun run generate:tones && bun run generate:motion && bun run generate:components && bun run --filter @xoroh/kern-primitives build && bun run --filter @xoroh/kern-tokens build && bun run --filter @xoroh/kern build && bun run --filter @xoroh/kern-native build && bun run --filter @xoroh/kern-icons build && bun run --filter @xoroh/kern-mcp build"
+    "build": "bun run generate:tokens && bun run generate:tones && bun run generate:motion && bun run generate:components && node scripts/build-order.mjs"
   },
   "workspaces": [
     "apps/*",

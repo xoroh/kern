@@ -33,8 +33,7 @@
     "build": "tsup src/index.ts --format esm,cjs --dts --dts-resolve --out-dir dist --clean",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "check:publish": "publint && attw --pack --ignore-rules=no-resolution",
-    "prepare": "bun run build"
+    "check:publish": "publint && attw --pack --ignore-rules=no-resolution"
   },
   "exports": {
     ".": {
