@@ -101,6 +101,16 @@ export {
   useFieldset,
   useFieldsetDisabled,
 } from "./components/fieldset";
+export type {
+  IconButtonVariant,
+  NativeIconButtonProps,
+} from "./components/icon-button";
+export {
+  IconButton,
+  IconButtonTarget,
+  iconButtonStyles,
+  pressIsCancelled,
+} from "./components/icon-button";
 export type { NativeInputProps } from "./components/input";
 export { Input } from "./components/input";
 export type { NativeInputOTPProps } from "./components/input-otp";
