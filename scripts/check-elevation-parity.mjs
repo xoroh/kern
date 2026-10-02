@@ -41,20 +41,14 @@
  *
  * Usage: `bun run check:elevation-parity`
  */
-import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const WEB = join(ROOT, "packages", "kern", "src", "components");
 const NATIVE = join(ROOT, "packages", "kern-native", "src", "components");
-const DEVIATIONS = join(
-  ROOT,
-  "..",
-  ".team",
-  "programs",
-  "K-01-deviations.md",
-);
+const DEVIATIONS = join(ROOT, "..", ".team", "programs", "K-01-deviations.md");
 
 const DP_BY_LEVEL = { 0: 0, 1: 1, 2: 3, 3: 6, 4: 8, 5: 12 };
 const levelFromDp = (dp) => {
@@ -153,8 +147,8 @@ function scanDir(dir, native) {
         [...code.matchAll(/elevation-level(\d)/g)].map((x) => Number(x[1])),
       );
       const dps = new Set(
-        [...code.matchAll(/(?<![\w-])elevation:\s*(\d+(?:\.\d+)?)/g)].map(
-          (x) => Number(x[1]),
+        [...code.matchAll(/(?<![\w-])elevation:\s*(\d+(?:\.\d+)?)/g)].map((x) =>
+          Number(x[1]),
         ),
       );
       const levels = new Set(tokenLevels);
@@ -229,7 +223,9 @@ function byCanon(map) {
       out.set(key, { ...v });
       continue;
     }
-    const levels = [...new Set([...prev.levels, ...v.levels])].sort((a, b) => a - b);
+    const levels = [...new Set([...prev.levels, ...v.levels])].sort(
+      (a, b) => a - b,
+    );
     const primary = prev.levels.length ? prev : v.levels.length ? v : prev;
     out.set(key, {
       levels,
@@ -253,15 +249,15 @@ const nativeByCanon = byCanon(native);
 // family where a two-renderer disagreement was most likely, and the one a
 // reader would assume was covered because the components are prominent.
 const webByCanon = byCanon(web);
-const bothPresent = [...new Set([...webByCanon.keys(), ...nativeByCanon.keys()])]
+const bothPresent = [
+  ...new Set([...webByCanon.keys(), ...nativeByCanon.keys()]),
+]
   .filter((c) => webByCanon.has(c) && nativeByCanon.has(c))
   .sort();
 
 // --- deviation ids must resolve to a REAL deviation with a reason -------------
 const violations = [];
-const devText = existsSync(DEVIATIONS)
-  ? readFileSync(DEVIATIONS, "utf8")
-  : "";
+const devText = existsSync(DEVIATIONS) ? readFileSync(DEVIATIONS, "utf8") : "";
 function checkDeviationId(id, where) {
   // A deliberate non-deviation label is CORRECT — M3 does not tabulate these
   // components, so there is no claim to deviate from. Only something shaped like
@@ -297,7 +293,7 @@ const elevSrc = readFileSync(
   join(ROOT, "packages", "kern-tokens", "src", "kern-elevation.ts"),
   "utf8",
 );
-for (const m of elevSrc.matchAll(/^\s{2}\"?([a-z0-9-]+)\"?:\s*"([^"]+)",$/gm)) {
+for (const m of elevSrc.matchAll(/^\s{2}"?([a-z0-9-]+)"?:\s*"([^"]+)",$/gm)) {
   checkDeviationId(m[2], `KERN_UNASSIGNED_ELEVATION.${m[1]}`);
 }
 
@@ -347,7 +343,7 @@ for (const name of shared) {
 const oneSided = bothPresent.filter((c) => {
   const w = webByCanon.get(c);
   const n = nativeByCanon.get(c);
-  return (w.levels.length > 0) !== (n.levels.length > 0);
+  return w.levels.length > 0 !== n.levels.length > 0;
 });
 
 // --- 1c. off-scale native dp is a HARD failure, one-sided or not -------------
@@ -369,7 +365,9 @@ for (const [name, n] of nativeByCanon) {
 
 // --- 2. the registry must match what web actually ships ----------------------
 const declared = {};
-for (const block of elevSrc.matchAll(/\"([a-z0-9-]+)\"?:\s*Object\.freeze\(\{([\s\S]*?)\}\)/g)) {
+for (const block of elevSrc.matchAll(
+  /"([a-z0-9-]+)"?:\s*Object\.freeze\(\{([\s\S]*?)\}\)/g,
+)) {
   const vm = block[2].match(/variants:\s*\[([0-9, ]+)\]/);
   if (vm) declared[block[1]] = vm[1].split(",").map((v) => Number(v.trim()));
 }
@@ -388,7 +386,9 @@ for (const [name, variants] of Object.entries(declared)) {
 }
 
 // --- report ------------------------------------------------------------------
-console.log("check:elevation-parity — one resting elevation across both renderers");
+console.log(
+  "check:elevation-parity — one resting elevation across both renderers",
+);
 console.log(`  web components measured     ${web.size}`);
 console.log(`  kern-native measured       ${native.size}`);
 console.log(
@@ -396,7 +396,9 @@ console.log(
 );
 console.log(`  one-sided (unruled)        ${oneSided.length}`);
 console.log(`  registry entries checked   ${Object.keys(declared).length}`);
-console.log(`  deviation ids resolved     from .team/programs/K-01-deviations.md`);
+console.log(
+  `  deviation ids resolved     from .team/programs/K-01-deviations.md`,
+);
 
 if (oneSided.length) {
   console.log(
@@ -407,7 +409,8 @@ if (oneSided.length) {
   for (const c of oneSided) {
     const w = webByCanon.get(c);
     const n = nativeByCanon.get(c);
-    const side = (x) => (x.levels.length ? `level ${x.levels.join(",")}` : "none");
+    const side = (x) =>
+      x.levels.length ? `level ${x.levels.join(",")}` : "none";
     console.log(
       `  - ${c}: web ${side(w)} (${w.file}:${w.line}) · ` +
         `native ${side(n)} (${n.file}:${n.line})`,
