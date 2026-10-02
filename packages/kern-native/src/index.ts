@@ -139,6 +139,14 @@ export type { NativeLoaderProps, NativeLoaderSize } from "./components/loader";
 export { Loader } from "./components/loader";
 export type { LoadingButtonProps } from "./components/loading-button";
 export { LoadingButton } from "./components/loading-button";
+export type {
+  LoadingIndicatorProps,
+  LoadingIndicatorSize,
+} from "./components/loading-indicator";
+export {
+  LoadingIndicator,
+  loadingIndicatorStyles,
+} from "./components/loading-indicator";
 export type { NativeMenuItem, NativeMenuProps } from "./components/menu";
 export { Menu, menuStyles } from "./components/menu";
 export type {
