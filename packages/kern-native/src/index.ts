@@ -211,6 +211,15 @@ export { NavigationMenu } from "./components/navigation-menu";
 export type { NativeNumberFieldProps } from "./components/number-field";
 // `NumberField` only; `clampToRange` is a pure clamp, not a component.
 export { NumberField, numberFieldStyles } from "./components/number-field";
+export type {
+  NativePaginationProps,
+  PaginationEntry,
+} from "./components/pagination";
+export {
+  Pagination,
+  pageWindow,
+  paginationStyles,
+} from "./components/pagination";
 export type { NativeProgressProps } from "./components/progress";
 export { Progress, progressStyles } from "./components/progress";
 export type {
