@@ -1,5 +1,18 @@
-import { useControllableState } from "@xoroh/kern-primitives";
-import { createContext, type ReactNode, useContext } from "react";
+import {
+  createOverlayModality,
+  type OverlayId,
+  type OverlayModalityState,
+  useControllableState,
+  useOverlayModality,
+  useOverlayRegistration,
+} from "@xoroh/kern-primitives";
+import {
+  createContext,
+  type ReactNode,
+  useContext,
+  useId,
+  useMemo,
+} from "react";
 import {
   Modal,
   type ModalProps,
@@ -11,6 +24,56 @@ import {
 } from "react-native";
 import { useKernScheme } from "../theme";
 import { Text } from "./text";
+
+/* ------------------------------------------- overlay modality (P2c-4 re-point) */
+
+type OverlayRegistry = ReturnType<typeof createOverlayModality>;
+
+const OverlayRegistryContext = createContext<OverlayRegistry | null>(null);
+
+/**
+ * Shares ONE overlay stack across the subtree.
+ *
+ * P2c-4: kern-native owned drawer / popover / scroll-area and the sheet family
+ * with no single place that knew which overlay was on top, so each decided
+ * independently and a drawer opened over a sheet had no way to know it was not
+ * the interactive one. The stack itself is the extracted
+ * `@xoroh/kern-primitives` kernel -- this provider is the RENDERER half: the
+ * registry, a stable id, and the platform trait that expresses "interactive".
+ *
+ * **Optional on purpose.** A consumer who has not opted in must not get a thrown
+ * error at render time, so with no provider every overlay is interactive -- the
+ * correct behaviour for exactly one overlay, and the pre-P2c-4 behaviour.
+ */
+export function OverlayModalityProvider({ children }: { children?: ReactNode }) {
+  const registry = useMemo(() => createOverlayModality(), []);
+  return (
+    <OverlayRegistryContext.Provider value={registry}>
+      {children}
+    </OverlayRegistryContext.Provider>
+  );
+}
+
+/**
+ * Register this overlay while `active`, and report whether it is the topmost.
+ *
+ * Returns `isInteractive: true` with NO provider, so opting in is additive.
+ */
+function useKernOverlay(active: boolean): { isInteractive: boolean } {
+  const registry = useContext(OverlayRegistryContext);
+  const id: OverlayId = useId();
+
+  useOverlayRegistration(registry ?? FALLBACK_REGISTRY, id, active);
+  const state: OverlayModalityState = useOverlayModality(registry ?? FALLBACK_REGISTRY);
+
+  // With no provider the fallback registry is shared by everything, so fall back
+  // to "interactive" rather than letting unrelated overlays make each other inert.
+  if (!registry) return { isInteractive: true };
+  return { isInteractive: !state.isInertOutside(id) };
+}
+
+/** Used only when no provider is mounted; see `useKernOverlay`. */
+const FALLBACK_REGISTRY = createOverlayModality();
 
 /**
  * Overlay surfaces family — P2b-3, tranche 5.
@@ -107,6 +170,12 @@ export function Drawer({
     onOpenChange,
   );
 
+  // P2c-4: register this drawer for as long as it is OPEN, so the shared kernel
+  // knows whether it is the topmost overlay. A drawer mounted-but-closed must
+  // not make content outside it inert -- which is why this keys off `open`,
+  // not off mount.
+  const { isInteractive } = useKernOverlay(open ?? false);
+
   // The trigger state is announced even when the drawer is closed, so an
   // assistive-tech user can tell a drawer exists before opening it.
   const announced = (
@@ -127,6 +196,10 @@ export function Drawer({
         visible={open ?? false}
         transparent
         animationType="fade"
+        // A covered overlay takes no touches: without this a tap landing on a
+        // drawer that is under another overlay passes through to whatever is
+        // behind it, which is the specific bug a stack of independent overlays
+        // cannot prevent.
         onRequestClose={() => setOpen(false)}
         {...modalProps}
       >
@@ -140,7 +213,12 @@ export function Drawer({
           // This is a Drawer, so interrupting is the correct trait.
           role="dialog"
           accessibilityRole="alert"
-          accessibilityViewIsModal
+          // P2c-4: the kernel decides, rather than every drawer assuming it is
+          // on top. This View is a trait carrier -- the scrim and the body are
+          // siblings -- so a covered drawer's modality is cleared here where the
+          // screen reader reads it.
+          accessibilityViewIsModal={isInteractive}
+          pointerEvents={isInteractive ? "auto" : "none"}
           accessibilityLabel={title}
         >
           <DrawerBody onDismiss={() => setOpen(false)}>{children}</DrawerBody>
