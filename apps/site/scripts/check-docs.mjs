@@ -658,6 +658,49 @@ function checkEditTarget({ platform, file, doc }) {
   }
 }
 
+// ------------------------------------------------------- usage half-pairs
+/**
+ * m2 — a half-authored Do/Don't pair is not rendered (a Do without a Don't
+ * states no rule), and that is correct. What is NOT correct is dropping it
+ * silently: the reader cannot tell "this component has no usage guidance" from
+ * "someone started writing it and stopped". The template hides it; the gate
+ * must say so.
+ */
+function checkUsage({ file, doc }) {
+  const at = (msg) => `${file}: ${msg}`;
+  const use = doc.usage;
+  if (!use) return;
+  const hasDo = (use.do ?? []).length > 0;
+  const hasDont = (use.dont ?? []).length > 0;
+
+  if (hasDo && !hasDont) {
+    errors.push(
+      at(
+        `usage has ${(use.do ?? []).length} Do item(s) and no Don't — a half ` +
+          `pair. It is not rendered (a Do without a Don't states no rule), so ` +
+          `this content is invisible to readers. Complete the pair or remove it.`,
+      ),
+    );
+  }
+  if (hasDont && !hasDo) {
+    errors.push(
+      at(
+        `usage has ${(use.dont ?? []).length} Don't item(s) and no Do — a half ` +
+          `pair. It is not rendered (a Don't without a Do states no rule), so ` +
+          `this content is invisible to readers. Complete the pair or remove it.`,
+      ),
+    );
+  }
+  if (!hasDo && !hasDont) {
+    errors.push(
+      at(
+        `usage is present but both halves are empty — drop the field rather ` +
+          `than shipping an empty pair.`,
+      ),
+    );
+  }
+}
+
 // ------------------------------------------------------------------- run
 for (const page of pages) {
   checkSections(page);
@@ -670,6 +713,7 @@ for (const page of pages) {
   checkNativePeer(page);
   checkApiUnique(page);
   checkEditTarget(page);
+  checkUsage(page);
 }
 
 // Coverage: how much of the generated inventory has a page behind it. This is
