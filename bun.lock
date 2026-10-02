@@ -68,6 +68,7 @@
       "dependencies": {
         "@base-ui/react": "^1.8.0",
         "@xoroh/kern-primitives": "^0.0.0",
+        "@xoroh/kern-tokens": "^0.0.0",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "tailwind-merge": "^3.7.0",
@@ -94,7 +95,6 @@
       },
       "peerDependencies": {
         "@base-ui/react": "^1.8.0",
-        "@xoroh/kern-tokens": "*",
         "react": ">=18",
         "react-dom": ">=18",
       },
@@ -127,6 +127,7 @@
       "version": "0.0.0",
       "dependencies": {
         "@xoroh/kern-primitives": "^0.0.0",
+        "@xoroh/kern-tokens": "^0.0.0",
       },
       "devDependencies": {
         "@babel/runtime": "^7.28.0",
@@ -148,7 +149,6 @@
         "vitest": "^5.0.2",
       },
       "peerDependencies": {
-        "@xoroh/kern-tokens": "*",
         "react": "^19.0.0",
         "react-native": ">=0.86.0 <0.89",
       },

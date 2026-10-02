@@ -83,8 +83,7 @@
   "peerDependencies": {
     "react": ">=18",
     "react-dom": ">=18",
-    "@base-ui/react": "^1.8.0",
-    "@xoroh/kern-tokens": "*"
+    "@base-ui/react": "^1.8.0"
   },
   "devDependencies": {
     "@base-ui/react": "^1.8.0",
@@ -109,6 +108,7 @@
   "dependencies": {
     "@base-ui/react": "^1.8.0",
     "@xoroh/kern-primitives": "^0.0.0",
+    "@xoroh/kern-tokens": "^0.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "tailwind-merge": "^3.7.0"
