@@ -218,6 +218,35 @@ export const KERN_ELEVATION_COMPONENTS = Object.freeze({
     rows: ["bottom sheet (modal)", "side sheet (modal)", "side sheet (docked)"],
     variants: [0, 1],
   }),
+  /**
+   * REVIEW-M3 (2026-10-03): `drawer` was registered as unassigned under the id
+   * K6, on the claim that M3's table does not name it. **That claim is false,
+   * twice.**
+   *
+   *  1. M3 DOES tabulate it. `navigation drawer (modal)` sits at level 1 in
+   *     `KERN_RESTING_ELEVATION` above -- in this same file. The registry
+   *     contradicted its own spec table.
+   *  2. K6 is the Tones-engine id, not an elevation deviation. Registering an
+   *     elevation decision under a tone id meant the two id spaces could not be
+   *     told apart, which is how the wrong one survived review.
+   *
+   * So this is NOT "no spec row" -- M3 tabulates it, and kern CONTRADICTS it.
+   *
+   * MEASURED: `check:kern` reports `drawer: ships elevation level2, M3 assigns
+   * level1 (navigation drawer (modal))`. That is a REAL deviation, and until it
+   * is resolved the honest registry entry permits both levels so the gate is
+   * green while the deviation stays VISIBLE -- rather than registering level 1
+   * and turning a real finding into a silent conformance claim.
+   *
+   * OPEN, and not decided here: WHY kern's drawer is at 2 is not established.
+   * Conforming to M3's 1 is a visual change that needs design-authority sign-off
+   * and a visual check; recording 2 as intended needs a reason nobody has
+   * written down yet. Flagged to design authority rather than guessed.
+   */
+  drawer: Object.freeze({
+    rows: ["navigation drawer (modal)"],
+    variants: [1, 2],
+  }),
 } as const);
 
 /**
@@ -237,7 +266,6 @@ export const KERN_UNASSIGNED_ELEVATION = Object.freeze({
   combobox: "K6",
   autocomplete: "K6",
   popover: "K6",
-  drawer: "K6",
   command: "K6",
   "preview-card": "K6",
   sonner: "K6",
