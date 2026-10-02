@@ -30,6 +30,7 @@
     "check:currency": "node scripts/check-currency.mjs",
     "check:parity": "node scripts/check-parity.mjs",
     "check:consumption": "node scripts/check-consumption.mjs",
+    "check:pack": "node scripts/check-pack.mjs",
     "check:layers": "node scripts/check-layers.mjs",
     "check:primitives": "node scripts/check-primitives.mjs",
     "check:coverage": "node scripts/check-coverage.mjs",

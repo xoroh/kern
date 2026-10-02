@@ -32,11 +32,21 @@ jobs:
         run: bun run check:kern
 
       - name: Check web/native parity contract
-        run: bun run check:parity
-        run: bun run check:currency
+        # Two `run:` keys under one step is a DUPLICATE YAML MAP KEY -- only the
+        # last survives, so `check:parity` was silently not running in CI at all.
+        # Found by the YAML linter when wiring check:consumption, not by a red
+        # build: the gate was green in every local run and absent in CI.
+        run: |
+          bun run check:parity
+          bun run check:currency
 
       - name: Check the package layering (D-034)
         run: bun run check:layers
+
+      - name: Check kernel consumption and the pack manifest
+        run: |
+          bun run check:consumption
+          bun run check:pack
 
       - name: Check the primitives boundary
         run: bun run check:primitives
