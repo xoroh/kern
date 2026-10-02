@@ -88,6 +88,19 @@ export type { NativeFieldRootProps } from "./components/field";
 export { Field, FieldRoot } from "./components/field";
 export type { NativeFieldMessageProps } from "./components/field-message";
 export { FieldMessage } from "./components/field-message";
+export type {
+  FieldsetItemProps,
+  FieldsetLegendProps,
+  FieldsetProps,
+} from "./components/fieldset";
+export {
+  Fieldset,
+  FieldsetItem,
+  FieldsetLegend,
+  fieldsetStyles,
+  useFieldset,
+  useFieldsetDisabled,
+} from "./components/fieldset";
 export type { NativeInputProps } from "./components/input";
 export { Input } from "./components/input";
 export type { NativeInputOTPProps } from "./components/input-otp";
