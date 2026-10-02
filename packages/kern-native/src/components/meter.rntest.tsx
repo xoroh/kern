@@ -62,6 +62,36 @@ describe("Meter", () => {
     });
   });
 
+  /**
+   * The reading must be scaled against the DECLARED range, not an assumed
+   * 0-100. A meter for "4 to 6 GB" showing `5` is half full, not five percent.
+   * Chosen so the two computations differ: (5-4)/(6-4) = 50%, but 5/100 = 5%.
+   */
+  it("scales the indicator against the declared range, not an assumed 0-100", async () => {
+    await render(<Meter value={5} min={4} max={6} accessibilityLabel="Storage" />);
+    // Read the RENDERED indicator width, not a re-computation of meterStyles —
+    // the component's own ratio is what mutation B breaks.
+    const tree = JSON.stringify(screen.toJSON());
+    expect(tree).toContain('"width":"50%"');
+    // A value/100 implementation would render 5% here instead.
+    expect(tree).not.toContain('"width":"5%"');
+  });
+
+  /**
+   * RN exposes TWO role props. `AccessibilityRole` (accessibilityRole) has no
+   * `meter` member; the ARIA-aligned `Role` (the `role` prop) does. Asserting
+   * only that the effective role is `meter` is not enough — the mutation that
+   * swaps `role` for `accessibilityRole` must not be able to pass.
+   */
+  it("carries the role on the `role` prop, not accessibilityRole", async () => {
+    await render(<Meter value={40} accessibilityLabel="Storage" />);
+    const el = screen.getByLabelText("Storage");
+    expect(el.props.role).toBe("meter");
+    // The platform-trait prop is never set: it could not express `meter`, and
+    // setting both is how one silently overrides the other.
+    expect(el.props.accessibilityRole).toBeUndefined();
+  });
+
   it("renders a visible label and value when asked", async () => {
     await render(
       <Meter
@@ -75,7 +105,6 @@ describe("Meter", () => {
     expect(screen.getByText("Storage used")).toBeTruthy();
     expect(screen.getByText("40%")).toBeTruthy();
   });
-
   it("omits the value text when the meter is indeterminate", async () => {
     await render(
       <Meter label="Storage used" showValue accessibilityLabel="Storage" />,
