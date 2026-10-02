@@ -175,9 +175,27 @@ function MetadataStrip({ doc }: { doc: ComponentDoc }) {
         value={meta.specUrl ? "spec" : "none — kern extension"}
         href={meta.specUrl}
       />
-      <LinkChip term="WAI-ARIA" value="APG" href={meta.apgUrl} />
-      <LinkChip term="Source" value="GitHub" href={meta.sourceUrl} />
-      <LinkChip term="Bundle" value="size" href={meta.bundleUrl} />
+      {/*
+        A chip that renders a label with no link promises a fact and delivers
+        none — "WAI-ARIA: APG" with nowhere to go is worse than no chip,
+        because it looks like due diligence. Same treatment as the spec chip
+        above: say what is true, or say there is nothing here.
+      */}
+      <LinkChip
+        term="WAI-ARIA"
+        value={meta.apgUrl ? "APG" : "not linked"}
+        href={meta.apgUrl}
+      />
+      <LinkChip
+        term="Source"
+        value={meta.sourceUrl ? "GitHub" : "not linked"}
+        href={meta.sourceUrl}
+      />
+      <LinkChip
+        term="Bundle"
+        value={meta.bundleUrl ? "size" : "not linked"}
+        href={meta.bundleUrl}
+      />
     </dl>
   );
 }
@@ -227,18 +245,37 @@ function Showcase({
  * from landing here to running the thing. Derived entirely from the metadata
  * strip, so it can never drift from what the page already claims.
  */
+/**
+ * The name you can actually `npm i`.
+ *
+ * `meta.package` is an IMPORT PATH — `@xoroh/kern/start` — because that is
+ * what the code on the page needs to say. But npm installs PACKAGES, not
+ * subpaths: `npm i @xoroh/kern/start` is rejected outright. On the 7
+ * kern-start pages the Installation section was rendering a command that
+ * cannot run, which breaks the single most important 60 seconds on the page.
+ *
+ * Scoped names keep two segments (`@scope/name`); everything else keeps one.
+ * The import line must keep the subpath — so this is derived separately and
+ * only where an install is meant.
+ */
+function installTarget(pkg: string): string {
+  const segments = pkg.split("/");
+  return pkg.startsWith("@") ? segments.slice(0, 2).join("/") : segments[0];
+}
+
 function Installation({ doc }: { doc: ComponentDoc }) {
   const pkg = doc.meta.package;
+  const target = installTarget(pkg);
   return (
     <section className="flex flex-col gap-3">
       <h2 className={H2}>Installation</h2>
       <p className={PROSE}>
-        Every export on this page ships in <code>{pkg}</code>. There is no
-        per-component install.
+        Every export on this page ships in <code>{target}</code> and is
+        imported from <code>{pkg}</code>. There is no per-component install.
       </p>
       <div className={`${CARD} flex flex-col gap-2 p-4`}>
         <pre className="m-0 overflow-x-auto text-sm text-(--md-sys-color-on-surface)">
-          <code>{`npm i ${pkg}`}</code>
+          <code>{`npm i ${target}`}</code>
         </pre>
         <pre className="m-0 overflow-x-auto text-sm text-(--md-sys-color-on-surface)">
           <code>{`import { ${doc.parts[0]} } from "${pkg}";`}</code>
