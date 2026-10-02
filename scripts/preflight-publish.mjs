@@ -12,21 +12,32 @@
  * build order derives from the graph) — and it was RED on the tree D-034
  * produced.
  *
- * So it tests the artefact instead. Measured on this repo, with real tarballs:
+ * So it tests the artefact instead — but WHICH artefact matters, and getting
+ * this wrong made the gate structurally blind to its own subject.
  *
- *   `bun pm pack`  ->  "workspace:*" becomes "0.0.0"    correct: `workspace:*`
- *                        means exactly this version
- *   `npm pack`     ->  "workspace:*" ships VERBATIM    npm has no workspace
- *                        protocol, so a consumer installing this tarball dies
- *                        with EUNSUPPORTEDPROTOCOL
+ * This script used to pack with `bun pm pack`, on the reasoning that bun is the
+ * tool that rewrites correctly and npm "reproduces the defect instead of
+ * proving it absent". That reasoning was backwards. The release is published by
+ * `changeset publish` (`bun run release`), and changesets shells out to
+ * **`npm publish`** — it is npm that decides what bytes ship. Packing the gate
+ * with bun therefore inspected an artefact nobody publishes: bun rewrites
+ * `workspace:*` to `0.0.0` on the way in, so the check could never fire, and it
+ * reported green through every run while `@xoroh/kern` and `@xoroh/kern-native`
+ * shipped a manifest that fails a consumer install with EUNSUPPORTEDPROTOCOL.
  *
- * Therefore `workspace:*` is FINE to declare, and the only variable that matters
- * is which tool packs the release. This script packs with bun — the tool that
- * rewrites correctly — and fails if any `workspace:` survives into a tarball. If
- * someone releases with npm or yarn instead, the gate goes red before publish
- * rather than after a broken install report.
+ * The gate must therefore pack the way the release packs. With `npm pack`:
  *
- * Exit 0 = every packed manifest is installable.
+ *   `npm pack`   ->  "workspace:*" ships VERBATIM    and is exactly what
+ *                        changesets would hand to the registry
+ *   `bun pm pack` ->  "workspace:*" becomes "0.0.0"   describes a release
+ *                        nobody performs
+ *
+ * So: pack with npm, and treat any surviving `workspace:` as the blocker it is.
+ * Whether the fix is a peerDependency with an explicit range or dropping the
+ * entry is a release-semantics decision (K-05, kern-lead) — this gate only
+ * reports it.
+ *
+ * Exit 0 = every packed manifest is installable as npm would ship it.
  */
 
 import { execFileSync } from "node:child_process";
@@ -84,15 +95,16 @@ try {
     const source = JSON.parse(readFileSync(join(dir, "package.json"), "utf8"));
     if (source.private === true) continue;
 
-    // Pack with the tool that rewrites the workspace protocol correctly. Packing
-    // with npm here would defeat the check: npm reproduces the defect instead of
-    // proving it absent.
+    // Pack with npm: that is the tool `changeset publish` uses to publish, so
+    // it is the only packing that reproduces the artefact consumers receive.
+    // `npm pack --pack-destination` writes to a directory, keeping every
+    // tarball in ONE place for findTarball() below.
     //
     // Wrapped: a gate that dies with a stack trace when the pack command fails is
     // worse than useless, because the operator sees a Node error instead of the
     // publish problem that caused it.
     try {
-      execFileSync("bun", ["pm", "pack", "--destination", workdir], {
+      execFileSync("npm", ["pack", "--pack-destination", workdir], {
         cwd: dir,
         stdio: "ignore",
       });
@@ -140,18 +152,17 @@ if (failures.length > 0) {
   );
   for (const line of failures) console.error(line);
   console.error(
-    "\nThe tarball was packed with BUN, which rewrites workspace: to an exact\n" +
-      "version. Reaching here means the pack did not go through bun, so the\n" +
-      "manifest would ship verbatim and every consumer install would fail with\n" +
-      "EUNSUPPORTEDPROTOCOL. Release with `bun pm publish`.\n" +
-      "\nDo NOT 'fix' this by moving internal packages to peerDependencies. That\n" +
-      "inverts the D-034 layering and invites a consumer to substitute a different\n" +
-      "token engine. The declaration is correct; the tool is the variable.",
+    "\nPacked with NPM, which is what `changeset publish` uses to publish. npm has\n" +
+      "no workspace protocol, so this specifier ships VERBATIM and every consumer\n" +
+      "install of the affected package fails with EUNSUPPORTEDPROTOCOL.\n" +
+      "\nThe fix is a release-semantics decision (K-05) and belongs to kern-lead:\n" +
+      "declare the internal package as a peerDependency with an explicit range, or\n" +
+      "remove the entry. Do not silence this gate.",
   );
   process.exit(1);
 }
 
 console.log(
-  `preflight-publish: ok — ${checked.length} packages packed with bun, no ` +
+  `preflight-publish: ok — ${checked.length} packages packed with npm, no ` +
     `workspace: in any shipped manifest (${checked.join(", ")})`,
 );
