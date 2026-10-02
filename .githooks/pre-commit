@@ -26,6 +26,25 @@
 # would silently rewrite another lane's staged work. This hook refuses and tells
 # you the command; you decide.
 #
+# IT ALSO LISTS WHAT IT IS ABOUT TO INCLUDE, and that is the newer half. Commit
+# `890b5d1` was a gate commit whose message described only gate work while its
+# diff carried 794 lines of site-se's feature work — `families.ts` (195, NEW),
+# `component-gallery.tsx` (236, NEW), 363 modified lines in
+# `routes/components/*`. Neither the message nor the report mentioned them; the
+# report even called them "not mine; not touched" while its own commit created
+# them. Nothing was wrong with the WORK. What was wrong is that the commit's own
+# claim contradicted its own diff, which is the kind of history an auditor reads
+# as deception.
+#
+# So `check-commit-intent` prints "N paths staged, M unexpected" and, when you
+# declare scope via KERN_COMMIT_INTENT, REFUSES anything outside it, naming each
+# path and its CODEOWNERS owner. Without the env var it still prints the full
+# list and flags multi-owner commits — it cannot judge intent it was never told,
+# and a hook that refuses every commit gets uninstalled.
+#
+#   git commit                      # lists everything, refuses nothing
+#   KERN_COMMIT_INTENT="scripts/**" git commit   # refuses anything else
+#
 # Installed by `bun run hooks:install`. See CONTRIBUTING.md.
 
 set -euo pipefail
@@ -43,6 +62,16 @@ done
 if ! command -v bun >/dev/null 2>&1; then
   echo "pre-commit: bun not found; skipping the generated-output check." >&2
   exit 0
+fi
+
+# 1. What is this commit about to include? Runs FIRST, before the expensive
+#    generated-output check, so a commit that is going to be refused for
+#    swallowing another lane's work says so in under a second rather than after
+#    a full generator sweep.
+if ! node scripts/check-commit-intent.mjs; then
+  echo >&2
+  echo "pre-commit REFUSED: staged content outside the declared intent." >&2
+  exit 1
 fi
 
 if ! bun run check:generated; then
