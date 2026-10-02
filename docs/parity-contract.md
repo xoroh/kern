@@ -861,3 +861,41 @@ symmetrised, and P2b-2/3 must not "fix" them:
    build tasks and the gate all measure the same thing. This is the same
    "countable definition of done" gap I raised on D-028, now concrete: it is not
    hypothetical, it already produced three numbers for one set.
+
+## Two contract rulings (requested by design-system-lead, 2026-10-02)
+
+### `error-boundary` — BUILD a web version
+
+`grep -rn ErrorBoundary packages/kern/src` returns **zero** hits: there is no
+Kern web error boundary. The native class documents itself as *"the native
+analogue of the web `ErrorBoundary`"* — a reference to something that does not
+exist, which is exactly the kind of dangling claim this file exists to prevent.
+
+The behaviour is a genuine cross-renderer contract:
+
+| obligation | both renderers must |
+|---|---|
+| catch a thrown render | a failed subtree does not blank the app |
+| fallback | receives the error AND a `reset` callback |
+| recovery | `reset` re-mounts the subtree without a reload |
+| reporting | `onError` is called with the error |
+
+React ships no error boundary of its own, so this is real web work rather than an
+empty wrapper — the opposite of the `aspect-ratio` cut, which was a single CSS
+property. **Verdict: build.**
+
+### `icon-button-target` — NOT a cross-renderer contract
+
+The 48dp minimum is a **mobile** convention (Material; iOS HIG uses 44pt). The
+standard that governs the web is **WCAG 2.2 Target Size (Minimum), 24×24 CSS px**.
+A single shared number would be asserting, on the web, a value the governing
+standard does not state.
+
+Same shape as the `aspect-ratio` cut — a size obligation, not a component. The
+shared obligation is *"large enough to hit reliably"*; the *number* is a
+per-platform value governed by a per-platform standard.
+
+**Verdict: a deliberate asymmetry, recorded like `native-select`.** Native
+keeps 48dp and may assert it in its own tests; web is measured against WCAG
+2.2's 24px minimum and not against 48. Neither side is wrong, and no parity row
+should pin the number.
