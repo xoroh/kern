@@ -215,7 +215,13 @@ export function TimePicker({
   const [uncontrolled, setUncontrolled] = useState<TimePickerValue>(
     defaultValue ?? { hours: 9, minutes: 0 },
   );
-  const current = controlled ? value : uncontrolled;
+  // Normalise on READ as well as on commit. A controlled host can hold anything
+  // — `value={{ hours: 30, minutes: 90 }}` used to render literally as "30:90",
+  // which is not a time, while `commit` normalised the same value on the way
+  // out. It also left no option selected, because `hours === 30` matches
+  // nothing in a 0-23 grid. Normalising here makes the display, the selection
+  // and the reported value agree on one value.
+  const current = normaliseTime(controlled ? value : uncontrolled);
 
   const effectiveStep = useMemo(() => normaliseStep(step), [step]);
   const minutes = useMemo(() => minuteOptions(effectiveStep), [effectiveStep]);
