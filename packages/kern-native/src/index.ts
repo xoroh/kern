@@ -148,6 +148,8 @@ export {
   MenuSheet,
   menuGroupStyles,
 } from "./components/menus";
+export type { NativeMeterProps } from "./components/meter";
+export { Meter, meterStyles } from "./components/meter";
 export type { MilestoneTrioProps } from "./components/milestone-trio";
 export {
   MilestoneTrio,
