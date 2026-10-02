@@ -224,6 +224,49 @@ for (const entry of readdirSync(join(ROOT, "packages"), {
   }
 }
 
+// --- P2b-5: the composition tier composes via @xoroh/kern, never Base UI -----
+// `@xoroh/kern/start` is a subpath of the SAME package, which makes it easy to
+// forget it is a consumer of the widget layer rather than a second one. A direct
+// @base-ui import creates a second path to the primitive; a future primitive
+// swap would then need applying in two places, with nothing to catch the place
+// someone forgot. Read from real source, not the ADR.
+const START_DIR = join(ROOT, "packages", "kern", "src", "start");
+if (existsSync(START_DIR)) {
+  const walkStart = (dir, depth = 0) => {
+    if (depth > 6) return;
+    let files;
+    try {
+      files = readdirSync(dir, { withFileTypes: true });
+    } catch {
+      return;
+    }
+    for (const f of files) {
+      if (f.name === "node_modules" || f.name === "dist") continue;
+      const full = join(dir, f.name);
+      if (f.isDirectory()) {
+        walkStart(full, depth + 1);
+        continue;
+      }
+      if (!/\.(ts|tsx|mts|cts|js|jsx|mjs|cjs)$/.test(f.name)) continue;
+      const text = readFileSync(full, "utf8");
+      // Comments are stripped first: an ADR quote or a note explaining WHY
+      // start avoids Base UI would otherwise read as an import.
+      const code = text
+        .replace(/\/\*[\s\S]*?\*\//g, "")
+        .replace(/^\s*\/\/.*$/gm, "");
+      for (const m of code.matchAll(/from\s*["'](@base-ui\/[^"']*)["']/g)) {
+        violations.push(
+          `kern-start imports ${m[1]} directly -- the composition tier must go ` +
+            `through @xoroh/kern. A second path to the primitive means a ` +
+            `primitive swap has two places to be applied and nothing catches ` +
+            `the one someone forgets (ADR 002, amended 2026-10-02).`,
+        );
+      }
+    }
+  };
+  walkStart(START_DIR);
+}
+
 // --- D-037: the build graph must be acyclic, and must COVER every buildable -----
 // Build order is derived from these same declarations, so a cycle here is a
 // cycle in the build. The orchestrator would catch it too, but as a build
@@ -440,5 +483,5 @@ if (violations.length) {
 }
 
 console.log(
-  "\npackage layering holds: no upward edges, no renderer-to-renderer edge,\n every tsconfig types[] entry is a declared dependency,\n every bare import resolves to a declared dependency,\n and the build graph is acyclic and covers every buildable package",
+  "\npackage layering holds: no upward edges, no renderer-to-renderer edge,\n every tsconfig types[] entry is a declared dependency,\n every bare import resolves to a declared dependency,\n kern-start composes via @xoroh/kern with no direct Base UI import,\n and the build graph is acyclic and covers every buildable package",
 );
