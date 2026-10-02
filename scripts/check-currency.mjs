@@ -33,7 +33,7 @@
  * ---------------------------------------------------------------------------
  */
 
-import { readFileSync, readdirSync, existsSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 const ROOT = new URL("..", import.meta.url).pathname.replace(/\/$/, "");
@@ -89,7 +89,8 @@ function collectClaims(dir, out = [], depth = 0) {
     return out;
   }
   for (const e of entries) {
-    if (e.name === "node_modules" || e.name === "dist" || e.name === ".git") continue;
+    if (e.name === "node_modules" || e.name === "dist" || e.name === ".git")
+      continue;
     const full = join(dir, e.name);
     if (e.isDirectory()) {
       collectClaims(full, out, depth + 1);
