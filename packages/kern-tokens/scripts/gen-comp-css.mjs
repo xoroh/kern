@@ -433,6 +433,20 @@ for (const name of Object.keys(T.motion.duration ?? {})) {
   );
 }
 
+// ---- P1-8: mirror the md.comp.* tables into the Tailwind adapter.
+// `compLines` already holds `<decl>` strings of the form
+// `  --md-comp-<component>-<slot>-<attr>: <resolved>;`, each resolving to a
+// var() or a single ICON_SIZE literal. Deriving the Tailwind name from the
+// var name and copying the SAME resolved expression keeps this a pure map:
+// no value is recomputed, and nothing here can become a second source of truth.
+// Slots are addressed as `comp-<component>-<slot>-<attr>`.
+for (const line of compLines) {
+  const m = line.match(/^\s*--md-comp-([\w-]+):\s*(.+);$/);
+  if (!m) continue;
+  const [, name, resolved] = m;
+  tailwindLines.push(`  --comp-md-${name}: ${resolved};`);
+}
+
 const twOut = join(ROOT, "packages/kern-tokens/src/tailwind.css");
 writeFileSync(
   twOut,
