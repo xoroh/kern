@@ -1978,6 +1978,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    name: "app-shell",
+    export: "AppShell",
+    platform: "native",
+    path: "src/components/app-shell.tsx",
+    status: "real",
+  },
+  {
     name: "aspect-ratio",
     export: "AspectRatio",
     platform: "native",

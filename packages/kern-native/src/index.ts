@@ -8,6 +8,16 @@ export type {
 export { Accordion, accordionStyles } from "./components/accordion";
 export type { NativeAlertDialogProps } from "./components/alert-dialog";
 export { AlertDialog, alertDialogStyles } from "./components/alert-dialog";
+// The application FRAME. Deliberately a separate module from `./components/shell`,
+// which holds the launch and error surfaces: a BootSplash is not a shell you
+// navigate inside, and grouping them would have hidden the fact that the frame
+// did not exist at all.
+export type { NativeAppShellProps } from "./components/app-shell";
+export {
+  APP_SHELL_FOOTER_HEIGHT,
+  APP_SHELL_HEADER_HEIGHT,
+  AppShell,
+} from "./components/app-shell";
 export type { NativeAspectRatioProps } from "./components/aspect-ratio";
 export { AspectRatio } from "./components/aspect-ratio";
 export type {

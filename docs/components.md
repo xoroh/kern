@@ -296,6 +296,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `accordion` | `Accordion` | real |
 | `action-sheet` | `ActionSheet` | real |
 | `alert-dialog` | `AlertDialog` | real |
+| `app-shell` | `AppShell` | real |
 | `aspect-ratio` | `AspectRatio` | real |
 | `autocomplete` | `Autocomplete` | real |
 | `avatar` | `Avatar` | real |
