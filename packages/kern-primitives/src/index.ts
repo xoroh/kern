@@ -60,6 +60,13 @@ export {
   useMergeRefs,
 } from "./mergeRefs";
 export {
+  createOverlayModality,
+  type OverlayId,
+  type OverlayModalityState,
+  useOverlayModality,
+  useOverlayRegistration,
+} from "./overlayModality";
+export {
   createRovingModel,
   type RovingItem,
   type RovingModel,
