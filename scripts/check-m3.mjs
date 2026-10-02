@@ -288,13 +288,21 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
     // rows from the count, so the summary could read "12/19" while six of them
     // asserted nothing — the proxy-for-the-property failure this sweep exists
     // to prevent.
-    const levelZeroSpec = M3_ELEVATION_COMPONENTS[component]?.variants.every(
-      (level) => level === 0,
-    );
+    // Whether ABSENCE is a legitimate measured outcome for this row. This must
+    // mirror `auditElevation`'s absence rule exactly — `variants.includes(0)`,
+    // not `every(level => level === 0)`.
+    //
+    // They differ on a row like Card's [0, 1]: a plain filled Card carries no
+    // elevation token, which is a conformant level-0 rendering. With `every(...)`
+    // that card measured `null`, was neither a violation nor counted conformant,
+    // and the summary read "18/19" on a completely green run — a number that
+    // looks like a defect and is not one.
+    const permitsAbsence =
+      M3_ELEVATION_COMPONENTS[component]?.variants.includes(0) === true;
     const measured =
       levels.size === 1
         ? [...levels][0]
-        : levels.size === 0 && levelZeroSpec
+        : levels.size === 0 && permitsAbsence
           ? 0
           : null;
     if (problems.length === 0 && measured !== null) conformant++;

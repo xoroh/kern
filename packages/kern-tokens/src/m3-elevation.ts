@@ -120,7 +120,23 @@ export const M3_ELEVATION_COMPONENTS = Object.freeze({
     rows: ["dialogs (modal)"],
     variants: [3],
   }),
-  card: Object.freeze({ rows: ["card (elevated)"], variants: [1] }),
+  /**
+   * M3 tabulates cards TWICE: "card (elevated)" at level 1 and "cards (filled,
+   * outlined)" at level 0. Kern's Card implements both through its variant axis —
+   * the `elevated` variant carries `--md-sys-elevation-level1` and the filled and
+   * outlined variants carry none — so one component legitimately covers two rows,
+   * exactly as Button does.
+   *
+   * Declaring only [1] was wrong in the direction that reads as stricter but is
+   * not: the gate resolves a component's level by scanning its source closure, so
+   * it measured 1 and passed, while a consumer rendering a plain filled card was
+   * shipping level 0 that no row permitted. Stating [0, 1] makes the claim match
+   * what the component actually does.
+   */
+  card: Object.freeze({
+    rows: ["card (elevated)", "cards (filled, outlined)"],
+    variants: [0, 1],
+  }),
   /**
    * M3 tabulates buttons TWICE: "button (elevated)" at level 1 and
    * "buttons (filled, tonal, outlined)" at level 0. Kern's Button implements both
@@ -170,7 +186,15 @@ export const M3_ELEVATION_COMPONENTS = Object.freeze({
     variants: [0],
   }),
   carousel: Object.freeze({ rows: ["carousel"], variants: [0] }),
-  list: Object.freeze({ rows: ["list"], variants: [0] }),
+  /**
+   * Keyed `list-item`, not `list`: `packages/kern/src/components/list.tsx` does
+   * not exist, so the old `list` key resolved to no file, measured `null`, and —
+   * because level 0 treats absence as conformant — passed without ever looking at
+   * the component. A row that measures nothing is indistinguishable from a
+   * correct one in the summary. M3's row is still named "list"; the key is kern's
+   * component name, as every other row here is.
+   */
+  "list-item": Object.freeze({ rows: ["list"], variants: [0] }),
   /**
    * The ONE real fix from the sweep: `banner` was the only one of the six the
    * brief named that M3 places above zero — the table lists "Banner" at 1dp.
@@ -257,10 +281,16 @@ export function auditElevation(
   if (spec) {
     if (measured === null) {
       // A component that ships NO elevation token is at resting level 0 —
-      // level0 is `shadow: none`, so absence IS the conformant state for a
-      // row M3 places at zero. Only flag absence when the spec demands a
-      // visible elevation.
-      if (spec.variants.some((level) => level !== 0)) {
+      // level0 is `shadow: none`. So absence is conformant whenever 0 is one of
+      // the levels the row permits.
+      //
+      // The test is therefore `!includes(0)`, NOT `some(level !== 0)`. Those
+      // differ exactly on a row with variants [0, 1] — Card, which genuinely
+      // ships either (its `elevated` variant at 1, a plain filled card at 0).
+      // `some(...)` rejected a filled Card as "ships no elevation token", which
+      // is wrong: that card IS conformant. Found by mutation-proving this fix:
+      // removing Card's token must PASS, and it did not.
+      if (!spec.variants.includes(0)) {
         problems.push(
           `${component}: M3 assigns resting level${spec.variants.join("/")} ` +
             `(${spec.rows.join(", ")}) but kern ships no elevation token`,
