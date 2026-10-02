@@ -54,8 +54,22 @@ export function Page({
   );
 }
 
-/** 2–3 resizable columns with start/end slots. */
-export function Split({
+/**
+ * A 2- or 3-column grid the caller fills with `SplitPanel`s.
+ *
+ * NAMED `SplitGrid`, NOT `Split` — this is the ruling recorded in
+ * `.team/reports/kern-split-ruling.md`. `Split` belongs to the primitive in
+ * `src/components/split.tsx`, which owns the accessible N-column region
+ * (`role="group"` + `aria-label`), wraps each child in its own column, and is
+ * the one native `Split` has a peer for. This grid is the composition recipe:
+ * it sets `gridTemplateColumns` and leaves the columns to the caller. Two
+ * exports, one name, different DOM — so they now have two names.
+ *
+ * `SplitGrid` rather than `SplitPane`: `SplitPanel` lives in this same module
+ * and `SplitPane` differs from it by one letter, which is a rename that trades
+ * an ambiguous name for a nearly-identical one.
+ */
+export function SplitGrid({
   columns = 2,
   className,
   children,
@@ -63,10 +77,10 @@ export function Split({
 }: ComponentPropsWithRef<"div"> & { columns?: 2 | 3 }) {
   return (
     <div
-      data-slot="split"
+      data-slot="split-grid"
       style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
       className={cn(
-        "kern-split grid min-h-0 flex-1 gap-px bg-(--md-sys-color-outline-variant)",
+        "kern-split-grid grid min-h-0 flex-1 gap-px bg-(--md-sys-color-outline-variant)",
         columns === 2 ? "grid-cols-2" : "grid-cols-3",
         className,
       )}
@@ -77,7 +91,7 @@ export function Split({
   );
 }
 
-/** One `Split` column. */
+/** One `SplitGrid` column. */
 export function SplitPanel({
   className,
   children,

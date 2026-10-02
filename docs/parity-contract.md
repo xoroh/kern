@@ -52,13 +52,13 @@ again. Measured from the generated registry instead:
 
 | Measure | Value |
 |---|---|
-| Registry rows | **394** (web 291, native 103) |
+| Registry rows | **395** (web 291, native 104) |
 | **Shared** (already both sides) | **83** |
-| **Native-only → needs a web version** | **7** in **7 files** |
-| **Web-only → needs a native version** | **39** in **32** files |
+| **Native-only → needs a web version** | **8** in **8 files** |
+| **Web-only → needs a native version** | **40** in **33 files** |
 | Stub rows | **0** |
 
-<!-- gate:counts 83 7 39 0 -->
+<!-- gate:counts 83 8 40 0 -->
 
 Machine-readable line above: `check:parity` (`scripts/check-parity.mjs`) re-derives
 these from the registry and fails if they drift, so the prose above cannot quietly
@@ -166,7 +166,7 @@ later reader does not "fix" them back:
 
 ---
 
-## Native-only concepts → need a web version (7)
+## Native-only concepts → need a web version (8)
 
 Grouped by surface. `M3 source` is the M3 spec tab that governs the behaviour.
 
@@ -193,6 +193,7 @@ Grouped by surface. `M3 source` is the M3 spec tab that governs the behaviour.
 | 19 | `aspect-ratio` | Fixed-ratio box | `style={{aspectRatio}}` — presentational | `aspectRatio` style | CSS/native analogue | **RULED OUT 2026-10-03** — see cut list |
 | 20 | `sheet-surface` | Shared `Modal` + scrim primitive every kern sheet hosts through | web = `Dialog` root + portal scrim — the one place a sheet gets a dismissal path | `SheetSurface`: scrim press, `onRequestClose` (Android back) and a 48×48 close affordance all bound to `onDismiss` | M3 · Sheets | **BUILT 2026-10-03** — `sheet-family.tsx` |
 | 21 | `boot-splash` | Native launch surface (the browser has no pre-first-paint phase) | **not applicable** — deliberately asymmetric | `BootSplash` | Kern shell (native-only) | **RULED OUT 2026-10-03** — see cut list |
+| 22 | `kern-pressable` | Accessibility-defaults wrap for a non-Button pressable | **deliberate platform asymmetry** — the wrapper's whole content is the **48dp** minimum touch target, which is Material's number. The web is governed by WCAG 2.2 Target Size (Minimum) at 24×24 CSS px. Pinning one figure across both would assert a value the other platform's standard does not state (ruled 2026-10-03) | `KernPressable` — `Pressable` + `MIN_TOUCH_TARGET`, `button` role by default, `disabled` always reported | M3 · Buttons (the 48dp touch target) | `pressable.rntest.tsx` |
 
 ### Resolved 2026-10-03 — tranche 2: the menu family BUILT (native-only 13 → 10)
 
@@ -259,7 +260,8 @@ surfaces queued for tranche 2.
 
 `generate-manifest.mjs` scanned only `packages/kern/src/components`. The web **composition tier**
 lives in `packages/kern/src/start/`, published as the `@xoroh/kern/start` subpath of the same
-package, so `Pane`, `ListDetail`, `TopAppBar`, `Split`, `SplitPanel`, `Sidebar`, `SearchBar` and the
+package, so `Pane`, `ListDetail`, `TopAppBar`, `SplitGrid` (then `Split`, renamed
+2026-10-03), `SplitPanel`, `Sidebar`, `SearchBar` and the
 scaffolds were **invisible to the registry and counted as native-only gaps while shipping on web**.
 Confirmed against the built `dist/start/index.d.ts`, not by reading source.
 
@@ -392,7 +394,7 @@ were restored from backup afterwards.
 
 ---
 
-## Web-only concepts → need a native version (39)
+## Web-only concepts → need a native version (40)
 
 The heading previously read **34** while the machine gate read **42** — the
 `gate:counts` line was right and the sentence a human reads was stale, which is
@@ -477,6 +479,7 @@ native and the count fell 42 → 39, and again in **tranche 2**, when
 | 37 | `top-bar-menu` | Generic menu slot in a top bar | `TopBarMenu` — a `menu` | **covered, not separate work** — native `Menubar` takes `menus: {label, items}[]`; web composes with children, native parameterises with items. API-shape difference, not a behavioural gap (ruled 2026-10-02, P2b-3 start tranche) | M3 · Menus | GAP |
 | 38 | `user-menu` | User/account menu in a top bar | `UserMenu` — a `menu` | **covered, not separate work** — native `Menubar` — web is a preset fixing the label; web composes with children, native parameterises with items. API-shape difference, not a behavioural gap (ruled 2026-10-02, P2b-3 start tranche) | M3 · Menus | GAP |
 | 39 | `navigation-rail-button` | One destination in a navigation rail | `NavigationRailButton` — a `role=tab` with a selected axis | **covered, not separate work** — native `NavigationRail` renders each destination as a `tab` with the same selected axis; web's separate export is an API-shape difference, and the family is ONE component by ruling (ruled 2026-10-02) | M3 · Navigation rail | `navigation-rail.rntest.tsx` |
+| 40 | `split-grid` | Equal-column grid at the composition tier | `SplitGrid` — 2- or 3-column CSS grid the caller fills with `SplitPanel`s; **no role and no label of its own** | **covered, not separate work** — native `Split` (shared, row 482 below) is the accessible N-column region and renders the columns itself; `SplitGrid` is the web grid recipe for the same division. A native `SplitGrid` would be a second name for the shape `Split` already has. Renamed from `Split` on 2026-10-03 so it does not collide with the `Split` primitive — see `.team/reports/kern-split-ruling.md` | M3 · Lists → Pane | `start.test.tsx` (composition tier) |
 
 
 ### Split shipped (P2b-3) — removed from the work list
@@ -487,6 +490,13 @@ CONTAINER background rather than borders on the children, which would give the
 first column a leading border and the last a trailing one at every column count.
 
 This was the LAST genuine gap in the composition tranche.
+
+**Ruling 2026-10-03 — the web `Split` that made it shared was never a gap.** It
+was a DUPLICATE: `packages/kern/src/start/panes.tsx` had exported a `Split`
+grid recipe since `4d71e2b`, and this tranche added a second `Split` primitive
+under the same name. The grid recipe is now `SplitGrid` (row 40 above); the
+name `Split` belongs to the primitive, which is the one native has a peer for.
+Full reasoning and blast radius: `.team/reports/kern-split-ruling.md`.
 
 
 ### AppShell shipped (P2b-3) — removed from the work list

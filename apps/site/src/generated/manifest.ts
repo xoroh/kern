@@ -1781,6 +1781,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    slug: "web/split-grid",
+    name: "split-grid",
+    export: "SplitGrid",
+    platform: "web",
+    status: "real",
+  },
+  {
     slug: "web/split-panel",
     name: "split-panel",
     export: "SplitPanel",
@@ -2365,6 +2372,13 @@ export const COMPONENTS: ComponentEntry[] = [
     slug: "mobile/input-otp",
     name: "input-otp",
     export: "InputOTP",
+    platform: "mobile",
+    status: "real",
+  },
+  {
+    slug: "mobile/kern-pressable",
+    name: "kern-pressable",
+    export: "KernPressable",
     platform: "mobile",
     status: "real",
   },

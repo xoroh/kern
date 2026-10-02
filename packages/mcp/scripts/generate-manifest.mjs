@@ -210,6 +210,53 @@ for (const { dir, platform } of AREAS) {
   }
 }
 
+// DEDUP AT THE SOURCE. `AREAS` is scanned independently per directory, so two
+// web files exporting the same symbol produced two rows for one export: the
+// generator wrote 394 rows for 393 real components, and `docs/components.md`
+// shipped the duplicate to every consumer. The site generator downstream
+// collapsed it — which is why the site's manifest said 393 while the inventory
+// said 394 and neither number was wrong about itself.
+//
+// A registry row is a (platform, name) pair, not a file. Collapse on that key
+// HERE so one number reaches every consumer, and keep the collision VISIBLE:
+// a same-export duplicate is a rename that missed a file, and it is printed
+// rather than swallowed. Two DIFFERENT exports fighting over one (platform,
+// name) is a real API ambiguity with no correct resolution here — that fails.
+const byRegistryKey = new Map();
+const duplicates = [];
+for (const entry of entries) {
+  const key = `${entry.platform}/${entry.name}`;
+  const existing = byRegistryKey.get(key);
+  if (existing === undefined) {
+    byRegistryKey.set(key, entry);
+    continue;
+  }
+  if (existing.export === entry.export) {
+    duplicates.push(
+      `${key}: \`${entry.export}\` is exported from both ${existing.path} and ${entry.path} — collapsed to one row`,
+    );
+    continue;
+  }
+  console.error(
+    `\ngenerate-manifest FAILED — ${key} is claimed by two different exports:\n` +
+      `  - ${existing.path}: \`${existing.export}\`\n` +
+      `  - ${entry.path}: \`${entry.export}\`\n` +
+      "  Two components cannot share one registry name. This is an API\n" +
+      "  collision, not a duplicate row: RENAME one of them (see\n" +
+      "  .team/reports/kern-split-ruling.md for the precedent) rather than\n" +
+      "  deleting a row to make the count match.",
+  );
+  process.exit(1);
+}
+if (duplicates.length > 0) {
+  console.log(
+    `\ngenerate-manifest: ${duplicates.length} same-export duplicate row(s) collapsed:`,
+  );
+  for (const d of duplicates) console.log(`  ${d}`);
+}
+entries.length = 0;
+entries.push(...byRegistryKey.values());
+
 // (No special cases: every export lives in its component file and the
 // entry points re-export. If that ever changes, add an explicit entry here
 // instead of guessing.)

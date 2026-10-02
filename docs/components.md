@@ -260,8 +260,8 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `sonner-title` | `SonnerTitle` | real |
 | `sonner-viewport` | `SonnerViewport` | real |
 | `split` | `Split` | real |
-| `split` | `Split` | real |
 | `split-button` | `SplitButton` | real |
+| `split-grid` | `SplitGrid` | real |
 | `split-panel` | `SplitPanel` | real |
 | `status-bar` | `StatusBar` | real |
 | `switch` | `Switch` | real |
@@ -351,6 +351,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `icon-button-target` | `IconButtonTarget` | real |
 | `input` | `Input` | real |
 | `input-otp` | `InputOTP` | real |
+| `kern-pressable` | `KernPressable` | real |
 | `label` | `Label` | real |
 | `linear-progress` | `LinearProgress` | real |
 | `list-detail` | `ListDetail` | real |

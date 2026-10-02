@@ -1950,8 +1950,8 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
-    name: "split",
-    export: "Split",
+    name: "split-grid",
+    export: "SplitGrid",
     platform: "web",
     path: "src/start/panes.tsx",
     status: "real",
@@ -2486,6 +2486,13 @@ export const COMPONENTS: ComponentEntry[] = [
     export: "Pagination",
     platform: "native",
     path: "src/components/pagination.tsx",
+    status: "real",
+  },
+  {
+    name: "kern-pressable",
+    export: "KernPressable",
+    platform: "native",
+    path: "src/components/pressable.tsx",
     status: "real",
   },
   {

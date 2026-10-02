@@ -23,7 +23,7 @@ import {
   SidebarContent,
   SidebarHeader,
   SidebarItem,
-  Split,
+  SplitGrid,
   SplitPanel,
   StatusBar,
   ThemeToggle,
@@ -206,11 +206,11 @@ describe("navigation", () => {
 describe("panes", () => {
   it("composes the split mechanism", () => {
     render(
-      <Split columns={3}>
+      <SplitGrid columns={3}>
         <SplitPanel>A</SplitPanel>
         <SplitPanel>B</SplitPanel>
         <SplitPanel>C</SplitPanel>
-      </Split>,
+      </SplitGrid>,
     );
     expect(screen.getByText("B")).toBeTruthy();
   });

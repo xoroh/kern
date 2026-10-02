@@ -26,7 +26,7 @@ those arrive as props/slots · scaffolds are *presets* composed from blocks.
 | Decision | Outcome |
 | --- | --- |
 | Shell naming | **One mechanism: `AppShell`** with optional region slots (`topBar`, `rail`, `drawer`, `statusBar`, `content`). Product-shaped shells are *recipes*, not API. Shell height constants → `APP_SHELL_HEIGHTS` |
-| Panes split | Mechanism: `Pane`, `Page`, `Split` (`SplitPanel` columns). Recipes: `ListDetail`, `Inspector` |
+| Panes split | Mechanism: `Pane`, `Page`, `SplitGrid` (`SplitPanel` columns). Recipes: `ListDetail`, `Inspector`. *Renamed from `Split` on 2026-10-03 to stop colliding with the `Split` primitive — see `.team/reports/kern-split-ruling.md`* |
 | Router coupling | `useLinkComponent()`/`LinkProvider` seam |
 | Auth/routing coupling | `NotificationsMenu`/`UserMenu`/`AppsMenu` slot-driven |
 | Design variation | 3 axes: theme variant, block `variant`/`size`, slots |

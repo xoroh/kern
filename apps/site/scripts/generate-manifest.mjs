@@ -47,18 +47,19 @@ for (const block of source.split(/^## /m).slice(1)) {
 // A slug is unique per platform; web and mobile can share a component name
 // (Button exists on both), so the route key is the platform-qualified slug.
 //
-// Two source files can export the SAME symbol for the same platform: `Split`
-// is defined in both `packages/kern/src/components/split.tsx` and
-// `packages/kern/src/start/panes.tsx`. To the registry that is ONE export
-// `web/split`, reachable from two files — the route, the page, and the coverage
-// gate all count it once (check-docs keys its inventory by `platform:Export`,
-// so its total is 393, not 394). Collapsing the duplicate keeps this manifest
-// in step with that count instead of inventing a second `web/split` route that
-// cannot exist. The collision is PRINTED, not swallowed: it is drift between
-// two same-named components and is recorded in the content-ladder report.
+// This collapse is a BACKSTOP, not the mechanism. Two source files exporting
+// the same symbol for the same platform was a real state until 2026-10-03 —
+// `Split` was defined in both `packages/kern/src/components/split.tsx` and
+// `packages/kern/src/start/panes.tsx` — and it was resolved by RULING (the grid
+// recipe became `SplitGrid`), not by hiding a row. The upstream generator
+// (`packages/mcp/scripts/generate-manifest.mjs`) now dedups on `platform/name`
+// and FAILS on two different exports claiming one slug, so a collision should
+// never reach this file. Keep the collapse anyway: it is cheap, and the failure
+// mode it protects against is a manifest that invents a second `web/split`
+// route which cannot exist.
 //
-// A slug shared by two DIFFERENT exports is a real ambiguity — two components
-// fighting over one route — and is still fatal.
+// The collision is PRINTED, not swallowed: same-name drift between two
+// generators is drift someone has to reconcile.
 const bySlug = new Map();
 const collisions = [];
 for (const entry of entries) {
@@ -80,7 +81,7 @@ for (const entry of entries) {
 }
 if (collisions.length > 0) {
   console.log(
-    `generate-manifest: ${collisions.length} same-export slug collision(s) collapsed (recorded in .team/reports/2026-10-02-content-ladder-status.md):`,
+    `generate-manifest: ${collisions.length} same-export slug collision(s) collapsed (should not happen — the upstream generator now fails on this; see .team/reports/kern-split-ruling.md):`,
   );
   for (const c of collisions) console.log(`  ${c}`);
 }
