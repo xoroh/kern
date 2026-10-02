@@ -1,4 +1,4 @@
-import { useControllableState } from "@xoroh/kern-primitives";
+import { useControllableState, useSelection } from "@xoroh/kern-primitives";
 import {
   type ResolvedTheme,
   resolveThemeDetails,
@@ -245,19 +245,33 @@ export function SegmentedButton({
   testID?: string;
 }) {
   const scheme = useKernScheme();
+  // Which axis the caller used IS the mode: a SegmentedButton that was given
+  // plural props is a multi-select. One `useSelection` call rather than two
+  // `useControllableState` calls plus a hand-rolled merge.
   const multiple =
     controlledValues !== undefined || defaultValues !== undefined;
-  const [single, setSingle] = useControllableState<string>(
-    controlledValue,
-    defaultValue ?? "",
-    onValueChange,
-  );
-  const [multi, setMulti] = useControllableState<string[]>(
-    controlledValues,
-    defaultValues ?? [],
-    onValuesChange,
-  );
-  const selected = multiple ? (multi ?? []) : [single ?? ""].filter(Boolean);
+
+  // Radio semantics in single mode: activating replaces and re-activating does
+  // not deselect. The previous `[single ?? ""].filter(Boolean)` was papering
+  // over the empty-string case by FILTERING rather than modelling "nothing
+  // selected" as an empty selection — which also silently dropped any option
+  // whose value was genuinely `""`. This is the same defect family as the
+  // ToggleGroup `? "" :` bug fixed in the same series.
+  const [selected, select] = useSelection({
+    value: multiple ? controlledValues : controlledValue,
+    defaultValue: multiple ? (defaultValues ?? []) : (defaultValue ?? ""),
+    onChange: multiple
+      ? // Copy: the public prop is `(values: string[]) => void` — a MUTABLE
+        // array — while `Selection` is readonly by design. Handing a consumer
+        // our internal readonly array would either break their types or tempt
+        // them to mutate state they do not own. Widening the public prop to
+        // `readonly string[]` is the alternative, and it is contravariant: a
+        // consumer already typed `(v: string[]) => void` would stop compiling.
+        // So the copy happens here, at the one boundary where the two meet.
+        (next) => onValuesChange?.([...next])
+      : (next: readonly string[]) => onValueChange?.(next[0] ?? ""),
+    mode: multiple ? "multiple" : "single",
+  });
 
   return (
     <View
@@ -286,18 +300,7 @@ export function SegmentedButton({
             }}
             accessibilityLabel={option.label}
             disabled={option.disabled}
-            onPress={() => {
-              if (multiple) {
-                setMulti((previous) => {
-                  const current = previous ?? [];
-                  return current.includes(option.value)
-                    ? current.filter((entry) => entry !== option.value)
-                    : [...current, option.value];
-                });
-              } else {
-                setSingle(option.value);
-              }
-            }}
+            onPress={() => select(option.value)}
             style={({ pressed }) => ({
               flex: 1,
               minHeight: 40,
