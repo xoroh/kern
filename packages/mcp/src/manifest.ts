@@ -1600,6 +1600,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    name: "split",
+    export: "Split",
+    platform: "web",
+    path: "src/components/split.tsx",
+    status: "real",
+  },
+  {
     name: "switch",
     export: "Switch",
     platform: "web",

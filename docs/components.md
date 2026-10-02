@@ -260,6 +260,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `sonner-title` | `SonnerTitle` | real |
 | `sonner-viewport` | `SonnerViewport` | real |
 | `split` | `Split` | real |
+| `split` | `Split` | real |
 | `split-button` | `SplitButton` | real |
 | `split-panel` | `SplitPanel` | real |
 | `status-bar` | `StatusBar` | real |
