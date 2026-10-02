@@ -1,7 +1,7 @@
 import { contractFor } from "@kern-parity/contract";
 import { fireEvent, render, screen } from "@testing-library/react-native";
-import { act } from "react";
 import { IconButton, IconButtonTarget } from "@xoroh/kern-native";
+import { act } from "react";
 
 /**
  * Native side of `icon-button-target`.
