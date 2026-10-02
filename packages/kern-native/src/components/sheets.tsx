@@ -229,11 +229,23 @@ export function DockSheet({
           padding: Number.parseFloat(tokens.spacing["space-100"]),
           borderRadius: Number.parseFloat(scheme.shape["extra-large"]),
           backgroundColor: scheme.color.surfaceContainerHigh,
-          shadowColor: scheme.color.scrim,
-          shadowOpacity: 0.16,
-          shadowRadius: 16,
-          shadowOffset: { width: 0, height: 4 },
-          elevation: 3,
+          // NO elevation, and NO shadow.
+          //
+          // This carried `elevation: 3` plus a four-property iOS shadow block.
+          // Three reasons it went, none of them "M3 says so":
+          //
+          //  1. M3's "Side sheet (docked)" rests at 0dp.
+          //  2. More decisively, the WEB renderer had already ruled it: a docked
+          //     panel is persistent and non-modal, so at modal elevation it
+          //     "misreads as an overlay" (sheet-family.tsx:36). Native was
+          //     diverging from our own ruling, which is a parity defect rather
+          //     than a design choice.
+          //  3. `surfaceContainerHigh` is a tonal fill, not a shadow. The colour
+          //     already separates a docked panel from the surface behind it.
+          //
+          // Not token-routed on purpose: web carries no elevation token here, so
+          // adding one natively would create a token with a single consumer and
+          // no counterpart -- a second place for the two renderers to disagree.
         },
         style,
       ]}
