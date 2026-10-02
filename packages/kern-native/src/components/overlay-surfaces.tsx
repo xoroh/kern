@@ -45,7 +45,11 @@ const OverlayRegistryContext = createContext<OverlayRegistry | null>(null);
  * error at render time, so with no provider every overlay is interactive -- the
  * correct behaviour for exactly one overlay, and the pre-P2c-4 behaviour.
  */
-export function OverlayModalityProvider({ children }: { children?: ReactNode }) {
+export function OverlayModalityProvider({
+  children,
+}: {
+  children?: ReactNode;
+}) {
   const registry = useMemo(() => createOverlayModality(), []);
   return (
     <OverlayRegistryContext.Provider value={registry}>
@@ -64,7 +68,9 @@ function useKernOverlay(active: boolean): { isInteractive: boolean } {
   const id: OverlayId = useId();
 
   useOverlayRegistration(registry ?? FALLBACK_REGISTRY, id, active);
-  const state: OverlayModalityState = useOverlayModality(registry ?? FALLBACK_REGISTRY);
+  const state: OverlayModalityState = useOverlayModality(
+    registry ?? FALLBACK_REGISTRY,
+  );
 
   // With no provider the fallback registry is shared by everything, so fall back
   // to "interactive" rather than letting unrelated overlays make each other inert.

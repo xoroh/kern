@@ -25,7 +25,9 @@ describe("kern-native overlay modality", () => {
       </OverlayModalityProvider>,
     );
     // The top overlay is the modal: it is the only thing focus may enter.
-    expect(screen.getByLabelText("Only").props.accessibilityViewIsModal).toBe(true);
+    expect(screen.getByLabelText("Only").props.accessibilityViewIsModal).toBe(
+      true,
+    );
   });
 
   it("makes a covered overlay non-interactive while a later one is open", async () => {
@@ -42,8 +44,12 @@ describe("kern-native overlay modality", () => {
     // THE behaviour this unit exists for: two overlays open at once, and only
     // the topmost is interactive. The one underneath must be inert, or a touch
     // that lands on the covered overlay passes through to whatever is behind it.
-    expect(screen.getByLabelText("Under").props.accessibilityViewIsModal).toBe(false);
-    expect(screen.getByLabelText("Over").props.accessibilityViewIsModal).toBe(true);
+    expect(screen.getByLabelText("Under").props.accessibilityViewIsModal).toBe(
+      false,
+    );
+    expect(screen.getByLabelText("Over").props.accessibilityViewIsModal).toBe(
+      true,
+    );
   });
 
   it("blocks pointer events on a covered overlay", async () => {
@@ -77,7 +83,9 @@ describe("kern-native overlay modality", () => {
         </Drawer>
       </OverlayModalityProvider>,
     );
-    expect(screen.getByLabelText("Under").props.accessibilityViewIsModal).toBe(true);
+    expect(screen.getByLabelText("Under").props.accessibilityViewIsModal).toBe(
+      true,
+    );
     view.unmount();
   });
 
@@ -89,7 +97,9 @@ describe("kern-native overlay modality", () => {
         <RNText>body</RNText>
       </Drawer>,
     );
-    expect(screen.getByLabelText("Bare").props.accessibilityViewIsModal).toBe(true);
+    expect(screen.getByLabelText("Bare").props.accessibilityViewIsModal).toBe(
+      true,
+    );
   });
 
   it("leaves TWO un-wrapped overlays both interactive", async () => {
@@ -113,7 +123,11 @@ describe("kern-native overlay modality", () => {
         </Drawer>
       </>,
     );
-    expect(screen.getByLabelText("First").props.accessibilityViewIsModal).toBe(true);
-    expect(screen.getByLabelText("Second").props.accessibilityViewIsModal).toBe(true);
+    expect(screen.getByLabelText("First").props.accessibilityViewIsModal).toBe(
+      true,
+    );
+    expect(screen.getByLabelText("Second").props.accessibilityViewIsModal).toBe(
+      true,
+    );
   });
 });

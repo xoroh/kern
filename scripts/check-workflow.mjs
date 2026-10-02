@@ -23,7 +23,7 @@
  * confidently reporting on a file it never really read.
  */
 
-import { readdirSync, readFileSync, statSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse, parseDocument } from "yaml";
