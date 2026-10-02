@@ -935,7 +935,8 @@ export const CONTRACTS: readonly ParityRow[] = [
     nativeContract:
       "No caption element exists on this platform; the text is rendered AND appended to the table's accessible name, so it reaches a screen reader.",
     spec: "M3 - Data tables",
-    testedBy: "table.rntest.tsx",
+    testedBy:
+      "web-parity-table-caption.test.tsx / table.rntest.tsx",
     role: "caption",
     name: "Team roster",
     expects: {
