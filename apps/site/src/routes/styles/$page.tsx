@@ -273,7 +273,9 @@ function ElevationPage() {
         {ELEVATION_LEVELS.length} levels, read from the token package. Level 0
         is no shadow at all — that is a decision, not an absence of one. Each
         card below is raised by its OWN shadow value, so the level is the thing
-        you are looking at.
+        you are looking at. Resting states live on levels 0 to +3; +4 and +5 are
+        reserved for hover and for dragged, so an idle surface never sits at the
+        top of the stack.
       </FProse>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {ELEVATION_LEVELS.map((level) => (
@@ -365,8 +367,8 @@ function MotionPage() {
           kern animates with springs as the primary scheme and easing curves as
           the fallback — a registered decision (K7), not a default nobody chose.
           The full grid ships: {MOTION_SPRING.length} springs,{" "}
-          {MOTION_EASING.length} easings, {MOTION_DURATION.length} durations
-          and two named schemes. Every demo below runs on the token value shown
+          {MOTION_EASING.length} easings, {MOTION_DURATION.length} durations and
+          two named schemes. Every demo below runs on the token value shown
           beside it.
         </FProse>
       </FSection>
@@ -374,8 +376,8 @@ function MotionPage() {
       <FSection id="springs" title="Springs, live">
         <FProse>
           Each dot is integrated by its own spring — stiffness and damping
-          straight from the token package. Watch the settle: a fast spring snaps,
-          a slow one overshoots and eases in.
+          straight from the token package. Watch the settle: a fast spring
+          snaps, a slow one overshoots and eases in.
         </FProse>
         <ul className="m-0 flex flex-col gap-2">
           {MOTION_SPRING.map((s) => (
@@ -540,7 +542,8 @@ function StatesPage() {
                   style={{
                     backgroundColor: "var(--md-sys-color-primary)",
                     opacity:
-                      Number.parseInt(String(leaf.value), 10) / 100 || undefined,
+                      Number.parseInt(String(leaf.value), 10) / 100 ||
+                      undefined,
                   }}
                   aria-hidden="true"
                 />

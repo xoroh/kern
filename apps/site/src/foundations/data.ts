@@ -69,7 +69,7 @@ function subgroups(name: string): { key: string; node: Json }[] {
  * 13 are registered kern deviations (K2 status roles, K3 surfaceTonal).
  *
  * Both numbers are DERIVED: `roleCount` is the real length of the scheme,
- * and `m3RoleCount` is what `check:m3` asserts as M3's declared target. The
+ * and `m3RoleCount` is what `check:kern` asserts as M3's declared target. The
  * prose on the Color page reads these, so the "45 roles" claim can never be
  * a literal that drifts.
  */
@@ -203,10 +203,7 @@ export type TypeStyle = {
 const typo = (tokens.typography ?? {}) as Json;
 const family = String(typo.webFamily ?? typo.family ?? "");
 
-function stylesFrom(
-  scaleNode: unknown,
-  emphasized: boolean,
-): TypeStyle[] {
+function stylesFrom(scaleNode: unknown, emphasized: boolean): TypeStyle[] {
   const scale = (scaleNode ?? {}) as Json;
   return Object.keys(scale)
     .sort()
