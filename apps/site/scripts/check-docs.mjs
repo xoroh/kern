@@ -50,6 +50,15 @@ const gaps = [];
  * hide the six rows that are gated on an absence rather than a value.
  */
 const conformantNoToken = [];
+/**
+ * The other half of the same distinction. A component that carries no
+ * elevation token and that M3 does not tabulate has nothing to assert — that
+ * is a fact about the component, not a hole in our knowledge. Calling it a
+ * gap would say "we do not know" about something we know exactly, and it
+ * would bury the gaps that are real: a page that CLAIMS a numeric level
+ * nothing backs.
+ */
+const noElevationConcept = [];
 
 function fail(msg) {
   errors.push(msg);
@@ -59,6 +68,9 @@ function gap(msg) {
 }
 function conformant(msg) {
   conformantNoToken.push(msg);
+}
+function noConcept(msg) {
+  noElevationConcept.push(msg);
 }
 
 // ---------------------------------------------------------------- inventory
@@ -272,11 +284,25 @@ function checkElevation({ file, doc }) {
     return;
   }
 
-  // Neither inventory names this component: its elevation is unasserted.
+  // Neither inventory names this component, and the two situations are not
+  // the same thing:
+  //
+  //   - it carries no elevation token. Nothing in M3 asks for one and nothing
+  //     in kern ships one. There is nothing to assert — that is a fact about
+  //     the component.
+  //   - the page CLAIMS a numeric level. No gate backs that claim, so it is a
+  //     real gap and is reported as one.
+  //
+  // Collapsing both into "gap" would say "we do not know" about the first
+  // while burying the second.
+  if (level === "surface") {
+    noConcept(
+      `${file}: no elevation token, and M3 does not tabulate this component — nothing to assert`,
+    );
+    return;
+  }
   gap(
-    `${file}: elevation is not covered by m3-elevation.ts — level${
-      level === "surface" ? " (surface)" : level
-    } is unasserted by any gate`,
+    `${file}: page claims elevation level${level} but m3-elevation.ts does not cover this component — the claim is unasserted by any gate`,
   );
 }
 
@@ -437,6 +463,12 @@ if (conformantNoToken.length > 0) {
     `\ncheck-docs: ${conformantNoToken.length} conformant with no elevation token — asserted on absence, not a gap:`,
   );
   for (const c of conformantNoToken) console.log(`  ok   ${c}`);
+}
+if (noElevationConcept.length > 0) {
+  console.log(
+    `\ncheck-docs: ${noElevationConcept.length} with no elevation to assert — M3 does not tabulate them and they carry no token:`,
+  );
+  for (const n of noElevationConcept) console.log(`  ok   ${n}`);
 }
 if (gaps.length > 0) {
   console.log(`\ncheck-docs: ${gaps.length} gap(s) — reported, not failing:`);
