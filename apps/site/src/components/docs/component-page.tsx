@@ -23,6 +23,8 @@ import type {
 } from "../../content/types";
 import { MOBILE_DEMOS } from "../../demos/mobile/registry";
 import { WEB_DEMOS } from "../../demos/web/registry";
+import { ExampleList } from "../../showcase/example";
+import { examplesFor } from "../../showcase/registry";
 
 const H2 = "m-0 text-xl font-semibold text-(--md-sys-color-on-surface)";
 const BODY = "m-0 text-(--md-sys-color-on-surface-variant)";
@@ -78,10 +80,15 @@ function Showcase({
 }) {
   const demo = platform === "web" ? WEB_DEMOS : MOBILE_DEMOS;
   const live = demo[doc.parts[0]];
+  // Example tier (K-01-ladder P4-1). Examples take precedence over the single
+  // demo because they carry the reasoning, not just the thing working.
+  const examples = doc.parts.flatMap((part) => examplesFor(part));
   return (
     <section className="flex flex-col gap-3" aria-label="Showcase">
       <h2 className={H2}>Showcase</h2>
-      {live ? (
+      {examples.length > 0 ? (
+        <ExampleList examples={examples} />
+      ) : live ? (
         live()
       ) : (
         <p className={BODY}>
