@@ -337,6 +337,54 @@ console.log(
   `check-spec-urls: inventory ${SLUGS.size} real component page(s), ${TABS.size} tab(s)`,
 );
 
+/**
+ * THE ZERO-INPUT QUESTION, answered explicitly rather than by omission.
+ *
+ * Measured 2026-10-04: 0 of 195 content pages carry a `specUrl` and 0 carry an
+ * `apgUrl`. So every check above — the trap list, the inverse-fabrication rule,
+ * the identity match — currently has no input, and `--live` is a measured no-op
+ * (it prints "no recorded spec URLs to identity-check" and exits 0).
+ *
+ * That means this gate's verdict below is currently VACUOUS: `ok` here means
+ * "nothing to check", not "citations verified". Printing a bare `ok` for that
+ * is the "passes because it never looked" class — a gate occupying the slot
+ * where a real check belongs, which is exactly why the 0020 batch flagged it.
+ *
+ * DECISION (kern-lead, 2026-10-04), on measured evidence rather than the
+ * either/or in the brief:
+ *
+ *   WIRE `--live`?  NO. With zero recorded URLs it asserts nothing, and it is
+ *                   network-bound, so it would add a CI step that can fail on a
+ *                   transient outage while verifying nothing.
+ *
+ *   DELETE the gate? NO. Its logic is correct and mutation-proved by review-m3:
+ *                   it catches fabricated citations (the trap list), the inverse
+ *                   fabrication (`specUrl: "none"` on a component M3 really has),
+ *                   and the mis-citation (a real URL naming the wrong
+ *                   component). Deleting removes capability to defend a class
+ *                   that has already been defended once.
+ *
+ *   So the defect is the INPUT, not the gate: nothing claims M3 provenance, so
+ *   there is nothing for the gate to validate. The fix is to record citations,
+ *   which is content work in site-se's lane.
+ *
+ * Until then this gate says what it actually did. `--require-citations` turns
+ * the vacuous pass into a failure, so the moment CI is ready to enforce the
+ * content, enforcement is one flag away and needs no further gate change.
+ */
+if (checked === 0 && !process.argv.includes("--require-citations")) {
+  console.log(
+    "check-spec-urls: NO CITATIONS RECORDED — this run asserted nothing.\n" +
+      "  0 of " +
+      files.length +
+      " content pages set `specUrl`. Every rule above had no input, and\n" +
+      "  `--live` is a no-op until at least one URL is recorded. `ok` below\n" +
+      '  means "nothing to check", NOT "citations verified".\n' +
+      "  See docs/verification-limits.md §2. To enforce rather than warn:\n" +
+      "    bun run check:spec-urls --require-citations",
+  );
+}
+
 if (errors.length > 0) {
   console.error("");
   for (const e of errors) console.error(`  x ${e}`);
@@ -345,7 +393,34 @@ if (errors.length > 0) {
   process.exit(1);
 }
 
-console.log("check-spec-urls: ok");
+/**
+ * Opt-in enforcement. Fails when the gate asserted nothing, which is the state
+ * measured on 2026-10-04.
+ *
+ * Opt-in because turning this on today would redden CI for a CONTENT gap in
+ * another lane's tree, not because the state is acceptable — it is recorded in
+ * docs/verification-limits.md §2 and in the zero-input banner above. The flag
+ * exists so adopting it is a one-word change when the citations land, rather
+ * than a new gate that has to be built and proven again.
+ */
+if (checked === 0 && process.argv.includes("--require-citations")) {
+  console.error("");
+  console.error(
+    "check-spec-urls FAILED — 0 citations recorded, so nothing was asserted.\n" +
+      "  Every rule in this gate had no input. Exit 0 here would be a gate\n" +
+      "  passing because it never looked.\n" +
+      "  Fix: record `specUrl` on the pages whose components have a real M3\n" +
+      "  counterpart (12 web slugs are M3-backed today), or `--live` will have\n" +
+      "  nothing to identity-check either.",
+  );
+  process.exit(1);
+}
+
+console.log(
+  checked === 0
+    ? "check-spec-urls: ok — VACUOUS, nothing was asserted (see above)"
+    : "check-spec-urls: ok",
+);
 
 // --------------------------------------------------- landed-page identity
 /**
