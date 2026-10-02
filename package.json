@@ -23,6 +23,7 @@
     "generate:tones": "bun packages/kern-tokens/scripts/gen-tones-css.mjs",
     "generate:motion": "bun packages/kern-tokens/scripts/gen-motion-css.mjs",
     "generate:components": "bun packages/mcp/scripts/generate-manifest.mjs",
+    "generate:maturity": "bun packages/mcp/scripts/generate-maturity.mjs",
     "icons:sync": "bun packages/kern-icons/tools/sync.ts",
     "icons:generate": "bun packages/kern-icons/tools/generate.ts",
     "icons:check": "bun packages/kern-icons/tools/check.ts",
