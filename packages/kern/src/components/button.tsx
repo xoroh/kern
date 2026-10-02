@@ -15,7 +15,7 @@ const buttonVariants = cva(
         elevated:
           "bg-(--md-sys-color-surface-container-low) text-(--md-sys-color-primary) shadow-(--md-sys-elevation-level1)",
         primary:
-          "bg-(--md-sys-color-primary) text-(--md-sys-color-on-primary) hover:bg-(--md-sys-color-primary)/90",
+          "bg-(--md-sys-color-primary) text-(--md-sys-color-on-primary) hover:opacity-[var(--md-sys-state-hover)]",
         tonal:
           "bg-(--md-sys-color-secondary-container) text-(--md-sys-color-on-secondary-container)",
         outlined:

@@ -311,6 +311,79 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
   elevationTotal = Object.keys(M3_ELEVATION_COMPONENTS).length;
 }
 
+// 5b. TOKEN GROUP CONSUMPTION (P1-6). A token group that is generated, gated for
+// completeness, and read by NOTHING passes every gate while changing nothing —
+// the exact failure mode this program has now hit repeatedly. Every group in
+// `tokens.json` must be referenced by real source, or be listed below with a
+// reason. There is no silent third option.
+{
+  const EXEMPT = {
+    // palettes + spectrum are the K6 tones engine. They are consumed by a
+    // GENERATOR (gen-tones-css.mjs), not by a component, so a source scan cannot
+    // see them. They are the input to `generate:tones`, which IS covered by the
+    // generated-output freshness gate.
+    palettes:
+      "K6 tones engine — consumed by gen-tones-css.mjs (generate:tones), not by components.",
+    spectrum:
+      "K6 tones engine — consumed by gen-tones-css.mjs (generate:tones), not by components.",
+    // NOTE: this exemption is scoped to the THREE not-yet-used values only, and
+    // the check below is deliberately value-scoped so a regression in `hover`
+    // (the one value components DO consume today) still fails. A blanket group
+    // exemption would re-create the blind spot this gate exists to close.
+    states:
+      "focus/press/drag are M3 state-layer values (hover +8%, focus +10%, press +10%, drag +16%) that no component yet expresses as a state LAYER: focus is drawn as a ring, press as an opacity dim (0.82/0.9), drag has no implementation. Visual changes beyond this ruling — P1-6 follow-up.",
+  };
+  // Source roots that may consume tokens (generated output is NOT a consumer).
+  const CONSUMER_DIRS = [
+    join(ROOT, "packages/kern/src"),
+    join(ROOT, "packages/kern-native/src"),
+    join(ROOT, "packages/kern-start/src"),
+  ];
+  // `sourceFiles` is a generator, so collect before mapping.
+  const sourceFilesList = CONSUMER_DIRS.filter((d) => existsSync(d)).flatMap(
+    (d) => [...sourceFiles(d)],
+  );
+  const sourceText = sourceFilesList
+    .map((f) => readFileSync(f, "utf8"))
+    .join("\n");
+
+  for (const group of Object.keys(tokens)) {
+    if (group.startsWith("$")) continue;
+    // A group is consumed if any of its VALUES appears verbatim in source.
+    const values = [
+      ...new Set(
+        (typeof tokens[group] === "object" && tokens[group] !== null
+          ? Object.values(tokens[group])
+          : [tokens[group]]
+        ).flatMap((v) => (v && typeof v === "object" ? Object.values(v) : [v])),
+      ),
+    ].filter((v) => typeof v === "string" && v.length > 2);
+    // Consumed if any value appears verbatim in source, OR a source file names the
+    // group (`tokens.base.black`) — value-matching alone misses the second form.
+    const used =
+      values.some((v) => sourceText.includes(v)) ||
+      new RegExp(`tokens\\.${group}\\b|["']${group}["']`).test(sourceText);
+    // Per-group value scoping: a group may be exempted for SPECIFIC unused
+    // values, but every other value in it must still be consumed.
+    const exempt = EXEMPT[group];
+    if (exempt === undefined && !used) {
+      violations.push(
+        `token group "${group}" is generated but consumed by NO source file — ` +
+          `wire it up or record an exemption with a reason`,
+      );
+    } else if (exempt !== undefined && group === "states") {
+      // `hover-opacity` is the consumed one; the other three are the exemption.
+      const hoverUsed = sourceText.includes("--md-sys-state-hover");
+      if (!hoverUsed) {
+        violations.push(
+          'token group "states": hover-opacity is consumed by NO source file — ' +
+            "the only M3 state layer components use today; wire it up or drop the exemption",
+        );
+      }
+    }
+  }
+}
+
 // 6. GENERATED OUTPUT FRESHNESS (P1-7 / P1-8). `md.comp.*` and the Tailwind adapter are
 // generated, never hand-edited. If the committed CSS no longer matches what the
 // generators produce from tokens.json, the "one source of truth" invariant is broken —

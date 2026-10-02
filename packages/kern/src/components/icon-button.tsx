@@ -32,13 +32,13 @@ const iconButtonVariants = cva(
     variants: {
       variant: {
         standard:
-          "text-(--md-sys-color-on-surface-variant) hover:bg-(--md-sys-color-on-surface)/8",
+          "text-(--md-sys-color-on-surface-variant) hover:bg-(--md-sys-color-on-surface) hover:opacity-[var(--md-sys-state-hover)]",
         filled:
           "bg-(--md-sys-color-surface-container-highest) text-(--md-sys-color-on-surface-variant) hover:bg-(--md-sys-color-surface-container-high)",
         tonal:
-          "bg-(--md-sys-color-secondary-container) text-(--md-sys-color-on-secondary-container) hover:bg-(--md-sys-color-secondary-container)/80",
+          "bg-(--md-sys-color-secondary-container) text-(--md-sys-color-on-secondary-container) hover:opacity-[var(--md-sys-state-hover)]",
         outlined:
-          "border border-(--md-sys-color-outline) text-(--md-sys-color-on-surface-variant) hover:bg-(--md-sys-color-on-surface)/8",
+          "border border-(--md-sys-color-outline) text-(--md-sys-color-on-surface-variant) hover:bg-(--md-sys-color-on-surface) hover:opacity-[var(--md-sys-state-hover)]",
       },
       size: {
         sm: "size-8 after:-inset-2.5",

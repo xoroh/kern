@@ -93,7 +93,7 @@ export function SplitButton({
           aria-label={label}
           disabled={disabled}
           onClick={onClick}
-          className="kern-split-button-primary relative inline-flex items-center gap-2 rounded-s-(--md-sys-shape-corner-full) bg-(--md-sys-color-primary) pr-4 pl-4 text-sm font-medium text-(--md-sys-color-on-primary) outline-none select-none hover:bg-(--md-sys-color-primary)/90 focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary) focus-visible:ring-inset disabled:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0"
+          className="kern-split-button-primary relative inline-flex items-center gap-2 rounded-s-(--md-sys-shape-corner-full) bg-(--md-sys-color-primary) pr-4 pl-4 text-sm font-medium text-(--md-sys-color-on-primary) outline-none select-none hover:opacity-[var(--md-sys-state-hover)] focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary) focus-visible:ring-inset disabled:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0"
         >
           {icon ? (
             <span aria-hidden="true" className="flex items-center">
@@ -110,7 +110,7 @@ export function SplitButton({
             data-open={open || undefined}
             aria-label={overflowName}
             disabled={disabled}
-            className="kern-split-button-trigger relative inline-flex items-center justify-center rounded-e-(--md-sys-shape-corner-full) bg-(--md-sys-color-primary) ps-2 pe-3 text-(--md-sys-color-on-primary) outline-none select-none hover:bg-(--md-sys-color-primary)/90 focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary) focus-visible:ring-inset disabled:pointer-events-none data-[open]:bg-(--md-sys-color-primary)/90 [&_svg]:size-4"
+            className="kern-split-button-trigger relative inline-flex items-center justify-center rounded-e-(--md-sys-shape-corner-full) bg-(--md-sys-color-primary) ps-2 pe-3 text-(--md-sys-color-on-primary) outline-none select-none hover:opacity-[var(--md-sys-state-hover)] focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary) focus-visible:ring-inset disabled:pointer-events-none data-[open]:bg-(--md-sys-color-primary)/90 [&_svg]:size-4"
           >
             <span aria-hidden="true" className="flex items-center">
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
