@@ -30,7 +30,7 @@
  * omitted, not what you meant.
  */
 
-import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -51,7 +51,9 @@ for (const name of readdirSync(PACKAGES).sort()) {
   try {
     pkg = JSON.parse(readFileSync(pkgJson, "utf8"));
   } catch (err) {
-    violations.push(`packages/${name}: package.json is not valid JSON: ${err.message}`);
+    violations.push(
+      `packages/${name}: package.json is not valid JSON: ${err.message}`,
+    );
     continue;
   }
 
@@ -75,7 +77,11 @@ for (const name of readdirSync(PACKAGES).sort()) {
 
   // A published package must carry its licence terms one way or another.
   const publishes = Boolean(files) && pkg.private !== true;
-  if (publishes && !existsSync(join(dir, "LICENSE")) && !existsSync(join(ROOT, "LICENSE"))) {
+  if (
+    publishes &&
+    !existsSync(join(dir, "LICENSE")) &&
+    !existsSync(join(ROOT, "LICENSE"))
+  ) {
     violations.push(
       `packages/${name}: publishable, with no LICENSE in the package and none at the repo root.`,
     );

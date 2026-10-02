@@ -23,10 +23,10 @@
  * confidently reporting on a file it never really read.
  */
 
-import { readFileSync, readdirSync, statSync } from "node:fs";
+import { readdirSync, readFileSync, statSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { parseDocument, parse } from "yaml";
+import { parse, parseDocument } from "yaml";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const WF_DIR = join(ROOT, ".github", "workflows");
@@ -103,8 +103,8 @@ for (const file of workflows) {
 
 // --- 2. every check script in package.json must be invoked --------------------
 const pkg = JSON.parse(readFileSync(join(ROOT, "package.json"), "utf8"));
-const gates = Object.keys(pkg.scripts ?? {}).filter(
-  (s) => s.startsWith("check:"),
+const gates = Object.keys(pkg.scripts ?? {}).filter((s) =>
+  s.startsWith("check:"),
 );
 
 const dark = gates.filter((g) => !invoked.has(g) && !NOT_IN_CI.has(g));

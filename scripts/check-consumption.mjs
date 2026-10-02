@@ -40,7 +40,7 @@
  * a unit cannot quietly launder a new, unadopted symbol past the gate.
  */
 
-import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -84,7 +84,12 @@ if (!existsSync(DTS)) {
 const exported = new Set();
 for (const m of readFileSync(DTS, "utf8").matchAll(/export\s*\{([^}]*)\}/g)) {
   for (const raw of m[1].split(",")) {
-    const name = raw.trim().split(/\s+as\s+/).pop()?.trim().replace(/^type\s+/, "");
+    const name = raw
+      .trim()
+      .split(/\s+as\s+/)
+      .pop()
+      ?.trim()
+      .replace(/^type\s+/, "");
     if (name) exported.add(name);
   }
 }
@@ -92,7 +97,8 @@ for (const m of readFileSync(DTS, "utf8").matchAll(/export\s*\{([^}]*)\}/g)) {
 // --- 2. which module defines each export, and which are types ----------------
 const modText = new Map();
 for (const f of readdirSync(SRC)) {
-  if (!f.endsWith(".ts") || f === "index.ts" || f.endsWith(".test.ts")) continue;
+  if (!f.endsWith(".ts") || f === "index.ts" || f.endsWith(".test.ts"))
+    continue;
   modText.set(f.replace(/\.ts$/, ""), readFileSync(join(SRC, f), "utf8"));
 }
 
@@ -128,7 +134,11 @@ for (const dir of CONSUMER_DIRS) {
     const txt = readFileSync(file, "utf8");
     for (const m of txt.matchAll(IMPORT_RE)) {
       for (const raw of m[1].split(",")) {
-        const name = raw.trim().split(/\s+as\s+/)[0].trim().replace(/^type\s+/, "");
+        const name = raw
+          .trim()
+          .split(/\s+as\s+/)[0]
+          .trim()
+          .replace(/^type\s+/, "");
         if (name) adopted.add(name);
       }
     }
