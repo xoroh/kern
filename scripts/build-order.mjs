@@ -19,8 +19,9 @@
 //
 // Exit 0 = every buildable package built, in dependency order.
 
-import { readFileSync, readdirSync, existsSync } from "node:fs";
-import { resolve, dirname } from "node:path";
+import { spawnSync } from "node:child_process";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -29,12 +30,17 @@ const FIRST_PARTY = "@xoroh/";
 /** name -> { dir, manifest } for every workspace package under packages/. */
 const packages = new Map();
 
-for (const entry of readdirSync(resolve(ROOT, "packages"), { withFileTypes: true })) {
+for (const entry of readdirSync(resolve(ROOT, "packages"), {
+  withFileTypes: true,
+})) {
   if (!entry.isDirectory()) continue;
   const dir = resolve(ROOT, "packages", entry.name);
   const manifestPath = resolve(dir, "package.json");
   if (!existsSync(manifestPath)) continue;
-  packages.set(entry.name, { dir, manifest: JSON.parse(readFileSync(manifestPath, "utf8")) });
+  packages.set(entry.name, {
+    dir,
+    manifest: JSON.parse(readFileSync(manifestPath, "utf8")),
+  });
 }
 
 /** Buildable = has a `build` script. A package with none is not an edge target. */
@@ -111,10 +117,12 @@ let failed = null;
 for (const name of ordered) {
   const dir = packages.get(buildable.get(name)).dir;
   process.stdout.write(`\n--- build: ${name} ---\n`);
-  const result = Bun.spawnSync(["bun", "run", "build"], {
+  // node:child_process, not the `Bun` global: this script is invoked as
+  // `node scripts/build-order.mjs`, where `Bun` is undefined and referencing it
+  // throws. (Same trap as scripts/build-lock.mjs — see 520e94d.)
+  const result = spawnSync("bun", ["run", "build"], {
     cwd: dir,
-    stdout: "inherit",
-    stderr: "inherit",
+    stdio: "inherit",
   });
   if (result.exitCode !== 0) {
     failed = name;
@@ -129,4 +137,6 @@ if (failed) {
   process.exit(1);
 }
 
-process.stdout.write(`\nbuild-order: ok — ${ordered.length} package(s) built in dependency order.\n`);
+process.stdout.write(
+  `\nbuild-order: ok — ${ordered.length} package(s) built in dependency order.\n`,
+);
