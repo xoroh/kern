@@ -945,6 +945,35 @@ export const CONTRACTS: readonly ParityRow[] = [
       afterDisabledActivate: true,
     },
   },
+  {
+    // The target-size obligation is PER-PLATFORM by ruling (e9ab24b). There is
+    // no single shared number: 48dp is Material / iOS HIG, while the web is
+    // governed by WCAG 2.2 Target Size (Minimum), 24x24 CSS px. The suites
+    // assert each side against its own standard AND assert that the two differ,
+    // so raising the web minimum to 48 fails rather than passing quietly.
+    component: "icon-button-target",
+    id: "icon-button-target",
+    interactive: true,
+    behaviour: "An icon-only action still meets its platform's minimum target size.",
+    webContract:
+      "The hit area is at least 24x24 CSS px, the WCAG 2.2 Target Size (Minimum) threshold. It is NOT held to 48dp, which is a mobile convention.",
+    nativeContract:
+      "The hit area is at least 48x48 dp, the Material / iOS HIG threshold for a touch target.",
+    spec: "M3 - Icon buttons",
+    testedBy:
+      "web-parity-icon-target.test.tsx / native-parity-icon-target.rntest.tsx",
+    role: "button",
+    axis: "pressed",
+    interaction: "toggle",
+    name: "Notifications",
+    expects: {
+      initial: false,
+      afterActivate: true,
+      afterDisabledActivate: false,
+    },
+    maxSelected: 1,
+  },
+
 ] as const;
 
 /** Lookup for a test that knows its component by name.
