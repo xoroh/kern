@@ -62,6 +62,63 @@ const levelFromDp = (dp) => {
   return hit ? Number(hit[0]) : null;
 };
 
+/**
+ * Remove line and block comments, leaving CODE alone.
+ *
+ * STRING-AWARE, because a naive `//` strip truncates real code: these are class
+ * strings such as `"kern-popover-popup w-64 …"`, and a URL or a `"//"` in any
+ * literal would swallow everything after it on that line. A regex strip here
+ * would silently change which elevation each component reports — reintroducing
+ * the very mis-attribution this gate exists to prevent, one level up.
+ *
+ * Preserves newlines so reported LINE NUMBERS still point at the source.
+ */
+function stripComments(src) {
+  let out = "";
+  let i = 0;
+  const n = src.length;
+  while (i < n) {
+    const ch = src[i];
+    const next = src[i + 1];
+    if (ch === "/" && next === "/") {
+      while (i < n && src[i] !== "\n") i += 1;
+      continue;
+    }
+    if (ch === "/" && next === "*") {
+      i += 2;
+      while (i < n && !(src[i] === "*" && src[i + 1] === "/")) {
+        // Keep the newline so line numbers survive.
+        if (src[i] === "\n") out += "\n";
+        i += 1;
+      }
+      i += 2;
+      continue;
+    }
+    if (ch === '"' || ch === "'" || ch === "`") {
+      const quote = ch;
+      out += ch;
+      i += 1;
+      while (i < n) {
+        if (src[i] === "\\") {
+          out += src[i] + (src[i + 1] ?? "");
+          i += 2;
+          continue;
+        }
+        out += src[i];
+        if (src[i] === quote) {
+          i += 1;
+          break;
+        }
+        i += 1;
+      }
+      continue;
+    }
+    out += ch;
+    i += 1;
+  }
+  return out;
+}
+
 /** Split a module into per-export blocks and attribute elevation to each name. */
 function scanDir(dir, native) {
   if (!existsSync(dir)) return new Map();
@@ -79,12 +136,24 @@ function scanDir(dir, native) {
       const m = block.match(/^(?:export )?(?:function|const) (\w+)/);
       if (!m) continue;
       const name = m[1];
+      // Measure the CODE, not the prose about the code.
+      //
+      // This is not a hardening nit — it was a live false green. `PopoverContent`
+      // in kern-native carries `elevation: 3` in code and the string
+      // `elevation-level2` ONLY inside the explanatory comment above it ("Web's
+      // `PopoverContent` uses `--md-sys-elevation-level2`"). Matching the raw
+      // text therefore gave the native block a level it never declared, so it
+      // agreed with web no matter what the code said: setting native to 6dp
+      // (level 3) against web's level 2 — a real divergence — still exited 0.
+      // The same comment also means a NATIVE file can look like it ships a web
+      // token, which is the exact shape of the Drawer mis-attribution.
+      const code = stripComments(block);
       // The web token IS the level; native's raw `elevation:` is dp.
       const tokenLevels = new Set(
-        [...block.matchAll(/elevation-level(\d)/g)].map((x) => Number(x[1])),
+        [...code.matchAll(/elevation-level(\d)/g)].map((x) => Number(x[1])),
       );
       const dps = new Set(
-        [...block.matchAll(/(?<![\w-])elevation:\s*(\d+(?:\.\d+)?)/g)].map(
+        [...code.matchAll(/(?<![\w-])elevation:\s*(\d+(?:\.\d+)?)/g)].map(
           (x) => Number(x[1]),
         ),
       );
