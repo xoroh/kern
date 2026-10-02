@@ -78,8 +78,25 @@ describe("LoadingIndicator", () => {
     // tree yet unreachable by query is precisely the behaviour under test.
     const tree = JSON.stringify(screen.toJSON());
     expect(tree).toContain("no-hide-descendants");
+    // Both halves matter: `importantForAccessibility` hides DESCENDANTS, and
+    // `accessibilityElementsHidden` hides this element itself. Asserting only
+    // the former lets a mutation delete the latter and survive — which it did.
+    expect(tree).toContain("accessibilityElementsHidden");
     expect(tree).toContain("kern-loading-indicator-ring"); // it IS rendered
     expect(screen.queryByTestId("kern-loading-indicator-ring")).toBeNull(); // …but not reachable
+  });
+
+  /**
+   * The default size is part of the contract: a consumer who asks for nothing
+   * gets M3's default indicator, not the oversized one.
+   */
+  it("defaults to the default size", async () => {
+    await render(<LoadingIndicator />);
+    const tree = JSON.stringify(screen.toJSON());
+    const defaultWidth = loadingIndicatorStyles("default").ring.width;
+    const lgWidth = loadingIndicatorStyles("lg").ring.width;
+    expect(tree).toContain(`"width":${defaultWidth}`);
+    expect(tree).not.toContain(`"width":${lgWidth}`);
   });
 
   /**
