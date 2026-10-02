@@ -244,7 +244,7 @@ export const CONTRACTS: readonly ParityRow[] = [
     nativeContract:
       "A `role=switch` whose `accessibilityState.checked` flips on press; disabled blocks the change.",
     spec: "M3 Switch — toggles a single setting on/off.",
-    testedBy: "web-parity.test.tsx / native-parity.rntest.tsx",
+    testedBy: "web-parity-switch.test.tsx / native-parity-buttons.rntest.tsx",
     role: "switch",
 
     // Explicit interactivity marker; see the note on ParityRow.
@@ -271,7 +271,7 @@ export const CONTRACTS: readonly ParityRow[] = [
     nativeContract:
       "A `role=checkbox` whose `accessibilityState.checked` flips on press; disabled blocks the change.",
     spec: "M3 Checkbox — selects one or more options from a set.",
-    testedBy: "web-parity-tranche4.test.tsx / native-parity.rntest.tsx",
+    testedBy: "web-parity-buttons.test.tsx / native-parity-buttons.rntest.tsx",
     role: "checkbox",
 
     // Explicit interactivity marker; see the note on ParityRow.
@@ -300,7 +300,7 @@ export const CONTRACTS: readonly ParityRow[] = [
       "A `role=button` whose `accessibilityState.selected` is not a toggle and does not latch.",
     spec: "M3 Button — triggers an action; the filled/tonal/outlined variants differ in emphasis, not in state.",
     testedBy:
-      "web-parity-tranche4.test.tsx / native-parity-tranche2.rntest.tsx",
+      "web-parity-buttons.test.tsx / native-parity-controls.rntest.tsx",
     role: "button",
 
     // Explicit interactivity marker; see the note on ParityRow.
@@ -343,7 +343,7 @@ export const CONTRACTS: readonly ParityRow[] = [
       "A `role=dialog` modal surface carrying the label, unmounted while closed, dismissing via scrim press and Android back.",
     spec: "M3 Navigation drawer — a modal surface beside the content.",
     testedBy:
-      "web-parity-overlays.test.tsx / native-parity-overlays.rntest.tsx",
+      "web-parity-surfaces.test.tsx / native-parity-surfaces.rntest.tsx",
     role: "dialog",
 
     // Explicit interactivity marker; see the note on ParityRow.
@@ -375,7 +375,7 @@ export const CONTRACTS: readonly ParityRow[] = [
       "A `role=dialog` overlay carrying the label, dismissed on outside press; the trigger is press-only, since touch has no hover.",
     spec: "M3 Menu / anchored surface — transient content tied to an anchor.",
     testedBy:
-      "web-parity-overlays.test.tsx / native-parity-overlays.rntest.tsx",
+      "web-parity-surfaces.test.tsx / native-parity-surfaces.rntest.tsx",
     role: "dialog",
 
     // Explicit interactivity marker; see the note on ParityRow.
@@ -406,7 +406,7 @@ export const CONTRACTS: readonly ParityRow[] = [
       "A `role=group` region carrying the label, wrapping the RN scroll view.",
     spec: "NO M3 COMPONENT — a platform scroll container (RN ScrollView / CSS overflow). Kern extension per T4-V2; the M3-adjacent Scrollbar does not exist as an M3 component, so no M3 source is claimed.",
     testedBy:
-      "web-parity-overlays.test.tsx / native-parity-overlays.rntest.tsx",
+      "web-parity-surfaces.test.tsx / native-parity-surfaces.rntest.tsx",
     role: "group",
 
     // Explicit interactivity marker; see the note on ParityRow.
@@ -452,7 +452,7 @@ export const CONTRACTS: readonly ParityRow[] = [
       "A `role=button` toggle whose `accessibilityState.selected` flips on press.",
     spec: "M3 Filter chip — represents an option toggled on or off.",
     testedBy:
-      "web-parity-tranche2.test.tsx / native-parity-tranche2.rntest.tsx",
+      "web-parity-controls.test.tsx / native-parity-controls.rntest.tsx",
     role: "button",
 
     // Explicit interactivity marker; see the note on ParityRow.
@@ -485,7 +485,7 @@ export const CONTRACTS: readonly ParityRow[] = [
       "A `role=button` whose `accessibilityState.selected` does not latch.",
     spec: "M3 Assist chip — triggers an action, such as opening a chip.",
     testedBy:
-      "web-parity-tranche2.test.tsx / native-parity-tranche2.rntest.tsx",
+      "web-parity-controls.test.tsx / native-parity-controls.rntest.tsx",
     role: "button",
 
     // Explicit interactivity marker; see the note on ParityRow.
@@ -514,7 +514,7 @@ export const CONTRACTS: readonly ParityRow[] = [
       "A `role=listitem` whose accessible name is derived from its text; it is not pressable.",
     spec: "M3 List — a continuous set of text or images.",
     testedBy:
-      "web-parity-tranche2.test.tsx / native-parity-tranche2.rntest.tsx",
+      "web-parity-controls.test.tsx / native-parity-controls.rntest.tsx",
     role: "listitem",
     name: "Airplane mode, Updated 2 h ago",
     family: "named-surface",
@@ -559,7 +559,7 @@ export const CONTRACTS: readonly ParityRow[] = [
       "A `role=listitem` whose `accessibilityState.selected` flips on press; disabled blocks it.",
     spec: "M3 List — one item is selected at a time.",
     testedBy:
-      "web-parity-tranche2.test.tsx / native-parity-tranche2.rntest.tsx",
+      "web-parity-controls.test.tsx / native-parity-controls.rntest.tsx",
     role: "listitem",
     axis: "selected",
     interaction: "select",
@@ -591,7 +591,7 @@ export const CONTRACTS: readonly ParityRow[] = [
     // The web side has NO time-picker test on disk, so naming one would be the
     // false `testedBy` this gate exists to catch. Recorded as a gap.
     testedBy:
-      "web-parity-carousel-time.test.tsx / native-parity-carousel-time.rntest.tsx",
+      "web-parity-navigation.test.tsx / native-parity-navigation.rntest.tsx",
     role: "list",
 
     // Explicit interactivity marker; see the note on ParityRow.
@@ -620,7 +620,7 @@ export const CONTRACTS: readonly ParityRow[] = [
     // The web side has NO carousel test on disk, so naming one would be exactly
     // the false `testedBy` this gate was built to catch. Recorded as a gap.
     testedBy:
-      "web-parity-carousel-time.test.tsx / native-parity-carousel-time.rntest.tsx",
+      "web-parity-navigation.test.tsx / native-parity-navigation.rntest.tsx",
     role: "group",
 
     // Explicit interactivity marker; see the note on ParityRow.
@@ -648,7 +648,7 @@ export const CONTRACTS: readonly ParityRow[] = [
       "A `role=dialog` modal surface that reports `accessibilityViewIsModal`, is named, and dismisses on back press.",
     spec: "M3 Dialog — an alert-level interruption requiring a response.",
     testedBy:
-      "web-parity-tranche2.test.tsx / native-parity-tranche2.rntest.tsx",
+      "web-parity-controls.test.tsx / native-parity-controls.rntest.tsx",
     role: "dialog",
 
     // Explicit interactivity marker; see the note on ParityRow.
@@ -684,7 +684,7 @@ export const CONTRACTS: readonly ParityRow[] = [
       "A `role=dialog` modal surface that is named and dismisses on scrim press, Android back, and a close control.",
     spec: "M3 Bottom sheet — a modal surface anchored to the bottom of the screen.",
     testedBy:
-      "web-parity-tranche5.test.tsx / native-parity-tranche5.rntest.tsx",
+      "web-parity-sheets.test.tsx / native-parity-sheets.rntest.tsx",
     role: "dialog",
 
     // Explicit interactivity marker; see the note on ParityRow.
@@ -727,7 +727,7 @@ export const CONTRACTS: readonly ParityRow[] = [
       "A `role=textbox` whose `editable` is false when disabled, announced through `accessibilityState.disabled`.",
     spec: "M3 Text field — enter and edit text, single line.",
     testedBy:
-      "web-parity-tranche2.test.tsx / native-parity-tranche2.rntest.tsx",
+      "web-parity-controls.test.tsx / native-parity-controls.rntest.tsx",
     role: "textbox",
 
     // Explicit interactivity marker; see the note on ParityRow.
@@ -761,7 +761,7 @@ export const CONTRACTS: readonly ParityRow[] = [
       "A `role=textbox` whose `editable` is false when disabled, with `multiline` true.",
     spec: "M3 Text field (family) — the filled/outlined variants are the verified surface. The multiline variant is NOT verified against the current spec, so no M3 multiline source is claimed (D-3).",
     testedBy:
-      "web-parity-tranche2.test.tsx / native-parity-tranche2.rntest.tsx",
+      "web-parity-controls.test.tsx / native-parity-controls.rntest.tsx",
     role: "textbox",
 
     // Explicit interactivity marker; see the note on ParityRow.
@@ -810,7 +810,7 @@ export const CONTRACTS: readonly ParityRow[] = [
       "A `role=textbox` with increment/decrement controls that move the value by one step; disabled blocks them.",
     spec: "M3 Text field (FAMILY ONLY) — M3 defines no number-field component and its text-field overview enumerates only filled/outlined. The stepper affordance is a kern extension and is routed to the ext: band per K10, not to an M3 source.",
     testedBy:
-      "web-parity-tranche3.test.tsx / native-parity-tranche3.rntest.tsx",
+      "web-parity-inputs.test.tsx / native-parity-inputs.rntest.tsx",
     role: "textbox",
 
     // Explicit interactivity marker; see the note on ParityRow.
@@ -847,7 +847,7 @@ export const CONTRACTS: readonly ParityRow[] = [
       "A `role=group` of segments; entering a full segment advances the active segment.",
     spec: "NO M3 COMPONENT — M3 defines no OTP/PIN component. Kern extension per T4-V2's non-M3 band; routed to ext: rather than claiming an M3 source.",
     testedBy:
-      "web-parity-tranche3.test.tsx / native-parity-tranche3.rntest.tsx",
+      "web-parity-inputs.test.tsx / native-parity-inputs.rntest.tsx",
     role: "group",
 
     // Explicit interactivity marker; see the note on ParityRow.
@@ -903,7 +903,7 @@ export const CONTRACTS: readonly ParityRow[] = [
     nativeContract:
       "The surface is announced as supplementary text on the trigger.",
     spec: "M3 Tooltip — short supplementary text on hover or long-press.",
-    testedBy: "web-parity-tranche4.test.tsx / native-parity-tooltip.rntest.tsx",
+    testedBy: "web-parity-buttons.test.tsx / native-parity-tooltip.rntest.tsx",
     role: "button",
 
     // Explicit interactivity marker; see the note on ParityRow.
