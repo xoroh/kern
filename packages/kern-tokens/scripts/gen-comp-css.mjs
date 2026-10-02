@@ -178,6 +178,101 @@ const COMPONENTS = {
     container: { color: "surface-container", height: "space-600" },
     title: { typography: "title-large" },
   },
+  // ---- P1-7b: the remaining M3 component families. Target is the 37 families on
+  // m3.material.io/components, NOT the mcp manifest's 345 primitive rows (which
+  // include kern/Base-UI constructs M3 never specified -- accordion, avatar,
+  // empty-state, command -- and would make this table assert tokens for concepts
+  // the spec does not define).
+  badges: {
+    container: { color: "secondary-container", shape: "shape-corner-small" },
+    label: { typography: "label-large" },
+  },
+  "button-group": {
+    container: { shape: "shape-corner-full" },
+    divider: { color: "outline" },
+  },
+  "extended-fab": {
+    container: {
+      color: "primary-container",
+      "on-color": "on-primary-container",
+      shape: "shape-corner-large",
+    },
+    label: { typography: "label-large" },
+    icon: { size: "icon-24" },
+  },
+  "fab-menu": {
+    container: { shape: "shape-corner-large", color: "surface-container" },
+  },
+  "loading-indicator": {
+    // M3 loading indicator rests at level 0 — no elevation slot on purpose.
+    track: { color: "primary", shape: "shape-corner-full" },
+  },
+  menus: {
+    container: {
+      color: "surface-container",
+      shape: "shape-corner-extra-small",
+    },
+    // Sibling slot, matching banner/dialog/card: the generator walks
+    // component -> slot -> entries -> attr, so nesting elevation INSIDE
+    // container puts an object where it expects a string leaf.
+    elevation: { level: "level2" },
+    item: { typography: "body-large" },
+  },
+  "navigation-drawer": {
+    container: { color: "surface-container-low", width: "space-0" },
+    item: { typography: "label-large" },
+  },
+  "navigation-rail": {
+    container: { color: "surface", width: "space-0" },
+    "active-indicator": {
+      color: "secondary-container",
+      shape: "shape-corner-full",
+    },
+  },
+  search: {
+    container: {
+      color: "surface-container-high",
+      shape: "shape-corner-full",
+      height: "space-400",
+    },
+    "leading-icon": { size: "icon-24" },
+  },
+  "side-sheet": {
+    container: { color: "surface-container-low", width: "space-0" },
+    // M3 side sheets rest at level 0 — absence is conformant; no slot.
+  },
+  "split-button": {
+    container: { shape: "shape-corner-full", height: "space-300" },
+    label: { typography: "label-large" },
+  },
+  "text-field": {
+    container: {
+      color: "surface-container-highest",
+      shape: "shape-corner-extra-small",
+      height: "space-500",
+    },
+    label: { typography: "body-large" },
+    supporting: { typography: "body-small" },
+  },
+  "date-picker": {
+    container: {
+      color: "surface-container",
+      shape: "shape-corner-extra-large",
+    },
+    "selected-day": { color: "primary" },
+    "selected-day-label": { color: "on-primary" },
+  },
+  "time-picker": {
+    container: {
+      color: "surface-container",
+      shape: "shape-corner-extra-large",
+    },
+    label: { typography: "display-large" },
+  },
+  toolbars: {
+    container: { color: "surface-container", height: "space-600" },
+    title: { typography: "title-large" },
+  },
   "bottom-sheet": {
     container: {
       color: "surface-container-low",

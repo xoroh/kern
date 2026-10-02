@@ -3,6 +3,9 @@
  * role, shape, spacing or typescale var, so this can never drift into a second
  * source of truth. Source: tokens.json. */
 :root {
+  --md-comp-badges-container-color: var(--md-sys-color-secondary-container);
+  --md-comp-badges-container-shape: var(--md-sys-shape-corner-small);
+  --md-comp-badges-label-typography: var(--md-sys-typescale-label-large);
   --md-comp-banner-container-color: var(--md-sys-color-surface);
   --md-comp-banner-container-shape: var(--md-sys-shape-corner-medium);
   --md-comp-banner-elevation-level: var(--md-sys-elevation-level1);
@@ -14,6 +17,8 @@
   );
   --md-comp-button-container-height: var(--md-sys-spacing-300);
   --md-comp-button-container-shape: var(--md-sys-shape-corner-full);
+  --md-comp-button-group-container-shape: var(--md-sys-shape-corner-full);
+  --md-comp-button-group-divider-color: var(--md-sys-color-outline);
   --md-comp-button-label-typography: var(--md-sys-typescale-label-large);
   --md-comp-button-leading-icon-size: var(--md-sys-color-icon-24);
   --md-comp-button-trailing-icon-size: var(--md-sys-color-icon-24);
@@ -28,6 +33,12 @@
   --md-comp-checkbox-selected-mark-color: var(--md-sys-color-on-primary);
   --md-comp-chip-container-shape: var(--md-sys-shape-corner-small);
   --md-comp-chip-label-typography: var(--md-sys-typescale-label-large);
+  --md-comp-date-picker-container-color: var(--md-sys-color-surface-container);
+  --md-comp-date-picker-container-shape: var(--md-sys-shape-corner-extra-large);
+  --md-comp-date-picker-selected-day-color: var(--md-sys-color-primary);
+  --md-comp-date-picker-selected-day-label-color: var(
+    --md-sys-color-on-primary
+  );
   --md-comp-dialog-container-color: var(--md-sys-color-surface-container-high);
   --md-comp-dialog-container-shape: var(--md-sys-shape-corner-extra-large);
   --md-comp-dialog-elevation-level: var(--md-sys-elevation-level3);
@@ -42,10 +53,19 @@
   --md-comp-elevated-button-label-typography: var(
     --md-sys-typescale-label-large
   );
+  --md-comp-extended-fab-container-color: var(--md-sys-color-primary-container);
+  --md-comp-extended-fab-container-on-color: var(
+    --md-sys-color-on-primary-container
+  );
+  --md-comp-extended-fab-container-shape: var(--md-sys-shape-corner-large);
+  --md-comp-extended-fab-icon-size: var(--md-sys-color-icon-24);
+  --md-comp-extended-fab-label-typography: var(--md-sys-typescale-label-large);
   --md-comp-fab-container-color: var(--md-sys-color-primary-container);
   --md-comp-fab-container-on-color: var(--md-sys-color-on-primary-container);
   --md-comp-fab-container-shape: var(--md-sys-shape-corner-large);
   --md-comp-fab-label-typography: var(--md-sys-typescale-label-large);
+  --md-comp-fab-menu-container-color: var(--md-sys-color-surface-container);
+  --md-comp-fab-menu-container-shape: var(--md-sys-shape-corner-large);
   --md-comp-filled-button-container-color: var(--md-sys-color-primary);
   --md-comp-filled-button-container-height: var(--md-sys-spacing-300);
   --md-comp-filled-button-container-on-color: var(--md-sys-color-on-primary);
@@ -56,6 +76,27 @@
   --md-comp-list-item-container-color: var(--md-sys-color-surface);
   --md-comp-list-item-container-on-color: var(--md-sys-color-on-surface);
   --md-comp-list-supporting-typography: var(--md-sys-typescale-body-medium);
+  --md-comp-loading-indicator-track-color: var(--md-sys-color-primary);
+  --md-comp-loading-indicator-track-shape: var(--md-sys-shape-corner-full);
+  --md-comp-menus-container-color: var(--md-sys-color-surface-container);
+  --md-comp-menus-container-shape: var(--md-sys-shape-corner-extra-small);
+  --md-comp-menus-elevation-level: var(--md-sys-elevation-level2);
+  --md-comp-menus-item-typography: var(--md-sys-typescale-body-large);
+  --md-comp-navigation-drawer-container-color: var(
+    --md-sys-color-surface-container-low
+  );
+  --md-comp-navigation-drawer-container-width: var(--md-sys-spacing-0);
+  --md-comp-navigation-drawer-item-typography: var(
+    --md-sys-typescale-label-large
+  );
+  --md-comp-navigation-rail-active-indicator-color: var(
+    --md-sys-color-secondary-container
+  );
+  --md-comp-navigation-rail-active-indicator-shape: var(
+    --md-sys-shape-corner-full
+  );
+  --md-comp-navigation-rail-container-color: var(--md-sys-color-surface);
+  --md-comp-navigation-rail-container-width: var(--md-sys-spacing-0);
   --md-comp-navigationbar-active-indicator-color: var(
     --md-sys-color-secondary-container
   );
@@ -82,6 +123,10 @@
   --md-comp-radio-outer-circle-size: var(--md-sys-color-icon-24);
   --md-comp-radio-selected-inner-color: var(--md-sys-color-on-primary);
   --md-comp-radio-selected-outer-color: var(--md-sys-color-primary);
+  --md-comp-search-container-color: var(--md-sys-color-surface-container-high);
+  --md-comp-search-container-height: var(--md-sys-spacing-400);
+  --md-comp-search-container-shape: var(--md-sys-shape-corner-full);
+  --md-comp-search-leading-icon-size: var(--md-sys-color-icon-24);
   --md-comp-segmented-button-container-height: var(--md-sys-spacing-300);
   --md-comp-segmented-button-container-shape: var(--md-sys-shape-corner-full);
   --md-comp-segmented-button-label-typography: var(
@@ -90,6 +135,10 @@
   --md-comp-segmented-button-selected-container-color: var(
     --md-sys-color-secondary-container
   );
+  --md-comp-side-sheet-container-color: var(
+    --md-sys-color-surface-container-low
+  );
+  --md-comp-side-sheet-container-width: var(--md-sys-spacing-0);
   --md-comp-slider-handle-color: var(--md-sys-color-primary);
   --md-comp-slider-handle-size: var(--md-sys-color-icon-20);
   --md-comp-slider-track-height: var(--md-sys-spacing-50);
@@ -97,6 +146,9 @@
   --md-comp-snackbar-container-color: var(--md-sys-color-inverse-surface);
   --md-comp-snackbar-container-on-color: var(--md-sys-color-inverse-on-surface);
   --md-comp-snackbar-container-shape: var(--md-sys-shape-corner-extra-small);
+  --md-comp-split-button-container-height: var(--md-sys-spacing-300);
+  --md-comp-split-button-container-shape: var(--md-sys-shape-corner-full);
+  --md-comp-split-button-label-typography: var(--md-sys-typescale-label-large);
   --md-comp-switch-handle-color: var(--md-sys-color-outline);
   --md-comp-switch-handle-size: var(--md-sys-color-icon-24);
   --md-comp-switch-selected-handle-color: var(--md-sys-color-on-primary);
@@ -109,6 +161,18 @@
   --md-comp-tabs-label-typography: var(--md-sys-typescale-title-small);
   --md-comp-text-button-container-height: var(--md-sys-spacing-300);
   --md-comp-text-button-label-typography: var(--md-sys-typescale-label-large);
+  --md-comp-text-field-container-color: var(
+    --md-sys-color-surface-container-highest
+  );
+  --md-comp-text-field-container-height: var(--md-sys-spacing-500);
+  --md-comp-text-field-container-shape: var(--md-sys-shape-corner-extra-small);
+  --md-comp-text-field-label-typography: var(--md-sys-typescale-body-large);
+  --md-comp-text-field-supporting-typography: var(
+    --md-sys-typescale-body-small
+  );
+  --md-comp-time-picker-container-color: var(--md-sys-color-surface-container);
+  --md-comp-time-picker-container-shape: var(--md-sys-shape-corner-extra-large);
+  --md-comp-time-picker-label-typography: var(--md-sys-typescale-display-large);
   --md-comp-tonal-button-container-color: var(
     --md-sys-color-secondary-container
   );
@@ -116,6 +180,9 @@
     --md-sys-color-on-secondary-container
   );
   --md-comp-tonal-button-label-typography: var(--md-sys-typescale-label-large);
+  --md-comp-toolbars-container-color: var(--md-sys-color-surface-container);
+  --md-comp-toolbars-container-height: var(--md-sys-spacing-600);
+  --md-comp-toolbars-title-typography: var(--md-sys-typescale-title-large);
   --md-comp-tooltip-container-color: var(--md-sys-color-inverse-surface);
   --md-comp-tooltip-container-on-color: var(--md-sys-color-inverse-on-surface);
   --md-comp-tooltip-container-shape: var(--md-sys-shape-corner-extra-small);
