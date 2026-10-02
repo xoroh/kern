@@ -383,8 +383,12 @@ function checkElevation({ file, doc }) {
   }
 
   if (kernDecision) {
-    // kern's own decision, registered against a deviation id. The page must
-    // carry that id — otherwise a deliberate choice reads as conformance.
+    // kern's own decision — M3 has no row for this component.
+    //
+    // The registry records EITHER a deviation id (K1–K10) OR, where the
+    // decision is not registered to one, a `kern-decision: …` message. Both
+    // are values `KERN_UNASSIGNED_ELEVATION` has carried, so the gate handles
+    // both rather than assuming one shape and silently passing the other.
     if (level === "surface") {
       fail(
         at(
@@ -392,7 +396,35 @@ function checkElevation({ file, doc }) {
         ),
       );
     }
-    const ids = (doc.deviations ?? []).map((d) => d.id);
+    const deviations = doc.deviations ?? [];
+    const ids = deviations.map((d) => d.id);
+
+    if (kernDecision.startsWith("kern-decision:")) {
+      // Not registered to a K-id. The page must still OWN the decision in
+      // words: a deviation whose `spec` says M3 has no row for it. Checking
+      // the claim rather than the id, because there is no id to check.
+      //
+      // The negation and the naming verb appear in either order across the
+      // pages — "does not name a drawer" and "names no popover" are the same
+      // claim — so both shapes are matched. Requiring a MATERIAL 3 negation,
+      // not just any "no": a stray "no" elsewhere in the spec must not pass.
+      const assertsNoM3Row = (spec) =>
+        /\b(M3|Material 3|elevation table)\b/i.test(spec) &&
+        (/\b(no|not|never|does not|doesn't|isn't|is not)\b[^.]*\b(tabulat|nam|row|spec)/i.test(
+          spec,
+        ) ||
+          /\b(tabulat|nam|row|spec)[^.]*\b(no|not|never)\b/i.test(spec));
+      const owns = deviations.some((d) => assertsNoM3Row(d.spec ?? ""));
+      if (!owns) {
+        fail(
+          at(
+            `elevation is a kern decision (M3 does not tabulate this component) but section 5 carries no deviation saying so — a deliberate choice is reading as conformance`,
+          ),
+        );
+      }
+      return;
+    }
+
     if (!ids.includes(kernDecision)) {
       fail(
         at(

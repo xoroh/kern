@@ -33,6 +33,7 @@ import type {
 } from "../../content/types";
 import { MOBILE_DEMOS } from "../../demos/mobile/registry";
 import { WEB_DEMOS } from "../../demos/web/registry";
+import { maturityForExports } from "../../generated/maturity";
 import { ExampleList } from "../../showcase/example";
 import { examplesFor } from "../../showcase/registry";
 
@@ -243,20 +244,36 @@ function LinkChip({
  * Section 1 — Header + metadata strip. Facts before prose: this is what makes
  * a page read as a reference rather than a blog post.
  */
-function MetadataStrip({ doc }: { doc: ComponentDoc }) {
+function MetadataStrip({
+  doc,
+  platform,
+}: {
+  doc: ComponentDoc;
+  platform: Platform;
+}) {
   const { meta } = doc;
   const elev = elevationLabel(meta.elevation, meta.elevationBacked !== false);
+  // D-038 — maturity comes from ONE generated source (packages/mcp's
+  // maturity.ts, copied regen-green by scripts/generate-maturity.mjs). It is
+  // resolved, never authored: a page asserts a state only when every export it
+  // owns agrees, and renders no chip at all when the source knows none of them.
+  const maturity = maturityForExports(
+    doc.parts,
+    platform === "web" ? "web" : "native",
+  );
+  const state = meta.state ?? maturity?.state;
+  const version = meta.version ?? maturity?.version;
   return (
     <dl className="m-0 flex flex-wrap items-center gap-2">
       {/*
         m6 — `meta.status` is the REGISTRY value (real/stub) and describes our
         content file, not the component. Publishing it as "Status: real" leaks
         an internal and tells the reader nothing. The release state
-        (meta.state: Preview / Stable / Maintained / …) is the fact about the
-        component, and that is what gets shown.
+        (Preview / Stable / Maintained / …) is the fact about the component,
+        and that is what gets shown.
       */}
-      {meta.state ? <Chip term="State" value={meta.state} /> : null}
-      {meta.version ? <Chip term="Version" value={meta.version} /> : null}
+      {state ? <Chip term="State" value={state} /> : null}
+      {version ? <Chip term="Version" value={version} /> : null}
       <Chip term="Package" value={meta.package} />
       {meta.platforms?.length ? (
         <Chip term="Platforms" value={meta.platforms.join(" · ")} />
@@ -268,9 +285,21 @@ function MetadataStrip({ doc }: { doc: ComponentDoc }) {
       ) : (
         // m3: a `dl > div` must contain a dt. Rendering the axis with no term
         // produced dd-only groups, which is invalid and loses the pair.
-        meta.variants.map((axis) => (
-          <Chip key={axis} term="Variant" value={axis} />
-        ))
+        // Each entry is authored as `axis: values`, so the axis NAME becomes
+        // the term and the values become the value — otherwise the strip reads
+        // "Variant: variant: elevated · …", a label printed twice.
+        meta.variants.map((axis) => {
+          const sep = axis.indexOf(": ");
+          const term = sep === -1 ? "Variant" : axis.slice(0, sep);
+          const value = sep === -1 ? axis : axis.slice(sep + 2);
+          return (
+            <Chip
+              key={axis}
+              term={term.charAt(0).toUpperCase() + term.slice(1)}
+              value={value}
+            />
+          );
+        })
       )}
       {/*
         TRI-STATE, because the middle and the empty state are different
@@ -1017,7 +1046,7 @@ export function ComponentPage({
       <header className="flex flex-col gap-4">
         <h1 className={H1}>{doc.name}</h1>
         <p className={`m-0 max-w-[62ch] ${LEDE} ${INK_SOFT}`}>{doc.oneLiner}</p>
-        <MetadataStrip doc={doc} />
+        <MetadataStrip doc={doc} platform={platform} />
       </header>
 
       {/* prove */}

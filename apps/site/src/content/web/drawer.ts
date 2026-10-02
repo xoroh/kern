@@ -17,10 +17,12 @@ export const drawer: ComponentDoc = {
     // pointing at a near-neighbour.
     nativePeer: "none",
     variants: [],
-    // `shadow-(--md-sys-elevation-level2)`. M3 tabulates Navigation drawer
-    // (modal) at level 1, so level 2 is a real deviation from it — see
-    // Deviations for the registration and the id caveat.
-    elevation: 2,
+    // Conformant: `shadow-(--md-sys-elevation-level1)`, matching M3's
+    // `navigation drawer (modal)` row at level 1. It sits with kern's other
+    // modal surfaces — Sheet, SnapSheet, EntitySheet and the picker sheet all
+    // ship level 1 — because it is the same kind of surface: bottom-anchored,
+    // top-rounded only, capped height, with a backdrop.
+    elevation: 1,
   },
   parts: [
     "Drawer",
@@ -60,17 +62,9 @@ export const drawer: ComponentDoc = {
     notSupported: [
       "There is no `side` or `anchor` prop. This component is bottom-anchored by construction; a side sheet is `Sheet`, not a drawer variant.",
       "There is no `size` prop. Width and height are capped constants.",
-      "There is no `elevation` prop. Resting elevation is a registered decision — see Deviations.",
+      "There is no `elevation` prop. Resting elevation is level 1, conformant with M3's navigation drawer (modal) row.",
     ],
   },
-  deviations: [
-    {
-      id: "K6",
-      spec: "M3's component elevation table tabulates Navigation drawer (modal) at level 1, and side sheet (modal) at level 1 with side sheet (docked) at level 0 — those sheet rows belong to kern's Sheet.",
-      kern: "Drawer rests at elevation level 2.",
-      why: "Level 2 is one above the tabulated Navigation drawer (modal) at 1 — a real departure, not an absence of a row to conform to. It places the drawer above the app bar and the navigation bar, which also rest at 2, and below a modal dialog at 3, where a transient panel belongs in the stack. Registered in the elevation inventory under K6; note that the inventory records K6 for ten unassigned-elevation components and K6 is the TONES id, so the registration itself needs correcting to the elevation id — tracked with design-system-lead.",
-    },
-  ],
   api: [
     {
       name: "open",

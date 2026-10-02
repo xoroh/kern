@@ -13,7 +13,7 @@
     "preview": "vite preview",
     "typecheck": "bun run --cwd .. check:dist:types && tsc --noEmit",
     "deploy": "bun run build && wrangler deploy",
-    "generate": "bun run scripts/generate-manifest.mjs",
+    "generate": "bun run scripts/generate-manifest.mjs && bun run scripts/generate-maturity.mjs",
     "check:snippets": "bun run --cwd .. check:dist:types && bun run scripts/check-snippets.mjs",
     "check:docs": "node scripts/check-docs.mjs && node scripts/check-spec-urls.mjs && node scripts/check-typescale.mjs && node scripts/check-headings.mjs",
     "generate:routes": "tsr generate"

@@ -12,6 +12,7 @@ import { createFileRoute, notFound } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 import { SiteLayout } from "../../components/chrome/site-layout";
 import {
+  COLOR_GROUPS,
   COLOR_ROLES,
   ELEVATION_LEVELS,
   KERN_EXTRA_COUNT,
@@ -146,31 +147,62 @@ function ColorPage() {
       <FSection id="the-role-matrix" title="The role matrix">
         <FProse>
           Every role, both schemes, with its own value. These are the theme's
-          values rendered directly — not a picture of them.
+          values rendered directly — not a picture of them. The matrix is
+          grouped by the role grammar Material 3 names its roles by, so each
+          family's <code>on*</code> pairs sit beside the role they pair with.
+          The kern band at the end is the {KERN_EXTRA_COUNT} roles Material 3
+          does not have — kept visibly apart rather than merged into the
+          alphabet.
         </FProse>
-        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-          {COLOR_ROLES.map((role) => (
+
+        {COLOR_GROUPS.map((band) => (
+          <div key={band.group} className="mt-6">
             <div
-              key={role.name}
-              className={`${F_CARD} flex items-center gap-3 p-3`}
+              className={`mb-2 flex items-baseline gap-2 ${band.isKern ? "border-l-4 border-(--md-sys-color-tertiary) pl-3" : ""}`}
             >
-              <div
-                className="h-10 w-14 shrink-0 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant)"
-                style={{ background: role.light }}
-                aria-hidden="true"
-              />
-              <div className="flex flex-col gap-0.5">
-                <span className={`m-0 ${T_SMALL_TITLE} ${F_INK}`}>
-                  {role.name}
-                </span>
-                <span className={`m-0 font-mono ${T_LABEL} ${F_INK_SOFT}`}>
-                  {role.light} · dark {role.dark}
-                  {role.kernExtra ? "  ·  kern" : ""}
-                </span>
-              </div>
+              <h3
+                className={`m-0 ${T_SMALL_TITLE} ${F_INK}`}
+                id={`band-${band.group}`}
+              >
+                {band.label}
+              </h3>
+              <span className={`m-0 ${T_LABEL} ${F_INK_SOFT}`}>
+                {band.roles.length} roles
+              </span>
             </div>
-          ))}
-        </div>
+            <div
+              className={`grid grid-cols-1 gap-2 sm:grid-cols-2 ${band.isKern ? "rounded-(--md-sys-shape-corner-medium) bg-(--md-sys-color-tertiary-container)/15 p-2" : ""}`}
+            >
+              {band.roles.map((role) => (
+                <div
+                  key={role.name}
+                  className={`${F_CARD} flex items-center gap-3 p-3 ${role.kernExtra ? "border-l-4 border-(--md-sys-color-tertiary)" : ""}`}
+                >
+                  <div
+                    className="h-10 w-14 shrink-0 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant)"
+                    style={{ background: role.light }}
+                    aria-hidden="true"
+                  />
+                  <div className="flex flex-col gap-0.5">
+                    <span className={`m-0 ${T_SMALL_TITLE} ${F_INK}`}>
+                      {role.name}
+                    </span>
+                    <span className={`m-0 font-mono ${T_LABEL} ${F_INK_SOFT}`}>
+                      {role.light} · dark {role.dark}
+                    </span>
+                  </div>
+                  {role.kernExtra ? (
+                    <span
+                      className={`ml-auto shrink-0 rounded-full bg-(--md-sys-color-tertiary-container) px-2 py-0.5 ${T_LABEL} text-(--md-sys-color-on-tertiary-container)`}
+                    >
+                      kern
+                    </span>
+                  ) : null}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
       </FSection>
 
       <FSection id="the-kern-extras" title="The kern additions">
@@ -273,9 +305,9 @@ function ElevationPage() {
         {ELEVATION_LEVELS.length} levels, read from the token package. Level 0
         is no shadow at all — that is a decision, not an absence of one. Each
         card below is raised by its OWN shadow value, so the level is the thing
-        you are looking at. Resting states live on levels 0 to +3; +4 and +5 are
-        reserved for hover and for dragged, so an idle surface never sits at the
-        top of the stack.
+        you are looking at. Resting states live on levels 0 to +3; levels 4 and
+        5 are interaction-only — reserved for hover and for dragged — so an idle
+        surface never sits at the top of the stack.
       </FProse>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {ELEVATION_LEVELS.map((level) => (

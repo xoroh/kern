@@ -104,6 +104,104 @@ export type ColorRole = {
   dark: string;
   /** True when this role is one of the registered kern extras, not M3's. */
   kernExtra: boolean;
+  /** The role-grammar band this role belongs to, in M3's naming order. */
+  group: ColorGroup;
+};
+
+/**
+ * The role grammar, in M3's own naming order. Material 3 names roles by
+ * family — `primary`, `onPrimary`, `primaryContainer`, `primaryFixed`, … — so
+ * the bands below are not a presentation choice: they are what the names mean.
+ * Grouping the matrix by them keeps each family's on/off pairs adjacent, which
+ * is the whole point of the naming scheme.
+ *
+ * The seven M3 bands total 45 roles; the eighth band is the 13 kern extras.
+ */
+export type ColorGroup =
+  | "primary"
+  | "secondary"
+  | "tertiary"
+  | "error"
+  | "surface"
+  | "outline"
+  | "inverse"
+  | "kern";
+
+const GROUP_NAMES: Record<ColorGroup, string> = {
+  primary: "Primary — the brand accent",
+  secondary: "Secondary — supporting emphasis",
+  tertiary: "Tertiary — balancing accent",
+  error: "Error — destructive and failure",
+  surface: "Surface — the page and its containers",
+  outline: "Outline — boundaries and dividers",
+  inverse: "Inverse, shadow and scrim",
+  kern: "kern additions — not Material 3's",
+};
+
+/**
+ * Role name -> band, by explicit name rather than a prefix heuristic. A prefix
+ * rule would misfile `onSurface` into "on*" and `primaryFixed` into "fixed";
+ * naming every role makes the grouping auditable against the theme object.
+ */
+const ROLE_GROUP: Record<string, ColorGroup> = {
+  primary: "primary",
+  onPrimary: "primary",
+  primaryContainer: "primary",
+  onPrimaryContainer: "primary",
+  primaryFixed: "primary",
+  primaryFixedDim: "primary",
+  onPrimaryFixed: "primary",
+  onPrimaryFixedVariant: "primary",
+  secondary: "secondary",
+  onSecondary: "secondary",
+  secondaryContainer: "secondary",
+  onSecondaryContainer: "secondary",
+  secondaryFixed: "secondary",
+  secondaryFixedDim: "secondary",
+  onSecondaryFixed: "secondary",
+  onSecondaryFixedVariant: "secondary",
+  tertiary: "tertiary",
+  onTertiary: "tertiary",
+  tertiaryContainer: "tertiary",
+  onTertiaryContainer: "tertiary",
+  tertiaryFixed: "tertiary",
+  tertiaryFixedDim: "tertiary",
+  onTertiaryFixed: "tertiary",
+  onTertiaryFixedVariant: "tertiary",
+  error: "error",
+  onError: "error",
+  errorContainer: "error",
+  onErrorContainer: "error",
+  surface: "surface",
+  onSurface: "surface",
+  onSurfaceVariant: "surface",
+  surfaceBright: "surface",
+  surfaceDim: "surface",
+  surfaceContainer: "surface",
+  surfaceContainerLow: "surface",
+  surfaceContainerLowest: "surface",
+  surfaceContainerHigh: "surface",
+  surfaceContainerHighest: "surface",
+  outline: "outline",
+  outlineVariant: "outline",
+  inverseSurface: "inverse",
+  inverseOnSurface: "inverse",
+  inversePrimary: "inverse",
+  shadow: "inverse",
+  scrim: "inverse",
+};
+
+function groupOf(name: string): ColorGroup {
+  if (KERN_EXTRA_ROLE_NAMES.has(name)) return "kern";
+  return ROLE_GROUP[name] ?? "surface";
+}
+
+export type ColorGroupBand = {
+  group: ColorGroup;
+  label: string;
+  /** True for the kern band — rendered as a visibly separate band. */
+  isKern: boolean;
+  roles: ColorRole[];
 };
 
 export const COLOR_ROLES: ColorRole[] = Object.keys(light)
@@ -113,6 +211,7 @@ export const COLOR_ROLES: ColorRole[] = Object.keys(light)
     light: String(light[name] ?? ""),
     dark: String(dark[name] ?? ""),
     kernExtra: KERN_EXTRA_ROLE_NAMES.has(name),
+    group: groupOf(name),
   }));
 
 /** Role lookup for the pairing-law specimens. */
@@ -124,6 +223,42 @@ export const ROLE_COUNT = COLOR_ROLES.length;
 export const M3_ROLE_COUNT =
   ROLE_COUNT - COLOR_ROLES.filter((r) => r.kernExtra).length;
 export const KERN_EXTRA_COUNT = COLOR_ROLES.length - M3_ROLE_COUNT;
+
+/**
+ * The matrix bucketed into the role-grammar bands. Rendered in this order, the
+ * kern band sits last and visually apart, so the 45/13 split is a structural
+ * fact of the page rather than a sentence in the fine print.
+ */
+export const COLOR_GROUPS: ColorGroupBand[] = (
+  [
+    "primary",
+    "secondary",
+    "tertiary",
+    "error",
+    "surface",
+    "outline",
+    "inverse",
+    "kern",
+  ] as ColorGroup[]
+)
+  .map((group) => ({
+    group,
+    label: GROUP_NAMES[group],
+    isKern: group === "kern",
+    roles: COLOR_ROLES.filter((r) => r.group === group),
+  }))
+  .filter((band) => band.roles.length > 0);
+
+/** Role count per band — the split, measured from the bands themselves. */
+export const COLOR_GROUP_COUNTS: {
+  label: string;
+  count: number;
+  isKern: boolean;
+}[] = COLOR_GROUPS.map((b) => ({
+  label: b.label,
+  count: b.roles.length,
+  isKern: b.isKern,
+}));
 
 // ------------------------------------------------------------------ others
 export const MOTION: Leaf[] = group("motion");
