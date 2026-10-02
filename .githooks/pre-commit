@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+# Pre-commit: refuse a commit that would ship a stale generated artefact.
+#
+# WHY
+#
+# `packages/mcp/src/component-sources.ts` embeds the SOURCE TEXT of every
+# component file verbatim. So any reformatting of a source file -- biome
+# included -- silently invalidates it, and the drift is only noticed when a
+# release gate runs. That happened twice on one day from two different commits
+# (`717c4b6` and `eaab476`), and each time it surfaced as a NO-GO on a publish
+# step rather than as a red line at the edit.
+#
+# The fix is deliberately cheap: `check:generated` ALREADY runs every generator
+# into a temp copy and compares byte-for-byte. It is read-only, safe on a dirty
+# worktree, and never writes. The only thing missing was running it at the moment
+# the cause is still on screen.
+#
+# IT DOES NOT AUTO-REGENERATE, on purpose. A pre-commit hook that rewrites your
+# worktree as a side effect of committing is a surprise, and on a SHARED tree it
+# would silently rewrite another lane's staged work. This hook refuses and tells
+# you the command; you decide.
+#
+# Installed by `bun run hooks:install`. See CONTRIBUTING.md.
+
+set -euo pipefail
+
+cd "$(git rev-parse --show-toplevel)"
+
+# Skip during rebase/merge/cherry-pick, where the worktree is not the author's
+# to modify and a refusal would strand the operation.
+for state in rebase-merge rebase-apply MERGE_HEAD CHERRY_PICK_HEAD REVERT_HEAD; do
+  if [ -e ".git/$state" ]; then
+    exit 0
+  fi
+done
+
+if ! command -v bun >/dev/null 2>&1; then
+  echo "pre-commit: bun not found; skipping the generated-output check." >&2
+  exit 0
+fi
+
+if ! bun run check:generated; then
+  cat >&2 <<'EOF'
+
+pre-commit REFUSED: a generated artefact is stale.
+
+  A source file changed but the artefacts generated from it did not. The usual
+  cause is a formatter reformatting a source whose text is embedded verbatim in
+  a generated file -- see packages/mcp/src/component-sources.ts.
+
+  Fix:   bun run generate:tokens && bun run generate:tones && \
+         bun run generate:motion && bun run generate:components
+  Then:  git add the regenerated files and commit again.
+
+  To see what is stale:  bun run check:generated
+
+EOF
+  exit 1
+fi
+
+exit 0
