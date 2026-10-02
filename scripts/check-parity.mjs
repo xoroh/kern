@@ -712,14 +712,48 @@ violations.push(
     return names;
   };
 
+  // A package can publish MORE THAN ONE public entry. `@xoroh/kern` ships
+  // `./start` as a subpath (see its package.json `exports`), which is where Pane,
+  // ListDetail, TopAppBar, Sidebar, SearchBar and the scaffolds live. Reading
+  // only `dist/index.d.ts` reported all of them unreachable — a FALSE positive
+  // against components that are demonstrably importable, which would have driven
+  // someone to "fix" a public entry that is already correct.
+  //
+  // So: read every `.d.ts` the package's own `exports` map points at. The map is
+  // the contract, so it is the thing to follow — a hardcoded list would drift
+  // from it exactly the way this did.
+  const publicEntryTypes = (dir) => {
+    const pkg = JSON.parse(
+      readFileSync(join(ROOT, dir, "package.json"), "utf8"),
+    );
+    const out = new Set();
+    for (const value of Object.values(pkg.exports ?? {})) {
+      const entry =
+        typeof value === "string"
+          ? value
+          : (value?.import?.types ?? value?.require?.types ?? null);
+      if (!entry || !entry.endsWith(".d.ts")) continue;
+      out.add(join(ROOT, dir, entry.replace(/^\.\//, "")));
+    }
+    // A package with no `exports` map still has a main entry.
+    if (out.size === 0) out.add(join(ROOT, dir, "dist", "index.d.ts"));
+    return [...out];
+  };
+
   const distFor = {};
   for (const [platform, dir] of Object.entries(PKG_FOR)) {
-    const file = join(ROOT, dir, "dist", "index.d.ts");
-    try {
-      distFor[platform] = exportedNames(readFileSync(file, "utf8"));
-    } catch {
-      distFor[platform] = null;
+    const files = publicEntryTypes(dir);
+    const names = new Set();
+    let anyRead = false;
+    for (const file of files) {
+      try {
+        for (const n of exportedNames(readFileSync(file, "utf8"))) names.add(n);
+        anyRead = true;
+      } catch {
+        // A declared entry that is not built yet is reported, not ignored.
+      }
     }
+    distFor[platform] = anyRead ? names : null;
   }
 
   for (const [platform, names] of Object.entries(distFor)) {

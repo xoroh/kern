@@ -5,8 +5,19 @@ import { readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 const ROOT = new URL("../../..", import.meta.url).pathname;
+// `src/start/` is the web COMPOSITION tier, published as the `@xoroh/kern/start`
+// subpath of the same package (see packages/kern/package.json `exports["./start"]`).
+// It was absent here, so every component that only exists at that tier — Pane,
+// ListDetail, TopAppBar, Split, SplitPanel, Scaffold — was invisible to the
+// registry and counted as a native-only GAP while actually shipping on web.
+// That is the "native-only row is not evidence of a gap; it can be evidence of a
+// registration miss" finding, and it inflated a gated count without failing.
+//
+// A component in a subdirectory is a component: the concept is what the design
+// system exposes, not which folder a reviewer happened to open.
 const AREAS = [
   { dir: "packages/kern/src/components", platform: "web" },
+  { dir: "packages/kern/src/start", platform: "web" },
   { dir: "packages/kern-native/src/components", platform: "native" },
 ];
 
@@ -43,10 +54,13 @@ const toName = (exportName) =>
 const isComponentName = (name) =>
   /^[A-Z][A-Za-z0-9]*$/.test(name) && /[a-z]/.test(name);
 for (const { dir, platform } of AREAS) {
+  // The barrel that re-exports THIS area. Deriving it from `dir` (rather than
+  // from `platform`) is what lets several web directories coexist: `src/start`
+  // is re-exported by `src/start/index.ts`, not by `src/components/index.ts`.
   const barrelPkg =
-    platform === "web"
-      ? "packages/kern/src/components"
-      : "packages/kern-native/src";
+    dir === "packages/kern-native/src/components"
+      ? "packages/kern-native/src"
+      : dir;
   const barrel = readFileSync(join(ROOT, `${barrelPkg}/index.ts`), "utf8");
   for (const file of readdirSync(join(ROOT, dir)).sort()) {
     if (
@@ -56,8 +70,7 @@ for (const { dir, platform } of AREAS) {
     )
       continue;
     const src = readFileSync(join(ROOT, dir, file), "utf8");
-    const path =
-      platform === "web" ? `src/components/${file}` : `src/components/${file}`;
+    const path = `src/${dir.includes("/start") ? "start" : "components"}/${file}`;
     const isStub = src.includes("not implemented yet");
     const status = isStub ? "stub" : "real";
     const filename = file.slice(0, -4);
@@ -85,6 +98,19 @@ for (const { dir, platform } of AREAS) {
         );
       }
     }
+
+    // `export * from "./x"` re-exports every value in the file. The named-export
+    // regex above cannot see it, so `exportNames` came back EMPTY for
+    // `src/start/*` and the `!exportNames.has(exportName)` filter below then
+    // discarded every candidate in those files — Pane, ListDetail, TopAppBar,
+    // Split, SplitPanel, Inspector — while the generator still exited 0 and
+    // reported a clean "wrote 352 entries". Determinism is not currency: a
+    // byte-identical re-run passed on a file that was wrong the same way every
+    // time. A star re-export means the file's own value exports ARE the
+    // barrel's, so treat it as such.
+    const starReexport = new RegExp(
+      `export\\s*\\*\\s*from\\s*["']\\./(?:components/)?${filename}["']`,
+    ).test(barrel);
 
     // One entry per exported component: function components, PascalCase
     // namespace objects (Dialog, Field, Tabs, …), components wrapped in a HOC,
@@ -151,7 +177,8 @@ for (const { dir, platform } of AREAS) {
       if (
         exportName.endsWith("Styles") ||
         exportName.endsWith("Variants") ||
-        candidates.has(exportName)
+        candidates.has(exportName) ||
+        starReexport
       ) {
         continue;
       }
@@ -162,7 +189,13 @@ for (const { dir, platform } of AREAS) {
       if (
         exportName.endsWith("Styles") ||
         exportName.endsWith("Variants") ||
-        (!isStub && !exportNames.has(exportName))
+        // `isComponentName` is the guard that keeps SCREAMING_SNAKE measurement
+        // constants (APP_SHELL_HEIGHTS, SIDEBAR_WIDTHS, TOP_APP_BAR_HEIGHTS) out
+        // of the registry. The named-barrel path applied it via `unseenExports`
+        //; the star-re-export path must apply it here or `export *` becomes a
+        // door for every constant in the file.
+        !isComponentName(exportName) ||
+        (!isStub && !exportNames.has(exportName) && !starReexport)
       ) {
         continue;
       }

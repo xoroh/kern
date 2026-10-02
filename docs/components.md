@@ -22,6 +22,9 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `alert-dialog-root` | `AlertDialogRoot` | real |
 | `alert-dialog-title` | `AlertDialogTitle` | real |
 | `alert-dialog-trigger` | `AlertDialogTrigger` | real |
+| `app-shell` | `AppShell` | real |
+| `app-top-bar` | `AppTopBar` | real |
+| `apps-menu` | `AppsMenu` | real |
 | `autocomplete` | `Autocomplete` | real |
 | `autocomplete-content` | `AutocompleteContent` | real |
 | `autocomplete-empty` | `AutocompleteEmpty` | real |
@@ -76,6 +79,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `context-menu-root` | `ContextMenuRoot` | real |
 | `context-menu-separator` | `ContextMenuSeparator` | real |
 | `context-menu-trigger` | `ContextMenuTrigger` | real |
+| `contrast-toggle` | `ContrastToggle` | real |
 | `country-select` | `CountrySelect` | real |
 | `country-select-content` | `CountrySelectContent` | real |
 | `country-select-item` | `CountrySelectItem` | real |
@@ -83,7 +87,6 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `country-select-root` | `CountrySelectRoot` | real |
 | `country-select-trigger` | `CountrySelectTrigger` | real |
 | `country-select-value` | `CountrySelectValue` | real |
-| `create-sonner-manager` | `createSonnerManager` | real |
 | `dialog` | `Dialog` | real |
 | `dialog-close` | `DialogClose` | real |
 | `dialog-content` | `DialogContent` | real |
@@ -91,6 +94,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `dialog-root` | `DialogRoot` | real |
 | `dialog-title` | `DialogTitle` | real |
 | `dialog-trigger` | `DialogTrigger` | real |
+| `document` | `Document` | real |
 | `drawer` | `Drawer` | real |
 | `drawer-close` | `DrawerClose` | real |
 | `drawer-content` | `DrawerContent` | real |
@@ -112,14 +116,19 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `fieldset-legend` | `FieldsetLegend` | real |
 | `fieldset-root` | `FieldsetRoot` | real |
 | `form` | `Form` | real |
+| `help-menu` | `HelpMenu` | real |
 | `icon-button` | `IconButton` | real |
 | `input` | `Input` | real |
 | `input-otp` | `InputOTP` | real |
 | `input-otp-input` | `InputOTPInput` | real |
 | `input-otp-root` | `InputOTPRoot` | real |
+| `inspector` | `Inspector` | real |
 | `kbd` | `Kbd` | real |
 | `label` | `Label` | real |
 | `linear-progress` | `LinearProgress` | real |
+| `link` | `Link` | real |
+| `link-provider` | `LinkProvider` | real |
+| `list-detail` | `ListDetail` | real |
 | `list-item` | `ListItem` | real |
 | `loader` | `Loader` | real |
 | `loading-button` | `LoadingButton` | real |
@@ -153,11 +162,16 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `navigation-menu-list` | `NavigationMenuList` | real |
 | `navigation-menu-root` | `NavigationMenuRoot` | real |
 | `navigation-menu-trigger` | `NavigationMenuTrigger` | real |
+| `navigation-rail` | `NavigationRail` | real |
+| `navigation-rail-button` | `NavigationRailButton` | real |
+| `notifications-menu` | `NotificationsMenu` | real |
 | `number-field` | `NumberField` | real |
 | `number-field-input` | `NumberFieldInput` | real |
 | `number-field-root` | `NumberFieldRoot` | real |
+| `page` | `Page` | real |
 | `page-loader` | `PageLoader` | real |
 | `pagination` | `Pagination` | real |
+| `pane` | `Pane` | real |
 | `popover` | `Popover` | real |
 | `popover-close` | `PopoverClose` | real |
 | `popover-content` | `PopoverContent` | real |
@@ -180,7 +194,9 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `scroll-area-scrollbar` | `ScrollAreaScrollbar` | real |
 | `scroll-area-viewport` | `ScrollAreaViewport` | real |
 | `search` | `Search` | real |
+| `search-bar` | `SearchBar` | real |
 | `secondary-tabs` | `SecondaryTabs` | real |
+| `section-drawer` | `SectionDrawer` | real |
 | `segmented-button` | `SegmentedButton` | real |
 | `segmented-button-item` | `SegmentedButtonItem` | real |
 | `segmented-button-root` | `SegmentedButtonRoot` | real |
@@ -194,6 +210,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `select-trigger` | `SelectTrigger` | real |
 | `select-value` | `SelectValue` | real |
 | `separator` | `Separator` | real |
+| `settings-row` | `SettingsRow` | real |
 | `sheet` | `Sheet` | real |
 | `sheet-close` | `SheetClose` | real |
 | `sheet-content` | `SheetContent` | real |
@@ -201,6 +218,12 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `sheet-root` | `SheetRoot` | real |
 | `sheet-title` | `SheetTitle` | real |
 | `sheet-trigger` | `SheetTrigger` | real |
+| `sidebar` | `Sidebar` | real |
+| `sidebar-content` | `SidebarContent` | real |
+| `sidebar-footer` | `SidebarFooter` | real |
+| `sidebar-header` | `SidebarHeader` | real |
+| `sidebar-item` | `SidebarItem` | real |
+| `sidebar-provider` | `SidebarProvider` | real |
 | `skeleton` | `Skeleton` | real |
 | `slider` | `Slider` | real |
 | `slider-label` | `SliderLabel` | real |
@@ -225,7 +248,10 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `sonner-root` | `SonnerRoot` | real |
 | `sonner-title` | `SonnerTitle` | real |
 | `sonner-viewport` | `SonnerViewport` | real |
+| `split` | `Split` | real |
 | `split-button` | `SplitButton` | real |
+| `split-panel` | `SplitPanel` | real |
+| `status-bar` | `StatusBar` | real |
 | `switch` | `Switch` | real |
 | `table` | `Table` | real |
 | `table-body` | `TableBody` | real |
@@ -242,6 +268,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `tabs-tab` | `TabsTab` | real |
 | `text` | `Text` | real |
 | `textarea` | `Textarea` | real |
+| `theme-toggle` | `ThemeToggle` | real |
 | `time-picker` | `TimePicker` | real |
 | `toggle` | `Toggle` | real |
 | `toggle-group` | `ToggleGroup` | real |
@@ -257,6 +284,10 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `tooltip-provider` | `TooltipProvider` | real |
 | `tooltip-root` | `TooltipRoot` | real |
 | `tooltip-trigger` | `TooltipTrigger` | real |
+| `top-app-bar` | `TopAppBar` | real |
+| `top-app-bar-toggle` | `TopAppBarToggle` | real |
+| `top-bar-menu` | `TopBarMenu` | real |
+| `user-menu` | `UserMenu` | real |
 
 ## Native (`@xoroh/kern/native`)
 
@@ -326,11 +357,9 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `navigation-drawer` | `NavigationDrawer` | real |
 | `navigation-menu` | `NavigationMenu` | real |
 | `number-field` | `NumberField` | real |
-| `page-window` | `pageWindow` | real |
 | `pagination` | `Pagination` | real |
 | `pane` | `Pane` | real |
 | `popover` | `Popover` | real |
-| `press-is-cancelled` | `pressIsCancelled` | real |
 | `progress` | `Progress` | real |
 | `radio-group` | `RadioGroup` | real |
 | `radio-group-item` | `RadioGroupItem` | real |
@@ -364,5 +393,3 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `tooltip` | `Tooltip` | real |
 | `top-app-bar` | `TopAppBar` | real |
 | `top-app-bar-action` | `TopAppBarAction` | real |
-| `use-fieldset` | `useFieldset` | real |
-| `use-fieldset-disabled` | `useFieldsetDisabled` | real |

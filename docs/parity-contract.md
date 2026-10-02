@@ -52,13 +52,13 @@ again. Measured from the generated registry instead:
 
 | Measure | Value |
 |---|---|
-| Registry rows | **352** (web 248, native 104) |
-| **Shared** (already both sides) | **65** |
-| **Native-only → needs a web version** | **27** in **11 files** |
-| **Web-only → needs a native version** | **22** in **28** files |
+| Registry rows | **379** (web 279, native 100) |
+| **Shared** (already both sides) | **68** |
+| **Native-only → needs a web version** | **20** in **11 files** |
+| **Web-only → needs a native version** | **43** in **36** files |
 | Stub rows | **0** |
 
-<!-- gate:counts 65 27 22 0 -->
+<!-- gate:counts 68 20 43 0 -->
 
 Machine-readable line above: `check:parity` (`scripts/check-parity.mjs`) re-derives
 these from the registry and fails if they drift, so the prose above cannot quietly
@@ -89,7 +89,7 @@ the point of writing it down first:
    the same decomposition native uses, so the two renderers agree on which
    element carries the active pill.
 
-The remaining 27 stay native-only. `navigation-bar`'s two siblings in
+The remaining 20 stay native-only. `navigation-bar`'s two siblings in
 `/kern/start` (`Sidebar`, `NavigationRail`, `SectionDrawer`) keep their names per
 **D11** — the counterpart rule forces *existence*, not renames.
 
@@ -166,7 +166,7 @@ later reader does not "fix" them back:
 
 ---
 
-## Native-only concepts → need a web version (27)
+## Native-only concepts → need a web version (20)
 
 Grouped by surface. `M3 source` is the M3 spec tab that governs the behaviour.
 
@@ -193,6 +193,34 @@ Grouped by surface. `M3 source` is the M3 spec tab that governs the behaviour.
 | 19 | `aspect-ratio` | Fixed-ratio box | `style={{aspectRatio}}` — presentational | `aspectRatio` style | CSS/native analogue | GAP |
 | 20 | `sheet-surface` | Shared `Modal` + scrim primitive every kern sheet hosts through | web = `Dialog` root + portal scrim — the one place a sheet gets a dismissal path | `SheetSurface`: scrim press, `onRequestClose` (Android back) and a 48×48 close affordance all bound to `onDismiss` | M3 · Sheets | GAP |
 | 21 | `boot-splash` | Native launch surface (the browser has no pre-first-paint phase) | **not applicable** — deliberately asymmetric | `BootSplash` | Kern shell (native-only) | GAP |
+
+### Resolved 2026-10-02 — three of these were never gaps (`pane`, `list-detail`, `top-app-bar`)
+
+`generate-manifest.mjs` scanned only `packages/kern/src/components`. The web **composition tier**
+lives in `packages/kern/src/start/`, published as the `@xoroh/kern/start` subpath of the same
+package, so `Pane`, `ListDetail`, `TopAppBar`, `Split`, `SplitPanel`, `Sidebar`, `SearchBar` and the
+scaffolds were **invisible to the registry and counted as native-only gaps while shipping on web**.
+Confirmed against the built `dist/start/index.d.ts`, not by reading source.
+
+Two independent defects had to be fixed for the registry to see them:
+
+1. `AREAS` did not list `packages/kern/src/start`, and the barrel it read was hardcoded to
+   `components/` rather than derived per-area.
+2. `src/start/index.ts` re-exports with `export * from "./panes"`, but the generator's barrel regex
+   only matched **named** re-exports. `exportNames` therefore came back empty and the
+   `!exportNames.has(...)` filter discarded every candidate in those files. The generator still
+   exited 0 and printed a clean "wrote 352 entries" — **determinism is not currency**: a
+   byte-identical re-run passed on a file that was wrong the same way every time.
+
+`check:parity`'s reachability check had the mirror-image blind spot: it read only
+`dist/index.d.ts`, so once the rows appeared it reported 9 components "not exported from the public
+entry" — a false positive against components that are demonstrably importable. It now follows the
+package's own `exports` map, which is the actual contract, rather than a hardcoded path that can
+drift from it.
+
+**Native-only 27 → 20 with zero new components written.** The same generator change also raised
+web-only 22 → 43, which is the other half of the same accounting error: those concepts were
+shipping on web and unregistered, so the mirror-image gap was invisible too.
 
 **Note on 17-19 and 21:** these are presentational or brand-kit. They are native-only
 because RN has a layout primitive for them and the DOM equivalent is a CSS
@@ -303,7 +331,7 @@ were restored from backup afterwards.
 
 ---
 
-## Web-only concepts → need a native version (22)
+## Web-only concepts → need a native version (43)
 
 The heading previously read **34** while the machine gate read **42** — the
 `gate:counts` line was right and the sentence a human reads was stale, which is
@@ -360,7 +388,6 @@ assertion exists to catch. Filed as follow-up below.
 | 21 | `form` | Form container | landmark + validation association | `accessibilityRole="summary"` | M3 · Text fields | GAP |
 | 22 | `kbd` | Keyboard key glyph | `<kbd>`; **web-interaction concept** | **no mobile analogue** — deliberate asymmetry (see note) | none | n/a |
 | 23 | `sonner` | Imperative transient messages | `role="status"`, `aria-live` | **deliberately no native counterpart** — D-026/S1.3 ruling: M3 = `Snackbar` | M3 · Snackbars | n/a |
-| 24 | `create-sonner-manager` | Imperative API factory | — | **no native counterpart by ruling** | M3 · Snackbars | n/a |
 | 25 | `icon-button` | Square icon-only action, 4 containers + toggle | `aria-pressed` on the toggle; name from one `label` prop | `Pressable` + `accessibilityRole="button"` + `accessibilityState.selected` | M3 · Buttons → Icon buttons | `m3-gaps.test.tsx` |
 | 26 | `time-picker` | Hour / minute / period | three `role="listbox"`es, roving tabindex per field, 24-hour state | `accessibilityRole="adjustable"`-style pickers, or a platform time picker | M3 · Date & time → Time picker | `m3-gaps.test.tsx` |
 | 30 | `carousel` | One item at a time with prev/next | `aria-roledescription="carousel"`/`"slide"`, `"n of m"` per slide | horizontal `ScrollView` + `accessibilityRole="adjustable"` paging | M3 · Carousel | `m3-gaps.test.tsx` |
@@ -495,7 +522,7 @@ Gates, all run on this change-set:
 
 | Gate | Result |
 |---|---|
-| `bun run check:parity` | passes — 330 rows (web 248, native 82); 53 shared / 22 native-only / **37 web-only**; 5 deliberate asymmetries intact |
+| `bun run check:parity` | passes — 330 rows (web 248, native 82); 53 shared / 22 native-only / **37 web-only**; 5 deliberate asymmetries intact *(historical snapshot, superseded 2026-10-02)* |
 | `bun run typecheck` | passes — 5/5 packages exit 0 |
 | `bun run test:all` | passes — 41 vitest + **129 jest** in 11 suites (64 at tranche 1) |
 | `bun run check:kern` | passes — 45/45 M3 roles, 13 kern deviations, typescale/spacing/elevation/shape/motion intact |
@@ -645,7 +672,7 @@ symmetrised, and P2b-2/3 must not "fix" them:
 - **Registry source:** all rows read from the generated
   `packages/mcp/src/manifest.ts` (`bun run generate:components` output, idempotent —
   re-run leaves it byte-identical).
-- **Counts:** web 248 rows; native 86 rows; **55 shared; 23 native-only; 35
+- **Counts:** web 248 rows; native 86 rows; **55 shared; 23 native-only; 35 *(historical snapshot, superseded 2026-10-02 — now 379 rows / 68 shared / 20 native-only / 43 web-only)*; 35
   web-only**. Reproducible by the script noted below. The three navigation-family
   rows moved native-only → shared in P2b-2 (45/25 → 48/22), P2b-3 tranche 1
   moved `autocomplete`, `input-otp` and `number-field` web-only → shared
