@@ -44,23 +44,52 @@ for (const block of source.split(/^## /m).slice(1)) {
   }
 }
 
-const byPlatform = { web: [], mobile: [] };
-for (const entry of entries) byPlatform[entry.platform].push(entry);
-for (const list of Object.values(byPlatform)) {
-  list.sort((a, b) => a.name.localeCompare(b.name));
-}
-
 // A slug is unique per platform; web and mobile can share a component name
 // (Button exists on both), so the route key is the platform-qualified slug.
-const seen = new Set();
+//
+// Two source files can export the SAME symbol for the same platform: `Split`
+// is defined in both `packages/kern/src/components/split.tsx` and
+// `packages/kern/src/start/panes.tsx`. To the registry that is ONE export
+// `web/split`, reachable from two files — the route, the page, and the coverage
+// gate all count it once (check-docs keys its inventory by `platform:Export`,
+// so its total is 393, not 394). Collapsing the duplicate keeps this manifest
+// in step with that count instead of inventing a second `web/split` route that
+// cannot exist. The collision is PRINTED, not swallowed: it is drift between
+// two same-named components and is recorded in the content-ladder report.
+//
+// A slug shared by two DIFFERENT exports is a real ambiguity — two components
+// fighting over one route — and is still fatal.
+const bySlug = new Map();
+const collisions = [];
 for (const entry of entries) {
   const key = `${entry.platform}/${entry.name}`;
-  if (seen.has(key)) {
-    throw new Error(
-      `duplicate manifest slug ${key} - components.md and the site would disagree`,
-    );
+  const existing = bySlug.get(key);
+  if (existing === undefined) {
+    bySlug.set(key, entry);
+    continue;
   }
-  seen.add(key);
+  if (existing.export === entry.export) {
+    collisions.push(
+      `${key}: \`${entry.export}\` is exported from two source files — collapsed to one registry row`,
+    );
+    continue;
+  }
+  throw new Error(
+    `duplicate manifest slug ${key} — \`${existing.export}\` and \`${entry.export}\` are different exports fighting over one route`,
+  );
+}
+if (collisions.length > 0) {
+  console.log(
+    `generate-manifest: ${collisions.length} same-export slug collision(s) collapsed (recorded in .team/reports/2026-10-02-content-ladder-status.md):`,
+  );
+  for (const c of collisions) console.log(`  ${c}`);
+}
+
+const deduped = [...bySlug.values()];
+const byPlatform = { web: [], mobile: [] };
+for (const entry of deduped) byPlatform[entry.platform].push(entry);
+for (const list of Object.values(byPlatform)) {
+  list.sort((a, b) => a.name.localeCompare(b.name));
 }
 
 const PLATFORM_KEYS = Object.keys(byPlatform);
@@ -135,7 +164,7 @@ try {
 
 console.log(
   "generate-manifest: " +
-    entries.length +
+    deduped.length +
     " rows (web " +
     byPlatform.web.length +
     ", mobile " +
