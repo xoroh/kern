@@ -325,7 +325,8 @@ export const CONTRACTS: readonly ParityRow[] = [
     nativeContract:
       "A `role=dialog` modal surface carrying the label, unmounted while closed, dismissing via scrim press and Android back.",
     spec: "M3 Navigation drawer — a modal surface beside the content.",
-    testedBy: "overlays.test.tsx / overlay-surfaces.rntest.tsx",
+    testedBy:
+      "web-parity-overlays.test.tsx / native-parity-overlays.rntest.tsx",
     role: "dialog",
     axis: "selected",
     interaction: "toggle",
@@ -353,7 +354,8 @@ export const CONTRACTS: readonly ParityRow[] = [
     nativeContract:
       "A `role=dialog` overlay carrying the label, dismissed on outside press; the trigger is press-only, since touch has no hover.",
     spec: "M3 Menu / anchored surface — transient content tied to an anchor.",
-    testedBy: "overlays.test.tsx / overlay-surfaces.rntest.tsx",
+    testedBy:
+      "web-parity-overlays.test.tsx / native-parity-overlays.rntest.tsx",
     role: "dialog",
     axis: "selected",
     interaction: "toggle",
@@ -380,7 +382,8 @@ export const CONTRACTS: readonly ParityRow[] = [
     nativeContract:
       "A `role=group` region carrying the label, wrapping the RN scroll view.",
     spec: "NO M3 COMPONENT — a platform scroll container (RN ScrollView / CSS overflow). Kern extension per T4-V2; the M3-adjacent Scrollbar does not exist as an M3 component, so no M3 source is claimed.",
-    testedBy: "overlays.test.tsx / overlay-surfaces.rntest.tsx",
+    testedBy:
+      "web-parity-overlays.test.tsx / native-parity-overlays.rntest.tsx",
     role: "group",
     axis: "selected",
     interaction: "toggle",
