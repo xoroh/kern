@@ -132,17 +132,38 @@ function DocsIndex() {
             </h2>
             <ol className="m-0 flex list-none flex-col gap-3 p-0 sm:flex-row">
               {[
-                { n: "1", label: "Install", to: "/getting-started" },
-                { n: "2", label: "Quickstart", to: "/getting-started" },
-                { n: "3", label: "First component", to: "/components" },
+                {
+                  n: "1",
+                  label: "Install",
+                  to: "/getting-started" as const,
+                  hash: "step-1",
+                  why: "Install the packages",
+                },
+                {
+                  n: "2",
+                  label: "Quickstart",
+                  to: "/getting-started" as const,
+                  hash: "step-5",
+                  why: "Web quickstart — the app shell",
+                },
+                {
+                  n: "3",
+                  label: "First component",
+                  to: "/getting-started" as const,
+                  hash: "step-3",
+                  why: "Render your first component",
+                },
               ].map((s) => (
                 <li key={s.n} className="flex-1">
-                  <Link to={s.to} className={CARD}>
+                  <Link to={s.to} hash={s.hash} className={CARD}>
                     <span className={`m-0 block ${T_LABEL} ${SOFT} uppercase`}>
                       Step {s.n}
                     </span>
                     <span className={`m-0 mt-1 block ${T_SMALL_TITLE}`}>
                       {s.label}
+                    </span>
+                    <span className={`m-0 mt-1 block ${T_BODY_SM} ${SOFT}`}>
+                      {s.why}
                     </span>
                   </Link>
                 </li>
@@ -216,6 +237,19 @@ function DocsIndex() {
                 </li>
               ))}
             </ul>
+            {/* The band's one primary CTA — the FLOW rule is "every band has
+                exactly one", so a band without one is a page that states a rule
+                and breaks it on the same screen. */}
+            <p className={`m-0 ${T_BODY_SM}`}>
+              <a
+                className="text-(--md-sys-color-primary)"
+                href="https://github.com/xoroh/kern/tree/main/.changeset"
+                rel="noreferrer"
+                target="_blank"
+              >
+                Read every changeset on GitHub →
+              </a>
+            </p>
           </section>
 
           {/* Next steps — every tutorial ends here, by Diátaxis form */}
