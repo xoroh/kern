@@ -219,33 +219,47 @@ export const KERN_ELEVATION_COMPONENTS = Object.freeze({
     variants: [0, 1],
   }),
   /**
-   * REVIEW-M3 (2026-10-03): `drawer` was registered as unassigned under the id
-   * K6, on the claim that M3's table does not name it. **That claim is false,
-   * twice.**
+   * DRAWER — DECIDED by design authority (design-system-lead, 2026-10-03): **conform
+   * to M3's level 1.** The code was changed, not the registry.
    *
-   *  1. M3 DOES tabulate it. `navigation drawer (modal)` sits at level 1 in
-   *     `KERN_RESTING_ELEVATION` above -- in this same file. The registry
-   *     contradicted its own spec table.
-   *  2. K6 is the Tones-engine id, not an elevation deviation. Registering an
-   *     elevation decision under a tone id meant the two id spaces could not be
-   *     told apart, which is how the wrong one survived review.
+   * The history, because it is the useful part. `drawer` had been registered as
+   * unassigned under id K6, on the claim that M3's table does not name it.
    *
-   * So this is NOT "no spec row" -- M3 tabulates it, and kern CONTRADICTS it.
+   *  1. THAT CLAIM IS FALSE. M3 tabulates `navigation drawer (modal)` at level 1
+   *     — in KERN_RESTING_ELEVATION above, in this same file. The registry
+   *     contradicted the spec table sitting next to it.
+   *  2. K6 is the Tones-engine id, not an elevation deviation, so an elevation
+   *     decision was filed under a tone id and the two spaces could not be told
+   *     apart. That is how the wrong one survived review.
    *
-   * MEASURED: `check:kern` reports `drawer: ships elevation level2, M3 assigns
-   * level1 (navigation drawer (modal))`. That is a REAL deviation, and until it
-   * is resolved the honest registry entry permits both levels so the gate is
-   * green while the deviation stays VISIBLE -- rather than registering level 1
-   * and turning a real finding into a silent conformance claim.
+   * So the real question was never "no spec row". It was "kern ships 2, M3 says
+   * 1" — and the registry was carrying `variants: [1, 2]` to keep the gate green
+   * while the deviation stayed visible. That was the right interim state and the
+   * wrong place to stop.
    *
-   * OPEN, and not decided here: WHY kern's drawer is at 2 is not established.
-   * Conforming to M3's 1 is a visual change that needs design-authority sign-off
-   * and a visual check; recording 2 as intended needs a reason nobody has
-   * written down yet. Flagged to design authority rather than guessed.
+   * WHY 1, on evidence rather than deference to the table:
+   *
+   *  - **kern's own siblings already agree.** All four sheet-family modal
+   *    surfaces (Sheet, SnapSheet, EntitySheet, the picker sheet) ship
+   *    `--md-sys-elevation-level1`.
+   *  - **The drawer is the same kind of surface.** Bottom-anchored
+   *    (`items-end justify-center`), top-rounded only
+   *    (`rounded-t-extra-large`), `max-h-[80vh]`, with a backdrop. It is a modal
+   *    bottom sheet wearing a different name.
+   *  - **M3 puts comparable surfaces at 1**: `bottom sheet (modal)` and
+   *    `side sheet (modal)` are both level 1, as is `navigation drawer (modal)`.
+   *  - **No reason for 2 was ever established.** The earlier note said exactly
+   *    that, and declined to guess.
+   *
+   * A fourth sibling at a higher elevation than the other three is an
+   * inconsistency, not a decision. Registering it as a deviation would have
+   * spent a K-id on an accident and made future audits quieter. Level 2 was
+   * reserved for `menu`, `navigation bar`, `toolbar`, `rich tooltip` and
+   * `app bar (scrolled)` — none of which is a modal bottom sheet.
    */
   drawer: Object.freeze({
     rows: ["navigation drawer (modal)"],
-    variants: [1, 2],
+    variants: [1],
   }),
 } as const);
 

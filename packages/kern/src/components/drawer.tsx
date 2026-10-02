@@ -36,7 +36,7 @@ export function DrawerContent({ className, ...props }: DrawerContentProps) {
         <DrawerPrimitive.Popup
           data-slot="drawer-content"
           className={cnState(
-            "kern-drawer-popup max-h-[80vh] w-full max-w-2xl overflow-y-auto rounded-t-(--md-sys-shape-corner-extra-large) border border-(--md-sys-color-outline) bg-(--md-sys-color-surface) p-6 pb-10 shadow-(--md-sys-elevation-level2) outline-none",
+            "kern-drawer-popup max-h-[80vh] w-full max-w-2xl overflow-y-auto rounded-t-(--md-sys-shape-corner-extra-large) border border-(--md-sys-color-outline) bg-(--md-sys-color-surface) p-6 pb-10 shadow-(--md-sys-elevation-level1) outline-none",
             className,
           )}
           {...props}
