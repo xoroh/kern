@@ -20,8 +20,13 @@ import { cn } from "../utils/cn";
  *   hover and an announced name come from one prop and cannot drift. When
  *   neither is supplied the button is rendered `aria-hidden`-free but
  *   unnamed, which the dev-time warning below reports.
- * - **Disabled** — `disabled` plus `aria-disabled`, so the state survives
- *   any host that re-enables pointer events.
+ * - **Disabled** — the native `disabled` attribute, which is what removes the
+ *   button from the tab order and from the accessibility tree. (An earlier
+ *   version of this comment claimed `disabled` PLUS `aria-disabled` "so the
+ *   state survives any host that re-enables pointer events". No `aria-disabled`
+ *   attribute is rendered — the `aria-disabled:` classes below exist for hosts
+ *   that set the attribute themselves. The comment was wrong and
+ *   `icon-button.test.tsx` now pins the real behaviour.)
  * - **Touch target** — the 40dp visual box keeps an `after:` inset out to
  *   48dp, per the M3 minimum.
  */
