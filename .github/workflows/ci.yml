@@ -66,6 +66,13 @@ jobs:
       - name: Check every check:* gate is actually invoked by CI
         run: bun run check:workflow
 
+      - name: Check no config rule names a path that no longer exists
+        # A dead rule is worse than no rule: it reads as coverage. Proven by
+        # planting — the 0020 batch's biome.json override and ci.yml pathspec
+        # both go red here, and the ci.yml one is the sharper case because
+        # `git diff --exit-code -- <missing>` MEASURED exits 0.
+        run: bun run check:stale-refs
+
       - name: Check the two renderers agree on resting elevation
         # D-038 follow-on. `check-elevation-parity` asserts one resting elevation
         # per component ACROSS renderers, which is a different question from
