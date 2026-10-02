@@ -401,8 +401,22 @@ function checkElevation({ file, doc }) {
 
     if (kernDecision.startsWith("kern-decision:")) {
       // Not registered to a K-id. The page must still OWN the decision in
-      // words: a deviation whose `spec` says M3 has no row for it. Checking
-      // the claim rather than the id, because there is no id to check.
+      // words. review-showcase's claims ruling (2026-10-02) permits this in
+      // place of a synthetic id — "where M3 defines no row there is nothing to
+      // deviate from" — under four conditions, all enforced here:
+      //
+      //  (a) the wording states the ABSENCE explicitly and never claims
+      //      conformance. "per spec" is a lie in this position: there is no
+      //      spec row to be per. Checked negatively as well as positively.
+      //  (b) the decision stays machine-readable in
+      //      KERN_UNASSIGNED_ELEVATION — that map IS the registry, and this
+      //      gate reads it rather than a copy.
+      //  (c) SPECS-1: absence must be verifiable, so the deviation must also
+      //      name what M3 DOES tabulate. An uncheckable "M3 says nothing" is
+      //      a claim about a document nobody consulted.
+      //  (d) a K1–K10 id is required exactly where an M3 rule IS departed
+      //      from — handled by the branch below. Nothing enters by words
+      //      alone where a rule exists to break.
       //
       // The negation and the naming verb appear in either order across the
       // pages — "does not name a drawer" and "names no popover" are the same
@@ -414,6 +428,47 @@ function checkElevation({ file, doc }) {
           spec,
         ) ||
           /\b(tabulat|nam|row|spec)[^.]*\b(no|not|never)\b/i.test(spec));
+
+      // (a) — conformance language is a lie when there is no row to conform
+      // to. "per spec", "conformant", "as the spec defines" all assert a
+      // source that does not exist for this component.
+      const claimsConformance = (spec) =>
+        /\b(per spec|per the spec|as (the )?spec (defines|requires|says|states)|conformant|conforms|spec-compliant|by the spec)\b/i.test(
+          spec,
+        );
+
+      // (c) — name what M3 DOES tabulate, so the absence can be checked.
+      //
+      // Requires `tabulat`-language AND a level reference, not merely any
+      // naming verb anywhere. The looser version had a real hole, caught by
+      // mutation: the ABSENCE sentence itself — "M3's elevation table NAMES no
+      // popover" — contains "name" and "elevat", so an unverifiable absence
+      // passed. What distinguishes the two is that a checkable absence names
+      // the ROWS M3 has: "It tabulates \"menu\" and \"rich tooltip\" at level
+      // 2". Requiring the tabulate verb plus a level reference asks for
+      // exactly that and nothing looser.
+      const namesWhatM3Says = (spec) =>
+        /\btabulat/i.test(spec) && /\blevel\s*\d/i.test(spec);
+
+      for (const d of deviations) {
+        const spec = d.spec ?? "";
+        if (claimsConformance(spec)) {
+          fail(
+            at(
+              `deviation "${d.id}" claims conformance ("per spec" / "conformant") while the elevation is a kern decision — M3 defines no resting elevation for this component, so there is nothing to conform to. State the absence.`,
+            ),
+          );
+          continue;
+        }
+        if (assertsNoM3Row(spec) && !namesWhatM3Says(spec)) {
+          fail(
+            at(
+              `deviation "${d.id}" asserts M3 has no row but never says what M3 DOES tabulate — the absence is unverifiable. Name the rows M3 does have (SPECS-1).`,
+            ),
+          );
+        }
+      }
+
       const owns = deviations.some((d) => assertsNoM3Row(d.spec ?? ""));
       if (!owns) {
         fail(
