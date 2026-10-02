@@ -3,7 +3,6 @@
 "@xoroh/kern-tokens": minor
 "@xoroh/kern-native": minor
 "@xoroh/kern-icons": minor
-"@xoroh/kern/start": minor
 "@xoroh/kern-mcp": minor
 ---
 
