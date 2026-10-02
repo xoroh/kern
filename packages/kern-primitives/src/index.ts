@@ -54,3 +54,11 @@ export {
   useSelection,
 } from "./selection";
 export { type StateAction, useControllableState } from "./useControllableState";
+export {
+  formatTimeValue,
+  minutesForStep,
+  normalizeTimeValue,
+  type TimePickerFormat,
+  type TimePickerValue,
+  toTwentyFourHour,
+} from "./time";
