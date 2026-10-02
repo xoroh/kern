@@ -41,6 +41,9 @@ jobs:
       - name: Check the primitives boundary
         run: bun run check:primitives
 
+      - name: Check every shipped component is exercised by a test
+        run: bun run check:coverage
+
       - name: Check publishable packages are packable
         run: bun run preflight:publish
 

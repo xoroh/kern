@@ -4,9 +4,9 @@ export const kernPressable: ComponentDoc = {
   slug: "kern-pressable",
   name: "Kern pressable",
   oneLiner:
-    "The narrow accessibility-defaults wrap for anything pressable on native: a 48dp minimum target, a button role by default, and `disabled` always reported.",
+    "The narrow accessibility-defaults wrap for anything pressable on native: Material's minimum touch target, a button role by default, and `disabled` always reported.",
   features:
-    "Reach for this when you are building a pressable that is not a Button and not an IconButton — a list row, a card, a chip-shaped target, a custom control — and you want kern's accessibility defaults applied without adopting a visual component. It owns exactly three things and passes everything else straight to React Native's `Pressable`: the 48dp minimum touch target, `button` as a DEFAULT role rather than an override, and `disabled` reported even when the caller supplied only `selected`. Everything visual is yours. It is deliberately not a Button: it has no variant, no size and no styling of its own, because a wrapper that grew those would be a new primitive family wearing a thin name and would duplicate the decision `Button` already made.",
+    "Reach for this when you are building a pressable that is not a Button and not an IconButton — a list row, a card, a chip-shaped target, a custom control — and you want kern's accessibility defaults applied without adopting a visual component. It owns exactly three things and passes everything else straight to React Native's `Pressable`: Material's minimum touch target, `button` as a DEFAULT role rather than an override, and `disabled` reported even when the caller supplied only `selected`. Everything visual is yours. It is deliberately not a Button: it has no variant, no size and no styling of its own, because a wrapper that grew those would be a new primitive family wearing a thin name and would duplicate the decision `Button` already made.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -57,17 +57,17 @@ export const kernPressable: ComponentDoc = {
     {
       name: "style",
       type: "ViewStyle | (state) => ViewStyle",
-      note: "Applied after the 48dp minimum, so a caller style wins while still reacting to press.",
+      note: "Applied after the minimum touch target, so a caller style wins while still reacting to press.",
     },
     {
       name: "MIN_TOUCH_TARGET",
       type: "number",
-      note: "Exported constant: 48, Material's minimum touch target. Deliberately NOT the web's number — the web follows WCAG 2.2 at 24x24 CSS px.",
+      note: "Exported constant: 48, Material's minimum touch target. Deliberately NOT the web's number — the web follows WCAG 2.2's Target Size (Minimum).",
     },
   ],
   aria: [
     "Every pressable reports `button` unless it says otherwise, so a control that is not a Button does not have to remember.",
     "`disabled` is always in the accessibility state, never only in the press handling — a control that looks dead but does not announce as disabled is the defect this closes.",
-    "The 48dp minimum is applied as real layout, not as padding on the child, so the hit area is the target a finger has to hit.",
+    "The minimum touch target is applied as real layout, not as padding on the child, so the hit area is the target a finger has to hit.",
   ],
 };

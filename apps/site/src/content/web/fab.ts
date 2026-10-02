@@ -34,7 +34,7 @@ export const fab: ComponentDoc = {
       name: "size",
       type: '"sm" | "default" | "medium" | "large" | "icon"',
       default: '"default"',
-      note: "M3's size axis: small, default (56dp-class), medium and large. `icon` is the square form for a single glyph.",
+      note: "M3's size axis: small, default (the Material 3 standard FAB size), medium and large. `icon` is the square form for a single glyph.",
     },
     {
       name: "aria-label",

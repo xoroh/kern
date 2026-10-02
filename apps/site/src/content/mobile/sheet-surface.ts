@@ -48,7 +48,7 @@ export const sheetSurface: ComponentDoc = {
     {
       name: "dismissible",
       type: "boolean",
-      note: "Renders the Material 3 close affordance — a 48x48 icon button bound to `onDismiss`. Defaults to `true` WHENEVER `onDismiss` is supplied, so a sheet that declares a dismissal path always has a visible way out. Set `false` only for a sheet that is deliberately scrim/back-only.",
+      note: "Renders the Material 3 close affordance — an icon button at the platform minimum touch target, bound to `onDismiss`. Defaults to `true` WHENEVER `onDismiss` is supplied, so a sheet that declares a dismissal path always has a visible way out. Set `false` only for a sheet that is deliberately scrim/back-only.",
     },
     {
       name: "closeLabel",

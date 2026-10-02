@@ -9,7 +9,8 @@
 //   1. the six sections, in order, with required/conditional respected;
 //   2. the metadata strip's elevation matches `m3-elevation.ts`;
 //   3. the status matches the generated inventory;
-//   4. no page contains a raw hex colour or a dp literal.
+//   4. no page contains a raw hex colour, a dp/px literal, or a bare
+//      dimension ("48x48") — the class that used to slip past.
 //
 // Plus the checks the contract implies and a page cannot self-certify:
 //
@@ -497,11 +498,22 @@ function checkInventory({ platform, file, doc }) {
 // Values in prose are values that go stale silently."
 function checkNoRawValues({ file, doc }) {
   const at = (msg) => `${file}: ${msg}`;
-  const HEX = /#[0-9a-fA-F]{3,8}\b/;
-  const DP = /\b\d+(?:\.\d+)?\s*dp\b/;
+  // The value classes a page must not paste. TIGHTENED 2026-10-02: the bare
+  // dimension class ("48x48", "32x4", "48 × 48") used to pass every pattern
+  // here, because a dp value written WITHOUT its dp suffix is still a dp
+  // value — the suffix is not what makes the number stale. A bare `48px` is
+  // the same value wearing a web unit, so it is caught too.
+  const RAW = [
+    ["raw hex colour", /#[0-9a-fA-F]{3,8}\b/],
+    ["raw dp value", /\b\d+(?:\.\d+)?\s*dp\b/],
+    ["raw px value", /\b\d+(?:\.\d+)?\s*px\b/],
+    ["raw dimension value", /\b\d+(?:\.\d+)?\s*[xX×]\s*\d+(?:\.\d+)?\b/],
+  ];
 
-  // Everything a reader sees as prose. Code identifiers in backticks are
-  // exempt: naming `--md-sys-color-primary` is the rule, not the violation.
+  // Everything a reader sees as prose — including the API table's Notes
+  // column, which is where "a 48x48 icon button" was hiding in plain sight.
+  // Code identifiers in backticks are exempt: naming
+  // `--md-sys-color-primary` is the rule, not the violation.
   const prose = [
     doc.oneLiner,
     doc.features,
@@ -509,21 +521,21 @@ function checkNoRawValues({ file, doc }) {
     ...(doc.customization?.notSupported ?? []),
     ...(doc.deviations ?? []).flatMap((d) => [d.spec, d.kern, d.why]),
     ...(doc.aria ?? []),
+    ...(doc.usage?.do ?? []),
+    ...(doc.usage?.dont ?? []),
+    ...(doc.accessibilityGaps ?? []),
+    ...(doc.keyboard ?? []).map((row) => row.action),
+    ...(doc.anatomy ?? []).map((part) => part.role),
+    ...(doc.api ?? []).map((row) => row.note),
   ].filter(Boolean);
 
   for (const text of prose) {
     const bare = text.replace(/`[^`]*`/g, "");
-    if (HEX.test(bare)) {
-      fail(
-        at(
-          `raw hex colour in prose ("${bare.match(HEX)[0]}") — link the token`,
-        ),
-      );
-    }
-    if (DP.test(bare)) {
-      fail(
-        at(`raw dp value in prose ("${bare.match(DP)[0]}") — link the token`),
-      );
+    for (const [label, re] of RAW) {
+      const hit = bare.match(re);
+      if (hit) {
+        fail(at(`${label} in prose ("${hit[0]}") — link the token`));
+      }
     }
   }
 }

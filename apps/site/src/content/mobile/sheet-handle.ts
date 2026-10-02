@@ -6,7 +6,7 @@ export const sheetHandle: ComponentDoc = {
   oneLiner:
     "Sheet handles are the small drag affordance drawn at the top of a sheet.",
   features:
-    "Reach for a sheet handle when the sheet can be dragged and the affordance should say so. It is a fixed 32x4 pill on the reduced-emphasis variant colour — Material 3's handle, drawn as it is specified rather than approximated. The one rule that matters is the same one the rest of the family follows: only show the handle where dragging actually dismisses the sheet. A handle on a sheet that will not drag is a promise the interface does not keep, and every sheet in the family exposes a way to hide it for exactly that reason.",
+    "Reach for a sheet handle when the sheet can be dragged and the affordance should say so. It is a fixed pill at the Material 3 handle size on the reduced-emphasis variant colour — Material 3's handle, drawn as it is specified rather than approximated. The one rule that matters is the same one the rest of the family follows: only show the handle where dragging actually dismisses the sheet. A handle on a sheet that will not drag is a promise the interface does not keep, and every sheet in the family exposes a way to hide it for exactly that reason.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -23,7 +23,7 @@ export const sheetHandle: ComponentDoc = {
       "`testID` supplies the test hook, defaulting to `kern-sheet-handle`.",
     ],
     notSupported: [
-      "There is no `size` or `color` prop. It is a 32x4 pill on `onSurfaceVariant` at reduced emphasis, and that is what makes it read as the Material 3 handle.",
+      "There is no `size` or `color` prop. It is a fixed pill at the Material 3 handle size, on `onSurfaceVariant` at reduced emphasis, and that is what makes it read as the Material 3 handle.",
       "There is no `onDrag` or `gesture` prop. The handle is the affordance; the dragging belongs to the sheet and the host.",
     ],
   },

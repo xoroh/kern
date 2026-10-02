@@ -20,7 +20,7 @@ export const iconButtonTarget: ComponentDoc = {
   customization: {
     supported: [
       "`children` is the control being given a full target.",
-      "`style` extends the wrapper, and the 48x48 minimum is the base.",
+      "`style` extends the wrapper, and the platform minimum touch target is the base.",
     ],
     notSupported: [
       "There is no `size` prop. The wrapper is the minimum touch target and that is the floor — making it smaller would defeat it.",
@@ -36,7 +36,7 @@ export const iconButtonTarget: ComponentDoc = {
     {
       name: "style",
       type: "StyleProp<ViewStyle>",
-      note: "React Native styles, applied over the 48x48 minimum.",
+      note: "React Native styles, applied over the platform minimum touch target.",
     },
     {
       name: "minimum box",
