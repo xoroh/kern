@@ -42,6 +42,7 @@
 
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
+import ts from "typescript";
 
 const ROOT = new URL("..", import.meta.url).pathname.replace(/\/$/, "");
 const PKGS = join(ROOT, "packages");
@@ -92,6 +93,85 @@ for (const entry of readdirSync(PKGS, { withFileTypes: true })) {
 }
 
 const violations = [];
+
+// --- D-036: every tsconfig `types[]` entry must be a DECLARED dependency -------
+// A `types` entry is a dependency declaration living in the wrong file. It
+// typechecks in a warm workspace (where the hoisted node_modules happens to hold
+// it) and fails on a cold install, which is how `packages/mcp`'s `bun-types`
+// surfaced — and it was the SECOND instance of this family, after kern's.
+//
+// Both spellings count as declared: the package itself (`bun-types`) and its
+// DefinitelyTyped alias (`node` -> `@types/node`).
+const TSCONFIG_ROOTS = ["packages", "apps"];
+for (const area of TSCONFIG_ROOTS) {
+  const areaDir = join(ROOT, area);
+  if (!existsSync(areaDir)) continue;
+  for (const entry of readdirSync(areaDir, { withFileTypes: true })) {
+    if (!entry.isDirectory()) continue;
+    const dir = join(areaDir, entry.name);
+    const tsconfigPath = join(dir, "tsconfig.json");
+    if (!existsSync(tsconfigPath)) continue;
+
+    let types = [];
+    try {
+      // TypeScript's OWN config parser, not a hand-rolled JSONC strip. A regex
+      // stripper is wrong here in a way that only shows up in other people's
+      // files: a path mapping like `"./src/*"` contains `/*` inside a string, so
+      // naive block-comment removal eats from there to the next `*/` and
+      // corrupts the document. That made this gate report a bogus violation on
+      // apps/site. Reuse the canonical parser instead of re-implementing it.
+      const raw = readFileSync(tsconfigPath, "utf8");
+      const parsed = ts.parseConfigFileTextToJson(tsconfigPath, raw);
+      if (parsed.error) {
+        violations.push(
+          `${entry.name}: tsconfig.json does not parse (${ts.flattenDiagnosticMessageText(parsed.error.messageText, " ")})`,
+        );
+        continue;
+      }
+      types = parsed.config?.compilerOptions?.types ?? [];
+    } catch {
+      violations.push(`${entry.name}: tsconfig.json is not parseable as JSONC`);
+      continue;
+    }
+    if (!Array.isArray(types) || types.length === 0) continue;
+
+    const manifestPath = join(dir, "package.json");
+    if (!existsSync(manifestPath)) {
+      violations.push(
+        `${entry.name}: tsconfig types[] requires ${types.join(", ")} but has no package.json to declare them`,
+      );
+      continue;
+    }
+    const pkg = JSON.parse(readFileSync(manifestPath, "utf8"));
+    const declared = new Set(
+      [
+        ...Object.keys(pkg.dependencies ?? {}),
+        ...Object.keys(pkg.devDependencies ?? {}),
+        ...Object.keys(pkg.peerDependencies ?? {}),
+      ].map((d) => d.toLowerCase()),
+    );
+    for (const t of types) {
+      // A `types` entry may be a SUBPATH (`vite/client`), not a package name.
+      // Resolve it to the PACKAGE that must supply it: the first segment, or
+      // the first two when scoped. Then allow either the package itself or its
+      // DefinitelyTyped alias -- `node` is satisfied by `@types/node`, while
+      // `vite/client` is satisfied by `vite`. Treating the whole entry as a
+      // package name made the gate demand `@types/vite/client`, which is not a
+      // thing, and would have flagged a correct manifest.
+      const parts = t.split("/");
+      const pkgName = (
+        t.startsWith("@") ? parts.slice(0, 2).join("/") : parts[0]
+      ).toLowerCase();
+      const candidates = new Set([pkgName, `@types/${pkgName}`]);
+      if (![...candidates].some((c) => declared.has(c))) {
+        violations.push(
+          `${entry.name}: tsconfig types[] requires "${t}" but no dependency declares ${pkgName} (looked for ${[...candidates].join(" or ")})`,
+        );
+      }
+    }
+  }
+}
+
 
 for (const { name, deps } of found) {
   if (TOOLING.has(name)) continue;
@@ -164,5 +244,5 @@ if (violations.length) {
 }
 
 console.log(
-  "\npackage layering holds: no upward edges, no renderer-to-renderer edge",
+  "\npackage layering holds: no upward edges, no renderer-to-renderer edge,\n and every tsconfig types[] entry is a declared dependency",
 );
