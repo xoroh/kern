@@ -189,6 +189,66 @@ const entries = walk(SRC);
 const violations = [];
 const { reached, parent } = closure(entries);
 
+// ---------------------------------------------------------------------------
+// REACHABILITY — the inverse of the boundary check
+// ---------------------------------------------------------------------------
+//
+// The boundary check above answers "can this layer reach the platform?". This
+// answers "can anything reach this layer?" — specifically, every module in
+// `src/` must be re-exported from `src/index.ts`, because that file is the
+// package's ONLY public entry:
+//
+//     "exports": { ".": ... "./dist/index.js" }
+//
+// There is no subpath to import a module by. So a module missing from the barrel
+// is committed, typechecks, builds, and is importable by nobody.
+//
+// That is not hypothetical. `overlayModality.ts` landed in `bbd9ac7` fully
+// written — `createOverlayModality`, `useOverlayRegistration`,
+// `useOverlayModality` — with no barrel line. It sat unreachable through a
+// green build, a green typecheck, and a green boundary check, and was only
+// noticed at audit. The boundary gate cannot catch this by construction: it
+// proves the layer does not reach out, so an unreachable module reaches out of
+// nothing and is trivially clean.
+//
+// This is deliberately a reachability check, not a lint of the barrel: it does
+// not assert that a barrel block is well-formed or that every name resolves. It
+// asserts the one property that was actually missing — the module is reachable
+// from the public entry at all.
+
+/** Modules that legitimately have no barrel entry. */
+const NOT_EXPORTABLE = new Set(["index"]);
+
+function isTestModule(name) {
+  return name.endsWith(".test.ts") || name.endsWith(".test.tsx");
+}
+
+const barrel = readFileSync(join(SRC, "index.ts"), "utf8");
+// Parse the `from "./x"` specifiers out of the barrel with the same resolution
+// the graph walk already uses, so a check of the barrel is measured the same way
+// as a check of anything else. Substring matching on a filename would be the
+// proxy-for-the-property mistake this gate's own header warns against.
+const barrelSources = new Set();
+for (const spec of barrel.matchAll(/from\s+"(\.[^"]+)"/g)) {
+  const target = resolve(SRC, spec[1]);
+  const rel = relative(SRC, target);
+  if (rel.startsWith("..")) continue;
+  barrelSources.add(rel.replace(/\.tsx?$/, ""));
+}
+
+const unreachable = [];
+for (const entry of entries) {
+  const rel = relative(SRC, entry);
+  if (rel.startsWith("..")) continue;
+  const mod = rel.replace(/\.tsx?$/, "");
+  if (NOT_EXPORTABLE.has(mod)) continue;
+  if (isTestModule(rel)) continue;
+  // A module re-exported only through another barrel line still counts, but a
+  // module imported by a sibling and not by the barrel does not — that is
+  // internal wiring, not a public surface, and it is how dead code hides.
+  if (!barrelSources.has(mod)) unreachable.push(rel);
+}
+
 console.log("check:primitives — the un-styled behaviour kernel boundary");
 console.log(`  source files   ${entries.length}`);
 console.log(
@@ -218,6 +278,22 @@ if (violations.length) {
   process.exit(1);
 }
 
+if (unreachable.length) {
+  console.error(
+    `\ncheck:primitives FAILED — ${unreachable.length} module(s) not re-exported from src/index.ts:`,
+  );
+  for (const m of unreachable) {
+    console.error(`  - packages/kern-primitives/${m}`);
+  }
+  console.error(
+    "\n  The package exposes only '.', so a module absent from the barrel is\n" +
+      "  committed, green, and importable by nobody. Add a barrel entry, or if\n" +
+      "  it is genuinely internal, list it in NOT_EXPORTABLE with a reason.",
+  );
+  process.exit(1);
+}
+
 console.log(
-  "\nprimitives boundary holds: no token, renderer or platform import",
+  `\nprimitives boundary holds: no token, renderer or platform import;` +
+    `\nall ${entries.length - unreachable.length} modules reachable from src/index.ts`,
 );
