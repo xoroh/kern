@@ -52,13 +52,13 @@ again. Measured from the generated registry instead:
 
 | Measure | Value |
 |---|---|
-| Registry rows | **342** (web 248, native 94) |
-| **Shared** (already both sides) | **58** |
-| **Native-only → needs a web version** | **24** in **11 files** |
-| **Web-only → needs a native version** | **30** in **28** files |
+| Registry rows | **345** (web 248, native 97) |
+| **Shared** (already both sides) | **59** |
+| **Native-only → needs a web version** | **26** in **11 files** |
+| **Web-only → needs a native version** | **29** in **28** files |
 | Stub rows | **0** |
 
-<!-- gate:counts 58 24 30 0 -->
+<!-- gate:counts 59 26 29 0 -->
 
 Machine-readable line above: `check:parity` (`scripts/check-parity.mjs`) re-derives
 these from the registry and fails if they drift, so the prose above cannot quietly
@@ -89,7 +89,7 @@ the point of writing it down first:
    the same decomposition native uses, so the two renderers agree on which
    element carries the active pill.
 
-The remaining 24 stay native-only. `navigation-bar`'s two siblings in
+The remaining 26 stay native-only. `navigation-bar`'s two siblings in
 `/kern/start` (`Sidebar`, `NavigationRail`, `SectionDrawer`) keep their names per
 **D11** — the counterpart rule forces *existence*, not renames.
 
@@ -166,7 +166,7 @@ later reader does not "fix" them back:
 
 ---
 
-## Native-only concepts → need a web version (24)
+## Native-only concepts → need a web version (26)
 
 Grouped by surface. `M3 source` is the M3 spec tab that governs the behaviour.
 
@@ -303,7 +303,7 @@ were restored from backup afterwards.
 
 ---
 
-## Web-only concepts → need a native version (30)
+## Web-only concepts → need a native version (29)
 
 The heading previously read **34** while the machine gate read **42** — the
 `gate:counts` line was right and the sentence a human reads was stale, which is

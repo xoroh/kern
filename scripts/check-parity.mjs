@@ -27,6 +27,9 @@ const ROOT = new URL("..", import.meta.url).pathname;
 
 const MANIFEST = join(ROOT, "packages/mcp/src/manifest.ts");
 const CONTRACT = join(ROOT, "docs/parity-contract.md");
+// The row manifest itself. `CONTRACT` above is the human-facing DOC; this is the
+// data the doc describes, and it is what carries per-row provenance.
+const CONTRACT_TS = join(ROOT, "parity/contract.ts");
 
 // Suffixes that may denote a sub-part. Deliberately narrow: `-button`, `-tab`,
 // `-body`, `-head` are NOT here, because a component whose own name ends in one
@@ -401,6 +404,140 @@ violations.push(
     "registry-rows": rows.length,
   }),
 );
+
+// ------------------------------------------- P2b-1: row provenance
+//
+// The ladder asks for one row per BEHAVIOUR carrying component, behaviour, each
+// side's contract, the M3 source, and a test pointer. Five of the six were
+// absent from the type entirely, so a row could assert something while
+// recording nothing about why, by what authority, or who checks it.
+//
+// Parsed from the contract TEXT rather than by importing it, for the same
+// reason the checks above read it as text: the contract is data-only, and a gate
+// that imported it would need a TypeScript loader just to check documentation
+// fields.
+//
+// `testedBy` is checked against suites that EXIST. A pointer to a renamed or
+// deleted suite is a claim, not a proof, and a manifest that trusts it looks
+// complete long after it stopped being true.
+{
+  const PROVENANCE_FIELDS = [
+    "behaviour",
+    "webContract",
+    "nativeContract",
+    "spec",
+    "testedBy",
+  ];
+  // Every test file in the repo, not just the parity folders. A `testedBy`
+  // pointer may legitimately name a component-level suite (an overlay surface
+  // is covered by `overlays.test.tsx`, not by a cross-renderer parity suite),
+  // and what matters is that the named file EXISTS — otherwise the manifest
+  // claims proof that is not there.
+  const suiteNames = new Set();
+  const collect = (dir, depth = 0) => {
+    if (depth > 6) return;
+    let entries;
+    try {
+      entries = readdirSync(dir, { withFileTypes: true });
+    } catch {
+      return;
+    }
+    for (const e of entries) {
+      if (e.name === "node_modules" || e.name === "dist") continue;
+      const full = join(dir, e.name);
+      if (e.isDirectory()) {
+        collect(full, depth + 1);
+      } else if (/\.(test|rntest)\.tsx?$/.test(e.name)) {
+        suiteNames.add(e.name);
+      }
+    }
+  };
+  collect(join(ROOT, "packages"));
+
+  const contractRows = readFileSync(CONTRACT_TS, "utf8");
+  const rowBlocks = contractRows
+    .split(/\n  \{\n/)
+    .slice(1)
+    .map((chunk) => chunk.split(/\n  \},?\n/)[0]);
+
+  const provenanceProblems = [];
+  const uncoveredRows = [];
+  const fieldValue = (row, field) => {
+    const m = row.match(new RegExp(`\\b${field}:\\s*"([^"]*)"`));
+    return m ? m[1] : undefined;
+  };
+
+  for (const [index, row] of rowBlocks.entries()) {
+    const comp = fieldValue(row, "component") ?? "?";
+    const where = `row ${index} (${comp})`;
+    for (const field of PROVENANCE_FIELDS) {
+      const value = fieldValue(row, field);
+      if (value === undefined || value.trim() === "") {
+        provenanceProblems.push(`${where}: missing or empty \`${field}\``);
+      }
+    }
+    const spec = fieldValue(row, "spec");
+    if (spec && !/M3|Material/i.test(spec)) {
+      provenanceProblems.push(
+        `${where}: \`spec\` does not name a Material 3 source`,
+      );
+    }
+    const testedBy = fieldValue(row, "testedBy");
+    if (testedBy) {
+      const named = testedBy
+        .split("/")
+        .map((s) => s.trim())
+        .filter(Boolean);
+      if (named.length === 0) {
+        provenanceProblems.push(`${where}: \`testedBy\` names no suite`);
+      }
+      for (const suite of named) {
+        // An explicit "none …" marker is a DELIBERATE, recorded absence: this
+        // row is unproven on that side and the manifest says so. It is reported
+        // separately rather than treated as a pass, because a row nothing tests
+        // is a claim, not a contract.
+        if (/^none\b/i.test(suite)) {
+          uncoveredRows.push(`${where}: ${suite}`);
+          continue;
+        }
+        const known = [...suiteNames].some((f) => f.startsWith(suite));
+        if (!known) {
+          provenanceProblems.push(
+            `${where}: \`testedBy\` names "${suite}" — no such test file on disk`,
+          );
+        }
+      }
+    }
+    for (const field of ["behaviour", "webContract", "nativeContract"]) {
+      const value = fieldValue(row, field);
+      // "base ui" with a space is the form prose actually uses; the hyphenated
+      // package name is not. A mutation caught this by writing "Base UI Switch
+      // root" and sailing straight through.
+      if (value && /base[\s-]?ui|data-slot|aria-|querySelector/i.test(value)) {
+        provenanceProblems.push(
+          `${where}: \`${field}\` names a web mechanism — the contract must stay primitive-agnostic`,
+        );
+      }
+    }
+  }
+  if (rowBlocks.length === 0) {
+    provenanceProblems.push(
+      "no parity rows parsed from the contract — the row-splitting regex no longer matches",
+    );
+  }
+  if (provenanceProblems.length > 0) {
+    violations.push(
+      "parity rows are missing provenance:\n    - " +
+        provenanceProblems.join("\n    - "),
+    );
+  }
+  if (uncoveredRows.length > 0) {
+    console.log(
+      `  declared-uncovered  ${uncoveredRows.length} (recorded, not passing):`,
+    );
+    for (const u of uncoveredRows) console.log(`      ${u}`);
+  }
+}
 
 if (violations.length > 0) {
   console.error(`\ncheck:parity FAILED — ${violations.length} violation(s):`);
