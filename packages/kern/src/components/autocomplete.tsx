@@ -98,6 +98,26 @@ export function AutocompleteItem({
   );
 }
 
+/**
+ * The empty state — ADR 002 (`adr-002-autocomplete-empty.md`).
+ *
+ * Three rules, each of which a consumer will otherwise get wrong:
+ *
+ * 1. **`items` on the Root is the source of truth for emptiness.** There is
+ *    nothing to filter without it, so with no `items` the empty state is real.
+ * 2. **Options must come from the Root's filtered list, NOT be hand-declared.**
+ *    A literal `<Autocomplete.Item value="a">A</Autocomplete.Item>` is not part
+ *    of `filteredItems`: it is not filtered, not counted, and does NOT suppress
+ *    this node. Hand-declaring options while the filtered list is empty shows an
+ *    option AND "No match" at once, which is how the original test failed.
+ * 3. **This node's ROOT stays mounted; only its children are conditional.** Base
+ *    UI announces through the persistent element, so kern styles children and
+ *    never applies `hidden`, `display:none` or `aria-hidden` to the wrapper.
+ *
+ * The popup's `data-empty` attribute is the public, stable signal of the same
+ * state — assert that in tests rather than the presence of the element, which
+ * is always in the DOM.
+ */
 export function AutocompleteEmpty({
   className,
   ...props
