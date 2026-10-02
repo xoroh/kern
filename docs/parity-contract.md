@@ -412,10 +412,10 @@ native and the count fell 42 → 39, and again in **tranche 2**, when
 | 33 | `sidebar` | Sidebar navigation | `Sidebar` — landmark + list | **GAP** — no native version | M3 · Navigation drawer | GAP |
 | 34 | `split` | Two-pane split layout | `Split` — the split container | **GAP** — no native version | — (composition tier; no governing component page verified) | GAP |
 | 35 | `status-bar` | Status bar surface | `StatusBar` — a status landmark | **GAP** — no native version | — (composition tier; no governing component page verified) | GAP |
-| 36 | `table-body` | Body region of a table (compound part of `table`) | `TableBody` — row group | **GAP** — no native version | M3 · Data tables | GAP |
-| 37 | `table-caption` | Caption of a table (compound part) | `TableCaption` — `caption` | **GAP** — no native version | M3 · Data tables | GAP |
-| 38 | `table-cell` | A cell (compound part of `table`) | `TableCell` — `cell` role | **GAP** — no native version | M3 · Data tables | GAP |
-| 39 | `table-head` | Header region of a table (compound part) | `TableHead` — columnheader group | **GAP** — no native version | M3 · Data tables | GAP |
+| 36 | `table-body` | Body region of a table (compound part of `table`) | `TableBody` — row group | **covered, not separate work** — native `Table` renders this from its `columns`/`rows` model; web's composable subpart is an API-shape difference, not a behavioural gap (ruled 2026-10-02) | M3 · Data tables | GAP |
+| 37 | `table-caption` | Caption of a table (compound part) | `TableCaption` — `caption` | **covered** — native `Table` takes a `caption` prop: text rendered AND appended to the accessible name (no caption element exists on this platform). No separate export, so the row stays web-only by export | M3 · Data tables | GAP |
+| 38 | `table-cell` | A cell (compound part of `table`) | `TableCell` — `cell` role | **covered, not separate work** — native `Table` renders this from its `columns`/`rows` model; web's composable subpart is an API-shape difference, not a behavioural gap (ruled 2026-10-02) | M3 · Data tables | GAP |
+| 39 | `table-head` | Header region of a table (compound part) | `TableHead` — columnheader group | **covered, not separate work** — native `Table` renders this from its `columns`/`rows` model; web's composable subpart is an API-shape difference, not a behavioural gap (ruled 2026-10-02) | M3 · Data tables | GAP |
 | 40 | `theme-toggle` | Toggle switching the theme | `ThemeToggle` — `aria-pressed` | **GAP** — no native version | — (composition tier; no governing component page verified) | GAP |
 | 41 | `top-app-bar-toggle` | Overflow toggle inside a top app bar | `TopAppBarToggle` — `aria-expanded` | **GAP** — no native version | — (composition tier; no governing component page verified) | GAP |
 | 42 | `top-bar-menu` | Generic menu slot in a top bar | `TopBarMenu` — a `menu` | **GAP** — no native version | M3 · Menus | GAP |
