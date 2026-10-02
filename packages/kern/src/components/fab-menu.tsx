@@ -99,11 +99,29 @@ export function FabMenu({
 
   return (
     // `open` is passed ONLY when the host controls it. Feeding the internal
-    // state back in as `open` would make the root permanently controlled, so
-    // `setOpen` would update a value nothing reads and the menu could never
-    // open — a controlled-looking prop that silently kills the component.
+    // state back in as `open` would make the root permanently controlled and
+    // `setOpen` would update a value nothing reads.
+    //
+    // CORRECTION: this comment previously claimed that doing so means "the menu
+    // could never open — a controlled-looking prop that silently kills the
+    // component". That was NOT verified, and it does not hold for the Base UI
+    // version pinned here: `open={isOpen}` unconditionally still opens, closes
+    // and re-opens correctly, checked by rendering both ways and driving
+    // open -> Escape -> reopen (`fab-menu.test.tsx` now asserts the round-trip).
+    // The conditional is kept because uncontrolled-by-default is the correct
+    // contract and the claim was unproven, not because the failure was observed.
     <MenuPrimitive.Root
       open={controlled ? isOpen : undefined}
+      // `defaultOpen` must reach the ROOT, not just kern's own `useState`. It
+      // seeds `isOpen` (which drives the trigger's data-open and the icon swap)
+      // but the root's open state is what actually mounts the popup — so a
+      // `defaultOpen` FabMenu rendered a CLOSED menu behind a trigger already
+      // showing its open state. Two sources of truth, one of them never read.
+      //
+      // Passing it only when uncontrolled is the same rule as the `open` prop
+      // above: feed a default into a controlled root and it is ignored, which is
+      // a silent lie about the caller's intent.
+      defaultOpen={controlled ? undefined : defaultOpen}
       onOpenChange={setOpen}
       modal={false}
     >
