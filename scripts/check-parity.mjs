@@ -102,8 +102,49 @@ if (rows.length === 0) {
 const web = rows.filter((r) => r.platform === "web");
 const native = rows.filter((r) => r.platform === "native");
 
-const webConcepts = concepts(web.map((r) => r.name));
-const nativeConcepts = concepts(native.map((r) => r.name));
+/**
+ * NAME MAPPING — two export names for one concept (D10, restated).
+ *
+ * `check:parity` classifies by registry NAME, so a concept implemented on both
+ * sides under different export names reads as "one built, one missing" and
+ * inflates the platform-only counts. These three are the known pairs; each is
+ * one concept, not two.
+ *
+ *   error-boundary  <-> kern-error-boundary   KernErrorBoundary takes a `Kern`
+ *                                               prefix because it is a rendered
+ *                                               component; the native class is not
+ *   boot-splash     <-> boot-indicator        the browser has no pre-first-paint
+ *                                               phase, so the same launch concept
+ *                                               is named differently
+ *   supporting-pane <-> pane                  `currentWidth < breakpoint` is a
+ *                                               media query; web `Pane` is the
+ *                                               concept
+ *
+ * Deliberately an EXPLICIT table, not a fuzzy rule. Normalising prefixes would
+ * silently merge genuinely distinct concepts whose names happen to collide, and
+ * a mapping nobody reviewed is exactly the kind of gate that passes because it
+ * did not look. Adding a pair here is a ruling, and the doc records it.
+ */
+const NAME_MAPPING = new Map([
+  ["kern-error-boundary", "error-boundary"],
+  ["boot-indicator", "boot-splash"],
+  ["supporting-pane", "pane"],
+]);
+/** Canonical concept for a registry name, following the mapping to its twin. */
+const conceptOf = (name) => NAME_MAPPING.get(name) ?? name;
+/** The other export name for a concept, in EITHER direction. Reachability has to
+ *  start from the native name (`boot-splash`) and find the web twin
+ *  (`boot-indicator`), which the forward map does not give. */
+const twinOf = (name) => {
+  if (NAME_MAPPING.has(name)) return name; // already the alias side
+  for (const [alias, canonical] of NAME_MAPPING) {
+    if (canonical === name) return alias;
+  }
+  return name;
+};
+
+const webConcepts = concepts(web.map((r) => conceptOf(r.name)));
+const nativeConcepts = concepts(native.map((r) => conceptOf(r.name)));
 
 const shared = [...webConcepts].filter((c) => nativeConcepts.has(c)).sort();
 const webOnly = [...webConcepts].filter((c) => !nativeConcepts.has(c)).sort();
@@ -887,7 +928,23 @@ violations.push(
       // and those are exported in camelCase. This gate asserts REACHABILITY,
       // not "is a component" -- so both spellings count as reachable.
       const camel = component.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
-      if (!names.has(pascal) && !names.has(rootPascal) && !names.has(camel)) {
+      // A NAME-MAPPED concept is reachable under EITHER export name. The
+      // classification resolves `boot-splash` to `boot-indicator`, so checking
+      // reachability against `BootSplash` alone would report a false violation
+      // against a component that is exported and importable under its twin.
+      const twin = twinOf(component);
+      const twinPascal = twin
+        .split("-")
+        .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+        .join("");
+      const twinCamel = twin.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
+      if (
+        !names.has(pascal) &&
+        !names.has(rootPascal) &&
+        !names.has(camel) &&
+        !names.has(twinPascal) &&
+        !names.has(twinCamel)
+      ) {
         reachabilityProblems.push(
           `\`${component}\` is counted present on ${platform} but ` +
             `\`${pascal}\` is not exported from ${PKG_FOR[platform]}'s public entry`,
