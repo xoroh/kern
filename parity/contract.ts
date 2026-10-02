@@ -554,7 +554,8 @@ export const CONTRACTS: readonly ParityRow[] = [
     spec: "M3 Time picker — hour, minute and period, with 12-hour rendering as an alternate presentation of 24-hour state.",
     // The web side has NO time-picker test on disk, so naming one would be the
     // false `testedBy` this gate exists to catch. Recorded as a gap.
-    testedBy: "web-parity-carousel-time.test.tsx / time-picker.rntest.tsx",
+    testedBy:
+      "web-parity-carousel-time.test.tsx / native-parity-carousel-time.rntest.tsx",
     role: "list",
     axis: "selected",
     interaction: "select",
@@ -579,7 +580,8 @@ export const CONTRACTS: readonly ParityRow[] = [
     spec: "M3 Carousel — a set of items with one active; the entire component, layouts included, was verified in research T4-M1.",
     // The web side has NO carousel test on disk, so naming one would be exactly
     // the false `testedBy` this gate was built to catch. Recorded as a gap.
-    testedBy: "web-parity-carousel-time.test.tsx / carousel.rntest.tsx",
+    testedBy:
+      "web-parity-carousel-time.test.tsx / native-parity-carousel-time.rntest.tsx",
     role: "group",
     axis: "selected",
     interaction: "select",
