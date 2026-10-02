@@ -10,6 +10,26 @@ permissions:
   contents: read
 
 jobs:
+  # A DEDICATED job, deliberately. `check:cold` is `rm -rf node_modules
+  # packages/*/dist && bun install --frozen-lockfile && bun run build` -- running
+  # it inside the `build` job would destroy the workspace for every step after
+  # it. It is a cold-checkout release question, so it gets a clean runner of its
+  # own, which is also the only honest way to test a cold checkout.
+  #
+  # It was DARK until now: no workflow invoked it, so the one gate that proves a
+  # clean clone can build -- the gate the whole D-037 build lifecycle rests on --
+  # was never running.
+  cold-install:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Cold-checkout build and dist check
+        run: bun run check:cold
+
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -43,6 +63,14 @@ jobs:
       - name: Check the package layering (D-034)
         run: bun run check:layers
 
+      - name: Check every check:* gate is actually invoked by CI
+        run: bun run check:workflow
+
+      - name: Check generated output and elevation truth
+        run: |
+          bun run check:generated
+          bun run check:elevation
+
       - name: Check kernel consumption and the pack manifest
         run: |
           bun run check:consumption
@@ -74,7 +102,12 @@ jobs:
         run: bun run build
 
       - name: Check every declared export exists in dist
-        run: bun run check:dist
+        run: |
+          bun run check:dist
+          # AFTER the build, not with the other gates: it inspects the built
+          # .d.ts files, so running it earlier would report "no dist" and read as
+          # a green gate that verified nothing.
+          bun run check:dist:types
 
       - name: Typecheck MCP server
         run: bun run typecheck
