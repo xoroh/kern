@@ -124,7 +124,12 @@ for (const name of ordered) {
     cwd: dir,
     stdio: "inherit",
   });
-  if (result.exitCode !== 0) {
+  // spawnSync populates `status`; `exitCode` is an alias that is only populated
+  // for async spawn. With stdio:"inherit" here `exitCode` is `undefined`, so
+  // comparing `result.exitCode !== 0` was ALWAYS true and every package looked
+  // like a failure — even though each built correctly.
+  const code = result.status ?? result.exitCode ?? 1;
+  if (code !== 0) {
     failed = name;
     break;
   }
