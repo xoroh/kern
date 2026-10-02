@@ -286,6 +286,56 @@ if (docConcepts.size === 0) {
   }
 }
 
+// --- every primitives module must also be in the BUILT d.ts barrel -----------
+// 802030c checked the SOURCE barrel. That is not the publish surface: consumers
+// import `dist/index.d.ts`, and a module can be exported in source and absent
+// from the built declaration — a tsup entry list that omits it, an export the
+// bundler drops, or a stale dist.
+//
+// A missing dist is UNVERIFIABLE, never a pass: reporting "0 violations" from a
+// build that has not run is the gate-looks-green-because-it-did-not-look failure.
+{
+  const distDts = join(ROOT, "packages", "kern-primitives", "dist", "index.d.ts");
+  const primitivesSrc = join(ROOT, "packages", "kern-primitives", "src");
+  if (!existsSync(distDts)) {
+    violations.push(
+      "packages/kern-primitives/dist/index.d.ts is missing, so the PUBLISH SURFACE " +
+        "cannot be checked. Run `bun run build`. Reporting 0 violations here would " +
+        "be a gate that passed because it did not look.",
+    );
+  } else {
+    const dts = readFileSync(distDts, "utf8");
+    // The trailing `export { ... }` list is the public entry. A `declare
+    // function` earlier in the file proves the symbol is compiled, NOT that it is
+    // exported -- which is exactly how the first reachability gate produced nine
+    // false positives.
+    const exportBlocks = [...dts.matchAll(/export\s*\{([^}]*)\}/g)];
+    const exported = new Set();
+    for (const b of exportBlocks) {
+      for (const raw of b[1].split(",")) {
+        const name = raw.trim().split(/\s+as\s+/).pop()?.trim();
+        if (name) exported.add(name.replace(/^type\s+/, ""));
+      }
+    }
+    for (const entry of readdirSync(primitivesSrc)) {
+      if (!entry.endsWith(".ts")) continue;
+      if (entry === "index.ts" || /\.test\.ts$/.test(entry)) continue;
+      const text = readFileSync(join(primitivesSrc, entry), "utf8");
+      for (const m of text.matchAll(
+        /^export\s+(?:declare\s+)?(?:function|const|class|type)\s+(\w+)/gm,
+      )) {
+        const sym = m[1];
+        if (!exported.has(sym)) {
+          violations.push(
+            `packages/kern-primitives: ${sym} (from src/${entry}) is not exported ` +
+              `from the BUILT dist/index.d.ts -- consumers cannot import it.`,
+          );
+        }
+      }
+    }
+  }
+}
+
 // --- web-only TABLE membership, not just row existence ------------------------
 // The check above proves a doc row names something real. It does NOT prove the
 // row is in the RIGHT table: a component that is registered on BOTH platforms
@@ -1010,7 +1060,7 @@ if (violations.length > 0) {
 }
 
 console.log(
-  "\nparity contract passes: boundary held, counts match the registry, no phantom rows, ruled asymmetries intact,\n and every kern-primitives module is reachable from its barrel",
+  "\nparity contract passes: boundary held, counts match the registry, no phantom rows, ruled asymmetries intact,\n and every kern-primitives module is reachable from its source AND built barrel",
 );
 
 // ------------------------------------------------------------------- helpers

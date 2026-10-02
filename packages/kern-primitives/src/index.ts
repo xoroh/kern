@@ -78,6 +78,12 @@ export {
   isSelected,
   normalizeSelection,
   type Selection,
+  // Caught by the dist-barrel reachability gate: this was `export type` in
+  // source and compiled into the .d.ts, but was MISSING from the built
+  // `export { ... }` list -- so `import type { SelectionKey }` failed for
+  // consumers while every source-level check stayed green. A declaration is not
+  // an export; only the trailing export list is the public entry.
+  type SelectionKey,
   type SelectionMode,
   toggleSelection,
   useSelection,
