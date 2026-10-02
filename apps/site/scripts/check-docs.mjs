@@ -41,6 +41,15 @@ const INVENTORY = join(ROOT, "docs", "components.md");
 
 const errors = [];
 const gaps = [];
+/**
+ * Not a gap and not a pass silently: a component M3 places at resting level 0
+ * with no elevation token on the component. Level 0 IS `shadow: none`, so
+ * shipping no token is the conformant state — `ed3c3e1` established this and
+ * changed `auditElevation` to match. Reporting these as gaps would say "we do
+ * not know" about something we know exactly; reporting them as nothing would
+ * hide the six rows that are gated on an absence rather than a value.
+ */
+const conformantNoToken = [];
 
 function fail(msg) {
   errors.push(msg);
@@ -48,12 +57,16 @@ function fail(msg) {
 function gap(msg) {
   gaps.push(msg);
 }
+function conformant(msg) {
+  conformantNoToken.push(msg);
+}
 
 // ---------------------------------------------------------------- inventory
 // docs/components.md is the generated inventory and the authority for status.
 // Parsed with the same row shape `generate-manifest.mjs` reads.
 const PLATFORMS = { Web: "web", Native: "mobile" };
-const inventory = new Map(); // "web:Button" -> "real" | "stub"
+const inventory = new Map(); // "web:Button" (export) -> "real" | "stub"
+const inventoryNames = new Set(); // "web:button" (URL slug) -> present
 const byPlatform = { web: new Set(), mobile: new Set() };
 
 const source = readFileSync(INVENTORY, "utf8");
@@ -64,6 +77,11 @@ for (const block of source.split(/^## /m).slice(1)) {
   for (const row of block.matchAll(
     /^\| `([^`]+)` \| `([^`]+)` \| (real|stub) \|$/gm,
   )) {
+    // row[1] is the kebab name — the URL segment the route resolves on.
+    // row[2] is the exported symbol — what the demo registry keys on. Both
+    // matter and they are not interchangeable: the canonical URL is built
+    // from the name, the pages document the export.
+    inventoryNames.add(`${platform}:${row[1]}`);
     inventory.set(`${platform}:${row[2]}`, row[3]);
     byPlatform[platform].add(row[2]);
   }
@@ -213,11 +231,21 @@ function checkElevation({ file, doc }) {
           `M3 assigns ${spec.rows.join(", ")} resting level${spec.variants.join("/")} but the page claims "surface"`,
         ),
       );
-    } else if (!spec.variants.includes(level)) {
+      return;
+    }
+    if (!spec.variants.includes(level)) {
       fail(
         at(
           `page claims elevation level${level}, M3 assigns level${spec.variants.join("/")} (${spec.rows.join(", ")})`,
         ),
+      );
+      return;
+    }
+    // A row M3 places at 0 with no token on the component: conformant, and
+    // gated on the absence of a shadow so an unearned one fails upstream.
+    if (level === 0 && spec.variants.every((v) => v === 0)) {
+      conformant(
+        `${file}: ${spec.rows.join(", ")} at level 0 — conformant, no token (level 0 is \`shadow: none\`)`,
       );
     }
     return;
@@ -366,6 +394,21 @@ function checkOwnership({ platform, file, doc }) {
   }
 }
 
+// ------------------------------------------------------- canonical slug
+// kern-lead's rule: the family slug is canonical and every part URL 301s to
+// it. A redirect is only as good as its target, and the target is resolved
+// through the generated manifest — so a family whose slug is not itself a
+// manifest row would 301 into a 404. Catch that here, not in production.
+function checkCanonicalSlug({ platform, file, doc }) {
+  if (!inventoryNames.has(`${platform}:${doc.slug}`)) {
+    fail(
+      `${file}: family slug "${doc.slug}" is not a row in the generated inventory — ` +
+        `the canonical URL /components/${platform}/${doc.slug} would 404 and every ` +
+        `part URL would 301 into it`,
+    );
+  }
+}
+
 // ------------------------------------------------------------------- run
 for (const page of pages) {
   checkSections(page);
@@ -374,6 +417,7 @@ for (const page of pages) {
   checkInventory(page);
   checkNoRawValues(page);
   checkOwnership(page);
+  checkCanonicalSlug(page);
 }
 
 // Coverage: how much of the generated inventory has a page behind it. This is
@@ -388,6 +432,12 @@ console.log(`check-docs: ${pages.length} content page(s)`);
 console.log(
   `check-docs: coverage ${covered}/${total} inventory exports documented (${Math.round((covered / total) * 100)}%)`,
 );
+if (conformantNoToken.length > 0) {
+  console.log(
+    `\ncheck-docs: ${conformantNoToken.length} conformant with no elevation token — asserted on absence, not a gap:`,
+  );
+  for (const c of conformantNoToken) console.log(`  ok   ${c}`);
+}
 if (gaps.length > 0) {
   console.log(`\ncheck-docs: ${gaps.length} gap(s) — reported, not failing:`);
   for (const g of gaps) console.log(`  gap  ${g}`);

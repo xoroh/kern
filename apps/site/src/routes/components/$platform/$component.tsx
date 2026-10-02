@@ -14,6 +14,7 @@ import {
   createFileRoute,
   Link,
   notFound,
+  redirect,
 } from "@tanstack/react-router";
 import { SiteLayout } from "../../../components/chrome/site-layout";
 import { ComponentPage as ComponentDocPage } from "../../../components/docs/component-page";
@@ -25,8 +26,24 @@ export const Route = createFileRoute("/components/$platform/$component")({
   // component body happens after SSR streaming has begun, so the response
   // status is already 200 and a 404 can never be sent.
   beforeLoad: ({ params }) => {
-    if (!getComponent(`${params.platform}/${params.component}`)) {
+    const entry = getComponent(`${params.platform}/${params.component}`);
+    if (!entry) {
       throw notFound();
+    }
+
+    // kern-lead's rule: the family slug is canonical. A compound part is never
+    // its own page — `dialog-content` is a second URL for the Dialog page, and
+    // one page under two URLs is a duplicate-content defect rather than a
+    // convenience. So the part URL answers with a real 301 from the server,
+    // not a client-side re-render: crawlers, caches and link equity all see a
+    // single canonical URL, and a shared link keeps working.
+    const doc = docForExport(entry.platform, entry.export);
+    if (doc && params.component !== doc.slug) {
+      throw redirect({
+        to: "/components/$platform/$component",
+        params: { platform: params.platform, component: doc.slug },
+        statusCode: 301,
+      });
     }
   },
   component: ComponentPage,
