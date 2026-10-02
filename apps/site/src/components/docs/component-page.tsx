@@ -765,10 +765,17 @@ function conformanceLine(doc: ComponentDoc): string {
     doc.meta.elevationBacked !== false,
   );
   const ids = (doc.deviations ?? []).map((row) => row.id);
+  // m5 — this line is READ, not parsed. "deviations: none" and "elevation:
+  // Level 2" are the vocabulary of the gate that produced them; a reader
+  // landing on the Material 3 conformance section does not know what a
+  // deviation is yet. Say what the fact means, and only then name the ids
+  // that make it auditable.
   return [
-    `elevation: ${elev.text}`,
-    `deviations: ${ids.length ? ids.join(" | ") : "none"}`,
-  ].join("  ·  ");
+    `Resting elevation: ${elev.text}`,
+    ids.length
+      ? `Deliberate kern departures from Material 3: ${ids.join(", ")}`
+      : "No registered departures from Material 3",
+  ].join(" · ");
 }
 
 function DeviationRow({ row }: { row: Deviation }) {
