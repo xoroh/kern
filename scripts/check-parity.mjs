@@ -615,7 +615,129 @@ violations.push(
   }
 }
 
-if (violations.length > 0) {
+// ------------------------------------------- P2b-5: reachability of registry rows
+//
+// Third instance of the same class, and the reason this is a gate rather than
+// another careful read:
+//
+//   1. `themes.m3` staleness -- a name the source still used but the theme layer
+//      had already renamed.
+//   2. an elevation row keyed to a component that measured no file at all.
+//   3. Drawer / Popover / ScrollArea -- implemented, internally tested, counted
+//      as SHARED concepts and recorded as component-covered, while NONE of them
+//      was re-exported from the package index. A consumer could not import one.
+//
+// The common cause: the registry is derived by scanning source FILES. So an
+// unexported component is indistinguishable from a shipped one, and every
+// claim built on top of it is false while every gate stays green.
+//
+// This asserts the property the registry actually needs: a component counted as
+// present on a platform must be reachable from that package's PUBLIC entry.
+//
+// READS THE BUILT `dist/index.d.ts`, not the source. The source is the thing
+// that has been lying: `overlay-surfaces.tsx` exported all three correctly, and
+// only the package index omitted them. Reading dist is also the honest artefact
+// — it is what a consumer's TypeScript resolves against.
+//
+// If dist is absent (a cold checkout, or before the first build) this reports
+// CANNOT VERIFY rather than passing. A gate that skips because it could not look
+// is the failure mode this whole programme keeps paying for.
+{
+  const PKG_FOR = {
+    web: "packages/kern",
+    native: "packages/kern-native",
+  };
+
+  // Reuses the SAME concept sets the counts above are printed from, so the
+    // gate cannot claim reachability for a component the counts do not have.
+    const webConceptsClaimed = webConcepts;
+    const nativeConceptsClaimed = nativeConcepts;
+    const platformNames = { web: webConceptsClaimed, native: nativeConceptsClaimed };
+    const reachabilityProblems = [];
+  const unverifiable = [];
+
+  /**
+   * Only the trailing `export { ... }` list counts.
+   *
+   * This was wrong at first and mutation-proving caught it: the bundled `.d.ts`
+   * contains a `declare function ScrollArea` for the component EVEN WHEN the
+   * package index does not re-export it, because the bundler traverses the whole
+   * module it pulled in. Reading declarations therefore reported an unexported
+   * component as reachable -- the exact defect this gate exists to catch.
+   *
+   * The final `export { ... }` list IS the public entry, and nothing else is.
+   */
+  const exportedNames = (dts) => {
+    const names = new Set();
+    for (const block of dts.matchAll(/export\s*\{([^}]*)\}/g)) {
+      for (const part of block[1].split(",")) {
+        const name = part
+          .split(" as ")
+          .pop()
+          .trim()
+          .replace(/^type\s+/, "");
+        if (name && /^[A-Za-z_$][\w$]*$/.test(name)) names.add(name);
+      }
+    }
+    return names;
+  };
+
+  const distFor = {};
+  for (const [platform, dir] of Object.entries(PKG_FOR)) {
+    const file = join(ROOT, dir, "dist", "index.d.ts");
+    try {
+      distFor[platform] = exportedNames(readFileSync(file, "utf8"));
+    } catch {
+      distFor[platform] = null;
+    }
+  }
+
+  for (const [platform, names] of Object.entries(distFor)) {
+    if (names === null) {
+      unverifiable.push(
+        `${platform}: no dist/index.d.ts — run \`bun run build\` before relying on this`,
+      );
+      continue;
+    }
+    // Every registry component claimed on this platform must be reachable.
+    const claimed = platformNames[platform] ?? new Set();
+    for (const component of claimed) {
+      // Kebab -> Pascal over EVERY segment. Capitalising only the first made
+      // `time-picker` look for `Time` and `split-button` for `Split`, which
+      // reported nine perfectly reachable components as missing — a gate that
+      // cries wolf is worse than no gate.
+      const pascal = component
+        .split("-")
+        .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+        .join("");
+      // A compound PART (e.g. `input-otp-root`) is reachable when its ROOT is.
+      const root = component.split("-")[0];
+      const rootPascal = root.charAt(0).toUpperCase() + root.slice(1);
+      // camelCase too: the registry counts hooks and helpers
+      // (`useFieldset`, `pageWindow`, `pressIsCancelled`) alongside components,
+      // and those are exported in camelCase. This gate asserts REACHABILITY,
+      // not "is a component" -- so both spellings count as reachable.
+      const camel = component.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
+      if (!names.has(pascal) && !names.has(rootPascal) && !names.has(camel)) {
+        reachabilityProblems.push(
+          `\`${component}\` is counted present on ${platform} but ` +
+            `\`${pascal}\` is not exported from ${PKG_FOR[platform]}'s public entry`,
+        );
+      }
+    }
+  }
+
+  if (reachabilityProblems.length > 0) {
+    violations.push(
+      "registry rows are not reachable from the public entry:\n    - " +
+        reachabilityProblems.join("\n    - "),
+    );
+  }
+  if (unverifiable.length > 0) {
+    console.log(`  reachability  UNVERIFIABLE (${unverifiable.length}):`);
+    for (const u of unverifiable) console.log(`      ${u}`);
+  }
+}if (violations.length > 0) {
   console.error(`\ncheck:parity FAILED — ${violations.length} violation(s):`);
   for (const v of violations) console.error(`  - ${v}`);
   process.exit(1);

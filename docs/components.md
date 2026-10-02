@@ -277,6 +277,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `button-group` | `ButtonGroup` | real |
 | `calendar` | `Calendar` | real |
 | `card` | `Card` | real |
+| `carousel` | `Carousel` | real |
 | `checkbox` | `Checkbox` | real |
 | `checkbox-group` | `CheckboxGroup` | real |
 | `checkbox-group-item` | `CheckboxGroupItem` | real |
@@ -288,6 +289,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `country-select` | `CountrySelect` | real |
 | `dialog` | `Dialog` | real |
 | `dock-sheet` | `DockSheet` | real |
+| `drawer` | `Drawer` | real |
 | `empty-state` | `EmptyState` | real |
 | `entity-sheet` | `EntitySheet` | real |
 | `error-boundary` | `ErrorBoundary` | real |
@@ -324,11 +326,15 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `navigation-drawer` | `NavigationDrawer` | real |
 | `navigation-menu` | `NavigationMenu` | real |
 | `number-field` | `NumberField` | real |
+| `page-window` | `pageWindow` | real |
+| `pagination` | `Pagination` | real |
 | `pane` | `Pane` | real |
+| `popover` | `Popover` | real |
 | `press-is-cancelled` | `pressIsCancelled` | real |
 | `progress` | `Progress` | real |
 | `radio-group` | `RadioGroup` | real |
 | `radio-group-item` | `RadioGroupItem` | real |
+| `scroll-area` | `ScrollArea` | real |
 | `search` | `Search` | real |
 | `secondary-tabs` | `SecondaryTabs` | real |
 | `segmented-button` | `SegmentedButton` | real |
@@ -351,6 +357,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `tabs` | `Tabs` | real |
 | `text` | `Text` | real |
 | `textarea` | `Textarea` | real |
+| `time-picker` | `TimePicker` | real |
 | `toggle` | `Toggle` | real |
 | `toggle-group` | `ToggleGroup` | real |
 | `toolbar` | `Toolbar` | real |

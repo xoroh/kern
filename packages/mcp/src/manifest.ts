@@ -2167,6 +2167,27 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    name: "drawer",
+    export: "Drawer",
+    platform: "native",
+    path: "src/components/overlay-surfaces.tsx",
+    status: "real",
+  },
+  {
+    name: "popover",
+    export: "Popover",
+    platform: "native",
+    path: "src/components/overlay-surfaces.tsx",
+    status: "real",
+  },
+  {
+    name: "scroll-area",
+    export: "ScrollArea",
+    platform: "native",
+    path: "src/components/overlay-surfaces.tsx",
+    status: "real",
+  },
+  {
     name: "page-window",
     export: "pageWindow",
     platform: "native",

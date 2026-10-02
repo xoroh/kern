@@ -52,13 +52,13 @@ again. Measured from the generated registry instead:
 
 | Measure | Value |
 |---|---|
-| Registry rows | **349** (web 248, native 101) |
-| **Shared** (already both sides) | **62** |
+| Registry rows | **352** (web 248, native 104) |
+| **Shared** (already both sides) | **65** |
 | **Native-only → needs a web version** | **27** in **11 files** |
-| **Web-only → needs a native version** | **25** in **28** files |
+| **Web-only → needs a native version** | **22** in **28** files |
 | Stub rows | **0** |
 
-<!-- gate:counts 62 27 25 0 -->
+<!-- gate:counts 65 27 22 0 -->
 
 Machine-readable line above: `check:parity` (`scripts/check-parity.mjs`) re-derives
 these from the registry and fails if they drift, so the prose above cannot quietly
@@ -303,7 +303,7 @@ were restored from backup afterwards.
 
 ---
 
-## Web-only concepts → need a native version (25)
+## Web-only concepts → need a native version (22)
 
 The heading previously read **34** while the machine gate read **42** — the
 `gate:counts` line was right and the sentence a human reads was stale, which is
