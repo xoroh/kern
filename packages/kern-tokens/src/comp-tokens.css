@@ -3,6 +3,15 @@
  * role, shape, spacing or typescale var, so this can never drift into a second
  * source of truth. Source: tokens.json. */
 :root {
+  --md-comp-banner-container-color: var(--md-sys-color-surface);
+  --md-comp-banner-container-shape: var(--md-sys-shape-corner-medium);
+  --md-comp-banner-elevation-level: var(--md-sys-elevation-level1);
+  --md-comp-bottom-sheet-container-color: var(
+    --md-sys-color-surface-container-low
+  );
+  --md-comp-bottom-sheet-container-shape: var(
+    --md-sys-shape-corner-extra-large
+  );
   --md-comp-button-container-height: var(--md-sys-spacing-300);
   --md-comp-button-container-shape: var(--md-sys-shape-corner-full);
   --md-comp-button-label-typography: var(--md-sys-typescale-label-large);
@@ -11,12 +20,28 @@
   --md-comp-card-container-color: var(--md-sys-color-surface-container-low);
   --md-comp-card-container-shape: var(--md-sys-shape-corner-medium);
   --md-comp-card-elevation-level: var(--md-sys-elevation-level1);
+  --md-comp-carousel-container-shape: var(--md-sys-shape-corner-medium);
+  --md-comp-carousel-indicator-color: var(--md-sys-color-secondary);
+  --md-comp-checkbox-box-shape: var(--md-sys-shape-corner-extra-small);
+  --md-comp-checkbox-box-size: var(--md-sys-color-icon-24);
+  --md-comp-checkbox-selected-box-color: var(--md-sys-color-primary);
+  --md-comp-checkbox-selected-mark-color: var(--md-sys-color-on-primary);
   --md-comp-chip-container-shape: var(--md-sys-shape-corner-small);
   --md-comp-chip-label-typography: var(--md-sys-typescale-label-large);
   --md-comp-dialog-container-color: var(--md-sys-color-surface-container-high);
   --md-comp-dialog-container-shape: var(--md-sys-shape-corner-extra-large);
   --md-comp-dialog-elevation-level: var(--md-sys-elevation-level3);
   --md-comp-dialog-headline-typography: var(--md-sys-typescale-headline-small);
+  --md-comp-divider-track-color: var(--md-sys-color-outline-variant);
+  --md-comp-divider-track-thickness: var(--md-sys-spacing-125);
+  --md-comp-elevated-button-container-color: var(
+    --md-sys-color-surface-container-low
+  );
+  --md-comp-elevated-button-container-height: var(--md-sys-spacing-300);
+  --md-comp-elevated-button-container-on-color: var(--md-sys-color-on-surface);
+  --md-comp-elevated-button-label-typography: var(
+    --md-sys-typescale-label-large
+  );
   --md-comp-fab-container-color: var(--md-sys-color-primary-container);
   --md-comp-fab-container-on-color: var(--md-sys-color-on-primary-container);
   --md-comp-fab-container-shape: var(--md-sys-shape-corner-large);
@@ -41,9 +66,49 @@
     --md-sys-color-surface-container
   );
   --md-comp-navigationbar-container-height: var(--md-sys-spacing-400);
+  --md-comp-outlined-button-container-height: var(--md-sys-spacing-300);
+  --md-comp-outlined-button-container-outline-color: var(
+    --md-sys-color-outline
+  );
+  --md-comp-outlined-button-label-typography: var(
+    --md-sys-typescale-label-large
+  );
+  --md-comp-progress-indicator-color: var(--md-sys-color-primary);
+  --md-comp-progress-track-color: var(--md-sys-color-surface-container-highest);
+  --md-comp-progress-track-shape: var(--md-sys-shape-corner-full);
+  --md-comp-radio-inner-circle-shape: var(--md-sys-shape-corner-full);
+  --md-comp-radio-inner-circle-size: var(--md-sys-color-icon-12);
+  --md-comp-radio-outer-circle-shape: var(--md-sys-shape-corner-full);
+  --md-comp-radio-outer-circle-size: var(--md-sys-color-icon-24);
+  --md-comp-radio-selected-inner-color: var(--md-sys-color-on-primary);
+  --md-comp-radio-selected-outer-color: var(--md-sys-color-primary);
+  --md-comp-segmented-button-container-height: var(--md-sys-spacing-300);
+  --md-comp-segmented-button-container-shape: var(--md-sys-shape-corner-full);
+  --md-comp-segmented-button-label-typography: var(
+    --md-sys-typescale-label-large
+  );
+  --md-comp-segmented-button-selected-container-color: var(
+    --md-sys-color-secondary-container
+  );
+  --md-comp-slider-handle-color: var(--md-sys-color-primary);
+  --md-comp-slider-handle-size: var(--md-sys-color-icon-20);
+  --md-comp-slider-track-height: var(--md-sys-spacing-50);
+  --md-comp-slider-track-shape: var(--md-sys-shape-corner-full);
   --md-comp-snackbar-container-color: var(--md-sys-color-inverse-surface);
   --md-comp-snackbar-container-on-color: var(--md-sys-color-inverse-on-surface);
   --md-comp-snackbar-container-shape: var(--md-sys-shape-corner-extra-small);
+  --md-comp-switch-handle-color: var(--md-sys-color-outline);
+  --md-comp-switch-handle-size: var(--md-sys-color-icon-24);
+  --md-comp-switch-selected-handle-color: var(--md-sys-color-on-primary);
+  --md-comp-switch-selected-track-color: var(--md-sys-color-primary);
+  --md-comp-switch-track-color: var(--md-sys-color-surface-container-highest);
+  --md-comp-switch-track-shape: var(--md-sys-shape-corner-full);
+  --md-comp-tabs-active-indicator-color: var(--md-sys-color-primary);
+  --md-comp-tabs-active-indicator-height: var(--md-sys-spacing-50);
+  --md-comp-tabs-container-height: var(--md-sys-spacing-400);
+  --md-comp-tabs-label-typography: var(--md-sys-typescale-title-small);
+  --md-comp-text-button-container-height: var(--md-sys-spacing-300);
+  --md-comp-text-button-label-typography: var(--md-sys-typescale-label-large);
   --md-comp-tonal-button-container-color: var(
     --md-sys-color-secondary-container
   );
@@ -54,4 +119,7 @@
   --md-comp-tooltip-container-color: var(--md-sys-color-inverse-surface);
   --md-comp-tooltip-container-on-color: var(--md-sys-color-inverse-on-surface);
   --md-comp-tooltip-container-shape: var(--md-sys-shape-corner-extra-small);
+  --md-comp-top-app-bar-container-color: var(--md-sys-color-surface-container);
+  --md-comp-top-app-bar-container-height: var(--md-sys-spacing-600);
+  --md-comp-top-app-bar-title-typography: var(--md-sys-typescale-title-large);
 }

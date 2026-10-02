@@ -98,10 +98,102 @@ const COMPONENTS = {
       shape: "shape-corner-extra-small",
     },
   },
+
+  // ---- P1-7: extended coverage. Every entry below is M3-specified and resolves
+  // to a role/scale value that already exists; none introduces a new value, which
+  // is what keeps `md.comp.*` a table rather than a second source of truth.
+  "outlined-button": {
+    container: {
+      "outline-color": "outline",
+      height: "space-300",
+    },
+    label: { typography: "label-large" },
+  },
+  "elevated-button": {
+    container: {
+      color: "surface-container-low",
+      "on-color": "on-surface",
+      height: "space-300",
+    },
+    label: { typography: "label-large" },
+  },
+  "text-button": {
+    container: { height: "space-300" },
+    label: { typography: "label-large" },
+  },
+  banner: {
+    container: {
+      color: "surface",
+      shape: "shape-corner-medium",
+    },
+    // M3 lists Banner at resting elevation 1 (check:kern row `banner`).
+    elevation: { level: "level1" },
+  },
+  slider: {
+    // M3 resting level 0 — absence is the conformant state, so no elevation slot.
+    track: { shape: "shape-corner-full", height: "space-50" },
+    handle: { size: "icon-20", color: "primary" },
+  },
+  tabs: {
+    container: { height: "space-400" },
+    label: { typography: "title-small" },
+    "active-indicator": { color: "primary", height: "space-50" },
+  },
+  "segmented-button": {
+    container: { shape: "shape-corner-full", height: "space-300" },
+    label: { typography: "label-large" },
+    "selected-container": { color: "secondary-container" },
+  },
+  carousel: {
+    container: { shape: "shape-corner-medium" },
+    indicator: { color: "secondary" },
+  },
+  switch: {
+    // M3 switch: selected handle uses primary; track uses surface-container-highest.
+    track: { color: "surface-container-highest", shape: "shape-corner-full" },
+    "selected-track": { color: "primary" },
+    handle: { size: "icon-24", color: "outline" },
+    "selected-handle": { color: "on-primary" },
+  },
+  checkbox: {
+    box: { shape: "shape-corner-extra-small", size: "icon-24" },
+    "selected-box": { color: "primary" },
+    "selected-mark": { color: "on-primary" },
+  },
+  radio: {
+    "outer-circle": { shape: "shape-corner-full", size: "icon-24" },
+    "inner-circle": { shape: "shape-corner-full", size: "icon-12" },
+    "selected-outer": { color: "primary" },
+    "selected-inner": { color: "on-primary" },
+  },
+  progress: {
+    track: { color: "surface-container-highest", shape: "shape-corner-full" },
+    indicator: { color: "primary" },
+  },
+  divider: {
+    // M3 divider is 1dp; space-125 is the 10px scale entry.
+    track: { thickness: "space-125", color: "outline-variant" },
+  },
+  "top-app-bar": {
+    container: { color: "surface-container", height: "space-600" },
+    title: { typography: "title-large" },
+  },
+  "bottom-sheet": {
+    container: {
+      color: "surface-container-low",
+      shape: "shape-corner-extra-large",
+    },
+    // NO elevation slot on purpose: measure-elevation reports the sheet closure
+    // carries no --md-sys-elevation-level token. Asserting a level here would
+    // make the table claim something the component does not implement — the
+    // "table asserts a value nothing renders" failure. Gating this row belongs
+    // with the token landing on the component, not before.
+  },
 };
 
 /** Icon sizes M3 uses for component containers — a dimension, not a new token family. */
 const ICON_SIZE = {
+  "icon-12": "12px",
   "icon-18": "18px",
   "icon-20": "20px",
   "icon-24": "24px",
