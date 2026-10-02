@@ -32,7 +32,9 @@ export const sonner: ComponentDoc = {
     "SonnerDescription",
     "SonnerAction",
     "SonnerClose",
-    "createSonnerManager",
+    // `createSonnerManager` is public API but NOT a component — the registry is
+    // component-only by design. It is documented under /docs/api instead of
+    // being claimed as a part here.
   ],
   deviations: [
     {
@@ -49,13 +51,12 @@ export const sonner: ComponentDoc = {
     },
   ],
   anatomy: [
-    {
-      name: "createSonnerManager",
-      role: "Makes the imperative API and the toast manager together. Call it once, outside the component tree.",
-    },
+    // `createSonnerManager` is the factory this family is wired with. It is
+    // public API but not a component, so it is documented under /docs/api
+    // rather than listed as an anatomical part.
     {
       name: "SonnerProvider",
-      role: "Mounts the manager into the tree. Takes the `toastManager` from `createSonnerManager`.",
+      role: "Mounts the manager into the tree. Takes the `toastManager` from `createSonnerManager` — see the API reference.",
     },
     { name: "SonnerViewport", role: "Where messages appear on screen." },
     { name: "SonnerList", role: "The stack of currently visible messages." },
