@@ -88,10 +88,7 @@ function MenuGroupList({
   label: string;
 }) {
   return (
-    <ul
-      aria-label={label}
-      className="flex list-none flex-col gap-4 p-0"
-    >
+    <ul aria-label={label} className="flex list-none flex-col gap-4 p-0">
       {groups.map((group, index) => (
         <li key={group.heading ?? `group-${index}`}>
           {/*
@@ -100,6 +97,7 @@ function MenuGroupList({
             reader is not offered a blank label.
           */}
           {group.heading ? (
+            // biome-ignore lint/a11y/useSemanticElements: a menu group is not a form fieldset
             <div
               role="group"
               aria-label={group.heading}
@@ -267,6 +265,7 @@ export function FilterChipRow({
   };
 
   return (
+    // biome-ignore lint/a11y/useSemanticElements: a chip row is not a form fieldset
     <div
       role="group"
       aria-label={label}

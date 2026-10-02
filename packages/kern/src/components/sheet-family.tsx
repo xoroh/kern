@@ -1,5 +1,5 @@
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
-import type { ComponentProps, ReactNode } from "react";
+import type { ReactNode } from "react";
 import { cn } from "../utils/cn";
 
 /**
@@ -233,24 +233,51 @@ export function SnapSheet({
       )}
     >
       {/*
-        The detent control. `role="button"` + `aria-valuenow` is the web
-        equivalent of the native `accessibilityRole="adjustable"`: the position
-        is a value the user changes, and it is announced as one.
+        The detent control.
+
+        CORRECTION: this was `role="button"` carrying `aria-valuenow`,
+        `aria-valuemin` and `aria-valuemax`. A button does NOT support the value
+        properties — they are silently ignored, so the control announced as an
+        ordinary button and the position was never announced at all. The comment
+        claimed it was "the web equivalent of adjustable"; the markup said the
+        opposite.
+
+        `role="slider"` genuinely supports all three, and is the honest mapping
+        for a value the user changes. Arrow keys now move it, because a slider
+        that only responds to a click is not keyboard-operable — the same defect
+        the native `accessibilityRole="adjustable"` does not have.
       */}
-      <button
-        type="button"
+      <div
+        role="slider"
+        tabIndex={0}
         aria-label={`${label}, snap position`}
         aria-valuenow={current}
         aria-valuemin={0}
         aria-valuemax={count - 1}
+        aria-valuetext={`${snapPoints[current] * 100}%`}
         onClick={() => onIndexChange?.((current + 1) % count)}
-        className="mx-auto mb-2 grid h-6 w-12 place-items-center rounded-(--md-sys-shape-corner-full) bg-(--md-sys-color-surface-container-highest)"
+        onKeyDown={(event) => {
+          if (event.key === "ArrowRight" || event.key === "ArrowUp") {
+            event.preventDefault();
+            onIndexChange?.((current + 1) % count);
+          } else if (event.key === "ArrowLeft" || event.key === "ArrowDown") {
+            event.preventDefault();
+            onIndexChange?.((current - 1 + count) % count);
+          } else if (event.key === "Home") {
+            event.preventDefault();
+            onIndexChange?.(0);
+          } else if (event.key === "End") {
+            event.preventDefault();
+            onIndexChange?.(count - 1);
+          }
+        }}
+        className="mx-auto mb-2 grid h-6 w-12 cursor-pointer place-items-center rounded-(--md-sys-shape-corner-full) bg-(--md-sys-color-surface-container-highest)"
       >
         <span
           aria-hidden="true"
           className="h-1 w-6 rounded-full bg-(--md-sys-color-on-surface-variant)"
         />
-      </button>
+      </div>
       <div style={{ maxHeight: height }} className="flex flex-col gap-2">
         {surface.children}
       </div>
@@ -378,7 +405,9 @@ export function BottomSheetPicker({
         `aria-multiselectable` ONLY in the multi case. The selection is carried by
         the option's selected state — never by a differently-coloured row.
       */}
-      <ul
+      {/* A listbox is not a `ul`: its children are `option`s, so the list
+          semantics would be wrong as well as redundant. */}
+      <div
         role="listbox"
         aria-label={title}
         aria-multiselectable={multiple || undefined}
@@ -418,7 +447,7 @@ export function BottomSheetPicker({
             </li>
           );
         })}
-      </ul>
+      </div>
     </SheetSurface>
   );
 }

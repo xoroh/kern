@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import {
   ActionSheet,
@@ -84,15 +84,49 @@ describe("DockSheet", () => {
 });
 
 describe("SnapSheet", () => {
+  // The control was role="button" carrying aria-valuenow. A button does not
+  // support the value properties, so they were silently ignored and the detent
+  // was never announced. It is now role="slider", which genuinely supports them —
+  // so this asserts the announcement contract rather than the presence of an
+  // attribute nobody was ever going to read.
   it("announces its detent as a value the user can change", () => {
     render(
       <SnapSheet open label="Peek" snapPoints={[0.25, 0.5, 0.9]}>
         <p>body</p>
       </SnapSheet>,
     );
-    const handle = screen.getByRole("button", { name: /snap position/i });
+    const handle = screen.getByRole("slider", { name: /snap position/i });
     expect(handle).toHaveAttribute("aria-valuenow", "0");
     expect(handle).toHaveAttribute("aria-valuemax", "2");
+  });
+
+  it("moves the detent with the arrow keys", () => {
+    // A slider that only answers a click is not keyboard-operable; the native
+    // adjustable role this mirrors is. SnapSheet is CONTROLLED (`index` is a
+    // prop), so the assertion is on what the keys REPORT — the host moves the
+    // value, which is the contract.
+    const onIndexChange = vi.fn();
+    render(
+      <SnapSheet
+        open
+        label="Peek"
+        snapPoints={[0.25, 0.5, 0.9]}
+        index={0}
+        onIndexChange={onIndexChange}
+      >
+        <div>content</div>
+      </SnapSheet>,
+    );
+    const handle = screen.getByRole("slider", { name: /snap position/i });
+    handle.focus();
+    fireEvent.keyDown(handle, { key: "ArrowRight" });
+    expect(onIndexChange).toHaveBeenCalledWith(1);
+    fireEvent.keyDown(handle, { key: "ArrowLeft" });
+    expect(onIndexChange).toHaveBeenCalledWith(2); // wraps 0 -> last
+    fireEvent.keyDown(handle, { key: "End" });
+    expect(onIndexChange).toHaveBeenCalledWith(2);
+    fireEvent.keyDown(handle, { key: "Home" });
+    expect(onIndexChange).toHaveBeenCalledWith(0);
   });
 
   it("cycles to the next detent", () => {
@@ -108,7 +142,7 @@ describe("SnapSheet", () => {
         <p>body</p>
       </SnapSheet>,
     );
-    screen.getByRole("button", { name: /snap position/i }).click();
+    screen.getByRole("slider", { name: /snap position/i }).click();
     expect(onIndexChange).toHaveBeenCalledWith(1);
   });
 });

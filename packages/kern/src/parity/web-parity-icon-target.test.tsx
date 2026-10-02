@@ -1,8 +1,8 @@
 import { contractFor } from "@kern-parity/contract";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, expect, it } from "vitest";
 import { IconButton } from "@xoroh/kern";
+import { describe, expect, it } from "vitest";
 
 /**
  * Web side of `icon-button-target`.
@@ -36,7 +36,9 @@ describe("web parity contract: icon-button-target", () => {
     // a computed size that the environment cannot produce. The real measurement
     // lives in the browser; here the obligation is that a minimum is declared
     // and applied to both axes.
-    expect(row.webContract).toContain(`${WCAG_2_2_MINIMUM}x${WCAG_2_2_MINIMUM}`);
+    expect(row.webContract).toContain(
+      `${WCAG_2_2_MINIMUM}x${WCAG_2_2_MINIMUM}`,
+    );
     expect(box).toBeDefined();
   });
 
