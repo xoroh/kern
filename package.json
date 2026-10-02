@@ -34,7 +34,7 @@
     "check:dist:types": "node scripts/check-dist-types.mjs",
     "build-lock:status": "node scripts/build-lock.mjs --status",
     "build:locked": "node scripts/build-lock.mjs 'bun run build'",
-    "check:cold": "rm -rf node_modules packages/*/node_modules packages/*/dist apps/*/node_modules apps/*/dist && bun install --frozen-lockfile && bun run check:dist",
+    "check:cold": "rm -rf node_modules packages/*/node_modules packages/*/dist apps/*/node_modules apps/*/dist && bun install --frozen-lockfile && bun run build && bun run check:dist",
     "typecheck": "bun run --filter @xoroh/kern-tokens typecheck && bun run --filter @xoroh/kern typecheck && bun run --filter @xoroh/kern-native typecheck && bun run --filter @xoroh/kern-icons typecheck",
     "test": "bun run --filter @xoroh/kern-tokens test && bun run --filter @xoroh/kern test && bun run --filter @xoroh/kern-icons test",
     "test:native": "bun run --filter @xoroh/kern-native test",
