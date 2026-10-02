@@ -381,7 +381,9 @@ function Anatomy({ doc }: { doc: ComponentDoc }) {
 function AnatomyRow({ part }: { part: PartRow }) {
   return (
     <li className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-4">
-      <code className={`shrink-0 font-mono ${SMALL} text-(--md-sys-color-secondary)`}>
+      <code
+        className={`shrink-0 font-mono ${SMALL} text-(--md-sys-color-secondary)`}
+      >
         {part.name}
       </code>
       <span className={`${SMALL} ${INK_SOFT}`}>{part.role}</span>
@@ -582,7 +584,9 @@ function Accessibility({ doc }: { doc: ComponentDoc }) {
                     className="border-b border-(--md-sys-color-outline-variant)"
                   >
                     <td className={TD}>
-                      <kbd className={`rounded border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-high) px-1.5 py-0.5 ${KEYCAP} text-(--md-sys-color-on-surface)`}>
+                      <kbd
+                        className={`rounded border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-high) px-1.5 py-0.5 ${KEYCAP} text-(--md-sys-color-on-surface)`}
+                      >
                         {row.key}
                       </kbd>
                     </td>
@@ -687,22 +691,18 @@ function DeviationRow({ row }: { row: Deviation }) {
   return (
     <li className={`${CARD} flex flex-col gap-2 p-4`}>
       <div className="flex items-center gap-2">
-        <span className={`rounded-full bg-(--md-sys-color-secondary-container) px-2.5 py-0.5 font-mono text-(--md-sys-color-on-secondary-container) [font-size:var(--md-sys-typescale-label-small-font-size)] [line-height:var(--md-sys-typescale-label-small-line-height)]`}>
+        <span
+          className={`rounded-full bg-(--md-sys-color-secondary-container) px-2.5 py-0.5 font-mono text-(--md-sys-color-on-secondary-container) [font-size:var(--md-sys-typescale-label-small-font-size)] [line-height:var(--md-sys-typescale-label-small-line-height)]`}
+        >
           {row.id}
         </span>
       </div>
       <dl className="m-0 grid grid-cols-1 gap-2 sm:grid-cols-[7rem_1fr]">
-        <dt className={`m-0 ${LABEL} ${INK}`}>
-          Material 3
-        </dt>
+        <dt className={`m-0 ${LABEL} ${INK}`}>Material 3</dt>
         <dd className={`m-0 ${SMALL} ${INK_SOFT}`}>{row.spec}</dd>
-        <dt className={`m-0 ${LABEL} ${INK}`}>
-          kern
-        </dt>
+        <dt className={`m-0 ${LABEL} ${INK}`}>kern</dt>
         <dd className={`m-0 ${SMALL} ${INK_SOFT}`}>{row.kern}</dd>
-        <dt className={`m-0 ${LABEL} ${INK}`}>
-          Why
-        </dt>
+        <dt className={`m-0 ${LABEL} ${INK}`}>Why</dt>
         <dd className={`m-0 ${SMALL} ${INK_SOFT}`}>{row.why}</dd>
       </dl>
     </li>
@@ -740,7 +740,9 @@ function ApiReference({ doc }: { doc: ComponentDoc }) {
                     {row.name}
                   </code>
                   {row.required && (
-                    <span className={`ml-2 ${TINY} text-(--md-sys-color-error)`}>
+                    <span
+                      className={`ml-2 ${TINY} text-(--md-sys-color-error)`}
+                    >
                       required
                     </span>
                   )}
@@ -755,7 +757,9 @@ function ApiReference({ doc }: { doc: ComponentDoc }) {
                 >
                   {row.default ?? "—"}
                 </td>
-                <td className={`${TD} ${SMALL} ${INK_SOFT}`}>{row.note ?? ""}</td>
+                <td className={`${TD} ${SMALL} ${INK_SOFT}`}>
+                  {row.note ?? ""}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -844,12 +848,8 @@ export function ComponentPage({
   return (
     <article className="flex flex-col gap-10">
       <header className="flex flex-col gap-4">
-        <h1 className={H1}>
-          {doc.name}
-        </h1>
-        <p className={`m-0 max-w-[62ch] ${LEDE} ${INK_SOFT}`}>
-          {doc.oneLiner}
-        </p>
+        <h1 className={H1}>{doc.name}</h1>
+        <p className={`m-0 max-w-[62ch] ${LEDE} ${INK_SOFT}`}>{doc.oneLiner}</p>
         <MetadataStrip doc={doc} />
       </header>
 

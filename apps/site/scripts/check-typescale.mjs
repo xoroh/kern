@@ -22,7 +22,7 @@
  * Exit 0 = every role resolves.
  */
 
-import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -60,7 +60,8 @@ const PROPS = [
 ];
 
 const roleProps = new Map();
-const decl = /--md-sys-typescale-([a-z0-9-]+?)-(font-family|font-size|font-weight|line-height|letter-spacing)\s*:/g;
+const decl =
+  /--md-sys-typescale-([a-z0-9-]+?)-(font-family|font-size|font-weight|line-height|letter-spacing)\s*:/g;
 for (const m of css.matchAll(decl)) {
   const role = m[1];
   const prop = m[2];
@@ -101,7 +102,9 @@ function loadFiles(dir) {
 const SRC = join(APP, "src");
 const files = loadFiles(SRC);
 if (files.length === 0) {
-  console.error("check-typescale: no source files found — nothing would be asserted.");
+  console.error(
+    "check-typescale: no source files found — nothing would be asserted.",
+  );
   process.exit(1);
 }
 
@@ -115,7 +118,9 @@ for (const file of files) {
     if (!used.has(role)) used.set(role, []);
     used.get(role).push(relative(APP, file));
   }
-  for (const m of text.matchAll(/--md-sys-typescale-([a-z0-9-]+?)-(?:font-family|font-size|font-weight|line-height|letter-spacing)/g)) {
+  for (const m of text.matchAll(
+    /--md-sys-typescale-([a-z0-9-]+?)-(?:font-family|font-size|font-weight|line-height|letter-spacing)/g,
+  )) {
     const role = m[1];
     if (!used.has(role)) used.set(role, []);
     used.get(role).push(relative(APP, file));
