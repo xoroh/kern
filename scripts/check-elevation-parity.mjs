@@ -164,8 +164,24 @@ function scanDir(dir, native) {
         if (lvl === null) unresolved.push(`${dp}dp`);
         else levels.add(lvl);
       }
-      if (levels.size === 0 && unresolved.length === 0) continue;
       const idx = src.indexOf(block);
+      const where = {
+        levels: [],
+        unresolvedDp: [],
+        file: file,
+        line: line(Math.max(idx, 0)),
+        native,
+      };
+      if (levels.size === 0 && unresolved.length === 0) {
+        // Record PRESENCE even with no elevation. Skipping these is what made
+        // the sheet family invisible: native's `sheets.tsx` declares no
+        // elevation on BottomSheet/SnapSheet/EntitySheet/BottomSheetPicker, so
+        // they were absent from the map entirely and could not be reported as
+        // one-sided — the comparison set was derived from the very thing it
+        // was supposed to check.
+        out.set(name, where);
+        continue;
+      }
       out.set(name, {
         levels: [...levels].sort((a, b) => a - b),
         unresolvedDp: unresolved,
@@ -191,9 +207,55 @@ const isStyleHelper = (n) => /Styles$/.test(n);
 
 const web = scanDir(WEB, false);
 const native = scanDir(NATIVE, true);
-const nativeByCanon = new Map(
-  [...native.entries()].filter(([k]) => !isStyleHelper(k)).map(([k, v]) => [canon(k), v]),
-);
+
+// Canonicalisation COLLAPSES a component's parts onto one name — `PopoverRoot`,
+// `PopoverContent` and the `Popover` namespace object all reduce to `Popover`.
+// Building the map with `new Map(entries.map(...))` let the LAST one win, and
+// the last one is the namespace object, which carries no elevation. That erased
+// the elevation-bearing `PopoverContent` and dropped the component out of the
+// comparison entirely — the gate silently lost the very case it was built for,
+// which is the equal-value/collision shape review-lead flagged.
+//
+// So: MERGE the collapsed entries instead of overwriting. Elevation is the
+// union; the citation is the first entry that actually declares one, so the
+// reported file:line points at real code rather than at the namespace.
+function byCanon(map) {
+  const out = new Map();
+  for (const [name, v] of map) {
+    if (isStyleHelper(name)) continue;
+    const key = canon(name);
+    const prev = out.get(key);
+    if (!prev) {
+      out.set(key, { ...v });
+      continue;
+    }
+    const levels = [...new Set([...prev.levels, ...v.levels])].sort((a, b) => a - b);
+    const primary = prev.levels.length ? prev : v.levels.length ? v : prev;
+    out.set(key, {
+      levels,
+      unresolvedDp: [...new Set([...prev.unresolvedDp, ...v.unresolvedDp])],
+      file: primary.file,
+      line: primary.line,
+      native: primary.native,
+    });
+  }
+  return out;
+}
+
+const nativeByCanon = byCanon(native);
+
+// Every name that exists on BOTH sides, whether or not either one carries an
+// elevation. The sheet family is the reason this exists: web ships
+// BottomSheet/SnapSheet/EntitySheet/BottomSheetPicker/ActionSheet at
+// `--md-sys-elevation-level1`, while kern-native's `sheets.tsx` declares NO
+// elevation on those components at all. Deriving the compare set from "has
+// elevation" therefore DROPPED the whole sheet family silently — the one
+// family where a two-renderer disagreement was most likely, and the one a
+// reader would assume was covered because the components are prominent.
+const webByCanon = byCanon(web);
+const bothPresent = [...new Set([...webByCanon.keys(), ...nativeByCanon.keys()])]
+  .filter((c) => webByCanon.has(c) && nativeByCanon.has(c))
+  .sort();
 
 // --- deviation ids must resolve to a REAL deviation with a reason -------------
 const violations = [];
@@ -240,11 +302,18 @@ for (const m of elevSrc.matchAll(/^\s{2}\"?([a-z0-9-]+)\"?:\s*"([^"]+)",$/gm)) {
 }
 
 // --- 1. cross-renderer agreement ---------------------------------------------
-const shared = [...web.keys()].filter((k) => nativeByCanon.has(canon(k)) && !isStyleHelper(k));
+// Compare over names present on BOTH sides, so the sheet family is IN the set.
+// `shared` (elevation-bearing on both) is what gets a strict pass/fail; a pair
+// where only one side declares elevation is reported separately as ONE-SIDED.
+const shared = bothPresent.filter((c) => {
+  const w = webByCanon.get(c);
+  const n = nativeByCanon.get(c);
+  return w.levels.length > 0 && n.levels.length > 0;
+});
 let compared = 0;
 for (const name of shared) {
-  const w = web.get(name);
-  const n = nativeByCanon.get(canon(name));
+  const w = webByCanon.get(name);
+  const n = nativeByCanon.get(name);
   for (const wl of w.levels) {
     if (!n.levels.includes(wl)) {
       violations.push(
@@ -258,10 +327,42 @@ for (const name of shared) {
       compared++;
     }
   }
+  // Off-scale native dp is checked for EVERY native entry in 1c below, not
+  // here — scoping it to the two-sided set let it escape when the web side had
+  // no level to pair with.
+}
+
+// --- 1b. ONE-SIDED: reported, NOT failed ------------------------------------
+// A component on both renderers where only ONE declares elevation. This is
+// REPORTED rather than failed on purpose. It is a real asymmetry — web's
+// BottomSheet sits at level 1 while kern-native's declares nothing — but
+// whether native should adopt the level or rule that RN surfaces carry their own
+// separation is a DESIGN RULING, not a gate's to make, and the two answers are
+// both defensible. Failing here would make the gate's exit code an unearned
+// verdict on an open question, and a gate that red-lines a question nobody has
+// adjudicated gets deleted rather than obeyed.
+//
+// So it is counted, named, and made impossible to miss. Promoting any of these
+// to a failure is a one-line change once a ruling lands.
+const oneSided = bothPresent.filter((c) => {
+  const w = webByCanon.get(c);
+  const n = nativeByCanon.get(c);
+  return (w.levels.length > 0) !== (n.levels.length > 0);
+});
+
+// --- 1c. off-scale native dp is a HARD failure, one-sided or not -------------
+// This must be checked across every NATIVE entry, not only inside the two-sided
+// loop. Scoping it to `shared` meant an off-scale value was only reported when
+// the web side also declared a level: set native PopoverContent to 2dp and the
+// component dropped out of `shared`, the unresolved-dp check never ran, and the
+// gate exited 0. "Cannot be compared" is a defect precisely when there is
+// nothing to compare it TO, so the check cannot depend on the other side.
+for (const [name, n] of nativeByCanon) {
   for (const bad of n.unresolvedDp) {
     violations.push(
-      `${name}: kern-native uses ${bad}, which matches no M3 level height, so it ` +
-        `cannot be compared to the web side at all (${n.file}:${n.line}).`,
+      `native ${name}: kern-native uses ${bad}, which matches no M3 level ` +
+        `height, so it cannot be compared to the web side at all ` +
+        `(${n.file}:${n.line}).`,
     );
   }
 }
@@ -290,9 +391,29 @@ for (const [name, variants] of Object.entries(declared)) {
 console.log("check:elevation-parity — one resting elevation across both renderers");
 console.log(`  web components measured     ${web.size}`);
 console.log(`  kern-native measured       ${native.size}`);
-console.log(`  shared names compared      ${shared.length} (${compared} level agreements)`);
+console.log(
+  `  names on BOTH renderers     ${bothPresent.length} (compared ${shared.length}, ${compared} level agreements)`,
+);
+console.log(`  one-sided (unruled)        ${oneSided.length}`);
 console.log(`  registry entries checked   ${Object.keys(declared).length}`);
 console.log(`  deviation ids resolved     from .team/programs/K-01-deviations.md`);
+
+if (oneSided.length) {
+  console.log(
+    "\nONE-SIDED — one renderer declares a resting elevation, the other declares\n" +
+      "none. Reported, not failed: adopting the level vs ruling that this\n" +
+      "renderer separates surfaces another way is a DESIGN CALL, not a gate's.",
+  );
+  for (const c of oneSided) {
+    const w = webByCanon.get(c);
+    const n = nativeByCanon.get(c);
+    const side = (x) => (x.levels.length ? `level ${x.levels.join(",")}` : "none");
+    console.log(
+      `  - ${c}: web ${side(w)} (${w.file}:${w.line}) · ` +
+        `native ${side(n)} (${n.file}:${n.line})`,
+    );
+  }
+}
 
 if (violations.length) {
   console.error(
