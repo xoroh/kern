@@ -1,15 +1,95 @@
-# Reviewers required for every change.
-# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/managing-code-owners-for-your-repository
+# CODEOWNERS — real ownership, from .team/org.md
 #
-# The org owning this repo is `xoroh` (github.com/xoroh, an Organization).
-# CODEOWNERS needs a user or team slug — `@xoroh/kern` assumes the
-# conventional team name for this repo. Rename to your real maintainer
-# team/user (or delete this file) before enforcing code-owner reviews.
+# Replaces a placeholder that mapped everything to `@xoroh/kern` and whose own
+# comment admitted: "Rename to your real maintainer team/user (or delete this
+# file) before enforcing code-owner reviews."
+#
+# WHY THIS EXISTS: `disclosure.test.tsx > Autocomplete > suggests matches while
+# typing` had no recoverable owner. `git log` traced it to `b84a96c`, authored as
+# `Xoroh <kern@xoroh.org>` — a bulk system commit with no per-agent authorship —
+# and CODEOWNERS pointed at a single team. The cost was a dispatch spent
+# diagnosing an ownerless test. That is the recurring cost this file removes.
+#
+# THE OLD RULES WERE ALSO STALE. Three of its five entries named files that no
+# longer exist:
+#   packages/mcp/src/component-sources.ts  deleted in 24f7810
+#   packages/kern/src/theme/tokens.css     moved to packages/kern-tokens/ (D-034)
+# A rule for a file that is gone is a rule that never fires — which is how a file
+# accreted ownership rules that silently stopped describing anything.
+#
+# ORDER MATTERS. CODEOWNERS is last-match-wins, so specific rules come AFTER the
+# broad `*`. Read bottom-up for the effective owner of any path.
+#
+# A path whose owner is genuinely ambiguous is listed under AMBIGUOUS and
+# deliberately NOT given a rule. A wrong CODEOWNERS routes reviews to the wrong
+# lane with the authority of a config file; an absent one routes them to everyone,
+# which is merely slower.
 
-* @xoroh/kern
+# ---------------------------------------------------------------- default lane
+*                                       @xoroh/kern
 
-# Generated artifacts: their generators own them.
-packages/mcp/src/manifest.ts @xoroh/kern
-packages/mcp/src/component-sources.ts @xoroh/kern
-packages/kern/src/theme/tokens.css @xoroh/kern
-docs/components.md @xoroh/kern
+# ------------------------------------------------------------------- web app
+apps/site/                              @xoroh/site-se
+
+# --------------------------------------------------------- tokens + elevation
+# design-system-lead owns the token source of truth, the generated CSS, the
+# theme spec, and the MCP manifest generation that reads them.
+packages/kern-tokens/                  @xoroh/design-system-lead
+packages/mcp/scripts/generate-manifest.mjs @xoroh/design-system-lead
+packages/mcp/scripts/generate-maturity.mjs @xoroh/design-system-lead
+
+# --------------------------------------------------------- kernel + primitives
+# The design language lives in kern-native alongside kern-lead, so both are named
+# there: a change to a native token binding is not kern-lead's alone.
+packages/kern/                         @xoroh/kern-lead
+packages/kern-native/                  @xoroh/kern-lead @xoroh/design-system-lead
+packages/kern-primitives/              @xoroh/kern-lead @xoroh/design-system-lead
+
+# ------------------------------------------------------------- gates (kern-lead)
+# design-system-lead is on the boundary and layer gates because they police the
+# package graph it maintains.
+scripts/check-consumption.mjs          @xoroh/kern-lead
+scripts/check-pack.mjs                 @xoroh/kern-lead
+scripts/check-workflow.mjs             @xoroh/kern-lead
+scripts/check-currency.mjs             @xoroh/kern-lead
+scripts/check-parity.mjs               @xoroh/kern-lead @xoroh/design-system-lead
+scripts/check-primitives.mjs           @xoroh/kern-lead @xoroh/design-system-lead
+scripts/check-layers.mjs               @xoroh/kern-lead @xoroh/design-system-lead
+
+# -------------------------------------------------------------- build tooling
+# librarian owns build config, tsconfig, biome, module boundaries, and this file.
+biome.json                             @xoroh/librarian
+package.json                           @xoroh/librarian
+packages/*/tsconfig.json                @xoroh/librarian
+.githooks/                             @xoroh/librarian
+.github/workflows/                    @xoroh/librarian
+.github/CODEOWNERS                     @xoroh/librarian
+
+# ------------------------------------------- SHARED — review-all, do not assume
+# Touched by several lanes, so a reviewer is routed to MORE than one rather than
+# to whichever lane happened to edit last.
+parity/contract.ts                     @xoroh/kern-lead @xoroh/design-system-lead
+
+# ------------------------------------------------------ generated — generator owns
+# Editing these by hand is the defect the freshness gate exists to catch, so the
+# owner is whoever can re-run the generator.
+packages/mcp/src/manifest.ts           @xoroh/design-system-lead
+packages/mcp/src/maturity.ts           @xoroh/design-system-lead
+docs/components.md                     @xoroh/design-system-lead
+docs/elevation-audit.md                @xoroh/design-system-lead
+
+# ------------------------------------------------------------------- AMBIGUOUS
+# Deliberately UNOWNED — no rule above, so these fall through to `*`
+# (@xoroh/kern). Each is a real gap, listed rather than guessed:
+#
+#   packages/kern-icons/assets/sets/   drop-in icon sets. No lane has claimed
+#                                      the corpus and no set ships yet, so a rule
+#                                      would assert ownership of nothing.
+#   packages/kern-icons/src/sets/      the generated default set. Which lane owns
+#                                      GENERATING it is not established.
+#   .changeset/                         release notes. Written by whoever lands
+#                                      the change, so a static owner is wrong.
+#   packages/cli/                       no lane has claimed it.
+#
+# Each needs a ruling. Until then `@xoroh/kern` is the safe default rather than a
+# false attribution.
