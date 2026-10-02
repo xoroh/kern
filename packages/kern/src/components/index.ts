@@ -476,6 +476,11 @@ export type {
   MenuSheetProps,
 } from "./menu-family";
 export { FilterChipRow, MenuScreen, MenuSheet } from "./menu-family";
+export type {
+  ErrorBoundaryFallbackProps,
+  KernErrorBoundaryProps,
+} from "./error-boundary";
+export { KernErrorBoundary } from "./error-boundary";
 export type { SkeletonProps } from "./skeleton";
 export { Skeleton } from "./skeleton";
 export type {

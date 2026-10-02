@@ -634,6 +634,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    name: "kern-error-boundary",
+    export: "KernErrorBoundary",
+    platform: "web",
+    path: "src/components/error-boundary.tsx",
+    status: "real",
+  },
+  {
     name: "extended-fab",
     export: "ExtendedFab",
     platform: "web",

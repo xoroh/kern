@@ -52,13 +52,13 @@ again. Measured from the generated registry instead:
 
 | Measure | Value |
 |---|---|
-| Registry rows | **392** (web 289, native 103) |
+| Registry rows | **393** (web 290, native 103) |
 | **Shared** (already both sides) | **81** |
 | **Native-only → needs a web version** | **10** in **7 files** |
-| **Web-only → needs a native version** | **40** in **34** files |
+| **Web-only → needs a native version** | **41** in **34** files |
 | Stub rows | **0** |
 
-<!-- gate:counts 81 10 40 0 -->
+<!-- gate:counts 81 10 41 0 -->
 
 Machine-readable line above: `check:parity` (`scripts/check-parity.mjs`) re-derives
 these from the registry and fails if they drift, so the prose above cannot quietly
@@ -392,7 +392,7 @@ were restored from backup afterwards.
 
 ---
 
-## Web-only concepts → need a native version (40)
+## Web-only concepts → need a native version (41)
 
 The heading previously read **34** while the machine gate read **42** — the
 `gate:counts` line was right and the sentence a human reads was stale, which is
@@ -535,6 +535,20 @@ deleted, which would have erased the fact that they landed:
 They are shared, so they are no longer P2b-3 work. The count of **web-only**
 concepts needing a native version is the heading figure above, which the gate
 now asserts.
+| 42 | `kern-error-boundary` | Error boundary. **Same concept as native `error-boundary`, different export name** — `KernErrorBoundary` takes the `Kern` prefix because it is a rendered component, while the native class does not. | **NAME MAPPING OWED, not a web gap** — see below. | Ruling `e9ab24b` (BUILD) | `error-boundary.test.tsx` |
+
+
+#### `kern-error-boundary` is a NAME MAPPING, not a web-only gap
+
+The web export is `KernErrorBoundary` (the `Kern` prefix applies to **rendered components**; an
+error boundary is one, unlike the browser-API wrappers that go unprefixed). The native export is
+`ErrorBoundary`. `check:parity` matches on the registry NAME, so the two rows do not join and the
+concept is counted web-only while its native twin sits in the native-only table.
+
+**This is D10 restating itself** — "naming mapping (`kern` Sheet/Drawer vs M3 BottomSheet/SideSheet)
+needs one canonical mapping table". The row is listed here so the count and the work list agree, and
+so nobody re-dispatches an error boundary that already exists. The durable fix is a concept-mapping
+table in `check:parity`, which is `kern-lead`'s file; it is recorded, not worked around.
 
 ## Native versions of the FAB / overflow-action family (P2b-3, tranche 2)
 

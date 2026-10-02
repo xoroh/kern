@@ -130,6 +130,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `input-otp-root` | `InputOTPRoot` | real |
 | `inspector` | `Inspector` | real |
 | `kbd` | `Kbd` | real |
+| `kern-error-boundary` | `KernErrorBoundary` | real |
 | `label` | `Label` | real |
 | `linear-progress` | `LinearProgress` | real |
 | `link` | `Link` | real |
