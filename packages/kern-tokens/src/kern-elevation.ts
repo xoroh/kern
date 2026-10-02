@@ -13,7 +13,7 @@
  * Verified first-hand against that page on 2026-10-01.
  *
  * So the elevation audit had no target and every mismatch was unresolvable. This
- * module is that target, in the same shape as `m3-roles.ts`: the spec's own rows,
+ * module is that target, in the same shape as `kern-roles.ts`: the spec's own rows,
  * plus kern's own assignments for the components M3 does not name, each mapped
  * to a deviation id so a deliberate choice cannot be mistaken for conformance.
  *
@@ -47,7 +47,7 @@ export const ELEVATION_LEVELS = Object.freeze([0, 1, 2, 3, 4, 5]);
  * `FAB (in navigation rail)` (level 0) are different components at different
  * heights, and collapsing them would assert a level the spec does not.
  */
-export const M3_RESTING_ELEVATION = Object.freeze({
+export const KERN_RESTING_ELEVATION = Object.freeze({
   3: Object.freeze([
     "date pickers",
     "dialogs (modal)",
@@ -109,7 +109,7 @@ export const M3_RESTING_ELEVATION = Object.freeze({
  *     "side sheet (docked)" (0).
  * A component sits in the set only if the level it ships is one of these.
  */
-export const M3_ELEVATION_COMPONENTS = Object.freeze({
+export const KERN_ELEVATION_COMPONENTS = Object.freeze({
   fab: Object.freeze({ rows: ["fab"], variants: [3] }),
   "extended-fab": Object.freeze({ rows: ["extended fab"], variants: [3] }),
   dialog: Object.freeze({
@@ -245,7 +245,7 @@ export const KERN_UNASSIGNED_ELEVATION = Object.freeze({
 
 /** Every component kern ships a resting elevation for. */
 export const ELEVATED_COMPONENTS = Object.freeze([
-  ...Object.keys(M3_ELEVATION_COMPONENTS),
+  ...Object.keys(KERN_ELEVATION_COMPONENTS),
   ...Object.keys(KERN_UNASSIGNED_ELEVATION),
 ]);
 
@@ -272,7 +272,7 @@ export function auditElevation(
   }
 
   const spec = (
-    M3_ELEVATION_COMPONENTS as Record<
+    KERN_ELEVATION_COMPONENTS as Record<
       string,
       { readonly rows: readonly string[]; readonly variants: readonly number[] }
     >

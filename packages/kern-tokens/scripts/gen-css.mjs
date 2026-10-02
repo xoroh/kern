@@ -12,7 +12,7 @@ const kebab = (name) => name.replace(/(?<!^)(?=[A-Z])/g, "-").toLowerCase();
 const roleVar = (role) => `--md-sys-color-${kebab(role)}`;
 
 const T = read("tokens.json");
-const M3 = read("themes/m3.json");
+const M3 = read("themes/kern.json");
 const sharp = read("themes/sharp.json");
 const fontFamily = `"${T.typography.webFamily}", "${T.typography.family}", sans-serif`;
 const prefix = (name) => `--md-sys-typescale-${name}`;

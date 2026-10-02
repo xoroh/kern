@@ -1,14 +1,15 @@
 import { contrastIssues } from "./contrast";
 import brand from "./themes/brand.json";
-import m3 from "./themes/m3.json";
+import kern from "./themes/kern.json";
 import sharp from "./themes/sharp.json";
 
 export type Mode = "light" | "dark";
 export type Contrast = "standard" | "medium" | "high";
-export type ThemeId = "m3" | "sharp" | "brand";
+/** Canonical preset id. `"m3"` remains accepted as a legacy alias. */
+export type ThemeId = "kern" | "sharp" | "brand";
 /** Every color role the resolver can produce. Misspelled roles fail to compile. */
-export type ColorRole = keyof typeof m3.color.light;
-export type ShapeRole = keyof typeof m3.radius;
+export type ColorRole = keyof typeof kern.color.light;
+export type ShapeRole = keyof typeof kern.radius;
 export type RoleTable = Record<ColorRole, string>;
 export type ShapeTable = Record<ShapeRole, string>;
 
@@ -19,7 +20,7 @@ export type ThemeOverrides = {
 
 export type CustomTheme = {
   id: string;
-  extends?: "m3";
+  extends?: "kern";
   overrides: ThemeOverrides;
 };
 
@@ -31,17 +32,23 @@ export type ResolvedTheme = {
 };
 
 const presets = { sharp, brand } as const;
-const baseColors = m3.color as Record<Mode, RoleTable>;
-const baseShape = m3.radius as ShapeTable;
-const contrastOverlays = m3.contrast as Record<string, Partial<RoleTable>>;
-const presetNames: ThemeId[] = ["m3", "sharp", "brand"];
+const baseColors = kern.color as Record<Mode, RoleTable>;
+const baseShape = kern.radius as ShapeTable;
+const contrastOverlays = kern.contrast as Record<string, Partial<RoleTable>>;
+const presetNames: ThemeId[] = ["kern", "sharp", "brand"];
+/** Pre-rename ids still resolving, so published consumers are not broken by the rename. */
+const LEGACY_ALIASES: Record<string, ThemeId> = { m3: "kern" };
+function canonical(id: string): ThemeId {
+  return LEGACY_ALIASES[id] ?? (id as ThemeId);
+}
 const colorRoles = new Set(Object.keys(baseColors.light));
 const shapeRoles = new Set(Object.keys(baseShape));
 
 function overridesFor(selection: ThemeSelection): ThemeOverrides {
   if (typeof selection !== "string") return selection.overrides;
-  if (selection === "m3") return {};
-  return presets[selection].overrides as ThemeOverrides;
+  const id = canonical(selection);
+  if (id === "kern") return {};
+  return presets[id].overrides as ThemeOverrides;
 }
 
 /** Validate a user-authored theme before a visual builder or agent emits it. */
@@ -49,10 +56,13 @@ export function defineThemePreset(theme: CustomTheme): CustomTheme {
   if (!/^[a-z][a-z0-9-]{1,31}$/.test(theme.id)) {
     throw new Error(`Invalid theme id: ${theme.id}`);
   }
-  if (theme.extends !== undefined && theme.extends !== "m3") {
-    throw new Error(`Unknown theme base: ${theme.extends}. Only "m3" exists.`);
+  const base = theme.extends === undefined ? "kern" : canonical(theme.extends);
+  if (base !== "kern") {
+    throw new Error(
+      `Unknown theme base: ${theme.extends}. Only "kern" exists.`,
+    );
   }
-  if (presetNames.includes(theme.id as ThemeId)) {
+  if (presetNames.includes(canonical(theme.id))) {
     throw new Error(`Theme id is reserved: ${theme.id}`);
   }
   for (const mode of ["light", "dark"] as const) {
@@ -93,7 +103,7 @@ export function defineThemePreset(theme: CustomTheme): CustomTheme {
 export function resolveThemeDetails(
   mode: Mode = "light",
   contrast: Contrast = "standard",
-  variant: ThemeSelection = "m3",
+  variant: ThemeSelection = "kern",
 ): ResolvedTheme {
   const color = { ...baseColors[mode] };
   if (contrast !== "standard") {
@@ -109,7 +119,7 @@ export function resolveThemeDetails(
 export function resolveTheme(
   mode: Mode = "light",
   contrast: Contrast = "standard",
-  variant: ThemeSelection = "m3",
+  variant: ThemeSelection = "kern",
 ): RoleTable {
   return resolveThemeDetails(mode, contrast, variant).color;
 }

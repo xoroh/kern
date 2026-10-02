@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import m3 from "./themes/m3.json";
+import m3 from "./themes/kern.json";
 import tokens from "./tokens.json";
 
 const THEME_DIR = dirname(fileURLToPath(import.meta.url));

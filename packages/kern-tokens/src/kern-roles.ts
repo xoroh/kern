@@ -197,12 +197,18 @@ export const ALL_ROLES = Object.freeze([...M3_ROLES, ...KERN_ROLES]);
  */
 export function auditRoleInventory(scheme: Record<string, unknown>) {
   const present = Object.keys(scheme);
-  const m3 = new Set(M3_ROLES);
-  const kern = new Set(KERN_ROLES);
+  // `m3Roles` = the 45 roles M3 defines (the target); `kernRoles` = the 13
+  // deviations kern is allowed to add. Two DIFFERENT sets: both named
+  // KERN_ROLES once made this compare the deviations against themselves and
+  // report all 45 M3 roles as unregistered.
+  const m3Roles = new Set(M3_ROLES);
+  const kernRoles = new Set(KERN_ROLES);
   return {
     missing: M3_ROLES.filter((role) => !present.includes(role)),
     m3Present: M3_ROLES.filter((role) => present.includes(role)).length,
-    unregistered: present.filter((role) => !m3.has(role) && !kern.has(role)),
+    unregistered: present.filter(
+      (role) => !m3Roles.has(role) && !kernRoles.has(role),
+    ),
     missingDeviation: Object.entries(KERN_EXTRA_ROLES)
       .filter(([role]) => !present.includes(role))
       .map(([role, id]) => `${role} (${id})`),

@@ -15,7 +15,7 @@ const read = (p) =>
   JSON.parse(readFileSync(join(ROOT, "packages/kern-tokens/src", p), "utf8"));
 
 const T = read("tokens.json");
-const M3 = read("themes/m3.json");
+const M3 = read("themes/kern.json");
 
 /**
  * The component token contract. Each entry names an M3 component and the slots M3

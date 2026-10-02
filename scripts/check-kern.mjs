@@ -4,15 +4,15 @@ import { join, relative } from "node:path";
 const ROOT = new URL("..", import.meta.url).pathname;
 
 const { M3_ROLES, KERN_EXTRA_ROLES, auditRoleInventory } = await import(
-  join(ROOT, "packages/kern-tokens/src/m3-roles.ts")
+  join(ROOT, "packages/kern-tokens/src/kern-roles.ts")
 );
 
-const { auditElevation, M3_ELEVATION_COMPONENTS } = await import(
-  join(ROOT, "packages/kern-tokens/src/m3-elevation.ts")
+const { auditElevation, KERN_ELEVATION_COMPONENTS } = await import(
+  join(ROOT, "packages/kern-tokens/src/kern-elevation.ts")
 );
 
 const m3 = JSON.parse(
-  readFileSync(join(ROOT, "packages/kern-tokens/src/themes/m3.json"), "utf8"),
+  readFileSync(join(ROOT, "packages/kern-tokens/src/themes/kern.json"), "utf8"),
 );
 const tokens = JSON.parse(
   readFileSync(join(ROOT, "packages/kern-tokens/src/tokens.json"), "utf8"),
@@ -76,22 +76,22 @@ let elevationTotal = 0;
 
 // 0. ROLE INVENTORY (D-029 / P1-0). Before this existed the gate had no target at all:
 // it only asserted that roles *referenced in source* exist, so a role deleted from
-// `m3.json` outright passed. This is the assertion that makes "45 M3 roles" a fact.
+// `kern.json` outright passed. This is the assertion that makes "45 M3 roles" a fact.
 const inventory = auditRoleInventory(m3.color.light);
 if (inventory.missing.length > 0) {
   violations.push(
-    `m3.json is missing ${inventory.missing.length} M3 role(s): ${inventory.missing.join(", ")}`,
+    `kern.json is missing ${inventory.missing.length} M3 role(s): ${inventory.missing.join(", ")}`,
   );
 }
 for (const role of inventory.unregistered) {
   violations.push(
-    `m3.json defines "${role}", which is neither an M3 role nor a registered kern deviation — ` +
+    `kern.json defines "${role}", which is neither an M3 role nor a registered kern deviation — ` +
       `add it to M3_ROLES or register it in KERN_EXTRA_ROLES with a deviation id`,
   );
 }
 for (const entry of inventory.missingDeviation) {
   violations.push(
-    `m3.json is missing registered kern deviation role ${entry} — kern's extras are part of the contract`,
+    `kern.json is missing registered kern deviation role ${entry} — kern's extras are part of the contract`,
   );
 }
 
@@ -236,7 +236,7 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
 }
 
 // 5b. RESTING ELEVATION (P2). M3 publishes a per-component resting-level table at
-// /styles/elevation/tokens; `m3-elevation.ts` is the transcribed target. Resolution is
+// /styles/elevation/tokens; `kern-elevation.ts` is the transcribed target. Resolution is
 // TRANSITIVE through local imports on purpose: `menu`/`context-menu`/`menubar` carry their
 // elevation via `menu-classes.ts`, so a per-file grep reports them as carrying none and the
 // gate would pass on a component that is actually wrong.
@@ -256,7 +256,7 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
   };
 
   let conformant = 0;
-  for (const component of Object.keys(M3_ELEVATION_COMPONENTS)) {
+  for (const component of Object.keys(KERN_ELEVATION_COMPONENTS)) {
     const levels = new Set();
     for (const file of closureOf(`${component}.tsx`)) {
       const full = join(webDir, file);
@@ -298,7 +298,7 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
     // and the summary read "18/19" on a completely green run — a number that
     // looks like a defect and is not one.
     const permitsAbsence =
-      M3_ELEVATION_COMPONENTS[component]?.variants.includes(0) === true;
+      KERN_ELEVATION_COMPONENTS[component]?.variants.includes(0) === true;
     const measured =
       levels.size === 1
         ? [...levels][0]
@@ -308,7 +308,7 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
     if (problems.length === 0 && measured !== null) conformant++;
   }
   elevationConformant = conformant;
-  elevationTotal = Object.keys(M3_ELEVATION_COMPONENTS).length;
+  elevationTotal = Object.keys(KERN_ELEVATION_COMPONENTS).length;
 }
 
 // 5b. TOKEN GROUP CONSUMPTION (P1-6). A token group that is generated, gated for
@@ -436,13 +436,13 @@ for (const dir of SCANNED) {
 }
 
 if (violations.length > 0) {
-  console.error(`M3 contract violations (${violations.length}):`);
+  console.error(`kern contract violations (${violations.length}):`);
   for (const v of violations) console.error(`  ${v}`);
   process.exit(1);
 }
 
 console.log(
-  `M3 contract passes: ${inventory.m3Present}/${M3_ROLES.length} M3 roles present ` +
+  `kern contract passes: ${inventory.m3Present}/${M3_ROLES.length} M3 roles present ` +
     `(+${Object.keys(KERN_EXTRA_ROLES).length} kern deviations), ` +
     `${Object.keys(tokens.typography.scale).length}+${Object.keys(tokens.typography.scaleEmphasized ?? {}).length} typescale, ` +
     `${Object.keys(tokens.spacing).length} spacing, elevation 0-5, ` +

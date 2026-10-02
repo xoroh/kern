@@ -64,9 +64,9 @@ function selectionFor(variant: LayerSelection): ThemeSelection {
 export function resolveThemeLayers(
   mode: Mode = "light",
   contrast: "standard" | "medium" | "high" = "standard",
-  variant: LayerSelection = "m3",
+  variant: LayerSelection = "kern",
 ): { scheme: RoleTable; deltas: SchemeDeltas } {
-  const before = resolveThemeDetails(mode, contrast, "m3");
+  const before = resolveThemeDetails(mode, contrast, "kern");
   const resolved = resolveThemeDetails(mode, contrast, selectionFor(variant));
   const deltas: SchemeDeltas = {};
   for (const role of Object.keys(resolved.color) as ColorRole[]) {
@@ -81,7 +81,7 @@ export function resolveThemeLayers(
 export function assertCompleteScheme(
   scheme: Partial<RoleTable>,
 ): asserts scheme is RoleTable {
-  const probe = resolveThemeDetails("light", "standard", "m3").color;
+  const probe = resolveThemeDetails("light", "standard", "kern").color;
   const missing = (Object.keys(probe) as ColorRole[]).filter(
     (role) => typeof scheme[role] !== "string",
   );

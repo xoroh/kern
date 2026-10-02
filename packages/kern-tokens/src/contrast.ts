@@ -1,4 +1,4 @@
-import { FIXED_ACCENT_FAMILIES } from "./m3-roles";
+import { FIXED_ACCENT_FAMILIES } from "./kern-roles";
 
 export type ContrastPair = readonly [foreground: string, background: string];
 
@@ -157,7 +157,7 @@ export function textRolePairs(): ContrastPair[] {
   // is the opposite of over-constraining.
   //
   // NOTE: there is no `error` fixed family and no `FixedContainer` role in M3
-  // (see kern-tokens/src/m3-roles.ts for the verification). Families come from
+  // (see kern-tokens/src/kern-roles.ts for the verification). Families come from
   // FIXED_ACCENT_FAMILIES so this stays in step with the inventory.
   for (const family of FIXED_ACCENT_FAMILIES) {
     const Cap = family[0].toUpperCase() + family.slice(1);

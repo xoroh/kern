@@ -18,7 +18,7 @@ import {
 
 const ROOT = new URL("../../..", import.meta.url).pathname;
 const M3 = JSON.parse(
-  readFileSync(join(ROOT, "packages/kern-tokens/src/themes/m3.json"), "utf8"),
+  readFileSync(join(ROOT, "packages/kern-tokens/src/themes/kern.json"), "utf8"),
 );
 const SHARP = JSON.parse(
   readFileSync(

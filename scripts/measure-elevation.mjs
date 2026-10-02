@@ -3,7 +3,7 @@
  * Which of the ungated-but-shipped components actually carry an elevation token?
  *
  * check-m3 resolves a component's resting level by scanning its import closure
- * for `--md-sys-elevation-level<N>`. A row added to M3_ELEVATION_COMPONENTS whose
+ * for `--md-sys-elevation-level<N>`. A row added to KERN_ELEVATION_COMPONENTS whose
  * component emits no such token measures `null` and is counted UNASSERTED — the
  * gate would look greener while asserting nothing.
  *
