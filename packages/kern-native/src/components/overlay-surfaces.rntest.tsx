@@ -45,6 +45,10 @@ type A11yNode = {
   isModal?: boolean;
   expanded?: boolean;
   scroll?: unknown;
+  /** The host node's resolved style. Carried so a suite can assert a STYLE
+   *  property (resting elevation) on the node it found by label, rather than
+   *  searching the tree a second time for it. */
+  style?: unknown;
 };
 
 /** Collect every host node in the rendered tree carrying an a11y signal. */
@@ -71,6 +75,7 @@ function a11yTree(): A11yNode[] {
         isModal: props.accessibilityViewIsModal as boolean | undefined,
         expanded: state.expanded,
         scroll: props.accessibilityScroll,
+        style: props.style,
       });
     }
     for (const child of candidate.children ?? []) walk(child);
@@ -217,6 +222,31 @@ describe("native Popover (P2b-3 tranche 5)", () => {
       fireEvent.press(screen.getByLabelText("Show details"));
     });
     expect(seen).toEqual([true]);
+  });
+
+  it("rests at an ON-SCALE M3 elevation", async () => {
+    await render(
+      <Popover.Root defaultOpen>
+        <Popover.Content label="Details">
+          <Popover.Body />
+        </Popover.Content>
+      </Popover.Root>,
+    );
+    // The value was `2`, which matches NO level on M3's scale (0/1/3/6/8/12).
+    // An off-scale elevation is not a design choice, it is an inconsistency that
+    // cannot be compared to the web side at all — web binds the popover to
+    // `--md-sys-elevation-level2`, which is 3dp.
+    //
+    // Asserted against the SCALE rather than the literal 3: a test that pins
+    // only `toBe(3)` would still pass if someone reintroduced `2` AND someone
+    // later added `2` to the scale, and it would not say why 2 was wrong. The
+    // scale is the contract.
+    const M3_LEVELS = [0, 1, 3, 6, 8, 12];
+    const surface = labelled("Details");
+    const style = JSON.stringify(surface?.style ?? "");
+    const match = style.match(/"elevation":(\d+)/);
+    expect(match).not.toBeNull();
+    expect(M3_LEVELS).toContain(Number(match?.[1]));
   });
 });
 
