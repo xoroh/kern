@@ -37,4 +37,12 @@
  * Step 1 is this file. The rest follows.
  */
 
+export {
+  isSelected,
+  normalizeSelection,
+  type Selection,
+  type SelectionMode,
+  toggleSelection,
+  useSelection,
+} from "./selection";
 export { type StateAction, useControllableState } from "./useControllableState";
