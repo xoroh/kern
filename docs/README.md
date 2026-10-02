@@ -25,6 +25,7 @@ goes.
 | [`components.md`](components.md) | Which components exist, real or stub | **generated** — `bun run generate:components` |
 | [`platform-parity.md`](platform-parity.md) | How web and native correspond; where they differ | hand-written, counts from the generated inventory |
 | [`releases.md`](releases.md) | How versioning and publishing work | hand-written |
+| [`verification-limits.md`](verification-limits.md) | **What the test suite does and does not prove** — 950 unit tests, no e2e layer, no visual regression | hand-written, figures measured |
 
 ## Conventions
 
@@ -63,6 +64,9 @@ New to the repo:
    UI-shaped widget layer above) and the extraction sequence. Enforced by
    `check:primitives`.
 4. [`CONTRIBUTING.md`](../CONTRIBUTING.md) — the per-PR requirements.
+4a. [`verification-limits.md`](verification-limits.md) — what green CI does
+   and does not prove. Read it before trusting a passing run as evidence that
+   something works.
 5. [`plan/README.md`](plan/README.md) — what is being built next.
 
 Building UI with Kern: the package README for the package you need

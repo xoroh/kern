@@ -8,6 +8,14 @@ anything to resolve. Understand the packages first:
 
 ## Per-PR requirements
 
+> **Before you trust a green CI run as evidence about behaviour, read
+> [`docs/verification-limits.md`](docs/verification-limits.md).** It states what
+> the suite does and does not prove. Briefly: 950 unit tests across two runners,
+> **no e2e/browser layer of any kind**, no visual regression, and a
+> spec-URL gate that currently asserts zero citations. Green CI is evidence that
+> the design law holds and the generated artifacts are current — not that
+> anything was seen render.
+
 1. **Changeset** — every PR touching a published package under `packages/`
    adds one: `bun run changeset`. Check what would release:
    `bun x changeset status`. Docs-only and CI-only changes need none. The
