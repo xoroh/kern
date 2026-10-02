@@ -1,7 +1,14 @@
 import { contractFor } from "@kern-parity/contract";
 import { render, screen } from "@testing-library/react";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableRow,
+} from "@xoroh/kern";
 import { describe, expect, it } from "vitest";
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableRow } from "@xoroh/kern";
 
 /**
  * Web side of the `table-caption` contract row — the last row in the manifest

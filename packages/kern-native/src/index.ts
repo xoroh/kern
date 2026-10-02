@@ -256,6 +256,11 @@ export {
   pageWindow,
   paginationStyles,
 } from "./components/pagination";
+export type {
+  KernPressableProps,
+  MIN_TOUCH_TARGET,
+} from "./components/pressable";
+export { KernPressable } from "./components/pressable";
 export type { NativeProgressProps } from "./components/progress";
 export { Progress, progressStyles } from "./components/progress";
 export type {
@@ -309,16 +314,14 @@ export {
   bootSplashStyles,
   ErrorBoundary,
 } from "./components/shell";
-export type { NativeSplitProps, SPLIT_GAP } from "./components/split";
-export { Split } from "./components/split";
-export type { KernPressableProps, MIN_TOUCH_TARGET } from "./components/pressable";
-export { KernPressable } from "./components/pressable";
 export type { NativeSkeletonProps } from "./components/skeleton";
 export { Skeleton } from "./components/skeleton";
 export type { NativeSliderProps } from "./components/slider";
 export { Slider, sliderStyles } from "./components/slider";
 export type { NativeSnackbarProps } from "./components/snackbar";
 export { Snackbar, snackbarStyles } from "./components/snackbar";
+export type { NativeSplitProps, SPLIT_GAP } from "./components/split";
+export { Split } from "./components/split";
 export type {
   NativeSplitButtonAction,
   NativeSplitButtonProps,

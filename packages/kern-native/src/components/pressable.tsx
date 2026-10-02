@@ -61,7 +61,10 @@ export function KernPressable({
       // MERGED, not replaced: a caller supplying only `selected` must still get
       // `disabled: false` reported, or the control's state axis is incomplete
       // for a screen reader.
-      accessibilityState={{ ...accessibilityState, disabled: disabled || accessibilityState?.disabled === true }}
+      accessibilityState={{
+        ...accessibilityState,
+        disabled: disabled || accessibilityState?.disabled === true,
+      }}
       disabled={disabled}
       style={(state) => [
         { minHeight: MIN_TOUCH_TARGET, minWidth: MIN_TOUCH_TARGET },

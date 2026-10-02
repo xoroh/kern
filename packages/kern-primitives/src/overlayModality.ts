@@ -87,7 +87,8 @@ export function createOverlayModality(): {
         top: snapshot.length ? snapshot[snapshot.length - 1] : null,
         stack: snapshot,
         isTop: (id) => snapshot[snapshot.length - 1] === id,
-        isInertOutside: (id) => snapshot.length > 0 && snapshot[snapshot.length - 1] !== id,
+        isInertOutside: (id) =>
+          snapshot.length > 0 && snapshot[snapshot.length - 1] !== id,
       };
     },
   };
@@ -111,6 +112,11 @@ export function useOverlayRegistration(
   const latest = useRef({ registry, id, active });
   latest.current = { registry, id, active };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: the effect reads
+  // through `latest`, a ref, on purpose. The deps ARE the three values that
+  // should re-register; adding `latest` would satisfy the rule by making the
+  // effect re-run on EVERY render, which is the exact tear-down this ref exists
+  // to prevent. See the comment above the ref.
   useEffect(() => {
     if (!latest.current.active) return;
     return latest.current.registry.register(latest.current.id);

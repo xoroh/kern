@@ -299,8 +299,7 @@ export const CONTRACTS: readonly ParityRow[] = [
     nativeContract:
       "A `role=button` whose `accessibilityState.selected` is not a toggle and does not latch.",
     spec: "M3 Button — triggers an action; the filled/tonal/outlined variants differ in emphasis, not in state.",
-    testedBy:
-      "web-parity-buttons.test.tsx / native-parity-controls.rntest.tsx",
+    testedBy: "web-parity-buttons.test.tsx / native-parity-controls.rntest.tsx",
     role: "button",
 
     // Explicit interactivity marker; see the note on ParityRow.
@@ -683,8 +682,7 @@ export const CONTRACTS: readonly ParityRow[] = [
     nativeContract:
       "A `role=dialog` modal surface that is named and dismisses on scrim press, Android back, and a close control.",
     spec: "M3 Bottom sheet — a modal surface anchored to the bottom of the screen.",
-    testedBy:
-      "web-parity-sheets.test.tsx / native-parity-sheets.rntest.tsx",
+    testedBy: "web-parity-sheets.test.tsx / native-parity-sheets.rntest.tsx",
     role: "dialog",
 
     // Explicit interactivity marker; see the note on ParityRow.
@@ -809,8 +807,7 @@ export const CONTRACTS: readonly ParityRow[] = [
     nativeContract:
       "A `role=textbox` with increment/decrement controls that move the value by one step; disabled blocks them.",
     spec: "M3 Text field (FAMILY ONLY) — M3 defines no number-field component and its text-field overview enumerates only filled/outlined. The stepper affordance is a kern extension and is routed to the ext: band per K10, not to an M3 source.",
-    testedBy:
-      "web-parity-inputs.test.tsx / native-parity-inputs.rntest.tsx",
+    testedBy: "web-parity-inputs.test.tsx / native-parity-inputs.rntest.tsx",
     role: "textbox",
 
     // Explicit interactivity marker; see the note on ParityRow.
@@ -846,8 +843,7 @@ export const CONTRACTS: readonly ParityRow[] = [
     nativeContract:
       "A `role=group` of segments; entering a full segment advances the active segment.",
     spec: "NO M3 COMPONENT — M3 defines no OTP/PIN component. Kern extension per T4-V2's non-M3 band; routed to ext: rather than claiming an M3 source.",
-    testedBy:
-      "web-parity-inputs.test.tsx / native-parity-inputs.rntest.tsx",
+    testedBy: "web-parity-inputs.test.tsx / native-parity-inputs.rntest.tsx",
     role: "group",
 
     // Explicit interactivity marker; see the note on ParityRow.
@@ -954,7 +950,8 @@ export const CONTRACTS: readonly ParityRow[] = [
     component: "icon-button-target",
     id: "icon-button-target",
     interactive: true,
-    behaviour: "An icon-only action still meets its platform's minimum target size.",
+    behaviour:
+      "An icon-only action still meets its platform's minimum target size.",
     webContract:
       "The hit area is at least 24x24 CSS px, the WCAG 2.2 Target Size (Minimum) threshold. It is NOT held to 48dp, which is a mobile convention.",
     nativeContract:
@@ -973,7 +970,6 @@ export const CONTRACTS: readonly ParityRow[] = [
     },
     maxSelected: 1,
   },
-
 ] as const;
 
 /** Lookup for a test that knows its component by name.

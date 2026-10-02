@@ -28,7 +28,10 @@ describe("KernPressable", () => {
 
   it("keeps an EXPLICIT role rather than defaulting over it", async () => {
     await render(
-      <KernPressable accessibilityLabel="Delete" accessibilityRole="menuitem" />,
+      <KernPressable
+        accessibilityLabel="Delete"
+        accessibilityRole="menuitem"
+      />,
     );
     // A menu item is not a button. The default is a default, not an override --
     // forcing `button` here would have broken every menu built in kern.
@@ -78,7 +81,10 @@ describe("KernPressable", () => {
 
   it("passes through an explicit selected state unchanged", async () => {
     await render(
-      <KernPressable accessibilityLabel="Bold" accessibilityState={{ selected: true }} />,
+      <KernPressable
+        accessibilityLabel="Bold"
+        accessibilityState={{ selected: true }}
+      />,
     );
     const el = screen.getByLabelText("Bold");
     expect(el.props.accessibilityState.selected).toBe(true);
