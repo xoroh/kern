@@ -24,9 +24,13 @@ import { cn } from "../utils/cn";
  * - **One tab stop for the item track.** Arrow keys move between items; the
  *   previous/next controls are separate tab stops. Items are a roving
  *   `tablist`-style group, so a 20-slide carousel is not 20 tab stops.
- * - **Inactive items are not rendered** into the a11y tree as visible content;
- *   only the active slide's children are present, so a screen reader does not
- *   read 20 slides to find the current one.
+ * - **Only the active slide is exposed** to assistive tech: inactive slides stay
+ *   mounted but carry `inert` + `aria-hidden`, so a screen reader does not read
+ *   20 slides to find the current one. They stay MOUNTED deliberately — the
+ *   track slides by transform, and unmounting would discard a playing video or
+ *   a scroll position when the user swipes away and back. (An earlier version of
+ *   this comment claimed inactive children were absent; that was wrong, and
+ *   `carousel.test.tsx` now pins the actual mechanism.)
  * - **Disabled** disables both controls and stops keyboard traversal, and says
  *   so with `aria-disabled`.
  */
