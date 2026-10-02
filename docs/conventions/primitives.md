@@ -61,11 +61,11 @@ cut 8 native-only rows; the same judgement governs extraction.
 | `useRovingModel` / `createRovingModel` | 1 | ✅ yes | ✅ | landed | tree-shaped roving focus |
 | `useSelection` / `toggleSelection` / `normalizeSelection` | 1 | ✅ yes | ✅ | landed | the single- vs multi-select axis |
 | `formatTimeValue` / `minutesForStep` | 1 | ✅ yes | ✅ | landed | time arithmetic, not a time *style* |
-| **`useCollection`** *(new)* | 1 | ✅ yes | ✅ | **React Aria** | §4 — the highest-value addition |
-| `useOverlayModality` | 1 | ✅ yes | ✅ | extract from `SheetSurface` | inert-others / focus containment, both renderers |
-| `useDismissable` | 1 | ✅ yes | ✅ | extract from sheet/menu | scrim press, Escape, focus return — **one owner** |
-| `useTypeahead` | 1 | ✅ yes | ✅ | React Aria | folds into `useCollection` |
-| `useMergeRefs` | 1 | ✅ yes | ✅ | extract from `render` usage | what makes `render` interop work |
+| **`useCollection`** *(new)* | 1 | ✅ yes | ✅ | **React Aria** | ✅ **LANDED `5ac1072`** — §4, the highest-value addition |
+| `useOverlayModality` | 1 | ✅ yes | ✅ | extract from `SheetSurface` | ⚠️ `bbd9ac7` — **not exported from the barrel and untested**, so unreachable; kern-lead's unit |
+| dismissal policy | 1 | ✅ yes | ✅ | extract from sheet/menu | ✅ **LANDED `68c6b54`** as `createDismissPolicy` — `showClose` derived from the trigger value |
+| `useTypeahead` | 1 | ✅ yes | ✅ | React Aria | ✅ folded into `useCollection` (`5ac1072`) |
+| `useMergeRefs` | 1 | ✅ yes | ✅ | extract from `render` usage | ✅ **LANDED `8e4a0c8`** |
 | focus-visible policy | 1 | ✅ yes | ⚠️ borderline | **CTO ruling** | is the focus ring a token decision? §6 |
 | Dialog / Sheet / Popover / Menu widgets | 2 | ✅ yes | ❌ tokens | **Base UI** | stay in the widget layer; never move down |
 | Pressable / Touchable | 2 | ✅ yes | ⚠️ | extract from `kern-primitives` | §6: is a press primitive Layer 1 or 2? |
