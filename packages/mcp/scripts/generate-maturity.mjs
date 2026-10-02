@@ -116,7 +116,13 @@ const rows = entries.map((e) => {
   // A stub is not shipped, so it cannot claim a released state.
   const state = e.status === "stub" ? "Preview" : meta.state;
   byState[state].push(e.name);
-  return { name: e.name, export: e.export, platform: e.platform, state, version: meta.version };
+  return {
+    name: e.name,
+    export: e.export,
+    platform: e.platform,
+    state,
+    version: meta.version,
+  };
 });
 
 for (const s of STATES) byState[s] = [...new Set(byState[s])].sort();
@@ -158,8 +164,32 @@ export function maturityFor(name: string): MaturityRow | undefined {
 }
 `;
 
-writeFileSync(OUT, out);
+// Biome formats this file on commit, and `check-generated-freshness` compares it
+// against a fresh run. If the generator emits unformatted output, the two fight
+// over the same bytes -- which is exactly how COMPONENT_SOURCES died, and it
+// makes every commit touch this file.
+//
+// So format the generated text with the repo's own biome before writing it. The
+// generator then agrees with the formatter instead of racing it, and a stale
+// diff here means a real change rather than whitespace.
+const { execFileSync } = await import("node:child_process");
+let formatted = out;
+try {
+  formatted = execFileSync(
+    "./node_modules/.bin/biome",
+    ["format", "--stdin-file-path=maturity.ts"],
+    { input: out, encoding: "utf8", cwd: ROOT },
+  );
+} catch {
+  // biome absent (a partial install, or the release runner): write unformatted
+  // rather than fail. The freshness gate will report the difference honestly.
+  formatted = out;
+}
+
+writeFileSync(OUT, formatted);
 
 const counts = STATES.map((s) => `${s}=${byState[s].length}`).join(" ");
-console.log(`generate-maturity: wrote ${rows.length} rows to packages/mcp/src/maturity.ts`);
+console.log(
+  `generate-maturity: wrote ${rows.length} rows to packages/mcp/src/maturity.ts`,
+);
 console.log(`  by state: ${counts}`);
