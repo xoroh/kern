@@ -52,13 +52,13 @@ again. Measured from the generated registry instead:
 
 | Measure | Value |
 |---|---|
-| Registry rows | **389** (web 286, native 103) |
-| **Shared** (already both sides) | **78** |
-| **Native-only → needs a web version** | **13** in **9 files** |
+| Registry rows | **392** (web 289, native 103) |
+| **Shared** (already both sides) | **81** |
+| **Native-only → needs a web version** | **10** in **7 files** |
 | **Web-only → needs a native version** | **40** in **34** files |
 | Stub rows | **0** |
 
-<!-- gate:counts 78 13 40 0 -->
+<!-- gate:counts 81 10 40 0 -->
 
 Machine-readable line above: `check:parity` (`scripts/check-parity.mjs`) re-derives
 these from the registry and fails if they drift, so the prose above cannot quietly
@@ -166,7 +166,7 @@ later reader does not "fix" them back:
 
 ---
 
-## Native-only concepts → need a web version (13)
+## Native-only concepts → need a web version (10)
 
 Grouped by surface. `M3 source` is the M3 spec tab that governs the behaviour.
 
@@ -177,15 +177,15 @@ Grouped by surface. `M3 source` is the M3 spec tab that governs the behaviour.
 | 3 | `dock-sheet` | Docked bottom panel (persistent, not modal) | `role="region"`, **not** `aria-modal` — docked ≠ dialog | `Modal` currently; web must be non-modal | M3 · Sheets → Docked | **BUILT 2026-10-03** — `sheet-family.tsx` |
 | 4 | `entity-sheet` | Sheet presenting one entity + actions | `role="dialog"` + `aria-modal`, max 2 actions | `accessibilityRole="alert"`, `actionLabel` | M3 · Sheets | **BUILT 2026-10-03** — `sheet-family.tsx` |
 | 5 | `bottom-sheet-picker` | Sheet as a single/multi selector | `role="listbox"` + `aria-multiselectable`, Escape closes | `ScrollView` + choice rows | M3 · Sheets → Picker | **BUILT 2026-10-03** — `sheet-family.tsx` |
-| 6 | `menu-screen` | Full-screen list of destinations | `role="list"`; web likely `NavigationMenu` for parity | `MenuScreen` rows | M3 · Menus | `composition.rntest.tsx` |
-| 7 | `menu-sheet` | Sheet wrapping a menu | `role="menu"`, arrow-key traversal | `MenuSheet` | M3 · Menus | GAP |
+| 6 | `menu-screen` | Full-screen list of destinations | `role="list"`; web likely `NavigationMenu` for parity | `MenuScreen` rows | M3 · Menus | **BUILT 2026-10-03** — `menu-family.tsx` |
+| 7 | `menu-sheet` | Sheet wrapping a menu | `role="menu"`, arrow-key traversal | `MenuSheet` | M3 · Menus | **BUILT 2026-10-03** — `menu-family.tsx` |
 | 8 | `menu-group-list` | Titled list of menu items | `role="group"` + `aria-label` = group heading | `MenuGroupList` + group label | M3 · Menus | **RULED OUT 2026-10-03** — see cut list |
 | 9 | `action-sheet` | Titled surface with a dismiss path and a body (app switcher tiles or an action list) | `role="dialog"` + `aria-modal`, Escape + a visible close control, focus returns to trigger | `SheetSurface`-hosted: `Modal` + scrim + hardware back + close affordance | M3 · Menus | **BUILT 2026-10-03** — `sheet-family.tsx` |
 | 10 | `top-app-bar` | Top app bar, small/center/medium | `role="banner"`, `aria-level` per size; medium wraps to 2 lines | `TopAppBar` 64/64/112dp | M3 · Top app bar | GAP |
 | 11 | `pane` | Single layout pane | `role="region"` + accessible name | `Pane` | M3 · Lists → Pane | GAP |
 | 12 | `list-detail` | Two-pane list→detail layout | `role="navigation"` per pane; selection announced | `ListDetail` | M3 · Lists | GAP |
 | 13 | `supporting-pane` | Optional supporting pane beside content | `role="complementary"` | `SupportingPane` | M3 · Lists | **RULED OUT 2026-10-03** — see cut list |
-| 14 | `filter-chip-row` | Horizontal row of filter chips | `role="group"`, each chip `aria-pressed` | `FilterChipRow` | M3 · Chips → Filter chips | GAP |
+| 14 | `filter-chip-row` | Horizontal row of filter chips | `role="group"`, each chip `aria-pressed` | `FilterChipRow` | M3 · Chips → Filter chips | **BUILT 2026-10-03** — `menu-family.tsx` |
 | 15 | `milestone-trio` | Three-stage progress indicator (brand kit) | `role="progressbar"`, `aria-valuenow"` = stage | `MilestoneTrio` | Kern brand kit (M3 progress analogue) | **RULED OUT 2026-10-03** — see cut list |
 | 16 | `success-transform` | Completion transition trio→check | `role="progressbar"` then `role="status"` "done" | `SuccessTransform`, `accessibilityRole="progressbar"` | Kern brand kit | **RULED OUT 2026-10-03** — see cut list |
 | 17 | `shape` | Shape-scaled container primitive | web = `style` only, **no role** (decorative container) | `Shape` | M3 · Shape scale | **RULED OUT 2026-10-03** — see cut list |
@@ -193,6 +193,22 @@ Grouped by surface. `M3 source` is the M3 spec tab that governs the behaviour.
 | 19 | `aspect-ratio` | Fixed-ratio box | `style={{aspectRatio}}` — presentational | `aspectRatio` style | CSS/native analogue | **RULED OUT 2026-10-03** — see cut list |
 | 20 | `sheet-surface` | Shared `Modal` + scrim primitive every kern sheet hosts through | web = `Dialog` root + portal scrim — the one place a sheet gets a dismissal path | `SheetSurface`: scrim press, `onRequestClose` (Android back) and a 48×48 close affordance all bound to `onDismiss` | M3 · Sheets | **BUILT 2026-10-03** — `sheet-family.tsx` |
 | 21 | `boot-splash` | Native launch surface (the browser has no pre-first-paint phase) | **not applicable** — deliberately asymmetric | `BootSplash` | Kern shell (native-only) | **RULED OUT 2026-10-03** — see cut list |
+
+### Resolved 2026-10-03 — tranche 2: the menu family BUILT (native-only 13 → 10)
+
+Three concepts in `packages/kern/src/components/menu-family.tsx`, each owning behaviour a consumer
+can observe — which is the test that separated them from the eight ruled out below.
+
+| concept | web contract asserted | notes |
+|---|---|---|
+| `menu-screen` | `role="list"`, each group `role="group"` + `aria-label` = its heading | deliberately NOT a dialog; **no** elevation token — a list is not an overlay |
+| `menu-sheet` | `role="dialog"`, same structure | reuses tranche 1's `SheetSurface`, so scrim/Escape/focus return have ONE owner |
+| `filter-chip-row` | `role="group"`, each chip a toggle with `aria-pressed` | second press REMOVES the value: a filter chip that cannot be switched off is not a toggle |
+
+A menu in a sheet is a dialog; a menu on a screen is not — so `menu-sheet` is modal and
+`menu-screen` is not, from the same group data. Destructive actions are expressed as a **role**
+(`error` on `errorContainer`), not as a sixth variant, so the component set does not grow a
+"danger" axis.
 
 ### Resolved 2026-10-03 — tranche 1: the sheet family BUILT (native-only 20 → 13)
 
