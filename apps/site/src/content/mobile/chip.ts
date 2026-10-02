@@ -61,7 +61,7 @@ export const chip: ComponentDoc = {
     },
     {
       name: "onPress",
-      type: "PressableProps[\"onPress\"]",
+      type: 'PressableProps["onPress"]',
       note: "Fires first; a filter chip then toggles UNLESS the handler called `preventDefault()` on the event — the hook for selection you veto.",
     },
     {
@@ -71,7 +71,7 @@ export const chip: ComponentDoc = {
     },
     {
       name: "style",
-      type: "PressableProps[\"style\"]",
+      type: 'PressableProps["style"]',
       note: "Pressable style — function or value, merged after `chipStyles`. `chipStyles` is exported for the treatment alone.",
     },
     {

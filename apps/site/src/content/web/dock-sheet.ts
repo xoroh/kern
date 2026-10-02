@@ -56,7 +56,7 @@ export const dockSheet: ComponentDoc = {
     },
   ],
   aria: [
-    "The dock is `role=\"region\"` labelled by `label` — a named landmark, not a dialog: no `aria-modal`, no focus trap, no interaction lock.",
+    'The dock is `role="region"` labelled by `label` — a named landmark, not a dialog: no `aria-modal`, no focus trap, no interaction lock.',
     "Everything inside the dock is ordinary page content to assistive technology — the controls are named by their own labels.",
     "The absence of elevation is part of the contract: at modal elevation a persistent panel misreads as an overlay, and the semantics (a region) must match the paint (no shadow).",
   ],

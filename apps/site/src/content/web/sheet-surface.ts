@@ -69,7 +69,7 @@ export const sheetSurface: ComponentDoc = {
     },
   ],
   aria: [
-    "The surface is `role=\"dialog\"` with `aria-modal=\"true\"` — and the modal flag is set BY HAND: Base UI's dialog popup traps focus and inerts the page but emits no `aria-modal` (measured), which left the visual and accessibility trees disagreeing about whether the user is trapped.",
+    'The surface is `role="dialog"` with `aria-modal="true"` — and the modal flag is set BY HAND: Base UI\'s dialog popup traps focus and inerts the page but emits no `aria-modal` (measured), which left the visual and accessibility trees disagreeing about whether the user is trapped.',
     "Dismissal is one contract in one place: scrim press and Escape both close, and focus returns to the trigger — every sheet below inherits this rather than re-implementing it.",
     "The scrim is a real backdrop element, not a click handler on the page: a sheet cannot close because a stray click landed under it.",
   ],

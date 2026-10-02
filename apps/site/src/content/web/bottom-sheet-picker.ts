@@ -15,6 +15,8 @@ export const bottomSheetPicker: ComponentDoc = {
     // Ships `--md-sys-elevation-level1` (modal sheet; M3's "bottom sheet
     // (modal)" rests at level 1). No registry row is keyed under this slug, so
     // the claim is reported as unasserted — a registry gap, not a page gap.
+    // Claimed level 1, unasserted by the elevation table — see the gap report.
+    elevationBacked: false,
     elevation: 1,
   },
   parts: ["BottomSheetPicker"],
@@ -95,6 +97,6 @@ export const bottomSheetPicker: ComponentDoc = {
   aria: [
     "The list is a real `listbox` with `option` rows reporting `aria-selected` — the selection is structural, and `aria-multiselectable` appears only when `multiple` is set.",
     "The check mark carries selection alongside the tint: a reader who cannot distinguish the selected row's fill still gets the state from the role and the check.",
-    "Everything else inherits `SheetSurface`'s contract: `role=\"dialog\"`, `aria-modal` set by hand over the primitive, scrim and Escape to dismiss, focus returned to the trigger.",
+    'Everything else inherits `SheetSurface`\'s contract: `role="dialog"`, `aria-modal` set by hand over the primitive, scrim and Escape to dismiss, focus returned to the trigger.',
   ],
 };

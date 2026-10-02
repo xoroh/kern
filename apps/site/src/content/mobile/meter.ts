@@ -42,7 +42,7 @@ export const meter: ComponentDoc = {
     {
       name: "valueText",
       type: "string",
-      note: 'The formatted reading, ANNOUNCED INSTEAD of the bare number — "3.2 GB of 8 GB". Falls back to `${value}`, which is exactly the case where the announcement sounds like nonsense.',
+      note: 'The formatted reading, ANNOUNCED INSTEAD of the bare number — "3.2 GB of 8 GB". Falls back to the raw value, which is exactly the case where the announcement sounds like nonsense.',
     },
     {
       name: "accessibilityLabel",

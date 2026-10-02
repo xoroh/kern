@@ -4,7 +4,7 @@ export const actionSheet: ComponentDoc = {
   slug: "action-sheet",
   name: "Action sheet",
   oneLiner:
-    "The action sheet is a titled list of actions in a bottom sheet — the one surface for \"what do you want to do with this?\"",
+    'The action sheet is a titled list of actions in a bottom sheet — the one surface for "what do you want to do with this?"',
   features:
     "Reach for an action sheet when the next step is a choice among a short list of actions on one subject: share, duplicate, archive, delete. The actions are data — id, label, the callback and a disabled flag — so the list renders identically wherever the sheet opens, and a disabled action stays visible and inert rather than vanishing. `children` is there for the case where the list is not the whole body, and the sheet hosts through `SheetSurface` like the rest of the family: scrim, Escape and focus return are inherited, not re-implemented.",
   meta: {
@@ -15,6 +15,10 @@ export const actionSheet: ComponentDoc = {
     // Ships `--md-sys-elevation-level1` (modal sheet; M3's "bottom sheet
     // (modal)" rests at level 1). No registry row is keyed under this slug, so
     // the claim is reported as unasserted — a registry gap, not a page gap.
+    // Claimed level 1, but `kern-elevation.ts` has no row for this component,
+    // so nothing asserts it. `elevationBacked: false` makes the strip render
+    // the claim as a warning rather than a measurement.
+    elevationBacked: false,
     elevation: 1,
   },
   parts: ["ActionSheet"],
@@ -25,7 +29,7 @@ export const actionSheet: ComponentDoc = {
       "`className` is passed through and merged after the sheet's surface classes.",
     ],
     notSupported: [
-      "There is no destructive axis. A dangerous action is a LABEL problem — say \"Delete\" — and belongs to an alert dialog when it needs confirming.",
+      'There is no destructive axis. A dangerous action is a LABEL problem — say "Delete" — and belongs to an alert dialog when it needs confirming.',
       "No icons or supporting lines on actions. An action row is one label; richer rows are the `MenuSheet`'s groups.",
       "The sheet does not close on pick — `onSelect` is the action and closing is the host's call via `onOpenChange`.",
     ],
@@ -83,6 +87,6 @@ export const actionSheet: ComponentDoc = {
   aria: [
     "The list is a plain list of buttons: each action is named by its label and reports its own disabled state — the list adds no selection semantics, because there is no selection.",
     "The title is the dialog's title element, so the question is what gets announced on open.",
-    "Everything else inherits `SheetSurface`'s contract: `role=\"dialog\"`, `aria-modal` set by hand over the primitive, scrim and Escape to dismiss, focus returned to the trigger.",
+    'Everything else inherits `SheetSurface`\'s contract: `role="dialog"`, `aria-modal` set by hand over the primitive, scrim and Escape to dismiss, focus returned to the trigger.',
   ],
 };

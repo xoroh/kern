@@ -58,6 +58,6 @@ export const successTransform: ComponentDoc = {
   aria: [
     "The change from `loading` to `success` is the message, so it should be announced — a completed step that only changes appearance is one some people never learn about.",
     "There is no error state here: a failure is a message (`Snackbar`, `Banner`, `FieldMessage`), not a transform.",
-    "`loading` is unmeasured, so it says \"working\" without implying a quantity. A measured wait is `Progress` or `Meter`.",
+    '`loading` is unmeasured, so it says "working" without implying a quantity. A measured wait is `Progress` or `Meter`.',
   ],
 };

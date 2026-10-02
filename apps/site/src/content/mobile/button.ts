@@ -56,7 +56,7 @@ export const button: ComponentDoc = {
     },
     {
       name: "onPress",
-      type: "PressableProps[\"onPress\"]",
+      type: 'PressableProps["onPress"]',
       note: "The action. Fires on the pressable, so the usual pressable event contract applies.",
     },
     {
@@ -72,7 +72,7 @@ export const button: ComponentDoc = {
     },
     {
       name: "style",
-      type: "PressableProps[\"style\"]",
+      type: 'PressableProps["style"]',
       note: "Pressable style — function or value, merged after `buttonStyles`. `buttonStyles` is exported for the treatment alone.",
     },
   ],

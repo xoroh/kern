@@ -15,6 +15,8 @@ export const entitySheet: ComponentDoc = {
     // Ships `--md-sys-elevation-level1` (modal sheet; M3's "bottom sheet
     // (modal)" rests at level 1). No registry row is keyed under this slug, so
     // the claim is reported as unasserted — a registry gap, not a page gap.
+    // Claimed level 1, unasserted by the elevation table — see the gap report.
+    elevationBacked: false,
     elevation: 1,
   },
   parts: ["EntitySheet"],
@@ -92,6 +94,6 @@ export const entitySheet: ComponentDoc = {
   aria: [
     "The fields are a real description list — `dl`, `dt`, `dd` — so the label-value relationship is structural, not visual.",
     "The title is the dialog's title element, so the record's name is what gets announced on open.",
-    "Everything else inherits `SheetSurface`'s contract: `role=\"dialog\"`, `aria-modal` set by hand over the primitive, scrim and Escape to dismiss, focus returned to the trigger.",
+    'Everything else inherits `SheetSurface`\'s contract: `role="dialog"`, `aria-modal` set by hand over the primitive, scrim and Escape to dismiss, focus returned to the trigger.',
   ],
 };

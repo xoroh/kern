@@ -48,18 +48,58 @@ const CARD =
 const TH = "py-2 pr-4 text-left font-medium text-(--md-sys-color-on-surface)";
 const TD = "py-3 pr-4 align-top";
 
-function elevationLabel(elevation: RestingElevation): string {
-  if (elevation === "surface") return "Surface";
-  if (elevation === "none") return "—";
-  return `Level ${elevation}`;
+/**
+ * The elevation chip. FOUR states, kept apart because `check:docs` keeps them
+ * apart — collapsing them is how an unbacked claim ends up reading as a
+ * measurement.
+ *
+ *   Level N      a level the elevation table backs
+ *   Surface      the component carries no elevation token at all
+ *   n/a          no visual form (a pure function or a hook)
+ *   ⚠ unbacked   the page CLAIMS a level nothing asserts — a gap, not a fact
+ *
+ * A gap must never render as a neutral dash: that is how a known hole becomes
+ * an invisible one.
+ */
+function elevationLabel(
+  elevation: RestingElevation,
+  backed: boolean,
+): { text: string; warn: boolean } {
+  if (elevation === "none")
+    return { text: "n/a (no visual form)", warn: false };
+  if (elevation === "surface")
+    return { text: "Surface (no elevation token)", warn: false };
+  if (!backed)
+    return { text: `⚠ unbacked — claimed Level ${elevation}`, warn: true };
+  return { text: `Level ${elevation}`, warn: false };
 }
 
 /* ------------------------------------------------------------------ chips */
 
-function Chip({ term, value }: { term: string; value: string }) {
+function Chip({
+  term,
+  value,
+  warn = false,
+}: {
+  term: string;
+  value: string;
+  warn?: boolean;
+}) {
   return (
-    <div className={CHIP}>
-      <span className="text-(--md-sys-color-on-surface)">
+    <div
+      className={
+        warn
+          ? "inline-flex items-center gap-1.5 rounded-full border border-(--md-sys-color-error) bg-(--md-sys-color-error-container) px-3 py-1 font-mono text-xs text-(--md-sys-color-on-error-container)"
+          : CHIP
+      }
+    >
+      <span
+        className={
+          warn
+            ? "text-(--md-sys-color-on-error-container)"
+            : "text-(--md-sys-color-on-surface)"
+        }
+      >
         {term ? `${term}: ` : ""}
         {value}
       </span>
@@ -113,18 +153,28 @@ function LinkChip({
  */
 function MetadataStrip({ doc }: { doc: ComponentDoc }) {
   const { meta } = doc;
+  const elev = elevationLabel(meta.elevation, meta.elevationBacked !== false);
   return (
     <dl className="m-0 flex flex-wrap items-center gap-2">
+      {meta.state ? <Chip term="State" value={meta.state} /> : null}
+      {meta.version ? <Chip term="Version" value={meta.version} /> : null}
       <Chip term="Status" value={meta.status} />
       <Chip term="Package" value={meta.package} />
+      {meta.platforms?.length ? (
+        <Chip term="Platforms" value={meta.platforms.join(" · ")} />
+      ) : null}
       <Chip term="Native peer" value={meta.nativePeer} />
-      <Chip term="Elevation" value={elevationLabel(meta.elevation)} />
+      <Chip term="Elevation" value={elev.text} warn={elev.warn} />
       {meta.variants.length === 0 ? (
         <Chip term="Variants" value="none" />
       ) : (
         meta.variants.map((axis) => <Chip key={axis} term="" value={axis} />)
       )}
-      <LinkChip term="M3 spec" value="spec" href={meta.specUrl} />
+      <LinkChip
+        term="M3 spec"
+        value={meta.specUrl ? "spec" : "none — kern extension"}
+        href={meta.specUrl}
+      />
       <LinkChip term="WAI-ARIA" value="APG" href={meta.apgUrl} />
       <LinkChip term="Source" value="GitHub" href={meta.sourceUrl} />
       <LinkChip term="Bundle" value="size" href={meta.bundleUrl} />
@@ -313,6 +363,7 @@ function Theming({ doc }: { doc: ComponentDoc }) {
                 <th className={TH}>Element</th>
                 <th className={TH}>State</th>
                 <th className={TH}>Token</th>
+                <th className={TH}>Value</th>
               </tr>
             </thead>
             <tbody>
@@ -332,6 +383,11 @@ function Theming({ doc }: { doc: ComponentDoc }) {
                   >
                     {row.token}
                   </td>
+                  <td
+                    className={`${TD} font-mono text-xs text-(--md-sys-color-on-surface-variant)`}
+                  >
+                    {row.value}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -342,7 +398,12 @@ function Theming({ doc }: { doc: ComponentDoc }) {
           No per-component token table is generated for this one yet. Its
           resting elevation is{" "}
           <strong className="text-(--md-sys-color-on-surface)">
-            {elevationLabel(doc.meta.elevation)}
+            {
+              elevationLabel(
+                doc.meta.elevation,
+                doc.meta.elevationBacked !== false,
+              ).text
+            }
           </strong>
           .
         </p>
@@ -481,7 +542,9 @@ function Conformance({ doc }: { doc: ComponentDoc }) {
       <p className={CHIP}>{conformanceLine(doc)}</p>
       {!rows || rows.length === 0 ? (
         <p className={PROSE}>
-          No declared departures. This component follows the spec as written.
+          {doc.meta.specUrl
+            ? "No registered deviations from the Material 3 spec."
+            : "No Material 3 source — this is a kern extension."}
         </p>
       ) : (
         <ul className="m-0 flex flex-col gap-4">
@@ -495,16 +558,20 @@ function Conformance({ doc }: { doc: ComponentDoc }) {
 }
 
 /**
- * The conformance status line — one sentence a reader can quote. Derived from
- * the same data the gate checks, so it cannot drift from what is true.
+ * The conformance status line. States only what is CHECKABLE — a count of
+ * variant axes is an inventory fact, not a conformance signal, and it already
+ * renders honestly in the metadata strip above. Deviation IDS are rendered,
+ * not counts: an id is auditable, a number is not.
  */
 function conformanceLine(doc: ComponentDoc): string {
-  const axes = doc.meta.variants.length;
-  const dev = doc.deviations?.length ?? 0;
+  const elev = elevationLabel(
+    doc.meta.elevation,
+    doc.meta.elevationBacked !== false,
+  );
+  const ids = (doc.deviations ?? []).map((row) => row.id);
   return [
-    axes === 0 ? "variants: none" : `variant axes: ${axes}`,
-    `elevation: ${elevationLabel(doc.meta.elevation)}`,
-    dev === 0 ? "deviations: none" : `deviations: ${dev}`,
+    `elevation: ${elev.text}`,
+    `deviations: ${ids.length ? ids.join(" | ") : "none"}`,
   ].join("  ·  ");
 }
 

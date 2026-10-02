@@ -16,6 +16,8 @@ export const bottomSheet: ComponentDoc = {
     // rests at level 1 (the `sheet` row in m3-elevation.ts permits 0/1). No
     // row is keyed under this slug, so check:docs reports the claim as
     // unasserted — a registry gap, not a page gap.
+    // Claimed level 1, unasserted by the elevation table — see the gap report.
+    elevationBacked: false,
     elevation: 1,
   },
   parts: ["BottomSheet"],
@@ -61,7 +63,7 @@ export const bottomSheet: ComponentDoc = {
     {
       name: "onClose",
       type: "() => void",
-      note: "Renders the visible close control (its accessible name is \"Close\") when present. The control is the affordance; the shell's dismissal is what closes.",
+      note: 'Renders the visible close control (its accessible name is "Close") when present. The control is the affordance; the shell\'s dismissal is what closes.',
     },
     {
       name: "children",
@@ -80,7 +82,7 @@ export const bottomSheet: ComponentDoc = {
     },
   ],
   aria: [
-    "Inherits `SheetSurface`'s contract whole: `role=\"dialog\"`, `aria-modal` set by hand over the primitive, scrim press and Escape to dismiss, focus returned to the trigger.",
+    'Inherits `SheetSurface`\'s contract whole: `role="dialog"`, `aria-modal` set by hand over the primitive, scrim press and Escape to dismiss, focus returned to the trigger.',
     "The title is a real dialog title element when present, so the sheet is announced by its heading rather than by its label alone.",
     "The close control is a labelled button — a glyph that names itself — and it exists only when `onClose` is passed, so a sheet can never render a dead close affordance.",
   ],

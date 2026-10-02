@@ -26,7 +26,7 @@ export const alertDialog: ComponentDoc = {
     ],
     notSupported: [
       "There is no children slot and no custom button row. A dialog with arbitrary content is the `Dialog`, not this one.",
-      "There is no third action and no checkbox (\"don't ask again\"). Two decisions is the whole contract.",
+      'There is no third action and no checkbox ("don\'t ask again"). Two decisions is the whole contract.',
       "The confirm button is ALWAYS the error-coloured one. There is no `destructive` flag to forget — and no way to paint a destructive cancel.",
     ],
   },

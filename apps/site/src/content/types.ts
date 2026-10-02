@@ -64,6 +64,34 @@ export type MetadataStrip = {
   elevation: RestingElevation;
 
   /**
+   * Whether the elevation claim is BACKED by the elevation table.
+   *
+   * `check:docs` keeps three elevation situations apart and this flag is what
+   * lets the page do the same: a level the table backs, a component with no
+   * token at all, and a page that CLAIMS a level nothing asserts. Without it
+   * the strip renders an unbacked claim as if it were measured, which is the
+   * exact failure the gate exists to catch — and the comment above ("a page
+   * cannot claim a level the system does not ship") would be contradicted by
+   * the page itself.
+   *
+   * Default is `true`. Set `false` on a page whose claim is currently
+   * unasserted, and the strip renders it as a warning rather than a fact.
+   */
+  elevationBacked?: boolean;
+
+  /**
+   * Release state — Preview / Stable / Maintained / Sunsetting / Archived.
+   * Distinct from `status`, which is REGISTRY status (is this a real export
+   * or a stub), not release maturity. Optional until the release model ships
+   * a `/stability` surface to link to.
+   */
+  state?: string;
+  /** Package version, e.g. `"0.4.0"`. */
+  version?: string;
+  /** Which renderers this export exists on, e.g. `["Web", "Native"]`. */
+  platforms?: string[];
+
+  /**
    * The four external references in the strip. OPTIONAL on purpose: a chip
    * with no URL renders as plain text, so a page is never a dead link and the
    * strip is never half-empty. They are the "reference" signal — the M3 spec
@@ -91,6 +119,13 @@ export type TokenRow = {
   state: string;
   /** e.g. `md.comp.filled-button.container.color`. */
   token: string;
+  /**
+   * The RESOLVED value, e.g. `#6750A4`. Half the reference: it is where a
+   * reader sees what the token actually resolves to, and where value-checks
+   * against the spec happen. Where web and native resolve differently, record
+   * the canonical one and say which in the note.
+   */
+  value: string;
 };
 
 /**

@@ -61,9 +61,9 @@ export const pagination: ComponentDoc = {
     },
   ],
   aria: [
-    "It is `role=\"navigation\"` — not `accessibilityRole`, which has no `navigation` member on React Native. Same class of silent failure as `meter` and `fieldset` if you reach for the other prop.",
-    "RN has no `aria-current`, so the current page is carried by `accessibilityState.selected` — a deliberate platform substitution, recorded rather than papered over. A screen reader says \"selected\" where the web says \"current page\".",
-    "Gaps are DECORATION: `accessibilityElementsHidden` with `importantForAccessibility=\"no-hide-descendants\"`. A gap holds no information and must not be announced as an element.",
+    'It is `role="navigation"` — not `accessibilityRole`, which has no `navigation` member on React Native. Same class of silent failure as `meter` and `fieldset` if you reach for the other prop.',
+    'RN has no `aria-current`, so the current page is carried by `accessibilityState.selected` — a deliberate platform substitution, recorded rather than papered over. A screen reader says "selected" where the web says "current page".',
+    'Gaps are DECORATION: `accessibilityElementsHidden` with `importantForAccessibility="no-hide-descendants"`. A gap holds no information and must not be announced as an element.',
     "Prev and next clamp at the ends and are disabled there, so no page move is a surprise.",
   ],
 };

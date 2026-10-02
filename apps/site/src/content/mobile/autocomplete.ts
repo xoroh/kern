@@ -19,7 +19,7 @@ export const autocomplete: ComponentDoc = {
   deviations: [
     {
       id: "K6",
-      spec: "M3's component elevation table names no autocomplete. It tabulates \"menu\" at level 2 and search at level 3; neither describes a completion list attached to a text field.",
+      spec: 'M3\'s component elevation table names no autocomplete. It tabulates "menu" at level 2 and search at level 3; neither describes a completion list attached to a text field.',
       kern: "The suggestion list rests at elevation level 2.",
       why: "The suggestions float above the page beside the field, so they need the same lift as the other anchored overlays. Borrowing a neighbouring row would assert M3 described this surface. Registered as K6 in the elevation inventory so the level is a recorded decision.",
     },

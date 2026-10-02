@@ -143,10 +143,6 @@ const elevationModule = await loadFirstModule([
   "packages/kern-tokens/src/kern-elevation.ts",
   "packages/kern-tokens/src/m3-elevation.ts",
 ]);
-const rolesModule = await loadFirstModule([
-  "packages/kern-tokens/src/kern-roles.ts",
-  "packages/kern-tokens/src/m3-roles.ts",
-]);
 
 const ELEVATION_COMPONENTS = pickExport(
   elevationModule,
@@ -163,12 +159,45 @@ const ELEVATION_LEVELS = pickExport(
   ["ELEVATION_LEVELS"],
   "elevation",
 );
-const KERN_EXTRA_ROLES = pickExport(rolesModule, ["KERN_EXTRA_ROLES"], "roles");
+/**
+ * The deviation-id registry.
+ *
+ * These ids are NOT kern-tokens artefacts — they are the K-01 deviation
+ * programme's allow-list, and the single source of truth is
+ * `.team/programs/K-01-deviations.md`. Generating from that file rather than
+ * from the two token-module constants is deliberate: the token modules carry
+ * only K2 (status roles) and K6 (elevation decisions), so reading them alone
+ * rejects valid declarations — K1 (Inter), K5 (shape), K7 (motion), K8
+ * (naming), K9 (fixed accents) and K10 (kern extensions) all FAIL against the
+ * narrow set, and the conformance section could not render half the registry.
+ *
+ * Falls back to the declared K1..K10 if the registry is unreadable, so the
+ * gate degrades to permissive rather than to wrong.
+ */
+function registeredDeviationIds() {
+  const registry = join(ROOT, ".team", "programs", "K-01-deviations.md");
+  const fallback = [
+    "K1",
+    "K2",
+    "K3",
+    "K4",
+    "K5",
+    "K6",
+    "K7",
+    "K8",
+    "K9",
+    "K10",
+  ];
+  if (!existsSync(registry)) return new Set(fallback);
+  const text = readFileSync(registry, "utf8");
+  const ids = new Set();
+  for (const row of text.matchAll(/^\|\s*(K\d+)\s*\|/gm)) ids.add(row[1]);
+  // A registry we can read but that yields nothing is a parsing failure, not
+  // an empty allow-list — that would reject every deviation silently.
+  return ids.size > 0 ? ids : new Set(fallback);
+}
 
-const REGISTERED_DEVIATION_IDS = new Set([
-  ...Object.values(KERN_EXTRA_ROLES),
-  ...Object.values(KERN_UNASSIGNED_ELEVATION),
-]);
+const REGISTERED_DEVIATION_IDS = registeredDeviationIds();
 
 // ------------------------------------------------------------- the content
 // Same discovery the site does, walked with readdirSync because this runs in
@@ -478,7 +507,7 @@ function checkNoRawValues({ file, doc }) {
     doc.features,
     ...(doc.customization?.supported ?? []),
     ...(doc.customization?.notSupported ?? []),
-    ...(doc.deviations ?? []).flatMap((d) => [d.m3, d.kern, d.why]),
+    ...(doc.deviations ?? []).flatMap((d) => [d.spec, d.kern, d.why]),
     ...(doc.aria ?? []),
   ].filter(Boolean);
 

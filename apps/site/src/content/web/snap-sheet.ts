@@ -15,6 +15,8 @@ export const snapSheet: ComponentDoc = {
     // Ships `--md-sys-elevation-level1` (modal sheet, M3 "bottom sheet (modal)"
     // at level 1). No registry row is keyed under this slug, so the claim is
     // reported as unasserted — a registry gap, not a page gap.
+    // Claimed level 1, unasserted by the elevation table — see the gap report.
+    elevationBacked: false,
     elevation: 1,
   },
   parts: ["SnapSheet"],
@@ -87,7 +89,7 @@ export const snapSheet: ComponentDoc = {
   ],
   aria: [
     "The detent control is a button carrying `aria-valuenow`, `aria-valuemin` and `aria-valuemax` — the web equivalent of the native adjustable role: the height is a VALUE the user changes, and it is announced as one.",
-    "The control's label is \"<label>, snap position\" — the sheet's name travels with the control, so it is never \"button, 2 of 3\" with no context.",
-    "Everything else inherits `SheetSurface`'s contract: `role=\"dialog\"`, `aria-modal` set by hand over the primitive, scrim and Escape to dismiss, focus returned to the trigger.",
+    'The control\'s label is "<label>, snap position" — the sheet\'s name travels with the control, so it is never "button, 2 of 3" with no context.',
+    'Everything else inherits `SheetSurface`\'s contract: `role="dialog"`, `aria-modal` set by hand over the primitive, scrim and Escape to dismiss, focus returned to the trigger.',
   ],
 };

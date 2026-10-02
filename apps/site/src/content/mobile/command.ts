@@ -45,7 +45,7 @@ export const command: ComponentDoc = {
     {
       name: "group",
       type: "string",
-      note: "Material 3's \"command group\" — a heading over the flat list, so a long list reads as sections rather than as one run of rows.",
+      note: 'Material 3\'s "command group" — a heading over the flat list, so a long list reads as sections rather than as one run of rows.',
     },
     {
       name: "keywords",

@@ -57,7 +57,7 @@ export const milestoneTrio: ComponentDoc = {
   ],
   aria: [
     "The labels are announced with their state, so where you are is SAID and not only shown by fill and dimming.",
-    "The current step is a pulsing loader — motion that means \"in progress\", which is worth having described in the label rather than left to the animation.",
+    'The current step is a pulsing loader — motion that means "in progress", which is worth having described in the label rather than left to the animation.',
     "It is a display, not a control: there is no way to jump to a step, so nothing here promises navigation it cannot provide.",
   ],
 };

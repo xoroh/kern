@@ -36,7 +36,7 @@ export const fabMenu: ComponentDoc = {
     {
       name: "icon / openIcon",
       type: "ReactNode",
-      note: "`openIcon` shows while the menu is open and defaults to `icon`. Swapping means one glyph never has to mean both \"open\" and \"close\".",
+      note: '`openIcon` shows while the menu is open and defaults to `icon`. Swapping means one glyph never has to mean both "open" and "close".',
     },
     {
       name: "actions",
@@ -62,6 +62,6 @@ export const fabMenu: ComponentDoc = {
   aria: [
     "`label` names the trigger and defaults to the first action's label — so the announced name depends on your action order unless you set it.",
     "`menuLabel` renames the trigger and, with it, the menu. Worth being deliberate about: one prop, two names changed.",
-    "`openIcon` swapping is an accessibility matter as much as a visual one — the same glyph meaning both \"open\" and \"close\" is a control that contradicts itself.",
+    '`openIcon` swapping is an accessibility matter as much as a visual one — the same glyph meaning both "open" and "close" is a control that contradicts itself.',
   ],
 };

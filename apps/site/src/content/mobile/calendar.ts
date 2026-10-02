@@ -74,7 +74,7 @@ export const calendar: ComponentDoc = {
   ],
   aria: [
     "Each day is a `button` role pressable labelled with its full date string and reporting `selected` and `disabled` — a day is named, never just numbered.",
-    "The month steppers are `button` role pressables labelled \"Previous month\" and \"Next month\" — glyph arrows that name themselves.",
+    'The month steppers are `button` role pressables labelled "Previous month" and "Next month" — glyph arrows that name themselves.',
     "The selected day is painted and announced from the same source, so the two signals cannot disagree.",
   ],
 };

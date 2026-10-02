@@ -76,7 +76,7 @@ export const timePicker: ComponentDoc = {
   ],
   aria: [
     "Each field is its own traversal axis — three tab stops, not one — because a shared axis would make the whole picker one stop and the minutes unreachable.",
-    "Each option reports `option` role with `selected` and `disabled`, labelled \"<field> <value>\" so the field context travels with the option.",
+    'Each option reports `option` role with `selected` and `disabled`, labelled "<field> <value>" so the field context travels with the option.',
     "Platform difference, recorded rather than papered over: React Native's role union carries no `listbox`, so a field announces as a LIST where web says listbox — the per-option `selected` state is what carries the selection, so the information survives even though the container's promise does not.",
   ],
 };

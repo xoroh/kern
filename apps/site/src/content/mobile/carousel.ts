@@ -91,8 +91,8 @@ export const carousel: ComponentDoc = {
   ],
   aria: [
     "The track is ONE tab stop — the roving model, shared with the web peer — and the active item is the stop inside it; each slide reports `selected` only when it is the active one.",
-    "Platform difference, recorded rather than papered over: web announces the region as a carousel via `aria-roledescription`; React Native has no roledescription concept, so the region is a labelled `group` and the announcement is \"group, <label>\".",
-    "Each dot is a `button` labelled \"<item label>, N of M\" — position is spoken, so a dot row is navigable without seeing it.",
+    'Platform difference, recorded rather than papered over: web announces the region as a carousel via `aria-roledescription`; React Native has no roledescription concept, so the region is a labelled `group` and the announcement is "group, <label>".',
+    'Each dot is a `button` labelled "<item label>, N of M" — position is spoken, so a dot row is navigable without seeing it.',
     "Each slide reports `image` role with its label; an item with no `accessibilityLabel` falls back to `value`, which is why a real label is required in practice.",
   ],
 };

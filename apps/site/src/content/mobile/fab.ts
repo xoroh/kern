@@ -49,7 +49,7 @@ export const fab: ComponentDoc = {
     },
     {
       name: "onPress",
-      type: "PressableProps[\"onPress\"]",
+      type: 'PressableProps["onPress"]',
       required: true,
       note: "The one action. A fab with no press is decoration in the wrong place.",
     },
@@ -67,7 +67,7 @@ export const fab: ComponentDoc = {
     },
     {
       name: "style",
-      type: "PressableProps[\"style\"]",
+      type: 'PressableProps["style"]',
       note: "Pressable style — function or value, merged after `fabStyles`. `fabStyles` is exported for the surface alone.",
     },
   ],
