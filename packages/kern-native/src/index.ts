@@ -311,6 +311,8 @@ export {
 } from "./components/shell";
 export type { NativeSplitProps, SPLIT_GAP } from "./components/split";
 export { Split } from "./components/split";
+export type { KernPressableProps, MIN_TOUCH_TARGET } from "./components/pressable";
+export { KernPressable } from "./components/pressable";
 export type { NativeSkeletonProps } from "./components/skeleton";
 export { Skeleton } from "./components/skeleton";
 export type { NativeSliderProps } from "./components/slider";
