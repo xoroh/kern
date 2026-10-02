@@ -170,9 +170,9 @@ function scanDir(dir, native) {
       const inherited = inheritedLevels(code, dir, fileImports);
       const where = {
         levels: [],
-        unresolvedDp: [],
         inheritedLevels: inherited.levels,
         inheritedFrom: inherited.from,
+        unresolvedDp: [...new Set([...unresolved, ...inherited.unresolved])],
         file: file,
         line: line(Math.max(idx, 0)),
         native,
@@ -189,9 +189,9 @@ function scanDir(dir, native) {
       }
       out.set(name, {
         levels: [...levels].sort((a, b) => a - b),
-        unresolvedDp: unresolved,
         inheritedLevels: inherited.levels,
         inheritedFrom: inherited.from,
+        unresolvedDp: [...new Set([...unresolved, ...inherited.unresolved])],
         file: file,
         line: line(Math.max(idx, 0)),
         native,
@@ -265,10 +265,11 @@ function inheritedLevels(block, dir, fileImports) {
   for (const m of block.matchAll(/\b([a-z][A-Za-z0-9]*Styles)\s*\(/g)) {
     helpers.add(m[1]);
   }
-  if (!helpers.size) return { levels: [], from: null };
+  if (!helpers.size) return { levels: [], from: null, unresolved: [] };
 
   const specs = fileImports.filter((s) => s.startsWith("."));
   const levels = new Set();
+  const unresolvedInherited = [];
   let citation = null;
   for (const spec of specs) {
     let file = resolve(dir, spec);
@@ -298,19 +299,33 @@ function inheritedLevels(block, dir, fileImports) {
       for (const m of hm[1].matchAll(
         /(?<![\w-])elevation:\s*(\d+(?:\.\d+)?)/g,
       )) {
-        const lvl = levelFromDp(Number(m[1]));
-        if (lvl !== null) {
-          levels.add(lvl);
-          if (!citation) {
-            citation = `${helper}@${file.split("/").pop()}:${
-              helperSrc.slice(0, hm.index).split("\n").length
-            }`;
-          }
+        const dp = Number(m[1]);
+        const lvl = levelFromDp(dp);
+        // An OFF-SCALE value must be recorded as unresolved, not dropped. It
+        // previously vanished here: `levelFromDp` returned null, the value was
+        // never added to anything, and the 1c off-scale loop — which reads
+        // `unresolvedDp` — had nothing to fail on. A helper setting
+        // `elevation: 5` therefore passed the gate with EXIT 0. Inherited values
+        // get the same treatment as declared ones, or the check is only half a
+        // check.
+        if (lvl === null) {
+          unresolvedInherited.push(`${dp}dp`);
+          continue;
+        }
+        levels.add(lvl);
+        if (!citation) {
+          citation = `${helper}@${file.split("/").pop()}:${
+            helperSrc.slice(0, hm.index).split("\n").length
+          }`;
         }
       }
     }
   }
-  return { levels: [...levels].sort((a, b) => a - b), from: citation };
+  return {
+    levels: [...levels].sort((a, b) => a - b),
+    from: citation,
+    unresolved: unresolvedInherited,
+  };
 }
 
 const web = scanDir(WEB, false);
