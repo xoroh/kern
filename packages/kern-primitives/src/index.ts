@@ -38,6 +38,15 @@
  */
 
 export {
+  createCollectionModel,
+  type CollectionItem,
+  type CollectionModel,
+  type CollectionNode,
+  type CollectionOptions,
+  type CollectionOrientation,
+  useCollection,
+} from "./collection";
+export {
   createRovingModel,
   type RovingItem,
   type RovingModel,
