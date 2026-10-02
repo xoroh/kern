@@ -483,6 +483,31 @@ violations.push(
   };
   collect(join(ROOT, "packages"));
 
+  // Every test file that lives under a `src/parity/` directory. Derived from
+  // the DIRECTORY, not the filename — see the pending-tier check below.
+  const paritySuites = new Set();
+  const collectParity = (dir, depth = 0) => {
+    if (depth > 6) return;
+    let entries;
+    try {
+      entries = readdirSync(dir, { withFileTypes: true });
+    } catch {
+      return;
+    }
+    for (const e of entries) {
+      if (e.name === "node_modules" || e.name === "dist") continue;
+      const full = join(dir, e.name);
+      if (e.isDirectory()) collectParity(full, depth + 1);
+      else if (
+        /\.(test|rntest)\.tsx?$/.test(e.name) &&
+        dir.includes("parity")
+      ) {
+        paritySuites.add(e.name);
+      }
+    }
+  };
+  collectParity(join(ROOT, "packages"));
+
   const contractRows = readFileSync(CONTRACT_TS, "utf8");
   const rowBlocks = contractRows
     .split(/\n\s{2}\{\n/)
@@ -550,10 +575,12 @@ violations.push(
           uncoveredRows.push(`${where}: ${suite}`);
           continue;
         }
-        // Component-level suites (not under src/parity) prove the behaviour on
-        // each side, but no suite CONSUMES this row — so P2b-4's cross-renderer
-        // requirement is unmet for it. Recorded separately from a real gap.
-        if (!suite.includes("parity")) {
+        // Cross-renderer means the suite lives in a `src/parity/` DIRECTORY, not
+        // that its FILENAME happens to contain "parity". The filename heuristic
+        // was wrong: `carousel.rntest.tsx` is a parity suite despite the name,
+        // and mislabelling it printed rows as pending after they were genuinely
+        // covered. A naming convention is not a property.
+        if (!paritySuites.has(suite)) {
           const suites = componentOnly.get(where) ?? [];
           suites.push(suite);
           componentOnly.set(where, suites);
@@ -649,11 +676,14 @@ violations.push(
   };
 
   // Reuses the SAME concept sets the counts above are printed from, so the
-    // gate cannot claim reachability for a component the counts do not have.
-    const webConceptsClaimed = webConcepts;
-    const nativeConceptsClaimed = nativeConcepts;
-    const platformNames = { web: webConceptsClaimed, native: nativeConceptsClaimed };
-    const reachabilityProblems = [];
+  // gate cannot claim reachability for a component the counts do not have.
+  const webConceptsClaimed = webConcepts;
+  const nativeConceptsClaimed = nativeConcepts;
+  const platformNames = {
+    web: webConceptsClaimed,
+    native: nativeConceptsClaimed,
+  };
+  const reachabilityProblems = [];
   const unverifiable = [];
 
   /**
@@ -737,7 +767,8 @@ violations.push(
     console.log(`  reachability  UNVERIFIABLE (${unverifiable.length}):`);
     for (const u of unverifiable) console.log(`      ${u}`);
   }
-}if (violations.length > 0) {
+}
+if (violations.length > 0) {
   console.error(`\ncheck:parity FAILED — ${violations.length} violation(s):`);
   for (const v of violations) console.error(`  - ${v}`);
   process.exit(1);
