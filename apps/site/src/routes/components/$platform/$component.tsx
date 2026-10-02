@@ -19,7 +19,7 @@ import {
 import { SiteLayout } from "../../../components/chrome/site-layout";
 import { ComponentPage as ComponentDocPage } from "../../../components/docs/component-page";
 import { docForExport } from "../../../content";
-import { getComponent } from "../../../generated/manifest";
+import { componentsOn, getComponent } from "../../../generated/manifest";
 
 export const Route = createFileRoute("/components/$platform/$component")({
   // The manifest is checked here, before rendering starts. Throwing from the
@@ -106,6 +106,24 @@ function ComponentBody() {
   // as a whole, and every part of the family is documented there.
   const doc = docForExport(entry.platform, entry.export);
 
+  // m4 — prev/next come from the manifest's sibling order for this platform,
+  // and each carries the target page's TITLE alongside its href. They travel
+  // together so the link can name the page it goes to; a bare href renders
+  // "Previous"/"Next" and the reader has no idea what they are walking into.
+  const siblings = componentsOn(entry.platform);
+  const index = siblings.findIndex((c) => c.slug === entry.slug);
+  const labelFor = (e: (typeof siblings)[number]) =>
+    docForExport(e.platform, e.export)?.name ?? e.export;
+  const prevEntry = index > 0 ? siblings[index - 1] : undefined;
+  const nextEntry =
+    index >= 0 && index < siblings.length - 1 ? siblings[index + 1] : undefined;
+  const prev = prevEntry
+    ? { href: `/components/${prevEntry.slug}`, title: labelFor(prevEntry) }
+    : undefined;
+  const next = nextEntry
+    ? { href: `/components/${nextEntry.slug}`, title: labelFor(nextEntry) }
+    : undefined;
+
   return (
     <SiteLayout>
       <section className="px-4 py-4 sm:px-6 sm:py-6">
@@ -121,7 +139,12 @@ function ComponentBody() {
           </nav>
 
           {doc ? (
-            <ComponentDocPage doc={doc} platform={entry.platform} />
+            <ComponentDocPage
+              doc={doc}
+              platform={entry.platform}
+              prev={prev}
+              next={next}
+            />
           ) : (
             <Undocumented entry={entry} pkg={pkg} />
           )}

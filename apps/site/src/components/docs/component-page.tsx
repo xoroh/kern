@@ -908,8 +908,9 @@ function Footer({
 }: {
   doc: ComponentDoc;
   platform: Platform;
-  prev?: string;
-  next?: string;
+  /** m4 — href AND title travel together so the link names the page it goes to. */
+  prev?: { href: string; title: string };
+  next?: { href: string; title: string };
 }) {
   return (
     <footer className="flex flex-col gap-4 border-t border-(--md-sys-color-outline-variant) pt-6">
@@ -920,9 +921,9 @@ function Footer({
         {prev ? (
           <a
             className={`${CARD} flex-1 p-4 ${SMALL} ${INK} no-underline`}
-            href={prev}
+            href={prev.href}
           >
-            ← Previous
+            ← {prev.title}
           </a>
         ) : (
           <span className="flex-1" />
@@ -930,9 +931,9 @@ function Footer({
         {next ? (
           <a
             className={`${CARD} flex-1 p-4 text-right ${SMALL} ${INK} no-underline`}
-            href={next}
+            href={next.href}
           >
-            Next →
+            {next.title} →
           </a>
         ) : (
           <span className="flex-1" />
@@ -995,8 +996,8 @@ export function ComponentPage({
 }: {
   doc: ComponentDoc;
   platform: Platform;
-  prev?: string;
-  next?: string;
+  prev?: { href: string; title: string };
+  next?: { href: string; title: string };
 }) {
   return (
     <article className="flex flex-col gap-10">
