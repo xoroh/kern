@@ -22,8 +22,13 @@
  * Not free text. A number is an M3 level (0-5); `"surface"` is for components
  * that carry no elevation token at all. The validator asserts this against the
  * token module, so a page cannot claim a level the system does not ship.
+ *
+ * `"none"` is for exports with NO visual form — pure functions and hooks. It is
+ * not "conformant without a token" and not a gap: elevation is simply not
+ * applicable to something that renders nothing. Kept distinct so a reader is
+ * never told a function has a resting level.
  */
-export type RestingElevation = number | "surface";
+export type RestingElevation = number | "surface" | "none";
 
 /** Where the component is exported from. Mirrors the parity contract's table. */
 export type PackageName =

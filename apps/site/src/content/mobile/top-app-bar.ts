@@ -26,7 +26,7 @@ export const topAppBar: ComponentDoc = {
     },
     {
       name: "TopAppBarAction",
-      role: "A 48dp icon action for the leading or trailing slot. Its `label` is required — it is the action's name, not optional decoration.",
+      role: "An icon action sized to Material 3's minimum touch target. Its `label` is required — it is the action's name, not optional decoration.",
     },
   ],
   customization: {
@@ -56,12 +56,12 @@ export const topAppBar: ComponentDoc = {
     {
       name: "leading",
       type: "ReactNode",
-      note: "The left slot — a menu or back affordance. It must be a 48dp touch target, never a bare glyph.",
+      note: "The left slot — a menu or back affordance. It must be a full touch target per Material 3, never a bare glyph.",
     },
     {
       name: "trailing",
       type: "ReactNode",
-      note: "The right-aligned overflow actions. `TopAppBarAction` is the 48dp control made for this slot.",
+      note: "The right-aligned overflow actions. `TopAppBarAction` is the touch-target-sized control made for this slot.",
     },
     {
       name: "supporting",
@@ -87,7 +87,7 @@ export const topAppBar: ComponentDoc = {
   aria: [
     "The bar is the screen's header, so its title is what a screen reader announces as the screen's name.",
     "`TopAppBarAction` requires a `label`, which becomes the action's accessible name — the same trap as an icon-only button on web, and closed the same way.",
-    "The leading slot is a 48dp touch target rather than a bare glyph, so the back or menu affordance is reachable by thumb.",
+    "The leading slot is a full touch target rather than a bare glyph, so the back or menu affordance is reachable by thumb.",
     "This is the native renderer's surface: `style` is a React Native `ViewStyle`, not a web `className`.",
   ],
 };

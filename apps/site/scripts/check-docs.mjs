@@ -60,6 +60,9 @@ const conformantNoToken = [];
  */
 const noElevationConcept = [];
 
+/** Non-rendering exports: pure functions and hooks, where elevation is not applicable. */
+const noVisualForm = [];
+
 function fail(msg) {
   errors.push(msg);
 }
@@ -279,10 +282,35 @@ function checkElevation({ file, doc }) {
   const level = doc.meta?.elevation;
   const slug = doc.slug;
 
+  if (level === "none") {
+    // Non-rendering export — a pure function or a hook. Elevation is not
+    // applicable, and this must not be conflated with "conformant without a
+    // token" (a component with no elevation token) or with a gap (a page
+    // claiming a level nothing backs). Reported on its own line so the
+    // distinction survives into the summary.
+    //
+    // GUARD: `none` must not become a way for a real component to dodge its
+    // elevation row. React components are PascalCase by convention; pure
+    // functions and hooks are not. So a page claiming `none` while owning a
+    // PascalCase export is rejected. Mutation-tested: setting `drawer`'s
+    // elevation to "none" used to pass silently and now fails.
+    const rendered = (doc.parts ?? []).filter((part) => /^[A-Z]/.test(part));
+    if (rendered.length > 0) {
+      fail(
+        at(
+          `elevation "none" is for non-rendering exports, but ${rendered.join(", ")} is PascalCase — a component must declare a real level`,
+        ),
+      );
+      return;
+    }
+    noVisualForm.push(file);
+    return;
+  }
+
   if (level !== "surface" && !ELEVATION_LEVELS.includes(level)) {
     fail(
       at(
-        `elevation ${JSON.stringify(level)} is not an M3 level (0-5) or "surface"`,
+        `elevation ${JSON.stringify(level)} is not an M3 level (0-5), "surface" or "none"`,
       ),
     );
     return;
@@ -389,10 +417,10 @@ function checkDeviations({ file, doc }) {
         ),
       );
     }
-    if (!d.m3 || !d.kern || !d.why) {
+    if (!d.spec || !d.kern || !d.why) {
       fail(
         at(
-          `deviation ${d.id} must state what M3 specifies, what kern does, and why`,
+          `deviation ${d.id} must state what the spec specifies, what kern does, and why`,
         ),
       );
     }
@@ -600,6 +628,12 @@ if (noElevationConcept.length > 0) {
     `\ncheck-docs: ${noElevationConcept.length} with no elevation asserted — no token on the component and no row in m3-elevation.ts:`,
   );
   for (const n of noElevationConcept) console.log(`  ok   ${n}`);
+}
+if (noVisualForm.length > 0) {
+  console.log(
+    `\ncheck-docs: ${noVisualForm.length} non-rendering export(s) — pure functions and hooks, elevation not applicable:`,
+  );
+  for (const n of noVisualForm) console.log(`  ok   ${n}`);
 }
 if (gaps.length > 0) {
   console.log(`\ncheck-docs: ${gaps.length} gap(s) — reported, not failing:`);

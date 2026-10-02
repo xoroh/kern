@@ -15,7 +15,7 @@ export const sheet: ComponentDoc = {
     // composed of parts; this one is a single panel).
     nativePeer: "Sheet",
     variants: [],
-    elevation: "surface",
+    elevation: 0,
   },
   parts: ["Sheet"],
   customization: {
