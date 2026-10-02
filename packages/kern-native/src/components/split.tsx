@@ -66,7 +66,11 @@ export function Split({
           // `flex: 1` with `minWidth: 0` is the native equivalent of web's
           // `minmax(0, 1fr)`: equal share, but a long child may still shrink
           // below its content instead of pushing a sibling off screen.
-          style={{ flex: 1, minWidth: 0, backgroundColor: scheme.color.surface }}
+          style={{
+            flex: 1,
+            minWidth: 0,
+            backgroundColor: scheme.color.surface,
+          }}
         >
           {child}
         </View>
