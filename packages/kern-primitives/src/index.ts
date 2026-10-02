@@ -38,14 +38,27 @@
  */
 
 export {
-  createCollectionModel,
   type CollectionItem,
   type CollectionModel,
   type CollectionNode,
   type CollectionOptions,
   type CollectionOrientation,
+  createCollectionModel,
   useCollection,
 } from "./collection";
+export {
+  createDismissPolicy,
+  type DismissPolicy,
+  type DismissPolicyOptions,
+  type DismissTriggers,
+  dismissTriggersFor,
+} from "./dismissPolicy";
+export {
+  assignRef,
+  mergeRefs,
+  type PossibleRef,
+  useMergeRefs,
+} from "./mergeRefs";
 export {
   createRovingModel,
   type RovingItem,
@@ -71,9 +84,3 @@ export {
   toTwentyFourHour,
 } from "./time";
 export { type StateAction, useControllableState } from "./useControllableState";
-export {
-  assignRef,
-  mergeRefs,
-  type PossibleRef,
-  useMergeRefs,
-} from "./mergeRefs";
