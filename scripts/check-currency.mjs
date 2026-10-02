@@ -105,18 +105,14 @@ function collectClaims(dir, out = [], depth = 0) {
     }
     // Only annotations that actually exist are claims. A bare `spec:` field is
     // NOT a currency claim — that is the pre-F8 state of the whole repo.
-    for (const m of text.matchAll(
-      /currency\s*[:=]\s*["'`]([A-Z0-9][A-Z0-9-]*)["'`]/g,
-    )) {
+    for (const m of text.matchAll(/currency\s*[:=]\s*["'`]([^"'`]*)["'`]/g)) {
       out.push({ file: full, kind: "currency", id: m[1] });
     }
-    for (const m of text.matchAll(
-      /value\s*[:=]\s*["'`]([A-Z0-9][A-Z0-9-]*)["'`]/g,
-    )) {
+    for (const m of text.matchAll(/value\s*[:=]\s*["'`]([^"'`]*)["'`]/g)) {
       out.push({ kind: "value", id: m[1] });
     }
     for (const m of text.matchAll(
-      /superseded[-_]?[Bb]y\s*[:=]\s*["'`]([A-Z0-9][A-Z0-9-]*)["'`]/g,
+      /superseded[-_]?[Bb]y\s*[:=]\s*["'`]([^"'`]*)["'`]/g,
     )) {
       out.push({ kind: "supersededBy", id: m[1] });
     }
@@ -150,6 +146,26 @@ for (const c of currencyClaims) {
   if (entry.class !== "spec") {
     violations.push(
       `inadmissible currency source: "${c.id}" (${entry.family}) — a currency claim must cite a governing spec page, never an implementation or an archived export`,
+    );
+  }
+}
+
+// --- the raw string is collected; its SHAPE is validated here ----------------
+// The extractors above accept ANY string, because a value that is not an
+// `[A-Z0-9][A-Z0-9-]*` id used to match NOTHING and was therefore silently
+// absent rather than rejected -- the row disappeared and the summary reported a
+// smaller count as if nothing were wrong. A free-text URL is exactly the thing
+// `superseded-by` exists to forbid, so it must FAIL, not vanish.
+const LEDGER_ID = /^[A-Z0-9][A-Z0-9-]*$/;
+for (const c of claims) {
+  if (c.id === "") {
+    violations.push(
+      `empty ${c.kind} claim: an empty value resolves to nothing, so the claim is a placeholder rather than a citation`,
+    );
+  } else if (!LEDGER_ID.test(c.id)) {
+    violations.push(
+      `${c.kind === "supersededBy" ? "superseded-by" : c.kind} "${c.id}" is not a ledger id ` +
+        "(URLs and free text are inadmissible — the replacement must resolve to something the ledger knows)",
     );
   }
 }
