@@ -158,7 +158,14 @@ describe("useSelection", () => {
   it("reports the normalised array to onChange, not the raw value", () => {
     const onChange = vi.fn();
     const { result } = renderHook(() =>
-      useSelection({ defaultValue: "a", mode: "single", onChange }),
+      // Explicit `<string>`: without it the key type infers as the literal "a"
+      // from `defaultValue`, and selecting "b" is a type error — which it was,
+      // in this file, until now.
+      useSelection<string>({
+        defaultValue: "a",
+        mode: "single",
+        onChange,
+      }),
     );
     act(() => result.current[1]("b"));
     expect(onChange).toHaveBeenCalledWith(["b"]);

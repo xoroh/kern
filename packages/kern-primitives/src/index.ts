@@ -38,6 +38,14 @@
  */
 
 export {
+  createRovingModel,
+  type RovingItem,
+  type RovingModel,
+  type RovingOptions,
+  type RovingOrientation,
+  useRovingModel,
+} from "./roving";
+export {
   isSelected,
   normalizeSelection,
   type Selection,
