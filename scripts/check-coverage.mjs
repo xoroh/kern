@@ -67,13 +67,32 @@ if (!existsSync(COMPONENTS)) {
 }
 
 const files = readdirSync(COMPONENTS);
-const isTest = (f) => f.includes(".test.");
-const componentFiles = files.filter(
-  (f) => f.endsWith(".tsx") && !isTest(f),
-);
-const testFiles = files.filter((f) => f.endsWith(".test.tsx"));
+/**
+ * Modules in this directory that are not components, each with its reason.
+ * An exclusion list is only honest if it says WHY — otherwise it is a place to
+ * hide a component nobody wrote a test for.
+ */
+const NOT_A_COMPONENT = new Map([
+  ["index", "the barrel itself"],
+  [
+    "menu-classes",
+    "shared class-name strings for the menu family, not a component",
+  ],
+]);
 
-const moduleNames = new Set(componentFiles.map((f) => f.replace(/\.tsx$/, "")));
+const isTest = (f) => f.includes(".test.");
+// `.ts` as well as `.tsx`: `app-ready` is a non-JSX component, and a gate that
+// only collects `.tsx` silently treats it as absent rather than uncovered. That
+// is the worst failure mode for a coverage gate — reporting a clean pass over a
+// component it never looked at.
+const isComponent = (f) => /\.tsx?$/.test(f) && !isTest(f);
+const componentFiles = files.filter(isComponent);
+const testFiles = files.filter((f) => /\.test\.tsx?$/.test(f));
+
+const stripExt = (f) => f.replace(/\.tsx?$/, "");
+const moduleNames = new Set(
+  componentFiles.map(stripExt).filter((m) => !NOT_A_COMPONENT.has(m)),
+);
 
 // The barrel is the public surface: a module nobody re-exports is not reachable
 // by a consumer, so it is not what this gate should be measuring. Read the
@@ -101,14 +120,17 @@ const unexported = [...moduleNames].filter((m) => !exported.has(m)).sort();
 if (unexported.length) {
   fail(
     `${unexported.length} component file(s) exist but are not exported from the barrel`,
-    unexported.map((m) => `${m}.tsx`),
+    unexported.map((m) => `${m} (no reason given in NOT_A_COMPONENT)`),
   );
 }
 
 if (uncovered.length) {
   fail(
     `${uncovered.length} exported component(s) are not exercised by any test`,
-    uncovered.map((m) => `${m}  (packages/kern/src/components/${m}.tsx)`),
+    uncovered.map((m) => {
+      const f = componentFiles.find((c) => stripExt(c) === m);
+      return `${m}  (packages/kern/src/components/${f})`;
+    }),
   );
 }
 

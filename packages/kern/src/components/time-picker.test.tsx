@@ -25,7 +25,7 @@ function field(name: string): HTMLElement {
   return screen.getByRole("listbox", { name: new RegExp(`^${name}`, "i") });
 }
 
-function optionsIn(fieldName: string, name: RegExp) {
+function optionsIn(fieldName: string, name: string | RegExp) {
   return within(field(fieldName)).getByRole("option", { name });
 }
 
