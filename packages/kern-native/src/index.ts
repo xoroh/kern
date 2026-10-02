@@ -36,6 +36,15 @@ export { Card } from "./components/card";
 export type { NativeCheckboxProps } from "./components/checkbox";
 export { Checkbox } from "./components/checkbox";
 export type {
+  CheckboxGroupItemProps,
+  CheckboxGroupProps,
+} from "./components/checkbox-group";
+export {
+  CheckboxGroup,
+  CheckboxGroupItem,
+  checkboxGroupStyles,
+} from "./components/checkbox-group";
+export type {
   ActionChipProps,
   ChipProps,
   ChipVariant,
