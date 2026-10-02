@@ -19,6 +19,13 @@ const config = defineConfig({
     tsconfigPaths: true,
     alias: reactNativeAlias,
   },
+  // @cloudflare/unenv-preset is bun-nested (node_modules/.bun/...) and cannot be
+  // resolved by vite's SSR dep-optimizer to pre-bundle, which fails with a
+  // missing optimized file. Excluded so it's not pre-bundled (it's an SSR/node
+  // compatibility shim the cloudflare plugin loads directly).
+  optimizeDeps: {
+    exclude: ["@cloudflare/unenv-preset"],
+  },
   plugins: [
     cloudflare({ viteEnvironment: { name: "ssr" } }),
 
