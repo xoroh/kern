@@ -33,7 +33,17 @@ export function fabStyles(
     borderRadius: Number.parseFloat(scheme.shape.large),
     paddingHorizontal: size === "icon" ? 0 : 20,
     backgroundColor: scheme.color.primaryContainer,
-    elevation: 3,
+    // 6dp = M3 LEVEL 3, the level the registry declares for `fab`/
+    // `extended-fab` (`variants: [3]`) and the level web binds via
+    // `--md-sys-elevation-level3`.
+    //
+    // This was `3`, and `3` is dp, not a level: M3's scale is unevenly spaced
+    // (0/1/3/6/8/12 dp), so `elevation: 3` is 3dp = LEVEL 2 — one step below
+    // web. `check:elevation-parity` caught it only once it resolved this
+    // helper instead of skipping it: `ExtendedFab` and `FabMenu` render through
+    // `fabStyles`, so while the scanner ignored `*Styles` helpers both read
+    // "native none" and the whole FAB family sat one level low unseen.
+    elevation: 6,
     shadowColor: scheme.color.scrim,
     shadowOpacity: 0.3,
     shadowRadius: 2,

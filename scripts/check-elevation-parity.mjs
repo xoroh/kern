@@ -42,7 +42,7 @@
  * Usage: `bun run check:elevation-parity`
  */
 import { existsSync, readdirSync, readFileSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -121,6 +121,9 @@ function scanDir(dir, native) {
     if (!/\.tsx?$/.test(file) || file.includes(".test.")) continue;
     const full = join(dir, file);
     const src = readFileSync(full, "utf8");
+    // Module-scope, read once per file: `inheritedLevels` needs the FILE's
+    // imports, because they sit above the first component block.
+    const fileImports = importSpecifiers(stripComments(src));
     const line = (idx) => src.slice(0, idx).split("\n").length;
     // Split on ANY top-level function declaration, exported or not: a file
     // may hold a non-exported internal component between exports, and splitting
@@ -159,9 +162,17 @@ function scanDir(dir, native) {
         else levels.add(lvl);
       }
       const idx = src.indexOf(block);
+      // Elevation this component INHERITS from a local style helper it composes.
+      // Recorded separately from `levels` (what the body declares) so the output
+      // can say which is which — "inherited from fabStyles" and "declares none"
+      // are different facts, and printing the second when the first is true is
+      // what sent two conformant components to a design ruling.
+      const inherited = inheritedLevels(code, dir, fileImports);
       const where = {
         levels: [],
         unresolvedDp: [],
+        inheritedLevels: inherited.levels,
+        inheritedFrom: inherited.from,
         file: file,
         line: line(Math.max(idx, 0)),
         native,
@@ -179,6 +190,8 @@ function scanDir(dir, native) {
       out.set(name, {
         levels: [...levels].sort((a, b) => a - b),
         unresolvedDp: unresolved,
+        inheritedLevels: inherited.levels,
+        inheritedFrom: inherited.from,
         file: file,
         line: line(Math.max(idx, 0)),
         native,
@@ -192,15 +205,131 @@ function scanDir(dir, native) {
  * Names do NOT match across renderers: web exports `DrawerContent` / `SnackbarRoot`
  * where native exports `Drawer` / `Snackbar`. Exact-name intersection is EMPTY —
  * a per-name gate would compare nothing while reporting success. So names are
- * normalised by stripping the part-suffixes both renderers use, and pure style
- * helpers (`fabStyles`) are skipped: they are not components.
+ * normalised by stripping the part-suffixes both renderers use.
+ *
+ * Style helpers (`fabStyles`) are not components, so they are not COMPARED as
+ * components — but they are RESOLVED, because a component that renders
+ * `style={fabStyles(...)}` HAS an elevation even though its own body declares
+ * none. Skipping them outright is what made `ExtendedFab` and `FabMenu` read as
+ * `native none`. Same rule the rest of the repo follows: `check:primitives` and
+ * `check:contrast` both resolve a transitive closure for exactly this reason.
+ *
+ * WHAT RESOLUTION FOUND. Both components were measured correctly once the
+ * helper was followed — and they are NOT conformant, which is the opposite of
+ * what the re-opened rows claimed. `fabStyles` sets `elevation: 3`, and on M3's
+ * uneven scale (0/1/3/6/8/12 dp) 3dp is LEVEL 2, while web's FAB, ExtendedFab
+ * and FabMenu all ship `--md-sys-elevation-level3` = 6dp. So the whole FAB
+ * family is one level low natively — a genuine cross-renderer divergence that
+ * the `native none` reading had been hiding in plain sight.
  */
 const SUFFIX = /(?:Content|Root|Popup|Surface|Styles)$/;
 const canon = (n) => n.replace(SUFFIX, "") || n;
 const isStyleHelper = (n) => /Styles$/.test(n);
 
+/** Every import specifier in a file. Mirrors `check-primitives`. */
+function importSpecifiers(code) {
+  const out = [];
+  const patterns = [
+    /\bfrom\s+["']([^"']+)["']/g,
+    /\bimport\s+["']([^"']+)["']/g,
+    /\brequire\(\s*["']([^"']+)["']\s*\)/g,
+  ];
+  for (const re of patterns) {
+    for (const m of code.matchAll(re)) out.push(m[1]);
+  }
+  return out;
+}
+
+/**
+ * Elevation a component INHERITS, by following its local imports to the helpers
+ * it composes.
+ *
+ * `fileImports` is passed from the WHOLE FILE, not the block: ES module imports
+ * live in the file header, above the first component, so a block-scoped read
+ * finds no relative specifiers at all and silently resolves nothing. That is
+ * what made ExtendedFab read `native none` on the first attempt — the block
+ * genuinely had `fabStyles(` and genuinely had no `from "./fab"`, because the
+ * import is forty lines above it.
+ *
+ * Scoped to RELATIVE imports only, and to the renderer's own component
+ * directory. That is deliberate: a token import (`kern-tokens`) would make every
+ * component "inherit" the whole elevation scale and the comparison would become
+ * meaningless. Only same-renderer helper code can plausibly hand a component its
+ * resting elevation.
+ *
+ * @returns {{levels:number[], from:string|null}} the levels inherited, and the
+ * `helper@file:line` citation they came from.
+ */
+function inheritedLevels(block, dir, fileImports) {
+  const helpers = new Set();
+  for (const m of block.matchAll(/\b([a-z][A-Za-z0-9]*Styles)\s*\(/g)) {
+    helpers.add(m[1]);
+  }
+  if (!helpers.size) return { levels: [], from: null };
+
+  const specs = fileImports.filter((s) => s.startsWith("."));
+  const levels = new Set();
+  let citation = null;
+  for (const spec of specs) {
+    let file = resolve(dir, spec);
+    for (const ext of ["", ".ts", ".tsx"]) {
+      const candidate = `${file}${ext}`;
+      if (existsSync(candidate)) {
+        file = candidate;
+        break;
+      }
+      const index = join(file, `index${ext}`);
+      if (existsSync(index)) {
+        file = index;
+        break;
+      }
+    }
+    if (!existsSync(file)) continue;
+    const helperSrc = stripComments(readFileSync(file, "utf8"));
+    for (const helper of helpers) {
+      // Only credit a helper the file actually exports, and only the levels
+      // inside that helper's own body — otherwise every helper in the file
+      // would donate every level it mentions.
+      const re = new RegExp(
+        `(?:export\\s+)?function\\s+${helper}\\s*\\([^)]*\\)[^{]*\\{([\\s\\S]*?)\\n\\}`,
+      );
+      const hm = helperSrc.match(re);
+      if (!hm) continue;
+      for (const m of hm[1].matchAll(
+        /(?<![\w-])elevation:\s*(\d+(?:\.\d+)?)/g,
+      )) {
+        const lvl = levelFromDp(Number(m[1]));
+        if (lvl !== null) {
+          levels.add(lvl);
+          if (!citation) {
+            citation = `${helper}@${file.split("/").pop()}:${
+              helperSrc.slice(0, hm.index).split("\n").length
+            }`;
+          }
+        }
+      }
+    }
+  }
+  return { levels: [...levels].sort((a, b) => a - b), from: citation };
+}
+
 const web = scanDir(WEB, false);
 const native = scanDir(NATIVE, true);
+
+// `levels` is what a component's OWN body declares; `inheritedLevels` is what it
+// gets from a helper it composes. Every consumer needs the union — the union is
+// the component's actual resting elevation. Reading `.levels` alone is what kept
+// ExtendedFab/FabMenu reported as `native none` after inheritance was being
+// computed correctly: the number was right and nothing was reading it.
+//
+// Kept as ONE accessor so the next reader cannot repeat the mistake, and so
+// "declared" vs "inherited" stays visible in the output rather than being
+// flattened into a single number that hides where the value came from.
+const effective = (x) => [
+  ...new Set([...x.levels, ...(x.inheritedLevels ?? [])]),
+];
+/** True when the component has a resting elevation from EITHER source. */
+const hasElevation = (x) => effective(x).length > 0;
 
 // Canonicalisation COLLAPSES a component's parts onto one name — `PopoverRoot`,
 // `PopoverContent` and the `Popover` namespace object all reduce to `Popover`.
@@ -223,13 +352,27 @@ function byCanon(map) {
       out.set(key, { ...v });
       continue;
     }
-    const levels = [...new Set([...prev.levels, ...v.levels])].sort(
-      (a, b) => a - b,
-    );
+    const levels = [
+      ...new Set([
+        ...prev.levels,
+        ...v.levels,
+        ...prev.inheritedLevels,
+        ...v.inheritedLevels,
+      ]),
+    ].sort((a, b) => a - b);
     const primary = prev.levels.length ? prev : v.levels.length ? v : prev;
+    const inheritedFrom =
+      prev.inheritedFrom ??
+      v.inheritedFrom ??
+      (prev.levels.length ? prev.inheritedFrom : v.inheritedFrom) ??
+      null;
     out.set(key, {
       levels,
       unresolvedDp: [...new Set([...prev.unresolvedDp, ...v.unresolvedDp])],
+      inheritedLevels: [
+        ...new Set([...prev.inheritedLevels, ...v.inheritedLevels]),
+      ].sort((a, b) => a - b),
+      inheritedFrom,
       file: primary.file,
       line: primary.line,
       native: primary.native,
@@ -304,20 +447,20 @@ for (const m of elevSrc.matchAll(/^\s{2}"?([a-z0-9-]+)"?:\s*"([^"]+)",$/gm)) {
 const shared = bothPresent.filter((c) => {
   const w = webByCanon.get(c);
   const n = nativeByCanon.get(c);
-  return w.levels.length > 0 && n.levels.length > 0;
+  return hasElevation(w) && hasElevation(n);
 });
 let compared = 0;
 for (const name of shared) {
   const w = webByCanon.get(name);
   const n = nativeByCanon.get(name);
-  for (const wl of w.levels) {
-    if (!n.levels.includes(wl)) {
+  for (const wl of effective(w)) {
+    if (!effective(n).includes(wl)) {
       violations.push(
         `${name}: web ships level ${wl} but kern-native resolves to ` +
-          `[${n.levels.join(",") || "nothing"}] — the same component cannot sit ` +
+          `[${effective(n).join(",") || "nothing"}] — the same component cannot sit ` +
           `at two heights on two renderers.\n` +
           `      web:    ${w.file}:${w.line} (level ${wl})\n` +
-          `      native: ${n.file}:${n.line} (${n.levels.join(",") || "no elevation"})`,
+          `      native: ${n.file}:${n.line} (${effective(n).join(",") || "no elevation"})`,
       );
     } else {
       compared++;
@@ -343,7 +486,7 @@ for (const name of shared) {
 const oneSided = bothPresent.filter((c) => {
   const w = webByCanon.get(c);
   const n = nativeByCanon.get(c);
-  return w.levels.length > 0 !== n.levels.length > 0;
+  return hasElevation(w) !== hasElevation(n);
 });
 
 // --- 1c. off-scale native dp is a HARD failure, one-sided or not -------------
@@ -374,7 +517,7 @@ for (const block of elevSrc.matchAll(
 for (const [name, variants] of Object.entries(declared)) {
   const w = web.get(name);
   if (!w) continue;
-  for (const lvl of w.levels) {
+  for (const lvl of effective(w)) {
     if (!variants.includes(lvl)) {
       violations.push(
         `${name}: web ships level ${lvl}, which is NOT one of its declared ` +
@@ -413,17 +556,18 @@ const RULING = join(
 );
 const DISPOSITIONS = new Set(["both-renderers", "web-only", "native-only"]);
 
-// The 2 rows the reconciliation RE-OPENED. review-m3's ruling covers all 19, so
-// the file alone would wire 19 — and 2 of those are wrong. This list is the
-// reconciliation's veto, held in code where the next reader will find it rather
-// than in a report they may not open.
+// Rows held OUT of the ruling table. review-m3's file covers 19; a name listed
+// here is not rendered as RULED even though the ruling has a row for it.
 //
-// `ExtendedFab`/`FabMenu` call `fabStyles`, which sets `elevation: 3` = level 3
-// = exactly web's value. The gate reports `native none` only because the scanner
-// does not follow `*Styles` helpers. Wiring them would print a to-do for work
-// already done. Remove an entry here once the scanner follows style helpers and
-// the row measures correctly on its own.
-const REOPENED = new Set(["ExtendedFab", "FabMenu"]);
+// WAS ["ExtendedFab", "FabMenu"], on the belief that both were conformant at
+// level 3 through `fabStyles`. THAT WAS WRONG, and the belief came from reading
+// `elevation: 3` as "level 3" — conflating a dp VALUE with a LEVEL index. On
+// M3's scale (0/1/3/6/8/12 dp) 3dp is level 2; web ships level 3 = 6dp. So the
+// FAB family is one level LOW natively: a real divergence the `native none`
+// reading had been hiding. Resolving the helper turned a claimed false positive
+// into a true finding, which is the opposite outcome and the reason the blind
+// spot was worth fixing rather than suppressing.
+const REOPENED = new Set();
 
 function parseRuling() {
   if (!existsSync(RULING)) {
@@ -491,10 +635,10 @@ const rulings = parseRuling();
 for (const [name, r] of rulings) {
   const w = webByCanon.get(name);
   if (!w) continue;
-  if (!w.levels.includes(r.level)) {
+  if (!effective(w).includes(r.level)) {
     violations.push(
       `ruled row ${name}: review-m3 ruled level ${r.level} but web ships ` +
-        `[${w.levels.join(",") || "nothing"}] (${w.file}:${w.line}). The ruling ` +
+        `[${effective(w).join(",") || "nothing"}] (${w.file}:${w.line}). The ruling ` +
         `was written against a different tree — re-open it rather than ` +
         `enforcing a stale value.`,
     );
@@ -546,8 +690,17 @@ if (oneSided.length) {
   for (const c of oneSided) {
     const w = webByCanon.get(c);
     const n = nativeByCanon.get(c);
-    const side = (x) =>
-      x.levels.length ? `level ${x.levels.join(",")}` : "none";
+    // Never print a bare "none". A skipped construct must SAY that it was
+    // skipped, or the reader concludes a component is flat when the truth is
+    // "flat in its own body, and helpers were followed". Declared and inherited
+    // are different facts and are labelled separately.
+    const side = (x) => {
+      const own = x.levels.length ? `level ${x.levels.join(",")}` : "none";
+      const inh = x.inheritedLevels?.length
+        ? ` + inherited level ${x.inheritedLevels.join(",")} via ${x.inheritedFrom}`
+        : "";
+      return `${own} in its own body${inh}`;
+    };
     const r = rulings.get(c);
     let disposition;
     if (REOPENED.has(c)) {
