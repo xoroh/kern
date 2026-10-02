@@ -76,11 +76,11 @@ export const FOUNDATIONS: FoundationPage[] = [
   {
     slug: "shape",
     title: "Shape",
-    oneLiner: "The corner scale, including the two Expressive additions.",
+    oneLiner: "The corner scale, including Material 3's Expressive additions.",
     deviations: [
       {
         id: "K5",
-        note: "pill-heavy defaults; the two Expressive corners are adopted, not a deviation",
+        note: "pill-heavy defaults — kern's corner identity, distinct from the spec",
       },
     ],
   },
