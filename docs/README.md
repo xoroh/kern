@@ -58,6 +58,10 @@ New to the repo:
    design authority.
 3. [`conventions/file-ownership.md`](conventions/file-ownership.md) — what
    may import what.
+3a. [`conventions/primitives.md`](conventions/primitives.md) — the two-layer
+   shape of `@xoroh/kern-primitives` (renderer-agnostic logic below, Base
+   UI-shaped widget layer above) and the extraction sequence. Enforced by
+   `check:primitives`.
 4. [`CONTRIBUTING.md`](../CONTRIBUTING.md) — the per-PR requirements.
 5. [`plan/README.md`](plan/README.md) — what is being built next.
 
