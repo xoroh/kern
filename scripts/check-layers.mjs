@@ -94,6 +94,73 @@ for (const entry of readdirSync(PKGS, { withFileTypes: true })) {
 
 const violations = [];
 
+// --- D-037: the build graph must be acyclic, and must COVER every buildable -----
+// Build order is derived from these same declarations, so a cycle here is a
+// cycle in the build. The orchestrator would catch it too, but as a build
+// failure; this reports it as a gate failure, before anything is built.
+const XOROH_SCOPE = /^@xoroh\//;
+
+/** @type {Map<string, Set<string>>} */
+const graph = new Map();
+const buildablePkgs = new Set(); // package NAMES only
+
+for (const entry of readdirSync(join(ROOT, "packages"), {
+  withFileTypes: true,
+})) {
+  if (!entry.isDirectory()) continue;
+  const dir = join(ROOT, "packages", entry.name);
+  const manifestPath = join(dir, "package.json");
+  if (!existsSync(manifestPath)) continue;
+  const pkg = JSON.parse(readFileSync(manifestPath, "utf8"));
+  const name = pkg.name;
+  if (!name) continue;
+  const edges = new Set();
+  for (const field of ["dependencies", "devDependencies", "peerDependencies"]) {
+    for (const dep of Object.keys(pkg[field] ?? {})) {
+      if (XOROH_SCOPE.test(dep)) edges.add(dep);
+    }
+  }
+  graph.set(name, edges);
+  if (pkg.scripts?.build) buildablePkgs.add(name);
+}
+
+if (graph.size) {
+  // Kahn's algorithm. Anything left with a non-zero in-degree after the sweep
+  // is on, or downstream of, a cycle.
+  const indegree = new Map([...graph].map(([n, e]) => [n, e.size]));
+  const queue = [...indegree].filter(([, d]) => d === 0).map(([n]) => n);
+  const order = [];
+  while (queue.length) {
+    const n = queue.shift();
+    order.push(n);
+    for (const [m, edges] of graph) {
+      if (edges.has(n)) {
+        indegree.set(m, indegree.get(m) - 1);
+        if (indegree.get(m) === 0) queue.push(m);
+      }
+    }
+  }
+
+  if (order.length !== graph.size) {
+    const stuck = [...indegree]
+      .filter(([n]) => !order.includes(n))
+      .map(([n]) => n)
+      .sort();
+    violations.push(
+      `package graph contains a CYCLE among: ${stuck.join(", ")} — build order cannot be derived`,
+    );
+  }
+
+  // Every buildable package must be reachable in the derived order, or it will
+  // silently never be built.
+  const missing = [...buildablePkgs.keys()].filter((n) => !order.includes(n));
+  if (missing.length) {
+    violations.push(
+      `buildable package(s) absent from the derived build order: ${missing.sort().join(", ")}`,
+    );
+  }
+}
+
 // --- D-036: every tsconfig `types[]` entry must be a DECLARED dependency -------
 // A `types` entry is a dependency declaration living in the wrong file. It
 // typechecks in a warm workspace (where the hoisted node_modules happens to hold
@@ -172,7 +239,6 @@ for (const area of TSCONFIG_ROOTS) {
   }
 }
 
-
 for (const { name, deps } of found) {
   if (TOOLING.has(name)) continue;
   const self = LAYERS[name];
@@ -244,5 +310,5 @@ if (violations.length) {
 }
 
 console.log(
-  "\npackage layering holds: no upward edges, no renderer-to-renderer edge,\n and every tsconfig types[] entry is a declared dependency",
+  "\npackage layering holds: no upward edges, no renderer-to-renderer edge,\n every tsconfig types[] entry is a declared dependency,\n and the build graph is acyclic and covers every buildable package",
 );
