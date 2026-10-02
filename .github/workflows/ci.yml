@@ -66,6 +66,14 @@ jobs:
       - name: Check every check:* gate is actually invoked by CI
         run: bun run check:workflow
 
+      - name: Check the two renderers agree on resting elevation
+        # D-038 follow-on. `check-elevation-parity` asserts one resting elevation
+        # per component ACROSS renderers, which is a different question from
+        # `check:kern`'s "is this level on the M3 scale at all". The Popover
+        # defect (3dp read as level 3 when it is level 2) was invisible to both
+        # until this gate existed.
+        run: bun run check:elevation-parity
+
       - name: Check generated output and elevation truth
         run: |
           bun run check:generated

@@ -23,7 +23,7 @@
  * confidently reporting on a file it never really read.
  */
 
-import { readdirSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse, parseDocument } from "yaml";
@@ -127,6 +127,73 @@ for (const g of dark) {
   );
 }
 
+// --- 2b. a GATE FILE no workflow step reaches ---------------------------------
+// The leg above only sees gates that are `check:*` SCRIPTS. A gate written as a
+// standalone `scripts/check-foo.mjs` with no package.json entry passes it
+// entirely — which is precisely how `check-elevation-parity` went dark: the file
+// existed, was correct, and nothing ran it.
+//
+// Two distinct failures, both dark:
+//   - a `check-*.mjs` file no package.json script POINTS AT -> nobody can even
+//     `bun run` it
+//   - a `check-*.mjs` file no workflow step reaches        -> it exists and is
+//     correct and nothing runs it
+//
+// Scanned by FILENAME off the real directory, so a gate added under any name is
+// caught by the pattern rather than by remembering to update a list.
+//
+// The script that owns a file is READ from package.json, not guessed from the
+// filename. Guessing is wrong here and was wrong on the first attempt of this
+// leg: the repo does not spell it `check-<name>.mjs` -> `check:<name>`.
+// `check-dist-exports.mjs` is `check:dist`, `check-dist-types.mjs` is
+// `check:dist:types`, `check-generated-freshness.mjs` is `check:generated`. A
+// name-derived rule reported three wired, working gates as dark — a gate that
+// cries wolf is not a gate, it is noise that trains people to ignore it.
+//
+// So: parse each script's COMMAND for a `scripts/<file>` reference. That is the
+// real link, and it is a real parse of a real field rather than a heuristic.
+const SCRIPT_DIR = join(ROOT, "scripts");
+const GATE_FILE = /^check-[\w-]+\.mjs$/;
+const gateFiles = existsSync(SCRIPT_DIR)
+  ? readdirSync(SCRIPT_DIR)
+      .filter((f) => GATE_FILE.test(f))
+      .sort()
+  : [];
+
+// file -> the package.json script names whose command runs it.
+const scriptsByFile = new Map();
+for (const [name, cmd] of Object.entries(pkg.scripts ?? {})) {
+  if (typeof cmd !== "string") continue;
+  for (const [, ref] of cmd.matchAll(/scripts\/([\w.-]+\.mjs)/g)) {
+    if (!scriptsByFile.has(ref)) scriptsByFile.set(ref, []);
+    scriptsByFile.get(ref).push(name);
+  }
+}
+
+for (const file of gateFiles) {
+  const owners = scriptsByFile.get(file) ?? [];
+  if (owners.length === 0) {
+    violations.push(
+      `scripts/${file} is a gate file and NO package.json script runs it. A gate ` +
+        `nobody can \`bun run\` is dark in the same way as one CI never calls — ` +
+        `add the script entry.`,
+    );
+    continue;
+  }
+  // Excused counts as reachable: `check:publish` is in NOT_IN_CI because the
+  // per-package matrix invokes it, and that is a legitimate wiring.
+  const reachable = owners.filter((s) => invoked.has(s) || NOT_IN_CI.has(s));
+  if (reachable.length === 0) {
+    violations.push(
+      `scripts/${file} is run by ${owners.map((s) => `\`${s}\``).join(", ")} but ` +
+        `NO workflow invokes ${reachable.length === 0 ? "any of them" : "them"}. ` +
+        `The package.json leg cannot see this: a gate whose script is never ` +
+        `wired into CI passes it silently, which is how check-elevation-parity ` +
+        `went dark.`,
+    );
+  }
+}
+
 // --- 3. the gates this programme depends on, called out by name ---------------
 // These have each caught a real defect, so their absence is worth a distinct
 // message rather than a generic one in the list above.
@@ -149,13 +216,15 @@ if (violations.length) {
   for (const v of violations) console.error(`  - ${v}`);
   console.error(
     `\n  ${workflows.length} workflow file(s) parsed · ` +
-      `${gates.length} gate(s) in package.json · ${dark.length} dark`,
+      `${gates.length} gate(s) in package.json (${dark.length} dark) · ` +
+      `${gateFiles.length} gate file(s) in scripts/`,
   );
   process.exit(1);
 }
 
 console.log(
   `workflow wiring contract passes: ${workflows.length} workflow file(s) parse ` +
-    `with no duplicate keys, and all ${gates.length} check gates are invoked by ` +
-    `CI (${NOT_IN_CI.size} excused). No gate is dark.`,
+    `with no duplicate keys, all ${gates.length} check gates are invoked by CI ` +
+    `(${NOT_IN_CI.size} excused), and all ${gateFiles.length} scripts/check-*.mjs ` +
+    `gate files are reachable from both package.json and a workflow. No gate is dark.`,
 );
