@@ -77,7 +77,9 @@ describe("Split", () => {
     // first column a leading border and the last a trailing one, at every
     // column count. Asserted on the COLUMNS: a container-only assertion passes
     // whether or not a border was moved onto them.
-    for (const col of container.querySelectorAll('[data-slot="split-column"]')) {
+    for (const col of container.querySelectorAll(
+      '[data-slot="split-column"]',
+    )) {
       expect(col.className).not.toContain("border");
     }
   });
@@ -91,9 +93,9 @@ describe("Split", () => {
       </Split>,
     );
     expect(screen.getByText("Three")).toBeTruthy();
-    expect(container.querySelectorAll('[data-slot="split-column"]').length).toBe(
-      3,
-    );
+    expect(
+      container.querySelectorAll('[data-slot="split-column"]').length,
+    ).toBe(3);
   });
 
   it("renders the columns it is given, not the declared count", () => {
@@ -107,9 +109,9 @@ describe("Split", () => {
         <div>Four</div>
       </Split>,
     );
-    expect(container.querySelectorAll('[data-slot="split-column"]').length).toBe(
-      4,
-    );
+    expect(
+      container.querySelectorAll('[data-slot="split-column"]').length,
+    ).toBe(4);
     expect(screen.getByText("Four")).toBeTruthy();
   });
 });

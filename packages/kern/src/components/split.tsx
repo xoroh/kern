@@ -39,6 +39,7 @@ export function Split({
   void columns;
 
   return (
+    // biome-ignore lint/a11y/useSemanticElements: no native element groups arbitrary layout regions; role=group is the correct pattern (same as ButtonGroup).
     <div
       data-slot="split"
       role="group"
