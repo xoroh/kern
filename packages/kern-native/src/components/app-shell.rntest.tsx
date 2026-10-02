@@ -1,5 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react-native";
-import { act } from "react";
+import { render, screen } from "@testing-library/react-native";
 import { Text as RNText } from "react-native";
 import { AppShell } from "./app-shell";
 

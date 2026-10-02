@@ -77,13 +77,17 @@ function useRefOfRefs<T>(value: PossibleRef<T>[]) {
  * A callback whose IDENTITY never changes, so a consumer effect that depends on
  * it does not re-run on every render.
  *
- * biome-ignore lint/correctness/useExhaustiveDependencies: the empty dep array
- * IS the feature — including `fn` would defeat the whole function. The stale-
- * closure risk is handled by routing through a ref instead of memoising `fn`,
- * and `mergeRefs.test.ts` asserts the identity is stable across a rerender, so
- * this is checked rather than assumed.
+ * The empty dep array IS the feature, and it needs no suppression:
+ * `useExhaustiveDependencies` does not fire because `fn` is never referenced
+ * inside the callback — it is read through `ref.current`. The rule's concern
+ * (a stale closure) is answered by routing through a ref rather than by
+ * memoising `fn`, and `mergeRefs.test.ts` asserts the identity is stable across
+ * a rerender, so the property is checked rather than assumed.
+ *
+ * An earlier version carried a `biome-ignore` here. Biome reported it as an
+ * unused suppression, which was correct: the rule never fired, so the comment
+ * suppressed nothing and would have outlived the condition it described.
  */
-// biome-ignore lint/correctness/useExhaustiveDependencies: stable identity is the contract; see above.
 function useStableCallback<T extends (...args: never[]) => unknown>(fn: T): T {
   const ref = useRef(fn);
   ref.current = fn;

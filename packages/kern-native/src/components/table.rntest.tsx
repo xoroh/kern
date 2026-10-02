@@ -1,5 +1,4 @@
 import { render, screen } from "@testing-library/react-native";
-import { Text as RNText } from "react-native";
 import { Table } from "./table";
 
 /**
