@@ -520,6 +520,23 @@ function checkNativePeer({ platform, file, doc }) {
   }
 }
 
+// Two rows with the same prop name are a defect twice over: the table reads as
+// a contradiction, and the renderer keys rows by name so a duplicate is a key
+// collision. A prop that genuinely has two roles (ToggleGroup's `value`) is
+// ONE row saying so, not two rows fighting.
+function checkApiUnique({ file, doc }) {
+  const seen = new Map();
+  for (const row of doc.api ?? []) {
+    if (seen.has(row.name)) {
+      fail(
+        `${file}: api table lists \`${row.name}\` twice — merge the roles into one row, ` +
+          `a duplicate prop name contradicts itself and breaks the table`,
+      );
+    }
+    seen.set(row.name, true);
+  }
+}
+
 // ------------------------------------------------------------------- run
 for (const page of pages) {
   checkSections(page);
@@ -530,6 +547,7 @@ for (const page of pages) {
   checkOwnership(page);
   checkCanonicalSlug(page);
   checkNativePeer(page);
+  checkApiUnique(page);
 }
 
 // Coverage: how much of the generated inventory has a page behind it. This is
