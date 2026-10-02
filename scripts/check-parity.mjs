@@ -311,6 +311,7 @@ const DELIBERATE = [
   "create-sonner-manager",
   "kbd",
   "native-select",
+  "link",
   "preview-card",
   "combobox",
 ];
