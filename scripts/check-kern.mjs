@@ -263,6 +263,133 @@ for (const entry of inventory.missingDeviation) {
   }
 }
 
+// 4b. OFF-SCALE ELEVATION (kern-lead 23:38, Improvement 3). Leg 4 above asserts
+// the KEYS of the elevation scale — that level0..level5 exist and carry M3's dp.
+// It asserts nothing about VALUES written into component source, which on native
+// are React Native's raw `elevation: <dp>` and are written by hand.
+//
+// M3's levels are unevenly spaced: 0/1/3/6/8/12 dp. So `elevation: 2` is not a
+// typo of anything — it is a value that matches NO level, and no unit test can
+// see it because 2dp renders perfectly happily. That is the Popover defect
+// class (`d9ac4f4`): the code said 2 where the design said 3.
+//
+// Deliberately NOT delegated to `check:elevation-parity`: that gate resolves dp
+// only for components it can pair with a web counterpart, because its question
+// is "do the two renderers agree". A native-ONLY component carrying an off-scale
+// value has no web twin to disagree with, so it is never compared and never
+// flagged. This leg asks the other question — "is this value on the M3 scale at
+// all" — and asks it of every native source file.
+//
+// The dp table is hardcoded, not read from tokens.json: this gate is asserting
+// the SPEC scale, and a table derived from the artifact under audit cannot
+// disagree with it. Leg 4 separately asserts tokens.json matches this same
+// table, so the two cannot drift apart silently.
+{
+  const DP_BY_LEVEL = { 0: 0, 1: 1, 2: 3, 3: 6, 4: 8, 5: 12 };
+  const scale = new Set(Object.values(DP_BY_LEVEL));
+  const levelOf = (dp) => {
+    const hit = Object.entries(DP_BY_LEVEL).find(([, v]) => v === dp);
+    return hit ? Number(hit[0]) : null;
+  };
+
+  // Comments are stripped STRING-AWARE. A naive `//` strip would truncate any
+  // line containing a URL or a `"//"` inside a class string, and — worse — it
+  // would read the PROSE about a value as the value. `sheets.tsx` documents
+  // "This carried `elevation: 3`" in a comment about code that no longer has
+  // one; measuring the comment would resurrect a fixed defect.
+  const stripComments = (src) => {
+    let out = "";
+    let i = 0;
+    while (i < src.length) {
+      const ch = src[i];
+      if (ch === "/" && src[i + 1] === "/") {
+        while (i < src.length && src[i] !== "\n") i += 1;
+        continue;
+      }
+      if (ch === "/" && src[i + 1] === "*") {
+        i += 2;
+        while (i < src.length && !(src[i] === "*" && src[i + 1] === "/")) {
+          if (src[i] === "\n") out += "\n";
+          i += 1;
+        }
+        i += 2;
+        continue;
+      }
+      if (ch === '"' || ch === "'" || ch === "`") {
+        const quote = ch;
+        out += ch;
+        i += 1;
+        while (i < src.length) {
+          if (src[i] === "\\") {
+            out += src[i] + (src[i + 1] ?? "");
+            i += 2;
+            continue;
+          }
+          out += src[i];
+          if (src[i] === quote) {
+            i += 1;
+            break;
+          }
+          i += 1;
+        }
+        continue;
+      }
+      out += ch;
+      i += 1;
+    }
+    return out;
+  };
+
+  const nativeDir = join(ROOT, "packages/kern-native/src");
+  let offScale = 0;
+  let onScale = 0;
+  // `sourceFiles` already skips `.test.` and `.rntest.`, so this measures
+  // shipped source only — a test asserting `elevation: 2` is a legitimate
+  // negative case and must not fail the gate.
+  for (const file of sourceFiles(nativeDir)) {
+    const raw = readFileSync(file, "utf8");
+    const code = stripComments(raw);
+    for (const m of code.matchAll(/(?<![\w-])elevation:\s*(\d+(?:\.\d+)?)/g)) {
+      const dp = Number(m[1]);
+      // Line number computed against the STRIPPED text, because `m.index` is an
+      // offset into the stripped text. Slicing `raw` with it is wrong whenever
+      // any comment precedes the match — the mutation proof reported line 186
+      // for a value on line 353, because comments were stripped out from under
+      // the offset. The stripper preserves every newline (a `//` comment stops
+      // BEFORE its newline; a block comment re-emits each one), so a line number
+      // taken from the stripped text is the line number in the real file.
+      const line = code.slice(0, m.index).split("\n").length;
+      const where = relative(ROOT, file);
+      if (!scale.has(dp)) {
+        offScale += 1;
+        violations.push(
+          `${where}:${line}: \`elevation: ${dp}\` matches no M3 level height ` +
+            `(${[...scale].join("/")}dp). It renders, so nothing else will ` +
+            `notice — and the value cannot be read as a level at all. Use one ` +
+            `of the six scale heights.`,
+        );
+      } else {
+        onScale += 1;
+        void levelOf(dp);
+      }
+    }
+  }
+  // Reported so the leg cannot pass by finding nothing: zero matches and ten
+  // matches are very different states, and a silent zero reads as a pass.
+  if (offScale === 0 && onScale === 0) {
+    violations.push(
+      "no `elevation: <dp>` literal found in packages/kern-native/src — the " +
+        "off-scale scan found no input. Either native stopped shipping " +
+        "elevation or the pattern stopped matching; both must be resolved by " +
+        "reading, not by a green gate.",
+    );
+  }
+  console.log(
+    `  off-scale elevation scan   ${onScale} on-scale value(s), ` +
+      `${offScale} off-scale in kern-native`,
+  );
+}
+
 // 5. SHAPE (P1-5). The two Expressive corners must stay, and the baseline set must be
 // intact — this is the deviation's assertion, so a silent revert cannot pass.
 for (const corner of ["large-increased", "extra-large-increased"]) {
