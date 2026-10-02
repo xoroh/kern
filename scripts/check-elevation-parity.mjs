@@ -385,6 +385,138 @@ for (const [name, variants] of Object.entries(declared)) {
   }
 }
 
+// --- 3. the RULING TABLE -----------------------------------------------------
+// `check:elevation-parity` picks up review-m3's dispositions as its ruling
+// table, the way `check-docs` reads K-01: the ruling is the source of truth and
+// the gate renders it, rather than the gate and the ruling both restating a
+// decision that can then drift apart.
+//
+// PARSED, NOT SCRAPED. The row shape is validated (positional columns, numeric
+// level, a disposition from a closed vocabulary) and an UNPARSEABLE row is a
+// hard failure, never a silent skip. A gate that quietly drops a ruling row it
+// cannot read is the "prints nothing" failure this gate has already been caught
+// in twice tonight.
+//
+// The table carries the 17 rows that SURVIVED reconciliation
+// (`.team/reports/dsl-0036-reconcile.md`). ExtendedFab and FabMenu are
+// deliberately absent: both already declare level 3 natively through `fabStyles`,
+// so the gate's `native none` row is a measurement artefact, not a gap to adopt.
+// They re-open on the measurement when the scanner follows style helpers.
+const RULING = join(
+  ROOT,
+  "..",
+  ".team",
+  "reports",
+  "reviews",
+  "m3",
+  "2026-10-03-19-one-sided-ruling.md",
+);
+const DISPOSITIONS = new Set(["both-renderers", "web-only", "native-only"]);
+
+// The 2 rows the reconciliation RE-OPENED. review-m3's ruling covers all 19, so
+// the file alone would wire 19 — and 2 of those are wrong. This list is the
+// reconciliation's veto, held in code where the next reader will find it rather
+// than in a report they may not open.
+//
+// `ExtendedFab`/`FabMenu` call `fabStyles`, which sets `elevation: 3` = level 3
+// = exactly web's value. The gate reports `native none` only because the scanner
+// does not follow `*Styles` helpers. Wiring them would print a to-do for work
+// already done. Remove an entry here once the scanner follows style helpers and
+// the row measures correctly on its own.
+const REOPENED = new Set(["ExtendedFab", "FabMenu"]);
+
+function parseRuling() {
+  if (!existsSync(RULING)) {
+    violations.push(
+      `ruling table missing: ${RULING}. Without it every one-sided row falls ` +
+        `back to "unruled", which is the state the 00:33 ruling retired.`,
+    );
+    return new Map();
+  }
+  const table = new Map();
+  const lines = readFileSync(RULING, "utf8").split("\n");
+  for (const line of lines) {
+    // `| 1 | ActionSheet | 1 (`file:line`) | anchor | **both-renderers** | reason |`
+    if (!line.startsWith("|")) continue;
+    const cells = line
+      .split("|")
+      .slice(1, -1)
+      .map((c) => c.trim());
+    if (cells.length < 6) continue;
+    const [num, name, level, , disposition] = cells;
+    if (!/^\d+$/.test(num)) continue;
+    const dispositionClean = disposition.replace(/\*/g, "").trim();
+    if (!DISPOSITIONS.has(dispositionClean)) continue;
+    // The level cell is `1 (`sheet-family.tsx:480`)` — level, then a
+    // parenthesised file:line citation. Split them properly rather than
+    // stripping parentheses, which left a dangling backtick in every row's
+    // citation and made the rendered disposition look malformed.
+    const levelMatch = level.match(/^(\d+)\s*(?:\(`([^`]+)`\))?/);
+    if (!levelMatch) {
+      violations.push(
+        `ruling row ${num} (${name}): level cell "${level}" is not ` +
+          `"<level> (\`file:line\`)" — the ruling table changed shape.`,
+      );
+      continue;
+    }
+    const levelNum = Number.parseInt(levelMatch[1], 10);
+    if (!Number.isFinite(levelNum)) {
+      violations.push(
+        `ruling row ${num} (${name}): level "${level}" is not a number — the ` +
+          `table is malformed and the row cannot be trusted.`,
+      );
+      continue;
+    }
+    table.set(name, {
+      row: Number(num),
+      level: levelNum,
+      disposition: dispositionClean,
+      citation: levelMatch[2] ?? "no citation",
+    });
+  }
+  if (!table.size) {
+    violations.push(
+      `${RULING} parsed to ZERO ruling rows. A table that silently yields ` +
+        `nothing would report every row "unruled" and pass — the exact shape ` +
+        `of a gate that changes nothing.`,
+    );
+  }
+  return table;
+}
+const rulings = parseRuling();
+
+// A ruling that names a level must MATCH what web actually ships. If they
+// diverge, the ruling was written against a different tree and its disposition
+// is being applied to the wrong value — so this fails rather than renders.
+for (const [name, r] of rulings) {
+  const w = webByCanon.get(name);
+  if (!w) continue;
+  if (!w.levels.includes(r.level)) {
+    violations.push(
+      `ruled row ${name}: review-m3 ruled level ${r.level} but web ships ` +
+        `[${w.levels.join(",") || "nothing"}] (${w.file}:${w.line}). The ruling ` +
+        `was written against a different tree — re-open it rather than ` +
+        `enforcing a stale value.`,
+    );
+  }
+}
+
+// Every one-sided row is either ruled, or explicitly still open. Silently
+// printing "unruled" for a row the ruling simply forgot is how a ruling table
+// rots, so an unruled row is named explicitly rather than left to inference.
+//
+// `REOPENED` rows are reported as RE-OPENED with the reason, never as ruled:
+// they are in the ruling file, and the honest state is that the measurement
+// behind the row is disputed, not that the design question is open.
+const ruledRows = [];
+const openRows = [];
+const reopenedRows = [];
+for (const c of oneSided) {
+  if (REOPENED.has(c)) reopenedRows.push(c);
+  else if (rulings.has(c)) ruledRows.push(c);
+  else openRows.push(c);
+}
+
 // --- report ------------------------------------------------------------------
 console.log(
   "check:elevation-parity — one resting elevation across both renderers",
@@ -394,7 +526,12 @@ console.log(`  kern-native measured       ${native.size}`);
 console.log(
   `  names on BOTH renderers     ${bothPresent.length} (compared ${shared.length}, ${compared} level agreements)`,
 );
-console.log(`  one-sided (unruled)        ${oneSided.length}`);
+console.log(
+  `  one-sided                   ${oneSided.length} (${ruledRows.length} ruled, ${openRows.length} open, ${reopenedRows.length} re-opened)`,
+);
+console.log(
+  `  ruling table                ${rulings.size} rows from review-m3`,
+);
 console.log(`  registry entries checked   ${Object.keys(declared).length}`);
 console.log(
   `  deviation ids resolved     from .team/programs/K-01-deviations.md`,
@@ -403,17 +540,29 @@ console.log(
 if (oneSided.length) {
   console.log(
     "\nONE-SIDED — one renderer declares a resting elevation, the other declares\n" +
-      "none. Reported, not failed: adopting the level vs ruling that this\n" +
-      "renderer separates surfaces another way is a DESIGN CALL, not a gate's.",
+      "none in its own body. Each row carries review-m3's disposition; a row\n" +
+      "with no disposition is OPEN, not passing.",
   );
   for (const c of oneSided) {
     const w = webByCanon.get(c);
     const n = nativeByCanon.get(c);
     const side = (x) =>
       x.levels.length ? `level ${x.levels.join(",")}` : "none";
+    const r = rulings.get(c);
+    let disposition;
+    if (REOPENED.has(c)) {
+      disposition =
+        "RE-OPENED on the measurement — this component inherits its level from a " +
+        "shared *Styles helper the scanner does not follow, so `native none` is " +
+        "wrong. Not an adoption to-do; see dsl-0036-reconcile.md.";
+    } else if (r) {
+      disposition = `RULED ${r.disposition} (ruling row ${r.row}, ${r.citation})`;
+    } else {
+      disposition = "OPEN — no disposition in the ruling table";
+    }
     console.log(
       `  - ${c}: web ${side(w)} (${w.file}:${w.line}) · ` +
-        `native ${side(n)} (${n.file}:${n.line})`,
+        `native ${side(n)} (${n.file}:${n.line})\n      ${disposition}`,
     );
   }
 }
