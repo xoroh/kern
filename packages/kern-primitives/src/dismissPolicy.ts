@@ -69,8 +69,19 @@ export type DismissPolicy = {
   /**
    * Bind to a platform trigger. `enabled` is the caller's current OPEN state:
    * a trigger on a closed surface must do nothing, whatever the policy says.
+   *
+   * `triggers` is what `dismissTriggersFor()` returned. It is REQUIRED rather
+   * than optional: while it was absent this parameter was accepted and ignored,
+   * which made `dismissTriggersFor` decorative — a docked surface could declare
+   * no scrim and still be dismissed by one, because the declaration was never
+   * consulted. The lint rule that caught it (`noUnusedFunctionParameters`) was
+   * right and this is the fix it was pointing at.
    */
-  shouldDismiss: (trigger: keyof DismissTriggers, enabled: boolean) => boolean;
+  shouldDismiss: (
+    trigger: keyof DismissTriggers,
+    enabled: boolean,
+    triggers: DismissTriggers,
+  ) => boolean;
 };
 
 /**
@@ -90,7 +101,8 @@ export function createDismissPolicy(
     // A close control is derived from the SAME value the triggers read, so the
     // two can never disagree.
     showClose: dismissible,
-    shouldDismiss: (trigger, enabled) => enabled && dismissible,
+    shouldDismiss: (trigger, enabled, triggers) =>
+      enabled && dismissible && triggers[trigger] === true,
   };
 }
 

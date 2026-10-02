@@ -184,7 +184,6 @@ export function DockSheet({
 }: DockSheetProps) {
   return (
     <section
-      role="region"
       aria-label={label}
       data-slot="dock-sheet"
       data-testid={testID ?? "kern-dock-sheet"}

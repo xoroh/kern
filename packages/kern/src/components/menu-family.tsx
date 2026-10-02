@@ -1,6 +1,6 @@
+import { useControllableState } from "@xoroh/kern-primitives";
 import type { ReactNode } from "react";
 import { cn } from "../utils/cn";
-import { useControllableState } from "@xoroh/kern-primitives";
 import { SheetSurface } from "./sheet-family";
 
 /**
@@ -80,10 +80,15 @@ function MenuActionRow({
   );
 }
 
-function MenuGroupList({ groups, label }: { groups: readonly MenuGroup[]; label: string }) {
+function MenuGroupList({
+  groups,
+  label,
+}: {
+  groups: readonly MenuGroup[];
+  label: string;
+}) {
   return (
     <ul
-      role="list"
       aria-label={label}
       className="flex list-none flex-col gap-4 p-0"
     >
@@ -143,7 +148,12 @@ export type MenuScreenProps = {
  * interaction lock, so it carries no elevation token and no `aria-modal` — the
  * same docked-vs-dialog reasoning as `DockSheet`.
  */
-export function MenuScreen({ label, groups, className, testID }: MenuScreenProps) {
+export function MenuScreen({
+  label,
+  groups,
+  className,
+  testID,
+}: MenuScreenProps) {
   return (
     <div
       data-slot="menu-screen"
@@ -262,7 +272,10 @@ export function FilterChipRow({
       aria-label={label}
       data-slot="filter-chip-row"
       data-testid={testID ?? "kern-filter-chip-row"}
-      className={cn("flex flex-row items-center gap-2 overflow-x-auto p-1", className)}
+      className={cn(
+        "flex flex-row items-center gap-2 overflow-x-auto p-1",
+        className,
+      )}
     >
       {options.map((option) => {
         const pressed = active.includes(option.value);

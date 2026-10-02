@@ -41,7 +41,9 @@ describe("ExtendedFab", () => {
   });
 
   it("hides the label glyph from assistive tech", () => {
-    const { container } = render(<ExtendedFab icon={<svg />} label="Compose" />);
+    const { container } = render(
+      <ExtendedFab icon={<svg />} label="Compose" />,
+    );
     expect(container.querySelector("[aria-hidden='true']")).not.toBeNull();
   });
 
@@ -58,7 +60,10 @@ describe("ExtendedFab", () => {
     // The handle is the component's public API; calling it drives state, so it
     // goes in act() exactly as a user event would.
     act(() => ref.current?.collapse());
-    expect(screen.getByRole("button")).toHaveAttribute("data-collapsed", "true");
+    expect(screen.getByRole("button")).toHaveAttribute(
+      "data-collapsed",
+      "true",
+    );
 
     act(() => ref.current?.expand());
     expect(screen.getByRole("button")).not.toHaveAttribute("data-collapsed");
@@ -68,7 +73,10 @@ describe("ExtendedFab", () => {
     const ref = createRef<ExtendedFabHandle>();
     render(<ExtendedFab ref={ref} icon={<svg />} label="Compose" />);
     act(() => ref.current?.toggle());
-    expect(screen.getByRole("button")).toHaveAttribute("data-collapsed", "true");
+    expect(screen.getByRole("button")).toHaveAttribute(
+      "data-collapsed",
+      "true",
+    );
     act(() => ref.current?.toggle());
     expect(screen.getByRole("button")).not.toHaveAttribute("data-collapsed");
   });
@@ -147,7 +155,10 @@ describe("ExtendedFab", () => {
 
   it("honours defaultCollapsed", () => {
     render(<ExtendedFab icon={<svg />} label="Compose" defaultCollapsed />);
-    expect(screen.getByRole("button")).toHaveAttribute("data-collapsed", "true");
+    expect(screen.getByRole("button")).toHaveAttribute(
+      "data-collapsed",
+      "true",
+    );
   });
 
   it("does not move a controlled collapsed prop on its own", () => {

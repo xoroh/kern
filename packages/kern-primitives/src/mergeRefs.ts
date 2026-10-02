@@ -1,4 +1,4 @@
-import { useCallback, useRef, type MutableRefObject, type Ref } from "react";
+import { type MutableRefObject, type Ref, useCallback, useRef } from "react";
 
 /**
  * Wave 1 of the P2c-3 extraction (`docs/conventions/primitives.md` §3): give
@@ -38,7 +38,9 @@ export function assignRef<T>(ref: PossibleRef<T>, value: T | null): void {
  * — because a caller merging "my ref" with "the part's internal ref" cannot know
  * which kind each side holds.
  */
-export function mergeRefs<T>(...refs: PossibleRef<T>[]): (value: T | null) => void {
+export function mergeRefs<T>(
+  ...refs: PossibleRef<T>[]
+): (value: T | null) => void {
   return (value: T | null) => {
     for (const ref of refs) assignRef(ref, value);
   };
@@ -54,7 +56,9 @@ export function mergeRefs<T>(...refs: PossibleRef<T>[]): (value: T | null) => vo
  * new callback identity — that is the difference between this and `mergeRefs`
  * above, and it is why both exist.
  */
-export function useMergeRefs<T>(...refs: PossibleRef<T>[]): (value: T | null) => void {
+export function useMergeRefs<T>(
+  ...refs: PossibleRef<T>[]
+): (value: T | null) => void {
   // Held in a ref so the stable callback below can see the CURRENT refs
   // without depending on them.
   const latest = useRefOfRefs(refs);
@@ -69,6 +73,19 @@ function useRefOfRefs<T>(value: PossibleRef<T>[]) {
   return ref;
 }
 
+/**
+ * A callback whose IDENTITY never changes, so a consumer effect that depends on
+ * it does not re-run on every render.
+ *
+ * biome-ignore lint/correctness/useExhaustiveDependencies: the empty dep array
+ * IS the feature — including `fn` would defeat the whole function. The stale-
+ * closure risk is handled by routing through a ref instead of memoising `fn`,
+ * and `mergeRefs.test.ts` asserts the identity is stable across a rerender, so
+ * this is checked rather than assumed.
+ */
+// biome-ignore lint/correctness/useExhaustiveDependencies: stable identity is the contract; see above.
 function useStableCallback<T extends (...args: never[]) => unknown>(fn: T): T {
-  return useCallback(fn, []);
+  const ref = useRef(fn);
+  ref.current = fn;
+  return useCallback(((...args: never[]) => ref.current(...args)) as T, []);
 }

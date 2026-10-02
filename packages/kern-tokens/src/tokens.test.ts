@@ -47,7 +47,6 @@ const dark = kern.color.dark;
  * updated in the same commit as the token, which is the only correct order.
  */
 describe("kern default theme — approved values", () => {
-
   it("ships a black primary and a blue secondary, not M3's baseline primary", () => {
     expect(light.primary).toBe("#000000");
     expect(light.secondary).toBe("#2563eb");

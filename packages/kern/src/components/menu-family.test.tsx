@@ -8,7 +8,13 @@ import { FilterChipRow, MenuScreen, MenuSheet } from "./menu-family";
  * Role / label / state only — never primitive internals.
  */
 const groups = [
-  { heading: "File", actions: [{ key: "new", label: "New" }, { key: "open", label: "Open" }] },
+  {
+    heading: "File",
+    actions: [
+      { key: "new", label: "New" },
+      { key: "open", label: "Open" },
+    ],
+  },
   { actions: [{ key: "signout", label: "Sign out", destructive: true }] },
 ];
 
@@ -20,7 +26,9 @@ describe("MenuScreen", () => {
   });
 
   it("carries no modal elevation token — a list is not an overlay", () => {
-    const { container } = render(<MenuScreen label="Main menu" groups={groups} />);
+    const { container } = render(
+      <MenuScreen label="Main menu" groups={groups} />,
+    );
     expect(container.innerHTML).not.toContain("md-sys-elevation-level1");
   });
 
@@ -32,14 +40,18 @@ describe("MenuScreen", () => {
   it("renders every action", () => {
     render(<MenuScreen label="Main menu" groups={groups} />);
     expect(screen.getByRole("button", { name: "New" })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Sign out" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Sign out" }),
+    ).toBeInTheDocument();
   });
 });
 
 describe("MenuSheet", () => {
   it("is a named dialog hosting the same structure", () => {
     render(<MenuSheet open title="Main menu" groups={groups} />);
-    expect(screen.getByRole("dialog", { name: "Main menu" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("dialog", { name: "Main menu" }),
+    ).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Open" })).toBeInTheDocument();
   });
 });

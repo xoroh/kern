@@ -138,7 +138,9 @@ describe("Carousel", () => {
     render(<Carousel items={ITEMS} />);
     // Present in the DOM, hidden from AT — that is the point.
     expect(screen.getByText("Two")).toBeInTheDocument();
-    expect(screen.getByText("Two").closest("[aria-hidden='true']")).not.toBeNull();
+    expect(
+      screen.getByText("Two").closest("[aria-hidden='true']"),
+    ).not.toBeNull();
   });
 
   // A controlled index out of range must not blank the carousel.
@@ -161,9 +163,7 @@ describe("Carousel", () => {
   it("disables both controls and stops traversal when disabled", async () => {
     const user = userEvent.setup();
     const onIndexChange = vi.fn();
-    render(
-      <Carousel items={ITEMS} disabled onIndexChange={onIndexChange} />,
-    );
+    render(<Carousel items={ITEMS} disabled onIndexChange={onIndexChange} />);
     expect(region()).toHaveAttribute("aria-disabled", "true");
     expect(screen.getByRole("button", { name: /next/i })).toBeDisabled();
     expect(screen.getByRole("button", { name: /previous/i })).toBeDisabled();

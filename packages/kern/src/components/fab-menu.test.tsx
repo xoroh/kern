@@ -102,7 +102,9 @@ describe("FabMenu", () => {
     render(<FabMenu icon={<svg />} actions={ACTIONS} />);
     expect(screen.queryByRole("menu")).toBeNull();
     await openMenu(user);
-    expect(screen.getByRole("menuitem", { name: "New booking" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("menuitem", { name: "New booking" }),
+    ).toBeInTheDocument();
     expect(trigger()).toHaveAttribute("aria-expanded", "true");
   });
 

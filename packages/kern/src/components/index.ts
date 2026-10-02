@@ -214,6 +214,11 @@ export {
 } from "./drawer";
 export type { EmptyStateProps } from "./empty-state";
 export { EmptyState } from "./empty-state";
+export type {
+  ErrorBoundaryFallbackProps,
+  KernErrorBoundaryProps,
+} from "./error-boundary";
+export { KernErrorBoundary } from "./error-boundary";
 // P2-1 M3 gap fill: the seven components the ladder named as missing.
 export type {
   ExtendedFabHandle,
@@ -287,6 +292,15 @@ export {
   MenuSeparator,
   MenuTrigger,
 } from "./menu";
+export type {
+  FilterChipOption,
+  FilterChipRowProps,
+  MenuAction,
+  MenuGroup,
+  MenuScreenProps,
+  MenuSheetProps,
+} from "./menu-family";
+export { FilterChipRow, MenuScreen, MenuSheet } from "./menu-family";
 export type {
   MenubarContentProps,
   MenubarItemProps,
@@ -467,20 +481,6 @@ export {
   SheetSurface,
   SnapSheet,
 } from "./sheet-family";
-export type {
-  FilterChipOption,
-  FilterChipRowProps,
-  MenuAction,
-  MenuGroup,
-  MenuScreenProps,
-  MenuSheetProps,
-} from "./menu-family";
-export { FilterChipRow, MenuScreen, MenuSheet } from "./menu-family";
-export type {
-  ErrorBoundaryFallbackProps,
-  KernErrorBoundaryProps,
-} from "./error-boundary";
-export { KernErrorBoundary } from "./error-boundary";
 export type { SkeletonProps } from "./skeleton";
 export { Skeleton } from "./skeleton";
 export type {
@@ -542,10 +542,10 @@ export {
   SonnerTitle,
   SonnerViewport,
 } from "./sonner";
-export type { SplitButtonAction, SplitButtonProps } from "./split-button";
-export { SplitButton } from "./split-button";
 export type { SplitProps } from "./split";
 export { Split } from "./split";
+export type { SplitButtonAction, SplitButtonProps } from "./split-button";
+export { SplitButton } from "./split-button";
 export type { SwitchProps } from "./switch";
 export { Switch } from "./switch";
 export type {

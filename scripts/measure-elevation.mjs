@@ -73,7 +73,9 @@ function measure(base, name) {
     for (const [, lvl] of src.matchAll(/--md-sys-elevation-level(\d)/g)) {
       tokens.add(Number(lvl));
     }
-    for (const [, dp] of src.matchAll(/(?<![\w-])elevation:\s*(\d+(?:\.\d+)?)/g)) {
+    for (const [, dp] of src.matchAll(
+      /(?<![\w-])elevation:\s*(\d+(?:\.\d+)?)/g,
+    )) {
       rawDp.add(Number(dp));
     }
     for (const [, prop] of src.matchAll(
@@ -97,14 +99,18 @@ if (targets.length === 0) {
   process.exit(2);
 }
 
-console.log("component            token-levels  raw-dp(=level)  ios-shadow   verdict");
+console.log(
+  "component            token-levels  raw-dp(=level)  ios-shadow   verdict",
+);
 console.log("-".repeat(78));
 for (const name of targets) {
   const { tokens, rawDp, iosShadow } = measure(base, name);
   const tokenList = tokens.size ? [...tokens].sort().join(",") : "—";
   const dpList = rawDp.size
-    ? [...rawDp].sort((a, b) => a - b)
-        .map((dp) => `${dp}dp=${levelFromDp(dp) ?? "?"}`).join(",")
+    ? [...rawDp]
+        .sort((a, b) => a - b)
+        .map((dp) => `${dp}dp=${levelFromDp(dp) ?? "?"}`)
+        .join(",")
     : "—";
   const iosList = iosShadow.size ? "yes" : "—";
 
@@ -121,7 +127,8 @@ for (const name of targets) {
       ? `RAW ONLY (no token) — maps to level ${[...new Set(mapped)].sort().join(",")}; a row asserts nothing until it emits a token`
       : "RAW ONLY (no token) — dp matches no M3 level; kern rendering, not a spec claim";
   } else {
-    verdict = "iOS SHADOW ONLY (no token, no dp) — a shadow is drawn but no level names it";
+    verdict =
+      "iOS SHADOW ONLY (no token, no dp) — a shadow is drawn but no level names it";
   }
   console.log(
     `${name.padEnd(20)} ${tokenList.padEnd(13)} ${dpList.padEnd(15)} ${iosList.padEnd(11)} ${verdict}`,

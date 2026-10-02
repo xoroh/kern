@@ -170,7 +170,9 @@ describe("TimePicker", () => {
     expect(optionsIn("minute", "15")).toBeInTheDocument();
     expect(optionsIn("minute", "45")).toBeInTheDocument();
     // 10 is not on a step-15 grid.
-    expect(screen.getByRole("listbox", { name: /^minute$/i }).textContent).not.toContain("10");
+    expect(
+      screen.getByRole("listbox", { name: /^minute$/i }).textContent,
+    ).not.toContain("10");
   });
 
   // "A step that does not divide 60 falls back to 1 and says so via the
@@ -279,19 +281,27 @@ describe("TimePicker", () => {
   it("labels its three fields", () => {
     render(<TimePicker defaultValue={{ hours: 9, minutes: 0 }} format="12h" />);
     expect(screen.getByRole("listbox", { name: /hour/i })).toBeInTheDocument();
-    expect(screen.getByRole("listbox", { name: /minute/i })).toBeInTheDocument();
-    expect(screen.getByRole("listbox", { name: /am or pm/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("listbox", { name: /minute/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("listbox", { name: /am or pm/i }),
+    ).toBeInTheDocument();
   });
 
   it("marks the selected option in each field", () => {
     render(
       <TimePicker defaultValue={{ hours: 9, minutes: 30 }} format="12h" />,
     );
-    expect(screen.getByRole("option", { name: "09", selected: true })).toBeInTheDocument();
+    expect(
+      screen.getByRole("option", { name: "09", selected: true }),
+    ).toBeInTheDocument();
     expect(
       screen.getByRole("option", { name: "30", selected: true }),
     ).toBeInTheDocument();
-    expect(screen.getByRole("option", { name: "AM", selected: true })).toBeInTheDocument();
+    expect(
+      screen.getByRole("option", { name: "AM", selected: true }),
+    ).toBeInTheDocument();
   });
 
   it("uses a custom display formatter when given one", () => {

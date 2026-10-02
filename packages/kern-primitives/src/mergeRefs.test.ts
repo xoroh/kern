@@ -1,5 +1,5 @@
-import { createRef, useRef } from "react";
 import { renderHook } from "@testing-library/react";
+import { createRef, useRef } from "react";
 import { describe, expect, it, vi } from "vitest";
 import { assignRef, mergeRefs, useMergeRefs } from "./mergeRefs";
 

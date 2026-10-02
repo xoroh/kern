@@ -15,7 +15,9 @@ describe("IconButton", () => {
   // name must land on the element itself.
   it("carries the accessible name on the element", () => {
     render(<IconButton icon={<svg />} label="Add booking" />);
-    expect(screen.getByRole("button", { name: "Add booking" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Add booking" }),
+    ).toBeInTheDocument();
   });
 
   // M3 puts the label in a tooltip; kern keeps ONE prop driving both the
@@ -87,14 +89,7 @@ describe("IconButton", () => {
   it("still toggles when the host passes its own onClick", async () => {
     const user = userEvent.setup();
     const onClick = vi.fn();
-    render(
-      <IconButton
-        icon={<svg />}
-        label="Star"
-        toggle
-        onClick={onClick}
-      />,
-    );
+    render(<IconButton icon={<svg />} label="Star" toggle onClick={onClick} />);
     const button = screen.getByRole("button");
     await user.click(button);
     expect(button).toHaveAttribute("aria-pressed", "true");
@@ -127,7 +122,9 @@ describe("IconButton", () => {
   it("does not fire while disabled", async () => {
     const user = userEvent.setup();
     const onClick = vi.fn();
-    render(<IconButton icon={<svg />} label="Add" disabled onClick={onClick} />);
+    render(
+      <IconButton icon={<svg />} label="Add" disabled onClick={onClick} />,
+    );
     await user.click(screen.getByRole("button"));
     expect(onClick).not.toHaveBeenCalled();
   });
@@ -157,7 +154,9 @@ describe("IconButton", () => {
   it("warns in development when the accessible name is missing", () => {
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
     render(<IconButton icon={<svg />} />);
-    expect(warn).toHaveBeenCalledWith(expect.stringContaining("`label` is missing"));
+    expect(warn).toHaveBeenCalledWith(
+      expect.stringContaining("`label` is missing"),
+    );
     warn.mockRestore();
   });
 

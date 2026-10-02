@@ -46,16 +46,33 @@ describe("createDismissPolicy", () => {
   describe("shouldDismiss", () => {
     it("dismisses on every trigger while open", () => {
       const p = createDismissPolicy({ hasDismissHandler: true });
-      expect(p.shouldDismiss("scrim", true)).toBe(true);
-      expect(p.shouldDismiss("escape", true)).toBe(true);
-      expect(p.shouldDismiss("closeButton", true)).toBe(true);
+      const all = { scrim: true, escape: true, closeButton: true };
+      expect(p.shouldDismiss("scrim", true, all)).toBe(true);
+      expect(p.shouldDismiss("escape", true, all)).toBe(true);
+      expect(p.shouldDismiss("closeButton", true, all)).toBe(true);
+    });
+
+    // This is what the lint rule was pointing at. `dismissTriggersFor` used to
+    // be decorative: a renderer could declare a docked surface to have no scrim
+    // and the policy never consulted the declaration, so a live scrim would
+    // still dismiss it. Now the declaration is what the decision reads.
+    it("refuses a trigger the renderer did not declare", () => {
+      const p = createDismissPolicy({ hasDismissHandler: true });
+      const docked = dismissTriggersFor({
+        modal: false,
+        hasVisibleClose: true,
+      });
+      expect(p.shouldDismiss("scrim", true, docked)).toBe(false);
+      expect(p.shouldDismiss("escape", true, docked)).toBe(false);
+      expect(p.shouldDismiss("closeButton", true, docked)).toBe(true);
     });
 
     // A trigger on a closed surface must do nothing whatever the policy says.
     it("does nothing while closed, even for a dismissible surface", () => {
       const p = createDismissPolicy({ hasDismissHandler: true });
-      expect(p.shouldDismiss("escape", false)).toBe(false);
-      expect(p.shouldDismiss("scrim", false)).toBe(false);
+      const all = { scrim: true, escape: true, closeButton: true };
+      expect(p.shouldDismiss("escape", false, all)).toBe(false);
+      expect(p.shouldDismiss("scrim", false, all)).toBe(false);
     });
 
     it("does nothing for a mandatory surface", () => {
@@ -63,7 +80,8 @@ describe("createDismissPolicy", () => {
         dismissible: false,
         hasDismissHandler: true,
       });
-      expect(p.shouldDismiss("escape", true)).toBe(false);
+      const all = { scrim: true, escape: true, closeButton: true };
+      expect(p.shouldDismiss("escape", true, all)).toBe(false);
     });
   });
 });

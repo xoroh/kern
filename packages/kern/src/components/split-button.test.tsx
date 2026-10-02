@@ -91,9 +91,7 @@ describe("SplitButton", () => {
   it("fires the primary action without opening the menu", async () => {
     const user = userEvent.setup();
     const onClick = vi.fn();
-    render(
-      <SplitButton label="Save" onClick={onClick} actions={ACTIONS} />,
-    );
+    render(<SplitButton label="Save" onClick={onClick} actions={ACTIONS} />);
     await user.click(primary());
     expect(onClick).toHaveBeenCalledTimes(1);
     expect(screen.queryByRole("menu")).toBeNull();
@@ -102,9 +100,7 @@ describe("SplitButton", () => {
   it("opens the menu without firing the primary action", async () => {
     const user = userEvent.setup();
     const onClick = vi.fn();
-    render(
-      <SplitButton label="Save" onClick={onClick} actions={ACTIONS} />,
-    );
+    render(<SplitButton label="Save" onClick={onClick} actions={ACTIONS} />);
     await openOverflow(user);
     expect(screen.getByRole("menu")).toBeInTheDocument();
     expect(onClick).not.toHaveBeenCalled();
@@ -174,12 +170,7 @@ describe("SplitButton", () => {
   // "a split button whose overflow is live while its primary is dead is a trap"
   it("disables both halves together", () => {
     render(
-      <SplitButton
-        label="Save"
-        onClick={vi.fn()}
-        actions={ACTIONS}
-        disabled
-      />,
+      <SplitButton label="Save" onClick={vi.fn()} actions={ACTIONS} disabled />,
     );
     expect(primary()).toBeDisabled();
     expect(overflow()).toBeDisabled();
@@ -192,12 +183,7 @@ describe("SplitButton", () => {
   it("cannot open the overflow menu while disabled", async () => {
     const user = userEvent.setup();
     render(
-      <SplitButton
-        label="Save"
-        onClick={vi.fn()}
-        actions={ACTIONS}
-        disabled
-      />,
+      <SplitButton label="Save" onClick={vi.fn()} actions={ACTIONS} disabled />,
     );
     // A disabled trigger is not focusable, so there is nothing to press.
     expect(overflow()).toBeDisabled();
@@ -210,12 +196,7 @@ describe("SplitButton", () => {
     const user = userEvent.setup();
     const onClick = vi.fn();
     render(
-      <SplitButton
-        label="Save"
-        onClick={onClick}
-        actions={ACTIONS}
-        disabled
-      />,
+      <SplitButton label="Save" onClick={onClick} actions={ACTIONS} disabled />,
     );
     await user.click(primary());
     expect(onClick).not.toHaveBeenCalled();
