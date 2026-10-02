@@ -15,6 +15,9 @@ export const skeleton: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Skeleton"],
+  // M2: a skeleton takes no focus and exposes no ARIA state — an empty
+  // accessibility section is a FACT here, not a gap.
+  nonInteractive: true,
   customization: {
     supported: [
       "`style` is the whole customisation — size it, round it, place it.",

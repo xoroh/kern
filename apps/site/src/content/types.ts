@@ -286,4 +286,19 @@ export type ComponentDoc = {
    * defect. Omit when there are none — do not write an empty reassurance.
    */
   accessibilityGaps?: string[];
+
+  /**
+   * M2 — the contract must distinguish "n/a" from "not yet documented".
+   *
+   * `true` marks a genuinely NON-INTERACTIVE part (Skeleton, Separator,
+   * AspectRatio, Text …): it has no keyboard interaction and no ARIA state to
+   * contract for, so an empty accessibility section is a FACT, not a gap.
+   *
+   * Absent, the page is treated as interactive-but-undocumented, and the
+   * template renders an honest "not yet documented" note rather than dropping
+   * the section. Silent absence is the failure this exists to prevent: a
+   * reader cannot tell "we covered it" from "nobody wrote it", and the trust
+   * section was vanishing on every page that had no content yet.
+   */
+  nonInteractive?: boolean;
 };

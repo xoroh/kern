@@ -561,7 +561,29 @@ function Accessibility({ doc }: { doc: ComponentDoc }) {
   const keyboard = doc.keyboard;
   const aria = doc.aria ?? [];
   const gaps = doc.accessibilityGaps ?? [];
-  if (aria.length === 0 && gaps.length === 0 && !keyboard?.length) return null;
+  const hasContent = aria.length > 0 || gaps.length > 0 || !!keyboard?.length;
+
+  // M2 — the section never silently vanishes. A reader cannot tell "this is
+  // covered" from "nobody wrote it", and before this the trust section was
+  // absent on every page that had no content yet. Three states, two of which
+  // are the empty case, and they are different claims:
+  //
+  //   content      documented, render it
+  //   nonInteractive  a FACT — no keyboard, no ARIA state; say so briefly
+  //   (otherwise)     a GAP — interactive and undocumented; say THAT
+  if (!hasContent) {
+    return (
+      <section className="flex flex-col gap-4">
+        <h2 className={H2}>Accessibility</h2>
+        <p className={PROSE}>
+          {doc.nonInteractive
+            ? "Not applicable. This is a non-interactive part — it takes no focus, has no keyboard interaction and exposes no ARIA state of its own, so there is no behaviour to contract for. Anything it does for assistive technology comes from the primitives it renders."
+            : "Not yet documented. This component is interactive, so it does have keyboard and ARIA behaviour — the contract just has not been written up here yet. Treat this section as a gap, not as an absence of requirements."}
+        </p>
+      </section>
+    );
+  }
+
   return (
     <section className="flex flex-col gap-4">
       <h2 className={H2}>Accessibility</h2>

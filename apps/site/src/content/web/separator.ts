@@ -14,6 +14,9 @@ export const separator: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Separator"],
+  // M2: a divider is a presentational rule — it takes no focus and has no
+  // state, so there is nothing to contract for.
+  nonInteractive: true,
   customization: {
     supported: [
       "`className` is passed through and merged after the separator's own classes.",
