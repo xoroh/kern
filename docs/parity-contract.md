@@ -876,6 +876,41 @@ symmetrised, and P2b-2/3 must not "fix" them:
    "countable definition of done" gap I raised on D-028, now concrete: it is not
    hypothetical, it already produced three numbers for one set.
 
+## CLOSED 2026-10-02 — the last 10 native-only concepts (P2b-2 remainder)
+
+Re-measured against the current tree and re-read body-by-body. **0 of the 10 are buildable web
+components**, so nothing was built. Full evidence: `.team/reports/P2b-2-closure-10.md`.
+
+| concept | class | note |
+|---|---|---|
+| `aspect-ratio` | CSS | the body is one `aspectRatio` style — a web component emitting it is the empty abstraction |
+| `shape` | CSS | corner radius + rotation; `border-radius`/`transform` IS the contract |
+| `shape-art` | decorative | brand art; no behaviour, no role, no state |
+| `success-transform` | CSS | the CSS border-tick; its only behaviour is `Animated.timing` = a transition |
+| `milestone-trio` | duplicate | renders `progressbar`; `progress` is **confirmed shared**, so it presents an existing concept |
+| `menu-group-list` | sub-part | the shared renderer behind `MenuScreen`/`MenuSheet`; web has `menu` + `menu-group-label` |
+| `boot-splash` | name-mapping | web `boot-indicator` is the same concept family under another name |
+| `supporting-pane` | name-mapping + CSS | `currentWidth < compactBreakpoint` is a media query; web `Pane` is the concept |
+| `error-boundary` | name-mapping, BUILT | `KernErrorBoundary` (`1d2a42b`) — counted native-only only because the export name differs |
+| `icon-button-target` | RULED (`e9ab24b`) | deliberate asymmetry: 48dp Material/iOS vs WCAG 2.2 24px on web |
+
+**Why the count is 10 and the honest gap count is 0.** Three of these (7, 8, 9) are one defect:
+`check:parity` matches on the registry **name**, so one concept implemented twice under different
+export names reads as *one built, one missing*. That is **D10 restating itself for the third time** —
+`kern-error-boundary`/`error-boundary` was the first, `boot-splash`/`boot-indicator` and
+`supporting-pane`/`Pane` are the second and third. A concept-mapping table inside `check:parity`
+would collapse all three and take native-only to **7**, which is the true figure. That file is
+`kern-lead`'s; raised here, not edited.
+
+**No web component was manufactured for any of them.** Adding a `Shape` that emits a border radius, or
+an `AspectRatio` that emits one CSS property, would create a row with no behaviour purely to move a
+count — the "row that dispatches phantom work" failure this file exists to prevent, and why it
+enforces a count *and* a work list.
+
+**P2b-2 is complete: 20 concepts → 10 → 0 buildable gaps.**
+
+---
+
 ## Two contract rulings (requested by design-system-lead, 2026-10-02)
 
 ### `error-boundary` — BUILD a web version
