@@ -308,6 +308,8 @@ export type { NativeTextProps } from "./components/text";
 export { Text } from "./components/text";
 export type { TextareaProps } from "./components/textarea";
 export { Textarea } from "./components/textarea";
+export type { NativeTimePickerProps } from "./components/time-picker";
+export { TimePicker, timeFieldStyles } from "./components/time-picker";
 export type { NativeToggleProps } from "./components/toggle";
 export { Toggle, toggleStyles } from "./components/toggle";
 export type {

@@ -537,6 +537,33 @@ export const CONTRACTS: readonly ParityRow[] = [
     maxSelected: 1,
   },
   {
+    component: "time-picker",
+    // Stable machine key. `behaviour` is prose, so a copy-edit
+    // would silently rewrite identity if it were the key.
+    id: "time-picker-normalised-value",
+    // P2b-1 provenance: what this row is about, and where it came from.
+    behaviour:
+      "Reports one normalised 24-hour value and gives each field its own single selected option.",
+    webContract:
+      "Three listboxes — hour, minute, and period in 12-hour mode — each with one selected option, reporting a value whose hours are always 0-23 whatever is rendered.",
+    nativeContract:
+      "Three fields, each a list of options with its own single selected option and its own roving axis, reporting the same normalised 24-hour value; the field container has no listbox role natively and is announced as a list.",
+    spec: "M3 Time picker — hour, minute and period, with 12-hour rendering as an alternate presentation of 24-hour state.",
+    // The web side has NO time-picker test on disk, so naming one would be the
+    // false `testedBy` this gate exists to catch. Recorded as a gap.
+    testedBy: "time-picker.rntest.tsx / none on web — GAP",
+    role: "list",
+    axis: "selected",
+    interaction: "select",
+    name: "Hour 09",
+    expects: {
+      initial: true,
+      afterActivate: false,
+      afterDisabledActivate: true,
+    },
+    maxSelected: 1,
+  },
+  {
     // P2b-1 provenance: what this row is about, and where it came from.
     id: "carousel-active-index",
     component: "carousel",

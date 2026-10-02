@@ -2377,6 +2377,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    name: "time-picker",
+    export: "TimePicker",
+    platform: "native",
+    path: "src/components/time-picker.tsx",
+    status: "real",
+  },
+  {
     name: "toggle-group",
     export: "ToggleGroup",
     platform: "native",
