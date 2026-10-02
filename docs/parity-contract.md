@@ -367,32 +367,20 @@ assertion exists to catch. Filed as follow-up below.
 |---|---|---|---|---|---|---|
 | 1 | `combobox` | Select with a custom popup | `role="combobox"`, `aria-controls`, Escape | `accessibilityRole="combobox"` + `accessibilityState.expanded` — **deferred**: web = `autocomplete` + a clear affordance, and the clear affordance is a sub-part (see the P2b-3 section) | **no M3 component** — kern extension (autocomplete + clear) | `combobox.test.tsx` |
 | 2 | `native-select` | Native OS picker | `role="combobox"` | **`Picker`** — platform primitive, not a Kern component (see note) | M3 · Menus | GAP |
-| 3 | `drawer` | Side drawer | `role="dialog"` + `aria-modal` (M3 drawer = modal variant) | **shipped, P2b-3 tranche 5** — `role="dialog"` + `accessibilityViewIsModal`; scrim is a labelled dismiss control | M3 · Navigation drawer | `overlay-surfaces.rntest.tsx` |
-| 4 | `popover` | Anchored non-modal popup | `role="dialog"`, trigger `aria-expanded` + `aria-haspopup` | **shipped, P2b-3 tranche 5** — `role="dialog"`, deliberately **not** modal | M3 · Menus → Popover | `overlay-surfaces.rntest.tsx` |
-| 5 | `menu` group `menubar-menu` | One menu in a menubar | `role="menu"`, `aria-haspopup`, arrow keys | `accessibilityRole="menu"` | M3 · Menus | `menubar.test.tsx` |
-| 6 | `navigation-menu-link` | Link inside a navigation menu | `role="link"` | `accessibilityRole="link"` + `accessibilityState.selected` | M3 · Navigation | GAP |
-| 7 | `meter` | Scalar measurement in a range | `role="meter"` + `aria-valuenow/min/max` | `accessibilityRole="progressbar"` + `accessibilityValue` | M3 · Progress → Meter | `meter.test.tsx` |
-| 8 | `pagination` | Page navigation | `role="navigation"` + `aria-label="Pagination"`, current `aria-current` | `accessibilityRole="tablist"`-style selected | M3 · Lists → Pagination | GAP |
-| 9 | `preview-card` | Hover/focus preview surface | `role="group"`/`dialog` — no M3-canonical name exists | **deliberate web-only asymmetry** — hover/focus preview has no touch analogue, same class as `kbd` | *none — K10 (kern extension, `ext:` band)* | n/a — ruled |
-| 10 | `scroll-area` | Custom scroll container | `role="group"` + scrollbar parts | **shipped, P2b-3 tranche 5** — labelled viewport + `role="group"` on the scrolling host | M3 · Lists | `overlay-surfaces.rntest.tsx` |
-| 11 | `scroll-area-scrollbar` | The scrollbar itself | `role="scrollbar"` + `aria-valuenow` | platform scroll indicator | M3 · Lists | GAP |
-| 12 | `slider-thumb` | The draggable handle | `role="slider"` + `aria-valuenow/min/max` | `accessibilityRole="adjustable"` + `accessibilityValue` | M3 · Sliders | `slider.test.tsx` |
-| 13 | `table` parts (`head`/`body`/`cell`/`caption`) | Tabular data | `role="table"/"row"/"cell"/"columnheader"` | `role` equivalents via `accessibilityRole` | M3 · Data tables | GAP |
-| 14 | `tabs-tab` | One tab | `role="tab"` + `aria-selected`, arrow-key roving focus | `accessibilityRole="tab"` + `accessibilityState.selected` | M3 · Tabs | `tabs.test.tsx` |
-| 15 | `toolbar-button` | A toolbar action | `aria-pressed`/`aria-current`, arrow-key traversal | `accessibilityRole="button"` + `accessibilityState` | M3 · Toolbar | GAP |
-| 16 | `avatar-fallback` | Initials shown when no image | text alternative, `role="img"` on parent | `Text` fallback | M3 · Avatar | GAP |
-| 17 | `avatar-image` | The avatar image | `alt` text / `role="img"` | `Image` + `accessibilityLabel` | M3 · Avatar | GAP |
-| 18 | `boot-indicator` | Branded boot surface | `role="status"` + accessible label | `BootIndicator` exists natively as brand kit | Kern brand kit | GAP |
-| 19 | `page-loader` | Full-page loading | `role="status"`/`progressbar` | `ActivityIndicator` | M3 · Progress | GAP |
-| 20 | `fieldset` + form | Grouped form controls | `role="group"` + `<legend>` | `View` + `accessibilityRole="summary"`/label | M3 · Text fields | GAP |
-| 21 | `form` | Form container | landmark + validation association | `accessibilityRole="summary"` | M3 · Text fields | GAP |
-| 22 | `kbd` | Keyboard key glyph | `<kbd>`; **web-interaction concept** | **no mobile analogue** — deliberate asymmetry (see note) | none | n/a |
-| 23 | `sonner` | Imperative transient messages | `role="status"`, `aria-live` | **deliberately no native counterpart** — D-026/S1.3 ruling: M3 = `Snackbar` | M3 · Snackbars | n/a |
-| 25 | `icon-button` | Square icon-only action, 4 containers + toggle | `aria-pressed` on the toggle; name from one `label` prop | `Pressable` + `accessibilityRole="button"` + `accessibilityState.selected` | M3 · Buttons → Icon buttons | `m3-gaps.test.tsx` |
-| 26 | `time-picker` | Hour / minute / period | three `role="listbox"`es, roving tabindex per field, 24-hour state | `accessibilityRole="adjustable"`-style pickers, or a platform time picker | M3 · Date & time → Time picker | `m3-gaps.test.tsx` |
-| 30 | `carousel` | One item at a time with prev/next | `aria-roledescription="carousel"`/`"slide"`, `"n of m"` per slide | horizontal `ScrollView` + `accessibilityRole="adjustable"` paging | M3 · Carousel | `m3-gaps.test.tsx` |
-| 31 | `loading-indicator` | Indeterminate activity feedback (**replaces** indeterminate circular progress, T4-M5) | `role="status"`, no `aria-valuenow`, reduced-motion aware | `ActivityIndicator` + `accessibilityLabel`; **no** indeterminate circular-progress component | M3 · Progress → Loading indicator | `m3-gaps.test.tsx` |
-| 32 | `loading-region` | The region being loaded, with `aria-busy` | `aria-busy` on the region, `aria-live="polite"` | `accessibilityState.busy` on the container | M3 · Progress | `m3-gaps.test.tsx` |
+| 3 | `navigation-menu-link` | Link inside a navigation menu | `role="link"` | `accessibilityRole="link"` + `accessibilityState.selected` | M3 · Navigation | GAP |
+| 4 | `preview-card` | Hover/focus preview surface | `role="group"`/`dialog` — no M3-canonical name exists | **deliberate web-only asymmetry** — hover/focus preview has no touch analogue, same class as `kbd` | *none — K10 (kern extension, `ext:` band)* | n/a — ruled |
+| 5 | `scroll-area-scrollbar` | The scrollbar itself | `role="scrollbar"` + `aria-valuenow` | platform scroll indicator | M3 · Lists | GAP |
+| 6 | `slider-thumb` | The draggable handle | `role="slider"` + `aria-valuenow/min/max` | `accessibilityRole="adjustable"` + `accessibilityValue` | M3 · Sliders | `slider.test.tsx` |
+| 7 | `tabs-tab` | One tab | `role="tab"` + `aria-selected`, arrow-key roving focus | `accessibilityRole="tab"` + `accessibilityState.selected` | M3 · Tabs | `tabs.test.tsx` |
+| 8 | `toolbar-button` | A toolbar action | `aria-pressed`/`aria-current`, arrow-key traversal | `accessibilityRole="button"` + `accessibilityState` | M3 · Toolbar | GAP |
+| 9 | `avatar-fallback` | Initials shown when no image | text alternative, `role="img"` on parent | `Text` fallback | M3 · Avatar | GAP |
+| 10 | `avatar-image` | The avatar image | `alt` text / `role="img"` | `Image` + `accessibilityLabel` | M3 · Avatar | GAP |
+| 11 | `boot-indicator` | Branded boot surface | `role="status"` + accessible label | `BootIndicator` exists natively as brand kit | Kern brand kit | GAP |
+| 12 | `page-loader` | Full-page loading | `role="status"`/`progressbar` | `ActivityIndicator` | M3 · Progress | GAP |
+| 13 | `form` | Form container | landmark + validation association | `accessibilityRole="summary"` | M3 · Text fields | GAP |
+| 14 | `kbd` | Keyboard key glyph | `<kbd>`; **web-interaction concept** | **no mobile analogue** — deliberate asymmetry (see note) | none | n/a |
+| 15 | `sonner` | Imperative transient messages | `role="status"`, `aria-live` | **deliberately no native counterpart** — D-026/S1.3 ruling: M3 = `Snackbar` | M3 · Snackbars | n/a |
+| 16 | `loading-region` | The region being loaded, with `aria-busy` | `aria-busy` on the region, `aria-live="polite"` | `accessibilityState.busy` on the container | M3 · Progress | `m3-gaps.test.tsx` |
 
 Rows 22-24 are recorded so the set is complete and the **reasons are recorded**,
 per the S2.3-style bar of "either renders or carries an explicit prose reason".
@@ -405,6 +393,57 @@ native and the count fell 42 → 39, and again in **tranche 2**, when
 `extended-fab`, `fab-menu` and `split-button` shipped and it fell 39 → 37.
 
 ---
+| 17 | `app-shell` | Application frame: header, sidebar and content slot | `AppShell` composes the layout; regions are landmarks | **GAP** — no native version | — (composition tier; no governing component page verified) | GAP |
+| 18 | `app-top-bar` | Top app bar for an application frame | `AppTopBar` — heading + actions row | **GAP** — no native version | — (composition tier; no governing component page verified) | GAP |
+| 19 | `apps-menu` | Application-switcher menu in a top bar | `AppsMenu` — a `menu` of applications | **GAP** — no native version | M3 · Menus | GAP |
+| 20 | `contrast-toggle` | Toggle switching light/dark contrast | `ContrastToggle` — switch, `aria-pressed` | **GAP** — no native version | — (composition tier; no governing component page verified) | GAP |
+| 21 | `document` | Scrollable document surface | `Document` — the scroll container | **GAP** — no native version | — (composition tier; no governing component page verified) | GAP |
+| 22 | `help-menu` | Help menu in a top bar | `HelpMenu` — a `menu` | **GAP** — no native version | M3 · Menus | GAP |
+| 23 | `inspector` | Inspector pane in a split layout | `Inspector` — side pane | **GAP** — no native version | — (composition tier; no governing component page verified) | GAP |
+| 24 | `link` | Anchor link styled to the design language | `Link` — `a` with kern tokens | **GAP** — no native version | — (composition tier; no governing component page verified) | GAP |
+| 25 | `menubar-menu` | One menu in a menubar | `MenubarMenu` — `role="menu"`, arrow keys | **GAP** — no native version | M3 · Menus | GAP |
+| 26 | `navigation-rail` | Vertical navigation rail | `NavigationRail` — landmark + item list | **GAP** — no native version | M3 · Navigation rail | GAP |
+| 27 | `navigation-rail-button` | One destination in a navigation rail | `NavigationRailButton` — `aria-current` | **GAP** — no native version | M3 · Navigation rail | GAP |
+| 28 | `notifications-menu` | Notifications menu in a top bar | `NotificationsMenu` — a `menu` | **GAP** — no native version | M3 · Menus | GAP |
+| 29 | `page` | Page surface in a pane layout | `Page` — the primary content pane | **GAP** — no native version | — (composition tier; no governing component page verified) | GAP |
+| 30 | `search-bar` | Search input block | `SearchBar` — labelled `searchbox` | **GAP** — no native version | — (composition tier; no governing component page verified) | GAP |
+| 31 | `section-drawer` | Section drawer within a navigation surface | `SectionDrawer` — labelled region | **GAP** — no native version | M3 · Navigation drawer | GAP |
+| 32 | `settings-row` | One row in a settings list | `SettingsRow` — a labelled row | **GAP** — no native version | — (composition tier; no governing component page verified) | GAP |
+| 33 | `sidebar` | Sidebar navigation | `Sidebar` — landmark + list | **GAP** — no native version | M3 · Navigation drawer | GAP |
+| 34 | `split` | Two-pane split layout | `Split` — the split container | **GAP** — no native version | — (composition tier; no governing component page verified) | GAP |
+| 35 | `status-bar` | Status bar surface | `StatusBar` — a status landmark | **GAP** — no native version | — (composition tier; no governing component page verified) | GAP |
+| 36 | `table-body` | Body region of a table (compound part of `table`) | `TableBody` — row group | **GAP** — no native version | M3 · Data tables | GAP |
+| 37 | `table-caption` | Caption of a table (compound part) | `TableCaption` — `caption` | **GAP** — no native version | M3 · Data tables | GAP |
+| 38 | `table-cell` | A cell (compound part of `table`) | `TableCell` — `cell` role | **GAP** — no native version | M3 · Data tables | GAP |
+| 39 | `table-head` | Header region of a table (compound part) | `TableHead` — columnheader group | **GAP** — no native version | M3 · Data tables | GAP |
+| 40 | `theme-toggle` | Toggle switching the theme | `ThemeToggle` — `aria-pressed` | **GAP** — no native version | — (composition tier; no governing component page verified) | GAP |
+| 41 | `top-app-bar-toggle` | Overflow toggle inside a top app bar | `TopAppBarToggle` — `aria-expanded` | **GAP** — no native version | — (composition tier; no governing component page verified) | GAP |
+| 42 | `top-bar-menu` | Generic menu slot in a top bar | `TopBarMenu` — a `menu` | **GAP** — no native version | M3 · Menus | GAP |
+| 43 | `user-menu` | User/account menu in a top bar | `UserMenu` — a `menu` | **GAP** — no native version | M3 · Menus | GAP |
+
+### Moved out 2026-10-02 — these landed natively and are now SHARED
+
+`check:parity` (024b83b) caught twelve rows still listed as web-only after they
+landed natively. They were **misclassified, not undocumented** — several already
+recorded "shipped" in their native column — so they are recorded here rather than
+deleted, which would have erased the fact that they landed:
+
+- `carousel` — web + native both registered in the manifest
+- `drawer` — web + native both registered in the manifest
+- `fieldset` — web + native both registered in the manifest
+- `icon-button` — web + native both registered in the manifest
+- `loading-indicator` — web + native both registered in the manifest
+- `menu` — web + native both registered in the manifest
+- `meter` — web + native both registered in the manifest
+- `pagination` — web + native both registered in the manifest
+- `popover` — web + native both registered in the manifest
+- `scroll-area` — web + native both registered in the manifest
+- `table` — web + native both registered in the manifest
+- `time-picker` — web + native both registered in the manifest
+
+They are shared, so they are no longer P2b-3 work. The count of **web-only**
+concepts needing a native version is the heading figure above, which the gate
+now asserts.
 
 ## Native versions of the FAB / overflow-action family (P2b-3, tranche 2)
 
