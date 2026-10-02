@@ -61,6 +61,15 @@ const GENERATORS = [
       "packages/kern-tokens/src/tailwind.css",
     ],
   },
+  {
+    // D-038: the maturity table the site's state chips read. It is derived from
+    // package metadata and registry status, so ANY version bump, `deprecated`
+    // field, or manifest change makes it stale -- and an empty one would blank
+    // every chip on the site, which is the exact defect it was built to fix.
+    name: "generate-maturity (packages + manifest -> maturity.ts)",
+    cmd: ["bun", "packages/mcp/scripts/generate-maturity.mjs"],
+    outputs: ["packages/mcp/src/maturity.ts"],
+  },
 ];
 
 // Files biome formats inside the generators, so a generator run in a copy that
