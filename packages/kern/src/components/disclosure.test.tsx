@@ -146,7 +146,12 @@ describe("Autocomplete", () => {
     // its children are conditional (ADR 002 rule 3).
     const popup = document.querySelector("[data-slot='autocomplete-content']");
     expect(popup).toHaveAttribute("data-empty");
-    expect(screen.getByText("No match")).toBeInTheDocument();
+    // REGEX, not a string. Base UI's live-region helper appends U+2060 WORD
+    // JOINER so a screen reader re-announces identical text; the node's
+    // textContent is "No match\u2060", so an exact string match fails against a
+    // component that is behaving correctly. This is the real cause of the red
+    // test — not the fixture, and not the contract.
+    expect(screen.getByText(/No match/)).toBeInTheDocument();
     void container;
   });
 
@@ -157,7 +162,7 @@ describe("Autocomplete", () => {
     await user.keyboard("app");
     const popup = document.querySelector("[data-slot='autocomplete-content']");
     expect(popup).not.toHaveAttribute("data-empty");
-    expect(screen.queryByText("No match")).toBeNull();
+    expect(screen.queryByText(/No match/)).toBeNull();
   });
 
   // The clause that would have caught the original test: a hand-declared Item is
