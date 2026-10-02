@@ -1991,6 +1991,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    slug: "mobile/app-shell",
+    name: "app-shell",
+    export: "AppShell",
+    platform: "mobile",
+    status: "real",
+  },
+  {
     slug: "mobile/aspect-ratio",
     name: "aspect-ratio",
     export: "AspectRatio",
@@ -2407,6 +2414,13 @@ export const COMPONENTS: ComponentEntry[] = [
     slug: "mobile/navigation-menu",
     name: "navigation-menu",
     export: "NavigationMenu",
+    platform: "mobile",
+    status: "real",
+  },
+  {
+    slug: "mobile/navigation-rail",
+    name: "navigation-rail",
+    export: "NavigationRail",
     platform: "mobile",
     status: "real",
   },
