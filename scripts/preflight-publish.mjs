@@ -131,6 +131,27 @@ try {
     );
     const packed = JSON.parse(stdout);
 
+    // Tool-independent backstop, per D-035. The per-field check below is scoped
+    // to the fields npm actually installs from. Assert the same property once
+    // more against the packed manifest's shipped fields as a whole, so the gate
+    // states the rule ("a published manifest carries no workspace: specifier in
+    // anything a consumer installs") rather than only the consequence of
+    // whichever tool happened to pack it.
+    //
+    // NOT the whole file: npm pack KEEPS devDependencies, and a workspace: spec
+    // in devDependencies is harmless — npm strips devDeps from the installed
+    // tree, so it never reaches a consumer's resolver. Only the installed
+    // fields matter, which is why SHIPPED_FIELDS is the scope. (packages/kern
+    // legitimately keeps devDependencies.@xoroh/kern-tokens = "workspace:*".)
+    const shippedText = JSON.stringify(
+      Object.fromEntries(SHIPPED_FIELDS.map((f) => [f, packed[f] ?? {}])),
+    );
+    if (shippedText.includes("workspace:")) {
+      failures.push(
+        `  ${packed.name}  packed manifest carries a workspace: specifier in a shipped field (${rel})`,
+      );
+    }
+
     for (const field of SHIPPED_FIELDS) {
       for (const [name, range] of Object.entries(packed[field] ?? {})) {
         if (typeof range === "string" && range.startsWith("workspace:")) {
