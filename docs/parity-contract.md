@@ -55,10 +55,10 @@ again. Measured from the generated registry instead:
 | Registry rows | **345** (web 248, native 97) |
 | **Shared** (already both sides) | **59** |
 | **Native-only → needs a web version** | **26** in **11 files** |
-| **Web-only → needs a native version** | **29** in **28** files |
+| **Web-only → needs a native version** | **28** in **28** files |
 | Stub rows | **0** |
 
-<!-- gate:counts 59 26 29 0 -->
+<!-- gate:counts 59 26 28 0 -->
 
 Machine-readable line above: `check:parity` (`scripts/check-parity.mjs`) re-derives
 these from the registry and fails if they drift, so the prose above cannot quietly
@@ -303,7 +303,7 @@ were restored from backup afterwards.
 
 ---
 
-## Web-only concepts → need a native version (29)
+## Web-only concepts → need a native version (28)
 
 The heading previously read **34** while the machine gate read **42** — the
 `gate:counts` line was right and the sentence a human reads was stale, which is
@@ -337,7 +337,7 @@ assertion exists to catch. Filed as follow-up below.
 
 | # | Component | Behaviour | Web contract (exists) | Native contract (to build) | M3 source | Test pointer |
 |---|---|---|---|---|---|---|
-| 1 | `combobox` | Select with a custom popup | `role="combobox"`, `aria-controls`, Escape | `accessibilityRole="combobox"` + `accessibilityState.expanded` — **deferred**: web = `autocomplete` + a clear affordance, and the clear affordance is a sub-part (see the P2b-3 section) | M3 · Menus → Combobox | `combobox.test.tsx` |
+| 1 | `combobox` | Select with a custom popup | `role="combobox"`, `aria-controls`, Escape | `accessibilityRole="combobox"` + `accessibilityState.expanded` — **deferred**: web = `autocomplete` + a clear affordance, and the clear affordance is a sub-part (see the P2b-3 section) | **no M3 component** — kern extension (autocomplete + clear) | `combobox.test.tsx` |
 | 2 | `native-select` | Native OS picker | `role="combobox"` | **`Picker`** — platform primitive, not a Kern component (see note) | M3 · Menus | GAP |
 | 3 | `drawer` | Side drawer | `role="dialog"` + `aria-modal` (M3 drawer = modal variant) | **shipped, P2b-3 tranche 5** — `role="dialog"` + `accessibilityViewIsModal`; scrim is a labelled dismiss control | M3 · Navigation drawer | `overlay-surfaces.rntest.tsx` |
 | 4 | `popover` | Anchored non-modal popup | `role="dialog"`, trigger `aria-expanded` + `aria-haspopup` | **shipped, P2b-3 tranche 5** — `role="dialog"`, deliberately **not** modal | M3 · Menus → Popover | `overlay-surfaces.rntest.tsx` |

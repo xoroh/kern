@@ -36,7 +36,7 @@ const CONTRACT_TS = join(ROOT, "parity/contract.ts");
 // of those (segmented-button) is a concept, not a part. Stripping those blind is
 // exactly the bug this gate exists to make impossible to repeat silently.
 const PART_SUFFIX =
-  /-(root|items|item|trigger|content|list|label|value|group|empty|separator|action|close|title|description|input|provider|viewport|icon|section|panel|header|footer|handle|indicator|legend|option|column|row|group-label|item-indicator|item-text|field|message|error|step|tick)$/;
+  /-(root|items|item|trigger|content|list|label|value|group|empty|separator|action|close|title|description|input|provider|viewport|icon|section|panel|header|footer|handle|indicator|legend|option|column|row|group-label|item-indicator|item-text|field|message|error|step|tick|clear)$/;
 
 /**
  * Collapse a registry to concepts.
@@ -232,6 +232,7 @@ const DELIBERATE = [
   "kbd",
   "native-select",
   "preview-card",
+  "combobox",
 ];
 for (const name of DELIBERATE) {
   const inDoc = docConcepts.has(name) || contract.includes(`\`${name}\``);
@@ -422,6 +423,7 @@ violations.push(
 // complete long after it stopped being true.
 {
   const PROVENANCE_FIELDS = [
+    "id",
     "behaviour",
     "webContract",
     "nativeContract",
@@ -462,6 +464,7 @@ violations.push(
 
   const provenanceProblems = [];
   const uncoveredRows = [];
+  const componentOnly = new Map();
   const fieldValue = (row, field) => {
     const m = row.match(new RegExp(`\\b${field}:\\s*"([^"]*)"`));
     return m ? m[1] : undefined;
@@ -469,7 +472,9 @@ violations.push(
 
   for (const [index, row] of rowBlocks.entries()) {
     const comp = fieldValue(row, "component") ?? "?";
-    const where = `row ${index} (${comp})`;
+    // 1-based, so "row 17" is the 17th row rather than an offset from zero that
+    // disagrees with every human reading of the file. (review-m3, D-4)
+    const where = `row ${index + 1} (${comp})`;
     for (const field of PROVENANCE_FIELDS) {
       const value = fieldValue(row, field);
       if (value === undefined || value.trim() === "") {
@@ -500,7 +505,19 @@ violations.push(
           uncoveredRows.push(`${where}: ${suite}`);
           continue;
         }
-        const known = [...suiteNames].some((f) => f.startsWith(suite));
+        // Component-level suites (not under src/parity) prove the behaviour on
+        // each side, but no suite CONSUMES this row — so P2b-4's cross-renderer
+        // requirement is unmet for it. Recorded separately from a real gap.
+        if (!suite.includes("parity")) {
+          const suites = componentOnly.get(where) ?? [];
+          suites.push(suite);
+          componentOnly.set(where, suites);
+        }
+        // EXACT basename equality, not `startsWith`. `startsWith` accepts a
+        // truncated claim — "overlays.test.ts" matches "overlays.test.tsx" on
+        // disk — so a typo'd `testedBy` would pass the "file exists" check.
+        // (review-m3, hardening #1)
+        const known = suiteNames.has(suite);
         if (!known) {
           provenanceProblems.push(
             `${where}: \`testedBy\` names "${suite}" — no such test file on disk`,
@@ -536,6 +553,20 @@ violations.push(
       `  declared-uncovered  ${uncoveredRows.length} (recorded, not passing):`,
     );
     for (const u of uncoveredRows) console.log(`      ${u}`);
+  }
+  // A row covered only by component-level suites has NO cross-renderer test, so
+  // P2b-4's ">=1 cross-renderer test per row" is not met for it. Those rows used
+  // to pass silently, which is the same "passes because it did not look" family
+  // the elevation gate had. Printed, not enforced: these are real, correct
+  // components tested on both sides independently -- what is missing is a suite
+  // that consumes the row, which is P2b-4's job. (review-m3, hardening #2)
+  if (componentOnly.size > 0) {
+    console.log(
+      `  cross-renderer pending  ${componentOnly.size} (component-covered only):`,
+    );
+    for (const [where, suites] of componentOnly) {
+      console.log(`      ${where}: ${suites.join(" / ")}`);
+    }
   }
 }
 

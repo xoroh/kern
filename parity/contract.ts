@@ -48,6 +48,13 @@ export type ParityRow = {
   // ---------------------------------------------------------------------
 
   /**
+   * Stable machine key. `behaviour` is the row's real IDENTITY (one component
+   * can have two behaviours), but it is prose — a copy-edit would silently
+   * rewrite identity, and anything keyed on it would follow the prose into
+   * whatever typo landed. This slug does not move when the wording does.
+   */
+  id: string;
+  /**
    * The behaviour this row exists to pin, in one sentence. Several components
    * carry more than one row (`chip` twice, `list-item` twice) precisely because
    * one component can have two behaviours, so this is the row's real identity —
@@ -219,10 +226,15 @@ export type ParityRow = {
 export const CONTRACTS: readonly ParityRow[] = [
   {
     component: "switch",
+    // Stable machine key. `behaviour` is prose, so a copy-edit
+    // would silently rewrite identity if it were the key.
+    id: "switch-toggle",
     // P2b-1 provenance: what this row is about, and where it came from.
     behaviour: "Reports an on/off state and flips it on activation.",
-    webContract: "A `role=switch` exposing a checked axis; activation flips it; a disabled switch does not change.",
-    nativeContract: "A `role=switch` whose `accessibilityState.checked` flips on press; disabled blocks the change.",
+    webContract:
+      "A `role=switch` exposing a checked axis; activation flips it; a disabled switch does not change.",
+    nativeContract:
+      "A `role=switch` whose `accessibilityState.checked` flips on press; disabled blocks the change.",
     spec: "M3 Switch — toggles a single setting on/off.",
     testedBy: "web-parity.test.tsx / native-parity.rntest.tsx",
     role: "switch",
@@ -238,10 +250,15 @@ export const CONTRACTS: readonly ParityRow[] = [
   },
   {
     component: "checkbox",
+    // Stable machine key. `behaviour` is prose, so a copy-edit
+    // would silently rewrite identity if it were the key.
+    id: "checkbox-toggle",
     // P2b-1 provenance: what this row is about, and where it came from.
     behaviour: "Reports a checked state and flips it on activation.",
-    webContract: "A `role=checkbox` with a checked axis; activation flips it; disabled does not change.",
-    nativeContract: "A `role=checkbox` whose `accessibilityState.checked` flips on press; disabled blocks the change.",
+    webContract:
+      "A `role=checkbox` with a checked axis; activation flips it; disabled does not change.",
+    nativeContract:
+      "A `role=checkbox` whose `accessibilityState.checked` flips on press; disabled blocks the change.",
     spec: "M3 Checkbox — selects one or more options from a set.",
     testedBy: "web-parity-tranche4.test.tsx / native-parity.rntest.tsx",
     role: "checkbox",
@@ -257,12 +274,19 @@ export const CONTRACTS: readonly ParityRow[] = [
   },
   {
     component: "button",
+    // Stable machine key. `behaviour` is prose, so a copy-edit
+    // would silently rewrite identity if it were the key.
+    id: "button-activation",
     // P2b-1 provenance: what this row is about, and where it came from.
-    behaviour: "Activation performs an action and leaves no persistent pressed state behind.",
-    webContract: "A `role=button` that is not a toggle: it reports no pressed axis and does not stay pressed.",
-    nativeContract: "A `role=button` whose `accessibilityState.selected` is not a toggle and does not latch.",
+    behaviour:
+      "Activation performs an action and leaves no persistent pressed state behind.",
+    webContract:
+      "A `role=button` that is not a toggle: it reports no pressed axis and does not stay pressed.",
+    nativeContract:
+      "A `role=button` whose `accessibilityState.selected` is not a toggle and does not latch.",
     spec: "M3 Button — triggers an action; the filled/tonal/outlined variants differ in emphasis, not in state.",
-    testedBy: "web-parity-tranche4.test.tsx / native-parity-tranche2.rntest.tsx",
+    testedBy:
+      "web-parity-tranche4.test.tsx / native-parity-tranche2.rntest.tsx",
     role: "button",
     axis: "pressed",
     interaction: "toggle",
@@ -290,10 +314,16 @@ export const CONTRACTS: readonly ParityRow[] = [
   // kern's own per-renderer decision and is asserted in the native suite.
   {
     component: "drawer",
+    // Stable machine key. `behaviour` is prose, so a copy-edit
+    // would silently rewrite identity if it were the key.
+    id: "drawer-modal-dismiss",
     // P2b-1 provenance: what this row is about, and where it came from.
-    behaviour: "A labelled dialog that is not presented while closed and dismisses on request.",
-    webContract: "A `role=dialog` surface carrying the label, absent while closed, with a dismiss control reporting the closed state.",
-    nativeContract: "A `role=dialog` modal surface carrying the label, unmounted while closed, dismissing via scrim press and Android back.",
+    behaviour:
+      "A labelled dialog that is not presented while closed and dismisses on request.",
+    webContract:
+      "A `role=dialog` surface carrying the label, absent while closed, with a dismiss control reporting the closed state.",
+    nativeContract:
+      "A `role=dialog` modal surface carrying the label, unmounted while closed, dismissing via scrim press and Android back.",
     spec: "M3 Navigation drawer — a modal surface beside the content.",
     testedBy: "overlays.test.tsx / overlay-surfaces.rntest.tsx",
     role: "dialog",
@@ -312,10 +342,16 @@ export const CONTRACTS: readonly ParityRow[] = [
   },
   {
     component: "popover",
+    // Stable machine key. `behaviour` is prose, so a copy-edit
+    // would silently rewrite identity if it were the key.
+    id: "popover-anchored-dismiss",
     // P2b-1 provenance: what this row is about, and where it came from.
-    behaviour: "A transient labelled surface anchored to a trigger and dismissible.",
-    webContract: "A `role=dialog` surface carrying the label, absent while closed; the trigger is click-or-hover on web.",
-    nativeContract: "A `role=dialog` overlay carrying the label, dismissed on outside press; the trigger is press-only, since touch has no hover.",
+    behaviour:
+      "A transient labelled surface anchored to a trigger and dismissible.",
+    webContract:
+      "A `role=dialog` surface carrying the label, absent while closed; the trigger is click-or-hover on web.",
+    nativeContract:
+      "A `role=dialog` overlay carrying the label, dismissed on outside press; the trigger is press-only, since touch has no hover.",
     spec: "M3 Menu / anchored surface — transient content tied to an anchor.",
     testedBy: "overlays.test.tsx / overlay-surfaces.rntest.tsx",
     role: "dialog",
@@ -334,11 +370,16 @@ export const CONTRACTS: readonly ParityRow[] = [
   },
   {
     component: "scroll-area",
+    // Stable machine key. `behaviour` is prose, so a copy-edit
+    // would silently rewrite identity if it were the key.
+    id: "scroll-area-labelled",
     // P2b-1 provenance: what this row is about, and where it came from.
     behaviour: "A named, scrollable region with a labelled scrollbar.",
-    webContract: "A `role=group` region carrying the label, with the scroll affordance inside it.",
-    nativeContract: "A `role=group` region carrying the label, wrapping the RN scroll view.",
-    spec: "M3 Scrollbar / scroll container — indicates position within overflow content.",
+    webContract:
+      "A `role=group` region carrying the label, with the scroll affordance inside it.",
+    nativeContract:
+      "A `role=group` region carrying the label, wrapping the RN scroll view.",
+    spec: "NO M3 COMPONENT — a platform scroll container (RN ScrollView / CSS overflow). Kern extension per T4-V2; the M3-adjacent Scrollbar does not exist as an M3 component, so no M3 source is claimed.",
     testedBy: "overlays.test.tsx / overlay-surfaces.rntest.tsx",
     role: "group",
     axis: "selected",
@@ -371,12 +412,18 @@ export const CONTRACTS: readonly ParityRow[] = [
     // `aria-pressed`, native reports `accessibilityState.selected`. That mapping
     // is already this file's documented meaning of "pressed".
     component: "chip",
+    // Stable machine key. `behaviour` is prose, so a copy-edit
+    // would silently rewrite identity if it were the key.
+    id: "chip-filter-toggle",
     // P2b-1 provenance: what this row is about, and where it came from.
     behaviour: "A filter chip toggles selection and reports it.",
-    webContract: "A `role=button` toggle exposing a selected axis; activation flips selection.",
-    nativeContract: "A `role=button` toggle whose `accessibilityState.selected` flips on press.",
+    webContract:
+      "A `role=button` toggle exposing a selected axis; activation flips selection.",
+    nativeContract:
+      "A `role=button` toggle whose `accessibilityState.selected` flips on press.",
     spec: "M3 Filter chip — represents an option toggled on or off.",
-    testedBy: "web-parity-tranche2.test.tsx / native-parity-tranche2.rntest.tsx",
+    testedBy:
+      "web-parity-tranche2.test.tsx / native-parity-tranche2.rntest.tsx",
     role: "button",
     axis: "pressed",
     interaction: "toggle",
@@ -395,12 +442,18 @@ export const CONTRACTS: readonly ParityRow[] = [
     // after activation. This is the row that catches an assist chip quietly
     // growing toggle behaviour.
     component: "chip",
+    // Stable machine key. `behaviour` is prose, so a copy-edit
+    // would silently rewrite identity if it were the key.
+    id: "chip-assist-activation",
     // P2b-1 provenance: what this row is about, and where it came from.
     behaviour: "An assist chip performs an action and is not a toggle.",
-    webContract: "A `role=button` that is not a toggle and reports no selected axis.",
-    nativeContract: "A `role=button` whose `accessibilityState.selected` does not latch.",
+    webContract:
+      "A `role=button` that is not a toggle and reports no selected axis.",
+    nativeContract:
+      "A `role=button` whose `accessibilityState.selected` does not latch.",
     spec: "M3 Assist chip — triggers an action, such as opening a chip.",
-    testedBy: "web-parity-tranche2.test.tsx / native-parity-tranche2.rntest.tsx",
+    testedBy:
+      "web-parity-tranche2.test.tsx / native-parity-tranche2.rntest.tsx",
     role: "button",
     axis: "pressed",
     interaction: "toggle",
@@ -415,12 +468,18 @@ export const CONTRACTS: readonly ParityRow[] = [
   },
   {
     component: "list-item",
+    // Stable machine key. `behaviour` is prose, so a copy-edit
+    // would silently rewrite identity if it were the key.
+    id: "list-item-static",
     // P2b-1 provenance: what this row is about, and where it came from.
     behaviour: "A static list row carries a name and no interactive role.",
-    webContract: "A `role=listitem` whose accessible name contains the row text; it is not focusable.",
-    nativeContract: "A `role=listitem` whose accessible name is derived from its text; it is not pressable.",
+    webContract:
+      "A `role=listitem` whose accessible name contains the row text; it is not focusable.",
+    nativeContract:
+      "A `role=listitem` whose accessible name is derived from its text; it is not pressable.",
     spec: "M3 List — a continuous set of text or images.",
-    testedBy: "web-parity-tranche2.test.tsx / native-parity-tranche2.rntest.tsx",
+    testedBy:
+      "web-parity-tranche2.test.tsx / native-parity-tranche2.rntest.tsx",
     role: "listitem",
     axis: "selected",
     interaction: "select",
@@ -450,12 +509,18 @@ export const CONTRACTS: readonly ParityRow[] = [
     // native sets `accessibilityRole="button"`/`"link"`. Keyed by `name` so
     // `contractFor("list-item")` still resolves the static row above.
     component: "list-item",
+    // Stable machine key. `behaviour` is prose, so a copy-edit
+    // would silently rewrite identity if it were the key.
+    id: "list-item-selectable",
     // P2b-1 provenance: what this row is about, and where it came from.
     behaviour: "An interactive list row exposes selection and reports it.",
-    webContract: "A `role=listitem` with a selected axis, activatable, and not activatable when disabled.",
-    nativeContract: "A `role=listitem` whose `accessibilityState.selected` flips on press; disabled blocks it.",
+    webContract:
+      "A `role=listitem` with a selected axis, activatable, and not activatable when disabled.",
+    nativeContract:
+      "A `role=listitem` whose `accessibilityState.selected` flips on press; disabled blocks it.",
     spec: "M3 List — one item is selected at a time.",
-    testedBy: "web-parity-tranche2.test.tsx / native-parity-tranche2.rntest.tsx",
+    testedBy:
+      "web-parity-tranche2.test.tsx / native-parity-tranche2.rntest.tsx",
     role: "listitem",
     axis: "selected",
     interaction: "select",
@@ -473,12 +538,18 @@ export const CONTRACTS: readonly ParityRow[] = [
   },
   {
     component: "dialog",
+    // Stable machine key. `behaviour` is prose, so a copy-edit
+    // would silently rewrite identity if it were the key.
+    id: "dialog-modal",
     // P2b-1 provenance: what this row is about, and where it came from.
     behaviour: "A modal dialog exposes its modality and dismisses on request.",
-    webContract: "A `role=dialog` that reports modality, is named, and dismisses via Escape or the close control.",
-    nativeContract: "A `role=dialog` modal surface that reports `accessibilityViewIsModal`, is named, and dismisses on back press.",
+    webContract:
+      "A `role=dialog` that reports modality, is named, and dismisses via Escape or the close control.",
+    nativeContract:
+      "A `role=dialog` modal surface that reports `accessibilityViewIsModal`, is named, and dismisses on back press.",
     spec: "M3 Dialog — an alert-level interruption requiring a response.",
-    testedBy: "web-parity-tranche2.test.tsx / native-parity-tranche2.rntest.tsx",
+    testedBy:
+      "web-parity-tranche2.test.tsx / native-parity-tranche2.rntest.tsx",
     role: "dialog",
     axis: "selected",
     interaction: "select",
@@ -499,12 +570,19 @@ export const CONTRACTS: readonly ParityRow[] = [
   },
   {
     component: "sheet-surface",
+    // Stable machine key. `behaviour` is prose, so a copy-edit
+    // would silently rewrite identity if it were the key.
+    id: "sheet-surface-modal",
     // P2b-1 provenance: what this row is about, and where it came from.
-    behaviour: "The native sheet meets the same dialog contract as the web dialog.",
-    webContract: "Not applicable: web has no `sheet-surface`; the counterpart is `dialog`, which this row pins.",
-    nativeContract: "A `role=dialog` modal surface that is named and dismisses on scrim press, Android back, and a close control.",
+    behaviour:
+      "The native sheet meets the same dialog contract as the web dialog.",
+    webContract:
+      "Not applicable: web has no `sheet-surface`; the counterpart is `dialog`, which this row pins.",
+    nativeContract:
+      "A `role=dialog` modal surface that is named and dismisses on scrim press, Android back, and a close control.",
     spec: "M3 Bottom sheet — a modal surface anchored to the bottom of the screen.",
-    testedBy: "web-parity-tranche5.test.tsx / native-parity-tranche5.rntest.tsx",
+    testedBy:
+      "web-parity-tranche5.test.tsx / native-parity-tranche5.rntest.tsx",
     role: "dialog",
     axis: "selected",
     interaction: "select",
@@ -532,12 +610,19 @@ export const CONTRACTS: readonly ParityRow[] = [
   },
   {
     component: "input",
+    // Stable machine key. `behaviour` is prose, so a copy-edit
+    // would silently rewrite identity if it were the key.
+    id: "text-field-single-line",
     // P2b-1 provenance: what this row is about, and where it came from.
-    behaviour: "A single-line text field reports its multiline-ness and refuses text when disabled.",
-    webContract: "A `role=textbox` that is single-line and not editable when disabled.",
-    nativeContract: "A `role=textbox` whose `editable` is false when disabled, announced through `accessibilityState.disabled`.",
+    behaviour:
+      "A single-line text field reports its multiline-ness and refuses text when disabled.",
+    webContract:
+      "A `role=textbox` that is single-line and not editable when disabled.",
+    nativeContract:
+      "A `role=textbox` whose `editable` is false when disabled, announced through `accessibilityState.disabled`.",
     spec: "M3 Text field — enter and edit text, single line.",
-    testedBy: "web-parity-tranche2.test.tsx / native-parity-tranche2.rntest.tsx",
+    testedBy:
+      "web-parity-tranche2.test.tsx / native-parity-tranche2.rntest.tsx",
     role: "textbox",
     axis: "checked",
     interaction: "toggle",
@@ -556,12 +641,19 @@ export const CONTRACTS: readonly ParityRow[] = [
   },
   {
     component: "textarea",
+    // Stable machine key. `behaviour` is prose, so a copy-edit
+    // would silently rewrite identity if it were the key.
+    id: "text-field-multi-line",
     // P2b-1 provenance: what this row is about, and where it came from.
-    behaviour: "A multi-line text field accepts multiple lines and refuses text when disabled.",
-    webContract: "A `role=textbox` that is multi-line and not editable when disabled.",
-    nativeContract: "A `role=textbox` whose `editable` is false when disabled, with `multiline` true.",
-    spec: "M3 Text field — a variant that grows with its content.",
-    testedBy: "web-parity-tranche2.test.tsx / native-parity-tranche2.rntest.tsx",
+    behaviour:
+      "A multi-line text field accepts multiple lines and refuses text when disabled.",
+    webContract:
+      "A `role=textbox` that is multi-line and not editable when disabled.",
+    nativeContract:
+      "A `role=textbox` whose `editable` is false when disabled, with `multiline` true.",
+    spec: "M3 Text field (family) — the filled/outlined variants are the verified surface. The multiline variant is NOT verified against the current spec, so no M3 multiline source is claimed (D-3).",
+    testedBy:
+      "web-parity-tranche2.test.tsx / native-parity-tranche2.rntest.tsx",
     role: "textbox",
     axis: "checked",
     interaction: "toggle",
@@ -595,12 +687,19 @@ export const CONTRACTS: readonly ParityRow[] = [
     // increment size and not a grid; an early native draft snapped and turned
     // an increment into +3, and the shared test caught it.
     component: "number-field",
+    // Stable machine key. `behaviour` is prose, so a copy-edit
+    // would silently rewrite identity if it were the key.
+    id: "number-field-stepper",
     // P2b-1 provenance: what this row is about, and where it came from.
-    behaviour: "A numeric field steps within a range and refuses stepping when disabled.",
-    webContract: "A `role=textbox` whose increment and decrement controls move the value by one step, and do nothing when disabled.",
-    nativeContract: "A `role=textbox` with increment/decrement controls that move the value by one step; disabled blocks them.",
-    spec: "M3 — a numeric input with stepper affordances.",
-    testedBy: "web-parity-tranche3.test.tsx / native-parity-tranche3.rntest.tsx",
+    behaviour:
+      "A numeric field steps within a range and refuses stepping when disabled.",
+    webContract:
+      "A `role=textbox` whose increment and decrement controls move the value by one step, and do nothing when disabled.",
+    nativeContract:
+      "A `role=textbox` with increment/decrement controls that move the value by one step; disabled blocks them.",
+    spec: "M3 Text field (FAMILY ONLY) — M3 defines no number-field component and its text-field overview enumerates only filled/outlined. The stepper affordance is a kern extension and is routed to the ext: band per K10, not to an M3 source.",
+    testedBy:
+      "web-parity-tranche3.test.tsx / native-parity-tranche3.rntest.tsx",
     role: "textbox",
     axis: "checked",
     interaction: "select",
@@ -622,12 +721,19 @@ export const CONTRACTS: readonly ParityRow[] = [
   },
   {
     component: "input-otp",
+    // Stable machine key. `behaviour` is prose, so a copy-edit
+    // would silently rewrite identity if it were the key.
+    id: "otp-segments",
     // P2b-1 provenance: what this row is about, and where it came from.
-    behaviour: "A one-time-code field is a named group of segments that advances as it is filled.",
-    webContract: "A `role=group` of segments; entering a full segment advances focus and announces the code as one field.",
-    nativeContract: "A `role=group` of segments; entering a full segment advances the active segment.",
-    spec: "M3 — OTP / PIN entry, a bounded set of single-character segments.",
-    testedBy: "web-parity-tranche3.test.tsx / native-parity-tranche3.rntest.tsx",
+    behaviour:
+      "A one-time-code field is a named group of segments that advances as it is filled.",
+    webContract:
+      "A `role=group` of segments; entering a full segment advances focus and announces the code as one field.",
+    nativeContract:
+      "A `role=group` of segments; entering a full segment advances the active segment.",
+    spec: "NO M3 COMPONENT — M3 defines no OTP/PIN component. Kern extension per T4-V2's non-M3 band; routed to ext: rather than claiming an M3 source.",
+    testedBy:
+      "web-parity-tranche3.test.tsx / native-parity-tranche3.rntest.tsx",
     role: "group",
     axis: "checked",
     interaction: "select",
@@ -669,10 +775,16 @@ export const CONTRACTS: readonly ParityRow[] = [
     // mechanism free, which is the whole point of a contract row: it must
     // survive a change of delivery mechanism.
     component: "tooltip",
+    // Stable machine key. `behaviour` is prose, so a copy-edit
+    // would silently rewrite identity if it were the key.
+    id: "tooltip-supplementary",
     // P2b-1 provenance: what this row is about, and where it came from.
-    behaviour: "Supplementary text is present as text; the mechanism linking it to the trigger is free.",
-    webContract: "The popup renders with no accessible role, and the trigger is not programmatically linked to it — recorded as web-side debt and asserted neither way",
-    nativeContract: "The surface is announced as supplementary text on the trigger.",
+    behaviour:
+      "Supplementary text is present as text; the mechanism linking it to the trigger is free.",
+    webContract:
+      "The popup renders with no accessible role, and the trigger is not programmatically linked to it — recorded as web-side debt and asserted neither way",
+    nativeContract:
+      "The surface is announced as supplementary text on the trigger.",
     spec: "M3 Tooltip — short supplementary text on hover or long-press.",
     testedBy: "web-parity-tranche4.test.tsx / none on native — GAP",
     role: "button",
