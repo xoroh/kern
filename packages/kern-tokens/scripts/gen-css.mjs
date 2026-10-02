@@ -28,6 +28,14 @@ const darkElevation = {
 };
 const sharpDarkColors = Object.entries(sharp.overrides.color?.dark ?? {});
 
+// DTCG metadata keys (`$comment`, `$schema`, …) are annotations, not tokens. Emitting one
+// produces an invalid custom-property name (`--md-sys-state-$comment`) and a var that
+// resolves to nothing. EVERY group must filter, not just elevation: `states` was the one
+// that leaked, when it gained a `$comment` while adding M3's fifth state opacity.
+const isTokenKey = (key) => !key.startsWith("$");
+const tokenEntries = (group) =>
+  Object.entries(group ?? {}).filter(([k]) => isTokenKey(k));
+
 const C = [
   '@import "@fontsource-variable/inter";',
   "",
@@ -53,17 +61,15 @@ const C = [
   "}",
   "",
   ":root {",
-  ...Object.entries(T.shape).map(
+  ...tokenEntries(T.shape).map(
     ([name, value]) => `  --md-sys-shape-corner-${name}: ${value};`,
   ),
   // Skip DTCG metadata keys (`$comment`, `$schema`, …). They are annotations, not
   // tokens; emitting one produces an invalid custom-property name and a broken var.
-  ...Object.entries(T.elevation)
-    .filter(([level]) => !level.startsWith("$"))
-    .flatMap(([level, value]) => [
-      `  --md-sys-elevation-${level}: ${value.shadow};`,
-      `  --md-sys-elevation-${level}-dp: ${value.dp};`,
-    ]),
+  ...tokenEntries(T.elevation).flatMap(([level, value]) => [
+    `  --md-sys-elevation-${level}: ${value.shadow};`,
+    `  --md-sys-elevation-${level}-dp: ${value.dp};`,
+  ]),
   ...Object.entries(T.typography.scale).flatMap(([name, style]) => [
     `  ${prefix(name)}-font-family: ${fontFamily};`,
     `  ${prefix(name)}-font-size: ${style.size};`,
@@ -108,11 +114,11 @@ const C = [
         }-${target});`,
     ),
   ),
-  ...Object.entries(T.states).map(
+  ...tokenEntries(T.states).map(
     ([name, value]) =>
       `  --md-sys-state-${name.replace("-opacity", "")}: ${value};`,
   ),
-  ...Object.entries(T.spacing).map(
+  ...tokenEntries(T.spacing).map(
     // M3 names spacing `space100 = 8dp` (P1-6). The key already carries the `space-`
     // prefix, so the var is `--md-sys-spacing-space-100`.
     ([step, value]) => `  --md-sys-spacing-${step}: ${value};`,
@@ -171,7 +177,7 @@ const C = [
   ...Object.keys(M3.color.light).map(
     (role) => `  --color-${kebab(role)}: var(${roleVar(role)});`,
   ),
-  ...Object.entries(T.shape).map(
+  ...tokenEntries(T.shape).map(
     ([name]) =>
       `  --radius-${kebab(name)}: var(--md-sys-shape-corner-${name});`,
   ),
@@ -186,7 +192,7 @@ const C = [
       `  --text-${name}: ${style.size};\n  --text-${name}--line-height: ${style.lineHeight};\n  --text-${name}--letter-spacing: ${style.tracking};\n  --text-${name}--font-weight: ${style.weight};`,
   ),
   "  --font-sans: var(--kern-font-family);",
-  ...Object.entries(T.spacing).map(
+  ...tokenEntries(T.spacing).map(
     ([step, value]) => `  --spacing-${step}: ${value};`,
   ),
   "  --color-background: var(--background);",

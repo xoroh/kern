@@ -203,6 +203,44 @@ for (const entry of inventory.missingDeviation) {
   }
 }
 
+// 3b. STATE LAYERS (SPECS-1 F1, research A2). M3's state-layers page publishes exactly
+// FIVE overlay opacities: hover +8, focus +10, press +10, drag +16, disabled +38.
+// kern shipped four; `disabled` was the one gap a currency gate would flag, because
+// material-web (from which the other four were taken) DOES define it while being behind on
+// Expressive. Values are asserted against the SPEC page, per SPECS-1: a value check may cite
+// an implementation, but the completeness claim is the spec's.
+{
+  const M3_STATE_OPACITIES = {
+    "hover-opacity": "8%",
+    "focus-opacity": "10%",
+    "press-opacity": "10%",
+    "drag-opacity": "16%",
+    "disabled-opacity": "38%",
+  };
+  const states = tokens.states ?? {};
+  for (const [key, expected] of Object.entries(M3_STATE_OPACITIES)) {
+    if (states[key] === undefined) {
+      violations.push(
+        `states.${key} is missing — M3 defines five state-layer opacities ` +
+          `(hover 8%, focus 10%, press 10%, drag 16%, disabled 38%)`,
+      );
+    } else if (states[key] !== expected) {
+      violations.push(
+        `states.${key} is ${states[key]}, M3 specifies ${expected}`,
+      );
+    }
+  }
+  // A sixth would be a kern extension, not an M3 state.
+  for (const key of Object.keys(states)) {
+    if (key.startsWith("$")) continue;
+    if (!(key in M3_STATE_OPACITIES)) {
+      violations.push(
+        `states.${key} is not one of the five M3 state-layer opacities`,
+      );
+    }
+  }
+}
+
 // 4. ELEVATION (P1-6). M3 levels 0-5 with dp 0/1/3/6/8/12. The dp axis IS the spec;
 // the shadow axis is kern's platform rendering (M3: "Elevation has no shadow or value
 // of its own by default"), recorded as deviation K4 rather than asserted as M3.
@@ -445,7 +483,9 @@ console.log(
   `kern contract passes: ${inventory.m3Present}/${M3_ROLES.length} M3 roles present ` +
     `(+${Object.keys(KERN_EXTRA_ROLES).length} kern deviations), ` +
     `${Object.keys(tokens.typography.scale).length}+${Object.keys(tokens.typography.scaleEmphasized ?? {}).length} typescale, ` +
-    `${Object.keys(tokens.spacing).length} spacing, elevation 0-5, ` +
+    `${Object.keys(tokens.spacing).length} spacing, ` +
+    `${Object.keys(tokens.states ?? {}).filter((k) => !k.startsWith("$")).length}/5 states, ` +
+    `elevation 0-5, ` +
     `resting elevation ${elevationConformant}/${elevationTotal} components, shape 10, ` +
     `motion ${Object.keys(tokens.motion.schemes ?? {}).join("/")}, ` +
     `roles complete in every scheme, tokens only, shape scale only`,
