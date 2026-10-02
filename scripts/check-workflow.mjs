@@ -72,7 +72,18 @@ for (const file of workflows) {
     if (Array.isArray(node)) return node.forEach(collect);
     for (const [key, value] of Object.entries(node)) {
       if (key === "run" && typeof value === "string") {
-        for (const m of value.matchAll(/bun run ([\w:-]+)/g)) invoked.add(m[1]);
+        // ANCHORED (F3). Unanchored, this matched `bun run X` inside a COMMENT
+        // or an echoed string -- so a `run:` block that only MENTIONS a gate in
+        // prose counted as invoking it, and a genuinely dark gate could be talked
+        // into looking lit by a line of explanation.
+        //
+        // The anchor is line-start OR a shell separator (`&&`, `||`, `;`). Line
+        // start alone is too strict: a legitimate `echo x && bun run check:x`
+        // would be reported as DARK, which is its own kind of lie. A `#` comment
+        // line matches neither, which is the case that matters.
+        for (const m of value.matchAll(/(?:^|[;&|]\s*)bun run ([\w:-]+)/gm)) {
+          invoked.add(m[1]);
+        }
       } else collect(value);
     }
   };
