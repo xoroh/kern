@@ -33,6 +33,7 @@ jobs:
 
       - name: Check web/native parity contract
         run: bun run check:parity
+        run: bun run check:currency
 
       - name: Check the package layering (D-034)
         run: bun run check:layers

@@ -25,6 +25,7 @@
     "icons:check": "bun packages/kern-icons/tools/check.ts",
     "check:contrast": "bun packages/kern-tokens/scripts/check-contrast.mjs",
     "check:kern": "node scripts/check-kern.mjs",
+    "check:currency": "node scripts/check-currency.mjs",
     "check:parity": "node scripts/check-parity.mjs",
     "check:layers": "node scripts/check-layers.mjs",
     "check:primitives": "node scripts/check-primitives.mjs",
