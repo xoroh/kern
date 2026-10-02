@@ -108,7 +108,7 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",
-    "@xoroh/kern-primitives": "workspace:*",
+    "@xoroh/kern-primitives": "^0.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "tailwind-merge": "^3.7.0"
