@@ -38,7 +38,7 @@ docs surface owns clause 2's documentation.
 ## The two rules people break
 
 1. **Editing generated output.** `docs/components.md`,
-   `packages/mcp/src/manifest.ts`, `packages/mcp/src/component-sources.ts`,
+   `packages/mcp/src/manifest.ts`,
    `tokens.css`, `tones.css`, and `motion.css` are all generated. Fix the
    generator or run it; a hand-patch is reverted by the next regen and hides
    the bug.

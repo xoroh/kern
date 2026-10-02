@@ -58,7 +58,6 @@ packages/kern-tokens/src/tokens.css      bun run generate:tokens
 packages/kern-tokens/src/tones.css       bun run generate:tones
 packages/kern-tokens/src/motion.css      bun run generate:motion
 packages/mcp/src/manifest.ts            bun run generate:components
-packages/mcp/src/component-sources.ts   bun run generate:components
 docs/components.md                      bun run generate:components
 ```
 

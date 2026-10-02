@@ -63,7 +63,6 @@ the `react-native` export condition.
 | `packages/kern-tokens/src/tones.css` | `bun run generate:tones` |
 | `packages/kern-tokens/src/motion.css` | `bun run generate:motion` |
 | `packages/mcp/src/manifest.ts` | `bun run generate:components` |
-| `packages/mcp/src/component-sources.ts` | `bun run generate:components` |
 | `docs/components.md` | `bun run generate:components` |
 
 The generated header in each file says so. If output looks wrong, fix the

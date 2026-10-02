@@ -16,5 +16,5 @@ Rules: same change as the code, never defer. Voice and structure per
 `README.md`.
 
 Generated, never hand-edited: `docs/components.md`,
-`packages/mcp/src/manifest.ts`, `packages/mcp/src/component-sources.ts`,
+`packages/mcp/src/manifest.ts`,
 `packages/kern-tokens/src/{tokens,tones,motion}.css`.

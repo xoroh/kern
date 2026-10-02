@@ -144,7 +144,6 @@ Six files are generated and must never be hand-edited:
 | `packages/kern-tokens/src/tones.css` | `bun run generate:tones` |
 | `packages/kern-tokens/src/motion.css` | `bun run generate:motion` |
 | `packages/mcp/src/manifest.ts` | `bun run generate:components` |
-| `packages/mcp/src/component-sources.ts` | `bun run generate:components` |
 | `docs/components.md` | `bun run generate:components` |
 
 `bun run build` runs all of them, so a clean build proves the generators are
