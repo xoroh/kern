@@ -19,6 +19,8 @@
 //
 // BUILDER_ENV (optional) names the agent for a friendlier message.
 
+import { spawn } from "node:child_process";
+import { once } from "node:events";
 import { mkdir, readFile, rm, stat, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -101,16 +103,20 @@ async function acquire() {
 await acquire();
 
 // Run whatever we were asked to run, then always release.
+//
+// Spawn via process.execPath rather than the `Bun` global: this script runs as
+// `node scripts/build-lock.mjs`, so `Bun` is not defined and referencing it
+// throws — which made `build:locked` fail on EVERY invocation, even with no
+// contention. Use `bash -lc` so the command is a real shell line.
 const command = argv.join(" ");
 try {
-  const child = await Bun.spawn(["bash", "-lc", command], {
-    stdout: "inherit",
-    stderr: "inherit",
+  const child = spawn("bash", ["-lc", command], {
+    stdio: ["ignore", "inherit", "inherit"],
     env: process.env,
   });
-  const code = await child.exited;
+  const [code] = await once(child, "exit");
   await rm(LOCK_DIR, { recursive: true, force: true });
-  process.exit(code);
+  process.exit(typeof code === "number" ? code : 1);
 } catch (error) {
   await rm(LOCK_DIR, { recursive: true, force: true });
   process.stderr.write(`build-lock: ${error?.message ?? error}\n`);
