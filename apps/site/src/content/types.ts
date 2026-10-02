@@ -118,6 +118,13 @@ export type MetadataStrip = {
   apgUrl?: string;
   /** Source on GitHub. */
   sourceUrl?: string;
+  /**
+   * M4 — the DOCS CONTENT FILE, distinct from `sourceUrl` (the component
+   * source). "Edit on GitHub" targets this. When absent the path is DERIVED
+   * from the platform and slug, so set this only for pages whose content does
+   * not live at `src/content/<platform>/<slug>.ts`.
+   */
+  editUrl?: string;
   /** Bundle-size report. */
   bundleUrl?: string;
 };

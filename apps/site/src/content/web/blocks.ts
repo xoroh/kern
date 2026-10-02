@@ -8,6 +8,11 @@ export const blocks: ComponentDoc = {
   features:
     "Reach for these when a shell needs one of the ordinary small parts and you would rather not write it again: a search field, one settings row with a control, a status strip along the bottom, a switch that changes the theme. They are five separate exports grouped here because they are the same kind of thing — shell furniture rather than content components. Two of them are kern's own inventions and are labelled as such: `ThemeToggle` and `ContrastToggle` are not Material 3 components and have no spec row behind them.",
   meta: {
+    // M4: the route slug and the content filename disagree here (blocks.ts
+    // carries the search-bar page), so "Edit this page" cannot derive its
+    // target. Point it at the real file explicitly.
+    editUrl:
+      "https://github.com/xoroh/kern/edit/main/apps/site/src/content/web/blocks.ts",
     status: "real",
     package: "@xoroh/kern/start",
     // Composition tier — web shell furniture, no native counterpart expected.

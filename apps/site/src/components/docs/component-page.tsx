@@ -797,12 +797,55 @@ function ApiReference({ doc }: { doc: ComponentDoc }) {
  * Section 10 — Footer. Navigation plus the affordances that make a docs page
  * a work surface rather than a dead end: edit it, and say whether it helped.
  */
+/**
+ * M4 — "Edit on GitHub" must point at the DOCS CONTENT FILE, not the
+ * component source. They are different files, and conflating them sent
+ * readers to `packages/kern/src/components/button.tsx` when they clicked
+ * "Edit on GitHub" on a documentation page.
+ *
+ * The path is DERIVED from the platform and slug, so it cannot drift the way
+ * 190 hand-written URLs would. `check:docs` asserts the derived file exists
+ * on disk — a derived link to a file that is not there is exactly the class
+ * of defect this replaces.
+ *
+ * `meta.editUrl` overrides it for the handful of pages whose content does not
+ * live at the conventional path (the family/aggregate pages).
+ */
+const GITHUB = "https://github.com/xoroh/kern";
+const REPO_BRANCH = "main";
+
+function editUrlFor(doc: ComponentDoc, platform: Platform): string {
+  if (doc.meta.editUrl) return doc.meta.editUrl;
+  return `${GITHUB}/edit/${REPO_BRANCH}/apps/site/src/content/${platform}/${doc.slug}.ts`;
+}
+
+/**
+ * The feedback mechanism. "Is this page helpful?" with no way to answer is
+ * worse than no question — it asks for effort the reader cannot spend. The
+ * answer is a prefilled issue: one click, and the page identity is already in
+ * the body so nobody has to copy a URL to report a problem.
+ */
+function feedbackUrlFor(doc: ComponentDoc, platform: Platform): string {
+  const title = `[docs] ${doc.name} (${platform})`;
+  const body = [
+    `**Page:** ${doc.slug} (${platform})`,
+    ``,
+    `**What is wrong or missing:**`,
+    ``,
+    ``,
+    `---`,
+    `Filed from the docs page footer.`,
+  ].join("\n");
+  return `${GITHUB}/issues/new?title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
+}
 function Footer({
   doc,
+  platform,
   prev,
   next,
 }: {
   doc: ComponentDoc;
+  platform: Platform;
   prev?: string;
   next?: string;
 }) {
@@ -835,6 +878,20 @@ function Footer({
       </nav>
 
       <div className={`flex flex-wrap items-center gap-4 ${SMALL}`}>
+        {/*
+          M4 — both targets are usable and they are DIFFERENT files:
+          "Edit this page" goes to the docs content file, "Component source"
+          goes to the code the page documents. Conflating them sent readers
+          editing a .tsx when they meant to fix a sentence.
+        */}
+        <a
+          className="text-(--md-sys-color-primary) underline underline-offset-2"
+          href={editUrlFor(doc, platform)}
+          rel="noreferrer"
+          target="_blank"
+        >
+          Edit this page
+        </a>
         {doc.meta.sourceUrl ? (
           <a
             className="text-(--md-sys-color-primary) underline underline-offset-2"
@@ -842,10 +899,22 @@ function Footer({
             rel="noreferrer"
             target="_blank"
           >
-            Edit on GitHub
+            Component source
           </a>
         ) : null}
-        <span className={BODY}>Is this page helpful?</span>
+        {/*
+          The feedback question now has an ANSWER MECHANISM. Asking "Is this
+          page helpful?" with nowhere to reply asks for effort the reader
+          cannot spend — the prefilled issue is the answer.
+        */}
+        <a
+          className="text-(--md-sys-color-primary) underline underline-offset-2"
+          href={feedbackUrlFor(doc, platform)}
+          rel="noreferrer"
+          target="_blank"
+        >
+          Report a problem with this page
+        </a>
       </div>
     </footer>
   );
@@ -891,7 +960,7 @@ export function ComponentPage({
       {/* look up */}
       <ApiReference doc={doc} />
 
-      <Footer doc={doc} prev={prev} next={next} />
+      <Footer doc={doc} platform={platform} prev={prev} next={next} />
     </article>
   );
 }

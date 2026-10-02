@@ -606,6 +606,58 @@ function checkApiUnique({ file, doc }) {
   }
 }
 
+// ------------------------------------------------------- edit target exists
+/**
+ * M4's gate. "Edit this page" DERIVES its target from the platform and slug,
+ * so it cannot drift — but deriving is not the same as being right. A link to
+ * a file that is not there is exactly the class of defect this replaces, so
+ * the derived path is checked against disk on every run.
+ *
+ * `meta.editUrl` is an explicit override for pages whose content does not live
+ * at the conventional path; when present it must point into this repo's
+ * `apps/site/src/content/`, otherwise it is a link to somewhere else entirely.
+ */
+function checkEditTarget({ platform, file, doc }) {
+  const at = (msg) => `${file}: ${msg}`;
+  const explicit = doc.meta.editUrl;
+
+  if (explicit) {
+    const m = explicit.match(
+      /github\.com\/[^/]+\/[^/]+\/(?:edit|blob)\/[^/]+\/(.+)$/,
+    );
+    if (!m) {
+      errors.push(
+        at(
+          `meta.editUrl is not a GitHub edit/blob link in this repo: "${explicit}" — ` +
+            `the reader clicks "Edit this page" and lands nowhere useful`,
+        ),
+      );
+      return;
+    }
+    const onDisk = join(ROOT, m[1]);
+    if (!existsSync(onDisk)) {
+      errors.push(
+        at(
+          `meta.editUrl points at "${m[1]}" which does not exist on disk — ` +
+            `a derived or explicit edit link to a missing file is a dead end`,
+        ),
+      );
+    }
+    return;
+  }
+
+  const rel = `apps/site/src/content/${platform}/${doc.slug}.ts`;
+  const onDisk = join(ROOT, rel);
+  if (!existsSync(onDisk)) {
+    errors.push(
+      at(
+        `"Edit this page" derives "${rel}" from the slug, but that file does ` +
+          `not exist — set meta.editUrl to the real content file`,
+      ),
+    );
+  }
+}
+
 // ------------------------------------------------------------------- run
 for (const page of pages) {
   checkSections(page);
@@ -617,6 +669,7 @@ for (const page of pages) {
   checkCanonicalSlug(page);
   checkNativePeer(page);
   checkApiUnique(page);
+  checkEditTarget(page);
 }
 
 // Coverage: how much of the generated inventory has a page behind it. This is
