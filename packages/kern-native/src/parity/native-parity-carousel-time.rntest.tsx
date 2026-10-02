@@ -5,7 +5,6 @@ import { fireEvent, render, screen } from "@testing-library/react-native";
 // reachability gate keeps it true.
 import { Carousel, TimePicker } from "@xoroh/kern-native";
 import { act } from "react";
-import { Text as RNText } from "react-native";
 
 /**
  * Native side of the carousel and time-picker contract rows.
@@ -20,7 +19,7 @@ import { Text as RNText } from "react-native";
  * native has no such concept, and web uses `role="listbox"` where RN's `Role`
  * union carries only `list`.
  */
-const R = "native" as const;
+const _R = "native" as const;
 
 describe("native parity contract: carousel", () => {
   const items = [

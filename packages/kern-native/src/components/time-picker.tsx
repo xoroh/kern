@@ -88,6 +88,7 @@ function Field({
   selectedIndex,
   format,
   onSelect,
+  // biome-ignore lint/correctness/noUnusedFunctionParameters: destructured to EXCLUDE this key from the rest spread below; the binding is load-bearing and deleting or renaming it changes what is spread.
   renderText,
 }: {
   label: string;
@@ -148,6 +149,7 @@ function Option({
   text,
   selected,
   disabled,
+  // biome-ignore lint/correctness/noUnusedFunctionParameters: destructured to EXCLUDE this key from the rest spread below; the binding is load-bearing and deleting or renaming it changes what is spread.
   style,
   onPress,
 }: {

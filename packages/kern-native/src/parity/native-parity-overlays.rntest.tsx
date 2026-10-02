@@ -19,7 +19,7 @@ import { Text as RNText } from "react-native";
  * native a `Modal` and a scrim press — and a contract that named either would
  * break the moment the primitive changed.
  */
-const R = "native" as const;
+const _R = "native" as const;
 
 const row = (component: string) => contractFor(component);
 

@@ -1,9 +1,5 @@
 import { useControllableState } from "@xoroh/kern-primitives";
-import {
-  type ResolvedTheme,
-  resolveThemeDetails,
-  tokens,
-} from "@xoroh/kern-tokens";
+import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
 import {
   Pressable,
@@ -94,7 +90,6 @@ export function iconButtonStyles(
         borderWidth: 1,
         borderColor: scheme.color.outlineVariant,
       };
-    case "standard":
     default:
       return base;
   }

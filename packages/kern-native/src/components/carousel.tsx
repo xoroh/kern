@@ -5,11 +5,10 @@ import {
   tokens,
 } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
-import { type ElementRef, useMemo, useRef } from "react";
+import { type ElementRef, useRef } from "react";
 import {
   type LayoutChangeEvent,
   Pressable,
-  Text as RNText,
   ScrollView,
   type StyleProp,
   View,
@@ -62,7 +61,7 @@ export function carouselStyles(
   active: boolean,
   scheme: ResolvedTheme = resolveThemeDetails(),
 ): { track: ViewStyle; item: ViewStyle; control: ViewStyle } {
-  const diameter = Number.parseFloat(tokens.spacing["space-400"]);
+  const _diameter = Number.parseFloat(tokens.spacing["space-400"]);
   return {
     track: { flexGrow: 1, borderRadius: Number.parseFloat(scheme.shape.large) },
     item: {

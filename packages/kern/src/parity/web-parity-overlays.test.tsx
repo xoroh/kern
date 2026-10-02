@@ -17,7 +17,7 @@ import { describe, expect, it } from "vitest";
  * mechanisms differ per renderer on purpose — a contract that named a DOM node
  * or a portal would break the moment the primitive changed.
  */
-const R = "web" as const;
+const _R = "web" as const;
 
 describe("web parity contract: overlay family", () => {
   describe("drawer", () => {
@@ -43,7 +43,7 @@ describe("web parity contract: overlay family", () => {
 
     it("is presented as a labelled dialog when open", async () => {
       const r = contractFor("drawer");
-      const user = userEvent.setup();
+      const _user = userEvent.setup();
       render(
         <Drawer.Root defaultOpen>
           <Drawer.Trigger>Open</Drawer.Trigger>

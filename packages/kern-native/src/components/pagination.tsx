@@ -85,7 +85,7 @@ export function pageWindow(current: number, count: number): PaginationEntry[] {
 }
 
 export function paginationStyles(
-  current: number,
+  _current: number,
   disabled: boolean,
   scheme: ResolvedTheme = resolveThemeDetails(),
 ): {
