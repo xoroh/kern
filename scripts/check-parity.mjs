@@ -226,6 +226,27 @@ for (const name of [...docConcepts].sort()) {
 // --------------------------------------------------- 4. deliberate asymmetries
 // Ruled, not gaps. Recorded here so the gate does not flag them as missing, and
 // so deleting one is a visible change rather than a silent one.
+/**
+ * Names that research ruled NON-M3, so they can never be cited as an M3 SOURCE.
+ *
+ * This exists because the provenance gate can require a `spec` to MENTION M3 but
+ * cannot tell whether the name is TRUE — semantic accuracy is review-m3's job.
+ * All three of their P2b-1 deviations were false names that passed the mention
+ * check ("M3 Scrollbar", and two vacuous "M3 - ..." strings). A deny-list makes
+ * re-introducing those impossible rather than merely unlikely. It is not a
+ * complete defence: a false claim using a name not on this list would still pass.
+ * Source: research T4-V2 non-M3 component band, verified against the m3
+ * component taxonomy 2026-10-01.
+ */
+const NON_M3_SOURCES = [
+  "Scrollbar",
+  "Combobox",
+  "InputOTP",
+  "ScrollArea",
+  "Snackbar",
+  "Command",
+];
+
 const DELIBERATE = [
   "sonner",
   "create-sonner-manager",
@@ -486,6 +507,24 @@ violations.push(
       provenanceProblems.push(
         `${where}: \`spec\` does not name a Material 3 source`,
       );
+    }
+    // The gate can require a spec string to MENTION M3; it cannot tell whether
+    // the name is TRUE. Semantic accuracy is review-m3's job, and the three
+    // deviations they found (D-1/D-2/D-3) were all false names that passed the
+    // mention check. So the names research already ruled NON-M3 are denied here:
+    // this cannot catch every false claim, but it makes re-introducing these
+    // three impossible rather than merely unlikely.
+    // Only a CLAIM is a violation: "M3 Scrollbar" asserts it as a source, while
+    // "NO M3 COMPONENT … the M3-adjacent Scrollbar does not exist" denies it and
+    // must pass. Matching the adjacency rather than the bare name is what tells
+    // the two apart.
+    for (const notM3 of NON_M3_SOURCES) {
+      if (spec && new RegExp(`M3[\\s-]+${notM3}\\b`, "i").test(spec)) {
+        provenanceProblems.push(
+          `${where}: \`spec\` claims "${notM3}" as an M3 source, which research ` +
+            `ruled NON-M3 (T4-V2 / the m3 taxonomy) — the claim is false`,
+        );
+      }
     }
     const testedBy = fieldValue(row, "testedBy");
     if (testedBy) {
