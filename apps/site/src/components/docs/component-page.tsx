@@ -36,17 +36,67 @@ import { WEB_DEMOS } from "../../demos/web/registry";
 import { ExampleList } from "../../showcase/example";
 import { examplesFor } from "../../showcase/registry";
 
-const H2 =
-  "m-0 text-xl font-semibold tracking-tight text-(--md-sys-color-on-surface)";
-const H3 = "m-0 text-base font-semibold text-(--md-sys-color-on-surface)";
-const BODY = "m-0 text-(--md-sys-color-on-surface-variant)";
-const PROSE = `${BODY} max-w-[62ch] leading-relaxed`;
-const CHIP =
-  "inline-flex items-center gap-1.5 rounded-full border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container) px-3 py-1 font-mono text-xs text-(--md-sys-color-on-surface-variant)";
+/**
+ * M1 — the page that TEACHES the type scale must USE the type scale.
+ *
+ * These were ad-hoc Tailwind sizes (text-xl/base/sm/xs, tracking-tight,
+ * leading-relaxed), which meant the component reference contradicted the very
+ * scale it documents — and it becomes reader-visible the moment the
+ * Foundations type page lands beside it. kern ships all 30 styles as
+ * --md-sys-typescale-* (150 vars: family/size/weight/spacing/line-height per
+ * style, baseline + emphasized), so every role below resolves from a token.
+ *
+ * The role names are checked against the generated token set by
+ * scripts/check-typescale.mjs — a role that does not exist is a build-time
+ * failure, not a silent fallback.
+ */
+const ts = (role: string) =>
+  [
+    `[font-family:var(--md-sys-typescale-${role}-font-family)]`,
+    `[font-size:var(--md-sys-typescale-${role}-font-size)]`,
+    `[font-weight:var(--md-sys-typescale-${role}-font-weight)]`,
+    `[line-height:var(--md-sys-typescale-${role}-line-height)]`,
+    `[letter-spacing:var(--md-sys-typescale-${role}-letter-spacing)]`,
+  ].join(" ");
+
+/** Page title. */
+const H1 = `m-0 text-(--md-sys-color-on-surface) ${ts("headline-medium")}`;
+/** Section heading — the reader's next question. */
+const H2 = `m-0 text-(--md-sys-color-on-surface) ${ts("headline-small")}`;
+/** Sub-heading inside a section. */
+const H3 = `m-0 text-(--md-sys-color-on-surface) ${ts("title-large")}`;
+/** Running text. The token carries size, weight AND line-height. */
+const INK = "text-(--md-sys-color-on-surface)";
+const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";
+const BODY = `m-0 ${INK_SOFT} ${ts("body-large")}`;
+/** Secondary text — one step down the scale, same voice. */
+const SMALL = ts("body-small");
+/** Micro-labels, tabular annotations, inline literals. */
+const TINY = ts("label-small");
+/** Field names and small definitions. */
+const LABEL = ts("label-medium");
+/** The lede under the page title. */
+const LEDE = ts("title-medium");
+/** Literal code and token ids. Mono is deliberate; the SIZE is on-scale. */
+const CODE = `font-mono ${ts("body-small")}`;
+/** Keyboard keys. Mono, label weight — they read as pressable literals. */
+const KEYCAP = `font-mono ${ts("label-large")}`;
+/**
+ * Prose measure. Deliberately NOT `leading-relaxed` — the body-large token
+ * owns line-height, and a utility on top would silently override it.
+ */
+const PROSE = `${BODY} max-w-[62ch]`;
+/**
+ * Metadata chips. Stays monospaced on purpose: these are literal values
+ * (package names, token ids, levels) and a code face reads them faster. The
+ * SIZE and WEIGHT come from the label role so the chips still sit on the
+ * scale rather than floating off it.
+ */
+const CHIP = `inline-flex items-center gap-1.5 rounded-full border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container) px-3 py-1 font-mono text-(--md-sys-color-on-surface-variant) [font-size:var(--md-sys-typescale-label-large-font-size)] [line-height:var(--md-sys-typescale-label-large-line-height)]`;
 const CARD =
   "rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-low)";
-const TH = "py-2 pr-4 text-left font-medium text-(--md-sys-color-on-surface)";
-const TD = "py-3 pr-4 align-top";
+const TH = `py-2 pr-4 text-left text-(--md-sys-color-on-surface) ${ts("title-small")}`;
+const TD = `py-3 pr-4 align-top ${ts("body-medium")}`;
 
 /**
  * The elevation chip. FOUR states, kept apart because `check:docs` keeps them
@@ -89,7 +139,7 @@ function Chip({
     <div
       className={
         warn
-          ? "inline-flex items-center gap-1.5 rounded-full border border-(--md-sys-color-error) bg-(--md-sys-color-error-container) px-3 py-1 font-mono text-xs text-(--md-sys-color-on-error-container)"
+          ? `inline-flex items-center gap-1.5 rounded-full border border-(--md-sys-color-error) bg-(--md-sys-color-error-container) px-3 py-1 font-mono text-(--md-sys-color-on-error-container) [font-size:var(--md-sys-typescale-label-large-font-size)] [line-height:var(--md-sys-typescale-label-large-line-height)]`
           : CHIP
       }
     >
@@ -291,10 +341,10 @@ function Installation({ doc }: { doc: ComponentDoc }) {
         from <code>{pkg}</code>. There is no per-component install.
       </p>
       <div className={`${CARD} flex flex-col gap-2 p-4`}>
-        <pre className="m-0 overflow-x-auto text-sm text-(--md-sys-color-on-surface)">
+        <pre className={`m-0 overflow-x-auto ${CODE} ${INK}`}>
           <code>{`npm i ${target}`}</code>
         </pre>
-        <pre className="m-0 overflow-x-auto text-sm text-(--md-sys-color-on-surface)">
+        <pre className={`m-0 overflow-x-auto ${CODE} ${INK}`}>
           <code>{`import { ${doc.parts[0]} } from "${pkg}";`}</code>
         </pre>
       </div>
@@ -331,10 +381,10 @@ function Anatomy({ doc }: { doc: ComponentDoc }) {
 function AnatomyRow({ part }: { part: PartRow }) {
   return (
     <li className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-4">
-      <code className="shrink-0 font-mono text-sm text-(--md-sys-color-secondary)">
+      <code className={`shrink-0 font-mono ${SMALL} text-(--md-sys-color-secondary)`}>
         {part.name}
       </code>
-      <span className={`text-sm ${BODY}`}>{part.role}</span>
+      <span className={`${SMALL} ${INK_SOFT}`}>{part.role}</span>
     </li>
   );
 }
@@ -371,7 +421,7 @@ function WhenToUse({ doc }: { doc: ComponentDoc }) {
       >
         <h3 className={H3}>Do</h3>
         <ul
-          className={`m-0 mt-2 flex list-disc flex-col gap-2 pl-5 text-sm ${BODY}`}
+          className={`m-0 mt-2 flex list-disc flex-col gap-2 pl-5 ${SMALL} ${INK_SOFT}`}
         >
           {use.do.map((line) => (
             <li key={line}>{line}</li>
@@ -381,7 +431,7 @@ function WhenToUse({ doc }: { doc: ComponentDoc }) {
       <div className={`${CARD} border-l-4 border-l-(--md-sys-color-error) p-4`}>
         <h3 className={H3}>Don&rsquo;t</h3>
         <ul
-          className={`m-0 mt-2 flex list-disc flex-col gap-2 pl-5 text-sm ${BODY}`}
+          className={`m-0 mt-2 flex list-disc flex-col gap-2 pl-5 ${SMALL} ${INK_SOFT}`}
         >
           {use.dont.map((line) => (
             <li key={line}>{line}</li>
@@ -411,7 +461,7 @@ function Theming({ doc }: { doc: ComponentDoc }) {
       </p>
       {tokens && tokens.length > 0 ? (
         <div className="overflow-x-auto">
-          <table className="w-full border-collapse text-sm">
+          <table className={`w-full border-collapse ${SMALL}`}>
             <thead>
               <tr className="border-b border-(--md-sys-color-outline-variant)">
                 <th className={TH}>Element</th>
@@ -433,12 +483,12 @@ function Theming({ doc }: { doc: ComponentDoc }) {
                     {row.state}
                   </td>
                   <td
-                    className={`${TD} font-mono text-xs text-(--md-sys-color-primary)`}
+                    className={`${TD} font-mono text-(--md-sys-color-primary) [font-size:var(--md-sys-typescale-label-small-font-size)] [line-height:var(--md-sys-typescale-label-small-line-height)]`}
                   >
                     {row.token}
                   </td>
                   <td
-                    className={`${TD} font-mono text-xs text-(--md-sys-color-on-surface-variant)`}
+                    className={`${TD} font-mono text-(--md-sys-color-on-surface-variant) [font-size:var(--md-sys-typescale-label-small-font-size)] [line-height:var(--md-sys-typescale-label-small-line-height)]`}
                   >
                     {row.value}
                   </td>
@@ -518,7 +568,7 @@ function Accessibility({ doc }: { doc: ComponentDoc }) {
         <>
           <h3 className={H3}>Keyboard</h3>
           <div className="overflow-x-auto">
-            <table className="w-full border-collapse text-sm">
+            <table className={`w-full border-collapse ${SMALL}`}>
               <thead>
                 <tr className="border-b border-(--md-sys-color-outline-variant)">
                   <th className={`${TH} w-40`}>Key</th>
@@ -532,7 +582,7 @@ function Accessibility({ doc }: { doc: ComponentDoc }) {
                     className="border-b border-(--md-sys-color-outline-variant)"
                   >
                     <td className={TD}>
-                      <kbd className="rounded border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-high) px-1.5 py-0.5 font-mono text-xs text-(--md-sys-color-on-surface)">
+                      <kbd className={`rounded border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-high) px-1.5 py-0.5 ${KEYCAP} text-(--md-sys-color-on-surface)`}>
                         {row.key}
                       </kbd>
                     </td>
@@ -562,10 +612,12 @@ function Accessibility({ doc }: { doc: ComponentDoc }) {
 
       {gaps.length > 0 && (
         <div className="rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-error) bg-(--md-sys-color-error-container) p-4">
-          <h3 className="m-0 text-base font-semibold text-(--md-sys-color-on-error-container)">
+          <h3 className={`m-0 ${H3} text-(--md-sys-color-on-error-container)`}>
             Known gaps
           </h3>
-          <ul className="m-0 mt-2 flex list-disc flex-col gap-2 pl-5 text-sm text-(--md-sys-color-on-error-container)">
+          <ul
+            className={`m-0 mt-2 flex list-disc flex-col gap-2 pl-5 ${SMALL} text-(--md-sys-color-on-error-container)`}
+          >
             {gaps.map((line) => (
               <li key={line}>{line}</li>
             ))}
@@ -635,23 +687,23 @@ function DeviationRow({ row }: { row: Deviation }) {
   return (
     <li className={`${CARD} flex flex-col gap-2 p-4`}>
       <div className="flex items-center gap-2">
-        <span className="rounded-full bg-(--md-sys-color-secondary-container) px-2.5 py-0.5 font-mono text-xs text-(--md-sys-color-on-secondary-container)">
+        <span className={`rounded-full bg-(--md-sys-color-secondary-container) px-2.5 py-0.5 font-mono text-(--md-sys-color-on-secondary-container) [font-size:var(--md-sys-typescale-label-small-font-size)] [line-height:var(--md-sys-typescale-label-small-line-height)]`}>
           {row.id}
         </span>
       </div>
       <dl className="m-0 grid grid-cols-1 gap-2 sm:grid-cols-[7rem_1fr]">
-        <dt className="m-0 text-sm font-medium text-(--md-sys-color-on-surface)">
+        <dt className={`m-0 ${LABEL} ${INK}`}>
           Material 3
         </dt>
-        <dd className={`m-0 text-sm ${BODY}`}>{row.spec}</dd>
-        <dt className="m-0 text-sm font-medium text-(--md-sys-color-on-surface)">
+        <dd className={`m-0 ${SMALL} ${INK_SOFT}`}>{row.spec}</dd>
+        <dt className={`m-0 ${LABEL} ${INK}`}>
           kern
         </dt>
-        <dd className={`m-0 text-sm ${BODY}`}>{row.kern}</dd>
-        <dt className="m-0 text-sm font-medium text-(--md-sys-color-on-surface)">
+        <dd className={`m-0 ${SMALL} ${INK_SOFT}`}>{row.kern}</dd>
+        <dt className={`m-0 ${LABEL} ${INK}`}>
           Why
         </dt>
-        <dd className={`m-0 text-sm ${BODY}`}>{row.why}</dd>
+        <dd className={`m-0 ${SMALL} ${INK_SOFT}`}>{row.why}</dd>
       </dl>
     </li>
   );
@@ -668,7 +720,7 @@ function ApiReference({ doc }: { doc: ComponentDoc }) {
     <section className="flex flex-col gap-4">
       <h2 className={H2}>API reference</h2>
       <div className="overflow-x-auto">
-        <table className="w-full border-collapse text-left text-sm">
+        <table className={`w-full border-collapse text-left ${SMALL}`}>
           <thead>
             <tr className="border-b border-(--md-sys-color-outline-variant)">
               <th className={TH}>Prop</th>
@@ -688,22 +740,22 @@ function ApiReference({ doc }: { doc: ComponentDoc }) {
                     {row.name}
                   </code>
                   {row.required && (
-                    <span className="ml-2 text-xs text-(--md-sys-color-error)">
+                    <span className={`ml-2 ${TINY} text-(--md-sys-color-error)`}>
                       required
                     </span>
                   )}
                 </td>
                 <td
-                  className={`${TD} font-mono text-xs text-(--md-sys-color-on-surface-variant)`}
+                  className={`${TD} font-mono text-(--md-sys-color-on-surface-variant) [font-size:var(--md-sys-typescale-label-small-font-size)] [line-height:var(--md-sys-typescale-label-small-line-height)]`}
                 >
                   {row.type}
                 </td>
                 <td
-                  className={`${TD} font-mono text-xs text-(--md-sys-color-on-surface-variant)`}
+                  className={`${TD} font-mono text-(--md-sys-color-on-surface-variant) [font-size:var(--md-sys-typescale-label-small-font-size)] [line-height:var(--md-sys-typescale-label-small-line-height)]`}
                 >
                   {row.default ?? "—"}
                 </td>
-                <td className={`${TD} text-sm ${BODY}`}>{row.note ?? ""}</td>
+                <td className={`${TD} ${SMALL} ${INK_SOFT}`}>{row.note ?? ""}</td>
               </tr>
             ))}
           </tbody>
@@ -736,7 +788,7 @@ function Footer({
       >
         {prev ? (
           <a
-            className={`${CARD} flex-1 p-4 text-sm text-(--md-sys-color-on-surface) no-underline`}
+            className={`${CARD} flex-1 p-4 ${SMALL} ${INK} no-underline`}
             href={prev}
           >
             ← Previous
@@ -746,7 +798,7 @@ function Footer({
         )}
         {next ? (
           <a
-            className={`${CARD} flex-1 p-4 text-right text-sm text-(--md-sys-color-on-surface) no-underline`}
+            className={`${CARD} flex-1 p-4 text-right ${SMALL} ${INK} no-underline`}
             href={next}
           >
             Next →
@@ -756,7 +808,7 @@ function Footer({
         )}
       </nav>
 
-      <div className="flex flex-wrap items-center gap-4 text-sm">
+      <div className={`flex flex-wrap items-center gap-4 ${SMALL}`}>
         {doc.meta.sourceUrl ? (
           <a
             className="text-(--md-sys-color-primary) underline underline-offset-2"
@@ -792,10 +844,10 @@ export function ComponentPage({
   return (
     <article className="flex flex-col gap-10">
       <header className="flex flex-col gap-4">
-        <h1 className="m-0 text-3xl font-semibold text-(--md-sys-color-on-surface)">
+        <h1 className={H1}>
           {doc.name}
         </h1>
-        <p className="m-0 max-w-[62ch] text-lg text-(--md-sys-color-on-surface-variant)">
+        <p className={`m-0 max-w-[62ch] ${LEDE} ${INK_SOFT}`}>
           {doc.oneLiner}
         </p>
         <MetadataStrip doc={doc} />

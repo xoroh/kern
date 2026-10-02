@@ -15,7 +15,7 @@
     "deploy": "bun run build && wrangler deploy",
     "generate": "bun run scripts/generate-manifest.mjs",
     "check:snippets": "bun run --cwd .. check:dist:types && bun run scripts/check-snippets.mjs",
-    "check:docs": "node scripts/check-docs.mjs && node scripts/check-spec-urls.mjs",
+    "check:docs": "node scripts/check-docs.mjs && node scripts/check-spec-urls.mjs && node scripts/check-typescale.mjs",
     "generate:routes": "tsr generate"
   },
   "dependencies": {
