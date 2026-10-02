@@ -25,6 +25,13 @@ import {
  *   `corner-full` on its leading side, the overflow the trailing side, and the
  *   divider between them is the M3 1dp `outline`. Two visibly separate buttons
  *   with a seam would be a button group, which is a different component.
+ *
+ *   CORRECTION: this comment claimed the outline divider while NO border was
+ *   rendered anywhere in the file — the two halves were one solid primary pill
+ *   with no seam, which is not M3's split button. The 1dp `outline` divider is
+ *   now actually applied (`border-s border-(--md-sys-color-outline)` on the
+ *   trigger), and `split-button.test.tsx` pins it so the claim and the
+ *   implementation cannot drift apart again.
  * - **The primary action does not open the menu.** Pressing it fires
  *   `onClick` and leaves the overflow closed; that separation is the entire
  *   reason the component exists.
@@ -110,7 +117,7 @@ export function SplitButton({
             data-open={open || undefined}
             aria-label={overflowName}
             disabled={disabled}
-            className="kern-split-button-trigger relative inline-flex items-center justify-center rounded-e-(--md-sys-shape-corner-full) bg-(--md-sys-color-primary) ps-2 pe-3 text-(--md-sys-color-on-primary) outline-none select-none hover:opacity-[var(--md-sys-state-hover)] focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary) focus-visible:ring-inset disabled:pointer-events-none data-[open]:bg-(--md-sys-color-primary)/90 [&_svg]:size-4"
+            className="kern-split-button-trigger relative inline-flex items-center justify-center rounded-e-(--md-sys-shape-corner-full) bg-(--md-sys-color-primary) ps-2 pe-3 text-(--md-sys-color-on-primary) border-s border-(--md-sys-color-outline) outline-none select-none hover:opacity-[var(--md-sys-state-hover)] focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary) focus-visible:ring-inset disabled:pointer-events-none data-[open]:bg-(--md-sys-color-primary)/90 [&_svg]:size-4"
           >
             <span aria-hidden="true" className="flex items-center">
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
