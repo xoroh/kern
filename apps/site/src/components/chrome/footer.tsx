@@ -1,9 +1,11 @@
+import { REPO_LICENSE } from "../../generated/changelog";
+
 export function Footer() {
   return (
     <footer className="mt-3 border-t border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface)">
       <div className="mx-auto flex w-full flex-wrap items-center justify-between gap-4 px-6 py-6 text-sm sm:px-8">
         <p className="m-0 text-(--md-sys-color-on-surface-variant)">
-          Kern by Xoroh · Apache License 2.0
+          Kern by Xoroh · {REPO_LICENSE} License
         </p>
         <nav className="flex flex-wrap gap-5" aria-label="Footer">
           <a

@@ -60,12 +60,48 @@ function summaryOf(text) {
   const body = text.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, "").trim();
   const firstPara = body.split(/\r?\n\s*\r?\n/).find((p) => p.trim());
   if (!firstPara) return "";
-  // strip inline markdown the hub will not render
-  return firstPara
-    .replace(/`([^`]*)`/g, "$1")
-    .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
+  return toPlain(firstPara);
+}
+
+/**
+ * Markdown -> plain text for the hub's one-line summaries.
+ *
+ * The band renders these as text, not as markdown, so ANY syntax that survives
+ * here is shown to the reader as literal punctuation. review-showcase caught
+ * `**BREAKING**` painting as asterisks — the same class as the DTCG `$comment`
+ * leak: source syntax in reader copy. Strip every construct the changesets
+ * actually use rather than special-casing the one that was caught.
+ */
+function toPlain(md) {
+  return md
+    .replace(/!\[([^\]]*)\]\([^)]*\)/g, "$1") // images
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1") // links
+    .replace(/`([^`]*)`/g, "$1") // code spans
+    .replace(/\*\*\*([^*]+)\*\*\*/g, "$1") // bold-italic
+    .replace(/\*\*([^*]+)\*\*/g, "$1") // bold
+    .replace(/\*([^*]+)\*/g, "$1") // italic
+    .replace(/__([^_]+)__/g, "$1") // bold (underscore form)
+    .replace(/(^|[\s(])_([^_]+)_(?=[\s).,;:!?]|$)/g, "$1$2") // italic
+    .replace(/~~([^~]+)~~/g, "$1") // strikethrough
+    .replace(/^#{1,6}\s+/gm, "") // heading marks
+    .replace(/^\s*[-*+]\s+/gm, "") // bullet marks
+    .replace(/^\s*>\s+/gm, "") // quote marks
     .replace(/\s+/g, " ")
     .trim();
+}
+
+/** The license the repo actually ships, read from the LICENSE file. */
+function licenseOf() {
+  try {
+    const first = readFileSync(join(ROOT, "LICENSE"), "utf8")
+      .split(/\r?\n/)
+      .find((l) => l.trim());
+    if (!first) return "unknown";
+    // "MIT License" -> "MIT"; "Apache License 2.0" -> "Apache License 2.0"
+    return first.replace(/\s+License\s*$/i, "").trim() || first.trim();
+  } catch {
+    return "unknown";
+  }
 }
 
 const files = readdirSync(CHANGESETS)
@@ -120,6 +156,15 @@ export type ChangeEntry = {
 };
 
 export const RECENT_CHANGES: readonly ChangeEntry[] = ${JSON.stringify(entries, null, 2)};
+
+/**
+ * The license the repo ships, read from the LICENSE file at generate time.
+ * The footer used to type this string and it drifted: the repo is MIT while
+ * the chrome still claimed Apache License 2.0. A typed licence is a claim
+ * about a file sitting three directories away — generate it or expect it to
+ * lie.
+ */
+export const REPO_LICENSE = ${JSON.stringify(licenseOf())};
 `;
 
 const { execFileSync } = await import("node:child_process");

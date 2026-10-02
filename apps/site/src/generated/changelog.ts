@@ -19,7 +19,7 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
     packages: ["@xoroh/kern-native"],
     bump: "major",
     summary:
-      "**BREAKING — the native public barrel no longer exports four symbols.**",
+      "BREAKING — the native public barrel no longer exports four symbols.",
   },
   {
     id: "m3-to-kern-rename-renderers",
@@ -100,7 +100,7 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
     packages: ["@xoroh/kern-native"],
     bump: "minor",
     summary:
-      "Add native LoadingIndicator — M3's indeterminate activity feedback, announced as a **status** rather than a progressbar.",
+      "Add native LoadingIndicator — M3's indeterminate activity feedback, announced as a status rather than a progressbar.",
   },
   {
     id: "native-meter",
@@ -155,7 +155,7 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
     packages: ["@xoroh/kern"],
     bump: "minor",
     summary:
-      "Add the seven M3 components Phase 2 named as missing (ladder **P2-1**): ExtendedFab, FabMenu, IconButton, SplitButton, TimePicker, Carousel, LoadingIndicator (+ LoadingRegion). All seven own behaviour rather than wrapping a primitive.",
+      "Add the seven M3 components Phase 2 named as missing (ladder P2-1): ExtendedFab, FabMenu, IconButton, SplitButton, TimePicker, Carousel, LoadingIndicator (+ LoadingRegion). All seven own behaviour rather than wrapping a primitive.",
   },
   {
     id: "p2b2-navigation-family-web",
@@ -297,7 +297,7 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
     packages: ["@xoroh/kern-primitives"],
     bump: "patch",
     summary:
-      "**Publish-ready metadata: the tarball now carries the README and the licence.**",
+      "Publish-ready metadata: the tarball now carries the README and the licence.",
   },
   {
     id: "p1-6-states-consume-or-delete",
@@ -435,3 +435,12 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
       "Split bottomSheetSurface out of sheet-surface.tsx — step 2 of the ratified kern-primitives extraction order.",
   },
 ];
+
+/**
+ * The license the repo ships, read from the LICENSE file at generate time.
+ * The footer used to type this string and it drifted: the repo is MIT while
+ * the chrome still claimed Apache License 2.0. A typed licence is a claim
+ * about a file sitting three directories away — generate it or expect it to
+ * lie.
+ */
+export const REPO_LICENSE = "MIT";

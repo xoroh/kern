@@ -70,10 +70,11 @@ const SECTIONS = [
   {
     title: "Foundations",
     why: "The values everything is built from, and the rules that govern them.",
-    links: [
-      { label: "Styles and tokens", to: "/styles" },
-      { label: "Theme", to: "/theme" },
-    ],
+    // /theme is deliberately NOT linked here yet: it still carries 26 ad-hoc
+    // type hits and check-typescale watches routes. Promoting it from the map
+    // would send readers to a page the gate flags. It rejoins this list when
+    // its type lands on the scale — tracked with the rest of the route pass.
+    links: [{ label: "Styles and tokens", to: "/styles" }],
   },
   {
     title: "Components",
