@@ -297,6 +297,14 @@ type ScrollAreaProps = Omit<ScrollViewProps, "horizontal"> & {
  * Scrollable region. RN's `ScrollView` already provides the platform behaviour;
  * what Kern adds is the labelled region the contract pins, and the explicit
  * scrollability the web side signals via `role="group"` + scrollbar parts.
+ *
+ * **Exported from the package deliberately.** `ScrollArea` was exported here
+ * but never re-exported from `kern-native`'s index, so a consumer could not
+ * import it — while the registry counted `scroll-area` as a SHARED concept and
+ * the parity row recorded it as component-covered. Both claims were false. The
+ * registry is derived by scanning source files rather than the public API,
+ * which is exactly how an unreachable component looks shipped: the same
+ * "passes because it did not look" family the provenance gate keeps surfacing.
  */
 function ScrollArea({ children, ...scrollProps }: ScrollAreaProps) {
   // Scrollability is announced with the ARIA-aligned `role` prop, not

@@ -217,6 +217,14 @@ export { NavigationMenu } from "./components/navigation-menu";
 export type { NativeNumberFieldProps } from "./components/number-field";
 // `NumberField` only; `clampToRange` is a pure clamp, not a component.
 export { NumberField, numberFieldStyles } from "./components/number-field";
+// Drawer, Popover and ScrollArea were implemented and tested but never
+// re-exported from the package index, so no consumer could import them — while
+// the registry counted all three as SHARED concepts and the parity rows recorded
+// them as component-covered. The registry is derived by scanning source FILES,
+// not the public API, which is exactly how an unreachable component looks
+// shipped. Exported here so those claims become true.
+export type { DrawerProps } from "./components/overlay-surfaces";
+export { Drawer, Popover, ScrollArea } from "./components/overlay-surfaces";
 export type {
   NativePaginationProps,
   PaginationEntry,
