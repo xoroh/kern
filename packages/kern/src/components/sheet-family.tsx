@@ -1,4 +1,5 @@
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
+import { createDismissPolicy } from "@xoroh/kern-primitives";
 import type { ReactNode } from "react";
 import { cn } from "../utils/cn";
 
@@ -125,6 +126,12 @@ export function BottomSheet({
   className,
   ...surface
 }: BottomSheetProps) {
+  // The close affordance is decided by the shared `dismiss-policy`, not by
+  // `onClose` being truthy. Those agree today, but native derives it from the
+  // policy and this side did not — one rule wearing two implementations, which
+  // is the `useControllableState` failure mode. It also means a future
+  // `dismissible={false}` cannot silently render a dead close button here.
+  const policy = createDismissPolicy({ hasDismissHandler: Boolean(onClose) });
   return (
     <SheetSurface
       {...surface}
@@ -142,7 +149,7 @@ export function BottomSheet({
         </DialogPrimitive.Title>
       ) : null}
       {surface.children}
-      {onClose ? (
+      {policy.showClose ? (
         <button
           type="button"
           onClick={onClose}
