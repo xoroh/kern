@@ -29,7 +29,7 @@
 //
 // Run from apps/site:
 //   bun run check:docs
-import { readdirSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -100,11 +100,67 @@ for (const block of source.split(/^## /m).slice(1)) {
 }
 
 // ------------------------------------------------------- elevation + roles
-const { M3_ELEVATION_COMPONENTS, KERN_UNASSIGNED_ELEVATION, ELEVATION_LEVELS } =
-  await import(join(ROOT, "packages/kern-tokens/src/m3-elevation.ts"));
-const { KERN_EXTRA_ROLES } = await import(
-  join(ROOT, "packages/kern-tokens/src/m3-roles.ts")
+// The elevation and role inventories live in `packages/kern-tokens/src`. Those
+// module and symbol names are being renamed (m3-* -> kern-*) under us, and
+// this gate must not break when they are. Resolve by candidate: try the new
+// name first, fall back to the old, and pick whichever exported symbol exists.
+// Content prose may keep saying "M3" where it genuinely cites the Google spec
+// — that rename does not touch doc prose — but TOOLING must not hardcode a
+// name that is in flight.
+async function loadFirstModule(candidates) {
+  const problems = [];
+  for (const rel of candidates) {
+    const p = join(ROOT, rel);
+    if (!existsSync(p)) continue;
+    try {
+      // A candidate can exist and still fail to evaluate — mid-rename, a file
+      // is briefly present with duplicate declarations. Try it and move on
+      // rather than dying on the first broken name.
+      return await import(p);
+    } catch (err) {
+      problems.push(`${rel}: ${err.message}`);
+    }
+  }
+  throw new Error(
+    `check-docs: no usable module among [${candidates.join(", ")}]\n` +
+      problems.map((p) => `  - ${p}`).join("\n"),
+  );
+}
+
+function pickExport(mod, names, what) {
+  for (const n of names) {
+    if (mod[n] !== undefined) return mod[n];
+  }
+  throw new Error(
+    `check-docs: none of ${names.join(" / ")} are exported from the ${what} module`,
+  );
+}
+
+const elevationModule = await loadFirstModule([
+  "packages/kern-tokens/src/kern-elevation.ts",
+  "packages/kern-tokens/src/m3-elevation.ts",
+]);
+const rolesModule = await loadFirstModule([
+  "packages/kern-tokens/src/kern-roles.ts",
+  "packages/kern-tokens/src/m3-roles.ts",
+]);
+
+const M3_ELEVATION_COMPONENTS = pickExport(
+  elevationModule,
+  ["KERN_ELEVATION_COMPONENTS", "M3_ELEVATION_COMPONENTS"],
+  "elevation",
 );
+const KERN_UNASSIGNED_ELEVATION = pickExport(
+  elevationModule,
+  ["KERN_UNASSIGNED_ELEVATION"],
+  "elevation",
+);
+const ELEVATION_LEVELS = pickExport(
+  elevationModule,
+  ["ELEVATION_LEVELS"],
+  "elevation",
+);
+const KERN_EXTRA_ROLES = pickExport(rolesModule, ["KERN_EXTRA_ROLES"], "roles");
 
 const REGISTERED_DEVIATION_IDS = new Set([
   ...Object.values(KERN_EXTRA_ROLES),

@@ -68,7 +68,7 @@ const PRESET = `import { applyKernTheme, defineThemePreset } from "@xoroh/kern";
 
 const acme = defineThemePreset({
   id: "acme",
-  extends: "m3",
+  extends: "kern",
   overrides: { color: { light: { primary: "#1e3a8a" } } },
 });
 

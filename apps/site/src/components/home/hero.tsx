@@ -14,7 +14,15 @@ const COMMAND = "bun add @xoroh/kern";
  * from the shipped scheme, so it cannot drift from the package. Consistency
  * rule 2 for marketing surfaces: link the source, do not paste the value.
  */
-const ROLE_COUNT = Object.keys(themes.m3.color.light).length;
+/**
+ * The theme preset key is being renamed (`m3` -> `kern`) under the site, so
+ * resolve whichever exists instead of hardcoding one. The count is the shipped
+ * scheme's role space either way — measured, not typed.
+ */
+type Scheme = { color: { light: Record<string, string> } };
+const presets = themes as unknown as Record<string, Scheme>;
+const preset = presets.kern ?? presets.m3;
+const ROLE_COUNT = Object.keys(preset.color.light).length;
 
 function Kicker({ children }: { children: React.ReactNode }) {
   return (
