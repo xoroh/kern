@@ -71,3 +71,9 @@ export {
   toTwentyFourHour,
 } from "./time";
 export { type StateAction, useControllableState } from "./useControllableState";
+export {
+  assignRef,
+  mergeRefs,
+  type PossibleRef,
+  useMergeRefs,
+} from "./mergeRefs";
