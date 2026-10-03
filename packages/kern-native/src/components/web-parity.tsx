@@ -95,6 +95,15 @@ export function Command({
           borderRadius: Number.parseFloat(scheme.shape["extra-large"]),
           maxHeight: "70%",
           paddingBottom: Number.parseFloat(tokens.spacing["space-100"]),
+          // K11: command = level 3 = 6dp. It IS the Dialog variant — level 3
+          // follows the surface's role (interrupting modal), not its plumbing.
+          // iOS values follow Fab, the other level-3 surface, rather than
+          // inventing a second level-3 shadow.
+          shadowColor: scheme.color.scrim,
+          shadowOpacity: 0.3,
+          shadowRadius: 2,
+          shadowOffset: { width: 0, height: 1 },
+          elevation: 6,
         },
         style,
       ]}

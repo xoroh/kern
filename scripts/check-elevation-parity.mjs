@@ -263,7 +263,7 @@ function scanDir(dir, native) {
       // can say which is which — "inherited from fabStyles" and "declares none"
       // are different facts, and printing the second when the first is true is
       // what sent two conformant components to a design ruling.
-      const inherited = inheritedLevels(code, dir, fileImports);
+      const inherited = inheritedLevels(code, dir, fileImports, src);
       const where = {
         levels: [],
         inheritedLevels: inherited.levels,
@@ -356,7 +356,7 @@ function importSpecifiers(code) {
  * @returns {{levels:number[], from:string|null}} the levels inherited, and the
  * `helper@file:line` citation they came from.
  */
-function inheritedLevels(block, dir, fileImports) {
+function inheritedLevels(block, dir, fileImports, wholeFile) {
   const helpers = new Set();
   for (const m of block.matchAll(/\b([a-z][A-Za-z0-9]*Styles)\s*\(/g)) {
     helpers.add(m[1]);
@@ -367,6 +367,38 @@ function inheritedLevels(block, dir, fileImports) {
   const levels = new Set();
   const unresolvedInherited = [];
   let citation = null;
+
+  // SAME-FILE helpers first. `snackbarStyles` lives in the same file as the
+  // `Snackbar` that calls it — no import to follow, so the import-chasing loop
+  // below never looks at it and the component reads "native none" while
+  // shipping a level. Only the levels inside that helper's own body count, same
+  // as the cross-file case.
+  if (wholeFile) {
+    const clean = stripComments(wholeFile);
+    for (const helper of helpers) {
+      const re = new RegExp(
+        `(?:export\\s+)?function\\s+${helper}\\s*\\([^)]*\\)[^{]*\\{([\\s\\S]*?)\\n\\}`,
+      );
+      const hm = clean.match(re);
+      if (!hm) continue;
+      for (const m of hm[1].matchAll(
+        /(?<![\w-])elevation:\s*(\d+(?:\.\d+)?)/g,
+      )) {
+        const dp = Number(m[1]);
+        const lvl = levelFromDp(dp);
+        if (lvl === null) {
+          unresolvedInherited.push(`${dp}dp`);
+          continue;
+        }
+        levels.add(lvl);
+        if (!citation) {
+          citation = `${helper}@same-file:${
+            clean.slice(0, hm.index).split("\n").length
+          }`;
+        }
+      }
+    }
+  }
   for (const spec of specs) {
     let file = resolve(dir, spec);
     for (const ext of ["", ".ts", ".tsx"]) {

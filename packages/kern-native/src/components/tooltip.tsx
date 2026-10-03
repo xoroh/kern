@@ -129,6 +129,14 @@ export function Tooltip({
             {
               backgroundColor: scheme.color.inverseSurface,
               borderRadius: Number.parseFloat(scheme.shape["extra-small"]),
+              // K11: plain tooltip = level 2 = 3dp. M3 tabulates only the RICH
+              // tooltip (also 2); the plain hint-surface is kern's. iOS values
+              // follow PopoverContent, the other level-2 surface.
+              shadowColor: scheme.color.shadow,
+              shadowOpacity: 0.2,
+              shadowRadius: 8,
+              shadowOffset: { width: 0, height: 2 },
+              elevation: 3,
             },
           ]}
         >
