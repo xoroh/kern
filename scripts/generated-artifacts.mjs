@@ -22,10 +22,8 @@
  *            exists as a DIRECTORY is matched as a PREFIX, so one entry can own
  *            a whole generated tree (the icon sets are ~35 files).
  *
- * ORDER IS SIGNIFICANT where one generator imports another's output: the site
- * maturity generator imports `packages/mcp/src/maturity.ts` as a module, so it
- * must run after the mcp one or it reads a stale source and reports a false
- * diff. `check-generated-freshness` runs them in this order.
+ * ORDER IS SIGNIFICANT where one generator imports another's output:
+ * `check-generated-freshness` runs them in this order.
  */
 export const GENERATORS = [
   {
@@ -66,20 +64,6 @@ export const GENERATORS = [
     name: "generate-maturity (packages + manifest -> maturity.ts)",
     cmd: ["bun", "packages/mcp/scripts/generate-maturity.mjs"],
     outputs: ["packages/mcp/src/maturity.ts"],
-  },
-  {
-    // The SITE's copy of that table, written by a SECOND generator
-    // (`apps/site/scripts/generate-maturity.mjs`, 33ea5ab). It existed and no
-    // entry here claimed it — the same omission as elevation-audit.md, on the
-    // same file family, found the same way: the artifact was real, generated,
-    // and ungated. It was lint-red while committed.
-    //
-    // Listed after the MCP generator deliberately: this one IMPORTS
-    // packages/mcp/src/maturity.ts as a module, so it must run second or it
-    // reads a stale source and reports a false diff.
-    name: "site generate-maturity (mcp maturity.ts -> site maturity.ts)",
-    cmd: ["bun", "apps/site/scripts/generate-maturity.mjs"],
-    outputs: ["apps/site/src/generated/maturity.ts"],
   },
   {
     // The resting-elevation audit, which was the one derived file NOT listed here.

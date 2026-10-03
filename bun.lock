@@ -39,6 +39,7 @@
         "@tanstack/react-start": "^1.168.60",
         "@xoroh/kern": "workspace:*",
         "@xoroh/kern-icons": "workspace:*",
+        "@xoroh/kern-mcp": "workspace:*",
         "@xoroh/kern-native": "workspace:*",
         "@xoroh/kern-tokens": "workspace:*",
         "react": "^19.3.0",

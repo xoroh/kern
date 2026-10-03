@@ -14,7 +14,7 @@ import { resolveThemeDetails } from "@xoroh/kern-tokens";
 import type { Platform } from "../content";
 import { MOBILE_DOCS, WEB_DOCS } from "../content";
 import type { ComponentDoc } from "../content/types";
-import { maturityForExports } from "../generated/maturity";
+import { maturityForExports } from "../maturity";
 
 export type SearchGroup =
   | "Components"

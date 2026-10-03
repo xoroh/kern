@@ -33,7 +33,7 @@ import type {
 } from "../../content/types";
 import { MOBILE_DEMOS } from "../../demos/mobile/registry";
 import { WEB_DEMOS } from "../../demos/web/registry";
-import { maturityForExports } from "../../generated/maturity";
+import { maturityForExports } from "../../maturity";
 import { ExampleList } from "../../showcase/example";
 import { examplesFor } from "../../showcase/registry";
 

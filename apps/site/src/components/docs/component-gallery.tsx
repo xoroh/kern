@@ -26,7 +26,7 @@ import {
 import type { ComponentDoc } from "../../content/types";
 import { MOBILE_DEMOS, PREVIEW_REASONS } from "../../demos/mobile/registry";
 import { demoFor } from "../../demos/web/registry";
-import { maturityForExports } from "../../generated/maturity";
+import { maturityForExports } from "../../maturity";
 import {
   T_BODY_SM,
   T_LABEL,
@@ -300,14 +300,14 @@ export function GalleryLede() {
   return (
     <div className="flex flex-col gap-2">
       <p className={`m-0 max-w-[62ch] ${T_LEAD} ${INK_SOFT}`}>
-        Every component family, grouped by the job it does. Cards show the
-        real component from the package — the same code you install — and
-        name what is missing rather than hiding it.
+        Every component family, grouped by the job it does. Cards show the real
+        component from the package — the same code you install — and name what
+        is missing rather than hiding it.
       </p>
       <p className={`m-0 max-w-[62ch] ${T_BODY_SM} ${INK_SOFT}`}>
         Live demos for {web.withDemo} of {web.total} web families and{" "}
-        {mobile.withDemo} of {mobile.total} native families — the rest say so
-        on their card instead of showing an empty tile.
+        {mobile.withDemo} of {mobile.total} native families — the rest say so on
+        their card instead of showing an empty tile.
       </p>
     </div>
   );
