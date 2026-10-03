@@ -7,9 +7,11 @@
  * top-level destinations; it does not cover the docs *section*.
  *
  * The tree is STATIC and every href is a route that exists (verified against
- * src/routes). A generated tree would be the wrong tool: routes change by
- * human decision, not by data, and a stale generated tree is worse than a
- * static one that is obviously edited by hand.
+ * src/routes). It is read from the single nav source (`src/nav.ts`), not
+ * generated from routes: routes change by human decision, and that decision
+ * is now edited exactly once — the sidebar, search, and llms.txt are readers,
+ * never authors. A generated tree would still be the wrong tool; a single
+ * hand-edited source is not a generated tree.
  *
  * Active state comes from the host router's pathname, the same seam the rail
  * uses. Collapsed sections are NOT used: the tree is short enough to show
@@ -17,54 +19,13 @@
  */
 import { useLocation } from "@tanstack/react-router";
 import { cn } from "@xoroh/kern";
-
-type Leaf = { label: string; href: string };
-type Section = { label: string; leaves: Leaf[] };
-
-const TREE: Section[] = [
-  {
-    label: "Docs",
-    leaves: [
-      { label: "Overview", href: "/docs" },
-      { label: "Guides", href: "/docs/guides" },
-      { label: "API reference", href: "/docs/api" },
-      { label: "Reference", href: "/docs/reference" },
-      { label: "Contributing", href: "/docs/contributing" },
-    ],
-  },
-  {
-    label: "Components",
-    leaves: [
-      { label: "All components", href: "/components" },
-      { label: "Web", href: "/components/web" },
-      { label: "Native", href: "/components/mobile" },
-    ],
-  },
-  {
-    label: "Foundations",
-    leaves: [
-      { label: "Styles & tokens", href: "/styles" },
-      { label: "Theme", href: "/theme" },
-      { label: "Accessibility", href: "/accessibility" },
-      { label: "Icons", href: "/icons" },
-    ],
-  },
-  {
-    label: "Start",
-    leaves: [
-      { label: "Getting started", href: "/getting-started" },
-      { label: "Changelog", href: "/changelog" },
-      { label: "About", href: "/about" },
-      { label: "Community", href: "/community" },
-    ],
-  },
-];
+import { NAV_SECTIONS } from "../../nav";
 
 export function DocsSidebar() {
   const { pathname } = useLocation();
   return (
     <nav aria-label="Docs sections" className="flex flex-col gap-5">
-      {TREE.map((section) => (
+      {NAV_SECTIONS.map((section) => (
         <div key={section.label} className="flex flex-col gap-1">
           <p className="m-0 px-3 text-xs font-semibold tracking-[0.14em] text-(--md-sys-color-on-surface-variant) uppercase">
             {section.label}

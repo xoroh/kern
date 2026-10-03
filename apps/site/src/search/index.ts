@@ -15,6 +15,7 @@ import type { Platform } from "../content";
 import { MOBILE_DOCS, WEB_DOCS } from "../content";
 import type { ComponentDoc } from "../content/types";
 import { maturityForExports } from "../maturity";
+import { NAV_LEAVES } from "../nav";
 
 export type SearchGroup =
   | "Components"
@@ -92,49 +93,22 @@ function apiEntries(docs: ComponentDoc[], platform: Platform): SearchEntry[] {
   return out;
 }
 
+/**
+ * Formerly hand-maintained STATIC_ENTRIES — now derived from the single nav
+ * source. A page added to the nav is searchable with no second edit; a page
+ * removed from the nav stops being a search hit with no second edit. The one
+ * exception is the Search page itself (below): it is not in the sidebar tree,
+ * and a sidebar row for it would open the thing the reader is already in.
+ */
+const NAV_ENTRIES: SearchEntry[] = NAV_LEAVES.map((leaf) => ({
+  group: leaf.group,
+  title: leaf.label,
+  hint: leaf.hint,
+  href: leaf.href,
+}));
+
 const STATIC_ENTRIES: SearchEntry[] = [
-  {
-    group: "Guides",
-    title: "Get started",
-    hint: "From install to a themed component",
-    href: "/getting-started",
-  },
-  {
-    group: "Guides",
-    title: "Guides",
-    hint: "How-to guides for common tasks",
-    href: "/docs/guides",
-  },
-  {
-    group: "Guides",
-    title: "Public utilities",
-    hint: "API reference for the public utility surface",
-    href: "/docs/api",
-  },
-  {
-    group: "Pages",
-    title: "Documentation",
-    hint: "Three ways in, one system underneath",
-    href: "/docs",
-  },
-  {
-    group: "Pages",
-    title: "Components",
-    hint: "Documented family by family",
-    href: "/components",
-  },
-  {
-    group: "Pages",
-    title: "Styles and tokens",
-    hint: "The values everything is built from",
-    href: "/styles",
-  },
-  {
-    group: "Pages",
-    title: "Theme",
-    hint: "Color roles in the active theme",
-    href: "/theme",
-  },
+  ...NAV_ENTRIES,
   {
     group: "Pages",
     title: "Search",
