@@ -17,3 +17,10 @@ TODO.md
 
 # Assets cache (synced icon sources)
 packages/kern-icons/assets/material/
+
+# e2e (qa) — Playwright run artefacts. Regenerated on every run; the only thing
+# worth committing is the spec source under e2e/, never a trace or a failure
+# screenshot.
+test-results/
+playwright-report/
+blob-report/
