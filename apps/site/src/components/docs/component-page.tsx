@@ -355,6 +355,11 @@ function MetadataStrip({
  * screenshot, never a reimplementation: a demo that restates the component's
  * markup teaches the reader the wrong code. Prove it works before asking
  * anyone to read about it.
+ *
+ * Part 3c — the reasoning-carrying examples used to render HERE instead of
+ * the demo whenever they existed, which meant the live proof vanished on
+ * exactly the pages with the most to show. Showcase keeps the single live
+ * demo (or the gap note); examples are their own section below.
  */
 function DemoContent({
   doc,
@@ -365,12 +370,7 @@ function DemoContent({
 }) {
   const demo = platform === "web" ? WEB_DEMOS : MOBILE_DEMOS;
   const live = demo[doc.parts[0]];
-  // Examples take precedence over the single demo: they carry the reasoning,
-  // not just the thing working.
-  const examples = doc.parts.flatMap((part) => examplesFor(part));
-  return examples.length > 0 ? (
-    <ExampleList examples={examples} />
-  ) : live ? (
+  return live ? (
     live()
   ) : (
     <p className={PROSE}>
@@ -574,10 +574,29 @@ function WhenToUse({ doc }: { doc: ComponentDoc }) {
   );
 }
 
-/* ------------------------------------------------ 6. theming & tokens */
+/* -------------------------------------------------------- 6. examples */
 
 /**
- * Section 6 — Theming & tokens. Where "strict M3" becomes visible per
+ * Section 6 — Examples. The reasoning-carrying companions to the live demo:
+ * each example shows the component doing one job, with the why attached.
+ * Conditional like Anatomy: pages without registered examples render no
+ * section and no TOC entry, rather than an empty promise.
+ */
+function Examples({ doc }: { doc: ComponentDoc }) {
+  const examples = doc.parts.flatMap((part) => examplesFor(part));
+  if (examples.length === 0) return null;
+  return (
+    <section className="flex flex-col gap-3">
+      <Heading id="examples">Examples</Heading>
+      <ExampleList examples={examples} />
+    </section>
+  );
+}
+
+/* ------------------------------------------------ 7. theming & tokens */
+
+/**
+ * Section 7 — Theming & tokens. Where "strict M3" becomes visible per
  * component: which tokens it consumes, at what resting elevation, with which
  * shape. Tokens are the product, so they get their own heading rather than a
  * footnote.
@@ -682,10 +701,10 @@ function Customization({ doc }: { doc: ComponentDoc }) {
   );
 }
 
-/* -------------------------------------------------- 7. accessibility */
+/* -------------------------------------------------- 8. accessibility */
 
 /**
- * Section 7 — Accessibility, promoted out of the API tail. It is a headline
+ * Section 8 — Accessibility, promoted out of the API tail. It is a headline
  * kern claim (behaviour comes from the primitives), so it sits in the trust
  * position rather than being the last thing on the page. Three parts:
  * keyboard contract, ARIA contract, and — when there are any — known gaps,
@@ -796,10 +815,10 @@ function Accessibility({ doc }: { doc: ComponentDoc }) {
   );
 }
 
-/* ------------------------------------------------ 8. M3 conformance */
+/* ------------------------------------------------ 9. M3 conformance */
 
 /**
- * Section 8 — Material 3 conformance. The kern signature: strict to the spec
+ * Section 9 — Material 3 conformance. The kern signature: strict to the spec
  * by default, and every departure declared with a registered id so it can be
  * audited rather than discovered. Sits after trust and before lookup.
  */
@@ -893,10 +912,10 @@ function DeviationRow({ row }: { row: Deviation }) {
   );
 }
 
-/* ------------------------------------------------ 9. api reference */
+/* ------------------------------------------------ 10. api reference */
 
 /**
- * Section 9 — API reference. Look-up last: readers arrive here from search and
+ * Section 10 — API reference. Look-up last: readers arrive here from search and
  * anchors, not in reading flow.
  */
 function ApiReference({ doc }: { doc: ComponentDoc }) {
@@ -953,10 +972,10 @@ function ApiReference({ doc }: { doc: ComponentDoc }) {
   );
 }
 
-/* ------------------------------------------------------- 10. footer */
+/* ------------------------------------------------------- 11. footer */
 
 /**
- * Section 10 — Footer. Navigation plus the affordances that make a docs page
+ * Section 11 — Footer. Navigation plus the affordances that make a docs page
  * a work surface rather than a dead end: edit it, and say whether it helped.
  */
 /**
@@ -1092,9 +1111,9 @@ function Footer({
  *
  * Hrefs are STATIC literals, not built from variables: `check-headings`
  * resolves each one against the explicit Heading ids below, so a TOC link
- * to a missing id is a gate failure, not a silent dead anchor. Anatomy is
- * the one conditional entry — it renders only when the content carries it,
- * the same condition as the section itself.
+ * to a missing id is a gate failure, not a silent dead anchor. Anatomy and
+ * Examples are the conditional entries — each renders only when its content
+ * exists, under the same condition as its section.
  */
 function OnThisPage({ doc }: { doc: ComponentDoc }) {
   return (
@@ -1110,6 +1129,9 @@ function OnThisPage({ doc }: { doc: ComponentDoc }) {
           <TocLink href="#anatomy" label="Anatomy" />
         ) : null}
         <TocLink href="#features" label="Usage" />
+        {doc.parts.flatMap((part) => examplesFor(part)).length > 0 ? (
+          <TocLink href="#examples" label="Examples" />
+        ) : null}
         <TocLink href="#theming-and-tokens" label="Theming and tokens" />
         <TocLink href="#accessibility" label="Accessibility" />
         <TocLink
@@ -1167,6 +1189,8 @@ export function ComponentPage({
       <Anatomy doc={doc} />
       {/* explore */}
       <Usage doc={doc} />
+      {/* examples */}
+      <Examples doc={doc} />
       {/* integrate */}
       <Theming doc={doc} />
       {/* trust */}
