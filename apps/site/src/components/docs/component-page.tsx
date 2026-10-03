@@ -356,7 +356,7 @@ function MetadataStrip({
  * markup teaches the reader the wrong code. Prove it works before asking
  * anyone to read about it.
  */
-function Showcase({
+function DemoContent({
   doc,
   platform,
 }: {
@@ -368,20 +368,116 @@ function Showcase({
   // Examples take precedence over the single demo: they carry the reasoning,
   // not just the thing working.
   const examples = doc.parts.flatMap((part) => examplesFor(part));
+  return examples.length > 0 ? (
+    <ExampleList examples={examples} />
+  ) : live ? (
+    live()
+  ) : (
+    <p className={PROSE}>
+      No live demo is registered for <code>{doc.parts[0]}</code>. That is a gap
+      in the site, not in the package — it is tracked rather than hidden here.
+    </p>
+  );
+}
+
+function Showcase({
+  doc,
+  platform,
+}: {
+  doc: ComponentDoc;
+  platform: Platform;
+}) {
   return (
     <section className="flex flex-col gap-3" aria-label="Showcase">
       <Heading id="showcase">Showcase</Heading>
-      {examples.length > 0 ? (
-        <ExampleList examples={examples} />
-      ) : live ? (
-        live()
-      ) : (
-        <p className={PROSE}>
-          No live demo is registered for <code>{doc.parts[0]}</code>. That is a
-          gap in the site, not in the package — it is tracked rather than hidden
-          here.
-        </p>
-      )}
+      <DemoContent doc={doc} platform={platform} />
+    </section>
+  );
+}
+
+/* ------------------------------------------- 2b. kern vs Material 3 compare */
+
+/**
+ * Side-by-side: the working kern demo next to what Material 3 specifies.
+ *
+ * The page already proves the component works (Showcase) and already records
+ * every departure with a registered id (Conformance). What it did not do is
+ * put the two next to each other, so a reader comparing against the M3 docs
+ * had to hold both in their head. This section is that pairing, and nothing
+ * more: the left cell reuses the SAME demo source as Showcase (never a second
+ * implementation), and the right cell is built from the page's own deviation
+ * rows plus the spec link.
+ *
+ * Where there is nothing to compare against, it says so rather than hiding:
+ * a kern extension has no M3 counterpart, and a page with no recorded spec
+ * source cannot claim a comparison. An empty right cell would read as
+ * agreement; the sentence prevents that misreading.
+ */
+function Compare({ doc, platform }: { doc: ComponentDoc; platform: Platform }) {
+  const specUrl = doc.meta.specUrl;
+  const rows = doc.deviations ?? [];
+  return (
+    <section
+      className="flex flex-col gap-3"
+      aria-label="Kern versus Material 3"
+    >
+      <Heading id="kern-versus-material-3">Kern vs Material 3</Heading>
+      <div className="grid gap-3 lg:grid-cols-2">
+        <div className="flex min-w-0 flex-col gap-2">
+          <p className={`${LABEL} m-0 ${INK}`}>kern — live</p>
+          <DemoContent doc={doc} platform={platform} />
+        </div>
+        <div className="flex min-w-0 flex-col gap-2">
+          <p className={`${LABEL} m-0 ${INK}`}>Material 3 — specified</p>
+          {specUrl === "none" ? (
+            <p className={PROSE}>
+              A kern extension: no Material 3 counterpart exists, so there is
+              nothing to compare against. That is a scope fact, not agreement.
+            </p>
+          ) : rows.length > 0 ? (
+            <ul className="m-0 flex list-none flex-col gap-2 p-0">
+              {rows.map((row) => (
+                <li key={row.id} className={`${CARD} flex flex-col gap-1 p-4`}>
+                  <span className="font-mono text-(--md-sys-color-on-surface-variant) [font-size:var(--md-sys-typescale-label-small-font-size)]">
+                    {row.id}
+                  </span>
+                  <p className={`m-0 ${SMALL} ${INK_SOFT}`}>{row.spec}</p>
+                  {specUrl ? (
+                    <a
+                      className="text-(--md-sys-color-primary) underline underline-offset-2"
+                      href={specUrl}
+                      rel="noreferrer"
+                      target="_blank"
+                    >
+                      Read the M3 spec
+                    </a>
+                  ) : null}
+                </li>
+              ))}
+            </ul>
+          ) : specUrl ? (
+            <div className={`${CARD} flex flex-col gap-1 p-4`}>
+              <p className={`m-0 ${SMALL} ${INK_SOFT}`}>
+                Conforms: no registered departures from the Material 3 spec.
+              </p>
+              <a
+                className="text-(--md-sys-color-primary) underline underline-offset-2"
+                href={specUrl}
+                rel="noreferrer"
+                target="_blank"
+              >
+                Read the M3 spec
+              </a>
+            </div>
+          ) : (
+            <p className={PROSE}>
+              Material 3 source not recorded for this page yet — so no
+              comparison is claimed. Check the conformance section below for the
+              current state.
+            </p>
+          )}
+        </div>
+      </div>
     </section>
   );
 }
@@ -1077,6 +1173,8 @@ export function ComponentPage({
 
       {/* prove */}
       <Showcase doc={doc} platform={platform} />
+      {/* compare: the working demo next to what M3 specifies */}
+      <Compare doc={doc} platform={platform} />
       {/* start */}
       <Installation doc={doc} />
       {/* model */}
