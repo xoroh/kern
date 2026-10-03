@@ -86,6 +86,7 @@ const SECTIONS = [
     why: "Look things up. The non-component API, and the guidance library.",
     links: [
       { label: "Public API", to: "/docs/api" },
+      { label: "API index", to: "/docs/reference" },
       { label: "Guides", to: "/docs/guides" },
     ],
   },
