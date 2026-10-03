@@ -122,6 +122,18 @@ export const GENERATORS = [
     outputs: ["apps/site/src/generated/legal.ts"],
   },
   {
+    // F1 (review-m3): the compiler-extracted props tables Section 10 reads.
+    // Same omission class — one script, two outputs (props.ts is the full
+    // extraction, props-table.ts the runtime-slim curated table), so both
+    // are listed or a hand-edit to either is invisible to every gate.
+    name: "site generate-props (component sources -> site props.ts + props-table.ts)",
+    cmd: ["bun", "apps/site/scripts/generate-props.mjs"],
+    outputs: [
+      "apps/site/src/generated/props.ts",
+      "apps/site/src/generated/props-table.ts",
+    ],
+  },
+  {
     // The icon sets: ~35 files across one generated tree. ONE entry owns the
     // whole directory rather than listing 35 outputs, because a completeness
     // gate that has to be updated per generated file is a gate that will be

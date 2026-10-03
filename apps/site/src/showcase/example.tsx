@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { useId, useState } from "react";
 import { T_BODY_SM, T_CODE, T_LEAD } from "../type-scale";
 
 /**
@@ -40,8 +41,48 @@ const STAGE =
 
 const BODY = `text-(--md-sys-color-on-surface-variant) ${T_BODY_SM}`;
 
-/** One example: title, description, live stage, and the source when useful. */
+/**
+ * One example: title, description, and the Preview/Code tabs.
+ *
+ * Part 4 — Chakra `ExampleTabs` pattern, no iframes: the stage and the source
+ * are two tabs over the same example, not a stacked code block. Examples
+ * without `code` (behaviour demos where a fence would be noise) render the
+ * stage with no tab bar — a disabled Code tab would promise source that does
+ * not exist. Tabs are real `tablist`/`tab`/`tabpanel` roles with arrow-key
+ * movement; the Code panel carries a Copy button (review NOTE on Part 4:
+ * copy on every demo) with a clipboard-API fallback for non-secure contexts.
+ */
 export function Example({ spec }: { spec: ExampleSpec }) {
+  const [tab, setTab] = useState<"preview" | "code">("preview");
+  const [copied, setCopied] = useState(false);
+  const base = useId().replace(/[^a-zA-Z0-9]/g, "");
+  const previewId = `example-${base}-preview`;
+  const codeId = `example-${base}-code`;
+
+  function onTabKey(event: React.KeyboardEvent) {
+    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+    event.preventDefault();
+    setTab((t) => (t === "preview" ? "code" : "preview"));
+  }
+
+  async function copy() {
+    if (!spec.code) return;
+    try {
+      await navigator.clipboard.writeText(spec.code);
+    } catch {
+      // Non-secure contexts (plain http previews) have no clipboard API:
+      // the legacy execCommand path still copies from a real selection.
+      const area = document.createElement("textarea");
+      area.value = spec.code;
+      document.body.appendChild(area);
+      area.select();
+      document.execCommand("copy");
+      area.remove();
+    }
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 1500);
+  }
+
   return (
     <figure className={`${FRAME} m-0 flex flex-col overflow-hidden`}>
       <figcaption className="flex flex-col gap-1 border-b border-(--md-sys-color-outline-variant) px-6 py-4">
@@ -54,15 +95,76 @@ export function Example({ spec }: { spec: ExampleSpec }) {
         <p className={`m-0 ${BODY}`}>{spec.description}</p>
       </figcaption>
 
-      <div className={STAGE}>{spec.render()}</div>
-
       {spec.code ? (
-        <pre
-          className={`m-0 overflow-x-auto border-t border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-high) p-6 ${T_CODE} text-(--md-sys-color-on-surface)`}
+        <div
+          role="tablist"
+          aria-label={`${spec.title} view`}
+          className="flex gap-1 border-b border-(--md-sys-color-outline-variant) px-4 pt-2"
+          onKeyDown={onTabKey}
         >
-          <code>{spec.code}</code>
-        </pre>
+          {(
+            [
+              { key: "preview", label: "Preview" },
+              { key: "code", label: "Code" },
+            ] as const
+          ).map((t) => (
+            <button
+              key={t.key}
+              type="button"
+              role="tab"
+              id={`${base}-tab-${t.key}`}
+              aria-selected={tab === t.key}
+              aria-controls={t.key === "preview" ? previewId : codeId}
+              tabIndex={tab === t.key ? 0 : -1}
+              onClick={() => setTab(t.key)}
+              className={`-mb-px border-b-2 px-3 py-2 ${T_BODY_SM} ${
+                tab === t.key
+                  ? "border-(--md-sys-color-primary) text-(--md-sys-color-primary)"
+                  : "border-transparent text-(--md-sys-color-on-surface-variant)"
+              }`}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
       ) : null}
+
+      {!spec.code && <div className={STAGE}>{spec.render()}</div>}
+
+      {spec.code && tab === "preview" && (
+        <div
+          role="tabpanel"
+          id={previewId}
+          aria-labelledby={`${base}-tab-preview`}
+          className={STAGE}
+        >
+          {spec.render()}
+        </div>
+      )}
+
+      {spec.code && tab === "code" && (
+        <div
+          role="tabpanel"
+          id={codeId}
+          aria-labelledby={`${base}-tab-code`}
+          className="flex flex-col"
+        >
+          <div className="flex justify-end border-b border-(--md-sys-color-outline-variant) px-4 py-1">
+            <button
+              type="button"
+              onClick={copy}
+              className={`rounded-(--md-sys-shape-corner-small) px-2 py-1 ${T_BODY_SM} text-(--md-sys-color-primary) hover:bg-(--md-sys-color-primary-container)`}
+            >
+              {copied ? "Copied" : "Copy"}
+            </button>
+          </div>
+          <pre
+            className={`m-0 overflow-x-auto bg-(--md-sys-color-surface-container-high) p-6 ${T_CODE} text-(--md-sys-color-on-surface)`}
+          >
+            <code>{spec.code}</code>
+          </pre>
+        </div>
+      )}
     </figure>
   );
 }
