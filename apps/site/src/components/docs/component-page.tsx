@@ -29,10 +29,12 @@ import type {
   ComponentDoc,
   Deviation,
   PartRow,
+  PropRow,
   RestingElevation,
 } from "../../content/types";
 import { MOBILE_DEMOS } from "../../demos/mobile/registry";
 import { WEB_DEMOS } from "../../demos/web/registry";
+import { PROPS_TABLE } from "../../generated/props-table";
 import { maturityForExports } from "../../maturity";
 import { ExampleList } from "../../showcase/example";
 import { examplesFor } from "../../showcase/registry";
@@ -917,57 +919,164 @@ function DeviationRow({ row }: { row: Deviation }) {
 /**
  * Section 10 — API reference. Look-up last: readers arrive here from search and
  * anchors, not in reading flow.
+ *
+ * Part 3d — the Props slot reads Part 0. Names, types, required flags and
+ * defaults come from PROPS_TABLE (compiler-extracted, per-row src provenance
+ * in props.ts); the `note` — what a prop *implies* — stays hand-authored in
+ * content and merges by name. check-props enforces the name agreement, so the
+ * merge can neither drop a documented row silently nor invent one.
+ *
+ * Two fallbacks, both stated in the render: an export the extractor does not
+ * cover (mobile, unresolvable type) renders its hand rows; content rows the
+ * gate deems curated (`type`, `ref`, `className` — known, not extracted)
+ * render with their hand values inside a covered part. Only names NOTHING
+ * carries are absent from the page, and check-props fails those at the
+ * baseline ratchet instead of the page hiding them.
  */
+type ApiRow = {
+  name: string;
+  type: string;
+  required: boolean;
+  default?: string;
+  note?: string;
+};
+
+function toRow(r: PropRow): ApiRow {
+  return {
+    name: r.name,
+    type: r.type,
+    required: r.required ?? false,
+    default: r.default,
+    note: r.note,
+  };
+}
+
+/**
+ * One part's rows: generated rows with content notes merged in, then the
+ * curated hand rows the extractor never emits. Returns null when the part
+ * contributes nothing at all — the caller falls back to hand rows.
+ */
+function partRows(part: string, content: PropRow[]): ApiRow[] | null {
+  const slot = PROPS_TABLE[part];
+  if (!slot || (slot.rows.length === 0 && slot.curated.length === 0)) {
+    return null;
+  }
+  const contentByName = new Map(content.map((r) => [r.name, r]));
+  const rows: ApiRow[] = slot.rows.map((g) => ({
+    name: g.name,
+    type: g.type,
+    required: g.required,
+    default: g.default,
+    note: contentByName.get(g.name)?.note,
+  }));
+  for (const name of slot.curated) {
+    const c = contentByName.get(name);
+    if (c && !rows.some((r) => r.name === name)) rows.push(toRow(c));
+  }
+  return rows;
+}
+
+function PropTable({ rows, caption }: { rows: ApiRow[]; caption?: string }) {
+  return (
+    <div className="overflow-x-auto">
+      <table className={`w-full border-collapse text-left ${SMALL}`}>
+        {caption ? (
+          <caption className={`pb-2 text-left ${LABEL} ${INK}`}>
+            <code className="font-mono">{caption}</code>
+          </caption>
+        ) : null}
+        <thead>
+          <tr className="border-b border-(--md-sys-color-outline-variant)">
+            <th className={TH}>Prop</th>
+            <th className={TH}>Type</th>
+            <th className={TH}>Default</th>
+            <th className={TH}>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row) => (
+            <tr
+              key={row.name}
+              className="border-b border-(--md-sys-color-outline-variant)"
+            >
+              <td className={TD}>
+                <code className="font-mono text-(--md-sys-color-on-surface)">
+                  {row.name}
+                </code>
+                {row.required && (
+                  <span className={`ml-2 ${TINY} text-(--md-sys-color-error)`}>
+                    required
+                  </span>
+                )}
+              </td>
+              <td
+                className={`${TD} font-mono text-(--md-sys-color-on-surface-variant) [font-size:var(--md-sys-typescale-label-small-font-size)] [line-height:var(--md-sys-typescale-label-small-line-height)]`}
+              >
+                {row.type}
+              </td>
+              <td
+                className={`${TD} font-mono text-(--md-sys-color-on-surface-variant) [font-size:var(--md-sys-typescale-label-small-font-size)] [line-height:var(--md-sys-typescale-label-small-line-height)]`}
+              >
+                {row.default ?? "—"}
+              </td>
+              <td className={`${TD} ${SMALL} ${INK_SOFT}`}>{row.note ?? ""}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 function ApiReference({ doc }: { doc: ComponentDoc }) {
+  const covered = doc.parts.some(
+    (part) => (PROPS_TABLE[part]?.rows.length ?? 0) > 0,
+  );
+  if (!covered) {
+    // No generated coverage for any part on this page: the hand table,
+    // exactly the old render. Nothing documented is lost for lack of
+    // machinery (mobile pages live here until native extraction exists).
+    return (
+      <section className="flex flex-col gap-4">
+        <Heading id="api-reference">API reference</Heading>
+        <PropTable rows={doc.api.map(toRow)} />
+      </section>
+    );
+  }
+  const multi = doc.parts.length > 1;
   return (
     <section className="flex flex-col gap-4">
       <Heading id="api-reference">API reference</Heading>
-      <div className="overflow-x-auto">
-        <table className={`w-full border-collapse text-left ${SMALL}`}>
-          <thead>
-            <tr className="border-b border-(--md-sys-color-outline-variant)">
-              <th className={TH}>Prop</th>
-              <th className={TH}>Type</th>
-              <th className={TH}>Default</th>
-              <th className={TH}>Notes</th>
-            </tr>
-          </thead>
-          <tbody>
-            {doc.api.map((row) => (
-              <tr
-                key={row.name}
-                className="border-b border-(--md-sys-color-outline-variant)"
-              >
-                <td className={TD}>
-                  <code className="font-mono text-(--md-sys-color-on-surface)">
-                    {row.name}
-                  </code>
-                  {row.required && (
-                    <span
-                      className={`ml-2 ${TINY} text-(--md-sys-color-error)`}
-                    >
-                      required
-                    </span>
-                  )}
-                </td>
-                <td
-                  className={`${TD} font-mono text-(--md-sys-color-on-surface-variant) [font-size:var(--md-sys-typescale-label-small-font-size)] [line-height:var(--md-sys-typescale-label-small-line-height)]`}
-                >
-                  {row.type}
-                </td>
-                <td
-                  className={`${TD} font-mono text-(--md-sys-color-on-surface-variant) [font-size:var(--md-sys-typescale-label-small-font-size)] [line-height:var(--md-sys-typescale-label-small-line-height)]`}
-                >
-                  {row.default ?? "—"}
-                </td>
-                <td className={`${TD} ${SMALL} ${INK_SOFT}`}>
-                  {row.note ?? ""}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      {doc.parts.map((part) => {
+        const rows = partRows(part, doc.api);
+        if (!rows || rows.length === 0) {
+          // Covered family, uncovered part (unresolvable type): hand rows
+          // filtered to names this part is known to carry, or the whole
+          // family table when nothing is known — duplication in a rare
+          // corner beats silent loss, and check-props still gates the names.
+          const known = new Set([
+            ...(PROPS_TABLE[part]?.rows.map((r) => r.name) ?? []),
+            ...(PROPS_TABLE[part]?.curated ?? []),
+          ]);
+          const hand =
+            known.size > 0 ? doc.api.filter((r) => known.has(r.name)) : doc.api;
+          if (hand.length === 0) return null;
+          return (
+            <PropTable
+              key={part}
+              rows={hand.map(toRow)}
+              caption={multi ? part : undefined}
+            />
+          );
+        }
+        return (
+          <PropTable
+            key={part}
+            rows={rows}
+            caption={multi ? part : undefined}
+          />
+        );
+      })}
     </section>
   );
 }

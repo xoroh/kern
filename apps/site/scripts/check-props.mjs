@@ -30,9 +30,9 @@
  * Type-text and `default` equality are NOT compared (formatting, friendlier
  * rendering). `note` is never generated — what a prop implies is judgment.
  */
-import { readFileSync, readdirSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { readContentApiNames } from "./lib/content-api-names.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const SITE = resolve(HERE, "..");
@@ -41,31 +41,8 @@ const generated = await import(join(SITE, "src", "generated", "props.ts"));
 const GEN = generated.GENERATED_PROPS;
 const ALL = generated.ALL_PROP_NAMES ?? {};
 
-// Content api names, per part. Web only — see SCOPE above.
-function walk(dir, out = []) {
-  for (const e of readdirSync(dir, { withFileTypes: true })) {
-    const p = join(dir, e.name);
-    if (e.isDirectory()) walk(p, out);
-    else if (e.name.endsWith(".ts")) out.push(p);
-  }
-  return out;
-}
-
-const contentNames = new Map(); // part -> Set(prop names)
-for (const file of walk(join(SITE, "src", "content", "web"))) {
-  const src = readFileSync(file, "utf8");
-  const partsMatch = src.match(/parts:\s*\[([^\]]*)\]/);
-  if (!partsMatch) continue;
-  const partNames = [...partsMatch[1].matchAll(/"([^"]+)"/g)].map((m) => m[1]);
-  const apiBlock = src.match(/api:\s*\[([\s\S]*?)\n\s*\],/);
-  const apiRows = apiBlock
-    ? [...apiBlock[1].matchAll(/name:\s*"([^"]+)"/g)].map((m) => m[1])
-    : [];
-  for (const p of partNames) {
-    if (!contentNames.has(p)) contentNames.set(p, new Set());
-    for (const n of apiRows) contentNames.get(p).add(n);
-  }
-}
+// Content api names, per part — one parser shared with generate-props.
+const contentNames = readContentApiNames(join(SITE, "src", "content", "web"));
 
 const stale = [];
 let uncovered = 0;
