@@ -36,7 +36,7 @@ type ShowcaseThemeControls = {
 const ShowcaseThemeContext = createContext<ShowcaseThemeControls | null>(null);
 
 function ShowcaseTheme({ children }: { children: ReactNode }) {
-  const [variant, setVariant] = useState<ThemeSelection>("m3");
+  const [variant, setVariant] = useState<ThemeSelection>("kern");
   const [contrast, setContrast] = useState<Contrast>("standard");
   // Read the mode from the provider above so the inner provider can stay
   // controlled and the switcher still talks to the same source of truth.
@@ -72,7 +72,7 @@ const MODES = [
 ];
 
 const VARIANTS = [
-  { value: "m3", label: "M3" },
+  { value: "kern", label: "Kern" },
   { value: "sharp", label: "Sharp" },
   { value: "brand", label: "Brand" },
 ];
