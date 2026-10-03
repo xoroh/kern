@@ -289,13 +289,26 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
   );
 }
 
-/** The lede line under the gallery's H1 — used by all three routes. */
+/** The lede under the All gallery's H1 — used only by /components. */
 export function GalleryLede() {
+  // The All view merges both platforms, so it states both coverages rather
+  // than one blended number: a blended "X of Y" would double-count families
+  // documented on both platforms. Same R4 rule as the platform views — the
+  // coverage gap is stated before anything implies parity of polish.
+  const web = demoCoverage("web");
+  const mobile = demoCoverage("mobile");
   return (
-    <p className={`m-0 max-w-[62ch] ${T_LEAD} ${INK_SOFT}`}>
-      Every component family, grouped by the job it does. Cards show the real
-      component from the package — the same code you install — and name what is
-      missing rather than hiding it.
-    </p>
+    <div className="flex flex-col gap-2">
+      <p className={`m-0 max-w-[62ch] ${T_LEAD} ${INK_SOFT}`}>
+        Every component family, grouped by the job it does. Cards show the
+        real component from the package — the same code you install — and
+        name what is missing rather than hiding it.
+      </p>
+      <p className={`m-0 max-w-[62ch] ${T_BODY_SM} ${INK_SOFT}`}>
+        Live demos for {web.withDemo} of {web.total} web families and{" "}
+        {mobile.withDemo} of {mobile.total} native families — the rest say so
+        on their card instead of showing an empty tile.
+      </p>
+    </div>
   );
 }
