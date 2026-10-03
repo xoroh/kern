@@ -41,14 +41,110 @@
  *
  * Usage: `bun run check:elevation-parity`
  */
+import { execFileSync } from "node:child_process";
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
+/**
+ * ROOT is the kern checkout, resolved from this script's OWN location.
+ *
+ * That is deliberate and it is why this gate is runnable from any package
+ * worktree and from CI: `dirname(import.meta.url)/..` is where the repo is,
+ * whatever the current working directory is. Resolving from `process.cwd()`
+ * instead would put a `bun run --cwd packages/kern` invocation somewhere else
+ * entirely.
+ */
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+
+/**
+ * `.team` lives in the MONOREPO, one level above the kern checkout. Resolving
+ * it as `join(ROOT, "..", ".team")` assumes that relationship holds, and it
+ * does not everywhere this gate runs.
+ *
+ * MEASURED (S4-F9 methodology note): a `git clone` of kern to `/tmp` — which is
+ * exactly what a package worktree or a CI runner is — resolves the ruling table
+ * to `/tmp/.team/reports/reviews/m3/...`, which does not exist. The gate then
+ * reported **"ruling table missing"** and flipped all 17 one-sided rows from
+ * RULED to OPEN, so the run failed for a reason that had nothing to do with
+ * elevation and named none of the real work. A gate that reports the wrong
+ * problem is worse than one that reports none: the reader goes looking for a
+ * missing file instead of reading the 17 rows.
+ *
+ * So the monorepo root is ASKED FOR, not assumed, in three steps:
+ *
+ *   1. `kern-internal` — the sibling `.team`, which is the normal monorepo case
+ *      and needs no subprocess.
+ *   2. `git -C <ROOT> rev-parse --show-superproject-working-tree` — the real
+ *      answer for a linked worktree, where `..` is emphatically not the
+ *      monorepo.
+ *   3. `git -C <ROOT> rev-parse --show-toplevel`, then its parent — covers a
+ *      clone checked out somewhere unrelated to the monorepo layout.
+ *
+ * If none of those find `.team`, the gate says WHICH paths it tried. A
+ * resolution that fails silently is what produced the misleading run in the
+ * first place.
+ */
+function findTeamRoot() {
+  const tried = [];
+  const accept = (base) => {
+    if (!base) return null;
+    const candidate = join(base, ".team");
+    tried.push(candidate);
+    return existsSync(candidate) ? candidate : null;
+  };
+
+  // 1. the normal monorepo: kern/ sits beside .team/
+  const sibling = accept(resolve(ROOT, ".."));
+  if (sibling) return sibling;
+
+  const git = (...args) => {
+    try {
+      return execFileSync("git", ["-C", ROOT, ...args], {
+        encoding: "utf8",
+        stdio: ["ignore", "pipe", "ignore"],
+      }).trim();
+    } catch {
+      return "";
+    }
+  };
+
+  // 2. a LINKED worktree: `..` is not the monorepo, the superproject is.
+  const superproject = git("rev-parse", "--show-superproject-working-tree");
+  if (superproject) {
+    const found = accept(superproject);
+    if (found) return found;
+  }
+
+  // 3. an ordinary clone somewhere else on disk.
+  const top = git("rev-parse", "--show-toplevel");
+  if (top) {
+    const found = accept(resolve(top, ".."));
+    if (found) return found;
+  }
+
+  // 4. last resort: an explicit override, for a layout none of the above fits.
+  if (process.env.KERN_TEAM_ROOT) {
+    const found = accept(resolve(process.env.KERN_TEAM_ROOT));
+    if (found) return found;
+  }
+
+  console.error(
+    "check:elevation-parity: could not locate the `.team` registry.\n" +
+      `  Looked for:\n${tried.map((t) => `    ${t}`).join("\n")}\n` +
+      "  Set KERN_TEAM_ROOT to the directory CONTAINING .team/ and re-run.\n" +
+      "  Without it the ruling table and the deviations registry cannot be\n" +
+      "  read, so every one-sided row falls back to OPEN and the deviation\n" +
+      "  ids cannot resolve — this run would fail for a reason unrelated to\n" +
+      "  elevation.",
+  );
+  process.exit(1);
+}
+
+const TEAM_ROOT = findTeamRoot();
 const WEB = join(ROOT, "packages", "kern", "src", "components");
 const NATIVE = join(ROOT, "packages", "kern-native", "src", "components");
-const DEVIATIONS = join(ROOT, "..", ".team", "programs", "K-01-deviations.md");
+const DEVIATIONS = join(TEAM_ROOT, "programs", "K-01-deviations.md");
 
 const DP_BY_LEVEL = { 0: 0, 1: 1, 2: 3, 3: 6, 4: 8, 5: 12 };
 const levelFromDp = (dp) => {
@@ -561,9 +657,7 @@ for (const [name, variants] of Object.entries(declared)) {
 // so the gate's `native none` row is a measurement artefact, not a gap to adopt.
 // They re-open on the measurement when the scanner follows style helpers.
 const RULING = join(
-  ROOT,
-  "..",
-  ".team",
+  TEAM_ROOT,
   "reports",
   "reviews",
   "m3",
