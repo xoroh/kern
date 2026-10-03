@@ -129,6 +129,15 @@ export const GENERATORS = [
     outputs: ["apps/site/src/generated/changelog.ts"],
   },
   {
+    // The legal facts (licence SPDX, copyright holder/year, third-party
+    // notices) the /legal page reads. Same omission class as the changelog
+    // entry above: a real generated artifact no gate regenerated or
+    // compared, so a hand-edit to legal.ts was invisible to every gate.
+    name: "site generate-legal (licence sources -> site legal.ts)",
+    cmd: ["bun", "apps/site/scripts/generate-legal.mjs"],
+    outputs: ["apps/site/src/generated/legal.ts"],
+  },
+  {
     // The icon sets: ~35 files across one generated tree. ONE entry owns the
     // whole directory rather than listing 35 outputs, because a completeness
     // gate that has to be updated per generated file is a gate that will be
