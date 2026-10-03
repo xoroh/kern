@@ -10,7 +10,13 @@
  * missing demo must not look the same.
  */
 import { Link } from "@tanstack/react-router";
-import type { ReactElement } from "react";
+import {
+  Component,
+  useEffect,
+  useState,
+  type ReactElement,
+  type ReactNode,
+} from "react";
 import { MOBILE_DOCS, WEB_DOCS } from "../../content";
 import {
   FAMILY_GROUPS,
@@ -42,6 +48,43 @@ type GalleryCard = {
   web?: ComponentDoc;
   mobile?: ComponentDoc;
 };
+
+/** True once the component has mounted on the client (SSR renders false). */
+function useClientMount(): boolean {
+  const [client, setClient] = useState(false);
+  useEffect(() => setClient(true), []);
+  return client;
+}
+
+/**
+ * One boundary per demo, per the blueprint's state rules: a demo error never
+ * swallows the page. The fallback says the honest thing — the demo failed,
+ * the component didn't. This is what caught (and contained) Base UI error #73
+ * instead of the whole gallery going blank.
+ */
+class DemoBoundary extends Component<
+  { children: ReactNode },
+  { failed: boolean }
+> {
+  override state = { failed: false };
+
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+
+  override render() {
+    if (this.state.failed) {
+      return (
+        <div className="flex h-full items-center justify-center">
+          <span className={`${T_BODY_SM} ${INK_SOFT}`}>
+            This demo failed — the component didn't.
+          </span>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 function collect(platform?: "web" | "mobile"): GalleryCard[] {
   const bySlug = new Map<string, GalleryCard>();
@@ -148,6 +191,12 @@ export function ComponentGallery({ platform }: { platform?: "web" | "mobile" }) 
 }
 
 function GalleryCardView({ card }: { card: GalleryCard }) {
+  // Demos are CLIENT-ONLY. The web demo components are not SSR-safe (they
+  // abort the server stream — measured: /components and /components/web
+  // SSR-truncated to the head until this gate existed), so the thumbnail
+  // renders after mount. The card's text, chips and links are server-rendered
+  // regardless; only the preview waits.
+  const isClient = useClientMount();
   const primary = card.web ?? card.mobile;
   const primaryPlatform = card.web ? "web" : "mobile";
   const demo = card.web
@@ -155,6 +204,10 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
     : card.mobile
       ? findDemo(card.mobile, "mobile")
       : undefined;
+  // Rendered as a JSX COMPONENT below, never called as a function: a demo
+  // called inline would run its hooks as part of THIS component's hook list,
+  // and the client-mount flip would change the hook count (React #310).
+  const Demo = demo;
   const reason = primary ? previewReason(primary) : undefined;
   const maturity =
     maturityChip(card.web, "web") ?? maturityChip(card.mobile, "mobile");
@@ -162,15 +215,19 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
   return (
     <article className={`${CARD} flex flex-col overflow-hidden`}>
       <div className="relative h-36 overflow-hidden border-b border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container) p-3">
-        {demo ? (
-          // The preview is a THUMBNAIL: inert to pointer events so it can never
-          // swallow the card's links or trap a click on a demo control.
-          <div
-            className="pointer-events-none origin-top-left scale-90"
-            aria-hidden="true"
-          >
-            {demo()}
-          </div>
+        {Demo ? (
+          isClient ? (
+            // The preview is a THUMBNAIL: inert to pointer events so it can
+            // never swallow the card's links or trap a click on a demo control.
+            <div
+              className="pointer-events-none origin-top-left scale-90"
+              aria-hidden="true"
+            >
+              <DemoBoundary>
+                <Demo />
+              </DemoBoundary>
+            </div>
+          ) : null
         ) : (
           <div className="flex h-full items-center justify-center">
             <span className={`${T_BODY_SM} ${INK_SOFT}`}>

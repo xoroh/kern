@@ -206,37 +206,43 @@ export function MenubarDemo() {
  */
 export function SnackbarDemo() {
   return (
-    <PreviewStack>
-      <Preview label="the surface a Snackbar renders" span={3}>
-        <div className="w-full max-w-sm">
-          <Snackbar.Root
-            toast={{
-              id: "demo",
-              title: "Build queued",
-              description: "We will email you when it finishes.",
-            }}
-          >
-            <div className="flex min-w-0 flex-col">
-              <Snackbar.Title />
-              <Snackbar.Description />
-            </div>
-            <Snackbar.Action onClick={() => {}}>View</Snackbar.Action>
-            <Snackbar.Close />
-          </Snackbar.Root>
-        </div>
-      </Preview>
-      <Preview
-        label="parts: Provider · Viewport · List · Root · Title · Description · Action · Close"
-        span={3}
-      >
-        <p className="m-0 max-w-sm text-sm text-(--md-sys-color-on-surface-variant)">
-          <code>Snackbar.Provider</code> owns the toast manager,{" "}
-          <code>Snackbar.Viewport</code> positions it, and{" "}
-          <code>Snackbar.List</code> renders the queue. The markup above is the
-          real <code>Snackbar.Root</code> the list produces.
-        </p>
-      </Preview>
-    </PreviewStack>
+    // Self-contained: the demo mounts its own provider (as documented below),
+    // so it renders correctly anywhere — gallery thumbnail, home strip, or the
+    // component page. Without this it consumed `useToastManager` bare and
+    // threw Base UI error #73, which is how it was found.
+    <Snackbar.Provider>
+      <PreviewStack>
+        <Preview label="the surface a Snackbar renders" span={3}>
+          <div className="w-full max-w-sm">
+            <Snackbar.Root
+              toast={{
+                id: "demo",
+                title: "Build queued",
+                description: "We will email you when it finishes.",
+              }}
+            >
+              <div className="flex min-w-0 flex-col">
+                <Snackbar.Title />
+                <Snackbar.Description />
+              </div>
+              <Snackbar.Action onClick={() => {}}>View</Snackbar.Action>
+              <Snackbar.Close />
+            </Snackbar.Root>
+          </div>
+        </Preview>
+        <Preview
+          label="parts: Provider · Viewport · List · Root · Title · Description · Action · Close"
+          span={3}
+        >
+          <p className="m-0 max-w-sm text-sm text-(--md-sys-color-on-surface-variant)">
+            <code>Snackbar.Provider</code> owns the toast manager,{" "}
+            <code>Snackbar.Viewport</code> positions it, and{" "}
+            <code>Snackbar.List</code> renders the queue. The markup above is
+            the real <code>Snackbar.Root</code> the list produces.
+          </p>
+        </Preview>
+      </PreviewStack>
+    </Snackbar.Provider>
   );
 }
 
@@ -249,8 +255,14 @@ export function SnackbarDemo() {
 export function SonnerDemo() {
   const [manager] = useState(() => createSonnerManager());
   return (
-    <PreviewStack>
-      <Preview label="push a toast through a real manager" span={3}>
+    // Self-contained, like SnackbarDemo above: the provider is part of the
+    // family (Sonner.Provider owns the toast manager), and the viewport is
+    // what the pushed toasts actually render into. Without the provider the
+    // roots consumed `useToastManager` bare — Base UI error #73.
+    <Sonner.Provider>
+      <Sonner.Viewport />
+      <PreviewStack>
+        <Preview label="push a toast through a real manager" span={3}>
         <Row>
           {(["info", "success", "warning", "error"] as const).map((intent) => (
             <Button
@@ -288,6 +300,7 @@ export function SonnerDemo() {
           </Sonner.Root>
         </div>
       </Preview>
-    </PreviewStack>
+      </PreviewStack>
+    </Sonner.Provider>
   );
 }
