@@ -632,11 +632,107 @@ for (const [name, variants] of Object.entries(declared)) {
     if (!variants.includes(lvl)) {
       violations.push(
         `${name}: web ships level ${lvl}, which is NOT one of its declared ` +
-          `variants [${variants.join(",")}] (${w.file}:${w.line}). The registry ` +
+          `variants [${variants.join(", ")}] (${w.file}:${w.line}). The registry ` +
           `must describe the code, not permit it.`,
       );
     }
   }
+}
+
+// --- 2b. the INVERSE: web shipping a level the registry does not declare ------
+// The leg above is DECLARED -> SHIPS. Its inverse is the one that catches a
+// fabricated citation, and it is the direction S4-F9 §3 reported as the
+// release-blocking defect: "web ships a resting elevation for `entity-sheet`
+// but it is in neither KERN_ELEVATION_COMPONENTS nor KERN_UNASSIGNED_ELEVATION
+// -> an unregistered level is a fabricated citation".
+//
+// That leg was written by dsl, found 12 rows (6 of them style helpers), and was
+// deliberately NOT landed — dsl-0115 §214 records routing the ruling to
+// review-m3 rather than shipping a gate red on arrival. So the defect it
+// describes is REAL and still present in the tree, and the wired gate does not
+// currently assert it.
+//
+// It is asserted here, from the registry's own exported keys rather than a
+// re-parse of the source: `elevSrc` is matched with a regex for `declared`,
+// which cannot see `KERN_UNASSIGNED_ELEVATION`'s keys. Reading the exported
+// tables is the structural fix and matches the brief's "real parser over
+// heuristic" rule.
+//
+// SCOPE, deliberately narrow. Only components that the ONE-SIDED table already
+// rules, and only a component with NO registry row at all, are reported — so
+// this leg cannot manufacture work for a component that has never claimed a
+// level. It reports, it does not fail, for the same reason the one-sided rows
+// report: registering a level is a DESIGN CALL routed to review-m3, and a gate
+// that fails on it would be a gate that blocks the release on a decision no one
+// has made yet. dsl's reasoning for parking the failing version was sound; what
+// was missing is that the finding should still be VISIBLE.
+const registered = new Set([...Object.keys(declared), ...unassignedNames()]);
+
+/** Keys of KERN_UNASSIGNED_ELEVATION, read structurally from its source block. */
+function unassignedNames() {
+  const start = elevSrc.indexOf("KERN_UNASSIGNED_ELEVATION");
+  if (start === -1) return [];
+  const open = elevSrc.indexOf("{", start);
+  const close = elevSrc.indexOf("}", open);
+  if (open === -1 || close === -1) return [];
+  return [
+    ...elevSrc.slice(open + 1, close).matchAll(/["']?([a-z0-9-]+)["']?\s*:/g),
+  ].map((m) => m[1]);
+}
+
+const undeclared = [];
+for (const [name, w] of web) {
+  // The registry is keyed by KEBAB SLUG (`snackbar`, `extended-fab`,
+  // `bottom-sheet-picker`), while the scanner yields PascalCase EXPORT names
+  // (`Snackbar`, `ExtendedFab`, `BottomSheetPicker`) or style helpers
+  // (`bannerVariants`, `menuPopupClass`).
+  //
+  // Comparing raw gave 29 rows; suffix-stripping alone gave 24. BOTH were
+  // artefacts of comparing three different naming spaces. `Snackbar` IS
+  // registered — under `snackbar` — and reporting it as a fabricated citation
+  // is precisely the kind of false row that trains people to skip a gate.
+  //
+  // So: strip the part suffix with the file's own `canon()`, then convert to
+  // the registry's kebab form. Style helpers are dropped by suffix, the same
+  // way `isStyleHelper` already does one-sided.
+  if (isStyleHelper(name) || /Variants$|Class$/.test(name)) continue;
+  const key = toRegistryKey(name);
+  if (registered.has(key)) continue;
+  // Only a component with a REAL resting level — a surface/outline component
+  // measures nothing and claims nothing.
+  if (effective(w).length === 0) continue;
+  undeclared.push(
+    `${key}: web ships resting level(s) ${effective(w).join(", ")} ` +
+      `(${w.file}:${w.line}) but "${key}" is in neither KERN_ELEVATION_COMPONENTS ` +
+      `nor KERN_UNASSIGNED_ELEVATION. An unregistered level is a fabricated ` +
+      `citation — either the component needs a registry row, or it should stop ` +
+      `emitting a token it does not claim.`,
+  );
+}
+
+/**
+ * Export name -> the registry's key form: strip a compound-part suffix
+ * (`SnackbarRoot` -> `Snackbar`), then PascalCase -> kebab (`ExtendedFab` ->
+ * `extended-fab`). Handles the ACRONYM boundary too (`OTPRoot` -> `otp-root`),
+ * which a naive lower/digit-then-upper split welds into `otproot`.
+ */
+function toRegistryKey(exportName) {
+  return canon(exportName)
+    .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
+    .replace(/([A-Z]+)([A-Z][a-z])/g, "$1-$2")
+    .toLowerCase();
+}
+if (undeclared.length > 0) {
+  console.log(
+    `\nUNREGISTERED RESTING LEVEL — reported, not failing (${undeclared.length}):\n` +
+      `  ${undeclared.length} component(s) ship a resting elevation the registry does\n` +
+      `  not describe. This is dsl's parked completeness leg (dsl-0115 §214: "12\n` +
+      `  violations, 6 of them style helpers", routed to review-m3 rather than landed\n` +
+      `  red). Registering a level is a DESIGN CALL, so this reports; it does not\n` +
+      `  fail. Until review-m3 rules, the S4-F9 release NO-GO on this is not a gate\n` +
+      `  failure — it is an open decision that should be made explicitly.`,
+  );
+  for (const u of undeclared) console.log(`  - ${u}`);
 }
 
 // --- 3. the RULING TABLE -----------------------------------------------------
