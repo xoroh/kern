@@ -41,6 +41,16 @@ const NOT_IN_CI = new Map([
   // Per-package publish dry-runs are driven by the per-package matrix jobs,
   // which invoke them through `bun run check:publish`, not by name.
   ["check:publish", "invoked by the per-package publish matrix"],
+  // Runs against the STAGING AREA, which CI does not have: after a fresh
+  // checkout `git diff --cached` is empty, so this would report "nothing
+  // staged; nothing to include" and exit 0 on every run. It is a commit-time
+  // gate wired into `.githooks/pre-commit`, and wiring it into CI as well would
+  // add a step that asserts nothing — the "passes because it never looked"
+  // class, in a gate about not shipping unattributed work.
+  [
+    "check:commit-intent",
+    "commit-time gate on the staging area; run via .githooks/pre-commit, which CI does not invoke",
+  ],
 ]);
 
 // --- 1. duplicate map keys, per workflow file ---------------------------------
