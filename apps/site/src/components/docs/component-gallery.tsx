@@ -12,10 +12,10 @@
 import { Link } from "@tanstack/react-router";
 import {
   Component,
-  useEffect,
-  useState,
   type ReactElement,
   type ReactNode,
+  useEffect,
+  useState,
 } from "react";
 import { MOBILE_DOCS, WEB_DOCS } from "../../content";
 import {
@@ -104,9 +104,10 @@ function collect(platform?: "web" | "mobile"): GalleryCard[] {
 }
 
 /** How many families on a platform have at least one live demo. */
-export function demoCoverage(
-  platform: "web" | "mobile",
-): { withDemo: number; total: number } {
+export function demoCoverage(platform: "web" | "mobile"): {
+  withDemo: number;
+  total: number;
+} {
   const docs = platform === "web" ? WEB_DOCS : MOBILE_DOCS;
   const withDemo = docs.filter((doc) => findDemo(doc, platform)).length;
   return { withDemo, total: docs.length };
@@ -137,11 +138,18 @@ function maturityChip(
   platform: "web" | "mobile",
 ): string | undefined {
   if (!doc) return undefined;
-  const row = maturityForExports(doc.parts, platform === "web" ? "web" : "native");
+  const row = maturityForExports(
+    doc.parts,
+    platform === "web" ? "web" : "native",
+  );
   return row ? `${row.version} · ${row.state}` : undefined;
 }
 
-export function ComponentGallery({ platform }: { platform?: "web" | "mobile" }) {
+export function ComponentGallery({
+  platform,
+}: {
+  platform?: "web" | "mobile";
+}) {
   const cards = collect(platform);
   const groups: { id: FamilyGroupId; cards: GalleryCard[] }[] = [];
   for (const group of FAMILY_GROUPS) {

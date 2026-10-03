@@ -263,43 +263,45 @@ export function SonnerDemo() {
       <Sonner.Viewport />
       <PreviewStack>
         <Preview label="push a toast through a real manager" span={3}>
-        <Row>
-          {(["info", "success", "warning", "error"] as const).map((intent) => (
-            <Button
-              key={intent}
-              variant="tonal"
-              size="sm"
-              onClick={() =>
-                manager[intent]({
-                  title: `${intent} toast`,
-                  description: "Sent by Sonner.",
-                })
-              }
+          <Row>
+            {(["info", "success", "warning", "error"] as const).map(
+              (intent) => (
+                <Button
+                  key={intent}
+                  variant="tonal"
+                  size="sm"
+                  onClick={() =>
+                    manager[intent]({
+                      title: `${intent} toast`,
+                      description: "Sent by Sonner.",
+                    })
+                  }
+                >
+                  {intent}
+                </Button>
+              ),
+            )}
+          </Row>
+        </Preview>
+        <Preview label="the surface Sonner.Root renders" span={3}>
+          <div className="w-full max-w-sm">
+            <Sonner.Root
+              toast={{
+                id: "demo",
+                title: "Saved",
+                description: "Your changes are live.",
+              }}
+              intent="success"
             >
-              {intent}
-            </Button>
-          ))}
-        </Row>
-      </Preview>
-      <Preview label="the surface Sonner.Root renders" span={3}>
-        <div className="w-full max-w-sm">
-          <Sonner.Root
-            toast={{
-              id: "demo",
-              title: "Saved",
-              description: "Your changes are live.",
-            }}
-            intent="success"
-          >
-            <div className="flex min-w-0 flex-col">
-              <Sonner.Title />
-              <Sonner.Description />
-            </div>
-            <Sonner.Action onClick={() => {}}>Undo</Sonner.Action>
-            <Sonner.Close />
-          </Sonner.Root>
-        </div>
-      </Preview>
+              <div className="flex min-w-0 flex-col">
+                <Sonner.Title />
+                <Sonner.Description />
+              </div>
+              <Sonner.Action onClick={() => {}}>Undo</Sonner.Action>
+              <Sonner.Close />
+            </Sonner.Root>
+          </div>
+        </Preview>
       </PreviewStack>
     </Sonner.Provider>
   );

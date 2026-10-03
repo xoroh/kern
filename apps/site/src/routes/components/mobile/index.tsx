@@ -14,10 +14,7 @@ import {
   ComponentGallery,
   demoCoverage,
 } from "../../../components/docs/component-gallery";
-import {
-  MOBILE_DEMOS,
-  PREVIEW_REASONS,
-} from "../../../demos/mobile/registry";
+import { MOBILE_DEMOS, PREVIEW_REASONS } from "../../../demos/mobile/registry";
 import { componentsOn } from "../../../generated/manifest";
 import {
   T_BODY_SM,

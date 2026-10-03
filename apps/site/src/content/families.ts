@@ -32,7 +32,8 @@ export const FAMILY_GROUPS: FamilyGroup[] = [
   {
     id: "action",
     title: "Action",
-    blurb: "Components that do something when invoked — commands, menus, buttons.",
+    blurb:
+      "Components that do something when invoked — commands, menus, buttons.",
   },
   {
     id: "containment",
@@ -42,7 +43,8 @@ export const FAMILY_GROUPS: FamilyGroup[] = [
   {
     id: "communication",
     title: "Communication",
-    blurb: "Components that report status — progress, banners, snackbars, feedback.",
+    blurb:
+      "Components that report status — progress, banners, snackbars, feedback.",
   },
   {
     id: "navigation",
