@@ -21,6 +21,24 @@ export function Footer() {
             Components
           </a>
           <a
+            href="/changelog"
+            className="text-(--md-sys-color-on-surface-variant) no-underline hover:text-(--md-sys-color-on-surface)"
+          >
+            Changelog
+          </a>
+          <a
+            href="/community"
+            className="text-(--md-sys-color-on-surface-variant) no-underline hover:text-(--md-sys-color-on-surface)"
+          >
+            Community
+          </a>
+          <a
+            href="/about"
+            className="text-(--md-sys-color-on-surface-variant) no-underline hover:text-(--md-sys-color-on-surface)"
+          >
+            About
+          </a>
+          <a
             href="https://github.com/xoroh/kern"
             className="text-(--md-sys-color-on-surface-variant) no-underline hover:text-(--md-sys-color-on-surface)"
           >
