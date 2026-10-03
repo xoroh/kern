@@ -16,6 +16,7 @@ import { MOBILE_DOCS, WEB_DOCS } from "../content";
 import type { ComponentDoc } from "../content/types";
 import { maturityForExports } from "../maturity";
 import { NAV_LEAVES } from "../nav";
+import { rankEntries } from "./score";
 
 export type SearchGroup =
   | "Components"
@@ -147,26 +148,6 @@ export function buildSearchIndex(): SearchEntry[] {
   ];
 }
 
-function score(query: string, entry: SearchEntry): number {
-  const q = query.trim().toLowerCase();
-  if (!q) return 0;
-  const title = entry.title.toLowerCase();
-  const hint = entry.hint.toLowerCase();
-  if (title === q) return 100;
-  if (title.startsWith(q)) return 75;
-  // Word-boundary start beats a mid-word match ("bar" finds SearchBar
-  // before "App bar" finds… nothing — it ranks the boundary first).
-  const boundary = new RegExp(`(^|[^a-z])${escapeRegExp(q)}`);
-  if (boundary.test(title)) return 50;
-  if (title.includes(q)) return 25;
-  if (hint.includes(q)) return 10;
-  return 0;
-}
-
-function escapeRegExp(s: string): string {
-  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-}
-
 export type GroupedResults = { group: SearchGroup; entries: SearchEntry[] }[];
 
 const PER_GROUP = 6;
@@ -176,18 +157,10 @@ export function searchSite(
   query: string,
   index: SearchEntry[],
 ): GroupedResults {
-  const q = query.trim().toLowerCase();
-  if (!q) return [];
-  const ranked = index
-    .map((entry) => ({ entry, s: score(q, entry) }))
-    .filter((r) => r.s > 0)
-    .sort((a, b) => b.s - a.s);
+  const ranked = rankEntries(query, index);
   const out: GroupedResults = [];
   for (const group of SEARCH_GROUP_ORDER) {
-    const entries = ranked
-      .filter((r) => r.entry.group === group)
-      .slice(0, PER_GROUP)
-      .map((r) => r.entry);
+    const entries = ranked.filter((r) => r.group === group).slice(0, PER_GROUP);
     if (entries.length > 0) out.push({ group, entries });
   }
   return out;

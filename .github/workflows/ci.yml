@@ -230,6 +230,10 @@ jobs:
         run: bun run typecheck
         working-directory: apps/site
 
+      - name: Check site docs
+        run: bun run check:docs
+        working-directory: apps/site
+
       - name: Typecheck mobile showcase
         run: bun run typecheck
         working-directory: apps/mobile
