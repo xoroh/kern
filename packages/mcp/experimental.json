@@ -1,0 +1,29 @@
+{
+  "$comment": [
+    "Components available but explicitly UNSTABLE — kern's incubator channel",
+    "(the `lab` equivalent). Each entry needs a reason; an entry without one",
+    "is a claim, not a decision.",
+    "",
+    "The generator fails on any name not in the manifest, so a removed or",
+    "renamed component cannot linger here silently. Delete the entry when the",
+    "component graduates; the state then derives from the package version like",
+    "everything else."
+  ],
+  "experimental": [
+    {
+      "name": "preview-card-root",
+      "reason": "K10: deliberate kern addition in the ext: extension band (hover link-preview has no M3 counterpart, no touch analogue). Ships, but its API is not frozen.",
+      "since": "0.0.0"
+    },
+    {
+      "name": "preview-card-trigger",
+      "reason": "K10: part of the preview-card family; same instability as its root.",
+      "since": "0.0.0"
+    },
+    {
+      "name": "preview-card-content",
+      "reason": "K10: part of the preview-card family; same instability as its root.",
+      "since": "0.0.0"
+    }
+  ]
+}

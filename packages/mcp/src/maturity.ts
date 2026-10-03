@@ -10,6 +10,7 @@
 // changes with no code edit.
 export type MaturityState =
   | "Preview"
+  | "Experimental"
   | "Stable"
   | "Maintained"
   | "Sunsetting"
@@ -1142,21 +1143,21 @@ export const MATURITY: readonly MaturityRow[] = [
     name: "preview-card-root",
     export: "PreviewCardRoot",
     platform: "web",
-    state: "Preview",
+    state: "Experimental",
     version: "0.0.0",
   },
   {
     name: "preview-card-trigger",
     export: "PreviewCardTrigger",
     platform: "web",
-    state: "Preview",
+    state: "Experimental",
     version: "0.0.0",
   },
   {
     name: "preview-card-content",
     export: "PreviewCardContent",
     platform: "web",
-    state: "Preview",
+    state: "Experimental",
     version: "0.0.0",
   },
   {
@@ -2985,9 +2986,6 @@ export const MATURITY_BY_STATE: Readonly<
     "popover-title",
     "popover-trigger",
     "preview-card",
-    "preview-card-content",
-    "preview-card-root",
-    "preview-card-trigger",
     "progress",
     "progress-label",
     "progress-root",
@@ -3102,6 +3100,11 @@ export const MATURITY_BY_STATE: Readonly<
     "top-app-bar-toggle",
     "top-bar-menu",
     "user-menu",
+  ],
+  Experimental: [
+    "preview-card-content",
+    "preview-card-root",
+    "preview-card-trigger",
   ],
   Stable: [],
   Maintained: [],
