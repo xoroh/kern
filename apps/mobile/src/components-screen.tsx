@@ -1,4 +1,5 @@
 import {
+  ActionSheet,
   Avatar,
   Badge,
   Banner,
@@ -11,7 +12,6 @@ import {
   CircularProgress,
   Command,
   CountrySelect,
-  CreateSheet,
   EmptyState,
   Fab,
   FieldMessage,
@@ -272,7 +272,7 @@ export function ComponentsScreen() {
 
       {create ? (
         <View style={{ position: "absolute", left: 0, right: 0, bottom: 0 }}>
-          <CreateSheet
+          <ActionSheet
             open
             title="Create"
             actions={[
