@@ -487,16 +487,20 @@ function AnatomyRow({ part }: { part: PartRow }) {
   );
 }
 
-/* ----------------------------------------------- 5. features & variants */
+/* --------------------------------------------------- 5. usage (was Features) */
 
 /**
- * Section 5 — Features & variants. The ONLY section allowed to persuade.
- * Task guidance before reference: when to reach for this, and when not to.
+ * Section 5 — Usage. The ONLY section allowed to persuade. Task guidance
+ * before reference: when to reach for this, and when not to.
+ *
+ * Part 3b — the heading reads "Usage" per the approved page order, but the
+ * anchor stays `#features`: deep links and the headings gate resolve against
+ * the id, so a raw rename would break the anchor contract. Alias, don't move.
  */
-function Features({ doc }: { doc: ComponentDoc }) {
+function Usage({ doc }: { doc: ComponentDoc }) {
   return (
     <section className="flex flex-col gap-3">
-      <Heading id="features">Features</Heading>
+      <Heading id="features">Usage</Heading>
       <p className={PROSE}>{doc.features}</p>
       <WhenToUse doc={doc} />
     </section>
@@ -1105,7 +1109,7 @@ function OnThisPage({ doc }: { doc: ComponentDoc }) {
         {doc.anatomy?.length ? (
           <TocLink href="#anatomy" label="Anatomy" />
         ) : null}
-        <TocLink href="#features" label="Features" />
+        <TocLink href="#features" label="Usage" />
         <TocLink href="#theming-and-tokens" label="Theming and tokens" />
         <TocLink href="#accessibility" label="Accessibility" />
         <TocLink
@@ -1162,7 +1166,7 @@ export function ComponentPage({
       {/* model */}
       <Anatomy doc={doc} />
       {/* explore */}
-      <Features doc={doc} />
+      <Usage doc={doc} />
       {/* integrate */}
       <Theming doc={doc} />
       {/* trust */}
