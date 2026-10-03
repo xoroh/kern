@@ -27,7 +27,7 @@ import {
 export const Route = createFileRoute("/docs/")({ component: DocsIndex });
 
 const CARD =
-  "rounded-(--md-sys-shape-corner-large) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-low) p-5 no-underline text-(--md-sys-color-on-surface)";
+  "block rounded-(--md-sys-shape-corner-large) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-low) p-5 no-underline text-(--md-sys-color-on-surface)";
 const SOFT = "text-(--md-sys-color-on-surface-variant)";
 
 /**
