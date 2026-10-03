@@ -164,7 +164,7 @@ function GettingStarted() {
             <Code>{MOBILE_QUICKSTART}</Code>
           </Step>
 
-          <Step n={6} title="Icons">
+          <Step n={7} title="Icons">
             <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
               Prefer a semantic alias over a raw glyph: the alias is the
               unification decision, so a re-decision stays a one-line change in
