@@ -62,6 +62,11 @@ function apiEntries(docs: ComponentDoc[], platform: Platform): SearchEntry[] {
   // One entry per exported symbol, landing on the page's API section — a
   // different destination (and intent) than the Components entry for the
   // family, which lands on the page top.
+  //
+  // Badged with the same maturity state as the Components entry: an API hit
+  // without a state badge reads as stable-by-default, which is exactly the
+  // misreading the badge exists to prevent.
+  const native = platform === "mobile" ? "native" : "web";
   const out: SearchEntry[] = [];
   for (const doc of docs) {
     for (const part of doc.parts) {
@@ -70,6 +75,9 @@ function apiEntries(docs: ComponentDoc[], platform: Platform): SearchEntry[] {
         title: part,
         hint: `${doc.name} · ${platform === "web" ? "Web" : "Native"} API`,
         href: `/components/${platform}/${doc.slug}#api-reference`,
+        badge:
+          maturityForExports([part], native)?.state ??
+          (doc.meta.status === "stub" ? "stub" : undefined),
       });
     }
   }
