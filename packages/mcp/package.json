@@ -1,6 +1,7 @@
 {
   "name": "@xoroh/kern-mcp",
   "version": "0.0.0",
+  "description": "Kern MCP server: list components, fetch source and tokens, audit screens.",
   "license": "MIT",
   "author": "Xoroh",
   "repository": {

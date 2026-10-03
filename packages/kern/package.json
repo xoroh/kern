@@ -1,6 +1,7 @@
 {
   "name": "@xoroh/kern",
   "version": "0.0.0",
+  "description": "Kern web renderer: Material 3 React components on Base UI primitives.",
   "license": "MIT",
   "author": "Xoroh",
   "repository": {

@@ -1,6 +1,7 @@
 {
   "name": "@xoroh/kern-icons",
   "version": "0.0.0",
+  "description": "Kern icon system: set registry, semantic aliases, and web/native Icon renderers.",
   "license": "MIT",
   "author": "Xoroh",
   "repository": {

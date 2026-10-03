@@ -1,6 +1,7 @@
 {
   "name": "@xoroh/kern-tokens",
   "version": "0.0.0",
+  "description": "Kern design tokens and themes: colour roles, type, shape, elevation, motion.",
   "license": "MIT",
   "author": "Xoroh",
   "repository": {

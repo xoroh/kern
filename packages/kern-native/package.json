@@ -1,6 +1,7 @@
 {
   "name": "@xoroh/kern-native",
   "version": "0.0.0",
+  "description": "Kern React Native renderer: the same components and contracts as web, on native primitives.",
   "license": "MIT",
   "author": "Xoroh",
   "repository": {
