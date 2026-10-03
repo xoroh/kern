@@ -1,12 +1,13 @@
 {
-  "name": "@xoroh/cli",
+  "name": "@xoroh/kern-cli",
   "version": "0.0.0",
+  "description": "Future installer for Kern: `kern add <component>`. Scoped, not implemented.",
   "license": "MIT",
   "private": true,
   "author": "Xoroh",
   "repository": {
     "type": "git",
     "url": "https://github.com/xoroh/kern.git",
-    "directory": "packages/cli"
+    "directory": "packages/kern-cli"
   }
 }
