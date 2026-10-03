@@ -756,11 +756,11 @@ function checkEditTarget({ platform, file, doc }) {
 
 // ------------------------------------------------------- usage half-pairs
 /**
- * m2 — a half-authored Do/Don't pair is not rendered (a Do without a Don't
- * states no rule), and that is correct. What is NOT correct is dropping it
- * silently: the reader cannot tell "this component has no usage guidance" from
- * "someone started writing it and stopped". The template hides it; the gate
- * must say so.
+ * m2 — a half-authored Do/Don't pair renders with a one-sided note (a Do
+ * without a Don't still states the Do half; the note names what's missing).
+ * What is NOT correct is leaving it half-written: the template renders
+ * gracefully, and the gate fails loudly to drive completion. Render
+ * gracefully + fail loudly, not one or the other.
  */
 function checkUsage({ file, doc }) {
   const at = (msg) => `${file}: ${msg}`;
@@ -773,8 +773,7 @@ function checkUsage({ file, doc }) {
     errors.push(
       at(
         `usage has ${(use.do ?? []).length} Do item(s) and no Don't — a half ` +
-          `pair. It is not rendered (a Do without a Don't states no rule), so ` +
-          `this content is invisible to readers. Complete the pair or remove it.`,
+          `pair. It renders with a one-sided note; complete the pair or remove it.`,
       ),
     );
   }
@@ -782,8 +781,7 @@ function checkUsage({ file, doc }) {
     errors.push(
       at(
         `usage has ${(use.dont ?? []).length} Don't item(s) and no Do — a half ` +
-          `pair. It is not rendered (a Don't without a Do states no rule), so ` +
-          `this content is invisible to readers. Complete the pair or remove it.`,
+          `pair. It renders with a one-sided note; complete the pair or remove it.`,
       ),
     );
   }

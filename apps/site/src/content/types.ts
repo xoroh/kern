@@ -162,8 +162,9 @@ export type KeyRow = {
 
 /**
  * Section 5 — the Do/Don't pair. The M3 Guidelines pattern: two cards side by
- * side so the contrast is the argument. Both halves are required to render —
- * a Do without a Don't states no rule.
+ * side so the contrast is the argument. A half pair renders its written half
+ * plus a one-sided gap note naming what's missing (never silently dropped);
+ * the docs gate fails the half to drive completion.
  */
 export type Usage = {
   do: string[];
@@ -267,9 +268,9 @@ export type ComponentDoc = {
   aria?: string[];
 
   /**
-   * Section 5 — the Do/Don't pair. Optional; renders only when both halves
-   * are present. Tasks before reference (Diátaxis), and the clearest way to
-   * state a usage rule.
+   * Section 5 — the Do/Don't pair. Optional; a half pair renders with a
+   * gap note, and the docs gate fails it until completed. Tasks before
+   * reference (Diátaxis), and the clearest way to state a usage rule.
    */
   usage?: Usage;
 

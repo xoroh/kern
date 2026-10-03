@@ -543,9 +543,11 @@ function WhenToUse({ doc }: { doc: ComponentDoc }) {
         >
           <p className={`m-0 ${SMALL} ${INK_SOFT}`}>
             This rule is one-sided: the {hasDo ? "Don’t" : "Do"} half is not
-            written yet. A Do without a Don’t leaves the reader to guess the
-            boundary — the gap is reported by the docs gate rather than hidden
-            here.
+            written yet.{" "}
+            {hasDo
+              ? "A Do without a Don’t leaves the reader to guess the boundary."
+              : "A Don’t without a Do states what to avoid but not what to do instead."}{" "}
+            The gap is reported by the docs gate rather than hidden here.
           </p>
         </div>
       ) : null}

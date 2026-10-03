@@ -14,8 +14,8 @@ export const tooltip: ComponentDoc = {
     // No variant axis. A tooltip is one treatment; its only states are shown
     // and hidden.
     variants: [],
-    // M3's row "rich tooltip" rests at level 2, and kern ships
-    // `--md-sys-elevation-level2` on the popup to match.
+    // Plain tooltip; level 2 is the K11 kern choice sharing the rich
+    // row's height. See Deviations.
     elevation: 2,
   },
   parts: [
@@ -55,6 +55,14 @@ export const tooltip: ComponentDoc = {
       "There is no `arrow` prop. The pointer toward the trigger is not part of this component.",
     ],
   },
+  deviations: [
+    {
+      id: "K11",
+      spec: "M3's component elevation table tabulates only the RICH tooltip at level 2; it names no plain tooltip.",
+      kern: "The (plain) tooltip popup rests at elevation level 2.",
+      why: "review-m3 ruled the plain-tooltip level a kern choice sharing the rich row's height, not a transcription of M3 (K11); the citation is the registry, not the spec row.",
+    },
+  ],
   api: [
     {
       name: "open",

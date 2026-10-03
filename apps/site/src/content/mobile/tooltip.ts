@@ -28,6 +28,14 @@ export const tooltip: ComponentDoc = {
       "There is no `side`/`align` beyond `placement`. It sits above or below, not left or right.",
     ],
   },
+  deviations: [
+    {
+      id: "K11",
+      spec: "M3's component elevation table tabulates only the RICH tooltip at level 2; it names no plain tooltip.",
+      kern: "The (plain) tooltip popup rests at elevation level 2.",
+      why: "review-m3 ruled the plain-tooltip level a kern choice sharing the rich row's height, not a transcription of M3 (K11); the citation is the registry, not the spec row.",
+    },
+  ],
   api: [
     {
       name: "label",
