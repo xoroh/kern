@@ -1154,27 +1154,12 @@ function Footer({
  * (SITE-REDESIGN-docs-architecture.md §4.4: breadcrumb, TOC, prev/next —
  * breadcrumb and prev/next already exist; this was the missing third).
  *
- * Entries are DERIVED from the same conditions as the sections: Anatomy
- * appears only when the content carries it, so the TOC never links a
- * heading that is not on the page. Every href targets an explicit Heading
- * id, which `check-headings` resolves — a TOC link to a missing id is a
- * gate failure, not a silent dead anchor.
+ * Hrefs are STATIC literals, not built from variables: `check-headings`
+ * resolves each one against the explicit Heading ids below, so a TOC link
+ * to a missing id is a gate failure, not a silent dead anchor. Anatomy is
+ * the one conditional entry — it renders only when the content carries it,
+ * the same condition as the section itself.
  */
-function tocFor(doc: ComponentDoc): { id: string; label: string }[] {
-  const rows = [
-    { id: "showcase", label: "Showcase" },
-    { id: "kern-versus-material-3", label: "Kern vs Material 3" },
-    { id: "installation", label: "Installation" },
-    ...(doc.anatomy?.length ? [{ id: "anatomy", label: "Anatomy" }] : []),
-    { id: "features", label: "Features" },
-    { id: "theming-and-tokens", label: "Theming and tokens" },
-    { id: "accessibility", label: "Accessibility" },
-    { id: "material-3-conformance", label: "Material 3 conformance" },
-    { id: "api-reference", label: "API reference" },
-  ];
-  return rows;
-}
-
 function OnThisPage({ doc }: { doc: ComponentDoc }) {
   return (
     <nav
@@ -1183,18 +1168,35 @@ function OnThisPage({ doc }: { doc: ComponentDoc }) {
     >
       <p className={`m-0 ${LABEL} ${INK}`}>On this page</p>
       <ol className={`m-0 flex list-none flex-col gap-1 p-0 ${SMALL}`}>
-        {tocFor(doc).map((entry) => (
-          <li key={entry.id}>
-            <a
-              href={`#${entry.id}`}
-              className={`${INK_SOFT} no-underline hover:text-(--md-sys-color-on-surface) hover:underline`}
-            >
-              {entry.label}
-            </a>
-          </li>
-        ))}
+        <TocLink href="#showcase" label="Showcase" />
+        <TocLink href="#kern-versus-material-3" label="Kern vs Material 3" />
+        <TocLink href="#installation" label="Installation" />
+        {doc.anatomy?.length ? (
+          <TocLink href="#anatomy" label="Anatomy" />
+        ) : null}
+        <TocLink href="#features" label="Features" />
+        <TocLink href="#theming-and-tokens" label="Theming and tokens" />
+        <TocLink href="#accessibility" label="Accessibility" />
+        <TocLink
+          href="#material-3-conformance"
+          label="Material 3 conformance"
+        />
+        <TocLink href="#api-reference" label="API reference" />
       </ol>
     </nav>
+  );
+}
+
+function TocLink({ href, label }: { href: string; label: string }) {
+  return (
+    <li>
+      <a
+        href={href}
+        className={`${INK_SOFT} no-underline hover:text-(--md-sys-color-on-surface) hover:underline`}
+      >
+        {label}
+      </a>
+    </li>
   );
 }
 
