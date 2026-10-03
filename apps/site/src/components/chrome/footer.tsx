@@ -39,6 +39,18 @@ export function Footer() {
             About
           </a>
           <a
+            href="/legal/license"
+            className="text-(--md-sys-color-on-surface-variant) no-underline hover:text-(--md-sys-color-on-surface)"
+          >
+            Licence
+          </a>
+          <a
+            href="/legal/security"
+            className="text-(--md-sys-color-on-surface-variant) no-underline hover:text-(--md-sys-color-on-surface)"
+          >
+            Security
+          </a>
+          <a
             href="https://github.com/xoroh/kern"
             className="text-(--md-sys-color-on-surface-variant) no-underline hover:text-(--md-sys-color-on-surface)"
           >
