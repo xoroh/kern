@@ -53,7 +53,9 @@ function Changelog() {
                     >
                       {entry.bump}
                     </span>
-                    <h2 className={`m-0 ${T_SECTION} ${INK}`}>{entry.id}</h2>
+                    <h2 id={entry.id} className={`m-0 ${T_SECTION} ${INK}`}>
+                      {entry.id}
+                    </h2>
                   </div>
                   <p className={`m-0 ${T_BODY} ${INK_SOFT}`}>{entry.summary}</p>
                   <p className={`m-0 ${T_LABEL} ${INK_SOFT}`}>
