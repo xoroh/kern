@@ -9,6 +9,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo } from "react";
 import { SiteLayout } from "../components/chrome/site-layout";
+import { ResultText } from "../components/search/result-text";
 import { buildSearchIndex, SEARCH_SUGGESTIONS, searchSite } from "../search";
 import { T_BODY_SM, T_PAGE, T_SECTION } from "../type-scale";
 
@@ -21,8 +22,6 @@ export const Route = createFileRoute("/search")({
 
 const INK = "text-(--md-sys-color-on-surface)";
 const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";
-const CHIP =
-  "inline-flex items-center rounded-(--md-sys-shape-corner-full) border border-(--md-sys-color-outline) px-1.5 font-mono text-(--md-sys-color-on-surface-variant)";
 
 function SearchPage() {
   const { q } = Route.useSearch();
@@ -78,22 +77,14 @@ function SearchPage() {
                   {g.entries.map((entry) => (
                     <li
                       key={`${entry.title}:${entry.href}`}
-                      className="flex items-baseline gap-2"
+                      className="min-w-0"
                     >
                       <Link
                         to={entry.href}
-                        className="text-(--md-sys-color-on-surface) no-underline hover:underline"
+                        className="group block min-w-0 text-(--md-sys-color-on-surface) no-underline"
                       >
-                        {entry.title}
+                        <ResultText entry={entry} query={q} />
                       </Link>
-                      {entry.badge ? (
-                        <span className={CHIP}>{entry.badge}</span>
-                      ) : null}
-                      <span
-                        className={`m-0 ml-auto min-w-0 truncate ${T_BODY_SM} ${INK_SOFT}`}
-                      >
-                        {entry.hint}
-                      </span>
                     </li>
                   ))}
                 </ul>

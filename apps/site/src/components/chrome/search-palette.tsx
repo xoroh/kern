@@ -24,6 +24,7 @@ import {
   type SearchEntry,
   searchSite,
 } from "../../search";
+import { ResultText } from "../search/result-text";
 
 export const OPEN_SEARCH_EVENT = "kern:open-search";
 
@@ -206,23 +207,13 @@ export function SearchPalette() {
                           e.preventDefault();
                           go(entry.href);
                         }}
-                        className={`flex cursor-pointer items-baseline gap-2 rounded-(--md-sys-shape-corner-small) px-3 py-2 no-underline ${
+                        className={`block min-w-0 cursor-pointer rounded-(--md-sys-shape-corner-small) px-3 py-2 no-underline ${
                           isActive
                             ? "bg-(--md-sys-color-secondary-container)"
                             : ""
                         }`}
                       >
-                        <span className="text-(--md-sys-color-on-surface)">
-                          {entry.title}
-                        </span>
-                        {entry.badge ? (
-                          <span className="shrink-0 rounded-(--md-sys-shape-corner-full) border border-(--md-sys-color-outline) px-1.5 font-mono text-(--md-sys-color-on-surface-variant)">
-                            {entry.badge}
-                          </span>
-                        ) : null}
-                        <span className="ml-auto min-w-0 truncate text-(--md-sys-color-on-surface-variant)">
-                          {entry.hint}
-                        </span>
+                        <ResultText entry={entry} query={query} />
                       </a>
                     );
                   })}

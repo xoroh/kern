@@ -43,6 +43,12 @@ export type SearchEntry = {
   href: string;
   /** State badge, e.g. "Preview" — rendered inline per blueprint §9. */
   badge?: string;
+  /**
+   * Renderer the hit belongs to. Set on Components and API rows so the row
+   * can carry a visible Web/Native marker — two families share a name
+   * ("Button" web vs mobile) and the href alone does not disambiguate.
+   */
+  platform?: Platform;
 };
 
 function docEntries(docs: ComponentDoc[], platform: Platform): SearchEntry[] {
@@ -52,6 +58,7 @@ function docEntries(docs: ComponentDoc[], platform: Platform): SearchEntry[] {
     title: doc.name,
     hint: doc.oneLiner,
     href: `/components/${platform}/${doc.slug}`,
+    platform,
     badge:
       maturityForExports(doc.parts, native)?.state ??
       (doc.meta.status === "stub" ? "stub" : undefined),
@@ -75,6 +82,7 @@ function apiEntries(docs: ComponentDoc[], platform: Platform): SearchEntry[] {
         title: part,
         hint: `${doc.name} · ${platform === "web" ? "Web" : "Native"} API`,
         href: `/components/${platform}/${doc.slug}#api-reference`,
+        platform,
         badge:
           maturityForExports([part], native)?.state ??
           (doc.meta.status === "stub" ? "stub" : undefined),
