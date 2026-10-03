@@ -295,15 +295,16 @@ export const KERN_ELEVATION_COMPONENTS = Object.freeze({
  * consumed the lie.)
  */
 export const KERN_UNASSIGNED_ELEVATION = Object.freeze({
-  snackbar: "kern-decision: M3 does not tabulate this component",
+  snackbar: "K11",
   select: "kern-decision: M3 does not tabulate this component",
   "country-select": "kern-decision: M3 does not tabulate this component",
   combobox: "kern-decision: M3 does not tabulate this component",
   autocomplete: "kern-decision: M3 does not tabulate this component",
   popover: "kern-decision: M3 does not tabulate this component",
-  command: "kern-decision: M3 does not tabulate this component",
+  command: "K11",
   "preview-card": "kern-decision: M3 does not tabulate this component",
   sonner: "kern-decision: M3 does not tabulate this component",
+  tooltip: "K11",
 } as const);
 
 /** Every component kern ships a resting elevation for. */
