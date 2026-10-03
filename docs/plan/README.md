@@ -25,7 +25,7 @@ done).
 | 6 | Native composition | sheets, shell, menu screens, splash, layouts, panes | `kern-native` | P1 | [native-composition](native-composition.md) | done |
 | 7 | Web components | Command, Sonner, CountrySelect, SegmentedButton, Banner | `kern` | P1 | [web-extras](web-extras.md) | done |
 | 8 | Fonts | Inter faces exported, host injects an `expo-font`-shaped loader | `kern-native` | P1 | [native-composition](native-composition.md#8-fonts) | done |
-| 9 | CLI | `kern add` installer | `@xoroh/cli` | P2 | — | not planned |
+| 9 | CLI | `kern add` installer | `@xoroh/kern-cli` | P2 | — | not planned |
 | 10 | Composition tests | render tests per block | all | P2 | in each plan's acceptance | done |
 | 11 | Docs | shell docs + parity page | `docs/` + `apps/site` | P2 | — | in progress |
 

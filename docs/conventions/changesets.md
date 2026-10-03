@@ -55,7 +55,7 @@ Multiple packages in one changeset is normal and expected — that is what the
 packages split produced. Do not list a package just because it was touched
 in the working tree.
 
-`@xoroh/cli` is `private: true`. Changesets may name it (it versions
+`@xoroh/kern-cli` is `private: true`. Changesets may name it (it versions
 internally) but it never publishes.
 
 ## Writing the body

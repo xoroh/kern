@@ -64,7 +64,7 @@ const LAYERS = {
 };
 
 /** Tooling: no layering constraint. It reads the registry; it is not part of it. */
-const TOOLING = new Set(["@xoroh/kern-mcp", "@xoroh/cli"]);
+const TOOLING = new Set(["@xoroh/kern-mcp", "@xoroh/kern-cli"]);
 
 /** Both renderers. An edge between any two of these inverts ADR 002. */
 const RENDERERS = new Set(["@xoroh/kern", "@xoroh/kern-native"]);

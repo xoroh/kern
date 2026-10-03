@@ -59,10 +59,6 @@
         "wrangler": "^4.70.0",
       },
     },
-    "packages/cli": {
-      "name": "@xoroh/cli",
-      "version": "0.0.0",
-    },
     "packages/kern": {
       "name": "@xoroh/kern",
       "version": "0.0.0",
@@ -100,6 +96,10 @@
         "react": ">=18",
         "react-dom": ">=18",
       },
+    },
+    "packages/kern-cli": {
+      "name": "@xoroh/kern-cli",
+      "version": "0.0.0",
     },
     "packages/kern-icons": {
       "name": "@xoroh/kern-icons",
@@ -1093,9 +1093,9 @@
 
     "@xmldom/xmldom": ["@xmldom/xmldom@0.8.15", "", {}, "sha512-/5NV/vDALVFDXgLmfsy9TRCBlKwO2LNBFzpzvb9iIj+jR+eSc6DLYYvVOdivT/jm7MtU6TebYuRmzEOI7w40UA=="],
 
-    "@xoroh/cli": ["@xoroh/cli@workspace:packages/cli"],
-
     "@xoroh/kern": ["@xoroh/kern@workspace:packages/kern"],
+
+    "@xoroh/kern-cli": ["@xoroh/kern-cli@workspace:packages/kern-cli"],
 
     "@xoroh/kern-icons": ["@xoroh/kern-icons@workspace:packages/kern-icons"],
 

@@ -26,7 +26,7 @@ resolve the same scheme, so a token change lands everywhere at once.
 | `@xoroh/kern-native` | `packages/kern-native` | native (RN) | The React Native component set and the native scheme hook |
 | `@xoroh/kern-icons` | `packages/kern-icons` | both | Material Symbols registry + `Icon` renderer (web and native) |
 | `@xoroh/kern-mcp` | `packages/mcp` | node | MCP server so agents can list components, fetch source, read tokens, audit screens |
-| `@xoroh/cli` | `packages/cli` | — | Private placeholder for a future `kern add` installer. Not implemented, not published |
+| `@xoroh/kern-cli` | `packages/kern-cli` | — | Private placeholder for a future `kern add` installer. Not implemented, not published |
 
 Plus two apps:
 

@@ -55,7 +55,7 @@ Per-package detail lives in each package's README.
 | `@xoroh/kern-native` | `packages/kern-native` | React Native components (StyleSheet + tokens) + the native scheme hook |
 | `@xoroh/kern-icons` | `packages/kern-icons` | Material Symbols registry and the `Icon` renderer (web + native) |
 | `@xoroh/kern-mcp` | `packages/mcp` | MCP server: list components, fetch source and tokens, audit screens |
-| `@xoroh/cli` | `packages/cli` | Private placeholder for a future `kern add` installer. Not implemented, never published |
+| `@xoroh/kern-cli` | `packages/kern-cli` | Private placeholder for a future `kern add` installer. Not implemented, never published |
 
 Six packages publish; each versions independently.
 

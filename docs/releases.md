@@ -3,7 +3,7 @@
 Status: current
 
 Changesets. Six packages publish; each versions independently.
-`@xoroh/cli` is private and never published.
+`@xoroh/kern-cli` is private and never published.
 
 | Package | Directory | Public | First release |
 |---|---|---|---|
@@ -13,7 +13,7 @@ Changesets. Six packages publish; each versions independently.
 | `@xoroh/kern-icons` | `packages/kern-icons` | yes | `0.1.0` |
 | `@xoroh/kern/start` | `packages/kern/src/start` | yes | `0.1.0` |
 | `@xoroh/kern-mcp` | `packages/mcp` | yes | `0.1.0` |
-| `@xoroh/cli` | `packages/cli` | no (`private: true`) | — |
+| `@xoroh/kern-cli` | `packages/kern-cli` | no (`private: true`) | — |
 
 `@xoroh/kern` subpaths (`.`, `./theme`, `./tokens`, `./utils`) release as one
 version — the `exports` map is the unit, not the file.
