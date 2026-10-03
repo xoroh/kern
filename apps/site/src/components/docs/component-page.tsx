@@ -1150,6 +1150,55 @@ function Footer({
 /* -------------------------------------------------------------- page */
 
 /**
+ * "On this page" — the orientation aid the docs architecture requires
+ * (SITE-REDESIGN-docs-architecture.md §4.4: breadcrumb, TOC, prev/next —
+ * breadcrumb and prev/next already exist; this was the missing third).
+ *
+ * Entries are DERIVED from the same conditions as the sections: Anatomy
+ * appears only when the content carries it, so the TOC never links a
+ * heading that is not on the page. Every href targets an explicit Heading
+ * id, which `check-headings` resolves — a TOC link to a missing id is a
+ * gate failure, not a silent dead anchor.
+ */
+function tocFor(doc: ComponentDoc): { id: string; label: string }[] {
+  const rows = [
+    { id: "showcase", label: "Showcase" },
+    { id: "kern-versus-material-3", label: "Kern vs Material 3" },
+    { id: "installation", label: "Installation" },
+    ...(doc.anatomy?.length ? [{ id: "anatomy", label: "Anatomy" }] : []),
+    { id: "features", label: "Features" },
+    { id: "theming-and-tokens", label: "Theming and tokens" },
+    { id: "accessibility", label: "Accessibility" },
+    { id: "material-3-conformance", label: "Material 3 conformance" },
+    { id: "api-reference", label: "API reference" },
+  ];
+  return rows;
+}
+
+function OnThisPage({ doc }: { doc: ComponentDoc }) {
+  return (
+    <nav
+      aria-label="On this page"
+      className={`${CARD} flex flex-col gap-2 p-4`}
+    >
+      <p className={`m-0 ${LABEL} ${INK}`}>On this page</p>
+      <ol className={`m-0 flex list-none flex-col gap-1 p-0 ${SMALL}`}>
+        {tocFor(doc).map((entry) => (
+          <li key={entry.id}>
+            <a
+              href={`#${entry.id}`}
+              className={`${INK_SOFT} no-underline hover:text-(--md-sys-color-on-surface) hover:underline`}
+            >
+              {entry.label}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  );
+}
+
+/**
  * The page. Sections render in the grammar's order and no other order.
  */
 export function ComponentPage({
@@ -1170,6 +1219,8 @@ export function ComponentPage({
         <p className={`m-0 max-w-[62ch] ${LEDE} ${INK_SOFT}`}>{doc.oneLiner}</p>
         <MetadataStrip doc={doc} platform={platform} />
       </header>
+
+      <OnThisPage doc={doc} />
 
       {/* prove */}
       <Showcase doc={doc} platform={platform} />
