@@ -16,6 +16,7 @@ import {
   NavigationRailButton,
 } from "@xoroh/kern/start";
 import { Icon, type IconSemantic } from "@xoroh/kern-icons";
+import { openSearch } from "./search-palette";
 
 const ITEMS: { href: string; label: string; icon: IconSemantic }[] = [
   { href: "/", label: "Home", icon: "home" },
@@ -63,6 +64,11 @@ export function AppRail() {
               }
             />
           ))}
+          <NavigationRailButton
+            icon={<Icon name="search" size={20} />}
+            label="Search (⌘K)"
+            onSelect={openSearch}
+          />
           <div className="mt-auto flex flex-col items-center gap-2 pt-4">
             <a
               href="https://github.com/xoroh/kern"
@@ -99,6 +105,14 @@ export function MobileBar() {
         Kern
       </a>
       <nav className="flex items-center gap-1" aria-label="Primary">
+        <button
+          type="button"
+          onClick={openSearch}
+          className="inline-flex h-8 cursor-pointer items-center justify-center rounded-(--md-sys-shape-corner-full) border-0 bg-(--md-sys-color-surface-tonal) px-3 text-[13px] font-medium text-(--md-sys-color-on-surface)"
+          aria-label="Search (Command K)"
+        >
+          Search
+        </button>
         <a
           href="/components"
           className={cn(

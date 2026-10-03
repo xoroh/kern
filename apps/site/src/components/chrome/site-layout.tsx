@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { AppRail, MobileBar } from "./app-rail";
 import { Footer } from "./footer";
+import { SearchPalette } from "./search-palette";
 
 export function SiteLayout({ children }: { children: ReactNode }) {
   return (
@@ -20,6 +21,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           {children}
         </main>
         <Footer />
+        <SearchPalette />
       </div>
     </div>
   );
