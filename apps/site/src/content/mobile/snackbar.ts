@@ -18,10 +18,10 @@ export const snackbar: ComponentDoc = {
   parts: ["Snackbar"],
   deviations: [
     {
-      id: "K6",
+      id: "K11",
       spec: "M3's component elevation table names no snackbar. It tabulates menus and tooltips at level 2 and dialogs at level 3, but no row describes a transient confirmation.",
       kern: "The snackbar rests at elevation level 2.",
-      why: "A confirmation has to clear the content it sits over without competing with a dialog above it. Level 2 places it with the other transient overlays. Registered as K6 in the elevation inventory so the choice is a recorded decision rather than a value sitting in a stylesheet.",
+      why: "A confirmation has to clear the content it sits over without competing with a dialog above it. Level 2 places it with the other transient overlays. Registered as K11 in the kern deviations registry — review-m3 ruled this resting elevation a kern choice, not a transcription of M3, so the citation is the registry rather than a spec row.",
     },
   ],
   customization: {

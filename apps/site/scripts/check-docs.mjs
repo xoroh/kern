@@ -176,7 +176,15 @@ const ELEVATION_LEVELS = pickExport(
  * gate degrades to permissive rather than to wrong.
  */
 function registeredDeviationIds() {
-  const registry = join(ROOT, ".team", "programs", "K-01-deviations.md");
+  // `.team` lives at the monorepo root, NOT under kern/ — but the gate must
+  // not assume the checkout layout (a kern-only clone has neither). Try the
+  // monorepo sibling first, then a kern-internal copy, then the hardcoded
+  // K1..K10 fallback. Resolving wrong (or silently falling back) is exactly
+  // how K11 — registered in the md file — was rejected as unknown.
+  const candidates = [
+    join(ROOT, "..", ".team", "programs", "K-01-deviations.md"),
+    join(ROOT, ".team", "programs", "K-01-deviations.md"),
+  ];
   const fallback = [
     "K1",
     "K2",
@@ -189,7 +197,8 @@ function registeredDeviationIds() {
     "K9",
     "K10",
   ];
-  if (!existsSync(registry)) return new Set(fallback);
+  const registry = candidates.find((c) => existsSync(c));
+  if (!registry) return new Set(fallback);
   const text = readFileSync(registry, "utf8");
   const ids = new Set();
   for (const row of text.matchAll(/^\|\s*(K\d+)\s*\|/gm)) ids.add(row[1]);

@@ -15,7 +15,7 @@ export const command: ComponentDoc = {
     variants: [],
     // kern's own decision. M3's component elevation table names no command
     // palette. The surface ships `--md-sys-elevation-level3` and the choice is
-    // registered as K6. See Deviations.
+    // registered as K11. See Deviations.
     elevation: 3,
   },
   parts: [
@@ -31,10 +31,10 @@ export const command: ComponentDoc = {
   ],
   deviations: [
     {
-      id: "K6",
+      id: "K11",
       spec: "M3's component elevation table names no command palette and no searchable list. It tabulates menus at level 2 and modal dialogs at level 3; neither describes a filtered list of actions.",
       kern: "The command surface rests at elevation level 3.",
-      why: "A command palette is summoned over everything and dismissed on a keypress — it behaves like a dialog even though it is built on the combobox primitive. Dialog height is what keeps it visually above the page it interrupts. Registered as K6 in the elevation inventory so the level is a recorded decision rather than a number in a stylesheet.",
+      why: "A command palette is summoned over everything and dismissed on a keypress — it behaves like a dialog even though it is built on the combobox primitive. Dialog height is what keeps it visually above the page it interrupts. Registered as K11 in the kern deviations registry — review-m3 ruled this resting elevation a kern choice, not a transcription of M3, so the citation is the registry rather than a spec row.",
     },
   ],
   anatomy: [

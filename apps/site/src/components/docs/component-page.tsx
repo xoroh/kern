@@ -491,40 +491,64 @@ function Features({ doc }: { doc: ComponentDoc }) {
 /**
  * Do/Don't cards — the M3 Guidelines pattern, and the clearest way to state a
  * usage rule: the two sit side by side so the contrast is the argument.
- * Renders only when both halves are present; a Do without a Don't says
- * nothing.
+ *
+ * m2 — a half-pair used to return `null`, which made a written rule vanish
+ * silently. Now the written half renders with a visible note about the
+ * missing one, and `check:docs` reports the half-pair. A rule that exists is
+ * never hidden; a rule that is incomplete says so.
  */
 function WhenToUse({ doc }: { doc: ComponentDoc }) {
   const use = doc.usage;
-  if (!use || use.do.length === 0 || use.dont.length === 0) return null;
+  if (!use) return null;
+  const hasDo = use.do.length > 0;
+  const hasDont = use.dont.length > 0;
+  if (!hasDo && !hasDont) return null;
   return (
     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-      <div
-        className={`${CARD} border-l-4 border-l-(--md-sys-color-primary) p-4`}
-      >
-        <Heading id="do" level={3}>
-          Do
-        </Heading>
-        <ul
-          className={`m-0 mt-2 flex list-disc flex-col gap-2 pl-5 ${SMALL} ${INK_SOFT}`}
+      {hasDo ? (
+        <div
+          className={`${CARD} border-l-4 border-l-(--md-sys-color-primary) p-4`}
         >
-          {use.do.map((line) => (
-            <li key={line}>{line}</li>
-          ))}
-        </ul>
-      </div>
-      <div className={`${CARD} border-l-4 border-l-(--md-sys-color-error) p-4`}>
-        <Heading id="dont" level={3}>
-          Don&rsquo;t
-        </Heading>
-        <ul
-          className={`m-0 mt-2 flex list-disc flex-col gap-2 pl-5 ${SMALL} ${INK_SOFT}`}
+          <Heading id="do" level={3}>
+            Do
+          </Heading>
+          <ul
+            className={`m-0 mt-2 flex list-disc flex-col gap-2 pl-5 ${SMALL} ${INK_SOFT}`}
+          >
+            {use.do.map((line) => (
+              <li key={line}>{line}</li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+      {hasDont ? (
+        <div
+          className={`${CARD} border-l-4 border-l-(--md-sys-color-error) p-4`}
         >
-          {use.dont.map((line) => (
-            <li key={line}>{line}</li>
-          ))}
-        </ul>
-      </div>
+          <Heading id="dont" level={3}>
+            Don&rsquo;t
+          </Heading>
+          <ul
+            className={`m-0 mt-2 flex list-disc flex-col gap-2 pl-5 ${SMALL} ${INK_SOFT}`}
+          >
+            {use.dont.map((line) => (
+              <li key={line}>{line}</li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+      {!hasDo || !hasDont ? (
+        <div
+          className={`${CARD} border-l-4 border-l-(--md-sys-color-outline) p-4`}
+        >
+          <p className={`m-0 ${SMALL} ${INK_SOFT}`}>
+            This rule is one-sided: the {hasDo ? "Don’t" : "Do"} half is not
+            written yet. A Do without a Don’t leaves the reader to guess the
+            boundary — the gap is reported by the docs gate rather than hidden
+            here.
+          </p>
+        </div>
+      ) : null}
     </div>
   );
 }
