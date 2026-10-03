@@ -101,8 +101,8 @@ function GettingStarted() {
               From install to a themed component
             </h1>
             <p className="m-0 text-(--md-sys-color-on-surface-variant)">
-              Six steps: install, theme stylesheet, first component, theming,
-              then the web and mobile quickstarts. Every TypeScript snippet here
+              Seven steps: install, theme stylesheet, first component, theming,
+              then the web and mobile quickstarts, and icons. Every TypeScript snippet here
               is compiled against the shipped packages before it ships; the
               shell, CSS and fragment lines are checked against the real APIs by
               hand.
