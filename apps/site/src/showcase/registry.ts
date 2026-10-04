@@ -2,6 +2,7 @@ import type { ConfiguratorSpec } from "./configurator";
 import { ACCORDION_CONFIGURATOR } from "./configurators/accordion";
 import { AUTOCOMPLETE_CONFIGURATOR } from "./configurators/autocomplete";
 import { BUTTON_CONFIGURATOR } from "./configurators/button";
+import { CALENDAR_CONFIGURATOR } from "./configurators/calendar";
 import { CHECKBOX_CONFIGURATOR } from "./configurators/checkbox";
 import { DIALOG_CONFIGURATOR } from "./configurators/dialog";
 import { DRAWER_CONFIGURATOR } from "./configurators/drawer";
@@ -58,6 +59,7 @@ export const CONFIGURATORS: Record<string, ConfiguratorSpec> = {
   Accordion: ACCORDION_CONFIGURATOR,
   Autocomplete: AUTOCOMPLETE_CONFIGURATOR,
   Button: BUTTON_CONFIGURATOR,
+  Calendar: CALENDAR_CONFIGURATOR,
   Checkbox: CHECKBOX_CONFIGURATOR,
   NumberField: NUMBER_FIELD_CONFIGURATOR,
   Meter: METER_CONFIGURATOR,
