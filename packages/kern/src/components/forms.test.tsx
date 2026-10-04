@@ -145,6 +145,30 @@ describe("Slider", () => {
     await user.keyboard("{ArrowRight}");
     expect(thumb).toHaveAttribute("aria-valuenow", "31");
   });
+
+  it("moves each thumb independently in range mode", async () => {
+    // Edge composition, carried from the move-5 Group lesson: two thumbs
+    // share one root and must not move together. Sensitivity-proven: the
+    // same assertions against a single-thumb render fail (one slider, not
+    // two, and no Minimum/Maximum names).
+    const user = userEvent.setup();
+    render(
+      <Slider.Root defaultValue={[20, 80]}>
+        <Slider.Label>Volume</Slider.Label>
+        <Slider.Value />
+        <Slider.Thumb aria-label="Minimum volume" />
+        <Slider.Thumb aria-label="Maximum volume" />
+      </Slider.Root>,
+    );
+    const min = screen.getByRole("slider", { name: "Minimum volume" });
+    const max = screen.getByRole("slider", { name: "Maximum volume" });
+    expect(min).toHaveAttribute("aria-valuenow", "20");
+    expect(max).toHaveAttribute("aria-valuenow", "80");
+    min.focus();
+    await user.keyboard("{ArrowRight}");
+    expect(min).toHaveAttribute("aria-valuenow", "21");
+    expect(max).toHaveAttribute("aria-valuenow", "80");
+  });
 });
 
 describe("Drawer", () => {
