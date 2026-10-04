@@ -65,6 +65,7 @@ export function ComponentsScreen() {
   const [segment, setSegment] = useState("day");
   const [toggle, setToggle] = useState<string | string[]>(["wifi"]);
   const [checked, setChecked] = useState(false);
+  const [push, setPush] = useState(false);
   const [radio, setRadio] = useState("standard");
   const [slider, setSlider] = useState(0.4);
   const [tab, setTab] = useState("all");
@@ -145,7 +146,11 @@ export function ComponentsScreen() {
             onValueChange={setChecked}
             label="Send updates"
           />
-          <Switch value={checked} onValueChange={setChecked} />
+          <Switch
+            value={push}
+            onValueChange={setPush}
+            accessibilityLabel="Push notifications"
+          />
           <RadioGroup value={radio} onValueChange={setRadio}>
             <RadioGroupItem value="standard">Standard</RadioGroupItem>
             <RadioGroupItem value="express">Express</RadioGroupItem>
