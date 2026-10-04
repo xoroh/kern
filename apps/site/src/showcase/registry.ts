@@ -1,5 +1,6 @@
 import type { ConfiguratorSpec } from "./configurator";
 import { ACCORDION_CONFIGURATOR } from "./configurators/accordion";
+import { AUTOCOMPLETE_CONFIGURATOR } from "./configurators/autocomplete";
 import { BUTTON_CONFIGURATOR } from "./configurators/button";
 import { CHECKBOX_CONFIGURATOR } from "./configurators/checkbox";
 import { DIALOG_CONFIGURATOR } from "./configurators/dialog";
@@ -46,13 +47,14 @@ export function examplesFor(exportName: string): ExampleSpec[] {
 /**
  * The Configurator registry — export name → its configurator, if any.
  *
- * Flagships first (Button, Switch, Dialog), then Sheet, Select, Popover, Slider, Sonner, NumberField, Accordion, Progress, Field, ToggleGroup, Meter: one entry per
+ * Flagships first (Button, Switch, Dialog), then Sheet, Select, Popover, Slider, Sonner, NumberField, Accordion, Progress, Field, ToggleGroup, Meter, Autocomplete: one entry per
  * component, same keying as EXAMPLES, so a family page looks its
  * configurator up the same way. The harness is proven; further components
  * plug in here with zero template edits.
  */
 export const CONFIGURATORS: Record<string, ConfiguratorSpec> = {
   Accordion: ACCORDION_CONFIGURATOR,
+  Autocomplete: AUTOCOMPLETE_CONFIGURATOR,
   Button: BUTTON_CONFIGURATOR,
   Checkbox: CHECKBOX_CONFIGURATOR,
   NumberField: NUMBER_FIELD_CONFIGURATOR,

@@ -223,4 +223,32 @@ describe("Autocomplete", () => {
       document.querySelector("[data-slot='autocomplete-empty']"),
     ).not.toBeNull();
   });
+
+  it("leaves the list unfiltered in mode none", async () => {
+    // Edge composition, carried from the move-5 Group lesson: mode "none"
+    // disables filtering (and announces aria-autocomplete="none") while the
+    // list shell still renders — measured first-hand, not assumed. The
+    // default mode filters Banana out on the same query.
+    // Sensitivity-proven: the same assertions in the default mode fail
+    // (scratch probe, RED confirmed, deleted).
+    const user = userEvent.setup();
+    render(
+      <Autocomplete.Root items={FRUIT} mode="none">
+        <Autocomplete.Input aria-label="Fruit" />
+        <Autocomplete.Content>
+          {FRUIT.map((f) => (
+            <Autocomplete.Item key={f.value} value={f.value}>
+              {f.label}
+            </Autocomplete.Item>
+          ))}
+          <Autocomplete.Empty>No match</Autocomplete.Empty>
+        </Autocomplete.Content>
+      </Autocomplete.Root>,
+    );
+    const input = screen.getByRole("combobox", { name: "Fruit" });
+    await user.click(input);
+    await user.keyboard("app");
+    expect(input).toHaveAttribute("aria-autocomplete", "none");
+    expect(screen.getAllByRole("option")).toHaveLength(2);
+  });
 });
