@@ -35,8 +35,26 @@
  */
 import { contractFor } from "@kern-parity/contract";
 import { fireEvent, render, screen } from "@testing-library/react-native";
-import { act } from "react";
+import { act, type ReactElement } from "react";
+import { AccessibilityInfo, Modal, Text as RNText } from "react-native";
+
+// `import * as ns` compiles to a COPY (`_interopRequireWildcard`), so spying
+// the namespace object mutates the copy while implementation code calls the
+// original `module.exports` — every spy silently misses (verified: full render,
+// zero interceptions). Named imports compile to direct property access on the
+// real object, and `jest.requireActual` below returns that same object, so
+// spies installed on THESE references intercept for real.
+type JsxModule = {
+  jsx: (type: unknown, props: unknown, ...rest: unknown[]) => unknown;
+  jsxs: (type: unknown, props: unknown, ...rest: unknown[]) => unknown;
+  jsxDEV: (type: unknown, props: unknown, ...rest: unknown[]) => unknown;
+};
+type RNModule = {
+  findNodeHandle: (component: unknown) => number | null;
+};
+
 import { Drawer, Popover, ScrollArea } from "./overlay-surfaces";
+import { SheetSurface } from "./sheet-surface";
 
 type A11yNode = {
   role?: string;
@@ -280,6 +298,143 @@ describe("native ScrollArea (P2b-3 tranche 5)", () => {
     const scrollable = a11yTree().find((n) => n.role === "group");
     expect(scrollable?.role).toBe("group");
     expect(labelled("Rows")?.label).toBe("Rows");
+  });
+});
+
+describe("SheetSurface focus-move-in (D2)", () => {
+  // `onShow` is a native presentation event the test renderer never fires, and
+  // the host-element tree hides the composite `Modal` entirely: RNTL 14 removed
+  // the UNSAFE queries, and `screen.root` traversal (`queryAll`) finds no node
+  // carrying `onShow` (verified: the traversal run fails its own defined-check
+  // rather than silently passing — that attempt is gone, this comment stays as
+  // the record). What remains is the JSX layer: spy `jsx`/`jsxs`, record every
+  // `Modal` element's props during render, then invoke the real `onShow`.
+  // Spying records and delegates — rendering is unchanged — and the
+  // `expect(modals).toHaveLength(1)` below fails loudly if the toolchain ever
+  // stops emitting through these entry points.
+  //
+  // Three entry points, not one: babel's automatic runtime emits `jsxDEV` in
+  // development (which is what jest runs) and `jsx`/`jsxs` in production. The
+  // loud length assertion covers a runtime flip in either direction.
+  // Spied on the REAL module objects via `requireActual` (see import note).
+  const renderAndCaptureModal = async (element: ReactElement) => {
+    const captured: Array<{ onShow?: () => void }> = [];
+    const jsxRuntime = jest.requireActual("react/jsx-runtime") as JsxModule;
+    const jsxDevRuntime = jest.requireActual(
+      "react/jsx-dev-runtime",
+    ) as JsxModule;
+    const record = (type: unknown, props: unknown) => {
+      if (type === Modal) {
+        captured.push((props ?? {}) as { onShow?: () => void });
+      }
+    };
+    const jsxOrig = jsxRuntime.jsx;
+    const jsxsOrig = jsxRuntime.jsxs;
+    const jsxSpy = jest
+      .spyOn(jsxRuntime, "jsx")
+      .mockImplementation((type, props, ...rest) => {
+        record(type, props);
+        return jsxOrig(type, props, ...rest);
+      });
+    const jsxsSpy = jest
+      .spyOn(jsxRuntime, "jsxs")
+      .mockImplementation((type, props, ...rest) => {
+        record(type, props);
+        return jsxsOrig(type, props, ...rest);
+      });
+    const jsxDevOrig = jsxDevRuntime.jsxDEV;
+    const jsxDevSpy = jest
+      .spyOn(jsxDevRuntime, "jsxDEV")
+      .mockImplementation((type, props, ...rest) => {
+        record(type, props);
+        return jsxDevOrig(type, props, ...rest);
+      });
+    try {
+      await render(element);
+    } finally {
+      jsxSpy.mockRestore();
+      jsxsSpy.mockRestore();
+      jsxDevSpy.mockRestore();
+    }
+    expect(captured).toHaveLength(1);
+    return captured;
+  };
+
+  // `findNodeHandle` needs a real native tag, which the test renderer never
+  // produces — so it is spied (module factories via `jest.mock` break the RN
+  // preset's native-module setup: DevMenu TurboModule missing). Installed
+  // AFTER render so renderer internals never see the stub; WHAT was focused is
+  // asserted via the spy's argument, so a masking failure would have to focus
+  // the wrong node, which this catches.
+  const spyTags = () => {
+    const RNActual = jest.requireActual("react-native") as RNModule;
+    const findNodeHandle = jest
+      .spyOn(RNActual, "findNodeHandle")
+      .mockReturnValue(7);
+    const setFocus = jest
+      .spyOn(AccessibilityInfo, "setAccessibilityFocus")
+      .mockImplementation(() => {});
+    return { findNodeHandle, setFocus };
+  };
+  const present = (modals: Array<{ onShow?: () => void }>) => {
+    const onShow = modals[0]?.onShow;
+    expect(onShow).toBeDefined();
+    return act(async () => {
+      onShow?.();
+    });
+  };
+
+  it("moves accessibility focus to the close control on presentation", async () => {
+    const modals = await renderAndCaptureModal(
+      <SheetSurface
+        open
+        title="Sheet"
+        onDismiss={() => {}}
+        testID="sheet"
+        surface={{}}
+      >
+        <RNText>body</RNText>
+      </SheetSurface>,
+    );
+    const { findNodeHandle, setFocus } = spyTags();
+    try {
+      await present(modals);
+      // WHAT was focused matters more than the tag: the close control is first
+      // in tab order and always actionable (the APG "first focusable" shape).
+      expect(findNodeHandle).toHaveBeenCalled();
+      const focused = findNodeHandle.mock.calls[0][0] as {
+        props?: { accessibilityLabel?: string };
+      };
+      expect(focused.props?.accessibilityLabel).toBe("Close Sheet");
+      expect(setFocus).toHaveBeenCalledWith(7);
+    } finally {
+      setFocus.mockRestore();
+      findNodeHandle.mockRestore();
+    }
+  });
+
+  it("falls back to the card when no close control renders", async () => {
+    const modals = await renderAndCaptureModal(
+      <SheetSurface open title="Sheet" testID="sheet" surface={{}}>
+        <RNText>body</RNText>
+      </SheetSurface>,
+    );
+    // No `onDismiss`, so the policy renders no close control — the card is the
+    // only target left, and focusing it must still happen rather than throwing
+    // on a null ref.
+    expect(screen.queryByLabelText("Close Sheet")).toBeNull();
+    const { findNodeHandle, setFocus } = spyTags();
+    try {
+      await present(modals);
+      const focused = findNodeHandle.mock.calls[0][0] as {
+        props?: { testID?: string };
+      };
+      expect(focused.props?.testID).toBe("sheet");
+      expect(setFocus).toHaveBeenCalledWith(7);
+    } finally {
+      setFocus.mockRestore();
+      findNodeHandle.mockRestore();
+    }
   });
 });
 

@@ -4,7 +4,10 @@ import {
   dismissTriggersFor,
 } from "@xoroh/kern-primitives";
 import type { ReactNode } from "react";
+import { type ElementRef, useRef } from "react";
 import {
+  AccessibilityInfo,
+  findNodeHandle,
   Modal,
   Pressable,
   Text as RNText,
@@ -115,12 +118,34 @@ export function SheetSurface({
   const canDismiss = (trigger: keyof DismissTriggers) =>
     policy.shouldDismiss(trigger, open, triggers);
   const dismiss = canDismiss("scrim") ? onDismiss : undefined;
+
+  // D2: RN `Modal` presents the window but never moves the accessibility
+  // cursor — without this, TalkBack focus stays on the background control that
+  // opened the sheet (measured live: the green ring never enters
+  // BottomSheet/BottomSheetPicker). Web inherits Base UI's auto-focus; native
+  // must do it explicitly. `onShow` fires on presentation, so no
+  // timer-to-animation guessing (`animationType="slide"`).
+  //
+  // Target: the close control when the policy renders one (first in tab order,
+  // always actionable — the APG "focus to first focusable" shape). Otherwise
+  // the card container, best-effort: a plain `View` takes no focus, so a
+  // missing tag is a silent no-op rather than a defect. The card is
+  // deliberately NOT marked `accessible` to make it focusable — that would
+  // collapse the sheet's children into one Android node (the D4 class).
+  const closeRef = useRef<ElementRef<typeof Pressable>>(null);
+  const cardRef = useRef<ElementRef<typeof View>>(null);
+  const moveFocusInside = () => {
+    const node = closeRef.current ?? cardRef.current;
+    const tag = node ? findNodeHandle(node) : null;
+    if (tag) AccessibilityInfo.setAccessibilityFocus(tag);
+  };
   return (
     <Modal
       visible={open}
       transparent
       animationType="slide"
       accessibilityViewIsModal
+      onShow={moveFocusInside}
       onRequestClose={canDismiss("escape") ? onDismiss : undefined}
     >
       <View
@@ -136,12 +161,13 @@ export function SheetSurface({
           onPress={dismiss}
           style={{ flex: 1 }}
         />
-        <View testID={testID} style={[surface, style]}>
+        <View testID={testID} ref={cardRef} style={[surface, style]}>
           {policy.showClose ? (
             <Pressable
               accessibilityRole="button"
               accessibilityLabel={closeLabel ?? `Close ${title}`}
               hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+              ref={closeRef}
               onPress={canDismiss("closeButton") ? onDismiss : undefined}
               style={{
                 alignSelf: "flex-end",
