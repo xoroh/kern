@@ -155,6 +155,34 @@ describe("ToggleGroup", () => {
       "false",
     );
   });
+
+  it("keeps both pressed when multiple", async () => {
+    // Edge composition, carried from the move-5 Group lesson: `multiple`
+    // changes the contract from exclusive to additive. Sensitivity-proven:
+    // the same assertions in single mode fail (scratch probe, RED confirmed,
+    // deleted).
+    const user = userEvent.setup();
+    render(
+      <ToggleGroup.Root multiple aria-label="Format">
+        <ToggleGroup.Item value="bold" aria-label="Bold">
+          B
+        </ToggleGroup.Item>
+        <ToggleGroup.Item value="italic" aria-label="Italic">
+          I
+        </ToggleGroup.Item>
+      </ToggleGroup.Root>,
+    );
+    await user.click(screen.getByRole("button", { name: "Bold" }));
+    await user.click(screen.getByRole("button", { name: "Italic" }));
+    expect(screen.getByRole("button", { name: "Bold" })).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+    expect(screen.getByRole("button", { name: "Italic" })).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+  });
 });
 
 describe("ButtonGroup", () => {
