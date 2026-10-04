@@ -214,6 +214,31 @@ describe("Sonner", () => {
     );
   });
 
+  it("renders the action and fires it", async () => {
+    // Edge composition, carried from the move-5 Group lesson: the action is
+    // a live control inside the transient surface, not decoration.
+    // Sensitivity-proven: the same assertions against an action-less push
+    // fail (scratch probe, RED confirmed, deleted).
+    const user = userEvent.setup();
+    const onAction = vi.fn();
+    const manager = createSonnerManager();
+    render(
+      <Sonner.Provider toastManager={manager.toastManager}>
+        <Sonner.Viewport>
+          <Sonner.List />
+        </Sonner.Viewport>
+      </Sonner.Provider>,
+    );
+    act(() => {
+      manager.success({
+        title: "Saved",
+        action: { label: "Undo", onClick: onAction },
+      });
+    });
+    await user.click(await screen.findByRole("button", { name: "Undo" }));
+    expect(onAction).toHaveBeenCalledTimes(1);
+  });
+
   it("dismisses by id", async () => {
     const manager = createSonnerManager();
     render(
