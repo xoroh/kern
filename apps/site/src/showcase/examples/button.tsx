@@ -1,4 +1,5 @@
 import { Button } from "@xoroh/kern";
+import { Icon } from "@xoroh/kern-icons";
 import type { ExampleSpec } from "../example";
 
 /**
@@ -40,13 +41,13 @@ export const BUTTON_EXAMPLES: ExampleSpec[] = [
         <Button size="sm">Small</Button>
         <Button>Default</Button>
         <Button size="icon" aria-label="Add">
-          +
+          <Icon name="add" />
         </Button>
       </>
     ),
     code: `<Button size="sm">Small</Button>
 <Button>Default</Button>
-<Button size="icon" aria-label="Add">+</Button>`,
+<Button size="icon" aria-label="Add"><Icon name="add" /></Button>`,
   },
   {
     id: "error-actions",

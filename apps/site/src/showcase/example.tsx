@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { useId, useState } from "react";
 import { T_BODY_SM, T_CODE, T_LEAD } from "../type-scale";
+import { CopyButton } from "./copy-button";
 
 /**
  * The Example tier — the first of the three showcase layers (Example → Block →
@@ -49,12 +50,11 @@ const BODY = `text-(--md-sys-color-on-surface-variant) ${T_BODY_SM}`;
  * without `code` (behaviour demos where a fence would be noise) render the
  * stage with no tab bar — a disabled Code tab would promise source that does
  * not exist. Tabs are real `tablist`/`tab`/`tabpanel` roles with arrow-key
- * movement; the Code panel carries a Copy button (review NOTE on Part 4:
- * copy on every demo) with a clipboard-API fallback for non-secure contexts.
+ * movement; the Code panel carries the shared CopyButton (review NOTE on
+ * Part 4: copy on every demo).
  */
 export function Example({ spec }: { spec: ExampleSpec }) {
   const [tab, setTab] = useState<"preview" | "code">("preview");
-  const [copied, setCopied] = useState(false);
   const base = useId().replace(/[^a-zA-Z0-9]/g, "");
   const previewId = `example-${base}-preview`;
   const codeId = `example-${base}-code`;
@@ -79,33 +79,6 @@ export function Example({ spec }: { spec: ExampleSpec }) {
     event.preventDefault();
     setTab(next);
     document.getElementById(`${base}-tab-${next}`)?.focus();
-  }
-
-  async function copy() {
-    if (!spec.code) return;
-    try {
-      await navigator.clipboard.writeText(spec.code);
-      setCopied(true);
-    } catch {
-      // Non-secure contexts (plain http previews) have no clipboard API:
-      // the legacy execCommand path still copies from a real selection.
-      // Its own try/catch: if execCommand itself throws (locked-down
-      // contexts), the throw would escape as an unhandled rejection, and
-      // "Copied" must only display when something actually copied
-      // (review-m3 4a note: copy-failure honesty).
-      try {
-        const area = document.createElement("textarea");
-        area.value = spec.code;
-        document.body.appendChild(area);
-        area.select();
-        const ok = document.execCommand("copy");
-        area.remove();
-        if (ok) setCopied(true);
-      } catch {
-        // Nothing copied; leave the button reading "Copy".
-      }
-    }
-    window.setTimeout(() => setCopied(false), 1500);
   }
 
   return (
@@ -175,13 +148,7 @@ export function Example({ spec }: { spec: ExampleSpec }) {
           className="flex flex-col"
         >
           <div className="flex justify-end border-b border-(--md-sys-color-outline-variant) px-4 py-1">
-            <button
-              type="button"
-              onClick={copy}
-              className={`rounded-(--md-sys-shape-corner-small) px-2 py-1 ${T_BODY_SM} text-(--md-sys-color-primary) hover:bg-(--md-sys-color-primary-container)`}
-            >
-              {copied ? "Copied" : "Copy"}
-            </button>
+            <CopyButton text={spec.code} />
           </div>
           <pre
             className={`m-0 overflow-x-auto bg-(--md-sys-color-surface-container-high) p-6 ${T_CODE} text-(--md-sys-color-on-surface)`}

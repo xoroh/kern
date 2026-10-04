@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { T_BODY_SM, T_CODE, T_LEAD } from "../type-scale";
+import { CopyButton } from "./copy-button";
 
 /**
  * The Configurator tier — Part 4b (Mantine pattern, minimal in-repo harness).
@@ -66,27 +67,9 @@ function defaultsOf(spec: ConfiguratorSpec): ConfigValues {
 /** One configurator: controls, live stage, and the source they produce. */
 export function Configurator({ spec }: { spec: ConfiguratorSpec }) {
   const [values, setValues] = useState<ConfigValues>(() => defaultsOf(spec));
-  const [copied, setCopied] = useState(false);
 
   function set(name: string, value: string | boolean) {
-    setCopied(false);
     setValues((v) => ({ ...v, [name]: value }));
-  }
-
-  async function copy() {
-    const text = spec.code(values);
-    try {
-      await navigator.clipboard.writeText(text);
-    } catch {
-      const area = document.createElement("textarea");
-      area.value = text;
-      document.body.appendChild(area);
-      area.select();
-      document.execCommand("copy");
-      area.remove();
-    }
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 1500);
   }
 
   return (
@@ -120,16 +103,17 @@ export function Configurator({ spec }: { spec: ConfiguratorSpec }) {
               </select>
             </label>
           ) : (
-            <label
-              key={c.name}
-              className={`flex items-center gap-2 ${LABEL} cursor-pointer`}
-            >
+            // Column layout like the selects above: the caption sits on top
+            // so the checkbox baselines with the select boxes instead of
+            // floating higher with no top label (review-showcase 4b minor).
+            <label key={c.name} className={`flex flex-col gap-1 ${LABEL}`}>
+              {c.label}
               <input
                 type="checkbox"
                 checked={values[c.name] === true}
                 onChange={(e) => set(c.name, e.target.checked)}
+                className="h-5 w-5 accent-(--md-sys-color-primary)"
               />
-              {c.label}
             </label>
           ),
         )}
@@ -140,13 +124,7 @@ export function Configurator({ spec }: { spec: ConfiguratorSpec }) {
       <div className="flex flex-col">
         <div className="flex items-center justify-between border-y border-(--md-sys-color-outline-variant) px-4 py-1">
           <span className={BODY}>Code</span>
-          <button
-            type="button"
-            onClick={copy}
-            className={`rounded-(--md-sys-shape-corner-small) px-2 py-1 ${T_BODY_SM} text-(--md-sys-color-primary) hover:bg-(--md-sys-color-primary-container)`}
-          >
-            {copied ? "Copied" : "Copy"}
-          </button>
+          <CopyButton text={spec.code(values)} />
         </div>
         <pre
           className={`m-0 overflow-x-auto bg-(--md-sys-color-surface-container-high) p-6 ${T_CODE} text-(--md-sys-color-on-surface)`}
