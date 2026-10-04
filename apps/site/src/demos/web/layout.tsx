@@ -135,9 +135,9 @@ export function MenuDemo() {
     <Preview label="Menu — open it" span={3}>
       <div className="w-full max-w-xs">
         <Menu.Root>
-          <Menu.Trigger>
-            <Button variant="tonal">Account menu</Button>
-          </Menu.Trigger>
+          <Menu.Trigger
+            render={<Button variant="tonal">Account menu</Button>}
+          />
           <Menu.Content>
             <Menu.GroupLabel>Account</Menu.GroupLabel>
             <Menu.Item>Profile</Menu.Item>
@@ -249,23 +249,23 @@ export function DialogDemo() {
   return (
     <Preview label="Dialog — open it" span={3}>
       <Dialog.Root>
-        <Dialog.Trigger>
-          <Button variant="tonal">Open dialog</Button>
-        </Dialog.Trigger>
+        <Dialog.Trigger
+          render={<Button variant="tonal">Open dialog</Button>}
+        />
         <Dialog.Content>
           <Dialog.Title>Delete this project?</Dialog.Title>
           <Dialog.Description>
             This removes the project and its build history. It cannot be undone.
           </Dialog.Description>
           <div className="mt-6 flex justify-end gap-2">
-            <Dialog.Close>
-              <Button variant="ghost">Cancel</Button>
-            </Dialog.Close>
-            <Dialog.Close>
-              <Button className="bg-(--md-sys-color-error) text-(--md-sys-color-on-error) hover:bg-(--md-sys-color-error)/90">
-                Delete
-              </Button>
-            </Dialog.Close>
+            <Dialog.Close render={<Button variant="ghost">Cancel</Button>} />
+            <Dialog.Close
+              render={
+                <Button className="bg-(--md-sys-color-error) text-(--md-sys-color-on-error) hover:bg-(--md-sys-color-error)/90">
+                  Delete
+                </Button>
+              }
+            />
           </div>
         </Dialog.Content>
       </Dialog.Root>
@@ -301,18 +301,18 @@ export function SheetDemo() {
     <Preview label="Sheet — side: right · side: left" span={3}>
       <Row>
         <Sheet.Root>
-          <Sheet.Trigger>
-            <Button variant="tonal">Right sheet</Button>
-          </Sheet.Trigger>
+          <Sheet.Trigger
+            render={<Button variant="tonal">Right sheet</Button>}
+          />
           <Sheet.Content side="right">
             <Sheet.Title>Filters</Sheet.Title>
             <Sheet.Description>Narrow the result set.</Sheet.Description>
           </Sheet.Content>
         </Sheet.Root>
         <Sheet.Root>
-          <Sheet.Trigger>
-            <Button variant="tonal">Left sheet</Button>
-          </Sheet.Trigger>
+          <Sheet.Trigger
+            render={<Button variant="tonal">Left sheet</Button>}
+          />
           <Sheet.Content side="left">
             <Sheet.Title>Navigation</Sheet.Title>
             <Sheet.Description>Move between projects.</Sheet.Description>
@@ -328,9 +328,9 @@ export function PopoverDemo() {
     <Preview label="Popover — anchored, non-modal" span={3}>
       <div className="w-full max-w-xs">
         <Popover.Root>
-          <Popover.Trigger>
-            <Button variant="tonal">Open popover</Button>
-          </Popover.Trigger>
+          <Popover.Trigger
+            render={<Button variant="tonal">Open popover</Button>}
+          />
           <Popover.Content>
             <Popover.Title>Keyboard shortcut</Popover.Title>
             <Popover.Description>
@@ -348,9 +348,9 @@ export function PreviewCardDemo() {
     <Preview label="PreviewCard — hover the trigger" span={3}>
       <div className="w-full max-w-xs">
         <PreviewCard.Root>
-          <PreviewCard.Trigger>
-            <Button variant="ghost">@xoroh</Button>
-          </PreviewCard.Trigger>
+          <PreviewCard.Trigger
+            render={<Button variant="ghost">@xoroh</Button>}
+          />
           <PreviewCard.Content>
             <p className="m-0 text-sm">
               The open-source design system following Material Design 3.
@@ -368,9 +368,9 @@ export function TooltipDemo() {
       <div className="w-full max-w-xs">
         <Tooltip.Provider>
           <Tooltip.Root>
-            <Tooltip.Trigger>
-              <Button variant="tonal">Deploy</Button>
-            </Tooltip.Trigger>
+            <Tooltip.Trigger
+              render={<Button variant="tonal">Deploy</Button>}
+            />
             <Tooltip.Content>Deploy the current build</Tooltip.Content>
           </Tooltip.Root>
         </Tooltip.Provider>

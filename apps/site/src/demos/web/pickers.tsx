@@ -21,11 +21,13 @@ export function AlertDialogDemo() {
   return (
     <Preview label="AlertDialog — focus stays inside, open it" span={3}>
       <AlertDialog.Root>
-        <AlertDialog.Trigger>
-          <Button className="bg-(--md-sys-color-error) text-(--md-sys-color-on-error) hover:bg-(--md-sys-color-error)/90">
-            Delete project
-          </Button>
-        </AlertDialog.Trigger>
+        <AlertDialog.Trigger
+          render={
+            <Button className="bg-(--md-sys-color-error) text-(--md-sys-color-on-error) hover:bg-(--md-sys-color-error)/90">
+              Delete project
+            </Button>
+          }
+        />
         <AlertDialog.Content>
           <AlertDialog.Title>Delete this project?</AlertDialog.Title>
           <AlertDialog.Description>
@@ -33,14 +35,16 @@ export function AlertDialogDemo() {
             undone.
           </AlertDialog.Description>
           <div className="mt-6 flex justify-end gap-2">
-            <AlertDialog.Close>
-              <Button variant="ghost">Cancel</Button>
-            </AlertDialog.Close>
-            <AlertDialog.Close>
-              <Button className="bg-(--md-sys-color-error) text-(--md-sys-color-on-error) hover:bg-(--md-sys-color-error)/90">
-                Delete
-              </Button>
-            </AlertDialog.Close>
+            <AlertDialog.Close
+              render={<Button variant="ghost">Cancel</Button>}
+            />
+            <AlertDialog.Close
+              render={
+                <Button className="bg-(--md-sys-color-error) text-(--md-sys-color-on-error) hover:bg-(--md-sys-color-error)/90">
+                  Delete
+                </Button>
+              }
+            />
           </div>
         </AlertDialog.Content>
       </AlertDialog.Root>
