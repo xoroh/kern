@@ -32,6 +32,15 @@ function rootPropsOf(v: ConfigValues): string {
   return out.length > 0 ? ` ${out.join(" ")}` : "";
 }
 
+/**
+ * Content cannot read `modal` from the root store context (not publicly
+ * exported), so the non-modal position is threaded explicitly — the same
+ * values object the stage uses, and the fence shows it only off-default.
+ */
+function contentPropsOf(v: ConfigValues): string {
+  return modalOf(v) ? "" : " modal={false}";
+}
+
 export const DIALOG_CONFIGURATOR: ConfiguratorSpec = {
   id: "dialog-knobs",
   title: "Configure the dialog",
@@ -63,7 +72,7 @@ export const DIALOG_CONFIGURATOR: ConfiguratorSpec = {
       <Dialog.Trigger
         render={<Button variant="tonal">Open dialog</Button>}
       />
-      <Dialog.Content>
+      <Dialog.Content modal={modalOf(v)}>
         <Dialog.Title>Delete this project?</Dialog.Title>
         <Dialog.Description>
           This removes the project and its build history. It cannot be undone.
@@ -82,5 +91,5 @@ export const DIALOG_CONFIGURATOR: ConfiguratorSpec = {
     </Dialog.Root>
   ),
   code: (v) =>
-    `<Dialog.Root${rootPropsOf(v)}>\n  <Dialog.Trigger render={<Button variant="tonal">Open dialog</Button>} />\n  <Dialog.Content>\n    <Dialog.Title>Delete this project?</Dialog.Title>\n    <Dialog.Description>\n      This removes the project and its build history. It cannot be undone.\n    </Dialog.Description>\n    <div className="mt-6 flex justify-end gap-2">\n      <Dialog.Close render={<Button variant="ghost">Cancel</Button>} />\n      <Dialog.Close\n        render={\n          <Button className="bg-(--md-sys-color-error) text-(--md-sys-color-on-error) hover:bg-(--md-sys-color-error)/90">\n            Delete\n          </Button>\n        }\n      />\n    </div>\n  </Dialog.Content>\n</Dialog.Root>`,
+    `<Dialog.Root${rootPropsOf(v)}>\n  <Dialog.Trigger render={<Button variant="tonal">Open dialog</Button>} />\n  <Dialog.Content${contentPropsOf(v)}>\n    <Dialog.Title>Delete this project?</Dialog.Title>\n    <Dialog.Description>\n      This removes the project and its build history. It cannot be undone.\n    </Dialog.Description>\n    <div className="mt-6 flex justify-end gap-2">\n      <Dialog.Close render={<Button variant="ghost">Cancel</Button>} />\n      <Dialog.Close\n        render={\n          <Button className="bg-(--md-sys-color-error) text-(--md-sys-color-on-error) hover:bg-(--md-sys-color-error)/90">\n            Delete\n          </Button>\n        }\n      />\n    </div>\n  </Dialog.Content>\n</Dialog.Root>`,
 };
