@@ -12,7 +12,8 @@ import type { ConfiguratorSpec, ConfigValues } from "../configurator";
  * Two deliberate choices: the stage shows the documented label pattern — a
  * visible `Label` wired with `aria-labelledby` (the doc's blessed alternative
  * to `htmlFor`/`id`: Base UI owns the root's `id`, so the fence does not
- * pretend otherwise) — so the fence teaches it too. And `defaultChecked` is uncontrolled initial state,
+ * pretend otherwise) — layout wrapper included, so pasted code sits
+ * side-by-side exactly like the stage. And `defaultChecked` is uncontrolled initial state,
  * so the stage remounts on that knob (`key`) and cannot drift from the
  * fence: what the fence produces fresh is what the stage shows.
  */
@@ -65,5 +66,5 @@ export const SWITCH_CONFIGURATOR: ConfiguratorSpec = {
     </div>
   ),
   code: (v) =>
-    `<Label id="${LABEL_ID}">${SWITCH_LABEL}</Label>\n<Switch${propsOf(v)} />`,
+    `<div className="flex items-center gap-3">\n  <Label id="${LABEL_ID}">${SWITCH_LABEL}</Label>\n  <Switch${propsOf(v)} />\n</div>`,
 };

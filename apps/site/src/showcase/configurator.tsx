@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { T_BODY_SM, T_CODE, T_LEAD } from "../type-scale";
 import { CopyButton } from "./copy-button";
 
@@ -67,13 +67,43 @@ function defaultsOf(spec: ConfiguratorSpec): ConfigValues {
 /** One configurator: controls, live stage, and the source they produce. */
 export function Configurator({ spec }: { spec: ConfiguratorSpec }) {
   const [values, setValues] = useState<ConfigValues>(() => defaultsOf(spec));
+  const rootRef = useRef<HTMLElement>(null);
 
   function set(name: string, value: string | boolean) {
     setValues((v) => ({ ...v, [name]: value }));
   }
 
+  // Adopt pre-hydration knob positions. A reader who turns a knob before
+  // React hydrates flips the SSR HTML with no listener attached yet — the
+  // knob would show one thing and the values object another, and the stage
+  // and fence would never follow. Knobs are uncontrolled so the DOM stays
+  // their source of truth; this mount effect reads it into values once
+  // hydration lands. Post-hydration every turn flows through `set` above,
+  // and nothing else writes values, so the two cannot diverge afterwards.
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+    const next: ConfigValues = {};
+    let touched = false;
+    for (const c of spec.controls) {
+      const el = root.querySelector(`[data-knob="${c.name}"]`);
+      if (c.kind === "select" && el instanceof HTMLSelectElement) {
+        if (el.value !== c.default) {
+          next[c.name] = el.value;
+          touched = true;
+        }
+      } else if (c.kind === "boolean" && el instanceof HTMLInputElement) {
+        if (el.checked !== c.default) {
+          next[c.name] = el.checked;
+          touched = true;
+        }
+      }
+    }
+    if (touched) setValues((v) => ({ ...v, ...next }));
+  }, [spec]);
+
   return (
-    <figure className={`${FRAME} m-0 flex flex-col overflow-hidden`}>
+    <figure ref={rootRef} className={`${FRAME} m-0 flex flex-col overflow-hidden`}>
       <figcaption className="flex flex-col gap-1 border-b border-(--md-sys-color-outline-variant) px-6 py-4">
         <h3
           id={`configurator-${spec.id}`}
@@ -90,7 +120,8 @@ export function Configurator({ spec }: { spec: ConfiguratorSpec }) {
             <label key={c.name} className={`flex flex-col gap-1 ${LABEL}`}>
               {c.label}
               <select
-                value={String(values[c.name])}
+                data-knob={c.name}
+                defaultValue={c.default}
                 onChange={(e) => set(c.name, e.target.value)}
                 aria-label={c.label}
                 className="rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline) bg-(--md-sys-color-surface) px-2 py-1"
@@ -110,7 +141,8 @@ export function Configurator({ spec }: { spec: ConfiguratorSpec }) {
               {c.label}
               <input
                 type="checkbox"
-                checked={values[c.name] === true}
+                data-knob={c.name}
+                defaultChecked={c.default}
                 onChange={(e) => set(c.name, e.target.checked)}
                 className="h-5 w-5 accent-(--md-sys-color-primary)"
               />
