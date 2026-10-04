@@ -36,7 +36,7 @@ export const DIALOG_CONFIGURATOR: ConfiguratorSpec = {
   id: "dialog-knobs",
   title: "Configure the dialog",
   description:
-    "Open state is the only axis — open at first paint or not, modal or not. The trigger, title, description and close are part of the pattern, not knobs. An open modal traps focus and inerts the page; Escape dismisses it.",
+    "Open state is the only axis — open at first paint or not, modal or not. The trigger, title, description and close are part of the pattern, not knobs. An open modal traps focus and inerts the page; Escape dismisses it. The knobs describe the next open (the stage remounts by key): dismissing the live dialog does not flip them back, so a closed stage with open knobs is by design.",
   controls: [
     {
       kind: "boolean",

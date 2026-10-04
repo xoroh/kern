@@ -2776,6 +2776,11 @@ export const PROPS_TABLE: Record<
         type: "boolean | RefObject<HTMLElement | null> | ((closeType: InteractionType) => boolean | void | HTMLElement | null) | undefined",
         required: false,
       },
+      {
+        name: "modal",
+        type: 'boolean | "trap-focus" | undefined',
+        required: false,
+      },
     ],
     curated: [],
   },

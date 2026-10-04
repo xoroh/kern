@@ -38,6 +38,17 @@ describe("Dialog", () => {
     // drawer already had to set it by hand for the same reason. Asserted here
     // so the attribute cannot be dropped silently — the focus-trap behaviour
     // above still passes without it.
+    //
+    // Scope honesty for this whole describe: trap-wrap and background
+    // inertness are NOT asserted in jsdom — neither is observable here. A
+    // 5-tab probe walks Extra → guard → BODY → Close → Extra; the BODY stop
+    // may be a jsdom artifact (floating-ui's own redirect logic keys off
+    // `isElementVisible`, false for everything in jsdom) or a real hole, and
+    // jsdom cannot distinguish them. The document `[aria-hidden]` census
+    // matches only backdrop/guard machinery in both modes, the trigger is
+    // unmarked in both, jsdom lacks the `inert` IDL. Both legs stay browser
+    // legs: the 4d verdict measured trap 10/10 + 26 markers, and the
+    // in-flight re-verify re-probes them on both knob positions.
     const user = userEvent.setup();
     render(
       <Dialog.Root>
@@ -52,6 +63,72 @@ describe("Dialog", () => {
       "aria-modal",
       "true",
     );
+  });
+
+  it("dismisses on Escape with focus returning to the trigger", async () => {
+    // Modal knob: Escape-with-return, operated. (No trap cycle, no inert leg:
+    // see the note on `announces itself as modal` below — neither is
+    // jsdom-observable here. Trap-wrap and inertness stay browser legs owned
+    // by review-m3's in-flight re-verify, on both knob positions.)
+    const user = userEvent.setup();
+    render(
+      <Dialog.Root>
+        <Dialog.Trigger>Open</Dialog.Trigger>
+        <Dialog.Content>
+          <Dialog.Title>Settings</Dialog.Title>
+          <Dialog.Close>Done</Dialog.Close>
+        </Dialog.Content>
+      </Dialog.Root>,
+    );
+    const trigger = screen.getByRole("button", { name: "Open" });
+    await user.click(trigger);
+    await screen.findByRole("dialog");
+    await user.keyboard("{Escape}");
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(trigger).toHaveFocus();
+  });
+});
+
+describe("non-modal Dialog", () => {
+  const setupOpen = async () => {
+    const user = userEvent.setup();
+    render(
+      <Dialog.Root modal={false}>
+        <Dialog.Trigger>Open</Dialog.Trigger>
+        <Dialog.Content modal={false}>
+          <Dialog.Title>Settings</Dialog.Title>
+          <Dialog.Close>Done</Dialog.Close>
+        </Dialog.Content>
+      </Dialog.Root>,
+    );
+    await user.click(screen.getByRole("button", { name: "Open" }));
+    expect(await screen.findByRole("dialog")).toBeInTheDocument();
+    return user;
+  };
+
+  it("does not claim modality", async () => {
+    // review-m3 4d NOTE-1, measured live: the hardcoded marker made a
+    // `modal={false}` dialog announce itself as modal. The `modal` prop on
+    // Content must be kept in step with Root's — no public context exposes
+    // it (see the prop doc), so this pair is asserted together or not at all.
+    await setupOpen();
+    expect(screen.getByRole("dialog")).toHaveAttribute("aria-modal", "false");
+  });
+
+  it("dismisses on tab-out: no trap, no background to protect", async () => {
+    // Non-modal dialogs do not trap: moving focus outside dismisses via
+    // `closeOnFocusOut` instead of wrapping. A trapped dialog would still be
+    // open here — so asserting CLOSED is the honest untrapped proof, stronger
+    // than asserting where focus landed.
+    const user = await setupOpen();
+    await user.tab();
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  });
+
+  it("still dismisses on Escape", async () => {
+    const user = await setupOpen();
+    await user.keyboard("{Escape}");
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
 });
 

@@ -9,7 +9,31 @@ const popupClass =
 
 export type DialogRootProps = ComponentProps<typeof DialogPrimitive.Root>;
 export type DialogTriggerProps = ComponentProps<typeof DialogPrimitive.Trigger>;
-export type DialogContentProps = ComponentProps<typeof DialogPrimitive.Popup>;
+export type DialogContentProps = Omit<
+  ComponentProps<typeof DialogPrimitive.Popup>,
+  "modal"
+> & {
+  /**
+   * Whether the surface claims modality to assistive tech. Defaults to `true`,
+   * matching `DialogPrimitive.Root`'s own default (`modal: true` in the store
+   * init) — so existing modal consumers change nothing.
+   *
+   * MUST be kept in step with the `modal` passed to `Dialog.Root`: a
+   * `modal={false}` root with a default `Content` announces itself as modal
+   * while leaving the background interactive, misleading AT users into
+   * believing the page is unavailable (review-m3 4d NOTE-1, measured live).
+   *
+   * Why an explicit prop rather than reading the root: `DialogContent` renders
+   * `DialogPrimitive.Popup`, which reads `modal` from the root store context —
+   * and that context (`useDialogRootContext`) is NOT publicly exported
+   * (the package exports map blocks the deep import; state attributes don't
+   * include `modal`). There is no supported way for this component to derive
+   * the value, so it is declared. `"trap-focus"` counts as modal here: for a
+   * screen-reader user keyboard interaction IS trapped, which is exactly what
+   * the marker warns about.
+   */
+  modal?: boolean | "trap-focus";
+};
 export type DialogTitleProps = ComponentProps<typeof DialogPrimitive.Title>;
 export type DialogDescriptionProps = ComponentProps<
   typeof DialogPrimitive.Description
@@ -30,7 +54,11 @@ export function DialogTrigger({ className, ...props }: DialogTriggerProps) {
   );
 }
 
-export function DialogContent({ className, ...props }: DialogContentProps) {
+export function DialogContent({
+  className,
+  modal = true,
+  ...props
+}: DialogContentProps) {
   return (
     <DialogPrimitive.Portal>
       <DialogPrimitive.Backdrop
@@ -45,7 +73,13 @@ export function DialogContent({ className, ...props }: DialogContentProps) {
           // surface to announce itself as one, and a modal dialog that does
           // not is a trap to a screen reader. Same attribute the navigation
           // drawer sets (navigation-drawer.tsx).
-          aria-modal="true"
+          //
+          // Conditional, not hardcoded: a `modal={false}` root leaves the
+          // background interactive, so claiming modality misleads AT users
+          // (review-m3 4d NOTE-1, measured live). `modal !== false` is the
+          // verdict's exact expression — `"trap-focus"` still traps keyboard
+          // interaction, which is what strands a screen-reader user.
+          aria-modal={modal !== false}
           className={cnState(popupClass, className)}
           {...props}
         />

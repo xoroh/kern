@@ -3502,6 +3502,13 @@ export const GENERATED_PROPS: Record<string, Array<{
       "required": false,
       "src": "node_modules/.bun/@base-ui+react@1.8.0+66cdd77ed2453938/node_modules/@base-ui/react/dialog/popup/DialogPopup.d.mts:34",
       "note": "Determines the element to focus when the dialog is closed.\n\n- `false`: Do not move focus.\n- `true`: Move focus based on the default behavior (trigger or previously focused element).\n- `RefObject`: Move focus to the ref element.\n- `function`: Called with the interaction type (`mouse`, `touch`, `pen`, or `keyboard`).\n  Return an element to focus, `true` to use the default behavior, `null` to fall back to the default behavior, or `false`/`undefined` to do nothing."
+    },
+    {
+      "name": "modal",
+      "type": "boolean | \"trap-focus\" | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/dialog.tsx:35",
+      "note": "Whether the surface claims modality to assistive tech. Defaults to `true`,\nmatching `DialogPrimitive.Root`'s own default (`modal: true` in the store\ninit) — so existing modal consumers change nothing.\n\nMUST be kept in step with the `modal` passed to `Dialog.Root`: a\n`modal={false}` root with a default `Content` announces itself as modal\nwhile leaving the background interactive, misleading AT users into\nbelieving the page is unavailable (review-m3 4d NOTE-1, measured live).\n\nWhy an explicit prop rather than reading the root: `DialogContent` renders\n`DialogPrimitive.Popup`, which reads `modal` from the root store context —\nand that context (`useDialogRootContext`) is NOT publicly exported\n(the package exports map blocks the deep import; state attributes don't\ninclude `modal`). There is no supported way for this component to derive\nthe value, so it is declared. `\"trap-focus\"` counts as modal here: for a\nscreen-reader user keyboard interaction IS trapped, which is exactly what\nthe marker warns about."
     }
   ],
   "DialogTitle": [
@@ -26370,6 +26377,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "itemType",
     "key",
     "lang",
+    "modal",
     "nonce",
     "onAbort",
     "onAbortCapture",

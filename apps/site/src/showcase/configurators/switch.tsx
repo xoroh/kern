@@ -39,7 +39,7 @@ export const SWITCH_CONFIGURATOR: ConfiguratorSpec = {
   id: "switch-knobs",
   title: "Configure the switch",
   description:
-    "State is the only axis — checked or not, blocked or not. The label is part of the pattern, not a knob: a switch needs a visible label next to it, wired with aria-labelledby.",
+    "State is the only axis — checked or not, disabled or not. The label is part of the pattern, not a knob: a switch needs a visible label next to it, wired with aria-labelledby.",
   controls: [
     {
       kind: "boolean",
