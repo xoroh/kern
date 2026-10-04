@@ -32,6 +32,34 @@ describe("Accordion", () => {
     await user.click(screen.getByRole("button", { name: "Second" }));
     expect(screen.queryByText("First body")).not.toBeInTheDocument();
   });
+
+  it("keeps both panels open when multiple", async () => {
+    // Edge composition, carried from the move-5 Group lesson: `multiple`
+    // changes the contract from one-open to many-open. Sensitivity-proven:
+    // the same assertions in single mode fail (scratch probe, RED confirmed,
+    // deleted).
+    const user = userEvent.setup();
+    render(
+      <Accordion.Root multiple>
+        <Accordion.Item value="a">
+          <Accordion.Header>
+            <Accordion.Trigger>First</Accordion.Trigger>
+          </Accordion.Header>
+          <Accordion.Panel>First body</Accordion.Panel>
+        </Accordion.Item>
+        <Accordion.Item value="b">
+          <Accordion.Header>
+            <Accordion.Trigger>Second</Accordion.Trigger>
+          </Accordion.Header>
+          <Accordion.Panel>Second body</Accordion.Panel>
+        </Accordion.Item>
+      </Accordion.Root>,
+    );
+    await user.click(screen.getByRole("button", { name: "First" }));
+    await user.click(screen.getByRole("button", { name: "Second" }));
+    expect(screen.getByText("First body")).toBeInTheDocument();
+    expect(screen.getByText("Second body")).toBeInTheDocument();
+  });
 });
 
 describe("Collapsible", () => {
