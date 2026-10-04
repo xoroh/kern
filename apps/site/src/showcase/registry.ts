@@ -1,5 +1,6 @@
 import type { ConfiguratorSpec } from "./configurator";
 import { BUTTON_CONFIGURATOR } from "./configurators/button";
+import { SWITCH_CONFIGURATOR } from "./configurators/switch";
 import type { ExampleSpec } from "./example";
 import { BUTTON_EXAMPLES } from "./examples/button";
 import { CHECKBOX_EXAMPLES, INPUT_EXAMPLES } from "./examples/input";
@@ -32,12 +33,13 @@ export function examplesFor(exportName: string): ExampleSpec[] {
 /**
  * The Configurator registry — export name → its configurator, if any.
  *
- * Flagships first (Button), not all: one entry per component, same keying as
- * EXAMPLES, so a family page looks its configurator up the same way. Switch
- * and Dialog plug in here with zero template edits when they land.
+ * Flagships first (Button, Switch), not all: one entry per component, same keying as
+ * EXAMPLES, so a family page looks its configurator up the same way. Dialog
+ * plugs in here with zero template edits when it lands.
  */
 export const CONFIGURATORS: Record<string, ConfiguratorSpec> = {
   Button: BUTTON_CONFIGURATOR,
+  Switch: SWITCH_CONFIGURATOR,
 };
 
 /** The configurator for an export, if one is registered. */
