@@ -106,6 +106,18 @@ describe("Meter", () => {
     render(<Meter.Root value={70} max={100} aria-label="Storage" />);
     expect(screen.getByRole("meter")).toHaveAttribute("aria-valuenow", "70");
   });
+
+  it("reports its scale bounds", () => {
+    // Edge composition, carried from the move-5 Group lesson: the value is
+    // meaningless without its scale, so the test pins min and max alongside
+    // it. Sensitivity-proven: the same assertions on a default-scale meter
+    // fail (scratch probe, RED confirmed, deleted).
+    render(<Meter.Root value={25} min={20} max={100} aria-label="Storage" />);
+    const meter = screen.getByRole("meter");
+    expect(meter).toHaveAttribute("aria-valuenow", "25");
+    expect(meter).toHaveAttribute("aria-valuemin", "20");
+    expect(meter).toHaveAttribute("aria-valuemax", "100");
+  });
 });
 
 describe("EmptyState", () => {
