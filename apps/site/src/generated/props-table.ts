@@ -6627,6 +6627,11 @@ export const PROPS_TABLE: Record<
         type: '"left" | "right" | undefined',
         required: false,
       },
+      {
+        name: "modal",
+        type: 'boolean | "trap-focus" | undefined',
+        required: false,
+      },
     ],
     curated: [],
   },

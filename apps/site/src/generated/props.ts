@@ -8256,8 +8256,15 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "side",
       "type": "\"left\" | \"right\" | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet.tsx:12",
+      "src": "packages/kern/src/components/sheet.tsx:15",
       "note": "Which edge the sheet slides from."
+    },
+    {
+      "name": "modal",
+      "type": "boolean | \"trap-focus\" | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/sheet.tsx:27",
+      "note": "Whether the surface claims modality to assistive tech. Defaults to `true`,\nmatching `DialogPrimitive.Root`'s own default (`modal: true` in the store\ninit) — so existing modal consumers change nothing.\n\nMUST be kept in step with the `modal` passed to `SheetRoot`: a\n`modal={false}` root with a default `Content` would mislead AT users into\nbelieving the page is unavailable. Same shape and same reasoning as\n`DialogContent`'s `modal` (review-m3 4d NOTE-1): the root store context is\nnot publicly exported, so the value is declared, not derived."
     }
   ],
   "SheetTitle": [
@@ -48746,6 +48753,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "itemType",
     "key",
     "lang",
+    "modal",
     "nonce",
     "onAbort",
     "onAbortCapture",

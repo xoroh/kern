@@ -7,9 +7,24 @@ const backdropClass =
 
 export type SheetRootProps = ComponentProps<typeof DialogPrimitive.Root>;
 export type SheetTriggerProps = ComponentProps<typeof DialogPrimitive.Trigger>;
-export type SheetContentProps = ComponentProps<typeof DialogPrimitive.Popup> & {
+export type SheetContentProps = Omit<
+  ComponentProps<typeof DialogPrimitive.Popup>,
+  "modal"
+> & {
   /** Which edge the sheet slides from. */
   side?: "left" | "right";
+  /**
+   * Whether the surface claims modality to assistive tech. Defaults to `true`,
+   * matching `DialogPrimitive.Root`'s own default (`modal: true` in the store
+   * init) — so existing modal consumers change nothing.
+   *
+   * MUST be kept in step with the `modal` passed to `SheetRoot`: a
+   * `modal={false}` root with a default `Content` would mislead AT users into
+   * believing the page is unavailable. Same shape and same reasoning as
+   * `DialogContent`'s `modal` (review-m3 4d NOTE-1): the root store context is
+   * not publicly exported, so the value is declared, not derived.
+   */
+  modal?: boolean | "trap-focus";
 };
 export type SheetTitleProps = ComponentProps<typeof DialogPrimitive.Title>;
 export type SheetDescriptionProps = ComponentProps<
@@ -33,6 +48,7 @@ export function SheetTrigger({ className, ...props }: SheetTriggerProps) {
 
 export function SheetContent({
   side = "right",
+  modal = true,
   className,
   ...props
 }: SheetContentProps) {
@@ -51,6 +67,12 @@ export function SheetContent({
       >
         <DialogPrimitive.Popup
           data-slot="sheet-content"
+          // Base UI's Popup emits no `aria-modal`; a modal sheet that does not
+          // announce itself is the same trap-to-a-screen-reader the Dialog
+          // fix closed (review-m3 4d NOTE-1). Conditional for the same reason:
+          // a `modal={false}` root leaves the background interactive.
+          // `modal !== false` is the verdict's exact expression.
+          aria-modal={modal !== false}
           className={cnState(
             "kern-sheet-popup flex h-full w-[min(24rem,calc(100vw-2rem))] flex-col gap-2 overflow-y-auto border-(--md-sys-color-outline) bg-(--md-sys-color-surface) p-6 shadow-(--md-sys-elevation-level1) outline-none " +
               (side === "right"

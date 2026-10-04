@@ -10,6 +10,7 @@ import { Menubar } from "./menubar";
 import { Popover } from "./popover";
 import { PreviewCard } from "./preview-card";
 import { Select } from "./select";
+import { Sheet } from "./sheet";
 import { Tooltip } from "./tooltip";
 
 describe("Dialog", () => {
@@ -166,6 +167,47 @@ describe("AlertDialog", () => {
     expect(await screen.findByRole("alertdialog")).toHaveAttribute(
       "aria-modal",
       "true",
+    );
+  });
+});
+
+describe("Sheet", () => {
+  it("announces itself as modal by default", async () => {
+    // Same AT-lie class as Dialog NOTE-1, one surface over: Base UI's Popup
+    // emits no `aria-modal`, so the default (modal root) must claim it.
+    const user = userEvent.setup();
+    render(
+      <Sheet.Root>
+        <Sheet.Trigger>Open</Sheet.Trigger>
+        <Sheet.Content>
+          <Sheet.Title>Filters</Sheet.Title>
+        </Sheet.Content>
+      </Sheet.Root>,
+    );
+    await user.click(screen.getByRole("button", { name: "Open" }));
+    expect(await screen.findByRole("dialog")).toHaveAttribute(
+      "aria-modal",
+      "true",
+    );
+  });
+
+  it("does not claim modality when non-modal", async () => {
+    // The `modal` prop on Content must be kept in step with Root's — same
+    // constraint as DialogContent (no public context exposes it), asserted
+    // as a pair or not at all.
+    const user = userEvent.setup();
+    render(
+      <Sheet.Root modal={false}>
+        <Sheet.Trigger>Open</Sheet.Trigger>
+        <Sheet.Content modal={false}>
+          <Sheet.Title>Filters</Sheet.Title>
+        </Sheet.Content>
+      </Sheet.Root>,
+    );
+    await user.click(screen.getByRole("button", { name: "Open" }));
+    expect(await screen.findByRole("dialog")).toHaveAttribute(
+      "aria-modal",
+      "false",
     );
   });
 });
