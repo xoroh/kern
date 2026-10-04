@@ -60,9 +60,25 @@ export function Example({ spec }: { spec: ExampleSpec }) {
   const codeId = `example-${base}-code`;
 
   function onTabKey(event: React.KeyboardEvent) {
-    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+    // APG tabs pattern, automatic activation: arrows move selection AND DOM
+    // focus together (a screen reader announces via aria-selected either way,
+    // but sighted keyboard users need the focus ring to follow); Home/End
+    // jump to first/last. review-showcase 4a minors, fixed when touching the
+    // handler as the verdict suggested.
+    const order = ["preview", "code"] as const;
+    let next: (typeof order)[number] | null = null;
+    if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+      const i = order.indexOf(tab);
+      next = order[(i + (event.key === "ArrowRight" ? 1 : order.length - 1)) % order.length];
+    } else if (event.key === "Home") {
+      next = order[0];
+    } else if (event.key === "End") {
+      next = order[order.length - 1];
+    }
+    if (!next) return;
     event.preventDefault();
-    setTab((t) => (t === "preview" ? "code" : "preview"));
+    setTab(next);
+    document.getElementById(`${base}-tab-${next}`)?.focus();
   }
 
   async function copy() {
