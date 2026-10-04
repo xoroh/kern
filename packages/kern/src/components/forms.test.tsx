@@ -65,6 +65,26 @@ describe("NumberField", () => {
     await user.click(screen.getByRole("button", { name: "Decrease" }));
     expect(input).toHaveValue("3");
   });
+
+  it("holds at the bounds instead of wrapping", async () => {
+    // Edge composition, carried from the move-5 Group lesson: the clamp
+    // range is the whole reason the min/max knobs exist, so the test pins
+    // both bounds. Sensitivity-proven: the same assertions against an
+    // unbounded render fail (scratch probe, RED confirmed, deleted).
+    const user = userEvent.setup();
+    render(
+      <NumberField.Root defaultValue={9} min={0} max={10} step={5}>
+        <NumberField.Input aria-label="Clamped" />
+      </NumberField.Root>,
+    );
+    const input = screen.getByRole("textbox", { name: "Clamped" });
+    await user.click(screen.getByRole("button", { name: "Increase" }));
+    expect(input).toHaveValue("10");
+    await user.click(screen.getByRole("button", { name: "Increase" }));
+    expect(input).toHaveValue("10");
+    await user.click(screen.getByRole("button", { name: "Decrease" }));
+    expect(input).toHaveValue("5");
+  });
 });
 
 describe("InputOTP", () => {
