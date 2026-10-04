@@ -85,17 +85,26 @@ export function Example({ spec }: { spec: ExampleSpec }) {
     if (!spec.code) return;
     try {
       await navigator.clipboard.writeText(spec.code);
+      setCopied(true);
     } catch {
       // Non-secure contexts (plain http previews) have no clipboard API:
       // the legacy execCommand path still copies from a real selection.
-      const area = document.createElement("textarea");
-      area.value = spec.code;
-      document.body.appendChild(area);
-      area.select();
-      document.execCommand("copy");
-      area.remove();
+      // Its own try/catch: if execCommand itself throws (locked-down
+      // contexts), the throw would escape as an unhandled rejection, and
+      // "Copied" must only display when something actually copied
+      // (review-m3 4a note: copy-failure honesty).
+      try {
+        const area = document.createElement("textarea");
+        area.value = spec.code;
+        document.body.appendChild(area);
+        area.select();
+        const ok = document.execCommand("copy");
+        area.remove();
+        if (ok) setCopied(true);
+      } catch {
+        // Nothing copied; leave the button reading "Copy".
+      }
     }
-    setCopied(true);
     window.setTimeout(() => setCopied(false), 1500);
   }
 
