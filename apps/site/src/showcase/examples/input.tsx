@@ -1,5 +1,5 @@
 import { Checkbox, Input, Label } from "@xoroh/kern";
-import { T_LABEL } from "../../type-scale";
+import { T_LABEL } from "../../systems/type-scale";
 import type { ExampleSpec } from "../example";
 
 /**

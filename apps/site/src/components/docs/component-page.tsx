@@ -35,7 +35,7 @@ import type {
 import { MOBILE_DEMOS } from "../../demos/mobile/registry";
 import { WEB_DEMOS } from "../../demos/web/registry";
 import { PROPS_TABLE } from "../../generated/props-table";
-import { maturityForExports } from "../../maturity";
+import { maturityForExports } from "../../systems/maturity";
 import { Configurator } from "../../showcase/configurator";
 import { ExampleList } from "../../showcase/example";
 import { configuratorFor, examplesFor } from "../../showcase/registry";

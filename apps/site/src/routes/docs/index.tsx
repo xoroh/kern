@@ -22,7 +22,7 @@ import {
   T_LABEL_LG,
   T_PAGE,
   T_SMALL_TITLE,
-} from "../../type-scale";
+} from "../../systems/type-scale";
 
 export const Route = createFileRoute("/docs/")({ component: DocsIndex });
 

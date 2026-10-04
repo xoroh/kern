@@ -7,7 +7,7 @@
  * top-level destinations; it does not cover the docs *section*.
  *
  * The tree is STATIC and every href is a route that exists (verified against
- * src/routes). It is read from the single nav source (`src/nav.ts`), not
+ * src/routes). It is read from the single nav source (`src/systems/nav.ts`), not
  * generated from routes: routes change by human decision, and that decision
  * is now edited exactly once — the sidebar, search, and llms.txt are readers,
  * never authors. A generated tree would still be the wrong tool; a single
@@ -19,7 +19,7 @@
  */
 import { useLocation } from "@tanstack/react-router";
 import { cn } from "@xoroh/kern";
-import { NAV_SECTIONS } from "../../nav";
+import { NAV_SECTIONS } from "../../systems/nav";
 
 export function DocsSidebar() {
   const { pathname } = useLocation();

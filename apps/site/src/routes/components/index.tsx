@@ -12,7 +12,7 @@ import {
   ComponentGallery,
   GalleryLede,
 } from "../../components/docs/component-gallery";
-import { T_LABEL_LG, T_PAGE } from "../../type-scale";
+import { T_LABEL_LG, T_PAGE } from "../../systems/type-scale";
 
 export const Route = createFileRoute("/components/")({
   component: ComponentsGallery,

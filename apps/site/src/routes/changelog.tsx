@@ -8,7 +8,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "../components/chrome/site-layout";
 import { RECENT_CHANGES } from "../generated/changelog";
-import { T_BODY, T_LABEL, T_PAGE, T_SECTION } from "../type-scale";
+import { T_BODY, T_LABEL, T_PAGE, T_SECTION } from "../systems/type-scale";
 
 export const Route = createFileRoute("/changelog")({
   component: Changelog,

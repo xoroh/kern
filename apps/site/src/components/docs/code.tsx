@@ -7,7 +7,7 @@
  */
 import { Icon } from "@xoroh/kern-icons";
 import { useState } from "react";
-import { T_CODE, T_LABEL_LG, T_SECTION } from "../../type-scale";
+import { T_CODE, T_LABEL_LG, T_SECTION } from "../../systems/type-scale";
 
 export function Code({ children }: { children: string }) {
   const [copied, setCopied] = useState(false);

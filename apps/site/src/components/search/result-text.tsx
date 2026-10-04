@@ -9,8 +9,8 @@
  * Query-substring matches are marked so the match cause is visible.
  */
 import type { ReactNode } from "react";
-import type { SearchEntry } from "../../search";
-import { T_BODY_SM } from "../../type-scale";
+import type { SearchEntry } from "../../systems/search";
+import { T_BODY_SM } from "../../systems/type-scale";
 
 const INK = "text-(--md-sys-color-on-surface)";
 const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";

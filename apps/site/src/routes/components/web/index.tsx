@@ -12,7 +12,7 @@ import {
   ComponentGallery,
   demoCoverage,
 } from "../../../components/docs/component-gallery";
-import { T_BODY_SM, T_LABEL_LG, T_PAGE } from "../../../type-scale";
+import { T_BODY_SM, T_LABEL_LG, T_PAGE } from "../../../systems/type-scale";
 
 export const Route = createFileRoute("/components/web/")({
   component: WebComponents,

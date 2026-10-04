@@ -10,7 +10,7 @@
  * never typed: when a package bumps past 0.x the selector changes with no edit.
  * It links to /changelog, which is where "what changed" lives.
  */
-import { MATURITY } from "../../maturity";
+import { MATURITY } from "../../systems/maturity";
 
 const VERSION = MATURITY[0]?.version ?? "0.0.0";
 

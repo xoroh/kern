@@ -23,7 +23,7 @@ import {
   SEARCH_SUGGESTIONS,
   type SearchEntry,
   searchSite,
-} from "../../search";
+} from "../../systems/search";
 import { ResultText } from "../search/result-text";
 
 export const OPEN_SEARCH_EVENT = "kern:open-search";

@@ -28,7 +28,7 @@ import { fileURLToPath } from "node:url";
 const HERE = dirname(fileURLToPath(import.meta.url));
 const SITE = resolve(HERE, "..");
 
-const nav = await import(join(SITE, "src", "nav.ts"));
+const nav = await import(join(SITE, "src", "systems", "nav.ts"));
 const leaves = nav.NAV_LEAVES;
 
 /** Map an href to the route file(s) that could serve it. */

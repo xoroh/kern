@@ -26,14 +26,14 @@ import {
 import type { ComponentDoc } from "../../content/types";
 import { MOBILE_DEMOS, PREVIEW_REASONS } from "../../demos/mobile/registry";
 import { demoFor } from "../../demos/web/registry";
-import { maturityForExports } from "../../maturity";
+import { maturityForExports } from "../../systems/maturity";
 import {
   T_BODY_SM,
   T_LABEL,
   T_LEAD,
   T_SECTION,
   T_SMALL_TITLE,
-} from "../../type-scale";
+} from "../../systems/type-scale";
 
 const INK = "text-(--md-sys-color-on-surface)";
 const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";

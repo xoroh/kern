@@ -15,7 +15,7 @@ import {
   T_LABEL,
   T_PAGE,
   T_SECTION,
-} from "../../type-scale";
+} from "../../systems/type-scale";
 
 export const Route = createFileRoute("/legal/license")({
   component: License,

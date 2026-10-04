@@ -6,7 +6,7 @@
  *
  * The palette and /search share one ranking. That ranking is the difference
  * between "local search" and "a filter box": exact > prefix > boundary >
- * substring > title-fuzzy > hint. The tiers are stated in `search/score.ts`;
+ * substring > title-fuzzy > hint. The tiers are stated in `systems/search/score.ts`;
  * this gate executes them against fixtures. If a tier regresses (a refactor
  * drops fuzzy, a reorder demotes prefix), this fails — run it, watch it red
  * by deleting the fuzzy line in score.ts, watch it green on restore.
@@ -22,7 +22,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const SITE = resolve(HERE, "..");
 
 const { rankEntries, scoreEntry } = await import(
-  join(SITE, "src", "search", "score.ts")
+  join(SITE, "src", "systems", "search", "score.ts")
 );
 
 const INDEX = [

@@ -37,7 +37,7 @@ import {
   FProse,
   FSection,
 } from "../../foundations/shell";
-import { T_BODY_SM, T_LABEL, T_SMALL_TITLE } from "../../type-scale";
+import { T_BODY_SM, T_LABEL, T_SMALL_TITLE } from "../../systems/type-scale";
 
 export const Route = createFileRoute("/styles/$page")({
   component: FoundationPage,

@@ -9,7 +9,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "../components/chrome/site-layout";
 import { IconGallery } from "../components/icons/icon-gallery";
-import { T_BODY, T_LABEL, T_PAGE } from "../type-scale";
+import { T_BODY, T_LABEL, T_PAGE } from "../systems/type-scale";
 
 export const Route = createFileRoute("/icons")({
   component: Icons,

@@ -22,7 +22,7 @@ import {
   T_LABEL_LG,
   T_PAGE,
   T_SECTION,
-} from "../../../type-scale";
+} from "../../../systems/type-scale";
 
 export const Route = createFileRoute("/components/mobile/")({
   component: MobileComponents,

@@ -11,9 +11,9 @@
  * Blocks · Pages.
  */
 import { resolveThemeDetails } from "@xoroh/kern-tokens";
-import type { Platform } from "../content";
-import { MOBILE_DOCS, WEB_DOCS } from "../content";
-import type { ComponentDoc } from "../content/types";
+import type { Platform } from "../../content";
+import { MOBILE_DOCS, WEB_DOCS } from "../../content";
+import type { ComponentDoc } from "../../content/types";
 import { maturityForExports } from "../maturity";
 import { NAV_LEAVES } from "../nav";
 import { rankEntries } from "./score";

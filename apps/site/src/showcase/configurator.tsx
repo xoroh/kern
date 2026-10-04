@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
-import { T_BODY_SM, T_CODE, T_LEAD } from "../type-scale";
+import { T_BODY_SM, T_CODE, T_LEAD } from "../systems/type-scale";
 import { CopyButton } from "./copy-button";
 
 /**

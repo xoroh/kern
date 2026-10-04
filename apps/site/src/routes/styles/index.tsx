@@ -24,7 +24,7 @@ import {
   T_PAGE,
   T_SECTION,
   T_SMALL_TITLE,
-} from "../../type-scale";
+} from "../../systems/type-scale";
 
 const INK = "text-(--md-sys-color-on-surface)";
 const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";
