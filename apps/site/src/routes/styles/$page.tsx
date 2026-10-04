@@ -1,7 +1,7 @@
 /**
  * /styles/$page — one of the seven Foundations pages.
  *
- * The family is generated from the token package (../../foundations/data),
+ * The family is generated from the token package (content/foundations),
  * and each page renders its own values: the Type page renders each style with
  * its OWN tokens, the Color page draws each role with its OWN value, the
  * Elevation page casts each level's OWN shadow. A wrong token is therefore
@@ -27,7 +27,7 @@ import {
   STATES,
   TYPE_STYLE_COUNT,
   TYPE_STYLES,
-} from "../../foundations/data";
+} from "../../content/foundations";
 import {
   F_CARD,
   F_INK,

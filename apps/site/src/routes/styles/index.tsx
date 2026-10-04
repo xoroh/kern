@@ -3,7 +3,7 @@
  * family. Reachable from the top nav.
  *
  * Every figure on this page is read from the token package via
- * ../../foundations/data. Nothing is a literal.
+ * content/foundations. Nothing is a literal.
  */
 
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -16,7 +16,7 @@ import {
   ROLE_COUNT,
   SHAPE,
   TYPE_STYLE_COUNT,
-} from "../../foundations/data";
+} from "../../content/foundations";
 import { FOUNDATIONS } from "../../foundations/shell";
 import {
   T_BODY_SM,
