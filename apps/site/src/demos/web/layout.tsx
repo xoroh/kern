@@ -249,9 +249,7 @@ export function DialogDemo() {
   return (
     <Preview label="Dialog — open it" span={3}>
       <Dialog.Root>
-        <Dialog.Trigger
-          render={<Button variant="tonal">Open dialog</Button>}
-        />
+        <Dialog.Trigger render={<Button variant="tonal">Open dialog</Button>} />
         <Dialog.Content>
           <Dialog.Title>Delete this project?</Dialog.Title>
           <Dialog.Description>
@@ -277,18 +275,14 @@ export function DrawerDemo() {
   return (
     <Preview label="Drawer — bottom-anchored, open it" span={3}>
       <Drawer.Root>
-        <Drawer.Trigger>
-          <Button variant="tonal">Open drawer</Button>
-        </Drawer.Trigger>
+        <Drawer.Trigger render={<Button variant="tonal">Open drawer</Button>} />
         <Drawer.Content>
           <Drawer.Title>Share this project</Drawer.Title>
           <Drawer.Description>
             Anyone with the link can view the read-only build.
           </Drawer.Description>
           <div className="mt-6 flex justify-end">
-            <Drawer.Close>
-              <Button variant="tonal">Done</Button>
-            </Drawer.Close>
+            <Drawer.Close render={<Button variant="tonal">Done</Button>} />
           </div>
         </Drawer.Content>
       </Drawer.Root>
@@ -310,9 +304,7 @@ export function SheetDemo() {
           </Sheet.Content>
         </Sheet.Root>
         <Sheet.Root>
-          <Sheet.Trigger
-            render={<Button variant="tonal">Left sheet</Button>}
-          />
+          <Sheet.Trigger render={<Button variant="tonal">Left sheet</Button>} />
           <Sheet.Content side="left">
             <Sheet.Title>Navigation</Sheet.Title>
             <Sheet.Description>Move between projects.</Sheet.Description>
@@ -368,9 +360,7 @@ export function TooltipDemo() {
       <div className="w-full max-w-xs">
         <Tooltip.Provider>
           <Tooltip.Root>
-            <Tooltip.Trigger
-              render={<Button variant="tonal">Deploy</Button>}
-            />
+            <Tooltip.Trigger render={<Button variant="tonal">Deploy</Button>} />
             <Tooltip.Content>Deploy the current build</Tooltip.Content>
           </Tooltip.Root>
         </Tooltip.Provider>

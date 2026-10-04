@@ -28,10 +28,11 @@ function Home() {
               Documented family by family
             </h2>
             <p className="m-0 max-w-[62ch] text-(--md-sys-color-on-surface-variant)">
-              Each page runs the same grammar — metadata strip, showcase,
-              features, customization, deviations, API — and every number on it
-              is checked against the package rather than typed in. {documented}{" "}
-              of {COMPONENT_COUNT} exports have a page behind them so far.
+              Each page runs the same grammar — metadata, live preview,
+              installation, anatomy, usage, examples, props, theming,
+              accessibility, conformance — and every number on it is checked
+              against the package rather than typed in. {documented} of{" "}
+              {COMPONENT_COUNT} exports have a page behind them so far.
             </p>
           </header>
           <div className="mt-8">
