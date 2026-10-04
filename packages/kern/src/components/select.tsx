@@ -2,9 +2,10 @@ import { Select as SelectPrimitive } from "@base-ui/react/select";
 import type { ComponentProps } from "react";
 import { cnState } from "../utils/cnState";
 
-export type SelectRootProps<T = unknown> = ComponentProps<
-  typeof SelectPrimitive.Root<T>
->;
+export type SelectRootProps<
+  T = unknown,
+  Multiple extends boolean | undefined = false,
+> = ComponentProps<typeof SelectPrimitive.Root<T, Multiple>>;
 export type SelectTriggerProps = ComponentProps<typeof SelectPrimitive.Trigger>;
 export type SelectContentProps = ComponentProps<typeof SelectPrimitive.Popup>;
 export type SelectItemProps = ComponentProps<typeof SelectPrimitive.Item>;
@@ -15,7 +16,9 @@ export type SelectGroupLabelProps = ComponentProps<
   typeof SelectPrimitive.GroupLabel
 >;
 
-export function SelectRoot<T>(props: SelectRootProps<T>) {
+export function SelectRoot<T, Multiple extends boolean | undefined = false>(
+  props: SelectRootProps<T, Multiple>,
+) {
   return <SelectPrimitive.Root data-slot="select" {...props} />;
 }
 

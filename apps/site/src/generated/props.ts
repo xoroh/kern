@@ -7352,7 +7352,7 @@ export const GENERATED_PROPS: Record<string, Array<{
     },
     {
       "name": "multiple",
-      "type": "false | undefined",
+      "type": "Multiple | undefined",
       "required": false,
       "src": "node_modules/.bun/@base-ui+react@1.8.0+66cdd77ed2453938/node_modules/@base-ui/react/select/root/SelectRoot.d.mts:56",
       "note": "Whether multiple items can be selected."
@@ -7436,21 +7436,21 @@ export const GENERATED_PROPS: Record<string, Array<{
     },
     {
       "name": "defaultValue",
-      "type": "T | null | undefined",
+      "type": "SelectValueType<T, Multiple> | null | undefined",
       "required": false,
       "src": "node_modules/.bun/@base-ui+react@1.8.0+66cdd77ed2453938/node_modules/@base-ui/react/select/root/SelectRoot.d.mts:135",
       "note": "The uncontrolled value of the select when it's initially rendered.\n\nTo render a controlled select, use the `value` prop instead."
     },
     {
       "name": "value",
-      "type": "T | null | undefined",
+      "type": "SelectValueType<T, Multiple> | null | undefined",
       "required": false,
       "src": "node_modules/.bun/@base-ui+react@1.8.0+66cdd77ed2453938/node_modules/@base-ui/react/select/root/SelectRoot.d.mts:139",
       "note": "The value of the select. Use when controlled."
     },
     {
       "name": "onValueChange",
-      "type": "((value: T | null, eventDetails: SelectRootChangeEventDetails) => void) | undefined",
+      "type": "((value: SelectValueType<T, Multiple> | (Multiple extends true ? never : null), eventDetails: SelectRootChangeEventDetails) => void) | undefined",
       "required": false,
       "src": "node_modules/.bun/@base-ui+react@1.8.0+66cdd77ed2453938/node_modules/@base-ui/react/select/root/SelectRoot.d.mts:143",
       "note": "Event handler called when the value of the select changes."

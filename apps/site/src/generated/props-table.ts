@@ -5894,7 +5894,7 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "multiple",
-        type: "false | undefined",
+        type: "Multiple | undefined",
         required: false,
       },
       {
@@ -5954,17 +5954,17 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "defaultValue",
-        type: "T | null | undefined",
+        type: "SelectValueType<T, Multiple> | null | undefined",
         required: false,
       },
       {
         name: "value",
-        type: "T | null | undefined",
+        type: "SelectValueType<T, Multiple> | null | undefined",
         required: false,
       },
       {
         name: "onValueChange",
-        type: "((value: T | null, eventDetails: SelectRootChangeEventDetails) => void) | undefined",
+        type: "((value: SelectValueType<T, Multiple> | (Multiple extends true ? never : null), eventDetails: SelectRootChangeEventDetails) => void) | undefined",
         required: false,
       },
     ],

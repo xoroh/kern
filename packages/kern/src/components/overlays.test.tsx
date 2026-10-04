@@ -324,6 +324,42 @@ describe("Select", () => {
       "Pro",
     );
   });
+
+  it("selects several options when multiple", async () => {
+    // Locks the `Multiple` generic forwarding: before it, `<Select.Root
+    // multiple>` was a type error for every consumer (TS2322, caught while
+    // building the move-5 configurator), so multi-select existed in Base UI
+    // but was unreachable through kern's wrapper.
+    const user = userEvent.setup();
+    render(
+      <Select.Root
+        multiple
+        defaultValue={["free"]}
+        items={[
+          { value: "free", label: "Free" },
+          { value: "pro", label: "Pro" },
+        ]}
+      >
+        <Select.Trigger aria-label="Plan">
+          <Select.Value placeholder="Pick" />
+        </Select.Trigger>
+        <Select.Content>
+          <Select.Item value="free">Free</Select.Item>
+          <Select.Item value="pro">Pro</Select.Item>
+        </Select.Content>
+      </Select.Root>,
+    );
+    await user.click(screen.getByRole("combobox", { name: "Plan" }));
+    await user.click(await screen.findByRole("option", { name: "Pro" }));
+    expect(await screen.findByRole("option", { name: "Free" })).toHaveAttribute(
+      "aria-selected",
+      "true",
+    );
+    expect(await screen.findByRole("option", { name: "Pro" })).toHaveAttribute(
+      "aria-selected",
+      "true",
+    );
+  });
 });
 
 describe("Combobox", () => {
