@@ -5,6 +5,7 @@ import { CHECKBOX_CONFIGURATOR } from "./configurators/checkbox";
 import { DIALOG_CONFIGURATOR } from "./configurators/dialog";
 import { NUMBER_FIELD_CONFIGURATOR } from "./configurators/number-field";
 import { POPOVER_CONFIGURATOR } from "./configurators/popover";
+import { PROGRESS_CONFIGURATOR } from "./configurators/progress";
 import { SELECT_CONFIGURATOR } from "./configurators/select";
 import { SHEET_CONFIGURATOR } from "./configurators/sheet";
 import { SLIDER_CONFIGURATOR } from "./configurators/slider";
@@ -42,7 +43,7 @@ export function examplesFor(exportName: string): ExampleSpec[] {
 /**
  * The Configurator registry — export name → its configurator, if any.
  *
- * Flagships first (Button, Switch, Dialog), then Sheet, Select, Popover, Slider, Sonner, NumberField, Accordion: one entry per
+ * Flagships first (Button, Switch, Dialog), then Sheet, Select, Popover, Slider, Sonner, NumberField, Accordion, Progress: one entry per
  * component, same keying as EXAMPLES, so a family page looks its
  * configurator up the same way. The harness is proven; further components
  * plug in here with zero template edits.
@@ -57,6 +58,7 @@ export const CONFIGURATORS: Record<string, ConfiguratorSpec> = {
   Sheet: SHEET_CONFIGURATOR,
   Select: SELECT_CONFIGURATOR,
   Popover: POPOVER_CONFIGURATOR,
+  Progress: PROGRESS_CONFIGURATOR,
   Slider: SLIDER_CONFIGURATOR,
   Sonner: SONNER_CONFIGURATOR,
 };

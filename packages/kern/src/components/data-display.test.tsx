@@ -84,6 +84,21 @@ describe("Progress", () => {
       "40",
     );
   });
+
+  it("omits the value when indeterminate", () => {
+    // Edge composition, carried from the move-5 Group lesson: indeterminate
+    // is the absence of a value, not a second boolean — so the test pins the
+    // absence. Sensitivity-proven: the same assertion on a determinate bar
+    // fails (scratch probe, RED confirmed, deleted).
+    render(
+      <Progress.Root value={null} max={100} aria-label="Upload">
+        <Progress.Label>Uploading</Progress.Label>
+      </Progress.Root>,
+    );
+    expect(screen.getByRole("progressbar")).not.toHaveAttribute(
+      "aria-valuenow",
+    );
+  });
 });
 
 describe("Meter", () => {
