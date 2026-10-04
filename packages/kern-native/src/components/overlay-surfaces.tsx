@@ -453,9 +453,14 @@ function ScrollArea({ children, ...scrollProps }: ScrollAreaProps) {
   // `Role` union does. Same reasoning as `dialog.tsx:83-90` — a prop value that
   // does not exist in the union is not a styling choice, it is a type error or a
   // silently ignored prop.
+  //
+  // Deliberately NO bare `accessible` here (TalkBack D4 class): on Android an
+  // accessible ViewGroup merges its children into ONE node, so every consumer
+  // of this component would present its whole scroll content as a single stop.
+  // `role="group"` keeps the region semantics without claiming the children.
   const { horizontal, ...rest } = scrollProps;
   return (
-    <ScrollView accessible role="group" horizontal={horizontal} {...rest}>
+    <ScrollView role="group" horizontal={horizontal} {...rest}>
       {children}
     </ScrollView>
   );

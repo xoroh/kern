@@ -304,6 +304,24 @@ describe("native ScrollArea (P2b-3 tranche 5)", () => {
     expect(scrollable?.role).toBe("group");
     expect(labelled("Rows")?.label).toBe("Rows");
   });
+
+  it("does not merge its children into one accessibility node", async () => {
+    await render(
+      <ScrollArea testID="area">
+        <ScrollArea.Viewport label="Rows">
+          <ScrollArea.Row label="Row one" />
+        </ScrollArea.Viewport>
+      </ScrollArea>,
+    );
+    // Bare `accessible` on an Android ViewGroup merges its children into ONE
+    // node — the D4 "one giant stop" class, which would make every consumer's
+    // scroll content a single stop. `role="group"` keeps the region semantics
+    // without claiming the children. RNTL cannot observe the native merge, so
+    // this pins the property that causes it; restoring `accessible` fails it.
+    expect(screen.getByTestId("area").props.accessible).not.toBe(true);
+    // ...while the children stay separately reachable.
+    expect(screen.getByLabelText("Row one")).toBeTruthy();
+  });
 });
 
 describe("SheetSurface focus-move-in (D2)", () => {
