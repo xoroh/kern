@@ -44,4 +44,21 @@ describe("RadioGroup", () => {
       "data-disabled",
     );
   });
+
+  it("blocks change when the whole group is disabled", async () => {
+    // move-18 guard for the `disabled` knob: group-level disabled must make
+    // every option inert, not just styled. Sensitivity-proven (mutation: drop
+    // `disabled` from the render below and Pro becomes checked — RED).
+    const user = userEvent.setup();
+    render(
+      <RadioGroup aria-label="Plan" defaultValue="free" disabled>
+        <RadioGroupItem value="free">Free</RadioGroupItem>
+        <RadioGroupItem value="pro">Pro</RadioGroupItem>
+      </RadioGroup>,
+    );
+    expect(screen.getByRole("radio", { name: "Free" })).toBeChecked();
+    await user.click(screen.getByRole("radio", { name: "Pro" }));
+    expect(screen.getByRole("radio", { name: "Free" })).toBeChecked();
+    expect(screen.getByRole("radio", { name: "Pro" })).not.toBeChecked();
+  });
 });

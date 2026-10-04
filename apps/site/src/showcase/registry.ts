@@ -10,6 +10,7 @@ import { METER_CONFIGURATOR } from "./configurators/meter";
 import { NUMBER_FIELD_CONFIGURATOR } from "./configurators/number-field";
 import { POPOVER_CONFIGURATOR } from "./configurators/popover";
 import { PROGRESS_CONFIGURATOR } from "./configurators/progress";
+import { RADIO_GROUP_CONFIGURATOR } from "./configurators/radio-group";
 import { SELECT_CONFIGURATOR } from "./configurators/select";
 import { SHEET_CONFIGURATOR } from "./configurators/sheet";
 import { SLIDER_CONFIGURATOR } from "./configurators/slider";
@@ -69,6 +70,7 @@ export const CONFIGURATORS: Record<string, ConfiguratorSpec> = {
   Select: SELECT_CONFIGURATOR,
   Popover: POPOVER_CONFIGURATOR,
   Progress: PROGRESS_CONFIGURATOR,
+  RadioGroup: RADIO_GROUP_CONFIGURATOR,
   Slider: SLIDER_CONFIGURATOR,
   Sonner: SONNER_CONFIGURATOR,
 };
