@@ -277,6 +277,30 @@ describe("Menu", () => {
     await user.keyboard("{ArrowDown}");
     expect(await screen.findByRole("menuitem", { name: "New" })).toHaveFocus();
   });
+
+  it("wraps focus past the last item when looping", async () => {
+    // Edge composition, carried from the move-5 Group lesson: loop focus is
+    // the whole reason the knob exists, so the test pins the wrap.
+    // Sensitivity-proven: the same assertions with loopFocus off fail
+    // (scratch probe, RED confirmed, deleted).
+    const user = userEvent.setup();
+    render(
+      <Menu.Root>
+        <Menu.Trigger>File</Menu.Trigger>
+        <Menu.Content>
+          <Menu.Item>New</Menu.Item>
+          <Menu.Item>Open</Menu.Item>
+        </Menu.Content>
+      </Menu.Root>,
+    );
+    await user.click(screen.getByRole("button", { name: "File" }));
+    await user.keyboard("{ArrowDown}");
+    expect(await screen.findByRole("menuitem", { name: "New" })).toHaveFocus();
+    await user.keyboard("{ArrowDown}");
+    expect(await screen.findByRole("menuitem", { name: "Open" })).toHaveFocus();
+    await user.keyboard("{ArrowDown}");
+    expect(await screen.findByRole("menuitem", { name: "New" })).toHaveFocus();
+  });
 });
 
 describe("Menubar", () => {
