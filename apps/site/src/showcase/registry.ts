@@ -1,5 +1,6 @@
 import type { ConfiguratorSpec } from "./configurator";
 import { BUTTON_CONFIGURATOR } from "./configurators/button";
+import { CHECKBOX_CONFIGURATOR } from "./configurators/checkbox";
 import { DIALOG_CONFIGURATOR } from "./configurators/dialog";
 import { POPOVER_CONFIGURATOR } from "./configurators/popover";
 import { SELECT_CONFIGURATOR } from "./configurators/select";
@@ -44,6 +45,7 @@ export function examplesFor(exportName: string): ExampleSpec[] {
  */
 export const CONFIGURATORS: Record<string, ConfiguratorSpec> = {
   Button: BUTTON_CONFIGURATOR,
+  Checkbox: CHECKBOX_CONFIGURATOR,
   Switch: SWITCH_CONFIGURATOR,
   Dialog: DIALOG_CONFIGURATOR,
   Sheet: SHEET_CONFIGURATOR,
