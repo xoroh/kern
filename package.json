@@ -36,6 +36,7 @@
     "check:parity": "node scripts/check-parity.mjs",
     "check:consumption": "node scripts/check-consumption.mjs",
     "check:pack": "node scripts/check-pack.mjs",
+    "check:registry-paths": "node scripts/check-registry-paths.mjs",
     "check:elevation-parity": "node scripts/check-elevation-parity.mjs",
     "check:workflow": "node scripts/check-workflow.mjs",
     "check:layers": "node scripts/check-layers.mjs",

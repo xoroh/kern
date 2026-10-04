@@ -95,6 +95,7 @@ jobs:
         run: |
           bun run check:consumption
           bun run check:pack
+          bun run check:registry-paths
 
       - name: Check the primitives boundary
         run: bun run check:primitives
