@@ -246,7 +246,12 @@ export { NumberField, numberFieldStyles } from "./components/number-field";
 // not the public API, which is exactly how an unreachable component looks
 // shipped. Exported here so those claims become true.
 export type { DrawerProps } from "./components/overlay-surfaces";
-export { Drawer, Popover, ScrollArea } from "./components/overlay-surfaces";
+export {
+  Drawer,
+  Popover,
+  ScrollArea,
+  useAnyModalOpen,
+} from "./components/overlay-surfaces";
 export type {
   NativePaginationProps,
   PaginationEntry,

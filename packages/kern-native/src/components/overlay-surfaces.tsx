@@ -62,8 +62,12 @@ export function OverlayModalityProvider({
  * Register this overlay while `active`, and report whether it is the topmost.
  *
  * Returns `isInteractive: true` with NO provider, so opting in is additive.
+ *
+ * Exported (module, not barrel) for `SheetSurface`: every modal surface must
+ * register in the SAME stack, or the kernel's "topmost" answer is wrong and
+ * `useAnyModalOpen` under-reports. See the D3a re-point.
  */
-function useKernOverlay(active: boolean): { isInteractive: boolean } {
+export function useKernOverlay(active: boolean): { isInteractive: boolean } {
   const registry = useContext(OverlayRegistryContext);
   const id: OverlayId = useId();
 
@@ -80,6 +84,53 @@ function useKernOverlay(active: boolean): { isInteractive: boolean } {
 
 /** Used only when no provider is mounted; see `useKernOverlay`. */
 const FALLBACK_REGISTRY = createOverlayModality();
+
+/**
+ * Background-inerting contract for modal consumers (D3a — read before wiring).
+ *
+ * ## The platform fact that makes this necessary
+ *
+ * `accessibilityViewIsModal` confines TalkBack *linear* traversal, not
+ * DPAD/switch/keyboard focus: with a sheet open, DPAD_DOWN from the sheet's
+ * close control lands on the background tab bar *behind the scrim* (measured
+ * live). kern-native cannot fix that from inside its own `Modal` — the
+ * background views belong to the app, so the app must make them unreachable
+ * while a modal is open. That is this hook's entire job: one boolean the app
+ * wires to its background root.
+ *
+ * ## Exact wiring (mobile-lead D3b reads this)
+ *
+ * ```tsx
+ * function ScreenRoot({ children }: { children: ReactNode }) {
+ *   const modalOpen = useAnyModalOpen();
+ *   return (
+ *     <View
+ *       importantForAccessibility={modalOpen ? "no-hide-descendants" : "auto"}
+ *     >
+ *       {children}
+ *     </View>
+ *   );
+ * }
+ * ```
+ *
+ * Rules: the flag goes on the BACKGROUND root (the tree behind the modal),
+ * never inside a modal surface; derive it, never set it from open-state by
+ * hand (every MODAL surface registers itself — `Drawer` and `SheetSurface` —
+ * so a hand-rolled `open || pickerOpen || …` rots the moment another overlay
+ * ships). `Popover` is deliberately NOT registered: it leaves the content
+ * behind it interactive by design (see `PopoverContent`), so an open popover
+ * must never inert the background. With no `OverlayModalityProvider` mounted
+ * this reads the shared fallback registry, so it works before the app opts
+ * into the provider — and returns `false` when nothing is open, so the
+ * background is never inerted by default.
+ */
+export function useAnyModalOpen(): boolean {
+  const registry = useContext(OverlayRegistryContext);
+  const state: OverlayModalityState = useOverlayModality(
+    registry ?? FALLBACK_REGISTRY,
+  );
+  return state.top !== null;
+}
 
 /**
  * Overlay surfaces family — P2b-3, tranche 5.

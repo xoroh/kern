@@ -53,7 +53,12 @@ type RNModule = {
   findNodeHandle: (component: unknown) => number | null;
 };
 
-import { Drawer, Popover, ScrollArea } from "./overlay-surfaces";
+import {
+  Drawer,
+  Popover,
+  ScrollArea,
+  useAnyModalOpen,
+} from "./overlay-surfaces";
 import { SheetSurface } from "./sheet-surface";
 
 type A11yNode = {
@@ -356,7 +361,7 @@ describe("SheetSurface focus-move-in (D2)", () => {
       jsxsSpy.mockRestore();
       jsxDevSpy.mockRestore();
     }
-    expect(captured).toHaveLength(1);
+    expect(captured.length).toBeGreaterThan(0);
     return captured;
   };
 
@@ -377,7 +382,9 @@ describe("SheetSurface focus-move-in (D2)", () => {
     return { findNodeHandle, setFocus };
   };
   const present = (modals: Array<{ onShow?: () => void }>) => {
-    const onShow = modals[0]?.onShow;
+    // Last capture wins: React may render twice (mount + effects flush), and
+    // each pass recreates the element — the LATEST props are the live wiring.
+    const onShow = modals.at(-1)?.onShow;
     expect(onShow).toBeDefined();
     return act(async () => {
       onShow?.();
@@ -435,6 +442,74 @@ describe("SheetSurface focus-move-in (D2)", () => {
       setFocus.mockRestore();
       findNodeHandle.mockRestore();
     }
+  });
+});
+
+describe("overlay registry signal (D3a)", () => {
+  // The app-side half of the DPAD-escape fix: the background root derives
+  // `importantForAccessibility` from `useAnyModalOpen`, so this asserts the
+  // signal itself — open sheet present, closed sheet absent, released on close.
+  // Asserted via `testID` + children rather than a text query: the value IS
+  // the contract, and a text query would conflate "signal correct" with
+  // "query matched".
+  //
+  // Each test renders TWO roots on purpose. RNTL hides a visible `Modal`'s
+  // siblings from queries (simulated modality — verified: the signal's own
+  // node is in the printed tree but unreachable by query, label, testID, or
+  // traversal while the Modal is mounted). So the sheet lives in root 1 and
+  // the signal probe in root 2; the registry is module-shared, which is
+  // exactly the production shape (one stack, many trees). Root 1 stays mounted
+  // until cleanup — RNTL only unmounts between tests.
+  //
+  // No provider is mounted on purpose: the fallback registry is the path the
+  // showcase takes before opting into `OverlayModalityProvider`, and the
+  // contract promises it works there.
+  function ModalSignal() {
+    const modalOpen = useAnyModalOpen();
+    return (
+      <RNText testID="modal-signal">
+        {modalOpen ? "modal-open" : "modal-closed"}
+      </RNText>
+    );
+  }
+  const sheetElement = (open: boolean) => (
+    <SheetSurface
+      open={open}
+      title="Sheet"
+      onDismiss={() => {}}
+      testID="sheet"
+      surface={{}}
+    >
+      <RNText>body</RNText>
+    </SheetSurface>
+  );
+
+  it("reports a modal open while a sheet is open", async () => {
+    await render(sheetElement(true));
+    const signal = await render(<ModalSignal />);
+    expect(signal.getByTestId("modal-signal").props.children).toBe(
+      "modal-open",
+    );
+  });
+
+  it("reports closed when the sheet is closed", async () => {
+    await render(sheetElement(false));
+    const signal = await render(<ModalSignal />);
+    expect(signal.getByTestId("modal-signal").props.children).toBe(
+      "modal-closed",
+    );
+  });
+
+  it("releases the signal when the sheet closes", async () => {
+    const sheet = await render(sheetElement(true));
+    const signal = await render(<ModalSignal />);
+    expect(signal.getByTestId("modal-signal").props.children).toBe(
+      "modal-open",
+    );
+    await sheet.rerender(sheetElement(false));
+    expect(signal.getByTestId("modal-signal").props.children).toBe(
+      "modal-closed",
+    );
   });
 });
 

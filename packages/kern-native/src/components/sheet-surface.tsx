@@ -16,6 +16,7 @@ import {
   type ViewStyle,
 } from "react-native";
 import { overlayStyles } from "../utils/overlay-styles";
+import { useKernOverlay } from "./overlay-surfaces";
 
 /**
  * The shared Modal + scrim primitive for the kern sheet family (P2b-2).
@@ -118,6 +119,13 @@ export function SheetSurface({
   const canDismiss = (trigger: keyof DismissTriggers) =>
     policy.shouldDismiss(trigger, open, triggers);
   const dismiss = canDismiss("scrim") ? onDismiss : undefined;
+
+  // D3a: register this sheet for as long as it is OPEN, so the shared kernel
+  // knows a modal is on screen (Drawer precedent). Registration only — the
+  // sheet's own modality/pointer handling is unchanged; what this buys is the
+  // app-side `useAnyModalOpen` signal for background inerting. Keys off `open`,
+  // not mount: a mounted-but-closed sheet must not inert the background.
+  useKernOverlay(open);
 
   // D2: RN `Modal` presents the window but never moves the accessibility
   // cursor — without this, TalkBack focus stays on the background control that
