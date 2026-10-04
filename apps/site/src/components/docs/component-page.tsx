@@ -36,8 +36,9 @@ import { MOBILE_DEMOS } from "../../demos/mobile/registry";
 import { WEB_DEMOS } from "../../demos/web/registry";
 import { PROPS_TABLE } from "../../generated/props-table";
 import { maturityForExports } from "../../maturity";
+import { Configurator } from "../../showcase/configurator";
 import { ExampleList } from "../../showcase/example";
-import { examplesFor } from "../../showcase/registry";
+import { configuratorFor, examplesFor } from "../../showcase/registry";
 
 /**
  * M1 — the page that TEACHES the type scale must USE the type scale.
@@ -586,10 +587,16 @@ function WhenToUse({ doc }: { doc: ComponentDoc }) {
  */
 function Examples({ doc }: { doc: ComponentDoc }) {
   const examples = doc.parts.flatMap((part) => examplesFor(part));
-  if (examples.length === 0) return null;
+  // First registered configurator across the family's parts, if any —
+  // flagships only, so most pages see nothing here.
+  const configurator = doc.parts
+    .map((part) => configuratorFor(part))
+    .find((c) => c !== undefined);
+  if (examples.length === 0 && !configurator) return null;
   return (
     <section className="flex flex-col gap-3">
       <Heading id="examples">Examples</Heading>
+      {configurator ? <Configurator spec={configurator} /> : null}
       <ExampleList examples={examples} />
     </section>
   );
@@ -1238,7 +1245,8 @@ function OnThisPage({ doc }: { doc: ComponentDoc }) {
           <TocLink href="#anatomy" label="Anatomy" />
         ) : null}
         <TocLink href="#features" label="Usage" />
-        {doc.parts.flatMap((part) => examplesFor(part)).length > 0 ? (
+        {doc.parts.flatMap((part) => examplesFor(part)).length > 0 ||
+        doc.parts.some((part) => configuratorFor(part) !== undefined) ? (
           <TocLink href="#examples" label="Examples" />
         ) : null}
         <TocLink href="#theming-and-tokens" label="Theming and tokens" />
