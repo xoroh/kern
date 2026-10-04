@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { act } from "react";
 import { describe, expect, it } from "vitest";
 import { Accordion } from "./accordion";
-import { Autocomplete } from "./autocomplete";
+import { Autocomplete, useAutocompleteFilteredItems } from "./autocomplete";
 import { Collapsible } from "./collapsible";
 import { ScrollArea } from "./scroll-area";
 import { createSnackbarManager, Snackbar } from "./snackbar";
@@ -139,17 +139,28 @@ describe("Autocomplete", () => {
     { value: "banana", label: "Banana" },
   ];
 
+  function FruitOptions() {
+    // move16-FAIL: options MUST come from the root's filtered list. A
+    // hand-declared Item never hides — Base UI only computes `filteredItems`
+    // data — so static rendering shows non-matches alongside the Empty node.
+    const items = useAutocompleteFilteredItems<(typeof FRUIT)[number]>();
+    return (
+      <>
+        {items.map((f) => (
+          <Autocomplete.Item key={f.value} value={f.value}>
+            {f.label}
+          </Autocomplete.Item>
+        ))}
+      </>
+    );
+  }
+
   function FruitAutocomplete() {
     return (
       <Autocomplete.Root items={FRUIT}>
         <Autocomplete.Input aria-label="Fruit" />
         <Autocomplete.Content>
-          {/* Options come from the root's items — see ADR 002 rule 2. */}
-          {FRUIT.map((f) => (
-            <Autocomplete.Item key={f.value} value={f.value}>
-              {f.label}
-            </Autocomplete.Item>
-          ))}
+          <FruitOptions />
           <Autocomplete.Empty>No match</Autocomplete.Empty>
         </Autocomplete.Content>
       </Autocomplete.Root>
@@ -191,6 +202,19 @@ describe("Autocomplete", () => {
     const popup = document.querySelector("[data-slot='autocomplete-content']");
     expect(popup).not.toHaveAttribute("data-empty");
     expect(screen.queryByText(/No match/)).toBeNull();
+  });
+
+  it("removes non-matching options from the list", async () => {
+    // move16-FAIL guard: typing "app" must leave Apple and remove Banana —
+    // from AT and sight. A hand-declared Item never hides (Base UI only
+    // filters the `filteredItems` data), so this fails until the anatomy
+    // renders from the hook.
+    const user = userEvent.setup();
+    render(<FruitAutocomplete />);
+    await user.click(screen.getByRole("combobox", { name: "Fruit" }));
+    await user.keyboard("app");
+    expect(screen.getByRole("option", { name: "Apple" })).toBeInTheDocument();
+    expect(screen.queryByRole("option", { name: "Banana" })).toBeNull();
   });
 
   // The clause that would have caught the original test: a hand-declared Item is

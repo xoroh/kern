@@ -1,4 +1,4 @@
-import { Autocomplete } from "@xoroh/kern";
+import { Autocomplete, useAutocompleteFilteredItems } from "@xoroh/kern";
 import type { ConfiguratorSpec, ConfigValues } from "../configurator";
 
 /**
@@ -48,6 +48,24 @@ const ITEMS: Array<[string, string]> = [
   ["kern-cli", "kern-cli"],
 ];
 
+type ProjectItem = { value: string; label: string };
+
+function FilteredProjectOptions() {
+  // move16-FAIL: options MUST render from the root's filtered list. A
+  // hand-declared Item never hides — Base UI only computes `filteredItems`
+  // data — so static rendering shows non-matches alongside the Empty node.
+  const items = useAutocompleteFilteredItems<ProjectItem>();
+  return (
+    <>
+      {items.map((item) => (
+        <Autocomplete.Item key={item.value} value={item.value}>
+          {item.label}
+        </Autocomplete.Item>
+      ))}
+    </>
+  );
+}
+
 export const AUTOCOMPLETE_CONFIGURATOR: ConfiguratorSpec = {
   id: "autocomplete-knobs",
   title: "Configure the autocomplete",
@@ -86,14 +104,10 @@ export const AUTOCOMPLETE_CONFIGURATOR: ConfiguratorSpec = {
       <Autocomplete.Input placeholder="Search projects" />
       <Autocomplete.Content>
         <Autocomplete.Empty>No project matches.</Autocomplete.Empty>
-        {ITEMS.map(([value, label]) => (
-          <Autocomplete.Item key={value} value={value}>
-            {label}
-          </Autocomplete.Item>
-        ))}
+        <FilteredProjectOptions />
       </Autocomplete.Content>
     </Autocomplete.Root>
   ),
   code: (v) =>
-    `<Autocomplete.Root${rootPropsOf(v)} items={ITEMS}>\n  <Autocomplete.Label>Project</Autocomplete.Label>\n  <Autocomplete.Input placeholder="Search projects" />\n  <Autocomplete.Content>\n    <Autocomplete.Empty>No project matches.</Autocomplete.Empty>\n${ITEMS.map(([value, label]) => `    <Autocomplete.Item value="${value}">${label}</Autocomplete.Item>`).join("\n")}\n  </Autocomplete.Content>\n</Autocomplete.Root>`,
+    `function FilteredProjectOptions() {\n  const items = useAutocompleteFilteredItems();\n  return (\n    <>\n      {items.map((item) => (\n        <Autocomplete.Item key={item.value} value={item.value}>\n          {item.label}\n        </Autocomplete.Item>\n      ))}\n    </>\n  );\n}\n\n<Autocomplete.Root${rootPropsOf(v)} items={ITEMS}>\n  <Autocomplete.Label>Project</Autocomplete.Label>\n  <Autocomplete.Input placeholder="Search projects" />\n  <Autocomplete.Content>\n    <Autocomplete.Empty>No project matches.</Autocomplete.Empty>\n    <FilteredProjectOptions />\n  </Autocomplete.Content>\n</Autocomplete.Root>`,
 };

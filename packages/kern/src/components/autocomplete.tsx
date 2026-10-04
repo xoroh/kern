@@ -143,3 +143,13 @@ export const Autocomplete = {
   Item: AutocompleteItem,
   Empty: AutocompleteEmpty,
 };
+
+/**
+ * The Root's internally filtered items — the ONLY source a filtered list may
+ * render from (move16-FAIL). A hand-declared `<Autocomplete.Item>` never hides:
+ * Base UI computes `filteredItems` from `items` + the query and leaves hiding
+ * to the consumer, so rendering anything else shows non-matches alongside the
+ * Empty node. Same forwarding shape as `useSnackbarManager`.
+ */
+export const useAutocompleteFilteredItems =
+  AutocompletePrimitive.useFilteredItems;

@@ -52,6 +52,7 @@ export {
   AutocompleteItem,
   AutocompleteLabel,
   AutocompleteRoot,
+  useAutocompleteFilteredItems,
 } from "./autocomplete";
 export type { AvatarRootProps } from "./avatar";
 export {

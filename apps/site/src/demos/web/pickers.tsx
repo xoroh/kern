@@ -13,6 +13,7 @@ import {
   NativeSelect,
   Snackbar,
   Sonner,
+  useAutocompleteFilteredItems,
 } from "@xoroh/kern";
 import { useState } from "react";
 import { Preview, PreviewStack, Row } from "../../components/preview/preview";
@@ -58,6 +59,22 @@ const AUTOCOMPLETE_ITEMS = [
   { value: "base-ui", label: "Base UI" },
 ];
 
+function FilteredAutocompleteOptions() {
+  // move16-FAIL: options must render from the root's filtered list — a
+  // hand-declared Item never hides.
+  const items =
+    useAutocompleteFilteredItems<(typeof AUTOCOMPLETE_ITEMS)[number]>();
+  return (
+    <>
+      {items.map((item) => (
+        <Autocomplete.Item key={item.value} value={item.value}>
+          {item.label}
+        </Autocomplete.Item>
+      ))}
+    </>
+  );
+}
+
 export function AutocompleteDemo() {
   return (
     <Preview label="Autocomplete — free text with a filtered list" span={3}>
@@ -67,11 +84,7 @@ export function AutocompleteDemo() {
           <Autocomplete.Input placeholder="Search projects" />
           <Autocomplete.Content>
             <Autocomplete.Empty>No project matches.</Autocomplete.Empty>
-            {AUTOCOMPLETE_ITEMS.map((item) => (
-              <Autocomplete.Item key={item.value} value={item.value}>
-                {item.label}
-              </Autocomplete.Item>
-            ))}
+            <FilteredAutocompleteOptions />
           </Autocomplete.Content>
         </Autocomplete.Root>
       </div>
