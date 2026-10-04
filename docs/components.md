@@ -211,6 +211,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `segmented-button-root` | `SegmentedButtonRoot` | real |
 | `select` | `Select` | real |
 | `select-content` | `SelectContent` | real |
+| `select-group` | `SelectGroup` | real |
 | `select-group-label` | `SelectGroupLabel` | real |
 | `select-item` | `SelectItem` | real |
 | `select-item-text` | `SelectItemText` | real |

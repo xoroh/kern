@@ -6105,6 +6105,26 @@ export const PROPS_TABLE: Record<
     ],
     curated: [],
   },
+  SelectGroup: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: SelectGroupState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: SelectGroupState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, SelectGroupState> | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
   SelectGroupLabel: {
     rows: [
       {

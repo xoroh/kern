@@ -378,18 +378,22 @@ export function SelectDemo() {
             <Select.Value placeholder="Choose a region" />
           </Select.Trigger>
           <Select.Content>
-            <Select.GroupLabel>Europe</Select.GroupLabel>
-            <Select.Item value="eu-west">
-              <Select.ItemText>eu-west-1</Select.ItemText>
-            </Select.Item>
-            <Select.Item value="eu-central">
-              <Select.ItemText>eu-central-1</Select.ItemText>
-            </Select.Item>
+            <Select.Group>
+              <Select.GroupLabel>Europe</Select.GroupLabel>
+              <Select.Item value="eu-west">
+                <Select.ItemText>eu-west-1</Select.ItemText>
+              </Select.Item>
+              <Select.Item value="eu-central">
+                <Select.ItemText>eu-central-1</Select.ItemText>
+              </Select.Item>
+            </Select.Group>
             <Select.Separator />
-            <Select.GroupLabel>Americas</Select.GroupLabel>
-            <Select.Item value="us-east">
-              <Select.ItemText>us-east-1</Select.ItemText>
-            </Select.Item>
+            <Select.Group>
+              <Select.GroupLabel>Americas</Select.GroupLabel>
+              <Select.Item value="us-east">
+                <Select.ItemText>us-east-1</Select.ItemText>
+              </Select.Item>
+            </Select.Group>
           </Select.Content>
         </Select.Root>
       </div>

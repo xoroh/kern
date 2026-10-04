@@ -12,6 +12,7 @@ export type SelectItemProps = ComponentProps<typeof SelectPrimitive.Item>;
 export type SelectSeparatorProps = ComponentProps<
   typeof SelectPrimitive.Separator
 >;
+export type SelectGroupProps = ComponentProps<typeof SelectPrimitive.Group>;
 export type SelectGroupLabelProps = ComponentProps<
   typeof SelectPrimitive.GroupLabel
 >;
@@ -93,6 +94,16 @@ export function SelectSeparator({ className, ...props }: SelectSeparatorProps) {
   );
 }
 
+export function SelectGroup({ className, ...props }: SelectGroupProps) {
+  return (
+    <SelectPrimitive.Group
+      data-slot="select-group"
+      className={cnState("kern-select-group", className)}
+      {...props}
+    />
+  );
+}
+
 export function SelectGroupLabel({
   className,
   ...props
@@ -118,5 +129,6 @@ export const Select = {
   Item: SelectItem,
   ItemText: SelectItemText,
   Separator: SelectSeparator,
+  Group: SelectGroup,
   GroupLabel: SelectGroupLabel,
 };

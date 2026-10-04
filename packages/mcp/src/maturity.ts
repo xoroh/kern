@@ -1322,6 +1322,13 @@ export const MATURITY: readonly MaturityRow[] = [
     version: "0.0.0",
   },
   {
+    name: "select-group",
+    export: "SelectGroup",
+    platform: "web",
+    state: "Preview",
+    version: "0.0.0",
+  },
+  {
     name: "select-group-label",
     export: "SelectGroupLabel",
     platform: "web",
@@ -3005,6 +3012,7 @@ export const MATURITY_BY_STATE: Readonly<
     "segmented-button-root",
     "select",
     "select-content",
+    "select-group",
     "select-group-label",
     "select-item",
     "select-item-text",

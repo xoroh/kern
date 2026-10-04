@@ -52,7 +52,7 @@ again. Measured from the generated registry instead:
 
 | Measure | Value |
 |---|---|
-| Registry rows | **395** (web 291, native 104) |
+| Registry rows | **396** (web 292, native 104) |
 | **Shared** (already both sides) | **83** |
 | **Native-only → needs a web version** | **8** in **8 files** |
 | **Web-only → needs a native version** | **40** in **33 files** |

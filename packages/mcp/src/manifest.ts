@@ -1306,6 +1306,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    name: "select-group",
+    export: "SelectGroup",
+    platform: "web",
+    path: "src/components/select.tsx",
+    status: "real",
+  },
+  {
     name: "select-group-label",
     export: "SelectGroupLabel",
     platform: "web",

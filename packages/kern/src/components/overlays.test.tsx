@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { AlertDialog } from "./alert-dialog";
 import { Combobox } from "./combobox";
 import { ContextMenu } from "./context-menu";
@@ -359,6 +359,57 @@ describe("Select", () => {
       "aria-selected",
       "true",
     );
+  });
+
+  it("opens a grouped popup with zero console errors", async () => {
+    // Locks the `Group` forwarding (move-5 re-verify FAIL): Base UI's
+    // `GroupLabel` throws `SelectGroupContext is missing` unless it renders
+    // inside `<Select.Group>`, and kern's `Select` object exported no `Group`
+    // — so every grouped popup crashed on open. The error spy is the point:
+    // React logs the render throw via console.error even where the test
+    // renderer keeps the tree alive, so options-present alone would pass on a
+    // crashing tree.
+    const errors: unknown[][] = [];
+    const spy = vi
+      .spyOn(console, "error")
+      .mockImplementation((...args: unknown[]) => {
+        errors.push(args);
+      });
+    try {
+      const user = userEvent.setup();
+      render(
+        <Select.Root
+          items={[
+            { value: "eu-west", label: "eu-west-1" },
+            { value: "us-east", label: "us-east-1" },
+          ]}
+        >
+          <Select.Trigger aria-label="Region">
+            <Select.Value placeholder="Choose a region" />
+          </Select.Trigger>
+          <Select.Content>
+            <Select.Group>
+              <Select.GroupLabel>Europe</Select.GroupLabel>
+              <Select.Item value="eu-west">eu-west-1</Select.Item>
+            </Select.Group>
+            <Select.Group>
+              <Select.GroupLabel>Americas</Select.GroupLabel>
+              <Select.Item value="us-east">us-east-1</Select.Item>
+            </Select.Group>
+          </Select.Content>
+        </Select.Root>,
+      );
+      await user.click(screen.getByRole("combobox", { name: "Region" }));
+      expect(
+        await screen.findByRole("option", { name: "eu-west-1" }),
+      ).toBeInTheDocument();
+      expect(
+        await screen.findByRole("option", { name: "us-east-1" }),
+      ).toBeInTheDocument();
+      expect(errors).toEqual([]);
+    } finally {
+      spy.mockRestore();
+    }
   });
 });
 

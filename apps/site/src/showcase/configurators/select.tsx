@@ -89,21 +89,25 @@ export const SELECT_CONFIGURATOR: ConfiguratorSpec = {
         <Select.Value placeholder="Choose a region" />
       </Select.Trigger>
       <Select.Content>
-        <Select.GroupLabel>Europe</Select.GroupLabel>
-        <Select.Item value="eu-west">
-          <Select.ItemText>eu-west-1</Select.ItemText>
-        </Select.Item>
-        <Select.Item value="eu-central">
-          <Select.ItemText>eu-central-1</Select.ItemText>
-        </Select.Item>
+        <Select.Group>
+          <Select.GroupLabel>Europe</Select.GroupLabel>
+          <Select.Item value="eu-west">
+            <Select.ItemText>eu-west-1</Select.ItemText>
+          </Select.Item>
+          <Select.Item value="eu-central">
+            <Select.ItemText>eu-central-1</Select.ItemText>
+          </Select.Item>
+        </Select.Group>
         <Select.Separator />
-        <Select.GroupLabel>Americas</Select.GroupLabel>
-        <Select.Item value="us-east">
-          <Select.ItemText>us-east-1</Select.ItemText>
-        </Select.Item>
+        <Select.Group>
+          <Select.GroupLabel>Americas</Select.GroupLabel>
+          <Select.Item value="us-east">
+            <Select.ItemText>us-east-1</Select.ItemText>
+          </Select.Item>
+        </Select.Group>
       </Select.Content>
     </Select.Root>
   ),
   code: (v) =>
-    `<Select.Root${rootPropsOf(v)}>\n  <Select.Trigger aria-label="Region">\n    <Select.Value placeholder="Choose a region" />\n  </Select.Trigger>\n  <Select.Content>\n    <Select.GroupLabel>Europe</Select.GroupLabel>\n    <Select.Item value="eu-west">\n      <Select.ItemText>eu-west-1</Select.ItemText>\n    </Select.Item>\n    <Select.Item value="eu-central">\n      <Select.ItemText>eu-central-1</Select.ItemText>\n    </Select.Item>\n    <Select.Separator />\n    <Select.GroupLabel>Americas</Select.GroupLabel>\n    <Select.Item value="us-east">\n      <Select.ItemText>us-east-1</Select.ItemText>\n    </Select.Item>\n  </Select.Content>\n</Select.Root>`,
+    `<Select.Root${rootPropsOf(v)}>\n  <Select.Trigger aria-label="Region">\n    <Select.Value placeholder="Choose a region" />\n  </Select.Trigger>\n  <Select.Content>\n    <Select.Group>\n      <Select.GroupLabel>Europe</Select.GroupLabel>\n      <Select.Item value="eu-west">\n        <Select.ItemText>eu-west-1</Select.ItemText>\n      </Select.Item>\n      <Select.Item value="eu-central">\n        <Select.ItemText>eu-central-1</Select.ItemText>\n      </Select.Item>\n    </Select.Group>\n    <Select.Separator />\n    <Select.Group>\n      <Select.GroupLabel>Americas</Select.GroupLabel>\n      <Select.Item value="us-east">\n        <Select.ItemText>us-east-1</Select.ItemText>\n      </Select.Item>\n    </Select.Group>\n  </Select.Content>\n</Select.Root>`,
 };

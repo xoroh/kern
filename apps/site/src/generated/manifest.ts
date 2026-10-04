@@ -1431,6 +1431,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    slug: "web/select-group",
+    name: "select-group",
+    export: "SelectGroup",
+    platform: "web",
+    status: "real",
+  },
+  {
     slug: "web/select-group-label",
     name: "select-group-label",
     export: "SelectGroupLabel",

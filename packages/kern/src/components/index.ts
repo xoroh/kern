@@ -425,6 +425,7 @@ export {
 export type {
   SelectContentProps,
   SelectGroupLabelProps,
+  SelectGroupProps,
   SelectItemProps,
   SelectRootProps,
   SelectSeparatorProps,
@@ -433,6 +434,7 @@ export type {
 export {
   Select,
   SelectContent,
+  SelectGroup,
   SelectGroupLabel,
   SelectItem,
   SelectItemText,
