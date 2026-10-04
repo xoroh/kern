@@ -4,6 +4,7 @@ import {
   NavigationBar,
   type NavigationDestination,
   Text,
+  useAnyModalOpen,
   useKernScheme,
 } from "@xoroh/kern-native";
 import { StatusBar } from "expo-status-bar";
@@ -33,11 +34,18 @@ const TABS: NavigationDestination[] = [
 function Screens() {
   const [tab, setTab] = useState("components");
   const scheme = useKernScheme();
+  // D3b — background-inerting contract (see `useAnyModalOpen` doc in
+  // overlay-surfaces.tsx): derived from the shared overlay stack, never
+  // hand-rolled from local open-state. RN Modals render in a separate native
+  // window, so hiding this background root's descendants does not hide the
+  // open sheet itself.
+  const modalOpen = useAnyModalOpen();
 
   return (
     <View
       style={{ flex: 1, backgroundColor: scheme.color.surface }}
       testID="kern-showcase"
+      importantForAccessibility={modalOpen ? "no-hide-descendants" : "auto"}
     >
       <View style={{ flex: 1 }}>
         {tab === "components" ? <ComponentsScreen /> : null}
