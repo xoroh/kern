@@ -208,6 +208,27 @@ describe("Drawer", () => {
     await user.click(screen.getByRole("button", { name: "Done" }));
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
+
+  it("ignores outside clicks when pointer dismissal is disabled", async () => {
+    // Edge composition, carried from the move-5 Group lesson: the guard is
+    // the whole reason the knob exists, so the test pins the backdrop
+    // going dead. Sensitivity-proven: the same assertions on an unguarded
+    // drawer fail (scratch probe, RED confirmed, deleted).
+    const user = userEvent.setup();
+    render(
+      <Drawer.Root disablePointerDismissal>
+        <Drawer.Trigger>Filters</Drawer.Trigger>
+        <Drawer.Content>
+          <Drawer.Title>Filter results</Drawer.Title>
+          <Drawer.Close>Done</Drawer.Close>
+        </Drawer.Content>
+      </Drawer.Root>,
+    );
+    await user.click(screen.getByRole("button", { name: "Filters" }));
+    expect(await screen.findByRole("dialog")).toBeInTheDocument();
+    await user.click(document.body);
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+  });
 });
 
 describe("Sheet", () => {
