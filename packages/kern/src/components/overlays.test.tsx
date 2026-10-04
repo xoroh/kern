@@ -321,6 +321,26 @@ describe("Menubar", () => {
       await screen.findByRole("menuitem", { name: "New" }),
     ).toBeInTheDocument();
   });
+
+  it("opens nothing when the whole bar is disabled", async () => {
+    // Edge composition, carried from the move-5 Group lesson: the disabled
+    // knob kills the entire bar, so the test pins the dead triggers.
+    // Sensitivity-proven: the same assertions on an enabled bar fail
+    // (scratch probe, RED confirmed, deleted).
+    const user = userEvent.setup();
+    render(
+      <Menubar.Root disabled aria-label="App">
+        <Menubar.Menu>
+          <Menubar.Trigger>File</Menubar.Trigger>
+          <Menubar.Content>
+            <Menubar.Item>New</Menubar.Item>
+          </Menubar.Content>
+        </Menubar.Menu>
+      </Menubar.Root>,
+    );
+    await user.click(screen.getByRole("menuitem", { name: "File" }));
+    expect(screen.queryByRole("menuitem", { name: "New" })).toBeNull();
+  });
 });
 
 describe("Select", () => {
