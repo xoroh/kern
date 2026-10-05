@@ -42,4 +42,20 @@ describe("Chip", () => {
       "aria-pressed",
     );
   });
+
+  it("ignores clicks when disabled", async () => {
+    // Edge composition, carried from the move-5 Group lesson: the disabled
+    // knob kills the chip, so the test pins the dead toggle.
+    // Sensitivity-proven: the same assertions on an enabled chip fail
+    // (scratch probe, RED confirmed, deleted).
+    const user = userEvent.setup();
+    render(
+      <Chip variant="filter" disabled>
+        Deployments
+      </Chip>,
+    );
+    const chip = screen.getByRole("button", { name: "Deployments" });
+    await user.click(chip);
+    expect(chip).toHaveAttribute("aria-pressed", "false");
+  });
 });
