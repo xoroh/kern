@@ -4,10 +4,10 @@
 /* OKLCH is canonical on web; tokens.json carries compiled sRGB for native. */
 
 :root {
-  --md-sys-color-primary: #000000;
+  --md-sys-color-primary: #6750a4;
   --md-sys-color-on-primary: #ffffff;
-  --md-sys-color-primary-container: #e5e5e5;
-  --md-sys-color-on-primary-container: #000000;
+  --md-sys-color-primary-container: #eaddff;
+  --md-sys-color-on-primary-container: #21005d;
   --md-sys-color-secondary: #2563eb;
   --md-sys-color-on-secondary: #ffffff;
   --md-sys-color-secondary-container: #dbeafe;
@@ -65,10 +65,10 @@
 }
 
 .dark {
-  --md-sys-color-primary: #ffffff;
-  --md-sys-color-on-primary: #000000;
-  --md-sys-color-primary-container: #262626;
-  --md-sys-color-on-primary-container: #ffffff;
+  --md-sys-color-primary: #d0bcff;
+  --md-sys-color-on-primary: #381e72;
+  --md-sys-color-primary-container: #4f378b;
+  --md-sys-color-on-primary-container: #eaddff;
   --md-sys-color-secondary: #60a5fa;
   --md-sys-color-on-secondary: #172554;
   --md-sys-color-secondary-container: #1e3a8a;

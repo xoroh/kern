@@ -24,7 +24,8 @@ const dark = kern.color.dark;
  * exactly ONE hit — `packages/kern-icons/src/core/resolve.test.ts`, an unrelated
  * icon test. The value appears in no theme, no token, and no generator.
  *
- * What kern actually ships in `themes/kern.json` (light):
+ * What kern shipped in `themes/kern.json` BEFORE the 2026-10-05 purple ruling
+ * (light):
  *
  *     primary    #000000     <- black, i.e. the neutral ramp's 950
  *     secondary  #2563eb     <- the blue
@@ -38,23 +39,27 @@ const dark = kern.color.dark;
  * so the test passes — would be an unreviewed brand change made to satisfy a
  * test.
  *
- * The reconciliation this file therefore enforces is the one the tree supports:
- * **the token source is authoritative, and the doc is stale.** Whether kern
- * SHOULD ship a black primary is a genuine open question (a deviation from M3
- * baseline, and it is not in the deviations registry). That is a ruling for the
- * CTO, not a fact this test can settle — so this file pins what ships and the
- * report raises the question. If the ruling flips the value, THIS test is
+ * ## Founder ruling (2026-10-05): M3 purple IS the base primary
+ *
+ * The open question above is now settled: kern adopts M3's baseline seed
+ * `#6750a4` (light) / `#d0bcff` (dark) with the M3 container roles
+ * (`#eaddff`/`#21005d` light, `#4f378b`/`#eaddff` dark). The pins below were
  * updated in the same commit as the token, which is the only correct order.
+ * Contrast overlays (`light-high`/`dark-high`) deliberately keep
+ * black/white primaries — high-contrast variants are an a11y choice, not
+ * the seed.
  */
 describe("kern default theme — approved values", () => {
-  it("ships a black primary and a blue secondary, not M3's baseline primary", () => {
-    expect(light.primary).toBe("#000000");
+  it("ships the M3 purple seed primary and a blue secondary", () => {
+    expect(light.primary).toBe("#6750a4");
     expect(light.secondary).toBe("#2563eb");
+    expect(light.primaryContainer).toBe("#eaddff");
+    expect(light.onPrimaryContainer).toBe("#21005d");
   });
 
-  it("keeps on-primary readable against a black primary", () => {
+  it("keeps on-primary readable against the seed primary", () => {
     expect(light.onPrimary).toBe("#ffffff");
-    expect(dark.onPrimary).toBe("#000000");
+    expect(dark.onPrimary).toBe("#381e72");
   });
 
   it("pins the light surface and error roles", () => {
@@ -62,11 +67,13 @@ describe("kern default theme — approved values", () => {
     expect(light.error).toBe("#dc2626");
   });
 
-  it("inverts primary and surface in dark", () => {
+  it("uses the M3 dark seed primary on a black surface", () => {
     // A dark scheme that kept a black primary would render a black button on a
     // black page — invisible, and no contrast check catches it.
-    expect(dark.primary).toBe("#ffffff");
+    expect(dark.primary).toBe("#d0bcff");
     expect(dark.surface).toBe("#000000");
+    expect(dark.primaryContainer).toBe("#4f378b");
+    expect(dark.onPrimaryContainer).toBe("#eaddff");
   });
 
   it("defines the same role names in both schemes", () => {
