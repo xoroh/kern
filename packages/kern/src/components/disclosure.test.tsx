@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { act } from "react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { Accordion } from "./accordion";
 import { Autocomplete, useAutocompleteFilteredItems } from "./autocomplete";
 import { Collapsible } from "./collapsible";
@@ -111,6 +111,31 @@ describe("Snackbar", () => {
       manager.close(id);
     });
     expect(screen.queryByText("Saved")).not.toBeInTheDocument();
+  });
+
+  it("renders the action and fires it", async () => {
+    // Edge composition, carried from the move-5 Group lesson: the action is
+    // a live control inside the transient surface, not decoration.
+    // Sensitivity-proven: the same assertions against an action-less push
+    // fail (scratch probe, RED confirmed, deleted).
+    const user = userEvent.setup();
+    const onAction = vi.fn();
+    const manager = createSnackbarManager();
+    render(
+      <Snackbar.Provider toastManager={manager}>
+        <Snackbar.Viewport>
+          <Snackbar.List />
+        </Snackbar.Viewport>
+      </Snackbar.Provider>,
+    );
+    act(() => {
+      manager.add({
+        title: "Saved",
+        actionProps: { children: "Undo", onClick: onAction },
+      });
+    });
+    await user.click(await screen.findByRole("button", { name: "Undo" }));
+    expect(onAction).toHaveBeenCalledTimes(1);
   });
 });
 

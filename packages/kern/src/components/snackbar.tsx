@@ -112,6 +112,7 @@ export function SnackbarList() {
         <SnackbarRoot key={toast.id} toast={toast}>
           <SnackbarTitle />
           <SnackbarDescription />
+          <SnackbarAction />
           <SnackbarClose />
         </SnackbarRoot>
       ))}
