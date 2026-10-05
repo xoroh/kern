@@ -75,6 +75,22 @@ describe("Collapsible", () => {
     await user.click(screen.getByRole("button", { name: "Details" }));
     expect(screen.getByText("Hidden content")).toBeInTheDocument();
   });
+
+  it("stays shut when disabled", async () => {
+    // Edge composition, carried from the move-5 Group lesson: the disabled
+    // knob kills the trigger, so the test pins the shut panel.
+    // Sensitivity-proven: the same assertions on an enabled root fail
+    // (scratch probe, RED confirmed, deleted).
+    const user = userEvent.setup();
+    render(
+      <Collapsible.Root disabled>
+        <Collapsible.Trigger>Details</Collapsible.Trigger>
+        <Collapsible.Panel>Hidden content</Collapsible.Panel>
+      </Collapsible.Root>,
+    );
+    await user.click(screen.getByRole("button", { name: "Details" }));
+    expect(screen.queryByText("Hidden content")).not.toBeInTheDocument();
+  });
 });
 
 describe("Snackbar", () => {
