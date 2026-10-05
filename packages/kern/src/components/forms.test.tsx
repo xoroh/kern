@@ -147,6 +147,22 @@ describe("CheckboxGroup", () => {
     await user.click(screen.getByRole("checkbox", { name: "Salami" }));
     expect(screen.getByRole("checkbox", { name: "Salami" })).toBeChecked();
   });
+
+  it("ignores clicks when the whole set is disabled", async () => {
+    // Edge composition, carried from the move-5 Group lesson: the disabled
+    // knob kills the entire set, so the test pins the dead boxes.
+    // Sensitivity-proven: the same assertions on an enabled set fail
+    // (scratch probe, RED confirmed, deleted).
+    const user = userEvent.setup();
+    render(
+      <CheckboxGroup.Root disabled aria-label="Toppings">
+        <CheckboxGroup.Item value="cheese" label="Cheese" />
+        <CheckboxGroup.Item value="salami" label="Salami" />
+      </CheckboxGroup.Root>,
+    );
+    await user.click(screen.getByRole("checkbox", { name: "Salami" }));
+    expect(screen.getByRole("checkbox", { name: "Salami" })).not.toBeChecked();
+  });
 });
 
 describe("Slider", () => {
