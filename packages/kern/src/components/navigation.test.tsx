@@ -49,6 +49,51 @@ describe("Tabs", () => {
     await user.keyboard("{ArrowRight}");
     expect(screen.getByRole("tab", { name: "Two" })).toHaveFocus();
   });
+
+  it("starts on the configured initial tab", () => {
+    render(
+      <Tabs.Root defaultValue="two">
+        <Tabs.List aria-label="Sections">
+          <Tabs.Tab value="one">One</Tabs.Tab>
+          <Tabs.Tab value="two">Two</Tabs.Tab>
+        </Tabs.List>
+        <Tabs.Panel value="one">First panel</Tabs.Panel>
+        <Tabs.Panel value="two">Second panel</Tabs.Panel>
+      </Tabs.Root>,
+    );
+    // The initial knob pins first paint — no click needed.
+    expect(screen.getByText("Second panel")).toBeInTheDocument();
+    expect(screen.getByRole("tab", { name: "Two" })).toHaveAttribute(
+      "aria-selected",
+      "true",
+    );
+  });
+
+  it("never activates a disabled tab", async () => {
+    const user = userEvent.setup();
+    render(
+      <Tabs.Root defaultValue="one">
+        <Tabs.List aria-label="Sections">
+          <Tabs.Tab value="one">One</Tabs.Tab>
+          <Tabs.Tab value="two" disabled>
+            Two
+          </Tabs.Tab>
+        </Tabs.List>
+        <Tabs.Panel value="one">First panel</Tabs.Panel>
+        <Tabs.Panel value="two">Second panel</Tabs.Panel>
+      </Tabs.Root>,
+    );
+    expect(screen.getByRole("tab", { name: "Two" })).toHaveAttribute(
+      "aria-disabled",
+      "true",
+    );
+    await user.click(screen.getByRole("tab", { name: "Two" }));
+    expect(screen.getByText("First panel")).toBeInTheDocument();
+    expect(screen.getByRole("tab", { name: "One" })).toHaveAttribute(
+      "aria-selected",
+      "true",
+    );
+  });
 });
 
 describe("NavigationMenu", () => {
