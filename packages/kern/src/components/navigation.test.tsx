@@ -100,6 +100,22 @@ describe("Pagination", () => {
       screen.getByRole("button", { name: "Previous page" }),
     ).toBeDisabled();
   });
+
+  it("collapses the middle into gaps on large counts", () => {
+    // Edge composition, carried from the move-5 Group lesson: the window is
+    // the whole reason the count knob matters, so the test pins the gaps.
+    // Sensitivity-proven: the same assertions on a small count fail
+    // (scratch probe, RED confirmed, deleted).
+    render(<Pagination count={24} defaultPage={12} />);
+    expect(screen.getAllByText("…")).toHaveLength(2);
+    expect(screen.getByRole("button", { name: "Page 12" })).toHaveAttribute(
+      "aria-current",
+      "page",
+    );
+    expect(
+      screen.queryByRole("button", { name: "Page 8" }),
+    ).not.toBeInTheDocument();
+  });
 });
 
 describe("Toolbar", () => {

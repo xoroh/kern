@@ -11,6 +11,7 @@ import { MENU_CONFIGURATOR } from "./configurators/menu";
 import { MENUBAR_CONFIGURATOR } from "./configurators/menubar";
 import { METER_CONFIGURATOR } from "./configurators/meter";
 import { NUMBER_FIELD_CONFIGURATOR } from "./configurators/number-field";
+import { PAGINATION_CONFIGURATOR } from "./configurators/pagination";
 import { POPOVER_CONFIGURATOR } from "./configurators/popover";
 import { PROGRESS_CONFIGURATOR } from "./configurators/progress";
 import { RADIO_GROUP_CONFIGURATOR } from "./configurators/radio-group";
@@ -52,7 +53,7 @@ export function examplesFor(exportName: string): ExampleSpec[] {
 /**
  * The Configurator registry — export name → its configurator, if any.
  *
- * Flagships first (Button, Switch, Dialog), then Sheet, Select, Popover, Slider, Sonner, NumberField, Accordion, Progress, Field, ToggleGroup, Meter, Autocomplete, Drawer, Menu, Menubar: one entry per
+ * Flagships first (Button, Switch, Dialog), then Sheet, Select, Popover, Slider, Sonner, NumberField, Accordion, Progress, Field, ToggleGroup, Meter, Autocomplete, Drawer, Menu, Menubar, Pagination: one entry per
  * component, same keying as EXAMPLES, so a family page looks its
  * configurator up the same way. The harness is proven; further components
  * plug in here with zero template edits.
@@ -75,6 +76,7 @@ export const CONFIGURATORS: Record<string, ConfiguratorSpec> = {
   Sheet: SHEET_CONFIGURATOR,
   Select: SELECT_CONFIGURATOR,
   Popover: POPOVER_CONFIGURATOR,
+  Pagination: PAGINATION_CONFIGURATOR,
   Progress: PROGRESS_CONFIGURATOR,
   RadioGroup: RADIO_GROUP_CONFIGURATOR,
   Slider: SLIDER_CONFIGURATOR,
