@@ -4,7 +4,7 @@ import { act } from "react";
 import { describe, expect, it, vi } from "vitest";
 import { Banner, BannerAction } from "./banner";
 import { Command } from "./command";
-import { CountrySelect } from "./country-select";
+import { type CountryOption, CountrySelect } from "./country-select";
 import { SegmentedButton } from "./segmented-button";
 import { createSonnerManager, Sonner } from "./sonner";
 
@@ -176,6 +176,41 @@ describe("CountrySelect", () => {
     await user.click(screen.getByRole("combobox", { name: "Country" }));
     await user.click(screen.getByText("Netherlands"));
     expect(onCountryChange).toHaveBeenCalledWith(options[1]);
+  });
+
+  it("does not choose a disabled option", async () => {
+    // Edge composition, carried from the move-5 Group lesson: the disabled
+    // flag on CountryOption is the dataset-level edge, so the test pins a
+    // disabled country unchoosable. Sensitivity-proven: asserting the call
+    // fires fails (scratch probe, RED confirmed, deleted).
+    const user = userEvent.setup();
+    const withDisabled: CountryOption[] = [
+      ...options,
+      { code: "aq", name: "Antarctica", disabled: true },
+    ];
+    const onCountryChange = vi.fn();
+    render(
+      <CountrySelect.Root
+        options={withDisabled}
+        onCountryChange={onCountryChange}
+      >
+        <CountrySelect.Trigger aria-label="Country" />
+        <CountrySelect.Content>
+          {withDisabled.map((country) => (
+            <CountrySelect.Item
+              key={country.code}
+              value={country}
+              disabled={country.disabled}
+            >
+              {country.name}
+            </CountrySelect.Item>
+          ))}
+        </CountrySelect.Content>
+      </CountrySelect.Root>,
+    );
+    await user.click(screen.getByRole("combobox", { name: "Country" }));
+    await user.click(screen.getByText("Antarctica"));
+    expect(onCountryChange).not.toHaveBeenCalled();
   });
 });
 
