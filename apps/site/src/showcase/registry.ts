@@ -10,6 +10,7 @@ import { FIELD_CONFIGURATOR } from "./configurators/field";
 import { MENU_CONFIGURATOR } from "./configurators/menu";
 import { MENUBAR_CONFIGURATOR } from "./configurators/menubar";
 import { METER_CONFIGURATOR } from "./configurators/meter";
+import { NAVIGATION_MENU_CONFIGURATOR } from "./configurators/navigation-menu";
 import { NUMBER_FIELD_CONFIGURATOR } from "./configurators/number-field";
 import { PAGINATION_CONFIGURATOR } from "./configurators/pagination";
 import { POPOVER_CONFIGURATOR } from "./configurators/popover";
@@ -56,7 +57,7 @@ export function examplesFor(exportName: string): ExampleSpec[] {
 /**
  * The Configurator registry — export name → its configurator, if any.
  *
- * Flagships first (Button, Switch, Dialog), then Sheet, Select, Popover, Slider, Sonner, NumberField, Accordion, Progress, Field, ToggleGroup, Meter, Autocomplete, Drawer, Menu, Menubar, Pagination, Snackbar, Tabs, Tooltip: one entry per
+ * Flagships first (Button, Switch, Dialog), then Sheet, Select, Popover, Slider, Sonner, NumberField, Accordion, Progress, Field, ToggleGroup, Meter, Autocomplete, Drawer, Menu, Menubar, Pagination, Snackbar, Tabs, Tooltip, NavigationMenu: one entry per
  * component, same keying as EXAMPLES, so a family page looks its
  * configurator up the same way. The harness is proven; further components
  * plug in here with zero template edits.
@@ -68,6 +69,7 @@ export const CONFIGURATORS: Record<string, ConfiguratorSpec> = {
   Calendar: CALENDAR_CONFIGURATOR,
   Checkbox: CHECKBOX_CONFIGURATOR,
   NumberField: NUMBER_FIELD_CONFIGURATOR,
+  NavigationMenu: NAVIGATION_MENU_CONFIGURATOR,
   Meter: METER_CONFIGURATOR,
   Switch: SWITCH_CONFIGURATOR,
   Tabs: TABS_CONFIGURATOR,

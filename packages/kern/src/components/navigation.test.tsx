@@ -120,6 +120,31 @@ describe("NavigationMenu", () => {
       await screen.findByRole("link", { name: "Blog" }),
     ).toBeInTheDocument();
   });
+
+  it("opens the default panel at mount", () => {
+    // Edge composition, carried from the move-5 Group lesson: the
+    // openPanel knob is the whole reason defaultValue exists here, so the
+    // test pins content visible with zero interaction.
+    // Sensitivity-proven: the same assertions with no defaultValue fail
+    // (scratch probe, RED confirmed, deleted).
+    render(
+      <NavigationMenu.Root defaultValue="products" aria-label="Site">
+        <NavigationMenu.List>
+          <NavigationMenu.Item value="products">
+            <NavigationMenu.Trigger>Products</NavigationMenu.Trigger>
+            <NavigationMenu.Content>
+              <NavigationMenu.Link href="/components/web">
+                Web components
+              </NavigationMenu.Link>
+            </NavigationMenu.Content>
+          </NavigationMenu.Item>
+        </NavigationMenu.List>
+      </NavigationMenu.Root>,
+    );
+    expect(
+      screen.getByRole("link", { name: "Web components" }),
+    ).toBeInTheDocument();
+  });
 });
 
 describe("Pagination", () => {
