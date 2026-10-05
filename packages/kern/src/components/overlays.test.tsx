@@ -169,6 +169,22 @@ describe("AlertDialog", () => {
       "true",
     );
   });
+
+  it("mounts open without a trigger click", async () => {
+    // Edge composition, carried from the move-5 Group lesson: the open knob
+    // mounts the dialog at first paint, so the test pins the painted
+    // surface with no interaction. Sensitivity-proven: the same query on a
+    // shut mount finds nothing (scratch probe, RED confirmed, deleted).
+    render(
+      <AlertDialog.Root defaultOpen>
+        <AlertDialog.Trigger>Delete</AlertDialog.Trigger>
+        <AlertDialog.Content>
+          <AlertDialog.Title>Confirm</AlertDialog.Title>
+        </AlertDialog.Content>
+      </AlertDialog.Root>,
+    );
+    expect(await screen.findByRole("alertdialog")).toBeInTheDocument();
+  });
 });
 
 describe("Sheet", () => {
