@@ -23,6 +23,7 @@ import { SONNER_CONFIGURATOR } from "./configurators/sonner";
 import { SWITCH_CONFIGURATOR } from "./configurators/switch";
 import { TABS_CONFIGURATOR } from "./configurators/tabs";
 import { TOGGLE_GROUP_CONFIGURATOR } from "./configurators/toggle-group";
+import { TOOLTIP_CONFIGURATOR } from "./configurators/tooltip";
 import type { ExampleSpec } from "./example";
 import { BUTTON_EXAMPLES } from "./examples/button";
 import { CHECKBOX_EXAMPLES, INPUT_EXAMPLES } from "./examples/input";
@@ -55,7 +56,7 @@ export function examplesFor(exportName: string): ExampleSpec[] {
 /**
  * The Configurator registry — export name → its configurator, if any.
  *
- * Flagships first (Button, Switch, Dialog), then Sheet, Select, Popover, Slider, Sonner, NumberField, Accordion, Progress, Field, ToggleGroup, Meter, Autocomplete, Drawer, Menu, Menubar, Pagination, Snackbar, Tabs: one entry per
+ * Flagships first (Button, Switch, Dialog), then Sheet, Select, Popover, Slider, Sonner, NumberField, Accordion, Progress, Field, ToggleGroup, Meter, Autocomplete, Drawer, Menu, Menubar, Pagination, Snackbar, Tabs, Tooltip: one entry per
  * component, same keying as EXAMPLES, so a family page looks its
  * configurator up the same way. The harness is proven; further components
  * plug in here with zero template edits.
@@ -71,6 +72,7 @@ export const CONFIGURATORS: Record<string, ConfiguratorSpec> = {
   Switch: SWITCH_CONFIGURATOR,
   Tabs: TABS_CONFIGURATOR,
   ToggleGroup: TOGGLE_GROUP_CONFIGURATOR,
+  Tooltip: TOOLTIP_CONFIGURATOR,
   Dialog: DIALOG_CONFIGURATOR,
   Drawer: DRAWER_CONFIGURATOR,
   Field: FIELD_CONFIGURATOR,

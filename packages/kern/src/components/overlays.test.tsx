@@ -242,6 +242,22 @@ describe("Tooltip", () => {
     await user.hover(screen.getByRole("button", { name: "Save" }));
     expect(await screen.findByText("Save changes")).toBeInTheDocument();
   });
+
+  it("stays hidden when disabled", () => {
+    // Edge composition, carried from the move-5 Group lesson: the disabled
+    // knob kills the tip even forced open via defaultOpen — no timers, no
+    // hover-delay guessing. Sensitivity-proven: the same assertions on an
+    // enabled tip fail (scratch probe, RED confirmed, deleted).
+    render(
+      <Tooltip.Provider>
+        <Tooltip.Root disabled defaultOpen>
+          <Tooltip.Trigger>Save</Tooltip.Trigger>
+          <Tooltip.Content>Save changes</Tooltip.Content>
+        </Tooltip.Root>
+      </Tooltip.Provider>,
+    );
+    expect(screen.queryByText("Save changes")).toBeNull();
+  });
 });
 
 describe("Menu", () => {
