@@ -132,6 +132,29 @@ describe("Search", () => {
     await user.click(screen.getByRole("button", { name: "Clear search" }));
     expect(input).toHaveValue("");
   });
+
+  it("mounts prefilled and submits the preset", async () => {
+    // Edge composition, carried from the move-5 Group lesson: the query
+    // knob prefills the stage, so the test pins the preset submitted and
+    // cleared. Sensitivity-proven: asserting a different query fails
+    // (scratch probe, RED confirmed, deleted).
+    const user = userEvent.setup();
+    const seen: string[] = [];
+    render(
+      <Search
+        label="Docs"
+        defaultValue="tokens"
+        onSearch={(q) => seen.push(q)}
+      />,
+    );
+    const input = screen.getByRole("searchbox", { name: "Docs" });
+    expect(input).toHaveValue("tokens");
+    await user.click(input);
+    await user.keyboard("{Enter}");
+    expect(seen).toEqual(["tokens"]);
+    await user.click(screen.getByRole("button", { name: "Clear search" }));
+    expect(input).toHaveValue("");
+  });
 });
 
 describe("CheckboxGroup", () => {
