@@ -38,10 +38,17 @@ jobs:
       - name: Verify publishable packages
         run: bun run check:publish
 
+      # Founder HOLD / no Version Packages or publish until RELEASE_CHANGESSETS=true
+      # is set (and Actions may create PRs); do not set this while publish hold is on.
+      - name: Skip Version Packages / publish (gated)
+        if: ${{ vars.RELEASE_CHANGESSETS != 'true' }}
+        run: echo 'RELEASE_CHANGESSETS!=true — build+verify only (founder HOLD).'
+
       # npm auth: v2 no longer writes .npmrc from NPM_TOKEN; setup-node
       # registry-url emits one that reads NODE_AUTH_TOKEN. Trusted Publishing
       # (id-token: write) covers provenance when configured on npm.
       - uses: actions/setup-node@v4
+        if: ${{ vars.RELEASE_CHANGESSETS == 'true' }}
         with:
           node-version: "22"
           registry-url: "https://registry.npmjs.org"
@@ -50,6 +57,7 @@ jobs:
       # After merge, a workflow_dispatch smoke (without publishing) is part of
       # the test plan.
       - name: Create release PR or publish
+        if: ${{ vars.RELEASE_CHANGESSETS == 'true' }}
         uses: changesets/action@v2
         with:
           version-script: bun run version-packages

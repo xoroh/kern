@@ -98,6 +98,14 @@ tightening to `^0.1.0` happens in the same commit that first sets `0.1.0`.
 Ruled and parked in `.team/reports/S1-rulings.md` §S1.4 — do not write the
 range early, and do not "fix" it to `^0.1.0` before the bump lands.
 
+## Founder HOLD — build+verify only
+
+While founder HOLD is on (npm publish / 0.1.0 timing), the Release workflow runs
+Install → Build → Verify only. Version Packages PR creation and npm publish are
+gated behind the repo Actions variable `RELEASE_CHANGESSETS=true` (and the
+Actions permission to create pull requests). Do not enable that variable until
+Faroeq lifts the hold.
+
 ## Release workflow action
 
 The Release workflow (`.github/workflows/release.yml`) uses `changesets/action@v2`.
