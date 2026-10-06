@@ -1,0 +1,126 @@
+{
+  "page": "web/navigation-menu",
+  "measured": false,
+  "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+  "demos": {
+    "NavigationMenu": {
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "keyboard-operable",
+          "expect": "gap",
+          "provenance": "derived",
+          "basis": "NavigationMenu is interactive but navigation-menu.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 4 line(s) in navigation-menu.ts — roles, names and states are stated, not assumed"
+        }
+      ]
+    },
+    "NavigationMenuRoot": {
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "keyboard-operable",
+          "expect": "gap",
+          "provenance": "derived",
+          "basis": "NavigationMenuRoot is interactive but navigation-menu.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 4 line(s) in navigation-menu.ts — roles, names and states are stated, not assumed"
+        }
+      ]
+    },
+    "NavigationMenuList": {
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "keyboard-operable",
+          "expect": "gap",
+          "provenance": "derived",
+          "basis": "NavigationMenuList is interactive but navigation-menu.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 4 line(s) in navigation-menu.ts — roles, names and states are stated, not assumed"
+        }
+      ]
+    },
+    "NavigationMenuItem": {
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "keyboard-operable",
+          "expect": "gap",
+          "provenance": "derived",
+          "basis": "NavigationMenuItem is interactive but navigation-menu.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 4 line(s) in navigation-menu.ts — roles, names and states are stated, not assumed"
+        }
+      ]
+    },
+    "NavigationMenuTrigger": {
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "keyboard-operable",
+          "expect": "gap",
+          "provenance": "derived",
+          "basis": "NavigationMenuTrigger is interactive but navigation-menu.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 4 line(s) in navigation-menu.ts — roles, names and states are stated, not assumed"
+        }
+      ]
+    },
+    "NavigationMenuContent": {
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "keyboard-operable",
+          "expect": "gap",
+          "provenance": "derived",
+          "basis": "NavigationMenuContent is interactive but navigation-menu.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 4 line(s) in navigation-menu.ts — roles, names and states are stated, not assumed"
+        }
+      ]
+    },
+    "NavigationMenuLink": {
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "keyboard-operable",
+          "expect": "gap",
+          "provenance": "derived",
+          "basis": "NavigationMenuLink is interactive but navigation-menu.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 4 line(s) in navigation-menu.ts — roles, names and states are stated, not assumed"
+        }
+      ]
+    }
+  }
+}

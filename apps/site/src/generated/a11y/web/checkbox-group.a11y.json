@@ -1,0 +1,58 @@
+{
+  "page": "web/checkbox-group",
+  "measured": false,
+  "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+  "demos": {
+    "CheckboxGroup": {
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "keyboard-operable",
+          "expect": "gap",
+          "provenance": "derived",
+          "basis": "CheckboxGroup is interactive but checkbox-group.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 4 line(s) in checkbox-group.ts — roles, names and states are stated, not assumed"
+        }
+      ]
+    },
+    "CheckboxGroupRoot": {
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "keyboard-operable",
+          "expect": "gap",
+          "provenance": "derived",
+          "basis": "CheckboxGroupRoot is interactive but checkbox-group.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 4 line(s) in checkbox-group.ts — roles, names and states are stated, not assumed"
+        }
+      ]
+    },
+    "CheckboxGroupItem": {
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "keyboard-operable",
+          "expect": "gap",
+          "provenance": "derived",
+          "basis": "CheckboxGroupItem is interactive but checkbox-group.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 4 line(s) in checkbox-group.ts — roles, names and states are stated, not assumed"
+        }
+      ]
+    }
+  }
+}

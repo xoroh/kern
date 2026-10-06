@@ -1,0 +1,43 @@
+{
+  "page": "web/sidebar",
+  "measured": false,
+  "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+  "demos": {
+    "SidebarProvider": {
+      "hasLiveDemo": false,
+      "expectations": []
+    },
+    "Sidebar": {
+      "hasLiveDemo": false,
+      "expectations": []
+    },
+    "SidebarHeader": {
+      "hasLiveDemo": false,
+      "expectations": []
+    },
+    "SidebarContent": {
+      "hasLiveDemo": false,
+      "expectations": []
+    },
+    "SidebarFooter": {
+      "hasLiveDemo": false,
+      "expectations": []
+    },
+    "SidebarItem": {
+      "hasLiveDemo": false,
+      "expectations": []
+    },
+    "NavigationRail": {
+      "hasLiveDemo": false,
+      "expectations": []
+    },
+    "NavigationRailButton": {
+      "hasLiveDemo": false,
+      "expectations": []
+    },
+    "SectionDrawer": {
+      "hasLiveDemo": false,
+      "expectations": []
+    }
+  }
+}

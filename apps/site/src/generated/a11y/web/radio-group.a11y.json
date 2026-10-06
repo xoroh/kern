@@ -1,0 +1,41 @@
+{
+  "page": "web/radio-group",
+  "measured": false,
+  "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+  "demos": {
+    "RadioGroup": {
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "keyboard-operable",
+          "expect": "gap",
+          "provenance": "derived",
+          "basis": "RadioGroup is interactive but radio-group.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 4 line(s) in radio-group.ts — roles, names and states are stated, not assumed"
+        }
+      ]
+    },
+    "RadioGroupItem": {
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "keyboard-operable",
+          "expect": "gap",
+          "provenance": "derived",
+          "basis": "RadioGroupItem is interactive but radio-group.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 4 line(s) in radio-group.ts — roles, names and states are stated, not assumed"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "page": "web/separator",
+  "measured": false,
+  "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+  "demos": {
+    "Separator": {
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "focusable",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "Separator is a non-interactive part (separator.ts: nonInteractive) — takes no focus, so no keyboard trap or missing-focus-indicator finding can apply"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 3 line(s) in separator.ts — roles, names and states are stated, not assumed"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "page": "web/menubar",
+  "measured": false,
+  "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+  "demos": {
+    "Menubar": {
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "keyboard-operable",
+          "expect": "gap",
+          "provenance": "derived",
+          "basis": "Menubar is interactive but menubar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 4 line(s) in menubar.ts — roles, names and states are stated, not assumed"
+        }
+      ]
+    },
+    "MenubarRoot": {
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "keyboard-operable",
+          "expect": "gap",
+          "provenance": "derived",
+          "basis": "MenubarRoot is interactive but menubar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 4 line(s) in menubar.ts — roles, names and states are stated, not assumed"
+        }
+      ]
+    },
+    "MenubarMenu": {
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "keyboard-operable",
+          "expect": "gap",
+          "provenance": "derived",
+          "basis": "MenubarMenu is interactive but menubar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 4 line(s) in menubar.ts — roles, names and states are stated, not assumed"
+        }
+      ]
+    },
+    "MenubarTrigger": {
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "keyboard-operable",
+          "expect": "gap",
+          "provenance": "derived",
+          "basis": "MenubarTrigger is interactive but menubar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 4 line(s) in menubar.ts — roles, names and states are stated, not assumed"
+        }
+      ]
+    },
+    "MenubarContent": {
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "keyboard-operable",
+          "expect": "gap",
+          "provenance": "derived",
+          "basis": "MenubarContent is interactive but menubar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 4 line(s) in menubar.ts — roles, names and states are stated, not assumed"
+        }
+      ]
+    },
+    "MenubarItem": {
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "keyboard-operable",
+          "expect": "gap",
+          "provenance": "derived",
+          "basis": "MenubarItem is interactive but menubar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 4 line(s) in menubar.ts — roles, names and states are stated, not assumed"
+        }
+      ]
+    }
+  }
+}

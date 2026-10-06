@@ -1,0 +1,11 @@
+{
+  "page": "web/dock-sheet",
+  "measured": false,
+  "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+  "demos": {
+    "DockSheet": {
+      "hasLiveDemo": false,
+      "expectations": []
+    }
+  }
+}

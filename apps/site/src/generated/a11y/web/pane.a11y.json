@@ -1,0 +1,31 @@
+{
+  "page": "web/pane",
+  "measured": false,
+  "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+  "demos": {
+    "Pane": {
+      "hasLiveDemo": false,
+      "expectations": []
+    },
+    "Page": {
+      "hasLiveDemo": false,
+      "expectations": []
+    },
+    "SplitGrid": {
+      "hasLiveDemo": false,
+      "expectations": []
+    },
+    "SplitPanel": {
+      "hasLiveDemo": false,
+      "expectations": []
+    },
+    "ListDetail": {
+      "hasLiveDemo": false,
+      "expectations": []
+    },
+    "Inspector": {
+      "hasLiveDemo": false,
+      "expectations": []
+    }
+  }
+}

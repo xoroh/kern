@@ -131,6 +131,17 @@ export const GENERATORS = [
     outputs: ["apps/site/public/llms.txt"],
   },
   {
+    // Part 7 per-demo a11y expectations: content docs x demo registries ->
+    // src/generated/a11y/*/*.a11y.json (canonical, reviewers read these) +
+    // src/generated/a11y.ts (same objects as a TS barrel — tsc has no
+    // resolveJsonModule, so the component page imports the barrel; both
+    // serializations come from one object, freshness-compared as a unit).
+    // --preload mirrors the vite react-native alias under bun.
+    name: "site generate-a11y (content x registries -> a11y JSON + barrel)",
+    cmd: ["bun", "--preload", "apps/site/scripts/preload-rn.mjs", "apps/site/scripts/generate-a11y.mjs"],
+    outputs: ["apps/site/src/generated/a11y", "apps/site/src/generated/a11y.ts"],
+  },
+  {
     // F1 (review-m3): the compiler-extracted props tables Section 10 reads.
     // Same omission class — one script, two outputs (props.ts is the full
     // extraction, props-table.ts the runtime-slim curated table), so both

@@ -13,9 +13,9 @@
     "preview": "vite preview",
     "typecheck": "bun run --cwd .. check:dist:types && tsc --noEmit",
     "deploy": "bun run build && wrangler deploy",
-    "generate": "bun run scripts/generate-manifest.mjs && bun run scripts/generate-changelog.mjs && bun run scripts/generate-legal.mjs && bun run scripts/generate-props.mjs && bun run scripts/generate-llms.mjs",
+    "generate": "bun run scripts/generate-manifest.mjs && bun run scripts/generate-changelog.mjs && bun run scripts/generate-legal.mjs && bun run scripts/generate-props.mjs && bun run scripts/generate-llms.mjs && bun --preload ./scripts/preload-rn.mjs scripts/generate-a11y.mjs",
     "check:snippets": "bun run --cwd .. check:dist:types && bun run scripts/check-snippets.mjs",
-    "check:docs": "node scripts/check-docs.mjs && node scripts/check-spec-urls.mjs && node scripts/check-typescale.mjs && node scripts/check-headings.mjs && node scripts/check-props.mjs && node scripts/check-nav.mjs && bun scripts/check-search.mjs && bun scripts/check-examples.mjs && bun scripts/check-tokens.mjs && bun scripts/check-markdown.mjs",
+    "check:docs": "node scripts/check-docs.mjs && node scripts/check-spec-urls.mjs && node scripts/check-typescale.mjs && node scripts/check-headings.mjs && node scripts/check-props.mjs && node scripts/check-nav.mjs && bun scripts/check-search.mjs && bun scripts/check-examples.mjs && bun scripts/check-tokens.mjs && bun scripts/check-markdown.mjs && bun --preload ./scripts/preload-rn.mjs scripts/check-a11y.mjs",
     "generate:routes": "tsr generate"
   },
   "dependencies": {

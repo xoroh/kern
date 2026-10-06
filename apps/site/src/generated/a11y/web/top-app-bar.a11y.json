@@ -1,0 +1,39 @@
+{
+  "page": "web/top-app-bar",
+  "measured": false,
+  "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+  "demos": {
+    "TopAppBar": {
+      "hasLiveDemo": false,
+      "expectations": []
+    },
+    "TopAppBarToggle": {
+      "hasLiveDemo": false,
+      "expectations": []
+    },
+    "AppTopBar": {
+      "hasLiveDemo": false,
+      "expectations": []
+    },
+    "TopBarMenu": {
+      "hasLiveDemo": false,
+      "expectations": []
+    },
+    "AppsMenu": {
+      "hasLiveDemo": false,
+      "expectations": []
+    },
+    "HelpMenu": {
+      "hasLiveDemo": false,
+      "expectations": []
+    },
+    "NotificationsMenu": {
+      "hasLiveDemo": false,
+      "expectations": []
+    },
+    "UserMenu": {
+      "hasLiveDemo": false,
+      "expectations": []
+    }
+  }
+}

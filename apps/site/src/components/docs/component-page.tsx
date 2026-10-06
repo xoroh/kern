@@ -34,6 +34,8 @@ import type {
 } from "../../content/types";
 import { MOBILE_DEMOS } from "../../demos/mobile/registry";
 import { WEB_DEMOS } from "../../demos/web/registry";
+import type { A11yPage } from "../../generated/a11y";
+import { A11Y } from "../../generated/a11y";
 import { PROPS_TABLE } from "../../generated/props-table";
 import { Configurator } from "../../showcase/configurator";
 import { ExampleList } from "../../showcase/example";
@@ -710,6 +712,58 @@ function Customization({ doc }: { doc: ComponentDoc }) {
     </div>
   );
 }
+/**
+ * Per-demo axe expectations (Part 7). One entry per demo (export): the rule,
+ * whether axe should pass/gap/fail it, and the provenance mark that keeps
+ * generated-vs-authored from blurring. The measured:false line is the whole
+ * honesty model — no axe runner exists in this repo, so these are stated
+ * expectations to run axe against, not results. Renders in BOTH Accessibility
+ * branches: a page with no written contract is exactly where
+ * machine-readable gaps matter most.
+ */
+function DemoExpectations({ page }: { page: A11yPage | undefined }) {
+  if (!page) return null;
+  const names = Object.keys(page.demos);
+  if (names.length === 0) return null;
+  return (
+    <>
+      <Heading id="demo-expectations" level={3}>
+        Per-demo expectations
+      </Heading>
+      <p className={PROSE}>
+        What axe should report against each live demo — expectations, not
+        measurements. Nothing here was observed in a browser; run axe against
+        the demo to measure. Entries marked derived restate a claim this page
+        already makes (the basis names it); entries marked authored record new
+        human judgment.
+      </p>
+      <ul className={`m-0 flex flex-col gap-3 pl-5 ${BODY}`}>
+        {names.map((name) => {
+          const demo = page.demos[name];
+          return (
+            <li key={name}>
+              <strong>{name}</strong>{" "}
+              <span className={SMALL}>
+                {demo.hasLiveDemo
+                  ? "(live demo)"
+                  : "(no live demo — nothing to run axe against)"}
+              </span>
+              {demo.expectations.length > 0 && (
+                <ul className="m-0 mt-1 flex list-disc flex-col gap-1 pl-5">
+                  {demo.expectations.map((e, i) => (
+                    <li key={i} className={SMALL}>
+                      {e.rule} — {e.expect} ({e.provenance}): {e.basis}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </>
+  );
+}
 
 /* -------------------------------------------------- 8. accessibility */
 
@@ -718,9 +772,17 @@ function Customization({ doc }: { doc: ComponentDoc }) {
  * kern claim (behaviour comes from the primitives), so it sits in the trust
  * position rather than being the last thing on the page. Three parts:
  * keyboard contract, ARIA contract, and — when there are any — known gaps,
- * stated plainly.
+ * stated plainly. Plus the Part 7 per-demo expectations tail, in both
+ * branches.
  */
-function Accessibility({ doc }: { doc: ComponentDoc }) {
+function Accessibility({
+  doc,
+  platform,
+}: {
+  doc: ComponentDoc;
+  platform: Platform;
+}) {
+  const a11y = A11Y[`${platform}/${doc.slug}`];
   const keyboard = doc.keyboard;
   const aria = doc.aria ?? [];
   const gaps = doc.accessibilityGaps ?? [];
@@ -743,6 +805,7 @@ function Accessibility({ doc }: { doc: ComponentDoc }) {
             ? "Not applicable. This is a non-interactive part — it takes no focus, has no keyboard interaction and exposes no ARIA state of its own, so there is no behaviour to contract for. Anything it does for assistive technology comes from the primitives it renders."
             : "Not yet documented. This component is interactive, so it does have keyboard and ARIA behaviour — the contract just has not been written up here yet. Treat this section as a gap, not as an absence of requirements."}
         </p>
+        <DemoExpectations page={a11y} />
       </section>
     );
   }
@@ -821,6 +884,7 @@ function Accessibility({ doc }: { doc: ComponentDoc }) {
           </ul>
         </div>
       )}
+      <DemoExpectations page={a11y} />
     </section>
   );
 }
@@ -1315,7 +1379,7 @@ export function ComponentPage({
       {/* integrate */}
       <Theming doc={doc} />
       {/* trust */}
-      <Accessibility doc={doc} />
+      <Accessibility doc={doc} platform={platform} />
       <Conformance doc={doc} />
       {/* look up */}
       <ApiReference doc={doc} />

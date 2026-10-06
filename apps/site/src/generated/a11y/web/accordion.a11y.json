@@ -1,0 +1,109 @@
+{
+  "page": "web/accordion",
+  "measured": false,
+  "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+  "demos": {
+    "Accordion": {
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "keyboard-operable",
+          "expect": "gap",
+          "provenance": "derived",
+          "basis": "Accordion is interactive but accordion.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 4 line(s) in accordion.ts — roles, names and states are stated, not assumed"
+        }
+      ]
+    },
+    "AccordionRoot": {
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "keyboard-operable",
+          "expect": "gap",
+          "provenance": "derived",
+          "basis": "AccordionRoot is interactive but accordion.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 4 line(s) in accordion.ts — roles, names and states are stated, not assumed"
+        }
+      ]
+    },
+    "AccordionItem": {
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "keyboard-operable",
+          "expect": "gap",
+          "provenance": "derived",
+          "basis": "AccordionItem is interactive but accordion.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 4 line(s) in accordion.ts — roles, names and states are stated, not assumed"
+        }
+      ]
+    },
+    "AccordionHeader": {
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "keyboard-operable",
+          "expect": "gap",
+          "provenance": "derived",
+          "basis": "AccordionHeader is interactive but accordion.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 4 line(s) in accordion.ts — roles, names and states are stated, not assumed"
+        }
+      ]
+    },
+    "AccordionTrigger": {
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "keyboard-operable",
+          "expect": "gap",
+          "provenance": "derived",
+          "basis": "AccordionTrigger is interactive but accordion.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 4 line(s) in accordion.ts — roles, names and states are stated, not assumed"
+        }
+      ]
+    },
+    "AccordionPanel": {
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "keyboard-operable",
+          "expect": "gap",
+          "provenance": "derived",
+          "basis": "AccordionPanel is interactive but accordion.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 4 line(s) in accordion.ts — roles, names and states are stated, not assumed"
+        }
+      ]
+    }
+  }
+}
