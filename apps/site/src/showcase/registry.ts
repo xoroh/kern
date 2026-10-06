@@ -14,6 +14,7 @@ import { DIALOG_CONFIGURATOR } from "./configurators/dialog";
 import { DRAWER_CONFIGURATOR } from "./configurators/drawer";
 import { FIELD_CONFIGURATOR } from "./configurators/field";
 import { FORM_CONFIGURATOR } from "./configurators/form";
+import { INPUT_OTP_CONFIGURATOR } from "./configurators/input-otp";
 import { MENU_CONFIGURATOR } from "./configurators/menu";
 import { MENUBAR_CONFIGURATOR } from "./configurators/menubar";
 import { METER_CONFIGURATOR } from "./configurators/meter";
@@ -66,7 +67,7 @@ export function examplesFor(exportName: string): ExampleSpec[] {
 /**
  * The Configurator registry — export name → its configurator, if any.
  *
- * Flagships first (Button, Switch, Dialog), then Sheet, Select, Popover, Slider, Sonner, NumberField, Accordion, Progress, Field, ToggleGroup, Meter, Autocomplete, Drawer, Menu, Menubar, Pagination, Snackbar, Tabs, Tooltip, NavigationMenu, Collapsible, CountrySelect, CheckboxGroup, Chip, Search, AlertDialog, PreviewCard, Form: one entry per
+ * Flagships first (Button, Switch, Dialog), then Sheet, Select, Popover, Slider, Sonner, NumberField, Accordion, Progress, Field, ToggleGroup, Meter, Autocomplete, Drawer, Menu, Menubar, Pagination, Snackbar, Tabs, Tooltip, NavigationMenu, Collapsible, CountrySelect, CheckboxGroup, Chip, Search, AlertDialog, PreviewCard, Form, InputOTP: one entry per
  * component, same keying as EXAMPLES, so a family page looks its
  * configurator up the same way. The harness is proven; further components
  * plug in here with zero template edits. Latest: ContextMenu (move-35).
@@ -94,6 +95,7 @@ export const CONFIGURATORS: Record<string, ConfiguratorSpec> = {
   Drawer: DRAWER_CONFIGURATOR,
   Field: FIELD_CONFIGURATOR,
   Form: FORM_CONFIGURATOR,
+  InputOTP: INPUT_OTP_CONFIGURATOR,
   Menu: MENU_CONFIGURATOR,
   Menubar: MENUBAR_CONFIGURATOR,
   Sheet: SHEET_CONFIGURATOR,

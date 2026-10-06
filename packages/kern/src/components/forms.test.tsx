@@ -125,6 +125,24 @@ describe("InputOTP", () => {
     const group = screen.getByRole("group", { name: "Code" });
     expect(within(group).getAllByRole("textbox")).toHaveLength(4);
   });
+
+  it("masks slots as password inputs", () => {
+    // Edge composition, carried from the move-5 Group lesson: the mask knob
+    // changes the slots' rendered type, so the test pins no textbox
+    // remaining. Sensitivity-proven: the same query on an unmasked render
+    // finds four textboxes (scratch probe, RED confirmed, deleted).
+    render(
+      <InputOTP.Root length={4} mask aria-label="Code">
+        <InputOTP.Input />
+        <InputOTP.Input />
+        <InputOTP.Input />
+        <InputOTP.Input />
+      </InputOTP.Root>,
+    );
+    const group = screen.getByRole("group", { name: "Code" });
+    expect(within(group).queryAllByRole("textbox")).toHaveLength(0);
+    expect(group.querySelectorAll('input[type="password"]')).toHaveLength(4);
+  });
 });
 
 describe("NativeSelect", () => {
