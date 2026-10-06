@@ -185,6 +185,66 @@ check(
   `durations ${MOTION_DURATION.length} != source`,
 );
 
+// ---- (c) spot values: one rendered value per family vs its source value ----
+// Shapes (b) catch wrong-KEY slices; only values catch wrong-VALUE slices
+// (dark rendered as light, shifted ramps, swapped encodings). One spot per
+// family, both sides read — the expected value is never typed here.
+// All three sections run before the single summary below, so one run reports
+// every failure class instead of exiting at the first.
+const byName = (rows, field, name) => rows.find((r) => r[field] === name);
+const role = byName(COLOR_ROLES, "name", "primary");
+check(role?.light === light.primary, `spot color: primary light ${role?.light} != theme ${light.primary}`);
+check(role?.dark === kernTheme.color.dark.primary, `spot color: primary dark ${role?.dark} != theme`);
+const style = byName(TYPE_STYLES, "role", "display-large");
+const srcStyle = t.typography.scale["display-large"];
+check(style?.fontSize === String(srcStyle.size), `spot type: display-large size ${style?.fontSize} != source`);
+check(style?.fontWeight === String(srcStyle.weight), `spot type: display-large weight mismatch`);
+check(style?.lineHeight === String(srcStyle.lineHeight), `spot type: display-large line-height mismatch`);
+check(style?.letterSpacing === String(srcStyle.tracking), `spot type: display-large tracking mismatch`);
+check(
+  byName(SPACING, "key", "space-100")?.value === t.spacing["space-100"],
+  `spot spacing: space-100 mismatch`,
+);
+check(
+  byName(SHAPE, "key", "medium")?.value === t.shape.medium,
+  `spot shape: medium mismatch`,
+);
+const level1 = byName(ELEVATION_LEVELS, "level", "level1");
+check(level1?.dp === t.elevation.level1.dp && level1?.shadow === t.elevation.level1.shadow, `spot elevation: level1 dp/shadow mismatch`);
+check(
+  byName(STATES, "key", "hover-opacity")?.value === t.states["hover-opacity"],
+  `spot states: hover-opacity mismatch`,
+);
+check(
+  byName(MOTION_EASING, "key", "easing.standard")?.value === t.motion.easing.standard,
+  `spot motion: easing.standard mismatch`,
+);
+check(
+  byName(MOTION_DURATION, "key", "duration.short1")?.value === t.motion.duration.short1,
+  `spot motion: duration.short1 mismatch`,
+);
+const spring = MOTION_SPRING.find((s) => s.name === "spatial-default");
+check(
+  spring?.stiffness === t.motion.spring["spatial-default"].stiffness &&
+    spring?.damping === t.motion.spring["spatial-default"].damping,
+  `spot motion: spatial-default stiffness/damping mismatch`,
+);
+const neutral500 = PALETTES.find((r) => r.name === "neutral")?.steps.find((s) => s.step === "500");
+check(
+  neutral500?.srgb === t.palettes.neutral["500"].srgb && neutral500?.oklch === t.palettes.neutral["500"].oklch,
+  `spot palette: neutral.500 srgb/oklch mismatch`,
+);
+const gray500 = SPECTRUM.find((r) => r.name === "gray")?.steps.find((s) => s.step === "500");
+check(
+  gray500?.srgb === t.spectrum.gray["500"].srgb,
+  `spot spectrum: gray.500 srgb mismatch`,
+);
+const bg = byName(BASE_ANCHORS, "name", "background");
+check(
+  bg?.srgb === t.base.background.srgb && bg?.oklch === t.base.background.oklch,
+  `spot base: background srgb/oklch mismatch`,
+);
+
 if (errors > 0) {
   console.error(`check-tokens: ${errors} error(s)`);
   process.exit(1);
