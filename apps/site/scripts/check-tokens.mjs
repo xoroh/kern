@@ -205,14 +205,32 @@ check(
 // every failure class instead of exiting at the first.
 const byName = (rows, field, name) => rows.find((r) => r[field] === name);
 const role = byName(COLOR_ROLES, "name", "primary");
-spot(role?.light === light.primary, `spot color: primary light ${role?.light} != theme ${light.primary}`);
-spot(role?.dark === kernTheme.color.dark.primary, `spot color: primary dark ${role?.dark} != theme`);
+spot(
+  role?.light === light.primary,
+  `spot color: primary light ${role?.light} != theme ${light.primary}`,
+);
+spot(
+  role?.dark === kernTheme.color.dark.primary,
+  `spot color: primary dark ${role?.dark} != theme`,
+);
 const style = byName(TYPE_STYLES, "role", "display-large");
 const srcStyle = t.typography.scale["display-large"];
-spot(style?.fontSize === String(srcStyle.size), `spot type: display-large size ${style?.fontSize} != source`);
-spot(style?.fontWeight === String(srcStyle.weight), `spot type: display-large weight mismatch`);
-spot(style?.lineHeight === String(srcStyle.lineHeight), `spot type: display-large line-height mismatch`);
-spot(style?.letterSpacing === String(srcStyle.tracking), `spot type: display-large tracking mismatch`);
+spot(
+  style?.fontSize === String(srcStyle.size),
+  `spot type: display-large size ${style?.fontSize} != source`,
+);
+spot(
+  style?.fontWeight === String(srcStyle.weight),
+  `spot type: display-large weight mismatch`,
+);
+spot(
+  style?.lineHeight === String(srcStyle.lineHeight),
+  `spot type: display-large line-height mismatch`,
+);
+spot(
+  style?.letterSpacing === String(srcStyle.tracking),
+  `spot type: display-large tracking mismatch`,
+);
 spot(
   byName(SPACING, "key", "space-100")?.value === t.spacing["space-100"],
   `spot spacing: space-100 mismatch`,
@@ -222,17 +240,23 @@ spot(
   `spot shape: medium mismatch`,
 );
 const level1 = byName(ELEVATION_LEVELS, "level", "level1");
-spot(level1?.dp === t.elevation.level1.dp && level1?.shadow === t.elevation.level1.shadow, `spot elevation: level1 dp/shadow mismatch`);
+spot(
+  level1?.dp === t.elevation.level1.dp &&
+    level1?.shadow === t.elevation.level1.shadow,
+  `spot elevation: level1 dp/shadow mismatch`,
+);
 spot(
   byName(STATES, "key", "hover-opacity")?.value === t.states["hover-opacity"],
   `spot states: hover-opacity mismatch`,
 );
 spot(
-  byName(MOTION_EASING, "key", "easing.standard")?.value === t.motion.easing.standard,
+  byName(MOTION_EASING, "key", "easing.standard")?.value ===
+    t.motion.easing.standard,
   `spot motion: easing.standard mismatch`,
 );
 spot(
-  byName(MOTION_DURATION, "key", "duration.short1")?.value === t.motion.duration.short1,
+  byName(MOTION_DURATION, "key", "duration.short1")?.value ===
+    t.motion.duration.short1,
   `spot motion: duration.short1 mismatch`,
 );
 const spring = MOTION_SPRING.find((s) => s.name === "spatial-default");
@@ -241,12 +265,17 @@ spot(
     spring?.damping === t.motion.spring["spatial-default"].damping,
   `spot motion: spatial-default stiffness/damping mismatch`,
 );
-const neutral500 = PALETTES.find((r) => r.name === "neutral")?.steps.find((s) => s.step === "500");
+const neutral500 = PALETTES.find((r) => r.name === "neutral")?.steps.find(
+  (s) => s.step === "500",
+);
 spot(
-  neutral500?.srgb === t.palettes.neutral["500"].srgb && neutral500?.oklch === t.palettes.neutral["500"].oklch,
+  neutral500?.srgb === t.palettes.neutral["500"].srgb &&
+    neutral500?.oklch === t.palettes.neutral["500"].oklch,
   `spot palette: neutral.500 srgb/oklch mismatch`,
 );
-const gray500 = SPECTRUM.find((r) => r.name === "gray")?.steps.find((s) => s.step === "500");
+const gray500 = SPECTRUM.find((r) => r.name === "gray")?.steps.find(
+  (s) => s.step === "500",
+);
 spot(
   gray500?.srgb === t.spectrum.gray["500"].srgb,
   `spot spectrum: gray.500 srgb mismatch`,

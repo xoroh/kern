@@ -69,7 +69,9 @@ for (const [exp, rows] of Object.entries(GEN)) {
       );
     }
   }
-  const missing = rows.filter((r) => !documented.has(r.name)).map((r) => r.name);
+  const missing = rows
+    .filter((r) => !documented.has(r.name))
+    .map((r) => r.name);
   if (missing.length) {
     uncovered += missing.length;
     uncoveredByExport.push(`${exp}: ${missing.join(", ")}`);

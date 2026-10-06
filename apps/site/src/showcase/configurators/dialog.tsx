@@ -69,9 +69,7 @@ export const DIALOG_CONFIGURATOR: ConfiguratorSpec = {
       {/* `render`, not nesting: the trigger already renders a native button,
           so a Button child would be button-in-button (React refuses to
           hydrate that). The render element carries the trigger behaviour. */}
-      <Dialog.Trigger
-        render={<Button variant="tonal">Open dialog</Button>}
-      />
+      <Dialog.Trigger render={<Button variant="tonal">Open dialog</Button>} />
       <Dialog.Content modal={modalOf(v)}>
         <Dialog.Title>Delete this project?</Dialog.Title>
         <Dialog.Description>

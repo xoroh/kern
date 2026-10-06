@@ -43,4 +43,6 @@ if (errors > 0) {
   process.exit(1);
 }
 const total = [...Object.values(EXAMPLES)].reduce((n, s) => n + s.length, 0);
-console.log(`check-examples: ok — ${total} example(s), ids unique, code non-blank`);
+console.log(
+  `check-examples: ok — ${total} example(s), ids unique, code non-blank`,
+);

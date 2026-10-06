@@ -328,8 +328,8 @@ export const studioTheme = defineThemePreset({
               <h2 id="preview" className={`m-0 ${T_SMALL_TITLE} ${INK}`}>
                 Live preview
               </h2>
-              <div
-                aria-label="Themed component preview"
+              <section
+                aria-labelledby="preview"
                 style={vars as React.CSSProperties}
                 className="flex flex-col gap-5 rounded-(--md-sys-shape-corner-large) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface) p-6"
               >
@@ -364,7 +364,7 @@ export const studioTheme = defineThemePreset({
                     </div>
                   </div>
                 </Card>
-              </div>
+              </section>
               <p className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
                 A component assembly for judging the theme — not registry blocks
                 (those do not exist yet). Every pixel above resolves a role from

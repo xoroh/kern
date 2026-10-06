@@ -61,16 +61,21 @@ function Contributing() {
               generated artifacts are current — not that anything was seen
               render.
             </p>
-            <ol className={`m-0 flex max-w-[62ch] flex-col gap-3 pl-5 ${T_BODY} ${INK_SOFT}`}>
+            <ol
+              className={`m-0 flex max-w-[62ch] flex-col gap-3 pl-5 ${T_BODY} ${INK_SOFT}`}
+            >
               <li>
-                <strong className={INK}>Changeset</strong> — every PR touching
-                a published package under <code className={CODE}>packages/</code>{" "}
-                adds one: <code className={CODE}>bun run changeset</code>.
-                Check what would release:{" "}
-                <code className={CODE}>bun x changeset status</code>.
-                Docs-only and CI-only changes need none. The rules for choosing
-                a bump and naming packages are in{" "}
-                <a href={blob("docs/conventions/changesets.md")} className={LINK}>
+                <strong className={INK}>Changeset</strong> — every PR touching a
+                published package under <code className={CODE}>packages/</code>{" "}
+                adds one: <code className={CODE}>bun run changeset</code>. Check
+                what would release:{" "}
+                <code className={CODE}>bun x changeset status</code>. Docs-only
+                and CI-only changes need none. The rules for choosing a bump and
+                naming packages are in{" "}
+                <a
+                  href={blob("docs/conventions/changesets.md")}
+                  className={LINK}
+                >
                   docs/conventions/changesets.md
                 </a>
                 .
@@ -78,8 +83,9 @@ function Contributing() {
               <li>
                 <strong className={INK}>Docs in the same change</strong> — never
                 defer. If you changed a component, token, or convention, update
-                the matching page: the site (<code className={CODE}>apps/site/</code>),
-                the generated inventory (
+                the matching page: the site (
+                <code className={CODE}>apps/site/</code>), the generated
+                inventory (
                 <code className={CODE}>bun run generate:components</code>), the
                 parity tables, or the skill refs. The docs skill (
                 <a href={blob(".agents/skills/docs/SKILL.md")} className={LINK}>
@@ -91,8 +97,8 @@ function Contributing() {
                 <strong className={INK}>Lint clean</strong> —{" "}
                 <code className={CODE}>bun run lint</code> passes;{" "}
                 <code className={CODE}>bun run format</code> fixes. Config:{" "}
-                <code className={CODE}>biome.json</code> (lint + format +
-                import order).
+                <code className={CODE}>biome.json</code> (lint + format + import
+                order).
               </li>
               <li>
                 <strong className={INK}>Types and tests pass</strong> —{" "}
@@ -155,8 +161,8 @@ function Contributing() {
             <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>
               Composition (blocks, scaffolds) belongs in{" "}
               <code className={CODE}>@xoroh/kern/start</code> and stays
-              domain-free: auth, routing, and tenancy arrive as props and
-              slots, never as dependencies.
+              domain-free: auth, routing, and tenancy arrive as props and slots,
+              never as dependencies.
             </p>
           </div>
 
@@ -170,7 +176,7 @@ function Contributing() {
               so a clean build proves they are reproducible.
             </p>
             <pre className="m-0 overflow-x-auto rounded-(--md-sys-shape-corner-large) bg-(--md-sys-color-surface-container-high) p-4 font-mono text-[13px] leading-relaxed text-(--md-sys-color-on-surface)">
-{`packages/kern-tokens/src/tokens.css      bun run generate:tokens
+              {`packages/kern-tokens/src/tokens.css      bun run generate:tokens
 packages/kern-tokens/src/tones.css       bun run generate:tones
 packages/kern-tokens/src/motion.css      bun run generate:motion
 packages/mcp/src/manifest.ts            bun run generate:components
