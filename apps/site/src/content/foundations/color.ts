@@ -8,7 +8,7 @@
  * prose on the Color page reads these, so the "45 roles" claim can never be
  * a literal that drifts.
  */
-import { type Json, theme } from "./tokens";
+import { type Json, theme, tokens } from "./tokens";
 
 const color = (theme.color ?? {}) as Json;
 const light = (color.light ?? {}) as Json;
@@ -133,6 +133,15 @@ function groupOf(name: string): ColorGroup {
   return ROLE_GROUP[name] ?? "surface";
 }
 
+/**
+ * Exported for `check-tokens`: the `?? "surface"` fallback above is a silent
+ * misfile for any future role nobody registered. The gate asserts every
+ * non-kern theme role has an explicit entry here, so a new role renders
+ * ungrouped-noise (a gate failure) rather than a wrong band (a quiet lie).
+ */
+export const ROLE_GROUP_ENTRIES: Readonly<Record<string, ColorGroup>> =
+  ROLE_GROUP;
+
 export type ColorGroupBand = {
   group: ColorGroup;
   label: string;
@@ -196,3 +205,63 @@ export const COLOR_GROUP_COUNTS: {
   count: b.roles.length,
   isKern: b.isKern,
 }));
+
+/**
+ * Where roles come from — the construction layer beneath the matrix.
+ *
+ * Roles are decisions; ramps are the material they are decided from. Three
+ * layers, each generated from `tokens.json`, each rendered on the Color page
+ * so the construction story is visible rather than asserted:
+ *
+ * - BASE anchors (5): the named starting colors with both encodings.
+ * - PALETTES (6 ramps): curated role-source ramps.
+ * - SPECTRUM (11 hues x 11 steps): the full tonal field.
+ *
+ * A ramp step carries both encodings (`oklch` canonical, `srgb` compiled);
+ * the page renders the srgb and prints both. Steps are ordered light to dark
+ * by numeric step, not by source order — source order is an authoring
+ * accident, numeric order is the scale.
+ */
+export type RampStep = { step: string; oklch: string; srgb: string };
+export type Ramp = { name: string; steps: RampStep[] };
+
+function rampOf(node: unknown): RampStep[] {
+  const steps = (node ?? {}) as Json;
+  return Object.keys(steps)
+    .filter((k) => !k.startsWith("$"))
+    .sort((a, b) => Number(a) - Number(b))
+    .map((step) => {
+      const pair = (steps[step] ?? {}) as Json;
+      return {
+        step,
+        oklch: String(pair.oklch ?? ""),
+        srgb: String(pair.srgb ?? ""),
+      };
+    });
+}
+
+const palettes = ((tokens as Json).palettes ?? {}) as Json;
+export const PALETTES: Ramp[] = Object.keys(palettes)
+  .filter((k) => !k.startsWith("$"))
+  .sort()
+  .map((name) => ({ name, steps: rampOf(palettes[name]) }));
+
+const spectrum = ((tokens as Json).spectrum ?? {}) as Json;
+export const SPECTRUM: Ramp[] = Object.keys(spectrum)
+  .filter((k) => !k.startsWith("$"))
+  .sort()
+  .map((name) => ({ name, steps: rampOf(spectrum[name]) }));
+
+const base = ((tokens as Json).base ?? {}) as Json;
+export const BASE_ANCHORS: { name: string; oklch: string; srgb: string }[] =
+  Object.keys(base)
+    .filter((k) => !k.startsWith("$"))
+    .sort()
+    .map((name) => {
+      const pair = (base[name] ?? {}) as Json;
+      return {
+        name,
+        oklch: String(pair.oklch ?? ""),
+        srgb: String(pair.srgb ?? ""),
+      };
+    });

@@ -12,6 +12,7 @@ import { createFileRoute, notFound } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 import { SiteLayout } from "../../components/chrome/site-layout";
 import {
+  BASE_ANCHORS,
   COLOR_GROUPS,
   COLOR_ROLES,
   ELEVATION_LEVELS,
@@ -20,10 +21,12 @@ import {
   MOTION_DURATION,
   MOTION_EASING,
   MOTION_SPRING,
+  PALETTES,
   ROLE_BY_NAME,
   ROLE_COUNT,
   SHAPE,
   SPACING,
+  SPECTRUM,
   STATES,
   TYPE_STYLE_COUNT,
   TYPE_STYLES,
@@ -78,15 +81,41 @@ function TokensPage() {
         </FProse>
       </FSection>
       <FSection id="groups" title="What kern ships">
-        <ul className="m-0 flex flex-col gap-2 pl-5">
+        <ul className="m-0 flex flex-col gap-1 pl-5">
           <li>Colour — {ROLE_COUNT} roles per scheme</li>
           <li>Type — {TYPE_STYLE_COUNT} styles</li>
           <li>Shape — {SHAPE.length} corner roles</li>
           <li>Elevation — {ELEVATION_LEVELS.length} levels (dp and shadow)</li>
           <li>Motion — easings, durations, springs and two schemes</li>
-          <li>Spacing — {SPACING.length} steps</li>
           <li>States — {STATES.length} layer opacities</li>
         </ul>
+      </FSection>
+
+      <FSection id="spacing-scale" title="Spacing scale">
+        <FProse>
+          {SPACING.length} steps, each drawn at its own width — the bar IS the
+          token, so a wrong value shows as a wrong bar rather than a wrong
+          number beside a right one.
+        </FProse>
+        <div className="flex flex-col gap-2">
+          {SPACING.map((leaf) => (
+            <div key={leaf.key} className="flex items-center gap-3">
+              <span
+                className={`w-24 shrink-0 font-mono ${T_LABEL} ${F_INK_SOFT}`}
+              >
+                {leaf.key}
+              </span>
+              <div
+                aria-hidden="true"
+                className="h-4 rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-primary)"
+                style={{ width: String(leaf.value) }}
+              />
+              <span className={`font-mono ${T_LABEL} ${F_INK_SOFT}`}>
+                {String(leaf.value)}
+              </span>
+            </div>
+          ))}
+        </div>
       </FSection>
     </>
   );
@@ -221,6 +250,80 @@ function ColorPage() {
             </li>
           ))}
         </ul>
+      </FSection>
+
+      <FSection id="where-roles-come-from" title="Where roles come from">
+        <FProse>
+          Roles are decisions; ramps are the material they are decided from.{" "}
+          {BASE_ANCHORS.length} anchors name the starting colors,{" "}
+          {PALETTES.length} curated ramps feed the roles, and the{" "}
+          {SPECTRUM.length}-hue spectrum is the full tonal field — all three
+          generated from the token package, each step carrying its canonical
+          oklch and its compiled srgb. This is the same construction the theme
+          configurator&apos;s seed walks when it repaints a primary family.
+        </FProse>
+        <h3 className={`m-0 ${T_SMALL_TITLE} ${F_INK}`} id="base-anchors">
+          Base anchors — {BASE_ANCHORS.length}
+        </h3>
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+          {BASE_ANCHORS.map((a) => (
+            <div
+              key={a.name}
+              className={`${F_CARD} flex items-center gap-3 p-3`}
+            >
+              <div
+                className="h-10 w-14 shrink-0 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant)"
+                style={{ background: a.srgb }}
+                aria-hidden="true"
+              />
+              <div className="flex flex-col gap-0.5">
+                <span className={`m-0 ${T_SMALL_TITLE} ${F_INK}`}>
+                  {a.name}
+                </span>
+                <span className={`m-0 font-mono ${T_LABEL} ${F_INK_SOFT}`}>
+                  {a.srgb}
+                </span>
+                <span className={`m-0 font-mono ${T_LABEL} ${F_INK_SOFT}`}>
+                  {a.oklch}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+        {[
+          { id: "palettes", title: "Palettes", ramps: PALETTES },
+          { id: "spectrum", title: "Spectrum", ramps: SPECTRUM },
+        ].map((group) => (
+          <div key={group.id} className="mt-6">
+            <h3 className={`m-0 mb-2 ${T_SMALL_TITLE} ${F_INK}`} id={group.id}>
+              {group.title} — {group.ramps.length} ramps
+            </h3>
+            <div className="flex flex-col gap-3">
+              {group.ramps.map((ramp) => (
+                <div key={ramp.name}>
+                  <p className={`m-0 mb-1 font-mono ${T_LABEL} ${F_INK_SOFT}`}>
+                    {ramp.name}
+                  </p>
+                  <div
+                    role="img"
+                    aria-label={`${ramp.name} ramp, ${ramp.steps.length} steps light to dark`}
+                    className="flex overflow-hidden rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant)"
+                  >
+                    {ramp.steps.map((s) => (
+                      <div
+                        key={s.step}
+                        title={`${ramp.name} ${s.step}: ${s.srgb} · ${s.oklch}`}
+                        aria-hidden="true"
+                        className="h-8 flex-1"
+                        style={{ background: s.srgb }}
+                      />
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
       </FSection>
     </>
   );

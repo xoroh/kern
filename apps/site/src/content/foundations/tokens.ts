@@ -35,8 +35,11 @@ export function flatten(
 ) {
   if (node && typeof node === "object") {
     for (const [k, v] of Object.entries(node as Json)) {
-      // `$comment` is documentation riding along with the tokens, not a token.
-      if (k === "$comment") continue;
+      // `$`-prefixed keys are DTCG metadata (today only `$comment`), not
+      // tokens. The match is on the PREFIX, not the one known key: a future
+      // `$meta` or `$extensions` must fall out the same way `$comment` does,
+      // or source syntax leaks into reader copy again (the M-A class).
+      if (k.startsWith("$")) continue;
       if (v && typeof v === "object") flatten(v, `${prefix}${k}.`, out);
       else out[`${prefix}${k}`] = v;
     }
@@ -55,6 +58,6 @@ export function group(name: string): Leaf[] {
 export function subgroups(name: string): { key: string; node: Json }[] {
   const node = (tokens[name] ?? {}) as Json;
   return Object.entries(node)
-    .filter(([k, v]) => k !== "$comment" && v && typeof v === "object")
+    .filter(([k, v]) => !k.startsWith("$") && v && typeof v === "object")
     .map(([key, v]) => ({ key, node: v as Json }));
 }
