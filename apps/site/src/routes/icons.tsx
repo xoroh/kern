@@ -28,8 +28,8 @@ function Icons() {
             <h1 className={`m-0 ${T_PAGE} ${INK}`}>Icon gallery</h1>
             <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>
               Every icon in the set, searchable. Names and counts are read from
-              the icon package at build time — the grid paints the first 120
-              for server-render cost and the filter reaches the rest.
+              the icon package at build time — the grid paints the first 120 for
+              server-render cost and the filter reaches the rest.
             </p>
           </header>
           <IconGallery />

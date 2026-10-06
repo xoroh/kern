@@ -33,14 +33,12 @@ function Accessibility() {
             <p className={`m-0 ${T_LABEL} ${INK_SOFT} uppercase`}>
               Accessibility
             </p>
-            <h1 className={`m-0 ${T_PAGE} ${INK}`}>
-              Accessibility statement
-            </h1>
+            <h1 className={`m-0 ${T_PAGE} ${INK}`}>Accessibility statement</h1>
             <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>
-              Kern targets WCAG 2.2 AA for everything it ships. This page
-              states what is checked today, what is not yet checked, and how
-              to report a barrier. It claims no conformance level — that needs
-              an audit first.
+              Kern targets WCAG 2.2 AA for everything it ships. This page states
+              what is checked today, what is not yet checked, and how to report
+              a barrier. It claims no conformance level — that needs an audit
+              first.
             </p>
           </header>
 
@@ -56,8 +54,8 @@ function Accessibility() {
               <a href="/docs/contributing" className={LINK}>
                 contributing
               </a>
-              ). The M3 state-layer opacities — including the 38% disabled
-              layer — are asserted by <code className={CODE}>check:kern</code>.
+              ). The M3 state-layer opacities — including the 38% disabled layer
+              — are asserted by <code className={CODE}>check:kern</code>.
             </p>
           </div>
 
@@ -76,8 +74,8 @@ function Accessibility() {
               </a>
               ). Keyboard order, focus visibility, and screen-reader behaviour
               are therefore reviewed by hand, not proven by a gate. Until an
-              independent audit happens, treat this statement as intent plus
-              the contrast gate — not certification.
+              independent audit happens, treat this statement as intent plus the
+              contrast gate — not certification.
             </p>
           </div>
 
@@ -93,10 +91,7 @@ function Accessibility() {
               using the bug template — say what you used (keyboard, screen
               reader and version, browser) and what blocked you. For a
               security-sensitive report, see{" "}
-              <a
-                href={`${REPO}/blob/main/SECURITY.md`}
-                className={LINK}
-              >
+              <a href={`${REPO}/blob/main/SECURITY.md`} className={LINK}>
                 SECURITY.md
               </a>{" "}
               instead of a public issue.

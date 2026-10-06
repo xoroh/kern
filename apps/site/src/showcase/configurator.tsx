@@ -103,7 +103,10 @@ export function Configurator({ spec }: { spec: ConfiguratorSpec }) {
   }, [spec]);
 
   return (
-    <figure ref={rootRef} className={`${FRAME} m-0 flex flex-col overflow-hidden`}>
+    <figure
+      ref={rootRef}
+      className={`${FRAME} m-0 flex flex-col overflow-hidden`}
+    >
       <figcaption className="flex flex-col gap-1 border-b border-(--md-sys-color-outline-variant) px-6 py-4">
         <h3
           id={`configurator-${spec.id}`}

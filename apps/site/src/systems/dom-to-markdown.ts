@@ -78,7 +78,7 @@ function inline(n: MdNode): string {
 function blocks(n: MdNode, out: string[]): void {
   const tag = n.tag;
   if (tag === "pre") {
-    out.push("```\n" + raw(n).replace(/\n+$/, "") + "\n```");
+    out.push(`\`\`\`\n${raw(n).replace(/\n+$/, "")}\n\`\`\``);
     return;
   }
   if (/^h[1-4]$/.test(tag)) {
@@ -128,12 +128,10 @@ function blocks(n: MdNode, out: string[]): void {
 export function nodeToMarkdown(root: MdNode): string {
   const out: string[] = [];
   blocks(root, out);
-  return (
-    out
-      .join("\n\n")
-      .replace(/\n{3,}/g, "\n\n")
-      .trim() + "\n"
-  );
+  return `${out
+    .join("\n\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim()}\n`;
 }
 
 function adapt(el: Element): MdNode | null {

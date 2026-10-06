@@ -69,7 +69,11 @@ export function Example({ spec }: { spec: ExampleSpec }) {
     let next: (typeof order)[number] | null = null;
     if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
       const i = order.indexOf(tab);
-      next = order[(i + (event.key === "ArrowRight" ? 1 : order.length - 1)) % order.length];
+      next =
+        order[
+          (i + (event.key === "ArrowRight" ? 1 : order.length - 1)) %
+            order.length
+        ];
     } else if (event.key === "Home") {
       next = order[0];
     } else if (event.key === "End") {
