@@ -81,9 +81,11 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
  *   3. `git -C <ROOT> rev-parse --show-toplevel`, then its parent — covers a
  *      clone checked out somewhere unrelated to the monorepo layout.
  *
- * If none of those find `.team`, the gate says WHICH paths it tried. A
- * resolution that fails silently is what produced the misleading run in the
- * first place.
+ * If none of those find `.team`, the gate SKIPS (exit 0) with a loud message
+ * naming every path tried and stating that rulings/deviations were not
+ * verified. Public CI must not fail closed on a private registry that is not
+ * vendored. When `.team` is present, the gate remains fail-closed and does
+ * not silently omit ruling rows.
  */
 function findTeamRoot() {
   const tried = [];
@@ -96,7 +98,7 @@ function findTeamRoot() {
 
   // 1. the normal monorepo: kern/ sits beside .team/
   const sibling = accept(resolve(ROOT, ".."));
-  if (sibling) return sibling;
+  if (sibling) return { root: sibling, tried };
 
   const git = (...args) => {
     try {
@@ -113,35 +115,52 @@ function findTeamRoot() {
   const superproject = git("rev-parse", "--show-superproject-working-tree");
   if (superproject) {
     const found = accept(superproject);
-    if (found) return found;
+    if (found) return { root: found, tried };
   }
 
   // 3. an ordinary clone somewhere else on disk.
   const top = git("rev-parse", "--show-toplevel");
   if (top) {
     const found = accept(resolve(top, ".."));
-    if (found) return found;
+    if (found) return { root: found, tried };
   }
 
   // 4. last resort: an explicit override, for a layout none of the above fits.
+  //    Accepts either the `.team` directory itself (KERN_TEAM_ROOT=/path/.team)
+  //    or the directory that contains it (KERN_TEAM_ROOT=/path).
   if (process.env.KERN_TEAM_ROOT) {
-    const found = accept(resolve(process.env.KERN_TEAM_ROOT));
-    if (found) return found;
+    const override = resolve(process.env.KERN_TEAM_ROOT);
+    tried.push(override);
+    if (existsSync(override) && /(?:^|[\\/])\.team$/.test(override)) {
+      return { root: override, tried };
+    }
+    const found = accept(override);
+    if (found) return { root: found, tried };
   }
 
-  console.error(
-    "check:elevation-parity: could not locate the `.team` registry.\n" +
-      `  Looked for:\n${tried.map((t) => `    ${t}`).join("\n")}\n` +
-      "  Set KERN_TEAM_ROOT to the directory CONTAINING .team/ and re-run.\n" +
-      "  Without it the ruling table and the deviations registry cannot be\n" +
-      "  read, so every one-sided row falls back to OPEN and the deviation\n" +
-      "  ids cannot resolve — this run would fail for a reason unrelated to\n" +
-      "  elevation.",
-  );
-  process.exit(1);
+  // Public CI clones kern alone — no private `.team`. Fail-closed here would
+  // red-line every PR for a missing registry that is intentionally not vendored.
+  // Skip loudly instead: name every path tried, and say rulings/deviations were
+  // NOT verified. When `.team` IS present (monorepo, worktree, or KERN_TEAM_ROOT),
+  // the gate still fail-closes below — never silently omit ruling rows.
+  return { root: null, tried };
 }
 
-const TEAM_ROOT = findTeamRoot();
+function resolveTeamRoot() {
+  const { root, tried } = findTeamRoot();
+  if (root) return root;
+  console.log(
+    "check:elevation-parity: SKIPPED — `.team` registry not found.\n" +
+      `  Looked for:\n${tried.map((t) => `    ${t}`).join("\n")}\n` +
+      "  Ruling table and deviations registry were NOT verified.\n" +
+      "  This is expected for a standalone kern checkout / public CI (private\n" +
+      "  `.team` is not vendored). To run the full gate locally, set\n" +
+      "  KERN_TEAM_ROOT to the `.team` directory (or its parent) and re-run.",
+  );
+  process.exit(0);
+}
+
+const TEAM_ROOT = resolveTeamRoot();
 const WEB = join(ROOT, "packages", "kern", "src", "components");
 const NATIVE = join(ROOT, "packages", "kern-native", "src", "components");
 const DEVIATIONS = join(TEAM_ROOT, "programs", "K-01-deviations.md");
