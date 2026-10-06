@@ -271,7 +271,7 @@ function DocsIndex() {
                   href="/llms.txt"
                   className={`text-(--md-sys-color-primary) ${T_BODY_SM}`}
                 >
-                  llms.txt →
+                  <span className="font-mono">llms.txt</span> →
                 </a>{" "}
                 <span className={`m-0 ${T_BODY_SM} ${SOFT}`}>
                   the page map, generated from the nav — never hand-maintained.
