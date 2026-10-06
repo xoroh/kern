@@ -216,6 +216,38 @@ describe("Toggle", () => {
     await user.click(toggle);
     expect(toggle).toHaveAttribute("aria-pressed", "true");
   });
+
+  it("mounts pressed with defaultPressed and no pointer", () => {
+    render(
+      <Toggle defaultPressed aria-label="Bold">
+        B
+      </Toggle>,
+    );
+    expect(screen.getByRole("button", { name: "Bold" })).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+  });
+
+  it("shut mount starts unpressed", () => {
+    render(<Toggle aria-label="Bold">B</Toggle>);
+    expect(screen.getByRole("button", { name: "Bold" })).toHaveAttribute(
+      "aria-pressed",
+      "false",
+    );
+  });
+
+  it("disabled blocks pressing", async () => {
+    const user = userEvent.setup();
+    render(
+      <Toggle disabled aria-label="Bold">
+        B
+      </Toggle>,
+    );
+    const toggle = screen.getByRole("button", { name: "Bold" });
+    await user.click(toggle);
+    expect(toggle).toHaveAttribute("aria-pressed", "false");
+  });
 });
 
 describe("ToggleGroup", () => {
