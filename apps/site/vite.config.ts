@@ -15,6 +15,11 @@ const reactNativeAlias = {
 };
 
 const config = defineConfig({
+  server: {
+    // Dev-tunnel hosts (founder-approved 2026-10-05): Pinggy free hostnames are
+    // random per connection, so the parent domains are allowlisted once.
+    allowedHosts: [".run.pinggy-free.link", ".free.pinggy.net"],
+  },
   resolve: {
     tsconfigPaths: true,
     alias: reactNativeAlias,
