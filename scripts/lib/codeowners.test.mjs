@@ -6,12 +6,7 @@ import { describe, expect, test } from "bun:test";
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import {
-  globToRegExp,
-  matchesPath,
-  ownerOf,
-  parseCodeowners,
-} from "./codeowners.mjs";
+import { matchesPath, ownerOf, parseCodeowners } from "./codeowners.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "../..");
 
@@ -47,7 +42,10 @@ describe("globToRegExp / matchesPath", () => {
       matchesPath("packages/*/tsconfig.json", "packages/kern/tsconfig.json"),
     ).toBe(true);
     expect(
-      matchesPath("packages/*/tsconfig.json", "packages/kern/src/tsconfig.json"),
+      matchesPath(
+        "packages/*/tsconfig.json",
+        "packages/kern/src/tsconfig.json",
+      ),
     ).toBe(false);
   });
 
