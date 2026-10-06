@@ -39,7 +39,7 @@
       "assist": { "enabled": false }
     },
     {
-      "includes": ["**/routeTree.gen.ts"],
+      "includes": ["apps/site/src/routeTree.gen.ts"],
       "formatter": { "enabled": false },
       "linter": { "enabled": false },
       "assist": { "enabled": false }
