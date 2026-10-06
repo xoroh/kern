@@ -16,6 +16,20 @@ import { Text } from "./text";
 
 export type TopAppBarSize = "small" | "center" | "medium";
 
+/**
+ * R2 size foundation, re-homed (T1): M3 sizes onto `KernSize`.
+ * `center` is alignment, not scale (same 64dp as `small`), so it is
+ * intentionally absent — like `icon` on Button. Exhaustive over the
+ * mapped names; adding a scaled size extends this map.
+ */
+export const TOP_APP_BAR_SIZE_TO_KERN_SIZE = {
+  small: "sm",
+  medium: "md",
+} as const satisfies Record<
+  Exclude<TopAppBarSize, "center">,
+  "sm" | "md" | "lg"
+>;
+
 export const TOP_APP_BAR_HEIGHTS: Record<TopAppBarSize, number> = {
   small: 64,
   center: 64,

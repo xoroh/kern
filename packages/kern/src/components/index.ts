@@ -68,8 +68,19 @@ export type { BannerActionProps, BannerProps } from "./banner";
 export { Banner, BannerAction, bannerVariants } from "./banner";
 export type { BootIndicatorProps } from "./boot-indicator";
 export { BootIndicator } from "./boot-indicator";
-export type { ButtonProps } from "./button";
-export { Button, buttonVariants } from "./button";
+export type {
+  ButtonM3Variant,
+  ButtonProps,
+  ButtonSize,
+  ButtonVariant,
+  ButtonVariantInput,
+} from "./button";
+export {
+  BUTTON_SIZE_TO_KERN_SIZE,
+  BUTTON_VARIANT_ALIASES,
+  Button,
+  buttonVariants,
+} from "./button";
 export type { ButtonGroupProps } from "./button-group";
 export { ButtonGroup } from "./button-group";
 export type { CalendarProps } from "./calendar";

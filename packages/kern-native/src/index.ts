@@ -35,8 +35,17 @@ export { Avatar, avatarStyles } from "./components/avatar";
 export type { NativeBadgeProps } from "./components/badge";
 export { Badge } from "./components/badge";
 export { bottomSheetSurface } from "./components/bottom-sheet-surface";
-export type { NativeButtonProps } from "./components/button";
-export { Button } from "./components/button";
+export type {
+  NativeButtonM3Variant,
+  NativeButtonProps,
+  NativeButtonVariant,
+  NativeButtonVariantInput,
+} from "./components/button";
+export {
+  Button,
+  NATIVE_BUTTON_SIZE_TO_KERN_SIZE,
+  NATIVE_BUTTON_VARIANT_ALIASES,
+} from "./components/button";
 export type { NativeButtonGroupProps } from "./components/button-group";
 export { ButtonGroup } from "./components/button-group";
 export type { NativeCalendarProps } from "./components/calendar";
@@ -373,6 +382,7 @@ export type {
 } from "./components/top-app-bar";
 export {
   TOP_APP_BAR_HEIGHTS,
+  TOP_APP_BAR_SIZE_TO_KERN_SIZE,
   TopAppBar,
   TopAppBarAction,
   topAppBarStyles,

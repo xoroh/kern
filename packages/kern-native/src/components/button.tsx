@@ -21,6 +21,36 @@ export type NativeButtonVariant =
   | "ghost";
 export type NativeButtonSize = "default" | "sm" | "icon";
 
+/**
+ * R2 variant map, re-homed (T1): M3 names as aliases onto the Kern styles.
+ * `filled`/`text` resolve to existing styles — no new visuals. `elevated`
+ * already exists here, so it is not an alias. Exhaustive Record — new M3
+ * names break typecheck here.
+ */
+export type NativeButtonM3Variant = "filled" | "text";
+export const NATIVE_BUTTON_VARIANT_ALIASES: Record<
+  NativeButtonM3Variant,
+  NativeButtonVariant
+> = {
+  filled: "primary",
+  text: "ghost",
+};
+
+/** Accepted variant prop: Kern names or M3 aliases (normalized internally). */
+export type NativeButtonVariantInput =
+  | NativeButtonVariant
+  | NativeButtonM3Variant;
+
+/**
+ * R2 size foundation, re-homed (T1): Button sizes onto `KernSize`.
+ * `default` renders at md metrics, `sm` is `sm`; `icon` is shape, not
+ * scale, and is intentionally absent — same rule as the platform source.
+ */
+export const NATIVE_BUTTON_SIZE_TO_KERN_SIZE = {
+  default: "md",
+  sm: "sm",
+} as const;
+
 const HEIGHTS: Record<NativeButtonSize, number> = {
   default: 40,
   sm: 32,
@@ -74,7 +104,7 @@ export type NativeButtonProps = Omit<
   PressableProps,
   "onPress" | "accessibilityRole" | "accessibilityState"
 > & {
-  variant?: NativeButtonVariant;
+  variant?: NativeButtonVariantInput;
   size?: NativeButtonSize;
   children: ReactNode;
   onPress?: PressableProps["onPress"];
@@ -83,7 +113,7 @@ export type NativeButtonProps = Omit<
 };
 
 export function Button({
-  variant = "primary",
+  variant: variantInput = "primary",
   size = "default",
   children,
   onPress,
@@ -94,6 +124,12 @@ export function Button({
   ...props
 }: NativeButtonProps) {
   const { scheme } = useKernTheme();
+  // M3 aliases normalize to Kern names once, here — buttonStyles and the
+  // ripple below only ever see Kern names, so rendering cannot change.
+  const variant: NativeButtonVariant =
+    variantInput in NATIVE_BUTTON_VARIANT_ALIASES
+      ? NATIVE_BUTTON_VARIANT_ALIASES[variantInput as NativeButtonM3Variant]
+      : (variantInput as NativeButtonVariant);
   const styles = buttonStyles(variant, size, Boolean(disabled), scheme);
   return (
     <Pressable

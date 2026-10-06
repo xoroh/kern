@@ -1,6 +1,12 @@
 import type { LoadingIndicatorStyle } from "@xoroh/kern-tokens";
 import { cn } from "../utils/cn";
-import { type ButtonProps, buttonVariants } from "./button";
+import {
+  BUTTON_VARIANT_ALIASES,
+  type ButtonM3Variant,
+  type ButtonProps,
+  type ButtonVariant,
+  buttonVariants,
+} from "./button";
 import { CircularProgress } from "./circular-progress";
 
 export type LoadingButtonProps = ButtonProps & {
@@ -29,13 +35,18 @@ export function LoadingButton({
   children,
   ...props
 }: LoadingButtonProps) {
+  // Same M3-alias normalization as Button — the cva call only sees Kern names.
+  const kernVariant: ButtonVariant | undefined =
+    variant !== undefined && variant in BUTTON_VARIANT_ALIASES
+      ? BUTTON_VARIANT_ALIASES[variant as ButtonM3Variant]
+      : (variant as ButtonVariant | undefined);
   return (
     <button
       data-slot="loading-button"
       data-testid="loading-button"
       data-loading={loading ? "" : undefined}
       aria-busy={loading ? true : undefined}
-      className={cn(buttonVariants({ variant, size }), className)}
+      className={cn(buttonVariants({ variant: kernVariant, size }), className)}
       disabled={disabled || loading}
       type={type}
       {...props}

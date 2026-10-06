@@ -4,6 +4,7 @@
 
 export * from "./feedback";
 export * from "./functional";
+export * from "./sizes";
 export * from "./tokens";
 export * from "./tones";
 export * from "./variants";

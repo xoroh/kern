@@ -1,4 +1,4 @@
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
 import type { ComponentPropsWithRef } from "react";
 import { cn } from "../utils/cn";
 
@@ -33,16 +33,59 @@ const buttonVariants = cva(
   },
 );
 
-export type ButtonProps = ComponentPropsWithRef<"button"> &
-  VariantProps<typeof buttonVariants>;
+export type ButtonVariant =
+  | "elevated"
+  | "primary"
+  | "tonal"
+  | "outlined"
+  | "ghost";
+
+/**
+ * R2 variant map, re-homed (T1): M3 names as aliases onto the Kern styles.
+ * `filled`/`text` resolve to existing styles — no new visuals. `elevated`
+ * already exists here, so it is not an alias. `ghost`/`destructive` are Kern
+ * extensions (see docs/conventions/api-consistency.md). Exhaustive Record —
+ * new M3 names break typecheck here.
+ */
+export type ButtonM3Variant = "filled" | "text";
+export const BUTTON_VARIANT_ALIASES: Record<ButtonM3Variant, ButtonVariant> = {
+  filled: "primary",
+  text: "ghost",
+};
+
+/** Accepted variant prop: Kern names or M3 aliases (normalized internally). */
+export type ButtonVariantInput = ButtonVariant | ButtonM3Variant;
+
+export type ButtonSize = "default" | "sm" | "icon";
+
+/**
+ * R2 size foundation, re-homed (T1): Button sizes onto `KernSize`.
+ * `default` renders at md metrics, `sm` is `sm`; `icon` is shape, not
+ * scale, and is intentionally absent — same rule as the platform source.
+ */
+export const BUTTON_SIZE_TO_KERN_SIZE = {
+  default: "md",
+  sm: "sm",
+} as const;
+
+export type ButtonProps = Omit<ComponentPropsWithRef<"button">, "size"> & {
+  variant?: ButtonVariantInput;
+  size?: ButtonSize;
+};
 
 export function Button({
-  variant,
+  variant: variantInput = "primary",
   size,
   type = "button",
   className,
   ...props
 }: ButtonProps) {
+  // M3 aliases normalize to Kern names once, here — the cva call below only
+  // ever sees Kern names, so existing rendering cannot change.
+  const variant: ButtonVariant =
+    variantInput in BUTTON_VARIANT_ALIASES
+      ? BUTTON_VARIANT_ALIASES[variantInput as ButtonM3Variant]
+      : (variantInput as ButtonVariant);
   return (
     <button
       data-slot="button"

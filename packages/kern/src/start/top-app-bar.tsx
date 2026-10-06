@@ -1,8 +1,19 @@
+import type { KernSize } from "@xoroh/kern-tokens";
 import type { ComponentPropsWithRef, ReactNode } from "react";
 import { cn } from "../utils/cn";
 import { Link } from "./link";
 
 export type TopAppBarSize = "small" | "medium" | "large";
+
+/**
+ * R2 size foundation, re-homed (T1): M3 names kept as the alias, the
+ * foundation canonical. Exhaustive Record — a new size breaks typecheck.
+ */
+export const TOP_APP_BAR_SIZE_TO_KERN_SIZE: Record<TopAppBarSize, KernSize> = {
+  small: "sm",
+  medium: "md",
+  large: "lg",
+};
 
 const SIZES: Record<TopAppBarSize, string> = {
   small: "h-14 items-center",
