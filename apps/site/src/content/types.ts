@@ -127,6 +127,22 @@ export type MetadataStrip = {
   editUrl?: string;
   /** Bundle-size report. */
   bundleUrl?: string;
+  /**
+   * Part 8 freshness (material-web pattern): who owns this page's accuracy
+   * and when it was last reviewed, as `{ owner, reviewed }` with reviewed a
+   * `YYYY-MM-DD` date. OPTIONAL and almost entirely unfilled on purpose: a
+   * reviewed date must record a REAL review event, and inventing 192 dates
+   * would be the fabrication this whole rebuild exists to prevent. The gate
+   * (check-seo.mjs) validates the format when present and REPORTS missing
+   * pages by name — known debt, not a red gate. The page footer renders the
+   * line only when present; no line is itself the honest state.
+   */
+  freshness?: {
+    /** Lane or person accountable, e.g. `"site-se"`. Non-empty. */
+    owner: string;
+    /** Last real review, `YYYY-MM-DD`. */
+    reviewed: string;
+  };
 };
 
 /**

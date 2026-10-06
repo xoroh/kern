@@ -24,6 +24,7 @@
  * section by section.
  */
 
+import { useEffect, useState } from "react";
 import type { Platform } from "../../content/index";
 import type {
   ComponentDoc,
@@ -38,6 +39,7 @@ import type { A11yPage } from "../../generated/a11y";
 import { A11Y } from "../../generated/a11y";
 import { PROPS_TABLE } from "../../generated/props-table";
 import { Configurator } from "../../showcase/configurator";
+import { CopyButton } from "../../showcase/copy-button";
 import { ExampleList } from "../../showcase/example";
 import { configuratorFor, examplesFor } from "../../showcase/registry";
 import { maturityForExports } from "../../systems/maturity";
@@ -432,6 +434,78 @@ function installTarget(pkg: string): string {
   return pkg.startsWith("@") ? segments.slice(0, 2).join("/") : segments[0];
 }
 
+/**
+ * Install picker (Part 8, Mantine pattern). The package-manager tabs switch
+ * the install command; the choice persists per browser. No `kern add` mode:
+ * the CLI is v0.0.0 and unpublished (verified 404 on the registry), so a tab
+ * instructing `npx kern add` would teach a failing command. When the CLI
+ * publishes, the mode belongs here beside these four.
+ */
+const MANAGERS = [
+  { id: "npm", label: "npm", command: (t: string) => `npm i ${t}` },
+  { id: "bun", label: "bun", command: (t: string) => `bun add ${t}` },
+  { id: "pnpm", label: "pnpm", command: (t: string) => `pnpm add ${t}` },
+  { id: "yarn", label: "yarn", command: (t: string) => `yarn add ${t}` },
+] as const;
+
+type ManagerId = (typeof MANAGERS)[number]["id"];
+
+function InstallPicker({ target }: { target: string }) {
+  const [manager, setManager] = useState<ManagerId>("npm");
+  useEffect(() => {
+    try {
+      const stored = window.localStorage.getItem("kern-pkg-manager");
+      if (stored && MANAGERS.some((m) => m.id === stored)) {
+        setManager(stored as ManagerId);
+      }
+    } catch {
+      // Private mode / SSR: default npm stands.
+    }
+  }, []);
+  function choose(id: ManagerId) {
+    setManager(id);
+    try {
+      window.localStorage.setItem("kern-pkg-manager", id);
+    } catch {
+      // Choice still applies for the session.
+    }
+  }
+  const command =
+    MANAGERS.find((m) => m.id === manager)?.command(target) ??
+    `npm i ${target}`;
+  return (
+    <div className={`${CARD} flex flex-col gap-2 p-4`}>
+      <div
+        role="group"
+        aria-label="Package manager"
+        className="flex flex-wrap gap-1.5"
+      >
+        {MANAGERS.map((m) => (
+          <button
+            key={m.id}
+            type="button"
+            aria-pressed={manager === m.id}
+            onClick={() => choose(m.id)}
+            className={`rounded-(--md-sys-shape-corner-small) border px-2.5 py-1 ${SMALL} ${
+              manager === m.id
+                ? "border-(--md-sys-color-primary) bg-(--md-sys-color-primary-container) text-(--md-sys-color-on-primary-container)"
+                : "border-(--md-sys-color-outline) text-(--md-sys-color-on-surface-variant)"
+            }`}
+          >
+            {m.label}
+          </button>
+        ))}
+      </div>
+      <div className="flex items-center gap-2">
+        <pre className={`m-0 flex-1 overflow-x-auto ${CODE} ${INK}`}>
+          <code>{command}</code>
+        </pre>
+        <CopyButton text={command} />
+      </div>
+    </div>
+  );
+}
+
 function Installation({ doc }: { doc: ComponentDoc }) {
   const pkg = doc.meta.package;
   const target = installTarget(pkg);
@@ -442,10 +516,8 @@ function Installation({ doc }: { doc: ComponentDoc }) {
         Every export on this page ships in <code>{target}</code> and is imported
         from <code>{pkg}</code>. There is no per-component install.
       </p>
+      <InstallPicker target={target} />
       <div className={`${CARD} flex flex-col gap-2 p-4`}>
-        <pre className={`m-0 overflow-x-auto ${CODE} ${INK}`}>
-          <code>{`npm i ${target}`}</code>
-        </pre>
         <pre className={`m-0 overflow-x-auto ${CODE} ${INK}`}>
           <code>{`import { ${doc.parts[0]} } from "${pkg}";`}</code>
         </pre>
@@ -1314,6 +1386,17 @@ function Footer({
         >
           Report a problem with this page
         </a>
+        {/*
+          Part 8 freshness: owner + last real review, rendered ONLY when the
+          content records it. No line is the honest state for 192 unfilled
+          pages — a footer-wide "unreviewed" stamp would punish pages whose
+          content is fine but whose review was never recorded as an event.
+        */}
+        {doc.meta.freshness ? (
+          <span className={INK_SOFT}>
+            Reviewed {doc.meta.freshness.reviewed} · {doc.meta.freshness.owner}
+          </span>
+        ) : null}
       </div>
     </footer>
   );

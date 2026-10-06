@@ -4,6 +4,7 @@ import { ComponentGallery } from "../components/docs/component-gallery";
 import { Hero } from "../components/home/hero";
 import { WEB_DOCS } from "../content";
 import { COMPONENT_COUNT } from "../generated/manifest";
+import { SITE_JSON_LD } from "../systems/seo";
 
 export const Route = createFileRoute("/")({ component: Home });
 
@@ -11,6 +12,13 @@ function Home() {
   const documented = [...WEB_DOCS].reduce((n, doc) => n + doc.parts.length, 0);
   return (
     <SiteLayout>
+      {/* Part 8 SEO: machine-readable site identity. Rendered in body —
+          JSON-LD is valid there and crawlers read it; a head export would
+          need router head plumbing for one static block. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(SITE_JSON_LD) }}
+      />
       <Hero />
       <section
         className="px-4 py-4 sm:px-6 sm:py-6"
