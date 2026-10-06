@@ -18,4 +18,23 @@ describe("Card", () => {
     );
     expect(screen.getByTestId("card")).toHaveClass("border");
   });
+
+  // Move-39 edge: elevated lifts via the level-1 token class while filled
+  // carries no shadow — the variant knob's painted-verify axis.
+  it("lifts only the elevated variant", () => {
+    const { unmount } = render(
+      <Card variant="elevated" data-testid="card">
+        Hello
+      </Card>,
+    );
+    expect(screen.getByTestId("card")).toHaveClass(
+      "shadow-(--md-sys-elevation-level1)",
+    );
+    unmount();
+
+    render(<Card data-testid="card">Hello</Card>);
+    expect(screen.getByTestId("card")).not.toHaveClass(
+      "shadow-(--md-sys-elevation-level1)",
+    );
+  });
 });

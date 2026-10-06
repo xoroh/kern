@@ -4,6 +4,7 @@ import { ALERT_DIALOG_CONFIGURATOR } from "./configurators/alert-dialog";
 import { AUTOCOMPLETE_CONFIGURATOR } from "./configurators/autocomplete";
 import { BUTTON_CONFIGURATOR } from "./configurators/button";
 import { CALENDAR_CONFIGURATOR } from "./configurators/calendar";
+import { CARD_CONFIGURATOR } from "./configurators/card";
 import { CAROUSEL_CONFIGURATOR } from "./configurators/carousel";
 import { CHECKBOX_CONFIGURATOR } from "./configurators/checkbox";
 import { CHECKBOX_GROUP_CONFIGURATOR } from "./configurators/checkbox-group";
@@ -69,10 +70,10 @@ export function examplesFor(exportName: string): ExampleSpec[] {
 /**
  * The Configurator registry — export name → its configurator, if any.
  *
- * Flagships first (Button, Switch, Dialog), then Sheet, Select, Popover, Slider, Sonner, NumberField, Accordion, Progress, Field, ToggleGroup, Meter, Autocomplete, Drawer, Menu, Menubar, Pagination, Snackbar, Tabs, Tooltip, NavigationMenu, Collapsible, CountrySelect, CheckboxGroup, Chip, Search, AlertDialog, PreviewCard, Form, InputOTP, ContextMenu, Toggle, Carousel: one entry per
+ * Flagships first (Button, Switch, Dialog), then Sheet, Select, Popover, Slider, Sonner, NumberField, Accordion, Progress, Field, ToggleGroup, Meter, Autocomplete, Drawer, Menu, Menubar, Pagination, Snackbar, Tabs, Tooltip, NavigationMenu, Collapsible, CountrySelect, CheckboxGroup, Chip, Search, AlertDialog, PreviewCard, Form, InputOTP, ContextMenu, Toggle, Carousel, Card: one entry per
  * component, same keying as EXAMPLES, so a family page looks its
  * configurator up the same way. The harness is proven; further components
- * plug in here with zero template edits. Latest: Carousel (move-38).
+ * plug in here with zero template edits. Latest: Card (move-39).
  */
 export const CONFIGURATORS: Record<string, ConfiguratorSpec> = {
   Accordion: ACCORDION_CONFIGURATOR,
@@ -80,6 +81,7 @@ export const CONFIGURATORS: Record<string, ConfiguratorSpec> = {
   Autocomplete: AUTOCOMPLETE_CONFIGURATOR,
   Button: BUTTON_CONFIGURATOR,
   Calendar: CALENDAR_CONFIGURATOR,
+  Card: CARD_CONFIGURATOR,
   Carousel: CAROUSEL_CONFIGURATOR,
   Checkbox: CHECKBOX_CONFIGURATOR,
   CheckboxGroup: CHECKBOX_GROUP_CONFIGURATOR,
