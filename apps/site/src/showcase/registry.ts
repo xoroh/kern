@@ -2,6 +2,7 @@ import type { ConfiguratorSpec } from "./configurator";
 import { ACCORDION_CONFIGURATOR } from "./configurators/accordion";
 import { ALERT_DIALOG_CONFIGURATOR } from "./configurators/alert-dialog";
 import { AUTOCOMPLETE_CONFIGURATOR } from "./configurators/autocomplete";
+import { BADGE_CONFIGURATOR } from "./configurators/badge";
 import { BUTTON_CONFIGURATOR } from "./configurators/button";
 import { CALENDAR_CONFIGURATOR } from "./configurators/calendar";
 import { CARD_CONFIGURATOR } from "./configurators/card";
@@ -70,15 +71,16 @@ export function examplesFor(exportName: string): ExampleSpec[] {
 /**
  * The Configurator registry — export name → its configurator, if any.
  *
- * Flagships first (Button, Switch, Dialog), then Sheet, Select, Popover, Slider, Sonner, NumberField, Accordion, Progress, Field, ToggleGroup, Meter, Autocomplete, Drawer, Menu, Menubar, Pagination, Snackbar, Tabs, Tooltip, NavigationMenu, Collapsible, CountrySelect, CheckboxGroup, Chip, Search, AlertDialog, PreviewCard, Form, InputOTP, ContextMenu, Toggle, Carousel, Card: one entry per
+ * Flagships first (Button, Switch, Dialog), then Sheet, Select, Popover, Slider, Sonner, NumberField, Accordion, Progress, Field, ToggleGroup, Meter, Autocomplete, Drawer, Menu, Menubar, Pagination, Snackbar, Tabs, Tooltip, NavigationMenu, Collapsible, CountrySelect, CheckboxGroup, Chip, Search, AlertDialog, PreviewCard, Form, InputOTP, ContextMenu, Toggle, Carousel, Card, Badge: one entry per
  * component, same keying as EXAMPLES, so a family page looks its
  * configurator up the same way. The harness is proven; further components
- * plug in here with zero template edits. Latest: Card (move-39).
+ * plug in here with zero template edits. Latest: Badge.
  */
 export const CONFIGURATORS: Record<string, ConfiguratorSpec> = {
   Accordion: ACCORDION_CONFIGURATOR,
   AlertDialog: ALERT_DIALOG_CONFIGURATOR,
   Autocomplete: AUTOCOMPLETE_CONFIGURATOR,
+  Badge: BADGE_CONFIGURATOR,
   Button: BUTTON_CONFIGURATOR,
   Calendar: CALENDAR_CONFIGURATOR,
   Card: CARD_CONFIGURATOR,
