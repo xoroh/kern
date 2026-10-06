@@ -229,4 +229,16 @@ describe("Carousel", () => {
       document.querySelector("[data-slot='carousel-indicators']"),
     ).toBeNull();
   });
+
+  // Move-38 edge: middle mount exposes the middle slide with both controls
+  // live — the defaultIndex knob's painted-verify axis. Ends unclamped.
+  it("mounts the middle slide exposed with both controls live", () => {
+    render(<Carousel items={ITEMS} defaultIndex={1} />);
+    const slides = document.querySelectorAll("[data-slot='carousel-item']");
+    expect(slides[1]).not.toHaveAttribute("aria-hidden");
+    expect(slides[0]).toHaveAttribute("aria-hidden", "true");
+    expect(slides[2]).toHaveAttribute("aria-hidden", "true");
+    expect(screen.getByRole("button", { name: /previous/i })).toBeEnabled();
+    expect(screen.getByRole("button", { name: /next/i })).toBeEnabled();
+  });
 });
