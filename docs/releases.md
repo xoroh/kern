@@ -98,6 +98,14 @@ tightening to `^0.1.0` happens in the same commit that first sets `0.1.0`.
 Ruled and parked in `.team/reports/S1-rulings.md` §S1.4 — do not write the
 range early, and do not "fix" it to `^0.1.0` before the bump lands.
 
+## Release workflow action
+
+The Release workflow (`.github/workflows/release.yml`) uses `changesets/action@v2`.
+v2 renamed inputs (`version-script`, `publish-script`, `commit-message`, `pr-title`),
+takes `github-token` explicitly, and no longer writes `.npmrc` from `NPM_TOKEN` —
+npm auth is via `actions/setup-node` `registry-url` (plus Trusted Publishing /
+`id-token: write` for provenance).
+
 ## One-time setup (founder-gated; do once, then ignore)
 
 - Push the release workflow: `gh auth refresh -s workflow` (interactive),
