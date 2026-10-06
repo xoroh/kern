@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { CheckboxGroup } from "./checkbox-group";
 import { Drawer } from "./drawer";
+import { Field } from "./field";
 import { Fieldset } from "./fieldset";
 import { Form } from "./form";
 import { InputOTP } from "./input-otp";
@@ -46,6 +47,30 @@ describe("Form", () => {
     );
     await user.click(screen.getByRole("button", { name: "Send" }));
     expect(onSubmit).toHaveBeenCalledTimes(1);
+  });
+
+  it("flags a cleared required field without submit in onChange mode", async () => {
+    // Edge composition, carried from the move-5 Group lesson: the
+    // validation knob changes WHEN the error appears, so the test pins the
+    // timing — cleared while typing, no blur, no submit. Sensitivity-proven:
+    // the same actions under the default onSubmit mode show nothing, and a
+    // shut blur-only flow shows nothing either (scratch probes, RED
+    // confirmed, deleted).
+    const user = userEvent.setup();
+    render(
+      <Form validationMode="onChange">
+        <Field.Root>
+          <Field.Label>Full name</Field.Label>
+          <Field.Control aria-label="Full name" defaultValue="Ada" required />
+          <Field.Error match="valueMissing">Please enter your name</Field.Error>
+        </Field.Root>
+        ,
+      </Form>,
+    );
+    await user.clear(screen.getByRole("textbox", { name: "Full name" }));
+    expect(
+      await screen.findByText("Please enter your name"),
+    ).toBeInTheDocument();
   });
 });
 
