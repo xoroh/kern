@@ -33,6 +33,25 @@ const SKIP_TAGS = new Set([
   "nav",
 ]);
 
+/**
+ * The skip decision as a pure function of tag + attributes — exported FOR the
+ * gate. `adapt()` below is a thin wrapper over this table; the rule lives
+ * here so `check-markdown` pins it with one fixture per skip class instead
+ * of trusting the wrapper. (review-m3 Part 6 finding: the old fixtures ran
+ * `nodeToMarkdown` on hand-built trees, which never executes any skip —
+ * `inline()` emits button text, so the "controls are skipped" fixture passed
+ * for the wrong reason. The rule, not the wrapper, carries the tests.)
+ */
+export function shouldSkip(
+  tag: string,
+  attrs: { ariaHidden?: string | null; mdSkip?: boolean },
+): boolean {
+  if (SKIP_TAGS.has(tag)) return true;
+  if (attrs.ariaHidden === "true") return true;
+  if (attrs.mdSkip === true) return true;
+  return false;
+}
+
 function kids(n: MdNode): string {
   const s = n.children.map(inline).join("");
   return s || n.text;
@@ -119,9 +138,13 @@ export function nodeToMarkdown(root: MdNode): string {
 
 function adapt(el: Element): MdNode | null {
   const tag = el.tagName.toLowerCase();
-  if (SKIP_TAGS.has(tag)) return null;
-  if (el.getAttribute("aria-hidden") === "true") return null;
-  if (el.hasAttribute("data-md-skip")) return null;
+  if (
+    shouldSkip(tag, {
+      ariaHidden: el.getAttribute("aria-hidden"),
+      mdSkip: el.hasAttribute("data-md-skip"),
+    })
+  )
+    return null;
   const children: MdNode[] = [];
   for (const child of el.childNodes) {
     if (child.nodeType === 3) {
