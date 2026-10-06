@@ -77,6 +77,13 @@ jobs:
         # until this gate existed.
         run: bun run check:elevation-parity
 
+      - name: Sync icon upstream assets
+        # packages/kern-icons/assets/material/ is gitignored. check:generated
+        # re-runs icons generate against that catalog; without a sync, a clean
+        # CI clone fails with "catalog is empty. Sync the upstream assets first".
+        # One sync here also feeds icons:check / icons:generate later in the job.
+        run: bun run icons:sync
+
       - name: Check generated output and elevation truth
         run: |
           bun run check:generated
