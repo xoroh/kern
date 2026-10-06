@@ -1,4 +1,4 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig, devices } from "@playwright/test";
 
 /**
  * kern e2e layer (qa) — the minimal Playwright layer for kern-lead's
@@ -31,26 +31,29 @@ import { defineConfig, devices } from '@playwright/test';
  * points at a hardcoded stale port fails with a connection error rather than a
  * real result. Override with KERN_E2E_BASE_URL when the port differs.
  */
-const BASE_URL = process.env.KERN_E2E_BASE_URL ?? 'http://localhost:4173';
+const BASE_URL = process.env.KERN_E2E_BASE_URL ?? "http://localhost:4173";
 
 export default defineConfig({
-  testDir: '.',
+  testDir: ".",
   testMatch: /.*\.spec\.ts/,
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
   retries: 0,
   workers: 1,
-  reporter: [['list']],
+  reporter: [["list"]],
   timeout: 60_000,
   use: {
     baseURL: BASE_URL,
-    trace: 'retain-on-failure',
-    screenshot: 'only-on-failure',
+    trace: "retain-on-failure",
+    screenshot: "only-on-failure",
   },
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'], viewport: { width: 1400, height: 1000 } },
+      name: "chromium",
+      use: {
+        ...devices["Desktop Chrome"],
+        viewport: { width: 1400, height: 1000 },
+      },
     },
   ],
 });
