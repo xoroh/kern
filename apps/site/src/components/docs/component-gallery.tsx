@@ -25,7 +25,7 @@ import {
 } from "../../content/families";
 import type { ComponentDoc } from "../../content/types";
 import { MOBILE_DEMOS, PREVIEW_REASONS } from "../../demos/mobile/registry";
-import { demoFor } from "../../demos/web/registry";
+import { demoFor, WEB_PREVIEW_REASONS } from "../../demos/web/registry";
 import { maturityForExports } from "../../systems/maturity";
 import {
   T_BODY_SM,
@@ -125,9 +125,22 @@ function findDemo(
   return undefined;
 }
 
-function previewReason(doc: ComponentDoc): string | undefined {
+/**
+ * Why this family shows no live preview, or undefined. PLATFORM-GATED on
+ * purpose: the mobile map's reasons describe phone-frame constraints ("in a
+ * browser frame", "RNW renderer") that are false on a web card. Web lookups
+ * stop at WEB_PREVIEW_REASONS (empty until real web reasons are authored),
+ * so demo-less web families honestly render "Demo coming". `platform` is
+ * REQUIRED — an optional param is how this regressed the first time, and
+ * tsc refuses a missing one.
+ */
+function previewReason(
+  doc: ComponentDoc,
+  platform: "web" | "mobile",
+): string | undefined {
+  const reasons = platform === "web" ? WEB_PREVIEW_REASONS : PREVIEW_REASONS;
   for (const part of doc.parts) {
-    const reason = PREVIEW_REASONS[part];
+    const reason = reasons[part];
     if (reason) return reason;
   }
   return undefined;
@@ -216,7 +229,9 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
   // called inline would run its hooks as part of THIS component's hook list,
   // and the client-mount flip would change the hook count (React #310).
   const Demo = demo;
-  const reason = primary ? previewReason(primary) : undefined;
+  const reason = primary
+    ? previewReason(primary, card.web ? "web" : "mobile")
+    : undefined;
   const maturity =
     maturityChip(card.web, "web") ?? maturityChip(card.mobile, "mobile");
 

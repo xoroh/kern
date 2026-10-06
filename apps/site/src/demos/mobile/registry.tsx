@@ -522,15 +522,14 @@ export const PREVIEW_REASONS: Record<string, string> = {
     "Pure shape-art animation surface with no static state; the concrete animated consumers are listed above.",
   Shape:
     "The static shape primitive is internal to the shape-art surfaces above; on its own it renders an unstyled primitive with no consumer-facing contract.",
-  AppsSheet:
-    "Sheet content is presented modally over a host screen; in isolation there is no host to present over. Its sibling sheets share one implementation, rendered under the native Sheet preview.",
-  CreateSheet: "Modal flow with a host screen, same reason as AppsSheet.",
   MenuScreen:
-    "Full-screen menu destination, same host-screen reason as AppsSheet.",
-  MenuSheet: "Modal sheet, same host-screen reason as AppsSheet.",
+    "Full-screen menu destination; presented modally over a host screen, and in isolation there is no host to present over.",
+  MenuSheet:
+    "Modal sheet over a host screen; in isolation there is no host to present over.",
   MenuGroupList:
     "Group list rendered inside MenuSheet, same host-screen reason.",
-  BottomSheet: "Modal sheet, same host-screen reason as AppsSheet.",
+  BottomSheet:
+    "Modal sheet over a host screen; in isolation there is no host to present over.",
   BottomSheetPicker: "Modal picker driven by an open host screen, same reason.",
   SnapSheet: "Modal sheet with gesture-driven snap points, same reason.",
   DockSheet: "Modal sheet, same reason.",
@@ -541,7 +540,7 @@ export const PREVIEW_REASONS: Record<string, string> = {
     "Device chrome that owns the bottom safe area; in a browser frame it renders flush with the page edge and cannot show its inset behaviour honestly.",
   NavigationBarItem: "One segment of NavigationBar, same chrome reason.",
   NavigationDrawer:
-    "Full-screen drawer over a host screen, same host-screen reason as AppsSheet.",
+    "Full-screen drawer over a host screen; in isolation there is no host to present over.",
   NavigationMenu:
     "Platform menu surface with no static open state in the RNW renderer.",
   Menubar:
@@ -549,14 +548,14 @@ export const PREVIEW_REASONS: Record<string, string> = {
   Menu: "Context menu surface whose open state is gesture-driven; RNW has no equivalent long-press, so any preview would be a fabricated interaction.",
   ContextMenu: "Same gesture-driven open state as Menu.",
   Dialog:
-    "Modal dialog over a host screen, same host-screen reason as AppsSheet.",
+    "Modal dialog over a host screen; in isolation there is no host to present over.",
   AlertDialog: "Modal confirmation over a host screen, same reason.",
   Collapsible:
     "Disclosure region; its open state is toggled by its own trigger, and the trigger composition is a platform convention this frame cannot supply.",
   Accordion: "Same disclosure-composition reason as Collapsible.",
   Tabs: "Tab strip with platform-specific layout rules; rendered in the /getting-started mobile quickstart against a real screen.",
   Select:
-    "Modal option list over a host screen, same host-screen reason as AppsSheet.",
+    "Modal option list over a host screen; in isolation there is no host to present over.",
   Search:
     "Rendered above; listed here only because the export also covers the modal suggestion sheet on device.",
   Sheet:
@@ -584,8 +583,6 @@ export const PREVIEW_REASONS: Record<string, string> = {
   TopAppBar:
     "Top app bar for a host screen; rendered in the mobile quickstart at full bleed.",
   TopAppBarAction: "One action of TopAppBar, same reason.",
-  WebParity:
-    "Not a component: the file that hosts the web-parity counterparts (Command, SegmentedButton, CountrySelect, Banner), each of which is previewed on /components/web.",
 };
 
 /** Every native export, mapped to a live preview. */

@@ -338,6 +338,19 @@ export function demoFor(exportName: string): WebDemo | undefined {
 
 export const WEB_DEMOS = byExport;
 
+/**
+ * Web per-part no-preview reasons, keyed like the mobile map below — EMPTY
+ * on purpose. Thirteen web families currently render mobile-frame reasons
+ * on their gallery cards (measured: bottom-sheet*, dock/entity-sheet,
+ * filter-chip-row, menu-screen/sheet, navigation-bar/drawer, pane,
+ * secondary-tabs, snap-sheet, top-app-bar) because previewReason looked
+ * everything up in the mobile map. Showing phone-frame text ("in a browser
+ * frame", "RNW renderer") on a web card is a false claim about the web
+ * component, so web lookups stop at this map: demo-less web families
+ * honestly render "Demo coming" until a real web reason is authored here.
+ */
+export const WEB_PREVIEW_REASONS: Record<string, string> = {};
+
 export const WEB_EXPORT_COUNT = componentsOn("web").length;
 
 export const WEB_DEMO_COUNT = componentsOn("web").filter(
