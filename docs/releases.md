@@ -39,6 +39,12 @@ publishable packages. It catches the failures that only appear after
 side-effect files missing from `files`. Run it before merging any change that
 touches `package.json` `exports`, `files`, or `peerDependencies`.
 
+`check:publish` inspects the built output, so packages must already be built:
+run `bun run build` first, or publint will fail on `exports`/`main`/`types`
+entries that point at missing `dist/` files. The Release workflow runs
+`bun run build` before its "Verify publishable packages" step for the same
+reason (CI already builds each package before its own `check:publish`).
+
 ## Preflight: internal dependencies are peerDependencies, never `workspace:*`
 
 Requested by K-05 and enforced by `scripts/preflight-publish.mjs`, which runs
