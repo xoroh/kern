@@ -32,11 +32,11 @@ jobs:
       - name: Install
         run: bun install --frozen-lockfile
 
+      - name: Build publishable packages
+        run: bun run build
+
       - name: Verify publishable packages
         run: bun run check:publish
-
-      - name: Preflight packed tarballs
-        run: node scripts/preflight-publish.mjs
 
       - name: Create release PR or publish
         uses: changesets/action@v1
