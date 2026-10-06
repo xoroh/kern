@@ -20,6 +20,7 @@
     "check:generated:census": "node scripts/check-generated-census.mjs",
     "check:stale-refs": "node scripts/check-stale-refs.mjs",
     "check:commit-intent": "node scripts/check-commit-intent.mjs",
+    "test:scripts": "bun test scripts/lib/codeowners.test.mjs",
     "hooks:install": "bash .githooks/install.sh",
     "audit:elevation": "bun scripts/audit-elevation.mjs",
     "check:elevation": "bun run audit:elevation",
@@ -54,7 +55,8 @@
     "test:native": "bun run --filter @xoroh/kern-native test",
     "test:native:jest": "bun run --filter @xoroh/kern-native test:jest",
     "test:all": "bun run test && bun run test:native && bun run test:native:jest",
-    "build": "bun run generate:tokens && bun run generate:tones && bun run generate:motion && bun run generate:components && node scripts/build-order.mjs"
+    "build": "bun run generate:tokens && bun run generate:tones && bun run generate:motion && bun run generate:components && node scripts/build-order.mjs",
+    "test:scripts": "bun test scripts/lib/codeowners.test.mjs"
   },
   "workspaces": [
     "apps/*",

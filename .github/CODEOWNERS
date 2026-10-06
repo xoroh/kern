@@ -15,7 +15,7 @@
 #   @xoroh/librarian            build tooling, CI, this file
 #   @xoroh/release              changesets, release scripts and docs
 #   @xoroh/qa                   e2e, verification limits
-#   @xoroh/security             SECURITY.md
+#   @xoroh/security             /SECURITY.md
 
 # ---------------------------------------------------------------- default lane
 *                                       @xoroh/kern
@@ -38,7 +38,7 @@ packages/kern-cli/                      @xoroh/kern-cli-se
 # --------------------------------------------------------------- changesets
 # Authors write their own changeset entries in feature PRs; @xoroh/release
 # owns the process and Version Packages PRs.
-.changeset/                             @xoroh/release
+/.changeset/                            @xoroh/release
 
 # --------------------------------------------------------- tokens + elevation
 packages/kern-tokens/                   @xoroh/design-system-lead
@@ -79,10 +79,10 @@ scripts/check-kern.mjs                  @xoroh/librarian
 scripts/preflight-publish.mjs           @xoroh/release
 
 # -------------------------------------------------------------- build tooling
-biome.json                              @xoroh/librarian
-package.json                            @xoroh/librarian
+/biome.json                             @xoroh/librarian
+/package.json                           @xoroh/librarian
 packages/*/tsconfig.json                @xoroh/librarian
-.githooks/                              @xoroh/librarian
+/.githooks/                             @xoroh/librarian
 .github/workflows/                      @xoroh/librarian
 .github/workflows/deploy.yml            @xoroh/site-se
 .github/CODEOWNERS                      @xoroh/librarian
@@ -99,11 +99,11 @@ docs/components.md                      @xoroh/design-system-lead
 docs/elevation-audit.md                 @xoroh/design-system-lead
 
 # -------------------------------------------------------------------- e2e / QA
-e2e/                                    @xoroh/qa
+/e2e/                                   @xoroh/qa
 docs/verification-limits.md             @xoroh/qa
 
 # --------------------------------------------------------------- release docs
 docs/releases.md                        @xoroh/release
 
 # ----------------------------------------------------------- security
-SECURITY.md                             @xoroh/security
+/SECURITY.md                            @xoroh/security

@@ -71,7 +71,12 @@ jobs:
         # planting — the 0020 batch's biome.json override and ci.yml pathspec
         # both go red here, and the ci.yml one is the sharper case because
         # `git diff --exit-code -- <missing>` MEASURED exits 0.
-        run: bun run check:stale-refs
+        # generate:routes writes apps/site/src/routeTree.gen.ts (gitignored),
+        # which the biome override names. Without it, check:stale-refs reports
+        # that override dead on a clean checkout (issue #4).
+        run: |
+          bun run --cwd apps/site generate:routes
+          bun run check:stale-refs
 
       - name: Check the two renderers agree on resting elevation
         # D-038 follow-on. `check-elevation-parity` asserts one resting elevation
