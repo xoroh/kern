@@ -10,7 +10,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "NavigationMenu is interactive but navigation-menu.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "navigation-menu.ts documents no keyboard rows for NavigationMenu — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -27,7 +27,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "NavigationMenuRoot is interactive but navigation-menu.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "navigation-menu.ts documents no keyboard rows for NavigationMenuRoot — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -44,7 +44,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "NavigationMenuList is interactive but navigation-menu.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "navigation-menu.ts documents no keyboard rows for NavigationMenuList — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -61,7 +61,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "NavigationMenuItem is interactive but navigation-menu.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "navigation-menu.ts documents no keyboard rows for NavigationMenuItem — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -78,7 +78,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "NavigationMenuTrigger is interactive but navigation-menu.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "navigation-menu.ts documents no keyboard rows for NavigationMenuTrigger — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -95,7 +95,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "NavigationMenuContent is interactive but navigation-menu.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "navigation-menu.ts documents no keyboard rows for NavigationMenuContent — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -112,7 +112,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "NavigationMenuLink is interactive but navigation-menu.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "navigation-menu.ts documents no keyboard rows for NavigationMenuLink — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",

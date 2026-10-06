@@ -10,7 +10,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "Autocomplete is interactive but autocomplete.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "autocomplete.ts documents no keyboard rows for Autocomplete — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -27,7 +27,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "AutocompleteRoot is interactive but autocomplete.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "autocomplete.ts documents no keyboard rows for AutocompleteRoot — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -44,7 +44,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "AutocompleteLabel is interactive but autocomplete.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "autocomplete.ts documents no keyboard rows for AutocompleteLabel — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -61,7 +61,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "AutocompleteInput is interactive but autocomplete.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "autocomplete.ts documents no keyboard rows for AutocompleteInput — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -78,7 +78,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "AutocompleteContent is interactive but autocomplete.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "autocomplete.ts documents no keyboard rows for AutocompleteContent — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -95,7 +95,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "AutocompleteItem is interactive but autocomplete.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "autocomplete.ts documents no keyboard rows for AutocompleteItem — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -112,7 +112,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "AutocompleteEmpty is interactive but autocomplete.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "autocomplete.ts documents no keyboard rows for AutocompleteEmpty — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",

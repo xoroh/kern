@@ -10,7 +10,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "ScrollArea is interactive but scroll-area.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "scroll-area.ts documents no keyboard rows for ScrollArea — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -27,7 +27,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "ScrollAreaRoot is interactive but scroll-area.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "scroll-area.ts documents no keyboard rows for ScrollAreaRoot — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -44,7 +44,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "ScrollAreaViewport is interactive but scroll-area.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "scroll-area.ts documents no keyboard rows for ScrollAreaViewport — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -61,7 +61,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "ScrollAreaScrollbar is interactive but scroll-area.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "scroll-area.ts documents no keyboard rows for ScrollAreaScrollbar — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",

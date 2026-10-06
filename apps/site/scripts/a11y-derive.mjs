@@ -48,11 +48,15 @@ export function deriveExpectations(doc, exportName, hasLiveDemo) {
       basis: `keyboard contract carries ${kb.length} row(s) in ${doc.slug}.ts — every operable action has a documented key`,
     });
   } else {
+    // No interactivity assertion here (design verdict on Part 7): the rule
+    // keys off the page-level flag, so a static sub-part (DialogTitle,
+    // DialogDescription) would inherit a false "is interactive". The softened
+    // template is true for both cases — the contract is unwritten, full stop.
     out.push({
       rule: "keyboard-operable",
       expect: "gap",
       provenance: "derived",
-      basis: `${exportName} is interactive but ${doc.slug}.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass`,
+      basis: `${doc.slug}.ts documents no keyboard rows for ${exportName} — the contract is unwritten, treat as a gap not a pass`,
     });
   }
 
@@ -64,11 +68,12 @@ export function deriveExpectations(doc, exportName, hasLiveDemo) {
       basis: `aria contract carries ${aria.length} line(s) in ${doc.slug}.ts — roles, names and states are stated, not assumed`,
     });
   } else if (!doc.nonInteractive) {
+    // Same softening as above: no "is interactive" assertion.
     out.push({
       rule: "aria-contract",
       expect: "gap",
       provenance: "derived",
-      basis: `${exportName} is interactive but ${doc.slug}.ts states no aria contract — screen-reader behaviour is unclaimed`,
+      basis: `${doc.slug}.ts states no aria contract for ${exportName} — screen-reader behaviour is unclaimed`,
     });
   }
 

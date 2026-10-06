@@ -10,13 +10,13 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "Fab is interactive but fab.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "fab.ts documents no keyboard rows for Fab — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "Fab is interactive but fab.ts states no aria contract — screen-reader behaviour is unclaimed"
+          "basis": "fab.ts states no aria contract for Fab — screen-reader behaviour is unclaimed"
         }
       ]
     }

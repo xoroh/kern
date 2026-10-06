@@ -114,6 +114,19 @@ for (const [platform, { dir, demos: registry }] of Object.entries(PLATFORMS)) {
               `${path}: ${part} expectation without legal provenance — generated-vs-authored must never blur`,
             );
           }
+          // Design verdict on Part 7 (DialogTitle false "is interactive"):
+          // derived bases must never assert interactivity — the rule keys off
+          // the page-level flag, so per-export interactivity is unknowable.
+          // (The nonInteractive arm's "is a non-interactive part" does not
+          // contain this phrase; it asserts the page-level flag, which is real.)
+          if (
+            e.provenance === "derived" &&
+            e.basis.includes("is interactive")
+          ) {
+            bad(
+              `${path}: ${part} derived basis asserts interactivity — soften the template, do not guess per-export`,
+            );
+          }
           if (!e.basis || !e.basis.trim())
             bad(`${path}: ${part} expectation without basis`);
         }

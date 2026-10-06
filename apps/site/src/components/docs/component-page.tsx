@@ -725,6 +725,29 @@ function DemoExpectations({ page }: { page: A11yPage | undefined }) {
   if (!page) return null;
   const names = Object.keys(page.demos);
   if (names.length === 0) return null;
+  // Design verdict on Part 7: identical content must not render identically
+  // N times (dialog repeated the same two sentences 7×). Group key is
+  // rule+expect+provenance ON PURPOSE — the basis names its own export, so
+  // keying on full objects would never merge. The shared block renders each
+  // row once with the basis widened to the whole group (replace the single
+  // noun with the member list when present, else the row as-is): the
+  // conjunction is true because every member's own file asserts its own
+  // clause. A demo with unique expectations (e.g. an authored exception)
+  // renders alone. Single-demo pages skip the grouping header — noise.
+  const groups: { names: string[]; sig: string }[] = [];
+  for (const name of names) {
+    const sig = JSON.stringify(
+      page.demos[name].expectations.map((e) => [
+        e.rule,
+        e.expect,
+        e.provenance,
+      ]),
+    );
+    const g = groups.find((x) => x.sig === sig);
+    if (g) g.names.push(name);
+    else groups.push({ names: [name], sig });
+  }
+  const grouped = names.length > 1;
   return (
     <>
       <Heading id="demo-expectations" level={3}>
@@ -738,23 +761,36 @@ function DemoExpectations({ page }: { page: A11yPage | undefined }) {
         human judgment.
       </p>
       <ul className={`m-0 flex flex-col gap-3 pl-5 ${BODY}`}>
-        {names.map((name) => {
-          const demo = page.demos[name];
+        {groups.map((g) => {
+          const demo = page.demos[g.names[0]];
+          const liveCount = g.names.filter(
+            (n) => page.demos[n].hasLiveDemo,
+          ).length;
           return (
-            <li key={name}>
-              <strong>{name}</strong>{" "}
+            <li key={g.names.join(",")}>
+              <strong>{g.names.join(", ")}</strong>{" "}
               <span className={SMALL}>
-                {demo.hasLiveDemo
-                  ? "(live demo)"
-                  : "(no live demo — nothing to run axe against)"}
+                {liveCount === 0
+                  ? "(no live demo — nothing to run axe against)"
+                  : grouped && g.names.length > 1
+                    ? "(shared expectations — applies to all listed)"
+                    : "(live demo)"}
               </span>
               {demo.expectations.length > 0 && (
                 <ul className="m-0 mt-1 flex list-disc flex-col gap-1 pl-5">
-                  {demo.expectations.map((e, i) => (
-                    <li key={i} className={SMALL}>
-                      {e.rule} — {e.expect} ({e.provenance}): {e.basis}
-                    </li>
-                  ))}
+                  {demo.expectations.map((e, i) => {
+                    const basis =
+                      grouped &&
+                      g.names.length > 1 &&
+                      e.basis.includes(g.names[0])
+                        ? e.basis.replace(g.names[0], g.names.join(", "))
+                        : e.basis;
+                    return (
+                      <li key={i} className={SMALL}>
+                        {e.rule} — {e.expect} ({e.provenance}): {basis}
+                      </li>
+                    );
+                  })}
                 </ul>
               )}
             </li>

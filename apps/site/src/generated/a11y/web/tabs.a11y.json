@@ -10,7 +10,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "Tabs is interactive but tabs.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "tabs.ts documents no keyboard rows for Tabs — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -27,7 +27,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "TabsRoot is interactive but tabs.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "tabs.ts documents no keyboard rows for TabsRoot — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -44,7 +44,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "TabsList is interactive but tabs.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "tabs.ts documents no keyboard rows for TabsList — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -61,7 +61,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "TabsTab is interactive but tabs.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "tabs.ts documents no keyboard rows for TabsTab — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -78,7 +78,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "TabsPanel is interactive but tabs.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "tabs.ts documents no keyboard rows for TabsPanel — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",

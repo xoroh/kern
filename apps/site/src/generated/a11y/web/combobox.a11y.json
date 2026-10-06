@@ -10,7 +10,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "Combobox is interactive but combobox.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "combobox.ts documents no keyboard rows for Combobox — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -27,7 +27,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "ComboboxRoot is interactive but combobox.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "combobox.ts documents no keyboard rows for ComboboxRoot — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -44,7 +44,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "ComboboxLabel is interactive but combobox.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "combobox.ts documents no keyboard rows for ComboboxLabel — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -61,7 +61,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "ComboboxInput is interactive but combobox.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "combobox.ts documents no keyboard rows for ComboboxInput — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -78,7 +78,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "ComboboxTrigger is interactive but combobox.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "combobox.ts documents no keyboard rows for ComboboxTrigger — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -95,7 +95,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "ComboboxClear is interactive but combobox.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "combobox.ts documents no keyboard rows for ComboboxClear — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -112,7 +112,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "ComboboxContent is interactive but combobox.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "combobox.ts documents no keyboard rows for ComboboxContent — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -129,7 +129,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "ComboboxItem is interactive but combobox.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "combobox.ts documents no keyboard rows for ComboboxItem — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -146,7 +146,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "ComboboxEmpty is interactive but combobox.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "combobox.ts documents no keyboard rows for ComboboxEmpty — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",

@@ -10,7 +10,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "Sonner is interactive but sonner.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "sonner.ts documents no keyboard rows for Sonner — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -27,7 +27,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "SonnerProvider is interactive but sonner.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "sonner.ts documents no keyboard rows for SonnerProvider — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -44,7 +44,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "SonnerViewport is interactive but sonner.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "sonner.ts documents no keyboard rows for SonnerViewport — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -61,7 +61,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "SonnerList is interactive but sonner.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "sonner.ts documents no keyboard rows for SonnerList — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -78,7 +78,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "SonnerRoot is interactive but sonner.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "sonner.ts documents no keyboard rows for SonnerRoot — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -95,7 +95,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "SonnerTitle is interactive but sonner.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "sonner.ts documents no keyboard rows for SonnerTitle — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -112,7 +112,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "SonnerDescription is interactive but sonner.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "sonner.ts documents no keyboard rows for SonnerDescription — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -129,7 +129,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "SonnerAction is interactive but sonner.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "sonner.ts documents no keyboard rows for SonnerAction — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -146,7 +146,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "SonnerClose is interactive but sonner.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "sonner.ts documents no keyboard rows for SonnerClose — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",

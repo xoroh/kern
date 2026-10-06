@@ -10,7 +10,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "Progress is interactive but progress.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "progress.ts documents no keyboard rows for Progress — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -27,7 +27,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "ProgressRoot is interactive but progress.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "progress.ts documents no keyboard rows for ProgressRoot — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -44,7 +44,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "ProgressLabel is interactive but progress.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "progress.ts documents no keyboard rows for ProgressLabel — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -61,7 +61,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "ProgressValue is interactive but progress.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "progress.ts documents no keyboard rows for ProgressValue — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",

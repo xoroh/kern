@@ -29,7 +29,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Accordion is interactive but accordion.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "accordion.ts documents no keyboard rows for Accordion — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -46,7 +46,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "AccordionRoot is interactive but accordion.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "accordion.ts documents no keyboard rows for AccordionRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -63,7 +63,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "AccordionItem is interactive but accordion.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "accordion.ts documents no keyboard rows for AccordionItem — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -80,7 +80,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "AccordionHeader is interactive but accordion.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "accordion.ts documents no keyboard rows for AccordionHeader — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -97,7 +97,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "AccordionTrigger is interactive but accordion.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "accordion.ts documents no keyboard rows for AccordionTrigger — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -114,7 +114,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "AccordionPanel is interactive but accordion.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "accordion.ts documents no keyboard rows for AccordionPanel — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -149,7 +149,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "AlertDialog is interactive but alert-dialog.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "alert-dialog.ts documents no keyboard rows for AlertDialog — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -166,7 +166,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "AlertDialogRoot is interactive but alert-dialog.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "alert-dialog.ts documents no keyboard rows for AlertDialogRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -183,7 +183,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "AlertDialogTrigger is interactive but alert-dialog.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "alert-dialog.ts documents no keyboard rows for AlertDialogTrigger — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -200,7 +200,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "AlertDialogContent is interactive but alert-dialog.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "alert-dialog.ts documents no keyboard rows for AlertDialogContent — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -217,7 +217,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "AlertDialogTitle is interactive but alert-dialog.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "alert-dialog.ts documents no keyboard rows for AlertDialogTitle — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -234,7 +234,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "AlertDialogDescription is interactive but alert-dialog.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "alert-dialog.ts documents no keyboard rows for AlertDialogDescription — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -251,7 +251,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "AlertDialogClose is interactive but alert-dialog.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "alert-dialog.ts documents no keyboard rows for AlertDialogClose — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -290,7 +290,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Autocomplete is interactive but autocomplete.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "autocomplete.ts documents no keyboard rows for Autocomplete — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -307,7 +307,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "AutocompleteRoot is interactive but autocomplete.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "autocomplete.ts documents no keyboard rows for AutocompleteRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -324,7 +324,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "AutocompleteLabel is interactive but autocomplete.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "autocomplete.ts documents no keyboard rows for AutocompleteLabel — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -341,7 +341,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "AutocompleteInput is interactive but autocomplete.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "autocomplete.ts documents no keyboard rows for AutocompleteInput — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -358,7 +358,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "AutocompleteContent is interactive but autocomplete.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "autocomplete.ts documents no keyboard rows for AutocompleteContent — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -375,7 +375,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "AutocompleteItem is interactive but autocomplete.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "autocomplete.ts documents no keyboard rows for AutocompleteItem — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -392,7 +392,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "AutocompleteEmpty is interactive but autocomplete.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "autocomplete.ts documents no keyboard rows for AutocompleteEmpty — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -416,7 +416,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Avatar is interactive but avatar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "avatar.ts documents no keyboard rows for Avatar — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -433,7 +433,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "AvatarRoot is interactive but avatar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "avatar.ts documents no keyboard rows for AvatarRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -450,7 +450,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "AvatarImage is interactive but avatar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "avatar.ts documents no keyboard rows for AvatarImage — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -467,7 +467,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "AvatarFallback is interactive but avatar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "avatar.ts documents no keyboard rows for AvatarFallback — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -491,7 +491,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Badge is interactive but badge.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "badge.ts documents no keyboard rows for Badge — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -515,7 +515,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Banner is interactive but banner.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "banner.ts documents no keyboard rows for Banner — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -532,7 +532,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "BannerAction is interactive but banner.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "banner.ts documents no keyboard rows for BannerAction — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -583,7 +583,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "BootIndicator is interactive but boot-indicator.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "boot-indicator.ts documents no keyboard rows for BootIndicator — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -629,7 +629,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "ButtonGroup is interactive but button-group.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "button-group.ts documents no keyboard rows for ButtonGroup — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -653,13 +653,13 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Button is interactive but button.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "button.ts documents no keyboard rows for Button — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Button is interactive but button.ts states no aria contract — screen-reader behaviour is unclaimed"
+            "basis": "button.ts states no aria contract for Button — screen-reader behaviour is unclaimed"
           }
         ]
       }
@@ -677,7 +677,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Calendar is interactive but calendar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "calendar.ts documents no keyboard rows for Calendar — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -701,13 +701,13 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Card is interactive but card.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "card.ts documents no keyboard rows for Card — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Card is interactive but card.ts states no aria contract — screen-reader behaviour is unclaimed"
+            "basis": "card.ts states no aria contract for Card — screen-reader behaviour is unclaimed"
           }
         ]
       }
@@ -736,7 +736,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "CheckboxGroup is interactive but checkbox-group.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "checkbox-group.ts documents no keyboard rows for CheckboxGroup — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -753,7 +753,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "CheckboxGroupRoot is interactive but checkbox-group.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "checkbox-group.ts documents no keyboard rows for CheckboxGroupRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -770,7 +770,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "CheckboxGroupItem is interactive but checkbox-group.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "checkbox-group.ts documents no keyboard rows for CheckboxGroupItem — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -794,7 +794,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Checkbox is interactive but checkbox.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "checkbox.ts documents no keyboard rows for Checkbox — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -818,7 +818,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Chip is interactive but chip.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "chip.ts documents no keyboard rows for Chip — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -842,7 +842,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "CircularProgress is interactive but circular-progress.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "circular-progress.ts documents no keyboard rows for CircularProgress — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -866,7 +866,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Collapsible is interactive but collapsible.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "collapsible.ts documents no keyboard rows for Collapsible — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -883,7 +883,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "CollapsibleRoot is interactive but collapsible.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "collapsible.ts documents no keyboard rows for CollapsibleRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -900,7 +900,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "CollapsibleTrigger is interactive but collapsible.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "collapsible.ts documents no keyboard rows for CollapsibleTrigger — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -917,7 +917,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "CollapsiblePanel is interactive but collapsible.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "collapsible.ts documents no keyboard rows for CollapsiblePanel — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -941,7 +941,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Combobox is interactive but combobox.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "combobox.ts documents no keyboard rows for Combobox — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -958,7 +958,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "ComboboxRoot is interactive but combobox.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "combobox.ts documents no keyboard rows for ComboboxRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -975,7 +975,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "ComboboxLabel is interactive but combobox.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "combobox.ts documents no keyboard rows for ComboboxLabel — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -992,7 +992,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "ComboboxInput is interactive but combobox.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "combobox.ts documents no keyboard rows for ComboboxInput — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1009,7 +1009,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "ComboboxTrigger is interactive but combobox.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "combobox.ts documents no keyboard rows for ComboboxTrigger — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1026,7 +1026,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "ComboboxClear is interactive but combobox.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "combobox.ts documents no keyboard rows for ComboboxClear — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1043,7 +1043,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "ComboboxContent is interactive but combobox.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "combobox.ts documents no keyboard rows for ComboboxContent — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1060,7 +1060,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "ComboboxItem is interactive but combobox.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "combobox.ts documents no keyboard rows for ComboboxItem — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1077,7 +1077,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "ComboboxEmpty is interactive but combobox.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "combobox.ts documents no keyboard rows for ComboboxEmpty — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1101,7 +1101,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Command is interactive but command.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "command.ts documents no keyboard rows for Command — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1118,7 +1118,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "CommandRoot is interactive but command.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "command.ts documents no keyboard rows for CommandRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1135,7 +1135,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "CommandInput is interactive but command.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "command.ts documents no keyboard rows for CommandInput — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1152,7 +1152,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "CommandContent is interactive but command.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "command.ts documents no keyboard rows for CommandContent — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1169,7 +1169,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "CommandList is interactive but command.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "command.ts documents no keyboard rows for CommandList — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1186,7 +1186,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "CommandItem is interactive but command.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "command.ts documents no keyboard rows for CommandItem — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1203,7 +1203,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "CommandGroupLabel is interactive but command.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "command.ts documents no keyboard rows for CommandGroupLabel — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1220,7 +1220,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "CommandSeparator is interactive but command.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "command.ts documents no keyboard rows for CommandSeparator — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1237,7 +1237,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "CommandEmpty is interactive but command.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "command.ts documents no keyboard rows for CommandEmpty — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1261,7 +1261,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "ContextMenu is interactive but context-menu.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "context-menu.ts documents no keyboard rows for ContextMenu — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1278,7 +1278,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "ContextMenuRoot is interactive but context-menu.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "context-menu.ts documents no keyboard rows for ContextMenuRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1295,7 +1295,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "ContextMenuTrigger is interactive but context-menu.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "context-menu.ts documents no keyboard rows for ContextMenuTrigger — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1312,7 +1312,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "ContextMenuContent is interactive but context-menu.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "context-menu.ts documents no keyboard rows for ContextMenuContent — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1329,7 +1329,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "ContextMenuItem is interactive but context-menu.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "context-menu.ts documents no keyboard rows for ContextMenuItem — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1346,7 +1346,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "ContextMenuSeparator is interactive but context-menu.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "context-menu.ts documents no keyboard rows for ContextMenuSeparator — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1370,7 +1370,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "CountrySelect is interactive but country-select.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "country-select.ts documents no keyboard rows for CountrySelect — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1387,7 +1387,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "CountrySelectRoot is interactive but country-select.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "country-select.ts documents no keyboard rows for CountrySelectRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1404,7 +1404,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "CountrySelectTrigger is interactive but country-select.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "country-select.ts documents no keyboard rows for CountrySelectTrigger — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1421,7 +1421,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "CountrySelectValue is interactive but country-select.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "country-select.ts documents no keyboard rows for CountrySelectValue — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1438,7 +1438,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "CountrySelectContent is interactive but country-select.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "country-select.ts documents no keyboard rows for CountrySelectContent — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1455,7 +1455,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "CountrySelectItem is interactive but country-select.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "country-select.ts documents no keyboard rows for CountrySelectItem — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1472,7 +1472,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "CountrySelectLabel is interactive but country-select.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "country-select.ts documents no keyboard rows for CountrySelectLabel — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1496,7 +1496,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Dialog is interactive but dialog.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "dialog.ts documents no keyboard rows for Dialog — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1513,7 +1513,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "DialogRoot is interactive but dialog.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "dialog.ts documents no keyboard rows for DialogRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1530,7 +1530,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "DialogTrigger is interactive but dialog.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "dialog.ts documents no keyboard rows for DialogTrigger — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1547,7 +1547,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "DialogContent is interactive but dialog.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "dialog.ts documents no keyboard rows for DialogContent — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1564,7 +1564,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "DialogTitle is interactive but dialog.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "dialog.ts documents no keyboard rows for DialogTitle — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1581,7 +1581,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "DialogDescription is interactive but dialog.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "dialog.ts documents no keyboard rows for DialogDescription — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1598,7 +1598,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "DialogClose is interactive but dialog.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "dialog.ts documents no keyboard rows for DialogClose — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1633,7 +1633,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Drawer is interactive but drawer.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "drawer.ts documents no keyboard rows for Drawer — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1650,7 +1650,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "DrawerRoot is interactive but drawer.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "drawer.ts documents no keyboard rows for DrawerRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1667,7 +1667,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "DrawerTrigger is interactive but drawer.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "drawer.ts documents no keyboard rows for DrawerTrigger — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1684,7 +1684,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "DrawerContent is interactive but drawer.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "drawer.ts documents no keyboard rows for DrawerContent — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1701,7 +1701,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "DrawerTitle is interactive but drawer.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "drawer.ts documents no keyboard rows for DrawerTitle — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1718,7 +1718,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "DrawerDescription is interactive but drawer.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "drawer.ts documents no keyboard rows for DrawerDescription — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1735,7 +1735,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "DrawerClose is interactive but drawer.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "drawer.ts documents no keyboard rows for DrawerClose — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1759,7 +1759,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "EmptyState is interactive but empty-state.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "empty-state.ts documents no keyboard rows for EmptyState — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1816,13 +1816,13 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Fab is interactive but fab.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "fab.ts documents no keyboard rows for Fab — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Fab is interactive but fab.ts states no aria contract — screen-reader behaviour is unclaimed"
+            "basis": "fab.ts states no aria contract for Fab — screen-reader behaviour is unclaimed"
           }
         ]
       }
@@ -1840,7 +1840,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Field is interactive but field.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "field.ts documents no keyboard rows for Field — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1857,7 +1857,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "FieldRoot is interactive but field.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "field.ts documents no keyboard rows for FieldRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1874,7 +1874,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "FieldLabel is interactive but field.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "field.ts documents no keyboard rows for FieldLabel — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1891,7 +1891,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "FieldDescription is interactive but field.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "field.ts documents no keyboard rows for FieldDescription — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1908,7 +1908,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "FieldError is interactive but field.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "field.ts documents no keyboard rows for FieldError — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1925,7 +1925,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "FieldMessage is interactive but field.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "field.ts documents no keyboard rows for FieldMessage — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1949,7 +1949,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Fieldset is interactive but fieldset.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "fieldset.ts documents no keyboard rows for Fieldset — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1966,7 +1966,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "FieldsetRoot is interactive but fieldset.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "fieldset.ts documents no keyboard rows for FieldsetRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -1983,7 +1983,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "FieldsetLegend is interactive but fieldset.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "fieldset.ts documents no keyboard rows for FieldsetLegend — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2018,7 +2018,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Form is interactive but form.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "form.ts documents no keyboard rows for Form — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2053,7 +2053,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "InputOTP is interactive but input-otp.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "input-otp.ts documents no keyboard rows for InputOTP — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2070,7 +2070,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "InputOTPRoot is interactive but input-otp.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "input-otp.ts documents no keyboard rows for InputOTPRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2087,7 +2087,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "InputOTPInput is interactive but input-otp.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "input-otp.ts documents no keyboard rows for InputOTPInput — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2111,7 +2111,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Input is interactive but input.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "input.ts documents no keyboard rows for Input — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2135,7 +2135,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Kbd is interactive but kbd.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "kbd.ts documents no keyboard rows for Kbd — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2170,7 +2170,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Label is interactive but label.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "label.ts documents no keyboard rows for Label — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2194,7 +2194,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "LinearProgress is interactive but linear-progress.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "linear-progress.ts documents no keyboard rows for LinearProgress — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2233,7 +2233,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "ListItem is interactive but list-item.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "list-item.ts documents no keyboard rows for ListItem — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2257,7 +2257,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Loader is interactive but loader.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "loader.ts documents no keyboard rows for Loader — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2281,7 +2281,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "LoadingButton is interactive but loading-button.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "loading-button.ts documents no keyboard rows for LoadingButton — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2349,7 +2349,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Menu is interactive but menu.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "menu.ts documents no keyboard rows for Menu — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2366,7 +2366,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "MenuRoot is interactive but menu.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "menu.ts documents no keyboard rows for MenuRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2383,7 +2383,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "MenuTrigger is interactive but menu.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "menu.ts documents no keyboard rows for MenuTrigger — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2400,7 +2400,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "MenuContent is interactive but menu.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "menu.ts documents no keyboard rows for MenuContent — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2417,7 +2417,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "MenuItem is interactive but menu.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "menu.ts documents no keyboard rows for MenuItem — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2434,7 +2434,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "MenuSeparator is interactive but menu.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "menu.ts documents no keyboard rows for MenuSeparator — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2451,7 +2451,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "MenuGroupLabel is interactive but menu.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "menu.ts documents no keyboard rows for MenuGroupLabel — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2475,7 +2475,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Menubar is interactive but menubar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "menubar.ts documents no keyboard rows for Menubar — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2492,7 +2492,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "MenubarRoot is interactive but menubar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "menubar.ts documents no keyboard rows for MenubarRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2509,7 +2509,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "MenubarMenu is interactive but menubar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "menubar.ts documents no keyboard rows for MenubarMenu — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2526,7 +2526,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "MenubarTrigger is interactive but menubar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "menubar.ts documents no keyboard rows for MenubarTrigger — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2543,7 +2543,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "MenubarContent is interactive but menubar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "menubar.ts documents no keyboard rows for MenubarContent — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2560,7 +2560,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "MenubarItem is interactive but menubar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "menubar.ts documents no keyboard rows for MenubarItem — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2584,7 +2584,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Meter is interactive but meter.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "meter.ts documents no keyboard rows for Meter — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2601,7 +2601,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "MeterRoot is interactive but meter.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "meter.ts documents no keyboard rows for MeterRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2618,7 +2618,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "MeterLabel is interactive but meter.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "meter.ts documents no keyboard rows for MeterLabel — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2635,7 +2635,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "MeterValue is interactive but meter.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "meter.ts documents no keyboard rows for MeterValue — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2659,7 +2659,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "NativeSelect is interactive but native-select.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "native-select.ts documents no keyboard rows for NativeSelect — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2709,7 +2709,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "NavigationMenu is interactive but navigation-menu.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "navigation-menu.ts documents no keyboard rows for NavigationMenu — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2726,7 +2726,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "NavigationMenuRoot is interactive but navigation-menu.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "navigation-menu.ts documents no keyboard rows for NavigationMenuRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2743,7 +2743,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "NavigationMenuList is interactive but navigation-menu.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "navigation-menu.ts documents no keyboard rows for NavigationMenuList — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2760,7 +2760,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "NavigationMenuItem is interactive but navigation-menu.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "navigation-menu.ts documents no keyboard rows for NavigationMenuItem — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2777,7 +2777,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "NavigationMenuTrigger is interactive but navigation-menu.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "navigation-menu.ts documents no keyboard rows for NavigationMenuTrigger — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2794,7 +2794,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "NavigationMenuContent is interactive but navigation-menu.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "navigation-menu.ts documents no keyboard rows for NavigationMenuContent — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2811,7 +2811,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "NavigationMenuLink is interactive but navigation-menu.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "navigation-menu.ts documents no keyboard rows for NavigationMenuLink — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2835,7 +2835,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "NumberField is interactive but number-field.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "number-field.ts documents no keyboard rows for NumberField — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2852,7 +2852,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "NumberFieldRoot is interactive but number-field.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "number-field.ts documents no keyboard rows for NumberFieldRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2869,7 +2869,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "NumberFieldInput is interactive but number-field.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "number-field.ts documents no keyboard rows for NumberFieldInput — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2893,7 +2893,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "PageLoader is interactive but page-loader.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "page-loader.ts documents no keyboard rows for PageLoader — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2917,7 +2917,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Pagination is interactive but pagination.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "pagination.ts documents no keyboard rows for Pagination — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2972,7 +2972,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Popover is interactive but popover.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "popover.ts documents no keyboard rows for Popover — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -2989,7 +2989,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "PopoverRoot is interactive but popover.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "popover.ts documents no keyboard rows for PopoverRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3006,7 +3006,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "PopoverTrigger is interactive but popover.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "popover.ts documents no keyboard rows for PopoverTrigger — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3023,7 +3023,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "PopoverContent is interactive but popover.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "popover.ts documents no keyboard rows for PopoverContent — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3040,7 +3040,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "PopoverTitle is interactive but popover.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "popover.ts documents no keyboard rows for PopoverTitle — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3057,7 +3057,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "PopoverDescription is interactive but popover.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "popover.ts documents no keyboard rows for PopoverDescription — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3074,7 +3074,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "PopoverClose is interactive but popover.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "popover.ts documents no keyboard rows for PopoverClose — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3098,7 +3098,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "PreviewCard is interactive but preview-card.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "preview-card.ts documents no keyboard rows for PreviewCard — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3115,7 +3115,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "PreviewCardRoot is interactive but preview-card.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "preview-card.ts documents no keyboard rows for PreviewCardRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3132,7 +3132,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "PreviewCardTrigger is interactive but preview-card.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "preview-card.ts documents no keyboard rows for PreviewCardTrigger — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3149,7 +3149,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "PreviewCardContent is interactive but preview-card.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "preview-card.ts documents no keyboard rows for PreviewCardContent — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3173,7 +3173,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Progress is interactive but progress.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "progress.ts documents no keyboard rows for Progress — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3190,7 +3190,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "ProgressRoot is interactive but progress.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "progress.ts documents no keyboard rows for ProgressRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3207,7 +3207,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "ProgressLabel is interactive but progress.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "progress.ts documents no keyboard rows for ProgressLabel — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3224,7 +3224,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "ProgressValue is interactive but progress.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "progress.ts documents no keyboard rows for ProgressValue — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3248,7 +3248,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "RadioGroup is interactive but radio-group.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "radio-group.ts documents no keyboard rows for RadioGroup — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3265,7 +3265,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "RadioGroupItem is interactive but radio-group.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "radio-group.ts documents no keyboard rows for RadioGroupItem — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3289,7 +3289,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "ScrollArea is interactive but scroll-area.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "scroll-area.ts documents no keyboard rows for ScrollArea — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3306,7 +3306,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "ScrollAreaRoot is interactive but scroll-area.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "scroll-area.ts documents no keyboard rows for ScrollAreaRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3323,7 +3323,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "ScrollAreaViewport is interactive but scroll-area.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "scroll-area.ts documents no keyboard rows for ScrollAreaViewport — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3340,7 +3340,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "ScrollAreaScrollbar is interactive but scroll-area.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "scroll-area.ts documents no keyboard rows for ScrollAreaScrollbar — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3364,7 +3364,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Search is interactive but search.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "search.ts documents no keyboard rows for Search — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3399,7 +3399,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SegmentedButton is interactive but segmented-button.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "segmented-button.ts documents no keyboard rows for SegmentedButton — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3416,7 +3416,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SegmentedButtonRoot is interactive but segmented-button.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "segmented-button.ts documents no keyboard rows for SegmentedButtonRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3433,7 +3433,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SegmentedButtonItem is interactive but segmented-button.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "segmented-button.ts documents no keyboard rows for SegmentedButtonItem — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3457,7 +3457,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Select is interactive but select.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "select.ts documents no keyboard rows for Select — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3474,7 +3474,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SelectRoot is interactive but select.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "select.ts documents no keyboard rows for SelectRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3491,7 +3491,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SelectTrigger is interactive but select.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "select.ts documents no keyboard rows for SelectTrigger — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3508,7 +3508,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SelectValue is interactive but select.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "select.ts documents no keyboard rows for SelectValue — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3525,7 +3525,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SelectContent is interactive but select.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "select.ts documents no keyboard rows for SelectContent — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3542,7 +3542,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SelectItem is interactive but select.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "select.ts documents no keyboard rows for SelectItem — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3559,7 +3559,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SelectItemText is interactive but select.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "select.ts documents no keyboard rows for SelectItemText — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3576,7 +3576,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SelectGroupLabel is interactive but select.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "select.ts documents no keyboard rows for SelectGroupLabel — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3593,7 +3593,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SelectSeparator is interactive but select.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "select.ts documents no keyboard rows for SelectSeparator — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3652,7 +3652,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Sheet is interactive but sheet.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "sheet.ts documents no keyboard rows for Sheet — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3669,7 +3669,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SheetRoot is interactive but sheet.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "sheet.ts documents no keyboard rows for SheetRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3686,7 +3686,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SheetTrigger is interactive but sheet.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "sheet.ts documents no keyboard rows for SheetTrigger — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3703,7 +3703,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SheetContent is interactive but sheet.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "sheet.ts documents no keyboard rows for SheetContent — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3720,7 +3720,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SheetTitle is interactive but sheet.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "sheet.ts documents no keyboard rows for SheetTitle — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3737,7 +3737,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SheetDescription is interactive but sheet.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "sheet.ts documents no keyboard rows for SheetDescription — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3754,7 +3754,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SheetClose is interactive but sheet.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "sheet.ts documents no keyboard rows for SheetClose — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3845,7 +3845,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Slider is interactive but slider.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "slider.ts documents no keyboard rows for Slider — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3862,7 +3862,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SliderRoot is interactive but slider.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "slider.ts documents no keyboard rows for SliderRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3879,7 +3879,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SliderThumb is interactive but slider.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "slider.ts documents no keyboard rows for SliderThumb — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3896,7 +3896,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SliderLabel is interactive but slider.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "slider.ts documents no keyboard rows for SliderLabel — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3913,7 +3913,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SliderValue is interactive but slider.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "slider.ts documents no keyboard rows for SliderValue — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3937,7 +3937,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Snackbar is interactive but snackbar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "snackbar.ts documents no keyboard rows for Snackbar — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3954,7 +3954,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SnackbarProvider is interactive but snackbar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "snackbar.ts documents no keyboard rows for SnackbarProvider — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3971,7 +3971,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SnackbarViewport is interactive but snackbar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "snackbar.ts documents no keyboard rows for SnackbarViewport — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -3988,7 +3988,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SnackbarList is interactive but snackbar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "snackbar.ts documents no keyboard rows for SnackbarList — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4005,7 +4005,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SnackbarRoot is interactive but snackbar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "snackbar.ts documents no keyboard rows for SnackbarRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4022,7 +4022,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SnackbarTitle is interactive but snackbar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "snackbar.ts documents no keyboard rows for SnackbarTitle — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4039,7 +4039,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SnackbarDescription is interactive but snackbar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "snackbar.ts documents no keyboard rows for SnackbarDescription — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4056,7 +4056,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SnackbarAction is interactive but snackbar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "snackbar.ts documents no keyboard rows for SnackbarAction — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4073,7 +4073,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SnackbarClose is interactive but snackbar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "snackbar.ts documents no keyboard rows for SnackbarClose — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4108,7 +4108,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Sonner is interactive but sonner.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "sonner.ts documents no keyboard rows for Sonner — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4125,7 +4125,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SonnerProvider is interactive but sonner.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "sonner.ts documents no keyboard rows for SonnerProvider — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4142,7 +4142,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SonnerViewport is interactive but sonner.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "sonner.ts documents no keyboard rows for SonnerViewport — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4159,7 +4159,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SonnerList is interactive but sonner.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "sonner.ts documents no keyboard rows for SonnerList — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4176,7 +4176,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SonnerRoot is interactive but sonner.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "sonner.ts documents no keyboard rows for SonnerRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4193,7 +4193,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SonnerTitle is interactive but sonner.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "sonner.ts documents no keyboard rows for SonnerTitle — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4210,7 +4210,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SonnerDescription is interactive but sonner.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "sonner.ts documents no keyboard rows for SonnerDescription — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4227,7 +4227,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SonnerAction is interactive but sonner.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "sonner.ts documents no keyboard rows for SonnerAction — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4244,7 +4244,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SonnerClose is interactive but sonner.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "sonner.ts documents no keyboard rows for SonnerClose — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4290,7 +4290,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Switch is interactive but switch.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "switch.ts documents no keyboard rows for Switch — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4314,7 +4314,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Table is interactive but table.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "table.ts documents no keyboard rows for Table — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4331,7 +4331,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "TableRoot is interactive but table.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "table.ts documents no keyboard rows for TableRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4348,7 +4348,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "TableHead is interactive but table.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "table.ts documents no keyboard rows for TableHead — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4365,7 +4365,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "TableHeader is interactive but table.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "table.ts documents no keyboard rows for TableHeader — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4382,7 +4382,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "TableBody is interactive but table.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "table.ts documents no keyboard rows for TableBody — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4399,7 +4399,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "TableRow is interactive but table.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "table.ts documents no keyboard rows for TableRow — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4416,7 +4416,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "TableCell is interactive but table.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "table.ts documents no keyboard rows for TableCell — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4433,7 +4433,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "TableCaption is interactive but table.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "table.ts documents no keyboard rows for TableCaption — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4457,7 +4457,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Tabs is interactive but tabs.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "tabs.ts documents no keyboard rows for Tabs — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4474,7 +4474,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "TabsRoot is interactive but tabs.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "tabs.ts documents no keyboard rows for TabsRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4491,7 +4491,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "TabsList is interactive but tabs.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "tabs.ts documents no keyboard rows for TabsList — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4508,7 +4508,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "TabsTab is interactive but tabs.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "tabs.ts documents no keyboard rows for TabsTab — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4525,7 +4525,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "TabsPanel is interactive but tabs.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "tabs.ts documents no keyboard rows for TabsPanel — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4549,7 +4549,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Text is interactive but text.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "text.ts documents no keyboard rows for Text — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4573,7 +4573,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Textarea is interactive but textarea.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "textarea.ts documents no keyboard rows for Textarea — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4608,7 +4608,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "ToggleGroup is interactive but toggle-group.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "toggle-group.ts documents no keyboard rows for ToggleGroup — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4625,7 +4625,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "ToggleGroupRoot is interactive but toggle-group.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "toggle-group.ts documents no keyboard rows for ToggleGroupRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4642,7 +4642,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "ToggleGroupItem is interactive but toggle-group.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "toggle-group.ts documents no keyboard rows for ToggleGroupItem — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4666,7 +4666,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Toggle is interactive but toggle.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "toggle.ts documents no keyboard rows for Toggle — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4690,7 +4690,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Toolbar is interactive but toolbar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "toolbar.ts documents no keyboard rows for Toolbar — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4707,7 +4707,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "ToolbarRoot is interactive but toolbar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "toolbar.ts documents no keyboard rows for ToolbarRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4724,7 +4724,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "ToolbarGroup is interactive but toolbar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "toolbar.ts documents no keyboard rows for ToolbarGroup — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4741,7 +4741,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "ToolbarButton is interactive but toolbar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "toolbar.ts documents no keyboard rows for ToolbarButton — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4758,7 +4758,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "ToolbarSeparator is interactive but toolbar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "toolbar.ts documents no keyboard rows for ToolbarSeparator — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4782,7 +4782,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Tooltip is interactive but tooltip.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "tooltip.ts documents no keyboard rows for Tooltip — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4799,7 +4799,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "TooltipRoot is interactive but tooltip.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "tooltip.ts documents no keyboard rows for TooltipRoot — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4816,7 +4816,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "TooltipTrigger is interactive but tooltip.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "tooltip.ts documents no keyboard rows for TooltipTrigger — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4833,7 +4833,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "TooltipContent is interactive but tooltip.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "tooltip.ts documents no keyboard rows for TooltipContent — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4850,7 +4850,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "TooltipProvider is interactive but tooltip.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "tooltip.ts documents no keyboard rows for TooltipProvider — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4957,7 +4957,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "AspectRatio is interactive but aspect-ratio.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "aspect-ratio.ts documents no keyboard rows for AspectRatio — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -4992,7 +4992,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Avatar is interactive but avatar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "avatar.ts documents no keyboard rows for Avatar — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -5016,7 +5016,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Badge is interactive but badge.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "badge.ts documents no keyboard rows for Badge — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -5040,7 +5040,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Banner is interactive but banner.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "banner.ts documents no keyboard rows for Banner — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -5097,7 +5097,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "ButtonGroup is interactive but button-group.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "button-group.ts documents no keyboard rows for ButtonGroup — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -5121,7 +5121,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Button is interactive but button.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "button.ts documents no keyboard rows for Button — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -5156,7 +5156,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Card is interactive but card.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "card.ts documents no keyboard rows for Card — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -5206,7 +5206,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Checkbox is interactive but checkbox.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "checkbox.ts documents no keyboard rows for Checkbox — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -5230,7 +5230,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Chip is interactive but chip.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "chip.ts documents no keyboard rows for Chip — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -5254,7 +5254,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "CircularProgress is interactive but circular-progress.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "circular-progress.ts documents no keyboard rows for CircularProgress — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -5289,7 +5289,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Command is interactive but command.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "command.ts documents no keyboard rows for Command — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -5324,7 +5324,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "CountrySelect is interactive but country-select.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "country-select.ts documents no keyboard rows for CountrySelect — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -5381,7 +5381,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "EmptyState is interactive but empty-state.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "empty-state.ts documents no keyboard rows for EmptyState — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -5449,7 +5449,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Fab is interactive but fab.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "fab.ts documents no keyboard rows for Fab — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -5481,7 +5481,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "FieldMessage is interactive but field.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "field.ts documents no keyboard rows for FieldMessage — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -5568,7 +5568,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Input is interactive but input.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "input.ts documents no keyboard rows for Input — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -5603,7 +5603,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Label is interactive but label.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "label.ts documents no keyboard rows for Label — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -5627,7 +5627,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "LinearProgress is interactive but linear-progress.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "linear-progress.ts documents no keyboard rows for LinearProgress — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -5662,7 +5662,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "ListItem is interactive but list-item.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "list-item.ts documents no keyboard rows for ListItem — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -5686,7 +5686,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Loader is interactive but loader.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "loader.ts documents no keyboard rows for Loader — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -5710,7 +5710,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "LoadingButton is interactive but loading-button.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "loading-button.ts documents no keyboard rows for LoadingButton — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -5921,7 +5921,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Progress is interactive but progress.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "progress.ts documents no keyboard rows for Progress — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -5945,7 +5945,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "RadioGroup is interactive but radio-group.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "radio-group.ts documents no keyboard rows for RadioGroup — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -5962,7 +5962,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "RadioGroupItem is interactive but radio-group.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "radio-group.ts documents no keyboard rows for RadioGroupItem — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -5997,7 +5997,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Search is interactive but search.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "search.ts documents no keyboard rows for Search — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -6032,7 +6032,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "SegmentedButton is interactive but segmented-button.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "segmented-button.ts documents no keyboard rows for SegmentedButton — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -6170,7 +6170,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Slider is interactive but slider.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "slider.ts documents no keyboard rows for Slider — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -6194,7 +6194,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Snackbar is interactive but snackbar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "snackbar.ts documents no keyboard rows for Snackbar — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -6273,7 +6273,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Switch is interactive but switch.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "switch.ts documents no keyboard rows for Switch — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -6319,7 +6319,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Text is interactive but text.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "text.ts documents no keyboard rows for Text — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -6343,7 +6343,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Textarea is interactive but textarea.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "textarea.ts documents no keyboard rows for Textarea — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -6378,7 +6378,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "ToggleGroup is interactive but toggle-group.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "toggle-group.ts documents no keyboard rows for ToggleGroup — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",
@@ -6402,7 +6402,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "keyboard-operable",
             "expect": "gap",
             "provenance": "derived",
-            "basis": "Toggle is interactive but toggle.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+            "basis": "toggle.ts documents no keyboard rows for Toggle — the contract is unwritten, treat as a gap not a pass"
           },
           {
             "rule": "aria-contract",

@@ -10,7 +10,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "CheckboxGroup is interactive but checkbox-group.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "checkbox-group.ts documents no keyboard rows for CheckboxGroup — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -27,7 +27,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "CheckboxGroupRoot is interactive but checkbox-group.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "checkbox-group.ts documents no keyboard rows for CheckboxGroupRoot — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -44,7 +44,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "CheckboxGroupItem is interactive but checkbox-group.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "checkbox-group.ts documents no keyboard rows for CheckboxGroupItem — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",

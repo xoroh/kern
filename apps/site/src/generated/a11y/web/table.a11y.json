@@ -10,7 +10,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "Table is interactive but table.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "table.ts documents no keyboard rows for Table — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -27,7 +27,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "TableRoot is interactive but table.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "table.ts documents no keyboard rows for TableRoot — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -44,7 +44,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "TableHead is interactive but table.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "table.ts documents no keyboard rows for TableHead — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -61,7 +61,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "TableHeader is interactive but table.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "table.ts documents no keyboard rows for TableHeader — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -78,7 +78,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "TableBody is interactive but table.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "table.ts documents no keyboard rows for TableBody — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -95,7 +95,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "TableRow is interactive but table.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "table.ts documents no keyboard rows for TableRow — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -112,7 +112,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "TableCell is interactive but table.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "table.ts documents no keyboard rows for TableCell — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -129,7 +129,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "TableCaption is interactive but table.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "table.ts documents no keyboard rows for TableCaption — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",

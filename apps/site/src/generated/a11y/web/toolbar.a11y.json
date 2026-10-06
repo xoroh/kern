@@ -10,7 +10,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "Toolbar is interactive but toolbar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "toolbar.ts documents no keyboard rows for Toolbar — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -27,7 +27,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "ToolbarRoot is interactive but toolbar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "toolbar.ts documents no keyboard rows for ToolbarRoot — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -44,7 +44,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "ToolbarGroup is interactive but toolbar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "toolbar.ts documents no keyboard rows for ToolbarGroup — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -61,7 +61,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "ToolbarButton is interactive but toolbar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "toolbar.ts documents no keyboard rows for ToolbarButton — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -78,7 +78,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "ToolbarSeparator is interactive but toolbar.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "toolbar.ts documents no keyboard rows for ToolbarSeparator — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",

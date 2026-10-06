@@ -10,7 +10,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "Banner is interactive but banner.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "banner.ts documents no keyboard rows for Banner — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
@@ -27,7 +27,7 @@
           "rule": "keyboard-operable",
           "expect": "gap",
           "provenance": "derived",
-          "basis": "BannerAction is interactive but banner.ts documents no keyboard rows — the contract is unwritten, treat as a gap not a pass"
+          "basis": "banner.ts documents no keyboard rows for BannerAction — the contract is unwritten, treat as a gap not a pass"
         },
         {
           "rule": "aria-contract",
