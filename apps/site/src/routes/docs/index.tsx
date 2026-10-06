@@ -254,6 +254,51 @@ function DocsIndex() {
             </p>
           </section>
 
+          {/* For AI agents — the machine surfaces, in one place. llms.txt is
+              generated from the nav file; the skills live in the repo; every
+              component and Foundations page carries a Copy-as-Markdown
+              button. An agent that starts here never needs to scrape HTML. */}
+          <section
+            aria-labelledby="for-ai-agents"
+            className="flex flex-col gap-3 border-t border-(--md-sys-color-outline-variant) pt-6"
+          >
+            <h2 id="for-ai-agents" className={`m-0 ${T_SMALL_TITLE}`}>
+              For AI agents
+            </h2>
+            <ul className="m-0 flex list-none flex-col gap-2 p-0">
+              <li>
+                <a
+                  href="/llms.txt"
+                  className={`text-(--md-sys-color-primary) ${T_BODY_SM}`}
+                >
+                  llms.txt →
+                </a>{" "}
+                <span className={`m-0 ${T_BODY_SM} ${SOFT}`}>
+                  the page map, generated from the nav — never hand-maintained.
+                </span>
+              </li>
+              <li>
+                <span className={`m-0 ${T_BODY_SM} ${SOFT}`}>
+                  Copy as Markdown button on every component and Foundations
+                  page — prose, code and links, live-demo controls excluded.
+                </span>
+              </li>
+              <li>
+                <a
+                  href="https://github.com/xoroh/kern/tree/main/.agents/skills"
+                  rel="noreferrer"
+                  target="_blank"
+                  className={`text-(--md-sys-color-primary) ${T_BODY_SM}`}
+                >
+                  Agent skills →
+                </a>{" "}
+                <span className={`m-0 ${T_BODY_SM} ${SOFT}`}>
+                  kern (design system) and docs skills in the repo.
+                </span>
+              </li>
+            </ul>
+          </section>
+
           {/* Next steps — every tutorial ends here, by Diátaxis form */}
           <section
             aria-labelledby="next-steps"

@@ -35,10 +35,11 @@ import type {
 import { MOBILE_DEMOS } from "../../demos/mobile/registry";
 import { WEB_DEMOS } from "../../demos/web/registry";
 import { PROPS_TABLE } from "../../generated/props-table";
-import { maturityForExports } from "../../systems/maturity";
 import { Configurator } from "../../showcase/configurator";
 import { ExampleList } from "../../showcase/example";
 import { configuratorFor, examplesFor } from "../../showcase/registry";
+import { maturityForExports } from "../../systems/maturity";
+import { CopyMarkdownButton } from "../chrome/copy-markdown-button";
 
 /**
  * M1 — the page that TEACHES the type scale must USE the type scale.
@@ -1289,11 +1290,14 @@ export function ComponentPage({
   next?: { href: string; title: string };
 }) {
   return (
-    <article className="flex flex-col gap-10">
+    <article className="flex flex-col gap-10" data-copy-md-root>
       <header className="flex flex-col gap-4">
         <h1 className={H1}>{doc.name}</h1>
         <p className={`m-0 max-w-[62ch] ${LEDE} ${INK_SOFT}`}>{doc.oneLiner}</p>
         <MetadataStrip doc={doc} platform={platform} />
+        <div>
+          <CopyMarkdownButton />
+        </div>
       </header>
 
       <OnThisPage doc={doc} />

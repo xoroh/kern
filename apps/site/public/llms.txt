@@ -1,0 +1,39 @@
+# Kern
+
+> Kern UI by Xoroh — an open-source design system following Material
+> Design 3. One contract, web and native. Full docs: /docs
+
+## AI agents
+
+Prefer these machine surfaces over scraping HTML:
+- /llms.txt (this file) — the page map
+- Copy as Markdown button on every component and Foundations page — page prose + code + links, live-demo controls excluded
+- Agent skills in the repo: .agents/skills/kern/SKILL.md and .agents/skills/docs/SKILL.md (https://github.com/xoroh/kern/tree/main/.agents/skills)
+
+## Docs
+
+- [Overview](/docs): Three ways in, one system underneath
+- [Guides](/docs/guides): How-to guides for common tasks
+- [API reference](/docs/api): API reference for the public utility surface
+- [Reference](/docs/reference): Concept and contract reference
+- [Contributing](/docs/contributing): How to contribute to kern
+
+## Components
+
+- [All components](/components): Documented family by family
+- [Web](/components/web): Web component families
+- [Native](/components/mobile): Native component families
+
+## Foundations
+
+- [Styles & tokens](/styles): The values everything is built from
+- [Theme](/theme): Color roles in the active theme
+- [Accessibility](/accessibility): How kern components stay accessible
+- [Icons](/icons): Icon sets and usage
+
+## Start
+
+- [Getting started](/getting-started): From install to a themed component
+- [Changelog](/changelog): What changed, newest first
+- [About](/about): What kern is and why it exists
+- [Community](/community): Where to ask and share

@@ -12,6 +12,7 @@
 
 import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
+import { CopyMarkdownButton } from "../components/chrome/copy-markdown-button";
 import { T_BODY_SM, T_LEAD, T_PAGE, T_SECTION } from "../systems/type-scale";
 
 export type FoundationPage = {
@@ -226,7 +227,7 @@ export function FoundationLayout({
   if (!page) return null;
 
   return (
-    <article className="flex flex-col gap-10">
+    <article className="flex flex-col gap-10" data-copy-md-root>
       <header className="flex flex-col gap-3">
         <nav
           className={`flex flex-wrap items-center gap-2 ${T_BODY_SM} ${INK_SOFT}`}
@@ -241,6 +242,9 @@ export function FoundationLayout({
           {page.oneLiner}
         </p>
         <FDeviations items={page.deviations ?? []} />
+        <div>
+          <CopyMarkdownButton />
+        </div>
       </header>
 
       {children}

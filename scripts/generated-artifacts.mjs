@@ -122,6 +122,15 @@ export const GENERATORS = [
     outputs: ["apps/site/src/generated/legal.ts"],
   },
   {
+    // Part 6 AI-readiness: public/llms.txt from the Part-1 nav file. Same
+    // omission class — a hand-maintained llms.txt is a third opinion on the
+    // page list that drifts the day a route joins the sidebar but not the
+    // text file. Generated from NAV_SECTIONS, compared byte-for-byte.
+    name: "site generate-llms (nav -> public/llms.txt)",
+    cmd: ["bun", "apps/site/scripts/generate-llms.mjs"],
+    outputs: ["apps/site/public/llms.txt"],
+  },
+  {
     // F1 (review-m3): the compiler-extracted props tables Section 10 reads.
     // Same omission class — one script, two outputs (props.ts is the full
     // extraction, props-table.ts the runtime-slim curated table), so both
