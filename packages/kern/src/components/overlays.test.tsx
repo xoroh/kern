@@ -525,6 +525,20 @@ describe("PreviewCard", () => {
     await user.hover(screen.getByText("Docs"));
     expect(await screen.findByText("Preview body")).toBeInTheDocument();
   });
+
+  it("mounts open without hovering", async () => {
+    // Edge composition, carried from the move-5 Group lesson: the open knob
+    // mounts the card at first paint, so the test pins the painted body
+    // with no interaction. Sensitivity-proven: the same query on a shut
+    // mount finds nothing (scratch probe, RED confirmed, deleted).
+    render(
+      <PreviewCard.Root defaultOpen>
+        <PreviewCard.Trigger>Docs</PreviewCard.Trigger>
+        <PreviewCard.Content>Preview body</PreviewCard.Content>
+      </PreviewCard.Root>,
+    );
+    expect(await screen.findByText("Preview body")).toBeInTheDocument();
+  });
 });
 
 describe("ContextMenu", () => {
