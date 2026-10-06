@@ -17,6 +17,13 @@ import kernTheme from "@xoroh/kern-tokens/themes/kern.json";
  *      sum to the role count, M3 + kern == total, spacing/shape/elevation/
  *      states/motion/palettes/spectrum/base all equal their source key sets.
  *      A wrong query fails here instead of painting junk.
+ *  (c) SPOT VALUES. One rendered value per family vs its source value
+ *      (primary light/dark, a type style's four fields, space-100, shape
+ *      medium, level1 dp+shadow, hover-opacity, easing.standard,
+ *      duration.short1, spatial-default stiffness/damping, neutral.500,
+ *      gray.500, base background). Shapes (b) catch wrong-KEY slices; only
+ *      values catch wrong-VALUE slices (dark rendered as light, shifted
+ *      ramps, swapped encodings). Both sides read, never typed.
  *
  * Runs under bun (like check-search/check-examples): it imports the real TS
  * modules AND the real JSON sources, so both sides of every comparison are
@@ -50,12 +57,17 @@ import {
 } from "../src/content/foundations/typography.ts";
 
 let errors = 0;
+let spots = 0;
 function fail(msg) {
   console.error(`x    ${msg}`);
   errors++;
 }
 function check(cond, msg) {
   if (!cond) fail(msg);
+}
+function spot(cond, msg) {
+  spots++;
+  check(cond, msg);
 }
 
 const nonMeta = (obj) =>
@@ -193,54 +205,54 @@ check(
 // every failure class instead of exiting at the first.
 const byName = (rows, field, name) => rows.find((r) => r[field] === name);
 const role = byName(COLOR_ROLES, "name", "primary");
-check(role?.light === light.primary, `spot color: primary light ${role?.light} != theme ${light.primary}`);
-check(role?.dark === kernTheme.color.dark.primary, `spot color: primary dark ${role?.dark} != theme`);
+spot(role?.light === light.primary, `spot color: primary light ${role?.light} != theme ${light.primary}`);
+spot(role?.dark === kernTheme.color.dark.primary, `spot color: primary dark ${role?.dark} != theme`);
 const style = byName(TYPE_STYLES, "role", "display-large");
 const srcStyle = t.typography.scale["display-large"];
-check(style?.fontSize === String(srcStyle.size), `spot type: display-large size ${style?.fontSize} != source`);
-check(style?.fontWeight === String(srcStyle.weight), `spot type: display-large weight mismatch`);
-check(style?.lineHeight === String(srcStyle.lineHeight), `spot type: display-large line-height mismatch`);
-check(style?.letterSpacing === String(srcStyle.tracking), `spot type: display-large tracking mismatch`);
-check(
+spot(style?.fontSize === String(srcStyle.size), `spot type: display-large size ${style?.fontSize} != source`);
+spot(style?.fontWeight === String(srcStyle.weight), `spot type: display-large weight mismatch`);
+spot(style?.lineHeight === String(srcStyle.lineHeight), `spot type: display-large line-height mismatch`);
+spot(style?.letterSpacing === String(srcStyle.tracking), `spot type: display-large tracking mismatch`);
+spot(
   byName(SPACING, "key", "space-100")?.value === t.spacing["space-100"],
   `spot spacing: space-100 mismatch`,
 );
-check(
+spot(
   byName(SHAPE, "key", "medium")?.value === t.shape.medium,
   `spot shape: medium mismatch`,
 );
 const level1 = byName(ELEVATION_LEVELS, "level", "level1");
-check(level1?.dp === t.elevation.level1.dp && level1?.shadow === t.elevation.level1.shadow, `spot elevation: level1 dp/shadow mismatch`);
-check(
+spot(level1?.dp === t.elevation.level1.dp && level1?.shadow === t.elevation.level1.shadow, `spot elevation: level1 dp/shadow mismatch`);
+spot(
   byName(STATES, "key", "hover-opacity")?.value === t.states["hover-opacity"],
   `spot states: hover-opacity mismatch`,
 );
-check(
+spot(
   byName(MOTION_EASING, "key", "easing.standard")?.value === t.motion.easing.standard,
   `spot motion: easing.standard mismatch`,
 );
-check(
+spot(
   byName(MOTION_DURATION, "key", "duration.short1")?.value === t.motion.duration.short1,
   `spot motion: duration.short1 mismatch`,
 );
 const spring = MOTION_SPRING.find((s) => s.name === "spatial-default");
-check(
+spot(
   spring?.stiffness === t.motion.spring["spatial-default"].stiffness &&
     spring?.damping === t.motion.spring["spatial-default"].damping,
   `spot motion: spatial-default stiffness/damping mismatch`,
 );
 const neutral500 = PALETTES.find((r) => r.name === "neutral")?.steps.find((s) => s.step === "500");
-check(
+spot(
   neutral500?.srgb === t.palettes.neutral["500"].srgb && neutral500?.oklch === t.palettes.neutral["500"].oklch,
   `spot palette: neutral.500 srgb/oklch mismatch`,
 );
 const gray500 = SPECTRUM.find((r) => r.name === "gray")?.steps.find((s) => s.step === "500");
-check(
+spot(
   gray500?.srgb === t.spectrum.gray["500"].srgb,
   `spot spectrum: gray.500 srgb mismatch`,
 );
 const bg = byName(BASE_ANCHORS, "name", "background");
-check(
+spot(
   bg?.srgb === t.base.background.srgb && bg?.oklch === t.base.background.oklch,
   `spot base: background srgb/oklch mismatch`,
 );
@@ -250,5 +262,5 @@ if (errors > 0) {
   process.exit(1);
 }
 console.log(
-  `check-tokens: ok — ${named.length} names $-clean; ${ROLE_COUNT} roles, ${TYPE_STYLE_COUNT} styles, all bands reconcile`,
+  `check-tokens: ok — ${named.length} names $-clean; ${ROLE_COUNT} roles, ${TYPE_STYLE_COUNT} styles, all bands reconcile; ${spots} spot values match source`,
 );
