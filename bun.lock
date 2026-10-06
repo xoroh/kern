@@ -101,6 +101,16 @@
     "packages/kern-cli": {
       "name": "@xoroh/kern-cli",
       "version": "0.0.0",
+      "bin": {
+        "kern": "./src/kern.ts",
+      },
+      "dependencies": {
+        "typescript": "5.9.3",
+      },
+      "devDependencies": {
+        "@types/node": "^26.6.3",
+        "vitest": "^5.0.2",
+      },
     },
     "packages/kern-icons": {
       "name": "@xoroh/kern-icons",

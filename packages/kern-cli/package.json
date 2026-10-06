@@ -1,7 +1,7 @@
 {
   "name": "@xoroh/kern-cli",
   "version": "0.0.0",
-  "description": "Future installer for Kern: `kern add <component>`. Scoped, not implemented.",
+  "description": "Installer for Kern: `kern add <component>` vendors a web component plus its closure (Mode 1, dual delivery).",
   "license": "MIT",
   "private": true,
   "author": "Xoroh",
@@ -9,5 +9,19 @@
     "type": "git",
     "url": "https://github.com/xoroh/kern.git",
     "directory": "packages/kern-cli"
+  },
+  "bin": {
+    "kern": "./src/kern.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "typescript": "5.9.3"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.3",
+    "vitest": "^5.0.2"
   }
 }
