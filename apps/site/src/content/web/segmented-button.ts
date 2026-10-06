@@ -8,6 +8,8 @@ export const segmentedButton: ComponentDoc = {
   features:
     "Reach for a segmented button when there are two to four options and seeing all of them at once is the point: a view mode, a time range, a unit. The set is the control — the options sit in one bar so they can be compared directly, which is exactly what makes it better than a select for a short list. Keep the labels short and parallel; a segment whose label wraps has outgrown the control. If only one option can be chosen and there are more than four, that is a radio group or a select.",
   meta: {
+    // Canonical M3 spec page — title identity-verified live; gate re-checks.
+    specUrl: "https://m3.material.io/components/segmented-buttons",
     status: "real",
     package: "@xoroh/kern",
     nativePeer: "SegmentedButton",

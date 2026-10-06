@@ -8,6 +8,8 @@ export const loadingIndicator: ComponentDoc = {
   features:
     "Reach for a loading indicator when the wait needs to say what it is for: a region fetching its content, a step in a wizard, a background sync. The label is the difference between this and a bare `Loader` — it names the wait instead of leaving someone to guess. Whether the label is visible or only announced is a prop, so the same component serves the inline and the announced cases. If the wait has a knowable length, that is progress rather than a spinner.",
   meta: {
+    // Canonical M3 spec page — title identity-verified live; gate re-checks.
+    specUrl: "https://m3.material.io/components/loading-indicator",
     status: "real",
     package: "@xoroh/kern",
     nativePeer: "LoadingIndicator",

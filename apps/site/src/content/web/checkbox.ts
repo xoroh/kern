@@ -8,6 +8,8 @@ export const checkbox: ComponentDoc = {
   features:
     "Reach for a checkbox when each choice is independent and more than one can be on: permissions, ingredients, the columns you want in a table. A single checkbox is right for something you agree to separately from anything else — terms, a subscription, a flag. If only one option in a set may be chosen, that is a radio group; if the choice is a single thing you turn on and off and it applies immediately, that is a switch. Give the checkbox a label — an unnamed checkbox is a shape that means nothing to a screen reader.",
   meta: {
+    // Canonical M3 spec page — title identity-verified live; gate re-checks.
+    specUrl: "https://m3.material.io/components/checkbox",
     status: "real",
     package: "@xoroh/kern",
     nativePeer: "Checkbox",

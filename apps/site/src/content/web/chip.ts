@@ -8,6 +8,8 @@ export const chip: ComponentDoc = {
   features:
     "Reach for a chip when you need to show something a person can act on without giving it the weight of a button: a tag on a record, a filter in a search UI, a suggested reply. Chips come in four flavours and the flavour is the choice — assist for a quick action, filter for something selectable, input for something removable, suggestion for something offered. Put chips in a row with other chips; a chip on its own is usually a button or a label that has lost its way.",
   meta: {
+    // Canonical M3 spec page — title identity-verified live; gate re-checks.
+    specUrl: "https://m3.material.io/components/chips",
     status: "real",
     package: "@xoroh/kern",
     nativePeer: "Chip",

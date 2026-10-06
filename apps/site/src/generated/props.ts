@@ -1049,18 +1049,18 @@ export const GENERATED_PROPS: Record<string, Array<{
   ],
   "Button": [
     {
-      "name": "size",
-      "type": "\"sm\" | \"default\" | \"icon\" | null | undefined",
+      "name": "variant",
+      "type": "ButtonVariantInput | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:26",
-      "default": "\"default\""
+      "src": "packages/kern/src/components/button.tsx:72",
+      "default": "\"primary\""
     },
     {
-      "name": "variant",
-      "type": "\"elevated\" | \"primary\" | \"tonal\" | \"outlined\" | \"ghost\" | null | undefined",
+      "name": "size",
+      "type": "ButtonSize | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:14",
-      "default": "\"primary\""
+      "src": "packages/kern/src/components/button.tsx:73",
+      "default": "\"default\""
     }
   ],
   "Calendar": [
@@ -4716,21 +4716,21 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "loading",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/loading-button.tsx:8",
+      "src": "packages/kern/src/components/loading-button.tsx:14",
       "note": "Shows the embedded progress indicator and blocks interaction."
     },
     {
       "name": "value",
       "type": "number | undefined",
       "required": false,
-      "src": "packages/kern/src/components/loading-button.tsx:10",
+      "src": "packages/kern/src/components/loading-button.tsx:16",
       "note": "0–1 determinate progress while loading. Omit for the loop."
     },
     {
       "name": "loaderStyle",
       "type": "\"spinner\" | \"dots\" | \"bar\" | \"shapes\" | \"conveyor\" | \"contained\" | \"orbit\" | \"morph\" | \"assembly\" | undefined",
       "required": false,
-      "src": "packages/kern/src/components/loading-button.tsx:12",
+      "src": "packages/kern/src/components/loading-button.tsx:18",
       "note": "Style of the embedded indicator. Defaults to the M3 ring (`spinner`)."
     }
   ],

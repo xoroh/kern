@@ -8,6 +8,8 @@ export const snackbar: ComponentDoc = {
   features:
     "Reach for a snackbar when an action completed and the person does not need to do anything about it: a message sent, a setting saved, a file deleted with an undo available. It appears, waits, and leaves. Keep the text to one line and offer at most one action — a snackbar with a decision in it is a dialog that arrived in the wrong shape. If the information has to be read, that is a banner; if it has to be acted on before continuing, that is a dialog.",
   meta: {
+    // Canonical M3 spec page — title identity-verified live; gate re-checks.
+    specUrl: "https://m3.material.io/components/snackbar",
     status: "real",
     package: "@xoroh/kern",
     nativePeer: "Snackbar",

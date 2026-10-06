@@ -8,6 +8,8 @@ export const tooltip: ComponentDoc = {
   features:
     "Reach for a tooltip to label an icon-only control, or to add one short line of context that is useful but not worth permanent space. It appears on hover and on keyboard focus, and it must be dismissible without precision pointing — if the content is only reachable by hovering, it is unreachable on touch. Never put an action inside a tooltip, and never put information there that is not available some other way. If the explanation is long enough to need paragraphs, it is a help panel, not a tooltip.",
   meta: {
+    // Canonical M3 spec page — title identity-verified live; gate re-checks.
+    specUrl: "https://m3.material.io/components/tooltips",
     status: "real",
     package: "@xoroh/kern",
     nativePeer: "Tooltip",

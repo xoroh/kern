@@ -8,6 +8,8 @@ export const timePicker: ComponentDoc = {
   features:
     "Reach for a time picker when the answer is a time of day and precision matters: a scheduled send, an appointment, a reminder. The fields are explicit rather than a single text box, so nobody has to guess the expected format. The invariant that matters is that the state is always 24-hour, whatever the display format — `12h` adds an AM/PM field without changing what is stored, so switching the display never changes the value. If the answer is a duration rather than a time of day, this is not the tool.",
   meta: {
+    // Canonical M3 spec page — title identity-verified live; gate re-checks.
+    specUrl: "https://m3.material.io/components/time-pickers",
     status: "real",
     package: "@xoroh/kern",
     nativePeer: "TimePicker",

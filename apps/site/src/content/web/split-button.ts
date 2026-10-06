@@ -8,6 +8,8 @@ export const splitButton: ComponentDoc = {
   features:
     "Reach for a split button when there is one action people take most of the time and a few they take occasionally: the usual export plus the other formats, the default send plus the scheduled ones. The left half does the common thing immediately; the right half opens the rest. It earns its space only when the alternatives genuinely relate to the primary — a menu of unrelated actions behind a labelled button is just a button with a drawer. If the primary changes, so should its label; a split button whose main action is a guess is worse than a plain menu.",
   meta: {
+    // Canonical M3 spec page — title identity-verified live; gate re-checks.
+    specUrl: "https://m3.material.io/components/split-button",
     status: "real",
     package: "@xoroh/kern",
     nativePeer: "SplitButton",

@@ -8,6 +8,8 @@ export const navigationBar: ComponentDoc = {
   features:
     "Reach for a navigation bar when a small-screen app has three to five top-level places and people move between them constantly. It stays put while content scrolls, so the way out of a screen is always under a thumb. M3 caps it at five destinations — past that, the targets stop being tappable and the bar becomes a drawer. It shares one destination list with the navigation rail and the navigation drawer, so you declare your places once and every surface renders them. This component owns its own selection and keyboard behaviour rather than delegating to a primitive.",
   meta: {
+    // Canonical M3 spec page — title identity-verified live; gate re-checks.
+    specUrl: "https://m3.material.io/components/navigation-bar",
     status: "real",
     package: "@xoroh/kern",
     nativePeer: "NavigationBar",

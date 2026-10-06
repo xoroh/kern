@@ -8,6 +8,8 @@ export const tabs: ComponentDoc = {
   features:
     "Reach for tabs when the content is genuinely parallel — the same thing seen from several angles, like a conversation's messages, details and files. Give each tab a short noun label and keep the number small enough that no label is hidden behind a scroll. Tabs are not navigation: if the panels are really different places with their own URLs, use links and let people bookmark them. Keep a panel's content independent of the others, so switching back does not lose what someone typed.",
   meta: {
+    // Canonical M3 spec page — title identity-verified live; gate re-checks.
+    specUrl: "https://m3.material.io/components/tabs",
     status: "real",
     package: "@xoroh/kern",
     nativePeer: "Tabs",

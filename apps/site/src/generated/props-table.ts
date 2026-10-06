@@ -853,16 +853,16 @@ export const PROPS_TABLE: Record<
   Button: {
     rows: [
       {
-        name: "size",
-        type: '"sm" | "default" | "icon" | null | undefined',
-        required: false,
-        default: '"default"',
-      },
-      {
         name: "variant",
-        type: '"elevated" | "primary" | "tonal" | "outlined" | "ghost" | null | undefined',
+        type: "ButtonVariantInput | undefined",
         required: false,
         default: '"primary"',
+      },
+      {
+        name: "size",
+        type: "ButtonSize | undefined",
+        required: false,
+        default: '"default"',
       },
     ],
     curated: ["className", "type", "ref"],

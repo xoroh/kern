@@ -7,6 +7,8 @@ export const buttonGroup: ComponentDoc = {
   features:
     "Reach for a button group when several buttons are really one control with several answers: a set of view modes, a run of related commands that belong together. The join is the value — the buttons stop reading as separate targets and start reading as one thing with options. Each button keeps its own variant, so the group changes the shape without deciding the emphasis. If only one option can be selected, `SegmentedButton` is the more precise tool; this one is for actions that happen to sit together.",
   meta: {
+    // Canonical M3 spec page — title identity-verified live; gate re-checks.
+    specUrl: "https://m3.material.io/components/button-groups",
     status: "real",
     package: "@xoroh/kern",
     nativePeer: "ButtonGroup",

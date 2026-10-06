@@ -136,9 +136,11 @@ export const GENERATORS = [
     // src/generated/a11y.ts (same objects as a TS barrel — tsc has no
     // resolveJsonModule, so the component page imports the barrel; both
     // serializations come from one object, freshness-compared as a unit).
-    // --preload mirrors the vite react-native alias under bun.
+    // --preload mirrors the vite react-native alias under bun. --cwd keeps
+    // the preload path (which bun resolves before the entry) portable —
+    // a root-relative --preload is rejected as "not found".
     name: "site generate-a11y (content x registries -> a11y JSON + barrel)",
-    cmd: ["bun", "--preload", "apps/site/scripts/preload-rn.mjs", "apps/site/scripts/generate-a11y.mjs"],
+    cmd: ["bun", "--cwd", "apps/site", "--preload", "./scripts/preload-rn.mjs", "scripts/generate-a11y.mjs"],
     outputs: ["apps/site/src/generated/a11y", "apps/site/src/generated/a11y.ts"],
   },
   {

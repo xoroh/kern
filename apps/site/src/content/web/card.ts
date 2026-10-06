@@ -7,6 +7,8 @@ export const card: ComponentDoc = {
   features:
     "Reach for a card when several pieces of information belong together and travel together: a product with its price and its action, a summary with its numbers, a person with their role. A card is a container, so it wants content that can stand alone — if the content only makes sense in context with what is around it, a divider or a heading is probably doing the job better. Cards are most legible in a grid, where their shared shape does the grouping for you.",
   meta: {
+    // Canonical M3 spec page — title identity-verified live; gate re-checks.
+    specUrl: "https://m3.material.io/components/cards",
     status: "real",
     package: "@xoroh/kern",
     nativePeer: "Card",

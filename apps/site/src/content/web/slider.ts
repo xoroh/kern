@@ -8,6 +8,8 @@ export const slider: ComponentDoc = {
   features:
     "Reach for a slider when the answer is a range and the shape of it matters more than the exact number: volume, opacity, a price ceiling, an intensity. The value is continuous and the extremes are visible, so someone can see what is possible before committing. Show the number beside it — a slider alone says roughly where, not what. If the value must be exact, that is a number field; if it is one of a few known options, that is not a range at all.",
   meta: {
+    // Canonical M3 spec page — title identity-verified live; gate re-checks.
+    specUrl: "https://m3.material.io/components/sliders",
     status: "real",
     package: "@xoroh/kern",
     nativePeer: "Slider",

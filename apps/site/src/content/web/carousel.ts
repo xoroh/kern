@@ -8,6 +8,8 @@ export const carousel: ComponentDoc = {
   features:
     "Reach for a carousel when the content is a small set of comparable things and showing one at a time is worth the cost of hiding the rest: a gallery of photos, a rotating set of featured items. Show the controls and the position, because content nobody can reach is content nobody sees. Be honest about the trade — anything past the first slide is seen by fewer people, so put the thing that matters first. If all the content matters equally, show it all; a carousel is a way to fit more in less space, not a way to present more.",
   meta: {
+    // Canonical M3 spec page — title identity-verified live; gate re-checks.
+    specUrl: "https://m3.material.io/components/carousel",
     status: "real",
     package: "@xoroh/kern",
     nativePeer: "Carousel",

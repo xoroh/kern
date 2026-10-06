@@ -8,6 +8,8 @@ export const autocomplete: ComponentDoc = {
   features:
     "Reach for an autocomplete when the answer is free text but usually something already known: a city, a username, a tag that exists. It completes rather than restricts — someone can still type a value that is not suggested. That is the line between this and a combobox, which picks from a fixed set, so choose deliberately: if the value must come from the list, that is a combobox. Keep the suggestions short and ordered by likelihood, because a list of forty equally-plausible completions is a list nobody reads.",
   meta: {
+    // Canonical M3 spec page — title identity-verified live; gate re-checks.
+    specUrl: "https://m3.material.io/components/text-fields",
     status: "real",
     package: "@xoroh/kern",
     nativePeer: "Autocomplete",

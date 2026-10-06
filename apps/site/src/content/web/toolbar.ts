@@ -7,6 +7,8 @@ export const toolbar: ComponentDoc = {
   features:
     "Reach for a toolbar when a set of controls belongs to a surface and should stay reachable while that surface is used: a text editor's formatting bar, a table's bulk actions, a canvas's tools. Group related controls and separate the groups, because a single unbroken row of icons is a memory test. Keep it to actions on what is below it — navigation and settings belong elsewhere. If the bar has only two or three controls, a row of buttons does the job and a toolbar adds nothing but a container.",
   meta: {
+    // Canonical M3 spec page — title identity-verified live; gate re-checks.
+    specUrl: "https://m3.material.io/components/toolbars",
     status: "real",
     package: "@xoroh/kern",
     nativePeer: "Toolbar",

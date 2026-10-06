@@ -7,6 +7,8 @@ export const iconButton: ComponentDoc = {
   features:
     "Reach for an icon button when the action is familiar enough to survive without words and space is tight: a close, a favourite, an overflow menu. The name is the hard part — a glyph means nothing to a screen reader and something different to everyone at first, so the button needs an accessible name and usually a tooltip. Use it for actions, not for navigation, which is a link. If you cannot name the action in two words, it needs a label and is a regular button.",
   meta: {
+    // Canonical M3 spec page — title identity-verified live; gate re-checks.
+    specUrl: "https://m3.material.io/components/icon-buttons",
     status: "real",
     package: "@xoroh/kern",
     nativePeer: "IconButton",

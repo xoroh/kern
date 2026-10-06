@@ -8,6 +8,8 @@ export const badge: ComponentDoc = {
   features:
     "Reach for a badge when an item has news and the item already has a name people read: three unread messages on an inbox, a dot on a settings entry. A dot says something changed without saying how much, which is right when the count is meaningless or huge. A count is right when the number is the point. Never let a badge be the only way to learn the information — put the same fact in the label or the accessible name, because a badge is decoration on top of meaning, not meaning itself.",
   meta: {
+    // Canonical M3 spec page — title identity-verified live; gate re-checks.
+    specUrl: "https://m3.material.io/components/badges",
     status: "real",
     package: "@xoroh/kern",
     nativePeer: "Badge",

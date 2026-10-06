@@ -8,6 +8,8 @@ export const button: ComponentDoc = {
   features:
     "Reach for a button when the next step is an action the person intends to take: saving a form, sending a message, opening a dialog. Put one primary action on a screen and give it the primary variant; every lower-emphasis action takes tonal, outlined or ghost so the hierarchy reads at a glance. A button is not a link — if it moves to another place rather than doing something here, use an anchor. Destructive actions have no variant of their own: they are a filled button wearing the error roles, which keeps the action vocabulary at five instead of six.",
   meta: {
+    // Canonical M3 spec page — title identity-verified live; gate re-checks.
+    specUrl: "https://m3.material.io/components/buttons",
     status: "real",
     package: "@xoroh/kern",
     nativePeer: "Button",

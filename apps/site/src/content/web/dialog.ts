@@ -8,6 +8,8 @@ export const dialog: ComponentDoc = {
   features:
     "Reach for a dialog when the next step needs a decision and the decision is short: confirming a deletion, choosing between two paths, entering one value. It interrupts on purpose, so keep it to a title, enough description to make the decision safe, and one or two actions. If the task has more than a few fields, or people need to see the screen behind it while they work, use a full-height route instead — an interrupted screen is the wrong place for long work. Everything else on the page is inert while it is open.",
   meta: {
+    // Canonical M3 spec page — title identity-verified live; gate re-checks.
+    specUrl: "https://m3.material.io/components/dialogs",
     status: "real",
     package: "@xoroh/kern",
     nativePeer: "Dialog",

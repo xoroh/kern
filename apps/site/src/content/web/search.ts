@@ -8,6 +8,8 @@ export const search: ComponentDoc = {
   features:
     "Reach for search when someone is looking for something among many and knows a word for it: a list of records, a documentation site, a settings page. It is a whole form rather than a bare input, so submitting works with the keyboard's Enter as well as the button, and it carries a search landmark so it is findable by assistive tech. Put it above what it filters and keep the results where the list already was, so the thing being searched never moves away from the field doing the searching.",
   meta: {
+    // Canonical M3 spec page — title identity-verified live; gate re-checks.
+    specUrl: "https://m3.material.io/components/search",
     status: "real",
     package: "@xoroh/kern",
     nativePeer: "Search",

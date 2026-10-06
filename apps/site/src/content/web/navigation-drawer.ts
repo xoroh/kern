@@ -8,6 +8,8 @@ export const navigationDrawer: ComponentDoc = {
   features:
     "Reach for a navigation drawer when the app has more destinations than a navigation bar can hold, or when a compact screen needs the full list rather than five icons. It shares one destination list with the bar and the rail, so you declare your places once. It is the modal variant: a scrim, a focus trap and Escape to dismiss, and picking a destination closes the drawer — a modal panel that stays open after you choose is a trap. M3 only forbids the bar and the modal drawer being visible at once, and that is the host's call to make, not the component's.",
   meta: {
+    // Canonical M3 spec page — title identity-verified live; gate re-checks.
+    specUrl: "https://m3.material.io/components/navigation-drawer",
     status: "real",
     package: "@xoroh/kern",
     nativePeer: "NavigationDrawer",

@@ -9,6 +9,8 @@ export const switchDoc: ComponentDoc = {
   features:
     "Reach for a switch when flipping it takes effect immediately and does not need a save step: notifications on, dark mode, auto-play. It is a thin wrapper over one Base UI primitive — the whole component is a stateful root and a thumb, and kern supplies the M3 look and the focus ring rather than any behaviour of its own. If the change only applies after a tap on a separate save button, that is a checkbox, not a switch. A switch carries its state in its own appearance, so it needs a visible label next to it rather than a label that only exists for assistive tech.",
   meta: {
+    // Canonical M3 spec page — title identity-verified live; gate re-checks.
+    specUrl: "https://m3.material.io/components/switch",
     status: "real",
     package: "@xoroh/kern",
     nativePeer: "Switch",
