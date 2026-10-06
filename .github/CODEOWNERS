@@ -1,29 +1,21 @@
-# CODEOWNERS — real ownership, from .team/org.md
+# CODEOWNERS for xoroh/kern
 #
-# Replaces a placeholder that mapped everything to `@xoroh/kern` and whose own
-# comment admitted: "Rename to your real maintainer team/user (or delete this
-# file) before enforcing code-owner reviews."
+# Last match wins: specific rules come AFTER the broad `*`, so read bottom-up
+# for the effective owner of a path. Paths with no specific rule fall through
+# to `*` (@xoroh/kern).
 #
-# WHY THIS EXISTS: `disclosure.test.tsx > Autocomplete > suggests matches while
-# typing` had no recoverable owner. `git log` traced it to `b84a96c`, authored as
-# `Xoroh <kern@xoroh.org>` — a bulk system commit with no per-agent authorship —
-# and CODEOWNERS pointed at a single team. The cost was a dispatch spent
-# diagnosing an ownerless test. That is the recurring cost this file removes.
-#
-# THE OLD RULES WERE ALSO STALE. Three of its five entries named files that no
-# longer exist:
-#   packages/mcp/src/component-sources.ts  deleted in 24f7810
-#   packages/kern/src/theme/tokens.css     moved to packages/kern-tokens/ (D-034)
-# A rule for a file that is gone is a rule that never fires — which is how a file
-# accreted ownership rules that silently stopped describing anything.
-#
-# ORDER MATTERS. CODEOWNERS is last-match-wins, so specific rules come AFTER the
-# broad `*`. Read bottom-up for the effective owner of any path.
-#
-# A path whose owner is genuinely ambiguous is listed under AMBIGUOUS and
-# deliberately NOT given a rule. A wrong CODEOWNERS routes reviews to the wrong
-# lane with the authority of a config file; an absent one routes them to everyone,
-# which is merely slower.
+# Teams:
+#   @xoroh/kern                 default lane
+#   @xoroh/kern-lead            kernel, native, primitives, gate scripts
+#   @xoroh/design-system-lead   tokens, generators, generated artefacts
+#   @xoroh/site-se              apps/site, site deploy workflow
+#   @xoroh/kern-mobile-se       apps/mobile
+#   @xoroh/kern-icons-se        packages/kern-icons
+#   @xoroh/kern-cli-se          packages/kern-cli
+#   @xoroh/librarian            build tooling, CI, this file
+#   @xoroh/release              changesets, release scripts and docs
+#   @xoroh/qa                   e2e, verification limits
+#   @xoroh/security             SECURITY.md
 
 # ---------------------------------------------------------------- default lane
 *                                       @xoroh/kern
@@ -31,65 +23,87 @@
 # ------------------------------------------------------------------- web app
 apps/site/                              @xoroh/site-se
 
+# -------------------------------------------------------------- mobile demo
+apps/mobile/                            @xoroh/kern-mobile-se
+
+# ------------------------------------------------------------------- icons
+packages/kern-icons/                    @xoroh/kern-icons-se
+packages/kern-icons/assets/sets/        @xoroh/kern-icons-se
+packages/kern-icons/src/sets/           @xoroh/kern-icons-se
+
+# --------------------------------------------------------------------- cli
+# Real directory is packages/kern-cli/ (not packages/cli/).
+packages/kern-cli/                      @xoroh/kern-cli-se
+
+# --------------------------------------------------------------- changesets
+# Authors write their own changeset entries in feature PRs; @xoroh/release
+# owns the process and Version Packages PRs.
+.changeset/                             @xoroh/release
+
 # --------------------------------------------------------- tokens + elevation
-# design-system-lead owns the token source of truth, the generated CSS, the
-# theme spec, and the MCP manifest generation that reads them.
-packages/kern-tokens/                  @xoroh/design-system-lead
+packages/kern-tokens/                   @xoroh/design-system-lead
 packages/mcp/scripts/generate-manifest.mjs @xoroh/design-system-lead
 packages/mcp/scripts/generate-maturity.mjs @xoroh/design-system-lead
+scripts/audit-elevation.mjs             @xoroh/design-system-lead
+scripts/measure-elevation.mjs           @xoroh/design-system-lead
+scripts/check-elevation-parity.mjs      @xoroh/design-system-lead
 
 # --------------------------------------------------------- kernel + primitives
-# The design language lives in kern-native alongside kern-lead, so both are named
-# there: a change to a native token binding is not kern-lead's alone.
-packages/kern/                         @xoroh/kern-lead
-packages/kern-native/                  @xoroh/kern-lead @xoroh/design-system-lead
-packages/kern-primitives/              @xoroh/kern-lead @xoroh/design-system-lead
+packages/kern/                          @xoroh/kern-lead
+packages/kern-native/                   @xoroh/kern-lead @xoroh/design-system-lead
+packages/kern-primitives/               @xoroh/kern-lead @xoroh/design-system-lead
 
 # ------------------------------------------------------------- gates (kern-lead)
-# design-system-lead is on the boundary and layer gates because they police the
-# package graph it maintains.
-scripts/check-consumption.mjs          @xoroh/kern-lead
-scripts/check-pack.mjs                 @xoroh/kern-lead
-scripts/check-workflow.mjs             @xoroh/kern-lead
-scripts/check-currency.mjs             @xoroh/kern-lead
-scripts/check-parity.mjs               @xoroh/kern-lead @xoroh/design-system-lead
-scripts/check-primitives.mjs           @xoroh/kern-lead @xoroh/design-system-lead
-scripts/check-layers.mjs               @xoroh/kern-lead @xoroh/design-system-lead
+scripts/check-consumption.mjs           @xoroh/kern-lead
+scripts/check-pack.mjs                  @xoroh/kern-lead
+scripts/check-workflow.mjs              @xoroh/kern-lead
+scripts/check-currency.mjs              @xoroh/kern-lead
+scripts/check-parity.mjs                @xoroh/kern-lead @xoroh/design-system-lead
+scripts/check-primitives.mjs            @xoroh/kern-lead @xoroh/design-system-lead
+scripts/check-layers.mjs                @xoroh/kern-lead @xoroh/design-system-lead
+
+# ------------------------------------------------------ librarian build scripts
+scripts/build-lock.mjs                  @xoroh/librarian
+scripts/build-order.mjs                 @xoroh/librarian
+scripts/check-coverage.mjs              @xoroh/librarian
+scripts/check-dist-exports.mjs          @xoroh/librarian
+scripts/check-dist-types.mjs            @xoroh/librarian
+scripts/check-generated-census.mjs      @xoroh/librarian
+scripts/check-generated-freshness.mjs   @xoroh/librarian
+scripts/check-registry-paths.mjs        @xoroh/librarian
+scripts/check-stale-refs.mjs            @xoroh/librarian
+scripts/check-commit-intent.mjs         @xoroh/librarian
+scripts/check-kern.mjs                  @xoroh/librarian
+
+# ----------------------------------------------------------- release scripts
+scripts/preflight-publish.mjs           @xoroh/release
 
 # -------------------------------------------------------------- build tooling
-# librarian owns build config, tsconfig, biome, module boundaries, and this file.
-biome.json                             @xoroh/librarian
-package.json                           @xoroh/librarian
+biome.json                              @xoroh/librarian
+package.json                            @xoroh/librarian
 packages/*/tsconfig.json                @xoroh/librarian
-.githooks/                             @xoroh/librarian
-.github/workflows/                    @xoroh/librarian
-.github/CODEOWNERS                     @xoroh/librarian
+.githooks/                              @xoroh/librarian
+.github/workflows/                      @xoroh/librarian
+.github/workflows/deploy.yml            @xoroh/site-se
+.github/CODEOWNERS                      @xoroh/librarian
 
 # ------------------------------------------- SHARED — review-all, do not assume
-# Touched by several lanes, so a reviewer is routed to MORE than one rather than
-# to whichever lane happened to edit last.
-parity/contract.ts                     @xoroh/kern-lead @xoroh/design-system-lead
+parity/contract.ts                      @xoroh/kern-lead @xoroh/design-system-lead
 
 # ------------------------------------------------------ generated — generator owns
-# Editing these by hand is the defect the freshness gate exists to catch, so the
-# owner is whoever can re-run the generator.
-packages/mcp/src/manifest.ts           @xoroh/design-system-lead
-packages/mcp/src/maturity.ts           @xoroh/design-system-lead
-docs/components.md                     @xoroh/design-system-lead
-docs/elevation-audit.md                @xoroh/design-system-lead
+packages/mcp/src/manifest.ts            @xoroh/design-system-lead
+packages/mcp/src/maturity.ts            @xoroh/design-system-lead
 
-# ------------------------------------------------------------------- AMBIGUOUS
-# Deliberately UNOWNED — no rule above, so these fall through to `*`
-# (@xoroh/kern). Each is a real gap, listed rather than guessed:
-#
-#   packages/kern-icons/assets/sets/   drop-in icon sets. No lane has claimed
-#                                      the corpus and no set ships yet, so a rule
-#                                      would assert ownership of nothing.
-#   packages/kern-icons/src/sets/      the generated default set. Which lane owns
-#                                      GENERATING it is not established.
-#   .changeset/                         release notes. Written by whoever lands
-#                                      the change, so a static owner is wrong.
-#   packages/cli/                       no lane has claimed it.
-#
-# Each needs a ruling. Until then `@xoroh/kern` is the safe default rather than a
-# false attribution.
+# ------------------------------------------------------------- generated docs
+docs/components.md                      @xoroh/design-system-lead
+docs/elevation-audit.md                 @xoroh/design-system-lead
+
+# -------------------------------------------------------------------- e2e / QA
+e2e/                                    @xoroh/qa
+docs/verification-limits.md             @xoroh/qa
+
+# --------------------------------------------------------------- release docs
+docs/releases.md                        @xoroh/release
+
+# ----------------------------------------------------------- security
+SECURITY.md                             @xoroh/security
