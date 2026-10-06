@@ -560,4 +560,30 @@ describe("ContextMenu", () => {
       await screen.findByRole("menuitem", { name: "Copy" }),
     ).toBeInTheDocument();
   });
+
+  it("mounts content with defaultOpen and no pointer", () => {
+    render(
+      <ContextMenu.Root defaultOpen>
+        <ContextMenu.Trigger>Area</ContextMenu.Trigger>
+        <ContextMenu.Content>
+          <ContextMenu.Item>Copy</ContextMenu.Item>
+        </ContextMenu.Content>
+      </ContextMenu.Root>,
+    );
+    expect(screen.getByRole("menuitem", { name: "Copy" })).toBeInTheDocument();
+  });
+
+  it("shut mount renders no menuitem", () => {
+    render(
+      <ContextMenu.Root>
+        <ContextMenu.Trigger>Area</ContextMenu.Trigger>
+        <ContextMenu.Content>
+          <ContextMenu.Item>Copy</ContextMenu.Item>
+        </ContextMenu.Content>
+      </ContextMenu.Root>,
+    );
+    expect(
+      screen.queryByRole("menuitem", { name: "Copy" }),
+    ).not.toBeInTheDocument();
+  });
 });

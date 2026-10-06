@@ -8,6 +8,7 @@ import { CHECKBOX_CONFIGURATOR } from "./configurators/checkbox";
 import { CHECKBOX_GROUP_CONFIGURATOR } from "./configurators/checkbox-group";
 import { CHIP_CONFIGURATOR } from "./configurators/chip";
 import { COLLAPSIBLE_CONFIGURATOR } from "./configurators/collapsible";
+import { CONTEXT_MENU_CONFIGURATOR } from "./configurators/context-menu";
 import { COUNTRY_SELECT_CONFIGURATOR } from "./configurators/country-select";
 import { DIALOG_CONFIGURATOR } from "./configurators/dialog";
 import { DRAWER_CONFIGURATOR } from "./configurators/drawer";
@@ -68,7 +69,7 @@ export function examplesFor(exportName: string): ExampleSpec[] {
  * Flagships first (Button, Switch, Dialog), then Sheet, Select, Popover, Slider, Sonner, NumberField, Accordion, Progress, Field, ToggleGroup, Meter, Autocomplete, Drawer, Menu, Menubar, Pagination, Snackbar, Tabs, Tooltip, NavigationMenu, Collapsible, CountrySelect, CheckboxGroup, Chip, Search, AlertDialog, PreviewCard, Form: one entry per
  * component, same keying as EXAMPLES, so a family page looks its
  * configurator up the same way. The harness is proven; further components
- * plug in here with zero template edits.
+ * plug in here with zero template edits. Latest: ContextMenu (move-35).
  */
 export const CONFIGURATORS: Record<string, ConfiguratorSpec> = {
   Accordion: ACCORDION_CONFIGURATOR,
@@ -81,6 +82,7 @@ export const CONFIGURATORS: Record<string, ConfiguratorSpec> = {
   Chip: CHIP_CONFIGURATOR,
   Collapsible: COLLAPSIBLE_CONFIGURATOR,
   CountrySelect: COUNTRY_SELECT_CONFIGURATOR,
+  ContextMenu: CONTEXT_MENU_CONFIGURATOR,
   NumberField: NUMBER_FIELD_CONFIGURATOR,
   NavigationMenu: NAVIGATION_MENU_CONFIGURATOR,
   Meter: METER_CONFIGURATOR,
