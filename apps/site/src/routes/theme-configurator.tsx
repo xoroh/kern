@@ -270,7 +270,7 @@ export const studioTheme = defineThemePreset({
                   step={0.25}
                   value={radius}
                   onChange={(e) => setRadius(Number(e.target.value))}
-                  className="w-full accent-(--md-sys-color-primary)"
+                  className="h-2 w-full cursor-pointer appearance-none rounded-full bg-(--md-sys-color-surface-container-highest) accent-(--md-sys-color-primary) outline-none focus-visible:ring-2 focus-visible:ring-(--md-sys-color-primary) focus-visible:ring-offset-2 focus-visible:ring-offset-(--md-sys-color-surface-container-low) [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-(--md-sys-color-primary) [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-none [&::-moz-range-thumb]:bg-(--md-sys-color-primary)"
                 />
                 <span className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
                   Multiplies px corners, rounded to 0.5px. `full` passes through
@@ -288,11 +288,11 @@ export const studioTheme = defineThemePreset({
                   aria-checked={dark}
                   aria-labelledby="dark-label"
                   onClick={() => setDark((d) => !d)}
-                  className={`relative h-6 w-11 shrink-0 rounded-full border border-(--md-sys-color-outline) transition-colors ${dark ? "bg-(--md-sys-color-primary)" : "bg-(--md-sys-color-surface-container-highest)"}`}
+                  className={`relative flex h-8 w-[52px] shrink-0 cursor-pointer items-center rounded-full border-2 px-1 outline-none transition-colors focus-visible:ring-2 focus-visible:ring-(--md-sys-color-primary) focus-visible:ring-offset-2 focus-visible:ring-offset-(--md-sys-color-surface-container-low) ${dark ? "justify-end border-(--md-sys-color-primary) bg-(--md-sys-color-primary)" : "border-(--md-sys-color-outline) bg-(--md-sys-color-surface)"}`}
                 >
                   <span
                     aria-hidden="true"
-                    className={`absolute top-1/2 h-4 w-4 -translate-y-1/2 rounded-full bg-(--md-sys-color-on-primary) transition-transform ${dark ? "translate-x-6" : "translate-x-1"}`}
+                    className={`block rounded-full transition-all ${dark ? "size-5 bg-(--md-sys-color-on-primary)" : "size-4 bg-(--md-sys-color-outline)"}`}
                   />
                 </button>
               </div>
@@ -307,7 +307,12 @@ export const studioTheme = defineThemePreset({
                       e.target.value as "standard" | "medium" | "high",
                     )
                   }
-                  className={`rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant) bg-transparent px-2 py-1.5 ${T_BODY_SM} ${INK}`}
+                  className={`w-full cursor-pointer appearance-none rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline) bg-transparent py-2 pr-8 pl-3 outline-none ${T_BODY_SM} ${INK} focus-visible:ring-2 focus-visible:ring-(--md-sys-color-primary) focus-visible:ring-offset-2 focus-visible:ring-offset-(--md-sys-color-surface-container-low)`}
+                  style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='currentColor' stroke-width='1.5' fill='none'/%3E%3C/svg%3E")`,
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "right 0.75rem center",
+                  }}
                 >
                   {(["standard", "medium", "high"] as const).map((c) => (
                     <option key={c} value={c}>
