@@ -76,6 +76,13 @@ describe("kern default theme — approved values", () => {
     expect(dark.onPrimaryContainer).toBe("#eaddff");
   });
 
+  it("uses M3 primary-80 as the light inverse primary", () => {
+    // Inverse primary is read off the inverse (near-black) surface, so it
+    // takes the light end of the seed ramp — primary-80 #D0BCFF, not the
+    // secondary-container blue that leaked in pre-seed (#dbeafe).
+    expect(light.inversePrimary).toBe("#d0bcff");
+  });
+
   it("defines the same role names in both schemes", () => {
     expect(Object.keys(dark).sort()).toEqual(Object.keys(light).sort());
   });
