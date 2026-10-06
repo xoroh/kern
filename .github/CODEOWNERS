@@ -1,22 +1,21 @@
-# CODEOWNERS — proposed replacement for xoroh/kern/.github/CODEOWNERS
-# Source of truth for lanes: /workspace/xoroh/.team/org.md
-# This file lives in .team/proposals/ until an owner-approved PR lands it in the repo.
+# CODEOWNERS for xoroh/kern
 #
-# ORDER MATTERS. Last-match-wins — specific rules come AFTER the broad `*`.
-# No AMBIGUOUS leftovers: every formerly default-`*` gap has an owner below.
+# Last match wins: specific rules come AFTER the broad `*`, so read bottom-up
+# for the effective owner of a path. Paths with no specific rule fall through
+# to `*` (@xoroh/kern).
 #
-# Team → bot (see org.md roster for IDs):
-#   @xoroh/kern                 Kern Tech Lead
-#   @xoroh/kern-lead            Kern Tech Lead (package lead lane)
-#   @xoroh/design-system-lead   Kern Design System Lead
-#   @xoroh/site-se              Kern Web Engineer
-#   @xoroh/kern-mobile-se       Kern Mobile Engineer
-#   @xoroh/kern-icons-se        Kern Icons Engineer
-#   @xoroh/kern-cli-se          Kern CLI Engineer
-#   @xoroh/librarian            Kern Librarian
-#   @xoroh/release              Xoroh Release Manager
-#   @xoroh/qa                   Xoroh QA Lead
-#   @xoroh/security             Xoroh Security Reviewer
+# Teams:
+#   @xoroh/kern                 default lane
+#   @xoroh/kern-lead            kernel, native, primitives, gate scripts
+#   @xoroh/design-system-lead   tokens, generators, generated artefacts
+#   @xoroh/site-se              apps/site, site deploy workflow
+#   @xoroh/kern-mobile-se       apps/mobile
+#   @xoroh/kern-icons-se        packages/kern-icons
+#   @xoroh/kern-cli-se          packages/kern-cli
+#   @xoroh/librarian            build tooling, CI, this file
+#   @xoroh/release              changesets, release scripts and docs
+#   @xoroh/qa                   e2e, verification limits
+#   @xoroh/security             SECURITY.md
 
 # ---------------------------------------------------------------- default lane
 *                                       @xoroh/kern
@@ -95,19 +94,7 @@ parity/contract.ts                      @xoroh/kern-lead @xoroh/design-system-le
 packages/mcp/src/manifest.ts            @xoroh/design-system-lead
 packages/mcp/src/maturity.ts            @xoroh/design-system-lead
 
-# -------------------------------------------- governance / docs / agents (lead)
-# Broad docs/ first; more specific docs rules AFTER so last-match-wins.
-docs/                                   @xoroh/kern
-docs/adr/                               @xoroh/kern
-GOVERNANCE.md                           @xoroh/kern
-README.md                               @xoroh/kern
-AGENTS.md                               @xoroh/kern
-.agents/                                @xoroh/kern
-.agents/skills/                         @xoroh/kern
-CODE_OF_CONDUCT.md                      @xoroh/kern
-SUPPORT.md                              @xoroh/kern
-
-# ------------------------------------------------------ generated docs (override docs/)
+# ------------------------------------------------------------- generated docs
 docs/components.md                      @xoroh/design-system-lead
 docs/elevation-audit.md                 @xoroh/design-system-lead
 
