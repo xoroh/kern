@@ -121,6 +121,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `fieldset-legend` | `FieldsetLegend` | real |
 | `fieldset-root` | `FieldsetRoot` | real |
 | `filter-chip-row` | `FilterChipRow` | real |
+| `focus-ring` | `FocusRing` | real |
 | `form` | `Form` | real |
 | `help-menu` | `HelpMenu` | real |
 | `icon-button` | `IconButton` | real |
@@ -134,6 +135,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `label` | `Label` | real |
 | `linear-progress` | `LinearProgress` | real |
 | `link` | `Link` | real |
+| `link-button` | `LinkButton` | real |
 | `link-provider` | `LinkProvider` | real |
 | `list-detail` | `ListDetail` | real |
 | `list-item` | `ListItem` | real |

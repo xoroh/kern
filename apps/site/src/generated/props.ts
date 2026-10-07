@@ -1071,15 +1071,105 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "variant",
       "type": "ButtonVariantInput | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:72",
+      "src": "packages/kern/src/components/button.tsx:159",
       "default": "\"primary\""
     },
     {
       "name": "size",
       "type": "ButtonSize | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:73",
+      "src": "packages/kern/src/components/button.tsx:160",
       "default": "\"default\""
+    },
+    {
+      "name": "color",
+      "type": "ButtonColor | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/button.tsx:161",
+      "default": "\"primary\""
+    },
+    {
+      "name": "shape",
+      "type": "ButtonShape | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/button.tsx:162",
+      "default": "\"pill\""
+    },
+    {
+      "name": "block",
+      "type": "boolean | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/button.tsx:164",
+      "default": "false",
+      "note": "Full-width block button."
+    },
+    {
+      "name": "loading",
+      "type": "boolean | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/button.tsx:166",
+      "note": "Shows the embedded progress indicator and blocks interaction."
+    },
+    {
+      "name": "loadingValue",
+      "type": "number | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/button.tsx:168",
+      "note": "0–1 determinate progress while loading. Omit for the loop."
+    },
+    {
+      "name": "loaderStyle",
+      "type": "\"spinner\" | \"dots\" | \"bar\" | \"shapes\" | \"conveyor\" | \"contained\" | \"orbit\" | \"morph\" | \"assembly\" | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/button.tsx:170",
+      "note": "Style of the embedded indicator. Defaults to the M3 ring (`spinner`)."
+    },
+    {
+      "name": "href",
+      "type": "string | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/button.tsx:178",
+      "note": "Navigation variant. Renders `<a href>` wearing the button treatment,\ni.e. `role=\"link\"` — for a dedicated link component see `LinkButton`.\nA disabled link drops `href`, leaves the tab order and reports\n`aria-disabled` (the ListItem convention) — links have no `disabled`\nattribute, so there is nothing native to lean on."
+    },
+    {
+      "name": "target",
+      "type": "HTMLAttributeAnchorTarget | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/button.tsx:183",
+      "note": "Anchor target. Only rendered when `href` is set — a button has no\nbrowsing context to open."
+    },
+    {
+      "name": "rel",
+      "type": "string | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/button.tsx:185",
+      "note": "Anchor relationship list. Only rendered when `href` is set."
+    },
+    {
+      "name": "download",
+      "type": "any",
+      "required": false,
+      "src": "packages/kern/src/components/button.tsx:187",
+      "note": "Download hint. Only rendered when `href` is set."
+    },
+    {
+      "name": "icon",
+      "type": "ReactNode",
+      "required": false,
+      "src": "packages/kern/src/components/button.tsx:189",
+      "note": "Leading (or trailing, with `iconPosition`) icon. Hidden from assistive tech."
+    },
+    {
+      "name": "iconPosition",
+      "type": "ButtonIconPosition | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/button.tsx:190"
+    },
+    {
+      "name": "ref",
+      "type": "Ref<HTMLButtonElement | HTMLAnchorElement> | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/button.tsx:191"
     }
   ],
   "Calendar": [
@@ -1087,33 +1177,33 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "value",
       "type": "Date | undefined",
       "required": false,
-      "src": "packages/kern/src/components/calendar.tsx:10",
+      "src": "packages/kern/src/components/calendar.tsx:11",
       "note": "Selected date at midnight local time."
     },
     {
       "name": "defaultValue",
       "type": "Date | undefined",
       "required": false,
-      "src": "packages/kern/src/components/calendar.tsx:11"
+      "src": "packages/kern/src/components/calendar.tsx:12"
     },
     {
       "name": "onValueChange",
       "type": "((date: Date) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/calendar.tsx:12"
+      "src": "packages/kern/src/components/calendar.tsx:13"
     },
     {
       "name": "min",
       "type": "Date | undefined",
       "required": false,
-      "src": "packages/kern/src/components/calendar.tsx:14",
+      "src": "packages/kern/src/components/calendar.tsx:15",
       "note": "Earliest selectable date."
     },
     {
       "name": "max",
       "type": "Date | undefined",
       "required": false,
-      "src": "packages/kern/src/components/calendar.tsx:16",
+      "src": "packages/kern/src/components/calendar.tsx:17",
       "note": "Latest selectable date."
     }
   ],
@@ -1143,100 +1233,100 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "items",
       "type": "ReactNode[]",
       "required": true,
-      "src": "packages/kern/src/components/carousel.tsx:43",
+      "src": "packages/kern/src/components/carousel.tsx:44",
       "note": "Slide content, in order. Exactly one is shown at a time."
     },
     {
       "name": "label",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/carousel.tsx:45",
+      "src": "packages/kern/src/components/carousel.tsx:46",
       "note": "Accessible name of the carousel region."
     },
     {
       "name": "index",
       "type": "number | undefined",
       "required": false,
-      "src": "packages/kern/src/components/carousel.tsx:47",
+      "src": "packages/kern/src/components/carousel.tsx:48",
       "note": "Controlled active index."
     },
     {
       "name": "defaultIndex",
       "type": "number | undefined",
       "required": false,
-      "src": "packages/kern/src/components/carousel.tsx:49",
+      "src": "packages/kern/src/components/carousel.tsx:50",
       "note": "Initial index for the uncontrolled case."
     },
     {
       "name": "onIndexChange",
       "type": "((index: number) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/carousel.tsx:50"
+      "src": "packages/kern/src/components/carousel.tsx:51"
     },
     {
       "name": "value",
       "type": "number | undefined",
       "required": false,
-      "src": "packages/kern/src/components/carousel.tsx:55",
+      "src": "packages/kern/src/components/carousel.tsx:56",
       "note": "R2 lexicon canonical names. `value` wins when both are passed; both\ncallbacks fire on every change, so a host mid-migration never misses one."
     },
     {
       "name": "defaultValue",
       "type": "number | undefined",
       "required": false,
-      "src": "packages/kern/src/components/carousel.tsx:56"
+      "src": "packages/kern/src/components/carousel.tsx:57"
     },
     {
       "name": "onValueChange",
       "type": "((index: number) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/carousel.tsx:57"
+      "src": "packages/kern/src/components/carousel.tsx:58"
     },
     {
       "name": "wrap",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/carousel.tsx:59",
+      "src": "packages/kern/src/components/carousel.tsx:60",
       "note": "Wrap past the ends instead of disabling the control. M3 default is false."
     },
     {
       "name": "showIndicators",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/carousel.tsx:61",
+      "src": "packages/kern/src/components/carousel.tsx:62",
       "note": "Renders the dot indicator."
     },
     {
       "name": "disabled",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/carousel.tsx:62"
+      "src": "packages/kern/src/components/carousel.tsx:63"
     },
     {
       "name": "className",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/carousel.tsx:63"
+      "src": "packages/kern/src/components/carousel.tsx:64"
     },
     {
       "name": "itemLabels",
       "type": "string[] | undefined",
       "required": false,
-      "src": "packages/kern/src/components/carousel.tsx:65",
+      "src": "packages/kern/src/components/carousel.tsx:66",
       "note": "Per-slide accessible names. Defaults to `Slide n of total`."
     },
     {
       "name": "itemKeys",
       "type": "string[] | undefined",
       "required": false,
-      "src": "packages/kern/src/components/carousel.tsx:71",
+      "src": "packages/kern/src/components/carousel.tsx:72",
       "note": "Stable identity per slide, for React reconciliation when slides are\nreordered. Falls back to the index, which is correct for a static set and\nwrong for a reordered one — so a dynamic carousel must pass these."
     },
     {
       "name": "testID",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/carousel.tsx:72"
+      "src": "packages/kern/src/components/carousel.tsx:73"
     }
   ],
   "CheckboxGroupRoot": [
@@ -1428,7 +1518,7 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "label",
       "type": "ReactNode",
       "required": true,
-      "src": "packages/kern/src/components/checkbox-group.tsx:12"
+      "src": "packages/kern/src/components/checkbox-group.tsx:13"
     }
   ],
   "Checkbox": [
@@ -1562,7 +1652,7 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "label",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/checkbox.tsx:6"
+      "src": "packages/kern/src/components/checkbox.tsx:7"
     }
   ],
   "Chip": [
@@ -1570,45 +1660,45 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "defaultValue",
       "type": "string | number | readonly string[] | (readonly string[] & false) | (readonly string[] & true) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/chip.tsx:43"
+      "src": "packages/kern/src/components/chip.tsx:44"
     },
     {
       "name": "value",
       "type": "string | number | readonly string[] | (readonly string[] & false) | (readonly string[] & true) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/chip.tsx:42",
+      "src": "packages/kern/src/components/chip.tsx:43",
       "note": "R2 lexicon canonical names (`value` wins when both are passed; both\ncallbacks fire). `selected`/`defaultSelected`/`onSelectedChange` are\ndeprecated aliases onto the same state."
     },
     {
       "name": "type",
       "type": "\"button\" | \"submit\" | \"reset\" | undefined",
       "required": false,
-      "src": "packages/kern/src/components/chip.tsx:30"
+      "src": "packages/kern/src/components/chip.tsx:31"
     },
     {
       "name": "variant",
       "type": "\"filter\" | \"assist\" | \"suggestion\" | undefined",
       "required": false,
-      "src": "packages/kern/src/components/chip.tsx:33",
+      "src": "packages/kern/src/components/chip.tsx:34",
       "default": "\"assist\""
     },
     {
       "name": "selected",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/chip.tsx:34"
+      "src": "packages/kern/src/components/chip.tsx:35"
     },
     {
       "name": "defaultSelected",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/chip.tsx:35"
+      "src": "packages/kern/src/components/chip.tsx:36"
     },
     {
       "name": "onSelectedChange",
       "type": "((selected: boolean) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/chip.tsx:36"
+      "src": "packages/kern/src/components/chip.tsx:37"
     }
   ],
   "CircularProgress": [
@@ -3978,60 +4068,60 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "ref",
       "type": "Ref<ExtendedFabHandle> | undefined",
       "required": false,
-      "src": "packages/kern/src/components/extended-fab.tsx:66",
+      "src": "packages/kern/src/components/extended-fab.tsx:67",
       "note": "Imperative handle for M3's scroll-driven collapse. The component cannot\nsee the host's scroll position, so the trigger is an explicit handle\nrather than a gesture kern would have to invent."
     },
     {
       "name": "label",
       "type": "string",
       "required": true,
-      "src": "packages/kern/src/components/extended-fab.tsx:68",
+      "src": "packages/kern/src/components/extended-fab.tsx:69",
       "note": "Visible label. Doubles as the accessible name when collapsed."
     },
     {
       "name": "icon",
       "type": "ReactNode",
       "required": true,
-      "src": "packages/kern/src/components/extended-fab.tsx:69"
+      "src": "packages/kern/src/components/extended-fab.tsx:70"
     },
     {
       "name": "collapsed",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/extended-fab.tsx:71",
+      "src": "packages/kern/src/components/extended-fab.tsx:72",
       "note": "Controlled collapse state."
     },
     {
       "name": "defaultCollapsed",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/extended-fab.tsx:73",
+      "src": "packages/kern/src/components/extended-fab.tsx:74",
       "note": "Initial collapse state for the uncontrolled case."
     },
     {
       "name": "onCollapsedChange",
       "type": "((collapsed: boolean) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/extended-fab.tsx:74"
+      "src": "packages/kern/src/components/extended-fab.tsx:75"
     },
     {
       "name": "value",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/extended-fab.tsx:81",
+      "src": "packages/kern/src/components/extended-fab.tsx:82",
       "note": "R2 lexicon canonical names (`value` wins when both are passed; both\ncallbacks fire). `collapsed`/`defaultCollapsed`/`onCollapsedChange` are\ndeprecated aliases onto the same state — including the imperative\nhandle, which drives the same path."
     },
     {
       "name": "defaultValue",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/extended-fab.tsx:82"
+      "src": "packages/kern/src/components/extended-fab.tsx:83"
     },
     {
       "name": "onValueChange",
       "type": "((collapsed: boolean) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/extended-fab.tsx:83"
+      "src": "packages/kern/src/components/extended-fab.tsx:84"
     }
   ],
   "FabMenu": [
@@ -4039,73 +4129,73 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "label",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/fab-menu.tsx:51",
+      "src": "packages/kern/src/components/fab-menu.tsx:52",
       "note": "Accessible name of the trigger. Defaults to the first action's label."
     },
     {
       "name": "icon",
       "type": "ReactNode",
       "required": true,
-      "src": "packages/kern/src/components/fab-menu.tsx:53",
+      "src": "packages/kern/src/components/fab-menu.tsx:54",
       "note": "Icon on the trigger. `openIcon` replaces it while the menu is open."
     },
     {
       "name": "openIcon",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/fab-menu.tsx:55",
+      "src": "packages/kern/src/components/fab-menu.tsx:56",
       "note": "Icon shown while the menu is open. Defaults to `icon`."
     },
     {
       "name": "actions",
       "type": "FabMenuAction[]",
       "required": true,
-      "src": "packages/kern/src/components/fab-menu.tsx:56"
+      "src": "packages/kern/src/components/fab-menu.tsx:57"
     },
     {
       "name": "open",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/fab-menu.tsx:58",
+      "src": "packages/kern/src/components/fab-menu.tsx:59",
       "note": "Controlled open state."
     },
     {
       "name": "defaultOpen",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/fab-menu.tsx:60",
+      "src": "packages/kern/src/components/fab-menu.tsx:61",
       "note": "Initial open state for the uncontrolled case."
     },
     {
       "name": "onOpenChange",
       "type": "((open: boolean) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/fab-menu.tsx:61"
+      "src": "packages/kern/src/components/fab-menu.tsx:62"
     },
     {
       "name": "menuLabel",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/fab-menu.tsx:66",
+      "src": "packages/kern/src/components/fab-menu.tsx:67",
       "note": "Overrides the trigger's accessible name (and therefore the menu's). The\nmenu surface inherits its name from the trigger; it does not carry its own."
     },
     {
       "name": "className",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/fab-menu.tsx:67"
+      "src": "packages/kern/src/components/fab-menu.tsx:68"
     },
     {
       "name": "triggerClassName",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/fab-menu.tsx:68"
+      "src": "packages/kern/src/components/fab-menu.tsx:69"
     },
     {
       "name": "testID",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/fab-menu.tsx:69"
+      "src": "packages/kern/src/components/fab-menu.tsx:70"
     }
   ],
   "Fab": [
@@ -4113,14 +4203,14 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "size",
       "type": "\"sm\" | \"default\" | \"icon\" | \"medium\" | \"large\" | null | undefined",
       "required": false,
-      "src": "packages/kern/src/components/fab.tsx:14",
+      "src": "packages/kern/src/components/fab.tsx:15",
       "default": "\"default\""
     },
     {
       "name": "aria-label",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/fab.tsx:30",
+      "src": "packages/kern/src/components/fab.tsx:31",
       "note": "Accessible name for icon-only fabs."
     }
   ],
@@ -4348,6 +4438,7 @@ export const GENERATED_PROPS: Record<string, Array<{
       "note": "Allows you to replace the component's HTML element\nwith a different tag, or compose it with another component.\n\nAccepts a `ReactElement` or a function that returns the element to render."
     }
   ],
+  "FocusRing": [],
   "Form": [
     {
       "name": "validationMode",
@@ -4410,82 +4501,82 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "size",
       "type": "\"sm\" | \"default\" | \"lg\" | null | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:48",
+      "src": "packages/kern/src/components/icon-button.tsx:49",
       "default": "\"default\""
     },
     {
       "name": "variant",
       "type": "\"tonal\" | \"outlined\" | \"filled\" | \"standard\" | null | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:38",
+      "src": "packages/kern/src/components/icon-button.tsx:39",
       "default": "\"standard\""
     },
     {
       "name": "selected",
       "type": "boolean | null | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:53",
+      "src": "packages/kern/src/components/icon-button.tsx:54",
       "default": "false"
     },
     {
       "name": "icon",
       "type": "ReactNode",
       "required": true,
-      "src": "packages/kern/src/components/icon-button.tsx:99",
+      "src": "packages/kern/src/components/icon-button.tsx:100",
       "note": "Icon content. Hidden from assistive tech; the name comes from `label`."
     },
     {
       "name": "label",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:104",
+      "src": "packages/kern/src/components/icon-button.tsx:105",
       "note": "Accessible name, and the text of the M3 tooltip. Required in practice:\nan icon-only button with no name is unusable with a screen reader."
     },
     {
       "name": "toggle",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:106",
+      "src": "packages/kern/src/components/icon-button.tsx:107",
       "note": "Renders this button as a toggle and reports its state."
     },
     {
       "name": "pressed",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:108",
+      "src": "packages/kern/src/components/icon-button.tsx:109",
       "note": "Controlled pressed state. Only meaningful with `toggle`."
     },
     {
       "name": "defaultPressed",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:110",
+      "src": "packages/kern/src/components/icon-button.tsx:111",
       "note": "Initial pressed state for the uncontrolled toggle case."
     },
     {
       "name": "onPressedChange",
       "type": "((pressed: boolean) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:111"
+      "src": "packages/kern/src/components/icon-button.tsx:112"
     },
     {
       "name": "value",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:117",
+      "src": "packages/kern/src/components/icon-button.tsx:118",
       "note": "R2 lexicon canonical names (`value` wins when both are passed; both\ncallbacks fire). `pressed`/`defaultPressed`/`onPressedChange` are\ndeprecated aliases onto the same state."
     },
     {
       "name": "defaultValue",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:118"
+      "src": "packages/kern/src/components/icon-button.tsx:119"
     },
     {
       "name": "onValueChange",
       "type": "((pressed: boolean) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:119"
+      "src": "packages/kern/src/components/icon-button.tsx:120"
     }
   ],
   "InputOTPRoot": [
@@ -4699,13 +4790,13 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "error",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/input.tsx:9"
+      "src": "packages/kern/src/components/input.tsx:10"
     },
     {
       "name": "errorMessage",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/input.tsx:22",
+      "src": "packages/kern/src/components/input.tsx:23",
       "note": "The error TEXT, not just the error state. Present ⇒ `error` is implied\n(`aria-invalid` fires) and the message renders as a `FieldMessage\nvariant=\"error\"` — already `role=\"alert\"` — associated to the field via\n`aria-describedby`.\n\nThis is the web half of a contract the native renderer already honours\n(`NativeInputProps.errorMessage`), where the message is folded into the\nannounced hint because RN has no `accessibilityState.invalid`. The delivery\nattributes stay asymmetric and documented; the public prop surface does\nnot. Do not also pass a sibling `FieldMessage` — this prop owns it."
     }
   ],
@@ -4726,61 +4817,76 @@ export const GENERATED_PROPS: Record<string, Array<{
       "src": "packages/kern/src/components/linear-progress.tsx:14"
     }
   ],
+  "LinkButton": [
+    {
+      "name": "href",
+      "type": "string",
+      "required": true,
+      "src": "packages/kern/src/components/link-button.tsx:13",
+      "note": "Destination. Required — a link without an `href` is a button wearing\nlink paint; use `Button` for that. Passed straight to the anchor, so\nrouting libraries compose by URL rather than by element takeover."
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLAnchorElement> | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/link-button.tsx:14"
+    }
+  ],
   "ListItem": [
     {
       "name": "headline",
       "type": "ReactNode",
       "required": true,
-      "src": "packages/kern/src/components/list-item.tsx:6",
+      "src": "packages/kern/src/components/list-item.tsx:7",
       "note": "Primary line."
     },
     {
       "name": "supporting",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/list-item.tsx:8",
+      "src": "packages/kern/src/components/list-item.tsx:9",
       "note": "Secondary line below the headline."
     },
     {
       "name": "leading",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/list-item.tsx:10",
+      "src": "packages/kern/src/components/list-item.tsx:11",
       "note": "Leading slot: Avatar, icon, or Checkbox."
     },
     {
       "name": "trailing",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/list-item.tsx:12",
+      "src": "packages/kern/src/components/list-item.tsx:13",
       "note": "Trailing slot: metadata, Switch, or action."
     },
     {
       "name": "onPress",
       "type": "(() => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/list-item.tsx:29",
+      "src": "packages/kern/src/components/list-item.tsx:30",
       "note": "Interactive variant. Passing `onPress` (or `href`) makes the row a\nCONTROL rather than a display row: it renders a real `<button>` or\n`<a href>`, so it carries control semantics and is keyboard-operable\ninstead of being a bare `<li>` that merely looks clickable.\n\nR2 lexicon, platform split (kept, both load-bearing): `onPress` is the\npress-intent callback and selects the control kind; `onClick` is the\nDOM event with the mouse event. Neither is removed — see\n`docs/parity-contract.md`.\n\n`href` wins when both are passed (navigation is the stronger intent) and\nthe handler still runs. Matches the native renderer, where `onPress`\nimplies `accessibilityRole=\"button\"` and a static row is `\"none\"` — see\n`docs/parity-contract.md`."
     },
     {
       "name": "href",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/list-item.tsx:31",
+      "src": "packages/kern/src/components/list-item.tsx:32",
       "note": "Navigation variant. Renders `<a href>`, i.e. `role=\"link\"`."
     },
     {
       "name": "disabled",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/list-item.tsx:34",
+      "src": "packages/kern/src/components/list-item.tsx:35",
       "note": "Disables the interactive row: a button is natively disabled; a link gets\n`aria-disabled`, leaves the tab order, and does not navigate."
     },
     {
       "name": "onClick",
       "type": "((event: MouseEvent<HTMLElement, MouseEvent>) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/list-item.tsx:36",
+      "src": "packages/kern/src/components/list-item.tsx:37",
       "note": "Extra props for the control element when interactive."
     }
   ],
@@ -4805,21 +4911,21 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "loading",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/loading-button.tsx:14",
+      "src": "packages/kern/src/components/loading-button.tsx:15",
       "note": "Shows the embedded progress indicator and blocks interaction."
     },
     {
       "name": "value",
       "type": "number | undefined",
       "required": false,
-      "src": "packages/kern/src/components/loading-button.tsx:16",
+      "src": "packages/kern/src/components/loading-button.tsx:17",
       "note": "0–1 determinate progress while loading. Omit for the loop."
     },
     {
       "name": "loaderStyle",
       "type": "\"spinner\" | \"dots\" | \"bar\" | \"shapes\" | \"conveyor\" | \"contained\" | \"orbit\" | \"morph\" | \"assembly\" | undefined",
       "required": false,
-      "src": "packages/kern/src/components/loading-button.tsx:18",
+      "src": "packages/kern/src/components/loading-button.tsx:19",
       "note": "Style of the embedded indicator. Defaults to the M3 ring (`spinner`)."
     }
   ],
@@ -5785,53 +5891,53 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "destinations",
       "type": "NavigationDestination[]",
       "required": true,
-      "src": "packages/kern/src/components/navigation-bar.tsx:48"
+      "src": "packages/kern/src/components/navigation-bar.tsx:49"
     },
     {
       "name": "value",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/navigation-bar.tsx:50",
+      "src": "packages/kern/src/components/navigation-bar.tsx:51",
       "note": "Controlled active destination key."
     },
     {
       "name": "defaultValue",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/navigation-bar.tsx:52",
+      "src": "packages/kern/src/components/navigation-bar.tsx:53",
       "note": "Initial active key for the uncontrolled case."
     },
     {
       "name": "onValueChange",
       "type": "((key: string) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/navigation-bar.tsx:53"
+      "src": "packages/kern/src/components/navigation-bar.tsx:54"
     },
     {
       "name": "label",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/navigation-bar.tsx:55",
+      "src": "packages/kern/src/components/navigation-bar.tsx:56",
       "note": "Accessible name for the navigation landmark."
     },
     {
       "name": "floating",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/navigation-bar.tsx:57",
+      "src": "packages/kern/src/components/navigation-bar.tsx:58",
       "note": "Rendered above the bar — a FAB dock sits here in M3."
     },
     {
       "name": "className",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/navigation-bar.tsx:58"
+      "src": "packages/kern/src/components/navigation-bar.tsx:59"
     },
     {
       "name": "testID",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/navigation-bar.tsx:59"
+      "src": "packages/kern/src/components/navigation-bar.tsx:60"
     }
   ],
   "NavigationBarItem": [
@@ -5839,31 +5945,31 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "label",
       "type": "string",
       "required": true,
-      "src": "packages/kern/src/components/navigation-bar.tsx:232"
+      "src": "packages/kern/src/components/navigation-bar.tsx:233"
     },
     {
       "name": "selected",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/navigation-bar.tsx:233"
+      "src": "packages/kern/src/components/navigation-bar.tsx:234"
     },
     {
       "name": "icon",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/navigation-bar.tsx:234"
+      "src": "packages/kern/src/components/navigation-bar.tsx:235"
     },
     {
       "name": "badge",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/navigation-bar.tsx:235"
+      "src": "packages/kern/src/components/navigation-bar.tsx:236"
     },
     {
       "name": "onSelect",
       "type": "(() => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/navigation-bar.tsx:236"
+      "src": "packages/kern/src/components/navigation-bar.tsx:237"
     }
   ],
   "NavigationDrawer": [
@@ -6419,54 +6525,54 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "count",
       "type": "number",
       "required": true,
-      "src": "packages/kern/src/components/pagination.tsx:10",
+      "src": "packages/kern/src/components/pagination.tsx:11",
       "note": "Total page count (>= 1)."
     },
     {
       "name": "page",
       "type": "number | undefined",
       "required": false,
-      "src": "packages/kern/src/components/pagination.tsx:12",
+      "src": "packages/kern/src/components/pagination.tsx:13",
       "note": "Controlled current page (1-based)."
     },
     {
       "name": "defaultPage",
       "type": "number | undefined",
       "required": false,
-      "src": "packages/kern/src/components/pagination.tsx:14",
+      "src": "packages/kern/src/components/pagination.tsx:15",
       "note": "Uncontrolled initial page."
     },
     {
       "name": "onPageChange",
       "type": "((page: number) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/pagination.tsx:16",
+      "src": "packages/kern/src/components/pagination.tsx:17",
       "note": "Called with the new 1-based page."
     },
     {
       "name": "value",
       "type": "number | undefined",
       "required": false,
-      "src": "packages/kern/src/components/pagination.tsx:22",
+      "src": "packages/kern/src/components/pagination.tsx:23",
       "note": "R2 lexicon canonical names (`value` wins when both are passed; both\ncallbacks fire). `page`/`defaultPage`/`onPageChange` are deprecated\naliases onto the same state."
     },
     {
       "name": "defaultValue",
       "type": "number | undefined",
       "required": false,
-      "src": "packages/kern/src/components/pagination.tsx:23"
+      "src": "packages/kern/src/components/pagination.tsx:24"
     },
     {
       "name": "onValueChange",
       "type": "((page: number) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/pagination.tsx:24"
+      "src": "packages/kern/src/components/pagination.tsx:25"
     },
     {
       "name": "children",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/pagination.tsx:26",
+      "src": "packages/kern/src/components/pagination.tsx:27",
       "note": "Extra content rendered after the page buttons."
     }
   ],
@@ -7022,25 +7128,25 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "value",
       "type": "Value | undefined",
       "required": false,
-      "src": "packages/kern/src/components/radio-group.tsx:11"
+      "src": "packages/kern/src/components/radio-group.tsx:12"
     },
     {
       "name": "defaultValue",
       "type": "Value | undefined",
       "required": false,
-      "src": "packages/kern/src/components/radio-group.tsx:12"
+      "src": "packages/kern/src/components/radio-group.tsx:13"
     },
     {
       "name": "onValueChange",
       "type": "((value: Value, eventDetails: unknown) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/radio-group.tsx:13"
+      "src": "packages/kern/src/components/radio-group.tsx:14"
     },
     {
       "name": "className",
       "type": "string | ((state: RadioGroupState) => string | undefined) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/radio-group.tsx:14"
+      "src": "packages/kern/src/components/radio-group.tsx:15"
     }
   ],
   "RadioGroupItem": [
@@ -7104,19 +7210,19 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "children",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/radio-group.tsx:34"
+      "src": "packages/kern/src/components/radio-group.tsx:35"
     },
     {
       "name": "className",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/radio-group.tsx:35"
+      "src": "packages/kern/src/components/radio-group.tsx:36"
     },
     {
       "name": "controlClassName",
       "type": "string | ((state: RadioRootState) => string | undefined) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/radio-group.tsx:36"
+      "src": "packages/kern/src/components/radio-group.tsx:37"
     }
   ],
   "ScrollAreaRoot": [
@@ -7177,38 +7283,38 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "label",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/search.tsx:11",
+      "src": "packages/kern/src/components/search.tsx:12",
       "note": "Accessible label for the search field."
     },
     {
       "name": "placeholder",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/search.tsx:12"
+      "src": "packages/kern/src/components/search.tsx:13"
     },
     {
       "name": "defaultValue",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/search.tsx:13"
+      "src": "packages/kern/src/components/search.tsx:14"
     },
     {
       "name": "value",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/search.tsx:14"
+      "src": "packages/kern/src/components/search.tsx:15"
     },
     {
       "name": "onValueChange",
       "type": "((value: string) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/search.tsx:15"
+      "src": "packages/kern/src/components/search.tsx:16"
     },
     {
       "name": "onSearch",
       "type": "((value: string) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/search.tsx:17",
+      "src": "packages/kern/src/components/search.tsx:18",
       "note": "Called with the query when the user submits."
     }
   ],
@@ -7217,46 +7323,46 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "tabs",
       "type": "SecondaryTab[]",
       "required": true,
-      "src": "packages/kern/src/components/secondary-tabs.tsx:37"
+      "src": "packages/kern/src/components/secondary-tabs.tsx:38"
     },
     {
       "name": "value",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/secondary-tabs.tsx:39",
+      "src": "packages/kern/src/components/secondary-tabs.tsx:40",
       "note": "Controlled active tab value."
     },
     {
       "name": "defaultValue",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/secondary-tabs.tsx:41",
+      "src": "packages/kern/src/components/secondary-tabs.tsx:42",
       "note": "Initial active value for the uncontrolled case."
     },
     {
       "name": "onValueChange",
       "type": "((value: string) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/secondary-tabs.tsx:42"
+      "src": "packages/kern/src/components/secondary-tabs.tsx:43"
     },
     {
       "name": "label",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/secondary-tabs.tsx:44",
+      "src": "packages/kern/src/components/secondary-tabs.tsx:45",
       "note": "Accessible name for the tablist."
     },
     {
       "name": "className",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/secondary-tabs.tsx:45"
+      "src": "packages/kern/src/components/secondary-tabs.tsx:46"
     },
     {
       "name": "testID",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/secondary-tabs.tsx:46"
+      "src": "packages/kern/src/components/secondary-tabs.tsx:47"
     }
   ],
   "SegmentedButtonRoot": [
@@ -9051,7 +9157,7 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "intent",
       "type": "SonnerIntent | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sonner.tsx:28"
+      "src": "packages/kern/src/components/sonner.tsx:29"
     }
   ],
   "SonnerTitle": [
@@ -9579,7 +9685,7 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "error",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/textarea.tsx:9"
+      "src": "packages/kern/src/components/textarea.tsx:10"
     }
   ],
   "TimePicker": [
@@ -16901,6 +17007,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "autoCorrect",
     "autoFocus",
     "autoSave",
+    "block",
     "children",
     "className",
     "color",
@@ -16913,6 +17020,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "defaultValue",
     "dir",
     "disabled",
+    "download",
     "draggable",
     "enterKeyHint",
     "exportparts",
@@ -16923,6 +17031,9 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "formNoValidate",
     "formTarget",
     "hidden",
+    "href",
+    "icon",
+    "iconPosition",
     "id",
     "inert",
     "inlist",
@@ -16935,6 +17046,9 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "itemType",
     "key",
     "lang",
+    "loaderStyle",
+    "loading",
+    "loadingValue",
     "name",
     "nonce",
     "onAbort",
@@ -17119,6 +17233,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "rev",
     "role",
     "security",
+    "shape",
     "size",
     "slot",
     "spellCheck",
@@ -17126,6 +17241,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "suppressContentEditableWarning",
     "suppressHydrationWarning",
     "tabIndex",
+    "target",
     "title",
     "translate",
     "type",
@@ -31903,6 +32019,288 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "unselectable",
     "vocab"
   ],
+  "FocusRing": [
+    "about",
+    "accessKey",
+    "aria-activedescendant",
+    "aria-atomic",
+    "aria-autocomplete",
+    "aria-braillelabel",
+    "aria-brailleroledescription",
+    "aria-busy",
+    "aria-checked",
+    "aria-colcount",
+    "aria-colindex",
+    "aria-colindextext",
+    "aria-colspan",
+    "aria-controls",
+    "aria-current",
+    "aria-describedby",
+    "aria-description",
+    "aria-details",
+    "aria-disabled",
+    "aria-dropeffect",
+    "aria-errormessage",
+    "aria-expanded",
+    "aria-flowto",
+    "aria-grabbed",
+    "aria-haspopup",
+    "aria-hidden",
+    "aria-invalid",
+    "aria-keyshortcuts",
+    "aria-label",
+    "aria-labelledby",
+    "aria-level",
+    "aria-live",
+    "aria-modal",
+    "aria-multiline",
+    "aria-multiselectable",
+    "aria-orientation",
+    "aria-owns",
+    "aria-placeholder",
+    "aria-posinset",
+    "aria-pressed",
+    "aria-readonly",
+    "aria-relevant",
+    "aria-required",
+    "aria-roledescription",
+    "aria-rowcount",
+    "aria-rowindex",
+    "aria-rowindextext",
+    "aria-rowspan",
+    "aria-selected",
+    "aria-setsize",
+    "aria-sort",
+    "aria-valuemax",
+    "aria-valuemin",
+    "aria-valuenow",
+    "aria-valuetext",
+    "autoCapitalize",
+    "autoCorrect",
+    "autoFocus",
+    "autoSave",
+    "children",
+    "className",
+    "color",
+    "content",
+    "contentEditable",
+    "contextMenu",
+    "dangerouslySetInnerHTML",
+    "datatype",
+    "defaultChecked",
+    "defaultValue",
+    "dir",
+    "draggable",
+    "enterKeyHint",
+    "exportparts",
+    "hidden",
+    "id",
+    "inert",
+    "inlist",
+    "inputMode",
+    "is",
+    "itemID",
+    "itemProp",
+    "itemRef",
+    "itemScope",
+    "itemType",
+    "key",
+    "lang",
+    "nonce",
+    "onAbort",
+    "onAbortCapture",
+    "onAnimationEnd",
+    "onAnimationEndCapture",
+    "onAnimationIteration",
+    "onAnimationIterationCapture",
+    "onAnimationStart",
+    "onAnimationStartCapture",
+    "onAuxClick",
+    "onAuxClickCapture",
+    "onBeforeInput",
+    "onBeforeInputCapture",
+    "onBeforeToggle",
+    "onBlur",
+    "onBlurCapture",
+    "onCanPlay",
+    "onCanPlayCapture",
+    "onCanPlayThrough",
+    "onCanPlayThroughCapture",
+    "onChange",
+    "onChangeCapture",
+    "onClick",
+    "onClickCapture",
+    "onCompositionEnd",
+    "onCompositionEndCapture",
+    "onCompositionStart",
+    "onCompositionStartCapture",
+    "onCompositionUpdate",
+    "onCompositionUpdateCapture",
+    "onContextMenu",
+    "onContextMenuCapture",
+    "onCopy",
+    "onCopyCapture",
+    "onCut",
+    "onCutCapture",
+    "onDoubleClick",
+    "onDoubleClickCapture",
+    "onDrag",
+    "onDragCapture",
+    "onDragEnd",
+    "onDragEndCapture",
+    "onDragEnter",
+    "onDragEnterCapture",
+    "onDragExit",
+    "onDragExitCapture",
+    "onDragLeave",
+    "onDragLeaveCapture",
+    "onDragOver",
+    "onDragOverCapture",
+    "onDragStart",
+    "onDragStartCapture",
+    "onDrop",
+    "onDropCapture",
+    "onDurationChange",
+    "onDurationChangeCapture",
+    "onEmptied",
+    "onEmptiedCapture",
+    "onEncrypted",
+    "onEncryptedCapture",
+    "onEnded",
+    "onEndedCapture",
+    "onError",
+    "onErrorCapture",
+    "onFocus",
+    "onFocusCapture",
+    "onGotPointerCapture",
+    "onGotPointerCaptureCapture",
+    "onInput",
+    "onInputCapture",
+    "onInvalid",
+    "onInvalidCapture",
+    "onKeyDown",
+    "onKeyDownCapture",
+    "onKeyPress",
+    "onKeyPressCapture",
+    "onKeyUp",
+    "onKeyUpCapture",
+    "onLoad",
+    "onLoadCapture",
+    "onLoadStart",
+    "onLoadStartCapture",
+    "onLoadedData",
+    "onLoadedDataCapture",
+    "onLoadedMetadata",
+    "onLoadedMetadataCapture",
+    "onLostPointerCapture",
+    "onLostPointerCaptureCapture",
+    "onMouseDown",
+    "onMouseDownCapture",
+    "onMouseEnter",
+    "onMouseLeave",
+    "onMouseMove",
+    "onMouseMoveCapture",
+    "onMouseOut",
+    "onMouseOutCapture",
+    "onMouseOver",
+    "onMouseOverCapture",
+    "onMouseUp",
+    "onMouseUpCapture",
+    "onPaste",
+    "onPasteCapture",
+    "onPause",
+    "onPauseCapture",
+    "onPlay",
+    "onPlayCapture",
+    "onPlaying",
+    "onPlayingCapture",
+    "onPointerCancel",
+    "onPointerCancelCapture",
+    "onPointerDown",
+    "onPointerDownCapture",
+    "onPointerEnter",
+    "onPointerLeave",
+    "onPointerMove",
+    "onPointerMoveCapture",
+    "onPointerOut",
+    "onPointerOutCapture",
+    "onPointerOver",
+    "onPointerOverCapture",
+    "onPointerUp",
+    "onPointerUpCapture",
+    "onProgress",
+    "onProgressCapture",
+    "onRateChange",
+    "onRateChangeCapture",
+    "onReset",
+    "onResetCapture",
+    "onScroll",
+    "onScrollCapture",
+    "onScrollEnd",
+    "onScrollEndCapture",
+    "onSeeked",
+    "onSeekedCapture",
+    "onSeeking",
+    "onSeekingCapture",
+    "onSelect",
+    "onSelectCapture",
+    "onStalled",
+    "onStalledCapture",
+    "onSubmit",
+    "onSubmitCapture",
+    "onSuspend",
+    "onSuspendCapture",
+    "onTimeUpdate",
+    "onTimeUpdateCapture",
+    "onToggle",
+    "onTouchCancel",
+    "onTouchCancelCapture",
+    "onTouchEnd",
+    "onTouchEndCapture",
+    "onTouchMove",
+    "onTouchMoveCapture",
+    "onTouchStart",
+    "onTouchStartCapture",
+    "onTransitionCancel",
+    "onTransitionCancelCapture",
+    "onTransitionEnd",
+    "onTransitionEndCapture",
+    "onTransitionRun",
+    "onTransitionRunCapture",
+    "onTransitionStart",
+    "onTransitionStartCapture",
+    "onVolumeChange",
+    "onVolumeChangeCapture",
+    "onWaiting",
+    "onWaitingCapture",
+    "onWheel",
+    "onWheelCapture",
+    "part",
+    "popover",
+    "popoverTarget",
+    "popoverTargetAction",
+    "prefix",
+    "property",
+    "radioGroup",
+    "ref",
+    "rel",
+    "resource",
+    "results",
+    "rev",
+    "role",
+    "security",
+    "slot",
+    "spellCheck",
+    "style",
+    "suppressContentEditableWarning",
+    "suppressHydrationWarning",
+    "tabIndex",
+    "title",
+    "translate",
+    "typeof",
+    "unselectable",
+    "vocab"
+  ],
   "Form": [
     "about",
     "acceptCharset",
@@ -34262,6 +34660,308 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "value",
     "vocab"
   ],
+  "LinkButton": [
+    "about",
+    "accessKey",
+    "aria-activedescendant",
+    "aria-atomic",
+    "aria-autocomplete",
+    "aria-braillelabel",
+    "aria-brailleroledescription",
+    "aria-busy",
+    "aria-checked",
+    "aria-colcount",
+    "aria-colindex",
+    "aria-colindextext",
+    "aria-colspan",
+    "aria-controls",
+    "aria-current",
+    "aria-describedby",
+    "aria-description",
+    "aria-details",
+    "aria-disabled",
+    "aria-dropeffect",
+    "aria-errormessage",
+    "aria-expanded",
+    "aria-flowto",
+    "aria-grabbed",
+    "aria-haspopup",
+    "aria-hidden",
+    "aria-invalid",
+    "aria-keyshortcuts",
+    "aria-label",
+    "aria-labelledby",
+    "aria-level",
+    "aria-live",
+    "aria-modal",
+    "aria-multiline",
+    "aria-multiselectable",
+    "aria-orientation",
+    "aria-owns",
+    "aria-placeholder",
+    "aria-posinset",
+    "aria-pressed",
+    "aria-readonly",
+    "aria-relevant",
+    "aria-required",
+    "aria-roledescription",
+    "aria-rowcount",
+    "aria-rowindex",
+    "aria-rowindextext",
+    "aria-rowspan",
+    "aria-selected",
+    "aria-setsize",
+    "aria-sort",
+    "aria-valuemax",
+    "aria-valuemin",
+    "aria-valuenow",
+    "aria-valuetext",
+    "autoCapitalize",
+    "autoCorrect",
+    "autoFocus",
+    "autoSave",
+    "block",
+    "children",
+    "className",
+    "color",
+    "content",
+    "contentEditable",
+    "contextMenu",
+    "dangerouslySetInnerHTML",
+    "datatype",
+    "defaultChecked",
+    "defaultValue",
+    "dir",
+    "disabled",
+    "download",
+    "draggable",
+    "enterKeyHint",
+    "exportparts",
+    "form",
+    "formAction",
+    "formEncType",
+    "formMethod",
+    "formNoValidate",
+    "formTarget",
+    "hidden",
+    "href",
+    "icon",
+    "iconPosition",
+    "id",
+    "inert",
+    "inlist",
+    "inputMode",
+    "is",
+    "itemID",
+    "itemProp",
+    "itemRef",
+    "itemScope",
+    "itemType",
+    "key",
+    "lang",
+    "loaderStyle",
+    "loading",
+    "loadingValue",
+    "name",
+    "nonce",
+    "onAbort",
+    "onAbortCapture",
+    "onAnimationEnd",
+    "onAnimationEndCapture",
+    "onAnimationIteration",
+    "onAnimationIterationCapture",
+    "onAnimationStart",
+    "onAnimationStartCapture",
+    "onAuxClick",
+    "onAuxClickCapture",
+    "onBeforeInput",
+    "onBeforeInputCapture",
+    "onBeforeToggle",
+    "onBlur",
+    "onBlurCapture",
+    "onCanPlay",
+    "onCanPlayCapture",
+    "onCanPlayThrough",
+    "onCanPlayThroughCapture",
+    "onChange",
+    "onChangeCapture",
+    "onClick",
+    "onClickCapture",
+    "onCompositionEnd",
+    "onCompositionEndCapture",
+    "onCompositionStart",
+    "onCompositionStartCapture",
+    "onCompositionUpdate",
+    "onCompositionUpdateCapture",
+    "onContextMenu",
+    "onContextMenuCapture",
+    "onCopy",
+    "onCopyCapture",
+    "onCut",
+    "onCutCapture",
+    "onDoubleClick",
+    "onDoubleClickCapture",
+    "onDrag",
+    "onDragCapture",
+    "onDragEnd",
+    "onDragEndCapture",
+    "onDragEnter",
+    "onDragEnterCapture",
+    "onDragExit",
+    "onDragExitCapture",
+    "onDragLeave",
+    "onDragLeaveCapture",
+    "onDragOver",
+    "onDragOverCapture",
+    "onDragStart",
+    "onDragStartCapture",
+    "onDrop",
+    "onDropCapture",
+    "onDurationChange",
+    "onDurationChangeCapture",
+    "onEmptied",
+    "onEmptiedCapture",
+    "onEncrypted",
+    "onEncryptedCapture",
+    "onEnded",
+    "onEndedCapture",
+    "onError",
+    "onErrorCapture",
+    "onFocus",
+    "onFocusCapture",
+    "onGotPointerCapture",
+    "onGotPointerCaptureCapture",
+    "onInput",
+    "onInputCapture",
+    "onInvalid",
+    "onInvalidCapture",
+    "onKeyDown",
+    "onKeyDownCapture",
+    "onKeyPress",
+    "onKeyPressCapture",
+    "onKeyUp",
+    "onKeyUpCapture",
+    "onLoad",
+    "onLoadCapture",
+    "onLoadStart",
+    "onLoadStartCapture",
+    "onLoadedData",
+    "onLoadedDataCapture",
+    "onLoadedMetadata",
+    "onLoadedMetadataCapture",
+    "onLostPointerCapture",
+    "onLostPointerCaptureCapture",
+    "onMouseDown",
+    "onMouseDownCapture",
+    "onMouseEnter",
+    "onMouseLeave",
+    "onMouseMove",
+    "onMouseMoveCapture",
+    "onMouseOut",
+    "onMouseOutCapture",
+    "onMouseOver",
+    "onMouseOverCapture",
+    "onMouseUp",
+    "onMouseUpCapture",
+    "onPaste",
+    "onPasteCapture",
+    "onPause",
+    "onPauseCapture",
+    "onPlay",
+    "onPlayCapture",
+    "onPlaying",
+    "onPlayingCapture",
+    "onPointerCancel",
+    "onPointerCancelCapture",
+    "onPointerDown",
+    "onPointerDownCapture",
+    "onPointerEnter",
+    "onPointerLeave",
+    "onPointerMove",
+    "onPointerMoveCapture",
+    "onPointerOut",
+    "onPointerOutCapture",
+    "onPointerOver",
+    "onPointerOverCapture",
+    "onPointerUp",
+    "onPointerUpCapture",
+    "onProgress",
+    "onProgressCapture",
+    "onRateChange",
+    "onRateChangeCapture",
+    "onReset",
+    "onResetCapture",
+    "onScroll",
+    "onScrollCapture",
+    "onScrollEnd",
+    "onScrollEndCapture",
+    "onSeeked",
+    "onSeekedCapture",
+    "onSeeking",
+    "onSeekingCapture",
+    "onSelect",
+    "onSelectCapture",
+    "onStalled",
+    "onStalledCapture",
+    "onSubmit",
+    "onSubmitCapture",
+    "onSuspend",
+    "onSuspendCapture",
+    "onTimeUpdate",
+    "onTimeUpdateCapture",
+    "onToggle",
+    "onTouchCancel",
+    "onTouchCancelCapture",
+    "onTouchEnd",
+    "onTouchEndCapture",
+    "onTouchMove",
+    "onTouchMoveCapture",
+    "onTouchStart",
+    "onTouchStartCapture",
+    "onTransitionCancel",
+    "onTransitionCancelCapture",
+    "onTransitionEnd",
+    "onTransitionEndCapture",
+    "onTransitionRun",
+    "onTransitionRunCapture",
+    "onTransitionStart",
+    "onTransitionStartCapture",
+    "onVolumeChange",
+    "onVolumeChangeCapture",
+    "onWaiting",
+    "onWaitingCapture",
+    "onWheel",
+    "onWheelCapture",
+    "part",
+    "popover",
+    "popoverTarget",
+    "popoverTargetAction",
+    "prefix",
+    "property",
+    "radioGroup",
+    "ref",
+    "rel",
+    "resource",
+    "results",
+    "rev",
+    "role",
+    "security",
+    "shape",
+    "size",
+    "slot",
+    "spellCheck",
+    "style",
+    "suppressContentEditableWarning",
+    "suppressHydrationWarning",
+    "tabIndex",
+    "target",
+    "title",
+    "translate",
+    "typeof",
+    "unselectable",
+    "variant",
+    "vocab"
+  ],
   "ListItem": [
     "about",
     "accessKey",
@@ -34894,6 +35594,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "autoCorrect",
     "autoFocus",
     "autoSave",
+    "block",
     "children",
     "className",
     "color",
@@ -34906,6 +35607,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "defaultValue",
     "dir",
     "disabled",
+    "download",
     "draggable",
     "enterKeyHint",
     "exportparts",
@@ -34916,6 +35618,9 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "formNoValidate",
     "formTarget",
     "hidden",
+    "href",
+    "icon",
+    "iconPosition",
     "id",
     "inert",
     "inlist",
@@ -34930,6 +35635,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "lang",
     "loaderStyle",
     "loading",
+    "loadingValue",
     "name",
     "nonce",
     "onAbort",
@@ -35114,6 +35820,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "rev",
     "role",
     "security",
+    "shape",
     "size",
     "slot",
     "spellCheck",
@@ -35121,6 +35828,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "suppressContentEditableWarning",
     "suppressHydrationWarning",
     "tabIndex",
+    "target",
     "title",
     "translate",
     "type",

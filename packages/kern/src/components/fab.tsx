@@ -1,9 +1,10 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentPropsWithRef } from "react";
 import { cn } from "../utils/cn";
+import { FOCUS_RING_CLASS } from "./focus-ring";
 
 const fabVariants = cva(
-  "kern-fab relative inline-flex shrink-0 items-center justify-center gap-2 rounded-(--md-sys-shape-corner-large) bg-(--md-sys-color-primary-container) text-(--md-sys-color-on-primary-container) text-sm font-medium shadow-(--md-sys-elevation-level3) transition-colors outline-none select-none focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary) disabled:pointer-events-none disabled:opacity-50 after:absolute after:-inset-2 after:content-[''] [&_svg]:size-5 [&_svg]:shrink-0",
+  "kern-fab relative inline-flex shrink-0 items-center justify-center gap-2 rounded-(--md-sys-shape-corner-large) bg-(--md-sys-color-primary-container) text-(--md-sys-color-on-primary-container) text-sm font-medium shadow-(--md-sys-elevation-level3) transition-colors outline-none select-none " + FOCUS_RING_CLASS + " disabled:pointer-events-none disabled:opacity-50 after:absolute after:-inset-2 after:content-[''] [&_svg]:size-5 [&_svg]:shrink-0",
   {
     variants: {
       // M3's FAB variants are a SIZE axis — "Three variants: FAB, medium FAB,

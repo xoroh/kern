@@ -1,5 +1,6 @@
 import { type ReactNode, useId, useState } from "react";
 import { cn } from "../utils/cn";
+import { FOCUS_RING_CLASS } from "./focus-ring";
 
 /**
  * M3 carousel — a bounded set of items shown one at a time with previous and
@@ -202,7 +203,7 @@ export function Carousel({
           aria-controls={`${baseId}-track`}
           disabled={disabled || (!wrap && atStart)}
           onClick={() => go(active - 1)}
-          className="kern-carousel-previous inline-flex size-10 items-center justify-center rounded-(--md-sys-shape-corner-full) text-(--md-sys-color-on-surface-variant) outline-none select-none hover:bg-(--md-sys-color-surface-container-high) focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary) disabled:pointer-events-none disabled:opacity-38"
+          className={"kern-carousel-previous inline-flex size-10 items-center justify-center rounded-(--md-sys-shape-corner-full) text-(--md-sys-color-on-surface-variant) outline-none select-none hover:bg-(--md-sys-color-surface-container-high) " + FOCUS_RING_CLASS + " disabled:pointer-events-none disabled:opacity-38"}
         >
           <svg
             viewBox="0 0 24 24"
@@ -236,7 +237,7 @@ export function Carousel({
                 disabled={disabled}
                 onClick={() => go(i)}
                 className={cn(
-                  "kern-carousel-indicator size-2.5 rounded-(--md-sys-shape-corner-full) bg-(--md-sys-color-outline) outline-none transition-colors focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary) disabled:pointer-events-none",
+                  "kern-carousel-indicator size-2.5 rounded-(--md-sys-shape-corner-full) bg-(--md-sys-color-outline) outline-none transition-colors " + FOCUS_RING_CLASS + " disabled:pointer-events-none",
                   i === active && "bg-(--md-sys-color-primary)",
                 )}
               />
@@ -251,7 +252,7 @@ export function Carousel({
           aria-controls={`${baseId}-track`}
           disabled={disabled || (!wrap && atEnd)}
           onClick={() => go(active + 1)}
-          className="kern-carousel-next inline-flex size-10 items-center justify-center rounded-(--md-sys-shape-corner-full) text-(--md-sys-color-on-surface-variant) outline-none select-none hover:bg-(--md-sys-color-surface-container-high) focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary) disabled:pointer-events-none disabled:opacity-38"
+          className={"kern-carousel-next inline-flex size-10 items-center justify-center rounded-(--md-sys-shape-corner-full) text-(--md-sys-color-on-surface-variant) outline-none select-none hover:bg-(--md-sys-color-surface-container-high) " + FOCUS_RING_CLASS + " disabled:pointer-events-none disabled:opacity-38"}
         >
           <svg
             viewBox="0 0 24 24"

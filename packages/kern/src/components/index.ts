@@ -70,7 +70,10 @@ export type { BootIndicatorProps } from "./boot-indicator";
 export { BootIndicator } from "./boot-indicator";
 export type {
   ButtonM3Variant,
+  ButtonColor,
+  ButtonIconPosition,
   ButtonProps,
+  ButtonShape,
   ButtonSize,
   ButtonVariant,
   ButtonVariantInput,
@@ -258,6 +261,8 @@ export type { FieldMessageProps } from "./field-message";
 export { FieldMessage, fieldMessageVariants } from "./field-message";
 export type { FieldsetLegendProps, FieldsetRootProps } from "./fieldset";
 export { Fieldset, FieldsetLegend, FieldsetRoot } from "./fieldset";
+export type { FocusRingProps } from "./focus-ring";
+export { FOCUS_RING_CLASS, FocusRing } from "./focus-ring";
 export type { FormProps } from "./form";
 export { Form } from "./form";
 export type { IconButtonProps, IconButtonVariant } from "./icon-button";
@@ -272,6 +277,8 @@ export type { LabelProps } from "./label";
 export { Label } from "./label";
 export type { LinearProgressProps } from "./linear-progress";
 export { LinearProgress } from "./linear-progress";
+export type { LinkButtonProps } from "./link-button";
+export { LinkButton } from "./link-button";
 export type { ListItemProps } from "./list-item";
 export { ListItem } from "./list-item";
 export type { LoaderProps } from "./loader";

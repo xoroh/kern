@@ -2,9 +2,10 @@ import { cva } from "class-variance-authority";
 import type { ComponentPropsWithRef, MouseEvent } from "react";
 import { useState } from "react";
 import { cn } from "../utils/cn";
+import { FOCUS_RING_CLASS } from "./focus-ring";
 
 const chipVariants = cva(
-  "kern-chip relative inline-flex h-8 shrink-0 items-center gap-1.5 rounded-(--md-sys-shape-corner-full) px-3 text-xs font-medium transition-colors outline-none select-none focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary) disabled:pointer-events-none disabled:opacity-50 after:absolute after:-inset-2 after:content-['']",
+  "kern-chip relative inline-flex h-8 shrink-0 items-center gap-1.5 rounded-(--md-sys-shape-corner-full) px-3 text-xs font-medium transition-colors outline-none select-none " + FOCUS_RING_CLASS + " disabled:pointer-events-none disabled:opacity-50 after:absolute after:-inset-2 after:content-['']",
   {
     variants: {
       variant: {

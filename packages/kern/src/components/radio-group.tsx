@@ -3,6 +3,7 @@ import { RadioGroup as RadioGroupPrimitive } from "@base-ui/react/radio-group";
 import type { ComponentProps, ReactNode } from "react";
 import { cn } from "../utils/cn";
 import { cnState } from "../utils/cnState";
+import { FOCUS_RING_CLASS } from "./focus-ring";
 
 export type RadioGroupProps<Value = string> = Omit<
   ComponentProps<typeof RadioGroupPrimitive>,
@@ -54,7 +55,7 @@ export function RadioGroupItem({
       <RadioPrimitive.Root
         data-slot="radio-group-control"
         className={cnState(
-          "relative size-5 shrink-0 rounded-full border-2 border-(--md-sys-color-on-surface-variant) bg-(--md-sys-color-surface) outline-none transition-colors focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary) data-disabled:cursor-not-allowed data-disabled:opacity-50 data-checked:border-(--md-sys-color-primary) after:absolute after:-inset-[14px] after:content-['']",
+          "relative size-5 shrink-0 rounded-full border-2 border-(--md-sys-color-on-surface-variant) bg-(--md-sys-color-surface) outline-none transition-colors " + FOCUS_RING_CLASS + " data-disabled:cursor-not-allowed data-disabled:opacity-50 data-checked:border-(--md-sys-color-primary) after:absolute after:-inset-[14px] after:content-['']",
           controlClassName,
         )}
         {...props}

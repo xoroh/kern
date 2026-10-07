@@ -1,6 +1,7 @@
 import { ScrollArea as ScrollAreaPrimitive } from "@base-ui/react/scroll-area";
 import type { ComponentProps } from "react";
 import { cnState } from "../utils/cnState";
+import { FOCUS_RING_CLASS } from "./focus-ring";
 
 export type ScrollAreaRootProps = ComponentProps<
   typeof ScrollAreaPrimitive.Root
@@ -30,7 +31,7 @@ export function ScrollAreaViewport({
     <ScrollAreaPrimitive.Viewport
       data-slot="scroll-area-viewport"
       className={cnState(
-        "kern-scroll-area-viewport h-full w-full overscroll-contain rounded-[inherit] outline-none focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary)",
+        "kern-scroll-area-viewport h-full w-full overscroll-contain rounded-[inherit] outline-none " + FOCUS_RING_CLASS,
         className,
       )}
       {...props}

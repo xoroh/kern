@@ -879,8 +879,76 @@ export const PROPS_TABLE: Record<
         required: false,
         default: '"default"',
       },
+      {
+        name: "color",
+        type: "ButtonColor | undefined",
+        required: false,
+        default: '"primary"',
+      },
+      {
+        name: "shape",
+        type: "ButtonShape | undefined",
+        required: false,
+        default: '"pill"',
+      },
+      {
+        name: "block",
+        type: "boolean | undefined",
+        required: false,
+        default: "false",
+      },
+      {
+        name: "loading",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "loadingValue",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "loaderStyle",
+        type: '"spinner" | "dots" | "bar" | "shapes" | "conveyor" | "contained" | "orbit" | "morph" | "assembly" | undefined',
+        required: false,
+      },
+      {
+        name: "href",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "target",
+        type: "HTMLAttributeAnchorTarget | undefined",
+        required: false,
+      },
+      {
+        name: "rel",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "download",
+        type: "any",
+        required: false,
+      },
+      {
+        name: "icon",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "iconPosition",
+        type: "ButtonIconPosition | undefined",
+        required: false,
+      },
+      {
+        name: "ref",
+        type: "Ref<HTMLButtonElement | HTMLAnchorElement> | undefined",
+        required: false,
+      },
     ],
-    curated: ["className", "type", "ref"],
+    curated: ["className", "type"],
   },
   Calendar: {
     rows: [
@@ -3471,6 +3539,10 @@ export const PROPS_TABLE: Record<
     ],
     curated: ["children"],
   },
+  FocusRing: {
+    rows: [],
+    curated: ["color", "rel", "className", "ref"],
+  },
   Form: {
     rows: [
       {
@@ -3776,6 +3848,37 @@ export const PROPS_TABLE: Record<
       },
     ],
     curated: ["className", "aria-label"],
+  },
+  LinkButton: {
+    rows: [
+      {
+        name: "href",
+        type: "string",
+        required: true,
+      },
+      {
+        name: "onClick",
+        type: "MouseEventHandler<HTMLAnchorElement> | undefined",
+        required: false,
+      },
+    ],
+    curated: [
+      "variant",
+      "color",
+      "size",
+      "shape",
+      "block",
+      "loading",
+      "loadingValue",
+      "loaderStyle",
+      "target",
+      "rel",
+      "download",
+      "icon",
+      "iconPosition",
+      "className",
+      "ref",
+    ],
   },
   ListItem: {
     rows: [

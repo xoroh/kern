@@ -2,6 +2,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentPropsWithRef, ReactNode } from "react";
 import { useId, useState } from "react";
 import { cn } from "../utils/cn";
+import { FOCUS_RING_CLASS } from "./focus-ring";
 
 /**
  * M3 icon button — the canonical square, icon-only action. Four container
@@ -32,7 +33,7 @@ import { cn } from "../utils/cn";
  */
 
 const iconButtonVariants = cva(
-  "kern-icon-button group relative inline-flex shrink-0 items-center justify-center rounded-(--md-sys-shape-corner-full) outline-none transition-colors select-none focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary) disabled:pointer-events-none disabled:opacity-38 aria-disabled:pointer-events-none aria-disabled:opacity-38 after:absolute after:-inset-2 after:content-[''] [&_svg]:pointer-events-none [&_svg]:size-5 [&_svg]:shrink-0",
+  "kern-icon-button group relative inline-flex shrink-0 items-center justify-center rounded-(--md-sys-shape-corner-full) outline-none transition-colors select-none " + FOCUS_RING_CLASS + " disabled:pointer-events-none disabled:opacity-38 aria-disabled:pointer-events-none aria-disabled:opacity-38 after:absolute after:-inset-2 after:content-[''] [&_svg]:pointer-events-none [&_svg]:size-5 [&_svg]:shrink-0",
   {
     variants: {
       variant: {

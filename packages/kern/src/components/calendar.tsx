@@ -1,6 +1,7 @@
 import type { ComponentPropsWithRef } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "../utils/cn";
+import { FOCUS_RING_CLASS } from "./focus-ring";
 
 export type CalendarProps = Omit<
   ComponentPropsWithRef<"div">,
@@ -135,7 +136,7 @@ export function Calendar({
           type="button"
           aria-label="Previous month"
           onClick={() => setCursor(new Date(viewYear, viewMonth - 1, 1))}
-          className="kern-calendar-nav flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-(--md-sys-color-on-surface) outline-none hover:bg-(--md-sys-color-surface-tonal) focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary)"
+          className={"kern-calendar-nav flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-(--md-sys-color-on-surface) outline-none hover:bg-(--md-sys-color-surface-tonal) " + FOCUS_RING_CLASS}
         >
           ‹
         </button>
@@ -151,7 +152,7 @@ export function Calendar({
           type="button"
           aria-label="Next month"
           onClick={() => setCursor(new Date(viewYear, viewMonth + 1, 1))}
-          className="kern-calendar-nav flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-(--md-sys-color-on-surface) outline-none hover:bg-(--md-sys-color-surface-tonal) focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary)"
+          className={"kern-calendar-nav flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-(--md-sys-color-on-surface) outline-none hover:bg-(--md-sys-color-surface-tonal) " + FOCUS_RING_CLASS}
         >
           ›
         </button>
@@ -199,7 +200,7 @@ export function Calendar({
                   tabIndex={sameDay(date, cursor) ? 0 : -1}
                   onClick={() => pick(date)}
                   onFocus={() => setCursor(date)}
-                  className="kern-calendar-day flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-sm text-(--md-sys-color-on-surface) outline-none hover:bg-(--md-sys-color-surface-tonal) focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary) disabled:pointer-events-none disabled:opacity-30 data-selected:bg-(--md-sys-color-primary) data-selected:text-(--md-sys-color-on-primary)"
+                  className={"kern-calendar-day flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-sm text-(--md-sys-color-on-surface) outline-none hover:bg-(--md-sys-color-surface-tonal) " + FOCUS_RING_CLASS + " disabled:pointer-events-none disabled:opacity-30 data-selected:bg-(--md-sys-color-primary) data-selected:text-(--md-sys-color-on-primary)"}
                 >
                   {date.getDate()}
                 </button>

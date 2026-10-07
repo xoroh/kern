@@ -2,6 +2,7 @@ import type { ComponentPropsWithRef } from "react";
 import { useState } from "react";
 import { cn } from "../utils/cn";
 import { Input } from "./input";
+import { FOCUS_RING_CLASS } from "./focus-ring";
 
 export type SearchProps = Omit<
   ComponentPropsWithRef<"form">,
@@ -61,7 +62,7 @@ export function Search({
           type="button"
           aria-label="Clear search"
           onClick={() => set("")}
-          className="kern-search-clear flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full text-(--md-sys-color-on-surface-variant) outline-none hover:bg-(--md-sys-color-surface-tonal) focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary)"
+          className={"kern-search-clear flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full text-(--md-sys-color-on-surface-variant) outline-none hover:bg-(--md-sys-color-surface-tonal) " + FOCUS_RING_CLASS}
         >
           ×
         </button>

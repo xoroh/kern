@@ -1,5 +1,6 @@
 import { type ComponentProps, type ReactNode, useRef, useState } from "react";
 import { cn } from "../utils/cn";
+import { FOCUS_RING_CLASS } from "./focus-ring";
 
 /**
  * M3 navigation bar — the compact-screen destination switcher (3–5
@@ -186,7 +187,7 @@ export function NavigationBar({
               onClick={() => select(destination.key)}
               onKeyDown={onKeyDown}
               className={cn(
-                "kern-navigation-bar-destination flex min-h-12 flex-1 cursor-pointer flex-col items-center justify-center gap-1 px-2 outline-none select-none focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary)",
+                "kern-navigation-bar-destination flex min-h-12 flex-1 cursor-pointer flex-col items-center justify-center gap-1 px-2 outline-none select-none " + FOCUS_RING_CLASS,
                 destination.disabled
                   ? "pointer-events-none opacity-38"
                   : "hover:bg-(--md-sys-color-surface-container-high)",
@@ -260,7 +261,7 @@ export function NavigationBarItem({
       disabled={disabled}
       onClick={onSelect}
       className={cn(
-        "kern-navigation-bar-item flex min-h-14 w-full cursor-pointer items-center gap-3 rounded-(--md-sys-shape-corner-full) px-6 text-left text-(--md-sys-color-on-surface) outline-none transition-colors focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary)",
+        "kern-navigation-bar-item flex min-h-14 w-full cursor-pointer items-center gap-3 rounded-(--md-sys-shape-corner-full) px-6 text-left text-(--md-sys-color-on-surface) outline-none transition-colors " + FOCUS_RING_CLASS,
         disabled
           ? "pointer-events-none opacity-38"
           : "hover:bg-(--md-sys-color-surface-tonal)",

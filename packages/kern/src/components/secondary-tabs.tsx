@@ -1,5 +1,6 @@
 import { type KeyboardEvent, type ReactNode, useId, useState } from "react";
 import { cn } from "../utils/cn";
+import { FOCUS_RING_CLASS } from "./focus-ring";
 
 /**
  * M3 secondary tabs — the sub-section switcher inside a primary view. Distinct
@@ -176,7 +177,7 @@ export function SecondaryTabs({
               onClick={() => select(tab.value)}
               onKeyDown={onKeyDown}
               className={cn(
-                "kern-secondary-tab relative flex min-h-12 cursor-pointer items-center px-4 text-sm font-medium text-(--md-sys-color-on-surface-variant) outline-none select-none after:absolute after:inset-x-0 after:bottom-0 after:h-[3px] after:rounded-full after:bg-transparent after:content-[''] focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary)",
+                "kern-secondary-tab relative flex min-h-12 cursor-pointer items-center px-4 text-sm font-medium text-(--md-sys-color-on-surface-variant) outline-none select-none after:absolute after:inset-x-0 after:bottom-0 after:h-[3px] after:rounded-full after:bg-transparent after:content-[''] " + FOCUS_RING_CLASS,
                 tab.disabled
                   ? "pointer-events-none opacity-38"
                   : "hover:text-(--md-sys-color-on-surface)",

@@ -36,8 +36,13 @@ export type { NativeBadgeProps } from "./components/badge";
 export { Badge } from "./components/badge";
 export { bottomSheetSurface } from "./components/bottom-sheet-surface";
 export type {
+  NativeButtonColor,
+  NativeButtonIconPosition,
   NativeButtonM3Variant,
   NativeButtonProps,
+  NativeButtonShape,
+  NativeButtonSize,
+  NativeButtonStyleOptions,
   NativeButtonVariant,
   NativeButtonVariantInput,
 } from "./components/button";
