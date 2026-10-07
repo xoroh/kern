@@ -20,6 +20,7 @@
 import { useLocation } from "@tanstack/react-router";
 import { cn } from "@xoroh/kern";
 import { NAV_SECTIONS } from "../../systems/nav";
+import { T_BODY_MD, T_LABEL, T_LABEL_LG } from "../../systems/type-scale";
 
 export function DocsSidebar() {
   const { pathname } = useLocation();
@@ -27,7 +28,9 @@ export function DocsSidebar() {
     <nav aria-label="Docs sections" className="flex flex-col gap-5">
       {NAV_SECTIONS.map((section) => (
         <div key={section.label} className="flex flex-col gap-1">
-          <p className="m-0 px-3 text-xs font-semibold tracking-[0.14em] text-(--md-sys-color-on-surface-variant) uppercase">
+          <p
+            className={`m-0 px-3 ${T_LABEL} text-(--md-sys-color-on-surface-variant) uppercase`}
+          >
             {section.label}
           </p>
           <ul className="m-0 flex list-none flex-col gap-0.5 p-0">
@@ -43,10 +46,10 @@ export function DocsSidebar() {
                     href={leaf.href}
                     aria-current={active ? "page" : undefined}
                     className={cn(
-                      "block rounded-(--md-sys-shape-corner-small) px-3 py-1.5 text-sm no-underline",
+                      "block rounded-(--md-sys-shape-corner-small) px-3 py-1.5 no-underline",
                       active
-                        ? "bg-(--md-sys-color-secondary-container) font-semibold text-(--md-sys-color-on-secondary-container)"
-                        : "text-(--md-sys-color-on-surface-variant) hover:bg-(--md-sys-color-surface-container-high) hover:text-(--md-sys-color-on-surface)",
+                        ? `bg-(--md-sys-color-secondary-container) ${T_LABEL_LG} text-(--md-sys-color-on-secondary-container)`
+                        : `${T_BODY_MD} text-(--md-sys-color-on-surface-variant) hover:bg-(--md-sys-color-surface-container-high) hover:text-(--md-sys-color-on-surface)`,
                     )}
                   >
                     {leaf.label}

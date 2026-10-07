@@ -13,8 +13,11 @@ import {
   demoCoverage,
 } from "../../../components/docs/component-gallery";
 import { T_BODY_SM, T_LABEL_LG, T_PAGE } from "../../../systems/type-scale";
+import { routeHead } from "../../../systems/seo";
 
 export const Route = createFileRoute("/components/web/")({
+  head: () =>
+    routeHead("Web components", "Web components from @xoroh/kern, previewed live."),
   component: WebComponents,
 });
 

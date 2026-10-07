@@ -1,12 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Kicker } from "../components/chrome/kicker";
 import { SiteLayout } from "../components/chrome/site-layout";
 import { ComponentGallery } from "../components/docs/component-gallery";
 import { Hero } from "../components/home/hero";
 import { WEB_DOCS } from "../content";
 import { COMPONENT_COUNT } from "../generated/manifest";
-import { SITE_JSON_LD } from "../systems/seo";
+import { pageMeta, SITE_JSON_LD } from "../systems/seo";
+import { T_BODY, T_SECTION } from "../systems/type-scale";
 
-export const Route = createFileRoute("/")({ component: Home });
+export const Route = createFileRoute("/")({
+  head: () => ({ meta: pageMeta("Kern by Xoroh") }),
+  component: Home,
+});
 
 function Home() {
   const documented = [...WEB_DOCS].reduce((n, doc) => n + doc.parts.length, 0);
@@ -26,16 +31,16 @@ function Home() {
       >
         <div className="rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14">
           <header className="flex flex-col gap-3">
-            <p className="m-0 text-sm font-medium tracking-[0.18em] text-(--md-sys-color-on-surface-variant) uppercase">
-              Components
-            </p>
+            <Kicker>Components</Kicker>
             <h2
               id="gallery-heading"
-              className="m-0 text-2xl font-semibold text-(--md-sys-color-on-surface)"
+              className={`m-0 ${T_SECTION} text-(--md-sys-color-on-surface)`}
             >
               Documented family by family
             </h2>
-            <p className="m-0 max-w-[62ch] text-(--md-sys-color-on-surface-variant)">
+            <p
+              className={`m-0 max-w-[62ch] ${T_BODY} text-(--md-sys-color-on-surface-variant)`}
+            >
               Each page runs the same grammar — metadata, live preview,
               installation, anatomy, usage, examples, props, theming,
               accessibility, conformance — and every number on it is checked

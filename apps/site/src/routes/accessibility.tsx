@@ -10,10 +10,17 @@
  * runs, the known gap, and where to report barriers.
  */
 import { createFileRoute } from "@tanstack/react-router";
+import { Kicker } from "../components/chrome/kicker";
 import { SiteLayout } from "../components/chrome/site-layout";
-import { T_BODY, T_LABEL, T_PAGE, T_SECTION } from "../systems/type-scale";
+import { routeHead } from "../systems/seo";
+import { T_BODY, T_CODE, T_PAGE, T_SECTION } from "../systems/type-scale";
 
 export const Route = createFileRoute("/accessibility")({
+  head: () =>
+    routeHead(
+      "Accessibility",
+      "Kern targets WCAG 2.2 AA — what is checked, what is not, and how to report a barrier.",
+    ),
   component: Accessibility,
 });
 
@@ -21,8 +28,7 @@ const INK = "text-(--md-sys-color-on-surface)";
 const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";
 const LINK = "text-(--md-sys-color-primary) no-underline hover:underline";
 const REPO = "https://github.com/xoroh/kern";
-const CODE =
-  "rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-surface-container-high) px-1.5 py-0.5 font-mono text-[0.85em]";
+const CODE = `rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-surface-container-high) px-1.5 py-0.5 ${T_CODE}`;
 
 function Accessibility() {
   return (
@@ -30,10 +36,10 @@ function Accessibility() {
       <section className="px-4 py-4 sm:px-6 sm:py-6">
         <div className="mx-auto flex max-w-[64rem] flex-col gap-12 rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14">
           <header className="flex flex-col gap-3">
-            <p className={`m-0 ${T_LABEL} ${INK_SOFT} uppercase`}>
-              Accessibility
-            </p>
-            <h1 className={`m-0 ${T_PAGE} ${INK}`}>Accessibility statement</h1>
+            <Kicker className={INK_SOFT}>Accessibility</Kicker>
+            <h1 className={`m-0 ${T_PAGE} ${INK}`}>
+              Accessibility statement
+            </h1>
             <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>
               Kern targets WCAG 2.2 AA for everything it ships. This page states
               what is checked today, what is not yet checked, and how to report

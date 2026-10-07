@@ -7,8 +7,10 @@
  * reads seven MITs, which is itself the honest answer.
  */
 import { createFileRoute } from "@tanstack/react-router";
+import { Kicker } from "../../components/chrome/kicker";
 import { SiteLayout } from "../../components/chrome/site-layout";
 import { LICENSE_TEXT, PACKAGE_LICENSES } from "../../generated/legal";
+import { routeHead } from "../../systems/seo";
 import {
   T_BODY,
   T_BODY_SM,
@@ -18,6 +20,8 @@ import {
 } from "../../systems/type-scale";
 
 export const Route = createFileRoute("/legal/license")({
+  head: () =>
+    routeHead("License", "The licence, rendered from the repo's own LICENSE files."),
   component: License,
 });
 
@@ -30,7 +34,7 @@ function License() {
       <section className="px-4 py-4 sm:px-6 sm:py-6">
         <div className="mx-auto flex max-w-[64rem] flex-col gap-12 rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14">
           <header className="flex flex-col gap-3">
-            <p className={`m-0 ${T_LABEL} ${INK_SOFT} uppercase`}>Legal</p>
+            <Kicker className={INK_SOFT}>Legal</Kicker>
             <h1 className={`m-0 ${T_PAGE} ${INK}`}>License</h1>
             <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>
               Kern is open source. The text below is the repository&apos;s

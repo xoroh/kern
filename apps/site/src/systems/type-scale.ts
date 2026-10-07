@@ -35,6 +35,9 @@ export const T_LEAD = ts("title-medium");
 export const T_SMALL_TITLE = ts("title-small");
 /** Running text. */
 export const T_BODY = ts("body-large");
+/** Body copy at 14px — body-medium. The role the ad-hoc `text-sm` was reaching
+ * for: same size, but generated from the token, not typed. */
+export const T_BODY_MD = ts("body-medium");
 /** Secondary / dense text, table cells, captions. */
 export const T_BODY_SM = ts("body-small");
 /** Micro-labels, inline literals, required markers. */
@@ -43,6 +46,11 @@ export const T_LABEL = ts("label-small");
 export const T_LABEL_MD = ts("label-medium");
 /** Chip values and key caps. */
 export const T_LABEL_LG = ts("label-large");
+/** Eyebrow kicker — label-large voice with the wide eyebrow spacing the old
+ * hand-typed kickers carried. The spacing lives here, once, so call sites
+ * never re-type a `tracking-[...]` utility (the typescale gate bans those in
+ * chrome and routes). Always rendered uppercase by the Kicker component. */
+export const T_KICKER = `${ts("label-large")} [letter-spacing:0.18em]`;
 /** Code and token ids — mono is kept, the SIZE is on-scale. */
 export const T_CODE = `font-mono ${ts("body-small")}`;
 /** Keyboard key caps. */

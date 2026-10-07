@@ -7,10 +7,14 @@
  * gates. No stats, no testimonials, nothing invented.
  */
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { Kicker } from "../components/chrome/kicker";
 import { SiteLayout } from "../components/chrome/site-layout";
-import { T_BODY, T_LABEL, T_PAGE, T_SECTION } from "../systems/type-scale";
+import { routeHead } from "../systems/seo";
+import { T_BODY, T_PAGE, T_SECTION } from "../systems/type-scale";
 
 export const Route = createFileRoute("/community")({
+  head: () =>
+    routeHead("Community", "Where the project lives and how to take part."),
   component: Community,
 });
 
@@ -24,7 +28,7 @@ function Community() {
       <section className="px-4 py-4 sm:px-6 sm:py-6">
         <div className="mx-auto flex max-w-[64rem] flex-col gap-12 rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14">
           <header className="flex flex-col gap-3">
-            <p className={`m-0 ${T_LABEL} ${INK_SOFT} uppercase`}>Community</p>
+            <Kicker className={INK_SOFT}>Community</Kicker>
             <h1 className={`m-0 ${T_PAGE} ${INK}`}>Community</h1>
             <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>
               Kern is built in the open. Issues, discussions, and contributions

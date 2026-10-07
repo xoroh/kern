@@ -16,12 +16,27 @@ import {
   notFound,
   redirect,
 } from "@tanstack/react-router";
+import { Kicker } from "../../../components/chrome/kicker";
 import { SiteLayout } from "../../../components/chrome/site-layout";
 import { ComponentPage as ComponentDocPage } from "../../../components/docs/component-page";
 import { docForExport } from "../../../content";
-import { componentsOn, getComponent } from "../../../generated/manifest";
+import { getComponent } from "../../../generated/manifest";
+import { routeHead } from "../../../systems/seo";
+import { siblingNav } from "../../../systems/component-nav";
+import {
+  T_BODY,
+  T_BODY_MD,
+  T_CODE,
+  T_PAGE,
+  T_SECTION,
+} from "../../../systems/type-scale";
 
 export const Route = createFileRoute("/components/$platform/$component")({
+  head: ({ params }) =>
+    routeHead(
+      `${params.component} (${params.platform === "mobile" ? "native" : params.platform})`,
+      "One component, one page — metadata, live preview, usage, props, theming and accessibility.",
+    ),
   // The manifest is checked here, before rendering starts. Throwing from the
   // component body happens after SSR streaming has begun, so the response
   // status is already 200 and a 404 can never be sent.
@@ -58,18 +73,20 @@ function UnknownComponent({ slug }: { slug: string }) {
     <SiteLayout>
       <section className="px-4 py-4 sm:px-6 sm:py-6">
         <div className="mx-auto flex max-w-[48rem] flex-col gap-4 rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14">
-          <p className="m-0 text-sm font-medium tracking-[0.18em] text-(--md-sys-color-on-surface-variant) uppercase">
-            404
-          </p>
-          <h1 className="m-0 text-2xl font-semibold text-(--md-sys-color-on-surface)">
+          <Kicker>404</Kicker>
+          <h1
+            className={`m-0 ${T_PAGE} text-(--md-sys-color-on-surface)`}
+          >
             No such component
           </h1>
-          <p className="m-0 text-(--md-sys-color-on-surface-variant)">
+          <p className={`m-0 ${T_BODY} text-(--md-sys-color-on-surface-variant)`}>
             <code>{slug}</code> is not in the generated manifest. The route set
             comes from <code>docs/components.md</code>, so if this export exists
             in a package the manifest is stale — not this page.
           </p>
-          <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
+          <p
+            className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+          >
             <Link to="/components/web">Browse web components</Link> ·{" "}
             <Link to="/components/mobile">Browse mobile components</Link>
           </p>
@@ -106,29 +123,24 @@ function ComponentBody() {
   // as a whole, and every part of the family is documented there.
   const doc = docForExport(entry.platform, entry.export);
 
-  // m4 — prev/next come from the manifest's sibling order for this platform,
-  // and each carries the target page's TITLE alongside its href. They travel
-  // together so the link can name the page it goes to; a bare href renders
-  // "Previous"/"Next" and the reader has no idea what they are walking into.
-  const siblings = componentsOn(entry.platform);
-  const index = siblings.findIndex((c) => c.slug === entry.slug);
-  const labelFor = (e: (typeof siblings)[number]) =>
-    docForExport(e.platform, e.export)?.name ?? e.export;
-  const prevEntry = index > 0 ? siblings[index - 1] : undefined;
-  const nextEntry =
-    index >= 0 && index < siblings.length - 1 ? siblings[index + 1] : undefined;
-  const prev = prevEntry
-    ? { href: `/components/${prevEntry.slug}`, title: labelFor(prevEntry) }
-    : undefined;
-  const next = nextEntry
-    ? { href: `/components/${nextEntry.slug}`, title: labelFor(nextEntry) }
-    : undefined;
+  // m4 — prev/next come from the manifest's sibling order for this platform
+  // (see src/systems/component-nav.ts, which pins the platform-preserving
+  // hrefs with a regression test), and each carries the target page's TITLE
+  // alongside its href. They travel together so the link can name the page
+  // it goes to; a bare href renders "Previous"/"Next" and the reader has no
+  // idea what they are walking into.
+  const { prev, next } = siblingNav(
+    entry,
+    (e) => docForExport(e.platform, e.export)?.name ?? e.export,
+  );
 
   return (
     <SiteLayout>
       <section className="px-4 py-4 sm:px-6 sm:py-6">
         <div className="mx-auto flex max-w-[64rem] flex-col gap-8 rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14">
-          <nav className="flex flex-wrap items-center gap-2 text-sm text-(--md-sys-color-on-surface-variant)">
+          <nav
+            className={`flex flex-wrap items-center gap-2 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+          >
             <Link to="/components">Components</Link>
             <span aria-hidden="true">/</span>
             <Link to={platformHref}>{isWeb ? "Web" : "Mobile"}</Link>
@@ -172,13 +184,17 @@ function Undocumented({
   return (
     <div className="flex flex-col gap-6">
       <header className="flex flex-col gap-3">
-        <h1 className="m-0 text-3xl font-semibold text-(--md-sys-color-on-surface)">
+        <h1
+          className={`m-0 ${T_PAGE} text-(--md-sys-color-on-surface)`}
+        >
           <code>{entry.export}</code>
         </h1>
-        <p className="m-0 font-mono text-sm text-(--md-sys-color-secondary)">
+        <p className={`m-0 ${T_CODE} text-(--md-sys-color-secondary)`}>
           {pkg}
         </p>
-        <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
+        <p
+          className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+        >
           {entry.status === "real"
             ? "Implemented and exported from the platform entry point."
             : "Planned placeholder — not exported yet."}
@@ -187,11 +203,13 @@ function Undocumented({
       <div className="flex flex-col gap-2 rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-outline) bg-(--md-sys-color-surface-container) p-6">
         <h2
           id="no-documentation-page-yet"
-          className="m-0 text-lg font-semibold"
+          className={`m-0 ${T_SECTION}`}
         >
           No documentation page yet
         </h2>
-        <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
+        <p
+          className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+        >
           This export is in the generated inventory but has no content folder
           under <code>src/content/</code>. That is a gap in the site, not in the
           package — it is tracked by <code>check:docs</code> rather than hidden

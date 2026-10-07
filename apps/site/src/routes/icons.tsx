@@ -7,11 +7,15 @@
  * this page is the deep-linkable home for it.
  */
 import { createFileRoute } from "@tanstack/react-router";
+import { Kicker } from "../components/chrome/kicker";
 import { SiteLayout } from "../components/chrome/site-layout";
 import { IconGallery } from "../components/icons/icon-gallery";
-import { T_BODY, T_LABEL, T_PAGE } from "../systems/type-scale";
+import { routeHead } from "../systems/seo";
+import { T_BODY, T_PAGE } from "../systems/type-scale";
 
 export const Route = createFileRoute("/icons")({
+  head: () =>
+    routeHead("Icons", "The icon gallery — counts, names, and glyphs from the registry."),
   component: Icons,
 });
 
@@ -24,7 +28,7 @@ function Icons() {
       <section className="px-4 py-4 sm:px-6 sm:py-6">
         <div className="mx-auto flex max-w-[64rem] flex-col gap-8 rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14">
           <header className="flex flex-col gap-3">
-            <p className={`m-0 ${T_LABEL} ${INK_SOFT} uppercase`}>Icons</p>
+            <Kicker className={INK_SOFT}>Icons</Kicker>
             <h1 className={`m-0 ${T_PAGE} ${INK}`}>Icon gallery</h1>
             <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>
               Every icon in the set, searchable. Names and counts are read from

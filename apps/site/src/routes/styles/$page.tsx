@@ -41,8 +41,14 @@ import {
   FSection,
 } from "../../foundations/shell";
 import { T_BODY_SM, T_LABEL, T_SMALL_TITLE } from "../../systems/type-scale";
+import { routeHead } from "../../systems/seo";
 
 export const Route = createFileRoute("/styles/$page")({
+  head: ({ params }) =>
+    routeHead(
+      `Styles — ${params.page}`,
+      "One Foundations page, rendered from its own tokens.",
+    ),
   component: FoundationPage,
 });
 

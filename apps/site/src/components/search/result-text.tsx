@@ -10,7 +10,7 @@
  */
 import type { ReactNode } from "react";
 import type { SearchEntry } from "../../systems/search";
-import { T_BODY_SM } from "../../systems/type-scale";
+import { T_BODY_MD, T_BODY_SM, T_LABEL_LG } from "../../systems/type-scale";
 
 const INK = "text-(--md-sys-color-on-surface)";
 const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";
@@ -30,7 +30,7 @@ function highlighted(text: string, query: string): ReactNode {
     if (at < 0) break;
     if (at > from) out.push(text.slice(from, at));
     out.push(
-      <mark key={key++} className="bg-transparent font-semibold text-inherit">
+      <mark key={key++} className={`bg-transparent ${T_LABEL_LG} text-inherit`}>
         {text.slice(at, at + needle.length)}
       </mark>,
     );
@@ -51,7 +51,7 @@ export function ResultText({
     <span className="flex min-w-0 flex-col gap-0.5">
       <span className="flex min-w-0 items-baseline gap-2">
         <span
-          className={`min-w-0 flex-1 truncate group-hover:underline ${INK}`}
+          className={`min-w-0 flex-1 truncate group-hover:underline ${T_BODY_MD} ${INK}`}
         >
           {highlighted(entry.title, query)}
         </span>

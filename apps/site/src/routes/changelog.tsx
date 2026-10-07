@@ -6,11 +6,15 @@
  * No dates, no version numbers, no invented release history.
  */
 import { createFileRoute } from "@tanstack/react-router";
+import { Kicker } from "../components/chrome/kicker";
 import { SiteLayout } from "../components/chrome/site-layout";
 import { RECENT_CHANGES } from "../generated/changelog";
+import { routeHead } from "../systems/seo";
 import { T_BODY, T_LABEL, T_PAGE, T_SECTION } from "../systems/type-scale";
 
 export const Route = createFileRoute("/changelog")({
+  head: () =>
+    routeHead("Changelog", "What changed, newest first."),
   component: Changelog,
 });
 
@@ -32,7 +36,7 @@ function Changelog() {
       <section className="px-4 py-4 sm:px-6 sm:py-6">
         <div className="mx-auto flex max-w-[64rem] flex-col gap-12 rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14">
           <header className="flex flex-col gap-3">
-            <p className={`m-0 ${T_LABEL} ${INK_SOFT} uppercase`}>Changelog</p>
+            <Kicker className={INK_SOFT}>Changelog</Kicker>
             <h1 className={`m-0 ${T_PAGE} ${INK}`}>Changelog</h1>
             <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>
               Pending changes, straight from the changesets in the repository.
@@ -49,7 +53,7 @@ function Changelog() {
                 <li key={entry.id} className="flex flex-col gap-2">
                   <div className="flex flex-wrap items-center gap-2">
                     <span
-                      className={`inline-flex h-6 items-center rounded-(--md-sys-shape-corner-full) px-2 text-xs font-medium ${BUMP_STYLES[entry.bump] ?? BUMP_STYLES.patch}`}
+                      className={`inline-flex h-6 items-center rounded-(--md-sys-shape-corner-full) px-2 ${T_LABEL} ${BUMP_STYLES[entry.bump] ?? BUMP_STYLES.patch}`}
                     >
                       {entry.bump}
                     </span>
