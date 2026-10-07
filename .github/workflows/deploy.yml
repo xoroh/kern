@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: oven-sh/setup-bun@v2
         with:
@@ -22,9 +22,12 @@ jobs:
 
       - run: bun install --frozen-lockfile --ignore-scripts
 
-      - name: Build Kern library
+      # Site imports @xoroh/kern, which re-exports @xoroh/kern-tokens and pulls
+      # @xoroh/kern-primitives. Building only packages/kern fails DTS resolve
+      # (TS2307 Cannot find module '@xoroh/kern-tokens'). Root `bun run build`
+      # runs generators then scripts/build-order.mjs (topo order from manifests).
+      - name: Build packages
         run: bun run build
-        working-directory: packages/kern
 
       - name: Build and deploy site
         run: bun run deploy

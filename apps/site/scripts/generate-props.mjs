@@ -42,7 +42,7 @@
  * generated prop is documented, and no documented row names a prop that no
  * longer exists. Type-text equality is deliberately NOT asserted (formatting).
  */
-import { readFileSync, writeFileSync } from "node:fs";
+import { writeFileSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import ts from "typescript";
@@ -51,7 +51,6 @@ import { readContentApiNames } from "./lib/content-api-names.mjs";
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, "..", "..", "..");
 const SITE = resolve(HERE, "..");
-const OUT = join(SITE, "src", "generated", "props.json");
 
 const manifestMod = await import(
   join(ROOT, "packages", "mcp", "src", "manifest.ts")
@@ -104,7 +103,9 @@ for (const file of files) {
   const abs = join(ROOT, "packages/kern", file);
   const src = program.getSourceFile(abs);
   if (!src) {
-    console.error(`generate-props: cannot load ${file} — entry skipped, not silently dropped`);
+    console.error(
+      `generate-props: cannot load ${file} — entry skipped, not silently dropped`,
+    );
     continue;
   }
   const defaults = fileDefaults(src);
@@ -177,7 +178,9 @@ for (const file of files) {
     // exactly one Props alias shares it across its exports (genuinely shared).
     // Anything else gets nothing — the gate surfaces the gap instead of this
     // generator silently attributing another component's props.
-    const fileExports = entries.filter((x) => x.path === file).map((x) => x.export);
+    const fileExports = entries
+      .filter((x) => x.path === file)
+      .map((x) => x.export);
     const aliasBase = alias.name.text.replace(/Props$/, "");
     // One-alias files share everything (rows AND the full name set).
     const share = (exp) => {
@@ -254,10 +257,7 @@ try {
 } catch {
   // Biome unavailable: keep unformatted, never silently drop the export.
 }
-writeFileSync(
-  join(SITE, "src", "generated", "props-table.ts"),
-  tableFormatted,
-);
+writeFileSync(join(SITE, "src", "generated", "props-table.ts"), tableFormatted);
 
 const total = Object.values(byExport).reduce((n, r) => n + r.length, 0);
 console.log(

@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: oven-sh/setup-bun@v2
         with:
@@ -51,15 +51,6 @@ jobs:
       - name: Check kern contract
         run: bun run check:kern
 
-      - name: Check web/native parity contract
-        # Two `run:` keys under one step is a DUPLICATE YAML MAP KEY -- only the
-        # last survives, so `check:parity` was silently not running in CI at all.
-        # Found by the YAML linter when wiring check:consumption, not by a red
-        # build: the gate was green in every local run and absent in CI.
-        run: |
-          bun run check:parity
-          bun run check:currency
-
       - name: Check the package layering (D-034)
         run: bun run check:layers
 
@@ -71,7 +62,12 @@ jobs:
         # planting — the 0020 batch's biome.json override and ci.yml pathspec
         # both go red here, and the ci.yml one is the sharper case because
         # `git diff --exit-code -- <missing>` MEASURED exits 0.
-        run: bun run check:stale-refs
+        # generate:routes writes apps/site/src/routeTree.gen.ts (gitignored),
+        # which the biome override names. Without it, check:stale-refs reports
+        # that override dead on a clean checkout (issue #4).
+        run: |
+          bun run --cwd apps/site generate:routes
+          bun run check:stale-refs
 
       - name: Check the two renderers agree on resting elevation
         # D-038 follow-on. `check-elevation-parity` asserts one resting elevation
@@ -80,6 +76,13 @@ jobs:
         # defect (3dp read as level 3 when it is level 2) was invisible to both
         # until this gate existed.
         run: bun run check:elevation-parity
+
+      - name: Sync icon upstream assets
+        # packages/kern-icons/assets/material/ is gitignored. check:generated
+        # re-runs icons generate against that catalog; without a sync, a clean
+        # CI clone fails with "catalog is empty. Sync the upstream assets first".
+        # One sync here also feeds icons:check / icons:generate later in the job.
+        run: bun run icons:sync
 
       - name: Check generated output and elevation truth
         run: |
@@ -91,9 +94,8 @@ jobs:
           bun run check:generated:census
           bun run check:elevation
 
-      - name: Check kernel consumption and the pack manifest
+      - name: Check the pack manifest and registry paths
         run: |
-          bun run check:consumption
           bun run check:pack
           bun run check:registry-paths
 
@@ -122,6 +124,16 @@ jobs:
 
       - name: Build all publishable packages
         run: bun run build
+
+      - name: Check web/native parity contract
+        # AFTER the build: check:parity inspects built kern-primitives dist .d.ts.
+        run: |
+          bun run check:parity
+          bun run check:currency
+
+      - name: Check kernel consumption against built primitives
+        # AFTER the build: check:consumption reads packages/kern-primitives/dist/index.d.ts.
+        run: bun run check:consumption
 
       - name: Check every declared export exists in dist
         run: |

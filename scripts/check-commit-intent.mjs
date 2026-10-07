@@ -42,6 +42,11 @@ import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  globToRegExp,
+  ownerOf as ownerOfRules,
+  parseCodeowners,
+} from "./lib/codeowners.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -64,77 +69,12 @@ const intent = intentRaw
   .filter(Boolean);
 
 // ---------------------------------------------------------------- CODEOWNERS
-/**
- * Parse CODEOWNERS into ordered `[pattern, owner[]]` pairs. Last match wins,
- * which is GitHub's own rule, so the owner reported is the EFFECTIVE one.
- * Comments and blank lines are skipped — this file documents dead paths in
- * comments on purpose, and a comment is not a rule.
- */
-function parseCodeowners() {
-  const rel = ".github/CODEOWNERS";
-  if (!existsSync(join(ROOT, rel))) return [];
-  const rules = [];
-  readFileSync(join(ROOT, rel), "utf8")
-    .split("\n")
-    .forEach((raw, idx) => {
-      const line = raw.trim();
-      if (!line || line.startsWith("#")) return;
-      const parts = line.split(/\s+/);
-      rules.push({
-        pattern: parts[0],
-        owners: parts.slice(1),
-        line: idx + 1,
-        catchAll: parts[0] === "*",
-      });
-    });
-  return rules;
-}
-
-const CODEOWNERS = parseCodeowners();
-
-/** gitignore-style glob -> RegExp. Same translation the stale-refs gate uses. */
-function globToRegExp(glob) {
-  const isDir = glob.endsWith("/");
-  const body = isDir ? glob.slice(0, -1) : glob;
-  let re = "";
-  for (let i = 0; i < body.length; i += 1) {
-    const c = body[i];
-    if (c === "*") {
-      if (body[i + 1] === "*") {
-        if (body[i + 2] === "/") {
-          re += "(?:[^/]+/)*";
-          i += 2;
-        } else {
-          re += ".*";
-          i += 1;
-        }
-      } else re += "[^/]*";
-      continue;
-    }
-    if (c === "?") {
-      re += "[^/]";
-      continue;
-    }
-    re += c.replace(/[.+^${}()|[\]\\]/g, "\\$&");
-  }
-  return new RegExp(`^${re}${isDir ? "/" : ""}.*$`);
-}
-
-/** The EFFECTIVE owner of a path, by last-match-wins. */
-function ownerOf(path) {
-  let owner = null;
-  for (const rule of CODEOWNERS) {
-    if (rule.catchAll) {
-      owner = rule.owners;
-      continue;
-    }
-    if (globToRegExp(rule.pattern).test(path)) owner = rule.owners;
-  }
-  return owner;
-}
+const CODEOWNERS = existsSync(join(ROOT, ".github/CODEOWNERS"))
+  ? parseCodeowners(readFileSync(join(ROOT, ".github/CODEOWNERS"), "utf8"))
+  : [];
 
 const ownerLabel = (path) => {
-  const o = ownerOf(path);
+  const o = ownerOfRules(path, CODEOWNERS);
   return o?.length ? o.join(" ") : "(default)";
 };
 
