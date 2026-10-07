@@ -5,2287 +5,8335 @@
 export const PROPS_TABLE: Record<
   string,
   {
-    rows: Array<{ name: string; type: string; required: boolean; default?: string }>;
+    rows: Array<{
+      name: string;
+      type: string;
+      required: boolean;
+      default?: string;
+    }>;
     curated: string[];
   }
 > = {
-  "AccordionRoot": {
-    "rows": [],
-    "curated": []
-  },
-  "AccordionItem": {
-    "rows": [],
-    "curated": []
-  },
-  "AccordionHeader": {
-    "rows": [],
-    "curated": []
-  },
-  "AccordionTrigger": {
-    "rows": [],
-    "curated": []
-  },
-  "AccordionPanel": {
-    "rows": [],
-    "curated": []
-  },
-  "AlertDialogRoot": {
-    "rows": [],
-    "curated": []
-  },
-  "AlertDialogTrigger": {
-    "rows": [],
-    "curated": []
-  },
-  "AlertDialogContent": {
-    "rows": [],
-    "curated": []
-  },
-  "AlertDialogTitle": {
-    "rows": [],
-    "curated": []
-  },
-  "AlertDialogDescription": {
-    "rows": [],
-    "curated": []
-  },
-  "AlertDialogClose": {
-    "rows": [],
-    "curated": []
-  },
-  "AutocompleteRoot": {
-    "rows": [],
-    "curated": []
-  },
-  "AutocompleteInput": {
-    "rows": [],
-    "curated": []
-  },
-  "AutocompleteContent": {
-    "rows": [],
-    "curated": []
-  },
-  "AutocompleteItem": {
-    "rows": [],
-    "curated": []
-  },
-  "AutocompleteEmpty": {
-    "rows": [],
-    "curated": []
-  },
-  "AutocompleteLabel": {
-    "rows": [],
-    "curated": []
-  },
-  "AvatarRoot": {
-    "rows": [],
-    "curated": []
-  },
-  "AvatarImage": {
-    "rows": [],
-    "curated": []
-  },
-  "AvatarFallback": {
-    "rows": [],
-    "curated": []
-  },
-  "Badge": {
-    "rows": [],
-    "curated": []
-  },
-  "Banner": {
-    "rows": [],
-    "curated": []
-  },
-  "BannerAction": {
-    "rows": [],
-    "curated": []
-  },
-  "BootIndicator": {
-    "rows": [
+  AccordionRoot: {
+    rows: [
       {
-        "name": "tone",
-        "type": "any",
-        "required": false
+        name: "value",
+        type: "AccordionValue<unknown> | undefined",
+        required: false,
       },
       {
-        "name": "signature",
-        "type": "string | undefined",
-        "required": false
+        name: "defaultValue",
+        type: "AccordionValue<unknown> | undefined",
+        required: false,
       },
       {
-        "name": "label",
-        "type": "string | undefined",
-        "required": false
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
       },
       {
-        "name": "size",
-        "type": "any",
-        "required": false
+        name: "hiddenUntilFound",
+        type: "boolean | undefined",
+        required: false,
       },
       {
-        "name": "loaderStyle",
-        "type": "any",
-        "required": false
+        name: "keepMounted",
+        type: "boolean | undefined",
+        required: false,
       },
       {
-        "name": "shapes",
-        "type": "readonly FeedbackShapeKind[] | undefined",
-        "required": false
+        name: "loopFocus",
+        type: "boolean | undefined",
+        required: false,
       },
       {
-        "name": "tenantId",
-        "type": "string | undefined",
-        "required": false
-      }
+        name: "onValueChange",
+        type: "((value: AccordionValue<unknown>, eventDetails: AccordionRootChangeEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "multiple",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "orientation",
+        type: "Orientation | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | ((state: State<unknown>) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, State<unknown>> | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: State<unknown>) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
     ],
-    "curated": []
+    curated: [],
   },
-  "ButtonGroup": {
-    "rows": [],
-    "curated": []
-  },
-  "Button": {
-    "rows": [
+  AccordionItem: {
+    rows: [
       {
-        "name": "variant",
-        "type": "ButtonVariantInput | undefined",
-        "required": false,
-        "default": "\"primary\""
+        name: "className",
+        type: "string | ((state: AccordionItemState) => string | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "size",
-        "type": "ButtonSize | undefined",
-        "required": false,
-        "default": "\"default\""
+        name: "style",
+        type: "CSSProperties | ((state: AccordionItemState) => CSSProperties | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "color",
-        "type": "ButtonColor | undefined",
-        "required": false,
-        "default": "\"primary\""
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
       },
       {
-        "name": "shape",
-        "type": "ButtonShape | undefined",
-        "required": false,
-        "default": "\"pill\""
+        name: "value",
+        type: "any",
+        required: false,
       },
       {
-        "name": "block",
-        "type": "boolean | undefined",
-        "required": false,
-        "default": "false"
+        name: "onOpenChange",
+        type: "((open: boolean, eventDetails: AccordionItemChangeEventDetails) => void) | undefined",
+        required: false,
       },
       {
-        "name": "loading",
-        "type": "boolean | undefined",
-        "required": false
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, AccordionItemState> | undefined",
+        required: false,
       },
-      {
-        "name": "loadingValue",
-        "type": "number | undefined",
-        "required": false
-      },
-      {
-        "name": "loaderStyle",
-        "type": "any",
-        "required": false
-      },
-      {
-        "name": "href",
-        "type": "string | undefined",
-        "required": false
-      },
-      {
-        "name": "target",
-        "type": "any",
-        "required": false
-      },
-      {
-        "name": "rel",
-        "type": "string | undefined",
-        "required": false
-      },
-      {
-        "name": "download",
-        "type": "any",
-        "required": false
-      },
-      {
-        "name": "icon",
-        "type": "any",
-        "required": false
-      },
-      {
-        "name": "iconPosition",
-        "type": "ButtonIconPosition | undefined",
-        "required": false
-      },
-      {
-        "name": "ref",
-        "type": "any",
-        "required": false
-      }
     ],
-    "curated": []
+    curated: [],
   },
-  "Calendar": {
-    "rows": [
+  AccordionHeader: {
+    rows: [
       {
-        "name": "value",
-        "type": "Date | undefined",
-        "required": false
+        name: "className",
+        type: "string | ((state: AccordionHeaderState) => string | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "defaultValue",
-        "type": "Date | undefined",
-        "required": false
+        name: "style",
+        type: "CSSProperties | ((state: AccordionHeaderState) => CSSProperties | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "onValueChange",
-        "type": "((date: Date) => void) | undefined",
-        "required": false
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, AccordionHeaderState> | undefined",
+        required: false,
       },
-      {
-        "name": "min",
-        "type": "Date | undefined",
-        "required": false
-      },
-      {
-        "name": "max",
-        "type": "Date | undefined",
-        "required": false
-      }
     ],
-    "curated": []
+    curated: [],
   },
-  "Card": {
-    "rows": [],
-    "curated": []
-  },
-  "Carousel": {
-    "rows": [
+  AccordionTrigger: {
+    rows: [
       {
-        "name": "items",
-        "type": "ReactNode[]",
-        "required": true
+        name: "className",
+        type: "string | ((state: AccordionTriggerState) => string | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "label",
-        "type": "string | undefined",
-        "required": false
+        name: "style",
+        type: "CSSProperties | ((state: AccordionTriggerState) => CSSProperties | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "index",
-        "type": "number | undefined",
-        "required": false
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, AccordionTriggerState> | undefined",
+        required: false,
       },
       {
-        "name": "defaultIndex",
-        "type": "number | undefined",
-        "required": false
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
       },
-      {
-        "name": "onIndexChange",
-        "type": "((index: number) => void) | undefined",
-        "required": false
-      },
-      {
-        "name": "value",
-        "type": "number | undefined",
-        "required": false
-      },
-      {
-        "name": "defaultValue",
-        "type": "number | undefined",
-        "required": false
-      },
-      {
-        "name": "onValueChange",
-        "type": "((index: number) => void) | undefined",
-        "required": false
-      },
-      {
-        "name": "wrap",
-        "type": "boolean | undefined",
-        "required": false
-      },
-      {
-        "name": "showIndicators",
-        "type": "boolean | undefined",
-        "required": false
-      },
-      {
-        "name": "disabled",
-        "type": "boolean | undefined",
-        "required": false
-      },
-      {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false
-      },
-      {
-        "name": "itemLabels",
-        "type": "string[] | undefined",
-        "required": false
-      },
-      {
-        "name": "itemKeys",
-        "type": "string[] | undefined",
-        "required": false
-      },
-      {
-        "name": "testID",
-        "type": "string | undefined",
-        "required": false
-      }
     ],
-    "curated": []
+    curated: ["value", "disabled"],
   },
-  "CheckboxGroupRoot": {
-    "rows": [],
-    "curated": []
-  },
-  "CheckboxGroupItem": {
-    "rows": [],
-    "curated": []
-  },
-  "Checkbox": {
-    "rows": [],
-    "curated": []
-  },
-  "Chip": {
-    "rows": [
+  AccordionPanel: {
+    rows: [
       {
-        "name": "type",
-        "type": "\"button\" | \"submit\" | \"reset\" | undefined",
-        "required": false
+        name: "className",
+        type: "string | ((state: AccordionPanelState) => string | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "variant",
-        "type": "\"filter\" | \"assist\" | \"suggestion\" | undefined",
-        "required": false,
-        "default": "\"assist\""
+        name: "style",
+        type: "CSSProperties | ((state: AccordionPanelState) => CSSProperties | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "selected",
-        "type": "boolean | undefined",
-        "required": false
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, AccordionPanelState> | undefined",
+        required: false,
       },
       {
-        "name": "defaultSelected",
-        "type": "boolean | undefined",
-        "required": false
+        name: "hiddenUntilFound",
+        type: "boolean | undefined",
+        required: false,
       },
       {
-        "name": "onSelectedChange",
-        "type": "((selected: boolean) => void) | undefined",
-        "required": false
+        name: "keepMounted",
+        type: "boolean | undefined",
+        required: false,
       },
-      {
-        "name": "value",
-        "type": "any",
-        "required": false
-      },
-      {
-        "name": "defaultValue",
-        "type": "any",
-        "required": false
-      },
-      {
-        "name": "onValueChange",
-        "type": "any",
-        "required": false
-      }
     ],
-    "curated": []
+    curated: [],
   },
-  "CircularProgress": {
-    "rows": [
+  AlertDialogRoot: {
+    rows: [
       {
-        "name": "value",
-        "type": "number | undefined",
-        "required": false
+        name: "onOpenChange",
+        type: "((open: boolean, eventDetails: AlertDialogRootChangeEventDetails) => void) | undefined",
+        required: false,
       },
       {
-        "name": "loaderStyle",
-        "type": "any",
-        "required": false
+        name: "actionsRef",
+        type: "RefObject<DialogRootActions | null> | undefined",
+        required: false,
       },
       {
-        "name": "size",
-        "type": "any",
-        "required": false
+        name: "handle",
+        type: "AlertDialogHandle<unknown> | undefined",
+        required: false,
       },
       {
-        "name": "shapes",
-        "type": "readonly FeedbackShapeKind[] | undefined",
-        "required": false
+        name: "children",
+        type: "ReactNode | PayloadChildRenderFunction<unknown>",
+        required: false,
       },
       {
-        "name": "tenantId",
-        "type": "string | undefined",
-        "required": false
+        name: "open",
+        type: "boolean | undefined",
+        required: false,
       },
       {
-        "name": "label",
-        "type": "string | undefined",
-        "required": false
-      }
+        name: "defaultOpen",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChangeComplete",
+        type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "triggerId",
+        type: "string | null | undefined",
+        required: false,
+      },
+      {
+        name: "defaultTriggerId",
+        type: "string | null | undefined",
+        required: false,
+      },
     ],
-    "curated": []
+    curated: [],
   },
-  "CollapsibleRoot": {
-    "rows": [],
-    "curated": []
-  },
-  "CollapsibleTrigger": {
-    "rows": [],
-    "curated": []
-  },
-  "CollapsiblePanel": {
-    "rows": [],
-    "curated": []
-  },
-  "ComboboxRoot": {
-    "rows": [],
-    "curated": []
-  },
-  "ComboboxInput": {
-    "rows": [],
-    "curated": []
-  },
-  "ComboboxTrigger": {
-    "rows": [],
-    "curated": []
-  },
-  "ComboboxClear": {
-    "rows": [],
-    "curated": []
-  },
-  "ComboboxContent": {
-    "rows": [],
-    "curated": []
-  },
-  "ComboboxItem": {
-    "rows": [],
-    "curated": []
-  },
-  "ComboboxEmpty": {
-    "rows": [],
-    "curated": []
-  },
-  "ComboboxLabel": {
-    "rows": [],
-    "curated": []
-  },
-  "CommandRoot": {
-    "rows": [],
-    "curated": []
-  },
-  "CommandInput": {
-    "rows": [],
-    "curated": []
-  },
-  "CommandContent": {
-    "rows": [],
-    "curated": []
-  },
-  "CommandList": {
-    "rows": [],
-    "curated": []
-  },
-  "CommandEmpty": {
-    "rows": [],
-    "curated": []
-  },
-  "CommandSeparator": {
-    "rows": [],
-    "curated": []
-  },
-  "CommandGroupLabel": {
-    "rows": [],
-    "curated": []
-  },
-  "CommandItem": {
-    "rows": [
+  AlertDialogTrigger: {
+    rows: [
       {
-        "name": "value",
-        "type": "string",
-        "required": true
+        name: "handle",
+        type: "AlertDialogHandle<unknown> | undefined",
+        required: false,
       },
       {
-        "name": "icon",
-        "type": "any",
-        "required": false
+        name: "className",
+        type: "string | ((state: DialogTriggerState) => string | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "shortcut",
-        "type": "string | undefined",
-        "required": false
-      }
+        name: "style",
+        type: "CSSProperties | ((state: DialogTriggerState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "id",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, DialogTriggerState> | undefined",
+        required: false,
+      },
+      {
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "payload",
+        type: "unknown",
+        required: false,
+      },
     ],
-    "curated": []
+    curated: ["disabled"],
   },
-  "ContextMenuRoot": {
-    "rows": [],
-    "curated": []
-  },
-  "ContextMenuTrigger": {
-    "rows": [],
-    "curated": []
-  },
-  "ContextMenuContent": {
-    "rows": [],
-    "curated": []
-  },
-  "ContextMenuItem": {
-    "rows": [],
-    "curated": []
-  },
-  "ContextMenuSeparator": {
-    "rows": [],
-    "curated": []
-  },
-  "CountrySelectRoot": {
-    "rows": [
+  AlertDialogContent: {
+    rows: [
       {
-        "name": "options",
-        "type": "readonly CountryOption[]",
-        "required": true
+        name: "className",
+        type: "string | ((state: DialogPopupState) => string | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "onCountryChange",
-        "type": "((country: CountryOption | null) => void) | undefined",
-        "required": false
-      }
+        name: "style",
+        type: "CSSProperties | ((state: DialogPopupState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, DialogPopupState> | undefined",
+        required: false,
+      },
+      {
+        name: "initialFocus",
+        type: "boolean | RefObject<HTMLElement | null> | ((openType: InteractionType) => boolean | void | HTMLElement | null) | undefined",
+        required: false,
+      },
+      {
+        name: "finalFocus",
+        type: "boolean | RefObject<HTMLElement | null> | ((closeType: InteractionType) => boolean | void | HTMLElement | null) | undefined",
+        required: false,
+      },
     ],
-    "curated": []
+    curated: [],
   },
-  "CountrySelectTrigger": {
-    "rows": [],
-    "curated": []
-  },
-  "CountrySelectContent": {
-    "rows": [],
-    "curated": []
-  },
-  "CountrySelectItem": {
-    "rows": [],
-    "curated": []
-  },
-  "CountrySelectLabel": {
-    "rows": [],
-    "curated": []
-  },
-  "DialogRoot": {
-    "rows": [],
-    "curated": []
-  },
-  "DialogTrigger": {
-    "rows": [],
-    "curated": []
-  },
-  "DialogContent": {
-    "rows": [
+  AlertDialogTitle: {
+    rows: [
       {
-        "name": "modal",
-        "type": "boolean | \"trap-focus\" | undefined",
-        "required": false
-      }
+        name: "className",
+        type: "string | ((state: DialogTitleState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: DialogTitleState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, DialogTitleState> | undefined",
+        required: false,
+      },
     ],
-    "curated": []
+    curated: [],
   },
-  "DialogTitle": {
-    "rows": [],
-    "curated": []
-  },
-  "DialogDescription": {
-    "rows": [],
-    "curated": []
-  },
-  "DialogClose": {
-    "rows": [],
-    "curated": []
-  },
-  "DrawerRoot": {
-    "rows": [],
-    "curated": []
-  },
-  "DrawerTrigger": {
-    "rows": [],
-    "curated": []
-  },
-  "DrawerContent": {
-    "rows": [],
-    "curated": []
-  },
-  "DrawerTitle": {
-    "rows": [],
-    "curated": []
-  },
-  "DrawerDescription": {
-    "rows": [],
-    "curated": []
-  },
-  "DrawerClose": {
-    "rows": [],
-    "curated": []
-  },
-  "EmptyState": {
-    "rows": [],
-    "curated": []
-  },
-  "KernErrorBoundary": {
-    "rows": [
+  AlertDialogDescription: {
+    rows: [
       {
-        "name": "children",
-        "type": "ReactNode",
-        "required": true
+        name: "className",
+        type: "string | ((state: DialogDescriptionState) => string | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "fallback",
-        "type": "(props: ErrorBoundaryFallbackProps) => ReactNode",
-        "required": true
+        name: "style",
+        type: "CSSProperties | ((state: DialogDescriptionState) => CSSProperties | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "onError",
-        "type": "((error: Error, info: ErrorInfo) => void) | undefined",
-        "required": false
-      }
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, DialogDescriptionState> | undefined",
+        required: false,
+      },
     ],
-    "curated": []
+    curated: [],
   },
-  "ExtendedFab": {
-    "rows": [
+  AlertDialogClose: {
+    rows: [
       {
-        "name": "ref",
-        "type": "any",
-        "required": false
+        name: "className",
+        type: "string | ((state: DialogCloseState) => string | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "label",
-        "type": "string",
-        "required": true
+        name: "style",
+        type: "CSSProperties | ((state: DialogCloseState) => CSSProperties | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "icon",
-        "type": "ReactNode",
-        "required": true
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, DialogCloseState> | undefined",
+        required: false,
       },
       {
-        "name": "collapsed",
-        "type": "boolean | undefined",
-        "required": false
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
       },
-      {
-        "name": "defaultCollapsed",
-        "type": "boolean | undefined",
-        "required": false
-      },
-      {
-        "name": "onCollapsedChange",
-        "type": "((collapsed: boolean) => void) | undefined",
-        "required": false
-      },
-      {
-        "name": "value",
-        "type": "boolean | undefined",
-        "required": false
-      },
-      {
-        "name": "defaultValue",
-        "type": "boolean | undefined",
-        "required": false
-      },
-      {
-        "name": "onValueChange",
-        "type": "((collapsed: boolean) => void) | undefined",
-        "required": false
-      }
     ],
-    "curated": []
+    curated: ["disabled"],
   },
-  "FabMenu": {
-    "rows": [
+  AutocompleteRoot: {
+    rows: [
       {
-        "name": "label",
-        "type": "string | undefined",
-        "required": false
+        name: "defaultValue",
+        type: "string | number | readonly string[] | undefined",
+        required: false,
       },
       {
-        "name": "icon",
-        "type": "ReactNode",
-        "required": true
+        name: "form",
+        type: "string | undefined",
+        required: false,
       },
       {
-        "name": "openIcon",
-        "type": "any",
-        "required": false
+        name: "filter",
+        type: "((item: unknown, query: string, itemToString?: ((item: unknown) => string) | undefined) => boolean) | null | undefined",
+        required: false,
       },
       {
-        "name": "actions",
-        "type": "FabMenuAction[]",
-        "required": true
+        name: "id",
+        type: "string | undefined",
+        required: false,
       },
       {
-        "name": "open",
-        "type": "boolean | undefined",
-        "required": false
+        name: "children",
+        type: "ReactNode",
+        required: false,
       },
       {
-        "name": "defaultOpen",
-        "type": "boolean | undefined",
-        "required": false
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
       },
       {
-        "name": "onOpenChange",
-        "type": "((open: boolean) => void) | undefined",
-        "required": false
+        name: "value",
+        type: "string | number | readonly string[] | undefined",
+        required: false,
       },
       {
-        "name": "menuLabel",
-        "type": "string | undefined",
-        "required": false
+        name: "onOpenChange",
+        type: "((open: boolean, eventDetails: AutocompleteRootChangeEventDetails) => void) | undefined",
+        required: false,
       },
       {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false
+        name: "name",
+        type: "string | undefined",
+        required: false,
       },
       {
-        "name": "triggerClassName",
-        "type": "string | undefined",
-        "required": false
+        name: "modal",
+        type: "boolean | undefined",
+        required: false,
       },
       {
-        "name": "testID",
-        "type": "string | undefined",
-        "required": false
-      }
+        name: "actionsRef",
+        type: "RefObject<AutocompleteRootActions | null> | undefined",
+        required: false,
+      },
+      {
+        name: "open",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultOpen",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChangeComplete",
+        type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "grid",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "inline",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "itemToStringValue",
+        type: "((itemValue: unknown) => string) | undefined",
+        required: false,
+      },
+      {
+        name: "autoHighlight",
+        type: 'boolean | "always" | undefined',
+        required: false,
+      },
+      {
+        name: "keepHighlight",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "highlightItemOnHover",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "openOnInputClick",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "filteredItems",
+        type: "readonly unknown[] | readonly Group<unknown>[] | undefined",
+        required: false,
+      },
+      {
+        name: "required",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "readOnly",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "loopFocus",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onItemHighlighted",
+        type: "((highlightedValue: unknown, eventDetails: HighlightEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "inputRef",
+        type: "Ref<HTMLInputElement> | undefined",
+        required: false,
+      },
+      {
+        name: "virtualized",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "limit",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "locale",
+        type: "LocalesArgument",
+        required: false,
+      },
+      {
+        name: "submitOnItemClick",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "mode",
+        type: '"none" | "list" | "inline" | "both" | undefined',
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: "((value: string, eventDetails: AutocompleteRootChangeEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "items",
+        type: "readonly unknown[] | undefined",
+        required: false,
+      },
     ],
-    "curated": []
+    curated: [],
   },
-  "Fab": {
-    "rows": [],
-    "curated": []
-  },
-  "FieldMessage": {
-    "rows": [],
-    "curated": []
-  },
-  "FieldRoot": {
-    "rows": [],
-    "curated": []
-  },
-  "FieldLabel": {
-    "rows": [],
-    "curated": []
-  },
-  "FieldDescription": {
-    "rows": [],
-    "curated": []
-  },
-  "FieldError": {
-    "rows": [],
-    "curated": []
-  },
-  "FieldsetRoot": {
-    "rows": [],
-    "curated": []
-  },
-  "FieldsetLegend": {
-    "rows": [],
-    "curated": []
-  },
-  "FocusRing": {
-    "rows": [],
-    "curated": []
-  },
-  "Form": {
-    "rows": [],
-    "curated": []
-  },
-  "IconButton": {
-    "rows": [],
-    "curated": []
-  },
-  "InputOTPRoot": {
-    "rows": [],
-    "curated": []
-  },
-  "InputOTPInput": {
-    "rows": [],
-    "curated": []
-  },
-  "Input": {
-    "rows": [],
-    "curated": []
-  },
-  "Kbd": {
-    "rows": [],
-    "curated": []
-  },
-  "Label": {
-    "rows": [],
-    "curated": []
-  },
-  "LinearProgress": {
-    "rows": [
+  AutocompleteInput: {
+    rows: [
       {
-        "name": "value",
-        "type": "number",
-        "required": true
+        name: "className",
+        type: "string | ((state: ComboboxInputState) => string | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "label",
-        "type": "string | undefined",
-        "required": false
-      }
+        name: "style",
+        type: "CSSProperties | ((state: ComboboxInputState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ComboboxInputState> | undefined",
+        required: false,
+      },
     ],
-    "curated": []
+    curated: ["value"],
   },
-  "LinkButton": {
-    "rows": [
+  AutocompleteContent: {
+    rows: [
       {
-        "name": "href",
-        "type": "string",
-        "required": true
+        name: "className",
+        type: "string | ((state: ComboboxPopupState) => string | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "onClick",
-        "type": "any",
-        "required": false
-      }
+        name: "style",
+        type: "CSSProperties | ((state: ComboboxPopupState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ComboboxPopupState> | undefined",
+        required: false,
+      },
+      {
+        name: "initialFocus",
+        type: "boolean | RefObject<HTMLElement | null> | ((openType: InteractionType) => boolean | void | HTMLElement | null) | undefined",
+        required: false,
+      },
+      {
+        name: "finalFocus",
+        type: "boolean | RefObject<HTMLElement | null> | ((closeType: InteractionType) => boolean | void | HTMLElement | null) | undefined",
+        required: false,
+      },
     ],
-    "curated": []
+    curated: [],
   },
-  "ListItem": {
-    "rows": [
+  AutocompleteItem: {
+    rows: [
       {
-        "name": "headline",
-        "type": "ReactNode",
-        "required": true
+        name: "children",
+        type: "ReactNode",
+        required: false,
       },
       {
-        "name": "supporting",
-        "type": "any",
-        "required": false
+        name: "onClick",
+        type: "((event: BaseUIEvent<MouseEvent<HTMLDivElement, MouseEvent>>) => void) | undefined",
+        required: false,
       },
       {
-        "name": "leading",
-        "type": "any",
-        "required": false
+        name: "index",
+        type: "number | undefined",
+        required: false,
       },
       {
-        "name": "trailing",
-        "type": "any",
-        "required": false
+        name: "value",
+        type: "any",
+        required: false,
       },
       {
-        "name": "onPress",
-        "type": "(() => void) | undefined",
-        "required": false
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
       },
       {
-        "name": "href",
-        "type": "string | undefined",
-        "required": false
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
       },
       {
-        "name": "disabled",
-        "type": "boolean | undefined",
-        "required": false
+        name: "className",
+        type: "string | ((state: AutocompleteItemState) => string | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "onClick",
-        "type": "((event: MouseEvent<HTMLElement>) => void) | undefined",
-        "required": false
-      }
+        name: "style",
+        type: "CSSProperties | ((state: AutocompleteItemState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, AutocompleteItemState> | undefined",
+        required: false,
+      },
     ],
-    "curated": []
+    curated: [],
   },
-  "Loader": {
-    "rows": [],
-    "curated": []
-  },
-  "LoadingButton": {
-    "rows": [
+  AutocompleteEmpty: {
+    rows: [
       {
-        "name": "loading",
-        "type": "boolean | undefined",
-        "required": false
+        name: "className",
+        type: "string | ((state: ComboboxEmptyState) => string | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "value",
-        "type": "number | undefined",
-        "required": false
+        name: "style",
+        type: "CSSProperties | ((state: ComboboxEmptyState) => CSSProperties | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "loaderStyle",
-        "type": "any",
-        "required": false
-      }
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ComboboxEmptyState> | undefined",
+        required: false,
+      },
     ],
-    "curated": [
-      "variant"
-    ]
+    curated: [],
   },
-  "LoadingIndicator": {
-    "rows": [],
-    "curated": []
+  AutocompleteLabel: {
+    rows: [],
+    curated: ["defaultValue", "className"],
   },
-  "LoadingRegion": {
-    "rows": [
+  AvatarRoot: {
+    rows: [
       {
-        "name": "loading",
-        "type": "boolean",
-        "required": true
+        name: "className",
+        type: "string | ((state: AvatarRootState) => string | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "children",
-        "type": "ReactNode",
-        "required": true
+        name: "style",
+        type: "CSSProperties | ((state: AvatarRootState) => CSSProperties | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "fallback",
-        "type": "any",
-        "required": false
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, AvatarRootState> | undefined",
+        required: false,
       },
       {
-        "name": "label",
-        "type": "string | undefined",
-        "required": false
+        name: "size",
+        type: '"sm" | "default" | "lg" | null | undefined',
+        required: false,
+        default: '"default"',
       },
-      {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false
-      }
     ],
-    "curated": []
+    curated: ["children", "ref"],
   },
-  "MenuScreen": {
-    "rows": [
+  AvatarImage: {
+    rows: [
       {
-        "name": "label",
-        "type": "string",
-        "required": true
+        name: "className",
+        type: "string | ((state: AvatarImageState) => string | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "groups",
-        "type": "readonly MenuGroup[]",
-        "required": true
+        name: "style",
+        type: "CSSProperties | ((state: AvatarImageState) => CSSProperties | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>, AvatarImageState> | undefined",
+        required: false,
       },
       {
-        "name": "testID",
-        "type": "string | undefined",
-        "required": false
-      }
+        name: "keepMounted",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onLoadingStatusChange",
+        type: "((status: ImageLoadingStatus) => void) | undefined",
+        required: false,
+      },
     ],
-    "curated": []
+    curated: ["src", "children", "ref"],
   },
-  "MenuSheet": {
-    "rows": [
+  AvatarFallback: {
+    rows: [
       {
-        "name": "open",
-        "type": "boolean | undefined",
-        "required": false
+        name: "className",
+        type: "string | ((state: AvatarFallbackState) => string | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "defaultOpen",
-        "type": "boolean | undefined",
-        "required": false
+        name: "style",
+        type: "CSSProperties | ((state: AvatarFallbackState) => CSSProperties | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "onOpenChange",
-        "type": "((open: boolean) => void) | undefined",
-        "required": false
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, AvatarFallbackState> | undefined",
+        required: false,
       },
       {
-        "name": "title",
-        "type": "string",
-        "required": true
+        name: "delay",
+        type: "number | undefined",
+        required: false,
       },
-      {
-        "name": "groups",
-        "type": "readonly MenuGroup[]",
-        "required": true
-      },
-      {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false
-      },
-      {
-        "name": "testID",
-        "type": "string | undefined",
-        "required": false
-      }
     ],
-    "curated": []
+    curated: ["children", "ref"],
   },
-  "FilterChipRow": {
-    "rows": [
+  Badge: {
+    rows: [
       {
-        "name": "options",
-        "type": "readonly FilterChipOption[]",
-        "required": true
+        name: "variant",
+        type: '"dot" | "count" | null | undefined',
+        required: false,
+        default: '"count"',
       },
-      {
-        "name": "value",
-        "type": "readonly string[] | undefined",
-        "required": false
-      },
-      {
-        "name": "defaultValue",
-        "type": "readonly string[] | undefined",
-        "required": false
-      },
-      {
-        "name": "onValueChange",
-        "type": "((value: readonly string[]) => void) | undefined",
-        "required": false
-      },
-      {
-        "name": "label",
-        "type": "string | undefined",
-        "required": false
-      },
-      {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false
-      },
-      {
-        "name": "testID",
-        "type": "string | undefined",
-        "required": false
-      }
     ],
-    "curated": []
+    curated: ["aria-label", "className"],
   },
-  "MenuRoot": {
-    "rows": [],
-    "curated": []
-  },
-  "MenuTrigger": {
-    "rows": [],
-    "curated": []
-  },
-  "MenuContent": {
-    "rows": [],
-    "curated": []
-  },
-  "MenuItem": {
-    "rows": [],
-    "curated": []
-  },
-  "MenuSeparator": {
-    "rows": [],
-    "curated": []
-  },
-  "MenuGroupLabel": {
-    "rows": [],
-    "curated": []
-  },
-  "MenubarRoot": {
-    "rows": [],
-    "curated": []
-  },
-  "MenubarMenu": {
-    "rows": [],
-    "curated": []
-  },
-  "MenubarTrigger": {
-    "rows": [],
-    "curated": []
-  },
-  "MenubarContent": {
-    "rows": [],
-    "curated": []
-  },
-  "MenubarItem": {
-    "rows": [],
-    "curated": []
-  },
-  "MeterRoot": {
-    "rows": [],
-    "curated": []
-  },
-  "MeterLabel": {
-    "rows": [],
-    "curated": []
-  },
-  "NativeSelect": {
-    "rows": [],
-    "curated": []
-  },
-  "NavigationBar": {
-    "rows": [
+  Banner: {
+    rows: [
       {
-        "name": "destinations",
-        "type": "NavigationDestination[]",
-        "required": true
+        name: "variant",
+        type: '"error" | "info" | "success" | "warning" | null | undefined',
+        required: false,
+        default: '"info"',
       },
       {
-        "name": "value",
-        "type": "string | undefined",
-        "required": false
+        name: "icon",
+        type: "ReactNode",
+        required: false,
       },
       {
-        "name": "defaultValue",
-        "type": "string | undefined",
-        "required": false
+        name: "assertive",
+        type: "boolean | undefined",
+        required: false,
       },
       {
-        "name": "onValueChange",
-        "type": "((key: string) => void) | undefined",
-        "required": false
+        name: "onDismiss",
+        type: "(() => void) | undefined",
+        required: false,
       },
       {
-        "name": "label",
-        "type": "string | undefined",
-        "required": false
+        name: "open",
+        type: "boolean | undefined",
+        required: false,
       },
       {
-        "name": "floating",
-        "type": "any",
-        "required": false
+        name: "defaultOpen",
+        type: "boolean | undefined",
+        required: false,
       },
       {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false
+        name: "onOpenChange",
+        type: "((open: boolean) => void) | undefined",
+        required: false,
       },
-      {
-        "name": "testID",
-        "type": "string | undefined",
-        "required": false
-      }
     ],
-    "curated": []
+    curated: ["className"],
   },
-  "NavigationBarItem": {
-    "rows": [
+  BannerAction: {
+    rows: [],
+    curated: ["className"],
+  },
+  BootIndicator: {
+    rows: [
       {
-        "name": "label",
-        "type": "string",
-        "required": true
+        name: "tone",
+        type: "FeedbackTone | undefined",
+        required: false,
       },
       {
-        "name": "selected",
-        "type": "boolean | undefined",
-        "required": false
+        name: "signature",
+        type: "string | undefined",
+        required: false,
       },
       {
-        "name": "icon",
-        "type": "any",
-        "required": false
+        name: "label",
+        type: "string | undefined",
+        required: false,
       },
       {
-        "name": "badge",
-        "type": "any",
-        "required": false
+        name: "size",
+        type: '"sm" | "lg" | "md" | undefined',
+        required: false,
       },
       {
-        "name": "onSelect",
-        "type": "(() => void) | undefined",
-        "required": false
-      }
+        name: "loaderStyle",
+        type: '"spinner" | "dots" | "bar" | "shapes" | "conveyor" | "contained" | "orbit" | "morph" | "assembly" | undefined',
+        required: false,
+      },
+      {
+        name: "shapes",
+        type: 'readonly ("circle" | "triangle" | "square" | "pill" | "diamond" | "arch")[] | undefined',
+        required: false,
+      },
+      {
+        name: "tenantId",
+        type: "string | undefined",
+        required: false,
+      },
     ],
-    "curated": []
+    curated: ["className"],
   },
-  "NavigationDrawer": {
-    "rows": [
+  ButtonGroup: {
+    rows: [
       {
-        "name": "open",
-        "type": "boolean",
-        "required": true
+        name: "orientation",
+        type: '"horizontal" | "vertical" | undefined',
+        required: false,
       },
-      {
-        "name": "onOpenChange",
-        "type": "(open: boolean) => void",
-        "required": true
-      },
-      {
-        "name": "destinations",
-        "type": "NavigationDestination[]",
-        "required": true
-      },
-      {
-        "name": "value",
-        "type": "string | undefined",
-        "required": false
-      },
-      {
-        "name": "defaultValue",
-        "type": "string | undefined",
-        "required": false
-      },
-      {
-        "name": "onValueChange",
-        "type": "((key: string) => void) | undefined",
-        "required": false
-      },
-      {
-        "name": "title",
-        "type": "any",
-        "required": false
-      },
-      {
-        "name": "subtitle",
-        "type": "any",
-        "required": false
-      },
-      {
-        "name": "footer",
-        "type": "any",
-        "required": false
-      },
-      {
-        "name": "aria-label",
-        "type": "string | undefined",
-        "required": false
-      },
-      {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false
-      },
-      {
-        "name": "testID",
-        "type": "string | undefined",
-        "required": false
-      }
     ],
-    "curated": []
+    curated: ["className", "children", "ref"],
   },
-  "NavigationMenuRoot": {
-    "rows": [],
-    "curated": []
-  },
-  "NavigationMenuList": {
-    "rows": [],
-    "curated": []
-  },
-  "NavigationMenuItem": {
-    "rows": [],
-    "curated": []
-  },
-  "NavigationMenuTrigger": {
-    "rows": [],
-    "curated": []
-  },
-  "NavigationMenuContent": {
-    "rows": [],
-    "curated": []
-  },
-  "NavigationMenuLink": {
-    "rows": [],
-    "curated": []
-  },
-  "NumberFieldRoot": {
-    "rows": [],
-    "curated": []
-  },
-  "NumberFieldInput": {
-    "rows": [],
-    "curated": []
-  },
-  "PageLoader": {
-    "rows": [
+  Button: {
+    rows: [
       {
-        "name": "label",
-        "type": "string | undefined",
-        "required": false
+        name: "variant",
+        type: "ButtonVariantInput | undefined",
+        required: false,
+        default: '"primary"',
       },
       {
-        "name": "size",
-        "type": "any",
-        "required": false
+        name: "size",
+        type: "ButtonSize | undefined",
+        required: false,
+        default: '"default"',
       },
       {
-        "name": "tone",
-        "type": "any",
-        "required": false
+        name: "color",
+        type: "ButtonColor | undefined",
+        required: false,
+        default: '"primary"',
       },
       {
-        "name": "loaderStyle",
-        "type": "any",
-        "required": false
+        name: "shape",
+        type: "ButtonShape | undefined",
+        required: false,
+        default: '"pill"',
       },
       {
-        "name": "shapes",
-        "type": "readonly FeedbackShapeKind[] | undefined",
-        "required": false
+        name: "block",
+        type: "boolean | undefined",
+        required: false,
+        default: "false",
       },
       {
-        "name": "tenantId",
-        "type": "string | undefined",
-        "required": false
-      }
+        name: "loading",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "loadingValue",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "loaderStyle",
+        type: '"spinner" | "dots" | "bar" | "shapes" | "conveyor" | "contained" | "orbit" | "morph" | "assembly" | undefined',
+        required: false,
+      },
+      {
+        name: "href",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "target",
+        type: "HTMLAttributeAnchorTarget | undefined",
+        required: false,
+      },
+      {
+        name: "rel",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "download",
+        type: "any",
+        required: false,
+      },
+      {
+        name: "icon",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "iconPosition",
+        type: "ButtonIconPosition | undefined",
+        required: false,
+      },
+      {
+        name: "ref",
+        type: "Ref<HTMLButtonElement | HTMLAnchorElement> | undefined",
+        required: false,
+      },
     ],
-    "curated": []
+    curated: ["className", "type"],
   },
-  "Pagination": {
-    "rows": [
+  Calendar: {
+    rows: [
       {
-        "name": "count",
-        "type": "number",
-        "required": true
+        name: "value",
+        type: "Date | undefined",
+        required: false,
       },
       {
-        "name": "page",
-        "type": "number | undefined",
-        "required": false
+        name: "defaultValue",
+        type: "Date | undefined",
+        required: false,
       },
       {
-        "name": "defaultPage",
-        "type": "number | undefined",
-        "required": false
+        name: "onValueChange",
+        type: "((date: Date) => void) | undefined",
+        required: false,
       },
       {
-        "name": "onPageChange",
-        "type": "((page: number) => void) | undefined",
-        "required": false
+        name: "min",
+        type: "Date | undefined",
+        required: false,
       },
       {
-        "name": "value",
-        "type": "number | undefined",
-        "required": false
+        name: "max",
+        type: "Date | undefined",
+        required: false,
       },
-      {
-        "name": "defaultValue",
-        "type": "number | undefined",
-        "required": false
-      },
-      {
-        "name": "onValueChange",
-        "type": "((page: number) => void) | undefined",
-        "required": false
-      },
-      {
-        "name": "children",
-        "type": "any",
-        "required": false
-      }
     ],
-    "curated": []
+    curated: ["className"],
   },
-  "PopoverRoot": {
-    "rows": [],
-    "curated": []
-  },
-  "PopoverTrigger": {
-    "rows": [],
-    "curated": []
-  },
-  "PopoverContent": {
-    "rows": [],
-    "curated": []
-  },
-  "PopoverTitle": {
-    "rows": [],
-    "curated": []
-  },
-  "PopoverDescription": {
-    "rows": [],
-    "curated": []
-  },
-  "PopoverClose": {
-    "rows": [],
-    "curated": []
-  },
-  "PreviewCardRoot": {
-    "rows": [],
-    "curated": []
-  },
-  "PreviewCardTrigger": {
-    "rows": [],
-    "curated": []
-  },
-  "PreviewCardContent": {
-    "rows": [],
-    "curated": []
-  },
-  "ProgressRoot": {
-    "rows": [],
-    "curated": []
-  },
-  "ProgressLabel": {
-    "rows": [],
-    "curated": []
-  },
-  "RadioGroup": {
-    "rows": [
+  Card: {
+    rows: [
       {
-        "name": "value",
-        "type": "Value | undefined",
-        "required": false
+        name: "as",
+        type: "T | undefined",
+        required: false,
       },
       {
-        "name": "defaultValue",
-        "type": "Value | undefined",
-        "required": false
+        name: "variant",
+        type: '"elevated" | "outlined" | "filled" | null | undefined',
+        required: false,
+        default: '"filled"',
       },
       {
-        "name": "onValueChange",
-        "type": "((value: Value, eventDetails: unknown) => void) | undefined",
-        "required": false
+        name: "className",
+        type: "string | undefined",
+        required: false,
       },
-      {
-        "name": "className",
-        "type": "any",
-        "required": false
-      }
     ],
-    "curated": []
+    curated: [],
   },
-  "RadioGroupItem": {
-    "rows": [
+  Carousel: {
+    rows: [
       {
-        "name": "children",
-        "type": "any",
-        "required": false
+        name: "items",
+        type: "ReactNode[]",
+        required: true,
       },
       {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false
+        name: "label",
+        type: "string | undefined",
+        required: false,
       },
       {
-        "name": "controlClassName",
-        "type": "any",
-        "required": false
-      }
+        name: "index",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "defaultIndex",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "onIndexChange",
+        type: "((index: number) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: "((index: number) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "wrap",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "showIndicators",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "itemLabels",
+        type: "string[] | undefined",
+        required: false,
+      },
+      {
+        name: "itemKeys",
+        type: "string[] | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
     ],
-    "curated": []
+    curated: [],
   },
-  "ScrollAreaRoot": {
-    "rows": [],
-    "curated": []
-  },
-  "ScrollAreaViewport": {
-    "rows": [],
-    "curated": []
-  },
-  "Search": {
-    "rows": [
+  CheckboxGroupRoot: {
+    rows: [
       {
-        "name": "label",
-        "type": "string | undefined",
-        "required": false
+        name: "className",
+        type: "string | ((state: CheckboxGroupState) => string | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "placeholder",
-        "type": "string | undefined",
-        "required": false
+        name: "defaultValue",
+        type: "string[] | undefined",
+        required: false,
       },
       {
-        "name": "defaultValue",
-        "type": "string | undefined",
-        "required": false
+        name: "style",
+        type: "CSSProperties | ((state: CheckboxGroupState) => CSSProperties | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "value",
-        "type": "string | undefined",
-        "required": false
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
       },
       {
-        "name": "onValueChange",
-        "type": "((value: string) => void) | undefined",
-        "required": false
+        name: "value",
+        type: "string[] | undefined",
+        required: false,
       },
       {
-        "name": "onSearch",
-        "type": "((value: string) => void) | undefined",
-        "required": false
-      }
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, CheckboxGroupState> | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: '((value: string[], eventDetails: { reason: "none"; event: Event; cancel: () => void; allowPropagation: () => void; isCanceled: boolean; isPropagationAllowed: boolean; trigger: Element | undefined; }) => void) | undefined',
+        required: false,
+      },
+      {
+        name: "allValues",
+        type: "string[] | undefined",
+        required: false,
+      },
     ],
-    "curated": []
+    curated: [],
   },
-  "SecondaryTabs": {
-    "rows": [
+  CheckboxGroupItem: {
+    rows: [
       {
-        "name": "tabs",
-        "type": "SecondaryTab[]",
-        "required": true
+        name: "className",
+        type: "string | ((state: CheckboxRootState) => string | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "value",
-        "type": "string | undefined",
-        "required": false
+        name: "defaultChecked",
+        type: "boolean | undefined",
+        required: false,
       },
       {
-        "name": "defaultValue",
-        "type": "string | undefined",
-        "required": false
+        name: "style",
+        type: "CSSProperties | ((state: CheckboxRootState) => CSSProperties | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "onValueChange",
-        "type": "((value: string) => void) | undefined",
-        "required": false
+        name: "form",
+        type: "string | undefined",
+        required: false,
       },
       {
-        "name": "label",
-        "type": "string | undefined",
-        "required": false
+        name: "id",
+        type: "string | undefined",
+        required: false,
       },
       {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
       },
       {
-        "name": "testID",
-        "type": "string | undefined",
-        "required": false
-      }
+        name: "value",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, CheckboxRootState> | undefined",
+        required: false,
+      },
+      {
+        name: "name",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "required",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "readOnly",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "inputRef",
+        type: "Ref<HTMLInputElement> | undefined",
+        required: false,
+      },
+      {
+        name: "checked",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onCheckedChange",
+        type: '((checked: boolean, eventDetails: { reason: "none"; event: Event; cancel: () => void; allowPropagation: () => void; isCanceled: boolean; isPropagationAllowed: boolean; trigger: Element | undefined; }) => void) | undefined',
+        required: false,
+      },
+      {
+        name: "indeterminate",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "parent",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "uncheckedValue",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "ReactNode",
+        required: true,
+      },
     ],
-    "curated": []
+    curated: [],
   },
-  "SegmentedButtonRoot": {
-    "rows": [],
-    "curated": []
-  },
-  "SegmentedButtonItem": {
-    "rows": [],
-    "curated": []
-  },
-  "SelectRoot": {
-    "rows": [],
-    "curated": []
-  },
-  "SelectTrigger": {
-    "rows": [],
-    "curated": []
-  },
-  "SelectContent": {
-    "rows": [],
-    "curated": []
-  },
-  "SelectItem": {
-    "rows": [],
-    "curated": []
-  },
-  "SelectSeparator": {
-    "rows": [],
-    "curated": []
-  },
-  "SelectGroup": {
-    "rows": [],
-    "curated": []
-  },
-  "SelectGroupLabel": {
-    "rows": [],
-    "curated": []
-  },
-  "Separator": {
-    "rows": [],
-    "curated": []
-  },
-  "SheetSurface": {
-    "rows": [
+  Checkbox: {
+    rows: [
       {
-        "name": "open",
-        "type": "boolean | undefined",
-        "required": false
+        name: "className",
+        type: "string | ((state: CheckboxRootState) => string | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "defaultOpen",
-        "type": "boolean | undefined",
-        "required": false
+        name: "defaultChecked",
+        type: "boolean | undefined",
+        required: false,
       },
       {
-        "name": "onOpenChange",
-        "type": "((open: boolean) => void) | undefined",
-        "required": false
+        name: "style",
+        type: "CSSProperties | ((state: CheckboxRootState) => CSSProperties | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "label",
-        "type": "string",
-        "required": true
+        name: "form",
+        type: "string | undefined",
+        required: false,
       },
       {
-        "name": "children",
-        "type": "any",
-        "required": false
+        name: "id",
+        type: "string | undefined",
+        required: false,
       },
       {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
       },
       {
-        "name": "testID",
-        "type": "string | undefined",
-        "required": false
-      }
+        name: "value",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, CheckboxRootState> | undefined",
+        required: false,
+      },
+      {
+        name: "name",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "required",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "readOnly",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "inputRef",
+        type: "Ref<HTMLInputElement> | undefined",
+        required: false,
+      },
+      {
+        name: "checked",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onCheckedChange",
+        type: '((checked: boolean, eventDetails: { reason: "none"; event: Event; cancel: () => void; allowPropagation: () => void; isCanceled: boolean; isPropagationAllowed: boolean; trigger: Element | undefined; }) => void) | undefined',
+        required: false,
+      },
+      {
+        name: "indeterminate",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "parent",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "uncheckedValue",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "ReactNode",
+        required: false,
+      },
     ],
-    "curated": []
+    curated: [],
   },
-  "BottomSheet": {
-    "rows": [
+  Chip: {
+    rows: [
       {
-        "name": "label",
-        "type": "string",
-        "required": true
+        name: "defaultValue",
+        type: "string | number | readonly string[] | (readonly string[] & false) | (readonly string[] & true) | undefined",
+        required: false,
       },
       {
-        "name": "children",
-        "type": "any",
-        "required": false
+        name: "value",
+        type: "string | number | readonly string[] | (readonly string[] & false) | (readonly string[] & true) | undefined",
+        required: false,
       },
       {
-        "name": "open",
-        "type": "boolean | undefined",
-        "required": false
+        name: "type",
+        type: '"button" | "submit" | "reset" | undefined',
+        required: false,
       },
       {
-        "name": "defaultOpen",
-        "type": "boolean | undefined",
-        "required": false
+        name: "variant",
+        type: '"filter" | "assist" | "suggestion" | undefined',
+        required: false,
+        default: '"assist"',
       },
       {
-        "name": "onOpenChange",
-        "type": "((open: boolean) => void) | undefined",
-        "required": false
+        name: "selected",
+        type: "boolean | undefined",
+        required: false,
       },
       {
-        "name": "testID",
-        "type": "string | undefined",
-        "required": false
+        name: "defaultSelected",
+        type: "boolean | undefined",
+        required: false,
       },
       {
-        "name": "title",
-        "type": "string | undefined",
-        "required": false
+        name: "onSelectedChange",
+        type: "((selected: boolean) => void) | undefined",
+        required: false,
       },
-      {
-        "name": "onClose",
-        "type": "(() => void) | undefined",
-        "required": false
-      },
-      {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false
-      }
     ],
-    "curated": []
+    curated: ["className", "disabled"],
   },
-  "DockSheet": {
-    "rows": [
+  CircularProgress: {
+    rows: [
       {
-        "name": "label",
-        "type": "string",
-        "required": true
+        name: "value",
+        type: "number | undefined",
+        required: false,
       },
       {
-        "name": "children",
-        "type": "any",
-        "required": false
+        name: "loaderStyle",
+        type: '"spinner" | "dots" | "bar" | "shapes" | "conveyor" | "contained" | "orbit" | "morph" | "assembly" | undefined',
+        required: false,
       },
       {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false
+        name: "size",
+        type: '"sm" | "lg" | "md" | undefined',
+        required: false,
       },
       {
-        "name": "testID",
-        "type": "string | undefined",
-        "required": false
-      }
+        name: "shapes",
+        type: 'readonly ("circle" | "triangle" | "square" | "pill" | "diamond" | "arch")[] | undefined',
+        required: false,
+      },
+      {
+        name: "tenantId",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
     ],
-    "curated": []
+    curated: ["className", "aria-label"],
   },
-  "SnapSheet": {
-    "rows": [
+  CollapsibleRoot: {
+    rows: [
       {
-        "name": "label",
-        "type": "string",
-        "required": true
+        name: "className",
+        type: "string | ((state: CollapsibleRootState) => string | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "children",
-        "type": "any",
-        "required": false
+        name: "style",
+        type: "CSSProperties | ((state: CollapsibleRootState) => CSSProperties | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "open",
-        "type": "boolean | undefined",
-        "required": false
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
       },
       {
-        "name": "defaultOpen",
-        "type": "boolean | undefined",
-        "required": false
+        name: "onOpenChange",
+        type: "((open: boolean, eventDetails: CollapsibleRootChangeEventDetails) => void) | undefined",
+        required: false,
       },
       {
-        "name": "onOpenChange",
-        "type": "((open: boolean) => void) | undefined",
-        "required": false
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, CollapsibleRootState> | undefined",
+        required: false,
       },
       {
-        "name": "testID",
-        "type": "string | undefined",
-        "required": false
+        name: "open",
+        type: "boolean | undefined",
+        required: false,
       },
       {
-        "name": "snapPoints",
-        "type": "readonly number[]",
-        "required": true
+        name: "defaultOpen",
+        type: "boolean | undefined",
+        required: false,
       },
-      {
-        "name": "index",
-        "type": "number | undefined",
-        "required": false
-      },
-      {
-        "name": "onIndexChange",
-        "type": "((index: number) => void) | undefined",
-        "required": false
-      },
-      {
-        "name": "value",
-        "type": "number | undefined",
-        "required": false
-      },
-      {
-        "name": "defaultValue",
-        "type": "number | undefined",
-        "required": false
-      },
-      {
-        "name": "onValueChange",
-        "type": "((index: number) => void) | undefined",
-        "required": false
-      },
-      {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false
-      }
     ],
-    "curated": []
+    curated: [],
   },
-  "EntitySheet": {
-    "rows": [
+  CollapsibleTrigger: {
+    rows: [
       {
-        "name": "label",
-        "type": "string",
-        "required": true
+        name: "className",
+        type: "string | ((state: CollapsibleTriggerState) => string | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "children",
-        "type": "any",
-        "required": false
+        name: "style",
+        type: "CSSProperties | ((state: CollapsibleTriggerState) => CSSProperties | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "open",
-        "type": "boolean | undefined",
-        "required": false
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, CollapsibleTriggerState> | undefined",
+        required: false,
       },
       {
-        "name": "defaultOpen",
-        "type": "boolean | undefined",
-        "required": false
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
       },
-      {
-        "name": "onOpenChange",
-        "type": "((open: boolean) => void) | undefined",
-        "required": false
-      },
-      {
-        "name": "testID",
-        "type": "string | undefined",
-        "required": false
-      },
-      {
-        "name": "title",
-        "type": "string",
-        "required": true
-      },
-      {
-        "name": "subtitle",
-        "type": "string | undefined",
-        "required": false
-      },
-      {
-        "name": "fields",
-        "type": "readonly EntityField[] | undefined",
-        "required": false
-      },
-      {
-        "name": "action",
-        "type": "any",
-        "required": false
-      },
-      {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false
-      }
     ],
-    "curated": []
+    curated: ["disabled"],
   },
-  "BottomSheetPicker": {
-    "rows": [
+  CollapsiblePanel: {
+    rows: [
       {
-        "name": "label",
-        "type": "string",
-        "required": true
+        name: "className",
+        type: "string | ((state: CollapsiblePanelState) => string | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "children",
-        "type": "any",
-        "required": false
+        name: "style",
+        type: "CSSProperties | ((state: CollapsiblePanelState) => CSSProperties | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "open",
-        "type": "boolean | undefined",
-        "required": false
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, CollapsiblePanelState> | undefined",
+        required: false,
       },
       {
-        "name": "defaultOpen",
-        "type": "boolean | undefined",
-        "required": false
+        name: "hiddenUntilFound",
+        type: "boolean | undefined",
+        required: false,
       },
       {
-        "name": "onOpenChange",
-        "type": "((open: boolean) => void) | undefined",
-        "required": false
+        name: "keepMounted",
+        type: "boolean | undefined",
+        required: false,
       },
-      {
-        "name": "testID",
-        "type": "string | undefined",
-        "required": false
-      },
-      {
-        "name": "title",
-        "type": "string",
-        "required": true
-      },
-      {
-        "name": "options",
-        "type": "readonly PickerOption[]",
-        "required": true
-      },
-      {
-        "name": "value",
-        "type": "string | undefined",
-        "required": false
-      },
-      {
-        "name": "multiple",
-        "type": "boolean | undefined",
-        "required": false
-      },
-      {
-        "name": "onSelect",
-        "type": "(value: string) => void",
-        "required": true
-      },
-      {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false
-      }
     ],
-    "curated": []
+    curated: [],
   },
-  "ActionSheet": {
-    "rows": [
+  ComboboxRoot: {
+    rows: [
       {
-        "name": "label",
-        "type": "string",
-        "required": true
+        name: "form",
+        type: "string | undefined",
+        required: false,
       },
       {
-        "name": "children",
-        "type": "any",
-        "required": false
+        name: "filter",
+        type: "((item: T, query: string, itemToString?: ((item: T) => string) | undefined) => boolean) | null | undefined",
+        required: false,
       },
       {
-        "name": "open",
-        "type": "boolean | undefined",
-        "required": false
+        name: "id",
+        type: "string | undefined",
+        required: false,
       },
       {
-        "name": "defaultOpen",
-        "type": "boolean | undefined",
-        "required": false
+        name: "children",
+        type: "ReactNode",
+        required: false,
       },
       {
-        "name": "onOpenChange",
-        "type": "((open: boolean) => void) | undefined",
-        "required": false
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
       },
       {
-        "name": "testID",
-        "type": "string | undefined",
-        "required": false
+        name: "name",
+        type: "string | undefined",
+        required: false,
       },
       {
-        "name": "title",
-        "type": "string",
-        "required": true
+        name: "modal",
+        type: "boolean | undefined",
+        required: false,
       },
       {
-        "name": "actions",
-        "type": "readonly ActionSheetAction[]",
-        "required": true
+        name: "open",
+        type: "boolean | undefined",
+        required: false,
       },
       {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false
-      }
+        name: "defaultOpen",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChangeComplete",
+        type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "grid",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "inline",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "items",
+        type: "readonly any[] | readonly Group<any>[] | ComboboxItemCollection<T, T> | undefined",
+        required: false,
+      },
+      {
+        name: "inputValue",
+        type: "string | number | readonly string[] | undefined",
+        required: false,
+      },
+      {
+        name: "defaultInputValue",
+        type: "string | number | readonly string[] | undefined",
+        required: false,
+      },
+      {
+        name: "openOnInputClick",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "filteredItems",
+        type: "readonly T[] | readonly Group<T>[] | undefined",
+        required: false,
+      },
+      {
+        name: "required",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "readOnly",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "loopFocus",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "inputRef",
+        type: "Ref<HTMLInputElement> | undefined",
+        required: false,
+      },
+      {
+        name: "virtualized",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "limit",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "locale",
+        type: "LocalesArgument",
+        required: false,
+      },
+      {
+        name: "multiple",
+        type: "false | undefined",
+        required: false,
+      },
+      {
+        name: "autoComplete",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "autoHighlight",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "highlightItemOnHover",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "itemToStringLabel",
+        type: "((itemValue: T) => string) | undefined",
+        required: false,
+      },
+      {
+        name: "itemToStringValue",
+        type: "((itemValue: T) => string) | undefined",
+        required: false,
+      },
+      {
+        name: "isItemEqualToValue",
+        type: "((itemValue: T, value: T) => boolean) | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "T | null | undefined",
+        required: false,
+      },
+      {
+        name: "actionsRef",
+        type: "RefObject<Actions | null> | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChange",
+        type: "((open: boolean, eventDetails: ChangeEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onInputValueChange",
+        type: "((inputValue: string, eventDetails: ChangeEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onItemHighlighted",
+        type: "((highlightedValue: T | undefined, eventDetails: HighlightEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "T | null | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: "((value: T | null, eventDetails: ChangeEventDetails) => void) | undefined",
+        required: false,
+      },
     ],
-    "curated": []
+    curated: [],
   },
-  "SheetRoot": {
-    "rows": [],
-    "curated": []
-  },
-  "SheetTrigger": {
-    "rows": [],
-    "curated": []
-  },
-  "SheetContent": {
-    "rows": [
+  ComboboxInput: {
+    rows: [
       {
-        "name": "side",
-        "type": "\"left\" | \"right\" | undefined",
-        "required": false
+        name: "className",
+        type: "string | ((state: ComboboxInputState) => string | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "modal",
-        "type": "boolean | \"trap-focus\" | undefined",
-        "required": false
-      }
+        name: "style",
+        type: "CSSProperties | ((state: ComboboxInputState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ComboboxInputState> | undefined",
+        required: false,
+      },
     ],
-    "curated": []
+    curated: ["value"],
   },
-  "SheetTitle": {
-    "rows": [],
-    "curated": []
-  },
-  "SheetDescription": {
-    "rows": [],
-    "curated": []
-  },
-  "SheetClose": {
-    "rows": [],
-    "curated": []
-  },
-  "Skeleton": {
-    "rows": [],
-    "curated": []
-  },
-  "SliderRoot": {
-    "rows": [],
-    "curated": []
-  },
-  "SliderThumb": {
-    "rows": [],
-    "curated": []
-  },
-  "SliderLabel": {
-    "rows": [],
-    "curated": []
-  },
-  "SliderValue": {
-    "rows": [],
-    "curated": []
-  },
-  "SnackbarProvider": {
-    "rows": [],
-    "curated": []
-  },
-  "SnackbarRoot": {
-    "rows": [],
-    "curated": []
-  },
-  "SnackbarTitle": {
-    "rows": [],
-    "curated": []
-  },
-  "SnackbarDescription": {
-    "rows": [],
-    "curated": []
-  },
-  "SnackbarAction": {
-    "rows": [],
-    "curated": []
-  },
-  "SnackbarClose": {
-    "rows": [],
-    "curated": []
-  },
-  "SonnerProvider": {
-    "rows": [],
-    "curated": []
-  },
-  "SonnerViewport": {
-    "rows": [],
-    "curated": []
-  },
-  "SonnerRoot": {
-    "rows": [],
-    "curated": []
-  },
-  "SonnerTitle": {
-    "rows": [],
-    "curated": []
-  },
-  "SonnerDescription": {
-    "rows": [],
-    "curated": []
-  },
-  "SonnerAction": {
-    "rows": [],
-    "curated": []
-  },
-  "SonnerClose": {
-    "rows": [],
-    "curated": []
-  },
-  "SplitButton": {
-    "rows": [
+  ComboboxTrigger: {
+    rows: [
       {
-        "name": "label",
-        "type": "string",
-        "required": true
+        name: "className",
+        type: "string | ((state: ComboboxTriggerState) => string | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "onClick",
-        "type": "(() => void) | undefined",
-        "required": false
+        name: "style",
+        type: "CSSProperties | ((state: ComboboxTriggerState) => CSSProperties | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "icon",
-        "type": "any",
-        "required": false
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
       },
       {
-        "name": "actions",
-        "type": "SplitButtonAction[]",
-        "required": true
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ComboboxTriggerState> | undefined",
+        required: false,
       },
       {
-        "name": "menuLabel",
-        "type": "string | undefined",
-        "required": false
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
       },
-      {
-        "name": "disabled",
-        "type": "boolean | undefined",
-        "required": false
-      },
-      {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false
-      },
-      {
-        "name": "testID",
-        "type": "string | undefined",
-        "required": false
-      }
     ],
-    "curated": []
+    curated: ["value"],
   },
-  "Split": {
-    "rows": [
+  ComboboxClear: {
+    rows: [
       {
-        "name": "columns",
-        "type": "2 | 3 | undefined",
-        "required": false
+        name: "className",
+        type: "string | ((state: ComboboxClearState) => string | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "label",
-        "type": "string | undefined",
-        "required": false
+        name: "style",
+        type: "CSSProperties | ((state: ComboboxClearState) => CSSProperties | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "children",
-        "type": "any",
-        "required": false
-      }
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ComboboxClearState> | undefined",
+        required: false,
+      },
+      {
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "keepMounted",
+        type: "boolean | undefined",
+        required: false,
+      },
     ],
-    "curated": []
+    curated: ["value"],
   },
-  "Switch": {
-    "rows": [],
-    "curated": []
-  },
-  "Table": {
-    "rows": [],
-    "curated": []
-  },
-  "TableHead": {
-    "rows": [],
-    "curated": []
-  },
-  "TableBody": {
-    "rows": [],
-    "curated": []
-  },
-  "TableRow": {
-    "rows": [],
-    "curated": []
-  },
-  "TableHeader": {
-    "rows": [],
-    "curated": []
-  },
-  "TableCell": {
-    "rows": [],
-    "curated": []
-  },
-  "TableCaption": {
-    "rows": [],
-    "curated": []
-  },
-  "TabsRoot": {
-    "rows": [],
-    "curated": []
-  },
-  "TabsList": {
-    "rows": [],
-    "curated": []
-  },
-  "TabsTab": {
-    "rows": [],
-    "curated": []
-  },
-  "TabsPanel": {
-    "rows": [],
-    "curated": []
-  },
-  "Text": {
-    "rows": [],
-    "curated": []
-  },
-  "Textarea": {
-    "rows": [
+  ComboboxContent: {
+    rows: [
       {
-        "name": "error",
-        "type": "boolean | undefined",
-        "required": false
-      }
+        name: "className",
+        type: "string | ((state: ComboboxPopupState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: ComboboxPopupState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ComboboxPopupState> | undefined",
+        required: false,
+      },
+      {
+        name: "initialFocus",
+        type: "boolean | RefObject<HTMLElement | null> | ((openType: InteractionType) => boolean | void | HTMLElement | null) | undefined",
+        required: false,
+      },
+      {
+        name: "finalFocus",
+        type: "boolean | RefObject<HTMLElement | null> | ((closeType: InteractionType) => boolean | void | HTMLElement | null) | undefined",
+        required: false,
+      },
     ],
-    "curated": []
+    curated: [],
   },
-  "TimePicker": {
-    "rows": [
+  ComboboxItem: {
+    rows: [
       {
-        "name": "value",
-        "type": "TimePickerValue | undefined",
-        "required": false
+        name: "className",
+        type: "string | ((state: ComboboxItemState) => string | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "defaultValue",
-        "type": "TimePickerValue | undefined",
-        "required": false
+        name: "style",
+        type: "CSSProperties | ((state: ComboboxItemState) => CSSProperties | undefined) | undefined",
+        required: false,
       },
       {
-        "name": "onValueChange",
-        "type": "((value: TimePickerValue) => void) | undefined",
-        "required": false
+        name: "children",
+        type: "ReactNode",
+        required: false,
       },
       {
-        "name": "format",
-        "type": "TimePickerFormat | undefined",
-        "required": false
+        name: "onClick",
+        type: "((event: BaseUIEvent<MouseEvent<HTMLDivElement, MouseEvent>>) => void) | undefined",
+        required: false,
       },
       {
-        "name": "step",
-        "type": "number | undefined",
-        "required": false
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
       },
       {
-        "name": "label",
-        "type": "string | undefined",
-        "required": false
+        name: "value",
+        type: "any",
+        required: false,
       },
       {
-        "name": "className",
-        "type": "string | undefined",
-        "required": false
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ComboboxItemState> | undefined",
+        required: false,
       },
       {
-        "name": "formatValue",
-        "type": "((value: TimePickerValue) => string) | undefined",
-        "required": false
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
       },
       {
-        "name": "testID",
-        "type": "string | undefined",
-        "required": false
-      }
+        name: "index",
+        type: "number | undefined",
+        required: false,
+      },
     ],
-    "curated": []
+    curated: [],
   },
-  "ToggleGroupRoot": {
-    "rows": [],
-    "curated": []
+  ComboboxEmpty: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: ComboboxEmptyState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: ComboboxEmptyState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ComboboxEmptyState> | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
   },
-  "ToggleGroupItem": {
-    "rows": [],
-    "curated": []
+  ComboboxLabel: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: ComboboxLabelState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: ComboboxLabelState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ComboboxLabelState> | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
   },
-  "Toggle": {
-    "rows": [],
-    "curated": []
+  CommandRoot: {
+    rows: [
+      {
+        name: "form",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "filter",
+        type: "((item: unknown, query: string, itemToString?: ((item: unknown) => string) | undefined) => boolean) | null | undefined",
+        required: false,
+      },
+      {
+        name: "id",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "children",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "name",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "modal",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "open",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultOpen",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChangeComplete",
+        type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "grid",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "inline",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "items",
+        type: "readonly any[] | readonly Group<any>[] | ComboboxItemCollection<unknown, unknown> | undefined",
+        required: false,
+      },
+      {
+        name: "inputValue",
+        type: "string | number | readonly string[] | undefined",
+        required: false,
+      },
+      {
+        name: "defaultInputValue",
+        type: "string | number | readonly string[] | undefined",
+        required: false,
+      },
+      {
+        name: "openOnInputClick",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "filteredItems",
+        type: "readonly unknown[] | readonly Group<unknown>[] | undefined",
+        required: false,
+      },
+      {
+        name: "required",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "readOnly",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "loopFocus",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "inputRef",
+        type: "Ref<HTMLInputElement> | undefined",
+        required: false,
+      },
+      {
+        name: "virtualized",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "limit",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "locale",
+        type: "LocalesArgument",
+        required: false,
+      },
+      {
+        name: "multiple",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "autoComplete",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "autoHighlight",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "highlightItemOnHover",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "itemToStringLabel",
+        type: "((itemValue: unknown) => string) | undefined",
+        required: false,
+      },
+      {
+        name: "itemToStringValue",
+        type: "((itemValue: unknown) => string) | undefined",
+        required: false,
+      },
+      {
+        name: "isItemEqualToValue",
+        type: "((itemValue: unknown, value: unknown) => boolean) | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "unknown",
+        required: false,
+      },
+      {
+        name: "actionsRef",
+        type: "RefObject<Actions | null> | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChange",
+        type: "((open: boolean, eventDetails: ChangeEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onInputValueChange",
+        type: "((inputValue: string, eventDetails: ChangeEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onItemHighlighted",
+        type: "((highlightedValue: unknown, eventDetails: HighlightEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "unknown",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: "((value: unknown, eventDetails: ChangeEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "options",
+        type: "readonly CommandOption[]",
+        required: true,
+      },
+    ],
+    curated: [],
   },
-  "ToolbarRoot": {
-    "rows": [],
-    "curated": []
+  CommandInput: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: ComboboxInputState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: ComboboxInputState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ComboboxInputState> | undefined",
+        required: false,
+      },
+    ],
+    curated: ["onSelect"],
   },
-  "ToolbarButton": {
-    "rows": [],
-    "curated": []
+  CommandContent: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: ComboboxPopupState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: ComboboxPopupState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ComboboxPopupState> | undefined",
+        required: false,
+      },
+      {
+        name: "initialFocus",
+        type: "boolean | RefObject<HTMLElement | null> | ((openType: InteractionType) => boolean | void | HTMLElement | null) | undefined",
+        required: false,
+      },
+      {
+        name: "finalFocus",
+        type: "boolean | RefObject<HTMLElement | null> | ((closeType: InteractionType) => boolean | void | HTMLElement | null) | undefined",
+        required: false,
+      },
+    ],
+    curated: ["onSelect"],
   },
-  "ToolbarSeparator": {
-    "rows": [],
-    "curated": []
+  CommandList: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: ComboboxListState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: ComboboxListState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "children",
+        type: "ReactNode | ((item: any, index: number) => ReactNode)",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ComboboxListState> | undefined",
+        required: false,
+      },
+    ],
+    curated: ["onSelect"],
   },
-  "ToolbarGroup": {
-    "rows": [],
-    "curated": []
+  CommandEmpty: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: ComboboxEmptyState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: ComboboxEmptyState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ComboboxEmptyState> | undefined",
+        required: false,
+      },
+    ],
+    curated: ["onSelect"],
   },
-  "TooltipProvider": {
-    "rows": [],
-    "curated": []
+  CommandSeparator: {
+    rows: [
+      {
+        name: "orientation",
+        type: "Orientation | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | ((state: ComboboxSeparatorState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ComboboxSeparatorState> | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: ComboboxSeparatorState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+    ],
+    curated: ["onSelect"],
   },
-  "TooltipRoot": {
-    "rows": [],
-    "curated": []
+  CommandGroupLabel: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: ComboboxGroupLabelState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: ComboboxGroupLabelState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ComboboxGroupLabelState> | undefined",
+        required: false,
+      },
+    ],
+    curated: ["onSelect"],
   },
-  "TooltipTrigger": {
-    "rows": [],
-    "curated": []
+  CommandItem: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: ComboboxItemState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: ComboboxItemState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "children",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "onClick",
+        type: "((event: BaseUIEvent<MouseEvent<HTMLDivElement, MouseEvent>>) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ComboboxItemState> | undefined",
+        required: false,
+      },
+      {
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "index",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "string",
+        required: true,
+      },
+      {
+        name: "icon",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "shortcut",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: ["onSelect"],
   },
-  "TooltipContent": {
-    "rows": [],
-    "curated": []
+  ContextMenuRoot: {
+    rows: [
+      {
+        name: "onOpenChange",
+        type: "((open: boolean, eventDetails: ContextMenuRootChangeEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "closeParentOnEsc",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "children",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "actionsRef",
+        type: "RefObject<MenuRootActions | null> | undefined",
+        required: false,
+      },
+      {
+        name: "open",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultOpen",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChangeComplete",
+        type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "highlightItemOnHover",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "loopFocus",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "orientation",
+        type: "MenuRootOrientation | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
   },
-  "LinkProvider": {
-    "rows": [],
-    "curated": []
+  ContextMenuTrigger: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: ContextMenuTriggerState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: ContextMenuTriggerState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ContextMenuTriggerState> | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
   },
-  "Link": {
-    "rows": [],
-    "curated": []
-  }
+  ContextMenuContent: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: MenuPopupState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: MenuPopupState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "id",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "children",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, MenuPopupState> | undefined",
+        required: false,
+      },
+      {
+        name: "finalFocus",
+        type: "boolean | RefObject<HTMLElement | null> | ((closeType: InteractionType) => boolean | void | HTMLElement | null) | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  ContextMenuItem: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: MenuItemState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: MenuItemState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "id",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "onClick",
+        type: "((event: BaseUIEvent<MouseEvent<HTMLDivElement, MouseEvent>>) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, MenuItemState> | undefined",
+        required: false,
+      },
+      {
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "closeOnClick",
+        type: "boolean | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  ContextMenuSeparator: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: SeparatorState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: SeparatorState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, SeparatorState> | undefined",
+        required: false,
+      },
+      {
+        name: "orientation",
+        type: "Orientation | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  CountrySelectRoot: {
+    rows: [
+      {
+        name: "defaultValue",
+        type: "T | null | undefined",
+        required: false,
+      },
+      {
+        name: "form",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "id",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "children",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "T | null | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChange",
+        type: "((open: boolean, eventDetails: SelectRootChangeEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "name",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "modal",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "actionsRef",
+        type: "RefObject<SelectRootActions | null> | undefined",
+        required: false,
+      },
+      {
+        name: "open",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultOpen",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChangeComplete",
+        type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "itemToStringValue",
+        type: "((itemValue: T) => string) | undefined",
+        required: false,
+      },
+      {
+        name: "isItemEqualToValue",
+        type: "((itemValue: T, value: T) => boolean) | undefined",
+        required: false,
+      },
+      {
+        name: "autoComplete",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "itemToStringLabel",
+        type: "((itemValue: T) => string) | undefined",
+        required: false,
+      },
+      {
+        name: "highlightItemOnHover",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "required",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "readOnly",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "inputRef",
+        type: "Ref<HTMLInputElement> | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: "((value: T | null, eventDetails: SelectRootChangeEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "multiple",
+        type: "false | undefined",
+        required: false,
+      },
+      {
+        name: "options",
+        type: "readonly CountryOption[]",
+        required: true,
+      },
+      {
+        name: "onCountryChange",
+        type: "((country: CountryOption | null) => void) | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  CountrySelectTrigger: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: SelectTriggerState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: SelectTriggerState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "children",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, SelectTriggerState> | undefined",
+        required: false,
+      },
+      {
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  CountrySelectContent: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: SelectPopupState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: SelectPopupState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "children",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, SelectPopupState> | undefined",
+        required: false,
+      },
+      {
+        name: "finalFocus",
+        type: "boolean | RefObject<HTMLElement | null> | ((closeType: InteractionType) => boolean | void | HTMLElement | null) | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  CountrySelectItem: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: SelectItemState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: SelectItemState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "children",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "any",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, SelectItemState> | undefined",
+        required: false,
+      },
+      {
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  CountrySelectLabel: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: FieldRootState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: FieldRootState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, FieldRootState> | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  DialogRoot: {
+    rows: [
+      {
+        name: "open",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultOpen",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "modal",
+        type: 'boolean | "trap-focus" | undefined',
+        required: false,
+      },
+      {
+        name: "onOpenChange",
+        type: "((open: boolean, eventDetails: DialogRootChangeEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChangeComplete",
+        type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "disablePointerDismissal",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "actionsRef",
+        type: "RefObject<DialogRootActions | null> | undefined",
+        required: false,
+      },
+      {
+        name: "handle",
+        type: "DialogHandle<unknown> | undefined",
+        required: false,
+      },
+      {
+        name: "children",
+        type: "ReactNode | PayloadChildRenderFunction<unknown>",
+        required: false,
+      },
+      {
+        name: "triggerId",
+        type: "string | null | undefined",
+        required: false,
+      },
+      {
+        name: "defaultTriggerId",
+        type: "string | null | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  DialogTrigger: {
+    rows: [
+      {
+        name: "handle",
+        type: "DialogHandle<unknown> | undefined",
+        required: false,
+      },
+      {
+        name: "payload",
+        type: "unknown",
+        required: false,
+      },
+      {
+        name: "id",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | ((state: DialogTriggerState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, DialogTriggerState> | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: DialogTriggerState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  DialogContent: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: DialogPopupState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: DialogPopupState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, DialogPopupState> | undefined",
+        required: false,
+      },
+      {
+        name: "initialFocus",
+        type: "boolean | RefObject<HTMLElement | null> | ((openType: InteractionType) => boolean | void | HTMLElement | null) | undefined",
+        required: false,
+      },
+      {
+        name: "finalFocus",
+        type: "boolean | RefObject<HTMLElement | null> | ((closeType: InteractionType) => boolean | void | HTMLElement | null) | undefined",
+        required: false,
+      },
+      {
+        name: "modal",
+        type: 'boolean | "trap-focus" | undefined',
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  DialogTitle: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: DialogTitleState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: DialogTitleState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, DialogTitleState> | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  DialogDescription: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: DialogDescriptionState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: DialogDescriptionState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, DialogDescriptionState> | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  DialogClose: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: DialogCloseState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: DialogCloseState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, DialogCloseState> | undefined",
+        required: false,
+      },
+      {
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  DrawerRoot: {
+    rows: [
+      {
+        name: "open",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultOpen",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "modal",
+        type: 'boolean | "trap-focus" | undefined',
+        required: false,
+      },
+      {
+        name: "onOpenChange",
+        type: "((open: boolean, eventDetails: DrawerRootChangeEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChangeComplete",
+        type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "disablePointerDismissal",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "actionsRef",
+        type: "RefObject<DrawerRootActions | null> | undefined",
+        required: false,
+      },
+      {
+        name: "handle",
+        type: "DrawerHandle<unknown> | undefined",
+        required: false,
+      },
+      {
+        name: "triggerId",
+        type: "string | null | undefined",
+        required: false,
+      },
+      {
+        name: "defaultTriggerId",
+        type: "string | null | undefined",
+        required: false,
+      },
+      {
+        name: "children",
+        type: "ReactNode | PayloadChildRenderFunction<unknown>",
+        required: false,
+      },
+      {
+        name: "swipeDirection",
+        type: "SwipeDirection | undefined",
+        required: false,
+      },
+      {
+        name: "snapPoints",
+        type: "DrawerSnapPoint[] | undefined",
+        required: false,
+      },
+      {
+        name: "snapToSequentialPoints",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "snapPoint",
+        type: "DrawerSnapPoint | null | undefined",
+        required: false,
+      },
+      {
+        name: "defaultSnapPoint",
+        type: "DrawerSnapPoint | null | undefined",
+        required: false,
+      },
+      {
+        name: "onSnapPointChange",
+        type: "((snapPoint: DrawerSnapPoint | null, eventDetails: DrawerRootSnapPointChangeEventDetails) => void) | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  DrawerTrigger: {
+    rows: [
+      {
+        name: "handle",
+        type: "DrawerHandle<unknown> | undefined",
+        required: false,
+      },
+      {
+        name: "payload",
+        type: "unknown",
+        required: false,
+      },
+      {
+        name: "id",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | ((state: DrawerTriggerState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, DrawerTriggerState> | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: DrawerTriggerState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  DrawerContent: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: DrawerPopupState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: DrawerPopupState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, DrawerPopupState> | undefined",
+        required: false,
+      },
+      {
+        name: "initialFocus",
+        type: "boolean | RefObject<HTMLElement | null> | ((openType: InteractionType) => boolean | void | HTMLElement | null) | undefined",
+        required: false,
+      },
+      {
+        name: "finalFocus",
+        type: "boolean | RefObject<HTMLElement | null> | ((closeType: InteractionType) => boolean | void | HTMLElement | null) | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  DrawerTitle: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: DrawerTitleState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, DrawerTitleState> | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: DrawerTitleState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  DrawerDescription: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: DrawerDescriptionState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, DrawerDescriptionState> | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: DrawerDescriptionState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  DrawerClose: {
+    rows: [
+      {
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | ((state: DrawerCloseState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, DrawerCloseState> | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: DrawerCloseState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  EmptyState: {
+    rows: [
+      {
+        name: "visual",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "title",
+        type: "ReactNode",
+        required: true,
+      },
+      {
+        name: "description",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "action",
+        type: "ReactNode",
+        required: false,
+      },
+    ],
+    curated: ["className"],
+  },
+  KernErrorBoundary: {
+    rows: [
+      {
+        name: "children",
+        type: "ReactNode",
+        required: true,
+      },
+      {
+        name: "fallback",
+        type: "(props: ErrorBoundaryFallbackProps) => ReactNode",
+        required: true,
+      },
+      {
+        name: "onError",
+        type: "((error: Error, info: ErrorInfo) => void) | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  ExtendedFab: {
+    rows: [
+      {
+        name: "ref",
+        type: "Ref<ExtendedFabHandle> | undefined",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "string",
+        required: true,
+      },
+      {
+        name: "icon",
+        type: "ReactNode",
+        required: true,
+      },
+      {
+        name: "collapsed",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultCollapsed",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onCollapsedChange",
+        type: "((collapsed: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: "((collapsed: boolean) => void) | undefined",
+        required: false,
+      },
+    ],
+    curated: ["className"],
+  },
+  FabMenu: {
+    rows: [
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "icon",
+        type: "ReactNode",
+        required: true,
+      },
+      {
+        name: "openIcon",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "actions",
+        type: "FabMenuAction[]",
+        required: true,
+      },
+      {
+        name: "open",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultOpen",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChange",
+        type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "menuLabel",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "triggerClassName",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  Fab: {
+    rows: [
+      {
+        name: "size",
+        type: '"sm" | "default" | "icon" | "medium" | "large" | null | undefined',
+        required: false,
+        default: '"default"',
+      },
+      {
+        name: "aria-label",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: ["className", "type", "ref"],
+  },
+  FieldMessage: {
+    rows: [
+      {
+        name: "variant",
+        type: '"error" | "description" | null | undefined',
+        required: false,
+        default: '"description"',
+      },
+    ],
+    curated: ["className", "children"],
+  },
+  FieldRoot: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: FieldRootState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: FieldRootState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, FieldRootState> | undefined",
+        required: false,
+      },
+      {
+        name: "name",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "actionsRef",
+        type: "RefObject<FieldRootActions | null> | undefined",
+        required: false,
+      },
+      {
+        name: "validate",
+        type: "((value: unknown, formValues: Record<string, any>) => string | void | string[] | Promise<string | void | string[] | null> | null) | undefined",
+        required: false,
+      },
+      {
+        name: "validationMode",
+        type: "FormValidationMode | undefined",
+        required: false,
+      },
+      {
+        name: "validationDebounceTime",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "invalid",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "dirty",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "touched",
+        type: "boolean | undefined",
+        required: false,
+      },
+    ],
+    curated: ["children"],
+  },
+  FieldLabel: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: FieldLabelState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: FieldLabelState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, FieldLabelState> | undefined",
+        required: false,
+      },
+      {
+        name: "nativeLabel",
+        type: "boolean | undefined",
+        required: false,
+      },
+    ],
+    curated: ["children"],
+  },
+  FieldDescription: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: FieldDescriptionState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: FieldDescriptionState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, FieldDescriptionState> | undefined",
+        required: false,
+      },
+    ],
+    curated: ["children"],
+  },
+  FieldError: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: FieldErrorState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: FieldErrorState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, FieldErrorState> | undefined",
+        required: false,
+      },
+      {
+        name: "match",
+        type: "boolean | keyof ValidityState | undefined",
+        required: false,
+      },
+    ],
+    curated: ["children"],
+  },
+  FieldsetRoot: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: FieldsetRootState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: FieldsetRootState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, FieldsetRootState> | undefined",
+        required: false,
+      },
+    ],
+    curated: ["disabled", "children"],
+  },
+  FieldsetLegend: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: FieldsetLegendState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: FieldsetLegendState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, FieldsetLegendState> | undefined",
+        required: false,
+      },
+    ],
+    curated: ["children"],
+  },
+  FocusRing: {
+    rows: [],
+    curated: ["color", "rel", "className", "ref"],
+  },
+  Form: {
+    rows: [
+      {
+        name: "validationMode",
+        type: "FormValidationMode | undefined",
+        required: false,
+      },
+      {
+        name: "errors",
+        type: "Errors | undefined",
+        required: false,
+      },
+      {
+        name: "onFormSubmit",
+        type: '((formValues: Record<string, any>, eventDetails: { reason: "none"; event: Event; }) => void) | undefined',
+        required: false,
+      },
+      {
+        name: "actionsRef",
+        type: "RefObject<FormActions | null> | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | ((state: FormState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<DetailedHTMLProps<FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>, FormState> | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: FormState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "ref",
+        type: "Ref<HTMLFormElement> | undefined",
+        required: false,
+      },
+    ],
+    curated: ["onSubmit"],
+  },
+  IconButton: {
+    rows: [
+      {
+        name: "size",
+        type: '"sm" | "default" | "lg" | null | undefined',
+        required: false,
+        default: '"default"',
+      },
+      {
+        name: "variant",
+        type: '"tonal" | "outlined" | "filled" | "standard" | null | undefined',
+        required: false,
+        default: '"standard"',
+      },
+      {
+        name: "selected",
+        type: "boolean | null | undefined",
+        required: false,
+        default: "false",
+      },
+      {
+        name: "icon",
+        type: "ReactNode",
+        required: true,
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "toggle",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "pressed",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultPressed",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onPressedChange",
+        type: "((pressed: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: "((pressed: boolean) => void) | undefined",
+        required: false,
+      },
+    ],
+    curated: ["aria-label", "className", "disabled", "ref"],
+  },
+  InputOTPRoot: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: OTPFieldRootState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: OTPFieldRootState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "form",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "mask",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "id",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "inputMode",
+        type: '"search" | "text" | "none" | "tel" | "url" | "email" | "numeric" | "decimal" | undefined',
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, OTPFieldRootState> | undefined",
+        required: false,
+      },
+      {
+        name: "length",
+        type: "number",
+        required: true,
+      },
+      {
+        name: "name",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "autoComplete",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "required",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "readOnly",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: "((value: string, eventDetails: OTPFieldRootChangeEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "autoSubmit",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "validationType",
+        type: "OTPValidationType | undefined",
+        required: false,
+      },
+      {
+        name: "normalizeValue",
+        type: "((value: string) => string) | undefined",
+        required: false,
+      },
+      {
+        name: "onValueInvalid",
+        type: "((value: string, eventDetails: OTPFieldRootInvalidEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onValueComplete",
+        type: "((value: string, eventDetails: OTPFieldRootCompleteEventDetails) => void) | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  InputOTPInput: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: OTPFieldInputState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: OTPFieldInputState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, OTPFieldInputState> | undefined",
+        required: false,
+      },
+    ],
+    curated: ["value", "disabled"],
+  },
+  Input: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: FieldControlState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "string | number | readonly string[] | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: FieldControlState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, FieldControlState> | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: '((value: string, eventDetails: { reason: "none"; event: Event; cancel: () => void; allowPropagation: () => void; isCanceled: boolean; isPropagationAllowed: boolean; trigger: Element | undefined; }) => void) | undefined',
+        required: false,
+      },
+      {
+        name: "error",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "errorMessage",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: ["aria-describedby", "type", "ref"],
+  },
+  Kbd: {
+    rows: [],
+    curated: ["children", "className", "ref"],
+  },
+  Label: {
+    rows: [],
+    curated: ["htmlFor", "className", "children"],
+  },
+  LinearProgress: {
+    rows: [
+      {
+        name: "value",
+        type: "number",
+        required: true,
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: ["className", "aria-label"],
+  },
+  LinkButton: {
+    rows: [
+      {
+        name: "href",
+        type: "string",
+        required: true,
+      },
+      {
+        name: "onClick",
+        type: "MouseEventHandler<HTMLAnchorElement> | undefined",
+        required: false,
+      },
+    ],
+    curated: [
+      "variant",
+      "color",
+      "size",
+      "shape",
+      "block",
+      "loading",
+      "loadingValue",
+      "loaderStyle",
+      "target",
+      "rel",
+      "download",
+      "icon",
+      "iconPosition",
+      "className",
+      "ref",
+    ],
+  },
+  ListItem: {
+    rows: [
+      {
+        name: "headline",
+        type: "ReactNode",
+        required: true,
+      },
+      {
+        name: "supporting",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "leading",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "trailing",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "onPress",
+        type: "(() => void) | undefined",
+        required: false,
+      },
+      {
+        name: "href",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onClick",
+        type: "((event: MouseEvent<HTMLElement, MouseEvent>) => void) | undefined",
+        required: false,
+      },
+    ],
+    curated: ["className"],
+  },
+  Loader: {
+    rows: [
+      {
+        name: "size",
+        type: '"sm" | "default" | "lg" | null | undefined',
+        required: false,
+        default: '"default"',
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: ["className", "aria-hidden"],
+  },
+  LoadingButton: {
+    rows: [
+      {
+        name: "loading",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "loaderStyle",
+        type: '"spinner" | "dots" | "bar" | "shapes" | "conveyor" | "contained" | "orbit" | "morph" | "assembly" | undefined',
+        required: false,
+      },
+    ],
+    curated: ["variant", "className"],
+  },
+  LoadingIndicator: {
+    rows: [
+      {
+        name: "size",
+        type: '"sm" | "default" | "lg" | null | undefined',
+        required: false,
+        default: '"default"',
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "showLabel",
+        type: "boolean | undefined",
+        required: false,
+      },
+    ],
+    curated: ["className"],
+  },
+  LoadingRegion: {
+    rows: [
+      {
+        name: "loading",
+        type: "boolean",
+        required: true,
+      },
+      {
+        name: "children",
+        type: "ReactNode",
+        required: true,
+      },
+      {
+        name: "fallback",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  MenuScreen: {
+    rows: [
+      {
+        name: "label",
+        type: "string",
+        required: true,
+      },
+      {
+        name: "groups",
+        type: "readonly MenuGroup[]",
+        required: true,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  MenuSheet: {
+    rows: [
+      {
+        name: "open",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultOpen",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChange",
+        type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "title",
+        type: "string",
+        required: true,
+      },
+      {
+        name: "groups",
+        type: "readonly MenuGroup[]",
+        required: true,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  FilterChipRow: {
+    rows: [
+      {
+        name: "options",
+        type: "readonly FilterChipOption[]",
+        required: true,
+      },
+      {
+        name: "value",
+        type: "readonly string[] | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "readonly string[] | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: "((value: readonly string[]) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  MenuRoot: {
+    rows: [
+      {
+        name: "defaultOpen",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "loopFocus",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "highlightItemOnHover",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "modal",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChange",
+        type: "((open: boolean, eventDetails: MenuRootChangeEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChangeComplete",
+        type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "open",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "orientation",
+        type: "MenuRootOrientation | undefined",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "closeParentOnEsc",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "actionsRef",
+        type: "RefObject<MenuRootActions | null> | undefined",
+        required: false,
+      },
+      {
+        name: "triggerId",
+        type: "string | null | undefined",
+        required: false,
+      },
+      {
+        name: "defaultTriggerId",
+        type: "string | null | undefined",
+        required: false,
+      },
+      {
+        name: "handle",
+        type: "MenuHandle<unknown> | undefined",
+        required: false,
+      },
+      {
+        name: "children",
+        type: "ReactNode | PayloadChildRenderFunction<unknown>",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  MenuTrigger: {
+    rows: [
+      {
+        name: "children",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "handle",
+        type: "MenuHandle<unknown> | undefined",
+        required: false,
+      },
+      {
+        name: "payload",
+        type: "unknown",
+        required: false,
+      },
+      {
+        name: "delay",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "closeDelay",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "openOnHover",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | ((state: MenuTriggerState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, MenuTriggerState> | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: MenuTriggerState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  MenuContent: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: MenuPopupState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: MenuPopupState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "id",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "children",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, MenuPopupState> | undefined",
+        required: false,
+      },
+      {
+        name: "finalFocus",
+        type: "boolean | RefObject<HTMLElement | null> | ((closeType: InteractionType) => boolean | void | HTMLElement | null) | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  MenuItem: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: MenuItemState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: MenuItemState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "id",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "onClick",
+        type: "((event: BaseUIEvent<MouseEvent<HTMLDivElement, MouseEvent>>) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, MenuItemState> | undefined",
+        required: false,
+      },
+      {
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "closeOnClick",
+        type: "boolean | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  MenuSeparator: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: SeparatorState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: SeparatorState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, SeparatorState> | undefined",
+        required: false,
+      },
+      {
+        name: "orientation",
+        type: "Orientation | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  MenuGroupLabel: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: MenuGroupLabelState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: MenuGroupLabelState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, MenuGroupLabelState> | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  MenubarRoot: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: MenubarState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: MenubarState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, MenubarState> | undefined",
+        required: false,
+      },
+      {
+        name: "modal",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "loopFocus",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "orientation",
+        type: "MenuRootOrientation | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  MenubarMenu: {
+    rows: [
+      {
+        name: "defaultOpen",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "loopFocus",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "highlightItemOnHover",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "modal",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChange",
+        type: "((open: boolean, eventDetails: MenuRootChangeEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChangeComplete",
+        type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "open",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "orientation",
+        type: "MenuRootOrientation | undefined",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "closeParentOnEsc",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "actionsRef",
+        type: "RefObject<MenuRootActions | null> | undefined",
+        required: false,
+      },
+      {
+        name: "triggerId",
+        type: "string | null | undefined",
+        required: false,
+      },
+      {
+        name: "defaultTriggerId",
+        type: "string | null | undefined",
+        required: false,
+      },
+      {
+        name: "handle",
+        type: "MenuHandle<unknown> | undefined",
+        required: false,
+      },
+      {
+        name: "children",
+        type: "ReactNode | PayloadChildRenderFunction<unknown>",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  MenubarTrigger: {
+    rows: [
+      {
+        name: "children",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "handle",
+        type: "MenuHandle<unknown> | undefined",
+        required: false,
+      },
+      {
+        name: "payload",
+        type: "unknown",
+        required: false,
+      },
+      {
+        name: "delay",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "closeDelay",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "openOnHover",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | ((state: MenuTriggerState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, MenuTriggerState> | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: MenuTriggerState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+    ],
+    curated: ["value"],
+  },
+  MenubarContent: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: MenuPopupState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: MenuPopupState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "id",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "children",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, MenuPopupState> | undefined",
+        required: false,
+      },
+      {
+        name: "finalFocus",
+        type: "boolean | RefObject<HTMLElement | null> | ((closeType: InteractionType) => boolean | void | HTMLElement | null) | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  MenubarItem: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: MenuItemState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: MenuItemState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "id",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "onClick",
+        type: "((event: BaseUIEvent<MouseEvent<HTMLDivElement, MouseEvent>>) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, MenuItemState> | undefined",
+        required: false,
+      },
+      {
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "closeOnClick",
+        type: "boolean | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  MeterRoot: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: MeterRootState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: MeterRootState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "aria-valuetext",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "number",
+        required: true,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, MeterRootState> | undefined",
+        required: false,
+      },
+      {
+        name: "locale",
+        type: "LocalesArgument",
+        required: false,
+      },
+      {
+        name: "max",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "min",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "format",
+        type: "NumberFormatOptions | undefined",
+        required: false,
+      },
+      {
+        name: "getAriaValueText",
+        type: "((formattedValue: string, value: number) => string) | undefined",
+        required: false,
+      },
+    ],
+    curated: ["children"],
+  },
+  MeterLabel: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: MeterLabelState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: MeterLabelState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, MeterLabelState> | undefined",
+        required: false,
+      },
+    ],
+    curated: ["children"],
+  },
+  NativeSelect: {
+    rows: [],
+    curated: [
+      "value",
+      "defaultValue",
+      "onChange",
+      "multiple",
+      "className",
+      "ref",
+    ],
+  },
+  NavigationBar: {
+    rows: [
+      {
+        name: "destinations",
+        type: "NavigationDestination[]",
+        required: true,
+      },
+      {
+        name: "value",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: "((key: string) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "floating",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  NavigationBarItem: {
+    rows: [
+      {
+        name: "label",
+        type: "string",
+        required: true,
+      },
+      {
+        name: "selected",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "icon",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "badge",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "onSelect",
+        type: "(() => void) | undefined",
+        required: false,
+      },
+    ],
+    curated: ["value", "defaultValue", "disabled", "className"],
+  },
+  NavigationDrawer: {
+    rows: [
+      {
+        name: "open",
+        type: "boolean",
+        required: true,
+      },
+      {
+        name: "onOpenChange",
+        type: "(open: boolean) => void",
+        required: true,
+      },
+      {
+        name: "destinations",
+        type: "NavigationDestination[]",
+        required: true,
+      },
+      {
+        name: "value",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: "((key: string) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "title",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "subtitle",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "footer",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "aria-label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  NavigationMenuRoot: {
+    rows: [
+      {
+        name: "actionsRef",
+        type: "RefObject<NavigationMenuRootActions | null> | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChangeComplete",
+        type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "unknown",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "unknown",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: "((value: unknown, eventDetails: NavigationMenuRootChangeEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "delay",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "closeDelay",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "orientation",
+        type: '"horizontal" | "vertical" | undefined',
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | ((state: NavigationMenuRootState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, NavigationMenuRootState> | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: NavigationMenuRootState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  NavigationMenuList: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: NavigationMenuListState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: NavigationMenuListState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, NavigationMenuListState> | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  NavigationMenuItem: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: NavigationMenuItemState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: NavigationMenuItemState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "any",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, NavigationMenuItemState> | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  NavigationMenuTrigger: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: NavigationMenuTriggerState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: NavigationMenuTriggerState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, NavigationMenuTriggerState> | undefined",
+        required: false,
+      },
+      {
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
+      },
+    ],
+    curated: ["value"],
+  },
+  NavigationMenuContent: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: NavigationMenuPopupState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: NavigationMenuPopupState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, NavigationMenuPopupState> | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  NavigationMenuLink: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: NavigationMenuLinkState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: NavigationMenuLinkState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>, NavigationMenuLinkState> | undefined",
+        required: false,
+      },
+      {
+        name: "closeOnClick",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "active",
+        type: "boolean | undefined",
+        required: false,
+      },
+    ],
+    curated: ["href"],
+  },
+  NumberFieldRoot: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: NumberFieldRootState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: NumberFieldRootState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "form",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "id",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "number | null | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, NumberFieldRootState> | undefined",
+        required: false,
+      },
+      {
+        name: "name",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "step",
+        type: 'number | "any" | undefined',
+        required: false,
+      },
+      {
+        name: "required",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "readOnly",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "inputRef",
+        type: "Ref<HTMLInputElement> | undefined",
+        required: false,
+      },
+      {
+        name: "locale",
+        type: "LocalesArgument",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: "((value: number | null, eventDetails: NumberFieldRootChangeEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "max",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "min",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "format",
+        type: "NumberFormatOptions | undefined",
+        required: false,
+      },
+      {
+        name: "allowOutOfRange",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "smallStep",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "largeStep",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "allowWheelScrub",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "snapOnStep",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onValueCommitted",
+        type: "((value: number | null, eventDetails: NumberFieldRootCommitEventDetails) => void) | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  NumberFieldInput: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: NumberFieldInputState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: NumberFieldInputState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "aria-roledescription",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, NumberFieldInputState> | undefined",
+        required: false,
+      },
+    ],
+    curated: ["value", "step", "min", "max", "disabled"],
+  },
+  PageLoader: {
+    rows: [
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "size",
+        type: '"sm" | "lg" | "md" | undefined',
+        required: false,
+      },
+      {
+        name: "tone",
+        type: "FeedbackTone | undefined",
+        required: false,
+      },
+      {
+        name: "loaderStyle",
+        type: '"spinner" | "dots" | "bar" | "shapes" | "conveyor" | "contained" | "orbit" | "morph" | "assembly" | undefined',
+        required: false,
+      },
+      {
+        name: "shapes",
+        type: 'readonly ("circle" | "triangle" | "square" | "pill" | "diamond" | "arch")[] | undefined',
+        required: false,
+      },
+      {
+        name: "tenantId",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: ["className"],
+  },
+  Pagination: {
+    rows: [
+      {
+        name: "count",
+        type: "number",
+        required: true,
+      },
+      {
+        name: "page",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "defaultPage",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "onPageChange",
+        type: "((page: number) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: "((page: number) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "children",
+        type: "ReactNode",
+        required: false,
+      },
+    ],
+    curated: ["className"],
+  },
+  PopoverRoot: {
+    rows: [
+      {
+        name: "defaultOpen",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "open",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChange",
+        type: "((open: boolean, eventDetails: PopoverRootChangeEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChangeComplete",
+        type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "actionsRef",
+        type: "RefObject<PopoverRootActions | null> | undefined",
+        required: false,
+      },
+      {
+        name: "modal",
+        type: 'boolean | "trap-focus" | undefined',
+        required: false,
+      },
+      {
+        name: "triggerId",
+        type: "string | null | undefined",
+        required: false,
+      },
+      {
+        name: "defaultTriggerId",
+        type: "string | null | undefined",
+        required: false,
+      },
+      {
+        name: "handle",
+        type: "PopoverHandle<unknown> | undefined",
+        required: false,
+      },
+      {
+        name: "children",
+        type: "ReactNode | PayloadChildRenderFunction<unknown>",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  PopoverTrigger: {
+    rows: [
+      {
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | ((state: PopoverTriggerState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, PopoverTriggerState> | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: PopoverTriggerState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "handle",
+        type: "PopoverHandle<unknown> | undefined",
+        required: false,
+      },
+      {
+        name: "payload",
+        type: "unknown",
+        required: false,
+      },
+      {
+        name: "id",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "openOnHover",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "delay",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "closeDelay",
+        type: "number | undefined",
+        required: false,
+      },
+    ],
+    curated: ["disabled"],
+  },
+  PopoverContent: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: PopoverPopupState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: PopoverPopupState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, PopoverPopupState> | undefined",
+        required: false,
+      },
+      {
+        name: "initialFocus",
+        type: "boolean | RefObject<HTMLElement | null> | ((openType: InteractionType) => boolean | void | HTMLElement | null) | undefined",
+        required: false,
+      },
+      {
+        name: "finalFocus",
+        type: "boolean | RefObject<HTMLElement | null> | ((closeType: InteractionType) => boolean | void | HTMLElement | null) | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  PopoverTitle: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: PopoverTitleState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: PopoverTitleState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, PopoverTitleState> | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  PopoverDescription: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: PopoverDescriptionState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: PopoverDescriptionState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, PopoverDescriptionState> | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  PopoverClose: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: PopoverCloseState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: PopoverCloseState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, PopoverCloseState> | undefined",
+        required: false,
+      },
+      {
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
+      },
+    ],
+    curated: ["disabled"],
+  },
+  PreviewCardRoot: {
+    rows: [
+      {
+        name: "defaultOpen",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "open",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChange",
+        type: "((open: boolean, eventDetails: PreviewCardRootChangeEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChangeComplete",
+        type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "actionsRef",
+        type: "RefObject<PreviewCardRootActions | null> | undefined",
+        required: false,
+      },
+      {
+        name: "handle",
+        type: "PreviewCardHandle<unknown> | undefined",
+        required: false,
+      },
+      {
+        name: "children",
+        type: "ReactNode | PayloadChildRenderFunction<unknown>",
+        required: false,
+      },
+      {
+        name: "triggerId",
+        type: "string | null | undefined",
+        required: false,
+      },
+      {
+        name: "defaultTriggerId",
+        type: "string | null | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  PreviewCardTrigger: {
+    rows: [
+      {
+        name: "handle",
+        type: "PreviewCardHandle<unknown> | undefined",
+        required: false,
+      },
+      {
+        name: "payload",
+        type: "unknown",
+        required: false,
+      },
+      {
+        name: "delay",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "closeDelay",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | ((state: PreviewCardTriggerState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>, PreviewCardTriggerState> | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: PreviewCardTriggerState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+    ],
+    curated: ["children"],
+  },
+  PreviewCardContent: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: PreviewCardPopupState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: PreviewCardPopupState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, PreviewCardPopupState> | undefined",
+        required: false,
+      },
+    ],
+    curated: ["children"],
+  },
+  ProgressRoot: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: ProgressRootState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: ProgressRootState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "aria-valuetext",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "number | null",
+        required: true,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ProgressRootState> | undefined",
+        required: false,
+      },
+      {
+        name: "locale",
+        type: "LocalesArgument",
+        required: false,
+      },
+      {
+        name: "max",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "min",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "format",
+        type: "NumberFormatOptions | undefined",
+        required: false,
+      },
+      {
+        name: "getAriaValueText",
+        type: "((formattedValue: string, value: number | null) => string) | undefined",
+        required: false,
+      },
+    ],
+    curated: ["children"],
+  },
+  ProgressLabel: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: ProgressLabelState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: ProgressLabelState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ProgressLabelState> | undefined",
+        required: false,
+      },
+    ],
+    curated: ["children"],
+  },
+  RadioGroup: {
+    rows: [
+      {
+        name: "style",
+        type: "CSSProperties | ((state: RadioGroupState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "form",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, RadioGroupState> | undefined",
+        required: false,
+      },
+      {
+        name: "name",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "required",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "readOnly",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "inputRef",
+        type: "Ref<HTMLInputElement> | undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "Value | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "Value | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: "((value: Value, eventDetails: unknown) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | ((state: RadioGroupState) => string | undefined) | undefined",
+        required: false,
+      },
+    ],
+    curated: ["children"],
+  },
+  RadioGroupItem: {
+    rows: [
+      {
+        name: "style",
+        type: "CSSProperties | ((state: RadioRootState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "unknown",
+        required: true,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, RadioRootState> | undefined",
+        required: false,
+      },
+      {
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "required",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "readOnly",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "inputRef",
+        type: "Ref<HTMLInputElement> | undefined",
+        required: false,
+      },
+      {
+        name: "children",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "controlClassName",
+        type: "string | ((state: RadioRootState) => string | undefined) | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  ScrollAreaRoot: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: ScrollAreaRootState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: ScrollAreaRootState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ScrollAreaRootState> | undefined",
+        required: false,
+      },
+      {
+        name: "overflowEdgeThreshold",
+        type: "number | Partial<{ xStart: number; xEnd: number; yStart: number; yEnd: number; }> | undefined",
+        required: false,
+      },
+    ],
+    curated: ["children", "ref"],
+  },
+  ScrollAreaViewport: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: ScrollAreaViewportState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: ScrollAreaViewportState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ScrollAreaViewportState> | undefined",
+        required: false,
+      },
+    ],
+    curated: ["children", "ref"],
+  },
+  Search: {
+    rows: [
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "placeholder",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: "((value: string) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onSearch",
+        type: "((value: string) => void) | undefined",
+        required: false,
+      },
+    ],
+    curated: ["className"],
+  },
+  SecondaryTabs: {
+    rows: [
+      {
+        name: "tabs",
+        type: "SecondaryTab[]",
+        required: true,
+      },
+      {
+        name: "value",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: "((value: string) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  SegmentedButtonRoot: {
+    rows: [
+      {
+        name: "value",
+        type: "readonly Value[] | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "readonly Value[] | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: '((groupValue: Value[], eventDetails: { reason: "none"; event: Event; cancel: () => void; allowPropagation: () => void; isCanceled: boolean; isPropagationAllowed: boolean; trigger: Element | undefined; }) => void) | undefined',
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "orientation",
+        type: "Orientation | undefined",
+        required: false,
+      },
+      {
+        name: "loopFocus",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "multiple",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | ((state: ToggleGroupState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ToggleGroupState> | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: ToggleGroupState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  SegmentedButtonItem: {
+    rows: [
+      {
+        name: "pressed",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultPressed",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onPressedChange",
+        type: '((pressed: boolean, eventDetails: { reason: "none"; event: Event; cancel: () => void; allowPropagation: () => void; isCanceled: boolean; isPropagationAllowed: boolean; trigger: Element | undefined; }) => void) | undefined',
+        required: false,
+      },
+      {
+        name: "value",
+        type: "Value | undefined",
+        required: false,
+      },
+      {
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | ((state: ToggleState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ToggleState> | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: ToggleState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  SelectRoot: {
+    rows: [
+      {
+        name: "children",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "inputRef",
+        type: "Ref<HTMLInputElement> | undefined",
+        required: false,
+      },
+      {
+        name: "name",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "form",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "autoComplete",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "id",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "required",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "readOnly",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "multiple",
+        type: "Multiple | undefined",
+        required: false,
+      },
+      {
+        name: "highlightItemOnHover",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultOpen",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChange",
+        type: "((open: boolean, eventDetails: SelectRootChangeEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChangeComplete",
+        type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "open",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "modal",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "actionsRef",
+        type: "RefObject<SelectRootActions | null> | undefined",
+        required: false,
+      },
+      {
+        name: "items",
+        type: "readonly Group<any>[] | Record<string, ReactNode> | readonly { label: ReactNode; value: any; }[] | undefined",
+        required: false,
+      },
+      {
+        name: "itemToStringLabel",
+        type: "((itemValue: T) => string) | undefined",
+        required: false,
+      },
+      {
+        name: "itemToStringValue",
+        type: "((itemValue: T) => string) | undefined",
+        required: false,
+      },
+      {
+        name: "isItemEqualToValue",
+        type: "((itemValue: T, value: T) => boolean) | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "SelectValueType<T, Multiple> | null | undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "SelectValueType<T, Multiple> | null | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: "((value: SelectValueType<T, Multiple> | (Multiple extends true ? never : null), eventDetails: SelectRootChangeEventDetails) => void) | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  SelectTrigger: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: SelectTriggerState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: SelectTriggerState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "children",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, SelectTriggerState> | undefined",
+        required: false,
+      },
+      {
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
+      },
+    ],
+    curated: ["value"],
+  },
+  SelectContent: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: SelectPopupState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: SelectPopupState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "children",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, SelectPopupState> | undefined",
+        required: false,
+      },
+      {
+        name: "finalFocus",
+        type: "boolean | RefObject<HTMLElement | null> | ((closeType: InteractionType) => boolean | void | HTMLElement | null) | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  SelectItem: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: SelectItemState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: SelectItemState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "children",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "any",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, SelectItemState> | undefined",
+        required: false,
+      },
+      {
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  SelectSeparator: {
+    rows: [
+      {
+        name: "orientation",
+        type: "Orientation | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | ((state: SelectSeparatorState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, SelectSeparatorState> | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: SelectSeparatorState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  SelectGroup: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: SelectGroupState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: SelectGroupState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, SelectGroupState> | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  SelectGroupLabel: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: SelectGroupLabelState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: SelectGroupLabelState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, SelectGroupLabelState> | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  Separator: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: SeparatorState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: SeparatorState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, SeparatorState> | undefined",
+        required: false,
+      },
+      {
+        name: "orientation",
+        type: "Orientation | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  SheetSurface: {
+    rows: [
+      {
+        name: "open",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultOpen",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChange",
+        type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "string",
+        required: true,
+      },
+      {
+        name: "children",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  BottomSheet: {
+    rows: [
+      {
+        name: "label",
+        type: "string",
+        required: true,
+      },
+      {
+        name: "children",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "onOpenChange",
+        type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "open",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultOpen",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "title",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "onClose",
+        type: "(() => void) | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  DockSheet: {
+    rows: [
+      {
+        name: "label",
+        type: "string",
+        required: true,
+      },
+      {
+        name: "children",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  SnapSheet: {
+    rows: [
+      {
+        name: "label",
+        type: "string",
+        required: true,
+      },
+      {
+        name: "children",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "onOpenChange",
+        type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "open",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultOpen",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "snapPoints",
+        type: "readonly number[]",
+        required: true,
+      },
+      {
+        name: "index",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "onIndexChange",
+        type: "((index: number) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: "((index: number) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  EntitySheet: {
+    rows: [
+      {
+        name: "label",
+        type: "string",
+        required: true,
+      },
+      {
+        name: "children",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "onOpenChange",
+        type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "open",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultOpen",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "title",
+        type: "string",
+        required: true,
+      },
+      {
+        name: "subtitle",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "fields",
+        type: "readonly EntityField[] | undefined",
+        required: false,
+      },
+      {
+        name: "action",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  BottomSheetPicker: {
+    rows: [
+      {
+        name: "label",
+        type: "string",
+        required: true,
+      },
+      {
+        name: "children",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "onOpenChange",
+        type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "open",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultOpen",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "title",
+        type: "string",
+        required: true,
+      },
+      {
+        name: "options",
+        type: "readonly PickerOption[]",
+        required: true,
+      },
+      {
+        name: "value",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "multiple",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onSelect",
+        type: "(value: string) => void",
+        required: true,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  ActionSheet: {
+    rows: [
+      {
+        name: "label",
+        type: "string",
+        required: true,
+      },
+      {
+        name: "children",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "onOpenChange",
+        type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "open",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultOpen",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "title",
+        type: "string",
+        required: true,
+      },
+      {
+        name: "actions",
+        type: "readonly ActionSheetAction[]",
+        required: true,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  SheetRoot: {
+    rows: [
+      {
+        name: "open",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultOpen",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "modal",
+        type: 'boolean | "trap-focus" | undefined',
+        required: false,
+      },
+      {
+        name: "onOpenChange",
+        type: "((open: boolean, eventDetails: DialogRootChangeEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChangeComplete",
+        type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "disablePointerDismissal",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "actionsRef",
+        type: "RefObject<DialogRootActions | null> | undefined",
+        required: false,
+      },
+      {
+        name: "handle",
+        type: "DialogHandle<unknown> | undefined",
+        required: false,
+      },
+      {
+        name: "children",
+        type: "ReactNode | PayloadChildRenderFunction<unknown>",
+        required: false,
+      },
+      {
+        name: "triggerId",
+        type: "string | null | undefined",
+        required: false,
+      },
+      {
+        name: "defaultTriggerId",
+        type: "string | null | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  SheetTrigger: {
+    rows: [
+      {
+        name: "handle",
+        type: "DialogHandle<unknown> | undefined",
+        required: false,
+      },
+      {
+        name: "payload",
+        type: "unknown",
+        required: false,
+      },
+      {
+        name: "id",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | ((state: DialogTriggerState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, DialogTriggerState> | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: DialogTriggerState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  SheetContent: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: DialogPopupState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: DialogPopupState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, DialogPopupState> | undefined",
+        required: false,
+      },
+      {
+        name: "initialFocus",
+        type: "boolean | RefObject<HTMLElement | null> | ((openType: InteractionType) => boolean | void | HTMLElement | null) | undefined",
+        required: false,
+      },
+      {
+        name: "finalFocus",
+        type: "boolean | RefObject<HTMLElement | null> | ((closeType: InteractionType) => boolean | void | HTMLElement | null) | undefined",
+        required: false,
+      },
+      {
+        name: "side",
+        type: '"left" | "right" | undefined',
+        required: false,
+      },
+      {
+        name: "modal",
+        type: 'boolean | "trap-focus" | undefined',
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  SheetTitle: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: DialogTitleState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: DialogTitleState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, DialogTitleState> | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  SheetDescription: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: DialogDescriptionState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: DialogDescriptionState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, DialogDescriptionState> | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  SheetClose: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: DialogCloseState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: DialogCloseState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, DialogCloseState> | undefined",
+        required: false,
+      },
+      {
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  Skeleton: {
+    rows: [],
+    curated: ["className", "ref", "aria-hidden"],
+  },
+  SliderRoot: {
+    rows: [
+      {
+        name: "defaultValue",
+        type: "number | readonly number[] | undefined",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "format",
+        type: "NumberFormatOptions | undefined",
+        required: false,
+      },
+      {
+        name: "locale",
+        type: "LocalesArgument",
+        required: false,
+      },
+      {
+        name: "max",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "min",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "minStepsBetweenValues",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "name",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "form",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "orientation",
+        type: "Orientation | undefined",
+        required: false,
+      },
+      {
+        name: "step",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "largeStep",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "thumbAlignment",
+        type: '"center" | "edge" | "edge-client-only" | undefined',
+        required: false,
+      },
+      {
+        name: "thumbCollisionBehavior",
+        type: '"none" | "push" | "swap" | undefined',
+        required: false,
+      },
+      {
+        name: "value",
+        type: "number | readonly number[] | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: "((value: number | readonly number[], eventDetails: SliderRootChangeEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onValueCommitted",
+        type: "((value: number | readonly number[], eventDetails: SliderRootCommitEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | ((state: SliderRootState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, SliderRootState> | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: SliderRootState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "ref",
+        type: "Ref<HTMLDivElement> | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  SliderThumb: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: SliderThumbState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: SliderThumbState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "tabIndex",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "aria-valuetext",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "onFocus",
+        type: "FocusEventHandler<HTMLInputElement> | undefined",
+        required: false,
+      },
+      {
+        name: "onBlur",
+        type: "FocusEventHandler<HTMLInputElement> | undefined",
+        required: false,
+      },
+      {
+        name: "onKeyDown",
+        type: "KeyboardEventHandler<HTMLInputElement> | undefined",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, SliderThumbState> | undefined",
+        required: false,
+      },
+      {
+        name: "inputRef",
+        type: "Ref<HTMLInputElement> | undefined",
+        required: false,
+      },
+      {
+        name: "index",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "getAriaValueText",
+        type: "((formattedValue: string, value: number, index: number) => string) | null | undefined",
+        required: false,
+      },
+      {
+        name: "getAriaLabel",
+        type: "((index: number) => string) | null | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  SliderLabel: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: SliderRootState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: SliderRootState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, SliderRootState> | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  SliderValue: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: SliderValueState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: SliderValueState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "children",
+        type: "((formattedValues: readonly string[], values: readonly number[]) => ReactNode) | null | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, SliderValueState> | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  SnackbarProvider: {
+    rows: [
+      {
+        name: "children",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "timeout",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "limit",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "toastManager",
+        type: "ToastManager<any> | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  SnackbarRoot: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: ToastRootState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: ToastRootState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ToastRootState> | undefined",
+        required: false,
+      },
+      {
+        name: "toast",
+        type: "ToastRootToastObject<any>",
+        required: true,
+      },
+      {
+        name: "swipeDirection",
+        type: '"up" | "down" | "left" | "right" | ("up" | "down" | "left" | "right")[] | undefined',
+        required: false,
+      },
+    ],
+    curated: ["onClick"],
+  },
+  SnackbarTitle: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: ToastTitleState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: ToastTitleState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ToastTitleState> | undefined",
+        required: false,
+      },
+    ],
+    curated: ["onClick"],
+  },
+  SnackbarDescription: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: ToastDescriptionState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: ToastDescriptionState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ToastDescriptionState> | undefined",
+        required: false,
+      },
+    ],
+    curated: ["onClick"],
+  },
+  SnackbarAction: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: ToastActionState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: ToastActionState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ToastActionState> | undefined",
+        required: false,
+      },
+      {
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
+      },
+    ],
+    curated: ["onClick", "disabled"],
+  },
+  SnackbarClose: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: ToastCloseState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: ToastCloseState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ToastCloseState> | undefined",
+        required: false,
+      },
+      {
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
+      },
+    ],
+    curated: ["onClick", "disabled"],
+  },
+  SonnerProvider: {
+    rows: [
+      {
+        name: "children",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "timeout",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "limit",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "toastManager",
+        type: "ToastManager<any> | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  SonnerViewport: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: ToastViewportState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: ToastViewportState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ToastViewportState> | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  SonnerRoot: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: ToastRootState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: ToastRootState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ToastRootState> | undefined",
+        required: false,
+      },
+      {
+        name: "toast",
+        type: "ToastRootToastObject<any>",
+        required: true,
+      },
+      {
+        name: "swipeDirection",
+        type: '"up" | "down" | "left" | "right" | ("up" | "down" | "left" | "right")[] | undefined',
+        required: false,
+      },
+      {
+        name: "intent",
+        type: "SonnerIntent | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  SonnerTitle: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: ToastTitleState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: ToastTitleState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ToastTitleState> | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  SonnerDescription: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: ToastDescriptionState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: ToastDescriptionState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ToastDescriptionState> | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  SonnerAction: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: ToastActionState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: ToastActionState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ToastActionState> | undefined",
+        required: false,
+      },
+      {
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  SonnerClose: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: ToastCloseState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: ToastCloseState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ToastCloseState> | undefined",
+        required: false,
+      },
+      {
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  SplitButton: {
+    rows: [
+      {
+        name: "label",
+        type: "string",
+        required: true,
+      },
+      {
+        name: "onClick",
+        type: "(() => void) | undefined",
+        required: false,
+      },
+      {
+        name: "icon",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "actions",
+        type: "SplitButtonAction[]",
+        required: true,
+      },
+      {
+        name: "menuLabel",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  Split: {
+    rows: [
+      {
+        name: "columns",
+        type: "3 | 2 | undefined",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "children",
+        type: "ReactNode",
+        required: false,
+      },
+    ],
+    curated: ["className"],
+  },
+  Switch: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: SwitchRootState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "defaultChecked",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: SwitchRootState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "form",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "id",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, SwitchRootState> | undefined",
+        required: false,
+      },
+      {
+        name: "name",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "required",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "readOnly",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "inputRef",
+        type: "Ref<HTMLInputElement> | undefined",
+        required: false,
+      },
+      {
+        name: "checked",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onCheckedChange",
+        type: '((checked: boolean, eventDetails: { reason: "none"; event: Event; cancel: () => void; allowPropagation: () => void; isCanceled: boolean; isPropagationAllowed: boolean; trigger: Element | undefined; }) => void) | undefined',
+        required: false,
+      },
+      {
+        name: "uncheckedValue",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  Table: {
+    rows: [],
+    curated: ["className", "ref"],
+  },
+  TableHead: {
+    rows: [],
+    curated: ["className", "ref"],
+  },
+  TableBody: {
+    rows: [],
+    curated: ["className", "ref"],
+  },
+  TableRow: {
+    rows: [],
+    curated: ["className", "ref"],
+  },
+  TableHeader: {
+    rows: [],
+    curated: ["className", "colSpan", "scope", "ref"],
+  },
+  TableCell: {
+    rows: [],
+    curated: ["className", "colSpan", "scope", "ref"],
+  },
+  TableCaption: {
+    rows: [],
+    curated: ["className", "ref"],
+  },
+  TabsRoot: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: TabsRootState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "any",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: TabsRootState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "any",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, TabsRootState> | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: "((value: any, eventDetails: TabsRootChangeEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "orientation",
+        type: "Orientation | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  TabsList: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: TabsListState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: TabsListState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, TabsListState> | undefined",
+        required: false,
+      },
+      {
+        name: "loopFocus",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "activateOnFocus",
+        type: "boolean | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  TabsTab: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: TabsTabState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: TabsTabState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "any",
+        required: true,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, TabsTabState> | undefined",
+        required: false,
+      },
+      {
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  TabsPanel: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: TabsPanelState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: TabsPanelState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "any",
+        required: true,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, TabsPanelState> | undefined",
+        required: false,
+      },
+      {
+        name: "keepMounted",
+        type: "boolean | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  Text: {
+    rows: [
+      {
+        name: "as",
+        type: "T | undefined",
+        required: false,
+      },
+      {
+        name: "variant",
+        type: '"body" | "label" | "title" | "headline" | null | undefined',
+        required: false,
+        default: '"body"',
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  Textarea: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: FieldControlState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "string | number | readonly string[] | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: FieldControlState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: '((value: string, eventDetails: { reason: "none"; event: Event; cancel: () => void; allowPropagation: () => void; isCanceled: boolean; isPropagationAllowed: boolean; trigger: Element | undefined; }) => void) | undefined',
+        required: false,
+      },
+      {
+        name: "error",
+        type: "boolean | undefined",
+        required: false,
+      },
+    ],
+    curated: ["aria-describedby", "ref"],
+  },
+  TimePicker: {
+    rows: [
+      {
+        name: "value",
+        type: "TimePickerValue | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "TimePickerValue | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: "((value: TimePickerValue) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "format",
+        type: "TimePickerFormat | undefined",
+        required: false,
+      },
+      {
+        name: "step",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "formatValue",
+        type: "((value: TimePickerValue) => string) | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  ToggleGroupRoot: {
+    rows: [
+      {
+        name: "value",
+        type: "readonly Value[] | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "readonly Value[] | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: '((groupValue: Value[], eventDetails: { reason: "none"; event: Event; cancel: () => void; allowPropagation: () => void; isCanceled: boolean; isPropagationAllowed: boolean; trigger: Element | undefined; }) => void) | undefined',
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "orientation",
+        type: "Orientation | undefined",
+        required: false,
+      },
+      {
+        name: "loopFocus",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "multiple",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | ((state: ToggleGroupState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ToggleGroupState> | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: ToggleGroupState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  ToggleGroupItem: {
+    rows: [
+      {
+        name: "pressed",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultPressed",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onPressedChange",
+        type: '((pressed: boolean, eventDetails: { reason: "none"; event: Event; cancel: () => void; allowPropagation: () => void; isCanceled: boolean; isPropagationAllowed: boolean; trigger: Element | undefined; }) => void) | undefined',
+        required: false,
+      },
+      {
+        name: "value",
+        type: "Value | undefined",
+        required: false,
+      },
+      {
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | ((state: ToggleState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ToggleState> | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: ToggleState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  Toggle: {
+    rows: [
+      {
+        name: "pressed",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultPressed",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onPressedChange",
+        type: '((pressed: boolean, eventDetails: { reason: "none"; event: Event; cancel: () => void; allowPropagation: () => void; isCanceled: boolean; isPropagationAllowed: boolean; trigger: Element | undefined; }) => void) | undefined',
+        required: false,
+      },
+      {
+        name: "value",
+        type: "Value | undefined",
+        required: false,
+      },
+      {
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | ((state: ToggleState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ToggleState> | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: ToggleState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  ToolbarRoot: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: ToolbarRootState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: ToolbarRootState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ToolbarRootState> | undefined",
+        required: false,
+      },
+      {
+        name: "loopFocus",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "orientation",
+        type: "Orientation | undefined",
+        required: false,
+      },
+    ],
+    curated: ["aria-label"],
+  },
+  ToolbarButton: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: ToolbarButtonState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: ToolbarButtonState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ToolbarButtonState> | undefined",
+        required: false,
+      },
+      {
+        name: "nativeButton",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "focusableWhenDisabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+    ],
+    curated: ["aria-label"],
+  },
+  ToolbarSeparator: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: SeparatorState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: SeparatorState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, SeparatorState> | undefined",
+        required: false,
+      },
+      {
+        name: "orientation",
+        type: "Orientation | undefined",
+        required: false,
+      },
+    ],
+    curated: ["aria-label"],
+  },
+  ToolbarGroup: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: ToolbarGroupState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: ToolbarGroupState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ToolbarGroupState> | undefined",
+        required: false,
+      },
+    ],
+    curated: ["aria-label"],
+  },
+  TooltipProvider: {
+    rows: [
+      {
+        name: "children",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "delay",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "closeDelay",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "timeout",
+        type: "number | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  TooltipRoot: {
+    rows: [
+      {
+        name: "defaultOpen",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "open",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChange",
+        type: "((open: boolean, eventDetails: TooltipRootChangeEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChangeComplete",
+        type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "disableHoverablePopup",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "trackCursorAxis",
+        type: '"none" | "both" | "x" | "y" | undefined',
+        required: false,
+      },
+      {
+        name: "actionsRef",
+        type: "RefObject<TooltipRootActions | null> | undefined",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "handle",
+        type: "TooltipHandle<unknown> | undefined",
+        required: false,
+      },
+      {
+        name: "children",
+        type: "ReactNode | PayloadChildRenderFunction<unknown>",
+        required: false,
+      },
+      {
+        name: "triggerId",
+        type: "string | null | undefined",
+        required: false,
+      },
+      {
+        name: "defaultTriggerId",
+        type: "string | null | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  TooltipTrigger: {
+    rows: [
+      {
+        name: "handle",
+        type: "TooltipHandle<unknown> | undefined",
+        required: false,
+      },
+      {
+        name: "payload",
+        type: "unknown",
+        required: false,
+      },
+      {
+        name: "delay",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "closeOnClick",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "closeDelay",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | ((state: TooltipTriggerState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, TooltipTriggerState> | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: TooltipTriggerState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  TooltipContent: {
+    rows: [
+      {
+        name: "className",
+        type: "string | ((state: TooltipPopupState) => string | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "style",
+        type: "CSSProperties | ((state: TooltipPopupState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "render",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, TooltipPopupState> | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  LinkProvider: {
+    rows: [
+      {
+        name: "to",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  Link: {
+    rows: [
+      {
+        name: "to",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
 };

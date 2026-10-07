@@ -15,503 +15,425 @@ export type ChangeEntry = {
 
 export const RECENT_CHANGES: readonly ChangeEntry[] = [
   {
-    "id": "breaking-native-barrel-retirements",
-    "packages": [
-      "@xoroh/kern-native"
-    ],
-    "bump": "major",
-    "summary": "BREAKING — the native public barrel no longer exports four symbols."
+    id: "breaking-native-barrel-retirements",
+    packages: ["@xoroh/kern-native"],
+    bump: "major",
+    summary:
+      "BREAKING — the native public barrel no longer exports four symbols.",
   },
   {
-    "id": "m3-to-kern-rename-renderers",
-    "packages": [
-      "@xoroh/kern",
-      "@xoroh/kern-native"
-    ],
-    "bump": "major",
-    "summary": "M3 → kern rename, renderer layer (founder directive, board.md 2026-10-02)."
+    id: "m3-to-kern-rename-renderers",
+    packages: ["@xoroh/kern", "@xoroh/kern-native"],
+    bump: "major",
+    summary:
+      "M3 → kern rename, renderer layer (founder directive, board.md 2026-10-02).",
   },
   {
-    "id": "d-034-package-structure",
-    "packages": [
-      "@xoroh/kern",
-      "@xoroh/kern-tokens"
-    ],
-    "bump": "minor",
-    "summary": "D-034: the package map is now primitives -> tokens -> renderers."
+    id: "d-034-package-structure",
+    packages: ["@xoroh/kern", "@xoroh/kern-tokens"],
+    bump: "minor",
+    summary: "D-034: the package map is now primitives -> tokens -> renderers.",
   },
   {
-    "id": "disabled-state-opacity-and-metadata-filter",
-    "packages": [
-      "@xoroh/kern-tokens"
-    ],
-    "bump": "minor",
-    "summary": "Add M3's fifth state-layer opacity (disabled, 38%) and assert all five in check:kern."
+    id: "disabled-state-opacity-and-metadata-filter",
+    packages: ["@xoroh/kern-tokens"],
+    bump: "minor",
+    summary:
+      "Add M3's fifth state-layer opacity (disabled, 38%) and assert all five in check:kern.",
   },
   {
-    "id": "m3-to-kern-rename-tokens-and-gates",
-    "packages": [
-      "@xoroh/kern-tokens"
-    ],
-    "bump": "minor",
-    "summary": "M3 → kern rename across the tokens and gate layer (founder directive, board.md 2026-10-02)."
+    id: "m3-to-kern-rename-tokens-and-gates",
+    packages: ["@xoroh/kern-tokens"],
+    bump: "minor",
+    summary:
+      "M3 → kern rename across the tokens and gate layer (founder directive, board.md 2026-10-02).",
   },
   {
-    "id": "mit-and-kern-guard",
-    "packages": [
+    id: "mit-and-kern-guard",
+    packages: [
       "@xoroh/kern",
       "@xoroh/kern-tokens",
       "@xoroh/kern-native",
-      "@xoroh/kern-mcp"
+      "@xoroh/kern-mcp",
     ],
-    "bump": "minor",
-    "summary": "License is now MIT (previously Apache-2.0). Native shape values now resolve from the M3 shape scale and the FAB shadow uses the scrim role. New scripts/check-kern.mjs (bun run check:kern, wired into CI) enforces the mechanically checkable M3 laws: semantic roles must exist in every scheme, components use tokens instead of raw colors, and radii come from the shape scale."
+    bump: "minor",
+    summary:
+      "License is now MIT (previously Apache-2.0). Native shape values now resolve from the M3 shape scale and the FAB shadow uses the scrim role. New scripts/check-kern.mjs (bun run check:kern, wired into CI) enforces the mechanically checkable M3 laws: semantic roles must exist in every scheme, components use tokens instead of raw colors, and radii come from the shape scale.",
   },
   {
-    "id": "native-carousel",
-    "packages": [
-      "@xoroh/kern-native",
-      "@xoroh/kern-primitives"
-    ],
-    "bump": "minor",
-    "summary": "Native Carousel, the roving primitive's first real consumer — and it found a real bug in the primitive it was built on."
+    id: "native-carousel",
+    packages: ["@xoroh/kern-native", "@xoroh/kern-primitives"],
+    bump: "minor",
+    summary:
+      "Native Carousel, the roving primitive's first real consumer — and it found a real bug in the primitive it was built on.",
   },
   {
-    "id": "native-checkbox-group",
-    "packages": [
-      "@xoroh/kern-native"
-    ],
-    "bump": "minor",
-    "summary": "Add native CheckboxGroup — a web-only row that was a genuine gap."
+    id: "native-checkbox-group",
+    packages: ["@xoroh/kern-native"],
+    bump: "minor",
+    summary:
+      "Add native CheckboxGroup — a web-only row that was a genuine gap.",
   },
   {
-    "id": "native-composition-and-fonts",
-    "packages": [
-      "@xoroh/kern-native"
-    ],
-    "bump": "minor",
-    "summary": "Native composition layer (roadmap rows 6 + 8), plus native counterparts of the K-02 web-extras set."
+    id: "native-composition-and-fonts",
+    packages: ["@xoroh/kern-native"],
+    bump: "minor",
+    summary:
+      "Native composition layer (roadmap rows 6 + 8), plus native counterparts of the K-02 web-extras set.",
   },
   {
-    "id": "native-fieldset",
-    "packages": [
-      "@xoroh/kern-native"
-    ],
-    "bump": "minor",
-    "summary": "Add native Fieldset — grouped controls with a shared legend and inherited disabled state."
+    id: "native-fieldset",
+    packages: ["@xoroh/kern-native"],
+    bump: "minor",
+    summary:
+      "Add native Fieldset — grouped controls with a shared legend and inherited disabled state.",
   },
   {
-    "id": "native-icon-button",
-    "packages": [
-      "@xoroh/kern-native"
-    ],
-    "bump": "minor",
-    "summary": "Add native IconButton — and export pressIsCancelled, a testable form of a guard that is currently untested everywhere in kern-native."
+    id: "native-icon-button",
+    packages: ["@xoroh/kern-native"],
+    bump: "minor",
+    summary:
+      "Add native IconButton — and export pressIsCancelled, a testable form of a guard that is currently untested everywhere in kern-native.",
   },
   {
-    "id": "native-loading-indicator",
-    "packages": [
-      "@xoroh/kern-native"
-    ],
-    "bump": "minor",
-    "summary": "Add native LoadingIndicator — M3's indeterminate activity feedback, announced as a status rather than a progressbar."
+    id: "native-loading-indicator",
+    packages: ["@xoroh/kern-native"],
+    bump: "minor",
+    summary:
+      "Add native LoadingIndicator — M3's indeterminate activity feedback, announced as a status rather than a progressbar.",
   },
   {
-    "id": "native-meter",
-    "packages": [
-      "@xoroh/kern-native"
-    ],
-    "bump": "minor",
-    "summary": "Add native Meter — M3's static-scalar display (storage used, battery level)."
+    id: "native-meter",
+    packages: ["@xoroh/kern-native"],
+    bump: "minor",
+    summary:
+      "Add native Meter — M3's static-scalar display (storage used, battery level).",
   },
   {
-    "id": "native-pagination",
-    "packages": [
-      "@xoroh/kern-native"
-    ],
-    "bump": "minor",
-    "summary": "Add native Pagination — page navigation with a sliding window, ellipsis gaps, and prev/next."
+    id: "native-pagination",
+    packages: ["@xoroh/kern-native"],
+    bump: "minor",
+    summary:
+      "Add native Pagination — page navigation with a sliding window, ellipsis gaps, and prev/next.",
   },
   {
-    "id": "native-time-picker",
-    "packages": [
-      "@xoroh/kern-native"
-    ],
-    "bump": "minor",
-    "summary": "Native TimePicker — three roving fields, one normalised 24-hour value."
+    id: "native-time-picker",
+    packages: ["@xoroh/kern-native"],
+    bump: "minor",
+    summary:
+      "Native TimePicker — three roving fields, one normalised 24-hour value.",
   },
   {
-    "id": "native-tooltip-and-registry-count-integrity",
-    "packages": [
-      "@xoroh/kern",
-      "@xoroh/kern-native",
-      "@xoroh/kern-mcp"
-    ],
-    "bump": "minor",
-    "summary": "Native M3 Tooltip, and a count-integrity defect in the component registry that made every previously-quoted parity count wrong (P2b-3 tranche 4, kern-lead)."
+    id: "native-tooltip-and-registry-count-integrity",
+    packages: ["@xoroh/kern", "@xoroh/kern-native", "@xoroh/kern-mcp"],
+    bump: "minor",
+    summary:
+      "Native M3 Tooltip, and a count-integrity defect in the component registry that made every previously-quoted parity count wrong (P2b-3 tranche 4, kern-lead).",
   },
   {
-    "id": "p1-7-md-comp-extended-coverage",
-    "packages": [
-      "@xoroh/kern-tokens"
-    ],
-    "bump": "minor",
-    "summary": "P1-7 — extend md.comp.* from 12 components to 27."
+    id: "p1-7-md-comp-extended-coverage",
+    packages: ["@xoroh/kern-tokens"],
+    bump: "minor",
+    summary: "P1-7 — extend md.comp.* from 12 components to 27.",
   },
   {
-    "id": "p1-7b-md-comp-full-m3-families",
-    "packages": [
-      "@xoroh/kern-tokens"
-    ],
-    "bump": "minor",
-    "summary": "P1-7b — md.comp.* now covers every M3 component family: 27 → 42 components, 93 → 142 slots."
+    id: "p1-7b-md-comp-full-m3-families",
+    packages: ["@xoroh/kern-tokens"],
+    bump: "minor",
+    summary:
+      "P1-7b — md.comp.* now covers every M3 component family: 27 → 42 components, 93 → 142 slots.",
   },
   {
-    "id": "p1-8-tailwind-comp-mirror",
-    "packages": [
-      "@xoroh/kern-tokens"
-    ],
-    "bump": "minor",
-    "summary": "P1-8 — mirror the md.comp.* component tables into the Tailwind adapter."
+    id: "p1-8-tailwind-comp-mirror",
+    packages: ["@xoroh/kern-tokens"],
+    bump: "minor",
+    summary:
+      "P1-8 — mirror the md.comp.* component tables into the Tailwind adapter.",
   },
   {
-    "id": "p2-1-kern-gap-fill",
-    "packages": [
-      "@xoroh/kern"
-    ],
-    "bump": "minor",
-    "summary": "Add the seven M3 components Phase 2 named as missing (ladder P2-1): ExtendedFab, FabMenu, IconButton, SplitButton, TimePicker, Carousel, LoadingIndicator (+ LoadingRegion). All seven own behaviour rather than wrapping a primitive."
+    id: "p2-1-kern-gap-fill",
+    packages: ["@xoroh/kern"],
+    bump: "minor",
+    summary:
+      "Add the seven M3 components Phase 2 named as missing (ladder P2-1): ExtendedFab, FabMenu, IconButton, SplitButton, TimePicker, Carousel, LoadingIndicator (+ LoadingRegion). All seven own behaviour rather than wrapping a primitive.",
   },
   {
-    "id": "p2b2-navigation-family-web",
-    "packages": [
-      "@xoroh/kern"
-    ],
-    "bump": "minor",
-    "summary": "Web versions of the navigation family (ladder P2b-2, D11)."
+    id: "p2b2-navigation-family-web",
+    packages: ["@xoroh/kern"],
+    bump: "minor",
+    summary: "Web versions of the navigation family (ladder P2b-2, D11).",
   },
   {
-    "id": "p2b3-fab-family-native",
-    "packages": [
-      "@xoroh/kern-native"
-    ],
-    "bump": "minor",
-    "summary": "M3 FAB / overflow-action family, tranche 2 of the native-parity work (P2b-3): ExtendedFab, FabMenu and SplitButton now ship natively. Also fixes the Dialog's missing role, which announced modal dialogs as unstructured views."
+    id: "p2b3-fab-family-native",
+    packages: ["@xoroh/kern-native"],
+    bump: "minor",
+    summary:
+      "M3 FAB / overflow-action family, tranche 2 of the native-parity work (P2b-3): ExtendedFab, FabMenu and SplitButton now ship natively. Also fixes the Dialog's missing role, which announced modal dialogs as unstructured views.",
   },
   {
-    "id": "p2b3-input-family-native",
-    "packages": [
-      "@xoroh/kern-native"
-    ],
-    "bump": "minor",
-    "summary": "M3 input family, tranche 1 of the native-parity work (P2b-3): Autocomplete, InputOTP and NumberField now ship natively."
+    id: "p2b3-input-family-native",
+    packages: ["@xoroh/kern-native"],
+    bump: "minor",
+    summary:
+      "M3 input family, tranche 1 of the native-parity work (P2b-3): Autocomplete, InputOTP and NumberField now ship natively.",
   },
   {
-    "id": "p2b3-tranche5-overlay-surfaces",
-    "packages": [
-      "@xoroh/kern-native",
-      "@xoroh/kern"
-    ],
-    "bump": "minor",
-    "summary": "P2b-3 tranche 5 — native Drawer, Popover and ScrollArea."
+    id: "p2b3-tranche5-overlay-surfaces",
+    packages: ["@xoroh/kern-native", "@xoroh/kern"],
+    bump: "minor",
+    summary: "P2b-3 tranche 5 — native Drawer, Popover and ScrollArea.",
   },
   {
-    "id": "primitives-roving-index",
-    "packages": [
-      "@xoroh/kern-primitives"
-    ],
-    "bump": "minor",
-    "summary": "Add the roving-index model — one tab stop per composite, arrow traversal within."
+    id: "primitives-roving-index",
+    packages: ["@xoroh/kern-primitives"],
+    bump: "minor",
+    summary:
+      "Add the roving-index model — one tab stop per composite, arrow traversal within.",
   },
   {
-    "id": "primitives-time-normalisation",
-    "packages": [
-      "@xoroh/kern-primitives"
-    ],
-    "bump": "minor",
-    "summary": "Time-picker value normalisation — the pure half of the TimePicker contract."
+    id: "primitives-time-normalisation",
+    packages: ["@xoroh/kern-primitives"],
+    bump: "minor",
+    summary:
+      "Time-picker value normalisation — the pure half of the TimePicker contract.",
   },
   {
-    "id": "system-expansion",
-    "packages": [
+    id: "system-expansion",
+    packages: [
       "@xoroh/kern",
       "@xoroh/kern-tokens",
       "@xoroh/kern-native",
       "@xoroh/kern-icons",
-      "@xoroh/kern-mcp"
+      "@xoroh/kern-mcp",
     ],
-    "bump": "minor",
-    "summary": "System expansion for the 0.1.0 alpha:"
+    bump: "minor",
+    summary: "System expansion for the 0.1.0 alpha:",
   },
   {
-    "id": "tidy-pandas-attend",
-    "packages": [
-      "@xoroh/kern-mcp"
-    ],
-    "bump": "minor",
-    "summary": "Initial release: list_components, get_component, get_tokens, design_audit over stdio."
+    id: "tidy-pandas-attend",
+    packages: ["@xoroh/kern-mcp"],
+    bump: "minor",
+    summary:
+      "Initial release: list_components, get_component, get_tokens, design_audit over stdio.",
   },
   {
-    "id": "tidy-pandas-shake",
-    "packages": [
-      "@xoroh/kern"
-    ],
-    "bump": "minor",
-    "summary": "Initial release: Button (web), shared theme tokens (./theme, ./tokens), cn util (./utils)."
+    id: "tidy-pandas-shake",
+    packages: ["@xoroh/kern"],
+    bump: "minor",
+    summary:
+      "Initial release: Button (web), shared theme tokens (./theme, ./tokens), cn util (./utils).",
   },
   {
-    "id": "tranche2-web-divergence-fixes",
-    "packages": [
-      "@xoroh/kern"
-    ],
-    "bump": "minor",
-    "summary": "Web fixes for the three tranche-2 behaviour divergences ruled in .team/reports/reviews/m3/2026-10-01-p2b4-tranche2-divergence-rulings.md (M3 compliance review). All three were FAIL-as-shipped contract violations: behaviour that existed on one renderer and not the other, or semantics a sighted user got and a screen-reader user did not. The fourth divergence (the native dialog's accessibilityRole) is kern-lead's and is not touched here."
+    id: "tranche2-web-divergence-fixes",
+    packages: ["@xoroh/kern"],
+    bump: "minor",
+    summary:
+      "Web fixes for the three tranche-2 behaviour divergences ruled in .team/reports/reviews/m3/2026-10-01-p2b4-tranche2-divergence-rulings.md (M3 compliance review). All three were FAIL-as-shipped contract violations: behaviour that existed on one renderer and not the other, or semantics a sighted user got and a screen-reader user did not. The fourth divergence (the native dialog's accessibilityRole) is kern-lead's and is not touched here.",
   },
   {
-    "id": "variant-and-resting-elevation-kern-verification",
-    "packages": [
-      "@xoroh/kern",
-      "@xoroh/kern-native",
-      "@xoroh/kern-tokens"
-    ],
-    "bump": "minor",
-    "summary": "Variant + resting-elevation conformance against the M3 spec pages, verified from primary sources (m3.material.io), replacing the secondary summaries the tables previously rested on."
+    id: "variant-and-resting-elevation-kern-verification",
+    packages: ["@xoroh/kern", "@xoroh/kern-native", "@xoroh/kern-tokens"],
+    bump: "minor",
+    summary:
+      "Variant + resting-elevation conformance against the M3 spec pages, verified from primary sources (m3.material.io), replacing the secondary summaries the tables previously rested on.",
   },
   {
-    "id": "web-extras-components",
-    "packages": [
-      "@xoroh/kern"
-    ],
-    "bump": "minor",
-    "summary": "Web-extras P1 (roadmap row 7) — the web set is now complete. Five new components, all M3-conformant and built on Base UI behaviors with Kern tokens:"
+    id: "web-extras-components",
+    packages: ["@xoroh/kern"],
+    bump: "minor",
+    summary:
+      "Web-extras P1 (roadmap row 7) — the web set is now complete. Five new components, all M3-conformant and built on Base UI behaviors with Kern tokens:",
   },
   {
-    "id": "check-layers-gate",
-    "packages": [
-      "@xoroh/kern"
-    ],
-    "bump": "patch",
-    "summary": "Add check:layers — the D-034 package map, now machine-enforced."
+    id: "check-layers-gate",
+    packages: ["@xoroh/kern"],
+    bump: "patch",
+    summary: "Add check:layers — the D-034 package map, now machine-enforced.",
   },
   {
-    "id": "fix-acronym-slugs",
-    "packages": [
-      "@xoroh/kern-mcp"
-    ],
-    "bump": "patch",
-    "summary": "Fix the manifest generator's acronym handling: input-otpinput and input-otproot are now input-otp-input and input-otp-root."
+    id: "fix-acronym-slugs",
+    packages: ["@xoroh/kern-mcp"],
+    bump: "patch",
+    summary:
+      "Fix the manifest generator's acronym handling: input-otpinput and input-otproot are now input-otp-input and input-otp-root.",
   },
   {
-    "id": "fix-elevation-rows",
-    "packages": [
-      "@xoroh/kern-tokens"
-    ],
-    "bump": "patch",
-    "summary": "Fix two elevation rows that asserted nothing, and one that asserted the wrong thing."
+    id: "fix-elevation-rows",
+    packages: ["@xoroh/kern-tokens"],
+    bump: "patch",
+    summary:
+      "Fix two elevation rows that asserted nothing, and one that asserted the wrong thing.",
   },
   {
-    "id": "gate-button-resting-elevation",
-    "packages": [
-      "@xoroh/kern-tokens"
-    ],
-    "bump": "patch",
-    "summary": "Gate Button's resting elevation, and add scripts/measure-elevation.mjs so the next sweep measures before it adds."
+    id: "gate-button-resting-elevation",
+    packages: ["@xoroh/kern-tokens"],
+    bump: "patch",
+    summary:
+      "Gate Button's resting elevation, and add scripts/measure-elevation.mjs so the next sweep measures before it adds.",
   },
   {
-    "id": "generated-output-freshness-gate",
-    "packages": [
-      "@xoroh/kern-tokens"
-    ],
-    "bump": "patch",
-    "summary": "P1-5a — wire the component-token generator into generate:tokens, and add a freshness gate."
+    id: "generated-output-freshness-gate",
+    packages: ["@xoroh/kern-tokens"],
+    bump: "patch",
+    summary:
+      "P1-5a — wire the component-token generator into generate:tokens, and add a freshness gate.",
   },
   {
-    "id": "graph-derived-build-lifecycle",
-    "packages": [
-      "@xoroh/kern",
-      "@xoroh/kern-tokens",
-      "@xoroh/kern-native"
-    ],
-    "bump": "patch",
-    "summary": "Build lifecycle: order is now derived from the dependency graph, and a clean checkout installs."
+    id: "graph-derived-build-lifecycle",
+    packages: ["@xoroh/kern", "@xoroh/kern-tokens", "@xoroh/kern-native"],
+    bump: "patch",
+    summary:
+      "Build lifecycle: order is now derived from the dependency graph, and a clean checkout installs.",
   },
   {
-    "id": "k10-preview-card-and-border-fix",
-    "packages": [
-      "@xoroh/kern"
-    ],
-    "bump": "patch",
-    "summary": "Record the K10 preview-card ruling and drop its non-conformant card border."
+    id: "k10-preview-card-and-border-fix",
+    packages: ["@xoroh/kern"],
+    bump: "patch",
+    summary:
+      "Record the K10 preview-card ruling and drop its non-conformant card border.",
   },
   {
-    "id": "kern-primitives-publish-metadata",
-    "packages": [
-      "@xoroh/kern-primitives"
-    ],
-    "bump": "patch",
-    "summary": "Publish-ready metadata: the tarball now carries the README and the licence."
+    id: "kern-primitives-publish-metadata",
+    packages: ["@xoroh/kern-primitives"],
+    bump: "patch",
+    summary:
+      "Publish-ready metadata: the tarball now carries the README and the licence.",
   },
   {
-    "id": "p1-6-states-consume-or-delete",
-    "packages": [
-      "@xoroh/kern"
-    ],
-    "bump": "patch",
-    "summary": "P1-6 — tokens.states ruling: consume (partial migration), and gate the failure mode."
+    id: "p1-6-states-consume-or-delete",
+    packages: ["@xoroh/kern"],
+    bump: "patch",
+    summary:
+      "P1-6 — tokens.states ruling: consume (partial migration), and gate the failure mode.",
   },
   {
-    "id": "p2-resting-elevation-and-icon-usage",
-    "packages": [
-      "@xoroh/kern",
-      "@xoroh/kern-icons",
-      "@xoroh/kern-tokens"
-    ],
-    "bump": "patch",
-    "summary": "M3 resting-elevation conformance, an icon usage gate, and the per-component doc grammar (ladder Phase 2, design-system-lead)."
+    id: "p2-resting-elevation-and-icon-usage",
+    packages: ["@xoroh/kern", "@xoroh/kern-icons", "@xoroh/kern-tokens"],
+    bump: "patch",
+    summary:
+      "M3 resting-elevation conformance, an icon usage gate, and the per-component doc grammar (ladder Phase 2, design-system-lead).",
   },
   {
-    "id": "parity-contract-and-concept-rule",
-    "packages": [
-      "@xoroh/kern"
-    ],
-    "bump": "patch",
-    "summary": "Document the primitive parity contract and ratify how a component is counted."
+    id: "parity-contract-and-concept-rule",
+    packages: ["@xoroh/kern"],
+    bump: "patch",
+    summary:
+      "Document the primitive parity contract and ratify how a component is counted.",
   },
   {
-    "id": "parity-gate",
-    "packages": [
-      "@xoroh/kern"
-    ],
-    "bump": "patch",
-    "summary": "Add check:parity, a registry-backed gate for the web/native parity contract."
+    id: "parity-gate",
+    packages: ["@xoroh/kern"],
+    bump: "patch",
+    summary:
+      "Add check:parity, a registry-backed gate for the web/native parity contract.",
   },
   {
-    "id": "parity-tests-tranche-1",
-    "packages": [
-      "@xoroh/kern",
-      "@xoroh/kern-native"
-    ],
-    "bump": "patch",
-    "summary": "Add tranche 1 of the cross-renderer behaviour parity suite."
+    id: "parity-tests-tranche-1",
+    packages: ["@xoroh/kern", "@xoroh/kern-native"],
+    bump: "patch",
+    summary: "Add tranche 1 of the cross-renderer behaviour parity suite.",
   },
   {
-    "id": "parity-tests-tranche-2",
-    "packages": [
-      "@xoroh/kern",
-      "@xoroh/kern-native"
-    ],
-    "bump": "patch",
-    "summary": "Cross-renderer behaviour parity, tranche 2: chips, lists, dialogs, text fields."
+    id: "parity-tests-tranche-2",
+    packages: ["@xoroh/kern", "@xoroh/kern-native"],
+    bump: "patch",
+    summary:
+      "Cross-renderer behaviour parity, tranche 2: chips, lists, dialogs, text fields.",
   },
   {
-    "id": "primitives-gate-step-0",
-    "packages": [
-      "@xoroh/kern-primitives"
-    ],
-    "bump": "patch",
-    "summary": "Add the empty @xoroh/kern-primitives package and check:primitives, the boundary gate for the ratified extraction (step 0 of 4)."
+    id: "primitives-gate-step-0",
+    packages: ["@xoroh/kern-primitives"],
+    bump: "patch",
+    summary:
+      "Add the empty @xoroh/kern-primitives package and check:primitives, the boundary gate for the ratified extraction (step 0 of 4).",
   },
   {
-    "id": "primitives-selection",
-    "packages": [
-      "@xoroh/kern-primitives"
-    ],
-    "bump": "patch",
-    "summary": "Extract the collection/selection model as the layer's second real primitive."
+    id: "primitives-selection",
+    packages: ["@xoroh/kern-primitives"],
+    bump: "patch",
+    summary:
+      "Extract the collection/selection model as the layer's second real primitive.",
   },
   {
-    "id": "primitives-usecontrollablestate",
-    "packages": [
-      "@xoroh/kern-primitives"
-    ],
-    "bump": "patch",
-    "summary": "Move useControllableState into the primitives layer and give it tests."
+    id: "primitives-usecontrollablestate",
+    packages: ["@xoroh/kern-primitives"],
+    bump: "patch",
+    summary:
+      "Move useControllableState into the primitives layer and give it tests.",
   },
   {
-    "id": "regen-manifest-and-reconcile-parity-prose",
-    "packages": [
-      "@xoroh/kern-mcp"
-    ],
-    "bump": "patch",
-    "summary": "Regenerate the component inventory and reconcile the parity contract prose."
+    id: "regen-manifest-and-reconcile-parity-prose",
+    packages: ["@xoroh/kern-mcp"],
+    bump: "patch",
+    summary:
+      "Regenerate the component inventory and reconcile the parity contract prose.",
   },
   {
-    "id": "regenerate-component-inventory",
-    "packages": [
-      "@xoroh/kern-mcp"
-    ],
-    "bump": "patch",
-    "summary": "Regenerate the component inventory from the component sources."
+    id: "regenerate-component-inventory",
+    packages: ["@xoroh/kern-mcp"],
+    bump: "patch",
+    summary: "Regenerate the component inventory from the component sources.",
   },
   {
-    "id": "release-plumbing-and-lock-reconcile",
-    "packages": [
-      "@xoroh/kern-mcp"
-    ],
-    "bump": "patch",
-    "summary": "Release plumbing and workspace dependency reconciliation."
+    id: "release-plumbing-and-lock-reconcile",
+    packages: ["@xoroh/kern-mcp"],
+    bump: "patch",
+    summary: "Release plumbing and workspace dependency reconciliation.",
   },
   {
-    "id": "repoint-segmented-button",
-    "packages": [
-      "@xoroh/kern-native"
-    ],
-    "bump": "patch",
-    "summary": "Repoint native SegmentedButton at the shared selection primitive, closing the set of native selection consumers."
+    id: "repoint-segmented-button",
+    packages: ["@xoroh/kern-native"],
+    bump: "patch",
+    summary:
+      "Repoint native SegmentedButton at the shared selection primitive, closing the set of native selection consumers.",
   },
   {
-    "id": "repoint-selection-consumers",
-    "packages": [
-      "@xoroh/kern-primitives",
-      "@xoroh/kern-native"
-    ],
-    "bump": "patch",
-    "summary": "Repoint the native selection consumers at the shared primitive, and fix a selection bug on the way."
+    id: "repoint-selection-consumers",
+    packages: ["@xoroh/kern-primitives", "@xoroh/kern-native"],
+    bump: "patch",
+    summary:
+      "Repoint the native selection consumers at the shared primitive, and fix a selection bug on the way.",
   },
   {
-    "id": "repoint-usecontrollablestate",
-    "packages": [
-      "@xoroh/kern-primitives"
-    ],
-    "bump": "patch",
-    "summary": "Repoint every useControllableState consumer at the primitives layer, and delete both per-renderer copies."
+    id: "repoint-usecontrollablestate",
+    packages: ["@xoroh/kern-primitives"],
+    bump: "patch",
+    summary:
+      "Repoint every useControllableState consumer at the primitives layer, and delete both per-renderer copies.",
   },
   {
-    "id": "sheet-surface-dismissal-contract",
-    "packages": [
-      "@xoroh/kern",
-      "@xoroh/kern-native"
-    ],
-    "bump": "patch",
-    "summary": "Extract the sheet-surface DISMISSAL contract, tested on both renderers (P2b-4 tranche 5) — one contract, two implementations, no shared component."
+    id: "sheet-surface-dismissal-contract",
+    packages: ["@xoroh/kern", "@xoroh/kern-native"],
+    bump: "patch",
+    summary:
+      "Extract the sheet-surface DISMISSAL contract, tested on both renderers (P2b-4 tranche 5) — one contract, two implementations, no shared component.",
   },
   {
-    "id": "sheetsurface-close-glyph-prop",
-    "packages": [
-      "@xoroh/kern-native"
-    ],
-    "bump": "patch",
-    "summary": "SheetSurface: the close glyph is a prop, so the component stops reading tokens.typography and becomes extraction-ready."
+    id: "sheetsurface-close-glyph-prop",
+    packages: ["@xoroh/kern-native"],
+    bump: "patch",
+    summary:
+      "SheetSurface: the close glyph is a prop, so the component stops reading tokens.typography and becomes extraction-ready.",
   },
   {
-    "id": "ship-installable-manifests",
-    "packages": [
+    id: "ship-installable-manifests",
+    packages: [
       "@xoroh/kern",
       "@xoroh/kern-native",
       "@xoroh/kern-primitives",
-      "@xoroh/kern-mcp"
+      "@xoroh/kern-mcp",
     ],
-    "bump": "patch",
-    "summary": "Ship-installable manifests: no workspace: protocol can reach a published tarball, and internal packages now ship real semver ranges."
+    bump: "patch",
+    summary:
+      "Ship-installable manifests: no workspace: protocol can reach a published tarball, and internal packages now ship real semver ranges.",
   },
   {
-    "id": "split-bottom-sheet-surface",
-    "packages": [
-      "@xoroh/kern-native"
-    ],
-    "bump": "patch",
-    "summary": "Split bottomSheetSurface out of sheet-surface.tsx — step 2 of the ratified kern-primitives extraction order."
-  }
+    id: "split-bottom-sheet-surface",
+    packages: ["@xoroh/kern-native"],
+    bump: "patch",
+    summary:
+      "Split bottomSheetSurface out of sheet-surface.tsx — step 2 of the ratified kern-primitives extraction order.",
+  },
 ];
 
 /**

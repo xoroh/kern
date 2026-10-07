@@ -27,7 +27,12 @@ export const button: ComponentDoc = {
     // recorded in Customization because the strip holds a single value.
     elevation: 0,
   },
-  parts: ["Button", "LinkButton", "FocusRing"],
+  // LinkButton and FocusRing ship on this page's story (customization prose
+  // covers both) but are NOT parts: the shared content-api attribution gives
+  // every api row to every part, and Button's api names (variant/size/type…)
+  // are not in a span wrapper's or an anchor's type — claiming them as parts
+  // grows check-props stale rows. One component, one api array.
+  parts: ["Button"],
   customization: {
     supported: [
       "`className` is passed through and merged after the variant classes, so a token-backed utility overrides the variant rather than fighting it.",

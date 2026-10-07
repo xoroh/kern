@@ -662,14 +662,6 @@ export const A11Y: Record<string, A11yPage> = {
             "basis": "button.ts states no aria contract for Button — screen-reader behaviour is unclaimed"
           }
         ]
-      },
-      "LinkButton": {
-        "hasLiveDemo": false,
-        "expectations": []
-      },
-      "FocusRing": {
-        "hasLiveDemo": false,
-        "expectations": []
       }
     }
   },
