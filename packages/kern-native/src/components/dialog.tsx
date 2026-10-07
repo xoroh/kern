@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { useKernScheme } from "../theme";
 import { overlayStyles } from "../utils/overlay-styles";
+import { useKernPortalRegistration } from "./presentation";
 import { Text } from "./text";
 
 const staticStyles = StyleSheet.create({
@@ -86,13 +87,18 @@ export function Dialog({
 }: NativeDialogProps) {
   const scheme = useKernScheme();
   const styles = dialogStyles(scheme);
+  const shown = open ?? visible ?? false;
+  // DUAL-PATH (D12): `Modal` keeps presenting the dialog; the owned portal
+  // registry ALSO tracks it while shown — the same observable the web side
+  // reads off its own registry.
+  useKernPortalRegistration(testID ?? "kern-dialog", shown);
   const notifyDismiss = () => {
     onDismiss?.();
     onOpenChange?.(false);
   };
   return (
     <Modal
-      visible={open ?? visible ?? false}
+      visible={shown}
       transparent
       animationType="fade"
       accessibilityViewIsModal

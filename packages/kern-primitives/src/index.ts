@@ -38,6 +38,13 @@
  */
 
 export {
+  type A11yDir,
+  createIdScope,
+  type IdScope,
+  resolveDir,
+  VISUALLY_HIDDEN_STYLE,
+} from "./a11y";
+export {
   type CollectionItem,
   type CollectionModel,
   type CollectionNode,
@@ -54,6 +61,21 @@ export {
   dismissTriggersFor,
 } from "./dismissPolicy";
 export {
+  type DismissBranches,
+  type DismissSource,
+  type DismissWiringOptions,
+  dismissBranchesFor,
+  shouldDismissOn,
+} from "./dismissWiring";
+export {
+  type AutofocusEvent,
+  createFocusTrapModel,
+  type FocusTrapModel,
+  nextTrapIndex,
+  resolveAutofocus,
+  type TrapMove,
+} from "./focusTrap";
+export {
   assignRef,
   mergeRefs,
   type PossibleRef,
@@ -66,6 +88,34 @@ export {
   useOverlayModality,
   useOverlayRegistration,
 } from "./overlayModality";
+export {
+  createPortalRegistry,
+  type PortalEntry,
+  type PortalRegistry,
+  resolvePortalTarget,
+} from "./portal";
+export {
+  clampRectToViewport,
+  type Placement,
+  type PositioningOptions,
+  type Rect,
+  resolveFloatingOrigin,
+  resolveFloatingRect,
+} from "./positioning";
+export {
+  createPresenceModel,
+  nextPresenceState,
+  type PresenceModel,
+  type PresenceState,
+  usePresence,
+} from "./presence";
+export {
+  createPressModel,
+  isPressActivationKey,
+  type PressModel,
+  type PressPhase,
+  usePress,
+} from "./press";
 export {
   createRovingModel,
   type RovingItem,
@@ -88,6 +138,11 @@ export {
   toggleSelection,
   useSelection,
 } from "./selection";
+export {
+  composeEventHandlers,
+  mergeSlotProps,
+  type SlotProps,
+} from "./slot";
 export {
   formatTimeValue,
   minutesForStep,

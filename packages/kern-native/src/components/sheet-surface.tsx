@@ -1,7 +1,7 @@
 import {
   createDismissPolicy,
-  type DismissTriggers,
-  dismissTriggersFor,
+  dismissBranchesFor,
+  shouldDismissOn,
 } from "@xoroh/kern-primitives";
 import type { ReactNode } from "react";
 import { type ElementRef, useRef } from "react";
@@ -17,6 +17,7 @@ import {
 } from "react-native";
 import { overlayStyles } from "../utils/overlay-styles";
 import { useKernOverlay } from "./overlay-surfaces";
+import { describeAutofocus, useKernPortalRegistration } from "./presentation";
 
 /**
  * The shared Modal + scrim primitive for the kern sheet family (P2b-2).
@@ -120,18 +121,26 @@ export function SheetSurface({
     dismissible,
     hasDismissHandler: Boolean(onDismiss),
   });
-  const triggers = dismissTriggersFor({
+  // The BRANCHES the surface wires, from the shared dismiss-wiring kernel: a
+  // modal dismissible surface wires every branch, so the scrim Pressable, the
+  // system back handler and the close control each fire through the branch
+  // they declare. `open` is threaded through `shouldDismissOn` rather than by
+  // nulling the handlers: a trigger bound to a CLOSED surface must do nothing,
+  // and unbinding it would change what the tree renders.
+  const branches = dismissBranchesFor({
     modal: true,
+    dismissible: policy.canDismiss,
     hasVisibleClose: policy.showClose,
   });
-  const canDismiss = (trigger: keyof DismissTriggers) =>
-    policy.shouldDismiss(trigger, open, triggers);
+  const fires = (
+    source: "outside-pointer" | "system-back" | "close",
+  ): boolean => shouldDismissOn(source, open, branches);
   // R2 lexicon: the single close path — dismissal action plus state report.
   const notifyDismiss = () => {
     onDismiss?.();
     onOpenChange?.(false);
   };
-  const dismiss = canDismiss("scrim") ? notifyDismiss : undefined;
+  const dismiss = fires("outside-pointer") ? notifyDismiss : undefined;
 
   // D3a: register this sheet for as long as it is OPEN, so the shared kernel
   // knows a modal is on screen (Drawer precedent). Registration only — the
@@ -139,6 +148,11 @@ export function SheetSurface({
   // app-side `useAnyModalOpen` signal for background inerting. Keys off `open`,
   // not mount: a mounted-but-closed sheet must not inert the background.
   useKernOverlay(open);
+
+  // DUAL-PATH (D12): `Modal` keeps presenting the surface; the owned portal
+  // registry ALSO tracks it while open, so the kernel can observe which
+  // overlays are on screen (ordering, modality) on both renderers.
+  useKernPortalRegistration(testID, open);
 
   // D2: RN `Modal` presents the window but never moves the accessibility
   // cursor — without this, TalkBack focus stays on the background control that
@@ -153,10 +167,21 @@ export function SheetSurface({
   // missing tag is a silent no-op rather than a defect. The card is
   // deliberately NOT marked `accessible` to make it focusable — that would
   // collapse the sheet's children into one Android node (the D4 class).
+  //
+  // The TARGET is the shared focus-trap kernel's autofocus event over the
+  // stop list `[close?, card]`: index 0 is the close control exactly when the
+  // policy renders one. The focusing ACT stays native (refs + the focus tag).
+  const autofocus = describeAutofocus({ hasCloseControl: policy.showClose });
   const closeRef = useRef<ElementRef<typeof Pressable>>(null);
   const cardRef = useRef<ElementRef<typeof View>>(null);
   const moveFocusInside = () => {
-    const node = closeRef.current ?? cardRef.current;
+    const closeStop =
+      autofocus.type === "focus-stop" &&
+      autofocus.index === 0 &&
+      policy.showClose;
+    const node = closeStop
+      ? (closeRef.current ?? cardRef.current)
+      : cardRef.current;
     const tag = node ? findNodeHandle(node) : null;
     if (tag) AccessibilityInfo.setAccessibilityFocus(tag);
   };
@@ -167,7 +192,7 @@ export function SheetSurface({
       animationType="slide"
       accessibilityViewIsModal
       onShow={moveFocusInside}
-      onRequestClose={canDismiss("escape") ? notifyDismiss : undefined}
+      onRequestClose={fires("system-back") ? notifyDismiss : undefined}
     >
       <View
         style={
@@ -189,7 +214,7 @@ export function SheetSurface({
               accessibilityLabel={closeLabel ?? `Close ${title}`}
               hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
               ref={closeRef}
-              onPress={canDismiss("closeButton") ? notifyDismiss : undefined}
+              onPress={fires("close") ? notifyDismiss : undefined}
               style={{
                 alignSelf: "flex-end",
                 minWidth: 48,
