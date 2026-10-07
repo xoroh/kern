@@ -403,28 +403,22 @@ this heading's figure as well as the gate line's, and history sentences (the
 ones marked *was* / *went* / *from*) are exempt so the doc can still record that
 a count moved.
 
-**Two of the 35 are phantom part-names, so the true web-only count is 33**
-(`review-m3`). The registry carries `input-otp` **twice** — once `platform: "web"`,
-once `platform: "native"` — which makes it *shared*, not web-only, and it was
-already moved web-only → shared in P2b-3 tranche 1. Two sibling rows survive from
-the same source file and are **not components at all**:
+**Dispositioned (T2 P0-counts): the `input-otp` sibling rows are compound
+parts, not phantom rows.** An earlier revision of this section recorded two
+malformed registry names from this same source file (a `camel→kebab`
+hyphenation defect) and derived an adjusted web-only figure from them. The
+generator now emits correctly-hyphenated compound-part names, and the concept
+rule in `scripts/check-parity.mjs` collapses both into the shared `input-otp`
+concept — the same class as `accordion-trigger` or `table-body`. Nothing here
+is owed a native version, and the heading figure above stands as written.
+Pinned by the `input-otp` canary in `check:parity`, which fails if the concept
+ever stops being shared.
 
 | Registry row | Reality |
 |---|---|
 | `input-otp` (web) | the real component; the native twin makes it shared |
-| `input-otpinput` | **malformed part-name** — the generator's `camel→kebab` of `InputOTPInput` produces a missing hyphen, so the `-input` sub-part collapses into the concept name instead of stripping |
-| `input-otproot` | same defect on `InputOTPRoot` |
-
-They inflate this heading by exactly 2 — so a human reading this table should
-subtract two to get the number of real components still owed a native version.
-The gate's figure (**35**) counts every registry row and is therefore the
-mechanical truth; the adjusted figure is analysis, not a count, and is stated
-here in prose on purpose so the two can never be confused. The registry defect
-is the same class `92b42e7` fixed for the `forwardRef` export — a generator
-blind spot that quietly inflates a gated count rather than failing. Not fixed in
-this commit: it needs a generator change plus a `gate:counts` correction, and a
-count that moves under a gate edit is exactly what the two-line `gate:counts`
-assertion exists to catch. Filed as follow-up below.
+| `input-otp-input` | compound part (`InputOTPInput`, `packages/kern/src/components/input-otp.tsx`) — collapses to `input-otp` |
+| `input-otp-root` | compound part (`InputOTPRoot`, same file) — collapses to `input-otp` |
 
 | # | Component | Behaviour | Web contract (exists) | Native contract (to build) | M3 source | Test pointer |
 |---|---|---|---|---|---|---|
@@ -803,7 +797,7 @@ symmetrised, and P2b-2/3 must not "fix" them:
    doc's treatment of `tooltip`).
 2. **`sonner` + `create-sonner-manager`** — ruled in D-026/S1.3: M3 expresses
    transient messaging as **`Snackbar`**, which **ships on both sides** (`Snackbar`
-   is in the 45 shared). Web `Sonner` is `Snackbar`'s *imperative API* over the
+   is in the 83 shared). Web `Sonner` is `Snackbar`'s *imperative API* over the
    same toast manager (`packages/kern/src/components/snackbar.tsx:137` exports
    `createSnackbarManager`). Shipping it natively under a second name would break
    the naming law and duplicate one surface. **The parity row is

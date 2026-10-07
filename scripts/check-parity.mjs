@@ -230,6 +230,41 @@ if (!claim) {
   }
 }
 
+// T2 P0-counts: `PARITY_COUNTS` in `parity/contract.ts` is the canonical
+// export docs and generators import. Re-derive it from the registry and fail
+// if it drifts — a second copy of the counts that nothing checks is the same
+// defect as the stale prose this gate already catches. `web` / `native` are
+// registry ROWS; `shared` is CONCEPTS after the concept rule + NAME_MAPPING.
+{
+  const contractTs = readFileSync(CONTRACT_TS, "utf8");
+  const countsRe =
+    /export const PARITY_COUNTS\s*=\s*\{\s*web:\s*(\d+),\s*native:\s*(\d+),\s*shared:\s*(\d+)\s*\}/;
+  const countsClaim = contractTs.match(countsRe);
+  if (!countsClaim) {
+    violations.push(
+      "parity/contract.ts does not export PARITY_COUNTS.\n" +
+        "  Expected exactly:\n" +
+        "  export const PARITY_COUNTS = { web: <rows>, native: <rows>, shared: <concepts> };",
+    );
+  } else {
+    const [, cWeb, cNative, cShared] = countsClaim.map(Number);
+    const expectedCounts = {
+      web: web.length,
+      native: native.length,
+      shared: shared.length,
+    };
+    const actualCounts = { web: cWeb, native: cNative, shared: cShared };
+    for (const key of Object.keys(expectedCounts)) {
+      if (actualCounts[key] !== expectedCounts[key]) {
+        violations.push(
+          `parity/contract.ts PARITY_COUNTS.${key} is ${actualCounts[key]}, registry has ${expectedCounts[key]}.\n` +
+            `  Update the export in the same change that moved the registry — docs and generators import it.`,
+        );
+      }
+    }
+  }
+}
+
 // Every concept the doc names in its two gap tables must exist in the registry.
 // A row for a component that does not exist is a phantom task; a component with
 // no row is an untracked gap.
@@ -471,6 +506,10 @@ for (const [name, why] of [
   ["segmented-button", "ships on BOTH sides (native in web-parity.tsx)"],
   ["command", "ships on BOTH sides (native in web-parity.tsx)"],
   ["snackbar", "ships on BOTH sides"],
+  // T2 P0-counts test-pin: `input-otp-input` / `input-otp-root` are compound
+  // PARTS of the shared `input-otp` concept (same class as
+  // `accordion-trigger`), collapsed by the concept rule — not phantom rows.
+  ["input-otp", "ships on BOTH sides (web compound Root/Input parts)"],
 ]) {
   if (!shared.includes(name)) {
     violations.push(
@@ -500,7 +539,7 @@ console.log(
   `  deliberate       ${DELIBERATE.length} (${DELIBERATE.join(", ")})`,
 );
 console.log(
-  `  canaries passed  ${["segmented-button", "command", "snackbar"].join(", ")}`,
+  `  canaries passed  ${["segmented-button", "command", "snackbar", "input-otp"].join(", ")}`,
 );
 
 /**

@@ -24,9 +24,10 @@ resolve the same scheme, so a token change lands everywhere at once.
 | `@xoroh/kern` | `packages/kern` | web (DOM) | The web component set, the web theme runtime, `cn` helpers |
 | `@xoroh/kern/start` | `packages/kern/src/start` | web (DOM) | Composition: blocks, top app bar, navigation, panes, scaffolds, link seam |
 | `@xoroh/kern-native` | `packages/kern-native` | native (RN) | The React Native component set and the native scheme hook |
+| `@xoroh/kern-primitives` | `packages/kern-primitives` | platform-free | Renderer-agnostic behaviour logic shared by the web and native renderers (see [`conventions/primitives.md`](conventions/primitives.md)) |
 | `@xoroh/kern-icons` | `packages/kern-icons` | both | Material Symbols registry + `Icon` renderer (web and native) |
 | `@xoroh/kern-mcp` | `packages/mcp` | node | MCP server so agents can list components, fetch source, read tokens, audit screens |
-| `@xoroh/kern-cli` | `packages/kern-cli` | — | Private placeholder for a future `kern add` installer. Not implemented, not published |
+| `@xoroh/kern-cli` | `packages/kern-cli` | — | Experimental, unpublished `kern add` installer (D1): `packages/kern-cli/src` already implements `kern add` vendoring (see `add.ts`), so the old "not implemented" claim is stale — the contradiction is recorded here, not resolved; implementation status is D1's call |
 
 Plus two apps:
 

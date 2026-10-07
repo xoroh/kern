@@ -95,6 +95,30 @@ for (const list of Object.values(byPlatform)) {
 
 const PLATFORM_KEYS = Object.keys(byPlatform);
 
+// Canonical registry counts (T2 P0-counts): parsed from `parity/contract.ts`
+// (`PARITY_COUNTS`), never hard-coded here. Read as text with a regex — the
+// same style `scripts/check-parity.mjs` uses — so this script runs under both
+// bun and node with no TypeScript loader. A missing or unparsable export is a
+// loud failure, not a silent zero: counts nobody verified are worse than none.
+const CONTRACT_SRC = readFileSync(
+  join(APP, "..", "..", "parity", "contract.ts"),
+  "utf8",
+);
+const countsMatch = CONTRACT_SRC.match(
+  /export const PARITY_COUNTS\s*=\s*\{\s*web:\s*(\d+),\s*native:\s*(\d+),\s*shared:\s*(\d+)\s*\}/,
+);
+if (!countsMatch) {
+  console.error(
+    "generate-manifest: PARITY_COUNTS not found in parity/contract.ts — refusing to emit counts nobody verified",
+  );
+  process.exit(1);
+}
+const PARITY_COUNTS = {
+  web: Number(countsMatch[1]),
+  native: Number(countsMatch[2]),
+  shared: Number(countsMatch[3]),
+};
+
 const toEntry = (platform) => (c) => ({
   slug: `${platform}/${c.name}`,
   name: c.name,
@@ -127,6 +151,14 @@ export type ComponentEntry = {
 export const COMPONENTS: ComponentEntry[] = ${JSON.stringify(all, null, 2)};
 
 export const COMPONENT_COUNT = COMPONENTS.length;
+
+/**
+ * Canonical registry counts, emitted from PARITY_COUNTS in
+ * parity/contract.ts (see the parse above) — the site never hard-codes
+ * its own copy. "web" / "native" are registry rows, "shared" is concepts;
+ * different units, do not compare them.
+ */
+export const PARITY_COUNTS = ${JSON.stringify(PARITY_COUNTS, null, 2)};
 
 const BY_SLUG = new Map(COMPONENTS.map((c) => [c.slug, c]));
 
