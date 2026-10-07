@@ -18,11 +18,13 @@
  * 2. No duplicate hrefs in the nav (two leaves, one destination — the map
  *    lying about the territory).
  * 3. Zero orphans: every top-level route must be reachable from at least one
- *    chrome surface — the docs sidebar (NAV_LEAVES), the rail/mobile menu
- *    (RAIL_ITEMS in app-rail.tsx), the footer, or the ⌘K palette (/search,
- *    opened from every page). Anything still unlisted fails. Some routes are
- *    destinations, not wayfinding — the rail and footer are what keep them
- *    listed, so the omission from the sidebar stays a decision, not drift.
+ *    chrome surface — the docs sidebar (NAV_LEAVES), the header tabs and
+ *    drawer (PRIMARY_TABS in site-header.tsx, SECONDARY in
+ *    mobile-drawer.tsx), the docs-context rail (RAIL_ITEMS in app-rail.tsx),
+ *    the footer, or the ⌘K palette (/search, opened from every page).
+ *    Anything still unlisted fails. Some routes are destinations, not
+ *    wayfinding — the rail and footer are what keep them listed, so the
+ *    omission from the sidebar stays a decision, not drift.
  */
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
@@ -65,11 +67,14 @@ for (const leaf of leaves) {
 
 // Routes with no nav leaf: walk top-level route files (one deep for groups).
 // A route is covered when any chrome surface reaches it: the sidebar leaves
-// above, the rail/mobile menu (one RAIL_ITEMS list feeds both), the footer,
-// or the ⌘K palette (/search opens from every page via rail, mobile bar, and
-// keyboard). Anything left over is an orphan and fails.
+// above, the header tabs and drawer (one PRIMARY_TABS list feeds both, plus
+// the drawer's secondary list), the docs-context rail (RAIL_ITEMS), the
+// footer, or the ⌘K palette (/search opens from every page via header,
+// drawer, and keyboard). Anything left over is an orphan and fails.
 const covered = new Set([...seen.keys()]);
 for (const file of [
+  join(SITE, "src", "components", "chrome", "site-header.tsx"),
+  join(SITE, "src", "components", "chrome", "mobile-drawer.tsx"),
   join(SITE, "src", "components", "chrome", "app-rail.tsx"),
   join(SITE, "src", "components", "chrome", "footer.tsx"),
 ]) {

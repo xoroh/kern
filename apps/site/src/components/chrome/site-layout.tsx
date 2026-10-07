@@ -1,13 +1,14 @@
 import { useLocation } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
-import { AppRail, MobileBar } from "./app-rail";
+import { AppRail } from "./app-rail";
 import { DocsSidebar } from "./docs-sidebar";
 import { Footer } from "./footer";
 import { SearchPalette } from "./search-palette";
+import { SiteHeader } from "./site-header";
 import { T_BODY_SM, T_LABEL } from "../../systems/type-scale";
 
 /**
- * Docs-section paths render with the section sidebar tree. The rail covers
+ * Docs-section paths render with the section sidebar tree. The header covers
  * the top-level destinations; it does not map the docs section, so these
  * paths get the tree. Anything else renders full-width.
  */
@@ -85,12 +86,18 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       >
         Skip to content
       </a>
-      <AppRail />
+      {/* The header is the primary chrome on every page. The rail renders
+          alongside it on docs-context pages only — it is offset into the
+          content column so the two never overlap. */}
+      {withSidebar ? <AppRail /> : null}
       {/* data-chrome marks the regions the search palette makes inert while
           it is open. The palette itself renders outside them (below), so
           insetting the page never traps the dialog it is trying to show. */}
-      <div className="flex flex-col md:pl-20" data-chrome="content">
-        <MobileBar />
+      <div
+        className={withSidebar ? "flex flex-col md:pl-20" : "flex flex-col"}
+        data-chrome="content"
+      >
+        <SiteHeader />
         {/* Content fills the viewport so the footer starts below the fold —
             only reachable by scrolling. */}
         {withSidebar ? (
