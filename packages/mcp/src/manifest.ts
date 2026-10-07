@@ -2188,6 +2188,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    name: "contrast-toggle",
+    export: "ContrastToggle",
+    platform: "native",
+    path: "src/components/contrast-toggle.tsx",
+    status: "real",
+  },
+  {
     name: "dialog",
     export: "Dialog",
     platform: "native",
@@ -2290,6 +2297,13 @@ export const COMPONENTS: ComponentEntry[] = [
     export: "Input",
     platform: "native",
     path: "src/components/input.tsx",
+    status: "real",
+  },
+  {
+    name: "kbd",
+    export: "Kbd",
+    platform: "native",
+    path: "src/components/kbd.tsx",
     status: "real",
   },
   {
@@ -2545,6 +2559,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    name: "settings-row",
+    export: "SettingsRow",
+    platform: "native",
+    path: "src/components/settings-row.tsx",
+    status: "real",
+  },
+  {
     name: "shape-art",
     export: "ShapeArt",
     platform: "native",
@@ -2664,6 +2685,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    name: "status-bar",
+    export: "StatusBar",
+    platform: "native",
+    path: "src/components/status-bar.tsx",
+    status: "real",
+  },
+  {
     name: "success-transform",
     export: "SuccessTransform",
     platform: "native",
@@ -2706,6 +2734,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    name: "theme-toggle",
+    export: "ThemeToggle",
+    platform: "native",
+    path: "src/components/theme-toggle.tsx",
+    status: "real",
+  },
+  {
     name: "time-picker",
     export: "TimePicker",
     platform: "native",
@@ -2738,6 +2773,13 @@ export const COMPONENTS: ComponentEntry[] = [
     export: "Tooltip",
     platform: "native",
     path: "src/components/tooltip.tsx",
+    status: "real",
+  },
+  {
+    name: "top-app-bar-toggle",
+    export: "TopAppBarToggle",
+    platform: "native",
+    path: "src/components/top-app-bar-toggle.tsx",
     status: "real",
   },
   {

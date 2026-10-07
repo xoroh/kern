@@ -87,6 +87,8 @@ export type { NativeCollapsibleProps } from "./components/collapsible";
 export { Collapsible } from "./components/collapsible";
 export type { NativeContextMenuProps } from "./components/context-menu";
 export { ContextMenu } from "./components/context-menu";
+export type { NativeContrastToggleProps } from "./components/contrast-toggle";
+export { ContrastToggle } from "./components/contrast-toggle";
 export type {
   NativeDialogAction,
   NativeDialogProps,
@@ -143,6 +145,8 @@ export type { NativeInputOTPProps } from "./components/input-otp";
 // box with no state) stay module-level exports — see the note on
 // `defaultAutocompleteFilter` above.
 export { InputOTP, inputOTPStyles } from "./components/input-otp";
+export type { NativeKbdProps } from "./components/kbd";
+export { Kbd } from "./components/kbd";
 export type { LabelProps } from "./components/label";
 export { Label } from "./components/label";
 export type {
@@ -291,6 +295,8 @@ export type {
 export { Select, selectStyles } from "./components/select";
 export type { SeparatorProps } from "./components/separator";
 export { Separator } from "./components/separator";
+export type { NativeSettingsRowProps } from "./components/settings-row";
+export { SettingsRow } from "./components/settings-row";
 export type { ShapeProps } from "./components/shape";
 export { Shape, shapeStyles } from "./components/shape";
 export type { ShapeArtLayout, ShapeArtProps } from "./components/shape-art";
@@ -341,6 +347,8 @@ export type {
   NativeSplitButtonProps,
 } from "./components/split-button";
 export { SplitButton, splitButtonStyles } from "./components/split-button";
+export type { NativeStatusBarProps } from "./components/status-bar";
+export { StatusBar } from "./components/status-bar";
 export type {
   SuccessState,
   SuccessTransformProps,
@@ -359,6 +367,8 @@ export type { NativeTextProps } from "./components/text";
 export { Text } from "./components/text";
 export type { TextareaProps } from "./components/textarea";
 export { Textarea } from "./components/textarea";
+export type { NativeThemeToggleProps } from "./components/theme-toggle";
+export { ThemeToggle } from "./components/theme-toggle";
 export type { NativeTimePickerProps } from "./components/time-picker";
 export { TimePicker, timeFieldStyles } from "./components/time-picker";
 export type { NativeToggleProps } from "./components/toggle";
@@ -387,6 +397,8 @@ export {
   TopAppBarAction,
   topAppBarStyles,
 } from "./components/top-app-bar";
+export type { NativeTopAppBarToggleProps } from "./components/top-app-bar-toggle";
+export { TopAppBarToggle } from "./components/top-app-bar-toggle";
 export type {
   BannerVariant,
   CommandAction,

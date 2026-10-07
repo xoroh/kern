@@ -331,6 +331,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `collapsible` | `Collapsible` | real |
 | `command` | `Command` | real |
 | `context-menu` | `ContextMenu` | real |
+| `contrast-toggle` | `ContrastToggle` | real |
 | `country-select` | `CountrySelect` | real |
 | `dialog` | `Dialog` | real |
 | `dock-sheet` | `DockSheet` | real |
@@ -352,6 +353,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `icon-button-target` | `IconButtonTarget` | real |
 | `input` | `Input` | real |
 | `input-otp` | `InputOTP` | real |
+| `kbd` | `Kbd` | real |
 | `kern-pressable` | `KernPressable` | real |
 | `label` | `Label` | real |
 | `linear-progress` | `LinearProgress` | real |
@@ -385,6 +387,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `segmented-button` | `SegmentedButton` | real |
 | `select` | `Select` | real |
 | `separator` | `Separator` | real |
+| `settings-row` | `SettingsRow` | real |
 | `shape` | `Shape` | real |
 | `shape-art` | `ShapeArt` | real |
 | `sheet` | `Sheet` | real |
@@ -396,6 +399,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `snap-sheet` | `SnapSheet` | real |
 | `split` | `Split` | real |
 | `split-button` | `SplitButton` | real |
+| `status-bar` | `StatusBar` | real |
 | `success-transform` | `SuccessTransform` | real |
 | `supporting-pane` | `SupportingPane` | real |
 | `switch` | `Switch` | real |
@@ -403,6 +407,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `tabs` | `Tabs` | real |
 | `text` | `Text` | real |
 | `textarea` | `Textarea` | real |
+| `theme-toggle` | `ThemeToggle` | real |
 | `time-picker` | `TimePicker` | real |
 | `toggle` | `Toggle` | real |
 | `toggle-group` | `ToggleGroup` | real |
@@ -410,3 +415,4 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `tooltip` | `Tooltip` | real |
 | `top-app-bar` | `TopAppBar` | real |
 | `top-app-bar-action` | `TopAppBarAction` | real |
+| `top-app-bar-toggle` | `TopAppBarToggle` | real |
