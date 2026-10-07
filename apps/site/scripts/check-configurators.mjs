@@ -1,4 +1,5 @@
 #!/usr/bin/env bun
+import { __edge_bannerVariantOf } from "../src/showcase/configurators/banner.tsx";
 /**
  * check-configurators.mjs — every configurator's adapter survives its edge.
  *
@@ -34,6 +35,26 @@ eq(
 eq("icon-button boolean", __edge_variantOf({ variant: true }), "standard");
 eq("icon-button missing", __edge_variantOf({}), "standard");
 eq("icon-button tonal", __edge_variantOf({ variant: "tonal" }), "tonal");
+
+// banner: same adapter contract, same edges
+eq(
+  "banner unknown string",
+  __edge_bannerVariantOf({ variant: "nope" }),
+  "info",
+);
+eq("banner boolean", __edge_bannerVariantOf({ variant: false }), "info");
+eq("banner missing", __edge_bannerVariantOf({}), "info");
+eq("banner error", __edge_bannerVariantOf({ variant: "error" }), "error");
+{
+  const src = await Bun.file(
+    new URL("../src/showcase/configurators/banner.tsx", import.meta.url),
+  ).text();
+  eq(
+    "banner typeof guard present",
+    src.includes('typeof v.variant === "string"'),
+    true,
+  );
+}
 
 // The typeof guard is load-bearing, not style: without it `.includes`
 // receives a boolean, and Array.prototype.includes does NOT throw on a
