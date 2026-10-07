@@ -30,6 +30,7 @@ import { PREVIEW_CARD_CONFIGURATOR } from "./configurators/preview-card";
 import { PROGRESS_CONFIGURATOR } from "./configurators/progress";
 import { RADIO_GROUP_CONFIGURATOR } from "./configurators/radio-group";
 import { SEARCH_CONFIGURATOR } from "./configurators/search";
+import { SEGMENTED_BUTTON_CONFIGURATOR } from "./configurators/segmented-button";
 import { SELECT_CONFIGURATOR } from "./configurators/select";
 import { SHEET_CONFIGURATOR } from "./configurators/sheet";
 import { SLIDER_CONFIGURATOR } from "./configurators/slider";
@@ -72,10 +73,10 @@ export function examplesFor(exportName: string): ExampleSpec[] {
 /**
  * The Configurator registry — export name → its configurator, if any.
  *
- * Flagships first (Button, Switch, Dialog), then Sheet, Select, Popover, Slider, Sonner, NumberField, Accordion, Progress, Field, ToggleGroup, Meter, Autocomplete, Drawer, Menu, Menubar, Pagination, Snackbar, Tabs, Tooltip, NavigationMenu, Collapsible, CountrySelect, CheckboxGroup, Chip, Search, AlertDialog, PreviewCard, Form, InputOTP, ContextMenu, Toggle, Carousel, Card, Badge, Avatar: one entry per
+ * Flagships first (Button, Switch, Dialog), then Sheet, Select, Popover, Slider, Sonner, NumberField, Accordion, Progress, Field, ToggleGroup, Meter, Autocomplete, Drawer, Menu, Menubar, Pagination, Snackbar, Tabs, Tooltip, NavigationMenu, Collapsible, CountrySelect, CheckboxGroup, Chip, Search, AlertDialog, PreviewCard, Form, InputOTP, ContextMenu, Toggle, Carousel, Card, Badge, Avatar, Segmented button: one entry per
  * component, same keying as EXAMPLES, so a family page looks its
  * configurator up the same way. The harness is proven; further components
- * plug in here with zero template edits. Latest: Avatar.
+ * plug in here with zero template edits. Latest: Segmented button.
  */
 export const CONFIGURATORS: Record<string, ConfiguratorSpec> = {
   Accordion: ACCORDION_CONFIGURATOR,
@@ -119,6 +120,7 @@ export const CONFIGURATORS: Record<string, ConfiguratorSpec> = {
   Slider: SLIDER_CONFIGURATOR,
   Snackbar: SNACKBAR_CONFIGURATOR,
   Sonner: SONNER_CONFIGURATOR,
+  SegmentedButton: SEGMENTED_BUTTON_CONFIGURATOR,
 };
 
 /** The configurator for an export, if one is registered. */
