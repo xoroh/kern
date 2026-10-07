@@ -19,6 +19,7 @@ import { DRAWER_CONFIGURATOR } from "./configurators/drawer";
 import { FAB_CONFIGURATOR } from "./configurators/fab";
 import { FIELD_CONFIGURATOR } from "./configurators/field";
 import { FORM_CONFIGURATOR } from "./configurators/form";
+import { ICON_BUTTON_CONFIGURATOR } from "./configurators/icon-button";
 import { INPUT_OTP_CONFIGURATOR } from "./configurators/input-otp";
 import { MENU_CONFIGURATOR } from "./configurators/menu";
 import { MENUBAR_CONFIGURATOR } from "./configurators/menubar";
@@ -77,7 +78,7 @@ export function examplesFor(exportName: string): ExampleSpec[] {
  * Flagships first (Button, Switch, Dialog), then Sheet, Select, Popover, Slider, Sonner, NumberField, Accordion, Progress, Field, ToggleGroup, Meter, Autocomplete, Drawer, Menu, Menubar, Pagination, Snackbar, Tabs, Tooltip, NavigationMenu, Collapsible, CountrySelect, CheckboxGroup, Chip, Search, AlertDialog, PreviewCard, Form, InputOTP, ContextMenu, Toggle, Carousel, Card, Badge, Avatar, Segmented button: one entry per
  * component, same keying as EXAMPLES, so a family page looks its
  * configurator up the same way. The harness is proven; further components
- * plug in here with zero template edits. Latest: Segmented button.
+ * plug in here with zero template edits. Latest: Icon button.
  */
 export const CONFIGURATORS: Record<string, ConfiguratorSpec> = {
   Accordion: ACCORDION_CONFIGURATOR,
@@ -108,6 +109,7 @@ export const CONFIGURATORS: Record<string, ConfiguratorSpec> = {
   Field: FIELD_CONFIGURATOR,
   Fab: FAB_CONFIGURATOR,
   Form: FORM_CONFIGURATOR,
+  IconButton: ICON_BUTTON_CONFIGURATOR,
   InputOTP: INPUT_OTP_CONFIGURATOR,
   Menu: MENU_CONFIGURATOR,
   Menubar: MENUBAR_CONFIGURATOR,
