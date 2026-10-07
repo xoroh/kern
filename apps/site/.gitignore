@@ -7,3 +7,7 @@ src/routeTree.gen.ts
 # under the root generated-artifacts census, whose registry this lane does not
 # own. check-page-md owns the emission contract instead.
 public/md/
+# MCP corpus index (bun run generate → scripts/generate-mcp-index.mjs).
+# Same arrangement as public/md/: gitignored build output, served with the
+# deployed site at /mcp/index.json. check-mcp-index owns the index contract.
+public/mcp/

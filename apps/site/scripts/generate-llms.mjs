@@ -19,8 +19,8 @@
 import { mkdirSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { NAV_SECTIONS } from "../src/systems/nav.ts";
 import { FOUNDATIONS } from "../src/foundations/shell.tsx";
+import { NAV_SECTIONS } from "../src/systems/nav.ts";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const APP = join(HERE, "..");
@@ -33,10 +33,13 @@ const REPO = "https://github.com/xoroh/kern";
 async function loadDocs(subdir) {
   const dir = join(APP, "src", "content", subdir);
   const docs = [];
-  for (const file of readdirSync(dir).filter((f) => f.endsWith(".ts")).sort()) {
+  for (const file of readdirSync(dir)
+    .filter((f) => f.endsWith(".ts"))
+    .sort()) {
     const mod = await import(join(dir, file));
     for (const doc of Object.values(mod)) {
-      if (doc && typeof doc === "object" && doc.slug && doc.name) docs.push(doc);
+      if (doc && typeof doc === "object" && doc.slug && doc.name)
+        docs.push(doc);
     }
   }
   return docs;
@@ -44,7 +47,9 @@ async function loadDocs(subdir) {
 
 const link = (label, href, hint) => {
   if (!label.trim() || !hint.trim()) {
-    console.error(`x    llms entry ${href} carries no label/hint — refusing a blank line`);
+    console.error(
+      `x    llms entry ${href} carries no label/hint — refusing a blank line`,
+    );
     process.exit(1);
   }
   return `- [${label}](${href}): ${hint}`;
@@ -60,14 +65,17 @@ const lines = [
   "",
   "Prefer these machine surfaces over scraping HTML:",
   "- /llms.txt (this file) — the complete page map, generated from the nav, the content docs and the foundations registry",
+  "- Per-page markdown at /md/{web|mobile}/<slug>.md and /md/foundations/<slug>.md — same content the page renders, linked from every component and Foundations page via its View .md affordance",
+  "- /mcp/index.json — the whole docs corpus as data: title, one-liner, page route, and .md URL per page",
   "- Copy as Markdown button on every component and Foundations page — page prose + code + links, live-demo controls excluded",
-  `- Agent skills in the repo: .agents/skills/kern/SKILL.md and .agents/skills/docs/SKILL.md (${REPO}/tree/main/.agents/skills)`,
+  `- Agent skills in the repo: .agents/skills/kern/SKILL.md, .agents/skills/kern-agents/SKILL.md and .agents/skills/docs/SKILL.md (${REPO}/tree/main/.agents/skills)`,
   "",
 ];
 
 for (const section of NAV_SECTIONS) {
   lines.push(`## ${section.label}`, "");
-  for (const leaf of section.leaves) lines.push(link(leaf.label, leaf.href, leaf.hint));
+  for (const leaf of section.leaves)
+    lines.push(link(leaf.label, leaf.href, leaf.hint));
   lines.push("");
 }
 
@@ -77,11 +85,16 @@ for (const page of FOUNDATIONS) {
 }
 lines.push("");
 
-const families = { web: await loadDocs("web"), mobile: await loadDocs("mobile") };
+const families = {
+  web: await loadDocs("web"),
+  mobile: await loadDocs("mobile"),
+};
 for (const [platform, docs] of Object.entries(families)) {
   lines.push(`## Component families — ${platform}`, "");
   for (const doc of docs) {
-    lines.push(link(doc.name, `/components/${platform}/${doc.slug}`, doc.oneLiner));
+    lines.push(
+      link(doc.name, `/components/${platform}/${doc.slug}`, doc.oneLiner),
+    );
   }
   lines.push("");
 }

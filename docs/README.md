@@ -10,8 +10,9 @@ Four doc kinds. Don't mix them.
   from code; regenerate rather than edit.
 - **Contributor docs** → `docs/` (this folder): process, conventions,
   decisions.
-- **Agent knowledge** → `.agents/skills/`: `kern` (design authority), `docs`
-  (how to keep all of the above updated).
+- **Agent knowledge** → `.agents/skills/`: `kern` (design authority),
+  `kern-agents` (consume Kern as an agent via the machine surfaces),
+  `docs` (how to keep all of the above updated).
 
 Rule: update docs in the same change as the code — never defer. The `docs`
 skill (`.agents/skills/docs/SKILL.md`) defines exactly where each change type
