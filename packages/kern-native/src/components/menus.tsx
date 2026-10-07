@@ -168,6 +168,8 @@ export type MenuSheetProps = {
   title: string;
   groups: MenuGroup[];
   onDismiss?: () => void;
+  /** R2 lexicon: state report — SheetSurface calls it with `false` on every dismissal path, alongside `onDismiss`. */
+  onOpenChange?: (open: boolean) => void;
   style?: StyleProp<ViewStyle>;
   testID?: string;
 };
@@ -185,6 +187,7 @@ export function MenuSheet({
   title,
   groups,
   onDismiss,
+  onOpenChange,
   style,
   testID,
 }: MenuSheetProps) {
@@ -195,6 +198,7 @@ export function MenuSheet({
       open={open}
       title={title}
       onDismiss={onDismiss}
+      onOpenChange={onOpenChange}
       testID={testID ?? "kern-menu-sheet"}
       handle={<SheetHandle />}
       surface={{
@@ -253,6 +257,8 @@ export type ActionSheetProps = {
   actions?: CreateSheetAction[];
   /** Wired to scrim press and hardware back. */
   onDismiss?: () => void;
+  /** R2 lexicon: state report — SheetSurface calls it with `false` on every dismissal path, alongside `onDismiss`. */
+  onOpenChange?: (open: boolean) => void;
   style?: StyleProp<ViewStyle>;
   testID?: string;
 };
@@ -264,6 +270,7 @@ export function ActionSheet({
   children,
   actions,
   onDismiss,
+  onOpenChange,
   style,
   testID,
 }: ActionSheetProps) {
@@ -274,6 +281,7 @@ export function ActionSheet({
       open={open}
       title={title}
       onDismiss={onDismiss}
+      onOpenChange={onOpenChange}
       testID={testID ?? "kern-action-sheet"}
       handle={<SheetHandle />}
       surface={{

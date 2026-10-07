@@ -34,6 +34,14 @@ export type FilterChipProps = CommonChipProps & {
   selected?: boolean;
   defaultSelected?: boolean;
   onSelectedChange?: (selected: boolean) => void;
+  /**
+   * R2 lexicon canonical names (`value` wins when both are passed; both
+   * callbacks fire). `selected`/`defaultSelected`/`onSelectedChange` are
+   * deprecated aliases onto the same state.
+   */
+  value?: boolean;
+  defaultValue?: boolean;
+  onValueChange?: (selected: boolean) => void;
 };
 
 export type ActionChipProps = CommonChipProps & {
@@ -57,17 +65,38 @@ export function Chip(props: ChipProps) {
     onSelectedChange,
     ...buttonProps
   } = props;
+  // R2 lexicon canonical names, read off the narrowed filter branch so the
+  // DOM `value`/`defaultValue` (string|number) on action chips never leak
+  // into the boolean selection state — or vice versa.
+  const filterProps = variant === "filter" ? (props as FilterChipProps) : null;
+  const valueProp = filterProps?.value;
+  const lexiconDefault = filterProps?.defaultValue;
+  const onValueChange = filterProps?.onValueChange;
   const [internalSelected, setInternalSelected] = useState(
-    props.variant === "filter" ? (defaultSelected ?? false) : false,
+    props.variant === "filter"
+      ? (lexiconDefault ?? defaultSelected ?? false)
+      : false,
   );
   const isFilter = variant === "filter";
-  const selected = isFilter ? (selectedProp ?? internalSelected) : false;
+  if (isFilter) {
+    // The lexicon booleans are component state, not DOM attributes — a
+    // filter chip must not render `value="true"` onto its `<button>`.
+    // (Action chips keep the DOM `value`; see the note above.)
+    delete (buttonProps as Record<string, unknown>).value;
+    delete (buttonProps as Record<string, unknown>).defaultValue;
+    delete (buttonProps as Record<string, unknown>).onValueChange;
+  }
+  const selected = isFilter
+    ? (valueProp ?? selectedProp ?? internalSelected)
+    : false;
 
   function handleClick(event: MouseEvent<HTMLButtonElement>) {
     onClick?.(event);
     if (isFilter && !disabled && !event.defaultPrevented) {
       const next = !selected;
-      if (selectedProp === undefined) setInternalSelected(next);
+      if (valueProp === undefined && selectedProp === undefined)
+        setInternalSelected(next);
+      onValueChange?.(next);
       onSelectedChange?.(next);
     }
   }

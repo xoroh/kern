@@ -27,36 +27,56 @@ export function sheetStyles(scheme: ResolvedTheme = resolveThemeDetails()): {
 }
 
 export type NativeSheetProps = {
-  visible: boolean;
+  /**
+   * Legacy visibility name. Optional now that `open` exists — at least one
+   * of the two is required in practice (`open` wins when both are passed).
+   */
+  visible?: boolean;
+  /**
+   * R2 lexicon alias for `visible` (`open` wins when both are passed).
+   * Controlled-only passthrough — no `defaultOpen`, no state.
+   */
+  open?: boolean;
   title: string;
   children?: ReactNode;
   onDismiss?: () => void;
+  /**
+   * R2 lexicon: state report — fired with `false` alongside `onDismiss`
+   * on scrim press and hardware back.
+   */
+  onOpenChange?: (open: boolean) => void;
   style?: StyleProp<ViewStyle>;
   testID?: string;
 };
 
 export function Sheet({
   visible,
+  open,
   title,
   children,
   onDismiss,
+  onOpenChange,
   style,
   testID,
 }: NativeSheetProps) {
   const scheme = useKernScheme();
   const styles = sheetStyles(scheme);
+  const notifyDismiss = () => {
+    onDismiss?.();
+    onOpenChange?.(false);
+  };
   return (
     <Modal
-      visible={visible}
+      visible={open ?? visible ?? false}
       transparent
       animationType="slide"
       accessibilityViewIsModal
-      onRequestClose={onDismiss}
+      onRequestClose={notifyDismiss}
     >
       <View style={overlayStyles.bottomScrim}>
         <Pressable
           accessibilityLabel="Dismiss sheet"
-          onPress={onDismiss}
+          onPress={notifyDismiss}
           style={{ flex: 1 }}
         />
         <View testID={testID ?? "kern-sheet"} style={[styles.card, style]}>

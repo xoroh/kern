@@ -118,7 +118,12 @@ export function pressIsCancelled(event?: {
 
 export type NativeIconButtonProps = Omit<
   PressableProps,
-  "children" | "style" | "onPress" | "accessibilityState" | "accessibilityRole"
+  | "children"
+  | "style"
+  | "onPress"
+  | "accessibilityState"
+  | "accessibilityRole"
+  | "testID"
 > & {
   /** REQUIRED. The accessible name — there is no visible text to supply one. */
   label: string;
@@ -130,6 +135,15 @@ export type NativeIconButtonProps = Omit<
   pressed?: boolean;
   defaultPressed?: boolean;
   onPressedChange?: (pressed: boolean) => void;
+  /**
+   * R2 lexicon canonical names (`value` wins when both are passed; both
+   * callbacks fire). `pressed`/`defaultPressed`/`onPressedChange` are
+   * deprecated aliases onto the same state. `onPress` (the RN press event)
+   * is the platform action and stays untouched.
+   */
+  value?: boolean;
+  defaultValue?: boolean;
+  onValueChange?: (pressed: boolean) => void;
   disabled?: boolean;
   onPress?: PressableProps["onPress"];
   style?: PressableProps["style"];
@@ -143,6 +157,9 @@ export function IconButton({
   pressed: pressedProp,
   defaultPressed = false,
   onPressedChange,
+  value: valueProp,
+  defaultValue,
+  onValueChange,
   disabled = false,
   onPress,
   hitSlop,
@@ -152,9 +169,12 @@ export function IconButton({
 }: NativeIconButtonProps) {
   const scheme = useKernScheme();
   const [isPressedRaw, setPressed] = useControllableState<boolean>(
-    pressedProp,
-    defaultPressed,
-    onPressedChange,
+    valueProp ?? pressedProp,
+    defaultValue ?? defaultPressed,
+    (next) => {
+      onValueChange?.(next);
+      onPressedChange?.(next);
+    },
   );
   // `useControllableState` is typed `boolean | undefined` because it also serves
   // string/number state; with a defaultValue this is never undefined in

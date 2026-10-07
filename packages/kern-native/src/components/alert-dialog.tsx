@@ -25,20 +25,40 @@ export function alertDialogStyles(
 }
 
 export type NativeAlertDialogProps = {
-  visible: boolean;
+  /**
+   * Legacy visibility name. Optional now that `open` exists — at least one
+   * of the two is required in practice (`open` wins when both are passed).
+   */
+  visible?: boolean;
+  /**
+   * R2 lexicon alias for `visible`. Controlled-only passthrough — no
+   * `defaultOpen`, no state.
+   */
+  open?: boolean;
   title: string;
   message?: string;
   confirmLabel?: string;
   cancelLabel?: string;
+  /**
+   * R2 lexicon: DECISION actions, not state. Confirm/cancel say WHAT the
+   * user chose; `onDismiss`/`onOpenChange(false)` say the surface closed.
+   * All three fire on their paths — choosing is not closing.
+   */
   onConfirm?: () => void;
   onCancel?: () => void;
   onDismiss?: () => void;
+  /**
+   * R2 lexicon: state report — fired with `false` alongside `onDismiss`
+   * on every close path.
+   */
+  onOpenChange?: (open: boolean) => void;
   style?: StyleProp<ViewStyle>;
   testID?: string;
 };
 
 export function AlertDialog({
   visible,
+  open,
   title,
   message,
   confirmLabel = "Confirm",
@@ -46,20 +66,25 @@ export function AlertDialog({
   onConfirm,
   onCancel,
   onDismiss,
+  onOpenChange,
   style,
   testID,
 }: NativeAlertDialogProps) {
   const scheme = useKernScheme();
   const styles = alertDialogStyles(scheme);
+  const notifyClose = () => {
+    onDismiss?.();
+    onOpenChange?.(false);
+  };
   return (
     <Modal
-      visible={visible}
+      visible={open ?? visible ?? false}
       transparent
       animationType="fade"
       accessibilityViewIsModal
       onRequestClose={() => {
         onCancel?.();
-        onDismiss?.();
+        notifyClose();
       }}
     >
       <View style={overlayStyles.scrim}>
@@ -89,7 +114,7 @@ export function AlertDialog({
               }}
               onPress={() => {
                 onCancel?.();
-                onDismiss?.();
+                notifyClose();
               }}
             >
               <Text variant="label">{cancelLabel}</Text>
@@ -107,7 +132,7 @@ export function AlertDialog({
               }}
               onPress={() => {
                 onConfirm?.();
-                onDismiss?.();
+                notifyClose();
               }}
             >
               <Text variant="label" style={{ color: scheme.color.onError }}>

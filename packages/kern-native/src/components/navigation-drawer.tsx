@@ -60,6 +60,11 @@ export type NativeNavigationDrawerProps = {
   value: string;
   onValueChange: (key: string) => void;
   onDismiss?: () => void;
+  /**
+   * R2 lexicon: state report — fired with `false` alongside `onDismiss`
+   * on scrim press and hardware back.
+   */
+  onOpenChange?: (open: boolean) => void;
   /** Headline + supporting line above the destination list. */
   title?: string;
   subtitle?: string;
@@ -75,6 +80,7 @@ export function NavigationDrawer({
   value,
   onValueChange,
   onDismiss,
+  onOpenChange,
   title,
   subtitle,
   footer,
@@ -83,18 +89,22 @@ export function NavigationDrawer({
 }: NativeNavigationDrawerProps) {
   const { scheme } = useKernTheme();
   const styles = drawerStyles(scheme);
+  const notifyDismiss = () => {
+    onDismiss?.();
+    onOpenChange?.(false);
+  };
   return (
     <Modal
       visible={open}
       transparent
       animationType="fade"
       accessibilityViewIsModal
-      onRequestClose={onDismiss}
+      onRequestClose={notifyDismiss}
     >
       <View style={overlayStyles.scrim}>
         <Pressable
           accessibilityLabel="Dismiss navigation drawer"
-          onPress={onDismiss}
+          onPress={notifyDismiss}
           style={{ flex: 1 }}
         />
         <View

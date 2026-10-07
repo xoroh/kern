@@ -1,5 +1,6 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentProps, ReactNode } from "react";
+import { useState } from "react";
 import { cn } from "../utils/cn";
 
 /**
@@ -32,6 +33,15 @@ export type BannerProps = ComponentProps<"div"> &
     assertive?: boolean;
     /** Renders a dismiss button and calls back when it is pressed. */
     onDismiss?: () => void;
+    /**
+     * R2 lexicon: controlled visibility. `open` wins when passed;
+     * `open={false}` renders nothing. The dismiss button drives the single
+     * close path below — `onOpenChange(false)` plus `onDismiss()` — so both
+     * stay in sync. Previously visibility was parent-removed JSX only.
+     */
+    open?: boolean;
+    defaultOpen?: boolean;
+    onOpenChange?: (open: boolean) => void;
   };
 
 export function Banner({
@@ -39,10 +49,21 @@ export function Banner({
   icon,
   assertive,
   onDismiss,
+  open,
+  defaultOpen = true,
+  onOpenChange,
   className,
   children,
   ...props
 }: BannerProps) {
+  const [uncontrolled, setUncontrolled] = useState(defaultOpen);
+  const isOpen = open ?? uncontrolled;
+  function dismiss() {
+    if (open === undefined) setUncontrolled(false);
+    onOpenChange?.(false);
+    onDismiss?.();
+  }
+  if (!isOpen) return null;
   return (
     <div
       data-slot="banner"
@@ -59,7 +80,7 @@ export function Banner({
       <span data-slot="banner-text" className="min-w-0 flex-1">
         {children}
       </span>
-      {onDismiss ? (
+      {onDismiss || onOpenChange ? (
         <button
           data-slot="banner-dismiss"
           type="button"
@@ -67,7 +88,7 @@ export function Banner({
           className={cn(
             "kern-banner-dismiss shrink-0 cursor-pointer rounded-(--md-sys-shape-corner-extra-small) px-2 py-1 font-medium outline-none focus-visible:ring-2 focus-visible:ring-(--md-sys-color-on-surface)",
           )}
-          onClick={onDismiss}
+          onClick={dismiss}
         />
       ) : null}
     </div>

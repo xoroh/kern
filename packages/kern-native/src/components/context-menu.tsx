@@ -17,6 +17,14 @@ export type NativeContextMenuProps = {
   triggerLabel: string;
   items: NativeMenuItem[];
   onDismiss?: () => void;
+  /**
+   * R2 lexicon: full triple — this menu owns its open state internally.
+   * `open` wins when passed; dismissal fires `onOpenChange(false)` plus
+   * `onDismiss()`.
+   */
+  open?: boolean;
+  defaultOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
   style?: StyleProp<ViewStyle>;
   testID?: string;
 };
@@ -26,12 +34,20 @@ export function ContextMenu({
   triggerLabel,
   items,
   onDismiss,
+  open,
+  defaultOpen = false,
+  onOpenChange,
   style,
   testID,
 }: NativeContextMenuProps) {
   const scheme = useKernScheme();
   const styles = menuStyles(scheme);
-  const [open, setOpen] = useState(false);
+  const [uncontrolled, setUncontrolled] = useState(defaultOpen);
+  const isOpen = open ?? uncontrolled;
+  function setOpen(next: boolean) {
+    if (open === undefined) setUncontrolled(next);
+    onOpenChange?.(next);
+  }
   function dismiss() {
     setOpen(false);
     onDismiss?.();
@@ -48,7 +64,7 @@ export function ContextMenu({
         {children}
       </Pressable>
       <Modal
-        visible={open}
+        visible={isOpen}
         transparent
         animationType="fade"
         onRequestClose={dismiss}

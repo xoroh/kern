@@ -131,6 +131,14 @@ export type NativePaginationProps = Omit<
   page?: number;
   defaultPage?: number;
   onPageChange?: (page: number) => void;
+  /**
+   * R2 lexicon canonical names (`value` wins when both are passed; both
+   * callbacks fire). `page`/`defaultPage`/`onPageChange` are deprecated
+   * aliases onto the same state.
+   */
+  value?: number;
+  defaultValue?: number;
+  onValueChange?: (page: number) => void;
   /** Name for the navigation landmark. */
   accessibilityLabel?: string;
   style?: StyleProp<ViewStyle>;
@@ -142,6 +150,9 @@ export function Pagination({
   page: pageProp,
   defaultPage = 1,
   onPageChange,
+  value: valueProp,
+  defaultValue,
+  onValueChange,
   accessibilityLabel = "Pagination",
   style,
   testID,
@@ -149,9 +160,12 @@ export function Pagination({
 }: NativePaginationProps) {
   const scheme = useKernScheme();
   const [pageRaw, setPage] = useControllableState<number>(
-    pageProp,
-    defaultPage,
-    onPageChange,
+    valueProp ?? pageProp,
+    defaultValue ?? defaultPage,
+    (next) => {
+      onValueChange?.(next);
+      onPageChange?.(next);
+    },
   );
   // Clamp defensively: a controlled host can hand back 0 or count+1, and every
   // derivation below assumes a real page.

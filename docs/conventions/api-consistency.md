@@ -11,6 +11,32 @@ same rules. All additions were aliases: nothing renamed, nothing removed.
 Related: [Parity policy](./parity.md) (`variant` meaning frozen per
 component, same size scale where the platform allows it).
 
+## 0. Callbacks — the lexicon (R2 re-home, founder-approved)
+
+Two state shapes, one action rule. The canonical names are `value` /
+`defaultValue` / `onValueChange` (selection and scalar state) and `open` /
+`defaultOpen` / `onOpenChange` (overlay visibility). Older per-component
+names (`index`/`onIndexChange`, `page`/`onPageChange`,
+`selected`/`onSelectedChange`, `pressed`/`onPressedChange`,
+`collapsed`/`onCollapsedChange`, `expanded`/`onExpandedChange`,
+`visible`, `activeTab`/`onTabChange`) are kept as deprecated aliases that
+resolve to the SAME state — one store, two names, both callbacks firing on
+every change, so a host mid-migration never misses one. `value`/`open` win
+when both are passed.
+
+What is NOT renamed: action callbacks say what happened, not what state
+holds — `onSelect`, `onSearch`, `onCountryChange`, `onConfirm`/`onCancel`,
+`onClose`, `onDismiss`, and the platform pair `onPress` (RN Pressable) /
+`onClick` (DOM event with the mouse event). A component keeps both platform
+callbacks where both are load-bearing (web ListItem: `onPress` selects the
+control kind, `onClick` carries the event); native SplitButton takes
+`onPress` only because no DOM event exists on that renderer.
+
+Guarded by `packages/kern/src/callback-lexicon.test.ts`: every
+`on*`-suffixed prop must be canonical, a registered alias beside its
+canonical partner, or an allowlisted action — a new state callback outside
+the lexicon fails with the file named (comments stripped first).
+
 ## 1. Sizes — `KernSize` foundation
 
 `KernSize = 'sm' | 'md' | 'lg'` (`KERN_SIZES`, `@xoroh/kern-tokens`).

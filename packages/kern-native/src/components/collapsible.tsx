@@ -16,6 +16,14 @@ export type NativeCollapsibleProps = Omit<ViewProps, "children" | "style"> & {
   expanded?: boolean;
   defaultExpanded?: boolean;
   onExpandedChange?: (expanded: boolean) => void;
+  /**
+   * R2 lexicon canonical names (`open` wins when both are passed; both
+   * callbacks fire). `expanded`/`defaultExpanded`/`onExpandedChange` are
+   * deprecated aliases onto the same state.
+   */
+  open?: boolean;
+  defaultOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
   style?: StyleProp<ViewStyle>;
 };
 
@@ -25,15 +33,21 @@ export function Collapsible({
   expanded,
   defaultExpanded = false,
   onExpandedChange,
+  open: openProp,
+  defaultOpen,
+  onOpenChange,
   style,
   testID,
   ...props
 }: NativeCollapsibleProps) {
   const scheme = useKernScheme();
   const [open, setOpen] = useControllableState(
-    expanded,
-    defaultExpanded,
-    onExpandedChange,
+    openProp ?? expanded,
+    defaultOpen ?? defaultExpanded,
+    (next) => {
+      onOpenChange?.(next);
+      onExpandedChange?.(next);
+    },
   );
   const isOpen = open ?? false;
   return (

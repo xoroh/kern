@@ -39,6 +39,24 @@ describe("Banner", () => {
     );
     await user.click(screen.getByRole("button", { name: "Dismiss" }));
     expect(onDismiss).toHaveBeenCalledOnce();
+    // R2 lexicon: an uncontrolled Banner owns its open state — dismissing
+    // unmounts it (defaultOpen). A host that must keep it mounted controls
+    // `open` itself (pinned below).
+    expect(screen.queryByRole("status")).toBeNull();
+  });
+
+  it("stays mounted when controlled open, reporting via onOpenChange", async () => {
+    const user = userEvent.setup();
+    const onOpenChange = vi.fn();
+    render(
+      <Banner open onOpenChange={onOpenChange}>
+        Heads up
+        <BannerAction>Details</BannerAction>
+      </Banner>,
+    );
+    await user.click(screen.getByRole("button", { name: "Dismiss" }));
+    expect(onOpenChange).toHaveBeenCalledWith(false);
+    expect(screen.getByRole("status")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Details" })).toBeInTheDocument();
   });
 });

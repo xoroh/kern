@@ -72,6 +72,15 @@ export type ExtendedFabProps = Omit<
   /** Initial collapse state for the uncontrolled case. */
   defaultCollapsed?: boolean;
   onCollapsedChange?: (collapsed: boolean) => void;
+  /**
+   * R2 lexicon canonical names (`value` wins when both are passed; both
+   * callbacks fire). `collapsed`/`defaultCollapsed`/`onCollapsedChange` are
+   * deprecated aliases onto the same state — including the imperative
+   * handle, which drives the same path.
+   */
+  value?: boolean;
+  defaultValue?: boolean;
+  onValueChange?: (collapsed: boolean) => void;
 };
 
 export function ExtendedFab({
@@ -81,14 +90,21 @@ export function ExtendedFab({
   collapsed,
   defaultCollapsed = false,
   onCollapsedChange,
+  value: valueProp,
+  defaultValue,
+  onValueChange,
   disabled,
   type = "button",
   className,
   ...props
 }: ExtendedFabProps) {
-  const controlled = collapsed !== undefined;
-  const [uncontrolled, setUncontrolled] = useState(defaultCollapsed);
-  const isCollapsed = controlled ? collapsed : uncontrolled;
+  const controlled = valueProp !== undefined || collapsed !== undefined;
+  const [uncontrolled, setUncontrolled] = useState(
+    defaultValue ?? defaultCollapsed,
+  );
+  const isCollapsed = controlled
+    ? (valueProp ?? collapsed ?? false)
+    : uncontrolled;
   // The handle must know the CURRENT state to be idempotent — two scrolls in
   // the same direction must not report two collapses. `stateRef` is updated in
   // an effect, not during render, so a controlled prop that a host fails to
@@ -105,9 +121,10 @@ export function ExtendedFab({
       // report, and a controlled host may not re-render between the two calls.
       stateRef.current = next;
       if (!controlled) setUncontrolled(next);
+      onValueChange?.(next);
       onCollapsedChange?.(next);
     },
-    [controlled, onCollapsedChange],
+    [controlled, onCollapsedChange, onValueChange],
   );
 
   useImperativeHandle(

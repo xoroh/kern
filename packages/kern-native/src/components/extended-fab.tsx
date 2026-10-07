@@ -62,6 +62,16 @@ export type NativeExtendedFabProps = Omit<
   /** Initial collapse state for the uncontrolled case. */
   defaultCollapsed?: boolean;
   onCollapsedChange?: (collapsed: boolean) => void;
+  /**
+   * R2 lexicon canonical names (`value` wins when both are passed; both
+   * callbacks fire — including the imperative handle path). `collapsed`/
+   * `defaultCollapsed`/`onCollapsedChange` are deprecated aliases onto the
+   * same state. `onPress` (the RN press event) is the platform action and
+   * stays untouched.
+   */
+  value?: boolean;
+  defaultValue?: boolean;
+  onValueChange?: (collapsed: boolean) => void;
   variant?: "primary" | "tonal";
   disabled?: boolean;
   onPress?: PressableProps["onPress"];
@@ -78,6 +88,9 @@ export const ExtendedFab = forwardRef<
     collapsed,
     defaultCollapsed = false,
     onCollapsedChange,
+    value: valueProp,
+    defaultValue,
+    onValueChange,
     variant = "primary",
     disabled = false,
     onPress,
@@ -90,9 +103,12 @@ export const ExtendedFab = forwardRef<
 ) {
   const scheme = useKernScheme();
   const [isCollapsed, setCollapsed] = useControllableState(
-    collapsed,
-    defaultCollapsed,
-    onCollapsedChange,
+    valueProp ?? collapsed,
+    defaultValue ?? defaultCollapsed,
+    (next) => {
+      onValueChange?.(next);
+      onCollapsedChange?.(next);
+    },
   );
   const collapsedNow = isCollapsed ?? false;
 

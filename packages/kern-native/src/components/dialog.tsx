@@ -50,33 +50,53 @@ export type NativeDialogAction = {
 };
 
 export type NativeDialogProps = {
-  visible: boolean;
+  /**
+   * Legacy visibility name. Optional now that `open` exists — at least one
+   * of the two is required in practice (`open` wins when both are passed).
+   */
+  visible?: boolean;
+  /**
+   * R2 lexicon alias for `visible` (`open` wins when both are passed).
+   * Dialogs are controlled-only passthroughs — no `defaultOpen`, no state.
+   */
+  open?: boolean;
   title: string;
   children?: ReactNode;
   actions?: NativeDialogAction[];
   onDismiss?: () => void;
+  /**
+   * R2 lexicon: state report — fired with `false` alongside `onDismiss`
+   * when the hardware back button requests dismissal.
+   */
+  onOpenChange?: (open: boolean) => void;
   style?: StyleProp<ViewStyle>;
   testID?: string;
 };
 
 export function Dialog({
   visible,
+  open,
   title,
   children,
   actions = [],
   onDismiss,
+  onOpenChange,
   style,
   testID,
 }: NativeDialogProps) {
   const scheme = useKernScheme();
   const styles = dialogStyles(scheme);
+  const notifyDismiss = () => {
+    onDismiss?.();
+    onOpenChange?.(false);
+  };
   return (
     <Modal
-      visible={visible}
+      visible={open ?? visible ?? false}
       transparent
       animationType="fade"
       accessibilityViewIsModal
-      onRequestClose={onDismiss}
+      onRequestClose={notifyDismiss}
     >
       <View style={overlayStyles.scrim}>
         <View

@@ -14,6 +14,9 @@ import { cn } from "../utils/cn";
  * Behaviour this component owns:
  *
  * - **Controlled or uncontrolled index**, reported as `onIndexChange`.
+ *   R2 callback lexicon (re-homed): `value`/`defaultValue`/`onValueChange`
+ *   are the canonical names — `index`/`defaultIndex`/`onIndexChange` are kept
+ *   as deprecated aliases resolving to the same state, never a second state.
  * - **`aria-roledescription="carousel"`** on the region and **on each item**
  *   (`"slide"`), with each item labelled `"3 of 7"`. Without the
  *   roledescription a screen reader announces "group" and the user cannot tell
@@ -45,6 +48,13 @@ export type CarouselProps = {
   /** Initial index for the uncontrolled case. */
   defaultIndex?: number;
   onIndexChange?: (index: number) => void;
+  /**
+   * R2 lexicon canonical names. `value` wins when both are passed; both
+   * callbacks fire on every change, so a host mid-migration never misses one.
+   */
+  value?: number;
+  defaultValue?: number;
+  onValueChange?: (index: number) => void;
   /** Wrap past the ends instead of disabling the control. M3 default is false. */
   wrap?: boolean;
   /** Renders the dot indicator. */
@@ -68,6 +78,9 @@ export function Carousel({
   index,
   defaultIndex = 0,
   onIndexChange,
+  value,
+  defaultValue,
+  onValueChange,
   wrap = false,
   showIndicators = false,
   disabled = false,
@@ -76,12 +89,14 @@ export function Carousel({
   itemKeys,
   testID,
 }: CarouselProps) {
-  const controlled = index !== undefined;
-  const [uncontrolled, setUncontrolled] = useState(defaultIndex);
+  const controlled = value !== undefined || index !== undefined;
+  const [uncontrolled, setUncontrolled] = useState(
+    defaultValue ?? defaultIndex,
+  );
   const total = items.length;
   // A controlled index out of range must not blank the carousel. Clamp to the
   // nearest real slide rather than rendering nothing.
-  const requested = controlled ? index : uncontrolled;
+  const requested = controlled ? (value ?? index ?? 0) : uncontrolled;
   const active = total === 0 ? 0 : Math.min(Math.max(requested, 0), total - 1);
 
   const baseId = useId();
@@ -92,6 +107,7 @@ export function Carousel({
       ? ((next % total) + total) % total
       : Math.min(Math.max(next, 0), total - 1);
     if (!controlled) setUncontrolled(target);
+    onValueChange?.(target);
     onIndexChange?.(target);
   };
 

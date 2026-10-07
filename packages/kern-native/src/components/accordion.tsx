@@ -44,6 +44,14 @@ export type NativeAccordionProps = Omit<ViewProps, "children" | "style"> & {
   expanded?: number[];
   defaultExpanded?: number[];
   onExpandedChange?: (expanded: number[]) => void;
+  /**
+   * R2 lexicon canonical names (`value` wins when both are passed; both
+   * callbacks fire). `expanded`/`defaultExpanded`/`onExpandedChange` are
+   * deprecated aliases onto the same state.
+   */
+  value?: number[];
+  defaultValue?: number[];
+  onValueChange?: (expanded: number[]) => void;
   /** Allow several sections open at once. */
   multiple?: boolean;
   style?: StyleProp<ViewStyle>;
@@ -54,6 +62,9 @@ export function Accordion({
   expanded,
   defaultExpanded = [],
   onExpandedChange,
+  value: valueProp,
+  defaultValue,
+  onValueChange,
   multiple = false,
   style,
   testID,
@@ -65,9 +76,14 @@ export function Accordion({
   // string. The alternative — stringifying indices — would change the public
   // type to keep an internal detail tidy.
   const [open, setOpen] = useSelection({
-    value: expanded,
-    defaultValue: defaultExpanded,
-    onChange: onExpandedChange as (next: readonly number[]) => void,
+    value: valueProp ?? expanded,
+    defaultValue: defaultValue ?? defaultExpanded,
+    onChange: ((next: readonly number[]) => {
+      onValueChange?.(next as number[]);
+      (onExpandedChange as ((next: readonly number[]) => void) | undefined)?.(
+        next,
+      );
+    }) as (next: readonly number[]) => void,
     mode: multiple ? "multiple" : "single-toggle",
   });
   const styles = accordionStyles(scheme);

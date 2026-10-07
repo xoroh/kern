@@ -149,6 +149,9 @@ export function Inspector({
   tabs,
   activeTab,
   onTabChange,
+  value: valueProp,
+  defaultValue,
+  onValueChange,
   className,
   ...props
 }: Omit<ComponentPropsWithRef<"div">, "children" | "content"> & {
@@ -157,7 +160,20 @@ export function Inspector({
   tabs?: { id: string; label: ReactNode }[];
   activeTab?: string;
   onTabChange?: (id: string) => void;
+  /**
+   * R2 lexicon canonical names (`value` wins when both are passed; both
+   * callbacks fire). `activeTab`/`onTabChange` are deprecated aliases onto
+   * the same state.
+   */
+  value?: string;
+  defaultValue?: string;
+  onValueChange?: (id: string) => void;
 }) {
+  const active = valueProp ?? activeTab ?? defaultValue;
+  const report = (id: string) => {
+    onValueChange?.(id);
+    onTabChange?.(id);
+  };
   return (
     <div
       data-slot="inspector"
@@ -176,11 +192,11 @@ export function Inspector({
                 key={tab.id}
                 type="button"
                 role="tab"
-                aria-selected={tab.id === activeTab}
-                onClick={() => onTabChange?.(tab.id)}
+                aria-selected={tab.id === active}
+                onClick={() => report(tab.id)}
                 className={cn(
                   "h-10 rounded-(--md-sys-shape-corner-small) px-3 text-sm",
-                  tab.id === activeTab
+                  tab.id === active
                     ? "bg-(--md-sys-color-secondary-container) text-(--md-sys-color-on-secondary-container)"
                     : "text-(--md-sys-color-on-surface-variant) hover:bg-(--md-sys-color-surface-tonal)",
                 )}

@@ -34,6 +34,10 @@ export type NativeSearchProps = Omit<
   value?: string;
   defaultValue?: string;
   onValueChange?: (value: string) => void;
+  /**
+   * R2 lexicon: domain action, not state. Query text lives in
+   * `value`/`onValueChange`; this fires only on submit.
+   */
   onSearch?: (value: string) => void;
   style?: StyleProp<ViewStyle>;
 };

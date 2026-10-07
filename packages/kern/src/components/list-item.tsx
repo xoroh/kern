@@ -16,6 +16,11 @@ export type ListItemProps = Omit<ComponentPropsWithRef<"li">, "children"> & {
    * `<a href>`, so it carries control semantics and is keyboard-operable
    * instead of being a bare `<li>` that merely looks clickable.
    *
+   * R2 lexicon, platform split (kept, both load-bearing): `onPress` is the
+   * press-intent callback and selects the control kind; `onClick` is the
+   * DOM event with the mouse event. Neither is removed — see
+   * `docs/parity-contract.md`.
+   *
    * `href` wins when both are passed (navigation is the stronger intent) and
    * the handler still runs. Matches the native renderer, where `onPress`
    * implies `accessibilityRole="button"` and a static row is `"none"` — see

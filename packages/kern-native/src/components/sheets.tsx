@@ -68,6 +68,8 @@ export type NativeBottomSheetProps = {
   size?: BottomSheetSize;
   children?: ReactNode;
   onDismiss?: () => void;
+  /** R2 lexicon: state report — SheetSurface calls it with `false` on every dismissal path, alongside `onDismiss`. */
+  onOpenChange?: (open: boolean) => void;
   /** Actions under the content — M3 caps sheets at two actions. */
   actions?: ReactNode;
   /** Hides the drag handle for sheets that are not dismissible by drag. */
@@ -82,6 +84,7 @@ export function BottomSheet({
   size = "medium",
   children,
   onDismiss,
+  onOpenChange,
   actions,
   handle = true,
   style,
@@ -96,6 +99,7 @@ export function BottomSheet({
       open={open}
       title={title}
       onDismiss={onDismiss}
+      onOpenChange={onOpenChange}
       testID={testID ?? "kern-bottom-sheet"}
       handle={handle ? <SheetHandle /> : null}
       surface={cardStyle}
@@ -123,8 +127,17 @@ export type NativeSnapSheetProps = {
   /** Index into `snapPoints`; defaults to the first. */
   index?: number;
   onIndexChange?: (index: number) => void;
+  /**
+   * R2 lexicon canonical names (`value` wins; both callbacks fire).
+   * `index`/`onIndexChange` are deprecated aliases onto the same state.
+   */
+  value?: number;
+  defaultValue?: number;
+  onValueChange?: (index: number) => void;
   children?: ReactNode;
   onDismiss?: () => void;
+  /** R2 lexicon: state report — SheetSurface calls it with `false` on every dismissal path, alongside `onDismiss`. */
+  onOpenChange?: (open: boolean) => void;
   style?: StyleProp<ViewStyle>;
   testID?: string;
 };
@@ -138,19 +151,29 @@ export function SnapSheet({
   open,
   title,
   snapPoints,
-  index = 0,
+  index,
   onIndexChange,
+  value: valueProp,
+  defaultValue = 0,
+  onValueChange,
   children,
   onDismiss,
+  onOpenChange,
   style,
   testID,
 }: NativeSnapSheetProps) {
   const scheme = useKernScheme();
+  const requested = valueProp ?? index ?? defaultValue;
   const safeIndex = Math.min(
-    Math.max(index, 0),
+    Math.max(requested, 0),
     Math.max(snapPoints.length - 1, 0),
   );
   const point = snapPoints[safeIndex] ?? { fraction: 0.5, label: "" };
+  // R2 lexicon: one emit path, both callbacks.
+  const report = (next: number) => {
+    onValueChange?.(next);
+    onIndexChange?.(next);
+  };
   // P2b-2: shared Modal+scrim shell. Snap-specific behaviour — the adjustable
   // handle that cycles snap points — stays here, in the `handle` slot.
   return (
@@ -158,6 +181,7 @@ export function SnapSheet({
       open={open}
       title={title}
       onDismiss={onDismiss}
+      onOpenChange={onOpenChange}
       testID={testID ?? "kern-snap-sheet"}
       handle={
         <Pressable
@@ -165,7 +189,7 @@ export function SnapSheet({
           accessibilityLabel={`${title}, snap point ${safeIndex + 1} of ${snapPoints.length}`}
           accessibilityValue={{ text: point.label }}
           onPress={() =>
-            onIndexChange?.((safeIndex + 1) % Math.max(snapPoints.length, 1))
+            report((safeIndex + 1) % Math.max(snapPoints.length, 1))
           }
           style={{
             paddingVertical: Number.parseFloat(tokens.spacing["space-100"]),
@@ -205,6 +229,8 @@ export type NativeDockSheetProps = {
   open: boolean;
   children?: ReactNode;
   onDismiss?: () => void;
+  /** R2 lexicon: state report — fired with `false` alongside `onDismiss` on the dismiss affordance. */
+  onOpenChange?: (open: boolean) => void;
   style?: StyleProp<ViewStyle>;
   testID?: string;
 };
@@ -213,6 +239,7 @@ export function DockSheet({
   open,
   children,
   onDismiss,
+  onOpenChange,
   style,
   testID,
 }: NativeDockSheetProps) {
@@ -251,11 +278,14 @@ export function DockSheet({
       ]}
     >
       {children}
-      {onDismiss ? (
+      {onDismiss || onOpenChange ? (
         <Pressable
           accessibilityRole="button"
           accessibilityLabel="Dismiss dock"
-          onPress={onDismiss}
+          onPress={() => {
+            onDismiss?.();
+            onOpenChange?.(false);
+          }}
           style={{
             minWidth: 48,
             minHeight: 48,
@@ -283,7 +313,14 @@ export type NativeBottomSheetPickerProps = {
   options: PickerOption[];
   value?: string;
   onSelect: (value: string) => void;
+  /**
+   * R2 lexicon: `value` is already the canonical name — this adds the
+   * canonical callback alongside `onSelect`. Both fire on every pick.
+   */
+  onValueChange?: (value: string) => void;
   onDismiss?: () => void;
+  /** R2 lexicon: state report — SheetSurface calls it with `false` on every dismissal path, alongside `onDismiss`. */
+  onOpenChange?: (open: boolean) => void;
   style?: StyleProp<ViewStyle>;
   testID?: string;
 };
@@ -298,7 +335,9 @@ export function BottomSheetPicker({
   options,
   value,
   onSelect,
+  onValueChange,
   onDismiss,
+  onOpenChange,
   style,
   testID,
 }: NativeBottomSheetPickerProps) {
@@ -309,6 +348,7 @@ export function BottomSheetPicker({
       open={open}
       title={title}
       onDismiss={onDismiss}
+      onOpenChange={onOpenChange}
       testID={testID ?? "kern-bottom-sheet-picker"}
       handle={<SheetHandle />}
       surface={{
@@ -341,7 +381,9 @@ export function BottomSheetPicker({
             disabled={option.disabled}
             onPress={() => {
               onSelect(option.value);
+              onValueChange?.(option.value);
               onDismiss?.();
+              onOpenChange?.(false);
             }}
             style={({ pressed }) => ({
               minHeight: 56,
@@ -396,6 +438,8 @@ export type NativeEntitySheetProps = {
   fields: EntityField[];
   children?: ReactNode;
   onDismiss?: () => void;
+  /** R2 lexicon: state report — SheetSurface calls it with `false` on every dismissal path, alongside `onDismiss`. */
+  onOpenChange?: (open: boolean) => void;
   actions?: ReactNode;
   style?: StyleProp<ViewStyle>;
   testID?: string;
@@ -413,6 +457,7 @@ export function EntitySheet({
   fields,
   children,
   onDismiss,
+  onOpenChange,
   actions,
   style,
   testID,
@@ -423,6 +468,7 @@ export function EntitySheet({
       open={open}
       title={title}
       onDismiss={onDismiss}
+      onOpenChange={onOpenChange}
       testID={testID ?? "kern-entity-sheet"}
       handle={<SheetHandle />}
       surface={{

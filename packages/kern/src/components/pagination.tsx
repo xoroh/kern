@@ -14,6 +14,14 @@ export type PaginationProps = Omit<
   defaultPage?: number;
   /** Called with the new 1-based page. */
   onPageChange?: (page: number) => void;
+  /**
+   * R2 lexicon canonical names (`value` wins when both are passed; both
+   * callbacks fire). `page`/`defaultPage`/`onPageChange` are deprecated
+   * aliases onto the same state.
+   */
+  value?: number;
+  defaultValue?: number;
+  onValueChange?: (page: number) => void;
   /** Extra content rendered after the page buttons. */
   children?: ReactNode;
 };
@@ -59,16 +67,23 @@ export function Pagination({
   page: pageProp,
   defaultPage = 1,
   onPageChange,
+  value,
+  defaultValue,
+  onValueChange,
   children,
   className,
   "aria-label": ariaLabel = "Pagination",
   ...props
 }: PaginationProps) {
-  const [internal, setInternal] = useState(defaultPage);
-  const page = Math.min(Math.max(pageProp ?? internal, 1), Math.max(count, 1));
+  const [internal, setInternal] = useState(defaultValue ?? defaultPage);
+  const page = Math.min(
+    Math.max(value ?? pageProp ?? internal, 1),
+    Math.max(count, 1),
+  );
   function go(next: number) {
     const clamped = Math.min(Math.max(next, 1), Math.max(count, 1));
-    if (pageProp === undefined) setInternal(clamped);
+    if (value === undefined && pageProp === undefined) setInternal(clamped);
+    onValueChange?.(clamped);
     onPageChange?.(clamped);
   }
   return (

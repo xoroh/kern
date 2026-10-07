@@ -99,6 +99,14 @@ export type NativeCarouselProps = {
   index?: number;
   defaultIndex?: number;
   onIndexChange?: (index: number) => void;
+  /**
+   * R2 lexicon canonical names (`value` wins when both are passed; both
+   * callbacks fire). `index`/`defaultIndex`/`onIndexChange` are deprecated
+   * aliases onto the same roving state.
+   */
+  value?: number;
+  defaultValue?: number;
+  onValueChange?: (index: number) => void;
   /** Name for the carousel region. */
   accessibilityLabel?: string;
   /** Wrap from last to first. M3's default is to clamp. */
@@ -114,6 +122,9 @@ export function Carousel({
   index: indexProp,
   defaultIndex = 0,
   onIndexChange,
+  value: valueProp,
+  defaultValue,
+  onValueChange,
   accessibilityLabel = "Carousel",
   loop = false,
   disabled = false,
@@ -130,9 +141,12 @@ export function Carousel({
     count,
     orientation: "horizontal",
     loop,
-    activeIndex: indexProp,
-    defaultActiveIndex: defaultIndex,
-    onActiveIndexChange: onIndexChange,
+    activeIndex: valueProp ?? indexProp,
+    defaultActiveIndex: defaultValue ?? defaultIndex,
+    onActiveIndexChange: (next) => {
+      onValueChange?.(next);
+      onIndexChange?.(next);
+    },
     isDisabled: (i) => disabled || Boolean(items[i]?.disabled),
   });
   const active = roving.activeIndex;

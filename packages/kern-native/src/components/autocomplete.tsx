@@ -56,8 +56,16 @@ export type NativeAutocompleteProps = {
   onValueChange?: (value: string) => void;
   /** Fired when a suggestion is committed. */
   onSelect?: (suggestion: AutocompleteSuggestion) => void;
-  /** Fired when the popup opens or closes, including dismissal by blur. */
+  /**
+   * R2 lexicon: popup visibility. `expanded`/`onExpandedChange` is the Base
+   * UI disclosure naming (kept — it is the primitive's own API, not kern's
+   * invention); the canonical `open`/`onOpenChange` pair is added alongside.
+   * `open` wins when both are passed; dismissal fires both.
+   */
   onExpandedChange?: (expanded: boolean) => void;
+  open?: boolean;
+  defaultOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
   /**
    * Case-insensitive substring match. A host with server-side or fuzzy
    * matching replaces this; the default is the honest local behaviour.
@@ -119,6 +127,9 @@ export function Autocomplete({
   onValueChange,
   onSelect,
   onExpandedChange,
+  open: openProp,
+  defaultOpen = true,
+  onOpenChange,
   filter = defaultAutocompleteFilter,
   accessibilityLabel = "Search",
   placeholder,
@@ -149,7 +160,14 @@ export function Autocomplete({
   // covered by the whole list. M3 autocomplete opens on input, so an empty
   // (or whitespace-only) query opens nothing.
   const hasQuery = text.trim().length > 0;
-  const expanded = focused && !disabled && hasQuery && matches.length > 0;
+  const derivedOpen = focused && !disabled && hasQuery && matches.length > 0;
+  // R2 lexicon: `open` is a visibility VETO (`open={false}` pins shut);
+  // `onOpenChange` reports every close alongside `onExpandedChange`.
+  const expanded = (openProp ?? defaultOpen) && derivedOpen;
+  const reportClose = () => {
+    onExpandedChange?.(false);
+    onOpenChange?.(false);
+  };
   const active = expanded ? (matches[activeIndex] ?? matches[0]) : undefined;
 
   const hint = [
@@ -168,7 +186,7 @@ export function Autocomplete({
     setQuery(suggestion.label);
     setActiveIndex(0);
     setFocused(false);
-    onExpandedChange?.(false);
+    reportClose();
     onSelect?.(suggestion);
   }
 
@@ -189,13 +207,13 @@ export function Autocomplete({
           onFocus={() => setFocused(true)}
           onBlur={() => {
             setFocused(false);
-            onExpandedChange?.(false);
+            reportClose();
           }}
           // The RN dismissal path: there is no Escape key on a touch device,
           // so the return key is what closes the popup.
           onSubmitEditing={() => {
             setFocused(false);
-            onExpandedChange?.(false);
+            reportClose();
           }}
           style={[inputStyles(false, false, scheme), { flex: 1 }]}
         />

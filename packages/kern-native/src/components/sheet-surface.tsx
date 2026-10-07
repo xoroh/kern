@@ -43,6 +43,13 @@ export type SheetSurfaceProps = {
   children?: ReactNode;
   /** Wired to BOTH scrim press and hardware back. */
   onDismiss?: () => void;
+  /**
+   * R2 lexicon: state callback for visibility. Every dismissal path below
+   * calls `onDismiss()` AND `onOpenChange(false)` — one close path, both
+   * callbacks, so a host on either name hears it. Uncontrolled state is the
+   * host's (sheets are controlled-only); this reports, it does not store.
+   */
+  onOpenChange?: (open: boolean) => void;
   /** The card body. Receives the scheme so cards read tokens, not literals. */
   surface: ViewStyle;
   testID: string;
@@ -90,6 +97,7 @@ export function SheetSurface({
   title,
   children,
   onDismiss,
+  onOpenChange,
   surface,
   testID,
   handle,
@@ -118,7 +126,12 @@ export function SheetSurface({
   });
   const canDismiss = (trigger: keyof DismissTriggers) =>
     policy.shouldDismiss(trigger, open, triggers);
-  const dismiss = canDismiss("scrim") ? onDismiss : undefined;
+  // R2 lexicon: the single close path — dismissal action plus state report.
+  const notifyDismiss = () => {
+    onDismiss?.();
+    onOpenChange?.(false);
+  };
+  const dismiss = canDismiss("scrim") ? notifyDismiss : undefined;
 
   // D3a: register this sheet for as long as it is OPEN, so the shared kernel
   // knows a modal is on screen (Drawer precedent). Registration only — the
@@ -154,7 +167,7 @@ export function SheetSurface({
       animationType="slide"
       accessibilityViewIsModal
       onShow={moveFocusInside}
-      onRequestClose={canDismiss("escape") ? onDismiss : undefined}
+      onRequestClose={canDismiss("escape") ? notifyDismiss : undefined}
     >
       <View
         style={
@@ -176,7 +189,7 @@ export function SheetSurface({
               accessibilityLabel={closeLabel ?? `Close ${title}`}
               hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
               ref={closeRef}
-              onPress={canDismiss("closeButton") ? onDismiss : undefined}
+              onPress={canDismiss("closeButton") ? notifyDismiss : undefined}
               style={{
                 alignSelf: "flex-end",
                 minWidth: 48,

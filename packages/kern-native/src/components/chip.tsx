@@ -60,6 +60,15 @@ export type FilterChipProps = CommonChipProps & {
   selected?: boolean;
   defaultSelected?: boolean;
   onSelectedChange?: (selected: boolean) => void;
+  /**
+   * R2 lexicon canonical names (`value` wins when both are passed; both
+   * callbacks fire). `selected`/`defaultSelected`/`onSelectedChange` are
+   * deprecated aliases onto the same state. `onPress` (the RN press event)
+   * is the platform action and stays untouched.
+   */
+  value?: boolean;
+  defaultValue?: boolean;
+  onValueChange?: (selected: boolean) => void;
 };
 
 export type ActionChipProps = CommonChipProps & {
@@ -85,11 +94,22 @@ export function Chip(props: ChipProps) {
     testID,
     ...pressableProps
   } = props;
+  // R2 lexicon canonical names, narrowed to the filter branch (Pressable
+  // carries no conflicting `value`, so no DOM-collision guard is needed).
+  const filterLexicon =
+    variant === "filter" ? (props as FilterChipProps) : null;
   const { scheme } = useKernTheme();
   const [selectedValue, setSelected] = useControllableState(
-    variant === "filter" ? controlledSelected : undefined,
-    variant === "filter" ? (defaultSelected ?? false) : false,
-    onSelectedChange,
+    variant === "filter"
+      ? (filterLexicon?.value ?? controlledSelected)
+      : undefined,
+    variant === "filter"
+      ? (filterLexicon?.defaultValue ?? defaultSelected ?? false)
+      : false,
+    (next) => {
+      filterLexicon?.onValueChange?.(next);
+      onSelectedChange?.(next);
+    },
   );
   const selected = variant === "filter" && Boolean(selectedValue);
   const styles = chipStyles(variant, selected, scheme);

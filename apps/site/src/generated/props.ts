@@ -3225,8 +3225,8 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "onCountryChange",
       "type": "((country: CountryOption | null) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/country-select.tsx:26",
-      "note": "Called with the chosen country."
+      "src": "packages/kern/src/components/country-select.tsx:30",
+      "note": "Called with the chosen country. R2 lexicon: this is a DOMAIN action,\nnot state — `value`/`defaultValue`/`onValueChange` pass straight\nthrough to the Base UI Root (see the forward below) and own selection."
     }
   ],
   "CountrySelectTrigger": [
@@ -4759,28 +4759,28 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "onPress",
       "type": "(() => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/list-item.tsx:24",
-      "note": "Interactive variant. Passing `onPress` (or `href`) makes the row a\nCONTROL rather than a display row: it renders a real `<button>` or\n`<a href>`, so it carries control semantics and is keyboard-operable\ninstead of being a bare `<li>` that merely looks clickable.\n\n`href` wins when both are passed (navigation is the stronger intent) and\nthe handler still runs. Matches the native renderer, where `onPress`\nimplies `accessibilityRole=\"button\"` and a static row is `\"none\"` — see\n`docs/parity-contract.md`."
+      "src": "packages/kern/src/components/list-item.tsx:29",
+      "note": "Interactive variant. Passing `onPress` (or `href`) makes the row a\nCONTROL rather than a display row: it renders a real `<button>` or\n`<a href>`, so it carries control semantics and is keyboard-operable\ninstead of being a bare `<li>` that merely looks clickable.\n\nR2 lexicon, platform split (kept, both load-bearing): `onPress` is the\npress-intent callback and selects the control kind; `onClick` is the\nDOM event with the mouse event. Neither is removed — see\n`docs/parity-contract.md`.\n\n`href` wins when both are passed (navigation is the stronger intent) and\nthe handler still runs. Matches the native renderer, where `onPress`\nimplies `accessibilityRole=\"button\"` and a static row is `\"none\"` — see\n`docs/parity-contract.md`."
     },
     {
       "name": "href",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/list-item.tsx:26",
+      "src": "packages/kern/src/components/list-item.tsx:31",
       "note": "Navigation variant. Renders `<a href>`, i.e. `role=\"link\"`."
     },
     {
       "name": "disabled",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/list-item.tsx:29",
+      "src": "packages/kern/src/components/list-item.tsx:34",
       "note": "Disables the interactive row: a button is natively disabled; a link gets\n`aria-disabled`, leaves the tab order, and does not navigate."
     },
     {
       "name": "onClick",
       "type": "((event: MouseEvent<HTMLElement, MouseEvent>) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/list-item.tsx:31",
+      "src": "packages/kern/src/components/list-item.tsx:36",
       "note": "Extra props for the control element when interactive."
     }
   ],
@@ -7904,14 +7904,14 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "onClose",
       "type": "(() => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:119",
-      "note": "Visible close control. M3 gives the sheet a dismissal affordance."
+      "src": "packages/kern/src/components/sheet-family.tsx:123",
+      "note": "Visible close control. R2 lexicon: this is the dismissal ACTION, not\nstate — open/defaultOpen/onOpenChange on the surface own visibility\n(inherited via `...surface`). Fires when the × control activates."
     },
     {
       "name": "className",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:120"
+      "src": "packages/kern/src/components/sheet-family.tsx:124"
     }
   ],
   "DockSheet": [
@@ -7919,25 +7919,25 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "label",
       "type": "string",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:171"
+      "src": "packages/kern/src/components/sheet-family.tsx:175"
     },
     {
       "name": "children",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:172"
+      "src": "packages/kern/src/components/sheet-family.tsx:176"
     },
     {
       "name": "className",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:173"
+      "src": "packages/kern/src/components/sheet-family.tsx:177"
     },
     {
       "name": "testID",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:174"
+      "src": "packages/kern/src/components/sheet-family.tsx:178"
     }
   ],
   "SnapSheet": [
@@ -7984,46 +7984,46 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "snapPoints",
       "type": "readonly number[]",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:213",
+      "src": "packages/kern/src/components/sheet-family.tsx:217",
       "note": "Detents, as a fraction of viewport height (0–1)."
     },
     {
       "name": "index",
       "type": "number | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:216",
+      "src": "packages/kern/src/components/sheet-family.tsx:220",
       "note": "Index into `snapPoints`; defaults to the first."
     },
     {
       "name": "onIndexChange",
       "type": "((index: number) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:217"
+      "src": "packages/kern/src/components/sheet-family.tsx:221"
     },
     {
       "name": "value",
       "type": "number | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:224",
+      "src": "packages/kern/src/components/sheet-family.tsx:228",
       "note": "R2 lexicon canonical names (`value` wins when both are passed; both\ncallbacks fire). `index`/`onIndexChange` are deprecated aliases onto the\nsame state. There is no legacy `defaultIndex` — the uncontrolled start\nis `defaultValue`, defaulting to the first detent."
     },
     {
       "name": "defaultValue",
       "type": "number | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:225"
+      "src": "packages/kern/src/components/sheet-family.tsx:229"
     },
     {
       "name": "onValueChange",
       "type": "((index: number) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:226"
+      "src": "packages/kern/src/components/sheet-family.tsx:230"
     },
     {
       "name": "className",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:227"
+      "src": "packages/kern/src/components/sheet-family.tsx:231"
     }
   ],
   "EntitySheet": [
@@ -8070,33 +8070,33 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "title",
       "type": "string",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:320"
+      "src": "packages/kern/src/components/sheet-family.tsx:324"
     },
     {
       "name": "subtitle",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:322",
+      "src": "packages/kern/src/components/sheet-family.tsx:326",
       "note": "Supporting line under the title."
     },
     {
       "name": "fields",
       "type": "readonly EntityField[] | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:323"
+      "src": "packages/kern/src/components/sheet-family.tsx:327"
     },
     {
       "name": "action",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:325",
+      "src": "packages/kern/src/components/sheet-family.tsx:329",
       "note": "At most one primary action, per the spec's guidance."
     },
     {
       "name": "className",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:326"
+      "src": "packages/kern/src/components/sheet-family.tsx:330"
     }
   ],
   "BottomSheetPicker": [
@@ -8143,38 +8143,38 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "title",
       "type": "string",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:398"
+      "src": "packages/kern/src/components/sheet-family.tsx:402"
     },
     {
       "name": "options",
       "type": "readonly PickerOption[]",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:399"
+      "src": "packages/kern/src/components/sheet-family.tsx:403"
     },
     {
       "name": "value",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:400"
+      "src": "packages/kern/src/components/sheet-family.tsx:404"
     },
     {
       "name": "multiple",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:402",
+      "src": "packages/kern/src/components/sheet-family.tsx:406",
       "note": "Multi-select exposes `aria-multiselectable`; single-select does not."
     },
     {
       "name": "onSelect",
       "type": "(value: string) => void",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:403"
+      "src": "packages/kern/src/components/sheet-family.tsx:407"
     },
     {
       "name": "className",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:404"
+      "src": "packages/kern/src/components/sheet-family.tsx:408"
     }
   ],
   "ActionSheet": [
@@ -8221,19 +8221,19 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "title",
       "type": "string",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:492"
+      "src": "packages/kern/src/components/sheet-family.tsx:496"
     },
     {
       "name": "actions",
       "type": "readonly ActionSheetAction[]",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:493"
+      "src": "packages/kern/src/components/sheet-family.tsx:497"
     },
     {
       "name": "className",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:495"
+      "src": "packages/kern/src/components/sheet-family.tsx:499"
     }
   ],
   "SheetRoot": [

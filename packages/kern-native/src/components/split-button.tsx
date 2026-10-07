@@ -58,9 +58,14 @@ const staticStyles = StyleSheet.create({
  * - **Geometry that reads as one control** — the primary carries the full
  *   `corner-full` on its leading side, the overflow the trailing side, and the
  *   hairline divider between them is the M3 1dp `outline`.
- * - **The primary action does not open the menu.** Pressing it fires `onClick`
+ * - **The primary action does not open the menu.** Pressing it fires `onPress`
  *   and leaves the overflow closed; that separation is the entire reason the
  *   component exists.
+ *
+ * R2 lexicon, platform split (kept): `onPress` is the press-intent callback
+ * (RN Pressable has no `onClick`), NOT a lexicon violation — there is no DOM
+ * event here to split from. The host's press handler and the menu's
+ * open/defaultOpen/onOpenChange state are different axes and stay separate.
  * - **Selecting an overflow action dismisses the menu**, so the host never has
  *   to close it and cannot forget to.
  * - **Disabled** disables both halves, because a split button whose overflow is
@@ -78,7 +83,11 @@ export type NativeSplitButtonAction = {
 export type NativeSplitButtonProps = {
   /** Primary action. Also the primary button's accessible name. */
   label: string;
-  onClick?: () => void;
+  /**
+   * R2 lexicon: `onPress` is correct here (RN Pressable, no DOM `onClick`
+   * exists on this renderer) — not a rename candidate.
+   */
+  onPress?: () => void;
   /** Icon inside the primary button, hidden from assistive tech. */
   icon?: ReactNode;
   /** Overflow actions. An empty list renders no overflow half. */
@@ -120,7 +129,7 @@ export function splitButtonStyles(
 
 export function SplitButton({
   label,
-  onClick,
+  onPress,
   icon,
   actions,
   menuLabel,
@@ -151,7 +160,7 @@ export function SplitButton({
           onPress={() => {
             // Deliberately does not touch `open`: the primary must not open the
             // menu. That separation is the component's whole reason to exist.
-            onClick?.();
+            onPress?.();
           }}
           style={({ pressed }) => [
             staticStyles.primary,

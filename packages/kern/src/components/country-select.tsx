@@ -22,7 +22,11 @@ export type CountrySelectRootProps<T extends CountryOption = CountryOption> =
   Omit<ComponentProps<typeof SelectPrimitive.Root<T>>, "items"> & {
     /** The countries to offer. */
     options: readonly CountryOption[];
-    /** Called with the chosen country. */
+    /**
+     * Called with the chosen country. R2 lexicon: this is a DOMAIN action,
+     * not state — `value`/`defaultValue`/`onValueChange` pass straight
+     * through to the Base UI Root (see the forward below) and own selection.
+     */
     onCountryChange?: (country: CountryOption | null) => void;
   };
 

@@ -115,7 +115,11 @@ export function SheetSurface({
 export type BottomSheetProps = Omit<SheetSurfaceProps, "className"> & {
   /** Optional heading. When absent the surface is still labelled. */
   title?: string;
-  /** Visible close control. M3 gives the sheet a dismissal affordance. */
+  /**
+   * Visible close control. R2 lexicon: this is the dismissal ACTION, not
+   * state — open/defaultOpen/onOpenChange on the surface own visibility
+   * (inherited via `...surface`). Fires when the × control activates.
+   */
   onClose?: () => void;
   className?: string;
 };
@@ -215,20 +219,38 @@ export type SnapSheetProps = Omit<SheetSurfaceProps, "className"> & {
   /** Index into `snapPoints`; defaults to the first. */
   index?: number;
   onIndexChange?: (index: number) => void;
+  /**
+   * R2 lexicon canonical names (`value` wins when both are passed; both
+   * callbacks fire). `index`/`onIndexChange` are deprecated aliases onto the
+   * same state. There is no legacy `defaultIndex` — the uncontrolled start
+   * is `defaultValue`, defaulting to the first detent.
+   */
+  value?: number;
+  defaultValue?: number;
+  onValueChange?: (index: number) => void;
   className?: string;
 };
 
 export function SnapSheet({
   snapPoints,
   label,
-  index = 0,
+  index,
   onIndexChange,
+  value: valueProp,
+  defaultValue = 0,
+  onValueChange,
   className,
   ...surface
 }: SnapSheetProps) {
   const count = snapPoints.length || 1;
-  const current = Math.min(Math.max(index, 0), count - 1);
+  const requested = valueProp ?? index ?? defaultValue;
+  const current = Math.min(Math.max(requested, 0), count - 1);
   const height = `${Math.round((snapPoints[current] ?? 0.5) * 100)}%`;
+  // R2 lexicon: one emit path, both callbacks — a host on either name hears it.
+  const report = (next: number) => {
+    onValueChange?.(next);
+    onIndexChange?.(next);
+  };
 
   return (
     <SheetSurface
@@ -262,20 +284,20 @@ export function SnapSheet({
         aria-valuemin={0}
         aria-valuemax={count - 1}
         aria-valuetext={`${snapPoints[current] * 100}%`}
-        onClick={() => onIndexChange?.((current + 1) % count)}
+        onClick={() => report((current + 1) % count)}
         onKeyDown={(event) => {
           if (event.key === "ArrowRight" || event.key === "ArrowUp") {
             event.preventDefault();
-            onIndexChange?.((current + 1) % count);
+            report((current + 1) % count);
           } else if (event.key === "ArrowLeft" || event.key === "ArrowDown") {
             event.preventDefault();
-            onIndexChange?.((current - 1 + count) % count);
+            report((current - 1 + count) % count);
           } else if (event.key === "Home") {
             event.preventDefault();
-            onIndexChange?.(0);
+            report(0);
           } else if (event.key === "End") {
             event.preventDefault();
-            onIndexChange?.(count - 1);
+            report(count - 1);
           }
         }}
         className="mx-auto mb-2 grid h-6 w-12 cursor-pointer place-items-center rounded-(--md-sys-shape-corner-full) bg-(--md-sys-color-surface-container-highest)"
