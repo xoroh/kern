@@ -1,7 +1,14 @@
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
-import { createDismissPolicy } from "@xoroh/kern-primitives";
+import {
+  type A11yDir,
+  createDismissPolicy,
+  dismissBranchesFor,
+  isPressActivationKey,
+  shouldDismissOn,
+} from "@xoroh/kern-primitives";
 import type { ReactNode } from "react";
 import { cn } from "../utils/cn";
+import { KernPortal, useKernDir, VisuallyHidden } from "./presentation";
 
 /**
  * The kern sheet family — the web versions of the native bottom-sheet concepts.
@@ -59,6 +66,12 @@ export type SheetSurfaceProps = {
   children?: ReactNode;
   className?: string;
   testID?: string;
+  /**
+   * Text direction for the surface. Resolved through the shared `dir` kernel
+   * (explicit wins, else the host default, else `ltr` — never undefined), so
+   * both renderers answer direction the same way.
+   */
+  dir?: A11yDir;
 };
 
 /**
@@ -74,7 +87,9 @@ export function SheetSurface({
   children,
   className,
   testID,
+  dir,
 }: SheetSurfaceProps) {
+  const resolvedDir = useKernDir({ dir });
   return (
     <DialogPrimitive.Root
       open={open}
@@ -82,27 +97,37 @@ export function SheetSurface({
       onOpenChange={onOpenChange}
     >
       <DialogPrimitive.Portal>
-        <DialogPrimitive.Backdrop
-          data-slot="sheet-surface-backdrop"
-          className={backdropClass}
-        />
-        <DialogPrimitive.Viewport className="fixed inset-0 flex items-end justify-center">
-          <DialogPrimitive.Popup
-            data-slot="sheet-surface"
-            data-testid={testID ?? "kern-sheet-surface"}
-            aria-label={label}
-            // Base UI's `Dialog.Popup` traps focus and inerts the page but emits
-            // no `aria-modal` (measured). Without it a screen reader announces a
-            // dialog with no indication the rest of the page is unreachable —
-            // the visual and accessibility trees disagree about whether you are
-            // trapped. `dialog.tsx` carries the same hand-fix; this was caught
-            // here by the contract test, not by reading the primitive.
-            aria-modal="true"
-            className={cn(surfaceBase, className)}
-          >
-            {children}
-          </DialogPrimitive.Popup>
-        </DialogPrimitive.Viewport>
+        {/*
+          DUAL-PATH (D12): the owned `KernPortal` hosts the surface ALONGSIDE
+          the primitive's portal, which stays exactly as it was. The owned
+          registry tracks the mount (order, cleanup) while Base UI keeps doing
+          the DOM mechanics — removing the borrowed owner before the owned one
+          is proven would strand every sheet.
+        */}
+        <KernPortal>
+          <DialogPrimitive.Backdrop
+            data-slot="sheet-surface-backdrop"
+            className={backdropClass}
+          />
+          <DialogPrimitive.Viewport className="fixed inset-0 flex items-end justify-center">
+            <DialogPrimitive.Popup
+              data-slot="sheet-surface"
+              data-testid={testID ?? "kern-sheet-surface"}
+              aria-label={label}
+              dir={resolvedDir}
+              // Base UI's `Dialog.Popup` traps focus and inerts the page but emits
+              // no `aria-modal` (measured). Without it a screen reader announces a
+              // dialog with no indication the rest of the page is unreachable —
+              // the visual and accessibility trees disagree about whether you are
+              // trapped. `dialog.tsx` carries the same hand-fix; this was caught
+              // here by the contract test, not by reading the primitive.
+              aria-modal="true"
+              className={cn(surfaceBase, className)}
+            >
+              {children}
+            </DialogPrimitive.Popup>
+          </DialogPrimitive.Viewport>
+        </KernPortal>
       </DialogPrimitive.Portal>
     </DialogPrimitive.Root>
   );
@@ -136,6 +161,15 @@ export function BottomSheet({
   // is the `useControllableState` failure mode. It also means a future
   // `dismissible={false}` cannot silently render a dead close button here.
   const policy = createDismissPolicy({ hasDismissHandler: Boolean(onClose) });
+  // The BRANCHES the surface wires, from the shared dismiss-wiring kernel: a
+  // modal dismissible surface wires every branch. The click below fires only
+  // through the declared `close` branch, so the declaration is consulted,
+  // never decorative.
+  const branches = dismissBranchesFor({
+    modal: true,
+    dismissible: policy.canDismiss,
+    hasVisibleClose: policy.showClose,
+  });
   return (
     <SheetSurface
       {...surface}
@@ -156,10 +190,18 @@ export function BottomSheet({
       {policy.showClose ? (
         <button
           type="button"
-          onClick={onClose}
-          aria-label="Close"
+          onClick={() => {
+            if (shouldDismissOn("close", surface.open ?? true, branches))
+              onClose?.();
+          }}
           className="absolute right-4 top-4 grid size-12 place-items-center rounded-(--md-sys-shape-corner-full) text-(--md-sys-color-on-surface-variant) hover:opacity-[var(--md-sys-state-hover)]"
         >
+          {/*
+            The name comes from screen-reader-only content via the shared
+            visually-hidden kernel, not from a label attribute — same announced
+            name ("Close"), one owner for the hiding geometry on both renderers.
+          */}
+          <VisuallyHidden>Close</VisuallyHidden>
           <span aria-hidden="true">×</span>
         </button>
       ) : null}
@@ -298,6 +340,12 @@ export function SnapSheet({
           } else if (event.key === "End") {
             event.preventDefault();
             report(count - 1);
+          } else if (isPressActivationKey(event.key)) {
+            // The shared press kernel's activation keys: a slider that moves
+            // on arrows but ignores Enter/Space is not keyboard-operable.
+            // Activation advances one detent, the same step as ArrowRight.
+            event.preventDefault();
+            report((current + 1) % count);
           }
         }}
         className="mx-auto mb-2 grid h-6 w-12 cursor-pointer place-items-center rounded-(--md-sys-shape-corner-full) bg-(--md-sys-color-surface-container-highest)"
