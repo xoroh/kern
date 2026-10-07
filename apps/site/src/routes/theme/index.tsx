@@ -2,13 +2,28 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Badge, Button, Card, Chip, Kbd } from "@xoroh/kern";
 import { resolveThemeDetails, resolveThemeLayers } from "@xoroh/kern-tokens";
 import { Text, View } from "react-native";
+import { Kicker } from "../../components/chrome/kicker";
 import { SiteLayout } from "../../components/chrome/site-layout";
 import { Code } from "../../components/docs/code";
 import { PhonePreview } from "../../components/preview/phone";
 import { Preview, PreviewGrid } from "../../components/preview/preview";
 import { ThemeSwitcher } from "../../components/theme/theme-switcher";
+import { routeHead } from "../../systems/seo";
+import {
+  T_BODY,
+  T_BODY_MD,
+  T_CODE,
+  T_LABEL,
+  T_PAGE,
+  T_SECTION,
+  T_SMALL_TITLE,
+} from "../../systems/type-scale";
 
-export const Route = createFileRoute("/theme/")({ component: ThemePage });
+export const Route = createFileRoute("/theme/")({
+  head: () =>
+    routeHead("Theme", "Color roles in the active theme, read from the package"),
+  component: ThemePage,
+});
 
 /** Resolved from the theme package, not hand-copied: these are the real schemes. */
 const LIGHT = resolveThemeDetails("light");
@@ -83,8 +98,8 @@ function Swatch({ role, value }: { role: string; value: string }) {
         style={{ background: value }}
       />
       <span className="flex min-w-0 flex-col">
-        <span className="truncate text-sm">{role}</span>
-        <span className="font-mono text-xs text-(--md-sys-color-on-surface-variant)">
+        <span className={`truncate ${T_BODY_MD}`}>{role}</span>
+        <span className={`${T_CODE} text-(--md-sys-color-on-surface-variant)`}>
           {value}
         </span>
       </span>
@@ -132,13 +147,15 @@ function ThemePage() {
       <section className="px-4 py-4 sm:px-6 sm:py-6">
         <div className="mx-auto flex max-w-[64rem] flex-col gap-10 rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14">
           <header className="flex flex-col gap-3">
-            <p className="m-0 text-sm font-medium tracking-[0.18em] text-(--md-sys-color-on-surface-variant) uppercase">
-              Theme
-            </p>
-            <h1 className="m-0 text-3xl font-semibold text-(--md-sys-color-on-surface)">
+            <Kicker>Theme</Kicker>
+            <h1
+              className={`m-0 ${T_PAGE} text-(--md-sys-color-on-surface)`}
+            >
               One theme source, both platforms
             </h1>
-            <p className="m-0 text-(--md-sys-color-on-surface-variant)">
+            <p
+              className={`m-0 ${T_BODY} text-(--md-sys-color-on-surface-variant)`}
+            >
               <code>@xoroh/kern-tokens</code> is platform-free: no React, no
               DOM. Web reads OKLCH CSS variables, native reads compiled sRGB,
               and both resolve the same {ROLE_COUNT} roles. Every swatch on this
@@ -147,17 +164,19 @@ function ThemePage() {
           </header>
 
           <section className="flex flex-col gap-4">
-            <h2 id="switch-it-yourself" className="m-0 text-lg font-semibold">
+            <h2 id="switch-it-yourself" className={`m-0 ${T_SECTION}`}>
               Switch it yourself
             </h2>
             <ThemeSwitcher />
           </section>
 
           <section className="flex flex-col gap-4">
-            <h2 id="color-roles" className="m-0 text-lg font-semibold">
+            <h2 id="color-roles" className={`m-0 ${T_SECTION}`}>
               Color roles
             </h2>
-            <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
+            <p
+              className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            >
               A role is a decision, not a color. <code>primary</code> means
               &ldquo;the brand accent&rdquo;; the value behind it can change
               without a component knowing.
@@ -170,7 +189,7 @@ function ThemePage() {
                       .toLowerCase()
                       .replace(/[^a-z0-9]+/g, "-")
                       .replace(/^-|-$/g, "")}`}
-                    className="m-0 text-sm font-semibold text-(--md-sys-color-on-surface)"
+                    className={`m-0 ${T_SMALL_TITLE} text-(--md-sys-color-on-surface)`}
                   >
                     {group.title}
                   </h3>
@@ -193,10 +212,12 @@ function ThemePage() {
           </section>
 
           <section className="flex flex-col gap-4">
-            <h2 id="shape-ladder" className="m-0 text-lg font-semibold">
+            <h2 id="shape-ladder" className={`m-0 ${T_SECTION}`}>
               Shape ladder
             </h2>
-            <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
+            <p
+              className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            >
               {SHAPE_KEYS.length} corner roles, from <code>none</code> to{" "}
               <code>full</code>. Components reference the role, never a literal
               radius.
@@ -214,10 +235,12 @@ function ThemePage() {
           </section>
 
           <section className="flex flex-col gap-4">
-            <h2 id="contrast-levels" className="m-0 text-lg font-semibold">
+            <h2 id="contrast-levels" className={`m-0 ${T_SECTION}`}>
               Contrast levels
             </h2>
-            <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
+            <p
+              className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            >
               A contrast level resolves to a whole scheme, not a filter. Each
               tile below is read straight from the theme package.
             </p>
@@ -234,7 +257,7 @@ function ThemePage() {
                       }}
                     >
                       <span
-                        className="rounded-(--md-sys-shape-corner-full) px-3 py-1 text-center text-xs"
+                        className={`rounded-(--md-sys-shape-corner-full) px-3 py-1 text-center ${T_LABEL}`}
                         style={{
                           background: resolved.color.primaryContainer,
                           color: resolved.color.onPrimaryContainer,
@@ -243,7 +266,7 @@ function ThemePage() {
                         primaryContainer
                       </span>
                       <span
-                        className="rounded-(--md-sys-shape-corner-full) px-3 py-1 text-center text-xs"
+                        className={`rounded-(--md-sys-shape-corner-full) px-3 py-1 text-center ${T_LABEL}`}
                         style={{
                           background: resolved.color.errorContainer,
                           color: resolved.color.onErrorContainer,
@@ -259,10 +282,12 @@ function ThemePage() {
           </section>
 
           <section className="flex flex-col gap-4">
-            <h2 id="preset-deltas" className="m-0 text-lg font-semibold">
+            <h2 id="preset-deltas" className={`m-0 ${T_SECTION}`}>
               Preset deltas
             </h2>
-            <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
+            <p
+              className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            >
               The <code>brand</code> preset changes{" "}
               {Object.keys(BRAND_LAYERS.deltas).length} of {ROLE_COUNT} roles
               against the <code>m3</code> base. A variant that changes nothing
@@ -277,8 +302,10 @@ function ThemePage() {
                     style={{ background: value }}
                   />
                   <span className="flex min-w-0 flex-col">
-                    <span className="truncate text-sm">{role}</span>
-                    <span className="font-mono text-xs text-(--md-sys-color-on-surface-variant)">
+                    <span className={`truncate ${T_BODY_MD}`}>{role}</span>
+                    <span
+                      className={`${T_CODE} text-(--md-sys-color-on-surface-variant)`}
+                    >
                       {value}
                     </span>
                   </span>
@@ -290,11 +317,13 @@ function ThemePage() {
           <section className="flex flex-col gap-4">
             <h2
               id="the-same-roles-rendering"
-              className="m-0 text-lg font-semibold"
+              className={`m-0 ${T_SECTION}`}
             >
               The same roles, rendering
             </h2>
-            <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
+            <p
+              className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            >
               These components read the roles above and nothing else.
             </p>
             <PreviewGrid>
@@ -311,7 +340,7 @@ function ThemePage() {
               <Preview label="Card · Chip · Badge" span={3}>
                 <div className="flex flex-wrap items-center justify-center gap-3">
                   <Card variant="elevated" className="p-5">
-                    <p className="m-0 text-sm">Card surface</p>
+                    <p className={`m-0 ${T_BODY_MD}`}>Card surface</p>
                   </Card>
                   <Chip variant="filter" defaultSelected>
                     Filter
@@ -323,10 +352,12 @@ function ThemePage() {
           </section>
 
           <section className="flex flex-col gap-4">
-            <h2 id="and-on-mobile" className="m-0 text-lg font-semibold">
+            <h2 id="and-on-mobile" className={`m-0 ${T_SECTION}`}>
               And on mobile
             </h2>
-            <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
+            <p
+              className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            >
               The native side resolves the identical scheme, so a role means the
               same thing on both platforms.
             </p>
@@ -341,16 +372,20 @@ function ThemePage() {
           </section>
 
           <section className="flex flex-col gap-4">
-            <h2 id="author-a-theme" className="m-0 text-lg font-semibold">
+            <h2 id="author-a-theme" className={`m-0 ${T_SECTION}`}>
               Author a theme
             </h2>
-            <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
+            <p
+              className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            >
               <code>defineThemePreset</code> rejects unknown roles, reserved
               ids, and non-hex values before anything renders, so a customer
               theme cannot silently break contrast.
             </p>
             <Code>{PRESET}</Code>
-            <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
+            <p
+              className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            >
               Every token is also a CSS variable, so a project can read one
               without importing anything: <Kbd>--md-sys-color-primary</Kbd>.
             </p>

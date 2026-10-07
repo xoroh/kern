@@ -17,11 +17,14 @@
  *    /x -> x.tsx or x/index.tsx, and /components/web -> the $platform route).
  * 2. No duplicate hrefs in the nav (two leaves, one destination — the map
  *    lying about the territory).
- * 3. REPORTED, not failing: top-level route files with no nav leaf pointing
- *    at them (currently: /showcase, /legal/*). Some routes are destinations,
- *    not wayfinding — the gate lists them so the omission stays a decision.
+ * 3. Zero orphans: every top-level route must be reachable from at least one
+ *    chrome surface — the docs sidebar (NAV_LEAVES), the rail/mobile menu
+ *    (RAIL_ITEMS in app-rail.tsx), the footer, or the ⌘K palette (/search,
+ *    opened from every page). Anything still unlisted fails. Some routes are
+ *    destinations, not wayfinding — the rail and footer are what keep them
+ *    listed, so the omission from the sidebar stays a decision, not drift.
  */
-import { existsSync, readdirSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -61,7 +64,23 @@ for (const leaf of leaves) {
 }
 
 // Routes with no nav leaf: walk top-level route files (one deep for groups).
+// A route is covered when any chrome surface reaches it: the sidebar leaves
+// above, the rail/mobile menu (one RAIL_ITEMS list feeds both), the footer,
+// or the ⌘K palette (/search opens from every page via rail, mobile bar, and
+// keyboard). Anything left over is an orphan and fails.
 const covered = new Set([...seen.keys()]);
+for (const file of [
+  join(SITE, "src", "components", "chrome", "app-rail.tsx"),
+  join(SITE, "src", "components", "chrome", "footer.tsx"),
+]) {
+  const text = readFileSync(file, "utf8");
+  for (const m of text.matchAll(/href\s*[:=]\s*["'](\/[^"'#?]*)["']/g)) {
+    covered.add(m[1]);
+  }
+}
+// /search has no <a href> pointing at it — the palette navigates by router
+// and links out to /search?q= — but it opens from every page, so it counts.
+covered.add("/search");
 const unlisted = [];
 function topRoutes(dir, prefix) {
   for (const e of readdirSync(dir, { withFileTypes: true })) {
@@ -82,16 +101,13 @@ function topRoutes(dir, prefix) {
 }
 topRoutes(join(SITE, "src", "routes"), "");
 
-if (failures.length) {
+if (failures.length || unlisted.length) {
   console.error("check-nav FAILED:\n");
   for (const f of failures) console.error(`  - ${f}`);
+  for (const href of unlisted)
+    console.error(`  - orphan route "${href}" — reachable from no chrome surface.`);
   process.exit(1);
 }
 console.log(
-  `check-nav passes: ${leaves.length} nav hrefs all resolve to route files, no duplicates.`,
+  `check-nav passes: ${leaves.length} nav hrefs all resolve to route files, no duplicates, no orphan routes.`,
 );
-if (unlisted.length) {
-  console.log(
-    `unlisted routes (reported, not failing — destinations, not wayfinding): ${unlisted.join(", ")}`,
-  );
-}

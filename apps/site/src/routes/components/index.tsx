@@ -12,9 +12,12 @@ import {
   ComponentGallery,
   GalleryLede,
 } from "../../components/docs/component-gallery";
+import { routeHead } from "../../systems/seo";
 import { T_LABEL_LG, T_PAGE } from "../../systems/type-scale";
 
 export const Route = createFileRoute("/components/")({
+  head: () =>
+    routeHead("Components", "One page per component family — metadata, preview, usage, props, theming."),
   component: ComponentsGallery,
 });
 

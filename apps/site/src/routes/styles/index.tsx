@@ -18,6 +18,7 @@ import {
   TYPE_STYLE_COUNT,
 } from "../../content/foundations";
 import { FOUNDATIONS } from "../../foundations/shell";
+import { routeHead } from "../../systems/seo";
 import {
   T_BODY_SM,
   T_LEAD,
@@ -32,6 +33,8 @@ const CARD =
   "rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-low)";
 
 export const Route = createFileRoute("/styles/")({
+  head: () =>
+    routeHead("Styles & tokens", "Color, type, shape, elevation, motion, and states — read from the token package."),
   component: StylesHub,
 });
 

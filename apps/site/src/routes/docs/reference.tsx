@@ -1,9 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "../../components/chrome/site-layout";
 import { COMPONENTS } from "../../generated/manifest";
+import { routeHead } from "../../systems/seo";
 import { T_BODY, T_LABEL, T_PAGE } from "../../systems/type-scale";
 
 export const Route = createFileRoute("/docs/reference")({
+  head: () =>
+    routeHead("API reference", "Every export in the generated manifest, one row each."),
   component: ApiIndex,
 });
 

@@ -1,10 +1,13 @@
 import { REPO_LICENSE } from "../../generated/changelog";
+import { T_BODY_MD } from "../../systems/type-scale";
 import { VersionSelector } from "./version-selector";
 
 export function Footer() {
   return (
     <footer className="mt-3 border-t border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface)">
-      <div className="mx-auto flex w-full flex-wrap items-center justify-between gap-4 px-6 py-6 text-sm sm:px-8">
+      <div
+        className={`mx-auto flex w-full flex-wrap items-center justify-between gap-4 px-6 py-6 ${T_BODY_MD} sm:px-8`}
+      >
         <p className="m-0 flex items-center gap-3 text-(--md-sys-color-on-surface-variant)">
           Kern by Xoroh · {REPO_LICENSE} License
           <VersionSelector />

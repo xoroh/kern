@@ -35,6 +35,7 @@ import {
 import { useMemo, useState } from "react";
 import { SiteLayout } from "../components/chrome/site-layout";
 import { CopyButton } from "../showcase/copy-button";
+import { routeHead } from "../systems/seo";
 import {
   T_BODY,
   T_BODY_SM,
@@ -46,6 +47,8 @@ import {
 import { seedOverrides } from "../theme-studio/seed";
 
 export const Route = createFileRoute("/theme-configurator")({
+  head: () =>
+    routeHead("Theme configurator", "Theme studio — tune tokens and preview them on real components."),
   component: ThemeConfigurator,
 });
 

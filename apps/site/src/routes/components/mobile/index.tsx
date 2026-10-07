@@ -23,8 +23,11 @@ import {
   T_PAGE,
   T_SECTION,
 } from "../../../systems/type-scale";
+import { routeHead } from "../../../systems/seo";
 
 export const Route = createFileRoute("/components/mobile/")({
+  head: () =>
+    routeHead("Mobile components", "Native components from @xoroh/kern-native, previewed live."),
   component: MobileComponents,
 });
 

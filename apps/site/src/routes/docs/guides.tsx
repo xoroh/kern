@@ -1,10 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Kicker } from "../../components/chrome/kicker";
 import { SiteLayout } from "../../components/chrome/site-layout";
 import { Code, Step } from "../../components/docs/code";
 import { IconGallery } from "../../components/icons/icon-gallery";
 import { componentsOn } from "../../generated/manifest";
+import { routeHead } from "../../systems/seo";
+import { T_BODY, T_BODY_MD, T_PAGE } from "../../systems/type-scale";
 
 export const Route = createFileRoute("/docs/guides")({
+  head: () =>
+    routeHead("Guides", "How-to guides for common tasks."),
   component: Guides,
 });
 
@@ -47,13 +52,11 @@ function Guides() {
       <section className="px-4 py-4 sm:px-6 sm:py-6">
         <div className="mx-auto flex max-w-[64rem] flex-col gap-8 rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14">
           <header className="flex flex-col gap-3">
-            <p className="m-0 text-sm font-medium tracking-[0.18em] text-(--md-sys-color-on-surface-variant) uppercase">
-              Docs / Guides
-            </p>
-            <h1 className="m-0 text-3xl font-semibold text-(--md-sys-color-on-surface)">
+            <Kicker>Docs / Guides</Kicker>
+            <h1 className={`m-0 ${T_PAGE} text-(--md-sys-color-on-surface)`}>
               Guides
             </h1>
-            <p className="m-0 text-(--md-sys-color-on-surface-variant)">
+            <p className={`m-0 ${T_BODY} text-(--md-sys-color-on-surface-variant)`}>
               {web} web exports and {mobile} native exports, under one naming
               law. These pages cover the rules that do not fit on a single
               component page.
@@ -61,7 +64,7 @@ function Guides() {
           </header>
 
           <Step n={1} title="One component, two platforms">
-            <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
+            <p className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}>
               A component that exists on both platforms keeps its name and its
               variant axis, and differs only where the platform genuinely does.
               The event name is the visible case: <code>onClick</code> on the
@@ -71,7 +74,7 @@ function Guides() {
           </Step>
 
           <Step n={2} title="Deliberate asymmetries">
-            <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
+            <p className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}>
               Not every surface exists twice. M3 expresses transient messaging
               as <code>Snackbar</code>, so the native package ships that and
               stops. The web-only <code>Sonner</code> is a second name for one
@@ -82,7 +85,7 @@ function Guides() {
           </Step>
 
           <Step n={3} title="Icons: aliases over raw names">
-            <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
+            <p className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}>
               The semantic map is the unification table. Reach for an alias
               first; a raw glyph name is for the icon that has no agreed meaning
               yet.
@@ -92,7 +95,7 @@ function Guides() {
           </Step>
 
           <Step n={4} title="The icon gallery">
-            <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
+            <p className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}>
               Every count and name below is read from the icon package at build
               time. The grid paints the first 120 for server-render cost; the
               filter reaches the rest.

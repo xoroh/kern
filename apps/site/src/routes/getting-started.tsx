@@ -1,8 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Kicker } from "../components/chrome/kicker";
 import { SiteLayout } from "../components/chrome/site-layout";
 import { Code, Step } from "../components/docs/code";
+import { routeHead } from "../systems/seo";
+import { T_BODY, T_BODY_MD, T_PAGE } from "../systems/type-scale";
 
 export const Route = createFileRoute("/getting-started")({
+  head: () =>
+    routeHead(
+      "Getting started",
+      "From install to a themed component in seven steps.",
+    ),
   component: GettingStarted,
 });
 
@@ -94,13 +102,11 @@ function GettingStarted() {
       <section className="px-4 py-4 sm:px-6 sm:py-6">
         <div className="mx-auto flex max-w-[48rem] flex-col gap-8 rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14">
           <header className="flex flex-col gap-3">
-            <p className="m-0 text-sm font-medium tracking-[0.18em] text-(--md-sys-color-on-surface-variant) uppercase">
-              Getting started
-            </p>
-            <h1 className="m-0 text-3xl font-semibold text-(--md-sys-color-on-surface)">
+            <Kicker>Getting started</Kicker>
+            <h1 className={`m-0 ${T_PAGE} text-(--md-sys-color-on-surface)`}>
               From install to a themed component
             </h1>
-            <p className="m-0 text-(--md-sys-color-on-surface-variant)">
+            <p className={`m-0 ${T_BODY} text-(--md-sys-color-on-surface-variant)`}>
               Seven steps: install, theme stylesheet, first component, theming,
               then the web and mobile quickstarts, and icons. Every TypeScript snippet here
               is compiled against the shipped packages before it ships; the
@@ -110,7 +116,7 @@ function GettingStarted() {
           </header>
 
           <Step n={1} title="Install the packages">
-            <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
+            <p className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}>
               Kern is one package per platform. Web consumers install{" "}
               <code>@xoroh/kern</code>; the icon set and the app scaffold are
               separate, so you only take what you use.
@@ -119,7 +125,7 @@ function GettingStarted() {
           </Step>
 
           <Step n={2} title="Load the theme stylesheet">
-            <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
+            <p className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}>
               One import sets the CSS custom properties every component reads.
               Import it once, at the root of your stylesheet.
             </p>
@@ -127,7 +133,7 @@ function GettingStarted() {
           </Step>
 
           <Step n={3} title="Render your first component">
-            <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
+            <p className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}>
               <code>Field</code> composes the input and wires the label,
               description, and error relationships for you. There is no{" "}
               <code>id</code> to invent.
@@ -136,7 +142,7 @@ function GettingStarted() {
           </Step>
 
           <Step n={4} title="Theming">
-            <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
+            <p className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}>
               <code>useKernTheme</code> resolves the same scheme the native side
               resolves, and persists the choice. <code>useSystem</code> hands
               control back to the OS.
@@ -145,7 +151,7 @@ function GettingStarted() {
           </Step>
 
           <Step n={5} title="Web quickstart — the app shell">
-            <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
+            <p className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}>
               <code>@xoroh/kern/start</code> ships the frame: a rail, a drawer,
               split panes, and top bars that take slots rather than baking in
               one app shape. Omit the slots you do not need and every other
@@ -155,7 +161,7 @@ function GettingStarted() {
           </Step>
 
           <Step n={6} title="Mobile quickstart">
-            <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
+            <p className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}>
               Native components take <code>onPress</code> instead of{" "}
               <code>onClick</code>, and resolve the same theme through{" "}
               <code>KernThemeProvider</code>.
@@ -165,7 +171,7 @@ function GettingStarted() {
           </Step>
 
           <Step n={7} title="Icons">
-            <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
+            <p className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}>
               Prefer a semantic alias over a raw glyph: the alias is the
               unification decision, so a re-decision stays a one-line change in
               the icon package instead of a sweep across every product.

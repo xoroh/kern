@@ -11,9 +11,11 @@ import { useMemo } from "react";
 import { SiteLayout } from "../components/chrome/site-layout";
 import { ResultText } from "../components/search/result-text";
 import { buildSearchIndex, SEARCH_SUGGESTIONS, searchSite } from "../systems/search";
+import { routeHead } from "../systems/seo";
 import { T_BODY_SM, T_PAGE, T_SECTION } from "../systems/type-scale";
 
 export const Route = createFileRoute("/search")({
+  head: () => routeHead("Search", "Search components, tokens, guides, API, blocks and pages."),
   validateSearch: (search: Record<string, unknown>) => ({
     q: typeof search.q === "string" ? search.q : "",
   }),

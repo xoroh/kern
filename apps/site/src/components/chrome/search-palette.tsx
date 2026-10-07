@@ -8,6 +8,12 @@
  * go, Escape to close). No-results renders suggestions, never a dead end.
  * Selecting a result navigates with the host router; a "See all results"
  * link deep-links to `/search?q=` for sharing.
+ *
+ * Focus discipline: while open the dialog traps Tab (first↔last wrap, focus
+ * pulled back in if it ever leaves), the page regions behind it are
+ * `inert` + `aria-hidden` (SiteLayout marks them `data-chrome`; the palette
+ * itself renders outside them), Escape closes from anywhere inside, and
+ * focus returns to the element that opened it.
  */
 import { useNavigate } from "@tanstack/react-router";
 import {
@@ -24,6 +30,14 @@ import {
   type SearchEntry,
   searchSite,
 } from "../../systems/search";
+import { trapTarget } from "../../systems/focus-trap";
+import {
+  T_BODY,
+  T_BODY_MD,
+  T_BODY_SM,
+  T_KEY,
+  T_LABEL_MD,
+} from "../../systems/type-scale";
 import { ResultText } from "../search/result-text";
 
 export const OPEN_SEARCH_EVENT = "kern:open-search";
@@ -36,12 +50,27 @@ function flatten(groups: ReturnType<typeof searchSite>): SearchEntry[] {
   return groups.flatMap((g) => g.entries);
 }
 
+const FOCUSABLE =
+  'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+/** Toggle the background regions inert (with an aria-hidden fallback). */
+function setRegionsHidden(hidden: boolean) {
+  for (const region of document.querySelectorAll("[data-chrome]")) {
+    if (hidden) region.setAttribute("aria-hidden", "true");
+    else region.removeAttribute("aria-hidden");
+    // `inert` keeps keyboard focus out of the background; where the browser
+    // does not implement it the aria-hidden hiding above still applies.
+    if ("inert" in region) (region as HTMLElement).inert = hidden;
+  }
+}
+
 export function SearchPalette() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<Element | null>(null);
   const listId = useId();
 
@@ -87,10 +116,46 @@ export function SearchPalette() {
   useEffect(() => {
     if (open) {
       inputRef.current?.focus();
+      setRegionsHidden(true);
+      return () => {
+        setRegionsHidden(false);
+      };
     }
-  }, [open]);
+  }, [open ]);
 
   if (!open) return null;
+
+  const focusables = (): HTMLElement[] => {
+    const root = dialogRef.current;
+    if (!root) return [];
+    return [...root.querySelectorAll<HTMLElement>(FOCUSABLE)];
+  };
+
+  const onDialogKey = (e: React.KeyboardEvent) => {
+    if (e.key === "Escape") {
+      // The input handles its own Escape below; this covers focus on a
+      // result link, a suggestion button, or the scrim.
+      e.preventDefault();
+      close();
+      return;
+    }
+    if (e.key !== "Tab") return;
+    const items = focusables();
+    if (items.length === 0) {
+      e.preventDefault();
+      return;
+    }
+    // First↔last wrap with pull-in (see src/systems/focus-trap.ts, which pins
+    // the decision table with a keyboard test): Tab from the last item or
+    // from outside wraps to the first, Shift+Tab from the first or outside
+    // wraps to the last, and anything else is a natural in-dialog move.
+    const activeIndex = items.indexOf(document.activeElement as HTMLElement);
+    const target = trapTarget(items.length, activeIndex, e.shiftKey);
+    if (target !== null) {
+      e.preventDefault();
+      items[target].focus();
+    }
+  };
 
   const onInputKey = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowDown") {
@@ -120,9 +185,11 @@ export function SearchPalette() {
 
   return (
     <div
+      ref={dialogRef}
       role="dialog"
       aria-modal="true"
       aria-label="Search"
+      onKeyDown={onDialogKey}
       className="fixed inset-0 z-[100] flex items-start justify-center p-4 pt-[12vh]"
     >
       {/* The scrim is a real button, not a clickable div: keyboard users get
@@ -154,9 +221,11 @@ export function SearchPalette() {
               setActive(0);
             }}
             onKeyDown={onInputKey}
-            className="m-0 w-full bg-transparent text-(--md-sys-color-on-surface) outline-none placeholder:text-(--md-sys-color-on-surface-variant)"
+            className={`m-0 w-full bg-transparent ${T_BODY} text-(--md-sys-color-on-surface) outline-none placeholder:text-(--md-sys-color-on-surface-variant)`}
           />
-          <kbd className="shrink-0 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline) px-1.5 font-mono text-(--md-sys-color-on-surface-variant)">
+          <kbd
+            className={`shrink-0 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline) px-1.5 ${T_KEY} text-(--md-sys-color-on-surface-variant)`}
+          >
             esc
           </kbd>
         </div>
@@ -169,7 +238,7 @@ export function SearchPalette() {
             />
           ) : groups.length === 0 ? (
             <div className="flex flex-col gap-3 p-3">
-              <p className="m-0 text-(--md-sys-color-on-surface-variant)">
+              <p className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}>
                 No results for “{query.trim()}”.
               </p>
               <PaletteSuggestions
@@ -181,7 +250,9 @@ export function SearchPalette() {
           ) : (
             groups.map((g) => (
               <fieldset key={g.group} className="m-0 min-w-0 border-0 p-0">
-                <legend className="m-0 px-3 pt-2 pb-1 text-(--md-sys-color-on-surface-variant)">
+                <legend
+                  className={`m-0 px-3 pt-2 pb-1 ${T_LABEL_MD} text-(--md-sys-color-on-surface-variant)`}
+                >
                   {g.group}
                 </legend>
                 <div
@@ -227,7 +298,7 @@ export function SearchPalette() {
               onClick={() =>
                 go(`/search?q=${encodeURIComponent(query.trim())}`)
               }
-              className="mt-1 w-full cursor-pointer border-0 bg-transparent px-3 py-2 text-left text-(--md-sys-color-primary)"
+              className={`mt-1 w-full cursor-pointer border-0 bg-transparent px-3 py-2 text-left ${T_BODY_MD} text-(--md-sys-color-primary)`}
             >
               See all results →
             </button>
@@ -249,7 +320,9 @@ function PaletteSuggestions({
 }) {
   return (
     <div className="flex flex-col gap-1 p-1">
-      <p className="m-0 px-2 pt-1 text-(--md-sys-color-on-surface-variant)">
+      <p
+        className={`m-0 px-2 pt-1 ${T_LABEL_MD} text-(--md-sys-color-on-surface-variant)`}
+      >
         {title}
       </p>
       {entries.map((entry) => (
@@ -257,10 +330,10 @@ function PaletteSuggestions({
           key={entry.href}
           type="button"
           onClick={() => onPick(entry.href)}
-          className="cursor-pointer border-0 bg-transparent px-2 py-1.5 text-left text-(--md-sys-color-on-surface) hover:bg-(--md-sys-color-surface-container)"
+          className={`cursor-pointer border-0 bg-transparent px-2 py-1.5 text-left ${T_BODY_MD} text-(--md-sys-color-on-surface) hover:bg-(--md-sys-color-surface-container)`}
         >
           {entry.title}
-          <span className="text-(--md-sys-color-on-surface-variant)">
+          <span className={`${T_BODY_SM} text-(--md-sys-color-on-surface-variant)`}>
             {" "}
             · {entry.hint}
           </span>

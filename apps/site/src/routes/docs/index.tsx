@@ -15,6 +15,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "../../components/chrome/site-layout";
 import { RECENT_CHANGES } from "../../generated/changelog";
+import { routeHead } from "../../systems/seo";
 import {
   T_BODY,
   T_BODY_SM,
@@ -24,7 +25,11 @@ import {
   T_SMALL_TITLE,
 } from "../../systems/type-scale";
 
-export const Route = createFileRoute("/docs/")({ component: DocsIndex });
+export const Route = createFileRoute("/docs/")({
+  head: () =>
+    routeHead("Docs", "Guides, API, and reference — where to fit, what to do first, what changed."),
+  component: DocsIndex,
+});
 
 const CARD =
   "block rounded-(--md-sys-shape-corner-large) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-low) p-5 no-underline text-(--md-sys-color-on-surface)";
