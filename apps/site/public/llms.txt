@@ -171,7 +171,7 @@ Prefer these machine surfaces over scraping HTML:
 - [Bottom sheet picker](/components/mobile/bottom-sheet-picker): Bottom sheet pickers choose one value from a list, using the platform's own bottom-sheet interaction.
 - [Bottom sheet](/components/mobile/bottom-sheet): Bottom sheets slide up from the bottom edge to hold a short, self-contained step.
 - [Button group](/components/mobile/button-group): The button group lays out buttons as one joined row or column, so related actions read as a set.
-- [Button](/components/mobile/button): The button is the standard action control: five Material 3 treatments, two sizes, one press.
+- [Button](/components/mobile/button): The button is the standard action control: five Material 3 treatments, four sizes, one press.
 - [Calendar](/components/mobile/calendar): The calendar is a month grid for picking one date — bounded by min and max, driven by a controlled or uncontrolled value.
 - [Card](/components/mobile/card): Cards group related content on one surface, in three Material 3 treatments.
 - [Carousel](/components/mobile/carousel): The carousel shows a set of items one at a time — one active slide, one tab stop, an index that never disagrees with itself.

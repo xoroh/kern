@@ -3541,7 +3541,7 @@ export const PROPS_TABLE: Record<
   },
   FocusRing: {
     rows: [],
-    curated: ["color", "rel", "className", "ref"],
+    curated: [],
   },
   Form: {
     rows: [
@@ -3862,23 +3862,7 @@ export const PROPS_TABLE: Record<
         required: false,
       },
     ],
-    curated: [
-      "variant",
-      "color",
-      "size",
-      "shape",
-      "block",
-      "loading",
-      "loadingValue",
-      "loaderStyle",
-      "target",
-      "rel",
-      "download",
-      "icon",
-      "iconPosition",
-      "className",
-      "ref",
-    ],
+    curated: [],
   },
   ListItem: {
     rows: [
@@ -6395,6 +6379,11 @@ export const PROPS_TABLE: Record<
         type: "string | undefined",
         required: false,
       },
+      {
+        name: "dir",
+        type: "any",
+        required: false,
+      },
     ],
     curated: [],
   },
@@ -6404,6 +6393,11 @@ export const PROPS_TABLE: Record<
         name: "label",
         type: "string",
         required: true,
+      },
+      {
+        name: "dir",
+        type: "any",
+        required: false,
       },
       {
         name: "children",
@@ -6481,6 +6475,11 @@ export const PROPS_TABLE: Record<
         required: true,
       },
       {
+        name: "dir",
+        type: "any",
+        required: false,
+      },
+      {
         name: "children",
         type: "ReactNode",
         required: false,
@@ -6551,6 +6550,11 @@ export const PROPS_TABLE: Record<
         required: true,
       },
       {
+        name: "dir",
+        type: "any",
+        required: false,
+      },
+      {
         name: "children",
         type: "ReactNode",
         required: false,
@@ -6609,6 +6613,11 @@ export const PROPS_TABLE: Record<
         name: "label",
         type: "string",
         required: true,
+      },
+      {
+        name: "dir",
+        type: "any",
+        required: false,
       },
       {
         name: "children",
@@ -6674,6 +6683,11 @@ export const PROPS_TABLE: Record<
         name: "label",
         type: "string",
         required: true,
+      },
+      {
+        name: "dir",
+        type: "any",
+        required: false,
       },
       {
         name: "children",
