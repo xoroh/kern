@@ -2792,6 +2792,18 @@ export const COMPONENTS: ComponentEntry[] = [
 
 export const COMPONENT_COUNT = COMPONENTS.length;
 
+/**
+ * Canonical registry counts, emitted from PARITY_COUNTS in
+ * parity/contract.ts (see the parse above) — the site never hard-codes
+ * its own copy. "web" / "native" are registry rows, "shared" is concepts;
+ * different units, do not compare them.
+ */
+export const PARITY_COUNTS = {
+  web: 292,
+  native: 104,
+  shared: 83,
+};
+
 const BY_SLUG = new Map(COMPONENTS.map((c) => [c.slug, c]));
 
 export function getComponent(slug: string): ComponentEntry | undefined {

@@ -972,6 +972,23 @@ export const CONTRACTS: readonly ParityRow[] = [
   },
 ] as const;
 
+/**
+ * Canonical registry counts (T2 P0-counts).
+ *
+ * Single source of truth for "how big is the registry" claims made by docs
+ * and generators. `web` / `native` are generated registry ROWS
+ * (`packages/mcp/src/manifest.ts`, via `docs/components.md`); `shared` is
+ * CONCEPTS present on both platforms after the concept rule and the D10
+ * NAME_MAPPING in `scripts/check-parity.mjs` collapse parts and twins.
+ * Row counts and concept counts are different units — do not compare them.
+ *
+ * `check:parity` re-derives all three from the registry and fails if this
+ * export drifts, so update the three numbers in the same change that moves
+ * the registry. Generators and docs must import these, never hard-code
+ * their own copy.
+ */
+export const PARITY_COUNTS = { web: 292, native: 104, shared: 83 } as const;
+
 /** Lookup for a test that knows its component by name.
  *
  *  Tranche 2 introduced a second `chip` row (filter vs assist), so a component

@@ -114,5 +114,5 @@ Only `.changeset/config.json` and real changesets live in `.changeset/`.
 
 ```bash
 bun x changeset status   # parses cleanly, lists pending bumps
-bun run check:publish    # publint + are-the-types-wrong, all 6 packages
+bun run check:publish    # publint + are-the-types-wrong, all 7 packages
 ```

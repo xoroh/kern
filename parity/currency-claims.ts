@@ -36,6 +36,17 @@
  */
 
 /**
+ * Canonical registry counts (T2 P0-counts) — re-exported, not re-declared.
+ *
+ * The numbers live in `parity/contract.ts` (`PARITY_COUNTS`); this file
+ * re-exports them so currency consumers have one import site for "how big
+ * is the registry" without a second copy to drift. `check:currency` matches
+ * `/currency\s*[:=]\s*["\x60]([A-Z0-9][A-Z0-9-]*)["\x60]/`, so this line is
+ * invisible to it — same rule as the `currency: CATALOG` note above.
+ */
+export { PARITY_COUNTS } from "./contract.js";
+
+/**
  * Per-row currency claims, keyed by the component each row governs.
  *
  * Only rows that claim an M3 source appear. A kern extension is absent by design.

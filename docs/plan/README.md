@@ -51,7 +51,8 @@ Row 11 log: contributor docs restructured (`../architecture.md`,
 `../platform-parity.md` rebuilt from the generated inventory, conventions
 for changesets / parity / stubs, `change-routing.md` in the docs skill).
 Rows 6-8 landed while this pass was open, so the parity tables were
-recomputed against the new surface (236 web / 78 native exports).
+recomputed against the then-current surface (figures as measured at the time;
+today's counts live in `PARITY_COUNTS` in `parity/contract.ts`).
 
 **Still open on row 11, stated honestly:** the *site* shell docs did not land.
 `apps/site` ships `/getting-started` (with a web-quickstart step that mounts

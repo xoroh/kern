@@ -98,8 +98,9 @@ members you already know are symmetric (`segmented-button`, `command`,
 `snackbar`) before a derived set sends anyone to build. A wrong set is usually
 self-consistent and produces no error.
 
-Current measured state (registry: 314 rows, web 236 / native 78): **45 shared
-concepts, 26 native-only, 34 web-only, 0 stubs.** Per-component contracts live in
+Current measured state (registry: 396 rows, web 292 / native 104): **83 shared
+concepts, 8 native-only, 40 web-only, 0 stubs** (`PARITY_COUNTS` in
+`parity/contract.ts`; re-derived from the registry by `check:parity`). Per-component contracts live in
 [`../parity-contract.md`](../parity-contract.md).
 
 ## Does a concept warrant a web component? (the empty-abstraction test)

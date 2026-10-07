@@ -146,7 +146,10 @@ is therefore usually an API-shape difference, not a missing feature.
 | `toggle` | 4 | 2 |
 | `toolbar` | 5 | 1 |
 
-Totals: **236** web exports, **78** native exports, **47** shared concepts.
+Totals: **292** web exports, **104** native exports, **83** shared concepts
+(`PARITY_COUNTS` in `parity/contract.ts`, generated from
+[`components.md`](components.md) — never hand-edit; see "Keeping this page
+honest" below).
 Every export is `real`; there are no stubs in the tree.
 
 ### Naming exceptions (both sides)
@@ -233,7 +236,7 @@ gesture handling proves inadequate, the plan is `@xoroh/kern-expo`.
 | Concept | Web | Native | Status |
 | --- | --- | --- | --- |
 | `Loader` size | `sm`, `default`, `lg` | `small`, `large` | intentional — RN `ActivityIndicator` accepts only two sizes |
-| `Button` variant | `primary`, `tonal`, `ghost`, `destructive` | `primary`, `tonal`, `ghost` | **gap** — native omits `destructive` |
+| `Button` variant | `elevated`, `primary`, `tonal`, `outlined`, `ghost` (M3 aliases `filled`→`primary`, `text`→`ghost`) | same | intentional — **no `destructive` variant on either side**; a destructive action is an error-role colour choice, not a sixth axis (web: `packages/kern/src/components/button.tsx:14-25`; native: `packages/kern-native/src/components/button.tsx:16-21`; pinned: `packages/kern/src/start/sizes.test.ts:58`, `packages/kern-native/src/components/sizes.test.ts:66`) |
 | `Dialog` | Base UI primitives | RN `Modal` | intentional — different primitive, same M3 structure and two-action law |
 | `SegmentedButton` | compound `Root`/`Item` | single `SegmentedButton`, `options` prop | intentional — API shape, not coverage (ruled, see below) |
 | `CountrySelect` | 7 multipart exports | 1 flat `CountrySelect` | intentional — API shape, not coverage. **Corrected 2026-10-01:** this row previously said "no native equivalent"; native has shipped it since (`web-parity.tsx:346`) |

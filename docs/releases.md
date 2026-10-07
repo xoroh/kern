@@ -2,13 +2,14 @@
 
 Status: current
 
-Changesets. Six packages publish; each versions independently.
+Changesets. Seven packages publish; each versions independently.
 `@xoroh/kern-cli` is private and never published.
 
 | Package | Directory | Public | First release |
 |---|---|---|---|
 | `@xoroh/kern` | `packages/kern` | yes | `0.1.0` |
 | `@xoroh/kern-tokens` | `packages/kern-tokens` | yes | `0.1.0` |
+| `@xoroh/kern-primitives` | `packages/kern-primitives` | yes | `0.1.0` |
 | `@xoroh/kern-native` | `packages/kern-native` | yes | `0.1.0` |
 | `@xoroh/kern-icons` | `packages/kern-icons` | yes | `0.1.0` |
 | `@xoroh/kern/start` | `packages/kern/src/start` | yes | `0.1.0` |
@@ -33,7 +34,7 @@ Check what is pending at any time: `bun x changeset status`.
 
 ## Verifying a package before it publishes
 
-`bun run check:publish` runs `publint` + `attw --pack` across all six
+`bun run check:publish` runs `publint` + `attw --pack` across all seven
 publishable packages. It catches the failures that only appear after
 `npm pack`: broken `exports` conditions, missing `types` for a condition,
 side-effect files missing from `files`. Run it before merging any change that
