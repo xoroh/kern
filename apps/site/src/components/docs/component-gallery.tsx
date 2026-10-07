@@ -251,11 +251,25 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
               </DemoBoundary>
             </div>
           ) : null
+        ) : reason ? (
+          // Demo-less WITH a reason (BootSplash, MilestoneTrio): the reason
+          // is full sentences, far taller than the h-36 slot — centered text
+          // that tall clips mid-sentence top AND bottom and reads as a
+          // rendering bug (review-showcase T4 note). Clamp to 4 lines with a
+          // fade so it reads as intentionally shortened; the full sentence
+          // stays one hover away via title. "Demo coming" (no reason) is two
+          // words and never clamps, so it renders plain with no fade.
+          <div className="flex h-full items-center justify-center">
+            <span
+              className={`${T_BODY_SM} ${INK_SOFT} line-clamp-4 text-center [mask-image:linear-gradient(to_bottom,black_70%,transparent)]`}
+              title={reason}
+            >
+              {reason}
+            </span>
+          </div>
         ) : (
           <div className="flex h-full items-center justify-center">
-            <span className={`${T_BODY_SM} ${INK_SOFT}`}>
-              {reason ?? "Demo coming"}
-            </span>
+            <span className={`${T_BODY_SM} ${INK_SOFT}`}>Demo coming</span>
           </div>
         )}
       </div>

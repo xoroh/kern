@@ -509,6 +509,7 @@ function InstallPicker({ target }: { target: string }) {
 function Installation({ doc }: { doc: ComponentDoc }) {
   const pkg = doc.meta.package;
   const target = installTarget(pkg);
+  const importStatement = `import { ${doc.parts[0]} } from "${pkg}";`;
   return (
     <section className="flex flex-col gap-3">
       <Heading id="installation">Installation</Heading>
@@ -518,9 +519,12 @@ function Installation({ doc }: { doc: ComponentDoc }) {
       </p>
       <InstallPicker target={target} />
       <div className={`${CARD} flex flex-col gap-2 p-4`}>
-        <pre className={`m-0 overflow-x-auto ${CODE} ${INK}`}>
-          <code>{`import { ${doc.parts[0]} } from "${pkg}";`}</code>
-        </pre>
+        <div className="flex items-center gap-2">
+          <pre className={`m-0 flex-1 overflow-x-auto ${CODE} ${INK}`}>
+            <code>{importStatement}</code>
+          </pre>
+          <CopyButton text={importStatement} />
+        </div>
       </div>
     </section>
   );

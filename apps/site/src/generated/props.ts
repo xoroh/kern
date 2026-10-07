@@ -965,29 +965,48 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "variant",
       "type": "\"error\" | \"info\" | \"success\" | \"warning\" | null | undefined",
       "required": false,
-      "src": "packages/kern/src/components/banner.tsx:13",
+      "src": "packages/kern/src/components/banner.tsx:14",
       "default": "\"info\""
     },
     {
       "name": "icon",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/banner.tsx:30",
+      "src": "packages/kern/src/components/banner.tsx:31",
       "note": "Leading slot: usually an `Icon` matching the intent."
     },
     {
       "name": "assertive",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/banner.tsx:32",
+      "src": "packages/kern/src/components/banner.tsx:33",
       "note": "When true the banner takes `role=\"alert\"` (assertive announcement)."
     },
     {
       "name": "onDismiss",
       "type": "(() => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/banner.tsx:34",
+      "src": "packages/kern/src/components/banner.tsx:35",
       "note": "Renders a dismiss button and calls back when it is pressed."
+    },
+    {
+      "name": "open",
+      "type": "boolean | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/banner.tsx:42",
+      "note": "R2 lexicon: controlled visibility. `open` wins when passed;\n`open={false}` renders nothing. The dismiss button drives the single\nclose path below — `onOpenChange(false)` plus `onDismiss()` — so both\nstay in sync. Previously visibility was parent-removed JSX only."
+    },
+    {
+      "name": "defaultOpen",
+      "type": "boolean | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/banner.tsx:43"
+    },
+    {
+      "name": "onOpenChange",
+      "type": "((open: boolean) => void) | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/banner.tsx:44"
     }
   ],
   "BannerAction": [],
@@ -1124,81 +1143,100 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "items",
       "type": "ReactNode[]",
       "required": true,
-      "src": "packages/kern/src/components/carousel.tsx:40",
+      "src": "packages/kern/src/components/carousel.tsx:43",
       "note": "Slide content, in order. Exactly one is shown at a time."
     },
     {
       "name": "label",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/carousel.tsx:42",
+      "src": "packages/kern/src/components/carousel.tsx:45",
       "note": "Accessible name of the carousel region."
     },
     {
       "name": "index",
       "type": "number | undefined",
       "required": false,
-      "src": "packages/kern/src/components/carousel.tsx:44",
+      "src": "packages/kern/src/components/carousel.tsx:47",
       "note": "Controlled active index."
     },
     {
       "name": "defaultIndex",
       "type": "number | undefined",
       "required": false,
-      "src": "packages/kern/src/components/carousel.tsx:46",
+      "src": "packages/kern/src/components/carousel.tsx:49",
       "note": "Initial index for the uncontrolled case."
     },
     {
       "name": "onIndexChange",
       "type": "((index: number) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/carousel.tsx:47"
+      "src": "packages/kern/src/components/carousel.tsx:50"
+    },
+    {
+      "name": "value",
+      "type": "number | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/carousel.tsx:55",
+      "note": "R2 lexicon canonical names. `value` wins when both are passed; both\ncallbacks fire on every change, so a host mid-migration never misses one."
+    },
+    {
+      "name": "defaultValue",
+      "type": "number | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/carousel.tsx:56"
+    },
+    {
+      "name": "onValueChange",
+      "type": "((index: number) => void) | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/carousel.tsx:57"
     },
     {
       "name": "wrap",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/carousel.tsx:49",
+      "src": "packages/kern/src/components/carousel.tsx:59",
       "note": "Wrap past the ends instead of disabling the control. M3 default is false."
     },
     {
       "name": "showIndicators",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/carousel.tsx:51",
+      "src": "packages/kern/src/components/carousel.tsx:61",
       "note": "Renders the dot indicator."
     },
     {
       "name": "disabled",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/carousel.tsx:52"
+      "src": "packages/kern/src/components/carousel.tsx:62"
     },
     {
       "name": "className",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/carousel.tsx:53"
+      "src": "packages/kern/src/components/carousel.tsx:63"
     },
     {
       "name": "itemLabels",
       "type": "string[] | undefined",
       "required": false,
-      "src": "packages/kern/src/components/carousel.tsx:55",
+      "src": "packages/kern/src/components/carousel.tsx:65",
       "note": "Per-slide accessible names. Defaults to `Slide n of total`."
     },
     {
       "name": "itemKeys",
       "type": "string[] | undefined",
       "required": false,
-      "src": "packages/kern/src/components/carousel.tsx:61",
+      "src": "packages/kern/src/components/carousel.tsx:71",
       "note": "Stable identity per slide, for React reconciliation when slides are\nreordered. Falls back to the index, which is correct for a static set and\nwrong for a reordered one — so a dynamic carousel must pass these."
     },
     {
       "name": "testID",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/carousel.tsx:62"
+      "src": "packages/kern/src/components/carousel.tsx:72"
     }
   ],
   "CheckboxGroupRoot": [
@@ -1528,6 +1566,19 @@ export const GENERATED_PROPS: Record<string, Array<{
     }
   ],
   "Chip": [
+    {
+      "name": "defaultValue",
+      "type": "string | number | readonly string[] | (readonly string[] & false) | (readonly string[] & true) | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/chip.tsx:43"
+    },
+    {
+      "name": "value",
+      "type": "string | number | readonly string[] | (readonly string[] & false) | (readonly string[] & true) | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/chip.tsx:42",
+      "note": "R2 lexicon canonical names (`value` wins when both are passed; both\ncallbacks fire). `selected`/`defaultSelected`/`onSelectedChange` are\ndeprecated aliases onto the same state."
+    },
     {
       "name": "type",
       "type": "\"button\" | \"submit\" | \"reset\" | undefined",
@@ -3962,6 +4013,25 @@ export const GENERATED_PROPS: Record<string, Array<{
       "type": "((collapsed: boolean) => void) | undefined",
       "required": false,
       "src": "packages/kern/src/components/extended-fab.tsx:74"
+    },
+    {
+      "name": "value",
+      "type": "boolean | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/extended-fab.tsx:81",
+      "note": "R2 lexicon canonical names (`value` wins when both are passed; both\ncallbacks fire). `collapsed`/`defaultCollapsed`/`onCollapsedChange` are\ndeprecated aliases onto the same state — including the imperative\nhandle, which drives the same path."
+    },
+    {
+      "name": "defaultValue",
+      "type": "boolean | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/extended-fab.tsx:82"
+    },
+    {
+      "name": "onValueChange",
+      "type": "((collapsed: boolean) => void) | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/extended-fab.tsx:83"
     }
   ],
   "FabMenu": [
@@ -4397,6 +4467,25 @@ export const GENERATED_PROPS: Record<string, Array<{
       "type": "((pressed: boolean) => void) | undefined",
       "required": false,
       "src": "packages/kern/src/components/icon-button.tsx:111"
+    },
+    {
+      "name": "value",
+      "type": "boolean | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/icon-button.tsx:117",
+      "note": "R2 lexicon canonical names (`value` wins when both are passed; both\ncallbacks fire). `pressed`/`defaultPressed`/`onPressedChange` are\ndeprecated aliases onto the same state."
+    },
+    {
+      "name": "defaultValue",
+      "type": "boolean | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/icon-button.tsx:118"
+    },
+    {
+      "name": "onValueChange",
+      "type": "((pressed: boolean) => void) | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/icon-button.tsx:119"
     }
   ],
   "InputOTPRoot": [
@@ -6355,10 +6444,29 @@ export const GENERATED_PROPS: Record<string, Array<{
       "note": "Called with the new 1-based page."
     },
     {
+      "name": "value",
+      "type": "number | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/pagination.tsx:22",
+      "note": "R2 lexicon canonical names (`value` wins when both are passed; both\ncallbacks fire). `page`/`defaultPage`/`onPageChange` are deprecated\naliases onto the same state."
+    },
+    {
+      "name": "defaultValue",
+      "type": "number | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/pagination.tsx:23"
+    },
+    {
+      "name": "onValueChange",
+      "type": "((page: number) => void) | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/pagination.tsx:24"
+    },
+    {
       "name": "children",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/pagination.tsx:18",
+      "src": "packages/kern/src/components/pagination.tsx:26",
       "note": "Extra content rendered after the page buttons."
     }
   ],
@@ -7893,10 +8001,29 @@ export const GENERATED_PROPS: Record<string, Array<{
       "src": "packages/kern/src/components/sheet-family.tsx:217"
     },
     {
+      "name": "value",
+      "type": "number | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/sheet-family.tsx:224",
+      "note": "R2 lexicon canonical names (`value` wins when both are passed; both\ncallbacks fire). `index`/`onIndexChange` are deprecated aliases onto the\nsame state. There is no legacy `defaultIndex` — the uncontrolled start\nis `defaultValue`, defaulting to the first detent."
+    },
+    {
+      "name": "defaultValue",
+      "type": "number | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/sheet-family.tsx:225"
+    },
+    {
+      "name": "onValueChange",
+      "type": "((index: number) => void) | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/sheet-family.tsx:226"
+    },
+    {
       "name": "className",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:218"
+      "src": "packages/kern/src/components/sheet-family.tsx:227"
     }
   ],
   "EntitySheet": [
@@ -7943,33 +8070,33 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "title",
       "type": "string",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:302"
+      "src": "packages/kern/src/components/sheet-family.tsx:320"
     },
     {
       "name": "subtitle",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:304",
+      "src": "packages/kern/src/components/sheet-family.tsx:322",
       "note": "Supporting line under the title."
     },
     {
       "name": "fields",
       "type": "readonly EntityField[] | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:305"
+      "src": "packages/kern/src/components/sheet-family.tsx:323"
     },
     {
       "name": "action",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:307",
+      "src": "packages/kern/src/components/sheet-family.tsx:325",
       "note": "At most one primary action, per the spec's guidance."
     },
     {
       "name": "className",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:308"
+      "src": "packages/kern/src/components/sheet-family.tsx:326"
     }
   ],
   "BottomSheetPicker": [
@@ -8016,38 +8143,38 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "title",
       "type": "string",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:380"
+      "src": "packages/kern/src/components/sheet-family.tsx:398"
     },
     {
       "name": "options",
       "type": "readonly PickerOption[]",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:381"
+      "src": "packages/kern/src/components/sheet-family.tsx:399"
     },
     {
       "name": "value",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:382"
+      "src": "packages/kern/src/components/sheet-family.tsx:400"
     },
     {
       "name": "multiple",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:384",
+      "src": "packages/kern/src/components/sheet-family.tsx:402",
       "note": "Multi-select exposes `aria-multiselectable`; single-select does not."
     },
     {
       "name": "onSelect",
       "type": "(value: string) => void",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:385"
+      "src": "packages/kern/src/components/sheet-family.tsx:403"
     },
     {
       "name": "className",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:386"
+      "src": "packages/kern/src/components/sheet-family.tsx:404"
     }
   ],
   "ActionSheet": [
@@ -8094,19 +8221,19 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "title",
       "type": "string",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:474"
+      "src": "packages/kern/src/components/sheet-family.tsx:492"
     },
     {
       "name": "actions",
       "type": "readonly ActionSheetAction[]",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:475"
+      "src": "packages/kern/src/components/sheet-family.tsx:493"
     },
     {
       "name": "className",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:477"
+      "src": "packages/kern/src/components/sheet-family.tsx:495"
     }
   ],
   "SheetRoot": [
@@ -15632,6 +15759,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "dangerouslySetInnerHTML",
     "datatype",
     "defaultChecked",
+    "defaultOpen",
     "defaultValue",
     "dir",
     "draggable",
@@ -15752,6 +15880,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "onMouseOverCapture",
     "onMouseUp",
     "onMouseUpCapture",
+    "onOpenChange",
     "onPaste",
     "onPasteCapture",
     "onPause",
@@ -15821,6 +15950,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "onWaitingCapture",
     "onWheel",
     "onWheelCapture",
+    "open",
     "part",
     "popover",
     "popoverTarget",
@@ -17297,6 +17427,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
   "Carousel": [
     "className",
     "defaultIndex",
+    "defaultValue",
     "disabled",
     "index",
     "itemKeys",
@@ -17304,8 +17435,10 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "items",
     "label",
     "onIndexChange",
+    "onValueChange",
     "showIndicators",
     "testID",
+    "value",
     "wrap"
   ],
   "CheckboxGroupRoot": [
@@ -29452,6 +29585,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "onTransitionRunCapture",
     "onTransitionStart",
     "onTransitionStartCapture",
+    "onValueChange",
     "onVolumeChange",
     "onVolumeChangeCapture",
     "onWaiting",
@@ -32322,6 +32456,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "onTransitionRunCapture",
     "onTransitionStart",
     "onTransitionStartCapture",
+    "onValueChange",
     "onVolumeChange",
     "onVolumeChangeCapture",
     "onWaiting",
@@ -41943,6 +42078,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "onTransitionRunCapture",
     "onTransitionStart",
     "onTransitionStartCapture",
+    "onValueChange",
     "onVolumeChange",
     "onVolumeChangeCapture",
     "onWaiting",
@@ -41974,6 +42110,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "translate",
     "typeof",
     "unselectable",
+    "value",
     "vocab"
   ],
   "PopoverRoot": [
@@ -48618,13 +48755,16 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "children",
     "className",
     "defaultOpen",
+    "defaultValue",
     "index",
     "label",
     "onIndexChange",
     "onOpenChange",
+    "onValueChange",
     "open",
     "snapPoints",
-    "testID"
+    "testID",
+    "value"
   ],
   "EntitySheet": [
     "action",

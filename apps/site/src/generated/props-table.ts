@@ -793,6 +793,21 @@ export const PROPS_TABLE: Record<
         type: "(() => void) | undefined",
         required: false,
       },
+      {
+        name: "open",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultOpen",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChange",
+        type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
     ],
     curated: ["className"],
   },
@@ -942,6 +957,21 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "onIndexChange",
+        type: "((index: number) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
         type: "((index: number) => void) | undefined",
         required: false,
       },
@@ -1230,6 +1260,16 @@ export const PROPS_TABLE: Record<
   },
   Chip: {
     rows: [
+      {
+        name: "defaultValue",
+        type: "string | number | readonly string[] | (readonly string[] & false) | (readonly string[] & true) | undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "string | number | readonly string[] | (readonly string[] & false) | (readonly string[] & true) | undefined",
+        required: false,
+      },
       {
         name: "type",
         type: '"button" | "submit" | "reset" | undefined',
@@ -3151,6 +3191,21 @@ export const PROPS_TABLE: Record<
         type: "((collapsed: boolean) => void) | undefined",
         required: false,
       },
+      {
+        name: "value",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: "((collapsed: boolean) => void) | undefined",
+        required: false,
+      },
     ],
     curated: ["className"],
   },
@@ -3508,6 +3563,21 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "onPressedChange",
+        type: "((pressed: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
         type: "((pressed: boolean) => void) | undefined",
         required: false,
       },
@@ -5098,6 +5168,21 @@ export const PROPS_TABLE: Record<
         required: false,
       },
       {
+        name: "value",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: "((page: number) => void) | undefined",
+        required: false,
+      },
+      {
         name: "children",
         type: "ReactNode",
         required: false,
@@ -6329,6 +6414,21 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "onIndexChange",
+        type: "((index: number) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
         type: "((index: number) => void) | undefined",
         required: false,
       },

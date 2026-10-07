@@ -274,7 +274,8 @@ function DocsIndex() {
                   <span className="font-mono">llms.txt</span> →
                 </a>{" "}
                 <span className={`m-0 ${T_BODY_SM} ${SOFT}`}>
-                  the page map, generated from the nav — never hand-maintained.
+                  the complete page map, generated from the nav, content docs and
+                  foundations registry — never hand-maintained.
                 </span>
               </li>
               <li>
