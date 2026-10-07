@@ -25,7 +25,10 @@ function camel(slug) {
 }
 
 const schemes = [m3.color.light, m3.color.dark];
-for (const extra of ["sharp", "brand"]) {
+// Every override preset the resolver knows (P5C adds compact). Shape-only
+// presets resolve to the base color tables here; the leg still covers them
+// so a preset that smuggles a color role is measured, not assumed clean.
+for (const extra of ["sharp", "brand", "compact"]) {
   const theme = JSON.parse(
     readFileSync(
       join(ROOT, `packages/kern-tokens/src/themes/${extra}.json`),
@@ -543,6 +546,58 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
         violations.push(
           'token group "states": hover-opacity is consumed by NO source file — ' +
             "the only M3 state layer components use today; wire it up or drop the exemption",
+        );
+      }
+    }
+  }
+}
+
+// 5c. PRESET CATALOG (P5C). Every themes/index.json entry must extend kern
+// (canonical "kern"; legacy "m3" accepted) and its overrides may only touch
+// known color/shape roles. A preset carrying its own role table is a second
+// role table — the defect this leg exists to close. check:theme-matrix
+// asserts the same law against resolved output; this leg asserts it against
+// the source files, so the failure points at the file to fix.
+{
+  const catalog = JSON.parse(
+    readFileSync(
+      join(ROOT, "packages/kern-tokens/src/themes/index.json"),
+      "utf8",
+    ),
+  );
+  const colorRoles = new Set(Object.keys(m3.color.light));
+  for (const entry of catalog.themes ?? []) {
+    const path = join(ROOT, "packages/kern-tokens/src/themes", entry.file);
+    if (!existsSync(path)) {
+      violations.push(
+        `themes/index.json lists "${entry.id}" -> ${entry.file}, which does not exist`,
+      );
+      continue;
+    }
+    if (entry.id === "kern") continue;
+    const preset = JSON.parse(readFileSync(path, "utf8"));
+    const base =
+      preset.extends === undefined || preset.extends === "m3"
+        ? "kern"
+        : preset.extends;
+    if (base !== "kern") {
+      violations.push(
+        `themes/${entry.file}: extends "${preset.extends}" — presets must extend "kern", never a second role table`,
+      );
+    }
+    for (const mode of ["light", "dark"]) {
+      for (const role of Object.keys(preset.overrides?.color?.[mode] ?? {})) {
+        if (!colorRoles.has(role)) {
+          violations.push(
+            `themes/${entry.file}: override color.${mode}.${role} is not a kern color role`,
+          );
+        }
+      }
+    }
+    for (const shape of Object.keys(preset.overrides?.shape ?? {})) {
+      if (!shapeKeys.has(shape)) {
+        violations.push(
+          `themes/${entry.file}: override shape.${shape} is not a kern shape role`,
         );
       }
     }

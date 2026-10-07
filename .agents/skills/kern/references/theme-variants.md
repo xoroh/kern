@@ -26,6 +26,26 @@ registerVariant(defineVariant({
 
 Rules: reassign **roles only** — never invent keys (no such API), never reference raw hex outside the token ramps (enforced by review). A variant may cover one mode or both. `registerVariant` throws on duplicate ids; `getVariant` throws on unknown ids — fail loud, never half-themed.
 
+## Pipeline stages and the preset matrix
+
+The pipeline is explicit (`packages/kern-tokens/src/pipeline.ts`): seed
+ramps → role tables → contrast + preset overrides → one scheme per
+`(mode, contrast, preset)` context. Every context is flattened into the
+checked-in `packages/kern-tokens/src/themes/matrix.json` — read that file
+(plus each cell's `changedRoles` / `changedShape`) to answer "what does
+this preset change?" instead of running the app. `check:theme-matrix`
+fails when the file drifts; regen with
+`bun packages/kern-tokens/scripts/gen-theme-matrix.mjs`, and treat any
+drift that moves a rendered value as a defect, not a regen.
+
+New presets follow the `compact` pattern: a `themes/<id>.json` file with
+`extends: "kern"`, one `themes/index.json` catalog entry, and overrides
+touching known roles only. Dark is the mode axis of the kern base tables,
+not a preset — never duplicate it. Motion algorithms (`presets.ts`)
+select among the existing `tokens.json` motion schemes as validated data;
+no new motion token. A second role table anywhere fails `check:kern` and
+`check:theme-matrix` alike.
+
 ## Consumers / white-labels
 
 A consumer record carries `{ variantId }` (or an inline map validated by `assertCompleteScheme()`). At session start:

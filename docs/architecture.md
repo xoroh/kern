@@ -88,11 +88,14 @@ surface is what versions.
 ## The token pipeline
 
 ```
-tokens.json  (canonical: {oklch, srgb} per step)
+tokens.json  (canonical: {oklch, srgb} per step)          seed
      |
      +--> tokens.ts    TS role tables          (all three renderers)
      +--> tokens.css   --md-sys-* custom props  (web)
-     +--> m3.json / sharp.json / brand.json   role overrides per preset
+     +--> themes/kern.json   base role tables, per mode       map
+        +--> contrast overlays (medium/high, per mode)
+        +--> sharp.json / brand.json / compact.json           alias
+             override-data presets, extends kern only
                     |
                     v
         resolveThemeDetails(mode, contrast, variant)
@@ -112,6 +115,20 @@ token change cannot drift between the two.
 
 Contrast is a third input, not a separate scheme: `standard` / `medium` /
 `high` overlays apply on top of the mode's base table.
+
+The stages are named in code (`packages/kern-tokens/src/pipeline.ts`:
+`seedStage` / `mapStage` / `aliasStage` / `componentStage`), and every
+mode × contrast × preset context is flattened into the checked-in
+`packages/kern-tokens/src/themes/matrix.json` (built by
+`scripts/gen-theme-matrix.mjs`, held in sync by `check:theme-matrix`).
+"What does this preset change?" is a readable diff over that file — the
+`compact` density preset, for example, changes eight shape roles and zero
+color roles. Dark is the mode axis of the kern base tables, not a preset;
+motion algorithms (`presets.ts`) select among the existing
+`tokens.json` motion schemes as validated data. Presets extend kern via
+overrides — a second role table is rejected by both `check:kern` (source
+leg) and `check:theme-matrix` (resolved-output leg). Decisions:
+`docs/adr/005-theming-pipeline.md`.
 
 ## Component composition tiers
 

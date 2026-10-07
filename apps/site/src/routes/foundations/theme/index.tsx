@@ -1,6 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Badge, Button, Card, Chip, Kbd } from "@xoroh/kern";
-import { resolveThemeDetails, resolveThemeLayers } from "@xoroh/kern-tokens";
+import {
+  resolveThemeDetails,
+  resolveThemeLayers,
+  type ThemeId,
+  themeIds,
+} from "@xoroh/kern-tokens";
 import { Text, View } from "react-native";
 import { Kicker } from "../../../components/chrome/kicker";
 import { SiteLayout } from "../../../components/chrome/site-layout";
@@ -21,7 +26,10 @@ import {
 
 export const Route = createFileRoute("/foundations/theme/")({
   head: () =>
-    routeHead("Theme", "Color roles in the active theme, read from the package"),
+    routeHead(
+      "Theme",
+      "Color roles in the active theme, read from the package",
+    ),
   component: ThemePage,
 });
 
@@ -32,6 +40,35 @@ const BRAND_LAYERS = resolveThemeLayers("light", "standard", "brand");
 const SHAPE_KEYS = Object.keys(LIGHT.shape) as (keyof typeof LIGHT.shape)[];
 const ROLE_COUNT = Object.keys(LIGHT.color).length;
 const CONTRAST_MODES = ["standard", "medium", "high"] as const;
+
+/**
+ * Preset matrix summary, resolved from the package like every swatch on this
+ * page: per preset, the union of changed color/shape roles across all six
+ * mode x contrast contexts. Mirrors the checked-in `themes/matrix.json`
+ * artifact (`check:theme-matrix` holds that file in sync with this code).
+ */
+const PRESET_SUMMARY = (themeIds() as string[])
+  .filter((id) => id !== "kern")
+  .map((preset) => {
+    const roles = new Set<string>();
+    const shapes = new Set<string>();
+    for (const mode of ["light", "dark"] as const) {
+      for (const contrast of CONTRAST_MODES) {
+        const { deltas } = resolveThemeLayers(mode, contrast, preset);
+        for (const role of Object.keys(deltas)) roles.add(role);
+        const resolved = resolveThemeDetails(mode, contrast, preset as ThemeId);
+        const base = resolveThemeDetails(mode, contrast, "kern");
+        for (const shape of Object.keys(resolved.shape) as (keyof typeof resolved.shape)[]) {
+          if (resolved.shape[shape] !== base.shape[shape]) shapes.add(shape);
+        }
+      }
+    }
+    return {
+      preset,
+      roles: [...roles].sort(),
+      shapes: [...shapes].sort(),
+    };
+  });
 
 const ROLE_GROUPS: { title: string; roles: string[] }[] = [
   {
@@ -148,9 +185,7 @@ function ThemePage() {
         <div className="mx-auto flex max-w-[64rem] flex-col gap-10 rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14">
           <header className="flex flex-col gap-3">
             <Kicker>Theme</Kicker>
-            <h1
-              className={`m-0 ${T_PAGE} text-(--md-sys-color-on-surface)`}
-            >
+            <h1 className={`m-0 ${T_PAGE} text-(--md-sys-color-on-surface)`}>
               One theme source, both platforms
             </h1>
             <p
@@ -315,10 +350,52 @@ function ThemePage() {
           </section>
 
           <section className="flex flex-col gap-4">
-            <h2
-              id="the-same-roles-rendering"
-              className={`m-0 ${T_SECTION}`}
+            <h2 id="pipeline-matrix" className={`m-0 ${T_SECTION}`}>
+              Pipeline & preset matrix
+            </h2>
+            <p
+              className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
             >
+              Seed ramps resolve to role tables, then contrast and preset
+              overrides layer over the base — one{" "}
+              <code>resolveThemeDetails(mode, contrast, preset)</code> call per
+              context. Every combination is flattened into{" "}
+              <code>themes/matrix.json</code> in the token package (held in sync
+              by <code>check:theme-matrix</code>), so preset review is a diff,
+              not an app session. The counts below resolve from the package,
+              across all six mode × contrast contexts each:
+            </p>
+            <ul className="m-0 grid list-none grid-cols-1 gap-2 p-0 sm:grid-cols-2 lg:grid-cols-3">
+              {PRESET_SUMMARY.map(({ preset, roles, shapes }) => (
+                <li key={preset} className="flex items-center gap-2">
+                  <span className="flex min-w-0 flex-col">
+                    <span className={`truncate ${T_BODY_MD}`}>{preset}</span>
+                    <span
+                      className={`${T_CODE} text-(--md-sys-color-on-surface-variant)`}
+                    >
+                      {roles.length} color · {shapes.length} shape changed
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <p
+              className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            >
+              The <code>compact</code> density preset changes shape only; color
+              stays on kern. Try any preset live in the{" "}
+              <a
+                href="/theme-configurator"
+                className="text-(--md-sys-color-primary) no-underline hover:underline"
+              >
+                theme configurator
+              </a>
+              .
+            </p>
+          </section>
+
+          <section className="flex flex-col gap-4">
+            <h2 id="the-same-roles-rendering" className={`m-0 ${T_SECTION}`}>
               The same roles, rendering
             </h2>
             <p

@@ -133,6 +133,9 @@ jobs:
       - name: Check kern contract
         run: bun run check:kern
 
+      - name: Check theme matrix sync
+        run: bun run check:theme-matrix
+
       - name: Check the package layering (D-034)
         run: bun run check:layers
 

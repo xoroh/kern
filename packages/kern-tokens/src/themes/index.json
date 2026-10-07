@@ -16,6 +16,13 @@
       "template": false
     },
     {
+      "id": "compact",
+      "file": "compact.json",
+      "name": "Compact",
+      "description": "Density preset: 0.75x shape scale, color untouched. Extends kern.",
+      "template": false
+    },
+    {
       "id": "brand",
       "file": "brand.json",
       "name": "Brand",
