@@ -44,7 +44,7 @@ export function Footer() {
             href="/legal/license"
             className="text-(--md-sys-color-on-surface-variant) no-underline hover:text-(--md-sys-color-on-surface)"
           >
-            Licence
+            License
           </a>
           <a
             href="/legal/security"

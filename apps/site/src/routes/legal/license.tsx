@@ -31,20 +31,20 @@ function License() {
         <div className="mx-auto flex max-w-[64rem] flex-col gap-12 rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14">
           <header className="flex flex-col gap-3">
             <p className={`m-0 ${T_LABEL} ${INK_SOFT} uppercase`}>Legal</p>
-            <h1 className={`m-0 ${T_PAGE} ${INK}`}>Licence</h1>
+            <h1 className={`m-0 ${T_PAGE} ${INK}`}>License</h1>
             <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>
               Kern is open source. The text below is the repository&apos;s
-              licence file rendered verbatim — not a summary, not a copy.
+              license file rendered verbatim — not a summary, not a copy.
             </p>
           </header>
 
           <div className="flex flex-col gap-4">
             <h2 id="per-package" className={`m-0 ${T_SECTION} ${INK}`}>
-              Which package, which licence
+              Which package, which license
             </h2>
             <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>
-              Every licence-bearing unit in the repository, read from its own
-              LICENCE file at build time. All seven agree today; if one ever
+              Every license-bearing unit in the repository, read from its own
+              LICENSE file at build time. All seven agree today; if one ever
               differs, this table is where that shows.
             </p>
             <table className={`m-0 w-full border-collapse ${T_BODY_SM}`}>
@@ -58,7 +58,7 @@ function License() {
                   <th
                     className={`border-b border-(--md-sys-color-outline-variant) py-2 text-left ${T_LABEL} ${INK_SOFT} uppercase`}
                   >
-                    Licence
+                    License
                   </th>
                 </tr>
               </thead>

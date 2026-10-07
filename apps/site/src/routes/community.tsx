@@ -77,7 +77,7 @@ function Community() {
               >
                 About kern
               </Link>{" "}
-              for the story and licence, or{" "}
+              for the story and license, or{" "}
               <Link
                 to="/docs"
                 className="text-(--md-sys-color-primary) no-underline hover:underline"

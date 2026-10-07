@@ -32,12 +32,12 @@ function About() {
             </p>
           </header>
           <div className="flex flex-col gap-3">
-            <h2 id="licence" className={`m-0 ${T_SECTION} ${INK}`}>
-              Licence
+            <h2 id="license" className={`m-0 ${T_SECTION} ${INK}`}>
+              License
             </h2>
             <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>
-              Kern is open source under the {REPO_LICENSE} licence. The full
-              licence text ships with the repository.
+              Kern is open source under the {REPO_LICENSE} license. The full
+              license text ships with the repository.
             </p>
           </div>
           <nav aria-label="Project links" className="flex flex-col gap-3">

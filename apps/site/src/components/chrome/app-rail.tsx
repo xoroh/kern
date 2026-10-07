@@ -78,7 +78,12 @@ export function AppRail() {
               <Icon name="code" size={20} />
             </a>
             <NavigationRailButton
-              icon={<Icon name="settings" size={20} />}
+              icon={
+                <Icon
+                  name={mode === "light" ? "dark-mode" : "light-mode"}
+                  size={20}
+                />
+              }
               label={mode === "light" ? "Dark" : "Light"}
               onSelect={toggle}
             />
@@ -129,7 +134,10 @@ export function MobileBar() {
             mode === "light" ? "Switch to dark theme" : "Switch to light theme"
           }
         >
-          <Icon name="favorite" size={16} />
+          <Icon
+            name={mode === "light" ? "dark-mode" : "light-mode"}
+            size={16}
+          />
         </button>
       </nav>
     </header>

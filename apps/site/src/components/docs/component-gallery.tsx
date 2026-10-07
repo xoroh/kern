@@ -237,13 +237,17 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
 
   return (
     <article className={`${CARD} flex flex-col overflow-hidden`}>
-      <div className="relative h-36 overflow-hidden border-b border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container) p-3">
+      <div className="relative flex h-36 items-center justify-center overflow-hidden border-b border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container) p-3">
         {Demo ? (
           isClient ? (
             // The preview is a THUMBNAIL: inert to pointer events so it can
             // never swallow the card's links or trap a click on a demo control.
+            // Centered, not top-left: a demo taller than the well used to clip
+            // mid-text from the top (Button variants cut off), reading as a
+            // rendering bug. Centering clips both edges equally when a demo
+            // still overflows, and fits everything shorter exactly.
             <div
-              className="pointer-events-none origin-top-left scale-90"
+              className="pointer-events-none flex max-h-full origin-center items-center justify-center overflow-hidden scale-90"
               aria-hidden="true"
             >
               <DemoBoundary>
