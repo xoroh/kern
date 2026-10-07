@@ -3,6 +3,7 @@
 // resolve one identical scheme from here.
 
 export * from "./feedback";
+export * from "./focus";
 export * from "./functional";
 export * from "./sizes";
 export * from "./tokens";

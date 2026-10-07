@@ -1,6 +1,7 @@
 import { Slider as SliderPrimitive } from "@base-ui/react/slider";
 import type { ComponentProps } from "react";
 import { cnState } from "../utils/cnState";
+import { FOCUS_RING_CLASS } from "./focus-ring";
 
 export type SliderRootProps = ComponentProps<typeof SliderPrimitive.Root>;
 export type SliderThumbProps = ComponentProps<typeof SliderPrimitive.Thumb>;
@@ -38,7 +39,7 @@ export function SliderThumb({ className, ...props }: SliderThumbProps) {
     <SliderPrimitive.Thumb
       data-slot="slider-thumb"
       className={cnState(
-        "kern-slider-thumb block size-5 cursor-grab rounded-full bg-(--md-sys-color-primary) outline-none focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary) focus-visible:ring-offset-2 focus-visible:ring-offset-(--md-sys-color-surface)",
+        "kern-slider-thumb block size-5 cursor-grab rounded-full bg-(--md-sys-color-primary) outline-none " + FOCUS_RING_CLASS + " focus-visible:ring-offset-2 focus-visible:ring-offset-(--md-sys-color-surface)",
         className,
       )}
       {...props}

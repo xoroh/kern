@@ -1,6 +1,7 @@
 import { Toolbar as ToolbarPrimitive } from "@base-ui/react/toolbar";
 import type { ComponentProps } from "react";
 import { cnState } from "../utils/cnState";
+import { FOCUS_RING_CLASS } from "./focus-ring";
 
 export type ToolbarRootProps = ComponentProps<typeof ToolbarPrimitive.Root>;
 export type ToolbarButtonProps = ComponentProps<typeof ToolbarPrimitive.Button>;
@@ -40,7 +41,7 @@ export function ToolbarButton({ className, ...props }: ToolbarButtonProps) {
     <ToolbarPrimitive.Button
       data-slot="toolbar-button"
       className={cnState(
-        "kern-toolbar-button flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-(--md-sys-color-on-surface) outline-none select-none focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary) disabled:pointer-events-none disabled:opacity-50 data-pressed:bg-(--md-sys-color-primary) data-pressed:text-(--md-sys-color-on-primary)",
+        "kern-toolbar-button flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-(--md-sys-color-on-surface) outline-none select-none " + FOCUS_RING_CLASS + " disabled:pointer-events-none disabled:opacity-50 data-pressed:bg-(--md-sys-color-primary) data-pressed:text-(--md-sys-color-on-primary)",
         className,
       )}
       {...props}

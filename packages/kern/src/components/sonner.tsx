@@ -1,6 +1,7 @@
 import { Toast as ToastPrimitive } from "@base-ui/react/toast";
 import type { ComponentProps, ReactNode } from "react";
 import { cnState } from "../utils/cnState";
+import { FOCUS_RING_CLASS } from "./focus-ring";
 
 /** Intent a message carries. Maps to the M3 container color set. */
 export type SonnerIntent = "info" | "success" | "warning" | "error";
@@ -138,7 +139,7 @@ export function SonnerAction({ className, ...props }: SonnerActionProps) {
     <ToastPrimitive.Action
       data-slot="sonner-action"
       className={cnState(
-        "kern-sonner-action ml-auto shrink-0 cursor-pointer font-medium text-(--md-sys-color-inverse-primary) outline-none focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary)",
+        "kern-sonner-action ml-auto shrink-0 cursor-pointer font-medium text-(--md-sys-color-inverse-primary) outline-none " + FOCUS_RING_CLASS,
         className,
       )}
       {...props}
@@ -152,7 +153,7 @@ export function SonnerClose({ className, ...props }: SonnerCloseProps) {
       data-slot="sonner-close"
       aria-label="Dismiss"
       className={cnState(
-        "kern-sonner-close shrink-0 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary)",
+        "kern-sonner-close shrink-0 cursor-pointer outline-none " + FOCUS_RING_CLASS,
         className,
       )}
       {...props}

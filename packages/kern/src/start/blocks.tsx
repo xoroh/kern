@@ -1,5 +1,6 @@
 import type { ComponentPropsWithRef, ReactNode } from "react";
 import { cn } from "../utils/cn";
+import { FOCUS_RING_CLASS } from "../components/focus-ring";
 
 /** M3 search bar: leading icon slot + input + trailing actions. */
 export function SearchBar({
@@ -119,7 +120,7 @@ export function ThemeToggle({
       type="button"
       aria-label={mode === "dark" ? "Switch to light" : "Switch to dark"}
       className={cn(
-        "kern-theme-toggle inline-flex h-10 w-10 items-center justify-center rounded-(--md-sys-shape-corner-full) text-(--md-sys-color-on-surface) hover:bg-(--md-sys-color-surface-tonal) focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary) outline-none",
+        "kern-theme-toggle inline-flex h-10 w-10 items-center justify-center rounded-(--md-sys-shape-corner-full) text-(--md-sys-color-on-surface) hover:bg-(--md-sys-color-surface-tonal) " + FOCUS_RING_CLASS + " outline-none",
         className,
       )}
       onClick={onToggle}
@@ -150,7 +151,7 @@ export function ContrastToggle({
         contrast === "high" ? "Use standard contrast" : "Use high contrast"
       }
       className={cn(
-        "kern-contrast-toggle inline-flex h-10 w-10 items-center justify-center rounded-(--md-sys-shape-corner-full) text-(--md-sys-color-on-surface) hover:bg-(--md-sys-color-surface-tonal) focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary) outline-none",
+        "kern-contrast-toggle inline-flex h-10 w-10 items-center justify-center rounded-(--md-sys-shape-corner-full) text-(--md-sys-color-on-surface) hover:bg-(--md-sys-color-surface-tonal) " + FOCUS_RING_CLASS + " outline-none",
         className,
       )}
       onClick={onToggle}

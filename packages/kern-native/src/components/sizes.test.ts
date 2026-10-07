@@ -45,8 +45,10 @@ describe("KernSize foundation (native mirror)", () => {
 
   it("Button codemod map covers only the automatic sizes", () => {
     expect(NATIVE_BUTTON_SIZE_TO_KERN_SIZE).toEqual({
+      xs: "sm",
       default: "md",
       sm: "sm",
+      xl: "lg",
     });
     expect("icon" in NATIVE_BUTTON_SIZE_TO_KERN_SIZE).toBe(false);
   });

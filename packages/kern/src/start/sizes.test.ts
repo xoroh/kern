@@ -39,7 +39,12 @@ describe("KernSize foundation (web)", () => {
   });
 
   it("Button sizes map onto the foundation; icon is shape, not scale", () => {
-    expect(BUTTON_SIZE_TO_KERN_SIZE).toEqual({ default: "md", sm: "sm" });
+    expect(BUTTON_SIZE_TO_KERN_SIZE).toEqual({
+      xs: "sm",
+      default: "md",
+      sm: "sm",
+      xl: "lg",
+    });
     expect("icon" in BUTTON_SIZE_TO_KERN_SIZE).toBe(false);
   });
 });

@@ -1,5 +1,6 @@
 import type { ComponentPropsWithRef, MouseEvent, ReactNode } from "react";
 import { cn } from "../utils/cn";
+import { FOCUS_RING_CLASS } from "./focus-ring";
 
 export type ListItemProps = Omit<ComponentPropsWithRef<"li">, "children"> & {
   /** Primary line. */
@@ -112,7 +113,7 @@ export function ListItem({
     rowClass,
     "cursor-pointer appearance-none border-0 bg-transparent outline-none transition-colors",
     "hover:bg-(--md-sys-color-surface-container-low)",
-    "focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary)",
+    FOCUS_RING_CLASS,
     disabled && "pointer-events-none cursor-default hover:bg-transparent",
     className,
   );

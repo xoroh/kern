@@ -801,6 +801,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    slug: "web/focus-ring",
+    name: "focus-ring",
+    export: "FocusRing",
+    platform: "web",
+    status: "real",
+  },
+  {
     slug: "web/form",
     name: "form",
     export: "Form",
@@ -888,6 +895,13 @@ export const COMPONENTS: ComponentEntry[] = [
     slug: "web/link",
     name: "link",
     export: "Link",
+    platform: "web",
+    status: "real",
+  },
+  {
+    slug: "web/link-button",
+    name: "link-button",
+    export: "LinkButton",
     platform: "web",
     status: "real",
   },

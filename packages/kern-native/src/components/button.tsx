@@ -1,4 +1,5 @@
 import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
+import type { LoadingIndicatorStyle } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
 import {
   type GestureResponderEvent,
@@ -10,6 +11,7 @@ import {
   type ViewStyle,
 } from "react-native";
 import { useKernTheme } from "../theme";
+import { CircularProgress } from "./circular-progress";
 
 // M3: elevated, filled, tonal, outlined, text (m3.material.io/components/buttons/overview).
 // Mirrors the web union exactly — the variant law requires one MEANING, not one name count.
@@ -19,7 +21,16 @@ export type NativeButtonVariant =
   | "tonal"
   | "outlined"
   | "ghost";
-export type NativeButtonSize = "default" | "sm" | "icon";
+export type NativeButtonSize = "xs" | "default" | "sm" | "xl" | "icon";
+
+/** The color axis, mirroring web: M3 emphasis or the error treatment. */
+export type NativeButtonColor = "primary" | "danger";
+
+/** The shape axis, mirroring web: M3 pill, stepped-down corner, or none. */
+export type NativeButtonShape = "pill" | "rounded" | "square";
+
+/** Which side of the label the `icon` slot renders on. */
+export type NativeButtonIconPosition = "start" | "end";
 
 /**
  * R2 variant map, re-homed (T1): M3 names as aliases onto the Kern styles.
@@ -43,18 +54,46 @@ export type NativeButtonVariantInput =
 
 /**
  * R2 size foundation, re-homed (T1): Button sizes onto `KernSize`.
- * `default` renders at md metrics, `sm` is `sm`; `icon` is shape, not
- * scale, and is intentionally absent — same rule as the platform source.
+ * `default` renders at md metrics, `sm` is `sm`; `xs` compacts inside the
+ * `sm` band and `xl` steps into `lg`. `icon` is shape, not scale, and is
+ * intentionally absent — same rule as the platform source.
  */
 export const NATIVE_BUTTON_SIZE_TO_KERN_SIZE = {
+  xs: "sm",
   default: "md",
   sm: "sm",
+  xl: "lg",
 } as const;
 
 const HEIGHTS: Record<NativeButtonSize, number> = {
+  xs: 28,
   default: 40,
   sm: 32,
+  xl: 48,
   icon: 40,
+};
+
+const PADDING_HORIZONTAL: Record<NativeButtonSize, number> = {
+  xs: 12,
+  default: 16,
+  sm: 16,
+  xl: 24,
+  icon: 0,
+};
+
+const LABEL_FONT_SIZE: Record<NativeButtonSize, number> = {
+  xs: 12,
+  default: 14,
+  sm: 13,
+  xl: 16,
+  icon: 14,
+};
+
+/** Static treatment options, so positional callers keep working. */
+export type NativeButtonStyleOptions = {
+  color?: NativeButtonColor;
+  shape?: NativeButtonShape;
+  block?: boolean;
 };
 
 export function buttonStyles(
@@ -62,17 +101,35 @@ export function buttonStyles(
   size: NativeButtonSize,
   disabled: boolean,
   theme: ResolvedTheme = resolveThemeDetails(),
+  options: NativeButtonStyleOptions = {},
 ): { container: ViewStyle; label: TextStyle } {
+  const { color = "primary", shape = "pill", block = false } = options;
+  const danger = color === "danger";
   const container: ViewStyle = {
     height: HEIGHTS[size],
     minWidth: size === "icon" ? HEIGHTS[size] : 64,
-    borderRadius: Number.parseFloat(theme.shape.full),
+    borderRadius:
+      shape === "pill"
+        ? Number.parseFloat(theme.shape.full)
+        : shape === "rounded"
+          ? Number.parseFloat(theme.shape.large)
+          : Number.parseFloat(theme.shape.none),
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: size === "icon" ? 0 : 16,
-    backgroundColor:
-      variant === "primary"
+    // The 8dp M3 icon spacing, always on: a lone label never feels it, and
+    // an icon beside a label always gets it — same rule as web's flex gap.
+    gap: 8,
+    paddingHorizontal: PADDING_HORIZONTAL[size],
+    backgroundColor: danger
+      ? variant === "primary"
+        ? theme.color.error
+        : variant === "tonal"
+          ? theme.color.errorContainer
+          : variant === "elevated"
+            ? theme.color.surfaceContainerLow
+            : "transparent"
+      : variant === "primary"
         ? theme.color.primary
         : variant === "tonal"
           ? theme.color.secondaryContainer
@@ -80,14 +137,25 @@ export function buttonStyles(
             ? theme.color.surfaceContainerLow
             : "transparent",
     borderWidth: variant === "outlined" ? 1 : 0,
-    borderColor: variant === "outlined" ? theme.color.outline : "transparent",
+    borderColor:
+      variant === "outlined"
+        ? danger
+          ? theme.color.error
+          : theme.color.outline
+        : "transparent",
     opacity: disabled ? 0.5 : 1,
+    ...(block ? { alignSelf: "stretch" as const } : null),
   };
   const label: TextStyle = {
-    fontSize: size === "sm" ? 13 : 14,
+    fontSize: LABEL_FONT_SIZE[size],
     fontWeight: "500",
-    color:
-      variant === "primary"
+    color: danger
+      ? variant === "primary"
+        ? theme.color.onError
+        : variant === "tonal"
+          ? theme.color.onErrorContainer
+          : theme.color.error
+      : variant === "primary"
         ? theme.color.onPrimary
         : variant === "tonal"
           ? theme.color.onSecondaryContainer
@@ -106,6 +174,19 @@ export type NativeButtonProps = Omit<
 > & {
   variant?: NativeButtonVariantInput;
   size?: NativeButtonSize;
+  color?: NativeButtonColor;
+  shape?: NativeButtonShape;
+  /** Full-width block button. */
+  block?: boolean;
+  /** Shows the embedded progress indicator and blocks interaction. */
+  loading?: boolean;
+  /** 0–1 determinate progress while loading. Omit for the loop. */
+  loadingValue?: number;
+  /** Style of the embedded indicator. Defaults to the M3 ring (`spinner`). */
+  loaderStyle?: LoadingIndicatorStyle;
+  /** Leading (or trailing, with `iconPosition`) icon. */
+  icon?: ReactNode;
+  iconPosition?: NativeButtonIconPosition;
   children: ReactNode;
   onPress?: PressableProps["onPress"];
   style?: PressableProps["style"];
@@ -115,6 +196,14 @@ export type NativeButtonProps = Omit<
 export function Button({
   variant: variantInput = "primary",
   size = "default",
+  color = "primary",
+  shape = "pill",
+  block = false,
+  loading = false,
+  loadingValue,
+  loaderStyle,
+  icon,
+  iconPosition = "start",
   children,
   onPress,
   style,
@@ -130,15 +219,23 @@ export function Button({
     variantInput in NATIVE_BUTTON_VARIANT_ALIASES
       ? NATIVE_BUTTON_VARIANT_ALIASES[variantInput as NativeButtonM3Variant]
       : (variantInput as NativeButtonVariant);
-  const styles = buttonStyles(variant, size, Boolean(disabled), scheme);
+  const blocked = Boolean(disabled) || loading;
+  const styles = buttonStyles(variant, size, blocked, scheme, {
+    color,
+    shape,
+    block,
+  });
+  // Icon order, not margin — `iconPosition` only chooses which side renders
+  // first, so the pair flips automatically under RTL with no insets.
+  const iconSlot = icon ?? null;
   return (
     <Pressable
       {...props}
       testID={testID ?? "kern-button"}
       accessibilityRole="button"
-      accessibilityState={{ disabled: Boolean(disabled) }}
-      disabled={disabled}
-      hitSlop={size === "sm" ? 8 : 4}
+      accessibilityState={{ disabled: blocked, busy: loading || undefined }}
+      disabled={blocked}
+      hitSlop={size === "xs" ? 10 : size === "sm" ? 8 : size === "xl" ? 0 : 4}
       android_ripple={{
         color: `${variant === "primary" ? scheme.color.onPrimary : scheme.color.onSurface}20`,
         borderless: size === "icon",
@@ -146,15 +243,34 @@ export function Button({
       onPress={(event: GestureResponderEvent) => onPress?.(event)}
       style={({ pressed }) => [
         styles.container,
-        pressed && !disabled ? { opacity: 0.82 } : undefined,
+        pressed && !blocked ? { opacity: 0.82 } : undefined,
         typeof style === "function" ? style({ pressed }) : style,
       ]}
     >
+      {loading ? (
+        <CircularProgress
+          value={loadingValue}
+          loaderStyle={loaderStyle}
+          size="sm"
+          label="Loading"
+          color={
+            color === "danger"
+              ? variant === "primary"
+                ? scheme.color.onError
+                : scheme.color.error
+              : variant === "primary"
+                ? scheme.color.onPrimary
+                : scheme.color.onSurface
+          }
+        />
+      ) : null}
+      {iconPosition === "start" ? iconSlot : null}
       {typeof children === "string" || typeof children === "number" ? (
         <Text style={[styles.label, labelStyle]}>{children}</Text>
       ) : (
         children
       )}
+      {iconPosition === "end" ? iconSlot : null}
     </Pressable>
   );
 }

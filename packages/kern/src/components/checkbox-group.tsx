@@ -2,6 +2,7 @@ import { Checkbox as CheckboxPrimitive } from "@base-ui/react/checkbox";
 import { CheckboxGroup as CheckboxGroupPrimitive } from "@base-ui/react/checkbox-group";
 import type { ComponentProps, ReactNode } from "react";
 import { cnState } from "../utils/cnState";
+import { FOCUS_RING_CLASS } from "./focus-ring";
 
 export type CheckboxGroupRootProps = ComponentProps<
   typeof CheckboxGroupPrimitive
@@ -40,7 +41,7 @@ export function CheckboxGroupItem({
       <CheckboxPrimitive.Root
         data-slot="checkbox-group-item"
         className={cnState(
-          "kern-checkbox relative size-[18px] shrink-0 rounded-(--md-sys-shape-corner-extra-small) border-2 border-(--md-sys-color-outline) bg-(--md-sys-color-surface) outline-none transition-colors focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary) data-disabled:cursor-not-allowed data-disabled:opacity-50 data-checked:border-(--md-sys-color-primary) data-checked:bg-(--md-sys-color-primary) data-checked:text-(--md-sys-color-on-primary) after:absolute after:-inset-[15px] after:content-['']",
+          "kern-checkbox relative size-[18px] shrink-0 rounded-(--md-sys-shape-corner-extra-small) border-2 border-(--md-sys-color-outline) bg-(--md-sys-color-surface) outline-none transition-colors " + FOCUS_RING_CLASS + " data-disabled:cursor-not-allowed data-disabled:opacity-50 data-checked:border-(--md-sys-color-primary) data-checked:bg-(--md-sys-color-primary) data-checked:text-(--md-sys-color-on-primary) after:absolute after:-inset-[15px] after:content-['']",
           className,
         )}
         {...props}

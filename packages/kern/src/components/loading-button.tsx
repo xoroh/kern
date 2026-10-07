@@ -1,4 +1,5 @@
 import type { LoadingIndicatorStyle } from "@xoroh/kern-tokens";
+import type { Ref } from "react";
 import { cn } from "../utils/cn";
 import {
   BUTTON_VARIANT_ALIASES,
@@ -33,8 +34,20 @@ export function LoadingButton({
   className,
   disabled,
   children,
+  ref,
+  href,
+  target,
+  rel,
+  download,
   ...props
 }: LoadingButtonProps) {
+  // LoadingButton is button-only: strip the anchor branch props (href/target/
+  // rel/download) plus the widened union ref so the remainder typechecks as
+  // button props when spread onto the DOM button. No anchor branch here.
+  void href;
+  void target;
+  void rel;
+  void download;
   // Same M3-alias normalization as Button — the cva call only sees Kern names.
   const kernVariant: ButtonVariant | undefined =
     variant !== undefined && variant in BUTTON_VARIANT_ALIASES
@@ -49,6 +62,7 @@ export function LoadingButton({
       className={cn(buttonVariants({ variant: kernVariant, size }), className)}
       disabled={disabled || loading}
       type={type}
+      ref={ref as Ref<HTMLButtonElement>}
       {...props}
     >
       {loading ? (

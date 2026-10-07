@@ -725,6 +725,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    name: "focus-ring",
+    export: "FocusRing",
+    platform: "web",
+    path: "src/components/focus-ring.tsx",
+    status: "real",
+  },
+  {
     name: "form",
     export: "Form",
     platform: "web",
@@ -785,6 +792,13 @@ export const COMPONENTS: ComponentEntry[] = [
     export: "LinearProgress",
     platform: "web",
     path: "src/components/linear-progress.tsx",
+    status: "real",
+  },
+  {
+    name: "link-button",
+    export: "LinkButton",
+    platform: "web",
+    path: "src/components/link-button.tsx",
     status: "real",
   },
   {

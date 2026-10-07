@@ -5,6 +5,7 @@ import {
   menuPopupClass,
   menuSeparatorClass,
 } from "./menu-classes";
+import { FOCUS_RING_CLASS } from "./focus-ring";
 
 /**
  * M3 FAB menu — a FAB that opens a menu of related actions instead of firing
@@ -134,7 +135,7 @@ export function FabMenu({
           aria-label={name}
           data-testid={testID ?? "kern-fab-menu"}
           className={[
-            "kern-fab-menu-trigger relative inline-flex size-14 shrink-0 rotate-0 items-center justify-center rounded-(--md-sys-shape-corner-large) bg-(--md-sys-color-primary) text-(--md-sys-color-on-primary) shadow-(--md-sys-elevation-level3) transition-transform outline-none select-none focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary) disabled:pointer-events-none disabled:opacity-50 data-[open]:rotate-90 [&_svg]:size-6 [&_svg]:shrink-0",
+            "kern-fab-menu-trigger relative inline-flex size-14 shrink-0 rotate-0 items-center justify-center rounded-(--md-sys-shape-corner-large) bg-(--md-sys-color-primary) text-(--md-sys-color-on-primary) shadow-(--md-sys-elevation-level3) transition-transform outline-none select-none " + FOCUS_RING_CLASS + " disabled:pointer-events-none disabled:opacity-50 data-[open]:rotate-90 [&_svg]:size-6 [&_svg]:shrink-0",
             triggerClassName ?? "",
           ]
             .filter(Boolean)

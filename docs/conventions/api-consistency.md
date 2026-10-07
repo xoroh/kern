@@ -66,9 +66,13 @@ existing rendering cannot change:
 | `text` | `ghost` | Same borderless shape |
 
 `elevated` already exists on both renderers, so it is not an alias.
-`ghost` (borderless text button) and `destructive` (error-filled button,
-expressed by the caller with `error`/`on-error` roles) are Kern
-extensions — recorded here, never claimed as M3.
+`ghost` (borderless text button) is a Kern extension — recorded here,
+never claimed as M3. The error treatment is NOT a variant at all: it is
+the `color` axis (`color="danger"` re-paints all five variants in the
+`error` roles), so the vocabulary stays at five instead of six. The old
+caller-expressed form (a filled button wearing `error`/`on-error` roles
+by hand) remains valid; `danger` is that same treatment owned by the
+component.
 
 ## 3. Composition — `render` for new parts, `asChild` grandfathered
 

@@ -662,6 +662,14 @@ export const A11Y: Record<string, A11yPage> = {
             "basis": "button.ts states no aria contract for Button — screen-reader behaviour is unclaimed"
           }
         ]
+      },
+      "LinkButton": {
+        "hasLiveDemo": false,
+        "expectations": []
+      },
+      "FocusRing": {
+        "hasLiveDemo": false,
+        "expectations": []
       }
     }
   },
@@ -5127,7 +5135,7 @@ export const A11Y: Record<string, A11yPage> = {
             "rule": "aria-contract",
             "expect": "pass",
             "provenance": "derived",
-            "basis": "aria contract carries 3 line(s) in button.ts — roles, names and states are stated, not assumed"
+            "basis": "aria contract carries 4 line(s) in button.ts — roles, names and states are stated, not assumed"
           }
         ]
       }
