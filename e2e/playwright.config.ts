@@ -9,15 +9,15 @@ import { defineConfig, devices } from "@playwright/test";
  * HOME (proposed, not inherited — see `.team/reports/qa-kern-e2e.md` §2).
  * `kern/` had NO Playwright at all: no dependency, no config, no spec file, no
  * `e2e` script. So there was no convention to follow and I did not want to guess
- * one silently. Repo-root `e2e/` is proposed because `scripts/` is exclusively
+ * one silently. Repo-root `e2e/` is kept because `scripts/` is exclusively
  * `check:*` gates (and `check:workflow` FAILS any `scripts/check-*.mjs` that no
  * package.json script runs — so an e2e helper there would trip a live gate), and
  * because the specs span the site app rather than belonging to one package.
  *
- * The runner is invoked directly (`playwright test`) rather than via a new
- * `test:e2e` package.json script: `package.json` is kern-lead's live file right
- * now (their uncommitted `check:stale-refs` entry), and adding a dependency +
- * script would collide. The wiring is proposed in the report, not guessed.
+ * WIRED 2026-10-07 (P0-e2e): `bun run test:e2e` at the repo root runs this
+ * config, `@playwright/test` is a root devDependency, and the `e2e` CI job
+ * builds the site, serves it on :4173, and runs the specs in chromium. The
+ * paragraph below is the history of why the wiring looks this way.
  *
  * The site must already be served. Prefer `vite preview` over `vite dev`: with
  * HMR the dev server plus a browser context per test exhausted renderer memory
