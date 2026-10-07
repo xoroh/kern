@@ -16,6 +16,7 @@ import { CONTEXT_MENU_CONFIGURATOR } from "./configurators/context-menu";
 import { COUNTRY_SELECT_CONFIGURATOR } from "./configurators/country-select";
 import { DIALOG_CONFIGURATOR } from "./configurators/dialog";
 import { DRAWER_CONFIGURATOR } from "./configurators/drawer";
+import { FAB_CONFIGURATOR } from "./configurators/fab";
 import { FIELD_CONFIGURATOR } from "./configurators/field";
 import { FORM_CONFIGURATOR } from "./configurators/form";
 import { INPUT_OTP_CONFIGURATOR } from "./configurators/input-otp";
@@ -105,6 +106,7 @@ export const CONFIGURATORS: Record<string, ConfiguratorSpec> = {
   Dialog: DIALOG_CONFIGURATOR,
   Drawer: DRAWER_CONFIGURATOR,
   Field: FIELD_CONFIGURATOR,
+  Fab: FAB_CONFIGURATOR,
   Form: FORM_CONFIGURATOR,
   InputOTP: INPUT_OTP_CONFIGURATOR,
   Menu: MENU_CONFIGURATOR,
