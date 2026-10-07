@@ -321,6 +321,22 @@ let anchorChecked = 0;
 for (const a of anchors) {
   anchorChecked += 1;
   if (resolves(a)) continue;
+  // SectionToc exemption (site-layout.tsx `href={`#${item.id}`}` ONLY):
+  // the items are scraped at RUNTIME from `h2[id]` under `#main`
+  // (`main.querySelectorAll("h2[id]")`), so no statically-emitted id template
+  // shares its signature and the rule above cannot see the targets. Valid by
+  // construction — the link can never name an id that is not on the page —
+  // and covered instead by check-component-nav/siblingNav tests plus the
+  // focus/palette e2e specs. Narrowly pinned to prefix "#", empty suffix, and
+  // the single `item.id` expression so no other dynamic anchor is weakened.
+  const isSectionTocAnchor =
+    a.file.endsWith("components/chrome/site-layout.tsx") &&
+    a.desc.kind === "template" &&
+    a.desc.prefix === "#" &&
+    a.desc.suffix === "" &&
+    a.desc.exprs.length === 1 &&
+    a.desc.exprs[0] === "item.id";
+  if (isSectionTocAnchor) continue;
   fail(
     `${a.file}:${a.line}: ${a.attr}="${a.whole}" points at #${a.fragment}, and no ` +
       `id in this app emits that anchor. A dead hash link is SILENT — the page ` +
