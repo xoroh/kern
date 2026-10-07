@@ -15,6 +15,7 @@ import { __edge_bannerVariantOf } from "../src/showcase/configurators/banner.tsx
  * the file and the least reviewed.
  */
 import { __edge_variantOf } from "../src/showcase/configurators/icon-button.tsx";
+import { __edge_loaderSizeOf } from "../src/showcase/configurators/loader.tsx";
 import { __edge_separatorOrientationOf } from "../src/showcase/configurators/separator.tsx";
 
 let failures = 0;
@@ -81,6 +82,22 @@ eq(
   eq(
     "separator typeof guard present",
     src.includes('typeof v.orientation === "string"'),
+    true,
+  );
+}
+
+// loader: same adapter contract, same edges
+eq("loader unknown string", __edge_loaderSizeOf({ size: "xl" }), "default");
+eq("loader boolean", __edge_loaderSizeOf({ size: true }), "default");
+eq("loader missing", __edge_loaderSizeOf({}), "default");
+eq("loader lg", __edge_loaderSizeOf({ size: "lg" }), "lg");
+{
+  const src = await Bun.file(
+    new URL("../src/showcase/configurators/loader.tsx", import.meta.url),
+  ).text();
+  eq(
+    "loader typeof guard present",
+    src.includes('typeof v.size === "string"'),
     true,
   );
 }
