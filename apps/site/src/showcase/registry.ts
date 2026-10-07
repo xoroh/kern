@@ -35,6 +35,7 @@ import { RADIO_GROUP_CONFIGURATOR } from "./configurators/radio-group";
 import { SEARCH_CONFIGURATOR } from "./configurators/search";
 import { SEGMENTED_BUTTON_CONFIGURATOR } from "./configurators/segmented-button";
 import { SELECT_CONFIGURATOR } from "./configurators/select";
+import { SEPARATOR_CONFIGURATOR } from "./configurators/separator";
 import { SHEET_CONFIGURATOR } from "./configurators/sheet";
 import { SLIDER_CONFIGURATOR } from "./configurators/slider";
 import { SNACKBAR_CONFIGURATOR } from "./configurators/snackbar";
@@ -76,10 +77,10 @@ export function examplesFor(exportName: string): ExampleSpec[] {
 /**
  * The Configurator registry — export name → its configurator, if any.
  *
- * Flagships first (Button, Switch, Dialog), then Sheet, Select, Popover, Slider, Sonner, NumberField, Accordion, Progress, Field, ToggleGroup, Meter, Autocomplete, Drawer, Menu, Menubar, Pagination, Snackbar, Tabs, Tooltip, NavigationMenu, Collapsible, CountrySelect, CheckboxGroup, Chip, Search, AlertDialog, PreviewCard, Form, InputOTP, ContextMenu, Toggle, Carousel, Card, Badge, Avatar, Segmented button: one entry per
+ * Flagships first (Button, Switch, Dialog), then Sheet, Select, Popover, Slider, Sonner, NumberField, Accordion, Progress, Field, ToggleGroup, Meter, Autocomplete, Drawer, Menu, Menubar, Pagination, Snackbar, Tabs, Tooltip, NavigationMenu, Collapsible, CountrySelect, CheckboxGroup, Chip, Search, AlertDialog, PreviewCard, Form, InputOTP, ContextMenu, Toggle, Carousel, Card, Badge, Avatar, Segmented button, Fab, Icon button, Banner, Separator: one entry per
  * component, same keying as EXAMPLES, so a family page looks its
  * configurator up the same way. The harness is proven; further components
- * plug in here with zero template edits. Latest: Banner.
+ * plug in here with zero template edits. Latest: Separator.
  */
 export const CONFIGURATORS: Record<string, ConfiguratorSpec> = {
   Accordion: ACCORDION_CONFIGURATOR,
@@ -123,6 +124,7 @@ export const CONFIGURATORS: Record<string, ConfiguratorSpec> = {
   Progress: PROGRESS_CONFIGURATOR,
   RadioGroup: RADIO_GROUP_CONFIGURATOR,
   Search: SEARCH_CONFIGURATOR,
+  Separator: SEPARATOR_CONFIGURATOR,
   Slider: SLIDER_CONFIGURATOR,
   Snackbar: SNACKBAR_CONFIGURATOR,
   Sonner: SONNER_CONFIGURATOR,

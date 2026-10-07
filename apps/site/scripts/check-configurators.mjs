@@ -15,6 +15,7 @@ import { __edge_bannerVariantOf } from "../src/showcase/configurators/banner.tsx
  * the file and the least reviewed.
  */
 import { __edge_variantOf } from "../src/showcase/configurators/icon-button.tsx";
+import { __edge_separatorOrientationOf } from "../src/showcase/configurators/separator.tsx";
 
 let failures = 0;
 const eq = (name, got, want) => {
@@ -45,6 +46,44 @@ eq(
 eq("banner boolean", __edge_bannerVariantOf({ variant: false }), "info");
 eq("banner missing", __edge_bannerVariantOf({}), "info");
 eq("banner error", __edge_bannerVariantOf({ variant: "error" }), "error");
+{
+  const src = await Bun.file(
+    new URL("../src/showcase/configurators/banner.tsx", import.meta.url),
+  ).text();
+  eq(
+    "banner typeof guard present",
+    src.includes('typeof v.variant === "string"'),
+    true,
+  );
+}
+
+// separator: same adapter contract, same edges
+eq(
+  "separator unknown string",
+  __edge_separatorOrientationOf({ orientation: "diagonal" }),
+  "horizontal",
+);
+eq(
+  "separator boolean",
+  __edge_separatorOrientationOf({ orientation: true }),
+  "horizontal",
+);
+eq("separator missing", __edge_separatorOrientationOf({}), "horizontal");
+eq(
+  "separator vertical",
+  __edge_separatorOrientationOf({ orientation: "vertical" }),
+  "vertical",
+);
+{
+  const src = await Bun.file(
+    new URL("../src/showcase/configurators/separator.tsx", import.meta.url),
+  ).text();
+  eq(
+    "separator typeof guard present",
+    src.includes('typeof v.orientation === "string"'),
+    true,
+  );
+}
 {
   const src = await Bun.file(
     new URL("../src/showcase/configurators/banner.tsx", import.meta.url),
