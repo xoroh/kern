@@ -39,6 +39,12 @@ publishable packages. It catches the failures that only appear after
 side-effect files missing from `files`. Run it before merging any change that
 touches `package.json` `exports`, `files`, or `peerDependencies`.
 
+`check:publish` inspects the built output, so packages must already be built:
+run `bun run build` first, or publint will fail on `exports`/`main`/`types`
+entries that point at missing `dist/` files. The Release workflow runs
+`bun run build` before its "Verify publishable packages" step for the same
+reason (CI already builds each package before its own `check:publish`).
+
 ## Preflight: internal dependencies are peerDependencies, never `workspace:*`
 
 Requested by K-05 and enforced by `scripts/preflight-publish.mjs`, which runs
@@ -91,6 +97,22 @@ item on this rule: every package is still at `"version": "0.0.0"`, so a
 tightening to `^0.1.0` happens in the same commit that first sets `0.1.0`.
 Ruled and parked in `.team/reports/S1-rulings.md` §S1.4 — do not write the
 range early, and do not "fix" it to `^0.1.0` before the bump lands.
+
+## Founder HOLD — build+verify only
+
+While founder HOLD is on (npm publish / 0.1.0 timing), the Release workflow runs
+Install → Build → Verify only. Version Packages PR creation and npm publish are
+gated behind the repo Actions variable `RELEASE_CHANGESSETS=true` (and the
+Actions permission to create pull requests). Do not enable that variable until
+Faroeq lifts the hold.
+
+## Release workflow action
+
+The Release workflow (`.github/workflows/release.yml`) uses `changesets/action@v2`.
+v2 renamed inputs (`version-script`, `publish-script`, `commit-message`, `pr-title`),
+takes `github-token` explicitly, and no longer writes `.npmrc` from `NPM_TOKEN` —
+npm auth is via `actions/setup-node` `registry-url` (plus Trusted Publishing /
+`id-token: write` for provenance).
 
 ## One-time setup (founder-gated; do once, then ignore)
 

@@ -21,43 +21,46 @@
  * spec drives Escape rather than inventing a close-button selector. If a future
  * change adds one, the spec should gain a second path — recorded in the report.
  */
-import { expect, test } from '@playwright/test';
-import { clickUntil, gotoSettled } from './support/interactions';
+import { expect, test } from "@playwright/test";
+import { clickUntil, gotoSettled } from "./support/interactions";
 
-const SHEET_PAGE = '/components/web/sheet';
+const SHEET_PAGE = "/components/web/sheet";
 
-test.describe('sheet dismissal', () => {
+test.describe("sheet dismissal", () => {
   test.beforeEach(async ({ page }) => {
     await gotoSettled(page, SHEET_PAGE);
   });
 
-  test('opens as a named dialog anchored to its side', async ({ page }) => {
-    const sheet = page.getByRole('dialog');
+  test("opens as a named dialog anchored to its side", async ({ page }) => {
+    const sheet = page.getByRole("dialog");
     await clickUntil(
       page,
-      page.getByRole('button', { name: 'Right sheet' }).first(),
+      page.getByRole("button", { name: "Right sheet" }).first(),
       sheet,
-      'the right sheet',
+      "the right sheet",
     );
-    await expect(sheet).toHaveAttribute('data-slot', 'sheet-content');
+    await expect(sheet).toHaveAttribute("data-slot", "sheet-content");
 
-    const nameId = await sheet.getAttribute('aria-labelledby');
-    expect(nameId, 'sheet has no aria-labelledby').toBeTruthy();
+    const nameId = await sheet.getAttribute("aria-labelledby");
+    expect(nameId, "sheet has no aria-labelledby").toBeTruthy();
     const nameText = await page.evaluate(
-      (id) => document.getElementById(id ?? '')?.textContent?.trim() ?? '',
+      (id) => document.getElementById(id ?? "")?.textContent?.trim() ?? "",
       nameId,
     );
-    expect(nameText.length, 'aria-labelledby points at nothing').toBeGreaterThan(0);
+    expect(
+      nameText.length,
+      "aria-labelledby points at nothing",
+    ).toBeGreaterThan(0);
   });
 
-  test('Escape dismisses the sheet and it leaves the accessibility tree', async ({
+  test("Escape dismisses the sheet and it leaves the accessibility tree", async ({
     page,
   }) => {
-    const trigger = page.getByRole('button', { name: 'Right sheet' }).first();
-    const sheet = page.getByRole('dialog');
-    await clickUntil(page, trigger, sheet, 'the right sheet');
+    const trigger = page.getByRole("button", { name: "Right sheet" }).first();
+    const sheet = page.getByRole("dialog");
+    await clickUntil(page, trigger, sheet, "the right sheet");
 
-    await page.keyboard.press('Escape');
+    await page.keyboard.press("Escape");
 
     // `toBeHidden` alone would pass on an element that is still in the DOM and
     // merely transparent, so assert detachment from the a11y tree too.
@@ -65,32 +68,49 @@ test.describe('sheet dismissal', () => {
     await expect(page.locator('[data-slot="sheet-content"]')).toHaveCount(0);
   });
 
-  test('dismissal restores focus to the trigger', async ({ page }) => {
-    const trigger = page.getByRole('button', { name: 'Right sheet' }).first();
-    await clickUntil(page, trigger, page.getByRole('dialog'), 'the right sheet');
+  test("dismissal restores focus to the trigger", async ({ page }) => {
+    const trigger = page.getByRole("button", { name: "Right sheet" }).first();
+    await clickUntil(
+      page,
+      trigger,
+      page.getByRole("dialog"),
+      "the right sheet",
+    );
 
-    await page.keyboard.press('Escape');
-    await expect(page.getByRole('dialog')).toBeHidden();
+    await page.keyboard.press("Escape");
+    await expect(page.getByRole("dialog")).toBeHidden();
 
     const restored = await page.evaluate(() => {
       const el = document.activeElement as HTMLElement | null;
-      return { tag: el?.tagName ?? null, text: (el?.textContent ?? '').trim() };
+      return { tag: el?.tagName ?? null, text: (el?.textContent ?? "").trim() };
     });
-    expect(restored.tag).toBe('BUTTON');
-    expect(restored.text).toContain('Right sheet');
+    expect(restored.tag).toBe("BUTTON");
+    expect(restored.text).toContain("Right sheet");
   });
 
-  test('a sheet can be reopened after dismissal (no stuck state)', async ({ page }) => {
-    const trigger = page.getByRole('button', { name: 'Right sheet' }).first();
+  test("a sheet can be reopened after dismissal (no stuck state)", async ({
+    page,
+  }) => {
+    const trigger = page.getByRole("button", { name: "Right sheet" }).first();
 
-    await clickUntil(page, trigger, page.getByRole('dialog'), 'the right sheet');
-    await page.keyboard.press('Escape');
-    await expect(page.getByRole('dialog')).toBeHidden();
+    await clickUntil(
+      page,
+      trigger,
+      page.getByRole("dialog"),
+      "the right sheet",
+    );
+    await page.keyboard.press("Escape");
+    await expect(page.getByRole("dialog")).toBeHidden();
 
     // The regression this catches: an exit-animation left mounted, or a
     // `dismissed` flag never reset, so the second open does nothing and the user
     // is left with a control that appears broken.
-    await clickUntil(page, trigger, page.getByRole('dialog'), 'the right sheet');
+    await clickUntil(
+      page,
+      trigger,
+      page.getByRole("dialog"),
+      "the right sheet",
+    );
     await expect(page.locator('[data-slot="sheet-content"]')).toHaveCount(1);
   });
 });

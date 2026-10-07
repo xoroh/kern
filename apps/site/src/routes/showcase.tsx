@@ -41,13 +41,15 @@ function Showcase() {
             <p className={`m-0 ${T_LABEL} ${INK_SOFT} uppercase`}>Showcase</p>
             <h1 className={`m-0 ${T_PAGE} ${INK}`}>Showcase</h1>
             <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>
-              Real things built with kern — blocks, templates, and example
-              apps. This section is not built yet, so there is nothing to show
-              here instead of the thing itself.
+              Real things built with kern — blocks, templates, and example apps.
+              This section is not built yet, so there is nothing to show here
+              instead of the thing itself.
             </p>
           </header>
           <div className="flex flex-col gap-4">
-            <h2 id="what-will-live-here" className={`m-0 ${T_SECTION} ${INK}`}>What will live here</h2>
+            <h2 id="what-will-live-here" className={`m-0 ${T_SECTION} ${INK}`}>
+              What will live here
+            </h2>
             <ul className="m-0 flex list-none flex-col gap-4 p-0">
               {PLANNED.map((item) => (
                 <li
@@ -66,7 +68,10 @@ function Showcase() {
             aria-label="Where to go meanwhile"
             className="flex flex-col gap-3"
           >
-            <h2 id="where-to-go-meanwhile" className={`m-0 ${T_SECTION} ${INK}`}>
+            <h2
+              id="where-to-go-meanwhile"
+              className={`m-0 ${T_SECTION} ${INK}`}
+            >
               Where to go meanwhile
             </h2>
             <p className={`m-0 ${T_BODY} ${INK_SOFT}`}>

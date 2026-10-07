@@ -20,6 +20,7 @@
     "check:generated:census": "node scripts/check-generated-census.mjs",
     "check:stale-refs": "node scripts/check-stale-refs.mjs",
     "check:commit-intent": "node scripts/check-commit-intent.mjs",
+    "test:scripts": "bun test scripts/lib/codeowners.test.mjs",
     "hooks:install": "bash .githooks/install.sh",
     "audit:elevation": "bun scripts/audit-elevation.mjs",
     "check:elevation": "bun run audit:elevation",

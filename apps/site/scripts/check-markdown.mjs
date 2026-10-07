@@ -77,7 +77,11 @@ const skipCases = [
   ["pre", {}, false],
 ];
 for (const [tag, attrs, want] of skipCases) {
-  eq(`skip table: <${tag}> ${JSON.stringify(attrs)}`, String(shouldSkip(tag, attrs)), String(want));
+  eq(
+    `skip table: <${tag}> ${JSON.stringify(attrs)}`,
+    String(shouldSkip(tag, attrs)),
+    String(want),
+  );
 }
 eq(
   "table rows",

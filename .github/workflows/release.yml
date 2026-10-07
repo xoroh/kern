@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
@@ -32,19 +32,39 @@ jobs:
       - name: Install
         run: bun install --frozen-lockfile
 
+      - name: Build publishable packages
+        run: bun run build
+
       - name: Verify publishable packages
         run: bun run check:publish
 
-      - name: Preflight packed tarballs
-        run: node scripts/preflight-publish.mjs
+      # Founder HOLD / no Version Packages or publish until RELEASE_CHANGESSETS=true
+      # is set (and Actions may create PRs); do not set this while publish hold is on.
+      - name: Skip Version Packages / publish (gated)
+        if: ${{ vars.RELEASE_CHANGESSETS != 'true' }}
+        run: echo 'RELEASE_CHANGESSETS!=true — build+verify only (founder HOLD).'
 
-      - name: Create release PR or publish
-        uses: changesets/action@v1
+      # npm auth: v2 no longer writes .npmrc from NPM_TOKEN; setup-node
+      # registry-url emits one that reads NODE_AUTH_TOKEN. Trusted Publishing
+      # (id-token: write) covers provenance when configured on npm.
+      - uses: actions/setup-node@v4
+        if: ${{ vars.RELEASE_CHANGESSETS == 'true' }}
         with:
-          version: bun run version-packages
-          publish: bun run release
-          commit: "chore: version packages"
-          title: "chore: version packages"
+          node-version: "22"
+          registry-url: "https://registry.npmjs.org"
+
+      # release.yml only runs on push to main / workflow_dispatch — not on PRs.
+      # After merge, a workflow_dispatch smoke (without publishing) is part of
+      # the test plan.
+      - name: Create release PR or publish
+        if: ${{ vars.RELEASE_CHANGESSETS == 'true' }}
+        uses: changesets/action@v2
+        with:
+          version-script: bun run version-packages
+          publish-script: bun run release
+          commit-message: "chore: version packages"
+          pr-title: "chore: version packages"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

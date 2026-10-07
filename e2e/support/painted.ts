@@ -21,7 +21,7 @@
  * ratio. A painted page does not. The thresholds are deliberately loose — the
  * check is "is there a picture here", not "is it pretty".
  */
-import { expect, type Page } from '@playwright/test';
+import { expect, type Page } from "@playwright/test";
 
 /** Below this many distinct colours, treat the page as unpainted. */
 export const MIN_DISTINCT_COLOURS = 8;
@@ -39,19 +39,19 @@ export interface PaintReport {
 }
 
 export async function measurePaint(page: Page): Promise<PaintReport> {
-  const shot = await page.screenshot({ type: 'png' });
-  const dataUrl = `data:image/png;base64,${shot.toString('base64')}`;
+  const shot = await page.screenshot({ type: "png" });
+  const dataUrl = `data:image/png;base64,${shot.toString("base64")}`;
 
   // Decode in the page under test — same engine that produced the pixels.
   const report = await page.evaluate(async (src) => {
     const img = new Image();
     img.src = src;
     await img.decode();
-    const canvas = document.createElement('canvas');
+    const canvas = document.createElement("canvas");
     canvas.width = img.naturalWidth;
     canvas.height = img.naturalHeight;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) throw new Error('no 2d context');
+    const ctx = canvas.getContext("2d");
+    if (!ctx) throw new Error("no 2d context");
     ctx.drawImage(img, 0, 0);
     const { data } = ctx.getImageData(0, 0, canvas.width, canvas.height);
     const px = data as unknown as Uint8ClampedArray;
@@ -68,7 +68,9 @@ export async function measurePaint(page: Page): Promise<PaintReport> {
     }
     let dominant = 0;
     for (const n of counts.values()) if (n > dominant) dominant = n;
-    const sorted = [...counts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 6);
+    const sorted = [...counts.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 6);
     return {
       width: canvas.width,
       height: canvas.height,
@@ -88,13 +90,16 @@ export async function measurePaint(page: Page): Promise<PaintReport> {
 }
 
 /** Assert the viewport is actually painted, with the report in the failure text. */
-export async function expectPainted(page: Page, where: string): Promise<PaintReport> {
+export async function expectPainted(
+  page: Page,
+  where: string,
+): Promise<PaintReport> {
   const r = await measurePaint(page);
   const detail =
     `${where}: ${r.distinctColours} distinct colours, ` +
     `non-dominant ${(r.nonDominantRatio * 100).toFixed(2)}%, ` +
     `${r.width}x${r.height}, dominant ${(r.dominantShare * 100).toFixed(1)}% ` +
-    `[${r.sample.join(' ')}]`;
+    `[${r.sample.join(" ")}]`;
 
   expect(
     r.distinctColours,

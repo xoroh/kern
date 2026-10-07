@@ -53,6 +53,7 @@ import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse as parseYaml } from "yaml";
+import { matchesPath } from "./lib/codeowners.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -205,12 +206,12 @@ function checkBiome() {
 
 // ------------------------------------------------------- 2. CODEOWNERS patterns
 /**
- * CODEOWNERS is gitignore syntax: a pattern matches a path or anything under a
- * matching directory. `*` alone is the catch-all and is NOT a path — matching
- * nothing is its job, so it is exempt by name.
+ * CODEOWNERS uses GitHub semantics (see scripts/lib/codeowners.mjs): a leading
+ * `/` anchors at the repo root; a bare name matches at any depth; a trailing
+ * `/` owns a directory and its contents. `*` alone is the catch-all and is NOT
+ * a path — matching nothing is its job, so it is exempt by name.
  *
- * The AMBIGUOUS section of this repo's CODEOWNERS deliberately lists paths that
- * have NO rule, in comments. Those are prose, and this reader skips comments.
+ * Comments are prose (including documented deletions) and are skipped.
  */
 function checkCodeowners() {
   const rel = ".github/CODEOWNERS";
@@ -229,7 +230,12 @@ function checkCodeowners() {
     // `*` is the catch-all. It is supposed to match everything, including
     // nothing, so its matching nothing is not a defect.
     if (pattern === "*") return;
-    if (!matchesSomething(pattern)) {
+    // CODEOWNERS patterns use GitHub semantics (leading `/` = root-only;
+    // bare names match any depth). Do NOT reuse the biome glob matcher.
+    const hits =
+      [...tracked].some((p) => matchesPath(pattern, p)) ||
+      [...onDiskPaths].some((p) => matchesPath(pattern, p));
+    if (!hits) {
       report(
         `${rel}:${idx + 1}`,
         `pattern "${pattern}"`,
