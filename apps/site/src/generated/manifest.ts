@@ -2236,6 +2236,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    slug: "mobile/contrast-toggle",
+    name: "contrast-toggle",
+    export: "ContrastToggle",
+    platform: "mobile",
+    status: "real",
+  },
+  {
     slug: "mobile/country-select",
     name: "country-select",
     export: "CountrySelect",
@@ -2379,6 +2386,13 @@ export const COMPONENTS: ComponentEntry[] = [
     slug: "mobile/input-otp",
     name: "input-otp",
     export: "InputOTP",
+    platform: "mobile",
+    status: "real",
+  },
+  {
+    slug: "mobile/kbd",
+    name: "kbd",
+    export: "Kbd",
     platform: "mobile",
     status: "real",
   },
@@ -2614,6 +2628,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    slug: "mobile/settings-row",
+    name: "settings-row",
+    export: "SettingsRow",
+    platform: "mobile",
+    status: "real",
+  },
+  {
     slug: "mobile/shape",
     name: "shape",
     export: "Shape",
@@ -2691,6 +2712,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    slug: "mobile/status-bar",
+    name: "status-bar",
+    export: "StatusBar",
+    platform: "mobile",
+    status: "real",
+  },
+  {
     slug: "mobile/success-transform",
     name: "success-transform",
     export: "SuccessTransform",
@@ -2736,6 +2764,13 @@ export const COMPONENTS: ComponentEntry[] = [
     slug: "mobile/textarea",
     name: "textarea",
     export: "Textarea",
+    platform: "mobile",
+    status: "real",
+  },
+  {
+    slug: "mobile/theme-toggle",
+    name: "theme-toggle",
+    export: "ThemeToggle",
     platform: "mobile",
     status: "real",
   },
@@ -2788,6 +2823,13 @@ export const COMPONENTS: ComponentEntry[] = [
     platform: "mobile",
     status: "real",
   },
+  {
+    slug: "mobile/top-app-bar-toggle",
+    name: "top-app-bar-toggle",
+    export: "TopAppBarToggle",
+    platform: "mobile",
+    status: "real",
+  },
 ];
 
 export const COMPONENT_COUNT = COMPONENTS.length;
@@ -2800,8 +2842,8 @@ export const COMPONENT_COUNT = COMPONENTS.length;
  */
 export const PARITY_COUNTS = {
   web: 292,
-  native: 104,
-  shared: 83,
+  native: 110,
+  shared: 89,
 };
 
 const BY_SLUG = new Map(COMPONENTS.map((c) => [c.slug, c]));

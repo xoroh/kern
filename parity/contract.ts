@@ -970,6 +970,152 @@ export const CONTRACTS: readonly ParityRow[] = [
     },
     maxSelected: 1,
   },
+
+  // ------------------------------------------------------------- tranche 6
+  // The start-tier GAP fill (P2 composition): six web-only concepts that had
+  // no native version — `kbd`, `settings-row`, `status-bar`, `theme-toggle`,
+  // `contrast-toggle`, `top-app-bar-toggle` — now ship on both renderers.
+  //
+  // Each row was written AFTER both sides were measured, following the
+  // tranche-3 rule: the declaration is the specification, not a description
+  // of what one side happened to do. The toggles follow the `button`
+  // precedent (an action with no latching pressed state); the rows follow
+  // the `table-caption` precedent (static content with an obligation and no
+  // invented state axis). `top-app-bar-toggle` is the exception that proves
+  // the rule: its expanded state latches, so it asserts the transition the
+  // way `drawer` does.
+  {
+    component: "kbd",
+    id: "kbd-hint",
+    interactive: false,
+    family: "static-content",
+    behaviour:
+      "A keyboard-shortcut hint is present as announced text in a monospace face.",
+    webContract:
+      "A `kbd` element carrying the hint text; chords are composed with a space between parts.",
+    nativeContract:
+      "Static text in a monospace face carrying the hint as its accessible name; chords compose the same way.",
+    spec: "NO M3 COMPONENT — M3 defines no keyboard-hint component. The monospace shortcut hint is a kern composition aid.",
+    testedBy: "data-display.test.tsx / kbd.rntest.tsx",
+    role: "text",
+    name: "Ctrl",
+    expects: {
+      initial: true,
+      afterActivate: true,
+      afterDisabledActivate: true,
+    },
+  },
+  {
+    component: "settings-row",
+    id: "settings-row-labelled",
+    interactive: false,
+    family: "static-content",
+    behaviour:
+      "A settings row carries its label and supporting text, with a trailing control slot.",
+    webContract:
+      "A labelled grouping carrying the label and supporting text; the row itself exposes no landmark role, and activation belongs to the trailing control.",
+    nativeContract:
+      "A summary landmark carrying the label as its accessible name, with supporting text and the trailing control.",
+    spec: "NO M3 COMPONENT — M3 defines no settings-row component. The labelled row with supporting text follows the M3 Lists row structure.",
+    testedBy: "start.test.tsx / settings-row.rntest.tsx",
+    role: "summary",
+    name: "Notifications",
+    expects: {
+      initial: true,
+      afterActivate: true,
+      afterDisabledActivate: true,
+    },
+  },
+  {
+    component: "status-bar",
+    id: "status-bar-strip",
+    interactive: false,
+    family: "static-content",
+    behaviour:
+      "A status strip carries leading, centered status and trailing slots under one accessible name.",
+    webContract:
+      "A landmark strip with leading, centered status and trailing slots; the row itself exposes no landmark role on web.",
+    nativeContract:
+      "A summary landmark carrying the accessible name, with the status text centered between the slots.",
+    spec: "NO M3 COMPONENT — M3 defines no status-bar surface. The strip follows the M3 layout guidance for a persistent status region.",
+    testedBy: "start.test.tsx / status-bar.rntest.tsx",
+    role: "summary",
+    name: "Status",
+    expects: {
+      initial: true,
+      afterActivate: true,
+      afterDisabledActivate: true,
+    },
+  },
+  {
+    component: "theme-toggle",
+    id: "theme-toggle-action",
+    behaviour:
+      "Activation requests a theme change and leaves no persistent pressed state behind.",
+    webContract:
+      "A `role=button` named for where the press goes (never where it is); reports no pressed axis and does not stay pressed.",
+    nativeContract:
+      "A `role=button` with the same destination name on a 48dp touch target; `accessibilityState.selected` is not a toggle and does not latch.",
+    spec: "NO M3 COMPONENT — M3 defines no theme toggle. The host-owned mode switch follows the M3 Icon button touch-target guidance.",
+    testedBy: "start.test.tsx / theme-toggle.rntest.tsx",
+    role: "button",
+    interactive: true,
+    axis: "pressed",
+    interaction: "toggle",
+    name: "Switch to light",
+    expects: {
+      initial: false,
+      afterActivate: false,
+      afterDisabledActivate: false,
+    },
+    maxSelected: 1,
+  },
+  {
+    component: "contrast-toggle",
+    id: "contrast-toggle-action",
+    behaviour:
+      "Activation requests a contrast change and leaves no persistent pressed state behind.",
+    webContract:
+      "A `role=button` named for where the press goes (never where it is); reports no pressed axis and does not stay pressed.",
+    nativeContract:
+      "A `role=button` with the same destination name on a 48dp touch target; `accessibilityState.selected` is not a toggle and does not latch.",
+    spec: "NO M3 COMPONENT — M3 defines no contrast toggle. The host-owned contrast switch follows the M3 Icon button touch-target guidance.",
+    testedBy: "start.test.tsx / contrast-toggle.rntest.tsx",
+    role: "button",
+    interactive: true,
+    axis: "pressed",
+    interaction: "toggle",
+    name: "Use high contrast",
+    expects: {
+      initial: false,
+      afterActivate: false,
+      afterDisabledActivate: false,
+    },
+    maxSelected: 1,
+  },
+  {
+    component: "top-app-bar-toggle",
+    id: "top-app-bar-toggle-expanded",
+    behaviour:
+      "The leading control opens and closes the shell navigation and reports which state it is in.",
+    webContract:
+      "A `role=button` named Open/Close navigation that reports whether the navigation surface is open.",
+    nativeContract:
+      "A `role=button` with the same Open/Close name on a 48dp touch target; the open state is reported to assistive technology.",
+    spec: "M3 Top app bar — the leading navigation control opens and closes the navigation surface.",
+    testedBy: "start.test.tsx / top-app-bar-toggle.rntest.tsx",
+    role: "button",
+    interactive: true,
+    axis: "pressed",
+    interaction: "toggle",
+    name: "Open navigation",
+    expects: {
+      initial: false,
+      afterActivate: true,
+      afterDisabledActivate: false,
+    },
+    maxSelected: 1,
+  },
 ] as const;
 
 /**
@@ -987,7 +1133,7 @@ export const CONTRACTS: readonly ParityRow[] = [
  * the registry. Generators and docs must import these, never hard-code
  * their own copy.
  */
-export const PARITY_COUNTS = { web: 292, native: 104, shared: 83 } as const;
+export const PARITY_COUNTS = { web: 292, native: 110, shared: 89 } as const;
 
 /** Lookup for a test that knows its component by name.
  *

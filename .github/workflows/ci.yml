@@ -12,7 +12,7 @@ permissions:
 jobs:
   # A DEDICATED job, deliberately. `check:cold` is `rm -rf node_modules
   # packages/*/dist && bun install --frozen-lockfile && bun run build` -- running
-  # it inside the `build` job would destroy the workspace for every step after
+  # it inside another job would destroy the workspace for every step after
   # it. It is a cold-checkout release question, so it gets a clean runner of its
   # own, which is also the only honest way to test a cold checkout.
   #
@@ -59,12 +59,12 @@ jobs:
       - name: Build workspace packages
         # REQUIRED on a clean runner: apps/site imports @xoroh/kern via
         # main/module -> ./dist/index.js, and dist/ is gitignored so a fresh
-        # checkout has no dist/. The `build` job gets dists via its root
-        # `bun run build` long before its site build; this job has no `needs:`
-        # and shares no artifacts, so it must build them itself before the
-        # site build below. Without this, `bun run build` in apps/site fails
-        # on a clean runner even though it passes locally (where dists exist
-        # from a previous build).
+        # checkout has no dist/. The `dist-gates`/`apps` jobs get dists via
+        # their own root `bun run build` long before their site build; this
+        # job shares no artifacts with them, so it must build them itself
+        # before the site build below. Without this, `bun run build` in
+        # apps/site fails on a clean runner even though it passes locally
+        # (where dists exist from a previous build).
         run: bun run build
 
       - name: Build site
@@ -97,7 +97,22 @@ jobs:
           cd "$GITHUB_WORKSPACE"
           bun run test:e2e
 
-  build:
+      - name: Upload visual baseline seed
+        # `e2e/visual-baseline.spec.ts` captures full-page screenshots into
+        # `test-results/baseline/`. Uploaded so a human can review the
+        # picture and promote it into a real `toHaveScreenshot` baseline —
+        # never auto-cut, never asserted sight-unseen.
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-baseline
+          path: test-results/baseline/
+          if-no-files-found: warn
+
+  # SPLIT (was one 30-step `build` job): hermetic source gates that need no
+  # built dists. No job shares a filesystem with another, so anything that
+  # reads dist/ builds it in its own job (`dist-gates`, `apps`, `e2e` above).
+  gates:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -123,6 +138,11 @@ jobs:
 
       - name: Check every check:* gate is actually invoked by CI
         run: bun run check:workflow
+
+      - name: Check one TypeScript policy
+        # 5.9.3 everywhere: two majors in one workspace means two
+        # type-checkers that can disagree about the same source.
+        run: bun run check:ts-policy
 
       - name: Check no config rule names a path that no longer exists
         # A dead rule is worse than no rule: it reads as coverage. Proven by
@@ -189,6 +209,22 @@ jobs:
           git add -N .
           git diff --exit-code -- packages/kern-tokens/src/tokens.css packages/kern-tokens/src/tones.css packages/kern-tokens/src/motion.css docs/components.md docs/elevation-audit.md packages/mcp/src/manifest.ts packages/kern-icons/src/sets
 
+  # SPLIT (was inside the 30-step `build` job): the gates that read built
+  # dists. Builds them in this job because no job shares a filesystem with
+  # another — running these without the build below would report "no dist"
+  # and read as a green gate that verified nothing.
+  dist-gates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.8
+
+      - run: bun install --frozen-lockfile --ignore-scripts
+
       - name: Build all publishable packages
         run: bun run build
 
@@ -210,101 +246,77 @@ jobs:
           # a green gate that verified nothing.
           bun run check:dist:types
 
-      - name: Typecheck MCP server
-        run: bun run typecheck
-        working-directory: packages/mcp
+  # SPLIT (was inline steps in the 30-step `build` job): per-package
+  # build/test/typecheck/publish, one matrix leg each. A leg builds only its
+  # own package: workspace deps bundle from source (tsup), so no leg needs
+  # another leg's dist.
+  #
+  # `packages/kern/src/start` is deliberately NOT a leg: it has no
+  # package.json (the old job's four "Kern start" steps re-ran `@xoroh/kern`'s
+  # own scripts via directory walk-up, testing the same package twice under
+  # two names). The `@xoroh/kern` leg below covers it.
+  pkg:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        dir:
+          - packages/kern-tokens
+          - packages/kern-primitives
+          - packages/kern
+          - packages/kern-icons
+          - packages/kern-native
+          - packages/mcp
+    steps:
+      - uses: actions/checkout@v7
 
-      - name: Test MCP manifest
-        run: bun run test
-        working-directory: packages/mcp
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.8
 
-      - name: Build Kern theme
+      - run: bun install --frozen-lockfile --ignore-scripts
+
+      - name: Build package
         run: bun run build
-        working-directory: packages/kern-tokens
+        working-directory: ${{ matrix.dir }}
 
-      - name: Test Kern theme
+      - name: Test package
         run: bun run test
-        working-directory: packages/kern-tokens
-
-      - name: Typecheck Kern theme
-        run: bun run typecheck
-        working-directory: packages/kern-tokens
-
-      - name: Check Kern theme package publishing
-        run: bun run check:publish
-        working-directory: packages/kern-tokens
-
-      - name: Build Kern library
-        run: bun run build
-        working-directory: packages/kern
-
-      - name: Test Kern library
-        run: bun run test
-        working-directory: packages/kern
-
-      - name: Typecheck Kern library
-        run: bun run typecheck
-        working-directory: packages/kern
-
-      - name: Check Kern package publishing
-        run: bun run check:publish
-        working-directory: packages/kern
-
-      - name: Build Kern icons
-        run: bun run build
-        working-directory: packages/kern-icons
-
-      - name: Test Kern icons
-        run: bun run test
-        working-directory: packages/kern-icons
-
-      - name: Typecheck Kern icons
-        run: bun run typecheck
-        working-directory: packages/kern-icons
-
-      - name: Check Kern icons package publishing
-        run: bun run check:publish
-        working-directory: packages/kern-icons
-
-      - name: Build Kern start
-        run: bun run build
-        working-directory: packages/kern/src/start
-
-      - name: Test Kern start
-        run: bun run test
-        working-directory: packages/kern/src/start
-
-      - name: Typecheck Kern start
-        run: bun run typecheck
-        working-directory: packages/kern/src/start
-
-      - name: Check Kern start package publishing
-        run: bun run check:publish
-        working-directory: packages/kern/src/start
-
-      - name: Build Kern native
-        run: bun run build
-        working-directory: packages/kern-native
-
-      - name: Test Kern native render
-        run: bun run test
-        working-directory: packages/kern-native
+        working-directory: ${{ matrix.dir }}
 
       - name: Test Kern native behaviour (jest)
+        # Only kern-native ships .rntest suites; no other leg has the script,
+        # so this step is conditional rather than a second matrix axis.
+        if: matrix.dir == 'packages/kern-native'
         run: bun run test:jest
-        working-directory: packages/kern-native
+        working-directory: ${{ matrix.dir }}
 
-      - name: Typecheck Kern native
+      - name: Typecheck package
         run: bun run typecheck
-        working-directory: packages/kern-native
+        working-directory: ${{ matrix.dir }}
 
-      - name: Check Kern native package publishing
+      - name: Check package publishing
         run: bun run check:publish
-        working-directory: packages/kern-native
+        working-directory: ${{ matrix.dir }}
 
-      - name: Check MCP package publishing
-        run: bun run check:publish
-        working-directory: packages/mcp
+  # SPLIT (was the tail of the 30-step `build` job): the two apps. Builds
+  # workspace dists first because the site typecheck runs check:dist:types,
+  # which reads consumed packages' built declarations.
+  apps:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.8
+
+      - run: bun install --frozen-lockfile --ignore-scripts
+
+      - name: Build workspace packages
+        run: bun run build
 
       - name: Typecheck site
         run: bun run typecheck
