@@ -8,6 +8,11 @@
  */
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "../../components/chrome/site-layout";
+import { componentsOn } from "../../generated/manifest";
+import {
+  THEME_CONFIGURATOR_HREF,
+  componentDemoHref,
+} from "../../systems/playground-links";
 import { routeHead } from "../../systems/seo";
 import {
   T_BODY_SM,
@@ -52,6 +57,8 @@ const TOOLS: {
 ];
 
 function PlaygroundHub() {
+  const web = componentsOn("web").length;
+  const mobile = componentsOn("mobile").length;
   return (
     <SiteLayout>
       <section className="px-4 py-4 sm:px-6 sm:py-6">
@@ -89,6 +96,38 @@ function PlaygroundHub() {
                 </Link>
               ))}
             </div>
+          </section>
+
+          {/*
+            Registry → playground: every registry entry opens here. The CLI
+            registry and the search share the export name as key, so a search
+            for any of the {web} web or {mobile} native exports lands on its
+            component demo; web demos repaint in the configurator. Button is
+            the worked example — its demo anchor is the pattern every entry
+            follows.
+          */}
+          <section className="flex flex-col gap-3">
+            <h2 id="registry" className={`m-0 ${T_SECTION} ${INK}`}>
+              Registry → playground
+            </h2>
+            <p className={`m-0 max-w-[62ch] ${T_BODY_SM} ${INK_SOFT}`}>
+              {web} web exports and {mobile} native exports, each openable by
+              name. Search any export to land on its live demo — for example{" "}
+              <a
+                className="text-(--md-sys-color-primary) underline underline-offset-2"
+                href={componentDemoHref("web", "button")}
+              >
+                the Button demo
+              </a>
+              — then repaint it in the{" "}
+              <a
+                className="text-(--md-sys-color-primary) underline underline-offset-2"
+                href={THEME_CONFIGURATOR_HREF}
+              >
+                theme configurator
+              </a>
+              .
+            </p>
           </section>
         </div>
       </section>

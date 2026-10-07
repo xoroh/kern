@@ -12,7 +12,14 @@ import { T_BODY_SM } from "../systems/type-scale";
  * legacy fallback checks `execCommand`'s return, and a throw leaves the
  * button reading "Copy".
  */
-export function CopyButton({ text }: { text: string }) {
+export function CopyButton({
+  text,
+  label = "Copy",
+}: {
+  text: string;
+  /** Button face. "Export" and "Repro" reuse this button for the demo DX actions. */
+  label?: string;
+}) {
   const [copied, setCopied] = useState(false);
 
   async function copy() {
@@ -44,7 +51,7 @@ export function CopyButton({ text }: { text: string }) {
       className={`inline-flex items-center gap-1.5 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline) px-2 py-1 ${T_BODY_SM} text-(--md-sys-color-primary) hover:bg-(--md-sys-color-primary-container)`}
     >
       <Icon name={copied ? "check" : "content-copy"} size={16} />
-      {copied ? "Copied" : "Copy"}
+      {copied ? "Copied" : label}
     </button>
   );
 }

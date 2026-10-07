@@ -41,6 +41,7 @@ const NON_TS = new Set([
   "ICON_ALIAS",
   "REGISTRY",
   "ICONS",
+  "CDN_PLAIN_HTML",
 ]);
 
 /**

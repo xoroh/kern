@@ -44,6 +44,33 @@ const REGISTRY = `import { getIconSet, listIconSets } from "@xoroh/kern-icons";
 listIconSets();            // every registered set
 getIconSet("material");    // one set's manifest`;
 
+// Plain HTML via CDN — no bundler. Pin VERSION to a published release: the
+// stylesheet path is the kern-tokens `theme` export's file, and the module
+// path is the kern package root, so any published version resolves both.
+// esm.sh rewrites kern's bare `react` import only when `?external` names it,
+// which is what keeps the import-map copy the single one.
+const CDN_PLAIN_HTML = `<!-- Plain HTML via CDN — no bundler. Replace VERSION with the published release. -->
+<link rel="stylesheet" href="https://unpkg.com/@xoroh/kern-tokens@VERSION/src/tokens.css" />
+<div id="root"></div>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@19.3.0",
+    "react-dom/client": "https://esm.sh/react-dom@19.3.0/client",
+    "@xoroh/kern": "https://esm.sh/@xoroh/kern@VERSION?external=react,react-dom"
+  }
+}
+</script>
+<script type="module">
+import React from "react";
+import { createRoot } from "react-dom/client";
+import { Button } from "@xoroh/kern";
+
+createRoot(document.getElementById("root")).render(
+  React.createElement(Button, { variant: "primary" }, "Continue")
+);
+</script>`;
+
 function Guides() {
   const web = componentsOn("web").length;
   const mobile = componentsOn("mobile").length;
@@ -101,6 +128,21 @@ function Guides() {
               filter reaches the rest.
             </p>
             <IconGallery />
+          </Step>
+
+          <Step n={5} title="Plain HTML via CDN — no bundler">
+            <p className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}>
+              No JSX, no build step: the stylesheet is the published theme file,
+              the import map pins one copy of React, and{" "}
+              <code>?external=react,react-dom</code> keeps kern reading that
+              same copy instead of bundling a second. The packages are{" "}
+              <code>0.0.0</code> and unpublished, so these URLs 404 until the
+              first publish — replace <code>VERSION</code> then. The paths are
+              verified against the packages&apos; published file lists
+              (kern-tokens ships <code>src/tokens.css</code>, kern&apos;s root
+              export is <code>dist/index.js</code>), not against the registry.
+            </p>
+            <Code>{CDN_PLAIN_HTML}</Code>
           </Step>
         </div>
       </section>

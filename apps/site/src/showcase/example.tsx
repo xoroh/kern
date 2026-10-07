@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { useId, useState } from "react";
 import { T_BODY_SM, T_CODE, T_LEAD } from "../systems/type-scale";
 import { CopyButton } from "./copy-button";
+import { demoExportSource, demoReproSource } from "./demo-export";
 
 /**
  * The Example tier — the first of the three showcase layers (Example → Block →
@@ -86,13 +87,25 @@ export function Example({ spec }: { spec: ExampleSpec }) {
   }
 
   return (
-    <figure className={`${FRAME} m-0 flex flex-col overflow-hidden`}>
+    <figure className={`${FRAME} group m-0 flex flex-col overflow-hidden`}>
       <figcaption className="flex flex-col gap-1 border-b border-(--md-sys-color-outline-variant) px-6 py-4">
         <h3
           id={`example-${spec.id}`}
           className={`m-0 ${T_LEAD} text-(--md-sys-color-on-surface)`}
         >
           {spec.title}
+          {/*
+            Per-demo permalink: every docs demo is independently openable —
+            this anchor is the demo's address, and the Export/Repro buttons in
+            the Code panel are its copyable form.
+          */}
+          <a
+            href={`#example-${spec.id}`}
+            aria-label={`Permalink to ${spec.title}`}
+            className="ml-2 inline-flex items-center text-(--md-sys-color-on-surface-variant) no-underline opacity-0 transition-opacity group-hover:opacity-100 focus-visible:opacity-100"
+          >
+            #
+          </a>
         </h3>
         <p className={`m-0 ${BODY}`}>{spec.description}</p>
       </figcaption>
@@ -151,7 +164,15 @@ export function Example({ spec }: { spec: ExampleSpec }) {
           aria-labelledby={`${base}-tab-code`}
           className="flex flex-col"
         >
-          <div className="flex justify-end border-b border-(--md-sys-color-outline-variant) px-4 py-1">
+          {/*
+            Per-demo export: Copy is the fence as shown; Export is the same
+            fence as a standalone module (imports derived from the tags used);
+            Repro is that module as a bug-report template. Buttons, so the
+            copy-markdown export skips them like the rest of the demo chrome.
+          */}
+          <div className="flex flex-wrap items-center justify-end gap-2 border-b border-(--md-sys-color-outline-variant) px-4 py-1">
+            <CopyButton text={demoExportSource(spec)} label="Export" />
+            <CopyButton text={demoReproSource(spec)} label="Repro" />
             <CopyButton text={spec.code} />
           </div>
           <pre
