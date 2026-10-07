@@ -1,0 +1,24 @@
+{
+  "id": "compact",
+  "name": "Compact",
+  "description": "Density algorithm as override data: 0.75x shape scale (rounded to 0.5px, full passes through), color untouched. Extends kern; carries no role table of its own.",
+  "extends": "kern",
+  "overrides": {
+    "color": {
+      "light": {},
+      "dark": {}
+    },
+    "shape": {
+      "none": "0px",
+      "extra-small": "3px",
+      "small": "6px",
+      "medium": "9px",
+      "large": "12px",
+      "large-increased": "15px",
+      "extra-large": "21px",
+      "extra-large-increased": "24px",
+      "extra-extra-large": "36px",
+      "full": "9999px"
+    }
+  }
+}

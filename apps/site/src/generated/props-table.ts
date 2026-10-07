@@ -6292,6 +6292,11 @@ export const PROPS_TABLE: Record<
         type: "string | undefined",
         required: false,
       },
+      {
+        name: "dir",
+        type: "A11yDir | undefined",
+        required: false,
+      },
     ],
     curated: [],
   },
@@ -6301,6 +6306,11 @@ export const PROPS_TABLE: Record<
         name: "label",
         type: "string",
         required: true,
+      },
+      {
+        name: "dir",
+        type: "A11yDir | undefined",
+        required: false,
       },
       {
         name: "children",
@@ -6378,6 +6388,11 @@ export const PROPS_TABLE: Record<
         required: true,
       },
       {
+        name: "dir",
+        type: "A11yDir | undefined",
+        required: false,
+      },
+      {
         name: "children",
         type: "ReactNode",
         required: false,
@@ -6448,6 +6463,11 @@ export const PROPS_TABLE: Record<
         required: true,
       },
       {
+        name: "dir",
+        type: "A11yDir | undefined",
+        required: false,
+      },
+      {
         name: "children",
         type: "ReactNode",
         required: false,
@@ -6506,6 +6526,11 @@ export const PROPS_TABLE: Record<
         name: "label",
         type: "string",
         required: true,
+      },
+      {
+        name: "dir",
+        type: "A11yDir | undefined",
+        required: false,
       },
       {
         name: "children",
@@ -6571,6 +6596,11 @@ export const PROPS_TABLE: Record<
         name: "label",
         type: "string",
         required: true,
+      },
+      {
+        name: "dir",
+        type: "A11yDir | undefined",
+        required: false,
       },
       {
         name: "children",

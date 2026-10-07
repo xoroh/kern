@@ -33,6 +33,7 @@
     "icons:generate": "bun packages/kern-icons/tools/generate.ts",
     "icons:check": "bun packages/kern-icons/tools/check.ts",
     "check:contrast": "bun packages/kern-tokens/scripts/check-contrast.mjs",
+    "check:theme-matrix": "bun packages/kern-tokens/scripts/check-theme-matrix.mjs",
     "check:kern": "node scripts/check-kern.mjs",
     "check:currency": "node scripts/check-currency.mjs",
     "check:parity": "node scripts/check-parity.mjs",
