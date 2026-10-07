@@ -18,11 +18,15 @@
  * 2. No duplicate hrefs in the nav (two leaves, one destination — the map
  *    lying about the territory).
  * 3. Zero orphans: every top-level route must be reachable from at least one
- *    chrome surface — the docs sidebar (NAV_LEAVES), the rail/mobile menu
- *    (RAIL_ITEMS in app-rail.tsx), the footer, or the ⌘K palette (/search,
- *    opened from every page). Anything still unlisted fails. Some routes are
- *    destinations, not wayfinding — the rail and footer are what keep them
- *    listed, so the omission from the sidebar stays a decision, not drift.
+ *    chrome surface — the docs sidebar (NAV_LEAVES), the header tabs and
+ *    drawer (PRIMARY_TABS in site-header.tsx, SECONDARY in
+ *    mobile-drawer.tsx), the docs-context rail (RAIL_ITEMS in app-rail.tsx),
+ *    the footer, or the ⌘K palette (/search, opened from every page).
+ *    Anything still unlisted fails. Some routes are destinations, not
+ *    wayfinding — the rail and footer are what keep them listed, so the
+ *    omission from the sidebar stays a decision, not drift. Redirect stubs
+ *    (`throw redirect(...)` — the old paths kept as aliases after a move)
+ *    are exempt: they are reached through their target, not the nav.
  */
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
@@ -65,11 +69,14 @@ for (const leaf of leaves) {
 
 // Routes with no nav leaf: walk top-level route files (one deep for groups).
 // A route is covered when any chrome surface reaches it: the sidebar leaves
-// above, the rail/mobile menu (one RAIL_ITEMS list feeds both), the footer,
-// or the ⌘K palette (/search opens from every page via rail, mobile bar, and
-// keyboard). Anything left over is an orphan and fails.
+// above, the header tabs and drawer (one PRIMARY_TABS list feeds both, plus
+// the drawer's secondary list), the docs-context rail (RAIL_ITEMS), the
+// footer, or the ⌘K palette (/search opens from every page via header,
+// drawer, and keyboard). Anything left over is an orphan and fails.
 const covered = new Set([...seen.keys()]);
 for (const file of [
+  join(SITE, "src", "components", "chrome", "site-header.tsx"),
+  join(SITE, "src", "components", "chrome", "mobile-drawer.tsx"),
   join(SITE, "src", "components", "chrome", "app-rail.tsx"),
   join(SITE, "src", "components", "chrome", "footer.tsx"),
 ]) {
@@ -82,12 +89,27 @@ for (const file of [
 // and links out to /search?q= — but it opens from every page, so it counts.
 covered.add("/search");
 const unlisted = [];
+/**
+ * Redirect stubs (`throw redirect(...)`) are aliases of their target, not
+ * orphan destinations — reached through the page they point at.
+ */
+function isRedirectAlias(file) {
+  try {
+    return /throw\s+redirect\s*\(/.test(readFileSync(file, "utf8"));
+  } catch {
+    return false;
+  }
+}
 function topRoutes(dir, prefix) {
   for (const e of readdirSync(dir, { withFileTypes: true })) {
     if (e.name.startsWith("_") || e.name.startsWith("-")) continue;
     if (e.isDirectory()) {
       const idx = join(dir, e.name, "index.tsx");
-      if (existsSync(idx) && !covered.has(`${prefix}/${e.name}`)) {
+      if (
+        existsSync(idx) &&
+        !covered.has(`${prefix}/${e.name}`) &&
+        !isRedirectAlias(idx)
+      ) {
         unlisted.push(`${prefix}/${e.name}`);
       }
       continue;
@@ -96,7 +118,8 @@ function topRoutes(dir, prefix) {
     const base = e.name.replace(/\.tsx$/, "");
     if (base.startsWith("$") || base === "__root") continue;
     const href = base === "index" ? "/" : `${prefix}/${base}`;
-    if (!covered.has(href)) unlisted.push(href);
+    if (!covered.has(href) && !isRedirectAlias(join(dir, e.name)))
+      unlisted.push(href);
   }
 }
 topRoutes(join(SITE, "src", "routes"), "");

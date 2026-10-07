@@ -50,7 +50,7 @@ const JOURNEYS = [
   {
     title: "Build a design system",
     what: "Tokens, roles, theming and the shape scale — the layer beneath the components.",
-    to: "/styles" as const,
+    to: "/foundations" as const,
     cta: "Open the tokens",
   },
   {
@@ -75,11 +75,12 @@ const SECTIONS = [
   {
     title: "Foundations",
     why: "The values everything is built from, and the rules that govern them.",
-    // /theme is deliberately NOT linked here yet: it still carries 26 ad-hoc
-    // type hits and check-typescale watches routes. Promoting it from the map
-    // would send readers to a page the gate flags. It rejoins this list when
-    // its type lands on the scale — tracked with the rest of the route pass.
-    links: [{ label: "Styles and tokens", to: "/styles" }],
+    // /foundations/theme is deliberately NOT linked here yet: it still
+    // carries 26 ad-hoc type hits and check-typescale watches routes.
+    // Promoting it from the map would send readers to a page the gate flags.
+    // It rejoins this list when its type lands on the scale — tracked with
+    // the rest of the route pass.
+    links: [{ label: "Foundations", to: "/foundations" }],
   },
   {
     title: "Components",
@@ -342,10 +343,10 @@ function DocsIndex() {
               </li>
               <li>
                 <Link
-                  to="/styles"
+                  to="/foundations"
                   className={`text-(--md-sys-color-primary) ${T_BODY_SM}`}
                 >
-                  Styles and tokens →
+                  Foundations →
                 </Link>{" "}
                 <span className={`m-0 ${T_BODY_SM} ${SOFT}`}>
                   explanation: why the system is shaped the way it is.

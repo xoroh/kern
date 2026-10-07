@@ -245,16 +245,29 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
             // Centered, not top-left: a demo taller than the well used to clip
             // mid-text from the top (Button variants cut off), reading as a
             // rendering bug. Centering clips both edges equally when a demo
-            // still overflows, and fits everything shorter exactly.
+            // still overflows, and fits everything shorter exactly. Rendered
+            // at natural size: the old scale-90 popped on mount.
             <div
-              className="pointer-events-none flex max-h-full origin-center items-center justify-center overflow-hidden scale-90"
+              className="pointer-events-none flex max-h-full origin-center items-center justify-center overflow-hidden"
               aria-hidden="true"
             >
               <DemoBoundary>
                 <Demo />
               </DemoBoundary>
             </div>
-          ) : null
+          ) : (
+            // SSR skeleton: the same h-36 well, filled with container-high
+            // blocks, so the mount swap changes texture, not layout. Static
+            // on purpose — a shimmer would spend motion on a frame that
+            // resolves in the same tick as hydration.
+            <div
+              className="flex h-full w-full flex-col items-center justify-center gap-2"
+              aria-hidden="true"
+            >
+              <div className="h-8 w-2/3 rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-surface-container-high)" />
+              <div className="h-8 w-1/2 rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-surface-container-high)" />
+            </div>
+          )
         ) : reason ? (
           // Demo-less WITH a reason (BootSplash, MilestoneTrio): the reason
           // is full sentences, far taller than the h-36 slot — centered text

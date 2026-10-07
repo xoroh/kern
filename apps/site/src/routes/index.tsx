@@ -1,12 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Kicker } from "../components/chrome/kicker";
 import { SiteLayout } from "../components/chrome/site-layout";
-import { ComponentGallery } from "../components/docs/component-gallery";
+import { CapabilityDemos } from "../components/home/capability-demos";
 import { Hero } from "../components/home/hero";
-import { WEB_DOCS } from "../content";
-import { COMPONENT_COUNT } from "../generated/manifest";
+import { HowItWorks } from "../components/home/how-it-works";
+import { ReleaseNotes } from "../components/home/release-notes";
+import { ShowcaseWall } from "../components/home/showcase-wall";
+import { TrustBand } from "../components/home/trust-band";
 import { pageMeta, SITE_JSON_LD } from "../systems/seo";
-import { T_BODY, T_SECTION } from "../systems/type-scale";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: pageMeta("Kern by Xoroh") }),
@@ -14,7 +14,6 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
-  const documented = [...WEB_DOCS].reduce((n, doc) => n + doc.parts.length, 0);
   return (
     <SiteLayout>
       {/* Part 8 SEO: machine-readable site identity. Rendered in body —
@@ -25,34 +24,11 @@ function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(SITE_JSON_LD) }}
       />
       <Hero />
-      <section
-        className="px-4 py-4 sm:px-6 sm:py-6"
-        aria-labelledby="gallery-heading"
-      >
-        <div className="rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14">
-          <header className="flex flex-col gap-3">
-            <Kicker>Components</Kicker>
-            <h2
-              id="gallery-heading"
-              className={`m-0 ${T_SECTION} text-(--md-sys-color-on-surface)`}
-            >
-              Documented family by family
-            </h2>
-            <p
-              className={`m-0 max-w-[62ch] ${T_BODY} text-(--md-sys-color-on-surface-variant)`}
-            >
-              Each page runs the same grammar — metadata, live preview,
-              installation, anatomy, usage, examples, props, theming,
-              accessibility, conformance — and every number on it is checked
-              against the package rather than typed in. {documented} of{" "}
-              {COMPONENT_COUNT} exports have a page behind them so far.
-            </p>
-          </header>
-          <div className="mt-8">
-            <ComponentGallery platform="web" />
-          </div>
-        </div>
-      </section>
+      <TrustBand />
+      <CapabilityDemos />
+      <HowItWorks />
+      <ShowcaseWall />
+      <ReleaseNotes />
     </SiteLayout>
   );
 }

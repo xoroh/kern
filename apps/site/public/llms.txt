@@ -12,10 +12,10 @@ Prefer these machine surfaces over scraping HTML:
 
 ## Foundations
 
-- [Styles & tokens](/styles): The values everything is built from
-- [Theme](/theme): Color roles in the active theme
-- [Accessibility](/accessibility): How kern components stay accessible
-- [Icons](/icons): Icon sets and usage
+- [Foundations](/foundations): Tokens, theme, accessibility, icons — the layer beneath
+- [Theme](/foundations/theme): Color roles in the active theme
+- [Accessibility](/foundations/accessibility): How kern components stay accessible
+- [Icons](/foundations/icons): Icon sets and usage
 
 ## Docs
 
@@ -31,6 +31,14 @@ Prefer these machine surfaces over scraping HTML:
 - [Web](/components/web): Web component families
 - [Native](/components/mobile): Native component families
 
+## Patterns
+
+- [Patterns](/patterns): Product shapes composed from shipped components
+
+## Playground
+
+- [Playground](/playground): Repaint the system, or search it
+
 ## Start
 
 - [Getting started](/getting-started): From install to a themed component
@@ -40,13 +48,13 @@ Prefer these machine surfaces over scraping HTML:
 
 ## Foundations pages
 
-- [Tokens](/styles/tokens): The named values everything else is built from.
-- [Color](/styles/color): Roles are decisions, not colours — and kern ships more of them than Material 3 does.
-- [Type](/styles/type): Thirty styles, each rendered by its own tokens.
-- [Elevation](/styles/elevation): Six levels, and which components rest at which.
-- [Shape](/styles/shape): The corner scale, including Material 3's Expressive additions.
-- [Motion](/styles/motion): Spring first, easing as the fallback.
-- [States](/styles/states): What happens to a surface when it is hovered, pressed, dragged or disabled.
+- [Tokens](/foundations/tokens): The named values everything else is built from.
+- [Color](/foundations/color): Roles are decisions, not colours — and kern ships more of them than Material 3 does.
+- [Type](/foundations/type): Thirty styles, each rendered by its own tokens.
+- [Elevation](/foundations/elevation): Six levels, and which components rest at which.
+- [Shape](/foundations/shape): The corner scale, including Material 3's Expressive additions.
+- [Motion](/foundations/motion): Spring first, easing as the fallback.
+- [States](/foundations/states): What happens to a surface when it is hovered, pressed, dragged or disabled.
 
 ## Component families — web
 
