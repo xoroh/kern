@@ -19,7 +19,7 @@ import {
 import { Kicker } from "../../../components/chrome/kicker";
 import { SiteLayout } from "../../../components/chrome/site-layout";
 import { ComponentPage as ComponentDocPage } from "../../../components/docs/component-page";
-import { docForExport } from "../../../content";
+import { docForExport, getDoc } from "../../../content";
 import { getComponent } from "../../../generated/manifest";
 import { routeHead } from "../../../systems/seo";
 import { siblingNav } from "../../../systems/component-nav";
@@ -32,11 +32,23 @@ import {
 } from "../../../systems/type-scale";
 
 export const Route = createFileRoute("/components/$platform/$component")({
-  head: ({ params }) =>
-    routeHead(
-      `${params.component} (${params.platform === "mobile" ? "native" : params.platform})`,
-      "One component, one page — metadata, live preview, usage, props, theming and accessibility.",
-    ),
+  // Per-page metadata (Phase 3 grammar): the title names the family and the
+  // description is the page's own one-liner — the sentence its authors wrote
+  // for exactly this purpose — rather than a generic string shared by 192
+  // pages. Part slugs 301 to the family (beforeLoad below), so a part URL
+  // that resolves to no family doc falls back to the generic pair.
+  head: ({ params }) => {
+    const doc = getDoc(
+      params.platform as "web" | "mobile",
+      params.component,
+    );
+    const renderer = params.platform === "mobile" ? "native" : params.platform;
+    return routeHead(
+      doc ? `${doc.name} (${renderer})` : `${params.component} (${renderer})`,
+      doc?.oneLiner ??
+        "One component, one page — metadata, live preview, usage, props, theming and accessibility.",
+    );
+  },
   // The manifest is checked here, before rendering starts. Throwing from the
   // component body happens after SSR streaming has begun, so the response
   // status is already 200 and a 404 can never be sent.

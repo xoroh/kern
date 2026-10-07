@@ -176,15 +176,22 @@ const ELEVATION_LEVELS = pickExport(
  * gate degrades to permissive rather than to wrong.
  */
 function registeredDeviationIds() {
-  // `.team` lives at the monorepo root, NOT under kern/ — but the gate must
-  // not assume the checkout layout (a kern-only clone has neither). Try the
-  // monorepo sibling first, then a kern-internal copy, then the hardcoded
-  // K1..K10 fallback. Resolving wrong (or silently falling back) is exactly
-  // how K11 — registered in the md file — was rejected as unknown.
-  const candidates = [
-    join(ROOT, "..", ".team", "programs", "K-01-deviations.md"),
-    join(ROOT, ".team", "programs", "K-01-deviations.md"),
-  ];
+  // `.team` lives wherever the monorepo root is — NOT at a fixed depth under
+  // kern/. A kern-only clone carries it at ROOT/.team, a monorepo checkout at
+  // ROOT/../.team, and a git worktree nests deeper still
+  // (kern/.worktrees/<name> is three levels down). The old code tried exactly
+  // two depths, so a worktree checkout silently fell back to the hardcoded
+  // K1..K10 and rejected K11 — registered in the md file — as unknown. Walk
+  // ancestors instead of assuming the layout; the gate must not depend on
+  // where the checkout happens to sit.
+  const candidates = [];
+  let dir = ROOT;
+  for (let i = 0; i < 8; i++) {
+    candidates.push(join(dir, ".team", "programs", "K-01-deviations.md"));
+    const parent = dirname(dir);
+    if (parent === dir) break;
+    dir = parent;
+  }
   const fallback = [
     "K1",
     "K2",

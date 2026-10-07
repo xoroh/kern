@@ -10,6 +10,13 @@ Prefer these machine surfaces over scraping HTML:
 - Copy as Markdown button on every component and Foundations page — page prose + code + links, live-demo controls excluded
 - Agent skills in the repo: .agents/skills/kern/SKILL.md and .agents/skills/docs/SKILL.md (https://github.com/xoroh/kern/tree/main/.agents/skills)
 
+## Foundations
+
+- [Styles & tokens](/styles): The values everything is built from
+- [Theme](/theme): Color roles in the active theme
+- [Accessibility](/accessibility): How kern components stay accessible
+- [Icons](/icons): Icon sets and usage
+
 ## Docs
 
 - [Overview](/docs): Three ways in, one system underneath
@@ -23,13 +30,6 @@ Prefer these machine surfaces over scraping HTML:
 - [All components](/components): Documented family by family
 - [Web](/components/web): Web component families
 - [Native](/components/mobile): Native component families
-
-## Foundations
-
-- [Styles & tokens](/styles): The values everything is built from
-- [Theme](/theme): Color roles in the active theme
-- [Accessibility](/accessibility): How kern components stay accessible
-- [Icons](/icons): Icon sets and usage
 
 ## Start
 

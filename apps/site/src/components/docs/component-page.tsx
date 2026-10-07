@@ -1,27 +1,23 @@
 /**
  * The per-component page — the kern component-page template.
  *
- * SECTION ORDER IS THE DELIVERABLE. It is not a style preference: it is the
- * reader's question order, made into headings —
+ * SECTION ORDER IS THE DELIVERABLE. Phase 3 grammar, no other order:
  *
- *   prove (2) → start (3) → model (4) → explore (5) → integrate (6)
- *   → trust (7–8) → look up (9)
+ *   lede → demo → props → tokens → semantic-dom → accessibility
+ *   → limitations → faq → spec
  *
  * so the next heading is always the answer to the question the previous one
- * raised. Source: `.team/reports/SITE-REDESIGN-docs-architecture.md` §2, which
- * folds Carbon's guidance blocks, Base UI's anatomy and MUI's metadata strip
- * into one hybrid.
+ * raised: what it is, proof it works, what it takes, what it reads, what it
+ * renders as, who it works for, where it stops, what people ask, what the
+ * spec says. Source: the Phase 3 DOCS GRAMMAR contract, enforced by
+ * `scripts/check-grammar.mjs` — a page is checked by a gate, not by eye.
  *
- * The order is asserted here; the DATA behind each heading is asserted by
- * `scripts/check-docs.mjs`. That split is deliberate — a page is checked by a
- * gate, not reviewed by eye.
- *
- * CONDITIONAL SECTIONS render only when the content carries them. A heading
- * with nothing under it is noise, and the convention is to cut it rather than
- * ship one. Installation is the exception: it derives from the metadata strip,
- * so it is always accurate and always present. Do/Don't, Theming and Keyboard
- * are optional today — the template is complete, and content grows into it
- * section by section.
+ * CONDITIONAL SECTIONS render only when the content carries them
+ * (`src/systems/grammar.ts` predicates — semantic-dom, limitations, faq). A
+ * heading with nothing under it is noise, and the convention is to cut it
+ * rather than ship one. Everything else always renders, with an honest
+ * fallback where the content is not yet written (no demo, no token table,
+ * undocumented accessibility) rather than a silent absence.
  */
 
 import { useEffect, useState } from "react";
@@ -42,6 +38,7 @@ import { Configurator } from "../../showcase/configurator";
 import { CopyButton } from "../../showcase/copy-button";
 import { ExampleList } from "../../showcase/example";
 import { configuratorFor, examplesFor } from "../../showcase/registry";
+import { hasFaq, hasLimitations, hasSemanticDom } from "../../systems/grammar";
 import { maturityForExports } from "../../systems/maturity";
 import { CopyMarkdownButton } from "../chrome/copy-markdown-button";
 
@@ -356,18 +353,19 @@ function MetadataStrip({
   );
 }
 
-/* -------------------------------------------------------- 2. showcase */
+/* ------------------------------------------------- grammar: demo */
 
 /**
- * Section 2 — Showcase. Live, interactive, from the real package. Never a
+ * Grammar slot 2 — Demo. Live, interactive, from the real package. Never a
  * screenshot, never a reimplementation: a demo that restates the component's
  * markup teaches the reader the wrong code. Prove it works before asking
  * anyone to read about it.
  *
- * Part 3c — the reasoning-carrying examples used to render HERE instead of
- * the demo whenever they existed, which meant the live proof vanished on
- * exactly the pages with the most to show. Showcase keeps the single live
- * demo (or the gap note); examples are their own section below.
+ * Installation and examples live HERE as h3 subsections rather than as
+ * grammar sections of their own: getting it running and seeing it do one job
+ * are both "prove it", and the grammar's nine h2 slots stay the page's
+ * skeleton. The usage Do/Don't cards close the section — the contrast is the
+ * argument for reaching for this component at all.
  */
 function DemoContent({
   doc,
@@ -388,31 +386,28 @@ function DemoContent({
   );
 }
 
-function Showcase({
-  doc,
-  platform,
-}: {
-  doc: ComponentDoc;
-  platform: Platform;
-}) {
+function Demo({ doc, platform }: { doc: ComponentDoc; platform: Platform }) {
   return (
-    <section className="flex flex-col gap-3" aria-label="Showcase">
-      <Heading id="showcase">Showcase</Heading>
+    <section className="flex flex-col gap-3" aria-label="Demo">
+      <Heading id="demo">Demo</Heading>
       <DemoContent doc={doc} platform={platform} />
+      <InstallationBlock doc={doc} />
+      <ExamplesBlock doc={doc} />
+      <WhenToUse doc={doc} />
     </section>
   );
 }
 
-/* Part 3 — the position-2 "Kern vs Material 3" compare was folded into the
- * deviations slot (Conformance, below): its left cell re-rendered Showcase's
- * own demo, and its right cell restated the deviation rows. The one element
- * with no home there — the "Read the M3 spec" link — moved into Conformance.
+/* The position-2 "Kern vs Material 3" compare was folded into the deviations
+ * slot (Spec, below): its left cell re-rendered the Demo's own live demo, and
+ * its right cell restated the deviation rows. The one element with no home
+ * there — the "Read the M3 spec" link — moved into Spec.
  */
 
-/* ---------------------------------------------------- 3. installation */
+/* ------------------------------------------------- installation (in demo) */
 
 /**
- * Section 3 — Installation & usage. The "60-second bar": the fastest path
+ * Installation, as an h3 inside Demo. The "60-second bar": the fastest path
  * from landing here to running the thing. Derived entirely from the metadata
  * strip, so it can never drift from what the page already claims.
  */
@@ -506,13 +501,15 @@ function InstallPicker({ target }: { target: string }) {
   );
 }
 
-function Installation({ doc }: { doc: ComponentDoc }) {
+function InstallationBlock({ doc }: { doc: ComponentDoc }) {
   const pkg = doc.meta.package;
   const target = installTarget(pkg);
   const importStatement = `import { ${doc.parts[0]} } from "${pkg}";`;
   return (
-    <section className="flex flex-col gap-3">
-      <Heading id="installation">Installation</Heading>
+    <>
+      <Heading id="installation" level={3}>
+        Installation
+      </Heading>
       <p className={PROSE}>
         Every export on this page ships in <code>{target}</code> and is imported
         from <code>{pkg}</code>. There is no per-component install.
@@ -526,32 +523,57 @@ function Installation({ doc }: { doc: ComponentDoc }) {
           <CopyButton text={importStatement} />
         </div>
       </div>
-    </section>
+    </>
   );
 }
 
-/* ---------------------------------------------------------- 4. anatomy */
+/* ------------------------------------------- grammar: semantic DOM */
 
 /**
- * Section 4 — Anatomy. The mental model before variant shopping: the part
- * names introduced here are what every later section refers to.
+ * Grammar slot 5 — Semantic DOM. The mental model before the contract: the
+ * part names introduced here are what every later section refers to, and the
+ * ARIA roles are what assistive tech actually gets. Anatomy and contract are
+ * one section because they describe the same tree — what it is called and
+ * what it means.
+ *
+ * Conditional (grammar predicate `hasSemanticDom`): a page that states
+ * neither half has no DOM semantics to document.
  */
-function Anatomy({ doc }: { doc: ComponentDoc }) {
-  const rows = doc.anatomy;
-  if (!rows || rows.length === 0) return null;
+function SemanticDom({ doc }: { doc: ComponentDoc }) {
+  const rows = doc.anatomy ?? [];
+  const aria = doc.aria ?? [];
+  if (rows.length === 0 && aria.length === 0) return null;
   return (
     <section className="flex flex-col gap-3">
-      <Heading id="anatomy">Anatomy</Heading>
+      <Heading id="semantic-dom">Semantic DOM</Heading>
       <p className={PROSE}>
-        {doc.parts.length === 1
-          ? "The parts this component is built from."
-          : "The parts of this family, and what each is for."}
+        What this family renders as — the parts it is built from and the roles
+        assistive tech is handed.
       </p>
-      <ul className="m-0 flex flex-col gap-2">
-        {rows.map((part) => (
-          <AnatomyRow key={part.name} part={part} />
-        ))}
-      </ul>
+      {rows.length > 0 ? (
+        <>
+          <Heading id="anatomy" level={3}>
+            Anatomy
+          </Heading>
+          <ul className="m-0 flex flex-col gap-2">
+            {rows.map((part) => (
+              <AnatomyRow key={part.name} part={part} />
+            ))}
+          </ul>
+        </>
+      ) : null}
+      {aria.length > 0 && (
+        <>
+          <Heading id="contract" level={3}>
+            Roles
+          </Heading>
+          <ul className={`m-0 flex flex-col gap-2 pl-5 ${BODY}`}>
+            {aria.map((line) => (
+              <li key={line}>{line}</li>
+            ))}
+          </ul>
+        </>
+      )}
     </section>
   );
 }
@@ -569,25 +591,20 @@ function AnatomyRow({ part }: { part: PartRow }) {
   );
 }
 
-/* --------------------------------------------------- 5. usage (was Features) */
+/* ------------------------------------------------- usage (in lede + demo) */
 
 /**
- * Section 5 — Usage. The ONLY section allowed to persuade. Task guidance
- * before reference: when to reach for this, and when not to.
+ * The features prose is the ONLY section allowed to persuade, and persuasion
+ * belongs in the lede: it renders in the page header under the one-liner, not
+ * as a section of its own. (The old "Usage" h2 was the features paragraph
+ * plus these cards; the paragraph moved up, the cards moved into Demo.)
  *
- * Part 3b — the heading reads "Usage" per the approved page order, but the
- * anchor stays `#features`: deep links and the headings gate resolve against
- * the id, so a raw rename would break the anchor contract. Alias, don't move.
+ * Part 3b note, preserved: content authors still write this as `features`,
+ * and the anchor stays `#features` nowhere — the lede carries no heading, so
+ * there is no anchor to keep. Deep links to `#features` resolve against the
+ * page top instead; nothing in the repo links there (verified when the
+ * section moved — check-headings would fail a straggler).
  */
-function Usage({ doc }: { doc: ComponentDoc }) {
-  return (
-    <section className="flex flex-col gap-3">
-      <Heading id="features">Usage</Heading>
-      <p className={PROSE}>{doc.features}</p>
-      <WhenToUse doc={doc} />
-    </section>
-  );
-}
 
 /**
  * Do/Don't cards — the M3 Guidelines pattern, and the clearest way to state a
@@ -656,15 +673,15 @@ function WhenToUse({ doc }: { doc: ComponentDoc }) {
   );
 }
 
-/* -------------------------------------------------------- 6. examples */
+/* ------------------------------------------------- examples (in demo) */
 
 /**
- * Section 6 — Examples. The reasoning-carrying companions to the live demo:
- * each example shows the component doing one job, with the why attached.
- * Conditional like Anatomy: pages without registered examples render no
- * section and no TOC entry, rather than an empty promise.
+ * Examples, as an h3 inside Demo: the reasoning-carrying companions to the
+ * live demo — each example shows the component doing one job, with the why
+ * attached. Conditional like Anatomy: pages without registered examples
+ * render no subsection, rather than an empty promise.
  */
-function Examples({ doc }: { doc: ComponentDoc }) {
+function ExamplesBlock({ doc }: { doc: ComponentDoc }) {
   const examples = doc.parts.flatMap((part) => examplesFor(part));
   // First registered configurator across the family's parts, if any —
   // flagships only, so most pages see nothing here.
@@ -673,27 +690,31 @@ function Examples({ doc }: { doc: ComponentDoc }) {
     .find((c) => c !== undefined);
   if (examples.length === 0 && !configurator) return null;
   return (
-    <section className="flex flex-col gap-3">
-      <Heading id="examples">Examples</Heading>
+    <>
+      <Heading id="examples" level={3}>
+        Examples
+      </Heading>
       {configurator ? <Configurator spec={configurator} /> : null}
       <ExampleList examples={examples} />
-    </section>
+    </>
   );
 }
 
-/* ------------------------------------------------ 7. theming & tokens */
+/* ------------------------------------------------- grammar: tokens */
 
 /**
- * Section 7 — Theming & tokens. Where "strict M3" becomes visible per
- * component: which tokens it consumes, at what resting elevation, with which
- * shape. Tokens are the product, so they get their own heading rather than a
- * footnote.
+ * Grammar slot 4 — Tokens (auto-tokens). Where "strict M3" becomes visible
+ * per component: which tokens it consumes, at what resting elevation, with
+ * which shape. Generated where the token module can supply the table,
+ * transcribed where it cannot — and where neither exists yet, the section
+ * falls back to stating the resting elevation, which is always true. A
+ * heading over nothing is noise; a fallback sentence is not.
  */
 function Theming({ doc }: { doc: ComponentDoc }) {
   const tokens = doc.tokens;
   return (
     <section className="flex flex-col gap-3">
-      <Heading id="theming-and-tokens">Theming and tokens</Heading>
+      <Heading id="tokens">Tokens</Heading>
       <p className={PROSE}>
         What this component reads from the theme. Change the token and every
         instance changes — that is the point of the token layer.
@@ -757,8 +778,9 @@ function Theming({ doc }: { doc: ComponentDoc }) {
 }
 
 /**
- * Customization, folded into theming. The "not supported" half is the point:
- * it stops people hunting for a prop that does not exist.
+ * Customization's supported half, folded into Tokens. The "not supported"
+ * half is the point of the Limitations section and lives there — one home
+ * per half, so the boundary reads in exactly one place.
  */
 function Customization({ doc }: { doc: ComponentDoc }) {
   const custom = doc.customization;
@@ -773,18 +795,6 @@ function Customization({ doc }: { doc: ComponentDoc }) {
           <li key={line}>{line}</li>
         ))}
       </ul>
-      {custom.notSupported.length > 0 && (
-        <>
-          <Heading id="not-supported" level={3}>
-            Not supported
-          </Heading>
-          <ul className={`m-0 flex flex-col gap-2 pl-5 ${BODY}`}>
-            {custom.notSupported.map((line) => (
-              <li key={line}>{line}</li>
-            ))}
-          </ul>
-        </>
-      )}
     </div>
   );
 }
@@ -877,15 +887,13 @@ function DemoExpectations({ page }: { page: A11yPage | undefined }) {
   );
 }
 
-/* -------------------------------------------------- 8. accessibility */
+/* -------------------------------------------- grammar: accessibility */
 
 /**
- * Section 8 — Accessibility, promoted out of the API tail. It is a headline
- * kern claim (behaviour comes from the primitives), so it sits in the trust
- * position rather than being the last thing on the page. Three parts:
- * keyboard contract, ARIA contract, and — when there are any — known gaps,
- * stated plainly. Plus the Part 7 per-demo expectations tail, in both
- * branches.
+ * Grammar slot 6 — Accessibility. The keyboard contract plus the Part 7
+ * per-demo expectations. The ARIA contract lives in Semantic DOM (it
+ * describes the rendered tree) and known gaps live in Limitations (they are
+ * boundaries) — this section states behaviour, not vocabulary or caveats.
  */
 function Accessibility({
   doc,
@@ -896,9 +904,7 @@ function Accessibility({
 }) {
   const a11y = A11Y[`${platform}/${doc.slug}`];
   const keyboard = doc.keyboard;
-  const aria = doc.aria ?? [];
-  const gaps = doc.accessibilityGaps ?? [];
-  const hasContent = aria.length > 0 || gaps.length > 0 || !!keyboard?.length;
+  const hasContent = !!keyboard?.length;
 
   // M2 — the section never silently vanishes. A reader cannot tell "this is
   // covered" from "nobody wrote it", and before this the trust section was
@@ -965,19 +971,54 @@ function Accessibility({
         </>
       ) : null}
 
-      {aria.length > 0 && (
+      <DemoExpectations page={a11y} />
+    </section>
+  );
+}
+
+/* -------------------------------------------- grammar: limitations */
+
+/**
+ * Grammar slot 7 — Limitations. The honest boundary: what this family does
+ * NOT do, stated so nobody discovers it by accident. Three sources, one home:
+ * unsupported customization (moved out of Tokens), known accessibility gaps
+ * (moved out of Accessibility), and the grammar-exemption notice for pages
+ * that cannot meet the strict order.
+ *
+ * Conditional (grammar predicate `hasLimitations`).
+ */
+function Limitations({ doc }: { doc: ComponentDoc }) {
+  const notSupported = doc.customization?.notSupported ?? [];
+  const gaps = doc.accessibilityGaps ?? [];
+  const exempt = doc.grammarExempt?.trim();
+  if (notSupported.length === 0 && gaps.length === 0 && !exempt) return null;
+  return (
+    <section className="flex flex-col gap-3">
+      <Heading id="limitations">Limitations</Heading>
+      <p className={PROSE}>
+        What this family does not do — stated here so nobody falls into the trap
+        of hunting for it.
+      </p>
+      {exempt ? (
+        <p className={PROSE}>
+          <strong className="text-(--md-sys-color-on-surface)">
+            Grammar exemption:
+          </strong>{" "}
+          {exempt}
+        </p>
+      ) : null}
+      {notSupported.length > 0 && (
         <>
-          <Heading id="contract" level={3}>
-            Contract
+          <Heading id="not-supported" level={3}>
+            Not supported
           </Heading>
           <ul className={`m-0 flex flex-col gap-2 pl-5 ${BODY}`}>
-            {aria.map((line) => (
+            {notSupported.map((line) => (
               <li key={line}>{line}</li>
             ))}
           </ul>
         </>
       )}
-
       {gaps.length > 0 && (
         <div className="rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-error) bg-(--md-sys-color-error-container) p-4">
           <Heading
@@ -996,24 +1037,47 @@ function Accessibility({
           </ul>
         </div>
       )}
-      <DemoExpectations page={a11y} />
     </section>
   );
 }
 
-/* ------------------------------------------------ 9. M3 conformance */
+/* --------------------------------------------------- grammar: faq */
 
 /**
- * Section 9 — Material 3 conformance. The kern signature: strict to the spec
- * by default, and every departure declared with a registered id so it can be
- * audited rather than discovered. Sits after trust and before lookup.
+ * Grammar slot 8 — FAQ. Questions readers actually ask, answered in the
+ * page's own facts. Conditional (grammar predicate `hasFaq`): an invented
+ * FAQ is fabrication, so pages with nothing real to answer render no
+ * section rather than a reassuring one.
+ */
+function Faq({ doc }: { doc: ComponentDoc }) {
+  const rows = doc.faq ?? [];
+  if (rows.length === 0) return null;
+  return (
+    <section className="flex flex-col gap-3">
+      <Heading id="faq">FAQ</Heading>
+      <dl className="m-0 flex flex-col gap-4">
+        {rows.map((row) => (
+          <div key={row.q} className={`${CARD} flex flex-col gap-1 p-4`}>
+            <dt className={`m-0 ${LABEL} ${INK}`}>{row.q}</dt>
+            <dd className={`m-0 ${SMALL} ${INK_SOFT}`}>{row.a}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+  );
+}
+
+/**
+ * Grammar slot 9 — Spec. The kern signature, last: strict to the Material 3
+ * spec by default, and every departure declared with a registered id so it
+ * can be audited rather than discovered.
  */
 function Conformance({ doc }: { doc: ComponentDoc }) {
   const rows = doc.deviations;
   const specUrl = doc.meta.specUrl;
   return (
     <section className="flex flex-col gap-3">
-      <Heading id="material-3-conformance">Material 3 conformance</Heading>
+      <Heading id="spec">Spec</Heading>
       <p className={PROSE}>
         Strict to Material 3 by default. Anything below is a deliberate kern
         decision, registered with an id so it can be audited rather than
@@ -1098,11 +1162,12 @@ function DeviationRow({ row }: { row: Deviation }) {
   );
 }
 
-/* ------------------------------------------------ 10. api reference */
+/* ------------------------------------------------- grammar: props */
 
 /**
- * Section 10 — API reference. Look-up last: readers arrive here from search and
- * anchors, not in reading flow.
+ * Grammar slot 3 — Props. Reference up front, not last: readers arrive here
+ * from search and anchors, and what a component takes is the first question
+ * after seeing it work.
  *
  * Part 3d — the Props slot reads Part 0. Names, types, required flags and
  * defaults come from PROPS_TABLE (compiler-extracted, per-row src provenance
@@ -1222,7 +1287,7 @@ function ApiReference({ doc }: { doc: ComponentDoc }) {
     // machinery (mobile pages live here until native extraction exists).
     return (
       <section className="flex flex-col gap-4">
-        <Heading id="api-reference">API reference</Heading>
+        <Heading id="props">Props</Heading>
         <PropTable rows={doc.api.map(toRow)} />
       </section>
     );
@@ -1230,7 +1295,7 @@ function ApiReference({ doc }: { doc: ComponentDoc }) {
   const multi = doc.parts.length > 1;
   return (
     <section className="flex flex-col gap-4">
-      <Heading id="api-reference">API reference</Heading>
+      <Heading id="props">Props</Heading>
       {doc.parts.map((part) => {
         const rows = partRows(part, doc.api);
         if (!rows || rows.length === 0) {
@@ -1409,41 +1474,38 @@ function Footer({
 /* -------------------------------------------------------------- page */
 
 /**
- * "On this page" — the orientation aid the docs architecture requires
- * (SITE-REDESIGN-docs-architecture.md §4.4: breadcrumb, TOC, prev/next —
- * breadcrumb and prev/next already exist; this was the missing third).
+ * "On this page" — the right rail (Phase 3 grammar TOC).
+ *
+ * Rendered in a sticky `aside` beside the article and hidden below the `xl`
+ * breakpoint: on narrower viewports the shell's own SectionToc disclosure
+ * (site-layout, below `lg`) is the orientation aid, so two TOCs never compete.
+ * This component stays a docs component — the shell layout is the redesign
+ * lane's, and this file does not touch it.
  *
  * Hrefs are STATIC literals, not built from variables: `check-headings`
  * resolves each one against the explicit Heading ids below, so a TOC link
- * to a missing id is a gate failure, not a silent dead anchor. Anatomy and
- * Examples are the conditional entries — each renders only when its content
- * exists, under the same condition as its section.
+ * to a missing id is a gate failure, not a silent dead anchor. Entries are in
+ * grammar order, and the conditional entries (semantic-dom, limitations, faq)
+ * apply the SAME predicates as their sections (`src/systems/grammar.ts`), so
+ * the rail can never list a section that is not there.
  */
 function OnThisPage({ doc }: { doc: ComponentDoc }) {
   return (
-    <nav
-      aria-label="On this page"
-      className={`${CARD} flex flex-col gap-2 p-4`}
-    >
+    <nav aria-label="On this page" className="flex flex-col gap-2">
       <p className={`m-0 ${LABEL} ${INK}`}>On this page</p>
       <ol className={`m-0 flex list-none flex-col gap-1 p-0 ${SMALL}`}>
-        <TocLink href="#showcase" label="Showcase" />
-        <TocLink href="#installation" label="Installation" />
-        {doc.anatomy?.length ? (
-          <TocLink href="#anatomy" label="Anatomy" />
+        <TocLink href="#demo" label="Demo" />
+        <TocLink href="#props" label="Props" />
+        <TocLink href="#tokens" label="Tokens" />
+        {hasSemanticDom(doc) ? (
+          <TocLink href="#semantic-dom" label="Semantic DOM" />
         ) : null}
-        <TocLink href="#features" label="Usage" />
-        {doc.parts.flatMap((part) => examplesFor(part)).length > 0 ||
-        doc.parts.some((part) => configuratorFor(part) !== undefined) ? (
-          <TocLink href="#examples" label="Examples" />
-        ) : null}
-        <TocLink href="#theming-and-tokens" label="Theming and tokens" />
         <TocLink href="#accessibility" label="Accessibility" />
-        <TocLink
-          href="#material-3-conformance"
-          label="Material 3 conformance"
-        />
-        <TocLink href="#api-reference" label="API reference" />
+        {hasLimitations(doc) ? (
+          <TocLink href="#limitations" label="Limitations" />
+        ) : null}
+        {hasFaq(doc) ? <TocLink href="#faq" label="FAQ" /> : null}
+        <TocLink href="#spec" label="Spec" />
       </ol>
     </nav>
   );
@@ -1463,7 +1525,9 @@ function TocLink({ href, label }: { href: string; label: string }) {
 }
 
 /**
- * The page. Sections render in the grammar's order and no other order.
+ * The page. Article plus right rail: the sections render in the grammar's
+ * order and no other order (lede → demo → props → tokens → semantic-dom →
+ * accessibility → limitations → faq → spec), and the rail mirrors them.
  */
 export function ComponentPage({
   doc,
@@ -1477,37 +1541,38 @@ export function ComponentPage({
   next?: { href: string; title: string };
 }) {
   return (
-    <article className="flex flex-col gap-10" data-copy-md-root>
-      <header className="flex flex-col gap-4">
-        <h1 className={H1}>{doc.name}</h1>
-        <p className={`m-0 max-w-[62ch] ${LEDE} ${INK_SOFT}`}>{doc.oneLiner}</p>
-        <MetadataStrip doc={doc} platform={platform} />
-        <div>
-          <CopyMarkdownButton />
+    <div className="grid grid-cols-1 gap-8 xl:grid-cols-[minmax(0,1fr)_12rem]">
+      <article className="flex min-w-0 flex-col gap-10" data-copy-md-root>
+        <header className="flex flex-col gap-4">
+          <h1 className={H1}>{doc.name}</h1>
+          <p className={`m-0 max-w-[62ch] ${LEDE} ${INK_SOFT}`}>
+            {doc.oneLiner}
+          </p>
+          <p className={PROSE}>{doc.features}</p>
+          <MetadataStrip doc={doc} platform={platform} />
+          <div>
+            <CopyMarkdownButton />
+          </div>
+        </header>
+
+        {/* lede above; then the grammar, in order */}
+        <Demo doc={doc} platform={platform} />
+        <ApiReference doc={doc} />
+        <Theming doc={doc} />
+        {hasSemanticDom(doc) ? <SemanticDom doc={doc} /> : null}
+        <Accessibility doc={doc} platform={platform} />
+        {hasLimitations(doc) ? <Limitations doc={doc} /> : null}
+        {hasFaq(doc) ? <Faq doc={doc} /> : null}
+        <Conformance doc={doc} />
+
+        <Footer doc={doc} platform={platform} prev={prev} next={next} />
+      </article>
+
+      <aside className="hidden xl:block">
+        <div className="sticky top-8">
+          <OnThisPage doc={doc} />
         </div>
-      </header>
-
-      <OnThisPage doc={doc} />
-
-      {/* prove */}
-      <Showcase doc={doc} platform={platform} />
-      {/* start */}
-      <Installation doc={doc} />
-      {/* model */}
-      <Anatomy doc={doc} />
-      {/* explore */}
-      <Usage doc={doc} />
-      {/* examples */}
-      <Examples doc={doc} />
-      {/* integrate */}
-      <Theming doc={doc} />
-      {/* trust */}
-      <Accessibility doc={doc} platform={platform} />
-      <Conformance doc={doc} />
-      {/* look up */}
-      <ApiReference doc={doc} />
-
-      <Footer doc={doc} platform={platform} prev={prev} next={next} />
-    </article>
+      </aside>
+    </div>
   );
 }

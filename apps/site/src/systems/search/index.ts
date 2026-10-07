@@ -68,7 +68,7 @@ function docEntries(docs: ComponentDoc[], platform: Platform): SearchEntry[] {
 }
 
 function apiEntries(docs: ComponentDoc[], platform: Platform): SearchEntry[] {
-  // One entry per exported symbol, landing on the page's API section — a
+  // One entry per exported symbol, landing on the page's Props section — a
   // different destination (and intent) than the Components entry for the
   // family, which lands on the page top.
   //
@@ -83,7 +83,7 @@ function apiEntries(docs: ComponentDoc[], platform: Platform): SearchEntry[] {
         group: "API",
         title: part,
         hint: `${doc.name} · ${platform === "web" ? "Web" : "Native"} API`,
-        href: `/components/${platform}/${doc.slug}#api-reference`,
+        href: `/components/${platform}/${doc.slug}#props`,
         platform,
         badge:
           maturityForExports([part], native)?.state ??

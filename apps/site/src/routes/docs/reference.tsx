@@ -38,6 +38,13 @@ function ApiIndex() {
               generated, not hand-maintained. Each row links to its family page.
             </p>
           </header>
+          {/*
+            Phase 3 grammar — mobile tables: the index table scrolls
+            horizontally inside its container below the breakpoint where it
+            fits, instead of blowing out the page. Same `overflow-x-auto`
+            treatment the component-page tables already carry.
+          */}
+          <div className="overflow-x-auto">
           <table className="w-full border-collapse text-left">
             <thead>
               <tr className="border-b border-(--md-sys-color-outline-variant)">
@@ -72,6 +79,7 @@ function ApiIndex() {
               ))}
             </tbody>
           </table>
+          </div>
         </div>
       </section>
     </SiteLayout>

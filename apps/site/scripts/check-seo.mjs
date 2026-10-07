@@ -110,6 +110,55 @@ async function loadDocs(subdir) {
   );
 }
 
+// --- 3. per-page metadata (Phase 3 grammar) ---
+// Every family URL owns a title and a description, derived by the routes from
+// the page's own data — the component route reads doc.name + doc.oneLiner,
+// the foundations route reads the registry title + oneLiner. A page with no
+// name or no one-liner would render a head with a hole in it, so the fields
+// the routes consume are asserted here, at the data layer, rather than by
+// rendering 199 pages.
+{
+  let pages = 0;
+  for (const subdir of ["web", "mobile"]) {
+    const renderer = subdir === "web" ? "Web" : "Native";
+    for (const doc of await loadDocs(subdir)) {
+      pages++;
+      const title = `${doc.name} (${renderer})`;
+      if (!doc.name?.trim()) {
+        bad(`${subdir}/${doc.slug}: no name — the per-page title is empty`);
+      }
+      if (!doc.oneLiner?.trim()) {
+        bad(
+          `${subdir}/${doc.slug}: no one-liner — the per-page description is empty`,
+        );
+      }
+      if (title.length > 120) {
+        bad(
+          `${subdir}/${doc.slug}: per-page title is ${title.length} chars — over the 120-char budget`,
+        );
+      }
+      if ((doc.oneLiner ?? "").length > 200) {
+        bad(
+          `${subdir}/${doc.slug}: one-liner is over 200 chars — it doubles as the meta description`,
+        );
+      }
+    }
+  }
+  const { FOUNDATIONS } = await import("../src/foundations/shell.tsx");
+  for (const page of FOUNDATIONS) {
+    pages++;
+    if (!page.title?.trim()) {
+      bad(`foundations/${page.slug}: no title — the per-page title is empty`);
+    }
+    if (!page.oneLiner?.trim()) {
+      bad(
+        `foundations/${page.slug}: no one-liner — the per-page description is empty`,
+      );
+    }
+  }
+  console.log(`check-seo: per-page metadata complete on ${pages} page(s)`);
+}
+
 if (failures > 0) {
   console.error(`check-seo: ${failures} failure(s)`);
   process.exit(1);

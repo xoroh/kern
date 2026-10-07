@@ -239,6 +239,23 @@ export type PartRow = {
 };
 
 /**
+ * Phase 3 grammar — one FAQ entry.
+ *
+ * A question a reader actually asked (or would), answered in one or two
+ * sentences from facts the page already states. Not a second features section:
+ * the answer must resolve to a prop, a token, a limitation or the spec link.
+ * Omit the whole section when there is nothing real to put in it — an
+ * invented FAQ is the fabrication class this rebuild exists to prevent, and
+ * the grammar gate fails malformed rows (empty question or answer).
+ */
+export type FaqItem = {
+  /** The question, as the reader would ask it. Non-empty. */
+  q: string;
+  /** The answer, in the page's own facts. Non-empty. */
+  a: string;
+};
+
+/**
  * One component page. The unit is the **component family**, not the export:
  * compound parts (`DialogTrigger`, `DialogTitle`, …) are documented on their
  * parent's page via `parts`, never given pages of their own.
@@ -325,4 +342,23 @@ export type ComponentDoc = {
    * section was vanishing on every page that had no content yet.
    */
   nonInteractive?: boolean;
+
+  /**
+   * Phase 3 grammar — the FAQ section. Optional; renders only when non-empty,
+   * per the cut-empty-sections convention. See `FaqItem` for what belongs.
+   */
+  faq?: FaqItem[];
+
+  /**
+   * Phase 3 grammar — the limitation-frontmatter.
+   *
+   * A page that cannot meet the strict grammar (a data-heavy parked component
+   * with no live demo, a family whose props are not yet extractable) is marked
+   * here INSTEAD of being rewritten to look conformant. The string states WHY
+   * the page is exempt, renders as the Limitations section's notice, and the
+   * grammar gate skips the order/presence checks for the page while listing it
+   * as exempt — known debt, not a silent pass. Omit on conformant pages: an
+   * exemption with no reason is itself a failure.
+   */
+  grammarExempt?: string;
 };

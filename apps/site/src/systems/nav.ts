@@ -32,6 +32,40 @@ export type NavSection = {
 
 export const NAV_SECTIONS: NavSection[] = [
   {
+    // Foundations first (Phase 3 grammar): tokens, color, type, elevation,
+    // shape, motion and states are what every component page reads from, so
+    // the sidebar opens on the layer everything else assumes. Order is
+    // presentation only — check-nav is order-independent, and check-llms /
+    // search read the same leaves whatever the sequence.
+    label: "Foundations",
+    leaves: [
+      {
+        label: "Styles & tokens",
+        href: "/styles",
+        hint: "The values everything is built from",
+        group: "Pages",
+      },
+      {
+        label: "Theme",
+        href: "/theme",
+        hint: "Color roles in the active theme",
+        group: "Pages",
+      },
+      {
+        label: "Accessibility",
+        href: "/accessibility",
+        hint: "How kern components stay accessible",
+        group: "Pages",
+      },
+      {
+        label: "Icons",
+        href: "/icons",
+        hint: "Icon sets and usage",
+        group: "Pages",
+      },
+    ],
+  },
+  {
     label: "Docs",
     leaves: [
       {
@@ -85,35 +119,6 @@ export const NAV_SECTIONS: NavSection[] = [
         label: "Native",
         href: "/components/mobile",
         hint: "Native component families",
-        group: "Pages",
-      },
-    ],
-  },
-  {
-    label: "Foundations",
-    leaves: [
-      {
-        label: "Styles & tokens",
-        href: "/styles",
-        hint: "The values everything is built from",
-        group: "Pages",
-      },
-      {
-        label: "Theme",
-        href: "/theme",
-        hint: "Color roles in the active theme",
-        group: "Pages",
-      },
-      {
-        label: "Accessibility",
-        href: "/accessibility",
-        hint: "How kern components stay accessible",
-        group: "Pages",
-      },
-      {
-        label: "Icons",
-        href: "/icons",
-        hint: "Icon sets and usage",
         group: "Pages",
       },
     ],
