@@ -7,8 +7,10 @@
 
 Prefer these machine surfaces over scraping HTML:
 - /llms.txt (this file) — the complete page map, generated from the nav, the content docs and the foundations registry
+- Per-page markdown at /md/{web|mobile}/<slug>.md and /md/foundations/<slug>.md — same content the page renders, linked from every component and Foundations page via its View .md affordance
+- /mcp/index.json — the whole docs corpus as data: title, one-liner, page route, and .md URL per page
 - Copy as Markdown button on every component and Foundations page — page prose + code + links, live-demo controls excluded
-- Agent skills in the repo: .agents/skills/kern/SKILL.md and .agents/skills/docs/SKILL.md (https://github.com/xoroh/kern/tree/main/.agents/skills)
+- Agent skills in the repo: .agents/skills/kern/SKILL.md, .agents/skills/kern-agents/SKILL.md and .agents/skills/docs/SKILL.md (https://github.com/xoroh/kern/tree/main/.agents/skills)
 
 ## Foundations
 

@@ -16,8 +16,11 @@
  *    sequence (`expectedHeadings(doc)`) in order. The machine surface follows
  *    the same grammar as the page, or it is a second opinion.
  * 4. VISIBLE AFFORDANCE: the Copy-as-Markdown button renders on component
- *    pages AND foundations pages, against a `data-copy-md-root` article.
- *    An emission nobody can reach from the page is a dark surface.
+ *    pages AND foundations pages, against a `data-copy-md-root` article,
+ *    AND the same affordance links the page's canonical .md (View .md) for
+ *    fetching rather than copying — mapped by the real helper, token-styled
+ *    so both themes resolve it. An emission nobody can reach from the page
+ *    is a dark surface.
  *
  * WHAT IT DOES NOT ASSERT: byte-freshness of public/md/ against a regen.
  * Those files are gitignored build output (see generate-page-md.mjs); the
@@ -128,6 +131,47 @@ for (const [file, rel] of [
   if (!text.includes("data-copy-md-root")) {
     bad(
       `${file} (${rel}) carry no data-copy-md-root — the button has nothing to convert`,
+    );
+  }
+}
+
+// The View-.md link: the same affordance must offer the canonical .md for
+// fetching, not just clipboard copy. Pinned functionally against the real
+// helper (not a re-stated regex) plus a source pin that the anchor renders.
+const { mdHrefForPathname } = await import(
+  join(APP, "src", "components", "chrome", "copy-markdown-button.tsx")
+);
+for (const [pathname, href] of [
+  ["/components/web/button", "/md/web/button.md"],
+  ["/components/mobile/button", "/md/mobile/button.md"],
+  ["/foundations/color", "/md/foundations/color.md"],
+]) {
+  if (mdHrefForPathname(pathname) !== href) {
+    bad(
+      `View-.md maps ${pathname} to ${mdHrefForPathname(pathname)}, want ${href}`,
+    );
+  }
+}
+for (const pathname of ["/", "/docs/guides", "/components", "/foundations"]) {
+  if (mdHrefForPathname(pathname) !== null) {
+    bad(
+      `View-.md leaks onto ${pathname} — only .md-backed docs pages emit one`,
+    );
+  }
+}
+{
+  const text = readFileSync(
+    join(APP, "src/components/chrome/copy-markdown-button.tsx"),
+    "utf8",
+  );
+  if (!text.includes("View .md")) {
+    bad(
+      "copy-markdown-button.tsx renders no View .md link — the emission is copy-only",
+    );
+  }
+  if (/#([0-9a-fA-F]{3,8})\b/.test(text.replace(/md-sys-color-[a-z-]+/g, ""))) {
+    bad(
+      "copy-markdown-button.tsx hardcodes a hex color — the affordance must be token roles to hold in both themes",
     );
   }
 }
