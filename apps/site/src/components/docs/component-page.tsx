@@ -40,6 +40,10 @@ import { ExampleList } from "../../showcase/example";
 import { configuratorFor, examplesFor } from "../../showcase/registry";
 import { hasFaq, hasLimitations, hasSemanticDom } from "../../systems/grammar";
 import { maturityForExports } from "../../systems/maturity";
+import {
+  THEME_CONFIGURATOR_HREF,
+  registrySearchHref,
+} from "../../systems/playground-links";
 import { CopyMarkdownButton } from "../chrome/copy-markdown-button";
 
 /**
@@ -391,10 +395,51 @@ function Demo({ doc, platform }: { doc: ComponentDoc; platform: Platform }) {
     <section className="flex flex-col gap-3" aria-label="Demo">
       <Heading id="demo">Demo</Heading>
       <DemoContent doc={doc} platform={platform} />
+      <PlaygroundLinks doc={doc} platform={platform} />
       <InstallationBlock doc={doc} />
       <ExamplesBlock doc={doc} />
       <WhenToUse doc={doc} />
     </section>
+  );
+}
+
+/**
+ * Registry → playground wiring, rendered. Every registry entry opens in the
+ * playground: the search route is keyed by export name, so it resolves this
+ * family's root export to this page. The theme configurator link renders on
+ * web pages only — the configurator repaints the web token layer, and a link
+ * from a native page would promise a native repaint it cannot keep.
+ */
+function PlaygroundLinks({
+  doc,
+  platform,
+}: {
+  doc: ComponentDoc;
+  platform: Platform;
+}) {
+  const exportName = doc.parts[0];
+  return (
+    <p className={PROSE}>
+      Open this entry in the{" "}
+      <a
+        className="text-(--md-sys-color-primary) underline underline-offset-2"
+        href={registrySearchHref(exportName)}
+      >
+        playground search
+      </a>
+      {platform === "web" ? (
+        <>
+          {" "}or repaint it in the{" "}
+          <a
+            className="text-(--md-sys-color-primary) underline underline-offset-2"
+            href={THEME_CONFIGURATOR_HREF}
+          >
+            theme configurator
+          </a>
+        </>
+      ) : null}
+      .
+    </p>
   );
 }
 
