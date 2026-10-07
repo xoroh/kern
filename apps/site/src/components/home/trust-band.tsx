@@ -32,7 +32,7 @@ const STATS: { value: number; label: string; href: string }[] = [
   {
     value: ICON_COUNT,
     label: "Icons in the registry",
-    href: "/icons",
+    href: "/foundations/icons",
   },
   {
     value: RECENT_CHANGES.length,

@@ -40,26 +40,26 @@ export const NAV_SECTIONS: NavSection[] = [
     label: "Foundations",
     leaves: [
       {
-        label: "Styles & tokens",
-        href: "/styles",
-        hint: "The values everything is built from",
+        label: "Foundations",
+        href: "/foundations",
+        hint: "Tokens, theme, accessibility, icons — the layer beneath",
         group: "Pages",
       },
       {
         label: "Theme",
-        href: "/theme",
+        href: "/foundations/theme",
         hint: "Color roles in the active theme",
         group: "Pages",
       },
       {
         label: "Accessibility",
-        href: "/accessibility",
+        href: "/foundations/accessibility",
         hint: "How kern components stay accessible",
         group: "Pages",
       },
       {
         label: "Icons",
-        href: "/icons",
+        href: "/foundations/icons",
         hint: "Icon sets and usage",
         group: "Pages",
       },
@@ -119,6 +119,28 @@ export const NAV_SECTIONS: NavSection[] = [
         label: "Native",
         href: "/components/mobile",
         hint: "Native component families",
+        group: "Pages",
+      },
+    ],
+  },
+  {
+    label: "Patterns",
+    leaves: [
+      {
+        label: "Patterns",
+        href: "/patterns",
+        hint: "Product shapes composed from shipped components",
+        group: "Pages",
+      },
+    ],
+  },
+  {
+    label: "Playground",
+    leaves: [
+      {
+        label: "Playground",
+        href: "/playground",
+        hint: "Repaint the system, or search it",
         group: "Pages",
       },
     ],

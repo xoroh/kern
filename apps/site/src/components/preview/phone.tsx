@@ -7,22 +7,38 @@
  * from the shipped component the way a committed screenshot can.
  *
  * The frame renders each native component inside a phone-sized viewport with
- * the Kern theme provider mounted, which is what a device provides.
+ * the Kern theme provider mounted, which is what a device provides. The
+ * provider follows the SITE theme (not the OS scheme): a reader who toggles
+ * the site to dark sees dark phones. A page that needs to pin a scheme —
+ * the theme page showing light and dark side by side — passes `scheme`
+ * explicitly. The bezel and screen are the neutral chrome roles
+ * (outline-variant, surface) per scheme, so the frame stays visible on both
+ * page themes without borrowing a hue.
  */
+import { useKernTheme } from "@xoroh/kern";
 import { KernThemeProvider } from "@xoroh/kern-native";
 import type { ReactNode } from "react";
 import { StyleSheet, View } from "react-native";
 
+const FRAME = {
+  width: 320,
+  minHeight: 200,
+  alignSelf: "center",
+  borderRadius: 28,
+  borderWidth: 8,
+  overflow: "hidden",
+} as const;
+
 const styles = StyleSheet.create({
-  frame: {
-    width: 320,
-    minHeight: 200,
-    alignSelf: "center",
-    borderRadius: 28,
-    borderWidth: 8,
-    borderColor: "#1c1b1f",
-    backgroundColor: "#fef7ff",
-    overflow: "hidden",
+  frameLight: {
+    ...FRAME,
+    borderColor: "#e5e5e5",
+    backgroundColor: "#ffffff",
+  },
+  frameDark: {
+    ...FRAME,
+    borderColor: "#262626",
+    backgroundColor: "#000000",
   },
   screen: {
     padding: 16,
@@ -32,21 +48,26 @@ const styles = StyleSheet.create({
 
 export function PhonePreview({
   label,
+  scheme,
   children,
 }: {
   label: string;
+  /** Pin a scheme; defaults to whatever the site theme is. */
+  scheme?: "light" | "dark";
   children: ReactNode;
 }) {
+  const { mode } = useKernTheme();
+  const resolved: "light" | "dark" = scheme ?? (mode === "dark" ? "dark" : "light");
   return (
     <figure className="flex min-w-0 flex-col gap-2 rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface) p-4 md:col-span-1">
       <div className="flex justify-center py-2">
-        <div className="flex flex-col gap-2">
-          <div className={styles.frame}>
-            <KernThemeProvider>
-              <View style={styles.screen}>{children}</View>
-            </KernThemeProvider>
-          </div>
-        </div>
+        <View
+          style={resolved === "dark" ? styles.frameDark : styles.frameLight}
+        >
+          <KernThemeProvider mode={resolved}>
+            <View style={styles.screen}>{children}</View>
+          </KernThemeProvider>
+        </View>
       </div>
       <figcaption className="text-center font-mono text-xs text-(--md-sys-color-on-surface-variant)">
         {label}

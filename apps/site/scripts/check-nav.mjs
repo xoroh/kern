@@ -24,7 +24,9 @@
  *    the footer, or the ⌘K palette (/search, opened from every page).
  *    Anything still unlisted fails. Some routes are destinations, not
  *    wayfinding — the rail and footer are what keep them listed, so the
- *    omission from the sidebar stays a decision, not drift.
+ *    omission from the sidebar stays a decision, not drift. Redirect stubs
+ *    (`throw redirect(...)` — the old paths kept as aliases after a move)
+ *    are exempt: they are reached through their target, not the nav.
  */
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
@@ -87,12 +89,27 @@ for (const file of [
 // and links out to /search?q= — but it opens from every page, so it counts.
 covered.add("/search");
 const unlisted = [];
+/**
+ * Redirect stubs (`throw redirect(...)`) are aliases of their target, not
+ * orphan destinations — reached through the page they point at.
+ */
+function isRedirectAlias(file) {
+  try {
+    return /throw\s+redirect\s*\(/.test(readFileSync(file, "utf8"));
+  } catch {
+    return false;
+  }
+}
 function topRoutes(dir, prefix) {
   for (const e of readdirSync(dir, { withFileTypes: true })) {
     if (e.name.startsWith("_") || e.name.startsWith("-")) continue;
     if (e.isDirectory()) {
       const idx = join(dir, e.name, "index.tsx");
-      if (existsSync(idx) && !covered.has(`${prefix}/${e.name}`)) {
+      if (
+        existsSync(idx) &&
+        !covered.has(`${prefix}/${e.name}`) &&
+        !isRedirectAlias(idx)
+      ) {
         unlisted.push(`${prefix}/${e.name}`);
       }
       continue;
@@ -101,7 +118,8 @@ function topRoutes(dir, prefix) {
     const base = e.name.replace(/\.tsx$/, "");
     if (base.startsWith("$") || base === "__root") continue;
     const href = base === "index" ? "/" : `${prefix}/${base}`;
-    if (!covered.has(href)) unlisted.push(href);
+    if (!covered.has(href) && !isRedirectAlias(join(dir, e.name)))
+      unlisted.push(href);
   }
 }
 topRoutes(join(SITE, "src", "routes"), "");

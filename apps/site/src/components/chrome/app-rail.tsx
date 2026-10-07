@@ -23,6 +23,7 @@ import {
 } from "@xoroh/kern/start";
 import { Icon, type IconSemantic } from "@xoroh/kern-icons";
 import { T_LABEL_LG } from "../../systems/type-scale";
+import { GitHubIcon } from "./github-icon";
 import { openSearch } from "./search-palette";
 
 /**
@@ -35,7 +36,7 @@ export const RAIL_ITEMS: { href: string; label: string; icon: IconSemantic }[] =
     { href: "/", label: "Home", icon: "home" },
     { href: "/docs", label: "Docs", icon: "info" },
     { href: "/components", label: "Components", icon: "work" },
-    { href: "/theme", label: "Theme", icon: "favorite" },
+    { href: "/foundations", label: "Foundations", icon: "favorite" },
     { href: "/theme-configurator", label: "Configurator", icon: "settings" },
     { href: "/showcase", label: "Showcase", icon: "image" },
     { href: "/getting-started", label: "Start", icon: "check" },
@@ -97,10 +98,11 @@ export function AppRail() {
           <div className="mt-auto flex flex-col items-center gap-2 pt-4">
             <a
               href="https://github.com/xoroh/kern"
+              aria-label="Kern on GitHub"
               title="GitHub"
-              className="flex h-8 w-14 items-center justify-center rounded-full text-(--md-sys-color-on-surface-variant) hover:bg-(--md-sys-color-surface-tonal)"
+              className="flex h-8 w-14 items-center justify-center rounded-full text-(--md-sys-color-on-surface-variant) hover:bg-(--md-sys-color-surface-tonal) focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-(--md-sys-color-secondary)"
             >
-              <Icon name="code" size={20} />
+              <GitHubIcon />
             </a>
             <NavigationRailButton
               icon={

@@ -11,7 +11,7 @@
  * - NAV_SECTIONS (src/systems/nav.ts) — curated wayfinding (hubs, guides).
  * - WEB_DOCS / MOBILE_DOCS (src/content/web|mobile/*.ts) — every family
  *   page, with its own name + oneLiner as the link text (nothing invented).
- * - FOUNDATIONS (src/foundations/shell.tsx) — the 7 styles pages.
+ * - FOUNDATIONS (src/foundations/shell.tsx) — the 7 foundations pages.
  * A page with an empty label/hint fails loudly rather than shipping a blank
  * line. check-llms.mjs asserts every family + foundations + nav leaf is
  * present, so a new page without a map entry fails the gate, not the reader.
@@ -73,7 +73,7 @@ for (const section of NAV_SECTIONS) {
 
 lines.push("## Foundations pages", "");
 for (const page of FOUNDATIONS) {
-  lines.push(link(page.title, `/styles/${page.slug}`, page.oneLiner));
+  lines.push(link(page.title, `/foundations/${page.slug}`, page.oneLiner));
 }
 lines.push("");
 

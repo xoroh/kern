@@ -233,7 +233,7 @@ export function FoundationLayout({
           className={`flex flex-wrap items-center gap-2 ${T_BODY_SM} ${INK_SOFT}`}
           aria-label="Breadcrumb"
         >
-          <Link to="/styles">Styles &amp; tokens</Link>
+          <Link to="/foundations">Foundations</Link>
           <span aria-hidden="true">/</span>
           <span className={INK}>{page.title}</span>
         </nav>
@@ -256,7 +256,7 @@ export function FoundationLayout({
         {prev ? (
           <Link
             className={`${CARD} flex-1 p-4 ${T_BODY_SM} ${INK} no-underline`}
-            to="/styles/$page"
+            to="/foundations/$page"
             params={{ page: prev.slug }}
           >
             ← {prev.title}
@@ -267,7 +267,7 @@ export function FoundationLayout({
         {next ? (
           <Link
             className={`${CARD} flex-1 p-4 text-right ${T_BODY_SM} ${INK} no-underline`}
-            to="/styles/$page"
+            to="/foundations/$page"
             params={{ page: next.slug }}
           >
             {next.title} →

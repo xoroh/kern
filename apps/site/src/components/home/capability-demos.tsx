@@ -118,7 +118,7 @@ const DEMOS: {
     id: "capability-theme",
     title: "Theme roles, live",
     body: "Four roles, straight from the active scheme. Flip the mode and the swatches repaint — they read the same vars the components do.",
-    href: "/theme",
+    href: "/foundations/theme",
     cta: "Open the theme",
     demo: ThemeDemo,
   },

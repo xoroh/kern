@@ -121,13 +121,13 @@ const STATIC_ENTRIES: SearchEntry[] = [
 /** Built once per page load from data already in the bundle — no fetch. */
 export function buildSearchIndex(): SearchEntry[] {
   // Role names resolved from the theme package, not hand-copied — the same
-  // pattern routes/theme/index.tsx uses.
+  // pattern routes/foundations/theme/index.tsx uses.
   const roles = Object.keys(resolveThemeDetails("light").color);
   const tokens: SearchEntry[] = roles.map((role) => ({
     group: "Tokens",
     title: role,
     hint: "Color role · see it on the Color page",
-    href: "/styles/color",
+    href: "/foundations/color",
   }));
   const blocksDoc = WEB_DOCS.find((d) => d.slug === "search-bar");
   const blocks: SearchEntry[] = (blocksDoc?.parts ?? []).map((part) => ({
@@ -184,7 +184,7 @@ export const SEARCH_SUGGESTIONS: SearchEntry[] = [
     group: "Tokens",
     title: "primary",
     hint: "Color role · see it on the Color page",
-    href: "/styles/color",
+    href: "/foundations/color",
   },
   {
     group: "Guides",

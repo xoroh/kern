@@ -48,7 +48,7 @@ const want = (href, why) => {
 for (const section of NAV_SECTIONS) {
   for (const leaf of section.leaves) want(leaf.href, `nav leaf "${leaf.label}"`);
 }
-for (const page of FOUNDATIONS) want(`/styles/${page.slug}`, "foundations page");
+for (const page of FOUNDATIONS) want(`/foundations/${page.slug}`, "foundations page");
 for (const [platform, docs] of [["web", await loadDocs("web")], ["mobile", await loadDocs("mobile")]]) {
   for (const doc of docs) want(`/components/${platform}/${doc.slug}`, `family "${doc.name}"`);
 }

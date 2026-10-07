@@ -15,10 +15,7 @@ import { T_BODY_SM, T_LABEL } from "../../systems/type-scale";
 const SIDEBAR_PREFIXES = [
   "/docs",
   "/components",
-  "/styles",
-  "/theme",
-  "/icons",
-  "/accessibility",
+  "/foundations",
   "/getting-started",
 ];
 

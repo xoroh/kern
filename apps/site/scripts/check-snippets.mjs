@@ -61,7 +61,7 @@ function snippetsFrom(file) {
 
 const files = [
   "routes/getting-started.tsx",
-  "routes/theme/index.tsx",
+  "routes/foundations/theme/index.tsx",
   "routes/docs/guides.tsx",
 ];
 

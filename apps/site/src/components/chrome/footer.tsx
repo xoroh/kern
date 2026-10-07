@@ -20,10 +20,10 @@ const COLUMNS: { label: string; links: { label: string; href: string }[] }[] =
     {
       label: "Foundations",
       links: [
-        { label: "Styles & tokens", href: "/styles" },
-        { label: "Theme", href: "/theme" },
-        { label: "Accessibility", href: "/accessibility" },
-        { label: "Icons", href: "/icons" },
+        { label: "Foundations", href: "/foundations" },
+        { label: "Theme", href: "/foundations/theme" },
+        { label: "Accessibility", href: "/foundations/accessibility" },
+        { label: "Icons", href: "/foundations/icons" },
       ],
     },
     {

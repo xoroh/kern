@@ -18,6 +18,7 @@ import { Icon } from "@xoroh/kern-icons";
 import { useRef, useState } from "react";
 import { T_LABEL_LG } from "../../systems/type-scale";
 import { isActivePath } from "./app-rail";
+import { GitHubIcon } from "./github-icon";
 import { MobileDrawer } from "./mobile-drawer";
 import { openSearch } from "./search-palette";
 import { VersionSelector } from "./version-selector";
@@ -31,8 +32,11 @@ export const PRIMARY_TABS: { href: string; label: string }[] = [
   { href: "/showcase", label: "Showcase" },
 ];
 
+// Every header icon button shares the rhythm: 36px target, variant ink, a
+// focus-visible ring in the focus role — keyboard readers get the same
+// affordance as pointer readers.
 const ICON_BUTTON =
-  "inline-flex size-9 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent text-(--md-sys-color-on-surface-variant) hover:bg-(--md-sys-color-surface-container-high) hover:text-(--md-sys-color-on-surface)";
+  "inline-flex size-9 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent text-(--md-sys-color-on-surface-variant) hover:bg-(--md-sys-color-surface-container-high) hover:text-(--md-sys-color-on-surface) focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-(--md-sys-color-secondary)";
 
 export function SiteHeader() {
   const { pathname } = useLocation();
@@ -99,7 +103,7 @@ export function SiteHeader() {
           title="GitHub"
           className={cn(ICON_BUTTON, "hidden sm:inline-flex")}
         >
-          <Icon name="code" size={20} />
+          <GitHubIcon />
         </a>
         <button
           type="button"
