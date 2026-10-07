@@ -54,6 +54,7 @@
     "test:native": "bun run --filter @xoroh/kern-native test",
     "test:native:jest": "bun run --filter @xoroh/kern-native test:jest",
     "test:all": "bun run test && bun run test:native && bun run test:native:jest",
+    "test:e2e": "playwright test --config e2e/playwright.config.ts",
     "build": "bun run generate:tokens && bun run generate:tones && bun run generate:motion && bun run generate:components && node scripts/build-order.mjs"
   },
   "workspaces": [
@@ -64,6 +65,7 @@
     "@arethetypeswrong/cli": "^0.18.5",
     "@biomejs/biome": "^2.5.14",
     "@changesets/cli": "^3.0.3",
+    "@playwright/test": "^1.63.0",
     "culori": "^4.0.2",
     "publint": "^0.3.24",
     "typescript": "5.9.3",

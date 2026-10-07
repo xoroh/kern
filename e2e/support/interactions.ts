@@ -15,7 +15,7 @@
  * we assert the OUTCOME and retry the interaction until it happens: a real user
  * whose click lands before hydration simply clicks again.
  */
-import { expect, type Locator, type Page } from '@playwright/test';
+import { expect, type Locator, type Page } from "@playwright/test";
 
 /**
  * Click `trigger` until `expected` becomes visible, or fail with a message that
@@ -32,7 +32,7 @@ export async function clickUntil(
   for (let i = 0; i < attempts; i++) {
     await trigger.click();
     try {
-      await expected.waitFor({ state: 'visible', timeout: 1_500 });
+      await expected.waitFor({ state: "visible", timeout: 1_500 });
       return;
     } catch (err) {
       lastError = err;
@@ -49,9 +49,9 @@ export async function clickUntil(
 
 /** Navigate and wait until the app is interactive, without guessing a duration. */
 export async function gotoSettled(page: Page, path: string): Promise<void> {
-  await page.goto(path, { waitUntil: 'networkidle' });
+  await page.goto(path, { waitUntil: "networkidle" });
   // `load` fires after hydration's own scripts have run; combined with
   // networkidle it means both the document and its lazy chunks are in.
-  await page.waitForLoadState('load');
+  await page.waitForLoadState("load");
   expect(page.url()).toContain(path);
 }

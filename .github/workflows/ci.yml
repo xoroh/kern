@@ -30,6 +30,62 @@ jobs:
       - name: Cold-checkout build and dist check
         run: bun run check:cold
 
+  e2e:
+    # WIRED (was reference-only): `e2e/` holds three Playwright specs
+    # (dialog-focus-trap, sheet-dismissal, page-render) plus
+    # playwright.config.ts and support/. They were reference files nothing
+    # ran — no `test:e2e` script, no @playwright/test dependency, no CI job.
+    # This job builds the site, serves the BUILD output with `vite preview`
+    # on :4173 (never `vite dev`: HMR + a browser context per test exhausted
+    # renderer memory and died with `Page crashed` — a harness flake, not a
+    # kern defect; see e2e/playwright.config.ts), and runs the specs against
+    # it in chromium. Port is pinned, not floating: vite silently takes the
+    # next free port when 4173 is busy, and a run pointed at a hardcoded
+    # stale port fails with a connection error rather than a real result.
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.8
+
+      - run: bun install --frozen-lockfile --ignore-scripts
+
+      - name: Install Playwright chromium
+        run: bun x playwright install --with-deps chromium
+
+      - name: Build site
+        run: bun run build
+        working-directory: apps/site
+
+      - name: Live-check M3 spec citations
+        # `check-spec-urls --live` was opt-in and therefore dark in practice:
+        # nothing in CI ever passed the flag, so the landed-page identity
+        # check it documents never ran. WIRED here rather than deleted: it
+        # now has input (25 recorded specUrl citations, all passing) and
+        # asserts landed-page identity, not status codes. Runs in this job
+        # because it is network-bound like the specs, not a hermetic gate.
+        run: node scripts/check-spec-urls.mjs --live
+        working-directory: apps/site
+
+      - name: E2E (chromium, vite preview :4173)
+        working-directory: apps/site
+        run: |
+          bun run preview --port 4173 &
+          PREVIEW_PID=$!
+          trap "kill $PREVIEW_PID" EXIT
+          for i in $(seq 1 60); do
+            if curl --fail --silent http://localhost:4173/ > /dev/null 2>&1; then
+              break
+            fi
+            sleep 2
+          done
+          curl --fail --silent http://localhost:4173/ > /dev/null
+          cd "$GITHUB_WORKSPACE"
+          bun run test:e2e
+
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 20
