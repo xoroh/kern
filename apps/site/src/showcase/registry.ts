@@ -76,7 +76,7 @@ export function examplesFor(exportName: string): ExampleSpec[] {
  * component, same keying as EXAMPLES, so a family page looks its
  * configurator up the same way. The harness is proven; further components
  * plug in here with zero template edits. Latest: Avatar.
-  */
+ */
 export const CONFIGURATORS: Record<string, ConfiguratorSpec> = {
   Accordion: ACCORDION_CONFIGURATOR,
   AlertDialog: ALERT_DIALOG_CONFIGURATOR,
