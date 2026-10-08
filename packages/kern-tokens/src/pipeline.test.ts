@@ -6,10 +6,17 @@ import {
   componentStage,
   mapStage,
   projectToCssVars,
+  scopedDeltas,
   seedStage,
 } from "./pipeline";
 import { defineMotionAlgorithm, MOTION_ALGORITHMS } from "./presets";
-import { defineThemePreset, resolveThemeDetails, themeIds } from "./resolve";
+import {
+  defineThemePreset,
+  resolveThemeDetails,
+  shapeVarName,
+  themeIds,
+  varName,
+} from "./resolve";
 import { themes, tokens } from "./tokens";
 
 describe("pipeline stages", () => {
@@ -139,6 +146,74 @@ describe("theme matrix", () => {
     expect(() => assertSingleRoleTable(tampered)).toThrow(
       "never a second role table",
     );
+  });
+});
+
+describe("scoped sub-theme deltas", () => {
+  it("covers every non-kern preset with matrix-exact values", () => {
+    const matrix = buildThemeMatrix();
+    const scoped = scopedDeltas(matrix);
+    expect(scoped.map((entry) => entry.id).sort()).toEqual(
+      matrix.presets.filter((preset) => preset !== "kern").sort(),
+    );
+    for (const entry of scoped) {
+      for (const mode of ["light", "dark"] as const) {
+        const cell = matrix.cells.find(
+          (candidate) =>
+            candidate.preset === entry.id &&
+            candidate.mode === mode &&
+            candidate.contrast === "standard",
+        );
+        const vars = entry[mode];
+        const expected: Record<string, string> = {};
+        for (const role of cell?.changedRoles ?? []) {
+          expected[varName(role)] = cell?.color[role] as string;
+        }
+        for (const shape of cell?.changedShape ?? []) {
+          expected[shapeVarName(shape)] = cell?.shape[shape] as string;
+        }
+        expect(vars).toEqual(expected);
+      }
+    }
+  });
+
+  it("flows every switchable value through the varName spelling", () => {
+    const matrix = buildThemeMatrix();
+    for (const entry of scopedDeltas(matrix)) {
+      for (const variable of [
+        ...Object.keys(entry.light),
+        ...Object.keys(entry.dark),
+      ]) {
+        expect(variable).toMatch(
+          /^--md-sys-(color-[a-z0-9-]+|shape-corner-[a-z-]+)$/,
+        );
+      }
+    }
+    // Spot: brand repaints primary, demo repaints secondary, sharp is shape-only.
+    const byId = new Map(
+      scopedDeltas(matrix).map((entry) => [entry.id, entry]),
+    );
+    expect(byId.get("brand")?.light["--md-sys-color-primary"]).toBe(
+      matrix.cells.find(
+        (cell) =>
+          cell.preset === "brand" &&
+          cell.mode === "light" &&
+          cell.contrast === "standard",
+      )?.color.primary,
+    );
+    expect(byId.get("demo")?.dark["--md-sys-color-secondary"]).toBe(
+      matrix.cells.find(
+        (cell) =>
+          cell.preset === "demo" &&
+          cell.mode === "dark" &&
+          cell.contrast === "standard",
+      )?.color.secondary,
+    );
+    expect(
+      Object.keys(byId.get("sharp")?.light ?? {}).some((key) =>
+        key.startsWith("--md-sys-color-"),
+      ),
+    ).toBe(false);
   });
 });
 

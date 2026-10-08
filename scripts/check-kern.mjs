@@ -604,6 +604,125 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
   }
 }
 
+// 5d. ONE-SHAPE LAW, MECHANISM LEG (steals 1). 5c pins extends + known roles
+// per file; this leg pins the mechanism, so CI fails any second role table
+// no matter which side it enters from:
+// (i) no preset file smuggles a full table: overrides stay strict deltas
+//     (fewer entries than the 58-role table) and no top-level color/radius/
+//     contrast table may exist beside `overrides`;
+// (ii) every preset resolves through overridesFor: only resolve.ts (the
+//      owner), tokens.ts (test/reference mirror of the same files), the
+//      audit legs, and tests (expected values) may read a preset theme
+//      file — any other reader themes outside overridesFor;
+// (iii) every switchable value flows through varName(): no generator may
+//      define its own role->var spelling (gen-css.mjs's local roleVar was
+//      the second spelling this clause retires);
+// (iv) components stay preset-agnostic: no component source may reference
+//      data-kern-theme — subtree scoping is a host decision, zero component
+//      changes by construction.
+{
+  const fullRoleCount = Object.keys(m3.color.light).length;
+  const catalog = JSON.parse(
+    readFileSync(
+      join(ROOT, "packages/kern-tokens/src/themes/index.json"),
+      "utf8",
+    ),
+  );
+  for (const entry of catalog.themes ?? []) {
+    if (entry.id === "kern") continue;
+    const preset = JSON.parse(
+      readFileSync(
+        join(ROOT, "packages/kern-tokens/src/themes", entry.file),
+        "utf8",
+      ),
+    );
+    for (const mode of ["light", "dark"]) {
+      const count = Object.keys(preset.overrides?.color?.[mode] ?? {}).length;
+      if (count >= fullRoleCount) {
+        violations.push(
+          `themes/${entry.file}: color.${mode} carries ${count} roles (>= the ${fullRoleCount}-role table) — ` +
+            `a full table smuggled as overrides; presets are deltas`,
+        );
+      }
+    }
+    for (const key of ["color", "radius", "contrast"]) {
+      if (preset[key] !== undefined) {
+        violations.push(
+          `themes/${entry.file}: top-level "${key}" table — presets carry overrides only, never a second role table`,
+        );
+      }
+    }
+  }
+
+  const presetReaders = [];
+  const readerRoots = [
+    join(ROOT, "packages/kern-tokens"),
+    join(ROOT, "packages/kern/src"),
+    join(ROOT, "packages/kern-native/src"),
+    join(ROOT, "apps/site/src"),
+  ];
+  const readerAllow = new Set([
+    "packages/kern-tokens/src/resolve.ts",
+    "packages/kern-tokens/src/tokens.ts",
+    "packages/kern-tokens/scripts/check-contrast.mjs",
+  ]);
+  const presetRead =
+    /(import|from|readFileSync|require)[^;]*themes\/(sharp|brand|compact|demo)\.json/;
+  for (const root of readerRoots) {
+    if (!existsSync(root)) continue;
+    const stack = [root];
+    while (stack.length > 0) {
+      const dir = stack.pop();
+      for (const entry of readdirSync(dir, { withFileTypes: true })) {
+        const full = join(dir, entry.name);
+        if (entry.isDirectory()) {
+          if (entry.name === "node_modules" || entry.name === "dist") continue;
+          stack.push(full);
+          continue;
+        }
+        if (!/\.(tsx?|mjs)$/.test(entry.name)) continue;
+        if (/\.(test|rntest)\.tsx?$/.test(entry.name)) continue;
+        const rel = relative(ROOT, full);
+        if (readerAllow.has(rel)) continue;
+        const src = readFileSync(full, "utf8").replace(/\s+/g, " ");
+        if (presetRead.test(src)) {
+          presetReaders.push(
+            `${rel} reads a preset theme file — every preset resolves through overridesFor in resolve.ts`,
+          );
+        }
+      }
+    }
+  }
+  violations.push(...presetReaders);
+
+  for (const script of readdirSync(
+    join(ROOT, "packages/kern-tokens/scripts"),
+  )) {
+    if (!script.endsWith(".mjs")) continue;
+    const src = readFileSync(
+      join(ROOT, "packages/kern-tokens/scripts", script),
+      "utf8",
+    );
+    if (/=\s*\([^)]*\)\s*=>\s*`--md-sys-color-/.test(src)) {
+      violations.push(
+        `packages/kern-tokens/scripts/${script} defines its own role->var spelling — ` +
+          `every switchable value flows through varName() from src/resolve.ts`,
+      );
+    }
+  }
+
+  for (const dir of SCANNED) {
+    for (const file of sourceFiles(dir)) {
+      const src = readFileSync(file, "utf8");
+      if (src.includes("data-kern-theme")) {
+        violations.push(
+          `${relative(ROOT, file)} references data-kern-theme — components read vars only; subtree scoping is a host decision`,
+        );
+      }
+    }
+  }
+}
+
 // 6. GENERATED OUTPUT FRESHNESS (P1-7 / P1-8). `md.comp.*` and the Tailwind adapter are
 // generated, never hand-edited. If the committed CSS no longer matches what the
 // generators produce from tokens.json, the "one source of truth" invariant is broken —
