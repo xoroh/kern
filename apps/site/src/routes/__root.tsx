@@ -1,6 +1,6 @@
 import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 
-import interLatinUrl from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
+import "@fontsource-variable/inter/index.css";
 import appCss from "../styles.css?url";
 import { Kicker } from "../components/chrome/kicker";
 import { SiteLayout } from "../components/chrome/site-layout";
@@ -45,18 +45,11 @@ export const Route = createRootRoute({
         rel: "stylesheet",
         href: appCss,
       },
-      // The Inter variable font arrives through a chained @import
-      // (styles.css → kern-tokens theme → fontsource CSS), so the browser
-      // discovers it late and text paints in the fallback first. Preloading
-      // the latin subset — the one every page needs — starts the fetch with
-      // the document instead of after the CSS chain resolves.
-      {
-        rel: "preload",
-        href: interLatinUrl,
-        as: "font",
-        type: "font/woff2",
-        crossOrigin: "anonymous",
-      },
+      // Inter variable font CSS (imported above, plus the
+      // @xoroh/kern-tokens theme chain) owns font delivery with
+      // unicode-range subsets — no manual preload: importing the woff2
+      // through the bundler (`?url`) breaks TanStack Start SSR
+      // (runner tries to load the binary as a server module -> 500).
       {
         rel: "icon",
         type: "image/svg+xml",
