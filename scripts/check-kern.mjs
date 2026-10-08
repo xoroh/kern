@@ -28,7 +28,7 @@ const schemes = [m3.color.light, m3.color.dark];
 // Every override preset the resolver knows (P5C adds compact). Shape-only
 // presets resolve to the base color tables here; the leg still covers them
 // so a preset that smuggles a color role is measured, not assumed clean.
-for (const extra of ["sharp", "brand", "compact"]) {
+for (const extra of ["sharp", "brand", "compact", "demo"]) {
   const theme = JSON.parse(
     readFileSync(
       join(ROOT, `packages/kern-tokens/src/themes/${extra}.json`),

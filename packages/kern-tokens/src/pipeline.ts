@@ -154,7 +154,7 @@ const CONTRASTS: Contrast[] = ["standard", "medium", "high"];
 
 /**
  * Flatten every mode x contrast x preset context through the pipeline.
- * Preset order follows `themeIds()` (kern, sharp, brand, compact). Legacy
+ * Preset order follows `themeIds()` (kern, sharp, brand, compact, demo). Legacy
  * alias `"m3"` is NOT a dimension: it canonicalizes to kern, so it would
  * duplicate the kern cells rather than add contexts.
  */

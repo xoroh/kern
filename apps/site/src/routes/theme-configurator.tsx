@@ -36,9 +36,9 @@ import {
   themeIds,
   varName,
 } from "@xoroh/kern-tokens";
+import catalogJson from "@xoroh/kern-tokens/themes/index.json";
 import { useMemo, useState } from "react";
 import { SiteLayout } from "../domains/shared/chrome/site-layout";
-import { CopyButton } from "../showcase/copy-button";
 import { routeHead } from "../domains/shared/systems/seo";
 import {
   T_BODY,
@@ -48,11 +48,15 @@ import {
   T_SECTION,
   T_SMALL_TITLE,
 } from "../domains/shared/systems/type-scale";
+import { CopyButton } from "../showcase/copy-button";
 import { seedOverrides } from "../theme-studio/seed";
 
 export const Route = createFileRoute("/theme-configurator")({
   head: () =>
-    routeHead("Theme configurator", "Theme studio — tune tokens and preview them on real components."),
+    routeHead(
+      "Theme configurator",
+      "Theme studio — tune tokens and preview them on real components.",
+    ),
   component: ThemeConfigurator,
 });
 
@@ -67,6 +71,21 @@ const SEG_WRAP =
 const SEG_ON = `flex-1 rounded-(--md-sys-shape-corner-extra-small) bg-(--md-sys-color-primary) px-2 py-1.5 text-center ${T_BODY_SM} text-(--md-sys-color-on-primary)`;
 const SEG_OFF = `flex-1 rounded-(--md-sys-shape-corner-extra-small) px-2 py-1.5 text-center ${T_BODY_SM} ${INK_SOFT} hover:bg-(--md-sys-color-surface-container-high)`;
 const EXPORT_FILE = "themes/studio-theme.json";
+
+// Display names for the preset picker, read from the package's own catalog
+// (`themes/index.json`) — a new preset appears here with its name and
+// description and no site edit, the same dynamic the preview relies on.
+const CATALOG = (
+  catalogJson as {
+    themes: { id: string; name: string; description: string }[];
+  }
+).themes;
+function presetLabel(id: string): string {
+  return CATALOG.find((entry) => entry.id === id)?.name ?? id;
+}
+function presetDescription(id: string): string | undefined {
+  return CATALOG.find((entry) => entry.id === id)?.description;
+}
 
 function isHex6(v: string): boolean {
   return /^#[0-9a-fA-F]{6}$/.test(v);
@@ -310,6 +329,7 @@ export const studioTheme = defineThemePreset({
                           role="radio"
                           aria-checked={selected}
                           onClick={() => setPreset(row.id)}
+                          title={presetDescription(row.id)}
                           className={`flex w-full cursor-pointer items-center gap-2.5 rounded-(--md-sys-shape-corner-small) border px-3 py-2 text-left outline-none transition-colors focus-visible:ring-2 focus-visible:ring-(--md-sys-color-primary) focus-visible:ring-offset-2 focus-visible:ring-offset-(--md-sys-color-surface-container-low) ${selected ? "border-(--md-sys-color-primary) bg-(--md-sys-color-primary-container)" : "border-(--md-sys-color-outline-variant) bg-transparent hover:bg-(--md-sys-color-surface-container-high)"}`}
                         >
                           <span
@@ -334,7 +354,7 @@ export const studioTheme = defineThemePreset({
                           <span
                             className={`${T_BODY_SM} ${selected ? INK : INK_SOFT}`}
                           >
-                            {row.id}
+                            {presetLabel(row.id)}
                           </span>
                         </button>
                       );

@@ -1,0 +1,23 @@
+{
+  "id": "demo",
+  "name": "Demo tenant",
+  "description": "Demo tenant proving end-to-end preset switching: the secondary family repainted onto deep-green steps in both modes (dark enough to hold 7:1 in high contrast), shape untouched. Extends kern; carries no role table of its own. Every value is a tokens.json palette step.",
+  "extends": "kern",
+  "overrides": {
+    "color": {
+      "light": {
+        "secondary": "#14532d",
+        "onSecondary": "#ffffff",
+        "secondaryContainer": "#dcfce7",
+        "onSecondaryContainer": "#052e16"
+      },
+      "dark": {
+        "secondary": "#4ade80",
+        "onSecondary": "#052e16",
+        "secondaryContainer": "#14532d",
+        "onSecondaryContainer": "#dcfce7"
+      }
+    },
+    "shape": {}
+  }
+}

@@ -21,7 +21,7 @@ No React, no DOM, no peer dependencies. This is the bottom of the package graph.
 |---|---|
 | `tokens` | The canonical token set — OKLCH source values with compiled srgb |
 | `feedback` · `functional` · `tones` · `variants` | The role bindings each renderer resolves per theme |
-| theme JSON | `kern.json` (default), `sharp.json`, `brand.json`, `index.json` |
+| theme JSON | `kern.json` (default), `sharp.json`, `brand.json`, `compact.json`, `demo.json`, `index.json` |
 
 Themes ship as JSON under `src/themes/`, so a consumer can read or generate from
 them without evaluating any code.

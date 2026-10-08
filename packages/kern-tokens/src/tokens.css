@@ -593,7 +593,7 @@
   --md-sys-shape-corner-extra-large: 2px;
   --md-sys-shape-corner-extra-large-increased: 2px;
   --md-sys-shape-corner-extra-extra-large: 2px;
-  --md-sys-shape-corner-full: 2px;
+  --md-sys-shape-corner-full: 9999px;
 }
 
 /* App-token bridge for consumers using generic semantic names. */
