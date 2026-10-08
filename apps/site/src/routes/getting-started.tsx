@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Kicker } from "../components/chrome/kicker";
 import { Code, Step } from "../components/docs/code";
 import { SiteLayout } from "../domains/shared/chrome/site-layout";
@@ -218,6 +218,29 @@ function GettingStarted() {
             </p>
             <Code>{MOBILE_INSTALL}</Code>
             <Code>{MOBILE_QUICKSTART}</Code>
+            {/* P-READY (G6): install without ecosystem — G3/G4 lifts this
+                block onto the primitives subdomain; do not duplicate the
+                install string elsewhere. */}
+            <p
+              className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            >
+              Prefer no ecosystem? The behavior kernel installs standalone:
+              <code>@xoroh/kern-primitives</code> has no token or renderer
+              dependency (React 18+ is the only peer). Per-module pages land
+              with the primitives subdomain; until then start here and read
+              the module index:
+            </p>
+            <Code>{"bun add @xoroh/kern-primitives"}</Code>
+            <p
+              className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            >
+              <Link
+                to="/primitives"
+                className="text-(--md-sys-color-primary) no-underline hover:underline"
+              >
+                Primitives — behavior kernel, no visuals
+              </Link>
+            </p>
           </Step>
 
           <Step n={7} title="Icons">
