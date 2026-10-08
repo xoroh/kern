@@ -33,7 +33,7 @@ imports, or token names.
 2. Token names come from `get_tokens` or the `.md` Tokens section — never
    hardcoded hex, never invented roles.
 3. Web and native are different surfaces: `/md/web/<slug>.md` vs
-   `/md/mobile/<slug>.md`, `@xoroh/kern` vs `@xoroh/kern/native`.
+   `/md/mobile/<slug>.md`, `@xoroh/kern` vs `@xoroh/kern-native`.
 4. If a surface and a page disagree, the page wins and the surface is stale —
    say so instead of picking silently.
 5. Depth lives in per-page files: `/llms.txt` stays an index, this skill

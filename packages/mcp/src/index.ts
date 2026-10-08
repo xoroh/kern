@@ -62,7 +62,7 @@ server.tool(
       export: c.export,
       platform: c.platform,
       status: c.status,
-      import: c.platform === "web" ? "@xoroh/kern" : "@xoroh/kern/native",
+      import: c.platform === "web" ? "@xoroh/kern" : "@xoroh/kern-native",
     }));
     return text({ count: list.length, components: list });
   },
@@ -94,7 +94,7 @@ server.tool(
 server.tool(
   "get_tokens",
   "Get Kern design tokens. 'base' for the shared source, or a theme preset.",
-  { preset: z.enum(["base", "m3", "sharp", "brand"]).default("base") },
+  { preset: z.enum(["base", "m3", "sharp", "brand", "compact"]).default("base") },
   async ({ preset }) => {
     const rel =
       preset === "base"
