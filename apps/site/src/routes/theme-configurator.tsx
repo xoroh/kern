@@ -1,12 +1,16 @@
 /**
  * /theme-configurator — the theme studio (shadcn-studio pattern, kern rules).
  *
- * Left: token controls (primary seed, scheme preset, radius scale, dark
- * toggle, contrast). Right: live preview — real components from `@xoroh/kern`
- * in a container whose CSS vars are the resolved theme, so the preview IS the
- * tokens, not a picture of them. Below: the preset source the knobs produce,
- * built from the SAME resolved object (the configurator-harness rule: the
- * fence cannot drift from the stage).
+ * 280px sidebar, top-to-bottom: 01 scheme preset rows (3 live swatches =
+ * primary/secondary/surface-container) → 02 brand seed (one-line caption,
+ * details hold the rest) → 03 shape chips+slider → 04 Light/Dark +
+ * Standard/Medium/High segmented → 05 sticky export footer (PRIMARY action
+ * Copy-preset-`.json` prefilled `themes/<id>.json`, TS/CSS secondary, Reset).
+ * Right: live preview — real components from `@xoroh/kern` in a container
+ * whose CSS vars are the resolved theme, so the preview IS the tokens, not
+ * a picture of them. Below: the export sources built from the SAME resolved
+ * object (the configurator-harness rule: the fence cannot drift from the
+ * stage).
  *
  * HONESTY BOUNDARIES (stated on the page, not just here):
  *  - The seed recomputes the PRIMARY FAMILY ONLY (4 roles x 2 modes) via the
@@ -57,6 +61,12 @@ const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";
 const PANEL =
   "rounded-(--md-sys-shape-corner-large) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-low) p-5";
 const FIELD = `m-0 ${T_LABEL} ${INK_SOFT} uppercase`;
+const DOT = "block size-4 rounded-full border border-black/20";
+const SEG_WRAP =
+  "flex gap-1 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container) p-1";
+const SEG_ON = `flex-1 rounded-(--md-sys-shape-corner-extra-small) bg-(--md-sys-color-primary) px-2 py-1.5 text-center ${T_BODY_SM} text-(--md-sys-color-on-primary)`;
+const SEG_OFF = `flex-1 rounded-(--md-sys-shape-corner-extra-small) px-2 py-1.5 text-center ${T_BODY_SM} ${INK_SOFT} hover:bg-(--md-sys-color-surface-container-high)`;
+const EXPORT_FILE = "themes/studio-theme.json";
 
 function isHex6(v: string): boolean {
   return /^#[0-9a-fA-F]{6}$/.test(v);
@@ -78,6 +88,12 @@ function scaleShape(
   }
   return out;
 }
+
+const SHAPE_CHIPS = [
+  { label: "Compact", factor: 0.5 },
+  { label: "Regular", factor: 1 },
+  { label: "Round", factor: 2 },
+] as const;
 
 function ThemeConfigurator() {
   // Scheme choices from BOTH authorities: the built-in ThemeIds always
@@ -112,6 +128,38 @@ function ThemeConfigurator() {
     if (isHex6(v)) setSeedHex(v);
   }
 
+  function reset() {
+    setSeedHex(defaultSeed);
+    setSeedText(defaultSeed);
+    setPreset("kern");
+    setDark(false);
+    setContrast("standard");
+    setRadius(1);
+  }
+
+  const mode = dark ? "dark" : "light";
+
+  // 01 — preset rows read live: each row's three dots resolve that preset
+  // in the CURRENT mode + contrast, so the swatches match what selecting
+  // the row would paint.
+  const swatchRows = useMemo(
+    () =>
+      presets.map((id) => {
+        const selection = (themeIds() as string[]).includes(id)
+          ? id
+          : getVariant(id);
+        const color = resolveThemeDetails(mode, contrast, selection as never)
+          .color;
+        return {
+          id,
+          primary: color.primary,
+          secondary: color.secondary,
+          surfaceContainer: color.surfaceContainer,
+        };
+      }),
+    [presets, mode, contrast],
+  );
+
   const theme: CustomTheme = useMemo(() => {
     // One selection for every resolver: a ThemeId passes through, a registry
     // variant id resolves to its override object. Two spellings, one table.
@@ -119,7 +167,7 @@ function ThemeConfigurator() {
       ? preset
       : getVariant(preset);
     const light = resolveThemeLayers("light", contrast, selection);
-    const dark = resolveThemeLayers("dark", contrast, selection);
+    const darkLayers = resolveThemeLayers("dark", contrast, selection);
     let seed: { light: Record<string, string>; dark: Record<string, string> };
     try {
       seed = seedOverrides(seedHex).color;
@@ -139,14 +187,13 @@ function ThemeConfigurator() {
       overrides: {
         color: {
           light: { ...light.deltas, ...seed.light },
-          dark: { ...dark.deltas, ...seed.dark },
+          dark: { ...darkLayers.deltas, ...seed.dark },
         },
         shape,
       },
     };
   }, [seedHex, defaultSeed, preset, contrast, radius]);
 
-  const mode = dark ? "dark" : "light";
   const resolved = useMemo(() => {
     const scheme = resolveThemeLayers(mode, contrast, preset).scheme;
     return {
@@ -165,6 +212,22 @@ function ThemeConfigurator() {
     }
     return out;
   }, [resolved, mode]);
+
+  // The missing export artifact: the actual `themes/<customer>.json` file
+  // content — paste-ready, same object the preview resolves.
+  const jsonSource = useMemo(
+    () =>
+      JSON.stringify(
+        {
+          id: theme.id,
+          extends: theme.extends,
+          overrides: theme.overrides,
+        },
+        null,
+        2,
+      ),
+    [theme],
+  );
 
   const presetSource = useMemo(() => {
     const colorJson = JSON.stringify(theme.overrides.color, null, 2);
@@ -198,136 +261,259 @@ export const studioTheme = defineThemePreset({
             <p className={`m-0 ${T_LABEL} ${INK_SOFT} uppercase`}>Studio</p>
             <h1 className={`m-0 ${T_PAGE} ${INK}`}>Theme configurator</h1>
             <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>
-              Turn the knobs on the left; the components on the right re-render
-              in the resolved theme. Everything right of this sentence reads CSS
-              vars — the preview is the tokens. Copy the preset source and it
-              resolves to exactly what you see.
+              Tune the theme in the sidebar — the preview and the export
+              update together.
             </p>
+            <details>
+              <summary className={`cursor-pointer ${T_BODY_SM} ${INK}`}>
+                How this studio works
+              </summary>
+              <p className={`m-0 max-w-[62ch] ${T_BODY_SM} ${INK_SOFT}`}>
+                Everything right of this sentence reads CSS vars — the preview
+                is the tokens. Copy the preset source and it resolves to
+                exactly what you see: snippet and stage share one object. The
+                seed recomputes the primary family only; secondary, tertiary,
+                error and surface stay on the preset. Contrast is argued from
+                the mapping, not printed — the ratio function is not in the
+                package&apos;s public API.
+              </p>
+            </details>
           </header>
 
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-[20rem_1fr]">
-            {/* LEFT — controls */}
-            <div className={`flex flex-col gap-5 ${PANEL} h-fit`}>
-              <h2 id="controls" className={`m-0 ${T_SMALL_TITLE} ${INK}`}>
-                Token controls
-              </h2>
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-[280px_1fr]">
+            {/* SIDEBAR — 280px theme builder, top to bottom */}
+            <aside
+              aria-label="Theme controls"
+              className="flex h-fit w-full flex-col lg:w-[280px]"
+            >
+              <div className={`flex flex-col gap-5 ${PANEL}`}>
+                <h2 id="controls" className={`m-0 ${T_SMALL_TITLE} ${INK}`}>
+                  Theme builder
+                </h2>
 
-              <label className="flex flex-col gap-2">
-                <span className={FIELD}>Primary seed</span>
-                <span className="flex items-center gap-2">
-                  <input
-                    type="color"
-                    aria-label="Primary seed color"
-                    value={isHex6(seedText) ? seedText : seedHex}
-                    onChange={(e) => onSeedText(e.target.value)}
-                    className="h-9 w-14 cursor-pointer rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant) bg-transparent p-1"
-                  />
-                  <input
-                    type="text"
-                    aria-label="Primary seed hex value"
-                    value={seedText}
-                    spellCheck={false}
-                    onChange={(e) => onSeedText(e.target.value)}
-                    className={`w-24 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant) bg-transparent px-2 py-1 font-mono ${T_BODY_SM} ${INK}`}
-                  />
-                </span>
-                <span className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
-                  Recomputes the primary family (primary, onPrimary, container,
-                  onContainer — both modes). Everything else stays on the preset
-                  below.
-                </span>
-              </label>
+                {/* 01 — preset rows with live swatches */}
+                <div className="flex flex-col gap-2">
+                  <span id="preset-label" className={FIELD}>
+                    01 · Scheme preset
+                  </span>
+                  <div
+                    role="radiogroup"
+                    aria-labelledby="preset-label"
+                    className="flex flex-col gap-1.5"
+                  >
+                    {swatchRows.map((row) => {
+                      const selected = preset === row.id;
+                      return (
+                        <button
+                          key={row.id}
+                          type="button"
+                          role="radio"
+                          aria-checked={selected}
+                          onClick={() => setPreset(row.id)}
+                          className={`flex w-full cursor-pointer items-center gap-2.5 rounded-(--md-sys-shape-corner-small) border px-3 py-2 text-left outline-none transition-colors focus-visible:ring-2 focus-visible:ring-(--md-sys-color-primary) focus-visible:ring-offset-2 focus-visible:ring-offset-(--md-sys-color-surface-container-low) ${selected ? "border-(--md-sys-color-primary) bg-(--md-sys-color-primary-container)" : "border-(--md-sys-color-outline-variant) bg-transparent hover:bg-(--md-sys-color-surface-container-high)"}`}
+                        >
+                          <span
+                            aria-hidden="true"
+                            className="flex shrink-0 items-center gap-1"
+                          >
+                            <span
+                              className={DOT}
+                              style={{ backgroundColor: row.primary }}
+                            />
+                            <span
+                              className={DOT}
+                              style={{ backgroundColor: row.secondary }}
+                            />
+                            <span
+                              className={DOT}
+                              style={{
+                                backgroundColor: row.surfaceContainer,
+                              }}
+                            />
+                          </span>
+                          <span
+                            className={`${T_BODY_SM} ${selected ? INK : INK_SOFT}`}
+                          >
+                            {row.id}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
 
-              <div className="flex flex-col gap-2">
-                <span id="preset-label" className={FIELD}>
-                  Scheme preset
-                </span>
-                <div
-                  role="radiogroup"
-                  aria-labelledby="preset-label"
-                  className="flex flex-wrap gap-2"
-                >
-                  {presets.map((id) => (
-                    <Button
-                      key={id}
-                      size="sm"
-                      variant={preset === id ? "primary" : "tonal"}
-                      aria-pressed={preset === id}
-                      onClick={() => setPreset(id)}
+                {/* 02 — brand seed, one line above the fold */}
+                <div className="flex flex-col gap-2">
+                  <span className={FIELD}>02 · Brand seed</span>
+                  <span className="flex items-center gap-2">
+                    <input
+                      type="color"
+                      aria-label="Primary seed color"
+                      value={isHex6(seedText) ? seedText : seedHex}
+                      onChange={(e) => onSeedText(e.target.value)}
+                      className="h-9 w-14 cursor-pointer rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant) bg-transparent p-1"
+                    />
+                    <input
+                      type="text"
+                      aria-label="Primary seed hex value"
+                      value={seedText}
+                      spellCheck={false}
+                      onChange={(e) => onSeedText(e.target.value)}
+                      className={`w-24 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant) bg-transparent px-2 py-1 font-mono ${T_BODY_SM} ${INK}`}
+                    />
+                  </span>
+                  <p className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
+                    Repaints the primary family; the preset keeps the rest.
+                  </p>
+                  <details>
+                    <summary
+                      className={`cursor-pointer ${T_BODY_SM} ${INK_SOFT}`}
                     >
-                      {id}
-                    </Button>
-                  ))}
+                      What does the seed change?
+                    </summary>
+                    <p className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
+                      Recomputes primary, onPrimary, container and onContainer
+                      in both modes from the seed&apos;s hue ramp at each
+                      role&apos;s M3 baseline tone — an approximation, not the
+                      HCT scheme algorithm. Secondary, tertiary, error and
+                      surface stay on the preset.
+                    </p>
+                  </details>
+                </div>
+
+                {/* 03 — shape chips + slider */}
+                <div className="flex flex-col gap-2">
+                  <span id="shape-label" className={FIELD}>
+                    03 · Shape — {radius.toFixed(2)}x
+                  </span>
+                  <div
+                    role="radiogroup"
+                    aria-labelledby="shape-label"
+                    className="flex flex-wrap gap-1.5"
+                  >
+                    {SHAPE_CHIPS.map((chip) => {
+                      const selected = radius === chip.factor;
+                      return (
+                        <button
+                          key={chip.label}
+                          type="button"
+                          role="radio"
+                          aria-checked={selected}
+                          onClick={() => setRadius(chip.factor)}
+                          className={`cursor-pointer rounded-full border px-3 py-1 outline-none transition-colors focus-visible:ring-2 focus-visible:ring-(--md-sys-color-primary) focus-visible:ring-offset-2 focus-visible:ring-offset-(--md-sys-color-surface-container-low) ${T_BODY_SM} ${selected ? "border-(--md-sys-color-primary) bg-(--md-sys-color-primary) text-(--md-sys-color-on-primary)" : "border-(--md-sys-color-outline-variant) bg-transparent text-(--md-sys-color-on-surface-variant) hover:bg-(--md-sys-color-surface-container-high)"}`}
+                        >
+                          {chip.label} {chip.factor}x
+                        </button>
+                      );
+                    })}
+                  </div>
+                  <input
+                    type="range"
+                    aria-label="Corner radius scale factor"
+                    min={0.5}
+                    max={2}
+                    step={0.25}
+                    value={radius}
+                    onChange={(e) => setRadius(Number(e.target.value))}
+                    className="h-2 w-full cursor-pointer appearance-none rounded-full bg-(--md-sys-color-surface-container-highest) accent-(--md-sys-color-primary) outline-none focus-visible:ring-2 focus-visible:ring-(--md-sys-color-primary) focus-visible:ring-offset-2 focus-visible:ring-offset-(--md-sys-color-surface-container-low) [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-(--md-sys-color-primary) [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-none [&::-moz-range-thumb]:bg-(--md-sys-color-primary)"
+                  />
+                  <p className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
+                    Scales px corners; `full` passes through.
+                  </p>
+                  <details>
+                    <summary
+                      className={`cursor-pointer ${T_BODY_SM} ${INK_SOFT}`}
+                    >
+                      How does the scale work?
+                    </summary>
+                    <p className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
+                      Every px corner multiplies by the factor and rounds to
+                      0.5px. `full` (9999px) passes through untouched — a
+                      scaled pill would be a different decision.
+                    </p>
+                  </details>
+                </div>
+
+                {/* 04 — mode + contrast segmented */}
+                <div className="flex flex-col gap-2">
+                  <span id="mode-label" className={FIELD}>
+                    04 · Mode
+                  </span>
+                  <div
+                    role="radiogroup"
+                    aria-labelledby="mode-label"
+                    className={SEG_WRAP}
+                  >
+                    {(
+                      [
+                        { label: "Light", active: !dark, onPick: () => setDark(false) },
+                        { label: "Dark", active: dark, onPick: () => setDark(true) },
+                      ] as const
+                    ).map((opt) => (
+                      <button
+                        key={opt.label}
+                        type="button"
+                        role="radio"
+                        aria-checked={opt.active}
+                        onClick={opt.onPick}
+                        className={`cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-(--md-sys-color-primary) focus-visible:ring-inset ${opt.active ? SEG_ON : SEG_OFF}`}
+                      >
+                        {opt.label}
+                      </button>
+                    ))}
+                  </div>
+                  <span id="contrast-label" className={FIELD}>
+                    Contrast
+                  </span>
+                  <div
+                    role="radiogroup"
+                    aria-labelledby="contrast-label"
+                    className={SEG_WRAP}
+                  >
+                    {(["standard", "medium", "high"] as const).map((c) => (
+                      <button
+                        key={c}
+                        type="button"
+                        role="radio"
+                        aria-checked={contrast === c}
+                        onClick={() => setContrast(c)}
+                        className={`cursor-pointer capitalize outline-none focus-visible:ring-2 focus-visible:ring-(--md-sys-color-primary) focus-visible:ring-inset ${contrast === c ? SEG_ON : SEG_OFF}`}
+                      >
+                        {c}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* 05 — sticky export footer */}
+                <div className="sticky bottom-0 -mx-5 -mb-5 flex flex-col gap-2 border-t border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-low) px-5 pt-4 pb-5">
+                  <span className={FIELD}>05 · Export</span>
+                  <p
+                    className={`m-0 truncate font-mono ${T_BODY_SM} ${INK_SOFT}`}
+                  >
+                    {EXPORT_FILE}
+                  </p>
+                  <CopyButton
+                    text={jsonSource}
+                    label="Copy preset .json"
+                  />
+                  <div className="flex items-center gap-2">
+                    <CopyButton text={presetSource} label="Copy TS" />
+                    <CopyButton text={cssSource} label="Copy CSS" />
+                    <button
+                      type="button"
+                      onClick={reset}
+                      className={`cursor-pointer rounded-(--md-sys-shape-corner-small) px-2 py-1 ${T_BODY_SM} ${INK_SOFT} underline underline-offset-2 hover:text-(--md-sys-color-on-surface)`}
+                    >
+                      Reset
+                    </button>
+                  </div>
                 </div>
               </div>
-
-              <label className="flex flex-col gap-2">
-                <span className={FIELD}>
-                  Radius scale — {radius.toFixed(2)}x
-                </span>
-                <input
-                  type="range"
-                  aria-label="Corner radius scale factor"
-                  min={0.5}
-                  max={2}
-                  step={0.25}
-                  value={radius}
-                  onChange={(e) => setRadius(Number(e.target.value))}
-                  className="h-2 w-full cursor-pointer appearance-none rounded-full bg-(--md-sys-color-surface-container-highest) accent-(--md-sys-color-primary) outline-none focus-visible:ring-2 focus-visible:ring-(--md-sys-color-primary) focus-visible:ring-offset-2 focus-visible:ring-offset-(--md-sys-color-surface-container-low) [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-(--md-sys-color-primary) [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-none [&::-moz-range-thumb]:bg-(--md-sys-color-primary)"
-                />
-                <span className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
-                  Multiplies px corners, rounded to 0.5px. `full` passes through
-                  — a scaled pill is a different decision.
-                </span>
-              </label>
-
-              <div className="flex items-center justify-between gap-3">
-                <span id="dark-label" className={`${T_BODY_SM} ${INK}`}>
-                  Dark mode
-                </span>
-                <button
-                  type="button"
-                  role="switch"
-                  aria-checked={dark}
-                  aria-labelledby="dark-label"
-                  onClick={() => setDark((d) => !d)}
-                  className={`relative flex h-8 w-[52px] shrink-0 cursor-pointer items-center rounded-full border-2 px-1 outline-none transition-colors focus-visible:ring-2 focus-visible:ring-(--md-sys-color-primary) focus-visible:ring-offset-2 focus-visible:ring-offset-(--md-sys-color-surface-container-low) ${dark ? "justify-end border-(--md-sys-color-primary) bg-(--md-sys-color-primary)" : "border-(--md-sys-color-outline) bg-(--md-sys-color-surface)"}`}
-                >
-                  <span
-                    aria-hidden="true"
-                    className={`block rounded-full transition-all ${dark ? "size-5 bg-(--md-sys-color-on-primary)" : "size-4 bg-(--md-sys-color-outline)"}`}
-                  />
-                </button>
-              </div>
-
-              <label className="flex flex-col gap-2">
-                <span className={FIELD}>Contrast</span>
-                <select
-                  aria-label="Contrast level"
-                  value={contrast}
-                  onChange={(e) =>
-                    setContrast(
-                      e.target.value as "standard" | "medium" | "high",
-                    )
-                  }
-                  className={`w-full cursor-pointer appearance-none rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline) bg-transparent py-2 pr-8 pl-3 outline-none ${T_BODY_SM} ${INK} focus-visible:ring-2 focus-visible:ring-(--md-sys-color-primary) focus-visible:ring-offset-2 focus-visible:ring-offset-(--md-sys-color-surface-container-low)`}
-                  style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='currentColor' stroke-width='1.5' fill='none'/%3E%3C/svg%3E")`,
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "right 0.75rem center",
-                  }}
-                >
-                  {(["standard", "medium", "high"] as const).map((c) => (
-                    <option key={c} value={c}>
-                      {c}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            </div>
+            </aside>
 
             {/* RIGHT — live preview */}
-            <div className="flex flex-col gap-4">
+            <div className="flex min-w-0 flex-col gap-4">
               <h2 id="preview" className={`m-0 ${T_SMALL_TITLE} ${INK}`}>
                 Live preview
               </h2>
@@ -379,17 +565,38 @@ export const studioTheme = defineThemePreset({
               </h2>
               <div className={`flex flex-col gap-2 ${PANEL}`}>
                 <div className="flex items-center justify-between gap-2">
-                  <span className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
-                    Resolves to exactly what you see — same object, both places.
+                  <span
+                    className={`m-0 truncate font-mono ${T_BODY_SM} ${INK_SOFT}`}
+                  >
+                    {EXPORT_FILE} — resolves to exactly what you see.
                   </span>
-                  <CopyButton text={presetSource} />
+                  <CopyButton text={jsonSource} label="Copy" />
                 </div>
                 <pre
                   className={`m-0 max-h-96 overflow-auto rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-surface-container-highest) p-4 font-mono ${T_BODY_SM} ${INK} whitespace-pre`}
                 >
-                  {presetSource}
+                  {jsonSource}
                 </pre>
               </div>
+
+              <details className={`flex flex-col gap-2 ${PANEL}`}>
+                <summary className={`cursor-pointer ${T_BODY_SM} ${INK}`}>
+                  TypeScript preset (defineThemePreset)
+                </summary>
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
+                      Same object, both places.
+                    </span>
+                    <CopyButton text={presetSource} />
+                  </div>
+                  <pre
+                    className={`m-0 max-h-96 overflow-auto rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-surface-container-highest) p-4 font-mono ${T_BODY_SM} ${INK} whitespace-pre`}
+                  >
+                    {presetSource}
+                  </pre>
+                </div>
+              </details>
 
               <details className={`flex flex-col gap-2 ${PANEL}`}>
                 <summary className={`cursor-pointer ${T_BODY_SM} ${INK}`}>
