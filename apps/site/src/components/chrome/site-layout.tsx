@@ -1,6 +1,5 @@
 import { useLocation } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
-import { AppRail } from "./app-rail";
 import { DocsSidebar } from "./docs-sidebar";
 import { Footer } from "./footer";
 import { SearchPalette } from "./search-palette";
@@ -20,7 +19,7 @@ const SIDEBAR_PREFIXES = ["/docs", "/components"];
 /**
  * "On this page" for viewports where the sidebar tree is hidden (below lg,
  * i.e. phones and the 768–1024 tablet band, where the hamburger + drawer
- * carry navigation instead of the rail).
+ * carry navigation).
  *
  * The items are read from the rendered page — every `h2[id]` inside `#main`
  * — so the disclosure can never list a section that is not there, and pages
@@ -90,18 +89,16 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       >
         Skip to content
       </a>
-      {/* The header is the primary chrome on every page. The rail renders
-          alongside it on docs-context pages only, at lg and up — below lg
+      {/* The header is the primary chrome on every page — primary tabs,
+          search, theme, and CTA — with the footer closing it. Docs-context
+          pages add the section sidebar tree beside the content; there is no
+          side app rail: it duplicated the header's five hub tabs. Below lg
           the hamburger + drawer carry every destination, so exactly one
           navigation surface owns each viewport and the two never overlap. */}
-      {withSidebar ? <AppRail /> : null}
       {/* data-chrome marks the regions the search palette makes inert while
           it is open. The palette itself renders outside them (below), so
           insetting the page never traps the dialog it is trying to show. */}
-      <div
-        className={withSidebar ? "flex flex-col lg:pl-20" : "flex flex-col"}
-        data-chrome="content"
-      >
+      <div className="flex flex-col" data-chrome="content">
         <SiteHeader />
         {/* Content fills the viewport so the footer starts below the fold —
             only reachable by scrolling. */}

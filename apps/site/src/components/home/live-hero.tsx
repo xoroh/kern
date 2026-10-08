@@ -9,7 +9,7 @@
  *
  * Nothing here is staged: the click counter is local state, the switch is the
  * shipped Base UI-backed Switch, and the theme toggle is the same
- * `useKernTheme` the rail uses. If a component regresses, this panel shows it.
+ * `useKernTheme` the header theme toggle uses. If a component regresses, this panel shows it.
  */
 import { Button, Chip, Switch, useKernTheme } from "@xoroh/kern";
 import { useState } from "react";

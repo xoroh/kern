@@ -1,7 +1,7 @@
 /**
  * The ⌘K palette — modal search over the build-time index, on every page.
  *
- * Opened by ⌘K / Ctrl-K from anywhere, by the rail search button, or by the
+ * Opened by ⌘K / Ctrl-K from anywhere, by the header ⌘K button, or by the
  * mobile bar button (all three dispatch `kern:open-search`). Results are
  * grouped per blueprint §9 with state badges inline; the active result is
  * roving-focus navigable by keyboard alone (ArrowUp/Down/Home/End, Enter to

@@ -2,7 +2,7 @@
  * GitHub mark — the octocat path, not a glyph approximation.
  *
  * The kern-icons set is Material-Symbols-based and carries no brand marks,
- * so the header and rail rendered GitHub as a `code` glyph. This is the real
+ * so the header rendered GitHub as a `code` glyph. This is the real
  * 16×16 mark at header-icon size (20px, the same rhythm as every other
  * header icon), filled with currentColor so it inherits the anchor's
  * on-surface-variant ink — and its hover and both site themes with it. The

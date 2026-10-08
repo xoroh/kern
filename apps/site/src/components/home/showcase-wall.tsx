@@ -41,7 +41,7 @@ const CONSUMERS: {
   {
     id: "consumer-this-site",
     title: "This site",
-    body: "The page you are reading runs on kern: the header, the rail on docs pages, and every demo are shipped components on live tokens.",
+    body: "The page you are reading runs on kern: the header, the docs sidebar, and every demo are shipped components on live tokens.",
     packages: ["@xoroh/kern", "@xoroh/kern/start"],
     href: "/components",
     cta: "Browse what it is built from",
@@ -49,7 +49,7 @@ const CONSUMERS: {
   {
     id: "consumer-start-scaffold",
     title: "The start scaffold",
-    body: "AppShell, the navigation rail, drawers, split panes and top bars that take slots instead of baking in one app shape — including the rail beside this page.",
+    body: "AppShell, the navigation rail, drawers, split panes and top bars that take slots instead of baking in one app shape.",
     packages: ["@xoroh/kern/start"],
     href: "/getting-started",
     cta: "Use it in the web quickstart",

@@ -3,8 +3,8 @@
  *
  * Every docs content page rendered bare inside SiteLayout: hub, guides, api,
  * reference, contributing, component indexes. A reader three levels deep had no
- * map of the section and no way sideways except back. The rail covers the five
- * top-level destinations; it does not cover the docs *section*.
+ * map of the section and no way sideways except back. The header covers the
+ * five top-level destinations; it does not cover the docs *section*.
  *
  * The tree is STATIC and every href is a route that exists (verified against
  * src/routes). It is read from the single nav source (`src/systems/nav.ts`), not
@@ -13,8 +13,8 @@
  * never authors. A generated tree would still be the wrong tool; a single
  * hand-edited source is not a generated tree.
  *
- * Active state comes from the host router's pathname, the same seam the rail
- * uses. Collapsed sections are NOT used: the tree is short enough to show
+ * Active state comes from the host router's pathname, through the
+ * `isActivePath` seam shared with the header and drawer. Collapsed sections are NOT used: the tree is short enough to show
  * whole, and a collapsed nav hides the map it exists to be.
  */
 import { useLocation } from "@tanstack/react-router";

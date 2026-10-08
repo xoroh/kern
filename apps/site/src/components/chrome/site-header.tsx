@@ -9,8 +9,8 @@
  *
  * The tab destinations are the hub paths: Foundations, Patterns, and
  * Playground land with the hub migration (step 3); Components and Showcase
- * resolve today. The docs-context rail (app-rail.tsx) keeps its own list for
- * the sidebar pages — the header does not map the docs section.
+ * resolve today. The shared hub list lives in app-rail.tsx — the header
+ * does not map the docs section.
  */
 import { useLocation } from "@tanstack/react-router";
 import { buttonVariants, cn, Kbd, useKernTheme } from "@xoroh/kern";
