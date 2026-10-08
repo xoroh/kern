@@ -246,3 +246,64 @@ export function assertSingleRoleTable(matrix: ThemeMatrix): void {
     }
   }
 }
+
+// --- Scoped sub-theme deltas --------------------------------------------------
+// A preset applied to a NAMED SUBTREE, not the whole page: setting
+// `data-kern-theme="<preset>"` on any element repaints that subtree with the
+// preset's delta vars, and `.dark` selects the dark delta set. The vars below
+// are the ONLY thing a subtree needs — components read vars and never name a
+// preset, so scoping a subtree is zero component changes by construction
+// (pinned by check:kern: no component source may reference `data-kern-theme`
+// or a preset theme file).
+/** One preset's scoped delta vars per mode, keyed by CSS custom property. */
+export type ScopedPresetVars = {
+  id: string;
+  /** Delta vars against the kern light base (`[data-kern-theme="<id>"]`). */
+  light: Record<string, string>;
+  /** Delta vars against the kern dark base (`.dark[data-kern-theme="<id>"]`). */
+  dark: Record<string, string>;
+};
+
+function cellFor(matrix: ThemeMatrix, mode: Mode, preset: string): MatrixCell {
+  const cell = matrix.cells.find(
+    (candidate) =>
+      candidate.mode === mode &&
+      candidate.contrast === "standard" &&
+      candidate.preset === preset,
+  );
+  if (!cell)
+    throw new Error(`Theme matrix has no ${mode}/standard/${preset} cell.`);
+  return cell;
+}
+
+/**
+ * Project every non-kern preset's standard-contrast deltas to CSS vars via
+ * {@link varName} / {@link shapeVarName} — the same spelling the full-scheme
+ * projection uses, so a scoped subtree cannot drift from the page theme.
+ * Consumed by `gen-css.mjs`, which renders the committed `matrix.json`
+ * artifact (not the live resolver) into the `[data-kern-theme]` blocks, and
+ * audited by `check:theme-matrix` against the shipped `tokens.css`.
+ */
+export function scopedDeltas(matrix: ThemeMatrix): ScopedPresetVars[] {
+  return matrix.presets
+    .filter((preset) => preset !== "kern")
+    .map((id) => {
+      const light = cellFor(matrix, "light", id);
+      const dark = cellFor(matrix, "dark", id);
+      const lightVars: Record<string, string> = {};
+      for (const role of light.changedRoles) {
+        lightVars[varName(role)] = light.color[role];
+      }
+      for (const shape of light.changedShape) {
+        lightVars[shapeVarName(shape)] = light.shape[shape];
+      }
+      const darkVars: Record<string, string> = {};
+      for (const role of dark.changedRoles) {
+        darkVars[varName(role)] = dark.color[role];
+      }
+      for (const shape of dark.changedShape) {
+        darkVars[shapeVarName(shape)] = dark.shape[shape];
+      }
+      return { id, light: lightVars, dark: darkVars };
+    });
+}

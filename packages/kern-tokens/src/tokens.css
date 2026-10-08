@@ -584,16 +584,73 @@
 }
 
 [data-kern-theme="sharp"] {
-  --md-sys-shape-corner-none: 0px;
-  --md-sys-shape-corner-extra-small: 0px;
-  --md-sys-shape-corner-small: 2px;
-  --md-sys-shape-corner-medium: 2px;
-  --md-sys-shape-corner-large: 2px;
-  --md-sys-shape-corner-large-increased: 2px;
+  --md-sys-shape-corner-extra-extra-large: 2px;
   --md-sys-shape-corner-extra-large: 2px;
   --md-sys-shape-corner-extra-large-increased: 2px;
+  --md-sys-shape-corner-extra-small: 0px;
+  --md-sys-shape-corner-large: 2px;
+  --md-sys-shape-corner-large-increased: 2px;
+  --md-sys-shape-corner-medium: 2px;
+  --md-sys-shape-corner-small: 2px;
+}
+
+.dark[data-kern-theme="sharp"] {
   --md-sys-shape-corner-extra-extra-large: 2px;
-  --md-sys-shape-corner-full: 9999px;
+  --md-sys-shape-corner-extra-large: 2px;
+  --md-sys-shape-corner-extra-large-increased: 2px;
+  --md-sys-shape-corner-extra-small: 0px;
+  --md-sys-shape-corner-large: 2px;
+  --md-sys-shape-corner-large-increased: 2px;
+  --md-sys-shape-corner-medium: 2px;
+  --md-sys-shape-corner-small: 2px;
+}
+
+[data-kern-theme="brand"] {
+  --md-sys-color-on-primary-container: #422006;
+  --md-sys-color-primary: #713f12;
+  --md-sys-color-primary-container: #fef9c3;
+}
+
+.dark[data-kern-theme="brand"] {
+  --md-sys-color-on-primary: #422006;
+  --md-sys-color-on-primary-container: #fef9c3;
+  --md-sys-color-primary: #facc15;
+  --md-sys-color-primary-container: #713f12;
+}
+
+[data-kern-theme="compact"] {
+  --md-sys-shape-corner-extra-extra-large: 36px;
+  --md-sys-shape-corner-extra-large: 21px;
+  --md-sys-shape-corner-extra-large-increased: 24px;
+  --md-sys-shape-corner-extra-small: 3px;
+  --md-sys-shape-corner-large: 12px;
+  --md-sys-shape-corner-large-increased: 15px;
+  --md-sys-shape-corner-medium: 9px;
+  --md-sys-shape-corner-small: 6px;
+}
+
+.dark[data-kern-theme="compact"] {
+  --md-sys-shape-corner-extra-extra-large: 36px;
+  --md-sys-shape-corner-extra-large: 21px;
+  --md-sys-shape-corner-extra-large-increased: 24px;
+  --md-sys-shape-corner-extra-small: 3px;
+  --md-sys-shape-corner-large: 12px;
+  --md-sys-shape-corner-large-increased: 15px;
+  --md-sys-shape-corner-medium: 9px;
+  --md-sys-shape-corner-small: 6px;
+}
+
+[data-kern-theme="demo"] {
+  --md-sys-color-on-secondary-container: #052e16;
+  --md-sys-color-secondary: #14532d;
+  --md-sys-color-secondary-container: #dcfce7;
+}
+
+.dark[data-kern-theme="demo"] {
+  --md-sys-color-on-secondary: #052e16;
+  --md-sys-color-on-secondary-container: #dcfce7;
+  --md-sys-color-secondary: #4ade80;
+  --md-sys-color-secondary-container: #14532d;
 }
 
 /* App-token bridge for consumers using generic semantic names. */
