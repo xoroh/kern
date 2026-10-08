@@ -84,6 +84,11 @@ for (const platform of ["web", "mobile"]) {
   const themeLeaf = NAV_SECTIONS.flatMap((s) => s.leaves).find(
     (l) => l.href === "/foundations/theme",
   );
+  if (!themeLeaf) {
+    throw new Error(
+      "generate-page-md: no /foundations/theme nav leaf — the theme .md has no title/one-liner source",
+    );
+  }
   const catalog = JSON.parse(
     readFileSync(
       join(ROOT, "packages/kern-tokens/src/themes/index.json"),

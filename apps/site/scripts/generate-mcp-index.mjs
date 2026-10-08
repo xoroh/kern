@@ -52,6 +52,11 @@ const families = {
 const themeLeaf = NAV_SECTIONS.flatMap((s) => s.leaves).find(
   (l) => l.href === "/foundations/theme",
 );
+if (!themeLeaf) {
+  throw new Error(
+    "generate-mcp-index: no /foundations/theme nav leaf — the theme index entry has no title/one-liner source",
+  );
+}
 const index = buildMcpIndex(families, FOUNDATIONS, {
   title: themeLeaf.label,
   oneLiner: themeLeaf.hint,
