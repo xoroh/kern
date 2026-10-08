@@ -1,4 +1,4 @@
-// "@xoroh/kern/native" entry — React Native implementation.
+// "@xoroh/kern-native" entry — React Native implementation.
 // StyleSheet + Kern tokens. No styling dependencies.
 
 export type {

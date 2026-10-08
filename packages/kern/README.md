@@ -23,7 +23,7 @@ import "@xoroh/kern/theme";
 | Import | What |
 |---|---|
 | `@xoroh/kern` | Web components (React) |
-| `@xoroh/kern/native` | Native components (React Native, StyleSheet + tokens) |
+| `@xoroh/kern-native` | Native components (React Native, StyleSheet + tokens) |
 | `@xoroh/kern/theme` | Theme CSS variables |
 | `@xoroh/kern/tokens` | Tokens as TypeScript (`tokens.json` is the source) |
 | `@xoroh/kern/utils` | `cn` and other pure helpers |
@@ -88,7 +88,7 @@ components + preset themes on core primitives. Blocks depend on core,
 never the reverse — see `../../docs/conventions/file-ownership.md`.
 
 ```tsx
-import { Button } from "@xoroh/kern/native";
+import { Button } from "@xoroh/kern-native";
 
 <Button variant="primary" label="Save" onPress={save} />;
 // same names, same variants, same tokens — StyleSheet, no styling deps

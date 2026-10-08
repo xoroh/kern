@@ -27,7 +27,7 @@ resolve the same scheme, so a token change lands everywhere at once.
 | `@xoroh/kern-primitives` | `packages/kern-primitives` | platform-free | Renderer-agnostic behaviour logic shared by the web and native renderers (see [`conventions/primitives.md`](conventions/primitives.md)) |
 | `@xoroh/kern-icons` | `packages/kern-icons` | both | Material Symbols registry + `Icon` renderer (web and native) |
 | `@xoroh/kern-mcp` | `packages/mcp` | node | MCP server so agents can list components, fetch source, read tokens, audit screens |
-| `@xoroh/kern-cli` | `packages/kern-cli` | — | Experimental, unpublished `kern add` installer (D1): `packages/kern-cli/src` already implements `kern add` vendoring (see `add.ts`), so the old "not implemented" claim is stale — the contradiction is recorded here, not resolved; implementation status is D1's call |
+| `@xoroh/kern-cli` | `packages/kern-cli` | — | Unpublished installer (0.0.0): `kern init` scaffolds the starter, `kern add` vendors web components (`src/init.ts` + `init.test.ts`, `src/add.ts` + `add.test.ts`); receipts stamped from day one; `kern list` / `diff` / `upgrade` coming next |
 
 Plus two apps:
 
@@ -94,7 +94,7 @@ tokens.json  (canonical: {oklch, srgb} per step)          seed
      +--> tokens.css   --md-sys-* custom props  (web)
      +--> themes/kern.json   base role tables, per mode       map
         +--> contrast overlays (medium/high, per mode)
-        +--> sharp.json / brand.json / compact.json           alias
+        +--> sharp.json / brand.json / compact.json / demo.json  alias
              override-data presets, extends kern only
                     |
                     v

@@ -20,8 +20,8 @@ states + spec links, references out to m3.material.io), use-case pages per surfa
 
 ## Work items (ordered)
 
-- [ ] P0-truth: CLI README + tracker row 9 tell the truth (Mode 1 shipped, unpublished); never direct users at lies.
-- [ ] MCP defects to MCP lane: native import string (`@xoroh/kern/native` vs parity-doc `@xoroh/kern-native`) +
+- [x] P0-truth: CLI README + tracker row 9 tell the truth (Mode 1 shipped, unpublished); never direct users at lies.
+- [x] MCP defects to MCP lane: native import string (`@xoroh/kern/native` vs parity-doc `@xoroh/kern-native`) +
       `get_tokens` missing `compact` (pipeline ships it — `docs/architecture.md:98`).
 - [ ] Use-case pages: CLI (scaffold shell `add`×N / single-component hybrid / `--self-contained` eject /
       Mode 2 `bun add` / receipt-audit-future-as-coming); MCP (inventory / pull-source / compare-presets /

@@ -304,7 +304,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `top-bar-menu` | `TopBarMenu` | real |
 | `user-menu` | `UserMenu` | real |
 
-## Native (`@xoroh/kern/native`)
+## Native (`@xoroh/kern-native`)
 
 | name | export | status |
 |---|---|---|
