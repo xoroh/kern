@@ -122,6 +122,11 @@ export function useKernTheme(options: WebThemeOptions = {}) {
   useEffect(() => {
     if (!preferenceLoaded || typeof document === "undefined") return;
     applyKernTheme(document.documentElement, mode, contrast, variant);
+    // Mirror the root shell init script (apps/site __root THEME_INIT): the
+    // script sets class + colorScheme before first paint, and this effect
+    // re-asserts both on every mode change so toggling cannot leave a stale
+    // colorScheme behind. Native controls inherit it from the root.
+    document.documentElement.style.colorScheme = mode;
     try {
       if (preference === "system") window.localStorage.removeItem(STORAGE_KEY);
       else window.localStorage.setItem(STORAGE_KEY, preference);

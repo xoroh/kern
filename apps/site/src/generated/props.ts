@@ -7960,7 +7960,7 @@ export const GENERATED_PROPS: Record<string, Array<{
     },
     {
       "name": "dir",
-      "type": "any",
+      "type": "A11yDir | undefined",
       "required": false,
       "src": "packages/kern/src/components/sheet-family.tsx:74",
       "note": "Text direction for the surface. Resolved through the shared `dir` kernel\n(explicit wins, else the host default, else `ltr` — never undefined), so\nboth renderers answer direction the same way."
@@ -7976,7 +7976,7 @@ export const GENERATED_PROPS: Record<string, Array<{
     },
     {
       "name": "dir",
-      "type": "any",
+      "type": "A11yDir | undefined",
       "required": false,
       "src": "packages/kern/src/components/sheet-family.tsx:74",
       "note": "Text direction for the surface. Resolved through the shared `dir` kernel\n(explicit wins, else the host default, else `ltr` — never undefined), so\nboth renderers answer direction the same way."
@@ -8070,7 +8070,7 @@ export const GENERATED_PROPS: Record<string, Array<{
     },
     {
       "name": "dir",
-      "type": "any",
+      "type": "A11yDir | undefined",
       "required": false,
       "src": "packages/kern/src/components/sheet-family.tsx:74",
       "note": "Text direction for the surface. Resolved through the shared `dir` kernel\n(explicit wins, else the host default, else `ltr` — never undefined), so\nboth renderers answer direction the same way."
@@ -8163,7 +8163,7 @@ export const GENERATED_PROPS: Record<string, Array<{
     },
     {
       "name": "dir",
-      "type": "any",
+      "type": "A11yDir | undefined",
       "required": false,
       "src": "packages/kern/src/components/sheet-family.tsx:74",
       "note": "Text direction for the surface. Resolved through the shared `dir` kernel\n(explicit wins, else the host default, else `ltr` — never undefined), so\nboth renderers answer direction the same way."
@@ -8243,7 +8243,7 @@ export const GENERATED_PROPS: Record<string, Array<{
     },
     {
       "name": "dir",
-      "type": "any",
+      "type": "A11yDir | undefined",
       "required": false,
       "src": "packages/kern/src/components/sheet-family.tsx:74",
       "note": "Text direction for the surface. Resolved through the shared `dir` kernel\n(explicit wins, else the host default, else `ltr` — never undefined), so\nboth renderers answer direction the same way."
@@ -8328,7 +8328,7 @@ export const GENERATED_PROPS: Record<string, Array<{
     },
     {
       "name": "dir",
-      "type": "any",
+      "type": "A11yDir | undefined",
       "required": false,
       "src": "packages/kern/src/components/sheet-family.tsx:74",
       "note": "Text direction for the surface. Resolved through the shared `dir` kernel\n(explicit wins, else the host default, else `ltr` — never undefined), so\nboth renderers answer direction the same way."

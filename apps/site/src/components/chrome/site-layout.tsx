@@ -9,42 +9,49 @@ import { T_BODY_SM, T_LABEL } from "../../systems/type-scale";
 
 /**
  * Docs-section paths render with the section sidebar tree. The header covers
- * the top-level destinations; it does not map the docs section, so these
- * paths get the tree. Anything else renders full-width.
+ * the five hub destinations (Foundations, Components, Patterns, Playground,
+ * Showcase) with its primary tabs, so hub pages — including every
+ * /foundations/* page — render full-width with no second tree stacked
+ * beside the in-page family nav. /getting-started is a guide, not a docs
+ * section, so it renders full-width too. Anything else renders full-width.
  */
-const SIDEBAR_PREFIXES = [
-  "/docs",
-  "/components",
-  "/foundations",
-  "/getting-started",
-];
+const SIDEBAR_PREFIXES = ["/docs", "/components"];
 
 /**
  * "On this page" for viewports where the sidebar tree is hidden (below lg,
- * i.e. phones and the 768–1024 tablet band).
+ * i.e. phones and the 768–1024 tablet band, where the hamburger + drawer
+ * carry navigation instead of the rail).
  *
  * The items are read from the rendered page — every `h2[id]` inside `#main`
  * — so the disclosure can never list a section that is not there, and pages
  * with fewer than two sections render nothing rather than a one-item menu.
  * Component-page headings carry an explicit permalink `#`, which is stripped
  * from the label.
+ *
+ * The initial state reads the DOM synchronously (client only — SSR has no
+ * document, so the server renders nothing) so the first client paint already
+ * lists the sections instead of popping them in after hydration. The effect
+ * re-reads on client-side navigation, where the DOM has already swapped
+ * beneath the mounted shell.
  */
+function readTocItems(): { id: string; text: string }[] {
+  if (typeof document === "undefined") return [];
+  const main = document.getElementById("main");
+  if (!main) return [];
+  return [...main.querySelectorAll("h2[id]")]
+    .map((h) => ({
+      id: h.id,
+      text: (h.textContent ?? "").replace(/#$/, "").trim(),
+    }))
+    .filter((item) => item.id !== "" && item.text !== "");
+}
+
 function SectionToc({ pathname }: { pathname: string }) {
-  const [items, setItems] = useState<{ id: string; text: string }[]>([]);
+  const [items, setItems] = useState<{ id: string; text: string }[]>(() =>
+    readTocItems(),
+  );
   useEffect(() => {
-    const main = document.getElementById("main");
-    if (!main) {
-      setItems([]);
-      return;
-    }
-    setItems(
-      [...main.querySelectorAll("h2[id]")]
-        .map((h) => ({
-          id: h.id,
-          text: (h.textContent ?? "").replace(/#$/, "").trim(),
-        }))
-        .filter((item) => item.id !== "" && item.text !== ""),
-    );
+    setItems(readTocItems());
   }, [pathname]);
   if (items.length < 2) return null;
   return (
@@ -84,14 +91,15 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         Skip to content
       </a>
       {/* The header is the primary chrome on every page. The rail renders
-          alongside it on docs-context pages only — it is offset into the
-          content column so the two never overlap. */}
+          alongside it on docs-context pages only, at lg and up — below lg
+          the hamburger + drawer carry every destination, so exactly one
+          navigation surface owns each viewport and the two never overlap. */}
       {withSidebar ? <AppRail /> : null}
       {/* data-chrome marks the regions the search palette makes inert while
           it is open. The palette itself renders outside them (below), so
           insetting the page never traps the dialog it is trying to show. */}
       <div
-        className={withSidebar ? "flex flex-col md:pl-20" : "flex flex-col"}
+        className={withSidebar ? "flex flex-col lg:pl-20" : "flex flex-col"}
         data-chrome="content"
       >
         <SiteHeader />

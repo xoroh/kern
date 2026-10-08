@@ -67,12 +67,16 @@ for (const leaf of leaves) {
   }
 }
 
-// Routes with no nav leaf: walk top-level route files (one deep for groups).
-// A route is covered when any chrome surface reaches it: the sidebar leaves
-// above, the header tabs and drawer (one PRIMARY_TABS list feeds both, plus
-// the drawer's secondary list), the docs-context rail (RAIL_ITEMS), the
-// footer, or the ⌘K palette (/search opens from every page via header,
-// drawer, and keyboard). Anything left over is an orphan and fails.
+// Routes with no nav leaf: walk the whole route tree recursively. A route is
+// covered when any chrome surface reaches it: the sidebar leaves above, the
+// header tabs and drawer (one PRIMARY_TABS list feeds both, plus the
+// drawer's secondary list), the docs-context rail (RAIL_ITEMS), the footer,
+// or the ⌘K palette (/search opens from every page via header, drawer, and
+// keyboard). Anything left over is an orphan and fails. The walk used to
+// stop one level deep, so nested hubs (foundations/theme, components/web,
+// components/mobile, legal/*) were never scanned — a hub added without a
+// nav entry passed silently. Dynamic segments ($page, $platform, $component)
+// are skipped: they are instances of their hub, reached through it.
 const covered = new Set([...seen.keys()]);
 for (const file of [
   join(SITE, "src", "components", "chrome", "site-header.tsx"),
@@ -103,23 +107,18 @@ function isRedirectAlias(file) {
 function topRoutes(dir, prefix) {
   for (const e of readdirSync(dir, { withFileTypes: true })) {
     if (e.name.startsWith("_") || e.name.startsWith("-")) continue;
+    const full = join(dir, e.name);
     if (e.isDirectory()) {
-      const idx = join(dir, e.name, "index.tsx");
-      if (
-        existsSync(idx) &&
-        !covered.has(`${prefix}/${e.name}`) &&
-        !isRedirectAlias(idx)
-      ) {
-        unlisted.push(`${prefix}/${e.name}`);
-      }
+      // Dynamic group segments have no URL of their own.
+      if (e.name.startsWith("$") || e.name.startsWith("(")) continue;
+      topRoutes(full, `${prefix}/${e.name}`);
       continue;
     }
     if (!e.name.endsWith(".tsx")) continue;
     const base = e.name.replace(/\.tsx$/, "");
     if (base.startsWith("$") || base === "__root") continue;
-    const href = base === "index" ? "/" : `${prefix}/${base}`;
-    if (!covered.has(href) && !isRedirectAlias(join(dir, e.name)))
-      unlisted.push(href);
+    const href = base === "index" ? prefix || "/" : `${prefix}/${base}`;
+    if (!covered.has(href) && !isRedirectAlias(full)) unlisted.push(href);
   }
 }
 topRoutes(join(SITE, "src", "routes"), "");

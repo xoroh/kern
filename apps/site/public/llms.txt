@@ -41,6 +41,10 @@ Prefer these machine surfaces over scraping HTML:
 
 - [Playground](/playground): Repaint the system, or search it
 
+## Showcase
+
+- [Showcase](/showcase): Blocks, templates, and example apps built from kern
+
 ## Start
 
 - [Getting started](/getting-started): From install to a themed component

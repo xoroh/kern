@@ -6381,7 +6381,7 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "dir",
-        type: "any",
+        type: "A11yDir | undefined",
         required: false,
       },
     ],
@@ -6396,7 +6396,7 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "dir",
-        type: "any",
+        type: "A11yDir | undefined",
         required: false,
       },
       {
@@ -6476,7 +6476,7 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "dir",
-        type: "any",
+        type: "A11yDir | undefined",
         required: false,
       },
       {
@@ -6551,7 +6551,7 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "dir",
-        type: "any",
+        type: "A11yDir | undefined",
         required: false,
       },
       {
@@ -6616,7 +6616,7 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "dir",
-        type: "any",
+        type: "A11yDir | undefined",
         required: false,
       },
       {
@@ -6686,7 +6686,7 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "dir",
-        type: "any",
+        type: "A11yDir | undefined",
         required: false,
       },
       {

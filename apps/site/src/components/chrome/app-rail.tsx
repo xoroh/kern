@@ -10,8 +10,9 @@
  * `LinkProvider`, the seam /kern/start provides for exactly this case, and
  * the glyphs come from `@xoroh/kern-icons`.
  *
- * Below md the rail is hidden and the header hamburger carries every
- * destination through the mobile drawer instead.
+ * Below lg the rail is hidden and the header hamburger carries every
+ * destination through the mobile drawer instead — one navigation surface
+ * per viewport, never rail-plus-menu at once.
  */
 import { useLocation } from "@tanstack/react-router";
 import { useKernTheme } from "@xoroh/kern";
@@ -21,27 +22,29 @@ import {
   NavigationRail,
   NavigationRailButton,
 } from "@xoroh/kern/start";
-import { Icon, type IconSemantic } from "@xoroh/kern-icons";
+import { Icon, type IconNameInput } from "@xoroh/kern-icons";
 import { T_LABEL_LG } from "../../systems/type-scale";
 import { GitHubIcon } from "./github-icon";
 import { openSearch } from "./search-palette";
 
 /**
- * Every docs-context destination, in rail order. The header and drawer read
- * their own lists; this one stays because check-nav counts the rail as a
- * chrome surface that keeps these routes reachable.
+ * The five hub destinations, in rail order — the same 5-tab IA the header
+ * renders, so the rail never contradicts it. Non-hub destinations (docs
+ * section pages, getting started, configurator, changelog) stay reachable
+ * through the sidebar tree, the drawer, and the footer; check-nav counts
+ * those surfaces, so the rail listing hubs only is a decision, not drift.
  */
-export const RAIL_ITEMS: { href: string; label: string; icon: IconSemantic }[] =
-  [
-    { href: "/", label: "Home", icon: "home" },
-    { href: "/docs", label: "Docs", icon: "info" },
-    { href: "/components", label: "Components", icon: "work" },
-    { href: "/foundations", label: "Foundations", icon: "favorite" },
-    { href: "/theme-configurator", label: "Configurator", icon: "settings" },
-    { href: "/showcase", label: "Showcase", icon: "image" },
-    { href: "/getting-started", label: "Start", icon: "check" },
-    { href: "/changelog", label: "Changelog", icon: "refresh" },
-  ];
+export const RAIL_ITEMS: {
+  href: string;
+  label: string;
+  icon: IconNameInput;
+}[] = [
+  { href: "/foundations", label: "Foundations", icon: "favorite" },
+  { href: "/components", label: "Components", icon: "work" },
+  { href: "/patterns", label: "Patterns", icon: "dashboard" },
+  { href: "/playground", label: "Playground", icon: "science" },
+  { href: "/showcase", label: "Showcase", icon: "image" },
+];
 
 /** Active-path matching, shared with the header and drawer. */
 export function isActivePath(pathname: string, href: string): boolean {
@@ -62,10 +65,10 @@ export function AppRail() {
   return (
     <LinkProvider component={RouterLink}>
       <div
-        className="fixed inset-y-0 left-0 z-50 hidden md:block"
+        className="fixed inset-y-0 left-0 z-50 hidden lg:block"
         data-chrome="rail"
       >
-        {/* Eight destinations plus search no longer fit a short viewport at
+        {/* Five destinations plus search no longer fit a short viewport at
             56px a row, so the rail scrolls internally rather than clipping the
             theme toggle off the bottom. */}
         <NavigationRail

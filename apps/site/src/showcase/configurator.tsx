@@ -140,6 +140,10 @@ export function Configurator({ spec }: { spec: ConfiguratorSpec }) {
             // Column layout like the selects above: the caption sits on top
             // so the checkbox baselines with the select boxes instead of
             // floating higher with no top label (review-showcase 4b minor).
+            // The box is an explicit square that never shrinks in the flex
+            // row, and it inherits the root color-scheme (set by the theme
+            // init + useKernTheme), so the native face follows dark mode
+            // instead of painting a light control on a dark stage.
             <label key={c.name} className={`flex flex-col gap-1 ${LABEL}`}>
               {c.label}
               <input
@@ -147,7 +151,7 @@ export function Configurator({ spec }: { spec: ConfiguratorSpec }) {
                 data-knob={c.name}
                 defaultChecked={c.default}
                 onChange={(e) => set(c.name, e.target.checked)}
-                className="h-5 w-5 accent-(--md-sys-color-primary)"
+                className="size-5 shrink-0 cursor-pointer accent-(--md-sys-color-primary)"
               />
             </label>
           ),

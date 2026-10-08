@@ -18,10 +18,21 @@ function InstallChip() {
     <button
       type="button"
       onClick={() => {
-        void navigator.clipboard?.writeText(COMMAND).then(() => {
-          setCopied(true);
-          setTimeout(() => setCopied(false), 1500);
-        });
+        // `navigator.clipboard` is undefined on insecure origins (plain
+        // http, some previews) — `undefined.then` would hard-crash the
+        // click. No clipboard, no copy affordance change; the command text
+        // itself stays readable and selectable.
+        const pending = navigator.clipboard?.writeText(COMMAND);
+        if (!pending) return;
+        void pending.then(
+          () => {
+            setCopied(true);
+            setTimeout(() => setCopied(false), 1500);
+          },
+          () => {
+            // Denied (permissions policy, headless) — leave the chip alone.
+          },
+        );
       }}
       className="inline-flex cursor-pointer items-center gap-3 rounded-(--md-sys-shape-corner-full) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container) px-5 py-2.5 font-mono text-sm text-(--md-sys-color-on-surface) transition-colors hover:bg-(--md-sys-color-surface-container-high)"
       aria-label={`Copy install command: ${COMMAND}`}

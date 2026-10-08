@@ -198,7 +198,7 @@ export function SearchPalette() {
         type="button"
         aria-label="Close search"
         onClick={close}
-        className="absolute inset-0 cursor-default border-0 bg-black/40"
+        className="absolute inset-0 cursor-default border-0 bg-(--md-sys-color-scrim)/40"
       />
       <div className="relative w-full max-w-xl overflow-hidden rounded-(--md-sys-shape-corner-large) bg-(--md-sys-color-surface) shadow-(--md-sys-elevation-level3)">
         <div className="flex items-center gap-2 border-b border-(--md-sys-color-outline-variant) p-3">

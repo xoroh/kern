@@ -146,6 +146,20 @@ export const NAV_SECTIONS: NavSection[] = [
     ],
   },
   {
+    // The hub exists as an honest placeholder (no blocks ship yet), but it
+    // is still a destination: without a leaf here the sidebar orphans it
+    // and check-nav's zero-orphan rule would fail on the tree's silence.
+    label: "Showcase",
+    leaves: [
+      {
+        label: "Showcase",
+        href: "/showcase",
+        hint: "Blocks, templates, and example apps built from kern",
+        group: "Pages",
+      },
+    ],
+  },
+  {
     label: "Start",
     leaves: [
       {
