@@ -168,9 +168,12 @@ export function KernPortal({ id: idProp, children }: KernPortalProps) {
     };
   }, [id]);
   // First pass renders inline so server rendering never touches `document`;
-  // the effect moves content into the owned host on the client.
+  // the effect moves content into the owned host on the client. The portal is
+  // keyed by overlay id so sibling owned portals sharing one host reconcile
+  // by identity instead of position — an unkeyed mount lets React mismatch
+  // one overlay's subtree for another's on reorder.
   if (!target) return <>{children}</>;
-  return createPortal(children, target);
+  return createPortal(children, target, id);
 }
 
 // ---------------------------------------------------------------------------

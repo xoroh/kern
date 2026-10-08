@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
+import { getKernPortalRegistry } from "./presentation";
 import {
   ActionSheet,
   BottomSheet,
@@ -37,6 +38,55 @@ describe("SheetSurface", () => {
       </SheetSurface>,
     );
     expect(screen.getByText("body copy")).toBeInTheDocument();
+  });
+
+  it("inherits document direction when no dir is given — never pins ltr", () => {
+    render(
+      <SheetSurface open label="Details">
+        <p>body</p>
+      </SheetSurface>,
+    );
+    expect(screen.getByRole("dialog", { name: "Details" })).not.toHaveAttribute(
+      "dir",
+    );
+  });
+
+  it("passes an explicit dir through verbatim", () => {
+    const { unmount } = render(
+      <SheetSurface open label="Details" dir="rtl">
+        <p>body</p>
+      </SheetSurface>,
+    );
+    expect(screen.getByRole("dialog", { name: "Details" })).toHaveAttribute(
+      "dir",
+      "rtl",
+    );
+    unmount();
+  });
+
+  it("stays modal through the double portal (owned + primitive)", () => {
+    // The surface renders through BOTH the primitive's portal and the owned
+    // `KernPortal`. This glances that the owned hop neither strands the
+    // content nor drops the modality contract: the dialog keeps `aria-modal`,
+    // the scrim travels with it, and the owned registry observes exactly one
+    // mount that cleans up on unmount.
+    const registry = getKernPortalRegistry();
+    const before = registry.order();
+    const { unmount } = render(
+      <SheetSurface open label="Details">
+        <p>portal body</p>
+      </SheetSurface>,
+    );
+    const surface = screen.getByRole("dialog", { name: "Details" });
+    expect(surface).toHaveAttribute("aria-modal", "true");
+    expect(screen.getByText("portal body")).toBeInTheDocument();
+    expect(
+      document.querySelector('[data-slot="sheet-surface-backdrop"]'),
+    ).toBeInTheDocument();
+    const added = registry.order().filter((id) => !before.includes(id));
+    expect(added).toHaveLength(1);
+    unmount();
+    for (const id of added) expect(registry.isMounted(id)).toBe(false);
   });
 });
 

@@ -8,7 +8,7 @@ import {
 } from "@xoroh/kern-primitives";
 import type { ReactNode } from "react";
 import { cn } from "../utils/cn";
-import { KernPortal, useKernDir, VisuallyHidden } from "./presentation";
+import { KernPortal, VisuallyHidden } from "./presentation";
 
 /**
  * The kern sheet family — the web versions of the native bottom-sheet concepts.
@@ -67,9 +67,10 @@ export type SheetSurfaceProps = {
   className?: string;
   testID?: string;
   /**
-   * Text direction for the surface. Resolved through the shared `dir` kernel
-   * (explicit wins, else the host default, else `ltr` — never undefined), so
-   * both renderers answer direction the same way.
+   * Text direction for the surface. Passed through verbatim: when absent no
+   * `dir` attribute renders and the surface inherits the document direction.
+   * A kernel `ltr` fallback must never render here — it would pin every sheet
+   * to LTR on RTL pages.
    */
   dir?: A11yDir;
 };
@@ -89,7 +90,6 @@ export function SheetSurface({
   testID,
   dir,
 }: SheetSurfaceProps) {
-  const resolvedDir = useKernDir({ dir });
   return (
     <DialogPrimitive.Root
       open={open}
@@ -114,7 +114,7 @@ export function SheetSurface({
               data-slot="sheet-surface"
               data-testid={testID ?? "kern-sheet-surface"}
               aria-label={label}
-              dir={resolvedDir}
+              dir={dir}
               // Base UI's `Dialog.Popup` traps focus and inerts the page but emits
               // no `aria-modal` (measured). Without it a screen reader announces a
               // dialog with no indication the rest of the page is unreachable —

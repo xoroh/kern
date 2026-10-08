@@ -91,6 +91,30 @@ describe("KernPortal", () => {
     unmount();
     expect(registry.isMounted("test-owned-portal")).toBe(false);
   });
+
+  it("keeps sibling owned portals distinct in one shared host", () => {
+    // Two overlays portal into the same host element; the mount key (overlay
+    // id) is what keeps React from mismatching one subtree for the other.
+    const registry = getKernPortalRegistry();
+    const { unmount } = render(
+      <>
+        <KernPortal id="owned-sibling-a">
+          <div data-testid="owned-sibling-a">alpha</div>
+        </KernPortal>
+        <KernPortal id="owned-sibling-b">
+          <div data-testid="owned-sibling-b">beta</div>
+        </KernPortal>
+      </>,
+    );
+    expect(screen.getByTestId("owned-sibling-a")).toHaveTextContent("alpha");
+    expect(screen.getByTestId("owned-sibling-b")).toHaveTextContent("beta");
+    expect(registry.order()).toEqual(
+      expect.arrayContaining(["owned-sibling-a", "owned-sibling-b"]),
+    );
+    unmount();
+    expect(registry.isMounted("owned-sibling-a")).toBe(false);
+    expect(registry.isMounted("owned-sibling-b")).toBe(false);
+  });
 });
 
 describe("PresenceGate", () => {

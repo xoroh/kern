@@ -35,7 +35,7 @@ import {
   shouldDismissOn,
   usePress,
 } from "@xoroh/kern-primitives";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Text as RNText, type StyleProp, type TextStyle } from "react-native";
 
 // ---------------------------------------------------------------------------
@@ -210,20 +210,36 @@ export type KernPressNativeBindings = {
 
 /**
  * Native binding for the kernel press model. Press-in begins, release over
- * the target reports through `onPress`, release off-target cancels via
- * `onPressOut` (RN fires it without `onPress`). The model owns pressed-or-not;
+ * the target reports through `onPress`, release off-target cancels (RN fires
+ * `onPressOut` without `onPress`). The model owns pressed-or-not;
  * `Pressable` owns the gesture.
+ *
+ * Order hazard, stated plainly: `Pressable` fires `onPressOut` on EVERY
+ * release — including a successful tap, where the order is
+ * `onPressIn` → `onPressOut` → `onPress`. A naive `onPressOut → cancel`
+ * pairing would idle the model before `onPress` runs, so `end()` becomes a
+ * no-op and a real tap never reports. The commit below re-begins when idle,
+ * which makes `onPress` report exactly once under BOTH platform orders
+ * (out-then-press and press-then-out): when pressed, `begin()` is a no-op
+ * and `end()` reports; when idled by an earlier `onPressOut`, `begin()`
+ * re-arms and `end()` reports. Off-target releases still report nothing —
+ * the platform never fires `onPress` for those.
  */
 export function useKernPress(options?: {
   disabled?: boolean;
   onPress?: () => void;
 }): KernPressNativeBindings {
   const press = usePress(options);
+  const { begin, end } = press;
+  const commit = useCallback(() => {
+    begin();
+    end();
+  }, [begin, end]);
   return {
     pressed: press.pressed,
     onPressIn: press.begin,
     onPressOut: press.cancel,
-    onPress: press.end,
+    onPress: commit,
   };
 }
 

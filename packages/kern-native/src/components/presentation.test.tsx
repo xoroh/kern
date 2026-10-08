@@ -264,6 +264,29 @@ describe("useKernPress (native)", () => {
     expect(onPress).not.toHaveBeenCalled();
   });
 
+  it("reports exactly once under the platform out-then-press order", () => {
+    // `Pressable` fires `onPressOut` on EVERY release, including a successful
+    // tap (`onPressIn` → `onPressOut` → `onPress`). The commit must survive
+    // the cancel that precedes it, or no real tap ever reports.
+    const onPress = vi.fn();
+    const hook = probeHook(() => useKernPress({ onPress }));
+    rendererAct(() => hook.current().onPressIn());
+    rendererAct(() => hook.current().onPressOut());
+    rendererAct(() => hook.current().onPress());
+    expect(onPress).toHaveBeenCalledTimes(1);
+    expect(hook.current().pressed).toBe(false);
+  });
+
+  it("reports exactly once under the press-then-out order", () => {
+    const onPress = vi.fn();
+    const hook = probeHook(() => useKernPress({ onPress }));
+    rendererAct(() => hook.current().onPressIn());
+    rendererAct(() => hook.current().onPress());
+    rendererAct(() => hook.current().onPressOut());
+    expect(onPress).toHaveBeenCalledTimes(1);
+    expect(hook.current().pressed).toBe(false);
+  });
+
   it("accepts no input when disabled", () => {
     const onPress = vi.fn();
     const hook = probeHook(() => useKernPress({ disabled: true, onPress }));
