@@ -1,32 +1,28 @@
-# Part 06 — Foundations (theory + color usage)
+# 06 — Foundations (lanes R4 + R6 + color-usage add)
 
-> NOTE: R3 lane report unreadable at synthesis time (history API outage). Content below follows the synthesis contract + color-usage gap add; full file paths TBD pending lane-report recovery.
+**Goal:** theory-only domain (no components): tokens, color, type, elevation, shape, motion, states, theme
+reference, accessibility, icons — plus the missing color-usage guidance.
 
-## Goal
+**Research verdict:** foundations are already consolidated and theory-only (all figures from `content/foundations/*`,
+registry `FOUNDATIONS` `foundations/shell.tsx:34-105` with reading order + K-deviation chips). M3 map (R4):
+Color (scheme roles/light-dark/HCT seed — ours: role-grammar bands `content/foundations/color.ts:36-55`, 45 M3
+roles + 13 kern extras `:62-76,169-171`), Typography (15 M3 roles → our 30 styles `--md-sys-typescale-*`,
+`check-typescale.mjs`), Elevation (typed `RestingElevation` `content/types.ts:31` vs `m3-elevation.ts`), Shape
+(corner ladder `foundations/theme/index.tsx:249-270`), Motion (ours foundations-only — no per-component slot),
+States (hover/focus/pressed overlays `content/foundations/states.ts` + token-table state column). `/foundations/theme`
+reads everything live from the package (swatches, deltas, `resolveThemeLayers` matrix, `PhonePreview`/`RoleProof`).
 
-Keep foundations theory-only (with the theme-page split) and close the color-usage gap: swatches exist, usage guidance does not.
+**Design:** reference-page look: swatch grids, ladders, tiles, live values, zero configuration UI (configuration
+lives in G). M3-structure order: color → typography → elevation → shape → motion → states.
 
-## Research verdict
+## Work items (ordered)
 
-Foundations ship as theory pages only — no runtime code this cycle — with theme content split onto its own page; on top of that, a color-usage workstream adds the missing role→surface guidance (which roles for which surfaces, with do/don't rules) that other systems ship and we lack.
+- [ ] Split `/foundations/theme`: theory (roles exist, what they mean) stays; configuration moves to G.
+- [ ] COLOR-USAGE GAP (new — others have it, we don't): role→surface map (which role for which surface, per
+      M3 usage + our 13 extras), usage rules (do/don't, contrast pairs, tonal pairing), live examples. New
+      `content/foundations/color-usage.ts` + gate that every role in the map exists in tokens.
+- [ ] Motion: keep foundations-only (document the choice; per-component motion stays out of grammar).
+- [ ] Icons gallery stays shared corpus (used by guides too — import, don't copy).
 
-## Work items
-
-- [ ] Keep foundations theory-only (no component/token runtime code in this part).
-- [ ] Execute theme-page split (theme content to dedicated theme page; paths TBD).
-- [ ] Color-usage: role→surface map (which color roles apply to which surfaces, light + dark).
-- [ ] Color-usage: usage rules (do/don't: contrast, state layers, on-colors, error/success handling).
-- [ ] Color-usage: examples (per-role applied examples on real surfaces).
-- [ ] Gate: every shipped swatch has a documented role, allowed surfaces, and a do/don't example.
-
-## Design
-
-M3-based foundations pages: shared chrome (docs shell, TOC rail) throughout; domain chrome is the theory layout itself — swatch grids paired with usage tables and do/don't example cards, theme page visually parallel to foundations index.
-
-## Gates
-
-- Theory-only boundary held; theme split complete; color-usage map + rules + examples published.
-
-## Out of scope
-
-- Token implementation, component code, customizer work (Parts 01/02/05).
+**Gates:** `check-typescale`, token gates, `check:docs` chain.
+**Out of scope:** new tokens (D6 needs design sign-off — using tokens is agent-safe, changing values is not).

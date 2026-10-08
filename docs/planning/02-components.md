@@ -1,30 +1,27 @@
-# Part 02 — Components
+# 02 — Components domain (lanes R6 + R2 verdict)
 
-> NOTE: R2 lane report unreadable at synthesis time (history API outage). Content below follows the synthesis contract only; full file paths TBD pending lane-report recovery.
+**Goal:** a separated components domain whose sidebar holds just components, well organized — the catalog.
 
-## Goal
+**Research verdict:** component pages are the strongest surface (page grammar lede→demo→props→tokens→
+semantic-dom→a11y→limitations→faq→spec enforced by shared `systems/grammar.ts:29-91` imported by template AND
+gate so they "cannot disagree"; template `components/docs/component-page.tsx` ~1600 lines; props
+compiler-extracted + hand-`note` merged, `check-props` gated). Gallery grouping already comes from
+`content/families.ts` (`FAMILY_GROUPS`) — that taxonomy becomes C's sidebar.
 
-Lock the components domain boundary, drive the sidebar from `FAMILY_GROUPS`, and execute the reference move.
+**Design:** M3-catalog look: family-grouped sidebar, per-family pages in the existing grammar, gallery index.
+Shared chrome (header/footer/search) + domain sidebar. No theory pages here.
 
-## Research verdict
+## Work items (ordered)
 
-Components form a bounded domain over primitives with family-grouped navigation; the sidebar is generated from the `FAMILY_GROUPS` source of truth, and reference material moves out of the component pages into its dedicated location.
+- [ ] Move `apps/site/src/routes/components/**` (4 files incl `$platform/$component.tsx` with canonical-slug 301
+      `:55-75` + prev/next `systems/component-nav.ts`) into the components domain, preserving URLs or 301s
+      (reuse the `styles/$page.tsx` slug-preserving redirect shape).
+- [ ] Move `routes/docs/reference.tsx` → components `/reference` (it is a component index, not main docs).
+- [ ] Sidebar generated from `FAMILY_GROUPS`; `/components/web` + `/components/mobile` galleries stay, pages live once.
+- [ ] Move `/patterns` → Blocks (R6: all 6 cards link into C; D must have NO components) — or rewrite all targets
+      cross-domain if kept.
+- [ ] Content model stays in shared corpus (`content/web/**`, `content/mobile/**` ~190 files, `types.ts`,
+      `index.ts` dual discovery glob+readdir) — imported, never copied.
 
-## Work items
-
-- [ ] Define components domain boundary (what lives in components vs. primitives/blocks; paths TBD).
-- [ ] Build sidebar from `FAMILY_GROUPS` (single source of truth; remove hand-maintained entries).
-- [ ] Execute reference move (reference content to dedicated reference location; leave redirects/stubs as lanes specified).
-- [ ] Gate: sidebar renders solely from `FAMILY_GROUPS` with no drift.
-
-## Design
-
-M3-based component pages: shared chrome (docs shell, `FAMILY_GROUPS` sidebar, `OnThisPage` rail, pager) is uniform; domain chrome is the family-grouped component layout (anatomy, variants, reference links) — families differ in content, never in frame.
-
-## Gates
-
-- Domain boundary documented; sidebar generated from `FAMILY_GROUPS`; reference move complete.
-
-## Out of scope
-
-- Primitive gaps (Part 01), blocks registry (Part 04), docs corpus changes (Part 03).
+**Gates:** `check:grammar`, `check-props`, `check-component-nav`, `check:docs` chain.
+**Out of scope:** per-component motion slot (grammar gap — foundations owns motion; revisit in 06).

@@ -1,30 +1,37 @@
-# Part 01 — Primitives
+# 01 — Primitives standalone (lane R1 verdict)
 
-> NOTE: R1 lane report unreadable at synthesis time (history API outage). Content below follows the synthesis contract only; full file paths TBD pending lane-report recovery.
+**Goal:** anyone can install and use `@xoroh/kern-primitives` without the kern ecosystem, find it by
+searching "React Native headless primitives", and read per-module docs on its own subdomain.
 
-## Goal
+**Research verdict:** shippable by construction today (only peer is `react >= 18` —
+`packages/kern-primitives/package.json:46-48`; boundary over transitive closure bans tokens/renderers —
+`scripts/check-primitives.mjs:1-60`; dual ESM/CJS + `publint`/`attw` — `package.json:19-44`), but invisible:
+no nav section (`apps/site/src/systems/nav.ts:33-191`), README covers ~7/15 modules, description never says
+"React Native", version `0.0.0` un-pinnable. Every kernel module returns data/decisions with the renderer
+binding platform events (slot `slot.ts:13-24`, press `press.ts:14-20`, presence `presence.ts:15-21`, portal
+`portal.ts:15-21`, dismiss `dismissPolicy.ts:21-30` + `dismissWiring.ts:13-25`) — adapter-ready by design.
 
-Close standalone primitive gaps (G1–G8), set rn-reusables adapter preconditions, and lock RN-explicit positioning.
+**Design:** P domain = "Primitives" brand (renderer-agnostic kernel + RN-standalone install path). Per-module
+pages (anatomy + API + example, Radix-style), install-first landing, M3-neutral chrome.
 
-## Research verdict
+## Work items (ordered)
 
-Standalone primitives ship first as framework-agnostic units; the rn-reusables adapter is gated on preconditions rather than assumed, and React Native positioning stays explicit (no implicit web-position fallbacks).
+- [ ] P0-truth: `kern-primitives` keywords + "React Native" in `package.json:2-4` description (searchability).
+- [ ] G2: README documents all 15 modules (missing today: a11y, dismissWiring, focusTrap, portal, positioning,
+      presence, press, slot, time) + one usage example per kernel module, not just `useRovingModel`.
+- [ ] G1: decide subpath exports (`@xoroh/kern-primitives/presence`) vs documented barrel-only (`package.json:23-33`).
+- [ ] G8: route native Button through `useKernPress` (`presentation.tsx:228-244`) + slot-merge for icon slot
+      (`button.tsx:230`) — today `kern-native/src/components/button.tsx:1-14` imports zero kernel modules while
+      siblings (sheet-surface, dialog, tooltip, icon-button) already consume it.
+- [ ] G7: publish/document the binding contract (today `presentation.tsx:1-17` bindings are not barrel-exported).
+- [ ] G3/G4: primitives subdomain (install `bun add @xoroh/kern-primitives`, per-module pages, new
+      `primitives-nav.ts` in `NavSection` shape); P links to C's `/components/mobile/*` for themed components.
+- [ ] G5: versioning story (publish — unblocks pinning).
+- [ ] G6 (above) + getting-started step 6 (`getting-started.tsx:72-89`) moves to P as "install without ecosystem".
+- [ ] 2nd-library adapter: **react-native-reusables (`@rn-primitives/*`)** — only headless-behavior fit (Slot/Presence/
+      Portal/dismiss map 1:1; no compiler, no token engine; siblings Dialog/Menu/Popover/Tooltip scale with one
+      recipe). Preconditions: G8 + G7 done + live-verify `Slot`/`Portal`/`asChild` exports. Rejected: gluestack
+      (token engine fights `kern-tokens`), tamagui (compiler + system), dripsy/unistyles (styling, wrong category).
 
-## Work items
-
-- [ ] Close standalone gaps G1–G8 (scope per R1 report; paths TBD).
-- [ ] Record rn-reusables adapter preconditions (version pin, token dependency, API surface) before any adapter code.
-- [ ] Apply RN-explicit positioning rule (no web-default position inheritance on native).
-- [ ] Gate: primitives are independently importable with no cross-domain imports.
-
-## Design
-
-M3-based primitive pages: shared chrome (docs shell, `OnThisPage` rail, search, pager) is uniform; domain chrome is the primitive anatomy layout (props table, states, platform tabs with RN-explicit notes) — no custom page frames.
-
-## Gates
-
-- G1–G8 checklist complete; adapter preconditions documented; RN positioning rule enforced.
-
-## Out of scope
-
-- Components, blocks, playground, and theming work (see Parts 02/04/05/06).
+**Gates:** `check:primitives`, `check:pack`, `publint`/`attw`, `check:dist-exports`.
+**Out of scope:** foreign design-system adapters; second role table (never).

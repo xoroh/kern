@@ -1,30 +1,34 @@
-# Part 04 — Blocks
+# 04 — Blocks domain (lane R2 verdict)
 
-> NOTE: R2/R-lane reports unreadable at synthesis time (history API outage). Content below follows the synthesis contract only; full file paths TBD pending lane-report recovery.
+**Goal:** shadcn-style blocks subdomain: composed sections with live preview + code side by side, installable
+as a unit.
 
-## Goal
+**Research verdict:** shadcn block = registry entry (`type: "registry:block"`, `registryDependencies`,
+`dependencies`, multi-file `files[]`, categories) + viewer (Preview/Code tabs, style/theme/viewport toolbar,
+copy, install command) + category browsing. Our gap is precise: manifest (`packages/mcp/src/manifest.ts:12`,
+rows `{name, export, platform, path, status}` from `generate-manifest.mjs` scanning `AREAS`) has no block type,
+no `files[]`, no primitive-dependency list — a "block" today is N component rows sharing `src/start/*.tsx`.
+Closest existing chrome: `showcase/example.tsx:57` (Example tier: title + Preview/Code APG tabs + Copy/Export/
+Repro + permalink; Block→Template ladder `example.tsx:7`), `showcase/registry.ts:65` (`EXAMPLES`+`CONFIGURATORS`
+keyed by export), install picker `component-page.tsx:484` (npm/bun/pnpm/yarn tabs, persisted; no `kern add` tab —
+CLI unpublished, teaching it would be a lie `:477`). Composition tier exists with a tier law
+(`docs/architecture.md:133`: Component → Block (slot-driven, domain-free) → Scaffold; lower never imports
+higher): `start/blocks.tsx`, `navigation.tsx`, `panes.tsx` (`ListDetail`, `Inspector`), `scaffolds.tsx`
+(`AppShell` regions), `top-app-bar.tsx`.
 
-Define the registry block type, lock viewer anatomy, and fix the block category taxonomy.
+**Design:** blocks-domain chrome: category sidebar, card grid of live mini-renders, per-block page
+(title → toolbar → Preview/Code tabs → deps → prev/next). Blocks import only primitives + `cn`
+(`packages/kern/src/utils/cn.ts`), theme via vars only, zero hex.
 
-## Research verdict
+## Work items (ordered)
 
-Blocks are registry-typed compositions over components with a fixed viewer anatomy; categories are a closed taxonomy so every block is browsable, searchable, and previewable in one consistent viewer.
+- [ ] Manifest: `type: "block"` + `files[]` + `registryDependencies` (kern primitive list) + categories
+      (Sidebar, Dashboard, Auth, Settings, …); generator + gate.
+- [ ] Viewer: Preview/Code tabs + toolbar (theme/viewport/copy/install `kern add <block>`) reusing
+      `showcase/example.tsx` + `copy-button.tsx` (clipboard + execCommand fallback).
+- [ ] `/showcase` shell → blocks index (replace honest-placeholder with real content when first blocks ship);
+      `/patterns` → blocks patterns page.
+- [ ] CLI `add` learns multi-file block entries (closure already handles relative imports — `closure.ts:36-100`).
 
-## Work items
-
-- [ ] Define registry block type (schema for block metadata, props, examples; paths TBD).
-- [ ] Lock viewer anatomy (fixed regions: preview, code, props, variants — per lane spec).
-- [ ] Fix block categories (closed taxonomy; every block assigned exactly one).
-- [ ] Gate: registry validates; viewer renders all categories without per-category forks.
-
-## Design
-
-M3-based block viewer: shared chrome (docs shell + viewer frame) is uniform; domain chrome is the block preview surface itself (category-specific example content only, never layout forks).
-
-## Gates
-
-- Block type schema merged; viewer anatomy frozen; category taxonomy applied to all blocks.
-
-## Out of scope
-
-- Primitive gaps (Part 01), playground customizer (Part 05), demo coverage (Part 07).
+**Gates:** manifest/block gates (new), `check:docs` chain, receipt tests (`add.test.ts`).
+**Out of scope:** fake blocks (showcase stays honest until real ones ship — D8 real-only).
