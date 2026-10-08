@@ -24,3 +24,11 @@ packages/kern-icons/assets/material/
 test-results/
 playwright-report/
 blob-report/
+
+# Org/agent scratch — never commit. Canonical registry lives outside the repo;
+# kern/.team/ holds restored task artifacts (see its README), worktrees/polly/
+caches are per-run throwaway.
+.team/
+.polly/
+.worktrees/
+**/.tanstack/
