@@ -28,8 +28,17 @@ import {
   SPACING,
   SPECTRUM,
   STATES,
+  SURFACE_SLOT_COUNT,
+  SURFACE_SLOTS,
   TYPE_STYLE_COUNT,
   TYPE_STYLES,
+  USAGE_RULE_COUNT,
+  USAGE_RULES,
+  USAGE_SCENE_COUNT,
+  USAGE_SCENES,
+  type SurfaceSlot,
+  type UsageRule,
+  type UsageScene,
 } from "../../content/foundations";
 import {
   F_CARD,
@@ -182,6 +191,49 @@ function ColorPage() {
             ink="primary"
             note="The same role on both sides. Nothing guarantees these two ever separate."
           />
+        </div>
+      </FSection>
+
+      <FSection id="where-roles-go" title="Where roles go">
+        <FProse>
+          The matrix below answers what roles exist; this map answers where
+          each one goes. {SURFACE_SLOT_COUNT} surface slots, from the page
+          itself up the container ladder to brand, status and inverse — every
+          one of the {ROLE_COUNT} roles appears as a fill or an ink somewhere
+          in it, so no role ships without guidance. Slots marked kern are the{" "}
+          {KERN_EXTRA_COUNT} roles Material 3 does not have.
+        </FProse>
+        <div className="flex flex-col gap-2">
+          {SURFACE_SLOTS.map((slot) => (
+            <SlotCard key={slot.slot} slot={slot} />
+          ))}
+        </div>
+      </FSection>
+
+      <FSection id="usage-rules" title="Usage rules">
+        <FProse>
+          {USAGE_RULE_COUNT} laws, each demonstrated live with the theme's own
+          values. Contrast pairs and tonal pairing are rules here, not advice —
+          each names the exact roles the law binds.
+        </FProse>
+        <div className="flex flex-col gap-6">
+          {USAGE_RULES.map((rule) => (
+            <RuleCard key={rule.id} rule={rule} />
+          ))}
+        </div>
+      </FSection>
+
+      <FSection id="usage-examples" title="Assemblies, live">
+        <FProse>
+          Rules show pairs; assemblies show the roles doing one job together —
+          the backdrop a page gives, the panel a container gives, the accent
+          that acts on it. {USAGE_SCENE_COUNT} scenes, every swatch the real
+          role value.
+        </FProse>
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          {USAGE_SCENES.map((scene) => (
+            <SceneCard key={scene.id} scene={scene} />
+          ))}
         </div>
       </FSection>
 
@@ -371,6 +423,120 @@ function PairingSample({
   );
 }
 
+/** One surface slot: its fills painted with the theme's own values. */
+function SlotCard({ slot }: { slot: SurfaceSlot }) {
+  const inkRole = slot.ink ? ROLE_BY_NAME.get(slot.ink) : undefined;
+  const inkAltRole = slot.inkAlt ? ROLE_BY_NAME.get(slot.inkAlt) : undefined;
+  return (
+    <div className={`${F_CARD} flex flex-col gap-2 p-3`}>
+      <div className="flex flex-wrap items-baseline gap-2">
+        <h3 className={`m-0 ${T_SMALL_TITLE} ${F_INK}`} id={`slot-${slot.slot}`}>
+          {slot.title}
+        </h3>
+        {slot.kernExtra ? (
+          <span
+            className={`shrink-0 rounded-full bg-(--md-sys-color-tertiary-container) px-2 py-0.5 ${T_LABEL} text-(--md-sys-color-on-tertiary-container)`}
+          >
+            kern
+          </span>
+        ) : null}
+      </div>
+      <span className={`m-0 ${T_BODY_SM} ${F_INK_SOFT}`}>{slot.body}</span>
+      <div className="flex flex-wrap gap-2">
+        {slot.fills.map((fill) => {
+          const fillRole = ROLE_BY_NAME.get(fill);
+          return (
+            <div
+              key={fill}
+              className="flex min-w-36 flex-1 items-center gap-2 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant) p-2"
+              style={{ background: fillRole?.light, color: inkRole?.light }}
+            >
+              <span className={`font-mono ${T_LABEL}`}>{fill}</span>
+              <span className={`ml-auto ${T_LABEL}`}>
+                {slot.ink ? `on ${slot.ink}` : "no ink"}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+      {inkAltRole && slot.inkAlt ? (
+        <span className={`m-0 font-mono ${T_LABEL} ${F_INK_SOFT}`}>
+          second ink {slot.inkAlt} · {inkAltRole.light}
+        </span>
+      ) : null}
+    </div>
+  );
+}
+
+/** One usage rule: the law, then its live do and don't. */
+function RuleCard({ rule }: { rule: UsageRule }) {
+  return (
+    <div className="flex flex-col gap-2">
+      <h3 className={`m-0 ${T_SMALL_TITLE} ${F_INK}`} id={`rule-${rule.id}`}>
+        {rule.title}
+      </h3>
+      <span className={`m-0 max-w-[62ch] ${T_BODY_SM} ${F_INK_SOFT}`}>
+        {rule.body}
+      </span>
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <PairingSample
+          verdict="Do"
+          fill={rule.do.fill}
+          ink={rule.do.ink}
+          note={rule.do.label}
+        />
+        <PairingSample
+          verdict="Don't"
+          fill={rule.dont.fill}
+          ink={rule.dont.ink}
+          note={rule.dont.label}
+        />
+      </div>
+    </div>
+  );
+}
+
+/** One composed scene: backdrop, panel, accent — all real role values. */
+function SceneCard({ scene }: { scene: UsageScene }) {
+  const backdrop = ROLE_BY_NAME.get(scene.backdrop);
+  const panel = ROLE_BY_NAME.get(scene.panel);
+  const panelInk = ROLE_BY_NAME.get(scene.panelInk);
+  const accent = ROLE_BY_NAME.get(scene.accent);
+  const accentInk = ROLE_BY_NAME.get(scene.accentInk);
+  return (
+    <div className={`${F_CARD} flex flex-col gap-2 p-3`}>
+      <h3 className={`m-0 ${T_SMALL_TITLE} ${F_INK}`} id={`scene-${scene.id}`}>
+        {scene.title}
+      </h3>
+      <div
+        className="flex flex-col gap-2 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant) p-3"
+        style={{ background: backdrop?.light }}
+      >
+        <div
+          className="flex flex-col gap-2 rounded-(--md-sys-shape-corner-small) p-3"
+          style={{ background: panel?.light, color: panelInk?.light }}
+        >
+          <span className={`m-0 ${T_SMALL_TITLE}`}>
+            {scene.panel} · {scene.panelInk}
+          </span>
+          <span className={`m-0 ${T_BODY_SM}`}>The quick brown fox</span>
+          <span
+            className={`self-start rounded-(--md-sys-shape-corner-full) px-3 py-1 ${T_LABEL}`}
+            style={{ background: accent?.light, color: accentInk?.light }}
+          >
+            {scene.accent}
+          </span>
+        </div>
+        <span className={`m-0 font-mono ${T_LABEL} ${F_INK_SOFT}`}>
+          {scene.backdrop} behind · {scene.panel} holding · {scene.accent}{" "}
+          acting
+        </span>
+      </div>
+      <span className={`m-0 ${T_BODY_SM} ${F_INK_SOFT}`}>{scene.body}</span>
+    </div>
+  );
+}
+
 // --------------------------------------------------------------------- type
 function TypePage() {
   // The specimens render with their OWN tokens — each style is set with the
@@ -517,6 +683,16 @@ function MotionPage() {
           {MOTION_EASING.length} easings, {MOTION_DURATION.length} durations and
           two named schemes. Every demo below runs on the token value shown
           beside it.
+        </FProse>
+      </FSection>
+
+      <FSection id="foundations-only" title="Foundations only, by decision">
+        <FProse>
+          Motion lives here and nowhere else: the token grammar carries no
+          per-component motion slot, so a component never names its own curve,
+          duration or spring. Shared motion keeps every surface moving on the
+          same physics; a component that needs to move differently reaches for
+          this grid, not for a private vocabulary.
         </FProse>
       </FSection>
 

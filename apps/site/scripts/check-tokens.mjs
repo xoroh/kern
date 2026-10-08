@@ -42,6 +42,16 @@ import {
   ROLE_GROUP_ENTRIES,
   SPECTRUM,
 } from "../src/content/foundations/color.ts";
+import {
+  COLOR_USAGE_ORPHANS,
+  COLOR_USAGE_ROLES,
+  SURFACE_SLOT_COUNT,
+  SURFACE_SLOTS,
+  USAGE_RULE_COUNT,
+  USAGE_RULES,
+  USAGE_SCENE_COUNT,
+  USAGE_SCENES,
+} from "../src/content/foundations/color-usage.ts";
 import { ELEVATION_LEVELS } from "../src/content/foundations/elevation.ts";
 import {
   MOTION_DURATION,
@@ -286,10 +296,66 @@ spot(
   `spot base: background srgb/oklch mismatch`,
 );
 
+// ---- (d) color-usage: the map names only shipped roles, and covers all of
+// them. A usage entry naming a role kern does not ship is a stale sentence;
+// a shipped role with no usage entry is guidance debt. Both fail here.
+const tokenRoleNames = new Set(COLOR_ROLES.map((r) => r.name));
+for (const name of COLOR_USAGE_ROLES) {
+  check(
+    tokenRoleNames.has(name),
+    `color-usage references "${name}" — no such role in the theme`,
+  );
+}
+check(
+  new Set(COLOR_USAGE_ROLES).size === COLOR_USAGE_ROLES.length,
+  `color-usage names a role twice — COLOR_USAGE_ROLES must be deduplicated`,
+);
+check(
+  COLOR_USAGE_ORPHANS.length === 0,
+  `color-usage orphans ${COLOR_USAGE_ORPHANS.length} shipped role(s): ${COLOR_USAGE_ORPHANS.join(", ")}`,
+);
+// shape: slots carry fills, rules carry a do and a don't, scenes carry all
+// five scene roles, and the counts the Color page reads match the arrays.
+check(
+  SURFACE_SLOTS.length === SURFACE_SLOT_COUNT && SURFACE_SLOTS.length > 0,
+  `color-usage slots ${SURFACE_SLOTS.length} != SURFACE_SLOT_COUNT ${SURFACE_SLOT_COUNT}`,
+);
+for (const slot of SURFACE_SLOTS) {
+  check(
+    Array.isArray(slot.fills) && slot.fills.length > 0,
+    `color-usage slot "${slot.slot}" names no fills`,
+  );
+}
+check(
+  USAGE_RULES.length === USAGE_RULE_COUNT && USAGE_RULES.length > 0,
+  `color-usage rules ${USAGE_RULES.length} != USAGE_RULE_COUNT ${USAGE_RULE_COUNT}`,
+);
+for (const rule of USAGE_RULES) {
+  for (const side of ["do", "dont"]) {
+    const pair = rule[side];
+    check(
+      Boolean(pair?.fill) && Boolean(pair?.ink),
+      `color-usage rule "${rule.id}" ${side} is missing its fill or ink`,
+    );
+  }
+}
+check(
+  USAGE_SCENES.length === USAGE_SCENE_COUNT && USAGE_SCENES.length > 0,
+  `color-usage scenes ${USAGE_SCENES.length} != USAGE_SCENE_COUNT ${USAGE_SCENE_COUNT}`,
+);
+for (const scene of USAGE_SCENES) {
+  for (const field of ["backdrop", "panel", "panelInk", "accent", "accentInk"]) {
+    check(
+      Boolean(scene[field]),
+      `color-usage scene "${scene.id}" is missing ${field}`,
+    );
+  }
+}
+
 if (errors > 0) {
   console.error(`check-tokens: ${errors} error(s)`);
   process.exit(1);
 }
 console.log(
-  `check-tokens: ok — ${named.length} names $-clean; ${ROLE_COUNT} roles, ${TYPE_STYLE_COUNT} styles, all bands reconcile; ${spots} spot values match source`,
+  `check-tokens: ok — ${named.length} names $-clean; ${ROLE_COUNT} roles, ${TYPE_STYLE_COUNT} styles, all bands reconcile; ${COLOR_USAGE_ROLES.length} usage roles resolve with no orphans; ${spots} spot values match source`,
 );

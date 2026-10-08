@@ -6,6 +6,7 @@
  * readable, and no route reaches past this barrel into a topic file.
  */
 export * from "./color";
+export * from "./color-usage";
 export * from "./elevation";
 export * from "./motion";
 export * from "./shape";

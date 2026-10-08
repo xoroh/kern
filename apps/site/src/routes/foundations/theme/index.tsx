@@ -1,18 +1,23 @@
+/**
+ * /foundations/theme — the theme REFERENCE page (theory, not configuration).
+ *
+ * Foundations/G split: this page answers "what do the roles resolve to" —
+ * every swatch read from the package, both schemes, both platforms. It does
+ * not configure: seed, presets, contrast authoring and radius scaling live
+ * in the theme configurator (Playground), linked from the "Configure it"
+ * section below. Role MEANING and role→surface usage live on
+ * /foundations/color; this page renders the resolved VALUES, grouped by the
+ * same role-grammar bands.
+ */
 import { createFileRoute } from "@tanstack/react-router";
-import { Badge, Button, Card, Chip, Kbd } from "@xoroh/kern";
-import {
-  resolveThemeDetails,
-  resolveThemeLayers,
-  type ThemeId,
-  themeIds,
-} from "@xoroh/kern-tokens";
+import { Badge, Button, Card, Chip } from "@xoroh/kern";
+import { resolveThemeDetails } from "@xoroh/kern-tokens";
 import { Text, View } from "react-native";
 import { Kicker } from "../../../components/chrome/kicker";
 import { SiteLayout } from "../../../domains/shared/chrome/site-layout";
-import { Code } from "../../../components/docs/code";
 import { PhonePreview } from "../../../components/preview/phone";
 import { Preview, PreviewGrid } from "../../../components/preview/preview";
-import { ThemeSwitcher } from "../../../components/theme/theme-switcher";
+import { COLOR_GROUPS } from "../../../content/foundations/color";
 import { routeHead } from "../../../domains/shared/systems/seo";
 import {
   T_BODY,
@@ -36,97 +41,19 @@ export const Route = createFileRoute("/foundations/theme/")({
 /** Resolved from the theme package, not hand-copied: these are the real schemes. */
 const LIGHT = resolveThemeDetails("light");
 const DARK = resolveThemeDetails("dark");
-const BRAND_LAYERS = resolveThemeLayers("light", "standard", "brand");
 const SHAPE_KEYS = Object.keys(LIGHT.shape) as (keyof typeof LIGHT.shape)[];
 const ROLE_COUNT = Object.keys(LIGHT.color).length;
 const CONTRAST_MODES = ["standard", "medium", "high"] as const;
 
-/**
- * Preset matrix summary, resolved from the package like every swatch on this
- * page: per preset, the union of changed color/shape roles across all six
- * mode x contrast contexts. Mirrors the checked-in `themes/matrix.json`
- * artifact (`check:theme-matrix` holds that file in sync with this code).
- */
-const PRESET_SUMMARY = (themeIds() as string[])
-  .filter((id) => id !== "kern")
-  .map((preset) => {
-    const roles = new Set<string>();
-    const shapes = new Set<string>();
-    for (const mode of ["light", "dark"] as const) {
-      for (const contrast of CONTRAST_MODES) {
-        const { deltas } = resolveThemeLayers(mode, contrast, preset);
-        for (const role of Object.keys(deltas)) roles.add(role);
-        const resolved = resolveThemeDetails(mode, contrast, preset as ThemeId);
-        const base = resolveThemeDetails(mode, contrast, "kern");
-        for (const shape of Object.keys(resolved.shape) as (keyof typeof resolved.shape)[]) {
-          if (resolved.shape[shape] !== base.shape[shape]) shapes.add(shape);
-        }
-      }
-    }
-    return {
-      preset,
-      roles: [...roles].sort(),
-      shapes: [...shapes].sort(),
-    };
-  });
-
-const ROLE_GROUPS: { title: string; roles: string[] }[] = [
-  {
-    title: "Primary",
-    roles: ["primary", "onPrimary", "primaryContainer", "onPrimaryContainer"],
-  },
-  {
-    title: "Secondary",
-    roles: [
-      "secondary",
-      "onSecondary",
-      "secondaryContainer",
-      "onSecondaryContainer",
-    ],
-  },
-  {
-    title: "Tertiary",
-    roles: [
-      "tertiary",
-      "onTertiary",
-      "tertiaryContainer",
-      "onTertiaryContainer",
-    ],
-  },
-  {
-    title: "Error",
-    roles: ["error", "onError", "errorContainer", "onErrorContainer"],
-  },
-  { title: "Status", roles: ["success", "warning", "info"] },
-  {
-    title: "Surface",
-    roles: [
-      "surface",
-      "onSurface",
-      "onSurfaceVariant",
-      "surfaceContainer",
-      "surfaceContainerHigh",
-      "surfaceTonal",
-    ],
-  },
-  { title: "Outline", roles: ["outline", "outlineVariant"] },
-  {
-    title: "Inverse",
-    roles: ["inverseSurface", "inverseOnSurface", "inversePrimary"],
-  },
-];
-
-const PRESET = `import { applyKernTheme, defineThemePreset } from "@xoroh/kern";
-
-const acme = defineThemePreset({
-  id: "acme",
-  extends: "kern",
-  overrides: { color: { light: { primary: "#1e3a8a" } } },
-});
-
-applyKernTheme(document.documentElement, "dark", "standard", acme);`;
-
-function Swatch({ role, value }: { role: string; value: string }) {
+function Swatch({
+  role,
+  value,
+  kern,
+}: {
+  role: string;
+  value: string;
+  kern?: boolean;
+}) {
   return (
     <li className="flex items-center gap-2">
       <span
@@ -135,7 +62,16 @@ function Swatch({ role, value }: { role: string; value: string }) {
         style={{ background: value }}
       />
       <span className="flex min-w-0 flex-col">
-        <span className={`truncate ${T_BODY_MD}`}>{role}</span>
+        <span className={`truncate ${T_BODY_MD}`}>
+          {role}
+          {kern ? (
+            <span
+              className={`ml-1 rounded-full bg-(--md-sys-color-tertiary-container) px-1.5 py-px ${T_CODE} text-(--md-sys-color-on-tertiary-container)`}
+            >
+              kern
+            </span>
+          ) : null}
+        </span>
         <span className={`${T_CODE} text-(--md-sys-color-on-surface-variant)`}>
           {value}
         </span>
@@ -194,16 +130,25 @@ function ThemePage() {
               <code>@xoroh/kern-tokens</code> is platform-free: no React, no
               DOM. Web reads OKLCH CSS variables, native reads compiled sRGB,
               and both resolve the same {ROLE_COUNT} roles. Every swatch on this
-              page is read from the package, not copied into the site.
+              page is read from the package, not copied into the site. This
+              page is the reference — what the roles resolve to. What the
+              roles MEAN and where each one goes lives on{" "}
+              <a
+                href="/foundations/color"
+                className="text-(--md-sys-color-primary) no-underline hover:underline"
+              >
+                Foundations — Color
+              </a>
+              ; changing the values lives in the{" "}
+              <a
+                href="/theme-configurator"
+                className="text-(--md-sys-color-primary) no-underline hover:underline"
+              >
+                theme configurator
+              </a>
+              .
             </p>
           </header>
-
-          <section className="flex flex-col gap-4">
-            <h2 id="switch-it-yourself" className={`m-0 ${T_SECTION}`}>
-              Switch it yourself
-            </h2>
-            <ThemeSwitcher />
-          </section>
 
           <section className="flex flex-col gap-4">
             <h2 id="color-roles" className={`m-0 ${T_SECTION}`}>
@@ -214,32 +159,32 @@ function ThemePage() {
             >
               A role is a decision, not a color. <code>primary</code> means
               &ldquo;the brand accent&rdquo;; the value behind it can change
-              without a component knowing.
+              without a component knowing. All {ROLE_COUNT} roles, grouped by
+              the role-grammar bands — the same bands the Color page renders,
+              read from the same source, so the two pages cannot disagree. Roles
+              marked kern are kern additions, not Material 3&apos;s.
             </p>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              {ROLE_GROUPS.map((group) => (
-                <div key={group.title} className="flex flex-col gap-2">
+              {COLOR_GROUPS.map((band) => (
+                <div key={band.group} className="flex flex-col gap-2">
                   <h3
-                    id={`role-group-${group.title
-                      .toLowerCase()
-                      .replace(/[^a-z0-9]+/g, "-")
-                      .replace(/^-|-$/g, "")}`}
+                    id={`role-group-${band.group}`}
                     className={`m-0 ${T_SMALL_TITLE} text-(--md-sys-color-on-surface)`}
                   >
-                    {group.title}
+                    {band.label} · {band.roles.length}
                   </h3>
                   <ul className="m-0 flex list-none flex-col gap-2 p-0">
-                    {group.roles
-                      .filter((role) => role in LIGHT.color)
-                      .map((role) => (
-                        <Swatch
-                          key={role}
-                          role={role}
-                          value={
-                            (LIGHT.color as Record<string, string>)[role] ?? "—"
-                          }
-                        />
-                      ))}
+                    {band.roles.map((role) => (
+                      <Swatch
+                        key={role.name}
+                        role={role.name}
+                        value={
+                          (LIGHT.color as Record<string, string>)[role.name] ??
+                          "—"
+                        }
+                        kern={role.kernExtra}
+                      />
+                    ))}
                   </ul>
                 </div>
               ))}
@@ -317,84 +262,6 @@ function ThemePage() {
           </section>
 
           <section className="flex flex-col gap-4">
-            <h2 id="preset-deltas" className={`m-0 ${T_SECTION}`}>
-              Preset deltas
-            </h2>
-            <p
-              className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
-            >
-              The <code>brand</code> preset changes{" "}
-              {Object.keys(BRAND_LAYERS.deltas).length} of {ROLE_COUNT} roles
-              against the <code>m3</code> base. A variant that changes nothing
-              is still valid, and still says so here.
-            </p>
-            <ul className="m-0 grid list-none grid-cols-1 gap-2 p-0 sm:grid-cols-2 lg:grid-cols-3">
-              {Object.entries(BRAND_LAYERS.deltas).map(([role, value]) => (
-                <li key={role} className="flex items-center gap-2">
-                  <span
-                    aria-hidden="true"
-                    className="size-7 shrink-0 rounded-(--md-sys-shape-corner-extra-small) border border-(--md-sys-color-outline-variant)"
-                    style={{ background: value }}
-                  />
-                  <span className="flex min-w-0 flex-col">
-                    <span className={`truncate ${T_BODY_MD}`}>{role}</span>
-                    <span
-                      className={`${T_CODE} text-(--md-sys-color-on-surface-variant)`}
-                    >
-                      {value}
-                    </span>
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </section>
-
-          <section className="flex flex-col gap-4">
-            <h2 id="pipeline-matrix" className={`m-0 ${T_SECTION}`}>
-              Pipeline & preset matrix
-            </h2>
-            <p
-              className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
-            >
-              Seed ramps resolve to role tables, then contrast and preset
-              overrides layer over the base — one{" "}
-              <code>resolveThemeDetails(mode, contrast, preset)</code> call per
-              context. Every combination is flattened into{" "}
-              <code>themes/matrix.json</code> in the token package (held in sync
-              by <code>check:theme-matrix</code>), so preset review is a diff,
-              not an app session. The counts below resolve from the package,
-              across all six mode × contrast contexts per preset:
-            </p>
-            <ul className="m-0 grid list-none grid-cols-1 gap-2 p-0 sm:grid-cols-2 lg:grid-cols-3">
-              {PRESET_SUMMARY.map(({ preset, roles, shapes }) => (
-                <li key={preset} className="flex items-center gap-2">
-                  <span className="flex min-w-0 flex-col">
-                    <span className={`truncate ${T_BODY_MD}`}>{preset}</span>
-                    <span
-                      className={`${T_CODE} text-(--md-sys-color-on-surface-variant)`}
-                    >
-                      {roles.length} color · {shapes.length} shape changed
-                    </span>
-                  </span>
-                </li>
-              ))}
-            </ul>
-            <p
-              className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
-            >
-              The <code>compact</code> density preset changes shape only; color
-              stays on kern. Try any preset live in the{" "}
-              <a
-                href="/theme-configurator"
-                className="text-(--md-sys-color-primary) no-underline hover:underline"
-              >
-                theme configurator
-              </a>
-              .
-            </p>
-          </section>
-
-          <section className="flex flex-col gap-4">
             <h2 id="the-same-roles-rendering" className={`m-0 ${T_SECTION}`}>
               The same roles, rendering
             </h2>
@@ -449,22 +316,23 @@ function ThemePage() {
           </section>
 
           <section className="flex flex-col gap-4">
-            <h2 id="author-a-theme" className={`m-0 ${T_SECTION}`}>
-              Author a theme
+            <h2 id="configure-it" className={`m-0 ${T_SECTION}`}>
+              Configure it
             </h2>
             <p
               className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
             >
-              <code>defineThemePreset</code> rejects unknown roles, reserved
-              ids, and non-hex values before anything renders, so a customer
-              theme cannot silently break contrast.
-            </p>
-            <Code>{PRESET}</Code>
-            <p
-              className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
-            >
-              Every token is also a CSS variable, so a project can read one
-              without importing anything: <Kbd>--md-sys-color-primary</Kbd>.
+              This page resolves; it does not configure. Seed, presets,
+              contrast levels, radius authoring and preset export live in the{" "}
+              <a
+                href="/theme-configurator"
+                className="text-(--md-sys-color-primary) no-underline hover:underline"
+              >
+                theme configurator
+              </a>{" "}
+              — every token there is also a CSS variable, so a project can read
+              one without importing anything, e.g.{" "}
+              <code>--md-sys-color-primary</code>.
             </p>
           </section>
         </div>
