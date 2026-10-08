@@ -33,6 +33,34 @@ describe("pipeline stages", () => {
     }
   });
 
+  it("pipeline stages change no rendered value (structure only, D6)", () => {
+    // The pipeline names existing data flow; it must never recompute a
+    // value. Exhaust the mode x contrast x preset cross product: every
+    // aliasStage output must equal the resolver, and every matrix cell must
+    // equal the resolver for its own coordinates.
+    const modes = ["light", "dark"] as const;
+    const contrasts = ["standard", "medium", "high"] as const;
+    for (const mode of modes) {
+      for (const contrast of contrasts) {
+        for (const preset of themeIds()) {
+          expect(aliasStage(mode, contrast, preset)).toEqual(
+            resolveThemeDetails(mode, contrast, preset),
+          );
+        }
+      }
+    }
+    const matrix = buildThemeMatrix();
+    for (const cell of matrix.cells) {
+      const resolved = resolveThemeDetails(
+        cell.mode,
+        cell.contrast,
+        cell.preset as Parameters<typeof resolveThemeDetails>[2],
+      );
+      expect(cell.color).toEqual(resolved.color);
+      expect(cell.shape).toEqual(resolved.shape);
+    }
+  });
+
   it("component projects both engines from one input", () => {
     const resolved = resolveThemeDetails("light", "standard", "kern");
     const projected = componentStage(resolved);

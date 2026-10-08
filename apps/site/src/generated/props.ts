@@ -7962,8 +7962,8 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "dir",
       "type": "A11yDir | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:74",
-      "note": "Text direction for the surface. Resolved through the shared `dir` kernel\n(explicit wins, else the host default, else `ltr` — never undefined), so\nboth renderers answer direction the same way."
+      "src": "packages/kern/src/components/sheet-family.tsx:75",
+      "note": "Text direction for the surface. Passed through verbatim: when absent no\n`dir` attribute renders and the surface inherits the document direction.\nA kernel `ltr` fallback must never render here — it would pin every sheet\nto LTR on RTL pages."
     }
   ],
   "BottomSheet": [
@@ -7978,8 +7978,8 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "dir",
       "type": "A11yDir | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:74",
-      "note": "Text direction for the surface. Resolved through the shared `dir` kernel\n(explicit wins, else the host default, else `ltr` — never undefined), so\nboth renderers answer direction the same way."
+      "src": "packages/kern/src/components/sheet-family.tsx:75",
+      "note": "Text direction for the surface. Passed through verbatim: when absent no\n`dir` attribute renders and the surface inherits the document direction.\nA kernel `ltr` fallback must never render here — it would pin every sheet\nto LTR on RTL pages."
     },
     {
       "name": "children",
@@ -8072,8 +8072,8 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "dir",
       "type": "A11yDir | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:74",
-      "note": "Text direction for the surface. Resolved through the shared `dir` kernel\n(explicit wins, else the host default, else `ltr` — never undefined), so\nboth renderers answer direction the same way."
+      "src": "packages/kern/src/components/sheet-family.tsx:75",
+      "note": "Text direction for the surface. Passed through verbatim: when absent no\n`dir` attribute renders and the surface inherits the document direction.\nA kernel `ltr` fallback must never render here — it would pin every sheet\nto LTR on RTL pages."
     },
     {
       "name": "children",
@@ -8165,8 +8165,8 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "dir",
       "type": "A11yDir | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:74",
-      "note": "Text direction for the surface. Resolved through the shared `dir` kernel\n(explicit wins, else the host default, else `ltr` — never undefined), so\nboth renderers answer direction the same way."
+      "src": "packages/kern/src/components/sheet-family.tsx:75",
+      "note": "Text direction for the surface. Passed through verbatim: when absent no\n`dir` attribute renders and the surface inherits the document direction.\nA kernel `ltr` fallback must never render here — it would pin every sheet\nto LTR on RTL pages."
     },
     {
       "name": "children",
@@ -8245,8 +8245,8 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "dir",
       "type": "A11yDir | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:74",
-      "note": "Text direction for the surface. Resolved through the shared `dir` kernel\n(explicit wins, else the host default, else `ltr` — never undefined), so\nboth renderers answer direction the same way."
+      "src": "packages/kern/src/components/sheet-family.tsx:75",
+      "note": "Text direction for the surface. Passed through verbatim: when absent no\n`dir` attribute renders and the surface inherits the document direction.\nA kernel `ltr` fallback must never render here — it would pin every sheet\nto LTR on RTL pages."
     },
     {
       "name": "children",
@@ -8330,8 +8330,8 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "dir",
       "type": "A11yDir | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:74",
-      "note": "Text direction for the surface. Resolved through the shared `dir` kernel\n(explicit wins, else the host default, else `ltr` — never undefined), so\nboth renderers answer direction the same way."
+      "src": "packages/kern/src/components/sheet-family.tsx:75",
+      "note": "Text direction for the surface. Passed through verbatim: when absent no\n`dir` attribute renders and the surface inherits the document direction.\nA kernel `ltr` fallback must never render here — it would pin every sheet\nto LTR on RTL pages."
     },
     {
       "name": "children",

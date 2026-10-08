@@ -130,6 +130,20 @@ eq("loader lg", __edge_loaderSizeOf({ size: "lg" }), "lg");
   );
 }
 
+// Boolean knob geometry: the checkbox is an explicit square that never
+// shrinks in the flex row (size-5 shrink-0). A bare h-5 w-5 regresses to a
+// squeezed box beside select knobs; assert the source carries the square.
+{
+  const src = await Bun.file(
+    new URL("../src/showcase/configurator.tsx", import.meta.url),
+  ).text();
+  eq(
+    "boolean knob is an explicit non-shrinking square",
+    src.includes("size-5 shrink-0"),
+    true,
+  );
+}
+
 if (failures > 0) {
   console.error(`check-configurators: ${failures} failure(s)`);
   process.exit(1);

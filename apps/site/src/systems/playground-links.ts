@@ -24,10 +24,10 @@ export function registrySearchHref(exportName: string): string {
 /** The theme studio. Global knobs, so no component param by design. */
 export const THEME_CONFIGURATOR_HREF = "/theme-configurator";
 
-/** A component page scrolled to its live demo section. */
+/** A component page scrolled to its live demo section. Segments are encoded so shared links survive slugs with special characters. */
 export function componentDemoHref(
   platform: Platform,
   slug: string,
 ): string {
-  return `/components/${platform}/${slug}#demo`;
+  return `/components/${encodeURIComponent(platform)}/${encodeURIComponent(slug)}#demo`;
 }

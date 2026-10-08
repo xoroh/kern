@@ -185,6 +185,24 @@ for (const [role, where] of used) {
   }
 }
 
+// Kicker is single-sourced: components/chrome/kicker.tsx owns the eyebrow
+// voice (T_KICKER + uppercase). The hero previously re-typed it by hand with
+// its own tracking-[...] utility, which this gate's ad-hoc scan would only
+// catch as a generic off-scale hit. Assert the single source directly: the
+// hero imports the shared Kicker and defines no local one.
+{
+  const hero = readFileSync(join(SRC, "components", "home", "hero.tsx"), "utf8");
+  const stripped = hero
+    .replace(/\/\*[\s\S]*?\*\//g, " ")
+    .replace(/(^|[^:])\/\/[^\n]*/g, "$1 ");
+  if (!/from\s+["']\.\.\/chrome\/kicker["']/.test(stripped)) {
+    fail("hero.tsx must import Kicker from ../chrome/kicker — the eyebrow kicker is single-sourced");
+  }
+  if (/function\s+Kicker\b/.test(stripped)) {
+    fail("hero.tsx defines a local Kicker — delete it and use ../chrome/kicker");
+  }
+}
+
 const roles = [...used.keys()].sort();
 console.log(`check-typescale: ${roleProps.size} type role(s) in the token set`);
 console.log(`check-typescale: ${roles.length} role(s) used by the site`);

@@ -363,7 +363,7 @@ function ThemePage() {
               <code>themes/matrix.json</code> in the token package (held in sync
               by <code>check:theme-matrix</code>), so preset review is a diff,
               not an app session. The counts below resolve from the package,
-              across all six mode × contrast contexts each:
+              across all six mode × contrast contexts per preset:
             </p>
             <ul className="m-0 grid list-none grid-cols-1 gap-2 p-0 sm:grid-cols-2 lg:grid-cols-3">
               {PRESET_SUMMARY.map(({ preset, roles, shapes }) => (

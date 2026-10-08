@@ -44,12 +44,13 @@ const REGISTRY = `import { getIconSet, listIconSets } from "@xoroh/kern-icons";
 listIconSets();            // every registered set
 getIconSet("material");    // one set's manifest`;
 
-// Plain HTML via CDN — no bundler. Pin VERSION to a published release: the
-// stylesheet path is the kern-tokens `theme` export's file, and the module
-// path is the kern package root, so any published version resolves both.
-// esm.sh rewrites kern's bare `react` import only when `?external` names it,
-// which is what keeps the import-map copy the single one.
-const CDN_PLAIN_HTML = `<!-- Plain HTML via CDN — no bundler. Replace VERSION with the published release. -->
+// Plain HTML via CDN — no bundler. Pin VERSION in BOTH URLs to the same
+// published release: the stylesheet path is the kern-tokens `theme` export's
+// file, and the module path is the kern package root, so any published
+// version resolves both. esm.sh rewrites kern's bare `react` import only
+// when `?external` names it, which is what keeps the import-map copy the
+// single one.
+const CDN_PLAIN_HTML = `<!-- Plain HTML via CDN — no bundler. Replace VERSION in BOTH URLs with the same published release. -->
 <link rel="stylesheet" href="https://unpkg.com/@xoroh/kern-tokens@VERSION/src/tokens.css" />
 <div id="root"></div>
 <script type="importmap">
@@ -137,7 +138,8 @@ function Guides() {
               <code>?external=react,react-dom</code> keeps kern reading that
               same copy instead of bundling a second. The packages are{" "}
               <code>0.0.0</code> and unpublished, so these URLs 404 until the
-              first publish — replace <code>VERSION</code> then. The paths are
+              first publish — replace <code>VERSION</code> in both URLs with
+              the same version then. The paths are
               verified against the packages&apos; published file lists
               (kern-tokens ships <code>src/tokens.css</code>, kern&apos;s root
               export is <code>dist/index.js</code>), not against the registry.

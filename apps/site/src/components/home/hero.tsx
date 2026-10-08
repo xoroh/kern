@@ -1,16 +1,9 @@
 import { buttonVariants, cn } from "@xoroh/kern";
 import { useState } from "react";
+import { Kicker } from "../chrome/kicker";
 import { LiveHero } from "./live-hero";
 
 const COMMAND = "bun add @xoroh/kern";
-
-function Kicker({ children }: { children: React.ReactNode }) {
-  return (
-    <p className="m-0 text-sm font-medium tracking-[0.18em] text-(--md-sys-color-on-surface-variant) uppercase">
-      {children}
-    </p>
-  );
-}
 
 function InstallChip() {
   const [copied, setCopied] = useState(false);
