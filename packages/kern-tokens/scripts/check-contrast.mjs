@@ -32,6 +32,9 @@ const BRAND = JSON.parse(
     "utf8",
   ),
 );
+const DEMO = JSON.parse(
+  readFileSync(join(ROOT, "packages/kern-tokens/src/themes/demo.json"), "utf8"),
+);
 const TOKENS = JSON.parse(
   readFileSync(join(ROOT, "packages/kern-tokens/src/tokens.json"), "utf8"),
 );
@@ -46,7 +49,7 @@ let issues = 0;
 const colorTables = [
   ...Object.values(M3.color),
   ...Object.values(M3.contrast),
-  ...[SHARP, BRAND].flatMap((theme) =>
+  ...[SHARP, BRAND, DEMO].flatMap((theme) =>
     Object.values(theme.overrides?.color ?? {}).filter(Boolean),
   ),
 ];
@@ -70,6 +73,7 @@ for (const [presetId, preset] of [
   ["m3", { overrides: {} }],
   ["sharp", SHARP],
   ["brand", BRAND],
+  ["demo", DEMO],
 ]) {
   for (const mode of ["light", "dark"]) {
     for (const [contrast, minimum] of [
@@ -112,7 +116,7 @@ if (issues > 0) {
 const waived = [...waivedSeen];
 console.log(
   `WCAG contrast passes: ${textPairs.length} text + ${uiPairs.length} UI GENERATED role pairs ` +
-    `across 3 presets x 2 modes x 3 contrast levels (${textPairs.length * 18 + uiPairs.length * 18} checks); ` +
+    `across 4 presets x 2 modes x 3 contrast levels (${textPairs.length * 24 + uiPairs.length * 24} checks); ` +
     `0 orphan roles; all colors are canonical tokens`,
 );
 if (waived.length > 0) {

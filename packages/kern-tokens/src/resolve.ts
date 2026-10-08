@@ -1,13 +1,14 @@
 import { contrastIssues } from "./contrast";
 import brand from "./themes/brand.json";
 import compact from "./themes/compact.json";
+import demo from "./themes/demo.json";
 import kern from "./themes/kern.json";
 import sharp from "./themes/sharp.json";
 
 export type Mode = "light" | "dark";
 export type Contrast = "standard" | "medium" | "high";
 /** Canonical preset id. `"m3"` remains accepted as a legacy alias. */
-export type ThemeId = "kern" | "sharp" | "brand" | "compact";
+export type ThemeId = "kern" | "sharp" | "brand" | "compact" | "demo";
 /** Every color role the resolver can produce. Misspelled roles fail to compile. */
 export type ColorRole = keyof typeof kern.color.light;
 export type ShapeRole = keyof typeof kern.radius;
@@ -32,11 +33,11 @@ export type ResolvedTheme = {
   shape: ShapeTable;
 };
 
-const presets = { sharp, brand, compact } as const;
+const presets = { sharp, brand, compact, demo } as const;
 const baseColors = kern.color as Record<Mode, RoleTable>;
 const baseShape = kern.radius as ShapeTable;
 const contrastOverlays = kern.contrast as Record<string, Partial<RoleTable>>;
-const presetNames: ThemeId[] = ["kern", "sharp", "brand", "compact"];
+const presetNames: ThemeId[] = ["kern", "sharp", "brand", "compact", "demo"];
 /** Pre-rename ids still resolving, so published consumers are not broken by the rename. */
 const LEGACY_ALIASES: Record<string, ThemeId> = { m3: "kern" };
 function canonical(id: string): ThemeId {

@@ -78,8 +78,14 @@ describe("pipeline stages", () => {
 describe("theme matrix", () => {
   it("covers the full mode x contrast x preset cross product", () => {
     const matrix = buildThemeMatrix();
-    expect(matrix.presets).toEqual(["kern", "sharp", "brand", "compact"]);
-    expect(matrix.cells).toHaveLength(2 * 3 * 4);
+    expect(matrix.presets).toEqual([
+      "kern",
+      "sharp",
+      "brand",
+      "compact",
+      "demo",
+    ]);
+    expect(matrix.cells).toHaveLength(2 * 3 * 5);
     const keys = new Set(
       matrix.cells.map(
         (cell) => `${cell.mode}/${cell.contrast}/${cell.preset}`,

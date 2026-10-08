@@ -26,8 +26,15 @@
       "id": "brand",
       "file": "brand.json",
       "name": "Brand",
-      "description": "Customer template. Copy to themes/<customer>.json and fill in.",
-      "template": true
+      "description": "Worked brand example: primary family on the amber ramp. Extends kern.",
+      "template": false
+    },
+    {
+      "id": "demo",
+      "file": "demo.json",
+      "name": "Demo tenant",
+      "description": "Demo tenant proving end-to-end preset switching. Extends kern.",
+      "template": false
     }
   ]
 }

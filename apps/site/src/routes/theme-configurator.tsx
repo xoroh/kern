@@ -32,9 +32,9 @@ import {
   themeIds,
   varName,
 } from "@xoroh/kern-tokens";
+import catalogJson from "@xoroh/kern-tokens/themes/index.json";
 import { useMemo, useState } from "react";
 import { SiteLayout } from "../domains/shared/chrome/site-layout";
-import { CopyButton } from "../showcase/copy-button";
 import { routeHead } from "../domains/shared/systems/seo";
 import {
   T_BODY,
@@ -44,11 +44,15 @@ import {
   T_SECTION,
   T_SMALL_TITLE,
 } from "../domains/shared/systems/type-scale";
+import { CopyButton } from "../showcase/copy-button";
 import { seedOverrides } from "../theme-studio/seed";
 
 export const Route = createFileRoute("/theme-configurator")({
   head: () =>
-    routeHead("Theme configurator", "Theme studio — tune tokens and preview them on real components."),
+    routeHead(
+      "Theme configurator",
+      "Theme studio — tune tokens and preview them on real components.",
+    ),
   component: ThemeConfigurator,
 });
 
@@ -57,6 +61,21 @@ const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";
 const PANEL =
   "rounded-(--md-sys-shape-corner-large) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-low) p-5";
 const FIELD = `m-0 ${T_LABEL} ${INK_SOFT} uppercase`;
+
+// Display names for the preset picker, read from the package's own catalog
+// (`themes/index.json`) — a new preset appears here with its name and
+// description and no site edit, the same dynamic the preview relies on.
+const CATALOG = (
+  catalogJson as {
+    themes: { id: string; name: string; description: string }[];
+  }
+).themes;
+function presetLabel(id: string): string {
+  return CATALOG.find((entry) => entry.id === id)?.name ?? id;
+}
+function presetDescription(id: string): string | undefined {
+  return CATALOG.find((entry) => entry.id === id)?.description;
+}
 
 function isHex6(v: string): boolean {
   return /^#[0-9a-fA-F]{6}$/.test(v);
@@ -253,9 +272,10 @@ export const studioTheme = defineThemePreset({
                       size="sm"
                       variant={preset === id ? "primary" : "tonal"}
                       aria-pressed={preset === id}
+                      title={presetDescription(id)}
                       onClick={() => setPreset(id)}
                     >
-                      {id}
+                      {presetLabel(id)}
                     </Button>
                   ))}
                 </div>
