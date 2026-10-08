@@ -741,6 +741,13 @@ export const MATURITY: readonly MaturityRow[] = [
     version: "0.0.0",
   },
   {
+    name: "focus-ring",
+    export: "FocusRing",
+    platform: "web",
+    state: "Preview",
+    version: "0.0.0",
+  },
+  {
     name: "form",
     export: "Form",
     platform: "web",
@@ -799,6 +806,13 @@ export const MATURITY: readonly MaturityRow[] = [
   {
     name: "linear-progress",
     export: "LinearProgress",
+    platform: "web",
+    state: "Preview",
+    version: "0.0.0",
+  },
+  {
+    name: "link-button",
+    export: "LinkButton",
     platform: "web",
     state: "Preview",
     version: "0.0.0",
@@ -2963,6 +2977,7 @@ export const MATURITY_BY_STATE: Readonly<
     "fieldset-legend",
     "fieldset-root",
     "filter-chip-row",
+    "focus-ring",
     "form",
     "help-menu",
     "icon-button",
@@ -2978,6 +2993,7 @@ export const MATURITY_BY_STATE: Readonly<
     "label",
     "linear-progress",
     "link",
+    "link-button",
     "link-provider",
     "list-detail",
     "list-item",

@@ -67,7 +67,7 @@
     "build": "tsup src/index.ts src/manifest.ts src/maturity.ts --format esm,cjs --dts --dts-resolve --out-dir dist --clean",
     "start": "bun src/index.ts",
     "prepublishOnly": "bun run build",
-    "test": "bun test src/manifest.test.ts",
+    "test": "bun test src/",
     "typecheck": "tsc --noEmit",
     "check:publish": "publint && attw --pack --ignore-rules=no-resolution"
   },

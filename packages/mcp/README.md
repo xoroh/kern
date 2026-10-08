@@ -23,7 +23,7 @@ bundled at publish — see below):
 |---|---|
 | `list_components` | Component inventory with `real`/`stub` status |
 | `get_component` | Source of one component (code if real, pointer if stub) |
-| `get_tokens` | `base` tokens or `m3`/`sharp`/`brand` presets |
+| `get_tokens` | `base` tokens or a theme preset id from `list_themes` (`kern`/`sharp`/`brand`/`compact`/`demo`; `m3` still resolves as the legacy alias for `kern`) |
 | `list_themes` | Theme catalog (same file the visual builder will read) |
 | `design_audit` | Compliance checklist (mirrors the skill's audit table) |
 
