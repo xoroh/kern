@@ -1,0 +1,16 @@
+/* Starter stylesheet — two imports, in this order.
+ *
+ * `tailwindcss` compiles the utility classes Kern components are styled with
+ * (every `bg-(--md-sys-color-…)` class is a Tailwind v4 arbitrary value, not
+ * hand CSS). `@xoroh/kern-tokens/theme` sets the CSS custom properties those
+ * classes read — the token values. Remove neither.
+ */
+@import "tailwindcss";
+@import "@xoroh/kern-tokens/theme";
+
+body {
+  margin: 0;
+  background: var(--md-sys-color-surface-container);
+  color: var(--md-sys-color-on-surface);
+  font-family: var(--kern-font-family);
+}

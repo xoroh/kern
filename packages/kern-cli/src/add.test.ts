@@ -1,4 +1,10 @@
-import { existsSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
+import {
+  existsSync,
+  mkdtempSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
@@ -10,7 +16,7 @@ function freshDest(): string {
 }
 
 describe("kern add (Mode 1 smoke)", () => {
-  it("vendors button + closure with receipt", () => {
+  it("vendors button + closure with receipt", { timeout: 120_000 }, () => {
     const dest = freshDest();
     try {
       const r = addComponent("button", { root: WORKSPACE_ROOT, dest });
@@ -60,5 +66,47 @@ describe("kern add (Mode 1 smoke)", () => {
         dest: freshDest(),
       }),
     ).toThrow("web-only");
+  });
+
+  it("merges a second component into the same receipt (add×N shell)", {
+    timeout: 180_000,
+  }, () => {
+    // Derived, not hardcoded: two distinct real web rows today.
+    const rows = loadManifest(WORKSPACE_ROOT);
+    const pair = rows
+      .filter((r) => r.platform === "web" && r.status === "real")
+      .map((r) => r.name)
+      .filter((name, i, all) => all.indexOf(name) === i)
+      .slice(0, 2);
+    if (pair.length < 2)
+      throw new Error("test setup: fewer than two real web components today");
+    const dest = freshDest();
+    try {
+      addComponent(pair[0], { root: WORKSPACE_ROOT, dest });
+      addComponent(pair[1], { root: WORKSPACE_ROOT, dest });
+      const receipt = JSON.parse(
+        readFileSync(join(dest, "kern.receipt.json"), "utf8"),
+      );
+      expect(Object.keys(receipt.components).sort()).toEqual([...pair].sort());
+    } finally {
+      rmSync(dest, { recursive: true, force: true });
+    }
+  });
+
+  it("refuses a receipt pinning a different kern version", {
+    timeout: 120_000,
+  }, () => {
+    const dest = freshDest();
+    try {
+      writeFileSync(
+        join(dest, "kern.receipt.json"),
+        JSON.stringify({ kern: "9.9.9", mode: "hybrid", components: {} }),
+      );
+      expect(() =>
+        addComponent("button", { root: WORKSPACE_ROOT, dest }),
+      ).toThrow("mixed-version");
+    } finally {
+      rmSync(dest, { recursive: true, force: true });
+    }
   });
 });

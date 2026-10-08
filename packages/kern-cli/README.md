@@ -1,6 +1,16 @@
 # @xoroh/kern-cli (scoped, unpublished)
 
-Installer for Kern: `kern add <component>`.
+Installer for Kern: `kern init <dir>` scaffolds the starter, `kern add <component>`
+vendors one component.
+
+`kern init` is shipped: `src/init.ts` copies `starters/web/` (app shell,
+themed screen with the kern/sharp/brand/demo preset picker, the
+tailwind-plus-tokens stylesheet pair) into `<dir>`, resolves the kern deps,
+and stamps `<dest>/kern.receipt.json` — covered by `init.test.ts`, verified
+by scaffolding into a scratch dir and running `bun install` + `vite build`
+there. Pre-publish the deps are `file:` against your checkout (the registry
+names 404 until the first publish); `--registry` emits the versioned names
+for post-publish use.
 
 Mode 1 (`kern add`) is shipped: `src/` implements vendored web-component
 install — `add.ts` (copy + receipt), `closure.ts` (transitive relative-import
