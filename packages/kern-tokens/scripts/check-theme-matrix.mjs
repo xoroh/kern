@@ -15,7 +15,11 @@
  */
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { assertSingleRoleTable, buildThemeMatrix } from "../src/pipeline.ts";
+import {
+  assertSingleRoleTable,
+  buildThemeMatrix,
+  scopedDeltas,
+} from "../src/pipeline.ts";
 import { resolveTheme, resolveThemeDetails, themeIds } from "../src/resolve.ts";
 
 const ROOT = new URL("../../..", import.meta.url).pathname;
@@ -141,6 +145,82 @@ try {
   const kern = resolveTheme("light", "standard", "kern");
   if (stable(legacy) !== stable(kern)) {
     violations.push('legacy preset alias "m3" no longer resolves to kern');
+  }
+}
+
+// 5. SCOPED-CSS COHERENCE ------------------------------------------------------
+// The matrix is a build artifact, not a trophy file: gen-css.mjs renders its
+// deltas into the shipped `[data-kern-theme]` blocks. This leg parses the
+// committed tokens.css and requires, per non-kern preset, exactly the light
+// delta block plus a `.dark` block iff the dark deltas are non-empty — with
+// byte-exact declarations. A hand-edited block or a generator that special-
+// cases one preset fails here.
+{
+  const css = readFileSync(
+    join(ROOT, "packages/kern-tokens/src/tokens.css"),
+    "utf8",
+  );
+  const blocks = new Map();
+  const blockPattern =
+    /(?:\.dark)?\[data-kern-theme="([a-z0-9-]+)"\] \{([^}]*)\}/g;
+  for (const match of css.matchAll(blockPattern)) {
+    const dark = match[0].startsWith(".dark");
+    const key = `${dark ? "dark" : "light"}/${match[1]}`;
+    const declarations = new Map();
+    for (const line of match[2].split(";")) {
+      const trimmed = line.trim();
+      if (trimmed === "") continue;
+      const colon = trimmed.indexOf(":");
+      declarations.set(
+        trimmed.slice(0, colon).trim(),
+        trimmed.slice(colon + 1).trim(),
+      );
+    }
+    if (blocks.has(key)) {
+      violations.push(`tokens.css has a duplicate ${key} scoped block`);
+    }
+    blocks.set(key, declarations);
+  }
+  for (const { id, light, dark } of scopedDeltas(buildThemeMatrix())) {
+    for (const [mode, expected] of [
+      ["light", light],
+      ["dark", dark],
+    ]) {
+      const actual = blocks.get(`${mode}/${id}`);
+      const count = Object.keys(expected).length;
+      if (count === 0 && actual !== undefined) {
+        violations.push(
+          `tokens.css has an unexpected ${mode} scoped block for "${id}" — the matrix records no ${mode} deltas`,
+        );
+      } else if (count > 0 && actual === undefined) {
+        violations.push(
+          `tokens.css is missing the ${mode} scoped block for "${id}" (${count} matrix deltas unshipped)`,
+        );
+      } else if (count > 0 && actual !== undefined) {
+        const names = Object.keys(expected).sort();
+        const seen = [...actual.keys()].sort();
+        if (stable(names) !== stable(seen)) {
+          violations.push(
+            `tokens.css ${mode} scoped block for "${id}" declares [${seen.join(", ")}], matrix deltas are [${names.join(", ")}]`,
+          );
+        }
+        for (const name of names) {
+          if (actual.get(name) !== expected[name]) {
+            violations.push(
+              `tokens.css ${mode} scoped block for "${id}": ${name} is ${actual.get(name)}, matrix says ${expected[name]}`,
+            );
+          }
+        }
+      }
+    }
+  }
+  for (const key of blocks.keys()) {
+    const id = key.split("/")[1];
+    if (!(buildThemeMatrix().presets.includes(id) && id !== "kern")) {
+      violations.push(
+        `tokens.css has a scoped block for unknown preset "${id}"`,
+      );
+    }
   }
 }
 

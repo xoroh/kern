@@ -1,19 +1,25 @@
-// Generates tokens.css from tokens.json + theme presets.
+// Generates tokens.css from tokens.json + the committed theme matrix.
 // Run from the repo root: bun packages/kern-tokens/scripts/gen-css.mjs
 // tokens.ts imports the canonical JSON directly; it is not a mirrored file.
+// Scoped `[data-kern-theme]` blocks come from the matrix ARTIFACT
+// (themes/matrix.json) via pipeline `scopedDeltas` — one spelling for the
+// `--md-sys-*` names (`varName`/`shapeVarName`), never a per-preset special
+// case in this file. check:theme-matrix fails when the blocks drift from the
+// matrix deltas.
 import { spawnSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { scopedDeltas } from "../src/pipeline.ts";
+import { varName as roleVar } from "../src/resolve.ts";
 
 const ROOT = new URL("../../..", import.meta.url).pathname;
 const THEME = join(ROOT, "packages/kern-tokens/src");
 const read = (file) => JSON.parse(readFileSync(join(THEME, file), "utf8"));
 const kebab = (name) => name.replace(/(?<!^)(?=[A-Z])/g, "-").toLowerCase();
-const roleVar = (role) => `--md-sys-color-${kebab(role)}`;
 
 const T = read("tokens.json");
 const M3 = read("themes/kern.json");
-const sharp = read("themes/sharp.json");
+const matrix = read("themes/matrix.json");
 const fontFamily = `"${T.typography.webFamily}", "${T.typography.family}", sans-serif`;
 const prefix = (name) => `--md-sys-typescale-${name}`;
 // Dark-mode shadows need higher opacity: black blurs are invisible on black
@@ -26,8 +32,6 @@ const darkElevation = {
   level4: "0 2px 3px 0 rgba(0, 0, 0, 0.5), 0 6px 10px 4px rgba(0, 0, 0, 0.3)",
   level5: "0 4px 4px 0 rgba(0, 0, 0, 0.5), 0 8px 12px 6px rgba(0, 0, 0, 0.3)",
 };
-const sharpDarkColors = Object.entries(sharp.overrides.color?.dark ?? {});
-
 // DTCG metadata keys (`$comment`, `$schema`, …) are annotations, not tokens. Emitting one
 // produces an invalid custom-property name (`--md-sys-state-$comment`) and a var that
 // resolves to nothing. EVERY group must filter, not just elevation: `states` was the one
@@ -131,25 +135,28 @@ const C = [
   `  --kern-font-family: ${fontFamily};`,
   "}",
   "",
-  '[data-kern-theme="sharp"] {',
-  ...Object.entries(sharp.overrides.color?.light ?? {}).map(
-    ([role, value]) => `  ${roleVar(role)}: ${value};`,
-  ),
-  ...Object.entries(sharp.overrides.shape ?? {}).map(
-    ([shape, value]) => `  --md-sys-shape-corner-${shape}: ${value};`,
-  ),
-  "}",
-  "",
-  ...(sharpDarkColors.length > 0
-    ? [
-        '.dark[data-kern-theme="sharp"] {',
-        ...sharpDarkColors.map(
-          ([role, value]) => `  ${roleVar(role)}: ${value};`,
-        ),
-        "}",
-        "",
-      ]
-    : []),
+  // Scoped sub-theme deltas, one block set per preset, from the matrix
+  // artifact: `[data-kern-theme="<id>"]` repaints a named subtree with the
+  // light deltas, `.dark[...]` with the dark deltas. Components read vars
+  // only, so this is zero component changes.
+  ...scopedDeltas(matrix).flatMap(({ id, light, dark }) => [
+    `[data-kern-theme="${id}"] {`,
+    ...Object.entries(light).map(
+      ([variable, value]) => `  ${variable}: ${value};`,
+    ),
+    "}",
+    "",
+    ...(Object.keys(dark).length > 0
+      ? [
+          `.dark[data-kern-theme="${id}"] {`,
+          ...Object.entries(dark).map(
+            ([variable, value]) => `  ${variable}: ${value};`,
+          ),
+          "}",
+          "",
+        ]
+      : []),
+  ]),
   "/* App-token bridge for consumers using generic semantic names. */",
   ":root {",
   "  --background: var(--md-sys-color-surface);",

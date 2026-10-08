@@ -307,6 +307,12 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
       "Publish-ready metadata: the tarball now carries the README and the licence.",
   },
   {
+    id: "mcp-token-paths-and-loop",
+    packages: ["@xoroh/kern-mcp"],
+    bump: "patch",
+    summary: "Fix the token tools and harden the agent on-ramp.",
+  },
+  {
     id: "p1-6-states-consume-or-delete",
     packages: ["@xoroh/kern"],
     bump: "patch",

@@ -15,11 +15,16 @@
  * freshness contract lives in check-page-md instead: it re-runs this same
  * module per page and asserts every docs page emits a well-formed .md.
  */
-import { mkdirSync, readdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { FOUNDATIONS, neighbours } from "../src/foundations/shell.tsx";
-import { foundationMarkdown, pageMarkdown } from "./lib/page-md.mjs";
+import { NAV_SECTIONS } from "../src/systems/nav.ts";
+import {
+  foundationMarkdown,
+  pageMarkdown,
+  themeMarkdown,
+} from "./lib/page-md.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const APP = join(HERE, "..");
@@ -72,6 +77,42 @@ for (const platform of ["web", "mobile"]) {
     writeFileSync(join(dir, `${page.slug}.md`), md);
     count += 1;
   }
+  // The theme reference page: title/one-liner from the nav leaf, preset
+  // catalog + resolved counts from the token package. Same do-not-hand-edit
+  // contract as every other emission.
+  const ROOT = join(APP, "..", "..");
+  const themeLeaf = NAV_SECTIONS.flatMap((s) => s.leaves).find(
+    (l) => l.href === "/foundations/theme",
+  );
+  if (!themeLeaf) {
+    throw new Error(
+      "generate-page-md: no /foundations/theme nav leaf — the theme .md has no title/one-liner source",
+    );
+  }
+  const catalog = JSON.parse(
+    readFileSync(
+      join(ROOT, "packages/kern-tokens/src/themes/index.json"),
+      "utf8",
+    ),
+  );
+  const kernTheme = JSON.parse(
+    readFileSync(
+      join(ROOT, "packages/kern-tokens/src/themes/kern.json"),
+      "utf8",
+    ),
+  );
+  const themeMd =
+    `<!-- Do not hand-edit: written by scripts/generate-page-md.mjs from the /foundations/theme nav leaf and the token package. -->\n` +
+    themeMarkdown(
+      { title: themeLeaf.label, oneLiner: themeLeaf.hint },
+      catalog,
+      {
+        roles: Object.keys(kernTheme.color.light).length,
+        shapes: Object.keys(kernTheme.radius).length,
+      },
+    );
+  writeFileSync(join(dir, "theme.md"), themeMd);
+  count += 1;
 }
 
 console.log(`generate-page-md: wrote ${count} page(s) to public/md/`);

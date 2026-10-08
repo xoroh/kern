@@ -37,6 +37,9 @@ For users, human and AI.
 | A design rule, anti-pattern, or audit criterion | `.agents/skills/kern/SKILL.md` compliance table + the matching `.agents/skills/kern/references/*.md` |
 | A component authoring pattern | `.agents/skills/kern/references/code-conventions.md` |
 | A token value or role mapping | `.agents/skills/kern/references/kern-tokens.md` |
+| A theme/preset authoring rule | `.agents/skills/kern/references/theme-variants.md` + the router section in `.agents/skills/kern-agents/SKILL.md` |
+| An MCP server tool (add/change/fix) | `packages/mcp/src/tools.ts` + `packages/mcp/README.md` tool table + the router in `.agents/skills/kern-agents/SKILL.md` + a changeset |
+| The per-page .md, MCP index, or llms.txt emission or gate | `apps/site/scripts/generate-*` + `check-*` + `scripts/lib/*` (one function, two callers — emitter and gate stay in step) |
 | A naming or parity rule | `.agents/skills/kern/references/code-conventions.md` + `docs/conventions/parity.md` |
 | The doc-upkeep process itself | this skill |
 

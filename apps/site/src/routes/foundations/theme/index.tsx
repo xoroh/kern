@@ -13,11 +13,12 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Badge, Button, Card, Chip } from "@xoroh/kern";
 import { resolveThemeDetails } from "@xoroh/kern-tokens";
 import { Text, View } from "react-native";
+import { CopyMarkdownButton } from "../../../components/chrome/copy-markdown-button";
 import { Kicker } from "../../../components/chrome/kicker";
-import { SiteLayout } from "../../../domains/shared/chrome/site-layout";
 import { PhonePreview } from "../../../components/preview/phone";
 import { Preview, PreviewGrid } from "../../../components/preview/preview";
 import { COLOR_GROUPS } from "../../../content/foundations/color";
+import { SiteLayout } from "../../../domains/shared/chrome/site-layout";
 import { routeHead } from "../../../domains/shared/systems/seo";
 import {
   T_BODY,
@@ -118,7 +119,10 @@ function ThemePage() {
   return (
     <SiteLayout>
       <section className="px-4 py-4 sm:px-6 sm:py-6">
-        <div className="mx-auto flex max-w-[64rem] flex-col gap-10 rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14">
+        <div
+          className="mx-auto flex max-w-[64rem] flex-col gap-10 rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14"
+          data-copy-md-root
+        >
           <header className="flex flex-col gap-3">
             <Kicker>Theme</Kicker>
             <h1 className={`m-0 ${T_PAGE} text-(--md-sys-color-on-surface)`}>
@@ -130,9 +134,9 @@ function ThemePage() {
               <code>@xoroh/kern-tokens</code> is platform-free: no React, no
               DOM. Web reads OKLCH CSS variables, native reads compiled sRGB,
               and both resolve the same {ROLE_COUNT} roles. Every swatch on this
-              page is read from the package, not copied into the site. This
-              page is the reference — what the roles resolve to. What the
-              roles MEAN and where each one goes lives on{" "}
+              page is read from the package, not copied into the site. This page
+              is the reference — what the roles resolve to. What the roles MEAN
+              and where each one goes lives on{" "}
               <a
                 href="/foundations/color"
                 className="text-(--md-sys-color-primary) no-underline hover:underline"
@@ -148,6 +152,9 @@ function ThemePage() {
               </a>
               .
             </p>
+            <div>
+              <CopyMarkdownButton />
+            </div>
           </header>
 
           <section className="flex flex-col gap-4">
@@ -322,8 +329,8 @@ function ThemePage() {
             <p
               className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
             >
-              This page resolves; it does not configure. Seed, presets,
-              contrast levels, radius authoring and preset export live in the{" "}
+              This page resolves; it does not configure. Seed, presets, contrast
+              levels, radius authoring and preset export live in the{" "}
               <a
                 href="/theme-configurator"
                 className="text-(--md-sys-color-primary) no-underline hover:underline"

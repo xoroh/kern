@@ -20,6 +20,7 @@ import { mkdirSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { FOUNDATIONS } from "../src/foundations/shell.tsx";
+import { NAV_SECTIONS } from "../src/systems/nav.ts";
 import { buildMcpIndex } from "./lib/mcp-index.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -45,7 +46,21 @@ const families = {
   web: await loadDocs("web"),
   mobile: await loadDocs("mobile"),
 };
-const index = buildMcpIndex(families, FOUNDATIONS);
+// The theme reference page is a docs page outside the families +
+// FOUNDATIONS census: its title/one-liner come from the nav leaf (the same
+// source llms.txt links), never a copy.
+const themeLeaf = NAV_SECTIONS.flatMap((s) => s.leaves).find(
+  (l) => l.href === "/foundations/theme",
+);
+if (!themeLeaf) {
+  throw new Error(
+    "generate-mcp-index: no /foundations/theme nav leaf — the theme index entry has no title/one-liner source",
+  );
+}
+const index = buildMcpIndex(families, FOUNDATIONS, {
+  title: themeLeaf.label,
+  oneLiner: themeLeaf.hint,
+});
 
 mkdirSync(join(APP, "public", "mcp"), { recursive: true });
 writeFileSync(OUT, `${JSON.stringify(index, null, 2)}\n`);

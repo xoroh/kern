@@ -6,13 +6,15 @@
  * with two callers, so the gate can never disagree with the emitter about
  * what the index contains — the same arrangement as scripts/lib/page-md.mjs.
  *
- * Data-only: every entry comes from the content docs and the foundations
- * registry. Nothing is invented — page URLs are the routes the site serves,
- * md URLs are the files generate-page-md emits.
+ * Data-only: every entry comes from the content docs, the foundations
+ * registry, and the hand-edited nav (for the theme reference page's
+ * title/one-liner — the same source llms.txt reads, never a copy). Nothing
+ * is invented — page URLs are the routes the site serves, md URLs are the
+ * files generate-page-md emits.
  */
 
 /** The full index document the emitter writes and the gate re-derives. */
-export function buildMcpIndex(families, foundations) {
+export function buildMcpIndex(families, foundations, theme) {
   const pages = [];
   for (const [platform, docs] of Object.entries(families)) {
     for (const doc of docs) {
@@ -37,6 +39,24 @@ export function buildMcpIndex(families, foundations) {
       md: `/md/foundations/${page.slug}.md`,
     });
   }
+  // The theme reference page (/foundations/theme) is a docs page, not a
+  // registry page: its title/one-liner come from the nav leaf (the same
+  // source llms.txt links), its URLs from the route it serves and the file
+  // generate-page-md emits. A docs page outside the families + FOUNDATIONS
+  // census is exactly the omission this entry exists to prevent.
+  if (!theme?.title || !theme?.oneLiner) {
+    throw new Error(
+      "buildMcpIndex: no theme page facts — resolve the /foundations/theme nav leaf before calling",
+    );
+  }
+  pages.push({
+    kind: "theme",
+    slug: "theme",
+    title: theme.title,
+    oneLiner: theme.oneLiner,
+    page: "/foundations/theme",
+    md: "/md/foundations/theme.md",
+  });
   return {
     name: "kern-docs-corpus",
     generatedBy:
