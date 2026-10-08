@@ -5,8 +5,8 @@
  * WHAT IT ASSERTS
  *
  * 1. EMISSION: public/mcp/index.json exists, parses, and carries exactly one
- *    entry per docs page (web + mobile families, foundations pages) through
- *    the SAME module the emitter uses (`scripts/lib/mcp-index.mjs` — one
+ *    entry per docs page (web + mobile families, foundations pages, the
+ *    theme reference page) through the SAME module the emitter uses (`scripts/lib/mcp-index.mjs` — one
  *    function, two callers). A page the emitter drops fails here.
  * 2. FRESHNESS TRIPWIRE: each entry embeds its page's own one-liner. A stale
  *    index (content edited, index not regenerated) still carries the old
@@ -24,6 +24,7 @@ import { readdirSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { FOUNDATIONS } from "../src/foundations/shell.tsx";
+import { NAV_SECTIONS } from "../src/systems/nav.ts";
 import { buildMcpIndex } from "./lib/mcp-index.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -54,7 +55,15 @@ const families = {
   web: await loadDocs("web"),
   mobile: await loadDocs("mobile"),
 };
-const want = buildMcpIndex(families, FOUNDATIONS);
+// Same theme-leaf derivation the emitter uses — one function, two callers,
+// so the gate can never disagree with the emitter about the theme entry.
+const themeLeaf = NAV_SECTIONS.flatMap((s) => s.leaves).find(
+  (l) => l.href === "/foundations/theme",
+);
+const want = buildMcpIndex(families, FOUNDATIONS, {
+  title: themeLeaf.label,
+  oneLiner: themeLeaf.hint,
+});
 
 let got;
 try {

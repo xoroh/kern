@@ -4,12 +4,13 @@
  *
  * WHAT IT ASSERTS
  *
- * 1. EMISSION: every component family (web + mobile) and every foundations
- *    page produces a non-empty .md through the SAME module the emitter uses
+ * 1. EMISSION: every component family (web + mobile), every foundations
+ *    page, and the theme reference page produces a non-empty .md through the
+ *    SAME module the emitter uses
  *    (`scripts/lib/page-md.mjs` — one function, two callers, so the two can
  *    never disagree). A page the emitter drops fails here.
- * 2. FRESHNESS TRIPWIRE: each family .md embeds its own one-liner. A stale
- *    emission (content edited, .md not regenerated) still carries the old
+ * 2. FRESHNESS TRIPWIRE: each family .md embeds its own one-liner (and the
+ *    theme .md embeds the nav leaf's hint). A stale emission (content edited,
  *    sentence — and a regenerated one carries the new one — so the tripwire
  *    catches drift without byte-comparing 200 files.
  * 3. GRAMMAR ORDER: each non-exempt family .md carries the expected h2
@@ -32,14 +33,17 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { FOUNDATIONS, neighbours } from "../src/foundations/shell.tsx";
 import { exemptionReason } from "../src/systems/grammar.ts";
+import { NAV_SECTIONS } from "../src/systems/nav.ts";
 import {
   expectedHeadings,
   foundationMarkdown,
   pageMarkdown,
+  themeMarkdown,
 } from "./lib/page-md.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const APP = join(HERE, "..");
+const ROOT = join(APP, "..", "..");
 
 let failures = 0;
 const bad = (msg) => {
@@ -117,10 +121,65 @@ for (const page of FOUNDATIONS) {
   }
 }
 
+// The theme reference page: title/one-liner from the nav leaf (the same
+// source the emitter reads), catalog + counts from the token package. A
+// docs page outside the families + FOUNDATIONS census with no .md is the
+// omission this block exists to prevent.
+let themed = 0;
+{
+  const themeLeaf = NAV_SECTIONS.flatMap((s) => s.leaves).find(
+    (l) => l.href === "/foundations/theme",
+  );
+  if (!themeLeaf) {
+    bad(
+      "no /foundations/theme nav leaf — the theme page has no wayfinding source",
+    );
+  } else {
+    const catalog = JSON.parse(
+      readFileSync(
+        join(ROOT, "packages/kern-tokens/src/themes/index.json"),
+        "utf8",
+      ),
+    );
+    const kernTheme = JSON.parse(
+      readFileSync(
+        join(ROOT, "packages/kern-tokens/src/themes/kern.json"),
+        "utf8",
+      ),
+    );
+    const md = themeMarkdown(
+      { title: themeLeaf.label, oneLiner: themeLeaf.hint },
+      catalog,
+      {
+        roles: Object.keys(kernTheme.color.light).length,
+        shapes: Object.keys(kernTheme.radius).length,
+      },
+    );
+    if (!md.trim()) {
+      bad("foundations/theme: emits an empty .md");
+    } else {
+      themed++;
+      if (!md.includes(themeLeaf.hint)) {
+        bad(
+          "foundations/theme: .md does not embed the nav leaf hint — the freshness tripwire",
+        );
+      }
+      for (const preset of catalog.themes) {
+        if (!md.includes(preset.id) || !md.includes(preset.description)) {
+          bad(
+            `foundations/theme: .md omits catalog preset "${preset.id}" — the index and the .md disagree`,
+          );
+        }
+      }
+    }
+  }
+}
+
 // The visible affordance, pinned by source: the button plus the root it reads.
 for (const [file, rel] of [
   ["component pages", "src/components/docs/component-page.tsx"],
   ["foundations pages", "src/foundations/shell.tsx"],
+  ["theme reference page", "src/routes/foundations/theme/index.tsx"],
 ]) {
   const text = readFileSync(join(APP, rel), "utf8");
   if (!text.includes("CopyMarkdownButton")) {
@@ -145,6 +204,7 @@ for (const [pathname, href] of [
   ["/components/web/button", "/md/web/button.md"],
   ["/components/mobile/button", "/md/mobile/button.md"],
   ["/foundations/color", "/md/foundations/color.md"],
+  ["/foundations/theme", "/md/foundations/theme.md"],
 ]) {
   if (mdHrefForPathname(pathname) !== href) {
     bad(
@@ -152,7 +212,14 @@ for (const [pathname, href] of [
     );
   }
 }
-for (const pathname of ["/", "/docs/guides", "/components", "/foundations"]) {
+for (const pathname of [
+  "/",
+  "/docs/guides",
+  "/components",
+  "/foundations",
+  "/theme-configurator",
+  "/playground",
+]) {
   if (mdHrefForPathname(pathname) !== null) {
     bad(
       `View-.md leaks onto ${pathname} — only .md-backed docs pages emit one`,
@@ -177,7 +244,7 @@ for (const pathname of ["/", "/docs/guides", "/components", "/foundations"]) {
 }
 
 console.log(
-  `check-page-md: ${emitted} familie(s) + ${foundations} foundations page(s) emit well-formed .md`,
+  `check-page-md: ${emitted} familie(s) + ${foundations} foundations page(s) + ${themed} theme page(s) emit well-formed .md`,
 );
 
 if (failures > 0) {
@@ -185,5 +252,5 @@ if (failures > 0) {
   process.exit(1);
 }
 console.log(
-  "check-page-md: ok — every docs page emits its .md in grammar order",
+  "check-page-md: ok — every docs page emits its .md (families in grammar order)",
 );

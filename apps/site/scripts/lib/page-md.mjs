@@ -209,6 +209,58 @@ export function pageMarkdown(doc, platform, { liveDemo = false } = {}) {
 }
 
 /**
+ * The theme reference page's .md (/foundations/theme).
+ *
+ * The page BODIES render resolved values from the token package (every
+ * swatch drawn by its own role), which has no markdown form — so this emits
+ * the facts the page owns (title, one-liner, the preset catalog, resolved
+ * counts) and says where the values live, rather than transcribing numbers
+ * that would go stale silently. Same rule foundationMarkdown follows.
+ *
+ * `theme` is the /foundations/theme nav leaf (the hand-edited source llms.txt
+ * also reads — title/one-liner are never copied). `catalog` is the theme
+ * catalog (`packages/kern-tokens/src/themes/index.json`); `counts` carries
+ * the role/shape totals derived from the default theme file.
+ */
+export function themeMarkdown(theme, catalog, counts) {
+  const out = [];
+  out.push(`# ${theme.title} (Foundations)`, "");
+  out.push(theme.oneLiner, "");
+  out.push(
+    "This page resolves; it does not configure. Every swatch on the site " +
+      "page is read from `@xoroh/kern-tokens` directly — the values below " +
+      "are pointers to that source, not copies of it.",
+    "",
+  );
+  out.push("## Presets", "");
+  for (const preset of catalog.themes) {
+    out.push(`- **${preset.id}** (${preset.name}) — ${preset.description}`);
+  }
+  out.push("");
+  out.push("## Resolved values", "");
+  out.push(
+    `${counts.roles} color roles per scheme and ${counts.shapes} shape ` +
+      "roles, read from the token package. Fetch them with the `get_tokens` " +
+      "MCP tool (a preset id for the overrides, `base` for the shared " +
+      "source) — never copy values from this file into code.",
+    "",
+  );
+  out.push("## Configure it", "");
+  out.push(
+    "Seed, presets, contrast levels, radius authoring and preset export " +
+      "live in the theme configurator (/theme-configurator). What the roles " +
+      "mean and where each one goes lives on /foundations/color. Every " +
+      "token is also a CSS variable, so a project can read one without " +
+      "importing anything, e.g. `--md-sys-color-primary`.",
+    "",
+  );
+  return `${out
+    .join("\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim()}\n`;
+}
+
+/**
  * One foundations page's .md. The page BODIES render from the token package
  * (each value drawn by its own token), which has no markdown form — so this
  * emits the registry facts the page owns (title, one-liner, deviations,
