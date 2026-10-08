@@ -330,7 +330,7 @@ for (const a of anchors) {
   // focus/palette e2e specs. Narrowly pinned to prefix "#", empty suffix, and
   // the single `item.id` expression so no other dynamic anchor is weakened.
   const isSectionTocAnchor =
-    a.file.endsWith("components/chrome/site-layout.tsx") &&
+    a.file.endsWith("domains/shared/chrome/site-layout.tsx") &&
     a.desc.kind === "template" &&
     a.desc.prefix === "#" &&
     a.desc.suffix === "" &&

@@ -13,7 +13,7 @@
 import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { CopyMarkdownButton } from "../components/chrome/copy-markdown-button";
-import { T_BODY_SM, T_LEAD, T_PAGE, T_SECTION } from "../systems/type-scale";
+import { T_BODY_SM, T_LEAD, T_PAGE, T_SECTION } from "../domains/shared/systems/type-scale";
 
 export type FoundationPage = {
   /** route segment, e.g. "color" */

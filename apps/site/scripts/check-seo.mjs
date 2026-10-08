@@ -4,7 +4,7 @@
  *
  * TWO checks, both about machine-readable honesty:
  *
- * 1. JSON-LD (src/systems/seo.ts SITE_JSON_LD): must JSON-serialize with
+ * 1. JSON-LD (src/domains/shared/systems/seo.ts SITE_JSON_LD): must JSON-serialize with
  *    @context https://schema.org + @type WebSite, and every absolute URL in
  *    it must sit on SEO_ALLOWED_HOSTS. The site's own hostname is absent by
  *    design (no custom domain declared — inventing one is the fabrication
@@ -20,7 +20,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { SEO_ALLOWED_HOSTS, SITE_JSON_LD } from "../src/systems/seo.ts";
+import { SEO_ALLOWED_HOSTS, SITE_JSON_LD } from "../src/domains/shared/systems/seo.ts";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const APP = join(HERE, "..");

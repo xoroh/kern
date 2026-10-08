@@ -8,16 +8,16 @@
  */
 import { createFileRoute } from "@tanstack/react-router";
 import { Kicker } from "../../components/chrome/kicker";
-import { SiteLayout } from "../../components/chrome/site-layout";
+import { SiteLayout } from "../../domains/shared/chrome/site-layout";
 import { LICENSE_TEXT, PACKAGE_LICENSES } from "../../generated/legal";
-import { routeHead } from "../../systems/seo";
+import { routeHead } from "../../domains/shared/systems/seo";
 import {
   T_BODY,
   T_BODY_SM,
   T_LABEL,
   T_PAGE,
   T_SECTION,
-} from "../../systems/type-scale";
+} from "../../domains/shared/systems/type-scale";
 
 export const Route = createFileRoute("/legal/license")({
   head: () =>

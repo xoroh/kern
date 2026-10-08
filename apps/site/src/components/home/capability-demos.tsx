@@ -22,7 +22,7 @@ import {
   T_LABEL_LG,
   T_SECTION,
   T_SMALL_TITLE,
-} from "../../systems/type-scale";
+} from "../../domains/shared/systems/type-scale";
 
 const CARD =
   "flex flex-col gap-4 rounded-(--md-sys-shape-corner-large) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-low) p-5";

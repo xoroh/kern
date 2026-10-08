@@ -17,11 +17,11 @@ import {
   redirect,
 } from "@tanstack/react-router";
 import { Kicker } from "../../../components/chrome/kicker";
-import { SiteLayout } from "../../../components/chrome/site-layout";
+import { SiteLayout } from "../../../domains/shared/chrome/site-layout";
 import { ComponentPage as ComponentDocPage } from "../../../components/docs/component-page";
 import { docForExport, getDoc } from "../../../content";
 import { getComponent } from "../../../generated/manifest";
-import { routeHead } from "../../../systems/seo";
+import { routeHead } from "../../../domains/shared/systems/seo";
 import { siblingNav } from "../../../systems/component-nav";
 import {
   T_BODY,
@@ -29,7 +29,7 @@ import {
   T_CODE,
   T_PAGE,
   T_SECTION,
-} from "../../../systems/type-scale";
+} from "../../../domains/shared/systems/type-scale";
 
 export const Route = createFileRoute("/components/$platform/$component")({
   // Per-page metadata (Phase 3 grammar): the title names the family and the

@@ -10,9 +10,9 @@
  */
 import { createFileRoute } from "@tanstack/react-router";
 import { Kicker } from "../../components/chrome/kicker";
-import { SiteLayout } from "../../components/chrome/site-layout";
-import { routeHead } from "../../systems/seo";
-import { T_BODY, T_PAGE, T_SECTION } from "../../systems/type-scale";
+import { SiteLayout } from "../../domains/shared/chrome/site-layout";
+import { routeHead } from "../../domains/shared/systems/seo";
+import { T_BODY, T_PAGE, T_SECTION } from "../../domains/shared/systems/type-scale";
 
 export const Route = createFileRoute("/legal/security")({
   head: () =>

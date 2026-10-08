@@ -8,7 +8,7 @@
  * to /changelog, which is where "what changed" lives.
  */
 import { MATURITY } from "../../systems/maturity";
-import { T_CODE } from "../../systems/type-scale";
+import { T_CODE } from "../../domains/shared/systems/type-scale";
 
 const VERSION = MATURITY[0]?.version ?? "0.0.0";
 

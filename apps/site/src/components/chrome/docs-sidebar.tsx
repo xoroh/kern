@@ -20,7 +20,7 @@
 import { useLocation } from "@tanstack/react-router";
 import { cn } from "@xoroh/kern";
 import { NAV_SECTIONS } from "../../systems/nav";
-import { T_BODY_MD, T_LABEL, T_LABEL_LG } from "../../systems/type-scale";
+import { T_BODY_MD, T_LABEL, T_LABEL_LG } from "../../domains/shared/systems/type-scale";
 
 export function DocsSidebar() {
   const { pathname } = useLocation();

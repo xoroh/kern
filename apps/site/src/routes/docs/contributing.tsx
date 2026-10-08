@@ -9,14 +9,14 @@
  */
 import { createFileRoute } from "@tanstack/react-router";
 import { Kicker } from "../../components/chrome/kicker";
-import { SiteLayout } from "../../components/chrome/site-layout";
-import { routeHead } from "../../systems/seo";
+import { SiteLayout } from "../../domains/shared/chrome/site-layout";
+import { routeHead } from "../../domains/shared/systems/seo";
 import {
   T_BODY,
   T_CODE,
   T_PAGE,
   T_SECTION,
-} from "../../systems/type-scale";
+} from "../../domains/shared/systems/type-scale";
 
 export const Route = createFileRoute("/docs/contributing")({
   head: () =>

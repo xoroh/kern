@@ -7,13 +7,13 @@
  * about the packages instead of showing them the components.
  */
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { SiteLayout } from "../../components/chrome/site-layout";
+import { SiteLayout } from "../../domains/shared/chrome/site-layout";
 import {
   ComponentGallery,
   GalleryLede,
 } from "../../components/docs/component-gallery";
-import { routeHead } from "../../systems/seo";
-import { T_LABEL_LG, T_PAGE } from "../../systems/type-scale";
+import { routeHead } from "../../domains/shared/systems/seo";
+import { T_LABEL_LG, T_PAGE } from "../../domains/shared/systems/type-scale";
 
 export const Route = createFileRoute("/components/")({
   head: () =>

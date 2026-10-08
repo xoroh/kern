@@ -12,7 +12,7 @@
  * document structure, and check-headings requires an id on every h2/h3.
  */
 import { REPO_LICENSE } from "../../generated/changelog";
-import { T_BODY_MD, T_BODY_SM, T_LABEL } from "../../systems/type-scale";
+import { T_BODY_MD, T_BODY_SM, T_LABEL } from "../../domains/shared/systems/type-scale";
 import { VersionSelector } from "./version-selector";
 
 const COLUMNS: { label: string; links: { label: string; href: string }[] }[] =

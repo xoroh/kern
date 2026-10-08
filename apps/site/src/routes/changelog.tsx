@@ -7,10 +7,10 @@
  */
 import { createFileRoute } from "@tanstack/react-router";
 import { Kicker } from "../components/chrome/kicker";
-import { SiteLayout } from "../components/chrome/site-layout";
+import { SiteLayout } from "../domains/shared/chrome/site-layout";
 import { RECENT_CHANGES } from "../generated/changelog";
-import { routeHead } from "../systems/seo";
-import { T_BODY, T_LABEL, T_PAGE, T_SECTION } from "../systems/type-scale";
+import { routeHead } from "../domains/shared/systems/seo";
+import { T_BODY, T_LABEL, T_PAGE, T_SECTION } from "../domains/shared/systems/type-scale";
 
 export const Route = createFileRoute("/changelog")({
   head: () =>

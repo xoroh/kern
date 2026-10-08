@@ -88,7 +88,7 @@ export const NAV_SECTIONS: NavSection[] = [
       },
       {
         label: "Reference",
-        href: "/docs/reference",
+        href: "/reference",
         hint: "Concept and contract reference",
         group: "Pages",
       },
@@ -155,6 +155,21 @@ export const NAV_SECTIONS: NavSection[] = [
         label: "Showcase",
         href: "/showcase",
         hint: "Blocks, templates, and example apps built from kern",
+        group: "Pages",
+      },
+    ],
+  },
+  {
+    // Primitives (P domain): the headless behavior kernel shared by the web
+    // and native renderers. One leaf — the landing links every module page,
+    // and $module instances need no leaf (dynamic segments are instances of
+    // their hub, per check-nav's skip rule).
+    label: "Primitives",
+    leaves: [
+      {
+        label: "Primitives",
+        href: "/primitives",
+        hint: "Headless behavior kernel for web and native",
         group: "Pages",
       },
     ],

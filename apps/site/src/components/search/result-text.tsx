@@ -10,7 +10,7 @@
  */
 import type { ReactNode } from "react";
 import type { SearchEntry } from "../../systems/search";
-import { T_BODY_MD, T_BODY_SM, T_LABEL_LG } from "../../systems/type-scale";
+import { T_BODY_MD, T_BODY_SM, T_LABEL_LG } from "../../domains/shared/systems/type-scale";
 
 const INK = "text-(--md-sys-color-on-surface)";
 const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";

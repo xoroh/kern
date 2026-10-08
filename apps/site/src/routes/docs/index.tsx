@@ -13,9 +13,9 @@
  * the failure class this whole rebuild is against.
  */
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { SiteLayout } from "../../components/chrome/site-layout";
+import { SiteLayout } from "../../domains/shared/chrome/site-layout";
 import { RECENT_CHANGES } from "../../generated/changelog";
-import { routeHead } from "../../systems/seo";
+import { routeHead } from "../../domains/shared/systems/seo";
 import {
   T_BODY,
   T_BODY_SM,
@@ -23,7 +23,7 @@ import {
   T_LABEL_LG,
   T_PAGE,
   T_SMALL_TITLE,
-} from "../../systems/type-scale";
+} from "../../domains/shared/systems/type-scale";
 
 export const Route = createFileRoute("/docs/")({
   head: () =>

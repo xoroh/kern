@@ -16,7 +16,7 @@ import {
   T_BODY_SM,
   T_DISPLAY,
   T_LABEL,
-} from "../../systems/type-scale";
+} from "../../domains/shared/systems/type-scale";
 
 const STATS: { value: number; label: string; href: string }[] = [
   {

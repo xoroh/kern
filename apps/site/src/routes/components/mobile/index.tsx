@@ -9,7 +9,7 @@
  * code the way a committed screenshot can (Q4.1).
  */
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { SiteLayout } from "../../../components/chrome/site-layout";
+import { SiteLayout } from "../../../domains/shared/chrome/site-layout";
 import {
   ComponentGallery,
   demoCoverage,
@@ -22,8 +22,8 @@ import {
   T_LABEL_LG,
   T_PAGE,
   T_SECTION,
-} from "../../../systems/type-scale";
-import { routeHead } from "../../../systems/seo";
+} from "../../../domains/shared/systems/type-scale";
+import { routeHead } from "../../../domains/shared/systems/seo";
 
 export const Route = createFileRoute("/components/mobile/")({
   head: () =>

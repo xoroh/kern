@@ -8,12 +8,12 @@ import {
 } from "@xoroh/kern-tokens";
 import { Text, View } from "react-native";
 import { Kicker } from "../../../components/chrome/kicker";
-import { SiteLayout } from "../../../components/chrome/site-layout";
+import { SiteLayout } from "../../../domains/shared/chrome/site-layout";
 import { Code } from "../../../components/docs/code";
 import { PhonePreview } from "../../../components/preview/phone";
 import { Preview, PreviewGrid } from "../../../components/preview/preview";
 import { ThemeSwitcher } from "../../../components/theme/theme-switcher";
-import { routeHead } from "../../../systems/seo";
+import { routeHead } from "../../../domains/shared/systems/seo";
 import {
   T_BODY,
   T_BODY_MD,
@@ -22,7 +22,7 @@ import {
   T_PAGE,
   T_SECTION,
   T_SMALL_TITLE,
-} from "../../../systems/type-scale";
+} from "../../../domains/shared/systems/type-scale";
 
 export const Route = createFileRoute("/foundations/theme/")({
   head: () =>

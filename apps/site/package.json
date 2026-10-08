@@ -29,6 +29,7 @@
     "@xoroh/kern-icons": "workspace:*",
     "@xoroh/kern-mcp": "workspace:*",
     "@xoroh/kern-native": "workspace:*",
+    "@xoroh/kern-primitives": "workspace:*",
     "@xoroh/kern-tokens": "workspace:*",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",

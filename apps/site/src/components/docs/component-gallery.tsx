@@ -33,7 +33,7 @@ import {
   T_LEAD,
   T_SECTION,
   T_SMALL_TITLE,
-} from "../../systems/type-scale";
+} from "../../domains/shared/systems/type-scale";
 
 const INK = "text-(--md-sys-color-on-surface)";
 const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";

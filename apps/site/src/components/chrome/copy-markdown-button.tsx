@@ -19,7 +19,7 @@
 import { Icon } from "@xoroh/kern-icons";
 import { useState } from "react";
 import { domToMarkdown } from "../../systems/dom-to-markdown";
-import { T_BODY_SM } from "../../systems/type-scale";
+import { T_BODY_SM } from "../../domains/shared/systems/type-scale";
 
 const ACTION = `inline-flex items-center gap-1.5 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline) px-2 py-1 ${T_BODY_SM} text-(--md-sys-color-primary) hover:bg-(--md-sys-color-primary-container)`;
 

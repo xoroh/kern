@@ -16,7 +16,7 @@ import { useLocation } from "@tanstack/react-router";
 import { buttonVariants, cn, Kbd, useKernTheme } from "@xoroh/kern";
 import { Icon } from "@xoroh/kern-icons";
 import { useRef, useState } from "react";
-import { T_LABEL_LG } from "../../systems/type-scale";
+import { T_LABEL_LG } from "../../domains/shared/systems/type-scale";
 import { isActivePath } from "./app-rail";
 import { GitHubIcon } from "./github-icon";
 import { MobileDrawer } from "./mobile-drawer";

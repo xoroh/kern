@@ -9,7 +9,7 @@
  */
 
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { SiteLayout } from "../../components/chrome/site-layout";
+import { SiteLayout } from "../../domains/shared/chrome/site-layout";
 import {
   COLOR_ROLES,
   ELEVATION_LEVELS,
@@ -20,14 +20,14 @@ import {
   TYPE_STYLE_COUNT,
 } from "../../content/foundations";
 import { FOUNDATIONS } from "../../foundations/shell";
-import { routeHead } from "../../systems/seo";
+import { routeHead } from "../../domains/shared/systems/seo";
 import {
   T_BODY_SM,
   T_LEAD,
   T_PAGE,
   T_SECTION,
   T_SMALL_TITLE,
-} from "../../systems/type-scale";
+} from "../../domains/shared/systems/type-scale";
 
 const INK = "text-(--md-sys-color-on-surface)";
 const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";

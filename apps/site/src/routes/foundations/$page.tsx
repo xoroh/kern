@@ -10,7 +10,7 @@
 
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
-import { SiteLayout } from "../../components/chrome/site-layout";
+import { SiteLayout } from "../../domains/shared/chrome/site-layout";
 import {
   BASE_ANCHORS,
   COLOR_GROUPS,
@@ -40,8 +40,8 @@ import {
   FProse,
   FSection,
 } from "../../foundations/shell";
-import { T_BODY_SM, T_LABEL, T_SMALL_TITLE } from "../../systems/type-scale";
-import { routeHead } from "../../systems/seo";
+import { T_BODY_SM, T_LABEL, T_SMALL_TITLE } from "../../domains/shared/systems/type-scale";
+import { routeHead } from "../../domains/shared/systems/seo";
 
 export const Route = createFileRoute("/foundations/$page")({
   // Per-page metadata (Phase 3 grammar): the title names the foundations

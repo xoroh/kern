@@ -10,15 +10,15 @@
  * today.
  */
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { SiteLayout } from "../../components/chrome/site-layout";
-import { routeHead } from "../../systems/seo";
+import { SiteLayout } from "../../domains/shared/chrome/site-layout";
+import { routeHead } from "../../domains/shared/systems/seo";
 import {
   T_BODY_SM,
   T_LEAD,
   T_PAGE,
   T_SECTION,
   T_SMALL_TITLE,
-} from "../../systems/type-scale";
+} from "../../domains/shared/systems/type-scale";
 
 const INK = "text-(--md-sys-color-on-surface)";
 const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";

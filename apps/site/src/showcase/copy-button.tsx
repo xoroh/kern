@@ -1,6 +1,6 @@
 import { Icon } from "@xoroh/kern-icons";
 import { useState } from "react";
-import { T_BODY_SM } from "../systems/type-scale";
+import { T_BODY_SM } from "../domains/shared/systems/type-scale";
 
 /**
  * Copy button shared by the Example and Configurator code panels.

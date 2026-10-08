@@ -33,9 +33,9 @@ import {
   varName,
 } from "@xoroh/kern-tokens";
 import { useMemo, useState } from "react";
-import { SiteLayout } from "../components/chrome/site-layout";
+import { SiteLayout } from "../domains/shared/chrome/site-layout";
 import { CopyButton } from "../showcase/copy-button";
-import { routeHead } from "../systems/seo";
+import { routeHead } from "../domains/shared/systems/seo";
 import {
   T_BODY,
   T_BODY_SM,
@@ -43,7 +43,7 @@ import {
   T_PAGE,
   T_SECTION,
   T_SMALL_TITLE,
-} from "../systems/type-scale";
+} from "../domains/shared/systems/type-scale";
 import { seedOverrides } from "../theme-studio/seed";
 
 export const Route = createFileRoute("/theme-configurator")({

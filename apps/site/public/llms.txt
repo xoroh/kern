@@ -24,7 +24,7 @@ Prefer these machine surfaces over scraping HTML:
 - [Overview](/docs): Three ways in, one system underneath
 - [Guides](/docs/guides): How-to guides for common tasks
 - [API reference](/docs/api): API reference for the public utility surface
-- [Reference](/docs/reference): Concept and contract reference
+- [Reference](/reference): Concept and contract reference
 - [Contributing](/docs/contributing): How to contribute to kern
 
 ## Components
@@ -44,6 +44,10 @@ Prefer these machine surfaces over scraping HTML:
 ## Showcase
 
 - [Showcase](/showcase): Blocks, templates, and example apps built from kern
+
+## Primitives
+
+- [Primitives](/primitives): Headless behavior kernel for web and native
 
 ## Start
 

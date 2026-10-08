@@ -1,11 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Kicker } from "../../components/chrome/kicker";
-import { SiteLayout } from "../../components/chrome/site-layout";
+import { SiteLayout } from "../../domains/shared/chrome/site-layout";
 import { Code, Step } from "../../components/docs/code";
 import { IconGallery } from "../../components/icons/icon-gallery";
 import { componentsOn } from "../../generated/manifest";
-import { routeHead } from "../../systems/seo";
-import { T_BODY, T_BODY_MD, T_PAGE } from "../../systems/type-scale";
+import { routeHead } from "../../domains/shared/systems/seo";
+import { T_BODY, T_BODY_MD, T_PAGE } from "../../domains/shared/systems/type-scale";
 
 export const Route = createFileRoute("/docs/guides")({
   head: () =>

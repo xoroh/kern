@@ -37,7 +37,7 @@ import {
   T_BODY_SM,
   T_KEY,
   T_LABEL_MD,
-} from "../../systems/type-scale";
+} from "../../domains/shared/systems/type-scale";
 import { ResultText } from "../search/result-text";
 
 export const OPEN_SEARCH_EVENT = "kern:open-search";

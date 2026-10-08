@@ -3,9 +3,9 @@ import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import "@fontsource-variable/inter/index.css";
 import appCss from "../styles.css?url";
 import { Kicker } from "../components/chrome/kicker";
-import { SiteLayout } from "../components/chrome/site-layout";
-import { T_BODY, T_LABEL_LG, T_PAGE } from "../systems/type-scale";
-import { pageMeta, SITE_DESCRIPTION } from "../systems/seo";
+import { SiteLayout } from "../domains/shared/chrome/site-layout";
+import { T_BODY, T_LABEL_LG, T_PAGE } from "../domains/shared/systems/type-scale";
+import { pageMeta, SITE_DESCRIPTION } from "../domains/shared/systems/seo";
 
 /**
  * First-paint theme init — the P0 flash fix.

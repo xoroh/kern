@@ -7,7 +7,7 @@
  * from the scale rather than being re-typed at every call site.
  */
 import type { ReactNode } from "react";
-import { T_KICKER } from "../../systems/type-scale";
+import { T_KICKER } from "../../domains/shared/systems/type-scale";
 
 export function Kicker({
   children,

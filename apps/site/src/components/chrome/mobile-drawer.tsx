@@ -17,7 +17,7 @@ import { buttonVariants, cn } from "@xoroh/kern";
 import { Icon } from "@xoroh/kern-icons";
 import { useEffect, useRef, type RefObject } from "react";
 import { trapTarget } from "../../systems/focus-trap";
-import { T_BODY_MD, T_LABEL, T_LABEL_LG } from "../../systems/type-scale";
+import { T_BODY_MD, T_LABEL, T_LABEL_LG } from "../../domains/shared/systems/type-scale";
 import { isActivePath } from "./app-rail";
 import { openSearch } from "./search-palette";
 import { PRIMARY_TABS } from "./site-header";

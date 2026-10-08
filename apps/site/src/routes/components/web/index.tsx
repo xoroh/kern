@@ -7,13 +7,13 @@
  * stated before anything implies parity of polish).
  */
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { SiteLayout } from "../../../components/chrome/site-layout";
+import { SiteLayout } from "../../../domains/shared/chrome/site-layout";
 import {
   ComponentGallery,
   demoCoverage,
 } from "../../../components/docs/component-gallery";
-import { T_BODY_SM, T_LABEL_LG, T_PAGE } from "../../../systems/type-scale";
-import { routeHead } from "../../../systems/seo";
+import { T_BODY_SM, T_LABEL_LG, T_PAGE } from "../../../domains/shared/systems/type-scale";
+import { routeHead } from "../../../domains/shared/systems/seo";
 
 export const Route = createFileRoute("/components/web/")({
   head: () =>
