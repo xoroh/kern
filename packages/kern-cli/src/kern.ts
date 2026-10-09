@@ -1,7 +1,9 @@
 #!/usr/bin/env bun
 /** `kern` — dual-delivery installer. Mode 1 (`add`) vendored; Mode 2 is `bun add @xoroh/kern`. */
-import { addComponent } from "./add.js";
+import { addBlock, addComponent } from "./add.js";
+import { loadBlocks } from "./blocks.js";
 import { initScaffold } from "./init.js";
+import { loadManifest } from "./manifest.js";
 
 const [, , cmd, ...rest] = process.argv;
 
@@ -12,6 +14,7 @@ function usage(): never {
       scaffold the starter: install → run → themed screen (preset picker:
       kern / sharp / brand / demo tenant)
   kern add <name> [--dest <dir>] [--self-contained]   vendor a web component + closure
+  kern add <block> [--dest <dir>]                     vendor a multi-file block (settings-screen, auth-form, …)
   bun add @xoroh/kern                                 Mode 2: versioned dependency (no command needed)
 
 Options:
@@ -80,8 +83,32 @@ if (cmd === "init") {
   const selfContained = rest.includes("--self-contained");
 
   try {
-    const result = addComponent(name, { dest, selfContained });
-    console.log(`kern add ${name}: vendored ${result.files.length} file(s)`);
+    // Blocks and components share the `add` verb and the name space. A name
+    // that exists in BOTH is refused rather than silently resolved to one:
+    // `kern add settings-row` must never mean "whatever the resolver found
+    // first".
+    const blocks = loadBlocks().map((b) => b.name);
+    const components = loadManifest().map((c) => c.name);
+    const isBlock = blocks.includes(name);
+    const isComponent = components.includes(name);
+    if (isBlock && isComponent) {
+      console.error(
+        `kern add: "${name}" is both a block and a component — rename one (blocks live in apps/site/src/blocks/manifest.ts).`,
+      );
+      process.exit(1);
+    }
+    if (!isBlock && !isComponent) {
+      console.error(
+        `kern add: unknown name "${name}" — neither a component (packages/mcp/src/manifest.ts) nor a block (apps/site/src/blocks/manifest.ts).`,
+      );
+      process.exit(1);
+    }
+    const result = isBlock
+      ? addBlock(name, { dest, selfContained })
+      : addComponent(name, { dest, selfContained });
+    console.log(
+      `kern add ${name}: vendored ${result.files.length} file(s)${isBlock ? " (block)" : ""}`,
+    );
     for (const f of result.files) console.log(`  + ${f}`);
     console.log(`receipt: ${result.receipt}`);
     console.log("run these yourself (never executed for you):");

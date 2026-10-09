@@ -63,16 +63,20 @@ export function ComponentsSidebar() {
           Families
         </p>
         <ul className="m-0 flex list-none flex-col gap-0.5 p-0">
-          {FAMILY_GROUPS.map((group) => (
-            <li key={group.id} className="m-0 p-0">
+          {FAMILY_GROUPS.map((g) => (
+            <li key={g.id} className="m-0 p-0">
+              {/* Same-page family anchors as the gallery's own family nav
+                  (`#family-${g.id}` ↔ `id={`family-${g.id}`}`): this sidebar
+                  renders only on /components pages, which is where the
+                  gallery emits those ids. */}
               <a
-                href={`/components#family-${group.id}`}
+                href={`#family-${g.id}`}
                 className={cn(
                   "block rounded-(--md-sys-shape-corner-small) px-3 py-1.5 no-underline",
                   `${T_BODY_MD} text-(--md-sys-color-on-surface-variant) hover:bg-(--md-sys-color-surface-container-high) hover:text-(--md-sys-color-on-surface)`,
                 )}
               >
-                {group.title}
+                {g.title}
               </a>
             </li>
           ))}
