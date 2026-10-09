@@ -32,8 +32,16 @@ NavigationBar min-destination guard. Verified-correct: Button web↔native sizes
 
 - [x] P0 token fixes (one lane: icon-button, chip ×2, card, button layers) + regression tests per fix.
   Landed `c51e98d` (plus icon-button toggle-unselected nuance and danger-layer overrides).
-- [ ] P1s in listed order (tabs → search → segmented → switch → slider → fab → mobile parity).
-- [ ] P2s as filler between batches.
+- [x] P1s in listed order (tabs → search → segmented → switch → slider → fab → mobile parity).
+  Landed `a6b88d2`: search slots + icon clear, segmented check + 5 sizes, switch thumb icons
+  (M3-verified tokens), slider track token + stop indicators, fab icon-geometry resolution,
+  navbar min-destination guard. Tabs: `SecondaryTabs` already ships — its pattern becomes
+  reachable through a demo (P3). Mobile parity: 10/12 of the R7 list already ship natively;
+  popover/scroll-area were never full-concept gaps, and the 6 cross-renderer-pending rows
+  now consume their contract rows (`native-parity-start.rntest.tsx`, zero pending).
+- [x] P2s as filler between batches. Landed `a6b88d2`: badge `max` truncation (M3 99+),
+  checkbox 40dp hover/focus layer, time-picker dial `never`-prop explicitness,
+  navbar min-destination dev guard.
 
 **Gates:** per-fix visual proof (both themes), typecheck, `check:docs` chain (token tables re-derive).
 **Out of scope:** token VALUE redesign (D6) — these fixes use existing correct tokens, no new values.
