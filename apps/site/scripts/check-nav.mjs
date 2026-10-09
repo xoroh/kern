@@ -1,7 +1,12 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 /**
  * check-nav — every nav href is a route that exists, and no route worth
  * listing is missing from the nav.
+ *
+ * Runs under bun (like check-search.mjs): NAV_SECTIONS composes domain-owned
+ * sections with transitive TS imports, which node ESM cannot resolve. A node
+ * script could only text-scrape the nav; this reads the real list every
+ * wayfinding surface reads.
  *
  * WHY
  *
@@ -50,6 +55,22 @@ function candidates(href) {
   ];
 }
 
+/**
+ * A dynamic-parent route serves the href: `/primitives/presence` is one
+ * instance of `routes/primitives/$module.tsx`. Listing every instance as its
+ * own leaf is how a module becomes findable from search and llms.txt without
+ * a file per href, so the resolver accepts "some `$`-prefixed sibling in the
+ * parent directory" rather than enumerating the segment names.
+ */
+function dynamicParentServes(href) {
+  const rel = href.replace(/^\//, "");
+  const parent = join(SITE, "src", "routes", dirname(rel));
+  if (!existsSync(parent)) return false;
+  return readdirSync(parent).some(
+    (e) => e.startsWith("$") && e.endsWith(".tsx"),
+  );
+}
+
 const failures = [];
 const seen = new Map();
 for (const leaf of leaves) {
@@ -60,7 +81,10 @@ for (const leaf of leaves) {
   } else {
     seen.set(leaf.href, leaf.label);
   }
-  if (!candidates(leaf.href).some((f) => existsSync(f))) {
+  if (
+    !candidates(leaf.href).some((f) => existsSync(f)) &&
+    !dynamicParentServes(leaf.href)
+  ) {
     failures.push(
       `"${leaf.label}" points at "${leaf.href}", which matches no route file.`,
     );
@@ -127,7 +151,9 @@ if (failures.length || unlisted.length) {
   console.error("check-nav FAILED:\n");
   for (const f of failures) console.error(`  - ${f}`);
   for (const href of unlisted)
-    console.error(`  - orphan route "${href}" — reachable from no chrome surface.`);
+    console.error(
+      `  - orphan route "${href}" — reachable from no chrome surface.`,
+    );
   process.exit(1);
 }
 console.log(

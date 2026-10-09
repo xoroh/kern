@@ -8,7 +8,9 @@
 //
 //   bun run check:snippets
 //
-// Reads (inside apps/site):  src/routes/{getting-started,theme/index}.tsx
+// Reads (inside apps/site):  src/routes/{getting-started,theme/index}.tsx,
+//                           src/routes/docs/guides.tsx,
+//                           src/domains/primitives/examples.ts
 // Writes (inside apps/site): .snippet-check/<name>/  (removed on exit)
 import { execFileSync } from "node:child_process";
 import {
@@ -64,6 +66,7 @@ const files = [
   "routes/getting-started.tsx",
   "routes/foundations/theme/index.tsx",
   "routes/docs/guides.tsx",
+  "domains/primitives/examples.ts",
 ];
 
 const snippets = new Map();
@@ -152,6 +155,21 @@ for (const [name, body] of snippets) {
             ],
             "@xoroh/kern-icons": [
               join(APP, "node_modules/@xoroh/kern-icons/dist/index.d.ts"),
+            ],
+            "@xoroh/kern-primitives": [
+              // The workspace source, not the site's node_modules link: the
+              // published surface is what readers install, and the link is
+              // install-state. (dist is built by `bun run build` at the root;
+              // check:snippets already runs check:dist:types first.)
+              join(
+                APP,
+                "..",
+                "..",
+                "packages",
+                "kern-primitives",
+                "dist",
+                "index.d.ts",
+              ),
             ],
             "react-native": [join(APP, "src/react-native.d.ts")],
           },

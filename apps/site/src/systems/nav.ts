@@ -18,6 +18,8 @@
  * - group: the search group ("Guides" | "Pages"). Decided per leaf by a human
  *   because no section maps cleanly (Docs holds both a guide and pages).
  */
+import { PRIMITIVES_NAV } from "../domains/primitives/primitives-nav";
+
 export type NavLeaf = {
   label: string;
   href: string;
@@ -165,21 +167,13 @@ export const NAV_SECTIONS: NavSection[] = [
       },
     ],
   },
-  {
-    // Primitives (P domain): the headless behavior kernel shared by the web
-    // and native renderers. One leaf — the landing links every module page,
-    // and $module instances need no leaf (dynamic segments are instances of
-    // their hub, per check-nav's skip rule).
-    label: "Primitives",
-    leaves: [
-      {
-        label: "Primitives",
-        href: "/primitives",
-        hint: "Headless behavior kernel for web and native",
-        group: "Pages",
-      },
-    ],
-  },
+  // Primitives (P domain): the headless behavior kernel shared by the web
+  // and native renderers. The section is the P domain's own list
+  // (`domains/primitives/primitives-nav.ts`) spliced in here rather than
+  // re-listed — the landing plus one leaf per kernel module, so a module is
+  // findable from the sidebar, the ⌘K palette and llms.txt without a fourth
+  // copy of the catalogue. Module hrefs resolve through the `$module` route.
+  PRIMITIVES_NAV,
   {
     label: "Start",
     leaves: [

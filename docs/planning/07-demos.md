@@ -20,14 +20,20 @@ Do/Don't), configurators one-live-component + per-prop knobs + same-object codeg
 
 ## Work items (ordered)
 
-- [ ] Web undemoed: one demo per export above (sheet siblings, navigation surfaces, Fab siblings, TimePicker,
+- [x] Web undemoed: one demo per export above (sheet siblings, navigation surfaces, Fab siblings, TimePicker,
       TopAppBar, SecondaryTabs, SearchBar, splits, MenuScreen/MenuSheet, FilterChipRow, Pane/ListDetail,
       chrome rows, SettingsRow/StatusBar/ThemeToggle, loading pair, Link trio, FocusRing/ContrastToggle,
       ErrorBoundary); adopt orphan configurators (Carousel, IconButton) with demos.
-- [ ] Mobile unaccounted: demo OR honest reason per export (12-list first); fix noisy non-component keys
+      **Landed in P3 (`92bcfc1`): web demo-less families 0** (`undemoedWebExports()` empty, `WEB_PREVIEW_REASONS`
+      empty by contract — no silent gaps, no fallback text).
+- [x] Mobile unaccounted: demo OR honest reason per export (12-list first); fix noisy non-component keys
       (`arcRotations`, `loaderColor` `:563-566`).
-- [ ] Document flagship-only configurator policy on-site; grow examples registry beyond 5.
-- [ ] App-chrome rows: demo or explicit omit-list (no silent gaps).
+      **Landed in P3: 12 everyday controls demoed; remaining 50 carry explicit `PREVIEW_REASONS`**
+      (`unaccountedMobileExports()` empty — demo or reason, never neither).
+- [x] Document flagship-only configurator policy on-site; grow examples registry beyond 5.
+      **Landed in P3: examples 14** (`check-examples` green, ids unique, code non-blank).
+- [x] App-chrome rows: demo or explicit omit-list (no silent gaps).
+      **Landed in P3: covered by the same demo-or-reason contract** (`check-gallery` pins no orphans, no stale reasons).
 
 **Gates:** `undemoedWebExports`/`unaccountedMobileExports` must be empty-or-reasoned, `check:docs` chain.
 **Out of scope:** new components (demo what ships; park list D15 stays parked).
