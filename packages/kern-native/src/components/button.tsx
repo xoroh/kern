@@ -1,5 +1,7 @@
 import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
 import type { LoadingIndicatorStyle } from "@xoroh/kern-tokens";
+import { mergeSlotProps, type SlotProps } from "@xoroh/kern-primitives";
+import { cloneElement, isValidElement, useRef } from "react";
 import type { ReactNode } from "react";
 import {
   type GestureResponderEvent,
@@ -12,6 +14,7 @@ import {
 } from "react-native";
 import { useKernTheme } from "../theme";
 import { CircularProgress } from "./circular-progress";
+import { useKernPress } from "./presentation";
 
 // M3: elevated, filled, tonal, outlined, text (m3.material.io/components/buttons/overview).
 // Mirrors the web union exactly — the variant law requires one MEANING, not one name count.
@@ -225,9 +228,38 @@ export function Button({
     shape,
     block,
   });
+  // G8: press reporting routes through the kernel model. useKernPress binds
+  // usePress to the gesture trio; the binder's onPress is wired INSTEAD of
+  // the consumer's (the one rule). The consumer keeps its
+  // GestureResponderEvent contract via the captured gesture event, and live
+  // refs defeat the mount-once options capture (usePress reads options at
+  // mount; the wrapper below always reads current values).
+  const onPressRef = useRef(onPress);
+  onPressRef.current = onPress;
+  const blockedRef = useRef(blocked);
+  blockedRef.current = blocked;
+  const gestureEvent = useRef<GestureResponderEvent | null>(null);
+  const press = useKernPress({
+    disabled: blocked,
+    onPress: () => {
+      if (!blockedRef.current && gestureEvent.current)
+        onPressRef.current?.(gestureEvent.current);
+    },
+  });
   // Icon order, not margin — `iconPosition` only chooses which side renders
   // first, so the pair flips automatically under RTL with no insets.
-  const iconSlot = icon ?? null;
+  // G8: the icon slot merges through the kernel (mergeSlotProps). Part props
+  // contribute the label color; the consumer's own props win per key — a bare
+  // icon tints with the label, an explicitly-colored icon is untouched.
+  const iconSlot = isValidElement<{ style?: StyleProp<TextStyle> }>(icon)
+    ? cloneElement(
+        icon,
+        mergeSlotProps<SlotProps>(
+          { style: { color: styles.label.color } },
+          icon.props,
+        ),
+      )
+    : (icon ?? null);
   return (
     <Pressable
       {...props}
@@ -240,7 +272,12 @@ export function Button({
         color: `${variant === "primary" ? scheme.color.onPrimary : scheme.color.onSurface}20`,
         borderless: size === "icon",
       }}
-      onPress={(event: GestureResponderEvent) => onPress?.(event)}
+      onPressIn={(event: GestureResponderEvent) => {
+        gestureEvent.current = event;
+        press.onPressIn();
+      }}
+      onPressOut={press.onPressOut}
+      onPress={press.onPress}
       style={({ pressed }) => [
         styles.container,
         pressed && !blocked ? { opacity: 0.82 } : undefined,

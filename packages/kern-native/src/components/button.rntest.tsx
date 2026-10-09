@@ -25,6 +25,26 @@ describe("native Button render", () => {
     });
   });
 
+  it("reports nothing on press-out without press (kernel cancel)", async () => {
+    const onPress = jest.fn();
+    await render(<Button onPress={onPress}>Save</Button>);
+    const button = screen.getByRole("button", { name: "Save" });
+    fireEvent(button, "pressIn");
+    fireEvent(button, "pressOut");
+    expect(onPress).not.toHaveBeenCalled();
+  });
+
+  it("tints a bare icon with the label color via the slot merge", async () => {
+    await render(
+      <Button icon={<Text testID="kern-icon">*</Text>}>
+        Save
+      </Button>,
+    );
+    expect(screen.getByTestId("kern-icon").props.style).toMatchObject({
+      color: expect.any(String),
+    });
+  });
+
   it("renders the icon beside the label", async () => {
     await render(
       <Button icon={<Text>*</Text>}>
