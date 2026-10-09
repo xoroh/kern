@@ -9,6 +9,7 @@
 import { Link } from "@tanstack/react-router";
 import { CopyButton } from "../../showcase/copy-button";
 import { Example, type ExampleSpec } from "../../showcase/example";
+import { Admonition } from "../shared/chrome/docs-shell-parts";
 import { T_BODY_SM, T_LABEL_LG, T_PAGE } from "../shared/systems/type-scale";
 import { type BlockView, installCommand } from "./registry";
 
@@ -75,6 +76,12 @@ export function BlockViewer({
       </div>
 
       <Example spec={spec} />
+
+      <Admonition intent="note" title="You own the code">
+        <code>kern add</code> vendors these files into your tree — they are
+        yours to edit and keep (Mode 1). Prefer <code>bun add @xoroh/kern</code>{" "}
+        (Mode 2) when you want upgrades to flow from the package instead.
+      </Admonition>
 
       <nav
         className="flex items-center justify-between gap-4"

@@ -21,7 +21,7 @@
  */
 
 import { useEffect, useState } from "react";
-import type { Platform } from "../../content/index";
+import { docForExport, type Platform } from "../../content/index";
 import type {
   ComponentDoc,
   Deviation,
@@ -31,6 +31,11 @@ import type {
 } from "../../content/types";
 import { MOBILE_DEMOS } from "../../demos/mobile/registry";
 import { WEB_DEMOS } from "../../demos/web/registry";
+import {
+  Breadcrumbs,
+  type Crumb,
+  PlatformTabs,
+} from "../../domains/shared/chrome/docs-shell-parts";
 import type { A11yPage } from "../../generated/a11y";
 import { A11Y } from "../../generated/a11y";
 import { PROPS_TABLE } from "../../generated/props-table";
@@ -520,6 +525,7 @@ function InstallPicker({ target }: { target: string }) {
     `npm i ${target}`;
   return (
     <div className={`${CARD} flex flex-col gap-2 p-4`}>
+      {/* biome-ignore lint/a11y/useSemanticElements: a package-manager picker group is not a form fieldset */}
       <div
         role="group"
         aria-label="Package manager"
@@ -922,7 +928,7 @@ function DemoExpectations({ page }: { page: A11yPage | undefined }) {
               </span>
               {demo.expectations.length > 0 && (
                 <ul className="m-0 mt-1 flex list-disc flex-col gap-1 pl-5">
-                  {demo.expectations.map((e, i) => {
+                  {demo.expectations.map((e) => {
                     const basis =
                       grouped &&
                       g.names.length > 1 &&
@@ -930,7 +936,7 @@ function DemoExpectations({ page }: { page: A11yPage | undefined }) {
                         ? e.basis.replace(g.names[0], g.names.join(", "))
                         : e.basis;
                     return (
-                      <li key={i} className={SMALL}>
+                      <li key={`${e.rule}-${e.expect}`} className={SMALL}>
                         {e.rule} — {e.expect} ({e.provenance}): {basis}
                       </li>
                     );
@@ -1598,10 +1604,41 @@ export function ComponentPage({
   prev?: { href: string; title: string };
   next?: { href: string; title: string };
 }) {
+  // Docs-shell chrome (P8): the trail and the platform switcher. The switcher
+  // navigates the peer page and remembers the reader's platform; a family
+  // with no peer renders no switcher (a tab that goes nowhere is a lie).
+  const peerPlatform: Platform = platform === "web" ? "mobile" : "web";
+  const peerDoc = doc.meta.nativePeer
+    ? docForExport(peerPlatform, doc.meta.nativePeer)
+    : undefined;
+  const crumbs: Crumb[] = [
+    { label: "Components", href: "/components" },
+    {
+      label: platform === "web" ? "Web" : "Native",
+      href: platform === "web" ? "/components/web" : "/components/mobile",
+    },
+    { label: doc.name },
+  ];
+  const platformTabs = [
+    {
+      id: "web",
+      label: "Web",
+      href: `/components/web/${platform === "web" ? doc.slug : (peerDoc?.slug ?? "")}`,
+    },
+    {
+      id: "mobile",
+      label: "Native",
+      href: `/components/mobile/${platform === "mobile" ? doc.slug : (peerDoc?.slug ?? "")}`,
+    },
+  ];
   return (
     <div className="grid grid-cols-1 gap-8 xl:grid-cols-[minmax(0,1fr)_12rem]">
       <article className="flex min-w-0 flex-col gap-10" data-copy-md-root>
         <header className="flex flex-col gap-4">
+          <Breadcrumbs items={crumbs} />
+          {peerDoc ? (
+            <PlatformTabs tabs={platformTabs} active={platform} />
+          ) : null}
           <h1 className={H1}>{doc.name}</h1>
           <p className={`m-0 max-w-[62ch] ${LEDE} ${INK_SOFT}`}>
             {doc.oneLiner}
