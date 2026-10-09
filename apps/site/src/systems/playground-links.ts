@@ -21,13 +21,15 @@ export function registrySearchHref(exportName: string): string {
   return `/search?q=${encodeURIComponent(exportName)}`;
 }
 
-/** The theme studio. Global knobs, so no component param by design. */
-export const THEME_CONFIGURATOR_HREF = "/theme-configurator";
+/**
+ * The theme studio. Global knobs, so no component param by design. The
+ * studio absorbed the old /theme-configurator route (one customizer app) —
+ * this constant stays global so component pages keep linking without a
+ * sweep; /theme-configurator itself redirects here.
+ */
+export const THEME_CONFIGURATOR_HREF = "/playground";
 
 /** A component page scrolled to its live demo section. Segments are encoded so shared links survive slugs with special characters. */
-export function componentDemoHref(
-  platform: Platform,
-  slug: string,
-): string {
+export function componentDemoHref(platform: Platform, slug: string): string {
   return `/components/${encodeURIComponent(platform)}/${encodeURIComponent(slug)}#demo`;
 }

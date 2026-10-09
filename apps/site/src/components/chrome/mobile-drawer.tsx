@@ -15,9 +15,13 @@
 import { useLocation } from "@tanstack/react-router";
 import { buttonVariants, cn } from "@xoroh/kern";
 import { Icon } from "@xoroh/kern-icons";
-import { useEffect, useRef, type RefObject } from "react";
+import { type RefObject, useEffect, useRef } from "react";
+import {
+  T_BODY_MD,
+  T_LABEL,
+  T_LABEL_LG,
+} from "../../domains/shared/systems/type-scale";
 import { trapTarget } from "../../systems/focus-trap";
-import { T_BODY_MD, T_LABEL, T_LABEL_LG } from "../../domains/shared/systems/type-scale";
 import { isActivePath } from "./app-rail";
 import { openSearch } from "./search-palette";
 import { PRIMARY_TABS } from "./site-header";
@@ -26,7 +30,8 @@ import { PRIMARY_TABS } from "./site-header";
 const SECONDARY: { href: string; label: string }[] = [
   { href: "/docs", label: "Docs" },
   { href: "/getting-started", label: "Getting started" },
-  { href: "/theme-configurator", label: "Theme configurator" },
+  // The theme studio IS /playground now (one customizer app) — it is a
+  // primary tab, so it no longer needs a secondary entry here.
   { href: "/changelog", label: "Changelog" },
   { href: "/about", label: "About" },
   { href: "/community", label: "Community" },
@@ -175,7 +180,10 @@ export function MobileDrawer({
           <a
             href="/getting-started"
             onClick={onClose}
-            className={cn(buttonVariants({ variant: "primary" }), "no-underline")}
+            className={cn(
+              buttonVariants({ variant: "primary" }),
+              "no-underline",
+            )}
           >
             Get started
           </a>

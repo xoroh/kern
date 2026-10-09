@@ -1,134 +1,148 @@
 /**
- * /playground — the Playground hub.
+ * /playground — the Playground: one customizer app (the theme studio).
  *
- * Two live tools, promoted from wherever they were buried: the theme
- * configurator (repaint the system and take the tokens) and the search page
- * (every registry from one box). The hub is a door, not a destination — it
- * says what each tool is for and sends the reader through.
+ * WHAT THIS IS: the destination the hub used to be a door to. The theme
+ * studio (knobs → live gallery → export) IS the page; the per-family
+ * configurator panels live inside it (Component knobs), so all
+ * customisation happens in one app. Search stays a separate global surface
+ * (/search, ⌘K) — embedded here as a link, never owned by it.
+ *
+ * STATE: the five knobs are the URL (`studio-state`), validated by
+ * `validateSearch` below so SSR and client paint the same theme. When the
+ * URL carries no studio key at all, localStorage fills in (a refresh keeps
+ * the knobs); when it carries any, the URL wins whole — a shared link
+ * reopens the sender's exact theme and never mixes with the receiver's
+ * storage. `navigate` always passes a FRESH search object (never the
+ * `(prev) =>` updater) so validated extras cannot leak into the query.
  */
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect } from "react";
+import { ThemeStudio } from "../../domains/playground/studio";
 import { SiteLayout } from "../../domains/shared/chrome/site-layout";
-import { componentsOn } from "../../generated/manifest";
-import {
-  THEME_CONFIGURATOR_HREF,
-  componentDemoHref,
-} from "../../systems/playground-links";
 import { routeHead } from "../../domains/shared/systems/seo";
 import {
+  T_BODY,
   T_BODY_SM,
-  T_LEAD,
   T_PAGE,
-  T_SECTION,
-  T_SMALL_TITLE,
 } from "../../domains/shared/systems/type-scale";
+import {
+  loadStudioState,
+  STUDIO_DEFAULTS,
+  type StudioState,
+  saveStudioState,
+  stateToStudioSearch,
+  studioSearchToState,
+} from "../../theme-studio/studio-state";
 
-const INK = "text-(--md-sys-color-on-surface)";
-const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";
-const CARD =
-  "rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-low)";
+const STUDIO_KEYS = ["seed", "preset", "dark", "contrast", "radius"] as const;
 
 export const Route = createFileRoute("/playground/")({
+  // The validated search IS the raw string-param map (`studio-state`'s own
+  // input shape): navigate can then pass `stateToStudioSearch(next)` directly
+  // — defaults omitted — and the type is that same map. `Object.keys(raw)`
+  // being empty is exactly "the URL carries no studio key".
+  validateSearch: (search: Record<string, unknown>): Record<string, string> => {
+    const raw: Record<string, string> = {};
+    for (const key of STUDIO_KEYS) {
+      const value = search[key];
+      if (value === undefined || value === null) continue;
+      raw[key] = String(value);
+    }
+    return raw;
+  },
   head: () =>
     routeHead(
       "Playground",
-      "Try the system live — repaint it in the theme configurator, or search every registry from one box.",
+      "One customizer app — theme knobs, a live component gallery, and the export, all sharing one resolved object.",
     ),
-  component: PlaygroundHub,
+  component: Playground,
 });
 
-const TOOLS: {
-  title: string;
-  body: string;
-  to: string;
-  cta: string;
-}[] = [
-  {
-    title: "Theme configurator",
-    body: "Repaint the system: pick a seed, watch every role recompute, and take the tokens. Presets are validated before anything renders, so a theme cannot silently break contrast.",
-    to: "/theme-configurator",
-    cta: "Open the configurator",
-  },
-  {
-    title: "Search",
-    body: "Every registry from one box — components on both platforms, token roles, guides, and API entries — ranked and grouped, with suggestions when the box is empty.",
-    to: "/search",
-    cta: "Open search",
-  },
-];
+function Playground() {
+  const raw = Route.useSearch();
+  const navigate = Route.useNavigate();
+  const specified = Object.keys(raw).length > 0;
+  const state = studioSearchToState(raw);
 
-function PlaygroundHub() {
-  const web = componentsOn("web").length;
-  const mobile = componentsOn("mobile").length;
+  // URL clean (no studio key): fill from localStorage so a refresh keeps the
+  // knobs. Any studio key in the URL wins whole — see the file header.
+  useEffect(() => {
+    if (specified) return;
+    const stored = loadStudioState();
+    if (
+      JSON.stringify(stateToStudioSearch(stored)) !==
+      JSON.stringify(stateToStudioSearch(STUDIO_DEFAULTS))
+    ) {
+      navigate({
+        to: "/playground",
+        search: stateToStudioSearch(stored),
+        replace: true,
+      });
+    }
+  }, [specified, navigate]);
+
+  function onChange(next: StudioState) {
+    saveStudioState(next);
+    navigate({
+      to: "/playground",
+      search: stateToStudioSearch(next),
+      replace: true,
+    });
+  }
+
   return (
     <SiteLayout>
       <section className="px-4 py-4 sm:px-6 sm:py-6">
-        <div className="mx-auto flex max-w-[64rem] flex-col gap-8 rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14">
+        <div className="mx-auto flex max-w-[72rem] flex-col gap-8 rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-12">
           <header className="flex flex-col gap-3">
-            <h1 className={`m-0 ${T_PAGE} ${INK}`}>Playground</h1>
-            <p className={`m-0 max-w-[62ch] ${T_LEAD} ${INK_SOFT}`}>
-              Try the system live. Two tools: repaint it, or find anything in
-              it.
+            <p
+              className={`m-0 text-(--md-sys-color-on-surface-variant) uppercase`}
+            >
+              Playground
+            </p>
+            <h1 className={`m-0 ${T_PAGE} text-(--md-sys-color-on-surface)`}>
+              Theme studio
+            </h1>
+            <p
+              className={`m-0 max-w-[62ch] ${T_BODY} text-(--md-sys-color-on-surface-variant)`}
+            >
+              Tune the theme in the sidebar — the preview and the export update
+              together. Every knob lives in the URL, so a refresh keeps your
+              theme and a shared link reopens the exact one you see.
+            </p>
+            <details>
+              <summary
+                className={`cursor-pointer ${T_BODY_SM} text-(--md-sys-color-on-surface)`}
+              >
+                How this studio works
+              </summary>
+              <p
+                className={`m-0 max-w-[62ch] ${T_BODY_SM} text-(--md-sys-color-on-surface-variant)`}
+              >
+                Everything right of this sentence reads CSS vars — the preview
+                is the tokens. Copy the preset source and it resolves to exactly
+                what you see: snippet and stage share one object. The seed
+                recomputes the primary family only; secondary, tertiary, error
+                and surface stay on the preset. Contrast is argued from the
+                mapping, not printed — the ratio function is not in the
+                package&apos;s public API.
+              </p>
+            </details>
+            <p
+              className={`m-0 ${T_BODY_SM} text-(--md-sys-color-on-surface-variant)`}
+            >
+              Every registry from one box lives in{" "}
+              <Link
+                to="/search"
+                search={{ q: "" }}
+                className="text-(--md-sys-color-primary) no-underline hover:underline"
+              >
+                search
+              </Link>{" "}
+              (⌘K anywhere) — a global surface, not owned by this app.
             </p>
           </header>
-
-          <section className="flex flex-col gap-3">
-            <h2 id="the-tools" className={`m-0 ${T_SECTION} ${INK}`}>
-              The tools
-            </h2>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {TOOLS.map((tool) => (
-                <Link
-                  key={tool.to}
-                  to={tool.to}
-                  className={`${CARD} flex flex-col gap-1 p-5 no-underline`}
-                >
-                  <span className={`m-0 ${T_SMALL_TITLE} ${INK}`}>
-                    {tool.title}
-                  </span>
-                  <span className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
-                    {tool.body}
-                  </span>
-                  <span
-                    className={`m-0 mt-1 ${T_BODY_SM} text-(--md-sys-color-primary)`}
-                  >
-                    {tool.cta} →
-                  </span>
-                </Link>
-              ))}
-            </div>
-          </section>
-
-          {/*
-            Registry → playground: every registry entry opens here. The CLI
-            registry and the search share the export name as key, so a search
-            for any of the {web} web or {mobile} native exports lands on its
-            component demo; web demos repaint in the configurator. Button is
-            the worked example — its demo anchor is the pattern every entry
-            follows.
-          */}
-          <section className="flex flex-col gap-3">
-            <h2 id="registry" className={`m-0 ${T_SECTION} ${INK}`}>
-              Registry → playground
-            </h2>
-            <p className={`m-0 max-w-[62ch] ${T_BODY_SM} ${INK_SOFT}`}>
-              {web} web exports and {mobile} native exports, each openable by
-              name. Search any export to land on its live demo — for example{" "}
-              <a
-                className="text-(--md-sys-color-primary) underline underline-offset-2"
-                href={componentDemoHref("web", "button")}
-              >
-                the Button demo
-              </a>
-              — then repaint it in the{" "}
-              <a
-                className="text-(--md-sys-color-primary) underline underline-offset-2"
-                href={THEME_CONFIGURATOR_HREF}
-              >
-                theme configurator
-              </a>
-              .
-            </p>
-          </section>
+          <ThemeStudio state={state} onChange={onChange} />
         </div>
       </section>
     </SiteLayout>
