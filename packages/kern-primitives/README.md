@@ -249,6 +249,36 @@ const [open, setOpen] = useControllableState(value, defaultValue, onChange);
 // controlled when `value !== undefined`, uncontrolled otherwise
 ```
 
+## Adapting react-native-reusables
+
+This package is not a dependency of any component library, and
+react-native-reusables is not a dependency of it (D-031 measured owning the
+native layer and won). This section is the interop recipe for a host that
+already renders `@rn-primitives/*` components and wants kern behavior
+underneath them: four kernel exports map onto the four reusables concepts
+1:1, and one recipe then scales across siblings.
+
+| `@xoroh/kern-primitives` | reusables counterpart | Wiring |
+|---|---|---|
+| `mergeSlotProps` + `composeEventHandlers` | `Slot` + `asChild` | Merge the part props into the consumer element. Handlers chain part-first, `className` concatenates, consumer values win. |
+| `usePresence` / `createPresenceModel` | `open` state | Gate the portal content: closing moves to `exiting`, still mounted; call `finishExit()` on the exit signal. |
+| `createPortalRegistry` + `resolvePortalTarget` | `Portal` | Mount order is the stacking order (bottom-first); owner-provided target wins, else the default root. |
+| `createDismissPolicy` + `dismissBranchesFor` + `shouldDismissOn` | `onOpenChange` with the escape / outside-press signals | Resolve one `shouldDismiss` per signal from the same facts; close only when the policy allows. |
+| `usePress` + `isPressActivationKey` | `Trigger` press handling | Enter and Space activate on every platform; pointer lifecycle is `begin` / `end` / `cancel`. |
+
+Dialog, Menu, Popover and Tooltip share the same four wirings — only the
+trigger and content components differ, so the recipe is written once. Sheet,
+drawer and scroll-area have no reusables counterpart; those stay kern-owned
+by construction.
+
+Preconditions for the recipe are met in this tree: G8 routes the native
+Button through `useKernPress`, the binding contract is documented in
+`docs/binding-contract.md`, and the Slot + Presence + Portal composition the
+recipe describes is live-verified by the "Adapter composition" tests in
+`packages/kern/src/components/presentation.test.tsx` — an asChild trigger
+opening a presence-gated portal that suspends unmount until the exit
+finishes. If the three ever stop composing, that test fails first.
+
 ## Licence
 
 MIT — see [LICENSE](./LICENSE).

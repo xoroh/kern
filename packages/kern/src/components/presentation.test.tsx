@@ -11,6 +11,7 @@ import {
   screen,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { useState } from "react";
 import { describe, expect, it, vi } from "vitest";
 import {
   getKernPortalRegistry,
@@ -155,6 +156,98 @@ describe("PresenceGate", () => {
       </PresenceGate>,
     );
     expect(screen.queryByTestId("never")).not.toBeInTheDocument();
+  });
+});
+
+describe("Adapter composition (Slot + Presence + Portal)", () => {
+  // The react-native-reusables adapter recipe claims these three kernel
+  // exports compose into a reusables-compatible overlay: an asChild trigger,
+  // a presence-gated mount, an ordered portal. This test drives that exact
+  // composition through the DOM — if the three ever stop composing, the
+  // recipe is a lie and this fails first.
+  it("an asChild trigger opens a presence-gated portal that suspends unmount", async () => {
+    const user = userEvent.setup();
+    const seen: string[] = [];
+
+    function AdapterHarness() {
+      const [open, setOpen] = useState(false);
+      return (
+        <>
+          <Slotted
+            asChild={
+              <button type="button" onClick={() => seen.push("consumer")}>
+                Open
+              </button>
+            }
+            onClick={() => {
+              seen.push("part");
+              setOpen(true);
+            }}
+          />
+          <PresenceGate
+            open={open}
+            render={() => (
+              <KernPortal id="adapter-proof">
+                <div data-testid="overlay">Overlay body</div>
+              </KernPortal>
+            )}
+          />
+        </>
+      );
+    }
+
+    render(<AdapterHarness />);
+    expect(screen.queryByTestId("overlay")).not.toBeInTheDocument();
+
+    // Slot: part handler first, consumer second, trigger opens the overlay.
+    await user.click(screen.getByRole("button", { name: "Open" }));
+    expect(seen).toEqual(["part", "consumer"]);
+    expect(screen.getByTestId("overlay")).toHaveTextContent("Overlay body");
+
+    // Portal: the mount is tracked in the owned registry, in order.
+    const registry = getKernPortalRegistry();
+    expect(registry.isMounted("adapter-proof")).toBe(true);
+    expect(registry.order()).toContain("adapter-proof");
+  });
+
+  it("closing the composed overlay suspends unmount until the exit finishes", () => {
+    let finish: (() => void) | null = null;
+    let setOpenRef: ((open: boolean) => void) | null = null;
+
+    function AdapterHarness() {
+      const [open, setOpen] = useState(true);
+      setOpenRef = setOpen;
+      return (
+        <PresenceGate
+          open={open}
+          render={({ finishExit }) => {
+            finish = finishExit;
+            return (
+              <KernPortal id="adapter-proof-exit">
+                <div data-testid="overlay-exit">Overlay body</div>
+              </KernPortal>
+            );
+          }}
+        />
+      );
+    }
+
+    render(<AdapterHarness />);
+    expect(screen.getByTestId("overlay-exit")).toBeInTheDocument();
+    expect(getKernPortalRegistry().isMounted("adapter-proof-exit")).toBe(true);
+
+    // Closing suspends: the portal content stays for the exit animation.
+    act(() => {
+      (setOpenRef as unknown as (open: boolean) => void)(false);
+    });
+    expect(screen.getByTestId("overlay-exit")).toBeInTheDocument();
+
+    // Only the surface's own exit signal unmounts (and unregisters).
+    act(() => {
+      (finish as unknown as () => void)();
+    });
+    expect(screen.queryByTestId("overlay-exit")).not.toBeInTheDocument();
+    expect(getKernPortalRegistry().isMounted("adapter-proof-exit")).toBe(false);
   });
 });
 

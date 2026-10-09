@@ -38,10 +38,15 @@ pages (anatomy + API + example, Radix-style), install-first landing, M3-neutral 
       coverage (81/81 exports, types included), nav agreement and page grammar.
 - [x] G5: versioning story (publish — unblocks pinning). (`docs/versioning.md`; describes, never executes.)
 - [x] G6 (above) + getting-started step 6 (`getting-started.tsx:72-89`) moves to P as "install without ecosystem".
-- [ ] 2nd-library adapter: **react-native-reusables (`@rn-primitives/*`)** — only headless-behavior fit (Slot/Presence/
-      Portal/dismiss map 1:1; no compiler, no token engine; siblings Dialog/Menu/Popover/Tooltip scale with one
-      recipe). Preconditions: G8 + G7 done + live-verify `Slot`/`Portal`/`asChild` exports. Rejected: gluestack
-      (token engine fights `kern-tokens`), tamagui (compiler + system), dripsy/unistyles (styling, wrong category).
+- [x] 2nd-library adapter: **react-native-reusables (`@rn-primitives/*`)** — only headless-behavior fit (Slot/Presence/
+       Portal/dismiss map 1:1; no compiler, no token engine; siblings Dialog/Menu/Popover/Tooltip scale with one
+       recipe). Preconditions: G8 + G7 done + live-verify `Slot`/`Portal`/`asChild` exports. Rejected: gluestack
+       (token engine fights `kern-tokens`), tamagui (compiler + system), dripsy/unistyles (styling, wrong category).
+      **Landed 2026-10-09 as a recipe, not a dependency (D-031: owning wins):** mapping table + one-recipe-scales
+      note in `packages/kern-primitives/README.md` ("Adapting react-native-reusables"); Slot + Presence + Portal
+      composition live-verified by two "Adapter composition" tests in
+      `packages/kern/src/components/presentation.test.tsx` (asChild trigger → presence-gated portal →
+      suspended unmount).
 
 **Gates:** `check:primitives`, `check:pack`, `publint`/`attw`, `check:dist-exports`.
 **Out of scope:** foreign design-system adapters; second role table (never).
