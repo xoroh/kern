@@ -22,13 +22,27 @@ higher): `start/blocks.tsx`, `navigation.tsx`, `panes.tsx` (`ListDetail`, `Inspe
 
 ## Work items (ordered)
 
-- [ ] Manifest: `type: "block"` + `files[]` + `registryDependencies` (kern primitive list) + categories
-      (Sidebar, Dashboard, Auth, Settings, …); generator + gate.
-- [ ] Viewer: Preview/Code tabs + toolbar (theme/viewport/copy/install `kern add <block>`) reusing
+- [x] Manifest: `type: "block"` + `files[]` + `registryDependencies` (kern primitive list) + categories
+      (Sidebar, Dashboard, Auth, Settings, …); generator + gate. Landed `930f0f6`:
+      `apps/site/src/blocks/manifest.ts` (BlockEntry: name/title/category/description/file/files/
+      registryDependencies/dependencies) + `check-blocks.mjs` gate (wired into `check:docs`,
+      mutation-proven: fake registryDependency fails).
+- [x] Viewer: Preview/Code tabs + toolbar (theme/viewport/copy/install `kern add <block>`) reusing
       `showcase/example.tsx` + `copy-button.tsx` (clipboard + execCommand fallback).
-- [ ] `/showcase` shell → blocks index (replace honest-placeholder with real content when first blocks ship);
-      `/patterns` → blocks patterns page.
-- [ ] CLI `add` learns multi-file block entries (closure already handles relative imports — `closure.ts:36-100`).
+      Landed `930f0f6`: `domains/blocks/block-viewer.tsx` reuses `Example` (Preview/Code APG tabs) —
+      the Code tab is the block's real source (`?raw`), so the fence cannot drift from the file
+      `kern add` vendors. Install command + npm peers + registry deps in the toolbar with CopyButton.
+- [x] `/showcase` shell → blocks index (replace honest-placeholder with real content when first blocks ship);
+      `/patterns` → blocks patterns page. Landed `930f0f6`: `/showcase` is the live blocks catalog
+      (3 real blocks) + `/showcase/$block` per-block pages with prev/next; `/patterns` content moved to
+      `domains/blocks/patterns.tsx` (route file thinned to registration).
+- [x] CLI `add` learns multi-file block entries (closure already handles relative imports — `closure.ts:36-100`).
+      Landed `930f0f6`: `kern add <block>` vendors root + declared siblings under `<dest>/blocks/`,
+      receipt `blocks:` entry beside `components:` (merge preserves both), collision name-space refusal.
+      6 new tests incl. a two-file fixture block (15/15 green).
+
+**Blocks shipped (real-only, D8):** `settings-screen` (Settings), `auth-form` (Auth),
+`empty-search` (Dashboard) — each composed only from `@xoroh/kern` + `@xoroh/kern/start` + `react`.
 
 **Gates:** manifest/block gates (new), `check:docs` chain, receipt tests (`add.test.ts`).
 **Out of scope:** fake blocks (showcase stays honest until real ones ship — D8 real-only).

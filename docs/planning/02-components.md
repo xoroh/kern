@@ -24,9 +24,9 @@ Shared chrome (header/footer/search) + domain sidebar. No theory pages here.
 - [x] Sidebar generated from `FAMILY_GROUPS`; `/components/web` + `/components/mobile` galleries stay, pages live once.
       Landed `components/chrome/components-sidebar.tsx`: catalog links + family anchors derived from the same
       taxonomy the gallery groups by; `SiteLayout` renders it on `/components/**`, `DocsSidebar` elsewhere.
-- [ ] Move `/patterns` → Blocks (R6: all 6 cards link into C; D must have NO components) — or rewrite all targets
-      cross-domain if kept. DEFERRED to P5: the cards already link into C, and the route move needs the Blocks
-      domain to exist first (moving now would 404). P5 builds `domains/blocks` + routes, then moves the page.
+- [x] Move `/patterns` → Blocks (R6: all 6 cards link into C; D must have NO components) — or rewrite all targets
+      cross-domain if kept. Landed `930f0f6`: `domains/blocks/patterns.tsx` owns the page (the 6 cards still
+      link into C — D stays component-free), route file thinned to registration.
 - [x] Content model stays in shared corpus (`content/web/**`, `content/mobile/**` ~190 files, `types.ts`,
       `index.ts` dual discovery glob+readdir) — imported, never copied. Verified 2026-10-09: no taxonomy or
       content fork in routes/domains; the new sidebar reads the same `FAMILY_GROUPS` source.
