@@ -19,6 +19,6 @@ describe("FocusRing", () => {
     expect(ring).toHaveAttribute("data-slot", "focus-ring");
     expect(ring).toHaveClass("focus-visible:ring-2", "extra");
     expect(ring).not.toHaveAttribute("tabIndex");
-    expect(screen.getByText("content")).toBe(ring.firstChild);
+    expect(screen.getByText("content")).toBe(ring);
   });
 });

@@ -52,13 +52,13 @@ again. Measured from the generated registry instead:
 
 | Measure | Value |
 |---|---|
-| Registry rows | **402** (web 292, native 110) |
+| Registry rows | **404** (web 294, native 110) |
 | **Shared** (already both sides) | **89** |
 | **Native-only → needs a web version** | **8** in **8 files** |
-| **Web-only → needs a native version** | **34** in **32 files** |
+| **Web-only → needs a native version** | **36** in **34 files** |
 | Stub rows | **0** |
 
-<!-- gate:counts 89 8 34 0 -->
+<!-- gate:counts 89 8 36 0 -->
 
 Machine-readable line above: `check:parity` (`scripts/check-parity.mjs`) re-derives
 these from the registry and fails if they drift, so the prose above cannot quietly
@@ -394,7 +394,7 @@ were restored from backup afterwards.
 
 ---
 
-## Web-only concepts → need a native version (34)
+## Web-only concepts → need a native version (36)
 
 The heading previously read **34** while the machine gate read **42** — the
 `gate:counts` line was right and the sentence a human reads was stale, which is
@@ -468,6 +468,8 @@ native and the count fell 42 → 39, and again in **tranche 2**, when
 | 32 | `user-menu` | User/account menu in a top bar | `UserMenu` — a `menu` | **covered, not separate work** — native `Menubar` — web is a preset fixing the label; web composes with children, native parameterises with items. API-shape difference, not a behavioural gap (ruled 2026-10-02, P2b-3 start tranche) | M3 · Menus | GAP |
 | 33 | `navigation-rail-button` | One destination in a navigation rail | `NavigationRailButton` — a `role=tab` with a selected axis | **covered, not separate work** — native `NavigationRail` renders each destination as a `tab` with the same selected axis; web's separate export is an API-shape difference, and the family is ONE component by ruling (ruled 2026-10-02) | M3 · Navigation rail | `navigation-rail.rntest.tsx` |
 | 34 | `split-grid` | Equal-column grid at the composition tier | `SplitGrid` — 2- or 3-column CSS grid the caller fills with `SplitPanel`s; **no role and no label of its own** | **covered, not separate work** — native `Split` (shared, row 482 below) is the accessible N-column region and renders the columns itself; `SplitGrid` is the web grid recipe for the same division. A native `SplitGrid` would be a second name for the shape `Split` already has. Renamed from `Split` on 2026-10-03 so it does not collide with the `Split` primitive — see `.team/reports/kern-split-ruling.md` | M3 · Lists → Pane | `start.test.tsx` (composition tier) |
+| 35 | `focus-ring` | One-off focus-visible ring wrapper | `FocusRing` — `data-slot="focus-ring"` span owning the `FOCUS_RING_CLASS` treatment (`ring-2` + `secondary` role, geometry from `@xoroh/kern-tokens` `FOCUS_RING_*`); the host gives focus, the span never owns the tab stop | no native peer yet — focus styling on this platform is platform-owned; GAP (records the debt, not a ruling) | M3 · States | `focus-ring.test.tsx` |
+| 36 | `link-button` | Button treatment on a navigation control | `LinkButton` — required `href`, renders through `Button`'s `href` branch (every axis plus anchor attributes), deliberately no `asChild` | **deliberate platform asymmetry** — React Native has no anchor element, same class as `link` (row 20); press-to-open-URL exists as a Pressable | M3 · Buttons | `link-button.test.tsx` |
 
 
 ### Split shipped (P2b-3) — removed from the work list

@@ -16,14 +16,23 @@ pages (anatomy + API + example, Radix-style), install-first landing, M3-neutral 
 
 ## Work items (ordered)
 
-- [ ] P0-truth: `kern-primitives` keywords + "React Native" in `package.json:2-4` description (searchability).
-- [ ] G2: README documents all 15 modules (missing today: a11y, dismissWiring, focusTrap, portal, positioning,
+- [x] P0-truth: `kern-primitives` keywords + "React Native" in `package.json:2-4` description (searchability).
+- [x] G2: README documents all 15 modules (missing today: a11y, dismissWiring, focusTrap, portal, positioning,
       presence, press, slot, time) + one usage example per kernel module, not just `useRovingModel`.
-- [ ] G1: decide subpath exports (`@xoroh/kern-primitives/presence`) vs documented barrel-only (`package.json:23-33`).
-- [ ] G8: route native Button through `useKernPress` (`presentation.tsx:228-244`) + slot-merge for icon slot
+- [x] G1: decide subpath exports (`@xoroh/kern-primitives/presence`) vs documented barrel-only (`package.json:23-33).
+      **Ruled 2026-10-09: barrel-only until 1.0.** Tree-shaking (`sideEffects: false` + ESM) already gives
+      bundlers per-module granularity, so subpaths buy nothing today and cost a frozen export path per module
+      (tsup multi-entry, per-subpath publint/attw, gate updates). Revisit when a consumer demonstrates a need
+      tree-shaking cannot serve.
+- [x] G8: route native Button through `useKernPress` (`presentation.tsx:228-244`) + slot-merge for icon slot
       (`button.tsx:230`) — today `kern-native/src/components/button.tsx:1-14` imports zero kernel modules while
       siblings (sheet-surface, dialog, tooltip, icon-button) already consume it.
-- [ ] G7: publish/document the binding contract (today `presentation.tsx:1-17` bindings are not barrel-exported).
+- [x] G7: publish/document the binding contract (today `presentation.tsx:1-17` bindings are not barrel-exported).
+      Document half landed (`docs/binding-contract.md`); publish half is founder-gated, out of scope here.
+- [ ] G3/G4: primitives subdomain (install `bun add @xoroh/kern-primitives`, per-module pages, new
+      `primitives-nav.ts` in `NavSection` shape); P links to C's `/components/mobile/*` for themed components.
+- [x] G5: versioning story (publish — unblocks pinning). (`docs/versioning.md`; describes, never executes.)
+- [x] G6 (above) + getting-started step 6 (`getting-started.tsx:72-89`) moves to P as "install without ecosystem".
 - [ ] G3/G4: primitives subdomain (install `bun add @xoroh/kern-primitives`, per-module pages, new
       `primitives-nav.ts` in `NavSection` shape); P links to C's `/components/mobile/*` for themed components.
 - [ ] G5: versioning story (publish — unblocks pinning).

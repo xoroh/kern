@@ -313,6 +313,13 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
     summary: "Fix the token tools and harden the agent on-ramp.",
   },
   {
+    id: "native-button-press-fallback",
+    packages: ["@xoroh/kern-native"],
+    bump: "patch",
+    summary:
+      "Native Button no longer swallows a press dispatched without a preceding press-in.",
+  },
+  {
     id: "p1-6-states-consume-or-delete",
     packages: ["@xoroh/kern"],
     bump: "patch",
