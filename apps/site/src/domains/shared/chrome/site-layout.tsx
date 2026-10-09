@@ -1,5 +1,6 @@
 import { useLocation } from "@tanstack/react-router";
-import { useEffect, useState, type ReactNode } from "react";
+import { type ReactNode, useEffect, useState } from "react";
+import { ComponentsSidebar } from "../../../components/chrome/components-sidebar";
 import { DocsSidebar } from "../../../components/chrome/docs-sidebar";
 import { Footer } from "../../../components/chrome/footer";
 import { SearchPalette } from "../../../components/chrome/search-palette";
@@ -110,7 +111,12 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             <SectionToc pathname={pathname} />
             <aside className="hidden w-56 shrink-0 py-8 lg:block">
               <div className="sticky top-8">
-                <DocsSidebar />
+                {pathname === "/components" ||
+                pathname.startsWith("/components/") ? (
+                  <ComponentsSidebar />
+                ) : (
+                  <DocsSidebar />
+                )}
               </div>
             </aside>
             <main id="main" className="min-h-screen min-w-0 flex-1">

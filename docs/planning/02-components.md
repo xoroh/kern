@@ -13,15 +13,23 @@ Shared chrome (header/footer/search) + domain sidebar. No theory pages here.
 
 ## Work items (ordered)
 
-- [ ] Move `apps/site/src/routes/components/**` (4 files incl `$platform/$component.tsx` with canonical-slug 301
+- [x] Move `apps/site/src/routes/components/**` (4 files incl `$platform/$component.tsx` with canonical-slug 301
       `:55-75` + prev/next `systems/component-nav.ts`) into the components domain, preserving URLs or 301s
-      (reuse the `styles/$page.tsx` slug-preserving redirect shape).
-- [ ] Move `routes/docs/reference.tsx` → components `/reference` (it is a component index, not main docs).
-- [ ] Sidebar generated from `FAMILY_GROUPS`; `/components/web` + `/components/mobile` galleries stay, pages live once.
+      (reuse the `styles/$page.tsx` slug-preserving redirect shape). Landed as the domains pattern:
+      `domains/components|primitives|shared` own the pages, route files own the URLs; canonical-slug 301 +
+      component-nav intact and gated.
+- [x] Move `routes/docs/reference.tsx` → components `/reference` (it is a component index, not main docs).
+      Landed: `domains/components/reference.tsx` + `routes/reference.tsx`, `/docs/reference` kept as a
+      redirect stub (check-nav treats it as an alias).
+- [x] Sidebar generated from `FAMILY_GROUPS`; `/components/web` + `/components/mobile` galleries stay, pages live once.
+      Landed `components/chrome/components-sidebar.tsx`: catalog links + family anchors derived from the same
+      taxonomy the gallery groups by; `SiteLayout` renders it on `/components/**`, `DocsSidebar` elsewhere.
 - [ ] Move `/patterns` → Blocks (R6: all 6 cards link into C; D must have NO components) — or rewrite all targets
-      cross-domain if kept.
-- [ ] Content model stays in shared corpus (`content/web/**`, `content/mobile/**` ~190 files, `types.ts`,
-      `index.ts` dual discovery glob+readdir) — imported, never copied.
+      cross-domain if kept. DEFERRED to P5: the cards already link into C, and the route move needs the Blocks
+      domain to exist first (moving now would 404). P5 builds `domains/blocks` + routes, then moves the page.
+- [x] Content model stays in shared corpus (`content/web/**`, `content/mobile/**` ~190 files, `types.ts`,
+      `index.ts` dual discovery glob+readdir) — imported, never copied. Verified 2026-10-09: no taxonomy or
+      content fork in routes/domains; the new sidebar reads the same `FAMILY_GROUPS` source.
 
 **Gates:** `check:grammar`, `check-props`, `check-component-nav`, `check:docs` chain.
 **Out of scope:** per-component motion slot (grammar gap — foundations owns motion; revisit in 06).
