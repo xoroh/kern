@@ -152,6 +152,29 @@ describe("NavigationBar", () => {
       "page",
     );
   });
+
+  it("warns in dev when fewer than three destinations are supplied (M3 floor)", () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    render(
+      <NavigationBar
+        destinations={[
+          { key: "home", label: "Home" },
+          { key: "search", label: "Search" },
+        ]}
+        defaultValue="home"
+      />,
+    );
+    expect(warn).toHaveBeenCalledOnce();
+    expect(warn.mock.calls[0]?.[0]).toContain("3–5");
+    warn.mockRestore();
+  });
+
+  it("stays silent with three or more destinations", () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    render(<NavigationBar destinations={DESTINATIONS} defaultValue="home" />);
+    expect(warn).not.toHaveBeenCalled();
+    warn.mockRestore();
+  });
 });
 
 describe("NavigationBarItem", () => {

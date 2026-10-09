@@ -33,4 +33,35 @@ describe("Fab", () => {
     expect(screen.getByTestId("fab2")).toHaveClass("h-14");
     expect(screen.getByTestId("fab2")).not.toHaveClass("h-24");
   });
+
+  it("resolves icon-only content to the square icon geometry (M3 FAB, not pill)", () => {
+    render(
+      <Fab data-testid="fab" aria-label="Create">
+        <svg />
+      </Fab>,
+    );
+    const fab = screen.getByTestId("fab");
+    expect(fab).toHaveClass("h-14", "w-14", "px-0");
+  });
+
+  it("lets an explicit size win over icon-only content", () => {
+    render(
+      <Fab data-testid="fab" aria-label="Create" size="medium">
+        <svg />
+      </Fab>,
+    );
+    expect(screen.getByTestId("fab")).toHaveClass("h-24");
+  });
+
+  it("keeps labelled content on the pill geometry", () => {
+    render(
+      <Fab data-testid="fab">
+        <svg />
+        Create
+      </Fab>,
+    );
+    const fab = screen.getByTestId("fab");
+    expect(fab).toHaveClass("px-5");
+    expect(fab).not.toHaveClass("w-14");
+  });
 });

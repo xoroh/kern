@@ -996,7 +996,7 @@ export const CONTRACTS: readonly ParityRow[] = [
     nativeContract:
       "Static text in a monospace face carrying the hint as its accessible name; chords compose the same way.",
     spec: "NO M3 COMPONENT — M3 defines no keyboard-hint component. The monospace shortcut hint is a kern composition aid.",
-    testedBy: "data-display.test.tsx / kbd.rntest.tsx",
+    testedBy: "native-parity-start.rntest.tsx",
     role: "text",
     name: "Ctrl",
     expects: {
@@ -1017,7 +1017,7 @@ export const CONTRACTS: readonly ParityRow[] = [
     nativeContract:
       "A summary landmark carrying the label as its accessible name, with supporting text and the trailing control.",
     spec: "NO M3 COMPONENT — M3 defines no settings-row component. The labelled row with supporting text follows the M3 Lists row structure.",
-    testedBy: "start.test.tsx / settings-row.rntest.tsx",
+    testedBy: "native-parity-start.rntest.tsx",
     role: "summary",
     name: "Notifications",
     expects: {
@@ -1038,7 +1038,7 @@ export const CONTRACTS: readonly ParityRow[] = [
     nativeContract:
       "A summary landmark carrying the accessible name, with the status text centered between the slots.",
     spec: "NO M3 COMPONENT — M3 defines no status-bar surface. The strip follows the M3 layout guidance for a persistent status region.",
-    testedBy: "start.test.tsx / status-bar.rntest.tsx",
+    testedBy: "native-parity-start.rntest.tsx",
     role: "summary",
     name: "Status",
     expects: {
@@ -1057,7 +1057,7 @@ export const CONTRACTS: readonly ParityRow[] = [
     nativeContract:
       "A `role=button` with the same destination name on a 48dp touch target; `accessibilityState.selected` is not a toggle and does not latch.",
     spec: "NO M3 COMPONENT — M3 defines no theme toggle. The host-owned mode switch follows the M3 Icon button touch-target guidance.",
-    testedBy: "start.test.tsx / theme-toggle.rntest.tsx",
+    testedBy: "native-parity-start.rntest.tsx",
     role: "button",
     interactive: true,
     axis: "pressed",
@@ -1080,7 +1080,7 @@ export const CONTRACTS: readonly ParityRow[] = [
     nativeContract:
       "A `role=button` with the same destination name on a 48dp touch target; `accessibilityState.selected` is not a toggle and does not latch.",
     spec: "NO M3 COMPONENT — M3 defines no contrast toggle. The host-owned contrast switch follows the M3 Icon button touch-target guidance.",
-    testedBy: "start.test.tsx / contrast-toggle.rntest.tsx",
+    testedBy: "native-parity-start.rntest.tsx",
     role: "button",
     interactive: true,
     axis: "pressed",
@@ -1103,7 +1103,7 @@ export const CONTRACTS: readonly ParityRow[] = [
     nativeContract:
       "A `role=button` with the same Open/Close name on a 48dp touch target; the open state is reported to assistive technology.",
     spec: "M3 Top app bar — the leading navigation control opens and closes the navigation surface.",
-    testedBy: "start.test.tsx / top-app-bar-toggle.rntest.tsx",
+    testedBy: "native-parity-start.rntest.tsx",
     role: "button",
     interactive: true,
     axis: "pressed",

@@ -86,6 +86,14 @@ export function NavigationBar({
   className,
   testID,
 }: NavigationBarProps) {
+  if (process.env.NODE_ENV !== "production" && destinations.length < 3) {
+    // M3 floors the bar at three destinations: fewer is a tab strip wearing
+    // a bar's name. The bar still renders (never blank a host over a
+    // contract), but the deviation is reported at dev time.
+    console.warn(
+      `NavigationBar: ${destinations.length} destination(s) supplied, M3 requires 3–5. Add destinations or use Tabs for fewer.`,
+    );
+  }
   const barRef = useRef<HTMLDivElement>(null);
   const controlled = value !== undefined;
   const [uncontrolled, setUncontrolled] = useState(defaultValue);
@@ -187,7 +195,7 @@ export function NavigationBar({
               onClick={() => select(destination.key)}
               onKeyDown={onKeyDown}
               className={cn(
-                "kern-navigation-bar-destination flex min-h-12 flex-1 cursor-pointer flex-col items-center justify-center gap-1 px-2 outline-none select-none " + FOCUS_RING_CLASS,
+                `kern-navigation-bar-destination flex min-h-12 flex-1 cursor-pointer flex-col items-center justify-center gap-1 px-2 outline-none select-none ${FOCUS_RING_CLASS}`,
                 destination.disabled
                   ? "pointer-events-none opacity-38"
                   : "hover:bg-(--md-sys-color-surface-container-high)",
@@ -261,7 +269,7 @@ export function NavigationBarItem({
       disabled={disabled}
       onClick={onSelect}
       className={cn(
-        "kern-navigation-bar-item flex min-h-14 w-full cursor-pointer items-center gap-3 rounded-(--md-sys-shape-corner-full) px-6 text-left text-(--md-sys-color-on-surface) outline-none transition-colors " + FOCUS_RING_CLASS,
+        `kern-navigation-bar-item flex min-h-14 w-full cursor-pointer items-center gap-3 rounded-(--md-sys-shape-corner-full) px-6 text-left text-(--md-sys-color-on-surface) outline-none transition-colors ${FOCUS_RING_CLASS}`,
         disabled
           ? "pointer-events-none opacity-38"
           : "hover:bg-(--md-sys-color-surface-tonal)",

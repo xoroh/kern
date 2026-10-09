@@ -19,7 +19,7 @@ function CheckboxControl({
       indeterminate={indeterminate}
       disabled={disabled}
       className={cnState(
-        "kern-checkbox relative size-[18px] shrink-0 rounded-(--md-sys-shape-corner-extra-small) border-2 border-(--md-sys-color-outline) bg-(--md-sys-color-surface) outline-none transition-colors " + FOCUS_RING_CLASS + " data-disabled:cursor-not-allowed data-disabled:opacity-50 data-checked:border-(--md-sys-color-primary) data-checked:bg-(--md-sys-color-primary) data-checked:text-(--md-sys-color-on-primary) data-indeterminate:border-(--md-sys-color-primary) data-indeterminate:bg-(--md-sys-color-primary) data-indeterminate:text-(--md-sys-color-on-primary) after:absolute after:-inset-[15px] after:content-['']",
+        `kern-checkbox relative size-[18px] shrink-0 rounded-(--md-sys-shape-corner-extra-small) border-2 border-(--md-sys-color-outline) bg-(--md-sys-color-surface) outline-none transition-colors ${FOCUS_RING_CLASS} data-disabled:cursor-not-allowed data-disabled:opacity-50 data-checked:border-(--md-sys-color-primary) data-checked:bg-(--md-sys-color-primary) data-checked:text-(--md-sys-color-on-primary) data-indeterminate:border-(--md-sys-color-primary) data-indeterminate:bg-(--md-sys-color-primary) data-indeterminate:text-(--md-sys-color-on-primary) after:absolute after:-inset-[15px] after:content-[''] before:absolute before:-inset-[11px] before:rounded-full before:content-[''] before:opacity-0 hover:before:opacity-[var(--md-sys-state-hover)] focus-visible:before:opacity-[var(--md-sys-state-focus)] before:transition-opacity before:bg-(--md-sys-color-on-surface) data-checked:before:bg-(--md-sys-color-primary) data-indeterminate:before:bg-(--md-sys-color-primary)`,
         className,
       )}
       {...props}

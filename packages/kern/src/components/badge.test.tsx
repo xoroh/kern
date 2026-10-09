@@ -22,4 +22,18 @@ describe("Badge", () => {
     expect(count).toHaveClass("min-w-4");
     expect(count).not.toHaveClass("size-1.5");
   });
+
+  it("truncates numeric counts past max (M3 99+) but keeps the full name", () => {
+    render(<Badge max={99}>1000</Badge>);
+    const badge = screen.getByText("99+");
+    expect(badge).toHaveAttribute("aria-label", "1000");
+  });
+
+  it("honours a custom ceiling and leaves small counts alone", () => {
+    const { unmount } = render(<Badge max={9}>10</Badge>);
+    expect(screen.getByText("9+")).toBeInTheDocument();
+    unmount();
+    render(<Badge max={9}>5</Badge>);
+    expect(screen.getByText("5")).toBeInTheDocument();
+  });
 });

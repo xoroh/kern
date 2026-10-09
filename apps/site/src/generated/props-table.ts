@@ -767,6 +767,11 @@ export const PROPS_TABLE: Record<
         required: false,
         default: '"count"',
       },
+      {
+        name: "max",
+        type: "number | undefined",
+        required: false,
+      },
     ],
     curated: ["aria-label", "className"],
   },
@@ -5870,6 +5875,16 @@ export const PROPS_TABLE: Record<
         type: "((value: string) => void) | undefined",
         required: false,
       },
+      {
+        name: "leading",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "trailing",
+        type: "ReactNode",
+        required: false,
+      },
     ],
     curated: ["className"],
   },
@@ -6013,6 +6028,16 @@ export const PROPS_TABLE: Record<
       {
         name: "style",
         type: "CSSProperties | ((state: ToggleState) => CSSProperties | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "check",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "size",
+        type: '"sm" | "lg" | "md" | "xs" | "xl" | undefined',
         required: false,
       },
     ],
@@ -7891,6 +7916,11 @@ export const PROPS_TABLE: Record<
       {
         name: "testID",
         type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "dial",
+        type: "undefined",
         required: false,
       },
     ],

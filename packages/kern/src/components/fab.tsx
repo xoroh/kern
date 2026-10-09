@@ -1,10 +1,11 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentPropsWithRef } from "react";
+import { Children, isValidElement } from "react";
 import { cn } from "../utils/cn";
 import { FOCUS_RING_CLASS } from "./focus-ring";
 
 const fabVariants = cva(
-  "kern-fab relative inline-flex shrink-0 items-center justify-center gap-2 rounded-(--md-sys-shape-corner-large) bg-(--md-sys-color-primary-container) text-(--md-sys-color-on-primary-container) text-sm font-medium shadow-(--md-sys-elevation-level3) transition-colors outline-none select-none " + FOCUS_RING_CLASS + " disabled:pointer-events-none disabled:opacity-50 after:absolute after:-inset-2 after:content-[''] [&_svg]:size-5 [&_svg]:shrink-0",
+  `kern-fab relative inline-flex shrink-0 items-center justify-center gap-2 rounded-(--md-sys-shape-corner-large) bg-(--md-sys-color-primary-container) text-(--md-sys-color-on-primary-container) text-sm font-medium shadow-(--md-sys-elevation-level3) transition-colors outline-none select-none ${FOCUS_RING_CLASS} disabled:pointer-events-none disabled:opacity-50 after:absolute after:-inset-2 after:content-[''] [&_svg]:size-5 [&_svg]:shrink-0`,
   {
     variants: {
       // M3's FAB variants are a SIZE axis — "Three variants: FAB, medium FAB,
@@ -32,14 +33,30 @@ export type FabProps = ComponentPropsWithRef<"button"> &
   };
 
 /** Floating action button for the single primary screen action. */
-export function Fab({ size, type = "button", className, ...props }: FabProps) {
+export function Fab({
+  size,
+  type = "button",
+  className,
+  children,
+  ...props
+}: FabProps) {
+  // M3 geometry is content-driven: the FAB is square, the EXTENDED fab (with
+  // a label) is a pill. An icon-only child on the default size resolves to
+  // the icon geometry so it cannot render as a pill; an explicit `size`
+  // always wins.
+  const childArray = Children.toArray(children);
+  const iconOnly =
+    childArray.length > 0 && childArray.every((child) => isValidElement(child));
+  const resolvedSize = size ?? (iconOnly ? "icon" : "default");
   return (
     <button
       data-slot="fab"
-      className={cn(fabVariants({ size }), className)}
+      className={cn(fabVariants({ size: resolvedSize }), className)}
       type={type}
       {...props}
-    />
+    >
+      {children}
+    </button>
   );
 }
 

@@ -333,6 +333,13 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
       "P1-6 — tokens.states ruling: consume (partial migration), and gate the failure mode.",
   },
   {
+    id: "p1-p2-correctness-tranche",
+    packages: ["@xoroh/kern"],
+    bump: "patch",
+    summary:
+      "M3 correctness, P1s and P2s (token- and anatomy-only, no API breaks).",
+  },
+  {
     id: "p2-resting-elevation-and-icon-usage",
     packages: ["@xoroh/kern", "@xoroh/kern-icons", "@xoroh/kern-tokens"],
     bump: "patch",

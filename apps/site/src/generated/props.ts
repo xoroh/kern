@@ -958,6 +958,13 @@ export const GENERATED_PROPS: Record<string, Array<{
       "required": false,
       "src": "packages/kern/src/components/badge.tsx:7",
       "default": "\"count\""
+    },
+    {
+      "name": "max",
+      "type": "number | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/badge.tsx:23",
+      "note": "Truncation ceiling for numeric counts. Past `max` the badge shows\n`{max}+` (M3: \"99+\") while the accessible name keeps the full count.\nNon-numeric children render untouched."
     }
   ],
   "Banner": [
@@ -4203,14 +4210,14 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "size",
       "type": "\"sm\" | \"default\" | \"icon\" | \"medium\" | \"large\" | null | undefined",
       "required": false,
-      "src": "packages/kern/src/components/fab.tsx:15",
+      "src": "packages/kern/src/components/fab.tsx:16",
       "default": "\"default\""
     },
     {
       "name": "aria-label",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/fab.tsx:31",
+      "src": "packages/kern/src/components/fab.tsx:32",
       "note": "Accessible name for icon-only fabs."
     }
   ],
@@ -5945,31 +5952,31 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "label",
       "type": "string",
       "required": true,
-      "src": "packages/kern/src/components/navigation-bar.tsx:233"
+      "src": "packages/kern/src/components/navigation-bar.tsx:241"
     },
     {
       "name": "selected",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/navigation-bar.tsx:234"
+      "src": "packages/kern/src/components/navigation-bar.tsx:242"
     },
     {
       "name": "icon",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/navigation-bar.tsx:235"
+      "src": "packages/kern/src/components/navigation-bar.tsx:243"
     },
     {
       "name": "badge",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/navigation-bar.tsx:236"
+      "src": "packages/kern/src/components/navigation-bar.tsx:244"
     },
     {
       "name": "onSelect",
       "type": "(() => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/navigation-bar.tsx:237"
+      "src": "packages/kern/src/components/navigation-bar.tsx:245"
     }
   ],
   "NavigationDrawer": [
@@ -7283,39 +7290,53 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "label",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/search.tsx:12",
+      "src": "packages/kern/src/components/search.tsx:47",
       "note": "Accessible label for the search field."
     },
     {
       "name": "placeholder",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/search.tsx:13"
+      "src": "packages/kern/src/components/search.tsx:48"
     },
     {
       "name": "defaultValue",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/search.tsx:14"
+      "src": "packages/kern/src/components/search.tsx:49"
     },
     {
       "name": "value",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/search.tsx:15"
+      "src": "packages/kern/src/components/search.tsx:50"
     },
     {
       "name": "onValueChange",
       "type": "((value: string) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/search.tsx:16"
+      "src": "packages/kern/src/components/search.tsx:51"
     },
     {
       "name": "onSearch",
       "type": "((value: string) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/search.tsx:18",
+      "src": "packages/kern/src/components/search.tsx:53",
       "note": "Called with the query when the user submits."
+    },
+    {
+      "name": "leading",
+      "type": "ReactNode",
+      "required": false,
+      "src": "packages/kern/src/components/search.tsx:55",
+      "note": "Leading slot (M3: search icon, avatar, or menu control). Defaults to the search icon."
+    },
+    {
+      "name": "trailing",
+      "type": "ReactNode",
+      "required": false,
+      "src": "packages/kern/src/components/search.tsx:57",
+      "note": "Trailing slot (M3: avatar or overflow control). The clear action renders beside it, never inside it."
     }
   ],
   "SecondaryTabs": [
@@ -7499,6 +7520,20 @@ export const GENERATED_PROPS: Record<string, Array<{
       "required": false,
       "src": "node_modules/.bun/@base-ui+react@1.8.0+66cdd77ed2453938/node_modules/@base-ui/react/internals/types.d.mts:38",
       "note": "Style applied to the element, or a function that\nreturns a style object based on the component's state."
+    },
+    {
+      "name": "check",
+      "type": "boolean | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/segmented-button.tsx:17",
+      "note": "Show the M3 selection check on pressed segments. `undefined` (default)\nresolves from content: label-bearing segments show it, icon-only\nsegments do not. Pass `false` to force it off, `true` to force it on."
+    },
+    {
+      "name": "size",
+      "type": "\"sm\" | \"lg\" | \"md\" | \"xs\" | \"xl\" | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/segmented-button.tsx:19",
+      "note": "M3 density size. `sm` (40dp) is the current rendering, kept default."
     }
   ],
   "SelectRoot": [
@@ -9789,6 +9824,13 @@ export const GENERATED_PROPS: Record<string, Array<{
       "type": "string | undefined",
       "required": false,
       "src": "packages/kern/src/components/time-picker.tsx:58"
+    },
+    {
+      "name": "dial",
+      "type": "undefined",
+      "required": false,
+      "src": "packages/kern/src/components/time-picker.tsx:66",
+      "note": "Dial presentation: NOT SUPPORTED, by design. M3 specifies a clock face\nand a text-entry mode; Kern ships the listbox form because it is the\nform that is keyboard- and screen-reader-correct without a pointer.\nThis prop exists only to say so at the type level — passing anything\nbut `undefined` is a type error, and the listbox stays the component."
     }
   ],
   "ToggleGroupRoot": [
@@ -15642,6 +15684,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "itemScope",
     "itemType",
     "lang",
+    "max",
     "nonce",
     "onAbort",
     "onAbortCapture",
@@ -46681,6 +46724,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "key",
     "label",
     "lang",
+    "leading",
     "method",
     "name",
     "noValidate",
@@ -46876,6 +46920,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "tabIndex",
     "target",
     "title",
+    "trailing",
     "translate",
     "typeof",
     "unselectable",
@@ -47238,6 +47283,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "autoCorrect",
     "autoFocus",
     "autoSave",
+    "check",
     "children",
     "className",
     "content",
@@ -47458,6 +47504,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "rev",
     "role",
     "security",
+    "size",
     "slot",
     "spellCheck",
     "style",
@@ -59610,6 +59657,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
   "TimePicker": [
     "className",
     "defaultValue",
+    "dial",
     "format",
     "formatValue",
     "label",

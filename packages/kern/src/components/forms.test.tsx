@@ -198,6 +198,39 @@ describe("Search", () => {
     await user.click(screen.getByRole("button", { name: "Clear search" }));
     expect(input).toHaveValue("");
   });
+
+  it("renders the M3 anatomy (leading icon, icon clear action, trailing slot)", () => {
+    const { container } = render(
+      <Search
+        label="Docs"
+        defaultValue="tokens"
+        leading={<span data-testid="avatar">A</span>}
+        trailing={<span data-testid="overflow">…</span>}
+      />,
+    );
+    // Leading slot takes the custom node instead of the default icon.
+    expect(screen.getByTestId("avatar")).toBeInTheDocument();
+    expect(
+      container.querySelector('[data-slot="search-icon"]'),
+    ).not.toBeInTheDocument();
+    // Trailing slot renders beside the clear action, never inside it.
+    expect(
+      screen.getByTestId("overflow").closest('[data-slot="search-trailing"]'),
+    ).not.toBeNull();
+    // The clear action is an icon, not a × glyph.
+    const clear = screen.getByRole("button", { name: "Clear search" });
+    expect(clear.textContent).not.toContain("×");
+    expect(
+      clear.querySelector('[data-slot="search-clear-icon"]'),
+    ).not.toBeNull();
+  });
+
+  it("defaults the leading slot to the search icon", () => {
+    const { container } = render(<Search label="Docs" />);
+    expect(
+      container.querySelector('[data-slot="search-icon"]'),
+    ).toBeInTheDocument();
+  });
 });
 
 describe("CheckboxGroup", () => {
@@ -270,6 +303,40 @@ describe("Slider", () => {
     await user.keyboard("{ArrowRight}");
     expect(min).toHaveAttribute("aria-valuenow", "21");
     expect(max).toHaveAttribute("aria-valuenow", "80");
+  });
+
+  it("paints the inactive track in surface-container-highest (M3, not surface-tonal)", () => {
+    const { container } = render(
+      <Slider.Root defaultValue={30}>
+        <Slider.Thumb aria-label="Volume" />
+      </Slider.Root>,
+    );
+    const track = container.querySelector('[data-slot="slider-track"]');
+    expect(track).toHaveClass("bg-(--md-sys-color-surface-container-highest)");
+    expect(track?.className).not.toContain("surface-tonal");
+  });
+
+  it("renders stop indicators for discrete sliders", () => {
+    const { container } = render(
+      <Slider.Root defaultValue={50} min={0} max={100} step={25} showTicks>
+        <Slider.Thumb aria-label="Volume" />
+      </Slider.Root>,
+    );
+    // Interior stops only (25/50/75) — endpoints are the track ends, not stops.
+    const stops = container.querySelectorAll('[data-slot="slider-stop"]');
+    expect(stops).toHaveLength(3);
+    expect(stops[0]).toHaveClass("bg-(--md-sys-color-primary)");
+  });
+
+  it("renders no stops for continuous sliders", () => {
+    const { container } = render(
+      <Slider.Root defaultValue={30}>
+        <Slider.Thumb aria-label="Volume" />
+      </Slider.Root>,
+    );
+    expect(
+      container.querySelectorAll('[data-slot="slider-stop"]'),
+    ).toHaveLength(0);
   });
 });
 

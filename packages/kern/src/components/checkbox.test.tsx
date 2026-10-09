@@ -30,4 +30,18 @@ describe("Checkbox", () => {
     render(<Checkbox aria-label="Accept" disabled />);
     expect(screen.getByRole("checkbox")).toHaveAttribute("data-disabled");
   });
+
+  it("paints hover/focus as a 40dp state layer (M3, not a dim)", () => {
+    render(<Checkbox aria-label="Accept" />);
+    const box = screen.getByRole("checkbox");
+    expect(box).toHaveClass(
+      "before:-inset-[11px]",
+      "before:rounded-full",
+      "hover:before:opacity-[var(--md-sys-state-hover)]",
+      "focus-visible:before:opacity-[var(--md-sys-state-focus)]",
+      "before:bg-(--md-sys-color-on-surface)",
+      "data-checked:before:bg-(--md-sys-color-primary)",
+    );
+    expect(box.className).not.toContain("hover:opacity-");
+  });
 });

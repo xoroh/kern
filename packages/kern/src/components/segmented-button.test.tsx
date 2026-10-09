@@ -55,4 +55,61 @@ describe("SegmentedButton", () => {
       );
     }
   });
+
+  it("shows the M3 selection check on labelled segments", () => {
+    const { container } = renderBar(["week"]);
+    const week = screen.getByRole("button", { name: "Week" });
+    expect(week.querySelector('[data-slot="segmented-check"]')).not.toBeNull();
+    // One check per labelled segment (Day, Week, Month).
+    expect(
+      container.querySelectorAll('[data-slot="segmented-check"]'),
+    ).toHaveLength(3);
+  });
+
+  it("omits the check on icon-only segments unless forced", () => {
+    const { container, rerender } = render(
+      <SegmentedButton.Root defaultValue={["grid"]} aria-label="View">
+        <SegmentedButton.Item value="grid" aria-label="Grid">
+          <svg />
+        </SegmentedButton.Item>
+      </SegmentedButton.Root>,
+    );
+    expect(container.querySelector('[data-slot="segmented-check"]')).toBeNull();
+    rerender(
+      <SegmentedButton.Root defaultValue={["grid"]} aria-label="View">
+        <SegmentedButton.Item value="grid" aria-label="Grid" check>
+          <svg />
+        </SegmentedButton.Item>
+      </SegmentedButton.Root>,
+    );
+    expect(
+      container.querySelector('[data-slot="segmented-check"]'),
+    ).not.toBeNull();
+  });
+
+  it("scales segments through the M3 density sizes (sm default)", () => {
+    const { rerender } = render(
+      <SegmentedButton.Root aria-label="Range">
+        <SegmentedButton.Item value="day">Day</SegmentedButton.Item>
+      </SegmentedButton.Root>,
+    );
+    const segment = () => screen.getByRole("button", { name: "Day" });
+    expect(segment()).toHaveClass("h-10");
+    rerender(
+      <SegmentedButton.Root aria-label="Range">
+        <SegmentedButton.Item value="day" size="xs">
+          Day
+        </SegmentedButton.Item>
+      </SegmentedButton.Root>,
+    );
+    expect(segment()).toHaveClass("h-8");
+    rerender(
+      <SegmentedButton.Root aria-label="Range">
+        <SegmentedButton.Item value="day" size="xl">
+          Day
+        </SegmentedButton.Item>
+      </SegmentedButton.Root>,
+    );
+    expect(segment()).toHaveClass("h-16");
+  });
 });

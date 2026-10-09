@@ -30,7 +30,8 @@ NavigationBar min-destination guard. Verified-correct: Button web↔native sizes
 
 ## Work items (ordered)
 
-- [ ] P0 token fixes (one lane: icon-button, chip ×2, card, button layers) + regression tests per fix.
+- [x] P0 token fixes (one lane: icon-button, chip ×2, card, button layers) + regression tests per fix.
+  Landed `c51e98d` (plus icon-button toggle-unselected nuance and danger-layer overrides).
 - [ ] P1s in listed order (tabs → search → segmented → switch → slider → fab → mobile parity).
 - [ ] P2s as filler between batches.
 

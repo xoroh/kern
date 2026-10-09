@@ -56,6 +56,14 @@ export type TimePickerProps = {
   /** Overrides the rendered clock text, e.g. "09:30" in a 24-hour locale. */
   formatValue?: (value: TimePickerValue) => string;
   testID?: string;
+  /**
+   * Dial presentation: NOT SUPPORTED, by design. M3 specifies a clock face
+   * and a text-entry mode; Kern ships the listbox form because it is the
+   * form that is keyboard- and screen-reader-correct without a pointer.
+   * This prop exists only to say so at the type level — passing anything
+   * but `undefined` is a type error, and the listbox stays the component.
+   */
+  dial?: never;
 };
 
 function normaliseStep(step: number): number {
