@@ -4,28 +4,106 @@
   "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
   "demos": {
     "SidebarProvider": {
-      "hasLiveDemo": false,
-      "expectations": []
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "keyboard-operable",
+          "expect": "gap",
+          "provenance": "derived",
+          "basis": "sidebar.ts documents no keyboard rows for SidebarProvider — the contract is unwritten, treat as a gap not a pass"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 3 line(s) in sidebar.ts — roles, names and states are stated, not assumed"
+        }
+      ]
     },
     "Sidebar": {
-      "hasLiveDemo": false,
-      "expectations": []
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "keyboard-operable",
+          "expect": "gap",
+          "provenance": "derived",
+          "basis": "sidebar.ts documents no keyboard rows for Sidebar — the contract is unwritten, treat as a gap not a pass"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 3 line(s) in sidebar.ts — roles, names and states are stated, not assumed"
+        }
+      ]
     },
     "SidebarHeader": {
-      "hasLiveDemo": false,
-      "expectations": []
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "keyboard-operable",
+          "expect": "gap",
+          "provenance": "derived",
+          "basis": "sidebar.ts documents no keyboard rows for SidebarHeader — the contract is unwritten, treat as a gap not a pass"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 3 line(s) in sidebar.ts — roles, names and states are stated, not assumed"
+        }
+      ]
     },
     "SidebarContent": {
-      "hasLiveDemo": false,
-      "expectations": []
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "keyboard-operable",
+          "expect": "gap",
+          "provenance": "derived",
+          "basis": "sidebar.ts documents no keyboard rows for SidebarContent — the contract is unwritten, treat as a gap not a pass"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 3 line(s) in sidebar.ts — roles, names and states are stated, not assumed"
+        }
+      ]
     },
     "SidebarFooter": {
-      "hasLiveDemo": false,
-      "expectations": []
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "keyboard-operable",
+          "expect": "gap",
+          "provenance": "derived",
+          "basis": "sidebar.ts documents no keyboard rows for SidebarFooter — the contract is unwritten, treat as a gap not a pass"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 3 line(s) in sidebar.ts — roles, names and states are stated, not assumed"
+        }
+      ]
     },
     "SidebarItem": {
-      "hasLiveDemo": false,
-      "expectations": []
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "keyboard-operable",
+          "expect": "gap",
+          "provenance": "derived",
+          "basis": "sidebar.ts documents no keyboard rows for SidebarItem — the contract is unwritten, treat as a gap not a pass"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 3 line(s) in sidebar.ts — roles, names and states are stated, not assumed"
+        }
+      ]
     },
     "NavigationRail": {
       "hasLiveDemo": false,

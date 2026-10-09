@@ -7,29 +7,42 @@
  */
 import {
   AspectRatio,
+  Autocomplete,
   Avatar,
   Badge,
   Banner,
   Button,
   ButtonGroup,
   Card,
+  Carousel,
   Checkbox,
+  CheckboxGroup,
+  CheckboxGroupItem,
   Chip,
   CircularProgress,
   Command,
+  ContrastToggle,
   CountrySelect,
   EmptyState,
   Fab,
   FieldMessage,
+  IconButton,
+  IconButtonTarget,
   Input,
+  InputOTP,
   Label,
   LinearProgress,
   ListItem,
   Loader,
   LoadingButton,
+  Meter,
+  NumberField,
+  Pagination,
+  Popover,
   Progress,
   RadioGroup,
   RadioGroupItem,
+  ScrollArea,
   Search,
   SegmentedButton,
   Separator,
@@ -39,8 +52,11 @@ import {
   Switch,
   Text,
   Textarea,
+  ThemeToggle,
+  TimePicker,
   Toggle,
   ToggleGroup,
+  Tooltip,
 } from "@xoroh/kern-native";
 import { View } from "react-native";
 import {
@@ -506,6 +522,201 @@ export function NativeLoadingButtonDemo() {
   );
 }
 
+export function NativeMeterDemo() {
+  return (
+    <PhoneStack>
+      <PhonePreview label="Meter — labelled reading">
+        <Meter
+          value={6}
+          max={8}
+          label="Storage"
+          showValue
+          accessibilityLabel="Storage"
+        />
+      </PhonePreview>
+      <PhonePreview label="Meter — indeterminate">
+        <Meter label="Syncing" accessibilityLabel="Syncing" />
+      </PhonePreview>
+    </PhoneStack>
+  );
+}
+
+export function NativePaginationDemo() {
+  return (
+    <PhonePreview label="Pagination — windowed pages">
+      <Pagination count={10} defaultPage={4} />
+    </PhonePreview>
+  );
+}
+
+export function NativeNumberFieldDemo() {
+  return (
+    <PhonePreview label="NumberField — stepper input">
+      <NumberField
+        defaultValue={2}
+        min={0}
+        max={10}
+        accessibilityLabel="Quantity"
+      />
+    </PhonePreview>
+  );
+}
+
+export function NativeTooltipDemo() {
+  return (
+    <PhonePreview label="Tooltip — supplementary hint">
+      <Tooltip label="Save" hint="Saves your draft">
+        <Text>Save</Text>
+      </Tooltip>
+    </PhonePreview>
+  );
+}
+
+export function NativeTimePickerDemo() {
+  return (
+    <PhonePreview label="TimePicker — normalised value">
+      <TimePicker
+        defaultValue={{ hours: 9, minutes: 30 }}
+        accessibilityLabel="Alarm time"
+      />
+    </PhonePreview>
+  );
+}
+
+export function NativePopoverDemo() {
+  return (
+    <PhonePreview label="Popover — anchored surface">
+      <Popover.Root defaultOpen>
+        <Popover.Trigger label="Details">
+          <Text>Details</Text>
+        </Popover.Trigger>
+        <Popover.Content label="Details">
+          <Popover.Body>
+            <Text>Keyboard shortcuts for this screen.</Text>
+          </Popover.Body>
+        </Popover.Content>
+      </Popover.Root>
+    </PhonePreview>
+  );
+}
+
+export function NativeScrollAreaDemo() {
+  return (
+    <PhonePreview label="ScrollArea — labelled region">
+      <ScrollArea style={{ maxHeight: 120 }}>
+        <Text>First row</Text>
+        <Text>Second row</Text>
+        <Text>Third row</Text>
+        <Text>Fourth row</Text>
+        <Text>Fifth row</Text>
+        <Text>Sixth row</Text>
+      </ScrollArea>
+    </PhonePreview>
+  );
+}
+
+export function NativeIconButtonDemo() {
+  return (
+    <PhoneStack>
+      <PhonePreview label="IconButton — variant: standard · filled · tonal · outlined">
+        <PhoneRow>
+          <IconButton label="Add" variant="standard">
+            <Text>+</Text>
+          </IconButton>
+          <IconButton label="Add" variant="filled">
+            <Text>+</Text>
+          </IconButton>
+          <IconButton label="Add" variant="tonal">
+            <Text>+</Text>
+          </IconButton>
+          <IconButton label="Add" variant="outlined">
+            <Text>+</Text>
+          </IconButton>
+        </PhoneRow>
+      </PhonePreview>
+      <PhonePreview label="IconButtonTarget — guaranteed 48dp target">
+        <IconButtonTarget>
+          <IconButton label="Add" variant="filled">
+            <Text>+</Text>
+          </IconButton>
+        </IconButtonTarget>
+      </PhonePreview>
+    </PhoneStack>
+  );
+}
+
+export function NativeInputOTPDemo() {
+  return (
+    <PhonePreview label="InputOTP — one box per position">
+      <InputOTP length={4} defaultValue="12" accessibilityLabel="Code" />
+    </PhonePreview>
+  );
+}
+
+export function NativeAutocompleteDemo() {
+  return (
+    <PhonePreview label="Autocomplete — suggestion commit">
+      <Autocomplete
+        suggestions={[
+          { value: "apple", label: "Apple" },
+          { value: "apricot", label: "Apricot" },
+        ]}
+        defaultValue="Ap"
+        accessibilityLabel="Fruit"
+      />
+    </PhonePreview>
+  );
+}
+
+export function NativeCarouselDemo() {
+  return (
+    <PhonePreview label="Carousel — indexed slides">
+      <Carousel
+        items={[
+          {
+            value: "one",
+            accessibilityLabel: "Slide one",
+            content: <Text>One</Text>,
+          },
+          {
+            value: "two",
+            accessibilityLabel: "Slide two",
+            content: <Text>Two</Text>,
+          },
+        ]}
+        accessibilityLabel="Highlights"
+      />
+    </PhonePreview>
+  );
+}
+
+export function NativeCheckboxGroupDemo() {
+  return (
+    <PhonePreview label="CheckboxGroup — multi-select">
+      <CheckboxGroup defaultValue={["cheese"]} accessibilityLabel="Toppings">
+        <CheckboxGroupItem value="cheese">Cheese</CheckboxGroupItem>
+        <CheckboxGroupItem value="salami">Salami</CheckboxGroupItem>
+      </CheckboxGroup>
+    </PhonePreview>
+  );
+}
+
+export function NativeThemeToggleDemo() {
+  return (
+    <PhonePreview label="ThemeToggle — destination-named action">
+      <ThemeToggle mode="dark" onToggle={() => {}} />
+    </PhonePreview>
+  );
+}
+
+export function NativeContrastToggleDemo() {
+  return (
+    <PhonePreview label="ContrastToggle — destination-named action">
+      <ContrastToggle contrast="standard" onToggle={() => {}} />
+    </PhonePreview>
+  );
+}
+
 /**
  * Components with no live preview, each with the reason. The acceptance bar
  * is "renders honestly **or** carries an explicit prose reason it cannot" —
@@ -588,29 +799,42 @@ export const PREVIEW_REASONS: Record<string, string> = {
 /** Every native export, mapped to a live preview. */
 const byExport: Record<string, MobileDemo> = {
   Avatar: NativeAvatarDemo,
+  Autocomplete: NativeAutocompleteDemo,
   Badge: NativeBadgeDemo,
   Button: NativeButtonDemo,
   ButtonGroup: NativeButtonGroupDemo,
   Card: NativeCardDemo,
+  Carousel: NativeCarouselDemo,
+  CheckboxGroup: NativeCheckboxGroupDemo,
+  CheckboxGroupItem: NativeCheckboxGroupDemo,
   AspectRatio: NativeAspectRatioDemo,
   Banner: NativeBannerDemo,
   Checkbox: NativeCheckboxDemo,
   Chip: NativeChipDemo,
+  ContrastToggle: NativeContrastToggleDemo,
   CountrySelect: NativeCountrySelectDemo,
   CircularProgress: NativeCircularProgressDemo,
   Command: NativeCommandDemo,
   EmptyState: NativeEmptyStateDemo,
   Fab: NativeFabDemo,
   FieldMessage: NativeFieldMessageDemo,
+  IconButton: NativeIconButtonDemo,
+  IconButtonTarget: NativeIconButtonDemo,
   Input: NativeInputDemo,
+  InputOTP: NativeInputOTPDemo,
   Label: NativeLabelDemo,
   LinearProgress: NativeLinearProgressDemo,
   ListItem: NativeListItemDemo,
   LoadingButton: NativeLoadingButtonDemo,
   Loader: NativeLoaderDemo,
+  Meter: NativeMeterDemo,
+  NumberField: NativeNumberFieldDemo,
+  Pagination: NativePaginationDemo,
+  Popover: NativePopoverDemo,
   Progress: NativeProgressDemo,
   RadioGroup: NativeRadioGroupDemo,
   RadioGroupItem: NativeRadioGroupDemo,
+  ScrollArea: NativeScrollAreaDemo,
   Search: NativeSearchDemo,
   SegmentedButton: NativeSegmentedButtonDemo,
   Snackbar: NativeSnackbarDemo,
@@ -620,8 +844,11 @@ const byExport: Record<string, MobileDemo> = {
   Switch: NativeSwitchDemo,
   Text: NativeTextDemo,
   Textarea: NativeTextareaDemo,
+  ThemeToggle: NativeThemeToggleDemo,
+  TimePicker: NativeTimePickerDemo,
   Toggle: NativeToggleDemo,
   ToggleGroup: NativeToggleGroupDemo,
+  Tooltip: NativeTooltipDemo,
 };
 
 export const MOBILE_DEMOS = byExport;

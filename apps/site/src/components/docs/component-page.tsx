@@ -37,12 +37,16 @@ import { PROPS_TABLE } from "../../generated/props-table";
 import { Configurator } from "../../showcase/configurator";
 import { CopyButton } from "../../showcase/copy-button";
 import { ExampleList } from "../../showcase/example";
-import { configuratorFor, examplesFor } from "../../showcase/registry";
+import {
+  CONFIGURATORS,
+  configuratorFor,
+  examplesFor,
+} from "../../showcase/registry";
 import { hasFaq, hasLimitations, hasSemanticDom } from "../../systems/grammar";
 import { maturityForExports } from "../../systems/maturity";
 import {
-  THEME_CONFIGURATOR_HREF,
   registrySearchHref,
+  THEME_CONFIGURATOR_HREF,
 } from "../../systems/playground-links";
 import { CopyMarkdownButton } from "../chrome/copy-markdown-button";
 
@@ -429,7 +433,8 @@ function PlaygroundLinks({
       </a>
       {platform === "web" ? (
         <>
-          {" "}or repaint it in the{" "}
+          {" "}
+          or repaint it in the{" "}
           <a
             className="text-(--md-sys-color-primary) underline underline-offset-2"
             href={THEME_CONFIGURATOR_HREF}
@@ -740,6 +745,14 @@ function ExamplesBlock({ doc }: { doc: ComponentDoc }) {
         Examples
       </Heading>
       {configurator ? <Configurator spec={configurator} /> : null}
+      {!configurator && examples.length > 0 ? (
+        <p className={SMALL}>
+          Interactive knob panels ship for a flagship subset only (
+          {Object.keys(CONFIGURATORS).length} components) — knobs are a teaching
+          extra, not the contract. Every component carries live demos and
+          examples regardless.
+        </p>
+      ) : null}
       <ExampleList examples={examples} />
     </>
   );

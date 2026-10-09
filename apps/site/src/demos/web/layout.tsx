@@ -1,30 +1,63 @@
 /**
  * Live demos: disclosure, navigation, overlays, and data display.
  */
+
 import {
   Accordion,
+  ActionSheet,
+  BottomSheet,
+  BottomSheetPicker,
   Button,
+  Carousel,
   Collapsible,
   Command,
   ContextMenu,
   Dialog,
+  DockSheet,
   Drawer,
+  EntitySheet,
   Menu,
+  MenuScreen,
+  MenuSheet,
   Meter,
+  NavigationBar,
+  NavigationDrawer,
   NavigationMenu,
   Pagination,
   Popover,
   PreviewCard,
   Progress,
   ScrollArea,
+  SecondaryTabs,
   SegmentedButton,
   Select,
   Sheet,
+  SheetSurface,
+  SnapSheet,
+  Split,
+  SplitButton,
   Table,
   Tabs,
+  TimePicker,
   Toolbar,
   Tooltip,
 } from "@xoroh/kern";
+import {
+  AppShell,
+  Pane,
+  SearchBar,
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarItem,
+  SidebarProvider,
+  SplitGrid,
+  SplitPanel,
+  TopAppBar,
+  TopAppBarToggle,
+} from "@xoroh/kern/start";
+import { useState } from "react";
 import { Preview, PreviewStack, Row } from "../../components/preview/preview";
 
 export function AccordionDemo() {
@@ -490,6 +523,394 @@ export function TableDemo() {
             </Table.Row>
           </Table.Body>
         </Table.Root>
+      </div>
+    </Preview>
+  );
+}
+
+function SheetOpener(props: { label: string; onOpen: () => void }) {
+  return (
+    <Button variant="tonal" onClick={props.onOpen}>
+      {props.label}
+    </Button>
+  );
+}
+
+export function BottomSheetDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <Preview label="BottomSheet — modal bottom surface" span={3}>
+      <SheetOpener label="Open sheet" onOpen={() => setOpen(true)} />
+      <BottomSheet
+        label="Filters"
+        title="Filters"
+        open={open}
+        onOpenChange={setOpen}
+        onClose={() => setOpen(false)}
+      >
+        <p className="m-0 text-sm">Narrow the result set.</p>
+      </BottomSheet>
+    </Preview>
+  );
+}
+
+export function DockSheetDemo() {
+  return (
+    <Preview
+      label="DockSheet — persistent edge panel, no interaction lock"
+      span={3}
+    >
+      <div className="w-full max-w-sm">
+        <DockSheet label="Quick actions">
+          <p className="m-0 text-sm">Pinned actions live here.</p>
+        </DockSheet>
+      </div>
+    </Preview>
+  );
+}
+
+export function EntitySheetDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <Preview label="EntitySheet — titled detail surface" span={3}>
+      <SheetOpener label="Open entity" onOpen={() => setOpen(true)} />
+      <EntitySheet
+        label="Project"
+        title="Website relaunch"
+        subtitle="Due Friday"
+        open={open}
+        onOpenChange={setOpen}
+      >
+        <p className="m-0 text-sm">Owner: Design systems.</p>
+      </EntitySheet>
+    </Preview>
+  );
+}
+
+export function SnapSheetDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <Preview label="SnapSheet — detent stops" span={3}>
+      <SheetOpener label="Open snap sheet" onOpen={() => setOpen(true)} />
+      <SnapSheet
+        label="Stops"
+        snapPoints={[0.25, 0.5, 0.9]}
+        open={open}
+        onOpenChange={setOpen}
+      >
+        <p className="m-0 text-sm">Settles at quarter, half, full.</p>
+      </SnapSheet>
+    </Preview>
+  );
+}
+
+export function BottomSheetPickerDemo() {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState("tokens");
+  return (
+    <Preview label="BottomSheetPicker — option sheet" span={3}>
+      <SheetOpener label="Pick a theme" onOpen={() => setOpen(true)} />
+      <BottomSheetPicker
+        label="Theme"
+        title="Theme"
+        options={[
+          { value: "tokens", label: "Tokens" },
+          { value: "brand", label: "Brand" },
+        ]}
+        value={value}
+        open={open}
+        onOpenChange={setOpen}
+        onSelect={(next) => {
+          setValue(next);
+          setOpen(false);
+        }}
+      />
+      <p className="m-0 text-sm">Selected: {value}</p>
+    </Preview>
+  );
+}
+
+export function ActionSheetDemo() {
+  const [open, setOpen] = useState(false);
+  const [last, setLast] = useState("none");
+  return (
+    <Preview label="ActionSheet — action list" span={3}>
+      <SheetOpener label="Open actions" onOpen={() => setOpen(true)} />
+      <ActionSheet
+        label="Actions"
+        title="Share"
+        open={open}
+        onOpenChange={setOpen}
+        actions={[
+          { id: "copy", label: "Copy link", onSelect: () => setLast("copy") },
+          {
+            id: "mail",
+            label: "Send by mail",
+            onSelect: () => setLast("mail"),
+          },
+        ]}
+      />
+      <p className="m-0 text-sm">Last action: {last}</p>
+    </Preview>
+  );
+}
+
+export function SheetSurfaceDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <Preview label="SheetSurface — the dismissal primitive" span={3}>
+      <SheetOpener label="Open surface" onOpen={() => setOpen(true)} />
+      <SheetSurface label="Surface" open={open} onOpenChange={setOpen}>
+        <p className="m-0 text-sm">Scrim, Escape and focus return live here.</p>
+      </SheetSurface>
+    </Preview>
+  );
+}
+
+export function MenuScreenDemo() {
+  return (
+    <Preview label="MenuScreen — docked destination list" span={3}>
+      <div className="w-full max-w-xs">
+        <MenuScreen
+          label="Settings"
+          groups={[
+            {
+              heading: "General",
+              actions: [
+                { key: "profile", label: "Profile" },
+                { key: "billing", label: "Billing" },
+              ],
+            },
+          ]}
+        />
+      </div>
+    </Preview>
+  );
+}
+
+export function MenuSheetDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <Preview label="MenuSheet — menu in a sheet" span={3}>
+      <SheetOpener label="Open menu" onOpen={() => setOpen(true)} />
+      <MenuSheet
+        title="Jump to"
+        open={open}
+        onOpenChange={setOpen}
+        groups={[
+          {
+            actions: [
+              { key: "home", label: "Home" },
+              { key: "docs", label: "Docs" },
+            ],
+          },
+        ]}
+      />
+    </Preview>
+  );
+}
+
+export function NavigationBarDemo() {
+  return (
+    <Preview label="NavigationBar — 3 destinations" span={3}>
+      <div className="w-full max-w-md">
+        <NavigationBar
+          defaultValue="home"
+          destinations={[
+            { key: "home", label: "Home" },
+            { key: "search", label: "Search" },
+            { key: "library", label: "Library" },
+          ]}
+        />
+      </div>
+    </Preview>
+  );
+}
+
+export function NavigationDrawerDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <Preview label="NavigationDrawer — modal destinations" span={3}>
+      <SheetOpener label="Open drawer" onOpen={() => setOpen(true)} />
+      <NavigationDrawer
+        open={open}
+        onOpenChange={setOpen}
+        title="Kern"
+        defaultValue="home"
+        destinations={[
+          { key: "home", label: "Home" },
+          { key: "search", label: "Search" },
+          { key: "library", label: "Library" },
+        ]}
+      />
+    </Preview>
+  );
+}
+
+export function SecondaryTabsDemo() {
+  return (
+    <Preview label="SecondaryTabs — sub-section switcher" span={3}>
+      <div className="w-full max-w-md">
+        <SecondaryTabs
+          defaultValue="overview"
+          tabs={[
+            {
+              value: "overview",
+              label: "Overview",
+              content: <p className="m-0 text-sm">Overview panel.</p>,
+            },
+            {
+              value: "usage",
+              label: "Usage",
+              content: <p className="m-0 text-sm">Usage panel.</p>,
+            },
+          ]}
+        />
+      </div>
+    </Preview>
+  );
+}
+
+export function CarouselDemo() {
+  return (
+    <Preview label="Carousel — one slide at a time" span={3}>
+      <div className="w-full max-w-sm">
+        <Carousel
+          label="Highlights"
+          items={[
+            <p key="one" className="m-0 text-sm">
+              Slide one.
+            </p>,
+            <p key="two" className="m-0 text-sm">
+              Slide two.
+            </p>,
+          ]}
+        />
+      </div>
+    </Preview>
+  );
+}
+
+export function TimePickerDemo() {
+  return (
+    <Preview label="TimePicker — listbox form" span={3}>
+      <TimePicker label="Alarm" defaultValue={{ hours: 9, minutes: 30 }} />
+    </Preview>
+  );
+}
+
+export function SplitButtonDemo() {
+  return (
+    <Preview label="SplitButton — primary action + overflow" span={3}>
+      <SplitButton
+        label="Save"
+        menuLabel="More save options"
+        actions={[{ key: "draft", label: "Save as draft", onSelect: () => {} }]}
+        onClick={() => {}}
+      />
+    </Preview>
+  );
+}
+
+export function SearchBarDemo() {
+  return (
+    <Preview label="SearchBar — leading slot + input" span={3}>
+      <div className="w-full max-w-sm">
+        <SearchBar>
+          <input
+            aria-label="Search docs"
+            placeholder="Search docs"
+            className="w-full bg-transparent outline-none"
+          />
+        </SearchBar>
+      </div>
+    </Preview>
+  );
+}
+
+export function TopAppBarDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <Preview label="TopAppBar — frame header + nav toggle" span={3}>
+      <div className="w-full">
+        <TopAppBar
+          leading={
+            <TopAppBarToggle open={open} onToggle={() => setOpen((v) => !v)} />
+          }
+        >
+          <span className="text-sm font-medium">Kern</span>
+        </TopAppBar>
+      </div>
+    </Preview>
+  );
+}
+
+export function AppShellDemo() {
+  return (
+    <Preview label="AppShell — frame regions" span={3}>
+      <div className="w-full">
+        <AppShell
+          topBar={
+            <TopAppBar>
+              <span className="text-sm font-medium">Kern</span>
+            </TopAppBar>
+          }
+          statusBar={<p className="m-0 px-4 py-1 text-xs">Synced</p>}
+        >
+          <p className="m-0 p-4 text-sm">Body region.</p>
+        </AppShell>
+      </div>
+    </Preview>
+  );
+}
+
+export function SidebarDemo() {
+  return (
+    <Preview label="Sidebar — persistent navigation" span={3}>
+      <div className="flex h-48 w-full max-w-sm">
+        <SidebarProvider>
+          <Sidebar>
+            <SidebarHeader>Kern</SidebarHeader>
+            <SidebarContent>
+              <SidebarItem label="Home" active />
+              <SidebarItem label="Docs" />
+            </SidebarContent>
+            <SidebarFooter>v0.1.0</SidebarFooter>
+          </Sidebar>
+        </SidebarProvider>
+      </div>
+    </Preview>
+  );
+}
+
+export function PaneDemo() {
+  return (
+    <Preview label="Pane — bounded content region" span={3}>
+      <div className="w-full max-w-sm">
+        <Pane width="default">
+          <p className="m-0 text-sm">Reading-width content.</p>
+        </Pane>
+      </div>
+    </Preview>
+  );
+}
+
+export function SplitDemo() {
+  return (
+    <Preview label="Split — N-column region + grid recipe" span={3}>
+      <div className="flex w-full flex-col gap-2">
+        <Split label="Two columns" columns={2}>
+          <p className="m-0 p-2 text-sm">Left</p>
+          <p className="m-0 p-2 text-sm">Right</p>
+        </Split>
+        <SplitGrid columns={2}>
+          <SplitPanel>
+            <p className="m-0 p-2 text-sm">Grid left</p>
+          </SplitPanel>
+          <SplitPanel>
+            <p className="m-0 p-2 text-sm">Grid right</p>
+          </SplitPanel>
+        </SplitGrid>
       </div>
     </Preview>
   );

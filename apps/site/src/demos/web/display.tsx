@@ -15,18 +15,27 @@ import {
   Chip,
   CircularProgress,
   EmptyState,
+  ExtendedFab,
   Fab,
+  FabMenu,
+  FilterChipRow,
+  IconButton,
   Kbd,
+  KernErrorBoundary,
   Label,
   LinearProgress,
+  LinkButton,
   ListItem,
   Loader,
   LoadingButton,
+  LoadingIndicator,
+  LoadingRegion,
   PageLoader,
   Separator,
   Skeleton,
   Text,
 } from "@xoroh/kern";
+import { Link, LinkProvider } from "@xoroh/kern/start";
 import {
   Preview,
   PreviewGrid,
@@ -443,6 +452,146 @@ export function BootIndicatorDemo() {
           <BootIndicator tone="inverse" className="min-h-56" />
         </div>
       </div>
+    </Preview>
+  );
+}
+
+export function IconButtonDemo() {
+  return (
+    <Preview
+      label="IconButton — variant: standard · filled · tonal · outlined"
+      span={3}
+    >
+      <Row>
+        <IconButton
+          label="Add"
+          variant="standard"
+          icon={<Plus className="size-5" />}
+        />
+        <IconButton
+          label="Add"
+          variant="filled"
+          icon={<Plus className="size-5" />}
+        />
+        <IconButton
+          label="Add"
+          variant="tonal"
+          icon={<Plus className="size-5" />}
+        />
+        <IconButton
+          label="Add"
+          variant="outlined"
+          icon={<Plus className="size-5" />}
+        />
+      </Row>
+    </Preview>
+  );
+}
+
+export function ExtendedFabDemo() {
+  return (
+    <Preview label="ExtendedFab — label + icon, collapsible" span={3}>
+      <Row>
+        <ExtendedFab label="Create" icon={<Plus className="size-5" />} />
+        <ExtendedFab
+          label="Create"
+          icon={<Plus className="size-5" />}
+          collapsed
+        />
+      </Row>
+    </Preview>
+  );
+}
+
+export function FabMenuDemo() {
+  return (
+    <Preview label="FabMenu — speed-dial actions" span={3}>
+      <FabMenu
+        label="Actions"
+        icon={<Plus className="size-5" />}
+        actions={[
+          { key: "create", label: "Create", onSelect: () => {} },
+          { key: "upload", label: "Upload", onSelect: () => {} },
+        ]}
+      />
+    </Preview>
+  );
+}
+
+export function FilterChipRowDemo() {
+  return (
+    <Preview label="FilterChipRow — multi-select group" span={3}>
+      <div className="w-full max-w-sm">
+        <FilterChipRow
+          label="Filters"
+          defaultValue={["open"]}
+          options={[
+            { value: "open", label: "Open" },
+            { value: "closed", label: "Closed" },
+            { value: "draft", label: "Draft" },
+          ]}
+        />
+      </div>
+    </Preview>
+  );
+}
+
+export function LinkDemo() {
+  return (
+    <Preview label="Link — router seam + button treatment" span={3}>
+      <div className="flex w-full flex-col gap-2">
+        <LinkProvider
+          component={({ to, href, ...props }) => (
+            <a href={href ?? to} {...props} />
+          )}
+        >
+          <Link to="/components">Component catalog</Link>
+        </LinkProvider>
+        <LinkButton href="/getting-started">Get started</LinkButton>
+      </div>
+    </Preview>
+  );
+}
+
+export function LoadingIndicatorDemo() {
+  return (
+    <Preview label="LoadingIndicator — size: sm · default · lg" span={3}>
+      <Row>
+        <LoadingIndicator size="sm" label="Small" />
+        <LoadingIndicator label="Default" showLabel />
+        <LoadingIndicator size="lg" label="Large" />
+      </Row>
+    </Preview>
+  );
+}
+
+export function LoadingRegionDemo() {
+  return (
+    <PreviewStack>
+      <Preview label="LoadingRegion — loading" span={3}>
+        <LoadingRegion loading label="Dashboard">
+          <p className="m-0 text-sm">Dashboard content.</p>
+        </LoadingRegion>
+      </Preview>
+      <Preview label="LoadingRegion — ready" span={3}>
+        <LoadingRegion loading={false} label="Dashboard">
+          <p className="m-0 text-sm">Dashboard content.</p>
+        </LoadingRegion>
+      </Preview>
+    </PreviewStack>
+  );
+}
+
+export function KernErrorBoundaryDemo() {
+  return (
+    <Preview label="KernErrorBoundary — fallback on throw" span={3}>
+      <KernErrorBoundary
+        fallback={({ error }) => (
+          <p className="m-0 text-sm">Caught: {(error as Error).message}</p>
+        )}
+      >
+        <p className="m-0 text-sm">Healthy content renders untouched.</p>
+      </KernErrorBoundary>
     </Preview>
   );
 }

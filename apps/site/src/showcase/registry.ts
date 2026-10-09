@@ -48,8 +48,11 @@ import { TOGGLE_GROUP_CONFIGURATOR } from "./configurators/toggle-group";
 import { TOOLTIP_CONFIGURATOR } from "./configurators/tooltip";
 import type { ExampleSpec } from "./example";
 import { BUTTON_EXAMPLES } from "./examples/button";
+import { CARD_EXAMPLES } from "./examples/card";
+import { DIALOG_EXAMPLES } from "./examples/dialog";
 import { CHECKBOX_EXAMPLES, INPUT_EXAMPLES } from "./examples/input";
 import { MENU_EXAMPLES, MENUBAR_EXAMPLES } from "./examples/menu";
+import { SWITCH_EXAMPLES } from "./examples/switch";
 
 /**
  * The Example registry — export name → the examples for it.
@@ -68,6 +71,9 @@ export const EXAMPLES: Record<string, ExampleSpec[]> = {
   Checkbox: CHECKBOX_EXAMPLES,
   Menu: MENU_EXAMPLES,
   Menubar: MENUBAR_EXAMPLES,
+  Card: CARD_EXAMPLES,
+  Dialog: DIALOG_EXAMPLES,
+  Switch: SWITCH_EXAMPLES,
 };
 
 /** Every export that has at least one registered example. */

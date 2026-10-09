@@ -132,8 +132,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "ActionSheet": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "action-sheet.ts documents no keyboard rows for ActionSheet — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in action-sheet.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -269,8 +282,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "AppShell": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "app-shell.ts documents no keyboard rows for AppShell — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in app-shell.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       },
       "Document": {
         "hasLiveDemo": false,
@@ -550,8 +576,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "SearchBar": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "search-bar.ts documents no keyboard rows for SearchBar — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 4 line(s) in search-bar.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       },
       "SettingsRow": {
         "hasLiveDemo": false,
@@ -601,8 +640,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "BottomSheetPicker": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "bottom-sheet-picker.ts documents no keyboard rows for BottomSheetPicker — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in bottom-sheet-picker.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -612,8 +664,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "BottomSheet": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "bottom-sheet.ts documents no keyboard rows for BottomSheet — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in bottom-sheet.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -719,8 +784,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "Carousel": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "carousel.ts documents no keyboard rows for Carousel — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 4 line(s) in carousel.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -1616,8 +1694,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "DockSheet": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "dock-sheet.ts documents no keyboard rows for DockSheet — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in dock-sheet.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -1777,8 +1868,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "EntitySheet": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "entity-sheet.ts documents no keyboard rows for EntitySheet — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in entity-sheet.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -1788,8 +1892,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "ExtendedFab": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "extended-fab.ts documents no keyboard rows for ExtendedFab — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in extended-fab.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -1799,8 +1916,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "FabMenu": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "fab-menu.ts documents no keyboard rows for FabMenu — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 4 line(s) in fab-menu.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -2001,8 +2131,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "FilterChipRow": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "filter-chip-row.ts documents no keyboard rows for FilterChipRow — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in filter-chip-row.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -2036,8 +2179,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "IconButton": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "icon-button.ts documents no keyboard rows for IconButton — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in icon-button.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -2153,8 +2309,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "KernErrorBoundary": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "kern-error-boundary.ts documents no keyboard rows for KernErrorBoundary — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in kern-error-boundary.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -2212,12 +2381,38 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "LinkProvider": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "link.ts documents no keyboard rows for LinkProvider — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in link.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       },
       "Link": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "link.ts documents no keyboard rows for Link — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in link.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -2299,8 +2494,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "LoadingIndicator": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "loading-indicator.ts documents no keyboard rows for LoadingIndicator — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in loading-indicator.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -2310,8 +2518,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "LoadingRegion": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "loading-region.ts documents no keyboard rows for LoadingRegion — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in loading-region.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -2321,8 +2542,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "MenuScreen": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "menu-screen.ts documents no keyboard rows for MenuScreen — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in menu-screen.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -2332,8 +2566,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "MenuSheet": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "menu-sheet.ts documents no keyboard rows for MenuSheet — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in menu-sheet.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -2677,12 +2924,38 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "NavigationBar": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "navigation-bar.ts documents no keyboard rows for NavigationBar — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 4 line(s) in navigation-bar.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       },
       "NavigationBarItem": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "navigation-bar.ts documents no keyboard rows for NavigationBarItem — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 4 line(s) in navigation-bar.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -2692,8 +2965,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "NavigationDrawer": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "navigation-drawer.ts documents no keyboard rows for NavigationDrawer — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 4 line(s) in navigation-drawer.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -2935,20 +3221,59 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "Pane": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "pane.ts documents no keyboard rows for Pane — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in pane.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       },
       "Page": {
         "hasLiveDemo": false,
         "expectations": []
       },
       "SplitGrid": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "pane.ts documents no keyboard rows for SplitGrid — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in pane.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       },
       "SplitPanel": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "pane.ts documents no keyboard rows for SplitPanel — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in pane.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       },
       "ListDetail": {
         "hasLiveDemo": false,
@@ -3382,8 +3707,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "SecondaryTabs": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "secondary-tabs.ts documents no keyboard rows for SecondaryTabs — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 4 line(s) in secondary-tabs.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -3635,8 +3973,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "SheetSurface": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "sheet-surface.ts documents no keyboard rows for SheetSurface — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in sheet-surface.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -3772,28 +4123,106 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "SidebarProvider": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "sidebar.ts documents no keyboard rows for SidebarProvider — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in sidebar.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       },
       "Sidebar": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "sidebar.ts documents no keyboard rows for Sidebar — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in sidebar.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       },
       "SidebarHeader": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "sidebar.ts documents no keyboard rows for SidebarHeader — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in sidebar.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       },
       "SidebarContent": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "sidebar.ts documents no keyboard rows for SidebarContent — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in sidebar.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       },
       "SidebarFooter": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "sidebar.ts documents no keyboard rows for SidebarFooter — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in sidebar.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       },
       "SidebarItem": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "sidebar.ts documents no keyboard rows for SidebarItem — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in sidebar.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       },
       "NavigationRail": {
         "hasLiveDemo": false,
@@ -4091,8 +4520,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "SnapSheet": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "snap-sheet.ts documents no keyboard rows for SnapSheet — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in snap-sheet.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -4262,8 +4704,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "SplitButton": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "split-button.ts documents no keyboard rows for SplitButton — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 4 line(s) in split-button.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -4273,8 +4728,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "Split": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "split.ts documents no keyboard rows for Split — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in split.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -4591,8 +5059,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "TimePicker": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "time-picker.ts documents no keyboard rows for TimePicker — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in time-picker.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -4868,12 +5349,38 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "TopAppBar": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "top-app-bar.ts documents no keyboard rows for TopAppBar — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in top-app-bar.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       },
       "TopAppBarToggle": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "top-app-bar.ts documents no keyboard rows for TopAppBarToggle — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in top-app-bar.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       },
       "AppTopBar": {
         "hasLiveDemo": false,
@@ -4975,8 +5482,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "Autocomplete": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "autocomplete.ts documents no keyboard rows for Autocomplete — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 4 line(s) in autocomplete.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -5174,8 +5694,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "Carousel": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "carousel.ts documents no keyboard rows for Carousel — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 4 line(s) in carousel.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -5185,12 +5718,38 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "CheckboxGroup": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "checkbox-group.ts documents no keyboard rows for CheckboxGroup — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in checkbox-group.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       },
       "CheckboxGroupItem": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "checkbox-group.ts documents no keyboard rows for CheckboxGroupItem — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in checkbox-group.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -5309,6 +5868,30 @@ export const A11Y: Record<string, A11yPage> = {
       "ContextMenu": {
         "hasLiveDemo": false,
         "expectations": []
+      }
+    }
+  },
+  "mobile/contrast-toggle": {
+    "page": "mobile/contrast-toggle",
+    "measured": false,
+    "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    "demos": {
+      "ContrastToggle": {
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "contrast-toggle.ts documents no keyboard rows for ContrastToggle — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "contrast-toggle.ts states no aria contract for ContrastToggle — screen-reader behaviour is unclaimed"
+          }
+        ]
       }
     }
   },
@@ -5529,8 +6112,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "IconButtonTarget": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "icon-button-target.ts documents no keyboard rows for IconButtonTarget — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in icon-button-target.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -5540,8 +6136,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "IconButton": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "icon-button.ts documents no keyboard rows for IconButton — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in icon-button.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -5551,8 +6160,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "InputOTP": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "input-otp.ts documents no keyboard rows for InputOTP — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in input-otp.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -5794,8 +6416,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "Meter": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "meter.ts documents no keyboard rows for Meter — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in meter.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -5871,8 +6506,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "NumberField": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "number-field.ts documents no keyboard rows for NumberField — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in number-field.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -5882,8 +6530,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "Pagination": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "pagination.ts documents no keyboard rows for Pagination — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 4 line(s) in pagination.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -5904,8 +6565,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "Popover": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "popover.ts documents no keyboard rows for Popover — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in popover.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -5980,8 +6654,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "ScrollArea": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "scroll-area.ts documents no keyboard rows for ScrollArea — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in scroll-area.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -6355,14 +7042,51 @@ export const A11Y: Record<string, A11yPage> = {
       }
     }
   },
+  "mobile/theme-toggle": {
+    "page": "mobile/theme-toggle",
+    "measured": false,
+    "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    "demos": {
+      "ThemeToggle": {
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "theme-toggle.ts documents no keyboard rows for ThemeToggle — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "theme-toggle.ts states no aria contract for ThemeToggle — screen-reader behaviour is unclaimed"
+          }
+        ]
+      }
+    }
+  },
   "mobile/time-picker": {
     "page": "mobile/time-picker",
     "measured": false,
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "TimePicker": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "time-picker.ts documents no keyboard rows for TimePicker — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in time-picker.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },
@@ -6431,8 +7155,21 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "Tooltip": {
-        "hasLiveDemo": false,
-        "expectations": []
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "tooltip.ts documents no keyboard rows for Tooltip — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in tooltip.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },

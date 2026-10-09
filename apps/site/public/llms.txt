@@ -190,6 +190,7 @@ Prefer these machine surfaces over scraping HTML:
 - [Collapsible](/components/mobile/collapsible): The collapsible is one disclosure: a title row that reveals or hides the content beneath it.
 - [Command](/components/mobile/command): Command palettes are a modal dialog with a search field and a grouped, scrollable list of actions.
 - [Context menu](/components/mobile/context-menu): Context menus attach a list of actions to arbitrary content, opened the platform's own way.
+- [ContrastToggle](/components/mobile/contrast-toggle): One action that requests a contrast change, named for where the press goes rather than where it is.
 - [Country select](/components/mobile/country-select): Country selects choose a country from data you supply — kern ships no country list.
 - [Dialog](/components/mobile/dialog): Dialogs interrupt for one decision — a title, some content, and up to a few actions.
 - [Dock sheet](/components/mobile/dock-sheet): Dock sheets are the minimal bottom panel — content in a sheet, with no title and no action row.
@@ -257,6 +258,7 @@ Prefer these machine surfaces over scraping HTML:
 - [Tabs](/components/mobile/tabs): Tabs switch between peer views of the same thing, and carry their content with them.
 - [Text](/components/mobile/text): Text renders a string in one of the four kern type roles, with the theme's ink and nothing else decided for you.
 - [Textarea](/components/mobile/textarea): Textareas are the multi-line text field — the input with line breaks turned on.
+- [ThemeToggle](/components/mobile/theme-toggle): One action that requests a theme change, named for where the press goes rather than where it is.
 - [Time picker](/components/mobile/time-picker): The time picker is hour and minute — plus the period in 12-hour mode — as traversable listboxes, with the value kept in 24-hour state.
 - [Toggle group](/components/mobile/toggle-group): Toggle groups hold several toggles and report either one selection or several, depending on `multiple`.
 - [Toggle](/components/mobile/toggle): Toggles are pressable buttons that hold a pressed state, and they call it `pressed`.
