@@ -1,5 +1,5 @@
 ---
-"@xoroh/kern-native": major
+"@xoroh/kern-native": minor
 ---
 
 **BREAKING — the native public barrel no longer exports four symbols.**

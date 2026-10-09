@@ -35,11 +35,23 @@ Cross-cutting: `07-demos` (every component gets a live demo), `08-correctness` (
 10. **P9 onboarding + M3 part** (`09`): system-choice step, use-case pages, show/hide enforcement.
 11. **Publish 0.1.0** — nothing adoptable until then.
 
+**Batch status (2026-10-09):** batches 1–10 LANDED (P0 truth-pass, P1 primitives standalone incl.
+G1 ruling + G5 versioning doc, P2 correctness P0s/P1s/P2s + start-tier parity suites, P3 demos — web 0
+demo-less / mobile 12-list / examples 14, P4 components domain, P5 blocks domain (3 blocks + CLI add),
+P6 playground studio, P7 foundations, P8 docs-shell parts, P9 onboarding). Batch 11 (publish 0.1.0) is
+verified code-ready (`check:publish` 6/6, version dry-run: all public packages → 0.1.0) and blocked only
+on the three founder actions in `TODO.md` (NPM_TOKEN secret, RELEASE_CHANGESSETS variable, npm login).
+
 ## Decisions owed
 
 - D18: 6 deployables vs path-prefixes-behind-subdomain-rewrites (one TanStack app today, `wrangler.jsonc` `kern-site`, no custom domain).
-- D19: P brand "Primitives" (recommended — boundary-enforced) vs "RN".
-- D20: 5-tab page IA proposal (R2 found no 5-tab spec in tree — adopt proposal or drop).
-- D21: search stays global (R6: moving it into G blinds every domain) — confirm.
-- D1 (CLI fate), D8 (showcase real-only), D15 (data-heavy parked) — retained.
+- D19: P brand "Primitives" (recommended — boundary-enforced) vs "RN". — the tree ships "Primitives"
+  branding and the `check:primitives` boundary; confirm or overrule.
+- D20: 5-tab page IA proposal — SHIPPED as the primary tabs (Foundations/Components/Patterns/Playground/
+  Showcase); confirm or overrule.
+- D21: search stays global (R6: moving it into G blinds every domain) — CONFIRMED in P6/P8 (the studio
+  embeds no search).
+- D1 (CLI fate) — answered by P0-truth + P9: Mode 1 shipped, unpublished, receipts forward-designed;
+  `list`/`diff`/`upgrade` documented as coming. D8 (showcase real-only) — held (3 real blocks only).
+  D15 (data-heavy parked) — parked.
 - Redirect-alias stubs (`/accessibility`, `/icons`, `/styles/*`, `/theme/`) — delete now or keep one cycle.

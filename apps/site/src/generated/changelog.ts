@@ -17,16 +17,9 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
   {
     id: "breaking-native-barrel-retirements",
     packages: ["@xoroh/kern-native"],
-    bump: "major",
+    bump: "minor",
     summary:
       "BREAKING — the native public barrel no longer exports four symbols.",
-  },
-  {
-    id: "m3-to-kern-rename-renderers",
-    packages: ["@xoroh/kern", "@xoroh/kern-native"],
-    bump: "major",
-    summary:
-      "M3 → kern rename, renderer layer (founder directive, board.md 2026-10-02).",
   },
   {
     id: "d-034-package-structure",
@@ -40,6 +33,13 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
     bump: "minor",
     summary:
       "Add M3's fifth state-layer opacity (disabled, 38%) and assert all five in check:kern.",
+  },
+  {
+    id: "m3-to-kern-rename-renderers",
+    packages: ["@xoroh/kern", "@xoroh/kern-native"],
+    bump: "minor",
+    summary:
+      "M3 → kern rename, renderer layer (founder directive, board.md 2026-10-02).",
   },
   {
     id: "m3-to-kern-rename-tokens-and-gates",

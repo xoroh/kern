@@ -1,6 +1,6 @@
 ---
-"@xoroh/kern": major
-"@xoroh/kern-native": major
+"@xoroh/kern": minor
+"@xoroh/kern-native": minor
 ---
 
 M3 → kern rename, renderer layer (founder directive, board.md 2026-10-02).
