@@ -23,6 +23,7 @@ Prefer these machine surfaces over scraping HTML:
 
 - [Overview](/docs): Three ways in, one system underneath
 - [Guides](/docs/guides): How-to guides for common tasks
+- [Use cases](/docs/use-cases): CLI, MCP and skills — what each surface does
 - [API reference](/docs/api): API reference for the public utility surface
 - [Reference](/reference): Concept and contract reference
 - [Contributing](/docs/contributing): How to contribute to kern

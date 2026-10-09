@@ -81,6 +81,12 @@ export const NAV_SECTIONS: NavSection[] = [
         group: "Guides",
       },
       {
+        label: "Use cases",
+        href: "/docs/use-cases",
+        hint: "CLI, MCP and skills — what each surface does",
+        group: "Guides",
+      },
+      {
         label: "API reference",
         href: "/docs/api",
         hint: "API reference for the public utility surface",

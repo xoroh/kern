@@ -23,15 +23,24 @@ states + spec links, references out to m3.material.io), use-case pages per surfa
 - [x] P0-truth: CLI README + tracker row 9 tell the truth (Mode 1 shipped, unpublished); never direct users at lies.
 - [x] MCP defects to MCP lane: native import string (`@xoroh/kern/native` vs parity-doc `@xoroh/kern-native`) +
       `get_tokens` missing `compact` (pipeline ships it — `docs/architecture.md:98`).
-- [ ] Use-case pages: CLI (scaffold shell `add`×N / single-component hybrid / `--self-contained` eject /
+- [x] Use-case pages: CLI (scaffold shell `add`×N / single-component hybrid / `--self-contained` eject /
       Mode 2 `bun add` / receipt-audit-future-as-coming); MCP (inventory / pull-source / compare-presets /
       discover-themes / audit-screen); skills (zero-to-screen loop / compliance audit / correct authoring /
-      docs-routing).
-- [ ] System-choice step: Mode 1 vendored vs Mode 2 depended up front (`kern.ts:10-11` dual delivery); M3 part
-      with all rules; system #2 plugs via `ManifestRow` without rework.
-- [ ] Show/hide policy: show install/live/presets; `kern list`/`diff`/`upgrade`, MCP `KERN_REPO_ROOT` bundling
+      docs-routing). Landed `/docs/use-cases` (`routes/docs/use-cases.tsx`, nav leaf "Use cases"): one section
+      per surface, real tool/command names (list_components → design_audit, kern init/add, kern-agents/kern/
+      docs skills), receipt-audit explicitly labeled coming. Includes the P5 block add (`kern add <block>`).
+- [x] System-choice step: Mode 1 vendored vs Mode 2 depended up front (`kern.ts:10-11` dual delivery); M3 part
+      with all rules; system #2 plugs via `ManifestRow` without rework. Landed: "Choose a system" leads the page —
+      Mode 1 (vendored, hybrid/self-contained) vs Mode 2 (depended) side by side with real commands, M3 named as
+      the system with the Foundations rules + spec links, and the `ManifestRow` seam recorded as the system-#2
+      plug (no rework, none ships today).
+- [x] Show/hide policy: show install/live/presets; `kern list`/`diff`/`upgrade`, MCP `KERN_REPO_ROOT` bundling
       (`mcp/README.md:30-34`), maturity-Preview-0.0.0 (`maturity.ts:8-10`) shown as coming/current — never as
-      available. Extend the no-`kern-add`-tab precedent (`component-page.tsx:477`).
+      available. Extend the no-`kern-add`-tab precedent (`component-page.tsx:477`). Landed: "What is available,
+      what is coming" two-column policy on the same page + an Admonition ("Coming is not available") naming the
+      install-picker precedent; kern list/diff/upgrade, KERN_REPO_ROOT-free bundling, 0.1.0 publish and receipt
+      audits sit under Coming; install/live/presets/receipts/MCP/skills under Available. Verified: CLI usage
+      text already names diff/upgrade as step 3, never as shipped.
 
 **Gates:** `check:docs` chain, skill-table tests, CLI smoke (`add.test.ts`).
 **Out of scope:** building `kern list`/`diff`/`upgrade` (document as coming); foreign-system onboarding.
