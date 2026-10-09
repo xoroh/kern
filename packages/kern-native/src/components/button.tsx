@@ -233,7 +233,9 @@ export function Button({
   // the consumer's (the one rule). The consumer keeps its
   // GestureResponderEvent contract via the captured gesture event, and live
   // refs defeat the mount-once options capture (usePress reads options at
-  // mount; the wrapper below always reads current values).
+  // mount; the wrapper below always reads current values). A press dispatch
+  // without a preceding pressIn (synthetic events, assistive tech) falls back
+  // to the press event itself so the tap is never swallowed.
   const onPressRef = useRef(onPress);
   onPressRef.current = onPress;
   const blockedRef = useRef(blocked);
@@ -277,7 +279,10 @@ export function Button({
         press.onPressIn();
       }}
       onPressOut={press.onPressOut}
-      onPress={press.onPress}
+      onPress={(event: GestureResponderEvent) => {
+        if (!gestureEvent.current) gestureEvent.current = event;
+        press.onPress();
+      }}
       style={({ pressed }) => [
         styles.container,
         pressed && !blocked ? { opacity: 0.82 } : undefined,
