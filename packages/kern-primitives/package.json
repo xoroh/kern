@@ -1,7 +1,8 @@
 {
   "name": "@xoroh/kern-primitives",
   "version": "0.0.0",
-  "description": "The un-styled behaviour kernel shared by the Kern web and native renderers.",
+  "description": "The un-styled behaviour kernel shared by the Kern web and React Native renderers.",
+  "keywords": ["react-native", "headless", "primitives", "react", "kern"],
   "license": "MIT",
   "author": "Xoroh",
   "repository": {
