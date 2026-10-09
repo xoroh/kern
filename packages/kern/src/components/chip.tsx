@@ -5,14 +5,14 @@ import { cn } from "../utils/cn";
 import { FOCUS_RING_CLASS } from "./focus-ring";
 
 const chipVariants = cva(
-  "kern-chip relative inline-flex h-8 shrink-0 items-center gap-1.5 rounded-(--md-sys-shape-corner-full) px-3 text-xs font-medium transition-colors outline-none select-none " + FOCUS_RING_CLASS + " disabled:pointer-events-none disabled:opacity-50 after:absolute after:-inset-2 after:content-['']",
+  `kern-chip relative inline-flex h-8 shrink-0 items-center gap-1.5 rounded-(--md-sys-shape-corner-full) px-3 text-xs font-medium transition-colors outline-none select-none ${FOCUS_RING_CLASS} disabled:pointer-events-none disabled:opacity-50 after:absolute after:-inset-2 after:content-['']`,
   {
     variants: {
       variant: {
         assist:
-          "bg-(--md-sys-color-surface-tonal) text-(--md-sys-color-on-surface) hover:bg-(--md-sys-color-surface-container-high)",
+          "border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface) text-(--md-sys-color-on-surface) hover:bg-(--md-sys-color-surface-container-high)",
         filter:
-          "bg-(--md-sys-color-surface-tonal) text-(--md-sys-color-on-surface) hover:bg-(--md-sys-color-surface-container-high) data-selected:bg-(--md-sys-color-primary) data-selected:text-(--md-sys-color-on-primary)",
+          "bg-(--md-sys-color-surface-tonal) text-(--md-sys-color-on-surface) hover:bg-(--md-sys-color-surface-container-high) data-selected:bg-(--md-sys-color-secondary-container) data-selected:text-(--md-sys-color-on-secondary-container)",
         // M3 lists FOUR chip variants (m3.material.io/components/chips/overview):
         // assist, filter, input, suggestion. `input` was missing.
         input:

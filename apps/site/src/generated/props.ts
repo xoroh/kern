@@ -1071,35 +1071,35 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "variant",
       "type": "ButtonVariantInput | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:159",
+      "src": "packages/kern/src/components/button.tsx:160",
       "default": "\"primary\""
     },
     {
       "name": "size",
       "type": "ButtonSize | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:160",
+      "src": "packages/kern/src/components/button.tsx:161",
       "default": "\"default\""
     },
     {
       "name": "color",
       "type": "ButtonColor | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:161",
+      "src": "packages/kern/src/components/button.tsx:162",
       "default": "\"primary\""
     },
     {
       "name": "shape",
       "type": "ButtonShape | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:162",
+      "src": "packages/kern/src/components/button.tsx:163",
       "default": "\"pill\""
     },
     {
       "name": "block",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:164",
+      "src": "packages/kern/src/components/button.tsx:165",
       "default": "false",
       "note": "Full-width block button."
     },
@@ -1107,69 +1107,69 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "loading",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:166",
+      "src": "packages/kern/src/components/button.tsx:167",
       "note": "Shows the embedded progress indicator and blocks interaction."
     },
     {
       "name": "loadingValue",
       "type": "number | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:168",
+      "src": "packages/kern/src/components/button.tsx:169",
       "note": "0–1 determinate progress while loading. Omit for the loop."
     },
     {
       "name": "loaderStyle",
       "type": "\"spinner\" | \"dots\" | \"bar\" | \"shapes\" | \"conveyor\" | \"contained\" | \"orbit\" | \"morph\" | \"assembly\" | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:170",
+      "src": "packages/kern/src/components/button.tsx:171",
       "note": "Style of the embedded indicator. Defaults to the M3 ring (`spinner`)."
     },
     {
       "name": "href",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:178",
+      "src": "packages/kern/src/components/button.tsx:179",
       "note": "Navigation variant. Renders `<a href>` wearing the button treatment,\ni.e. `role=\"link\"` — for a dedicated link component see `LinkButton`.\nA disabled link drops `href`, leaves the tab order and reports\n`aria-disabled` (the ListItem convention) — links have no `disabled`\nattribute, so there is nothing native to lean on."
     },
     {
       "name": "target",
       "type": "HTMLAttributeAnchorTarget | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:183",
+      "src": "packages/kern/src/components/button.tsx:184",
       "note": "Anchor target. Only rendered when `href` is set — a button has no\nbrowsing context to open."
     },
     {
       "name": "rel",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:185",
+      "src": "packages/kern/src/components/button.tsx:186",
       "note": "Anchor relationship list. Only rendered when `href` is set."
     },
     {
       "name": "download",
       "type": "any",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:187",
+      "src": "packages/kern/src/components/button.tsx:188",
       "note": "Download hint. Only rendered when `href` is set."
     },
     {
       "name": "icon",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:189",
+      "src": "packages/kern/src/components/button.tsx:190",
       "note": "Leading (or trailing, with `iconPosition`) icon. Hidden from assistive tech."
     },
     {
       "name": "iconPosition",
       "type": "ButtonIconPosition | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:190"
+      "src": "packages/kern/src/components/button.tsx:191"
     },
     {
       "name": "ref",
       "type": "Ref<HTMLButtonElement | HTMLAnchorElement> | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:191"
+      "src": "packages/kern/src/components/button.tsx:192"
     }
   ],
   "Calendar": [
@@ -4498,6 +4498,13 @@ export const GENERATED_PROPS: Record<string, Array<{
   ],
   "IconButton": [
     {
+      "name": "toggle",
+      "type": "boolean | null | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/icon-button.tsx:61",
+      "default": "false"
+    },
+    {
       "name": "size",
       "type": "\"sm\" | \"default\" | \"lg\" | null | undefined",
       "required": false,
@@ -4522,61 +4529,54 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "icon",
       "type": "ReactNode",
       "required": true,
-      "src": "packages/kern/src/components/icon-button.tsx:100",
+      "src": "packages/kern/src/components/icon-button.tsx:119",
       "note": "Icon content. Hidden from assistive tech; the name comes from `label`."
     },
     {
       "name": "label",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:105",
+      "src": "packages/kern/src/components/icon-button.tsx:124",
       "note": "Accessible name, and the text of the M3 tooltip. Required in practice:\nan icon-only button with no name is unusable with a screen reader."
-    },
-    {
-      "name": "toggle",
-      "type": "boolean | undefined",
-      "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:107",
-      "note": "Renders this button as a toggle and reports its state."
     },
     {
       "name": "pressed",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:109",
+      "src": "packages/kern/src/components/icon-button.tsx:128",
       "note": "Controlled pressed state. Only meaningful with `toggle`."
     },
     {
       "name": "defaultPressed",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:111",
+      "src": "packages/kern/src/components/icon-button.tsx:130",
       "note": "Initial pressed state for the uncontrolled toggle case."
     },
     {
       "name": "onPressedChange",
       "type": "((pressed: boolean) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:112"
+      "src": "packages/kern/src/components/icon-button.tsx:131"
     },
     {
       "name": "value",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:118",
+      "src": "packages/kern/src/components/icon-button.tsx:137",
       "note": "R2 lexicon canonical names (`value` wins when both are passed; both\ncallbacks fire). `pressed`/`defaultPressed`/`onPressedChange` are\ndeprecated aliases onto the same state."
     },
     {
       "name": "defaultValue",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:119"
+      "src": "packages/kern/src/components/icon-button.tsx:138"
     },
     {
       "name": "onValueChange",
       "type": "((pressed: boolean) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:120"
+      "src": "packages/kern/src/components/icon-button.tsx:139"
     }
   ],
   "InputOTPRoot": [

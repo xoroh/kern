@@ -33,18 +33,18 @@ import { FOCUS_RING_CLASS } from "./focus-ring";
  */
 
 const iconButtonVariants = cva(
-  "kern-icon-button group relative inline-flex shrink-0 items-center justify-center rounded-(--md-sys-shape-corner-full) outline-none transition-colors select-none " + FOCUS_RING_CLASS + " disabled:pointer-events-none disabled:opacity-38 aria-disabled:pointer-events-none aria-disabled:opacity-38 after:absolute after:-inset-2 after:content-[''] [&_svg]:pointer-events-none [&_svg]:size-5 [&_svg]:shrink-0",
+  `kern-icon-button group relative inline-flex shrink-0 items-center justify-center rounded-(--md-sys-shape-corner-full) outline-none transition-colors select-none ${FOCUS_RING_CLASS} disabled:pointer-events-none disabled:opacity-38 aria-disabled:pointer-events-none aria-disabled:opacity-38 after:absolute after:-inset-2 after:content-[''] before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 hover:before:opacity-[var(--md-sys-state-hover)] before:transition-opacity [&_svg]:pointer-events-none [&_svg]:size-5 [&_svg]:shrink-0`,
   {
     variants: {
       variant: {
         standard:
-          "text-(--md-sys-color-on-surface-variant) hover:bg-(--md-sys-color-on-surface) hover:opacity-[var(--md-sys-state-hover)]",
+          "text-(--md-sys-color-on-surface-variant) before:bg-(--md-sys-color-on-surface-variant)",
         filled:
-          "bg-(--md-sys-color-surface-container-highest) text-(--md-sys-color-on-surface-variant) hover:bg-(--md-sys-color-surface-container-high)",
+          "bg-(--md-sys-color-primary) text-(--md-sys-color-on-primary) before:bg-(--md-sys-color-on-primary)",
         tonal:
-          "bg-(--md-sys-color-secondary-container) text-(--md-sys-color-on-secondary-container) hover:opacity-[var(--md-sys-state-hover)]",
+          "bg-(--md-sys-color-secondary-container) text-(--md-sys-color-on-secondary-container) before:bg-(--md-sys-color-on-secondary-container)",
         outlined:
-          "border border-(--md-sys-color-outline) text-(--md-sys-color-on-surface-variant) hover:bg-(--md-sys-color-on-surface) hover:opacity-[var(--md-sys-state-hover)]",
+          "border border-(--md-sys-color-outline) text-(--md-sys-color-on-surface-variant) before:bg-(--md-sys-color-on-surface-variant)",
       },
       size: {
         sm: "size-8 after:-inset-2.5",
@@ -52,6 +52,13 @@ const iconButtonVariants = cva(
         lg: "size-12 after:-inset-1",
       },
       selected: {
+        true: "",
+        false: "",
+      },
+      // Toggle form only: an unselected toggle is NOT the resting filled
+      // treatment — M3 gives it the surface-container-highest container with
+      // the primary icon, and selection lands on the primary fill.
+      toggle: {
         true: "",
         false: "",
       },
@@ -71,6 +78,13 @@ const iconButtonVariants = cva(
         class: "bg-(--md-sys-color-primary) text-(--md-sys-color-on-primary)",
       },
       {
+        variant: "filled",
+        toggle: true,
+        selected: false,
+        class:
+          "bg-(--md-sys-color-surface-container-highest) text-(--md-sys-color-primary) before:bg-(--md-sys-color-primary)",
+      },
+      {
         variant: "tonal",
         selected: true,
         class:
@@ -83,7 +97,12 @@ const iconButtonVariants = cva(
           "bg-(--md-sys-color-primary) text-(--md-sys-color-on-primary) border-transparent",
       },
     ],
-    defaultVariants: { variant: "standard", size: "default", selected: false },
+    defaultVariants: {
+      variant: "standard",
+      size: "default",
+      selected: false,
+      toggle: false,
+    },
   },
 );
 
@@ -174,7 +193,7 @@ export function IconButton({
       aria-pressed={toggle ? isPressed : undefined}
       disabled={disabled}
       className={cn(
-        iconButtonVariants({ variant, size, selected: isPressed }),
+        iconButtonVariants({ variant, size, selected: isPressed, toggle }),
         className,
       )}
       // The spread comes FIRST. Spread last, it would overwrite the composed

@@ -65,13 +65,41 @@ describe("Button", () => {
     expect(screen.getByRole("button")).toHaveClass("h-12");
   });
 
-  it("paints the danger treatment per variant without adding a variant", () => {
-    const { rerender } = render(
-      <Button color="danger">Delete</Button>,
+  it("paints hover as a state layer, never a whole-button dim", () => {
+    // M3: an 8% layer of the on-color over the container, label full-strength.
+    // Whole-button hover:opacity dims the label too — that was the bug.
+    const { rerender } = render(<Button>Save</Button>);
+    const primary = screen.getByRole("button");
+    expect(primary).toHaveClass(
+      "before:bg-(--md-sys-color-on-primary)",
+      "hover:before:opacity-[var(--md-sys-state-hover)]",
+    );
+    expect(primary.className).not.toContain("hover:opacity-");
+    rerender(<Button variant="tonal">Save</Button>);
+    expect(screen.getByRole("button")).toHaveClass(
+      "before:bg-(--md-sys-color-on-secondary-container)",
+    );
+    rerender(<Button variant="outlined">Save</Button>);
+    expect(screen.getByRole("button")).toHaveClass(
+      "before:bg-(--md-sys-color-primary)",
+    );
+    rerender(<Button variant="ghost">Save</Button>);
+    const ghost = screen.getByRole("button");
+    expect(ghost).toHaveClass("before:bg-(--md-sys-color-primary)");
+    expect(ghost.className).not.toContain("surface-tonal");
+    rerender(
+      <Button variant="ghost" color="danger">
+        Delete
+      </Button>,
     );
     expect(screen.getByRole("button")).toHaveClass(
-      "bg-(--md-sys-color-error)",
+      "before:bg-(--md-sys-color-error)",
     );
+  });
+
+  it("paints the danger treatment per variant without adding a variant", () => {
+    const { rerender } = render(<Button color="danger">Delete</Button>);
+    expect(screen.getByRole("button")).toHaveClass("bg-(--md-sys-color-error)");
     rerender(
       <Button variant="ghost" color="danger">
         Delete
@@ -118,7 +146,9 @@ describe("Button", () => {
   });
 
   it("places the icon beside the label and flips with iconPosition", () => {
-    const { rerender } = render(<Button icon={<svg data-testid="i" />}>Save</Button>);
+    const { rerender } = render(
+      <Button icon={<svg data-testid="i" />}>Save</Button>,
+    );
     const button = screen.getByRole("button");
     const first = button.firstElementChild;
     expect(first?.querySelector('[data-testid="i"]')).not.toBeNull();

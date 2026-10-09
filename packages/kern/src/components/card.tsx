@@ -3,11 +3,11 @@ import type { ComponentPropsWithRef, ElementType } from "react";
 import { cn } from "../utils/cn";
 
 const cardVariants = cva(
-  "kern-card rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-surface)",
+  "kern-card rounded-(--md-sys-shape-corner-medium) bg-(--md-sys-color-surface)",
   {
     variants: {
       variant: {
-        filled: "shadow-none",
+        filled: "bg-(--md-sys-color-surface-container-highest) shadow-none",
         outlined: "border border-(--md-sys-color-outline-variant)",
         elevated: "shadow-(--md-sys-elevation-level1)",
       },

@@ -186,10 +186,30 @@ describe("IconButton", () => {
     );
   });
 
-  it("applies the filled variant", () => {
+  it("applies the filled variant (M3: primary container + on-primary icon)", () => {
     render(<IconButton icon={<svg />} label="Add" variant="filled" />);
     expect(screen.getByRole("button")).toHaveClass(
+      "bg-(--md-sys-color-primary)",
+      "text-(--md-sys-color-on-primary)",
+      "before:bg-(--md-sys-color-on-primary)",
+    );
+  });
+
+  it("gives an unselected filled toggle the M3 unselected treatment", () => {
+    render(<IconButton icon={<svg />} label="Add" variant="filled" toggle />);
+    expect(screen.getByRole("button")).toHaveClass(
       "bg-(--md-sys-color-surface-container-highest)",
+      "text-(--md-sys-color-primary)",
+    );
+  });
+
+  it("lands a selected filled toggle on the primary fill (same as resting)", () => {
+    render(
+      <IconButton icon={<svg />} label="Add" variant="filled" toggle pressed />,
+    );
+    expect(screen.getByRole("button")).toHaveClass(
+      "bg-(--md-sys-color-primary)",
+      "text-(--md-sys-color-on-primary)",
     );
   });
 

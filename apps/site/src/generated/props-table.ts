@@ -3591,6 +3591,12 @@ export const PROPS_TABLE: Record<
   IconButton: {
     rows: [
       {
+        name: "toggle",
+        type: "boolean | null | undefined",
+        required: false,
+        default: "false",
+      },
+      {
         name: "size",
         type: '"sm" | "default" | "lg" | null | undefined',
         required: false,
@@ -3616,11 +3622,6 @@ export const PROPS_TABLE: Record<
       {
         name: "label",
         type: "string | undefined",
-        required: false,
-      },
-      {
-        name: "toggle",
-        type: "boolean | undefined",
         required: false,
       },
       {

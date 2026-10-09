@@ -58,4 +58,24 @@ describe("Chip", () => {
     await user.click(chip);
     expect(chip).toHaveAttribute("aria-pressed", "false");
   });
+
+  it("paints a selected filter chip in secondary-container (M3, not primary)", () => {
+    render(
+      <Chip variant="filter" selected>
+        Active
+      </Chip>,
+    );
+    expect(screen.getByRole("button", { name: "Active" })).toHaveClass(
+      "data-selected:bg-(--md-sys-color-secondary-container)",
+      "data-selected:text-(--md-sys-color-on-secondary-container)",
+    );
+  });
+
+  it("renders assist flat with an outline-variant border (M3, not tonal fill)", () => {
+    render(<Chip variant="assist">Search</Chip>);
+    expect(screen.getByRole("button", { name: "Search" })).toHaveClass(
+      "border-(--md-sys-color-outline-variant)",
+      "bg-(--md-sys-color-surface)",
+    );
+  });
 });

@@ -320,6 +320,12 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
       "Native Button no longer swallows a press dispatched without a preceding press-in.",
   },
   {
+    id: "p0-design-correctness-tokens",
+    packages: ["@xoroh/kern"],
+    bump: "patch",
+    summary: "M3 design-correctness fixes (token-only, no API change).",
+  },
+  {
     id: "p1-6-states-consume-or-delete",
     packages: ["@xoroh/kern"],
     bump: "patch",

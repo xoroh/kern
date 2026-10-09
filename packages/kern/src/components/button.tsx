@@ -1,16 +1,12 @@
 import type { LoadingIndicatorStyle } from "@xoroh/kern-tokens";
 import { cva } from "class-variance-authority";
-import type {
-  ComponentPropsWithRef,
-  ReactNode,
-  Ref,
-} from "react";
+import type { ComponentPropsWithRef, ReactNode, Ref } from "react";
 import { cn } from "../utils/cn";
 import { CircularProgress } from "./circular-progress";
 import { FOCUS_RING_CLASS } from "./focus-ring";
 
 const buttonVariants = cva(
-  `kern-button relative inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 rounded-(--md-sys-shape-corner-full) text-sm font-medium whitespace-nowrap transition-colors outline-none select-none ${FOCUS_RING_CLASS} disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 aria-disabled:cursor-not-allowed active:opacity-[var(--md-sys-state-press)] after:absolute after:content-[''] [&_svg]:size-4 [&_svg]:shrink-0`,
+  `kern-button relative inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 rounded-(--md-sys-shape-corner-full) text-sm font-medium whitespace-nowrap transition-colors outline-none select-none ${FOCUS_RING_CLASS} disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 aria-disabled:cursor-not-allowed active:opacity-[var(--md-sys-state-press)] after:absolute after:content-[''] before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 hover:before:opacity-[var(--md-sys-state-hover)] before:transition-opacity [&_svg]:size-4 [&_svg]:shrink-0`,
   {
     variants: {
       // M3's FIVE color configurations (m3.material.io/components/buttons/overview):
@@ -18,17 +14,22 @@ const buttonVariants = cva(
       // sixth variant — it is the `color` axis below (`danger`), which swaps
       // the roles while the variant keeps its structure. `ghost` maps to M3's
       // `text` button.
+      //
+      // Hover is a state LAYER, not a dim: the `before:` overlay paints the
+      // layer color at the hover opacity over the container while the label
+      // stays full-strength. Whole-button `hover:opacity` (which dims the
+      // label too) is the bug this replaces.
       variant: {
         elevated:
-          "bg-(--md-sys-color-surface-container-low) text-(--md-sys-color-primary) shadow-(--md-sys-elevation-level1)",
+          "bg-(--md-sys-color-surface-container-low) text-(--md-sys-color-primary) shadow-(--md-sys-elevation-level1) before:bg-(--md-sys-color-primary)",
         primary:
-          "bg-(--md-sys-color-primary) text-(--md-sys-color-on-primary) hover:opacity-[var(--md-sys-state-hover)]",
+          "bg-(--md-sys-color-primary) text-(--md-sys-color-on-primary) before:bg-(--md-sys-color-on-primary)",
         tonal:
-          "bg-(--md-sys-color-secondary-container) text-(--md-sys-color-on-secondary-container)",
+          "bg-(--md-sys-color-secondary-container) text-(--md-sys-color-on-secondary-container) before:bg-(--md-sys-color-on-secondary-container)",
         outlined:
-          "border border-(--md-sys-color-outline) text-(--md-sys-color-primary)",
+          "border border-(--md-sys-color-outline) text-(--md-sys-color-primary) before:bg-(--md-sys-color-primary)",
         ghost:
-          "text-(--md-sys-color-primary) hover:bg-(--md-sys-color-surface-tonal)",
+          "text-(--md-sys-color-primary) before:bg-(--md-sys-color-primary)",
       },
       // The color axis, not a variant axis: `danger` re-paints the five M3
       // configurations in the error roles instead of adding a sixth shape.
@@ -70,29 +71,29 @@ const buttonVariants = cva(
         variant: "primary",
         color: "danger",
         class:
-          "bg-(--md-sys-color-error) text-(--md-sys-color-on-error)",
+          "bg-(--md-sys-color-error) text-(--md-sys-color-on-error) before:bg-(--md-sys-color-on-error)",
       },
       {
         variant: "tonal",
         color: "danger",
         class:
-          "bg-(--md-sys-color-error-container) text-(--md-sys-color-on-error-container)",
+          "bg-(--md-sys-color-error-container) text-(--md-sys-color-on-error-container) before:bg-(--md-sys-color-on-error-container)",
       },
       {
         variant: "elevated",
         color: "danger",
-        class: "text-(--md-sys-color-error)",
+        class: "text-(--md-sys-color-error) before:bg-(--md-sys-color-error)",
       },
       {
         variant: "outlined",
         color: "danger",
         class:
-          "border-(--md-sys-color-error) text-(--md-sys-color-error)",
+          "border-(--md-sys-color-error) text-(--md-sys-color-error) before:bg-(--md-sys-color-error)",
       },
       {
         variant: "ghost",
         color: "danger",
-        class: "text-(--md-sys-color-error)",
+        class: "text-(--md-sys-color-error) before:bg-(--md-sys-color-error)",
       },
     ],
     defaultVariants: {
