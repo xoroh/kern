@@ -26,6 +26,7 @@
     "dist",
     "src/tokens.css",
     "src/tokens.json",
+    "src/dtcg.json",
     "src/themes/*.json",
     "README.md",
     "LICENSE"
@@ -58,6 +59,7 @@
       }
     },
     "./tokens.json": "./src/tokens.json",
+    "./dtcg.json": "./src/dtcg.json",
     "./themes/*": "./src/themes/*",
     "./theme": "./src/tokens.css"
   },

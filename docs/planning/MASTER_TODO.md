@@ -35,7 +35,7 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
   - Dependencies: none. Files: read-only Git/root/parent state; planning ownership log.
   - Deliverable: HEAD/dirty file hashes and bounded owner map. Acceptance: every intended writable path has one approved owner; no unrelated diff lost.
   - Verification: `git status --short --branch`, `git diff --stat`, scope/hash comparison before/after; record concurrent site ownership.
-- [x] **KERN-002 — Refresh audit discrepancy ledger.** Priority P1; phase P0; status Not started; owner architecture.
+- [x] **KERN-002 — Refresh audit discrepancy ledger.** Priority P1; phase P0; status Verified 2026-10-13; owner architecture.
   - Dependencies: KERN-001. Files: two handoffs, CURRENT_STATE/decision evidence.
   - Deliverable: reconcile historical versus current source claims. Acceptance: truncated audit sections not treated as fact; no deferral of required DTCG/native or second-provider scope creep.
   - Verification: cited paths/symbols/commands inspected; each defect labeled WT/HEAD/history/static/reproduced.
@@ -47,7 +47,7 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
   - Dependencies: KERN-001. Files: parent tsconfig/manifests/static/dynamic/CSS imports and callsites.
   - Deliverable: binding-aware symbol/icon/token/behavior manifest and consumer groups. Acceptance: include static scan's 683/455/138 file sets, dynamic/data inputs/style aliases and tests, no private data published.
   - Verification: AST binding scan plus targeted dynamic/CSS/legacy globals searches; source path samples and counts reproducible.
-- [x] **KERN-005 — Capture reproducible command baseline.** Priority P0; phase P0; status Not started; owner quality.
+- [x] **KERN-005 — Capture reproducible command baseline.** Priority P0; phase P0; status Verified 2026-10-13; owner quality.
   - Dependencies: KERN-001, KERN-002. Files: CURRENT_STATE/gate evidence.
   - Deliverable: command/cwd/exit/time/env/bytes ledger. Acceptance: red findings distinguished from pre-existing/concurrent changes; no generated-file race.
   - Verification: safe checks in CURRENT_STATE; CLI/MCP/tokens targeted tests; broader suites only with approved ownership/disposable snapshot.
@@ -58,39 +58,39 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
 
 ## P1 — Approved architecture and initial gate fixes
 
-- [x] **KERN-007 — Obtain implementation/architecture approval.** Priority P0; phase P1; status Not started; owner architecture/owner.
+- [x] **KERN-007 — Obtain implementation/architecture approval.** Priority P0; phase P1; status Verified 2026-10-13; owner architecture/owner.
   - Dependencies: KERN-006. Files: decision register/approval log and existing ADR routing.
   - Deliverable: approvals for package/contracts/CLI/CSS/DTCG/native scope and parent edit windows. Acceptance: explicit approval, publication HOLD still intact.
   - Verification: owner response linked; new package/source work cannot start on assumed authorization.
-- [x] **KERN-008 — Correct composition manifest test ownership.** Priority P0; phase P1; status Not started; owner metadata/quality.
+- [x] **KERN-008 — Correct composition manifest test ownership.** Priority P0; phase P1; status Verified 2026-10-13; owner metadata/quality.
   - Dependencies: KERN-007. Files: `packages/mcp/src/manifest.test.ts`, generator entrypoint model.
   - Deliverable: SearchBar checked against `/start`, not component-only barrel. Acceptance: no exclusion of real compositions or false public import metadata.
   - Verification: V-MCP plus fixture removing a `/start` export must fail; entrypoint/schema additions completed in KERN-049.
-- [x] **KERN-009 — Correct binding coverage classification.** Priority P1; phase P1; status Not started; owner behavior/quality.
+- [x] **KERN-009 — Correct binding coverage classification.** Priority P1; phase P1; status Verified 2026-10-13; owner behavior/quality.
   - Dependencies: KERN-007. Files: `scripts/check-coverage.mjs`, renderer presentation binding tests.
   - Deliverable: reasoned exemption for nonpublic bindings with real behavior coverage. Acceptance: no unwanted barrel export/no wholesale presentation-layer exclusion.
   - Verification: `bun run check:coverage`, V-WEB/V-NATIVE binding scenarios; missing true component negative fixture fails.
-- [x] **KERN-010 — Remove prose/import-gate false positives.** Priority P1; phase P1; status Not started; owner quality.
+- [x] **KERN-010 — Remove prose/import-gate false positives.** Priority P1; phase P1; status Verified 2026-10-13; owner quality.
   - Dependencies: KERN-007. Files: `scripts/check-kern.mjs` and new script fixtures; site prose owned separately.
   - Deliverable: parser-based import/preset detection. Acceptance: studio prose allowed, actual forbidden preset import still rejected; true elevation/shape findings remain assigned.
   - Verification: new gate unit positives/negatives, `bun run check:kern` result reconciled with KERN-026.
-- [x] **KERN-011 — Rule default versus Xoroh theme values.** Priority P0; phase P1; status Not started; owner design/owner.
+- [x] **KERN-011 — Rule default versus Xoroh theme values.** Priority P0; phase P1; status Verified 2026-10-13; owner design/owner.
   - Dependencies: KERN-003, KERN-004, KERN-007. Files: token theme/test/skill references and compatibility spec.
   - Deliverable: approved default value tables + Xoroh preset policy. Acceptance: blue/muted secondary disagreement resolved with visual evidence, no silent branding change.
   - Verification: V-TOK expectation updated only to approved snapshot; light/dark/contrast screenshots/source comparison signed off.
-- [x] **KERN-012 — Repair actual mobile CI bundle command.** Priority P0; phase P1; status Not started; owner native/CI.
+- [x] **KERN-012 — Repair actual mobile CI bundle command.** Priority P0; phase P1; status Verified 2026-10-13; owner native/CI.
   - Dependencies: KERN-007. Files: `apps/mobile/package.json`, `.github/workflows/ci.yml`.
   - Deliverable: real Metro/Expo export script and CI invocation. Acceptance: command exists, bundles native assets and uses safe output location.
   - Verification: new `bundle` implementation executed in disposable host; mobile typecheck/CI workflow checks exit0, output inspected.
-- [x] **KERN-013 — Finalize pure contracts schema/API.** Priority P1; phase P1; status Not started; owner architecture/metadata.
+- [x] **KERN-013 — Finalize pure contracts schema/API.** Priority P1; phase P1; status Verified 2026-10-13; owner architecture/metadata.
   - Dependencies: KERN-003, KERN-007. Files: ADR/spec/new contracts design.
   - Deliverable: provider/component/block/icon/dependency/evidence schema and parity typing plan. Acceptance: present consumers documented, no React/test-runner/upward dependency.
   - Verification: minimal renderer/CLI/MCP schema prototype fixtures and negative metadata cases; compare dependency graph.
-- [x] **KERN-014 — Finalize graph/DTCG/theme interchange spec.** Priority P1; phase P1; status Not started; owner foundations.
+- [x] **KERN-014 — Finalize graph/DTCG/theme interchange spec.** Priority P1; phase P1; status Verified 2026-10-13; owner foundations.
   - Dependencies: KERN-007, KERN-011. Files: foundations spec and schema ADR.
   - Deliverable: every token group/type/reference/unit/context/loss mapping. Acceptance: canonical authoring chosen, bidirectional DTCG Phase2, unsupported extension behavior explicit.
   - Verification: standards-valid color/dimension/type/shadow/duration fixture review, complete foundation mapping coverage.
-- [x] **KERN-015 — Finalize delivery/receipt/icon contracts.** Priority P1; phase P1; status Not started; owner distribution/icons.
+- [x] **KERN-015 — Finalize delivery/receipt/icon contracts.** Priority P1; phase P1; status Verified 2026-10-13; owner distribution/icons.
   - Dependencies: KERN-007, KERN-013. Files: distribution/icon/peer/registry/receipt design.
   - Deliverable: ordinary CSS, source hybrid/snapshot, native assets, releaseSet, transaction/config schema. Acceptance: no hidden zero-dependency or checkout promise; one Material family.
   - Verification: API/peer/import/asset flow review against add/closure/source config and target consumer matrix.
@@ -101,38 +101,38 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
 
 ## P2 — Foundations
 
-- [ ] **KERN-017 — Snapshot all approved foundation outputs.** Priority P0; phase P2; status Not started; owner foundations/quality.
+- [x] **KERN-017 — Snapshot all approved foundation outputs.** Priority P0; phase P2; status Verified 2026-10-13; owner foundations/quality.
   - Dependencies: KERN-011, KERN-014. Files: token/native/CSS golden fixtures.
   - Deliverable: palettes/type/shape/elevation/motion/state/spacing and 30 contexts/TS API goldens. Acceptance: complete baseline includes aliases/extensions, not color-only.
   - Verification: V-TOK plus new deterministic output/consumer fixture tests with approved artifact hashes.
-- [ ] **KERN-018 — Implement versioned token graph/schema/references.** Priority P0; phase P2; status Not started; owner foundations.
+- [x] **KERN-018 — Implement versioned token graph/schema/references.** Priority P0; phase P2; status Verified 2026-10-13; owner foundations.
   - Dependencies: KERN-017, KERN-013. Files: new token schema/graph/resolver modules and source metadata.
   - Deliverable: typed normalized graph, safe alias/type/unit validation. Acceptance: missing/cyclic/invalid/collision refs fail with path; old resolver outputs preserved; DTCG group type inheritance/root/extends/local RFC6901 pointers supported.
   - Verification: V-TOK and new cycle/missing/unit/color/prototype/depth, group merge/type/root/pointer escaping/property/array fixtures; KERN-017 goldens match.
-- [ ] **KERN-019 — Implement full DTCG export.** Priority P0; phase P2; status Not started; owner foundations.
+- [x] **KERN-019 — Implement full DTCG export.** Priority P0; phase P2; status Verified 2026-10-13; owner foundations.
   - Dependencies: KERN-018. Files: token DTCG exporter/generator/artifacts/tests.
   - Deliverable: valid 2025.10 documents with aliases/context/extension provenance. Acceptance: every foundation represented; no invented standard type/modes.
   - Verification: standards schema/fixture validation, deterministic export and all-group mapping tests; V-TOK.
-- [ ] **KERN-020 — Implement safe DTCG import/roundtrip.** Priority P0; phase P2; status Not started; owner foundations.
+- [x] **KERN-020 — Implement safe DTCG import/roundtrip.** Priority P0; phase P2; status Verified 2026-10-13; owner foundations.
   - Dependencies: KERN-018, KERN-019. Files: importer/diagnostics/external fixture tests.
   - Deliverable: semantic roundtrip into canonical graph, typed loss/unsupported errors. Acceptance: alias/value/extension preservation and bounded untrusted input; valid standard composites preserved even without renderer projection; no silent drop.
   - Verification: new external-valid/malformed/all-standard-composite/chained-reference/group/required-local-pointer/unsupported fixtures and graph→DTCG→graph goldens; V-TOK.
-- [ ] **KERN-021 — Remove hidden foundation value duplication.** Priority P1; phase P2; status Not started; owner foundations.
+- [x] **KERN-021 — Remove hidden foundation value duplication.** Priority P1; phase P2; status Verified 2026-10-13; owner foundations.
   - Dependencies: KERN-018. Files: token JSON/theme refs, `gen-css.mjs` dark elevation constants.
   - Deliverable: canonical shadow/reference ownership. Acceptance: existing approved renderer values unchanged, deliberate one-offs documented, sparse ramps retained.
   - Verification: V-TOK + full CSS/native snapshot comparison and source duplication scan.
-- [ ] **KERN-022 — Project stable TS/CSS/native artifacts from graph.** Priority P0; phase P2; status Not started; owner foundations/distribution.
+- [x] **KERN-022 — Project stable TS/CSS/native artifacts from graph.** Priority P0; phase P2; status Verified 2026-10-13; owner foundations/distribution.
   - Dependencies: KERN-019, KERN-020, KERN-021. Files: token exports/generators/CSS/JSON/projection tests.
   - Deliverable: ordinary theme CSS + explicit adapters and typed schemes. Acceptance: old names/ids/alias/source subpaths preserved; every output traced to graph.
   - Verification: V-TOK, new full foundation and 30-cell reproducibility/variable/type golden tests; generated freshness only in authorized snapshot.
-- [ ] **KERN-023 — Verify custom/seed/host themes and Xoroh preset.** Priority P0; phase P2; status Not started; owner foundations/migration.
+- [x] **KERN-023 — Verify custom/seed/host themes and Xoroh preset.** Priority P0; phase P2; status Verified 2026-10-13; owner foundations/migration.
   - Dependencies: KERN-022, KERN-016. Files: seed/preset/scope/context tests, compatibility preset fixture.
   - Deliverable: tested overrides/contrast/seed/scoped projection and private-compatible theme conversion. Acceptance: no role holes/invalid contrast/OS/theme drift.
   - Verification: V-TOK + new custom/nested/contrast/seed web/native integration goldens; owner appearance comparison.
 
 ## P3 — Material implementations
 
-- [ ] **KERN-024 — Ship pure contracts and Material metadata.** Priority P1; phase P3; status Not started; owner architecture/metadata.
+- [x] **KERN-024 — Ship pure contracts and Material metadata.** Priority P1; phase P3; status Verified 2026-10-13; owner architecture/metadata.
   - Dependencies: KERN-013, KERN-018. Files: new contracts package, provider exports/parity type imports/build-order/CI.
   - Deliverable: schema/runtime validators + additive providerManifest. Acceptance: no UI/test runner/runtime service registry deps and no public export removal.
   - Verification: V-BOUNDARY + new contracts positive/negative tests, package type/build/preflight consumer fixtures.
@@ -140,7 +140,7 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
   - Dependencies: KERN-003, KERN-022, KERN-024. Files: renderer/family/public API fixture tests.
   - Deliverable: each module/export/helper and actual axes linked to test/reason. Acceptance: Button md/lg and IconButton widths/sizes gaps resolved or explicitly mapped; no useful behavior removed.
   - Verification: V-WEB/V-NATIVE, generated export/props comparison, disabled/loading/controlled/ref/slot negatives.
-- [x] **KERN-026 — Resolve elevations/shape rulings with accurate measurement.** Priority P0; phase P3; status Not started; owner design/quality.
+- [x] **KERN-026 — Resolve elevations/shape rulings with accurate measurement.** Priority P0; phase P3; status Verified 2026-10-13; owner design/quality.
   - Dependencies: KERN-010, KERN-017, KERN-025. Files: elevation source/registry/gates/public deviation ledger and family tests.
   - Deliverable: per-variant/state measurements, explicit design rulings, no parent `.team` dependence. Acceptance: seven current findings and report-only/open cases dispositioned without conflating hover/lowered states.
   - Verification: `bun run check:kern`, `bun run check:elevation-parity`, parser negatives + renderer resting/hover variant style goldens.

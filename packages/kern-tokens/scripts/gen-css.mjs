@@ -22,16 +22,6 @@ const M3 = read("themes/kern.json");
 const matrix = read("themes/matrix.json");
 const fontFamily = `"${T.typography.webFamily}", "${T.typography.family}", sans-serif`;
 const prefix = (name) => `--md-sys-typescale-${name}`;
-// Dark-mode shadows need higher opacity: black blurs are invisible on black
-// surfaces, so each level steps its alphas up from the light definition.
-const darkElevation = {
-  level0: "none",
-  level1: "0 1px 2px 0 rgba(0, 0, 0, 0.5), 0 1px 3px 1px rgba(0, 0, 0, 0.3)",
-  level2: "0 1px 2px 0 rgba(0, 0, 0, 0.5), 0 2px 6px 2px rgba(0, 0, 0, 0.3)",
-  level3: "0 1px 2px 0 rgba(0, 0, 0, 0.5), 0 4px 8px 3px rgba(0, 0, 0, 0.3)",
-  level4: "0 2px 3px 0 rgba(0, 0, 0, 0.5), 0 6px 10px 4px rgba(0, 0, 0, 0.3)",
-  level5: "0 4px 4px 0 rgba(0, 0, 0, 0.5), 0 8px 12px 6px rgba(0, 0, 0, 0.3)",
-};
 // DTCG metadata keys (`$comment`, `$schema`, …) are annotations, not tokens. Emitting one
 // produces an invalid custom-property name (`--md-sys-state-$comment`) and a var that
 // resolves to nothing. EVERY group must filter, not just elevation: `states` was the one
@@ -39,6 +29,13 @@ const darkElevation = {
 const isTokenKey = (key) => !key.startsWith("$");
 const tokenEntries = (group) =>
   Object.entries(group ?? {}).filter(([k]) => isTokenKey(k));
+// Dark-mode shadows need higher opacity: black blurs are invisible on black
+// surfaces, so each level steps its alphas up from the light definition.
+// Canonical source is `tokens.json` `elevation.<level>.shadowDark` (KERN-021) —
+// this file projects, it never authors a second value table.
+const darkElevation = Object.fromEntries(
+  tokenEntries(T.elevation).map(([level, value]) => [level, value.shadowDark ?? value.shadow]),
+);
 
 const C = [
   '@import "@fontsource-variable/inter";',
