@@ -6,7 +6,7 @@
  * stylesheet import, the theme studio) rather than linking each one — three
  * doors to the same guide would be wayfinding noise.
  */
-import { Kicker } from "../chrome/kicker";
+
 import {
   T_BODY,
   T_BODY_SM,
@@ -14,6 +14,7 @@ import {
   T_SECTION,
   T_SMALL_TITLE,
 } from "../../domains/shared/systems/type-scale";
+import { Kicker } from "../chrome/kicker";
 
 const INK = "text-(--md-sys-color-on-surface)";
 const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";

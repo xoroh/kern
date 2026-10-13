@@ -8,13 +8,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Kicker } from "../components/chrome/kicker";
 import { SiteLayout } from "../domains/shared/chrome/site-layout";
-import { RECENT_CHANGES } from "../generated/changelog";
 import { routeHead } from "../domains/shared/systems/seo";
-import { T_BODY, T_LABEL, T_PAGE, T_SECTION } from "../domains/shared/systems/type-scale";
+import {
+  T_BODY,
+  T_LABEL,
+  T_PAGE,
+  T_SECTION,
+} from "../domains/shared/systems/type-scale";
+import { RECENT_CHANGES } from "../generated/changelog";
 
 export const Route = createFileRoute("/changelog")({
-  head: () =>
-    routeHead("Changelog", "What changed, newest first."),
+  head: () => routeHead("Changelog", "What changed, newest first."),
   component: Changelog,
 });
 

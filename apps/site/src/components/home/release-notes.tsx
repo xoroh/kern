@@ -7,9 +7,7 @@
  * release that moves an export from Preview to Stable updates this band with
  * no site edit.
  */
-import { MATURITY_BY_STATE } from "../../systems/maturity";
-import { RECENT_CHANGES } from "../../generated/changelog";
-import { Kicker } from "../chrome/kicker";
+
 import {
   T_BODY,
   T_BODY_SM,
@@ -18,6 +16,9 @@ import {
   T_SECTION,
   T_SMALL_TITLE,
 } from "../../domains/shared/systems/type-scale";
+import { RECENT_CHANGES } from "../../generated/changelog";
+import { MATURITY_BY_STATE } from "../../systems/maturity";
+import { Kicker } from "../chrome/kicker";
 
 const INK = "text-(--md-sys-color-on-surface)";
 const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";
@@ -38,10 +39,7 @@ export function ReleaseNotes() {
       <div className="rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14">
         <header className="flex flex-col gap-3">
           <Kicker>Now shipping</Kicker>
-          <h2
-            id="release-notes-heading"
-            className={`m-0 ${T_SECTION} ${INK}`}
-          >
+          <h2 id="release-notes-heading" className={`m-0 ${T_SECTION} ${INK}`}>
             Preview, and moving
           </h2>
           <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>

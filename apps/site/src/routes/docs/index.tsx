@@ -14,7 +14,6 @@
  */
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "../../domains/shared/chrome/site-layout";
-import { RECENT_CHANGES } from "../../generated/changelog";
 import { routeHead } from "../../domains/shared/systems/seo";
 import {
   T_BODY,
@@ -24,10 +23,14 @@ import {
   T_PAGE,
   T_SMALL_TITLE,
 } from "../../domains/shared/systems/type-scale";
+import { RECENT_CHANGES } from "../../generated/changelog";
 
 export const Route = createFileRoute("/docs/")({
   head: () =>
-    routeHead("Docs", "Guides, API, and reference — where to fit, what to do first, what changed."),
+    routeHead(
+      "Docs",
+      "Guides, API, and reference — where to fit, what to do first, what changed.",
+    ),
   component: DocsIndex,
 });
 
@@ -280,8 +283,8 @@ function DocsIndex() {
                   <span className="font-mono">llms.txt</span> →
                 </a>{" "}
                 <span className={`m-0 ${T_BODY_SM} ${SOFT}`}>
-                  the complete page map, generated from the nav, content docs and
-                  foundations registry — never hand-maintained.
+                  the complete page map, generated from the nav, content docs
+                  and foundations registry — never hand-maintained.
                 </span>
               </li>
               <li>

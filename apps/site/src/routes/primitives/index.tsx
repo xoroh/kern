@@ -7,10 +7,14 @@
  * anatomy + API + examples are later work; the module pages say so plainly.
  */
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { PRIMITIVE_MODULES } from "../../domains/primitives/modules";
 import { SiteLayout } from "../../domains/shared/chrome/site-layout";
 import { routeHead } from "../../domains/shared/systems/seo";
-import { T_BODY, T_LABEL, T_PAGE } from "../../domains/shared/systems/type-scale";
-import { PRIMITIVE_MODULES } from "../../domains/primitives/modules";
+import {
+  T_BODY,
+  T_LABEL,
+  T_PAGE,
+} from "../../domains/shared/systems/type-scale";
 
 export const Route = createFileRoute("/primitives/")({
   head: () =>
@@ -38,9 +42,9 @@ function Primitives() {
             <p
               className={`m-0 max-w-[62ch] ${T_BODY} text-(--md-sys-color-on-surface-variant)`}
             >
-              Controllable state, overlay modality, roving focus, dismiss
-              policy and the collection/selection model — the logic both
-              renderers implement identically. React 18+ is the only peer.
+              Controllable state, overlay modality, roving focus, dismiss policy
+              and the collection/selection model — the logic both renderers
+              implement identically. React 18+ is the only peer.
             </p>
           </header>
           <h2 id="install" className={`m-0 ${T_LABEL}`}>

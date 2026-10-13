@@ -8,14 +8,26 @@
  */
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo } from "react";
-import { SiteLayout } from "../domains/shared/chrome/site-layout";
 import { ResultText } from "../components/search/result-text";
-import { buildSearchIndex, SEARCH_SUGGESTIONS, searchSite } from "../systems/search";
+import { SiteLayout } from "../domains/shared/chrome/site-layout";
 import { routeHead } from "../domains/shared/systems/seo";
-import { T_BODY_SM, T_PAGE, T_SECTION } from "../domains/shared/systems/type-scale";
+import {
+  T_BODY_SM,
+  T_PAGE,
+  T_SECTION,
+} from "../domains/shared/systems/type-scale";
+import {
+  buildSearchIndex,
+  SEARCH_SUGGESTIONS,
+  searchSite,
+} from "../systems/search";
 
 export const Route = createFileRoute("/search")({
-  head: () => routeHead("Search", "Search components, tokens, guides, API, blocks and pages."),
+  head: () =>
+    routeHead(
+      "Search",
+      "Search components, tokens, guides, API, blocks and pages.",
+    ),
   validateSearch: (search: Record<string, unknown>) => ({
     q: typeof search.q === "string" ? search.q : "",
   }),

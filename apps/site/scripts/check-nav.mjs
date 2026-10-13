@@ -127,7 +127,9 @@ if (failures.length || unlisted.length) {
   console.error("check-nav FAILED:\n");
   for (const f of failures) console.error(`  - ${f}`);
   for (const href of unlisted)
-    console.error(`  - orphan route "${href}" — reachable from no chrome surface.`);
+    console.error(
+      `  - orphan route "${href}" — reachable from no chrome surface.`,
+    );
   process.exit(1);
 }
 console.log(

@@ -6,7 +6,7 @@ export const button: ComponentDoc = {
   oneLiner:
     "The button is the standard action control: five Material 3 treatments, four sizes, one press.",
   features:
-    "Reach for a button when tapping causes something: submit, save, open, confirm. The variant axis mirrors the web union exactly — `primary` is Material 3's filled button, `tonal` and `outlined` the quieter pair, `ghost` the text button, and `elevated` the one treatment that raises — because the variant law is one meaning per name across both renderers, not one name count. `color=\"danger\"` re-paints any of the five in the error roles instead of adding a sixth vocabulary word. `size` walks the compact `xs`, the default height, the small `sm`, the large `xl` and the square `icon` box. `loading` swaps in the progress indicator and blocks the press until it clears, and `icon` renders beside the label with the same icon `gap` the web pair uses.",
+    'Reach for a button when tapping causes something: submit, save, open, confirm. The variant axis mirrors the web union exactly — `primary` is Material 3\'s filled button, `tonal` and `outlined` the quieter pair, `ghost` the text button, and `elevated` the one treatment that raises — because the variant law is one meaning per name across both renderers, not one name count. `color="danger"` re-paints any of the five in the error roles instead of adding a sixth vocabulary word. `size` walks the compact `xs`, the default height, the small `sm`, the large `xl` and the square `icon` box. `loading` swaps in the progress indicator and blocks the press until it clears, and `icon` renders beside the label with the same icon `gap` the web pair uses.',
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -44,7 +44,7 @@ export const button: ComponentDoc = {
       name: "variant",
       type: 'NativeButtonVariantInput ("elevated" | "primary" | "tonal" | "outlined" | "ghost", plus "filled" | "text" aliases)',
       default: '"primary"',
-      note: "The treatment. One meaning per name with the web union — `primary` is M3's filled button. There is no sixth: an error action is `color=\"danger\"` on any of the five.",
+      note: 'The treatment. One meaning per name with the web union — `primary` is M3\'s filled button. There is no sixth: an error action is `color="danger"` on any of the five.',
     },
     {
       name: "color",
@@ -89,7 +89,7 @@ export const button: ComponentDoc = {
     {
       name: "icon",
       type: "ReactNode",
-      note: "Renders beside the label with the icon `gap`. A glyph-only button is `size=\"icon\"` plus an accessibility label from the pressable props.",
+      note: 'Renders beside the label with the icon `gap`. A glyph-only button is `size="icon"` plus an accessibility label from the pressable props.',
     },
     {
       name: "iconPosition",

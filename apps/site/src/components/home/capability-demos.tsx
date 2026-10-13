@@ -13,9 +13,7 @@
  * accordion is the shipped component, and the commands are the real ones.
  */
 import { Accordion, Button, useKernTheme } from "@xoroh/kern";
-import { useState, type ReactElement } from "react";
-import { Kicker } from "../chrome/kicker";
-import { Code } from "../docs/code";
+import { type ReactElement, useState } from "react";
 import {
   T_BODY,
   T_BODY_SM,
@@ -23,6 +21,8 @@ import {
   T_SECTION,
   T_SMALL_TITLE,
 } from "../../domains/shared/systems/type-scale";
+import { Kicker } from "../chrome/kicker";
+import { Code } from "../docs/code";
 
 const CARD =
   "flex flex-col gap-4 rounded-(--md-sys-shape-corner-large) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-low) p-5";
@@ -41,7 +41,11 @@ function ThemeDemo() {
   const { mode, toggle } = useKernTheme();
   return (
     <div className="flex flex-col gap-3">
-      <div className="flex flex-wrap gap-2" role="img" aria-label={`Theme roles in ${mode} mode`}>
+      <div
+        className="flex flex-wrap gap-2"
+        role="img"
+        aria-label={`Theme roles in ${mode} mode`}
+      >
         {SWATCHES.map((swatch) => (
           <span
             key={swatch.role}
@@ -88,6 +92,7 @@ function ParityDemo() {
   const command = INSTALLS.find(([p]) => p === platform)?.[1] ?? "";
   return (
     <div className="flex flex-col gap-3">
+      {/* biome-ignore lint/a11y/useSemanticElements: a toggle-button group, not a form fieldset; fieldset would add UA border/padding. */}
       <div className="flex gap-2" role="group" aria-label="Platform">
         {(["Web", "Native"] as const).map((p) => (
           <Button
@@ -149,10 +154,7 @@ export function CapabilityDemos() {
       <div className="rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14">
         <header className="flex flex-col gap-3">
           <Kicker>Capabilities</Kicker>
-          <h2
-            id="capabilities-heading"
-            className={`m-0 ${T_SECTION} ${INK}`}
-          >
+          <h2 id="capabilities-heading" className={`m-0 ${T_SECTION} ${INK}`}>
             Try the system, not the screenshots
           </h2>
           <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>

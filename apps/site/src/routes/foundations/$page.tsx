@@ -10,7 +10,6 @@
 
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
-import { SiteLayout } from "../../domains/shared/chrome/site-layout";
 import {
   BASE_ANCHORS,
   COLOR_GROUPS,
@@ -30,16 +29,23 @@ import {
   STATES,
   SURFACE_SLOT_COUNT,
   SURFACE_SLOTS,
+  type SurfaceSlot,
   TYPE_STYLE_COUNT,
   TYPE_STYLES,
   USAGE_RULE_COUNT,
   USAGE_RULES,
   USAGE_SCENE_COUNT,
   USAGE_SCENES,
-  type SurfaceSlot,
   type UsageRule,
   type UsageScene,
 } from "../../content/foundations";
+import { SiteLayout } from "../../domains/shared/chrome/site-layout";
+import { routeHead } from "../../domains/shared/systems/seo";
+import {
+  T_BODY_SM,
+  T_LABEL,
+  T_SMALL_TITLE,
+} from "../../domains/shared/systems/type-scale";
 import {
   F_CARD,
   F_INK,
@@ -49,8 +55,6 @@ import {
   FProse,
   FSection,
 } from "../../foundations/shell";
-import { T_BODY_SM, T_LABEL, T_SMALL_TITLE } from "../../domains/shared/systems/type-scale";
-import { routeHead } from "../../domains/shared/systems/seo";
 
 export const Route = createFileRoute("/foundations/$page")({
   // Per-page metadata (Phase 3 grammar): the title names the foundations
@@ -196,11 +200,11 @@ function ColorPage() {
 
       <FSection id="where-roles-go" title="Where roles go">
         <FProse>
-          The matrix below answers what roles exist; this map answers where
-          each one goes. {SURFACE_SLOT_COUNT} surface slots, from the page
-          itself up the container ladder to brand, status and inverse — every
-          one of the {ROLE_COUNT} roles appears as a fill or an ink somewhere
-          in it, so no role ships without guidance. Slots marked kern are the{" "}
+          The matrix below answers what roles exist; this map answers where each
+          one goes. {SURFACE_SLOT_COUNT} surface slots, from the page itself up
+          the container ladder to brand, status and inverse — every one of the{" "}
+          {ROLE_COUNT} roles appears as a fill or an ink somewhere in it, so no
+          role ships without guidance. Slots marked kern are the{" "}
           {KERN_EXTRA_COUNT} roles Material 3 does not have.
         </FProse>
         <div className="flex flex-col gap-2">
@@ -430,7 +434,10 @@ function SlotCard({ slot }: { slot: SurfaceSlot }) {
   return (
     <div className={`${F_CARD} flex flex-col gap-2 p-3`}>
       <div className="flex flex-wrap items-baseline gap-2">
-        <h3 className={`m-0 ${T_SMALL_TITLE} ${F_INK}`} id={`slot-${slot.slot}`}>
+        <h3
+          className={`m-0 ${T_SMALL_TITLE} ${F_INK}`}
+          id={`slot-${slot.slot}`}
+        >
           {slot.title}
         </h3>
         {slot.kernExtra ? (

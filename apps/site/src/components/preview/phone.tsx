@@ -57,7 +57,8 @@ export function PhonePreview({
   children: ReactNode;
 }) {
   const { mode } = useKernTheme();
-  const resolved: "light" | "dark" = scheme ?? (mode === "dark" ? "dark" : "light");
+  const resolved: "light" | "dark" =
+    scheme ?? (mode === "dark" ? "dark" : "light");
   return (
     <figure className="flex min-w-0 flex-col gap-2 rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface) p-4 md:col-span-1">
       <div className="flex justify-center py-2">

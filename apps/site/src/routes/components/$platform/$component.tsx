@@ -17,12 +17,10 @@ import {
   redirect,
 } from "@tanstack/react-router";
 import { Kicker } from "../../../components/chrome/kicker";
-import { SiteLayout } from "../../../domains/shared/chrome/site-layout";
 import { ComponentPage as ComponentDocPage } from "../../../components/docs/component-page";
 import { docForExport, getDoc } from "../../../content";
-import { getComponent } from "../../../generated/manifest";
+import { SiteLayout } from "../../../domains/shared/chrome/site-layout";
 import { routeHead } from "../../../domains/shared/systems/seo";
-import { siblingNav } from "../../../systems/component-nav";
 import {
   T_BODY,
   T_BODY_MD,
@@ -30,6 +28,8 @@ import {
   T_PAGE,
   T_SECTION,
 } from "../../../domains/shared/systems/type-scale";
+import { getComponent } from "../../../generated/manifest";
+import { siblingNav } from "../../../systems/component-nav";
 
 export const Route = createFileRoute("/components/$platform/$component")({
   // Per-page metadata (Phase 3 grammar): the title names the family and the
@@ -38,10 +38,7 @@ export const Route = createFileRoute("/components/$platform/$component")({
   // pages. Part slugs 301 to the family (beforeLoad below), so a part URL
   // that resolves to no family doc falls back to the generic pair.
   head: ({ params }) => {
-    const doc = getDoc(
-      params.platform as "web" | "mobile",
-      params.component,
-    );
+    const doc = getDoc(params.platform as "web" | "mobile", params.component);
     const renderer = params.platform === "mobile" ? "native" : params.platform;
     return routeHead(
       doc ? `${doc.name} (${renderer})` : `${params.component} (${renderer})`,
@@ -86,12 +83,12 @@ function UnknownComponent({ slug }: { slug: string }) {
       <section className="px-4 py-4 sm:px-6 sm:py-6">
         <div className="mx-auto flex max-w-[48rem] flex-col gap-4 rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14">
           <Kicker>404</Kicker>
-          <h1
-            className={`m-0 ${T_PAGE} text-(--md-sys-color-on-surface)`}
-          >
+          <h1 className={`m-0 ${T_PAGE} text-(--md-sys-color-on-surface)`}>
             No such component
           </h1>
-          <p className={`m-0 ${T_BODY} text-(--md-sys-color-on-surface-variant)`}>
+          <p
+            className={`m-0 ${T_BODY} text-(--md-sys-color-on-surface-variant)`}
+          >
             <code>{slug}</code> is not in the generated manifest. The route set
             comes from <code>docs/components.md</code>, so if this export exists
             in a package the manifest is stale — not this page.
@@ -196,14 +193,10 @@ function Undocumented({
   return (
     <div className="flex flex-col gap-6">
       <header className="flex flex-col gap-3">
-        <h1
-          className={`m-0 ${T_PAGE} text-(--md-sys-color-on-surface)`}
-        >
+        <h1 className={`m-0 ${T_PAGE} text-(--md-sys-color-on-surface)`}>
           <code>{entry.export}</code>
         </h1>
-        <p className={`m-0 ${T_CODE} text-(--md-sys-color-secondary)`}>
-          {pkg}
-        </p>
+        <p className={`m-0 ${T_CODE} text-(--md-sys-color-secondary)`}>{pkg}</p>
         <p
           className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
         >
@@ -213,10 +206,7 @@ function Undocumented({
         </p>
       </header>
       <div className="flex flex-col gap-2 rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-outline) bg-(--md-sys-color-surface-container) p-6">
-        <h2
-          id="no-documentation-page-yet"
-          className={`m-0 ${T_SECTION}`}
-        >
+        <h2 id="no-documentation-page-yet" className={`m-0 ${T_SECTION}`}>
           No documentation page yet
         </h2>
         <p

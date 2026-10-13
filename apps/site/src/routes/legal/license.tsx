@@ -9,7 +9,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Kicker } from "../../components/chrome/kicker";
 import { SiteLayout } from "../../domains/shared/chrome/site-layout";
-import { LICENSE_TEXT, PACKAGE_LICENSES } from "../../generated/legal";
 import { routeHead } from "../../domains/shared/systems/seo";
 import {
   T_BODY,
@@ -18,10 +17,14 @@ import {
   T_PAGE,
   T_SECTION,
 } from "../../domains/shared/systems/type-scale";
+import { LICENSE_TEXT, PACKAGE_LICENSES } from "../../generated/legal";
 
 export const Route = createFileRoute("/legal/license")({
   head: () =>
-    routeHead("License", "The licence, rendered from the repo's own LICENSE files."),
+    routeHead(
+      "License",
+      "The licence, rendered from the repo's own LICENSE files.",
+    ),
   component: License,
 });
 

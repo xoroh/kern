@@ -17,12 +17,16 @@ import { fileURLToPath } from "node:url";
 const HERE = dirname(fileURLToPath(import.meta.url));
 const SITE = resolve(HERE, "..");
 
-const { trapTarget } = await import(join(SITE, "src", "systems", "focus-trap.ts"));
+const { trapTarget } = await import(
+  join(SITE, "src", "systems", "focus-trap.ts")
+);
 
 const failures = [];
 const check = (name, got, want) => {
   if (got !== want) {
-    failures.push(`${name}: got ${JSON.stringify(got)}, want ${JSON.stringify(want)}.`);
+    failures.push(
+      `${name}: got ${JSON.stringify(got)}, want ${JSON.stringify(want)}.`,
+    );
   }
 };
 
@@ -53,4 +57,6 @@ if (failures.length) {
   for (const f of failures) console.error(`  - ${f}`);
   process.exit(1);
 }
-console.log("check-focus-trap passes: Tab wrap, pull-in, and empty-dialog decisions pinned (13 cases).");
+console.log(
+  "check-focus-trap passes: Tab wrap, pull-in, and empty-dialog decisions pinned (13 cases).",
+);

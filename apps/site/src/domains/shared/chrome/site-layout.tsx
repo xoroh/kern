@@ -50,6 +50,7 @@ function SectionToc({ pathname }: { pathname: string }) {
   const [items, setItems] = useState<{ id: string; text: string }[]>(() =>
     readTocItems(),
   );
+  // biome-ignore lint/correctness/useExhaustiveDependencies: pathname is the re-read trigger — headings come from the DOM, which changes on navigation.
   useEffect(() => {
     setItems(readTocItems());
   }, [pathname]);

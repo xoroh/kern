@@ -10,7 +10,11 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Kicker } from "../components/chrome/kicker";
 import { SiteLayout } from "../domains/shared/chrome/site-layout";
 import { routeHead } from "../domains/shared/systems/seo";
-import { T_BODY, T_PAGE, T_SECTION } from "../domains/shared/systems/type-scale";
+import {
+  T_BODY,
+  T_PAGE,
+  T_SECTION,
+} from "../domains/shared/systems/type-scale";
 
 export const Route = createFileRoute("/community")({
   head: () =>

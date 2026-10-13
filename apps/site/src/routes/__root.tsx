@@ -1,11 +1,15 @@
 import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 
 import "@fontsource-variable/inter/index.css";
-import appCss from "../styles.css?url";
 import { Kicker } from "../components/chrome/kicker";
 import { SiteLayout } from "../domains/shared/chrome/site-layout";
-import { T_BODY, T_LABEL_LG, T_PAGE } from "../domains/shared/systems/type-scale";
 import { pageMeta, SITE_DESCRIPTION } from "../domains/shared/systems/seo";
+import {
+  T_BODY,
+  T_LABEL_LG,
+  T_PAGE,
+} from "../domains/shared/systems/type-scale";
+import appCss from "../styles.css?url";
 
 /**
  * First-paint theme init — the P0 flash fix.
@@ -73,9 +77,11 @@ function NotFound() {
         <h1 className={`m-0 ${T_PAGE} text-(--md-sys-color-on-surface)`}>
           No such page
         </h1>
-        <p className={`m-0 max-w-[32rem] ${T_BODY} text-(--md-sys-color-on-surface-variant)`}>
-          The component index is generated from the packages, so a page here means
-          the export exists. This one does not.
+        <p
+          className={`m-0 max-w-[32rem] ${T_BODY} text-(--md-sys-color-on-surface-variant)`}
+        >
+          The component index is generated from the packages, so a page here
+          means the export exists. This one does not.
         </p>
         <a
           href="/components"
@@ -94,6 +100,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
         {/* Blocking, before paint and before the bundle: see THEME_INIT. */}
+        {/* biome-ignore lint/security/noDangerouslySetInnerHtml: THEME_INIT is a static in-file constant, no user input. */}
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
       </head>
       <body>

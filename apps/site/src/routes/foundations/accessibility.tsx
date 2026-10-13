@@ -13,7 +13,12 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Kicker } from "../../components/chrome/kicker";
 import { SiteLayout } from "../../domains/shared/chrome/site-layout";
 import { routeHead } from "../../domains/shared/systems/seo";
-import { T_BODY, T_CODE, T_PAGE, T_SECTION } from "../../domains/shared/systems/type-scale";
+import {
+  T_BODY,
+  T_CODE,
+  T_PAGE,
+  T_SECTION,
+} from "../../domains/shared/systems/type-scale";
 
 export const Route = createFileRoute("/foundations/accessibility")({
   head: () =>
@@ -37,9 +42,7 @@ function Accessibility() {
         <div className="mx-auto flex max-w-[64rem] flex-col gap-12 rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14">
           <header className="flex flex-col gap-3">
             <Kicker className={INK_SOFT}>Accessibility</Kicker>
-            <h1 className={`m-0 ${T_PAGE} ${INK}`}>
-              Accessibility statement
-            </h1>
+            <h1 className={`m-0 ${T_PAGE} ${INK}`}>Accessibility statement</h1>
             <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>
               Kern targets WCAG 2.2 AA for everything it ships. This page states
               what is checked today, what is not yet checked, and how to report

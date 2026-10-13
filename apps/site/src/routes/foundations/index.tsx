@@ -9,7 +9,6 @@
  */
 
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { SiteLayout } from "../../domains/shared/chrome/site-layout";
 import {
   COLOR_ROLES,
   ELEVATION_LEVELS,
@@ -19,7 +18,7 @@ import {
   SHAPE,
   TYPE_STYLE_COUNT,
 } from "../../content/foundations";
-import { FOUNDATIONS } from "../../foundations/shell";
+import { SiteLayout } from "../../domains/shared/chrome/site-layout";
 import { routeHead } from "../../domains/shared/systems/seo";
 import {
   T_BODY_SM,
@@ -28,6 +27,7 @@ import {
   T_SECTION,
   T_SMALL_TITLE,
 } from "../../domains/shared/systems/type-scale";
+import { FOUNDATIONS } from "../../foundations/shell";
 
 const INK = "text-(--md-sys-color-on-surface)";
 const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";
@@ -36,11 +36,19 @@ const CARD =
 
 export const Route = createFileRoute("/foundations/")({
   head: () =>
-    routeHead("Foundations", "Tokens, theme, accessibility, and icons — the layer beneath the components."),
+    routeHead(
+      "Foundations",
+      "Tokens, theme, accessibility, and icons — the layer beneath the components.",
+    ),
   component: FoundationsHub,
 });
 
-const BEYOND_TOKENS: { title: string; body: string; to: string; cta: string }[] = [
+const BEYOND_TOKENS: {
+  title: string;
+  body: string;
+  to: string;
+  cta: string;
+}[] = [
   {
     title: "Theme",
     body: "One theme source, both platforms — color roles, shape, contrast levels, and authoring a preset.",

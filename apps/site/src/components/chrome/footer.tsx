@@ -11,52 +11,56 @@
  * Column labels are plain text, not headings: they are wayfinding, not
  * document structure, and check-headings requires an id on every h2/h3.
  */
+
+import {
+  T_BODY_MD,
+  T_BODY_SM,
+  T_LABEL,
+} from "../../domains/shared/systems/type-scale";
 import { REPO_LICENSE } from "../../generated/changelog";
-import { T_BODY_MD, T_BODY_SM, T_LABEL } from "../../domains/shared/systems/type-scale";
 import { VersionSelector } from "./version-selector";
 
-const COLUMNS: { label: string; links: { label: string; href: string }[] }[] =
-  [
-    {
-      label: "Foundations",
-      links: [
-        { label: "Foundations", href: "/foundations" },
-        { label: "Theme", href: "/foundations/theme" },
-        { label: "Accessibility", href: "/foundations/accessibility" },
-        { label: "Icons", href: "/foundations/icons" },
-      ],
-    },
-    {
-      label: "Components",
-      links: [
-        { label: "All components", href: "/components" },
-        { label: "Web", href: "/components/web" },
-        { label: "Native", href: "/components/mobile" },
-        { label: "Showcase", href: "/showcase" },
-      ],
-    },
-    {
-      label: "Resources",
-      links: [
-        { label: "Docs", href: "/docs" },
-        { label: "Guides", href: "/docs/guides" },
-        { label: "API reference", href: "/docs/api" },
-        { label: "Getting started", href: "/getting-started" },
-      ],
-    },
-    {
-      label: "Project",
-      links: [
-        { label: "About", href: "/about" },
-        { label: "Changelog", href: "/changelog" },
-        { label: "Community", href: "/community" },
-        { label: "License", href: "/legal/license" },
-        { label: "Security", href: "/legal/security" },
-        { label: "GitHub", href: "https://github.com/xoroh/kern" },
-        { label: "xoroh.org", href: "https://xoroh.org" },
-      ],
-    },
-  ];
+const COLUMNS: { label: string; links: { label: string; href: string }[] }[] = [
+  {
+    label: "Foundations",
+    links: [
+      { label: "Foundations", href: "/foundations" },
+      { label: "Theme", href: "/foundations/theme" },
+      { label: "Accessibility", href: "/foundations/accessibility" },
+      { label: "Icons", href: "/foundations/icons" },
+    ],
+  },
+  {
+    label: "Components",
+    links: [
+      { label: "All components", href: "/components" },
+      { label: "Web", href: "/components/web" },
+      { label: "Native", href: "/components/mobile" },
+      { label: "Showcase", href: "/showcase" },
+    ],
+  },
+  {
+    label: "Resources",
+    links: [
+      { label: "Docs", href: "/docs" },
+      { label: "Guides", href: "/docs/guides" },
+      { label: "API reference", href: "/docs/api" },
+      { label: "Getting started", href: "/getting-started" },
+    ],
+  },
+  {
+    label: "Project",
+    links: [
+      { label: "About", href: "/about" },
+      { label: "Changelog", href: "/changelog" },
+      { label: "Community", href: "/community" },
+      { label: "License", href: "/legal/license" },
+      { label: "Security", href: "/legal/security" },
+      { label: "GitHub", href: "https://github.com/xoroh/kern" },
+      { label: "xoroh.org", href: "https://xoroh.org" },
+    ],
+  },
+];
 
 const LINK =
   "text-(--md-sys-color-on-surface-variant) no-underline hover:text-(--md-sys-color-on-surface)";

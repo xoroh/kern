@@ -9,8 +9,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Kicker } from "../../components/chrome/kicker";
 import { Code, Step } from "../../components/docs/code";
-import { SiteLayout } from "../../domains/shared/chrome/site-layout";
 import { Admonition } from "../../domains/shared/chrome/docs-shell-parts";
+import { SiteLayout } from "../../domains/shared/chrome/site-layout";
 import { routeHead } from "../../domains/shared/systems/seo";
 import {
   T_BODY,
@@ -83,9 +83,8 @@ kern add chip card     # vendor several (receipt merges)`}</Code>
                 <p className={`m-0 ${T_LABEL_LG} ${INK}`}>Mode 2 — depended</p>
                 <p className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
                   A versioned dependency. Upgrades flow from the package, the
-                  code stays ours. This is the default recommendation once
-                  0.1.0 publishes; until then the packages resolve from the
-                  workspace.
+                  code stays ours. This is the default recommendation once 0.1.0
+                  publishes; until then the packages resolve from the workspace.
                 </p>
                 <Code>{`bun add @xoroh/kern @xoroh/kern-tokens
 # then import — the README's first component`}</Code>
@@ -119,9 +118,9 @@ kern add chip card     # vendor several (receipt merges)`}</Code>
                   Single component, hybrid tokens
                 </p>
                 <p className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
-                  <code>kern add button</code> vendors the code and leaves
-                  token VALUES as a dependency — one source of truth for
-                  values, structure is yours.
+                  <code>kern add button</code> vendors the code and leaves token
+                  VALUES as a dependency — one source of truth for values,
+                  structure is yours.
                 </p>
               </li>
               <li className={`${CARD} flex flex-col gap-2 p-5`}>
@@ -160,8 +159,8 @@ kern add chip card     # vendor several (receipt merges)`}</Code>
                   file sha256) are written from day one so{" "}
                   <code>kern diff</code> and <code>kern upgrade</code> can
                   compare against them. Those two commands do{" "}
-                  <strong>not</strong> exist yet — the receipt is the input
-                  they will read, not a working audit today.
+                  <strong>not</strong> exist yet — the receipt is the input they
+                  will read, not a working audit today.
                 </p>
               </li>
             </ol>
@@ -202,7 +201,10 @@ kern add chip card     # vendor several (receipt merges)`}</Code>
                   body: "The compliance checklist, mirroring the kern skill's audit table.",
                 },
               ].map((row) => (
-                <li key={row.tool} className={`${CARD} flex flex-col gap-1 p-4`}>
+                <li
+                  key={row.tool}
+                  className={`${CARD} flex flex-col gap-1 p-4`}
+                >
                   <p className={`m-0 ${T_LABEL_LG} ${INK}`}>
                     {row.use} — <code>{row.tool}</code>
                   </p>

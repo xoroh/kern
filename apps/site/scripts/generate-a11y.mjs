@@ -101,7 +101,7 @@ for (const [platform, { dir, demos: registry }] of Object.entries(PLATFORMS)) {
       };
       writeFileSync(
         join(OUT_DIR, platform, `${doc.slug}.a11y.json`),
-        JSON.stringify(page, null, 2) + "\n",
+        `${JSON.stringify(page, null, 2)}\n`,
       );
       barrel[`${platform}/${doc.slug}`] = page;
       pages++;
@@ -129,5 +129,27 @@ export type A11yPage = {
 };
 export const A11Y: Record<string, A11yPage> = ${JSON.stringify(barrel, null, 2)};
 `;
-writeFileSync(join(APP, "src", "generated", "a11y.ts"), barrelSrc);
+// Format with the repo's biome before writing, as generate-legal.mjs and
+// generate-props.mjs do: the raw template is JSON syntax (quoted keys, long
+// type lines), which `bun run lint` rejects on every regenerate.
+let formatted = barrelSrc;
+try {
+  const { execFileSync } = await import("node:child_process");
+  formatted = execFileSync(
+    join(APP, "..", "..", "node_modules", ".bin", "biome"),
+    ["format", "--stdin-file-path=a11y.ts"],
+    {
+      input: barrelSrc,
+      encoding: "utf8",
+      cwd: join(APP, "..", ".."),
+      maxBuffer: 64 * 1024 * 1024,
+    },
+  );
+} catch {
+  // Biome unavailable: keep unformatted, never silently drop the export.
+  console.warn(
+    "generate-a11y: could not run biome; wrote unformatted — run `bun run format` before lint",
+  );
+}
+writeFileSync(join(APP, "src", "generated", "a11y.ts"), formatted);
 console.log(`generate-a11y: wrote ${pages} pages, ${demos} demo entries`);

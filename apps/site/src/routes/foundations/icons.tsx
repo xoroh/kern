@@ -8,14 +8,17 @@
  */
 import { createFileRoute } from "@tanstack/react-router";
 import { Kicker } from "../../components/chrome/kicker";
-import { SiteLayout } from "../../domains/shared/chrome/site-layout";
 import { IconGallery } from "../../components/icons/icon-gallery";
+import { SiteLayout } from "../../domains/shared/chrome/site-layout";
 import { routeHead } from "../../domains/shared/systems/seo";
 import { T_BODY, T_PAGE } from "../../domains/shared/systems/type-scale";
 
 export const Route = createFileRoute("/foundations/icons")({
   head: () =>
-    routeHead("Icons", "The icon gallery — counts, names, and glyphs from the registry."),
+    routeHead(
+      "Icons",
+      "The icon gallery — counts, names, and glyphs from the registry.",
+    ),
   component: Icons,
 });
 

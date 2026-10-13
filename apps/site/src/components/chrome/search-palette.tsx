@@ -25,19 +25,19 @@ import {
   useState,
 } from "react";
 import {
-  buildSearchIndex,
-  SEARCH_SUGGESTIONS,
-  type SearchEntry,
-  searchSite,
-} from "../../systems/search";
-import { trapTarget } from "../../systems/focus-trap";
-import {
   T_BODY,
   T_BODY_MD,
   T_BODY_SM,
   T_KEY,
   T_LABEL_MD,
 } from "../../domains/shared/systems/type-scale";
+import { trapTarget } from "../../systems/focus-trap";
+import {
+  buildSearchIndex,
+  SEARCH_SUGGESTIONS,
+  type SearchEntry,
+  searchSite,
+} from "../../systems/search";
 import { ResultText } from "../search/result-text";
 
 export const OPEN_SEARCH_EVENT = "kern:open-search";
@@ -121,7 +121,7 @@ export function SearchPalette() {
         setRegionsHidden(false);
       };
     }
-  }, [open ]);
+  }, [open]);
 
   if (!open) return null;
 
@@ -238,7 +238,9 @@ export function SearchPalette() {
             />
           ) : groups.length === 0 ? (
             <div className="flex flex-col gap-3 p-3">
-              <p className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}>
+              <p
+                className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+              >
                 No results for “{query.trim()}”.
               </p>
               <PaletteSuggestions
@@ -333,7 +335,9 @@ function PaletteSuggestions({
           className={`cursor-pointer border-0 bg-transparent px-2 py-1.5 text-left ${T_BODY_MD} text-(--md-sys-color-on-surface) hover:bg-(--md-sys-color-surface-container)`}
         >
           {entry.title}
-          <span className={`${T_BODY_SM} text-(--md-sys-color-on-surface-variant)`}>
+          <span
+            className={`${T_BODY_SM} text-(--md-sys-color-on-surface-variant)`}
+          >
             {" "}
             · {entry.hint}
           </span>

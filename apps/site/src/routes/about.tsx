@@ -8,13 +8,20 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Kicker } from "../components/chrome/kicker";
 import { SiteLayout } from "../domains/shared/chrome/site-layout";
-import { REPO_LICENSE } from "../generated/changelog";
 import { routeHead } from "../domains/shared/systems/seo";
-import { T_BODY, T_PAGE, T_SECTION } from "../domains/shared/systems/type-scale";
+import {
+  T_BODY,
+  T_PAGE,
+  T_SECTION,
+} from "../domains/shared/systems/type-scale";
+import { REPO_LICENSE } from "../generated/changelog";
 
 export const Route = createFileRoute("/about")({
   head: () =>
-    routeHead("About", "What kern is, who makes it, and how to reach the project."),
+    routeHead(
+      "About",
+      "What kern is, who makes it, and how to reach the project.",
+    ),
   component: About,
 });
 

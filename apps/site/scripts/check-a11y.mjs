@@ -127,7 +127,7 @@ for (const [platform, { dir, demos: registry }] of Object.entries(PLATFORMS)) {
               `${path}: ${part} derived basis asserts interactivity — soften the template, do not guess per-export`,
             );
           }
-          if (!e.basis || !e.basis.trim())
+          if (!e.basis?.trim())
             bad(`${path}: ${part} expectation without basis`);
         }
       }
@@ -150,8 +150,7 @@ for (const [platform, { dir, demos: registry }] of Object.entries(PLATFORMS)) {
   const got = deriveExpectations(gappy, "Synth", true);
   const fail = got.find((e) => e.rule === "known-gap");
   if (
-    !fail ||
-    fail.expect !== "fail" ||
+    fail?.expect !== "fail" ||
     fail.provenance !== "derived" ||
     !fail.basis.includes("focus ring")
   ) {

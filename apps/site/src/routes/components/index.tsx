@@ -7,17 +7,20 @@
  * about the packages instead of showing them the components.
  */
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { SiteLayout } from "../../domains/shared/chrome/site-layout";
 import {
   ComponentGallery,
   GalleryLede,
 } from "../../components/docs/component-gallery";
+import { SiteLayout } from "../../domains/shared/chrome/site-layout";
 import { routeHead } from "../../domains/shared/systems/seo";
 import { T_LABEL_LG, T_PAGE } from "../../domains/shared/systems/type-scale";
 
 export const Route = createFileRoute("/components/")({
   head: () =>
-    routeHead("Components", "One page per component family — metadata, preview, usage, props, theming."),
+    routeHead(
+      "Components",
+      "One page per component family — metadata, preview, usage, props, theming.",
+    ),
   component: ComponentsGallery,
 });
 

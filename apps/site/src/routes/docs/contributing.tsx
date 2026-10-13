@@ -184,8 +184,10 @@ function Contributing() {
               <code className={CODE}>bun run build</code> runs every generator,
               so a clean build proves they are reproducible.
             </p>
-            <pre className={`m-0 overflow-x-auto rounded-(--md-sys-shape-corner-large) bg-(--md-sys-color-surface-container-high) p-4 ${T_CODE} text-(--md-sys-color-on-surface)`}>
-{`packages/kern-tokens/src/tokens.css      bun run generate:tokens
+            <pre
+              className={`m-0 overflow-x-auto rounded-(--md-sys-shape-corner-large) bg-(--md-sys-color-surface-container-high) p-4 ${T_CODE} text-(--md-sys-color-on-surface)`}
+            >
+              {`packages/kern-tokens/src/tokens.css      bun run generate:tokens
 packages/kern-tokens/src/tones.css       bun run generate:tones
 packages/kern-tokens/src/motion.css      bun run generate:motion
 packages/mcp/src/manifest.ts            bun run generate:components

@@ -7,8 +7,9 @@
  * (read from the generated maturity table, never typed), and the pill links
  * to /changelog, which is where "what changed" lives.
  */
-import { MATURITY } from "../../systems/maturity";
+
 import { T_CODE } from "../../domains/shared/systems/type-scale";
+import { MATURITY } from "../../systems/maturity";
 
 const VERSION = MATURITY[0]?.version ?? "0.0.0";
 

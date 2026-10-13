@@ -9,13 +9,13 @@
  * code the way a committed screenshot can (Q4.1).
  */
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { SiteLayout } from "../../../domains/shared/chrome/site-layout";
 import {
   ComponentGallery,
   demoCoverage,
 } from "../../../components/docs/component-gallery";
 import { MOBILE_DEMOS, PREVIEW_REASONS } from "../../../demos/mobile/registry";
-import { componentsOn } from "../../../generated/manifest";
+import { SiteLayout } from "../../../domains/shared/chrome/site-layout";
+import { routeHead } from "../../../domains/shared/systems/seo";
 import {
   T_BODY_SM,
   T_LABEL,
@@ -23,11 +23,14 @@ import {
   T_PAGE,
   T_SECTION,
 } from "../../../domains/shared/systems/type-scale";
-import { routeHead } from "../../../domains/shared/systems/seo";
+import { componentsOn } from "../../../generated/manifest";
 
 export const Route = createFileRoute("/components/mobile/")({
   head: () =>
-    routeHead("Mobile components", "Native components from @xoroh/kern-native, previewed live."),
+    routeHead(
+      "Mobile components",
+      "Native components from @xoroh/kern-native, previewed live.",
+    ),
   component: MobileComponents,
 });
 

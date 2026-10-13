@@ -6,10 +6,14 @@
  * pointer back to the index rather than a fabricated page.
  */
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { primitiveModule } from "../../domains/primitives/modules";
 import { SiteLayout } from "../../domains/shared/chrome/site-layout";
 import { routeHead } from "../../domains/shared/systems/seo";
-import { T_BODY, T_LABEL, T_PAGE } from "../../domains/shared/systems/type-scale";
-import { primitiveModule } from "../../domains/primitives/modules";
+import {
+  T_BODY,
+  T_LABEL,
+  T_PAGE,
+} from "../../domains/shared/systems/type-scale";
 
 export const Route = createFileRoute("/primitives/$module")({
   head: ({ params }) => {

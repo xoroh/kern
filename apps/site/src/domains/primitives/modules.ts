@@ -36,7 +36,8 @@ export const PRIMITIVE_MODULES: PrimitiveModule[] = [
   {
     slug: "overlay-modality",
     title: "Overlay modality",
-    blurb: "Tracks which overlay layer owns the keyboard and screen-reader focus",
+    blurb:
+      "Tracks which overlay layer owns the keyboard and screen-reader focus",
     exports: [
       "createOverlayModality",
       "useOverlayModality",
@@ -52,7 +53,8 @@ export const PRIMITIVE_MODULES: PrimitiveModule[] = [
   {
     slug: "dismiss-wiring",
     title: "Dismiss wiring",
-    blurb: "Wiring helpers that connect dismiss sources to the dismissal policy",
+    blurb:
+      "Wiring helpers that connect dismiss sources to the dismissal policy",
     exports: ["dismissBranchesFor", "shouldDismissOn"],
   },
   {
@@ -77,7 +79,11 @@ export const PRIMITIVE_MODULES: PrimitiveModule[] = [
     slug: "positioning",
     title: "Positioning",
     blurb: "Floating-position math: origin, rect, viewport clamping",
-    exports: ["clampRectToViewport", "resolveFloatingOrigin", "resolveFloatingRect"],
+    exports: [
+      "clampRectToViewport",
+      "resolveFloatingOrigin",
+      "resolveFloatingRect",
+    ],
   },
   {
     slug: "presence",
@@ -95,7 +101,12 @@ export const PRIMITIVE_MODULES: PrimitiveModule[] = [
     slug: "selection",
     title: "Selection",
     blurb: "Selection helpers shared by both renderers",
-    exports: ["isSelected", "normalizeSelection", "toggleSelection", "useSelection"],
+    exports: [
+      "isSelected",
+      "normalizeSelection",
+      "toggleSelection",
+      "useSelection",
+    ],
   },
   {
     slug: "slot",

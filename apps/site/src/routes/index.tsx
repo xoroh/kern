@@ -1,11 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { SiteLayout } from "../domains/shared/chrome/site-layout";
 import { CapabilityDemos } from "../components/home/capability-demos";
 import { Hero } from "../components/home/hero";
 import { HowItWorks } from "../components/home/how-it-works";
 import { ReleaseNotes } from "../components/home/release-notes";
 import { ShowcaseWall } from "../components/home/showcase-wall";
 import { TrustBand } from "../components/home/trust-band";
+import { SiteLayout } from "../domains/shared/chrome/site-layout";
 import { pageMeta, SITE_JSON_LD } from "../domains/shared/systems/seo";
 
 export const Route = createFileRoute("/")({
@@ -21,6 +21,7 @@ function Home() {
           need router head plumbing for one static block. */}
       <script
         type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD from a static in-file constant, no user input.
         dangerouslySetInnerHTML={{ __html: JSON.stringify(SITE_JSON_LD) }}
       />
       <Hero />

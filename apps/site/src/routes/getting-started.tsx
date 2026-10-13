@@ -227,8 +227,8 @@ function GettingStarted() {
               Prefer no ecosystem? The behavior kernel installs standalone:
               <code>@xoroh/kern-primitives</code> has no token or renderer
               dependency (React 18+ is the only peer). Per-module pages land
-              with the primitives subdomain; until then start here and read
-              the module index:
+              with the primitives subdomain; until then start here and read the
+              module index:
             </p>
             <Code>{"bun add @xoroh/kern-primitives"}</Code>
             <p

@@ -10,13 +10,13 @@
  */
 import { ICON_COUNT } from "@xoroh/kern-icons";
 import { ALL_DOCS } from "../../content";
-import { RECENT_CHANGES } from "../../generated/changelog";
-import { COMPONENT_COUNT } from "../../generated/manifest";
 import {
   T_BODY_SM,
   T_DISPLAY,
   T_LABEL,
 } from "../../domains/shared/systems/type-scale";
+import { RECENT_CHANGES } from "../../generated/changelog";
+import { COMPONENT_COUNT } from "../../generated/manifest";
 
 const STATS: { value: number; label: string; href: string }[] = [
   {
@@ -48,7 +48,9 @@ export function TrustBand() {
       aria-labelledby="trust-heading"
     >
       <div className="rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14">
-        <p className={`m-0 ${T_LABEL} text-(--md-sys-color-on-surface-variant) uppercase`}>
+        <p
+          className={`m-0 ${T_LABEL} text-(--md-sys-color-on-surface-variant) uppercase`}
+        >
           Proof, not promises
         </p>
         <h2

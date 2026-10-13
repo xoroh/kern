@@ -6,7 +6,7 @@ export const button: ComponentDoc = {
   oneLiner:
     "Buttons let people carry out an action with a single tap, click or key press.",
   features:
-    "Reach for a button when the next step is an action the person intends to take: saving a form, sending a message, opening a dialog. Put one primary action on a screen and give it the primary variant; every lower-emphasis action takes tonal, outlined or ghost so the hierarchy reads at a glance. A button is not a link — if it moves to another place rather than doing something here, use an anchor, or `LinkButton` when the destination should wear the button treatment. Destructive actions have no variant of their own: `color=\"danger\"` re-paints the five variants in the error roles, which keeps the action vocabulary at five instead of six. A busy button keeps its label and reports it: `loading` swaps in the progress indicator and blocks interaction until it clears.",
+    'Reach for a button when the next step is an action the person intends to take: saving a form, sending a message, opening a dialog. Put one primary action on a screen and give it the primary variant; every lower-emphasis action takes tonal, outlined or ghost so the hierarchy reads at a glance. A button is not a link — if it moves to another place rather than doing something here, use an anchor, or `LinkButton` when the destination should wear the button treatment. Destructive actions have no variant of their own: `color="danger"` re-paints the five variants in the error roles, which keeps the action vocabulary at five instead of six. A busy button keeps its label and reports it: `loading` swaps in the progress indicator and blocks interaction until it clears.',
   meta: {
     // Canonical M3 spec page — title identity-verified live; gate re-checks.
     specUrl: "https://m3.material.io/components/buttons",
@@ -53,7 +53,7 @@ export const button: ComponentDoc = {
       name: "variant",
       type: '"elevated" | "primary" | "tonal" | "outlined" | "ghost"',
       default: '"primary"',
-      note: "M3's five color configurations. `filled` and `text` are accepted as aliases for `primary` and `ghost`. There is no sixth: an error action is `color=\"danger\"` on any of the five.",
+      note: 'M3\'s five color configurations. `filled` and `text` are accepted as aliases for `primary` and `ghost`. There is no sixth: an error action is `color="danger"` on any of the five.',
     },
     {
       name: "color",
@@ -118,7 +118,7 @@ export const button: ComponentDoc = {
     {
       name: "icon",
       type: "ReactNode",
-      note: "Renders beside the label with the `gap-2` M3 spacing, hidden from assistive tech. An icon-only button is `size=\"icon\"` plus an `aria-label`, not a text label.",
+      note: 'Renders beside the label with the `gap-2` M3 spacing, hidden from assistive tech. An icon-only button is `size="icon"` plus an `aria-label`, not a text label.',
     },
     {
       name: "iconPosition",

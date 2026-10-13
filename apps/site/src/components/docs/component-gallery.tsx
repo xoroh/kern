@@ -26,7 +26,6 @@ import {
 import type { ComponentDoc } from "../../content/types";
 import { MOBILE_DEMOS, PREVIEW_REASONS } from "../../demos/mobile/registry";
 import { demoFor, WEB_PREVIEW_REASONS } from "../../demos/web/registry";
-import { maturityForExports } from "../../systems/maturity";
 import {
   T_BODY_SM,
   T_LABEL,
@@ -34,6 +33,7 @@ import {
   T_SECTION,
   T_SMALL_TITLE,
 } from "../../domains/shared/systems/type-scale";
+import { maturityForExports } from "../../systems/maturity";
 
 const INK = "text-(--md-sys-color-on-surface)";
 const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";

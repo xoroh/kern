@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { SiteLayout } from "../shared/chrome/site-layout";
 import { COMPONENTS } from "../../generated/manifest";
+import { SiteLayout } from "../shared/chrome/site-layout";
 import { T_BODY, T_LABEL, T_PAGE } from "../shared/systems/type-scale";
 
 /**
@@ -43,40 +43,42 @@ export function ApiIndex() {
             treatment the component-page tables already carry.
           */}
           <div className="overflow-x-auto">
-          <table className="w-full border-collapse text-left">
-            <thead>
-              <tr className="border-b border-(--md-sys-color-outline-variant)">
-                <th className={`m-0 ${T_LABEL} pb-2 text-left`}>Export</th>
-                <th className={`m-0 ${T_LABEL} pb-2 text-left`}>Family</th>
-                <th className={`m-0 ${T_LABEL} pb-2 text-left`}>Platform</th>
-                <th className={`m-0 ${T_LABEL} pb-2 text-left`}>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((row) => (
-                <tr
-                  key={`${row.platform}/${row.export}`}
-                  className="border-b border-(--md-sys-color-outline-variant)"
-                >
-                  <td className={`m-0 ${T_BODY} py-2 pr-4 font-mono`}>
-                    <Link
-                      to="/components/$platform/$component"
-                      params={{
-                        platform: row.platform,
-                        component: row.name,
-                      }}
-                      className="text-(--md-sys-color-primary) no-underline hover:underline"
-                    >
-                      {row.export}
-                    </Link>
-                  </td>
-                  <td className={`m-0 ${T_BODY} py-2 pr-4`}>{row.name}</td>
-                  <td className={`m-0 ${T_BODY} py-2 pr-4`}>{row.platform}</td>
-                  <td className={`m-0 ${T_BODY} py-2`}>{row.status}</td>
+            <table className="w-full border-collapse text-left">
+              <thead>
+                <tr className="border-b border-(--md-sys-color-outline-variant)">
+                  <th className={`m-0 ${T_LABEL} pb-2 text-left`}>Export</th>
+                  <th className={`m-0 ${T_LABEL} pb-2 text-left`}>Family</th>
+                  <th className={`m-0 ${T_LABEL} pb-2 text-left`}>Platform</th>
+                  <th className={`m-0 ${T_LABEL} pb-2 text-left`}>Status</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {rows.map((row) => (
+                  <tr
+                    key={`${row.platform}/${row.export}`}
+                    className="border-b border-(--md-sys-color-outline-variant)"
+                  >
+                    <td className={`m-0 ${T_BODY} py-2 pr-4 font-mono`}>
+                      <Link
+                        to="/components/$platform/$component"
+                        params={{
+                          platform: row.platform,
+                          component: row.name,
+                        }}
+                        className="text-(--md-sys-color-primary) no-underline hover:underline"
+                      >
+                        {row.export}
+                      </Link>
+                    </td>
+                    <td className={`m-0 ${T_BODY} py-2 pr-4`}>{row.name}</td>
+                    <td className={`m-0 ${T_BODY} py-2 pr-4`}>
+                      {row.platform}
+                    </td>
+                    <td className={`m-0 ${T_BODY} py-2`}>{row.status}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </section>
