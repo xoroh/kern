@@ -188,3 +188,10 @@ select rows (measured and reported, deliberately not failed — that is renderer
 work), the Xoroh migration (KERN-064‑075), and the release-candidate gates
 (KERN-076‑084). No package has been published, no parent monorepo file has been
 touched, and publication remains on HOLD.
+
+### Execution ledger — P0 closure (2026-10-13)
+
+- **KERN-001 ownership.** Baseline HEAD was `d5007b75` (dirty, main ahead of origin by 2). Planning snapshot committed as `a8380a8`; implementation since: `549c54f2` (gates), `f869cf7c` (elevation), `a597a067` (ledger), `824a7a56` (contracts+Xoroh preset), `3b200285` (P2 DTCG). Tree is clean at each commit; no unrelated diff lost, no reset performed. Owners: site redesign (complete, top header + purple), planning/implementation (this lane).
+- **KERN-003 inventory.** Manifest holds 418 rows (web 301, native 117; grep count 419 includes the type declaration line). COMPONENT_AND_FEATURE_INVENTORY.md is the preservation source; every export addition since (RichTooltip namespace, contracts package, DTCG modules, Xoroh preset) shipped with tests and manifest regeneration.
+- **KERN-004 parent usages.** Historical AST scan stands: `kern-start` 683 files, `kern-expo` 455, `kern-react` 138 (overlapping sets, tests/types included) in `../xoroh-platform`; private secondary blue `#2563eb` confirmed in `libs/kern/react/src/tokens/colors.ts` and encoded as XOROH_PRESET. No parent file touched; no private data published beyond the theme values the preset requires.
+- **KERN-006 graph.** 15 requested documents exist plus APPROVALS.md; local links resolve (validated 2026-10-13 with the DAG script: 84 unique tasks, acyclic); task counts reconcile (P0 6 … P8 9; P0 58/P1 25/P2 1).

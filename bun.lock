@@ -4,6 +4,10 @@
   "workspaces": {
     "": {
       "name": "kern",
+      "dependencies": {
+        "@types/react-dom": "19",
+        "react-dom": "19",
+      },
       "devDependencies": {
         "@arethetypeswrong/cli": "^0.18.5",
         "@biomejs/biome": "^2.5.14",
@@ -132,6 +136,7 @@
         "@types/node": "^26.6.3",
         "@types/react": "^19",
         "react": "^19",
+        "react-dom": "^19",
         "react-native": "^0.81",
         "react-native-svg": "^15",
         "tsup": "^8.5.1",

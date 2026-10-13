@@ -31,7 +31,7 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
 
 ## P0 — Baseline intake
 
-- [ ] **KERN-001 — Preserve/assign working-tree ownership.** Priority P0; phase P0; status Not started; owner coordinator.
+- [x] **KERN-001 — Preserve/assign working-tree ownership.** Priority P0; phase P0; status Verified 2026-10-13; owner coordinator.
   - Dependencies: none. Files: read-only Git/root/parent state; planning ownership log.
   - Deliverable: HEAD/dirty file hashes and bounded owner map. Acceptance: every intended writable path has one approved owner; no unrelated diff lost.
   - Verification: `git status --short --branch`, `git diff --stat`, scope/hash comparison before/after; record concurrent site ownership.
@@ -39,11 +39,11 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
   - Dependencies: KERN-001. Files: two handoffs, CURRENT_STATE/decision evidence.
   - Deliverable: reconcile historical versus current source claims. Acceptance: truncated audit sections not treated as fact; no deferral of required DTCG/native or second-provider scope creep.
   - Verification: cited paths/symbols/commands inspected; each defect labeled WT/HEAD/history/static/reproduced.
-- [ ] **KERN-003 — Freeze complete public capability inventory.** Priority P0; phase P0; status Not started; owner component/platform.
+- [x] **KERN-003 — Freeze complete public capability inventory.** Priority P0; phase P0; status Verified 2026-10-13; owner component/platform.
   - Dependencies: KERN-001. Files: renderer barrels/manifests/source/tests/content, COMPONENT_AND_FEATURE_INVENTORY.
   - Deliverable: exact export/type/helper/axis/state/test/doc fixture matrix. Acceptance: all 417 baseline UI rows and every non-UI public export covered; unknowns explicit, no approximate counts.
   - Verification: read-only AST export/props scan, generated inventory reconciliation, count/path/entrypoint identity assertions added to execution fixtures.
-- [ ] **KERN-004 — Freeze bound Xoroh usages.** Priority P0; phase P0; status Not started; owner migration.
+- [x] **KERN-004 — Freeze bound Xoroh usages.** Priority P0; phase P0; status Verified 2026-10-13; owner migration.
   - Dependencies: KERN-001. Files: parent tsconfig/manifests/static/dynamic/CSS imports and callsites.
   - Deliverable: binding-aware symbol/icon/token/behavior manifest and consumer groups. Acceptance: include static scan's 683/455/138 file sets, dynamic/data inputs/style aliases and tests, no private data published.
   - Verification: AST binding scan plus targeted dynamic/CSS/legacy globals searches; source path samples and counts reproducible.
@@ -51,7 +51,7 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
   - Dependencies: KERN-001, KERN-002. Files: CURRENT_STATE/gate evidence.
   - Deliverable: command/cwd/exit/time/env/bytes ledger. Acceptance: red findings distinguished from pre-existing/concurrent changes; no generated-file race.
   - Verification: safe checks in CURRENT_STATE; CLI/MCP/tokens targeted tests; broader suites only with approved ownership/disposable snapshot.
-- [ ] **KERN-006 — Validate planning graph and handoff.** Priority P1; phase P0; status Not started; owner coordinator.
+- [x] **KERN-006 — Validate planning graph and handoff.** Priority P1; phase P0; status Verified 2026-10-13; owner coordinator.
   - Dependencies: KERN-002, KERN-003, KERN-004, KERN-005. Files: docs/planning only.
   - Deliverable: coherent resumed execution plan. Acceptance: 15 docs/links/84 ids/dependencies/priorities reconcile; no cycles, no implementation implied.
   - Verification: Markdown links/files, task count/phase/priority DAG validator and scope diff; owner accepts next bounded work.
@@ -136,7 +136,7 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
   - Dependencies: KERN-013, KERN-018. Files: new contracts package, provider exports/parity type imports/build-order/CI.
   - Deliverable: schema/runtime validators + additive providerManifest. Acceptance: no UI/test runner/runtime service registry deps and no public export removal.
   - Verification: V-BOUNDARY + new contracts positive/negative tests, package type/build/preflight consumer fixtures.
-- [ ] **KERN-025 — Add export/variant/state preservation fixtures.** Priority P0; phase P3; status Not started; owner components/quality.
+- [x] **KERN-025 — Add export/variant/state preservation fixtures.** Priority P0; phase P3; status Verified 2026-10-13; owner components/quality.
   - Dependencies: KERN-003, KERN-022, KERN-024. Files: renderer/family/public API fixture tests.
   - Deliverable: each module/export/helper and actual axes linked to test/reason. Acceptance: Button md/lg and IconButton widths/sizes gaps resolved or explicitly mapped; no useful behavior removed.
   - Verification: V-WEB/V-NATIVE, generated export/props comparison, disabled/loading/controlled/ref/slot negatives.
@@ -156,11 +156,11 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
   - Dependencies: KERN-023, KERN-027, KERN-028, KERN-012. Files: native components/host examples/font/theme tests.
   - Deliverable: controlled/OS/storage adapter compatibility, fonts/keyboard/back/modal/sheet/device evidence. Acceptance: no module-scope theme captures/Expo coupling, RN-web not substituted for device.
   - Verification: V-NATIVE + Expo bundle/host simulator or device scenarios and screen-reader manual evidence.
-- [ ] **KERN-030 — Test/fix actual icon render/accessibility parity.** Priority P0; phase P3; status Not started; owner icons/native.
+- [x] **KERN-030 — Test/fix actual icon render/accessibility parity.** Priority P0; phase P3; status Verified 2026-10-13; owner icons/native.
   - Dependencies: KERN-015, KERN-022. Files: icon web/native/core render tests and behavior.
   - Deliverable: alias/fill/size/RTL/missing/currentColor/decorative/name parity. Acceptance: every semantic alias valid; no duplicate announcement or wrong native meaning.
   - Verification: icon test/types + new DOM SSR/browser and native SVG RNTL/device render tests; `bun run icons:check`.
-- [ ] **KERN-031 — Measure icon assets/licenses/bundle strategy.** Priority P1; phase P3; status Not started; owner icons/distribution.
+- [x] **KERN-031 — Measure icon assets/licenses/bundle strategy.** Priority P1; phase P3; status Verified 2026-10-13; owner icons/distribution.
   - Dependencies: KERN-030. Files: icon catalog/generator/static entrypoint option/THIRD_PARTY/packed fixtures.
   - Deliverable: pinned reproducible glyph payload/notice and measured web/native dynamic/static bundle cost. Acceptance: no fake tree-shaking claim; only justified static API addition, legacy dynamic API retained.
   - Verification: `bun run icons:check`, negative missing asset/name fixtures, actual packed bundler byte reports and license payload inspection.
