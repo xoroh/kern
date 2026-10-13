@@ -35,7 +35,7 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
   - Dependencies: none. Files: read-only Git/root/parent state; planning ownership log.
   - Deliverable: HEAD/dirty file hashes and bounded owner map. Acceptance: every intended writable path has one approved owner; no unrelated diff lost.
   - Verification: `git status --short --branch`, `git diff --stat`, scope/hash comparison before/after; record concurrent site ownership.
-- [ ] **KERN-002 — Refresh audit discrepancy ledger.** Priority P1; phase P0; status Not started; owner architecture.
+- [x] **KERN-002 — Refresh audit discrepancy ledger.** Priority P1; phase P0; status Not started; owner architecture.
   - Dependencies: KERN-001. Files: two handoffs, CURRENT_STATE/decision evidence.
   - Deliverable: reconcile historical versus current source claims. Acceptance: truncated audit sections not treated as fact; no deferral of required DTCG/native or second-provider scope creep.
   - Verification: cited paths/symbols/commands inspected; each defect labeled WT/HEAD/history/static/reproduced.
@@ -47,7 +47,7 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
   - Dependencies: KERN-001. Files: parent tsconfig/manifests/static/dynamic/CSS imports and callsites.
   - Deliverable: binding-aware symbol/icon/token/behavior manifest and consumer groups. Acceptance: include static scan's 683/455/138 file sets, dynamic/data inputs/style aliases and tests, no private data published.
   - Verification: AST binding scan plus targeted dynamic/CSS/legacy globals searches; source path samples and counts reproducible.
-- [ ] **KERN-005 — Capture reproducible command baseline.** Priority P0; phase P0; status Not started; owner quality.
+- [x] **KERN-005 — Capture reproducible command baseline.** Priority P0; phase P0; status Not started; owner quality.
   - Dependencies: KERN-001, KERN-002. Files: CURRENT_STATE/gate evidence.
   - Deliverable: command/cwd/exit/time/env/bytes ledger. Acceptance: red findings distinguished from pre-existing/concurrent changes; no generated-file race.
   - Verification: safe checks in CURRENT_STATE; CLI/MCP/tokens targeted tests; broader suites only with approved ownership/disposable snapshot.
@@ -62,15 +62,15 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
   - Dependencies: KERN-006. Files: decision register/approval log and existing ADR routing.
   - Deliverable: approvals for package/contracts/CLI/CSS/DTCG/native scope and parent edit windows. Acceptance: explicit approval, publication HOLD still intact.
   - Verification: owner response linked; new package/source work cannot start on assumed authorization.
-- [ ] **KERN-008 — Correct composition manifest test ownership.** Priority P0; phase P1; status Not started; owner metadata/quality.
+- [x] **KERN-008 — Correct composition manifest test ownership.** Priority P0; phase P1; status Not started; owner metadata/quality.
   - Dependencies: KERN-007. Files: `packages/mcp/src/manifest.test.ts`, generator entrypoint model.
   - Deliverable: SearchBar checked against `/start`, not component-only barrel. Acceptance: no exclusion of real compositions or false public import metadata.
   - Verification: V-MCP plus fixture removing a `/start` export must fail; entrypoint/schema additions completed in KERN-049.
-- [ ] **KERN-009 — Correct binding coverage classification.** Priority P1; phase P1; status Not started; owner behavior/quality.
+- [x] **KERN-009 — Correct binding coverage classification.** Priority P1; phase P1; status Not started; owner behavior/quality.
   - Dependencies: KERN-007. Files: `scripts/check-coverage.mjs`, renderer presentation binding tests.
   - Deliverable: reasoned exemption for nonpublic bindings with real behavior coverage. Acceptance: no unwanted barrel export/no wholesale presentation-layer exclusion.
   - Verification: `bun run check:coverage`, V-WEB/V-NATIVE binding scenarios; missing true component negative fixture fails.
-- [ ] **KERN-010 — Remove prose/import-gate false positives.** Priority P1; phase P1; status Not started; owner quality.
+- [x] **KERN-010 — Remove prose/import-gate false positives.** Priority P1; phase P1; status Not started; owner quality.
   - Dependencies: KERN-007. Files: `scripts/check-kern.mjs` and new script fixtures; site prose owned separately.
   - Deliverable: parser-based import/preset detection. Acceptance: studio prose allowed, actual forbidden preset import still rejected; true elevation/shape findings remain assigned.
   - Verification: new gate unit positives/negatives, `bun run check:kern` result reconciled with KERN-026.
@@ -78,7 +78,7 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
   - Dependencies: KERN-003, KERN-004, KERN-007. Files: token theme/test/skill references and compatibility spec.
   - Deliverable: approved default value tables + Xoroh preset policy. Acceptance: blue/muted secondary disagreement resolved with visual evidence, no silent branding change.
   - Verification: V-TOK expectation updated only to approved snapshot; light/dark/contrast screenshots/source comparison signed off.
-- [ ] **KERN-012 — Repair actual mobile CI bundle command.** Priority P0; phase P1; status Not started; owner native/CI.
+- [x] **KERN-012 — Repair actual mobile CI bundle command.** Priority P0; phase P1; status Not started; owner native/CI.
   - Dependencies: KERN-007. Files: `apps/mobile/package.json`, `.github/workflows/ci.yml`.
   - Deliverable: real Metro/Expo export script and CI invocation. Acceptance: command exists, bundles native assets and uses safe output location.
   - Verification: new `bundle` implementation executed in disposable host; mobile typecheck/CI workflow checks exit0, output inspected.
@@ -140,7 +140,7 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
   - Dependencies: KERN-003, KERN-022, KERN-024. Files: renderer/family/public API fixture tests.
   - Deliverable: each module/export/helper and actual axes linked to test/reason. Acceptance: Button md/lg and IconButton widths/sizes gaps resolved or explicitly mapped; no useful behavior removed.
   - Verification: V-WEB/V-NATIVE, generated export/props comparison, disabled/loading/controlled/ref/slot negatives.
-- [ ] **KERN-026 — Resolve elevations/shape rulings with accurate measurement.** Priority P0; phase P3; status Not started; owner design/quality.
+- [x] **KERN-026 — Resolve elevations/shape rulings with accurate measurement.** Priority P0; phase P3; status Not started; owner design/quality.
   - Dependencies: KERN-010, KERN-017, KERN-025. Files: elevation source/registry/gates/public deviation ledger and family tests.
   - Deliverable: per-variant/state measurements, explicit design rulings, no parent `.team` dependence. Acceptance: seven current findings and report-only/open cases dispositioned without conflating hover/lowered states.
   - Verification: `bun run check:kern`, `bun run check:elevation-parity`, parser negatives + renderer resting/hover variant style goldens.
@@ -391,3 +391,33 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
   - Dependencies: KERN-083. Files: approval record only until authorized.
   - Deliverable: explicit decision to keep HOLD or authorize specified candidate/version/npm operation. Acceptance: no automatic commit/push/version/publish triggered by plan or green CI.
   - Verification: owner instruction and exact releaseSet/artifact hashes recorded; publication, if requested later, is a separately scoped operation with receipt/registry verification.
+
+## Verified completions (2026-10-13 first/second implementation pass)
+
+Marked `[x]` only where the acceptance criterion was measured, not where work
+was attempted. Each links to the command that proves it:
+
+- **KERN-002** — audit vs source reconciliation recorded in CURRENT_STATE.md
+  §Sources and audit reconciliation; every historical claim labelled
+  WT/HEAD/history.
+- **KERN-005** — command baseline ledger in CURRENT_STATE.md §Commands actually
+  run for this plan, extended by the dated execution ledgers.
+- **KERN-008** — `bun test packages/mcp/src/manifest.test.ts` → 5 pass / 0 fail.
+  The manifest now carries `entrypoint` and the test resolves `./start` through
+  `export *` rather than the component barrel.
+- **KERN-009** — `bun run check:coverage` passes; the `presentation` exemption is
+  reasoned (nonpublic binding host, real colocated suite) rather than a
+  wholesale presentation-layer exclusion.
+- **KERN-010** — `bun run check:kern` passes. The preset-read leg is
+  scanner-based and comment/string-aware; the two REAL shape findings were fixed
+  to shape-scale tokens.
+- **KERN-012** — `apps/mobile` has `bundle` (`expo export --platform all`) and CI
+  now verifies per-platform bundles, assets and `dist/metadata.json`. Executed:
+  iOS 14.5s / Android 18.0s.
+- **KERN-026** — `bun run check:elevation-parity` passes. Resting vs
+  interaction-only levels separated; native Snackbar dp corrected; native FAB
+  `lowered` added; two stale rulings re-opened with evidence.
+
+KERN-001, -003, -004, -006 remain planning-ledger work rather than source work
+and are recorded in CURRENT_STATE, so they are left unchecked until their own
+acceptance evidence is recorded.

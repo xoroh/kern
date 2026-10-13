@@ -153,3 +153,38 @@ web/native level-set mismatches (Fab, ExtendedFab, FabMenu, Snackbar, and the
 sheet/menu/select families). Closing these needs native elevation work on the
 renderer (KERN-029) and a re-ruled ledger (KERN-026), neither of which is a
 gate-configuration change.
+
+### Execution ledger — second pass, all repo gates green (2026-10-13)
+
+Ran the whole contract-gate matrix after the elevation work. **All 11 root
+gates now pass**: `check:layers`, `check:coverage`, `check:kern`, `check:parity`,
+`check:elevation-parity`, `check:consumption`, `check:contrast`,
+`check:theme-matrix`, `check:registry-paths`, `check:generated`,
+`check:workflow`. Together with `bun run check:docs` (exit 0), site
+`typecheck`, the site production build, and the full browser suite, every gate
+this repository owns is green on the current tree.
+
+The elevation-parity pass was the last red one, and it needed code changes, not
+gate tuning:
+
+- The gate compared the UNION of a web component's levels, so `hover:` lifts
+  were treated as resting heights. Native has no hover state and could never
+  satisfy that; it now compares resting sets and reports interaction-only
+  widths as notes.
+- Native `Snackbar` shipped `elevation: 3` — 3dp is LEVEL 2, one step below
+  web's `--md-sys-elevation-level3`. Corrected to 6dp; the guard test now reads
+  the level through the dp mapping instead of pinning the buggy number.
+- Native `Fab` gained the `lowered` prop (level 1 on `surface-container-low`)
+  so the FAB family carries both resting heights, matching web.
+- Two private rulings (Snackbar, Toolbar) were re-opened with evidence rather
+  than silently skipped, and `REOPENED` now prints its rows and reasons.
+
+What is NOT done, stated plainly. The full 84-task roadmap is not complete.
+Remaining: the DTCG foundation modules and schema (KERN-017‑023), the
+`@xoroh/kern-contracts` package (KERN-024), the CLI distribution layer and
+consumer/install fixtures (KERN-033‑047), the bundled MCP registry payload
+(KERN-048‑056), the native elevation adoption for the 13 one-sided sheet/menu/
+select rows (measured and reported, deliberately not failed — that is renderer
+work), the Xoroh migration (KERN-064‑075), and the release-candidate gates
+(KERN-076‑084). No package has been published, no parent monorepo file has been
+touched, and publication remains on HOLD.
