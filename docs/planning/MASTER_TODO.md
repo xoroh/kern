@@ -175,35 +175,35 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
   - Dependencies: KERN-015, KERN-022, KERN-025. Files: web/token CSS generation/export/files/sideEffects/style fixtures.
   - Deliverable: `theme` compatible vars/animations + compiled `styles`, separate Tailwind/font adapters. Acceptance: stale kern-theme import gone; no source scanning/reset/font surprise.
   - Verification: CSS import resolution/at-rule/keyframe/variable/class checks and new packed computed-style/override fixture; V-PACK.
-- [ ] **KERN-034 — Make CLI independently packageable.** Priority P0; phase P4; status Not started; owner distribution/CLI.
+- [x] **KERN-034 — Make CLI independently packageable.** Priority P0; phase P4; status Verified 2026-10-13; owner distribution/CLI.
   - Dependencies: KERN-015, KERN-024. Files: CLI manifest/build/bin/files/templates/bundled payload/build-order/CI.
   - Deliverable: publishable CLI with runtime/engine/bin contract, no checkout path reads by default. Acceptance: packed bin/help/init/add launches outside Kern; no private:false until artifact verified.
   - Verification: V-CLI/V-PACK plus spawned packed CLI no-checkout test and declaration/runtime payload file inspection.
-- [ ] **KERN-035 — Implement app-scoped CLI config/init.** Priority P1; phase P4; status Not started; owner CLI/DX.
+- [x] **KERN-035 — Implement app-scoped CLI config/init.** Priority P1; phase P4; status Verified 2026-10-13; owner CLI/DX.
   - Dependencies: KERN-034. Files: CLI kern/config/init/starters/option parser.
   - Deliverable: typed kern.json, workspace/app/renderer/mode/style selection and web/native starters. Acceptance: deps/config target selected app, force/options explicit, no absolute developer paths.
   - Verification: V-CLI + standalone/nested-app/ambiguous/invalid option/init ownership fixtures; created starter builds in consumer tasks.
-- [ ] **KERN-036 — Complete typed dependency/asset/platform resolver.** Priority P0; phase P4; status Not started; owner CLI/registry.
+- [x] **KERN-036 — Complete typed dependency/asset/platform resolver.** Priority P0; phase P4; status Verified 2026-10-13; owner CLI/registry.
   - Dependencies: KERN-015, KERN-024. Files: CLI closure/resolution/manifest graph tests.
   - Deliverable: full static relative/index/js→ts/JSON/CSS/asset/self/npm/platform closure and declared dynamic dependency policy. Acceptance: unresolved edges fail, no path/symlink escape or accidental whole-provider import.
   - Verification: V-CLI + new missing/index/self/native/dynamic/cycle/version conflict/path traversal fixtures; compare copied source import graph.
-- [ ] **KERN-037 — Make installation transactionally safe.** Priority P0; phase P4; status Not started; owner CLI/safety.
+- [x] **KERN-037 — Make installation transactionally safe.** Priority P0; phase P4; status Verified 2026-10-13; owner CLI/safety.
   - Dependencies: KERN-036, KERN-035. Files: add/init/transaction/staging filesystem layer.
   - Deliverable: resolve/preflight/stage/commit rollback with all conflicts validated first. Acceptance: late conflict/version/missing asset/custom CSS error leaves destination and receipt byte-identical.
   - Verification: V-CLI + fault-injection and custom-file hash regression tests; explicit consent separate from dependency install.
-- [ ] **KERN-038 — Version receipts/shared file ownership.** Priority P0; phase P4; status Not started; owner CLI.
+- [x] **KERN-038 — Version receipts/shared file ownership.** Priority P0; phase P4; status Verified 2026-10-13; owner CLI.
   - Dependencies: KERN-036. Files: receipt v2/schema/migration/add/init tests.
   - Deliverable: releaseSet/per-file baseline/current hashes/owners/assets/licenses/config and v1 conversion. Acceptance: identical skipped files still recorded; repeated identical add idempotent; block history preserved.
   - Verification: V-CLI + v1/v2/mixed/shared/readd/corrupt receipt fixtures and exact file closure hash comparisons.
-- [ ] **KERN-039 — Complete full snapshot runtime/style semantics.** Priority P0; phase P4; status Not started; owner CLI/foundations.
+- [x] **KERN-039 — Complete full snapshot runtime/style semantics.** Priority P0; phase P4; status Verified 2026-10-13; owner CLI/foundations.
   - Dependencies: KERN-036, KERN-037, KERN-038, KERN-022. Files: AST import rewrites/tokens/primitive/icon snapshot/asset installation.
   - Deliverable: self-contained snapshot includes runtime foundations and styles together, explicit external third-party deps. Acceptance: no hidden Kern import/value drift; customized snapshot CSS protected.
   - Verification: V-CLI + graph/import leak tests and snapshot theme/TS/native value fixtures; consumer builds in KERN-045/046.
-- [ ] **KERN-040 — Install block package/source dependency closure.** Priority P0; phase P4; status Not started; owner registry/CLI.
+- [x] **KERN-040 — Install block package/source dependency closure.** Priority P0; phase P4; status Verified 2026-10-13; owner registry/CLI.
   - Dependencies: KERN-036, KERN-037, KERN-038. Files: block manifest/generation/CLI addBlock/import mapping.
   - Deliverable: explicit package-backed versus complete source-backed graph, token/icon/assets/provider/renderer requirements. Acceptance: all three blocks install required dependencies; self-contained instructions match actual copied files.
   - Verification: V-CLI + three-block both-mode builds and incompatible/missing/cyclic dependency negatives; existing block gate maintained.
-- [ ] **KERN-041 — Implement native source installation/config/assets.** Priority P0; phase P4; status Not started; owner native/CLI.
+- [x] **KERN-041 — Implement native source installation/config/assets.** Priority P0; phase P4; status Verified 2026-10-13; owner native/CLI.
   - Dependencies: KERN-036, KERN-037, KERN-038, KERN-039, KERN-029, KERN-030. Files: native payload/platform resolver/starters/Metro/font/SVG assets.
   - Deliverable: native row selection before lookup, complete native/source closure and host setup. Acceptance: no web source copied for shared name; package/hybrid/snapshot native supported, no permanent web-only refusal.
   - Verification: V-CLI/V-NATIVE plus spawned native installer/platform assets negative cases and real Metro builds in KERN-046.

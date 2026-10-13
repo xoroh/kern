@@ -61,7 +61,8 @@ export function defineReceipt(receipt: InstallReceipt): InstallReceipt {
   if (!["package", "source-hybrid", "source-snapshot"].includes(receipt.mode)) {
     fail(`mode is ${receipt.mode}`);
   }
-  if (receipt.files.length === 0) fail("files is empty");
+  // Empty files are valid: a scaffold receipt owns no files yet. What is
+  // invalid is a ROW with blank fields — checked per row below.
   for (const file of receipt.files) {
     if (!file.path.trim()) fail("a file path is blank");
     if (!file.baselineHash.trim() || !file.currentHash.trim()) {

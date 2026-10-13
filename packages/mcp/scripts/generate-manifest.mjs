@@ -318,6 +318,46 @@ ${entries.map(render).join("\n")}
 writeFileSync(join(ROOT, "packages/mcp/src/manifest.ts"), out);
 console.log(`wrote ${entries.length} entries`);
 
+// The CLI's bundled payload (KERN-034): the same rows plus version and a
+// content-pinned release set, so a packed `kern` installs the graph the docs
+// describe with no checkout to read. Emitted HERE — not by a second script —
+// because two emitters is how the payload drifts from the manifest while both
+// look fresh.
+const kernPkg = JSON.parse(
+  readFileSync(join(ROOT, "packages/kern/package.json"), "utf8"),
+);
+const { createHash } = await import("node:crypto");
+const releaseSet =
+  `kern@${kernPkg.version}+${entries.length}.` +
+  createHash("sha256")
+    .update(
+      entries
+        .map((e) => `${e.platform}/${e.name}=${e.export}`)
+        .join("\n"),
+    )
+    .digest("hex")
+    .slice(0, 16);
+writeFileSync(
+  join(ROOT, "packages/kern-cli/src/registry.json"),
+  `${JSON.stringify(
+    {
+      version: kernPkg.version,
+      releaseSet,
+      rows: entries.map((e) => ({
+        name: e.name,
+        export: e.export,
+        platform: e.platform,
+        entrypoint: e.entrypoint,
+        path: e.path,
+        status: e.status,
+      })),
+    },
+    null,
+    2,
+  )}\n`,
+);
+console.log(`wrote CLI registry payload (${releaseSet})`);
+
 // COMPONENT_SOURCES IS DELIBERATELY NOT GENERATED. Do not re-add it verbatim.
 //
 // It used to embed every component's source TEXT into a 473KB generated module.

@@ -36,7 +36,8 @@ import {
 } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { kernVersion, WORKSPACE_ROOT } from "./manifest.js";
+import { kernVersion, loadRegistry, WORKSPACE_ROOT } from "./manifest.js";
+import { type InstallReceipt, readReceipt } from "./receipt.js";
 
 export type InitOptions = {
   /** Workspace root (tests point this at a fixture; default: real workspace). */
@@ -97,13 +98,10 @@ export function initScaffold(dir: string, opts: InitOptions = {}): InitResult {
 
   const receiptPath = join(dest, "kern.receipt.json");
   if (existsSync(receiptPath)) {
-    const prev = JSON.parse(readFileSync(receiptPath, "utf8")) as {
-      kern: string;
-      components?: Record<string, unknown>;
-    };
-    if (prev.kern !== version) {
+    const prev = readReceipt(JSON.parse(readFileSync(receiptPath, "utf8")));
+    if ((prev.config.kern as string) !== version) {
       fail(
-        `receipt pins kern ${prev.kern} but the workspace is ${version} — mixed-version dests are refused. Scaffold from a matching checkout instead.`,
+        `receipt pins kern ${prev.config.kern} but the workspace is ${version} — mixed-version dests are refused. Scaffold from a matching checkout instead.`,
       );
     }
   }
@@ -153,17 +151,30 @@ export function initScaffold(dir: string, opts: InitOptions = {}): InitResult {
     readFileSync(readmePath, "utf8").replaceAll("__KERN_VERSION__", version),
   );
 
-  const prevComponents = existsSync(receiptPath)
-    ? (
-        JSON.parse(readFileSync(receiptPath, "utf8")) as {
-          components?: Record<string, unknown>;
-        }
-      ).components
-    : undefined;
-  const receipt = {
+  const prevFiles = existsSync(receiptPath)
+    ? readReceipt(JSON.parse(readFileSync(receiptPath, "utf8"))).files
+    : [];
+  // kern.json: the project records its install choices once, and `kern add`
+  // reads them back — target renderer and mode are project facts, not flags to
+  // re-type (and re-typo) on every command.
+  const kernJson = {
+    target: dest,
+    renderer: "web",
+    mode: "source-hybrid",
     kern: version,
-    mode: "scaffold",
-    components: prevComponents ?? {},
+  };
+  writeFileSync(
+    join(dest, "kern.json"),
+    `${JSON.stringify(kernJson, null, 2)}\n`,
+  );
+  const receipt: InstallReceipt = {
+    schemaVersion: "2",
+    releaseSet: loadRegistry(root).releaseSet,
+    mode: "source-hybrid",
+    files: prevFiles,
+    assets: [],
+    licenses: [],
+    config: { kern: version, scaffold: "web" },
   };
   writeFileSync(receiptPath, `${JSON.stringify(receipt, null, 2)}\n`);
 

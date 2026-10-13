@@ -75,11 +75,15 @@ describe("kern init (Mode 2 scaffold)", () => {
       const readme = readFileSync(join(dir, "README.md"), "utf8");
       expect(readme).toContain("0.0.0");
       expect(readme).toContain("unpublished");
-      // Receipt stamped from day one, same shape `kern add` merges into.
+      // Receipt stamped from day one, same v2 shape `kern add` merges into.
       const receipt = JSON.parse(readFileSync(r.receipt, "utf8"));
-      expect(receipt.kern).toBe("0.0.0");
-      expect(receipt.mode).toBe("scaffold");
-      expect(receipt.components).toEqual({});
+      expect(receipt.schemaVersion).toBe("2");
+      expect(receipt.config.kern).toBe("0.0.0");
+      expect(receipt.files).toEqual([]);
+      // The project records its install choices once.
+      const kernJson = JSON.parse(readFileSync(join(dir, "kern.json"), "utf8"));
+      expect(kernJson.renderer).toBe("web");
+      expect(kernJson.mode).toBe("source-hybrid");
       expect(r.instructions).toContain("bun install");
       expect(r.instructions).toContain("bun run dev");
     } finally {

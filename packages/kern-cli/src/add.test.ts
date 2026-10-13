@@ -25,8 +25,18 @@ describe("kern add (Mode 1 smoke)", () => {
       expect(r.npm).toContain("class-variance-authority");
       expect(existsSync(join(dest, "components/button.tsx"))).toBe(true);
       const receipt = JSON.parse(readFileSync(r.receipt, "utf8"));
-      expect(receipt.kern).toBe("0.0.0");
-      expect(Object.keys(receipt.components)).toEqual(["button"]);
+      // v2 receipt: release set pinned, files owned, hashes baselined.
+      expect(receipt.schemaVersion).toBe("2");
+      expect(receipt.config.kern).toBe("0.0.0");
+      expect(receipt.releaseSet).toMatch(/^kern@0\.0\.0\+/);
+      const owners = [
+        ...new Set(receipt.files.map((f: { owner: string }) => f.owner)),
+      ];
+      expect(owners).toEqual(["component:button"]);
+      const row = receipt.files.find(
+        (f: { path: string }) => f.path === "components/button.tsx",
+      );
+      expect(row.baselineHash).toMatch(/^[0-9a-f]{16}$/);
       // Relative imports preserved byte-identical: vendored tree self-closes.
       const src = readFileSync(
         join(WORKSPACE_ROOT, "packages/kern/src/components/button.tsx"),
@@ -49,7 +59,7 @@ describe("kern add (Mode 1 smoke)", () => {
     ).toThrow("unknown component");
   });
 
-  it("refuses native in web-only v1", () => {
+  it("installs a native-only component from the native row (platform first)", () => {
     // Derived, not hardcoded: a manifest name with no web row today.
     const rows = loadManifest(WORKSPACE_ROOT);
     const web = new Set(
@@ -60,12 +70,26 @@ describe("kern add (Mode 1 smoke)", () => {
     );
     if (!nativeOnly)
       throw new Error("test setup: no native-only manifest row today");
-    expect(() =>
-      addComponent(nativeOnly.name, {
+    const dest = freshDest();
+    try {
+      // Default platform is web: the native-only name refuses with the
+      // available platforms named — a shared name can never copy web source
+      // for a native install by accident.
+      expect(() =>
+        addComponent(nativeOnly.name, { root: WORKSPACE_ROOT, dest }),
+      ).toThrow("not available for web");
+      const r = addComponent(nativeOnly.name, {
         root: WORKSPACE_ROOT,
-        dest: freshDest(),
-      }),
-    ).toThrow("web-only");
+        dest,
+        platform: "native",
+      });
+      expect(r.platform).toBe("native");
+      expect(r.files.length).toBeGreaterThan(0);
+      const receipt = JSON.parse(readFileSync(r.receipt, "utf8"));
+      expect(receipt.config.platform).toBe("native");
+    } finally {
+      rmSync(dest, { recursive: true, force: true });
+    }
   });
 
   it("merges a second component into the same receipt (add×N shell)", {
@@ -87,7 +111,15 @@ describe("kern add (Mode 1 smoke)", () => {
       const receipt = JSON.parse(
         readFileSync(join(dest, "kern.receipt.json"), "utf8"),
       );
-      expect(Object.keys(receipt.components).sort()).toEqual([...pair].sort());
+      const owners = [
+        ...new Set(
+          receipt.files.map(
+            (f: { owner: string; path: string; baselineHash: string }) =>
+              f.owner,
+          ),
+        ),
+      ].sort();
+      expect(owners).toEqual(pair.map((n) => `component:${n}`).sort());
     } finally {
       rmSync(dest, { recursive: true, force: true });
     }

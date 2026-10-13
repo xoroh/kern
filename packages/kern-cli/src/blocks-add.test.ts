@@ -57,6 +57,31 @@ export function Root() {
     join(pkgDir, "package.json"),
     `${JSON.stringify({ name: "@xoroh/kern", version: "0.0.0" }, null, 2)}\n`,
   );
+  // Block dependency closures resolve against the manifest — the fixture
+  // carries a one-row registry plus the component it names, so the test
+  // proves closure vendoring without touching the real workspace.
+  const compDir = join(pkgDir, "src", "components");
+  mkdirSync(compDir, { recursive: true });
+  writeFileSync(
+    join(compDir, "button.tsx"),
+    `export function Button() {\n  return null;\n}\n`,
+  );
+  const mcpDir = join(root, "packages", "mcp", "src");
+  mkdirSync(mcpDir, { recursive: true });
+  writeFileSync(
+    join(mcpDir, "manifest.ts"),
+    `export const COMPONENTS = [
+  {
+    name: "button",
+    export: "Button",
+    platform: "web",
+    entrypoint: ".",
+    path: "src/components/button.tsx",
+    status: "real",
+  },
+];
+`,
+  );
   return root;
 }
 
@@ -75,13 +100,20 @@ describe("kern add <block> (multi-file)", () => {
       const row = rows.find((r) => r.name === "settings-screen");
       expect(row).toBeDefined();
       const r = addBlock("settings-screen", { root: WORKSPACE_ROOT, dest });
-      expect(r.files).toEqual(["blocks/settings-screen.tsx"]);
+      // Declared block file plus the closure of its registry dependencies.
+      expect(r.files).toContain("blocks/settings-screen.tsx");
+      expect(r.files.length).toBeGreaterThan(1);
       expect(existsSync(join(dest, "blocks/settings-screen.tsx"))).toBe(true);
       const receipt = JSON.parse(readFileSync(r.receipt, "utf8"));
-      expect(Object.keys(receipt.blocks)).toEqual(["settings-screen"]);
-      expect(Object.keys(receipt.blocks["settings-screen"].files)).toEqual([
-        "blocks/settings-screen.tsx",
-      ]);
+      const owners = [
+        ...new Set(receipt.files.map((f: { owner: string }) => f.owner)),
+      ];
+      expect(owners).toContain("block:settings-screen");
+      expect(
+        receipt.files.find(
+          (f: { path: string }) => f.path === "blocks/settings-screen.tsx",
+        ),
+      ).toBeDefined();
     } finally {
       rmSync(dest, { recursive: true, force: true });
     }
@@ -95,7 +127,13 @@ describe("kern add <block> (multi-file)", () => {
       expect(rows[0].files).toEqual(["sibling.tsx"]);
       const r = addBlock("two-file", { root, dest });
       expect(r.files).toEqual(
-        expect.arrayContaining(["blocks/root.tsx", "blocks/sibling.tsx"]),
+        expect.arrayContaining([
+          "blocks/root.tsx",
+          "blocks/sibling.tsx",
+          // The Button closure vendors alongside — the block is not installed
+          // half-built.
+          "components/button.tsx",
+        ]),
       );
       expect(existsSync(join(dest, "blocks/sibling.tsx"))).toBe(true);
     } finally {
@@ -110,13 +148,21 @@ describe("kern add <block> (multi-file)", () => {
     ).toThrow(/unknown block/);
   });
 
-  it("refuses re-adding a vendored block (re-add is an upgrade)", () => {
+  it("identical re-add is a no-op; edited re-add refuses (upgrade instead)", {
+    timeout: 120_000,
+  }, () => {
     const dest = freshDest();
     try {
       addBlock("auth-form", { root: WORKSPACE_ROOT, dest });
+      // Byte-identical: no-op, receipt untouched.
+      const again = addBlock("auth-form", { root: WORKSPACE_ROOT, dest });
+      expect(again.files).toEqual([]);
+      // Owned edit: preflight refusal naming the upgrade path, never an
+      // overwrite — and the refusal happens before any write.
+      writeFileSync(join(dest, "blocks/auth-form.tsx"), "// owned\n");
       expect(() =>
         addBlock("auth-form", { root: WORKSPACE_ROOT, dest }),
-      ).toThrow(/already vendored/);
+      ).toThrow(/already exists with different content/);
     } finally {
       rmSync(dest, { recursive: true, force: true });
     }
@@ -133,8 +179,11 @@ describe("kern add <block> (multi-file)", () => {
       expect(rows.find((b) => b.name === "badge")).toBeUndefined();
       const result = addComponent("badge", { root: WORKSPACE_ROOT, dest });
       const receipt = JSON.parse(readFileSync(result.receipt, "utf8"));
-      expect(Object.keys(receipt.blocks)).toEqual(["empty-search"]);
-      expect(Object.keys(receipt.components)).toContain("badge");
+      const owners = new Set(
+        receipt.files.map((f: { owner: string }) => f.owner),
+      );
+      expect(owners.has("block:empty-search")).toBe(true);
+      expect(owners.has("component:badge")).toBe(true);
     } finally {
       rmSync(dest, { recursive: true, force: true });
     }

@@ -1,20 +1,54 @@
-#!/usr/bin/env bun
 /** `kern` — dual-delivery installer. Mode 1 (`add`) vendored; Mode 2 is `bun add @xoroh/kern`. */
-import { addBlock, addComponent } from "./add.js";
+import { type AddPlatform, addBlock, addComponent } from "./add.js";
 import { loadBlocks } from "./blocks.js";
 import { initScaffold } from "./init.js";
-import { loadManifest } from "./manifest.js";
+import {
+  diffDest,
+  formatDiff,
+  listBlocks,
+  listComponents,
+} from "./list-diff.js";
+import { loadRegistry } from "./manifest.js";
+import { formatUpgrade, upgradeComponent } from "./upgrade.js";
 
 const [, , cmd, ...rest] = process.argv;
+
+function flagValue(name: string): string | undefined {
+  const idx = rest.indexOf(name);
+  if (idx < 0) return undefined;
+  const value = rest[idx + 1];
+  if (!value || value.startsWith("--")) {
+    console.error(`kern: ${name} needs a value.`);
+    process.exit(1);
+  }
+  return value;
+}
+
+function platformFlag(): AddPlatform | undefined {
+  const value = flagValue("--platform");
+  if (value === undefined) return undefined;
+  if (value !== "web" && value !== "native") {
+    console.error(`kern: --platform is "web" or "native", not "${value}".`);
+    process.exit(1);
+  }
+  return value;
+}
 
 function usage(): never {
   console.log(`kern — vendored components (Mode 1) + dependency install (Mode 2)
 
   kern init <dir> [--from <workspace>] [--registry] [--force]
-      scaffold the starter: install → run → themed screen (preset picker:
-      kern / sharp / brand / demo tenant)
-  kern add <name> [--dest <dir>] [--self-contained]   vendor a web component + closure
-  kern add <block> [--dest <dir>]                     vendor a multi-file block (settings-screen, auth-form, …)
+      scaffold the starter: install → run → themed screen (writes kern.json)
+  kern add <name> [--dest <dir>] [--platform web|native] [--self-contained]
+      vendor a component or block + closure (transactional: a late failure
+      writes nothing)
+  kern list [--platform web|native|all]
+      what the registry holds, with platform, entrypoint and status
+  kern diff [--dest <dir>]
+      receipt vs destination: current, customized, removed
+  kern upgrade <name> [--dest <dir>] [--apply]
+      dry-run plan by default; --apply updates non-customized files and
+      preserves owned edits (never overwritten)
   bun add @xoroh/kern                                 Mode 2: versioned dependency (no command needed)
 
 Options:
@@ -22,37 +56,34 @@ Options:
   --registry         emit versioned dep names instead of file: (post-publish; 404s until then)
   --force            scaffold over a non-empty dir (same kern version only)
   --dest <dir>       where vendored code lands (default: ./components/kern)
+  --platform <p>     web (default) or native; native selects the native row first
   --self-contained   vendor the token CSS snapshot too (default: hybrid — values stayed depended)
+  --apply            kern upgrade: perform the plan (default is dry-run)
 
 Pre-publish (0.0.0, unpublished): registry names resolve only after the first
 publish. init defaults to file: deps against your checkout so first run works
-today; add reads the workspace manifest for the same reason.
+today; add reads the workspace manifest (or the bundled registry in a packed
+install) for the same reason.
 
-Receipts (<dest>/kern.receipt.json) record kern version + file hashes from day one:
-they are what \`kern diff\` / \`kern upgrade\` (step 3) compare against.`);
+Receipts (<dest>/kern.receipt.json, schema v2) record release set + file
+hashes + owners from day one: they are what \`kern diff\` / \`kern upgrade\`
+compare against.`);
   process.exit(cmd === undefined ? 0 : 1);
 }
 
-if (cmd === undefined || cmd === "--help" || cmd === "-h") usage();
-if (cmd !== "add" && cmd !== "init") {
-  console.error(`kern: unknown command "${cmd}".`);
-  usage();
+function die(message: string): never {
+  console.error(message);
+  process.exit(1);
 }
 
-if (cmd === "init") {
-  const target = rest.find((a: string) => !a.startsWith("--"));
-  if (!target) {
-    console.error("kern init: missing <dir>.");
-    usage();
-  }
-  const fromIdx = rest.indexOf("--from");
-  const from = fromIdx >= 0 ? rest[fromIdx + 1] : undefined;
-  if (fromIdx >= 0 && !from) {
-    console.error("kern init: --from needs a workspace root.");
-    process.exit(1);
-  }
-  try {
-    const result = initScaffold(target, {
+if (cmd === undefined || cmd === "--help" || cmd === "-h") usage();
+
+try {
+  if (cmd === "init") {
+    const target = rest.find((a: string) => !a.startsWith("--"));
+    if (!target) die("kern init: missing <dir>.");
+    const from = flagValue("--from");
+    const result = initScaffold(target as string, {
       root: from,
       registry: rest.includes("--registry"),
       force: rest.includes("--force"),
@@ -64,57 +95,61 @@ if (cmd === "init") {
     console.log(`receipt: ${result.receipt}`);
     console.log("run these yourself (never executed for you):");
     for (const line of result.instructions) console.log(`  ${line}`);
-  } catch (err) {
-    console.error((err as Error).message);
-    process.exit(1);
-  }
-} else {
-  const name = rest.find((a: string) => !a.startsWith("--"));
-  if (!name) {
-    console.error("kern add: missing <name>.");
-    usage();
-  }
-  const destIdx = rest.indexOf("--dest");
-  const dest = destIdx >= 0 ? rest[destIdx + 1] : undefined;
-  if (destIdx >= 0 && !dest) {
-    console.error("kern add: --dest needs a directory.");
-    process.exit(1);
-  }
-  const selfContained = rest.includes("--self-contained");
-
-  try {
+  } else if (cmd === "add") {
+    const name = rest.find((a: string) => !a.startsWith("--"));
+    if (!name) die("kern add: missing <name>.");
+    const dest = flagValue("--dest");
+    const platform = platformFlag();
+    const selfContained = rest.includes("--self-contained");
     // Blocks and components share the `add` verb and the name space. A name
     // that exists in BOTH is refused rather than silently resolved to one:
     // `kern add settings-row` must never mean "whatever the resolver found
     // first".
     const blocks = loadBlocks().map((b) => b.name);
-    const components = loadManifest().map((c) => c.name);
+    const components = loadRegistry().rows.map((c) => c.name);
     const isBlock = blocks.includes(name);
     const isComponent = components.includes(name);
     if (isBlock && isComponent) {
-      console.error(
+      die(
         `kern add: "${name}" is both a block and a component — rename one (blocks live in apps/site/src/blocks/manifest.ts).`,
       );
-      process.exit(1);
     }
     if (!isBlock && !isComponent) {
-      console.error(
-        `kern add: unknown name "${name}" — neither a component (packages/mcp/src/manifest.ts) nor a block (apps/site/src/blocks/manifest.ts).`,
+      die(
+        `kern add: unknown name "${name}" — neither a component (registry) nor a block (apps/site/src/blocks/manifest.ts).`,
       );
-      process.exit(1);
     }
     const result = isBlock
-      ? addBlock(name, { dest, selfContained })
-      : addComponent(name, { dest, selfContained });
+      ? addBlock(name, { dest, selfContained, platform })
+      : addComponent(name, { dest, selfContained, platform });
     console.log(
-      `kern add ${name}: vendored ${result.files.length} file(s)${isBlock ? " (block)" : ""}`,
+      `kern add ${name}: vendored ${result.files.length} file(s)${isBlock ? " (block)" : ""} [${result.platform}]`,
     );
     for (const f of result.files) console.log(`  + ${f}`);
     console.log(`receipt: ${result.receipt}`);
     console.log("run these yourself (never executed for you):");
     for (const line of result.instructions) console.log(`  ${line}`);
-  } catch (err) {
-    console.error((err as Error).message);
-    process.exit(1);
+  } else if (cmd === "list") {
+    const platform = platformFlag() ?? "all";
+    for (const line of listComponents({ platform })) console.log(line);
+    console.log("--- blocks ---");
+    for (const line of listBlocks()) console.log(line);
+  } else if (cmd === "diff") {
+    const dest = flagValue("--dest") ?? "components/kern";
+    console.log(formatDiff(diffDest(dest)));
+  } else if (cmd === "upgrade") {
+    const name = rest.find((a: string) => !a.startsWith("--"));
+    if (!name) die("kern upgrade: missing <name>.");
+    const dest = flagValue("--dest");
+    const result = upgradeComponent(name, {
+      dest,
+      apply: rest.includes("--apply"),
+    });
+    console.log(formatUpgrade(result));
+  } else {
+    die(`kern: unknown command "${cmd}".`);
   }
+} catch (err) {
+  console.error((err as Error).message);
+  process.exit(1);
 }

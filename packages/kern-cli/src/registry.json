@@ -1,0 +1,3350 @@
+{
+  "version": "0.0.0",
+  "releaseSet": "kern@0.0.0+418.c6e51cd44435481e",
+  "rows": [
+    {
+      "name": "accordion-root",
+      "export": "AccordionRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/accordion.tsx",
+      "status": "real"
+    },
+    {
+      "name": "accordion-item",
+      "export": "AccordionItem",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/accordion.tsx",
+      "status": "real"
+    },
+    {
+      "name": "accordion-header",
+      "export": "AccordionHeader",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/accordion.tsx",
+      "status": "real"
+    },
+    {
+      "name": "accordion-trigger",
+      "export": "AccordionTrigger",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/accordion.tsx",
+      "status": "real"
+    },
+    {
+      "name": "accordion-panel",
+      "export": "AccordionPanel",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/accordion.tsx",
+      "status": "real"
+    },
+    {
+      "name": "accordion",
+      "export": "Accordion",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/accordion.tsx",
+      "status": "real"
+    },
+    {
+      "name": "alert-dialog-root",
+      "export": "AlertDialogRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/alert-dialog.tsx",
+      "status": "real"
+    },
+    {
+      "name": "alert-dialog-trigger",
+      "export": "AlertDialogTrigger",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/alert-dialog.tsx",
+      "status": "real"
+    },
+    {
+      "name": "alert-dialog-content",
+      "export": "AlertDialogContent",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/alert-dialog.tsx",
+      "status": "real"
+    },
+    {
+      "name": "alert-dialog-title",
+      "export": "AlertDialogTitle",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/alert-dialog.tsx",
+      "status": "real"
+    },
+    {
+      "name": "alert-dialog-description",
+      "export": "AlertDialogDescription",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/alert-dialog.tsx",
+      "status": "real"
+    },
+    {
+      "name": "alert-dialog-close",
+      "export": "AlertDialogClose",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/alert-dialog.tsx",
+      "status": "real"
+    },
+    {
+      "name": "alert-dialog",
+      "export": "AlertDialog",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/alert-dialog.tsx",
+      "status": "real"
+    },
+    {
+      "name": "autocomplete-root",
+      "export": "AutocompleteRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/autocomplete.tsx",
+      "status": "real"
+    },
+    {
+      "name": "autocomplete-label",
+      "export": "AutocompleteLabel",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/autocomplete.tsx",
+      "status": "real"
+    },
+    {
+      "name": "autocomplete-input",
+      "export": "AutocompleteInput",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/autocomplete.tsx",
+      "status": "real"
+    },
+    {
+      "name": "autocomplete-content",
+      "export": "AutocompleteContent",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/autocomplete.tsx",
+      "status": "real"
+    },
+    {
+      "name": "autocomplete-item",
+      "export": "AutocompleteItem",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/autocomplete.tsx",
+      "status": "real"
+    },
+    {
+      "name": "autocomplete-empty",
+      "export": "AutocompleteEmpty",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/autocomplete.tsx",
+      "status": "real"
+    },
+    {
+      "name": "autocomplete",
+      "export": "Autocomplete",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/autocomplete.tsx",
+      "status": "real"
+    },
+    {
+      "name": "avatar-root",
+      "export": "AvatarRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/avatar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "avatar-image",
+      "export": "AvatarImage",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/avatar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "avatar-fallback",
+      "export": "AvatarFallback",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/avatar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "avatar",
+      "export": "Avatar",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/avatar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "badge",
+      "export": "Badge",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/badge.tsx",
+      "status": "real"
+    },
+    {
+      "name": "banner",
+      "export": "Banner",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/banner.tsx",
+      "status": "real"
+    },
+    {
+      "name": "banner-action",
+      "export": "BannerAction",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/banner.tsx",
+      "status": "real"
+    },
+    {
+      "name": "boot-indicator",
+      "export": "BootIndicator",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/boot-indicator.tsx",
+      "status": "real"
+    },
+    {
+      "name": "button-group",
+      "export": "ButtonGroup",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/button-group.tsx",
+      "status": "real"
+    },
+    {
+      "name": "button",
+      "export": "Button",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/button.tsx",
+      "status": "real"
+    },
+    {
+      "name": "calendar",
+      "export": "Calendar",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/calendar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "card",
+      "export": "Card",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/card.tsx",
+      "status": "real"
+    },
+    {
+      "name": "card-header",
+      "export": "CardHeader",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/card.tsx",
+      "status": "real"
+    },
+    {
+      "name": "card-content",
+      "export": "CardContent",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/card.tsx",
+      "status": "real"
+    },
+    {
+      "name": "card-actions",
+      "export": "CardActions",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/card.tsx",
+      "status": "real"
+    },
+    {
+      "name": "carousel",
+      "export": "Carousel",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/carousel.tsx",
+      "status": "real"
+    },
+    {
+      "name": "checkbox-group-root",
+      "export": "CheckboxGroupRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/checkbox-group.tsx",
+      "status": "real"
+    },
+    {
+      "name": "checkbox-group-item",
+      "export": "CheckboxGroupItem",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/checkbox-group.tsx",
+      "status": "real"
+    },
+    {
+      "name": "checkbox-group",
+      "export": "CheckboxGroup",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/checkbox-group.tsx",
+      "status": "real"
+    },
+    {
+      "name": "checkbox",
+      "export": "Checkbox",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/checkbox.tsx",
+      "status": "real"
+    },
+    {
+      "name": "chip",
+      "export": "Chip",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/chip.tsx",
+      "status": "real"
+    },
+    {
+      "name": "circular-progress",
+      "export": "CircularProgress",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/circular-progress.tsx",
+      "status": "real"
+    },
+    {
+      "name": "collapsible-root",
+      "export": "CollapsibleRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/collapsible.tsx",
+      "status": "real"
+    },
+    {
+      "name": "collapsible-trigger",
+      "export": "CollapsibleTrigger",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/collapsible.tsx",
+      "status": "real"
+    },
+    {
+      "name": "collapsible-panel",
+      "export": "CollapsiblePanel",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/collapsible.tsx",
+      "status": "real"
+    },
+    {
+      "name": "collapsible",
+      "export": "Collapsible",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/collapsible.tsx",
+      "status": "real"
+    },
+    {
+      "name": "combobox-root",
+      "export": "ComboboxRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/combobox.tsx",
+      "status": "real"
+    },
+    {
+      "name": "combobox-label",
+      "export": "ComboboxLabel",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/combobox.tsx",
+      "status": "real"
+    },
+    {
+      "name": "combobox-input",
+      "export": "ComboboxInput",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/combobox.tsx",
+      "status": "real"
+    },
+    {
+      "name": "combobox-trigger",
+      "export": "ComboboxTrigger",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/combobox.tsx",
+      "status": "real"
+    },
+    {
+      "name": "combobox-clear",
+      "export": "ComboboxClear",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/combobox.tsx",
+      "status": "real"
+    },
+    {
+      "name": "combobox-content",
+      "export": "ComboboxContent",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/combobox.tsx",
+      "status": "real"
+    },
+    {
+      "name": "combobox-item",
+      "export": "ComboboxItem",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/combobox.tsx",
+      "status": "real"
+    },
+    {
+      "name": "combobox-empty",
+      "export": "ComboboxEmpty",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/combobox.tsx",
+      "status": "real"
+    },
+    {
+      "name": "combobox",
+      "export": "Combobox",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/combobox.tsx",
+      "status": "real"
+    },
+    {
+      "name": "command-root",
+      "export": "CommandRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/command.tsx",
+      "status": "real"
+    },
+    {
+      "name": "command-input",
+      "export": "CommandInput",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/command.tsx",
+      "status": "real"
+    },
+    {
+      "name": "command-content",
+      "export": "CommandContent",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/command.tsx",
+      "status": "real"
+    },
+    {
+      "name": "command-list",
+      "export": "CommandList",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/command.tsx",
+      "status": "real"
+    },
+    {
+      "name": "command-item",
+      "export": "CommandItem",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/command.tsx",
+      "status": "real"
+    },
+    {
+      "name": "command-empty",
+      "export": "CommandEmpty",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/command.tsx",
+      "status": "real"
+    },
+    {
+      "name": "command-separator",
+      "export": "CommandSeparator",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/command.tsx",
+      "status": "real"
+    },
+    {
+      "name": "command-group-label",
+      "export": "CommandGroupLabel",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/command.tsx",
+      "status": "real"
+    },
+    {
+      "name": "command",
+      "export": "Command",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/command.tsx",
+      "status": "real"
+    },
+    {
+      "name": "context-menu-root",
+      "export": "ContextMenuRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/context-menu.tsx",
+      "status": "real"
+    },
+    {
+      "name": "context-menu-trigger",
+      "export": "ContextMenuTrigger",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/context-menu.tsx",
+      "status": "real"
+    },
+    {
+      "name": "context-menu-content",
+      "export": "ContextMenuContent",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/context-menu.tsx",
+      "status": "real"
+    },
+    {
+      "name": "context-menu-item",
+      "export": "ContextMenuItem",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/context-menu.tsx",
+      "status": "real"
+    },
+    {
+      "name": "context-menu-separator",
+      "export": "ContextMenuSeparator",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/context-menu.tsx",
+      "status": "real"
+    },
+    {
+      "name": "context-menu",
+      "export": "ContextMenu",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/context-menu.tsx",
+      "status": "real"
+    },
+    {
+      "name": "country-select-root",
+      "export": "CountrySelectRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/country-select.tsx",
+      "status": "real"
+    },
+    {
+      "name": "country-select-label",
+      "export": "CountrySelectLabel",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/country-select.tsx",
+      "status": "real"
+    },
+    {
+      "name": "country-select-trigger",
+      "export": "CountrySelectTrigger",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/country-select.tsx",
+      "status": "real"
+    },
+    {
+      "name": "country-select-value",
+      "export": "CountrySelectValue",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/country-select.tsx",
+      "status": "real"
+    },
+    {
+      "name": "country-select-content",
+      "export": "CountrySelectContent",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/country-select.tsx",
+      "status": "real"
+    },
+    {
+      "name": "country-select-item",
+      "export": "CountrySelectItem",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/country-select.tsx",
+      "status": "real"
+    },
+    {
+      "name": "country-select",
+      "export": "CountrySelect",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/country-select.tsx",
+      "status": "real"
+    },
+    {
+      "name": "dialog-root",
+      "export": "DialogRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/dialog.tsx",
+      "status": "real"
+    },
+    {
+      "name": "dialog-trigger",
+      "export": "DialogTrigger",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/dialog.tsx",
+      "status": "real"
+    },
+    {
+      "name": "dialog-content",
+      "export": "DialogContent",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/dialog.tsx",
+      "status": "real"
+    },
+    {
+      "name": "dialog-title",
+      "export": "DialogTitle",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/dialog.tsx",
+      "status": "real"
+    },
+    {
+      "name": "dialog-description",
+      "export": "DialogDescription",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/dialog.tsx",
+      "status": "real"
+    },
+    {
+      "name": "dialog-close",
+      "export": "DialogClose",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/dialog.tsx",
+      "status": "real"
+    },
+    {
+      "name": "dialog",
+      "export": "Dialog",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/dialog.tsx",
+      "status": "real"
+    },
+    {
+      "name": "drawer-root",
+      "export": "DrawerRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/drawer.tsx",
+      "status": "real"
+    },
+    {
+      "name": "drawer-trigger",
+      "export": "DrawerTrigger",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/drawer.tsx",
+      "status": "real"
+    },
+    {
+      "name": "drawer-content",
+      "export": "DrawerContent",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/drawer.tsx",
+      "status": "real"
+    },
+    {
+      "name": "drawer-title",
+      "export": "DrawerTitle",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/drawer.tsx",
+      "status": "real"
+    },
+    {
+      "name": "drawer-description",
+      "export": "DrawerDescription",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/drawer.tsx",
+      "status": "real"
+    },
+    {
+      "name": "drawer-close",
+      "export": "DrawerClose",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/drawer.tsx",
+      "status": "real"
+    },
+    {
+      "name": "drawer",
+      "export": "Drawer",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/drawer.tsx",
+      "status": "real"
+    },
+    {
+      "name": "empty-state",
+      "export": "EmptyState",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/empty-state.tsx",
+      "status": "real"
+    },
+    {
+      "name": "kern-error-boundary",
+      "export": "KernErrorBoundary",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/error-boundary.tsx",
+      "status": "real"
+    },
+    {
+      "name": "extended-fab",
+      "export": "ExtendedFab",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/extended-fab.tsx",
+      "status": "real"
+    },
+    {
+      "name": "fab-menu",
+      "export": "FabMenu",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/fab-menu.tsx",
+      "status": "real"
+    },
+    {
+      "name": "fab",
+      "export": "Fab",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/fab.tsx",
+      "status": "real"
+    },
+    {
+      "name": "field-message",
+      "export": "FieldMessage",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/field-message.tsx",
+      "status": "real"
+    },
+    {
+      "name": "field-root",
+      "export": "FieldRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/field.tsx",
+      "status": "real"
+    },
+    {
+      "name": "field-label",
+      "export": "FieldLabel",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/field.tsx",
+      "status": "real"
+    },
+    {
+      "name": "field-description",
+      "export": "FieldDescription",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/field.tsx",
+      "status": "real"
+    },
+    {
+      "name": "field-error",
+      "export": "FieldError",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/field.tsx",
+      "status": "real"
+    },
+    {
+      "name": "field",
+      "export": "Field",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/field.tsx",
+      "status": "real"
+    },
+    {
+      "name": "fieldset-root",
+      "export": "FieldsetRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/fieldset.tsx",
+      "status": "real"
+    },
+    {
+      "name": "fieldset-legend",
+      "export": "FieldsetLegend",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/fieldset.tsx",
+      "status": "real"
+    },
+    {
+      "name": "fieldset",
+      "export": "Fieldset",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/fieldset.tsx",
+      "status": "real"
+    },
+    {
+      "name": "focus-ring",
+      "export": "FocusRing",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/focus-ring.tsx",
+      "status": "real"
+    },
+    {
+      "name": "form",
+      "export": "Form",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/form.tsx",
+      "status": "real"
+    },
+    {
+      "name": "icon-button",
+      "export": "IconButton",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/icon-button.tsx",
+      "status": "real"
+    },
+    {
+      "name": "input-otp-root",
+      "export": "InputOTPRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/input-otp.tsx",
+      "status": "real"
+    },
+    {
+      "name": "input-otp-input",
+      "export": "InputOTPInput",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/input-otp.tsx",
+      "status": "real"
+    },
+    {
+      "name": "input-otp",
+      "export": "InputOTP",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/input-otp.tsx",
+      "status": "real"
+    },
+    {
+      "name": "input",
+      "export": "Input",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/input.tsx",
+      "status": "real"
+    },
+    {
+      "name": "kbd",
+      "export": "Kbd",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/kbd.tsx",
+      "status": "real"
+    },
+    {
+      "name": "label",
+      "export": "Label",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/label.tsx",
+      "status": "real"
+    },
+    {
+      "name": "linear-progress",
+      "export": "LinearProgress",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/linear-progress.tsx",
+      "status": "real"
+    },
+    {
+      "name": "link-button",
+      "export": "LinkButton",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/link-button.tsx",
+      "status": "real"
+    },
+    {
+      "name": "list-item",
+      "export": "ListItem",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/list-item.tsx",
+      "status": "real"
+    },
+    {
+      "name": "loader",
+      "export": "Loader",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/loader.tsx",
+      "status": "real"
+    },
+    {
+      "name": "loading-button",
+      "export": "LoadingButton",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/loading-button.tsx",
+      "status": "real"
+    },
+    {
+      "name": "loading-indicator",
+      "export": "LoadingIndicator",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/loading-indicator.tsx",
+      "status": "real"
+    },
+    {
+      "name": "loading-region",
+      "export": "LoadingRegion",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/loading-indicator.tsx",
+      "status": "real"
+    },
+    {
+      "name": "menu-screen",
+      "export": "MenuScreen",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/menu-family.tsx",
+      "status": "real"
+    },
+    {
+      "name": "menu-sheet",
+      "export": "MenuSheet",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/menu-family.tsx",
+      "status": "real"
+    },
+    {
+      "name": "filter-chip-row",
+      "export": "FilterChipRow",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/menu-family.tsx",
+      "status": "real"
+    },
+    {
+      "name": "menu-root",
+      "export": "MenuRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/menu.tsx",
+      "status": "real"
+    },
+    {
+      "name": "menu-trigger",
+      "export": "MenuTrigger",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/menu.tsx",
+      "status": "real"
+    },
+    {
+      "name": "menu-content",
+      "export": "MenuContent",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/menu.tsx",
+      "status": "real"
+    },
+    {
+      "name": "menu-item",
+      "export": "MenuItem",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/menu.tsx",
+      "status": "real"
+    },
+    {
+      "name": "menu-separator",
+      "export": "MenuSeparator",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/menu.tsx",
+      "status": "real"
+    },
+    {
+      "name": "menu-group-label",
+      "export": "MenuGroupLabel",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/menu.tsx",
+      "status": "real"
+    },
+    {
+      "name": "menu",
+      "export": "Menu",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/menu.tsx",
+      "status": "real"
+    },
+    {
+      "name": "menubar-root",
+      "export": "MenubarRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/menubar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "menubar-menu",
+      "export": "MenubarMenu",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/menubar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "menubar-trigger",
+      "export": "MenubarTrigger",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/menubar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "menubar-content",
+      "export": "MenubarContent",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/menubar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "menubar-item",
+      "export": "MenubarItem",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/menubar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "menubar",
+      "export": "Menubar",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/menubar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "meter-root",
+      "export": "MeterRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/meter.tsx",
+      "status": "real"
+    },
+    {
+      "name": "meter-label",
+      "export": "MeterLabel",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/meter.tsx",
+      "status": "real"
+    },
+    {
+      "name": "meter-value",
+      "export": "MeterValue",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/meter.tsx",
+      "status": "real"
+    },
+    {
+      "name": "meter",
+      "export": "Meter",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/meter.tsx",
+      "status": "real"
+    },
+    {
+      "name": "native-select",
+      "export": "NativeSelect",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/native-select.tsx",
+      "status": "real"
+    },
+    {
+      "name": "navigation-bar",
+      "export": "NavigationBar",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/navigation-bar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "navigation-bar-item",
+      "export": "NavigationBarItem",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/navigation-bar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "navigation-drawer",
+      "export": "NavigationDrawer",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/navigation-drawer.tsx",
+      "status": "real"
+    },
+    {
+      "name": "navigation-menu-root",
+      "export": "NavigationMenuRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/navigation-menu.tsx",
+      "status": "real"
+    },
+    {
+      "name": "navigation-menu-list",
+      "export": "NavigationMenuList",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/navigation-menu.tsx",
+      "status": "real"
+    },
+    {
+      "name": "navigation-menu-item",
+      "export": "NavigationMenuItem",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/navigation-menu.tsx",
+      "status": "real"
+    },
+    {
+      "name": "navigation-menu-trigger",
+      "export": "NavigationMenuTrigger",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/navigation-menu.tsx",
+      "status": "real"
+    },
+    {
+      "name": "navigation-menu-content",
+      "export": "NavigationMenuContent",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/navigation-menu.tsx",
+      "status": "real"
+    },
+    {
+      "name": "navigation-menu-link",
+      "export": "NavigationMenuLink",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/navigation-menu.tsx",
+      "status": "real"
+    },
+    {
+      "name": "navigation-menu",
+      "export": "NavigationMenu",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/navigation-menu.tsx",
+      "status": "real"
+    },
+    {
+      "name": "number-field-root",
+      "export": "NumberFieldRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/number-field.tsx",
+      "status": "real"
+    },
+    {
+      "name": "number-field-input",
+      "export": "NumberFieldInput",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/number-field.tsx",
+      "status": "real"
+    },
+    {
+      "name": "number-field",
+      "export": "NumberField",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/number-field.tsx",
+      "status": "real"
+    },
+    {
+      "name": "page-loader",
+      "export": "PageLoader",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/page-loader.tsx",
+      "status": "real"
+    },
+    {
+      "name": "pagination",
+      "export": "Pagination",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/pagination.tsx",
+      "status": "real"
+    },
+    {
+      "name": "popover-root",
+      "export": "PopoverRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/popover.tsx",
+      "status": "real"
+    },
+    {
+      "name": "popover-trigger",
+      "export": "PopoverTrigger",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/popover.tsx",
+      "status": "real"
+    },
+    {
+      "name": "popover-content",
+      "export": "PopoverContent",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/popover.tsx",
+      "status": "real"
+    },
+    {
+      "name": "popover-title",
+      "export": "PopoverTitle",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/popover.tsx",
+      "status": "real"
+    },
+    {
+      "name": "popover-description",
+      "export": "PopoverDescription",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/popover.tsx",
+      "status": "real"
+    },
+    {
+      "name": "popover-close",
+      "export": "PopoverClose",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/popover.tsx",
+      "status": "real"
+    },
+    {
+      "name": "popover",
+      "export": "Popover",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/popover.tsx",
+      "status": "real"
+    },
+    {
+      "name": "preview-card-root",
+      "export": "PreviewCardRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/preview-card.tsx",
+      "status": "real"
+    },
+    {
+      "name": "preview-card-trigger",
+      "export": "PreviewCardTrigger",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/preview-card.tsx",
+      "status": "real"
+    },
+    {
+      "name": "preview-card-content",
+      "export": "PreviewCardContent",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/preview-card.tsx",
+      "status": "real"
+    },
+    {
+      "name": "preview-card",
+      "export": "PreviewCard",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/preview-card.tsx",
+      "status": "real"
+    },
+    {
+      "name": "progress-root",
+      "export": "ProgressRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/progress.tsx",
+      "status": "real"
+    },
+    {
+      "name": "progress-label",
+      "export": "ProgressLabel",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/progress.tsx",
+      "status": "real"
+    },
+    {
+      "name": "progress-value",
+      "export": "ProgressValue",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/progress.tsx",
+      "status": "real"
+    },
+    {
+      "name": "progress",
+      "export": "Progress",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/progress.tsx",
+      "status": "real"
+    },
+    {
+      "name": "radio-group",
+      "export": "RadioGroup",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/radio-group.tsx",
+      "status": "real"
+    },
+    {
+      "name": "radio-group-item",
+      "export": "RadioGroupItem",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/radio-group.tsx",
+      "status": "real"
+    },
+    {
+      "name": "scroll-area-root",
+      "export": "ScrollAreaRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/scroll-area.tsx",
+      "status": "real"
+    },
+    {
+      "name": "scroll-area-viewport",
+      "export": "ScrollAreaViewport",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/scroll-area.tsx",
+      "status": "real"
+    },
+    {
+      "name": "scroll-area-scrollbar",
+      "export": "ScrollAreaScrollbar",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/scroll-area.tsx",
+      "status": "real"
+    },
+    {
+      "name": "scroll-area",
+      "export": "ScrollArea",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/scroll-area.tsx",
+      "status": "real"
+    },
+    {
+      "name": "search",
+      "export": "Search",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/search.tsx",
+      "status": "real"
+    },
+    {
+      "name": "secondary-tabs",
+      "export": "SecondaryTabs",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/secondary-tabs.tsx",
+      "status": "real"
+    },
+    {
+      "name": "segmented-button-root",
+      "export": "SegmentedButtonRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/segmented-button.tsx",
+      "status": "real"
+    },
+    {
+      "name": "segmented-button-item",
+      "export": "SegmentedButtonItem",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/segmented-button.tsx",
+      "status": "real"
+    },
+    {
+      "name": "segmented-button",
+      "export": "SegmentedButton",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/segmented-button.tsx",
+      "status": "real"
+    },
+    {
+      "name": "select-root",
+      "export": "SelectRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/select.tsx",
+      "status": "real"
+    },
+    {
+      "name": "select-trigger",
+      "export": "SelectTrigger",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/select.tsx",
+      "status": "real"
+    },
+    {
+      "name": "select-value",
+      "export": "SelectValue",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/select.tsx",
+      "status": "real"
+    },
+    {
+      "name": "select-content",
+      "export": "SelectContent",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/select.tsx",
+      "status": "real"
+    },
+    {
+      "name": "select-item",
+      "export": "SelectItem",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/select.tsx",
+      "status": "real"
+    },
+    {
+      "name": "select-item-text",
+      "export": "SelectItemText",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/select.tsx",
+      "status": "real"
+    },
+    {
+      "name": "select-separator",
+      "export": "SelectSeparator",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/select.tsx",
+      "status": "real"
+    },
+    {
+      "name": "select-group",
+      "export": "SelectGroup",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/select.tsx",
+      "status": "real"
+    },
+    {
+      "name": "select-group-label",
+      "export": "SelectGroupLabel",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/select.tsx",
+      "status": "real"
+    },
+    {
+      "name": "select",
+      "export": "Select",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/select.tsx",
+      "status": "real"
+    },
+    {
+      "name": "separator",
+      "export": "Separator",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/separator.tsx",
+      "status": "real"
+    },
+    {
+      "name": "sheet-surface",
+      "export": "SheetSurface",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/sheet-family.tsx",
+      "status": "real"
+    },
+    {
+      "name": "bottom-sheet",
+      "export": "BottomSheet",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/sheet-family.tsx",
+      "status": "real"
+    },
+    {
+      "name": "dock-sheet",
+      "export": "DockSheet",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/sheet-family.tsx",
+      "status": "real"
+    },
+    {
+      "name": "snap-sheet",
+      "export": "SnapSheet",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/sheet-family.tsx",
+      "status": "real"
+    },
+    {
+      "name": "entity-sheet",
+      "export": "EntitySheet",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/sheet-family.tsx",
+      "status": "real"
+    },
+    {
+      "name": "bottom-sheet-picker",
+      "export": "BottomSheetPicker",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/sheet-family.tsx",
+      "status": "real"
+    },
+    {
+      "name": "action-sheet",
+      "export": "ActionSheet",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/sheet-family.tsx",
+      "status": "real"
+    },
+    {
+      "name": "sheet-root",
+      "export": "SheetRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/sheet.tsx",
+      "status": "real"
+    },
+    {
+      "name": "sheet-trigger",
+      "export": "SheetTrigger",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/sheet.tsx",
+      "status": "real"
+    },
+    {
+      "name": "sheet-content",
+      "export": "SheetContent",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/sheet.tsx",
+      "status": "real"
+    },
+    {
+      "name": "sheet-title",
+      "export": "SheetTitle",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/sheet.tsx",
+      "status": "real"
+    },
+    {
+      "name": "sheet-description",
+      "export": "SheetDescription",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/sheet.tsx",
+      "status": "real"
+    },
+    {
+      "name": "sheet-close",
+      "export": "SheetClose",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/sheet.tsx",
+      "status": "real"
+    },
+    {
+      "name": "sheet",
+      "export": "Sheet",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/sheet.tsx",
+      "status": "real"
+    },
+    {
+      "name": "skeleton",
+      "export": "Skeleton",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/skeleton.tsx",
+      "status": "real"
+    },
+    {
+      "name": "slider-root",
+      "export": "SliderRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/slider.tsx",
+      "status": "real"
+    },
+    {
+      "name": "slider-thumb",
+      "export": "SliderThumb",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/slider.tsx",
+      "status": "real"
+    },
+    {
+      "name": "slider-label",
+      "export": "SliderLabel",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/slider.tsx",
+      "status": "real"
+    },
+    {
+      "name": "slider-value",
+      "export": "SliderValue",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/slider.tsx",
+      "status": "real"
+    },
+    {
+      "name": "slider",
+      "export": "Slider",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/slider.tsx",
+      "status": "real"
+    },
+    {
+      "name": "snackbar-provider",
+      "export": "SnackbarProvider",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/snackbar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "snackbar-viewport",
+      "export": "SnackbarViewport",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/snackbar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "snackbar-root",
+      "export": "SnackbarRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/snackbar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "snackbar-title",
+      "export": "SnackbarTitle",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/snackbar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "snackbar-description",
+      "export": "SnackbarDescription",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/snackbar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "snackbar-action",
+      "export": "SnackbarAction",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/snackbar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "snackbar-close",
+      "export": "SnackbarClose",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/snackbar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "snackbar-list",
+      "export": "SnackbarList",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/snackbar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "snackbar",
+      "export": "Snackbar",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/snackbar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "sonner-provider",
+      "export": "SonnerProvider",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/sonner.tsx",
+      "status": "real"
+    },
+    {
+      "name": "sonner-viewport",
+      "export": "SonnerViewport",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/sonner.tsx",
+      "status": "real"
+    },
+    {
+      "name": "sonner-root",
+      "export": "SonnerRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/sonner.tsx",
+      "status": "real"
+    },
+    {
+      "name": "sonner-title",
+      "export": "SonnerTitle",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/sonner.tsx",
+      "status": "real"
+    },
+    {
+      "name": "sonner-description",
+      "export": "SonnerDescription",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/sonner.tsx",
+      "status": "real"
+    },
+    {
+      "name": "sonner-action",
+      "export": "SonnerAction",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/sonner.tsx",
+      "status": "real"
+    },
+    {
+      "name": "sonner-close",
+      "export": "SonnerClose",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/sonner.tsx",
+      "status": "real"
+    },
+    {
+      "name": "sonner-list",
+      "export": "SonnerList",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/sonner.tsx",
+      "status": "real"
+    },
+    {
+      "name": "sonner",
+      "export": "Sonner",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/sonner.tsx",
+      "status": "real"
+    },
+    {
+      "name": "split-button",
+      "export": "SplitButton",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/split-button.tsx",
+      "status": "real"
+    },
+    {
+      "name": "split",
+      "export": "Split",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/split.tsx",
+      "status": "real"
+    },
+    {
+      "name": "switch",
+      "export": "Switch",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/switch.tsx",
+      "status": "real"
+    },
+    {
+      "name": "table-root",
+      "export": "TableRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/table.tsx",
+      "status": "real"
+    },
+    {
+      "name": "table-head",
+      "export": "TableHead",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/table.tsx",
+      "status": "real"
+    },
+    {
+      "name": "table-body",
+      "export": "TableBody",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/table.tsx",
+      "status": "real"
+    },
+    {
+      "name": "table-row",
+      "export": "TableRow",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/table.tsx",
+      "status": "real"
+    },
+    {
+      "name": "table-header",
+      "export": "TableHeader",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/table.tsx",
+      "status": "real"
+    },
+    {
+      "name": "table-cell",
+      "export": "TableCell",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/table.tsx",
+      "status": "real"
+    },
+    {
+      "name": "table-caption",
+      "export": "TableCaption",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/table.tsx",
+      "status": "real"
+    },
+    {
+      "name": "table",
+      "export": "Table",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/table.tsx",
+      "status": "real"
+    },
+    {
+      "name": "tabs-root",
+      "export": "TabsRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/tabs.tsx",
+      "status": "real"
+    },
+    {
+      "name": "tabs-list",
+      "export": "TabsList",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/tabs.tsx",
+      "status": "real"
+    },
+    {
+      "name": "tabs-tab",
+      "export": "TabsTab",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/tabs.tsx",
+      "status": "real"
+    },
+    {
+      "name": "tabs-panel",
+      "export": "TabsPanel",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/tabs.tsx",
+      "status": "real"
+    },
+    {
+      "name": "tabs",
+      "export": "Tabs",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/tabs.tsx",
+      "status": "real"
+    },
+    {
+      "name": "text",
+      "export": "Text",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/text.tsx",
+      "status": "real"
+    },
+    {
+      "name": "textarea",
+      "export": "Textarea",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/textarea.tsx",
+      "status": "real"
+    },
+    {
+      "name": "time-picker",
+      "export": "TimePicker",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/time-picker.tsx",
+      "status": "real"
+    },
+    {
+      "name": "toggle-group-root",
+      "export": "ToggleGroupRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/toggle-group.tsx",
+      "status": "real"
+    },
+    {
+      "name": "toggle-group-item",
+      "export": "ToggleGroupItem",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/toggle-group.tsx",
+      "status": "real"
+    },
+    {
+      "name": "toggle-group",
+      "export": "ToggleGroup",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/toggle-group.tsx",
+      "status": "real"
+    },
+    {
+      "name": "toggle",
+      "export": "Toggle",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/toggle.tsx",
+      "status": "real"
+    },
+    {
+      "name": "toolbar-root",
+      "export": "ToolbarRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/toolbar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "toolbar-group",
+      "export": "ToolbarGroup",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/toolbar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "toolbar-button",
+      "export": "ToolbarButton",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/toolbar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "toolbar-separator",
+      "export": "ToolbarSeparator",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/toolbar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "toolbar",
+      "export": "Toolbar",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/toolbar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "tooltip-provider",
+      "export": "TooltipProvider",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/tooltip.tsx",
+      "status": "real"
+    },
+    {
+      "name": "tooltip-root",
+      "export": "TooltipRoot",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/tooltip.tsx",
+      "status": "real"
+    },
+    {
+      "name": "tooltip-trigger",
+      "export": "TooltipTrigger",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/tooltip.tsx",
+      "status": "real"
+    },
+    {
+      "name": "tooltip-content",
+      "export": "TooltipContent",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/tooltip.tsx",
+      "status": "real"
+    },
+    {
+      "name": "rich-tooltip-content",
+      "export": "RichTooltipContent",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/tooltip.tsx",
+      "status": "real"
+    },
+    {
+      "name": "rich-tooltip-title",
+      "export": "RichTooltipTitle",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/tooltip.tsx",
+      "status": "real"
+    },
+    {
+      "name": "rich-tooltip-actions",
+      "export": "RichTooltipActions",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/tooltip.tsx",
+      "status": "real"
+    },
+    {
+      "name": "tooltip",
+      "export": "Tooltip",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/tooltip.tsx",
+      "status": "real"
+    },
+    {
+      "name": "rich-tooltip",
+      "export": "RichTooltip",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/tooltip.tsx",
+      "status": "real"
+    },
+    {
+      "name": "search-bar",
+      "export": "SearchBar",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/blocks.tsx",
+      "status": "real"
+    },
+    {
+      "name": "settings-row",
+      "export": "SettingsRow",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/blocks.tsx",
+      "status": "real"
+    },
+    {
+      "name": "status-bar",
+      "export": "StatusBar",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/blocks.tsx",
+      "status": "real"
+    },
+    {
+      "name": "theme-toggle",
+      "export": "ThemeToggle",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/blocks.tsx",
+      "status": "real"
+    },
+    {
+      "name": "contrast-toggle",
+      "export": "ContrastToggle",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/blocks.tsx",
+      "status": "real"
+    },
+    {
+      "name": "link-provider",
+      "export": "LinkProvider",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/link.tsx",
+      "status": "real"
+    },
+    {
+      "name": "link",
+      "export": "Link",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/link.tsx",
+      "status": "real"
+    },
+    {
+      "name": "sidebar-provider",
+      "export": "SidebarProvider",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/navigation.tsx",
+      "status": "real"
+    },
+    {
+      "name": "sidebar",
+      "export": "Sidebar",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/navigation.tsx",
+      "status": "real"
+    },
+    {
+      "name": "sidebar-header",
+      "export": "SidebarHeader",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/navigation.tsx",
+      "status": "real"
+    },
+    {
+      "name": "sidebar-content",
+      "export": "SidebarContent",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/navigation.tsx",
+      "status": "real"
+    },
+    {
+      "name": "sidebar-footer",
+      "export": "SidebarFooter",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/navigation.tsx",
+      "status": "real"
+    },
+    {
+      "name": "sidebar-item",
+      "export": "SidebarItem",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/navigation.tsx",
+      "status": "real"
+    },
+    {
+      "name": "navigation-rail",
+      "export": "NavigationRail",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/navigation.tsx",
+      "status": "real"
+    },
+    {
+      "name": "navigation-rail-button",
+      "export": "NavigationRailButton",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/navigation.tsx",
+      "status": "real"
+    },
+    {
+      "name": "section-drawer",
+      "export": "SectionDrawer",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/navigation.tsx",
+      "status": "real"
+    },
+    {
+      "name": "pane",
+      "export": "Pane",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/panes.tsx",
+      "status": "real"
+    },
+    {
+      "name": "page",
+      "export": "Page",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/panes.tsx",
+      "status": "real"
+    },
+    {
+      "name": "split-grid",
+      "export": "SplitGrid",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/panes.tsx",
+      "status": "real"
+    },
+    {
+      "name": "split-panel",
+      "export": "SplitPanel",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/panes.tsx",
+      "status": "real"
+    },
+    {
+      "name": "list-detail",
+      "export": "ListDetail",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/panes.tsx",
+      "status": "real"
+    },
+    {
+      "name": "inspector",
+      "export": "Inspector",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/panes.tsx",
+      "status": "real"
+    },
+    {
+      "name": "app-shell",
+      "export": "AppShell",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/scaffolds.tsx",
+      "status": "real"
+    },
+    {
+      "name": "document",
+      "export": "Document",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/scaffolds.tsx",
+      "status": "real"
+    },
+    {
+      "name": "top-app-bar",
+      "export": "TopAppBar",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/top-app-bar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "top-app-bar-toggle",
+      "export": "TopAppBarToggle",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/top-app-bar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "app-top-bar",
+      "export": "AppTopBar",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/top-app-bar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "top-bar-menu",
+      "export": "TopBarMenu",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/top-app-bar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "apps-menu",
+      "export": "AppsMenu",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/top-app-bar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "help-menu",
+      "export": "HelpMenu",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/top-app-bar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "notifications-menu",
+      "export": "NotificationsMenu",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/top-app-bar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "user-menu",
+      "export": "UserMenu",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/top-app-bar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "accordion",
+      "export": "Accordion",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/accordion.tsx",
+      "status": "real"
+    },
+    {
+      "name": "alert-dialog",
+      "export": "AlertDialog",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/alert-dialog.tsx",
+      "status": "real"
+    },
+    {
+      "name": "app-shell",
+      "export": "AppShell",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/app-shell.tsx",
+      "status": "real"
+    },
+    {
+      "name": "aspect-ratio",
+      "export": "AspectRatio",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/aspect-ratio.tsx",
+      "status": "real"
+    },
+    {
+      "name": "autocomplete",
+      "export": "Autocomplete",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/autocomplete.tsx",
+      "status": "real"
+    },
+    {
+      "name": "avatar",
+      "export": "Avatar",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/avatar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "badge",
+      "export": "Badge",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/badge.tsx",
+      "status": "real"
+    },
+    {
+      "name": "button-group",
+      "export": "ButtonGroup",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/button-group.tsx",
+      "status": "real"
+    },
+    {
+      "name": "button",
+      "export": "Button",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/button.tsx",
+      "status": "real"
+    },
+    {
+      "name": "calendar",
+      "export": "Calendar",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/calendar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "card",
+      "export": "Card",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/card.tsx",
+      "status": "real"
+    },
+    {
+      "name": "card-header",
+      "export": "CardHeader",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/card.tsx",
+      "status": "real"
+    },
+    {
+      "name": "card-content",
+      "export": "CardContent",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/card.tsx",
+      "status": "real"
+    },
+    {
+      "name": "card-actions",
+      "export": "CardActions",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/card.tsx",
+      "status": "real"
+    },
+    {
+      "name": "carousel",
+      "export": "Carousel",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/carousel.tsx",
+      "status": "real"
+    },
+    {
+      "name": "checkbox-group",
+      "export": "CheckboxGroup",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/checkbox-group.tsx",
+      "status": "real"
+    },
+    {
+      "name": "checkbox-group-item",
+      "export": "CheckboxGroupItem",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/checkbox-group.tsx",
+      "status": "real"
+    },
+    {
+      "name": "checkbox",
+      "export": "Checkbox",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/checkbox.tsx",
+      "status": "real"
+    },
+    {
+      "name": "chip",
+      "export": "Chip",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/chip.tsx",
+      "status": "real"
+    },
+    {
+      "name": "circular-progress",
+      "export": "CircularProgress",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/circular-progress.tsx",
+      "status": "real"
+    },
+    {
+      "name": "collapsible",
+      "export": "Collapsible",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/collapsible.tsx",
+      "status": "real"
+    },
+    {
+      "name": "combobox",
+      "export": "Combobox",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/combobox.tsx",
+      "status": "real"
+    },
+    {
+      "name": "context-menu",
+      "export": "ContextMenu",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/context-menu.tsx",
+      "status": "real"
+    },
+    {
+      "name": "contrast-toggle",
+      "export": "ContrastToggle",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/contrast-toggle.tsx",
+      "status": "real"
+    },
+    {
+      "name": "dialog",
+      "export": "Dialog",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/dialog.tsx",
+      "status": "real"
+    },
+    {
+      "name": "empty-state",
+      "export": "EmptyState",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/empty-state.tsx",
+      "status": "real"
+    },
+    {
+      "name": "extended-fab",
+      "export": "ExtendedFab",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/extended-fab.tsx",
+      "status": "real"
+    },
+    {
+      "name": "fab-menu",
+      "export": "FabMenu",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/fab-menu.tsx",
+      "status": "real"
+    },
+    {
+      "name": "fab",
+      "export": "Fab",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/fab.tsx",
+      "status": "real"
+    },
+    {
+      "name": "field-message",
+      "export": "FieldMessage",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/field-message.tsx",
+      "status": "real"
+    },
+    {
+      "name": "field",
+      "export": "Field",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/field.tsx",
+      "status": "real"
+    },
+    {
+      "name": "field-root",
+      "export": "FieldRoot",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/field.tsx",
+      "status": "real"
+    },
+    {
+      "name": "fieldset",
+      "export": "Fieldset",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/fieldset.tsx",
+      "status": "real"
+    },
+    {
+      "name": "fieldset-legend",
+      "export": "FieldsetLegend",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/fieldset.tsx",
+      "status": "real"
+    },
+    {
+      "name": "fieldset-item",
+      "export": "FieldsetItem",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/fieldset.tsx",
+      "status": "real"
+    },
+    {
+      "name": "icon-button",
+      "export": "IconButton",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/icon-button.tsx",
+      "status": "real"
+    },
+    {
+      "name": "icon-button-target",
+      "export": "IconButtonTarget",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/icon-button.tsx",
+      "status": "real"
+    },
+    {
+      "name": "input-otp",
+      "export": "InputOTP",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/input-otp.tsx",
+      "status": "real"
+    },
+    {
+      "name": "input",
+      "export": "Input",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/input.tsx",
+      "status": "real"
+    },
+    {
+      "name": "kbd",
+      "export": "Kbd",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/kbd.tsx",
+      "status": "real"
+    },
+    {
+      "name": "label",
+      "export": "Label",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/label.tsx",
+      "status": "real"
+    },
+    {
+      "name": "filter-chip-row",
+      "export": "FilterChipRow",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/layouts.tsx",
+      "status": "real"
+    },
+    {
+      "name": "secondary-tabs",
+      "export": "SecondaryTabs",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/layouts.tsx",
+      "status": "real"
+    },
+    {
+      "name": "pane",
+      "export": "Pane",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/layouts.tsx",
+      "status": "real"
+    },
+    {
+      "name": "list-detail",
+      "export": "ListDetail",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/layouts.tsx",
+      "status": "real"
+    },
+    {
+      "name": "supporting-pane",
+      "export": "SupportingPane",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/layouts.tsx",
+      "status": "real"
+    },
+    {
+      "name": "linear-progress",
+      "export": "LinearProgress",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/linear-progress.tsx",
+      "status": "real"
+    },
+    {
+      "name": "link-button",
+      "export": "LinkButton",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/link-button.tsx",
+      "status": "real"
+    },
+    {
+      "name": "list-item",
+      "export": "ListItem",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/list-item.tsx",
+      "status": "real"
+    },
+    {
+      "name": "loader",
+      "export": "Loader",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/loader.tsx",
+      "status": "real"
+    },
+    {
+      "name": "loading-button",
+      "export": "LoadingButton",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/loading-button.tsx",
+      "status": "real"
+    },
+    {
+      "name": "loading-indicator",
+      "export": "LoadingIndicator",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/loading-indicator.tsx",
+      "status": "real"
+    },
+    {
+      "name": "menu",
+      "export": "Menu",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/menu.tsx",
+      "status": "real"
+    },
+    {
+      "name": "menubar",
+      "export": "Menubar",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/menubar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "menu-group-list",
+      "export": "MenuGroupList",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/menus.tsx",
+      "status": "real"
+    },
+    {
+      "name": "menu-screen",
+      "export": "MenuScreen",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/menus.tsx",
+      "status": "real"
+    },
+    {
+      "name": "menu-sheet",
+      "export": "MenuSheet",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/menus.tsx",
+      "status": "real"
+    },
+    {
+      "name": "action-sheet",
+      "export": "ActionSheet",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/menus.tsx",
+      "status": "real"
+    },
+    {
+      "name": "meter",
+      "export": "Meter",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/meter.tsx",
+      "status": "real"
+    },
+    {
+      "name": "milestone-trio",
+      "export": "MilestoneTrio",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/milestone-trio.tsx",
+      "status": "real"
+    },
+    {
+      "name": "navigation-bar",
+      "export": "NavigationBar",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/navigation-bar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "navigation-bar-item",
+      "export": "NavigationBarItem",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/navigation-bar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "navigation-drawer",
+      "export": "NavigationDrawer",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/navigation-drawer.tsx",
+      "status": "real"
+    },
+    {
+      "name": "navigation-menu",
+      "export": "NavigationMenu",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/navigation-menu.tsx",
+      "status": "real"
+    },
+    {
+      "name": "navigation-rail",
+      "export": "NavigationRail",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/navigation-rail.tsx",
+      "status": "real"
+    },
+    {
+      "name": "number-field",
+      "export": "NumberField",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/number-field.tsx",
+      "status": "real"
+    },
+    {
+      "name": "drawer",
+      "export": "Drawer",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/overlay-surfaces.tsx",
+      "status": "real"
+    },
+    {
+      "name": "popover",
+      "export": "Popover",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/overlay-surfaces.tsx",
+      "status": "real"
+    },
+    {
+      "name": "scroll-area",
+      "export": "ScrollArea",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/overlay-surfaces.tsx",
+      "status": "real"
+    },
+    {
+      "name": "pagination",
+      "export": "Pagination",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/pagination.tsx",
+      "status": "real"
+    },
+    {
+      "name": "kern-pressable",
+      "export": "KernPressable",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/pressable.tsx",
+      "status": "real"
+    },
+    {
+      "name": "progress",
+      "export": "Progress",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/progress.tsx",
+      "status": "real"
+    },
+    {
+      "name": "radio-group",
+      "export": "RadioGroup",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/radio-group.tsx",
+      "status": "real"
+    },
+    {
+      "name": "radio-group-item",
+      "export": "RadioGroupItem",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/radio-group.tsx",
+      "status": "real"
+    },
+    {
+      "name": "search",
+      "export": "Search",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/search.tsx",
+      "status": "real"
+    },
+    {
+      "name": "select",
+      "export": "Select",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/select.tsx",
+      "status": "real"
+    },
+    {
+      "name": "separator",
+      "export": "Separator",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/separator.tsx",
+      "status": "real"
+    },
+    {
+      "name": "settings-row",
+      "export": "SettingsRow",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/settings-row.tsx",
+      "status": "real"
+    },
+    {
+      "name": "shape-art",
+      "export": "ShapeArt",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/shape-art.tsx",
+      "status": "real"
+    },
+    {
+      "name": "expressive-shape",
+      "export": "ExpressiveShape",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/shape-art.tsx",
+      "status": "real"
+    },
+    {
+      "name": "shape",
+      "export": "Shape",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/shape.tsx",
+      "status": "real"
+    },
+    {
+      "name": "sheet-surface",
+      "export": "SheetSurface",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/sheet-surface.tsx",
+      "status": "real"
+    },
+    {
+      "name": "sheet",
+      "export": "Sheet",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/sheet.tsx",
+      "status": "real"
+    },
+    {
+      "name": "sheet-handle",
+      "export": "SheetHandle",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/sheets.tsx",
+      "status": "real"
+    },
+    {
+      "name": "bottom-sheet",
+      "export": "BottomSheet",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/sheets.tsx",
+      "status": "real"
+    },
+    {
+      "name": "snap-sheet",
+      "export": "SnapSheet",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/sheets.tsx",
+      "status": "real"
+    },
+    {
+      "name": "dock-sheet",
+      "export": "DockSheet",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/sheets.tsx",
+      "status": "real"
+    },
+    {
+      "name": "bottom-sheet-picker",
+      "export": "BottomSheetPicker",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/sheets.tsx",
+      "status": "real"
+    },
+    {
+      "name": "entity-sheet",
+      "export": "EntitySheet",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/sheets.tsx",
+      "status": "real"
+    },
+    {
+      "name": "boot-splash",
+      "export": "BootSplash",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/shell.tsx",
+      "status": "real"
+    },
+    {
+      "name": "error-boundary",
+      "export": "ErrorBoundary",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/shell.tsx",
+      "status": "real"
+    },
+    {
+      "name": "skeleton",
+      "export": "Skeleton",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/skeleton.tsx",
+      "status": "real"
+    },
+    {
+      "name": "slider",
+      "export": "Slider",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/slider.tsx",
+      "status": "real"
+    },
+    {
+      "name": "snackbar",
+      "export": "Snackbar",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/snackbar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "split-button",
+      "export": "SplitButton",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/split-button.tsx",
+      "status": "real"
+    },
+    {
+      "name": "split",
+      "export": "Split",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/split.tsx",
+      "status": "real"
+    },
+    {
+      "name": "status-bar",
+      "export": "StatusBar",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/status-bar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "success-transform",
+      "export": "SuccessTransform",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/success-transform.tsx",
+      "status": "real"
+    },
+    {
+      "name": "switch",
+      "export": "Switch",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/switch.tsx",
+      "status": "real"
+    },
+    {
+      "name": "table",
+      "export": "Table",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/table.tsx",
+      "status": "real"
+    },
+    {
+      "name": "tabs",
+      "export": "Tabs",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/tabs.tsx",
+      "status": "real"
+    },
+    {
+      "name": "text",
+      "export": "Text",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/text.tsx",
+      "status": "real"
+    },
+    {
+      "name": "textarea",
+      "export": "Textarea",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/textarea.tsx",
+      "status": "real"
+    },
+    {
+      "name": "theme-toggle",
+      "export": "ThemeToggle",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/theme-toggle.tsx",
+      "status": "real"
+    },
+    {
+      "name": "time-picker",
+      "export": "TimePicker",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/time-picker.tsx",
+      "status": "real"
+    },
+    {
+      "name": "toggle-group",
+      "export": "ToggleGroup",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/toggle-group.tsx",
+      "status": "real"
+    },
+    {
+      "name": "toggle",
+      "export": "Toggle",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/toggle.tsx",
+      "status": "real"
+    },
+    {
+      "name": "toolbar",
+      "export": "Toolbar",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/toolbar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "tooltip",
+      "export": "Tooltip",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/tooltip.tsx",
+      "status": "real"
+    },
+    {
+      "name": "rich-tooltip",
+      "export": "RichTooltip",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/tooltip.tsx",
+      "status": "real"
+    },
+    {
+      "name": "top-app-bar-toggle",
+      "export": "TopAppBarToggle",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/top-app-bar-toggle.tsx",
+      "status": "real"
+    },
+    {
+      "name": "top-app-bar",
+      "export": "TopAppBar",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/top-app-bar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "top-app-bar-action",
+      "export": "TopAppBarAction",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/top-app-bar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "command",
+      "export": "Command",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/web-parity.tsx",
+      "status": "real"
+    },
+    {
+      "name": "segmented-button",
+      "export": "SegmentedButton",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/web-parity.tsx",
+      "status": "real"
+    },
+    {
+      "name": "country-select",
+      "export": "CountrySelect",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/web-parity.tsx",
+      "status": "real"
+    },
+    {
+      "name": "banner",
+      "export": "Banner",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/web-parity.tsx",
+      "status": "real"
+    }
+  ]
+}

@@ -120,7 +120,25 @@ export const GENERATORS = [
     // build` — but "happens to be" is exactly what a gate exists to replace.
     name: "generate-manifest (components + start -> manifest.ts + components.md)",
     cmd: ["bun", "packages/mcp/scripts/generate-manifest.mjs"],
-    outputs: ["packages/mcp/src/manifest.ts", "docs/components.md"],
+    outputs: [
+      "packages/mcp/src/manifest.ts",
+      "docs/components.md",
+      "packages/kern-cli/src/registry.json",
+    ],
+  },
+  {
+    // The CLI's token CSS snapshot for packed installs (KERN-039): the exact
+    // bytes packed snapshot mode vendors, emitted from the token sources.
+    name: "gen-css-snapshot (token CSS -> CLI payload)",
+    cmd: ["bun", "packages/kern-cli/scripts/generate-css-snapshot.mjs"],
+    outputs: ["packages/kern-cli/src/tokens-snapshot"],
+  },
+  {
+    // The CLI's bundled block payload (KERN-034): metadata plus file bytes,
+    // so packed installs vendor blocks offline from the graph the docs hold.
+    name: "gen-blocks (site blocks -> CLI payload)",
+    cmd: ["bun", "packages/kern-cli/scripts/generate-blocks.mjs"],
+    outputs: ["packages/kern-cli/src/blocks.json"],
   },
   {
     // The site's manifest, generated from docs/components.md. Third generator
@@ -166,8 +184,18 @@ export const GENERATORS = [
     // the preload path (which bun resolves before the entry) portable —
     // a root-relative --preload is rejected as "not found".
     name: "site generate-a11y (content x registries -> a11y JSON + barrel)",
-    cmd: ["bun", "--cwd", "apps/site", "--preload", "./scripts/preload-rn.mjs", "scripts/generate-a11y.mjs"],
-    outputs: ["apps/site/src/generated/a11y", "apps/site/src/generated/a11y.ts"],
+    cmd: [
+      "bun",
+      "--cwd",
+      "apps/site",
+      "--preload",
+      "./scripts/preload-rn.mjs",
+      "scripts/generate-a11y.mjs",
+    ],
+    outputs: [
+      "apps/site/src/generated/a11y",
+      "apps/site/src/generated/a11y.ts",
+    ],
   },
   {
     // F1 (review-m3): the compiler-extracted props tables Section 10 reads.
