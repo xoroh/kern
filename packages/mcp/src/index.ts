@@ -17,6 +17,7 @@ import {
   type Platform,
   TOKEN_PRESETS,
   type TokenPreset,
+  validateInstall,
 } from "./tools.js";
 
 const server = new McpServer({ name: "@xoroh/kern-mcp", version: "0.0.0" });
@@ -136,6 +137,19 @@ server.tool(
   },
   async ({ name, platform }) => {
     return text(await installPlan(name, (platform ?? "web") as Platform));
+  },
+);
+
+server.tool(
+  "validate_install",
+  "Validate a vendored destination against its receipt: current, customized, removed per file. Customized files are reported, never fixed — that is kern upgrade's job.",
+  {
+    dest: z
+      .string()
+      .describe("destination directory holding kern.receipt.json"),
+  },
+  async ({ dest }) => {
+    return text(await validateInstall(dest));
   },
 );
 

@@ -76,4 +76,47 @@ describe("install planning", () => {
       error: expect.stringContaining("unknown component"),
     });
   });
+
+  it("validates a real destination against its receipt", async () => {
+    const { mkdtempSync, rmSync } = await import("node:fs");
+    const { tmpdir } = await import("node:os");
+    const { join } = await import("node:path");
+    const { addComponent } = await import("../../kern-cli/src/add.js");
+    const { WORKSPACE_ROOT } = await import("../../kern-cli/src/manifest.js");
+    const { validateInstall } = await import("./tools.js");
+    const dest = mkdtempSync(join(tmpdir(), "kern-mcp-validate-"));
+    try {
+      addComponent("badge", { root: WORKSPACE_ROOT, dest });
+      const clean = await validateInstall(dest);
+      expect("error" in clean).toBe(false);
+      if ("error" in clean) return;
+      expect(clean.rows.every((r) => r.state === "current")).toBe(true);
+      const { writeFileSync } = await import("node:fs");
+      writeFileSync(join(dest, "components/badge.tsx"), "// owned\n");
+      const dirty = await validateInstall(dest);
+      if ("error" in dirty) throw new Error(dirty.error);
+      expect(
+        dirty.rows.find((r) => r.path === "components/badge.tsx")?.state,
+      ).toBe("customized");
+    } finally {
+      rmSync(dest, { recursive: true, force: true });
+    }
+  });
+
+  it("the MCP plan agrees with the CLI plan file-for-file (KERN-056)", async () => {
+    // Discover → plan → install → validate must be ONE graph, not four
+    // opinions. This test runs the MCP planner and the CLI planner on the
+    // same component and asserts identical files and peers: any divergence
+    // means the agent was told one thing while the installer does another.
+    const { planComponent } = await import("../../kern-cli/src/add.js");
+    const { WORKSPACE_ROOT } = await import("../../kern-cli/src/manifest.js");
+    const mcp = await installPlan("badge", "web");
+    expect("error" in mcp).toBe(false);
+    if ("error" in mcp || mcp.evidence !== "resolved-closure") {
+      throw new Error("expected a resolved-closure plan in the workspace");
+    }
+    const cli = planComponent("badge", { root: WORKSPACE_ROOT });
+    expect([...mcp.files].sort()).toEqual(cli.files.map((f) => f.out).sort());
+    expect([...mcp.npm].sort()).toEqual([...cli.npm].sort());
+  });
 });

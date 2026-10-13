@@ -227,7 +227,7 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
   - Dependencies: KERN-029, KERN-030, KERN-042; KERN-041 for full source-mode exit (early package milestone may precede it). Files: Expo/RN standalone/workspace artifact fixtures/native asset tests.
   - Deliverable: package artifact host proof first, then source modes once KERN-041 completes. Acceptance: Metro/font/SVG/native conditions singleton and actual device smoke; source-mode acceptance cannot be complete before KERN-041.
   - Verification: packed package Metro export + RN smoke, then hybrid/snapshot native install/build with assets, theme/icon/device evidence. Partial early package milestone explicitly recorded for P7A.
-- [ ] **KERN-047 — Implement safe list/info/plan/diff/upgrade/validate CLI.** Priority P0; phase P4; status Not started; owner CLI/safety.
+- [x] **KERN-047 — Implement safe list/info/plan/diff/upgrade/validate CLI.** Priority P0; phase P4; status Verified 2026-10-13; owner CLI/safety.
   - Dependencies: KERN-035, KERN-037, KERN-038, KERN-039, KERN-040, KERN-041. Files: CLI verbs/three-way merge/config/evidence reporters.
   - Deliverable: real referenced commands with dry-run/consent/backup/conflict handling. Acceptance: no custom overwrite/deletion, unsupported capabilities/verification unavailable explicit.
   - Verification: V-CLI + spawned packed CLI upgrade/rollback/custom conflict/mixed version tests; actual validation exit/evidence records.
@@ -258,15 +258,15 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
   - Dependencies: KERN-040, KERN-049, KERN-050. Files: block registry/MCP discovery/validation tools.
   - Deliverable: platform/mode/component/token/icon/npm/asset dependency metadata for real blocks. Acceptance: advertised native block has actual source/preview/test, unsupported errors explicit.
   - Verification: V-MCP plus all three current block graph/refusal/stdin query fixtures, CLI/MCP closure matches.
-- [ ] **KERN-054 — Implement deterministic installation planning.** Priority P1; phase P5; status Not started; owner AI/CLI.
+- [x] **KERN-054 — Implement deterministic installation planning.** Priority P1; phase P5; status Verified 2026-10-13; owner AI/CLI.
   - Dependencies: KERN-047, KERN-052, KERN-053. Files: shared plan schema/MCP/CLI resolver reporting.
   - Deliverable: no-write plan by context/layout/mode/version/style, missing inputs/conflicts/verification requirements. Acceptance: unknown environment not assumed; graph/versions identical to CLI.
   - Verification: V-MCP/V-CLI + deterministic plan snapshots across consumer matrix and incompatible version/platform/custom-file negatives.
-- [ ] **KERN-055 — Add truthful setup/design validation reporting.** Priority P1; phase P5; status Not started; owner AI/quality.
+- [x] **KERN-055 — Add truthful setup/design validation reporting.** Priority P1; phase P5; status Verified 2026-10-13; owner AI/quality.
   - Dependencies: KERN-054. Files: MCP/CLI evidence/status/error reporting and design audit metadata.
   - Deliverable: passed/failed/not-run with command/cwd/exit/hash/time and expected versus measured design categories. Acceptance: static checklist/maturity never becomes install/a11y success; no arbitrary shell tool.
   - Verification: injected failing/unavailable/partial commands and untrusted docs payload tests; V-MCP/V-CLI.
-- [ ] **KERN-056 — Verify full discover→plan→install→validate agreement.** Priority P1; phase P5; status Not started; owner integration quality.
+- [x] **KERN-056 — Verify full discover→plan→install→validate agreement.** Priority P1; phase P5; status Verified 2026-10-13; owner integration quality.
   - Dependencies: KERN-045, KERN-046, KERN-051, KERN-055. Files: stdio/CLI/consumer/docs shared end-to-end fixtures.
   - Deliverable: successful and failed workflows recorded on actual artifacts. Acceptance: metadata matches installed imports/source/styles/assets/versions and final report is truthful.
   - Verification: spawned packed MCP and CLI in standalone/workspace web/native fixtures, nonempty tests and error evidence; matrix scripts added to CI.

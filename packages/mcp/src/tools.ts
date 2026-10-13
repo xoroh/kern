@@ -404,6 +404,35 @@ export async function installPlan(
 }
 
 /**
+ * Validate a destination against its receipt (KERN-055) — truthful setup
+ * reporting. Runs the CLI's own diff when the CLI package is installed
+ * beside the server; otherwise says so instead of inventing a verdict.
+ * Customized files are REPORTED (owned edits), never "fixed" here.
+ */
+export async function validateInstall(
+  dest: string,
+): Promise<
+  | {
+      dest: string;
+      rows: Array<{ path: string; state: string; owner: string }>;
+    }
+  | { error: string }
+> {
+  try {
+    const cli = (await import("@xoroh/kern-cli")) as {
+      diffDest: (
+        dest: string,
+      ) => Array<{ path: string; state: string; owner: string }>;
+    };
+    return { dest, rows: cli.diffDest(dest) };
+  } catch {
+    return {
+      error:
+        "validation needs @xoroh/kern-cli beside the MCP server — run `kern diff` in the destination instead.",
+    };
+  }
+}
+/**
  * Kern compliance checklist for auditing a screen. The twelve categories
  * mirror the `kern` skill's audit table one-for-one — a checklist that names
  * ten of twelve is the omission class the skill exists to prevent.
