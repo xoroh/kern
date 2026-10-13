@@ -25,9 +25,9 @@ import { fileURLToPath } from "node:url";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 const LEAK_RES = [
-  /from\s+["']kern-start\//,
-  /from\s+["']kern-expo\//,
-  /from\s+["']kern-react\//,
+  /from\s+["'](?:@xoroh\/)?kern-start\//,
+  /from\s+["'](?:@xoroh\/)?kern-expo(?:\/|["'])/,
+  /from\s+["'](?:@xoroh\/)?kern-react(?:\/|["'])/,
   /from\s+["']\.\.\/(?:\.\/)*libs\/kern\//,
 ];
 

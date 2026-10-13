@@ -159,6 +159,21 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
       "Native M3 Tooltip, and a count-integrity defect in the component registry that made every previously-quoted parity count wrong (P2b-3 tranche 4, kern-lead).",
   },
   {
+    id: "oss-transformation-implementation",
+    packages: [
+      "@xoroh/kern-contracts",
+      "@xoroh/kern-cli",
+      "@xoroh/kern",
+      "@xoroh/kern-native",
+      "@xoroh/kern-tokens",
+      "@xoroh/kern-icons",
+      "@xoroh/kern-mcp",
+    ],
+    bump: "minor",
+    summary:
+      "OSS transformation implementation: new contracts package and distributable CLI, compiled styles, DTCG interchange, and the gate-suite corrections.",
+  },
+  {
     id: "p1-7-md-comp-extended-coverage",
     packages: ["@xoroh/kern-tokens"],
     bump: "minor",

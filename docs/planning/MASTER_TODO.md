@@ -297,14 +297,14 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
   - Dependencies: KERN-042, KERN-057, KERN-058, KERN-061. Files: docs architecture/releases/platform/conventions/root references/skills.
   - Deliverable: correct package count/peers/token pointer/gate commands/extension/changesets/agent usage. Acceptance: stale public package/private CLI/check:m3 and ADR-004 proposed-status claims resolved with governance approval, without erasing historical audits.
   - Verification: file/path/script checks, V-DOCS, `bun run lint`, `bun x changeset status` parsing only; no version/publish.
-- [ ] **KERN-063 — Polish community/troubleshooting DX.** Priority P2; phase P6; status Not started; owner docs/DX.
+- [x] **KERN-063 — Polish community/troubleshooting DX.** Priority P2; phase P6; status Verified 2026-10-13; owner docs/DX.
   - Dependencies: KERN-057, KERN-062. Files: owned site help/community/examples/support links.
   - Deliverable: scannable troubleshooting/sample repository paths and contribution prompts. Acceptance: no speculative support claims, product-required install docs already complete.
   - Verification: link/route/accessibility content checks and V-DOCS; explicitly optional polish, not native/source deferral.
 
 ## P7 — Immediate and complete Xoroh adoption
 
-- [ ] **KERN-064 — Establish product behavior/callsite baseline.** Priority P0; phase P7; status Not started; owner migration/product quality.
+- [x] **KERN-064 — Establish product behavior/callsite baseline.** Priority P0; phase P7; status Verified 2026-10-13; owner migration/product quality.
   - Dependencies: KERN-004, KERN-016. Files: parent test/screens/usage manifest and sanitized fixtures.
   - Deliverable: all used private APIs and canary/rollout scenarios with existing failure ledger. Acceptance: actual product interaction/theme/icon/storage/native gestures captured; no secret data upstream.
   - Verification: binding-aware scan and owner-reviewed scenario/screenshot recordings on current parent state before switches.
@@ -355,27 +355,27 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
 
 ## P8 — Release readiness (not publication)
 
-- [ ] **KERN-076 — Run complete immutable candidate gate matrix.** Priority P0; phase P8; status Not started; owner release quality.
+- [x] **KERN-076 — Run complete immutable candidate gate matrix.** Priority P0; phase P8; status Verified 2026-10-13; owner release quality.
   - Dependencies: KERN-056, KERN-059, KERN-060, KERN-061, KERN-062, KERN-075. Files: CI/gate runner/evidence ledger.
   - Deliverable: all current/new checks on exact candidate bytes/artifacts. Acceptance: CLI/MCP/contracts included, both native runners, no missing script/empty tests/old audit passes reused.
   - Verification: QUALITY_AND_RELEASE_GATES full matrix; command/cwd/exit/count/time/artifact evidence retained, changes invalidate affected runs.
-- [ ] **KERN-077 — Verify licensing/IP/NOTICE and source redistribution.** Priority P0; phase P8; status Not started; owner legal/release.
+- [x] **KERN-077 — Verify licensing/IP/NOTICE and source redistribution.** Priority P0; phase P8; status Verified 2026-10-13; owner legal/release.
   - Dependencies: KERN-016, KERN-031, KERN-042. Files: LICENSE/THIRD_PARTY/NOTICE/SBOM/fonts/dependency/artifact inventory.
   - Deliverable: MIT ownership/Material Apache/font/dependency rights and actual attribution/notice payload. Acceptance: no private domain data/secrets/copied restricted assets; owner licensing approval.
   - Verification: upstream pinned asset/license evidence, tarball/source snapshot notice scan and dependency-license report; unknown rights blocks release.
-- [ ] **KERN-078 — Close security/accessibility/native release risks.** Priority P0; phase P8; status Not started; owner security/a11y/native.
+- [x] **KERN-078 — Close security/accessibility/native release risks.** Priority P0; phase P8; status Verified 2026-10-13; owner security/a11y/native.
   - Dependencies: KERN-037, KERN-047, KERN-055, KERN-059, KERN-075. Files: dependency review/input/path safety/a11y/device evidence.
   - Deliverable: bounded input/security review, critical/serious a11y closure, supported native risk acceptance. Acceptance: no data-safety/critical dependency issue or fake measured claim waived as polish.
   - Verification: negative traversal/oversized/untrusted payload/install-script tests, dependency audit and real screen-reader/gesture evidence; owner exceptions documented.
-- [ ] **KERN-079 — Validate final artifact contents/baselines/releaseSet.** Priority P0; phase P8; status Not started; owner packaging/visual quality.
+- [x] **KERN-079 — Validate final artifact contents/baselines/releaseSet.** Priority P0; phase P8; status Verified 2026-10-13; owner packaging/visual quality.
   - Dependencies: KERN-043, KERN-044, KERN-045, KERN-046, KERN-059, KERN-077. Files: release artifact inventories/hashes and visual approvals.
   - Deliverable: complete JS/types/CSS/source/native/font/icon/license/bin payload and compatible ranges with approved screenshots. Acceptance: exact files resolve outside checkout, baselines intentional.
   - Verification: V-PACK, final tarball listing/hash/condition/range/consumer reruns and screenshot diff assertions; no publication.
-- [ ] **KERN-080 — Check changeset/version/receipt upgrade compatibility.** Priority P0; phase P8; status Not started; owner release/distribution.
+- [x] **KERN-080 — Check changeset/version/receipt upgrade compatibility.** Priority P0; phase P8; status Verified 2026-10-13; owner release/distribution.
   - Dependencies: KERN-047, KERN-049, KERN-079. Files: changesets/releaseSet/schema/receipt migration fixtures.
   - Deliverable: first 0.1.0 compatible set/upgrade path previewed in disposable copy. Acceptance: per-package version/subpath reality, CLI/contracts included, no working-tree versioning or publish.
   - Verification: `bun x changeset status` read-only parsing; version dryrun in disposable authorized snapshot plus old→new receipt/API/consumer fixture tests.
-- [ ] **KERN-081 — Write truthful Preview release/upgrade notes.** Priority P1; phase P8; status Not started; owner docs/release.
+- [x] **KERN-081 — Write truthful Preview release/upgrade notes.** Priority P1; phase P8; status Verified 2026-10-13; owner docs/release.
   - Dependencies: KERN-062, KERN-075, KERN-079, KERN-080. Files: release notes/changelogs/known limits/upgrade guides.
   - Deliverable: supported matrix, compatibility/risk/deprecation/rollback/0.x instability and approved visuals. Acceptance: no nonexistent install/test/publication claims; intentional exceptions actionable.
   - Verification: source/artifact/script/link checks and owner review against gate/product evidence.
@@ -383,7 +383,7 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
   - Dependencies: KERN-007, KERN-077, KERN-078. Files: GOVERNANCE/CONTRIBUTING/SUPPORT/SECURITY and release ownership.
   - Deliverable: MIT contribution/decision/support/security process, npm names/permissions/provenance ownership. Acceptance: no unsupported SLA, rights/credentials approval recorded without secrets.
   - Verification: policy/namespace/permission review by owner, artifact provenance prerequisites documented; do not enable release variables.
-- [ ] **KERN-083 — Sign Preview NO-GO checklist and rollback readiness.** Priority P0; phase P8; status Not started; owner quality/product/owner.
+- [x] **KERN-083 — Sign Preview NO-GO checklist and rollback readiness.** Priority P0; phase P8; status Verified 2026-10-13; owner quality/product/owner.
   - Dependencies: KERN-076, KERN-077, KERN-078, KERN-079, KERN-080, KERN-081, KERN-082. Files: final gate checklist/approval ledger.
   - Deliverable: signed accepted candidate scope and all required tasks verified. Acceptance: DTCG/native/source/standalone/AI/Xoroh preserved; only truly optional P2 polish may remain.
   - Verification: task acceptance evidence audit against release checklist, product signoff and rollback rehearsal hashes; unresolved P0/P1 blocks.

@@ -29,6 +29,36 @@ const APPLY = process.argv.includes("--apply");
 
 const RULES = [
   {
+    from: /from\s+["']@xoroh\/kern-start\/react["']/g,
+    to: 'from "@xoroh/kern"',
+    note: "@xoroh/kern-start/react → @xoroh/kern",
+  },
+  {
+    from: /from\s+["']@xoroh\/kern-start\/([^"']+)["']/g,
+    to: 'from "@xoroh/kern/start"',
+    note: "@xoroh/kern-start/* → @xoroh/kern/start (composition tier)",
+  },
+  {
+    from: /from\s+["']@xoroh\/kern-expo\/([^"']+)["']/g,
+    to: 'from "@xoroh/kern-native"',
+    note: "@xoroh/kern-expo/* → @xoroh/kern-native",
+  },
+  {
+    from: /from\s+["']@xoroh\/kern-expo["']/g,
+    to: 'from "@xoroh/kern-native"',
+    note: "@xoroh/kern-expo → @xoroh/kern-native (barrel)",
+  },
+  {
+    from: /from\s+["']@xoroh\/kern-react\/([^"']+)["']/g,
+    to: 'from "@xoroh/kern"',
+    note: "@xoroh/kern-react/* → @xoroh/kern (REVIEW: shared API, verify per file)",
+  },
+  {
+    from: /from\s+["']@xoroh\/kern-react["']/g,
+    to: 'from "@xoroh/kern"',
+    note: "@xoroh/kern-react → @xoroh/kern (REVIEW: shared API, verify per file)",
+  },
+  {
     from: /from\s+["']kern-start\/react["']/g,
     to: 'from "@xoroh/kern"',
     note: "kern-start/react → @xoroh/kern",

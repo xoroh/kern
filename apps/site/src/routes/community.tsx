@@ -69,6 +69,25 @@ function Community() {
             green.
           </p>
         </div>
+        <div className="flex flex-col gap-3">
+          <h2 id="troubleshooting" className={`m-0 ${T_SECTION} ${INK}`}>
+            Troubleshooting
+          </h2>
+          <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>
+            Installs refuse before they write: a conflict names the file and
+            the upgrade path instead of merging into owned code, and{" "}
+            <code>kern diff</code> shows what drifted. Broken styles almost
+            always mean the theme import is missing — one{" "}
+            <code>import &quot;@xoroh/kern/styles&quot;</code> in the CSS
+            entry. A component that looks unstyled in a vendored tree is
+            usually a skipped Tailwind scan of the installed files. Anything
+            deeper belongs on the{" "}
+            <a href={`${REPO}/issues`} className={LINK}>
+              issue tracker
+            </a>
+            , with the receipt and the failing command.
+          </p>
+        </div>
         <nav aria-label="Keep exploring" className="flex flex-col gap-3">
           <h2 id="keep-exploring" className={`m-0 ${T_SECTION} ${INK}`}>
             Keep exploring
