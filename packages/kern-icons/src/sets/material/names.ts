@@ -10,6 +10,7 @@
  */
 export const ICON_NAMES = [
   "ac-unit",
+  "account-balance",
   "account-balance-wallet",
   "account-box",
   "account-circle",
@@ -1357,6 +1358,7 @@ export type IconName = (typeof ICON_NAMES)[number];
 /** Names sourced from Material Symbols Rounded (FILL 0 + FILL 1). */
 export const MATERIAL_ICON_NAMES = [
   "ac-unit",
+  "account-balance",
   "account-balance-wallet",
   "account-box",
   "account-circle",
@@ -2713,4 +2715,4 @@ export function isIconName(value: unknown): value is IconName {
 }
 
 /** Total number of icons with committed shape data. */
-export const ICON_COUNT = 1340;
+export const ICON_COUNT = 1341;

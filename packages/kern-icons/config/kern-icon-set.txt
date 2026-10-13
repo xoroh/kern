@@ -1,6 +1,7 @@
 
 ac-unit
 account-balance-wallet
+account-balance
 account-box
 account-circle
 account-tree

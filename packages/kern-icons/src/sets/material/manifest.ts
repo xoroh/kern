@@ -14,8 +14,8 @@ export const ICON_MANIFEST: IconManifest = {
   weights: [400],
   defaultWeight: 400,
   counts: {
-    total: 1340,
-    material: 1340,
+    total: 1341,
+    material: 1341,
     brand: 0,
     filledReusesOutline: 465,
   },

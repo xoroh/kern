@@ -30,6 +30,10 @@
     "dist",
     "src/theme.css",
     "src/styles.css",
+    "src/components",
+    "src/start",
+    "src/utils",
+    "src/tokens.ts",
     "README.md",
     "LICENSE"
   ],

@@ -207,23 +207,23 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
   - Dependencies: KERN-036, KERN-037, KERN-038, KERN-039, KERN-029, KERN-030. Files: native payload/platform resolver/starters/Metro/font/SVG assets.
   - Deliverable: native row selection before lookup, complete native/source closure and host setup. Acceptance: no web source copied for shared name; package/hybrid/snapshot native supported, no permanent web-only refusal.
   - Verification: V-CLI/V-NATIVE plus spawned native installer/platform assets negative cases and real Metro builds in KERN-046.
-- [ ] **KERN-042 — Validate export/runtime/peer compatibility.** Priority P0; phase P4; status Not started; owner packaging.
+- [x] **KERN-042 — Validate export/runtime/peer compatibility.** Priority P0; phase P4; status Verified 2026-10-13; owner packaging.
   - Dependencies: KERN-024, KERN-025, KERN-030, KERN-015. Files: manifests/tsup externals/release policy/preflight/conditional exports.
   - Deliverable: public paths/types, compatible internal singleton peers/release ranges, native SVG host dedupe. Acceptance: no workspace/file/alias leakage, duplicate context/React proof; docs/code agree.
   - Verification: V-PACK plus duplicate-instance/context/native condition tests and TS5.9/parentTS6 consumer declarations.
-- [ ] **KERN-043 — Prove standalone package consumers.** Priority P0; phase P4; status Not started; owner consumer quality.
+- [x] **KERN-043 — Prove standalone package consumers.** Priority P0; phase P4; status Verified 2026-10-13; owner consumer quality.
   - Dependencies: KERN-033, KERN-042. Files: new isolated web/RN package fixtures/CI runner.
   - Deliverable: installs from tarballs without checkout aliases, actual types/SSR/build/runtime. Acceptance: styles/entrypoints/peers/dynamic icons work, declared ranges tested beyond local overrides.
   - Verification: fixture package install+typecheck+build+render commands captured with tarball hashes; V-PACK; native artifact host coverage completed KERN-046.
-- [ ] **KERN-044 — Prove nested workspaces and CSS overrides.** Priority P0; phase P4; status Not started; owner consumer/styles.
+- [x] **KERN-044 — Prove nested workspaces and CSS overrides.** Priority P0; phase P4; status Verified 2026-10-13; owner consumer/styles.
   - Dependencies: KERN-033, KERN-042. Files: nested two-app workspace fixture and browser style tests.
   - Deliverable: hoisting-independent app CSS/paths and className override behavior with/without Tailwind. Acceptance: variants/states/keyframes/themes visible from tarballs, no private @source needed.
   - Verification: isolated workspace installs/build/types and computed CSS/color/geometry assertions; document layer/override order and measured CSS size.
-- [ ] **KERN-045 — Prove web source consumers/upgrades.** Priority P0; phase P4; status Not started; owner consumer/CLI quality.
+- [x] **KERN-045 — Prove web source consumers/upgrades.** Priority P0; phase P4; status Verified 2026-10-13; owner consumer/CLI quality.
   - Dependencies: KERN-035, KERN-039, KERN-040, KERN-044. Files: standalone/workspace hybrid/snapshot/block fixtures.
   - Deliverable: complete copied code/npm/theme/style configuration builds. Acceptance: no private self imports/missing assets; custom edits and shared ownership preserved.
   - Verification: packed bin init/add/dry-run fixture builds/types/browser styles, fault injection hashes and actual receipt closure validation.
-- [ ] **KERN-046 — Prove native package/source artifacts on Metro.** Priority P0; phase P4; status Not started; owner native consumer.
+- [x] **KERN-046 — Prove native package/source artifacts on Metro.** Priority P0; phase P4; status Verified 2026-10-13; owner native consumer.
   - Dependencies: KERN-029, KERN-030, KERN-042; KERN-041 for full source-mode exit (early package milestone may precede it). Files: Expo/RN standalone/workspace artifact fixtures/native asset tests.
   - Deliverable: package artifact host proof first, then source modes once KERN-041 completes. Acceptance: Metro/font/SVG/native conditions singleton and actual device smoke; source-mode acceptance cannot be complete before KERN-041.
   - Verification: packed package Metro export + RN smoke, then hybrid/snapshot native install/build with assets, theme/icon/device evidence. Partial early package milestone explicitly recorded for P7A.
@@ -316,7 +316,7 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
   - Dependencies: KERN-023, KERN-064, KERN-065. Files: parent token aliases/theme storage/provider adapters/styles.
   - Deliverable: Xoroh preset and private old roles/style-number/type aliases, object→positional resolver conversion, storage/OS/tenant behavior. Acceptance: no unapproved purple switch, live contexts and host persistence preserved.
   - Verification: bound token usage/role context diffs, web first-paint/native persistence/system fixtures and approved screenshots.
-- [ ] **KERN-067 — Migrate all used Material names/fill/tones.** Priority P0; phase P7; status Not started; owner icons/migration.
+- [x] **KERN-067 — Migrate all used Material names/fill/tones.** Priority P0; phase P7; status Verified 2026-10-13; owner icons/migration.
   - Dependencies: KERN-030, KERN-064, KERN-065. Files: parent icon callsites/data aliases/adapter and public missing mappings.
   - Deliverable: every static/dynamic legacy icon resolves same intended meaning, filled-default and color behavior explicit. Acceptance: missing literals/domain glyphs classified; no silent null navigation icon.
   - Verification: actual catalog resolver scan/alias fixtures plus web/native screenshot/meaning/accessibility comparisons; license preserved for vendored shapes.

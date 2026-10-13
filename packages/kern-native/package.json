@@ -24,6 +24,11 @@
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
+    "src/components",
+    "src/field-context.tsx",
+    "src/fonts.tsx",
+    "src/theme.tsx",
+    "src/utils",
     "README.md",
     "LICENSE"
   ],
