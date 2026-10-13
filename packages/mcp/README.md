@@ -21,17 +21,26 @@ bundled at publish — see below):
 
 | Tool | What it does |
 |---|---|
-| `list_components` | Component inventory with `real`/`stub` status |
-| `get_component` | Source of one component (code if real, pointer if stub) |
+| `list_components` | Component inventory with platform, entrypoint, subpath import and `real`/`stub` status |
+| `get_component` | Source of one component from its own renderer's package (code if real, pointer if stub) |
 | `get_tokens` | `base` tokens or a theme preset id from `list_themes` (`kern`/`sharp`/`brand`/`compact`/`demo`; `m3` still resolves as the legacy alias for `kern`) |
+| `get_dtcg` | DTCG 2025.10 interchange document (all foundations + sys roles) |
 | `list_themes` | Theme catalog (same file the visual builder will read) |
+| `list_icons` / `get_icon` | Semantic icon map + catalog count; unknown names refuse (missing renders null) |
+| `list_blocks` / `get_block` | Composed blocks with files and component dependencies |
+| `install_plan` | Deterministic no-write install plan, evidence-labelled (`resolved-closure` vs `metadata-only`) |
+| `validate_install` | Receipt-vs-destination diff; customized files reported, never fixed |
 | `design_audit` | Compliance checklist (mirrors the skill's audit table) |
 
-## Next step before 0.1.0
+## Distribution status
 
-Bundle the registry at build time (inline `manifest.ts` already is; inline
-component sources + tokens too) so the published server works without
-`KERN_REPO_ROOT`. Then `bunx @xoroh/kern-mcp` works everywhere.
+The registry (`manifest.ts`) is bundled at build time, so inventory, plans
+and validation work anywhere. Component/token/block/icon SOURCES still read
+from a checkout (`KERN_REPO_ROOT` overrides) and say so explicitly when
+absent — every tool names what it could not reach instead of inventing it.
+`install_plan` runs the real CLI planner when `@xoroh/kern-cli` is installed
+beside the server (`resolved-closure`) and labels metadata-only output when
+it is not.
 
 ## License
 

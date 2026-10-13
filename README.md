@@ -49,15 +49,16 @@ Per-package detail lives in each package's README.
 
 | Package | Directory | What it is |
 | --- | --- | --- |
-| `@xoroh/kern-tokens` | `packages/kern-tokens` | Tokens (`tokens.json`), theme presets, contrast overlays, tones, feedback spec, variant registry. Platform-free: no React, no DOM |
+| `@xoroh/kern-tokens` | `packages/kern-tokens` | Tokens (`tokens.json`), theme presets, contrast overlays, tones, feedback spec, variant registry, DTCG 2025.10 interchange (`dtcg.json`), Xoroh compatibility preset. Platform-free: no React, no DOM |
 | `@xoroh/kern` | `packages/kern` | Web components (React, on Base UI) + the web theme runtime |
 | `@xoroh/kern/start` | `packages/kern/src/start` | Web composition: blocks, top app bar, navigation, panes, scaffolds |
 | `@xoroh/kern-native` | `packages/kern-native` | React Native components (StyleSheet + tokens) + the native scheme hook |
 | `@xoroh/kern-icons` | `packages/kern-icons` | Material Symbols registry and the `Icon` renderer (web + native) |
-| `@xoroh/kern-mcp` | `packages/mcp` | MCP server: list components, fetch source and tokens, audit screens |
-| `@xoroh/kern-cli` | `packages/kern-cli` | Private placeholder for a future `kern add` installer. Not implemented, never published |
+| `@xoroh/kern-mcp` | `packages/mcp` | MCP server: components, tokens, themes, icons, blocks, install plans, validation |
+| `@xoroh/kern-contracts` | `packages/kern-contracts` | Versioned contract schema: provider/component/block/icon/install metadata types + validators. Pure: no React/DOM/RN |
+| `@xoroh/kern-cli` | `packages/kern-cli` | `kern` installer (init/add/list/diff/upgrade) + programmatic API; transactional installs, receipt v2, bundled registry payload |
 
-Six packages publish; each versions independently.
+Seven packages publish; each versions independently.
 
 ## Apps
 

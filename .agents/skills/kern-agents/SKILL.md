@@ -22,7 +22,8 @@ imports, or token names.
   per docs page: title, one-liner, page route, `.md` URL).
 - **"Give me source / tokens / audit this screen"** → the MCP server
   (`packages/mcp`: `list_components`, `get_component`, `get_tokens`,
-  `list_themes`, `design_audit`).
+  `get_dtcg`, `list_themes`, `list_icons`, `get_icon`, `list_blocks`,
+  `get_block`, `install_plan`, `validate_install`, `design_audit`).
 - **"Build me a themed screen from zero"** → the loop below.
 - **"How do I author a theme / preset / component?"** → the authoring
   section below.

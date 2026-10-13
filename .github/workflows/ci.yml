@@ -139,6 +139,9 @@ jobs:
       - name: Check the package layering (D-034)
         run: bun run check:layers
 
+      - name: Check no private kern imports leak
+        run: bun run check:xoroh-leaks
+
       - name: Check every check:* gate is actually invoked by CI
         run: bun run check:workflow
 

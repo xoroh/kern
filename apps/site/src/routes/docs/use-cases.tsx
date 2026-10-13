@@ -72,9 +72,10 @@ function UseCases() {
               <p className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
                 <code>kern add &lt;name&gt;</code> copies the component and its
                 import closure into your tree. You own the code: edit it, keep
-                it, no upgrades flow in. Tokens stay depended by default
-                (hybrid); <code>--self-contained</code> vendors the token CSS
-                too.
+                it; upgrades arrive through <code>kern upgrade</code>, which
+                preserves your edits instead of overwriting them. Tokens stay
+                depended by default (hybrid); <code>--self-contained</code>{" "}
+                vendors the token CSS too.
               </p>
               <Code>{`kern init my-app        # scaffold: install → run → themed screen
 kern add button        # vendor one component + closure
@@ -149,15 +150,32 @@ kern add chip card     # vendor several (receipt merges)`}</Code>
             </li>
             <li className={`${CARD} flex flex-col gap-2 p-5`}>
               <p className={`m-0 ${T_LABEL_LG} ${INK}`}>
-                Receipt audit — <em>coming</em>
+                Receipt audit — <code>kern diff</code> and{" "}
+                <code>kern upgrade</code>
               </p>
               <p className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
-                Receipts (<code>kern.receipt.json</code>, kern version + per-
-                file sha256) are written from day one so <code>kern diff</code>{" "}
-                and <code>kern upgrade</code> can compare against them. Those
-                two commands do <strong>not</strong> exist yet — the receipt is
-                the input they will read, not a working audit today.
+                Receipts (<code>kern.receipt.json</code>, schema v2: release
+                set, per-file hashes, owners) are written from day one.{" "}
+                <code>kern diff</code> reports current, customized and removed
+                files; <code>kern upgrade</code> dry-runs by default and, with{" "}
+                <code>--apply</code>, updates everything except your customized
+                files — owned edits are preserved and reported, never
+                overwritten.
               </p>
+              <Code>{`kern diff                         # receipt vs destination
+kern upgrade button              # plan only, no writes
+kern upgrade button --apply      # update, preserving owned edits`}</Code>
+            </li>
+            <li className={`${CARD} flex flex-col gap-2 p-5`}>
+              <p className={`m-0 ${T_LABEL_LG} ${INK}`}>
+                Native components — <code>--platform native</code>
+              </p>
+              <p className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
+                The manifest row for the requested platform is selected before
+                lookup, so a shared name can never copy web source for a native
+                install. Metro and font setup ride in the printed instructions.
+              </p>
+              <Code>{`kern add button --platform native`}</Code>
             </li>
           </ol>
         </section>
@@ -166,8 +184,9 @@ kern add chip card     # vendor several (receipt merges)`}</Code>
         <section className="flex flex-col gap-4">
           <H2 id="mcp-use-cases">MCP use cases</H2>
           <p className={`m-0 max-w-[62ch] ${T_BODY_SM} ${INK_SOFT}`}>
-            Five tools, no memory: an agent reads the registry, pulls source,
-            compares presets, discovers themes, or runs a screen audit.
+            Eleven tools, no memory: an agent reads the registry, pulls source,
+            compares presets, discovers themes and icons, previews blocks,
+            plans installs, validates destinations, or runs a screen audit.
           </p>
           <ul className="m-0 flex list-none flex-col gap-3 p-0">
             {[
@@ -195,6 +214,31 @@ kern add chip card     # vendor several (receipt merges)`}</Code>
                 use: "Audit a screen",
                 tool: "design_audit",
                 body: "The compliance checklist, mirroring the kern skill's audit table.",
+              },
+              {
+                use: "Discover icons",
+                tool: "list_icons / get_icon",
+                body: "The semantic name-to-glyph map plus the catalog count. Unknown names refuse — a missing icon renders null, never a neighbour.",
+              },
+              {
+                use: "Discover blocks",
+                tool: "list_blocks / get_block",
+                body: "Composed sections with files and component dependencies — what kern add vendors as a unit.",
+              },
+              {
+                use: "Plan an install",
+                tool: "install_plan",
+                body: "Deterministic no-write plan (files, npm peers, commands), evidence-labelled so a metadata-only plan never poses as a resolved closure.",
+              },
+              {
+                use: "Validate a destination",
+                tool: "validate_install",
+                body: "Receipt-vs-destination diff: current, customized, removed. Customized files are reported, never fixed here.",
+              },
+              {
+                use: "Machine tokens",
+                tool: "get_dtcg",
+                body: "The DTCG 2025.10 interchange document — every foundation plus sys roles, for third-party tools.",
               },
             ].map((row) => (
               <li key={row.tool} className={`${CARD} flex flex-col gap-1 p-4`}>

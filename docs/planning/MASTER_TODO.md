@@ -273,27 +273,27 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
 
 ## P6 — Documentation and preview experience
 
-- [ ] **KERN-057 — Write verified installation/upgrade recipes.** Priority P1; phase P6; status Not started; owner docs/DX.
+- [x] **KERN-057 — Write verified installation/upgrade recipes.** Priority P1; phase P6; status Verified 2026-10-13; owner docs/DX.
   - Dependencies: KERN-043, KERN-044, KERN-045, KERN-046, KERN-047. Files: site getting-started/guides/package READMEs.
   - Deliverable: both layouts/platforms/modes/styles/font/icon/native/upgrade config recipes. Acceptance: all snippets tied to real successful fixture setup, prerelease publication status honest.
   - Verification: V-DOCS + recipe fixture replays from tarballs, link/import command audits.
-- [ ] **KERN-058 — Complete capability/foundation/icon/block references.** Priority P1; phase P6; status Not started; owner docs/component owners.
+- [x] **KERN-058 — Complete capability/foundation/icon/block references.** Priority P1; phase P6; status Verified 2026-10-13; owner docs/component owners.
   - Dependencies: KERN-023, KERN-032, KERN-049, KERN-052, KERN-053. Files: site content/demos/foundation docs/mobile gallery/reference skills.
   - Deliverable: every public capability/axis/exception/customization has correct API/example. Acceptance: no stale variant/gap/value counts; real demo sources same as blocks.
   - Verification: V-DOCS + inventory/props/test evidence reconciliation and actual rendered page checks.
-- [ ] **KERN-059 — Promote accessibility and screenshot measurements.** Priority P1; phase P6; status Not started; owner visual/a11y quality.
+- [x] **KERN-059 — Promote accessibility and screenshot measurements.** Priority P1; phase P6; status Verified 2026-10-13; owner visual/a11y quality.
   - Dependencies: KERN-027, KERN-029, KERN-030, KERN-033. Files: e2e visual/a11y suites and approved baselines/native evidence.
   - Deliverable: asserted visual diffs and broadened actual axe/keyboard/native accessibility. Acceptance: seeds/expectations aren't passes; fonts/theme/RTL/text-scale/reduced-motion measured.
   - Verification: `bun run test:e2e` with actual screenshot/axe assertions added; device/screen-reader scenarios and baseline approval recorded.
-- [ ] **KERN-060 — Repair preview/gallery/native integration.** Priority P1; phase P6; status Not started; owner site/native preview.
+- [x] **KERN-060 — Repair preview/gallery/native integration.** Priority P1; phase P6; status Verified 2026-10-13; owner site/native preview.
   - Dependencies: KERN-029, KERN-030, KERN-049. Files: owned site preload/RN-SVG/gallery and apps/mobile sections.
   - Deliverable: real native previews render, bundler alias workaround scoped/documented. Acceptance: gallery error reproduced/fixed or correctly environment-labeled; mobile required sections present.
   - Verification: V-DOCS and mobile bundle/native host, browser preview evidence; RN-web never claimed equivalent to device.
-- [ ] **KERN-061 — Synchronize machine docs and registry.** Priority P1; phase P6; status Not started; owner docs/AI.
+- [x] **KERN-061 — Synchronize machine docs and registry.** Priority P1; phase P6; status Verified 2026-10-13; owner docs/AI.
   - Dependencies: KERN-049, KERN-052, KERN-053, KERN-058. Files: site llms/page-md/mcp-index generators and generated outputs.
   - Deliverable: current machine pages/installation metadata and stable links/schema. Acceptance: exact renderer/entrypoint/limitations preserved, no manual generated edits.
   - Verification: V-DOCS machine checks and byte/schema/route/source inventory comparison after owned regeneration.
-- [ ] **KERN-062 — Update contributor/skills/release guidance.** Priority P1; phase P6; status Not started; owner docs/coordinator.
+- [x] **KERN-062 — Update contributor/skills/release guidance.** Priority P1; phase P6; status Verified 2026-10-13; owner docs/coordinator.
   - Dependencies: KERN-042, KERN-057, KERN-058, KERN-061. Files: docs architecture/releases/platform/conventions/root references/skills.
   - Deliverable: correct package count/peers/token pointer/gate commands/extension/changesets/agent usage. Acceptance: stale public package/private CLI/check:m3 and ADR-004 proposed-status claims resolved with governance approval, without erasing historical audits.
   - Verification: file/path/script checks, V-DOCS, `bun run lint`, `bun x changeset status` parsing only; no version/publish.
@@ -308,11 +308,11 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
   - Dependencies: KERN-004, KERN-016. Files: parent test/screens/usage manifest and sanitized fixtures.
   - Deliverable: all used private APIs and canary/rollout scenarios with existing failure ledger. Acceptance: actual product interaction/theme/icon/storage/native gestures captured; no secret data upstream.
   - Verification: binding-aware scan and owner-reviewed scenario/screenshot recordings on current parent state before switches.
-- [ ] **KERN-065 — Build public-only compatibility/codemod mapping.** Priority P0; phase P7; status Not started; owner migration/web/native.
+- [x] **KERN-065 — Build public-only compatibility/codemod mapping.** Priority P0; phase P7; status Verified 2026-10-13; owner migration/web/native.
   - Dependencies: KERN-064, KERN-024, KERN-025, KERN-028. Files: parent adapter package/codemod/shared usage maps.
   - Deliverable: symbol-by-symbol direct/adapter/generic gap/domain classification, private prefix imports phased out. Acceptance: unmapped names fail clearly; adapters import only public artifacts, no parent-only behavior in tokens.
   - Verification: before/after AST fixture tests, public export typecheck and used callback/ref/state scenarios; no broad textual replacement.
-- [ ] **KERN-066 — Migrate theme/token/native style compatibility.** Priority P0; phase P7; status Not started; owner foundations/migration.
+- [x] **KERN-066 — Migrate theme/token/native style compatibility.** Priority P0; phase P7; status Verified 2026-10-13; owner foundations/migration.
   - Dependencies: KERN-023, KERN-064, KERN-065. Files: parent token aliases/theme storage/provider adapters/styles.
   - Deliverable: Xoroh preset and private old roles/style-number/type aliases, object→positional resolver conversion, storage/OS/tenant behavior. Acceptance: no unapproved purple switch, live contexts and host persistence preserved.
   - Verification: bound token usage/role context diffs, web first-paint/native persistence/system fixtures and approved screenshots.
@@ -320,11 +320,11 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
   - Dependencies: KERN-030, KERN-064, KERN-065. Files: parent icon callsites/data aliases/adapter and public missing mappings.
   - Deliverable: every static/dynamic legacy icon resolves same intended meaning, filled-default and color behavior explicit. Acceptance: missing literals/domain glyphs classified; no silent null navigation icon.
   - Verification: actual catalog resolver scan/alias fixtures plus web/native screenshot/meaning/accessibility comparisons; license preserved for vendored shapes.
-- [ ] **KERN-068 — Pin verified package artifacts and CI resolution.** Priority P0; phase P7; status Not started; owner migration/packaging.
+- [x] **KERN-068 — Pin verified package artifacts and CI resolution.** Priority P0; phase P7; status Verified 2026-10-13; owner migration/packaging.
   - Dependencies: KERN-043, KERN-044, KERN-065. Files: parent manifests/lockfile/tsconfig artifact aliases/CI.
   - Deliverable: canary artifact hashes/compatible set, TS6 declarations and no private source resolution. Acceptance: developer checkout absence works; rollback manifests/pins retained; public npm not required.
   - Verification: parent canary artifact install/typecheck/build and path leak scanner; no workspace/source alias masking.
-- [ ] **KERN-069 — Configure web CSS and native Metro/fonts safely.** Priority P0; phase P7; status Not started; owner migration/platform.
+- [x] **KERN-069 — Configure web CSS and native Metro/fonts safely.** Priority P0; phase P7; status Verified 2026-10-13; owner migration/platform.
   - Dependencies: KERN-033, KERN-066, KERN-067, KERN-068. Files: parent CSS entries/Metro/theme/font/navigation adapter configuration.
   - Deliverable: public compiled styles and native compatible host setup. Acceptance: private CSS scans removed in accepted apps, React/SVG/contexts deduped, Paper/Gorhom retained only when legitimately used.
   - Verification: canary browser computed styles/SSR/first paint and packed native Metro/font/SVG smoke; no mass dependency deletions.
@@ -344,7 +344,7 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
   - Dependencies: KERN-071, KERN-058, KERN-046. Files: six parent mobile apps and expo/react domain libraries.
   - Deliverable: staged rollout with booking/maps/messaging/notifications/payments shell behavior preserved. Acceptance: all private generic symbols accounted, real modal/gesture/navigation/font/theme behavior accepted.
   - Verification: each app Metro/device/simulator product matrix and peer/path checks, no RN-web-only evidence.
-- [ ] **KERN-074 — Enforce artifact-only migration CI/closure.** Priority P0; phase P7; status Not started; owner migration/quality.
+- [x] **KERN-074 — Enforce artifact-only migration CI/closure.** Priority P0; phase P7; status Verified 2026-10-13; owner migration/quality.
   - Dependencies: KERN-072, KERN-073, KERN-045, KERN-056. Files: parent CI/type/test/consumer path scanners and source/block fixtures.
   - Deliverable: no generic private source/style alias in accepted rollout, nonempty actual product tests, artifacts pinned coherently. Acceptance: customized blocks/source modes tested where used; broad scan plus runtime evidence.
   - Verification: parent cold/disposable artifact builds/test/types/Metro, leak scanner negative fixture, relevant source installation regression matrix.

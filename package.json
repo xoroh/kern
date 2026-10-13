@@ -42,6 +42,7 @@
     "check:registry-paths": "node scripts/check-registry-paths.mjs",
     "check:elevation-parity": "node scripts/check-elevation-parity.mjs",
     "check:workflow": "node scripts/check-workflow.mjs",
+    "check:xoroh-leaks": "node scripts/check-xoroh-leaks.mjs",
     "check:layers": "node scripts/check-layers.mjs",
     "check:primitives": "node scripts/check-primitives.mjs",
     "check:coverage": "node scripts/check-coverage.mjs",
