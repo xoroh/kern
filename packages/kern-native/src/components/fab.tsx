@@ -67,17 +67,19 @@ export function fabStyles(
   size: NativeFabSize,
   scheme: ResolvedTheme = resolveThemeDetails(),
   color: NativeFabColor = "primary",
+  /**
+   * M3's `lowered` attribute: a FAB that sits quieter in the layout — level 1
+   * on a `surface-container-low` fill instead of level 3 on the primary
+   * container. Web ships it through the same `lowered` prop, and
+   * `check:elevation-parity` compares the RESTING level sets, so native without
+   * it can never match web's {1, 3}.
+   */
+  lowered = false,
 ): ViewStyle {
   // M3: small 40dp (deprecated — compact only), regular 56dp, medium 80dp
   // (expressive), large 96dp.
   const dimension =
-    size === "small"
-      ? 40
-      : size === "medium"
-        ? 80
-        : size === "large"
-          ? 96
-          : 56;
+    size === "small" ? 40 : size === "medium" ? 80 : size === "large" ? 96 : 56;
   const roles = fabColorRoles(color, scheme);
   return {
     minHeight: dimension,
@@ -99,11 +101,26 @@ export function fabStyles(
     // helper instead of skipping it: `ExtendedFab` and `FabMenu` render through
     // `fabStyles`, so while the scanner ignored `*Styles` helpers both read
     // "native none" and the whole FAB family sat one level low unseen.
-    elevation: 6,
-    shadowColor: scheme.color.scrim,
-    shadowOpacity: 0.3,
-    shadowRadius: 2,
-    shadowOffset: { width: 0, height: 1 },
+    ...(lowered
+      ? {
+          // 1dp = M3 LEVEL 1, the lowered resting height. Web binds the same
+          // level through `--md-sys-elevation-level1` and swaps the fill to
+          // `surface-container-low`.
+          elevation: 1,
+          backgroundColor: scheme.color.surfaceContainerLow,
+          shadowColor: scheme.color.scrim,
+          shadowOpacity: 0.12,
+          shadowRadius: 3,
+          shadowOffset: { width: 0, height: 1 },
+        }
+      : {
+          // 6dp = M3 LEVEL 3, the default resting height.
+          elevation: 6,
+          shadowColor: scheme.color.scrim,
+          shadowOpacity: 0.3,
+          shadowRadius: 2,
+          shadowOffset: { width: 0, height: 1 },
+        }),
   };
 }
 
@@ -119,6 +136,8 @@ export type NativeFabProps = Omit<
    * previous fixed treatment, so existing rendering cannot change.
    */
   color?: NativeFabColor;
+  /** M3 `lowered`: level-1 FAB on a quiet fill instead of level 3. */
+  lowered?: boolean;
   onPress?: PressableProps["onPress"];
   style?: PressableProps["style"];
 };
@@ -128,6 +147,7 @@ export function Fab({
   label,
   size = "default",
   color = "primary",
+  lowered = false,
   onPress,
   disabled = false,
   hitSlop,
@@ -154,7 +174,7 @@ export function Fab({
       hitSlop={hitSlop ?? { top: 8, bottom: 8, left: 8, right: 8 }}
       onPress={onPress}
       style={({ pressed }) => [
-        fabStyles(size, scheme, color),
+        fabStyles(size, scheme, color, lowered),
         { opacity: disabled ? 0.38 : pressed ? 0.9 : 1 },
         typeof style === "function" ? style({ pressed }) : style,
       ]}

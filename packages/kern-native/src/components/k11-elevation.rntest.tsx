@@ -24,10 +24,15 @@ function styleOf(testID: string) {
 }
 
 describe("K11 native resting levels", () => {
-  it("Snackbar rests at level 2 (3dp)", async () => {
+  it("Snackbar rests at level 3 (6dp) — matching web's elevation-level3", async () => {
     await render(<Snackbar visible message="Saved" testID="sb" />);
     const style = styleOf("sb");
-    expect(style.elevation).toBe(3);
+    // 6dp, NOT 3dp. M3's scale is unevenly spaced (0/1/3/6/8/12), so
+    // `elevation: 3` is 3dp = LEVEL 2 — which is what this pinned until
+    // `check:elevation-parity` mapped dp into level space and found native one
+    // level below web's `--md-sys-elevation-level3`. A dp value read as a level
+    // index is the defect this row now guards against.
+    expect(style.elevation).toBe(6);
     expect(style.shadowOpacity).toBeDefined();
     expect(style.shadowRadius).toBeDefined();
   });

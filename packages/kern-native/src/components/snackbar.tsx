@@ -15,15 +15,18 @@ export function snackbarStyles(
     backgroundColor: scheme.color.inverseSurface,
     paddingHorizontal: 16,
     paddingVertical: 12,
-    // K11: snackbar = level 2 = 3dp. Android reads `elevation` as dp (M3's scale
-    // is 0/1/3/6/8/12, so level 2 is 3dp, not 2); iOS reads the shadow quartet.
-    // The iOS values follow PopoverContent, the other level-2 surface, rather
-    // than inventing a second level-2 shadow.
+    // K11: snackbar = level 3 = 6dp. Android reads `elevation` as dp (M3's scale
+    // is 0/1/3/6/8/12, so level 3 is 6dp, NOT 3 — 3dp is level 2). This was
+    // `elevation: 3`, which put native one level BELOW web's
+    // `--md-sys-elevation-level3`: the same component at two heights on two
+    // renderers, invisible until the gate mapped dp into level space.
+    // The iOS quartet follows the other level-3 surfaces rather than inventing
+    // a second shadow recipe.
     shadowColor: scheme.color.shadow,
     shadowOpacity: 0.2,
     shadowRadius: 8,
     shadowOffset: { width: 0, height: 2 },
-    elevation: 3,
+    elevation: 6,
   };
 }
 

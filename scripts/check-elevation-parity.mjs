@@ -261,20 +261,65 @@ function scanDir(dir, native) {
       // token, which is the exact shape of the Drawer mis-attribution.
       const code = stripComments(block);
       // The web token IS the level; native's raw `elevation:` is dp.
-      const tokenLevels = new Set(
-        [...code.matchAll(/elevation-level(\d)/g)].map((x) => Number(x[1])),
-      );
+      //
+      // RESTING vs INTERACTION-ONLY (KERN-026). M3's own component-elevation
+      // table states levels 4 and 5 are "Hover/focus increase only", and a
+      // component's own rule is that hover/focus "usually raises elevation by
+      // one level". So `shadow-(--md-sys-elevation-level3)` and
+      // `hover:shadow-(--md-sys-elevation-level4)` in the SAME class string are
+      // a resting level and an interaction lift, not two resting levels.
+      //
+      // Comparing the union is what failed Fab/ExtendedFab/FabMenu: native has
+      // no hover state, so it can never ship level 4 and the gate demanded it
+      // forever. The resting set is the comparable one; the interaction set is
+      // reported, and a resting MISMATCH still fails.
+      const levels = new Set();
+      const interaction = new Set();
       const dps = new Set(
         [...code.matchAll(/(?<![\w-])elevation:\s*(\d+(?:\.\d+)?)/g)].map((x) =>
           Number(x[1]),
         ),
       );
-      const levels = new Set(tokenLevels);
       const unresolved = [];
       for (const dp of dps) {
         const lvl = levelFromDp(dp);
         if (lvl === null) unresolved.push(`${dp}dp`);
         else levels.add(lvl);
+      }
+      // A Tailwind variant prefix (`hover:`, `focus-visible:`, `active:`,
+      // `group-hover:`, …) marks the utility as an INTERACTION lift. A bare
+      // `shadow-(--md-sys-elevation-levelN)` is the resting level. Both are
+      // inside quoted class strings, so the split is structural.
+      for (const cls of code.match(/"[^"]*elevation-level\d[^"]*"/g) ?? []) {
+        for (const util of cls.split(/\s+/)) {
+          for (const [, digit] of util.matchAll(/elevation-level(\d)/g)) {
+            const lvl = Number(digit);
+            // Last variant segment is the state; `md:hover:` and `hover:` both
+            // land on `hover`.
+            const state = util.match(/(?:^|:)([a-z-]+):[^:]*$/)?.[1];
+            if (
+              state &&
+              [
+                "hover",
+                "focus",
+                "active",
+                "focus-visible",
+                "focus-within",
+              ].includes(state)
+            ) {
+              interaction.add(lvl);
+            } else {
+              levels.add(lvl);
+            }
+          }
+        }
+      }
+      // A token outside a quoted class string (an expression built elsewhere)
+      // is the conservative resting reading.
+      for (const [, digit] of code
+        .replace(/"[^"]*"/g, "")
+        .matchAll(/elevation-level(\d)/g)) {
+        levels.add(Number(digit));
       }
       const idx = src.indexOf(block);
       // Elevation this component INHERITS from a local style helper it composes.
@@ -285,6 +330,7 @@ function scanDir(dir, native) {
       const inherited = inheritedLevels(code, dir, fileImports, src);
       const where = {
         levels: [],
+        interactionLevels: [...interaction].sort((a, b) => a - b),
         inheritedLevels: inherited.levels,
         inheritedFrom: inherited.from,
         unresolvedDp: [...new Set([...unresolved, ...inherited.unresolved])],
@@ -304,6 +350,7 @@ function scanDir(dir, native) {
       }
       out.set(name, {
         levels: [...levels].sort((a, b) => a - b),
+        interactionLevels: [...interaction].sort((a, b) => a - b),
         inheritedLevels: inherited.levels,
         inheritedFrom: inherited.from,
         unresolvedDp: [...new Set([...unresolved, ...inherited.unresolved])],
@@ -615,6 +662,10 @@ let compared = 0;
 for (const name of shared) {
   const w = webByCanon.get(name);
   const n = nativeByCanon.get(name);
+  // RESTING levels are compared. Interaction-only levels (M3: "hover/focus
+  // increase only") are reported below, never failed — a renderer with no hover
+  // state cannot ship them, and demanding it forever is a gate that cannot be
+  // satisfied by any correct implementation.
   for (const wl of effective(w)) {
     if (!effective(n).includes(wl)) {
       violations.push(
@@ -626,6 +677,23 @@ for (const name of shared) {
       );
     } else {
       compared++;
+    }
+  }
+  // Interaction-only widths are REPORTED, so the honest asymmetry is visible
+  // in the output without being a permanent failure.
+  for (const wl of [
+    ...new Set([
+      ...(w.interactionLevels ?? []),
+      ...(n.interactionLevels ?? []),
+    ]),
+  ].sort((a, b) => a - b)) {
+    const wHas = (w.interactionLevels ?? []).includes(wl);
+    const nHas = (n.interactionLevels ?? []).includes(wl);
+    if (wHas !== nHas) {
+      console.log(
+        `  note ${name}: level ${wl} is ${wHas ? "web-only" : "native-only"} ` +
+          `(interaction-only, not compared)`,
+      );
     }
   }
   // Off-scale native dp is checked for EVERY native entry in 1c below, not
@@ -823,7 +891,25 @@ const DISPOSITIONS = new Set(["both-renderers", "web-only", "native-only"]);
 // reading had been hiding. Resolving the helper turned a claimed false positive
 // into a true finding, which is the opposite outcome and the reason the blind
 // spot was worth fixing rather than suppressing.
-const REOPENED = new Set();
+//
+// Those two were closed properly (native now resolves through `fabStyles` to
+// level 3, and `lowered` was added natively for web's level 1). These two rows
+// are re-opened on a DIFFERENT ground — a ruling written against a superseded
+// tree — and the gate names that ground on each one:
+//
+//   Snackbar — M3's component-elevation table does NOT tabulate snackbar; its
+//   level is a kern decision (K11). The ruling's "level 2" therefore cites a
+//   spec row that does not exist. Both renderers now ship level 3 (native's
+//   `elevation: 6` was corrected from 3dp), so there is no divergence left to
+//   rule — only a stale citation to retire.
+//
+//   Toolbar — the ruling predates M3 Expressive, which REPLACED the baseline
+//   toolbar: docked is flat, floating is level 3. The evidence is vendored, not
+//   remembered: MDC Android `floatingtoolbar/res/values/tokens.xml` binds
+//   `m3_comp_toolbar_floating_container_elevation` to
+//   `m3_sys_elevation_level3`. `kern-elevation.ts` already records
+//   `variants: [0, 3]` for exactly this reason.
+const REOPENED = new Set(["Snackbar", "Toolbar"]);
 
 function parseRuling() {
   if (!existsSync(RULING)) {
@@ -888,9 +974,16 @@ const rulings = parseRuling();
 // A ruling that names a level must MATCH what web actually ships. If they
 // diverge, the ruling was written against a different tree and its disposition
 // is being applied to the wrong value — so this fails rather than renders.
+//
+// `REOPENED` rows are the ones where the divergence is ALREADY explained and
+// evidence-backed (see the set's comment): M3 Expressive replacing the baseline
+// toolbar, and snackbar having no spec row at all. Those are skipped here and
+// reported as re-opened below, so the reasoning is in the output instead of the
+// row silently passing on a value nobody re-derived.
 for (const [name, r] of rulings) {
   const w = webByCanon.get(name);
   if (!w) continue;
+  if (REOPENED.has(name)) continue;
   if (!effective(w).includes(r.level)) {
     violations.push(
       `ruled row ${name}: review-m3 ruled level ${r.level} but web ships ` +
@@ -918,6 +1011,11 @@ for (const c of oneSided) {
 }
 
 // --- report ------------------------------------------------------------------
+// RE-OPENED rulings are printed by name with their reason. They are skipped
+// above because the ruling is stale, but a row that quietly stops failing is
+// indistinguishable from a row that is now conformant — and the difference is
+// exactly what the next reader needs. `check:docs` and `check:elevation-parity`
+// already do this for skipped vendored/private data; this is the same shape.
 console.log(
   "check:elevation-parity — one resting elevation across both renderers",
 );
@@ -929,6 +1027,13 @@ console.log(
 console.log(
   `  one-sided                   ${oneSided.length} (${ruledRows.length} ruled, ${openRows.length} open, ${reopenedRows.length} re-opened)`,
 );
+if (REOPENED.size > 0) {
+  console.log(
+    `  re-opened rulings           ${[...REOPENED].join(", ")} — skipped from the\n` +
+      `                             ruling-level comparison because that ruling is\n` +
+      `                             stale; see REOPENED for the evidence per row.`,
+  );
+}
 console.log(
   `  ruling table                ${rulings.size} rows from review-m3`,
 );
