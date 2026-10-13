@@ -27,6 +27,10 @@
     "src/tokens.css",
     "src/tokens.json",
     "src/dtcg.json",
+    "src/comp-tokens.css",
+    "src/motion.css",
+    "src/tones.css",
+    "src/tailwind.css",
     "src/themes/*.json",
     "README.md",
     "LICENSE"
@@ -61,7 +65,11 @@
     "./tokens.json": "./src/tokens.json",
     "./dtcg.json": "./src/dtcg.json",
     "./themes/*": "./src/themes/*",
-    "./theme": "./src/tokens.css"
+    "./theme": "./src/tokens.css",
+    "./comp-tokens": "./src/comp-tokens.css",
+    "./motion": "./src/motion.css",
+    "./tones": "./src/tones.css",
+    "./tailwind": "./src/tailwind.css"
   },
   "devDependencies": {
     "@types/node": "^26.6.3",

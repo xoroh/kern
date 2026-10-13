@@ -171,7 +171,7 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
 
 ## P4 — Distribution/install
 
-- [ ] **KERN-033 — Deliver public compiled CSS/theme entries.** Priority P0; phase P4; status Not started; owner distribution/styles.
+- [x] **KERN-033 — Deliver public compiled CSS/theme entries.** Priority P0; phase P4; status Verified 2026-10-13; owner distribution/styles.
   - Dependencies: KERN-015, KERN-022, KERN-025. Files: web/token CSS generation/export/files/sideEffects/style fixtures.
   - Deliverable: `theme` compatible vars/animations + compiled `styles`, separate Tailwind/font adapters. Acceptance: stale kern-theme import gone; no source scanning/reset/font surprise.
   - Verification: CSS import resolution/at-rule/keyframe/variable/class checks and new packed computed-style/override fixture; V-PACK.

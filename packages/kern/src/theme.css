@@ -1,4 +1,4 @@
-@import "@xoroh/kern-theme/theme";
+@import "@xoroh/kern-tokens/theme";
 
 /* M3 linear progress indeterminate motion (2s linear infinite cycle) and
    four-color cycling (primary → primary-container → tertiary →

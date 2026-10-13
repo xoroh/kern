@@ -20,7 +20,8 @@
   },
   "type": "module",
   "sideEffects": [
-    "./src/theme.css"
+    "./src/theme.css",
+    "./src/styles.css"
   ],
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -28,6 +29,7 @@
   "files": [
     "dist",
     "src/theme.css",
+    "src/styles.css",
     "README.md",
     "LICENSE"
   ],
@@ -49,6 +51,7 @@
       }
     },
     "./theme": "./src/theme.css",
+    "./styles": "./src/styles.css",
     "./tokens": {
       "import": {
         "types": "./dist/tokens.d.ts",
