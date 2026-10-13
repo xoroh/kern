@@ -25,7 +25,9 @@ export function CollapsibleTrigger({
     <CollapsiblePrimitive.Trigger
       data-slot="collapsible-trigger"
       className={cnState(
-        "kern-collapsible-trigger flex min-h-12 cursor-pointer items-center gap-2 text-sm font-medium text-(--md-sys-color-on-surface) outline-none " + FOCUS_RING_CLASS + " data-disabled:pointer-events-none data-disabled:opacity-50",
+        "kern-collapsible-trigger flex min-h-12 cursor-pointer items-center gap-2 text-sm font-medium text-(--md-sys-color-on-surface) outline-none " +
+          FOCUS_RING_CLASS +
+          " data-disabled:pointer-events-none data-disabled:opacity-50",
         className,
       )}
       {...props}

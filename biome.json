@@ -6,7 +6,12 @@
     "useIgnoreFile": true
   },
   "files": {
-    "includes": ["**", "!apps/site/src/generated/props.ts"]
+    "includes": [
+      "**",
+      "!apps/site/src/generated/props.ts",
+      "!packages/kern-cli/starters/web/package.json",
+      "!packages/kern-tokens/src/themes/matrix.json"
+    ]
   },
   "formatter": {
     "enabled": true,

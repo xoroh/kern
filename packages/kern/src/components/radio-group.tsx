@@ -55,7 +55,9 @@ export function RadioGroupItem({
       <RadioPrimitive.Root
         data-slot="radio-group-control"
         className={cnState(
-          "relative size-5 shrink-0 rounded-full border-2 border-(--md-sys-color-on-surface-variant) bg-(--md-sys-color-surface) outline-none transition-colors " + FOCUS_RING_CLASS + " data-disabled:cursor-not-allowed data-disabled:opacity-50 data-checked:border-(--md-sys-color-primary) after:absolute after:-inset-[14px] after:content-['']",
+          "relative size-5 shrink-0 rounded-full border-2 border-(--md-sys-color-on-surface-variant) bg-(--md-sys-color-surface) outline-none transition-colors " +
+            FOCUS_RING_CLASS +
+            " data-disabled:cursor-not-allowed data-disabled:opacity-50 data-checked:border-(--md-sys-color-primary) after:absolute after:-inset-[14px] after:content-['']",
           controlClassName,
         )}
         {...props}

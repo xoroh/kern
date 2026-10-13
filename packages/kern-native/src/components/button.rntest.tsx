@@ -44,9 +44,7 @@ describe("native Button render", () => {
 
   it("tints a bare icon with the label color via the slot merge", async () => {
     await render(
-      <Button icon={<Text testID="kern-icon">*</Text>}>
-        Save
-      </Button>,
+      <Button icon={<Text testID="kern-icon">*</Text>}>Save</Button>,
     );
     expect(screen.getByTestId("kern-icon").props.style).toMatchObject({
       color: expect.any(String),
@@ -54,11 +52,7 @@ describe("native Button render", () => {
   });
 
   it("renders the icon beside the label", async () => {
-    await render(
-      <Button icon={<Text>*</Text>}>
-        Save
-      </Button>,
-    );
+    await render(<Button icon={<Text>*</Text>}>Save</Button>);
     expect(screen.getByText("Save")).toBeOnTheScreen();
     expect(screen.getByText("*")).toBeOnTheScreen();
   });

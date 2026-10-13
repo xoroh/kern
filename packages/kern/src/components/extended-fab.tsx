@@ -152,7 +152,9 @@ export function ExtendedFab({
       aria-label={label}
       disabled={disabled}
       className={cn(
-        "kern-extended-fab relative inline-flex h-14 shrink-0 items-center gap-3 rounded-(--md-sys-shape-corner-large) pr-5 pl-4 text-(--md-sys-color-on-primary) shadow-(--md-sys-elevation-level3) transition-[padding] outline-none select-none " + FOCUS_RING_CLASS + " disabled:pointer-events-none disabled:opacity-50 after:absolute after:-inset-2 after:content-[''] [&_svg]:size-6 [&_svg]:shrink-0",
+        "kern-extended-fab relative inline-flex h-14 shrink-0 items-center gap-3 rounded-(--md-sys-shape-corner-large) pr-5 pl-4 text-(--md-sys-color-on-primary) shadow-(--md-sys-elevation-level3) transition-[padding] outline-none select-none " +
+          FOCUS_RING_CLASS +
+          " disabled:pointer-events-none disabled:opacity-50 after:absolute after:-inset-2 after:content-[''] [&_svg]:size-6 [&_svg]:shrink-0",
         isCollapsed && "w-14 justify-center px-0",
         className,
       )}

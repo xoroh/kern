@@ -21,7 +21,14 @@ describe("LinkButton", () => {
 
   it("carries every Button axis without its own implementation", () => {
     const { rerender } = render(
-      <LinkButton href="/x" variant="tonal" color="danger" size="xl" shape="square" block>
+      <LinkButton
+        href="/x"
+        variant="tonal"
+        color="danger"
+        size="xl"
+        shape="square"
+        block
+      >
         Go
       </LinkButton>,
     );

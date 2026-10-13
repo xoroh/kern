@@ -5,7 +5,7 @@ vi.mock(
   async () => await import("../../test-doubles/react-native"),
 );
 
-import { themes, resolveThemeDetails } from "@xoroh/kern-tokens";
+import { resolveThemeDetails, themes } from "@xoroh/kern-tokens";
 import { buttonStyles } from "./button";
 
 describe("native Button styles", () => {
@@ -48,9 +48,7 @@ describe("native Button styles", () => {
     expect(buttonStyles("primary", "xs", false).container.height).toBe(28);
     expect(buttonStyles("primary", "xl", false).container.height).toBe(48);
     // Untouched bands hold their metrics.
-    expect(buttonStyles("primary", "default", false).container.height).toBe(
-      40,
-    );
+    expect(buttonStyles("primary", "default", false).container.height).toBe(40);
     expect(buttonStyles("primary", "sm", false).container.height).toBe(32);
   });
 

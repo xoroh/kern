@@ -1,8 +1,8 @@
-import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
-import type { LoadingIndicatorStyle } from "@xoroh/kern-tokens";
 import { mergeSlotProps, type SlotProps } from "@xoroh/kern-primitives";
-import { cloneElement, isValidElement, useRef } from "react";
+import type { LoadingIndicatorStyle } from "@xoroh/kern-tokens";
+import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
+import { cloneElement, isValidElement, useRef } from "react";
 import {
   type GestureResponderEvent,
   Pressable,

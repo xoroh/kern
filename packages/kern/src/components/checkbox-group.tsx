@@ -41,7 +41,9 @@ export function CheckboxGroupItem({
       <CheckboxPrimitive.Root
         data-slot="checkbox-group-item"
         className={cnState(
-          "kern-checkbox relative size-[18px] shrink-0 rounded-(--md-sys-shape-corner-extra-small) border-2 border-(--md-sys-color-outline) bg-(--md-sys-color-surface) outline-none transition-colors " + FOCUS_RING_CLASS + " data-disabled:cursor-not-allowed data-disabled:opacity-50 data-checked:border-(--md-sys-color-primary) data-checked:bg-(--md-sys-color-primary) data-checked:text-(--md-sys-color-on-primary) after:absolute after:-inset-[15px] after:content-['']",
+          "kern-checkbox relative size-[18px] shrink-0 rounded-(--md-sys-shape-corner-extra-small) border-2 border-(--md-sys-color-outline) bg-(--md-sys-color-surface) outline-none transition-colors " +
+            FOCUS_RING_CLASS +
+            " data-disabled:cursor-not-allowed data-disabled:opacity-50 data-checked:border-(--md-sys-color-primary) data-checked:bg-(--md-sys-color-primary) data-checked:text-(--md-sys-color-on-primary) after:absolute after:-inset-[15px] after:content-['']",
           className,
         )}
         {...props}

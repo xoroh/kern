@@ -41,7 +41,9 @@ export function ToolbarButton({ className, ...props }: ToolbarButtonProps) {
     <ToolbarPrimitive.Button
       data-slot="toolbar-button"
       className={cnState(
-        "kern-toolbar-button flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-(--md-sys-color-on-surface) outline-none select-none " + FOCUS_RING_CLASS + " disabled:pointer-events-none disabled:opacity-50 data-pressed:bg-(--md-sys-color-primary) data-pressed:text-(--md-sys-color-on-primary)",
+        "kern-toolbar-button flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-(--md-sys-color-on-surface) outline-none select-none " +
+          FOCUS_RING_CLASS +
+          " disabled:pointer-events-none disabled:opacity-50 data-pressed:bg-(--md-sys-color-primary) data-pressed:text-(--md-sys-color-on-primary)",
         className,
       )}
       {...props}

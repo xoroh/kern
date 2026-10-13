@@ -28,11 +28,7 @@ export type LinkButtonProps = Omit<
  * `packages/kern/src/composition.test.ts`, which fails any new `asChild`
  * that does not carry the mutual-exclusion bridge.
  */
-export function LinkButton({
-  href,
-  onClick,
-  ...props
-}: LinkButtonProps) {
+export function LinkButton({ href, onClick, ...props }: LinkButtonProps) {
   return (
     <Button
       href={href}

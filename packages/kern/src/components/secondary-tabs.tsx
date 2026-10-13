@@ -177,7 +177,8 @@ export function SecondaryTabs({
               onClick={() => select(tab.value)}
               onKeyDown={onKeyDown}
               className={cn(
-                "kern-secondary-tab relative flex min-h-12 cursor-pointer items-center px-4 text-sm font-medium text-(--md-sys-color-on-surface-variant) outline-none select-none after:absolute after:inset-x-0 after:bottom-0 after:h-[3px] after:rounded-full after:bg-transparent after:content-[''] " + FOCUS_RING_CLASS,
+                "kern-secondary-tab relative flex min-h-12 cursor-pointer items-center px-4 text-sm font-medium text-(--md-sys-color-on-surface-variant) outline-none select-none after:absolute after:inset-x-0 after:bottom-0 after:h-[3px] after:rounded-full after:bg-transparent after:content-[''] " +
+                  FOCUS_RING_CLASS,
                 tab.disabled
                   ? "pointer-events-none opacity-38"
                   : "hover:text-(--md-sys-color-on-surface)",

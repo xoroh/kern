@@ -28,7 +28,9 @@ export type PaginationProps = Omit<
 };
 
 const buttonClass =
-  "kern-pagination-button flex h-10 min-w-10 cursor-pointer items-center justify-center rounded-(--md-sys-shape-corner-full) px-2 text-sm text-(--md-sys-color-on-surface) outline-none select-none " + FOCUS_RING_CLASS + " disabled:pointer-events-none disabled:opacity-50 data-current:bg-(--md-sys-color-primary) data-current:text-(--md-sys-color-on-primary)";
+  "kern-pagination-button flex h-10 min-w-10 cursor-pointer items-center justify-center rounded-(--md-sys-shape-corner-full) px-2 text-sm text-(--md-sys-color-on-surface) outline-none select-none " +
+  FOCUS_RING_CLASS +
+  " disabled:pointer-events-none disabled:opacity-50 data-current:bg-(--md-sys-color-primary) data-current:text-(--md-sys-color-on-primary)";
 
 function pageWindow(
   current: number,

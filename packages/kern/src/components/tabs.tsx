@@ -30,7 +30,9 @@ export function TabsTab({ className, ...props }: TabsTabProps) {
     <TabsPrimitive.Tab
       data-slot="tabs-tab"
       className={cnState(
-        "kern-tabs-tab relative flex min-h-12 cursor-pointer items-center px-4 text-sm font-medium text-(--md-sys-color-on-surface-variant) outline-none select-none " + FOCUS_RING_CLASS + " data-disabled:pointer-events-none data-disabled:opacity-50 data-selected:text-(--md-sys-color-primary) after:absolute after:inset-x-0 after:bottom-0 after:h-[3px] after:rounded-full after:bg-transparent after:content-[''] data-selected:after:bg-(--md-sys-color-primary)",
+        "kern-tabs-tab relative flex min-h-12 cursor-pointer items-center px-4 text-sm font-medium text-(--md-sys-color-on-surface-variant) outline-none select-none " +
+          FOCUS_RING_CLASS +
+          " data-disabled:pointer-events-none data-disabled:opacity-50 data-selected:text-(--md-sys-color-primary) after:absolute after:inset-x-0 after:bottom-0 after:h-[3px] after:rounded-full after:bg-transparent after:content-[''] data-selected:after:bg-(--md-sys-color-primary)",
         className,
       )}
       {...props}

@@ -28,8 +28,8 @@ import { describe, expect, it } from "vitest";
 const HERE = dirname(fileURLToPath(import.meta.url));
 
 /** Every state pair: canonical names that must be present. */
-const CANONICAL_VALUE = ["value", "onValueChange"];
-const CANONICAL_OPEN = ["open", "onOpenChange"];
+const _CANONICAL_VALUE = ["value", "onValueChange"];
+const _CANONICAL_OPEN = ["open", "onOpenChange"];
 
 /**
  * Deprecated aliases, each mapped to the file-relative scope they may appear

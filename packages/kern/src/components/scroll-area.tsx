@@ -31,7 +31,8 @@ export function ScrollAreaViewport({
     <ScrollAreaPrimitive.Viewport
       data-slot="scroll-area-viewport"
       className={cnState(
-        "kern-scroll-area-viewport h-full w-full overscroll-contain rounded-[inherit] outline-none " + FOCUS_RING_CLASS,
+        "kern-scroll-area-viewport h-full w-full overscroll-contain rounded-[inherit] outline-none " +
+          FOCUS_RING_CLASS,
         className,
       )}
       {...props}

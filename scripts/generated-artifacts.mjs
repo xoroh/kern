@@ -149,8 +149,18 @@ export const GENERATORS = [
     // the preload path (which bun resolves before the entry) portable —
     // a root-relative --preload is rejected as "not found".
     name: "site generate-a11y (content x registries -> a11y JSON + barrel)",
-    cmd: ["bun", "--cwd", "apps/site", "--preload", "./scripts/preload-rn.mjs", "scripts/generate-a11y.mjs"],
-    outputs: ["apps/site/src/generated/a11y", "apps/site/src/generated/a11y.ts"],
+    cmd: [
+      "bun",
+      "--cwd",
+      "apps/site",
+      "--preload",
+      "./scripts/preload-rn.mjs",
+      "scripts/generate-a11y.mjs",
+    ],
+    outputs: [
+      "apps/site/src/generated/a11y",
+      "apps/site/src/generated/a11y.ts",
+    ],
   },
   {
     // F1 (review-m3): the compiler-extracted props tables Section 10 reads.
