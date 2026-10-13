@@ -118,7 +118,13 @@ describe("zero-to-screen loop", () => {
       const result = addComponent("button", { root: ROOT, dest });
       expect(result.files).toContain("components/button.tsx");
       const receipt = JSON.parse(readFileSync(result.receipt, "utf8"));
-      expect(Object.keys(receipt.components)).toEqual(["button"]);
+      expect(receipt.schemaVersion).toBe("2");
+      const owners = [
+        ...new Set(
+          (receipt.files as Array<{ owner: string }>).map((f) => f.owner),
+        ),
+      ];
+      expect(owners).toEqual(["component:button"]);
       const shipped = readFileSync(
         join(ROOT, "packages/kern/src/components/button.tsx"),
         "utf8",

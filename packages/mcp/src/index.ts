@@ -4,9 +4,15 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { z } from "zod";
 import {
   designAudit,
+  getBlock,
   getComponent,
+  getDtcg,
+  getIcon,
   getTokens,
+  installPlan,
+  listBlocks,
   listComponents,
+  listIcons,
   listThemes,
   type Platform,
   TOKEN_PRESETS,
@@ -59,6 +65,15 @@ server.tool(
 );
 
 server.tool(
+  "get_dtcg",
+  "Get the DTCG 2025.10 interchange document: every foundation group plus sys.color roles, machine-readable for third-party tools.",
+  {},
+  async () => {
+    return text(await getDtcg());
+  },
+);
+
+server.tool(
   "list_themes",
   "List available theme presets with copy-paste pointers. Use get_tokens with an id for the full preset.",
   {},
@@ -73,6 +88,54 @@ server.tool(
   {},
   async () => {
     return text(designAudit());
+  },
+);
+
+server.tool(
+  "list_icons",
+  "List Kern icons: catalog size plus the semantic name-to-glyph map. Prefer semantic names so a re-decision stays a one-line change.",
+  {},
+  async () => {
+    return text(await listIcons());
+  },
+);
+
+server.tool(
+  "get_icon",
+  "Resolve one icon by semantic or glyph name. Unknown names error — a missing icon renders null, never a neighbouring glyph.",
+  { name: z.string().describe("semantic name, e.g. menu-book") },
+  async ({ name }) => {
+    return text(await getIcon(name));
+  },
+);
+
+server.tool(
+  "list_blocks",
+  "List Kern blocks: composed sections installable as a unit with kern add.",
+  {},
+  async () => {
+    return text(await listBlocks());
+  },
+);
+
+server.tool(
+  "get_block",
+  "Get one block: files, component dependencies, install command.",
+  { name: z.string().describe("block name, e.g. auth-form") },
+  async ({ name }) => {
+    return text(await getBlock(name));
+  },
+);
+
+server.tool(
+  "install_plan",
+  "Deterministic no-write install plan for a component: files, npm peers, commands. Evidence is labelled — resolved-closure when the CLI planner ran, metadata-only when it did not.",
+  {
+    name: z.string().describe("kebab-case component name, e.g. button"),
+    platform: z.enum(["web", "native"]).default("web"),
+  },
+  async ({ name, platform }) => {
+    return text(await installPlan(name, (platform ?? "web") as Platform));
   },
 );
 

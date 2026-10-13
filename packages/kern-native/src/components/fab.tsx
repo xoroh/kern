@@ -90,7 +90,6 @@ export function fabStyles(
     gap: 8,
     borderRadius: Number.parseFloat(scheme.shape.large),
     paddingHorizontal: size === "icon" ? 0 : 20,
-    backgroundColor: roles.container,
     // 6dp = M3 LEVEL 3, the level the registry declares for `fab`/
     // `extended-fab` (`variants: [3]`) and the level web binds via
     // `--md-sys-elevation-level3`.
@@ -106,8 +105,8 @@ export function fabStyles(
           // 1dp = M3 LEVEL 1, the lowered resting height. Web binds the same
           // level through `--md-sys-elevation-level1` and swaps the fill to
           // `surface-container-low`.
-          elevation: 1,
           backgroundColor: scheme.color.surfaceContainerLow,
+          elevation: 1,
           shadowColor: scheme.color.scrim,
           shadowOpacity: 0.12,
           shadowRadius: 3,
@@ -115,6 +114,7 @@ export function fabStyles(
         }
       : {
           // 6dp = M3 LEVEL 3, the default resting height.
+          backgroundColor: roles.container,
           elevation: 6,
           shadowColor: scheme.color.scrim,
           shadowOpacity: 0.3,

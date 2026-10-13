@@ -234,27 +234,27 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
 
 ## P5 — Registry and AI
 
-- [ ] **KERN-048 — Generate one versioned registry payload.** Priority P0; phase P5; status Not started; owner metadata.
+- [x] **KERN-048 — Generate one versioned registry payload.** Priority P0; phase P5; status Verified 2026-10-13; owner metadata.
   - Dependencies: KERN-024, KERN-036. Files: registry source/generator/JSON schema/integrity payload.
   - Deliverable: components/compositions/blocks/foundations/icons/deps/assets/config/test/doc metadata shared by all consumers. Acceptance: no runtime regex TS parsing; schema/releaseSet/version provenance.
   - Verification: schema positives/negatives and deterministic AST generation/freshness tests in disposable snapshot, no renderer execution import.
-- [ ] **KERN-049 — Make entrypoints/props/capabilities match actual exports.** Priority P0; phase P5; status Not started; owner metadata/platform.
+- [x] **KERN-049 — Make entrypoints/props/capabilities match actual exports.** Priority P0; phase P5; status Verified 2026-10-13; owner metadata/platform.
   - Dependencies: KERN-008, KERN-032, KERN-048. Files: generator/MCP/site/CLI registry consumers and public types.
   - Deliverable: exact package/subpath/renderer/variant/default API metadata. Acceptance: SearchBar import `/start`, no helper/component misclassification or unsupported capability claims.
   - Verification: all export-map/barrel/source identity tests, prop/type fixtures, deliberate missing export/falsified capability failures; V-MCP.
-- [ ] **KERN-050 — Bundle MCP source/token/theme payloads.** Priority P0; phase P5; status Not started; owner MCP/distribution.
+- [x] **KERN-050 — Bundle MCP source/token/theme payloads.** Priority P0; phase P5; status Verified 2026-10-13; owner MCP/distribution.
   - Dependencies: KERN-048, KERN-042. Files: MCP reader/package/payload/version/source unavailable errors.
   - Deliverable: offline discovery/source/theme access outside checkout. Acceptance: no ../../../ package root reliance by default; optional dev override explicit and bounded.
   - Verification: V-MCP/V-PACK plus spawned packed server from isolated empty consumer, all declared payload hashes checked.
-- [ ] **KERN-051 — Correct and regression-test native source routing.** Priority P0; phase P5; status Not started; owner MCP/platform.
+- [x] **KERN-051 — Correct and regression-test native source routing.** Priority P0; phase P5; status Verified 2026-10-13; owner MCP/platform.
   - Dependencies: KERN-050, KERN-049. Files: MCP tools/source reader/renderer path tests.
   - Deliverable: selected renderer owns source bytes and declared import. Acceptance: native/button equals native source, not web; native-only paths available, no package path escape.
   - Verification: V-MCP and web/native byte/source hashes/unknown renderer/path traversal tests; packed mode and dev override exercised.
-- [ ] **KERN-052 — Add theme/DTCG/icon discovery.** Priority P1; phase P5; status Not started; owner AI/foundations/icons.
+- [x] **KERN-052 — Add theme/DTCG/icon discovery.** Priority P1; phase P5; status Verified 2026-10-13; owner AI/foundations/icons.
   - Dependencies: KERN-019, KERN-020, KERN-030, KERN-049, KERN-050. Files: MCP tools/protocol schemas/registry metadata.
   - Deliverable: contexts/aliases/Material mapping/fill/decorative/license queries and valid token formats. Acceptance: no unsupported extra family/weight/mode promises.
   - Verification: V-MCP plus spawned stdio query/error/schema/version fixture tests and alias/context golden agreement.
-- [ ] **KERN-053 — Add real block discovery/graph validation.** Priority P1; phase P5; status Not started; owner registry/AI.
+- [x] **KERN-053 — Add real block discovery/graph validation.** Priority P1; phase P5; status Verified 2026-10-13; owner registry/AI.
   - Dependencies: KERN-040, KERN-049, KERN-050. Files: block registry/MCP discovery/validation tools.
   - Deliverable: platform/mode/component/token/icon/npm/asset dependency metadata for real blocks. Acceptance: advertised native block has actual source/preview/test, unsupported errors explicit.
   - Verification: V-MCP plus all three current block graph/refusal/stdin query fixtures, CLI/MCP closure matches.

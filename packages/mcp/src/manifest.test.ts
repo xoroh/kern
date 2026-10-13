@@ -109,9 +109,7 @@ describe("component manifest", () => {
       if (entry.entrypoint === "./start") {
         expect(entry.path.startsWith("src/start/"), entry.path).toBe(true);
       } else {
-        expect(entry.path.startsWith("src/components/"), entry.path).toBe(
-          true,
-        );
+        expect(entry.path.startsWith("src/components/"), entry.path).toBe(true);
       }
     }
   });
