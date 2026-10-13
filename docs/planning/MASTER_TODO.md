@@ -94,7 +94,7 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
   - Dependencies: KERN-007, KERN-013. Files: distribution/icon/peer/registry/receipt design.
   - Deliverable: ordinary CSS, source hybrid/snapshot, native assets, releaseSet, transaction/config schema. Acceptance: no hidden zero-dependency or checkout promise; one Material family.
   - Verification: API/peer/import/asset flow review against add/closure/source config and target consumer matrix.
-- [ ] **KERN-016 — Approve early product migration/rollback design.** Priority P0; phase P1; status Not started; owner migration/owner.
+- [x] **KERN-016 — Approve early product migration/rollback design.** Priority P0; phase P1; status Verified 2026-10-13; owner migration/owner.
   - Dependencies: KERN-004, KERN-007, KERN-011, KERN-015. Files: Xoroh migration scenarios/artifact adapter plan.
   - Deliverable: canary apps, product used slice, rollback pins/owners and legal/public source boundaries. Acceptance: P7A starts on foundation readiness, not after public release; domain helpers stay app-owned.
   - Verification: explicit product windows/acceptance scenarios and rollback review; no parent changes yet.
@@ -144,15 +144,15 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
   - Dependencies: KERN-010, KERN-017, KERN-025. Files: elevation source/registry/gates/public deviation ledger and family tests.
   - Deliverable: per-variant/state measurements, explicit design rulings, no parent `.team` dependence. Acceptance: seven current findings and report-only/open cases dispositioned without conflating hover/lowered states.
   - Verification: `bun run check:kern`, `bun run check:elevation-parity`, parser negatives + renderer resting/hover variant style goldens.
-- [ ] **KERN-027 — Preserve field/selection/overlay behavior.** Priority P0; phase P3; status Not started; owner components/a11y.
+- [x] **KERN-027 — Preserve field/selection/overlay behavior.** Priority P0; phase P3; status Verified 2026-10-13; owner components/a11y.
   - Dependencies: KERN-025, KERN-009. Files: input/field/OTP/number/select/calendar/menu/dialog/sheet family tests/source.
   - Deliverable: label/error/value/disabled/keyboard/paste/clamp/modality/focus/back contracts. Acceptance: all used generic APIs and required native behavior preserved; true missing capabilities implemented.
   - Verification: V-WEB/V-NATIVE + family axe/keyboard/ref/controlled and negative scenario fixtures.
-- [ ] **KERN-028 — Preserve navigation/start/shell seams.** Priority P0; phase P3; status Not started; owner composition/migration.
+- [x] **KERN-028 — Preserve navigation/start/shell seams.** Priority P0; phase P3; status Verified 2026-10-13; owner composition/migration.
   - Dependencies: KERN-025, KERN-016. Files: start/native navigation/pane/scaffold/toolbar tests/source.
   - Deliverable: selection/slots/link adapter/responsive/drill/ref mapping for product slices. Acceptance: lower layers never import compositions; domain/auth/catalog injected, not baked in.
   - Verification: V-WEB/V-NATIVE/V-BOUNDARY plus RTL/focus/resizing/disabled/navigation fixtures and private API mapping.
-- [ ] **KERN-029 — Prove real native hosts/fonts/themes/gestures.** Priority P0; phase P3; status Not started; owner native/a11y.
+- [x] **KERN-029 — Prove real native hosts/fonts/themes/gestures.** Priority P0; phase P3; status Verified 2026-10-13; owner native/a11y.
   - Dependencies: KERN-023, KERN-027, KERN-028, KERN-012. Files: native components/host examples/font/theme tests.
   - Deliverable: controlled/OS/storage adapter compatibility, fonts/keyboard/back/modal/sheet/device evidence. Acceptance: no module-scope theme captures/Expo coupling, RN-web not substituted for device.
   - Verification: V-NATIVE + Expo bundle/host simulator or device scenarios and screen-reader manual evidence.
@@ -164,7 +164,7 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
   - Dependencies: KERN-030. Files: icon catalog/generator/static entrypoint option/THIRD_PARTY/packed fixtures.
   - Deliverable: pinned reproducible glyph payload/notice and measured web/native dynamic/static bundle cost. Acceptance: no fake tree-shaking claim; only justified static API addition, legacy dynamic API retained.
   - Verification: `bun run icons:check`, negative missing asset/name fixtures, actual packed bundler byte reports and license payload inspection.
-- [ ] **KERN-032 — Reconcile exact parity and exception policy.** Priority P1; phase P3; status Not started; owner platform/metadata.
+- [x] **KERN-032 — Reconcile exact parity and exception policy.** Priority P1; phase P3; status Verified 2026-10-13; owner platform/metadata.
   - Dependencies: KERN-025, KERN-026, KERN-027, KERN-028, KERN-029, KERN-030. Files: parity contract/gate/platform docs/generated inventory.
   - Deliverable: capability-based classification for every one-sided row/actual variant gap. Acceptance: all counts reconcile, no stale already-present native gaps, all exceptions have rationale/alternative/test.
   - Verification: V-BOUNDARY + metadata false-claim negatives and exact inventory diff; generated outputs only through generator.
