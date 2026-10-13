@@ -1,25 +1,17 @@
 /**
- * /foundations — the Foundations hub, and the landing for the Foundations
- * family. Reachable from the top nav.
+ * /foundations — the design-systems hub.
  *
- * Every figure on this page is read from the token package via
- * content/foundations. Nothing is a literal. The hub gathers what used to
- * live at four separate top-level routes — /styles (+/$page), /theme,
- * /accessibility, /icons — which now redirect here.
+ * Kern documents one system today (Material 3) and is shaped for more: each
+ * system owns its directory (`/foundations/<id>/`), its content barrel
+ * (`content/systems/<id>/`), and its registry entry (`systems/design-systems`).
+ * This page lists the systems; the old token-hub body lives at
+ * /foundations/m3. System cards render from the registry, so a second system
+ * lands as data — no hub rewrite.
  */
 
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { PageCard } from "../../domains/shared/chrome/page-card";
 import { SiteLayout } from "../../domains/shared/chrome/site-layout";
-import {
-  COLOR_ROLES,
-  ELEVATION_LEVELS,
-  KERN_EXTRA_COUNT,
-  M3_ROLE_COUNT,
-  ROLE_COUNT,
-  SHAPE,
-  TYPE_STYLE_COUNT,
-} from "../../content/foundations";
-import { FOUNDATIONS } from "../../foundations/shell";
 import { routeHead } from "../../domains/shared/systems/seo";
 import {
   T_BODY_SM,
@@ -28,24 +20,29 @@ import {
   T_SECTION,
   T_SMALL_TITLE,
 } from "../../domains/shared/systems/type-scale";
-
-const INK = "text-(--md-sys-color-on-surface)";
-const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";
-const CARD =
-  "rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-low)";
+import { CARD, INK, INK_SOFT, LINK } from "../../domains/shared/systems/ui";
+import { DESIGN_SYSTEMS } from "../../systems/design-systems";
 
 export const Route = createFileRoute("/foundations/")({
   head: () =>
-    routeHead("Foundations", "Tokens, theme, accessibility, and icons — the layer beneath the components."),
-  component: FoundationsHub,
+    routeHead(
+      "Design systems",
+      "The systems kern documents — Material 3 today, shaped for more.",
+    ),
+  component: SystemsHub,
 });
 
-const BEYOND_TOKENS: { title: string; body: string; to: string; cta: string }[] = [
+/**
+ * kern-level resources shared across systems — the icon set and the
+ * accessibility statement belong to kern, not to Material 3, so they stay
+ * outside every system directory by decision, not by accident.
+ */
+const SHARED = [
   {
-    title: "Theme",
-    body: "One theme source, both platforms — color roles, shape, contrast levels, and authoring a preset.",
-    to: "/foundations/theme",
-    cta: "Open the theme",
+    title: "Icons",
+    body: "Every icon in the set, searchable — names and counts read from the icon package at build time.",
+    to: "/foundations/icons",
+    cta: "Browse the gallery",
   },
   {
     title: "Accessibility",
@@ -53,149 +50,111 @@ const BEYOND_TOKENS: { title: string; body: string; to: string; cta: string }[] 
     to: "/foundations/accessibility",
     cta: "Read the statement",
   },
-  {
-    title: "Icons",
-    body: "Every icon in the set, searchable — names and counts read from the icon package at build time.",
-    to: "/foundations/icons",
-    cta: "Browse the gallery",
-  },
 ];
 
-function FoundationsHub() {
-  // Generated, not typed — see ROLE-COUNT-CORRECTION-45-vs-58.md. kern ships
-  // ROLE_COUNT roles; M3_ROLE_COUNT of them are Material 3's and the rest are
-  // registered kern deviations. Both numbers are computed above.
+function SystemsHub() {
   return (
     <SiteLayout>
-      <section className="px-4 py-4 sm:px-6 sm:py-6">
-        <div className="mx-auto flex max-w-[64rem] flex-col gap-8 rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14">
-          <header className="flex flex-col gap-3">
-            <h1 className={`m-0 ${T_PAGE} ${INK}`}>Foundations</h1>
-            <p className={`m-0 max-w-[62ch] ${T_LEAD} ${INK_SOFT}`}>
-              The values the whole system is built from, and the rules that
-              govern them. Everything on these pages is read from the token
-              package — the numbers are generated, so they cannot disagree with
-              what kern ships.
-            </p>
-          </header>
-
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <Stat label="Colour roles" value={String(ROLE_COUNT)} />
-            <Stat label="Type styles" value={String(TYPE_STYLE_COUNT)} />
-            <Stat label="Corner roles" value={String(SHAPE.length)} />
-            <Stat
-              label="Elevation levels"
-              value={String(ELEVATION_LEVELS.length)}
-            />
-          </div>
-
-          <p className={`m-0 max-w-[62ch] ${T_BODY_SM} ${INK_SOFT}`}>
-            {ROLE_COUNT} colour roles in kern: {M3_ROLE_COUNT} are Material 3's
-            and {KERN_EXTRA_COUNT} are registered kern deviations — status
-            colours and a tonal surface role, each with an id in the deviations
-            registry rather than being quietly non-standard.
+      <PageCard>
+        <header className="flex flex-col gap-3">
+          <h1 className={`m-0 ${T_PAGE} ${INK}`}>Design systems</h1>
+          <p className={`m-0 max-w-[62ch] ${T_LEAD} ${INK_SOFT}`}>
+            Kern documents one design system today — Material 3 — and the tree
+            is shaped so the next one slots in beside it: one directory, one
+            content barrel, one registry entry each.
           </p>
+        </header>
 
-          <nav
-            className="grid grid-cols-1 gap-3 sm:grid-cols-2"
-            aria-label="Foundations"
-          >
-            {FOUNDATIONS.map((page) => (
+        <nav
+          className="grid grid-cols-1 gap-3 sm:grid-cols-2"
+          aria-label="Design systems"
+        >
+          {DESIGN_SYSTEMS.map((system) => (
+            <div key={system.id} className={`${CARD} flex flex-col gap-1 p-5`}>
+              <span className={`m-0 ${T_SMALL_TITLE} ${INK}`}>
+                {system.label}
+              </span>
+              <span className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
+                {system.status === "current" ? "Current system — " : ""}
+                {system.blurb}
+              </span>
+              <span className="m-0 mt-2 flex flex-wrap gap-4">
+                <Link
+                  to={system.foundationsHref}
+                  className={`m-0 ${T_BODY_SM} ${LINK}`}
+                >
+                  Foundations →
+                </Link>
+                <Link
+                  to={system.componentsHref}
+                  className={`m-0 ${T_BODY_SM} ${LINK}`}
+                >
+                  Components →
+                </Link>
+              </span>
+            </div>
+          ))}
+        </nav>
+
+        <section className="flex flex-col gap-3">
+          <h2 id="shared-resources" className={`m-0 ${T_SECTION} ${INK}`}>
+            Shared across systems
+          </h2>
+          <p className={`m-0 max-w-[62ch] ${T_BODY_SM} ${INK_SOFT}`}>
+            These belong to kern itself, not to any one system — so they stay
+            outside the system directories no matter how many systems land.
+          </p>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {SHARED.map((card) => (
               <Link
-                key={page.slug}
-                to="/foundations/$page"
-                params={{ page: page.slug }}
+                key={card.to}
+                to={card.to}
                 className={`${CARD} flex flex-col gap-1 p-5 no-underline`}
               >
                 <span className={`m-0 ${T_SMALL_TITLE} ${INK}`}>
-                  {page.title}
+                  {card.title}
                 </span>
                 <span className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
-                  {page.oneLiner}
+                  {card.body}
+                </span>
+                <span className={`m-0 mt-1 ${T_BODY_SM} ${LINK}`}>
+                  {card.cta} →
                 </span>
               </Link>
             ))}
-          </nav>
+          </div>
+        </section>
 
-          <section className="flex flex-col gap-3">
-            <h2 id="beyond-tokens" className={`m-0 ${T_SECTION} ${INK}`}>
-              Beyond tokens
-            </h2>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-              {BEYOND_TOKENS.map((card) => (
-                <Link
-                  key={card.to}
-                  to={card.to}
-                  className={`${CARD} flex flex-col gap-1 p-5 no-underline`}
-                >
-                  <span className={`m-0 ${T_SMALL_TITLE} ${INK}`}>
-                    {card.title}
-                  </span>
-                  <span className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
-                    {card.body}
-                  </span>
-                  <span
-                    className={`m-0 mt-1 ${T_BODY_SM} text-(--md-sys-color-primary)`}
-                  >
-                    {card.cta} →
-                  </span>
-                </Link>
-              ))}
-            </div>
-          </section>
-
-          <section className="flex flex-col gap-3">
-            <h2 id="where-used" className={`m-0 ${T_SECTION} ${INK}`}>
-              Where the tokens are used
-            </h2>
-            <p className={`m-0 max-w-[62ch] ${T_BODY_SM} ${INK_SOFT}`}>
-              Every component page carries a "Theming and tokens" section naming
-              the tokens that component reads. Start there to see a token doing
-              work.
-            </p>
-            <Link
-              to="/components"
-              className={`m-0 ${T_BODY_SM} text-(--md-sys-color-primary) underline underline-offset-2`}
-            >
-              Browse components →
-            </Link>
-          </section>
-
-          {/* A live swatch row, generated — the first colour roles, both schemes. */}
-          <section className="flex flex-col gap-3">
-            <h2 id="swatches" className={`m-0 ${T_SECTION} ${INK}`}>
-              The roles, live
-            </h2>
-            <p className={`m-0 max-w-[62ch] ${T_BODY_SM} ${INK_SOFT}`}>
-              These swatches are the actual role values from the theme, not a
-              picture of them.
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {COLOR_ROLES.slice(0, 12).map((role) => (
-                <div key={role.name} className="flex flex-col gap-1">
-                  <div
-                    className="h-10 w-20 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant)"
-                    style={{ background: role.light }}
-                    aria-hidden="true"
-                  />
-                  <span className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
-                    {role.name}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </section>
-        </div>
-      </section>
+        <section className="flex flex-col gap-3">
+          <h2 id="next-steps" className={`m-0 ${T_SECTION} ${INK}`}>
+            Next steps
+          </h2>
+          <ul className="m-0 flex list-none flex-col gap-2 p-0">
+            <li>
+              <Link
+                to="/docs/getting-started"
+                className={`text-(--md-sys-color-primary) ${T_BODY_SM}`}
+              >
+                Getting started →
+              </Link>{" "}
+              <span className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
+                install to first component, in order.
+              </span>
+            </li>
+            <li>
+              <Link
+                to="/components"
+                className={`text-(--md-sys-color-primary) ${T_BODY_SM}`}
+              >
+                Component gallery →
+              </Link>{" "}
+              <span className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
+                what ships, and what each part does.
+              </span>
+            </li>
+          </ul>
+        </section>
+      </PageCard>
     </SiteLayout>
-  );
-}
-
-function Stat({ label, value }: { label: string; value: string }) {
-  return (
-    <div className={`${CARD} flex flex-col gap-1 p-4`}>
-      <span className={`m-0 ${T_SECTION} ${INK}`}>{value}</span>
-      <span className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>{label}</span>
-    </div>
   );
 }

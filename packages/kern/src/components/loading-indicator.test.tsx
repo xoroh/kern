@@ -157,3 +157,12 @@ describe("LoadingRegion", () => {
     expect(region).toHaveAttribute("aria-live", "polite");
   });
 });
+
+describe("LoadingIndicator sizes (M3: 24–240dp range, 48dp default)", () => {
+  it("renders xl at the 48dp spec default", () => {
+    render(<LoadingIndicator size="xl" label="Loading" />);
+    expect(
+      screen.getByRole("status").firstElementChild?.className,
+    ).toContain("size-12");
+  });
+});

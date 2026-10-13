@@ -7,6 +7,8 @@
 - `matrix.md` — the comparison matrix (all systems × part families, compact codes).
 - `<system>.md` — one file per system: identity, component inventory, tokens, patterns, per-part they-have / we-will-have.
 - Systems: m3-material-web, mui, shadcn, base-ui, mantine, chakra, ant, carbon, fluent, tamagui, rn-paper, nativebase, gluestack.
+- `m3-archive/` — full local M3 evidence locker (375 spec pages, 6.1k illustrations, 9 code clones, docs mirrors). Git-ignored, stays on disk only. See its README.
+- `m3-usable/` — curated, committable M3 extracts for Kern work (tokens, 36 component specs, foundations, parity-gaps). Generated from the archive by `m3-usable/tools/extract.py`.
 
 ## Codes (matrix + per-part tables)
 - They-have: **Y** = have · **P** = partial/narrow · **–** = absent.

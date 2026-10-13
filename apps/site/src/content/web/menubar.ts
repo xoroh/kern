@@ -45,6 +45,45 @@ export const menubar: ComponentDoc = {
     { name: "MenubarItem", role: "One action inside a menu." },
     { name: "Menubar", role: "The namespace object: all of the parts above." },
   ],
+  keyboard: [
+    {
+      key: "Arrow keys",
+      action: "Moves between top-level menus; Down opens the focused menu.",
+    },
+    {
+      key: "Escape",
+      action: "Closes the open menu and returns focus to its trigger.",
+    },
+  ],
+  usage: {
+    do: [
+      "Use for desktop File/Edit/View command patterns.",
+      "Keep top-level labels to one word each.",
+    ],
+    dont: [
+      "Don't use on touch-first surfaces — reach for a menu button instead.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Bar",
+      state: "resting",
+      token: "kern.menubar.container",
+      value: "full pill, surface-tonal, h-12",
+    },
+    {
+      element: "Open trigger",
+      state: "resting",
+      token: "kern.menubar.open",
+      value: "on-surface 8% layer",
+    },
+  ],
+  faq: [
+    {
+      q: "Menubar or navigation menu?",
+      a: "Menubar for application command strips; NavigationMenu for site wayfinding dropdowns.",
+    },
+  ],
   customization: {
     supported: [
       "`className` on every part, merged after the part's own classes.",

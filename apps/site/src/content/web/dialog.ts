@@ -49,6 +49,65 @@ export const dialog: ComponentDoc = {
     },
     { name: "DialogClose", role: "Closes the dialog from inside it." },
   ],
+  keyboard: [
+    {
+      key: "Escape",
+      action: "Closes the dialog (cancel event); focus returns to the trigger.",
+    },
+    {
+      key: "Tab / Shift+Tab",
+      action: "Trapped inside the modal dialog; the page behind is inert.",
+    },
+  ],
+  usage: {
+    do: [
+      "Use for blocking prompts and critical information requiring a decision or acknowledgement.",
+      "Keep headlines to brief specific questions — never apologies, alarm, or ambiguity.",
+      "Max two actions: single acknowledgement, or confirm plus dismiss with confirm closest to the trailing edge.",
+      "Disable confirm until prerequisites hold; dismissive actions are never disabled.",
+    ],
+    dont: [
+      "Don't use for low-priority information — that is a snackbar.",
+      "Don't add a third navigating action — use inline expansion instead.",
+      "Don't obscure the dialog or let it scroll the page behind it.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Container",
+      state: "resting",
+      token: "md.comp.dialog.container",
+      value: "surface-container-high, 28px, 280-560px, 24px padding",
+    },
+    {
+      element: "Headline",
+      state: "resting",
+      token: "md.comp.dialog.headline",
+      value: "on-surface, headline-small 24px/32px",
+    },
+    {
+      element: "Supporting text",
+      state: "resting",
+      token: "md.comp.dialog.supporting",
+      value: "on-surface-variant, body-medium",
+    },
+    {
+      element: "Scrim",
+      state: "resting",
+      token: "md.sys.color.scrim",
+      value: "32%",
+    },
+  ],
+  faq: [
+    {
+      q: "Dialog or snackbar?",
+      a: "High importance plus required action means dialog; low importance with optional action and auto-dismiss means snackbar.",
+    },
+    {
+      q: "How many actions?",
+      a: "Max two: one acknowledgement, or confirm plus dismiss. Never a third navigating action.",
+    },
+  ],
   customization: {
     supported: [
       "`className` on every part, merged after the part's own classes.",

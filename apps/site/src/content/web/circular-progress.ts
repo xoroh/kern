@@ -14,6 +14,36 @@ export const circularProgress: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["CircularProgress"],
+  usage: {
+    do: [
+      "Use the loop for unknown waits, determinate arcs for known fractions.",
+      "Reach for four-color cycling for brand moments, not every spinner.",
+      "Always label for assistive tech.",
+    ],
+    dont: [
+      "Don't leave determinate arcs unlabeled — report value or status.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Ring",
+      state: "resting",
+      token: "md.comp.circular-progress",
+      value: "48px, 8.333% arc, primary",
+    },
+    {
+      element: "Four-color cycle",
+      state: "resting",
+      token: "md.comp.circular-progress.four-color",
+      value: "primary, primary-container, tertiary, tertiary-container over 5.332s",
+    },
+  ],
+  faq: [
+    {
+      q: "When is four-color right?",
+      a: "Brand moments and app-level waits — not inline form spinners.",
+    },
+  ],
   customization: {
     supported: [
       "`className` is passed through and merged after the indicator's own classes, which is how its size and colour are set.",

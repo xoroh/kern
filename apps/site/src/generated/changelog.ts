@@ -35,6 +35,13 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
       "Add M3's fifth state-layer opacity (disabled, 38%) and assert all five in check:kern.",
   },
   {
+    id: "expressive-shapes",
+    packages: ["@xoroh/kern-tokens", "@xoroh/kern-native"],
+    bump: "minor",
+    summary:
+      "M3 Expressive shape library as data + renderer. @xoroh/kern-tokens: expressive-shapes module (10 family-parameterized forms — superellipse/scallop/star descriptors, expressiveShapePath() byte-identical per name+size on every renderer, list/get/has/register registry mirroring registerHue). Core 10-entry shape scale untouched. @xoroh/kern-native: ExpressiveShape renderer on react-native-svg + expressiveShapeArtStyles. Vertex-exact Compose tables are not vendored anywhere in-repo, so forms are family-parameterized (stated in the module header). XR components scoped out by design (documented in the mobile-foundation skill reference; DOM+RN primitives cannot host a scene graph — escape hatch is a future @xoroh/kern-xr behind its own ADR).",
+  },
+  {
     id: "m3-to-kern-rename-renderers",
     packages: ["@xoroh/kern", "@xoroh/kern-native"],
     bump: "minor",
@@ -75,11 +82,25 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
       "Add native CheckboxGroup — a web-only row that was a genuine gap.",
   },
   {
+    id: "native-combobox",
+    packages: ["@xoroh/kern-native"],
+    bump: "minor",
+    summary:
+      "Native Combobox: flat type-to-filter single choice (options, value/defaultValue/onValueChange, onSelect, open/defaultOpen/onOpenChange, local filter + defaultComboboxFilter). Read-only field trigger, inline centred Modal popup over the Kern scrim with filter field + option list + empty state (the compound Popover stays the anchored non-modal surface — its dismiss-pressable wrap would swallow filter taps, recorded in combobox.tsx). Shared concept with web; platform-parity.md gap list updated (web-only 16 → 14).",
+  },
+  {
     id: "native-composition-and-fonts",
     packages: ["@xoroh/kern-native"],
     bump: "minor",
     summary:
       "Native composition layer (roadmap rows 6 + 8), plus native counterparts of the K-02 web-extras set.",
+  },
+  {
+    id: "native-dial-time-picker",
+    packages: ["@xoroh/kern", "@xoroh/kern-native"],
+    bump: "minor",
+    summary:
+      'M3 dial (clock-face) presentation for TimePicker, both renderers. presentation?: "listbox" | "dial" (default "listbox", back-compatible) + TimePickerPresentation / NativeTimePickerPresentation types. 256dp face, outer/inner 24h rings, 5-minute labelling on dense minute faces, press-advances-to-minutes on touch, keyboard parity on web. Value contract unchanged (24h internal, normalized reporting, step/format honored). Native dial renders on react-native-svg (new runtime dependency, externalized from the build, headless doubles for jest/vitest).',
   },
   {
     id: "native-fieldset",
@@ -115,6 +136,13 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
     bump: "minor",
     summary:
       "Add native Pagination — page navigation with a sliding window, ellipsis gaps, and prev/next.",
+  },
+  {
+    id: "native-progress-parity",
+    packages: ["@xoroh/kern-native"],
+    bump: "minor",
+    summary:
+      "Native LinearProgress at web parity: wavy (SVG sine at the 3×40dp platform geometry), indeterminate (two bars, 2s linear Animated.loop), fourColor (8s primary → primary-container → tertiary → tertiary-container), buffer wash, value now optional. Reduced motion holds mid-cycle positions via useKernMotion().suppressSpatial. Resolves the @open indeterminate item; stop/buffer/wavy ignored when indeterminate, mirroring web.",
   },
   {
     id: "native-time-picker",
@@ -205,6 +233,13 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
       "Time-picker value normalisation — the pure half of the TimePicker contract.",
   },
   {
+    id: "seed-configurator-motion-runtime",
+    packages: ["@xoroh/kern-tokens", "@xoroh/kern", "@xoroh/kern-native"],
+    bump: "minor",
+    summary:
+      "Foundations-first M3 coverage: dynamic color as a seed configurator and the expressive motion runtime.",
+  },
+  {
     id: "system-expansion",
     packages: [
       "@xoroh/kern",
@@ -256,6 +291,13 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
     packages: ["@xoroh/kern"],
     bump: "patch",
     summary: "Add check:layers — the D-034 package map, now machine-enforced.",
+  },
+  {
+    id: "elevation-audit-variant-coverage",
+    packages: ["@xoroh/kern-tokens"],
+    bump: "patch",
+    summary:
+      "Correct the elevation inventory for elevated chips and Expressive floating/docked toolbars. Audit all declared levels through structured measurements, ignore source comments, and reject any unearned shadow instead of accepting a single matching level.",
   },
   {
     id: "fix-acronym-slugs",
@@ -311,6 +353,13 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
     packages: ["@xoroh/kern-mcp"],
     bump: "patch",
     summary: "Fix the token tools and harden the agent on-ramp.",
+  },
+  {
+    id: "motion-scheme-vars",
+    packages: ["@xoroh/kern"],
+    bump: "patch",
+    summary:
+      'Utility-motion migration: the 25 hardcoded ease-[cubic-bezier(0.2,0,0,1)] classes across 22 web components now read ease-(--md-sys-motion-easing-standard). Default rendering is byte-identical (the var resolves to the same curve); selecting the expressive motion scheme via applyKernTheme(..., "expressive") now retargets component easing instead of only the anchor vars. Durations untouched (schemes differ in easing only).',
   },
   {
     id: "native-button-press-fallback",
@@ -379,6 +428,13 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
     bump: "patch",
     summary:
       "Add the empty @xoroh/kern-primitives package and check:primitives, the boundary gate for the ratified extraction (step 0 of 4).",
+  },
+  {
+    id: "primitives-reusables-adapter-recipe",
+    packages: ["@xoroh/kern-primitives"],
+    bump: "patch",
+    summary:
+      'Document the react-native-reusables interop recipe ("Adapting react-native-reusables"): the Slot / Presence / Portal / dismiss mapping table and the one-recipe-scales note for Dialog, Menu, Popover and Tooltip. Recipe only — no dependency either way, per D-031 (owning wins). The Slot + Presence + Portal composition the recipe describes is live-verified by the "Adapter composition" tests in @xoroh/kern\'s presentation.test.tsx.',
   },
   {
     id: "primitives-selection",

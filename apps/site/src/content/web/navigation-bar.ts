@@ -31,6 +31,64 @@ export const navigationBar: ComponentDoc = {
       role: "One destination: icon, label and optional badge. Declared as data rather than as markup.",
     },
   ],
+  keyboard: [
+    {
+      key: "Arrow keys",
+      action: "Moves selection and focus between destinations, skipping disabled ones. Selection follows focus.",
+    },
+    {
+      key: "Home / End",
+      action: "Jumps to the first or last enabled destination.",
+    },
+    {
+      key: "Tab / Shift+Tab",
+      action: "The bar is one tab stop (roving tabindex on the active destination).",
+    },
+  ],
+  usage: {
+    do: [
+      "Use for 3–5 top-level destinations on compact screens — fewer is a tab strip, more becomes a drawer.",
+      "Keep one destination active; the pill marks where the reader is.",
+      "Badge counts inside the icon bounds, never as decoration.",
+    ],
+    dont: [
+      "Don't put fewer than 3 destinations — use Tabs instead.",
+      "Don't put more than 5 — use a navigation drawer.",
+      "Don't bury the primary action here — that is a FAB docked above the bar.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Bar",
+      state: "resting",
+      token: "md.comp.navigation-bar.container",
+      value: "80px, surface-container, level2",
+    },
+    {
+      element: "Selected icon pill",
+      state: "resting",
+      token: "md.comp.navigation-bar.selected-pill",
+      value: "h-8 w-16, secondary-container, full",
+    },
+    {
+      element: "Selected icon",
+      state: "resting",
+      token: "md.comp.navigation-bar.selected-icon",
+      value: "on-secondary-container, 24px",
+    },
+    {
+      element: "Destination",
+      state: "hover",
+      token: "md.sys.state.hover-state-layer-opacity",
+      value: "8% on-surface layer",
+    },
+  ],
+  faq: [
+    {
+      q: "Bar, rail, or drawer?",
+      a: "Bar for compact screens with 3–5 destinations; rail for medium screens; drawer for many destinations or modal contexts. One destination list drives all three.",
+    },
+  ],
   customization: {
     supported: [
       "`className` on the bar, merged after its own classes.",

@@ -30,7 +30,9 @@ export function TabsTab({ className, ...props }: TabsTabProps) {
     <TabsPrimitive.Tab
       data-slot="tabs-tab"
       className={cnState(
-        "kern-tabs-tab relative flex min-h-12 cursor-pointer items-center px-4 text-sm font-medium text-(--md-sys-color-on-surface-variant) outline-none select-none " + FOCUS_RING_CLASS + " data-disabled:pointer-events-none data-disabled:opacity-50 data-selected:text-(--md-sys-color-primary) after:absolute after:inset-x-0 after:bottom-0 after:h-[3px] after:rounded-full after:bg-transparent after:content-[''] data-selected:after:bg-(--md-sys-color-primary)",
+        "kern-tabs-tab relative flex min-h-12 cursor-pointer items-center px-4 text-sm leading-5 font-medium tracking-[0.00625rem] text-(--md-sys-color-on-surface-variant) outline-none select-none transition-colors duration-200 ease-(--md-sys-motion-easing-standard) after:absolute after:inset-x-0 after:bottom-0 after:h-[3px] after:rounded-full after:bg-transparent after:content-[''] before:absolute before:inset-0 before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--md-sys-color-on-surface) hover:before:opacity-[var(--md-sys-state-hover)] hover:text-(--md-sys-color-on-surface) focus-visible:before:opacity-[var(--md-sys-state-focus)] focus-visible:text-(--md-sys-color-on-surface) active:before:opacity-[var(--md-sys-state-press)] active:text-(--md-sys-color-on-surface) " +
+          FOCUS_RING_CLASS +
+          " data-disabled:pointer-events-none data-disabled:opacity-38 data-selected:text-(--md-sys-color-primary) data-selected:before:bg-(--md-sys-color-primary) data-selected:after:bg-(--md-sys-color-primary) data-selected:hover:before:opacity-[var(--md-sys-state-hover)] data-selected:focus-visible:before:opacity-[var(--md-sys-state-focus)] data-selected:active:before:opacity-[var(--md-sys-state-press)]",
         className,
       )}
       {...props}

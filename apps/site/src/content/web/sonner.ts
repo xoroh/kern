@@ -70,6 +70,29 @@ export const sonner: ComponentDoc = {
     { name: "SonnerClose", role: "Dismisses it early." },
     { name: "Sonner", role: "The namespace object: all of the parts above." },
   ],
+  usage: {
+    do: [
+      "Stack transient messages with actions where snackbars stack.",
+      "Dismiss on action, timeout, or swipe.",
+    ],
+    dont: [
+      "Do not block on sonner messages.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Stack",
+      state: "resting",
+      token: "kern.sonner.stack",
+      value: "Kern pattern beyond M3",
+    },
+  ],
+  faq: [
+    {
+      q: "Sonner or snackbar?",
+      a: "Sonner for stacked app-level toasts; snackbar for single M3-spec messages.",
+    },
+  ],
   customization: {
     supported: [
       "`className` on every part, merged after the part's own classes.",

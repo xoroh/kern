@@ -59,6 +59,35 @@ export const popover: ComponentDoc = {
     { name: "PopoverClose", role: "Closes the panel from inside it." },
     { name: "Popover", role: "The namespace object: all of the parts above." },
   ],
+  keyboard: [
+    {
+      key: "Escape",
+      action: "Closes the popover; focus returns to the trigger.",
+    },
+  ],
+  usage: {
+    do: [
+      "Anchor to triggers for transient content and small menus.",
+      "Dismiss on outside tap and Escape alike.",
+    ],
+    dont: [
+      "Don't use for blocking decisions — that is a dialog.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Container",
+      state: "resting",
+      token: "md.comp.menu.container",
+      value: "surface-container, 4px, level2",
+    },
+  ],
+  faq: [
+    {
+      q: "Popover or menu?",
+      a: "Popover for free content anchored to a trigger; menu for choice lists with keyboard traversal.",
+    },
+  ],
   customization: {
     supported: [
       "`className` on every part, merged after the part's own classes.",

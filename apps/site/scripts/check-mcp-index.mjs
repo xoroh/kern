@@ -58,7 +58,7 @@ const families = {
 // Same theme-leaf derivation the emitter uses — one function, two callers,
 // so the gate can never disagree with the emitter about the theme entry.
 const themeLeaf = NAV_SECTIONS.flatMap((s) => s.leaves).find(
-  (l) => l.href === "/foundations/theme",
+  (l) => l.href === "/foundations/m3/theme",
 );
 const want = buildMcpIndex(families, FOUNDATIONS, {
   title: themeLeaf.label,

@@ -72,7 +72,7 @@ export function AutocompleteContent({
         <AutocompletePrimitive.Popup
           data-slot="autocomplete-content"
           className={cnState(
-            "kern-autocomplete-popup min-w-48 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline) bg-(--md-sys-color-surface) p-2 shadow-(--md-sys-elevation-level2) outline-none",
+            "kern-autocomplete-popup min-w-28 max-w-[280px] rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-surface-container) p-2 shadow-(--md-sys-elevation-level2) outline-none",
             className,
           )}
           {...props}

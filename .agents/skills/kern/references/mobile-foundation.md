@@ -61,3 +61,20 @@ If a primitive layer is ever needed rather than composition, revisit
 `roninoss/rn-primitives` (MIT, actively maintained, a hard dependency of
 React Native Reusables). Do not adopt it for single components: each one is
 itself a dependency we would own.
+
+## XR scope
+
+Spatial and 3D components do not live here. This repo renders through two
+pipelines — DOM elements on web, RN primitives on native — and XR needs a
+third (a scene graph: head tracking, stereoscopic views, spatial anchors,
+passthrough). Bolting that onto either renderer would break the rule stated
+at the top of this page: every visible thing is Kern code on primitives the
+host already has. An XR surface would drag in a 3D engine, headset SDKs, and
+platform-exclusive peers that no DOM/RN host can share, which is exactly the
+dependency-surface failure the Paper decision was made to avoid.
+
+So XR stays out of `@xoroh/kern` and `@xoroh/kern-native` by design, not by
+backlog. If a product ever needs it, the shape is a separate
+`@xoroh/kern-xr` package behind its own ADR — same tokens in, scene graph
+out — decided the way the `@xoroh/kern-expo` split above is decided. Until
+then, "does it render in a headset" is not a question these packages answer.

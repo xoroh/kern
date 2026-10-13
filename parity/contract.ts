@@ -1133,7 +1133,7 @@ export const CONTRACTS: readonly ParityRow[] = [
  * the registry. Generators and docs must import these, never hard-code
  * their own copy.
  */
-export const PARITY_COUNTS = { web: 294, native: 110, shared: 89 } as const;
+export const PARITY_COUNTS = { web: 300, native: 117, shared: 92 } as const;
 
 /** Lookup for a test that knows its component by name.
  *

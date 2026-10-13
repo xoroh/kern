@@ -117,7 +117,9 @@ describe("Button", () => {
     const { rerender } = render(<Button>Save</Button>);
     expect(screen.getByRole("button").className).not.toContain("rounded-none");
     rerender(<Button shape="square">Save</Button>);
-    expect(screen.getByRole("button")).toHaveClass("rounded-none");
+    // M3 Expressive square is per-size radii (12px at default), not 0px.
+    expect(screen.getByRole("button")).toHaveClass("rounded-(--md-sys-shape-corner-medium)");
+    expect(screen.getByRole("button").className).not.toContain("rounded-none");
     rerender(<Button shape="rounded">Save</Button>);
     expect(screen.getByRole("button")).toHaveClass(
       "rounded-(--md-sys-shape-corner-large)",

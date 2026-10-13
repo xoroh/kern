@@ -488,7 +488,6 @@ const DELIBERATE = [
   "native-select",
   "link",
   "preview-card",
-  "combobox",
 ];
 for (const name of DELIBERATE) {
   const inDoc = docConcepts.has(name) || contract.includes(`\`${name}\``);

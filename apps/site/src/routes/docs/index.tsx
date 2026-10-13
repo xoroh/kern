@@ -1,11 +1,13 @@
 /**
- * The docs hub — journey cards, "Start here", the section map, recent changes.
+ * The Docs door — the whole reference's landing.
  *
- * Spec: `.team/reports/SITE-REDESIGN-full-site-map.md` §2(b). The order is the
- * reader's order: *where do I fit* -> *what do I do first* -> *what is there*
- * -> *what changed*. FLOW says "never dead-ends: every band has exactly one
- * primary CTA" — each band below carries one, and the page ends on "Next
- * steps" by Diátaxis form, same as the tutorials do.
+ * v3: foundations material folded into this door, so the page stops
+ * pretending they are separate destinations and stops apologising for it
+ * in prose. The v2 page carried six sections; this one carries four,
+ * because two of them were duplicates of the others: a "Start here" list
+ * whose three steps all linked to one tutorial, and a "Next steps" list
+ * that re-said the map. Cut both. What remains is the reader's order:
+ * *where do I fit* -> *what is here* -> *what changed* -> *for agents*.
  *
  * Numbers on this page are GENERATED or omitted. There is no downloads band:
  * the map says to show weekly downloads "once real — do not fake numbers",
@@ -13,8 +15,10 @@
  * the failure class this whole rebuild is against.
  */
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { Icon } from "@xoroh/kern-icons";
+import { Kicker } from "../../components/chrome/kicker";
+import { PageCard } from "../../domains/shared/chrome/page-card";
 import { SiteLayout } from "../../domains/shared/chrome/site-layout";
-import { RECENT_CHANGES } from "../../generated/changelog";
 import { routeHead } from "../../domains/shared/systems/seo";
 import {
   T_BODY,
@@ -24,338 +28,228 @@ import {
   T_PAGE,
   T_SMALL_TITLE,
 } from "../../domains/shared/systems/type-scale";
+import { CARD, LINK } from "../../domains/shared/systems/ui";
+import { RECENT_CHANGES } from "../../generated/changelog";
 
 export const Route = createFileRoute("/docs/")({
   head: () =>
-    routeHead("Docs", "Guides, API, and reference — where to fit, what to do first, what changed."),
+    routeHead(
+      "Docs",
+      "The whole reference: design foundations, install, guides and API.",
+    ),
   component: DocsIndex,
 });
 
-const CARD =
-  "block rounded-(--md-sys-shape-corner-large) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-low) p-5 no-underline text-(--md-sys-color-on-surface)";
 const SOFT = "text-(--md-sys-color-on-surface-variant)";
+/** Hub card: the kit outlined card + link affordances + padding. */
+const CARD_LINK = `${CARD} block p-5 no-underline text-(--md-sys-color-on-surface)`;
 
-/**
- * The three journeys, matching the home page's journey cards. One source of
- * truth for "which path am I on", so the hub and home cannot drift apart on
- * the promise they make.
- */
+/** The three journeys, matching the home page's promise. */
 const JOURNEYS = [
   {
     title: "Build an app",
-    what: "Install kern, set a theme, ship a screen. Web or native — the contract is one.",
-    to: "/getting-started" as const,
+    icon: "code" as const,
+    what: "Install, set a theme, ship a screen. Web or native — one contract.",
+    to: "/docs/getting-started" as const,
     cta: "Start building",
   },
   {
-    title: "Build a design system",
-    what: "Tokens, roles, theming and the shape scale — the layer beneath the components.",
+    title: "Understand the system",
+    icon: "menu-book" as const,
+    what: "Tokens, roles, shape, motion — the decisions beneath the components.",
     to: "/foundations" as const,
-    cta: "Open the tokens",
+    cta: "Open foundations",
   },
   {
     title: "Migrate",
-    what: "Coming from Material or another kit? The deviations registry is the honest delta.",
+    icon: "arrow-forward" as const,
+    what: "Coming from Material or another kit? The guides hold the honest delta.",
     to: "/docs/guides" as const,
     cta: "Read the guides",
   },
 ];
 
-/**
- * The section map — the docs tree as it actually is. `why` is one line of
- * guidance, because a route list is a table of contents and this is meant to
- * tell a reader which door is theirs.
- */
+/** What the door contains — one card per area of the tree. */
 const SECTIONS = [
   {
-    title: "Get started",
-    why: "Install, theme, first component. Everything else assumes this.",
-    links: [{ label: "Getting started", to: "/getting-started" }],
+    title: "Guides & tooling",
+    why: "Install to integration, in the order you need it.",
+    links: [
+      { label: "Getting started", to: "/docs/getting-started" },
+      { label: "Guides", to: "/docs/guides" },
+      { label: "Tooling", to: "/docs/use-cases" },
+      { label: "API utilities", to: "/docs/api" },
+      { label: "Primitives", to: "/primitives" },
+      { label: "Contributing", to: "/docs/contributing" },
+    ],
   },
   {
     title: "Foundations",
-    why: "The values everything is built from, and the rules that govern them.",
-    // /foundations/theme is deliberately NOT linked here yet: it still
-    // carries 26 ad-hoc type hits and check-typescale watches routes.
-    // Promoting it from the map would send readers to a page the gate flags.
-    // It rejoins this list when its type lands on the scale — tracked with
-    // the rest of the route pass.
-    links: [{ label: "Foundations", to: "/foundations" }],
+    why: "The design decisions: color, type, shape, elevation, motion, states.",
+    links: [
+      { label: "Foundations hub", to: "/foundations" },
+      { label: "Color", to: "/foundations/m3/color" },
+      { label: "Theme studio", to: "/playground" },
+    ],
   },
   {
     title: "Components",
-    why: "Per-component reference: live showcase, anatomy, accessibility, API.",
-    links: [{ label: "Component gallery", to: "/components" }],
+    why: "Every family on web and native — usage, props, tokens, a11y.",
+    links: [{ label: "Open the gallery", to: "/components" }],
   },
   {
-    title: "Reference",
-    why: "Look things up. The non-component API, and the guidance library.",
-    links: [
-      { label: "Public API", to: "/docs/api" },
-      { label: "API index", to: "/docs/reference" },
-      { label: "Guides", to: "/docs/guides" },
-    ],
+    title: "Blocks",
+    why: "Composed work built from kern, ready to lift into a product.",
+    links: [{ label: "Open blocks", to: "/showcase" }],
   },
 ];
 
 function DocsIndex() {
   return (
     <SiteLayout>
-      <section className="px-4 py-4 sm:px-6 sm:py-6">
-        <div className="mx-auto flex max-w-[64rem] flex-col gap-12 rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14">
-          <header className="flex flex-col gap-3">
-            <p className={`m-0 ${T_LABEL} ${SOFT} uppercase`}>Docs</p>
-            <h1 className={`m-0 ${T_PAGE}`}>Documentation</h1>
-            <p className={`m-0 max-w-[62ch] ${T_BODY} ${SOFT}`}>
-              Three ways in, one system underneath. Pick the path that matches
-              what you are building — or start at the install and let the order
-              do the work.
-            </p>
-          </header>
+      <PageCard gap={12}>
+        <header className="site-docs-welcome flex flex-col gap-4">
+          <Kicker>Your guide to Kern</Kicker>
+          <h1 className={`m-0 ${T_PAGE}`}>Good things start here.</h1>
+          <p className={`m-0 max-w-[62ch] ${T_BODY} ${SOFT}`}>
+            From your first component to your own design language. Everything
+            you need to build with Kern, all in one place.
+          </p>
+        </header>
 
-          {/* 1 — where do I fit */}
-          <nav aria-labelledby="journeys" className="flex flex-col gap-4">
-            <h2 id="journeys" className={`m-0 ${T_SMALL_TITLE}`}>
-              Where do I fit
-            </h2>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-              {JOURNEYS.map((j) => (
-                <Link key={j.title} to={j.to} className={CARD}>
-                  <p className={`m-0 ${T_SMALL_TITLE}`}>{j.title}</p>
-                  <p className={`m-0 mt-2 ${T_BODY_SM} ${SOFT}`}>{j.what}</p>
-                  <p
-                    className={`m-0 mt-4 ${T_LABEL_LG} text-(--md-sys-color-primary)`}
-                  >
-                    {j.cta} →
-                  </p>
-                </Link>
-              ))}
-            </div>
-          </nav>
+        {/* 1 — where do I fit */}
+        <nav aria-labelledby="journeys" className="flex flex-col gap-4">
+          <h2 id="journeys" className={`m-0 ${T_SMALL_TITLE}`}>
+            Where do I fit
+          </h2>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+            {JOURNEYS.map((j) => (
+              <Link key={j.title} to={j.to} className={CARD_LINK}>
+                <span className="site-journey-icon">
+                  <Icon name={j.icon} size={24} />
+                </span>
+                <p className={`m-0 ${T_SMALL_TITLE}`}>{j.title}</p>
+                <p className={`m-0 mt-2 ${T_BODY_SM} ${SOFT}`}>{j.what}</p>
+                <p
+                  className={`m-0 mt-4 ${T_LABEL_LG} text-(--md-sys-color-secondary)`}
+                >
+                  {j.cta} →
+                </p>
+              </Link>
+            ))}
+          </div>
+        </nav>
 
-          {/* 2 — what do I do first */}
-          <nav aria-labelledby="start-here" className="flex flex-col gap-4">
-            <h2 id="start-here" className={`m-0 ${T_SMALL_TITLE}`}>
-              Start here
-            </h2>
-            <ol className="m-0 flex list-none flex-col gap-3 p-0 sm:flex-row">
-              {[
-                {
-                  n: "1",
-                  label: "Install",
-                  to: "/getting-started" as const,
-                  hash: "step-1",
-                  why: "Install the packages",
-                },
-                {
-                  n: "2",
-                  label: "Quickstart",
-                  to: "/getting-started" as const,
-                  hash: "step-5",
-                  why: "Web quickstart — the app shell",
-                },
-                {
-                  n: "3",
-                  label: "First component",
-                  to: "/getting-started" as const,
-                  hash: "step-3",
-                  why: "Render your first component",
-                },
-              ].map((s) => (
-                <li key={s.n} className="flex-1">
-                  <Link to={s.to} hash={s.hash} className={CARD}>
-                    <span className={`m-0 block ${T_LABEL} ${SOFT} uppercase`}>
-                      Step {s.n}
-                    </span>
-                    <span className={`m-0 mt-1 block ${T_SMALL_TITLE}`}>
-                      {s.label}
-                    </span>
-                    <span className={`m-0 mt-1 block ${T_BODY_SM} ${SOFT}`}>
-                      {s.why}
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ol>
-          </nav>
+        {/* 2 — what is here */}
+        <nav aria-labelledby="section-map" className="flex flex-col gap-4">
+          <h2 id="section-map" className={`m-0 ${T_SMALL_TITLE}`}>
+            What is here
+          </h2>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {SECTIONS.map((s) => (
+              <div key={s.title} className={CARD_LINK}>
+                <p className={`m-0 ${T_SMALL_TITLE}`}>{s.title}</p>
+                <p className={`m-0 mt-2 ${T_BODY_SM} ${SOFT}`}>{s.why}</p>
+                <ul className="m-0 mt-3 flex list-none flex-col gap-1 p-0">
+                  {s.links.map((l) => (
+                    <li key={l.to}>
+                      <Link to={l.to} className={`${LINK} ${T_BODY_SM}`}>
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </nav>
 
-          {/* 3 — what is there */}
-          <nav aria-labelledby="section-map" className="flex flex-col gap-4">
-            <h2 id="section-map" className={`m-0 ${T_SMALL_TITLE}`}>
-              The map
-            </h2>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {SECTIONS.map((s) => (
-                <div key={s.title} className={CARD}>
-                  <p className={`m-0 ${T_SMALL_TITLE}`}>{s.title}</p>
-                  <p className={`m-0 mt-2 ${T_BODY_SM} ${SOFT}`}>{s.why}</p>
-                  <ul className="m-0 mt-3 flex list-none flex-col gap-1 p-0">
-                    {s.links.map((l) => (
-                      <li key={l.to}>
-                        <Link
-                          to={l.to}
-                          className={`text-(--md-sys-color-primary) ${T_BODY_SM}`}
-                        >
-                          {l.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </nav>
+        {/* 3 — what changed */}
+        <section
+          aria-labelledby="unreleased-changes"
+          className="flex flex-col gap-4"
+        >
+          <h2 id="unreleased-changes" className={`m-0 ${T_SMALL_TITLE}`}>
+            Unreleased changes
+          </h2>
+          <p className={`m-0 ${T_BODY_SM} ${SOFT}`}>
+            {RECENT_CHANGES.length} change
+            {RECENT_CHANGES.length === 1 ? "" : "s"} read from the repository's
+            changesets, ordered by bump size. <em>Unreleased</em>, not{" "}
+            <em>recent</em>: nothing has published yet, so there are no dates.
+          </p>
+          <ul className="m-0 flex list-none flex-col gap-2 p-0">
+            {RECENT_CHANGES.slice(0, 6).map((c) => (
+              <li key={c.id} className="flex items-start gap-3">
+                <span
+                  className={`mt-0.5 shrink-0 rounded-full px-2 py-0.5 ${T_LABEL} ${
+                    c.bump === "major"
+                      ? "bg-(--md-sys-color-error-container) text-(--md-sys-color-on-error-container)"
+                      : c.bump === "minor"
+                        ? "bg-(--md-sys-color-tertiary-container) text-(--md-sys-color-on-tertiary-container)"
+                        : "bg-(--md-sys-color-surface-container-high) text-(--md-sys-color-on-surface-variant)"
+                  }`}
+                >
+                  {c.bump}
+                </span>
+                <span className={`m-0 ${T_BODY_SM}`}>{c.summary}</span>
+              </li>
+            ))}
+          </ul>
+          <p className={`m-0 ${T_BODY_SM}`}>
+            <a
+              className="text-(--md-sys-color-secondary)"
+              href="https://github.com/xoroh/kern/tree/main/.changeset"
+              rel="noreferrer"
+              target="_blank"
+            >
+              Read every changeset on GitHub →
+            </a>
+          </p>
+        </section>
 
-          {/* 4 — what changed */}
-          <section
-            aria-labelledby="unreleased-changes"
-            className="flex flex-col gap-4"
-          >
-            <h2 id="unreleased-changes" className={`m-0 ${T_SMALL_TITLE}`}>
-              Unreleased changes
-            </h2>
-            <p className={`m-0 ${T_BODY_SM} ${SOFT}`}>
-              {RECENT_CHANGES.length} change
-              {RECENT_CHANGES.length === 1 ? "" : "s"} waiting to release, read
-              from the repository's changesets rather than a list someone
-              maintains. Called <em>unreleased</em> and not <em>recent</em>,
-              because nothing has published yet and these carry no dates —
-              ordering is by bump size, largest first. The first release will
-              move these into a dated changelog.
-            </p>
-            <p className={`m-0 ${T_LABEL} ${SOFT}`}>
-              Showing the {Math.min(6, RECENT_CHANGES.length)} largest of{" "}
-              {RECENT_CHANGES.length}.
-            </p>
-            <ul className="m-0 flex list-none flex-col gap-2 p-0">
-              {RECENT_CHANGES.slice(0, 6).map((c) => (
-                <li key={c.id} className="flex items-start gap-3">
-                  <span
-                    className={`mt-0.5 shrink-0 rounded-full px-2 py-0.5 ${T_LABEL} ${
-                      c.bump === "major"
-                        ? "bg-(--md-sys-color-error-container) text-(--md-sys-color-on-error-container)"
-                        : c.bump === "minor"
-                          ? "bg-(--md-sys-color-secondary-container) text-(--md-sys-color-on-secondary-container)"
-                          : "bg-(--md-sys-color-surface-container-highest) text-(--md-sys-color-on-surface-variant)"
-                    }`}
-                  >
-                    {c.bump}
-                  </span>
-                  <span className={`m-0 ${T_BODY_SM}`}>{c.summary}</span>
-                </li>
-              ))}
-            </ul>
-            {/* The band's one primary CTA — the FLOW rule is "every band has
-                exactly one", so a band without one is a page that states a rule
-                and breaks it on the same screen. */}
-            <p className={`m-0 ${T_BODY_SM}`}>
+        {/* For AI agents — the machine surfaces, in one place. llms.txt is
+              generated from the nav file; the skills live in the repo; every
+              component and foundations page carries a Copy-as-Markdown
+              button. An agent that starts here never needs to scrape HTML. */}
+        <section
+          aria-labelledby="for-ai-agents"
+          className="flex flex-col gap-3 border-t border-(--md-sys-color-outline-variant) pt-6"
+        >
+          <h2 id="for-ai-agents" className={`m-0 ${T_SMALL_TITLE}`}>
+            For AI agents
+          </h2>
+          <ul className="m-0 flex list-none flex-col gap-2 p-0">
+            <li>
+              <a href="/llms.txt" className={`${LINK} ${T_BODY_SM}`}>
+                <span className="font-mono">llms.txt</span> →
+              </a>{" "}
+              <span className={`m-0 ${T_BODY_SM} ${SOFT}`}>
+                the page map, generated from the nav — never hand-maintained.
+              </span>
+            </li>
+            <li>
+              <span className={`m-0 ${T_BODY_SM} ${SOFT}`}>
+                Copy as Markdown on every component and foundations page —
+                prose, code and links, live demos excluded.
+              </span>
+            </li>
+            <li>
               <a
-                className="text-(--md-sys-color-primary)"
-                href="https://github.com/xoroh/kern/tree/main/.changeset"
+                href="https://github.com/xoroh/kern/tree/main/.agents/skills"
                 rel="noreferrer"
                 target="_blank"
+                className={`${LINK} ${T_BODY_SM}`}
               >
-                Read every changeset on GitHub →
-              </a>
-            </p>
-          </section>
-
-          {/* For AI agents — the machine surfaces, in one place. llms.txt is
-              generated from the nav file; the skills live in the repo; every
-              component and Foundations page carries a Copy-as-Markdown
-              button. An agent that starts here never needs to scrape HTML. */}
-          <section
-            aria-labelledby="for-ai-agents"
-            className="flex flex-col gap-3 border-t border-(--md-sys-color-outline-variant) pt-6"
-          >
-            <h2 id="for-ai-agents" className={`m-0 ${T_SMALL_TITLE}`}>
-              For AI agents
-            </h2>
-            <ul className="m-0 flex list-none flex-col gap-2 p-0">
-              <li>
-                <a
-                  href="/llms.txt"
-                  className={`text-(--md-sys-color-primary) ${T_BODY_SM}`}
-                >
-                  <span className="font-mono">llms.txt</span> →
-                </a>{" "}
-                <span className={`m-0 ${T_BODY_SM} ${SOFT}`}>
-                  the complete page map, generated from the nav, content docs and
-                  foundations registry — never hand-maintained.
-                </span>
-              </li>
-              <li>
-                <span className={`m-0 ${T_BODY_SM} ${SOFT}`}>
-                  Copy as Markdown button on every component and Foundations
-                  page — prose, code and links, live-demo controls excluded.
-                </span>
-              </li>
-              <li>
-                <a
-                  href="https://github.com/xoroh/kern/tree/main/.agents/skills"
-                  rel="noreferrer"
-                  target="_blank"
-                  className={`text-(--md-sys-color-primary) ${T_BODY_SM}`}
-                >
-                  Agent skills →
-                </a>{" "}
-                <span className={`m-0 ${T_BODY_SM} ${SOFT}`}>
-                  kern (design system) and docs skills in the repo.
-                </span>
-              </li>
-            </ul>
-          </section>
-
-          {/* Next steps — every tutorial ends here, by Diátaxis form */}
-          <section
-            aria-labelledby="next-steps"
-            className="flex flex-col gap-3 border-t border-(--md-sys-color-outline-variant) pt-6"
-          >
-            <h2 id="next-steps" className={`m-0 ${T_SMALL_TITLE}`}>
-              Next steps
-            </h2>
-            <p className={`m-0 ${T_BODY_SM} ${SOFT}`}>
-              This page is a map, so its next steps split by what you came for
-              rather than by reading order.
-            </p>
-            <ul className="m-0 flex list-none flex-col gap-2 p-0">
-              <li>
-                <Link
-                  to="/getting-started"
-                  className={`text-(--md-sys-color-primary) ${T_BODY_SM}`}
-                >
-                  Getting started →
-                </Link>{" "}
-                <span className={`m-0 ${T_BODY_SM} ${SOFT}`}>
-                  a tutorial: install to first component, in order.
-                </span>
-              </li>
-              <li>
-                <Link
-                  to="/components"
-                  className={`text-(--md-sys-color-primary) ${T_BODY_SM}`}
-                >
-                  Component gallery →
-                </Link>{" "}
-                <span className={`m-0 ${T_BODY_SM} ${SOFT}`}>
-                  reference: what ships, and what each part does.
-                </span>
-              </li>
-              <li>
-                <Link
-                  to="/foundations"
-                  className={`text-(--md-sys-color-primary) ${T_BODY_SM}`}
-                >
-                  Foundations →
-                </Link>{" "}
-                <span className={`m-0 ${T_BODY_SM} ${SOFT}`}>
-                  explanation: why the system is shaped the way it is.
-                </span>
-              </li>
-            </ul>
-          </section>
-        </div>
-      </section>
+                Agent skills →
+              </a>{" "}
+              <span className={`m-0 ${T_BODY_SM} ${SOFT}`}>
+                kern (design system) and docs skills in the repo.
+              </span>
+            </li>
+          </ul>
+        </section>
+      </PageCard>
     </SiteLayout>
   );
 }

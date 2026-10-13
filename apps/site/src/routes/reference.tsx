@@ -9,6 +9,9 @@ import { routeHead } from "../domains/shared/systems/seo";
 
 export const Route = createFileRoute("/reference")({
   head: () =>
-    routeHead("API reference", "Every export in the generated manifest, one row each."),
+    routeHead(
+      "API reference",
+      "Every export in the generated manifest, one row each.",
+    ),
   component: ApiIndex,
 });

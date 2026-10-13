@@ -22,6 +22,53 @@ export const navigationDrawer: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["NavigationDrawer"],
+  keyboard: [
+    {
+      key: "Escape",
+      action: "Closes the drawer and returns focus to the trigger.",
+    },
+    {
+      key: "Tab / Shift+Tab",
+      action: "Trapped inside the drawer while open; the page behind is inert.",
+    },
+  ],
+  usage: {
+    do: [
+      "Use for many destinations or modal navigation contexts.",
+      "Close the drawer on item activation — the reader chose somewhere to go.",
+      "Keep the trigger visible so the drawer can be reopened.",
+    ],
+    dont: [
+      "Don't use where a bar or rail fits — drawers hide navigation behind a gesture.",
+      "Don't leave focus behind on close — it returns to the trigger.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Panel",
+      state: "resting",
+      token: "md.comp.navigation-drawer.container",
+      value: "360px (80vw cap), surface-container-low, large end rounding",
+    },
+    {
+      element: "Selected item",
+      state: "resting",
+      token: "md.comp.navigation-drawer.selected",
+      value: "secondary-container pill + on-secondary-container",
+    },
+    {
+      element: "Scrim",
+      state: "resting",
+      token: "md.sys.color.scrim",
+      value: "40%",
+    },
+  ],
+  faq: [
+    {
+      q: "When does the drawer close?",
+      a: "On item activation, Escape, or scrim tap — always with focus returning to the trigger.",
+    },
+  ],
   customization: {
     supported: [
       "`className` on the drawer, merged after its own classes.",

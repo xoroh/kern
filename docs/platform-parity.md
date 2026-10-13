@@ -111,6 +111,7 @@ is therefore usually an API-shape difference, not a missing feature.
 | `chip` | 1 | 1 |
 | `circular` | 1 | 1 |
 | `collapsible` | 4 | 1 |
+| `combobox` | 9 | 1 |
 | `command` | 9 | 1 |
 | `context` | 6 | 1 |
 | `country` | 7 | 1 |
@@ -146,7 +147,7 @@ is therefore usually an API-shape difference, not a missing feature.
 | `toggle` | 4 | 2 |
 | `toolbar` | 5 | 1 |
 
-Totals: **292** web exports, **104** native exports, **83** shared concepts
+Totals: **300** web exports, **117** native exports, **92** shared concepts
 (`PARITY_COUNTS` in `parity/contract.ts`, generated from
 [`components.md`](components.md) — never hand-edit; see "Keeping this page
 honest" below).
@@ -170,9 +171,17 @@ not a component-name one.
 
 These are real differences in the current tree. None is a naming violation.
 
-**Web-only concepts** (16): `autocomplete`, `combobox`, `drawer`, `fieldset`,
+**Web-only concepts** (14): `autocomplete`, `drawer`, `fieldset`,
 `form`, `kbd`, `meter`, `native-select`, `number-field`, `page-loader`,
-`pagination`, `popover`, `preview-card`, `scroll-area`, `sonner`, `tooltip`.
+`pagination`, `preview-card`, `scroll-area`, `sonner`, `tooltip`.
+
+`combobox` is **not** in this list: native ships a flat `Combobox`, so it is
+a shared concept (web 9 multipart exports, native 1 flat component — API
+shape, not coverage). `popover` is not in this list either: the compound
+`Popover` (`Root`/`Trigger`/`Content`/`Body`) ships on both renderers; the
+native `Combobox` popup is an inline `Modal`, not a second `Popover` (the
+compound surface wraps content in a dismiss pressable, which would swallow
+filter-field taps — recorded in `combobox.tsx`).
 
 Most have an RN equivalent in the platform itself rather than a Kern
 component: `native-select` maps to RN `Picker`, `scroll-area` to RN
@@ -202,11 +211,11 @@ imperative toast entry point (`Sonner`); native ships the declarative
 and shipping native `Sonner` would duplicate one surface under a forbidden
 name.
 
-**Native-only concepts** (18), in two groups:
+**Native-only concepts** (19), in two groups:
 
-*Platform primitives and brand kit* (6) — `aspect-ratio` (RN layout
-primitive), `shape` / `shape-art` (brand-kit art), `milestone-trio` and
-`success-transform` (feedback brand kit), `arc-rotations` (a
+*Platform primitives and brand kit* (7) — `aspect-ratio` (RN layout
+primitive), `shape` / `shape-art` / `expressive-shape` (brand-kit art),
+`milestone-trio` and `success-transform` (feedback brand kit), `arc-rotations` (a
 `CircularProgress` helper). These have no web counterpart by design.
 
 *Composition that exists only on native* (12) — `bottom-sheet`, `snap-sheet`,

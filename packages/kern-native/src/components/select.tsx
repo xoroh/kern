@@ -29,7 +29,7 @@ export function selectStyles(scheme: ResolvedTheme = resolveThemeDetails()): {
       justifyContent: "space-between",
       borderWidth: 1,
       borderColor: scheme.color.outline,
-      borderRadius: Number.parseFloat(scheme.shape.small),
+      borderRadius: Number.parseFloat(scheme.shape["extra-small"]),
       backgroundColor: scheme.color.surface,
       paddingHorizontal: 16,
     },
@@ -85,7 +85,7 @@ export function Select({
         onPress={() => setOpen(true)}
         style={[
           selectStyles(scheme).trigger,
-          { opacity: disabled ? 0.5 : 1 },
+          { opacity: disabled ? 0.38 : 1 },
           style,
         ]}
       >

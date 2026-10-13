@@ -7,70 +7,67 @@
  */
 import { createFileRoute } from "@tanstack/react-router";
 import { Kicker } from "../components/chrome/kicker";
+import { PageCard } from "../domains/shared/chrome/page-card";
 import { SiteLayout } from "../domains/shared/chrome/site-layout";
-import { RECENT_CHANGES } from "../generated/changelog";
 import { routeHead } from "../domains/shared/systems/seo";
-import { T_BODY, T_LABEL, T_PAGE, T_SECTION } from "../domains/shared/systems/type-scale";
+import {
+  T_BODY,
+  T_LABEL,
+  T_PAGE,
+  T_SECTION,
+} from "../domains/shared/systems/type-scale";
+import { RECENT_CHANGES } from "../generated/changelog";
 
 export const Route = createFileRoute("/changelog")({
-  head: () =>
-    routeHead("Changelog", "What changed, newest first."),
+  head: () => routeHead("Changelog", "What changed, newest first."),
   component: Changelog,
 });
 
 const INK = "text-(--md-sys-color-on-surface)";
 const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";
 
-const BUMP_STYLES: Record<string, string> = {
-  major:
-    "bg-(--md-sys-color-error-container) text-(--md-sys-color-on-error-container)",
-  minor:
-    "bg-(--md-sys-color-tertiary-container) text-(--md-sys-color-on-tertiary-container)",
-  patch:
-    "bg-(--md-sys-color-surface-container-high) text-(--md-sys-color-on-surface-variant)",
-};
+/**
+ * The one bump badge — every bump level wears the same neutral
+ * `secondary-container` treatment (no per-level color semantics; the level
+ * word is the information).
+ */
+const BUMP_BADGE = `inline-flex h-8 items-center rounded-(--md-sys-shape-corner-full) bg-(--md-sys-color-secondary-container) px-3 ${T_LABEL} text-(--md-sys-color-on-secondary-container)`;
 
 function Changelog() {
   return (
     <SiteLayout>
-      <section className="px-4 py-4 sm:px-6 sm:py-6">
-        <div className="mx-auto flex max-w-[64rem] flex-col gap-12 rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14">
-          <header className="flex flex-col gap-3">
-            <Kicker className={INK_SOFT}>Changelog</Kicker>
-            <h1 className={`m-0 ${T_PAGE} ${INK}`}>Changelog</h1>
-            <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>
-              Pending changes, straight from the changesets in the repository.
-              Nothing here is a release until it ships.
-            </p>
-          </header>
-          {RECENT_CHANGES.length === 0 ? (
-            <p className={`m-0 ${T_BODY} ${INK_SOFT}`}>
-              No pending changes. The tree is quiet.
-            </p>
-          ) : (
-            <ul className="m-0 flex list-none flex-col gap-6 p-0">
-              {RECENT_CHANGES.map((entry) => (
-                <li key={entry.id} className="flex flex-col gap-2">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span
-                      className={`inline-flex h-6 items-center rounded-(--md-sys-shape-corner-full) px-2 ${T_LABEL} ${BUMP_STYLES[entry.bump] ?? BUMP_STYLES.patch}`}
-                    >
-                      {entry.bump}
-                    </span>
-                    <h2 id={entry.id} className={`m-0 ${T_SECTION} ${INK}`}>
-                      {entry.id}
-                    </h2>
-                  </div>
-                  <p className={`m-0 ${T_BODY} ${INK_SOFT}`}>{entry.summary}</p>
-                  <p className={`m-0 ${T_LABEL} ${INK_SOFT}`}>
-                    {entry.packages.join(" · ")}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-      </section>
+      <PageCard gap={12}>
+        <header className="flex flex-col gap-3">
+          <Kicker className={INK_SOFT}>Changelog</Kicker>
+          <h1 className={`m-0 ${T_PAGE} ${INK}`}>Changelog</h1>
+          <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>
+            Pending changes, straight from the changesets in the repository.
+            Nothing here is a release until it ships.
+          </p>
+        </header>
+        {RECENT_CHANGES.length === 0 ? (
+          <p className={`m-0 ${T_BODY} ${INK_SOFT}`}>
+            No pending changes. The tree is quiet.
+          </p>
+        ) : (
+          <ul className="m-0 flex list-none flex-col gap-6 p-0">
+            {RECENT_CHANGES.map((entry) => (
+              <li key={entry.id} className="flex flex-col gap-2">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className={BUMP_BADGE}>{entry.bump}</span>
+                  <h2 id={entry.id} className={`m-0 ${T_SECTION} ${INK}`}>
+                    {entry.id}
+                  </h2>
+                </div>
+                <p className={`m-0 ${T_BODY} ${INK_SOFT}`}>{entry.summary}</p>
+                <p className={`m-0 ${T_LABEL} ${INK_SOFT}`}>
+                  {entry.packages.join(" · ")}
+                </p>
+              </li>
+            ))}
+          </ul>
+        )}
+      </PageCard>
     </SiteLayout>
   );
 }

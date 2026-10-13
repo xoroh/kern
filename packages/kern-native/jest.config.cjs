@@ -59,6 +59,14 @@ module.exports = {
       __dirname,
       "node_modules/react/jsx-dev-runtime",
     ),
+    // Vector art under jest: the prop-passthrough mock (real
+    // react-native-svg ships native code and untranspiled ESM). Vitest maps
+    // to test-doubles/react-native-svg.ts instead.
+    "^react-native-svg$": path.join(
+      __dirname,
+      "jest-mocks",
+      "react-native-svg.cjs",
+    ),
     // The cross-renderer parity contract lives at the repo root, outside any
     // package, so kern-native never imports @xoroh/kern to read it (ADR 002).
     // The web suite aliases the same path; both sides read one declaration.

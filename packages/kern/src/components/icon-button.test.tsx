@@ -231,6 +231,7 @@ describe("IconButton", () => {
     ["sm", "size-8"],
     ["default", "size-10"],
     ["lg", "size-12"],
+    ["2xl", "size-24"],
   ] as const)("applies the %s size", (size, expected) => {
     render(<IconButton icon={<svg />} label="Add" size={size} />);
     expect(screen.getByRole("button")).toHaveClass(expected);

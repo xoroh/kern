@@ -10,12 +10,46 @@ export type ToolbarSeparatorProps = ComponentProps<
 >;
 export type ToolbarGroupProps = ComponentProps<typeof ToolbarPrimitive.Group>;
 
-export function ToolbarRoot({ className, ...props }: ToolbarRootProps) {
+export function ToolbarRoot({
+  className,
+  variant = "standard",
+  orientation = "horizontal",
+  layout = "floating",
+  ...props
+}: ToolbarRootProps & {
+  /**
+   * M3 color style: `standard`, or `vibrant` (primary-container fill) for
+   * greater emphasis.
+   */
+  variant?: "standard" | "vibrant";
+  /** M3 floating toolbar layout: horizontal row or vertical column. */
+  orientation?: "horizontal" | "vertical";
+  /**
+   * M3 toolbar attachment. `floating` (default) is the detached pill at
+   * level3 with 8dp side padding; `docked` is the edge-attached bar that
+   * replaces the bottom app bar — square corners, full-bleed, 16dp side
+   * padding (MDC-Android docked tokens; no elevation token ships, so the
+   * attached bar carries none).
+   */
+  layout?: "floating" | "docked";
+}) {
+  const vertical = orientation === "vertical";
+  const docked = layout === "docked";
   return (
     <ToolbarPrimitive.Root
       data-slot="toolbar"
+      data-variant={variant}
+      data-orientation={orientation}
+      data-layout={layout}
       className={cnState(
-        "kern-toolbar flex h-14 items-center gap-1 rounded-(--md-sys-shape-corner-full) bg-(--md-sys-color-surface-tonal) px-2 shadow-(--md-sys-elevation-level2)",
+        "kern-toolbar flex min-h-16 items-center gap-1",
+        vertical ? "flex-col py-2" : "flex-row",
+        docked
+          ? "w-full rounded-none px-4 shadow-none"
+          : "rounded-(--md-sys-shape-corner-full) px-2 shadow-(--md-sys-elevation-level3)",
+        variant === "vibrant"
+          ? "bg-(--md-sys-color-primary-container) text-(--md-sys-color-on-primary-container)"
+          : "bg-(--md-sys-color-surface-tonal) text-(--md-sys-color-on-surface)",
         className,
       )}
       {...props}
@@ -41,7 +75,9 @@ export function ToolbarButton({ className, ...props }: ToolbarButtonProps) {
     <ToolbarPrimitive.Button
       data-slot="toolbar-button"
       className={cnState(
-        "kern-toolbar-button flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-(--md-sys-color-on-surface) outline-none select-none " + FOCUS_RING_CLASS + " disabled:pointer-events-none disabled:opacity-50 data-pressed:bg-(--md-sys-color-primary) data-pressed:text-(--md-sys-color-on-primary)",
+        "kern-toolbar-button relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-(--md-sys-color-on-surface) outline-none select-none transition-colors duration-200 ease-(--md-sys-motion-easing-standard) " +
+          FOCUS_RING_CLASS +
+          " disabled:pointer-events-none disabled:text-(--md-sys-color-on-surface)/38 aria-disabled:pointer-events-none aria-disabled:text-(--md-sys-color-on-surface)/38 before:absolute before:inset-0 before:rounded-full before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--md-sys-color-on-surface) hover:before:opacity-[var(--md-sys-state-hover)] focus-visible:before:opacity-[var(--md-sys-state-focus)] active:before:opacity-[var(--md-sys-state-press)] disabled:before:opacity-0 data-pressed:bg-(--md-sys-color-secondary-container) data-pressed:text-(--md-sys-color-on-secondary-container) data-pressed:before:bg-(--md-sys-color-on-secondary-container)",
         className,
       )}
       {...props}

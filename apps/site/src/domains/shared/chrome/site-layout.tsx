@@ -8,31 +8,28 @@ import { SiteHeader } from "../../../components/chrome/site-header";
 import { T_BODY_SM, T_LABEL } from "../systems/type-scale";
 
 /**
- * Docs-section paths render with the section sidebar tree. The header covers
- * the five hub destinations (Foundations, Components, Patterns, Playground,
- * Showcase) with its primary tabs, so hub pages — including every
- * /foundations/* page — render full-width with no second tree stacked
- * beside the in-page family nav. /getting-started is a guide, not a docs
- * section, so it renders full-width too. Anything else renders full-width.
+ * Docs-section paths render with the three-column layout: left sidebar tree,
+ * centred content, right "On this page" TOC. Foundations is part of the Docs
+ * tree (not a header tab), so /foundations/* joins the sidebar prefixes.
+ * /docs/getting-started is a docs section page, so it renders with the
+ * sidebar tree. Anything else renders full-width.
  */
-const SIDEBAR_PREFIXES = ["/docs", "/components"];
+const SIDEBAR_PREFIXES = [
+  "/docs",
+  "/components",
+  "/foundations",
+  "/primitives",
+  "/styles",
+  "/reference",
+];
 
 /**
- * "On this page" for viewports where the sidebar tree is hidden (below lg,
- * i.e. phones and the 768–1024 tablet band, where the hamburger + drawer
- * carry navigation).
- *
- * The items are read from the rendered page — every `h2[id]` inside `#main`
- * — so the disclosure can never list a section that is not there, and pages
- * with fewer than two sections render nothing rather than a one-item menu.
- * Component-page headings carry an explicit permalink `#`, which is stripped
- * from the label.
- *
- * The initial state reads the DOM synchronously (client only — SSR has no
- * document, so the server renders nothing) so the first client paint already
- * lists the sections instead of popping them in after hydration. The effect
- * re-reads on client-side navigation, where the DOM has already swapped
- * beneath the mounted shell.
+ * Read `h2[id]` items from `#main` — the shared TOC data source for both
+ * the right rail (desktop) and the disclosure (small screens). Reading the
+ * rendered DOM means the TOC can never list a section that is not there,
+ * and pages with fewer than two sections render nothing rather than a
+ * one-item menu. Component-page headings carry an explicit permalink `#`,
+ * which is stripped from the label.
  */
 function readTocItems(): { id: string; text: string }[] {
   if (typeof document === "undefined") return [];
@@ -46,16 +43,59 @@ function readTocItems(): { id: string; text: string }[] {
     .filter((item) => item.id !== "" && item.text !== "");
 }
 
-function SectionToc({ pathname }: { pathname: string }) {
-  const [items, setItems] = useState<{ id: string; text: string }[]>(() =>
-    readTocItems(),
-  );
+/**
+ * "On this page" — the right rail (desktop TOC).
+ *
+ * Sticky beside the content, hidden below `xl` so it never competes with
+ * the `SectionToc` disclosure that covers narrow viewports. Items are read
+ * from the rendered page DOM, so this works for every docs page without
+ * knowing its grammar.
+ */
+function OnThisPageRail({ pathname }: { pathname: string }) {
+  const [items, setItems] = useState<{ id: string; text: string }[]>([]);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: pathname triggers re-read on route change
   useEffect(() => {
     setItems(readTocItems());
   }, [pathname]);
   if (items.length < 2) return null;
   return (
-    <details className="rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-low) px-4 py-3 lg:hidden">
+    <nav aria-label="On this page" className="flex flex-col gap-2">
+      <p
+        className={`m-0 ${T_LABEL} text-(--md-sys-color-on-surface-variant) uppercase`}
+      >
+        On this page
+      </p>
+      <ul className="m-0 flex list-none flex-col gap-1 p-0">
+        {items.map((item) => (
+          <li key={item.id} className="m-0 p-0">
+            <a
+              href={`#${item.id}`}
+              className={`block rounded-(--md-sys-shape-corner-full) px-3 py-1.5 ${T_BODY_SM} text-(--md-sys-color-on-surface-variant) no-underline hover:bg-(--md-sys-color-surface-container-high) hover:text-(--md-sys-color-on-surface) hover:underline`}
+            >
+              {item.text}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
+
+/**
+ * "On this page" disclosure for viewports where the sidebar tree and right
+ * rail are both hidden (below lg). Same DOM-scraped data as the right rail;
+ * renders nothing with fewer than two sections. Scrolls with the content
+ * since it lives inside `main`.
+ */
+function SectionToc({ pathname }: { pathname: string }) {
+  const [items, setItems] = useState<{ id: string; text: string }[]>([]);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: pathname triggers re-read on route change
+  useEffect(() => {
+    setItems(readTocItems());
+  }, [pathname]);
+  if (items.length < 2) return null;
+  return (
+    <details className="rounded-(--md-sys-shape-corner-large-increased) bg-(--md-sys-color-surface-container-low) px-4 py-3 2xl:hidden">
       <summary
         className={`cursor-pointer ${T_LABEL} text-(--md-sys-color-on-surface-variant) uppercase`}
       >
@@ -66,7 +106,7 @@ function SectionToc({ pathname }: { pathname: string }) {
           <li key={item.id} className="m-0 p-0">
             <a
               href={`#${item.id}`}
-              className={`block py-1 ${T_BODY_SM} text-(--md-sys-color-primary) no-underline hover:underline`}
+              className={`block py-1 ${T_BODY_SM} text-(--md-sys-color-secondary) no-underline hover:underline`}
             >
               {item.text}
             </a>
@@ -77,60 +117,88 @@ function SectionToc({ pathname }: { pathname: string }) {
   );
 }
 
+/**
+ * SiteLayout — the app shell.
+ *
+ * Uses the kern `AppShell` scroll model: `h-dvh` on the root so the page
+ * never grows past the viewport, `min-h-0` on the body row so content can
+ * shrink, and exactly one `overflow-auto` on `main` — the only scrolling
+ * element. The header is a structurally pinned flex sibling above the body
+ * row; the sidebars are `shrink-0` with independent `overflow-y-auto` inners.
+ * The footer lives inside `main` so it scrolls with the content.
+ *
+ * Primary navigation stays in the pinned top header. The main
+ * reading pane is rounded surface paper on a surface-container-low canvas;
+ * section navigation remains on the canvas with no floating shadows.
+ *
+ * Below `lg` the sidebar is replaced by the hamburger + MobileDrawer (the
+ * header owns that). Below `2xl` the right TOC is replaced by the `SectionToc`
+ * disclosure. Exactly one navigation surface per viewport.
+ */
 export function SiteLayout({ children }: { children: ReactNode }) {
   const { pathname } = useLocation();
   const withSidebar = SIDEBAR_PREFIXES.some(
     (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
   );
+  const isComponents = pathname.startsWith("/components");
   return (
-    <div className="min-h-screen bg-(--md-sys-color-surface-container)">
+    <>
       <a
         href="#main"
         className={`sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded-(--md-sys-shape-corner-full) focus:bg-(--md-sys-color-primary) focus:px-4 focus:py-2 ${T_BODY_SM} focus:text-(--md-sys-color-on-primary) focus:no-underline`}
       >
         Skip to content
       </a>
-      {/* The header is the primary chrome on every page — primary tabs,
-          search, theme, and CTA — with the footer closing it. Docs-context
-          pages add the section sidebar tree beside the content; there is no
-          side app rail: it duplicated the header's five hub tabs. Below lg
-          the hamburger + drawer carry every destination, so exactly one
-          navigation surface owns each viewport and the two never overlap. */}
       {/* data-chrome marks the regions the search palette makes inert while
           it is open. The palette itself renders outside them (below), so
           insetting the page never traps the dialog it is trying to show. */}
-      <div className="flex flex-col" data-chrome="content">
-        <SiteHeader />
-        {/* Content fills the viewport so the footer starts below the fold —
-            only reachable by scrolling. */}
-        {withSidebar ? (
-          <div className="mx-auto flex w-full max-w-[80rem] flex-col gap-4 px-4 sm:px-6 lg:flex-row lg:gap-8">
-            {/* Tablet/phone fallback for the sidebar tree: the aside below
-                stays hidden until lg, and this disclosure covers the band
-                under it. Desktop readers never see it. */}
-            <SectionToc pathname={pathname} />
-            <aside className="hidden w-56 shrink-0 py-8 lg:block">
-              <div className="sticky top-8">
-                {pathname === "/components" ||
-                pathname.startsWith("/components/") ? (
-                  <ComponentsSidebar />
-                ) : (
-                  <DocsSidebar />
-                )}
-              </div>
-            </aside>
-            <main id="main" className="min-h-screen min-w-0 flex-1">
+      <div
+        className="site-shell flex h-dvh bg-(--md-sys-color-surface-container-low)"
+        data-chrome="content"
+      >
+        <div className="flex min-w-0 flex-1 flex-col">
+          <SiteHeader />
+
+          {/* Body row — min-h-0 lets the content region shrink so overflow
+            routes to `main`'s scroll container instead of expanding the shell. */}
+          <div className="site-body flex min-h-0 flex-1">
+            {/* Left sidebar — shrink-0, fixed width, independent scroll.
+              The M3 sidebar surface: `bg-surface`, `border-e` hairline,
+              inner list scrolls without moving the shell. */}
+            {withSidebar ? (
+              <aside className="site-sidebar hidden w-60 shrink-0 overflow-hidden lg:block">
+                <div className="h-full overflow-y-auto px-3 py-6">
+                  {isComponents ? <ComponentsSidebar /> : <DocsSidebar />}
+                </div>
+              </aside>
+            ) : null}
+
+            {/* Main — THE scroll container. The only `overflow-auto` in the shell. */}
+            <main
+              id="main"
+              className={`site-main flex min-w-0 flex-1 flex-col overflow-auto ${withSidebar ? "site-main-docs" : ""}`}
+              tabIndex={-1}
+            >
+              {/* Tablet/phone fallback for the sidebar tree and TOC: these
+                live inside `main` so they scroll with the content. */}
+              {withSidebar ? <SectionToc pathname={pathname} /> : null}
               {children}
+              <Footer />
             </main>
+
+            {/* Right TOC — shrink-0, fixed width, independent scroll. */}
+            {withSidebar ? (
+              <aside className="site-toc hidden w-48 shrink-0 overflow-hidden 2xl:block">
+                <div className="h-full overflow-y-auto px-4 py-6">
+                  <OnThisPageRail pathname={pathname} />
+                </div>
+              </aside>
+            ) : null}
           </div>
-        ) : (
-          <main id="main" className="min-h-screen">
-            {children}
-          </main>
-        )}
-        <Footer />
+        </div>
       </div>
+      {/* SearchPalette is outside the shell — it is a modal overlay. */}
       <SearchPalette />
-    </div>
+    </>
   );
 }

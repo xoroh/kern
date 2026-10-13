@@ -79,11 +79,13 @@ export function Search({
         style={{
           flex: 1,
           minHeight: 56,
-          borderWidth: 1,
-          borderColor: focused ? scheme.color.primary : scheme.color.outline,
-          borderRadius: Number.parseFloat(scheme.shape.small),
-          backgroundColor: scheme.color.surface,
-          paddingHorizontal: 16,
+          // M3 docked search bar: borderless surface-container-high stadium.
+          // Focus shows on the container via the primary outline below.
+          borderWidth: focused ? 1 : 0,
+          borderColor: scheme.color.primary,
+          borderRadius: Number.parseFloat(scheme.shape.full),
+          backgroundColor: scheme.color.surfaceContainerHigh,
+          paddingHorizontal: 24,
           fontSize: 16,
           color: scheme.color.onSurface,
         }}

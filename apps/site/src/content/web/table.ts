@@ -6,7 +6,7 @@ export const table: ComponentDoc = {
   oneLiner:
     "Tables lay out rows of related values so they can be compared down a column.",
   features:
-    "Reach for a table when the data is genuinely tabular — several attributes per record, and the point is comparing them across rows. Give every column a header and keep the values in a column aligned, because the comparison is the whole reason the table exists. On a narrow screen a table that scrolls sideways is better than one that reflows into unrelated cards; a card list loses the comparison that made the table worth building. If each record stands alone and nothing is compared, that is a list, not a table.",
+    "Reach for a table when the data is genuinely tabular - several attributes per record, and the point is comparing them across rows. Give every column a header and keep the values in a column aligned, because the comparison is the whole reason the table exists. On a narrow screen a table that scrolls sideways is better than one that reflows into unrelated cards; a card list loses the comparison that made the table worth building. If each record stands alone and nothing is compared, that is a list, not a table.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -33,7 +33,7 @@ export const table: ComponentDoc = {
     },
     {
       name: "TableHead",
-      role: "The `<thead>`. The header ROWS go here — see the warning below.",
+      role: "The `<thead>`. The header ROWS go here - see the warning below.",
     },
     {
       name: "TableHeader",
@@ -44,17 +44,40 @@ export const table: ComponentDoc = {
     { name: "TableCell", role: "One `<td>`." },
     {
       name: "TableCaption",
-      role: "The `<caption>`. Names the table for assistive tech — the only place a table gets a title it can announce.",
+      role: "The `<caption>`. Names the table for assistive tech - the only place a table gets a title it can announce.",
+    },
+  ],
+  usage: {
+    do: [
+      "Use tonal head rows over data rows for scan order.",
+      "Let wide tables scroll horizontally inside their wrapper.",
+    ],
+    dont: [
+      "Don't center data text - start-align for scanning.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Wrapper",
+      state: "resting",
+      token: "kern.table.wrapper",
+      value: "outline-variant border, 8px",
+    },
+  ],
+  faq: [
+    {
+      q: "Table or list?",
+      a: "Tables for multi-column data; lists for single-column rows with actions.",
     },
   ],
   customization: {
     supported: [
       "`className` on every part, merged after that part's own classes. Every part forwards the props of the HTML element it renders.",
-      "Row and cell styling is entirely the caller's — the components supply the semantic elements and a baseline, not a data-grid look.",
+      "Row and cell styling is entirely the caller's - the components supply the semantic elements and a baseline, not a data-grid look.",
       "`TableCaption` is a real `<caption>`, so the table has an accessible name rather than relying on a heading above it.",
     ],
     notSupported: [
-      "There is no sorting, pagination or selection. This is a semantic table, not a data grid — the behaviour is the page's.",
+      "There is no sorting, pagination or selection. This is a semantic table, not a data grid - the behaviour is the page's.",
       "There is no `density` or `variant` prop. Row height and borders are `className`.",
       "There is no `stickyHeader` prop. A fixed header is the table's own CSS.",
     ],
@@ -84,7 +107,7 @@ export const table: ComponentDoc = {
   aria: [
     "Every part renders the HTML table element it names, so the table semantics come from real elements rather than from ARIA roles bolted onto divs.",
     "`TableCaption` gives the table an accessible name. A table with no caption has no name to announce.",
-    "`scope` on `TableHeader` is what associates a cell's value with its column heading — without it, a screen reader reads numbers with no idea what they measure.",
+    "`scope` on `TableHeader` is what associates a cell's value with its column heading - without it, a screen reader reads numbers with no idea what they measure.",
     "On a narrow screen, keep the table scrollable rather than reflowing it into cards. The comparison is the reason the table exists.",
   ],
 };

@@ -23,7 +23,7 @@ export function switchStyles(
       backgroundColor: on ? scheme.color.primary : scheme.color.surface,
       justifyContent: "center",
       paddingHorizontal: 2,
-      opacity: disabled ? 0.5 : 1,
+      opacity: disabled ? 0.38 : 1,
     },
     thumb: {
       width: on ? 24 : 16,

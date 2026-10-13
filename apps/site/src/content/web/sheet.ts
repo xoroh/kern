@@ -47,6 +47,45 @@ export const sheet: ComponentDoc = {
     { name: "SheetClose", role: "Closes the sheet from inside it." },
     { name: "Sheet", role: "The namespace object: all of the parts above." },
   ],
+  keyboard: [
+    {
+      key: "Escape",
+      action: "Closes the surface; focus returns to the trigger.",
+    },
+    {
+      key: "Tab / Shift+Tab",
+      action: "Trapped inside while modal; the page behind is inert.",
+    },
+  ],
+  usage: {
+    do: [
+      "Use modal sheets for tasks that need focus — the scrim marks the interruption.",
+      "Let content scroll inside with titles pinned where applicable.",
+    ],
+    dont: [
+      "Don't trap focus without announcing modality.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Container",
+      state: "resting",
+      token: "md.comp.sheet.container",
+      value: "surface-container-low, 28px leading edge, level3",
+    },
+    {
+      element: "Scrim",
+      state: "resting",
+      token: "md.sys.color.scrim",
+      value: "32%",
+    },
+  ],
+  faq: [
+    {
+      q: "Bottom drawer or side sheet?",
+      a: "Bottom drawers rise for compact flows; side sheets dock for persistent panels.",
+    },
+  ],
   customization: {
     supported: [
       "`className` on every part, merged after the part's own classes.",

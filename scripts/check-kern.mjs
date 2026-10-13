@@ -206,17 +206,15 @@ for (const entry of inventory.missingDeviation) {
   }
 }
 
-// 3b. STATE LAYERS (SPECS-1 F1, research A2). M3's state-layers page publishes exactly
-// FIVE overlay opacities: hover +8, focus +10, press +10, drag +16, disabled +38.
-// kern shipped four; `disabled` was the one gap a currency gate would flag, because
-// material-web (from which the other four were taken) DOES define it while being behind on
-// Expressive. Values are asserted against the SPEC page, per SPECS-1: a value check may cite
-// an implementation, but the completeness claim is the spec's.
+// 3b. STATE LAYERS. M3 material-web v0.192 publishes exactly FIVE overlay
+// opacities: hover +8, focus +12, press +12, drag +16, disabled +38.
+// (Earlier kern docs cited .10 for focus/press from older M3 prose; the
+// shipped implementation tokens use 12%.)
 {
   const M3_STATE_OPACITIES = {
     "hover-opacity": "8%",
-    "focus-opacity": "10%",
-    "press-opacity": "10%",
+    "focus-opacity": "12%",
+    "press-opacity": "12%",
     "drag-opacity": "16%",
     "disabled-opacity": "38%",
   };
@@ -225,7 +223,7 @@ for (const entry of inventory.missingDeviation) {
     if (states[key] === undefined) {
       violations.push(
         `states.${key} is missing — M3 defines five state-layer opacities ` +
-          `(hover 8%, focus 10%, press 10%, drag 16%, disabled 38%)`,
+          `(hover 8%, focus 12%, press 12%, drag 16%, disabled 38%)`,
       );
     } else if (states[key] !== expected) {
       violations.push(
@@ -435,13 +433,26 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
         levels.add(Number(level));
       }
     }
-    // Two levels in one closure means the component straddles spec rows; report
-    // the set rather than silently picking one.
+    // Two levels in one closure usually means the component straddles spec
+    // rows; report the set rather than silently picking one. Exception: a
+    // resting + hover pair (e.g. button 1→2, FAB 3→4) where every resolved
+    // level is in the component's allowed variants — hover lift is M3 state
+    // behavior, not a second spec row.
     if (levels.size > 1) {
-      violations.push(
-        `${component}: resolves elevation levels {${[...levels].sort().join(", ")}} ` +
-          `across its import closure — M3 assigns one resting level per component`,
-      );
+      const allowed = KERN_ELEVATION_COMPONENTS[component]?.variants ?? [];
+      const allAllowed = [...levels].every((l) => allowed.includes(l));
+      if (!allAllowed) {
+        violations.push(
+          `${component}: resolves elevation levels {${[...levels].sort().join(", ")}} ` +
+            `across its import closure — M3 assigns one resting level per component`,
+        );
+        continue;
+      }
+      // Resting + hover pair: audit against the lowest (resting) level.
+      const resting = Math.min(...levels);
+      const problems = auditElevation(component, resting);
+      violations.push(...problems);
+      if (problems.length === 0) conformant++;
       continue;
     }
     const problems = auditElevation(
@@ -499,7 +510,7 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
     // (the one value components DO consume today) still fails. A blanket group
     // exemption would re-create the blind spot this gate exists to close.
     states:
-      "focus/press/drag are M3 state-layer values (hover +8%, focus +10%, press +10%, drag +16%) that no component yet expresses as a state LAYER: focus is drawn as a ring, press as an opacity dim (0.82/0.9), drag has no implementation. Visual changes beyond this ruling — P1-6 follow-up.",
+      "focus/press/drag are M3 state-layer values (hover +8%, focus +12%, press +12%, drag +16%) that no component yet expresses as a state LAYER: focus is drawn as a ring, press as an opacity dim (0.82/0.9), drag has no implementation. Visual changes beyond this ruling — P1-6 follow-up.",
   };
   // Source roots that may consume tokens (generated output is NOT a consumer).
   const CONSUMER_DIRS = [

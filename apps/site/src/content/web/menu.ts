@@ -51,6 +51,67 @@ export const menu: ComponentDoc = {
     },
     { name: "Menu", role: "The namespace object: all of the parts above." },
   ],
+  keyboard: [
+    {
+      key: "Arrow keys",
+      action: "Moves between items with wrapping; typeahead jumps by typed text.",
+    },
+    {
+      key: "Enter / Space",
+      action: "Activates the focused item and closes the menu (unless keep-open).",
+    },
+    {
+      key: "Escape",
+      action: "Closes without activating; focus returns to the trigger.",
+    },
+    {
+      key: "Tab",
+      action: "Closes the menu and moves focus out.",
+    },
+  ],
+  usage: {
+    do: [
+      "Anchor to the trigger with a relative parent; the menu positions to it.",
+      "Keep items to one line with an optional supporting line — 48px dense rows.",
+      "Separate groups with dividers (separator role, never focusable).",
+    ],
+    dont: [
+      "Don't nest deeper than one submenu — flatten instead.",
+      "Don't hide disabled items — show them inert so the set reads complete.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Container",
+      state: "resting",
+      token: "md.comp.menu.container",
+      value: "surface-container, 4px, level2",
+    },
+    {
+      element: "Selected item",
+      state: "resting",
+      token: "md.comp.menu.selected",
+      value: "secondary-container + on-secondary-container",
+    },
+    {
+      element: "Item",
+      state: "hover",
+      token: "md.comp.menu.item-hover",
+      value: "on-surface 8% layer",
+    },
+    {
+      element: "Item label",
+      state: "disabled",
+      token: "md.comp.list.disabled-label",
+      value: "on-surface 30%",
+    },
+  ],
+  faq: [
+    {
+      q: "Menu, select, or combobox?",
+      a: "Menu for command lists from a trigger; select for fixed-value form fields; combobox for filter-as-you-type.",
+    },
+  ],
   customization: {
     supported: [
       "`className` on every part, merged after the part's own classes.",

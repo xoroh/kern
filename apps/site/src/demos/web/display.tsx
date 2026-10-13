@@ -71,36 +71,44 @@ export function ButtonDemo() {
         </Row>
       </Preview>
       <Preview
-        label="action — destructive is the error roles, not a variant"
+        label="action — destructive is color=danger, not a variant"
         span={3}
       >
         <Row>
-          <Button className="bg-(--md-sys-color-error) text-(--md-sys-color-on-error) hover:bg-(--md-sys-color-error)/90">
-            Delete
-          </Button>
-          <Button
-            variant="outlined"
-            className="border-(--md-sys-color-error) text-(--md-sys-color-error)"
-          >
+          <Button color="danger">Delete</Button>
+          <Button variant="outlined" color="danger">
             Discard
+          </Button>
+          <Button variant="tonal" color="danger">
+            Remove
           </Button>
         </Row>
       </Preview>
-      <Preview label="size — default · sm · icon" span={3}>
+      <Preview label="size — xs · default · sm · xl · icon" span={3}>
         <Row>
+          <Button size="xs">XS</Button>
           <Button>Default</Button>
           <Button size="sm">Small</Button>
+          <Button size="xl">XL</Button>
           <Button size="icon" aria-label="Settings">
             <Gear />
           </Button>
         </Row>
       </Preview>
-      <Preview label="state — disabled" span={3}>
+      <Preview label="shape — pill · rounded · square" span={3}>
+        <Row>
+          <Button shape="pill">Pill</Button>
+          <Button shape="rounded">Rounded</Button>
+          <Button shape="square">Square</Button>
+        </Row>
+      </Preview>
+      <Preview label="state — disabled · loading · block" span={3}>
         <Row>
           <Button disabled>Disabled</Button>
           <Button variant="tonal" disabled>
             Disabled tonal
           </Button>
+          <Button loading>Loading</Button>
         </Row>
       </Preview>
     </PreviewStack>
@@ -131,7 +139,7 @@ export function FabDemo() {
   return (
     <PreviewStack>
       <Preview
-        label="size — small · default · medium · large (M3's FAB axis)"
+        label="size — small · default · md · medium · large (M3's FAB axis)"
         span={3}
       >
         <Row>
@@ -143,10 +151,61 @@ export function FabDemo() {
             <Plus />
             Compose
           </Fab>
+          <Fab size="md" aria-label="Compose">
+            <Plus />
+          </Fab>
           <Fab size="medium" aria-label="Compose">
             <Plus />
           </Fab>
           <Fab size="large" aria-label="Compose">
+            <Plus />
+          </Fab>
+        </Row>
+      </Preview>
+      <Preview
+        label="color — surface · primary · secondary · tertiary"
+        span={3}
+      >
+        <Row>
+          <Fab color="surface" aria-label="Compose">
+            <Plus />
+          </Fab>
+          <Fab color="primary" aria-label="Compose">
+            <Plus />
+          </Fab>
+          <Fab color="secondary" aria-label="Compose">
+            <Plus />
+          </Fab>
+          <Fab color="tertiary" aria-label="Compose">
+            <Plus />
+          </Fab>
+        </Row>
+      </Preview>
+      <Preview
+        label="color — expressive fills · primary-fill · secondary-fill · tertiary-fill"
+        span={3}
+      >
+        <Row>
+          <Fab color="primary-fill" aria-label="Compose">
+            <Plus />
+          </Fab>
+          <Fab color="secondary-fill" aria-label="Compose">
+            <Plus />
+          </Fab>
+          <Fab color="tertiary-fill" aria-label="Compose">
+            <Plus />
+          </Fab>
+        </Row>
+      </Preview>
+      <Preview
+        label="elevation — standard · lowered (level1, quieter)"
+        span={3}
+      >
+        <Row>
+          <Fab aria-label="Compose">
+            <Plus />
+          </Fab>
+          <Fab lowered aria-label="Compose">
             <Plus />
           </Fab>
         </Row>
@@ -410,6 +469,16 @@ export function LinearProgressDemo() {
           <LinearProgress value={0.75} label="Almost done" />
         </div>
       </Preview>
+      <Preview label="wavy — expressive indicator" span={3}>
+        <div className="w-full max-w-sm">
+          <LinearProgress value={0.6} label="Syncing" wavy />
+        </div>
+      </Preview>
+      <Preview label="stop — end marker" span={3}>
+        <div className="w-full max-w-sm">
+          <LinearProgress value={0.6} label="Syncing" stop />
+        </div>
+      </Preview>
     </PreviewStack>
   );
 }
@@ -547,7 +616,7 @@ export function LinkDemo() {
         >
           <Link to="/components">Component catalog</Link>
         </LinkProvider>
-        <LinkButton href="/getting-started">Get started</LinkButton>
+        <LinkButton href="/docs/getting-started">Get started</LinkButton>
       </div>
     </Preview>
   );

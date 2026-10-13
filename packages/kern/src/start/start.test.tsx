@@ -130,6 +130,19 @@ describe("top app bar", () => {
     expect(screen.getByText("Ops")).toBeTruthy();
   });
 
+  // M3 bar heights: small 64dp, medium 112dp, large 152dp.
+  it.each([
+    ["small", "h-16"],
+    ["medium", "h-28"],
+    ["large", "h-[152px]"],
+  ] as const)("renders the %s bar at the M3 height", (size, expected) => {
+    const { unmount } = render(<TopAppBar size={size}>T</TopAppBar>);
+    expect(screen.getByText("T").closest("header")?.className).toContain(
+      expected,
+    );
+    unmount();
+  });
+
   it("renders slot-driven menus", () => {
     render(
       <NotificationsMenu
@@ -262,7 +275,7 @@ describe("scaffolds", () => {
     for (const text of ["top", "rail", "drawer", "status", "content"]) {
       expect(screen.getByText(text)).toBeTruthy();
     }
-    expect(APP_SHELL_HEIGHTS.topBar).toBe(56);
+    expect(APP_SHELL_HEIGHTS.topBar).toBe(64);
   });
 
   it("renders region permutations without missing regions", () => {

@@ -19,6 +19,44 @@ export const card: ComponentDoc = {
     elevation: 1,
   },
   parts: ["Card"],
+  usage: {
+    do: [
+      "Use one card per subject with scan-first hierarchy: headline, supporting text, actions.",
+      "Pick the variant by style alone — all three share legibility and function.",
+      "Group related cards in grids, lists, or carousels at shared resting elevation.",
+    ],
+    dont: [
+      "Don't force non-card content into cards — spacing, headlines, or dividers may serve better.",
+      "Don't nest interactivity — directly actionable or container-with-actions, never both.",
+      "Don't scroll inside cards — expand to reveal instead.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Elevated container",
+      state: "resting",
+      token: "md.comp.card.elevated",
+      value: "surface-container-low, level1, 12px",
+    },
+    {
+      element: "Filled container",
+      state: "resting",
+      token: "md.comp.card.filled",
+      value: "surface-container-highest, 12px",
+    },
+    {
+      element: "Outlined container",
+      state: "resting",
+      token: "md.comp.card.outlined",
+      value: "surface + outline-variant, 12px",
+    },
+  ],
+  faq: [
+    {
+      q: "Which card variant?",
+      a: "Style choice only: elevated for separation with shadow, filled for subtle separation, outlined for a visible boundary with the most emphasis.",
+    },
+  ],
   customization: {
     supported: [
       "`className` is passed through and merged after the variant classes.",

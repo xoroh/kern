@@ -139,7 +139,8 @@ export function SonnerAction({ className, ...props }: SonnerActionProps) {
     <ToastPrimitive.Action
       data-slot="sonner-action"
       className={cnState(
-        "kern-sonner-action ml-auto shrink-0 cursor-pointer font-medium text-(--md-sys-color-inverse-primary) outline-none " + FOCUS_RING_CLASS,
+        "kern-sonner-action ml-auto shrink-0 cursor-pointer font-medium text-(--md-sys-color-inverse-primary) outline-none " +
+          FOCUS_RING_CLASS,
         className,
       )}
       {...props}
@@ -153,7 +154,8 @@ export function SonnerClose({ className, ...props }: SonnerCloseProps) {
       data-slot="sonner-close"
       aria-label="Dismiss"
       className={cnState(
-        "kern-sonner-close shrink-0 cursor-pointer outline-none " + FOCUS_RING_CLASS,
+        "kern-sonner-close shrink-0 cursor-pointer outline-none " +
+          FOCUS_RING_CLASS,
         className,
       )}
       {...props}

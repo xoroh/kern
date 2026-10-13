@@ -15,6 +15,42 @@ export const linearProgress: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["LinearProgress"],
+  usage: {
+    do: [
+      "Use determinate bars for known fractions, loops for unknown waits.",
+      "Add buffer dots where part of the work is measurable and part is not.",
+      "Always label for assistive tech.",
+    ],
+    dont: [
+      "Don't leave progress unlabeled — determinate reports value, loops report status.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Track",
+      state: "resting",
+      token: "md.comp.linear-progress.track",
+      value: "surface-container-highest, 4px",
+    },
+    {
+      element: "Indicator",
+      state: "resting",
+      token: "md.comp.linear-progress.indicator",
+      value: "primary, 4px",
+    },
+    {
+      element: "Loop",
+      state: "resting",
+      token: "md.comp.linear-progress.loop",
+      value: "2s linear infinite, two offset bars",
+    },
+  ],
+  faq: [
+    {
+      q: "When is buffer right?",
+      a: "Streaming and staged work — known progress in the bar, unknown in the dots.",
+    },
+  ],
   customization: {
     supported: [
       "`className` is passed through and merged after the bar's own classes, which is how its height and colour are set.",

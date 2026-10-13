@@ -43,7 +43,9 @@ describe("KernSize foundation (web)", () => {
       xs: "sm",
       default: "md",
       sm: "sm",
+      md: "md",
       xl: "lg",
+      lg: "lg",
     });
     expect("icon" in BUTTON_SIZE_TO_KERN_SIZE).toBe(false);
   });

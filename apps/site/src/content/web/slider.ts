@@ -37,6 +37,58 @@ export const slider: ComponentDoc = {
     },
     { name: "Slider", role: "The namespace object: all of the parts above." },
   ],
+  keyboard: [
+    {
+      key: "Arrow keys",
+      action: "Moves the handle by one step. PageUp/PageDown jump further.",
+    },
+    {
+      key: "Home / End",
+      action: "Jumps to the minimum or maximum value.",
+    },
+    {
+      key: "Tab / Shift+Tab",
+      action: "Moves focus into and out of the slider. Disabled sliders are skipped.",
+    },
+  ],
+  usage: {
+    do: [
+      "Use for settings along a track — volume, brightness, image filters.",
+      "Use discrete with ticks where only specific values are valid.",
+      "Use range with two handles for a minimum and maximum.",
+      "Show a value label where the exact number matters.",
+    ],
+    dont: [
+      "Don't use where the value needs typing — pair with or use a number field.",
+      "Don't hide the value when it drives a decision — label it.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Active track",
+      state: "resting",
+      token: "md.comp.slider.active-track-color",
+      value: "--md-sys-color-primary, full shape",
+    },
+    {
+      element: "Inactive track",
+      state: "resting",
+      token: "md.comp.slider.inactive-track-color",
+      value: "--md-sys-color-surface-container-highest",
+    },
+    {
+      element: "Handle",
+      state: "resting",
+      token: "md.comp.slider.handle-color",
+      value: "--md-sys-color-primary, full shape",
+    },
+  ],
+  faq: [
+    {
+      q: "Continuous, discrete, or range?",
+      a: "Continuous for subjective ranges; discrete with ticks and step for fixed values; range with two handles for a minimum and maximum.",
+    },
+  ],
   customization: {
     supported: [
       "`className` on every part, merged after the part's own classes.",

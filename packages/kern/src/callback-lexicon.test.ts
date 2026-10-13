@@ -53,6 +53,11 @@ const REGISTERED_ALIASES: Record<string, string[]> = {
     "value",
     "onValueChange",
   ],
+  // Button toggle state uses `pressed` (not `value` — that name is the form
+  // value on buttons), so `onPressedChange` is canonical here, not an alias.
+  // Native mirrors the same contract.
+  "packages/kern/src/components/button.tsx:onPressedChange": ["pressed"],
+  "packages/kern-native/src/components/button.tsx:onPressedChange": ["pressed"],
   "packages/kern/src/components/extended-fab.tsx:onCollapsedChange": [
     "value",
     "onValueChange",
@@ -94,6 +99,9 @@ const REGISTERED_ALIASES: Record<string, string[]> = {
   "packages/kern-native/src/components/icon-button.tsx:onPressedChange": [
     "value",
     "onValueChange",
+  ],
+  "packages/kern-native/src/components/link-button.tsx:onPressedChange": [
+    "pressed",
   ],
   "packages/kern-native/src/components/toggle.tsx:onPressedChange": [
     "value",

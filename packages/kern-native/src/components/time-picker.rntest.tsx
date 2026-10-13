@@ -133,3 +133,185 @@ describe("timeFieldStyles", () => {
     expect(unselected.backgroundColor).not.toBe(selected.backgroundColor);
   });
 });
+
+describe("TimePicker dial presentation", () => {
+  const dialOpt = (label: string) =>
+    screen.getByTestId(`kern-time-dial-option-${label}`);
+
+  it("renders the dial face instead of fields when presentation is dial", async () => {
+    await render(
+      <TimePicker
+        defaultValue={{ hours: 9, minutes: 30 }}
+        presentation="dial"
+      />,
+    );
+    expect(screen.getByTestId("kern-time-dial")).toBeTruthy();
+    expect(screen.getByTestId("kern-time-dial-face")).toBeTruthy();
+    expect(screen.queryByTestId("kern-time-field-Hour")).toBeNull();
+  });
+
+  it("defaults to the listbox presentation", async () => {
+    await render(<TimePicker defaultValue={{ hours: 9, minutes: 30 }} />);
+    expect(screen.queryByTestId("kern-time-dial")).toBeNull();
+    expect(screen.getByTestId("kern-time-field-Hour")).toBeTruthy();
+  });
+
+  it("keeps the listbox presentation when asked for it explicitly", async () => {
+    await render(
+      <TimePicker
+        defaultValue={{ hours: 9, minutes: 30 }}
+        presentation="listbox"
+      />,
+    );
+    expect(screen.queryByTestId("kern-time-dial")).toBeNull();
+    expect(screen.getByTestId("kern-time-field-Hour")).toBeTruthy();
+  });
+
+  /**
+   * Same load-bearing claim as the listbox: 12-hour is presentation of
+   * 24-hour STATE. "Hour 3" on a PM face reports 15, not 3.
+   */
+  it("reports 24-hour state in 12-hour dial mode", async () => {
+    const onValueChange = jest.fn();
+    await render(
+      <TimePicker
+        defaultValue={{ hours: 15, minutes: 0 }}
+        format="12h"
+        presentation="dial"
+        onValueChange={onValueChange}
+      />,
+    );
+    await act(async () => {
+      fireEvent.press(dialOpt("Hour 3"));
+    });
+    expect(onValueChange).toHaveBeenCalledWith({ hours: 15, minutes: 0 });
+  });
+
+  // A press confirms the hour (M3 advances to minutes).
+  it("advances to the minute ring after an hour is pressed", async () => {
+    await render(
+      <TimePicker
+        defaultValue={{ hours: 15, minutes: 0 }}
+        format="12h"
+        presentation="dial"
+        onValueChange={() => {}}
+      />,
+    );
+    await act(async () => {
+      fireEvent.press(dialOpt("Hour 3"));
+    });
+    expect(
+      screen.getByTestId("kern-time-dial-face").props.accessibilityLabel,
+    ).toBe("Minute");
+    expect(screen.queryByTestId("kern-time-dial-option-Hour 3")).toBeNull();
+  });
+
+  it("honours step granularity on the minute ring", async () => {
+    await render(
+      <TimePicker
+        defaultValue={{ hours: 9, minutes: 0 }}
+        step={15}
+        presentation="dial"
+      />,
+    );
+    await act(async () => {
+      fireEvent.press(screen.getByLabelText("Show minutes"));
+    });
+    expect(dialOpt("Minute 15")).toBeTruthy();
+    expect(dialOpt("Minute 45")).toBeTruthy();
+    // 10 is not on a step-15 grid.
+    expect(screen.queryByLabelText("Minute 10")).toBeNull();
+  });
+
+  it("falls back to minute accuracy for an invalid step on the dial", async () => {
+    // step 7 cannot produce whole minutes; 45 must survive rather than snap.
+    await render(
+      <TimePicker
+        defaultValue={{ hours: 3, minutes: 45 }}
+        step={7}
+        presentation="dial"
+      />,
+    );
+    await act(async () => {
+      fireEvent.press(screen.getByLabelText("Show minutes"));
+    });
+    expect(dialOpt("Minute 45").props.accessibilityState.selected).toBe(true);
+  });
+
+  it("reports a normalised value when a minute is pressed on the dial", async () => {
+    const onValueChange = jest.fn();
+    await render(
+      <TimePicker
+        defaultValue={{ hours: 9, minutes: 0 }}
+        step={15}
+        presentation="dial"
+        onValueChange={onValueChange}
+      />,
+    );
+    await act(async () => {
+      fireEvent.press(screen.getByLabelText("Show minutes"));
+    });
+    await act(async () => {
+      fireEvent.press(dialOpt("Minute 45"));
+    });
+    expect(onValueChange).toHaveBeenCalledWith({ hours: 9, minutes: 45 });
+  });
+
+  // Midnight is the classic 12-hour bug ("Hour 12", not "Hour 0"); the period
+  // is part of the value (00:00 AM -> PM is hours 12).
+  it("shows 12 for midnight and reports 24-hour state when PM is pressed", async () => {
+    const onValueChange = jest.fn();
+    await render(
+      <TimePicker
+        defaultValue={{ hours: 0, minutes: 0 }}
+        format="12h"
+        presentation="dial"
+        onValueChange={onValueChange}
+      />,
+    );
+    expect(dialOpt("Hour 12").props.accessibilityState.selected).toBe(true);
+    await act(async () => {
+      fireEvent.press(opt("Period PM"));
+    });
+    expect(onValueChange).toHaveBeenCalledWith({ hours: 12, minutes: 0 });
+  });
+
+  // M3 dial geometry: 24 hours on two rings — outer 00,13–23, inner 12,1–11.
+  it("shows all 24 hours on two rings in 24-hour dial mode", async () => {
+    await render(
+      <TimePicker
+        defaultValue={{ hours: 15, minutes: 0 }}
+        presentation="dial"
+      />,
+    );
+    const hourDots = screen.getAllByTestId(/kern-time-dial-option-Hour /);
+    expect(hourDots).toHaveLength(24);
+    expect(dialOpt("Hour 00")).toBeTruthy();
+    expect(dialOpt("Hour 23")).toBeTruthy();
+    expect(dialOpt("Hour 15").props.accessibilityState.selected).toBe(true);
+  });
+
+  it("gives the dial ring a single selected option", async () => {
+    await render(
+      <TimePicker
+        defaultValue={{ hours: 9, minutes: 30 }}
+        step={15}
+        presentation="dial"
+      />,
+    );
+    await act(async () => {
+      fireEvent.press(screen.getByLabelText("Show minutes"));
+    });
+    const selected = ["00", "15", "30", "45"].filter(
+      (m) => dialOpt(`Minute ${m}`).props.accessibilityState.selected,
+    );
+    expect(selected).toEqual(["30"]);
+  });
+
+  it("honours a controlled dial value", async () => {
+    await render(
+      <TimePicker value={{ hours: 3, minutes: 0 }} presentation="dial" />,
+    );
+    expect(dialOpt("Hour 03").props.accessibilityState.selected).toBe(true);
+  });
+});

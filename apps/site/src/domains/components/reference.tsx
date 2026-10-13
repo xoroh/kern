@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { SiteLayout } from "../shared/chrome/site-layout";
 import { COMPONENTS } from "../../generated/manifest";
+import { PageCard } from "../shared/chrome/page-card";
+import { SiteLayout } from "../shared/chrome/site-layout";
 import { T_BODY, T_LABEL, T_PAGE } from "../shared/systems/type-scale";
 
 /**
@@ -20,29 +21,28 @@ export function ApiIndex() {
   const rows = [...COMPONENTS].sort((a, b) => a.export.localeCompare(b.export));
   return (
     <SiteLayout>
-      <section className="px-4 py-4 sm:px-6 sm:py-6">
-        <div className="mx-auto flex max-w-[64rem] flex-col gap-8 rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14">
-          <header className="flex flex-col gap-3">
-            <p
-              className={`m-0 ${T_LABEL} text-(--md-sys-color-on-surface-variant) uppercase`}
-            >
-              Docs
-            </p>
-            <h1 className={`m-0 ${T_PAGE}`}>API index</h1>
-            <p
-              className={`m-0 max-w-[62ch] ${T_BODY} text-(--md-sys-color-on-surface-variant)`}
-            >
-              Every export in the generated manifest — {rows.length} rows,
-              generated, not hand-maintained. Each row links to its family page.
-            </p>
-          </header>
-          {/*
+      <PageCard>
+        <header className="flex flex-col gap-3">
+          <p
+            className={`m-0 ${T_LABEL} text-(--md-sys-color-on-surface-variant) uppercase`}
+          >
+            Docs
+          </p>
+          <h1 className={`m-0 ${T_PAGE}`}>API index</h1>
+          <p
+            className={`m-0 max-w-[62ch] ${T_BODY} text-(--md-sys-color-on-surface-variant)`}
+          >
+            Every export in the generated manifest — {rows.length} rows,
+            generated, not hand-maintained. Each row links to its family page.
+          </p>
+        </header>
+        {/*
             Phase 3 grammar — mobile tables: the index table scrolls
             horizontally inside its container below the breakpoint where it
             fits, instead of blowing out the page. Same `overflow-x-auto`
             treatment the component-page tables already carry.
           */}
-          <div className="overflow-x-auto">
+        <div className="overflow-x-auto">
           <table className="w-full border-collapse text-left">
             <thead>
               <tr className="border-b border-(--md-sys-color-outline-variant)">
@@ -77,9 +77,8 @@ export function ApiIndex() {
               ))}
             </tbody>
           </table>
-          </div>
         </div>
-      </section>
+      </PageCard>
     </SiteLayout>
   );
 }

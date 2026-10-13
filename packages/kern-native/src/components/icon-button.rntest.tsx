@@ -1,9 +1,11 @@
 import { fireEvent, render, screen } from "@testing-library/react-native";
+import { resolveThemeDetails } from "@xoroh/kern-tokens";
 import { act } from "react";
 import { Text as RNText } from "react-native";
 import {
   IconButton,
   IconButtonTarget,
+  iconButtonIconColor,
   iconButtonStyles,
   pressIsCancelled,
 } from "./icon-button";
@@ -191,5 +193,40 @@ describe("iconButtonStyles", () => {
   it("stays square", async () => {
     const s = iconButtonStyles("filled", false, false);
     expect(s.width).toBe(s.height);
+  });
+});
+
+describe("iconButton M3 sizes + selected treatments", () => {
+  it("walks the M3 size ladder XS 32 to XL 136", async () => {
+    expect(iconButtonStyles("standard", false, false, undefined, "xs").width).toBe(32);
+    expect(iconButtonStyles("standard", false, false, undefined, "default").width).toBe(40);
+    expect(iconButtonStyles("standard", false, false, undefined, "md").width).toBe(56);
+    expect(iconButtonStyles("standard", false, false, undefined, "lg").width).toBe(96);
+    expect(iconButtonStyles("standard", false, false, undefined, "xl").width).toBe(136);
+  });
+
+  it("lands selected fills per variant (M3 toggle-selected)", async () => {
+    const scheme = resolveThemeDetails("light");
+    expect(iconButtonStyles("filled", true, false, scheme).backgroundColor).toBe(
+      scheme.color.primary,
+    );
+    expect(iconButtonStyles("tonal", true, false, scheme).backgroundColor).toBe(
+      scheme.color.secondaryContainer,
+    );
+    expect(iconButtonStyles("outlined", true, false, scheme).backgroundColor).toBe(
+      scheme.color.inverseSurface,
+    );
+    expect(iconButtonStyles("outlined", true, false, scheme).borderWidth).toBeUndefined();
+    expect(iconButtonStyles("standard", true, false, scheme).backgroundColor).toBeUndefined();
+  });
+
+  it("pairs the icon ink with its container", async () => {
+    const scheme = resolveThemeDetails("light");
+    expect(iconButtonIconColor("filled", false, scheme)).toBe(scheme.color.primary);
+    expect(iconButtonIconColor("filled", true, scheme)).toBe(scheme.color.onPrimary);
+    expect(iconButtonIconColor("tonal", true, scheme)).toBe(
+      scheme.color.onSecondaryContainer,
+    );
+    expect(iconButtonIconColor("standard", true, scheme)).toBe(scheme.color.primary);
   });
 });

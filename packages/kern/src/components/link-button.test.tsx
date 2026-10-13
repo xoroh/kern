@@ -21,14 +21,23 @@ describe("LinkButton", () => {
 
   it("carries every Button axis without its own implementation", () => {
     const { rerender } = render(
-      <LinkButton href="/x" variant="tonal" color="danger" size="xl" shape="square" block>
+      <LinkButton
+        href="/x"
+        variant="tonal"
+        color="danger"
+        size="xl"
+        shape="square"
+        block
+      >
         Go
       </LinkButton>,
     );
     const link = screen.getByRole("link", { name: "Go" });
     expect(link.className).toContain("bg-(--md-sys-color-error-container)");
     expect(link.className).toContain("h-12");
-    expect(link.className).toContain("rounded-none");
+    // M3 Expressive square is per-size radii (16px at xl), not 0px.
+    expect(link.className).toContain("rounded-(--md-sys-shape-corner-large)");
+    expect(link.className).not.toContain("rounded-none");
     expect(link.className).toContain("w-full");
     rerender(
       <LinkButton href="/x" loading>

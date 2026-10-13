@@ -21,12 +21,12 @@
  * This file imports nothing from `@xoroh/kern` — ADR 002.
  */
 import { assertParity, contractFor } from "@kern-parity/contract";
-import { render, screen } from "@testing-library/react-native";
+import { fireEvent, render, screen } from "@testing-library/react-native";
 import { resolveThemeDetails } from "@xoroh/kern-tokens";
 import { act } from "react";
 import { type StyleProp, StyleSheet, type ViewStyle } from "react-native";
 import { Text } from "../components/text";
-import { Tooltip } from "../components/tooltip";
+import { RichTooltip, Tooltip } from "../components/tooltip";
 
 const R = "native" as const;
 
@@ -276,5 +276,52 @@ describe("tooltip trigger (native)", () => {
       screen.getByTestId("kern-tooltip-content").props.style,
     );
     expect(flat).toContain("marginTop");
+  });
+});
+
+describe("RichTooltip (native)", () => {
+  it("announces title and text through the trigger hint", async () => {
+    await render(
+      <RichTooltip label="Sync" title="Sync" text="Saves your draft first">
+        <Text>Sync</Text>
+      </RichTooltip>,
+    );
+    expect(screen.getByLabelText("Sync").props.accessibilityHint).toContain(
+      "Saves your draft first",
+    );
+  });
+
+  it("renders title, text and actions on open", async () => {
+    await render(
+      <RichTooltip
+        label="Sync now"
+        title="Draft sync"
+        text="Saves your draft first"
+        defaultOpen
+        actions={[{ label: "Learn more" }]}
+      >
+        <Text>Sync now</Text>
+      </RichTooltip>,
+    );
+    expect(screen.getByText("Draft sync")).toBeTruthy();
+    expect(screen.getByText("Saves your draft first")).toBeTruthy();
+    expect(screen.getByLabelText("Learn more")).toBeTruthy();
+  });
+
+  it("fires the action press", async () => {
+    const onPress = jest.fn();
+    await render(
+      <RichTooltip
+        label="Sync"
+        title="Sync"
+        text="Body"
+        defaultOpen
+        actions={[{ label: "Go", onPress }]}
+      >
+        <Text>Sync</Text>
+      </RichTooltip>,
+    );
+    fireEvent.press(screen.getByLabelText("Go"));
+    expect(onPress).toHaveBeenCalledTimes(1);
   });
 });

@@ -136,7 +136,10 @@ export function Calendar({
           type="button"
           aria-label="Previous month"
           onClick={() => setCursor(new Date(viewYear, viewMonth - 1, 1))}
-          className={"kern-calendar-nav flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-(--md-sys-color-on-surface) outline-none hover:bg-(--md-sys-color-surface-tonal) " + FOCUS_RING_CLASS}
+          className={
+            "kern-calendar-nav flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-(--md-sys-color-on-surface) outline-none hover:bg-(--md-sys-color-surface-tonal) " +
+            FOCUS_RING_CLASS
+          }
         >
           ‹
         </button>
@@ -152,7 +155,10 @@ export function Calendar({
           type="button"
           aria-label="Next month"
           onClick={() => setCursor(new Date(viewYear, viewMonth + 1, 1))}
-          className={"kern-calendar-nav flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-(--md-sys-color-on-surface) outline-none hover:bg-(--md-sys-color-surface-tonal) " + FOCUS_RING_CLASS}
+          className={
+            "kern-calendar-nav flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-(--md-sys-color-on-surface) outline-none hover:bg-(--md-sys-color-surface-tonal) " +
+            FOCUS_RING_CLASS
+          }
         >
           ›
         </button>
@@ -200,7 +206,14 @@ export function Calendar({
                   tabIndex={sameDay(date, cursor) ? 0 : -1}
                   onClick={() => pick(date)}
                   onFocus={() => setCursor(date)}
-                  className={"kern-calendar-day flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-sm text-(--md-sys-color-on-surface) outline-none hover:bg-(--md-sys-color-surface-tonal) " + FOCUS_RING_CLASS + " disabled:pointer-events-none disabled:opacity-30 data-selected:bg-(--md-sys-color-primary) data-selected:text-(--md-sys-color-on-primary)"}
+                  className={
+                    "kern-calendar-day relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-sm text-(--md-sys-color-on-surface) outline-none hover:bg-(--md-sys-color-surface-tonal) " +
+                    // M3 date-picker targets are 48x48dp: the 40dp day box
+                    // keeps a 4dp inset out to the minimum.
+                    "after:absolute after:-inset-1 after:content-[''] " +
+                    FOCUS_RING_CLASS +
+                    " disabled:pointer-events-none disabled:opacity-30 data-selected:bg-(--md-sys-color-primary) data-selected:text-(--md-sys-color-on-primary)"
+                  }
                 >
                   {date.getDate()}
                 </button>

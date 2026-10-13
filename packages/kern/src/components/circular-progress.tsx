@@ -28,6 +28,11 @@ export type CircularProgressProps = Omit<
   /** Tenant variant override; unknown ids fail loud. */
   tenantId?: string;
   label?: string;
+  /**
+   * Cycle the indeterminate arc through primary → primary-container →
+   * tertiary → tertiary-container instead of holding the current color.
+   */
+  fourColor?: boolean;
 };
 
 const SHAPE_BOX = {
@@ -169,6 +174,7 @@ export function CircularProgress({
   shapes,
   tenantId,
   label = "Loading",
+  fourColor = false,
   className,
   ...props
 }: CircularProgressProps) {
@@ -305,7 +311,11 @@ export function CircularProgress({
           strokeWidth="4"
           fill="none"
           strokeLinecap="round"
-          className="stroke-current"
+          className={
+            fourColor
+              ? "[animation:kern-circular-four-color_5.332s_linear_infinite]"
+              : "stroke-current"
+          }
           strokeDasharray={`${0.25 * RING_CIRCUMFERENCE} ${RING_CIRCUMFERENCE}`}
         />
       </svg>

@@ -82,7 +82,12 @@ export function Search({
       data-slot="search"
       role="search"
       aria-label={label}
-      className={cn("kern-search flex w-full items-center gap-2", className)}
+      className={cn(
+        // M3 docked search bar: 56dp stadium container in
+        // surface-container-high; 24dp leading padding unfocused.
+        "kern-search flex h-14 w-full items-center gap-2 rounded-(--md-sys-shape-corner-full) bg-(--md-sys-color-surface-container-high) pr-2 pl-6",
+        className,
+      )}
       onSubmit={(event) => {
         event.preventDefault();
         onSearch?.(value);

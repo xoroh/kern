@@ -1,5 +1,6 @@
 import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip";
 import type { ComponentProps } from "react";
+import { cn } from "../utils/cn";
 import { cnState } from "../utils/cnState";
 
 export type TooltipProviderProps = ComponentProps<
@@ -53,3 +54,61 @@ export const Tooltip = {
   Trigger: TooltipTrigger,
   Content: TooltipContent,
 };
+
+/**
+ * M3 rich tooltip — subhead, supporting text, and plain-text actions for
+ * content that needs more than a label. Container is surface-container
+ * (NOT the plain tooltip's inverse-surface), 12dp top / 8dp bottom / 16dp
+ * side padding.
+ */
+export function RichTooltipContent({
+  className,
+  ...props
+}: TooltipContentProps) {
+  return (
+    <TooltipPrimitive.Portal>
+      <TooltipPrimitive.Positioner sideOffset={6}>
+        <TooltipPrimitive.Popup
+          data-slot="rich-tooltip-content"
+          className={cnState(
+            "kern-rich-tooltip-popup max-w-80 rounded-(--md-sys-shape-corner-extra-small) bg-(--md-sys-color-surface-container) px-4 pt-3 pb-2 text-sm text-(--md-sys-color-on-surface-variant) shadow-(--md-sys-elevation-level2)",
+            className,
+          )}
+          {...props}
+        />
+      </TooltipPrimitive.Positioner>
+    </TooltipPrimitive.Portal>
+  );
+}
+
+export function RichTooltipTitle({
+  className,
+  ...props
+}: ComponentProps<"p">) {
+  return (
+    <p
+      data-slot="rich-tooltip-title"
+      className={cn(
+        "kern-rich-tooltip-title m-0 text-sm font-medium text-(--md-sys-color-on-surface)",
+        className,
+      )}
+      {...props}
+    />
+  );
+}
+
+export function RichTooltipActions({
+  className,
+  ...props
+}: ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="rich-tooltip-actions"
+      className={cn(
+        "kern-rich-tooltip-actions mt-1 flex items-center gap-4",
+        className,
+      )}
+      {...props}
+    />
+  );
+}

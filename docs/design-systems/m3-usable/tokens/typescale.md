@@ -1,0 +1,116 @@
+# M3 Typography scale — tokens
+
+_Sources: `code/material-web/tokens/_md-sys-typescale.scss` + `versions/v0_192/`._
+
+## Supported tokens
+
+- `body-large-font`
+- `body-large-line-height`
+- `body-large-size`
+- `body-large-weight`
+- `body-medium-font`
+- `body-medium-line-height`
+- `body-medium-size`
+- `body-medium-weight`
+- `body-small-font`
+- `body-small-line-height`
+- `body-small-size`
+- `body-small-weight`
+- `display-large-font`
+- `display-large-line-height`
+- `display-large-size`
+- `display-large-weight`
+- `display-medium-font`
+- `display-medium-line-height`
+- `display-medium-size`
+- `display-medium-weight`
+- `display-small-font`
+- `display-small-line-height`
+- `display-small-size`
+- `display-small-weight`
+- `headline-large-font`
+- `headline-large-line-height`
+- `headline-large-size`
+- `headline-large-weight`
+- `headline-medium-font`
+- `headline-medium-line-height`
+- `headline-medium-size`
+- `headline-medium-weight`
+- `headline-small-font`
+- `headline-small-line-height`
+- `headline-small-size`
+- `headline-small-weight`
+- `label-large-font`
+- `label-large-line-height`
+- `label-large-size`
+- `label-large-weight`
+- `label-large-weight-prominent`
+- `label-medium-font`
+- `label-medium-line-height`
+- `label-medium-size`
+- `label-medium-weight`
+- `label-medium-weight-prominent`
+- `label-small-font`
+- `label-small-line-height`
+- `label-small-size`
+- `label-small-weight`
+- `title-large-font`
+- `title-large-line-height`
+- `title-large-size`
+- `title-large-weight`
+- `title-medium-font`
+- `title-medium-line-height`
+- `title-medium-size`
+- `title-medium-weight`
+- `title-small-font`
+- `title-small-line-height`
+- `title-small-size`
+- `title-small-weight`
+
+## Versioned values (v0_192)
+
+- `body-large-line-height` = `1.5rem`
+- `body-large-size` = `1rem`
+- `body-large-tracking` = `0.03125rem`
+- `body-medium-line-height` = `1.25rem`
+- `body-medium-size` = `0.875rem`
+- `body-medium-tracking` = `0.015625rem`
+- `body-small-line-height` = `1rem`
+- `body-small-size` = `0.75rem`
+- `body-small-tracking` = `0.025rem`
+- `display-large-line-height` = `4rem`
+- `display-large-size` = `3.5625rem`
+- `display-large-tracking` = `-0.015625rem`
+- `display-medium-line-height` = `3.25rem`
+- `display-medium-size` = `2.8125rem`
+- `display-medium-tracking` = `0rem`
+- `display-small-line-height` = `2.75rem`
+- `display-small-size` = `2.25rem`
+- `display-small-tracking` = `0rem`
+- `headline-large-line-height` = `2.5rem`
+- `headline-large-size` = `2rem`
+- `headline-large-tracking` = `0rem`
+- `headline-medium-line-height` = `2.25rem`
+- `headline-medium-size` = `1.75rem`
+- `headline-medium-tracking` = `0rem`
+- `headline-small-line-height` = `2rem`
+- `headline-small-size` = `1.5rem`
+- `headline-small-tracking` = `0rem`
+- `label-large-line-height` = `1.25rem`
+- `label-large-size` = `0.875rem`
+- `label-large-tracking` = `0.00625rem`
+- `label-medium-line-height` = `1rem`
+- `label-medium-size` = `0.75rem`
+- `label-medium-tracking` = `0.03125rem`
+- `label-small-line-height` = `1rem`
+- `label-small-size` = `0.6875rem`
+- `label-small-tracking` = `0.03125rem`
+- `title-large-line-height` = `1.75rem`
+- `title-large-size` = `1.375rem`
+- `title-large-tracking` = `0rem`
+- `title-medium-line-height` = `1.5rem`
+- `title-medium-size` = `1rem`
+- `title-medium-tracking` = `0.009375rem`
+- `title-small-line-height` = `1.25rem`
+- `title-small-size` = `0.875rem`
+- `title-small-tracking` = `0.00625rem`

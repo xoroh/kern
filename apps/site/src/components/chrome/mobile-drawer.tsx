@@ -1,13 +1,16 @@
 /**
  * Mobile drawer — the hamburger destination below lg, where the header tabs
- * are hidden.
+ * are hidden. It is also the bar's overflow surface: GitHub, search, and the
+ * CTA live here when the bar runs out of room.
  *
- * A modal dialog over a scrim: the primary tabs first (the same list the
- * header renders, so a tab added there is reachable here with no second
- * edit), then the secondary destinations, then a search row. Escape and the
- * scrim close it; Tab is trapped first↔last with the shared `trapTarget`
- * helper (the same contract the ⌘K palette keeps); focus returns to the
- * hamburger that opened it; the body stops scrolling while it is open.
+ * A modal dialog over a 30% scrim: the five section tabs first (the same
+ * `PRIMARY_TABS` list the header renders, so a tab added there is reachable
+ * here with no second edit), then the secondary destinations, then a search
+ * row. Escape and the scrim close it; Tab is trapped first↔last with the
+ * shared `trapTarget` helper (the same contract the ⌘K palette keeps);
+ * focus returns to the hamburger that opened it; the body stops scrolling
+ * while it is open. Rows are 48dp pills — the same IA, the same shape as
+ * the header, across breakpoints.
  *
  * Section labels are plain text, not headings — check-headings requires an id
  * on every h2/h3, and these labels are wayfinding, not document structure.
@@ -16,22 +19,21 @@ import { useLocation } from "@tanstack/react-router";
 import { buttonVariants, cn } from "@xoroh/kern";
 import { Icon } from "@xoroh/kern-icons";
 import { type RefObject, useEffect, useRef } from "react";
+import { T_BODY_MD, T_LABEL } from "../../domains/shared/systems/type-scale";
 import {
-  T_BODY_MD,
-  T_LABEL,
-  T_LABEL_LG,
-} from "../../domains/shared/systems/type-scale";
+  FOCUS_RING,
+  ICON_BUTTON,
+  PILL_ACTIVE,
+  PILL_REST,
+} from "../../domains/shared/systems/ui";
 import { trapTarget } from "../../systems/focus-trap";
-import { isActivePath } from "./app-rail";
+import { isActivePath, isTabActive, PRIMARY_TABS } from "./app-rail";
 import { openSearch } from "./search-palette";
-import { PRIMARY_TABS } from "./site-header";
 
 /** Destinations that are not primary tabs but must stay reachable by hand. */
 const SECONDARY: { href: string; label: string }[] = [
-  { href: "/docs", label: "Docs" },
-  { href: "/getting-started", label: "Getting started" },
-  // The theme studio IS /playground now (one customizer app) — it is a
-  // primary tab, so it no longer needs a secondary entry here.
+  { href: "/docs/getting-started", label: "Getting started" },
+  { href: "/primitives", label: "Primitives" },
   { href: "/changelog", label: "Changelog" },
   { href: "/about", label: "About" },
   { href: "/community", label: "Community" },
@@ -97,36 +99,37 @@ export function MobileDrawer({
         type="button"
         aria-label="Close navigation menu"
         onClick={onClose}
-        className="absolute inset-0 cursor-default border-0 bg-(--md-sys-color-scrim)/40 p-0"
+        className="absolute inset-0 cursor-default border-0 bg-(--md-sys-color-scrim)/30 p-0"
       />
       <div
         ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-label="Site navigation"
-        className="absolute inset-y-0 left-0 flex w-72 max-w-[85vw] flex-col gap-5 overflow-y-auto bg-(--md-sys-color-surface) px-4 pt-3 pb-6"
+        className="absolute inset-y-0 left-0 flex w-72 max-w-[85vw] flex-col gap-5 overflow-y-auto rounded-e-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) px-4 pt-3 pb-6 shadow-(--md-sys-elevation-level3)"
       >
         <div className="flex items-center justify-between">
           <a
             href="/"
             onClick={onClose}
             aria-label="Kern home"
-            className="flex h-9 w-9 items-center justify-center rounded-full bg-(--md-sys-color-primary) text-(--md-sys-color-on-primary) no-underline"
+            className="flex size-10 items-center justify-center rounded-full bg-(--md-sys-color-primary) text-(--md-sys-color-on-primary) no-underline"
           >
-            <span className={T_LABEL_LG}>K</span>
+            <span className={T_BODY_MD}>K</span>
           </a>
           <button
             type="button"
             onClick={onClose}
             aria-label="Close navigation menu"
-            className="inline-flex size-9 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent text-(--md-sys-color-on-surface-variant) hover:bg-(--md-sys-color-surface-container-high)"
+            className={ICON_BUTTON}
           >
-            <Icon name="close" size={20} />
+            <Icon name="close" size={24} />
           </button>
         </div>
+
         <nav aria-label="Primary" className="flex flex-col gap-0.5">
           {PRIMARY_TABS.map((tab) => {
-            const active = isActivePath(pathname, tab.href);
+            const active = isTabActive(pathname, tab);
             return (
               <a
                 key={tab.href}
@@ -134,10 +137,10 @@ export function MobileDrawer({
                 aria-current={active ? "page" : undefined}
                 onClick={onClose}
                 className={cn(
-                  "rounded-(--md-sys-shape-corner-small) px-3 py-2.5 no-underline",
+                  "min-h-12 px-4 no-underline",
                   active
-                    ? `bg-(--md-sys-color-secondary-container) ${T_LABEL_LG} text-(--md-sys-color-on-secondary-container)`
-                    : `${T_BODY_MD} text-(--md-sys-color-on-surface) hover:bg-(--md-sys-color-surface-container-high)`,
+                    ? `${PILL_ACTIVE} flex items-center`
+                    : `${PILL_REST} flex items-center ${T_BODY_MD}`,
                 )}
               >
                 {tab.label}
@@ -145,6 +148,7 @@ export function MobileDrawer({
             );
           })}
         </nav>
+
         <nav aria-label="More from kern" className="flex flex-col gap-0.5">
           <p
             className={`m-0 px-3 pb-1 ${T_LABEL} text-(--md-sys-color-on-surface-variant) uppercase`}
@@ -159,7 +163,12 @@ export function MobileDrawer({
                 isActivePath(pathname, item.href) ? "page" : undefined
               }
               onClick={onClose}
-              className={`${T_BODY_MD} rounded-(--md-sys-shape-corner-small) px-3 py-2 text-(--md-sys-color-on-surface-variant) no-underline hover:bg-(--md-sys-color-surface-container-high) hover:text-(--md-sys-color-on-surface)`}
+              className={cn(
+                `min-h-12 rounded-(--md-sys-shape-corner-full) px-4 no-underline`,
+                isActivePath(pathname, item.href)
+                  ? `${PILL_ACTIVE} flex items-center`
+                  : `${PILL_REST} flex items-center ${T_BODY_MD}`,
+              )}
             >
               {item.label}
             </a>
@@ -170,15 +179,16 @@ export function MobileDrawer({
               onClose();
               openSearch();
             }}
-            className={`flex w-full cursor-pointer items-center gap-2 rounded-(--md-sys-shape-corner-small) border-0 bg-transparent px-3 py-2 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant) hover:bg-(--md-sys-color-surface-container-high) hover:text-(--md-sys-color-on-surface)`}
+            className={`flex min-h-12 w-full cursor-pointer items-center gap-2 rounded-(--md-sys-shape-corner-full) border-0 bg-transparent px-4 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant) hover:bg-(--md-sys-color-on-surface)/8 hover:text-(--md-sys-color-on-surface) ${FOCUS_RING}`}
           >
-            <Icon name="search" size={16} />
+            <Icon name="search" size={18} />
             Search (⌘K)
           </button>
         </nav>
+
         <div className="mt-auto flex flex-col gap-2 pt-2">
           <a
-            href="/getting-started"
+            href="/docs/getting-started"
             onClick={onClose}
             className={cn(
               buttonVariants({ variant: "primary" }),
@@ -189,7 +199,7 @@ export function MobileDrawer({
           </a>
           <a
             href="https://github.com/xoroh/kern"
-            className={`${T_BODY_MD} rounded-(--md-sys-shape-corner-small) px-3 py-2 text-center text-(--md-sys-color-on-surface-variant) no-underline hover:bg-(--md-sys-color-surface-container-high)`}
+            className={`${T_BODY_MD} rounded-(--md-sys-shape-corner-full) px-3 py-3 text-center text-(--md-sys-color-on-surface-variant) no-underline hover:bg-(--md-sys-color-on-surface)/8`}
           >
             GitHub
           </a>

@@ -38,10 +38,20 @@ describe("native Button styles", () => {
     ).toBe(1);
   });
 
-  it("dims when disabled", () => {
-    expect(buttonStyles("primary", "default", true).container.opacity).toBe(
-      0.5,
-    );
+  it("disables to the M3 12%/38% split, never a whole dim", () => {
+    const { container, label } = buttonStyles("primary", "default", true);
+    // Container carries no opacity (the wash is baked into the background
+    // color) so the two washes never compound.
+    expect(container.opacity).toBeUndefined();
+    expect(container.backgroundColor).toMatch(/#2626261f/i);
+    expect(label.opacity).toBe(0.38);
+    // Transparent variants keep a transparent fill when disabled.
+    expect(
+      buttonStyles("ghost", "default", true).container.backgroundColor,
+    ).toBe("transparent");
+    expect(
+      buttonStyles("outlined", "default", true).container.borderColor,
+    ).toMatch(/#2626261f/i);
   });
 
   it("sizes xs and xl onto the sm and lg bands", () => {
@@ -80,10 +90,11 @@ describe("native Button styles", () => {
 
   it("selects the corner role through the shape option", () => {
     const light = resolveThemeDetails("light");
+    // M3 Expressive square is per-size radii (12px at default), not 0px.
     expect(
       buttonStyles("primary", "default", false, light, { shape: "square" })
         .container.borderRadius,
-    ).toBe(Number.parseFloat(light.shape.none));
+    ).toBe(12);
     expect(
       buttonStyles("primary", "default", false, light, { shape: "rounded" })
         .container.borderRadius,
@@ -99,5 +110,62 @@ describe("native Button styles", () => {
     expect(
       buttonStyles("primary", "default", false).container.alignSelf,
     ).toBeUndefined();
+  });
+});
+
+describe("M3 Expressive toggle", () => {
+  it("paints selected elevated/primary/tonal/outlined per the toggle table", () => {
+    const light = resolveThemeDetails("light");
+    expect(
+      buttonStyles("elevated", "default", false, light, {
+        toggle: true,
+        selected: true,
+      }).container.backgroundColor,
+    ).toBe(light.color.primary);
+    expect(
+      buttonStyles("primary", "default", false, light, {
+        toggle: true,
+        selected: false,
+      }).container.backgroundColor,
+    ).toBe(light.color.surfaceContainer);
+    expect(
+      buttonStyles("tonal", "default", false, light, {
+        toggle: true,
+        selected: true,
+      }).container.backgroundColor,
+    ).toBe(light.color.secondary);
+    expect(
+      buttonStyles("outlined", "default", false, light, {
+        toggle: true,
+        selected: true,
+      }).container.backgroundColor,
+    ).toBe(light.color.inverseSurface);
+  });
+
+  it("morphs pill to square radii on select, square to pill", () => {
+    const light = resolveThemeDetails("light");
+    expect(
+      buttonStyles("primary", "default", false, light, {
+        toggle: true,
+        selected: true,
+      }).container.borderRadius,
+    ).toBe(12);
+    expect(
+      buttonStyles("primary", "default", false, light, {
+        toggle: true,
+        selected: true,
+        shape: "square",
+      }).container.borderRadius,
+    ).toBe(Number.parseFloat(light.shape.full));
+  });
+
+  it("ghost has no toggle treatment", () => {
+    const light = resolveThemeDetails("light");
+    expect(
+      buttonStyles("ghost", "default", false, light, {
+        toggle: true,
+        selected: true,
+      }).container.backgroundColor,
+    ).toBe("transparent");
   });
 });

@@ -10,18 +10,24 @@
  * Beside the button sits the View .md link: the same page's canonical
  * per-page markdown (emitted by scripts/generate-page-md.mjs, served from
  * public/md/) for agents that fetch rather than copy. The href derives from
- * the current route — /components/<platform>/<slug> and /foundations/<slug>
- * are the only pages that render this affordance, so anything else yields
- * null and the link stays hidden. Styling is token roles only, so both
- * themes resolve it the same way they resolve the button.
+ * the current route — /components/<platform>/<slug>,
+ * /foundations/m3/<slug>, and the kern-level /foundations/<slug> pages are
+ * the only pages that render this affordance, so anything else yields null
+ * and the link stays hidden. Styling is token roles only, so both themes
+ * resolve it the same way they resolve the button.
  */
 
+import { useLocation } from "@tanstack/react-router";
 import { Icon } from "@xoroh/kern-icons";
 import { useState } from "react";
+import { COPY_BUTTON_CLASS } from "../../showcase/copy-button";
 import { domToMarkdown } from "../../systems/dom-to-markdown";
-import { T_BODY_SM } from "../../domains/shared/systems/type-scale";
 
-const ACTION = `inline-flex items-center gap-1.5 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline) px-2 py-1 ${T_BODY_SM} text-(--md-sys-color-primary) hover:bg-(--md-sys-color-primary-container)`;
+/**
+ * Same M3 outlined button as every copy action (the shared class keeps the
+ * treatment single-sourced), plus the View-.md link beside it wearing the
+ * same container so the pair reads as one toolbar.
+ */
 
 /**
  * This page's canonical .md URL, or null off the docs pages that emit one.
@@ -30,7 +36,7 @@ const ACTION = `inline-flex items-center gap-1.5 rounded-(--md-sys-shape-corner-
 export function mdHrefForPathname(pathname: string): string | null {
   const family = pathname.match(/^\/components\/(web|mobile)\/([^/]+)\/?$/);
   if (family) return `/md/${family[1]}/${family[2]}.md`;
-  const foundations = pathname.match(/^\/foundations\/([^/]+)\/?$/);
+  const foundations = pathname.match(/^\/foundations\/(?:m3\/)?([^/]+)\/?$/);
   if (foundations) return `/md/foundations/${foundations[1]}.md`;
   return null;
 }
@@ -56,6 +62,8 @@ async function copyText(text: string): Promise<boolean> {
 
 export function CopyMarkdownButton() {
   const [copied, setCopied] = useState(false);
+  const { pathname } = useLocation();
+  const mdHref = mdHrefForPathname(pathname);
 
   async function copy() {
     const root = document.querySelector("[data-copy-md-root]");
@@ -71,17 +79,16 @@ export function CopyMarkdownButton() {
         type="button"
         onClick={copy}
         title="Copy this page as Markdown for pasting into an LLM (prose + code + links; live-demo controls excluded)"
-        className={ACTION}
+        className={COPY_BUTTON_CLASS}
       >
         <Icon name={copied ? "check" : "content-copy"} size={16} />
         {copied ? "Copied" : "Copy as Markdown"}
       </button>
-      {typeof window !== "undefined" &&
-      mdHrefForPathname(window.location.pathname) ? (
+      {mdHref ? (
         <a
-          href={mdHrefForPathname(window.location.pathname) as string}
+          href={mdHref}
           title="Open this page's canonical Markdown (same content, for fetching into an LLM)"
-          className={`${ACTION} no-underline`}
+          className={`${COPY_BUTTON_CLASS} no-underline`}
         >
           <Icon name="description" size={16} />
           View .md

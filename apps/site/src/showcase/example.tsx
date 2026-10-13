@@ -1,6 +1,16 @@
 import type { ReactNode } from "react";
 import { useId, useState } from "react";
-import { T_BODY_SM, T_CODE, T_LEAD } from "../domains/shared/systems/type-scale";
+import {
+  T_BODY_SM,
+  T_CODE,
+  T_LEAD,
+} from "../domains/shared/systems/type-scale";
+import {
+  CARD,
+  FOCUS_RING,
+  STAGE as STAGE_TOKEN,
+  TRANSITION,
+} from "../domains/shared/systems/ui";
 import { CopyButton } from "./copy-button";
 import { demoExportSource, demoReproSource } from "./demo-export";
 
@@ -35,11 +45,12 @@ export type ExampleSpec = {
   code?: string;
 };
 
-const FRAME =
-  "rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-outline-variant)";
-
-const STAGE =
-  "flex flex-wrap items-center justify-center gap-4 rounded-(--md-sys-shape-corner-medium) bg-(--md-sys-color-surface-container-low) p-8";
+/**
+ * The demo stage — the kit's one STAGE tone, plus the layout every demo
+ * shares (centred, wrapping). Flat by law: no dot texture, no gradient, so
+ * the demo reads as the component and not as page decoration.
+ */
+const STAGE = `flex flex-wrap items-center justify-center gap-4 p-8 ${STAGE_TOKEN}`;
 
 const BODY = `text-(--md-sys-color-on-surface-variant) ${T_BODY_SM}`;
 
@@ -87,7 +98,7 @@ export function Example({ spec }: { spec: ExampleSpec }) {
   }
 
   return (
-    <figure className={`${FRAME} group m-0 flex flex-col overflow-hidden`}>
+    <figure className={`${CARD} m-0 flex flex-col overflow-hidden`}>
       <figcaption className="flex flex-col gap-1 border-b border-(--md-sys-color-outline-variant) px-6 py-4">
         <h3
           id={`example-${spec.id}`}
@@ -102,7 +113,8 @@ export function Example({ spec }: { spec: ExampleSpec }) {
           <a
             href={`#example-${spec.id}`}
             aria-label={`Permalink to ${spec.title}`}
-            className="ml-2 inline-flex items-center text-(--md-sys-color-on-surface-variant) no-underline opacity-0 transition-opacity group-hover:opacity-100 focus-visible:opacity-100"
+            title="Permalink to this example"
+            className={`ml-2 inline-flex items-center text-(--md-sys-color-on-surface-variant) no-underline hover:text-(--md-sys-color-on-surface) ${TRANSITION} ${FOCUS_RING}`}
           >
             #
           </a>
@@ -132,10 +144,10 @@ export function Example({ spec }: { spec: ExampleSpec }) {
               aria-controls={t.key === "preview" ? previewId : codeId}
               tabIndex={tab === t.key ? 0 : -1}
               onClick={() => setTab(t.key)}
-              className={`-mb-px border-b-2 px-3 py-2 ${T_BODY_SM} ${
+              className={`-mb-px inline-flex min-h-12 items-center border-b-[3px] px-3 ${T_BODY_SM} ${TRANSITION} ${
                 tab === t.key
                   ? "border-(--md-sys-color-primary) text-(--md-sys-color-primary)"
-                  : "border-transparent text-(--md-sys-color-on-surface-variant)"
+                  : "border-transparent text-(--md-sys-color-on-surface-variant) hover:text-(--md-sys-color-on-surface)"
               }`}
             >
               {t.label}
@@ -146,41 +158,45 @@ export function Example({ spec }: { spec: ExampleSpec }) {
 
       {!spec.code && <div className={STAGE}>{spec.render()}</div>}
 
-      {spec.code && tab === "preview" && (
-        <div
-          role="tabpanel"
-          id={previewId}
-          aria-labelledby={`${base}-tab-preview`}
-          className={STAGE}
-        >
-          {spec.render()}
-        </div>
-      )}
+      {spec.code && (
+        <>
+          <div
+            role="tabpanel"
+            id={previewId}
+            aria-labelledby={`${base}-tab-preview`}
+            data-view="preview"
+            hidden={tab !== "preview"}
+            className={STAGE}
+          >
+            {spec.render()}
+          </div>
 
-      {spec.code && tab === "code" && (
-        <div
-          role="tabpanel"
-          id={codeId}
-          aria-labelledby={`${base}-tab-code`}
-          className="flex flex-col"
-        >
-          {/*
+          <div
+            role="tabpanel"
+            id={codeId}
+            aria-labelledby={`${base}-tab-code`}
+            data-view="code"
+            hidden={tab !== "code"}
+            className="flex flex-col"
+          >
+            {/*
             Per-demo export: Copy is the fence as shown; Export is the same
             fence as a standalone module (imports derived from the tags used);
             Repro is that module as a bug-report template. Buttons, so the
             copy-markdown export skips them like the rest of the demo chrome.
           */}
-          <div className="flex flex-wrap items-center justify-end gap-2 border-b border-(--md-sys-color-outline-variant) px-4 py-1">
-            <CopyButton text={demoExportSource(spec)} label="Export" />
-            <CopyButton text={demoReproSource(spec)} label="Repro" />
-            <CopyButton text={spec.code} />
+            <div className="flex flex-wrap items-center justify-end gap-2 border-b border-(--md-sys-color-outline-variant) px-4 py-1">
+              <CopyButton text={demoExportSource(spec)} label="Export" />
+              <CopyButton text={demoReproSource(spec)} label="Repro" />
+              <CopyButton text={spec.code} />
+            </div>
+            <pre
+              className={`m-0 overflow-x-auto bg-(--md-sys-color-surface-container-high) p-6 ${T_CODE} text-(--md-sys-color-on-surface)`}
+            >
+              <code>{spec.code}</code>
+            </pre>
           </div>
-          <pre
-            className={`m-0 overflow-x-auto bg-(--md-sys-color-surface-container-high) p-6 ${T_CODE} text-(--md-sys-color-on-surface)`}
-          >
-            <code>{spec.code}</code>
-          </pre>
-        </div>
+        </>
       )}
     </figure>
   );

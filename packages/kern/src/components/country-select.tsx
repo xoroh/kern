@@ -118,7 +118,7 @@ export function CountrySelectContent({
         <SelectPrimitive.Popup
           data-slot="country-select-content"
           className={cnState(
-            "kern-country-select-popup min-w-64 max-h-80 overflow-y-auto rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline) bg-(--md-sys-color-surface) p-2 shadow-(--md-sys-elevation-level2) outline-none",
+            "kern-country-select-popup min-w-28 max-w-[280px] max-h-80 overflow-y-auto rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-surface-container) p-2 shadow-(--md-sys-elevation-level2) outline-none",
             className,
           )}
           {...props}

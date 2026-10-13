@@ -6,59 +6,38 @@
  * replaces the hand-written two-card platform chooser, which told a reader
  * about the packages instead of showing them the components.
  */
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { SiteLayout } from "../../domains/shared/chrome/site-layout";
+import { createFileRoute } from "@tanstack/react-router";
 import {
   ComponentGallery,
   GalleryLede,
+  PlatformSwitcher,
 } from "../../components/docs/component-gallery";
+import { PageCard } from "../../domains/shared/chrome/page-card";
+import { SiteLayout } from "../../domains/shared/chrome/site-layout";
 import { routeHead } from "../../domains/shared/systems/seo";
-import { T_LABEL_LG, T_PAGE } from "../../domains/shared/systems/type-scale";
+import { T_PAGE } from "../../domains/shared/systems/type-scale";
+import { INK } from "../../domains/shared/systems/ui";
 
 export const Route = createFileRoute("/components/")({
   head: () =>
-    routeHead("Components", "One page per component family — metadata, preview, usage, props, theming."),
+    routeHead(
+      "Components",
+      "One page per component family — metadata, preview, usage, props, theming.",
+    ),
   component: ComponentsGallery,
 });
-
-const INK = "text-(--md-sys-color-on-surface)";
-const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";
-const CHIP = `inline-flex items-center rounded-(--md-sys-shape-corner-full) border px-3 py-1 ${T_LABEL_LG}`;
 
 function ComponentsGallery() {
   return (
     <SiteLayout>
-      <section className="px-4 py-4 sm:px-6 sm:py-6">
-        <div className="mx-auto flex max-w-[72rem] flex-col gap-8 rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14">
-          <header className="flex flex-col gap-3">
-            <h1 className={`m-0 ${T_PAGE} ${INK}`}>Components</h1>
-            <GalleryLede />
-            <nav
-              className="flex flex-wrap items-center gap-2"
-              aria-label="Platform"
-            >
-              <span
-                className={`${CHIP} border-(--md-sys-color-primary) bg-(--md-sys-color-primary-container) text-(--md-sys-color-on-primary-container) no-underline`}
-              >
-                All
-              </span>
-              <Link
-                to="/components/web"
-                className={`${CHIP} border-(--md-sys-color-outline) ${INK_SOFT} no-underline`}
-              >
-                Web
-              </Link>
-              <Link
-                to="/components/mobile"
-                className={`${CHIP} border-(--md-sys-color-outline) ${INK_SOFT} no-underline`}
-              >
-                Native
-              </Link>
-            </nav>
-          </header>
-          <ComponentGallery />
-        </div>
-      </section>
+      <PageCard width="wide">
+        <header className="flex flex-col gap-3">
+          <h1 className={`m-0 ${T_PAGE} ${INK}`}>Components</h1>
+          <GalleryLede />
+          <PlatformSwitcher />
+        </header>
+        <ComponentGallery />
+      </PageCard>
     </SiteLayout>
   );
 }

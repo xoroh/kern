@@ -6,13 +6,13 @@ export const fab: ComponentDoc = {
   oneLiner:
     "The floating action button is the one primary action of a screen, raised and always within thumb reach.",
   features:
-    "Reach for a fab when a screen has exactly one action that matters most — compose, add, navigate — and that action should be available without scrolling. Material 3's fab variants are a SIZE axis, not an emphasis axis, so `size` walks the spec's small, medium and large treatments plus kern's compact `icon` and the default; the emphasis is fixed by the container colour. The fab rests at elevation level 3 — it is one of the few components that genuinely floats — and `fabStyles` is exported so the same raised surface can back a custom pressable.",
+    "Reach for a fab when a screen has exactly one action that matters most — compose, add, navigate — and that action should be available without scrolling. Material 3's fab variants are a SIZE axis, not an emphasis axis, so `size` walks small 40, default 56, medium 80 and large 96 plus kern's compact `icon`; `color` walks the seven expressive styles with the container/ink pairing resolved per style. The fab rests at elevation level 3 — it is one of the few components that genuinely floats — and `fabStyles` is exported so the same raised surface can back a custom pressable.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
     // Exact web counterpart, checked in the web inventory.
     nativePeer: "Fab",
-    variants: ["size: default · small · medium · large · icon"],
+    variants: ["size: default · small · medium · large · icon", "color: surface · primary · secondary · tertiary · primary-fill · secondary-fill · tertiary-fill"],
     // M3's "fab" row rests at level 3, and `fabStyles` ships it.
     elevation: 3,
   },
@@ -24,9 +24,8 @@ export const fab: ComponentDoc = {
       "`style` is a pressable style function or view style. `fabStyles` is exported for the raised surface without the component.",
     ],
     notSupported: [
-      "There is no `variant` axis. M3's fab variants are SIZES; the emphasis is the container colour, fixed to the primary container.",
+      "There is no `variant` axis. M3's fab variants are SIZES; color is the separate `color` axis with the seven expressive styles.",
       "There is no icon slot — content renders as text. A fab whose glyph is an icon is a composed pressable on `fabStyles`, or the `IconButton` in a raised treatment.",
-      "There is no `color` or `tone` override. The fab carries meaning by being the primary action; painting it otherwise breaks that.",
     ],
   },
   api: [

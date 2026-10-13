@@ -6,7 +6,7 @@ export const button: ComponentDoc = {
   oneLiner:
     "Buttons let people carry out an action with a single tap, click or key press.",
   features:
-    "Reach for a button when the next step is an action the person intends to take: saving a form, sending a message, opening a dialog. Put one primary action on a screen and give it the primary variant; every lower-emphasis action takes tonal, outlined or ghost so the hierarchy reads at a glance. A button is not a link — if it moves to another place rather than doing something here, use an anchor, or `LinkButton` when the destination should wear the button treatment. Destructive actions have no variant of their own: `color=\"danger\"` re-paints the five variants in the error roles, which keeps the action vocabulary at five instead of six. A busy button keeps its label and reports it: `loading` swaps in the progress indicator and blocks interaction until it clears.",
+    'Reach for a button when the next step is an action the person intends to take: saving a form, sending a message, opening a dialog. Put one primary action on a screen and give it the primary variant; every lower-emphasis action takes tonal, outlined or ghost so the hierarchy reads at a glance. A button is not a link — if it moves to another place rather than doing something here, use an anchor, or `LinkButton` when the destination should wear the button treatment. Destructive actions have no variant of their own: `color="danger"` re-paints the five variants in the error roles, which keeps the action vocabulary at five instead of six. A busy button keeps its label and reports it: `loading` swaps in the progress indicator and blocks interaction until it clears. Binary choices get `toggle`: the button morphs round to square when selected, swaps to its emphasis pair, and reports `aria-pressed`.',
   meta: {
     // Canonical M3 spec page — title identity-verified live; gate re-checks.
     specUrl: "https://m3.material.io/components/buttons",
@@ -16,8 +16,9 @@ export const button: ComponentDoc = {
     variants: [
       "variant: elevated · primary · tonal · outlined · ghost",
       "color: primary · danger",
-      "size: xs · default · sm · xl · icon",
+      "size: xs · default · sm · md · xl · lg · icon",
       "shape: pill · rounded · square",
+      "toggle: binary selection with round-to-square morph",
     ],
     // M3 tabulates buttons twice: "button (elevated)" at level 1 and
     // "buttons (filled, tonal, outlined)" at level 0. kern's `variant` axis
@@ -33,6 +34,143 @@ export const button: ComponentDoc = {
   // are not in a span wrapper's or an anchor's type — claiming them as parts
   // grows check-props stale rows. One component, one api array.
   parts: ["Button"],
+  keyboard: [
+    {
+      key: "Enter / Space",
+      action:
+        "Activates the button when focused. Space activates on key-up, Enter on key-down.",
+    },
+    {
+      key: "Tab / Shift+Tab",
+      action:
+        "Moves focus into and out of the button. Disabled buttons are skipped in the tab order.",
+    },
+  ],
+  aria: [
+    'Every button exposes the `button` role — natively on `<button>`, explicitly as `role="link"` on the `href` anchor variant.',
+    "A blocked button reports `aria-disabled`; a blocked link also drops `href` and leaves the tab order, following the ListItem convention.",
+    "A loading button reports `aria-busy` alongside the disabled state, so assistive tech announces the wait.",
+    'An icon-only button (`size="icon"`) must carry an `aria-label` — without visible text there is nothing to announce.',
+  ],
+  usage: {
+    do: [
+      "Use filled for important, final actions that complete a flow — Save, Join now, Confirm. It has the most visual impact after the FAB.",
+      "Use tonal where a lower-priority button needs slightly more emphasis than an outline gives — `Next` in an onboarding flow.",
+      "Use outlined for important actions that aren't the primary one on the screen.",
+      "Use text for the lowest-priority actions, especially when presenting multiple options.",
+      "Use elevated only when the button needs visual separation from a patterned background — never by default, to prevent shadow creep.",
+      "Use `color=\"danger\"` for destructive actions (delete, discard, remove).",
+      "Use toggle for binary selections like Save or Favorite — outlined icon unselected, filled icon selected.",
+      "Keep toggle labels a similar length in both states so the layout holds.",
+      "Use sentence case, 1–3 words, on a single line that never truncates.",
+      "Place the icon leading (it flips automatically in RTL); use one icon, never two.",
+    ],
+    dont: [
+      "Don't use a button to navigate — if it moves to another place, use an anchor or `LinkButton`.",
+      "Don't stack multiple filled buttons — demote the rest to tonal or outlined.",
+      "Don't put a text label inside `size=\"icon\"` — icon-only means icon plus `aria-label`.",
+      "Don't reach for elevated first — it is a filled tonal with a shadow, reserved for separation cases.",
+      "Don't clutter with too many buttons — move low-priority actions to menus or icon buttons.",
+      "Don't fix the width narrower than the label or stretch to long flat bars.",
+      "Don't vertically stack icon above label or ungroup icon from label.",
+      "Don't use toggle text buttons — there is no selected text treatment.",
+      "Don't underline text buttons — hyperlinked body text carries links.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Filled container",
+      state: "resting",
+      token: "md.comp.filled-button.container.color",
+      value: "--md-sys-color-primary",
+    },
+    {
+      element: "Filled label",
+      state: "resting",
+      token: "md.comp.filled-button.label-text.color",
+      value: "--md-sys-color-on-primary",
+    },
+    {
+      element: "Tonal container",
+      state: "resting",
+      token: "md.comp.filled-tonal-button.container.color",
+      value: "--md-sys-color-secondary-container",
+    },
+    {
+      element: "Elevated container",
+      state: "resting",
+      token: "md.comp.elevated-button.container.color",
+      value: "--md-sys-color-surface-container-low",
+    },
+    {
+      element: "Elevated container",
+      state: "hover",
+      token: "md.sys.elevation.level2",
+      value: "level2 (lifts from level1)",
+    },
+    {
+      element: "Outlined border",
+      state: "resting",
+      token: "md.comp.outlined-button.outline.color",
+      value: "--md-sys-color-outline",
+    },
+    {
+      element: "Outlined border",
+      state: "focus",
+      token: "md.comp.outlined-button.focus.outline.color",
+      value: "--md-sys-color-primary",
+    },
+    {
+      element: "State layer",
+      state: "hover",
+      token: "md.sys.state.hover-state-layer-opacity",
+      value: "8%",
+    },
+    {
+      element: "State layer",
+      state: "focus / pressed",
+      token: "md.sys.state.focus-state-layer-opacity",
+      value: "12%",
+    },
+    {
+      element: "Label",
+      state: "resting",
+      token: "md.sys.typescale.label-large",
+      value: "14px / 20px, 500, 0.1px",
+    },
+    {
+      element: "Container",
+      state: "resting",
+      token: "md.sys.shape.corner-full",
+      value: "9999px",
+    },
+    {
+      element: "Disabled label",
+      state: "disabled",
+      token: "md.comp.button.disabled.label-text.opacity",
+      value: "on-surface 38%",
+    },
+    {
+      element: "Disabled container",
+      state: "disabled",
+      token: "md.comp.button.disabled.container.opacity",
+      value: "on-surface 12%",
+    },
+  ],
+  faq: [
+    {
+      q: "When do I use ghost vs outlined?",
+      a: "Ghost for the lowest-emphasis inline actions (dialog secondary actions, inline list actions). Outlined where a visible boundary helps scanning — grouped actions, forms, toolbars.",
+    },
+    {
+      q: "How does `loading` differ from `disabled`?",
+      a: "`loading` shows the progress indicator and reports `aria-busy` while blocking interaction like `disabled`. Use it when the action is in flight; use `disabled` when the action is unavailable.",
+    },
+    {
+      q: "Why does `elevated` lift on hover but `primary` doesn't rest elevated?",
+      a: "Per M3: elevated rests at level1 and lifts to level2 on hover; filled rests at level0 and lifts to level1 on hover. The resting shadow is the variant's identity — only hover adds lift.",
+    },
+  ],
   customization: {
     supported: [
       "`className` is passed through and merged after the variant classes, so a token-backed utility overrides the variant rather than fighting it.",
@@ -53,7 +191,7 @@ export const button: ComponentDoc = {
       name: "variant",
       type: '"elevated" | "primary" | "tonal" | "outlined" | "ghost"',
       default: '"primary"',
-      note: "M3's five color configurations. `filled` and `text` are accepted as aliases for `primary` and `ghost`. There is no sixth: an error action is `color=\"danger\"` on any of the five.",
+      note: 'M3\'s five color configurations. `filled` and `text` are accepted as aliases for `primary` and `ghost`. There is no sixth: an error action is `color="danger"` on any of the five.',
     },
     {
       name: "color",
@@ -63,15 +201,49 @@ export const button: ComponentDoc = {
     },
     {
       name: "size",
-      type: '"xs" | "default" | "sm" | "xl" | "icon"',
+      type: '"xs" | "default" | "sm" | "md" | "xl" | "lg" | "icon"',
       default: '"default"',
-      note: "`icon` is square and expects an icon plus an `aria-label`; a text label inside `icon` is a bug. `xs` compacts into the `sm` metrics band, `xl` steps into `lg`.",
+      note: "`icon` is square and expects an icon plus an `aria-label`; a text label inside `icon` is a bug. `default` is M3 small (40dp); `md`/`lg` step through M/L. Icons are 20px with labels.",
     },
     {
       name: "shape",
       type: '"pill" | "rounded" | "square"',
       default: '"pill"',
-      note: "The corner role: the M3 full pill, the stepped-down large corner, or none. The theme still owns the radii — this only selects the role.",
+      note: "M3 round (`pill`, full) or square (12/12/12/16/16/28dp per size); `rounded` is the Kern 16px step-down. Pressed morphs toward square (8/8/8/12/12/16dp). Selected toggles morph round to square.",
+    },
+    {
+      name: "toggle",
+      type: "boolean",
+      default: "false",
+      note: "Renders an M3 Expressive toggle: binary selection with round-to-square morph, per-variant selected colors, and `aria-pressed`. No toggle text button — `ghost` warns and renders unselected.",
+    },
+    {
+      name: "pressed",
+      type: "boolean",
+      note: "Controlled selected state. Only meaningful with `toggle`.",
+    },
+    {
+      name: "defaultPressed",
+      type: "boolean",
+      default: "false",
+      note: "Initial selected state for the uncontrolled toggle case.",
+    },
+    {
+      name: "onPressedChange",
+      type: "(pressed: boolean) => void",
+      note: "Fires when toggle selection changes.",
+    },
+    {
+      name: "softDisabled",
+      type: "boolean",
+      default: "false",
+      note: "Paints disabled but stays focusable for toolbar discoverability (W3C APG). Reports `aria-disabled`, keeps its tab stop.",
+    },
+    {
+      name: "flipIcon",
+      type: "boolean",
+      default: "false",
+      note: "Mirrors the icon in RTL. Opt in for directional glyphs only; symmetric icons must not flip.",
     },
     {
       name: "block",
@@ -118,7 +290,7 @@ export const button: ComponentDoc = {
     {
       name: "icon",
       type: "ReactNode",
-      note: "Renders beside the label with the `gap-2` M3 spacing, hidden from assistive tech. An icon-only button is `size=\"icon\"` plus an `aria-label`, not a text label.",
+      note: 'Renders beside the label with the `gap-2` M3 spacing, hidden from assistive tech. An icon-only button is `size="icon"` plus an `aria-label`, not a text label.',
     },
     {
       name: "iconPosition",

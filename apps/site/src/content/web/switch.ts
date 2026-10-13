@@ -20,6 +20,72 @@ export const switchDoc: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Switch"],
+  keyboard: [
+    {
+      key: "Space / Enter",
+      action: "Toggles the switch when focused.",
+    },
+    {
+      key: "Tab / Shift+Tab",
+      action: "Moves focus into and out of the switch. Disabled switches are skipped.",
+    },
+  ],
+  usage: {
+    do: [
+      "Use for a single on/off that applies immediately — Wi-Fi, Bluetooth, notifications.",
+      "Label every switch — visible text or `aria-label`.",
+      "Use icons to emphasize the selected state where the meaning benefits.",
+    ],
+    dont: [
+      "Don't use for multi-choices — that is a checkbox.",
+      "Don't use for one-of-many — that is a radio group.",
+      "Don't render without a name — an unnamed switch cannot be announced.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Track",
+      state: "resting",
+      token: "md.comp.switch.track-width / track-height",
+      value: "52px / 32px, full shape",
+    },
+    {
+      element: "Unselected track",
+      state: "resting",
+      token: "md.comp.switch.unselected-track-color",
+      value: "--md-sys-color-surface-container-highest + outline",
+    },
+    {
+      element: "Selected track",
+      state: "resting",
+      token: "md.comp.switch.selected-track-color",
+      value: "--md-sys-color-primary",
+    },
+    {
+      element: "Handle",
+      state: "resting",
+      token: "md.comp.switch.unselected-handle-height",
+      value: "16px (24px selected, 28px pressed)",
+    },
+    {
+      element: "State layer",
+      state: "hover",
+      token: "md.sys.state.hover-state-layer-opacity",
+      value: "8%, 40px full",
+    },
+    {
+      element: "Selected track",
+      state: "disabled",
+      token: "md.comp.switch.disabled-track-opacity",
+      value: "on-surface 12%",
+    },
+  ],
+  faq: [
+    {
+      q: "Switch or checkbox?",
+      a: "Switch for a single on/off that applies immediately. Checkbox for independent choices, possibly several at once.",
+    },
+  ],
   customization: {
     supported: [
       "`className` is passed through and merged after the component's own classes, on both the track and the thumb.",

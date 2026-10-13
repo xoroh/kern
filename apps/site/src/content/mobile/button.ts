@@ -6,8 +6,9 @@ export const button: ComponentDoc = {
   oneLiner:
     "The button is the standard action control: five Material 3 treatments, four sizes, one press.",
   features:
-    "Reach for a button when tapping causes something: submit, save, open, confirm. The variant axis mirrors the web union exactly — `primary` is Material 3's filled button, `tonal` and `outlined` the quieter pair, `ghost` the text button, and `elevated` the one treatment that raises — because the variant law is one meaning per name across both renderers, not one name count. `color=\"danger\"` re-paints any of the five in the error roles instead of adding a sixth vocabulary word. `size` walks the compact `xs`, the default height, the small `sm`, the large `xl` and the square `icon` box. `loading` swaps in the progress indicator and blocks the press until it clears, and `icon` renders beside the label with the same icon `gap` the web pair uses.",
+    'Reach for a button when tapping causes something: submit, save, open, confirm. The variant axis mirrors the web union exactly — `primary` is Material 3\'s filled button, `tonal` and `outlined` the quieter pair, `ghost` the text button, and `elevated` the one treatment that raises — because the variant law is one meaning per name across both renderers, not one name count. `color="danger"` re-paints any of the five in the error roles instead of adding a sixth vocabulary word. `size` walks the compact `xs`, the default height, the small `sm`, the large `xl` and the square `icon` box. `loading` swaps in the progress indicator and blocks the press until it clears, and `icon` renders beside the label with the same icon `gap` the web pair uses.',
   meta: {
+    specUrl: "https://m3.material.io/components/buttons",
     status: "real",
     package: "@xoroh/kern-native",
     // Exact web counterpart, checked in the web inventory.
@@ -24,6 +25,86 @@ export const button: ComponentDoc = {
     elevation: 0,
   },
   parts: ["Button"],
+  keyboard: [
+    {
+      key: "Enter / Space",
+      action:
+        "Activates the button when focused via an external keyboard or switch control.",
+    },
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "Moves through buttons in order; double-tap activates. Disabled buttons are skipped.",
+    },
+  ],
+  usage: {
+    do: [
+      "Put one primary action per screen — the filled button carries the hierarchy.",
+      "Use `color=\"danger\"` for destructive actions instead of inventing a sixth variant.",
+      "Keep labels to a few words — the button is 40dp high and truncates long text.",
+      "Use `toggle` for binary Save/Favorite selections with morph and emphasis swap.",
+    ],
+    dont: [
+      "Don't use a button to navigate — navigate with a list item or link, not an action control.",
+      "Don't stack multiple primary buttons — demote the rest to tonal, outlined, or ghost.",
+      "Don't render a glyph-only button without an accessibility label from the pressable props.",
+      "Don't toggle ghost — there is no selected text treatment.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Filled container",
+      state: "resting",
+      token: "theme.color.primary",
+      value: "primary",
+    },
+    {
+      element: "Filled label",
+      state: "resting",
+      token: "theme.color.onPrimary",
+      value: "onPrimary (14px / 20px, 500, 0.1px)",
+    },
+    {
+      element: "Tonal container",
+      state: "resting",
+      token: "theme.color.secondaryContainer",
+      value: "secondaryContainer",
+    },
+    {
+      element: "Elevated container",
+      state: "resting",
+      token: "theme.color.surfaceContainerLow",
+      value: "surfaceContainerLow (separates by fill, not shadow)",
+    },
+    {
+      element: "Outlined border",
+      state: "resting",
+      token: "theme.color.outline",
+      value: "outline, 1px",
+    },
+    {
+      element: "Press feedback",
+      state: "pressed",
+      token: "opacity 0.82 + android_ripple",
+      value: "whole-container dim; ripple follows the treatment ink",
+    },
+    {
+      element: "Container",
+      state: "resting",
+      token: "theme.shape.full",
+      value: "9999px pill",
+    },
+  ],
+  faq: [
+    {
+      q: "Why does native `elevated` have no shadow?",
+      a: "On native the raised treatment separates by its `surfaceContainerLow` fill rather than a shadow — the level-1 row is the spec's, not the paint's. The FAB family still carries level-3 shadows.",
+    },
+    {
+      q: "How do I get the treatment without the component?",
+      a: "Use the exported `buttonStyles(variant, size, disabled, theme, options)` — it returns the container and label styles with the same color, shape, and block options.",
+    },
+  ],
   customization: {
     supported: [
       "`variant` is the treatment axis and `size` the box axis; `color` and `shape` cross both, and the four compose freely.",
@@ -44,7 +125,7 @@ export const button: ComponentDoc = {
       name: "variant",
       type: 'NativeButtonVariantInput ("elevated" | "primary" | "tonal" | "outlined" | "ghost", plus "filled" | "text" aliases)',
       default: '"primary"',
-      note: "The treatment. One meaning per name with the web union — `primary` is M3's filled button. There is no sixth: an error action is `color=\"danger\"` on any of the five.",
+      note: 'The treatment. One meaning per name with the web union — `primary` is M3\'s filled button. There is no sixth: an error action is `color="danger"` on any of the five.',
     },
     {
       name: "color",
@@ -89,7 +170,7 @@ export const button: ComponentDoc = {
     {
       name: "icon",
       type: "ReactNode",
-      note: "Renders beside the label with the icon `gap`. A glyph-only button is `size=\"icon\"` plus an accessibility label from the pressable props.",
+      note: 'Renders beside the label with the icon `gap`. A glyph-only button is `size="icon"` plus an accessibility label from the pressable props.',
     },
     {
       name: "iconPosition",

@@ -199,4 +199,14 @@ describe("ExtendedFab", () => {
     render(<ExtendedFab icon={<svg />} label="Compose" />);
     expect(screen.getByRole("button")).toHaveAttribute("type", "button");
   });
+
+  // M3 extended sizes: small 56 / medium 80 / large 96.
+  it.each([
+    ["small", "h-14"],
+    ["medium", "h-20"],
+    ["large", "h-24"],
+  ] as const)("renders the %s bar at %s", (size, expected) => {
+    render(<ExtendedFab icon={<svg />} label="Compose" size={size} />);
+    expect(screen.getByRole("button").className).toContain(expected);
+  });
 });

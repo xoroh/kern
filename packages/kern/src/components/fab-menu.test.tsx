@@ -69,7 +69,7 @@ describe("FabMenu", () => {
     render(<FabMenu icon={<svg />} actions={ACTIONS} />);
     const className = trigger().className;
     expect(className).toContain("size-14");
-    expect(className).toContain("bg-(--md-sys-color-primary)");
+    expect(className).toContain("bg-(--md-sys-color-primary-container)");
     expect(className).toContain("shadow-(--md-sys-elevation-level3)");
     expect(className).toContain("rounded-(--md-sys-shape-corner-large)");
   });

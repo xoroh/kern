@@ -12,6 +12,8 @@
  *
  * Import these rather than repeating the property list — one place to change
  * if the token names ever move.
+ * styles.css explicitly emits these runtime-built utility names with @source
+ * inline; without that the source scanner silently omits the typography.
  */
 
 const ts = (role: string) =>
@@ -24,7 +26,7 @@ const ts = (role: string) =>
   ].join(" ");
 
 /** Page title — the one h1. */
-export const T_PAGE = ts("headline-medium");
+export const T_PAGE = `site-page-title ${ts("display-small")}`;
 /** Section heading. */
 export const T_SECTION = ts("headline-small");
 /** Sub-heading inside a section. */
@@ -57,5 +59,7 @@ export const T_CODE = `font-mono ${ts("body-small")}`;
 export const T_KEY = `font-mono ${ts("label-large")}`;
 /** Display accent (hero numerals, big stats). */
 export const T_DISPLAY = ts("display-small");
+/** Marketing display; responsive sizing is owned by the site stylesheet. */
+export const T_HERO = `site-hero-title ${ts("display-large")}`;
 
 export { ts as typescaleRole };

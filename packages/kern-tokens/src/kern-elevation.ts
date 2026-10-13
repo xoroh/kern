@@ -110,8 +110,10 @@ export const KERN_RESTING_ELEVATION = Object.freeze({
  * A component sits in the set only if the level it ships is one of these.
  */
 export const KERN_ELEVATION_COMPONENTS = Object.freeze({
-  fab: Object.freeze({ rows: ["fab"], variants: [3] }),
-  "extended-fab": Object.freeze({ rows: ["extended fab"], variants: [3] }),
+  // Standard FAB rests 3 and hovers 4; `lowered` rests 1 and hovers 2.
+  // All four levels are real token references in the closure.
+  fab: Object.freeze({ rows: ["fab"], variants: [1, 2, 3, 4] }),
+  "extended-fab": Object.freeze({ rows: ["extended fab"], variants: [3, 4] }),
   dialog: Object.freeze({
     rows: ["dialogs (modal)", "dialog (full-screen)"],
     variants: [0, 3],
@@ -157,7 +159,9 @@ export const KERN_ELEVATION_COMPONENTS = Object.freeze({
    */
   button: Object.freeze({
     rows: ["button (elevated)", "buttons (filled, tonal, outlined)"],
-    variants: [0, 1],
+    // Level 2 is the elevated hover lift (1→2) per M3; filled and tonal lift
+    // 0→1 on hover. All three hover shadows are real token references.
+    variants: [0, 1, 2],
   }),
   "navigation-menu": Object.freeze({ rows: ["menu"], variants: [2] }),
   /**
@@ -174,11 +178,13 @@ export const KERN_ELEVATION_COMPONENTS = Object.freeze({
    * only `[0]` is conformant. That inverts the usual case — here the assertion is
    * "nothing here may drift", so a future edit that ADDS an unearned shadow fails.
    *
-   * `chip` additionally permits `[1]` because M3 states "Chip elevation defaults
-   * to 0 but can be elevated if they need more visual separation" — kern ships
-   * no elevated chip variant today, so the level-0 half is what is asserted.
+   * Chip now implements the elevated assist/filter treatment at level 1,
+   * alongside the default flat treatment. Both spec rows must be represented.
    */
-  chip: Object.freeze({ rows: ["chips"], variants: [0] }),
+  chip: Object.freeze({
+    rows: ["chips", "chips (elevated)"],
+    variants: [0, 1],
+  }),
   slider: Object.freeze({ rows: ["slider"], variants: [0] }),
   tabs: Object.freeze({ rows: ["tabs"], variants: [0] }),
   "segmented-button": Object.freeze({
@@ -209,10 +215,17 @@ export const KERN_ELEVATION_COMPONENTS = Object.freeze({
   // executable rather than aspirational.
   "navigation-bar": Object.freeze({ rows: ["navigation bar"], variants: [2] }),
   tooltip: Object.freeze({ rows: ["rich tooltip"], variants: [2] }),
-  toolbar: Object.freeze({ rows: ["toolbar"], variants: [2] }),
+  // Expressive replaces the baseline toolbar: docked is flat, floating is L3.
+  // Vendored MDC Android floatingtoolbar/res/values/tokens.xml binds
+  // m3_comp_toolbar_floating_container_elevation to m3_sys_elevation_level3.
+  toolbar: Object.freeze({
+    rows: ["toolbar (docked)", "toolbar (floating, Expressive)"],
+    variants: [0, 3],
+  }),
   "fab-menu": Object.freeze({
     rows: ["fab menu (close button)", "fab menu (list items)"],
-    variants: [0, 3],
+    // Trigger hovers 3→4 per M3; list items rest at 0.
+    variants: [0, 3, 4],
   }),
   sheet: Object.freeze({
     rows: ["bottom sheet (modal)", "side sheet (modal)", "side sheet (docked)"],

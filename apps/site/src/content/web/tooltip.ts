@@ -45,6 +45,29 @@ export const tooltip: ComponentDoc = {
       role: "The label itself. Portals to the end of the document and positions itself against the trigger.",
     },
   ],
+  usage: {
+    do: [
+      "Name icon-only controls on hover and focus.",
+      "Keep text to a few words.",
+    ],
+    dont: [
+      "Don't duplicate visible labels — tooltips name the unnamed.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Container",
+      state: "resting",
+      token: "md.comp.tooltip.container",
+      value: "inverse-surface, 4px, level2",
+    },
+  ],
+  faq: [
+    {
+      q: "Tooltip or label?",
+      a: "Visible labels win; tooltips cover icon-only and truncated cases.",
+    },
+  ],
   customization: {
     supported: [
       "`className` on every part, merged after the part's own classes.",

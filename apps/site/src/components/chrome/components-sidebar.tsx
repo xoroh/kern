@@ -7,6 +7,10 @@
  * the gallery itself emits, so the sidebar and the gallery cannot disagree
  * about where a family lives. Per-component leaves are deliberately absent —
  * 192 leaves is an index, not a sidebar; `/reference` is the index.
+ *
+ * v2: rows are 48dp pills with M3 state layers; catalog rows carry the
+ * selected pair when active. Family anchors are same-page jumps (no route
+ * state), so they render as rest pills — the gallery scrolls them into view.
  */
 import { useLocation } from "@tanstack/react-router";
 import { cn } from "@xoroh/kern";
@@ -16,13 +20,26 @@ import {
   T_LABEL,
   T_LABEL_LG,
 } from "../../domains/shared/systems/type-scale";
+import {
+  FOCUS_RING,
+  PILL_ACTIVE,
+  PILL_REST,
+} from "../../domains/shared/systems/ui";
 
 const CATALOG: { label: string; href: string }[] = [
   { label: "All components", href: "/components" },
   { label: "Web", href: "/components/web" },
-  { label: "Native", href: "/components/mobile" },
+  { label: "React Native", href: "/components/mobile" },
   { label: "Reference index", href: "/reference" },
 ];
+
+const rowClass = (active: boolean) =>
+  cn(
+    `min-h-12 rounded-(--md-sys-shape-corner-full) px-4 no-underline ${FOCUS_RING}`,
+    active
+      ? `${PILL_ACTIVE} flex items-center ${T_LABEL_LG}`
+      : `${PILL_REST} flex items-center ${T_BODY_MD}`,
+  );
 
 export function ComponentsSidebar() {
   const { pathname } = useLocation();
@@ -42,12 +59,7 @@ export function ComponentsSidebar() {
                 <a
                   href={leaf.href}
                   aria-current={active ? "page" : undefined}
-                  className={cn(
-                    "block rounded-(--md-sys-shape-corner-small) px-3 py-1.5 no-underline",
-                    active
-                      ? `bg-(--md-sys-color-secondary-container) ${T_LABEL_LG} text-(--md-sys-color-on-secondary-container)`
-                      : `${T_BODY_MD} text-(--md-sys-color-on-surface-variant) hover:bg-(--md-sys-color-surface-container-high) hover:text-(--md-sys-color-on-surface)`,
-                  )}
+                  className={rowClass(active)}
                 >
                   {leaf.label}
                 </a>
@@ -69,13 +81,7 @@ export function ComponentsSidebar() {
                   (`#family-${g.id}` ↔ `id={`family-${g.id}`}`): this sidebar
                   renders only on /components pages, which is where the
                   gallery emits those ids. */}
-              <a
-                href={`#family-${g.id}`}
-                className={cn(
-                  "block rounded-(--md-sys-shape-corner-small) px-3 py-1.5 no-underline",
-                  `${T_BODY_MD} text-(--md-sys-color-on-surface-variant) hover:bg-(--md-sys-color-surface-container-high) hover:text-(--md-sys-color-on-surface)`,
-                )}
-              >
+              <a href={`#family-${g.id}`} className={rowClass(false)}>
                 {g.title}
               </a>
             </li>

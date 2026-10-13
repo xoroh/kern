@@ -28,7 +28,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --dts-resolve --external react --external react-native --out-dir dist --clean",
+    "build": "tsup src/index.ts --format esm,cjs --dts --dts-resolve --external react --external react-native --external react-native-svg --out-dir dist --clean",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "check:publish": "publint && attw --pack --ignore-rules=no-resolution",
@@ -70,7 +70,8 @@
   },
   "dependencies": {
     "@xoroh/kern-primitives": "^0.0.0",
-    "@xoroh/kern-tokens": "^0.0.0"
+    "@xoroh/kern-tokens": "^0.0.0",
+    "react-native-svg": "15"
   },
   "devDependencies": {
     "@babel/runtime": "^7.28.0",

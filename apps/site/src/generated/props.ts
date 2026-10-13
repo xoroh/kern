@@ -1071,6 +1071,13 @@ export const GENERATED_PROPS: Record<string, Array<{
       "required": false,
       "src": "packages/kern/src/components/button-group.tsx:6",
       "note": "Layout direction of the joined buttons."
+    },
+    {
+      "name": "variant",
+      "type": "\"standard\" | \"connected\" | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/button-group.tsx:14",
+      "note": "M3 Expressive group variant. `connected` (default) joins the buttons\ninto one control — the expressive successor to the segmented button:\nuse toggle `Button` children and their press/selected shape morph reads\nas the group's selection. `standard` spaces the buttons as individuals\nwith no radius surgery."
     }
   ],
   "Button": [
@@ -1078,35 +1085,35 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "variant",
       "type": "ButtonVariantInput | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:160",
+      "src": "packages/kern/src/components/button.tsx:277",
       "default": "\"primary\""
     },
     {
       "name": "size",
       "type": "ButtonSize | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:161",
+      "src": "packages/kern/src/components/button.tsx:278",
       "default": "\"default\""
     },
     {
       "name": "color",
       "type": "ButtonColor | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:162",
+      "src": "packages/kern/src/components/button.tsx:279",
       "default": "\"primary\""
     },
     {
       "name": "shape",
       "type": "ButtonShape | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:163",
+      "src": "packages/kern/src/components/button.tsx:280",
       "default": "\"pill\""
     },
     {
       "name": "block",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:165",
+      "src": "packages/kern/src/components/button.tsx:282",
       "default": "false",
       "note": "Full-width block button."
     },
@@ -1114,69 +1121,111 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "loading",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:167",
+      "src": "packages/kern/src/components/button.tsx:284",
       "note": "Shows the embedded progress indicator and blocks interaction."
     },
     {
       "name": "loadingValue",
       "type": "number | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:169",
+      "src": "packages/kern/src/components/button.tsx:286",
       "note": "0–1 determinate progress while loading. Omit for the loop."
     },
     {
       "name": "loaderStyle",
       "type": "\"spinner\" | \"dots\" | \"bar\" | \"shapes\" | \"conveyor\" | \"contained\" | \"orbit\" | \"morph\" | \"assembly\" | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:171",
+      "src": "packages/kern/src/components/button.tsx:288",
       "note": "Style of the embedded indicator. Defaults to the M3 ring (`spinner`)."
     },
     {
       "name": "href",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:179",
+      "src": "packages/kern/src/components/button.tsx:296",
       "note": "Navigation variant. Renders `<a href>` wearing the button treatment,\ni.e. `role=\"link\"` — for a dedicated link component see `LinkButton`.\nA disabled link drops `href`, leaves the tab order and reports\n`aria-disabled` (the ListItem convention) — links have no `disabled`\nattribute, so there is nothing native to lean on."
     },
     {
       "name": "target",
       "type": "HTMLAttributeAnchorTarget | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:184",
+      "src": "packages/kern/src/components/button.tsx:301",
       "note": "Anchor target. Only rendered when `href` is set — a button has no\nbrowsing context to open."
     },
     {
       "name": "rel",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:186",
+      "src": "packages/kern/src/components/button.tsx:303",
       "note": "Anchor relationship list. Only rendered when `href` is set."
     },
     {
       "name": "download",
       "type": "any",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:188",
+      "src": "packages/kern/src/components/button.tsx:305",
       "note": "Download hint. Only rendered when `href` is set."
     },
     {
       "name": "icon",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:190",
+      "src": "packages/kern/src/components/button.tsx:307",
       "note": "Leading (or trailing, with `iconPosition`) icon. Hidden from assistive tech."
     },
     {
       "name": "iconPosition",
       "type": "ButtonIconPosition | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:191"
+      "src": "packages/kern/src/components/button.tsx:308"
+    },
+    {
+      "name": "flipIcon",
+      "type": "boolean | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/button.tsx:314",
+      "note": "Mirrors the icon horizontally in RTL contexts (`rtl:scale-x-[-1]`).\nOpt into it for directional glyphs (arrows, chevrons, back/open cues);\nsymmetric icons must not flip. Per M3's `flip-icon-in-rtl`."
+    },
+    {
+      "name": "softDisabled",
+      "type": "boolean | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/button.tsx:321",
+      "note": "Soft-disabled: paints the disabled treatment but stays focusable, so the\ncontrol remains discoverable (toolbar pattern per W3C APG disabled-controls\nguidance). Unlike `disabled`, it keeps its tab stop and reports\n`aria-disabled` instead of the `disabled` attribute."
+    },
+    {
+      "name": "toggle",
+      "type": "boolean | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/button.tsx:329",
+      "default": "false",
+      "note": "Renders the button as an M3 Expressive toggle: binary selection with\nround↔square morph and per-variant selected colors. There is no toggle\ntext button — `toggle` on `ghost` warns in dev and renders unselected.\nKeep selected/unselected labels a similar length so the layout holds.\n(`value` stays the form value; toggle state uses `pressed`.)"
+    },
+    {
+      "name": "pressed",
+      "type": "boolean | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/button.tsx:331",
+      "note": "Controlled selected state. Only meaningful with `toggle`."
+    },
+    {
+      "name": "defaultPressed",
+      "type": "boolean | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/button.tsx:333",
+      "note": "Initial selected state for the uncontrolled toggle case."
+    },
+    {
+      "name": "onPressedChange",
+      "type": "((pressed: boolean) => void) | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/button.tsx:334"
     },
     {
       "name": "ref",
       "type": "Ref<HTMLButtonElement | HTMLAnchorElement> | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:192"
+      "src": "packages/kern/src/components/button.tsx:335"
     }
   ],
   "Calendar": [
@@ -1219,7 +1268,7 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "as",
       "type": "T | undefined",
       "required": false,
-      "src": "packages/kern/src/components/card.tsx:20"
+      "src": "packages/kern/src/components/card.tsx:22"
     },
     {
       "name": "variant",
@@ -1232,7 +1281,70 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "className",
       "type": "string | undefined",
       "required": false,
+      "src": "packages/kern/src/components/card.tsx:24"
+    }
+  ],
+  "CardHeader": [
+    {
+      "name": "as",
+      "type": "T | undefined",
+      "required": false,
       "src": "packages/kern/src/components/card.tsx:22"
+    },
+    {
+      "name": "variant",
+      "type": "\"elevated\" | \"outlined\" | \"filled\" | null | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/card.tsx:9",
+      "default": "\"filled\""
+    },
+    {
+      "name": "className",
+      "type": "string | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/card.tsx:24"
+    }
+  ],
+  "CardContent": [
+    {
+      "name": "as",
+      "type": "T | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/card.tsx:22"
+    },
+    {
+      "name": "variant",
+      "type": "\"elevated\" | \"outlined\" | \"filled\" | null | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/card.tsx:9",
+      "default": "\"filled\""
+    },
+    {
+      "name": "className",
+      "type": "string | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/card.tsx:24"
+    }
+  ],
+  "CardActions": [
+    {
+      "name": "as",
+      "type": "T | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/card.tsx:22"
+    },
+    {
+      "name": "variant",
+      "type": "\"elevated\" | \"outlined\" | \"filled\" | null | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/card.tsx:9",
+      "default": "\"filled\""
+    },
+    {
+      "name": "className",
+      "type": "string | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/card.tsx:24"
     }
   ],
   "Carousel": [
@@ -1667,45 +1779,52 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "defaultValue",
       "type": "string | number | readonly string[] | (readonly string[] & false) | (readonly string[] & true) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/chip.tsx:44"
+      "src": "packages/kern/src/components/chip.tsx:59"
     },
     {
       "name": "value",
       "type": "string | number | readonly string[] | (readonly string[] & false) | (readonly string[] & true) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/chip.tsx:43",
+      "src": "packages/kern/src/components/chip.tsx:58",
       "note": "R2 lexicon canonical names (`value` wins when both are passed; both\ncallbacks fire). `selected`/`defaultSelected`/`onSelectedChange` are\ndeprecated aliases onto the same state."
     },
     {
       "name": "type",
       "type": "\"button\" | \"submit\" | \"reset\" | undefined",
       "required": false,
-      "src": "packages/kern/src/components/chip.tsx:31"
+      "src": "packages/kern/src/components/chip.tsx:39"
+    },
+    {
+      "name": "elevated",
+      "type": "boolean | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/chip.tsx:45",
+      "note": "M3 elevated treatment (assist + filter): level1 shadow on the\nsurface-container-low fill. Ignored for input/suggestion, which have\nno elevated treatment."
     },
     {
       "name": "variant",
-      "type": "\"filter\" | \"assist\" | \"suggestion\" | undefined",
+      "type": "\"input\" | \"filter\" | \"assist\" | \"suggestion\" | undefined",
       "required": false,
-      "src": "packages/kern/src/components/chip.tsx:34",
+      "src": "packages/kern/src/components/chip.tsx:49",
       "default": "\"assist\""
     },
     {
       "name": "selected",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/chip.tsx:35"
+      "src": "packages/kern/src/components/chip.tsx:50"
     },
     {
       "name": "defaultSelected",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/chip.tsx:36"
+      "src": "packages/kern/src/components/chip.tsx:51"
     },
     {
       "name": "onSelectedChange",
       "type": "((selected: boolean) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/chip.tsx:37"
+      "src": "packages/kern/src/components/chip.tsx:52"
     }
   ],
   "CircularProgress": [
@@ -1748,6 +1867,13 @@ export const GENERATED_PROPS: Record<string, Array<{
       "type": "string | undefined",
       "required": false,
       "src": "packages/kern/src/components/circular-progress.tsx:30"
+    },
+    {
+      "name": "fourColor",
+      "type": "boolean | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/circular-progress.tsx:35",
+      "note": "Cycle the indeterminate arc through primary → primary-container →\ntertiary → tertiary-container instead of holding the current color."
     }
   ],
   "CollapsibleRoot": [
@@ -4075,60 +4201,67 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "ref",
       "type": "Ref<ExtendedFabHandle> | undefined",
       "required": false,
-      "src": "packages/kern/src/components/extended-fab.tsx:67",
+      "src": "packages/kern/src/components/extended-fab.tsx:95",
       "note": "Imperative handle for M3's scroll-driven collapse. The component cannot\nsee the host's scroll position, so the trigger is an explicit handle\nrather than a gesture kern would have to invent."
     },
     {
       "name": "label",
       "type": "string",
       "required": true,
-      "src": "packages/kern/src/components/extended-fab.tsx:69",
+      "src": "packages/kern/src/components/extended-fab.tsx:97",
       "note": "Visible label. Doubles as the accessible name when collapsed."
     },
     {
       "name": "icon",
       "type": "ReactNode",
       "required": true,
-      "src": "packages/kern/src/components/extended-fab.tsx:70"
+      "src": "packages/kern/src/components/extended-fab.tsx:98"
     },
     {
       "name": "collapsed",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/extended-fab.tsx:72",
+      "src": "packages/kern/src/components/extended-fab.tsx:100",
       "note": "Controlled collapse state."
     },
     {
       "name": "defaultCollapsed",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/extended-fab.tsx:74",
+      "src": "packages/kern/src/components/extended-fab.tsx:102",
       "note": "Initial collapse state for the uncontrolled case."
     },
     {
       "name": "onCollapsedChange",
       "type": "((collapsed: boolean) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/extended-fab.tsx:75"
+      "src": "packages/kern/src/components/extended-fab.tsx:103"
     },
     {
       "name": "value",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/extended-fab.tsx:82",
+      "src": "packages/kern/src/components/extended-fab.tsx:110",
       "note": "R2 lexicon canonical names (`value` wins when both are passed; both\ncallbacks fire). `collapsed`/`defaultCollapsed`/`onCollapsedChange` are\ndeprecated aliases onto the same state — including the imperative\nhandle, which drives the same path."
     },
     {
       "name": "defaultValue",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/extended-fab.tsx:83"
+      "src": "packages/kern/src/components/extended-fab.tsx:111"
     },
     {
       "name": "onValueChange",
       "type": "((collapsed: boolean) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/extended-fab.tsx:84"
+      "src": "packages/kern/src/components/extended-fab.tsx:112"
+    },
+    {
+      "name": "size",
+      "type": "ExtendedFabSize | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/extended-fab.tsx:117",
+      "note": "M3 extended size. `small` is the current rendering, kept default;\n`medium`/`large` swap the expressive 80/96dp geometry."
     }
   ],
   "FabMenu": [
@@ -4207,18 +4340,32 @@ export const GENERATED_PROPS: Record<string, Array<{
   ],
   "Fab": [
     {
-      "name": "size",
-      "type": "\"sm\" | \"default\" | \"icon\" | \"medium\" | \"large\" | null | undefined",
+      "name": "color",
+      "type": "\"surface\" | \"primary\" | \"secondary\" | \"tertiary\" | \"primary-fill\" | \"secondary-fill\" | \"tertiary-fill\" | null | undefined",
       "required": false,
-      "src": "packages/kern/src/components/fab.tsx:16",
+      "src": "packages/kern/src/components/fab.tsx:19",
+      "default": "\"surface\""
+    },
+    {
+      "name": "size",
+      "type": "\"sm\" | \"default\" | \"md\" | \"icon\" | \"medium\" | \"large\" | null | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/fab.tsx:41",
       "default": "\"default\""
     },
     {
       "name": "aria-label",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/fab.tsx:32",
+      "src": "packages/kern/src/components/fab.tsx:62",
       "note": "Accessible name for icon-only fabs."
+    },
+    {
+      "name": "lowered",
+      "type": "boolean | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/fab.tsx:67",
+      "note": "Lowered elevation (level1 + `surface-container-low` fill) for FABs\nthat should sit quieter in the layout. Per M3's `lowered` attribute."
     }
   ],
   "FieldMessage": [
@@ -4508,82 +4655,124 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "toggle",
       "type": "boolean | null | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:61",
+      "src": "packages/kern/src/components/icon-button.tsx:78",
       "default": "false"
     },
     {
       "name": "size",
-      "type": "\"sm\" | \"default\" | \"lg\" | null | undefined",
+      "type": "\"sm\" | \"default\" | \"lg\" | \"md\" | \"xs\" | \"xl\" | \"2xl\" | null | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:49",
+      "src": "packages/kern/src/components/icon-button.tsx:50",
+      "default": "\"default\""
+    },
+    {
+      "name": "width",
+      "type": "\"default\" | \"narrow\" | \"wide\" | null | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/icon-button.tsx:66",
       "default": "\"default\""
     },
     {
       "name": "variant",
-      "type": "\"tonal\" | \"outlined\" | \"filled\" | \"standard\" | null | undefined",
+      "type": "\"standard\" | \"tonal\" | \"outlined\" | \"filled\" | null | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:39",
+      "src": "packages/kern/src/components/icon-button.tsx:40",
       "default": "\"standard\""
+    },
+    {
+      "name": "shape",
+      "type": "\"square\" | \"pill\" | null | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/icon-button.tsx:62",
+      "default": "\"pill\""
     },
     {
       "name": "selected",
       "type": "boolean | null | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:54",
+      "src": "packages/kern/src/components/icon-button.tsx:71",
       "default": "false"
     },
     {
       "name": "icon",
       "type": "ReactNode",
       "required": true,
-      "src": "packages/kern/src/components/icon-button.tsx:119",
+      "src": "packages/kern/src/components/icon-button.tsx:170",
       "note": "Icon content. Hidden from assistive tech; the name comes from `label`."
     },
     {
       "name": "label",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:124",
+      "src": "packages/kern/src/components/icon-button.tsx:175",
       "note": "Accessible name, and the text of the M3 tooltip. Required in practice:\nan icon-only button with no name is unusable with a screen reader."
+    },
+    {
+      "name": "selectedLabel",
+      "type": "string | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/icon-button.tsx:181",
+      "note": "Accessible name when the toggle is selected (`aria-label-selected`).\nOnly meaningful with `toggle` — a favorite button reads \"Add to\nfavorites\" unselected and \"Remove from favorites\" selected."
+    },
+    {
+      "name": "softDisabled",
+      "type": "boolean | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/icon-button.tsx:187",
+      "note": "Soft-disabled: paints the disabled treatment but stays focusable, so\nthe control remains discoverable (toolbar pattern per W3C APG\ndisabled-controls guidance)."
+    },
+    {
+      "name": "loading",
+      "type": "boolean | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/icon-button.tsx:189",
+      "note": "Shows a loading spinner in place of the icon and blocks interaction."
+    },
+    {
+      "name": "flipIcon",
+      "type": "boolean | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/icon-button.tsx:195",
+      "note": "Mirrors the icon horizontally in RTL contexts. Opt into it for\ndirectional glyphs only; symmetric icons must not flip. Per M3's\n`flip-icon-in-rtl`."
     },
     {
       "name": "pressed",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:128",
+      "src": "packages/kern/src/components/icon-button.tsx:199",
       "note": "Controlled pressed state. Only meaningful with `toggle`."
     },
     {
       "name": "defaultPressed",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:130",
+      "src": "packages/kern/src/components/icon-button.tsx:201",
       "note": "Initial pressed state for the uncontrolled toggle case."
     },
     {
       "name": "onPressedChange",
       "type": "((pressed: boolean) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:131"
+      "src": "packages/kern/src/components/icon-button.tsx:202"
     },
     {
       "name": "value",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:137",
+      "src": "packages/kern/src/components/icon-button.tsx:208",
       "note": "R2 lexicon canonical names (`value` wins when both are passed; both\ncallbacks fire). `pressed`/`defaultPressed`/`onPressedChange` are\ndeprecated aliases onto the same state."
     },
     {
       "name": "defaultValue",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:138"
+      "src": "packages/kern/src/components/icon-button.tsx:209"
     },
     {
       "name": "onValueChange",
       "type": "((pressed: boolean) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:139"
+      "src": "packages/kern/src/components/icon-button.tsx:210"
     }
   ],
   "InputOTPRoot": [
@@ -4794,16 +4983,44 @@ export const GENERATED_PROPS: Record<string, Array<{
       "note": "Callback fired when the `value` changes. Use when controlled."
     },
     {
+      "name": "variant",
+      "type": "InputVariant | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/input.tsx:23",
+      "note": "M3 text-field treatment. `outlined` (default) draws the 1px outline that\nmoves to `primary` on focus; `filled` fills `surface-container-highest`\nwith a bottom active indicator. Functionally identical — pick by surface."
+    },
+    {
+      "name": "prefix",
+      "type": "ReactNode",
+      "required": false,
+      "src": "packages/kern/src/components/input.tsx:28",
+      "note": "Affix text rendered inside the field before the value (`$` in `$0.00`).\nSet in `on-surface-variant`, per M3's prefix-text role."
+    },
+    {
+      "name": "suffix",
+      "type": "ReactNode",
+      "required": false,
+      "src": "packages/kern/src/components/input.tsx:33",
+      "note": "Affix text rendered inside the field after the value (`.00` in `$0.00`).\nSet in `on-surface-variant`, per M3's suffix-text role."
+    },
+    {
+      "name": "showCounter",
+      "type": "boolean | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/input.tsx:38",
+      "note": "Shows a `current/maxlength` counter beneath the field when `maxLength`\nis set. Per M3, the counter appears automatically with `maxlength`."
+    },
+    {
       "name": "error",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/input.tsx:10"
+      "src": "packages/kern/src/components/input.tsx:39"
     },
     {
       "name": "errorMessage",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/input.tsx:23",
+      "src": "packages/kern/src/components/input.tsx:52",
       "note": "The error TEXT, not just the error state. Present ⇒ `error` is implied\n(`aria-invalid` fires) and the message renders as a `FieldMessage\nvariant=\"error\"` — already `role=\"alert\"` — associated to the field via\n`aria-describedby`.\n\nThis is the web half of a contract the native renderer already honours\n(`NativeInputProps.errorMessage`), where the message is folded into the\nannounced hint because RN has no `accessibilityState.invalid`. The delivery\nattributes stay asymmetric and documented; the public prop surface does\nnot. Do not also pass a sibling `FieldMessage` — this prop owns it."
     }
   ],
@@ -4812,16 +5029,51 @@ export const GENERATED_PROPS: Record<string, Array<{
   "LinearProgress": [
     {
       "name": "value",
-      "type": "number",
-      "required": true,
-      "src": "packages/kern/src/components/linear-progress.tsx:13",
-      "note": "0–1. Determinate only."
+      "type": "number | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/linear-progress.tsx:12",
+      "note": "0–1 determinate progress. Ignored when `indeterminate` is set."
+    },
+    {
+      "name": "indeterminate",
+      "type": "boolean | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/linear-progress.tsx:17",
+      "note": "Looping motion with no endpoint for unknown durations. Per M3 the two\nbars slide on a 2s linear cycle."
+    },
+    {
+      "name": "fourColor",
+      "type": "boolean | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/linear-progress.tsx:22",
+      "note": "Cycle the indeterminate bars through primary → primary-container →\ntertiary → tertiary-container instead of holding primary."
+    },
+    {
+      "name": "buffer",
+      "type": "number | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/linear-progress.tsx:27",
+      "note": "0–1 buffer level rendered as dots behind the bar: known progress in the\nbar, unknown progress in the buffer."
+    },
+    {
+      "name": "stop",
+      "type": "boolean | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/linear-progress.tsx:32",
+      "note": "M3 stop indicator: a 4dp primary circle marking the end of the track.\nDeterminate only."
+    },
+    {
+      "name": "wavy",
+      "type": "boolean | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/linear-progress.tsx:40",
+      "note": "M3 expressive wavy indicator (determinate only): a sine wave at the\nplatform wave geometry — 3dp amplitude, 40dp wavelength\n(MDC-Android `m3_comp_progress_indicator_linear_*`). Indeterminate\nignores it; the loops have no wave phase. Web-only: native has no SVG\nengine to draw the wave with."
     },
     {
       "name": "label",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/linear-progress.tsx:14"
+      "src": "packages/kern/src/components/linear-progress.tsx:41"
     }
   ],
   "LinkButton": [
@@ -4890,10 +5142,17 @@ export const GENERATED_PROPS: Record<string, Array<{
       "note": "Disables the interactive row: a button is natively disabled; a link gets\n`aria-disabled`, leaves the tab order, and does not navigate."
     },
     {
+      "name": "selected",
+      "type": "boolean | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/list-item.tsx:41",
+      "note": "M3 selected state: secondary-container fill with the 16dp selected\ncorner, ink on-secondary-container. Navigation rows also report\n`aria-current`."
+    },
+    {
       "name": "onClick",
       "type": "((event: MouseEvent<HTMLElement, MouseEvent>) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/list-item.tsx:37",
+      "src": "packages/kern/src/components/list-item.tsx:43",
       "note": "Extra props for the control element when interactive."
     }
   ],
@@ -4939,23 +5198,23 @@ export const GENERATED_PROPS: Record<string, Array<{
   "LoadingIndicator": [
     {
       "name": "size",
-      "type": "\"sm\" | \"default\" | \"lg\" | null | undefined",
+      "type": "\"sm\" | \"default\" | \"lg\" | \"xl\" | null | undefined",
       "required": false,
-      "src": "packages/kern/src/components/loading-indicator.tsx:39",
+      "src": "packages/kern/src/components/loading-indicator.tsx:41",
       "default": "\"default\""
     },
     {
       "name": "label",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/loading-indicator.tsx:55",
+      "src": "packages/kern/src/components/loading-indicator.tsx:58",
       "note": "Accessible name. Also the visible text when `showLabel`."
     },
     {
       "name": "showLabel",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/loading-indicator.tsx:57",
+      "src": "packages/kern/src/components/loading-indicator.tsx:60",
       "note": "Renders `label` as visible text beside the indicator."
     }
   ],
@@ -4964,33 +5223,33 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "loading",
       "type": "boolean",
       "required": true,
-      "src": "packages/kern/src/components/loading-indicator.tsx:97"
+      "src": "packages/kern/src/components/loading-indicator.tsx:100"
     },
     {
       "name": "children",
       "type": "ReactNode",
       "required": true,
-      "src": "packages/kern/src/components/loading-indicator.tsx:99",
+      "src": "packages/kern/src/components/loading-indicator.tsx:102",
       "note": "Content rendered while not loading."
     },
     {
       "name": "fallback",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/loading-indicator.tsx:101",
+      "src": "packages/kern/src/components/loading-indicator.tsx:104",
       "note": "Content rendered while loading. Defaults to nothing."
     },
     {
       "name": "label",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/loading-indicator.tsx:102"
+      "src": "packages/kern/src/components/loading-indicator.tsx:105"
     },
     {
       "name": "className",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/loading-indicator.tsx:103"
+      "src": "packages/kern/src/components/loading-indicator.tsx:106"
     }
   ],
   "MenuScreen": [
@@ -7746,6 +8005,13 @@ export const GENERATED_PROPS: Record<string, Array<{
       "required": false,
       "src": "node_modules/.bun/@base-ui+react@1.8.0+66cdd77ed2453938/node_modules/@base-ui/react/internals/types.d.mts:47",
       "note": "Whether the component renders a native `<button>` element when replacing it\nvia the `render` prop.\nSet to `false` if the rendered element is not a button (for example, `<div>`)."
+    },
+    {
+      "name": "variant",
+      "type": "\"outlined\" | \"filled\" | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/select.tsx:17",
+      "note": "M3 select treatment. `outlined` (default) draws the 1px outline;\n`filled` fills `surface-container-highest` with a bottom active\nindicator. Functionally identical — pick by surface."
     }
   ],
   "SelectContent": [
@@ -7945,6 +8211,13 @@ export const GENERATED_PROPS: Record<string, Array<{
       "required": false,
       "src": "node_modules/.bun/@base-ui+react@1.8.0+66cdd77ed2453938/node_modules/@base-ui/react/separator/Separator.d.mts:15",
       "note": "The orientation of the separator."
+    },
+    {
+      "name": "inset",
+      "type": "\"none\" | \"start\" | \"middle\" | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/separator.tsx:10",
+      "note": "M3 divider insets: `none` full-bleed, `start` 16dp leading inset,\n`middle` 16dp on both sides."
     }
   ],
   "SheetSurface": [
@@ -9759,10 +10032,24 @@ export const GENERATED_PROPS: Record<string, Array<{
       "note": "Callback fired when the `value` changes. Use when controlled."
     },
     {
+      "name": "variant",
+      "type": "\"outlined\" | \"filled\" | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/textarea.tsx:14",
+      "note": "M3 text-field treatment. `outlined` (default) draws the 1px outline;\n`filled` fills `surface-container-highest`. Functionally identical."
+    },
+    {
       "name": "error",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/textarea.tsx:10"
+      "src": "packages/kern/src/components/textarea.tsx:15"
+    },
+    {
+      "name": "rows",
+      "type": "number | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/textarea.tsx:17",
+      "note": "Initial visible row count. Defaults to 2 per M3."
     }
   ],
   "TimePicker": [
@@ -9770,67 +10057,67 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "value",
       "type": "TimePickerValue | undefined",
       "required": false,
-      "src": "packages/kern/src/components/time-picker.tsx:46",
+      "src": "packages/kern/src/components/time-picker.tsx:63",
       "note": "Controlled value."
     },
     {
       "name": "defaultValue",
       "type": "TimePickerValue | undefined",
       "required": false,
-      "src": "packages/kern/src/components/time-picker.tsx:48",
+      "src": "packages/kern/src/components/time-picker.tsx:65",
       "note": "Initial value for the uncontrolled case."
     },
     {
       "name": "onValueChange",
       "type": "((value: TimePickerValue) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/time-picker.tsx:49"
+      "src": "packages/kern/src/components/time-picker.tsx:66"
     },
     {
       "name": "format",
       "type": "TimePickerFormat | undefined",
       "required": false,
-      "src": "packages/kern/src/components/time-picker.tsx:51",
+      "src": "packages/kern/src/components/time-picker.tsx:68",
       "note": "`12h` adds the AM/PM field. State stays 24-hour."
     },
     {
       "name": "step",
       "type": "number | undefined",
       "required": false,
-      "src": "packages/kern/src/components/time-picker.tsx:53",
+      "src": "packages/kern/src/components/time-picker.tsx:70",
       "note": "Minute granularity. Must divide 60; anything else falls back to 1."
     },
     {
       "name": "label",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/time-picker.tsx:54"
+      "src": "packages/kern/src/components/time-picker.tsx:71"
     },
     {
       "name": "className",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/time-picker.tsx:55"
+      "src": "packages/kern/src/components/time-picker.tsx:72"
     },
     {
       "name": "formatValue",
       "type": "((value: TimePickerValue) => string) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/time-picker.tsx:57",
+      "src": "packages/kern/src/components/time-picker.tsx:74",
       "note": "Overrides the rendered clock text, e.g. \"09:30\" in a 24-hour locale."
     },
     {
       "name": "testID",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/time-picker.tsx:58"
+      "src": "packages/kern/src/components/time-picker.tsx:75"
     },
     {
-      "name": "dial",
-      "type": "undefined",
+      "name": "presentation",
+      "type": "TimePickerPresentation | undefined",
       "required": false,
-      "src": "packages/kern/src/components/time-picker.tsx:66",
-      "note": "Dial presentation: NOT SUPPORTED, by design. M3 specifies a clock face\nand a text-entry mode; Kern ships the listbox form because it is the\nform that is keyboard- and screen-reader-correct without a pointer.\nThis prop exists only to say so at the type level — passing anything\nbut `undefined` is a type error, and the listbox stays the component."
+      "src": "packages/kern/src/components/time-picker.tsx:80",
+      "note": "Which face the picker shows. `listbox` (default) is three listboxes;\n`dial` is the M3 clock face. Same state, same value contract."
     }
   ],
   "ToggleGroupRoot": [
@@ -17030,6 +17317,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "translate",
     "typeof",
     "unselectable",
+    "variant",
     "vocab"
   ],
   "Button": [
@@ -17102,6 +17390,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "dangerouslySetInnerHTML",
     "datatype",
     "defaultChecked",
+    "defaultPressed",
     "defaultValue",
     "dir",
     "disabled",
@@ -17109,6 +17398,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "draggable",
     "enterKeyHint",
     "exportparts",
+    "flipIcon",
     "form",
     "formAction",
     "formEncType",
@@ -17257,6 +17547,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "onPointerOverCapture",
     "onPointerUp",
     "onPointerUpCapture",
+    "onPressedChange",
     "onProgress",
     "onProgressCapture",
     "onRateChange",
@@ -17309,6 +17600,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "popoverTarget",
     "popoverTargetAction",
     "prefix",
+    "pressed",
     "property",
     "radioGroup",
     "ref",
@@ -17321,6 +17613,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "shape",
     "size",
     "slot",
+    "softDisabled",
     "spellCheck",
     "style",
     "suppressContentEditableWarning",
@@ -17328,6 +17621,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "tabIndex",
     "target",
     "title",
+    "toggle",
     "translate",
     "type",
     "typeof",
@@ -17621,6 +17915,21 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "vocab"
   ],
   "Card": [
+    "as",
+    "className",
+    "variant"
+  ],
+  "CardHeader": [
+    "as",
+    "className",
+    "variant"
+  ],
+  "CardContent": [
+    "as",
+    "className",
+    "variant"
+  ],
+  "CardActions": [
     "as",
     "className",
     "variant"
@@ -18588,6 +18897,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "dir",
     "disabled",
     "draggable",
+    "elevated",
     "enterKeyHint",
     "exportparts",
     "form",
@@ -18883,6 +19193,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "draggable",
     "enterKeyHint",
     "exportparts",
+    "fourColor",
     "hidden",
     "id",
     "inert",
@@ -29807,6 +30118,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "rev",
     "role",
     "security",
+    "size",
     "slot",
     "spellCheck",
     "style",
@@ -29928,6 +30240,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "itemType",
     "key",
     "lang",
+    "lowered",
     "name",
     "nonce",
     "onAbort",
@@ -32753,6 +33066,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "draggable",
     "enterKeyHint",
     "exportparts",
+    "flipIcon",
     "form",
     "formAction",
     "formEncType",
@@ -32774,6 +33088,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "key",
     "label",
     "lang",
+    "loading",
     "name",
     "nonce",
     "onAbort",
@@ -32962,8 +33277,11 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "role",
     "security",
     "selected",
+    "selectedLabel",
+    "shape",
     "size",
     "slot",
+    "softDisabled",
     "spellCheck",
     "style",
     "suppressContentEditableWarning",
@@ -32977,7 +33295,8 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "unselectable",
     "value",
     "variant",
-    "vocab"
+    "vocab",
+    "width"
   ],
   "InputOTPRoot": [
     "about",
@@ -33880,12 +34199,14 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "rev",
     "role",
     "security",
+    "showCounter",
     "size",
     "slot",
     "spellCheck",
     "src",
     "step",
     "style",
+    "suffix",
     "suppressContentEditableWarning",
     "suppressHydrationWarning",
     "tabIndex",
@@ -33895,6 +34216,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "typeof",
     "unselectable",
     "value",
+    "variant",
     "vocab",
     "width"
   ],
@@ -34522,6 +34844,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "autoCorrect",
     "autoFocus",
     "autoSave",
+    "buffer",
     "className",
     "color",
     "content",
@@ -34535,8 +34858,10 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "draggable",
     "enterKeyHint",
     "exportparts",
+    "fourColor",
     "hidden",
     "id",
+    "indeterminate",
     "inert",
     "inlist",
     "inputMode",
@@ -34734,6 +35059,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "security",
     "slot",
     "spellCheck",
+    "stop",
     "style",
     "suppressContentEditableWarning",
     "suppressHydrationWarning",
@@ -34743,7 +35069,8 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "typeof",
     "unselectable",
     "value",
-    "vocab"
+    "vocab",
+    "wavy"
   ],
   "LinkButton": [
     "about",
@@ -34815,6 +35142,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "dangerouslySetInnerHTML",
     "datatype",
     "defaultChecked",
+    "defaultPressed",
     "defaultValue",
     "dir",
     "disabled",
@@ -34822,6 +35150,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "draggable",
     "enterKeyHint",
     "exportparts",
+    "flipIcon",
     "form",
     "formAction",
     "formEncType",
@@ -34970,6 +35299,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "onPointerOverCapture",
     "onPointerUp",
     "onPointerUpCapture",
+    "onPressedChange",
     "onProgress",
     "onProgressCapture",
     "onRateChange",
@@ -35022,6 +35352,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "popoverTarget",
     "popoverTargetAction",
     "prefix",
+    "pressed",
     "property",
     "radioGroup",
     "ref",
@@ -35034,6 +35365,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "shape",
     "size",
     "slot",
+    "softDisabled",
     "spellCheck",
     "style",
     "suppressContentEditableWarning",
@@ -35041,6 +35373,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "tabIndex",
     "target",
     "title",
+    "toggle",
     "translate",
     "typeof",
     "unselectable",
@@ -35321,6 +35654,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "rev",
     "role",
     "security",
+    "selected",
     "slot",
     "spellCheck",
     "style",
@@ -35689,6 +36023,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "dangerouslySetInnerHTML",
     "datatype",
     "defaultChecked",
+    "defaultPressed",
     "defaultValue",
     "dir",
     "disabled",
@@ -35696,6 +36031,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "draggable",
     "enterKeyHint",
     "exportparts",
+    "flipIcon",
     "form",
     "formAction",
     "formEncType",
@@ -35844,6 +36180,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "onPointerOverCapture",
     "onPointerUp",
     "onPointerUpCapture",
+    "onPressedChange",
     "onProgress",
     "onProgressCapture",
     "onRateChange",
@@ -35896,6 +36233,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "popoverTarget",
     "popoverTargetAction",
     "prefix",
+    "pressed",
     "property",
     "radioGroup",
     "ref",
@@ -35908,6 +36246,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "shape",
     "size",
     "slot",
+    "softDisabled",
     "spellCheck",
     "style",
     "suppressContentEditableWarning",
@@ -35915,6 +36254,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "tabIndex",
     "target",
     "title",
+    "toggle",
     "translate",
     "type",
     "typeof",
@@ -47834,6 +48174,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "typeof",
     "unselectable",
     "value",
+    "variant",
     "vocab"
   ],
   "SelectContent": [
@@ -49317,6 +49658,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "inert",
     "inlist",
     "inputMode",
+    "inset",
     "is",
     "itemID",
     "itemProp",
@@ -59635,6 +59977,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "results",
     "rev",
     "role",
+    "rows",
     "security",
     "size",
     "slot",
@@ -59651,17 +59994,18 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "typeof",
     "unselectable",
     "value",
+    "variant",
     "vocab",
     "width"
   ],
   "TimePicker": [
     "className",
     "defaultValue",
-    "dial",
     "format",
     "formatValue",
     "label",
     "onValueChange",
+    "presentation",
     "step",
     "testID",
     "value"

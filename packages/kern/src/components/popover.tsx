@@ -37,7 +37,7 @@ export function PopoverContent({ className, ...props }: PopoverContentProps) {
         <PopoverPrimitive.Popup
           data-slot="popover-content"
           className={cnState(
-            "kern-popover-popup w-64 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline) bg-(--md-sys-color-surface) p-4 text-sm text-(--md-sys-color-on-surface) shadow-(--md-sys-elevation-level2) outline-none",
+            "kern-popover-popup w-64 rounded-(--md-sys-shape-corner-extra-small) bg-(--md-sys-color-surface-container) p-4 text-sm text-(--md-sys-color-on-surface) shadow-(--md-sys-elevation-level2) outline-none",
             className,
           )}
           {...props}

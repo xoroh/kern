@@ -12,7 +12,7 @@ export const buttonGroup: ComponentDoc = {
     status: "real",
     package: "@xoroh/kern",
     nativePeer: "ButtonGroup",
-    variants: ["orientation: horizontal · vertical"],
+    variants: ["variant: connected · standard", "orientation: horizontal · vertical"],
     elevation: "surface",
   },
   parts: ["ButtonGroup"],
@@ -23,11 +23,17 @@ export const buttonGroup: ComponentDoc = {
       "Children keep their own `variant`, so the group decides the join and the buttons decide the emphasis.",
     ],
     notSupported: [
-      "There is no `variant` or `size` prop on the group. Those belong to the buttons inside it.",
-      "There is no `attached` toggle. Joined is the whole point; separate buttons are separate buttons.",
+      "There is no `size` prop on the group. Size belongs to the buttons inside it.",
+      "There is no `attached` toggle. Joined is the whole point of `connected`; separate buttons are `standard`.",
     ],
   },
   api: [
+    {
+      name: "variant",
+      type: '"connected" | "standard"',
+      default: '"connected"',
+      note: "M3 Expressive group variant. Connected joins into one control (the expressive successor to the segmented button — use toggle Button children so selection morphs read as the group's state); standard spaces the buttons as individuals.",
+    },
     {
       name: "orientation",
       type: '"horizontal" | "vertical"',

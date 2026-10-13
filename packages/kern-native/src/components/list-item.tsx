@@ -14,7 +14,10 @@ import {
 } from "react-native";
 import { useKernTheme } from "../theme";
 
-export function listItemStyles(scheme: ResolvedTheme = resolveThemeDetails()): {
+export function listItemStyles(
+  scheme: ResolvedTheme = resolveThemeDetails(),
+  selected = false,
+): {
   row: ViewStyle;
   title: TextStyle;
   supporting: TextStyle;
@@ -25,8 +28,18 @@ export function listItemStyles(scheme: ResolvedTheme = resolveThemeDetails()): {
       flexDirection: "row" as const,
       alignItems: "center" as const,
       gap: Number.parseFloat(tokens.spacing["space-150"]),
+      // M3 selected list item: secondary-container fill, 16dp corners.
+      ...(selected
+        ? {
+            backgroundColor: scheme.color.secondaryContainer,
+            borderRadius: 16,
+          }
+        : null),
     },
-    title: { fontSize: 14, color: scheme.color.onSurface },
+    title: {
+      fontSize: 14,
+      color: selected ? scheme.color.onSecondaryContainer : scheme.color.onSurface,
+    },
     supporting: { fontSize: 12, color: scheme.color.onSurfaceVariant },
   };
 }
@@ -40,6 +53,11 @@ export type NativeListItemProps = Omit<
   onPress?: PressableProps["onPress"];
   accessibilityLabel?: string;
   accessibilityRole?: PressableProps["accessibilityRole"];
+  /**
+   * M3 selected state: secondary-container fill with 16dp corners, ink
+   * on-secondary-container.
+   */
+  selected?: boolean;
   style?: PressableProps["style"];
   contentStyle?: StyleProp<ViewStyle>;
   titleStyle?: StyleProp<TextStyle>;
@@ -53,13 +71,14 @@ export function ListItem({
   testID,
   onPress,
   disabled,
+  selected = false,
   accessibilityLabel,
   accessibilityRole,
   style,
   ...props
 }: NativeListItemProps) {
   const { scheme } = useKernTheme();
-  const styles = listItemStyles(scheme);
+  const styles = listItemStyles(scheme, selected);
   return (
     <Pressable
       {...props}

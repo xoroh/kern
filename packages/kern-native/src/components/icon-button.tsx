@@ -1,10 +1,15 @@
-import { useControllableState } from "@xoroh/kern-primitives";
+import {
+  mergeSlotProps,
+  type SlotProps,
+  useControllableState,
+} from "@xoroh/kern-primitives";
 import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
-import type { ReactNode } from "react";
+import { cloneElement, isValidElement, type ReactNode } from "react";
 import {
   Pressable,
   type PressableProps,
   type StyleProp,
+  type TextStyle,
   View,
   type ViewStyle,
 } from "react-native";
@@ -48,29 +53,62 @@ import { useKernScheme } from "../theme";
 
 export type IconButtonVariant = "standard" | "filled" | "tonal" | "outlined";
 
+/**
+ * M3 Expressive icon-button sizes: XS 32dp, S 40dp (default), M 56dp,
+ * L 96dp, XL 136dp. Narrow/wide widths are a web layout concern; the native
+ * box is always square.
+ */
+export type NativeIconButtonSize = "xs" | "default" | "md" | "lg" | "xl";
+
+const ICON_BUTTON_BOX: Record<NativeIconButtonSize, number> = {
+  xs: 32,
+  default: 40,
+  md: 56,
+  lg: 96,
+  xl: 136,
+};
+
 export function iconButtonStyles(
   variant: IconButtonVariant,
   pressed: boolean,
   disabled: boolean,
   scheme: ResolvedTheme = resolveThemeDetails(),
+  size: NativeIconButtonSize = "default",
 ): ViewStyle {
+  const box = ICON_BUTTON_BOX[size];
   const base: ViewStyle = {
-    width: 40,
-    height: 40,
+    width: box,
+    height: box,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: Number.parseFloat(scheme.shape.full),
     opacity: disabled ? 0.38 : 1,
   };
 
-  // A pressed toggle changes appearance only in the toggling variants. For
-  // `standard`/`outlined` the pressed colour would fight the container, and the
-  // state is already carried by `accessibilityState.selected`.
+  // M3 toggle-selected treatments per style (mirrors the web compounds):
+  // standard gains the primary icon with no fill; filled lands on the
+  // primary fill; tonal on the secondary container; outlined on the
+  // inverse surface with no border.
   if (pressed) {
-    return {
-      ...base,
-      backgroundColor: scheme.color.secondaryContainer,
-    };
+    switch (variant) {
+      case "filled":
+        return {
+          ...base,
+          backgroundColor: scheme.color.primary,
+        };
+      case "tonal":
+        return {
+          ...base,
+          backgroundColor: scheme.color.secondaryContainer,
+        };
+      case "outlined":
+        return {
+          ...base,
+          backgroundColor: scheme.color.inverseSurface,
+        };
+      default:
+        return base;
+    }
   }
 
   switch (variant) {
@@ -92,6 +130,36 @@ export function iconButtonStyles(
       };
     default:
       return base;
+  }
+}
+
+/**
+ * Icon ink for the variant + toggle state. Mirrors the web `text-*` roles:
+ * the icon always pairs with its container, so contrast holds no matter
+ * which treatment or state renders.
+ */
+export function iconButtonIconColor(
+  variant: IconButtonVariant,
+  pressed: boolean,
+  scheme: ResolvedTheme = resolveThemeDetails(),
+): string {
+  if (pressed) {
+    switch (variant) {
+      case "filled":
+        return scheme.color.onPrimary;
+      case "tonal":
+        return scheme.color.onSecondaryContainer;
+      case "outlined":
+        return scheme.color.inverseOnSurface;
+      default:
+        return scheme.color.primary;
+    }
+  }
+  switch (variant) {
+    case "filled":
+      return scheme.color.primary;
+    default:
+      return scheme.color.onSurfaceVariant;
   }
 }
 
@@ -129,6 +197,8 @@ export type NativeIconButtonProps = Omit<
   label: string;
   /** Container variant. */
   variant?: IconButtonVariant;
+  /** M3 Expressive size: XS 32dp up to XL 136dp. Defaults to the 40dp S. */
+  size?: NativeIconButtonSize;
   /** The icon element. */
   children?: ReactNode;
   /** Toggle form: controlled pressed state. */
@@ -153,6 +223,7 @@ export type NativeIconButtonProps = Omit<
 export function IconButton({
   label,
   variant = "standard",
+  size = "default",
   children,
   pressed: pressedProp,
   defaultPressed = false,
@@ -181,7 +252,20 @@ export function IconButton({
   // practice, but the type says it can be, and `selected: undefined` would ship
   // an indeterminate state to assistive tech.
   const isPressed = isPressedRaw ?? false;
-  const styles = iconButtonStyles(variant, isPressed, disabled, scheme);
+  const box = ICON_BUTTON_BOX[size];
+  const styles = iconButtonStyles(variant, isPressed, disabled, scheme, size);
+  // The icon always pairs with its container (M3 tonal pairing): an
+  // explicitly-colored icon is untouched, a bare one tints with the role.
+  const tinted =
+    isValidElement<{ style?: StyleProp<TextStyle> }>(children)
+      ? cloneElement(
+          children,
+          mergeSlotProps<SlotProps>(
+            { style: { color: iconButtonIconColor(variant, isPressed, scheme) } },
+            children.props,
+          ),
+        )
+      : children;
 
   return (
     <Pressable
@@ -192,8 +276,16 @@ export function IconButton({
       accessibilityLabel={label}
       accessibilityState={{ selected: isPressed, disabled }}
       disabled={disabled}
-      // 40dp visual box, 48dp hit area.
-      hitSlop={hitSlop ?? { top: 4, bottom: 4, left: 4, right: 4 }}
+      // Visual box per size; hitSlop widens the small boxes out to the 48dp
+      // minimum, larger boxes already clear it.
+      hitSlop={
+        hitSlop ?? {
+          top: Math.max(0, (48 - box) / 2),
+          bottom: Math.max(0, (48 - box) / 2),
+          left: Math.max(0, (48 - box) / 2),
+          right: Math.max(0, (48 - box) / 2),
+        }
+      }
       onPress={(event) => {
         onPress?.(event);
         // Honour the preventDefault contract the rest of kern uses: a host that
@@ -206,7 +298,7 @@ export function IconButton({
         typeof style === "function" ? style({ pressed }) : style,
       ]}
     >
-      {children}
+      {tinted}
     </Pressable>
   );
 }

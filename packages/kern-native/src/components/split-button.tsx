@@ -165,7 +165,7 @@ export function SplitButton({
           style={({ pressed }) => [
             staticStyles.primary,
             styles.primary,
-            { opacity: disabled ? 0.5 : pressed ? 0.9 : 1 },
+            { opacity: disabled ? 0.38 : pressed ? 0.9 : 1 },
           ]}
         >
           <View
@@ -201,7 +201,7 @@ export function SplitButton({
               style={({ pressed }) => [
                 staticStyles.overflow,
                 styles.overflow,
-                { opacity: disabled ? 0.5 : pressed || open ? 0.9 : 1 },
+                { opacity: disabled ? 0.38 : pressed || open ? 0.9 : 1 },
               ]}
             >
               {/* The chevron is decoration: the half's accessible name comes
@@ -265,7 +265,7 @@ export function SplitButton({
                         backgroundColor: pressed
                           ? scheme.color.surfaceContainerHighest
                           : "transparent",
-                        opacity: action.disabled ? 0.5 : 1,
+                        opacity: action.disabled ? 0.38 : 1,
                       },
                     ]}
                   >

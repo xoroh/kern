@@ -1,12 +1,19 @@
 /**
  * The theme studio — one app for theme configuration and per-family knobs.
  *
- * WHAT IT IS: the Playground's destination. The five knobs live in the URL
+ * WHAT IT IS: the Playground's destination. The theme axes live in the URL
  * first (`studio-state`), so a shared link reopens the exact theme and a
- * refresh keeps it. The sidebar is the R3 wireframe top to bottom (presets
- * → brand seed → shape → mode/contrast → export); the stage judges the
- * theme across surfaces, not one card; below it, a per-family configurator
- * panel puts the component knobs in the same app.
+ * refresh keeps it. The sidebar is the M3 canon section order top to bottom
+ * (Presets → Seed color → Contrast → Scheme → Shape → Elevation → Export);
+ * the stage judges the theme across surfaces, not one card; below it, a
+ * per-family configurator panel puts the component knobs in the same app.
+ *
+ * STATE MODEL: three explicit, independent axes — `preset`, `mode`
+ * (light/dark), `contrast` (standard/medium/high) — plus the seed and shape
+ * scalars. Each axis has ONE named setter below (`setPreset`, `setMode`,
+ * `setContrast`…); no axis is ever derived from another. The URL/storage
+ * contract still serialises mode as `dark=1/0` (see `studio-state`), but the
+ * UI reads and writes it as `mode` exactly once per setter.
  *
  * PRESET PICKER (presentation-only split):
  *   01 base rows (kern / sharp / compact) with live swatches,
@@ -48,25 +55,50 @@ import { seedOverrides } from "../../theme-studio/seed";
 import {
   isHex6,
   STUDIO_DEFAULTS,
+  type StudioContrast,
   type StudioState,
 } from "../../theme-studio/studio-state";
 import {
   T_BODY_SM,
+  T_CODE,
   T_LABEL,
   T_SECTION,
   T_SMALL_TITLE,
 } from "../shared/systems/type-scale";
+import {
+  CARD,
+  FOCUS_RING,
+  INK,
+  INK_SOFT,
+  LINK,
+  PILL_ACTIVE,
+  PILL_REST,
+  STATE_LAYERS,
+  TRANSITION,
+} from "../shared/systems/ui";
 
-const INK = "text-(--md-sys-color-on-surface)";
-const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";
-const PANEL =
-  "rounded-(--md-sys-shape-corner-large) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-low) p-5";
-const FIELD = `m-0 ${T_LABEL} ${INK_SOFT} uppercase`;
+/* ---------------------------------------------------------------- kit ---- */
+
+/** One sidebar/panel group: a tonal section (surface-container-low, small corner). */
+const GROUP =
+  "flex flex-col gap-3 rounded-(--md-sys-shape-corner-large-increased) bg-(--md-sys-color-surface-container) p-5";
+/** Field/group label — sentence case, label-small, secondary ink. */
+const FIELD = `m-0 ${T_LABEL} ${INK_SOFT}`;
 const DOT = "block size-4 rounded-full border border-black/20";
-const SEG_WRAP =
-  "flex gap-1 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container) p-1";
-const SEG_ON = `flex-1 rounded-(--md-sys-shape-corner-extra-small) bg-(--md-sys-color-primary) px-2 py-1.5 text-center ${T_BODY_SM} text-(--md-sys-color-on-primary)`;
-const SEG_OFF = `flex-1 rounded-(--md-sys-shape-corner-extra-small) px-2 py-1.5 text-center ${T_BODY_SM} ${INK_SOFT} hover:bg-(--md-sys-color-surface-container-high)`;
+/** A picker row: ≥48dp, transparent at rest with the shared state layers. */
+const ROW = `flex min-h-12 w-full cursor-pointer items-center gap-2.5 rounded-(--md-sys-shape-corner-small) px-3 text-left ${T_BODY_SM} ${INK_SOFT} ${STATE_LAYERS} ${TRANSITION} hover:text-(--md-sys-color-on-surface) ${FOCUS_RING}`;
+/** Selected row — the selected pair (secondary-container), never border + fill. */
+const ROW_ON = `bg-(--md-sys-color-secondary-container) text-(--md-sys-color-on-secondary-container)`;
+/** Segmented control container — hairline only, no fill (one expression). */
+const SEG_WRAP = `flex gap-1 rounded-(--md-sys-shape-corner-full) bg-(--md-sys-color-surface-container-high) p-1`;
+/** One segment: ≥48dp, state layers, small corner. */
+const SEG = `flex min-h-12 flex-1 cursor-pointer items-center justify-center px-3 ${T_BODY_SM} ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`;
+const SEG_ON = `rounded-(--md-sys-shape-corner-full) bg-(--md-sys-color-secondary-container) text-(--md-sys-color-on-secondary-container)`;
+const SEG_OFF = `rounded-(--md-sys-shape-corner-full) ${INK_SOFT} hover:text-(--md-sys-color-on-surface)`;
+/** A shape chip — pill geometry, selected uses the kit's selected pair. */
+const CHIP = `inline-flex min-h-12 cursor-pointer items-center px-3 ${T_BODY_SM} ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`;
+/** A code/token literal line. */
+const CODE_LINE = `m-0 ${T_CODE} ${INK_SOFT}`;
 
 const CATALOG = (
   catalogJson as { themes: { id: string; name: string; description: string }[] }
@@ -106,6 +138,9 @@ const SHAPE_CHIPS = [
 const NEW_BRAND_ID = "brand";
 const BASE_PRESET_IDS = ["kern", "sharp", "compact"] as const;
 
+/** The light/dark axis, named — never read as a derived boolean downstream. */
+type StudioMode = "light" | "dark";
+
 type SwatchRow = {
   id: string;
   primary: string;
@@ -125,19 +160,44 @@ export function ThemeStudio({
   const [seedText, setSeedText] = useState(seedHex);
   const [family, setFamily] = useState<string>("Button");
 
+  /* -------------------------------------------------- the three axes ---- */
+
+  /**
+   * The theme axes, each explicit. `mode` is ONE value read here (from the
+   * URL contract's `dark` flag) and consumed as `axes.mode` everywhere — no
+   * call site re-derives it, and preset/contrast are never inferred from it.
+   */
+  const axes = useMemo(
+    () => ({
+      preset,
+      mode: (dark ? "dark" : "light") as StudioMode,
+      contrast,
+    }),
+    [preset, dark, contrast],
+  );
+
+  /* Named setters — one per knob. No `onChange({ ...state, … })` spread
+     reaches a control; each axis is written by name only. */
+  const setSeed = (seed: string) => onChange({ ...state, seed });
+  const setPreset = (nextPreset: string) =>
+    onChange({ ...state, preset: nextPreset });
+  const setMode = (mode: StudioMode) =>
+    onChange({ ...state, dark: mode === "dark" });
+  const setContrast = (next: StudioContrast) =>
+    onChange({ ...state, contrast: next });
+  const setRadius = (next: number) => onChange({ ...state, radius: next });
+
   // Typing an invalid hex keeps the last good ramp — the preview never reads
   // a value makeHueRamp would reject.
   function onSeedText(v: string) {
     setSeedText(v);
-    if (isHex6(v)) onChange({ ...state, seed: v.toLowerCase() });
+    if (isHex6(v)) setSeed(v.toLowerCase());
   }
 
   function reset() {
     setSeedText(STUDIO_DEFAULTS.seed);
     onChange({ ...STUDIO_DEFAULTS });
   }
-
-  const mode = dark ? "dark" : "light";
 
   // Scheme choices from BOTH authorities: built-in ThemeIds always resolve;
   // registry variants (`registerVariant`) appear here with no site edit.
@@ -167,8 +227,8 @@ export function ThemeStudio({
           ? id
           : getVariant(id);
         const color = resolveThemeDetails(
-          mode,
-          contrast,
+          axes.mode,
+          axes.contrast,
           selection as never,
         ).color;
         return {
@@ -179,7 +239,7 @@ export function ThemeStudio({
           badge: tenantIds.includes(id) ? ("session" as const) : undefined,
         };
       }),
-    [allIds, tenantIds, mode, contrast],
+    [allIds, tenantIds, axes.mode, axes.contrast],
   );
 
   const theme: CustomTheme = useMemo(() => {
@@ -212,15 +272,15 @@ export function ThemeStudio({
   }, [seedHex, preset, contrast, radius]);
 
   const resolved = useMemo(() => {
-    const scheme = resolveThemeLayers(mode, contrast, preset).scheme;
+    const scheme = resolveThemeLayers(axes.mode, axes.contrast, preset).scheme;
     return {
-      color: { ...scheme, ...(theme.overrides.color?.[mode] ?? {}) },
+      color: { ...scheme, ...(theme.overrides.color?.[axes.mode] ?? {}) },
       shape: theme.overrides.shape ?? {},
     };
-  }, [mode, contrast, preset, theme]);
+  }, [axes.mode, axes.contrast, preset, theme]);
 
   const vars = useMemo(() => {
-    const out: Record<string, string> = { colorScheme: mode };
+    const out: Record<string, string> = { colorScheme: axes.mode };
     for (const [role, value] of Object.entries(resolved.color)) {
       out[varName(role)] = value;
     }
@@ -228,7 +288,7 @@ export function ThemeStudio({
       out[shapeVarName(role)] = value;
     }
     return out;
-  }, [resolved, mode]);
+  }, [resolved, axes.mode]);
 
   const jsonSource = useMemo(
     () =>
@@ -275,15 +335,15 @@ export const studioTheme = defineThemePreset({
   const row = (r: SwatchRow): ReactNode => {
     const selected = preset === r.id;
     return (
-      // biome-ignore lint/a11y/useSemanticElements: ARIA radio pattern over styled picker buttons — a native radio cannot carry the swatch/segment treatment, and these are pickers, not a form's radio set.
+      // biome-ignore lint/a11y/useSemanticElements: ARIA radio pattern over styled picker buttons — a native radio cannot carry the swatch treatment, and these are pickers, not a form's radio set.
       <button
         key={r.id}
         type="button"
         role="radio"
         aria-checked={selected}
-        onClick={() => onChange({ ...state, preset: r.id })}
+        onClick={() => setPreset(r.id)}
         title={presetDescription(r.id)}
-        className={`flex w-full cursor-pointer items-center gap-2.5 rounded-(--md-sys-shape-corner-small) border px-3 py-2 text-left outline-none transition-colors focus-visible:ring-2 focus-visible:ring-(--md-sys-color-primary) focus-visible:ring-offset-2 focus-visible:ring-offset-(--md-sys-color-surface-container-low) ${selected ? "border-(--md-sys-color-primary) bg-(--md-sys-color-primary-container)" : "border-(--md-sys-color-outline-variant) bg-transparent hover:bg-(--md-sys-color-surface-container-high)"}`}
+        className={`${ROW} ${selected ? ROW_ON : ""}`}
       >
         <span aria-hidden="true" className="flex shrink-0 items-center gap-1">
           <span className={DOT} style={{ backgroundColor: r.primary }} />
@@ -293,9 +353,7 @@ export const studioTheme = defineThemePreset({
             style={{ backgroundColor: r.surfaceContainer }}
           />
         </span>
-        <span className={`${T_BODY_SM} ${selected ? INK : INK_SOFT}`}>
-          {presetLabel(r.id)}
-        </span>
+        <span className={selected ? INK : undefined}>{presetLabel(r.id)}</span>
         {r.badge === "session" ? (
           <span
             className={`ml-auto rounded-(--md-sys-shape-corner-full) border border-(--md-sys-color-outline-variant) px-2 py-0.5 ${T_LABEL} ${INK_SOFT}`}
@@ -310,37 +368,39 @@ export const studioTheme = defineThemePreset({
   const familySpec = configuratorFor(family);
 
   return (
-    <div className="grid grid-cols-1 gap-6 lg:grid-cols-[280px_1fr]">
-      {/* SIDEBAR — 280px theme builder, top to bottom (R3 wireframe) */}
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-[300px_1fr]">
+      {/* SIDEBAR — 300px theme builder, M3 canon order (Presets → Seed
+          color → Contrast → Scheme → Shape → Elevation → Export) */}
       <aside
         aria-label="Theme controls"
-        className="flex h-fit w-full flex-col lg:w-[280px]"
+        className="flex h-fit w-full flex-col lg:w-[300px]"
       >
-        <div className={`flex flex-col gap-5 ${PANEL}`}>
+        <div className={`flex flex-col gap-4 ${CARD} p-5`}>
           <h2 id="controls" className={`m-0 ${T_SMALL_TITLE} ${INK}`}>
             Theme builder
           </h2>
 
-          {/* 01 — preset rows with live swatches + "+ New brand…" + tenants */}
-          <div className="flex flex-col gap-2">
+          {/* Presets — rows with live swatches + "+ New brand…" + tenants */}
+          <div className={GROUP}>
             <span id="preset-label" className={FIELD}>
-              01 · Scheme preset
+              Presets
             </span>
             <div
               role="radiogroup"
               aria-labelledby="preset-label"
-              className="flex flex-col gap-1.5"
+              className="flex flex-col gap-1"
             >
               {swatchRows
                 .filter((r) => BASE_PRESET_IDS.includes(r.id as never))
                 .map(row)}
               <button
                 type="button"
-                onClick={() => onChange({ ...state, preset: NEW_BRAND_ID })}
+                onClick={() => setPreset(NEW_BRAND_ID)}
                 title="Start a brand preset from the empty template — the export is prefilled as themes/brand.json"
-                className={`flex w-full cursor-pointer items-center gap-2.5 rounded-(--md-sys-shape-corner-small) border border-dashed border-(--md-sys-color-outline) px-3 py-2 text-left outline-none transition-colors focus-visible:ring-2 focus-visible:ring-(--md-sys-color-primary) ${preset === NEW_BRAND_ID ? "bg-(--md-sys-color-primary-container)" : "bg-transparent hover:bg-(--md-sys-color-surface-container-high)"}`}
+                className={`${ROW} ${preset === NEW_BRAND_ID ? ROW_ON : ""}`}
               >
-                <span className={`${T_BODY_SM} ${INK}`}>+ New brand…</span>
+                <span aria-hidden="true">+</span>
+                <span>New brand…</span>
               </button>
               {tenantIds.length > 0 ? (
                 <>
@@ -351,16 +411,18 @@ export const studioTheme = defineThemePreset({
             </div>
           </div>
 
-          {/* 02 — brand seed, one line above the fold */}
-          <div className="flex flex-col gap-2">
-            <span className={FIELD}>02 · Brand seed</span>
+          {/* Seed color — one line above the fold */}
+          <div className={GROUP}>
+            <span id="seed-label" className={FIELD}>
+              Seed color
+            </span>
             <span className="flex items-center gap-2">
               <input
                 type="color"
                 aria-label="Primary seed color"
                 value={isHex6(seedText) ? seedText : seedHex}
                 onChange={(e) => onSeedText(e.target.value)}
-                className="h-9 w-14 cursor-pointer rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant) bg-transparent p-1"
+                className="h-12 w-16 cursor-pointer rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant) bg-transparent p-1"
               />
               <input
                 type="text"
@@ -368,14 +430,16 @@ export const studioTheme = defineThemePreset({
                 value={seedText}
                 spellCheck={false}
                 onChange={(e) => onSeedText(e.target.value)}
-                className={`w-24 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant) bg-transparent px-2 py-1 font-mono ${T_BODY_SM} ${INK}`}
+                className={`min-h-12 w-28 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant) bg-transparent px-2 font-mono ${T_BODY_SM} ${INK} ${FOCUS_RING}`}
               />
             </span>
             <p className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
               Repaints the primary family; the preset keeps the rest.
             </p>
             <details>
-              <summary className={`cursor-pointer ${T_BODY_SM} ${INK_SOFT}`}>
+              <summary
+                className={`flex min-h-12 cursor-pointer items-center ${T_BODY_SM} ${INK} ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`}
+              >
                 What does the seed change?
               </summary>
               <p className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
@@ -387,87 +451,8 @@ export const studioTheme = defineThemePreset({
             </details>
           </div>
 
-          {/* 03 — shape chips + slider */}
-          <div className="flex flex-col gap-2">
-            <span id="shape-label" className={FIELD}>
-              03 · Shape — {radius.toFixed(2)}x
-            </span>
-            <div
-              role="radiogroup"
-              aria-labelledby="shape-label"
-              className="flex flex-wrap gap-1.5"
-            >
-              {SHAPE_CHIPS.map((chip) => {
-                const selected = radius === chip.factor;
-                return (
-                  // biome-ignore lint/a11y/useSemanticElements: ARIA radio pattern over styled picker buttons — a native radio cannot carry the swatch/segment treatment, and these are pickers, not a form's radio set.
-                  <button
-                    key={chip.label}
-                    type="button"
-                    role="radio"
-                    aria-checked={selected}
-                    onClick={() => onChange({ ...state, radius: chip.factor })}
-                    className={`cursor-pointer rounded-full border px-3 py-1 outline-none transition-colors focus-visible:ring-2 focus-visible:ring-(--md-sys-color-primary) focus-visible:ring-offset-2 focus-visible:ring-offset-(--md-sys-color-surface-container-low) ${T_BODY_SM} ${selected ? "border-(--md-sys-color-primary) bg-(--md-sys-color-primary) text-(--md-sys-color-on-primary)" : "border-(--md-sys-color-outline-variant) bg-transparent text-(--md-sys-color-on-surface-variant) hover:bg-(--md-sys-color-surface-container-high)"}`}
-                  >
-                    {chip.label} {chip.factor}x
-                  </button>
-                );
-              })}
-            </div>
-            <input
-              type="range"
-              aria-label="Corner radius scale factor"
-              min={0.5}
-              max={2}
-              step={0.25}
-              value={radius}
-              onChange={(e) =>
-                onChange({ ...state, radius: Number(e.target.value) })
-              }
-              className="h-2 w-full cursor-pointer appearance-none rounded-full bg-(--md-sys-color-surface-container-highest) accent-(--md-sys-color-primary) outline-none focus-visible:ring-2 focus-visible:ring-(--md-sys-color-primary) focus-visible:ring-offset-2 focus-visible:ring-offset-(--md-sys-color-surface-container-low) [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-(--md-sys-color-primary) [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-none [&::-moz-range-thumb]:bg-(--md-sys-color-primary)"
-            />
-            <p className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
-              Scales px corners; `full` passes through.
-            </p>
-          </div>
-
-          {/* 04 — mode + contrast segmented */}
-          <div className="flex flex-col gap-2">
-            <span id="mode-label" className={FIELD}>
-              04 · Mode
-            </span>
-            <div
-              role="radiogroup"
-              aria-labelledby="mode-label"
-              className={SEG_WRAP}
-            >
-              {(
-                [
-                  {
-                    label: "Light",
-                    active: !dark,
-                    onPick: () => onChange({ ...state, dark: false }),
-                  },
-                  {
-                    label: "Dark",
-                    active: dark,
-                    onPick: () => onChange({ ...state, dark: true }),
-                  },
-                ] as const
-              ).map((opt) => (
-                // biome-ignore lint/a11y/useSemanticElements: ARIA radio pattern over styled picker buttons — a native radio cannot carry the swatch/segment treatment, and these are pickers, not a form's radio set.
-                <button
-                  key={opt.label}
-                  type="button"
-                  role="radio"
-                  aria-checked={opt.active}
-                  onClick={opt.onPick}
-                  className={`cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-(--md-sys-color-primary) focus-visible:ring-inset ${opt.active ? SEG_ON : SEG_OFF}`}
-                >
-                  {opt.label}
-                </button>
-              ))}
-            </div>
+          {/* Contrast — standard / medium / high */}
+          <div className={GROUP}>
             <span id="contrast-label" className={FIELD}>
               Contrast
             </span>
@@ -477,35 +462,133 @@ export const studioTheme = defineThemePreset({
               className={SEG_WRAP}
             >
               {(["standard", "medium", "high"] as const).map((c) => (
-                // biome-ignore lint/a11y/useSemanticElements: ARIA radio pattern over styled picker buttons — a native radio cannot carry the swatch/segment treatment, and these are pickers, not a form's radio set.
+                // biome-ignore lint/a11y/useSemanticElements: ARIA radio pattern over styled picker buttons — a native radio cannot carry the segment treatment, and these are pickers, not a form's radio set.
                 <button
                   key={c}
                   type="button"
                   role="radio"
                   aria-checked={contrast === c}
-                  onClick={() => onChange({ ...state, contrast: c })}
-                  className={`cursor-pointer capitalize outline-none focus-visible:ring-2 focus-visible:ring-(--md-sys-color-primary) focus-visible:ring-inset ${contrast === c ? SEG_ON : SEG_OFF}`}
+                  onClick={() => setContrast(c)}
+                  className={`${SEG} ${contrast === c ? SEG_ON : SEG_OFF}`}
                 >
-                  {c}
+                  {c[0].toUpperCase()}
+                  {c.slice(1)}
                 </button>
               ))}
             </div>
           </div>
 
-          {/* 05 — sticky export footer */}
-          <div className="sticky bottom-0 -mx-5 -mb-5 flex flex-col gap-2 border-t border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-low) px-5 pt-4 pb-5">
-            <span className={FIELD}>05 · Export</span>
+          {/* Scheme — light / dark */}
+          <div className={GROUP}>
+            <span id="scheme-label" className={FIELD}>
+              Scheme
+            </span>
+            <div
+              role="radiogroup"
+              aria-labelledby="scheme-label"
+              className={SEG_WRAP}
+            >
+              {(
+                [
+                  { label: "Light", mode: "light" as const },
+                  { label: "Dark", mode: "dark" as const },
+                ] as const
+              ).map((opt) => (
+                // biome-ignore lint/a11y/useSemanticElements: ARIA radio pattern over styled picker buttons — a native radio cannot carry the segment treatment, and these are pickers, not a form's radio set.
+                <button
+                  key={opt.mode}
+                  type="button"
+                  role="radio"
+                  aria-checked={axes.mode === opt.mode}
+                  onClick={() => setMode(opt.mode)}
+                  className={`${SEG} ${axes.mode === opt.mode ? SEG_ON : SEG_OFF}`}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Shape — chips + slider */}
+          <div className={GROUP}>
+            <span id="shape-label" className={FIELD}>
+              Shape — {radius.toFixed(2)}x
+            </span>
+            <div
+              role="radiogroup"
+              aria-labelledby="shape-label"
+              className="flex flex-wrap gap-1.5"
+            >
+              {SHAPE_CHIPS.map((chip) => {
+                const selected = radius === chip.factor;
+                return (
+                  // biome-ignore lint/a11y/useSemanticElements: ARIA radio pattern over styled picker buttons — a native radio cannot carry the chip treatment, and these are pickers, not a form's radio set.
+                  <button
+                    key={chip.label}
+                    type="button"
+                    role="radio"
+                    aria-checked={selected}
+                    onClick={() => setRadius(chip.factor)}
+                    className={`${CHIP} ${selected ? PILL_ACTIVE : PILL_REST}`}
+                  >
+                    {chip.label} {chip.factor}x
+                  </button>
+                );
+              })}
+            </div>
+            {/* The slider keeps a 48dp target: the input spans the full
+                height; the visible track is a pointer-events-none strip
+                behind it. */}
+            <div className="relative flex min-h-12 items-center">
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-x-0 h-1 rounded-full bg-(--md-sys-color-surface-container-highest)"
+              />
+              <input
+                type="range"
+                aria-label="Corner radius scale factor"
+                min={0.5}
+                max={2}
+                step={0.25}
+                value={radius}
+                onChange={(e) => setRadius(Number(e.target.value))}
+                className={`relative h-12 w-full cursor-pointer appearance-none bg-transparent outline-none ${FOCUS_RING} [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-(--md-sys-color-primary) [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-none [&::-moz-range-thumb]:bg-(--md-sys-color-primary)`}
+              />
+            </div>
+            <p className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
+              Scales px corners; `full` passes through.
+            </p>
+          </div>
+
+          {/* Elevation — the honest stance: the ramp exists, it belongs to
+              floating layers, and the studio deliberately has no knob. */}
+          <div className={GROUP}>
+            <span id="elevation-label" className={FIELD}>
+              Elevation
+            </span>
+            <p className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
+              Elevation is the M3 shadow ramp, and shadows belong to floating
+              layers only — menus, dialogs, drawers. Resting content is flat by
+              law, so the preview carries no resting shadow and this studio
+              ships no elevation knob.
+            </p>
+            <p className={CODE_LINE}>--md-sys-elevation-level0 … level5</p>
+          </div>
+
+          {/* Export — sticky footer */}
+          <div className="sticky bottom-0 -mx-5 -mb-5 flex flex-col gap-2 border-t border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface) px-5 pt-4 pb-5">
+            <span className={FIELD}>Export</span>
             <p className={`m-0 truncate font-mono ${T_BODY_SM} ${INK_SOFT}`}>
               {exportFile}
             </p>
             <CopyButton text={jsonSource} label="Copy preset .json" />
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <CopyButton text={presetSource} label="Copy TS" />
               <CopyButton text={cssSource} label="Copy CSS" />
               <button
                 type="button"
                 onClick={reset}
-                className={`cursor-pointer rounded-(--md-sys-shape-corner-small) px-2 py-1 ${T_BODY_SM} ${INK_SOFT} underline underline-offset-2 hover:text-(--md-sys-color-on-surface)`}
+                className={`inline-flex min-h-12 cursor-pointer items-center px-2 ${T_BODY_SM} ${LINK} ${TRANSITION} ${FOCUS_RING}`}
               >
                 Reset
               </button>
@@ -522,24 +605,20 @@ export const studioTheme = defineThemePreset({
         <section
           aria-labelledby="preview"
           style={vars as CSSProperties}
-          className="flex flex-col gap-5 rounded-(--md-sys-shape-corner-large) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface) p-6"
+          className={`flex flex-col gap-5 ${CARD} p-6`}
         >
           <Card>
             <div className="flex flex-col gap-3 p-5">
               <div className="flex items-center gap-2">
                 <Badge>New</Badge>
-                <span
-                  className={`font-mono ${T_BODY_SM} text-(--md-sys-color-on-surface)`}
-                >
-                  {mode} · {preset} · radius {radius.toFixed(2)}x
+                <span className={`font-mono ${T_BODY_SM} ${INK}`}>
+                  {axes.mode} · {preset} · radius {radius.toFixed(2)}x
                 </span>
               </div>
               <p className={`m-0 ${T_SECTION} ${INK}`}>
                 Judge the theme across surfaces
               </p>
-              <p
-                className={`m-0 ${T_BODY_SM} text-(--md-sys-color-on-surface-variant)`}
-              >
+              <p className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
                 Primary, onPrimary, container and onContainer follow the seed
                 ramp. Every surface below reads the same roles — one change,
                 everywhere at once.
@@ -579,13 +658,13 @@ export const studioTheme = defineThemePreset({
         <h2 id="family-knobs" className={`m-0 ${T_SMALL_TITLE} ${INK}`}>
           Component knobs
         </h2>
-        <div className={`flex flex-col gap-3 ${PANEL}`}>
+        <div className={`flex flex-col gap-3 ${CARD} p-5`}>
           <label className={`flex flex-col gap-1 ${T_BODY_SM} ${INK_SOFT}`}>
             Family
             <select
               value={family}
               onChange={(e) => setFamily(e.target.value)}
-              className={`rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant) bg-transparent px-2 py-1.5 ${T_BODY_SM} ${INK}`}
+              className={`min-h-12 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant) bg-transparent px-2 ${T_BODY_SM} ${INK} ${FOCUS_RING}`}
             >
               {Object.keys(CONFIGURATORS).map((name) => (
                 <option key={name} value={name}>
@@ -606,7 +685,7 @@ export const studioTheme = defineThemePreset({
         <h2 id="source" className={`m-0 ${T_SMALL_TITLE} ${INK}`}>
           Preset source
         </h2>
-        <div className={`flex flex-col gap-2 ${PANEL}`}>
+        <div className={`flex flex-col gap-2 ${CARD} p-5`}>
           <div className="flex items-center justify-between gap-2">
             <span className={`m-0 truncate font-mono ${T_BODY_SM} ${INK_SOFT}`}>
               {exportFile} — resolves to exactly what you see.
@@ -614,14 +693,16 @@ export const studioTheme = defineThemePreset({
             <CopyButton text={jsonSource} label="Copy" />
           </div>
           <pre
-            className={`m-0 max-h-96 overflow-auto rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-surface-container-highest) p-4 font-mono ${T_BODY_SM} ${INK} whitespace-pre`}
+            className={`m-0 max-h-96 overflow-auto rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-surface-container-low) p-4 font-mono ${T_BODY_SM} ${INK} whitespace-pre`}
           >
             {jsonSource}
           </pre>
         </div>
 
-        <details className={`flex flex-col gap-2 ${PANEL}`}>
-          <summary className={`cursor-pointer ${T_BODY_SM} ${INK}`}>
+        <details className={`flex flex-col gap-2 ${CARD} p-5`}>
+          <summary
+            className={`flex min-h-12 cursor-pointer items-center ${T_BODY_SM} ${INK} ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`}
+          >
             TypeScript preset (defineThemePreset)
           </summary>
           <div className="flex flex-col gap-2">
@@ -632,15 +713,17 @@ export const studioTheme = defineThemePreset({
               <CopyButton text={presetSource} />
             </div>
             <pre
-              className={`m-0 max-h-96 overflow-auto rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-surface-container-highest) p-4 font-mono ${T_BODY_SM} ${INK} whitespace-pre`}
+              className={`m-0 max-h-96 overflow-auto rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-surface-container-low) p-4 font-mono ${T_BODY_SM} ${INK} whitespace-pre`}
             >
               {presetSource}
             </pre>
           </div>
         </details>
 
-        <details className={`flex flex-col gap-2 ${PANEL}`}>
-          <summary className={`cursor-pointer ${T_BODY_SM} ${INK}`}>
+        <details className={`flex flex-col gap-2 ${CARD} p-5`}>
+          <summary
+            className={`flex min-h-12 cursor-pointer items-center ${T_BODY_SM} ${INK} ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`}
+          >
             CSS variables
           </summary>
           <div className="flex flex-col gap-2">
@@ -651,7 +734,7 @@ export const studioTheme = defineThemePreset({
               <CopyButton text={cssSource} />
             </div>
             <pre
-              className={`m-0 max-h-96 overflow-auto rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-surface-container-highest) p-4 font-mono ${T_BODY_SM} ${INK} whitespace-pre`}
+              className={`m-0 max-h-96 overflow-auto rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-surface-container-low) p-4 font-mono ${T_BODY_SM} ${INK} whitespace-pre`}
             >
               {`{\n${cssSource}\n}`}
             </pre>

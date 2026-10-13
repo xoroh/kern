@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { Fab } from "./fab";
 
 describe("Fab", () => {
@@ -63,5 +63,38 @@ describe("Fab", () => {
     const fab = screen.getByTestId("fab");
     expect(fab).toHaveClass("px-5");
     expect(fab).not.toHaveClass("w-14");
+  });
+
+  it("renders the expressive medium at 80dp", () => {
+    render(
+      <Fab data-testid="fab" aria-label="Create" size="md">
+        <svg />
+      </Fab>,
+    );
+    expect(screen.getByTestId("fab")).toHaveClass("h-20", "w-20");
+  });
+
+  it.each([
+    ["primary-fill", "bg-(--md-sys-color-primary)", "text-(--md-sys-color-on-primary)"],
+    ["secondary-fill", "bg-(--md-sys-color-secondary)", "text-(--md-sys-color-on-secondary)"],
+    ["tertiary-fill", "bg-(--md-sys-color-tertiary)", "text-(--md-sys-color-on-tertiary)"],
+  ] as const)("paints the expressive %s fill with its on-color", (color, bg, ink) => {
+    render(
+      <Fab data-testid="fab" aria-label="Create" color={color}>
+        <svg />
+      </Fab>,
+    );
+    expect(screen.getByTestId("fab")).toHaveClass(bg, ink);
+  });
+
+  it("warns when disabled — M3 hides the FAB instead", () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    render(
+      <Fab data-testid="fab" aria-label="Create" disabled>
+        <svg />
+      </Fab>,
+    );
+    expect(warn).toHaveBeenCalled();
+    warn.mockRestore();
   });
 });

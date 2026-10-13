@@ -2,7 +2,10 @@ import {
   type ColorRole,
   type Contrast,
   type Mode,
+  type MotionAlgorithmId,
+  type ResolvedMotionScheme,
   type ResolvedTheme,
+  resolveMotionScheme,
   resolveThemeDetails,
   type ShapeRole,
   type ThemeSelection,
@@ -17,6 +20,17 @@ import {
 } from "react";
 import { useColorScheme } from "react-native";
 
+export type {
+  MotionAlgorithmId,
+  ResolvedMotionScheme,
+  SpringConfig,
+  SpringKind,
+} from "@xoroh/kern-tokens";
+export {
+  prefersReducedMotion,
+  resolveMotionScheme,
+  springConfig,
+} from "@xoroh/kern-tokens";
 export type { ColorRole, Contrast, Mode, ShapeRole, ThemeSelection };
 
 export type NativeThemeContextValue = {
@@ -112,4 +126,17 @@ export function useKernTheme(): NativeThemeContextValue {
       toggle,
     }
   );
+}
+
+/**
+ * Motion scheme for animated components. Foundations only: resolves the
+ * `standard` / `expressive` / `reduced` algorithm to easing, durations and
+ * `Animated.spring` stiffness/damping pairs from `tokens.motion`. Components
+ * migrate to these values incrementally — no component is rewritten in the
+ * same change that introduces the hook.
+ */
+export function useKernMotion(
+  id: MotionAlgorithmId = "standard",
+): ResolvedMotionScheme {
+  return useMemo(() => resolveMotionScheme(id), [id]);
 }

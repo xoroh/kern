@@ -26,6 +26,7 @@ export const segmentedButton: ComponentDoc = {
     ],
     notSupported: [
       "There is no fill-style selection. Material 3 carries the selection on a CHECK, and there is no variant that replaces it.",
+      "New designs should prefer the expressive `ButtonGroup` (`connected`) — M3 no longer recommends the segmented button and points at the connected button group instead. This component stays for the classic treatment.",
       "There is no `orientation`. It is a joined horizontal row.",
       "There is no overflow or wrapping. Three or four segments is the useful maximum; more wants `Tabs` or a `Select`.",
     ],

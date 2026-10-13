@@ -50,11 +50,11 @@ const families = {
 // FOUNDATIONS census: its title/one-liner come from the nav leaf (the same
 // source llms.txt links), never a copy.
 const themeLeaf = NAV_SECTIONS.flatMap((s) => s.leaves).find(
-  (l) => l.href === "/foundations/theme",
+  (l) => l.href === "/foundations/m3/theme",
 );
 if (!themeLeaf) {
   throw new Error(
-    "generate-mcp-index: no /foundations/theme nav leaf — the theme index entry has no title/one-liner source",
+    "generate-mcp-index: no /foundations/m3/theme nav leaf — the theme index entry has no title/one-liner source",
   );
 }
 const index = buildMcpIndex(families, FOUNDATIONS, {

@@ -28,7 +28,9 @@ export type PaginationProps = Omit<
 };
 
 const buttonClass =
-  "kern-pagination-button flex h-10 min-w-10 cursor-pointer items-center justify-center rounded-(--md-sys-shape-corner-full) px-2 text-sm text-(--md-sys-color-on-surface) outline-none select-none " + FOCUS_RING_CLASS + " disabled:pointer-events-none disabled:opacity-50 data-current:bg-(--md-sys-color-primary) data-current:text-(--md-sys-color-on-primary)";
+  "kern-pagination-button relative flex h-10 min-w-10 cursor-pointer items-center justify-center rounded-(--md-sys-shape-corner-full) px-2 text-sm leading-5 font-medium tracking-[0.00625rem] text-(--md-sys-color-on-surface) outline-none select-none transition-colors duration-200 ease-(--md-sys-motion-easing-standard) after:absolute after:-inset-1 after:content-[''] " +
+  FOCUS_RING_CLASS +
+  " disabled:pointer-events-none disabled:text-(--md-sys-color-on-surface)/38 aria-disabled:pointer-events-none aria-disabled:text-(--md-sys-color-on-surface)/38 before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--md-sys-color-on-surface) hover:before:opacity-[var(--md-sys-state-hover)] focus-visible:before:opacity-[var(--md-sys-state-focus)] active:before:opacity-[var(--md-sys-state-press)] disabled:before:opacity-0 data-current:bg-(--md-sys-color-primary) data-current:text-(--md-sys-color-on-primary) data-current:before:bg-(--md-sys-color-on-primary)";
 
 function pageWindow(
   current: number,

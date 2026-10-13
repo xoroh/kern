@@ -1,6 +1,14 @@
 /**
- * The Phase 3 docs page grammar — lede → demo → props → auto-tokens →
- * semantic DOM → a11y → limitations → FAQ → spec.
+ * The docs page grammar — v2 (M3-shaped), in reading order:
+ *
+ *   lede → demo → usage → semantic-dom → accessibility → props → tokens →
+ *   limitations → faq → spec
+ *
+ * Proof before prose (the live demo answers "does it work"), then the M3
+ * Guidelines pattern (usage Do/Don't as its own top-level section — it used
+ * to hide inside Demo where the TOC could not see it), then the mental model
+ * (what it renders as, who it works for), and only then reference (props,
+ * tokens) and boundaries (limitations, faq, spec).
  *
  * WHY A SHARED MODULE
  *
@@ -28,10 +36,11 @@ import type { ComponentDoc } from "../content/types";
  */
 export const GRAMMAR_ORDER = [
   "demo",
-  "props",
-  "tokens",
+  "usage",
   "semantic-dom",
   "accessibility",
+  "props",
+  "tokens",
   "limitations",
   "faq",
   "spec",
@@ -47,7 +56,22 @@ export const GRAMMAR_REQUIRED = [
 ];
 
 /** Sections that render only when the content carries them. */
-export const GRAMMAR_CONDITIONAL = ["semantic-dom", "limitations", "faq"];
+export const GRAMMAR_CONDITIONAL = [
+  "usage",
+  "semantic-dom",
+  "limitations",
+  "faq",
+];
+
+/**
+ * Usage renders when the page has written at least one rule: a Do or a
+ * Don't. Half-pairs still render (the section states which half is
+ * missing); an absent or empty `usage` cuts the section, per convention —
+ * a heading over nothing is noise.
+ */
+export function hasUsage(doc: ComponentDoc): boolean {
+  return (doc.usage?.do.length ?? 0) > 0 || (doc.usage?.dont.length ?? 0) > 0;
+}
 
 /**
  * Semantic DOM renders when the page states either half of it: the part
@@ -81,9 +105,10 @@ export function hasFaq(doc: ComponentDoc): boolean {
  * Exempt pages (`grammarExempt` set) are listed by the gate, not ordered by it.
  */
 export function expectedSections(doc: ComponentDoc): string[] {
-  const out = ["demo", "props", "tokens"];
+  const out = ["demo"];
+  if (hasUsage(doc)) out.push("usage");
   if (hasSemanticDom(doc)) out.push("semantic-dom");
-  out.push("accessibility");
+  out.push("accessibility", "props", "tokens");
   if (hasLimitations(doc)) out.push("limitations");
   if (hasFaq(doc)) out.push("faq");
   out.push("spec");

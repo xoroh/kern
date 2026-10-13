@@ -34,7 +34,7 @@ export function radioStyles(
       borderColor: selected ? scheme.color.primary : scheme.color.outline,
       alignItems: "center" as const,
       justifyContent: "center" as const,
-      opacity: disabled ? 0.5 : 1,
+      opacity: disabled ? 0.38 : 1,
     },
     indicator: {
       width: 8,

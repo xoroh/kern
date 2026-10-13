@@ -195,16 +195,16 @@ export function NavigationBar({
               onClick={() => select(destination.key)}
               onKeyDown={onKeyDown}
               className={cn(
-                `kern-navigation-bar-destination flex min-h-12 flex-1 cursor-pointer flex-col items-center justify-center gap-1 px-2 outline-none select-none ${FOCUS_RING_CLASS}`,
+                `kern-navigation-bar-destination relative flex min-h-12 flex-1 cursor-pointer flex-col items-center justify-center gap-1 px-2 outline-none select-none transition-colors duration-200 ease-(--md-sys-motion-easing-standard) ${FOCUS_RING_CLASS} before:absolute before:inset-0 before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--md-sys-color-on-surface) hover:before:opacity-[var(--md-sys-state-hover)] focus-visible:before:opacity-[var(--md-sys-state-focus)] active:before:opacity-[var(--md-sys-state-press)] data-[active]:before:bg-(--md-sys-color-on-secondary-container)`,
                 destination.disabled
                   ? "pointer-events-none opacity-38"
-                  : "hover:bg-(--md-sys-color-surface-container-high)",
+                  : "",
                 selected && "text-(--md-sys-color-on-surface)",
               )}
             >
               <span
                 data-active={selected || undefined}
-                className="relative flex h-8 w-16 items-center justify-center rounded-(--md-sys-shape-corner-full) transition-colors data-[active]:bg-(--md-sys-color-secondary-container)"
+                className="relative flex h-8 w-16 items-center justify-center rounded-(--md-sys-shape-corner-full) transition-colors data-[active]:bg-(--md-sys-color-secondary-container) data-[active]:text-(--md-sys-color-on-secondary-container)"
               >
                 <span
                   aria-hidden="true"

@@ -8,7 +8,8 @@
 //
 //   bun run check:snippets
 //
-// Reads (inside apps/site):  src/routes/{getting-started,theme/index}.tsx,
+// Reads (inside apps/site):  src/routes/docs/getting-started.tsx,
+//                           src/routes/foundations/m3/theme.tsx,
 //                           src/routes/docs/guides.tsx,
 //                           src/domains/primitives/examples.ts
 // Writes (inside apps/site): .snippet-check/<name>/  (removed on exit)
@@ -63,8 +64,8 @@ function snippetsFrom(file) {
 }
 
 const files = [
-  "routes/getting-started.tsx",
-  "routes/foundations/theme/index.tsx",
+  "routes/docs/getting-started.tsx",
+  "routes/foundations/m3/theme.tsx",
   "routes/docs/guides.tsx",
   "domains/primitives/examples.ts",
 ];

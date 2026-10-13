@@ -6,7 +6,16 @@ export type SelectRootProps<
   T = unknown,
   Multiple extends boolean | undefined = false,
 > = ComponentProps<typeof SelectPrimitive.Root<T, Multiple>>;
-export type SelectTriggerProps = ComponentProps<typeof SelectPrimitive.Trigger>;
+export type SelectTriggerProps = ComponentProps<
+  typeof SelectPrimitive.Trigger
+> & {
+  /**
+   * M3 select treatment. `outlined` (default) draws the 1px outline;
+   * `filled` fills `surface-container-highest` with a bottom active
+   * indicator. Functionally identical — pick by surface.
+   */
+  variant?: "outlined" | "filled";
+};
 export type SelectContentProps = ComponentProps<typeof SelectPrimitive.Popup>;
 export type SelectItemProps = ComponentProps<typeof SelectPrimitive.Item>;
 export type SelectSeparatorProps = ComponentProps<
@@ -23,12 +32,20 @@ export function SelectRoot<T, Multiple extends boolean | undefined = false>(
   return <SelectPrimitive.Root data-slot="select" {...props} />;
 }
 
-export function SelectTrigger({ className, ...props }: SelectTriggerProps) {
+export function SelectTrigger({
+  variant = "outlined",
+  className,
+  ...props
+}: SelectTriggerProps) {
   return (
     <SelectPrimitive.Trigger
       data-slot="select-trigger"
+      data-variant={variant}
       className={cnState(
-        "kern-select-trigger flex h-14 w-full cursor-pointer items-center justify-between gap-2 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline) bg-(--md-sys-color-surface) px-4 text-base text-(--md-sys-color-on-surface) outline-none transition-colors focus:border-(--md-sys-color-primary) data-disabled:cursor-not-allowed data-disabled:opacity-50 data-placeholder:text-(--md-sys-color-on-surface-variant)",
+        "kern-select-trigger flex h-14 w-full cursor-pointer items-center justify-between gap-2 text-base text-(--md-sys-color-on-surface) outline-none transition-colors data-disabled:cursor-not-allowed data-placeholder:text-(--md-sys-color-on-surface-variant) " +
+          (variant === "filled"
+            ? "rounded-t-(--md-sys-shape-corner-extra-small) border-b border-(--md-sys-color-on-surface-variant) bg-(--md-sys-color-surface-container-highest) px-4 focus:border-b-2 focus:border-(--md-sys-color-primary) data-disabled:border-(--md-sys-color-on-surface)/38 data-disabled:bg-(--md-sys-color-on-surface)/4 data-disabled:text-(--md-sys-color-on-surface)/38"
+            : "rounded-(--md-sys-shape-corner-extra-small) border border-(--md-sys-color-outline) bg-(--md-sys-color-surface) px-4 hover:border-(--md-sys-color-on-surface) focus:border-2 focus:border-(--md-sys-color-primary) focus:px-[15px] data-disabled:border-(--md-sys-color-on-surface)/12 data-disabled:bg-transparent data-disabled:text-(--md-sys-color-on-surface)/38"),
         className,
       )}
       {...props}
@@ -52,7 +69,7 @@ export function SelectContent({ className, ...props }: SelectContentProps) {
         <SelectPrimitive.Popup
           data-slot="select-content"
           className={cnState(
-            "kern-select-popup min-w-48 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline) bg-(--md-sys-color-surface) p-2 shadow-(--md-sys-elevation-level2) outline-none",
+            "kern-select-popup min-w-28 max-w-[280px] rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-surface-container) p-2 shadow-(--md-sys-elevation-level2) outline-none",
             className,
           )}
           {...props}

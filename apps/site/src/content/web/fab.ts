@@ -11,9 +11,12 @@ export const fab: ComponentDoc = {
     status: "real",
     package: "@xoroh/kern",
     nativePeer: "Fab",
-    // M3's floating action button has three variants and they are all the same
-    // axis: "Three variants: FAB, medium FAB, large FAB". That axis is size.
-    variants: ["size: sm · default · medium · large · icon"],
+    // M3's floating action button variants are a size axis ("FAB, medium FAB,
+    // large FAB") plus the expressive color styles: three containers, three
+    // fills, surface deprecated. sm is the deprecated 40dp small, md the
+    // expressive 80dp medium; `medium` keeps its pre-expressive name at 96dp
+    // (M3 large) and `large` past the spec at 128dp.
+    variants: ["size: sm · default · md · medium · large · icon", "color: surface · primary · secondary · tertiary · primary-fill · secondary-fill · tertiary-fill"],
     elevation: 3,
   },
   parts: ["Fab"],
@@ -21,11 +24,10 @@ export const fab: ComponentDoc = {
     supported: [
       "`className` is passed through and merged after the size classes.",
       "`size` selects the M3 dimensions; each size is a fixed height and width.",
-      "The container color is `--md-sys-color-primary-container`, so a theme retints every floating action button.",
+      "The default container is the neutral surface treatment (a kern deviation — the spec default is the primary container); `color` selects any of the seven M3 expressive styles, so a theme retints every floating action button.",
     ],
     notSupported: [
-      "There is no `variant` prop. M3 defines the floating action button's variants as a size axis, not an emphasis axis — the container is always the primary container.",
-      "There is no `color` prop. A secondary emphasis belongs to the extended floating action button's tonal treatment, not to this component.",
+      "There is no `variant` prop. M3 defines the floating action button's variants as a size axis, not an emphasis axis — color is the separate `color` axis.",
       "There is no `position` prop. Placement is the layout's job, not the button's.",
     ],
   },

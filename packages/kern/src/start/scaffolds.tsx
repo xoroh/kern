@@ -2,7 +2,8 @@ import type { ComponentPropsWithRef, ReactNode } from "react";
 import { cn } from "../utils/cn";
 
 export const APP_SHELL_HEIGHTS = {
-  topBar: 56,
+  // Matches the M3 small top app bar (64dp).
+  topBar: 64,
   statusBar: 32,
 } as const;
 

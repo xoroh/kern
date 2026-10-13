@@ -63,7 +63,11 @@ export function carouselStyles(
 ): { track: ViewStyle; item: ViewStyle; control: ViewStyle } {
   const _diameter = Number.parseFloat(tokens.spacing["space-400"]);
   return {
-    track: { flexGrow: 1, borderRadius: Number.parseFloat(scheme.shape.large) },
+    track: {
+      flexGrow: 1,
+      // M3 carousel items carry the 28dp extra-large corner.
+      borderRadius: Number.parseFloat(scheme.shape["extra-large"]),
+    },
     item: {
       width: "100%",
       alignItems: "center",

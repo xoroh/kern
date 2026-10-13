@@ -46,6 +46,34 @@ import { FOCUS_RING_CLASS } from "./focus-ring";
  *   not a second component.
  */
 
+export type ExtendedFabSize = "small" | "medium" | "large";
+
+/**
+ * M3 extended FAB sizes (MDC-Android comp tokens): small 56dp / 24px icon /
+ * large corner, medium 80dp / 28px icon / large-increased corner, large 96dp
+ * / 36px icon / extra-large corner.
+ */
+const EXTENDED_FAB_GEOMETRY: Record<
+  ExtendedFabSize,
+  { bar: string; icon: string; collapsed: string }
+> = {
+  small: {
+    bar: "h-14 rounded-(--md-sys-shape-corner-large)",
+    icon: "[&_svg]:size-6",
+    collapsed: "w-14",
+  },
+  medium: {
+    bar: "h-20 rounded-[20px]",
+    icon: "[&_svg]:size-7",
+    collapsed: "w-20",
+  },
+  large: {
+    bar: "h-24 rounded-(--md-sys-shape-corner-extra-large)",
+    icon: "[&_svg]:size-9",
+    collapsed: "w-24",
+  },
+};
+
 export type ExtendedFabHandle = {
   /** Collapse to the icon-only FAB. */
   collapse: () => void;
@@ -82,6 +110,11 @@ export type ExtendedFabProps = Omit<
   value?: boolean;
   defaultValue?: boolean;
   onValueChange?: (collapsed: boolean) => void;
+  /**
+   * M3 extended size. `small` is the current rendering, kept default;
+   * `medium`/`large` swap the expressive 80/96dp geometry.
+   */
+  size?: ExtendedFabSize;
 };
 
 export function ExtendedFab({
@@ -94,6 +127,7 @@ export function ExtendedFab({
   value: valueProp,
   defaultValue,
   onValueChange,
+  size = "small",
   disabled,
   type = "button",
   className,
@@ -115,6 +149,7 @@ export function ExtendedFab({
   useEffect(() => {
     stateRef.current = isCollapsed;
   }, [isCollapsed]);
+  const geo = EXTENDED_FAB_GEOMETRY[size];
 
   const setCollapsed = useCallback(
     (next: boolean) => {
@@ -152,8 +187,13 @@ export function ExtendedFab({
       aria-label={label}
       disabled={disabled}
       className={cn(
-        "kern-extended-fab relative inline-flex h-14 shrink-0 items-center gap-3 rounded-(--md-sys-shape-corner-large) pr-5 pl-4 text-(--md-sys-color-on-primary) shadow-(--md-sys-elevation-level3) transition-[padding] outline-none select-none " + FOCUS_RING_CLASS + " disabled:pointer-events-none disabled:opacity-50 after:absolute after:-inset-2 after:content-[''] [&_svg]:size-6 [&_svg]:shrink-0",
-        isCollapsed && "w-14 justify-center px-0",
+        "kern-extended-fab relative inline-flex shrink-0 items-center gap-3 pr-5 pl-4 text-(--md-sys-color-on-primary-container) shadow-(--md-sys-elevation-level3) hover:shadow-(--md-sys-elevation-level4) transition-[padding,color,background-color,border-color,box-shadow] duration-200 ease-(--md-sys-motion-easing-standard) outline-none select-none " +
+          FOCUS_RING_CLASS +
+          " disabled:pointer-events-none disabled:opacity-38 aria-disabled:pointer-events-none aria-disabled:opacity-38 after:absolute after:-inset-2 after:content-[''] before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 hover:before:opacity-[var(--md-sys-state-hover)] hover:before:bg-(--md-sys-color-on-primary-container) focus-visible:before:opacity-[var(--md-sys-state-focus)] focus-visible:before:bg-(--md-sys-color-on-primary-container) active:before:opacity-[var(--md-sys-state-press)] active:before:bg-(--md-sys-color-on-primary-container) disabled:before:opacity-0 aria-disabled:before:opacity-0 [&_svg]:shrink-0",
+        "bg-(--md-sys-color-primary-container)",
+        geo.bar,
+        geo.icon,
+        isCollapsed && `justify-center px-0 ${geo.collapsed}`,
         className,
       )}
       {...props}
@@ -164,7 +204,7 @@ export function ExtendedFab({
       {isCollapsed ? null : (
         <span
           data-slot="extended-fab-label"
-          className="truncate text-sm font-medium"
+          className="truncate text-sm leading-5 font-medium tracking-[0.1px]"
         >
           {label}
         </span>

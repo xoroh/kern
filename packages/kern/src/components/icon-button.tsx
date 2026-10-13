@@ -2,6 +2,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentPropsWithRef, ReactNode } from "react";
 import { useId, useState } from "react";
 import { cn } from "../utils/cn";
+import { CircularProgress } from "./circular-progress";
 import { FOCUS_RING_CLASS } from "./focus-ring";
 
 /**
@@ -33,7 +34,7 @@ import { FOCUS_RING_CLASS } from "./focus-ring";
  */
 
 const iconButtonVariants = cva(
-  `kern-icon-button group relative inline-flex shrink-0 items-center justify-center rounded-(--md-sys-shape-corner-full) outline-none transition-colors select-none ${FOCUS_RING_CLASS} disabled:pointer-events-none disabled:opacity-38 aria-disabled:pointer-events-none aria-disabled:opacity-38 after:absolute after:-inset-2 after:content-[''] before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 hover:before:opacity-[var(--md-sys-state-hover)] before:transition-opacity [&_svg]:pointer-events-none [&_svg]:size-5 [&_svg]:shrink-0`,
+  `kern-icon-button group relative inline-flex shrink-0 items-center justify-center rounded-(--md-sys-shape-corner-full) outline-none transition-[color,background-color,border-color,border-radius] duration-200 ease-(--md-sys-motion-easing-standard) select-none ${FOCUS_RING_CLASS} disabled:pointer-events-none disabled:opacity-38 aria-disabled:pointer-events-none aria-disabled:opacity-38 after:absolute after:-inset-2 after:content-[''] before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 hover:before:opacity-[var(--md-sys-state-hover)] focus-visible:before:opacity-[var(--md-sys-state-focus)] active:before:opacity-[var(--md-sys-state-press)] disabled:before:opacity-0 aria-disabled:before:opacity-0 [&_svg]:pointer-events-none [&_svg]:size-6 [&_svg]:shrink-0`,
   {
     variants: {
       variant: {
@@ -47,9 +48,25 @@ const iconButtonVariants = cva(
           "border border-(--md-sys-color-outline) text-(--md-sys-color-on-surface-variant) before:bg-(--md-sys-color-on-surface-variant)",
       },
       size: {
+        xs: "size-7 after:-inset-2.5 [&_svg]:size-5",
         sm: "size-8 after:-inset-2.5",
-        default: "size-10",
-        lg: "size-12 after:-inset-1",
+        default: "size-10 active:rounded-(--md-sys-shape-corner-small)",
+        md: "size-11 active:rounded-(--md-sys-shape-corner-medium) [&_svg]:size-6",
+        lg: "size-12 after:-inset-1 active:rounded-(--md-sys-shape-corner-medium)",
+        xl: "size-14 after:-inset-0.5 active:rounded-(--md-sys-shape-corner-large) [&_svg]:size-7",
+        // M3 Expressive L: 96dp box. Already past the 48dp minimum, so no
+        // target inset; square morph lands on the extra-large corner (28dp).
+        "2xl":
+          "size-24 after:-inset-0 active:rounded-(--md-sys-shape-corner-extra-large) [&_svg]:size-8",
+      },
+      shape: {
+        pill: "",
+        square: "",
+      },
+      width: {
+        narrow: "aspect-[3/4]",
+        default: "",
+        wide: "aspect-[4/3]",
       },
       selected: {
         true: "",
@@ -64,13 +81,16 @@ const iconButtonVariants = cva(
       },
     },
     compoundVariants: [
-      // The selected expression is per-variant, because the selected fill is
-      // the variant's own container role — there is no single "selected token".
+      // Selected states per M3 icon-button spec (material-web v0.192):
+      // standard toggle selected icon = primary (no fill); filled toggle
+      // unselected = surface-container-highest + primary icon; tonal toggle
+      // selected = secondary-container + on-secondary-container; outlined
+      // toggle selected = inverse-surface + inverse-on-surface.
       {
         variant: "standard",
         selected: true,
         class:
-          "text-(--md-sys-color-on-surface) bg-(--md-sys-color-on-surface)/12",
+          "text-(--md-sys-color-primary) before:bg-(--md-sys-color-primary)",
       },
       {
         variant: "filled",
@@ -88,18 +108,49 @@ const iconButtonVariants = cva(
         variant: "tonal",
         selected: true,
         class:
-          "bg-(--md-sys-color-secondary) text-(--md-sys-color-on-secondary)",
+          "bg-(--md-sys-color-secondary-container) text-(--md-sys-color-on-secondary-container) before:bg-(--md-sys-color-on-secondary-container)",
+      },
+      {
+        variant: "tonal",
+        toggle: true,
+        selected: false,
+        class:
+          "bg-(--md-sys-color-surface-container-highest) text-(--md-sys-color-on-surface-variant) before:bg-(--md-sys-color-on-surface-variant)",
       },
       {
         variant: "outlined",
         selected: true,
         class:
-          "bg-(--md-sys-color-primary) text-(--md-sys-color-on-primary) border-transparent",
+          "bg-(--md-sys-color-inverse-surface) text-(--md-sys-color-inverse-on-surface) border-transparent before:bg-(--md-sys-color-inverse-on-surface)",
+      },
+      // M3 Expressive square shape per size for the smaller icon-button
+      // boxes (8/8/12/12/16/16). Selected toggles morph round to square.
+      { shape: "square", size: "xs", class: "rounded-(--md-sys-shape-corner-small)" },
+      { shape: "square", size: "sm", class: "rounded-(--md-sys-shape-corner-small)" },
+      { shape: "square", size: "default", class: "rounded-(--md-sys-shape-corner-medium)" },
+      { shape: "square", size: "md", class: "rounded-(--md-sys-shape-corner-medium)" },
+      { shape: "square", size: "lg", class: "rounded-(--md-sys-shape-corner-large)" },
+      { shape: "square", size: "xl", class: "rounded-(--md-sys-shape-corner-large)" },
+      { shape: "square", size: "2xl", class: "rounded-(--md-sys-shape-corner-extra-large)" },
+      { toggle: true, selected: true, shape: "pill", size: "xs", class: "rounded-(--md-sys-shape-corner-small)" },
+      { toggle: true, selected: true, shape: "pill", size: "sm", class: "rounded-(--md-sys-shape-corner-small)" },
+      { toggle: true, selected: true, shape: "pill", size: "default", class: "rounded-(--md-sys-shape-corner-medium)" },
+      { toggle: true, selected: true, shape: "pill", size: "md", class: "rounded-(--md-sys-shape-corner-medium)" },
+      { toggle: true, selected: true, shape: "pill", size: "lg", class: "rounded-(--md-sys-shape-corner-large)" },
+      { toggle: true, selected: true, shape: "pill", size: "xl", class: "rounded-(--md-sys-shape-corner-large)" },
+      { toggle: true, selected: true, shape: "pill", size: "2xl", class: "rounded-(--md-sys-shape-corner-extra-large)" },
+      {
+        toggle: true,
+        selected: true,
+        shape: "square",
+        class: "rounded-(--md-sys-shape-corner-full)",
       },
     ],
     defaultVariants: {
       variant: "standard",
       size: "default",
+      shape: "pill",
+      width: "default",
       selected: false,
       toggle: false,
     },
@@ -122,6 +173,26 @@ export type IconButtonProps = Omit<
      * an icon-only button with no name is unusable with a screen reader.
      */
     label?: string;
+    /**
+     * Accessible name when the toggle is selected (`aria-label-selected`).
+     * Only meaningful with `toggle` — a favorite button reads "Add to
+     * favorites" unselected and "Remove from favorites" selected.
+     */
+    selectedLabel?: string;
+    /**
+     * Soft-disabled: paints the disabled treatment but stays focusable, so
+     * the control remains discoverable (toolbar pattern per W3C APG
+     * disabled-controls guidance).
+     */
+    softDisabled?: boolean;
+    /** Shows a loading spinner in place of the icon and blocks interaction. */
+    loading?: boolean;
+    /**
+     * Mirrors the icon horizontally in RTL contexts. Opt into it for
+     * directional glyphs only; symmetric icons must not flip. Per M3's
+     * `flip-icon-in-rtl`.
+     */
+    flipIcon?: boolean;
     /** Renders this button as a toggle and reports its state. */
     toggle?: boolean;
     /** Controlled pressed state. Only meaningful with `toggle`. */
@@ -142,9 +213,12 @@ export type IconButtonProps = Omit<
 export function IconButton({
   variant,
   size,
+  shape,
+  width,
   selected,
   icon,
   label,
+  selectedLabel,
   toggle = false,
   pressed,
   defaultPressed = false,
@@ -154,6 +228,9 @@ export function IconButton({
   onValueChange,
   type = "button",
   disabled,
+  softDisabled = false,
+  loading = false,
+  flipIcon = false,
   className,
   ...props
 }: IconButtonProps) {
@@ -183,17 +260,28 @@ export function IconButton({
     onPressedChange?.(!isPressed);
   };
 
+  const blocked = disabled || loading || softDisabled;
   return (
     <button
       type={type}
       data-slot="icon-button"
       data-variant={variant}
       data-selected={isPressed || undefined}
-      aria-label={label}
+      data-loading={loading || undefined}
+      aria-label={isPressed && selectedLabel ? selectedLabel : label}
       aria-pressed={toggle ? isPressed : undefined}
-      disabled={disabled}
+      aria-disabled={blocked || undefined}
+      aria-busy={loading || undefined}
+      disabled={disabled || loading || undefined}
       className={cn(
-        iconButtonVariants({ variant, size, selected: isPressed, toggle }),
+        iconButtonVariants({
+          variant,
+          size,
+          shape,
+          width,
+          selected: isPressed,
+          toggle,
+        }),
         className,
       )}
       // The spread comes FIRST. Spread last, it would overwrite the composed
@@ -201,12 +289,26 @@ export function IconButton({
       // the kind of bug that only shows up once a consumer passes onClick.
       {...props}
       onClick={(event) => {
+        if (softDisabled || loading) {
+          event.preventDefault();
+          return;
+        }
         if (toggle) toggleState();
         props.onClick?.(event);
       }}
     >
-      <span aria-hidden="true" className="flex items-center justify-center">
-        {icon}
+      <span
+        aria-hidden="true"
+        className={cn(
+          "flex items-center justify-center",
+          flipIcon && "rtl:scale-x-[-1]",
+        )}
+      >
+        {loading ? (
+          <CircularProgress size="sm" label="Loading" aria-hidden="true" />
+        ) : (
+          icon
+        )}
       </span>
       {label ? (
         <span
@@ -215,7 +317,7 @@ export function IconButton({
           data-slot="icon-button-tooltip"
           className="pointer-events-none absolute start-1/2 top-[calc(100%+6px)] z-10 -translate-x-1/2 scale-95 rounded-(--md-sys-shape-corner-extra-small) bg-(--md-sys-color-inverse-surface) px-2 py-1 text-xs whitespace-nowrap text-(--md-sys-color-inverse-on-surface) opacity-0 transition-opacity delay-300 group-hover:opacity-100 group-focus-visible:opacity-100"
         >
-          {label}
+          {isPressed && selectedLabel ? selectedLabel : label}
         </span>
       ) : null}
     </button>

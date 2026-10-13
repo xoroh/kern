@@ -94,7 +94,7 @@ export function NavigationDrawer({
             aria-modal="true"
             aria-label={title ? undefined : ariaLabel}
             className={cn(
-              "kern-navigation-drawer flex h-full w-[min(22.5rem,80vw)] flex-col overflow-y-auto bg-(--md-sys-color-surface-container-low) pt-6 text-(--md-sys-color-on-surface) outline-none",
+              "kern-navigation-drawer flex h-full w-[min(22.5rem,80vw)] flex-col overflow-y-auto rounded-e-(--md-sys-shape-corner-large) bg-(--md-sys-color-surface-container-low) pt-6 text-(--md-sys-color-on-surface) outline-none",
               className,
             )}
           >

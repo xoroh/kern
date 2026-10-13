@@ -1,15 +1,19 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Kicker } from "../../components/chrome/kicker";
-import { SiteLayout } from "../../domains/shared/chrome/site-layout";
 import { Code, Step } from "../../components/docs/code";
 import { IconGallery } from "../../components/icons/icon-gallery";
-import { componentsOn } from "../../generated/manifest";
+import { PageCard } from "../../domains/shared/chrome/page-card";
+import { SiteLayout } from "../../domains/shared/chrome/site-layout";
 import { routeHead } from "../../domains/shared/systems/seo";
-import { T_BODY, T_BODY_MD, T_PAGE } from "../../domains/shared/systems/type-scale";
+import {
+  T_BODY,
+  T_BODY_MD,
+  T_PAGE,
+} from "../../domains/shared/systems/type-scale";
+import { componentsOn } from "../../generated/manifest";
 
 export const Route = createFileRoute("/docs/guides")({
-  head: () =>
-    routeHead("Guides", "How-to guides for common tasks."),
+  head: () => routeHead("Guides", "How-to guides for common tasks."),
   component: Guides,
 });
 
@@ -77,77 +81,86 @@ function Guides() {
   const mobile = componentsOn("mobile").length;
   return (
     <SiteLayout>
-      <section className="px-4 py-4 sm:px-6 sm:py-6">
-        <div className="mx-auto flex max-w-[64rem] flex-col gap-8 rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14">
-          <header className="flex flex-col gap-3">
-            <Kicker>Docs / Guides</Kicker>
-            <h1 className={`m-0 ${T_PAGE} text-(--md-sys-color-on-surface)`}>
-              Guides
-            </h1>
-            <p className={`m-0 ${T_BODY} text-(--md-sys-color-on-surface-variant)`}>
-              {web} web exports and {mobile} native exports, under one naming
-              law. These pages cover the rules that do not fit on a single
-              component page.
-            </p>
-          </header>
+      <PageCard>
+        <header className="flex flex-col gap-3">
+          <Kicker>Docs / Guides</Kicker>
+          <h1 className={`m-0 ${T_PAGE} text-(--md-sys-color-on-surface)`}>
+            Guides
+          </h1>
+          <p
+            className={`m-0 ${T_BODY} text-(--md-sys-color-on-surface-variant)`}
+          >
+            {web} web exports and {mobile} native exports, under one naming law.
+            These pages cover the rules that do not fit on a single component
+            page.
+          </p>
+        </header>
 
-          <Step n={1} title="One component, two platforms">
-            <p className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}>
-              A component that exists on both platforms keeps its name and its
-              variant axis, and differs only where the platform genuinely does.
-              The event name is the visible case: <code>onClick</code> on the
-              web, <code>onPress</code> natively.
-            </p>
-            <Code>{WEB_PARITY}</Code>
-          </Step>
+        <Step n={1} title="One component, two platforms">
+          <p
+            className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+          >
+            A component that exists on both platforms keeps its name and its
+            variant axis, and differs only where the platform genuinely does.
+            The event name is the visible case: <code>onClick</code> on the web,{" "}
+            <code>onPress</code> natively.
+          </p>
+          <Code>{WEB_PARITY}</Code>
+        </Step>
 
-          <Step n={2} title="Deliberate asymmetries">
-            <p className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}>
-              Not every surface exists twice. M3 expresses transient messaging
-              as <code>Snackbar</code>, so the native package ships that and
-              stops. The web-only <code>Sonner</code> is a second name for one
-              idea, and is recorded as a deliberate asymmetry rather than a gap
-              to be closed.
-            </p>
-            <Code>{SNACKBAR}</Code>
-          </Step>
+        <Step n={2} title="Deliberate asymmetries">
+          <p
+            className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+          >
+            Not every surface exists twice. M3 expresses transient messaging as{" "}
+            <code>Snackbar</code>, so the native package ships that and stops.
+            The web-only <code>Sonner</code> is a second name for one idea, and
+            is recorded as a deliberate asymmetry rather than a gap to be
+            closed.
+          </p>
+          <Code>{SNACKBAR}</Code>
+        </Step>
 
-          <Step n={3} title="Icons: aliases over raw names">
-            <p className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}>
-              The semantic map is the unification table. Reach for an alias
-              first; a raw glyph name is for the icon that has no agreed meaning
-              yet.
-            </p>
-            <Code>{ICON_ALIAS}</Code>
-            <Code>{REGISTRY}</Code>
-          </Step>
+        <Step n={3} title="Icons: aliases over raw names">
+          <p
+            className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+          >
+            The semantic map is the unification table. Reach for an alias first;
+            a raw glyph name is for the icon that has no agreed meaning yet.
+          </p>
+          <Code>{ICON_ALIAS}</Code>
+          <Code>{REGISTRY}</Code>
+        </Step>
 
-          <Step n={4} title="The icon gallery">
-            <p className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}>
-              Every count and name below is read from the icon package at build
-              time. The grid paints the first 120 for server-render cost; the
-              filter reaches the rest.
-            </p>
-            <IconGallery />
-          </Step>
+        <Step n={4} title="The icon gallery">
+          <p
+            className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+          >
+            Every count and name below is read from the icon package at build
+            time. The grid paints the first 120 for server-render cost; the
+            filter reaches the rest.
+          </p>
+          <IconGallery />
+        </Step>
 
-          <Step n={5} title="Plain HTML via CDN — no bundler">
-            <p className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}>
-              No JSX, no build step: the stylesheet is the published theme file,
-              the import map pins one copy of React, and{" "}
-              <code>?external=react,react-dom</code> keeps kern reading that
-              same copy instead of bundling a second. The packages are{" "}
-              <code>0.0.0</code> and unpublished, so these URLs 404 until the
-              first publish — replace <code>VERSION</code> in both URLs with
-              the same version then. The paths are
-              verified against the packages&apos; published file lists
-              (kern-tokens ships <code>src/tokens.css</code>, kern&apos;s root
-              export is <code>dist/index.js</code>), not against the registry.
-            </p>
-            <Code>{CDN_PLAIN_HTML}</Code>
-          </Step>
-        </div>
-      </section>
+        <Step n={5} title="Plain HTML via CDN — no bundler">
+          <p
+            className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+          >
+            No JSX, no build step: the stylesheet is the published theme file,
+            the import map pins one copy of React, and{" "}
+            <code>?external=react,react-dom</code> keeps kern reading that same
+            copy instead of bundling a second. The packages are{" "}
+            <code>0.0.0</code> and unpublished, so these URLs 404 until the
+            first publish — replace <code>VERSION</code> in both URLs with the
+            same version then. The paths are verified against the packages&apos;
+            published file lists (kern-tokens ships <code>src/tokens.css</code>,
+            kern&apos;s root export is <code>dist/index.js</code>), not against
+            the registry.
+          </p>
+          <Code>{CDN_PLAIN_HTML}</Code>
+        </Step>
+      </PageCard>
     </SiteLayout>
   );
 }

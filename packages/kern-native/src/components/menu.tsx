@@ -23,9 +23,11 @@ export function menuStyles(scheme: ResolvedTheme = resolveThemeDetails()): {
 } {
   return {
     card: {
-      minWidth: 192,
+      // M3 menu width: 112dp min, 280dp max; container is surface-container.
+      minWidth: 112,
+      maxWidth: 280,
       borderRadius: Number.parseFloat(scheme.shape.small),
-      backgroundColor: scheme.color.surface,
+      backgroundColor: scheme.color.surfaceContainer,
       padding: 8,
     },
   };

@@ -377,6 +377,21 @@ describe("LinearProgress", () => {
     expect(flattenStyle(fill[0].props.style).width).toBe("40%");
     expect(linearProgressStyles(1.8).fill.width).toBe("100%");
   });
+
+  it("renders the 4dp M3 stop indicator at the track end", async () => {
+    const tree = await render(
+      <LinearProgress value={0.4} label="Sync" stop />,
+    );
+    const stops = hostsByTestID(tree, "kern-linear-progress-stop");
+    expect(stops.length).toBe(1);
+    expect(flattenStyle(stops[0].props.style)).toMatchObject({
+      width: 4,
+      height: 4,
+      borderRadius: 2,
+    });
+    const bare = await render(<LinearProgress value={0.4} label="Sync" />);
+    expect(hostsByTestID(bare, "kern-linear-progress-stop").length).toBe(0);
+  });
 });
 
 describe("LoadingButton", () => {

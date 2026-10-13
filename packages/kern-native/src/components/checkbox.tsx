@@ -11,6 +11,16 @@ import {
 } from "react-native";
 import { useKernTheme } from "../theme";
 
+function withAlpha(color: string, alpha: number): string {
+  if (/^#[0-9a-fA-F]{6}$/.test(color)) {
+    const byte = Math.round(alpha * 255)
+      .toString(16)
+      .padStart(2, "0");
+    return `${color}${byte}`;
+  }
+  return color;
+}
+
 export function checkboxStyles(
   checked: boolean,
   indeterminate: boolean,
@@ -22,18 +32,26 @@ export function checkboxStyles(
     box: {
       width: 18,
       height: 18,
-      borderRadius: Number.parseFloat(scheme.shape["extra-small"]),
-      borderWidth: 2,
-      borderColor: marked ? scheme.color.primary : scheme.color.outline,
-      backgroundColor: marked ? scheme.color.primary : scheme.color.surface,
+      // M3 checkbox container-shape is 2px, not the extra-small 4px.
+      borderRadius: 2,
+      borderWidth: marked ? 0 : 2,
+      borderColor: marked
+        ? "transparent"
+        : disabled
+          ? withAlpha(scheme.color.onSurface, 0.38)
+          : scheme.color.onSurfaceVariant,
+      backgroundColor: marked
+        ? disabled
+          ? withAlpha(scheme.color.onSurface, 0.38)
+          : scheme.color.primary
+        : scheme.color.surface,
       alignItems: "center",
       justifyContent: "center",
-      opacity: disabled ? 0.5 : 1,
     },
     glyph: {
       fontSize: indeterminate ? 14 : 12,
       lineHeight: 14,
-      color: scheme.color.onPrimary,
+      color: disabled ? scheme.color.surface : scheme.color.onPrimary,
       fontWeight: "700",
     },
   };

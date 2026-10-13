@@ -1,91 +1,162 @@
-import { buttonVariants, cn } from "@xoroh/kern";
+/**
+ * Hero — the homepage opening, painted in the M3 palette.
+ *
+ * Quiet tonal paper, editorial display type, and two graphic specimens
+ * beside a live composition of real package controls. The specimens are
+ * decorative; the controls have their actual selection and feedback states.
+ *
+ * Ink is `on-primary-container` for the same reason: it is the role paired
+ * with the primary container; the page repaints in both light and dark modes.
+ */
+import { Button, buttonVariants, Chip, cn, Switch } from "@xoroh/kern";
+import { Icon } from "@xoroh/kern-icons";
 import { useState } from "react";
+import {
+  T_BODY,
+  T_HERO,
+  T_LABEL_LG,
+  T_SUB,
+} from "../../domains/shared/systems/type-scale";
 import { Kicker } from "../chrome/kicker";
-import { LiveHero } from "./live-hero";
 
-const COMMAND = "bun add @xoroh/kern";
+const INK = "text-(--md-sys-color-on-primary-container)";
 
-function InstallChip() {
-  const [copied, setCopied] = useState(false);
+/** A static Material-inspired rosette, painted entirely with semantic roles. */
+export function MaterialBloom() {
   return (
-    <button
-      type="button"
-      onClick={() => {
-        // `navigator.clipboard` is undefined on insecure origins (plain
-        // http, some previews) — `undefined.then` would hard-crash the
-        // click. No clipboard, no copy affordance change; the command text
-        // itself stays readable and selectable.
-        const pending = navigator.clipboard?.writeText(COMMAND);
-        if (!pending) return;
-        void pending.then(
-          () => {
-            setCopied(true);
-            setTimeout(() => setCopied(false), 1500);
-          },
-          () => {
-            // Denied (permissions policy, headless) — leave the chip alone.
-          },
-        );
-      }}
-      className="inline-flex cursor-pointer items-center gap-3 rounded-(--md-sys-shape-corner-full) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container) px-5 py-2.5 font-mono text-sm text-(--md-sys-color-on-surface) transition-colors hover:bg-(--md-sys-color-surface-container-high)"
-      aria-label={`Copy install command: ${COMMAND}`}
-    >
-      <span aria-hidden="true" className="text-(--md-sys-color-secondary)">
-        $
-      </span>
-      <span>{COMMAND}</span>
-      <span className="text-(--md-sys-color-on-surface-variant)">
-        {copied ? "copied" : "copy"}
-      </span>
-    </button>
+    <svg viewBox="0 0 240 240" aria-hidden="true" className="material-bloom">
+      {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((angle) => (
+        <ellipse
+          key={angle}
+          cx="120"
+          cy="75"
+          rx="29"
+          ry="64"
+          transform={`rotate(${angle} 120 120)`}
+          fill="var(--md-sys-color-primary)"
+        />
+      ))}
+      <circle
+        cx="120"
+        cy="120"
+        r="41"
+        fill="var(--md-sys-color-tertiary-container)"
+      />
+      <path
+        d="M101 120h38m-19-19v38"
+        stroke="var(--md-sys-color-on-tertiary-container)"
+        strokeWidth="3"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+/** Real controls: selection, state, and feedback are not painted imitations. */
+function LiveCluster() {
+  const [saved, setSaved] = useState(false);
+  return (
+    <section className="hero-art" aria-label="Try Kern components">
+      <div className="hero-bloom-tile">
+        <MaterialBloom />
+        <span className={T_LABEL_LG}>Shape your ideas</span>
+        <span aria-hidden="true" className="hero-tile-arrow">
+          ↗
+        </span>
+      </div>
+      <div className="hero-type-tile">
+        <span aria-hidden="true" className="hero-aa">
+          Aa
+        </span>
+        <div className={`flex justify-between ${T_LABEL_LG}`}>
+          <span>Type with character</span>
+          <span aria-hidden="true">↗</span>
+        </div>
+      </div>
+      <div className="hero-control-tile">
+        <div className="flex items-center justify-between gap-4">
+          <span className={`flex items-center gap-2 ${T_LABEL_LG}`}>
+            <Icon name="science" size={20} /> A little playground
+          </span>
+          <span className="hero-live-dot" aria-hidden="true" />
+        </div>
+        <p className={`my-4 ${T_SUB}`}>Small details. Big difference.</p>
+        <div className="flex flex-wrap gap-2">
+          <Chip variant="filter" defaultSelected>
+            Design
+          </Chip>
+          <Chip variant="filter">Develop</Chip>
+          <Chip variant="filter">Make it yours</Chip>
+        </div>
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
+          <div
+            className={`flex cursor-pointer items-center gap-3 ${T_LABEL_LG}`}
+          >
+            <Switch defaultChecked aria-label="Express yourself" />
+            Express yourself
+          </div>
+          <Button variant="primary" onClick={() => setSaved(!saved)}>
+            <Icon name={saved ? "check" : "add"} size={18} />
+            {saved ? "Made it yours" : "Make something"}
+          </Button>
+        </div>
+        <span className="sr-only" role="status">
+          {saved ? "Your idea is saved in this demo." : ""}
+        </span>
+      </div>
+    </section>
   );
 }
 
 export function Hero() {
   return (
-    <section className="px-4 py-4 sm:px-6 sm:py-6">
-      <div className="grid gap-3 lg:grid-cols-2">
-        <div className="flex flex-col justify-center rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14 lg:min-h-[560px] lg:p-16">
-          <Kicker>Kern by Xoroh</Kicker>
-          <h1
-            className="mt-4 max-w-xl text-balance text-(--md-sys-color-on-surface)"
-            style={{
-              fontFamily: "var(--kern-font-family)",
-              fontSize: "var(--md-sys-typescale-display-large-font-size)",
-              lineHeight: "var(--md-sys-typescale-display-large-line-height)",
-              letterSpacing:
-                "var(--md-sys-typescale-display-large-letter-spacing)",
-              fontWeight: "var(--md-sys-typescale-display-large-font-weight)",
-            }}
-          >
-            Components, tokens and docs from one source
+    <section className="home-hero">
+      <div className="home-hero-grid">
+        <div className="flex flex-col justify-center">
+          <Kicker className={INK}>Material 3. Made for you.</Kicker>
+          <h1 className={`my-6 ${T_HERO} ${INK}`}>
+            Make it
+            <br />
+            <span className="text-(--md-sys-color-primary)">feel right.</span>
           </h1>
-          <p
-            className="mt-5 max-w-xl text-pretty text-(--md-sys-color-on-surface-variant) sm:text-lg"
-            style={{
-              fontSize: "var(--md-sys-typescale-body-large-font-size)",
-              lineHeight: "var(--md-sys-typescale-body-large-line-height)",
-            }}
-          >
-            A Material 3 system for React and React Native. Every departure from
-            the Material 3 spec is declared and registered as a deviation id, so
-            strictness is something you can audit rather than something we ask
-            you to trust.
+          <p className={`m-0 max-w-[38ch] text-pretty ${T_BODY} ${INK}`}>
+            Thoughtful components. Expressive color. A shared foundation for
+            beautiful experiences on web and native.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
             <a
-              href="/getting-started"
+              href="/docs/getting-started"
               className={cn(
                 buttonVariants({ variant: "primary" }),
-                "no-underline",
+                "home-cta no-underline",
               )}
             >
-              Get started
+              Start building <Icon name="arrow-forward" size={20} />
             </a>
-            <InstallChip />
+            <a
+              href="/components"
+              className={cn(
+                buttonVariants({ variant: "outlined" }),
+                "home-cta no-underline",
+              )}
+            >
+              Explore components
+            </a>
+          </div>
+          <div
+            className={`mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 ${T_LABEL_LG} ${INK}`}
+          >
+            <span className="flex items-center gap-1.5">
+              <Icon name="check" size={16} />
+              React + React Native
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Icon name="check" size={16} />
+              Open source
+            </span>
           </div>
         </div>
-        <LiveHero />
+        <LiveCluster />
       </div>
     </section>
   );

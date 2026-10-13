@@ -20,7 +20,7 @@ export function toggleStyles(
     borderRadius: Number.parseFloat(scheme.shape.full),
     paddingHorizontal: 12,
     backgroundColor: pressed ? scheme.color.primary : "transparent",
-    opacity: disabled ? 0.5 : 1,
+    opacity: disabled ? 0.38 : 1,
   };
 }
 

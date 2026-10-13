@@ -68,6 +68,53 @@ export const snackbar: ComponentDoc = {
     { name: "SnackbarClose", role: "Dismisses it early." },
     { name: "Snackbar", role: "The namespace object: all of the parts above." },
   ],
+  keyboard: [
+    {
+      key: "Escape",
+      action: "Dismisses the snackbar when focusable.",
+    },
+    {
+      key: "Tab / Shift+Tab",
+      action: "Reaches the action button when present.",
+    },
+  ],
+  usage: {
+    do: [
+      "Use for short low-importance updates at the bottom — never interruptive.",
+      "Keep to one optional action in inverse-primary; two lines max.",
+      "Let transient messages dismiss on their own.",
+    ],
+    dont: [
+      "Don't use for high-importance required actions — that is a dialog.",
+      "Don't stack multiple actions — one at most.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Container",
+      state: "resting",
+      token: "md.comp.snackbar.container",
+      value: "inverse-surface, 4px, level3",
+    },
+    {
+      element: "Supporting text",
+      state: "resting",
+      token: "md.comp.snackbar.supporting",
+      value: "inverse-on-surface",
+    },
+    {
+      element: "Action",
+      state: "resting",
+      token: "md.comp.snackbar.action",
+      value: "inverse-primary",
+    },
+  ],
+  faq: [
+    {
+      q: "How long does it stay?",
+      a: "Transient messages dismiss automatically; action-bearing ones persist until taken or dismissed.",
+    },
+  ],
   customization: {
     supported: [
       "`className` on every part, merged after the part's own classes.",

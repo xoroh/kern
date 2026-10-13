@@ -1,19 +1,34 @@
 /**
- * The Foundations family shell.
+ * The Material 3 Foundations family shell.
  *
- * One shape for all seven pages plus the hub, so the family reads as a family:
- * a header, the generated content, and prev/next that NAME the page they go to
- * (the m4 standard — a bare "Previous"/"Next" is a link that refuses to say
- * where it leads).
+ * One shape for all seven M3 pages plus the M3 hub, so the family reads as a
+ * family: a header, the generated content, and prev/next that NAME the page
+ * they go to (the m4 standard — a bare "Previous"/"Next" is a link that
+ * refuses to say where it leads).
  *
  * All numbers come from ./data, which reads the token package. Nothing here
  * is a literal that can drift from what kern ships.
  */
 
 import { Link } from "@tanstack/react-router";
-import type { ReactNode } from "react";
+import { cn, SegmentedButton } from "@xoroh/kern";
+import { resolveThemeDetails, varName } from "@xoroh/kern-tokens";
+import {
+  type CSSProperties,
+  createContext,
+  type ReactNode,
+  useContext,
+  useMemo,
+} from "react";
 import { CopyMarkdownButton } from "../components/chrome/copy-markdown-button";
-import { T_BODY_SM, T_LEAD, T_PAGE, T_SECTION } from "../domains/shared/systems/type-scale";
+import {
+  T_BODY_SM,
+  T_LABEL_MD,
+  T_LEAD,
+  T_PAGE,
+  T_SECTION,
+} from "../domains/shared/systems/type-scale";
+import { CARD, INK, INK_SOFT } from "../domains/shared/systems/ui";
 
 export type FoundationPage = {
   /** route segment, e.g. "color" */
@@ -59,9 +74,23 @@ export const FOUNDATIONS: FoundationPage[] = [
   },
   {
     slug: "type",
-    title: "Type",
+    title: "Typography",
     oneLiner: "Thirty styles, each rendered by its own tokens.",
     deviations: [{ id: "K1", note: "Inter instead of Roboto" }],
+  },
+  // M3's own reading order: color → type → shape → elevation → motion →
+  // state. Shape sits BEFORE elevation because elevation is judged against
+  // the corners it shadows — the spec's order, not an alphabetical one.
+  {
+    slug: "shape",
+    title: "Shape",
+    oneLiner: "The corner scale, including Material 3's Expressive additions.",
+    deviations: [
+      {
+        id: "K5",
+        note: "pill-heavy defaults — kern's corner identity, distinct from the spec",
+      },
+    ],
   },
   {
     slug: "elevation",
@@ -71,17 +100,6 @@ export const FOUNDATIONS: FoundationPage[] = [
       {
         id: "K4",
         note: "the per-level shadow — kern's platform rendering of the spec's dp axis",
-      },
-    ],
-  },
-  {
-    slug: "shape",
-    title: "Shape",
-    oneLiner: "The corner scale, including Material 3's Expressive additions.",
-    deviations: [
-      {
-        id: "K5",
-        note: "pill-heavy defaults — kern's corner identity, distinct from the spec",
       },
     ],
   },
@@ -115,10 +133,12 @@ export function neighbours(slug: string): {
   };
 }
 
-const INK = "text-(--md-sys-color-on-surface)";
-const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";
-const CARD =
-  "rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-low)";
+/**
+ * Ink and card come from the site kit (ui.ts) — the family shell composes the
+ * same CARD every other page composes rather than carrying a second card
+ * treatment. F_INK / F_CARD below re-export them under the family's names so
+ * routes read consistently.
+ */
 const H2 = `m-0 ${T_SECTION} ${INK}`;
 const H3 = `m-0 ${T_LEAD} ${INK}`;
 const PROSE = `m-0 max-w-[62ch] ${T_BODY_SM} ${INK_SOFT}`;
@@ -208,6 +228,163 @@ export const F_H2 = H2;
 export const F_H3 = H3;
 export const F_PROSE = PROSE;
 
+/* ------------------------------------------------ specimen controls ------ */
+
+/**
+ * A role as a live CSS reference: `var(--md-sys-color-primary)`. Swatches
+ * paint this rather than a hex so they follow whatever `SchemeScope` they sit
+ * in — the value is resolved by the scope, never baked into the markup.
+ */
+export function roleVar(role: string): string {
+  return `var(${varName(role)})`;
+}
+
+type SchemeRegion = {
+  mode: "light" | "dark";
+  contrast: "standard" | "medium" | "high";
+  /** The resolved role table for this region — for printing values beside a swatch. */
+  colors: Record<string, string>;
+};
+
+const SchemeContext = createContext<SchemeRegion | null>(null);
+
+/**
+ * The resolved scheme of the region this component renders in. Throws when
+ * used outside a `SchemeScope`: a swatch that silently fell back to the
+ * ambient scheme would be the exact defect this replaced.
+ */
+export function useScheme(): SchemeRegion {
+  const region = useContext(SchemeContext);
+  if (!region) {
+    throw new Error("useScheme must be rendered inside a SchemeScope");
+  }
+  return region;
+}
+
+/**
+ * SchemeScope — paint a region in a resolved scheme (and contrast level).
+ *
+ * The Color and Theme pages used to paint `role.light` everywhere while the
+ * copy claimed both schemes. The fix is live rather than cosmetic: the scope
+ * resolves mode + contrast through `resolveThemeDetails` and writes the role
+ * table onto the region as CSS custom properties, so every `--md-sys-color-*`
+ * inside — card fills, hairlines, inks, status chips — repaints. Nothing
+ * inside needs to know which scheme it is showing; the kit classes it already
+ * carries do the work.
+ *
+ * The default (light / standard) equals the stylesheet, so the server render
+ * and the first paint agree — the switcher only repaints when a reader moves
+ * it. Scheme chrome OUTSIDE the scope (headings, prose, controls) stays on the
+ * site's own theme: the specimens change, the page does not.
+ */
+export function SchemeScope({
+  mode,
+  contrast = "standard",
+  className,
+  children,
+}: {
+  mode: "light" | "dark";
+  contrast?: "standard" | "medium" | "high";
+  className?: string;
+  children: ReactNode;
+}) {
+  const region = useMemo<SchemeRegion>(() => {
+    const colors = resolveThemeDetails(mode, contrast).color as Record<
+      string,
+      string
+    >;
+    return { mode, contrast, colors };
+  }, [mode, contrast]);
+
+  // React writes `--custom` keys from a style object directly; the cast is
+  // the documented way past CSSProperties' lack of an index signature.
+  const vars = useMemo(() => {
+    const out: Record<string, string> = {};
+    for (const [role, value] of Object.entries(region.colors)) {
+      out[varName(role)] = value;
+    }
+    return out as CSSProperties;
+  }, [region]);
+
+  return (
+    <SchemeContext.Provider value={region}>
+      {/* The tray paints the scheme's OWN surface: without it the region would
+          take the scheme's ink on the page's background, which is exactly the
+          illegible pairing a light-on-dark swatch used to fall into. Tonal
+          fill, no stroke — the CARD_FILLED expression, on the plain band. */}
+      <div
+        style={vars}
+        className={cn(
+          "rounded-(--md-sys-shape-corner-medium) bg-(--md-sys-color-surface) p-3",
+          className,
+        )}
+      >
+        {children}
+      </div>
+    </SchemeContext.Provider>
+  );
+}
+
+/**
+ * The scheme/contrast switcher — M3's segmented button at the site's 48dp
+ * target floor, used as a specimen control (it repaints the swatches in the
+ * nearest `SchemeScope`, never the site's own theme).
+ */
+export function FSegmented<V extends string>({
+  label,
+  value,
+  options,
+  onChange,
+}: {
+  /** Accessible name for the control group. */
+  label: string;
+  value: V;
+  options: readonly { value: V; label: string }[];
+  onChange: (next: V) => void;
+}) {
+  return (
+    <SegmentedButton.Root
+      value={[value]}
+      onValueChange={(next) => {
+        const picked = next[0];
+        if (picked !== undefined) onChange(picked);
+      }}
+      aria-label={label}
+    >
+      {options.map((option) => (
+        <SegmentedButton.Item
+          key={option.value}
+          value={option.value}
+          className="h-12 px-4"
+        >
+          {option.label}
+        </SegmentedButton.Item>
+      ))}
+    </SegmentedButton.Root>
+  );
+}
+
+/** Label + control row for a specimen switcher. */
+export function FControlRow({
+  label,
+  note,
+  children,
+}: {
+  label: string;
+  note?: string;
+  children: ReactNode;
+}) {
+  return (
+    <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+      <span className={`${T_LABEL_MD} ${INK_SOFT}`}>{label}</span>
+      {children}
+      {note ? (
+        <span className={`max-w-[62ch] ${T_BODY_SM} ${INK_SOFT}`}>{note}</span>
+      ) : null}
+    </div>
+  );
+}
+
 /**
  * The family page: title, one-liner, content, prev/next.
  *
@@ -233,7 +410,9 @@ export function FoundationLayout({
           className={`flex flex-wrap items-center gap-2 ${T_BODY_SM} ${INK_SOFT}`}
           aria-label="Breadcrumb"
         >
-          <Link to="/foundations">Foundations</Link>
+          <Link to="/foundations">Design systems</Link>
+          <span aria-hidden="true">/</span>
+          <Link to="/foundations/m3">Material 3</Link>
           <span aria-hidden="true">/</span>
           <span className={INK}>{page.title}</span>
         </nav>
@@ -256,7 +435,7 @@ export function FoundationLayout({
         {prev ? (
           <Link
             className={`${CARD} flex-1 p-4 ${T_BODY_SM} ${INK} no-underline`}
-            to="/foundations/$page"
+            to="/foundations/m3/$page"
             params={{ page: prev.slug }}
           >
             ← {prev.title}
@@ -267,7 +446,7 @@ export function FoundationLayout({
         {next ? (
           <Link
             className={`${CARD} flex-1 p-4 text-right ${T_BODY_SM} ${INK} no-underline`}
-            to="/foundations/$page"
+            to="/foundations/m3/$page"
             params={{ page: next.slug }}
           >
             {next.title} →

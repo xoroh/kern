@@ -1,4 +1,4 @@
-import { render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { normaliseTime, TimePicker } from "./time-picker";
@@ -312,5 +312,265 @@ describe("TimePicker", () => {
       />,
     );
     expect(screen.getByText("9h5m")).toBeInTheDocument();
+  });
+});
+
+describe("TimePicker dial presentation", () => {
+  /** Radios of the visible dial face. Scoped like the listbox `field` helper. */
+  function dialFace(): HTMLElement {
+    return screen.getByTestId("kern-time-dial-face");
+  }
+
+  function dialRadio(name: string | RegExp) {
+    return within(dialFace()).getByRole("radio", { name });
+  }
+
+  it("renders the dial face instead of listboxes when presentation is dial", () => {
+    render(
+      <TimePicker
+        defaultValue={{ hours: 9, minutes: 30 }}
+        presentation="dial"
+      />,
+    );
+    expect(screen.getByTestId("kern-time-dial")).toBeInTheDocument();
+    expect(screen.queryByRole("listbox")).toBeNull();
+  });
+
+  it("defaults to the listbox presentation", () => {
+    render(<TimePicker defaultValue={{ hours: 9, minutes: 0 }} />);
+    expect(screen.queryByTestId("kern-time-dial")).toBeNull();
+    expect(
+      screen.getByRole("listbox", { name: /^hour/i }),
+    ).toBeInTheDocument();
+  });
+
+  it("keeps the listbox presentation when asked for it explicitly", () => {
+    render(
+      <TimePicker
+        defaultValue={{ hours: 9, minutes: 0 }}
+        presentation="listbox"
+      />,
+    );
+    expect(screen.queryByTestId("kern-time-dial")).toBeNull();
+    expect(
+      screen.getByRole("listbox", { name: /^hour/i }),
+    ).toBeInTheDocument();
+  });
+
+  // Same load-bearing claim as the listbox: 12-hour is a PRESENTATION of
+  // 24-hour state. "03" on a PM face reports 15, not 3.
+  it("reports 24-hour state when an hour is picked on a 12-hour dial", async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    render(
+      <TimePicker
+        defaultValue={{ hours: 15, minutes: 0 }}
+        format="12h"
+        presentation="dial"
+        onValueChange={onValueChange}
+      />,
+    );
+    await user.click(dialRadio("03"));
+    expect(onValueChange).toHaveBeenCalledWith(
+      expect.objectContaining({ hours: 15 }),
+    );
+  });
+
+  // A pointer pick confirms the hour (M3 advances to minutes); keyboard
+  // traversal must NOT, or arrowing through hours yanks the face away.
+  it("advances to the minute face after an hour is clicked", async () => {
+    const user = userEvent.setup();
+    render(
+      <TimePicker
+        defaultValue={{ hours: 15, minutes: 0 }}
+        format="12h"
+        presentation="dial"
+        onValueChange={() => {}}
+      />,
+    );
+    await user.click(dialRadio("03"));
+    expect(dialFace()).toHaveAttribute("aria-label", "Minute");
+  });
+
+  it("honours step granularity on the minute dial", async () => {
+    const user = userEvent.setup();
+    render(
+      <TimePicker
+        defaultValue={{ hours: 9, minutes: 0 }}
+        step={15}
+        presentation="dial"
+      />,
+    );
+    await user.click(screen.getByTestId("kern-time-dial-mode-minute"));
+    expect(dialRadio("15")).toBeInTheDocument();
+    expect(dialRadio("45")).toBeInTheDocument();
+    // 10 is not on a step-15 grid.
+    expect(
+      within(dialFace()).queryByRole("radio", { name: "10" }),
+    ).toBeNull();
+  });
+
+  it("falls back to minute-accurate when step does not divide 60", async () => {
+    const user = userEvent.setup();
+    render(
+      <TimePicker
+        defaultValue={{ hours: 9, minutes: 0 }}
+        step={7}
+        presentation="dial"
+      />,
+    );
+    await user.click(screen.getByTestId("kern-time-dial-mode-minute"));
+    expect(dialRadio("07")).toBeInTheDocument();
+    expect(dialRadio("59")).toBeInTheDocument();
+  });
+
+  it("reports a normalised value when a minute is picked on the dial", async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    render(
+      <TimePicker
+        defaultValue={{ hours: 9, minutes: 0 }}
+        step={15}
+        presentation="dial"
+        onValueChange={onValueChange}
+      />,
+    );
+    await user.click(screen.getByTestId("kern-time-dial-mode-minute"));
+    await user.click(dialRadio("45"));
+    expect(onValueChange).toHaveBeenCalledWith({ hours: 9, minutes: 45 });
+  });
+
+  // Midnight is the classic 12-hour bug; the period toggle is part of the
+  // value (00:00 AM -> PM is 12:00, i.e. hours 12).
+  it("shows 12 for midnight and reports 24-hour state when PM is chosen", async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    render(
+      <TimePicker
+        defaultValue={{ hours: 0, minutes: 0 }}
+        format="12h"
+        presentation="dial"
+        onValueChange={onValueChange}
+      />,
+    );
+    expect(
+      within(dialFace()).getByRole("radio", { name: "12", checked: true }),
+    ).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: "PM" }));
+    expect(onValueChange).toHaveBeenCalledWith(
+      expect.objectContaining({ hours: 12 }),
+    );
+  });
+
+  it("shows all 24 hours on two rings in 24-hour mode", () => {
+    render(
+      <TimePicker
+        defaultValue={{ hours: 15, minutes: 0 }}
+        presentation="dial"
+      />,
+    );
+    expect(dialRadio("00")).toBeInTheDocument();
+    expect(dialRadio("13")).toBeInTheDocument();
+    expect(dialRadio("23")).toBeInTheDocument();
+    expect(
+      within(dialFace()).getByRole("radio", { name: "15", checked: true }),
+    ).toBeInTheDocument();
+  });
+
+  it("moves across the dial with the arrow keys and reports the change", async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    render(
+      <TimePicker
+        defaultValue={{ hours: 9, minutes: 0 }}
+        presentation="dial"
+        onValueChange={onValueChange}
+      />,
+    );
+    dialRadio("09").focus();
+    await user.keyboard("{ArrowRight}");
+    expect(onValueChange).toHaveBeenCalledWith(
+      expect.objectContaining({ hours: 10 }),
+    );
+    // Keyboard traversal stays in its ring — the face must still be hours.
+    expect(dialFace()).toHaveAttribute("aria-label", "Hour (24 hour)");
+  });
+
+  // Home/End jump to the first/last OPTION in traversal order, mirroring the
+  // listbox. On a 12-hour face that order is 12,1..11, so End lands on 11 and
+  // Home comes back to 12 (midnight here, i.e. hours 0).
+  it("wraps with Home/End on the dial", async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    render(
+      <TimePicker
+        defaultValue={{ hours: 0, minutes: 0 }}
+        format="12h"
+        presentation="dial"
+        onValueChange={onValueChange}
+      />,
+    );
+    dialRadio("12").focus();
+    await user.keyboard("{End}");
+    expect(onValueChange).toHaveBeenCalledWith(
+      expect.objectContaining({ hours: 11 }),
+    );
+    await user.keyboard("{Home}");
+    expect(onValueChange).toHaveBeenCalledWith(
+      expect.objectContaining({ hours: 0 }),
+    );
+  });
+
+  // A press on empty face snaps by ANGLE: the top of a 24-hour dial is 00.
+  // The rect is mocked because jsdom lays out nothing (all zeros).
+  it("selects by drag position on the face", () => {
+    const onValueChange = vi.fn();
+    render(
+      <TimePicker
+        defaultValue={{ hours: 9, minutes: 0 }}
+        presentation="dial"
+        onValueChange={onValueChange}
+      />,
+    );
+    const face = dialFace();
+    vi.spyOn(face, "getBoundingClientRect").mockReturnValue({
+      left: 0,
+      top: 0,
+      width: 256,
+      height: 256,
+      right: 256,
+      bottom: 256,
+      x: 0,
+      y: 0,
+      toJSON: () => {},
+    });
+    fireEvent.pointerDown(face, {
+      clientX: 128,
+      clientY: 8,
+      button: 0,
+      pointerId: 1,
+    });
+    expect(onValueChange).toHaveBeenCalledWith(
+      expect.objectContaining({ hours: 0 }),
+    );
+  });
+
+  it("reports but does not move a controlled dial value", async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    render(
+      <TimePicker
+        value={{ hours: 9, minutes: 0 }}
+        presentation="dial"
+        onValueChange={onValueChange}
+      />,
+    );
+    await user.click(screen.getByTestId("kern-time-dial-mode-minute"));
+    await user.click(dialRadio("45"));
+    expect(onValueChange).toHaveBeenCalledWith(
+      expect.objectContaining({ minutes: 45 }),
+    );
+    // Still 09:00: the host owns it.
+    expect(screen.getByText("09:00")).toBeInTheDocument();
   });
 });

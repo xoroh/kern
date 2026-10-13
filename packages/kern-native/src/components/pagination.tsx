@@ -258,6 +258,8 @@ function PageButton({
       accessibilityState={{ selected: current, disabled: disabledNow }}
       disabled={disabledNow}
       onPress={disabledNow ? undefined : onPress}
+      // 40dp visual box widened to the 48dp minimum target.
+      hitSlop={{ top: 4, bottom: 4, left: 4, right: 4 }}
       style={[
         styles.page,
         current ? styles.currentPage : null,

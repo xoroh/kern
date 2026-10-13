@@ -25,19 +25,19 @@ import {
   useState,
 } from "react";
 import {
-  buildSearchIndex,
-  SEARCH_SUGGESTIONS,
-  type SearchEntry,
-  searchSite,
-} from "../../systems/search";
-import { trapTarget } from "../../systems/focus-trap";
-import {
   T_BODY,
   T_BODY_MD,
   T_BODY_SM,
   T_KEY,
   T_LABEL_MD,
 } from "../../domains/shared/systems/type-scale";
+import { trapTarget } from "../../systems/focus-trap";
+import {
+  buildSearchIndex,
+  SEARCH_SUGGESTIONS,
+  type SearchEntry,
+  searchSite,
+} from "../../systems/search";
 import { ResultText } from "../search/result-text";
 
 export const OPEN_SEARCH_EVENT = "kern:open-search";
@@ -82,13 +82,26 @@ export function SearchPalette() {
     setOpen(false);
     setQuery("");
     setActive(0);
-    (triggerRef.current as HTMLElement | null)?.focus?.();
   }, []);
 
   const go = useCallback(
     (href: string) => {
       close();
-      navigate({ to: href });
+      // TanStack Router reads query params from the `search` option — a query
+      // string embedded in `to` (`/search?q=…`) is NOT parsed, which silently
+      // dropped the deep link's query. Split it off and forward the params.
+      const at = href.indexOf("?");
+      if (at < 0) {
+        navigate({ to: href });
+        return;
+      }
+      const search: Record<string, string> = {};
+      for (const pair of href.slice(at + 1).split("&")) {
+        if (!pair) continue;
+        const [k, v = ""] = pair.split("=");
+        if (k) search[decodeURIComponent(k)] = decodeURIComponent(v);
+      }
+      navigate({ to: href.slice(0, at), search });
     },
     [close, navigate],
   );
@@ -119,9 +132,11 @@ export function SearchPalette() {
       setRegionsHidden(true);
       return () => {
         setRegionsHidden(false);
+        // A trigger inside inert chrome cannot receive focus until it is unhidden.
+        (triggerRef.current as HTMLElement | null)?.focus?.();
       };
     }
-  }, [open ]);
+  }, [open]);
 
   if (!open) return null;
 
@@ -198,10 +213,10 @@ export function SearchPalette() {
         type="button"
         aria-label="Close search"
         onClick={close}
-        className="absolute inset-0 cursor-default border-0 bg-(--md-sys-color-scrim)/40"
+        className="absolute inset-0 cursor-default border-0 bg-(--md-sys-color-scrim)/30"
       />
-      <div className="relative w-full max-w-xl overflow-hidden rounded-(--md-sys-shape-corner-large) bg-(--md-sys-color-surface) shadow-(--md-sys-elevation-level3)">
-        <div className="flex items-center gap-2 border-b border-(--md-sys-color-outline-variant) p-3">
+      <div className="relative w-full max-w-xl overflow-hidden rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) shadow-(--md-sys-elevation-level3)">
+        <div className="flex items-center gap-3 border-b border-(--md-sys-color-outline-variant) p-5">
           <input
             ref={inputRef}
             type="search"
@@ -229,6 +244,13 @@ export function SearchPalette() {
             esc
           </kbd>
         </div>
+        {/* Result-count announcement for screen readers — the combobox list
+            itself is visual; the count is the state a live region can own. */}
+        <p aria-live="polite" className="sr-only">
+          {query.trim() === ""
+            ? ""
+            : `${flat.length} ${flat.length === 1 ? "result" : "results"} for “${query.trim()}”.`}
+        </p>
         <div className="max-h-[50vh] overflow-y-auto p-2">
           {query.trim() === "" ? (
             <PaletteSuggestions
@@ -238,7 +260,9 @@ export function SearchPalette() {
             />
           ) : groups.length === 0 ? (
             <div className="flex flex-col gap-3 p-3">
-              <p className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}>
+              <p
+                className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+              >
                 No results for “{query.trim()}”.
               </p>
               <PaletteSuggestions
@@ -278,7 +302,7 @@ export function SearchPalette() {
                           e.preventDefault();
                           go(entry.href);
                         }}
-                        className={`block min-w-0 cursor-pointer rounded-(--md-sys-shape-corner-small) px-3 py-2 no-underline ${
+                        className={`block min-h-12 min-w-0 cursor-pointer rounded-(--md-sys-shape-corner-large) px-4 py-3 no-underline ${
                           isActive
                             ? "bg-(--md-sys-color-secondary-container)"
                             : ""
@@ -298,7 +322,7 @@ export function SearchPalette() {
               onClick={() =>
                 go(`/search?q=${encodeURIComponent(query.trim())}`)
               }
-              className={`mt-1 w-full cursor-pointer border-0 bg-transparent px-3 py-2 text-left ${T_BODY_MD} text-(--md-sys-color-primary)`}
+              className={`mt-1 w-full cursor-pointer border-0 bg-transparent px-3 py-2 text-left ${T_BODY_MD} text-(--md-sys-color-secondary)`}
             >
               See all results →
             </button>
@@ -333,7 +357,9 @@ function PaletteSuggestions({
           className={`cursor-pointer border-0 bg-transparent px-2 py-1.5 text-left ${T_BODY_MD} text-(--md-sys-color-on-surface) hover:bg-(--md-sys-color-surface-container)`}
         >
           {entry.title}
-          <span className={`${T_BODY_SM} text-(--md-sys-color-on-surface-variant)`}>
+          <span
+            className={`${T_BODY_SM} text-(--md-sys-color-on-surface-variant)`}
+          >
             {" "}
             · {entry.hint}
           </span>

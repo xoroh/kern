@@ -13,8 +13,8 @@ export const toolbar: ComponentDoc = {
     // Exact web counterpart, checked in the web inventory.
     nativePeer: "Toolbar",
     variants: [],
-    // Material 3 places `toolbar` at resting level 2.
-    elevation: 2,
+    // Expressive floating defaults to level3 (6dp); docked is flat.
+    elevation: 3,
   },
   parts: ["Toolbar"],
   customization: {

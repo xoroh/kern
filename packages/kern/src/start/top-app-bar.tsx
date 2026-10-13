@@ -17,9 +17,10 @@ export const TOP_APP_BAR_SIZE_TO_KERN_SIZE: Record<TopAppBarSize, KernSize> = {
 };
 
 const SIZES: Record<TopAppBarSize, string> = {
-  small: "h-14 items-center",
-  medium: "h-24 items-end pb-3",
-  large: "h-28 items-end pb-4",
+  // M3 bar heights: small/center 64dp, medium 112dp, large 152dp.
+  small: "h-16 items-center",
+  medium: "h-28 items-end pb-3",
+  large: "h-[152px] items-end pb-4",
 };
 
 /** M3 top app bar: leading slot, title, trailing actions. */
@@ -52,9 +53,13 @@ export function TopAppBar({
       <span
         className={cn(
           "min-w-0 flex-1 truncate",
+          // M3 title roles: small = Title Large 22sp, medium = Headline Small
+          // 24sp, large = Headline Medium 28sp.
           size === "small"
-            ? "text-base font-medium"
-            : "px-2 text-2xl font-medium",
+            ? "text-[22px] leading-7 font-medium"
+            : size === "medium"
+              ? "px-2 text-2xl font-medium"
+              : "px-2 text-[28px] leading-9 font-medium",
         )}
       >
         {children}

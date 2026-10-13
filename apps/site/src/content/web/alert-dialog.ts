@@ -55,6 +55,39 @@ export const alertDialog: ComponentDoc = {
       role: "The namespace object: all of the parts above.",
     },
   ],
+  keyboard: [
+    {
+      key: "Escape",
+      action: "Cancels the alert; focus returns to the trigger.",
+    },
+    {
+      key: "Tab / Shift+Tab",
+      action: "Trapped inside while open.",
+    },
+  ],
+  usage: {
+    do: [
+      "Use for error confirmations and action prompts requiring a response.",
+      "Label by headline or explicit aria-label.",
+    ],
+    dont: [
+      "Don't use for information that needs no response — that is a dialog or snackbar.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Container",
+      state: "resting",
+      token: "md.comp.dialog.container",
+      value: "surface-container-high, 28px, alert semantics",
+    },
+  ],
+  faq: [
+    {
+      q: "Alert dialog or dialog?",
+      a: "Alert announces as alertdialog for messages requiring response; plain dialog for the rest.",
+    },
+  ],
   customization: {
     supported: [
       "`className` on every part, merged after the part's own classes.",

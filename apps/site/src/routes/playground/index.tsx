@@ -17,7 +17,9 @@
  */
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect } from "react";
+import { Kicker } from "../../components/chrome/kicker";
 import { ThemeStudio } from "../../domains/playground/studio";
+import { PageCard } from "../../domains/shared/chrome/page-card";
 import { SiteLayout } from "../../domains/shared/chrome/site-layout";
 import { routeHead } from "../../domains/shared/systems/seo";
 import {
@@ -25,6 +27,14 @@ import {
   T_BODY_SM,
   T_PAGE,
 } from "../../domains/shared/systems/type-scale";
+import {
+  FOCUS_RING,
+  INK,
+  INK_SOFT,
+  LINK,
+  STATE_LAYERS,
+  TRANSITION,
+} from "../../domains/shared/systems/ui";
 import {
   loadStudioState,
   STUDIO_DEFAULTS,
@@ -92,59 +102,45 @@ function Playground() {
 
   return (
     <SiteLayout>
-      <section className="px-4 py-4 sm:px-6 sm:py-6">
-        <div className="mx-auto flex max-w-[72rem] flex-col gap-8 rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-12">
-          <header className="flex flex-col gap-3">
-            <p
-              className={`m-0 text-(--md-sys-color-on-surface-variant) uppercase`}
+      <PageCard width="wide">
+        <header className="flex flex-col gap-3">
+          <Kicker>Playground</Kicker>
+          <h1 className={`m-0 ${T_PAGE} ${INK}`}>Theme studio</h1>
+          <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>
+            Tune the theme in the sidebar — the preview and the export update
+            together. Every knob lives in the URL, so a refresh keeps your theme
+            and a shared link reopens the exact one you see.
+          </p>
+          <details>
+            <summary
+              className={`flex min-h-12 cursor-pointer items-center ${T_BODY_SM} ${INK} ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`}
             >
-              Playground
+              How this studio works
+            </summary>
+            <p className={`m-0 max-w-[62ch] ${T_BODY_SM} ${INK_SOFT}`}>
+              Everything right of this sentence reads CSS vars — the preview is
+              the tokens. Copy the preset source and it resolves to exactly what
+              you see: snippet and stage share one object. The seed recomputes
+              the primary family only; secondary, tertiary, error and surface
+              stay on the preset. Contrast is argued from the mapping, not
+              printed — the ratio function is not in the package&apos;s public
+              API.
             </p>
-            <h1 className={`m-0 ${T_PAGE} text-(--md-sys-color-on-surface)`}>
-              Theme studio
-            </h1>
-            <p
-              className={`m-0 max-w-[62ch] ${T_BODY} text-(--md-sys-color-on-surface-variant)`}
+          </details>
+          <p className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
+            Every registry from one box lives in{" "}
+            <Link
+              to="/search"
+              search={{ q: "" }}
+              className={`${LINK} ${TRANSITION} ${FOCUS_RING}`}
             >
-              Tune the theme in the sidebar — the preview and the export update
-              together. Every knob lives in the URL, so a refresh keeps your
-              theme and a shared link reopens the exact one you see.
-            </p>
-            <details>
-              <summary
-                className={`cursor-pointer ${T_BODY_SM} text-(--md-sys-color-on-surface)`}
-              >
-                How this studio works
-              </summary>
-              <p
-                className={`m-0 max-w-[62ch] ${T_BODY_SM} text-(--md-sys-color-on-surface-variant)`}
-              >
-                Everything right of this sentence reads CSS vars — the preview
-                is the tokens. Copy the preset source and it resolves to exactly
-                what you see: snippet and stage share one object. The seed
-                recomputes the primary family only; secondary, tertiary, error
-                and surface stay on the preset. Contrast is argued from the
-                mapping, not printed — the ratio function is not in the
-                package&apos;s public API.
-              </p>
-            </details>
-            <p
-              className={`m-0 ${T_BODY_SM} text-(--md-sys-color-on-surface-variant)`}
-            >
-              Every registry from one box lives in{" "}
-              <Link
-                to="/search"
-                search={{ q: "" }}
-                className="text-(--md-sys-color-primary) no-underline hover:underline"
-              >
-                search
-              </Link>{" "}
-              (⌘K anywhere) — a global surface, not owned by this app.
-            </p>
-          </header>
-          <ThemeStudio state={state} onChange={onChange} />
-        </div>
-      </section>
+              search
+            </Link>{" "}
+            (⌘K anywhere) — a global surface, not owned by this app.
+          </p>
+        </header>
+        <ThemeStudio state={state} onChange={onChange} />
+      </PageCard>
     </SiteLayout>
   );
 }

@@ -82,11 +82,11 @@ for (const platform of ["web", "mobile"]) {
   // contract as every other emission.
   const ROOT = join(APP, "..", "..");
   const themeLeaf = NAV_SECTIONS.flatMap((s) => s.leaves).find(
-    (l) => l.href === "/foundations/theme",
+    (l) => l.href === "/foundations/m3/theme",
   );
   if (!themeLeaf) {
     throw new Error(
-      "generate-page-md: no /foundations/theme nav leaf — the theme .md has no title/one-liner source",
+      "generate-page-md: no /foundations/m3/theme nav leaf — the theme .md has no title/one-liner source",
     );
   }
   const catalog = JSON.parse(
@@ -102,7 +102,7 @@ for (const platform of ["web", "mobile"]) {
     ),
   );
   const themeMd =
-    `<!-- Do not hand-edit: written by scripts/generate-page-md.mjs from the /foundations/theme nav leaf and the token package. -->\n` +
+    `<!-- Do not hand-edit: written by scripts/generate-page-md.mjs from the /foundations/m3/theme nav leaf and the token package. -->\n` +
     themeMarkdown(
       { title: themeLeaf.label, oneLiner: themeLeaf.hint },
       catalog,

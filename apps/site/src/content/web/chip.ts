@@ -20,6 +20,52 @@ export const chip: ComponentDoc = {
     elevation: 0,
   },
   parts: ["Chip"],
+  keyboard: [
+    {
+      key: "Tab / Shift+Tab",
+      action: "Moves focus into and out of each chip. Disabled chips are skipped.",
+    },
+    {
+      key: "Space / Enter",
+      action: "Activates, selects, or deselects the focused chip.",
+    },
+    {
+      key: "Backspace / Delete",
+      action: "Removes the focused input chip.",
+    },
+  ],
+  usage: {
+    do: [
+      "Use assist for smart cross-app actions, filter for collection tags, input for user-entered discretes, suggestion for dynamic narrowing.",
+      "Always render chips in sets that scroll horizontally — never one alone.",
+      "Keep labels to 20 characters, skipping articles.",
+    ],
+    dont: [
+      "Don't finish tasks with chips — Save and Cancel are buttons, not chips.",
+      "Don't mix single- and multi-select filter behavior on one page.",
+      "Don't elevate chips on the page — elevation is for images only, never for pressed state (ripple instead).",
+    ],
+  },
+  tokens: [
+    {
+      element: "Container",
+      state: "resting",
+      token: "md.comp.chip.container",
+      value: "8px shape, 32px high, label-large",
+    },
+    {
+      element: "Selected filter",
+      state: "resting",
+      token: "md.comp.filter-chip.selected",
+      value: "secondary-container + on-secondary-container + check",
+    },
+  ],
+  faq: [
+    {
+      q: "Which chip do I use?",
+      a: "Assist for actions, filter for tags, input for user-entered discretes, suggestion for dynamic narrowing.",
+    },
+  ],
   customization: {
     supported: [
       "`className` is passed through and merged after the variant classes.",

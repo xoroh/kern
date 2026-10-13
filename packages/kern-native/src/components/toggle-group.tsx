@@ -94,7 +94,7 @@ export function ToggleGroup({
               paddingHorizontal: 12,
               borderRadius: Number.parseFloat(scheme.shape.full),
               backgroundColor: active ? scheme.color.primary : "transparent",
-              opacity: option.disabled ? 0.5 : 1,
+              opacity: option.disabled ? 0.38 : 1,
             }}
           >
             <Text

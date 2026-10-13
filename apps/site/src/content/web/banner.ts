@@ -26,6 +26,29 @@ export const banner: ComponentDoc = {
       why: "A system that can only say 'error' cannot report the three outcomes people actually distinguish: it worked, watch out, and for your information. The twelve status roles are registered as K2 in m3-roles.ts, so the extension is a declared addition to the role space rather than a silent fork of it.",
     },
   ],
+  usage: {
+    do: [
+      "Use for inline notices needing icon, text, and actions together.",
+      "Keep to one screen region — banners explain, dialogs interrupt.",
+    ],
+    dont: [
+      "Don't use where a snackbar suffices — transient updates leave with the user.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Container",
+      state: "resting",
+      token: "kern.banner.container",
+      value: "Kern pattern beyond M3; shaped by M3 roles",
+    },
+  ],
+  faq: [
+    {
+      q: "Banner, snackbar, or dialog?",
+      a: "Banner for persistent inline notices; snackbar for transient updates; dialog for blocking decisions.",
+    },
+  ],
   customization: {
     supported: [
       "`className` is passed through and merged after the variant classes.",

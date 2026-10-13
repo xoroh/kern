@@ -8,8 +8,10 @@ const cardVariants = cva(
     variants: {
       variant: {
         filled: "bg-(--md-sys-color-surface-container-highest) shadow-none",
-        outlined: "border border-(--md-sys-color-outline-variant)",
-        elevated: "shadow-(--md-sys-elevation-level1)",
+        outlined:
+          "border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface)",
+        elevated:
+          "bg-(--md-sys-color-surface-container-low) shadow-(--md-sys-elevation-level1)",
       },
     },
     defaultVariants: { variant: "filled" },
@@ -32,6 +34,51 @@ export function Card<T extends ElementType = "div">({
     <Component
       data-slot="card"
       className={cn(cardVariants({ variant }), className)}
+      {...props}
+    />
+  );
+}
+
+/**
+ * M3 card anatomy slots. The root is deliberately bare — these carry the
+ * spec's content geometry so hosts stop re-deriving it: 16dp content
+ * padding, 8dp action rows with 8dp gaps (text-button actions, end-aligned).
+ */
+export function CardHeader({
+  className,
+  ...props
+}: ComponentPropsWithRef<"div">) {
+  return (
+    <div
+      data-slot="card-header"
+      className={cn("kern-card-header flex flex-col gap-1 p-4 pb-0", className)}
+      {...props}
+    />
+  );
+}
+
+export function CardContent({
+  className,
+  ...props
+}: ComponentPropsWithRef<"div">) {
+  return (
+    <div
+      data-slot="card-content"
+      className={cn("kern-card-content p-4", className)}
+      {...props}
+    />
+  );
+}
+
+export function CardActions({
+  className,
+  ...props
+}: ComponentPropsWithRef<"div">) {
+  return (
+    <div
+      data-slot="card-actions"
+      role="group"
+      className={cn("kern-card-actions flex items-center justify-end gap-2 p-2", className)}
       {...props}
     />
   );

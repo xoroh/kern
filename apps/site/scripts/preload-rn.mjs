@@ -9,13 +9,19 @@
  *   bun --preload ./scripts/preload-rn.mjs scripts/<x>.mjs
  */
 import { plugin } from "bun";
+import * as web from "react-native-web";
 
 plugin({
   name: "rn-alias",
   setup(build) {
-    build.module("react-native", async () => {
-      const web = await import("react-native-web");
+    // CommonJS dependencies require a synchronous module factory.
+    build.module("react-native", () => {
       return { loader: "object", exports: { ...web } };
+    });
+    // Match Vite's real SVG web renderer rather than loading native fabric views.
+    build.module("react-native-svg", async () => {
+      const svg = await import("react-native-svg/lib/module/elements.web.js");
+      return { loader: "object", exports: { ...svg, default: svg.Svg } };
     });
   },
 });

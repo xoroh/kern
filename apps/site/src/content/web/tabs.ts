@@ -39,6 +39,64 @@ export const tabs: ComponentDoc = {
       role: "The content for one tab, kept in the DOM only while selected.",
     },
   ],
+  keyboard: [
+    {
+      key: "Arrow keys",
+      action: "Moves selection and focus between tabs, skipping disabled ones.",
+    },
+    {
+      key: "Home / End",
+      action: "Jumps to the first or last enabled tab.",
+    },
+    {
+      key: "Tab / Shift+Tab",
+      action: "The tablist is one stop (roving tabindex); panels are reachable by Tab.",
+    },
+  ],
+  usage: {
+    do: [
+      "Use primary tabs under the top app bar for main destinations.",
+      "Keep one tab active; every tab references its panel via aria-controls.",
+      "Label icon-only tabs for assistive tech.",
+    ],
+    dont: [
+      "Don't mix primary and secondary tabs in one bar.",
+      "Don't use tabs for navigation away — tabs switch views, they never leave.",
+      "Don't use fewer than three tabs — use segmented buttons or plain text.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Container",
+      state: "resting",
+      token: "md.comp.primary-tab.container",
+      value: "surface, 48px, no rounding",
+    },
+    {
+      element: "Active indicator",
+      state: "resting",
+      token: "md.comp.primary-tab.active-indicator",
+      value: "primary, 3px, (3px 3px 0 0)",
+    },
+    {
+      element: "Active label",
+      state: "resting",
+      token: "md.comp.primary-tab.active-label",
+      value: "primary, title-small",
+    },
+    {
+      element: "Inactive label",
+      state: "hover",
+      token: "md.comp.primary-tab.inactive-hover",
+      value: "on-surface + 8% layer",
+    },
+  ],
+  faq: [
+    {
+      q: "Primary or secondary?",
+      a: "Primary under the app bar for main destinations (3px indicator, primary active text). Secondary inside content for sub-sections (2px indicator, on-surface active text).",
+    },
+  ],
   customization: {
     supported: [
       "`className` on every part, merged after the part's own classes.",

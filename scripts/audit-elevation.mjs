@@ -26,6 +26,8 @@ import { execFileSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { KERN_ELEVATION_COMPONENTS } from "../packages/kern-tokens/src/kern-elevation.ts";
+import { classifyElevation } from "./lib/elevation-audit.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "docs/elevation-audit.md");
@@ -44,67 +46,28 @@ const webConcepts = [
   ...new Set(rows.filter((r) => r.platform === "web").map((r) => r.name)),
 ].sort();
 
-// --- the M3 resting-level table: balanced-brace walk, then field parse -------
-const elevSrc = readFileSync(
-  join(ROOT, "packages/kern-tokens/src/kern-elevation.ts"),
-  "utf8",
-);
-function balancedBlock(src, marker) {
-  const i = src.indexOf(marker);
-  if (i < 0) throw new Error(`marker not found: ${marker}`);
-  const open = src.indexOf("{", i);
-  let depth = 0;
-  for (let k = open; k < src.length; k++) {
-    if (src[k] === "{") depth++;
-    else if (src[k] === "}") {
-      depth--;
-      if (depth === 0) return src.slice(open, k + 1);
-    }
-  }
-  throw new Error(`unbalanced block after ${marker}`);
-}
-const table = {};
-for (const m of balancedBlock(elevSrc, "KERN_ELEVATION_COMPONENTS").matchAll(
-  /"?([a-z0-9-]+)"?:\s*Object\.freeze\(\{\s*rows:\s*\[([^\]]*)\](?:\s*,\s*variants:\s*\[([^\]]*)\])?/g,
-)) {
-  table[m[1]] = {
-    rows: [...m[2].matchAll(/"([^"]+)"/g)].map((x) => x[1]),
-    variants: [...(m[3] ?? "").matchAll(/\d+/g)].map((x) => Number(x[0])),
-  };
-}
+// Consume the actual table: comments/formatting cannot change its meaning.
+const table = KERN_ELEVATION_COMPONENTS;
 
 // --- MEASURE, using the existing script (the gate's own instrument) ---------
 const measured = new Map();
 if (webConcepts.length) {
   const out = execFileSync(
     "bun",
-    [join(ROOT, "scripts/measure-elevation.mjs"), ...webConcepts],
+    [join(ROOT, "scripts/measure-elevation.mjs"), "--json", ...webConcepts],
     { cwd: ROOT, encoding: "utf8" },
   );
-  for (const line of out.split("\n").slice(3)) {
-    const m = line.match(/^(\S+)\s+(—|\d.*?)\s{2,}/);
-    if (!m) continue;
-    const levels = m[2].trim();
-    measured.set(m[1], levels === "—" ? null : levels.split(/\s+/).map(Number));
+  for (const measurement of JSON.parse(out)) {
+    measured.set(measurement.name, measurement.tokenLevels);
   }
 }
 
 // --- classify ---------------------------------------------------------------
 const audit = webConcepts.map((name) => {
   const spec = table[name] ?? null;
-  const got = measured.get(name) ?? null;
-  let verdict;
-  if (spec && got) {
-    verdict = got.some((l) => spec.variants.includes(l))
-      ? "ASSERTED"
-      : "MISMATCH";
-  } else if (spec && !got && spec.variants.includes(0)) {
-    verdict = "ABSENT-0";
-  } else if (spec && !got) {
-    verdict = "GAP"; // M3 names a level, no token on the component
-  } else {
-    verdict = "NO-SPEC";
-  }
+  const levels = measured.get(name) ?? [];
+  const got = levels.length ? levels : null;
+  const verdict = classifyElevation(spec, levels);
   return {
     name,
     measured: got ? got.join("/") : "—",

@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import { Card } from "./card";
+import { Card, CardActions, CardContent, CardHeader } from "./card";
 
 describe("Card", () => {
   it("renders children with the default filled style (M3: container-highest, medium corners)", () => {
@@ -37,5 +37,24 @@ describe("Card", () => {
     expect(screen.getByTestId("card")).not.toHaveClass(
       "shadow-(--md-sys-elevation-level1)",
     );
+  });
+});
+
+describe("Card anatomy (M3)", () => {
+  it("pads content slots to the 16dp spec geometry", () => {
+    render(
+      <Card data-testid="card">
+        <CardHeader data-testid="head">Title</CardHeader>
+        <CardContent data-testid="body">Body</CardContent>
+        <CardActions data-testid="actions">
+          <button type="button">OK</button>
+        </CardActions>
+      </Card>,
+    );
+    expect(screen.getByTestId("head")).toHaveClass("p-4");
+    expect(screen.getByTestId("body")).toHaveClass("p-4");
+    const actions = screen.getByTestId("actions");
+    expect(actions).toHaveClass("justify-end", "gap-2", "p-2");
+    expect(actions).toHaveAttribute("role", "group");
   });
 });
