@@ -116,6 +116,15 @@
         "vitest": "^5.0.2",
       },
     },
+    "packages/kern-contracts": {
+      "name": "@xoroh/kern-contracts",
+      "version": "0.0.0",
+      "devDependencies": {
+        "tsup": "^8.5.1",
+        "typescript": "5.9.3",
+        "vitest": "^5.0.2",
+      },
+    },
     "packages/kern-icons": {
       "name": "@xoroh/kern-icons",
       "version": "0.0.0",
@@ -1114,6 +1123,8 @@
     "@xoroh/kern": ["@xoroh/kern@workspace:packages/kern"],
 
     "@xoroh/kern-cli": ["@xoroh/kern-cli@workspace:packages/kern-cli"],
+
+    "@xoroh/kern-contracts": ["@xoroh/kern-contracts@workspace:packages/kern-contracts"],
 
     "@xoroh/kern-icons": ["@xoroh/kern-icons@workspace:packages/kern-icons"],
 

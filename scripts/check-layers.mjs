@@ -59,6 +59,13 @@ const LAYERS = {
   },
   "@xoroh/kern-tokens": { rank: 0, blurb: "token engine + M3 conformance" },
   "@xoroh/kern-icons": { rank: 0, blurb: "standalone icon set" },
+  // ADR-P02: pure metadata vocabulary — types/schema/validators only. Rank 0
+  // (knows nothing); renderers, tokens metadata, CLI, MCP and the registry
+  // generator are its consumers, never its dependencies.
+  "@xoroh/kern-contracts": {
+    rank: 0,
+    blurb: "platform-free contract schema",
+  },
   "@xoroh/kern": { rank: 2, blurb: "web renderer" },
   "@xoroh/kern-native": { rank: 2, blurb: "React Native renderer" },
 };

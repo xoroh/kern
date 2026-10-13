@@ -58,7 +58,7 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
 
 ## P1 — Approved architecture and initial gate fixes
 
-- [ ] **KERN-007 — Obtain implementation/architecture approval.** Priority P0; phase P1; status Not started; owner architecture/owner.
+- [x] **KERN-007 — Obtain implementation/architecture approval.** Priority P0; phase P1; status Not started; owner architecture/owner.
   - Dependencies: KERN-006. Files: decision register/approval log and existing ADR routing.
   - Deliverable: approvals for package/contracts/CLI/CSS/DTCG/native scope and parent edit windows. Acceptance: explicit approval, publication HOLD still intact.
   - Verification: owner response linked; new package/source work cannot start on assumed authorization.
@@ -74,7 +74,7 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
   - Dependencies: KERN-007. Files: `scripts/check-kern.mjs` and new script fixtures; site prose owned separately.
   - Deliverable: parser-based import/preset detection. Acceptance: studio prose allowed, actual forbidden preset import still rejected; true elevation/shape findings remain assigned.
   - Verification: new gate unit positives/negatives, `bun run check:kern` result reconciled with KERN-026.
-- [ ] **KERN-011 — Rule default versus Xoroh theme values.** Priority P0; phase P1; status Not started; owner design/owner.
+- [x] **KERN-011 — Rule default versus Xoroh theme values.** Priority P0; phase P1; status Not started; owner design/owner.
   - Dependencies: KERN-003, KERN-004, KERN-007. Files: token theme/test/skill references and compatibility spec.
   - Deliverable: approved default value tables + Xoroh preset policy. Acceptance: blue/muted secondary disagreement resolved with visual evidence, no silent branding change.
   - Verification: V-TOK expectation updated only to approved snapshot; light/dark/contrast screenshots/source comparison signed off.
@@ -82,15 +82,15 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
   - Dependencies: KERN-007. Files: `apps/mobile/package.json`, `.github/workflows/ci.yml`.
   - Deliverable: real Metro/Expo export script and CI invocation. Acceptance: command exists, bundles native assets and uses safe output location.
   - Verification: new `bundle` implementation executed in disposable host; mobile typecheck/CI workflow checks exit0, output inspected.
-- [ ] **KERN-013 — Finalize pure contracts schema/API.** Priority P1; phase P1; status Not started; owner architecture/metadata.
+- [x] **KERN-013 — Finalize pure contracts schema/API.** Priority P1; phase P1; status Not started; owner architecture/metadata.
   - Dependencies: KERN-003, KERN-007. Files: ADR/spec/new contracts design.
   - Deliverable: provider/component/block/icon/dependency/evidence schema and parity typing plan. Acceptance: present consumers documented, no React/test-runner/upward dependency.
   - Verification: minimal renderer/CLI/MCP schema prototype fixtures and negative metadata cases; compare dependency graph.
-- [ ] **KERN-014 — Finalize graph/DTCG/theme interchange spec.** Priority P1; phase P1; status Not started; owner foundations.
+- [x] **KERN-014 — Finalize graph/DTCG/theme interchange spec.** Priority P1; phase P1; status Not started; owner foundations.
   - Dependencies: KERN-007, KERN-011. Files: foundations spec and schema ADR.
   - Deliverable: every token group/type/reference/unit/context/loss mapping. Acceptance: canonical authoring chosen, bidirectional DTCG Phase2, unsupported extension behavior explicit.
   - Verification: standards-valid color/dimension/type/shadow/duration fixture review, complete foundation mapping coverage.
-- [ ] **KERN-015 — Finalize delivery/receipt/icon contracts.** Priority P1; phase P1; status Not started; owner distribution/icons.
+- [x] **KERN-015 — Finalize delivery/receipt/icon contracts.** Priority P1; phase P1; status Not started; owner distribution/icons.
   - Dependencies: KERN-007, KERN-013. Files: distribution/icon/peer/registry/receipt design.
   - Deliverable: ordinary CSS, source hybrid/snapshot, native assets, releaseSet, transaction/config schema. Acceptance: no hidden zero-dependency or checkout promise; one Material family.
   - Verification: API/peer/import/asset flow review against add/closure/source config and target consumer matrix.

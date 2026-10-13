@@ -15,3 +15,4 @@ export * from "./sizes";
 export * from "./tokens";
 export * from "./tones";
 export * from "./variants";
+export * from "./xoroh-preset";
