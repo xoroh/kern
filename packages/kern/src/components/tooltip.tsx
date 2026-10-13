@@ -112,3 +112,20 @@ export function RichTooltipActions({
     />
   );
 }
+
+/**
+ * The rich-tooltip namespace, mirroring `Tooltip`.
+ *
+ * Web composes a rich tooltip from three parts and native ships one component;
+ * both are exported under the name `RichTooltip`, so a consumer switching
+ * renderers writes the same namespace import. That symmetry was missing: the
+ * docs page claimed `nativePeer: "RichTooltip"` and the component inventory
+ * had no such web export, so the canonical `/components/web/rich-tooltip`
+ * URL had no registry row and every part URL 301'd into it. Grouping the parts
+ * here makes both the docs claim and the URL true rather than deleting one.
+ */
+export const RichTooltip = {
+  Content: RichTooltipContent,
+  Title: RichTooltipTitle,
+  Actions: RichTooltipActions,
+};

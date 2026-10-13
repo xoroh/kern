@@ -1,5 +1,6 @@
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join, relative } from "node:path";
+import { codeOnly } from "./lib/source-code.mjs";
 
 const ROOT = new URL("..", import.meta.url).pathname;
 
@@ -665,6 +666,15 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
     }
   }
 
+  /**
+   * A REAL module reference to a preset theme file: an `import … from "…"`,
+   * a `require("…")`, or a `readFileSync("…")` whose path literal names a
+   * preset. Prose mentioning a preset — a comment, a `title` attribute, a
+   * template literal used as a display label — is not a read.
+   */
+  const PRESET_IMPORT = new RegExp(
+    "(?:from|require\\(|readFileSync\\()\\s*[\"'`][^\"'`]*themes/(?:sharp|brand|compact|demo)\\.json",
+  );
   const presetReaders = [];
   const readerRoots = [
     join(ROOT, "packages/kern-tokens"),
@@ -677,8 +687,6 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
     "packages/kern-tokens/src/tokens.ts",
     "packages/kern-tokens/scripts/check-contrast.mjs",
   ]);
-  const presetRead =
-    /(import|from|readFileSync|require)[^;]*themes\/(sharp|brand|compact|demo)\.json/;
   for (const root of readerRoots) {
     if (!existsSync(root)) continue;
     const stack = [root];
@@ -695,8 +703,14 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
         if (/\.(test|rntest)\.tsx?$/.test(entry.name)) continue;
         const rel = relative(ROOT, full);
         if (readerAllow.has(rel)) continue;
-        const src = readFileSync(full, "utf8").replace(/\s+/g, " ");
-        if (presetRead.test(src)) {
+        // CODE ONLY. The old leg scanned raw text, so an explanatory comment and
+        // a `title="…themes/brand.json"` tooltip in the theme studio were
+        // reported as "reads a preset theme file" — a violation nothing could
+        // fix by deleting the offending import, because there was none. That is
+        // the failure class this makes impossible: only a real module reference
+        // counts now.
+        const src = codeOnly(readFileSync(full, "utf8"));
+        if (PRESET_IMPORT.test(src)) {
           presetReaders.push(
             `${rel} reads a preset theme file — every preset resolves through overridesFor in resolve.ts`,
           );

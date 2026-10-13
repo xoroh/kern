@@ -341,6 +341,25 @@ jobs:
         run: bun run bundle
         working-directory: apps/mobile
 
+      # A bundle step that only runs the command is not evidence. `expo export`
+      # exits 0 having written metadata.json alone in several failure modes, so
+      # assert the artifacts that make an actually-installable bundle: one JS
+      # bundle per platform and the asset payload the app needs at runtime.
+      # Without this, the CI job was green while the app could not ship.
+      - name: Verify the bundle contains real artifacts
+        working-directory: apps/mobile
+        run: |
+          set -euo pipefail
+          for platform in ios android; do
+            dir="dist/_expo/static/js/$platform"
+            test -d "$dir" || { echo "missing bundle directory: $dir"; exit 1; }
+            count=$(find "$dir" -name '*.hbc' -o -name '*.js' | wc -l | tr -d ' ')
+            test "$count" -ge 1 || { echo "$dir has no JS bundle"; exit 1; }
+          done
+          assets=$(find dist/assets -type f 2>/dev/null | wc -l | tr -d ' ')
+          echo "bundle artifacts: ios+android JS bundles present, $assets asset file(s)"
+          test -f dist/metadata.json || { echo "missing dist/metadata.json"; exit 1; }
+
       - name: Build site
         run: bun run build
         working-directory: apps/site

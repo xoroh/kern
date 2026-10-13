@@ -36,7 +36,7 @@ const CONTRACT_TS = join(ROOT, "parity/contract.ts");
 // of those (segmented-button) is a concept, not a part. Stripping those blind is
 // exactly the bug this gate exists to make impossible to repeat silently.
 const PART_SUFFIX =
-  /-(root|items|item|trigger|content|list|label|value|group|empty|separator|action|close|title|description|input|provider|viewport|icon|section|panel|header|footer|handle|indicator|legend|option|column|row|group-label|item-indicator|item-text|field|message|error|step|tick|clear)$/;
+  /-(root|items|item|trigger|content|list|label|value|group|empty|separator|action|actions|close|title|description|input|provider|viewport|icon|section|panel|header|footer|handle|indicator|legend|option|column|row|group-label|item-indicator|item-text|field|message|error|step|tick|clear)$/;
 
 /**
  * Collapse a registry to concepts.
@@ -79,14 +79,19 @@ function concepts(names) {
 }
 
 const src = readFileSync(MANIFEST, "utf8");
+// `entrypoint` sits between `platform` and `path` in the generator's render
+// order. A row-shape regex that does not carry it parses ZERO rows and reports
+// "run bun run generate:components first" about a registry that is perfectly
+// fresh — the gate blames the tree for its own drift.
 const rows = [
   ...src.matchAll(
-    /\{\s*name:\s*"([^"]+)",\s*export:\s*"([^"]+)",\s*platform:\s*"(web|native)",\s*path:\s*"([^"]+)",\s*status:\s*"(real|stub)",\s*\}/gs,
+    /\{\s*name:\s*"([^"]+)",\s*export:\s*"([^"]+)",\s*platform:\s*"(web|native)",\s*entrypoint:\s*"([^"]+)",\s*path:\s*"([^"]+)",\s*status:\s*"(real|stub)",\s*\}/gs,
   ),
-].map(([, name, exportName, platform, path, status]) => ({
+].map(([, name, exportName, platform, entrypoint, path, status]) => ({
   name,
   exportName,
   platform,
+  entrypoint,
   path,
   status,
 }));
@@ -97,6 +102,19 @@ if (rows.length === 0) {
       "Run `bun run generate:components` first; the registry is generated, do not hand-edit.",
   );
   process.exit(1);
+}
+
+// A registry row must name the subpath that actually publishes its export.
+// "Web-only" below is computed by name, so a `/start` composition that exists
+// only as composition would otherwise read as a web-only component gap when it
+// is a public API nobody advertised.
+for (const row of rows) {
+  if (row.entrypoint !== "." && row.entrypoint !== "./start") {
+    console.error(
+      `check:parity FAILED — ${row.platform}/${row.name} declares entrypoint "${row.entrypoint}", which is not a published subpath.`,
+    );
+    process.exit(1);
+  }
 }
 
 const web = rows.filter((r) => r.platform === "web");

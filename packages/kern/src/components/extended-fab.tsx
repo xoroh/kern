@@ -63,7 +63,7 @@ const EXTENDED_FAB_GEOMETRY: Record<
     collapsed: "w-14",
   },
   medium: {
-    bar: "h-20 rounded-[20px]",
+    bar: "h-20 rounded-(--md-sys-shape-corner-large-increased)",
     icon: "[&_svg]:size-7",
     collapsed: "w-20",
   },

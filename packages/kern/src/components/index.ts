@@ -639,6 +639,7 @@ export type {
   TooltipTriggerProps,
 } from "./tooltip";
 export {
+  RichTooltip,
   RichTooltipActions,
   RichTooltipContent,
   RichTooltipTitle,

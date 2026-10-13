@@ -6,7 +6,7 @@ export const richTooltip: ComponentDoc = {
   oneLiner:
     "A tooltip with a subhead, supporting text, and plain-text actions for explanations that need more than a label.",
   features:
-    "Reach for a rich tooltip when a plain label cannot carry the explanation. It follows the plain tooltip's trigger contract — focus opens, the title and text ride the accessibility hint so touch users lose nothing — but the surface is surface-container with 12/8/16dp padding and the actions are real buttons. If there are no actions and no subhead, that is a plain Tooltip.",
+    "Reach for a rich tooltip when a plain label cannot carry the explanation. It follows the plain tooltip's trigger contract — focus opens, the title and text ride the accessibility hint so touch users lose nothing — but the surface is `surface-container` with padding resolved from the spacing scale, and the actions are real buttons. If there are no actions and no subhead, that is a plain Tooltip.",
   meta: {
     specUrl: "https://m3.material.io/components/tooltips",
     status: "real",

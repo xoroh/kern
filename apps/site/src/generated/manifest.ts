@@ -1375,6 +1375,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    slug: "web/rich-tooltip",
+    name: "rich-tooltip",
+    export: "RichTooltip",
+    platform: "web",
+    status: "real",
+  },
+  {
     slug: "web/rich-tooltip-actions",
     name: "rich-tooltip-actions",
     export: "RichTooltipActions",
@@ -2946,7 +2953,7 @@ export const COMPONENT_COUNT = COMPONENTS.length;
  * different units, do not compare them.
  */
 export const PARITY_COUNTS = {
-  web: 300,
+  web: 301,
   native: 117,
   shared: 92,
 };

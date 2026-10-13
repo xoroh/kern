@@ -31,7 +31,7 @@ export const listItem: ComponentDoc = {
   ],
   usage: {
     do: [
-      "Use 56px one-line rows with 16px gutters and state layers on interaction.",
+      "Use the `kern.list-item.container` row height with the shape-scale gutter between rows and state layers on interaction.",
       "Keep supporting text and icons in their roles and sizes.",
     ],
     dont: [

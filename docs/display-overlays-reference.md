@@ -20,7 +20,7 @@ this when adding display variants, auditing conformance, or writing docs.
 8. [State summary](#8-state-summary)
 9. [Kern naming vs M3 naming](#9-kern-naming-vs-m3-naming)
 10. [Kern overrides](#10-kern-overrides)
-11. [Usage guidance](#11-usage-guidance)
+11. [Usage guidance](#11-usage-guidance-from-m3materialio-tabs)
 12. [Cross-implementation notes](#12-cross-implementation-notes)
 
 ---

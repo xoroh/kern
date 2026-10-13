@@ -19,7 +19,7 @@ export const richTooltip: ComponentDoc = {
   anatomy: [
     {
       name: "RichTooltipContent",
-      role: "The rich surface. Portals to the end of the document and positions itself against the trigger — 12dp top, 8dp bottom, 16dp side padding on surface-container.",
+      role: "The rich surface. Portals to the end of the document and positions itself against the trigger, padding resolved from the `kern.rich-tooltip.container` shape and spacing roles on `surface-container`.",
     },
     {
       name: "RichTooltipTitle",

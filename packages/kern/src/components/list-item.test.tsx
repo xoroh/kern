@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { ListItem } from "./list-item";
 
 describe("ListItem selected (M3)", () => {
-  it("paints the selected highlight with 16dp corners", () => {
+  it("paints the selected highlight with shape-scale corners", () => {
     render(
       <ListItem headline="Inbox" supporting="3 new" selected data-testid="row" />,
     );
@@ -12,7 +12,11 @@ describe("ListItem selected (M3)", () => {
     expect(row.className).toContain(
       "data-selected:bg-(--md-sys-color-secondary-container)",
     );
-    expect(row.className).toContain("data-selected:rounded-[16px]");
+    // The corner is the shape-scale token, not a raw px value: a hardcoded
+    // radius is invisible to theme/contrast switching and to the shape gate.
+    expect(row.className).toContain(
+      "data-selected:rounded-(--md-sys-shape-corner-large)",
+    );
   });
 
   it("reports aria-current on selected navigation rows", () => {

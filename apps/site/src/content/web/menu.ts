@@ -72,7 +72,7 @@ export const menu: ComponentDoc = {
   usage: {
     do: [
       "Anchor to the trigger with a relative parent; the menu positions to it.",
-      "Keep items to one line with an optional supporting line — 48px dense rows.",
+      "Keep items to one line with an optional supporting line — dense rows use the menu-item height role.",
       "Separate groups with dividers (separator role, never focusable).",
     ],
     dont: [

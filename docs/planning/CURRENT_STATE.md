@@ -117,3 +117,39 @@ check passed. Four stale generated files (maturity, site manifest, changelog,
 llms.txt) were refreshed through their generators. `bun run check:generated`
 then passed all **15 generators / 19 output entries**, and token-package
 TypeScript passed. The hook remains enforced; no bypass was used.
+
+### Execution ledger — first implementation pass (2026-10-13)
+
+**Authorized by the owner** to implement all phases, with the elevation-audit
+commit blocker fixed rather than bypassed. Publication and parent-Xoroh edits
+remain separately gated and were NOT performed.
+
+What actually changed and verified, with commands and results:
+
+| Change | Verification |
+|---|---|
+| `check:kern` preset-read leg made comment/string-aware (`scripts/lib/source-code.mjs`, scanner-based) | 3 violations → **pass**; `bun run test:scripts` 29 pass. The two shape violations were REAL (`rounded-[20px]`, `rounded-[16px]`) and were fixed to shape-scale tokens, not whitelisted. |
+| `check:coverage` reasoned exemption for `presentation.tsx` | **pass** — 84 exported / 84 exercised; the file is a nonpublic binding host with a real colocated suite |
+| MCP manifest gained `entrypoint` (`"."` / `"./start"`); test now resolves the correct barrel incl. `export *` | **5 pass / 0 fail**. `SearchBar` no longer a false failure. |
+| Manifest row-shape drift fixed in `check-parity`, `check-registry-paths`, `audit-elevation`, `generate-maturity` | the four gates that parse the generated registry all pass; each had a stale regex that either mis-parsed or failed loudly |
+| `RichTooltip` namespace added to web `tooltip.tsx` + barrel | real API parity with native; un-breaks the `rich-tooltip` doc/URL pair |
+| `page-markdown` reordered to the real grammar and `H2` label map completed | `check-page-md` **197 families pass** (was 197 failures) |
+| `check-headings` slugger corrected to GitHub's per-space rule; vendored `m3-archive` skipped loudly | **pass**; 35 real anchors fixed in `docs/*-reference.md` |
+| `check-docs` raw-value prose rewritten to cite tokens; `check-spec-urls` alias table completed | `bun run check:docs` **exit 0** — the whole 22-gate docs suite is green for the first time |
+| `apps/mobile` gained a real `bundle` script (`expo export --platform all`) + CI verifies the artifacts | bundle succeeds: iOS 14.5s / Android 18.0s, `dist/metadata.json` + per-platform bundles + 3 fonts |
+| Token test updated to the approved M3 baseline (`#625b71`/`#7d5260`) | `@xoroh/kern-tokens` **86 pass**; this is the KERN-011 ruling, recorded with its evidence |
+| `list-item` selected-corner test follows the shape token | `@xoroh/kern` **791 pass** |
+
+Gates now green: `check:layers`, `check:coverage`, `check:kern`, `check:parity`,
+`check:consumption`, `check:contrast`, `check:theme-matrix`, `check:registry-paths`,
+`check:generated`, `check:workflow`, `check:headings`, `check:docs` (full),
+`check:page-md`, `check:grammar`, `check:spec-urls`, `bun run test`,
+`bun run test:scripts`, site `typecheck` + production build, and the full
+21-test browser suite.
+
+Still red, with the reason it is not closed here:
+`check:elevation-parity` — 13 web-carrying/native-absent rows plus 5 real
+web/native level-set mismatches (Fab, ExtendedFab, FabMenu, Snackbar, and the
+sheet/menu/select families). Closing these needs native elevation work on the
+renderer (KERN-029) and a re-ruled ledger (KERN-026), neither of which is a
+gate-configuration change.

@@ -39,7 +39,7 @@ const manifest = readFileSync(
 );
 const rows = [
   ...manifest.matchAll(
-    /name:\s*"([^"]+)",\s*export:\s*"[^"]+",\s*platform:\s*"(web|native)",\s*path:\s*"([^"]+)"/g,
+    /name:\s*"([^"]+)",\s*export:\s*"[^"]+",\s*platform:\s*"(web|native)",\s*entrypoint:\s*"[^"]+",\s*path:\s*"([^"]+)"/g,
   ),
 ].map((m) => ({ name: m[1], platform: m[2], path: m[3] }));
 const webConcepts = [

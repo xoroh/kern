@@ -52,13 +52,13 @@ again. Measured from the generated registry instead:
 
 | Measure | Value |
 |---|---|
-| Registry rows | **417** (web 300, native 117) |
+| Registry rows | **418** (web 301, native 117) |
 | **Shared** (already both sides) | **92** |
-| **Native-only → needs a web version** | **10** in **9 files** |
-| **Web-only → needs a native version** | **37** in **22 files** |
+| **Native-only → needs a web version** | **9** in **8 files** |
+| **Web-only → needs a native version** | **34** in **18 files** |
 | Stub rows | **0** |
 
-<!-- gate:counts 92 10 37 0 -->
+<!-- gate:counts 92 9 34 0 -->
 
 Machine-readable line above: `check:parity` (`scripts/check-parity.mjs`) re-derives
 these from the registry and fails if they drift, so the prose above cannot quietly
@@ -73,6 +73,7 @@ check, this is the reasoning.
 
 | Concept | Web | Behaviour owned on web | Test pointer |
 |---|---|---|---|
+| `rich-tooltip` | `RichTooltip` (`src/components/tooltip.tsx`) — namespace grouping `Content` / `Title` / `Actions` | The rich surface (subhead + supporting text + plain-text actions) on `surface-container`, portal positioning, and the keyboard contract of its trigger. Web composes it from three parts; native already shipped the flat `RichTooltip`, so this row closed an API-shape asymmetry rather than a missing capability. The three `rich-tooltip-*` subpart rows left the Web-only table at the same time: with `rich-tooltip` registered on both sides, they are parts of a shared concept, not one-sided concepts of their own — which is the gate's documented rule, not a new exemption. | `tooltip.test.tsx` / native `tooltip.rntest.tsx` |
 | `navigation-bar` | `NavigationBar` + `NavigationBarItem` (`src/components/navigation-bar.tsx`) | `role="navigation"` + `aria-current="page"`; roving tabindex, Arrow/Home/End traversal that wraps and skips disabled; controlled *or* uncontrolled selection; 80dp bar with the `secondaryContainer` active pill; `floating` slot | `navigation-family.test.tsx` |
 | `navigation-drawer` | `NavigationDrawer` (`src/components/navigation-drawer.tsx`) | `role="dialog"` + `aria-modal`, scrim, Escape, focus returns to the trigger (composed on the Base UI dialog root, not re-implemented); **activating a destination reports the selection and then dismisses**; 360dp capped at 80vw | `navigation-family.test.tsx` |
 | `secondary-tabs` | `SecondaryTabs` (`src/components/secondary-tabs.tsx`) | `role="tablist"` with `aria-selected`; roving tabindex, Arrow/Home/End, wrapping; disabled tabs skipped and inert; `aria-controls`/`aria-labelledby` bound through `useId`; inactive panels unmounted rather than hidden | `navigation-family.test.tsx` |
@@ -166,7 +167,7 @@ later reader does not "fix" them back:
 
 ---
 
-## Native-only concepts → need a web version (10)
+## Native-only concepts → need a web version (9)
 
 Grouped by surface. `M3 source` is the M3 spec tab that governs the behaviour.
 
@@ -196,7 +197,6 @@ Grouped by surface. `M3 source` is the M3 spec tab that governs the behaviour.
 | 22 | `kern-pressable` | Accessibility-defaults wrap for a non-Button pressable | **deliberate platform asymmetry** — the wrapper's whole content is the **48dp** minimum touch target, which is Material's number. The web is governed by WCAG 2.2 Target Size (Minimum) at 24×24 CSS px. Pinning one figure across both would assert a value the other platform's standard does not state (ruled 2026-10-03) | `KernPressable` — `Pressable` + `MIN_TOUCH_TARGET`, `button` role by default, `disabled` always reported | M3 · Buttons (the 48dp touch target) | `pressable.rntest.tsx` |
 | 23 | `expressive-shape` | Expressive morph-shape art (superellipse/scallop/star families) | decorative SVG `path` from the shared `expressiveShapePath` builder — same `d` string both renderers | `ExpressiveShape` (`src/components/shape-art.tsx`) over `react-native-svg`, `aria-hidden`, shared geometry from `@xoroh/kern-tokens` `expressive-shapes` | M3 Expressive · Shape library (family-parameterized; vertex-exact Compose tables not vendored — see module header) | `expressive-shapes.test.ts` + `shape-art.rntest.tsx` |
 | 24 | `icon-button-target` | 48dp touch-target guarantee for icon buttons | CSS/platform-owned focus-target styling — no Kern component (same class as the `focus-ring` row below) | `IconButtonTarget` (`src/components/icon-button.tsx`, `kern-icon-button-target`) — the icon button's own box is 40dp, so a toolbar needs this to guarantee the rest | M3 · Icon buttons (48dp target) | owning workstream's suite (row recorded for count honesty) |
-| 25 | `rich-tooltip` | Rich tooltip (title + content + actions) | compound `RichTooltip*` parts (`src/components/tooltip.tsx`) — web-only rows below | `RichTooltip` (`src/components/tooltip.tsx`) — flat native component | M3 · Tooltips (rich) | owning workstream's suite (row recorded for count honesty) |
 
 ### Resolved 2026-10-03 — tranche 2: the menu family BUILT (native-only 13 → 10)
 
@@ -397,7 +397,7 @@ were restored from backup afterwards.
 
 ---
 
-## Web-only concepts → need a native version (37)
+## Web-only concepts → need a native version (34)
 
 The heading previously read **34** while the machine gate read **42** — the
 `gate:counts` line was right and the sentence a human reads was stale, which is
@@ -471,9 +471,6 @@ native and the count fell 42 → 39, and again in **tranche 2**, when
 | 32 | `navigation-rail-button` | One destination in a navigation rail | `NavigationRailButton` — a `role=tab` with a selected axis | **covered, not separate work** — native `NavigationRail` renders each destination as a `tab` with the same selected axis; web's separate export is an API-shape difference, and the family is ONE component by ruling (ruled 2026-10-02) | M3 · Navigation rail | `navigation-rail.rntest.tsx` |
 | 33 | `split-grid` | Equal-column grid at the composition tier | `SplitGrid` — 2- or 3-column CSS grid the caller fills with `SplitPanel`s; **no role and no label of its own** | **covered, not separate work** — native `Split` (shared, row 482 below) is the accessible N-column region and renders the columns itself; `SplitGrid` is the web grid recipe for the same division. A native `SplitGrid` would be a second name for the shape `Split` already has. Renamed from `Split` on 2026-10-03 so it does not collide with the `Split` primitive — see `.team/reports/kern-split-ruling.md` | M3 · Lists → Pane | `start.test.tsx` (composition tier) |
 | 34 | `focus-ring` | One-off focus-visible ring wrapper | `FocusRing` — `data-slot="focus-ring"` span owning the `FOCUS_RING_CLASS` treatment (`ring-2` + `secondary` role, geometry from `@xoroh/kern-tokens` `FOCUS_RING_*`); the host gives focus, the span never owns the tab stop | no native peer yet — focus styling on this platform is platform-owned; GAP (records the debt, not a ruling) | M3 · States | `focus-ring.test.tsx` |
-| 35 | `rich-tooltip-actions` | Actions row of a rich tooltip (compound part of `RichTooltipContent`) | `RichTooltipActions` — action buttons | **covered, not separate work** — native `RichTooltip` takes its actions as data; web's composable subpart is an API-shape difference (same class as the `table-*` rows above) | M3 · Tooltips (rich) | owning workstream's suite (row recorded for count honesty) |
-| 36 | `rich-tooltip-content` | Content surface of a rich tooltip (compound part) | `RichTooltipContent` — title + body + actions region | **covered** — native `RichTooltip` renders the same region from its props; web's composable subpart is an API-shape difference | M3 · Tooltips (rich) | owning workstream's suite (row recorded for count honesty) |
-| 37 | `rich-tooltip-title` | Title of a rich tooltip (compound part) | `RichTooltipTitle` — heading | **covered** — native `RichTooltip` takes a title prop; web's composable subpart is an API-shape difference | M3 · Tooltips (rich) | owning workstream's suite (row recorded for count honesty) |
 
 
 ### Moved out — `combobox` and `link-button` now SHARED

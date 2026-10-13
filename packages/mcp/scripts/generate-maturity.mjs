@@ -90,13 +90,17 @@ const manifestSrc = readFileSync(
 // how a rename silently empties the chips again.
 const entries = [];
 for (const m of manifestSrc.matchAll(
-  /name:\s*"([^"]+)",\s*\n\s*export:\s*"([^"]+)",\s*\n\s*platform:\s*"(web|native)",\s*\n\s*path:\s*"([^"]+)",\s*\n\s*status:\s*"(real|stub)",/g,
+  /name:\s*"([^"]+)",\s*\n\s*export:\s*"([^"]+)",\s*\n\s*platform:\s*"(web|native)",\s*\n\s*entrypoint:\s*"([^"]+)",\s*\n\s*path:\s*"([^"]+)",\s*\n\s*status:\s*"(real|stub)",/g,
 )) {
   entries.push({
     name: m[1],
     export: m[2],
     platform: m[3],
-    status: m[5],
+    // `entrypoint` tells the reader WHERE to import from. A maturity chip that
+    // said "Stable" while the only correct import was a different subpath was
+    // half an answer.
+    entrypoint: m[4],
+    status: m[6],
   });
 }
 
@@ -165,6 +169,10 @@ const rows = entries.map((e) => {
     name: e.name,
     export: e.export,
     platform: e.platform,
+    // WHERE to import it from. The state chip and the import line are read
+    // together, so leaving the subpath out of this row made every consumer
+    // re-derive it — and the derivation was wrong for all 31 compositions.
+    entrypoint: e.entrypoint,
     state,
     version: meta.version,
   };
@@ -205,6 +213,8 @@ export type MaturityRow = {
   name: string;
   export: string;
   platform: "web" | "native";
+  /** The package subpath that publishes this export: "." or "./start". */
+  entrypoint: string;
   state: MaturityState;
   version: string;
 };

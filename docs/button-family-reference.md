@@ -29,7 +29,7 @@ component docs.
 17. [Color role map](#17-color-role-map)
 18. [Kern naming vs M3 naming](#18-kern-naming-vs-m3-naming)
 19. [Kern overrides](#19-kern-overrides)
-20. [Usage guidance](#20-usage-guidance)
+20. [Usage guidance](#20-usage-guidance-from-material-web-docs)
 
 ---
 

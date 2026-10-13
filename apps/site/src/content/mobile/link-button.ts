@@ -38,7 +38,7 @@ export const linkButton: ComponentDoc = {
     do: [
       "Give every LinkButton an `href` — the destination is the point of the control.",
       "Let the default press open the URL, and pass `onPress` only to add behaviour around navigation.",
-      "Keep labels to a few words — the link is 40dp high and truncates long text.",
+      "Keep labels to a few words — the link resolves its height from the `kern.button.size` scale and truncates long text.",
     ],
     dont: [
       "Don't use a LinkButton for in-place actions — saving, sending and opening dialogs are `Button` jobs.",

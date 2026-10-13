@@ -203,6 +203,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `progress-value` | `ProgressValue` | real |
 | `radio-group` | `RadioGroup` | real |
 | `radio-group-item` | `RadioGroupItem` | real |
+| `rich-tooltip` | `RichTooltip` | real |
 | `rich-tooltip-actions` | `RichTooltipActions` | real |
 | `rich-tooltip-content` | `RichTooltipContent` | real |
 | `rich-tooltip-title` | `RichTooltipTitle` | real |

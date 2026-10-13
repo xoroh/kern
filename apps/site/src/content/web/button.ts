@@ -203,13 +203,13 @@ export const button: ComponentDoc = {
       name: "size",
       type: '"xs" | "default" | "sm" | "md" | "xl" | "lg" | "icon"',
       default: '"default"',
-      note: "`icon` is square and expects an icon plus an `aria-label`; a text label inside `icon` is a bug. `default` is M3 small (40dp); `md`/`lg` step through M/L. Icons are 20px with labels.",
+      note: "`icon` is square and expects an icon plus an `aria-label`; a text label inside `icon` is a bug. Sizes step through the `kern.button.size` scale (`default` is the small step); icons come from the icon-size role, sized against the label.",
     },
     {
       name: "shape",
       type: '"pill" | "rounded" | "square"',
       default: '"pill"',
-      note: "M3 round (`pill`, full) or square (12/12/12/16/16/28dp per size); `rounded` is the Kern 16px step-down. Pressed morphs toward square (8/8/8/12/12/16dp). Selected toggles morph round to square.",
+      note: "M3 round (`pill`, corner-full) or square, where each size resolves its corner from the shape scale; `rounded` is the Kern step-down corner. Pressed and selected morph toward square within that same scale.",
     },
     {
       name: "toggle",

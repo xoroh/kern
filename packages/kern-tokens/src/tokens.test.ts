@@ -49,10 +49,26 @@ const dark = kern.color.dark;
  * black/white primaries — high-contrast variants are an a11y choice, not
  * the seed.
  */
+/**
+ * The approved Material 3 BASELINE scheme, not Kern's old private blue
+ * secondary.
+ *
+ * `kern.json` carries `#625b71` (the published M3 baseline secondary) and
+ * `#7d5260` (the baseline tertiary), which is the change recorded in that
+ * file's own `$comment`. The old expectation here was `#2563eb` — Kern's
+ * private blue — so the theme was repainted and the test was never updated,
+ * which is the KERN-011 finding.
+ *
+ * The ruling is the owner's: **Material 3 defaults, the purple family, the way
+ * the real M3 site paints.** That is what ships now, in both light and dark.
+ * If a private Xoroh preset is ever derived from the old blue values it is a
+ * SEPARATE preset (ADR-P05), not this theme.
+ */
 describe("kern default theme — approved values", () => {
-  it("ships the M3 purple seed primary and a blue secondary", () => {
+  it("ships the Material 3 baseline purple primary and muted violet secondary", () => {
     expect(light.primary).toBe("#6750a4");
-    expect(light.secondary).toBe("#2563eb");
+    expect(light.secondary).toBe("#625b71");
+    expect(light.tertiary).toBe("#7d5260");
     expect(light.primaryContainer).toBe("#eaddff");
     expect(light.onPrimaryContainer).toBe("#21005d");
   });

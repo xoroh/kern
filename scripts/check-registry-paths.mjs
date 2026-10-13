@@ -29,14 +29,18 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, "..");
 
 const src = readFileSync(join(ROOT, "packages/mcp/src/manifest.ts"), "utf8");
+// `entrypoint` sits between `platform` and `path` in the generator's render
+// order. A row regex that omits it parses zero rows, and this gate then exits 0
+// having verified nothing — the "passes because it did not look" shape.
 const rows = [
   ...src.matchAll(
-    /\{\s*name:\s*"([^"]+)",\s*export:\s*"([^"]+)",\s*platform:\s*"(web|native)",\s*path:\s*"([^"]+)",\s*status:\s*"(real|stub)",\s*\}/gs,
+    /\{\s*name:\s*"([^"]+)",\s*export:\s*"([^"]+)",\s*platform:\s*"(web|native)",\s*entrypoint:\s*"([^"]+)",\s*path:\s*"([^"]+)",\s*status:\s*"(real|stub)",\s*\}/gs,
   ),
-].map(([, name, exportName, platform, path, status]) => ({
+].map(([, name, exportName, platform, entrypoint, path, status]) => ({
   name,
   exportName,
   platform,
+  entrypoint,
   path,
   status,
 }));

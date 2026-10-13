@@ -47,7 +47,7 @@ const rowClass =
   "kern-list-item flex min-h-14 w-full items-center gap-3 px-4 py-2 text-left text-(--md-sys-color-on-surface)";
 
 const selectedClass =
-  "data-selected:bg-(--md-sys-color-secondary-container) data-selected:text-(--md-sys-color-on-secondary-container) data-selected:rounded-[16px]";
+  "data-selected:bg-(--md-sys-color-secondary-container) data-selected:text-(--md-sys-color-on-secondary-container) data-selected:rounded-(--md-sys-shape-corner-large)";
 
 /** One list row: optional leading/trailing slots around headline text.
  *
