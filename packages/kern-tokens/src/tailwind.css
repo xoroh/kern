@@ -65,6 +65,82 @@
   --color-md-surface-dim: var(--md-sys-color-surface-dim);
   --color-md-surface-tonal: var(--md-sys-color-surface-tonal);
   --color-md-surface: var(--md-sys-color-surface);
+  --color-md-sys-error-container: var(--md-sys-color-error-container);
+  --color-md-sys-error: var(--md-sys-color-error);
+  --color-md-sys-info-container: var(--md-sys-color-info-container);
+  --color-md-sys-info: var(--md-sys-color-info);
+  --color-md-sys-inverse-on-surface: var(--md-sys-color-inverse-on-surface);
+  --color-md-sys-inverse-primary: var(--md-sys-color-inverse-primary);
+  --color-md-sys-inverse-surface: var(--md-sys-color-inverse-surface);
+  --color-md-sys-on-error-container: var(--md-sys-color-on-error-container);
+  --color-md-sys-on-error: var(--md-sys-color-on-error);
+  --color-md-sys-on-info-container: var(--md-sys-color-on-info-container);
+  --color-md-sys-on-info: var(--md-sys-color-on-info);
+  --color-md-sys-on-primary-container: var(--md-sys-color-on-primary-container);
+  --color-md-sys-on-primary-fixed-variant: var(
+    --md-sys-color-on-primary-fixed-variant
+  );
+  --color-md-sys-on-primary-fixed: var(--md-sys-color-on-primary-fixed);
+  --color-md-sys-on-primary: var(--md-sys-color-on-primary);
+  --color-md-sys-on-secondary-container: var(
+    --md-sys-color-on-secondary-container
+  );
+  --color-md-sys-on-secondary-fixed-variant: var(
+    --md-sys-color-on-secondary-fixed-variant
+  );
+  --color-md-sys-on-secondary-fixed: var(--md-sys-color-on-secondary-fixed);
+  --color-md-sys-on-secondary: var(--md-sys-color-on-secondary);
+  --color-md-sys-on-success-container: var(--md-sys-color-on-success-container);
+  --color-md-sys-on-success: var(--md-sys-color-on-success);
+  --color-md-sys-on-surface-variant: var(--md-sys-color-on-surface-variant);
+  --color-md-sys-on-surface: var(--md-sys-color-on-surface);
+  --color-md-sys-on-tertiary-container: var(
+    --md-sys-color-on-tertiary-container
+  );
+  --color-md-sys-on-tertiary-fixed-variant: var(
+    --md-sys-color-on-tertiary-fixed-variant
+  );
+  --color-md-sys-on-tertiary-fixed: var(--md-sys-color-on-tertiary-fixed);
+  --color-md-sys-on-tertiary: var(--md-sys-color-on-tertiary);
+  --color-md-sys-on-warning-container: var(--md-sys-color-on-warning-container);
+  --color-md-sys-on-warning: var(--md-sys-color-on-warning);
+  --color-md-sys-outline-variant: var(--md-sys-color-outline-variant);
+  --color-md-sys-outline: var(--md-sys-color-outline);
+  --color-md-sys-primary-container: var(--md-sys-color-primary-container);
+  --color-md-sys-primary-fixed-dim: var(--md-sys-color-primary-fixed-dim);
+  --color-md-sys-primary-fixed: var(--md-sys-color-primary-fixed);
+  --color-md-sys-primary: var(--md-sys-color-primary);
+  --color-md-sys-scrim: var(--md-sys-color-scrim);
+  --color-md-sys-secondary-container: var(--md-sys-color-secondary-container);
+  --color-md-sys-secondary-fixed-dim: var(--md-sys-color-secondary-fixed-dim);
+  --color-md-sys-secondary-fixed: var(--md-sys-color-secondary-fixed);
+  --color-md-sys-secondary: var(--md-sys-color-secondary);
+  --color-md-sys-shadow: var(--md-sys-color-shadow);
+  --color-md-sys-success-container: var(--md-sys-color-success-container);
+  --color-md-sys-success: var(--md-sys-color-success);
+  --color-md-sys-surface-bright: var(--md-sys-color-surface-bright);
+  --color-md-sys-surface-container-high: var(
+    --md-sys-color-surface-container-high
+  );
+  --color-md-sys-surface-container-highest: var(
+    --md-sys-color-surface-container-highest
+  );
+  --color-md-sys-surface-container-low: var(
+    --md-sys-color-surface-container-low
+  );
+  --color-md-sys-surface-container-lowest: var(
+    --md-sys-color-surface-container-lowest
+  );
+  --color-md-sys-surface-container: var(--md-sys-color-surface-container);
+  --color-md-sys-surface-dim: var(--md-sys-color-surface-dim);
+  --color-md-sys-surface-tonal: var(--md-sys-color-surface-tonal);
+  --color-md-sys-surface: var(--md-sys-color-surface);
+  --color-md-sys-tertiary-container: var(--md-sys-color-tertiary-container);
+  --color-md-sys-tertiary-fixed-dim: var(--md-sys-color-tertiary-fixed-dim);
+  --color-md-sys-tertiary-fixed: var(--md-sys-color-tertiary-fixed);
+  --color-md-sys-tertiary: var(--md-sys-color-tertiary);
+  --color-md-sys-warning-container: var(--md-sys-color-warning-container);
+  --color-md-sys-warning: var(--md-sys-color-warning);
   --color-md-tertiary-container: var(--md-sys-color-tertiary-container);
   --color-md-tertiary-fixed-dim: var(--md-sys-color-tertiary-fixed-dim);
   --color-md-tertiary-fixed: var(--md-sys-color-tertiary-fixed);

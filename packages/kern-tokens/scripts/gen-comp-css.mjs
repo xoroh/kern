@@ -379,6 +379,15 @@ const colorRoles = Object.keys(M3.color.light);
 for (const role of colorRoles) {
   const slug = role.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`);
   tailwindLines.push(`  --color-md-${slug}: var(--md-sys-color-${slug});`);
+  // Migration-compat aliases (P7): the private theme spelled these utilities
+  // `bg-md-sys-<role>` (with the `sys` infix); hundreds of product callsites
+  // carry that spelling. Both spellings point at the SAME var — one value,
+  // two names — generated from the role table so neither can drift. New code
+  // should use the short form; the long form exists so migrated trees render
+  // identically on day one.
+  tailwindLines.push(
+    `  --color-md-sys-${slug}: var(--md-sys-color-${slug});`,
+  );
 }
 for (const name of Object.keys(T.spacing)) {
   tailwindLines.push(
