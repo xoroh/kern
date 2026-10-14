@@ -29,11 +29,7 @@ plan requires.
   (upgrade, replace, or waive with reason) — "dev-only" is a triage outcome,
   not a default.
 - [ ] Device runs: no simulator/device or screen-reader pass exists for the
-  native renderer or the migrated product slices. RNTL + Expo export are not
-  a device.
-- [ ] Product canaries (KERN-070/071): no owner windows scheduled, no parent
-  edits made. Rollout (072/073) and rollback rehearsal (075) are blocked on
-  the same windows.
+  native renderer. RNTL + Expo export are not a device.
 - [ ] Governance/support/namespace readiness (KERN-082): owner decision.
 - [ ] Publication authorization (KERN-084): explicit owner action. Release
   variables stay disabled; no credentials were created or used.

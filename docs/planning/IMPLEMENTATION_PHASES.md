@@ -1,6 +1,6 @@
 # Implementation phases and dependencies
 
-Status: execution roadmap, not implemented. The phase number is a workstream id, **not** a rule to delay Xoroh migration until after documentation. Task dependencies in [MASTER_TODO.md](MASTER_TODO.md) are authoritative; authorized independent tasks may run earlier than their phase's aggregate exit.
+Status: execution roadmap, not implemented. The phase number is a workstream id, **not** a rule to delay follow-on adoption work until after documentation. Task dependencies in [MASTER_TODO.md](MASTER_TODO.md) are authoritative; authorized independent tasks may run earlier than their phase's aggregate exit.
 
 ```mermaid
 flowchart LR
@@ -8,17 +8,14 @@ flowchart LR
   P1 --> P2["P2 foundations + DTCG now"]
   P2 --> P3["P3 Material used-capability slice then full parity"]
   P3 --> P4A["P4A CSS + exports + verified dogfood tarballs"]
-  P4A --> P7A["P7A immediate Xoroh canaries"]
   P4A --> P4B["P4B complete CLI/source/native/upgrade matrix"]
   P4B --> P5["P5 registry + blocks + AI"]
   P5 --> P6["P6 docs + previews + DX"]
-  P7A --> P7B["P7B grouped product rollout"]
-  P6 --> P7B
-  P7B --> P8["P8 release readiness, approval only"]
+  P6 --> P8["P8 release readiness, approval only"]
   P5 --> P8
 ```
 
-Early P7A prerequisites are actual capabilities used by the canary, not every ornamental component or complete CLI. Foundations/DTCG and packed public stylesheet/provider/icon APIs **must** pass before the canary. Missing product-used behavior cannot be waived by the graph. License/security investigation and docs/test fixture authoring can start early in parallel with stable inputs; implementation authorization remains mandatory.
+Early prerequisites are actual capabilities used by consumers, not every ornamental component or complete CLI. Foundations/DTCG and packed public stylesheet/provider/icon APIs **must** pass before release. Missing product-used behavior cannot be waived by the graph. License/security investigation and docs/test fixture authoring can start early in parallel with stable inputs; implementation authorization remains mandatory.
 
 ## P0 — Baseline and preservation (`KERN-001`–006)
 
@@ -60,13 +57,13 @@ Early P7A prerequisites are actual capabilities used by the canary, not every or
 
 **Risk/recovery:** false parity counts or accidental feature removal; compare every public export/axis and actual Xoroh usage. Preserve compatibility aliases with tests; local rollback by restoring this change's provider metadata/value adapter, never blanket source checkout.
 
-**Exit/DoD:** full phase requires all capabilities classified/tested; **used slice exit** can unlock P4A/P7A once canary-specific contract/icon/theme tests pass. Remaining required component work continues before release.
+**Exit/DoD:** full phase requires all capabilities classified/tested; **used slice exit** can unlock P4A once slice-specific contract/icon/theme tests pass. Remaining required component work continues before release.
 
 ## P4 — Distribution/install (`KERN-033`–047)
 
 **Objective:** artifacts usable outside checkout, safe source/native/block installs/upgrades. **Prerequisites:** relevant P2/P3 public APIs and registry schema design. **Files:** web/token CSS generators and manifests, contracts/CLI build/bin/templates/config/resolver/transaction/receipt/upgrade, registry source build, CI/consumer fixtures, native Metro/font assets.
 
-**P4A early migration slice:** compiled public CSS (`033`), exports/peer/runtime identity (`042`), standalone/workspace packed package style/type tests (`043`/`044`), native packed Metro/host checks (`046`). Produce integrity-pinned dogfood artifacts. CLI publication is not needed for Xoroh package canary.
+**P4A early consumer slice:** compiled public CSS (`033`), exports/peer/runtime identity (`042`), standalone/workspace packed package style/type tests (`043`/`044`), native packed Metro/host checks (`046`). Produce integrity-pinned dogfood artifacts. CLI publication is not needed for dogfood artifacts.
 
 **P4B full exit:** independently packaged CLI, app-scoped init/config, complete cross-package/static asset/platform closure, atomic preflight receipts, full snapshot semantics, source-backed and package-backed blocks, native source install and customization-safe diff/upgrade; all real consumer matrix fixtures.
 
@@ -94,21 +91,9 @@ Early P7A prerequisites are actual capabilities used by the canary, not every or
 
 **Risk/recovery:** demos diverge or overwrite redesign; assign app/site owner, keep block source/previews identical, regenerate only with permission. **Exit/DoD:** required recipes compile/render, all advertised capabilities discoverable and docs truth claims measured; machine surfaces consistent.
 
-## P7 — Xoroh migration (`KERN-064`–075)
-
-**Objective:** real product adoption and feedback, not optional after launch. **P7A prerequisites:** approved P2 theme/DTCG, tested product-used P3 slice, P4A dogfood artifacts and parent approval. **P7B prerequisites:** canaries plus complete relevant P4/P5/P6 paths and owner rollout windows. **Files:** parent aliases/package pins/styles/Metro/fonts/theme/shell adapters/domain consumers/CI/tests; upstream sanitized generic regressions. Separate authorization required for parent edits.
-
-**Deliverables:** full bound usage/callsite mapping; compatibility/codemod adapters; preserved theme/storage/icon meaning; canary accounts/shared flows and native desk messaging/sheets; grouped web/native rollout; no private generic source leaks; nonempty product acceptance/rollback/feedback evidence.
-
-**Verification:** actual parent build/test targets after inspection (mobile currently lacks test/bundle scripts), added migration scenarios + types/Metro device/screen readers and screenshots. **Parallel:** web/native adapters after theme/icon contracts, rollout groups only on independent owners; avoid shared domain library migrating beneath unready apps. **Sequential:** baseline → adapters/artifacts → canary → approval → group rollout → rollback rehearsal.
-
-**Risk/recovery:** private shells/Gorhom/domain helpers not OSS direct equivalents, default visuals differ; retain Xoroh-owned wrappers, prior pins/config and staged private packages until accepted. Stop on product regression, rehearse reviewed rollback changes, never reset parent dirty state.
-
-**Exit/DoD:** every used generic capability mapped/public/tested, all scoped apps/product scenarios accepted and feedback upstream-owned; compilation or import count zero alone insufficient.
-
 ## P8 — Release readiness (`KERN-076`–084)
 
-**Objective:** complete verified Preview candidate and explicit owner gate, not publication automatically. **Prerequisites:** required P0–P7 deliverables, except licensing/security can investigate early. **Files:** CI/gate scripts, licenses/NOTICE/SBOM/artifact manifests, changesets/release notes/version compatibility docs, governance/security/support and approval ledger.
+**Objective:** complete verified Preview candidate and explicit owner gate, not publication automatically. **Prerequisites:** required P0–P6 deliverables, except licensing/security can investigate early. **Files:** CI/gate scripts, licenses/NOTICE/SBOM/artifact manifests, changesets/release notes/version compatibility docs, governance/security/support and approval ledger.
 
 **Deliverables:** full immutable candidate matrix, upstream asset/IP/security review, screenshot/a11y evidence, content/hash/range/receipt compatibility, changeset preview in disposable clone, truthful limitations/upgrade notes, rollback drill, namespace/support/signoff.
 
@@ -118,4 +103,4 @@ Early P7A prerequisites are actual capabilities used by the canary, not every or
 
 ## Task counts
 
-84 tasks: phase counts P0=6, P1=10, P2=7, P3=9, P4=15, P5=9, P6=7, P7=12, P8=9. Priority counts: critical P0=58, required P1=25, optional polish P2=1. Phase/priority share labels intentionally; read their field names. All tasks are unstarted **execution tasks**, even where this plan already inspected evidence; refresh/approval/implementation deliverables still require ownership and verification.
+72 tasks: phase counts P0=6, P1=10, P2=7, P3=9, P4=15, P5=9, P6=7, P8=9 (P7 parent-monorepo migration removed from scope). Priority counts: critical P0=46, required P1=25, optional polish P2=1. Phase/priority share labels intentionally; read their field names. All tasks are unstarted **execution tasks**, even where this plan already inspected evidence; refresh/approval/implementation deliverables still require ownership and verification.

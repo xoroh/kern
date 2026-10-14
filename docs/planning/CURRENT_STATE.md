@@ -40,7 +40,7 @@ CLI: only `init`/`add` verbs in `src/kern.ts`; list/diff/upgrade mentioned in me
 
 Blocks: `apps/site/src/blocks/manifest.ts` defines `settings-screen`, `auth-form`, `empty-search`. Their `registryDependencies` are checked, but `addBlock` copies block files and prints package dependencies; it does **not** vendor their component closure. Its `--self-contained` instructions mention token CSS without copying it. MCP tools are list/get components, get tokens, list themes and a static design checklist; no block/icon discovery or installation planner today.
 
-Xoroh: actual consumers are in sibling `../xoroh-platform`, not sibling `../xoroh` (no `@xoroh/kern` match found there). It aliases private `kern-start/react/expo` to `libs/kern/*/src/index.ts`. An AST import scan excluding private Kern and dependencies found `kern-start` in 683 files, `kern-expo` in 455, `kern-react` in 138; sets overlap. These counts include tests/types, not just production runtime imports. See [XOROH_MIGRATION.md](XOROH_MIGRATION.md).
+Xoroh: actual consumers are in sibling `../xoroh-platform`, not sibling `../xoroh` (no `@xoroh/kern` match found there). It aliases private `kern-start/react/expo` to `libs/kern/*/src/index.ts`. An AST import scan excluding private Kern and dependencies found `kern-start` in 683 files, `kern-expo` in 455, `kern-react` in 138; sets overlap. These counts include tests/types, not just production runtime imports. (The migration mapping doc that referenced them was removed 2026-10-14 with the P7 scope cut; see git history.)
 
 ## Commands actually run for this plan
 
@@ -60,7 +60,7 @@ No builds, generators, package installs, formatters, publishing, or reset/cleanu
 | `bun test packages/mcp/src/manifest.test.ts` | 1; SearchBar barrel test, three pass/one fail |
 | `bun run --filter @xoroh/kern-tokens test` | 1; 85 pass/one fail, secondary color expectation |
 
-Additional `bun -e` inspections invoked `resolveClosure` on button, start/blocks and tooltip without writes. Button closure includes circular-progress/focus-ring/cn plus tokens/CVA/clsx/React/tailwind-merge; `src/start/blocks.tsx` closure does not contain a provider self-import today. `getComponent("button", "native")` returned source byte-equal to **web** button and unequal to native button: a freshly reproduced MCP source-routing defect. TS AST scans enumerated private imports and public module axes; they are not typechecks. A further scoped parent JSX icon scan called the real `resolveIconName` on 213 unique literal names: **212 resolved, `account_balance` did not**. Its exact consumer is recorded in XOROH_MIGRATION; dynamic/data-driven icon values were not resolved by that scan.
+Additional `bun -e` inspections invoked `resolveClosure` on button, start/blocks and tooltip without writes. Button closure includes circular-progress/focus-ring/cn plus tokens/CVA/clsx/React/tailwind-merge; `src/start/blocks.tsx` closure does not contain a provider self-import today. `getComponent("button", "native")` returned source byte-equal to **web** button and unequal to native button: a freshly reproduced MCP source-routing defect. TS AST scans enumerated private imports and public module axes; they are not typechecks. A further scoped parent JSX icon scan called the real `resolveIconName` on 213 unique literal names: **212 resolved, `account_balance` did not**. Its exact consumer was recorded in the removed migration doc (see git history); dynamic/data-driven icon values were not resolved by that scan.
 
 External read-only verification: fetched the official DTCG 2025.10 Format report from `https://www.designtokens.org/TR/2025.10/format/`; checked stable Community Group status, required JSON Pointer support/group inheritance/root tokens and numeric typography lineHeight. This verifies the selected spec contract, not that Kern currently implements it.
 
@@ -82,7 +82,7 @@ All current reproduction claims below refer to **WT**, not HEAD. Audit 1's HEAD 
 | D10 closure gaps, late writes, receipts/self-contained | Source-inspected correctness/data-safety exposure; not mutation-reproduced | Current add/closure source, HEAD unknown | Atomic preflight, resolver fixture suite, CSS/runtime snapshot semantics, `KERN-036`–`KERN-039` |
 | D11 parent `.team` elevation evidence | Source/command confirmed external dependency: output resolves parent registry | Works in this parent; standalone checkout not tested | Commit reviewed public ruling ledger, `KERN-026` |
 | D12 Tailwind scanning/tarball style gap | Current source/manifest mismatch confirmed; real packed UI not run | Site `@source` scans source not shipped in web files list | Compiled CSS default + optional explicit adapter, `KERN-033`, `KERN-044` |
-| D13 private Xoroh literal `account_balance` | Real OSS resolver returns null; P0 migration icon capability gap at balance withdrawal screen | Scoped JSX literal scan, not a live UI reproduction; other 212 unique names resolved | Add licensed glyph/compatible alias with meaning/render tests before that rollout, `KERN-067` |
+| D13 private Xoroh literal `account_balance` | Real OSS resolver returns null; P0 icon capability gap at balance withdrawal screen | Scoped JSX literal scan, not a live UI reproduction; other 212 unique names resolved | Add licensed glyph/compatible alias with meaning/render tests |
 
 Historical only/not rerun: audit lint 100 errors/12 warnings; site docs prose/slug failures; gallery Bun/RN-SVG interop; old native FAB test failure (audit 1 subsequently passed it); prior publish/typecheck/dist green results. Parent site redesign may invalidate site reports. `check:generated` rewrites/restores files and is deliberately not run during concurrent dirty work. Consumer installs, npm tarballs, licensing asset completeness, live screen-reader behavior, E2E/screenshots and device tests remain **unverified**, with explicit implementation tasks rather than invented passes.
 
@@ -95,8 +95,8 @@ the production preview. Desktop screenshots of six pages plus dark/phone home
 screenshots reported no page errors. The site docs gate reproduced 12 existing
 content/inventory errors; the heading gate also found existing archive/reference
 anchor errors. See [site-design.md](../site-design.md) for the exact scope.
-This updates the site E2E/screenshot limitation above, not native-device, packed
-consumer, product-migration, legal, or release acceptance.
+This updates the site E2E/screenshot limitation above, not native-device,
+packed-consumer, legal, or release acceptance.
 
 After the commit hook reproduced the elevation-audit failure, the owner authorized
 a bounded correction: consume the real inventory instead of comment-sensitive
@@ -179,34 +179,18 @@ gate tuning:
 - Two private rulings (Snackbar, Toolbar) were re-opened with evidence rather
   than silently skipped, and `REOPENED` now prints its rows and reasons.
 
-What is NOT done, stated plainly. The full 84-task roadmap is not complete.
-Remaining: the DTCG foundation modules and schema (KERN-017‑023), the
-`@xoroh/kern-contracts` package (KERN-024), the CLI distribution layer and
-consumer/install fixtures (KERN-033‑047), the bundled MCP registry payload
-(KERN-048‑056), the native elevation adoption for the 13 one-sided sheet/menu/
-select rows (measured and reported, deliberately not failed — that is renderer
-work), the Xoroh migration (KERN-064‑075), and the release-candidate gates
-(KERN-076‑084). No package has been published, no parent monorepo file has been
-touched, and publication remains on HOLD.
+What is NOT done, stated plainly. The full 72-task roadmap is not complete.
+Remaining: the release-candidate gates (KERN-076‑084); KERN-082 and KERN-084 await explicit owner decisions. No package has been published, no parent monorepo file has been touched, and publication remains on HOLD.
 
 ### Execution ledger — P0 closure (2026-10-13)
 
 - **KERN-001 ownership.** Baseline HEAD was `d5007b75` (dirty, main ahead of origin by 2). Planning snapshot committed as `a8380a8`; implementation since: `549c54f2` (gates), `f869cf7c` (elevation), `a597a067` (ledger), `824a7a56` (contracts+Xoroh preset), `3b200285` (P2 DTCG). Tree is clean at each commit; no unrelated diff lost, no reset performed. Owners: site redesign (complete, top header + purple), planning/implementation (this lane).
 - **KERN-003 inventory.** Manifest holds 418 rows (web 301, native 117; grep count 419 includes the type declaration line). COMPONENT_AND_FEATURE_INVENTORY.md is the preservation source; every export addition since (RichTooltip namespace, contracts package, DTCG modules, Xoroh preset) shipped with tests and manifest regeneration.
 - **KERN-004 parent usages.** Historical AST scan stands: `kern-start` 683 files, `kern-expo` 455, `kern-react` 138 (overlapping sets, tests/types included) in `../xoroh-platform`; private secondary blue `#2563eb` confirmed in `libs/kern/react/src/tokens/colors.ts` and encoded as XOROH_PRESET. No parent file touched; no private data published beyond the theme values the preset requires.
-- **KERN-006 graph.** 15 requested documents exist plus APPROVALS.md; local links resolve (validated 2026-10-13 with the DAG script: 84 unique tasks, acyclic); task counts reconcile (P0 6 … P8 9; P0 58/P1 25/P2 1).
+- **KERN-006 graph.** 14 requested documents exist plus APPROVALS.md; local links resolve (validated 2026-10-13 with the DAG script: 72 unique tasks, acyclic); task counts reconcile (P0 6 … P8 9, P7 removed; P0 46/P1 25/P2 1).
 
-### Execution ledger — P6/P7-in-repo/P8-evidence (2026-10-13)
+### Execution ledger — P6-in-repo/P8-evidence (2026-10-13)
 
 - **P6 docs (057–063).** Use-cases page documents the real CLI/MCP surface (diff/upgrade/platform/eleven tools) instead of future-tense placeholders; skill tables (kern, kern-agents), MCP tool table and README package list updated for the new packages/entries; community page gained troubleshooting. `bun run check:docs` exit 0 after the edits. Mobile typecheck green; machine-doc gates green; account-balance curated (1341).
-- **KERN-064 baseline (in-repo half).** Parent alias config confirmed read-only: tsconfig maps `@xoroh/kern-expo/react/start` to `libs/kern/*/src/index.ts`; product code imports the SCOPED forms (`@xoroh/kern-expo`, `@xoroh/kern-react`) — the codemod and leak gate both cover scoped and bare forms (fixture-proven). Leak gate reports 43 private imports in the unmigrated balance app: the measured backlog, not a failure. Per-app failure baselines (existing test results, screenshots) belong to canary start (070/071), not to this repo.
-- **KERN-068 pins.** Tarball hashes from the packing run: kern=6cc78d28f5657a66 kern-tokens=bcd0125bd008bd36 kern-primitives=1ed2096a46cd8b5a kern-native=4e5f216df0b581fd kern-icons=59f96d7a09a10cfa kern-mcp=2adfb921df7cb844 kern-contracts=b23869ede12b5994 kern-cli=0643601c584067bc. CLI releaseSet kern@0.0.0+418.c6e51cd44435481e.
 - **Mobile bundle.** `expo export --platform android/ios` green with per-platform bundles + assets (web dropped: react-native-web is not an app dep; the site covers web). CI artifact check unchanged in shape.
-- **P8 evidence (076–081, 083).** NO_GO.md drafted UNSIGNED with the blocking findings (19 toolchain advisories, no device runs, no canary windows, no governance/publication sign-off). PREVIEW_NOTES.md drafted with truthful limitations. Changeset status parses (6 minors + patches + implementation changeset). All packages ship LICENSE+README; icon Apache terms+NOTICE ship.
-
-### Execution ledger — KERN-070 canary spike, stage 1 (2026-10-14, parent branch `kern-canary-stage1-accounts`, uncommitted)
-
-- **Scope.** `xoroh-web-accounts` leaf components + theme migrated behind `src/kern-compat/` (adapters, verbatim copies, preset CSS, corrections, legacy statics). Composed/stateful parts (shell, search/command, select, tabs, dialog, tooltip, switch, checkbox, menus/toggles, country picker, error boundary) pass through to private, marked STAGE-2 — compositions stay atomic because OSS and private bundle different Base UI copies. No package.json/bun.lock changes; OSS tarballs overlaid into root node_modules (byte-verified); backup tarball + hashes in /tmp/opencode/canary-backup/.
-- **Results.** tsc exit 0, tests 30/30, vite build exit 0 — all matching the pre-migration baseline captured before any edit. Built-CSS audit: all 28 used `md-sys-*` roles resolve to private-identical values (preset + 3 light / 5 dark corrections); `--kern-*` statics, settings-card joining, loader keyframes, `kern-text-muted` utility all present; 50/50 used icon names resolve in OSS.
-- **In-repo changes committed alongside.** `gen-preset-css.mjs` (new: preset→CSS emitter used by the canary), `gen-comp-css.mjs` + regenerated `tailwind.css` + CLI snapshot (`md-sys-*` migration-compat utility aliases — additive, all gates green).
-- **Findings for stage 2.** (1) XOROH_PRESET reproduces only primary/secondary families — outline/success/inverse-primary (+5 dark roles) still inherit M3 baseline and visibly diverge; canary carries explicit corrections. (2) Parent `bun install` cannot resolve the canary pinning: latent `workspace:*` (`libs/access/react` react-query) + root `file:` overrides interaction; worked around with zero lockfile churn. (3) Failed installs dropped a stray nested `react@19.3.0` into the app (dual-React test failures); removed. Full-page screenshots blocked: preview boots to the auth loader (backend unreachable in sandbox); boot loader itself (migrated shapes variant) renders. KERN-070 stays blocked pending owner window, device runs, and PR review.
+- **P8 evidence (076–081, 083).** NO_GO.md drafted UNSIGNED with the blocking findings (19 toolchain advisories, no device runs, no governance/publication sign-off). PREVIEW_NOTES.md drafted with truthful limitations. Changeset status parses (6 minors + patches + implementation changeset). All packages ship LICENSE+README; icon Apache terms+NOTICE ship.

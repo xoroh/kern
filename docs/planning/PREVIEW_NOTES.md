@@ -34,9 +34,9 @@ to a registry.
 
 - Native one-sided elevation rows (13 sheet/menu/select concepts) are
   measured and reported, not yet adopted on the renderer.
-- Device/simulator and screen-reader passes have not run; neither has any
-  product canary. The migration tooling (codemod, leak gate, preset) is
-  ready; the rollout windows are not scheduled.
+- Device/simulator and screen-reader passes have not run. The migration
+  tooling that shipped in-repo (codemod, leak gate, preset) stands on its own
+  fixtures; no rollout is scheduled.
 - 19 dependency advisories in the toolchain graph await triage (see NO_GO.md);
   none is in the shipped component runtime path.
 - `scopedDeltas` theme projection covers standard contrast; nested
@@ -46,6 +46,5 @@ to a registry.
 
 ## Rollback
 
-Revert only the authorized migration commits/config/lockfile/artifact pins
-through normal reviewed changes. Previous private packages/aliases stay
-available until rollout completes. Never restore by destructive checkout.
+Revert only reviewed changes through normal reviewed changes. Never restore
+by destructive checkout.

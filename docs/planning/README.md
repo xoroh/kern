@@ -22,10 +22,9 @@ These are planning decisions, not claims that the APIs already exist. The author
 | [PROVIDERS_COMPONENTS_AND_ICONS.md](PROVIDERS_COMPONENTS_AND_ICONS.md) | Material identity, renderer contracts, icon behavior |
 | [DISTRIBUTION_CLI_AND_REGISTRY.md](DISTRIBUTION_CLI_AND_REGISTRY.md) | Packages, source closure, blocks, upgrades, consumers |
 | [AI_AND_MCP.md](AI_AND_MCP.md) | Machine metadata and truthful installation planning |
-| [XOROH_MIGRATION.md](XOROH_MIGRATION.md) | Actual private imports, mapping, rollout, rollback |
 | [QUALITY_AND_RELEASE_GATES.md](QUALITY_AND_RELEASE_GATES.md) | Existing commands versus tests that must be added |
 | [ARCHITECTURE_DECISIONS.md](ARCHITECTURE_DECISIONS.md) | Decisions, alternatives, consequences, reversals |
-| [IMPLEMENTATION_PHASES.md](IMPLEMENTATION_PHASES.md) | Ordered deliverables and the early migration branch |
+| [IMPLEMENTATION_PHASES.md](IMPLEMENTATION_PHASES.md) | Ordered deliverables |
 | [MASTER_TODO.md](MASTER_TODO.md) | Stable, dependency-linked execution tasks |
 | [RISKS_AND_OPEN_QUESTIONS.md](RISKS_AND_OPEN_QUESTIONS.md) | Remaining uncertainty and escalation rules |
 | [AGENT_EXECUTION_GUIDE.md](AGENT_EXECUTION_GUIDE.md) | Safe execution, ownership, evidence, handoffs |
@@ -34,17 +33,17 @@ These are planning decisions, not claims that the APIs already exist. The author
 
 Current phase: **P0 planning**. No implementation task is completed by creating this plan. Begin with `KERN-001` through `KERN-006`; owner approval `KERN-007` unlocks architecture implementation. The task statuses intentionally remain Not started until an authorized executor records acceptance evidence.
 
-Approval needed: the small contracts package and public CLI addition, release/namespace ownership, the approved default-versus-Xoroh theme policy, and product migration windows. Technical recommendations are resolved here; these approvals do not justify leaving naming, CSS delivery, DTCG, or native distribution unspecified.
+Approval needed: the small contracts package and public CLI addition, release/namespace ownership, and the approved default-versus-Xoroh theme policy. Technical recommendations are resolved here; these approvals do not justify leaving naming, CSS delivery, DTCG, or native distribution unspecified.
 
 Highest risks: red local gates; CSS's stale package import; MCP serving web source for native; a checkout-dependent CLI/MCP; source installs that can write before a late conflict; hundreds of legacy Xoroh imports and private shell/domain helpers. A concurrent site redesign means site-related results may move during this snapshot. Do not repair those files as part of planning.
 
 ## Completion and resumption
 
-Planning completion means fifteen coherent documents, source-grounded inventories, explicit defaults, actionable dependency-linked tasks, and a truthful baseline. Implementation completion means all required capabilities preserved or explicitly mapped, DTCG round trips, web/native and source/package consumer tests, Xoroh product scenarios passing, and all release gates satisfied. Compilation alone is not migration acceptance.
+Planning completion means fourteen coherent documents, source-grounded inventories, explicit defaults, actionable dependency-linked tasks, and a truthful baseline. Implementation completion means all required capabilities preserved or explicitly mapped, DTCG round trips, web/native and source/package consumer tests, and all release gates satisfied. Compilation alone is not acceptance.
 
 After context loss: read this file, the decision register, current state, phases, then the relevant TODO tasks and domain document. Recheck Git state and dependencies; claim a bounded task before editing. Never reset, delete user changes, run mass formatting, invoke `check:cold` in this checkout, or publish without explicit authorization. Follow [AGENT_EXECUTION_GUIDE.md](AGENT_EXECUTION_GUIDE.md).
 
-Planning verification: all fifteen requested files exist; local Markdown links resolve; 84 unique tasks have required fields, valid references and an acyclic dependency graph; phase/priority totals and twenty decision ids reconcile; new-file whitespace/code fences checked. `git diff --check -- docs/planning` was also run (untracked files separately inspected). Actual code checks and limitations are in CURRENT_STATE; no full build/consumer/device/release pass is implied.
+Planning verification: all fourteen requested files exist; local Markdown links resolve; 72 unique tasks have required fields, valid references and an acyclic dependency graph; phase/priority totals and twenty decision ids reconcile; new-file whitespace/code fences checked. `git diff --check -- docs/planning` was also run (untracked files separately inspected). Actual code checks and limitations are in CURRENT_STATE; no full build/consumer/device/release pass is implied.
 
 ## Owner direction and final handoff
 

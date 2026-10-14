@@ -20,9 +20,6 @@ bounded elevation-audit correction that unblocked the snapshot commit
 
 Still NOT authorized by this entry: pushing to any remote, publishing any
 package to npm, or running release versioning. Those remain P8 owner actions.
-Parent-monorepo (`../xoroh-platform`) edits for the P7 migration are covered by
-"everything … done properly" for canary/rollout work; each parent change will
-still be reported with its rollback pin rather than assumed trivial.
 
 ## 2026-10-13 — site redesign direction (already executed)
 

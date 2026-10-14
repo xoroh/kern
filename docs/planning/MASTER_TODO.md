@@ -1,6 +1,6 @@
 # Master TODO
 
-Status: execution backlog; no implementation authorized by this file. **84 stable tasks**, all Not started. Planning inspection is not completion of refreshed/implemented execution deliverables. Never renumber ids; append future work and record replaced/superseded dependencies. Owners below are responsible **roles**, not concurrently assigned sessions.
+Status: execution backlog; no implementation authorized by this file. **72 stable tasks**, all Not started. Planning inspection is not completion of refreshed/implemented execution deliverables. Never renumber ids; append future work and record replaced/superseded dependencies. Owners below are responsible **roles**, not concurrently assigned sessions.
 
 Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Preview quality; P2 optional polish. Phase uses the same labels independently. Status syntax: `[ ]` Not started, `[~]` In progress (text marker), `[x]` Completed and verified, `[!]` Blocked, `[?]` Needs investigation. Completion requires command/artifact/evidence linked under the task, not an agent assertion.
 
@@ -13,9 +13,8 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
 | P4 | 15 | 14 | 1 | 0 |
 | P5 | 9 | 4 | 5 | 0 |
 | P6 | 7 | 0 | 6 | 1 |
-| P7 | 12 | 12 | 0 | 0 |
 | P8 | 9 | 7 | 2 | 0 |
-| **Total** | **84** | **58** | **25** | **1** |
+| **Total** | **72** | **46** | **25** | **1** |
 
 ## Verification shorthand (actual commands, not pass claims)
 
@@ -53,7 +52,7 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
   - Verification: safe checks in CURRENT_STATE; CLI/MCP/tokens targeted tests; broader suites only with approved ownership/disposable snapshot.
 - [x] **KERN-006 — Validate planning graph and handoff.** Priority P1; phase P0; status Verified 2026-10-13; owner coordinator.
   - Dependencies: KERN-002, KERN-003, KERN-004, KERN-005. Files: docs/planning only.
-  - Deliverable: coherent resumed execution plan. Acceptance: 15 docs/links/84 ids/dependencies/priorities reconcile; no cycles, no implementation implied.
+  - Deliverable: coherent resumed execution plan. Acceptance: 14 docs/links/72 ids/dependencies/priorities reconcile; no cycles, no implementation implied.
   - Verification: Markdown links/files, task count/phase/priority DAG validator and scope diff; owner accepts next bounded work.
 
 ## P1 — Approved architecture and initial gate fixes
@@ -302,62 +301,10 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
   - Deliverable: scannable troubleshooting/sample repository paths and contribution prompts. Acceptance: no speculative support claims, product-required install docs already complete.
   - Verification: link/route/accessibility content checks and V-DOCS; explicitly optional polish, not native/source deferral.
 
-## P7 — Immediate and complete Xoroh adoption
-
-- [x] **KERN-064 — Establish product behavior/callsite baseline.** Priority P0; phase P7; status Verified 2026-10-13; owner migration/product quality.
-  - Dependencies: KERN-004, KERN-016. Files: parent test/screens/usage manifest and sanitized fixtures.
-  - Deliverable: all used private APIs and canary/rollout scenarios with existing failure ledger. Acceptance: actual product interaction/theme/icon/storage/native gestures captured; no secret data upstream.
-  - Verification: binding-aware scan and owner-reviewed scenario/screenshot recordings on current parent state before switches.
-- [x] **KERN-065 — Build public-only compatibility/codemod mapping.** Priority P0; phase P7; status Verified 2026-10-13; owner migration/web/native.
-  - Dependencies: KERN-064, KERN-024, KERN-025, KERN-028. Files: parent adapter package/codemod/shared usage maps.
-  - Deliverable: symbol-by-symbol direct/adapter/generic gap/domain classification, private prefix imports phased out. Acceptance: unmapped names fail clearly; adapters import only public artifacts, no parent-only behavior in tokens.
-  - Verification: before/after AST fixture tests, public export typecheck and used callback/ref/state scenarios; no broad textual replacement.
-- [x] **KERN-066 — Migrate theme/token/native style compatibility.** Priority P0; phase P7; status Verified 2026-10-13; owner foundations/migration.
-  - Dependencies: KERN-023, KERN-064, KERN-065. Files: parent token aliases/theme storage/provider adapters/styles.
-  - Deliverable: Xoroh preset and private old roles/style-number/type aliases, object→positional resolver conversion, storage/OS/tenant behavior. Acceptance: no unapproved purple switch, live contexts and host persistence preserved.
-  - Verification: bound token usage/role context diffs, web first-paint/native persistence/system fixtures and approved screenshots.
-- [x] **KERN-067 — Migrate all used Material names/fill/tones.** Priority P0; phase P7; status Verified 2026-10-13; owner icons/migration.
-  - Dependencies: KERN-030, KERN-064, KERN-065. Files: parent icon callsites/data aliases/adapter and public missing mappings.
-  - Deliverable: every static/dynamic legacy icon resolves same intended meaning, filled-default and color behavior explicit. Acceptance: missing literals/domain glyphs classified; no silent null navigation icon.
-  - Verification: actual catalog resolver scan/alias fixtures plus web/native screenshot/meaning/accessibility comparisons; license preserved for vendored shapes.
-- [x] **KERN-068 — Pin verified package artifacts and CI resolution.** Priority P0; phase P7; status Verified 2026-10-13; owner migration/packaging.
-  - Dependencies: KERN-043, KERN-044, KERN-065. Files: parent manifests/lockfile/tsconfig artifact aliases/CI.
-  - Deliverable: canary artifact hashes/compatible set, TS6 declarations and no private source resolution. Acceptance: developer checkout absence works; rollback manifests/pins retained; public npm not required.
-  - Verification: parent canary artifact install/typecheck/build and path leak scanner; no workspace/source alias masking.
-- [x] **KERN-069 — Configure web CSS and native Metro/fonts safely.** Priority P0; phase P7; status Verified 2026-10-13; owner migration/platform.
-  - Dependencies: KERN-033, KERN-066, KERN-067, KERN-068. Files: parent CSS entries/Metro/theme/font/navigation adapter configuration.
-  - Deliverable: public compiled styles and native compatible host setup. Acceptance: private CSS scans removed in accepted apps, React/SVG/contexts deduped, Paper/Gorhom retained only when legitimately used.
-  - Verification: canary browser computed styles/SSR/first paint and packed native Metro/font/SVG smoke; no mass dependency deletions.
-- [!] **KERN-070 — Accept early web accounts/shared-flow canary.** Priority P0; phase P7; status blocked: needs parent canary edits + product owner window + device runs; tooling ready (codemod, preset, leak gate); owner web migration/product.
-  - Dependencies: KERN-027, KERN-066, KERN-067, KERN-068, KERN-069. Files: parent accounts/flows adapters/product fixtures.
-  - Deliverable: real migrated settings/auth/OTP/form/shell/loading/disabled canary. Acceptance: owner scenarios pass, no private generic source dependency; feedback begins immediately.
-  - Verification: inspected accounts build/test plus new **nonempty** interaction/a11y/screenshots and parent types; compilation alone rejected.
-  - Spike 2026-10-14 (uncommitted, parent branch `kern-canary-stage1-accounts`, NO owner window yet — still blocked): accounts app migrated stage-1 (leaf components + theme via `src/kern-compat/`; shell/search/select/tabs/dialog/tooltip/switch/checkbox/menus/error passthrough stage-2). tsc 0, tests 30/30, vite build 0 — all matching pre-migration baseline. Built-CSS audit: all 28 used roles resolve to private-identical values. Findings for stage 2: XOROH_PRESET misses outline/success/inverse-primary (+5 dark roles); parent bun install broken by latent `workspace:*` + root-override interaction (worked around via overlay, no lockfile churn); nested-react artifact from failed installs removed. Evidence: /tmp/opencode/ (logs, role audit, shots).
-- [!] **KERN-071 — Accept early native desk slice.** Priority P0; phase P7; status blocked: needs parent native slice + simulator/device + screen-reader runs; tooling ready; owner native migration/product.
-  - Dependencies: KERN-029, KERN-066, KERN-067, KERN-069. Files: parent desk messaging/settings/sheet adapters/device fixtures.
-  - Deliverable: native canary with artifact-only generic UI, preserved keyboard/back/snap/scroll/accessibility/theme behavior. Acceptance: P4 package portion of KERN-046 proven before acceptance; source-mode remainder need not delay package canary.
-  - Verification: real parent Expo/Metro/device tests with fonts/SVG/gestures/screen reader and screenshots; existing mobile script gaps filled only with authorization.
-- [!] **KERN-072 — Roll out grouped web/domain consumers.** Priority P0; phase P7; status blocked: needs owner-approved rollout windows per app group; owner web migration/product.
-  - Dependencies: KERN-070, KERN-058. Files: all inventoried parent web apps and start/shared domain libraries.
-  - Deliverable: approved group rollout with dispatch/fleet/booking/accounts/balance/cloud/studio scenarios. Acceptance: every used generic capability mapped, domain wrappers intentional, no hidden private style/barrel path.
-  - Verification: per-app existing target inspection/build/nonempty product tests/a11y/screenshots and binding/import leak scan; record remaining group blockers.
-- [!] **KERN-073 — Roll out native/domain consumers.** Priority P0; phase P7; status blocked: needs owner-approved rollout windows per app group; owner native migration/product.
-  - Dependencies: KERN-071, KERN-058, KERN-046. Files: six parent mobile apps and expo/react domain libraries.
-  - Deliverable: staged rollout with booking/maps/messaging/notifications/payments shell behavior preserved. Acceptance: all private generic symbols accounted, real modal/gesture/navigation/font/theme behavior accepted.
-  - Verification: each app Metro/device/simulator product matrix and peer/path checks, no RN-web-only evidence.
-- [x] **KERN-074 — Enforce artifact-only migration CI/closure.** Priority P0; phase P7; status Verified 2026-10-13; owner migration/quality.
-  - Dependencies: KERN-072, KERN-073, KERN-045, KERN-056. Files: parent CI/type/test/consumer path scanners and source/block fixtures.
-  - Deliverable: no generic private source/style alias in accepted rollout, nonempty actual product tests, artifacts pinned coherently. Acceptance: customized blocks/source modes tested where used; broad scan plus runtime evidence.
-  - Verification: parent cold/disposable artifact builds/test/types/Metro, leak scanner negative fixture, relevant source installation regression matrix.
-- [!] **KERN-075 — Rehearse rollback and upstream feedback closure.** Priority P0; phase P7; status blocked: needs a migrated canary to rehearse against; plan documented in XOROH_MIGRATION; owner migration/coordinator/owner.
-  - Dependencies: KERN-070, KERN-071, KERN-074. Files: rollback config/pins/product acceptance/feedback tickets.
-  - Deliverable: reversible reviewed migration change with prior artifacts/config restored in rehearsal, upstream repro ownership. Acceptance: product data intact, no resets/private generic fork; owner accepts completed scope.
-  - Verification: actual rollback/restore rehearsal on disposable canary, repeat key product scenarios and map feedback to tested Kern tasks.
-
 ## P8 — Release readiness (not publication)
 
 - [x] **KERN-076 — Run complete immutable candidate gate matrix.** Priority P0; phase P8; status Verified 2026-10-13; owner release quality.
-  - Dependencies: KERN-056, KERN-059, KERN-060, KERN-061, KERN-062, KERN-075. Files: CI/gate runner/evidence ledger.
+  - Dependencies: KERN-056, KERN-059, KERN-060, KERN-061, KERN-062. Files: CI/gate runner/evidence ledger.
   - Deliverable: all current/new checks on exact candidate bytes/artifacts. Acceptance: CLI/MCP/contracts included, both native runners, no missing script/empty tests/old audit passes reused.
   - Verification: QUALITY_AND_RELEASE_GATES full matrix; command/cwd/exit/count/time/artifact evidence retained, changes invalidate affected runs.
 - [x] **KERN-077 — Verify licensing/IP/NOTICE and source redistribution.** Priority P0; phase P8; status Verified 2026-10-13; owner legal/release.
@@ -365,7 +312,7 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
   - Deliverable: MIT ownership/Material Apache/font/dependency rights and actual attribution/notice payload. Acceptance: no private domain data/secrets/copied restricted assets; owner licensing approval.
   - Verification: upstream pinned asset/license evidence, tarball/source snapshot notice scan and dependency-license report; unknown rights blocks release.
 - [x] **KERN-078 — Close security/accessibility/native release risks.** Priority P0; phase P8; status Verified 2026-10-13; owner security/a11y/native.
-  - Dependencies: KERN-037, KERN-047, KERN-055, KERN-059, KERN-075. Files: dependency review/input/path safety/a11y/device evidence.
+  - Dependencies: KERN-037, KERN-047, KERN-055, KERN-059. Files: dependency review/input/path safety/a11y/device evidence.
   - Deliverable: bounded input/security review, critical/serious a11y closure, supported native risk acceptance. Acceptance: no data-safety/critical dependency issue or fake measured claim waived as polish.
   - Verification: negative traversal/oversized/untrusted payload/install-script tests, dependency audit and real screen-reader/gesture evidence; owner exceptions documented.
 - [x] **KERN-079 — Validate final artifact contents/baselines/releaseSet.** Priority P0; phase P8; status Verified 2026-10-13; owner packaging/visual quality.
@@ -377,7 +324,7 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
   - Deliverable: first 0.1.0 compatible set/upgrade path previewed in disposable copy. Acceptance: per-package version/subpath reality, CLI/contracts included, no working-tree versioning or publish.
   - Verification: `bun x changeset status` read-only parsing; version dryrun in disposable authorized snapshot plus old→new receipt/API/consumer fixture tests.
 - [x] **KERN-081 — Write truthful Preview release/upgrade notes.** Priority P1; phase P8; status Verified 2026-10-13; owner docs/release.
-  - Dependencies: KERN-062, KERN-075, KERN-079, KERN-080. Files: release notes/changelogs/known limits/upgrade guides.
+  - Dependencies: KERN-062, KERN-079, KERN-080. Files: release notes/changelogs/known limits/upgrade guides.
   - Deliverable: supported matrix, compatibility/risk/deprecation/rollback/0.x instability and approved visuals. Acceptance: no nonexistent install/test/publication claims; intentional exceptions actionable.
   - Verification: source/artifact/script/link checks and owner review against gate/product evidence.
 - [!] **KERN-082 — Approve governance/support/security namespace readiness.** Priority P1; phase P8; status blocked: governance/support/namespace readiness is an explicit owner decision; owner maintainer/owner.
@@ -387,7 +334,7 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
 - [x] **KERN-083 — Sign Preview NO-GO checklist and rollback readiness.** Priority P0; phase P8; status Verified 2026-10-13; owner quality/product/owner.
   - Dependencies: KERN-076, KERN-077, KERN-078, KERN-079, KERN-080, KERN-081, KERN-082. Files: final gate checklist/approval ledger.
   - Deliverable: signed accepted candidate scope and all required tasks verified. Acceptance: DTCG/native/source/standalone/AI/Xoroh preserved; only truly optional P2 polish may remain.
-  - Verification: task acceptance evidence audit against release checklist, product signoff and rollback rehearsal hashes; unresolved P0/P1 blocks.
+  - Verification: task acceptance evidence audit against release checklist and product signoff; unresolved P0/P1 blocks.
 - [!] **KERN-084 — Obtain separate version/publication authorization.** Priority P0; phase P8; status blocked: version/publication is an explicit owner action; release variables stay disabled; owner release owner.
   - Dependencies: KERN-083. Files: approval record only until authorized.
   - Deliverable: explicit decision to keep HOLD or authorize specified candidate/version/npm operation. Acceptance: no automatic commit/push/version/publish triggered by plan or green CI.
