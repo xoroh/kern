@@ -30,7 +30,7 @@ plan requires.
   not a default.
 - [ ] Device runs: no simulator/device or screen-reader pass exists for the
   native renderer. RNTL + Expo export are not a device.
-- [ ] Governance/support/namespace readiness (KERN-082): owner decision.
+- [x] Governance/support/namespace readiness (KERN-082): owner decided 2026-10-14 — Xoroh org owns; support via GitHub issues, no SLA; support email TBD.
 - [ ] Publication authorization (KERN-084): explicit owner action. Release
   variables stay disabled; no credentials were created or used.
 

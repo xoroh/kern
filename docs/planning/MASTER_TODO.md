@@ -327,10 +327,10 @@ Priority: P0 critical consumer/safety/foundation/release blocker; P1 required Pr
   - Dependencies: KERN-062, KERN-079, KERN-080. Files: release notes/changelogs/known limits/upgrade guides.
   - Deliverable: supported matrix, compatibility/risk/deprecation/rollback/0.x instability and approved visuals. Acceptance: no nonexistent install/test/publication claims; intentional exceptions actionable.
   - Verification: source/artifact/script/link checks and owner review against gate/product evidence.
-- [!] **KERN-082 — Approve governance/support/security namespace readiness.** Priority P1; phase P8; status blocked: governance/support/namespace readiness is an explicit owner decision; owner maintainer/owner.
+- [x] **KERN-082 — Approve governance/support/security namespace readiness.** Priority P1; phase P8; status Verified 2026-10-14; owner maintainer/owner.
   - Dependencies: KERN-007, KERN-077, KERN-078. Files: GOVERNANCE/CONTRIBUTING/SUPPORT/SECURITY and release ownership.
   - Deliverable: MIT contribution/decision/support/security process, npm names/permissions/provenance ownership. Acceptance: no unsupported SLA, rights/credentials approval recorded without secrets.
-  - Verification: policy/namespace/permission review by owner, artifact provenance prerequisites documented; do not enable release variables.
+  - Verification: owner decision 2026-10-14 — Xoroh org owns everything (packages, namespace, support); day-to-day support via GitHub issues per SUPPORT.md, no SLA promised. Dedicated support email TBD (`kern@xoroh.org` vs support address); not required for the decision. Do not enable release variables; no npm publish authorized (KERN-084 stays blocked).
 - [x] **KERN-083 — Sign Preview NO-GO checklist and rollback readiness.** Priority P0; phase P8; status Verified 2026-10-13; owner quality/product/owner.
   - Dependencies: KERN-076, KERN-077, KERN-078, KERN-079, KERN-080, KERN-081, KERN-082. Files: final gate checklist/approval ledger.
   - Deliverable: signed accepted candidate scope and all required tasks verified. Acceptance: DTCG/native/source/standalone/AI/Xoroh preserved; only truly optional P2 polish may remain.
