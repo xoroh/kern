@@ -199,4 +199,23 @@ describe("Button", () => {
     render(<Button>Save</Button>);
     expect(screen.getByRole("button").className).toContain("active:");
   });
+
+  it("wires the container shape to --comp-button-container-shape with a full-corner fallback", () => {
+    render(<Button>Save</Button>);
+    const button = screen.getByRole("button");
+    expect(button).toHaveClass(
+      "rounded-[var(--comp-button-container-shape,var(--sys-shape-corner-full))]",
+    );
+    expect(button.className).not.toContain("rounded-(--sys-shape-corner-full)");
+  });
+
+  it("keeps shape variants winning over the component token", () => {
+    const { rerender } = render(<Button shape="rounded">Save</Button>);
+    expect(screen.getByRole("button")).toHaveClass(
+      "rounded-(--sys-shape-corner-large)",
+    );
+    rerender(<Button shape="square">Save</Button>);
+    expect(screen.getByRole("button").className).not.toContain("rounded-none");
+  });
+
 });

@@ -3,7 +3,7 @@ import type { ComponentPropsWithRef, ElementType } from "react";
 import { cn } from "../utils/cn";
 
 const cardVariants = cva(
-  "kern-card rounded-(--sys-shape-corner-medium) bg-(--sys-color-surface)",
+  "kern-card rounded-[var(--comp-card-container-shape,var(--sys-shape-corner-medium))] bg-(--sys-color-surface)",
   {
     variants: {
       variant: {

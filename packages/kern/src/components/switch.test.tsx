@@ -31,4 +31,13 @@ describe("Switch", () => {
         .querySelector('[data-slot="switch-unchecked-icon"]'),
     ).toHaveClass("text-(--sys-color-surface-container-highest)");
   });
+
+  it("wires the track shape to --comp-switch-track-shape with a full-corner fallback", () => {
+    render(<Switch aria-label="Notifications" />);
+    const track = screen.getByRole("switch");
+    expect(track).toHaveClass(
+      "rounded-[var(--comp-switch-track-shape,var(--sys-shape-corner-full))]",
+    );
+    expect(track.className).not.toContain("rounded-(--sys-shape-corner-full)");
+  });
 });

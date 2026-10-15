@@ -97,8 +97,8 @@ export function Input({
   const count = value !== undefined ? String(value).length : localLength;
   const boxClass = cn(
     variant === "filled"
-      ? "rounded-t-(--sys-shape-corner-extra-small) border-b border-(--sys-color-on-surface-variant) bg-(--sys-color-surface-container-highest) focus-within:border-b-2 focus-within:border-(--sys-color-primary)"
-      : "rounded-(--sys-shape-corner-extra-small) border border-(--sys-color-outline) bg-(--sys-color-surface) hover:border-(--sys-color-on-surface) focus-within:border-2 focus-within:border-(--sys-color-primary)",
+      ? "rounded-t-[var(--comp-text-field-container-shape,var(--sys-shape-corner-extra-small))] border-b border-(--sys-color-on-surface-variant) bg-(--sys-color-surface-container-highest) focus-within:border-b-2 focus-within:border-(--sys-color-primary)"
+      : "rounded-[var(--comp-text-field-container-shape,var(--sys-shape-corner-extra-small))] border border-(--sys-color-outline) bg-(--sys-color-surface) hover:border-(--sys-color-on-surface) focus-within:border-2 focus-within:border-(--sys-color-primary)",
   );
   const controlClass = cnState(
     "kern-input h-14 w-full text-base text-(--sys-color-on-surface) outline-none transition-colors placeholder:text-(--sys-color-on-surface-variant) " +
@@ -107,8 +107,8 @@ export function Input({
       (hasAffixes
         ? " border-0 bg-transparent px-0"
         : variant === "filled"
-          ? " rounded-t-(--sys-shape-corner-extra-small) border-b border-(--sys-color-on-surface-variant) bg-(--sys-color-surface-container-highest) px-4 focus:border-b-2 focus:border-(--sys-color-primary) disabled:border-(--sys-color-on-surface)/38 disabled:bg-(--sys-color-on-surface)/4 data-invalid:border-(--sys-color-error)"
-          : " rounded-(--sys-shape-corner-extra-small) border border-(--sys-color-outline) bg-(--sys-color-surface) px-4 hover:border-(--sys-color-on-surface) focus:border-2 focus:border-(--sys-color-primary) focus:px-[15px] disabled:border-(--sys-color-on-surface)/12 disabled:bg-transparent disabled:text-(--sys-color-on-surface)/38 data-invalid:border-(--sys-color-error)"),
+          ? " rounded-t-[var(--comp-text-field-container-shape,var(--sys-shape-corner-extra-small))] border-b border-(--sys-color-on-surface-variant) bg-(--sys-color-surface-container-highest) px-4 focus:border-b-2 focus:border-(--sys-color-primary) disabled:border-(--sys-color-on-surface)/38 disabled:bg-(--sys-color-on-surface)/4 data-invalid:border-(--sys-color-error)"
+          : " rounded-[var(--comp-text-field-container-shape,var(--sys-shape-corner-extra-small))] border border-(--sys-color-outline) bg-(--sys-color-surface) px-4 hover:border-(--sys-color-on-surface) focus:border-2 focus:border-(--sys-color-primary) focus:px-[15px] disabled:border-(--sys-color-on-surface)/12 disabled:bg-transparent disabled:text-(--sys-color-on-surface)/38 data-invalid:border-(--sys-color-error)"),
     invalid && "data-invalid:border-(--sys-color-error)",
     invalid &&
       variant === "outlined" &&

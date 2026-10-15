@@ -26,7 +26,9 @@ describe("Chip — 8px shape, label-large, outline treatments", () => {
   it("renders the 8px M3 shape with label-large type", () => {
     render(<Chip variant="assist">Search</Chip>);
     const el = screen.getByRole("button", { name: "Search" });
-    expect(el.className).toContain("rounded-(--sys-shape-corner-small)");
+    expect(el.className).toContain(
+      "rounded-[var(--comp-chip-container-shape,var(--sys-shape-corner-small))]",
+    );
     expect(el.className).not.toContain("rounded-(--sys-shape-corner-full)");
     expect(el.className).toContain("tracking-[0.00625rem]");
   });
@@ -87,7 +89,9 @@ describe("Card — elevated/tonal/outlined fills per M3", () => {
     render(<Card variant="outlined" data-testid="card" />);
     const el = screen.getByTestId("card");
     expect(el.className).toContain("border-(--sys-color-outline-variant)");
-    expect(el.className).toContain("rounded-(--sys-shape-corner-medium)");
+    expect(el.className).toContain(
+      "rounded-[var(--comp-card-container-shape,var(--sys-shape-corner-medium))]",
+    );
   });
 });
 

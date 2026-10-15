@@ -97,4 +97,13 @@ describe("Chip elevated (M3)", () => {
       screen.getByRole("button", { name: "file.pdf" }).className,
     ).not.toContain("shadow-(--sys-elevation-level1)");
   });
+
+  it("wires the container shape to --comp-chip-container-shape with a small-corner fallback", () => {
+    render(<Chip>Label</Chip>);
+    const chip = screen.getByRole("button", { name: "Label" });
+    expect(chip).toHaveClass(
+      "rounded-[var(--comp-chip-container-shape,var(--sys-shape-corner-small))]",
+    );
+    expect(chip.className).not.toContain("rounded-(--sys-shape-corner-small)");
+  });
 });

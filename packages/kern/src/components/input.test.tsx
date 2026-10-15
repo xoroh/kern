@@ -30,4 +30,25 @@ describe("Input", () => {
     render(<Input ref={ref} aria-label="Email" />);
     expect(ref.current).toBe(screen.getByRole("textbox"));
   });
+
+  it("wires the container shape to --comp-text-field-container-shape with an extra-small fallback", () => {
+    const { rerender } = render(<Input aria-label="Email" />);
+    const control = screen.getByRole("textbox");
+    expect(control.className).toContain(
+      "rounded-[var(--comp-text-field-container-shape,var(--sys-shape-corner-extra-small))]",
+    );
+    expect(control.className).not.toContain("rounded-(--sys-shape-corner-extra-small)");
+    // Filled keeps top-only rounding so bottom corners stay zero.
+    rerender(<Input aria-label="Email" variant="filled" />);
+    expect(screen.getByRole("textbox").className).toContain(
+      "rounded-t-[var(--comp-text-field-container-shape,var(--sys-shape-corner-extra-small))]",
+    );
+    // The affix box carries the same top-only rounding when affixes render it.
+    rerender(<Input aria-label="Email" variant="filled" prefix="$" />);
+    expect(
+      document.querySelector('[data-slot="input-affix-box"]')?.className,
+    ).toContain(
+      "rounded-t-[var(--comp-text-field-container-shape,var(--sys-shape-corner-extra-small))]",
+    );
+  });
 });

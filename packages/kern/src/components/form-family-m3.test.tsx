@@ -27,7 +27,7 @@ describe("Input — outlined is the default treatment", () => {
     expect(el.className).toContain("border-(--sys-color-outline)");
     expect(el.className).toContain("bg-(--sys-color-surface)");
     expect(el.className).toContain(
-      "rounded-(--sys-shape-corner-extra-small)",
+      "rounded-[var(--comp-text-field-container-shape,var(--sys-shape-corner-extra-small))]",
     );
     expect(el.className).not.toContain("rounded-(--sys-shape-corner-small)");
   });
@@ -47,7 +47,7 @@ describe("Input — outlined is the default treatment", () => {
       "bg-(--sys-color-surface-container-highest)",
     );
     expect(el.className).toContain(
-      "rounded-t-(--sys-shape-corner-extra-small)",
+      "rounded-t-[var(--comp-text-field-container-shape,var(--sys-shape-corner-extra-small))]",
     );
     expect(el.className).toContain("border-b");
   });
@@ -130,7 +130,9 @@ describe("Switch — 52x32 track, state layers, split disabled", () => {
     const el = screen.getByRole("switch");
     expect(el.className).toContain("h-8");
     expect(el.className).toContain("w-[52px]");
-    expect(el.className).toContain("rounded-(--sys-shape-corner-full)");
+    expect(el.className).toContain(
+      "rounded-[var(--comp-switch-track-shape,var(--sys-shape-corner-full))]",
+    );
   });
 
   it("paints hover, focus, and pressed layers", () => {

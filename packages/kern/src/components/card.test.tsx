@@ -7,7 +7,9 @@ describe("Card", () => {
     render(<Card data-testid="card">Hello</Card>);
     const card = screen.getByTestId("card");
     expect(card).toHaveTextContent("Hello");
-    expect(card).toHaveClass("rounded-(--sys-shape-corner-medium)");
+    expect(card).toHaveClass(
+      "rounded-[var(--comp-card-container-shape,var(--sys-shape-corner-medium))]",
+    );
     expect(card).toHaveClass("bg-(--sys-color-surface-container-highest)");
   });
 
@@ -56,5 +58,14 @@ describe("Card anatomy (M3)", () => {
     const actions = screen.getByTestId("actions");
     expect(actions).toHaveClass("justify-end", "gap-2", "p-2");
     expect(actions).toHaveAttribute("role", "group");
+  });
+
+  it("wires the container shape to --comp-card-container-shape with a medium-corner fallback", () => {
+    render(<Card data-testid="card">Hello</Card>);
+    const card = screen.getByTestId("card");
+    expect(card).toHaveClass(
+      "rounded-[var(--comp-card-container-shape,var(--sys-shape-corner-medium))]",
+    );
+    expect(card.className).not.toContain("rounded-(--sys-shape-corner-medium)");
   });
 });
