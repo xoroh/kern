@@ -10,18 +10,10 @@ export type PaginationProps = Omit<
   /** Total page count (>= 1). */
   count: number;
   /** Controlled current page (1-based). */
-  page?: number;
-  /** Uncontrolled initial page. */
-  defaultPage?: number;
-  /** Called with the new 1-based page. */
-  onPageChange?: (page: number) => void;
-  /**
-   * R2 lexicon canonical names (`value` wins when both are passed; both
-   * callbacks fire). `page`/`defaultPage`/`onPageChange` are deprecated
-   * aliases onto the same state.
-   */
   value?: number;
+  /** Uncontrolled initial page. */
   defaultValue?: number;
+  /** Called with the new 1-based page. */
   onValueChange?: (page: number) => void;
   /** Extra content rendered after the page buttons. */
   children?: ReactNode;
@@ -67,27 +59,23 @@ function pageWindow(
 /** Page navigation with a sliding window, ellipsis gaps, and prev/next. */
 export function Pagination({
   count,
-  page: pageProp,
-  defaultPage = 1,
-  onPageChange,
-  value,
-  defaultValue,
+  value: valueProp,
+  defaultValue = 1,
   onValueChange,
   children,
   className,
   "aria-label": ariaLabel = "Pagination",
   ...props
 }: PaginationProps) {
-  const [internal, setInternal] = useState(defaultValue ?? defaultPage);
+  const [internal, setInternal] = useState(defaultValue);
   const page = Math.min(
-    Math.max(value ?? pageProp ?? internal, 1),
+    Math.max(valueProp ?? internal, 1),
     Math.max(count, 1),
   );
   function go(next: number) {
     const clamped = Math.min(Math.max(next, 1), Math.max(count, 1));
-    if (value === undefined && pageProp === undefined) setInternal(clamped);
+    if (valueProp === undefined) setInternal(clamped);
     onValueChange?.(clamped);
-    onPageChange?.(clamped);
   }
   return (
     <nav

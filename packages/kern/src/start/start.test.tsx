@@ -243,8 +243,8 @@ describe("panes", () => {
         content={<span>C</span>}
         info={<span>I</span>}
         tabs={[{ id: "info", label: "Info" }]}
-        activeTab="info"
-        onTabChange={() => {}}
+        value="info"
+        onValueChange={() => {}}
       />,
     );
     expect(

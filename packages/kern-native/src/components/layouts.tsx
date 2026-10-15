@@ -1,7 +1,6 @@
 import { useControllableState } from "@xoroh/kern-primitives";
 import {
   type ResolvedTheme,
-  resolveThemeDetails,
   tokens,
 } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
@@ -13,7 +12,7 @@ import {
   View,
   type ViewStyle,
 } from "react-native";
-import { useKernScheme, useKernTheme } from "../theme";
+import { defaultScheme, useKernScheme, useKernTheme } from "../theme";
 import { Chip } from "./chip";
 import { Text } from "./text";
 
@@ -66,7 +65,7 @@ export function FilterChipRow({
         <Chip
           key={option.value}
           variant="filter"
-          selected={active.includes(option.value)}
+          value={active.includes(option.value)}
           accessibilityLabel={option.label}
           onPress={() =>
             setSelected((previous) => {
@@ -105,7 +104,7 @@ export type SecondaryTabsProps = {
 };
 
 export function secondaryTabsStyles(
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): {
   row: ViewStyle;
   tab: ViewStyle;

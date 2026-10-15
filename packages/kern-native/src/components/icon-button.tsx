@@ -3,7 +3,7 @@ import {
   type SlotProps,
   useControllableState,
 } from "@xoroh/kern-primitives";
-import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
+import { type ResolvedTheme } from "@xoroh/kern-tokens";
 import { cloneElement, isValidElement, type ReactNode } from "react";
 import {
   Pressable,
@@ -13,7 +13,7 @@ import {
   View,
   type ViewStyle,
 } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 
 /**
  * M3 icon button — the canonical square, icon-only action.
@@ -72,7 +72,7 @@ export function iconButtonStyles(
   variant: IconButtonVariant,
   pressed: boolean,
   disabled: boolean,
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
   size: NativeIconButtonSize = "default",
 ): ViewStyle {
   const box = ICON_BUTTON_BOX[size];
@@ -141,7 +141,7 @@ export function iconButtonStyles(
 export function iconButtonIconColor(
   variant: IconButtonVariant,
   pressed: boolean,
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): string {
   if (pressed) {
     switch (variant) {
@@ -205,15 +205,6 @@ export type NativeIconButtonProps = Omit<
   pressed?: boolean;
   defaultPressed?: boolean;
   onPressedChange?: (pressed: boolean) => void;
-  /**
-   * R2 lexicon canonical names (`value` wins when both are passed; both
-   * callbacks fire). `pressed`/`defaultPressed`/`onPressedChange` are
-   * deprecated aliases onto the same state. `onPress` (the RN press event)
-   * is the platform action and stays untouched.
-   */
-  value?: boolean;
-  defaultValue?: boolean;
-  onValueChange?: (pressed: boolean) => void;
   disabled?: boolean;
   onPress?: PressableProps["onPress"];
   style?: PressableProps["style"];
@@ -228,9 +219,6 @@ export function IconButton({
   pressed: pressedProp,
   defaultPressed = false,
   onPressedChange,
-  value: valueProp,
-  defaultValue,
-  onValueChange,
   disabled = false,
   onPress,
   hitSlop,
@@ -240,10 +228,9 @@ export function IconButton({
 }: NativeIconButtonProps) {
   const scheme = useKernScheme();
   const [isPressedRaw, setPressed] = useControllableState<boolean>(
-    valueProp ?? pressedProp,
-    defaultValue ?? defaultPressed,
+    pressedProp,
+    defaultPressed,
     (next) => {
-      onValueChange?.(next);
       onPressedChange?.(next);
     },
   );

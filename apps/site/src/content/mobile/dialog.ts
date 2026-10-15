@@ -30,9 +30,10 @@ export const dialog: ComponentDoc = {
   },
   api: [
     {
-      name: "visible",
+      name: "open",
       type: "boolean",
-      note: "Controlled visibility. Required — and note the name: this is `visible`, where `Drawer`, `Popover` and `Tooltip` take `open`/`defaultOpen`/`onOpenChange`. The inconsistency is in the surface, not in your code.",
+      default: "false",
+      note: "Controlled visibility, like `Drawer`, `Popover` and `Tooltip`.",
     },
     {
       name: "title",

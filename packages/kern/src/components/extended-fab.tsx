@@ -35,8 +35,8 @@ import { FOCUS_RING_CLASS } from "./focus-ring";
  * and shipping a gesture the platform does not define makes the component's
  * behaviour a Kern invention that consumers then have to discover.
  *
- * - Controlled (`collapsed` + `onCollapsedChange`) or uncontrolled
- *   (`defaultCollapsed`), so a host can bind it to its own scroll position.
+ * - Controlled (`value` + `onValueChange`) or uncontrolled
+ *   (`defaultValue`), so a host can bind it to its own scroll position.
  * - **The accessible name survives collapse.** Collapsed, the label text is no
  *   longer rendered, so the name comes from `label` on the element. A collapsed
  *   FAB that left the label in the a11y tree would announce a longer name than
@@ -85,7 +85,7 @@ export type ExtendedFabHandle = {
 
 export type ExtendedFabProps = Omit<
   ComponentProps<"button">,
-  "children" | "ref"
+  "children" | "ref" | "value" | "defaultValue" | "onValueChange"
 > & {
   /**
    * Imperative handle for M3's scroll-driven collapse. The component cannot
@@ -97,17 +97,8 @@ export type ExtendedFabProps = Omit<
   label: string;
   icon: ReactNode;
   /** Controlled collapse state. */
-  collapsed?: boolean;
-  /** Initial collapse state for the uncontrolled case. */
-  defaultCollapsed?: boolean;
-  onCollapsedChange?: (collapsed: boolean) => void;
-  /**
-   * R2 lexicon canonical names (`value` wins when both are passed; both
-   * callbacks fire). `collapsed`/`defaultCollapsed`/`onCollapsedChange` are
-   * deprecated aliases onto the same state — including the imperative
-   * handle, which drives the same path.
-   */
   value?: boolean;
+  /** Initial collapse state for the uncontrolled case. */
   defaultValue?: boolean;
   onValueChange?: (collapsed: boolean) => void;
   /**
@@ -121,11 +112,8 @@ export function ExtendedFab({
   ref,
   label,
   icon,
-  collapsed,
-  defaultCollapsed = false,
-  onCollapsedChange,
   value: valueProp,
-  defaultValue,
+  defaultValue = false,
   onValueChange,
   size = "small",
   disabled,
@@ -133,13 +121,9 @@ export function ExtendedFab({
   className,
   ...props
 }: ExtendedFabProps) {
-  const controlled = valueProp !== undefined || collapsed !== undefined;
-  const [uncontrolled, setUncontrolled] = useState(
-    defaultValue ?? defaultCollapsed,
-  );
-  const isCollapsed = controlled
-    ? (valueProp ?? collapsed ?? false)
-    : uncontrolled;
+  const controlled = valueProp !== undefined;
+  const [uncontrolled, setUncontrolled] = useState(defaultValue);
+  const isCollapsed = controlled ? (valueProp ?? false) : uncontrolled;
   // The handle must know the CURRENT state to be idempotent — two scrolls in
   // the same direction must not report two collapses. `stateRef` is updated in
   // an effect, not during render, so a controlled prop that a host fails to
@@ -158,9 +142,8 @@ export function ExtendedFab({
       stateRef.current = next;
       if (!controlled) setUncontrolled(next);
       onValueChange?.(next);
-      onCollapsedChange?.(next);
     },
-    [controlled, onCollapsedChange, onValueChange],
+    [controlled, onValueChange],
   );
 
   useImperativeHandle(

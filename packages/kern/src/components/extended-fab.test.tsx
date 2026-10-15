@@ -31,7 +31,7 @@ describe("ExtendedFab", () => {
   // the label in the a11y tree would announce a longer name than it shows; one
   // with neither announces nothing at all.
   it("keeps the accessible name when collapsed, though the text is not rendered", () => {
-    render(<ExtendedFab icon={<svg />} label="Compose" collapsed />);
+    render(<ExtendedFab icon={<svg />} label="Compose" value />);
     const button = screen.getByRole("button", { name: "Compose" });
     expect(button).toBeInTheDocument();
     expect(button).toHaveAttribute("data-collapsed", "true");
@@ -84,16 +84,16 @@ describe("ExtendedFab", () => {
   // IDEMPOTENCE IS THE WHOLE POINT. Two wheel events in the same direction
   // (a trackpad flick produces a stream of them) must report ONE collapse. If
   // collapse() is not idempotent, every consumer binding it to scroll gets a
-  // duplicate onCollapsedChange per gesture and has to debounce defensively.
+  // duplicate onValueChange per gesture and has to debounce defensively.
   it("collapse() is idempotent — repeat calls report once", () => {
     const ref = createRef<ExtendedFabHandle>();
-    const onCollapsedChange = vi.fn();
+    const onValueChange = vi.fn();
     render(
       <ExtendedFab
         ref={ref}
         icon={<svg />}
         label="Compose"
-        onCollapsedChange={onCollapsedChange}
+        onValueChange={onValueChange}
       />,
     );
     act(() => {
@@ -101,42 +101,42 @@ describe("ExtendedFab", () => {
       ref.current?.collapse();
       ref.current?.collapse();
     });
-    expect(onCollapsedChange).toHaveBeenCalledTimes(1);
-    expect(onCollapsedChange).toHaveBeenCalledWith(true);
+    expect(onValueChange).toHaveBeenCalledTimes(1);
+    expect(onValueChange).toHaveBeenCalledWith(true);
   });
 
   it("expand() is idempotent too", () => {
     const ref = createRef<ExtendedFabHandle>();
-    const onCollapsedChange = vi.fn();
+    const onValueChange = vi.fn();
     render(
       <ExtendedFab
         ref={ref}
         icon={<svg />}
         label="Compose"
-        collapsed
-        onCollapsedChange={onCollapsedChange}
+        value
+        onValueChange={onValueChange}
       />,
     );
     act(() => {
       ref.current?.expand();
       ref.current?.expand();
     });
-    expect(onCollapsedChange).toHaveBeenCalledTimes(1);
-    expect(onCollapsedChange).toHaveBeenCalledWith(false);
+    expect(onValueChange).toHaveBeenCalledTimes(1);
+    expect(onValueChange).toHaveBeenCalledWith(false);
   });
 
   // A controlled host may not re-render between two calls in the same tick.
   // Recording the intent immediately is what makes that safe.
   it("reports the second toggle correctly when a controlled host does not re-render", () => {
     const ref = createRef<ExtendedFabHandle>();
-    const onCollapsedChange = vi.fn();
+    const onValueChange = vi.fn();
     render(
       <ExtendedFab
         ref={ref}
         icon={<svg />}
         label="Compose"
-        collapsed={false}
-        onCollapsedChange={onCollapsedChange}
+        value={false}
+        onValueChange={onValueChange}
       />,
     );
     act(() => {
@@ -145,36 +145,36 @@ describe("ExtendedFab", () => {
     });
     // Without immediate intent recording both calls would read the same stale
     // prop and report true twice.
-    expect(onCollapsedChange).toHaveBeenNthCalledWith(1, true);
-    expect(onCollapsedChange).toHaveBeenNthCalledWith(2, false);
+    expect(onValueChange).toHaveBeenNthCalledWith(1, true);
+    expect(onValueChange).toHaveBeenNthCalledWith(2, false);
   });
 
   // ---------------------------------------------------------------
   // Controlled / uncontrolled
   // ---------------------------------------------------------------
 
-  it("honours defaultCollapsed", () => {
-    render(<ExtendedFab icon={<svg />} label="Compose" defaultCollapsed />);
+  it("honours defaultValue", () => {
+    render(<ExtendedFab icon={<svg />} label="Compose" defaultValue />);
     expect(screen.getByRole("button")).toHaveAttribute(
       "data-collapsed",
       "true",
     );
   });
 
-  it("does not move a controlled collapsed prop on its own", () => {
+  it("does not move a controlled value prop on its own", () => {
     const ref = createRef<ExtendedFabHandle>();
-    const onCollapsedChange = vi.fn();
+    const onValueChange = vi.fn();
     render(
       <ExtendedFab
         ref={ref}
         icon={<svg />}
         label="Compose"
-        collapsed={false}
-        onCollapsedChange={onCollapsedChange}
+        value={false}
+        onValueChange={onValueChange}
       />,
     );
     act(() => ref.current?.collapse());
-    expect(onCollapsedChange).toHaveBeenCalledWith(true);
+    expect(onValueChange).toHaveBeenCalledWith(true);
     // Still expanded: the host owns it and has not agreed yet.
     expect(screen.getByRole("button")).not.toHaveAttribute("data-collapsed");
   });

@@ -373,7 +373,7 @@ function ThemePage() {
                 <Card variant="elevated" className="p-5">
                   <p className={`m-0 ${T_BODY_MD}`}>Card surface</p>
                 </Card>
-                <Chip variant="filter" defaultSelected>
+                <Chip variant="filter" defaultValue>
                   Filter
                 </Chip>
                 <Badge>7</Badge>

@@ -242,6 +242,7 @@ export function defineThemePreset(theme: CustomTheme): CustomTheme {
 function resolveBase(id: string): {
   color: { light: Record<string, string>; dark: Record<string, string> };
   shape: Record<string, string>;
+  comp: Record<string, string>;
   contrast: Record<string, Partial<Record<string, string>>>;
 } {
   const seen: string[] = [];
@@ -263,6 +264,7 @@ function resolveBase(id: string): {
       return {
         color: record.color,
         shape: record.shape,
+        comp: record.comp ?? {},
         contrast: record.contrast ?? {},
       };
     }
@@ -279,7 +281,6 @@ export function resolveThemeDetails(
   // no preset registered under this id the call fails loud listing what is
   // registered. The id itself is owned by the `@xoroh/kern-material-3`
   // registration, not by this module — custom systems resolve by passing
-  comp: Record<string, string>;
   // their own registered id (or a validated CustomTheme) explicitly.
   variant: ThemeSelection = "material-3",
 ): ResolvedTheme {
@@ -306,7 +307,6 @@ export function resolveTheme(
   mode: Mode = "light",
   contrast: Contrast = "standard",
   variant: ThemeSelection = "material-3",
-        comp: record.comp ?? {},
 ): RoleTable {
   return resolveThemeDetails(mode, contrast, variant).color;
 }

@@ -41,7 +41,7 @@ describe("Chip — 8px shape, label-large, outline treatments", () => {
 
   it("filter selected fills secondary-container with a check", () => {
     render(
-      <Chip variant="filter" selected onSelectedChange={() => {}}>
+      <Chip variant="filter" value onValueChange={() => {}}>
         Docs
       </Chip>,
     );

@@ -45,17 +45,17 @@ export const carousel: ComponentDoc = {
       note: "Stable identity per slide, for React's reconciliation. Falls back to the array index, which is correct for a static set and WRONG for a reordered one — a carousel whose slides change order must pass these, or React will reuse the wrong slide's state.",
     },
     {
-      name: "index",
+      name: "value",
       type: "number",
       note: "Controlled active slide. Omit for uncontrolled.",
     },
     {
-      name: "defaultIndex",
+      name: "defaultValue",
       type: "number",
       note: "Initial slide when uncontrolled. Slide zero is what everyone sees first.",
     },
     {
-      name: "onIndexChange",
+      name: "onValueChange",
       type: "(index: number) => void",
       note: "Fires when the visible slide changes, from any control or gesture.",
     },

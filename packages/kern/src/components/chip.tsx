@@ -34,7 +34,7 @@ const chipVariants = cva(
 
 type CommonChipProps = Omit<
   ComponentPropsWithRef<"button">,
-  "aria-pressed" | "type"
+  "aria-pressed" | "type" | "value" | "defaultValue" | "onValueChange"
 > & {
   type?: "button" | "submit" | "reset";
   /**
@@ -47,14 +47,7 @@ type CommonChipProps = Omit<
 
 export type FilterChipProps = CommonChipProps & {
   variant: "filter";
-  selected?: boolean;
-  defaultSelected?: boolean;
-  onSelectedChange?: (selected: boolean) => void;
-  /**
-   * R2 lexicon canonical names (`value` wins when both are passed; both
-   * callbacks fire). `selected`/`defaultSelected`/`onSelectedChange` are
-   * deprecated aliases onto the same state.
-   */
+  /** R2 lexicon canonical selection state. */
   value?: boolean;
   defaultValue?: boolean;
   onValueChange?: (selected: boolean) => void;
@@ -62,9 +55,6 @@ export type FilterChipProps = CommonChipProps & {
 
 export type ActionChipProps = CommonChipProps & {
   variant?: "assist" | "suggestion" | "input";
-  selected?: never;
-  defaultSelected?: never;
-  onSelectedChange?: never;
 };
 
 export type ChipProps = FilterChipProps | ActionChipProps;
@@ -78,9 +68,6 @@ export function Chip(props: ChipProps) {
     type = "button",
     children,
     onClick,
-    selected: selectedProp,
-    defaultSelected,
-    onSelectedChange,
     ...buttonProps
   } = props;
   // R2 lexicon canonical names, read off the narrowed filter branch so the
@@ -91,9 +78,7 @@ export function Chip(props: ChipProps) {
   const lexiconDefault = filterProps?.defaultValue;
   const onValueChange = filterProps?.onValueChange;
   const [internalSelected, setInternalSelected] = useState(
-    props.variant === "filter"
-      ? (lexiconDefault ?? defaultSelected ?? false)
-      : false,
+    props.variant === "filter" ? (lexiconDefault ?? false) : false,
   );
   const isFilter = variant === "filter";
   if (isFilter) {
@@ -104,18 +89,14 @@ export function Chip(props: ChipProps) {
     delete (buttonProps as Record<string, unknown>).defaultValue;
     delete (buttonProps as Record<string, unknown>).onValueChange;
   }
-  const selected = isFilter
-    ? (valueProp ?? selectedProp ?? internalSelected)
-    : false;
+  const selected = isFilter ? (valueProp ?? internalSelected) : false;
 
   function handleClick(event: MouseEvent<HTMLButtonElement>) {
     onClick?.(event);
     if (isFilter && !disabled && !event.defaultPrevented) {
       const next = !selected;
-      if (valueProp === undefined && selectedProp === undefined)
-        setInternalSelected(next);
+      if (valueProp === undefined) setInternalSelected(next);
       onValueChange?.(next);
-      onSelectedChange?.(next);
     }
   }
 
@@ -135,7 +116,10 @@ export function Chip(props: ChipProps) {
       type={type}
       disabled={disabled}
       onClick={handleClick}
-      {...buttonProps}
+      // Filter state props are component state, stripped above for the
+      // filter branch and absent by type elsewhere — the cast names the
+      // DOM contract the rest already satisfies at runtime.
+      {...(buttonProps as ComponentPropsWithRef<"button">)}
     >
       {isFilter && selected ? (
         <svg

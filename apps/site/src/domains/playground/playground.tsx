@@ -1384,7 +1384,7 @@ export const playgroundTheme = defineThemePreset({
                   : "text-(--sys-color-on-surface-variant) hover:text-(--sys-color-on-surface)"
               }`}
             >
-              <Icon name="desktop_windows" size={16} />
+              <Icon name="desktop-windows" size={16} />
               <span className="hidden md:inline">Desktop</span>
             </button>
             <button
@@ -1477,7 +1477,7 @@ export const playgroundTheme = defineThemePreset({
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <Chip variant="filter"><Icon name="check_circle" size={16} /> <span>Healthy</span></Chip>
+                    <Chip variant="filter"><Icon name="check-circle" size={16} /> <span>Healthy</span></Chip>
                     <Button variant="ghost" size="icon" aria-label="Settings">
                       <Icon name="settings" size={20} />
                     </Button>
@@ -1782,7 +1782,7 @@ export const playgroundTheme = defineThemePreset({
                         <span className="text-xs font-semibold uppercase text-(--sys-color-primary)">
                           Outlined Card
                         </span>
-                        <Icon name="crop_square" size={18} />
+                        <Icon name="crop-square" size={18} />
                       </div>
                       <span className="text-sm font-semibold text-(--sys-color-on-surface)">
                         Outline Hairline
@@ -1802,7 +1802,7 @@ export const playgroundTheme = defineThemePreset({
                       Chips & Badges
                     </h4>
                     <div className="flex flex-wrap items-center gap-2 pt-1">
-                      <Chip variant="filter" selected><Icon name="check" size={16} /> <span>Selected Filter</span></Chip>
+                      <Chip variant="filter" value><Icon name="check" size={16} /> <span>Selected Filter</span></Chip>
                       <Chip variant="filter">
                         Filter Chip
                       </Chip>

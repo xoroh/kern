@@ -8,7 +8,7 @@ describe("Chip", () => {
     const onClick = vi.fn();
     const user = userEvent.setup();
     render(
-      <Chip variant="filter" selected onClick={onClick}>
+      <Chip variant="filter" value onClick={onClick}>
         Active
       </Chip>,
     );
@@ -20,12 +20,12 @@ describe("Chip", () => {
 
   it("toggles an uncontrolled filter and reports the next state", async () => {
     const user = userEvent.setup();
-    const onSelectedChange = vi.fn();
+    const onValueChange = vi.fn();
     render(
       <Chip
         variant="filter"
-        defaultSelected={false}
-        onSelectedChange={onSelectedChange}
+        defaultValue={false}
+        onValueChange={onValueChange}
       >
         Available
       </Chip>,
@@ -33,7 +33,7 @@ describe("Chip", () => {
     const chip = screen.getByRole("button", { name: "Available" });
     await user.click(chip);
     expect(chip).toHaveAttribute("aria-pressed", "true");
-    expect(onSelectedChange).toHaveBeenCalledWith(true);
+    expect(onValueChange).toHaveBeenCalledWith(true);
   });
 
   it("does not expose toggle semantics for action chips", () => {
@@ -61,7 +61,7 @@ describe("Chip", () => {
 
   it("paints a selected filter chip in secondary-container (M3, not primary)", () => {
     render(
-      <Chip variant="filter" selected>
+      <Chip variant="filter" value>
         Active
       </Chip>,
     );

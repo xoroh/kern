@@ -259,14 +259,6 @@ export type SnapSheetProps = Omit<SheetSurfaceProps, "className"> & {
   snapPoints: readonly number[];
   label: string;
   /** Index into `snapPoints`; defaults to the first. */
-  index?: number;
-  onIndexChange?: (index: number) => void;
-  /**
-   * R2 lexicon canonical names (`value` wins when both are passed; both
-   * callbacks fire). `index`/`onIndexChange` are deprecated aliases onto the
-   * same state. There is no legacy `defaultIndex` — the uncontrolled start
-   * is `defaultValue`, defaulting to the first detent.
-   */
   value?: number;
   defaultValue?: number;
   onValueChange?: (index: number) => void;
@@ -276,8 +268,6 @@ export type SnapSheetProps = Omit<SheetSurfaceProps, "className"> & {
 export function SnapSheet({
   snapPoints,
   label,
-  index,
-  onIndexChange,
   value: valueProp,
   defaultValue = 0,
   onValueChange,
@@ -285,13 +275,11 @@ export function SnapSheet({
   ...surface
 }: SnapSheetProps) {
   const count = snapPoints.length || 1;
-  const requested = valueProp ?? index ?? defaultValue;
+  const requested = valueProp ?? defaultValue;
   const current = Math.min(Math.max(requested, 0), count - 1);
   const height = `${Math.round((snapPoints[current] ?? 0.5) * 100)}%`;
-  // R2 lexicon: one emit path, both callbacks — a host on either name hears it.
   const report = (next: number) => {
     onValueChange?.(next);
-    onIndexChange?.(next);
   };
 
   return (

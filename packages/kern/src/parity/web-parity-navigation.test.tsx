@@ -39,7 +39,7 @@ describe("web parity contract: carousel", () => {
       <Carousel
         showIndicators
         items={items}
-        defaultIndex={1}
+        defaultValue={1}
         label="Promotions"
       />,
     );
@@ -55,7 +55,7 @@ describe("web parity contract: carousel", () => {
       <Carousel
         showIndicators
         items={items}
-        defaultIndex={0}
+        defaultValue={0}
         label="Promotions"
       />,
     );
@@ -69,7 +69,7 @@ describe("web parity contract: carousel", () => {
       <Carousel
         showIndicators
         items={items}
-        defaultIndex={1}
+        defaultValue={1}
         label="Promotions"
       />,
     );
@@ -88,7 +88,7 @@ describe("web parity contract: carousel", () => {
       <Carousel
         showIndicators
         items={items}
-        defaultIndex={0}
+        defaultValue={0}
         label="Promotions"
       />,
     );

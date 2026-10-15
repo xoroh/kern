@@ -147,8 +147,6 @@ export function Inspector({
   content,
   info,
   tabs,
-  activeTab,
-  onTabChange,
   value: valueProp,
   defaultValue,
   onValueChange,
@@ -158,21 +156,13 @@ export function Inspector({
   content: ReactNode;
   info: ReactNode;
   tabs?: { id: string; label: ReactNode }[];
-  activeTab?: string;
-  onTabChange?: (id: string) => void;
-  /**
-   * R2 lexicon canonical names (`value` wins when both are passed; both
-   * callbacks fire). `activeTab`/`onTabChange` are deprecated aliases onto
-   * the same state.
-   */
   value?: string;
   defaultValue?: string;
   onValueChange?: (id: string) => void;
 }) {
-  const active = valueProp ?? activeTab ?? defaultValue;
+  const active = valueProp ?? defaultValue;
   const report = (id: string) => {
     onValueChange?.(id);
-    onTabChange?.(id);
   };
   return (
     <div

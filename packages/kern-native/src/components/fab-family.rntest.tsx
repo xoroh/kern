@@ -115,7 +115,7 @@ describe("extended FAB (native)", () => {
         ref={handle}
         icon={<Text>x</Text>}
         label="Compose"
-        onCollapsedChange={(next: boolean) => calls.push(next)}
+        onValueChange={(next: boolean) => calls.push(next)}
       />,
     );
     await act(async () => {
@@ -140,12 +140,12 @@ describe("extended FAB (native)", () => {
     expect(screen.getByText("Compose")).toBeTruthy();
   });
 
-  it("obeys a controlled collapsed prop", async () => {
+  it("obeys a controlled value prop", async () => {
     await render(
       <ExtendedFab
         icon={<Text>x</Text>}
         label="Compose"
-        collapsed
+        value
         testID="efab"
       />,
     );

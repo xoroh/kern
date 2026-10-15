@@ -169,7 +169,7 @@ export function NativeChipDemo() {
       </PhonePreview>
       <PhonePreview label="variant: filter — tap to toggle">
         <PhoneRow>
-          <Chip variant="filter" defaultSelected>
+          <Chip variant="filter" defaultValue>
             All
           </Chip>
           <Chip variant="filter">Unread</Chip>
@@ -584,7 +584,7 @@ export function NativeMeterDemo() {
 export function NativePaginationDemo() {
   return (
     <PhonePreview label="Pagination — windowed pages">
-      <Pagination count={10} defaultPage={4} />
+      <Pagination count={10} defaultValue={4} />
     </PhonePreview>
   );
 }

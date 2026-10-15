@@ -159,7 +159,7 @@ export function ComponentProof() {
               Let's create <Icon name="add" size={18} />
             </Button>
             <div className="flex items-center gap-3">
-              <Chip variant="filter" defaultSelected>
+              <Chip variant="filter" defaultValue>
                 Made for you
               </Chip>
               <Switch defaultChecked aria-label="Component preview switch" />

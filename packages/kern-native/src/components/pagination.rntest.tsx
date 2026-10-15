@@ -76,7 +76,7 @@ describe("Pagination", () => {
    * carries it — a recorded platform substitution, not an oversight.
    */
   it("marks the current page", async () => {
-    await render(<Pagination count={5} defaultPage={3} />);
+    await render(<Pagination count={5} defaultValue={3} />);
     const states = [1, 2, 3, 4, 5].map(
       (n) =>
         screen.getByLabelText(`Page ${n}`).props.accessibilityState.selected,
@@ -85,62 +85,62 @@ describe("Pagination", () => {
   });
 
   it("disables previous on the first page", async () => {
-    await render(<Pagination count={5} defaultPage={1} />);
+    await render(<Pagination count={5} defaultValue={1} />);
     expect(
       screen.getByLabelText("Previous page").props.accessibilityState.disabled,
     ).toBe(true);
   });
 
   it("disables next on the last page", async () => {
-    await render(<Pagination count={5} defaultPage={5} />);
+    await render(<Pagination count={5} defaultValue={5} />);
     expect(
       screen.getByLabelText("Next page").props.accessibilityState.disabled,
     ).toBe(true);
   });
 
   it("moves forward and reports the new page", async () => {
-    const onPageChange = jest.fn();
+    const onValueChange = jest.fn();
     await render(
-      <Pagination count={5} defaultPage={2} onPageChange={onPageChange} />,
+      <Pagination count={5} defaultValue={2} onValueChange={onValueChange} />,
     );
     await act(async () => {
       fireEvent.press(screen.getByLabelText("Next page"));
     });
-    expect(onPageChange).toHaveBeenCalledWith(3);
+    expect(onValueChange).toHaveBeenCalledWith(3);
     expect(
       screen.getByLabelText("Page 3").props.accessibilityState.selected,
     ).toBe(true);
   });
 
   it("moves backward", async () => {
-    const onPageChange = jest.fn();
+    const onValueChange = jest.fn();
     await render(
-      <Pagination count={5} defaultPage={3} onPageChange={onPageChange} />,
+      <Pagination count={5} defaultValue={3} onValueChange={onValueChange} />,
     );
     await act(async () => {
       fireEvent.press(screen.getByLabelText("Previous page"));
     });
-    expect(onPageChange).toHaveBeenCalledWith(2);
+    expect(onValueChange).toHaveBeenCalledWith(2);
   });
 
   it("jumps straight to a page", async () => {
-    const onPageChange = jest.fn();
+    const onValueChange = jest.fn();
     // From page 10 the window is 1, 2, 9, 10, 11, 19, 20 — so 11 and 19 are on
     // screen. Jumping to page 1 would assert nothing, because the window at page
     // 1 legitimately does not render page 11 at all.
     await render(
-      <Pagination count={20} defaultPage={10} onPageChange={onPageChange} />,
+      <Pagination count={20} defaultValue={10} onValueChange={onValueChange} />,
     );
     expect(screen.getByLabelText("Page 11")).toBeTruthy();
     await act(async () => {
       fireEvent.press(screen.getByLabelText("Page 19"));
     });
-    expect(onPageChange).toHaveBeenCalledWith(19);
+    expect(onValueChange).toHaveBeenCalledWith(19);
   });
 
   /** The window is a VIEW, not a filter: distant pages are genuinely absent. */
   it("omits pages outside the window", async () => {
-    await render(<Pagination count={20} defaultPage={1} />);
+    await render(<Pagination count={20} defaultValue={1} />);
     expect(screen.queryByLabelText("Page 11")).toBeNull();
     expect(screen.getByLabelText("Page 2")).toBeTruthy();
     expect(screen.getByLabelText("Page 19")).toBeTruthy();
@@ -158,34 +158,34 @@ describe("Pagination", () => {
    * Recorded rather than papered over: a green suite is not a covered path.
    */
   it("disables the ends rather than wrapping", async () => {
-    const onPageChange = jest.fn();
+    const onValueChange = jest.fn();
     await render(
-      <Pagination count={3} defaultPage={3} onPageChange={onPageChange} />,
+      <Pagination count={3} defaultValue={3} onValueChange={onValueChange} />,
     );
     const next = screen.getByLabelText("Next page");
     expect(next.props.accessibilityState.disabled).toBe(true);
     await act(async () => {
       fireEvent.press(next);
     });
-    expect(onPageChange).not.toHaveBeenCalled();
+    expect(onValueChange).not.toHaveBeenCalled();
   });
 
   it("disables previous on the first page too", async () => {
-    const onPageChange = jest.fn();
+    const onValueChange = jest.fn();
     await render(
-      <Pagination count={3} defaultPage={1} onPageChange={onPageChange} />,
+      <Pagination count={3} defaultValue={1} onValueChange={onValueChange} />,
     );
     const prev = screen.getByLabelText("Previous page");
     expect(prev.props.accessibilityState.disabled).toBe(true);
     await act(async () => {
       fireEvent.press(prev);
     });
-    expect(onPageChange).not.toHaveBeenCalled();
+    expect(onValueChange).not.toHaveBeenCalled();
   });
 
-  it("honours a controlled page", async () => {
-    const onPageChange = jest.fn();
-    await render(<Pagination count={5} page={2} onPageChange={onPageChange} />);
+  it("honours a controlled value", async () => {
+    const onValueChange = jest.fn();
+    await render(<Pagination count={5} value={2} onValueChange={onValueChange} />);
     expect(
       screen.getByLabelText("Page 2").props.accessibilityState.selected,
     ).toBe(true);
@@ -193,7 +193,7 @@ describe("Pagination", () => {
       fireEvent.press(screen.getByLabelText("Next page"));
     });
     // Told, but the host decides — the control must not move itself.
-    expect(onPageChange).toHaveBeenCalledWith(3);
+    expect(onValueChange).toHaveBeenCalledWith(3);
     expect(
       screen.getByLabelText("Page 2").props.accessibilityState.selected,
     ).toBe(true);
@@ -201,7 +201,7 @@ describe("Pagination", () => {
 
   /** A host that hands back an out-of-range page must not produce nonsense. */
   it("clamps an out-of-range controlled page", async () => {
-    await render(<Pagination count={5} page={99} />);
+    await render(<Pagination count={5} value={99} />);
     expect(
       screen.getByLabelText("Page 5").props.accessibilityState.selected,
     ).toBe(true);

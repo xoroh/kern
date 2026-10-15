@@ -149,7 +149,7 @@ describe("native parity contract (tranche 2): named surfaces", () => {
     const row = contractFor("dialog");
     await render(
       <Dialog
-        visible
+        open
         title={row.name}
         testID="dlg"
         actions={[{ label: "Keep" }]}
@@ -183,7 +183,7 @@ describe("native parity contract (tranche 2): named surfaces", () => {
     let dismissed = 0;
     await render(
       <Dialog
-        visible
+        open
         title={row.name}
         testID="dlg"
         actions={[{ label: "Discard" }]}

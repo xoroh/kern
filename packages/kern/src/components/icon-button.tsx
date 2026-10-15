@@ -200,14 +200,6 @@ export type IconButtonProps = Omit<
     /** Initial pressed state for the uncontrolled toggle case. */
     defaultPressed?: boolean;
     onPressedChange?: (pressed: boolean) => void;
-    /**
-     * R2 lexicon canonical names (`value` wins when both are passed; both
-     * callbacks fire). `pressed`/`defaultPressed`/`onPressedChange` are
-     * deprecated aliases onto the same state.
-     */
-    value?: boolean;
-    defaultValue?: boolean;
-    onValueChange?: (pressed: boolean) => void;
   };
 
 export function IconButton({
@@ -223,9 +215,6 @@ export function IconButton({
   pressed,
   defaultPressed = false,
   onPressedChange,
-  value: valueProp,
-  defaultValue,
-  onValueChange,
   type = "button",
   disabled,
   softDisabled = false,
@@ -234,15 +223,9 @@ export function IconButton({
   className,
   ...props
 }: IconButtonProps) {
-  const controlled = valueProp !== undefined || pressed !== undefined;
-  const [uncontrolled, setUncontrolled] = useState(
-    defaultValue ?? defaultPressed,
-  );
-  const isPressed = toggle
-    ? controlled
-      ? (valueProp ?? pressed ?? false)
-      : uncontrolled
-    : false;
+  const controlled = pressed !== undefined;
+  const [uncontrolled, setUncontrolled] = useState(defaultPressed);
+  const isPressed = toggle ? (controlled ? (pressed ?? false) : uncontrolled) : false;
   const tooltipId = useId();
 
   if (process.env.NODE_ENV !== "production" && !label) {
@@ -256,7 +239,6 @@ export function IconButton({
 
   const toggleState = () => {
     if (!controlled) setUncontrolled(!isPressed);
-    onValueChange?.(!isPressed);
     onPressedChange?.(!isPressed);
   };
 

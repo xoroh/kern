@@ -21,12 +21,12 @@ export const carousel: ComponentDoc = {
   customization: {
     supported: [
       "`items` is data: each carries a stable `value` (the key), optional `content`, an `accessibilityLabel` and its own `disabled` flag.",
-      "`index` / `defaultIndex` / `onIndexChange` are the controlled-uncontrolled pair for the active item.",
+      "`value` / `defaultValue` / `onValueChange` are the controlled-uncontrolled pair for the active item.",
       "`layout` is `single` (one full slide, paged) or `peek` (neighbours visible); `carouselStyles` is exported for the treatments without the component.",
     ],
     notSupported: [
       "There are no Previous/Next buttons — navigation is the dot row and pressing an item. The dots ARE the controls contract on native.",
-      "Swiping scrolls the track but does not change the active index. A carousel that silently re-indexes on a flick is unpredictable for anyone using assistive tech; the host decides via `onIndexChange`.",
+      "Swiping scrolls the track but does not change the active index. A carousel that silently re-indexes on a flick is unpredictable for anyone using assistive tech; the host decides via `onValueChange`.",
       "There is no autoplay and no timing contract. Rotation is a host behaviour, and it should stop for anyone who cannot chase a moving target.",
     ],
   },
@@ -38,18 +38,18 @@ export const carousel: ComponentDoc = {
       note: "The data. Each item is `{ value, content?, accessibilityLabel?, disabled? }` — `value` is the stable key, the label is what gets announced.",
     },
     {
-      name: "index",
+      name: "value",
       type: "number",
       note: "Controlled active index. Out-of-range values are clamped — a carousel can never blank itself.",
     },
     {
-      name: "defaultIndex",
+      name: "defaultValue",
       type: "number",
       default: "0",
-      note: "Uncontrolled starting index. Omit `index` to let the carousel own the state.",
+      note: "Uncontrolled starting index. Omit `value` to let the carousel own the state.",
     },
     {
-      name: "onIndexChange",
+      name: "onValueChange",
       type: "(index: number) => void",
       note: "Fires with the next active index — the only way the index moves, together with pressing a slide or a dot.",
     },

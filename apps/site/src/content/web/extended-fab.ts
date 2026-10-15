@@ -49,17 +49,17 @@ export const extendedFab: ComponentDoc = {
       note: "An imperative handle — `collapse()`, `expand()`, `toggle()` — not a DOM ref. This is how Material 3's scroll-driven collapse is driven: the component cannot see the host's scroll, so the trigger is explicit rather than a gesture kern would have to invent.",
     },
     {
-      name: "collapsed",
+      name: "value",
       type: "boolean",
       note: "Controlled collapse state. Omit for uncontrolled.",
     },
     {
-      name: "defaultCollapsed",
+      name: "defaultValue",
       type: "boolean",
       note: "Initial state when uncontrolled.",
     },
     {
-      name: "onCollapsedChange",
+      name: "onValueChange",
       type: "(collapsed: boolean) => void",
       note: "Fires when it collapses or expands.",
     },

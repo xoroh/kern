@@ -201,9 +201,9 @@ describe("Pagination — pill buttons with proper states", () => {
   it("current page fills primary, disabled splits", () => {
     render(
       <Pagination
-        page={1}
+        value={1}
         count={5}
-        onPageChange={() => {}}
+        onValueChange={() => {}}
         aria-label="Pages"
       />,
     );
@@ -218,9 +218,9 @@ describe("Pagination — pill buttons with proper states", () => {
   it("widens 40dp buttons to the 48dp target via inset", () => {
     render(
       <Pagination
-        page={1}
+        value={1}
         count={5}
-        onPageChange={() => {}}
+        onValueChange={() => {}}
         aria-label="Pages"
       />,
     );

@@ -55,7 +55,7 @@ describe("native Dialog render", () => {
     let confirmed = 0;
     await render(
       <Dialog
-        visible
+        open
         title="Order 42"
         actions={[{ label: "OK", primary: true, onPress: () => confirmed++ }]}
       />,
@@ -73,7 +73,7 @@ describe("native AlertDialog render", () => {
     let cancelled = 0;
     await render(
       <AlertDialog
-        visible
+        open
         title="Delete?"
         message="Irreversible."
         onCancel={() => cancelled++}
@@ -91,7 +91,7 @@ describe("native Sheet render", () => {
   it("shows the title and closes", async () => {
     let dismissed = 0;
     await render(
-      <Sheet visible title="Filters" onDismiss={() => dismissed++} />,
+      <Sheet open title="Filters" onDismiss={() => dismissed++} />,
     );
     expect(screen.getByText("Filters")).toBeTruthy();
     await act(async () => {

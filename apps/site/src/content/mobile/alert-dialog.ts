@@ -32,9 +32,9 @@ export const alertDialog: ComponentDoc = {
   },
   api: [
     {
-      name: "visible",
+      name: "open",
       type: "boolean",
-      required: true,
+      default: "false",
       note: "Drives the React Native `Modal`. The dialog does not own its own open state — the caller does.",
     },
     {

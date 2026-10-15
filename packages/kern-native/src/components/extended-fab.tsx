@@ -29,8 +29,8 @@ import { Text } from "./text";
  *   // …on scroll down: fab.current?.collapse(); on scroll up: fab.current?.expand();
  *   return <ExtendedFab ref={fab} icon={<PencilIcon />} label="Compose" />;
  *
- * - Controlled (`collapsed` + `onCollapsedChange`) or uncontrolled
- *   (`defaultCollapsed`), so a host can bind it to its own scroll position.
+ * - Controlled (`value` + `onValueChange`) or uncontrolled
+ *   (`defaultValue`), so a host can bind it to its own scroll position.
  * - **The accessible name survives collapse.** Collapsed, the label text is no
  *   longer rendered, so the name has to come from `label` on the element. A
  *   collapsed FAB that left the label in the a11y tree would announce a longer
@@ -65,18 +65,8 @@ export type NativeExtendedFabProps = Omit<
    */
   size?: NativeExtendedFabSize;
   /** Controlled collapse state. */
-  collapsed?: boolean;
-  /** Initial collapse state for the uncontrolled case. */
-  defaultCollapsed?: boolean;
-  onCollapsedChange?: (collapsed: boolean) => void;
-  /**
-   * R2 lexicon canonical names (`value` wins when both are passed; both
-   * callbacks fire — including the imperative handle path). `collapsed`/
-   * `defaultCollapsed`/`onCollapsedChange` are deprecated aliases onto the
-   * same state. `onPress` (the RN press event) is the platform action and
-   * stays untouched.
-   */
   value?: boolean;
+  /** Initial collapse state for the uncontrolled case. */
   defaultValue?: boolean;
   onValueChange?: (collapsed: boolean) => void;
   variant?: "primary" | "tonal";
@@ -92,11 +82,8 @@ export const ExtendedFab = forwardRef<
   {
     label,
     icon,
-    collapsed,
-    defaultCollapsed = false,
-    onCollapsedChange,
     value: valueProp,
-    defaultValue,
+    defaultValue = false,
     onValueChange,
     variant = "primary",
     size = "small",
@@ -111,11 +98,10 @@ export const ExtendedFab = forwardRef<
 ) {
   const scheme = useKernScheme();
   const [isCollapsed, setCollapsed] = useControllableState(
-    valueProp ?? collapsed,
-    defaultValue ?? defaultCollapsed,
+    valueProp,
+    defaultValue,
     (next) => {
       onValueChange?.(next);
-      onCollapsedChange?.(next);
     },
   );
   const collapsedNow = isCollapsed ?? false;

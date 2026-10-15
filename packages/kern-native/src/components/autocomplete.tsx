@@ -1,5 +1,5 @@
 import { useControllableState } from "@xoroh/kern-primitives";
-import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
+import { type ResolvedTheme } from "@xoroh/kern-tokens";
 import { useMemo, useState } from "react";
 import {
   Pressable,
@@ -8,7 +8,7 @@ import {
   View,
   type ViewStyle,
 } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 import { inputStyles } from "./input";
 import { Text } from "./text";
 
@@ -57,12 +57,9 @@ export type NativeAutocompleteProps = {
   /** Fired when a suggestion is committed. */
   onSelect?: (suggestion: AutocompleteSuggestion) => void;
   /**
-   * R2 lexicon: popup visibility. `expanded`/`onExpandedChange` is the Base
-   * UI disclosure naming (kept — it is the primitive's own API, not kern's
-   * invention); the canonical `open`/`onOpenChange` pair is added alongside.
-   * `open` wins when both are passed; dismissal fires both.
+   * R2 lexicon: popup visibility. The canonical `open`/`onOpenChange` pair
+   * reports visibility; dismissal fires `onOpenChange(false)`.
    */
-  onExpandedChange?: (expanded: boolean) => void;
   open?: boolean;
   defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
@@ -83,7 +80,7 @@ export type NativeAutocompleteProps = {
 };
 
 export function autocompleteStyles(
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): { popup: ViewStyle; option: ViewStyle; optionActive: ViewStyle } {
   return {
     popup: {
@@ -126,7 +123,6 @@ export function Autocomplete({
   defaultValue = "",
   onValueChange,
   onSelect,
-  onExpandedChange,
   open: openProp,
   defaultOpen = true,
   onOpenChange,
@@ -162,10 +158,9 @@ export function Autocomplete({
   const hasQuery = text.trim().length > 0;
   const derivedOpen = focused && !disabled && hasQuery && matches.length > 0;
   // R2 lexicon: `open` is a visibility VETO (`open={false}` pins shut);
-  // `onOpenChange` reports every close alongside `onExpandedChange`.
+  // `onOpenChange` reports every close.
   const expanded = (openProp ?? defaultOpen) && derivedOpen;
   const reportClose = () => {
-    onExpandedChange?.(false);
     onOpenChange?.(false);
   };
   const active = expanded ? (matches[activeIndex] ?? matches[0]) : undefined;

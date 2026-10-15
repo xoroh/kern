@@ -20,7 +20,7 @@ export const chip: ComponentDoc = {
   parts: ["Chip"],
   customization: {
     supported: [
-      "`variant` is the M3 chip kind; `filter` additionally takes the selection trio (`selected`, `defaultSelected`, `onSelectedChange`).",
+      "`variant` is the M3 chip kind; `filter` additionally takes the selection trio (`value`, `defaultValue`, `onValueChange`).",
       "`children` is the label — a string or number renders as label text; a node renders as-is, which is how a chip gets a leading glyph.",
       "`labelStyle` restyles the label text; `style` restyles the pressable. `chipStyles` is exported for the treatment without the component.",
     ],
@@ -44,18 +44,18 @@ export const chip: ComponentDoc = {
       note: "The label. Strings and numbers render as label text; any other node renders as-is.",
     },
     {
-      name: "selected",
+      name: "value",
       type: "boolean",
       note: "Controlled selection — `filter` only. Reported in the accessibility state.",
     },
     {
-      name: "defaultSelected",
+      name: "defaultValue",
       type: "boolean",
       default: "false",
       note: "Uncontrolled starting selection — `filter` only.",
     },
     {
-      name: "onSelectedChange",
+      name: "onValueChange",
       type: "(selected: boolean) => void",
       note: "Fires with the next selection — `filter` only. Fires alongside `onPress`, after it.",
     },

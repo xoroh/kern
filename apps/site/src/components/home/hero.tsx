@@ -82,7 +82,7 @@ function LiveCluster() {
         </div>
         <p className={`my-4 ${T_SUB}`}>Small details. Big difference.</p>
         <div className="flex flex-wrap gap-2">
-          <Chip variant="filter" defaultSelected>
+          <Chip variant="filter" defaultValue>
             Design
           </Chip>
           <Chip variant="filter">Develop</Chip>

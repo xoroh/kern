@@ -275,7 +275,7 @@ export function ChipDemo() {
       </Preview>
       <Preview label="variant — filter (click a chip to toggle)" span={3}>
         <Row>
-          <Chip variant="filter" defaultSelected>
+          <Chip variant="filter" defaultValue>
             All
           </Chip>
           <Chip variant="filter">Unread</Chip>
@@ -565,7 +565,7 @@ export function ExtendedFabDemo() {
         <ExtendedFab
           label="Create"
           icon={<Plus className="size-5" />}
-          collapsed
+          value
         />
       </Row>
     </Preview>

@@ -152,17 +152,17 @@ describe("SnapSheet", () => {
 
   it("moves the detent with the arrow keys", () => {
     // A slider that only answers a click is not keyboard-operable; the native
-    // adjustable role this mirrors is. SnapSheet is CONTROLLED (`index` is a
+    // adjustable role this mirrors is. SnapSheet is CONTROLLED (`value` is a
     // prop), so the assertion is on what the keys REPORT — the host moves the
     // value, which is the contract.
-    const onIndexChange = vi.fn();
+    const onValueChange = vi.fn();
     render(
       <SnapSheet
         open
         label="Peek"
         snapPoints={[0.25, 0.5, 0.9]}
-        index={0}
-        onIndexChange={onIndexChange}
+        value={0}
+        onValueChange={onValueChange}
       >
         <div>content</div>
       </SnapSheet>,
@@ -170,30 +170,30 @@ describe("SnapSheet", () => {
     const handle = screen.getByRole("slider", { name: /snap position/i });
     handle.focus();
     fireEvent.keyDown(handle, { key: "ArrowRight" });
-    expect(onIndexChange).toHaveBeenCalledWith(1);
+    expect(onValueChange).toHaveBeenCalledWith(1);
     fireEvent.keyDown(handle, { key: "ArrowLeft" });
-    expect(onIndexChange).toHaveBeenCalledWith(2); // wraps 0 -> last
+    expect(onValueChange).toHaveBeenCalledWith(2); // wraps 0 -> last
     fireEvent.keyDown(handle, { key: "End" });
-    expect(onIndexChange).toHaveBeenCalledWith(2);
+    expect(onValueChange).toHaveBeenCalledWith(2);
     fireEvent.keyDown(handle, { key: "Home" });
-    expect(onIndexChange).toHaveBeenCalledWith(0);
+    expect(onValueChange).toHaveBeenCalledWith(0);
   });
 
   it("cycles to the next detent", () => {
-    const onIndexChange = vi.fn();
+    const onValueChange = vi.fn();
     render(
       <SnapSheet
         open
         label="Peek"
         snapPoints={[0.25, 0.5]}
-        index={0}
-        onIndexChange={onIndexChange}
+        value={0}
+        onValueChange={onValueChange}
       >
         <p>body</p>
       </SnapSheet>,
     );
     screen.getByRole("slider", { name: /snap position/i }).click();
-    expect(onIndexChange).toHaveBeenCalledWith(1);
+    expect(onValueChange).toHaveBeenCalledWith(1);
   });
 });
 

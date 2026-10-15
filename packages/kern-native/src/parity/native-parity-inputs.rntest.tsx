@@ -71,7 +71,7 @@ describe("autocomplete (native)", () => {
 
   it("commits a suggestion and collapses", async () => {
     let selected: AutocompleteSuggestion | undefined;
-    const expansions: boolean[] = [];
+    const closes: boolean[] = [];
     await render(
       <Autocomplete
         suggestions={FRUIT}
@@ -79,7 +79,7 @@ describe("autocomplete (native)", () => {
         onSelect={(s) => {
           selected = s;
         }}
-        onExpandedChange={(e) => expansions.push(e)}
+        onOpenChange={(e) => closes.push(e)}
       />,
     );
     const field = screen.getByTestId("kern-autocomplete-input");
@@ -99,7 +99,7 @@ describe("autocomplete (native)", () => {
       screen.getByTestId("kern-autocomplete-input").props.accessibilityState
         .expanded,
     ).toBe(false);
-    expect(expansions).toEqual([false]);
+    expect(closes).toEqual([false]);
   });
 
   it("dismisses on blur without committing", async () => {

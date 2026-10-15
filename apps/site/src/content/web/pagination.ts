@@ -74,17 +74,17 @@ export const pagination: ComponentDoc = {
       note: "Total pages, at least 1. Required — a pagination with no count cannot draw itself.",
     },
     {
-      name: "page",
+      name: "value",
       type: "number",
       note: "Controlled current page, 1-based. One is the first page, matching the number on the button.",
     },
     {
-      name: "defaultPage",
+      name: "defaultValue",
       type: "number",
       note: "Initial page when uncontrolled.",
     },
     {
-      name: "onPageChange",
+      name: "onValueChange",
       type: "(page: number) => void",
       note: "Called with the new page, 1-based — the same numbering the buttons show, so there is no off-by-one between what is displayed and what is reported.",
     },
@@ -103,6 +103,6 @@ export const pagination: ComponentDoc = {
     "The control is a `nav` landmark, so it is reachable from the landmark list and distinguishable from the page's other navigation when it is labelled.",
     "Each page is a real button, so moving through the set is possible from the keyboard alone.",
     "The current page carries `aria-current`, so which page is showing is announced rather than left to be seen.",
-    "Pages are 1-based throughout — the label on the button and the value passed to `onPageChange` are the same number.",
+    "Pages are 1-based throughout — the label on the button and the value passed to `onValueChange` are the same number.",
   ],
 };

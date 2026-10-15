@@ -2,7 +2,6 @@ import { useControllableState } from "@xoroh/kern-primitives";
 import {
   cssLengthToDp,
   type ResolvedTheme,
-  resolveThemeDetails,
   tokens,
 } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
@@ -13,7 +12,7 @@ import {
   type TextStyle,
   type ViewStyle,
 } from "react-native";
-import { useKernTheme } from "../theme";
+import { defaultScheme, useKernTheme } from "../theme";
 
 // M3 lists FOUR chip variants (m3.material.io/components/chips/overview):
 // assist, filter, input, suggestion. `input` was missing here too.
@@ -22,7 +21,7 @@ export type ChipVariant = "assist" | "filter" | "input" | "suggestion";
 export function chipStyles(
   variant: ChipVariant,
   selected: boolean,
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
   elevated = false,
 ): { container: ViewStyle; label: TextStyle } {
   const isFilter = variant === "filter";
@@ -79,14 +78,9 @@ type CommonChipProps = Omit<
 
 export type FilterChipProps = CommonChipProps & {
   variant: "filter";
-  selected?: boolean;
-  defaultSelected?: boolean;
-  onSelectedChange?: (selected: boolean) => void;
   /**
-   * R2 lexicon canonical names (`value` wins when both are passed; both
-   * callbacks fire). `selected`/`defaultSelected`/`onSelectedChange` are
-   * deprecated aliases onto the same state. `onPress` (the RN press event)
-   * is the platform action and stays untouched.
+   * R2 lexicon canonical names. `onPress` (the RN press event) is the
+   * platform action and stays untouched.
    */
   value?: boolean;
   defaultValue?: boolean;
@@ -95,9 +89,6 @@ export type FilterChipProps = CommonChipProps & {
 
 export type ActionChipProps = CommonChipProps & {
   variant?: "assist" | "suggestion";
-  selected?: never;
-  defaultSelected?: never;
-  onSelectedChange?: never;
 };
 
 export type ChipProps = FilterChipProps | ActionChipProps;
@@ -107,9 +98,6 @@ export function Chip(props: ChipProps) {
     variant = "assist",
     elevated = false,
     children,
-    selected: controlledSelected,
-    defaultSelected,
-    onSelectedChange,
     onPress,
     style,
     labelStyle,
@@ -117,21 +105,15 @@ export function Chip(props: ChipProps) {
     testID,
     ...pressableProps
   } = props;
-  // R2 lexicon canonical names, narrowed to the filter branch (Pressable
-  // carries no conflicting `value`, so no DOM-collision guard is needed).
-  const filterLexicon =
+  // Canonical filter state, narrowed to the filter branch.
+  const filter =
     variant === "filter" ? (props as FilterChipProps) : null;
   const { scheme } = useKernTheme();
   const [selectedValue, setSelected] = useControllableState(
-    variant === "filter"
-      ? (filterLexicon?.value ?? controlledSelected)
-      : undefined,
-    variant === "filter"
-      ? (filterLexicon?.defaultValue ?? defaultSelected ?? false)
-      : false,
+    filter?.value,
+    filter?.defaultValue ?? false,
     (next) => {
-      filterLexicon?.onValueChange?.(next);
-      onSelectedChange?.(next);
+      filter?.onValueChange?.(next);
     },
   );
   const selected = variant === "filter" && Boolean(selectedValue);

@@ -467,7 +467,7 @@ export function MeterDemo() {
 export function PaginationDemo() {
   return (
     <Preview label="Pagination — sliding window with gaps" span={3}>
-      <Pagination count={24} defaultPage={12} aria-label="Pagination" />
+      <Pagination count={24} defaultValue={12} aria-label="Pagination" />
     </Preview>
   );
 }

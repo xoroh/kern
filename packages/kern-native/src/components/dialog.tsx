@@ -1,4 +1,4 @@
-import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
+import { type ResolvedTheme } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
 import {
   Modal,
@@ -8,7 +8,7 @@ import {
   View,
   type ViewStyle,
 } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 import { overlayStyles } from "../utils/overlay-styles";
 import { useKernPortalRegistration } from "./presentation";
 import { Text } from "./text";
@@ -30,7 +30,7 @@ const staticStyles = StyleSheet.create({
   },
 });
 
-export function dialogStyles(scheme: ResolvedTheme = resolveThemeDetails()): {
+export function dialogStyles(scheme: ResolvedTheme = defaultScheme): {
   card: ViewStyle;
 } {
   return {
@@ -52,13 +52,8 @@ export type NativeDialogAction = {
 
 export type NativeDialogProps = {
   /**
-   * Legacy visibility name. Optional now that `open` exists — at least one
-   * of the two is required in practice (`open` wins when both are passed).
-   */
-  visible?: boolean;
-  /**
-   * R2 lexicon alias for `visible` (`open` wins when both are passed).
-   * Dialogs are controlled-only passthroughs — no `defaultOpen`, no state.
+   * Controlled visibility. Dialogs are controlled-only passthroughs —
+   * no `defaultOpen`, no state.
    */
   open?: boolean;
   title: string;
@@ -75,7 +70,6 @@ export type NativeDialogProps = {
 };
 
 export function Dialog({
-  visible,
   open,
   title,
   children,
@@ -87,7 +81,7 @@ export function Dialog({
 }: NativeDialogProps) {
   const scheme = useKernScheme();
   const styles = dialogStyles(scheme);
-  const shown = open ?? visible ?? false;
+  const shown = open ?? false;
   // DUAL-PATH (D12): `Modal` keeps presenting the dialog; the owned portal
   // registry ALSO tracks it while shown — the same observable the web side
   // reads off its own registry.

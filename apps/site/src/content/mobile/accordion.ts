@@ -19,7 +19,7 @@ export const accordion: ComponentDoc = {
   customization: {
     supported: [
       "`sections` is data: each entry carries a `title`, the `content` node and an optional `accessibilityLabel` for when the visible title is not the right announcement.",
-      "`expanded` / `defaultExpanded` / `onExpandedChange` are the controlled-uncontrolled pair, keyed by section INDEX.",
+      "`value` / `defaultValue` / `onValueChange` are the controlled-uncontrolled pair, keyed by section INDEX.",
       "`style` is a React Native `ViewStyle`. `accordionStyles` is exported if you want the frame without the component.",
     ],
     notSupported: [
@@ -36,18 +36,18 @@ export const accordion: ComponentDoc = {
       note: "The data. Each entry is `{ title, content, accessibilityLabel? }` — the accordion renders the header and the disclosure from it.",
     },
     {
-      name: "expanded",
+      name: "value",
       type: "number[]",
-      note: "Controlled open section indexes. The key type is the index because that is what the public API has always been.",
+      note: "Controlled open section indexes.",
     },
     {
-      name: "defaultExpanded",
+      name: "defaultValue",
       type: "number[]",
       default: "[]",
-      note: "Uncontrolled starting set. Omit `expanded` to let the accordion own the state.",
+      note: "Uncontrolled starting set. Omit `value` to let the accordion own the state.",
     },
     {
-      name: "onExpandedChange",
+      name: "onValueChange",
       type: "(expanded: number[]) => void",
       note: "Fires with the WHOLE next open set, not the toggled index — the same shape for single and `multiple`.",
     },

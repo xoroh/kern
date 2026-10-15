@@ -1,6 +1,5 @@
 import {
   type ResolvedTheme,
-  resolveThemeDetails,
   tokens,
 } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
@@ -11,7 +10,7 @@ import {
   View,
   type ViewStyle,
 } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 import { SheetSurface } from "./sheet-surface";
 import { Text } from "./text";
 
@@ -28,7 +27,7 @@ export type BottomSheetSize = "medium" | "large";
 
 export function bottomSheetStyles(
   size: BottomSheetSize,
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): ViewStyle {
   return {
     backgroundColor: scheme.color.surfaceContainerLow,
@@ -125,12 +124,6 @@ export type NativeSnapSheetProps = {
   title: string;
   snapPoints: SnapPoint[];
   /** Index into `snapPoints`; defaults to the first. */
-  index?: number;
-  onIndexChange?: (index: number) => void;
-  /**
-   * R2 lexicon canonical names (`value` wins; both callbacks fire).
-   * `index`/`onIndexChange` are deprecated aliases onto the same state.
-   */
   value?: number;
   defaultValue?: number;
   onValueChange?: (index: number) => void;
@@ -151,8 +144,6 @@ export function SnapSheet({
   open,
   title,
   snapPoints,
-  index,
-  onIndexChange,
   value: valueProp,
   defaultValue = 0,
   onValueChange,
@@ -163,16 +154,14 @@ export function SnapSheet({
   testID,
 }: NativeSnapSheetProps) {
   const scheme = useKernScheme();
-  const requested = valueProp ?? index ?? defaultValue;
+  const requested = valueProp ?? defaultValue;
   const safeIndex = Math.min(
     Math.max(requested, 0),
     Math.max(snapPoints.length - 1, 0),
   );
   const point = snapPoints[safeIndex] ?? { fraction: 0.5, label: "" };
-  // R2 lexicon: one emit path, both callbacks.
   const report = (next: number) => {
     onValueChange?.(next);
-    onIndexChange?.(next);
   };
   // P2b-2: shared Modal+scrim shell. Snap-specific behaviour — the adjustable
   // handle that cycles snap points — stays here, in the `handle` slot.

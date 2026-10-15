@@ -18,7 +18,7 @@ export const pagination: ComponentDoc = {
   parts: ["Pagination"],
   customization: {
     supported: [
-      "`count` sets the total and `page`/`defaultPage`/`onPageChange` make it controlled or uncontrolled, 1-based.",
+      "`count` sets the total and `value`/`defaultValue`/`onValueChange` make it controlled or uncontrolled, 1-based.",
       "`accessibilityLabel` names the navigation landmark.",
       "`style` is a React Native `ViewStyle`.",
     ],
@@ -35,12 +35,12 @@ export const pagination: ComponentDoc = {
       note: "Total number of pages. Required.",
     },
     {
-      name: "page / defaultPage",
+      name: "value / defaultValue",
       type: "number",
-      note: "The current page, 1-BASED. `onPageChange` reports the next one. Values outside 1..count are clamped defensively, since a controlled host can hand back 0 or count+1.",
+      note: "The current page, 1-BASED. `onValueChange` reports the next one. Values outside 1..count are clamped defensively, since a controlled host can hand back 0 or count+1.",
     },
     {
-      name: "onPageChange",
+      name: "onValueChange",
       type: "(page: number) => void",
       note: "Reports the next page number rather than an event.",
     },

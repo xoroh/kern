@@ -1,7 +1,6 @@
 import { useControllableState } from "@xoroh/kern-primitives";
 import {
   type ResolvedTheme,
-  resolveThemeDetails,
   tokens,
 } from "@xoroh/kern-tokens";
 import { useMemo } from "react";
@@ -13,7 +12,7 @@ import {
   type ViewProps,
   type ViewStyle,
 } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 
 /**
  * Page navigation with a sliding window, ellipsis gaps, and prev/next.
@@ -87,7 +86,7 @@ export function pageWindow(current: number, count: number): PaginationEntry[] {
 export function paginationStyles(
   _current: number,
   disabled: boolean,
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): {
   pager: ViewStyle;
   page: ViewStyle;
@@ -128,14 +127,6 @@ export type NativePaginationProps = Omit<
   /** Total number of pages. */
   count: number;
   /** Controlled current page, 1-based. */
-  page?: number;
-  defaultPage?: number;
-  onPageChange?: (page: number) => void;
-  /**
-   * R2 lexicon canonical names (`value` wins when both are passed; both
-   * callbacks fire). `page`/`defaultPage`/`onPageChange` are deprecated
-   * aliases onto the same state.
-   */
   value?: number;
   defaultValue?: number;
   onValueChange?: (page: number) => void;
@@ -147,11 +138,8 @@ export type NativePaginationProps = Omit<
 
 export function Pagination({
   count,
-  page: pageProp,
-  defaultPage = 1,
-  onPageChange,
   value: valueProp,
-  defaultValue,
+  defaultValue = 1,
   onValueChange,
   accessibilityLabel = "Pagination",
   style,
@@ -160,11 +148,10 @@ export function Pagination({
 }: NativePaginationProps) {
   const scheme = useKernScheme();
   const [pageRaw, setPage] = useControllableState<number>(
-    valueProp ?? pageProp,
-    defaultValue ?? defaultPage,
+    valueProp,
+    defaultValue,
     (next) => {
       onValueChange?.(next);
-      onPageChange?.(next);
     },
   );
   // Clamp defensively: a controlled host can hand back 0 or count+1, and every
