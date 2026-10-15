@@ -311,7 +311,7 @@ if (docConcepts.size === 0) {
 // miss a re-export written across a line break, and "missing something" is the
 // exact failure mode of this gate.
 {
-  const primitivesSrc = join(ROOT, "packages", "kern-primitives", "src");
+  const primitivesSrc = join(ROOT, "libs", "kern-primitives", "src");
   if (existsSync(primitivesSrc)) {
     const barrelPath = join(primitivesSrc, "index.ts");
     const barrelText = readFileSync(barrelPath, "utf8");
@@ -329,7 +329,7 @@ if (docConcepts.size === 0) {
       const mod = entry.replace(/\.ts$/, "");
       if (!barrelExports.has(mod)) {
         violations.push(
-          `packages/kern-primitives/src/${entry} is not re-exported from index.ts -- ` +
+          `libs/kern-primitives/src/${entry} is not re-exported from index.ts -- ` +
             `its exports are importable by nobody. A committed module that no ` +
             `consumer can reach is a library that silently does not exist ` +
             `(this is how overlayModality shipped in bbd9ac7).`,
@@ -350,15 +350,15 @@ if (docConcepts.size === 0) {
 {
   const distDts = join(
     ROOT,
-    "packages",
+    "libs",
     "kern-primitives",
     "dist",
     "index.d.ts",
   );
-  const primitivesSrc = join(ROOT, "packages", "kern-primitives", "src");
+  const primitivesSrc = join(ROOT, "libs", "kern-primitives", "src");
   if (!existsSync(distDts)) {
     violations.push(
-      "packages/kern-primitives/dist/index.d.ts is missing, so the PUBLISH SURFACE " +
+      "libs/kern-primitives/dist/index.d.ts is missing, so the PUBLISH SURFACE " +
         "cannot be checked. Run `bun run build`. Reporting 0 violations here would " +
         "be a gate that passed because it did not look.",
     );
@@ -390,7 +390,7 @@ if (docConcepts.size === 0) {
         const sym = m[1];
         if (!exported.has(sym)) {
           violations.push(
-            `packages/kern-primitives: ${sym} (from src/${entry}) is not exported ` +
+            `libs/kern-primitives: ${sym} (from src/${entry}) is not exported ` +
               `from the BUILT dist/index.d.ts -- consumers cannot import it.`,
           );
         }

@@ -1,6 +1,7 @@
 {
   "name": "@xoroh/kern-primitives",
   "version": "0.0.0",
+  "private": true,
   "description": "The un-styled behaviour kernel shared by the Kern web and React Native renderers.",
   "keywords": [
     "react-native",
@@ -14,14 +15,10 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/xoroh/kern.git",
-    "directory": "packages/kern-primitives"
+    "directory": "libs/kern-primitives"
   },
   "homepage": "https://kern.xoroh.org",
   "bugs": "https://github.com/xoroh/kern/issues",
-  "publishConfig": {
-    "access": "public",
-    "provenance": true
-  },
   "type": "module",
   "sideEffects": false,
   "main": "./dist/index.js",

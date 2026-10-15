@@ -14,7 +14,7 @@
  *
  * ## What it asserts
  *
- * Every workspace manifest (`package.json`, `packages/*`, `apps/*`) that
+ * Every workspace manifest (`package.json`, `packages/*`, `libs/*`, `apps/*`) that
  * declares `typescript` — in dependencies or devDependencies — must declare
  * EXACTLY the root's pinned version. No ranges, no tildes, no second major.
  * The root `package.json` is the single source of truth; this gate reads the
@@ -54,7 +54,7 @@ if (!pin) {
 }
 
 const dirs = [""];
-for (const area of ["packages", "apps"]) {
+for (const area of ["packages", "libs", "apps"]) {
   let entries;
   try {
     entries = readdirSync(join(ROOT, area), { withFileTypes: true });

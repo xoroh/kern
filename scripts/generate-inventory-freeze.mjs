@@ -46,9 +46,11 @@ function exportNames(path) {
 }
 
 const pkgs = ["kern", "kern-native", "kern-tokens", "kern-primitives", "kern-icons", "kern-contracts", "kern-cli", "mcp"];
+/** Workspace area per package dir. N9 moved the internal-only primitives to libs/. */
+const AREAS = { "kern-primitives": "libs" };
 const packages = {};
 for (const p of pkgs) {
-  const mf = `packages/${p}/package.json`;
+  const mf = `${AREAS[p] ?? "packages"}/${p}/package.json`;
   let j = {};
   try {
     j = JSON.parse(readFileSync(mf, "utf8"));
@@ -67,7 +69,7 @@ const barrels = {};
 const barrelPaths = {
   web: "packages/kern/src/components/index.ts",
   native: "packages/kern-native/src/index.ts",
-  primitives: "packages/kern-primitives/src/index.ts",
+  primitives: "libs/kern-primitives/src/index.ts",
   icons: "packages/kern-icons/src/index.ts",
   tokens: "packages/kern-tokens/src/index.ts",
   contracts: "packages/kern-contracts/src/index.ts",

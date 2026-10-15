@@ -238,13 +238,13 @@ jobs:
         run: bun run build
 
       - name: Check web/native parity contract
-        # AFTER the build: check:parity inspects built kern-primitives dist .d.ts.
+        # AFTER the build: check:parity inspects the built libs/kern-primitives dist .d.ts.
         run: |
           bun run check:parity
           bun run check:currency
 
       - name: Check kernel consumption against built primitives
-        # AFTER the build: check:consumption reads packages/kern-primitives/dist/index.d.ts.
+        # AFTER the build: check:consumption reads libs/kern-primitives/dist/index.d.ts.
         run: bun run check:consumption
 
       - name: Check every declared export exists in dist
@@ -273,7 +273,7 @@ jobs:
         dir:
           - packages/kern-tokens
           - packages/kern-material-3
-          - packages/kern-primitives
+          - libs/kern-primitives
           - packages/kern
           - packages/kern-icons
           - packages/kern-native

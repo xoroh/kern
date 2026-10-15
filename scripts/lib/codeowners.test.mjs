@@ -103,7 +103,7 @@ describe("real CODEOWNERS nested package.json owners", () => {
       "@xoroh/kern-lead",
       "@xoroh/design-system-lead",
     ],
-    "packages/kern-primitives/package.json": [
+    "libs/kern-primitives/package.json": [
       "@xoroh/kern-lead",
       "@xoroh/design-system-lead",
     ],

@@ -2,14 +2,14 @@
  * Primitives (P domain) module catalogue.
  *
  * Each entry names one kernel module of `@xoroh/kern-primitives` (see
- * `packages/kern-primitives/src/index.ts`, the barrel this mirrors) and
+ * `libs/kern-primitives/src/index.ts`, the barrel this mirrors) and
  * carries the three sections its page renders, in fixed order:
  *
  *   anatomy — the pieces the consumer wires, and what each is for
  *   api     — the exported signatures, with the one decision each encodes
  *   example — one compilable snippet (`examples.ts`, checked by check-snippets)
  *
- * The API rows restate real signatures from `packages/kern-primitives/src`.
+ * The API rows restate real signatures from `libs/kern-primitives/src`.
  * `scripts/check-primitives-docs.mjs` pins the shape and the barrel coverage,
  * so a module page cannot quietly fall back to "later work".
  */

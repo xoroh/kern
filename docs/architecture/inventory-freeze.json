@@ -60,7 +60,7 @@
         "README.md",
         "LICENSE"
       ],
-      "manifestHash": "d68dcb852b29f2a70f6661e062241308ea578492e6e090ec85ce9537179fbcc0"
+      "manifestHash": "e03fff42eacffc866bd8b0d7c0dbc6290c1cda3cfa02756b3be561a345a94ac4"
     },
     "kern-native": {
       "name": "@xoroh/kern-native",
@@ -106,7 +106,7 @@
         "README.md",
         "LICENSE"
       ],
-      "manifestHash": "52793f8e5fa590d9a3cf66b34b9241a7a2d4bf65f64f936e099ab25edc916f46"
+      "manifestHash": "b3e422c2ec9915cc2451ee1a6503d88d7e56b2a3ca0ecca714797fb9df2c78a6"
     },
     "kern-tokens": {
       "name": "@xoroh/kern-tokens",
@@ -134,7 +134,6 @@
         },
         "./tokens.json": "./src/tokens.json",
         "./dtcg.json": "./src/dtcg.json",
-        "./themes/*": "./src/themes/*",
         "./theme": "./src/tokens.css",
         "./comp-tokens": "./src/comp-tokens.css",
         "./motion": "./src/motion.css",
@@ -151,11 +150,10 @@
         "src/motion.css",
         "src/tones.css",
         "src/tailwind.css",
-        "src/themes/*.json",
         "README.md",
         "LICENSE"
       ],
-      "manifestHash": "5f6af577b4fccb4618e700315368f65308712fb5818ce9df667520b476f6ccbf"
+      "manifestHash": "c7c2a37c9bc1e11923b40dfb4c56cecd50959eebc4e3c87cae425f63df74e2a8"
     },
     "kern-primitives": {
       "name": "@xoroh/kern-primitives",
@@ -178,7 +176,7 @@
         "README.md",
         "LICENSE"
       ],
-      "manifestHash": "fef7c03bdf2ea32fb27baccef9e64825b76d7f44c5b4145185fc64517c9a8794"
+      "manifestHash": "66f81f41cb3f13329a21e2ca87dc66c269ee6ced285e491821706abcdb1bc97c"
     },
     "kern-icons": {
       "name": "@xoroh/kern-icons",
@@ -260,7 +258,7 @@
         "README.md",
         "LICENSE"
       ],
-      "manifestHash": "4b37daec387ceeaa7f2edf6e440a2d7d88daae1d4dc54921a0cb857549f6ed71"
+      "manifestHash": "8d4e5205b30c9da85f5bca5d7a2fe1ec29452f2010db553552ea12383d3a0da0"
     },
     "mcp": {
       "name": "@xoroh/kern-mcp",
@@ -306,7 +304,7 @@
         "LICENSE",
         "README.md"
       ],
-      "manifestHash": "c7e343cad7d8e9ac25bdb97e091a1476e50b25cacc72b4f39fb233cfe6aeb476"
+      "manifestHash": "72b28477f861282e81330127814d0a7d8e2e044da48ef3975b4c5e3a06b48307"
     }
   },
   "barrels": {
@@ -615,7 +613,7 @@
     },
     "native": {
       "path": "packages/kern-native/src/index.ts",
-      "sha16": "7b015c36b6c73186",
+      "sha16": "0cb9a747d6afcbd2",
       "exportCount": 191,
       "exports": [
         "APP_SHELL_FOOTER_HEIGHT",
@@ -812,7 +810,7 @@
       ]
     },
     "primitives": {
-      "path": "packages/kern-primitives/src/index.ts",
+      "path": "libs/kern-primitives/src/index.ts",
       "sha16": "8ab4afc788a68cb1",
       "exportCount": 40,
       "exports": [
@@ -896,8 +894,8 @@
     },
     "tokens": {
       "path": "packages/kern-tokens/src/index.ts",
-      "sha16": "53a11292770618ca",
-      "exportCount": 24,
+      "sha16": "81ca66607cce4aeb",
+      "exportCount": 19,
       "exports": [
         "*reexport:export * from \"./color\"",
         "*reexport:export * from \"./contrast\"",
@@ -906,23 +904,18 @@
         "*reexport:export * from \"./dtcg/retained\"",
         "*reexport:export * from \"./dtcg/shared\"",
         "*reexport:export * from \"./dtcg/validate\"",
-        "*reexport:export * from \"./expressive-shapes\"",
-        "*reexport:export * from \"./feedback\"",
         "*reexport:export * from \"./focus\"",
         "*reexport:export * from \"./functional\"",
-        "*reexport:export * from \"./material-3\"",
         "*reexport:export * from \"./motion\"",
         "*reexport:export * from \"./pipeline\"",
         "*reexport:export * from \"./preset\"",
         "*reexport:export * from \"./presets\"",
-        "*reexport:export * from \"./seed-theme\"",
         "*reexport:export * from \"./sizes\"",
         "*reexport:export * from \"./token-graph\"",
         "*reexport:export * from \"./token-schema\"",
         "*reexport:export * from \"./tokens\"",
         "*reexport:export * from \"./tones\"",
-        "*reexport:export * from \"./variants\"",
-        "*reexport:export * from \"./xoroh-preset\""
+        "*reexport:export * from \"./variants\""
       ]
     },
     "contracts": {
@@ -941,8 +934,8 @@
     },
     "cli": {
       "path": "packages/kern-cli/src/index.ts",
-      "sha16": "dd8dd9cf7fbcd388",
-      "exportCount": 24,
+      "sha16": "714fb6bfc863a79e",
+      "exportCount": 25,
       "exports": [
         "WORKSPACE_ROOT",
         "addBlock",
@@ -952,6 +945,7 @@
         "blocksDir",
         "commitPlan",
         "convertV1",
+        "createApp",
         "customized",
         "diffDest",
         "formatDiff",
@@ -972,7 +966,7 @@
     },
     "mcp": {
       "path": "packages/mcp/src/index.ts",
-      "sha16": "60b5ba50d0ccd84b",
+      "sha16": "06ceba7180f702b4",
       "exportCount": 0,
       "exports": []
     }
@@ -1010,7 +1004,7 @@
       "sha16": "4a1b9b4379dd8bf2"
     },
     "packages/kern-tokens/src/themes/matrix.json": {
-      "sha16": "1dec27b214b16731"
+      "sha16": null
     },
     "packages/mcp/src/manifest.ts": {
       "sha16": "bdca06d2f65ca718"

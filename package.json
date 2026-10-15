@@ -64,7 +64,8 @@
   },
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "packages/*",
+    "libs/*"
   ],
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.5",

@@ -25,7 +25,7 @@ const UNITS = [
   { label: "@xoroh/kern-tokens", file: "packages/kern-tokens/LICENSE" },
   { label: "@xoroh/kern-native", file: "packages/kern-native/LICENSE" },
   { label: "@xoroh/kern-icons", file: "packages/kern-icons/LICENSE" },
-  { label: "@xoroh/kern-primitives", file: "packages/kern-primitives/LICENSE" },
+  { label: "@xoroh/kern-primitives", file: "libs/kern-primitives/LICENSE" },
   { label: "@xoroh/kern-mcp", file: "packages/mcp/LICENSE" },
 ];
 

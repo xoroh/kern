@@ -56,7 +56,7 @@ import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
 
 const ROOT = new URL("..", import.meta.url).pathname.replace(/\/$/, "");
-const PKG = join(ROOT, "packages", "kern-primitives");
+const PKG = join(ROOT, "libs", "kern-primitives");
 const SRC = join(PKG, "src");
 
 /** Bare specifiers the layer may not reach, each with the reason it is banned. */
@@ -180,7 +180,7 @@ function closure(seeds) {
 
 if (!existsSync(SRC)) {
   console.error(
-    "check:primitives — no packages/kern-primitives/src; nothing to check.",
+    "check:primitives — no libs/kern-primitives/src; nothing to check.",
   );
   process.exit(1);
 }
@@ -283,7 +283,7 @@ if (unreachable.length) {
     `\ncheck:primitives FAILED — ${unreachable.length} module(s) not re-exported from src/index.ts:`,
   );
   for (const m of unreachable) {
-    console.error(`  - packages/kern-primitives/${m}`);
+    console.error(`  - libs/kern-primitives/${m}`);
   }
   console.error(
     "\n  The package exposes only '.', so a module absent from the barrel is\n" +

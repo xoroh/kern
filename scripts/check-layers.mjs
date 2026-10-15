@@ -46,7 +46,10 @@ import { join } from "node:path";
 import ts from "typescript";
 
 const ROOT = new URL("..", import.meta.url).pathname.replace(/\/$/, "");
-const PKGS = join(ROOT, "packages");
+/** Workspace areas that hold packages. N9 moved the internal-only
+ * `@xoroh/kern-primitives` to `libs/`; every package scan covers both areas so
+ * the boundary cannot silently drop it. */
+const AREAS = ["packages", "libs"];
 
 /**
  * RANK is the layering. Lower may be depended on by higher.
@@ -97,11 +100,13 @@ function declaredXorohDeps(dir) {
 }
 
 const found = [];
-for (const entry of readdirSync(PKGS, { withFileTypes: true })) {
-  if (!entry.isDirectory()) continue;
-  const dir = join(PKGS, entry.name);
-  const info = declaredXorohDeps(dir);
-  if (info.name) found.push(info);
+for (const area of AREAS) {
+  for (const entry of readdirSync(join(ROOT, area), { withFileTypes: true })) {
+    if (!entry.isDirectory()) continue;
+    const dir = join(ROOT, area, entry.name);
+    const info = declaredXorohDeps(dir);
+    if (info.name) found.push(info);
+  }
 }
 
 const violations = [];
@@ -127,12 +132,13 @@ function packageNameOf(id) {
   return id.startsWith("@") ? parts.slice(0, 2).join("/") : parts[0];
 }
 
-for (const entry of readdirSync(join(ROOT, "packages"), {
-  withFileTypes: true,
-})) {
-  if (!entry.isDirectory()) continue;
-  const dir = join(ROOT, "packages", entry.name);
-  const manifestPath = join(dir, "package.json");
+for (const area of AREAS) {
+  for (const entry of readdirSync(join(ROOT, area), {
+    withFileTypes: true,
+  })) {
+    if (!entry.isDirectory()) continue;
+    const dir = join(ROOT, area, entry.name);
+    const manifestPath = join(dir, "package.json");
   if (!existsSync(manifestPath)) continue;
   const pkg = JSON.parse(readFileSync(manifestPath, "utf8"));
 
@@ -233,6 +239,7 @@ for (const entry of readdirSync(join(ROOT, "packages"), {
       `${pkg.name}: imports "${name}" but no dependency declares it (first seen in ${file.replace(`${ROOT}/`, "")})`,
     );
   }
+  }
 }
 
 // --- P2b-5: the composition tier composes via @xoroh/kern, never Base UI -----
@@ -288,12 +295,13 @@ const XOROH_SCOPE = /^@xoroh\//;
 const graph = new Map();
 const buildablePkgs = new Set(); // package NAMES only
 
-for (const entry of readdirSync(join(ROOT, "packages"), {
-  withFileTypes: true,
-})) {
-  if (!entry.isDirectory()) continue;
-  const dir = join(ROOT, "packages", entry.name);
-  const manifestPath = join(dir, "package.json");
+for (const area of AREAS) {
+  for (const entry of readdirSync(join(ROOT, area), {
+    withFileTypes: true,
+  })) {
+    if (!entry.isDirectory()) continue;
+    const dir = join(ROOT, area, entry.name);
+    const manifestPath = join(dir, "package.json");
   if (!existsSync(manifestPath)) continue;
   const pkg = JSON.parse(readFileSync(manifestPath, "utf8"));
   const name = pkg.name;
@@ -306,6 +314,7 @@ for (const entry of readdirSync(join(ROOT, "packages"), {
   }
   graph.set(name, edges);
   if (pkg.scripts?.build) buildablePkgs.add(name);
+  }
 }
 
 if (graph.size) {
@@ -353,7 +362,7 @@ if (graph.size) {
 //
 // Both spellings count as declared: the package itself (`bun-types`) and its
 // DefinitelyTyped alias (`node` -> `@types/node`).
-const TSCONFIG_ROOTS = ["packages", "apps"];
+const TSCONFIG_ROOTS = ["packages", "libs", "apps"];
 for (const area of TSCONFIG_ROOTS) {
   const areaDir = join(ROOT, area);
   if (!existsSync(areaDir)) continue;

@@ -39,17 +39,18 @@ const FIX = (() => {
 })();
 
 const FIRST_PARTY = [
-  // {dir} is the checkout directory, {pkg} the package short name (they
-  // differ for MCP: packages/mcp ships @xoroh/kern-mcp — the mismatch that
-  // once failed every pack with a bare ENOENT).
-  { dir: "kern", pkg: "kern" },
-  { dir: "kern-tokens", pkg: "kern-tokens" },
-  { dir: "kern-primitives", pkg: "kern-primitives" },
-  { dir: "kern-native", pkg: "kern-native" },
-  { dir: "kern-icons", pkg: "kern-icons" },
-  { dir: "mcp", pkg: "kern-mcp" },
-  { dir: "kern-contracts", pkg: "kern-contracts" },
-  { dir: "kern-cli", pkg: "kern-cli" },
+  // {dir} is the workspace-relative checkout directory, {pkg} the package
+  // short name (they differ for MCP: packages/mcp ships @xoroh/kern-mcp —
+  // the mismatch that once failed every pack with a bare ENOENT).
+  // N9 moved the internal-only primitives to libs/.
+  { dir: "packages/kern", pkg: "kern" },
+  { dir: "packages/kern-tokens", pkg: "kern-tokens" },
+  { dir: "libs/kern-primitives", pkg: "kern-primitives" },
+  { dir: "packages/kern-native", pkg: "kern-native" },
+  { dir: "packages/kern-icons", pkg: "kern-icons" },
+  { dir: "packages/mcp", pkg: "kern-mcp" },
+  { dir: "packages/kern-contracts", pkg: "kern-contracts" },
+  { dir: "packages/kern-cli", pkg: "kern-cli" },
 ];
 
 const log = [];
@@ -170,7 +171,7 @@ step("pack 8 tarballs with npm (workspace: would ship verbatim — none allowed)
       tarballs[pkg] = reused;
       continue;
     }
-    const pkgDir = join(ROOT, "packages", dir);
+    const pkgDir = join(ROOT, dir);
     npmPack(pkgDir);
     // Locate the tarball by glob, not by parsing packer stdout: bun prints
     // stats lines ("Packed size: …") while npm prints the filename, and

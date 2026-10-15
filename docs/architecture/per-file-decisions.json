@@ -1165,167 +1165,167 @@
   "decision": "keep"
  },
  {
-  "path": "packages/kern-primitives/src/a11y.test.ts",
+  "path": "libs/kern-primitives/src/a11y.test.ts",
   "sha16": "114657d4c0c480ec",
   "decision": "keep"
  },
  {
-  "path": "packages/kern-primitives/src/a11y.ts",
+  "path": "libs/kern-primitives/src/a11y.ts",
   "sha16": "0a3320bc00750fb6",
   "decision": "keep"
  },
  {
-  "path": "packages/kern-primitives/src/collection.test.ts",
+  "path": "libs/kern-primitives/src/collection.test.ts",
   "sha16": "8f50aa4c9c9eb398",
   "decision": "keep"
  },
  {
-  "path": "packages/kern-primitives/src/collection.ts",
+  "path": "libs/kern-primitives/src/collection.ts",
   "sha16": "63440a91ade3182a",
   "decision": "keep"
  },
  {
-  "path": "packages/kern-primitives/src/dismissPolicy.test.ts",
+  "path": "libs/kern-primitives/src/dismissPolicy.test.ts",
   "sha16": "784a8767d905083c",
   "decision": "keep"
  },
  {
-  "path": "packages/kern-primitives/src/dismissPolicy.ts",
+  "path": "libs/kern-primitives/src/dismissPolicy.ts",
   "sha16": "8cfdec858ee0baa5",
   "decision": "keep"
  },
  {
-  "path": "packages/kern-primitives/src/dismissWiring.test.ts",
+  "path": "libs/kern-primitives/src/dismissWiring.test.ts",
   "sha16": "390942a15e110693",
   "decision": "keep"
  },
  {
-  "path": "packages/kern-primitives/src/dismissWiring.ts",
+  "path": "libs/kern-primitives/src/dismissWiring.ts",
   "sha16": "6a0baff57ed83453",
   "decision": "keep"
  },
  {
-  "path": "packages/kern-primitives/src/focusTrap.test.ts",
+  "path": "libs/kern-primitives/src/focusTrap.test.ts",
   "sha16": "c7da11aab67385e4",
   "decision": "keep"
  },
  {
-  "path": "packages/kern-primitives/src/focusTrap.ts",
+  "path": "libs/kern-primitives/src/focusTrap.ts",
   "sha16": "e7d05605ee67a90f",
   "decision": "keep"
  },
  {
-  "path": "packages/kern-primitives/src/index.ts",
+  "path": "libs/kern-primitives/src/index.ts",
   "sha16": "8ab4afc788a68cb1",
   "decision": "keep"
  },
  {
-  "path": "packages/kern-primitives/src/mergeRefs.test.ts",
+  "path": "libs/kern-primitives/src/mergeRefs.test.ts",
   "sha16": "3f1dd5d5d4adfc81",
   "decision": "keep"
  },
  {
-  "path": "packages/kern-primitives/src/mergeRefs.ts",
+  "path": "libs/kern-primitives/src/mergeRefs.ts",
   "sha16": "e0c7eb8ee0f9ade1",
   "decision": "keep"
  },
  {
-  "path": "packages/kern-primitives/src/overlayModality.test.ts",
+  "path": "libs/kern-primitives/src/overlayModality.test.ts",
   "sha16": "0409a95c44d361d8",
   "decision": "keep"
  },
  {
-  "path": "packages/kern-primitives/src/overlayModality.ts",
+  "path": "libs/kern-primitives/src/overlayModality.ts",
   "sha16": "8b84110e50f1be2d",
   "decision": "keep"
  },
  {
-  "path": "packages/kern-primitives/src/portal.test.ts",
+  "path": "libs/kern-primitives/src/portal.test.ts",
   "sha16": "941d14ed7d1a450b",
   "decision": "keep"
  },
  {
-  "path": "packages/kern-primitives/src/portal.ts",
+  "path": "libs/kern-primitives/src/portal.ts",
   "sha16": "5aabbde62feeffb7",
   "decision": "keep"
  },
  {
-  "path": "packages/kern-primitives/src/positioning.test.ts",
+  "path": "libs/kern-primitives/src/positioning.test.ts",
   "sha16": "8e2a962977770875",
   "decision": "keep"
  },
  {
-  "path": "packages/kern-primitives/src/positioning.ts",
+  "path": "libs/kern-primitives/src/positioning.ts",
   "sha16": "92b95559028dcfe0",
   "decision": "keep"
  },
  {
-  "path": "packages/kern-primitives/src/presence.test.ts",
+  "path": "libs/kern-primitives/src/presence.test.ts",
   "sha16": "ed2e2c1c0ba13d42",
   "decision": "keep"
  },
  {
-  "path": "packages/kern-primitives/src/presence.ts",
+  "path": "libs/kern-primitives/src/presence.ts",
   "sha16": "493ac26f4e6eeb51",
   "decision": "keep"
  },
  {
-  "path": "packages/kern-primitives/src/press.test.ts",
+  "path": "libs/kern-primitives/src/press.test.ts",
   "sha16": "9f178744cf924111",
   "decision": "keep"
  },
  {
-  "path": "packages/kern-primitives/src/press.ts",
+  "path": "libs/kern-primitives/src/press.ts",
   "sha16": "92c6aaedf63d3fde",
   "decision": "keep"
  },
  {
-  "path": "packages/kern-primitives/src/roving.test.ts",
+  "path": "libs/kern-primitives/src/roving.test.ts",
   "sha16": "9a225bf5651b2a8d",
   "decision": "keep"
  },
  {
-  "path": "packages/kern-primitives/src/roving.ts",
+  "path": "libs/kern-primitives/src/roving.ts",
   "sha16": "80c118fb0fb70d36",
   "decision": "keep"
  },
  {
-  "path": "packages/kern-primitives/src/selection.test.ts",
+  "path": "libs/kern-primitives/src/selection.test.ts",
   "sha16": "1bf1a5eddd1c6605",
   "decision": "keep"
  },
  {
-  "path": "packages/kern-primitives/src/selection.ts",
+  "path": "libs/kern-primitives/src/selection.ts",
   "sha16": "349229e24f7228cd",
   "decision": "keep"
  },
  {
-  "path": "packages/kern-primitives/src/slot.test.ts",
+  "path": "libs/kern-primitives/src/slot.test.ts",
   "sha16": "ed4abb1788ead0a5",
   "decision": "keep"
  },
  {
-  "path": "packages/kern-primitives/src/slot.ts",
+  "path": "libs/kern-primitives/src/slot.ts",
   "sha16": "df5a9d049598af31",
   "decision": "keep"
  },
  {
-  "path": "packages/kern-primitives/src/time.test.ts",
+  "path": "libs/kern-primitives/src/time.test.ts",
   "sha16": "fd9d6f8e2efeb52e",
   "decision": "keep"
  },
  {
-  "path": "packages/kern-primitives/src/time.ts",
+  "path": "libs/kern-primitives/src/time.ts",
   "sha16": "2a5a1cedaa66a543",
   "decision": "keep"
  },
  {
-  "path": "packages/kern-primitives/src/useControllableState.test.ts",
+  "path": "libs/kern-primitives/src/useControllableState.test.ts",
   "sha16": "8fa6d789e0b52426",
   "decision": "keep"
  },
  {
-  "path": "packages/kern-primitives/src/useControllableState.ts",
+  "path": "libs/kern-primitives/src/useControllableState.ts",
   "sha16": "a47f79fe69251206",
   "decision": "keep"
  },

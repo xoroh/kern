@@ -20,7 +20,7 @@
  *      constants `check-snippets.mjs` compiles against the real package. An
  *      example that exists only as prose is not an example.
  *   3. BARREL COVERAGE: every `exports` name on a module page is exported
- *      from `packages/kern-primitives/src/index.ts`, and every barrel export
+ *      from `libs/kern-primitives/src/index.ts`, and every barrel export
  *      is named by exactly one module page. Two pages documenting one symbol
  *      and a symbol no page documents are the same failure.
  *   4. NAV AGREEMENT: `PRIMITIVES_NAV` lists the landing plus exactly the
@@ -89,7 +89,7 @@ for (const mod of PRIMITIVE_MODULES) {
 /* --------------------------------------------------- 3. Barrel coverage */
 
 const barrel = readFileSync(
-  join(APP, "..", "..", "packages", "kern-primitives", "src", "index.ts"),
+  join(APP, "..", "..", "libs", "kern-primitives", "src", "index.ts"),
   "utf8",
 );
 // Both block and one-line `export { ... } from "..."` forms; `type` modifiers
