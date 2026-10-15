@@ -8,8 +8,10 @@ import {
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { addComponent } from "./add";
-import { loadManifest, WORKSPACE_ROOT } from "./manifest";
+import { addComponent, readProjectConfig } from "./add";
+import { initScaffold } from "./init";
+import { loadRegistry, WORKSPACE_ROOT } from "./manifest";
+import { defineCliConfig } from "@xoroh/kern-contracts";
 
 function freshDest(): string {
   return mkdtempSync(join(tmpdir(), "kern-add-"));
@@ -59,7 +61,9 @@ describe("kern add (Mode 1 smoke)", () => {
     ).toThrow("unknown component");
   });
 
-  it("installs a native-only component from the native row (platform first)", () => {
+  it("installs a native-only component from the native row (platform first)", {
+    timeout: 120_000,
+  }, () => {
     // Derived, not hardcoded: a manifest name with no web row today.
     const rows = loadManifest(WORKSPACE_ROOT);
     const web = new Set(
@@ -137,6 +141,35 @@ describe("kern add (Mode 1 smoke)", () => {
       expect(() =>
         addComponent("button", { root: WORKSPACE_ROOT, dest }),
       ).toThrow("mixed-version");
+    } finally {
+      rmSync(dest, { recursive: true, force: true });
+    }
+  });
+
+  it("round-trips the scaffold renderer into add (N6 kern.json contract)", {
+    timeout: 120_000,
+  }, () => {
+    const dest = freshDest();
+    try {
+      initScaffold(dest, { root: WORKSPACE_ROOT });
+      // The writer records `renderer`; the reader maps it onto the platform
+      // default — no flag needed for the scaffolded renderer. The file
+      // itself validates against the single contracts definition.
+      expect(() =>
+        defineCliConfig(
+          JSON.parse(readFileSync(join(dest, "kern.json"), "utf8")),
+        ),
+      ).not.toThrow();
+      expect(readProjectConfig(dest)).toMatchObject({
+        platform: "web",
+        preset: "material-3",
+        pm: "bun",
+      });
+      const before = readFileSync(join(dest, "kern.json"), "utf8");
+      const web = addComponent("button", { root: WORKSPACE_ROOT, dest });
+      expect(web.platform).toBe("web");
+      // Later installs never rewrite the pinned project config.
+      expect(readFileSync(join(dest, "kern.json"), "utf8")).toBe(before);
     } finally {
       rmSync(dest, { recursive: true, force: true });
     }

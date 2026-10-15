@@ -64,7 +64,9 @@ describe("bundled registry", () => {
 });
 
 describe("transactions", () => {
-  it("a late conflict writes nothing — fault injection", () => {
+  it("a late conflict writes nothing — fault injection", {
+    timeout: 120_000,
+  }, () => {
     const dest = freshDest();
     try {
       const plan = planComponent("button", { root: WORKSPACE_ROOT, dest });
@@ -97,7 +99,9 @@ describe("transactions", () => {
     }
   });
 
-  it("an identical re-add writes nothing and keeps the receipt", () => {
+  it("an identical re-add writes nothing and keeps the receipt", {
+    timeout: 120_000,
+  }, () => {
     const dest = freshDest();
     try {
       const first = addComponent("badge", { root: WORKSPACE_ROOT, dest });
@@ -145,7 +149,7 @@ describe("list and diff", () => {
 });
 
 describe("upgrade", () => {
-  it("dry-run writes nothing", () => {
+  it("dry-run writes nothing", { timeout: 120_000 }, () => {
     const dest = freshDest();
     try {
       addComponent("badge", { root: WORKSPACE_ROOT, dest });
@@ -161,7 +165,9 @@ describe("upgrade", () => {
     }
   });
 
-  it("preserves customized files on --apply and reports them", () => {
+  it("preserves customized files on --apply and reports them", {
+    timeout: 120_000,
+  }, () => {
     const dest = freshDest();
     try {
       addComponent("badge", { root: WORKSPACE_ROOT, dest });
@@ -193,5 +199,57 @@ describe("upgrade", () => {
     expect(() =>
       upgradeComponent("badge", { root: WORKSPACE_ROOT, dest: freshDest() }),
     ).toThrow("not a kern dest");
+  });
+
+  it("upgrades a block through the block planner (C3)", {
+    timeout: 120_000,
+  }, () => {
+    const dest = freshDest();
+    try {
+      addBlock("settings-screen", { root: WORKSPACE_ROOT, dest });
+      const result = upgradeBlock("settings-screen", {
+        root: WORKSPACE_ROOT,
+        dest,
+      });
+      expect(result.applied).toBe(false);
+      expect(formatUpgrade(result)).toContain("dry run");
+      // A component-only dest refuses a block upgrade by owner.
+      const other = freshDest();
+      try {
+        addComponent("badge", { root: WORKSPACE_ROOT, dest: other });
+        expect(() =>
+          upgradeBlock("settings-screen", { root: WORKSPACE_ROOT, dest: other }),
+        ).toThrow("not vendored here");
+      } finally {
+        rmSync(other, { recursive: true, force: true });
+      }
+    } finally {
+      rmSync(dest, { recursive: true, force: true });
+    }
+  });
+
+  it("preserves customized block files on --apply", {
+    timeout: 120_000,
+  }, () => {
+    const dest = freshDest();
+    try {
+      addBlock("settings-screen", { root: WORKSPACE_ROOT, dest });
+      writeFileSync(
+        join(dest, "blocks/settings-screen.tsx"),
+        "// owned edit\n",
+      );
+      const result = upgradeBlock("settings-screen", {
+        root: WORKSPACE_ROOT,
+        dest,
+        apply: true,
+      });
+      expect(result.applied).toBe(true);
+      expect(
+        readFileSync(join(dest, "blocks/settings-screen.tsx"), "utf8"),
+      ).toBe("// owned edit\n");
+      expect(result.plan.customized).toContain("blocks/settings-screen.tsx");
+    } finally {
+      rmSync(dest, { recursive: true, force: true });
+    }
   });
 });

@@ -21,19 +21,21 @@ resolve the same scheme, so a token change lands everywhere at once.
 | Package | Directory | Renderer | Owns |
 | --- | --- | --- | --- |
 | `@xoroh/kern-tokens` | `packages/kern-tokens` | platform-free | `tokens.json` (canonical source), theme presets, contrast overlays, tones, feedback spec, variant registry, generated CSS |
+| `@xoroh/kern-material-3` | `packages/kern-material-3` | platform-free | Material Design 3 preset tables, themes, and M3 algorithms |
+| `@xoroh/kern-contracts` | `packages/kern-contracts` | platform-free | Provider/component/block/icon/install record schemas + validators |
 | `@xoroh/kern` | `packages/kern` | web (DOM) | The web component set, the web theme runtime, `cn` helpers |
 | `@xoroh/kern/start` | `packages/kern/src/start` | web (DOM) | Composition: blocks, top app bar, navigation, panes, scaffolds, link seam |
 | `@xoroh/kern-native` | `packages/kern-native` | native (RN) | The React Native component set and the native scheme hook |
-| `@xoroh/kern-primitives` | `packages/kern-primitives` | platform-free | Renderer-agnostic behaviour logic shared by the web and native renderers (see [`conventions/primitives.md`](conventions/primitives.md)) |
+| `@xoroh/kern-primitives` | `libs/kern-primitives` | platform-free | Renderer-agnostic behaviour logic shared by the web and native renderers (see [`conventions/primitives.md`](conventions/primitives.md)) |
 | `@xoroh/kern-icons` | `packages/kern-icons` | both | Material Symbols registry + `Icon` renderer (web and native) |
 | `@xoroh/kern-mcp` | `packages/mcp` | node | MCP server so agents can list components, fetch source, read tokens, audit screens |
-| `@xoroh/kern-cli` | `packages/kern-cli` | — | Unpublished installer (0.0.0): `kern init` scaffolds the starter, `kern add` vendors web components (`src/init.ts` + `init.test.ts`, `src/add.ts` + `add.test.ts`); receipts stamped from day one; `kern list` / `diff` / `upgrade` coming next |
+| `@xoroh/kern-cli` | `packages/kern-cli` | — | Unpublished installer (0.0.0): `kern create` scaffolds a new app, `kern init` configures an existing project, `kern add` vendors web components (`src/create.ts` + `create.test.ts`, `src/init.ts` + `init.test.ts`, `src/add.ts` + `add.test.ts`); receipts stamped from day one; `kern list` / `diff` / `upgrade` shipped |
 
 Plus two apps:
 
 | App | Directory | What |
 | --- | --- | --- |
-| kern.xoroh.org | `apps/site` | The documentation site. Imports and dogfoods `@xoroh/kern`, `-theme`, `-icons`, `-start` |
+| kern.xoroh.org | `apps/site` | The documentation site. Imports and dogfoods `@xoroh/kern`, `-tokens`, `-icons`, `-native`, `-mcp` |
 | Kern (Expo) | `apps/mobile` | Empty Expo host wiring the native theme and fonts |
 
 ## Dependency direction
@@ -154,7 +156,9 @@ across renderers.
 
 ## Generated surface
 
-Six files are generated and must never be hand-edited:
+24 files across 19 generators must never be hand-edited
+(`bun run check:generated:census` is the source of truth; examples below).
+`bun run check:generated` proves a fresh run byte-matches the committed files:
 
 | File | Command |
 | --- | --- |
@@ -172,8 +176,11 @@ reproducible.
 | Command | What it protects |
 | --- | --- |
 | `bun run lint` | Biome: lint, format, import order |
-| `bun run typecheck` | `tsc --noEmit` across the five typed packages |
+| `bun run typecheck` | `tsc --noEmit` across the nine typed workspaces |
 | `bun run test:all` | vitest (theme, web, icons, start) + native render tests |
+| `bun run check:layers` | package dependency direction (D-034), acyclic build graph |
+| `bun run check:parity` | web/native component parity + deliberate asymmetries |
+| `bun run check:generated` | fresh regeneration byte-matches committed artifacts |
 | `bun run check:kern` | Roles complete in every scheme; tokens only; shape scale only |
 | `bun run check:contrast` | 4.5:1 text and 3:1 UI across presets × modes × contrast |
 | `bun run check:publish` | `publint` + `are-the-types-wrong` on all six publishable packages |

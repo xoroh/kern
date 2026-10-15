@@ -315,3 +315,60 @@ describe("component-token (comp) overrides (A4-2)", () => {
     expect(cssLengthToDp("", 7)).toBe(7);
   });
 
+  it("registerPreset rejects malformed comp like defineThemePreset does (AUD-004)", async () => {
+    const { registerPreset } = await import("./resolve");
+    expect(() =>
+      registerPreset("pixel-comp-bad-base", {
+        color: {
+          light: { canvas: "#ffffff", ink: "#101418" },
+          dark: { canvas: "#101418", ink: "#f2f5f8" },
+        },
+        shape: { none: "0px", full: "999px" },
+        comp: { "switch-track-shape": "round" },
+        policy: { textPairs: [["ink", "canvas"]], uiPairs: [], waivers: [] },
+      }),
+    ).toThrow("must be a px or rem length");
+    expect(() =>
+      registerPreset("pixel-comp-bad-key", {
+        color: {
+          light: { canvas: "#ffffff", ink: "#101418" },
+          dark: { canvas: "#101418", ink: "#f2f5f8" },
+        },
+        shape: { none: "0px", full: "999px" },
+        comp: { "Not Kebab!": "4px" },
+        policy: { textPairs: [["ink", "canvas"]], uiPairs: [], waivers: [] },
+      }),
+    ).toThrow("must be kebab-case");
+    expect(() =>
+      registerPreset("pixel-comp-bad-override", {
+        extends: "pixel",
+        overrides: { comp: { "switch-track-shape": "huge" } },
+      }),
+    ).toThrow("must be a px or rem length");
+  });
+
+  it("three-level chains treat comp exactly like shape: leaf plus ultimate base (AUD-005)", async () => {
+    const { registerPreset, resolveThemeDetails } = await import("./resolve");
+    registerPreset("pixel-chain-mid", {
+      extends: "pixel",
+      overrides: {
+        shape: { sm: "6px" },
+        comp: { "switch-track-shape": "8px" },
+      },
+    });
+    registerPreset("pixel-chain-leaf", {
+      extends: "pixel-chain-mid",
+      overrides: {
+        shape: { lg: "20px" },
+        comp: { "card-container-shape": "4px" },
+      },
+    });
+    const scheme = resolveThemeDetails("light", "standard", "pixel-chain-leaf");
+    // The documented uniform rule: only the leaf's overrides merge over the
+    // ultimate base. Intermediate nodes behave identically for every table —
+    // the mid level's sm/shape and switch-track/comp overrides are dropped,
+    // just as its (absent here) color overrides would be.
+    expect(scheme.shape).toMatchObject({ lg: "20px", sm: "4px" });
+    expect(scheme.comp).toEqual({ "card-container-shape": "4px" });
+  });
+});

@@ -195,7 +195,8 @@ const buttonVariants = cva(
         toggle: true,
         selected: true,
         shape: "square",
-        class: "rounded-(--sys-shape-corner-full)",
+        class:
+          "rounded-[var(--comp-button-container-shape,var(--sys-shape-corner-full))]",
       },
     ],
     defaultVariants: {

@@ -78,6 +78,33 @@ export type PresetTables = {
 
 const presets = new Map<string, PresetTables>();
 
+const COMP_KEY_RE = /^[a-z][a-z0-9-]{1,48}$/;
+const COMP_VALUE_RE = /^(\d+(\.\d+)?px|\d+(\.\d+)?rem)$/;
+
+/**
+ * Validate a component-token table with the same key/value rules everywhere
+ * (AUD-004): `registerPreset` (base `comp` and override `comp`) and
+ * `defineThemePreset` (override `comp`) share this helper, so malformed data
+ * fails loud at registration instead of silently falling back at render.
+ * Membership is deliberately NOT checked — the engine owns no component
+ * inventory; unknown-but-wellformed keys pass through inert.
+ */
+function assertCompTable(
+  comp: CompTable | undefined,
+  where: string,
+): void {
+  for (const [slot, value] of Object.entries(comp ?? {})) {
+    if (!COMP_KEY_RE.test(slot)) {
+      throw new Error(`Theme comp key "${slot}" must be kebab-case (${where}).`);
+    }
+    if (typeof value !== "string" || !COMP_VALUE_RE.test(value)) {
+      throw new Error(
+        `Theme comp ${slot} must be a px or rem length (${where}).`,
+      );
+    }
+  }
+}
+
 /**
  * Register a preset's tables with the resolver. Base presets carry full
  * tables; override presets carry `extends` plus overrides, and their base
@@ -105,6 +132,8 @@ export function registerPreset(id: string, tables: PresetTables): void {
       `Preset ${id} needs a contrast policy — validation without one would pass by not looking`,
     );
   }
+  assertCompTable(tables.comp, `preset ${id}`);
+  assertCompTable(tables.overrides?.comp, `preset ${id} overrides`);
   presets.set(id, tables);
 }
 
@@ -185,6 +214,14 @@ export function defineThemePreset(theme: CustomTheme): CustomTheme {
       throw new Error(`Theme shape ${shape} must be a px or rem length.`);
     }
   }
+  // Component tokens are deliberately NOT membership-checked: the engine owns
+  // no component inventory (that would couple it to implementations). Keys
+  // must be kebab-case; values follow the shape length convention. Unknown
+  // keys pass through inert — no component reads them, so they change nothing.
+  assertCompTable(
+    theme.overrides.comp,
+    `theme ${theme.id} overrides`,
+  );
   for (const mode of ["light", "dark"] as const) {
     const issues = contrastIssues(
       resolveThemeDetails(mode, "standard", theme).color,

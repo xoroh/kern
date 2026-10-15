@@ -23,7 +23,7 @@ bundled at publish — see below):
 |---|---|
 | `list_components` | Component inventory with platform, entrypoint, subpath import and `real`/`stub` status |
 | `get_component` | Source of one component from its own renderer's package (code if real, pointer if stub) |
-| `get_tokens` | `base` tokens or a theme preset id from `list_themes` (`kern`/`sharp`/`brand`/`compact`/`demo`; `m3` still resolves as the legacy alias for `kern`) |
+| `get_tokens` | `base` tokens or a theme preset id from `list_themes` (`material-3`/`sharp`/`brand`/`compact`; no legacy aliases) |
 | `get_dtcg` | DTCG 2025.10 interchange document (all foundations + sys roles) |
 | `list_themes` | Theme catalog (same file the visual builder will read) |
 | `list_icons` / `get_icon` | Semantic icon map + catalog count; unknown names refuse (missing renders null) |

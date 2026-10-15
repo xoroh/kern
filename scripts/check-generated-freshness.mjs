@@ -12,9 +12,12 @@
  * source. A gate that passes because it did not look is worse than one that
  * fails.
  *
- * The three generators are run into a TEMP copy of the tree, then compared
- * byte-for-byte against what is committed. Nothing on disk is written, so this
- * is safe to run read-only in CI and on a dirty worktree.
+ * The generators run against the real tree (so they see the real
+ * tokens.json), then every touched file is restored byte-for-byte from a
+ * snapshot taken BEFORE the run — including on crash and on failure. Nothing
+ * committed may differ after this gate runs; verify with `git status`.
+ * This restore-first design replaced the old temp-copy claim (AUD-019):
+ * no full tree copy is needed, and no exit path skips restoration.
  *
  * COMPLETENESS IS A SEPARATE GATE. This one proves the files it lists are
  * fresh. It cannot prove the LIST is complete — and the incompleteness is what

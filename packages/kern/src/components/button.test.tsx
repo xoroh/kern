@@ -218,4 +218,14 @@ describe("Button", () => {
     expect(screen.getByRole("button").className).not.toContain("rounded-none");
   });
 
+  it("toggle morph-to-pill honors the button container token (AUD-003)", () => {
+    render(
+      <Button toggle defaultPressed shape="square">
+        Save
+      </Button>,
+    );
+    expect(screen.getByRole("button")).toHaveClass(
+      "rounded-[var(--comp-button-container-shape,var(--sys-shape-corner-full))]",
+    );
+  });
 });

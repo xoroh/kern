@@ -139,6 +139,9 @@ jobs:
       - name: Check the package layering (D-034)
         run: bun run check:layers
 
+      - name: Check native theme boundary (N8)
+        run: bun run check:native-theme
+
       - name: Check no private kern imports leak
         run: bun run check:xoroh-leaks
 

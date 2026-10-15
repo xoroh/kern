@@ -1,5 +1,6 @@
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join, relative } from "node:path";
+import { isShapeLegal } from "./lib/shape-law.mjs";
 import { codeOnly } from "./lib/source-code.mjs";
 
 const ROOT = new URL("..", import.meta.url).pathname;
@@ -789,11 +790,7 @@ for (const dir of SCANNED) {
     for (const [cls] of src.matchAll(
       /rounded-[a-z0-9-]*(?:\([^)]*\)|\[[^\]]*\])?/g,
     )) {
-      const ok =
-        /^rounded(?:-[a-z]{1,2})?-(?:none|full)$/.test(cls) ||
-        /^rounded(?:-[a-z]{1,2})?-\[inherit\]$/.test(cls) ||
-        /^rounded(?:-[a-z]{1,2})?-\(--sys-shape-corner-[a-z-]+\)$/.test(cls);
-      if (!ok) {
+      if (!isShapeLegal(cls, shapeKeys)) {
         violations.push(`${where}: ${cls} — radii come from the shape scale`);
       }
     }

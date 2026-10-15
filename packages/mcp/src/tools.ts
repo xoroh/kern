@@ -188,7 +188,7 @@ export async function listThemes() {
 // ---------------------------------------------------------------------------
 // Icons: discovery over the Material catalog (P5).
 //
-// The icon package is big (1340 glyphs) and the MCP server must not bundle
+// The icon package is big (1342 glyphs) and the MCP server must not bundle
 // it — nor the CLI's TypeScript compiler — so both arrive via OPTIONAL
 // dynamic import. Present workspace install: full data. Absent (packed MCP
 // alone): an error naming the missing package, never fabricated rows. An

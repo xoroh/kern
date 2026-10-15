@@ -5,13 +5,13 @@
  * 1. SYNC. The committed `themes/matrix.json` must equal what the live
  *    resolver produces. A hand-edit to the artifact (or a code change that
  *    moves a rendered value) fails here with the regen command, not silently.
- * 2. SINGLE ROLE TABLE. Every cell carries exactly the kern role set —
- *    presets extend kern via overrides, never a second role table.
+ * 2. SINGLE ROLE TABLE. Every cell carries exactly the material-3 role set —
+ *    presets extend material-3 via overrides, never a second role table.
  * 3. CATALOG DISCIPLINE. Every `themes/index.json` entry resolves to a file
- *    whose `extends` canonicalizes to kern, and whose overrides touch only
- *    known color/shape roles.
+ *    whose `extends` canonicalizes to material-3, and whose overrides touch
+ *    only known color/shape roles.
  * 4. COVERAGE. The matrix spans the full mode x contrast x preset cross
- *    product, and the legacy `m3` alias still resolves to kern.
+ *    product. (Clean break: no `kern`/`m3` preset aliases remain.)
  */
 import { registerPreset } from "../src/resolve.ts";
 import { material3PresetRegistrations } from "../../kern-material-3/src/material-3.ts";
@@ -230,5 +230,5 @@ if (violations.length > 0) {
 
 console.log(
   `theme matrix passes: ${buildThemeMatrix().cells.length} cells in sync, ` +
-    `single role table, catalog extends kern, legacy alias resolves`,
+    `single role table, catalog extends material-3`,
 );
