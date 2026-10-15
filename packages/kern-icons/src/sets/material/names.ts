@@ -181,6 +181,7 @@ export const ICON_NAMES = [
   "crop",
   "crop-16-9",
   "crop-free",
+  "crop-square",
   "currency-exchange",
   "dangerous",
   "dark-mode",
@@ -1529,6 +1530,7 @@ export const MATERIAL_ICON_NAMES = [
   "crop",
   "crop-16-9",
   "crop-free",
+  "crop-square",
   "currency-exchange",
   "dangerous",
   "dark-mode",
@@ -2715,4 +2717,4 @@ export function isIconName(value: unknown): value is IconName {
 }
 
 /** Total number of icons with committed shape data. */
-export const ICON_COUNT = 1341;
+export const ICON_COUNT = 1342;

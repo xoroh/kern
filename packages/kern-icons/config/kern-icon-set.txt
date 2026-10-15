@@ -171,6 +171,7 @@ credit-score
 crop
 crop-16-9
 crop-free
+crop-square
 currency-exchange
 dangerous
 dark-mode
