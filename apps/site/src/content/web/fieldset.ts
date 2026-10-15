@@ -30,7 +30,7 @@ export const fieldset: ComponentDoc = {
   customization: {
     supported: [
       "`className` on the root and on the legend, merged after their own classes.",
-      "The root is a bordered, rounded panel with its own padding — `--md-sys-shape-corner-small` and the outline-variant role.",
+      "The root is a bordered, rounded panel with its own padding — `--sys-shape-corner-small` and the outline-variant role.",
       "`disabled` on the root dims the whole group, so one flag controls a whole answer.",
     ],
     notSupported: [

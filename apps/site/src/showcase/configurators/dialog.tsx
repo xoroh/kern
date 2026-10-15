@@ -79,7 +79,7 @@ export const DIALOG_CONFIGURATOR: ConfiguratorSpec = {
           <Dialog.Close render={<Button variant="ghost">Cancel</Button>} />
           <Dialog.Close
             render={
-              <Button className="bg-(--md-sys-color-error) text-(--md-sys-color-on-error) hover:bg-(--md-sys-color-error)/90">
+              <Button className="bg-(--sys-color-error) text-(--sys-color-on-error) hover:bg-(--sys-color-error)/90">
                 Delete
               </Button>
             }
@@ -89,5 +89,5 @@ export const DIALOG_CONFIGURATOR: ConfiguratorSpec = {
     </Dialog.Root>
   ),
   code: (v) =>
-    `<Dialog.Root${rootPropsOf(v)}>\n  <Dialog.Trigger render={<Button variant="tonal">Open dialog</Button>} />\n  <Dialog.Content${contentPropsOf(v)}>\n    <Dialog.Title>Delete this project?</Dialog.Title>\n    <Dialog.Description>\n      This removes the project and its build history. It cannot be undone.\n    </Dialog.Description>\n    <div className="mt-6 flex justify-end gap-2">\n      <Dialog.Close render={<Button variant="ghost">Cancel</Button>} />\n      <Dialog.Close\n        render={\n          <Button className="bg-(--md-sys-color-error) text-(--md-sys-color-on-error) hover:bg-(--md-sys-color-error)/90">\n            Delete\n          </Button>\n        }\n      />\n    </div>\n  </Dialog.Content>\n</Dialog.Root>`,
+    `<Dialog.Root${rootPropsOf(v)}>\n  <Dialog.Trigger render={<Button variant="tonal">Open dialog</Button>} />\n  <Dialog.Content${contentPropsOf(v)}>\n    <Dialog.Title>Delete this project?</Dialog.Title>\n    <Dialog.Description>\n      This removes the project and its build history. It cannot be undone.\n    </Dialog.Description>\n    <div className="mt-6 flex justify-end gap-2">\n      <Dialog.Close render={<Button variant="ghost">Cancel</Button>} />\n      <Dialog.Close\n        render={\n          <Button className="bg-(--sys-color-error) text-(--sys-color-on-error) hover:bg-(--sys-color-error)/90">\n            Delete\n          </Button>\n        }\n      />\n    </div>\n  </Dialog.Content>\n</Dialog.Root>`,
 };

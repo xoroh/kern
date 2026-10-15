@@ -35,7 +35,7 @@ const CATALOG: { label: string; href: string }[] = [
 
 const rowClass = (active: boolean) =>
   cn(
-    `min-h-12 rounded-(--md-sys-shape-corner-full) px-4 no-underline ${FOCUS_RING}`,
+    `min-h-12 rounded-(--sys-shape-corner-full) px-4 no-underline ${FOCUS_RING}`,
     active
       ? `${PILL_ACTIVE} flex items-center ${T_LABEL_LG}`
       : `${PILL_REST} flex items-center ${T_BODY_MD}`,
@@ -47,7 +47,7 @@ export function ComponentsSidebar() {
     <nav aria-label="Component catalog" className="flex flex-col gap-5">
       <div className="flex flex-col gap-1">
         <p
-          className={`m-0 px-3 ${T_LABEL} text-(--md-sys-color-on-surface-variant) uppercase`}
+          className={`m-0 px-3 ${T_LABEL} text-(--sys-color-on-surface-variant) uppercase`}
         >
           Catalog
         </p>
@@ -70,7 +70,7 @@ export function ComponentsSidebar() {
       </div>
       <div className="flex flex-col gap-1">
         <p
-          className={`m-0 px-3 ${T_LABEL} text-(--md-sys-color-on-surface-variant) uppercase`}
+          className={`m-0 px-3 ${T_LABEL} text-(--sys-color-on-surface-variant) uppercase`}
         >
           Families
         </p>

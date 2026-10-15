@@ -67,8 +67,8 @@ export type ConfiguratorSpec = {
  */
 const STAGE = `flex flex-wrap items-center justify-center gap-4 p-8 ${STAGE_TOKEN}`;
 
-const BODY = `text-(--md-sys-color-on-surface-variant) ${T_BODY_SM}`;
-const LABEL = `text-(--md-sys-color-on-surface) ${T_BODY_SM}`;
+const BODY = `text-(--sys-color-on-surface-variant) ${T_BODY_SM}`;
+const LABEL = `text-(--sys-color-on-surface) ${T_BODY_SM}`;
 
 function defaultsOf(spec: ConfiguratorSpec): ConfigValues {
   const out: ConfigValues = {};
@@ -119,10 +119,10 @@ export function Configurator({ spec }: { spec: ConfiguratorSpec }) {
       ref={rootRef}
       className={`${CARD} m-0 flex flex-col overflow-hidden`}
     >
-      <figcaption className="flex flex-col gap-1 border-b border-(--md-sys-color-outline-variant) px-6 py-4">
+      <figcaption className="flex flex-col gap-1 border-b border-(--sys-color-outline-variant) px-6 py-4">
         <h3
           id={`configurator-${spec.id}`}
-          className={`m-0 ${T_LEAD} text-(--md-sys-color-on-surface)`}
+          className={`m-0 ${T_LEAD} text-(--sys-color-on-surface)`}
         >
           {spec.title}
           {/*
@@ -133,7 +133,7 @@ export function Configurator({ spec }: { spec: ConfiguratorSpec }) {
             href={`#configurator-${spec.id}`}
             aria-label={`Permalink to ${spec.title}`}
             title="Permalink to this configurator"
-            className={`ml-2 inline-flex items-center text-(--md-sys-color-on-surface-variant) no-underline hover:text-(--md-sys-color-on-surface) ${TRANSITION} ${FOCUS_RING}`}
+            className={`ml-2 inline-flex items-center text-(--sys-color-on-surface-variant) no-underline hover:text-(--sys-color-on-surface) ${TRANSITION} ${FOCUS_RING}`}
           >
             #
           </a>
@@ -149,7 +149,7 @@ export function Configurator({ spec }: { spec: ConfiguratorSpec }) {
         click target. Caption and control sit in one row so selects and
         checkboxes share the same baseline.
       */}
-      <div className="flex flex-wrap items-center gap-x-6 gap-y-2 border-b border-(--md-sys-color-outline-variant) px-6 py-4">
+      <div className="flex flex-wrap items-center gap-x-6 gap-y-2 border-b border-(--sys-color-outline-variant) px-6 py-4">
         {spec.controls.map((c) =>
           c.kind === "select" ? (
             <label key={c.name} className={`${MIN_TARGET} gap-3 ${LABEL}`}>
@@ -159,7 +159,7 @@ export function Configurator({ spec }: { spec: ConfiguratorSpec }) {
                 defaultValue={c.default}
                 onChange={(e) => set(c.name, e.target.value)}
                 aria-label={c.label}
-                className={`h-12 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline) bg-(--md-sys-color-surface) px-3 ${FOCUS_RING}`}
+                className={`h-12 rounded-(--sys-shape-corner-small) border border-(--sys-color-outline) bg-(--sys-color-surface) px-3 ${FOCUS_RING}`}
               >
                 {c.options.map((o) => (
                   <option key={o} value={o}>
@@ -181,7 +181,7 @@ export function Configurator({ spec }: { spec: ConfiguratorSpec }) {
                 data-knob={c.name}
                 defaultChecked={c.default}
                 onChange={(e) => set(c.name, e.target.checked)}
-                className={`size-5 shrink-0 cursor-pointer accent-(--md-sys-color-primary) ${FOCUS_RING}`}
+                className={`size-5 shrink-0 cursor-pointer accent-(--sys-color-primary) ${FOCUS_RING}`}
               />
             </label>
           ),
@@ -191,12 +191,12 @@ export function Configurator({ spec }: { spec: ConfiguratorSpec }) {
       <div className={STAGE}>{spec.render(values)}</div>
 
       <div className="flex flex-col">
-        <div className="flex items-center justify-between border-y border-(--md-sys-color-outline-variant) px-4 py-1">
+        <div className="flex items-center justify-between border-y border-(--sys-color-outline-variant) px-4 py-1">
           <span className={BODY}>Code</span>
           <CopyButton text={spec.code(values)} />
         </div>
         <pre
-          className={`m-0 overflow-x-auto bg-(--md-sys-color-surface-container-high) p-6 ${T_CODE} text-(--md-sys-color-on-surface)`}
+          className={`m-0 overflow-x-auto bg-(--sys-color-surface-container-high) p-6 ${T_CODE} text-(--sys-color-on-surface)`}
         >
           <code>{spec.code(values)}</code>
         </pre>

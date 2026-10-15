@@ -23,15 +23,15 @@ export const Route = createFileRoute("/changelog")({
   component: Changelog,
 });
 
-const INK = "text-(--md-sys-color-on-surface)";
-const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";
+const INK = "text-(--sys-color-on-surface)";
+const INK_SOFT = "text-(--sys-color-on-surface-variant)";
 
 /**
  * The one bump badge — every bump level wears the same neutral
  * `secondary-container` treatment (no per-level color semantics; the level
  * word is the information).
  */
-const BUMP_BADGE = `inline-flex h-8 items-center rounded-(--md-sys-shape-corner-full) bg-(--md-sys-color-secondary-container) px-3 ${T_LABEL} text-(--md-sys-color-on-secondary-container)`;
+const BUMP_BADGE = `inline-flex h-8 items-center rounded-(--sys-shape-corner-full) bg-(--sys-color-secondary-container) px-3 ${T_LABEL} text-(--sys-color-on-secondary-container)`;
 
 function Changelog() {
   return (

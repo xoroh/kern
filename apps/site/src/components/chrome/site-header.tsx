@@ -37,7 +37,7 @@ import { openSearch } from "./search-palette";
 import { VersionSelector } from "./version-selector";
 
 /** Brand mark + wordmark — the home link. */
-const BRAND = `flex shrink-0 items-center gap-2 rounded-(--md-sys-shape-corner-full) px-2 py-1 text-(--md-sys-color-on-surface) no-underline ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`;
+const BRAND = `flex shrink-0 items-center gap-2 rounded-(--sys-shape-corner-full) px-2 py-1 text-(--sys-color-on-surface) no-underline ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`;
 
 export function SiteHeader() {
   const { pathname } = useLocation();
@@ -61,12 +61,12 @@ export function SiteHeader() {
       <a href="/" aria-label="Kern home" className={BRAND}>
         <span
           aria-hidden="true"
-          className="flex size-10 items-center justify-center rounded-(--md-sys-shape-corner-large) bg-(--md-sys-color-primary) text-(--md-sys-color-on-primary)"
+          className="flex size-10 items-center justify-center rounded-(--sys-shape-corner-large) bg-(--sys-color-primary) text-(--sys-color-on-primary)"
         >
           <span className={T_SUB}>K</span>
         </span>
         <span className={T_SUB}>
-          Kern<span className="text-(--md-sys-color-primary)">.</span>
+          Kern<span className="text-(--sys-color-primary)">.</span>
         </span>
       </a>
 
@@ -105,7 +105,7 @@ export function SiteHeader() {
           onClick={openSearch}
           aria-label="Search (Command K)"
           className={cn(
-            `inline-flex h-12 min-w-12 cursor-pointer items-center justify-center gap-2 rounded-(--md-sys-shape-corner-full) border-0 bg-(--md-sys-color-surface-container-high) px-3 text-(--md-sys-color-on-surface-variant) hover:bg-(--md-sys-color-surface-container-highest) ${TRANSITION} sm:justify-start sm:px-4`,
+            `inline-flex h-12 min-w-12 cursor-pointer items-center justify-center gap-2 rounded-(--sys-shape-corner-full) border-0 bg-(--sys-color-surface-container-high) px-3 text-(--sys-color-on-surface-variant) hover:bg-(--sys-color-surface-container-highest) ${TRANSITION} sm:justify-start sm:px-4`,
             FOCUS_RING,
           )}
         >

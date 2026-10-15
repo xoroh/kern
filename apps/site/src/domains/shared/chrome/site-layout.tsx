@@ -61,7 +61,7 @@ function OnThisPageRail({ pathname }: { pathname: string }) {
   return (
     <nav aria-label="On this page" className="flex flex-col gap-2">
       <p
-        className={`m-0 ${T_LABEL} text-(--md-sys-color-on-surface-variant) uppercase`}
+        className={`m-0 ${T_LABEL} text-(--sys-color-on-surface-variant) uppercase`}
       >
         On this page
       </p>
@@ -70,7 +70,7 @@ function OnThisPageRail({ pathname }: { pathname: string }) {
           <li key={item.id} className="m-0 p-0">
             <a
               href={`#${item.id}`}
-              className={`block rounded-(--md-sys-shape-corner-full) px-3 py-1.5 ${T_BODY_SM} text-(--md-sys-color-on-surface-variant) no-underline hover:bg-(--md-sys-color-surface-container-high) hover:text-(--md-sys-color-on-surface) hover:underline`}
+              className={`block rounded-(--sys-shape-corner-full) px-3 py-1.5 ${T_BODY_SM} text-(--sys-color-on-surface-variant) no-underline hover:bg-(--sys-color-surface-container-high) hover:text-(--sys-color-on-surface) hover:underline`}
             >
               {item.text}
             </a>
@@ -95,9 +95,9 @@ function SectionToc({ pathname }: { pathname: string }) {
   }, [pathname]);
   if (items.length < 2) return null;
   return (
-    <details className="rounded-(--md-sys-shape-corner-large-increased) bg-(--md-sys-color-surface-container-low) px-4 py-3 2xl:hidden">
+    <details className="rounded-(--sys-shape-corner-large-increased) bg-(--sys-color-surface-container-low) px-4 py-3 2xl:hidden">
       <summary
-        className={`cursor-pointer ${T_LABEL} text-(--md-sys-color-on-surface-variant) uppercase`}
+        className={`cursor-pointer ${T_LABEL} text-(--sys-color-on-surface-variant) uppercase`}
       >
         On this page
       </summary>
@@ -106,7 +106,7 @@ function SectionToc({ pathname }: { pathname: string }) {
           <li key={item.id} className="m-0 p-0">
             <a
               href={`#${item.id}`}
-              className={`block py-1 ${T_BODY_SM} text-(--md-sys-color-secondary) no-underline hover:underline`}
+              className={`block py-1 ${T_BODY_SM} text-(--sys-color-secondary) no-underline hover:underline`}
             >
               {item.text}
             </a>
@@ -127,25 +127,33 @@ function SectionToc({ pathname }: { pathname: string }) {
  * row; the sidebars are `shrink-0` with independent `overflow-y-auto` inners.
  * The footer lives inside `main` so it scrolls with the content.
  *
- * Primary navigation stays in the pinned top header. The main
- * reading pane is rounded surface paper on a surface-container-low canvas;
- * section navigation remains on the canvas with no floating shadows.
- *
- * Below `lg` the sidebar is replaced by the hamburger + MobileDrawer (the
- * header owns that). Below `2xl` the right TOC is replaced by the `SectionToc`
- * disclosure. Exactly one navigation surface per viewport.
+ * When `fullHeight` or `fullScreen` is true, `main` does not scroll (`overflow-hidden`, no footer)
+ * allowing full-bleed workbench apps (like Playground) to handle their
+ * own internal pane-level scrolling without moving the outer page.
+ * When `fullScreen` is true, the site header is omitted so the app owns the entire screen.
  */
-export function SiteLayout({ children }: { children: ReactNode }) {
+export function SiteLayout({
+  children,
+  fullHeight = false,
+  fullScreen = false,
+}: {
+  children: ReactNode;
+  fullHeight?: boolean;
+  fullScreen?: boolean;
+}) {
   const { pathname } = useLocation();
-  const withSidebar = SIDEBAR_PREFIXES.some(
-    (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
-  );
-  const isComponents = pathname.startsWith("/components");
+  const isFullHeight = fullHeight || fullScreen;
+  const withSidebar =
+    !fullScreen &&
+    SIDEBAR_PREFIXES.some(
+      (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
+    );
+  const isComponents = !fullScreen && pathname.startsWith("/components");
   return (
     <>
       <a
         href="#main"
-        className={`sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded-(--md-sys-shape-corner-full) focus:bg-(--md-sys-color-primary) focus:px-4 focus:py-2 ${T_BODY_SM} focus:text-(--md-sys-color-on-primary) focus:no-underline`}
+        className={`sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded-(--sys-shape-corner-full) focus:bg-(--sys-color-primary) focus:px-4 focus:py-2 ${T_BODY_SM} focus:text-(--sys-color-on-primary) focus:no-underline`}
       >
         Skip to content
       </a>
@@ -153,11 +161,11 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           it is open. The palette itself renders outside them (below), so
           insetting the page never traps the dialog it is trying to show. */}
       <div
-        className="site-shell flex h-dvh bg-(--md-sys-color-surface-container-low)"
+        className="site-shell flex h-dvh bg-(--sys-color-surface-container-low)"
         data-chrome="content"
       >
         <div className="flex min-w-0 flex-1 flex-col">
-          <SiteHeader />
+          {!fullScreen ? <SiteHeader /> : null}
 
           {/* Body row — min-h-0 lets the content region shrink so overflow
             routes to `main`'s scroll container instead of expanding the shell. */}
@@ -173,17 +181,18 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               </aside>
             ) : null}
 
-            {/* Main — THE scroll container. The only `overflow-auto` in the shell. */}
+            {/* Main — THE scroll container. When isFullHeight is set, main fits exact height
+                without scrolling, and inner panes manage their own overflow-y-auto. */}
             <main
               id="main"
-              className={`site-main flex min-w-0 flex-1 flex-col overflow-auto ${withSidebar ? "site-main-docs" : ""}`}
+              className={`site-main flex min-w-0 flex-1 flex-col ${isFullHeight ? "h-full overflow-hidden" : "overflow-auto"} ${withSidebar ? "site-main-docs" : ""}`}
               tabIndex={-1}
             >
               {/* Tablet/phone fallback for the sidebar tree and TOC: these
                 live inside `main` so they scroll with the content. */}
               {withSidebar ? <SectionToc pathname={pathname} /> : null}
               {children}
-              <Footer />
+              {!isFullHeight ? <Footer /> : null}
             </main>
 
             {/* Right TOC — shrink-0, fixed width, independent scroll. */}

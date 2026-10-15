@@ -73,23 +73,23 @@ const COLUMNS: { label: string; links: { label: string; href: string }[] }[] = [
 ];
 
 const LINK =
-  "text-(--md-sys-color-on-surface-variant) no-underline hover:text-(--md-sys-color-on-surface)";
+  "text-(--sys-color-on-surface-variant) no-underline hover:text-(--sys-color-on-surface)";
 
 export function Footer() {
   return (
-    <footer className="site-footer mt-12 bg-(--md-sys-color-surface-container-low)">
+    <footer className="site-footer mt-12 bg-(--sys-color-surface-container-low)">
       <div className="mx-auto w-full max-w-[80rem] px-6 py-12 sm:px-8">
         {/* Brand block — the footer's own header, so the band reads as a
             closing statement rather than a link dump. */}
         <div className="mb-10 flex flex-col gap-2">
-          <p className={`m-0 ${T_SUB} text-(--md-sys-color-on-surface)`}>
-            Kern<span className="text-(--md-sys-color-primary)">.</span>{" "}
-            <span className="text-(--md-sys-color-on-surface-variant)">
+          <p className={`m-0 ${T_SUB} text-(--sys-color-on-surface)`}>
+            Kern<span className="text-(--sys-color-primary)">.</span>{" "}
+            <span className="text-(--sys-color-on-surface-variant)">
               by Xoroh
             </span>
           </p>
           <p
-            className={`m-0 max-w-[52ch] ${T_BODY} ${"text-(--md-sys-color-on-surface-variant)"}`}
+            className={`m-0 max-w-[52ch] ${T_BODY} ${"text-(--sys-color-on-surface-variant)"}`}
           >
             Components, tokens, and docs for web and native — from one source.
           </p>
@@ -98,7 +98,7 @@ export function Footer() {
           {COLUMNS.map((column) => (
             <nav key={column.label} aria-label={`Footer — ${column.label}`}>
               <p
-                className={`m-0 ${T_LABEL} text-(--md-sys-color-on-surface-variant) uppercase`}
+                className={`m-0 ${T_LABEL} text-(--sys-color-on-surface-variant) uppercase`}
               >
                 {column.label}
               </p>
@@ -115,12 +115,12 @@ export function Footer() {
           ))}
         </div>
         <div
-          className={`mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-(--md-sys-color-outline-variant) pt-6 ${T_BODY_SM}`}
+          className={`mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-(--sys-color-outline-variant) pt-6 ${T_BODY_SM}`}
         >
-          <p className="m-0 text-(--md-sys-color-on-surface-variant)">
+          <p className="m-0 text-(--sys-color-on-surface-variant)">
             Kern by Xoroh · {REPO_LICENSE} License
           </p>
-          <p className="m-0 text-(--md-sys-color-on-surface-variant)">
+          <p className="m-0 text-(--sys-color-on-surface-variant)">
             Components, tokens and docs from one source.
           </p>
         </div>

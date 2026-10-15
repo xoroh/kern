@@ -12,7 +12,7 @@ export const actionSheet: ComponentDoc = {
     package: "@xoroh/kern",
     nativePeer: "ActionSheet",
     variants: [],
-    // Ships `--md-sys-elevation-level1` (modal sheet; M3's "bottom sheet
+    // Ships `--sys-elevation-level1` (modal sheet; M3's "bottom sheet
     // (modal)" rests at level 1). No registry row is keyed under this slug, so
     // the claim is reported as unasserted — a registry gap, not a page gap.
     // Claimed level 1, but `kern-elevation.ts` has no row for this component,

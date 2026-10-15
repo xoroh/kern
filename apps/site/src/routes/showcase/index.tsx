@@ -100,14 +100,14 @@ function Showcase() {
                 onClick={() => setCategory(c)}
                 aria-pressed={active}
                 className={cn(
-                  "relative inline-flex h-8 cursor-pointer items-center gap-2 rounded-(--md-sys-shape-corner-small) border select-none after:absolute after:-inset-y-2 after:inset-x-0 after:content-['']",
+                  "relative inline-flex h-8 cursor-pointer items-center gap-2 rounded-(--sys-shape-corner-small) border select-none after:absolute after:-inset-y-2 after:inset-x-0 after:content-['']",
                   T_LABEL_LG,
                   STATE_LAYERS,
                   TRANSITION,
                   FOCUS_RING,
                   active
-                    ? "border-transparent bg-(--md-sys-color-secondary-container) px-2 text-(--md-sys-color-on-secondary-container)"
-                    : "border-(--md-sys-color-outline-variant) px-4 text-(--md-sys-color-on-surface-variant)",
+                    ? "border-transparent bg-(--sys-color-secondary-container) px-2 text-(--sys-color-on-secondary-container)"
+                    : "border-(--sys-color-outline-variant) px-4 text-(--sys-color-on-surface-variant)",
                 )}
               >
                 {active ? <Icon name="check" size={18} /> : null}
@@ -143,7 +143,7 @@ function Showcase() {
                 </div>
                 <div className="flex items-center gap-2">
                   <code
-                    className={`inline-flex items-center rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-surface-container-high) px-3 py-1.5 ${T_CODE} ${INK}`}
+                    className={`inline-flex items-center rounded-(--sys-shape-corner-small) bg-(--sys-color-surface-container-high) px-3 py-1.5 ${T_CODE} ${INK}`}
                   >
                     {installCommand(view.entry.name)}
                   </code>
@@ -173,7 +173,7 @@ function Showcase() {
             {STILL_PLANNED.map((item) => (
               <li
                 key={item.title}
-                className="flex flex-col gap-1 rounded-(--md-sys-shape-corner-large) border border-(--md-sys-color-outline-variant) p-4"
+                className="flex flex-col gap-1 rounded-(--sys-shape-corner-large) border border-(--sys-color-outline-variant) p-4"
               >
                 <p className={`m-0 ${T_BODY} ${INK}`}>
                   <strong>{item.title}</strong> — planned, not yet built.
@@ -187,7 +187,7 @@ function Showcase() {
             live under{" "}
             <Link
               to="/patterns"
-              className="text-(--md-sys-color-secondary) no-underline hover:underline"
+              className="text-(--sys-color-secondary) no-underline hover:underline"
             >
               /patterns
             </Link>

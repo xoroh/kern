@@ -14,7 +14,7 @@ export const alertDialog: ComponentDoc = {
     nativePeer: "AlertDialog",
     variants: [],
     // M3 "dialogs (modal)" rests at level 3; the web counterpart ships
-    // `--md-sys-elevation-level3` to match. Asserted against the row.
+    // `--sys-elevation-level3` to match. Asserted against the row.
     elevation: 3,
   },
   parts: ["AlertDialog"],

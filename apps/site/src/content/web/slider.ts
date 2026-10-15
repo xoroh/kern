@@ -67,20 +67,20 @@ export const slider: ComponentDoc = {
     {
       element: "Active track",
       state: "resting",
-      token: "md.comp.slider.active-track-color",
-      value: "--md-sys-color-primary, full shape",
+      token: "comp.slider.active-track-color",
+      value: "--sys-color-primary, full shape",
     },
     {
       element: "Inactive track",
       state: "resting",
-      token: "md.comp.slider.inactive-track-color",
-      value: "--md-sys-color-surface-container-highest",
+      token: "comp.slider.inactive-track-color",
+      value: "--sys-color-surface-container-highest",
     },
     {
       element: "Handle",
       state: "resting",
-      token: "md.comp.slider.handle-color",
-      value: "--md-sys-color-primary, full shape",
+      token: "comp.slider.handle-color",
+      value: "--sys-color-primary, full shape",
     },
   ],
   faq: [

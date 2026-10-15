@@ -1,7 +1,7 @@
 /**
  * The site's typography, resolved from the kern type scale.
  *
- * Every role resolves to `--md-sys-typescale-<role>-*`, so type is GENERATED
+ * Every role resolves to `--sys-typescale-<role>-*`, so type is GENERATED
  * rather than typed. `scripts/check-typescale.mjs` rejects any ad-hoc
  * `text-*` / `font-*` / `tracking-*` / `leading-*` utility in rendered source
  * — the page that teaches the type scale must use it.
@@ -18,11 +18,11 @@
 
 const ts = (role: string) =>
   [
-    `[font-family:var(--md-sys-typescale-${role}-font-family)]`,
-    `[font-size:var(--md-sys-typescale-${role}-font-size)]`,
-    `[font-weight:var(--md-sys-typescale-${role}-font-weight)]`,
-    `[line-height:var(--md-sys-typescale-${role}-line-height)]`,
-    `[letter-spacing:var(--md-sys-typescale-${role}-letter-spacing)]`,
+    `[font-family:var(--sys-typescale-${role}-font-family)]`,
+    `[font-size:var(--sys-typescale-${role}-font-size)]`,
+    `[font-weight:var(--sys-typescale-${role}-font-weight)]`,
+    `[line-height:var(--sys-typescale-${role}-line-height)]`,
+    `[letter-spacing:var(--sys-typescale-${role}-letter-spacing)]`,
   ].join(" ");
 
 /** Page title — the one h1. */

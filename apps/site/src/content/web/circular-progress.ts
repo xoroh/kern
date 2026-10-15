@@ -28,13 +28,13 @@ export const circularProgress: ComponentDoc = {
     {
       element: "Ring",
       state: "resting",
-      token: "md.comp.circular-progress",
+      token: "comp.circular-progress",
       value: "48px, 8.333% arc, primary",
     },
     {
       element: "Four-color cycle",
       state: "resting",
-      token: "md.comp.circular-progress.four-color",
+      token: "comp.circular-progress.four-color",
       value: "primary, primary-container, tertiary, tertiary-container over 5.332s",
     },
   ],

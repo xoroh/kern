@@ -155,7 +155,7 @@ function TokensPage() {
               </span>
               <div
                 aria-hidden="true"
-                className="h-4 rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-primary)"
+                className="h-4 rounded-(--sys-shape-corner-small) bg-(--sys-color-primary)"
                 style={{ width: String(leaf.value) }}
               />
               <span className={`font-mono ${T_LABEL} ${F_INK_SOFT}`}>
@@ -304,7 +304,7 @@ function ColorPage() {
           {COLOR_GROUPS.map((band) => (
             <div key={band.group} className="mt-6">
               <div
-                className={`mb-2 flex items-baseline gap-2 ${band.isKern ? "border-l-4 border-(--md-sys-color-tertiary) pl-3" : ""}`}
+                className={`mb-2 flex items-baseline gap-2 ${band.isKern ? "border-l-4 border-(--sys-color-tertiary) pl-3" : ""}`}
               >
                 <h3
                   className={`m-0 ${T_SMALL_TITLE} ${F_INK}`}
@@ -317,7 +317,7 @@ function ColorPage() {
                 </span>
               </div>
               <div
-                className={`grid grid-cols-1 gap-2 sm:grid-cols-2 ${band.isKern ? "rounded-(--md-sys-shape-corner-medium) bg-(--md-sys-color-tertiary-container)/15 p-2" : ""}`}
+                className={`grid grid-cols-1 gap-2 sm:grid-cols-2 ${band.isKern ? "rounded-(--sys-shape-corner-medium) bg-(--sys-color-tertiary-container)/15 p-2" : ""}`}
               >
                 {band.roles.map((role) => (
                   <MatrixRow key={role.name} role={role} />
@@ -368,7 +368,7 @@ function ColorPage() {
               className={`${F_CARD} flex items-center gap-3 p-3`}
             >
               <div
-                className="h-10 w-14 shrink-0 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant)"
+                className="h-10 w-14 shrink-0 rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant)"
                 style={{ background: a.srgb }}
                 aria-hidden="true"
               />
@@ -403,7 +403,7 @@ function ColorPage() {
                   <div
                     role="img"
                     aria-label={`${ramp.name} ramp, ${ramp.steps.length} steps light to dark`}
-                    className="flex overflow-hidden rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant)"
+                    className="flex overflow-hidden rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant)"
                   >
                     {ramp.steps.map((s) => (
                       <div
@@ -435,10 +435,10 @@ function MatrixRow({ role }: { role: ColorRole }) {
   const other: Mode = mode === "light" ? "dark" : "light";
   return (
     <div
-      className={`${F_CARD} flex items-center gap-3 p-3 ${role.kernExtra ? "border-l-4 border-(--md-sys-color-tertiary)" : ""}`}
+      className={`${F_CARD} flex items-center gap-3 p-3 ${role.kernExtra ? "border-l-4 border-(--sys-color-tertiary)" : ""}`}
     >
       <div
-        className="h-10 w-14 shrink-0 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant)"
+        className="h-10 w-14 shrink-0 rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant)"
         style={{ background: roleVar(role.name) }}
         aria-hidden="true"
       />
@@ -456,7 +456,7 @@ function MatrixRow({ role }: { role: ColorRole }) {
       </div>
       {role.kernExtra ? (
         <span
-          className={`ml-auto shrink-0 rounded-full bg-(--md-sys-color-tertiary-container) px-2 py-0.5 ${T_LABEL} text-(--md-sys-color-on-tertiary-container)`}
+          className={`ml-auto shrink-0 rounded-full bg-(--sys-color-tertiary-container) px-2 py-0.5 ${T_LABEL} text-(--sys-color-on-tertiary-container)`}
         >
           kern
         </span>
@@ -483,7 +483,7 @@ function PairingSample({
         {verdict} — {ink} on {fill}
       </span>
       <div
-        className="rounded-(--md-sys-shape-corner-small) p-3"
+        className="rounded-(--sys-shape-corner-small) p-3"
         style={{ background: roleVar(fill), color: roleVar(ink) }}
       >
         The quick brown fox
@@ -507,7 +507,7 @@ function SlotCard({ slot }: { slot: SurfaceSlot }) {
         </h3>
         {slot.kernExtra ? (
           <span
-            className={`shrink-0 rounded-full bg-(--md-sys-color-tertiary-container) px-2 py-0.5 ${T_LABEL} text-(--md-sys-color-on-tertiary-container)`}
+            className={`shrink-0 rounded-full bg-(--sys-color-tertiary-container) px-2 py-0.5 ${T_LABEL} text-(--sys-color-on-tertiary-container)`}
           >
             kern
           </span>
@@ -518,7 +518,7 @@ function SlotCard({ slot }: { slot: SurfaceSlot }) {
         {slot.fills.map((fill) => (
           <div
             key={fill}
-            className="flex min-w-36 flex-1 items-center gap-2 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant) p-2"
+            className="flex min-w-36 flex-1 items-center gap-2 rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant) p-2"
             style={{
               background: roleVar(fill),
               color: slot.ink ? roleVar(slot.ink) : undefined,
@@ -576,11 +576,11 @@ function SceneCard({ scene }: { scene: UsageScene }) {
         {scene.title}
       </h3>
       <div
-        className="flex flex-col gap-2 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant) p-3"
+        className="flex flex-col gap-2 rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant) p-3"
         style={{ background: roleVar(scene.backdrop) }}
       >
         <div
-          className="flex flex-col gap-2 rounded-(--md-sys-shape-corner-small) p-3"
+          className="flex flex-col gap-2 rounded-(--sys-shape-corner-small) p-3"
           style={{
             background: roleVar(scene.panel),
             color: roleVar(scene.panelInk),
@@ -591,7 +591,7 @@ function SceneCard({ scene }: { scene: UsageScene }) {
           </span>
           <span className={`m-0 ${T_BODY_SM}`}>The quick brown fox</span>
           <span
-            className={`self-start rounded-(--md-sys-shape-corner-full) px-3 py-1 ${T_LABEL}`}
+            className={`self-start rounded-(--sys-shape-corner-full) px-3 py-1 ${T_LABEL}`}
             style={{
               background: roleVar(scene.accent),
               color: roleVar(scene.accentInk),
@@ -739,7 +739,7 @@ function ShapePage() {
           {SHAPE.map((leaf) => (
             <div key={leaf.key} className="flex flex-col items-center gap-2">
               <div
-                className="h-16 w-16 border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-primary-container)"
+                className="h-16 w-16 border border-(--sys-color-outline-variant) bg-(--sys-color-primary-container)"
                 style={{ borderRadius: String(leaf.value) }}
                 aria-hidden="true"
               />
@@ -848,9 +848,9 @@ function MotionPage() {
                   {String(leaf.value)} · {duration}
                 </span>
               </div>
-              <div className="relative mt-2 h-6 rounded-(--md-sys-shape-corner-full) bg-(--md-sys-color-surface-container-highest)">
+              <div className="relative mt-2 h-6 rounded-(--sys-shape-corner-full) bg-(--sys-color-surface-container-highest)">
                 <div
-                  className="kern-f-march absolute top-0 h-6 w-6 rounded-full bg-(--md-sys-color-primary)"
+                  className="kern-f-march absolute top-0 h-6 w-6 rounded-full bg-(--sys-color-primary)"
                   style={{
                     animationName: "kern-f-march",
                     animationDuration: duration,
@@ -941,11 +941,11 @@ function SpringTrack({
   return (
     <div
       ref={trackRef}
-      className="relative mt-2 h-6 rounded-(--md-sys-shape-corner-full) bg-(--md-sys-color-surface-container-highest)"
+      className="relative mt-2 h-6 rounded-(--sys-shape-corner-full) bg-(--sys-color-surface-container-highest)"
     >
       <div
         ref={dotRef}
-        className="absolute top-0 h-6 w-6 rounded-full bg-(--md-sys-color-primary)"
+        className="absolute top-0 h-6 w-6 rounded-full bg-(--sys-color-primary)"
         aria-hidden="true"
       />
     </div>
@@ -973,11 +973,11 @@ function StatesPage() {
                 {leaf.key}
               </span>
               <div className="flex items-center gap-3">
-                <div className="relative h-8 w-14 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface)">
+                <div className="relative h-8 w-14 rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant) bg-(--sys-color-surface)">
                   <div
                     className="absolute inset-0"
                     style={{
-                      backgroundColor: "var(--md-sys-color-primary)",
+                      backgroundColor: "var(--sys-color-primary)",
                       opacity:
                         Number.parseInt(String(leaf.value), 10) / 100 ||
                         undefined,
@@ -1016,7 +1016,7 @@ function StatesPage() {
             <strong className={F_INK}>Focus, 12%</strong> — tab or voice focus.
             Focus also needs a VISIBLE RING, and a ring is not an opacity: it is
             an outline treatment (a colour role plus a width), so it spends{" "}
-            <code>--md-sys-color-secondary</code> and never a state token. On
+            <code>--sys-color-secondary</code> and never a state token. On
             this site that ring is 2px with a 2px offset, the same ring every
             control in the chrome carries.
           </li>

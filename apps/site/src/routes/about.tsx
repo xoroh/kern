@@ -27,8 +27,8 @@ export const Route = createFileRoute("/about")({
   component: About,
 });
 
-const INK = "text-(--md-sys-color-on-surface)";
-const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";
+const INK = "text-(--sys-color-on-surface)";
+const INK_SOFT = "text-(--sys-color-on-surface-variant)";
 
 function About() {
   return (

@@ -76,25 +76,25 @@ export const dialog: ComponentDoc = {
     {
       element: "Container",
       state: "resting",
-      token: "md.comp.dialog.container",
+      token: "comp.dialog.container",
       value: "surface-container-high, 28px, 280-560px, 24px padding",
     },
     {
       element: "Headline",
       state: "resting",
-      token: "md.comp.dialog.headline",
+      token: "comp.dialog.headline",
       value: "on-surface, headline-small 24px/32px",
     },
     {
       element: "Supporting text",
       state: "resting",
-      token: "md.comp.dialog.supporting",
+      token: "comp.dialog.supporting",
       value: "on-surface-variant, body-medium",
     },
     {
       element: "Scrim",
       state: "resting",
-      token: "md.sys.color.scrim",
+      token: "sys.color.scrim",
       value: "32%",
     },
   ],
@@ -111,7 +111,7 @@ export const dialog: ComponentDoc = {
   customization: {
     supported: [
       "`className` on every part, merged after the part's own classes.",
-      "Width is `--md-sys-shape-corner-medium`-shaped and capped so it never spans the viewport; override the width with `className` on `DialogContent`.",
+      "Width is `--sys-shape-corner-medium`-shaped and capped so it never spans the viewport; override the width with `className` on `DialogContent`.",
       "The surface, outline and elevation all come from system roles, so a theme moves the dialog with everything else.",
     ],
     notSupported: [

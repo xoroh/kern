@@ -38,13 +38,13 @@ export const textarea: ComponentDoc = {
     {
       element: "Container",
       state: "resting",
-      token: "md.comp.outlined-text-field.container-shape",
+      token: "comp.outlined-text-field.container-shape",
       value: "corner-extra-small 4px, 1px outline",
     },
     {
       element: "Input text",
       state: "resting",
-      token: "md.sys.typescale.body-large",
+      token: "sys.typescale.body-large",
       value: "16px / 24px, body-large",
     },
   ],

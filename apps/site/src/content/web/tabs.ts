@@ -69,25 +69,25 @@ export const tabs: ComponentDoc = {
     {
       element: "Container",
       state: "resting",
-      token: "md.comp.primary-tab.container",
+      token: "comp.primary-tab.container",
       value: "surface, 48px, no rounding",
     },
     {
       element: "Active indicator",
       state: "resting",
-      token: "md.comp.primary-tab.active-indicator",
+      token: "comp.primary-tab.active-indicator",
       value: "primary, 3px, (3px 3px 0 0)",
     },
     {
       element: "Active label",
       state: "resting",
-      token: "md.comp.primary-tab.active-label",
+      token: "comp.primary-tab.active-label",
       value: "primary, title-small",
     },
     {
       element: "Inactive label",
       state: "hover",
-      token: "md.comp.primary-tab.inactive-hover",
+      token: "comp.primary-tab.inactive-hover",
       value: "on-surface + 8% layer",
     },
   ],
@@ -100,7 +100,7 @@ export const tabs: ComponentDoc = {
   customization: {
     supported: [
       "`className` on every part, merged after the part's own classes.",
-      "The selected indicator and label colour come from `--md-sys-color-primary`, so a theme retints every tab strip.",
+      "The selected indicator and label colour come from `--sys-color-primary`, so a theme retints every tab strip.",
       "Selected and disabled states are exposed as `data-selected` and `data-disabled`, so a stylesheet can restyle them without new props.",
     ],
     notSupported: [

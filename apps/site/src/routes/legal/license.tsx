@@ -30,8 +30,8 @@ export const Route = createFileRoute("/legal/license")({
   component: License,
 });
 
-const INK = "text-(--md-sys-color-on-surface)";
-const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";
+const INK = "text-(--sys-color-on-surface)";
+const INK_SOFT = "text-(--sys-color-on-surface-variant)";
 
 function License() {
   return (
@@ -59,12 +59,12 @@ function License() {
             <thead>
               <tr>
                 <th
-                  className={`border-b border-(--md-sys-color-outline-variant) py-2 pr-4 text-left ${T_LABEL} ${INK_SOFT}`}
+                  className={`border-b border-(--sys-color-outline-variant) py-2 pr-4 text-left ${T_LABEL} ${INK_SOFT}`}
                 >
                   Unit
                 </th>
                 <th
-                  className={`border-b border-(--md-sys-color-outline-variant) py-2 text-left ${T_LABEL} ${INK_SOFT}`}
+                  className={`border-b border-(--sys-color-outline-variant) py-2 text-left ${T_LABEL} ${INK_SOFT}`}
                 >
                   License
                 </th>
@@ -74,12 +74,12 @@ function License() {
               {PACKAGE_LICENSES.map((row) => (
                 <tr key={row.file}>
                   <td
-                    className={`border-b border-(--md-sys-color-outline-variant) py-2 pr-4 ${T_CODE} ${INK}`}
+                    className={`border-b border-(--sys-color-outline-variant) py-2 pr-4 ${T_CODE} ${INK}`}
                   >
                     {row.label}
                   </td>
                   <td
-                    className={`border-b border-(--md-sys-color-outline-variant) py-2 ${INK_SOFT}`}
+                    className={`border-b border-(--sys-color-outline-variant) py-2 ${INK_SOFT}`}
                   >
                     {row.license}
                   </td>
@@ -94,7 +94,7 @@ function License() {
             Full text
           </h2>
           <pre
-            className={`m-0 overflow-x-auto rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-surface-container-low) p-5 font-mono ${T_BODY_SM} ${INK_SOFT} whitespace-pre-wrap`}
+            className={`m-0 overflow-x-auto rounded-(--sys-shape-corner-small) bg-(--sys-color-surface-container-low) p-5 font-mono ${T_BODY_SM} ${INK_SOFT} whitespace-pre-wrap`}
           >
             {LICENSE_TEXT}
           </pre>

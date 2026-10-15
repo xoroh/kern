@@ -184,7 +184,7 @@ function M3Hub() {
             {COLOR_ROLES.slice(0, 12).map((role) => (
               <div key={role.name} className="flex flex-col gap-1">
                 <div
-                  className="h-10 w-20 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant)"
+                  className="h-10 w-20 rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant)"
                   style={{ background: roleVar(role.name) }}
                   aria-hidden="true"
                 />

@@ -16,7 +16,7 @@ export const snackbar: ComponentDoc = {
     // No variant axis. The inverse-surface treatment is the whole look.
     variants: [],
     // kern's own decision. M3's component elevation table does not name a
-    // snackbar. The surface ships `--md-sys-elevation-level2` and the choice is
+    // snackbar. The surface ships `--sys-elevation-level2` and the choice is
     // registered as K6. See Deviations.
     elevation: 2,
   },
@@ -93,19 +93,19 @@ export const snackbar: ComponentDoc = {
     {
       element: "Container",
       state: "resting",
-      token: "md.comp.snackbar.container",
+      token: "comp.snackbar.container",
       value: "inverse-surface, 4px, level3",
     },
     {
       element: "Supporting text",
       state: "resting",
-      token: "md.comp.snackbar.supporting",
+      token: "comp.snackbar.supporting",
       value: "inverse-on-surface",
     },
     {
       element: "Action",
       state: "resting",
-      token: "md.comp.snackbar.action",
+      token: "comp.snackbar.action",
       value: "inverse-primary",
     },
   ],
@@ -118,7 +118,7 @@ export const snackbar: ComponentDoc = {
   customization: {
     supported: [
       "`className` on every part, merged after the part's own classes.",
-      "The inverse surface — `--md-sys-color-inverse-surface` on `--md-sys-color-inverse-on-surface` — is what makes it read as floating above the page rather than part of it.",
+      "The inverse surface — `--sys-color-inverse-surface` on `--sys-color-inverse-on-surface` — is what makes it read as floating above the page rather than part of it.",
       "Round corners and height are system tokens, so a theme moves every snackbar at once.",
     ],
     notSupported: [

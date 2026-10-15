@@ -36,7 +36,7 @@ export const Route = createFileRoute("/components/mobile/")({
   component: MobileComponents,
 });
 
-const STAT = `inline-flex items-center rounded-(--md-sys-shape-corner-full) border border-(--md-sys-color-outline) px-3 py-1 ${T_LABEL} ${INK_SOFT}`;
+const STAT = `inline-flex items-center rounded-(--sys-shape-corner-full) border border-(--sys-color-outline) px-3 py-1 ${T_LABEL} ${INK_SOFT}`;
 
 function MobileComponents() {
   const rows = componentsOn("mobile");
@@ -72,7 +72,7 @@ function MobileComponents() {
         </header>
 
         {unaccounted.length > 0 ? (
-          <div className="flex flex-col gap-2 rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-error) bg-(--md-sys-color-error-container) p-4 text-(--md-sys-color-on-error-container)">
+          <div className="flex flex-col gap-2 rounded-(--sys-shape-corner-medium) border border-(--sys-color-error) bg-(--sys-color-error-container) p-4 text-(--sys-color-on-error-container)">
             <h2
               id="neither-previewed-nor-explained"
               className={`m-0 ${T_SECTION}`}

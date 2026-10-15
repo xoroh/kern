@@ -17,7 +17,7 @@ export const drawer: ComponentDoc = {
     // pointing at a near-neighbour.
     nativePeer: "none",
     variants: [],
-    // Conformant: `shadow-(--md-sys-elevation-level1)`, matching M3's
+    // Conformant: `shadow-(--sys-elevation-level1)`, matching M3's
     // `navigation drawer (modal)` row at level 1. It sits with kern's other
     // modal surfaces — Sheet, SnapSheet, EntitySheet and the picker sheet all
     // ship level 1 — because it is the same kind of surface: bottom-anchored,
@@ -76,13 +76,13 @@ export const drawer: ComponentDoc = {
     {
       element: "Container",
       state: "resting",
-      token: "md.comp.sheet.container",
+      token: "comp.sheet.container",
       value: "surface-container-low, 28px leading edge, level3",
     },
     {
       element: "Scrim",
       state: "resting",
-      token: "md.sys.color.scrim",
+      token: "sys.color.scrim",
       value: "32%",
     },
   ],
@@ -95,7 +95,7 @@ export const drawer: ComponentDoc = {
   customization: {
     supported: [
       "`className` on every part, merged after the part's own classes.",
-      "The top corners are `--md-sys-shape-corner-extra-large`; the panel is otherwise flush to the bottom edge.",
+      "The top corners are `--sys-shape-corner-extra-large`; the panel is otherwise flush to the bottom edge.",
       "Height is capped so the drawer never covers the whole screen; override with `className` on `DrawerContent` when a taller panel is genuinely needed.",
     ],
     notSupported: [

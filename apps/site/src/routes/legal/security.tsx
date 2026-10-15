@@ -30,8 +30,8 @@ export const Route = createFileRoute("/legal/security")({
   component: Security,
 });
 
-const INK = "text-(--md-sys-color-on-surface)";
-const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";
+const INK = "text-(--sys-color-on-surface)";
+const INK_SOFT = "text-(--sys-color-on-surface-variant)";
 const REPO = "https://github.com/xoroh/kern";
 const POLICY = `${REPO}/blob/main/SECURITY.md`;
 

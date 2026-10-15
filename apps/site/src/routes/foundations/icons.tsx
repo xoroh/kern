@@ -144,13 +144,13 @@ function Icons() {
               <Icon name="check" size={24} />
               inherits the text ink
             </span>
-            <span className="flex items-center gap-2 text-(--md-sys-color-primary)">
+            <span className="flex items-center gap-2 text-(--sys-color-primary)">
               <Icon name="check" size={24} />
-              var(--md-sys-color-primary)
+              var(--sys-color-primary)
             </span>
-            <span className="flex items-center gap-2 text-(--md-sys-color-error)">
+            <span className="flex items-center gap-2 text-(--sys-color-error)">
               <Icon name="check" size={24} />
-              var(--md-sys-color-error)
+              var(--sys-color-error)
             </span>
           </div>
         </section>

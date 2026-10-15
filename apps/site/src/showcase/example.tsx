@@ -52,7 +52,7 @@ export type ExampleSpec = {
  */
 const STAGE = `flex flex-wrap items-center justify-center gap-4 p-8 ${STAGE_TOKEN}`;
 
-const BODY = `text-(--md-sys-color-on-surface-variant) ${T_BODY_SM}`;
+const BODY = `text-(--sys-color-on-surface-variant) ${T_BODY_SM}`;
 
 /**
  * One example: title, description, and the Preview/Code tabs.
@@ -99,10 +99,10 @@ export function Example({ spec }: { spec: ExampleSpec }) {
 
   return (
     <figure className={`${CARD} m-0 flex flex-col overflow-hidden`}>
-      <figcaption className="flex flex-col gap-1 border-b border-(--md-sys-color-outline-variant) px-6 py-4">
+      <figcaption className="flex flex-col gap-1 border-b border-(--sys-color-outline-variant) px-6 py-4">
         <h3
           id={`example-${spec.id}`}
-          className={`m-0 ${T_LEAD} text-(--md-sys-color-on-surface)`}
+          className={`m-0 ${T_LEAD} text-(--sys-color-on-surface)`}
         >
           {spec.title}
           {/*
@@ -114,7 +114,7 @@ export function Example({ spec }: { spec: ExampleSpec }) {
             href={`#example-${spec.id}`}
             aria-label={`Permalink to ${spec.title}`}
             title="Permalink to this example"
-            className={`ml-2 inline-flex items-center text-(--md-sys-color-on-surface-variant) no-underline hover:text-(--md-sys-color-on-surface) ${TRANSITION} ${FOCUS_RING}`}
+            className={`ml-2 inline-flex items-center text-(--sys-color-on-surface-variant) no-underline hover:text-(--sys-color-on-surface) ${TRANSITION} ${FOCUS_RING}`}
           >
             #
           </a>
@@ -126,7 +126,7 @@ export function Example({ spec }: { spec: ExampleSpec }) {
         <div
           role="tablist"
           aria-label={`${spec.title} view`}
-          className="flex gap-1 border-b border-(--md-sys-color-outline-variant) px-4 pt-2"
+          className="flex gap-1 border-b border-(--sys-color-outline-variant) px-4 pt-2"
           onKeyDown={onTabKey}
         >
           {(
@@ -146,8 +146,8 @@ export function Example({ spec }: { spec: ExampleSpec }) {
               onClick={() => setTab(t.key)}
               className={`-mb-px inline-flex min-h-12 items-center border-b-[3px] px-3 ${T_BODY_SM} ${TRANSITION} ${
                 tab === t.key
-                  ? "border-(--md-sys-color-primary) text-(--md-sys-color-primary)"
-                  : "border-transparent text-(--md-sys-color-on-surface-variant) hover:text-(--md-sys-color-on-surface)"
+                  ? "border-(--sys-color-primary) text-(--sys-color-primary)"
+                  : "border-transparent text-(--sys-color-on-surface-variant) hover:text-(--sys-color-on-surface)"
               }`}
             >
               {t.label}
@@ -185,13 +185,13 @@ export function Example({ spec }: { spec: ExampleSpec }) {
             Repro is that module as a bug-report template. Buttons, so the
             copy-markdown export skips them like the rest of the demo chrome.
           */}
-            <div className="flex flex-wrap items-center justify-end gap-2 border-b border-(--md-sys-color-outline-variant) px-4 py-1">
+            <div className="flex flex-wrap items-center justify-end gap-2 border-b border-(--sys-color-outline-variant) px-4 py-1">
               <CopyButton text={demoExportSource(spec)} label="Export" />
               <CopyButton text={demoReproSource(spec)} label="Repro" />
               <CopyButton text={spec.code} />
             </div>
             <pre
-              className={`m-0 overflow-x-auto bg-(--md-sys-color-surface-container-high) p-6 ${T_CODE} text-(--md-sys-color-on-surface)`}
+              className={`m-0 overflow-x-auto bg-(--sys-color-surface-container-high) p-6 ${T_CODE} text-(--sys-color-on-surface)`}
             >
               <code>{spec.code}</code>
             </pre>

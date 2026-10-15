@@ -99,21 +99,21 @@ export function MobileDrawer({
         type="button"
         aria-label="Close navigation menu"
         onClick={onClose}
-        className="absolute inset-0 cursor-default border-0 bg-(--md-sys-color-scrim)/30 p-0"
+        className="absolute inset-0 cursor-default border-0 bg-(--sys-color-scrim)/30 p-0"
       />
       <div
         ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-label="Site navigation"
-        className="absolute inset-y-0 left-0 flex w-72 max-w-[85vw] flex-col gap-5 overflow-y-auto rounded-e-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) px-4 pt-3 pb-6 shadow-(--md-sys-elevation-level3)"
+        className="absolute inset-y-0 left-0 flex w-72 max-w-[85vw] flex-col gap-5 overflow-y-auto rounded-e-(--sys-shape-corner-extra-large) bg-(--sys-color-surface) px-4 pt-3 pb-6 shadow-(--sys-elevation-level3)"
       >
         <div className="flex items-center justify-between">
           <a
             href="/"
             onClick={onClose}
             aria-label="Kern home"
-            className="flex size-10 items-center justify-center rounded-full bg-(--md-sys-color-primary) text-(--md-sys-color-on-primary) no-underline"
+            className="flex size-10 items-center justify-center rounded-full bg-(--sys-color-primary) text-(--sys-color-on-primary) no-underline"
           >
             <span className={T_BODY_MD}>K</span>
           </a>
@@ -151,7 +151,7 @@ export function MobileDrawer({
 
         <nav aria-label="More from kern" className="flex flex-col gap-0.5">
           <p
-            className={`m-0 px-3 pb-1 ${T_LABEL} text-(--md-sys-color-on-surface-variant) uppercase`}
+            className={`m-0 px-3 pb-1 ${T_LABEL} text-(--sys-color-on-surface-variant) uppercase`}
           >
             More from kern
           </p>
@@ -164,7 +164,7 @@ export function MobileDrawer({
               }
               onClick={onClose}
               className={cn(
-                `min-h-12 rounded-(--md-sys-shape-corner-full) px-4 no-underline`,
+                `min-h-12 rounded-(--sys-shape-corner-full) px-4 no-underline`,
                 isActivePath(pathname, item.href)
                   ? `${PILL_ACTIVE} flex items-center`
                   : `${PILL_REST} flex items-center ${T_BODY_MD}`,
@@ -179,7 +179,7 @@ export function MobileDrawer({
               onClose();
               openSearch();
             }}
-            className={`flex min-h-12 w-full cursor-pointer items-center gap-2 rounded-(--md-sys-shape-corner-full) border-0 bg-transparent px-4 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant) hover:bg-(--md-sys-color-on-surface)/8 hover:text-(--md-sys-color-on-surface) ${FOCUS_RING}`}
+            className={`flex min-h-12 w-full cursor-pointer items-center gap-2 rounded-(--sys-shape-corner-full) border-0 bg-transparent px-4 ${T_BODY_MD} text-(--sys-color-on-surface-variant) hover:bg-(--sys-color-on-surface)/8 hover:text-(--sys-color-on-surface) ${FOCUS_RING}`}
           >
             <Icon name="search" size={18} />
             Search (⌘K)
@@ -199,7 +199,7 @@ export function MobileDrawer({
           </a>
           <a
             href="https://github.com/xoroh/kern"
-            className={`${T_BODY_MD} rounded-(--md-sys-shape-corner-full) px-3 py-3 text-center text-(--md-sys-color-on-surface-variant) no-underline hover:bg-(--md-sys-color-on-surface)/8`}
+            className={`${T_BODY_MD} rounded-(--sys-shape-corner-full) px-3 py-3 text-center text-(--sys-color-on-surface-variant) no-underline hover:bg-(--sys-color-on-surface)/8`}
           >
             GitHub
           </a>

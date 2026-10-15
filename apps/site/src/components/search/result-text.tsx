@@ -16,10 +16,10 @@ import {
 } from "../../domains/shared/systems/type-scale";
 import type { SearchEntry } from "../../systems/search";
 
-const INK = "text-(--md-sys-color-on-surface)";
-const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";
+const INK = "text-(--sys-color-on-surface)";
+const INK_SOFT = "text-(--sys-color-on-surface-variant)";
 const CHIP =
-  "inline-flex shrink-0 items-center whitespace-nowrap rounded-(--md-sys-shape-corner-full) border border-(--md-sys-color-outline) px-1.5 font-mono text-(--md-sys-color-on-surface-variant)";
+  "inline-flex shrink-0 items-center whitespace-nowrap rounded-(--sys-shape-corner-full) border border-(--sys-color-outline) px-1.5 font-mono text-(--sys-color-on-surface-variant)";
 
 /** Wraps query-substring matches in `<mark>` so the match cause is visible. */
 function highlighted(text: string, query: string): ReactNode {

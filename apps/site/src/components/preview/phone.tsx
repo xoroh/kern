@@ -42,8 +42,8 @@ const styles = StyleSheet.create({
   // only through KernThemeProvider below.
   frame: {
     ...FRAME,
-    borderColor: "var(--md-sys-color-outline-variant)",
-    backgroundColor: "var(--md-sys-color-surface)",
+    borderColor: "var(--sys-color-outline-variant)",
+    backgroundColor: "var(--sys-color-surface)",
   },
   screen: {
     padding: 16,

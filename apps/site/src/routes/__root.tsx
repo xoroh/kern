@@ -78,20 +78,20 @@ function NotFound() {
   // full-width: it is not a docs section, so no sidebar tree.
   return (
     <SiteLayout>
-      <div className="flex flex-1 flex-col items-center justify-center gap-4 bg-(--md-sys-color-surface-container) p-8 text-center">
+      <div className="flex flex-1 flex-col items-center justify-center gap-4 bg-(--sys-color-surface-container) p-8 text-center">
         <Kicker>404</Kicker>
-        <h1 className={`m-0 ${T_PAGE} text-(--md-sys-color-on-surface)`}>
+        <h1 className={`m-0 ${T_PAGE} text-(--sys-color-on-surface)`}>
           No such page
         </h1>
         <p
-          className={`m-0 max-w-[32rem] ${T_BODY} text-(--md-sys-color-on-surface-variant)`}
+          className={`m-0 max-w-[32rem] ${T_BODY} text-(--sys-color-on-surface-variant)`}
         >
           The component index is generated from the packages, so a page here
           means the export exists. This one does not.
         </p>
         <Link
           to="/components"
-          className={`inline-flex min-h-12 items-center justify-center rounded-(--md-sys-shape-corner-full) bg-(--md-sys-color-primary) px-4 ${T_LABEL_LG} text-(--md-sys-color-on-primary) no-underline ${FOCUS_RING}`}
+          className={`inline-flex min-h-12 items-center justify-center rounded-(--sys-shape-corner-full) bg-(--sys-color-primary) px-4 ${T_LABEL_LG} text-(--sys-color-on-primary) no-underline ${FOCUS_RING}`}
         >
           Browse components
         </Link>

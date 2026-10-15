@@ -47,7 +47,7 @@ import {
 } from "../../domains/shared/systems/ui";
 import { maturityForExports } from "../../systems/maturity";
 
-const CHIP = `inline-flex items-center rounded-(--md-sys-shape-corner-full) border border-(--md-sys-color-outline) px-2 py-0.5 ${T_LABEL}`;
+const CHIP = `inline-flex items-center rounded-(--sys-shape-corner-full) border border-(--sys-color-outline) px-2 py-0.5 ${T_LABEL}`;
 
 /**
  * Platform switcher — All / Web / Native, shared by the three gallery views.
@@ -75,7 +75,7 @@ export function PlatformSwitcher({
   return (
     <nav
       aria-label="Platform"
-      className="flex w-fit flex-wrap items-center gap-1 rounded-full bg-(--md-sys-color-surface-container) p-1"
+      className="flex w-fit flex-wrap items-center gap-1 rounded-full bg-(--sys-color-surface-container) p-1"
     >
       {items.map((item) => (
         <Link
@@ -83,10 +83,10 @@ export function PlatformSwitcher({
           to={item.href}
           aria-current={item.active ? "page" : undefined}
           className={cn(
-            `inline-flex min-h-12 items-center rounded-(--md-sys-shape-corner-full) px-5 no-underline ${T_LABEL_LG} ${TRANSITION} ${FOCUS_RING}`,
+            `inline-flex min-h-12 items-center rounded-(--sys-shape-corner-full) px-5 no-underline ${T_LABEL_LG} ${TRANSITION} ${FOCUS_RING}`,
             item.active
               ? `${PILL_ACTIVE}`
-              : `text-(--md-sys-color-on-surface-variant) ${STATE_LAYERS} hover:text-(--md-sys-color-on-surface)`,
+              : `text-(--sys-color-on-surface-variant) ${STATE_LAYERS} hover:text-(--sys-color-on-surface)`,
           )}
         >
           {item.label}
@@ -235,7 +235,7 @@ export function ComponentGallery({
           <a
             key={g.id}
             href={`#family-${g.id}`}
-            className={`inline-flex min-h-12 items-center rounded-(--md-sys-shape-corner-full) bg-(--md-sys-color-surface-container-low) px-4 no-underline ${T_LABEL_LG} text-(--md-sys-color-on-surface) ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`}
+            className={`inline-flex min-h-12 items-center rounded-(--sys-shape-corner-full) bg-(--sys-color-surface-container-low) px-4 no-underline ${T_LABEL_LG} text-(--sys-color-on-surface) ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`}
           >
             {FAMILY_GROUPS.find((x) => x.id === g.id)?.title} ({g.cards.length})
           </a>
@@ -324,8 +324,8 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
               className="flex h-full w-full flex-col items-center justify-center gap-2"
               aria-hidden="true"
             >
-              <div className="h-8 w-2/3 rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-surface-container-high)" />
-              <div className="h-8 w-1/2 rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-surface-container-high)" />
+              <div className="h-8 w-2/3 rounded-(--sys-shape-corner-small) bg-(--sys-color-surface-container-high)" />
+              <div className="h-8 w-1/2 rounded-(--sys-shape-corner-small) bg-(--sys-color-surface-container-high)" />
             </div>
           )
         ) : reason ? (
@@ -366,7 +366,7 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
             <Link
               to="/components/$platform/$component"
               params={{ platform: "web", component: card.slug }}
-              className={`${CHIP} no-underline text-(--md-sys-color-on-surface-variant) ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING} hover:text-(--md-sys-color-on-surface)`}
+              className={`${CHIP} no-underline text-(--sys-color-on-surface-variant) ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING} hover:text-(--sys-color-on-surface)`}
             >
               Web
             </Link>
@@ -375,7 +375,7 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
             <Link
               to="/components/$platform/$component"
               params={{ platform: "mobile", component: card.slug }}
-              className={`${CHIP} no-underline text-(--md-sys-color-on-surface-variant) ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING} hover:text-(--md-sys-color-on-surface)`}
+              className={`${CHIP} no-underline text-(--sys-color-on-surface-variant) ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING} hover:text-(--sys-color-on-surface)`}
             >
               Native
             </Link>

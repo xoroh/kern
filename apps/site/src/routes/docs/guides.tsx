@@ -84,11 +84,11 @@ function Guides() {
       <PageCard>
         <header className="flex flex-col gap-3">
           <Kicker>Docs / Guides</Kicker>
-          <h1 className={`m-0 ${T_PAGE} text-(--md-sys-color-on-surface)`}>
+          <h1 className={`m-0 ${T_PAGE} text-(--sys-color-on-surface)`}>
             Guides
           </h1>
           <p
-            className={`m-0 ${T_BODY} text-(--md-sys-color-on-surface-variant)`}
+            className={`m-0 ${T_BODY} text-(--sys-color-on-surface-variant)`}
           >
             {web} web exports and {mobile} native exports, under one naming law.
             These pages cover the rules that do not fit on a single component
@@ -98,7 +98,7 @@ function Guides() {
 
         <Step n={1} title="One component, two platforms">
           <p
-            className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
           >
             A component that exists on both platforms keeps its name and its
             variant axis, and differs only where the platform genuinely does.
@@ -110,7 +110,7 @@ function Guides() {
 
         <Step n={2} title="Deliberate asymmetries">
           <p
-            className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
           >
             Not every surface exists twice. M3 expresses transient messaging as{" "}
             <code>Snackbar</code>, so the native package ships that and stops.
@@ -123,7 +123,7 @@ function Guides() {
 
         <Step n={3} title="Icons: aliases over raw names">
           <p
-            className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
           >
             The semantic map is the unification table. Reach for an alias first;
             a raw glyph name is for the icon that has no agreed meaning yet.
@@ -134,7 +134,7 @@ function Guides() {
 
         <Step n={4} title="The icon gallery">
           <p
-            className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
           >
             Every count and name below is read from the icon package at build
             time. The grid paints the first 120 for server-render cost; the
@@ -145,7 +145,7 @@ function Guides() {
 
         <Step n={5} title="Plain HTML via CDN — no bundler">
           <p
-            className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
           >
             No JSX, no build step: the stylesheet is the published theme file,
             the import map pins one copy of React, and{" "}

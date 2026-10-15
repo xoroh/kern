@@ -296,7 +296,7 @@ export function CardDemo() {
         <Preview key={variant} label={`variant — ${variant}`}>
           <Card variant={variant} className="w-full max-w-56 p-6 text-left">
             <p className="m-0 font-medium">Card content</p>
-            <p className="m-0 mt-1 text-sm text-(--md-sys-color-on-surface-variant)">
+            <p className="m-0 mt-1 text-sm text-(--sys-color-on-surface-variant)">
               Cards group related content.
             </p>
           </Card>
@@ -378,7 +378,7 @@ export function SkeletonDemo() {
 export function ListItemDemo() {
   return (
     <Preview label="headline · supporting · leading · trailing" span={3}>
-      <ul className="w-full max-w-sm divide-y divide-(--md-sys-color-outline-variant)">
+      <ul className="w-full max-w-sm divide-y divide-(--sys-color-outline-variant)">
         <ListItem
           headline="Inbox"
           supporting="12 unread"
@@ -503,7 +503,7 @@ export function CircularProgressDemo() {
 export function PageLoaderDemo() {
   return (
     <Preview label="PageLoader — centred in-content loading surface" span={3}>
-      <div className="h-64 w-full overflow-hidden rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant)">
+      <div className="h-64 w-full overflow-hidden rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant)">
         <PageLoader label="Loading components" className="min-h-64" />
       </div>
     </Preview>
@@ -514,10 +514,10 @@ export function BootIndicatorDemo() {
   return (
     <Preview label="BootIndicator — tone surface · tone inverse" span={3}>
       <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2">
-        <div className="h-56 overflow-hidden rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant)">
+        <div className="h-56 overflow-hidden rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant)">
           <BootIndicator signature="Xoroh" className="min-h-56" />
         </div>
-        <div className="h-56 overflow-hidden rounded-(--md-sys-shape-corner-small)">
+        <div className="h-56 overflow-hidden rounded-(--sys-shape-corner-small)">
           <BootIndicator tone="inverse" className="min-h-56" />
         </div>
       </div>

@@ -21,15 +21,15 @@ import {
 import { PILL_ACTIVE, PILL_REST, TRANSITION } from "../shared/systems/ui";
 import { type BlockView, installCommand } from "./registry";
 
-const INK = "text-(--md-sys-color-on-surface)";
-const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";
-const LINK = "text-(--md-sys-color-secondary)";
+const INK = "text-(--sys-color-on-surface)";
+const INK_SOFT = "text-(--sys-color-on-surface-variant)";
+const LINK = "text-(--sys-color-secondary)";
 /**
  * Dependency chip: CARD's container expression (surface fill + outline-variant
  * hairline) at pill radius — same hairline as the cards around it, so a chip
  * never introduces a second, stronger stroke.
  */
-const CHIP = `inline-flex items-center rounded-(--md-sys-shape-corner-full) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface) px-3 py-1 ${T_CODE} ${INK}`;
+const CHIP = `inline-flex items-center rounded-(--sys-shape-corner-full) border border-(--sys-color-outline-variant) bg-(--sys-color-surface) px-3 py-1 ${T_CODE} ${INK}`;
 
 export function BlockViewer({
   view,
@@ -60,7 +60,7 @@ export function BlockViewer({
     <section className="flex flex-col gap-10">
       <header className="flex flex-col gap-3">
         <p
-          className={`m-0 ${T_LABEL} text-(--md-sys-color-on-surface-variant) uppercase`}
+          className={`m-0 ${T_LABEL} text-(--sys-color-on-surface-variant) uppercase`}
         >
           {view.entry.category}
         </p>
@@ -72,7 +72,7 @@ export function BlockViewer({
 
       <div className="flex flex-wrap items-center gap-2">
         <code
-          className={`inline-flex items-center gap-2 rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-surface-container-high) px-3 py-1.5 ${T_CODE} ${INK}`}
+          className={`inline-flex items-center gap-2 rounded-(--sys-shape-corner-small) bg-(--sys-color-surface-container-high) px-3 py-1.5 ${T_CODE} ${INK}`}
         >
           {installCommand(view.entry.name)}
         </code>
@@ -82,14 +82,14 @@ export function BlockViewer({
           the one outlined container; selected segment wears the selected
           pair, the rest carry the state layers.
         */}
-        <div className="ml-auto flex items-center gap-1 rounded-(--md-sys-shape-corner-full) border border-(--md-sys-color-outline-variant) p-0.5">
+        <div className="ml-auto flex items-center gap-1 rounded-(--sys-shape-corner-full) border border-(--sys-color-outline-variant) p-0.5">
           {(["desktop", "tablet", "phone"] as const).map((v) => (
             <button
               key={v}
               type="button"
               onClick={() => setViewport(v)}
               aria-pressed={viewport === v}
-              className={`inline-flex min-h-12 cursor-pointer items-center rounded-(--md-sys-shape-corner-full) px-4 ${T_LABEL_LG} ${TRANSITION} ${
+              className={`inline-flex min-h-12 cursor-pointer items-center rounded-(--sys-shape-corner-full) px-4 ${T_LABEL_LG} ${TRANSITION} ${
                 viewport === v ? PILL_ACTIVE : PILL_REST
               }`}
             >
@@ -127,7 +127,7 @@ export function BlockViewer({
       </div>
 
       <div
-        className={`mx-auto w-full transition-[max-width] ease-(--md-sys-motion-easing-standard) [transition-duration:var(--md-sys-motion-duration-short3)] ${viewportMax}`}
+        className={`mx-auto w-full transition-[max-width] ease-(--sys-motion-easing-standard) [transition-duration:var(--sys-motion-duration-short3)] ${viewportMax}`}
       >
         <Example spec={spec} />
       </div>

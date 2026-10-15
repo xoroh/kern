@@ -21,7 +21,7 @@ export const toggleGroup: ComponentDoc = {
     {
       id: "K3",
       spec: "Material 3 defines no tonal surface role. Its surface roles are the surface, surface-dim, surface-bright and the surface-container family.",
-      kern: "The group's container is painted with `--md-sys-color-surface-tonal`, a role kern adds beyond M3's 45.",
+      kern: "The group's container is painted with `--sys-color-surface-tonal`, a role kern adds beyond M3's 45.",
       why: "A segmented control needs a track that reads as a container rather than as content, and none of M3's surface-container roles is tuned for a pill-shaped track holding pressed states. The role is registered as K3 in the role inventory, so it is a declared addition to the legal role space rather than a colour invented in a stylesheet. It is the token that deviates; this is simply the component whose whole look depends on it.",
     },
   ],
@@ -40,7 +40,7 @@ export const toggleGroup: ComponentDoc = {
     supported: [
       "`className` on the root and on each item, merged after their own classes.",
       "Pressed state is `data-pressed` on each item, so the selected look is restylable without new props.",
-      "The track is `--md-sys-color-surface-tonal` and the pressed item is the primary roles — see Deviations for the track colour.",
+      "The track is `--sys-color-surface-tonal` and the pressed item is the primary roles — see Deviations for the track colour.",
     ],
     notSupported: [
       "There is no `orientation` prop. The track is a horizontal row; a vertical stack is the root's `className`.",

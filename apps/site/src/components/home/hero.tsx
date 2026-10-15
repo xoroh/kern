@@ -19,7 +19,7 @@ import {
 } from "../../domains/shared/systems/type-scale";
 import { Kicker } from "../chrome/kicker";
 
-const INK = "text-(--md-sys-color-on-primary-container)";
+const INK = "text-(--sys-color-on-primary-container)";
 
 /** A static Material-inspired rosette, painted entirely with semantic roles. */
 export function MaterialBloom() {
@@ -33,18 +33,18 @@ export function MaterialBloom() {
           rx="29"
           ry="64"
           transform={`rotate(${angle} 120 120)`}
-          fill="var(--md-sys-color-primary)"
+          fill="var(--sys-color-primary)"
         />
       ))}
       <circle
         cx="120"
         cy="120"
         r="41"
-        fill="var(--md-sys-color-tertiary-container)"
+        fill="var(--sys-color-tertiary-container)"
       />
       <path
         d="M101 120h38m-19-19v38"
-        stroke="var(--md-sys-color-on-tertiary-container)"
+        stroke="var(--sys-color-on-tertiary-container)"
         strokeWidth="3"
         strokeLinecap="round"
       />
@@ -117,7 +117,7 @@ export function Hero() {
           <h1 className={`my-6 ${T_HERO} ${INK}`}>
             Make it
             <br />
-            <span className="text-(--md-sys-color-primary)">feel right.</span>
+            <span className="text-(--sys-color-primary)">feel right.</span>
           </h1>
           <p className={`m-0 max-w-[38ch] text-pretty ${T_BODY} ${INK}`}>
             Thoughtful components. Expressive color. A shared foundation for

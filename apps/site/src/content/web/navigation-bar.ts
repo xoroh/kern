@@ -17,7 +17,7 @@ export const navigationBar: ComponentDoc = {
     // destination is active.
     variants: [],
     // M3's row "navigation bar" rests at level 2, and the bar ships
-    // `--md-sys-elevation-level2` to match.
+    // `--sys-elevation-level2` to match.
     elevation: 2,
   },
   parts: ["NavigationBar", "NavigationBarItem"],
@@ -61,25 +61,25 @@ export const navigationBar: ComponentDoc = {
     {
       element: "Bar",
       state: "resting",
-      token: "md.comp.navigation-bar.container",
+      token: "comp.navigation-bar.container",
       value: "80px, surface-container, level2",
     },
     {
       element: "Selected icon pill",
       state: "resting",
-      token: "md.comp.navigation-bar.selected-pill",
+      token: "comp.navigation-bar.selected-pill",
       value: "h-8 w-16, secondary-container, full",
     },
     {
       element: "Selected icon",
       state: "resting",
-      token: "md.comp.navigation-bar.selected-icon",
+      token: "comp.navigation-bar.selected-icon",
       value: "on-secondary-container, 24px",
     },
     {
       element: "Destination",
       state: "hover",
-      token: "md.sys.state.hover-state-layer-opacity",
+      token: "sys.state.hover-state-layer-opacity",
       value: "8% on-surface layer",
     },
   ],

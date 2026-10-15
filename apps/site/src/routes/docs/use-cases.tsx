@@ -31,10 +31,10 @@ export const Route = createFileRoute("/docs/use-cases")({
   component: UseCases,
 });
 
-const INK = "text-(--md-sys-color-on-surface)";
-const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";
+const INK = "text-(--sys-color-on-surface)";
+const INK_SOFT = "text-(--sys-color-on-surface-variant)";
 const CARD =
-  "rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-low)";
+  "rounded-(--sys-shape-corner-medium) border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container-low)";
 
 function H2({ id, children }: { id: string; children: React.ReactNode }) {
   return (

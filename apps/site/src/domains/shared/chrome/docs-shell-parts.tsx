@@ -35,23 +35,23 @@ const INTENT_STYLE: Record<
   { band: string; ink: string; label: string }
 > = {
   note: {
-    band: "bg-(--md-sys-color-surface-container-low)",
-    ink: "text-(--md-sys-color-on-surface)",
+    band: "bg-(--sys-color-surface-container-low)",
+    ink: "text-(--sys-color-on-surface)",
     label: "Note",
   },
   tip: {
-    band: "bg-(--md-sys-color-info-container)",
-    ink: "text-(--md-sys-color-on-info-container)",
+    band: "bg-(--sys-color-info-container)",
+    ink: "text-(--sys-color-on-info-container)",
     label: "Tip",
   },
   warning: {
-    band: "bg-(--md-sys-color-warning-container)",
-    ink: "text-(--md-sys-color-on-warning-container)",
+    band: "bg-(--sys-color-warning-container)",
+    ink: "text-(--sys-color-on-warning-container)",
     label: "Warning",
   },
   danger: {
-    band: "bg-(--md-sys-color-error-container)",
-    ink: "text-(--md-sys-color-on-error-container)",
+    band: "bg-(--sys-color-error-container)",
+    ink: "text-(--sys-color-on-error-container)",
     label: "Danger",
   },
 };
@@ -73,7 +73,7 @@ export function Admonition({
       // label is the native semantic, no ARIA role needed.
       aria-label={title ?? style.label}
       className={cn(
-        "flex flex-col gap-2 rounded-(--md-sys-shape-corner-large-increased) px-5 py-4",
+        "flex flex-col gap-2 rounded-(--sys-shape-corner-large-increased) px-5 py-4",
         style.band,
       )}
     >
@@ -146,11 +146,11 @@ export function PlatformTabs({
               onPick?.(tab.id);
             }}
             className={cn(
-              "inline-flex min-h-12 items-center rounded-(--md-sys-shape-corner-full) px-5 py-2 no-underline",
+              "inline-flex min-h-12 items-center rounded-(--sys-shape-corner-full) px-5 py-2 no-underline",
               T_LABEL_LG,
               isActive
-                ? "bg-(--md-sys-color-primary-container) text-(--md-sys-color-on-primary-container)"
-                : "bg-(--md-sys-color-surface-container-low) text-(--md-sys-color-on-surface-variant)",
+                ? "bg-(--sys-color-primary-container) text-(--sys-color-on-primary-container)"
+                : "bg-(--sys-color-surface-container-low) text-(--sys-color-on-surface-variant)",
             )}
           >
             {tab.label}
@@ -184,7 +184,7 @@ export function Breadcrumbs({
   return (
     <nav
       aria-label={label}
-      className={`flex flex-wrap items-center gap-2 ${T_BODY_SM} text-(--md-sys-color-on-surface-variant)`}
+      className={`flex flex-wrap items-center gap-2 ${T_BODY_SM} text-(--sys-color-on-surface-variant)`}
     >
       {items.map((crumb) => {
         const last = crumb.href === undefined;
@@ -196,12 +196,12 @@ export function Breadcrumbs({
             {crumb.href && !last ? (
               <a
                 href={crumb.href}
-                className="text-(--md-sys-color-on-surface-variant) no-underline hover:underline"
+                className="text-(--sys-color-on-surface-variant) no-underline hover:underline"
               >
                 {crumb.label}
               </a>
             ) : (
-              <span className="text-(--md-sys-color-on-surface)">
+              <span className="text-(--sys-color-on-surface)">
                 {crumb.label}
               </span>
             )}
@@ -235,12 +235,12 @@ export function Pagination({
   return (
     <nav
       aria-label={label}
-      className="flex items-stretch justify-between gap-4 border-t border-(--md-sys-color-outline-variant) pt-6"
+      className="flex items-stretch justify-between gap-4 border-t border-(--sys-color-outline-variant) pt-6"
     >
       {prev ? (
         <a
           href={prev.href}
-          className="flex-1 rounded-(--md-sys-shape-corner-large-increased) bg-(--md-sys-color-surface-container-low) p-5 text-(--md-sys-color-on-surface) no-underline hover:bg-(--md-sys-color-secondary-container)"
+          className="flex-1 rounded-(--sys-shape-corner-large-increased) bg-(--sys-color-surface-container-low) p-5 text-(--sys-color-on-surface) no-underline hover:bg-(--sys-color-secondary-container)"
         >
           <span className={T_BODY_SM}>← Previous</span>
           <span className="block">{prev.title}</span>
@@ -251,7 +251,7 @@ export function Pagination({
       {next ? (
         <a
           href={next.href}
-          className="flex-1 rounded-(--md-sys-shape-corner-large-increased) bg-(--md-sys-color-surface-container-low) p-5 text-right text-(--md-sys-color-on-surface) no-underline hover:bg-(--md-sys-color-secondary-container)"
+          className="flex-1 rounded-(--sys-shape-corner-large-increased) bg-(--sys-color-surface-container-low) p-5 text-right text-(--sys-color-on-surface) no-underline hover:bg-(--sys-color-secondary-container)"
         >
           <span className={T_BODY_SM}>Next →</span>
           <span className="block">{next.title}</span>

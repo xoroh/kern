@@ -16,7 +16,7 @@ export const extendedFab: ComponentDoc = {
     // No variant axis. Collapsed or expanded is state, not treatment.
     variants: [],
     // Material 3 places the "extended fab" at resting level 3, and the
-    // component ships `--md-sys-elevation-level3`.
+    // component ships `--sys-elevation-level3`.
     elevation: 3,
   },
   parts: ["ExtendedFab"],

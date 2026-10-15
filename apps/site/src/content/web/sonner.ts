@@ -18,7 +18,7 @@ export const sonner: ComponentDoc = {
     // backed by kern's status roles, not by M3's.
     variants: ["intent: info · success · warning · error"],
     // kern's own decision. M3's component elevation table names no sonner. The
-    // surface ships `--md-sys-elevation-level2` and the choice is registered
+    // surface ships `--sys-elevation-level2` and the choice is registered
     // as K6. See Deviations.
     elevation: 2,
   },

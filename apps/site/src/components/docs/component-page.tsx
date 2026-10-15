@@ -67,7 +67,7 @@ import { CopyMarkdownButton } from "../chrome/copy-markdown-button";
  * leading-relaxed), which meant the component reference contradicted the very
  * scale it documents — and it becomes reader-visible the moment the
  * Foundations type page lands beside it. kern ships all 30 styles as
- * --md-sys-typescale-* (150 vars: family/size/weight/spacing/line-height per
+ * --sys-typescale-* (150 vars: family/size/weight/spacing/line-height per
  * style, baseline + emphasized), so every role below resolves from a token.
  *
  * The role names are checked against the generated token set by
@@ -76,22 +76,22 @@ import { CopyMarkdownButton } from "../chrome/copy-markdown-button";
  */
 const ts = (role: string) =>
   [
-    `[font-family:var(--md-sys-typescale-${role}-font-family)]`,
-    `[font-size:var(--md-sys-typescale-${role}-font-size)]`,
-    `[font-weight:var(--md-sys-typescale-${role}-font-weight)]`,
-    `[line-height:var(--md-sys-typescale-${role}-line-height)]`,
-    `[letter-spacing:var(--md-sys-typescale-${role}-letter-spacing)]`,
+    `[font-family:var(--sys-typescale-${role}-font-family)]`,
+    `[font-size:var(--sys-typescale-${role}-font-size)]`,
+    `[font-weight:var(--sys-typescale-${role}-font-weight)]`,
+    `[line-height:var(--sys-typescale-${role}-line-height)]`,
+    `[letter-spacing:var(--sys-typescale-${role}-letter-spacing)]`,
   ].join(" ");
 
 /** Page title. */
-const H1 = `site-page-title m-0 text-(--md-sys-color-on-surface) ${ts("display-small")}`;
+const H1 = `site-page-title m-0 text-(--sys-color-on-surface) ${ts("display-small")}`;
 /** Section heading — the reader's next question. */
-const H2 = `m-0 text-(--md-sys-color-on-surface) ${ts("headline-small")}`;
+const H2 = `m-0 text-(--sys-color-on-surface) ${ts("headline-small")}`;
 /** Sub-heading inside a section. */
-const H3 = `m-0 text-(--md-sys-color-on-surface) ${ts("title-large")}`;
+const H3 = `m-0 text-(--sys-color-on-surface) ${ts("title-large")}`;
 /** Running text. The token carries size, weight AND line-height. */
-const INK = "text-(--md-sys-color-on-surface)";
-const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";
+const INK = "text-(--sys-color-on-surface)";
+const INK_SOFT = "text-(--sys-color-on-surface-variant)";
 const BODY = `m-0 ${INK_SOFT} ${ts("body-large")}`;
 /** Secondary text — one step down the scale, same voice. */
 const SMALL = ts("body-small");
@@ -116,10 +116,10 @@ const PROSE = `${BODY} max-w-[62ch]`;
  * SIZE and WEIGHT come from the label role so the chips still sit on the
  * scale rather than floating off it.
  */
-const CHIP = `inline-flex items-center gap-1.5 rounded-full border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container) px-3 py-1 font-mono text-(--md-sys-color-on-surface-variant) [font-size:var(--md-sys-typescale-label-large-font-size)] [line-height:var(--md-sys-typescale-label-large-line-height)]`;
+const CHIP = `inline-flex items-center gap-1.5 rounded-full border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container) px-3 py-1 font-mono text-(--sys-color-on-surface-variant) [font-size:var(--sys-typescale-label-large-font-size)] [line-height:var(--sys-typescale-label-large-line-height)]`;
 const CARD =
-  "site-card rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface-container-low)";
-const TH = `py-2 pr-4 text-left text-(--md-sys-color-on-surface) ${ts("title-small")}`;
+  "site-card rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-low)";
+const TH = `py-2 pr-4 text-left text-(--sys-color-on-surface) ${ts("title-small")}`;
 const TD = `py-3 pr-4 align-top ${ts("body-medium")}`;
 
 /**
@@ -150,7 +150,7 @@ function Heading({
       <a
         href={`#${id}`}
         aria-label={`Permalink to ${id.replace(/-/g, " ")}`}
-        className="ml-2 inline-flex items-center text-(--md-sys-color-on-surface-variant) no-underline opacity-0 transition-opacity group-hover:opacity-100 focus-visible:opacity-100"
+        className="ml-2 inline-flex items-center text-(--sys-color-on-surface-variant) no-underline opacity-0 transition-opacity group-hover:opacity-100 focus-visible:opacity-100"
       >
         #
       </a>
@@ -236,7 +236,7 @@ function HeaderLinks({
             href={l.href}
             rel="noreferrer"
             target="_blank"
-            className="text-(--md-sys-color-secondary) no-underline hover:underline"
+            className="text-(--sys-color-secondary) no-underline hover:underline"
           >
             {l.label} <span aria-hidden="true">↗</span>
           </a>
@@ -329,12 +329,12 @@ function StatesStrip({ doc }: { doc: ComponentDoc }) {
           <div key={layer.label} className="flex flex-col items-center gap-1">
             <span
               aria-hidden="true"
-              className="relative block h-10 w-16 overflow-hidden rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface)"
+              className="relative block h-10 w-16 overflow-hidden rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant) bg-(--sys-color-surface)"
             >
               <span
                 className="absolute inset-0"
                 style={{
-                  backgroundColor: "var(--md-sys-color-on-surface)",
+                  backgroundColor: "var(--sys-color-on-surface)",
                   opacity: layer.opacity,
                 }}
               />
@@ -348,7 +348,7 @@ function StatesStrip({ doc }: { doc: ComponentDoc }) {
         <code>on-surface</code> at 8% hover, 10% focus, 10% press and 16% drag
         over the container — never a color swap.{" "}
         <a
-          className="text-(--md-sys-color-secondary) underline underline-offset-2"
+          className="text-(--sys-color-secondary) underline underline-offset-2"
           href="/foundations/m3/states"
         >
           How states work
@@ -389,14 +389,14 @@ function PlaygroundLinks({
   return (
     <div className={`flex flex-wrap items-center gap-x-4 gap-y-1 ${SMALL}`}>
       <a
-        className="text-(--md-sys-color-secondary) no-underline hover:underline"
+        className="text-(--sys-color-secondary) no-underline hover:underline"
         href={registrySearchHref(exportName)}
       >
         Open in playground <span aria-hidden="true">↗</span>
       </a>
       {platform === "web" ? (
         <a
-          className="text-(--md-sys-color-secondary) no-underline hover:underline"
+          className="text-(--sys-color-secondary) no-underline hover:underline"
           href={THEME_CONFIGURATOR_HREF}
         >
           Theme configurator <span aria-hidden="true">↗</span>
@@ -490,10 +490,10 @@ function InstallPicker({ target }: { target: string }) {
             type="button"
             aria-pressed={manager === m.id}
             onClick={() => choose(m.id)}
-            className={`min-h-12 rounded-(--md-sys-shape-corner-full) border px-4 ${SMALL} ${
+            className={`min-h-12 rounded-(--sys-shape-corner-full) border px-4 ${SMALL} ${
               manager === m.id
-                ? "border-(--md-sys-color-primary) bg-(--md-sys-color-primary-container) text-(--md-sys-color-on-primary-container)"
-                : "border-(--md-sys-color-outline) text-(--md-sys-color-on-surface-variant) hover:bg-(--md-sys-color-on-surface)/8"
+                ? "border-(--sys-color-primary) bg-(--sys-color-primary-container) text-(--sys-color-on-primary-container)"
+                : "border-(--sys-color-outline) text-(--sys-color-on-surface-variant) hover:bg-(--sys-color-on-surface)/8"
             }`}
           >
             {m.label}
@@ -601,12 +601,12 @@ function AnatomyRow({ part, index }: { part: PartRow; index: number }) {
     <li className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-4">
       <span
         aria-hidden="true"
-        className={`inline-flex size-6 shrink-0 items-center justify-center rounded-full bg-(--md-sys-color-secondary-container) text-(--md-sys-color-on-secondary-container) ${TINY}`}
+        className={`inline-flex size-6 shrink-0 items-center justify-center rounded-full bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container) ${TINY}`}
       >
         {index + 1}
       </span>
       <code
-        className={`shrink-0 font-mono ${SMALL} text-(--md-sys-color-secondary)`}
+        className={`shrink-0 font-mono ${SMALL} text-(--sys-color-secondary)`}
       >
         {part.name}
       </code>
@@ -675,7 +675,7 @@ function WhenToUse({ doc }: { doc: ComponentDoc }) {
         <div className={`${CARD} p-4`}>
           <Heading id="do" level={3}>
             <span
-              className="text-(--md-sys-color-secondary)"
+              className="text-(--sys-color-secondary)"
               aria-hidden="true"
             >
               ✓
@@ -694,7 +694,7 @@ function WhenToUse({ doc }: { doc: ComponentDoc }) {
       {hasDont ? (
         <div className={`${CARD} p-4`}>
           <Heading id="dont" level={3}>
-            <span className="text-(--md-sys-color-error)" aria-hidden="true">
+            <span className="text-(--sys-color-error)" aria-hidden="true">
               ✕
             </span>{" "}
             Don&rsquo;t
@@ -771,7 +771,7 @@ function ExamplesBlock({ doc }: { doc: ComponentDoc }) {
  */
 /**
  * Token kind detection for the visual showcase. M3 token names encode their
- * kind: color roles reference `--md-sys-color-*`, shapes reference corner
+ * kind: color roles reference `--sys-color-*`, shapes reference corner
  * tokens or carry px radii, elevations reference levels, type references
  * typescale roles, and opacities carry percentages. Unknown rows fall back
  * to the table.
@@ -781,7 +781,7 @@ type TokenKind = "color" | "shape" | "elevation" | "type" | "opacity" | "other";
 function tokenKindOf(row: { token: string; value: string }): TokenKind {
   const hay = `${row.token} ${row.value}`.toLowerCase();
   if (
-    hay.includes("--md-sys-color-") ||
+    hay.includes("--sys-color-") ||
     hay.includes("primary") ||
     hay.includes("secondary") ||
     hay.includes("tertiary") ||
@@ -820,7 +820,7 @@ function tokenKindOf(row: { token: string; value: string }): TokenKind {
 
 /** Resolve a color-role value to a CSS color for swatch painting. */
 function swatchStyle(value: string): React.CSSProperties | undefined {
-  const m = value.match(/--md-sys-color-[a-z-]+/);
+  const m = value.match(/--sys-color-[a-z-]+/);
   if (m) return { backgroundColor: `var(${m[0]})` };
   const hex = value.match(/#[0-9a-fA-F]{3,8}\b/);
   if (hex) return { backgroundColor: hex[0] };
@@ -832,7 +832,7 @@ function radiusStyle(value: string): React.CSSProperties | undefined {
   if (value.includes("9999px")) return { borderRadius: "9999px" };
   const m = value.match(/(\d+)px/);
   if (m) return { borderRadius: `${m[1]}px` };
-  const token = value.match(/--md-sys-shape-corner-[a-z-]+/);
+  const token = value.match(/--sys-shape-corner-[a-z-]+/);
   if (token) return { borderRadius: `var(${token[0]})` };
   return undefined;
 }
@@ -840,7 +840,7 @@ function radiusStyle(value: string): React.CSSProperties | undefined {
 /** Resolve an elevation level for shadow previews. */
 function elevationStyle(value: string): React.CSSProperties | undefined {
   const m = value.match(/level([0-5])/);
-  if (m) return { boxShadow: `var(--md-sys-elevation-level${m[1]})` };
+  if (m) return { boxShadow: `var(--sys-elevation-level${m[1]})` };
   if (value.toLowerCase().includes("level")) return {};
   return undefined;
 }
@@ -871,7 +871,7 @@ function TokenShowcase({
       {shown.map((kind) => (
         <div key={kind} className="flex flex-col gap-2">
           <p
-            className={`m-0 ${LABEL} text-(--md-sys-color-on-surface-variant) uppercase`}
+            className={`m-0 ${LABEL} text-(--sys-color-on-surface-variant) uppercase`}
           >
             {kind === "color"
               ? "Colors"
@@ -887,33 +887,33 @@ function TokenShowcase({
             {(groups.get(kind) ?? []).map((row) => (
               <div
                 key={`${row.element}-${row.state}-${row.token}`}
-                className={`flex flex-col gap-1.5 rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-low) p-3`}
+                className={`flex flex-col gap-1.5 rounded-(--sys-shape-corner-medium) border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container-low) p-3`}
               >
                 {kind === "color" ? (
                   <span
                     aria-hidden="true"
-                    className="h-10 w-full rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant)"
+                    className="h-10 w-full rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant)"
                     style={swatchStyle(row.value)}
                   />
                 ) : null}
                 {kind === "shape" ? (
                   <span
                     aria-hidden="true"
-                    className="h-10 w-full bg-(--md-sys-color-secondary-container)"
+                    className="h-10 w-full bg-(--sys-color-secondary-container)"
                     style={radiusStyle(row.value)}
                   />
                 ) : null}
                 {kind === "elevation" ? (
                   <span
                     aria-hidden="true"
-                    className="h-10 w-full rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-surface)"
+                    className="h-10 w-full rounded-(--sys-shape-corner-small) bg-(--sys-color-surface)"
                     style={elevationStyle(row.value)}
                   />
                 ) : null}
                 {kind === "type" ? (
                   <span
                     aria-hidden="true"
-                    className={`text-(--md-sys-color-on-surface) ${ts("label-large")}`}
+                    className={`text-(--sys-color-on-surface) ${ts("label-large")}`}
                   >
                     Ag
                   </span>
@@ -921,10 +921,10 @@ function TokenShowcase({
                 {kind === "opacity" ? (
                   <span
                     aria-hidden="true"
-                    className="flex h-10 w-full items-center justify-center rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-surface-container-high)"
+                    className="flex h-10 w-full items-center justify-center rounded-(--sys-shape-corner-small) bg-(--sys-color-surface-container-high)"
                   >
                     <span
-                      className="h-6 w-6 rounded-full bg-(--md-sys-color-primary)"
+                      className="h-6 w-6 rounded-full bg-(--sys-color-primary)"
                       style={{
                         opacity: row.value.match(/(\d+)%/)?.[1]
                           ? Number(row.value.match(/(\d+)%/)?.[1]) / 100
@@ -933,11 +933,11 @@ function TokenShowcase({
                     />
                   </span>
                 ) : null}
-                <span className={`${TINY} text-(--md-sys-color-on-surface)`}>
+                <span className={`${TINY} text-(--sys-color-on-surface)`}>
                   {row.element}
                 </span>
                 <span
-                  className={`${TINY} text-(--md-sys-color-on-surface-variant)`}
+                  className={`${TINY} text-(--sys-color-on-surface-variant)`}
                 >
                   {row.state} · <code>{row.token}</code>
                 </span>
@@ -964,14 +964,14 @@ function Theming({ doc }: { doc: ComponentDoc }) {
           <TokenShowcase tokens={tokens} />
           <details className="group">
             <summary
-              className={`cursor-pointer ${LABEL} text-(--md-sys-color-on-surface-variant) uppercase`}
+              className={`cursor-pointer ${LABEL} text-(--sys-color-on-surface-variant) uppercase`}
             >
               Full token table
             </summary>
             <div className="mt-2 overflow-x-auto">
               <table className={`w-full border-collapse ${SMALL}`}>
                 <thead>
-                  <tr className="border-b border-(--md-sys-color-outline-variant)">
+                  <tr className="border-b border-(--sys-color-outline-variant)">
                     <th className={TH}>Element</th>
                     <th className={TH}>State</th>
                     <th className={TH}>Token</th>
@@ -982,21 +982,21 @@ function Theming({ doc }: { doc: ComponentDoc }) {
                   {tokens.map((row) => (
                     <tr
                       key={`${row.element}-${row.state}-${row.token}`}
-                      className="border-b border-(--md-sys-color-outline-variant)"
+                      className="border-b border-(--sys-color-outline-variant)"
                     >
                       <td className={TD}>{row.element}</td>
                       <td
-                        className={`${TD} text-(--md-sys-color-on-surface-variant)`}
+                        className={`${TD} text-(--sys-color-on-surface-variant)`}
                       >
                         {row.state}
                       </td>
                       <td
-                        className={`${TD} font-mono text-(--md-sys-color-primary) [font-size:var(--md-sys-typescale-label-small-font-size)] [line-height:var(--md-sys-typescale-label-small-line-height)]`}
+                        className={`${TD} font-mono text-(--sys-color-primary) [font-size:var(--sys-typescale-label-small-font-size)] [line-height:var(--sys-typescale-label-small-line-height)]`}
                       >
                         {row.token}
                       </td>
                       <td
-                        className={`${TD} font-mono text-(--md-sys-color-on-surface-variant) [font-size:var(--md-sys-typescale-label-small-font-size)] [line-height:var(--md-sys-typescale-label-small-line-height)]`}
+                        className={`${TD} font-mono text-(--sys-color-on-surface-variant) [font-size:var(--sys-typescale-label-small-font-size)] [line-height:var(--sys-typescale-label-small-line-height)]`}
                       >
                         {row.value}
                       </td>
@@ -1011,7 +1011,7 @@ function Theming({ doc }: { doc: ComponentDoc }) {
         <p className={PROSE}>
           No per-component token table is generated for this one yet. Its
           resting elevation is{" "}
-          <strong className="text-(--md-sys-color-on-surface)">
+          <strong className="text-(--sys-color-on-surface)">
             {
               elevationLabel(
                 doc.meta.elevation,
@@ -1190,7 +1190,7 @@ function Accessibility({
           <div className="overflow-x-auto">
             <table className={`w-full border-collapse ${SMALL}`}>
               <thead>
-                <tr className="border-b border-(--md-sys-color-outline-variant)">
+                <tr className="border-b border-(--sys-color-outline-variant)">
                   <th className={`${TH} w-40`}>Key</th>
                   <th className={TH}>Action</th>
                 </tr>
@@ -1199,17 +1199,17 @@ function Accessibility({
                 {keyboard.map((row) => (
                   <tr
                     key={row.key}
-                    className="border-b border-(--md-sys-color-outline-variant)"
+                    className="border-b border-(--sys-color-outline-variant)"
                   >
                     <td className={TD}>
                       <kbd
-                        className={`rounded border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-high) px-1.5 py-0.5 ${KEYCAP} text-(--md-sys-color-on-surface)`}
+                        className={`rounded border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container-high) px-1.5 py-0.5 ${KEYCAP} text-(--sys-color-on-surface)`}
                       >
                         {row.key}
                       </kbd>
                     </td>
                     <td
-                      className={`${TD} text-(--md-sys-color-on-surface-variant)`}
+                      className={`${TD} text-(--sys-color-on-surface-variant)`}
                     >
                       {row.action}
                     </td>
@@ -1251,7 +1251,7 @@ function Limitations({ doc }: { doc: ComponentDoc }) {
       </p>
       {exempt ? (
         <p className={PROSE}>
-          <strong className="text-(--md-sys-color-on-surface)">
+          <strong className="text-(--sys-color-on-surface)">
             Grammar exemption:
           </strong>{" "}
           {exempt}
@@ -1270,16 +1270,16 @@ function Limitations({ doc }: { doc: ComponentDoc }) {
         </>
       )}
       {gaps.length > 0 && (
-        <div className="rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-error) bg-(--md-sys-color-error-container) p-4">
+        <div className="rounded-(--sys-shape-corner-medium) border border-(--sys-color-error) bg-(--sys-color-error-container) p-4">
           <Heading
             id="known-gaps"
             level={3}
-            className="text-(--md-sys-color-on-error-container)"
+            className="text-(--sys-color-on-error-container)"
           >
             Known gaps
           </Heading>
           <ul
-            className={`m-0 mt-2 flex list-disc flex-col gap-2 pl-5 ${SMALL} text-(--md-sys-color-on-error-container)`}
+            className={`m-0 mt-2 flex list-disc flex-col gap-2 pl-5 ${SMALL} text-(--sys-color-on-error-container)`}
           >
             {gaps.map((line) => (
               <li key={line}>{line}</li>
@@ -1309,7 +1309,7 @@ function Faq({ doc }: { doc: ComponentDoc }) {
         {rows.map((row) => (
           <details
             key={row.q}
-            className="group rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-low) px-3 py-2"
+            className="group rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container-low) px-3 py-2"
           >
             <summary className={`cursor-pointer list-none ${SMALL} ${INK}`}>
               {row.q}
@@ -1341,7 +1341,7 @@ function Conformance({ doc }: { doc: ComponentDoc }) {
       {specUrl && specUrl !== "none" ? (
         <p className={PROSE}>
           <a
-            className="text-(--md-sys-color-secondary) underline underline-offset-2"
+            className="text-(--sys-color-secondary) underline underline-offset-2"
             href={specUrl}
             rel="noreferrer"
             target="_blank"
@@ -1400,7 +1400,7 @@ function DeviationRow({ row }: { row: Deviation }) {
     <li className={`${CARD} flex flex-col gap-2 p-4`}>
       <div className="flex items-center gap-2">
         <span
-          className={`rounded-full bg-(--md-sys-color-secondary-container) px-2.5 py-0.5 font-mono text-(--md-sys-color-on-secondary-container) [font-size:var(--md-sys-typescale-label-small-font-size)] [line-height:var(--md-sys-typescale-label-small-line-height)]`}
+          className={`rounded-full bg-(--sys-color-secondary-container) px-2.5 py-0.5 font-mono text-(--sys-color-on-secondary-container) [font-size:var(--sys-typescale-label-small-font-size)] [line-height:var(--sys-typescale-label-small-line-height)]`}
         >
           {row.id}
         </span>
@@ -1492,26 +1492,26 @@ function PropRows({ rows }: { rows: ApiRow[] }) {
       {rows.map((row) => (
         <details
           key={row.name}
-          className="group rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-low) px-3 py-2"
+          className="group rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container-low) px-3 py-2"
         >
           <summary
             className={`flex cursor-pointer list-none flex-wrap items-baseline gap-x-3 gap-y-1 ${SMALL}`}
           >
-            <code className="font-mono text-(--md-sys-color-on-surface)">
+            <code className="font-mono text-(--sys-color-on-surface)">
               {row.name}
             </code>
             {row.required ? (
-              <span className={`${TINY} text-(--md-sys-color-error)`}>
+              <span className={`${TINY} text-(--sys-color-error)`}>
                 required
               </span>
             ) : null}
             <code
-              className={`font-mono text-(--md-sys-color-on-surface-variant) ${TINY}`}
+              className={`font-mono text-(--sys-color-on-surface-variant) ${TINY}`}
             >
               {row.type}
             </code>
             <span
-              className={`ml-auto font-mono text-(--md-sys-color-on-surface-variant) ${TINY}`}
+              className={`ml-auto font-mono text-(--sys-color-on-surface-variant) ${TINY}`}
             >
               {row.default ?? "—"}
             </span>
@@ -1536,14 +1536,14 @@ function PropTable({ rows, caption }: { rows: ApiRow[]; caption?: string }) {
       <PropRows rows={rows} />
       <details className="group">
         <summary
-          className={`cursor-pointer ${LABEL} text-(--md-sys-color-on-surface-variant) uppercase`}
+          className={`cursor-pointer ${LABEL} text-(--sys-color-on-surface-variant) uppercase`}
         >
           Full table
         </summary>
         <div className="mt-2 overflow-x-auto">
           <table className={`w-full border-collapse text-left ${SMALL}`}>
             <thead>
-              <tr className="border-b border-(--md-sys-color-outline-variant)">
+              <tr className="border-b border-(--sys-color-outline-variant)">
                 <th className={TH}>Prop</th>
                 <th className={TH}>Type</th>
                 <th className={TH}>Default</th>
@@ -1554,27 +1554,27 @@ function PropTable({ rows, caption }: { rows: ApiRow[]; caption?: string }) {
               {rows.map((row) => (
                 <tr
                   key={row.name}
-                  className="border-b border-(--md-sys-color-outline-variant)"
+                  className="border-b border-(--sys-color-outline-variant)"
                 >
                   <td className={TD}>
-                    <code className="font-mono text-(--md-sys-color-on-surface)">
+                    <code className="font-mono text-(--sys-color-on-surface)">
                       {row.name}
                     </code>
                     {row.required && (
                       <span
-                        className={`ml-2 ${TINY} text-(--md-sys-color-error)`}
+                        className={`ml-2 ${TINY} text-(--sys-color-error)`}
                       >
                         required
                       </span>
                     )}
                   </td>
                   <td
-                    className={`${TD} font-mono text-(--md-sys-color-on-surface-variant) [font-size:var(--md-sys-typescale-label-small-font-size)] [line-height:var(--md-sys-typescale-label-small-line-height)]`}
+                    className={`${TD} font-mono text-(--sys-color-on-surface-variant) [font-size:var(--sys-typescale-label-small-font-size)] [line-height:var(--sys-typescale-label-small-line-height)]`}
                   >
                     {row.type}
                   </td>
                   <td
-                    className={`${TD} font-mono text-(--md-sys-color-on-surface-variant) [font-size:var(--md-sys-typescale-label-small-font-size)] [line-height:var(--md-sys-typescale-label-small-line-height)]`}
+                    className={`${TD} font-mono text-(--sys-color-on-surface-variant) [font-size:var(--sys-typescale-label-small-font-size)] [line-height:var(--sys-typescale-label-small-line-height)]`}
                   >
                     {row.default ?? "—"}
                   </td>
@@ -1704,7 +1704,7 @@ function Footer({
   next?: { href: string; title: string };
 }) {
   return (
-    <footer className="flex flex-col gap-4 border-t border-(--md-sys-color-outline-variant) pt-6">
+    <footer className="flex flex-col gap-4 border-t border-(--sys-color-outline-variant) pt-6">
       <nav
         className="flex items-stretch justify-between gap-4"
         aria-label="Pages"
@@ -1739,7 +1739,7 @@ function Footer({
           editing a .tsx when they meant to fix a sentence.
         */}
         <a
-          className="text-(--md-sys-color-secondary) underline underline-offset-2"
+          className="text-(--sys-color-secondary) underline underline-offset-2"
           href={editUrlFor(doc, platform)}
           rel="noreferrer"
           target="_blank"
@@ -1748,7 +1748,7 @@ function Footer({
         </a>
         {doc.meta.sourceUrl ? (
           <a
-            className="text-(--md-sys-color-secondary) underline underline-offset-2"
+            className="text-(--sys-color-secondary) underline underline-offset-2"
             href={doc.meta.sourceUrl}
             rel="noreferrer"
             target="_blank"
@@ -1762,7 +1762,7 @@ function Footer({
           cannot spend — the prefilled issue is the answer.
         */}
         <a
-          className="text-(--md-sys-color-secondary) underline underline-offset-2"
+          className="text-(--sys-color-secondary) underline underline-offset-2"
           href={feedbackUrlFor(doc, platform)}
           rel="noreferrer"
           target="_blank"
@@ -1844,7 +1844,7 @@ export function ComponentPage({
         <p className={`m-0 max-w-[62ch] ${LEDE} ${INK_SOFT}`}>{doc.oneLiner}</p>
         <details className="group">
           <summary
-            className={`cursor-pointer ${LABEL} text-(--md-sys-color-on-surface-variant) uppercase`}
+            className={`cursor-pointer ${LABEL} text-(--sys-color-on-surface-variant) uppercase`}
           >
             About
           </summary>

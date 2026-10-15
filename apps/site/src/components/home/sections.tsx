@@ -84,21 +84,21 @@ export function PaletteBand() {
             <div
               className="palette-role"
               style={{
-                backgroundColor: `var(--md-sys-color-${role}-container)`,
-                color: `var(--md-sys-color-on-${role}-container)`,
+                backgroundColor: `var(--sys-color-${role}-container)`,
+                color: `var(--sys-color-on-${role}-container)`,
               }}
             >
               <span className={T_LABEL_LG}>{name} container</span>
               <span
                 className="palette-circle"
                 style={{
-                  backgroundColor: `var(--md-sys-color-${role})`,
-                  color: `var(--md-sys-color-on-${role})`,
+                  backgroundColor: `var(--sys-color-${role})`,
+                  color: `var(--sys-color-on-${role})`,
                 }}
               >
                 <Icon name="check" size={32} />
               </span>
-              <span className={T_CODE}>--md-sys-color-{role}</span>
+              <span className={T_CODE}>--sys-color-{role}</span>
             </div>
             <div
               className="flex h-8 overflow-hidden"
@@ -129,8 +129,8 @@ export function PaletteBand() {
             key={role}
             className="rounded-full px-4 py-2 capitalize"
             style={{
-              backgroundColor: `var(--md-sys-color-${role}-container)`,
-              color: `var(--md-sys-color-on-${role}-container)`,
+              backgroundColor: `var(--sys-color-${role}-container)`,
+              color: `var(--sys-color-on-${role}-container)`,
             }}
           >
             {role}
@@ -255,7 +255,7 @@ export function GetStartedBand() {
   return (
     <section aria-labelledby="home-start" className="home-start">
       <div className="home-start-copy">
-        <Kicker className="text-(--md-sys-color-on-primary-container)">
+        <Kicker className="text-(--sys-color-on-primary-container)">
           From idea to interface
         </Kicker>
         <h2 id="home-start" className={`mt-4 mb-4 ${T_SECTION}`}>

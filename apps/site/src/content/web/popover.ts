@@ -20,7 +20,7 @@ export const popover: ComponentDoc = {
     variants: [],
     // kern's own decision. M3's component elevation table names no popover —
     // it has "menu" and "rich tooltip", which kern maps to `navigation-menu`
-    // and `tooltip`. The popup ships `--md-sys-elevation-level2`. See
+    // and `tooltip`. The popup ships `--sys-elevation-level2`. See
     // Deviations.
     elevation: 2,
   },
@@ -78,7 +78,7 @@ export const popover: ComponentDoc = {
     {
       element: "Container",
       state: "resting",
-      token: "md.comp.menu.container",
+      token: "comp.menu.container",
       value: "surface-container, 4px, level2",
     },
   ],
@@ -91,7 +91,7 @@ export const popover: ComponentDoc = {
   customization: {
     supported: [
       "`className` on every part, merged after the part's own classes.",
-      "The panel's surface, outline and lift come from the system roles and `--md-sys-elevation-level2`.",
+      "The panel's surface, outline and lift come from the system roles and `--sys-elevation-level2`.",
       "Width is a set value rather than a fixed one, so a wider control can override it with `className`.",
     ],
     notSupported: [

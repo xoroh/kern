@@ -97,7 +97,7 @@ function SearchPage() {
                   <li key={`${entry.title}:${entry.href}`} className="min-w-0">
                     <Link
                       to={entry.href}
-                      className={`group flex min-h-12 min-w-0 flex-col justify-center rounded-(--md-sys-shape-corner-small) px-3 no-underline ${INK} ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`}
+                      className={`group flex min-h-12 min-w-0 flex-col justify-center rounded-(--sys-shape-corner-small) px-3 no-underline ${INK} ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`}
                     >
                       <ResultText entry={entry} query={q} />
                     </Link>

@@ -58,7 +58,7 @@ export const tooltip: ComponentDoc = {
     {
       element: "Container",
       state: "resting",
-      token: "md.comp.tooltip.container",
+      token: "comp.tooltip.container",
       value: "inverse-surface, 4px, level2",
     },
   ],
@@ -71,7 +71,7 @@ export const tooltip: ComponentDoc = {
   customization: {
     supported: [
       "`className` on every part, merged after the part's own classes.",
-      "The popup is the inverse surface — `--md-sys-color-inverse-surface` on `--md-sys-color-inverse-on-surface` — so a tooltip reads as floating above content rather than sitting in it.",
+      "The popup is the inverse surface — `--sys-color-inverse-surface` on `--sys-color-inverse-on-surface` — so a tooltip reads as floating above content rather than sitting in it.",
       "Positioning comes from the primitive's positioner; the offset from the trigger is fixed.",
     ],
     notSupported: [

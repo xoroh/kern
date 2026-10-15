@@ -13,7 +13,7 @@ export const alertDialog: ComponentDoc = {
     nativePeer: "AlertDialog",
     variants: [],
     // Material 3 assigns "dialogs (modal)" resting level 3, and the surface
-    // ships `--md-sys-elevation-level3` to match. Asserted against the row.
+    // ships `--sys-elevation-level3` to match. Asserted against the row.
     elevation: 3,
   },
   parts: [
@@ -78,7 +78,7 @@ export const alertDialog: ComponentDoc = {
     {
       element: "Container",
       state: "resting",
-      token: "md.comp.dialog.container",
+      token: "comp.dialog.container",
       value: "surface-container-high, 28px, alert semantics",
     },
   ],

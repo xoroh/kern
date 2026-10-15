@@ -84,16 +84,16 @@ function UnknownComponent({ slug }: { slug: string }) {
     <SiteLayout>
       <PageCard width="narrow">
         <Kicker>404</Kicker>
-        <h1 className={`m-0 ${T_PAGE} text-(--md-sys-color-on-surface)`}>
+        <h1 className={`m-0 ${T_PAGE} text-(--sys-color-on-surface)`}>
           No such component
         </h1>
-        <p className={`m-0 ${T_BODY} text-(--md-sys-color-on-surface-variant)`}>
+        <p className={`m-0 ${T_BODY} text-(--sys-color-on-surface-variant)`}>
           <code>{slug}</code> is not in the generated manifest. The route set
           comes from <code>docs/components.md</code>, so if this export exists
           in a package the manifest is stale — not this page.
         </p>
         <p
-          className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+          className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
         >
           <Link to="/components/web">Browse web components</Link> ·{" "}
           <Link to="/components/mobile">Browse mobile components</Link>
@@ -146,13 +146,13 @@ function ComponentBody() {
       <PageCard>
         {!doc ? (
           <nav
-            className={`flex flex-wrap items-center gap-2 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            className={`flex flex-wrap items-center gap-2 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
           >
             <Link to="/components">Components</Link>
             <span aria-hidden="true">/</span>
             <Link to={platformHref}>{isWeb ? "Web" : "Mobile"}</Link>
             <span aria-hidden="true">/</span>
-            <span className="text-(--md-sys-color-on-surface)">
+            <span className="text-(--sys-color-on-surface)">
               {entry.name}
             </span>
           </nav>
@@ -191,24 +191,24 @@ function Undocumented({
   return (
     <div className="flex flex-col gap-6">
       <header className="flex flex-col gap-3">
-        <h1 className={`m-0 ${T_PAGE} text-(--md-sys-color-on-surface)`}>
+        <h1 className={`m-0 ${T_PAGE} text-(--sys-color-on-surface)`}>
           <code>{entry.export}</code>
         </h1>
-        <p className={`m-0 ${T_CODE} text-(--md-sys-color-secondary)`}>{pkg}</p>
+        <p className={`m-0 ${T_CODE} text-(--sys-color-secondary)`}>{pkg}</p>
         <p
-          className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+          className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
         >
           {entry.status === "real"
             ? "Implemented and exported from the platform entry point."
             : "Planned placeholder — not exported yet."}
         </p>
       </header>
-      <div className="flex flex-col gap-2 rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-outline) bg-(--md-sys-color-surface-container) p-6">
+      <div className="flex flex-col gap-2 rounded-(--sys-shape-corner-medium) border border-(--sys-color-outline) bg-(--sys-color-surface-container) p-6">
         <h2 id="no-documentation-page-yet" className={`m-0 ${T_SECTION}`}>
           No documentation page yet
         </h2>
         <p
-          className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+          className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
         >
           This export is in the generated inventory but has no content folder
           under <code>src/content/</code>. That is a gap in the site, not in the

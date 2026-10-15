@@ -77,17 +77,17 @@ function PrimitiveModulePage() {
               ]}
             />
             <p
-              className={`m-0 ${T_LABEL} text-(--md-sys-color-on-surface-variant) uppercase`}
+              className={`m-0 ${T_LABEL} text-(--sys-color-on-surface-variant) uppercase`}
             >
               Primitives
             </p>
             <h1 className={`m-0 ${T_PAGE}`}>No module named “{module}”</h1>
             <p
-              className={`m-0 max-w-[62ch] ${T_BODY} text-(--md-sys-color-on-surface-variant)`}
+              className={`m-0 max-w-[62ch] ${T_BODY} text-(--sys-color-on-surface-variant)`}
             >
               <Link
                 to="/primitives"
-                className="text-(--md-sys-color-primary) no-underline hover:underline"
+                className="text-(--sys-color-primary) no-underline hover:underline"
               >
                 Back to the module index
               </Link>
@@ -104,13 +104,13 @@ function PrimitiveModulePage() {
                 ]}
               />
               <p
-                className={`m-0 ${T_LABEL} text-(--md-sys-color-on-surface-variant) uppercase`}
+                className={`m-0 ${T_LABEL} text-(--sys-color-on-surface-variant) uppercase`}
               >
                 Primitives
               </p>
               <h1 className={`m-0 ${T_PAGE}`}>{mod.title}</h1>
               <p
-                className={`m-0 max-w-[62ch] ${T_BODY} text-(--md-sys-color-on-surface-variant)`}
+                className={`m-0 max-w-[62ch] ${T_BODY} text-(--sys-color-on-surface-variant)`}
               >
                 {mod.blurb}.
               </p>
@@ -121,7 +121,7 @@ function PrimitiveModulePage() {
                 Anatomy
               </h2>
               <p
-                className={`m-0 max-w-[62ch] ${T_BODY} text-(--md-sys-color-on-surface-variant)`}
+                className={`m-0 max-w-[62ch] ${T_BODY} text-(--sys-color-on-surface-variant)`}
               >
                 The pieces you wire. The module decides behavior; your renderer
                 draws the markup.
@@ -133,7 +133,7 @@ function PrimitiveModulePage() {
                       {row.part}
                     </dt>
                     <dd
-                      className={`m-0 ${T_BODY} text-(--md-sys-color-on-surface-variant)`}
+                      className={`m-0 ${T_BODY} text-(--sys-color-on-surface-variant)`}
                     >
                       {row.role}
                     </dd>
@@ -150,12 +150,12 @@ function PrimitiveModulePage() {
                 {mod.api.map((row) => (
                   <li key={row.signature} className="flex flex-col gap-1">
                     <code
-                      className={`m-0 ${T_BODY_SM} overflow-x-auto font-mono text-(--md-sys-color-on-surface)`}
+                      className={`m-0 ${T_BODY_SM} overflow-x-auto font-mono text-(--sys-color-on-surface)`}
                     >
                       {row.signature}
                     </code>
                     <p
-                      className={`m-0 ${T_BODY} text-(--md-sys-color-on-surface-variant)`}
+                      className={`m-0 ${T_BODY} text-(--sys-color-on-surface-variant)`}
                     >
                       {row.description}
                     </p>
@@ -169,7 +169,7 @@ function PrimitiveModulePage() {
                 Example
               </h2>
               <p
-                className={`m-0 max-w-[62ch] ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+                className={`m-0 max-w-[62ch] ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
               >
                 Compiled against the published surface — the same check the
                 getting-started snippets meet.
@@ -189,7 +189,7 @@ function PrimitiveModulePage() {
                 ))}
               </ul>
               <p
-                className={`m-0 max-w-[62ch] ${T_BODY_SM} text-(--md-sys-color-on-surface-variant)`}
+                className={`m-0 max-w-[62ch] ${T_BODY_SM} text-(--sys-color-on-surface-variant)`}
               >
                 Imported from <code>@xoroh/kern-primitives</code>. Subpath
                 exports are deferred to 1.0 — the barrel plus tree-shaking

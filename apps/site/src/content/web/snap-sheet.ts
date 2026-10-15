@@ -12,7 +12,7 @@ export const snapSheet: ComponentDoc = {
     package: "@xoroh/kern",
     nativePeer: "SnapSheet",
     variants: [],
-    // Ships `--md-sys-elevation-level1` (modal sheet, M3 "bottom sheet (modal)"
+    // Ships `--sys-elevation-level1` (modal sheet, M3 "bottom sheet (modal)"
     // at level 1). No registry row is keyed under this slug, so the claim is
     // reported as unasserted — a registry gap, not a page gap.
     // Claimed level 1, unasserted by the elevation table — see the gap report.

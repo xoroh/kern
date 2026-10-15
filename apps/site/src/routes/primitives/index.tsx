@@ -39,7 +39,7 @@ function Primitives() {
           <Kicker>Primitives</Kicker>
           <h1 className={`m-0 ${T_PAGE}`}>Behavior kernel, no visuals</h1>
           <p
-            className={`m-0 max-w-[62ch] ${T_BODY} text-(--md-sys-color-on-surface-variant)`}
+            className={`m-0 max-w-[62ch] ${T_BODY} text-(--sys-color-on-surface-variant)`}
           >
             Controllable state, overlay modality, roving focus, dismiss policy
             and the collection/selection model — the logic both renderers
@@ -64,7 +64,7 @@ function Primitives() {
                 {m.title}
               </Link>
               <p
-                className={`m-0 ${T_BODY} text-(--md-sys-color-on-surface-variant)`}
+                className={`m-0 ${T_BODY} text-(--sys-color-on-surface-variant)`}
               >
                 {m.blurb}
               </p>

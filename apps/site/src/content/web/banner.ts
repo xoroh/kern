@@ -13,7 +13,7 @@ export const banner: ComponentDoc = {
     nativePeer: "Banner",
     variants: ["variant: info · success · warning · error"],
     // M3 lists "Banner" at resting level 1, and kern now ships
-    // `--md-sys-elevation-level1` on it (ed3c3e1 fixed this — the component
+    // `--sys-elevation-level1` on it (ed3c3e1 fixed this — the component
     // previously shipped a border and no elevation, which was off-spec).
     elevation: 1,
   },

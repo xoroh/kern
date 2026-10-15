@@ -39,13 +39,13 @@ export const secondaryTabs: ComponentDoc = {
     {
       element: "Active indicator",
       state: "resting",
-      token: "md.comp.secondary-tab.active-indicator",
+      token: "comp.secondary-tab.active-indicator",
       value: "primary, 2px (not 3px)",
     },
     {
       element: "Active label",
       state: "resting",
-      token: "md.comp.secondary-tab.active-label",
+      token: "comp.secondary-tab.active-label",
       value: "on-surface (not primary)",
     },
   ],

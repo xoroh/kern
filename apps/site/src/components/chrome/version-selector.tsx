@@ -23,11 +23,11 @@ export function VersionSelector() {
     <a
       href="/changelog"
       aria-label={`Kern version ${VERSION}, preview release. See the changelog.`}
-      className={`inline-flex min-h-12 items-center gap-1.5 px-2 ${T_CODE} text-(--md-sys-color-on-surface-variant) no-underline ${TRANSITION} hover:text-(--md-sys-color-on-surface) ${FOCUS_RING}`}
+      className={`inline-flex min-h-12 items-center gap-1.5 px-2 ${T_CODE} text-(--sys-color-on-surface-variant) no-underline ${TRANSITION} hover:text-(--sys-color-on-surface) ${FOCUS_RING}`}
     >
       <span
         aria-hidden="true"
-        className="inline-block size-1.5 rounded-full bg-(--md-sys-color-tertiary)"
+        className="inline-block size-1.5 rounded-full bg-(--sys-color-tertiary)"
       />
       Preview
     </a>

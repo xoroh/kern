@@ -29,19 +29,19 @@ export const linearProgress: ComponentDoc = {
     {
       element: "Track",
       state: "resting",
-      token: "md.comp.linear-progress.track",
+      token: "comp.linear-progress.track",
       value: "surface-container-highest, 4px",
     },
     {
       element: "Indicator",
       state: "resting",
-      token: "md.comp.linear-progress.indicator",
+      token: "comp.linear-progress.indicator",
       value: "primary, 4px",
     },
     {
       element: "Loop",
       state: "resting",
-      token: "md.comp.linear-progress.loop",
+      token: "comp.linear-progress.loop",
       value: "2s linear infinite, two offset bars",
     },
   ],

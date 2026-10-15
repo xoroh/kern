@@ -24,13 +24,13 @@ export function ApiIndex() {
       <PageCard>
         <header className="flex flex-col gap-3">
           <p
-            className={`m-0 ${T_LABEL} text-(--md-sys-color-on-surface-variant) uppercase`}
+            className={`m-0 ${T_LABEL} text-(--sys-color-on-surface-variant) uppercase`}
           >
             Docs
           </p>
           <h1 className={`m-0 ${T_PAGE}`}>API index</h1>
           <p
-            className={`m-0 max-w-[62ch] ${T_BODY} text-(--md-sys-color-on-surface-variant)`}
+            className={`m-0 max-w-[62ch] ${T_BODY} text-(--sys-color-on-surface-variant)`}
           >
             Every export in the generated manifest — {rows.length} rows,
             generated, not hand-maintained. Each row links to its family page.
@@ -45,7 +45,7 @@ export function ApiIndex() {
         <div className="overflow-x-auto">
           <table className="w-full border-collapse text-left">
             <thead>
-              <tr className="border-b border-(--md-sys-color-outline-variant)">
+              <tr className="border-b border-(--sys-color-outline-variant)">
                 <th className={`m-0 ${T_LABEL} pb-2 text-left`}>Export</th>
                 <th className={`m-0 ${T_LABEL} pb-2 text-left`}>Family</th>
                 <th className={`m-0 ${T_LABEL} pb-2 text-left`}>Platform</th>
@@ -56,7 +56,7 @@ export function ApiIndex() {
               {rows.map((row) => (
                 <tr
                   key={`${row.platform}/${row.export}`}
-                  className="border-b border-(--md-sys-color-outline-variant)"
+                  className="border-b border-(--sys-color-outline-variant)"
                 >
                   <td className={`m-0 ${T_BODY} py-2 pr-4 font-mono`}>
                     <Link
@@ -65,7 +65,7 @@ export function ApiIndex() {
                         platform: row.platform,
                         component: row.name,
                       }}
-                      className="text-(--md-sys-color-primary) no-underline hover:underline"
+                      className="text-(--sys-color-primary) no-underline hover:underline"
                     >
                       {row.export}
                     </Link>

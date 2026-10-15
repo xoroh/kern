@@ -46,37 +46,37 @@ export const switchDoc: ComponentDoc = {
     {
       element: "Track",
       state: "resting",
-      token: "md.comp.switch.track-width / track-height",
+      token: "comp.switch.track-width / track-height",
       value: "52px / 32px, full shape",
     },
     {
       element: "Unselected track",
       state: "resting",
-      token: "md.comp.switch.unselected-track-color",
-      value: "--md-sys-color-surface-container-highest + outline",
+      token: "comp.switch.unselected-track-color",
+      value: "--sys-color-surface-container-highest + outline",
     },
     {
       element: "Selected track",
       state: "resting",
-      token: "md.comp.switch.selected-track-color",
-      value: "--md-sys-color-primary",
+      token: "comp.switch.selected-track-color",
+      value: "--sys-color-primary",
     },
     {
       element: "Handle",
       state: "resting",
-      token: "md.comp.switch.unselected-handle-height",
+      token: "comp.switch.unselected-handle-height",
       value: "16px (24px selected, 28px pressed)",
     },
     {
       element: "State layer",
       state: "hover",
-      token: "md.sys.state.hover-state-layer-opacity",
+      token: "sys.state.hover-state-layer-opacity",
       value: "8%, 40px full",
     },
     {
       element: "Selected track",
       state: "disabled",
-      token: "md.comp.switch.disabled-track-opacity",
+      token: "comp.switch.disabled-track-opacity",
       value: "on-surface 12%",
     },
   ],
@@ -89,7 +89,7 @@ export const switchDoc: ComponentDoc = {
   customization: {
     supported: [
       "`className` is passed through and merged after the component's own classes, on both the track and the thumb.",
-      "Checked and unchecked colour come from `--md-sys-color-primary` and `--md-sys-color-outline`, so a theme moves the switch with everything else.",
+      "Checked and unchecked colour come from `--sys-color-primary` and `--sys-color-outline`, so a theme moves the switch with everything else.",
       "State is exposed as `data-checked` and `data-disabled`, so a stylesheet can target the states without touching the component.",
     ],
     notSupported: [

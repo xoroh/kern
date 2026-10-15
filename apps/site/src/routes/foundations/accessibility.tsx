@@ -39,7 +39,7 @@ export const Route = createFileRoute("/foundations/accessibility")({
 });
 
 const REPO = "https://github.com/xoroh/kern";
-const CODE = `rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-surface-container-high) px-1.5 py-0.5 ${T_CODE}`;
+const CODE = `rounded-(--sys-shape-corner-small) bg-(--sys-color-surface-container-high) px-1.5 py-0.5 ${T_CODE}`;
 const PROSE = `m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`;
 
 /** One "build to this" rule: the law, then the evidence for it. */

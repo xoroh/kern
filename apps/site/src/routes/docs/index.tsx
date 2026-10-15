@@ -40,9 +40,9 @@ export const Route = createFileRoute("/docs/")({
   component: DocsIndex,
 });
 
-const SOFT = "text-(--md-sys-color-on-surface-variant)";
+const SOFT = "text-(--sys-color-on-surface-variant)";
 /** Hub card: the kit outlined card + link affordances + padding. */
-const CARD_LINK = `${CARD} block p-5 no-underline text-(--md-sys-color-on-surface)`;
+const CARD_LINK = `${CARD} block p-5 no-underline text-(--sys-color-on-surface)`;
 
 /** The three journeys, matching the home page's promise. */
 const JOURNEYS = [
@@ -131,7 +131,7 @@ function DocsIndex() {
                 <p className={`m-0 ${T_SMALL_TITLE}`}>{j.title}</p>
                 <p className={`m-0 mt-2 ${T_BODY_SM} ${SOFT}`}>{j.what}</p>
                 <p
-                  className={`m-0 mt-4 ${T_LABEL_LG} text-(--md-sys-color-secondary)`}
+                  className={`m-0 mt-4 ${T_LABEL_LG} text-(--sys-color-secondary)`}
                 >
                   {j.cta} →
                 </p>
@@ -184,10 +184,10 @@ function DocsIndex() {
                 <span
                   className={`mt-0.5 shrink-0 rounded-full px-2 py-0.5 ${T_LABEL} ${
                     c.bump === "major"
-                      ? "bg-(--md-sys-color-error-container) text-(--md-sys-color-on-error-container)"
+                      ? "bg-(--sys-color-error-container) text-(--sys-color-on-error-container)"
                       : c.bump === "minor"
-                        ? "bg-(--md-sys-color-tertiary-container) text-(--md-sys-color-on-tertiary-container)"
-                        : "bg-(--md-sys-color-surface-container-high) text-(--md-sys-color-on-surface-variant)"
+                        ? "bg-(--sys-color-tertiary-container) text-(--sys-color-on-tertiary-container)"
+                        : "bg-(--sys-color-surface-container-high) text-(--sys-color-on-surface-variant)"
                   }`}
                 >
                   {c.bump}
@@ -198,7 +198,7 @@ function DocsIndex() {
           </ul>
           <p className={`m-0 ${T_BODY_SM}`}>
             <a
-              className="text-(--md-sys-color-secondary)"
+              className="text-(--sys-color-secondary)"
               href="https://github.com/xoroh/kern/tree/main/.changeset"
               rel="noreferrer"
               target="_blank"
@@ -214,7 +214,7 @@ function DocsIndex() {
               button. An agent that starts here never needs to scrape HTML. */}
         <section
           aria-labelledby="for-ai-agents"
-          className="flex flex-col gap-3 border-t border-(--md-sys-color-outline-variant) pt-6"
+          className="flex flex-col gap-3 border-t border-(--sys-color-outline-variant) pt-6"
         >
           <h2 id="for-ai-agents" className={`m-0 ${T_SMALL_TITLE}`}>
             For AI agents

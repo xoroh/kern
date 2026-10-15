@@ -135,11 +135,11 @@ function GettingStarted() {
       <PageCard width="narrow">
         <header className="flex flex-col gap-3">
           <Kicker>Getting started</Kicker>
-          <h1 className={`m-0 ${T_PAGE} text-(--md-sys-color-on-surface)`}>
+          <h1 className={`m-0 ${T_PAGE} text-(--sys-color-on-surface)`}>
             From install to a themed component
           </h1>
           <p
-            className={`m-0 ${T_BODY} text-(--md-sys-color-on-surface-variant)`}
+            className={`m-0 ${T_BODY} text-(--sys-color-on-surface-variant)`}
           >
             Install, theme, render your first component.
           </p>
@@ -147,7 +147,7 @@ function GettingStarted() {
 
         <Step n={1} title="Install the packages">
           <p
-            className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
           >
             One package per platform.
           </p>
@@ -156,7 +156,7 @@ function GettingStarted() {
 
         <Step n={2} title="Load the theme stylesheet">
           <p
-            className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
           >
             One import sets every CSS custom property.
           </p>
@@ -164,7 +164,7 @@ function GettingStarted() {
         </Step>
 
         <Step n={3} title="Render your first component">
-          <div className="flex flex-col gap-4 rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-low) p-6">
+          <div className="flex flex-col gap-4 rounded-(--sys-shape-corner-medium) border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container-low) p-6">
             <Field.Root>
               <Field.Label>Email</Field.Label>
               <Field.Control type="email" placeholder="you@example.com" />
@@ -179,7 +179,7 @@ function GettingStarted() {
 
         <Step n={4} title="Theming">
           <p
-            className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
           >
             Same scheme on web and native, persisted across visits.
           </p>
@@ -188,7 +188,7 @@ function GettingStarted() {
 
         <Step n={5} title="Web quickstart — the app shell">
           <p
-            className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
           >
             <code>@xoroh/kern/start</code> ships the frame: a rail, a drawer,
             split panes, and top bars that take slots rather than baking in one
@@ -200,7 +200,7 @@ function GettingStarted() {
 
         <Step n={6} title="Mobile quickstart">
           <p
-            className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
           >
             Native components take <code>onPress</code> instead of{" "}
             <code>onClick</code>, and resolve the same theme through{" "}
@@ -212,7 +212,7 @@ function GettingStarted() {
                 block onto the primitives subdomain; do not duplicate the
                 install string elsewhere. */}
           <p
-            className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
           >
             Prefer no ecosystem? The behavior kernel installs standalone:
             <code>@xoroh/kern-primitives</code> has no token or renderer
@@ -222,11 +222,11 @@ function GettingStarted() {
           </p>
           <Code>{"bun add @xoroh/kern-primitives"}</Code>
           <p
-            className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
           >
             <Link
               to="/primitives"
-              className="text-(--md-sys-color-secondary) no-underline hover:underline"
+              className="text-(--sys-color-secondary) no-underline hover:underline"
             >
               Primitives — behavior kernel, no visuals
             </Link>
@@ -235,7 +235,7 @@ function GettingStarted() {
 
         <Step n={7} title="Icons">
           <p
-            className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
           >
             Prefer a semantic alias over a raw glyph: the alias is the
             unification decision, so a re-decision stays a one-line change in
@@ -246,7 +246,7 @@ function GettingStarted() {
 
         <Step n={8} title="Scaffold the starter — kern init">
           <p
-            className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
           >
             The fastest adoption path is the scaffold: one command, then{" "}
             <code>bun install</code> and <code>bun run dev</code>, and the
@@ -261,7 +261,7 @@ function GettingStarted() {
             }
           </Code>
           <p
-            className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
           >
             Switching a preset is override data, never a second role table:{" "}
             <code>applyKernTheme</code> writes the resolved roles onto the
@@ -272,7 +272,7 @@ function GettingStarted() {
 
         <Step n={9} title="Vendor components with kern add">
           <p
-            className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
           >
             Prefer owning the code over depending on it? <code>kern add</code>{" "}
             vendors one component plus its transitive closure into your tree —
@@ -290,7 +290,7 @@ function GettingStarted() {
 
         <Step n={10} title="Receipts are the audit trail">
           <p
-            className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
           >
             Every <code>init</code> and <code>add</code> stamps{" "}
             <code>kern.receipt.json</code> with the kern version and the file

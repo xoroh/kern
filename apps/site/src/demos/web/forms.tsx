@@ -93,7 +93,7 @@ export function FormDemo() {
         </Field.Root>
         <button
           type="submit"
-          className="kern-button inline-flex h-10 items-center justify-center rounded-(--md-sys-shape-corner-full) bg-(--md-sys-color-primary) px-4 text-sm font-medium text-(--md-sys-color-on-primary)"
+          className="kern-button inline-flex h-10 items-center justify-center rounded-(--sys-shape-corner-full) bg-(--sys-color-primary) px-4 text-sm font-medium text-(--sys-color-on-primary)"
         >
           Save
         </button>

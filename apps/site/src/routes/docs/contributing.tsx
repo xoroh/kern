@@ -29,11 +29,11 @@ export const Route = createFileRoute("/docs/contributing")({
   component: Contributing,
 });
 
-const INK = "text-(--md-sys-color-on-surface)";
-const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";
+const INK = "text-(--sys-color-on-surface)";
+const INK_SOFT = "text-(--sys-color-on-surface-variant)";
 const REPO = "https://github.com/xoroh/kern";
 const blob = (p: string) => `${REPO}/blob/main/${p}`;
-const CODE = `rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-surface-container-high) px-1.5 py-0.5 ${T_CODE}`;
+const CODE = `rounded-(--sys-shape-corner-small) bg-(--sys-color-surface-container-high) px-1.5 py-0.5 ${T_CODE}`;
 
 function Contributing() {
   return (
@@ -180,7 +180,7 @@ function Contributing() {
             a clean build proves they are reproducible.
           </p>
           <pre
-            className={`m-0 overflow-x-auto rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-low) p-4 ${T_CODE} text-(--md-sys-color-on-surface)`}
+            className={`m-0 overflow-x-auto rounded-(--sys-shape-corner-medium) border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container-low) p-4 ${T_CODE} text-(--sys-color-on-surface)`}
           >
             {`packages/kern-tokens/src/tokens.css      bun run generate:tokens
 packages/kern-tokens/src/tones.css       bun run generate:tones

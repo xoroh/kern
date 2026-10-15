@@ -160,7 +160,7 @@ export function FSection({
         <a
           href={`#${id}`}
           aria-label={`Permalink to ${id.replace(/-/g, " ")}`}
-          className="ml-2 inline-flex items-center text-(--md-sys-color-on-surface-variant) no-underline opacity-0 transition-opacity group-hover:opacity-100 focus-visible:opacity-100"
+          className="ml-2 inline-flex items-center text-(--sys-color-on-surface-variant) no-underline opacity-0 transition-opacity group-hover:opacity-100 focus-visible:opacity-100"
         >
           #
         </a>
@@ -199,7 +199,7 @@ export function FDeviations({
         {items.map((d) => (
           <span
             key={d.id}
-            className={`inline-flex items-center gap-1 rounded-(--md-sys-shape-corner-full) border border-(--md-sys-color-outline) px-2 py-0.5 ${T_BODY_SM} ${INK}`}
+            className={`inline-flex items-center gap-1 rounded-(--sys-shape-corner-full) border border-(--sys-color-outline) px-2 py-0.5 ${T_BODY_SM} ${INK}`}
           >
             <strong className={INK}>{d.id}</strong>
             <span className={INK_SOFT}>{d.note}</span>
@@ -231,7 +231,7 @@ export const F_PROSE = PROSE;
 /* ------------------------------------------------ specimen controls ------ */
 
 /**
- * A role as a live CSS reference: `var(--md-sys-color-primary)`. Swatches
+ * A role as a live CSS reference: `var(--sys-color-primary)`. Swatches
  * paint this rather than a hex so they follow whatever `SchemeScope` they sit
  * in — the value is resolved by the scope, never baked into the markup.
  */
@@ -267,7 +267,7 @@ export function useScheme(): SchemeRegion {
  * The Color and Theme pages used to paint `role.light` everywhere while the
  * copy claimed both schemes. The fix is live rather than cosmetic: the scope
  * resolves mode + contrast through `resolveThemeDetails` and writes the role
- * table onto the region as CSS custom properties, so every `--md-sys-color-*`
+ * table onto the region as CSS custom properties, so every `--sys-color-*`
  * inside — card fills, hairlines, inks, status chips — repaints. Nothing
  * inside needs to know which scheme it is showing; the kit classes it already
  * carries do the work.
@@ -315,7 +315,7 @@ export function SchemeScope({
       <div
         style={vars}
         className={cn(
-          "rounded-(--md-sys-shape-corner-medium) bg-(--md-sys-color-surface) p-3",
+          "rounded-(--sys-shape-corner-medium) bg-(--sys-color-surface) p-3",
           className,
         )}
       >
@@ -429,7 +429,7 @@ export function FoundationLayout({
       {children}
 
       <nav
-        className="flex items-stretch justify-between gap-4 border-t border-(--md-sys-color-outline-variant) pt-6"
+        className="flex items-stretch justify-between gap-4 border-t border-(--sys-color-outline-variant) pt-6"
         aria-label="Foundations"
       >
         {prev ? (

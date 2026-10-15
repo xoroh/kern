@@ -15,7 +15,7 @@ export const navigationMenu: ComponentDoc = {
     // No variant axis. The menu is one treatment; the state is open or closed.
     variants: [],
     // M3's row "menu" rests at level 2, and the popup ships
-    // `--md-sys-elevation-level2` to match.
+    // `--sys-elevation-level2` to match.
     elevation: 2,
   },
   parts: [
@@ -80,13 +80,13 @@ export const navigationMenu: ComponentDoc = {
     {
       element: "Popup",
       state: "resting",
-      token: "md.comp.menu.container",
+      token: "comp.menu.container",
       value: "surface-container, 4px, level2",
     },
     {
       element: "Active link",
       state: "resting",
-      token: "md.comp.navigation-menu.active",
+      token: "comp.navigation-menu.active",
       value: "secondary-container pill plus on-secondary-container",
     },
   ],
@@ -99,7 +99,7 @@ export const navigationMenu: ComponentDoc = {
   customization: {
     supported: [
       "`className` on every part, merged after the part's own classes.",
-      "The panel's surface, outline and lift come from the system roles and `--md-sys-elevation-level2`, so a theme moves the menu with everything else.",
+      "The panel's surface, outline and lift come from the system roles and `--sys-elevation-level2`, so a theme moves the menu with everything else.",
       "Panel width is a minimum rather than a fixed width, so it grows with its content.",
     ],
     notSupported: [

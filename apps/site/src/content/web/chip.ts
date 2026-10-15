@@ -50,13 +50,13 @@ export const chip: ComponentDoc = {
     {
       element: "Container",
       state: "resting",
-      token: "md.comp.chip.container",
+      token: "comp.chip.container",
       value: "8px shape, 32px high, label-large",
     },
     {
       element: "Selected filter",
       state: "resting",
-      token: "md.comp.filter-chip.selected",
+      token: "comp.filter-chip.selected",
       value: "secondary-container + on-secondary-container + check",
     },
   ],

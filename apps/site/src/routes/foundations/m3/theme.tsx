@@ -87,7 +87,7 @@ function Swatch({
     <li className="flex items-center gap-2">
       <span
         aria-hidden="true"
-        className="size-7 shrink-0 rounded-(--md-sys-shape-corner-extra-small) border border-(--md-sys-color-outline-variant)"
+        className="size-7 shrink-0 rounded-(--sys-shape-corner-extra-small) border border-(--sys-color-outline-variant)"
         style={{ background: roleVar(role) }}
       />
       <span className="flex min-w-0 flex-col">
@@ -95,14 +95,14 @@ function Swatch({
           {role}
           {kern ? (
             <span
-              className={`ml-1 rounded-full bg-(--md-sys-color-tertiary-container) px-1.5 py-px ${T_CODE} text-(--md-sys-color-on-tertiary-container)`}
+              className={`ml-1 rounded-full bg-(--sys-color-tertiary-container) px-1.5 py-px ${T_CODE} text-(--sys-color-on-tertiary-container)`}
             >
               kern
             </span>
           ) : null}
         </span>
-        <span className={`${T_CODE} text-(--md-sys-color-on-surface-variant)`}>
-          <span className="text-(--md-sys-color-on-surface)">{active}</span>
+        <span className={`${T_CODE} text-(--sys-color-on-surface-variant)`}>
+          <span className="text-(--sys-color-on-surface)">{active}</span>
           <span className="opacity-70"> · {other}</span>
         </span>
       </span>
@@ -168,11 +168,11 @@ function ThemePage() {
       <PageCard gap={10} copyMd>
         <header className="flex flex-col gap-3">
           <Kicker>Theme</Kicker>
-          <h1 className={`m-0 ${T_PAGE} text-(--md-sys-color-on-surface)`}>
+          <h1 className={`m-0 ${T_PAGE} text-(--sys-color-on-surface)`}>
             One theme source, both platforms
           </h1>
           <p
-            className={`m-0 ${T_BODY} text-(--md-sys-color-on-surface-variant)`}
+            className={`m-0 ${T_BODY} text-(--sys-color-on-surface-variant)`}
           >
             <code>@xoroh/kern-tokens</code> is platform-free: no React, no DOM.
             Web reads OKLCH CSS variables, native reads compiled sRGB, and both
@@ -230,7 +230,7 @@ function ThemePage() {
             Color roles
           </h2>
           <p
-            className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
           >
             A role is a decision, not a color. <code>primary</code> means
             &ldquo;the brand accent&rdquo;; the value behind it can change
@@ -251,7 +251,7 @@ function ThemePage() {
               <div key={band.group} className="flex flex-col gap-2">
                 <h3
                   id={`role-group-${band.group}`}
-                  className={`m-0 ${T_SMALL_TITLE} text-(--md-sys-color-on-surface)`}
+                  className={`m-0 ${T_SMALL_TITLE} text-(--sys-color-on-surface)`}
                 >
                   {band.label} · {band.roles.length}
                 </h3>
@@ -276,7 +276,7 @@ function ThemePage() {
             Shape ladder
           </h2>
           <p
-            className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
           >
             {SHAPE_KEYS.length} corner roles, from <code>none</code> to{" "}
             <code>full</code>. Components reference the role, never a literal
@@ -288,7 +288,7 @@ function ThemePage() {
             {SHAPE_KEYS.map((key) => (
               <Preview key={key} label={`${key} · ${LIGHT.shape[key]}`}>
                 <div
-                  className="size-16 bg-(--md-sys-color-primary-container)"
+                  className="size-16 bg-(--sys-color-primary-container)"
                   style={{ borderRadius: LIGHT.shape[key] }}
                 />
               </Preview>
@@ -301,7 +301,7 @@ function ThemePage() {
             Contrast levels
           </h2>
           <p
-            className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
           >
             A contrast level resolves to a whole scheme, not a filter. The three
             tiles below are read straight from the theme package in the scheme
@@ -317,14 +317,14 @@ function ThemePage() {
                   label={`contrast — ${level}${level === contrast ? " · active" : ""}`}
                 >
                   <div
-                    className="flex h-24 w-full flex-col justify-center gap-2 rounded-(--md-sys-shape-corner-medium) p-3"
+                    className="flex h-24 w-full flex-col justify-center gap-2 rounded-(--sys-shape-corner-medium) p-3"
                     style={{
                       background: resolved.color.surface,
                       border: `1px solid ${resolved.color.outline}`,
                     }}
                   >
                     <span
-                      className={`rounded-(--md-sys-shape-corner-full) px-3 py-1 text-center ${T_LABEL}`}
+                      className={`rounded-(--sys-shape-corner-full) px-3 py-1 text-center ${T_LABEL}`}
                       style={{
                         background: resolved.color.primaryContainer,
                         color: resolved.color.onPrimaryContainer,
@@ -333,7 +333,7 @@ function ThemePage() {
                       primaryContainer
                     </span>
                     <span
-                      className={`rounded-(--md-sys-shape-corner-full) px-3 py-1 text-center ${T_LABEL}`}
+                      className={`rounded-(--sys-shape-corner-full) px-3 py-1 text-center ${T_LABEL}`}
                       style={{
                         background: resolved.color.errorContainer,
                         color: resolved.color.onErrorContainer,
@@ -353,7 +353,7 @@ function ThemePage() {
             The same roles, rendering
           </h2>
           <p
-            className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
           >
             These components read the roles above and nothing else.
           </p>
@@ -363,7 +363,7 @@ function ThemePage() {
                 <Button>Primary</Button>
                 <Button variant="tonal">Tonal</Button>
                 <Button variant="ghost">Ghost</Button>
-                <Button className="bg-(--md-sys-color-error) text-(--md-sys-color-on-error) hover:bg-(--md-sys-color-error)/90">
+                <Button className="bg-(--sys-color-error) text-(--sys-color-on-error) hover:bg-(--sys-color-error)/90">
                   Error
                 </Button>
               </div>
@@ -387,7 +387,7 @@ function ThemePage() {
             And on mobile
           </h2>
           <p
-            className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
           >
             The native side resolves the identical scheme, so a role means the
             same thing on both platforms. Both phones below render the scheme
@@ -409,7 +409,7 @@ function ThemePage() {
             Configure it
           </h2>
           <p
-            className={`m-0 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+            className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
           >
             This page resolves; it does not configure. Seed, presets, contrast
             levels, radius authoring and preset export live in the{" "}
@@ -418,7 +418,7 @@ function ThemePage() {
             </Link>{" "}
             — every token there is also a CSS variable, so a project can read
             one without importing anything, e.g.{" "}
-            <code>--md-sys-color-primary</code>.
+            <code>--sys-color-primary</code>.
           </p>
         </section>
       </PageCard>

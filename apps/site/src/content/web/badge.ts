@@ -35,13 +35,13 @@ export const badge: ComponentDoc = {
     {
       element: "Dot",
       state: "resting",
-      token: "md.comp.badge.small",
+      token: "comp.badge.small",
       value: "6px, error",
     },
     {
       element: "Count",
       state: "resting",
-      token: "md.comp.badge.large",
+      token: "comp.badge.large",
       value: "16px, 8px shape, error + on-error, 16x34 max",
     },
   ],

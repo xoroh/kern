@@ -140,11 +140,11 @@ function ApiReference() {
     <SiteLayout>
       <PageCard gap={8}>
         <Kicker>API reference</Kicker>
-        <h1 className={`mt-2 mb-3 ${T_PAGE} text-(--md-sys-color-on-surface)`}>
+        <h1 className={`mt-2 mb-3 ${T_PAGE} text-(--sys-color-on-surface)`}>
           Public utilities
         </h1>
         <p
-          className={`mt-0 mb-8 ${T_BODY} text-(--md-sys-color-on-surface-variant)`}
+          className={`mt-0 mb-8 ${T_BODY} text-(--sys-color-on-surface-variant)`}
         >
           kern exports API that is not a component: pure functions, predicates,
           hooks and factories. They are reachable from the packages' public
@@ -162,7 +162,7 @@ function ApiReference() {
         {entries.map((entry) => (
           <section
             key={entry.name}
-            className="mb-10 rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-low) p-6"
+            className="mb-10 rounded-(--sys-shape-corner-medium) border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container-low) p-6"
           >
             <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
               <h2
@@ -170,42 +170,42 @@ function ApiReference() {
                   .toLowerCase()
                   .replace(/[^a-z0-9]+/g, "-")
                   .replace(/^-|-$/g, "")}`}
-                className={`m-0 ${T_SECTION} text-(--md-sys-color-on-surface)`}
+                className={`m-0 ${T_SECTION} text-(--sys-color-on-surface)`}
               >
                 {entry.name}
               </h2>
               <span
-                className={`rounded-full bg-(--md-sys-color-secondary-container) px-2.5 py-0.5 text-(--md-sys-color-on-secondary-container) ${T_LABEL}`}
+                className={`rounded-full bg-(--sys-color-secondary-container) px-2.5 py-0.5 text-(--sys-color-on-secondary-container) ${T_LABEL}`}
               >
                 {entry.kind}
               </span>
               <code
-                className={`${T_CODE} text-(--md-sys-color-on-surface-variant)`}
+                className={`${T_CODE} text-(--sys-color-on-surface-variant)`}
               >
                 {entry.package}
               </code>
             </div>
 
             <p
-              className={`mt-3 mb-4 ${T_BODY} text-(--md-sys-color-on-surface-variant)`}
+              className={`mt-3 mb-4 ${T_BODY} text-(--sys-color-on-surface-variant)`}
             >
               {entry.oneLiner}
             </p>
 
             <pre
-              className={`m-0 mb-4 overflow-x-auto rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-surface-container-high) p-4 ${T_CODE} text-(--md-sys-color-on-surface)`}
+              className={`m-0 mb-4 overflow-x-auto rounded-(--sys-shape-corner-small) bg-(--sys-color-surface-container-high) p-4 ${T_CODE} text-(--sys-color-on-surface)`}
             >
               <code>{entry.signature}</code>
             </pre>
 
             <h3
               id="api-contract"
-              className={`mt-0 mb-2 ${T_SMALL_TITLE} text-(--md-sys-color-on-surface)`}
+              className={`mt-0 mb-2 ${T_SMALL_TITLE} text-(--sys-color-on-surface)`}
             >
               Contract
             </h3>
             <ul
-              className={`m-0 mb-0 list-disc space-y-2 pl-5 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+              className={`m-0 mb-0 list-disc space-y-2 pl-5 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
             >
               {entry.contract.map((line) => (
                 <li key={line}>{line}</li>
@@ -216,12 +216,12 @@ function ApiReference() {
               <>
                 <h3
                   id="api-notes"
-                  className={`mt-5 mb-2 ${T_SMALL_TITLE} text-(--md-sys-color-on-surface)`}
+                  className={`mt-5 mb-2 ${T_SMALL_TITLE} text-(--sys-color-on-surface)`}
                 >
                   Notes
                 </h3>
                 <ul
-                  className={`m-0 mb-0 list-disc space-y-2 pl-5 ${T_BODY_MD} text-(--md-sys-color-on-surface-variant)`}
+                  className={`m-0 mb-0 list-disc space-y-2 pl-5 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
                 >
                   {entry.notes.map((line) => (
                     <li key={line}>{line}</li>

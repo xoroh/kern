@@ -44,7 +44,7 @@ export const richTooltip: ComponentDoc = {
     {
       element: "Container",
       state: "resting",
-      token: "--md-sys-color-surface-container",
+      token: "--sys-color-surface-container",
       value: "surface-container",
     },
   ],

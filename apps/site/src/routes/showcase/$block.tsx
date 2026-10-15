@@ -36,15 +36,15 @@ function BlockPage() {
     return (
       <SiteLayout>
         <PageCard>
-          <h1 className={`m-0 ${T_PAGE} text-(--md-sys-color-on-surface)`}>
+          <h1 className={`m-0 ${T_PAGE} text-(--sys-color-on-surface)`}>
             No block by that name
           </h1>
           <p
-            className={`m-0 ${T_BODY} text-(--md-sys-color-on-surface-variant)`}
+            className={`m-0 ${T_BODY} text-(--sys-color-on-surface-variant)`}
           >
             <Link
               to="/showcase"
-              className="text-(--md-sys-color-primary) no-underline hover:underline"
+              className="text-(--sys-color-primary) no-underline hover:underline"
             >
               Back to the blocks index
             </Link>

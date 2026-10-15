@@ -45,7 +45,7 @@ export const pagination: ComponentDoc = {
     {
       element: "Page button",
       state: "hover",
-      token: "md.sys.state.hover",
+      token: "sys.state.hover",
       value: "on-surface 8% layer",
     },
   ],

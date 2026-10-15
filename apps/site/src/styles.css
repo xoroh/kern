@@ -3,11 +3,11 @@
 @source "../../../packages/kern/src/components";
 /* The type helper builds these class names at runtime; Tailwind cannot infer
    them from template strings. Emit the complete token-backed scale explicitly. */
-@source inline("[font-family:var(--md-sys-typescale-{,emphasized-}{display,headline,title,body,label}-{large,medium,small}-font-family)]");
-@source inline("[font-size:var(--md-sys-typescale-{,emphasized-}{display,headline,title,body,label}-{large,medium,small}-font-size)]");
-@source inline("[font-weight:var(--md-sys-typescale-{,emphasized-}{display,headline,title,body,label}-{large,medium,small}-font-weight)]");
-@source inline("[line-height:var(--md-sys-typescale-{,emphasized-}{display,headline,title,body,label}-{large,medium,small}-line-height)]");
-@source inline("[letter-spacing:var(--md-sys-typescale-{,emphasized-}{display,headline,title,body,label}-{large,medium,small}-letter-spacing)]");
+@source inline("[font-family:var(--sys-typescale-{,emphasized-}{display,headline,title,body,label}-{large,medium,small}-font-family)]");
+@source inline("[font-size:var(--sys-typescale-{,emphasized-}{display,headline,title,body,label}-{large,medium,small}-font-size)]");
+@source inline("[font-weight:var(--sys-typescale-{,emphasized-}{display,headline,title,body,label}-{large,medium,small}-font-weight)]");
+@source inline("[line-height:var(--sys-typescale-{,emphasized-}{display,headline,title,body,label}-{large,medium,small}-line-height)]");
+@source inline("[letter-spacing:var(--sys-typescale-{,emphasized-}{display,headline,title,body,label}-{large,medium,small}-letter-spacing)]");
 
 * {
   box-sizing: border-box;
@@ -15,22 +15,22 @@
 
 body {
   margin: 0;
-  font-family: var(--kern-font-family);
-  background: var(--md-sys-color-surface);
-  color: var(--md-sys-color-on-surface);
+  font-family: var(--ref-font-family);
+  background: var(--sys-color-surface);
+  color: var(--sys-color-on-surface);
 }
 
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid var(--md-sys-color-primary);
+  outline: 2px solid var(--sys-color-primary);
   outline-offset: 2px;
 }
 
 /* Site expression, not library overrides: package demos keep their own tokens. */
 .site-shell {
-  --site-panel-radius: var(--md-sys-shape-corner-extra-large);
-  --site-hero-radius: var(--md-sys-shape-corner-extra-extra-large);
-  background: var(--md-sys-color-surface-container-low);
+  --site-panel-radius: var(--sys-shape-corner-extra-large);
+  --site-hero-radius: var(--sys-shape-corner-extra-extra-large);
+  background: var(--sys-color-surface-container-low);
 }
 
 .site-header {
@@ -40,7 +40,7 @@ button:focus-visible {
   padding: 0 16px 16px;
 }
 .site-main {
-  background: var(--md-sys-color-surface);
+  background: var(--sys-color-surface);
   border-radius: var(--site-panel-radius);
   scrollbar-gutter: stable;
   scroll-behavior: smooth;
@@ -62,7 +62,7 @@ button:focus-visible {
 }
 .site-sidebar,
 .site-toc {
-  background: var(--md-sys-color-surface-container-low);
+  background: var(--sys-color-surface-container-low);
 }
 .site-toc {
   padding-left: 8px;
@@ -80,8 +80,8 @@ button:focus-visible {
 .site-docs-welcome {
   padding: clamp(24px, 3vw, 40px);
   border-radius: var(--site-panel-radius);
-  background: var(--md-sys-color-primary-container);
-  color: var(--md-sys-color-on-primary-container);
+  background: var(--sys-color-primary-container);
+  color: var(--sys-color-on-primary-container);
 }
 .site-docs-welcome :is(p, h1) {
   color: inherit;
@@ -92,40 +92,40 @@ button:focus-visible {
   justify-content: center;
   width: 48px;
   height: 48px;
-  border-radius: var(--md-sys-shape-corner-large);
+  border-radius: var(--sys-shape-corner-large);
   margin-bottom: 20px;
-  background: var(--md-sys-color-primary-container);
-  color: var(--md-sys-color-on-primary-container);
+  background: var(--sys-color-primary-container);
+  color: var(--sys-color-on-primary-container);
 }
 a.site-card:hover {
-  background: var(--md-sys-color-secondary-container);
+  background: var(--sys-color-secondary-container);
 }
 .site-stage {
   background: color-mix(
     in srgb,
-    var(--md-sys-color-primary-container) 32%,
-    var(--md-sys-color-surface-container-low)
+    var(--sys-color-primary-container) 32%,
+    var(--sys-color-surface-container-low)
   );
 }
 .site-gallery-card {
-  background: var(--md-sys-color-surface-container-low);
+  background: var(--sys-color-surface-container-low);
 }
 .site-gallery-card:nth-child(3n + 2) .site-gallery-stage {
   background: color-mix(
     in srgb,
-    var(--md-sys-color-tertiary-container) 38%,
-    var(--md-sys-color-surface-container-low)
+    var(--sys-color-tertiary-container) 38%,
+    var(--sys-color-surface-container-low)
   );
 }
 .site-gallery-card:nth-child(3n + 3) .site-gallery-stage {
   background: color-mix(
     in srgb,
-    var(--md-sys-color-secondary-container) 50%,
-    var(--md-sys-color-surface-container-low)
+    var(--sys-color-secondary-container) 50%,
+    var(--sys-color-surface-container-low)
   );
 }
 .site-gallery-card:focus-within {
-  outline: 2px solid var(--md-sys-color-primary);
+  outline: 2px solid var(--sys-color-primary);
   outline-offset: 2px;
 }
 .site-footer {
@@ -140,10 +140,10 @@ a.site-card:hover {
   border-radius: var(--site-hero-radius);
   background: color-mix(
     in srgb,
-    var(--md-sys-color-primary-container) 30%,
-    var(--md-sys-color-surface)
+    var(--sys-color-primary-container) 30%,
+    var(--sys-color-surface)
   );
-  color: var(--md-sys-color-on-primary-container);
+  color: var(--sys-color-on-primary-container);
 }
 .home-hero-grid {
   max-width: 88rem;
@@ -177,8 +177,8 @@ a.site-card:hover {
 }
 .hero-bloom-tile {
   padding: 16px 20px;
-  background: var(--md-sys-color-primary-container);
-  color: var(--md-sys-color-on-primary-container);
+  background: var(--sys-color-primary-container);
+  color: var(--sys-color-on-primary-container);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -199,8 +199,8 @@ a.site-card:hover {
   flex-direction: column;
   justify-content: space-between;
   padding: 20px;
-  background: var(--md-sys-color-primary);
-  color: var(--md-sys-color-on-primary);
+  background: var(--sys-color-primary);
+  color: var(--sys-color-on-primary);
 }
 .hero-aa {
   display: block;
@@ -214,14 +214,14 @@ a.site-card:hover {
   grid-column: 1 / -1;
   border-radius: var(--site-panel-radius);
   padding: 24px;
-  background: var(--md-sys-color-surface);
-  color: var(--md-sys-color-on-surface);
+  background: var(--sys-color-surface);
+  color: var(--sys-color-on-surface);
 }
 .hero-live-dot {
   width: 8px;
   height: 8px;
   border-radius: 100%;
-  background: var(--md-sys-color-primary);
+  background: var(--sys-color-primary);
 }
 .home-section {
   max-width: 88rem;
@@ -257,7 +257,7 @@ a.site-card:hover {
 .home-explore-card {
   border-radius: var(--site-panel-radius);
   overflow: hidden;
-  background: var(--md-sys-color-surface-container-low);
+  background: var(--sys-color-surface-container-low);
 }
 .home-explore-art {
   display: flex;
@@ -266,16 +266,16 @@ a.site-card:hover {
   gap: 14px;
   min-height: 228px;
   margin: 8px;
-  border-radius: var(--md-sys-shape-corner-large-increased);
+  border-radius: var(--sys-shape-corner-large-increased);
   overflow: hidden;
 }
 .home-component-art {
   flex-direction: column;
   padding: 20px;
-  background: var(--md-sys-color-secondary-container);
+  background: var(--sys-color-secondary-container);
 }
 .home-foundation-art {
-  background: var(--md-sys-color-tertiary-container);
+  background: var(--sys-color-tertiary-container);
   padding: 24px;
   gap: 0;
 }
@@ -287,25 +287,25 @@ a.site-card:hover {
   flex-shrink: 1;
 }
 .foundation-square {
-  background: var(--md-sys-color-tertiary);
-  border-radius: var(--md-sys-shape-corner-large);
+  background: var(--sys-color-tertiary);
+  border-radius: var(--sys-shape-corner-large);
   transform: rotate(-12deg);
   margin-right: -20px;
 }
 .foundation-circle {
-  background: var(--md-sys-color-on-tertiary-container);
+  background: var(--sys-color-on-tertiary-container);
   border-radius: 50%;
   z-index: 1;
 }
 .foundation-arch {
-  background: var(--md-sys-color-surface);
+  background: var(--sys-color-surface);
   border-radius: 50% 50% 0 0;
   transform: rotate(12deg);
   margin-left: -20px;
 }
 .home-theme-art {
-  background: var(--md-sys-color-primary-container);
-  color: var(--md-sys-color-on-primary-container);
+  background: var(--sys-color-primary-container);
+  color: var(--sys-color-on-primary-container);
   position: relative;
 }
 .home-theme-art > svg {
@@ -321,19 +321,19 @@ a.site-card:hover {
   width: 92px;
   flex-shrink: 0;
   margin-right: -46px;
-  border-radius: var(--md-sys-shape-corner-full);
+  border-radius: var(--sys-shape-corner-full);
 }
 .theme-art-stack span:nth-child(1) {
-  background: var(--md-sys-color-primary);
+  background: var(--sys-color-primary);
 }
 .theme-art-stack span:nth-child(2) {
-  background: var(--md-sys-color-secondary);
+  background: var(--sys-color-secondary);
 }
 .theme-art-stack span:nth-child(3) {
-  background: var(--md-sys-color-tertiary);
+  background: var(--sys-color-tertiary);
 }
 .theme-art-stack span:nth-child(4) {
-  background: var(--md-sys-color-tertiary-container);
+  background: var(--sys-color-tertiary-container);
 }
 .home-explore-copy {
   padding: 20px 24px 24px;
@@ -341,7 +341,7 @@ a.site-card:hover {
 .palette-card {
   border-radius: var(--site-panel-radius);
   overflow: hidden;
-  background: var(--md-sys-color-surface-container-low);
+  background: var(--sys-color-surface-container-low);
 }
 .palette-role {
   padding: 24px;
@@ -367,14 +367,14 @@ a.site-card:hover {
   margin: 64px 24px 0;
   padding: clamp(24px, 4vw, 64px);
   border-radius: var(--site-hero-radius);
-  background: var(--md-sys-color-primary-container);
-  color: var(--md-sys-color-on-primary-container);
+  background: var(--sys-color-primary-container);
+  color: var(--sys-color-on-primary-container);
 }
 .home-code-panel {
   padding: 28px;
   border-radius: var(--site-panel-radius);
-  background: var(--md-sys-color-inverse-surface);
-  color: var(--md-sys-color-inverse-on-surface);
+  background: var(--sys-color-inverse-surface);
+  color: var(--sys-color-inverse-on-surface);
   min-width: 0;
 }
 .home-code-lines {
@@ -391,11 +391,11 @@ a.site-card:hover {
   opacity: 0.7;
 }
 .code-accent {
-  color: var(--md-sys-color-inverse-primary);
+  color: var(--sys-color-inverse-primary);
 }
 .code-language {
   border: 1px solid currentColor;
-  border-radius: var(--md-sys-shape-corner-full);
+  border-radius: var(--sys-shape-corner-full);
   padding: 4px 10px;
 }
 .home-copy-button {
@@ -406,7 +406,7 @@ a.site-card:hover {
   min-height: 48px;
   width: 100%;
   border: 1px solid currentColor;
-  border-radius: var(--md-sys-shape-corner-full);
+  border-radius: var(--sys-shape-corner-full);
   background: transparent;
   color: inherit;
   cursor: pointer;
@@ -457,7 +457,7 @@ a.site-card:hover {
     padding: 0 12px 12px;
   }
   .site-main {
-    border-radius: var(--md-sys-shape-corner-large-increased);
+    border-radius: var(--sys-shape-corner-large-increased);
   }
   .site-main-docs > details {
     margin: 16px 20px 0;

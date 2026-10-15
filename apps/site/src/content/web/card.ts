@@ -35,19 +35,19 @@ export const card: ComponentDoc = {
     {
       element: "Elevated container",
       state: "resting",
-      token: "md.comp.card.elevated",
+      token: "comp.card.elevated",
       value: "surface-container-low, level1, 12px",
     },
     {
       element: "Filled container",
       state: "resting",
-      token: "md.comp.card.filled",
+      token: "comp.card.filled",
       value: "surface-container-highest, 12px",
     },
     {
       element: "Outlined container",
       state: "resting",
-      token: "md.comp.card.outlined",
+      token: "comp.card.outlined",
       value: "surface + outline-variant, 12px",
     },
   ],
@@ -61,12 +61,12 @@ export const card: ComponentDoc = {
     supported: [
       "`className` is passed through and merged after the variant classes.",
       "`as` changes the rendered element, so a card that is really a link can render an `<a>` and keep its semantics.",
-      "Colour comes from `--md-sys-color-surface` and the outline roles, so a theme moves every card at once.",
+      "Colour comes from `--sys-color-surface` and the outline roles, so a theme moves every card at once.",
     ],
     notSupported: [
       "There is no `padding` or `spacing` prop. A card is a bare surface — the content inside it owns its padding, which is what lets a card hold an image flush to its edge.",
-      "There is no `radius` or `shape` prop. The corner is `--md-sys-shape-corner-small`.",
-      "Resting elevation is not a prop. `elevated` is the variant that lifts, to `--md-sys-elevation-level1`; `filled` and `outlined` carry no token and rest on the surface.",
+      "There is no `radius` or `shape` prop. The corner is `--sys-shape-corner-small`.",
+      "Resting elevation is not a prop. `elevated` is the variant that lifts, to `--sys-elevation-level1`; `filled` and `outlined` carry no token and rest on the surface.",
     ],
   },
   api: [

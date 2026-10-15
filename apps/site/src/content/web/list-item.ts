@@ -42,13 +42,13 @@ export const listItem: ComponentDoc = {
     {
       element: "Row",
       state: "resting",
-      token: "md.comp.list.one-line",
+      token: "comp.list.one-line",
       value: "56px, body-large on-surface",
     },
     {
       element: "Row",
       state: "hover",
-      token: "md.comp.list.hover-layer",
+      token: "comp.list.hover-layer",
       value: "on-surface 8%",
     },
   ],

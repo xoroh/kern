@@ -17,7 +17,7 @@ import {
  * legacy fallback checks `execCommand`'s return, and a throw leaves the
  * button reading "Copy".
  */
-export const COPY_BUTTON_CLASS = `inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-(--md-sys-shape-corner-full) border border-(--md-sys-color-outline) bg-transparent px-4 ${T_BODY_SM} text-(--md-sys-color-primary) ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`;
+export const COPY_BUTTON_CLASS = `inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-(--sys-shape-corner-full) border border-(--sys-color-outline) bg-transparent px-4 ${T_BODY_SM} text-(--sys-color-primary) ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`;
 
 export function CopyButton({
   text,

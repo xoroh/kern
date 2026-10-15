@@ -16,7 +16,7 @@ export const sheet: ComponentDoc = {
     variants: [],
     // M3 tabulates sheets three ways — "bottom sheet (modal)" and "side sheet
     // (modal)" at level 1, "side sheet (docked)" at level 0 — so `variants`
-    // permits [0, 1]. kern's sheet ships `--md-sys-elevation-level1`, the
+    // permits [0, 1]. kern's sheet ships `--sys-elevation-level1`, the
     // modal level, which is what this page claims.
     elevation: 1,
   },
@@ -70,13 +70,13 @@ export const sheet: ComponentDoc = {
     {
       element: "Container",
       state: "resting",
-      token: "md.comp.sheet.container",
+      token: "comp.sheet.container",
       value: "surface-container-low, 28px leading edge, level3",
     },
     {
       element: "Scrim",
       state: "resting",
-      token: "md.sys.color.scrim",
+      token: "sys.color.scrim",
       value: "32%",
     },
   ],

@@ -26,16 +26,16 @@
 /* ---------------------------------------------------------------- ink ---- */
 
 /** Primary body ink. */
-export const INK = "text-(--md-sys-color-on-surface)";
+export const INK = "text-(--sys-color-on-surface)";
 /** Secondary ink — descriptions, captions, table cells. */
-export const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";
+export const INK_SOFT = "text-(--sys-color-on-surface-variant)";
 /**
  * Inline link — Primary, the site's action accent. Underline appears on
  * hover; the global focus ring is
  * visible on keyboard focus.
  */
 export const LINK =
-  "text-(--md-sys-color-primary) no-underline hover:underline";
+  "text-(--sys-color-primary) no-underline hover:underline";
 
 /* ------------------------------------------------------------- surfaces --- */
 
@@ -43,13 +43,13 @@ export const LINK =
  * CARD — rounded tonal content group. Flat, with no perimeter stroke.
  */
 export const CARD =
-  "site-card rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface-container-low)";
+  "site-card rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-low)";
 
 /**
  * CARD_FILLED — the next step of the tonal ladder, without a stroke.
  */
 export const CARD_FILLED =
-  "site-card rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface-container)";
+  "site-card rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container)";
 
 /**
  * STAGE — the ONE demo chrome. Every live demo, preview, and specimen sits
@@ -57,11 +57,11 @@ export const CARD_FILLED =
  * accent mix; it never overrides the rendered component's theme.
  */
 export const STAGE =
-  "site-stage rounded-(--md-sys-shape-corner-large) bg-(--md-sys-color-surface-container)";
+  "site-stage rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container)";
 
 /** A small tonal strip inside a card — code heads, table heads, callouts. */
 export const STRIP =
-  "rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-surface-container-low)";
+  "rounded-(--sys-shape-corner-small) bg-(--sys-color-surface-container-low)";
 
 /* ---------------------------------------------------------- interaction --- */
 
@@ -70,25 +70,25 @@ export const STRIP =
  * every interactive element in chrome carries it.
  */
 export const FOCUS_RING =
-  "focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-(--md-sys-color-secondary)";
+  "focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-(--sys-color-secondary)";
 
 /** Hover state layer — on-surface @ 8% (M3 hover). */
-export const HOVER_LAYER = "hover:bg-(--md-sys-color-on-surface)/8";
+export const HOVER_LAYER = "hover:bg-(--sys-color-on-surface)/8";
 /** Press state layer — on-surface @ 10% (M3 press). */
-export const PRESS_LAYER = "active:bg-(--md-sys-color-on-surface)/12";
+export const PRESS_LAYER = "active:bg-(--sys-color-on-surface)/12";
 /** Hover + press, the transparent-element pair. */
 export const STATE_LAYERS = `${HOVER_LAYER} ${PRESS_LAYER}`;
 
 /** Token-resolved color transition — standard easing, short duration. */
 export const TRANSITION =
-  "transition-colors ease-(--md-sys-motion-easing-standard) [transition-duration:var(--md-sys-motion-duration-short3)]";
+  "transition-colors ease-(--sys-motion-easing-standard) [transition-duration:var(--sys-motion-duration-short3)]";
 
 /**
  * ICON_BUTTON — 48dp target (the accessibility floor), round, transparent
  * at rest with state layers. Icon glyphs render at 20–24px; the target is
  * invisible until hovered.
  */
-export const ICON_BUTTON = `inline-flex size-12 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent text-(--md-sys-color-on-surface-variant) ${STATE_LAYERS} ${TRANSITION} hover:text-(--md-sys-color-on-surface) ${FOCUS_RING}`;
+export const ICON_BUTTON = `inline-flex size-12 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent text-(--sys-color-on-surface-variant) ${STATE_LAYERS} ${TRANSITION} hover:text-(--sys-color-on-surface) ${FOCUS_RING}`;
 
 /**
  * Pill navigation — rest and active. Active uses the selected pair
@@ -96,8 +96,8 @@ export const ICON_BUTTON = `inline-flex size-12 cursor-pointer items-center just
  * layers. Full radius, 48dp row height.
  */
 export const PILL_ACTIVE =
-  "rounded-(--md-sys-shape-corner-full) bg-(--md-sys-color-secondary-container) text-(--md-sys-color-on-secondary-container)";
-export const PILL_REST = `rounded-(--md-sys-shape-corner-full) text-(--md-sys-color-on-surface-variant) ${STATE_LAYERS} hover:text-(--md-sys-color-on-surface)`;
+  "rounded-(--sys-shape-corner-full) bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container)";
+export const PILL_REST = `rounded-(--sys-shape-corner-full) text-(--sys-color-on-surface-variant) ${STATE_LAYERS} hover:text-(--sys-color-on-surface)`;
 
 /** A ≥48dp interactive row (nav items, list rows, toolbar buttons). */
 export const MIN_TARGET = "inline-flex min-h-12 items-center";

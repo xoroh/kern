@@ -47,19 +47,19 @@ export const navigationDrawer: ComponentDoc = {
     {
       element: "Panel",
       state: "resting",
-      token: "md.comp.navigation-drawer.container",
+      token: "comp.navigation-drawer.container",
       value: "360px (80vw cap), surface-container-low, large end rounding",
     },
     {
       element: "Selected item",
       state: "resting",
-      token: "md.comp.navigation-drawer.selected",
+      token: "comp.navigation-drawer.selected",
       value: "secondary-container pill + on-secondary-container",
     },
     {
       element: "Scrim",
       state: "resting",
-      token: "md.sys.color.scrim",
+      token: "sys.color.scrim",
       value: "40%",
     },
   ],

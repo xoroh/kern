@@ -24,8 +24,8 @@ export const Route = createFileRoute("/community")({
   component: Community,
 });
 
-const INK = "text-(--md-sys-color-on-surface)";
-const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";
+const INK = "text-(--sys-color-on-surface)";
+const INK_SOFT = "text-(--sys-color-on-surface-variant)";
 const REPO = "https://github.com/xoroh/kern";
 
 function Community() {

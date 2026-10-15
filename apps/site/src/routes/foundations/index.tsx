@@ -133,7 +133,7 @@ function SystemsHub() {
             <li>
               <Link
                 to="/docs/getting-started"
-                className={`text-(--md-sys-color-primary) ${T_BODY_SM}`}
+                className={`text-(--sys-color-primary) ${T_BODY_SM}`}
               >
                 Getting started →
               </Link>{" "}
@@ -144,7 +144,7 @@ function SystemsHub() {
             <li>
               <Link
                 to="/components"
-                className={`text-(--md-sys-color-primary) ${T_BODY_SM}`}
+                className={`text-(--sys-color-primary) ${T_BODY_SM}`}
               >
                 Component gallery →
               </Link>{" "}
