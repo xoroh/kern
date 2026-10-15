@@ -1,6 +1,5 @@
 import {
   type ResolvedTheme,
-  resolveThemeDetails,
   tokens,
 } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
@@ -12,7 +11,7 @@ import {
   View,
   type ViewStyle,
 } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 import { NavigationBarItem } from "./navigation-bar";
 import { SheetSurface } from "./sheet-surface";
 import { SheetHandle } from "./sheets";
@@ -50,7 +49,7 @@ export type MenuGroup = {
  * themselves are scheme-independent by design, not by oversight.
  */
 export function menuGroupStyles(
-  _scheme: ResolvedTheme = resolveThemeDetails(),
+  _scheme: ResolvedTheme = defaultScheme,
 ): {
   heading: ViewStyle;
   action: ViewStyle;

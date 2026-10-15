@@ -1,6 +1,5 @@
 import {
   type ResolvedTheme,
-  resolveThemeDetails,
 } from "@xoroh/kern-tokens";
 import {
   FEEDBACK_SIZE_DP,
@@ -16,7 +15,7 @@ import {
   type ViewProps,
   type ViewStyle,
 } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 import { CircularProgress } from "./circular-progress";
 
 export type SuccessState = "loading" | "success";
@@ -36,7 +35,7 @@ export type SuccessTransformProps = Omit<ViewProps, "children" | "style"> & {
 export function successTransformStyles(
   size: FeedbackSize,
   success: string,
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): { check: ViewStyle; tick: ViewStyle } {
   const edge = FEEDBACK_SIZE_DP[size].shape * 1.6;
   return {

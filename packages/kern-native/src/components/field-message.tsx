@@ -1,15 +1,15 @@
-import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
+import { type ResolvedTheme } from "@xoroh/kern-tokens";
 import {
   type StyleProp,
   Text,
   type TextProps,
   type TextStyle,
 } from "react-native";
-import { useKernTheme } from "../theme";
+import { defaultScheme, useKernTheme } from "../theme";
 
 export function fieldMessageStyles(
   variant: "description" | "error",
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): TextStyle {
   return {
     fontSize: 12,

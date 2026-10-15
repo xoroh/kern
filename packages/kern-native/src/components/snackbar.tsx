@@ -1,10 +1,10 @@
-import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
+import { type ResolvedTheme } from "@xoroh/kern-tokens";
 import { Pressable, type StyleProp, View, type ViewStyle } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 import { Text } from "./text";
 
 export function snackbarStyles(
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): ViewStyle {
   return {
     minHeight: 48,

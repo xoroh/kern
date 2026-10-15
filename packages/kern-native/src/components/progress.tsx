@@ -1,15 +1,15 @@
-import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
+import { type ResolvedTheme } from "@xoroh/kern-tokens";
 import {
   type StyleProp,
   View,
   type ViewProps,
   type ViewStyle,
 } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 
 export function progressStyles(
   ratio: number,
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): { track: ViewStyle; fill: ViewStyle } {
   const clamped = Math.min(Math.max(ratio, 0), 1);
   return {

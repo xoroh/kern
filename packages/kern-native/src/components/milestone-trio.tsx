@@ -1,6 +1,5 @@
 import {
   type ResolvedTheme,
-  resolveThemeDetails,
 } from "@xoroh/kern-tokens";
 import {
   BRAND_TRIO,
@@ -16,7 +15,7 @@ import {
   type ViewProps,
   type ViewStyle,
 } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 import { CircularProgress } from "./circular-progress";
 import { Shape } from "./shape";
 
@@ -36,7 +35,7 @@ export type MilestoneTrioProps = Omit<ViewProps, "children" | "style"> & {
  */
 export function milestoneStepStyles(
   state: "done" | "current" | "todo",
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): { step: ViewStyle; glyph: ViewStyle; label: TextStyle } {
   return {
     step: {

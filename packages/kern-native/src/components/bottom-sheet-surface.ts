@@ -1,8 +1,8 @@
 import {
   type ResolvedTheme,
-  resolveThemeDetails,
   tokens,
 } from "@xoroh/kern-tokens";
+import { defaultScheme } from "../theme";
 import type { ViewStyle } from "react-native";
 
 /**
@@ -34,7 +34,7 @@ import type { ViewStyle } from "react-native";
  * which is why it is called out rather than discovered later.
  */
 export function bottomSheetSurface(
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): ViewStyle {
   return {
     backgroundColor: scheme.color.surfaceContainerLow,

@@ -1,7 +1,6 @@
 import { useSelection } from "@xoroh/kern-primitives";
 import {
   type ResolvedTheme,
-  resolveThemeDetails,
   tokens,
 } from "@xoroh/kern-tokens";
 import { createContext, type ReactNode, useContext, useMemo } from "react";
@@ -14,7 +13,7 @@ import {
   View,
   type ViewStyle,
 } from "react-native";
-import { useKernTheme } from "../theme";
+import { defaultScheme, useKernTheme } from "../theme";
 import { Text } from "./text";
 
 /**
@@ -60,7 +59,7 @@ const CheckboxGroupContext = createContext<CheckboxGroupContextValue | null>(
 export function checkboxGroupStyles(
   checked: boolean,
   disabled: boolean,
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): { box: ViewStyle; tick: TextStyle } {
   return {
     box: {

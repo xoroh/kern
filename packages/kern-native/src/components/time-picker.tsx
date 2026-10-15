@@ -10,7 +10,6 @@ import {
 } from "@xoroh/kern-primitives";
 import {
   type ResolvedTheme,
-  resolveThemeDetails,
   tokens,
 } from "@xoroh/kern-tokens";
 import { useMemo, useState } from "react";
@@ -23,7 +22,7 @@ import {
   type ViewStyle,
 } from "react-native";
 import { Circle, Line, Svg } from "react-native-svg";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 
 /**
  * Time picker — hour, minute and (in 12-hour mode) period, as listboxes the
@@ -77,7 +76,7 @@ import { useKernScheme } from "../theme";
 
 export function timeFieldStyles(
   selected: boolean,
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): { field: ViewStyle; option: ViewStyle } {
   return {
     field: {

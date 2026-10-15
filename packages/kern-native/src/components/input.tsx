@@ -9,7 +9,7 @@ import {
   type TextStyle,
 } from "react-native";
 import { useNativeField } from "../field-context";
-import { useKernTheme } from "../theme";
+import { defaultScheme, useKernTheme } from "../theme";
 
 function withAlpha(color: string, alpha: number): string {
   if (/^#[0-9a-fA-F]{6}$/.test(color)) {
@@ -26,7 +26,7 @@ export type NativeInputVariant = "outlined" | "filled";
 export function inputStyles(
   error: boolean,
   multiline: boolean,
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
   disabled = false,
   variant: NativeInputVariant = "outlined",
 ): TextStyle {

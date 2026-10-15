@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react-native";
-import { resolveThemeDetails } from "@xoroh/kern-tokens";
+import { defaultScheme } from "../theme";
 import { act } from "react";
 import { Text as RNText } from "react-native";
 import {
@@ -206,7 +206,7 @@ describe("iconButton M3 sizes + selected treatments", () => {
   });
 
   it("lands selected fills per variant (M3 toggle-selected)", async () => {
-    const scheme = resolveThemeDetails("light");
+    const scheme = defaultScheme;
     expect(iconButtonStyles("filled", true, false, scheme).backgroundColor).toBe(
       scheme.color.primary,
     );
@@ -221,7 +221,7 @@ describe("iconButton M3 sizes + selected treatments", () => {
   });
 
   it("pairs the icon ink with its container", async () => {
-    const scheme = resolveThemeDetails("light");
+    const scheme = defaultScheme;
     expect(iconButtonIconColor("filled", false, scheme)).toBe(scheme.color.primary);
     expect(iconButtonIconColor("filled", true, scheme)).toBe(scheme.color.onPrimary);
     expect(iconButtonIconColor("tonal", true, scheme)).toBe(

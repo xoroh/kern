@@ -5,9 +5,7 @@ vi.mock(
   async () => await import("../../test-doubles/react-native"),
 );
 
-import {
-  resolveThemeDetails,
-} from "@xoroh/kern-tokens";
+import { defaultScheme } from "../theme";
 import { themes } from "@xoroh/kern-material-3";
 import { buttonStyles } from "./button";
 
@@ -76,7 +74,7 @@ describe("native Button styles", () => {
   });
 
   it("paints danger per variant through the color option", () => {
-    const light = resolveThemeDetails("light");
+    const light = defaultScheme;
     expect(
       buttonStyles("primary", "default", false, light, { color: "danger" })
         .container.backgroundColor,
@@ -92,7 +90,7 @@ describe("native Button styles", () => {
   });
 
   it("selects the corner role through the shape option", () => {
-    const light = resolveThemeDetails("light");
+    const light = defaultScheme;
     // M3 Expressive square is per-size radii (12px at default), not 0px.
     expect(
       buttonStyles("primary", "default", false, light, { shape: "square" })
@@ -105,7 +103,7 @@ describe("native Button styles", () => {
   });
 
   it("stretches with the block option", () => {
-    const light = resolveThemeDetails("light");
+    const light = defaultScheme;
     expect(
       buttonStyles("primary", "default", false, light, { block: true })
         .container.alignSelf,
@@ -118,7 +116,7 @@ describe("native Button styles", () => {
 
 describe("M3 Expressive toggle", () => {
   it("paints selected elevated/primary/tonal/outlined per the toggle table", () => {
-    const light = resolveThemeDetails("light");
+    const light = defaultScheme;
     expect(
       buttonStyles("elevated", "default", false, light, {
         toggle: true,
@@ -146,7 +144,7 @@ describe("M3 Expressive toggle", () => {
   });
 
   it("morphs pill to square radii on select, square to pill", () => {
-    const light = resolveThemeDetails("light");
+    const light = defaultScheme;
     expect(
       buttonStyles("primary", "default", false, light, {
         toggle: true,
@@ -163,12 +161,14 @@ describe("M3 Expressive toggle", () => {
   });
 
   it("ghost has no toggle treatment", () => {
-    const light = resolveThemeDetails("light");
+    const light = defaultScheme;
     expect(
       buttonStyles("ghost", "default", false, light, {
         toggle: true,
         selected: true,
       }).container.backgroundColor,
+    ).toBe("transparent");
+  });
 
   it("pill follows the button-container-shape override with a full fallback", () => {
     const light = defaultScheme;
@@ -188,7 +188,5 @@ describe("M3 Expressive toggle", () => {
       buttonStyles("primary", "default", false, scheme, { shape: "rounded" })
         .container.borderRadius,
     ).toBe(Number.parseFloat(light.shape.large));
-  });
-    ).toBe("transparent");
   });
 });

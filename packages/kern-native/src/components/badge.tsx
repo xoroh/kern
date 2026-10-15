@@ -1,4 +1,4 @@
-import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
+import { type ResolvedTheme } from "@xoroh/kern-tokens";
 import {
   type StyleProp,
   Text,
@@ -6,13 +6,13 @@ import {
   View,
   type ViewStyle,
 } from "react-native";
-import { useKernTheme } from "../theme";
+import { defaultScheme, useKernTheme } from "../theme";
 
 export type NativeBadgeVariant = "dot" | "count";
 
 export function badgeStyles(
   variant: NativeBadgeVariant,
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): {
   container: ViewStyle;
   label: TextStyle;

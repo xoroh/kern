@@ -1,5 +1,5 @@
 import { useSelection } from "@xoroh/kern-primitives";
-import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
+import { type ResolvedTheme } from "@xoroh/kern-tokens";
 import {
   Pressable,
   type StyleProp,
@@ -7,7 +7,7 @@ import {
   type ViewProps,
   type ViewStyle,
 } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 import { Text } from "./text";
 
 export type NativeToggleGroupOption = {
@@ -17,7 +17,7 @@ export type NativeToggleGroupOption = {
 };
 
 export function toggleGroupStyles(
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): { container: ViewStyle } {
   return {
     container: {

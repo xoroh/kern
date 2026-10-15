@@ -1,6 +1,5 @@
 import {
   type ResolvedTheme,
-  resolveThemeDetails,
   tokens,
 } from "@xoroh/kern-tokens";
 import { Component, type ErrorInfo, type ReactNode } from "react";
@@ -10,7 +9,7 @@ import {
   View,
   type ViewStyle,
 } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 import { MilestoneTrio } from "./milestone-trio";
 import { Text } from "./text";
 
@@ -23,7 +22,7 @@ import { Text } from "./text";
  */
 
 export function bootSplashStyles(
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): {
   root: ViewStyle;
   mark: ViewStyle;

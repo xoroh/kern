@@ -1,7 +1,7 @@
-import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
+import { type ResolvedTheme } from "@xoroh/kern-tokens";
 import { useRef, useState } from "react";
 import { type StyleProp, TextInput, View, type ViewStyle } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 import { Text } from "./text";
 
 /**
@@ -50,7 +50,7 @@ export type NativeInputOTPProps = {
   testID?: string;
 };
 
-export function inputOTPStyles(scheme: ResolvedTheme = resolveThemeDetails()): {
+export function inputOTPStyles(scheme: ResolvedTheme = defaultScheme): {
   box: ViewStyle;
   boxFilled: ViewStyle;
   boxFocused: ViewStyle;

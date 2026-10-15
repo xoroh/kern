@@ -1,7 +1,6 @@
 import { useControllableState, useSelection } from "@xoroh/kern-primitives";
 import {
   type ResolvedTheme,
-  resolveThemeDetails,
   tokens,
 } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
@@ -15,7 +14,7 @@ import {
   View,
   type ViewStyle,
 } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 import { SheetHandle } from "./sheets";
 import { Text } from "./text";
 
@@ -429,7 +428,7 @@ export type BannerVariant = "info" | "success" | "warning" | "error";
 
 export function bannerStyles(
   variant: BannerVariant,
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): {
   container: ViewStyle;
   title: TextStyle;

@@ -6,10 +6,10 @@
  * large 96dp. Colors: three containers, three fills, surface (deprecated).
  */
 import { fireEvent, render, screen } from "@testing-library/react-native";
-import { resolveThemeDetails } from "@xoroh/kern-tokens";
+import { defaultScheme } from "../theme";
 import { Fab, fabColorRoles, fabStyles } from "./fab";
 
-const light = resolveThemeDetails("light");
+const light = defaultScheme;
 
 describe("Fab sizes (native)", () => {
   it.each([

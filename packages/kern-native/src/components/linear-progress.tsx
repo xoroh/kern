@@ -1,4 +1,4 @@
-import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
+import { type ResolvedTheme } from "@xoroh/kern-tokens";
 import { useEffect, useId, useRef } from "react";
 import {
   Animated,
@@ -9,7 +9,7 @@ import {
   type ViewStyle,
 } from "react-native";
 import { Defs, Path, Pattern, Rect, Svg } from "react-native-svg";
-import { useKernMotion, useKernScheme } from "../theme";
+import { defaultScheme, useKernMotion, useKernScheme } from "../theme";
 
 export type LinearProgressProps = Omit<ViewProps, "children" | "style"> & {
   /**
@@ -56,7 +56,7 @@ function clamp01(value: number): number {
  */
 export function linearProgressStyles(
   ratio: number,
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): { track: ViewStyle; fill: ViewStyle } {
   const clamped = clamp01(ratio);
   const radius = Number.parseFloat(scheme.shape.full);
@@ -133,7 +133,7 @@ export const LINEAR_FOUR_COLOR_INPUT_RANGE = [0, 0.25, 0.5, 0.75, 1] as const;
  * Native blends linearly between stops; web steps discretely.
  */
 export function linearFourColorStops(
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): [string, string, string, string] {
   return [
     scheme.color.primary,
@@ -149,7 +149,7 @@ export function linearFourColorStops(
  */
 export function linearBufferStyles(
   buffer: number,
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): { buffer: ViewStyle } {
   const clamped = clamp01(buffer);
   return {

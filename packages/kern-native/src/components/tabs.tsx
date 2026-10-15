@@ -1,5 +1,5 @@
 import { useControllableState } from "@xoroh/kern-primitives";
-import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
+import { type ResolvedTheme } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
 import {
   Pressable,
@@ -8,7 +8,7 @@ import {
   type ViewProps,
   type ViewStyle,
 } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 import { Text } from "./text";
 
 export type NativeTab = {
@@ -17,7 +17,7 @@ export type NativeTab = {
   content?: ReactNode;
 };
 
-export function tabsStyles(scheme: ResolvedTheme = resolveThemeDetails()): {
+export function tabsStyles(scheme: ResolvedTheme = defaultScheme): {
   bar: ViewStyle;
   active: ViewStyle;
 } {

@@ -1,5 +1,5 @@
 import { useControllableState } from "@xoroh/kern-primitives";
-import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
+import { type ResolvedTheme } from "@xoroh/kern-tokens";
 import { useState } from "react";
 import {
   Modal,
@@ -8,7 +8,7 @@ import {
   View,
   type ViewStyle,
 } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 import { overlayStyles } from "../utils/overlay-styles";
 import { menuStyles } from "./menu";
 import { Text } from "./text";
@@ -18,7 +18,7 @@ export type NativeSelectOption = {
   label: string;
 };
 
-export function selectStyles(scheme: ResolvedTheme = resolveThemeDetails()): {
+export function selectStyles(scheme: ResolvedTheme = defaultScheme): {
   trigger: ViewStyle;
 } {
   return {

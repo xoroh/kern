@@ -90,8 +90,13 @@ export function KernThemeProvider({
   );
 }
 
-/** Static light default for components rendered outside any provider. */
-const defaultScheme: ResolvedTheme = resolveThemeDetails("light");
+/**
+ * Static light default for components rendered outside any provider, and the
+ * N8 style-function fallback: component-layer defaults reference this
+ * constant instead of resolving presets themselves, so `theme.tsx` is the
+ * only native component-layer importer of `resolveThemeDetails`.
+ */
+export const defaultScheme: ResolvedTheme = resolveThemeDetails("light");
 
 /**
  * Scheme from the nearest provider without subscribing to OS appearance.

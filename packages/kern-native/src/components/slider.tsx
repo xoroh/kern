@@ -1,5 +1,5 @@
 import { useControllableState } from "@xoroh/kern-primitives";
-import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
+import { type ResolvedTheme } from "@xoroh/kern-tokens";
 import { useState } from "react";
 import {
   Pressable,
@@ -8,7 +8,7 @@ import {
   type ViewProps,
   type ViewStyle,
 } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 
 export type NativeSliderSize = "default" | "xs" | "sm" | "md" | "lg" | "xl";
 
@@ -31,7 +31,7 @@ const SLIDER_GEOMETRY: Record<
 export function sliderStyles(
   ratio: number,
   disabled: boolean,
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
   size: NativeSliderSize = "default",
 ): { track: ViewStyle; fill: ViewStyle; thumb: ViewStyle } {
   const clamped = Math.min(Math.max(ratio, 0), 1);

@@ -1,7 +1,6 @@
 import {
   cssLengthToDp,
   type ResolvedTheme,
-  resolveThemeDetails,
 } from "@xoroh/kern-tokens";
 import type { LoadingIndicatorStyle } from "@xoroh/kern-material-3";
 import { mergeSlotProps, type SlotProps } from "@xoroh/kern-primitives";
@@ -16,7 +15,7 @@ import {
   type TextStyle,
   type ViewStyle,
 } from "react-native";
-import { useKernTheme } from "../theme";
+import { defaultScheme, useKernTheme } from "../theme";
 import { CircularProgress } from "./circular-progress";
 import { useKernPress } from "./presentation";
 
@@ -131,7 +130,7 @@ export function buttonStyles(
   variant: NativeButtonVariant,
   size: NativeButtonSize,
   disabled: boolean,
-  theme: ResolvedTheme = resolveThemeDetails(),
+  theme: ResolvedTheme = defaultScheme,
   options: NativeButtonStyleOptions & NativeButtonToggleOptions = {},
 ): { container: ViewStyle; label: TextStyle } {
   const {
@@ -150,11 +149,11 @@ export function buttonStyles(
   // M3 Expressive square radii per size (12/12/12/16); selected toggles
   // morph pill to square, square back to pill. A button-container-shape
   // override redefines "pill" wherever the full radius is read.
+  const squareRadius = size === "xl" ? 16 : 12;
   const pillRadius = cssLengthToDp(
     theme.comp?.["button-container-shape"],
     Number.parseFloat(theme.shape.full),
   );
-  const squareRadius = size === "xl" ? 16 : 12;
   const container: ViewStyle = {
     height: HEIGHTS[size],
     minWidth: size === "icon" ? HEIGHTS[size] : 64,

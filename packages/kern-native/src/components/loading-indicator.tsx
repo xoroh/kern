@@ -1,6 +1,5 @@
 import {
   type ResolvedTheme,
-  resolveThemeDetails,
   tokens,
 } from "@xoroh/kern-tokens";
 import { useEffect, useRef, useState } from "react";
@@ -14,7 +13,7 @@ import {
   type ViewProps,
   type ViewStyle,
 } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 
 /**
  * M3 Loading indicator — indeterminate activity feedback.
@@ -67,7 +66,7 @@ export type LoadingIndicatorSize = "sm" | "default" | "lg" | "xl";
 
 export function loadingIndicatorStyles(
   size: LoadingIndicatorSize = "default",
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): { ring: ViewStyle } {
   // M3 range is 24–240dp with a 48dp default; `default` stays 24 for
   // back-compat and `xl` is the spec default at 48.

@@ -1,6 +1,5 @@
 import {
   type ResolvedTheme,
-  resolveThemeDetails,
 } from "@xoroh/kern-tokens";
 import {
   arcRotations,
@@ -21,7 +20,7 @@ import {
   type ViewProps,
   type ViewStyle,
 } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 import { Shape } from "./shape";
 
 export type CircularProgressProps = Omit<ViewProps, "children" | "style"> & {
@@ -71,7 +70,7 @@ export { arcRotations };
 export function ringStyles(
   size: FeedbackSize,
   fill: string,
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): {
   box: ViewStyle;
   track: ViewStyle;
@@ -120,7 +119,7 @@ export function ringStyles(
 export function barStyles(
   size: FeedbackSize,
   fill: string,
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): {
   row: ViewStyle;
   bar: ViewStyle;

@@ -5,9 +5,7 @@ vi.mock(
   async () => await import("../../test-doubles/react-native"),
 );
 
-import {
-  resolveThemeDetails,
-} from "@xoroh/kern-tokens";
+import { defaultScheme } from "../theme";
 import { themes } from "@xoroh/kern-material-3";
 import { badgeStyles } from "./badge";
 import { cardStyles } from "./card";
@@ -130,7 +128,7 @@ describe("native style maps", () => {
   });
 
   it("selected list items take the M3 highlight (secondary-container, 16dp)", () => {
-    const scheme = resolveThemeDetails("light");
+    const scheme = defaultScheme;
     expect(listItemStyles(scheme, true).row).toMatchObject({
       backgroundColor: scheme.color.secondaryContainer,
       borderRadius: 16,
@@ -166,6 +164,8 @@ describe("native style maps", () => {
 
   it("text scale steps up", () => {
     expect(textStyles("body").fontSize).toBe(14);
+    expect(textStyles("headline").fontSize).toBe(24);
+  });
 
   it("switch track defaults to full radius and follows its comp override", () => {
     const full = Number.parseFloat(
@@ -217,7 +217,5 @@ describe("native style maps", () => {
         comp: { "chip-container-shape": "4px" },
       }).container.borderRadius,
     ).toBe(4);
-  });
-    expect(textStyles("headline").fontSize).toBe(24);
   });
 });

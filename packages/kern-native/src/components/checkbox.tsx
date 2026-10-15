@@ -1,5 +1,5 @@
 import { useControllableState } from "@xoroh/kern-primitives";
-import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
+import { type ResolvedTheme } from "@xoroh/kern-tokens";
 import {
   Pressable,
   type PressableProps,
@@ -9,7 +9,7 @@ import {
   View,
   type ViewStyle,
 } from "react-native";
-import { useKernTheme } from "../theme";
+import { defaultScheme, useKernTheme } from "../theme";
 
 function withAlpha(color: string, alpha: number): string {
   if (/^#[0-9a-fA-F]{6}$/.test(color)) {
@@ -25,7 +25,7 @@ export function checkboxStyles(
   checked: boolean,
   indeterminate: boolean,
   disabled: boolean,
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): { box: ViewStyle; glyph: TextStyle } {
   const marked = checked || indeterminate;
   return {

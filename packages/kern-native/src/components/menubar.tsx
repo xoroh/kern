@@ -1,4 +1,4 @@
-import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
+import { type ResolvedTheme } from "@xoroh/kern-tokens";
 import { useState } from "react";
 import {
   Modal,
@@ -8,7 +8,7 @@ import {
   type ViewProps,
   type ViewStyle,
 } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 import { overlayStyles } from "../utils/overlay-styles";
 import { menuStyles, type NativeMenuItem } from "./menu";
 import { Text } from "./text";
@@ -19,7 +19,7 @@ export type NativeMenubarMenu = {
 };
 
 export function menubarStyles(
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): ViewStyle {
   return {
     flexDirection: "row",

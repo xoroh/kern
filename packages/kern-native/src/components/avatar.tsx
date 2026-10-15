@@ -1,4 +1,4 @@
-import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
+import { type ResolvedTheme } from "@xoroh/kern-tokens";
 import { useState } from "react";
 import {
   Image,
@@ -7,14 +7,14 @@ import {
   View,
   type ViewStyle,
 } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 import { Text } from "./text";
 
 export type NativeAvatarSize = "small" | "default" | "large";
 
 export function avatarStyles(
   size: NativeAvatarSize,
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): { container: ViewStyle; radius: number; dimension: number } {
   const dimension = size === "small" ? 32 : size === "large" ? 56 : 40;
   return {

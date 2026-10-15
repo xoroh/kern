@@ -1,6 +1,5 @@
 import {
   type ResolvedTheme,
-  resolveThemeDetails,
 } from "@xoroh/kern-tokens";
 import {
   EXPRESSIVE_SHAPE_BOX,
@@ -14,7 +13,7 @@ import {
   type ViewStyle,
 } from "react-native";
 import { Path, Svg } from "react-native-svg";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 import { Shape } from "./shape";
 
 export type ShapeArtLayout = "scatter" | "stack" | "arch";
@@ -78,7 +77,7 @@ const COMPOSITIONS: Record<ShapeArtLayout, readonly Piece[]> = {
 export function shapeArtStyles(
   layout: ShapeArtLayout,
   size: number,
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): { root: ViewStyle; pieces: readonly ViewStyle[] } {
   const height = layout === "scatter" ? size * 0.6 : size;
   return {

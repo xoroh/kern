@@ -1,15 +1,15 @@
-import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
+import { type ResolvedTheme } from "@xoroh/kern-tokens";
 import {
   type StyleProp,
   View,
   type ViewProps,
   type ViewStyle,
 } from "react-native";
-import { useKernTheme } from "../theme";
+import { defaultScheme, useKernTheme } from "../theme";
 
 export function dividerStyles(
   orientation: "horizontal" | "vertical",
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
   inset: "none" | "start" | "middle" = "none",
 ): ViewStyle {
   const base =

@@ -1,7 +1,7 @@
-import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
+import { type ResolvedTheme } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
 import { Pressable, type PressableProps, type ViewStyle } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 import { Text } from "./text";
 
 // M3 FAB variants are a SIZE axis — small / FAB / medium FAB / large FAB
@@ -25,7 +25,7 @@ export type NativeFabColor =
 
 export function fabColorRoles(
   color: NativeFabColor,
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): { container: string; ink: string } {
   switch (color) {
     case "surface":
@@ -65,7 +65,7 @@ export function fabColorRoles(
 
 export function fabStyles(
   size: NativeFabSize,
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
   color: NativeFabColor = "primary",
   /**
    * M3's `lowered` attribute: a FAB that sits quieter in the layout — level 1

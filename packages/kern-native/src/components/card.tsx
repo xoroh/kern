@@ -1,7 +1,6 @@
 import {
   cssLengthToDp,
   type ResolvedTheme,
-  resolveThemeDetails,
   tokens,
 } from "@xoroh/kern-tokens";
 import {
@@ -10,13 +9,13 @@ import {
   type ViewProps,
   type ViewStyle,
 } from "react-native";
-import { useKernTheme } from "../theme";
+import { defaultScheme, useKernTheme } from "../theme";
 
 export type NativeCardVariant = "filled" | "outlined" | "elevated";
 
 export function cardStyles(
   variant: NativeCardVariant,
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): ViewStyle {
   const base: ViewStyle = {
     borderRadius: cssLengthToDp(

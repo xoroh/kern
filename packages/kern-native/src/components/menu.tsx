@@ -1,4 +1,4 @@
-import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
+import { type ResolvedTheme } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import {
@@ -8,7 +8,7 @@ import {
   View,
   type ViewStyle,
 } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 import { overlayStyles } from "../utils/overlay-styles";
 import { Text } from "./text";
 
@@ -18,7 +18,7 @@ export type NativeMenuItem = {
   disabled?: boolean;
 };
 
-export function menuStyles(scheme: ResolvedTheme = resolveThemeDetails()): {
+export function menuStyles(scheme: ResolvedTheme = defaultScheme): {
   card: ViewStyle;
 } {
   return {

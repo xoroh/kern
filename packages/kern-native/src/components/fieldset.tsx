@@ -1,6 +1,5 @@
 import {
   type ResolvedTheme,
-  resolveThemeDetails,
   tokens,
 } from "@xoroh/kern-tokens";
 import {
@@ -19,7 +18,7 @@ import {
   type ViewProps,
   type ViewStyle,
 } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 
 /**
  * M3 Fieldset — grouped controls with a shared legend and disabled state.
@@ -84,7 +83,7 @@ export function useFieldset(): FieldsetContextValue | null {
 
 export function fieldsetStyles(
   disabled: boolean,
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): { root: ViewStyle; legend: TextStyle } {
   return {
     root: {

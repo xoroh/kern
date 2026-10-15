@@ -6,12 +6,12 @@ import {
   View,
   type ViewStyle,
 } from "react-native";
-import { useKernTheme } from "../theme";
+import { defaultScheme, useKernTheme } from "../theme";
 
 export function switchStyles(
   on: boolean,
   disabled: boolean,
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): { track: ViewStyle; thumb: ViewStyle } {
   return {
     track: {

@@ -22,7 +22,7 @@
  */
 import { assertParity, contractFor } from "@kern-parity/contract";
 import { fireEvent, render, screen } from "@testing-library/react-native";
-import { resolveThemeDetails } from "@xoroh/kern-tokens";
+import { defaultScheme } from "../theme";
 import { act } from "react";
 import { type StyleProp, StyleSheet, type ViewStyle } from "react-native";
 import { Text } from "../components/text";
@@ -251,7 +251,7 @@ describe("tooltip trigger (native)", () => {
         <Text>Save</Text>
       </Tooltip>,
     );
-    const scheme = resolveThemeDetails("light", "standard", "material-3");
+    const scheme = defaultScheme;
     const surfaceStyle = flatten(
       screen.getByTestId("kern-tooltip-content").props.style,
     );

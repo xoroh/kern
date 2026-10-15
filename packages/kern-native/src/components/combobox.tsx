@@ -1,5 +1,5 @@
 import { useControllableState } from "@xoroh/kern-primitives";
-import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
+import { type ResolvedTheme } from "@xoroh/kern-tokens";
 import { useMemo, useState } from "react";
 import {
   Modal,
@@ -10,7 +10,7 @@ import {
   View,
   type ViewStyle,
 } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 import { overlayStyles } from "../utils/overlay-styles";
 import { inputStyles } from "./input";
 import { Text } from "./text";
@@ -23,7 +23,7 @@ export type NativeComboboxOption = {
   disabled?: boolean;
 };
 
-export function comboboxStyles(scheme: ResolvedTheme = resolveThemeDetails()): {
+export function comboboxStyles(scheme: ResolvedTheme = defaultScheme): {
   option: ViewStyle;
   optionSelected: ViewStyle;
 } {
@@ -59,7 +59,7 @@ const triggerStaticStyles = StyleSheet.create({
  * Kern structural shadow (level 2 = 3dp).
  */
 export function comboboxPopupStyles(
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): {
   card: ViewStyle;
 } {
