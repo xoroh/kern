@@ -58,7 +58,7 @@ server.tool(
 
 server.tool(
   "get_tokens",
-  "Get Kern design tokens. 'base' for the shared source, or a theme preset id from list_themes ('kern', 'sharp', 'brand', 'compact', 'demo'; 'm3' still resolves as the legacy alias for 'kern').",
+  "Get Kern design tokens. 'base' for the shared source, or a theme preset id from list_themes ('material-3', 'sharp', 'brand', 'compact').",
   { preset: z.enum(TOKEN_PRESETS).default("base") },
   async ({ preset }) => {
     return text(await getTokens((preset ?? "base") as TokenPreset));

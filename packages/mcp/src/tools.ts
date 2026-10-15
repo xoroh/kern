@@ -23,24 +23,21 @@ export type Platform = "web" | "native";
 /**
  * Presets `get_tokens` accepts. `base` is the shared token source
  * (`tokens.json`); the rest are ids from the theme catalog
- * (`packages/kern-tokens/src/themes/index.json`). `m3` is the pre-rename
- * alias `resolve.ts` (`LEGACY_ALIASES`) still honors — accepted here, resolved
- * to `kern`, so older agents are not broken by the rename.
+ * (`packages/kern-tokens/src/themes/index.json`). `demo` is a template
+ * sample, not a discovery default — it resolves when requested explicitly.
  */
 export const TOKEN_PRESETS = [
   "base",
-  "kern",
-  "m3",
+  "material-3",
   "sharp",
   "brand",
   "compact",
-  "demo",
 ] as const;
 export type TokenPreset = (typeof TOKEN_PRESETS)[number];
 
-/** Canonical catalog id: the legacy alias resolves, everything else is itself. */
+/** Canonical catalog id: presets resolve to themselves (no legacy aliases). */
 export function canonicalPreset(preset: TokenPreset): string {
-  return preset === "m3" ? "kern" : preset;
+  return preset;
 }
 
 // Resolve the kern monorepo root: explicit env first, then dist/src layouts.

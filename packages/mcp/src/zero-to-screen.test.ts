@@ -28,6 +28,7 @@ import {
   getTokens,
   listComponents,
   listThemes,
+  TOKEN_PRESETS,
 } from "./tools.js";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -64,12 +65,12 @@ describe("zero-to-screen loop", () => {
     }
   });
 
-  it("every catalog preset resolves to a full scheme in both modes", async () => {
+  it("every discovery preset resolves to a full scheme in both modes", async () => {
     const kern = resolveThemeDetails("light");
     const roleCount = Object.keys(kern.color).length;
     const shapeCount = Object.keys(kern.shape).length;
     expect(roleCount > 0).toBe(true);
-    for (const id of themeIds()) {
+    for (const id of TOKEN_PRESETS.filter((p) => p !== "base")) {
       const payload = await getTokens(id);
       expect(hasError(payload), id).toBe(false);
       for (const mode of ["light", "dark"] as const) {
@@ -90,14 +91,14 @@ describe("zero-to-screen loop", () => {
     }
   });
 
-  it("keeps the base source and the m3 alias working", async () => {
+  it("keeps the base source and the material-3 preset working", async () => {
     const base = await getTokens("base");
     expect(hasError(base)).toBe(false);
     expect(typeof (base as { tokens: unknown }).tokens).toBe("object");
-    const aliased = await getTokens("m3");
-    expect(hasError(aliased)).toBe(false);
-    expect((aliased as { preset: string }).preset).toBe("kern");
-    expect(canonicalPreset("m3")).toBe("kern");
+    const preset = await getTokens("material-3");
+    expect(hasError(preset)).toBe(false);
+    expect((preset as { preset: string }).preset).toBe("material-3");
+    expect(canonicalPreset("material-3")).toBe("material-3");
   });
 
   it("lists components and fetches real source, never stubs as code", async () => {
@@ -143,7 +144,7 @@ describe("zero-to-screen loop", () => {
     // passing, the authoring doc is lying and this is where it shows.
     const preset = defineThemePreset({
       id: "agent-zero",
-      extends: "kern",
+      extends: "material-3",
       overrides: {
         color: {
           light: { primary: "#1d4ed8" },
