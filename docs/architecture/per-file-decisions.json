@@ -1,0 +1,2707 @@
+[
+ {
+  "path": "apps/site/src/blocks/auth-form.tsx",
+  "sha16": "bcc8b2a42221f05b",
+  "decision": "keep"
+ },
+ {
+  "path": "apps/site/src/blocks/empty-search.tsx",
+  "sha16": "86aff1e2c0ba1577",
+  "decision": "keep"
+ },
+ {
+  "path": "apps/site/src/blocks/manifest.ts",
+  "sha16": "ce1b3f16080cefaf",
+  "decision": "generate"
+ },
+ {
+  "path": "apps/site/src/blocks/settings-screen.tsx",
+  "sha16": "14b1f929f82fa050",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-cli/scripts/generate-blocks.mjs",
+  "sha16": "1f2a82f6b5b9ca55",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-cli/scripts/generate-css-snapshot.mjs",
+  "sha16": "c2cf0c3c2be5a269",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-cli/src/add.test.ts",
+  "sha16": "24f7badab531ecf1",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-cli/src/add.ts",
+  "sha16": "fb91f80b592f0b05",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-cli/src/blocks-add.test.ts",
+  "sha16": "1e4b88c95b231c36",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-cli/src/blocks.json",
+  "sha16": "062ec8e9a807788d",
+  "decision": "generate"
+ },
+ {
+  "path": "packages/kern-cli/src/blocks.ts",
+  "sha16": "268df6c63b9ae2b9",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-cli/src/closure.ts",
+  "sha16": "5c9cac4b215b3f27",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-cli/src/index.ts",
+  "sha16": "dd8dd9cf7fbcd388",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-cli/src/init.test.ts",
+  "sha16": "6e871c46ad6c05e1",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-cli/src/init.ts",
+  "sha16": "f4631790067896fd",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-cli/src/kern.ts",
+  "sha16": "4ab71360f44ab614",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-cli/src/lifecycle.test.ts",
+  "sha16": "b76c35b1c741c4c2",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-cli/src/list-diff.ts",
+  "sha16": "9b0396664c2345ec",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-cli/src/manifest.ts",
+  "sha16": "5abfeb4e08645cd7",
+  "decision": "generate"
+ },
+ {
+  "path": "packages/kern-cli/src/receipt.ts",
+  "sha16": "0936cbf34daae64d",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-cli/src/registry.json",
+  "sha16": "93a07b88c14b9876",
+  "decision": "generate"
+ },
+ {
+  "path": "packages/kern-cli/src/tokens-snapshot/comp-tokens.css",
+  "sha16": "823d30f92597b7f1",
+  "decision": "generate"
+ },
+ {
+  "path": "packages/kern-cli/src/tokens-snapshot/motion.css",
+  "sha16": "840fcb9e3bc640d9",
+  "decision": "generate"
+ },
+ {
+  "path": "packages/kern-cli/src/tokens-snapshot/tailwind.css",
+  "sha16": "fefaf4aff99ce81b",
+  "decision": "generate"
+ },
+ {
+  "path": "packages/kern-cli/src/tokens-snapshot/tokens.css",
+  "sha16": "7cdbbec4fda304d0",
+  "decision": "generate"
+ },
+ {
+  "path": "packages/kern-cli/src/tokens-snapshot/tones.css",
+  "sha16": "3c384c915c9181c6",
+  "decision": "generate"
+ },
+ {
+  "path": "packages/kern-cli/src/upgrade.ts",
+  "sha16": "81d65d53cfd8ec70",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-contracts/src/block.ts",
+  "sha16": "2366ad1178e3bdc8",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-contracts/src/component.ts",
+  "sha16": "d481452daeb595c2",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-contracts/src/icon.ts",
+  "sha16": "4761a8feef27e205",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-contracts/src/index.ts",
+  "sha16": "afc7590bbacb3989",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-contracts/src/install.ts",
+  "sha16": "1d79409152cae307",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-contracts/src/provider.ts",
+  "sha16": "5af6f6f6a187c255",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-contracts/src/schema.json",
+  "sha16": "3bbac26007e3917c",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-contracts/src/schema.test.ts",
+  "sha16": "b860e2a7b93b57cf",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-contracts/src/version.ts",
+  "sha16": "e4088562c2676090",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/core/index.ts",
+  "sha16": "b771696088e6065e",
+  "decision": "merge:packages/kern-icons/src/index.ts"
+ },
+ {
+  "path": "packages/kern-icons/src/core/naming.ts",
+  "sha16": "5dcf64d2332dd6a1",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/core/registry.ts",
+  "sha16": "591d5c62d497d350",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/core/resolve.test.ts",
+  "sha16": "14efdcc24090a45d",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/core/resolve.ts",
+  "sha16": "49eb95da10d9e1d3",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/core/semantic.ts",
+  "sha16": "582bf4fdbf706b60",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/core/types.ts",
+  "sha16": "c4a67fd80635b188",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/distribution.test.ts",
+  "sha16": "3977e20de556681a",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/index.native.ts",
+  "sha16": "a92e5eb48241ef5d",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/index.ts",
+  "sha16": "cbc5946dfd8a5d8b",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/render/Icon.native.tsx",
+  "sha16": "d6750b072f75b93f",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/render/Icon.test.tsx",
+  "sha16": "b6fe065423009a9f",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/render/Icon.tsx",
+  "sha16": "65e7974557f4f962",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/render/useIcon.ts",
+  "sha16": "0a9c5cd52eda07a4",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/sets/index.ts",
+  "sha16": "5e8fec6f0de592c1",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/sets/material/manifest.ts",
+  "sha16": "ad9bf83e78f321d6",
+  "decision": "generate"
+ },
+ {
+  "path": "packages/kern-icons/src/sets/material/names.ts",
+  "sha16": "ea20f6df7807b9f4",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/sets/material/shapes/index.ts",
+  "sha16": "d21b74b48c1975df",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/sets/material/shapes/w400/a.ts",
+  "sha16": "bc82268c450e0bd5",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/sets/material/shapes/w400/b.ts",
+  "sha16": "c4bd4182e3bd505a",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/sets/material/shapes/w400/c.ts",
+  "sha16": "42db0c53a2d46042",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/sets/material/shapes/w400/d.ts",
+  "sha16": "2bf71903268d5b93",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/sets/material/shapes/w400/e.ts",
+  "sha16": "3aa0ce1b45a7ebe2",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/sets/material/shapes/w400/f.ts",
+  "sha16": "0cbf1192d39a65e4",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/sets/material/shapes/w400/g.ts",
+  "sha16": "1eeb2eedc4ef4ee5",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/sets/material/shapes/w400/h.ts",
+  "sha16": "8b5e0ff61b6d461b",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/sets/material/shapes/w400/i.ts",
+  "sha16": "69a7726f3156c2e6",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/sets/material/shapes/w400/index.ts",
+  "sha16": "5689afa6f68cea13",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/sets/material/shapes/w400/j.ts",
+  "sha16": "6d9cd94bb360a1aa",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/sets/material/shapes/w400/k.ts",
+  "sha16": "4707532fb2561f33",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/sets/material/shapes/w400/l.ts",
+  "sha16": "3f8f8224795d47c5",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/sets/material/shapes/w400/m.ts",
+  "sha16": "cd25e9afb1b8d20a",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/sets/material/shapes/w400/n.ts",
+  "sha16": "4ec9512db6d2f1cc",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/sets/material/shapes/w400/o.ts",
+  "sha16": "d45057d973f44d71",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/sets/material/shapes/w400/p.ts",
+  "sha16": "4f2b12535d345e49",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/sets/material/shapes/w400/q.ts",
+  "sha16": "4dc5e4106fc832d7",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/sets/material/shapes/w400/r.ts",
+  "sha16": "40d26d9ec74b9eff",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/sets/material/shapes/w400/s.ts",
+  "sha16": "3788fb7fd02a04b6",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/sets/material/shapes/w400/t.ts",
+  "sha16": "b9beece30d6d53e9",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/sets/material/shapes/w400/u.ts",
+  "sha16": "5612e7f8103dd8b5",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/sets/material/shapes/w400/v.ts",
+  "sha16": "6bb3a329b3f2d126",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/sets/material/shapes/w400/w.ts",
+  "sha16": "82b5c4415ee41ca3",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/sets/material/shapes/w400/y.ts",
+  "sha16": "cdb4f2b1b2532290",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/sets/material/shapes/w400/z.ts",
+  "sha16": "13cd6a67126c68b9",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-icons/src/sets/material/symbols.ts",
+  "sha16": "0557d45ef2329bd0",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/accordion.tsx",
+  "sha16": "fc17363d03f130e0",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/alert-dialog.tsx",
+  "sha16": "af5187ad3b54ae91",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/app-shell.rntest.tsx",
+  "sha16": "f25e9834e2656fff",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/app-shell.tsx",
+  "sha16": "8cca6d00e579b105",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/aspect-ratio.tsx",
+  "sha16": "96481caedf85bfeb",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/autocomplete.tsx",
+  "sha16": "926ee1ecf86b6c9e",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/avatar.tsx",
+  "sha16": "cddaaa5bdca7fe70",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/badge.tsx",
+  "sha16": "084a53ce49ca6024",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/bottom-sheet-surface.ts",
+  "sha16": "564aebcf51a2b896",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/button-group.rntest.tsx",
+  "sha16": "e533b4323f0d5b98",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/button-group.tsx",
+  "sha16": "8b50f6f07c72ad5d",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/button.rntest.tsx",
+  "sha16": "c114c0db96478b80",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/button.test.ts",
+  "sha16": "b699d7f8127f347c",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/button.tsx",
+  "sha16": "cb4d0d00576ed18a",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/calendar.tsx",
+  "sha16": "13a2eea07b6faaee",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/card-anatomy.rntest.tsx",
+  "sha16": "050c18133b13de78",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/card.tsx",
+  "sha16": "435adb0e6c403459",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/carousel.rntest.tsx",
+  "sha16": "20fc2cbbf1a02196",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/carousel.tsx",
+  "sha16": "7bfbda02baf3964d",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/checkbox-group.rntest.tsx",
+  "sha16": "d95395dcd511a354",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/checkbox-group.tsx",
+  "sha16": "6ad282f76dead5fc",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/checkbox.tsx",
+  "sha16": "2c5e354c82298e97",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/chip.tsx",
+  "sha16": "e7c5ed1fd5d0eac9",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/circular-progress.tsx",
+  "sha16": "5cc80016efb85623",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/collapsible.tsx",
+  "sha16": "09037d2c9eb46439",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/combobox.rntest.tsx",
+  "sha16": "fc52d16e23b8084f",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/combobox.test.ts",
+  "sha16": "d560c530c86a3ffb",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/combobox.tsx",
+  "sha16": "2c3b83859ba54580",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/composition.rntest.tsx",
+  "sha16": "b16afe846d1c3301",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/composition.test.ts",
+  "sha16": "e3077a1ce88c6f93",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/context-menu.tsx",
+  "sha16": "8b480d3b6222d5f8",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/contrast-toggle.rntest.tsx",
+  "sha16": "72d2ea8baae9134d",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/contrast-toggle.tsx",
+  "sha16": "df1789d9db2abacd",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/controls.rntest.tsx",
+  "sha16": "62837c95e3d96058",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/dialog.rntest.tsx",
+  "sha16": "f214ba0ba92b5069",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/dialog.tsx",
+  "sha16": "8876103fdef7ac81",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/empty-state.tsx",
+  "sha16": "5d075da99206ed44",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/extended-fab.tsx",
+  "sha16": "4fb99bffd50f8bed",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/fab-family.rntest.tsx",
+  "sha16": "c170c46f05e2f5c1",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/fab-menu.tsx",
+  "sha16": "0b8fd8fbcc62aef4",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/fab.rntest.tsx",
+  "sha16": "f66685b3ca8bfbbc",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/fab.tsx",
+  "sha16": "18d097a1a3d4c37f",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/feedback.test.tsx",
+  "sha16": "7536cafa79aaae0e",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/field-message.tsx",
+  "sha16": "c94fc75094e020f6",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/field.tsx",
+  "sha16": "be25779dfb787594",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/fieldset.rntest.tsx",
+  "sha16": "d300b2cd41933ef7",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/fieldset.tsx",
+  "sha16": "345028254dd40393",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/icon-button.rntest.tsx",
+  "sha16": "463ebe5605c3abb7",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/icon-button.tsx",
+  "sha16": "be200a254afbdc69",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/index.ts",
+  "sha16": "6d0ce47d8bf34511",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/input-otp.tsx",
+  "sha16": "50f9e77e5fce54da",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/input.tsx",
+  "sha16": "50c79e5421ccb560",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/k11-elevation.rntest.tsx",
+  "sha16": "520765446d38adc5",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/kbd.rntest.tsx",
+  "sha16": "af9906a5c9480d16",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/kbd.tsx",
+  "sha16": "151dd858e607c948",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/label.tsx",
+  "sha16": "a51ed412035368ba",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/layouts.tsx",
+  "sha16": "af3dbf772703ebf6",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/library.rntest.tsx",
+  "sha16": "86648f65cb3d5b14",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/linear-progress.rntest.tsx",
+  "sha16": "ad87407058aec2eb",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/linear-progress.test.ts",
+  "sha16": "04458c092fe2cfc3",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/linear-progress.tsx",
+  "sha16": "7221fc714eaff744",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/link-button.rntest.tsx",
+  "sha16": "9bd15f4b80667afd",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/link-button.tsx",
+  "sha16": "c4accbad48a5d552",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/list-item.tsx",
+  "sha16": "867f07cfdc9ba4ab",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/loader.tsx",
+  "sha16": "3f27b29b5783a276",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/loading-button.tsx",
+  "sha16": "9560ac27352efc72",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/loading-indicator.rntest.tsx",
+  "sha16": "6bcba07c67c7c6c6",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/loading-indicator.tsx",
+  "sha16": "5a9b2431d7027ae4",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/menu.tsx",
+  "sha16": "5ee2093430b12e0d",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/menubar.tsx",
+  "sha16": "e093a85bd25b992a",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/menus.tsx",
+  "sha16": "869f67bf995a60f8",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/meter.rntest.tsx",
+  "sha16": "3f3d371fd2d8adc5",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/meter.tsx",
+  "sha16": "730bca113e090e2e",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/milestone-trio.tsx",
+  "sha16": "d3bba451474a8944",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/navigation-bar.tsx",
+  "sha16": "00b5cfcf5f9a721f",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/navigation-drawer.tsx",
+  "sha16": "977bf681de0a3d70",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/navigation-menu.tsx",
+  "sha16": "d1daf97f2c7831ba",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/navigation-rail.rntest.tsx",
+  "sha16": "e120c6b4c9b7414f",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/navigation-rail.tsx",
+  "sha16": "2c7ef33474352075",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/number-field.tsx",
+  "sha16": "0ad2d765ba79b874",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/overlay-modality.rntest.tsx",
+  "sha16": "ee2be5c957baee12",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/overlay-surfaces.rntest.tsx",
+  "sha16": "cbfe0b6ea39d1776",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/overlay-surfaces.tsx",
+  "sha16": "a417f16ad144599d",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/overlays.rntest.tsx",
+  "sha16": "3eb5329f54d8a7a0",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/pagination.rntest.tsx",
+  "sha16": "e56bd51876dd6fea",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/pagination.tsx",
+  "sha16": "7ec74a58832c73a6",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/presentation.test.tsx",
+  "sha16": "3bcffb3ed31357b5",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/presentation.tsx",
+  "sha16": "c6ef58bd635cb1c4",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/pressable.rntest.tsx",
+  "sha16": "9abd93a0422e70b5",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/pressable.tsx",
+  "sha16": "765638735cf031d7",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/progress.tsx",
+  "sha16": "cd0fc4515c624fe6",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/radio-group.tsx",
+  "sha16": "15f285f1c0a870c8",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/search.tsx",
+  "sha16": "dd9926483c6bc230",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/select.tsx",
+  "sha16": "902396887508c163",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/separator.tsx",
+  "sha16": "750b05fa2dde08da",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/settings-row.rntest.tsx",
+  "sha16": "7699beb16d6c6fbf",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/settings-row.tsx",
+  "sha16": "ad380786a648a40e",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/shape-art.rntest.tsx",
+  "sha16": "d82516b14c790238",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/shape-art.tsx",
+  "sha16": "eca1ef94910843fd",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/shape.tsx",
+  "sha16": "bd1a0091996544cf",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/sheet-dismissal.rntest.tsx",
+  "sha16": "27616c6509337d22",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/sheet-surface.tsx",
+  "sha16": "e78b5b45c6f361f9",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/sheet.tsx",
+  "sha16": "c258e2108304ed1d",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/sheets-elevation.rntest.tsx",
+  "sha16": "b5ae77f902a98c73",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/sheets.tsx",
+  "sha16": "b8e8fff0a544de38",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/shell.tsx",
+  "sha16": "7ede53d00fef0ca7",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/sizes.test.ts",
+  "sha16": "0a421253d4666c09",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/skeleton.tsx",
+  "sha16": "4bf7e473dd12b37d",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/slider.tsx",
+  "sha16": "e49006221ef53dbf",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/snackbar.tsx",
+  "sha16": "5b4e2ff8821fd84b",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/split-button.tsx",
+  "sha16": "5c1e7e751cc37c74",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/split.rntest.tsx",
+  "sha16": "3cb6b3a6e709f1e9",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/split.tsx",
+  "sha16": "816abcf882072646",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/status-bar.rntest.tsx",
+  "sha16": "7e3c2983550d2f03",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/status-bar.tsx",
+  "sha16": "90c1a6dab0407365",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/styles.test.ts",
+  "sha16": "25c3438a9ee052da",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/success-transform.tsx",
+  "sha16": "c9f5be2d11ecc779",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/switch.tsx",
+  "sha16": "0c8083b8cd5ad654",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/table.rntest.tsx",
+  "sha16": "1e036818af546fc3",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/table.tsx",
+  "sha16": "5fbd777f48992d8e",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/tabs.tsx",
+  "sha16": "8ff1fc82a56b217c",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/text.tsx",
+  "sha16": "a873256bd952a37c",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/textarea.tsx",
+  "sha16": "b149da67124c8fc9",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/theme-toggle.rntest.tsx",
+  "sha16": "fef525217bb56843",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/theme-toggle.tsx",
+  "sha16": "ee581d7b6abcd064",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/theme.rntest.tsx",
+  "sha16": "9972b578b480c331",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/time-picker.rntest.tsx",
+  "sha16": "7593b7b250b7ea05",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/time-picker.tsx",
+  "sha16": "fce6b5550a1b4cee",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/toggle-group.tsx",
+  "sha16": "e631fdcec8793a68",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/toggle.tsx",
+  "sha16": "0187df24fe660f57",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/toolbar.tsx",
+  "sha16": "7c28487c911f4924",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/tooltip.rntest.tsx",
+  "sha16": "b27ed829985eb5d9",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/tooltip.tsx",
+  "sha16": "f206b6b19d55cd64",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/top-app-bar-toggle.rntest.tsx",
+  "sha16": "6db679338bebed67",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/top-app-bar-toggle.tsx",
+  "sha16": "01e1f71a645f3cb7",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/top-app-bar.tsx",
+  "sha16": "3642b4aaabb9b7a2",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/components/web-parity.tsx",
+  "sha16": "d406765379307a32",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/field-context.tsx",
+  "sha16": "1f52148aab06a0ea",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/fonts.tsx",
+  "sha16": "f775d2b1ccb22948",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/index.ts",
+  "sha16": "7b015c36b6c73186",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/parity/native-parity-buttons.rntest.tsx",
+  "sha16": "8e9a2941e29fd3ab",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/parity/native-parity-controls.rntest.tsx",
+  "sha16": "459d9a290f9d5289",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/parity/native-parity-icon-target.rntest.tsx",
+  "sha16": "14b2760b05f6b493",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/parity/native-parity-inputs.rntest.tsx",
+  "sha16": "804903da4bcc79c7",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/parity/native-parity-navigation.rntest.tsx",
+  "sha16": "7b6e7d8b04f94dc7",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/parity/native-parity-sheets.rntest.tsx",
+  "sha16": "c4d484047ead5bf1",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/parity/native-parity-start.rntest.tsx",
+  "sha16": "5b1d8b1a0f137700",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/parity/native-parity-surfaces.rntest.tsx",
+  "sha16": "5a56706d7d1a9da7",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/parity/native-parity-table-caption.rntest.tsx",
+  "sha16": "5948a5b1c33cace2",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/parity/native-parity-tooltip.rntest.tsx",
+  "sha16": "89175df83d421082",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/theme.tsx",
+  "sha16": "b7973be69165bc71",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-native/src/utils/overlay-styles.ts",
+  "sha16": "f196e05b385e8366",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-primitives/src/a11y.test.ts",
+  "sha16": "114657d4c0c480ec",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-primitives/src/a11y.ts",
+  "sha16": "0a3320bc00750fb6",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-primitives/src/collection.test.ts",
+  "sha16": "8f50aa4c9c9eb398",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-primitives/src/collection.ts",
+  "sha16": "63440a91ade3182a",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-primitives/src/dismissPolicy.test.ts",
+  "sha16": "784a8767d905083c",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-primitives/src/dismissPolicy.ts",
+  "sha16": "8cfdec858ee0baa5",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-primitives/src/dismissWiring.test.ts",
+  "sha16": "390942a15e110693",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-primitives/src/dismissWiring.ts",
+  "sha16": "6a0baff57ed83453",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-primitives/src/focusTrap.test.ts",
+  "sha16": "c7da11aab67385e4",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-primitives/src/focusTrap.ts",
+  "sha16": "e7d05605ee67a90f",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-primitives/src/index.ts",
+  "sha16": "8ab4afc788a68cb1",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-primitives/src/mergeRefs.test.ts",
+  "sha16": "3f1dd5d5d4adfc81",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-primitives/src/mergeRefs.ts",
+  "sha16": "e0c7eb8ee0f9ade1",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-primitives/src/overlayModality.test.ts",
+  "sha16": "0409a95c44d361d8",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-primitives/src/overlayModality.ts",
+  "sha16": "8b84110e50f1be2d",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-primitives/src/portal.test.ts",
+  "sha16": "941d14ed7d1a450b",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-primitives/src/portal.ts",
+  "sha16": "5aabbde62feeffb7",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-primitives/src/positioning.test.ts",
+  "sha16": "8e2a962977770875",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-primitives/src/positioning.ts",
+  "sha16": "92b95559028dcfe0",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-primitives/src/presence.test.ts",
+  "sha16": "ed2e2c1c0ba13d42",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-primitives/src/presence.ts",
+  "sha16": "493ac26f4e6eeb51",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-primitives/src/press.test.ts",
+  "sha16": "9f178744cf924111",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-primitives/src/press.ts",
+  "sha16": "92c6aaedf63d3fde",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-primitives/src/roving.test.ts",
+  "sha16": "9a225bf5651b2a8d",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-primitives/src/roving.ts",
+  "sha16": "80c118fb0fb70d36",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-primitives/src/selection.test.ts",
+  "sha16": "1bf1a5eddd1c6605",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-primitives/src/selection.ts",
+  "sha16": "349229e24f7228cd",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-primitives/src/slot.test.ts",
+  "sha16": "ed4abb1788ead0a5",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-primitives/src/slot.ts",
+  "sha16": "df5a9d049598af31",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-primitives/src/time.test.ts",
+  "sha16": "fd9d6f8e2efeb52e",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-primitives/src/time.ts",
+  "sha16": "2a5a1cedaa66a543",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-primitives/src/useControllableState.test.ts",
+  "sha16": "8fa6d789e0b52426",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-primitives/src/useControllableState.ts",
+  "sha16": "a47f79fe69251206",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/scripts/check-contrast.mjs",
+  "sha16": "9164ff30448eab13",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/scripts/check-theme-matrix.mjs",
+  "sha16": "0c83d7976924612c",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/scripts/gen-comp-css.mjs",
+  "sha16": "96168afda2096992",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/scripts/gen-css.mjs",
+  "sha16": "e458784e15c6a83b",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/scripts/gen-dtcg.mjs",
+  "sha16": "d1c4856babf85822",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/scripts/gen-motion-css.mjs",
+  "sha16": "688738358fea5b4e",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/scripts/gen-preset-css.mjs",
+  "sha16": "e8c225681bd5de2b",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/scripts/gen-theme-matrix.mjs",
+  "sha16": "1d7e9eea84748505",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/scripts/gen-tones-css.mjs",
+  "sha16": "fd88630cc9442102",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/color.ts",
+  "sha16": "d51e8ae4f361dd3e",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/comp-tokens.css",
+  "sha16": "823d30f92597b7f1",
+  "decision": "generate"
+ },
+ {
+  "path": "packages/kern-tokens/src/contrast.ts",
+  "sha16": "c329cdaa16bb125f",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/custom-integration.test.ts",
+  "sha16": "eaf9f8bb7f0016e5",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/dtcg.json",
+  "sha16": "4a1b9b4379dd8bf2",
+  "decision": "generate"
+ },
+ {
+  "path": "packages/kern-tokens/src/dtcg/dtcg.test.ts",
+  "sha16": "b62d2e01d8f64638",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/dtcg/export.ts",
+  "sha16": "98719cb888f957b0",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/dtcg/full-source.test.ts",
+  "sha16": "01a8e0cf240235fb",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/dtcg/import.ts",
+  "sha16": "c5b8e04f1df05949",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/dtcg/projection.test.ts",
+  "sha16": "3e8c2f523b5b3840",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/dtcg/retained.ts",
+  "sha16": "e5f988fb20f3c73f",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/dtcg/shared.ts",
+  "sha16": "85dd84de55180ba0",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/dtcg/validate.ts",
+  "sha16": "6721680447df5afc",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/elevation-canonical.test.ts",
+  "sha16": "bffdbef496eece21",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/expressive-shapes.test.ts",
+  "sha16": "59668673b1c74654",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/expressive-shapes.ts",
+  "sha16": "6bcb50337159faed",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/feedback.test.ts",
+  "sha16": "6a59d2bb1031e9d9",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/feedback.ts",
+  "sha16": "e89371a202576dd5",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/focus.ts",
+  "sha16": "bb61d4f3c133869a",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/foundations-golden.test.ts",
+  "sha16": "b62f3695b47aeea4",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/functional.ts",
+  "sha16": "7cbdbd3a98c8004b",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/index.ts",
+  "sha16": "c9ebc0a5b72e78de",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/kern-elevation.ts",
+  "sha16": "82f25388d3669758",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/kern-roles.ts",
+  "sha16": "e8a7a7bb3aa4a3d2",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/motion.css",
+  "sha16": "840fcb9e3bc640d9",
+  "decision": "generate"
+ },
+ {
+  "path": "packages/kern-tokens/src/motion.test.ts",
+  "sha16": "38ccb1ecd23698a2",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/motion.ts",
+  "sha16": "310b60603ff462d6",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/pipeline.test.ts",
+  "sha16": "df36dc494265ed9a",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/pipeline.ts",
+  "sha16": "0bd8d0e5ebf1790e",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/presets.ts",
+  "sha16": "5b52dc50cc69c31b",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/resolve.ts",
+  "sha16": "897119a838e151de",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/seed-theme.test.ts",
+  "sha16": "23b1bb14c3d0e115",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/seed-theme.ts",
+  "sha16": "c1c9d7e94c2f6196",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/sizes.ts",
+  "sha16": "e22142ef51f4c468",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/tailwind.css",
+  "sha16": "fefaf4aff99ce81b",
+  "decision": "generate"
+ },
+ {
+  "path": "packages/kern-tokens/src/theme.test.ts",
+  "sha16": "fa8990928857a89b",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/themes/brand.json",
+  "sha16": "ab6ded8b85bc6850",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/themes/compact.json",
+  "sha16": "e62da15c372f97dd",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/themes/demo.json",
+  "sha16": "8935e58410931099",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/themes/index.json",
+  "sha16": "f9cfe0327e90de83",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/themes/kern.json",
+  "sha16": "22fc0e1f17e72285",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/themes/matrix.json",
+  "sha16": "f0f454fc029c8e0d",
+  "decision": "generate"
+ },
+ {
+  "path": "packages/kern-tokens/src/themes/sharp.json",
+  "sha16": "4dcf851507826c0d",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/token-graph.test.ts",
+  "sha16": "ba6e98ea630af109",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/token-graph.ts",
+  "sha16": "9cb39c270461b7be",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/token-schema.ts",
+  "sha16": "ad0d88e298c8fd16",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/tokens-css.test.ts",
+  "sha16": "d4fada230c867d00",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/tokens.css",
+  "sha16": "7cdbbec4fda304d0",
+  "decision": "generate"
+ },
+ {
+  "path": "packages/kern-tokens/src/tokens.json",
+  "sha16": "14781a1fb728a2f4",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/tokens.test.ts",
+  "sha16": "a92029750cf9e179",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/tokens.ts",
+  "sha16": "97c337706e4526c1",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/tones.css",
+  "sha16": "3c384c915c9181c6",
+  "decision": "generate"
+ },
+ {
+  "path": "packages/kern-tokens/src/tones.test.ts",
+  "sha16": "6b037b8e3107b181",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/tones.ts",
+  "sha16": "13ba38583839ebf6",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/variants.ts",
+  "sha16": "4d1fe200c23b6cb1",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/xoroh-preset.test.ts",
+  "sha16": "1b2706925518ae23",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern-tokens/src/xoroh-preset.ts",
+  "sha16": "48ac9b1ae713135a",
+  "decision": "remove:private theme out of OSS (vendor example)"
+ },
+ {
+  "path": "packages/kern/scripts/gen-styles.mjs",
+  "sha16": "905fd1796421fcaa",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/callback-lexicon.test.ts",
+  "sha16": "ad918c9afc583a84",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/accessibility.test.tsx",
+  "sha16": "fc6bdd90181d4446",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/accordion.tsx",
+  "sha16": "1ac1ab74931fb25f",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/alert-dialog.tsx",
+  "sha16": "18af717c90141c0d",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/app-ready.ts",
+  "sha16": "a663357ef05cdbfc",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/autocomplete.tsx",
+  "sha16": "fa0c04a80d94e0da",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/avatar.test.tsx",
+  "sha16": "59e8b530a737ed33",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/avatar.tsx",
+  "sha16": "ef0160bddfc4aa75",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/badge.test.tsx",
+  "sha16": "f46d8d474966cfbe",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/badge.tsx",
+  "sha16": "19ad81a970920172",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/banner.test.tsx",
+  "sha16": "488b8fbbe5f840f3",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/banner.tsx",
+  "sha16": "1a0585e7dcf5ac67",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/behavior-contracts.test.tsx",
+  "sha16": "ee4637c7fbc4591c",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/boot-indicator.tsx",
+  "sha16": "035ed281276b5f61",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/button-family-complete.test.tsx",
+  "sha16": "13dcdfd4501070d2",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/button-family-m3.test.tsx",
+  "sha16": "18e92f4d3bdc38f0",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/button-group.test.tsx",
+  "sha16": "13fb4d795f20934f",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/button-group.tsx",
+  "sha16": "fe2116dbbca50e81",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/button.test.tsx",
+  "sha16": "888cf75c70688412",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/button.tsx",
+  "sha16": "ebdf781281b3e911",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/calendar.test.tsx",
+  "sha16": "dcd14592378b0beb",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/calendar.tsx",
+  "sha16": "8e7d52116b18cf46",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/card.test.tsx",
+  "sha16": "49cfa08abd4e575b",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/card.tsx",
+  "sha16": "e398f5f5efd94512",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/carousel.test.tsx",
+  "sha16": "f99f3080338b5f07",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/carousel.tsx",
+  "sha16": "a28cf9e965852f2d",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/checkbox-group.tsx",
+  "sha16": "7e478f7d1f2b4db8",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/checkbox.test.tsx",
+  "sha16": "8ddc4a1c77013214",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/checkbox.tsx",
+  "sha16": "02c74d64a65ec682",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/chip.test.tsx",
+  "sha16": "0f6ed7a58b4ee6ea",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/chip.tsx",
+  "sha16": "b9a277e5a36b9691",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/circular-progress.tsx",
+  "sha16": "0552d7341b2faf58",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/collapsible.tsx",
+  "sha16": "983e8814387d64e7",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/combobox.tsx",
+  "sha16": "1fe802f4b2096014",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/command.tsx",
+  "sha16": "7d0ecd51b0928927",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/context-menu.tsx",
+  "sha16": "df9cc9a84c707743",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/country-select.tsx",
+  "sha16": "c18f636d0740ae64",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/data-display.test.tsx",
+  "sha16": "4b967c01a4a39b04",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/dialog.tsx",
+  "sha16": "521c6b9dee4231a8",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/disclosure.test.tsx",
+  "sha16": "ba9c694f5e795539",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/display-overlays-m3.test.tsx",
+  "sha16": "2c211ce5e5e60d79",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/drawer.tsx",
+  "sha16": "4cc7341b6da9c3c1",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/empty-state.tsx",
+  "sha16": "5d35d18805fabef0",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/error-boundary.test.tsx",
+  "sha16": "6b9d661651585cec",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/error-boundary.tsx",
+  "sha16": "0d3ade8014204e13",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/export-preservation.test.tsx",
+  "sha16": "120e6b21f1f744a9",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/extended-fab.test.tsx",
+  "sha16": "74d120b428c9a7b8",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/extended-fab.tsx",
+  "sha16": "213b1ce46a95d961",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/fab-menu.test.tsx",
+  "sha16": "8aae3a7c00669714",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/fab-menu.tsx",
+  "sha16": "724f5537e7cacee4",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/fab.test.tsx",
+  "sha16": "eae54c6b527d1686",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/fab.tsx",
+  "sha16": "8f2dde2c555e3a9c",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/feedback-family-m3.test.tsx",
+  "sha16": "97e18960f30d1541",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/feedback.test.tsx",
+  "sha16": "428f570b78d88804",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/field-message.tsx",
+  "sha16": "f192596be92e51c8",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/field.test.tsx",
+  "sha16": "d8583f8089ec305a",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/field.tsx",
+  "sha16": "12468ca469d9e691",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/fieldset.tsx",
+  "sha16": "7b11952e7548878e",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/focus-ring.test.tsx",
+  "sha16": "2865bbee9dbcca26",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/focus-ring.tsx",
+  "sha16": "2bd21827e76e2b31",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/form-family-complete.test.tsx",
+  "sha16": "13f5ae4f11efcbea",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/form-family-m3.test.tsx",
+  "sha16": "49709f0ee78ada93",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/form.tsx",
+  "sha16": "cfe11736ce07ec18",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/forms.test.tsx",
+  "sha16": "c3074f59f7f1db85",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/icon-button.test.tsx",
+  "sha16": "8cca83bac18b71b2",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/icon-button.tsx",
+  "sha16": "7da88098fe9d03f7",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/index.ts",
+  "sha16": "5822759ba525eaa5",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/input-otp.tsx",
+  "sha16": "6a3c69850ab72f83",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/input.test.tsx",
+  "sha16": "e2767082b266af64",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/input.tsx",
+  "sha16": "af9220d0c39b2907",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/kbd.tsx",
+  "sha16": "93c1899bdb09d612",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/kern-gaps.test.tsx",
+  "sha16": "d9f4fa4dcfbd35ed",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/label.test.tsx",
+  "sha16": "b5f23c2ade211b5e",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/label.tsx",
+  "sha16": "6d6666e68f3cbeed",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/linear-progress.test.tsx",
+  "sha16": "ec6e7484fc188e91",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/linear-progress.tsx",
+  "sha16": "9ef3e4e9d5407e72",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/link-button.test.tsx",
+  "sha16": "f91d37cf9191d552",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/link-button.tsx",
+  "sha16": "ba0a99f7b8e480b0",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/list-item.test.tsx",
+  "sha16": "3d67c2855edf434e",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/list-item.tsx",
+  "sha16": "aa7cd592ad278d2c",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/loader.test.tsx",
+  "sha16": "26b0a424b8e14433",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/loader.tsx",
+  "sha16": "e63a6c5602f0ff14",
+  "decision": "merge:packages/kern/src/components/loading-indicator.tsx:Loader->LoadingIndicator"
+ },
+ {
+  "path": "packages/kern/src/components/loading-button.tsx",
+  "sha16": "134e5dc545e9ac4c",
+  "decision": "merge:packages/kern/src/components/button.tsx:fold loading slot"
+ },
+ {
+  "path": "packages/kern/src/components/loading-indicator.test.tsx",
+  "sha16": "7794593bce528884",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/loading-indicator.tsx",
+  "sha16": "450667861d14c65e",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/menu-classes.ts",
+  "sha16": "45c0c9d73f95d144",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/menu-family.test.tsx",
+  "sha16": "9eec9f010834f9a4",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/menu-family.tsx",
+  "sha16": "dcf823fc5dc1b683",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/menu.tsx",
+  "sha16": "9e2b9006b7a9c0c7",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/menubar.tsx",
+  "sha16": "6039ea224bf89e8b",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/meter.tsx",
+  "sha16": "e55984e7f5ef8e60",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/native-select.tsx",
+  "sha16": "3cd82d9e567093ef",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/navigation-bar.tsx",
+  "sha16": "d1416ad9e0303a51",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/navigation-drawer.tsx",
+  "sha16": "d37c703293c771c1",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/navigation-family-m3.test.tsx",
+  "sha16": "ffc98d6a11b13c5c",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/navigation-family.test.tsx",
+  "sha16": "0b10289253568e3f",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/navigation-menu.tsx",
+  "sha16": "f36d58b3484762b1",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/navigation.test.tsx",
+  "sha16": "43e4f6ec2fd83e6c",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/number-field.tsx",
+  "sha16": "29b7d667f29d5910",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/overlays.test.tsx",
+  "sha16": "4dda1124becd73d2",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/page-loader.tsx",
+  "sha16": "3fa4584769c0e5e3",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/pagination.tsx",
+  "sha16": "894a34abaa1b99cf",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/popover.tsx",
+  "sha16": "d4f4d01c8cedc178",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/presentation.test.tsx",
+  "sha16": "640add7ce2175874",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/presentation.tsx",
+  "sha16": "b64f035075c80183",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/preview-card.tsx",
+  "sha16": "50817367c9133347",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/primitives.test.tsx",
+  "sha16": "4d905d23ca5d51f4",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/progress.tsx",
+  "sha16": "303758797020e5ef",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/radio-group.test.tsx",
+  "sha16": "b79015d85cdf763c",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/radio-group.tsx",
+  "sha16": "195cad19497b71cf",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/rich-tooltip.test.tsx",
+  "sha16": "29b33cc70023f96d",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/scroll-area.tsx",
+  "sha16": "0a3634c544e9f33e",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/search.test.tsx",
+  "sha16": "9a1c9df7456a4091",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/search.tsx",
+  "sha16": "4c3790963090ac36",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/secondary-tabs.tsx",
+  "sha16": "5874b78496502242",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/segmented-button.test.tsx",
+  "sha16": "83297c2fe863ef9f",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/segmented-button.tsx",
+  "sha16": "34c16977a625661d",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/select.tsx",
+  "sha16": "f0f1a34bcb72acc5",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/separator.test.tsx",
+  "sha16": "6cd66b094740324d",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/separator.tsx",
+  "sha16": "d72c53af339117c6",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/sheet-family.test.tsx",
+  "sha16": "d041ae53fcbba0ba",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/sheet-family.tsx",
+  "sha16": "50d3038ff7b3f477",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/sheet.tsx",
+  "sha16": "d213170449e9c1d1",
+  "decision": "rename:packages/kern/src/components/side-sheet.tsx:Sheet*->SideSheet*"
+ },
+ {
+  "path": "packages/kern/src/components/skeleton.tsx",
+  "sha16": "342275958f1ba3fe",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/slider.test.tsx",
+  "sha16": "24dace6ba6f3af4e",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/slider.tsx",
+  "sha16": "0715dc1eaac2fb12",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/snackbar.tsx",
+  "sha16": "9ea6a6b2284e6980",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/sonner.tsx",
+  "sha16": "99f917483a13c5d9",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/split-button.test.tsx",
+  "sha16": "b771beffed45cfb3",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/split-button.tsx",
+  "sha16": "193acd85368964ad",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/split.test.tsx",
+  "sha16": "a5568862c9d20ebb",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/split.tsx",
+  "sha16": "633c885e476369ab",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/switch.test.tsx",
+  "sha16": "ab64738e986621f2",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/switch.tsx",
+  "sha16": "38ef4a74375b995a",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/table.tsx",
+  "sha16": "2851a1ff1428f6b6",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/tabs.tsx",
+  "sha16": "6487385eb71ef6db",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/text.tsx",
+  "sha16": "dfb6c9a9d87e4ebf",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/textarea.test.tsx",
+  "sha16": "6be433e52421c44f",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/textarea.tsx",
+  "sha16": "01ede23125124294",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/time-picker.test.tsx",
+  "sha16": "958c20e8cc92c01a",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/time-picker.tsx",
+  "sha16": "5c808bd54611afed",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/toggle-group.tsx",
+  "sha16": "8078026b3fc2c2a8",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/toggle.tsx",
+  "sha16": "874c78acffe58ab9",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/toolbar.test.tsx",
+  "sha16": "325dbb8757923f08",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/toolbar.tsx",
+  "sha16": "0a600b0a4158b4fe",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/tooltip.tsx",
+  "sha16": "006bf489bdddcfdb",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/components/web-extras.test.tsx",
+  "sha16": "0c48347617c0f29e",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/composition.test.ts",
+  "sha16": "1be29b279f3b34d1",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/index.ts",
+  "sha16": "9fadec66e76e1482",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/matchers.d.ts",
+  "sha16": "35b9ff0163d6a2eb",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/parity/web-parity-buttons.test.tsx",
+  "sha16": "0d478891b2fce8fa",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/parity/web-parity-controls.test.tsx",
+  "sha16": "25cdb7531c0520b3",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/parity/web-parity-icon-target.test.tsx",
+  "sha16": "70b2e1b169287484",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/parity/web-parity-inputs.test.tsx",
+  "sha16": "8af73069fd43775c",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/parity/web-parity-navigation.test.tsx",
+  "sha16": "c92ee298fa4d2290",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/parity/web-parity-sheets.test.tsx",
+  "sha16": "e9a221eee6b7d3f9",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/parity/web-parity-surfaces.test.tsx",
+  "sha16": "e8d00de5a8e46bf6",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/parity/web-parity-switch.test.tsx",
+  "sha16": "700e17543ba00357",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/parity/web-parity-table-caption.test.tsx",
+  "sha16": "09ff3082d6df2026",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/start/blocks.tsx",
+  "sha16": "0b8eb26288cf25a3",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/start/index.ts",
+  "sha16": "b4430ab50127c40b",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/start/link.tsx",
+  "sha16": "6ae0091b724173b4",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/start/navigation.tsx",
+  "sha16": "873b124790854760",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/start/panes.tsx",
+  "sha16": "b839f63200837459",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/start/scaffolds.tsx",
+  "sha16": "53f52fc588455aca",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/start/sizes.test.ts",
+  "sha16": "2116fc61712ec59d",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/start/start.test.tsx",
+  "sha16": "b440f96246aaaa6a",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/start/taxonomy.test.ts",
+  "sha16": "e4137f6131bcee89",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/start/top-app-bar.tsx",
+  "sha16": "e5e94f1a8b3d2fa4",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/styles.css",
+  "sha16": "128156205ff0e145",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/styles.test.ts",
+  "sha16": "1295cba60a793794",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/theme.css",
+  "sha16": "051d44684fc3ffce",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/tokens.ts",
+  "sha16": "585a6d0f014f0f77",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/utils/cn.ts",
+  "sha16": "02a523d3492e9744",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/utils/cnState.ts",
+  "sha16": "aa9c4964a1fae786",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/web-theme.test.ts",
+  "sha16": "162aa98abc63146e",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/kern/src/web-theme.ts",
+  "sha16": "6df4df7b25e5ddd6",
+  "decision": "keep"
+ },
+ {
+  "path": "packages/mcp/scripts/generate-manifest.mjs",
+  "sha16": "68095d106bd3ce17",
+  "decision": "keep:dir-rename packages/mcp->packages/kern-mcp at P3 (no npm rename)"
+ },
+ {
+  "path": "packages/mcp/scripts/generate-maturity.mjs",
+  "sha16": "6684d8bbcccddc40",
+  "decision": "keep:dir-rename packages/mcp->packages/kern-mcp at P3 (no npm rename)"
+ },
+ {
+  "path": "packages/mcp/src/discovery.test.ts",
+  "sha16": "2ca05216d95d3046",
+  "decision": "keep:dir-rename packages/mcp->packages/kern-mcp at P3 (no npm rename)"
+ },
+ {
+  "path": "packages/mcp/src/index.ts",
+  "sha16": "60b5ba50d0ccd84b",
+  "decision": "keep:dir-rename packages/mcp->packages/kern-mcp at P3 (no npm rename)"
+ },
+ {
+  "path": "packages/mcp/src/manifest.test.ts",
+  "sha16": "84a1853f369e51f7",
+  "decision": "keep:dir-rename packages/mcp->packages/kern-mcp at P3 (no npm rename)"
+ },
+ {
+  "path": "packages/mcp/src/manifest.ts",
+  "sha16": "bdca06d2f65ca718",
+  "decision": "generate"
+ },
+ {
+  "path": "packages/mcp/src/maturity.ts",
+  "sha16": "bf8f365a3a998c0a",
+  "decision": "generate"
+ },
+ {
+  "path": "packages/mcp/src/platform-sources.test.ts",
+  "sha16": "ca3154138575c49c",
+  "decision": "keep:dir-rename packages/mcp->packages/kern-mcp at P3 (no npm rename)"
+ },
+ {
+  "path": "packages/mcp/src/tools.ts",
+  "sha16": "c3b68b414bdfcad0",
+  "decision": "keep:dir-rename packages/mcp->packages/kern-mcp at P3 (no npm rename)"
+ },
+ {
+  "path": "packages/mcp/src/zero-to-screen.test.ts",
+  "sha16": "0239730c5a7abb27",
+  "decision": "keep:dir-rename packages/mcp->packages/kern-mcp at P3 (no npm rename)"
+ },
+ {
+  "path": "parity/contract.ts",
+  "sha16": "c01aadc39d05de03",
+  "decision": "keep"
+ },
+ {
+  "path": "parity/currency-claims.ts",
+  "sha16": "2cd593f7763f012e",
+  "decision": "keep"
+ },
+ {
+  "path": "scripts/check-commit-intent.mjs",
+  "sha16": "5284a354894ec430",
+  "decision": "keep"
+ },
+ {
+  "path": "scripts/check-consumption.mjs",
+  "sha16": "d70daca670eb86e5",
+  "decision": "keep"
+ },
+ {
+  "path": "scripts/check-coverage.mjs",
+  "sha16": "f875cc908ebe2f72",
+  "decision": "keep"
+ },
+ {
+  "path": "scripts/check-currency.mjs",
+  "sha16": "12214447d1483c8e",
+  "decision": "keep"
+ },
+ {
+  "path": "scripts/check-dist-exports.mjs",
+  "sha16": "672881d27f13e32d",
+  "decision": "keep"
+ },
+ {
+  "path": "scripts/check-dist-types.mjs",
+  "sha16": "50d60f2a35eccaf7",
+  "decision": "keep"
+ },
+ {
+  "path": "scripts/check-elevation-parity.mjs",
+  "sha16": "715902d474bc15b8",
+  "decision": "keep"
+ },
+ {
+  "path": "scripts/check-generated-census.mjs",
+  "sha16": "f8ef1dab01279525",
+  "decision": "keep"
+ },
+ {
+  "path": "scripts/check-generated-freshness.mjs",
+  "sha16": "8688ca619c605c6f",
+  "decision": "keep"
+ },
+ {
+  "path": "scripts/check-kern.mjs",
+  "sha16": "46a85d7a6c41758c",
+  "decision": "keep"
+ },
+ {
+  "path": "scripts/check-layers.mjs",
+  "sha16": "7f52b44981a26a75",
+  "decision": "keep"
+ },
+ {
+  "path": "scripts/check-pack.mjs",
+  "sha16": "e1440be8a74c8f44",
+  "decision": "keep"
+ },
+ {
+  "path": "scripts/check-parity.mjs",
+  "sha16": "97a3cb18e0d50cea",
+  "decision": "keep"
+ },
+ {
+  "path": "scripts/check-primitives.mjs",
+  "sha16": "bec0d50c72e63969",
+  "decision": "keep"
+ },
+ {
+  "path": "scripts/check-registry-paths.mjs",
+  "sha16": "6f0cc232f0ed2e9d",
+  "decision": "keep"
+ },
+ {
+  "path": "scripts/check-stale-refs.mjs",
+  "sha16": "64f6a99252a18df2",
+  "decision": "keep"
+ },
+ {
+  "path": "scripts/check-ts-policy.mjs",
+  "sha16": "687625041eee75f5",
+  "decision": "keep"
+ },
+ {
+  "path": "scripts/check-workflow.mjs",
+  "sha16": "3705c5ffc6675da1",
+  "decision": "keep"
+ },
+ {
+  "path": "scripts/check-xoroh-leaks.mjs",
+  "sha16": "0abb31e206890e36",
+  "decision": "keep"
+ }
+]
