@@ -1,5 +1,6 @@
 import { useControllableState } from "@xoroh/kern-primitives";
 import {
+  cssLengthToDp,
   type ResolvedTheme,
   resolveThemeDetails,
   tokens,
@@ -28,7 +29,10 @@ export function chipStyles(
   const canElevate = elevated && (variant === "assist" || isFilter);
   const container: ViewStyle = {
     minHeight: 32,
-    borderRadius: Number.parseFloat(scheme.shape.small),
+    borderRadius: cssLengthToDp(
+      scheme.comp?.["chip-container-shape"],
+      Number.parseFloat(scheme.shape.small),
+    ),
     paddingHorizontal: 16,
     flexDirection: "row",
     alignItems: "center",

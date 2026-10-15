@@ -15,9 +15,20 @@ export type ShapeRole = string;
 export type RoleTable = Record<string, string>;
 export type ShapeTable = Record<string, string>;
 
+/**
+ * Component-token overrides, keyed by slot (e.g. `"switch-track-shape"`).
+ * Values are CSS-length strings in exactly the shape-table convention
+ * (`12px` or `rem`). Web reads them as CSS; native converts them with
+ * {@link cssLengthToDp} (`rem` at the 16px root baseline — never a blind
+ * `parseFloat`). Unknown-but-wellformed keys pass through inert — no
+ * component reads them, so they change nothing.
+ */
+export type CompTable = Record<string, string>;
+
 export type ThemeOverrides = {
   color?: Partial<Record<Mode, Record<string, string>>>;
   shape?: Record<string, string>;
+  comp?: CompTable;
 };
 
 export type CustomTheme = {
@@ -36,6 +47,13 @@ export type ThemeSelection = ThemeId | CustomTheme;
 export type ResolvedTheme = {
   color: RoleTable;
   shape: ShapeTable;
+  /**
+   * Resolved component-token values, merged base-plus-override per key.
+   * Present only when at least one entry resolves — themes without `comp`
+   * return byte-identical `{ color, shape }` objects, so existing snapshots,
+   * serializations, and CSS projections are untouched.
+   */
+  comp?: CompTable;
 };
 
 /**
@@ -46,6 +64,12 @@ export type ResolvedTheme = {
 export type PresetTables = {
   color?: { light: Record<string, string>; dark: Record<string, string> };
   shape?: Record<string, string>;
+  /**
+   * Design-system comp defaults (e.g. a system whose switch track is square
+   * by default). Absent in every shipped preset today — components fall back
+   * to their shape roles — so generated artifacts are unaffected.
+   */
+  comp?: CompTable;
   contrast?: Record<string, Partial<Record<string, string>>>;
   policy?: ContrastPolicy;
   extends?: string;
@@ -218,6 +242,7 @@ export function resolveThemeDetails(
   // no preset registered under this id the call fails loud listing what is
   // registered. The id itself is owned by the `@xoroh/kern-material-3`
   // registration, not by this module — custom systems resolve by passing
+  comp: Record<string, string>;
   // their own registered id (or a validated CustomTheme) explicitly.
   variant: ThemeSelection = "material-3",
 ): ResolvedTheme {
@@ -231,7 +256,12 @@ export function resolveThemeDetails(
   const overrides = overridesFor(variant);
   Object.assign(color, overrides.color?.[mode] ?? {});
   const shape = { ...base.shape, ...(overrides.shape ?? {}) };
-  return { color, shape };
+  // Base comp defaults merged per key with explicit overrides winning — the
+  // same leaf-plus-ultimate-base semantics as shape (intermediate chain nodes
+  // behave exactly as their color/shape overrides do). Empty comp stays
+  // absent so comp-free themes resolve exactly as before.
+  const comp = { ...base.comp, ...(overrides.comp ?? {}) };
+  return Object.keys(comp).length > 0 ? { color, shape, comp } : { color, shape };
 }
 
 /** Compatibility helper for consumers that only need the role table. */
@@ -239,6 +269,7 @@ export function resolveTheme(
   mode: Mode = "light",
   contrast: Contrast = "standard",
   variant: ThemeSelection = "material-3",
+        comp: record.comp ?? {},
 ): RoleTable {
   return resolveThemeDetails(mode, contrast, variant).color;
 }
@@ -250,4 +281,26 @@ export function varName(role: string): string {
 
 export function shapeVarName(shape: string): string {
   return `--sys-shape-corner-${shape}`;
+}
+
+const CSS_LENGTH_RE = /^(\d+(\.\d+)?)(px|rem)$/;
+
+/**
+ * Native dp for a CSS length string (`"12px"` → 12). `rem` resolves at the
+ * 16px web root baseline — React Native has no root font size, so the shared
+ * convention is documented here, once, next to value validation, instead of
+ * per component. Never `parseFloat`s a unit blindly: `"1.5rem"` is 24, not
+ * 1.5. Missing or malformed input yields `fallback` (authored themes fail
+ * loud in `defineThemePreset`; this guard is for hand-built schemes).
+ */
+export function cssLengthToDp(
+  raw: string | undefined,
+  fallback: number,
+): number {
+  if (raw === undefined) return fallback;
+  const match = CSS_LENGTH_RE.exec(raw.trim());
+  if (match === null) return fallback;
+  const value = Number.parseFloat(match[1]);
+  if (!Number.isFinite(value)) return fallback;
+  return match[3] === "rem" ? value * 16 : value;
 }

@@ -1,5 +1,5 @@
 import { useControllableState } from "@xoroh/kern-primitives";
-import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
+import { cssLengthToDp, type ResolvedTheme } from "@xoroh/kern-tokens";
 import {
   Pressable,
   type PressableProps,
@@ -17,7 +17,10 @@ export function switchStyles(
     track: {
       width: 52,
       height: 32,
-      borderRadius: Number.parseFloat(scheme.shape.full),
+      borderRadius: cssLengthToDp(
+        scheme.comp?.["switch-track-shape"],
+        Number.parseFloat(scheme.shape.full),
+      ),
       borderWidth: 2,
       borderColor: on ? scheme.color.primary : scheme.color.outline,
       backgroundColor: on ? scheme.color.primary : scheme.color.surface,

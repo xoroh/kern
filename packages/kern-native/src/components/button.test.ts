@@ -169,6 +169,26 @@ describe("M3 Expressive toggle", () => {
         toggle: true,
         selected: true,
       }).container.backgroundColor,
+
+  it("pill follows the button-container-shape override with a full fallback", () => {
+    const light = defaultScheme;
+    expect(
+      buttonStyles("primary", "default", false, light).container.borderRadius,
+    ).toBe(Number.parseFloat(light.shape.full));
+    const scheme = {
+      ...light,
+      comp: { "button-container-shape": "4px" },
+    };
+    expect(
+      buttonStyles("primary", "default", false, scheme).container
+        .borderRadius,
+    ).toBe(4);
+    // The rounded variant keeps its large-corner treatment.
+    expect(
+      buttonStyles("primary", "default", false, scheme, { shape: "rounded" })
+        .container.borderRadius,
+    ).toBe(Number.parseFloat(light.shape.large));
+  });
     ).toBe("transparent");
   });
 });

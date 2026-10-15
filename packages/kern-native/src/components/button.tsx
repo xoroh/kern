@@ -1,4 +1,5 @@
 import {
+  cssLengthToDp,
   type ResolvedTheme,
   resolveThemeDetails,
 } from "@xoroh/kern-tokens";
@@ -147,7 +148,12 @@ export function buttonStyles(
   const hasFill =
     variant === "primary" || variant === "tonal" || variant === "elevated";
   // M3 Expressive square radii per size (12/12/12/16); selected toggles
-  // morph pill to square, square back to pill.
+  // morph pill to square, square back to pill. A button-container-shape
+  // override redefines "pill" wherever the full radius is read.
+  const pillRadius = cssLengthToDp(
+    theme.comp?.["button-container-shape"],
+    Number.parseFloat(theme.shape.full),
+  );
   const squareRadius = size === "xl" ? 16 : 12;
   const container: ViewStyle = {
     height: HEIGHTS[size],
@@ -156,11 +162,11 @@ export function buttonStyles(
       shape === "pill"
         ? toggled
           ? squareRadius
-          : Number.parseFloat(theme.shape.full)
+          : pillRadius
         : shape === "rounded"
           ? Number.parseFloat(theme.shape.large)
           : toggled
-            ? Number.parseFloat(theme.shape.full)
+            ? pillRadius
             : squareRadius,
     flexDirection: "row",
     alignItems: "center",

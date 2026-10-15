@@ -1,4 +1,7 @@
-import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
+import {
+  cssLengthToDp,
+  type ResolvedTheme,
+} from "@xoroh/kern-tokens";
 import {
   type StyleProp,
   TextInput,
@@ -28,7 +31,10 @@ export function inputStyles(
   variant: NativeInputVariant = "outlined",
 ): TextStyle {
   const filled = variant === "filled";
-  const radius = Number.parseFloat(scheme.shape["extra-small"]);
+  const radius = cssLengthToDp(
+    scheme.comp?.["text-field-container-shape"],
+    Number.parseFloat(scheme.shape["extra-small"]),
+  );
   return {
     minHeight: multiline ? 112 : 56,
     // Filled rounds only the top (extra-small-top); outlined rounds all.

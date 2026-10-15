@@ -1,4 +1,5 @@
 import {
+  cssLengthToDp,
   type ResolvedTheme,
   resolveThemeDetails,
   tokens,
@@ -18,7 +19,10 @@ export function cardStyles(
   scheme: ResolvedTheme = resolveThemeDetails(),
 ): ViewStyle {
   const base: ViewStyle = {
-    borderRadius: Number.parseFloat(scheme.shape.medium),
+    borderRadius: cssLengthToDp(
+      scheme.comp?.["card-container-shape"],
+      Number.parseFloat(scheme.shape.medium),
+    ),
     backgroundColor: scheme.color.surfaceContainerHighest,
   };
   if (variant === "outlined") {

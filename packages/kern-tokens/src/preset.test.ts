@@ -222,3 +222,96 @@ describe("pixel authoring requires an explicit base (Finding 1)", () => {
     expect(theme.extends).toBe("pixel-authoring");
   });
 });
+
+describe("component-token (comp) overrides (A4-2)", () => {
+  it("themes without comp resolve exactly as before (no comp key)", async () => {
+    const { resolveThemeDetails } = await import("./resolve");
+    const scheme = resolveThemeDetails("light", "standard", "pixel");
+    expect("comp" in scheme).toBe(false);
+    expect(scheme.comp).toBeUndefined();
+    expect(Object.keys(scheme.shape).sort()).toEqual(
+      ["full", "lg", "none", "sm"].sort(),
+    );
+  });
+
+  it("a partial comp object resolves without requiring other slots", async () => {
+    const { resolveThemeDetails } = await import("./resolve");
+    const scheme = resolveThemeDetails("light", "standard", {
+      id: "pixel-comp-partial",
+      extends: "pixel",
+      overrides: { comp: { "switch-track-shape": "4px" } },
+    });
+    expect(scheme.comp).toEqual({ "switch-track-shape": "4px" });
+    // Color and shape tables are untouched by the comp override.
+    expect(Object.keys(scheme.shape).sort()).toEqual(
+      ["full", "lg", "none", "sm"].sort(),
+    );
+    expect(scheme.color.brand).toBe("#0b5fff");
+  });
+
+  it("base comp defaults merge per key with explicit overrides winning", async () => {
+    const { registerPreset, resolveThemeDetails } = await import("./resolve");
+    registerPreset("pixel-comp-base", {
+      color: {
+        light: { canvas: "#ffffff", ink: "#101418" },
+        dark: { canvas: "#101418", ink: "#f2f5f8" },
+      },
+      shape: { none: "0px", full: "999px" },
+      comp: { "switch-track-shape": "8px", "card-container-shape": "12px" },
+      policy: { textPairs: [["ink", "canvas"]], uiPairs: [], waivers: [] },
+    });
+    const scheme = resolveThemeDetails("light", "standard", {
+      id: "pixel-comp-merged",
+      extends: "pixel-comp-base",
+      overrides: { comp: { "switch-track-shape": "4px" } },
+    });
+    // Override wins for its key; the unrelated base key survives.
+    expect(scheme.comp).toEqual({
+      "switch-track-shape": "4px",
+      "card-container-shape": "12px",
+    });
+  });
+
+  it("unknown comp keys pass through inert without touching color/shape", async () => {
+    const { resolveThemeDetails } = await import("./resolve");
+    const plain = resolveThemeDetails("light", "standard", "pixel");
+    const withUnknown = resolveThemeDetails("light", "standard", {
+      id: "pixel-comp-unknown",
+      extends: "pixel",
+      overrides: { comp: { "future-widget-shape": "4px" } },
+    });
+    expect(withUnknown.comp).toEqual({ "future-widget-shape": "4px" });
+    expect(withUnknown.color).toEqual(plain.color);
+    expect(withUnknown.shape).toEqual(plain.shape);
+  });
+
+  it("rejects malformed comp keys and values at theme definition", async () => {
+    const { defineThemePreset } = await import("./resolve");
+    expect(() =>
+      defineThemePreset({
+        id: "pixel-comp-bad-value",
+        extends: "pixel",
+        overrides: { comp: { "switch-track-shape": "round" } },
+      }),
+    ).toThrow("must be a px or rem length");
+    expect(() =>
+      defineThemePreset({
+        id: "pixel-comp-bad-key",
+        extends: "pixel",
+        overrides: { comp: { "Not Kebab!": "4px" } },
+      }),
+    ).toThrow("must be kebab-case");
+  });
+
+  it("cssLengthToDp preserves unit semantics (1.5rem is 24, not 1.5)", async () => {
+    const { cssLengthToDp } = await import("./resolve");
+    expect(cssLengthToDp("12px", 999)).toBe(12);
+    expect(cssLengthToDp("4.5px", 999)).toBe(4.5);
+    expect(cssLengthToDp("1.5rem", 999)).toBe(24);
+    expect(cssLengthToDp("2rem", 999)).toBe(32);
+    expect(cssLengthToDp(undefined, 999)).toBe(999);
+    // Hand-built schemes with malformed values fall back, never NaN.
+    expect(cssLengthToDp("round", 7)).toBe(7);
+    expect(cssLengthToDp("", 7)).toBe(7);
+  });
+
