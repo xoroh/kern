@@ -24,11 +24,13 @@ version — the `exports` map is the unit, not the file.
 1. Every PR touching `packages/` adds a changeset: `bun run changeset`
    (patch/minor/major per package). A PR that only changes `docs/`,
    `.agents/`, or root markdown needs none.
-2. Push to `main` → the release workflow opens or updates a **Version
-   Packages** PR (bumps versions + rewrites `CHANGELOG.md`). Nothing publishes
-   yet.
-3. Merge the Version Packages PR when a batch feels ready → publishes to npm
-   with provenance.
+2. Push to `main` → the release workflow builds and verifies with a read-only
+   token. Version PR creation and publishing remain disabled unless the
+   `RELEASE_CHANGESSETS=true` Actions variable is explicitly enabled.
+3. If that gate is ever authorized, the write-enabled job runs only from
+   `main` and waits for approval in the protected `npm-publish` environment
+   before opening/updating a **Version Packages** PR or publishing. Publishing
+   remains founder-gated; do not enable the variable as part of routine setup.
 
 Check what is pending at any time: `bun x changeset status`.
 
@@ -107,22 +109,36 @@ gated behind the repo Actions variable `RELEASE_CHANGESSETS=true` (and the
 Actions permission to create pull requests). Do not enable that variable until
 Faroeq lifts the hold.
 
+## Release workflow protection
+
+The workflow token is read-only by default. Only the gated release job gets
+`contents: write`, `pull-requests: write`, and `id-token: write`. Manual
+dispatches from non-`main` refs cannot enter that job. The `npm-publish`
+environment is restricted to protected branches and requires approval from
+the `release` team; administrators cannot bypass that gate. Store the npm
+publishing credential as an environment secret there, not as a repository-wide
+secret. The site deployment is likewise limited to protected `main` and waits
+for approval in the `production` environment.
+
+All third-party Actions used by this repository are pinned to full commit
+SHAs, and repository settings require SHA-pinned Actions.
+
 ## Release workflow action
 
-The Release workflow (`.github/workflows/release.yml`) uses `changesets/action@v2`.
+The Release workflow (`.github/workflows/release.yml`) uses the v2
+`changesets/action`, pinned to a full commit SHA.
 v2 renamed inputs (`version-script`, `publish-script`, `commit-message`, `pr-title`),
 takes `github-token` explicitly, and no longer writes `.npmrc` from `NPM_TOKEN` —
 npm auth is via `actions/setup-node` `registry-url` (plus Trusted Publishing /
 `id-token: write` for provenance).
 
-## One-time setup (founder-gated; do once, then ignore)
+## Workflow maintenance
 
-- Push the release workflow: `gh auth refresh -s workflow` (interactive),
-  then `git push`. Needed once — the token that created it lacks the
-  `workflow` scope for workflow files.
-- `NPM_TOKEN` repo secret (granular token, publish on `@xoroh/*`):
-  repo Settings → Secrets → Actions. Without it the release workflow
-  versions but never publishes.
+- Updating workflow files requires the GitHub OAuth `workflow` scope. Submit
+  changes through a pull request; do not push directly to protected `main`.
+- `NPM_TOKEN` environment secret (granular token, publish on `@xoroh/*`):
+  repo Settings → Environments → `npm-publish`. Do not create or enable this
+  secret while the founder hold is active.
 
 Publishing itself (`bun run release`, i.e. `changeset publish`) is
 founder-gated. Prepare and verify; do not publish.
