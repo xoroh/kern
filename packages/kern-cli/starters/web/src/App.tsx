@@ -10,7 +10,7 @@ import { useState } from "react";
  * repaints with no prop drilling.
  */
 const PRESETS = [
-  "kern",
+  "material-3",
   "sharp",
   "brand",
   "demo",
@@ -18,7 +18,7 @@ const PRESETS = [
 const MODES = ["light", "dark"] as const satisfies readonly Mode[];
 
 export function App() {
-  const [preset, setPreset] = useState<ThemeId>("kern");
+  const [preset, setPreset] = useState<ThemeId>("material-3");
   const [mode, setMode] = useState<Mode>("light");
 
   function apply(nextPreset: ThemeId, nextMode: Mode): void {

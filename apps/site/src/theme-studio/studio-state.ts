@@ -55,7 +55,7 @@ export type StudioState = {
 
 export const STUDIO_DEFAULTS: StudioState = {
   seed: "#6750a4",
-  preset: "kern",
+  preset: "material-3",
   dark: false,
   contrast: "standard",
   radius: 1,

@@ -18,7 +18,7 @@ describe("comboboxStyles", () => {
   });
 
   it("marks the selected option with the tonal fill", () => {
-    const scheme = resolveThemeDetails("light", "standard", "kern");
+    const scheme = resolveThemeDetails("light", "standard", "material-3");
     expect(comboboxStyles(scheme).optionSelected).toMatchObject({
       backgroundColor: scheme.color.surfaceTonal,
     });
@@ -27,7 +27,7 @@ describe("comboboxStyles", () => {
 
 describe("comboboxPopupStyles", () => {
   it("resolves the card to the medium radius on surface-container", () => {
-    const scheme = resolveThemeDetails("light", "standard", "kern");
+    const scheme = resolveThemeDetails("light", "standard", "material-3");
     expect(comboboxPopupStyles(scheme).card).toMatchObject({
       borderRadius: Number.parseFloat(scheme.shape.medium),
       backgroundColor: scheme.color.surfaceContainer,

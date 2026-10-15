@@ -39,7 +39,7 @@ describe("kern init (Mode 2 scaffold)", () => {
       // Themed screen: AppShell frame + preset picker over the real presets.
       const app = readFileSync(join(dir, "src/App.tsx"), "utf8");
       expect(app).toContain("AppShell");
-      for (const preset of ["kern", "sharp", "brand", "demo"]) {
+      for (const preset of ["material-3", "sharp", "brand", "demo"]) {
         expect(app).toContain(`"${preset}"`);
       }
       expect(app).toContain("applyKernTheme");

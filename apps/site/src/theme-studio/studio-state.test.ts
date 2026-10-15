@@ -89,11 +89,11 @@ describe("studio state persistence", () => {
   it("validates stored values the same way query values are validated", () => {
     const back = loadStudioState(
       STUDIO_DEFAULTS,
-      () => '{"seed":"zzz","radius":"9","preset":"kern"}',
+      () => '{"seed":"zzz","radius":"9","preset":"material-3"}',
     );
     expect(back.seed).toBe(STUDIO_DEFAULTS.seed);
     expect(back.radius).toBe(2);
-    expect(back.preset).toBe("kern");
+    expect(back.preset).toBe("material-3");
   });
 
   it("is SSR-safe with no storage available", () => {

@@ -105,10 +105,10 @@ const ICONS = `import { Icon } from "@xoroh/kern-icons";
 const PRESET_PICKER = `import { useState } from "react";
 import { applyKernTheme, Button, type Mode, type ThemeId } from "@xoroh/kern";
 
-const PRESETS = ["kern", "sharp", "brand", "demo"] as const satisfies readonly ThemeId[];
+const PRESETS = ["material-3", "sharp", "brand", "demo"] as const satisfies readonly ThemeId[];
 
 export function PresetPicker() {
-  const [preset, setPreset] = useState<ThemeId>("kern");
+  const [preset, setPreset] = useState<ThemeId>("material-3");
   const [mode] = useState<Mode>("light");
   function apply(next: ThemeId) {
     setPreset(next);

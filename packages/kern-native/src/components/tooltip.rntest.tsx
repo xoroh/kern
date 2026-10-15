@@ -251,7 +251,7 @@ describe("tooltip trigger (native)", () => {
         <Text>Save</Text>
       </Tooltip>,
     );
-    const scheme = resolveThemeDetails("light", "standard", "kern");
+    const scheme = resolveThemeDetails("light", "standard", "material-3");
     const surfaceStyle = flatten(
       screen.getByTestId("kern-tooltip-content").props.style,
     );

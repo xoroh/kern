@@ -410,7 +410,7 @@ function deriveThemeScheme(system: PlaygroundSystem, seedHex: string, dark: bool
   return deriveM3Scheme(seedHex, dark);
 }
 
-const BASE_PRESET_IDS = ["kern", "sharp", "compact"] as const;
+const BASE_PRESET_IDS = ["material-3", "sharp", "compact"] as const;
 const NEW_BRAND_ID = "brand";
 
 type PlaygroundMode = "light" | "dark";
@@ -585,7 +585,7 @@ export function Playground({
 
     return {
       id: "playground-theme",
-      extends: "kern",
+      extends: "material-3",
       overrides: {
         color: {
           light: { ...light.deltas, ...lightScheme },
@@ -676,7 +676,7 @@ export function Playground({
 
 export const playgroundTheme = defineThemePreset({
   id: "playground-theme",
-  extends: "kern",
+  extends: "material-3",
   overrides: {
     color: ${colorJson},
     shape: ${shapeJson},

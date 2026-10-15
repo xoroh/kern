@@ -32,7 +32,7 @@ describe("applyKernTheme", () => {
 
   it("applies the expressive easing anchor and clears it", () => {
     const el = document.createElement("div");
-    applyKernTheme(el, "light", "standard", "kern", "expressive");
+    applyKernTheme(el, "light", "standard", "material-3", "expressive");
     expect(el.dataset.kernMotion).toBe("expressive");
     expect(
       el.style.getPropertyValue("--sys-motion-easing-standard"),
