@@ -15,6 +15,13 @@ export type ChangeEntry = {
 
 export const RECENT_CHANGES: readonly ChangeEntry[] = [
   {
+    id: "contracts-design-system-identity",
+    packages: ["@xoroh/kern-contracts"],
+    bump: "major",
+    summary:
+      "BREAKING — component and block records carry design-system identity instead of the hardcoded Material provider.",
+  },
+  {
     id: "breaking-native-barrel-retirements",
     packages: ["@xoroh/kern-native"],
     bump: "minor",

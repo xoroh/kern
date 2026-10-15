@@ -16,7 +16,7 @@
 import { RECEIPT_SCHEMA_VERSION } from "./install";
 
 /** The current contract schema version. Bump with a changeset. */
-export const CONTRACT_SCHEMA_VERSION = "1.0.0" as const;
+export const CONTRACT_SCHEMA_VERSION = "2.0.0" as const;
 
 export type VersionCoordinates = {
   package: string;

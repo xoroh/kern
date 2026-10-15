@@ -22,7 +22,7 @@ import { schemaCompatible, versionCoordinates } from "./version";
 
 const component = (over: Partial<ComponentRecord> = {}): ComponentRecord => ({
   schemaVersion: "1.0.0",
-  provider: "m3",
+  designSystem: "material-3",
   renderer: "web",
   name: "rich-tooltip",
   export: "RichTooltip",
@@ -72,10 +72,40 @@ describe("component", () => {
     ).toBe("./start");
   });
 
-  test("an unknown provider fails", () => {
+  test("a blank designSystem fails", () => {
     expect(() =>
-      defineComponent(component({ provider: "other" as never })),
-    ).toThrow("provider");
+      defineComponent(component({ designSystem: "  " })),
+    ).toThrow("designSystem");
+  });
+
+  test("a second design system validates — identity is not hardcoded", () => {
+    expect(
+      defineComponent(component({ designSystem: "custom" })).designSystem,
+    ).toBe("custom");
+  });
+
+  test("replaces accepts a registry key and rejects garbage", () => {
+    expect(
+      defineComponent(component({ replaces: "web/navigation-bar" })).replaces,
+    ).toBe("web/navigation-bar");
+    expect(() =>
+      defineComponent(component({ replaces: "Not A Key!" })),
+    ).toThrow("replaces");
+  });
+
+  test("dependency components must be registry keys", () => {
+    expect(() =>
+      defineComponent({
+        ...component(),
+        dependencies: { components: ["Button"] },
+      }),
+    ).toThrow("dependency component");
+    expect(
+      defineComponent({
+        ...component(),
+        dependencies: { components: ["web/button"] },
+      }).dependencies?.components,
+    ).toEqual(["web/button"]);
   });
 
   test("a lowercase export fails", () => {
@@ -110,6 +140,7 @@ describe("component", () => {
 describe("block", () => {
   const block = {
     schemaVersion: "1.0.0",
+    designSystem: "material-3",
     name: "auth-form",
     title: "Auth form",
     description: "Sign-in composed section.",
@@ -132,6 +163,12 @@ describe("block", () => {
 
   test("an empty file list fails — a block with no files installs nothing", () => {
     expect(() => defineBlock({ ...block, files: [] })).toThrow("files");
+  });
+
+  test("a blank designSystem fails", () => {
+    expect(() =>
+      defineBlock({ ...block, designSystem: "custom system" }),
+    ).toThrow("designSystem");
   });
 });
 
@@ -245,7 +282,7 @@ describe("schema.json", () => {
     // complete. This pins them together.
     for (const field of [
       "schemaVersion",
-      "provider",
+      "designSystem",
       "renderer",
       "name",
       "export",
@@ -263,7 +300,7 @@ describe("version", () => {
   test("coordinates carry all three versions", () => {
     expect(versionCoordinates("0.0.0")).toEqual({
       package: "0.0.0",
-      schema: "1.0.0",
+      schema: "2.0.0",
       receipt: "2",
     });
   });

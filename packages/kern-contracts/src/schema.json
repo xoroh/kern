@@ -7,12 +7,28 @@
   "properties": {
     "provider": {
       "type": "object",
-      "required": ["id", "label", "specGeneration", "evidence"],
+      "required": [
+        "id",
+        "label",
+        "specGeneration",
+        "evidence"
+      ],
       "properties": {
-        "id": { "const": "m3" },
-        "label": { "type": "string", "minLength": 1 },
-        "specGeneration": { "type": "string", "minLength": 1 },
-        "evidence": { "type": "string", "minLength": 1 }
+        "id": {
+          "const": "m3"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "specGeneration": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence": {
+          "type": "string",
+          "minLength": 1
+        }
       },
       "additionalProperties": false
     },
@@ -20,7 +36,7 @@
       "type": "object",
       "required": [
         "schemaVersion",
-        "provider",
+        "designSystem",
         "renderer",
         "name",
         "export",
@@ -31,42 +47,142 @@
         "capabilities"
       ],
       "properties": {
-        "schemaVersion": { "type": "string", "minLength": 1 },
-        "provider": { "const": "m3" },
-        "renderer": { "enum": ["web", "native"] },
-        "name": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
-        "export": { "type": "string", "pattern": "^[A-Z][A-Za-z0-9]*$" },
-        "entrypoint": { "enum": [".", "./start", "./native"] },
-        "path": { "type": "string", "minLength": 1 },
-        "status": { "enum": ["real", "stub"] },
-        "axes": { "type": "array", "items": { "type": "string" } },
-        "origin": { "enum": ["spec-native", "kern-adaptation"] },
+        "schemaVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "designSystem": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "renderer": {
+          "enum": [
+            "web",
+            "native"
+          ]
+        },
+        "name": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "export": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Za-z0-9]*$"
+        },
+        "entrypoint": {
+          "enum": [
+            ".",
+            "./start",
+            "./native"
+          ]
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "real",
+            "stub"
+          ]
+        },
+        "axes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "origin": {
+          "enum": [
+            "spec-native",
+            "kern-adaptation"
+          ]
+        },
         "capabilities": {
           "type": "object",
           "additionalProperties": {
-            "enum": ["verified", "unverified", "unsupported"]
+            "enum": [
+              "verified",
+              "unverified",
+              "unsupported"
+            ]
           }
         },
-        "obligations": { "type": "array", "items": { "type": "string" } },
-        "platformException": { "type": "string" },
+        "obligations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "platformException": {
+          "type": "string"
+        },
         "dependencies": {
           "type": "object",
           "properties": {
-            "tokens": { "type": "array", "items": { "type": "string" } },
-            "icons": { "type": "array", "items": { "type": "string" } },
-            "files": { "type": "array", "items": { "type": "string" } },
-            "npm": { "type": "array", "items": { "type": "string" } },
-            "assets": { "type": "array", "items": { "type": "string" } }
+            "tokens": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "icons": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "files": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "npm": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "assets": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "components": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^(?:web|native)/[a-z0-9]+(?:-[a-z0-9]+)*$"
+              }
+            }
           },
           "additionalProperties": false
         },
-        "doc": { "type": "string" },
-        "example": { "type": "string" },
+        "replaces": {
+          "type": "string",
+          "pattern": "^(?:web|native)/[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "doc": {
+          "type": "string"
+        },
+        "example": {
+          "type": "string"
+        },
         "installModes": {
           "type": "array",
-          "items": { "enum": ["package", "source-hybrid", "source-snapshot"] }
+          "items": {
+            "enum": [
+              "package",
+              "source-hybrid",
+              "source-snapshot"
+            ]
+          }
         },
-        "compatibility": { "type": "string" }
+        "compatibility": {
+          "type": "string"
+        }
       },
       "additionalProperties": false
     }

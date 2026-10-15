@@ -8,12 +8,18 @@
  * installer writes.
  */
 
-import type { DependencySet, Renderer } from "./component";
+import type {
+  DependencySet,
+  DesignSystemId,
+  Renderer,
+} from "./component";
 
 export type BlockCategory = "settings" | "auth" | "dashboard" | string;
 
 export type BlockRecord = {
   schemaVersion: string;
+  /** Design system this block implements, e.g. `"material-3"`. */
+  designSystem: DesignSystemId;
   /** Block name, e.g. `"auth-form"`. */
   name: string;
   title: string;
@@ -40,6 +46,8 @@ function fail(what: string): never {
 /** Fail-loud validation for a block record. Returns the record. */
 export function defineBlock(record: BlockRecord): BlockRecord {
   if (!record.schemaVersion.trim()) fail("schemaVersion is blank");
+  if (!NAME_RE.test(record.designSystem))
+    fail(`designSystem is ${record.designSystem}`);
   if (!NAME_RE.test(record.name)) fail(`name is ${record.name}`);
   if (!record.title.trim()) fail("title is blank");
   if (!record.description.trim()) fail("description is blank");

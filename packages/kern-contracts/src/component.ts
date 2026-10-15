@@ -11,7 +11,8 @@
  * records so a generator cannot emit a half-row that reads as complete.
  */
 
-import type { ProviderId } from "./provider";
+/** Design-system identity, e.g. `"material-3"`. Never a renderer or preset. */
+export type DesignSystemId = string;
 
 export type Renderer = "web" | "native";
 export type ComponentStatus = "real" | "stub";
@@ -23,6 +24,8 @@ export type ComponentOrigin = "spec-native" | "kern-adaptation";
 export type CapabilityState = "verified" | "unverified" | "unsupported";
 
 export type DependencySet = {
+  /** Components this one composes, as registry keys (`"web/button"`). */
+  components?: string[];
   /** Token roles the component reads (e.g. `sys.color.primary`). */
   tokens?: string[];
   /** Icon names the component renders. */
@@ -37,7 +40,8 @@ export type DependencySet = {
 
 export type ComponentRecord = {
   schemaVersion: string;
-  provider: ProviderId;
+  /** Design system this component implements, e.g. `"material-3"`. */
+  designSystem: DesignSystemId;
   renderer: Renderer;
   /** Registry name, e.g. `"rich-tooltip"`. */
   name: string;
@@ -56,6 +60,8 @@ export type ComponentRecord = {
   /** Why this platform differs, when it genuinely does. */
   platformException?: string;
   dependencies?: DependencySet;
+  /** Component this one replaces, as a registry key (`"web/navigation-bar"`). */
+  replaces?: string;
   doc?: string;
   example?: string;
   installModes?: Array<"package" | "source-hybrid" | "source-snapshot">;
@@ -66,6 +72,8 @@ export type ComponentRecord = {
 const NAME_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const EXPORT_RE = /^[A-Z][A-Za-z0-9]*$/;
 
+const KEY_RE = /^(?:web|native)\/[a-z0-9]+(?:-[a-z0-9]+)*$/;
+
 function fail(what: string): never {
   throw new Error(`Invalid ComponentRecord: ${what}`);
 }
@@ -73,7 +81,8 @@ function fail(what: string): never {
 /** Fail-loud validation for a component record. Returns the record. */
 export function defineComponent(record: ComponentRecord): ComponentRecord {
   if (!record.schemaVersion.trim()) fail("schemaVersion is blank");
-  if (record.provider !== "m3") fail(`provider is ${record.provider}`);
+  if (!NAME_RE.test(record.designSystem))
+    fail(`designSystem is ${record.designSystem}`);
   if (record.renderer !== "web" && record.renderer !== "native") {
     fail(`renderer is ${record.renderer}`);
   }
@@ -94,6 +103,12 @@ export function defineComponent(record: ComponentRecord): ComponentRecord {
     if (!["verified", "unverified", "unsupported"].includes(state)) {
       fail(`capability ${cap} is ${state}`);
     }
+  }
+  for (const dep of record.dependencies?.components ?? []) {
+    if (!KEY_RE.test(dep)) fail(`dependency component is ${dep}`);
+  }
+  if (record.replaces !== undefined && !KEY_RE.test(record.replaces)) {
+    fail(`replaces is ${record.replaces}`);
   }
   return record;
 }

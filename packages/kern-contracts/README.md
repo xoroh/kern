@@ -1,7 +1,7 @@
 # `@xoroh/kern-contracts`
 
-Versioned platform-free metadata types and validators for the Kern design
-system: provider identity, component capability records, block records, icon
+Versioned platform-free metadata types and validators for Kern design
+systems: design-system identity, component capability records, block records, icon
 records, install receipts/CLI config, and version coordinates.
 
 Pure by construction: no React, no DOM, no React Native, no CSS, no test
@@ -10,5 +10,5 @@ the registry generator all read this one vocabulary instead of each carrying
 its own row shape (ADR-P02).
 
 ```ts
-import { defineComponent, defineReceipt, PROVIDER_ID } from "@xoroh/kern-contracts";
+import { defineComponent, defineReceipt } from "@xoroh/kern-contracts";
 ```
