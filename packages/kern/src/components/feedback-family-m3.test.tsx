@@ -29,13 +29,13 @@ describe("Dialog — 28px shape, surface-container-high, no border", () => {
     );
     const popup = document.querySelector('[data-slot="dialog-content"]');
     expect(popup?.className).toContain(
-      "rounded-(--md-sys-shape-corner-extra-large)",
+      "rounded-(--sys-shape-corner-extra-large)",
     );
     expect(popup?.className).toContain(
-      "bg-(--md-sys-color-surface-container-high)",
+      "bg-(--sys-color-surface-container-high)",
     );
     expect(popup?.className).not.toContain("border");
-    expect(popup?.className).toContain("shadow-(--md-sys-elevation-level3)");
+    expect(popup?.className).toContain("shadow-(--sys-elevation-level3)");
   });
 
   it("sizes within 280–560px with 24px padding", () => {
@@ -104,13 +104,13 @@ describe("Snackbar — inverse surface, level3, 4px", () => {
     });
     const bar = await screen.findByText("Saved");
     const root = bar.closest('[data-slot="snackbar"]');
-    expect(root?.className).toContain("bg-(--md-sys-color-inverse-surface)");
+    expect(root?.className).toContain("bg-(--sys-color-inverse-surface)");
     expect(root?.className).toContain(
-      "text-(--md-sys-color-inverse-on-surface)",
+      "text-(--sys-color-inverse-on-surface)",
     );
-    expect(root?.className).toContain("shadow-(--md-sys-elevation-level3)");
+    expect(root?.className).toContain("shadow-(--sys-elevation-level3)");
     expect(root?.className).toContain(
-      "rounded-(--md-sys-shape-corner-extra-small)",
+      "rounded-(--sys-shape-corner-extra-small)",
     );
   });
 
@@ -133,7 +133,7 @@ describe("Snackbar — inverse surface, level3, 4px", () => {
     });
     const action = await screen.findByRole("button", { name: "Undo" });
     expect(action.className).toContain(
-      "text-(--md-sys-color-inverse-primary)",
+      "text-(--sys-color-inverse-primary)",
     );
   });
 });
@@ -143,7 +143,7 @@ describe("Progress — M3 track, indicator, four-color, buffer", () => {
     render(<LinearProgress value={0.5} label="Download" />);
     const bar = screen.getByRole("progressbar", { name: "Download" });
     expect(bar.className).toContain(
-      "bg-(--md-sys-color-surface-container-highest)",
+      "bg-(--sys-color-surface-container-highest)",
     );
     expect(bar.className).toContain("h-1");
   });

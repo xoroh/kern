@@ -33,10 +33,10 @@ describe("LinkButton", () => {
       </LinkButton>,
     );
     const link = screen.getByRole("link", { name: "Go" });
-    expect(link.className).toContain("bg-(--md-sys-color-error-container)");
+    expect(link.className).toContain("bg-(--sys-color-error-container)");
     expect(link.className).toContain("h-12");
     // M3 Expressive square is per-size radii (16px at xl), not 0px.
-    expect(link.className).toContain("rounded-(--md-sys-shape-corner-large)");
+    expect(link.className).toContain("rounded-(--sys-shape-corner-large)");
     expect(link.className).not.toContain("rounded-none");
     expect(link.className).toContain("w-full");
     rerender(

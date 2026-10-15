@@ -19,7 +19,7 @@ export function AccordionRoot({ className, ...props }: AccordionRootProps) {
     <AccordionPrimitive.Root
       data-slot="accordion"
       className={cnState(
-        "kern-accordion grid gap-2 rounded-(--md-sys-shape-corner-small)",
+        "kern-accordion grid gap-2 rounded-(--sys-shape-corner-small)",
         className,
       )}
       {...props}
@@ -32,7 +32,7 @@ export function AccordionItem({ className, ...props }: AccordionItemProps) {
     <AccordionPrimitive.Item
       data-slot="accordion-item"
       className={cnState(
-        "kern-accordion-item overflow-hidden rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface) data-disabled:opacity-50",
+        "kern-accordion-item overflow-hidden rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant) bg-(--sys-color-surface) data-disabled:opacity-50",
         className,
       )}
       {...props}
@@ -52,7 +52,7 @@ export function AccordionTrigger({
     <AccordionPrimitive.Trigger
       data-slot="accordion-trigger"
       className={cnState(
-        "kern-accordion-trigger flex min-h-12 w-full cursor-pointer items-center justify-between gap-2 px-4 text-left text-sm font-medium text-(--md-sys-color-on-surface) outline-none hover:bg-(--md-sys-color-surface-tonal) focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-(--md-sys-color-secondary) data-disabled:pointer-events-none [&[data-panel-open]>[data-slot=accordion-chevron]]:rotate-180",
+        "kern-accordion-trigger flex min-h-12 w-full cursor-pointer items-center justify-between gap-2 px-4 text-left text-sm font-medium text-(--sys-color-on-surface) outline-none hover:bg-(--sys-color-surface-tonal) focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-(--sys-color-secondary) data-disabled:pointer-events-none [&[data-panel-open]>[data-slot=accordion-chevron]]:rotate-180",
         className,
       )}
       {...props}
@@ -65,7 +65,7 @@ export function AccordionPanel({ className, ...props }: AccordionPanelProps) {
     <AccordionPrimitive.Panel
       data-slot="accordion-panel"
       className={cnState(
-        "kern-accordion-panel px-4 pb-4 text-sm text-(--md-sys-color-on-surface-variant)",
+        "kern-accordion-panel px-4 pb-4 text-sm text-(--sys-color-on-surface-variant)",
         className,
       )}
       {...props}

@@ -55,7 +55,7 @@ export function ScrollAreaScrollbar({
     >
       <ScrollAreaPrimitive.Thumb
         data-slot="scroll-area-thumb"
-        className="kern-scroll-area-thumb relative flex-1 rounded-full bg-(--md-sys-color-outline)"
+        className="kern-scroll-area-thumb relative flex-1 rounded-full bg-(--sys-color-outline)"
       />
     </ScrollAreaPrimitive.Scrollbar>
   );

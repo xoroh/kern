@@ -156,7 +156,7 @@ export function SecondaryTabs({
       <div
         role="tablist"
         aria-label={label}
-        className="flex items-stretch gap-1 border-b border-(--md-sys-color-outline-variant)"
+        className="flex items-stretch gap-1 border-b border-(--sys-color-outline-variant)"
       >
         {tabs.map((tab, index) => {
           const selected = index === activeIndex;
@@ -177,13 +177,13 @@ export function SecondaryTabs({
               onClick={() => select(tab.value)}
               onKeyDown={onKeyDown}
               className={cn(
-                "kern-secondary-tab relative flex min-h-12 cursor-pointer items-center px-4 text-sm leading-5 font-medium tracking-[0.00625rem] text-(--md-sys-color-on-surface-variant) outline-none select-none transition-colors duration-200 ease-(--md-sys-motion-easing-standard) after:absolute after:inset-x-0 after:bottom-0 after:h-[2px] after:rounded-full after:bg-transparent after:content-[''] before:absolute before:inset-0 before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--md-sys-color-on-surface) hover:before:opacity-[var(--md-sys-state-hover)] hover:text-(--md-sys-color-on-surface) focus-visible:before:opacity-[var(--md-sys-state-focus)] focus-visible:text-(--md-sys-color-on-surface) active:before:opacity-[var(--md-sys-state-press)] active:text-(--md-sys-color-on-surface) " +
+                "kern-secondary-tab relative flex min-h-12 cursor-pointer items-center px-4 text-sm leading-5 font-medium tracking-[0.00625rem] text-(--sys-color-on-surface-variant) outline-none select-none transition-colors duration-200 ease-(--sys-motion-easing-standard) after:absolute after:inset-x-0 after:bottom-0 after:h-[2px] after:rounded-full after:bg-transparent after:content-[''] before:absolute before:inset-0 before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--sys-color-on-surface) hover:before:opacity-[var(--sys-state-hover)] hover:text-(--sys-color-on-surface) focus-visible:before:opacity-[var(--sys-state-focus)] focus-visible:text-(--sys-color-on-surface) active:before:opacity-[var(--sys-state-press)] active:text-(--sys-color-on-surface) " +
                   FOCUS_RING_CLASS,
                 tab.disabled
                   ? "pointer-events-none opacity-38"
                   : "",
                 selected &&
-                  "text-(--md-sys-color-on-surface) after:bg-(--md-sys-color-primary)",
+                  "text-(--sys-color-on-surface) after:bg-(--sys-color-primary)",
               )}
             >
               {tab.label}

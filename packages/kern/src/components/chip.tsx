@@ -5,26 +5,26 @@ import { cn } from "../utils/cn";
 import { FOCUS_RING_CLASS } from "./focus-ring";
 
 const chipVariants = cva(
-  `kern-chip relative inline-flex h-8 shrink-0 items-center gap-1.5 rounded-(--md-sys-shape-corner-small) px-4 text-sm leading-5 font-medium tracking-[0.00625rem] transition-[color,background-color,border-color] duration-200 ease-(--md-sys-motion-easing-standard) outline-none select-none ${FOCUS_RING_CLASS} disabled:pointer-events-none disabled:text-(--md-sys-color-on-surface)/38 aria-disabled:pointer-events-none aria-disabled:text-(--md-sys-color-on-surface)/38 after:absolute after:-inset-2 after:content-[''] before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--md-sys-color-on-surface) hover:before:opacity-[var(--md-sys-state-hover)] focus-visible:before:opacity-[var(--md-sys-state-focus)] active:before:opacity-[var(--md-sys-state-press)] disabled:before:opacity-0 [&_svg]:size-[18px] [&_svg]:shrink-0`,
+  `kern-chip relative inline-flex h-8 shrink-0 items-center gap-1.5 rounded-(--sys-shape-corner-small) px-4 text-sm leading-5 font-medium tracking-[0.00625rem] transition-[color,background-color,border-color] duration-200 ease-(--sys-motion-easing-standard) outline-none select-none ${FOCUS_RING_CLASS} disabled:pointer-events-none disabled:text-(--sys-color-on-surface)/38 aria-disabled:pointer-events-none aria-disabled:text-(--sys-color-on-surface)/38 after:absolute after:-inset-2 after:content-[''] before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--sys-color-on-surface) hover:before:opacity-[var(--sys-state-hover)] focus-visible:before:opacity-[var(--sys-state-focus)] active:before:opacity-[var(--sys-state-press)] disabled:before:opacity-0 [&_svg]:size-[18px] [&_svg]:shrink-0`,
   {
     variants: {
       variant: {
         assist:
-          "border border-(--md-sys-color-outline) text-(--md-sys-color-on-surface) disabled:border-(--md-sys-color-on-surface)/12 disabled:bg-transparent",
+          "border border-(--sys-color-outline) text-(--sys-color-on-surface) disabled:border-(--sys-color-on-surface)/12 disabled:bg-transparent",
         filter:
-          "border border-(--md-sys-color-outline) text-(--md-sys-color-on-surface) data-selected:border-transparent data-selected:bg-(--md-sys-color-secondary-container) data-selected:text-(--md-sys-color-on-secondary-container) data-selected:before:bg-(--md-sys-color-on-secondary-container) disabled:border-(--md-sys-color-on-surface)/12 disabled:bg-transparent",
+          "border border-(--sys-color-outline) text-(--sys-color-on-surface) data-selected:border-transparent data-selected:bg-(--sys-color-secondary-container) data-selected:text-(--sys-color-on-secondary-container) data-selected:before:bg-(--sys-color-on-secondary-container) disabled:border-(--sys-color-on-surface)/12 disabled:bg-transparent",
         // M3 lists FOUR chip variants (m3.material.io/components/chips/overview):
         // assist, filter, input, suggestion.
         input:
-          "border border-(--md-sys-color-outline-variant) text-(--md-sys-color-on-surface) disabled:border-(--md-sys-color-on-surface)/12 disabled:bg-transparent",
+          "border border-(--sys-color-outline-variant) text-(--sys-color-on-surface) disabled:border-(--sys-color-on-surface)/12 disabled:bg-transparent",
         suggestion:
-          "border border-(--md-sys-color-outline) text-(--md-sys-color-on-surface) disabled:border-(--md-sys-color-on-surface)/12 disabled:bg-transparent",
+          "border border-(--sys-color-outline) text-(--sys-color-on-surface) disabled:border-(--sys-color-on-surface)/12 disabled:bg-transparent",
       },
       // M3 elevated chips (assist + filter): surface-container-low fill at
       // level1 instead of the flat transparent fill. Input/suggestion have
       // no elevated treatment — the flag is ignored there.
       elevated: {
-        true: "border-transparent bg-(--md-sys-color-surface-container-low) shadow-(--md-sys-elevation-level1)",
+        true: "border-transparent bg-(--sys-color-surface-container-low) shadow-(--sys-elevation-level1)",
         false: "",
       },
     },

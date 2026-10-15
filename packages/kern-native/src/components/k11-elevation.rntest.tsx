@@ -8,7 +8,7 @@ import { Command } from "./web-parity";
  * K11: kern-chosen resting levels for components M3 does not tabulate.
  *
  * `snackbar` = 2, `command` = 3, `tooltip` = 2 (plain). Web ships all three via
- * `--md-sys-elevation-level{2,3,2}`; native shipped NONE — the elevation-parity
+ * `--sys-elevation-level{2,3,2}`; native shipped NONE — the elevation-parity
  * gate reported "native none" on all three, RULED both-renderers.
  *
  * Android reads `elevation` as dp (NOT a level: M3's scale is 0/1/3/6/8/12, so
@@ -30,7 +30,7 @@ describe("K11 native resting levels", () => {
     // 6dp, NOT 3dp. M3's scale is unevenly spaced (0/1/3/6/8/12), so
     // `elevation: 3` is 3dp = LEVEL 2 — which is what this pinned until
     // `check:elevation-parity` mapped dp into level space and found native one
-    // level below web's `--md-sys-elevation-level3`. A dp value read as a level
+    // level below web's `--sys-elevation-level3`. A dp value read as a level
     // index is the defect this row now guards against.
     expect(style.elevation).toBe(6);
     expect(style.shadowOpacity).toBeDefined();

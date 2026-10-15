@@ -152,7 +152,7 @@ export function Carousel({
       <div
         id={`${baseId}-track`}
         data-slot="carousel-viewport"
-        className="relative overflow-hidden rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface-container)"
+        className="relative overflow-hidden rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container)"
       >
         <div
           data-slot="carousel-track"
@@ -204,7 +204,7 @@ export function Carousel({
           disabled={disabled || (!wrap && atStart)}
           onClick={() => go(active - 1)}
           className={
-            "kern-carousel-previous inline-flex size-10 items-center justify-center rounded-(--md-sys-shape-corner-full) text-(--md-sys-color-on-surface-variant) outline-none select-none hover:bg-(--md-sys-color-surface-container-high) " +
+            "kern-carousel-previous inline-flex size-10 items-center justify-center rounded-(--sys-shape-corner-full) text-(--sys-color-on-surface-variant) outline-none select-none hover:bg-(--sys-color-surface-container-high) " +
             FOCUS_RING_CLASS +
             " disabled:pointer-events-none disabled:opacity-38"
           }
@@ -241,10 +241,10 @@ export function Carousel({
                 disabled={disabled}
                 onClick={() => go(i)}
                 className={cn(
-                  "kern-carousel-indicator size-2.5 rounded-(--md-sys-shape-corner-full) bg-(--md-sys-color-outline) outline-none transition-colors " +
+                  "kern-carousel-indicator size-2.5 rounded-(--sys-shape-corner-full) bg-(--sys-color-outline) outline-none transition-colors " +
                     FOCUS_RING_CLASS +
                     " disabled:pointer-events-none",
-                  i === active && "bg-(--md-sys-color-primary)",
+                  i === active && "bg-(--sys-color-primary)",
                 )}
               />
             ))}
@@ -259,7 +259,7 @@ export function Carousel({
           disabled={disabled || (!wrap && atEnd)}
           onClick={() => go(active + 1)}
           className={
-            "kern-carousel-next inline-flex size-10 items-center justify-center rounded-(--md-sys-shape-corner-full) text-(--md-sys-color-on-surface-variant) outline-none select-none hover:bg-(--md-sys-color-surface-container-high) " +
+            "kern-carousel-next inline-flex size-10 items-center justify-center rounded-(--sys-shape-corner-full) text-(--sys-color-on-surface-variant) outline-none select-none hover:bg-(--sys-color-surface-container-high) " +
             FOCUS_RING_CLASS +
             " disabled:pointer-events-none disabled:opacity-38"
           }

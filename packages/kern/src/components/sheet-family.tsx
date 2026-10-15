@@ -46,10 +46,10 @@ import { KernPortal, VisuallyHidden } from "./presentation";
  */
 
 const backdropClass =
-  "kern-sheet-backdrop fixed inset-0 bg-(--md-sys-color-scrim) opacity-32 transition-opacity";
+  "kern-sheet-backdrop fixed inset-0 bg-(--sys-color-scrim) opacity-32 transition-opacity";
 
 const surfaceBase =
-  "flex flex-col overflow-y-auto bg-(--md-sys-color-surface-container-low) outline-none";
+  "flex flex-col overflow-y-auto bg-(--sys-color-surface-container-low) outline-none";
 
 // ---------------------------------------------------------------------------
 // SheetSurface — the shared modal + scrim shell every kern sheet hosts through.
@@ -174,14 +174,14 @@ export function BottomSheet({
     <SheetSurface
       {...surface}
       className={cn(
-        "w-[min(32rem,100vw)] max-h-[85vh] rounded-t-(--md-sys-shape-corner-extra-large) p-4 shadow-(--md-sys-elevation-level1) gap-3",
+        "w-[min(32rem,100vw)] max-h-[85vh] rounded-t-(--sys-shape-corner-extra-large) p-4 shadow-(--sys-elevation-level1) gap-3",
         className,
       )}
     >
       {title ? (
         <DialogPrimitive.Title
           data-slot="bottom-sheet-title"
-          className="text-(--md-sys-typescale-title-large-font-size) font-semibold text-(--md-sys-color-on-surface)"
+          className="text-(--sys-typescale-title-large-font-size) font-semibold text-(--sys-color-on-surface)"
         >
           {title}
         </DialogPrimitive.Title>
@@ -194,7 +194,7 @@ export function BottomSheet({
             if (shouldDismissOn("close", surface.open ?? true, branches))
               onClose?.();
           }}
-          className="absolute right-4 top-4 grid size-12 place-items-center rounded-(--md-sys-shape-corner-full) text-(--md-sys-color-on-surface-variant) hover:opacity-[var(--md-sys-state-hover)]"
+          className="absolute right-4 top-4 grid size-12 place-items-center rounded-(--sys-shape-corner-full) text-(--sys-color-on-surface-variant) hover:opacity-[var(--sys-state-hover)]"
         >
           {/*
             The name comes from screen-reader-only content via the shared
@@ -241,7 +241,7 @@ export function DockSheet({
       data-slot="dock-sheet"
       data-testid={testID ?? "kern-dock-sheet"}
       className={cn(
-        "flex w-full items-center gap-2 rounded-t-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface-container-high) p-2",
+        "flex w-full items-center gap-2 rounded-t-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-high) p-2",
         className,
       )}
     >
@@ -299,7 +299,7 @@ export function SnapSheet({
       {...surface}
       label={label}
       className={cn(
-        "w-[min(32rem,100vw)] rounded-t-(--md-sys-shape-corner-extra-large) p-4 shadow-(--md-sys-elevation-level1)",
+        "w-[min(32rem,100vw)] rounded-t-(--sys-shape-corner-extra-large) p-4 shadow-(--sys-elevation-level1)",
         className,
       )}
     >
@@ -348,11 +348,11 @@ export function SnapSheet({
             report((current + 1) % count);
           }
         }}
-        className="mx-auto mb-2 grid h-6 w-12 cursor-pointer place-items-center rounded-(--md-sys-shape-corner-full) bg-(--md-sys-color-surface-container-highest)"
+        className="mx-auto mb-2 grid h-6 w-12 cursor-pointer place-items-center rounded-(--sys-shape-corner-full) bg-(--sys-color-surface-container-highest)"
       >
         <span
           aria-hidden="true"
-          className="h-1 w-6 rounded-full bg-(--md-sys-color-on-surface-variant)"
+          className="h-1 w-6 rounded-full bg-(--sys-color-on-surface-variant)"
         />
       </div>
       <div style={{ maxHeight: height }} className="flex flex-col gap-2">
@@ -391,16 +391,16 @@ export function EntitySheet({
       {...surface}
       label={title}
       className={cn(
-        "w-[min(32rem,100vw)] rounded-t-(--md-sys-shape-corner-extra-large) p-4 shadow-(--md-sys-elevation-level1) gap-3",
+        "w-[min(32rem,100vw)] rounded-t-(--sys-shape-corner-extra-large) p-4 shadow-(--sys-elevation-level1) gap-3",
         className,
       )}
     >
       <header className="flex flex-col gap-1">
-        <DialogPrimitive.Title className="text-(--md-sys-typescale-title-large-font-size) font-semibold text-(--md-sys-color-on-surface)">
+        <DialogPrimitive.Title className="text-(--sys-typescale-title-large-font-size) font-semibold text-(--sys-color-on-surface)">
           {title}
         </DialogPrimitive.Title>
         {subtitle ? (
-          <p className="text-(--md-sys-typescale-body-small-font-size) text-(--md-sys-color-on-surface-variant)">
+          <p className="text-(--sys-typescale-body-small-font-size) text-(--sys-color-on-surface-variant)">
             {subtitle}
           </p>
         ) : null}
@@ -413,16 +413,16 @@ export function EntitySheet({
         {fields.map((field) => (
           <div
             key={field.label}
-            className="flex flex-col gap-0.5 rounded-(--md-sys-shape-corner-medium) bg-(--md-sys-color-surface-container-highest) p-3"
+            className="flex flex-col gap-0.5 rounded-(--sys-shape-corner-medium) bg-(--sys-color-surface-container-highest) p-3"
           >
-            <dt className="text-(--md-sys-typescale-label-small-font-size) text-(--md-sys-color-on-surface-variant)">
+            <dt className="text-(--sys-typescale-label-small-font-size) text-(--sys-color-on-surface-variant)">
               {field.label}
             </dt>
             <dd
               className={
                 field.data
-                  ? "font-mono text-(--md-sys-typescale-body-medium-font-size) text-(--md-sys-color-on-surface)"
-                  : "text-(--md-sys-typescale-body-large-font-size) text-(--md-sys-color-on-surface)"
+                  ? "font-mono text-(--sys-typescale-body-medium-font-size) text-(--sys-color-on-surface)"
+                  : "text-(--sys-typescale-body-large-font-size) text-(--sys-color-on-surface)"
               }
             >
               {field.value}
@@ -470,11 +470,11 @@ export function BottomSheetPicker({
       {...surface}
       label={title}
       className={cn(
-        "w-[min(32rem,100vw)] rounded-t-(--md-sys-shape-corner-extra-large) p-4 shadow-(--md-sys-elevation-level1) gap-2",
+        "w-[min(32rem,100vw)] rounded-t-(--sys-shape-corner-extra-large) p-4 shadow-(--sys-elevation-level1) gap-2",
         className,
       )}
     >
-      <DialogPrimitive.Title className="text-(--md-sys-typescale-title-large-font-size) font-semibold text-(--md-sys-color-on-surface)">
+      <DialogPrimitive.Title className="text-(--sys-typescale-title-large-font-size) font-semibold text-(--sys-color-on-surface)">
         {title}
       </DialogPrimitive.Title>
       {/*
@@ -501,22 +501,22 @@ export function BottomSheetPicker({
                 disabled={option.disabled}
                 onClick={() => onSelect(option.value)}
                 className={cn(
-                  "flex min-h-12 w-full flex-col items-start gap-0.5 rounded-(--md-sys-shape-corner-medium) p-3 text-left",
-                  "hover:opacity-[var(--md-sys-state-hover)]",
-                  "active:opacity-[var(--md-sys-state-press)]",
+                  "flex min-h-12 w-full flex-col items-start gap-0.5 rounded-(--sys-shape-corner-medium) p-3 text-left",
+                  "hover:opacity-[var(--sys-state-hover)]",
+                  "active:opacity-[var(--sys-state-press)]",
                   selected
-                    ? "bg-(--md-sys-color-secondary-container) text-(--md-sys-color-on-secondary-container)"
-                    : "text-(--md-sys-color-on-surface)",
-                  option.disabled && "opacity-[var(--md-sys-state-disabled)]",
+                    ? "bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container)"
+                    : "text-(--sys-color-on-surface)",
+                  option.disabled && "opacity-[var(--sys-state-disabled)]",
                 )}
               >
-                <span className="text-(--md-sys-typescale-body-large-font-size)">
+                <span className="text-(--sys-typescale-body-large-font-size)">
                   {option.label}
                   {/* The check carries selection, per the spec — not a fill. */}
                   {selected ? <span aria-hidden="true"> ✓</span> : null}
                 </span>
                 {option.supporting ? (
-                  <span className="text-(--md-sys-typescale-body-small-font-size) text-(--md-sys-color-on-surface-variant)">
+                  <span className="text-(--sys-typescale-body-small-font-size) text-(--sys-color-on-surface-variant)">
                     {option.supporting}
                   </span>
                 ) : null}
@@ -558,11 +558,11 @@ export function ActionSheet({
       {...surface}
       label={title}
       className={cn(
-        "w-[min(32rem,100vw)] rounded-t-(--md-sys-shape-corner-extra-large) p-4 shadow-(--md-sys-elevation-level1) gap-2",
+        "w-[min(32rem,100vw)] rounded-t-(--sys-shape-corner-extra-large) p-4 shadow-(--sys-elevation-level1) gap-2",
         className,
       )}
     >
-      <DialogPrimitive.Title className="text-(--md-sys-typescale-title-large-font-size) font-semibold text-(--md-sys-color-on-surface)">
+      <DialogPrimitive.Title className="text-(--sys-typescale-title-large-font-size) font-semibold text-(--sys-color-on-surface)">
         {title}
       </DialogPrimitive.Title>
       <ul className="flex list-none flex-col gap-1 p-0">
@@ -573,10 +573,10 @@ export function ActionSheet({
               disabled={action.disabled}
               onClick={action.onSelect}
               className={cn(
-                "min-h-12 w-full rounded-(--md-sys-shape-corner-medium) px-3 text-left text-(--md-sys-typescale-body-large-font-size) text-(--md-sys-color-on-surface)",
-                "hover:opacity-[var(--md-sys-state-hover)]",
-                "active:opacity-[var(--md-sys-state-press)]",
-                action.disabled && "opacity-[var(--md-sys-state-disabled)]",
+                "min-h-12 w-full rounded-(--sys-shape-corner-medium) px-3 text-left text-(--sys-typescale-body-large-font-size) text-(--sys-color-on-surface)",
+                "hover:opacity-[var(--sys-state-hover)]",
+                "active:opacity-[var(--sys-state-press)]",
+                action.disabled && "opacity-[var(--sys-state-disabled)]",
               )}
             >
               {action.label}

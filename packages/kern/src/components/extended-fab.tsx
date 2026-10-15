@@ -58,17 +58,17 @@ const EXTENDED_FAB_GEOMETRY: Record<
   { bar: string; icon: string; collapsed: string }
 > = {
   small: {
-    bar: "h-14 rounded-(--md-sys-shape-corner-large)",
+    bar: "h-14 rounded-(--sys-shape-corner-large)",
     icon: "[&_svg]:size-6",
     collapsed: "w-14",
   },
   medium: {
-    bar: "h-20 rounded-(--md-sys-shape-corner-large-increased)",
+    bar: "h-20 rounded-(--sys-shape-corner-large-increased)",
     icon: "[&_svg]:size-7",
     collapsed: "w-20",
   },
   large: {
-    bar: "h-24 rounded-(--md-sys-shape-corner-extra-large)",
+    bar: "h-24 rounded-(--sys-shape-corner-extra-large)",
     icon: "[&_svg]:size-9",
     collapsed: "w-24",
   },
@@ -187,10 +187,10 @@ export function ExtendedFab({
       aria-label={label}
       disabled={disabled}
       className={cn(
-        "kern-extended-fab relative inline-flex shrink-0 items-center gap-3 pr-5 pl-4 text-(--md-sys-color-on-primary-container) shadow-(--md-sys-elevation-level3) hover:shadow-(--md-sys-elevation-level4) transition-[padding,color,background-color,border-color,box-shadow] duration-200 ease-(--md-sys-motion-easing-standard) outline-none select-none " +
+        "kern-extended-fab relative inline-flex shrink-0 items-center gap-3 pr-5 pl-4 text-(--sys-color-on-primary-container) shadow-(--sys-elevation-level3) hover:shadow-(--sys-elevation-level4) transition-[padding,color,background-color,border-color,box-shadow] duration-200 ease-(--sys-motion-easing-standard) outline-none select-none " +
           FOCUS_RING_CLASS +
-          " disabled:pointer-events-none disabled:opacity-38 aria-disabled:pointer-events-none aria-disabled:opacity-38 after:absolute after:-inset-2 after:content-[''] before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 hover:before:opacity-[var(--md-sys-state-hover)] hover:before:bg-(--md-sys-color-on-primary-container) focus-visible:before:opacity-[var(--md-sys-state-focus)] focus-visible:before:bg-(--md-sys-color-on-primary-container) active:before:opacity-[var(--md-sys-state-press)] active:before:bg-(--md-sys-color-on-primary-container) disabled:before:opacity-0 aria-disabled:before:opacity-0 [&_svg]:shrink-0",
-        "bg-(--md-sys-color-primary-container)",
+          " disabled:pointer-events-none disabled:opacity-38 aria-disabled:pointer-events-none aria-disabled:opacity-38 after:absolute after:-inset-2 after:content-[''] before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 hover:before:opacity-[var(--sys-state-hover)] hover:before:bg-(--sys-color-on-primary-container) focus-visible:before:opacity-[var(--sys-state-focus)] focus-visible:before:bg-(--sys-color-on-primary-container) active:before:opacity-[var(--sys-state-press)] active:before:bg-(--sys-color-on-primary-container) disabled:before:opacity-0 aria-disabled:before:opacity-0 [&_svg]:shrink-0",
+        "bg-(--sys-color-primary-container)",
         geo.bar,
         geo.icon,
         isCollapsed && `justify-center px-0 ${geo.collapsed}`,

@@ -54,12 +54,12 @@ test.describe("page render (painted-verify)", () => {
     await expect(h1s, "home page has no <h1>").toHaveCount(1);
 
     // The kern design tokens must resolve to real colours. If the CSS import
-    // broke, `var(--md-sys-color-surface-container)` falls back to transparent
+    // broke, `var(--sys-color-surface-container)` falls back to transparent
     // and every surface silently renders as the page background — attached,
     // visible, and wrong.
     const token = await page.evaluate(() => {
       const probe = document.createElement("div");
-      probe.style.background = "var(--md-sys-color-surface-container)";
+      probe.style.background = "var(--sys-color-surface-container)";
       document.body.appendChild(probe);
       const bg = getComputedStyle(probe).backgroundColor;
       probe.remove();
@@ -67,7 +67,7 @@ test.describe("page render (painted-verify)", () => {
     });
     expect(
       token,
-      `--md-sys-color-surface-container resolved to ${token} — the kern token CSS did not load`,
+      `--sys-color-surface-container resolved to ${token} — the kern token CSS did not load`,
     ).not.toBe("rgba(0, 0, 0, 0)");
 
     expect(errors, `console/page errors: ${errors.join(" | ")}`).toEqual([]);

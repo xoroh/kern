@@ -10,7 +10,7 @@ export function Skeleton({ className, ...props }: SkeletonProps) {
       data-slot="skeleton"
       aria-hidden="true"
       className={cn(
-        "kern-skeleton animate-pulse rounded-(--md-sys-shape-corner-extra-small) bg-(--md-sys-color-surface-tonal) motion-reduce:animate-none",
+        "kern-skeleton animate-pulse rounded-(--sys-shape-corner-extra-small) bg-(--sys-color-surface-tonal) motion-reduce:animate-none",
         className,
       )}
       {...props}

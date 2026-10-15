@@ -20,7 +20,7 @@ describe("Toolbar (M3 floating)", () => {
     );
     const bar = screen.getByTestId("bar");
     expect(bar).toHaveAttribute("data-variant", "vibrant");
-    expect(bar.className).toContain("bg-(--md-sys-color-primary-container)");
+    expect(bar.className).toContain("bg-(--sys-color-primary-container)");
   });
 
   it("lays out vertically on request", () => {

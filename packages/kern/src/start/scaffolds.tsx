@@ -31,7 +31,7 @@ export function AppShell({
     <div
       data-slot="app-shell"
       className={cn(
-        "kern-app-shell flex h-dvh flex-col bg-(--md-sys-color-surface-container) text-(--md-sys-color-on-surface)",
+        "kern-app-shell flex h-dvh flex-col bg-(--sys-color-surface-container) text-(--sys-color-on-surface)",
         className,
       )}
       {...props}
@@ -82,7 +82,7 @@ export function Document({
       </head>
       <body
         className={cn(
-          "kern-document m-0 bg-(--md-sys-color-surface-container) font-(--kern-font-family) text-(--md-sys-color-on-surface)",
+          "kern-document m-0 bg-(--sys-color-surface-container) font-(--ref-font-family) text-(--sys-color-on-surface)",
           className,
         )}
         {...bodyProps}

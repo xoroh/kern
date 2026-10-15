@@ -33,7 +33,7 @@ import { cn } from "../utils/cn";
 const loadingIndicatorVariants = cva(
   // `motion-reduce:` stops the rotation rather than hiding the element: reduced
   // motion means "do not move this", not "show nothing".
-  "kern-loading-indicator inline-flex animate-spin rounded-full border-2 border-(--md-sys-color-primary) border-t-transparent motion-reduce:animate-none",
+  "kern-loading-indicator inline-flex animate-spin rounded-full border-2 border-(--sys-color-primary) border-t-transparent motion-reduce:animate-none",
   {
     variants: {
       // M3 loading indicators range 24–240dp with a 48dp default. `default`

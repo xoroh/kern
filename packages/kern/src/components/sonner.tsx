@@ -86,10 +86,10 @@ export function SonnerViewport({ className, ...props }: SonnerViewportProps) {
 }
 
 const INTENT_BORDER: Record<SonnerIntent, string> = {
-  info: "border-l-(--md-sys-color-info)",
-  success: "border-l-(--md-sys-color-success)",
-  warning: "border-l-(--md-sys-color-warning)",
-  error: "border-l-(--md-sys-color-error)",
+  info: "border-l-(--sys-color-info)",
+  success: "border-l-(--sys-color-success)",
+  warning: "border-l-(--sys-color-warning)",
+  error: "border-l-(--sys-color-error)",
 };
 
 export function SonnerRoot({
@@ -102,7 +102,7 @@ export function SonnerRoot({
       data-slot="sonner"
       data-intent={intent}
       className={cnState(
-        "kern-sonner flex items-start gap-3 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant) border-l-4 bg-(--md-sys-color-inverse-surface) px-4 py-3 text-sm text-(--md-sys-color-inverse-on-surface) shadow-(--md-sys-elevation-level2)",
+        "kern-sonner flex items-start gap-3 rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant) border-l-4 bg-(--sys-color-inverse-surface) px-4 py-3 text-sm text-(--sys-color-inverse-on-surface) shadow-(--sys-elevation-level2)",
         INTENT_BORDER[intent],
         className,
       )}
@@ -139,7 +139,7 @@ export function SonnerAction({ className, ...props }: SonnerActionProps) {
     <ToastPrimitive.Action
       data-slot="sonner-action"
       className={cnState(
-        "kern-sonner-action ml-auto shrink-0 cursor-pointer font-medium text-(--md-sys-color-inverse-primary) outline-none " +
+        "kern-sonner-action ml-auto shrink-0 cursor-pointer font-medium text-(--sys-color-inverse-primary) outline-none " +
           FOCUS_RING_CLASS,
         className,
       )}

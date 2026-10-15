@@ -10,12 +10,12 @@ describe("ListItem selected (M3)", () => {
     const row = screen.getByTestId("row");
     expect(row).toHaveAttribute("data-selected");
     expect(row.className).toContain(
-      "data-selected:bg-(--md-sys-color-secondary-container)",
+      "data-selected:bg-(--sys-color-secondary-container)",
     );
     // The corner is the shape-scale token, not a raw px value: a hardcoded
     // radius is invisible to theme/contrast switching and to the shape gate.
     expect(row.className).toContain(
-      "data-selected:rounded-(--md-sys-shape-corner-large)",
+      "data-selected:rounded-(--sys-shape-corner-large)",
     );
   });
 

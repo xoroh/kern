@@ -49,8 +49,8 @@ export function PageLoader({
       className={cn(
         "kern-page-loader flex min-h-[50vh] flex-col items-center justify-center gap-4",
         inverse
-          ? "bg-(--md-sys-color-inverse-surface) text-(--md-sys-color-inverse-on-surface)"
-          : "bg-(--md-sys-color-surface) text-(--md-sys-color-on-surface)",
+          ? "bg-(--sys-color-inverse-surface) text-(--sys-color-inverse-on-surface)"
+          : "bg-(--sys-color-surface) text-(--sys-color-on-surface)",
         className,
       )}
       {...props}

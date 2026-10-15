@@ -25,7 +25,7 @@ export function CollapsibleTrigger({
     <CollapsiblePrimitive.Trigger
       data-slot="collapsible-trigger"
       className={cnState(
-        "kern-collapsible-trigger flex min-h-12 cursor-pointer items-center gap-2 text-sm font-medium text-(--md-sys-color-on-surface) outline-none " +
+        "kern-collapsible-trigger flex min-h-12 cursor-pointer items-center gap-2 text-sm font-medium text-(--sys-color-on-surface) outline-none " +
           FOCUS_RING_CLASS +
           " data-disabled:pointer-events-none data-disabled:opacity-50",
         className,
@@ -43,7 +43,7 @@ export function CollapsiblePanel({
     <CollapsiblePrimitive.Panel
       data-slot="collapsible-panel"
       className={cnState(
-        "kern-collapsible-panel text-sm text-(--md-sys-color-on-surface-variant)",
+        "kern-collapsible-panel text-sm text-(--sys-color-on-surface-variant)",
         className,
       )}
       {...props}

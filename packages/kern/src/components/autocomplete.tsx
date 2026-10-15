@@ -35,7 +35,7 @@ export function AutocompleteLabel({
     <label
       data-slot="autocomplete-label"
       className={cn(
-        "kern-autocomplete-label text-sm font-medium text-(--md-sys-color-on-surface)",
+        "kern-autocomplete-label text-sm font-medium text-(--sys-color-on-surface)",
         className,
       )}
       {...props}
@@ -51,7 +51,7 @@ export function AutocompleteInput({
     <AutocompletePrimitive.Input
       data-slot="autocomplete-input"
       className={cnState(
-        "kern-autocomplete-input h-14 w-full rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline) bg-(--md-sys-color-surface) px-4 text-base text-(--md-sys-color-on-surface) outline-none transition-colors placeholder:text-(--md-sys-color-on-surface-variant) focus:border-(--md-sys-color-primary)",
+        "kern-autocomplete-input h-14 w-full rounded-(--sys-shape-corner-small) border border-(--sys-color-outline) bg-(--sys-color-surface) px-4 text-base text-(--sys-color-on-surface) outline-none transition-colors placeholder:text-(--sys-color-on-surface-variant) focus:border-(--sys-color-primary)",
         className,
       )}
       {...props}
@@ -72,7 +72,7 @@ export function AutocompleteContent({
         <AutocompletePrimitive.Popup
           data-slot="autocomplete-content"
           className={cnState(
-            "kern-autocomplete-popup min-w-28 max-w-[280px] rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-surface-container) p-2 shadow-(--md-sys-elevation-level2) outline-none",
+            "kern-autocomplete-popup min-w-28 max-w-[280px] rounded-(--sys-shape-corner-small) bg-(--sys-color-surface-container) p-2 shadow-(--sys-elevation-level2) outline-none",
             className,
           )}
           {...props}
@@ -90,7 +90,7 @@ export function AutocompleteItem({
     <AutocompletePrimitive.Item
       data-slot="autocomplete-item"
       className={cnState(
-        "kern-autocomplete-item flex min-h-12 cursor-pointer items-center gap-2 rounded-(--md-sys-shape-corner-extra-small) px-3 text-sm text-(--md-sys-color-on-surface) outline-none select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-highlighted:bg-(--md-sys-color-surface-tonal)",
+        "kern-autocomplete-item flex min-h-12 cursor-pointer items-center gap-2 rounded-(--sys-shape-corner-extra-small) px-3 text-sm text-(--sys-color-on-surface) outline-none select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-highlighted:bg-(--sys-color-surface-tonal)",
         className,
       )}
       {...props}
@@ -126,7 +126,7 @@ export function AutocompleteEmpty({
     <AutocompletePrimitive.Empty
       data-slot="autocomplete-empty"
       className={cnState(
-        "kern-autocomplete-empty px-3 py-2 text-sm text-(--md-sys-color-on-surface-variant)",
+        "kern-autocomplete-empty px-3 py-2 text-sm text-(--sys-color-on-surface-variant)",
         className,
       )}
       {...props}

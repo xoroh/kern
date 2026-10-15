@@ -388,8 +388,8 @@ function DialRing({
           cx={DIAL_CENTER}
           cy={DIAL_CENTER}
           r={DIAL_FACE_RADIUS}
-          fill="var(--md-sys-color-surface-container)"
-          stroke="var(--md-sys-color-outline-variant)"
+          fill="var(--sys-color-surface-container)"
+          stroke="var(--sys-color-outline-variant)"
           strokeWidth={1}
         />
         <circle
@@ -397,7 +397,7 @@ function DialRing({
           cy={DIAL_CENTER}
           r={DIAL_RING_RADIUS}
           fill="none"
-          stroke="var(--md-sys-color-outline-variant)"
+          stroke="var(--sys-color-outline-variant)"
           strokeWidth={1}
         />
         {showInnerRing ? (
@@ -406,7 +406,7 @@ function DialRing({
             cy={DIAL_CENTER}
             r={DIAL_INNER_RADIUS}
             fill="none"
-            stroke="var(--md-sys-color-outline-variant)"
+            stroke="var(--sys-color-outline-variant)"
             strokeWidth={1}
           />
         ) : null}
@@ -415,21 +415,21 @@ function DialRing({
           cx={hand.x}
           cy={hand.y}
           r={20}
-          fill="var(--md-sys-color-primary-container)"
+          fill="var(--sys-color-primary-container)"
         />
         <line
           x1={DIAL_CENTER}
           y1={DIAL_CENTER}
           x2={hand.x}
           y2={hand.y}
-          stroke="var(--md-sys-color-primary)"
+          stroke="var(--sys-color-primary)"
           strokeWidth={2}
         />
         <circle
           cx={DIAL_CENTER}
           cy={DIAL_CENTER}
           r={4}
-          fill="var(--md-sys-color-primary)"
+          fill="var(--sys-color-primary)"
         />
       </svg>
       {options.map((option, index) => {
@@ -474,10 +474,10 @@ function DialRing({
               }
             }}
             className={cn(
-              "kern-time-picker-dial-option absolute flex items-center justify-center rounded-full outline-none focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary)",
+              "kern-time-picker-dial-option absolute flex items-center justify-center rounded-full outline-none focus-visible:ring-2 focus-visible:ring-(--sys-color-secondary)",
               option.selected
-                ? "bg-(--md-sys-color-primary-container) font-semibold text-(--md-sys-color-on-primary-container)"
-                : "text-(--md-sys-color-on-surface)",
+                ? "bg-(--sys-color-primary-container) font-semibold text-(--sys-color-on-primary-container)"
+                : "text-(--sys-color-on-surface)",
             )}
             style={{
               left: point.x,
@@ -495,8 +495,8 @@ function DialRing({
                 className={cn(
                   "block h-2 w-2 rounded-full",
                   option.selected
-                    ? "bg-(--md-sys-color-on-primary-container)"
-                    : "bg-(--md-sys-color-on-surface-variant)",
+                    ? "bg-(--sys-color-on-primary-container)"
+                    : "bg-(--sys-color-on-surface-variant)",
                 )}
               />
             )}
@@ -544,7 +544,7 @@ function PickerField({ label, options, fieldId, onPick }: FieldProps) {
       role="listbox"
       aria-label={label}
       data-slot="time-picker-field"
-      className="kern-time-picker-field flex h-56 w-24 flex-col overflow-y-auto rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container)"
+      className="kern-time-picker-field flex h-56 w-24 flex-col overflow-y-auto rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container)"
     >
       {options.map((option, index) => (
         <button
@@ -595,10 +595,10 @@ function PickerField({ label, options, fieldId, onPick }: FieldProps) {
             }
           }}
           className={cn(
-            "kern-time-picker-option flex h-12 shrink-0 items-center justify-center text-lg outline-none select-none focus-visible:bg-(--md-sys-color-surface-container-high)",
+            "kern-time-picker-option flex h-12 shrink-0 items-center justify-center text-lg outline-none select-none focus-visible:bg-(--sys-color-surface-container-high)",
             option.selected
-              ? "rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-primary-container) font-semibold text-(--md-sys-color-on-primary-container)"
-              : "text-(--md-sys-color-on-surface)",
+              ? "rounded-(--sys-shape-corner-small) bg-(--sys-color-primary-container) font-semibold text-(--sys-color-on-primary-container)"
+              : "text-(--sys-color-on-surface)",
           )}
         >
           {option.text}
@@ -680,7 +680,7 @@ export function TimePicker({
   const pickerLabel = (
     <span
       data-slot="time-picker-value"
-      className="text-sm text-(--md-sys-color-on-surface-variant)"
+      className="text-sm text-(--sys-color-on-surface-variant)"
     >
       {formatValue ? formatValue(current) : formatClock(current, format)}
     </span>
@@ -706,10 +706,10 @@ export function TimePicker({
             data-testid={`kern-time-dial-mode-${mode}`}
             onClick={() => setDialMode(mode)}
             className={cn(
-              "kern-time-picker-dial-tab h-10 rounded-(--md-sys-shape-corner-full) px-4 text-sm font-medium",
+              "kern-time-picker-dial-tab h-10 rounded-(--sys-shape-corner-full) px-4 text-sm font-medium",
               dialMode === mode
-                ? "bg-(--md-sys-color-primary-container) text-(--md-sys-color-on-primary-container)"
-                : "text-(--md-sys-color-on-surface-variant)",
+                ? "bg-(--sys-color-primary-container) text-(--sys-color-on-primary-container)"
+                : "text-(--sys-color-on-surface-variant)",
             )}
           >
             {mode === "hour" ? "Hour" : "Minute"}
@@ -782,10 +782,10 @@ export function TimePicker({
                 })
               }
               className={cn(
-                "kern-time-picker-dial-period h-10 rounded-(--md-sys-shape-corner-full) px-4 text-sm font-medium",
+                "kern-time-picker-dial-period h-10 rounded-(--sys-shape-corner-full) px-4 text-sm font-medium",
                 value_ === period
-                  ? "bg-(--md-sys-color-primary-container) text-(--md-sys-color-on-primary-container)"
-                  : "text-(--md-sys-color-on-surface-variant)",
+                  ? "bg-(--sys-color-primary-container) text-(--sys-color-on-primary-container)"
+                  : "text-(--sys-color-on-surface-variant)",
               )}
             >
               {value_.toUpperCase()}
@@ -801,14 +801,14 @@ export function TimePicker({
       data-slot="time-picker"
       data-testid={testID ?? "kern-time-picker"}
       className={cn(
-        "kern-time-picker inline-flex flex-col gap-2 rounded-(--md-sys-shape-corner-large) bg-(--md-sys-color-surface-container-high) p-4",
+        "kern-time-picker inline-flex flex-col gap-2 rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container-high) p-4",
         className,
       )}
     >
       <div className="flex items-center justify-between">
         <span
           id={`${baseId}-label`}
-          className="text-xs font-medium tracking-wide text-(--md-sys-color-on-surface-variant) uppercase"
+          className="text-xs font-medium tracking-wide text-(--sys-color-on-surface-variant) uppercase"
         >
           {label}
         </span>

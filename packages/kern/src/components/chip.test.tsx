@@ -66,19 +66,19 @@ describe("Chip", () => {
       </Chip>,
     );
     expect(screen.getByRole("button", { name: "Active" })).toHaveClass(
-      "data-selected:bg-(--md-sys-color-secondary-container)",
-      "data-selected:text-(--md-sys-color-on-secondary-container)",
+      "data-selected:bg-(--sys-color-secondary-container)",
+      "data-selected:text-(--sys-color-on-secondary-container)",
     );
   });
 
   it("renders assist flat with an outline border (M3, not tonal fill)", () => {
     render(<Chip variant="assist">Search</Chip>);
     expect(screen.getByRole("button", { name: "Search" })).toHaveClass(
-      "border-(--md-sys-color-outline)",
+      "border-(--sys-color-outline)",
     );
     expect(
       screen.getByRole("button", { name: "Search" }).className,
-    ).not.toContain("bg-(--md-sys-color-surface)");
+    ).not.toContain("bg-(--sys-color-surface)");
   });
 });
 
@@ -86,8 +86,8 @@ describe("Chip elevated (M3)", () => {
   it("raises assist to level1 on the container-low fill", () => {
     render(<Chip elevated>Search</Chip>);
     expect(screen.getByRole("button", { name: "Search" })).toHaveClass(
-      "bg-(--md-sys-color-surface-container-low)",
-      "shadow-(--md-sys-elevation-level1)",
+      "bg-(--sys-color-surface-container-low)",
+      "shadow-(--sys-elevation-level1)",
     );
   });
 
@@ -95,6 +95,6 @@ describe("Chip elevated (M3)", () => {
     render(<Chip variant="input" elevated>file.pdf</Chip>);
     expect(
       screen.getByRole("button", { name: "file.pdf" }).className,
-    ).not.toContain("shadow-(--md-sys-elevation-level1)");
+    ).not.toContain("shadow-(--sys-elevation-level1)");
   });
 });

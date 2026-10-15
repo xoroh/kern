@@ -7,7 +7,7 @@ import { CircularProgress } from "./circular-progress";
 import { FOCUS_RING_CLASS } from "./focus-ring";
 
 const buttonVariants = cva(
-  `kern-button relative inline-flex min-w-16 shrink-0 cursor-pointer items-center justify-center gap-2 rounded-(--md-sys-shape-corner-full) text-sm leading-5 font-medium tracking-[0.1px] whitespace-nowrap transition-[color,background-color,border-color,box-shadow,border-radius] duration-200 ease-(--md-sys-motion-easing-standard) outline-none select-none ${FOCUS_RING_CLASS} disabled:pointer-events-none disabled:cursor-not-allowed disabled:shadow-none aria-disabled:cursor-not-allowed aria-disabled:shadow-none after:absolute after:content-[''] before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 hover:before:opacity-[var(--md-sys-state-hover)] focus-visible:before:opacity-[var(--md-sys-state-focus)] active:before:opacity-[var(--md-sys-state-press)] disabled:before:opacity-0 aria-disabled:before:opacity-0 [&_svg]:size-5 [&_svg]:shrink-0`,
+  `kern-button relative inline-flex min-w-16 shrink-0 cursor-pointer items-center justify-center gap-2 rounded-(--sys-shape-corner-full) text-sm leading-5 font-medium tracking-[0.1px] whitespace-nowrap transition-[color,background-color,border-color,box-shadow,border-radius] duration-200 ease-(--sys-motion-easing-standard) outline-none select-none ${FOCUS_RING_CLASS} disabled:pointer-events-none disabled:cursor-not-allowed disabled:shadow-none aria-disabled:cursor-not-allowed aria-disabled:shadow-none after:absolute after:content-[''] before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 hover:before:opacity-[var(--sys-state-hover)] focus-visible:before:opacity-[var(--sys-state-focus)] active:before:opacity-[var(--sys-state-press)] disabled:before:opacity-0 aria-disabled:before:opacity-0 [&_svg]:size-5 [&_svg]:shrink-0`,
   {
     variants: {
       // M3's FIVE color configurations (m3.material.io/components/buttons/overview):
@@ -22,15 +22,15 @@ const buttonVariants = cva(
       // the label too) are only for the disabled state per M3's 38%/12% rule.
       variant: {
         elevated:
-          "bg-(--md-sys-color-surface-container-low) text-(--md-sys-color-primary) shadow-(--md-sys-elevation-level1) hover:shadow-(--md-sys-elevation-level2) before:bg-(--md-sys-color-primary) disabled:bg-(--md-sys-color-on-surface)/12 disabled:text-(--md-sys-color-on-surface)/38",
+          "bg-(--sys-color-surface-container-low) text-(--sys-color-primary) shadow-(--sys-elevation-level1) hover:shadow-(--sys-elevation-level2) before:bg-(--sys-color-primary) disabled:bg-(--sys-color-on-surface)/12 disabled:text-(--sys-color-on-surface)/38",
         primary:
-          "bg-(--md-sys-color-primary) text-(--md-sys-color-on-primary) hover:shadow-(--md-sys-elevation-level1) before:bg-(--md-sys-color-on-primary) disabled:bg-(--md-sys-color-on-surface)/12 disabled:text-(--md-sys-color-on-surface)/38",
+          "bg-(--sys-color-primary) text-(--sys-color-on-primary) hover:shadow-(--sys-elevation-level1) before:bg-(--sys-color-on-primary) disabled:bg-(--sys-color-on-surface)/12 disabled:text-(--sys-color-on-surface)/38",
         tonal:
-          "bg-(--md-sys-color-secondary-container) text-(--md-sys-color-on-secondary-container) hover:shadow-(--md-sys-elevation-level1) before:bg-(--md-sys-color-on-secondary-container) disabled:bg-(--md-sys-color-on-surface)/12 disabled:text-(--md-sys-color-on-surface)/38",
+          "bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container) hover:shadow-(--sys-elevation-level1) before:bg-(--sys-color-on-secondary-container) disabled:bg-(--sys-color-on-surface)/12 disabled:text-(--sys-color-on-surface)/38",
         outlined:
-          "border border-(--md-sys-color-outline) text-(--md-sys-color-primary) before:bg-(--md-sys-color-primary) focus-visible:border-(--md-sys-color-primary) disabled:border-(--md-sys-color-on-surface)/12 disabled:bg-transparent disabled:text-(--md-sys-color-on-surface)/38",
+          "border border-(--sys-color-outline) text-(--sys-color-primary) before:bg-(--sys-color-primary) focus-visible:border-(--sys-color-primary) disabled:border-(--sys-color-on-surface)/12 disabled:bg-transparent disabled:text-(--sys-color-on-surface)/38",
         ghost:
-          "text-(--md-sys-color-primary) before:bg-(--md-sys-color-primary) disabled:bg-transparent disabled:text-(--md-sys-color-on-surface)/38",
+          "text-(--sys-color-primary) before:bg-(--sys-color-primary) disabled:bg-transparent disabled:text-(--sys-color-on-surface)/38",
       },
       // The color axis, not a variant axis: `danger` re-paints the five M3
       // configurations in the error roles instead of adding a sixth shape.
@@ -45,13 +45,13 @@ const buttonVariants = cva(
         // compacts below XS and `sm` sits at the XS band; `md`/`xl`/`lg`
         // step up through M/L. Touch targets stay at the 48dp minimum via
         // the `after:` inset, same as the stock sizes.
-        xs: "h-7 gap-1.5 px-3 text-xs after:-inset-2.5 active:rounded-(--md-sys-shape-corner-small) [&_svg]:size-3.5",
-        sm: "h-8 px-4 text-[13px] after:-inset-2 active:rounded-(--md-sys-shape-corner-small)",
-        default: "h-10 px-4 after:-inset-1 active:rounded-(--md-sys-shape-corner-small)",
-        md: "h-11 px-5 text-[15px] after:-inset-1 active:rounded-(--md-sys-shape-corner-medium) [&_svg]:size-5",
-        xl: "h-12 px-6 text-base after:-inset-1 active:rounded-(--md-sys-shape-corner-medium) [&_svg]:size-5",
-        lg: "h-14 px-7 text-lg after:-inset-0.5 active:rounded-(--md-sys-shape-corner-large) [&_svg]:size-6",
-        icon: "h-10 w-10 px-0 after:-inset-1 active:rounded-(--md-sys-shape-corner-small)",
+        xs: "h-7 gap-1.5 px-3 text-xs after:-inset-2.5 active:rounded-(--sys-shape-corner-small) [&_svg]:size-3.5",
+        sm: "h-8 px-4 text-[13px] after:-inset-2 active:rounded-(--sys-shape-corner-small)",
+        default: "h-10 px-4 after:-inset-1 active:rounded-(--sys-shape-corner-small)",
+        md: "h-11 px-5 text-[15px] after:-inset-1 active:rounded-(--sys-shape-corner-medium) [&_svg]:size-5",
+        xl: "h-12 px-6 text-base after:-inset-1 active:rounded-(--sys-shape-corner-medium) [&_svg]:size-5",
+        lg: "h-14 px-7 text-lg after:-inset-0.5 active:rounded-(--sys-shape-corner-large) [&_svg]:size-6",
+        icon: "h-10 w-10 px-0 after:-inset-1 active:rounded-(--sys-shape-corner-small)",
       },
       // Shape: `pill` is M3's round default (full). `rounded` steps down to
       // the large corner (Kern extension). `square` is M3 Expressive's square
@@ -60,7 +60,7 @@ const buttonVariants = cva(
       // size below).
       shape: {
         pill: "",
-        rounded: "rounded-(--md-sys-shape-corner-large)",
+        rounded: "rounded-(--sys-shape-corner-large)",
         square: "",
       },
       block: {
@@ -85,31 +85,31 @@ const buttonVariants = cva(
         variant: "primary",
         color: "danger",
         class:
-          "bg-(--md-sys-color-error) text-(--md-sys-color-on-error) before:bg-(--md-sys-color-on-error) disabled:bg-(--md-sys-color-on-surface)/12 disabled:text-(--md-sys-color-on-surface)/38",
+          "bg-(--sys-color-error) text-(--sys-color-on-error) before:bg-(--sys-color-on-error) disabled:bg-(--sys-color-on-surface)/12 disabled:text-(--sys-color-on-surface)/38",
       },
       {
         variant: "tonal",
         color: "danger",
         class:
-          "bg-(--md-sys-color-error-container) text-(--md-sys-color-on-error-container) before:bg-(--md-sys-color-on-error-container) disabled:bg-(--md-sys-color-on-surface)/12 disabled:text-(--md-sys-color-on-surface)/38",
+          "bg-(--sys-color-error-container) text-(--sys-color-on-error-container) before:bg-(--sys-color-on-error-container) disabled:bg-(--sys-color-on-surface)/12 disabled:text-(--sys-color-on-surface)/38",
       },
       {
         variant: "elevated",
         color: "danger",
         class:
-          "text-(--md-sys-color-error) before:bg-(--md-sys-color-error) disabled:bg-(--md-sys-color-on-surface)/12 disabled:text-(--md-sys-color-on-surface)/38",
+          "text-(--sys-color-error) before:bg-(--sys-color-error) disabled:bg-(--sys-color-on-surface)/12 disabled:text-(--sys-color-on-surface)/38",
       },
       {
         variant: "outlined",
         color: "danger",
         class:
-          "border-(--md-sys-color-error) text-(--md-sys-color-error) before:bg-(--md-sys-color-error) focus-visible:border-(--md-sys-color-error) disabled:border-(--md-sys-color-on-surface)/12 disabled:bg-transparent disabled:text-(--md-sys-color-on-surface)/38",
+          "border-(--sys-color-error) text-(--sys-color-error) before:bg-(--sys-color-error) focus-visible:border-(--sys-color-error) disabled:border-(--sys-color-on-surface)/12 disabled:bg-transparent disabled:text-(--sys-color-on-surface)/38",
       },
       {
         variant: "ghost",
         color: "danger",
         class:
-          "text-(--md-sys-color-error) before:bg-(--md-sys-color-error) disabled:bg-transparent disabled:text-(--md-sys-color-on-surface)/38",
+          "text-(--sys-color-error) before:bg-(--sys-color-error) disabled:bg-transparent disabled:text-(--sys-color-on-surface)/38",
       },
       // M3 text buttons use tighter horizontal padding (12px) than the
       // contained treatments (24px). Kern's base sizes are already compact
@@ -146,12 +146,12 @@ const buttonVariants = cva(
       },
       // M3 Expressive square shape per size (XS 12 / S 12 / M 16 / L 28 /
       // XL 28). Kern maps xs/sm/default→12, md/xl→16, lg→28.
-      { shape: "square", size: "xs", class: "rounded-(--md-sys-shape-corner-medium)" },
-      { shape: "square", size: "sm", class: "rounded-(--md-sys-shape-corner-medium)" },
-      { shape: "square", size: "default", class: "rounded-(--md-sys-shape-corner-medium)" },
-      { shape: "square", size: "md", class: "rounded-(--md-sys-shape-corner-large)" },
-      { shape: "square", size: "xl", class: "rounded-(--md-sys-shape-corner-large)" },
-      { shape: "square", size: "lg", class: "rounded-(--md-sys-shape-corner-extra-large)" },
+      { shape: "square", size: "xs", class: "rounded-(--sys-shape-corner-medium)" },
+      { shape: "square", size: "sm", class: "rounded-(--sys-shape-corner-medium)" },
+      { shape: "square", size: "default", class: "rounded-(--sys-shape-corner-medium)" },
+      { shape: "square", size: "md", class: "rounded-(--sys-shape-corner-large)" },
+      { shape: "square", size: "xl", class: "rounded-(--sys-shape-corner-large)" },
+      { shape: "square", size: "lg", class: "rounded-(--sys-shape-corner-extra-large)" },
       // M3 Expressive toggle colors (no toggle text button — ghost has no
       // selected treatment). Unselected filled drops to surface-container;
       // selected elevated/tonal/outlined swap to their emphasis pairs.
@@ -160,42 +160,42 @@ const buttonVariants = cva(
         toggle: true,
         selected: true,
         class:
-          "bg-(--md-sys-color-primary) text-(--md-sys-color-on-primary) before:bg-(--md-sys-color-on-primary)",
+          "bg-(--sys-color-primary) text-(--sys-color-on-primary) before:bg-(--sys-color-on-primary)",
       },
       {
         variant: "primary",
         toggle: true,
         selected: false,
         class:
-          "bg-(--md-sys-color-surface-container) text-(--md-sys-color-on-surface-variant) before:bg-(--md-sys-color-on-surface-variant)",
+          "bg-(--sys-color-surface-container) text-(--sys-color-on-surface-variant) before:bg-(--sys-color-on-surface-variant)",
       },
       {
         variant: "tonal",
         toggle: true,
         selected: true,
         class:
-          "bg-(--md-sys-color-secondary) text-(--md-sys-color-on-secondary) before:bg-(--md-sys-color-on-secondary)",
+          "bg-(--sys-color-secondary) text-(--sys-color-on-secondary) before:bg-(--sys-color-on-secondary)",
       },
       {
         variant: "outlined",
         toggle: true,
         selected: true,
         class:
-          "border-transparent bg-(--md-sys-color-inverse-surface) text-(--md-sys-color-inverse-on-surface) before:bg-(--md-sys-color-inverse-on-surface)",
+          "border-transparent bg-(--sys-color-inverse-surface) text-(--sys-color-inverse-on-surface) before:bg-(--sys-color-inverse-on-surface)",
       },
       // M3 Expressive toggle morph: selected round→square per size (and
       // square→round when the resting shape is square).
-      { toggle: true, selected: true, shape: "pill", size: "xs", class: "rounded-(--md-sys-shape-corner-medium)" },
-      { toggle: true, selected: true, shape: "pill", size: "sm", class: "rounded-(--md-sys-shape-corner-medium)" },
-      { toggle: true, selected: true, shape: "pill", size: "default", class: "rounded-(--md-sys-shape-corner-medium)" },
-      { toggle: true, selected: true, shape: "pill", size: "md", class: "rounded-(--md-sys-shape-corner-large)" },
-      { toggle: true, selected: true, shape: "pill", size: "xl", class: "rounded-(--md-sys-shape-corner-large)" },
-      { toggle: true, selected: true, shape: "pill", size: "lg", class: "rounded-(--md-sys-shape-corner-extra-large)" },
+      { toggle: true, selected: true, shape: "pill", size: "xs", class: "rounded-(--sys-shape-corner-medium)" },
+      { toggle: true, selected: true, shape: "pill", size: "sm", class: "rounded-(--sys-shape-corner-medium)" },
+      { toggle: true, selected: true, shape: "pill", size: "default", class: "rounded-(--sys-shape-corner-medium)" },
+      { toggle: true, selected: true, shape: "pill", size: "md", class: "rounded-(--sys-shape-corner-large)" },
+      { toggle: true, selected: true, shape: "pill", size: "xl", class: "rounded-(--sys-shape-corner-large)" },
+      { toggle: true, selected: true, shape: "pill", size: "lg", class: "rounded-(--sys-shape-corner-extra-large)" },
       {
         toggle: true,
         selected: true,
         shape: "square",
-        class: "rounded-(--md-sys-shape-corner-full)",
+        class: "rounded-(--sys-shape-corner-full)",
       },
     ],
     defaultVariants: {

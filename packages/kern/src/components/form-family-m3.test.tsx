@@ -24,19 +24,19 @@ describe("Input — outlined is the default treatment", () => {
   it("renders the outlined treatment: 1px outline border, surface fill, 4px shape", () => {
     render(<Input aria-label="name" />);
     const el = screen.getByRole("textbox");
-    expect(el.className).toContain("border-(--md-sys-color-outline)");
-    expect(el.className).toContain("bg-(--md-sys-color-surface)");
+    expect(el.className).toContain("border-(--sys-color-outline)");
+    expect(el.className).toContain("bg-(--sys-color-surface)");
     expect(el.className).toContain(
-      "rounded-(--md-sys-shape-corner-extra-small)",
+      "rounded-(--sys-shape-corner-extra-small)",
     );
-    expect(el.className).not.toContain("rounded-(--md-sys-shape-corner-small)");
+    expect(el.className).not.toContain("rounded-(--sys-shape-corner-small)");
   });
 
   it("moves the border to primary 2px on focus without shifting content", () => {
     render(<Input aria-label="name" />);
     const el = screen.getByRole("textbox");
     expect(el.className).toContain("focus:border-2");
-    expect(el.className).toContain("focus:border-(--md-sys-color-primary)");
+    expect(el.className).toContain("focus:border-(--sys-color-primary)");
     expect(el.className).toContain("focus:px-[15px]");
   });
 
@@ -44,10 +44,10 @@ describe("Input — outlined is the default treatment", () => {
     render(<Input variant="filled" aria-label="name" />);
     const el = screen.getByRole("textbox");
     expect(el.className).toContain(
-      "bg-(--md-sys-color-surface-container-highest)",
+      "bg-(--sys-color-surface-container-highest)",
     );
     expect(el.className).toContain(
-      "rounded-t-(--md-sys-shape-corner-extra-small)",
+      "rounded-t-(--sys-shape-corner-extra-small)",
     );
     expect(el.className).toContain("border-b");
   });
@@ -56,10 +56,10 @@ describe("Input — outlined is the default treatment", () => {
     render(<Input aria-label="name" disabled />);
     const el = screen.getByRole("textbox");
     expect(el.className).toContain(
-      "disabled:text-(--md-sys-color-on-surface)/38",
+      "disabled:text-(--sys-color-on-surface)/38",
     );
     expect(el.className).toContain(
-      "disabled:border-(--md-sys-color-on-surface)/12",
+      "disabled:border-(--sys-color-on-surface)/12",
     );
     expect(el.className).not.toContain("disabled:opacity-50");
   });
@@ -67,7 +67,7 @@ describe("Input — outlined is the default treatment", () => {
   it("paints error on border and message", () => {
     render(<Input aria-label="name" error errorMessage="Required" />);
     const el = screen.getByRole("textbox");
-    expect(el.className).toContain("border-(--md-sys-color-error)");
+    expect(el.className).toContain("border-(--sys-color-error)");
     expect(el).toHaveAttribute("aria-invalid", "true");
     expect(screen.getByRole("alert")).toHaveTextContent("Required");
   });
@@ -80,7 +80,7 @@ describe("Checkbox — 2px shape, on-surface-variant border", () => {
     // M3 hardcodes --md-checkbox-container-shape: 2px at component level.
     expect(el.style.borderRadius).toBe("2px");
     expect(el.className).not.toContain(
-      "rounded-(--md-sys-shape-corner-extra-small)",
+      "rounded-(--sys-shape-corner-extra-small)",
     );
     expect(el.className).not.toContain("rounded-[2px]");
   });
@@ -89,12 +89,12 @@ describe("Checkbox — 2px shape, on-surface-variant border", () => {
     render(<Checkbox aria-label="agree" />);
     const el = screen.getByRole("checkbox");
     expect(el.className).toContain(
-      "border-(--md-sys-color-on-surface-variant)",
+      "border-(--sys-color-on-surface-variant)",
     );
     expect(el.className).toContain(
-      "data-checked:border-(--md-sys-color-primary)",
+      "data-checked:border-(--sys-color-primary)",
     );
-    expect(el.className).toContain("data-checked:bg-(--md-sys-color-primary)");
+    expect(el.className).toContain("data-checked:bg-(--sys-color-primary)");
   });
 
   it("paints pressed layers with M3's inverted colors", () => {
@@ -102,7 +102,7 @@ describe("Checkbox — 2px shape, on-surface-variant border", () => {
     const el = screen.getByRole("checkbox");
     // Unselected press uses the primary layer; selected press uses on-surface.
     expect(el.className).toContain(
-      "data-checked:active:before:bg-(--md-sys-color-on-surface)",
+      "data-checked:active:before:bg-(--sys-color-on-surface)",
     );
   });
 
@@ -110,7 +110,7 @@ describe("Checkbox — 2px shape, on-surface-variant border", () => {
     render(<Checkbox aria-label="agree" disabled />);
     const el = screen.getByRole("checkbox");
     expect(el.className).toContain(
-      "data-disabled:border-(--md-sys-color-on-surface)/38",
+      "data-disabled:border-(--sys-color-on-surface)/38",
     );
     expect(el.className).not.toContain("data-disabled:opacity-50");
   });
@@ -130,20 +130,20 @@ describe("Switch — 52x32 track, state layers, split disabled", () => {
     const el = screen.getByRole("switch");
     expect(el.className).toContain("h-8");
     expect(el.className).toContain("w-[52px]");
-    expect(el.className).toContain("rounded-(--md-sys-shape-corner-full)");
+    expect(el.className).toContain("rounded-(--sys-shape-corner-full)");
   });
 
   it("paints hover, focus, and pressed layers", () => {
     render(<Switch aria-label="wifi" />);
     const el = screen.getByRole("switch");
     expect(el.className).toContain(
-      "hover:before:opacity-[var(--md-sys-state-hover)]",
+      "hover:before:opacity-[var(--sys-state-hover)]",
     );
     expect(el.className).toContain(
-      "focus-visible:before:opacity-[var(--md-sys-state-focus)]",
+      "focus-visible:before:opacity-[var(--sys-state-focus)]",
     );
     expect(el.className).toContain(
-      "active:before:opacity-[var(--md-sys-state-press)]",
+      "active:before:opacity-[var(--sys-state-press)]",
     );
   });
 
@@ -158,7 +158,7 @@ describe("Switch — 52x32 track, state layers, split disabled", () => {
     render(<Switch aria-label="wifi" disabled />);
     const el = screen.getByRole("switch");
     expect(el.className).toContain(
-      "data-disabled:data-checked:bg-(--md-sys-color-on-surface)/12",
+      "data-disabled:data-checked:bg-(--sys-color-on-surface)/12",
     );
     expect(el.className).not.toContain("data-disabled:opacity-50");
   });
@@ -177,10 +177,10 @@ describe("Radio — 20px control, on-surface-variant ring", () => {
     const control = radios[0].closest("[data-slot='radio-group-control']");
     expect(control?.className).toContain("size-5");
     expect(control?.className).toContain(
-      "border-(--md-sys-color-on-surface-variant)",
+      "border-(--sys-color-on-surface-variant)",
     );
     expect(control?.className).toContain(
-      "hover:before:opacity-[var(--md-sys-state-hover)]",
+      "hover:before:opacity-[var(--sys-state-hover)]",
     );
     expect(control?.className).not.toContain("data-disabled:opacity-50");
   });
@@ -194,16 +194,16 @@ describe("Slider — M3 track, thumb, and disabled", () => {
       </Slider.Root>,
     );
     const thumb = document.querySelector('[data-slot="slider-thumb"]');
-    expect(thumb?.className).toContain("bg-(--md-sys-color-primary)");
+    expect(thumb?.className).toContain("bg-(--sys-color-primary)");
     expect(thumb?.className).toContain(
-      "disabled:bg-(--md-sys-color-on-surface)/38",
+      "disabled:bg-(--sys-color-on-surface)/38",
     );
     const track = document.querySelector('[data-slot="slider-track"]');
     expect(track?.className).toContain(
-      "bg-(--md-sys-color-surface-container-highest)",
+      "bg-(--sys-color-surface-container-highest)",
     );
     const indicator = document.querySelector('[data-slot="slider-indicator"]');
-    expect(indicator?.className).toContain("bg-(--md-sys-color-primary)");
+    expect(indicator?.className).toContain("bg-(--sys-color-primary)");
   });
 });
 
@@ -217,11 +217,11 @@ describe("SelectTrigger — outlined default, filled variant, 4px shape", () => 
       </SelectRoot>,
     );
     const el = screen.getByRole("combobox");
-    expect(el.className).toContain("border-(--md-sys-color-outline)");
+    expect(el.className).toContain("border-(--sys-color-outline)");
     expect(el.className).toContain(
-      "rounded-(--md-sys-shape-corner-extra-small)",
+      "rounded-(--sys-shape-corner-extra-small)",
     );
-    expect(el.className).toContain("focus:border-(--md-sys-color-primary)");
+    expect(el.className).toContain("focus:border-(--sys-color-primary)");
   });
 
   it("renders the filled treatment with active indicator", () => {
@@ -234,7 +234,7 @@ describe("SelectTrigger — outlined default, filled variant, 4px shape", () => 
     );
     const el = screen.getByRole("combobox");
     expect(el.className).toContain(
-      "bg-(--md-sys-color-surface-container-highest)",
+      "bg-(--sys-color-surface-container-highest)",
     );
     expect(el.className).toContain("border-b");
   });
@@ -249,7 +249,7 @@ describe("SelectTrigger — outlined default, filled variant, 4px shape", () => 
     );
     const el = screen.getByRole("combobox");
     expect(el.className).toContain(
-      "data-disabled:text-(--md-sys-color-on-surface)/38",
+      "data-disabled:text-(--sys-color-on-surface)/38",
     );
     expect(el.className).not.toContain("data-disabled:opacity-50");
   });
@@ -278,7 +278,7 @@ describe("Gap features — affixes, counter, filled textarea", () => {
     render(<Textarea aria-label="notes" variant="filled" />);
     const el = screen.getByRole("textbox", { name: "notes" });
     expect(el.className).toContain(
-      "bg-(--md-sys-color-surface-container-highest)",
+      "bg-(--sys-color-surface-container-highest)",
     );
     expect(el).toHaveAttribute("data-variant", "filled");
   });

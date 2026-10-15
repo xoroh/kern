@@ -8,17 +8,17 @@ import { cn } from "../utils/cn";
  * positive, cautionary, negative). One prop name, one meaning across the set.
  */
 const bannerVariants = cva(
-  "kern-banner flex items-start gap-3 rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface) px-4 py-3 text-sm shadow-(--md-sys-elevation-level1)",
+  "kern-banner flex items-start gap-3 rounded-(--sys-shape-corner-medium) border border-(--sys-color-outline-variant) bg-(--sys-color-surface) px-4 py-3 text-sm shadow-(--sys-elevation-level1)",
   {
     variants: {
       variant: {
-        info: "bg-(--md-sys-color-info-container) text-(--md-sys-color-on-info-container)",
+        info: "bg-(--sys-color-info-container) text-(--sys-color-on-info-container)",
         success:
-          "bg-(--md-sys-color-success-container) text-(--md-sys-color-on-success-container)",
+          "bg-(--sys-color-success-container) text-(--sys-color-on-success-container)",
         warning:
-          "bg-(--md-sys-color-warning-container) text-(--md-sys-color-on-warning-container)",
+          "bg-(--sys-color-warning-container) text-(--sys-color-on-warning-container)",
         error:
-          "bg-(--md-sys-color-error-container) text-(--md-sys-color-on-error-container)",
+          "bg-(--sys-color-error-container) text-(--sys-color-on-error-container)",
       },
     },
     defaultVariants: { variant: "info" },
@@ -86,7 +86,7 @@ export function Banner({
           type="button"
           aria-label="Dismiss"
           className={cn(
-            "kern-banner-dismiss shrink-0 cursor-pointer rounded-(--md-sys-shape-corner-extra-small) px-2 py-1 font-medium outline-none focus-visible:ring-2 focus-visible:ring-(--md-sys-color-on-surface)",
+            "kern-banner-dismiss shrink-0 cursor-pointer rounded-(--sys-shape-corner-extra-small) px-2 py-1 font-medium outline-none focus-visible:ring-2 focus-visible:ring-(--sys-color-on-surface)",
           )}
           onClick={dismiss}
         />
@@ -104,7 +104,7 @@ export function BannerAction({ className, ...props }: BannerActionProps) {
       data-slot="banner-action"
       type="button"
       className={cn(
-        "kern-banner-action shrink-0 cursor-pointer rounded-(--md-sys-shape-corner-full) px-3 py-1 font-medium underline-offset-4 outline-none hover:underline focus-visible:ring-2 focus-visible:ring-(--md-sys-color-on-surface)",
+        "kern-banner-action shrink-0 cursor-pointer rounded-(--sys-shape-corner-full) px-3 py-1 font-medium underline-offset-4 outline-none hover:underline focus-visible:ring-2 focus-visible:ring-(--sys-color-on-surface)",
         className,
       )}
       {...props}

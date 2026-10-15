@@ -28,10 +28,10 @@ describe("M3 state-layer opacities", () => {
   it("paints hover at 8% via the state token", () => {
     const { container } = render(<button className="x">y</button>);
     void container;
-    // Token contract: --md-sys-state-hover resolves to 8%.
+    // Token contract: --sys-state-hover resolves to 8%.
     expect(
       getComputedStyle(document.documentElement).getPropertyValue(
-        "--md-sys-state-hover",
+        "--sys-state-hover",
       ) || "8%",
     ).toBeTruthy();
   });
@@ -46,33 +46,33 @@ describe("Button — five variants, M3 colors", () => {
   }> = [
     {
       variant: "elevated",
-      container: "bg-(--md-sys-color-surface-container-low)",
-      label: "text-(--md-sys-color-primary)",
-      layer: "before:bg-(--md-sys-color-primary)",
+      container: "bg-(--sys-color-surface-container-low)",
+      label: "text-(--sys-color-primary)",
+      layer: "before:bg-(--sys-color-primary)",
     },
     {
       variant: "primary",
-      container: "bg-(--md-sys-color-primary)",
-      label: "text-(--md-sys-color-on-primary)",
-      layer: "before:bg-(--md-sys-color-on-primary)",
+      container: "bg-(--sys-color-primary)",
+      label: "text-(--sys-color-on-primary)",
+      layer: "before:bg-(--sys-color-on-primary)",
     },
     {
       variant: "tonal",
-      container: "bg-(--md-sys-color-secondary-container)",
-      label: "text-(--md-sys-color-on-secondary-container)",
-      layer: "before:bg-(--md-sys-color-on-secondary-container)",
+      container: "bg-(--sys-color-secondary-container)",
+      label: "text-(--sys-color-on-secondary-container)",
+      layer: "before:bg-(--sys-color-on-secondary-container)",
     },
     {
       variant: "outlined",
-      container: "border-(--md-sys-color-outline)",
-      label: "text-(--md-sys-color-primary)",
-      layer: "before:bg-(--md-sys-color-primary)",
+      container: "border-(--sys-color-outline)",
+      label: "text-(--sys-color-primary)",
+      layer: "before:bg-(--sys-color-primary)",
     },
     {
       variant: "ghost",
       container: "",
-      label: "text-(--md-sys-color-primary)",
-      layer: "before:bg-(--md-sys-color-primary)",
+      label: "text-(--sys-color-primary)",
+      layer: "before:bg-(--sys-color-primary)",
     },
   ];
   for (const c of cases) {
@@ -86,32 +86,32 @@ describe("Button — five variants, M3 colors", () => {
 
   it("elevated rests at level1 and lifts to level2 on hover", () => {
     const cls = buttonVariants({ variant: "elevated" });
-    expect(cls).toContain("shadow-(--md-sys-elevation-level1)");
-    expect(cls).toContain("hover:shadow-(--md-sys-elevation-level2)");
+    expect(cls).toContain("shadow-(--sys-elevation-level1)");
+    expect(cls).toContain("hover:shadow-(--sys-elevation-level2)");
   });
 
   it("filled and tonal lift to level1 on hover", () => {
     expect(buttonVariants({ variant: "primary" })).toContain(
-      "hover:shadow-(--md-sys-elevation-level1)",
+      "hover:shadow-(--sys-elevation-level1)",
     );
     expect(buttonVariants({ variant: "tonal" })).toContain(
-      "hover:shadow-(--md-sys-elevation-level1)",
+      "hover:shadow-(--sys-elevation-level1)",
     );
   });
 
   it("outlined moves its border to primary on focus", () => {
     expect(buttonVariants({ variant: "outlined" })).toContain(
-      "focus-visible:border-(--md-sys-color-primary)",
+      "focus-visible:border-(--sys-color-primary)",
     );
   });
 
   it("paints hover, focus, and pressed as layers — never a whole-button dim", () => {
     const cls = buttonVariants({ variant: "primary" });
-    expect(cls).toContain("hover:before:opacity-[var(--md-sys-state-hover)]");
+    expect(cls).toContain("hover:before:opacity-[var(--sys-state-hover)]");
     expect(cls).toContain(
-      "focus-visible:before:opacity-[var(--md-sys-state-focus)]",
+      "focus-visible:before:opacity-[var(--sys-state-focus)]",
     );
-    expect(cls).toContain("active:before:opacity-[var(--md-sys-state-press)]");
+    expect(cls).toContain("active:before:opacity-[var(--sys-state-press)]");
     expect(cls).not.toContain("hover:opacity-");
     expect(cls).not.toContain("active:opacity-");
   });
@@ -119,17 +119,17 @@ describe("Button — five variants, M3 colors", () => {
   it("disables to the M3 12%/38% split per variant", () => {
     for (const v of ["elevated", "primary", "tonal"] as const) {
       const cls = buttonVariants({ variant: v });
-      expect(cls).toContain("disabled:bg-(--md-sys-color-on-surface)/12");
-      expect(cls).toContain("disabled:text-(--md-sys-color-on-surface)/38");
+      expect(cls).toContain("disabled:bg-(--sys-color-on-surface)/12");
+      expect(cls).toContain("disabled:text-(--sys-color-on-surface)/38");
     }
     const outlined = buttonVariants({ variant: "outlined" });
     expect(outlined).toContain(
-      "disabled:border-(--md-sys-color-on-surface)/12",
+      "disabled:border-(--sys-color-on-surface)/12",
     );
     expect(outlined).toContain("disabled:bg-transparent");
     const ghost = buttonVariants({ variant: "ghost" });
     expect(ghost).toContain("disabled:bg-transparent");
-    expect(ghost).toContain("disabled:text-(--md-sys-color-on-surface)/38");
+    expect(ghost).toContain("disabled:text-(--sys-color-on-surface)/38");
   });
 
   it("uses 20px icons with labels and label-large type (M3 current)", () => {
@@ -149,8 +149,8 @@ describe("Button — five variants, M3 colors", () => {
 
   it("danger re-paints but disabled always wins back to on-surface", () => {
     const cls = buttonVariants({ variant: "primary", color: "danger" });
-    expect(cls).toContain("bg-(--md-sys-color-error)");
-    expect(cls).toContain("disabled:bg-(--md-sys-color-on-surface)/12");
+    expect(cls).toContain("bg-(--sys-color-error)");
+    expect(cls).toContain("disabled:bg-(--sys-color-on-surface)/12");
   });
 });
 
@@ -181,19 +181,19 @@ describe("IconButton — four treatments, 24px icons", () => {
   it("standard selected paints the primary icon with no fill", () => {
     expect(
       iconButtonVariants({ variant: "standard", selected: true }),
-    ).toContain("text-(--md-sys-color-primary)");
+    ).toContain("text-(--sys-color-primary)");
   });
 
   it("tonal selected uses secondary-container, not secondary", () => {
     const cls = iconButtonVariants({ variant: "tonal", selected: true });
-    expect(cls).toContain("bg-(--md-sys-color-secondary-container)");
-    expect(cls).not.toContain("bg-(--md-sys-color-secondary)");
+    expect(cls).toContain("bg-(--sys-color-secondary-container)");
+    expect(cls).not.toContain("bg-(--sys-color-secondary)");
   });
 
   it("outlined selected uses inverse-surface per M3", () => {
     const cls = iconButtonVariants({ variant: "outlined", selected: true });
-    expect(cls).toContain("bg-(--md-sys-color-inverse-surface)");
-    expect(cls).toContain("text-(--md-sys-color-inverse-on-surface)");
+    expect(cls).toContain("bg-(--sys-color-inverse-surface)");
+    expect(cls).toContain("text-(--sys-color-inverse-on-surface)");
   });
 
   it("filled toggle unselected uses surface-container-highest", () => {
@@ -202,16 +202,16 @@ describe("IconButton — four treatments, 24px icons", () => {
       toggle: true,
       selected: false,
     });
-    expect(cls).toContain("bg-(--md-sys-color-surface-container-highest)");
+    expect(cls).toContain("bg-(--sys-color-surface-container-highest)");
   });
 });
 
 describe("Fab — four colors, M3 sizes and shapes", () => {
   it.each([
-    ["surface", "bg-(--md-sys-color-surface-container-high)"],
-    ["primary", "bg-(--md-sys-color-primary-container)"],
-    ["secondary", "bg-(--md-sys-color-secondary-container)"],
-    ["tertiary", "bg-(--md-sys-color-tertiary-container)"],
+    ["surface", "bg-(--sys-color-surface-container-high)"],
+    ["primary", "bg-(--sys-color-primary-container)"],
+    ["secondary", "bg-(--sys-color-secondary-container)"],
+    ["tertiary", "bg-(--sys-color-tertiary-container)"],
   ])("color %s paints its container", (color, token) => {
     expect(
       fabVariants({
@@ -222,26 +222,26 @@ describe("Fab — four colors, M3 sizes and shapes", () => {
 
   it("defaults to surface per M3", () => {
     expect(fabVariants({})).toContain(
-      "bg-(--md-sys-color-surface-container-high)",
+      "bg-(--sys-color-surface-container-high)",
     );
   });
 
   it("sizes carry M3 shapes: sm 12px, default 16px, medium/large 28px", () => {
     expect(fabVariants({ size: "sm" })).toContain(
-      "rounded-(--md-sys-shape-corner-medium)",
+      "rounded-(--sys-shape-corner-medium)",
     );
     expect(fabVariants({ size: "default" })).toContain(
-      "rounded-(--md-sys-shape-corner-large)",
+      "rounded-(--sys-shape-corner-large)",
     );
     expect(fabVariants({ size: "medium" })).toContain(
-      "rounded-(--md-sys-shape-corner-extra-large)",
+      "rounded-(--sys-shape-corner-extra-large)",
     );
   });
 
   it("rests at level3 and lifts to level4 on hover", () => {
     const cls = fabVariants({});
-    expect(cls).toContain("shadow-(--md-sys-elevation-level3)");
-    expect(cls).toContain("hover:shadow-(--md-sys-elevation-level4)");
+    expect(cls).toContain("shadow-(--sys-elevation-level3)");
+    expect(cls).toContain("hover:shadow-(--sys-elevation-level4)");
   });
 
   it("renders all sizes without crashing", () => {
@@ -259,8 +259,8 @@ describe("ExtendedFab — labelled FAB", () => {
   it("carries its primary-container background", () => {
     render(<ExtendedFab label="Compose" icon={<svg />} />);
     const el = screen.getByRole("button", { name: "Compose" });
-    expect(el.className).toContain("bg-(--md-sys-color-primary-container)");
-    expect(el.className).toContain("shadow-(--md-sys-elevation-level3)");
+    expect(el.className).toContain("bg-(--sys-color-primary-container)");
+    expect(el.className).toContain("shadow-(--sys-elevation-level3)");
   });
 });
 
@@ -269,9 +269,9 @@ describe("FabMenu — trigger is a FAB", () => {
     render(<FabMenu icon={<svg />} actions={[]} />);
     const trigger = screen.getByRole("button");
     expect(trigger.className).toContain(
-      "bg-(--md-sys-color-primary-container)",
+      "bg-(--sys-color-primary-container)",
     );
-    expect(trigger.className).not.toContain("bg-(--md-sys-color-primary)");
+    expect(trigger.className).not.toContain("bg-(--sys-color-primary)");
   });
 });
 
@@ -285,7 +285,7 @@ describe("Segmented — M3 selected treatment", () => {
     );
     const pressed = screen.getByRole("button", { name: "A" });
     expect(pressed.className).toContain(
-      "data-pressed:bg-(--md-sys-color-secondary-container)",
+      "data-pressed:bg-(--sys-color-secondary-container)",
     );
   });
 });
@@ -299,7 +299,7 @@ describe("Toggle — selected treatment", () => {
     );
     const el = screen.getByRole("button");
     expect(el.className).toContain(
-      "data-pressed:bg-(--md-sys-color-secondary-container)",
+      "data-pressed:bg-(--sys-color-secondary-container)",
     );
   });
 });
@@ -313,7 +313,7 @@ describe("ToggleGroup — items share the segmented treatment", () => {
     );
     const el = screen.getByRole("button", { name: "A" });
     expect(el.className).toContain(
-      "data-pressed:bg-(--md-sys-color-secondary-container)",
+      "data-pressed:bg-(--sys-color-secondary-container)",
     );
   });
 });
@@ -337,7 +337,7 @@ describe("SplitButton — two controls, one pill", () => {
 describe("Focus ring — M3 3px secondary", () => {
   it("is the 3px secondary pair", () => {
     expect(FOCUS_RING_CLASS).toBe(
-      "focus-visible:ring-[3px] focus-visible:ring-(--md-sys-color-secondary)",
+      "focus-visible:ring-[3px] focus-visible:ring-(--sys-color-secondary)",
     );
   });
 });
@@ -411,7 +411,7 @@ describe("Gap features — soft-disabled, selected labels, loading, flip", () =>
       </Fab>,
     );
     const el = screen.getByRole("button", { name: "default-fab" });
-    expect(el.className).toContain("bg-(--md-sys-color-surface-container-high)");
+    expect(el.className).toContain("bg-(--sys-color-surface-container-high)");
     const { unmount } = render(
       <Fab lowered aria-label="lowered-fab">
         <svg />
@@ -420,7 +420,7 @@ describe("Gap features — soft-disabled, selected labels, loading, flip", () =>
     void unmount;
     expect(
       screen.getByRole("button", { name: "lowered-fab" }).className,
-    ).toContain("shadow-(--md-sys-elevation-level1)");
+    ).toContain("shadow-(--sys-elevation-level1)");
   });
 });
 
@@ -455,7 +455,7 @@ describe("M3 Expressive — toggle, sizes, morph, 20px icons", () => {
     );
     const el = screen.getByRole("button", { name: "Save" });
     expect(el).toHaveAttribute("aria-pressed", "true");
-    expect(el.className).toContain("rounded-(--md-sys-shape-corner-medium)");
+    expect(el.className).toContain("rounded-(--sys-shape-corner-medium)");
   });
 
   it("toggle filled selected keeps primary fill; unselected drops to surface-container", async () => {
@@ -467,7 +467,7 @@ describe("M3 Expressive — toggle, sizes, morph, 20px icons", () => {
     );
     const el = screen.getByRole("button", { name: "Save" });
     expect(el).toHaveAttribute("aria-pressed", "false");
-    expect(el.className).toContain("bg-(--md-sys-color-surface-container)");
+    expect(el.className).toContain("bg-(--sys-color-surface-container)");
   });
 
   it("toggle tonal selected uses secondary fill", async () => {
@@ -478,7 +478,7 @@ describe("M3 Expressive — toggle, sizes, morph, 20px icons", () => {
       </Button>,
     );
     const el = screen.getByRole("button", { name: "Next" });
-    expect(el.className).toContain("bg-(--md-sys-color-secondary)");
+    expect(el.className).toContain("bg-(--sys-color-secondary)");
   });
 
   it("toggle outlined selected uses inverse-surface", async () => {
@@ -489,7 +489,7 @@ describe("M3 Expressive — toggle, sizes, morph, 20px icons", () => {
       </Button>,
     );
     const el = screen.getByRole("button", { name: "More" });
-    expect(el.className).toContain("bg-(--md-sys-color-inverse-surface)");
+    expect(el.className).toContain("bg-(--sys-color-inverse-surface)");
   });
 
   it("square shape uses per-size M3 radii, not 0px", async () => {
@@ -500,7 +500,7 @@ describe("M3 Expressive — toggle, sizes, morph, 20px icons", () => {
       </Button>,
     );
     const el = screen.getByRole("button", { name: "Square" });
-    expect(el.className).toContain("rounded-(--md-sys-shape-corner-extra-large)");
+    expect(el.className).toContain("rounded-(--sys-shape-corner-extra-large)");
     expect(el.className).not.toContain("rounded-none");
   });
 
@@ -508,6 +508,6 @@ describe("M3 Expressive — toggle, sizes, morph, 20px icons", () => {
     const { Button } = await import("./button");
     render(<Button>Press</Button>);
     const el = screen.getByRole("button", { name: "Press" });
-    expect(el.className).toContain("active:rounded-(--md-sys-shape-corner-small)");
+    expect(el.className).toContain("active:rounded-(--sys-shape-corner-small)");
   });
 });

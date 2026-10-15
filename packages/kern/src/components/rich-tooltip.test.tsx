@@ -23,7 +23,7 @@ describe("RichTooltip (M3)", () => {
     );
     const surface = screen.getByText("Autosaved.").closest("div");
     expect(surface?.className).toContain(
-      "bg-(--md-sys-color-surface-container)",
+      "bg-(--sys-color-surface-container)",
     );
     expect(surface?.className).toContain("px-4");
     expect(screen.getByText("Drafts")).toBeTruthy();

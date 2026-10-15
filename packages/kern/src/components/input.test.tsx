@@ -21,7 +21,7 @@ describe("Input", () => {
     render(<Input aria-label="Email" aria-invalid={false} error />);
     expect(screen.getByRole("textbox")).toHaveAttribute("aria-invalid", "true");
     expect(screen.getByRole("textbox")).toHaveClass(
-      "border-(--md-sys-color-error)",
+      "border-(--sys-color-error)",
     );
   });
 

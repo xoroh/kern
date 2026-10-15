@@ -9,7 +9,7 @@ export function NativeSelect({ className, ...props }: NativeSelectProps) {
     <select
       data-slot="native-select"
       className={cn(
-        "kern-native-select h-14 w-full cursor-pointer appearance-none rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline) bg-(--md-sys-color-surface) px-4 text-base text-(--md-sys-color-on-surface) outline-none transition-colors focus:border-(--md-sys-color-primary) disabled:cursor-not-allowed disabled:opacity-50",
+        "kern-native-select h-14 w-full cursor-pointer appearance-none rounded-(--sys-shape-corner-small) border border-(--sys-color-outline) bg-(--sys-color-surface) px-4 text-base text-(--sys-color-on-surface) outline-none transition-colors focus:border-(--sys-color-primary) disabled:cursor-not-allowed disabled:opacity-50",
         className,
       )}
       {...props}

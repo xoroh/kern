@@ -3,15 +3,15 @@ import type { ComponentPropsWithRef, ElementType } from "react";
 import { cn } from "../utils/cn";
 
 const cardVariants = cva(
-  "kern-card rounded-(--md-sys-shape-corner-medium) bg-(--md-sys-color-surface)",
+  "kern-card rounded-(--sys-shape-corner-medium) bg-(--sys-color-surface)",
   {
     variants: {
       variant: {
-        filled: "bg-(--md-sys-color-surface-container-highest) shadow-none",
+        filled: "bg-(--sys-color-surface-container-highest) shadow-none",
         outlined:
-          "border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface)",
+          "border border-(--sys-color-outline-variant) bg-(--sys-color-surface)",
         elevated:
-          "bg-(--md-sys-color-surface-container-low) shadow-(--md-sys-elevation-level1)",
+          "bg-(--sys-color-surface-container-low) shadow-(--sys-elevation-level1)",
       },
     },
     defaultVariants: { variant: "filled" },

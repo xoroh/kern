@@ -32,21 +32,21 @@ export function EmptyState({
         <div
           data-slot="empty-state-visual"
           aria-hidden="true"
-          className="kern-empty-state-visual mb-2 text-(--md-sys-color-on-surface-variant)"
+          className="kern-empty-state-visual mb-2 text-(--sys-color-on-surface-variant)"
         >
           {visual}
         </div>
       ) : null}
       <p
         data-slot="empty-state-title"
-        className="kern-empty-state-title text-(length:--md-sys-typescale-title-large-font-size) font-medium text-(--md-sys-color-on-surface)"
+        className="kern-empty-state-title text-(length:--sys-typescale-title-large-font-size) font-medium text-(--sys-color-on-surface)"
       >
         {title}
       </p>
       {description ? (
         <p
           data-slot="empty-state-description"
-          className="kern-empty-state-description max-w-sm text-sm text-(--md-sys-color-on-surface-variant)"
+          className="kern-empty-state-description max-w-sm text-sm text-(--sys-color-on-surface-variant)"
         >
           {description}
         </p>

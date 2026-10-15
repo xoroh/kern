@@ -46,7 +46,7 @@ export function SnackbarRoot({ className, ...props }: SnackbarRootProps) {
     <ToastPrimitive.Root
       data-slot="snackbar"
       className={cnState(
-        "kern-snackbar flex min-h-12 items-center gap-3 rounded-(--md-sys-shape-corner-extra-small) bg-(--md-sys-color-inverse-surface) px-4 py-3 text-sm text-(--md-sys-color-inverse-on-surface) shadow-(--md-sys-elevation-level3)",
+        "kern-snackbar flex min-h-12 items-center gap-3 rounded-(--sys-shape-corner-extra-small) bg-(--sys-color-inverse-surface) px-4 py-3 text-sm text-(--sys-color-inverse-on-surface) shadow-(--sys-elevation-level3)",
         className,
       )}
       {...props}
@@ -82,7 +82,7 @@ export function SnackbarAction({ className, ...props }: SnackbarActionProps) {
     <ToastPrimitive.Action
       data-slot="snackbar-action"
       className={cnState(
-        "kern-snackbar-action ml-auto shrink-0 cursor-pointer font-medium text-(--md-sys-color-inverse-primary) outline-none " +
+        "kern-snackbar-action ml-auto shrink-0 cursor-pointer font-medium text-(--sys-color-inverse-primary) outline-none " +
           FOCUS_RING_CLASS,
         className,
       )}

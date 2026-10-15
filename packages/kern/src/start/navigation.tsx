@@ -64,7 +64,7 @@ export function Sidebar({
       aria-hidden={!open}
       style={{ width: open ? px : 0 }}
       className={cn(
-        "kern-sidebar flex h-full shrink-0 flex-col overflow-hidden border-e border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface) text-(--md-sys-color-on-surface) transition-[width] duration-(--md-sys-motion-duration-medium)",
+        "kern-sidebar flex h-full shrink-0 flex-col overflow-hidden border-e border-(--sys-color-outline-variant) bg-(--sys-color-surface) text-(--sys-color-on-surface) transition-[width] duration-(--sys-motion-duration-medium)",
         className,
       )}
       {...props}
@@ -152,10 +152,10 @@ export function SidebarItem({
     </>
   );
   const cls = cn(
-    "kern-sidebar-item flex min-h-12 items-center gap-3 rounded-(--md-sys-shape-corner-full) px-4 text-(--md-sys-color-on-surface)",
+    "kern-sidebar-item flex min-h-12 items-center gap-3 rounded-(--sys-shape-corner-full) px-4 text-(--sys-color-on-surface)",
     active
-      ? "bg-(--md-sys-color-secondary-container) text-(--md-sys-color-on-secondary-container) font-medium"
-      : "hover:bg-(--md-sys-color-surface-tonal)",
+      ? "bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container) font-medium"
+      : "hover:bg-(--sys-color-surface-tonal)",
     className,
   );
   if (href) {
@@ -195,7 +195,7 @@ export function NavigationRail({
       data-slot="navigation-rail"
       style={{ width: NAVIGATION_RAIL_WIDTH }}
       className={cn(
-        "kern-navigation-rail flex h-full shrink-0 flex-col items-center gap-2 border-e border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface) py-3 text-(--md-sys-color-on-surface)",
+        "kern-navigation-rail flex h-full shrink-0 flex-col items-center gap-2 border-e border-(--sys-color-outline-variant) bg-(--sys-color-surface) py-3 text-(--sys-color-on-surface)",
         className,
       )}
       {...props}
@@ -226,10 +226,10 @@ export function NavigationRailButton({
     <>
       <span
         className={cn(
-          "flex h-8 w-14 items-center justify-center rounded-(--md-sys-shape-corner-full) transition-colors",
+          "flex h-8 w-14 items-center justify-center rounded-(--sys-shape-corner-full) transition-colors",
           active
-            ? "bg-(--md-sys-color-secondary-container) text-(--md-sys-color-on-secondary-container)"
-            : "hover:bg-(--md-sys-color-surface-tonal)",
+            ? "bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container)"
+            : "hover:bg-(--sys-color-surface-tonal)",
         )}
       >
         <span aria-hidden="true" className="flex items-center">
@@ -240,7 +240,7 @@ export function NavigationRailButton({
     </>
   );
   const cls = cn(
-    "kern-navigation-rail-button flex w-16 min-h-14 flex-col items-center justify-center gap-1 rounded-(--md-sys-shape-corner-medium)",
+    "kern-navigation-rail-button flex w-16 min-h-14 flex-col items-center justify-center gap-1 rounded-(--sys-shape-corner-medium)",
     className,
   );
   if (href) {
@@ -290,7 +290,7 @@ export function SectionDrawer({
         <button
           type="button"
           aria-label="Close drawer"
-          className="fixed inset-0 z-30 bg-(--md-sys-color-scrim)/30"
+          className="fixed inset-0 z-30 bg-(--sys-color-scrim)/30"
           onClick={onClose}
         />
       ) : null}
@@ -299,7 +299,7 @@ export function SectionDrawer({
         aria-hidden={!open}
         style={{ width: SECTION_DRAWER_WIDTH }}
         className={cn(
-          "kern-section-drawer fixed inset-y-0 start-0 z-40 flex flex-col bg-(--md-sys-color-surface) text-(--md-sys-color-on-surface) rounded-e-(--md-sys-shape-corner-extra-large) shadow-(--md-sys-elevation-level3) transition-transform duration-(--md-sys-motion-duration-medium)",
+          "kern-section-drawer fixed inset-y-0 start-0 z-40 flex flex-col bg-(--sys-color-surface) text-(--sys-color-on-surface) rounded-e-(--sys-shape-corner-extra-large) shadow-(--sys-elevation-level3) transition-transform duration-(--sys-motion-duration-medium)",
           open ? "translate-x-0" : "-translate-x-full rtl:translate-x-full",
           className,
         )}
@@ -311,7 +311,7 @@ export function SectionDrawer({
             type="button"
             aria-label="Close"
             onClick={onClose}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-(--md-sys-shape-corner-full) hover:bg-(--md-sys-color-surface-tonal)"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-(--sys-shape-corner-full) hover:bg-(--sys-color-surface-tonal)"
           >
             <span aria-hidden="true">✕</span>
           </button>
@@ -321,7 +321,7 @@ export function SectionDrawer({
             {sections}
           </div>
           {detail ? (
-            <div className="w-64 shrink-0 border-s border-(--md-sys-color-outline-variant) p-3">
+            <div className="w-64 shrink-0 border-s border-(--sys-color-outline-variant) p-3">
               {detail}
             </div>
           ) : null}

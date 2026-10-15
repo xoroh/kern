@@ -10,7 +10,7 @@ describe("LinearProgress stop (M3)", () => {
     ) as HTMLElement | null;
     expect(stop).toBeTruthy();
     expect(stop?.className).toContain("size-1");
-    expect(stop?.className).toContain("bg-(--md-sys-color-primary)");
+    expect(stop?.className).toContain("bg-(--sys-color-primary)");
   });
 
   it("renders no stop by default", () => {

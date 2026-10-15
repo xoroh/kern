@@ -23,7 +23,7 @@ export function Separator({
       data-inset={inset}
       orientation={orientation}
       className={cnState(
-        "kern-separator shrink-0 bg-(--md-sys-color-outline-variant)",
+        "kern-separator shrink-0 bg-(--sys-color-outline-variant)",
         horizontal ? "h-px w-full" : "h-full w-px",
         inset === "start" && (horizontal ? "ml-4" : "mt-4"),
         inset === "middle" && (horizontal ? "mx-4" : "my-4"),

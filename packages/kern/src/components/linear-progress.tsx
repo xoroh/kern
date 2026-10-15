@@ -76,7 +76,7 @@ export function LinearProgress({
       aria-valuemax={100}
       aria-valuenow={indeterminate ? undefined : Math.round(ratio * 100)}
       className={cn(
-        "kern-linear-progress relative h-1 w-full overflow-hidden rounded-full bg-(--md-sys-color-surface-container-highest)",
+        "kern-linear-progress relative h-1 w-full overflow-hidden rounded-full bg-(--sys-color-surface-container-highest)",
         className,
       )}
       {...props}
@@ -85,7 +85,7 @@ export function LinearProgress({
         <div
           data-slot="linear-progress-buffer"
           aria-hidden="true"
-          className="absolute inset-0 rounded-full bg-(--md-sys-color-primary)/24"
+          className="absolute inset-0 rounded-full bg-(--sys-color-primary)/24"
           style={{ width: `${buffered * 100}%` }}
         />
       ) : null}
@@ -94,7 +94,7 @@ export function LinearProgress({
           <div
             data-slot="linear-progress-indicator"
             aria-hidden="true"
-            className="absolute inset-y-0 left-0 h-full w-full origin-left rounded-full bg-(--md-sys-color-primary) [animation:kern-linear-indeterminate_2s_linear_infinite]"
+            className="absolute inset-y-0 left-0 h-full w-full origin-left rounded-full bg-(--sys-color-primary) [animation:kern-linear-indeterminate_2s_linear_infinite]"
             style={
               fourColor
                 ? { animation: "kern-linear-indeterminate 2s linear infinite, kern-linear-four-color 8s linear infinite" }
@@ -104,7 +104,7 @@ export function LinearProgress({
           <div
             data-slot="linear-progress-indicator-secondary"
             aria-hidden="true"
-            className="absolute inset-y-0 left-0 h-full w-full origin-left rounded-full bg-(--md-sys-color-primary) [animation:kern-linear-indeterminate-secondary_2s_linear_infinite]"
+            className="absolute inset-y-0 left-0 h-full w-full origin-left rounded-full bg-(--sys-color-primary) [animation:kern-linear-indeterminate-secondary_2s_linear_infinite]"
             style={
               fourColor
                 ? { animation: "kern-linear-indeterminate-secondary 2s linear infinite, kern-linear-four-color 8s linear infinite" }
@@ -131,7 +131,7 @@ export function LinearProgress({
               <path
                 d="M0 6 Q 10 0 20 6 T 40 6"
                 fill="none"
-                stroke="var(--md-sys-color-primary)"
+                stroke="var(--sys-color-primary)"
                 strokeWidth="4"
                 strokeLinecap="round"
               />
@@ -142,7 +142,7 @@ export function LinearProgress({
       ) : (
         <div
           data-slot="linear-progress-indicator"
-          className="kern-linear-progress-indicator h-full rounded-full bg-(--md-sys-color-primary) transition-[width] duration-200"
+          className="kern-linear-progress-indicator h-full rounded-full bg-(--sys-color-primary) transition-[width] duration-200"
           style={{ width: `${ratio * 100}%` }}
         />
       )}
@@ -150,7 +150,7 @@ export function LinearProgress({
         <div
           data-slot="linear-progress-stop"
           aria-hidden="true"
-          className="absolute top-1/2 right-0 size-1 -translate-y-1/2 translate-x-1/2 rounded-full bg-(--md-sys-color-primary)"
+          className="absolute top-1/2 right-0 size-1 -translate-y-1/2 translate-x-1/2 rounded-full bg-(--sys-color-primary)"
         />
       ) : null}
     </div>

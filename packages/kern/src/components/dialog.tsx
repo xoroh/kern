@@ -3,9 +3,9 @@ import type { ComponentProps } from "react";
 import { cnState } from "../utils/cnState";
 
 const backdropClass =
-  "kern-dialog-backdrop fixed inset-0 bg-(--md-sys-color-scrim)/32 transition-opacity";
+  "kern-dialog-backdrop fixed inset-0 bg-(--sys-color-scrim)/32 transition-opacity";
 const popupClass =
-  "kern-dialog-popup w-[min(35rem,calc(100vw-2rem))] min-w-[min(17.5rem,calc(100vw-2rem))] rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface-container-high) p-6 shadow-(--md-sys-elevation-level3) outline-none";
+  "kern-dialog-popup w-[min(35rem,calc(100vw-2rem))] min-w-[min(17.5rem,calc(100vw-2rem))] rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-high) p-6 shadow-(--sys-elevation-level3) outline-none";
 
 export type DialogRootProps = ComponentProps<typeof DialogPrimitive.Root>;
 export type DialogTriggerProps = ComponentProps<typeof DialogPrimitive.Trigger>;
@@ -93,7 +93,7 @@ export function DialogTitle({ className, ...props }: DialogTitleProps) {
     <DialogPrimitive.Title
       data-slot="dialog-title"
       className={cnState(
-        "kern-dialog-title text-2xl leading-8 font-normal text-(--md-sys-color-on-surface)",
+        "kern-dialog-title text-2xl leading-8 font-normal text-(--sys-color-on-surface)",
         className,
       )}
       {...props}
@@ -109,7 +109,7 @@ export function DialogDescription({
     <DialogPrimitive.Description
       data-slot="dialog-description"
       className={cnState(
-        "kern-dialog-description mt-4 text-sm leading-5 text-(--md-sys-color-on-surface-variant)",
+        "kern-dialog-description mt-4 text-sm leading-5 text-(--sys-color-on-surface-variant)",
         className,
       )}
       {...props}

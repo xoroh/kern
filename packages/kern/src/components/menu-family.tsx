@@ -54,24 +54,24 @@ function MenuActionRow({
       disabled={action.disabled}
       onClick={action.onPress ?? onPress}
       className={cn(
-        "flex min-h-12 w-full items-center gap-3 rounded-(--md-sys-shape-corner-medium) px-3 py-2 text-left",
-        "hover:opacity-[var(--md-sys-state-hover)]",
-        "active:opacity-[var(--md-sys-state-press)]",
-        action.disabled && "opacity-[var(--md-sys-state-disabled)]",
+        "flex min-h-12 w-full items-center gap-3 rounded-(--sys-shape-corner-medium) px-3 py-2 text-left",
+        "hover:opacity-[var(--sys-state-hover)]",
+        "active:opacity-[var(--sys-state-press)]",
+        action.disabled && "opacity-[var(--sys-state-disabled)]",
         // Destructive is a ROLE (error on errorContainer), not a variant name,
         // so the component count does not grow a "danger" axis.
         action.destructive
-          ? "bg-(--md-sys-color-error-container) text-(--md-sys-color-on-error-container)"
-          : "text-(--md-sys-color-on-surface)",
+          ? "bg-(--sys-color-error-container) text-(--sys-color-on-error-container)"
+          : "text-(--sys-color-on-surface)",
       )}
     >
       {action.icon ? <span aria-hidden="true">{action.icon}</span> : null}
       <span className="flex flex-col">
-        <span className="text-(--md-sys-typescale-body-large-font-size)">
+        <span className="text-(--sys-typescale-body-large-font-size)">
           {action.label}
         </span>
         {action.supporting ? (
-          <span className="text-(--md-sys-typescale-body-small-font-size) text-(--md-sys-color-on-surface-variant)">
+          <span className="text-(--sys-typescale-body-small-font-size) text-(--sys-color-on-surface-variant)">
             {action.supporting}
           </span>
         ) : null}
@@ -103,7 +103,7 @@ function MenuGroupList({
               aria-label={group.heading}
               className="flex flex-col gap-1"
             >
-              <p className="px-3 pb-1 text-(--md-sys-typescale-title-small-font-size) font-semibold text-(--md-sys-color-on-surface-variant)">
+              <p className="px-3 pb-1 text-(--sys-typescale-title-small-font-size) font-semibold text-(--sys-color-on-surface-variant)">
                 {group.heading}
               </p>
               <ul role="none" className="flex list-none flex-col gap-1 p-0">
@@ -157,7 +157,7 @@ export function MenuScreen({
       data-slot="menu-screen"
       data-testid={testID ?? "kern-menu-screen"}
       className={cn(
-        "flex h-full flex-col overflow-y-auto bg-(--md-sys-color-surface) p-4",
+        "flex h-full flex-col overflow-y-auto bg-(--sys-color-surface) p-4",
         className,
       )}
     >
@@ -202,11 +202,11 @@ export function MenuSheet({
       label={title}
       testID={testID ?? "kern-menu-sheet"}
       className={cn(
-        "w-[min(24rem,100vw)] gap-3 rounded-t-(--md-sys-shape-corner-extra-large) p-4 shadow-(--md-sys-elevation-level1)",
+        "w-[min(24rem,100vw)] gap-3 rounded-t-(--sys-shape-corner-extra-large) p-4 shadow-(--sys-elevation-level1)",
         className,
       )}
     >
-      <p className="text-(--md-sys-typescale-title-large-font-size) font-semibold text-(--md-sys-color-on-surface)">
+      <p className="text-(--sys-typescale-title-large-font-size) font-semibold text-(--sys-color-on-surface)">
         {title}
       </p>
       <MenuGroupList groups={groups} label={title} />
@@ -285,12 +285,12 @@ export function FilterChipRow({
             aria-pressed={pressed}
             onClick={() => toggle(option)}
             className={cn(
-              "min-h-8 shrink-0 rounded-(--md-sys-shape-corner-small) px-3 text-(--md-sys-typescale-label-large-font-size)",
-              "hover:opacity-[var(--md-sys-state-hover)]",
-              "active:opacity-[var(--md-sys-state-press)]",
+              "min-h-8 shrink-0 rounded-(--sys-shape-corner-small) px-3 text-(--sys-typescale-label-large-font-size)",
+              "hover:opacity-[var(--sys-state-hover)]",
+              "active:opacity-[var(--sys-state-press)]",
               pressed
-                ? "bg-(--md-sys-color-secondary-container) text-(--md-sys-color-on-secondary-container)"
-                : "border border-(--md-sys-color-outline) text-(--md-sys-color-on-surface-variant)",
+                ? "bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container)"
+                : "border border-(--sys-color-outline) text-(--sys-color-on-surface-variant)",
             )}
           >
             {option.label}

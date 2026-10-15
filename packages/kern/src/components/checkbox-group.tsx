@@ -36,14 +36,14 @@ export function CheckboxGroupItem({
     // biome-ignore lint/a11y/noLabelWithoutControl: label association is provided by the behavior primitive.
     <label
       data-slot="checkbox-group-field"
-      className="kern-checkbox-group-field inline-flex min-h-12 cursor-pointer items-center gap-3 text-sm text-(--md-sys-color-on-surface) has-[:disabled]:cursor-not-allowed has-[:disabled]:opacity-50"
+      className="kern-checkbox-group-field inline-flex min-h-12 cursor-pointer items-center gap-3 text-sm text-(--sys-color-on-surface) has-[:disabled]:cursor-not-allowed has-[:disabled]:opacity-50"
     >
       <CheckboxPrimitive.Root
         data-slot="checkbox-group-item"
         className={cnState(
-          "kern-checkbox relative size-[18px] shrink-0 rounded-(--md-sys-shape-corner-extra-small) border-2 border-(--md-sys-color-outline) bg-(--md-sys-color-surface) outline-none transition-colors " +
+          "kern-checkbox relative size-[18px] shrink-0 rounded-(--sys-shape-corner-extra-small) border-2 border-(--sys-color-outline) bg-(--sys-color-surface) outline-none transition-colors " +
             FOCUS_RING_CLASS +
-            " data-disabled:cursor-not-allowed data-disabled:opacity-50 data-checked:border-(--md-sys-color-primary) data-checked:bg-(--md-sys-color-primary) data-checked:text-(--md-sys-color-on-primary) after:absolute after:-inset-[15px] after:content-['']",
+            " data-disabled:cursor-not-allowed data-disabled:opacity-50 data-checked:border-(--sys-color-primary) data-checked:bg-(--sys-color-primary) data-checked:text-(--sys-color-on-primary) after:absolute after:-inset-[15px] after:content-['']",
           className,
         )}
         {...props}

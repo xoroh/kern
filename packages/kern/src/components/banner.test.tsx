@@ -20,12 +20,12 @@ describe("Banner", () => {
       </Banner>,
     );
     expect(screen.getByTestId("banner")).toHaveClass(
-      "bg-(--md-sys-color-error-container)",
+      "bg-(--sys-color-error-container)",
     );
     unmount();
     render(<Banner data-testid="banner2">Saved.</Banner>);
     expect(screen.getByTestId("banner2")).not.toHaveClass(
-      "bg-(--md-sys-color-error-container)",
+      "bg-(--sys-color-error-container)",
     );
   });
 });

@@ -66,7 +66,7 @@ describe("Form family completeness — every member renders", () => {
     ).toBeInTheDocument();
     const group = document.querySelector('[data-slot="number-field-group"]');
     expect(group?.className).toContain(
-      "rounded-(--md-sys-shape-corner-extra-small)",
+      "rounded-(--sys-shape-corner-extra-small)",
     );
   });
 

@@ -3,7 +3,7 @@ import type { ComponentProps } from "react";
 import { cnState } from "../utils/cnState";
 
 const backdropClass =
-  "kern-sheet-backdrop fixed inset-0 bg-(--md-sys-color-scrim)/32 transition-opacity";
+  "kern-sheet-backdrop fixed inset-0 bg-(--sys-color-scrim)/32 transition-opacity";
 
 export type SheetRootProps = ComponentProps<typeof DialogPrimitive.Root>;
 export type SheetTriggerProps = ComponentProps<typeof DialogPrimitive.Trigger>;
@@ -74,10 +74,10 @@ export function SheetContent({
           // `modal !== false` is the verdict's exact expression.
           aria-modal={modal !== false}
           className={cnState(
-            "kern-sheet-popup flex h-full w-[min(24rem,calc(100vw-2rem))] flex-col gap-2 overflow-y-auto bg-(--md-sys-color-surface-container-low) p-6 shadow-(--md-sys-elevation-level1) outline-none " +
+            "kern-sheet-popup flex h-full w-[min(24rem,calc(100vw-2rem))] flex-col gap-2 overflow-y-auto bg-(--sys-color-surface-container-low) p-6 shadow-(--sys-elevation-level1) outline-none " +
               (side === "right"
-                ? "rounded-l-(--md-sys-shape-corner-extra-large)"
-                : "rounded-r-(--md-sys-shape-corner-extra-large)"),
+                ? "rounded-l-(--sys-shape-corner-extra-large)"
+                : "rounded-r-(--sys-shape-corner-extra-large)"),
             className,
           )}
           {...props}
@@ -92,7 +92,7 @@ export function SheetTitle({ className, ...props }: SheetTitleProps) {
     <DialogPrimitive.Title
       data-slot="sheet-title"
       className={cnState(
-        "kern-sheet-title text-(length:--md-sys-typescale-title-large-font-size) font-medium text-(--md-sys-color-on-surface)",
+        "kern-sheet-title text-(length:--sys-typescale-title-large-font-size) font-medium text-(--sys-color-on-surface)",
         className,
       )}
       {...props}
@@ -108,7 +108,7 @@ export function SheetDescription({
     <DialogPrimitive.Description
       data-slot="sheet-description"
       className={cnState(
-        "kern-sheet-description text-sm text-(--md-sys-color-on-surface-variant)",
+        "kern-sheet-description text-sm text-(--sys-color-on-surface-variant)",
         className,
       )}
       {...props}

@@ -5,7 +5,7 @@ import { FOCUS_RING_CLASS, FocusRing } from "./focus-ring";
 describe("FocusRing", () => {
   it("is the canonical ring-3px secondary pair (M3 resting outline)", () => {
     expect(FOCUS_RING_CLASS).toBe(
-      "focus-visible:ring-[3px] focus-visible:ring-(--md-sys-color-secondary)",
+      "focus-visible:ring-[3px] focus-visible:ring-(--sys-color-secondary)",
     );
   });
 

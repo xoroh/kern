@@ -3,7 +3,7 @@ import type { ComponentPropsWithRef } from "react";
 import { cn } from "../utils/cn";
 
 const loaderVariants = cva(
-  "kern-loader inline-block animate-spin rounded-full border-2 border-(--md-sys-color-outline-variant) border-t-(--md-sys-color-primary) motion-reduce:animate-none",
+  "kern-loader inline-block animate-spin rounded-full border-2 border-(--sys-color-outline-variant) border-t-(--sys-color-primary) motion-reduce:animate-none",
   {
     variants: {
       size: {

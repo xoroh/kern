@@ -14,7 +14,7 @@ function SearchIcon() {
       strokeWidth="2"
       strokeLinecap="round"
       aria-hidden="true"
-      className="size-5 shrink-0 text-(--md-sys-color-on-surface-variant)"
+      className="size-5 shrink-0 text-(--sys-color-on-surface-variant)"
     >
       <circle cx="11" cy="11" r="7" />
       <path d="m20 20-3.5-3.5" />
@@ -85,7 +85,7 @@ export function Search({
       className={cn(
         // M3 docked search bar: 56dp stadium container in
         // surface-container-high; 24dp leading padding unfocused.
-        "kern-search flex h-14 w-full items-center gap-2 rounded-(--md-sys-shape-corner-full) bg-(--md-sys-color-surface-container-high) pr-2 pl-6",
+        "kern-search flex h-14 w-full items-center gap-2 rounded-(--sys-shape-corner-full) bg-(--sys-color-surface-container-high) pr-2 pl-6",
         className,
       )}
       onSubmit={(event) => {
@@ -111,7 +111,7 @@ export function Search({
           type="button"
           aria-label="Clear search"
           onClick={() => set("")}
-          className={`kern-search-clear relative flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full text-(--md-sys-color-on-surface-variant) outline-none before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 hover:before:opacity-[var(--md-sys-state-hover)] before:transition-opacity before:bg-(--md-sys-color-on-surface-variant) ${FOCUS_RING_CLASS}`}
+          className={`kern-search-clear relative flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full text-(--sys-color-on-surface-variant) outline-none before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 hover:before:opacity-[var(--sys-state-hover)] before:transition-opacity before:bg-(--sys-color-on-surface-variant) ${FOCUS_RING_CLASS}`}
         >
           <ClearIcon />
         </button>

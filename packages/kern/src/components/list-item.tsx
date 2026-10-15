@@ -44,10 +44,10 @@ export type ListItemProps = Omit<ComponentPropsWithRef<"li">, "children"> & {
 };
 
 const rowClass =
-  "kern-list-item flex min-h-14 w-full items-center gap-3 px-4 py-2 text-left text-(--md-sys-color-on-surface)";
+  "kern-list-item flex min-h-14 w-full items-center gap-3 px-4 py-2 text-left text-(--sys-color-on-surface)";
 
 const selectedClass =
-  "data-selected:bg-(--md-sys-color-secondary-container) data-selected:text-(--md-sys-color-on-secondary-container) data-selected:rounded-(--md-sys-shape-corner-large)";
+  "data-selected:bg-(--sys-color-secondary-container) data-selected:text-(--sys-color-on-secondary-container) data-selected:rounded-(--sys-shape-corner-large)";
 
 /** One list row: optional leading/trailing slots around headline text.
  *
@@ -87,7 +87,7 @@ export function ListItem({
           {headline}
         </span>
         {supporting ? (
-          <span className="kern-list-item-supporting truncate text-xs text-(--md-sys-color-on-surface-variant)">
+          <span className="kern-list-item-supporting truncate text-xs text-(--sys-color-on-surface-variant)">
             {supporting}
           </span>
         ) : null}
@@ -95,7 +95,7 @@ export function ListItem({
       {trailing ? (
         <span
           data-slot="list-item-trailing"
-          className="kern-list-item-trailing flex shrink-0 items-center gap-2 text-xs text-(--md-sys-color-on-surface-variant)"
+          className="kern-list-item-trailing flex shrink-0 items-center gap-2 text-xs text-(--sys-color-on-surface-variant)"
         >
           {trailing}
         </span>
@@ -123,10 +123,10 @@ export function ListItem({
   const interactiveClass = cn(
     rowClass,
     selectedClass,
-    "relative cursor-pointer appearance-none border-0 bg-transparent outline-none transition-colors duration-200 ease-(--md-sys-motion-easing-standard) before:absolute before:inset-0 before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--md-sys-color-on-surface) hover:before:opacity-[var(--md-sys-state-hover)] focus-visible:before:opacity-[var(--md-sys-state-focus)] active:before:opacity-[var(--md-sys-state-press)] disabled:before:opacity-0",
+    "relative cursor-pointer appearance-none border-0 bg-transparent outline-none transition-colors duration-200 ease-(--sys-motion-easing-standard) before:absolute before:inset-0 before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--sys-color-on-surface) hover:before:opacity-[var(--sys-state-hover)] focus-visible:before:opacity-[var(--sys-state-focus)] active:before:opacity-[var(--sys-state-press)] disabled:before:opacity-0",
     FOCUS_RING_CLASS,
     disabled &&
-      "pointer-events-none cursor-default text-(--md-sys-color-on-surface)/38",
+      "pointer-events-none cursor-default text-(--sys-color-on-surface)/38",
     className,
   );
 

@@ -75,9 +75,9 @@ describe("Fab", () => {
   });
 
   it.each([
-    ["primary-fill", "bg-(--md-sys-color-primary)", "text-(--md-sys-color-on-primary)"],
-    ["secondary-fill", "bg-(--md-sys-color-secondary)", "text-(--md-sys-color-on-secondary)"],
-    ["tertiary-fill", "bg-(--md-sys-color-tertiary)", "text-(--md-sys-color-on-tertiary)"],
+    ["primary-fill", "bg-(--sys-color-primary)", "text-(--sys-color-on-primary)"],
+    ["secondary-fill", "bg-(--sys-color-secondary)", "text-(--sys-color-on-secondary)"],
+    ["tertiary-fill", "bg-(--sys-color-tertiary)", "text-(--sys-color-on-tertiary)"],
   ] as const)("paints the expressive %s fill with its on-color", (color, bg, ink) => {
     render(
       <Fab data-testid="fab" aria-label="Create" color={color}>

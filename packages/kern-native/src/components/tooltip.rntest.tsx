@@ -242,7 +242,7 @@ describe("tooltip trigger (native)", () => {
     // The tokens law is enforced on SOURCE by `check:kern` (no raw hex in a
     // component file). What is worth asserting HERE is the resolution: the
     // surface must land on the M3 tooltip container roles — `inverseSurface` /
-    // `inverseOnSurface`, the same pair `--md-comp-tooltip-container-*`
+    // `inverseOnSurface`, the same pair `--comp-tooltip-container-*`
     // publishes for web — and not on some hand-picked dark colour. Resolving
     // the theme is what turns a role into a hex, so a hex here is correct; a
     // hex that is NOT the role's value would be the bug.

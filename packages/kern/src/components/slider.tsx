@@ -89,7 +89,7 @@ export function SliderRoot({
           <SliderPrimitive.Track
             data-slot="slider-track"
             className={cnState(
-              "kern-slider-track relative w-full rounded-full bg-(--md-sys-color-surface-container-highest) group-data-disabled:bg-(--md-sys-color-on-surface)/12",
+              "kern-slider-track relative w-full rounded-full bg-(--sys-color-surface-container-highest) group-data-disabled:bg-(--sys-color-on-surface)/12",
               size === "default" ? "h-1" : SLIDER_TRACK[size],
             )}
           >
@@ -99,12 +99,12 @@ export function SliderRoot({
               data-slot="slider-stop"
               aria-hidden="true"
               style={{ left: `${((stop - min) / (max - min)) * 100}%` }}
-              className="absolute top-1/2 size-1 -translate-x-1/2 -translate-y-1/2 rounded-full bg-(--md-sys-color-primary) group-data-disabled:bg-(--md-sys-color-on-surface)/38"
+              className="absolute top-1/2 size-1 -translate-x-1/2 -translate-y-1/2 rounded-full bg-(--sys-color-primary) group-data-disabled:bg-(--sys-color-on-surface)/38"
             />
           ))}
           <SliderPrimitive.Indicator
             data-slot="slider-indicator"
-            className="kern-slider-indicator absolute rounded-full bg-(--md-sys-color-primary) group-data-disabled:bg-(--md-sys-color-on-surface)/38"
+            className="kern-slider-indicator absolute rounded-full bg-(--sys-color-primary) group-data-disabled:bg-(--sys-color-on-surface)/38"
           />
           {children}
         </SliderPrimitive.Track>
@@ -118,7 +118,7 @@ export function SliderThumb({ className, ...props }: SliderThumbProps) {
     <SliderPrimitive.Thumb
       data-slot="slider-thumb"
       className={cnState(
-        `kern-slider-thumb block size-5 cursor-grab rounded-full bg-(--md-sys-color-primary) outline-none transition-colors ${FOCUS_RING_CLASS} focus-visible:ring-offset-2 focus-visible:ring-offset-(--md-sys-color-surface) disabled:cursor-not-allowed disabled:bg-(--md-sys-color-on-surface)/38` +
+        `kern-slider-thumb block size-5 cursor-grab rounded-full bg-(--sys-color-primary) outline-none transition-colors ${FOCUS_RING_CLASS} focus-visible:ring-offset-2 focus-visible:ring-offset-(--sys-color-surface) disabled:cursor-not-allowed disabled:bg-(--sys-color-on-surface)/38` +
           " group-data-[size=xs]:h-11 group-data-[size=xs]:w-1" +
           " group-data-[size=sm]:h-11 group-data-[size=sm]:w-1" +
           " group-data-[size=md]:h-[52px] group-data-[size=md]:w-1" +
@@ -136,7 +136,7 @@ export function SliderLabel({ className, ...props }: SliderLabelProps) {
     <SliderPrimitive.Label
       data-slot="slider-label"
       className={cnState(
-        "kern-slider-label text-sm font-medium text-(--md-sys-color-on-surface)",
+        "kern-slider-label text-sm font-medium text-(--sys-color-on-surface)",
         className,
       )}
       {...props}
@@ -149,7 +149,7 @@ export function SliderValue({ className, ...props }: SliderValueProps) {
     <SliderPrimitive.Value
       data-slot="slider-value"
       className={cnState(
-        "kern-slider-value text-sm text-(--md-sys-color-on-surface-variant)",
+        "kern-slider-value text-sm text-(--sys-color-on-surface-variant)",
         className,
       )}
       {...props}

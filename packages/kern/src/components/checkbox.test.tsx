@@ -37,10 +37,10 @@ describe("Checkbox", () => {
     expect(box).toHaveClass(
       "before:-inset-[11px]",
       "before:rounded-full",
-      "hover:before:opacity-[var(--md-sys-state-hover)]",
-      "focus-visible:before:opacity-[var(--md-sys-state-focus)]",
-      "before:bg-(--md-sys-color-on-surface)",
-      "data-checked:before:bg-(--md-sys-color-primary)",
+      "hover:before:opacity-[var(--sys-state-hover)]",
+      "focus-visible:before:opacity-[var(--sys-state-focus)]",
+      "before:bg-(--sys-color-on-surface)",
+      "data-checked:before:bg-(--sys-color-primary)",
     );
     expect(box.className).not.toContain("hover:opacity-");
   });

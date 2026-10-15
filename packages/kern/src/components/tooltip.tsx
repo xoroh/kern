@@ -37,7 +37,7 @@ export function TooltipContent({ className, ...props }: TooltipContentProps) {
         <TooltipPrimitive.Popup
           data-slot="tooltip-content"
           className={cnState(
-            "kern-tooltip-popup max-w-64 rounded-(--md-sys-shape-corner-extra-small) bg-(--md-sys-color-inverse-surface) px-2 py-1 text-xs text-(--md-sys-color-inverse-on-surface) shadow-(--md-sys-elevation-level2)",
+            "kern-tooltip-popup max-w-64 rounded-(--sys-shape-corner-extra-small) bg-(--sys-color-inverse-surface) px-2 py-1 text-xs text-(--sys-color-inverse-on-surface) shadow-(--sys-elevation-level2)",
             className,
           )}
           {...props}
@@ -71,7 +71,7 @@ export function RichTooltipContent({
         <TooltipPrimitive.Popup
           data-slot="rich-tooltip-content"
           className={cnState(
-            "kern-rich-tooltip-popup max-w-80 rounded-(--md-sys-shape-corner-extra-small) bg-(--md-sys-color-surface-container) px-4 pt-3 pb-2 text-sm text-(--md-sys-color-on-surface-variant) shadow-(--md-sys-elevation-level2)",
+            "kern-rich-tooltip-popup max-w-80 rounded-(--sys-shape-corner-extra-small) bg-(--sys-color-surface-container) px-4 pt-3 pb-2 text-sm text-(--sys-color-on-surface-variant) shadow-(--sys-elevation-level2)",
             className,
           )}
           {...props}
@@ -89,7 +89,7 @@ export function RichTooltipTitle({
     <p
       data-slot="rich-tooltip-title"
       className={cn(
-        "kern-rich-tooltip-title m-0 text-sm font-medium text-(--md-sys-color-on-surface)",
+        "kern-rich-tooltip-title m-0 text-sm font-medium text-(--sys-color-on-surface)",
         className,
       )}
       {...props}

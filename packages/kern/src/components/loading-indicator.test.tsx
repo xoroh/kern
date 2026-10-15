@@ -82,7 +82,7 @@ describe("LoadingIndicator", () => {
 
   it("uses the primary colour role for the ring", () => {
     render(<LoadingIndicator />);
-    expect(ring().className).toContain("border-(--md-sys-color-primary)");
+    expect(ring().className).toContain("border-(--sys-color-primary)");
   });
 });
 

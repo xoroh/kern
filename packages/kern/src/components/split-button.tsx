@@ -29,7 +29,7 @@ import {
  *   CORRECTION: this comment claimed the outline divider while NO border was
  *   rendered anywhere in the file — the two halves were one solid primary pill
  *   with no seam, which is not M3's split button. The 1dp `outline` divider is
- *   now actually applied (`border-s border-(--md-sys-color-outline)` on the
+ *   now actually applied (`border-s border-(--sys-color-outline)` on the
  *   trigger), and `split-button.test.tsx` pins it so the claim and the
  *   implementation cannot drift apart again.
  * - **The primary action does not open the menu.** Pressing it fires
@@ -89,7 +89,7 @@ export function SplitButton({
         data-slot="split-button"
         data-testid={testID ?? "kern-split-button"}
         className={cn(
-          "kern-split-button inline-flex h-10 shrink-0 items-stretch overflow-hidden rounded-(--md-sys-shape-corner-full)",
+          "kern-split-button inline-flex h-10 shrink-0 items-stretch overflow-hidden rounded-(--sys-shape-corner-full)",
           disabled && "pointer-events-none",
           className,
         )}
@@ -100,7 +100,7 @@ export function SplitButton({
           aria-label={label}
           disabled={disabled}
           onClick={onClick}
-          className="kern-split-button-primary relative inline-flex h-10 items-center gap-2 rounded-s-(--md-sys-shape-corner-full) bg-(--md-sys-color-primary) pr-4 pl-4 text-sm leading-5 font-medium tracking-[0.1px] text-(--md-sys-color-on-primary) transition-[color,background-color] duration-200 ease-(--md-sys-motion-easing-standard) outline-none select-none focus-visible:ring-[3px] focus-visible:ring-(--md-sys-color-secondary) focus-visible:ring-inset disabled:pointer-events-none disabled:bg-(--md-sys-color-on-surface)/12 disabled:text-(--md-sys-color-on-surface)/38 before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--md-sys-color-on-primary) hover:before:opacity-[var(--md-sys-state-hover)] focus-visible:before:opacity-[var(--md-sys-state-focus)] active:before:opacity-[var(--md-sys-state-press)] disabled:before:opacity-0 [[&_svg]:size-[18px]_svg]:size-5 [&_svg]:shrink-0"
+          className="kern-split-button-primary relative inline-flex h-10 items-center gap-2 rounded-s-(--sys-shape-corner-full) bg-(--sys-color-primary) pr-4 pl-4 text-sm leading-5 font-medium tracking-[0.1px] text-(--sys-color-on-primary) transition-[color,background-color] duration-200 ease-(--sys-motion-easing-standard) outline-none select-none focus-visible:ring-[3px] focus-visible:ring-(--sys-color-secondary) focus-visible:ring-inset disabled:pointer-events-none disabled:bg-(--sys-color-on-surface)/12 disabled:text-(--sys-color-on-surface)/38 before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--sys-color-on-primary) hover:before:opacity-[var(--sys-state-hover)] focus-visible:before:opacity-[var(--sys-state-focus)] active:before:opacity-[var(--sys-state-press)] disabled:before:opacity-0 [[&_svg]:size-[18px]_svg]:size-5 [&_svg]:shrink-0"
         >
           {icon ? (
             <span aria-hidden="true" className="flex items-center">
@@ -117,7 +117,7 @@ export function SplitButton({
             data-open={open || undefined}
             aria-label={overflowName}
             disabled={disabled}
-            className="kern-split-button-trigger relative inline-flex h-10 items-center justify-center rounded-e-(--md-sys-shape-corner-full) bg-(--md-sys-color-primary) ps-2 pe-3 text-(--md-sys-color-on-primary) border-s border-(--md-sys-color-outline) transition-[color,background-color] duration-200 ease-(--md-sys-motion-easing-standard) outline-none select-none focus-visible:ring-[3px] focus-visible:ring-(--md-sys-color-secondary) focus-visible:ring-inset disabled:pointer-events-none disabled:bg-(--md-sys-color-on-surface)/12 disabled:text-(--md-sys-color-on-surface)/38 before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--md-sys-color-on-primary) hover:before:opacity-[var(--md-sys-state-hover)] focus-visible:before:opacity-[var(--md-sys-state-focus)] active:before:opacity-[var(--md-sys-state-press)] disabled:before:opacity-0 data-[open]:before:opacity-[var(--md-sys-state-press)] [[&_svg]:size-[18px]_svg]:size-5"
+            className="kern-split-button-trigger relative inline-flex h-10 items-center justify-center rounded-e-(--sys-shape-corner-full) bg-(--sys-color-primary) ps-2 pe-3 text-(--sys-color-on-primary) border-s border-(--sys-color-outline) transition-[color,background-color] duration-200 ease-(--sys-motion-easing-standard) outline-none select-none focus-visible:ring-[3px] focus-visible:ring-(--sys-color-secondary) focus-visible:ring-inset disabled:pointer-events-none disabled:bg-(--sys-color-on-surface)/12 disabled:text-(--sys-color-on-surface)/38 before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--sys-color-on-primary) hover:before:opacity-[var(--sys-state-hover)] focus-visible:before:opacity-[var(--sys-state-focus)] active:before:opacity-[var(--sys-state-press)] disabled:before:opacity-0 data-[open]:before:opacity-[var(--sys-state-press)] [[&_svg]:size-[18px]_svg]:size-5"
           >
             <span aria-hidden="true" className="flex items-center">
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">

@@ -135,9 +135,9 @@ export function FabMenu({
           aria-label={name}
           data-testid={testID ?? "kern-fab-menu"}
           className={[
-            "kern-fab-menu-trigger relative inline-flex size-14 shrink-0 rotate-0 items-center justify-center rounded-(--md-sys-shape-corner-large) bg-(--md-sys-color-primary-container) text-(--md-sys-color-on-primary-container) shadow-(--md-sys-elevation-level3) hover:shadow-(--md-sys-elevation-level4) transition-[transform,color,background-color,border-color,box-shadow] duration-200 ease-(--md-sys-motion-easing-standard) outline-none select-none " +
+            "kern-fab-menu-trigger relative inline-flex size-14 shrink-0 rotate-0 items-center justify-center rounded-(--sys-shape-corner-large) bg-(--sys-color-primary-container) text-(--sys-color-on-primary-container) shadow-(--sys-elevation-level3) hover:shadow-(--sys-elevation-level4) transition-[transform,color,background-color,border-color,box-shadow] duration-200 ease-(--sys-motion-easing-standard) outline-none select-none " +
               FOCUS_RING_CLASS +
-              " disabled:pointer-events-none disabled:opacity-38 aria-disabled:pointer-events-none aria-disabled:opacity-38 before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--md-sys-color-on-primary-container) hover:before:opacity-[var(--md-sys-state-hover)] focus-visible:before:opacity-[var(--md-sys-state-focus)] active:before:opacity-[var(--md-sys-state-press)] disabled:before:opacity-0 data-[open]:rotate-90 [&_svg]:size-6 [&_svg]:shrink-0",
+              " disabled:pointer-events-none disabled:opacity-38 aria-disabled:pointer-events-none aria-disabled:opacity-38 before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--sys-color-on-primary-container) hover:before:opacity-[var(--sys-state-hover)] focus-visible:before:opacity-[var(--sys-state-focus)] active:before:opacity-[var(--sys-state-press)] disabled:before:opacity-0 data-[open]:rotate-90 [&_svg]:size-6 [&_svg]:shrink-0",
             triggerClassName ?? "",
           ]
             .filter(Boolean)

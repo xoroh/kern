@@ -35,8 +35,8 @@ export const CRITICAL_LOADER_CSS = `
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--md-sys-color-surface, Canvas);
-  color: var(--md-sys-color-on-surface, CanvasText);
+  background: var(--sys-color-surface, Canvas);
+  color: var(--sys-color-on-surface, CanvasText);
   z-index: 9999;
   transition: opacity ${feedbackTiming.fadeMs}ms ease;
 }

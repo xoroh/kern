@@ -8,8 +8,8 @@ describe("Search", () => {
     const bar = screen.getByRole("search");
     expect(bar).toHaveClass(
       "h-14",
-      "rounded-(--md-sys-shape-corner-full)",
-      "bg-(--md-sys-color-surface-container-high)",
+      "rounded-(--sys-shape-corner-full)",
+      "bg-(--sys-color-surface-container-high)",
     );
   });
 });

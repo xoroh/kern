@@ -7,8 +7,8 @@ describe("Card", () => {
     render(<Card data-testid="card">Hello</Card>);
     const card = screen.getByTestId("card");
     expect(card).toHaveTextContent("Hello");
-    expect(card).toHaveClass("rounded-(--md-sys-shape-corner-medium)");
-    expect(card).toHaveClass("bg-(--md-sys-color-surface-container-highest)");
+    expect(card).toHaveClass("rounded-(--sys-shape-corner-medium)");
+    expect(card).toHaveClass("bg-(--sys-color-surface-container-highest)");
   });
 
   it("applies the outlined variant", () => {
@@ -29,13 +29,13 @@ describe("Card", () => {
       </Card>,
     );
     expect(screen.getByTestId("card")).toHaveClass(
-      "shadow-(--md-sys-elevation-level1)",
+      "shadow-(--sys-elevation-level1)",
     );
     unmount();
 
     render(<Card data-testid="card">Hello</Card>);
     expect(screen.getByTestId("card")).not.toHaveClass(
-      "shadow-(--md-sys-elevation-level1)",
+      "shadow-(--sys-elevation-level1)",
     );
   });
 });

@@ -92,7 +92,7 @@ export function fabStyles(
     paddingHorizontal: size === "icon" ? 0 : 20,
     // 6dp = M3 LEVEL 3, the level the registry declares for `fab`/
     // `extended-fab` (`variants: [3]`) and the level web binds via
-    // `--md-sys-elevation-level3`.
+    // `--sys-elevation-level3`.
     //
     // This was `3`, and `3` is dp, not a level: M3's scale is unevenly spaced
     // (0/1/3/6/8/12 dp), so `elevation: 3` is 3dp = LEVEL 2 — one step below
@@ -103,7 +103,7 @@ export function fabStyles(
     ...(lowered
       ? {
           // 1dp = M3 LEVEL 1, the lowered resting height. Web binds the same
-          // level through `--md-sys-elevation-level1` and swaps the fill to
+          // level through `--sys-elevation-level1` and swaps the fill to
           // `surface-container-low`.
           backgroundColor: scheme.color.surfaceContainerLow,
           elevation: 1,

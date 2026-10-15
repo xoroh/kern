@@ -174,7 +174,7 @@ describe("zero-to-screen loop", () => {
     expect(hasError(button)).toBe(false);
     const { color } = resolveThemeDetails("light", "standard", "brand");
     expect(/^#[\da-f]{6}$/i.test(color.primary)).toBe(true);
-    expect(varName("primary")).toBe("--md-sys-color-primary");
+    expect(varName("primary")).toBe("--sys-color-primary");
   });
 
   it("design_audit mirrors the kern skill's twelve categories", () => {

@@ -21,7 +21,7 @@ import { cn } from "../utils/cn";
  * into their own classes instead of wrapping themselves.
  */
 export const FOCUS_RING_CLASS =
-  "focus-visible:ring-[3px] focus-visible:ring-(--md-sys-color-secondary)";
+  "focus-visible:ring-[3px] focus-visible:ring-(--sys-color-secondary)";
 
 export type FocusRingProps = ComponentPropsWithRef<"span">;
 

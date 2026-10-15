@@ -18,7 +18,7 @@ export function snackbarStyles(
     // K11: snackbar = level 3 = 6dp. Android reads `elevation` as dp (M3's scale
     // is 0/1/3/6/8/12, so level 3 is 6dp, NOT 3 — 3dp is level 2). This was
     // `elevation: 3`, which put native one level BELOW web's
-    // `--md-sys-elevation-level3`: the same component at two heights on two
+    // `--sys-elevation-level3`: the same component at two heights on two
     // renderers, invisible until the gate mapped dp into level space.
     // The iOS quartet follows the other level-3 surfaces rather than inventing
     // a second shadow recipe.

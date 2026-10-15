@@ -8,7 +8,7 @@ describe("Text", () => {
   it("renders the title variant", () => {
     render(<Text variant="title">Hello</Text>);
     expect(screen.getByText("Hello")).toHaveClass(
-      "text-(length:--md-sys-typescale-title-large-font-size)",
+      "text-(length:--sys-typescale-title-large-font-size)",
     );
   });
 });
@@ -27,6 +27,6 @@ describe("FieldMessage", () => {
     render(<FieldMessage variant="error">Required</FieldMessage>);
     const message = screen.getByRole("alert");
     expect(message).toHaveTextContent("Required");
-    expect(message).toHaveClass("text-(--md-sys-color-error)");
+    expect(message).toHaveClass("text-(--sys-color-error)");
   });
 });

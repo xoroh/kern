@@ -5,8 +5,8 @@ import { cn } from "../utils/cn";
 const fieldMessageVariants = cva("kern-field-message text-xs", {
   variants: {
     variant: {
-      description: "text-(--md-sys-color-on-surface-variant)",
-      error: "text-(--md-sys-color-error)",
+      description: "text-(--sys-color-on-surface-variant)",
+      error: "text-(--sys-color-error)",
     },
   },
   defaultVariants: { variant: "description" },

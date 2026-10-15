@@ -173,7 +173,7 @@ export function NavigationBar({
         data-slot="navigation-bar"
         data-testid={testID ?? "kern-navigation-bar"}
         className={cn(
-          "kern-navigation-bar flex h-20 items-stretch border-t border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container) text-(--md-sys-color-on-surface-variant) shadow-(--md-sys-elevation-level2)",
+          "kern-navigation-bar flex h-20 items-stretch border-t border-(--sys-color-outline-variant) bg-(--sys-color-surface-container) text-(--sys-color-on-surface-variant) shadow-(--sys-elevation-level2)",
           className,
         )}
       >
@@ -195,16 +195,16 @@ export function NavigationBar({
               onClick={() => select(destination.key)}
               onKeyDown={onKeyDown}
               className={cn(
-                `kern-navigation-bar-destination relative flex min-h-12 flex-1 cursor-pointer flex-col items-center justify-center gap-1 px-2 outline-none select-none transition-colors duration-200 ease-(--md-sys-motion-easing-standard) ${FOCUS_RING_CLASS} before:absolute before:inset-0 before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--md-sys-color-on-surface) hover:before:opacity-[var(--md-sys-state-hover)] focus-visible:before:opacity-[var(--md-sys-state-focus)] active:before:opacity-[var(--md-sys-state-press)] data-[active]:before:bg-(--md-sys-color-on-secondary-container)`,
+                `kern-navigation-bar-destination relative flex min-h-12 flex-1 cursor-pointer flex-col items-center justify-center gap-1 px-2 outline-none select-none transition-colors duration-200 ease-(--sys-motion-easing-standard) ${FOCUS_RING_CLASS} before:absolute before:inset-0 before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--sys-color-on-surface) hover:before:opacity-[var(--sys-state-hover)] focus-visible:before:opacity-[var(--sys-state-focus)] active:before:opacity-[var(--sys-state-press)] data-[active]:before:bg-(--sys-color-on-secondary-container)`,
                 destination.disabled
                   ? "pointer-events-none opacity-38"
                   : "",
-                selected && "text-(--md-sys-color-on-surface)",
+                selected && "text-(--sys-color-on-surface)",
               )}
             >
               <span
                 data-active={selected || undefined}
-                className="relative flex h-8 w-16 items-center justify-center rounded-(--md-sys-shape-corner-full) transition-colors data-[active]:bg-(--md-sys-color-secondary-container) data-[active]:text-(--md-sys-color-on-secondary-container)"
+                className="relative flex h-8 w-16 items-center justify-center rounded-(--sys-shape-corner-full) transition-colors data-[active]:bg-(--sys-color-secondary-container) data-[active]:text-(--sys-color-on-secondary-container)"
               >
                 <span
                   aria-hidden="true"
@@ -269,12 +269,12 @@ export function NavigationBarItem({
       disabled={disabled}
       onClick={onSelect}
       className={cn(
-        `kern-navigation-bar-item flex min-h-14 w-full cursor-pointer items-center gap-3 rounded-(--md-sys-shape-corner-full) px-6 text-left text-(--md-sys-color-on-surface) outline-none transition-colors ${FOCUS_RING_CLASS}`,
+        `kern-navigation-bar-item flex min-h-14 w-full cursor-pointer items-center gap-3 rounded-(--sys-shape-corner-full) px-6 text-left text-(--sys-color-on-surface) outline-none transition-colors ${FOCUS_RING_CLASS}`,
         disabled
           ? "pointer-events-none opacity-38"
-          : "hover:bg-(--md-sys-color-surface-tonal)",
+          : "hover:bg-(--sys-color-surface-tonal)",
         selected &&
-          "bg-(--md-sys-color-secondary-container) font-medium text-(--md-sys-color-on-secondary-container)",
+          "bg-(--sys-color-secondary-container) font-medium text-(--sys-color-on-secondary-container)",
         className,
       )}
       {...props}

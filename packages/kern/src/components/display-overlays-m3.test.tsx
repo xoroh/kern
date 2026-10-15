@@ -26,15 +26,15 @@ describe("Chip — 8px shape, label-large, outline treatments", () => {
   it("renders the 8px M3 shape with label-large type", () => {
     render(<Chip variant="assist">Search</Chip>);
     const el = screen.getByRole("button", { name: "Search" });
-    expect(el.className).toContain("rounded-(--md-sys-shape-corner-small)");
-    expect(el.className).not.toContain("rounded-(--md-sys-shape-corner-full)");
+    expect(el.className).toContain("rounded-(--sys-shape-corner-small)");
+    expect(el.className).not.toContain("rounded-(--sys-shape-corner-full)");
     expect(el.className).toContain("tracking-[0.00625rem]");
   });
 
   it("assist uses the outline border with no fill", () => {
     render(<Chip variant="assist">Search</Chip>);
     const el = screen.getByRole("button", { name: "Search" });
-    expect(el.className).toContain("border-(--md-sys-color-outline)");
+    expect(el.className).toContain("border-(--sys-color-outline)");
   });
 
   it("filter selected fills secondary-container with a check", () => {
@@ -45,7 +45,7 @@ describe("Chip — 8px shape, label-large, outline treatments", () => {
     );
     const el = screen.getByRole("button", { name: "Docs" });
     expect(el.className).toContain(
-      "data-selected:bg-(--md-sys-color-secondary-container)",
+      "data-selected:bg-(--sys-color-secondary-container)",
     );
     expect(
       document.querySelector('[data-slot="chip-check"]'),
@@ -56,10 +56,10 @@ describe("Chip — 8px shape, label-large, outline treatments", () => {
     render(<Chip variant="assist">Search</Chip>);
     const el = screen.getByRole("button", { name: "Search" });
     expect(el.className).toContain(
-      "hover:before:opacity-[var(--md-sys-state-hover)]",
+      "hover:before:opacity-[var(--sys-state-hover)]",
     );
     expect(el.className).toContain(
-      "disabled:text-(--md-sys-color-on-surface)/38",
+      "disabled:text-(--sys-color-on-surface)/38",
     );
     expect(el.className).not.toContain("disabled:opacity-50");
   });
@@ -70,24 +70,24 @@ describe("Card — elevated/tonal/outlined fills per M3", () => {
     render(<Card variant="elevated" data-testid="card" />);
     const el = screen.getByTestId("card");
     expect(el.className).toContain(
-      "bg-(--md-sys-color-surface-container-low)",
+      "bg-(--sys-color-surface-container-low)",
     );
-    expect(el.className).toContain("shadow-(--md-sys-elevation-level1)");
+    expect(el.className).toContain("shadow-(--sys-elevation-level1)");
   });
 
   it("filled fills surface-container-highest with no shadow", () => {
     render(<Card variant="filled" data-testid="card" />);
     const el = screen.getByTestId("card");
     expect(el.className).toContain(
-      "bg-(--md-sys-color-surface-container-highest)",
+      "bg-(--sys-color-surface-container-highest)",
     );
   });
 
   it("outlined draws the outline-variant border on surface", () => {
     render(<Card variant="outlined" data-testid="card" />);
     const el = screen.getByTestId("card");
-    expect(el.className).toContain("border-(--md-sys-color-outline-variant)");
-    expect(el.className).toContain("rounded-(--md-sys-shape-corner-medium)");
+    expect(el.className).toContain("border-(--sys-color-outline-variant)");
+    expect(el.className).toContain("rounded-(--sys-shape-corner-medium)");
   });
 });
 
@@ -96,7 +96,7 @@ describe("Badge — 6px dot, 16px count, error roles", () => {
     render(<Badge variant="dot" aria-label="unread" />);
     const el = screen.getByLabelText("unread");
     expect(el.className).toContain("size-1.5");
-    expect(el.className).toContain("bg-(--md-sys-color-error)");
+    expect(el.className).toContain("bg-(--sys-color-error)");
   });
 
   it("count is 16px with on-error label", () => {
@@ -106,7 +106,7 @@ describe("Badge — 6px dot, 16px count, error roles", () => {
       </Badge>,
     );
     const el = screen.getByLabelText("3 unread");
-    expect(el.className).toContain("text-(--md-sys-color-on-error)");
+    expect(el.className).toContain("text-(--sys-color-on-error)");
   });
 });
 
@@ -120,7 +120,7 @@ describe("ListItem — 56px M3 rows with state layers", () => {
     const action = document.querySelector('[data-slot="list-item-action"]');
     expect(action?.className).toContain("min-h-14");
     expect(action?.className).toContain(
-      "hover:before:opacity-[var(--md-sys-state-hover)]",
+      "hover:before:opacity-[var(--sys-state-hover)]",
     );
     expect(action?.className).not.toContain("hover:bg-(");
   });
@@ -135,12 +135,12 @@ describe("Drawer and Sheet — container-low, level1, scrim/32, no borders", () 
     );
     const popup = document.querySelector('[data-slot="drawer-content"]');
     expect(popup?.className).toContain(
-      "bg-(--md-sys-color-surface-container-low)",
+      "bg-(--sys-color-surface-container-low)",
     );
     // M3 tabulates navigation drawer (modal) and modal sheets at level 1.
-    expect(popup?.className).toContain("shadow-(--md-sys-elevation-level1)");
+    expect(popup?.className).toContain("shadow-(--sys-elevation-level1)");
     expect(popup?.className).toContain(
-      "rounded-t-(--md-sys-shape-corner-extra-large)",
+      "rounded-t-(--sys-shape-corner-extra-large)",
     );
     expect(popup?.className).not.toContain("border-(");
   });
@@ -155,7 +155,7 @@ describe("Drawer and Sheet — container-low, level1, scrim/32, no borders", () 
     );
     const popup = document.querySelector('[data-slot="sheet-content"]');
     expect(popup?.className).toContain(
-      "bg-(--md-sys-color-surface-container-low)",
+      "bg-(--sys-color-surface-container-low)",
     );
     expect(popup?.className).not.toContain("border-(");
   });
@@ -169,9 +169,9 @@ describe("Popover — menu-surface treatment", () => {
       </Popover.Root>,
     );
     const popup = document.querySelector('[data-slot="popover-content"]');
-    expect(popup?.className).toContain("bg-(--md-sys-color-surface-container)");
+    expect(popup?.className).toContain("bg-(--sys-color-surface-container)");
     expect(popup?.className).toContain(
-      "rounded-(--md-sys-shape-corner-extra-small)",
+      "rounded-(--sys-shape-corner-extra-small)",
     );
     expect(popup?.className).not.toContain("border-(");
   });
@@ -223,9 +223,9 @@ describe("Avatar, Meter, Table, Tooltip, Sonner — supporting roles", () => {
     );
     const popup = await screen.findByText("Save");
     const surface = popup.closest('[data-slot="tooltip-content"]');
-    expect(surface?.className).toContain("bg-(--md-sys-color-inverse-surface)");
+    expect(surface?.className).toContain("bg-(--sys-color-inverse-surface)");
     expect(surface?.className).toContain(
-      "rounded-(--md-sys-shape-corner-extra-small)",
+      "rounded-(--sys-shape-corner-extra-small)",
     );
   });
 

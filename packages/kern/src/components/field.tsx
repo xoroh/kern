@@ -25,7 +25,7 @@ export function FieldLabel({ className, ...props }: FieldLabelProps) {
     <FieldPrimitive.Label
       data-slot="field-label"
       className={cnState(
-        "kern-field-label text-sm font-medium text-(--md-sys-color-on-surface)",
+        "kern-field-label text-sm font-medium text-(--sys-color-on-surface)",
         className,
       )}
       {...props}
@@ -41,7 +41,7 @@ export function FieldDescription({
     <FieldPrimitive.Description
       data-slot="field-description"
       className={cnState(
-        "kern-field-description text-xs text-(--md-sys-color-on-surface-variant)",
+        "kern-field-description text-xs text-(--sys-color-on-surface-variant)",
         className,
       )}
       {...props}
@@ -55,7 +55,7 @@ export function FieldError({ className, ...props }: FieldErrorProps) {
       data-slot="field-error"
       role="alert"
       className={cnState(
-        "kern-field-error text-xs text-(--md-sys-color-error)",
+        "kern-field-error text-xs text-(--sys-color-error)",
         className,
       )}
       {...props}

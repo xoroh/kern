@@ -24,11 +24,11 @@ describe("Switch", () => {
       screen
         .getByRole("switch")
         .querySelector('[data-slot="switch-checked-icon"]'),
-    ).toHaveClass("text-(--md-sys-color-on-primary-container)");
+    ).toHaveClass("text-(--sys-color-on-primary-container)");
     expect(
       screen
         .getByRole("switch")
         .querySelector('[data-slot="switch-unchecked-icon"]'),
-    ).toHaveClass("text-(--md-sys-color-surface-container-highest)");
+    ).toHaveClass("text-(--sys-color-surface-container-highest)");
   });
 });

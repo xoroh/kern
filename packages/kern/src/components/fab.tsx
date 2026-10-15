@@ -5,7 +5,7 @@ import { cn } from "../utils/cn";
 import { FOCUS_RING_CLASS } from "./focus-ring";
 
 const fabVariants = cva(
-  `kern-fab relative inline-flex shrink-0 items-center justify-center gap-2 text-sm leading-5 font-medium tracking-[0.1px] shadow-(--md-sys-elevation-level3) hover:shadow-(--md-sys-elevation-level4) transition-[color,background-color,border-color,box-shadow] duration-200 ease-(--md-sys-motion-easing-standard) outline-none select-none ${FOCUS_RING_CLASS} disabled:pointer-events-none disabled:opacity-38 aria-disabled:pointer-events-none aria-disabled:opacity-38 after:absolute after:-inset-2 after:content-[''] before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 hover:before:opacity-[var(--md-sys-state-hover)] focus-visible:before:opacity-[var(--md-sys-state-focus)] active:before:opacity-[var(--md-sys-state-press)] disabled:before:opacity-0 aria-disabled:before:opacity-0 [&_svg]:shrink-0`,
+  `kern-fab relative inline-flex shrink-0 items-center justify-center gap-2 text-sm leading-5 font-medium tracking-[0.1px] shadow-(--sys-elevation-level3) hover:shadow-(--sys-elevation-level4) transition-[color,background-color,border-color,box-shadow] duration-200 ease-(--sys-motion-easing-standard) outline-none select-none ${FOCUS_RING_CLASS} disabled:pointer-events-none disabled:opacity-38 aria-disabled:pointer-events-none aria-disabled:opacity-38 after:absolute after:-inset-2 after:content-[''] before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 hover:before:opacity-[var(--sys-state-hover)] focus-visible:before:opacity-[var(--sys-state-focus)] active:before:opacity-[var(--sys-state-press)] disabled:before:opacity-0 aria-disabled:before:opacity-0 [&_svg]:shrink-0`,
   {
     variants: {
       // M3 FAB color styles (expressive, May 2025): the three containers
@@ -18,19 +18,19 @@ const fabVariants = cva(
       // for label, icon, and state layer.
       color: {
         surface:
-          "bg-(--md-sys-color-surface-container-high) text-(--md-sys-color-primary) before:bg-(--md-sys-color-primary) [&_svg]:size-6",
+          "bg-(--sys-color-surface-container-high) text-(--sys-color-primary) before:bg-(--sys-color-primary) [&_svg]:size-6",
         primary:
-          "bg-(--md-sys-color-primary-container) text-(--md-sys-color-on-primary-container) before:bg-(--md-sys-color-on-primary-container) [&_svg]:size-6",
+          "bg-(--sys-color-primary-container) text-(--sys-color-on-primary-container) before:bg-(--sys-color-on-primary-container) [&_svg]:size-6",
         secondary:
-          "bg-(--md-sys-color-secondary-container) text-(--md-sys-color-on-secondary-container) before:bg-(--md-sys-color-on-secondary-container) [&_svg]:size-6",
+          "bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container) before:bg-(--sys-color-on-secondary-container) [&_svg]:size-6",
         tertiary:
-          "bg-(--md-sys-color-tertiary-container) text-(--md-sys-color-on-tertiary-container) before:bg-(--md-sys-color-on-tertiary-container) [&_svg]:size-6",
+          "bg-(--sys-color-tertiary-container) text-(--sys-color-on-tertiary-container) before:bg-(--sys-color-on-tertiary-container) [&_svg]:size-6",
         "primary-fill":
-          "bg-(--md-sys-color-primary) text-(--md-sys-color-on-primary) before:bg-(--md-sys-color-on-primary) [&_svg]:size-6",
+          "bg-(--sys-color-primary) text-(--sys-color-on-primary) before:bg-(--sys-color-on-primary) [&_svg]:size-6",
         "secondary-fill":
-          "bg-(--md-sys-color-secondary) text-(--md-sys-color-on-secondary) before:bg-(--md-sys-color-on-secondary) [&_svg]:size-6",
+          "bg-(--sys-color-secondary) text-(--sys-color-on-secondary) before:bg-(--sys-color-on-secondary) [&_svg]:size-6",
         "tertiary-fill":
-          "bg-(--md-sys-color-tertiary) text-(--md-sys-color-on-tertiary) before:bg-(--md-sys-color-on-tertiary) [&_svg]:size-6",
+          "bg-(--sys-color-tertiary) text-(--sys-color-on-tertiary) before:bg-(--sys-color-on-tertiary) [&_svg]:size-6",
       },
       // M3 FAB sizes: small 40dp (deprecated — compact only), regular 56dp
       // (corner-large 16px, icon 24px), medium 80dp (expressive), large 96dp
@@ -40,14 +40,14 @@ const fabVariants = cva(
       // extension past the spec.
       size: {
         default:
-          "h-14 px-5 rounded-(--md-sys-shape-corner-large) [&_svg]:size-6",
-        md: "h-20 w-20 px-0 rounded-(--md-sys-shape-corner-extra-large) [&_svg]:size-8",
+          "h-14 px-5 rounded-(--sys-shape-corner-large) [&_svg]:size-6",
+        md: "h-20 w-20 px-0 rounded-(--sys-shape-corner-extra-large) [&_svg]:size-8",
         medium:
-          "h-24 w-24 px-0 rounded-(--md-sys-shape-corner-extra-large) [&_svg]:size-9",
+          "h-24 w-24 px-0 rounded-(--sys-shape-corner-extra-large) [&_svg]:size-9",
         large:
-          "h-32 w-32 px-0 rounded-(--md-sys-shape-corner-extra-large) [&_svg]:size-9",
-        sm: "h-10 px-4 rounded-(--md-sys-shape-corner-medium) [&_svg]:size-6",
-        icon: "h-14 w-14 px-0 rounded-(--md-sys-shape-corner-large) [&_svg]:size-6",
+          "h-32 w-32 px-0 rounded-(--sys-shape-corner-extra-large) [&_svg]:size-9",
+        sm: "h-10 px-4 rounded-(--sys-shape-corner-medium) [&_svg]:size-6",
+        icon: "h-14 w-14 px-0 rounded-(--sys-shape-corner-large) [&_svg]:size-6",
       },
     },
     defaultVariants: { color: "surface", size: "default" },
@@ -102,7 +102,7 @@ export function Fab({
       className={cn(
         fabVariants({ size: resolvedSize, color }),
         lowered &&
-          "bg-(--md-sys-color-surface-container-low) shadow-(--md-sys-elevation-level1) hover:shadow-(--md-sys-elevation-level2)",
+          "bg-(--sys-color-surface-container-low) shadow-(--sys-elevation-level1) hover:shadow-(--sys-elevation-level2)",
         className,
       )}
       type={type}

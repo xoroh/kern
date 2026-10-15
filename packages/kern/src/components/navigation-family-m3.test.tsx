@@ -34,7 +34,7 @@ describe("NavigationBar — 80px bar, pill indicator, state layers", () => {
     render(<NavigationBar destinations={DESTINATIONS} />);
     const bar = screen.getByRole("navigation");
     expect(bar.className).toContain("h-20");
-    expect(bar.className).toContain("bg-(--md-sys-color-surface-container)");
+    expect(bar.className).toContain("bg-(--sys-color-surface-container)");
   });
 
   it("paints the selected icon pill in secondary-container with on-color", () => {
@@ -43,10 +43,10 @@ describe("NavigationBar — 80px bar, pill indicator, state layers", () => {
       .getByRole("button", { name: "Home" })
       .querySelector("[data-active]");
     expect(active?.className).toContain(
-      "data-[active]:bg-(--md-sys-color-secondary-container)",
+      "data-[active]:bg-(--sys-color-secondary-container)",
     );
     expect(active?.className).toContain(
-      "data-[active]:text-(--md-sys-color-on-secondary-container)",
+      "data-[active]:text-(--sys-color-on-secondary-container)",
     );
   });
 
@@ -54,13 +54,13 @@ describe("NavigationBar — 80px bar, pill indicator, state layers", () => {
     render(<NavigationBar destinations={DESTINATIONS} />);
     const dest = screen.getByRole("button", { name: "Home" });
     expect(dest.className).toContain(
-      "hover:before:opacity-[var(--md-sys-state-hover)]",
+      "hover:before:opacity-[var(--sys-state-hover)]",
     );
     expect(dest.className).toContain(
-      "focus-visible:before:opacity-[var(--md-sys-state-focus)]",
+      "focus-visible:before:opacity-[var(--sys-state-focus)]",
     );
     expect(dest.className).toContain(
-      "active:before:opacity-[var(--md-sys-state-press)]",
+      "active:before:opacity-[var(--sys-state-press)]",
     );
     expect(dest.className).not.toContain("hover:bg-(");
   });
@@ -78,10 +78,10 @@ describe("NavigationDrawer — 360px modal, large end rounding", () => {
     const drawer = screen.getByRole("dialog");
     expect(drawer.className).toContain("w-[min(22.5rem,80vw)]");
     expect(drawer.className).toContain(
-      "rounded-e-(--md-sys-shape-corner-large)",
+      "rounded-e-(--sys-shape-corner-large)",
     );
     expect(drawer.className).toContain(
-      "bg-(--md-sys-color-surface-container-low)",
+      "bg-(--sys-color-surface-container-low)",
     );
   });
 });
@@ -99,7 +99,7 @@ describe("Tabs — primary 3px indicator, title-small, state layers", () => {
     const tab = screen.getByRole("tab", { name: "Alpha" });
     expect(tab.className).toContain("after:h-[3px]");
     expect(tab.className).toContain(
-      "data-selected:after:bg-(--md-sys-color-primary)",
+      "data-selected:after:bg-(--sys-color-primary)",
     );
     expect(tab.className).toContain("tracking-[0.00625rem]");
     // The selected tab actually shows the indicator (regression: the
@@ -118,10 +118,10 @@ describe("Tabs — primary 3px indicator, title-small, state layers", () => {
     );
     const tab = screen.getByRole("tab", { name: "Alpha" });
     expect(tab.className).toContain(
-      "data-selected:text-(--md-sys-color-primary)",
+      "data-selected:text-(--sys-color-primary)",
     );
     expect(tab.className).toContain(
-      "data-selected:before:bg-(--md-sys-color-primary)",
+      "data-selected:before:bg-(--sys-color-primary)",
     );
   });
 });
@@ -140,29 +140,29 @@ describe("SecondaryTabs — 2px indicator, on-surface active", () => {
     const tab = screen.getByRole("tab", { name: "Alpha" });
     expect(tab.className).toContain("after:h-[2px]");
     expect(tab.className).not.toContain("after:h-[3px]");
-    expect(tab.className).toContain("text-(--md-sys-color-on-surface)");
-    expect(tab.className).not.toContain("text-(--md-sys-color-primary)");
+    expect(tab.className).toContain("text-(--sys-color-on-surface)");
+    expect(tab.className).not.toContain("text-(--sys-color-primary)");
   });
 });
 
 describe("Menu — surface-container popup, 4px shape, layer items", () => {
   it("popup uses surface-container, 4px shape, level2, no border", () => {
-    expect(menuPopupClass).toContain("bg-(--md-sys-color-surface-container)");
+    expect(menuPopupClass).toContain("bg-(--sys-color-surface-container)");
     expect(menuPopupClass).toContain(
-      "rounded-(--md-sys-shape-corner-extra-small)",
+      "rounded-(--sys-shape-corner-extra-small)",
     );
-    expect(menuPopupClass).toContain("shadow-(--md-sys-elevation-level2)");
+    expect(menuPopupClass).toContain("shadow-(--sys-elevation-level2)");
     expect(menuPopupClass).not.toContain("border");
-    expect(menuPopupClass).not.toContain("bg-(--md-sys-color-surface)");
+    expect(menuPopupClass).not.toContain("bg-(--sys-color-surface)");
   });
 
   it("items paint highlighted as a layer with proper disabled split", () => {
     expect(menuItemClass).toContain(
-      "data-highlighted:before:opacity-[var(--md-sys-state-hover)]",
+      "data-highlighted:before:opacity-[var(--sys-state-hover)]",
     );
     expect(menuItemClass).not.toContain("data-highlighted:bg-(");
     expect(menuItemClass).toContain(
-      "data-disabled:text-(--md-sys-color-on-surface)/38",
+      "data-disabled:text-(--sys-color-on-surface)/38",
     );
     expect(menuItemClass).not.toContain("data-disabled:opacity-50");
   });
@@ -186,13 +186,13 @@ describe("Toolbar — pill bar with layered buttons", () => {
     );
     const btn = screen.getByRole("button", { name: "bold" });
     expect(btn.className).toContain(
-      "hover:before:opacity-[var(--md-sys-state-hover)]",
+      "hover:before:opacity-[var(--sys-state-hover)]",
     );
     expect(btn.className).toContain(
-      "data-pressed:bg-(--md-sys-color-secondary-container)",
+      "data-pressed:bg-(--sys-color-secondary-container)",
     );
     expect(btn.className).not.toContain(
-      "data-pressed:bg-(--md-sys-color-primary)",
+      "data-pressed:bg-(--sys-color-primary)",
     );
   });
 });
@@ -209,9 +209,9 @@ describe("Pagination — pill buttons with proper states", () => {
     );
     const current = screen.getByRole("button", { name: "Page 1" });
     expect(current).toBeInTheDocument();
-    expect(current.className).toContain("data-current:bg-(--md-sys-color-primary)");
+    expect(current.className).toContain("data-current:bg-(--sys-color-primary)");
     expect(current.className).toContain(
-      "disabled:text-(--md-sys-color-on-surface)/38",
+      "disabled:text-(--sys-color-on-surface)/38",
     );
   });
 

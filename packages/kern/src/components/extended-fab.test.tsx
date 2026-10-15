@@ -186,8 +186,8 @@ describe("ExtendedFab", () => {
   it("uses the plain FAB's resting elevation and corner-large shape", () => {
     render(<ExtendedFab icon={<svg />} label="Compose" />);
     const className = screen.getByRole("button").className;
-    expect(className).toContain("shadow-(--md-sys-elevation-level3)");
-    expect(className).toContain("rounded-(--md-sys-shape-corner-large)");
+    expect(className).toContain("shadow-(--sys-elevation-level3)");
+    expect(className).toContain("rounded-(--sys-shape-corner-large)");
   });
 
   it("disables the button", () => {

@@ -13,12 +13,12 @@ export function TableRoot({ className, ...props }: TableProps) {
   return (
     <div
       data-slot="table-wrapper"
-      className="kern-table-wrapper overflow-x-auto rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant)"
+      className="kern-table-wrapper overflow-x-auto rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant)"
     >
       <table
         data-slot="table"
         className={cn(
-          "kern-table w-full border-collapse text-left text-sm text-(--md-sys-color-on-surface)",
+          "kern-table w-full border-collapse text-left text-sm text-(--sys-color-on-surface)",
           className,
         )}
         {...props}
@@ -32,7 +32,7 @@ export function TableHead({ className, ...props }: TableHeadProps) {
     <thead
       data-slot="table-head"
       className={cn(
-        "kern-table-head bg-(--md-sys-color-surface-tonal)",
+        "kern-table-head bg-(--sys-color-surface-tonal)",
         className,
       )}
       {...props}
@@ -49,7 +49,7 @@ export function TableRow({ className, ...props }: TableRowProps) {
     <tr
       data-slot="table-row"
       className={cn(
-        "kern-table-row border-t border-(--md-sys-color-outline-variant) first:border-t-0",
+        "kern-table-row border-t border-(--sys-color-outline-variant) first:border-t-0",
         className,
       )}
       {...props}
@@ -63,7 +63,7 @@ export function TableHeader({ className, ...props }: TableHeaderProps) {
       data-slot="table-header"
       scope="col"
       className={cn(
-        "kern-table-header px-4 py-3 text-xs font-medium text-(--md-sys-color-on-surface-variant)",
+        "kern-table-header px-4 py-3 text-xs font-medium text-(--sys-color-on-surface-variant)",
         className,
       )}
       {...props}
@@ -86,7 +86,7 @@ export function TableCaption({ className, ...props }: TableCaptionProps) {
     <caption
       data-slot="table-caption"
       className={cn(
-        "kern-table-caption px-4 py-2 text-xs text-(--md-sys-color-on-surface-variant)",
+        "kern-table-caption px-4 py-2 text-xs text-(--sys-color-on-surface-variant)",
         className,
       )}
       {...props}
