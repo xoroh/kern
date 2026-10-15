@@ -291,7 +291,7 @@ export function themeMarkdown(theme, catalog, counts) {
       "live in the theme configurator (/theme-configurator). What the roles " +
       "mean and where each one goes lives on /foundations/color. Every " +
       "token is also a CSS variable, so a project can read one without " +
-      "importing anything, e.g. `--md-sys-color-primary`.",
+      "importing anything, e.g. `--sys-color-primary`.",
     "",
   );
   return `${out

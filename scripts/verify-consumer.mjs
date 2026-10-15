@@ -231,7 +231,7 @@ step("standalone web: install tarballs, no checkout aliases", () => {
   const stylesUrl = sh(`"${BUN}" -e "console.log(import.meta.resolve('@xoroh/kern/styles'))"`, WEB).trim().split("\n").pop();
   // import.meta.resolve answers a file: URL; readFileSync wants a path.
   const styles = stylesUrl.startsWith("file://") ? stylesUrl.slice("file://".length) : stylesUrl;
-  if (!readFileSync(styles, "utf8").includes("--md-sys-color-primary: #6750a4;")) {
+  if (!readFileSync(styles, "utf8").includes("--sys-color-primary: #6750a4;")) {
     throw new Error("styles.css lacks the primary var");
   }
   // Types resolve (TS 5.9, the repo toolchain).

@@ -7,13 +7,13 @@ describe("code-only source", () => {
       '// import x from "themes/sharp.json"',
       '/* readFileSync("themes/brand.json") */',
       'const label = "themes/demo.json";',
-      'const real = "rounded-(--md-sys-shape-corner-large)";',
+      'const real = "rounded-(--sys-shape-corner-large)";',
     ].join("\n");
     const code = codeOnly(source);
     expect(code).not.toContain("sharp.json");
     expect(code).not.toContain("brand.json");
     expect(code).toContain('"themes/demo.json"');
-    expect(code).toContain("rounded-(--md-sys-shape-corner-large)");
+    expect(code).toContain("rounded-(--sys-shape-corner-large)");
     expect(code.split("\n").length).toBe(source.split("\n").length);
   });
 

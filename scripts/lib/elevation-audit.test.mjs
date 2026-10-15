@@ -50,7 +50,7 @@ describe("elevation audit", () => {
   });
   test("comments cannot declare shadows; real strings and URLs survive", () => {
     const source =
-      '// --md-sys-elevation-level5\nconst url = "https://example.com";\n/* --md-sys-elevation-level4 */\nconst shadow = "shadow-(--md-sys-elevation-level1)";';
+      '// --sys-elevation-level5\nconst url = "https://example.com";\n/* --sys-elevation-level4 */\nconst shadow = "shadow-(--sys-elevation-level1)";';
     const code = elevationCode(source);
     expect(code).not.toContain("elevation-level5");
     expect(code).not.toContain("elevation-level4");

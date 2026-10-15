@@ -5,7 +5,7 @@
  * ## Why this exists
  *
  * M1 moved the component page off ad-hoc Tailwind sizes and onto the kern
- * type scale, resolving each role from --md-sys-typescale-<role>-<prop>. That
+ * type scale, resolving each role from --sys-typescale-<role>-<prop>. That
  * is strictly better than hard-coded sizes — but it introduces a new failure
  * class: a role name that does not exist resolves to nothing, the property is
  * dropped, and the text silently falls back to the browser default. The page
@@ -50,7 +50,7 @@ if (!TOKENS_CSS) {
 
 const css = readFileSync(TOKENS_CSS, "utf8");
 
-// Real parse of the custom-property declarations: --md-sys-typescale-<role>-<prop>.
+// Real parse of the custom-property declarations: --sys-typescale-<role>-<prop>.
 const PROPS = [
   "font-family",
   "font-size",
@@ -61,7 +61,7 @@ const PROPS = [
 
 const roleProps = new Map();
 const decl =
-  /--md-sys-typescale-([a-z0-9-]+?)-(font-family|font-size|font-weight|line-height|letter-spacing)\s*:/g;
+  /--sys-typescale-([a-z0-9-]+?)-(font-family|font-size|font-weight|line-height|letter-spacing)\s*:/g;
 for (const m of css.matchAll(decl)) {
   const role = m[1];
   const prop = m[2];
@@ -71,7 +71,7 @@ for (const m of css.matchAll(decl)) {
 
 if (roleProps.size === 0) {
   console.error(
-    `check-typescale: no --md-sys-typescale-* declarations found in ${relative(process.cwd(), TOKENS_CSS)} — refusing to run against an empty token set.`,
+    `check-typescale: no --sys-typescale-* declarations found in ${relative(process.cwd(), TOKENS_CSS)} — refusing to run against an empty token set.`,
   );
   process.exit(1);
 }
@@ -134,7 +134,7 @@ for (const file of files) {
     used.get(role).push(rel);
   }
   for (const m of text.matchAll(
-    /--md-sys-typescale-([a-z0-9-]+?)-(?:font-family|font-size|font-weight|line-height|letter-spacing)/g,
+    /--sys-typescale-([a-z0-9-]+?)-(?:font-family|font-size|font-weight|line-height|letter-spacing)/g,
   )) {
     const role = m[1];
     if (!used.has(role)) used.set(role, []);

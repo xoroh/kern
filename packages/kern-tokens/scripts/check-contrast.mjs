@@ -18,7 +18,7 @@ import {
 
 const ROOT = new URL("../../..", import.meta.url).pathname;
 const M3 = JSON.parse(
-  readFileSync(join(ROOT, "packages/kern-tokens/src/themes/kern.json"), "utf8"),
+  readFileSync(join(ROOT, "packages/kern-tokens/src/themes/material-3.json"), "utf8"),
 );
 const SHARP = JSON.parse(
   readFileSync(
@@ -70,7 +70,7 @@ const orphansSeen = new Set();
 const waivedSeen = new Set();
 
 for (const [presetId, preset] of [
-  ["m3", { overrides: {} }],
+  ["material-3", { overrides: {} }],
   ["sharp", SHARP],
   ["brand", BRAND],
   ["demo", DEMO],

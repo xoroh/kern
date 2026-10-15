@@ -81,6 +81,7 @@ function* snapshot(fullAbs, outputEntry) {
 
 const stale = [];
 const missing = [];
+const crashed = [];
 
 for (const { name, cmd, outputs } of GENERATORS) {
   // An `outputs` entry may be a FILE or a DIRECTORY (the icon sets are ~35
@@ -103,6 +104,8 @@ for (const { name, cmd, outputs } of GENERATORS) {
   // Run the generator against the real tree, then restore every file it could
   // have touched. This keeps the check honest (the generator sees the real
   // tokens.json) without needing a full tree copy and an install.
+  // A crashing generator must NEVER skip restoration: record the crash and
+  // fall through to compare+restore, exiting nonzero only at the end.
   const run = spawnSync(cmd[0], cmd.slice(1), {
     cwd: ROOT,
     encoding: "utf8",
@@ -111,7 +114,7 @@ for (const { name, cmd, outputs } of GENERATORS) {
     console.error(`FAIL ${name} exited ${run.status}`);
     if (run.stderr)
       console.error(run.stderr.trim().split("\n").slice(-6).join("\n"));
-    process.exit(1);
+    crashed.push(name);
   }
 
   for (const out of outputs) {
@@ -162,6 +165,16 @@ if (missing.length) {
     `generated output missing from the tree (${missing.length}): ${missing.join(", ")}`,
   );
   console.error("Run `bun run generate:tokens` and commit the result.");
+  process.exit(1);
+}
+
+if (crashed.length) {
+  console.error(
+    `generated output crashed during regeneration (${crashed.length}): ${crashed.join(", ")}`,
+  );
+  console.error(
+    "Outputs were restored to their before-state above; fix the crashing generator, do not commit partial output.",
+  );
   process.exit(1);
 }
 

@@ -75,7 +75,7 @@ export const GENERATORS = [
     outputs: ["packages/kern-tokens/src/tones.css"],
   },
   {
-    name: "gen-comp-css (md.comp.* + Tailwind adapter)",
+    name: "gen-comp-css (comp.* + Tailwind adapter)",
     cmd: ["bun", "packages/kern-tokens/scripts/gen-comp-css.mjs"],
     outputs: [
       "packages/kern-tokens/src/comp-tokens.css",

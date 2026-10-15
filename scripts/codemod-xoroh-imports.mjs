@@ -10,9 +10,8 @@
  * DRY-RUN BY DEFAULT: prints the per-file rewrites and exits 0 without
  * touching anything. `--apply` performs them. This codemod renames MODULES,
  * not symbols: `KernButton` → `Button` prop/callback differences are reviewed
- * per callsite (the concrete import/API mapping lived in
- * docs/planning/XOROH_MIGRATION.md, removed 2026-10-14 with the P7 scope cut;
- * see git history), never renamed blindly. A codemod that renames semantics
+ * per callsite (see docs/planning/XOROH_MIGRATION.md §Concrete import/API
+ * mapping), never renamed blindly. A codemod that renames semantics
  * is how a migration compiles and misbehaves.
  *
  * Never touches node_modules, dist, or build output. Parent edits still need

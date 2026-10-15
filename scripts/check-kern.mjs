@@ -13,7 +13,7 @@ const { auditElevation, KERN_ELEVATION_COMPONENTS } = await import(
 );
 
 const m3 = JSON.parse(
-  readFileSync(join(ROOT, "packages/kern-tokens/src/themes/kern.json"), "utf8"),
+  readFileSync(join(ROOT, "packages/kern-tokens/src/themes/material-3.json"), "utf8"),
 );
 const tokens = JSON.parse(
   readFileSync(join(ROOT, "packages/kern-tokens/src/tokens.json"), "utf8"),
@@ -429,7 +429,7 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
       const full = join(webDir, file);
       if (!existsSync(full)) continue;
       for (const [, level] of readFileSync(full, "utf8").matchAll(
-        /--md-sys-elevation-level(\d)/g,
+        /--sys-elevation-level(\d)/g,
       )) {
         levels.add(Number(level));
       }
@@ -553,7 +553,7 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
       );
     } else if (exempt !== undefined && group === "states") {
       // `hover-opacity` is the consumed one; the other three are the exemption.
-      const hoverUsed = sourceText.includes("--md-sys-state-hover");
+      const hoverUsed = sourceText.includes("--sys-state-hover");
       if (!hoverUsed) {
         violations.push(
           'token group "states": hover-opacity is consumed by NO source file — ' +
@@ -564,8 +564,8 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
   }
 }
 
-// 5c. PRESET CATALOG (P5C). Every themes/index.json entry must extend kern
-// (canonical "kern"; legacy "m3" accepted) and its overrides may only touch
+// 5c. PRESET CATALOG (P5C). Every themes/index.json entry must extend material-3
+// (canonical "material-3") and its overrides may only touch
 // known color/shape roles. A preset carrying its own role table is a second
 // role table — the defect this leg exists to close. check:theme-matrix
 // asserts the same law against resolved output; this leg asserts it against
@@ -586,15 +586,13 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
       );
       continue;
     }
-    if (entry.id === "kern") continue;
+    if (entry.id === "material-3") continue;
     const preset = JSON.parse(readFileSync(path, "utf8"));
     const base =
-      preset.extends === undefined || preset.extends === "m3"
-        ? "kern"
-        : preset.extends;
-    if (base !== "kern") {
+      preset.extends === undefined ? "material-3" : preset.extends;
+    if (base !== "material-3") {
       violations.push(
-        `themes/${entry.file}: extends "${preset.extends}" — presets must extend "kern", never a second role table`,
+        `themes/${entry.file}: extends "${preset.extends}" — presets must extend "material-3", never a second role table`,
       );
     }
     for (const mode of ["light", "dark"]) {
@@ -641,7 +639,7 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
     ),
   );
   for (const entry of catalog.themes ?? []) {
-    if (entry.id === "kern") continue;
+    if (entry.id === "material-3") continue;
     const preset = JSON.parse(
       readFileSync(
         join(ROOT, "packages/kern-tokens/src/themes", entry.file),
@@ -728,7 +726,7 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
       join(ROOT, "packages/kern-tokens/scripts", script),
       "utf8",
     );
-    if (/=\s*\([^)]*\)\s*=>\s*`--md-sys-color-/.test(src)) {
+    if (/=\s*\([^)]*\)\s*=>\s*`--sys-color-/.test(src)) {
       violations.push(
         `packages/kern-tokens/scripts/${script} defines its own role->var spelling — ` +
           `every switchable value flows through varName() from src/resolve.ts`,
@@ -748,7 +746,7 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
   }
 }
 
-// 6. GENERATED OUTPUT FRESHNESS (P1-7 / P1-8). `md.comp.*` and the Tailwind adapter are
+// 6. GENERATED OUTPUT FRESHNESS (P1-7 / P1-8). `comp.*` and the Tailwind adapter are
 // generated, never hand-edited. If the committed CSS no longer matches what the
 // generators produce from tokens.json, the "one source of truth" invariant is broken —
 // someone hand-edited a derived file.
@@ -768,13 +766,13 @@ for (const dir of SCANNED) {
 
     // 1. CSS custom-property roles must exist in every scheme.
     for (const [, kind, slug] of src.matchAll(
-      /--md-sys-(color|shape-corner)-([a-z0-9-]+)/g,
+      /--sys-(color|shape-corner)-([a-z0-9-]+)/g,
     )) {
       const ok =
         kind === "color" ? inEveryScheme(camel(slug)) : shapeKeys.has(slug);
       if (!ok) {
         violations.push(
-          `${where}: --md-sys-${kind}-${slug} is not a valid ${kind === "color" ? "role" : "shape"}`,
+          `${where}: --sys-${kind}-${slug} is not a valid ${kind === "color" ? "role" : "shape"}`,
         );
       }
     }
@@ -791,7 +789,7 @@ for (const dir of SCANNED) {
       const ok =
         /^rounded(?:-[a-z]{1,2})?-(?:none|full)$/.test(cls) ||
         /^rounded(?:-[a-z]{1,2})?-\[inherit\]$/.test(cls) ||
-        /^rounded(?:-[a-z]{1,2})?-\(--md-sys-shape-corner-[a-z-]+\)$/.test(cls);
+        /^rounded(?:-[a-z]{1,2})?-\(--sys-shape-corner-[a-z-]+\)$/.test(cls);
       if (!ok) {
         violations.push(`${where}: ${cls} — radii come from the shape scale`);
       }

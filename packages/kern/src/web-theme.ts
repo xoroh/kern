@@ -45,7 +45,7 @@ export function applyKernTheme(
   target: HTMLElement,
   mode: Mode = "light",
   contrast: Contrast = "standard",
-  variant: ThemeSelection = "kern",
+  variant: ThemeSelection = "material-3",
   motion: MotionAlgorithmId = "standard",
 ): ResolvedTheme {
   const resolved = resolveThemeDetails(mode, contrast, variant);
@@ -93,7 +93,7 @@ export type WebThemeOptions = {
 /** Theme state: persisted preference → OS default → resolved CSS variables. */
 export function useKernTheme(options: WebThemeOptions = {}) {
   const contrast = options.contrast ?? "standard";
-  const variant = options.variant ?? "kern";
+  const variant = options.variant ?? "material-3";
   const motion = options.motion ?? "standard";
   const [preference, setPreference] = useState<ColorPreference>("system");
   const [preferenceLoaded, setPreferenceLoaded] = useState(false);

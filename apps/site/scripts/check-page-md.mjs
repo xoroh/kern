@@ -143,7 +143,7 @@ let themed = 0;
     );
     const kernTheme = JSON.parse(
       readFileSync(
-        join(ROOT, "packages/kern-tokens/src/themes/kern.json"),
+        join(ROOT, "packages/kern-tokens/src/themes/material-3.json"),
         "utf8",
       ),
     );

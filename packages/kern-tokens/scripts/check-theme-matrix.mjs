@@ -65,7 +65,7 @@ try {
 // 3. CATALOG DISCIPLINE -------------------------------------------------------
 {
   const catalog = JSON.parse(readFileSync(join(THEMES, "index.json"), "utf8"));
-  const base = resolveThemeDetails("light", "standard", "kern");
+  const base = resolveThemeDetails("light", "standard", "material-3");
   const colorRoles = new Set(Object.keys(base.color));
   const shapeRoles = new Set(Object.keys(base.shape));
   for (const entry of catalog.themes ?? []) {
@@ -76,15 +76,13 @@ try {
       );
       continue;
     }
-    if (entry.id === "kern") continue;
+    if (entry.id === "material-3") continue;
     const preset = JSON.parse(readFileSync(file, "utf8"));
     const extendsBase =
-      preset.extends === undefined || preset.extends === "m3"
-        ? "kern"
-        : preset.extends;
-    if (extendsBase !== "kern") {
+      preset.extends === undefined ? "material-3" : preset.extends;
+    if (extendsBase !== "material-3") {
       violations.push(
-        `themes/${entry.file}: extends "${preset.extends}" — presets must extend "kern", never a second role table`,
+        `themes/${entry.file}: extends "${preset.extends}" — presets must extend "material-3", never a second role table`,
       );
     }
     for (const mode of ["light", "dark"]) {
@@ -106,7 +104,7 @@ try {
   }
   const ids = new Set((catalog.themes ?? []).map((entry) => entry.id));
   for (const id of themeIds()) {
-    if (id !== "kern" && !ids.has(id)) {
+    if (id !== "material-3" && !ids.has(id)) {
       violations.push(
         `resolveThemeDetails knows preset "${id}" but themes/index.json does not catalog it`,
       );
@@ -140,18 +138,12 @@ try {
       }
     }
   }
-  // Legacy alias: "m3" canonicalizes to kern, so it resolves identically.
-  const legacy = resolveTheme("light", "standard", "m3");
-  const kern = resolveTheme("light", "standard", "kern");
-  if (stable(legacy) !== stable(kern)) {
-    violations.push('legacy preset alias "m3" no longer resolves to kern');
-  }
 }
 
 // 5. SCOPED-CSS COHERENCE ------------------------------------------------------
 // The matrix is a build artifact, not a trophy file: gen-css.mjs renders its
 // deltas into the shipped `[data-kern-theme]` blocks. This leg parses the
-// committed tokens.css and requires, per non-kern preset, exactly the light
+// committed tokens.css and requires, per non-material-3 preset, exactly the light
 // delta block plus a `.dark` block iff the dark deltas are non-empty — with
 // byte-exact declarations. A hand-edited block or a generator that special-
 // cases one preset fails here.
@@ -216,7 +208,7 @@ try {
   }
   for (const key of blocks.keys()) {
     const id = key.split("/")[1];
-    if (!(buildThemeMatrix().presets.includes(id) && id !== "kern")) {
+    if (!(buildThemeMatrix().presets.includes(id) && id !== "material-3")) {
       violations.push(
         `tokens.css has a scoped block for unknown preset "${id}"`,
       );

@@ -4,7 +4,7 @@
  *
  * ## It scans THREE elevation carriers, not one
  *
- * The original scanned only `--md-sys-elevation-level<N>`. That missed every
+ * The original scanned only `--sys-elevation-level<N>`. That missed every
  * native surface, because React Native does not use that token: it takes a raw
  * `elevation: <dp>` plus iOS `shadow*` props. The concrete miss:
  * `packages/kern-native/src/components/sheets.tsx` DockSheet ships
@@ -71,7 +71,7 @@ function measure(base, name) {
     const full = join(base, file);
     if (!existsSync(full)) continue;
     const src = elevationCode(readFileSync(full, "utf8"));
-    for (const [, lvl] of src.matchAll(/--md-sys-elevation-level(\d)/g)) {
+    for (const [, lvl] of src.matchAll(/--sys-elevation-level(\d)/g)) {
       tokens.add(Number(lvl));
     }
     for (const [, dp] of src.matchAll(

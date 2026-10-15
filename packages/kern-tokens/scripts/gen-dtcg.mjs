@@ -15,7 +15,7 @@ const SRC = join(ROOT, "packages/kern-tokens/src");
 const read = (file) => JSON.parse(readFileSync(join(SRC, file), "utf8"));
 
 const tokens = read("tokens.json");
-const kern = read("themes/kern.json");
+const kern = read("themes/material-3.json");
 
 const doc = toDtcg({
   tokens,

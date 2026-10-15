@@ -57,7 +57,7 @@ export function KernThemeProvider({
   mode: controlledMode,
   defaultMode,
   contrast = "standard",
-  variant = "kern",
+  variant = "material-3",
   children,
 }: KernThemeProviderProps) {
   const osMode = useColorScheme();
@@ -119,7 +119,7 @@ export function useKernTheme(): NativeThemeContextValue {
     context ?? {
       mode,
       contrast: "standard",
-      variant: "kern",
+      variant: "material-3",
       scheme,
       setMode,
       useSystem,

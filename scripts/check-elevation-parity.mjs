@@ -253,7 +253,7 @@ function scanDir(dir, native) {
       // This is not a hardening nit — it was a live false green. `PopoverContent`
       // in kern-native carries `elevation: 3` in code and the string
       // `elevation-level2` ONLY inside the explanatory comment above it ("Web's
-      // `PopoverContent` uses `--md-sys-elevation-level2`"). Matching the raw
+      // `PopoverContent` uses `--sys-elevation-level2`"). Matching the raw
       // text therefore gave the native block a level it never declared, so it
       // agreed with web no matter what the code said: setting native to 6dp
       // (level 3) against web's level 2 — a real divergence — still exited 0.
@@ -265,8 +265,8 @@ function scanDir(dir, native) {
       // RESTING vs INTERACTION-ONLY (KERN-026). M3's own component-elevation
       // table states levels 4 and 5 are "Hover/focus increase only", and a
       // component's own rule is that hover/focus "usually raises elevation by
-      // one level". So `shadow-(--md-sys-elevation-level3)` and
-      // `hover:shadow-(--md-sys-elevation-level4)` in the SAME class string are
+      // one level". So `shadow-(--sys-elevation-level3)` and
+      // `hover:shadow-(--sys-elevation-level4)` in the SAME class string are
       // a resting level and an interaction lift, not two resting levels.
       //
       // Comparing the union is what failed Fab/ExtendedFab/FabMenu: native has
@@ -288,7 +288,7 @@ function scanDir(dir, native) {
       }
       // A Tailwind variant prefix (`hover:`, `focus-visible:`, `active:`,
       // `group-hover:`, …) marks the utility as an INTERACTION lift. A bare
-      // `shadow-(--md-sys-elevation-levelN)` is the resting level. Both are
+      // `shadow-(--sys-elevation-levelN)` is the resting level. Both are
       // inside quoted class strings, so the split is structural.
       for (const cls of code.match(/"[^"]*elevation-level\d[^"]*"/g) ?? []) {
         for (const util of cls.split(/\s+/)) {
@@ -380,7 +380,7 @@ function scanDir(dir, native) {
  * helper was followed — and they are NOT conformant, which is the opposite of
  * what the re-opened rows claimed. `fabStyles` sets `elevation: 3`, and on M3's
  * uneven scale (0/1/3/6/8/12 dp) 3dp is LEVEL 2, while web's FAB, ExtendedFab
- * and FabMenu all ship `--md-sys-elevation-level3` = 6dp. So the whole FAB
+ * and FabMenu all ship `--sys-elevation-level3` = 6dp. So the whole FAB
  * family is one level low natively — a genuine cross-renderer divergence that
  * the `native none` reading had been hiding in plain sight.
  */
@@ -595,7 +595,7 @@ const nativeByCanon = byCanon(native);
 // Every name that exists on BOTH sides, whether or not either one carries an
 // elevation. The sheet family is the reason this exists: web ships
 // BottomSheet/SnapSheet/EntitySheet/BottomSheetPicker/ActionSheet at
-// `--md-sys-elevation-level1`, while kern-native's `sheets.tsx` declares NO
+// `--sys-elevation-level1`, while kern-native's `sheets.tsx` declares NO
 // elevation on those components at all. Deriving the compare set from "has
 // elevation" therefore DROPPED the whole sheet family silently — the one
 // family where a two-renderer disagreement was most likely, and the one a
