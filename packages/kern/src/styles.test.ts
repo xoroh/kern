@@ -25,7 +25,7 @@ describe("public styles", () => {
 
   test("./styles is compiled: token vars plus all keyframes, inlined", () => {
     const styles = readFileSync(join(PKG, "src", "styles.css"), "utf8");
-    expect(styles).toContain("--md-sys-color-primary: #6750a4;");
+    expect(styles).toContain("--sys-color-primary: #6750a4;");
     for (const frame of [
       "kern-linear-indeterminate",
       "kern-linear-four-color",

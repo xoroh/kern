@@ -23,7 +23,7 @@ export type ComponentOrigin = "spec-native" | "kern-adaptation";
 export type CapabilityState = "verified" | "unverified" | "unsupported";
 
 export type DependencySet = {
-  /** Token roles the component reads (e.g. `md.sys.color.primary`). */
+  /** Token roles the component reads (e.g. `sys.color.primary`). */
   tokens?: string[];
   /** Icon names the component renders. */
   icons?: string[];

@@ -183,8 +183,8 @@ describe("colour resolution", () => {
   });
 
   test("passes an explicit role through untouched", () => {
-    expect(resolveIconColor("var(--md-sys-color-primary)")).toBe(
-      "var(--md-sys-color-primary)",
+    expect(resolveIconColor("var(--sys-color-primary)")).toBe(
+      "var(--sys-color-primary)",
     );
     expect(resolveIconColor("#0b57d0")).toBe("#0b57d0");
   });
@@ -342,11 +342,11 @@ describe("resolveIconPaint", () => {
       name: "favorite",
       filled: true,
       size: "large",
-      color: "var(--md-sys-color-error)",
+      color: "var(--sys-color-error)",
     });
     if (paint === null) throw new Error("expected paint for favorite");
     expect(paint.size).toBe(32);
-    expect(paint.color).toBe("var(--md-sys-color-error)");
+    expect(paint.color).toBe("var(--sys-color-error)");
     expect(paint.filled).toBe(true);
     expect(paint.weight).toBe(400);
     expect(paint.fillRule).toBe("nonzero");
