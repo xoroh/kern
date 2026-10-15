@@ -70,12 +70,21 @@ function usage(): never {
   kern upgrade <name> [--dest <dir>] [--apply]
       dry-run plan by default; --apply updates non-customized files and
       preserves owned edits (never overwritten)
+  kern feedback --category <c> --title <t> --description <d> [fields] [--dry-run]
+      validate + disclose + store a feedback report locally; prints the
+      issue URL to file it yourself (nothing is sent automatically)
+  kern feedback digest
+      maintainer digest of the local inbox, grouped with evidence ids
+  kern feedback prune [--days <n>]
+      delete inbox entries older than n days (default: 90)
   bun add @xoroh/kern                                 Mode 2: versioned dependency (no command needed)
 
 Options:
   --from <root>      kern checkout the scaffold resolves against (default: this workspace)
   --registry         emit versioned dep names instead of file: (post-publish; 404s until then)
   --force            scaffold over a non-empty dir (same kern version only)
+  --pm <m>           package manager for scaffold instructions: bun (default), npm, pnpm, yarn
+  --preset <id>      design-system preset pinned into kern.json (default: material-3)
   --dest <dir>       where vendored code lands (default: ./components/kern)
   --platform <p>     web (default) or native; native selects the native row first
   --self-contained   vendor the token CSS snapshot too (default: hybrid — values stayed depended)
@@ -85,8 +94,6 @@ Pre-publish (0.0.0, unpublished): registry names resolve only after the first
 publish. init defaults to file: deps against your checkout so first run works
 today; add reads the workspace manifest (or the bundled registry in a packed
 install) for the same reason.
-  --pm <m>           package manager for scaffold instructions: bun (default), npm, pnpm, yarn
-  --preset <id>      design-system preset pinned into kern.json (default: material-3)
 
 Receipts (<dest>/kern.receipt.json, schema v2) record release set + file
 hashes + owners from day one: they are what \`kern diff\` / \`kern upgrade\`
@@ -127,6 +134,8 @@ try {
       root: from,
       registry: rest.includes("--registry"),
       force: rest.includes("--force"),
+      pm: pmFlag(),
+      preset: flagValue("--preset"),
     });
     console.log(
       `kern init: scaffolded ${result.files.length} file(s) into ${result.dir}`,
@@ -153,8 +162,6 @@ try {
       die(
         `kern add: "${name}" is both a block and a component — rename one (blocks live in apps/site/src/blocks/manifest.ts).`,
       );
-      pm: pmFlag(),
-      preset: flagValue("--preset"),
     }
     if (!isBlock && !isComponent) {
       die(
@@ -210,6 +217,59 @@ try {
           apply: rest.includes("--apply"),
         });
     console.log(formatUpgrade(result));
+  } else if (cmd === "feedback") {
+    // Subcommand is positional-first only: flag values (e.g. `--category
+    // bug`) must never read as subcommands.
+    const sub = rest[0] !== undefined && !rest[0].startsWith("--") ? rest[0] : undefined;
+    if (sub === "digest") {
+      console.log(digestFeedback(process.cwd()));
+    } else if (sub === "prune") {
+      const daysRaw = flagValue("--days");
+      const days =
+        daysRaw === undefined ? FEEDBACK_RETENTION_DAYS : Number(daysRaw);
+      if (!Number.isFinite(days) || days < 0) {
+        die(`kern feedback prune: --days is "${daysRaw}", want 0 or more.`);
+      }
+      const pruned = pruneFeedback(process.cwd(), days);
+      console.log(
+        pruned.length === 0
+          ? "kern feedback: inbox within retention, nothing pruned."
+          : `kern feedback: pruned ${pruned.length} entr${pruned.length === 1 ? "y" : "ies"}: ${pruned.join(", ")}`,
+      );
+    } else if (sub !== undefined) {
+      die(
+        `kern feedback: unknown subcommand "${sub}" — submit with flags, or use "digest" / "prune".`,
+      );
+    } else {
+      const receipt = submitFeedback(
+        {
+          category: flagValue("--category") ?? "",
+          title: flagValue("--title") ?? "",
+          description: flagValue("--description") ?? "",
+          component: flagValue("--component"),
+          block: flagValue("--block"),
+          preset: flagValue("--preset"),
+          renderer: flagValue("--renderer"),
+          framework: flagValue("--framework"),
+          steps: flagValue("--steps"),
+          evidence: flagValue("--evidence"),
+          consent: rest.includes("--consent"),
+        },
+        { dryRun: rest.includes("--dry-run") },
+      );
+      console.log(
+        disclosure(receipt.report, join(process.cwd(), ".kern", "feedback")),
+      );
+      if (rest.includes("--dry-run")) {
+        console.log("dry run — nothing stored.");
+      } else if (receipt.duplicate) {
+        console.log(
+          `duplicate of ${receipt.id} — already in the inbox, nothing added.`,
+        );
+      } else {
+        console.log(`stored ${receipt.id} — a human files the issue from the URL above.`);
+      }
+    }
   } else {
     die(`kern: unknown command "${cmd}".`);
   }

@@ -15,8 +15,8 @@
 
 export * from "./block";
 export * from "./component";
+export * from "./feedback";
 export * from "./icon";
 export * from "./install";
-export * from "./provider";
 export * from "./version";
 export { CONTRACT_SCHEMA_VERSION } from "./version";

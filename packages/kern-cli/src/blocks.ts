@@ -48,7 +48,7 @@ export function blocksDir(root: string = WORKSPACE_ROOT): string {
 /**
  * Parse `apps/site/src/blocks/manifest.ts` into rows.
  *
- * Text parsing, like `loadManifest`: the manifest is a typed TS source of
+ * Text parsing, like `loadRegistry`: the manifest is a typed TS source of
  * truth both the site and the CLI read, and a shared runtime import would
  * couple the CLI to the site's bundler. The row type above is the contract.
  */

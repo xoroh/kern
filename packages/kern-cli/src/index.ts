@@ -24,6 +24,19 @@ export {
 } from "./blocks.js";
 export type { Closure } from "./closure.js";
 export { resolveClosure } from "./closure.js";
+export type { CreateOptions } from "./create.js";
+export { createApp } from "./create.js";
+export type { FeedbackInput, FeedbackReceipt, SubmitOptions } from "./feedback.js";
+export {
+  digestFeedback,
+  disclosure,
+  FEEDBACK_RETENTION_DAYS,
+  feedbackId,
+  issueUrl,
+  pruneFeedback,
+  readInbox,
+  submitFeedback,
+} from "./feedback.js";
 export type { InitOptions, InitResult } from "./init.js";
 export { initScaffold } from "./init.js";
 export type { DiffRow, ListOptions } from "./list-diff.js";

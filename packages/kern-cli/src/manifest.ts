@@ -114,11 +114,6 @@ export function loadRegistry(root?: string): Registry {
   return payload;
 }
 
-/** @deprecated Use loadRegistry().rows — kept for the v1 call sites. */
-export function loadManifest(root?: string): ManifestRow[] {
-  return loadRegistry(root).rows;
-}
-
 /** Kern version stamped into receipts — the thing `kern diff` compares against. */
 export function kernVersion(root?: string): string {
   const forced = process.env.KERN_WORKSPACE as string | undefined;

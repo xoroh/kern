@@ -5,33 +5,6 @@
   "description": "Platform-free metadata records for the Kern design system (ADR-P02).",
   "type": "object",
   "properties": {
-    "provider": {
-      "type": "object",
-      "required": [
-        "id",
-        "label",
-        "specGeneration",
-        "evidence"
-      ],
-      "properties": {
-        "id": {
-          "const": "m3"
-        },
-        "label": {
-          "type": "string",
-          "minLength": 1
-        },
-        "specGeneration": {
-          "type": "string",
-          "minLength": 1
-        },
-        "evidence": {
-          "type": "string",
-          "minLength": 1
-        }
-      },
-      "additionalProperties": false
-    },
     "component": {
       "type": "object",
       "required": [
@@ -182,6 +155,314 @@
         },
         "compatibility": {
           "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "block": {
+      "type": "object",
+      "required": [
+        "schemaVersion",
+        "designSystem",
+        "name",
+        "title",
+        "description",
+        "category",
+        "platforms",
+        "components",
+        "installCommand",
+        "files"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "designSystem": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "name": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "category": {
+          "type": "string",
+          "minLength": 1
+        },
+        "platforms": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "enum": [
+              "web",
+              "native"
+            ]
+          }
+        },
+        "components": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "installCommand": {
+          "type": "string",
+          "minLength": 1
+        },
+        "files": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "icon": {
+      "type": "object",
+      "required": [
+        "schemaVersion",
+        "name",
+        "glyph",
+        "meaning",
+        "sizes",
+        "fill",
+        "decorative"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "glyph": {
+          "type": "string",
+          "minLength": 1
+        },
+        "meaning": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sizes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "fill": {
+          "type": "boolean"
+        },
+        "decorative": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "receipt": {
+      "type": "object",
+      "required": [
+        "schemaVersion",
+        "releaseSet",
+        "mode",
+        "files",
+        "assets",
+        "licenses",
+        "config"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "2"
+        },
+        "releaseSet": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mode": {
+          "enum": [
+            "package",
+            "source-hybrid",
+            "source-snapshot"
+          ]
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "path",
+              "baselineHash",
+              "currentHash",
+              "owner",
+              "customized"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "baselineHash": {
+                "type": "string",
+                "minLength": 1
+              },
+              "currentHash": {
+                "type": "string",
+                "minLength": 1
+              },
+              "owner": {
+                "type": "string",
+                "minLength": 1
+              },
+              "customized": {
+                "type": "boolean"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "assets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "licenses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "config": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
+    },
+    "config": {
+      "type": "object",
+      "required": [
+        "target",
+        "renderer",
+        "mode"
+      ],
+      "properties": {
+        "target": {
+          "type": "string",
+          "minLength": 1
+        },
+        "renderer": {
+          "enum": [
+            "web",
+            "native",
+            "both"
+          ]
+        },
+        "mode": {
+          "enum": [
+            "package",
+            "source-hybrid",
+            "source-snapshot"
+          ]
+        },
+        "preset": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{1,31}$"
+        },
+        "pm": {
+          "enum": [
+            "bun",
+            "npm",
+            "pnpm",
+            "yarn"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "feedback": {
+      "type": "object",
+      "required": [
+        "schemaVersion",
+        "category",
+        "title",
+        "description",
+        "consent"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "1.0.0"
+        },
+        "category": {
+          "enum": [
+            "bug",
+            "improvement",
+            "docs",
+            "compatibility",
+            "discovery"
+          ]
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8000
+        },
+        "component": {
+          "type": "string"
+        },
+        "block": {
+          "type": "string"
+        },
+        "preset": {
+          "type": "string"
+        },
+        "renderer": {
+          "enum": [
+            "web",
+            "native",
+            "both"
+          ]
+        },
+        "framework": {
+          "type": "string"
+        },
+        "package": {
+          "type": "string"
+        },
+        "packageVersion": {
+          "type": "string"
+        },
+        "cliVersion": {
+          "type": "string"
+        },
+        "steps": {
+          "type": "string"
+        },
+        "evidence": {
+          "type": "string",
+          "maxLength": 8000
+        },
+        "consent": {
+          "type": "boolean"
         }
       },
       "additionalProperties": false

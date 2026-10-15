@@ -65,7 +65,7 @@ describe("kern add (Mode 1 smoke)", () => {
     timeout: 120_000,
   }, () => {
     // Derived, not hardcoded: a manifest name with no web row today.
-    const rows = loadManifest(WORKSPACE_ROOT);
+    const rows = loadRegistry(WORKSPACE_ROOT).rows;
     const web = new Set(
       rows.filter((r) => r.platform === "web").map((r) => r.name),
     );
@@ -100,7 +100,7 @@ describe("kern add (Mode 1 smoke)", () => {
     timeout: 180_000,
   }, () => {
     // Derived, not hardcoded: two distinct real web rows today.
-    const rows = loadManifest(WORKSPACE_ROOT);
+    const rows = loadRegistry(WORKSPACE_ROOT).rows;
     const pair = rows
       .filter((r) => r.platform === "web" && r.status === "real")
       .map((r) => r.name)

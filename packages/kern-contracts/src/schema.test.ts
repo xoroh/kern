@@ -11,12 +11,6 @@ import {
   defineReceipt,
   RECEIPT_SCHEMA_VERSION,
 } from "./install";
-import {
-  defineProvider,
-  isProviderIdShape,
-  MATERIAL_PROVIDER,
-  PROVIDER_ID,
-} from "./provider";
 import schemaJson from "./schema.json";
 import { schemaCompatible, versionCoordinates } from "./version";
 
@@ -32,30 +26,6 @@ const component = (over: Partial<ComponentRecord> = {}): ComponentRecord => ({
   origin: "spec-native",
   capabilities: { resting: "verified" },
   ...over,
-});
-
-describe("provider", () => {
-  test("the Material provider validates", () => {
-    expect(defineProvider(MATERIAL_PROVIDER).id).toBe("m3");
-    expect(PROVIDER_ID).toBe("m3");
-  });
-
-  test("an unknown provider fails loud", () => {
-    expect(() =>
-      defineProvider({ ...MATERIAL_PROVIDER, id: "other" as never }),
-    ).toThrow("Only");
-  });
-
-  test("blank evidence fails", () => {
-    expect(() =>
-      defineProvider({ ...MATERIAL_PROVIDER, evidence: "  " }),
-    ).toThrow("evidence");
-  });
-
-  test("id shape accepts kebab, rejects spaces", () => {
-    expect(isProviderIdShape("m3")).toBe(true);
-    expect(isProviderIdShape("Material 3")).toBe(false);
-  });
 });
 
 describe("component", () => {
@@ -268,10 +238,17 @@ describe("install", () => {
 });
 
 describe("schema.json", () => {
-  test("the published JSON schema covers provider and component records", () => {
+  test("the published JSON schema covers every record kind", () => {
     const props = (schemaJson as { properties: Record<string, unknown> })
       .properties;
-    expect(Object.keys(props).sort()).toEqual(["component", "provider"]);
+    expect(Object.keys(props).sort()).toEqual([
+      "block",
+      "component",
+      "config",
+      "feedback",
+      "icon",
+      "receipt",
+    ]);
     const component = (
       schemaJson as {
         properties: { component: { required: string[] } };
@@ -294,6 +271,54 @@ describe("schema.json", () => {
     ]) {
       expect(component.required).toContain(field);
     }
+  });
+
+  test("block/icon/receipt/config subschemas mirror their validators", () => {
+    const props = (
+      schemaJson as {
+        properties: Record<string, { required: string[] }>;
+      }
+    ).properties;
+    // Each list must stay identical to the fields its define* validator
+    // requires — see the sibling suites above for the behavioral halves.
+    expect(props.block.required).toEqual([
+      "schemaVersion",
+      "designSystem",
+      "name",
+      "title",
+      "description",
+      "category",
+      "platforms",
+      "components",
+      "installCommand",
+      "files",
+    ]);
+    expect(props.icon.required).toEqual([
+      "schemaVersion",
+      "name",
+      "glyph",
+      "meaning",
+      "sizes",
+      "fill",
+      "decorative",
+    ]);
+    expect(props.receipt.required).toEqual([
+      "schemaVersion",
+      "releaseSet",
+      "mode",
+      "files",
+      "assets",
+      "licenses",
+      "config",
+    ]);
+    expect(props.config.required).toEqual(["target", "renderer", "mode"]);
+    expect(props.feedback.required).toEqual([
+      "schemaVersion",
+      "category",
+      "title",
+      "description",
+      "consent",
+    ]);
   });
 });
 describe("version", () => {
