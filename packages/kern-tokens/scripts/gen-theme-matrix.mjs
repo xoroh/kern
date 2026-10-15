@@ -5,6 +5,7 @@
 // fails when the committed file drifts from what this script produces.
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
+import "../src/material-3.ts"; // registers the material-3 preset tables (side effect)
 import { buildThemeMatrix } from "../src/pipeline.ts";
 
 const ROOT = new URL("../../..", import.meta.url).pathname;

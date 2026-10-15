@@ -7,6 +7,7 @@
 // gets the exact values as CSS. Deterministic output; the file it writes is
 // the consumer's, not a generated artifact of this repo (no registry entry).
 import { writeFileSync } from "node:fs";
+import "../src/material-3.ts"; // registers the material-3 preset tables (side effect)
 import { resolveThemeDetails } from "../src/resolve.ts";
 import { XOROH_PRESET } from "../src/xoroh-preset.ts";
 import { themeFromSeed } from "../src/seed-theme.ts";

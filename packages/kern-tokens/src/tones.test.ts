@@ -1,4 +1,5 @@
 import { readFileSync } from "node:fs";
+import "./material-3"; // registers the material-3 preset tables (side effect)
 import { describe, expect, it } from "vitest";
 import {
   functional,

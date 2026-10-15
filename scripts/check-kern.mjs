@@ -684,6 +684,9 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
     "packages/kern-tokens/src/resolve.ts",
     "packages/kern-tokens/src/tokens.ts",
     "packages/kern-tokens/scripts/check-contrast.mjs",
+    // The designated M3 preset registrar: reads the five theme tables once to
+    // register them with the universal resolver. Centralization point, not drift.
+    "packages/kern-tokens/src/material-3.ts",
   ]);
   for (const root of readerRoots) {
     if (!existsSync(root)) continue;

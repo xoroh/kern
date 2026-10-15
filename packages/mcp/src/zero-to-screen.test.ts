@@ -15,6 +15,7 @@ import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { addComponent } from "../../kern-cli/src/add.js";
+import "../../kern-tokens/src/material-3.js"; // registers the material-3 preset tables (side effect)
 import {
   defineThemePreset,
   resolveThemeDetails,

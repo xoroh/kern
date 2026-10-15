@@ -1,3 +1,4 @@
+import "./material-3"; // registers the material-3 preset tables (side effect)
 import { describe, expect, test } from "vitest";
 import { contrastRatio } from "./contrast";
 import { type CustomTheme, resolveThemeDetails } from "./resolve";

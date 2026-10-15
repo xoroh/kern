@@ -1,19 +1,19 @@
-import { contrastIssues } from "./contrast";
-import brand from "./themes/brand.json";
-import compact from "./themes/compact.json";
-import demo from "./themes/demo.json";
-import kern from "./themes/material-3.json";
-import sharp from "./themes/sharp.json";
+import { contrastIssues, type ContrastPolicy } from "./contrast";
 
 export type Mode = "light" | "dark";
 export type Contrast = "standard" | "medium" | "high";
-/** Canonical preset id. `"material-3"` is the default preset of the material-3 design system. */
-export type ThemeId = "material-3" | "sharp" | "brand" | "compact" | "demo";
-/** Every color role the resolver can produce. Misspelled roles fail to compile. */
-export type ColorRole = keyof typeof kern.color.light;
-export type ShapeRole = keyof typeof kern.radius;
-export type RoleTable = Record<ColorRole, string>;
-export type ShapeTable = Record<ShapeRole, string>;
+/** A preset id — any kebab string a registered preset owns. */
+export type ThemeId = string;
+/**
+ * Color roles are plain strings at the engine layer: the role inventory
+ * belongs to the design system that declares it, not to this module.
+ * Misspelled roles fail at validation (`defineThemePreset`) and at
+ * resolution (unknown preset), never silently.
+ */
+export type ColorRole = string;
+export type ShapeRole = string;
+export type RoleTable = Record<string, string>;
+export type ShapeTable = Record<string, string>;
 
 export type ThemeOverrides = {
   color?: Partial<Record<Mode, Record<string, string>>>;
@@ -22,7 +22,7 @@ export type ThemeOverrides = {
 
 export type CustomTheme = {
   id: string;
-  extends?: "material-3";
+  extends?: string;
   overrides: ThemeOverrides;
 };
 
@@ -33,22 +33,81 @@ export type ResolvedTheme = {
   shape: ShapeTable;
 };
 
-const presets = { sharp, brand, compact, demo } as const;
-const baseColors = kern.color as Record<Mode, RoleTable>;
-const baseShape = kern.radius as ShapeTable;
-const contrastOverlays = kern.contrast as Record<string, Partial<RoleTable>>;
-const presetNames: ThemeId[] = ["material-3", "sharp", "brand", "compact", "demo"];
-function canonical(id: string): ThemeId {
-  return id as ThemeId;
+/**
+ * A registered preset: either full base tables (a design system's ground
+ * truth) or an `extends` link plus overrides. Override presets resolve
+ * through their base, so a custom system is a base registration away.
+ */
+export type PresetTables = {
+  color?: { light: Record<string, string>; dark: Record<string, string> };
+  shape?: Record<string, string>;
+  contrast?: Record<string, Partial<Record<string, string>>>;
+  policy?: ContrastPolicy;
+  extends?: string;
+  overrides?: ThemeOverrides;
+};
+
+const presets = new Map<string, PresetTables>();
+
+/**
+ * Register a preset's tables with the resolver. Base presets carry full
+ * tables; override presets carry `extends` plus overrides, and their base
+ * must already be registered. Unknown or malformed registrations fail here,
+ * not deep inside a render.
+ */
+export function registerPreset(id: string, tables: PresetTables): void {
+  if (!/^[a-z][a-z0-9-]{1,31}$/.test(id)) {
+    throw new Error(`Invalid preset id: ${id}`);
+  }
+  if (tables.color === undefined || tables.shape === undefined) {
+    if (tables.extends === undefined || tables.overrides === undefined) {
+      throw new Error(
+        `Preset ${id} needs full color/shape tables or extends plus overrides`,
+      );
+    }
+    if (!presets.has(tables.extends)) {
+      throw new Error(
+        `Preset ${id} extends unregistered base "${tables.extends}" — register the base first`,
+      );
+    }
+  }
+  if (tables.policy === undefined && tables.color !== undefined) {
+    throw new Error(
+      `Preset ${id} needs a contrast policy — validation without one would pass by not looking`,
+    );
+  }
+  presets.set(id, tables);
 }
-const colorRoles = new Set(Object.keys(baseColors.light));
-const shapeRoles = new Set(Object.keys(baseShape));
+
+/** Every registered preset id, in registration order. */
+export function themeIds(): string[] {
+  return [...presets.keys()];
+}
+
+function baseTables(id: string): PresetTables {
+  const record = presets.get(id);
+  if (record === undefined) {
+    throw new Error(
+      `Unknown preset "${id}" — registered presets: ${[...presets.keys()].join(", ") || "(none)"}`,
+    );
+  }
+  if (record.color !== undefined && record.shape !== undefined) return record;
+  if (record.extends === undefined) {
+    throw new Error(`Preset "${id}" has neither tables nor a base`);
+  }
+  return baseTables(record.extends);
+}
 
 function overridesFor(selection: ThemeSelection): ThemeOverrides {
   if (typeof selection !== "string") return selection.overrides;
-  const id = canonical(selection);
-  if (id === "material-3") return {};
-  return presets[id].overrides as ThemeOverrides;
+  const record = presets.get(selection);
+  if (record === undefined) {
+    throw new Error(
+      `Unknown preset "${selection}" — registered presets: ${[...presets.keys()].join(", ") || "(none)"}`,
+    );
+  }
+  if (record.overrides !== undefined) return record.overrides;
+  return {};
 }
 
 /** Validate a user-authored theme before a visual builder or agent emits it. */
@@ -56,15 +115,26 @@ export function defineThemePreset(theme: CustomTheme): CustomTheme {
   if (!/^[a-z][a-z0-9-]{1,31}$/.test(theme.id)) {
     throw new Error(`Invalid theme id: ${theme.id}`);
   }
-  const base = theme.extends === undefined ? "material-3" : canonical(theme.extends);
-  if (base !== "material-3") {
+  const baseId = theme.extends === undefined ? "material-3" : theme.extends;
+  const base = baseTables(baseId);
+  if (base.color === undefined || base.shape === undefined) {
+    throw new Error(`Theme base "${baseId}" carries no color/shape tables`);
+  }
+  if (base.policy === undefined) {
     throw new Error(
-      `Unknown theme base: ${theme.extends}. Only "material-3" exists.`,
+      `Theme base "${baseId}" carries no contrast policy — validation without one would pass by not looking`,
     );
   }
-  if (presetNames.includes(canonical(theme.id))) {
+  if (base.policy === undefined) {
+    throw new Error(
+      `Theme base "${baseId}" carries no contrast policy — validation without one would pass by not looking`,
+    );
+  }
+  if (presets.has(theme.id)) {
     throw new Error(`Theme id is reserved: ${theme.id}`);
   }
+  const colorRoles = new Set(Object.keys(base.color.light));
+  const shapeRoles = new Set(Object.keys(base.shape));
   for (const mode of ["light", "dark"] as const) {
     for (const [role, value] of Object.entries(
       theme.overrides.color?.[mode] ?? {},
@@ -89,6 +159,9 @@ export function defineThemePreset(theme: CustomTheme): CustomTheme {
   for (const mode of ["light", "dark"] as const) {
     const issues = contrastIssues(
       resolveThemeDetails(mode, "standard", theme).color,
+      4.5,
+      3,
+      base.policy,
     );
     if (issues.length > 0) {
       throw new Error(
@@ -99,19 +172,55 @@ export function defineThemePreset(theme: CustomTheme): CustomTheme {
   return theme;
 }
 
+/** Walk an override chain to its base tables. Cycles fail loud. */
+function resolveBase(id: string): {
+  color: { light: Record<string, string>; dark: Record<string, string> };
+  shape: Record<string, string>;
+  contrast: Record<string, Partial<Record<string, string>>>;
+} {
+  const seen: string[] = [];
+  let current: string | undefined = id;
+  while (current !== undefined) {
+    if (seen.includes(current)) {
+      throw new Error(
+        `Preset extends cycle: ${[...seen, current].join(" -> ")}`,
+      );
+    }
+    seen.push(current);
+    const record = presets.get(current);
+    if (record === undefined) {
+      throw new Error(
+        `Unknown preset "${current}" — registered presets: ${[...presets.keys()].join(", ") || "(none)"}`,
+      );
+    }
+    if (record.color !== undefined && record.shape !== undefined) {
+      return {
+        color: record.color,
+        shape: record.shape,
+        contrast: record.contrast ?? {},
+      };
+    }
+    current = record.extends;
+  }
+  throw new Error(`Preset "${id}" has neither tables nor a base`);
+}
+
 /** Resolve all semantic colors and shape values for the selected contexts. */
 export function resolveThemeDetails(
   mode: Mode = "light",
   contrast: Contrast = "standard",
   variant: ThemeSelection = "material-3",
 ): ResolvedTheme {
-  const color = { ...baseColors[mode] };
+  const base = resolveBase(
+    typeof variant === "string" ? variant : (variant.extends ?? "material-3"),
+  );
+  const color = { ...base.color[mode] };
   if (contrast !== "standard") {
-    Object.assign(color, contrastOverlays[`${mode}-${contrast}`] ?? {});
+    Object.assign(color, base.contrast[`${mode}-${contrast}`] ?? {});
   }
   const overrides = overridesFor(variant);
   Object.assign(color, overrides.color?.[mode] ?? {});
-  const shape = { ...baseShape, ...(overrides.shape ?? {}) };
+  const shape = { ...base.shape, ...(overrides.shape ?? {}) };
   return { color, shape };
 }
 
@@ -131,8 +240,4 @@ export function varName(role: string): string {
 
 export function shapeVarName(shape: string): string {
   return `--sys-shape-corner-${shape}`;
-}
-
-export function themeIds(): ThemeId[] {
-  return [...presetNames];
 }

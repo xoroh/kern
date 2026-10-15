@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { contrastIssues } from "./contrast";
+import { MATERIAL_3_POLICY } from "./material-3";
+import "./material-3";
 import { resolveThemeDetails } from "./resolve";
 import { themeFromSeed } from "./seed-theme";
 
@@ -36,7 +38,9 @@ describe("themeFromSeed", () => {
     const theme = themeFromSeed("#6750a4", "seed-purple");
     for (const mode of ["light", "dark"] as const) {
       const resolved = resolveThemeDetails(mode, "standard", theme);
-      expect(contrastIssues(resolved.color)).toEqual([]);
+      expect(
+        contrastIssues(resolved.color, 4.5, 3, MATERIAL_3_POLICY),
+      ).toEqual([]);
     }
   });
 
@@ -44,7 +48,9 @@ describe("themeFromSeed", () => {
     const theme = themeFromSeed("#7c3aed", "seed-violet");
     for (const mode of ["light", "dark"] as const) {
       const resolved = resolveThemeDetails(mode, "standard", theme);
-      expect(contrastIssues(resolved.color)).toEqual([]);
+      expect(
+        contrastIssues(resolved.color, 4.5, 3, MATERIAL_3_POLICY),
+      ).toEqual([]);
     }
   });
 

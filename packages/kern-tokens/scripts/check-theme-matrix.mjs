@@ -13,6 +13,7 @@
  * 4. COVERAGE. The matrix spans the full mode x contrast x preset cross
  *    product, and the legacy `m3` alias still resolves to kern.
  */
+import "../src/material-3.ts"; // registers the material-3 preset tables (side effect)
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import {

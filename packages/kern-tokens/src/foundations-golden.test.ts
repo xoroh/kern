@@ -1,3 +1,4 @@
+import "./material-3"; // registers the material-3 preset tables (side effect)
 import { describe, expect, test } from "vitest";
 import { type Contrast, type Mode, resolveThemeDetails } from "./resolve";
 import { tokens } from "./tokens";
