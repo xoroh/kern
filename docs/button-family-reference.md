@@ -35,7 +35,7 @@ component docs.
 
 ## 1. System tokens
 
-### State-layer opacities (`md.sys.state`)
+### State-layer opacities (`sys.state`)
 
 | State    | Opacity | Token                         |
 | -------- | ------- | ----------------------------- |
@@ -45,11 +45,11 @@ component docs.
 | Dragged  | **16%** | `dragged-state-layer-opacity` |
 | Disabled | 38% label / 12% container | —                      |
 
-> Kern tokens: `--md-sys-state-hover: 8%`, `--md-sys-state-focus: 12%`,
-> `--md-sys-state-press: 12%`, `--md-sys-state-drag: 16%`,
-> `--md-sys-state-disabled: 38%`.
+> Kern tokens: `--sys-state-hover: 8%`, `--sys-state-focus: 12%`,
+> `--sys-state-press: 12%`, `--sys-state-drag: 16%`,
+> `--sys-state-disabled: 38%`.
 
-### Shape (`md.sys.shape`)
+### Shape (`sys.shape`)
 
 | Token              | Value    |
 | ------------------ | -------- |
@@ -61,7 +61,7 @@ component docs.
 | `corner-extra-large` | **28px** |
 | `corner-full`      | **9999px** |
 
-### Elevation (`md.sys.elevation`)
+### Elevation (`sys.elevation`)
 
 | Level   | DP   | Use on buttons                          |
 | ------- | ---- | --------------------------------------- |
@@ -72,7 +72,7 @@ component docs.
 | level4  | 8dp  | FAB hover                                |
 | level5  | 12dp | Dragged only (never buttons)             |
 
-### Motion (`md.sys.motion`)
+### Motion (`sys.motion`)
 
 | Token                 | Value                        |
 | --------------------- | ---------------------------- |
@@ -82,7 +82,7 @@ component docs.
 | `easing-standard`     | `cubic-bezier(0.2, 0, 0, 1)` |
 | `easing-emphasized`   | `cubic-bezier(0.2, 0, 0, 1)` |
 
-### Focus ring (`md.comp.focus-ring`)
+### Focus ring (`comp.focus-ring`)
 
 | Token   | Value       |
 | ------- | ----------- |
@@ -440,7 +440,7 @@ Button modes map 1:1 to M3 (`text`/`outlined`/`contained`/`elevated`/
 `contained-tonal`). Elevated animates 1→2 on press with
 `theme.motion.duration` — proof elevation works on native; kern-native's
 fill-only elevated remains a documented divergence. Disabled uses split
-opacities from `tokens.md.sys.state.opacity` (text 38%, background 12% via an
+opacities from `tokens.sys.state.opacity` (text 38%, background 12% via an
 absolute-fill overlay View + content View — the overlay pattern our
 hex-alpha approach replicates without restructuring). Icon 18px, label
 `theme.fonts.labelLarge`, `minWidth: 64`, text-mode margins 12px vs 24px

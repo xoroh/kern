@@ -29,7 +29,7 @@
 
 **Most important changes required [R]:** (1) fix the three currently-red signals before any evolution: `kern-tokens` test (`secondary` expectation), `check:kern` (4 findings), `check:coverage` (`presentation` exclusion); (2) decide the provider-identity question (is `@xoroh/kern` the M3 provider, or does a neutral `@xoroh/kern` facade sit above `@xoroh/kern-m3/*`?); (3) generalise `kern-tokens` role/preset schema so non-M3 providers are possible without forking; (4) split `@xoroh/kern/start` into its own package when the first breaking window allows (pre-1.0 per ADR-004); (5) close the 37 web-only / 10 native-only parity gaps or rule them asymmetric explicitly.
 
-**Most important unresolved decisions [Q]:** provider packaging (separate packages vs groups vs facets); whether the shared token foundation adopts DTCG naming or keeps `--md-sys-*` with a mapping layer; how provider selection happens (build-time vs runtime); the blocks distribution model (source-vendoring vs packages); the second-provider validation choice.
+**Most important unresolved decisions [Q]:** provider packaging (separate packages vs groups vs facets); whether the shared token foundation adopts DTCG naming or keeps `--sys-*` with a mapping layer; how provider selection happens (build-time vs runtime); the blocks distribution model (source-vendoring vs packages); the second-provider validation choice.
 
 **Report path:** `docs/KERN_ARCHITECTURE_AUDIT_HANDOFF2.md` (this file).
 
@@ -93,7 +93,7 @@ kern-cli    (private; reads manifest + apps/site/src/blocks; never published)
 - `@xoroh/kern-icons`: no runtime deps; optional peers for RN [F]; `react-native` export condition.
 - `@xoroh/kern-mcp`: deps `@modelcontextprotocol/sdk`, `zod` [F].
 
-Styling systems [F]: web = Tailwind utilities + CVA + `cn`/`cnState` reading `--md-sys-*` CSS vars (no CSS modules / vanilla-extract — grep 0 hits); native = `StyleSheet.create` only (~15 call sites, e.g. `kern-native/src/utils/overlay-styles.ts:9`, `components/button.tsx:126-249` `buttonStyles()` returning `{container,label}`).
+Styling systems [F]: web = Tailwind utilities + CVA + `cn`/`cnState` reading `--sys-*` CSS vars (no CSS modules / vanilla-extract — grep 0 hits); native = `StyleSheet.create` only (~15 call sites, e.g. `kern-native/src/utils/overlay-styles.ts:9`, `components/button.tsx:126-249` `buttonStyles()` returning `{container,label}`).
 
 ---
 
@@ -113,7 +113,7 @@ Styling systems [F]: web = Tailwind utilities + CVA + `cn`/`cnState` reading `--
 8. **Tests/validation:** vitest (9 files). **Currently 1 failure [F, §18]:** `tokens.test.ts:55` expects `light.secondary === "#2563eb"` but gets `"#625b71"`. Gates: `check:kern`, `check:contrast`, `check:theme-matrix`, `check:generated*`.
 9. **Publishing readiness:** ready-shaped (dual ESM/CJS+dts, files list, provenance) but **unpublished** (0.0.0, founder HOLD until `RELEASE_CHANGESSETS=true` + `NPM_TOKEN`; `TODO.md`, `docs/versioning.md §6`). `check:publish` green per TODO (re-verify — tree is dirty).
 10. **Strengths:** single source of truth with dual encoding; override-only preset discipline with double enforcement; machine-readable matrix artifact; contrast validated in code (`defineThemePreset` fails loud); platform-free boundary enforced by `check:layers`.
-11. **Limitations/debt:** (a) M3-coupled naming (`--md-sys-*` vars, `ColorRole = keyof kern.color.light` — any non-M3 provider must fit the 58-role schema or fork); (b) no DTCG-format interchange (custom JSON schema; `$`-keys filtered by `isTokenKey`); (c) runtime resolution only (no build-time extraction); (d) component-token layer thin (`comp-tokens.css`/`tailwind.css` var maps); (e) the failing secondary test signals spec-vs-code drift needing a ruling.
+11. **Limitations/debt:** (a) M3-coupled naming (`--sys-*` vars, `ColorRole = keyof kern.color.light` — any non-M3 provider must fit the 58-role schema or fork); (b) no DTCG-format interchange (custom JSON schema; `$`-keys filtered by `isTokenKey`); (c) runtime resolution only (no build-time extraction); (d) component-token layer thin (`comp-tokens.css`/`tailwind.css` var maps); (e) the failing secondary test signals spec-vs-code drift needing a ruling.
 12. **Recommended future role:** remain the shared foundation's token layer; generalise the *schema* (role-set declaration per provider) while keeping M3 values as the default `kern` preset. Do not split yet (split candidates later: `@xoroh/kern-tokens-m3` values vs token engine — only when a second provider exists).
 
 ### 4.2 `kern-native` → actual name `@xoroh/kern-native` [F]
@@ -158,7 +158,7 @@ Styling systems [F]: web = Tailwind utilities + CVA + `cn`/`cnState` reading `--
 - Role inventory `kern-roles.ts`: 58 roles = 45 M3 + 13 Kern extras (`success/warning/info`×4 + `surfaceTonal`). Elevation map `kern-elevation.ts` (+ `KERN_UNASSIGNED_ELEVATION`, `auditElevation`).
 - Themes: `themes/kern.json` (247 lines: light/dark ~58-role tables + radius + conventions + 4 contrast overlays); override-only presets `sharp/brand/compact/demo` + `index.json` catalog; generated `matrix.json` (30 cells + `changedRoles/changedShape`).
 - Resolution order [F] (`resolve.ts:105-118`): base(mode) → contrast overlay → preset overrides. `defineThemePreset` validates id/base/roles/hex/shapes and **fails loud on contrast** both modes.
-- CSS generation: `gen-css.mjs → tokens.css` (971 lines: `:root`/`.dark`/shape/type/motion/states/spacing/spectrum/`[data-kern-theme]`/app bridge/`@theme inline`); `gen-tones-css/gen-motion-css/gen-comp-css.mjs → tones.css/motion.css/comp-tokens.css+tailwind.css` (thin `var()` maps, e.g. `--color-md-primary:var(--md-sys-color-primary)`).
+- CSS generation: `gen-css.mjs → tokens.css` (971 lines: `:root`/`.dark`/shape/type/motion/states/spacing/spectrum/`[data-kern-theme]`/app bridge/`@theme inline`); `gen-tones-css/gen-motion-css/gen-comp-css.mjs → tones.css/motion.css/comp-tokens.css+tailwind.css` (thin `var()` maps, e.g. `--color-md-primary:var(--sys-color-primary)`).
 - DTCG relevance [I+R]: DTCG Format Module reached first stable version 2025.10 (W3C CG, supported by Figma/Tokens Studio/Style Dictionary/Terrazzo). Kern's schema is custom (no `$value/$type`, `$`-keys are metadata filtered by `isTokenKey`). Interop path: add a **DTCG export projection** (generator emitting `$value/$type` JSON) rather than re-authoring the canonical source; adopt `$`-prefixed metadata discipline already half-present. Do not adopt DTCG as canonical until tooling needs it (cost > benefit today).
 
 ### Theme architecture [F]

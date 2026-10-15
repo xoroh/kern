@@ -22,6 +22,7 @@ These are planning decisions, not claims that the APIs already exist. The author
 | [PROVIDERS_COMPONENTS_AND_ICONS.md](PROVIDERS_COMPONENTS_AND_ICONS.md) | Material identity, renderer contracts, icon behavior |
 | [DISTRIBUTION_CLI_AND_REGISTRY.md](DISTRIBUTION_CLI_AND_REGISTRY.md) | Packages, source closure, blocks, upgrades, consumers |
 | [AI_AND_MCP.md](AI_AND_MCP.md) | Machine metadata and truthful installation planning |
+| [XOROH_MIGRATION.md](XOROH_MIGRATION.md) | Migration architecture, symbol mapping, rollback plan (Gated) |
 | [QUALITY_AND_RELEASE_GATES.md](QUALITY_AND_RELEASE_GATES.md) | Existing commands versus tests that must be added |
 | [ARCHITECTURE_DECISIONS.md](ARCHITECTURE_DECISIONS.md) | Decisions, alternatives, consequences, reversals |
 | [IMPLEMENTATION_PHASES.md](IMPLEMENTATION_PHASES.md) | Ordered deliverables |
@@ -39,11 +40,11 @@ Highest risks: red local gates; CSS's stale package import; MCP serving web sour
 
 ## Completion and resumption
 
-Planning completion means fourteen coherent documents, source-grounded inventories, explicit defaults, actionable dependency-linked tasks, and a truthful baseline. Implementation completion means all required capabilities preserved or explicitly mapped, DTCG round trips, web/native and source/package consumer tests, and all release gates satisfied. Compilation alone is not acceptance.
+Planning completion means fifteen coherent documents, source-grounded inventories, explicit defaults, actionable dependency-linked tasks, and a truthful baseline. Implementation completion means all required capabilities preserved or explicitly mapped, DTCG round trips, web/native and source/package consumer tests, and all release gates satisfied. Compilation alone is not acceptance.
 
 After context loss: read this file, the decision register, current state, phases, then the relevant TODO tasks and domain document. Recheck Git state and dependencies; claim a bounded task before editing. Never reset, delete user changes, run mass formatting, invoke `check:cold` in this checkout, or publish without explicit authorization. Follow [AGENT_EXECUTION_GUIDE.md](AGENT_EXECUTION_GUIDE.md).
 
-Planning verification: all fourteen requested files exist; local Markdown links resolve; 72 unique tasks have required fields, valid references and an acyclic dependency graph; phase/priority totals and twenty decision ids reconcile; new-file whitespace/code fences checked. `git diff --check -- docs/planning` was also run (untracked files separately inspected). Actual code checks and limitations are in CURRENT_STATE; no full build/consumer/device/release pass is implied.
+Planning verification: all fifteen requested files exist; local Markdown links resolve; 84 unique tasks have required fields, valid references and an acyclic dependency graph; phase/priority totals and twenty decision ids reconcile; new-file whitespace/code fences checked. `git diff --check -- docs/planning` was also run (untracked files separately inspected). Actual code checks and limitations are in CURRENT_STATE; no full build/consumer/device/release pass is implied.
 
 ## Owner direction and final handoff
 

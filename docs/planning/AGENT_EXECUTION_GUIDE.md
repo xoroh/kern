@@ -7,12 +7,13 @@ Status: operational guidance for executing the approved plan across sessions. Th
 1. Root `AGENTS.md`, `.agents/skills/docs/SKILL.md` and applicable kern/kern-agents skills.
 2. Planning README → CURRENT_STATE → ARCHITECTURE_DECISIONS → IMPLEMENTATION_PHASES → MASTER_TODO.
 3. Selected task's domain document, actual source/exports/scripts and existing implemented ADRs/conventions. Audits are history, not a substitute for current source.
+4. Parent Xoroh root instructions/config if parent migration tasks are separately authorized. Parent source is `../xoroh-platform`; it is not this repo's `apps/site`.
 
 Current conventions to preserve: source barrels/export maps are public contract; generated component/token/site files never hand-edited; primitives cannot import tokens/renderers; renderers never import each other; composition dependencies point downward; presentation bindings deliberately aren't public components; both native test runners required; changesets for package changes, no changeset required for planning-only markdown.
 
 ## Selecting/claiming work
 
-Choose the earliest ready bounded task in MASTER_TODO based on **explicit dependencies**, not just phase number. Check predecessor evidence/artifact hashes, owner permission and current tree. A predecessor marked complete without acceptance evidence is not ready. Do not wait for CLI/MCP/community polish or public npm where dependencies allow; record partial milestones distinctly, never mark a full matrix complete prematurely.
+Choose the earliest ready bounded task in MASTER_TODO based on **explicit dependencies**, not just phase number. Check predecessor evidence/artifact hashes, owner permission and current tree. A predecessor marked complete without acceptance evidence is not ready. P7 Phase tasks remain BLOCKED pending explicit owner authorization. Do not wait for CLI/MCP/community polish or public npm where dependencies allow; record partial milestones distinctly, never mark a full matrix complete prematurely.
 
 Claim task id(s), owner session/role, exact writable paths, intended deliverable, expected command/tests, blockers and base hashes in the task/handoff. `[~] In progress` is a textual status; don't mark `[x]` before measured acceptance. A role in the plan is not another agent's actual claim. Check latest user steering before continuing; user changes may narrow or redirect work.
 

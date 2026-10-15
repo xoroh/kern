@@ -91,7 +91,7 @@ surface is what versions.
 tokens.json  (canonical: {oklch, srgb} per step)          seed
      |
      +--> tokens.ts    TS role tables          (all three renderers)
-     +--> tokens.css   --md-sys-* custom props  (web)
+     +--> tokens.css   --sys-* custom props  (web)
      +--> themes/kern.json   base role tables, per mode       map
         +--> contrast overlays (medium/high, per mode)
         +--> sharp.json / brand.json / compact.json / demo.json  alias

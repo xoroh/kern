@@ -14,7 +14,7 @@
 
 | Package | Dir | Public | What it actually is |
 |---|---|---|---|
-| `@xoroh/kern-tokens` | `packages/kern-tokens` | yes | Platform-free token foundation: canonical `tokens.json`, role tables, themes, contrast, tones, motion, generated CSS. **M3-shaped naming (`--md-sys-*`).** |
+| `@xoroh/kern-tokens` | `packages/kern-tokens` | yes | Platform-free token foundation: canonical `tokens.json`, role tables, themes, contrast, tones, motion, generated CSS. **M3-shaped naming (`--sys-*`).** |
 | `@xoroh/kern` (+ `./start`) | `packages/kern` | yes | **The M3 web implementation** (package description: "Material 3 React components on Base UI primitives") + web composition tier. |
 | `@xoroh/kern-native` | `packages/kern-native` | yes | **The M3 native implementation** (RN `StyleSheet` + shared primitives) + native composition. |
 | `@xoroh/kern-primitives` | `packages/kern-primitives` | yes | Unstyled behaviour kernel shared by both renderers; may not import tokens (enforced). |
@@ -26,7 +26,7 @@ Note on the brief's names: there is **no `kern-token` package** — the verified
 
 **What must be preserved [R]:** the renderer-family split (never `if (isNative)`); the single token resolver `resolveThemeDetails` (`packages/kern-tokens/src/resolve.ts:105`) feeding both engines; the data-only parity contract (`parity/contract.ts`) + per-side suites + `check:parity`; `kern-primitives` with its enforced boundary; the icon pipeline (pinned source → committed registry → byte-freshness gate); per-package changesets versioning; and the executable design-law gates (`check:kern`, `check:contrast`, `check:layers`, `check:primitives`, `check:coverage`, `check:consumption`). None of it should be rewritten.
 
-**The single biggest architectural fact [F]:** platform and provider are currently **conflated in package identity**. `@xoroh/kern` *is* the M3 web provider; `@xoroh/kern-native` *is* the M3 native provider; and the "shared" token layer is M3-flavoured (45 M3 roles + 13 registered kern deviations, `--md-sys-*`/`--md-comp-*` var names, `kern-roles.ts` is an M3 conformance inventory). There is **no provider abstraction anywhere** — no provider id, no registration, no capability declaration. The docs site has a *narrative* seam for a second system (`apps/site/src/systems/design-systems.ts`), but the packages have none.
+**The single biggest architectural fact [F]:** platform and provider are currently **conflated in package identity**. `@xoroh/kern` *is* the M3 web provider; `@xoroh/kern-native` *is* the M3 native provider; and the "shared" token layer is M3-flavoured (45 M3 roles + 13 registered kern deviations, `--sys-*`/`--comp-*` var names, `kern-roles.ts` is an M3 conformance inventory). There is **no provider abstraction anywhere** — no provider id, no registration, no capability declaration. The docs site has a *narrative* seam for a second system (`apps/site/src/systems/design-systems.ts`), but the packages have none.
 
 **Recommended architecture [R] (Option B, §12):** minimal package churn — keep every existing package name; explicitly *label* `kern`/`kern-native` as the M3 provider; add two small, additive layers: (a) a **contract/capability package** (types + shared contract tests + provider metadata) and (b) a **provider facet on the token layer** (role-set registry so a non-M3 provider is data, not a fork). Validate with a second, deliberately small provider (Stage 9). Do not build a neutral facade package yet (Option C) — it is justified only when a second provider is real.
 
@@ -91,7 +91,7 @@ tooling   @xoroh/kern-mcp      reads generated manifest, imports nothing from pa
 ```
 
 - Peer-dependency policy [F] (`docs/releases.md:49-100`): an internal `@xoroh/*` dep that ships goes in `peerDependencies` with a real range; `workspace:*` never in shipped fields (npm does not rewrite it) — enforced by `scripts/preflight-publish.mjs` (ran: 6 packages packed clean).
-- Styling [F]: web = Tailwind v4 utilities + CVA + `cn`/`cnState` reading `--md-sys-*` CSS variables (no CSS modules, no vanilla-extract); native = `StyleSheet.create` / style-map functions (`buttonStyles()`), values from `resolveThemeDetails()` per render.
+- Styling [F]: web = Tailwind v4 utilities + CVA + `cn`/`cnState` reading `--sys-*` CSS variables (no CSS modules, no vanilla-extract); native = `StyleSheet.create` / style-map functions (`buttonStyles()`), values from `resolveThemeDetails()` per render.
 - **Tailwind consumer wiring [F]:** the site stylesheet does `@import "tailwindcss"` + `@import "@xoroh/kern-tokens/theme"` + `@source "../../../packages/kern/src/components"` (`apps/site/src/styles.css:1-3`) because component classes are compiled by the *consumer's* Tailwind from package **source**. The published tarball ships only `dist` + `src/theme.css` (`packages/kern/package.json` `files`) — see §15 Q3.
 
 ---
@@ -102,7 +102,7 @@ tooling   @xoroh/kern-mcp      reads generated manifest, imports nothing from pa
 
 1. **Purpose [F]:** platform-free design language — canonical tokens, themes/presets, contrast overlays, tones, feedback spec, variant registry, generated CSS (`src/index.ts:1-3`: "No React, no DOM").
 2. **Public API [F]:** `index.ts:1-17` re-exports `contrast, expressive-shapes, feedback, focus, functional, motion, pipeline, presets, seed-theme, sizes, tokens, tones, variants`. Core symbols: `resolveThemeDetails/resolveTheme/varName/shapeVarName/themeIds/defineThemePreset` (`resolve.ts`), `seedStage/mapStage/aliasStage/componentStage/buildThemeMatrix/scopedDeltas/assertSingleRoleTable` (`pipeline.ts`), `M3_ROLES/KERN_ROLES/ALL_ROLES/auditRoleInventory/CONTRAST_WAIVERS` (`kern-roles.ts`), `themeFromSeed`, `resolveMotionScheme/springConfig/motionCssVars`, `statusTone/makeHueRamp`, `defineVariant/registerVariant`, `contrastRatio/contrastIssues`. Exports map: `.`, `./tokens`, `./tokens.json`, `./themes/*`, `./theme` (= `src/tokens.css`).
-3. **Structure [F]:** `src/` = `tokens.json` (1135 L), `themes/{kern,sharp,brand,compact,demo,index}.json` + generated `matrix.json`, `resolve/pipeline/kern-roles/kern-elevation/color/contrast/functional/feedback/focus/motion/tones/variants/sizes/seed-theme/presets/expressive-shapes.ts`, generated `tokens.css` (971 L), `tones.css`, `motion.css`, `comp-tokens.css` (192 L `--md-comp-*`), `tailwind.css` (530 L `@theme` adapter); `scripts/gen-*.mjs` + `check-contrast.mjs` + `check-theme-matrix.mjs`; 9 test files.
+3. **Structure [F]:** `src/` = `tokens.json` (1135 L), `themes/{kern,sharp,brand,compact,demo,index}.json` + generated `matrix.json`, `resolve/pipeline/kern-roles/kern-elevation/color/contrast/functional/feedback/focus/motion/tones/variants/sizes/seed-theme/presets/expressive-shapes.ts`, generated `tokens.css` (971 L), `tones.css`, `motion.css`, `comp-tokens.css` (192 L `--comp-*`), `tailwind.css` (530 L `@theme` adapter); `scripts/gen-*.mjs` + `check-contrast.mjs` + `check-theme-matrix.mjs`; 9 test files.
 4. **Technology [F]:** pure TS + JSON; OKLCH canonical with precompiled `srgb` per step because RN cannot parse OKLCH (`tokens.json` `$comment`).
 5. **Deps/dependents [F]:** only `@fontsource-variable/inter`; depended on by `kern` and `kern-native` (dep + workspace devDep), read by `mcp` and the site.
 6. **Token/styling assumptions [F]:** M3-shaped — 58 colour roles per scheme (45 M3 + 13 registered kern deviations: `success/warning/info` families + `surfaceTonal`, `kern-roles.ts:163-191`), 10-step shape scale, elevation L0–L5, 5 state opacities, 15 M3 typescale roles (+emphasized), spacing `space-0…900`, full M3 motion (easing/duration/spring/standard+expressive schemes). Themes: `themes/kern.json` base role tables (light+dark) + contrast overlays; presets (`sharp/brand/compact/demo`) are **override-only** (`extends: "kern"`), enforced twice — `check:kern` on sources, `check:theme-matrix` on resolved output (`pipeline.assertSingleRoleTable`).
@@ -110,7 +110,7 @@ tooling   @xoroh/kern-mcp      reads generated manifest, imports nothing from pa
 8. **Tests/validation [F]:** vitest 9 files / 86 cases; **1 failure at audit time** (`src/tokens.test.ts:55` expects `light.secondary === "#2563eb"`, gets `"#625b71"` — **dirty-tree only**: HEAD still has `#2563eb`; the uncommitted change moves secondary/tertiary to published M3 baseline values). Gates: `check:kern`, `check:contrast` (1656 checks PASS), `check:theme-matrix` (30 cells PASS).
 9. **Publishing readiness [F]:** shaped ready (dual ESM/CJS + dts, `files`, provenance, `check:publish` green per `TODO.md`), **unpublished** — all packages `0.0.0`, founder HOLD (`docs/versioning.md §6`).
 10. **Strengths [R]:** single source of truth with dual encoding (OKLCH for math, sRGB for RN/CSS); override-only presets with executable enforcement; the matrix artifact makes "what does this preset change?" a diff; contrast validated in code (`defineThemePreset` throws on failure); deviation registry (`KERN_EXTRA_ROLES` → deviation ids) makes additions auditable.
-11. **Limitations/debt [R]:** (a) **M3-coupled naming** — `ColorRole = keyof typeof kern.color.light` (`resolve.ts:13`), `--md-sys-*` var names (`varName`, `resolve.ts:129-132`), `check:kern` is an M3 conformance gate; a non-M3 provider must fit the 58-role schema or fork. (b) No DTCG interchange format (custom JSON; `$`-keys are metadata filtered by generators). (c) Runtime resolution only — no build-time extraction step. (d) The `--md-comp-*` component-token layer exists only as CSS (web); native reads globals directly. (e) The in-flight secondary change shows spec-vs-test drift is possible without a ruling.
+11. **Limitations/debt [R]:** (a) **M3-coupled naming** — `ColorRole = keyof typeof kern.color.light` (`resolve.ts:13`), `--sys-*` var names (`varName`, `resolve.ts:129-132`), `check:kern` is an M3 conformance gate; a non-M3 provider must fit the 58-role schema or fork. (b) No DTCG interchange format (custom JSON; `$`-keys are metadata filtered by generators). (c) Runtime resolution only — no build-time extraction step. (d) The `--comp-*` component-token layer exists only as CSS (web); native reads globals directly. (e) The in-flight secondary change shows spec-vs-test drift is possible without a ruling.
 12. **Recommended future role [R]:** remain *the* shared token foundation. Generalise the **schema** (declared role-sets per provider, see §16.2) while keeping M3 values as the default preset. Do **not** split into `kern-tokens` + `kern-tokens-m3` before a second provider exists — no consumer would benefit, and every exports/alias/gate is keyed on the current name.
 
 ### 4.2 `@xoroh/kern-native`
@@ -160,7 +160,7 @@ tooling   @xoroh/kern-mcp      reads generated manifest, imports nothing from pa
 - Role inventory `kern-roles.ts`: **45 M3 + 13 kern = 58**; contrast waivers are per-role and reasoned (`CONTRAST_WAIVERS`); `auditRoleInventory()` returns missing/unregistered/missing-deviation.
 - Themes: `themes/kern.json` (247 L base tables + contrast overlays), 4 override-only presets, `index.json` catalog, generated `matrix.json`.
 - Resolution order (`resolve.ts:105-118`): `base(mode) → contrast overlay → preset overrides`. Legacy alias `m3 → kern` kept (`resolve.ts:42`).
-- Generated CSS: `tokens.css` (incl. `[data-kern-theme="<id>"]` scoped-delta blocks + `@theme inline`), `tones.css`, `motion.css`, `comp-tokens.css` (`--md-comp-*` → `--md-sys-*` maps), `tailwind.css` (`@theme { --color-md-*: var(--md-sys-*) }` adapter).
+- Generated CSS: `tokens.css` (incl. `[data-kern-theme="<id>"]` scoped-delta blocks + `@theme inline`), `tones.css`, `motion.css`, `comp-tokens.css` (`--comp-*` → `--sys-*` maps), `tailwind.css` (`@theme { --color-md-*: var(--sys-*) }` adapter).
 - **DTCG [F+R]:** the W3C DTCG *Design Tokens Format Module 2025.10* is the first stable spec (published 2025-10-28; verified via designtokens.org/w3.org). Kern's schema is custom (no `$value/$type`; `$comment`/`$schema` are metadata filtered by generators). Recommended interop path: an **additional generator emitting a DTCG projection** for tool exchange — do not re-author the canonical source.
 
 ### Theme architecture [F]
@@ -170,7 +170,7 @@ tooling   @xoroh/kern-mcp      reads generated manifest, imports nothing from pa
 - Theme address = `Mode × Contrast × ThemeSelection` triple, identical on both renderers; subtree scoping via `data-kern-theme` (components may never name a preset — pinned by `check:kern`).
 
 ### Component architecture [F]
-- **Web:** CVA variants + Tailwind arbitrary-value classes reading `--md-sys-*` (`button.tsx:1-522`: 5 M3 configurations × `color` axis (`danger`) × size × shape × block/toggle/selected + compoundVariants; M3 aliases `filled→primary`, `text→ghost`; state *layers* via `before:` overlay + `--md-sys-state-*` opacities). Behaviour from `@base-ui/react` (ADR-002) + `kern-primitives`. Composition tier `src/start/` (blocks, link, navigation, panes, scaffolds, top-app-bar) via `@xoroh/kern/start`, forbidden direct Base UI imports (enforced).
+- **Web:** CVA variants + Tailwind arbitrary-value classes reading `--sys-*` (`button.tsx:1-522`: 5 M3 configurations × `color` axis (`danger`) × size × shape × block/toggle/selected + compoundVariants; M3 aliases `filled→primary`, `text→ghost`; state *layers* via `before:` overlay + `--sys-state-*` opacities). Behaviour from `@base-ui/react` (ADR-002) + `kern-primitives`. Composition tier `src/start/` (blocks, link, navigation, panes, scaffolds, top-app-bar) via `@xoroh/kern/start`, forbidden direct Base UI imports (enforced).
 - **Native:** single-function components per concept, style-map functions + `Pressable`, press via kernel `useKernPress`, ripple/hitSlop, `accessibilityRole/State/Label/Hint` throughout (measured: 132 label / 110 state / 34 role refs).
 - **Bindings:** `presentation.tsx` in each renderer binds kernel models to platform mechanics; deliberately **not** barrel-exported (`docs/binding-contract.md`, draft status).
 - **Variant law [F]:** `variant` meaning frozen per component and identical across platforms (`docs/platform-parity.md:54-90`); guarded by tests + docs.
@@ -272,7 +272,7 @@ The repo already has the right instinct: **measured, not claimed** (`docs/parity
 
 ### Recommendation [R]/[P]
 - **Distribution:** keep **source-vendoring as the primary channel** (it matches the open-source, own-your-code, receipts model and works pre-publish); add package distribution later only if versioned block dependencies become painful. Blocks are *source*, previews are *generated from those same bytes* (`?raw` import in the viewer guarantees the fence cannot drift).
-- **Provider binding:** blocks must declare `provider: "m3"` + `componentDeps` referencing **provider-qualified** names (§16.4). A block never imports an unrelated provider's package; `check-blocks` gains a provider match rule. Thematic portability comes from blocks using only `--md-sys-*`-style *role tokens* via the shared theme layer, never literal values (already enforced: "zero hex" rule in `04-blocks.md` design).
+- **Provider binding:** blocks must declare `provider: "m3"` + `componentDeps` referencing **provider-qualified** names (§16.4). A block never imports an unrelated provider's package; `check-blocks` gains a provider match rule. Thematic portability comes from blocks using only `--sys-*`-style *role tokens* via the shared theme layer, never literal values (already enforced: "zero hex" rule in `04-blocks.md` design).
 - **Install/theming/preview:** unchanged — manifest + viewer + CLI; add provider badge + capability notes to the viewer.
 - **Do not** generate blocks from templates at build time; keep the 3 real ones honest (D8 "real-only" rule already holds the line).
 
@@ -284,7 +284,7 @@ The repo already has the right instinct: **measured, not claimed** (`docs/parity
 `docs/design-systems/` = 14 per-system notes + `matrix.md` (codes: they-have Y/P/–; kern B/W/N/G/R). High-value learnings recorded there:
 - **shadcn/ui** — registry-as-distribution + blocks + 3-install-paths; *Kern already mirrors the shape* (manifest + CLI + viewer). Does not solve: cross-renderer parity, tokens.
 - **Base UI** — Kern's web behaviour base (ADR-002); learn `render` doctrine, anatomy-first docs, imperative handles. Not a dependency candidate beyond current use; no native story.
-- **m3-material-web** — reference implementation, **maintenance mode** → the M3 reference slot is open; learn ref→sys→comp token layering (Kern's `--md-comp-*` mirrors it). Does not solve Kern's native side.
+- **m3-material-web** — reference implementation, **maintenance mode** → the M3 reference slot is open; learn ref→sys→comp token layering (Kern's `--comp-*` mirrors it). Does not solve Kern's native side.
 - **MUI** — data-not-pages docs, per-demo axe JSON, open-core ladder; Material **2**, not M3. Alternative approach only.
 - **React Native Paper** — the direct MD3-native incumbent; PaperProvider/theming parallels; Kern differentiates on parity contract + deviations slot. Possible *inspiration*, not a dependency.
 - **Tamagui / Gluestack / NativeBase** — universal-runtime approaches Kern deliberately declined (renderer split + contract instead of one universal runtime — recorded as "decided-divergence"); NativeBase = tombstone/lessons.
@@ -463,7 +463,7 @@ export type ProviderManifest = {
 ```ts
 // @xoroh/kern-tokens (additive)
 export function defineRoleSet(set: {
-  id: string; roles: readonly string[]; varPrefix?: string; // default "--md-sys-"
+  id: string; roles: readonly string[]; varPrefix?: string; // default "--sys-"
 }): RoleSet;
 export const M3_ROLE_SET: RoleSet;      // today's 45+13, defined through the API
 export function roleSetFor(providerId: string): RoleSet;

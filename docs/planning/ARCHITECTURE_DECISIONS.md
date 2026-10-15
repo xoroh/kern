@@ -155,7 +155,7 @@ Every entry includes options, recommendation/reason/evidence, tradeoffs, migrati
 **Benefits/cost:** product feedback early, preserves functionality; adapters/canary approval/rollback work.
 **Migration/compatibility:** no default visual switch, no private source/path leaks in accepted slices; preserve old lockfile/config as reviewed rollback artifact.
 **Risk/validation/reversal:** product outage/auth/sheet/keyboard regression; product scenarios/device tests/rollback rehearsal. Pause rollout on concrete regression, not defer indefinitely awaiting tooling polish.
-**Status 2026-10-14:** SUPERSEDED — parent-monorepo migration removed from planning scope with the P7 cut; retained as a decision record, not a plan.
+**Status 2026-10-14:** RESTORED AS PLANNING SPECIFICATION — Phase P7 defines the sequenced canary and rollout plan for the future migration, which remains BLOCKED pending explicit written owner authorization; planning-only mandate strictly maintained.
 
 ## ADR-P18 — OSS licensing/governance
 

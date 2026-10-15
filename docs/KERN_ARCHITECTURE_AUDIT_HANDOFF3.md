@@ -54,7 +54,7 @@ Keep every current package and package boundary. Do not rename, do not split. Ad
 
 1. **Fix the currently-red signals before evolving anything** (§20): 1 failing unit test in `kern-tokens`, 5 `check:kern` violations, 4 `check:elevation-parity` findings, 2 gate failures (`check:coverage`, `check:generated`), 1 `kern-mcp` test failure, and 100 Biome errors (all in `apps/site` + dirty-worktree files).
 2. **Publish** — all eight packages sit at `0.0.0`, nothing is on npm, and `apps/site`'s live native previews already depend on the workspace.
-3. **Generalise the token schema** so `--md-sys-*` is not hardcoded in five files and `RoleTable` is not `keyof typeof kern.color.light`.
+3. **Generalise the token schema** so `--sys-*` is not hardcoded in five files and `RoleTable` is not `keyof typeof kern.color.light`.
 4. **Add provider identity + capability declaration** so an app can name a design system and know what it does not have.
 5. **Resolve the icon bundle problem** — `kern-icons` ships a ~370 KB-gzip eager registry.
 
@@ -62,7 +62,7 @@ Keep every current package and package boundary. Do not rename, do not split. Ad
 
 - Where provider registration lives (`kern-primitives` vs a new package).
 - Whether `@xoroh/kern` stays the M3 provider or becomes a neutral facade over `@xoroh/kern-m3/*`.
-- Whether the token layer adopts DTCG (`$value`/`$type`) for interchange or keeps `--md-sys-*` plus a mapping layer.
+- Whether the token layer adopts DTCG (`$value`/`$type`) for interchange or keeps `--sys-*` plus a mapping layer.
 - Build-time vs runtime provider selection.
 - Whether `@xoroh/kern/start` splits into its own package (it is a separate dependency edge already; ADR-004 flags pre-1.0 as the window).
 - The blocks distribution model at scale.
@@ -282,7 +282,7 @@ so a misspelled role is a compile error. Resolution order is explicit and always
 ```ts
 export function varName(role: string): string {
   const kebab = role.replace(/(?<!^)(?=[A-Z])/g, "-").toLowerCase();
-  return `--md-sys-color-${kebab}`;
+  return `--sys-color-${kebab}`;
 }
 ```
 
@@ -331,7 +331,7 @@ Plain TypeScript, zero runtime deps except `@fontsource-variable/inter`, zero Re
 **The schema is Material-shaped, structurally — not merely in its values.** Nine verified places:
 
 1. `ColorRole`/`ShapeRole`/`RoleTable` are `keyof typeof kern.color.light` (`resolve.ts:13-15`). The whole TS type system for roles is derived from a Material file.
-2. `--md-sys-` is hardcoded in `varName`/`shapeVarName` (`resolve.ts:131,135`) and re-hardcoded in `gen-css.mjs`, `gen-comp-css.mjs`, `gen-tones-css.mjs`. **No single constant.**
+2. `--sys-` is hardcoded in `varName`/`shapeVarName` (`resolve.ts:131,135`) and re-hardcoded in `gen-css.mjs`, `gen-comp-css.mjs`, `gen-tones-css.mjs`. **No single constant.**
 3. `kern-roles.ts` exists *solely* to police the M3 role space: 45-role M3 target, forbids `errorFixed`, forbids `FixedContainer`, and `auditRoleInventory` treats any role that is neither in `M3_ROLES` nor a registered Kern deviation as a **violation**. That is an M3-conformance gate, not a schema abstraction.
 4. `contrast.ts` generates pairs from M3 family rules, hardcoding the quintet `<f>`/`on<f>`/`<f>Container`/`on<f>Container` (`contrast.ts:119-131`). `ACCENT_FAMILIES` is literally "M3's four plus kern's three deviations" (`contrast.ts:27-33`).
 5. `states` is closed at five by policy.
@@ -351,7 +351,7 @@ Fully platform-free by construction: no React, no DOM, no RN. Web consumes it vi
 Two verified frictions:
 
 - **`@fontsource-variable/inter` is a hard runtime dependency** of a "platform-free" package, and the first line of the generated `tokens.css` is `@import "@fontsource-variable/inter";`. A consumer importing `@xoroh/kern-tokens/theme` must resolve that package. `apps/site/src/routes/__root.tsx:8` *also* imports it directly, so the site loads the font twice.
-- **Four generated stylesheets are not published.** `package.json` `files[]` is `["dist","src/tokens.css","src/tokens.json","src/themes/*.json","README.md","LICENSE"]` and `exports` only maps `./theme` → `tokens.css`. `tones.css`, `motion.css`, `comp-tokens.css` and `tailwind.css` exist in the repo (and `comp-tokens.css` holds **142 `--md-comp-*` component tokens**) but are only obtainable by vendoring from a checkout — which is exactly what `kern-cli` does.
+- **Four generated stylesheets are not published.** `package.json` `files[]` is `["dist","src/tokens.css","src/tokens.json","src/themes/*.json","README.md","LICENSE"]` and `exports` only maps `./theme` → `tokens.css`. `tones.css`, `motion.css`, `comp-tokens.css` and `tailwind.css` exist in the repo (and `comp-tokens.css` holds **142 `--comp-*` component tokens**) but are only obtainable by vendoring from a checkout — which is exactly what `kern-cli` does.
 
 ### 4.10 Current tests and validation [F]
 
@@ -359,7 +359,7 @@ Two verified frictions:
 
 | File | Tests | Covers |
 |---|---|---|
-| `tokens.test.ts` | 9 | pinned approved values in kern.json light+dark, role-name parity between modes, resolver agreement, `varName("primary") === "--md-sys-color-primary"` |
+| `tokens.test.ts` | 9 | pinned approved values in kern.json light+dark, role-name parity between modes, resolver agreement, `varName("primary") === "--sys-color-primary"` |
 | `theme.test.ts` | 6 | light/dark, contrast layering, sharp deltas leaving `onSurface` untouched, `defineThemePreset` validation failures |
 | `tokens-css.test.ts` | 4 | **drift between the JSON sources and the committed `tokens.css`**, including a rule that no DTCG `$` key may leak into a var name |
 | `tones.test.ts` | 13 | golden hash vectors for avatar/user tones, mode-flipped spectrum steps, functional map resolving all 46 keys, plus a **read of `tones.css`** asserting a `.tone-*` class exists for every functional key |
@@ -392,12 +392,12 @@ Remaining readiness gaps: version is `0.0.0` and nothing is on npm; four generat
 
 | # | Finding | Evidence |
 |---|---|---|
-| T1 | `--md-sys-` prefix hardcoded in ≥5 files with no constant | `resolve.ts:131,135`; `gen-css.mjs`; `gen-comp-css.mjs:323`; `gen-tones-css.mjs:30` |
+| T1 | `--sys-` prefix hardcoded in ≥5 files with no constant | `resolve.ts:131,135`; `gen-css.mjs`; `gen-comp-css.mjs:323`; `gen-tones-css.mjs:30` |
 | T2 | Role types derived from `kern.json` — a second provider must edit that file or bypass the type | `resolve.ts:13-15` |
 | T3 | Single-base rule (`extends: "kern"` only) | `resolve.ts:61-66`; `check-theme-matrix.mjs` catalog leg |
 | T4 | `palettes` (51 steps of Material ramps) are reachable **only** through the TS `tokens` export / raw JSON — they are never emitted to CSS (0 hits for `neutral`/`palettes` in `tokens.css`) | generator inspection |
-| T5 | **10 dangling `--md-comp-*-size` vars.** `gen-comp-css.mjs:300-306` — `roleExists` short-circuits on `role in ICON_SIZE`, so the earlier branch wins and emits `var(--md-sys-color-icon-24)`, which `gen-css.mjs` never defines. The `ICON_SIZE` literals (12px…48px) are never emitted. | generated `comp-tokens.css:23,24,31,61,74,121,123,129,143,153` |
-| T6 | **12 dangling motion-scheme vars** — `--md-sys-motion-scheme-*-{spatial,effects}-*` reference `var(--md-sys-motion-spring-spatial-fast)` etc., but only `-stiffness`/`-damping` halves are emitted | `gen-css.mjs:109-112` |
+| T5 | **10 dangling `--comp-*-size` vars.** `gen-comp-css.mjs:300-306` — `roleExists` short-circuits on `role in ICON_SIZE`, so the earlier branch wins and emits `var(--sys-color-icon-24)`, which `gen-css.mjs` never defines. The `ICON_SIZE` literals (12px…48px) are never emitted. | generated `comp-tokens.css:23,24,31,61,74,121,123,129,143,153` |
+| T6 | **12 dangling motion-scheme vars** — `--sys-motion-scheme-*-{spatial,effects}-*` reference `var(--sys-motion-spring-spatial-fast)` etc., but only `-stiffness`/`-damping` halves are emitted | `gen-css.mjs:109-112` |
 | T7 | The shape scale exists in **three independent copies** with no cross-file test: `tokens.json.shape` (10), `kern.json.radius` (10), `expressive-shapes.ts:CORE_SHAPE_TOKENS` (10) | verified |
 | T8 | `tokenEntries` filtering is per-call-site, not structural — `gen-css.mjs:39` defines the filter but `typography.scale`, `motion.*` and `spectrum` are iterated without it, while the file's own comment claims *"EVERY group must filter, not just elevation"* | `gen-css.mjs:35-39,77,85,99,106,109,113,130` |
 | T9 | `compact.json`/`brand.json` carry empty placeholder sub-objects (`color:{light:{},dark:{}}` / `shape:{}`), weakening the structural invariant | file inspection |
@@ -412,7 +412,7 @@ Remaining readiness gaps: version is `0.0.0` and nothing is on npm; four generat
 
 **Keep as the shared token foundation; generalise the schema, do not split.** Concretely, in priority order:
 
-1. Extract the `--md-sys-`/`--md-comp-` prefix into a single exported constant and thread it through the generators → **removes T1**.
+1. Extract the `--sys-`/`--comp-` prefix into a single exported constant and thread it through the generators → **removes T1**.
 2. Make the role table *pluggable*: add a `TokenProviderSchema` concept where a provider registers `{ id, roleTable, shapeTable, contrastOverlays, varPrefix }`, keep `kern.json` as the built-in default, and derive `ColorRole` from the *active* schema rather than the file. → **removes T2/T3**, and is the minimum viable seam for Phase D.
 3. Add an optional **DTCG export path** (`tokens.json` → `$value`/`$type` DTCG + a resolver document) as an *additional* interchange surface. Do not replace the internal format — the runtime resolver needs the mode/contrast/variant axes that DTCG's resolver module is only now standardising.
 4. Publish the four missing stylesheets, or explicitly declare them CLI-vendoring-only in the README.

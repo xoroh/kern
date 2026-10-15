@@ -20,6 +20,9 @@ bounded elevation-audit correction that unblocked the snapshot commit
 
 Still NOT authorized by this entry: pushing to any remote, publishing any
 package to npm, or running release versioning. Those remain P8 owner actions.
+Parent-monorepo (`../xoroh-platform`) migration (Phase P7) remains strictly BLOCKED
+pending explicit, separate written owner authorization. Canary branch experimentation
+is stopped and contained; no parent monorepo files may be modified.
 
 ## 2026-10-13 — site redesign direction (already executed)
 

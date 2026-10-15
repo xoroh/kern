@@ -80,7 +80,7 @@ packages/kern-tokens/
   src/tones.test.ts          golden hash vectors, registry, functional, engine
 ```
 
-`tokens.css` generation emits `--spectrum-<hue>-<step>` vars + `@theme inline`
+`tokens.css` generation emits `--ref-palette-<hue>-<step>` vars + `@theme inline`
 entries so ramps are utility-CSS addressable.
 
 ## Rigor
