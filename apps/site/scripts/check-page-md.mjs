@@ -128,22 +128,22 @@ for (const page of FOUNDATIONS) {
 let themed = 0;
 {
   const themeLeaf = NAV_SECTIONS.flatMap((s) => s.leaves).find(
-    (l) => l.href === "/foundations/theme",
+    (l) => l.href === "/foundations/m3/theme",
   );
   if (!themeLeaf) {
     bad(
-      "no /foundations/theme nav leaf — the theme page has no wayfinding source",
+      "no /foundations/m3/theme nav leaf — the theme page has no wayfinding source",
     );
   } else {
     const catalog = JSON.parse(
       readFileSync(
-        join(ROOT, "packages/kern-tokens/src/themes/index.json"),
+        join(ROOT, "packages/kern-material-3/src/themes/index.json"),
         "utf8",
       ),
     );
     const kernTheme = JSON.parse(
       readFileSync(
-        join(ROOT, "packages/kern-tokens/src/themes/kern.json"),
+        join(ROOT, "packages/kern-material-3/src/themes/material-3.json"),
         "utf8",
       ),
     );
@@ -156,18 +156,18 @@ let themed = 0;
       },
     );
     if (!md.trim()) {
-      bad("foundations/theme: emits an empty .md");
+      bad("foundations/m3/theme: emits an empty .md");
     } else {
       themed++;
       if (!md.includes(themeLeaf.hint)) {
         bad(
-          "foundations/theme: .md does not embed the nav leaf hint — the freshness tripwire",
+          "foundations/m3/theme: .md does not embed the nav leaf hint — the freshness tripwire",
         );
       }
       for (const preset of catalog.themes) {
         if (!md.includes(preset.id) || !md.includes(preset.description)) {
           bad(
-            `foundations/theme: .md omits catalog preset "${preset.id}" — the index and the .md disagree`,
+            `foundations/m3/theme: .md omits catalog preset "${preset.id}" — the index and the .md disagree`,
           );
         }
       }
@@ -176,10 +176,12 @@ let themed = 0;
 }
 
 // The visible affordance, pinned by source: the button plus the root it reads.
+// The theme page renders the root through PageCard's `copyMd` prop rather
+// than a literal attribute — same emitted DOM, one prop instead of two.
 for (const [file, rel] of [
   ["component pages", "src/components/docs/component-page.tsx"],
   ["foundations pages", "src/foundations/shell.tsx"],
-  ["theme reference page", "src/routes/foundations/theme/index.tsx"],
+  ["theme reference page", "src/routes/foundations/m3/theme.tsx"],
 ]) {
   const text = readFileSync(join(APP, rel), "utf8");
   if (!text.includes("CopyMarkdownButton")) {
@@ -187,7 +189,7 @@ for (const [file, rel] of [
       `${file} (${rel}) do not render CopyMarkdownButton — the emission has no visible affordance`,
     );
   }
-  if (!text.includes("data-copy-md-root")) {
+  if (!text.includes("data-copy-md-root") && !text.includes("copyMd")) {
     bad(
       `${file} (${rel}) carry no data-copy-md-root — the button has nothing to convert`,
     );
@@ -203,8 +205,8 @@ const { mdHrefForPathname } = await import(
 for (const [pathname, href] of [
   ["/components/web/button", "/md/web/button.md"],
   ["/components/mobile/button", "/md/mobile/button.md"],
-  ["/foundations/color", "/md/foundations/color.md"],
-  ["/foundations/theme", "/md/foundations/theme.md"],
+  ["/foundations/m3/color", "/md/foundations/color.md"],
+  ["/foundations/m3/theme", "/md/foundations/theme.md"],
 ]) {
   if (mdHrefForPathname(pathname) !== href) {
     bad(

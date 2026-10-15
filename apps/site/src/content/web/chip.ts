@@ -20,6 +20,52 @@ export const chip: ComponentDoc = {
     elevation: 0,
   },
   parts: ["Chip"],
+  keyboard: [
+    {
+      key: "Tab / Shift+Tab",
+      action: "Moves focus into and out of each chip. Disabled chips are skipped.",
+    },
+    {
+      key: "Space / Enter",
+      action: "Activates, selects, or deselects the focused chip.",
+    },
+    {
+      key: "Backspace / Delete",
+      action: "Removes the focused input chip.",
+    },
+  ],
+  usage: {
+    do: [
+      "Use assist for smart cross-app actions, filter for collection tags, input for user-entered discretes, suggestion for dynamic narrowing.",
+      "Always render chips in sets that scroll horizontally — never one alone.",
+      "Keep labels to 20 characters, skipping articles.",
+    ],
+    dont: [
+      "Don't finish tasks with chips — Save and Cancel are buttons, not chips.",
+      "Don't mix single- and multi-select filter behavior on one page.",
+      "Don't elevate chips on the page — elevation is for images only, never for pressed state (ripple instead).",
+    ],
+  },
+  tokens: [
+    {
+      element: "Container",
+      state: "resting",
+      token: "comp.chip.container",
+      value: "8px shape, 32px high, label-large",
+    },
+    {
+      element: "Selected filter",
+      state: "resting",
+      token: "comp.filter-chip.selected",
+      value: "secondary-container + on-secondary-container + check",
+    },
+  ],
+  faq: [
+    {
+      q: "Which chip do I use?",
+      a: "Assist for actions, filter for tags, input for user-entered discretes, suggestion for dynamic narrowing.",
+    },
+  ],
   customization: {
     supported: [
       "`className` is passed through and merged after the variant classes.",
@@ -29,7 +75,7 @@ export const chip: ComponentDoc = {
     notSupported: [
       "There is no `size` prop. Chips are one height, which is what makes a row of them line up.",
       "There is no `color` prop. The selected filter chip uses the primary roles; a different colour is a theme change.",
-      'Selection is not available on every variant. `selected`, `defaultSelected` and `onSelectedChange` are accepted only when `variant` is `"filter"` — passing them with `"assist"` or `"suggestion"` is a type error, not a silently ignored prop.',
+      'Selection is not available on every variant. `value`, `defaultValue` and `onValueChange` are accepted only when `variant` is `"filter"`.',
     ],
   },
   api: [
@@ -40,17 +86,17 @@ export const chip: ComponentDoc = {
       note: "M3's four chip kinds. The kind decides whether the chip can be selected at all.",
     },
     {
-      name: "selected",
+      name: "value",
       type: "boolean",
-      note: 'Controlled selection. Only on `variant="filter"`; on any other variant the prop is `never`, so it will not typecheck.',
+      note: 'Controlled selection. Only on `variant="filter"`.',
     },
     {
-      name: "defaultSelected",
+      name: "defaultValue",
       type: "boolean",
       note: "Initial selection when uncontrolled. Filter only.",
     },
     {
-      name: "onSelectedChange",
+      name: "onValueChange",
       type: "(selected: boolean) => void",
       note: "Fires on selection change. Filter only.",
     },

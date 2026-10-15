@@ -79,9 +79,9 @@ for (const section of NAV_SECTIONS) {
   lines.push("");
 }
 
-lines.push("## Foundations pages", "");
+lines.push("## Foundations pages (Material 3)", "");
 for (const page of FOUNDATIONS) {
-  lines.push(link(page.title, `/foundations/${page.slug}`, page.oneLiner));
+  lines.push(link(page.title, `/foundations/m3/${page.slug}`, page.oneLiner));
 }
 lines.push("");
 

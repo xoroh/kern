@@ -120,6 +120,14 @@ const ALIASES = {
   "bottom-sheet": "bottom-sheets",
   "side-sheet": "side-sheets",
   tooltip: "tooltips",
+  // A rich tooltip is an M3 TOOLTIP variant, not its own component: the spec
+  // documents the subhead/supporting-text/actions form on the tooltips page.
+  // Without this alias the page cited a real M3 page and still failed the
+  // identity check, because "rich tooltip" is not an M3 slug.
+  "rich-tooltip": "tooltips",
+  // A link button is the BUTTON treatment on the link role, so the spec page is
+  // the buttons page — the same origin the web `link` page cites.
+  "link-button": "buttons",
   toolbar: "toolbars",
   slider: "sliders",
   badge: "badges",

@@ -1,4 +1,4 @@
-import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
+import { type ResolvedTheme } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
 import {
   Modal,
@@ -7,11 +7,11 @@ import {
   View,
   type ViewStyle,
 } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 import { overlayStyles } from "../utils/overlay-styles";
 import { Text } from "./text";
 
-export function sheetStyles(scheme: ResolvedTheme = resolveThemeDetails()): {
+export function sheetStyles(scheme: ResolvedTheme = defaultScheme): {
   card: ViewStyle;
 } {
   return {
@@ -28,13 +28,8 @@ export function sheetStyles(scheme: ResolvedTheme = resolveThemeDetails()): {
 
 export type NativeSheetProps = {
   /**
-   * Legacy visibility name. Optional now that `open` exists — at least one
-   * of the two is required in practice (`open` wins when both are passed).
-   */
-  visible?: boolean;
-  /**
-   * R2 lexicon alias for `visible` (`open` wins when both are passed).
-   * Controlled-only passthrough — no `defaultOpen`, no state.
+   * Controlled visibility. Controlled-only passthrough — no `defaultOpen`,
+   * no state.
    */
   open?: boolean;
   title: string;
@@ -50,7 +45,6 @@ export type NativeSheetProps = {
 };
 
 export function Sheet({
-  visible,
   open,
   title,
   children,
@@ -67,7 +61,7 @@ export function Sheet({
   };
   return (
     <Modal
-      visible={open ?? visible ?? false}
+      visible={open ?? false}
       transparent
       animationType="slide"
       accessibilityViewIsModal

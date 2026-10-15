@@ -25,7 +25,7 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 
 /** Discover manifests from the workspace globs rather than hardcoding them. */
 async function discoverManifests() {
-  const patterns = ["packages/*", "apps/*"];
+  const patterns = ["packages/*", "libs/*", "apps/*"];
   const found = [];
   for (const pattern of patterns) {
     const base = pattern.split("/")[0];

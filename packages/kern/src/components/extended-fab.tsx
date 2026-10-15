@@ -35,8 +35,8 @@ import { FOCUS_RING_CLASS } from "./focus-ring";
  * and shipping a gesture the platform does not define makes the component's
  * behaviour a Kern invention that consumers then have to discover.
  *
- * - Controlled (`collapsed` + `onCollapsedChange`) or uncontrolled
- *   (`defaultCollapsed`), so a host can bind it to its own scroll position.
+ * - Controlled (`value` + `onValueChange`) or uncontrolled
+ *   (`defaultValue`), so a host can bind it to its own scroll position.
  * - **The accessible name survives collapse.** Collapsed, the label text is no
  *   longer rendered, so the name comes from `label` on the element. A collapsed
  *   FAB that left the label in the a11y tree would announce a longer name than
@@ -45,6 +45,34 @@ import { FOCUS_RING_CLASS } from "./focus-ring";
  *   `corner-large`: the extended form is the same button at a different width,
  *   not a second component.
  */
+
+export type ExtendedFabSize = "small" | "medium" | "large";
+
+/**
+ * M3 extended FAB sizes (MDC-Android comp tokens): small 56dp / 24px icon /
+ * large corner, medium 80dp / 28px icon / large-increased corner, large 96dp
+ * / 36px icon / extra-large corner.
+ */
+const EXTENDED_FAB_GEOMETRY: Record<
+  ExtendedFabSize,
+  { bar: string; icon: string; collapsed: string }
+> = {
+  small: {
+    bar: "h-14 rounded-(--sys-shape-corner-large)",
+    icon: "[&_svg]:size-6",
+    collapsed: "w-14",
+  },
+  medium: {
+    bar: "h-20 rounded-(--sys-shape-corner-large-increased)",
+    icon: "[&_svg]:size-7",
+    collapsed: "w-20",
+  },
+  large: {
+    bar: "h-24 rounded-(--sys-shape-corner-extra-large)",
+    icon: "[&_svg]:size-9",
+    collapsed: "w-24",
+  },
+};
 
 export type ExtendedFabHandle = {
   /** Collapse to the icon-only FAB. */
@@ -57,7 +85,7 @@ export type ExtendedFabHandle = {
 
 export type ExtendedFabProps = Omit<
   ComponentProps<"button">,
-  "children" | "ref"
+  "children" | "ref" | "value" | "defaultValue" | "onValueChange"
 > & {
   /**
    * Imperative handle for M3's scroll-driven collapse. The component cannot
@@ -69,43 +97,33 @@ export type ExtendedFabProps = Omit<
   label: string;
   icon: ReactNode;
   /** Controlled collapse state. */
-  collapsed?: boolean;
-  /** Initial collapse state for the uncontrolled case. */
-  defaultCollapsed?: boolean;
-  onCollapsedChange?: (collapsed: boolean) => void;
-  /**
-   * R2 lexicon canonical names (`value` wins when both are passed; both
-   * callbacks fire). `collapsed`/`defaultCollapsed`/`onCollapsedChange` are
-   * deprecated aliases onto the same state — including the imperative
-   * handle, which drives the same path.
-   */
   value?: boolean;
+  /** Initial collapse state for the uncontrolled case. */
   defaultValue?: boolean;
   onValueChange?: (collapsed: boolean) => void;
+  /**
+   * M3 extended size. `small` is the current rendering, kept default;
+   * `medium`/`large` swap the expressive 80/96dp geometry.
+   */
+  size?: ExtendedFabSize;
 };
 
 export function ExtendedFab({
   ref,
   label,
   icon,
-  collapsed,
-  defaultCollapsed = false,
-  onCollapsedChange,
   value: valueProp,
-  defaultValue,
+  defaultValue = false,
   onValueChange,
+  size = "small",
   disabled,
   type = "button",
   className,
   ...props
 }: ExtendedFabProps) {
-  const controlled = valueProp !== undefined || collapsed !== undefined;
-  const [uncontrolled, setUncontrolled] = useState(
-    defaultValue ?? defaultCollapsed,
-  );
-  const isCollapsed = controlled
-    ? (valueProp ?? collapsed ?? false)
-    : uncontrolled;
+  const controlled = valueProp !== undefined;
+  const [uncontrolled, setUncontrolled] = useState(defaultValue);
+  const isCollapsed = controlled ? (valueProp ?? false) : uncontrolled;
   // The handle must know the CURRENT state to be idempotent — two scrolls in
   // the same direction must not report two collapses. `stateRef` is updated in
   // an effect, not during render, so a controlled prop that a host fails to
@@ -115,6 +133,7 @@ export function ExtendedFab({
   useEffect(() => {
     stateRef.current = isCollapsed;
   }, [isCollapsed]);
+  const geo = EXTENDED_FAB_GEOMETRY[size];
 
   const setCollapsed = useCallback(
     (next: boolean) => {
@@ -123,9 +142,8 @@ export function ExtendedFab({
       stateRef.current = next;
       if (!controlled) setUncontrolled(next);
       onValueChange?.(next);
-      onCollapsedChange?.(next);
     },
-    [controlled, onCollapsedChange, onValueChange],
+    [controlled, onValueChange],
   );
 
   useImperativeHandle(
@@ -152,8 +170,13 @@ export function ExtendedFab({
       aria-label={label}
       disabled={disabled}
       className={cn(
-        "kern-extended-fab relative inline-flex h-14 shrink-0 items-center gap-3 rounded-(--md-sys-shape-corner-large) pr-5 pl-4 text-(--md-sys-color-on-primary) shadow-(--md-sys-elevation-level3) transition-[padding] outline-none select-none " + FOCUS_RING_CLASS + " disabled:pointer-events-none disabled:opacity-50 after:absolute after:-inset-2 after:content-[''] [&_svg]:size-6 [&_svg]:shrink-0",
-        isCollapsed && "w-14 justify-center px-0",
+        "kern-extended-fab relative inline-flex shrink-0 items-center gap-3 pr-5 pl-4 text-(--sys-color-on-primary-container) shadow-(--sys-elevation-level3) hover:shadow-(--sys-elevation-level4) transition-[padding,color,background-color,border-color,box-shadow] duration-200 ease-(--sys-motion-easing-standard) outline-none select-none " +
+          FOCUS_RING_CLASS +
+          " disabled:pointer-events-none disabled:opacity-38 aria-disabled:pointer-events-none aria-disabled:opacity-38 after:absolute after:-inset-2 after:content-[''] before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 hover:before:opacity-[var(--sys-state-hover)] hover:before:bg-(--sys-color-on-primary-container) focus-visible:before:opacity-[var(--sys-state-focus)] focus-visible:before:bg-(--sys-color-on-primary-container) active:before:opacity-[var(--sys-state-press)] active:before:bg-(--sys-color-on-primary-container) disabled:before:opacity-0 aria-disabled:before:opacity-0 [&_svg]:shrink-0",
+        "bg-(--sys-color-primary-container)",
+        geo.bar,
+        geo.icon,
+        isCollapsed && `justify-center px-0 ${geo.collapsed}`,
         className,
       )}
       {...props}
@@ -164,7 +187,7 @@ export function ExtendedFab({
       {isCollapsed ? null : (
         <span
           data-slot="extended-fab-label"
-          className="truncate text-sm font-medium"
+          className="truncate text-sm leading-5 font-medium tracking-[0.1px]"
         >
           {label}
         </span>

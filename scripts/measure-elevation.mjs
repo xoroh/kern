@@ -4,7 +4,7 @@
  *
  * ## It scans THREE elevation carriers, not one
  *
- * The original scanned only `--md-sys-elevation-level<N>`. That missed every
+ * The original scanned only `--sys-elevation-level<N>`. That missed every
  * native surface, because React Native does not use that token: it takes a raw
  * `elevation: <dp>` plus iOS `shadow*` props. The concrete miss:
  * `packages/kern-native/src/components/sheets.tsx` DockSheet ships
@@ -29,6 +29,7 @@
 
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
+import { elevationCode } from "./lib/elevation-audit.mjs";
 
 const ROOT = new URL("..", import.meta.url).pathname.replace(/\/$/, "");
 const WEB = join(ROOT, "packages/kern/src/components");
@@ -69,8 +70,8 @@ function measure(base, name) {
   for (const file of closureOf(base, `${name}.tsx`)) {
     const full = join(base, file);
     if (!existsSync(full)) continue;
-    const src = readFileSync(full, "utf8");
-    for (const [, lvl] of src.matchAll(/--md-sys-elevation-level(\d)/g)) {
+    const src = elevationCode(readFileSync(full, "utf8"));
+    for (const [, lvl] of src.matchAll(/--sys-elevation-level(\d)/g)) {
       tokens.add(Number(lvl));
     }
     for (const [, dp] of src.matchAll(
@@ -87,7 +88,8 @@ function measure(base, name) {
   return { tokens, rawDp, iosShadow };
 }
 
-const args = process.argv.slice(2);
+const json = process.argv.includes("--json");
+const args = process.argv.slice(2).filter((arg) => arg !== "--json");
 const native = args[0] === "--native";
 const targets = native ? args.slice(1) : args;
 const base = native ? NATIVE : WEB;
@@ -99,12 +101,20 @@ if (targets.length === 0) {
   process.exit(2);
 }
 
-console.log(
-  "component            token-levels  raw-dp(=level)  ios-shadow   verdict",
-);
-console.log("-".repeat(78));
+if (!json)
+  console.log(
+    "component            token-levels  raw-dp(=level)  ios-shadow   verdict",
+  );
+if (!json) console.log("-".repeat(78));
+const measurements = [];
 for (const name of targets) {
   const { tokens, rawDp, iosShadow } = measure(base, name);
+  measurements.push({
+    name,
+    tokenLevels: [...tokens].sort((a, b) => a - b),
+    rawDp: [...rawDp],
+    iosShadow: [...iosShadow],
+  });
   const tokenList = tokens.size ? [...tokens].sort().join(",") : "—";
   const dpList = rawDp.size
     ? [...rawDp]
@@ -130,7 +140,9 @@ for (const name of targets) {
     verdict =
       "iOS SHADOW ONLY (no token, no dp) — a shadow is drawn but no level names it";
   }
-  console.log(
-    `${name.padEnd(20)} ${tokenList.padEnd(13)} ${dpList.padEnd(15)} ${iosList.padEnd(11)} ${verdict}`,
-  );
+  if (!json)
+    console.log(
+      `${name.padEnd(20)} ${tokenList.padEnd(13)} ${dpList.padEnd(15)} ${iosList.padEnd(11)} ${verdict}`,
+    );
 }
+if (json) console.log(JSON.stringify(measurements));

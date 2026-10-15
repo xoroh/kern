@@ -12,7 +12,7 @@ export const snapSheet: ComponentDoc = {
     package: "@xoroh/kern",
     nativePeer: "SnapSheet",
     variants: [],
-    // Ships `--md-sys-elevation-level1` (modal sheet, M3 "bottom sheet (modal)"
+    // Ships `--sys-elevation-level1` (modal sheet, M3 "bottom sheet (modal)"
     // at level 1). No registry row is keyed under this slug, so the claim is
     // reported as unasserted — a registry gap, not a page gap.
     // Claimed level 1, unasserted by the elevation table — see the gap report.
@@ -22,12 +22,12 @@ export const snapSheet: ComponentDoc = {
   parts: ["SnapSheet"],
   customization: {
     supported: [
-      "`snapPoints` declares the detents as viewport fractions; `index` / `onIndexChange` are the controlled-uncontrolled pair for which one is active.",
+      "`snapPoints` declares the detents as viewport fractions; `value` / `onValueChange` are the controlled-uncontrolled pair for which one is active.",
       "`label` names both the surface and the detent control, which is labelled from it.",
       "`className` is passed through and merged after the sheet's surface classes.",
     ],
     notSupported: [
-      "There is no drag-to-resize. The detent control cycles the set; a gesture-driven engine can plug into `onIndexChange` later without an API change.",
+      "There is no drag-to-resize. The detent control cycles the set; a gesture-driven engine can plug into `onValueChange` later without an API change.",
       "Detents are heights, not content states — the same children render at every detent. A peek that shows DIFFERENT content is a host decision.",
       "No intermediate or free heights: the sheet is at one detent or another, never between.",
     ],
@@ -46,13 +46,13 @@ export const snapSheet: ComponentDoc = {
       note: "The surface's accessible name, and the stem of the detent control's label.",
     },
     {
-      name: "index",
+      name: "value",
       type: "number",
       default: "0",
       note: "Controlled detent index. Clamped into range — an out-of-range index can never blank the sheet.",
     },
     {
-      name: "onIndexChange",
+      name: "onValueChange",
       type: "(index: number) => void",
       note: "Fires with the next detent index. Pressing the detent control cycles through the set and wraps.",
     },

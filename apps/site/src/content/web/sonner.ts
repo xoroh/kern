@@ -18,7 +18,7 @@ export const sonner: ComponentDoc = {
     // backed by kern's status roles, not by M3's.
     variants: ["intent: info · success · warning · error"],
     // kern's own decision. M3's component elevation table names no sonner. The
-    // surface ships `--md-sys-elevation-level2` and the choice is registered
+    // surface ships `--sys-elevation-level2` and the choice is registered
     // as K6. See Deviations.
     elevation: 2,
   },
@@ -69,6 +69,29 @@ export const sonner: ComponentDoc = {
     { name: "SonnerAction", role: "The single action offered." },
     { name: "SonnerClose", role: "Dismisses it early." },
     { name: "Sonner", role: "The namespace object: all of the parts above." },
+  ],
+  usage: {
+    do: [
+      "Stack transient messages with actions where snackbars stack.",
+      "Dismiss on action, timeout, or swipe.",
+    ],
+    dont: [
+      "Do not block on sonner messages.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Stack",
+      state: "resting",
+      token: "kern.sonner.stack",
+      value: "Kern pattern beyond M3",
+    },
+  ],
+  faq: [
+    {
+      q: "Sonner or snackbar?",
+      a: "Sonner for stacked app-level toasts; snackbar for single M3-spec messages.",
+    },
   ],
   customization: {
     supported: [

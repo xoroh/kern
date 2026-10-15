@@ -31,12 +31,21 @@ export type LinkButtonProps = Omit<
 export function LinkButton({
   href,
   onClick,
+  iconPosition,
   ...props
 }: LinkButtonProps) {
+  if (process.env.NODE_ENV !== "production" && iconPosition === "end") {
+    // M3 forbids trailing icons on link buttons: the outbound cue lives at
+    // the inline start, and a trailing icon reads as a second action.
+    console.warn(
+      'LinkButton: `iconPosition="end"` is ignored — M3 link buttons cannot carry trailing icons.',
+    );
+  }
   return (
     <Button
       href={href}
       onClick={onClick as ButtonProps["onClick"]}
+      iconPosition={iconPosition === "end" ? "start" : iconPosition}
       {...props}
     />
   );

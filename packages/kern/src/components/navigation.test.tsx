@@ -151,7 +151,7 @@ describe("Pagination", () => {
   it("navigates pages and reports changes", async () => {
     const user = userEvent.setup();
     const seen: number[] = [];
-    render(<Pagination count={10} onPageChange={(p) => seen.push(p)} />);
+    render(<Pagination count={10} onValueChange={(p) => seen.push(p)} />);
     expect(screen.getByRole("button", { name: "Page 1" })).toHaveAttribute(
       "aria-current",
       "page",
@@ -165,7 +165,7 @@ describe("Pagination", () => {
   });
 
   it("disables prev on the first page", () => {
-    render(<Pagination count={5} defaultPage={1} />);
+    render(<Pagination count={5} defaultValue={1} />);
     expect(
       screen.getByRole("button", { name: "Previous page" }),
     ).toBeDisabled();
@@ -176,7 +176,7 @@ describe("Pagination", () => {
     // the whole reason the count knob matters, so the test pins the gaps.
     // Sensitivity-proven: the same assertions on a small count fail
     // (scratch probe, RED confirmed, deleted).
-    render(<Pagination count={24} defaultPage={12} />);
+    render(<Pagination count={24} defaultValue={12} />);
     expect(screen.getAllByText("…")).toHaveLength(2);
     expect(screen.getByRole("button", { name: "Page 12" })).toHaveAttribute(
       "aria-current",

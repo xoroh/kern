@@ -71,36 +71,44 @@ export function ButtonDemo() {
         </Row>
       </Preview>
       <Preview
-        label="action — destructive is the error roles, not a variant"
+        label="action — destructive is color=danger, not a variant"
         span={3}
       >
         <Row>
-          <Button className="bg-(--md-sys-color-error) text-(--md-sys-color-on-error) hover:bg-(--md-sys-color-error)/90">
-            Delete
-          </Button>
-          <Button
-            variant="outlined"
-            className="border-(--md-sys-color-error) text-(--md-sys-color-error)"
-          >
+          <Button color="danger">Delete</Button>
+          <Button variant="outlined" color="danger">
             Discard
+          </Button>
+          <Button variant="tonal" color="danger">
+            Remove
           </Button>
         </Row>
       </Preview>
-      <Preview label="size — default · sm · icon" span={3}>
+      <Preview label="size — xs · default · sm · xl · icon" span={3}>
         <Row>
+          <Button size="xs">XS</Button>
           <Button>Default</Button>
           <Button size="sm">Small</Button>
+          <Button size="xl">XL</Button>
           <Button size="icon" aria-label="Settings">
             <Gear />
           </Button>
         </Row>
       </Preview>
-      <Preview label="state — disabled" span={3}>
+      <Preview label="shape — pill · rounded · square" span={3}>
+        <Row>
+          <Button shape="pill">Pill</Button>
+          <Button shape="rounded">Rounded</Button>
+          <Button shape="square">Square</Button>
+        </Row>
+      </Preview>
+      <Preview label="state — disabled · loading · block" span={3}>
         <Row>
           <Button disabled>Disabled</Button>
           <Button variant="tonal" disabled>
             Disabled tonal
           </Button>
+          <Button loading>Loading</Button>
         </Row>
       </Preview>
     </PreviewStack>
@@ -131,7 +139,7 @@ export function FabDemo() {
   return (
     <PreviewStack>
       <Preview
-        label="size — small · default · medium · large (M3's FAB axis)"
+        label="size — small · default · md · medium · large (M3's FAB axis)"
         span={3}
       >
         <Row>
@@ -143,10 +151,61 @@ export function FabDemo() {
             <Plus />
             Compose
           </Fab>
+          <Fab size="md" aria-label="Compose">
+            <Plus />
+          </Fab>
           <Fab size="medium" aria-label="Compose">
             <Plus />
           </Fab>
           <Fab size="large" aria-label="Compose">
+            <Plus />
+          </Fab>
+        </Row>
+      </Preview>
+      <Preview
+        label="color — surface · primary · secondary · tertiary"
+        span={3}
+      >
+        <Row>
+          <Fab color="surface" aria-label="Compose">
+            <Plus />
+          </Fab>
+          <Fab color="primary" aria-label="Compose">
+            <Plus />
+          </Fab>
+          <Fab color="secondary" aria-label="Compose">
+            <Plus />
+          </Fab>
+          <Fab color="tertiary" aria-label="Compose">
+            <Plus />
+          </Fab>
+        </Row>
+      </Preview>
+      <Preview
+        label="color — expressive fills · primary-fill · secondary-fill · tertiary-fill"
+        span={3}
+      >
+        <Row>
+          <Fab color="primary-fill" aria-label="Compose">
+            <Plus />
+          </Fab>
+          <Fab color="secondary-fill" aria-label="Compose">
+            <Plus />
+          </Fab>
+          <Fab color="tertiary-fill" aria-label="Compose">
+            <Plus />
+          </Fab>
+        </Row>
+      </Preview>
+      <Preview
+        label="elevation — standard · lowered (level1, quieter)"
+        span={3}
+      >
+        <Row>
+          <Fab aria-label="Compose">
+            <Plus />
+          </Fab>
+          <Fab lowered aria-label="Compose">
             <Plus />
           </Fab>
         </Row>
@@ -216,7 +275,7 @@ export function ChipDemo() {
       </Preview>
       <Preview label="variant — filter (click a chip to toggle)" span={3}>
         <Row>
-          <Chip variant="filter" defaultSelected>
+          <Chip variant="filter" defaultValue>
             All
           </Chip>
           <Chip variant="filter">Unread</Chip>
@@ -237,7 +296,7 @@ export function CardDemo() {
         <Preview key={variant} label={`variant — ${variant}`}>
           <Card variant={variant} className="w-full max-w-56 p-6 text-left">
             <p className="m-0 font-medium">Card content</p>
-            <p className="m-0 mt-1 text-sm text-(--md-sys-color-on-surface-variant)">
+            <p className="m-0 mt-1 text-sm text-(--sys-color-on-surface-variant)">
               Cards group related content.
             </p>
           </Card>
@@ -319,7 +378,7 @@ export function SkeletonDemo() {
 export function ListItemDemo() {
   return (
     <Preview label="headline · supporting · leading · trailing" span={3}>
-      <ul className="w-full max-w-sm divide-y divide-(--md-sys-color-outline-variant)">
+      <ul className="w-full max-w-sm divide-y divide-(--sys-color-outline-variant)">
         <ListItem
           headline="Inbox"
           supporting="12 unread"
@@ -410,6 +469,16 @@ export function LinearProgressDemo() {
           <LinearProgress value={0.75} label="Almost done" />
         </div>
       </Preview>
+      <Preview label="wavy — expressive indicator" span={3}>
+        <div className="w-full max-w-sm">
+          <LinearProgress value={0.6} label="Syncing" wavy />
+        </div>
+      </Preview>
+      <Preview label="stop — end marker" span={3}>
+        <div className="w-full max-w-sm">
+          <LinearProgress value={0.6} label="Syncing" stop />
+        </div>
+      </Preview>
     </PreviewStack>
   );
 }
@@ -434,7 +503,7 @@ export function CircularProgressDemo() {
 export function PageLoaderDemo() {
   return (
     <Preview label="PageLoader — centred in-content loading surface" span={3}>
-      <div className="h-64 w-full overflow-hidden rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant)">
+      <div className="h-64 w-full overflow-hidden rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant)">
         <PageLoader label="Loading components" className="min-h-64" />
       </div>
     </Preview>
@@ -445,10 +514,10 @@ export function BootIndicatorDemo() {
   return (
     <Preview label="BootIndicator — tone surface · tone inverse" span={3}>
       <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2">
-        <div className="h-56 overflow-hidden rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant)">
+        <div className="h-56 overflow-hidden rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant)">
           <BootIndicator signature="Xoroh" className="min-h-56" />
         </div>
-        <div className="h-56 overflow-hidden rounded-(--md-sys-shape-corner-small)">
+        <div className="h-56 overflow-hidden rounded-(--sys-shape-corner-small)">
           <BootIndicator tone="inverse" className="min-h-56" />
         </div>
       </div>
@@ -496,7 +565,7 @@ export function ExtendedFabDemo() {
         <ExtendedFab
           label="Create"
           icon={<Plus className="size-5" />}
-          collapsed
+          value
         />
       </Row>
     </Preview>
@@ -547,7 +616,7 @@ export function LinkDemo() {
         >
           <Link to="/components">Component catalog</Link>
         </LinkProvider>
-        <LinkButton href="/getting-started">Get started</LinkButton>
+        <LinkButton href="/docs/getting-started">Get started</LinkButton>
       </div>
     </Preview>
   );

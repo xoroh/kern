@@ -55,12 +55,12 @@ export const BUTTON_EXAMPLES: ExampleSpec[] = [
     description:
       'There is no `variant="destructive"` — the library rejects it. An irreversible action is a button painted with the error roles, which is why this is a class and not a variant.',
     render: () => (
-      <Button className="bg-(--md-sys-color-error) text-(--md-sys-color-on-error) hover:bg-(--md-sys-color-error)/90">
+      <Button className="bg-(--sys-color-error) text-(--sys-color-on-error) hover:bg-(--sys-color-error)/90">
         Delete project
       </Button>
     ),
     code: `<Button
-  className="bg-(--md-sys-color-error) text-(--md-sys-color-on-error) hover:bg-(--md-sys-color-error)/90"
+  className="bg-(--sys-color-error) text-(--sys-color-on-error) hover:bg-(--sys-color-error)/90"
 >
   Delete project
 </Button>`,

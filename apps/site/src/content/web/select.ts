@@ -16,7 +16,7 @@ export const select: ComponentDoc = {
     variants: [],
     // kern's own decision. M3's component elevation table does not name a
     // select — it names "menu" at level 2, which kern maps to
-    // `navigation-menu`. The popup ships `--md-sys-elevation-level2`, and the
+    // `navigation-menu`. The popup ships `--sys-elevation-level2`, and the
     // choice is registered as K6. See Deviations.
     elevation: 2,
   },
@@ -65,10 +65,65 @@ export const select: ComponentDoc = {
     { name: "SelectSeparator", role: "A divider between runs of options." },
     { name: "Select", role: "The namespace object: all of the parts above." },
   ],
+  keyboard: [
+    {
+      key: "Enter / Space / ArrowDown",
+      action: "Opens the menu when the trigger is focused.",
+    },
+    {
+      key: "Arrow keys",
+      action: "Moves through options once open. Typeahead jumps by typed text.",
+    },
+    {
+      key: "Escape",
+      action: "Closes the menu and returns focus to the trigger.",
+    },
+    {
+      key: "Tab / Shift+Tab",
+      action: "Moves focus into and out of the select. Disabled selects are skipped.",
+    },
+  ],
+  usage: {
+    do: [
+      "Use for choosing one value from a fixed list — 6+ options or tight space where radios won't fit.",
+      "Mirror the text-field treatment: filled on lower surfaces, outlined everywhere else.",
+      "Mark mandatory selects `required`.",
+    ],
+    dont: [
+      "Don't use for 2–5 always-visible choices — that is a radio group or segmented button.",
+      "Don't use for free text — that is an input or combobox.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Filled container",
+      state: "resting",
+      token: "comp.filled-select.text-field-container-color",
+      value: "--sys-color-surface-container-highest, 4px top",
+    },
+    {
+      element: "Outlined container",
+      state: "resting",
+      token: "comp.outlined-select.text-field-container-shape",
+      value: "corner-extra-small 4px, 1px outline",
+    },
+    {
+      element: "Menu surface",
+      state: "resting",
+      token: "comp.menu.container-color",
+      value: "surface, level2 shadow",
+    },
+  ],
+  faq: [
+    {
+      q: "Select, combobox, or autocomplete?",
+      a: "Select for a fixed closed list. Combobox when the list filters as you type. Autocomplete when suggestions complete free text.",
+    },
+  ],
   customization: {
     supported: [
       "`className` on every part, merged after the part's own classes.",
-      "The trigger is the input's height and shape — `--md-sys-shape-corner-small` and the outline roles — so a select sits level beside a text field in a form.",
+      "The trigger is the input's height and shape — `--sys-shape-corner-small` and the outline roles — so a select sits level beside a text field in a form.",
       "Option states are exposed as `data-highlighted` and `data-disabled`, so a stylesheet can restyle hover and unavailable options.",
     ],
     notSupported: [

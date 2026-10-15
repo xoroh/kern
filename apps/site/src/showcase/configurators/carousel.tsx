@@ -3,11 +3,11 @@ import type { ConfiguratorSpec, ConfigValues } from "../configurator";
 
 /**
  * Carousel configurator — the thirty-eighth Part-4 configurator
- * (move #38). Three genuine knobs: initial slide (`defaultIndex` select —
+ * (move #38). Three genuine knobs: initial slide (`defaultValue` select —
  * the painted-verify axis), `wrap` (clamped ends vs wrap-around), and
  * `showIndicators` (dot navigation on/off). Everything else is fixed
  * anatomy or caller wiring by design: `items` are the caller's content,
- * controlled `index` + `onIndexChange` are wiring not knobs, `label` and
+ * controlled `value` + `onValueChange` are wiring not knobs, `label` and
  * `itemLabels` are strings not variations, and `disabled` freezes the
  * very interaction the stage exists to show. The stage shows the
  * documented anatomy whole — three slides with the middle mounted — so
@@ -16,8 +16,8 @@ import type { ConfiguratorSpec, ConfigValues } from "../configurator";
  */
 const SLIDES = ["One", "Two", "Three"];
 
-function indexOf(v: ConfigValues): number {
-  const n = Number(v.index);
+function valueOf(v: ConfigValues): number {
+  const n = Number(v.value);
   return n >= 0 && n < SLIDES.length ? n : 0;
 }
 
@@ -31,7 +31,7 @@ function indicatorsOf(v: ConfigValues): boolean {
 
 function rootPropsOf(v: ConfigValues): string {
   const out: string[] = [];
-  if (indexOf(v) !== 0) out.push(`defaultIndex={${indexOf(v)}}`);
+  if (valueOf(v) !== 0) out.push(`defaultValue={${valueOf(v)}}`);
   if (wrapOf(v)) out.push("wrap");
   if (indicatorsOf(v)) out.push("showIndicators");
   return out.length > 0 ? ` ${out.join(" ")}` : "";
@@ -45,7 +45,7 @@ export const CAROUSEL_CONFIGURATOR: ConfiguratorSpec = {
   controls: [
     {
       kind: "select",
-      name: "index",
+      name: "value",
       label: "Initial slide",
       options: ["0", "1", "2"],
       default: "0",
@@ -65,13 +65,13 @@ export const CAROUSEL_CONFIGURATOR: ConfiguratorSpec = {
   ],
   render: (v) => (
     <Carousel
-      key={`${indexOf(v)}-${wrapOf(v) ? "wrap" : "clamp"}-${indicatorsOf(v) ? "dots" : "nodots"}`}
+      key={`${valueOf(v)}-${wrapOf(v) ? "wrap" : "clamp"}-${indicatorsOf(v) ? "dots" : "nodots"}`}
       items={SLIDES.map((s) => <p key={s}>{s}</p>)}
-      defaultIndex={indexOf(v)}
+      defaultValue={valueOf(v)}
       wrap={wrapOf(v)}
       showIndicators={indicatorsOf(v)}
     />
   ),
   code: (v) =>
-    `<Carousel${rootPropsOf(v)}>\n  items={[<p key="a">One</p>, <p key="b">Two</p>, <p key="c">Three</p>]}\n</Carousel>\n\n// items are the caller's content; controlled index + onIndexChange are wiring.\n// disabled freezes the interaction the stage exists to show.`,
+    `<Carousel${rootPropsOf(v)}>\n  items={[<p key="a">One</p>, <p key="b">Two</p>, <p key="c">Three</p>]}\n</Carousel>\n\n// items are the caller's content; controlled value + onValueChange are wiring.\n// disabled freezes the interaction the stage exists to show.`,
 };

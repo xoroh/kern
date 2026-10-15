@@ -111,6 +111,7 @@ is therefore usually an API-shape difference, not a missing feature.
 | `chip` | 1 | 1 |
 | `circular` | 1 | 1 |
 | `collapsible` | 4 | 1 |
+| `combobox` | 9 | 1 |
 | `command` | 9 | 1 |
 | `context` | 6 | 1 |
 | `country` | 7 | 1 |
@@ -146,7 +147,7 @@ is therefore usually an API-shape difference, not a missing feature.
 | `toggle` | 4 | 2 |
 | `toolbar` | 5 | 1 |
 
-Totals: **292** web exports, **104** native exports, **83** shared concepts
+Totals: **300** web exports, **117** native exports, **92** shared concepts
 (`PARITY_COUNTS` in `parity/contract.ts`, generated from
 [`components.md`](components.md) — never hand-edit; see "Keeping this page
 honest" below).
@@ -166,21 +167,30 @@ exist where React Native event and style types force them
 (`NativeButtonProps`, `NativeTextVariant`) — that is a type-name convention,
 not a component-name one.
 
-## Known gaps (honest list)
+## Known gaps and platform-specific asymmetries
 
 These are real differences in the current tree. None is a naming violation.
 
-**Web-only concepts** (16): `autocomplete`, `combobox`, `drawer`, `fieldset`,
-`form`, `kbd`, `meter`, `native-select`, `number-field`, `page-loader`,
-`pagination`, `popover`, `preview-card`, `scroll-area`, `sonner`, `tooltip`.
+**Previously listed web-only concepts now implemented and exported natively:**
+- `autocomplete` → native `Autocomplete` (`src/components/autocomplete.tsx`)
+- `drawer` → native `Drawer` (`src/components/overlay-surfaces.tsx`)
+- `fieldset` → native `Fieldset` (`src/components/fieldset.tsx`)
+- `kbd` → native `Kbd` (`src/components/kbd.tsx`)
+- `meter` → native `Meter` (`src/components/meter.tsx`)
+- `number-field` → native `NumberField` (`src/components/number-field.tsx`)
+- `pagination` → native `Pagination` (`src/components/pagination.tsx`)
+- `scroll-area` → native `ScrollArea` (`src/components/overlay-surfaces.tsx`)
+- `tooltip` → native `Tooltip` and `RichTooltip` (`src/components/tooltip.tsx`)
 
-Most have an RN equivalent in the platform itself rather than a Kern
-component: `native-select` maps to RN `Picker`, `scroll-area` to RN
-`ScrollView`. `tooltip` and `kbd` are web-interaction concepts with no mobile
-analogue.
+**Web-only concepts & platform asymmetries:**
+- `form`: HTML `<form>` semantic tag; on native, form state and submission are managed by host state / handlers.
+- `native-select`: thin HTML `<select>` wrapper; on native, apps use `Select` or the host platform picker.
+- `preview-card`: hover-driven desktop card popup.
+- `focus-ring`: web DOM/CSS visible focus indicator; native uses host focus / pressable state.
+- `page-loader` / `loading-region`: web page-level loading state composition helpers.
+- Web composition blocks in `@xoroh/kern/start` (`Sidebar`, `SearchBar`, `TopAppBarToggle`, `Inspector`, `Page`, etc., where native composition uses its own modules like `layouts.tsx` and `navigation-drawer.tsx`).
 
-`input-otp` is **not** in this list: it is part of the shared `input` concept
-(row above), which ships on both platforms.
+`combobox` is a shared concept: native ships a flat `Combobox`, web exports 9 multipart parts. `popover` ships on both renderers (`packages/kern-native/src/components/overlay-surfaces.tsx`). `input-otp` is a shared concept that ships on both platforms.
 
 ### Deliberate asymmetry: `Sonner` has no native counterpart
 
@@ -202,11 +212,11 @@ imperative toast entry point (`Sonner`); native ships the declarative
 and shipping native `Sonner` would duplicate one surface under a forbidden
 name.
 
-**Native-only concepts** (18), in two groups:
+**Native-only concepts** (19), in two groups:
 
-*Platform primitives and brand kit* (6) — `aspect-ratio` (RN layout
-primitive), `shape` / `shape-art` (brand-kit art), `milestone-trio` and
-`success-transform` (feedback brand kit), `arc-rotations` (a
+*Platform primitives and brand kit* (7) — `aspect-ratio` (RN layout
+primitive), `shape` / `shape-art` / `expressive-shape` (brand-kit art),
+`milestone-trio` and `success-transform` (feedback brand kit), `arc-rotations` (a
 `CircularProgress` helper). These have no web counterpart by design.
 
 *Composition that exists only on native* (12) — `bottom-sheet`, `snap-sheet`,
@@ -239,8 +249,13 @@ gesture handling proves inadequate, the plan is `@xoroh/kern-expo`.
 | `Button` variant | `elevated`, `primary`, `tonal`, `outlined`, `ghost` (M3 aliases `filled`→`primary`, `text`→`ghost`) | same | intentional — **no `destructive` variant on either side**; a destructive action is an error-role colour choice, not a sixth axis (web: `packages/kern/src/components/button.tsx:14-25`; native: `packages/kern-native/src/components/button.tsx:16-21`; pinned: `packages/kern/src/start/sizes.test.ts:58`, `packages/kern-native/src/components/sizes.test.ts:66`) |
 | `Dialog` | Base UI primitives | RN `Modal` | intentional — different primitive, same M3 structure and two-action law |
 | `SegmentedButton` | compound `Root`/`Item` | single `SegmentedButton`, `options` prop | intentional — API shape, not coverage (ruled, see below) |
-| `CountrySelect` | 7 multipart exports | 1 flat `CountrySelect` | intentional — API shape, not coverage. **Corrected 2026-10-01:** this row previously said "no native equivalent"; native has shipped it since (`web-parity.tsx:346`) |
-| `Command` | 9 multipart exports | 1 flat `Command` | intentional — API shape, not coverage. Same correction: native ships it at `web-parity.tsx:50` |
+| `CountrySelect` | 7 multipart exports | 1 flat `CountrySelect` | intentional — API shape, not coverage. Native ships it at `web-parity.tsx:346` |
+| `Command` | 9 multipart exports | 1 flat `Command` | intentional — API shape, not coverage. Native ships it at `web-parity.tsx:50` |
+| `Autocomplete` | 7 multipart exports | 1 flat `Autocomplete` | intentional — API shape, not coverage. Native ships it at `autocomplete.tsx` |
+| `Tooltip` / `RichTooltip` | compound parts | flat `Tooltip` / `RichTooltip` | intentional — API shape, not coverage. Native ships it at `tooltip.tsx` |
+| `Pagination` | compound parts | flat `Pagination` | intentional — API shape, not coverage. Native ships it at `pagination.tsx` |
+| `NumberField` | compound `Root`/`Input` | flat `NumberField` | intentional — API shape, not coverage. Native ships it at `number-field.tsx` |
+| `Drawer` | compound `Root`/`Content` | flat `Drawer` | intentional — API shape, not coverage. Native ships it at `overlay-surfaces.tsx` |
 
 ## Ruled differences (design authority, not workarounds)
 
@@ -292,7 +307,7 @@ brief — it is not a docs fix.
    48dp minimum target, 24dp icons, M3 state-layer opacities — resolved
    from the same token set on both sides.
 2. **Color resolves through one scheme.** Web projects it as
-   `--md-sys-*` custom properties plus a `.dark` class; native resolves it
+   `--sys-*` custom properties plus a `.dark` class; native resolves it
    to objects via `useKernScheme()`. `applyKernTheme()` and
    `KernThemeProvider` take the same `(mode, contrast, variant)` triple, so
    the same selection renders identically on both.

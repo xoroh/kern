@@ -12,7 +12,7 @@ export function FieldsetRoot({ className, ...props }: FieldsetRootProps) {
     <FieldsetPrimitive.Root
       data-slot="fieldset"
       className={cnState(
-        "kern-fieldset grid gap-4 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant) p-4 disabled:opacity-50",
+        "kern-fieldset grid gap-4 rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant) p-4 disabled:opacity-50",
         className,
       )}
       {...props}
@@ -25,7 +25,7 @@ export function FieldsetLegend({ className, ...props }: FieldsetLegendProps) {
     <FieldsetPrimitive.Legend
       data-slot="fieldset-legend"
       className={cnState(
-        "kern-fieldset-legend px-1 text-sm font-medium text-(--md-sys-color-on-surface)",
+        "kern-fieldset-legend px-1 text-sm font-medium text-(--sys-color-on-surface)",
         className,
       )}
       {...props}

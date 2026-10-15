@@ -28,6 +28,29 @@ export const meter: ComponentDoc = {
     },
     { name: "Meter", role: "The namespace object: Root, Label and Value." },
   ],
+  usage: {
+    do: [
+      "Label what is measured and show the value beside the bar.",
+      "Report progress semantics to assistive tech.",
+    ],
+    dont: [
+      "Do not use for unknown waits.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Bar",
+      state: "resting",
+      token: "kern.meter.bar",
+      value: "Kern pattern beyond M3",
+    },
+  ],
+  faq: [
+    {
+      q: "Meter or progress?",
+      a: "Meter for measured quantities with labels; progress for action waits.",
+    },
+  ],
   customization: {
     supported: [
       "`className` on every part, merged after the part's own classes.",

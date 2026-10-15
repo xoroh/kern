@@ -17,7 +17,7 @@ export const combobox: ComponentDoc = {
     // No variant axis. One treatment; the state is open, closed or cleared.
     variants: [],
     // kern's own decision. M3's component elevation table names no combobox.
-    // The popup ships `--md-sys-elevation-level2` and the choice is registered
+    // The popup ships `--sys-elevation-level2` and the choice is registered
     // as K6. See Deviations.
     elevation: 2,
   },

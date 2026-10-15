@@ -35,55 +35,58 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const PACKAGES = join(ROOT, "packages");
+/** Workspace areas holding packages. N9 moved the internal-only primitives to libs/. */
+const AREAS = ["packages", "libs"];
 
 const violations = [];
 let checked = 0;
 const missing = [];
 
-for (const name of readdirSync(PACKAGES).sort()) {
-  const dir = join(PACKAGES, name);
-  if (!statSync(dir).isDirectory()) continue;
-  const pkgJson = join(dir, "package.json");
-  if (!existsSync(pkgJson)) continue;
+for (const area of AREAS) {
+  for (const name of readdirSync(join(ROOT, area)).sort()) {
+    const dir = join(ROOT, area, name);
+    if (!statSync(dir).isDirectory()) continue;
+    const pkgJson = join(dir, "package.json");
+    if (!existsSync(pkgJson)) continue;
+    const rel = `${area}/${name}`;
 
-  let pkg;
-  try {
-    pkg = JSON.parse(readFileSync(pkgJson, "utf8"));
-  } catch (err) {
-    violations.push(
-      `packages/${name}: package.json is not valid JSON: ${err.message}`,
-    );
-    continue;
-  }
-
-  const files = pkg.files;
-  if (!Array.isArray(files)) continue;
-
-  for (const entry of files) {
-    if (typeof entry !== "string") continue;
-    // A glob is npm's job. A literal is ours.
-    if (entry.includes("*") || entry.includes("?")) continue;
-    checked += 1;
-    if (!existsSync(join(dir, entry))) {
-      missing.push(`packages/${name}/${entry}`);
+    let pkg;
+    try {
+      pkg = JSON.parse(readFileSync(pkgJson, "utf8"));
+    } catch (err) {
       violations.push(
-        `packages/${name}: "files" declares "${entry}" but it DOES NOT EXIST, so ` +
-          `npm pack omits it silently. The published package will claim a ` +
-          `${entry === "LICENSE" ? "licence" : "file"} it does not contain.`,
+        `${rel}: package.json is not valid JSON: ${err.message}`,
       );
+      continue;
     }
-  }
 
-  // A published package must carry its licence terms one way or another.
-  const publishes = Boolean(files) && pkg.private !== true;
-  if (
-    publishes &&
-    !existsSync(join(dir, "LICENSE")) &&
-    !existsSync(join(ROOT, "LICENSE"))
-  ) {
-    violations.push(
-      `packages/${name}: publishable, with no LICENSE in the package and none at the repo root.`,
+    const files = pkg.files;
+    if (!Array.isArray(files)) continue;
+
+    for (const entry of files) {
+      if (typeof entry !== "string") continue;
+      // A glob is npm's job. A literal is ours.
+      if (entry.includes("*") || entry.includes("?")) continue;
+      checked += 1;
+      if (!existsSync(join(dir, entry))) {
+        missing.push(`${rel}/${entry}`);
+        violations.push(
+          `${rel}: "files" declares "${entry}" but it DOES NOT EXIST, so ` +
+            `npm pack omits it silently. The published package will claim a ` +
+            `${entry === "LICENSE" ? "licence" : "file"} it does not contain.`,
+        );
+      }
+    }
+
+    // A published package must carry its licence terms one way or another.
+    const publishes = Boolean(files) && pkg.private !== true;
+    if (
+      publishes &&
+      !existsSync(join(dir, "LICENSE")) &&
+      !existsSync(join(ROOT, "LICENSE"))
+    ) {
+      violations.push(
+        `${rel}: publishable, with no LICENSE in the package and none at the repo root.`,
     );
   }
 
@@ -96,9 +99,10 @@ for (const name of readdirSync(PACKAGES).sort()) {
     pkg.description.trim().length === 0
   ) {
     violations.push(
-      `packages/${name}: package.json has no usable "description". ` +
+      `${rel}: package.json has no usable "description". ` +
         `A package with no description is invisible to search and review.`,
     );
+  }
   }
 }
 

@@ -18,7 +18,7 @@ export function Kicker({
 }) {
   return (
     <p
-      className={`m-0 ${T_KICKER} text-(--md-sys-color-on-surface-variant) uppercase ${className}`.trim()}
+      className={`m-0 ${T_KICKER} text-(--sys-color-on-surface-variant) uppercase ${className}`.trim()}
     >
       {children}
     </p>

@@ -25,3 +25,19 @@ describe("Separator", () => {
     expect(screen.getByTestId("sep2")).not.toHaveClass("w-px");
   });
 });
+
+describe("Separator insets (M3)", () => {
+  it.each([
+    ["start", "ml-4"],
+    ["middle", "mx-4"],
+  ] as const)("applies the %s inset on horizontal", (inset, expected) => {
+    render(<Separator data-testid="sep" inset={inset} />);
+    expect(screen.getByTestId("sep")).toHaveClass(expected);
+    expect(screen.getByTestId("sep")).toHaveAttribute("data-inset", inset);
+  });
+
+  it("insets on the vertical axis instead when vertical", () => {
+    render(<Separator data-testid="sep" orientation="vertical" inset="middle" />);
+    expect(screen.getByTestId("sep")).toHaveClass("my-4");
+  });
+});

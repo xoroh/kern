@@ -21,7 +21,7 @@ export function Pane({
     <section
       data-slot="pane"
       className={cn(
-        "kern-pane flex min-w-0 flex-col rounded-(--md-sys-shape-corner-large) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface) text-(--md-sys-color-on-surface)",
+        "kern-pane flex min-w-0 flex-col rounded-(--sys-shape-corner-large) border border-(--sys-color-outline-variant) bg-(--sys-color-surface) text-(--sys-color-on-surface)",
         PANE_WIDTHS[width],
         className,
       )}
@@ -80,7 +80,7 @@ export function SplitGrid({
       data-slot="split-grid"
       style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
       className={cn(
-        "kern-split-grid grid min-h-0 flex-1 gap-px bg-(--md-sys-color-outline-variant)",
+        "kern-split-grid grid min-h-0 flex-1 gap-px bg-(--sys-color-outline-variant)",
         columns === 2 ? "grid-cols-2" : "grid-cols-3",
         className,
       )}
@@ -101,7 +101,7 @@ export function SplitPanel({
     <div
       data-slot="split-panel"
       className={cn(
-        "kern-split-panel flex min-w-0 flex-col overflow-auto bg-(--md-sys-color-surface) text-(--md-sys-color-on-surface)",
+        "kern-split-panel flex min-w-0 flex-col overflow-auto bg-(--sys-color-surface) text-(--sys-color-on-surface)",
         className,
       )}
       {...props}
@@ -130,11 +130,11 @@ export function ListDetail({
       {...props}
     >
       {navigation ? (
-        <SplitPanel className="w-64 shrink-0 border-e border-(--md-sys-color-outline-variant)">
+        <SplitPanel className="w-64 shrink-0 border-e border-(--sys-color-outline-variant)">
           {navigation}
         </SplitPanel>
       ) : null}
-      <SplitPanel className="w-80 shrink-0 border-e border-(--md-sys-color-outline-variant)">
+      <SplitPanel className="w-80 shrink-0 border-e border-(--sys-color-outline-variant)">
         {list}
       </SplitPanel>
       <SplitPanel className="min-w-0 flex-1">{detail}</SplitPanel>
@@ -147,8 +147,6 @@ export function Inspector({
   content,
   info,
   tabs,
-  activeTab,
-  onTabChange,
   value: valueProp,
   defaultValue,
   onValueChange,
@@ -158,21 +156,13 @@ export function Inspector({
   content: ReactNode;
   info: ReactNode;
   tabs?: { id: string; label: ReactNode }[];
-  activeTab?: string;
-  onTabChange?: (id: string) => void;
-  /**
-   * R2 lexicon canonical names (`value` wins when both are passed; both
-   * callbacks fire). `activeTab`/`onTabChange` are deprecated aliases onto
-   * the same state.
-   */
   value?: string;
   defaultValue?: string;
   onValueChange?: (id: string) => void;
 }) {
-  const active = valueProp ?? activeTab ?? defaultValue;
+  const active = valueProp ?? defaultValue;
   const report = (id: string) => {
     onValueChange?.(id);
-    onTabChange?.(id);
   };
   return (
     <div
@@ -181,11 +171,11 @@ export function Inspector({
       {...props}
     >
       <SplitPanel className="min-w-0 flex-1">{content}</SplitPanel>
-      <SplitPanel className="w-96 shrink-0 border-s border-(--md-sys-color-outline-variant)">
+      <SplitPanel className="w-96 shrink-0 border-s border-(--sys-color-outline-variant)">
         {tabs && tabs.length > 0 ? (
           <div
             role="tablist"
-            className="flex h-12 items-center gap-1 border-b border-(--md-sys-color-outline-variant) px-2"
+            className="flex h-12 items-center gap-1 border-b border-(--sys-color-outline-variant) px-2"
           >
             {tabs.map((tab) => (
               <button
@@ -195,10 +185,10 @@ export function Inspector({
                 aria-selected={tab.id === active}
                 onClick={() => report(tab.id)}
                 className={cn(
-                  "h-10 rounded-(--md-sys-shape-corner-small) px-3 text-sm",
+                  "h-10 rounded-(--sys-shape-corner-small) px-3 text-sm",
                   tab.id === active
-                    ? "bg-(--md-sys-color-secondary-container) text-(--md-sys-color-on-secondary-container)"
-                    : "text-(--md-sys-color-on-surface-variant) hover:bg-(--md-sys-color-surface-tonal)",
+                    ? "bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container)"
+                    : "text-(--sys-color-on-surface-variant) hover:bg-(--sys-color-surface-tonal)",
                 )}
               >
                 {tab.label}

@@ -32,47 +32,47 @@ describe("Carousel", () => {
   });
 
   it("moves the single stop when an item is pressed", async () => {
-    const onIndexChange = jest.fn();
-    await render(<Carousel items={ITEMS} onIndexChange={onIndexChange} />);
+    const onValueChange = jest.fn();
+    await render(<Carousel items={ITEMS} onValueChange={onValueChange} />);
     await act(async () => {
       fireEvent.press(item("Slide three"));
     });
-    expect(onIndexChange).toHaveBeenCalledWith(2);
+    expect(onValueChange).toHaveBeenCalledWith(2);
     const selected = ITEMS.map(
       (i) => item(i.accessibilityLabel).props.accessibilityState.selected,
     );
     expect(selected).toEqual([false, false, true]);
   });
 
-  it("starts from defaultIndex", async () => {
-    await render(<Carousel items={ITEMS} defaultIndex={1} />);
+  it("starts from defaultValue", async () => {
+    await render(<Carousel items={ITEMS} defaultValue={1} />);
     expect(item("Slide two").props.accessibilityState.selected).toBe(true);
   });
 
-  it("honours a controlled index and does not move itself", async () => {
-    const onIndexChange = jest.fn();
+  it("honours a controlled value and does not move itself", async () => {
+    const onValueChange = jest.fn();
     await render(
-      <Carousel items={ITEMS} index={0} onIndexChange={onIndexChange} />,
+      <Carousel items={ITEMS} value={0} onValueChange={onValueChange} />,
     );
     await act(async () => {
       fireEvent.press(item("Slide two"));
     });
-    expect(onIndexChange).toHaveBeenCalledWith(1);
+    expect(onValueChange).toHaveBeenCalledWith(1);
     // The host was told and did not move it.
     expect(item("Slide one").props.accessibilityState.selected).toBe(true);
   });
 
   /** M3's default is to clamp, not wrap. */
   it("clamps rather than wraps by default", async () => {
-    const onIndexChange = jest.fn();
+    const onValueChange = jest.fn();
     await render(
-      <Carousel items={ITEMS} defaultIndex={2} onIndexChange={onIndexChange} />,
+      <Carousel items={ITEMS} defaultValue={2} onValueChange={onValueChange} />,
     );
     // Pressing the active item is not a wrap-to-first; nothing reports a change.
     await act(async () => {
       fireEvent.press(item("Slide three"));
     });
-    expect(onIndexChange).not.toHaveBeenCalled();
+    expect(onValueChange).not.toHaveBeenCalled();
   });
 
   it("reports position in each dot's name", async () => {
@@ -80,10 +80,10 @@ describe("Carousel", () => {
     expect(dot("Slide one")).toBeTruthy();
   });
 
-  it("does not change the index when disabled", async () => {
-    const onIndexChange = jest.fn();
+  it("does not change the value when disabled", async () => {
+    const onValueChange = jest.fn();
     await render(
-      <Carousel items={ITEMS} disabled onIndexChange={onIndexChange} />,
+      <Carousel items={ITEMS} disabled onValueChange={onValueChange} />,
     );
     expect(
       screen.getByLabelText("Carousel").props.accessibilityState.disabled,
@@ -91,7 +91,7 @@ describe("Carousel", () => {
     await act(async () => {
       fireEvent.press(item("Slide two"));
     });
-    expect(onIndexChange).not.toHaveBeenCalled();
+    expect(onValueChange).not.toHaveBeenCalled();
   });
 
   /**
@@ -99,11 +99,11 @@ describe("Carousel", () => {
    * skipping by deletion would renumber everything after it.
    */
   it("keeps a disabled item in place rather than renumbering", async () => {
-    const onIndexChange = jest.fn();
+    const onValueChange = jest.fn();
     await render(
       <Carousel
         items={[ITEMS[0], { ...ITEMS[1], disabled: true }, ITEMS[2]]}
-        onIndexChange={onIndexChange}
+        onValueChange={onValueChange}
       />,
     );
     expect(item("Slide two").props.accessibilityState.disabled).toBe(true);
@@ -111,7 +111,7 @@ describe("Carousel", () => {
     await act(async () => {
       fireEvent.press(item("Slide two"));
     });
-    expect(onIndexChange).not.toHaveBeenCalled();
+    expect(onValueChange).not.toHaveBeenCalled();
   });
 
   it("renders item content", async () => {

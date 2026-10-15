@@ -5,7 +5,7 @@ vi.mock(
   async () => await import("../../test-doubles/react-native"),
 );
 
-import { themes } from "@xoroh/kern-tokens";
+import { themes } from "@xoroh/kern-material-3";
 import { kernFontFaces, useKernFonts } from "../fonts";
 import { secondaryTabsStyles } from "./layouts";
 import { navigationBarStyles } from "./navigation-bar";
@@ -15,9 +15,9 @@ import { bootSplashStyles } from "./shell";
 import { topAppBarStyles } from "./top-app-bar";
 import { bannerStyles } from "./web-parity";
 
-const LIGHT = themes.kern.color.light;
-const radius = (role: keyof typeof themes.kern.radius) =>
-  Number.parseFloat(themes.kern.radius[role]);
+const LIGHT = themes["material-3"].color.light;
+const radius = (role: keyof (typeof themes)["material-3"]["radius"]) =>
+  Number.parseFloat(themes["material-3"].radius[role]);
 
 describe("native composition style maps", () => {
   it("navigation bar is 80dp with a full indicator pill", () => {

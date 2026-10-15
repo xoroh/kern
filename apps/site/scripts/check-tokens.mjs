@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-import kernTheme from "@xoroh/kern-tokens/themes/kern.json";
+import kernTheme from "@xoroh/kern-material-3/themes/material-3.json";
 /**
  * check-tokens.mjs — the two Foundations filters, enforced.
  *

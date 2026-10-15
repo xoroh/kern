@@ -1,6 +1,8 @@
 import {
   type Contrast,
   type Mode,
+  type MotionAlgorithmId,
+  motionCssVars,
   type ResolvedTheme,
   resolveThemeDetails,
   shapeVarName,
@@ -14,6 +16,7 @@ export type {
   Contrast,
   CustomTheme,
   Mode,
+  MotionAlgorithmId,
   ResolvedTheme,
   RoleTable,
   ShapeRole,
@@ -24,12 +27,16 @@ export type {
 } from "@xoroh/kern-tokens";
 export {
   defineThemePreset,
+  motionCssVars,
+  resolveMotionScheme,
   resolveTheme,
   resolveThemeDetails,
   shapeVarName,
+  springConfig,
   themeIds,
   varName,
 } from "@xoroh/kern-tokens";
+export { themeFromSeed } from "@xoroh/kern-material-3";
 
 type ColorPreference = Mode | "system";
 
@@ -38,7 +45,8 @@ export function applyKernTheme(
   target: HTMLElement,
   mode: Mode = "light",
   contrast: Contrast = "standard",
-  variant: ThemeSelection = "kern",
+  variant: ThemeSelection = "material-3",
+  motion: MotionAlgorithmId = "standard",
 ): ResolvedTheme {
   const resolved = resolveThemeDetails(mode, contrast, variant);
   for (const [role, value] of Object.entries(resolved.color)) {
@@ -47,9 +55,13 @@ export function applyKernTheme(
   for (const [shape, value] of Object.entries(resolved.shape)) {
     target.style.setProperty(shapeVarName(shape), value);
   }
+  for (const [prop, value] of Object.entries(motionCssVars(motion))) {
+    target.style.setProperty(prop, value);
+  }
   target.classList.toggle("dark", mode === "dark");
   target.dataset.kernTheme = typeof variant === "string" ? variant : variant.id;
   target.dataset.kernContrast = contrast;
+  target.dataset.kernMotion = motion;
   return resolved;
 }
 
@@ -61,9 +73,13 @@ export function clearKernTheme(target: HTMLElement): void {
   for (const shape of Object.keys(kern.shape)) {
     target.style.removeProperty(shapeVarName(shape));
   }
+  for (const prop of Object.keys(motionCssVars("expressive"))) {
+    target.style.removeProperty(prop);
+  }
   target.classList.remove("dark");
   delete target.dataset.kernTheme;
   delete target.dataset.kernContrast;
+  delete target.dataset.kernMotion;
 }
 
 const STORAGE_KEY = "kern-tokens-mode";
@@ -71,12 +87,14 @@ const STORAGE_KEY = "kern-tokens-mode";
 export type WebThemeOptions = {
   contrast?: Contrast;
   variant?: ThemeSelection;
+  motion?: MotionAlgorithmId;
 };
 
 /** Theme state: persisted preference → OS default → resolved CSS variables. */
 export function useKernTheme(options: WebThemeOptions = {}) {
   const contrast = options.contrast ?? "standard";
-  const variant = options.variant ?? "kern";
+  const variant = options.variant ?? "material-3";
+  const motion = options.motion ?? "standard";
   const [preference, setPreference] = useState<ColorPreference>("system");
   const [preferenceLoaded, setPreferenceLoaded] = useState(false);
   const [system, setSystem] = useState<Mode>("light");
@@ -121,7 +139,7 @@ export function useKernTheme(options: WebThemeOptions = {}) {
 
   useEffect(() => {
     if (!preferenceLoaded || typeof document === "undefined") return;
-    applyKernTheme(document.documentElement, mode, contrast, variant);
+    applyKernTheme(document.documentElement, mode, contrast, variant, motion);
     // Mirror the root shell init script (apps/site __root THEME_INIT): the
     // script sets class + colorScheme before first paint, and this effect
     // re-asserts both on every mode change so toggling cannot leave a stale
@@ -133,7 +151,7 @@ export function useKernTheme(options: WebThemeOptions = {}) {
     } catch {
       // ignore persistence failures
     }
-  }, [mode, preference, preferenceLoaded, contrast, variant]);
+  }, [mode, preference, preferenceLoaded, contrast, variant, motion]);
 
   const setMode = useCallback((next: Mode) => setPreference(next), []);
   const useSystem = useCallback(() => setPreference("system"), []);
@@ -147,6 +165,7 @@ export function useKernTheme(options: WebThemeOptions = {}) {
     preference,
     contrast,
     variant,
+    motion,
     scheme,
     setMode,
     useSystem,

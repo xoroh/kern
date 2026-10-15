@@ -19,7 +19,7 @@
  *     can never render as a value row (Elevation/States/Motion showed one).
  */
 
-import kernTheme from "@xoroh/kern-tokens/themes/kern.json";
+import kernTheme from "@xoroh/kern-material-3/themes/material-3.json";
 import tokensJson from "@xoroh/kern-tokens/tokens.json";
 
 export type Json = Record<string, unknown>;

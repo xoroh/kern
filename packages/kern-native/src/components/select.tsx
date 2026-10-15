@@ -1,5 +1,5 @@
 import { useControllableState } from "@xoroh/kern-primitives";
-import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
+import { type ResolvedTheme } from "@xoroh/kern-tokens";
 import { useState } from "react";
 import {
   Modal,
@@ -8,7 +8,7 @@ import {
   View,
   type ViewStyle,
 } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 import { overlayStyles } from "../utils/overlay-styles";
 import { menuStyles } from "./menu";
 import { Text } from "./text";
@@ -18,7 +18,7 @@ export type NativeSelectOption = {
   label: string;
 };
 
-export function selectStyles(scheme: ResolvedTheme = resolveThemeDetails()): {
+export function selectStyles(scheme: ResolvedTheme = defaultScheme): {
   trigger: ViewStyle;
 } {
   return {
@@ -29,7 +29,7 @@ export function selectStyles(scheme: ResolvedTheme = resolveThemeDetails()): {
       justifyContent: "space-between",
       borderWidth: 1,
       borderColor: scheme.color.outline,
-      borderRadius: Number.parseFloat(scheme.shape.small),
+      borderRadius: Number.parseFloat(scheme.shape["extra-small"]),
       backgroundColor: scheme.color.surface,
       paddingHorizontal: 16,
     },
@@ -85,7 +85,7 @@ export function Select({
         onPress={() => setOpen(true)}
         style={[
           selectStyles(scheme).trigger,
-          { opacity: disabled ? 0.5 : 1 },
+          { opacity: disabled ? 0.38 : 1 },
           style,
         ]}
       >

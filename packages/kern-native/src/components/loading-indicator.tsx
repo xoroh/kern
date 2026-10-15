@@ -1,6 +1,5 @@
 import {
   type ResolvedTheme,
-  resolveThemeDetails,
   tokens,
 } from "@xoroh/kern-tokens";
 import { useEffect, useRef, useState } from "react";
@@ -14,7 +13,7 @@ import {
   type ViewProps,
   type ViewStyle,
 } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 
 /**
  * M3 Loading indicator — indeterminate activity feedback.
@@ -63,19 +62,23 @@ import { useKernScheme } from "../theme";
  * deliberately does not try to reach outward and do it for them.
  */
 
-export type LoadingIndicatorSize = "sm" | "default" | "lg";
+export type LoadingIndicatorSize = "sm" | "default" | "lg" | "xl";
 
 export function loadingIndicatorStyles(
   size: LoadingIndicatorSize = "default",
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): { ring: ViewStyle } {
+  // M3 range is 24–240dp with a 48dp default; `default` stays 24 for
+  // back-compat and `xl` is the spec default at 48.
   const diameter =
     size === "sm"
       ? 16
       : size === "lg"
         ? 40
-        : Number.parseFloat(tokens.spacing["space-300"]);
-  const borderWidth = size === "lg" ? 4 : 2;
+        : size === "xl"
+          ? 48
+          : Number.parseFloat(tokens.spacing["space-300"]);
+  const borderWidth = size === "lg" || size === "xl" ? 4 : 2;
   return {
     ring: {
       width: diameter,

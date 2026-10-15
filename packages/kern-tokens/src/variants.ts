@@ -15,6 +15,12 @@ export type ThemeVariant = {
   id: string;
   label?: string;
   description?: string;
+  /**
+   * Base preset id this variant customizes. Required for the same reason as
+   * `CustomTheme.extends`: a variant without a base would silently attach to
+   * whatever is registered.
+   */
+  extends: string;
   overrides: ThemeOverrides;
 };
 
@@ -51,7 +57,10 @@ type LayerSelection = ThemeSelection | string;
 
 function selectionFor(variant: LayerSelection): ThemeSelection {
   if (typeof variant !== "string") return variant;
-  if (variants.has(variant)) return getVariant(variant);
+  if (variants.has(variant)) {
+    const v = getVariant(variant);
+    return { id: v.id, extends: v.extends, overrides: v.overrides };
+  }
   if ((themeIds() as string[]).includes(variant))
     return variant as ThemeSelection;
   throw new Error(`Unknown variant: ${variant}`);
@@ -64,9 +73,9 @@ function selectionFor(variant: LayerSelection): ThemeSelection {
 export function resolveThemeLayers(
   mode: Mode = "light",
   contrast: "standard" | "medium" | "high" = "standard",
-  variant: LayerSelection = "kern",
+  variant: LayerSelection = "material-3",
 ): { scheme: RoleTable; deltas: SchemeDeltas } {
-  const before = resolveThemeDetails(mode, contrast, "kern");
+  const before = resolveThemeDetails(mode, contrast, "material-3");
   const resolved = resolveThemeDetails(mode, contrast, selectionFor(variant));
   const deltas: SchemeDeltas = {};
   for (const role of Object.keys(resolved.color) as ColorRole[]) {
@@ -81,7 +90,7 @@ export function resolveThemeLayers(
 export function assertCompleteScheme(
   scheme: Partial<RoleTable>,
 ): asserts scheme is RoleTable {
-  const probe = resolveThemeDetails("light", "standard", "kern").color;
+  const probe = resolveThemeDetails("light", "standard", "material-3").color;
   const missing = (Object.keys(probe) as ColorRole[]).filter(
     (role) => typeof scheme[role] !== "string",
   );

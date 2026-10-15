@@ -16,7 +16,7 @@ export const autocomplete: ComponentDoc = {
     // No variant axis. One treatment.
     variants: [],
     // kern's own decision. M3's component elevation table names no
-    // autocomplete. The popup ships `--md-sys-elevation-level2` and the choice
+    // autocomplete. The popup ships `--sys-elevation-level2` and the choice
     // is registered as K6. See Deviations.
     elevation: 2,
   },

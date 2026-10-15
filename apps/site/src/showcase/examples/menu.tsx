@@ -59,7 +59,7 @@ export const MENU_EXAMPLES: ExampleSpec[] = [
           <MenuItem>Settings</MenuItem>
           <MenuItem>Duplicate</MenuItem>
           <MenuSeparator />
-          <MenuItem className="text-(--md-sys-color-error) focus:text-(--md-sys-color-error)">
+          <MenuItem className="text-(--sys-color-error) focus:text-(--sys-color-error)">
             Delete project
           </MenuItem>
         </MenuContent>
@@ -68,7 +68,7 @@ export const MENU_EXAMPLES: ExampleSpec[] = [
     code: `<MenuContent>
   <MenuItem>Settings</MenuItem>
   <MenuSeparator />
-  <MenuItem className="text-(--md-sys-color-error) focus:text-(--md-sys-color-error)">
+  <MenuItem className="text-(--sys-color-error) focus:text-(--sys-color-error)">
     Delete project
   </MenuItem>
 </MenuContent>`,

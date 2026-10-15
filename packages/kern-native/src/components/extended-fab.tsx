@@ -8,7 +8,7 @@ import {
 } from "react";
 import { Pressable, type PressableProps, View } from "react-native";
 import { useKernScheme } from "../theme";
-import { fabStyles } from "./fab";
+import { fabColorRoles, fabStyles } from "./fab";
 import { Text } from "./text";
 
 /**
@@ -29,8 +29,8 @@ import { Text } from "./text";
  *   // …on scroll down: fab.current?.collapse(); on scroll up: fab.current?.expand();
  *   return <ExtendedFab ref={fab} icon={<PencilIcon />} label="Compose" />;
  *
- * - Controlled (`collapsed` + `onCollapsedChange`) or uncontrolled
- *   (`defaultCollapsed`), so a host can bind it to its own scroll position.
+ * - Controlled (`value` + `onValueChange`) or uncontrolled
+ *   (`defaultValue`), so a host can bind it to its own scroll position.
  * - **The accessible name survives collapse.** Collapsed, the label text is no
  *   longer rendered, so the name has to come from `label` on the element. A
  *   collapsed FAB that left the label in the a11y tree would announce a longer
@@ -49,6 +49,8 @@ export type NativeExtendedFabHandle = {
   toggle: () => void;
 };
 
+export type NativeExtendedFabSize = "small" | "medium" | "large";
+
 export type NativeExtendedFabProps = Omit<
   PressableProps,
   "children" | "style" | "onPress" | "ref"
@@ -57,19 +59,14 @@ export type NativeExtendedFabProps = Omit<
   /** Visible label. Doubles as the accessible name when collapsed. */
   label: string;
   icon: ReactNode;
-  /** Controlled collapse state. */
-  collapsed?: boolean;
-  /** Initial collapse state for the uncontrolled case. */
-  defaultCollapsed?: boolean;
-  onCollapsedChange?: (collapsed: boolean) => void;
   /**
-   * R2 lexicon canonical names (`value` wins when both are passed; both
-   * callbacks fire — including the imperative handle path). `collapsed`/
-   * `defaultCollapsed`/`onCollapsedChange` are deprecated aliases onto the
-   * same state. `onPress` (the RN press event) is the platform action and
-   * stays untouched.
+   * M3 extended size: small 56dp, medium 80dp, large 96dp. Collapse lands
+   * on the square of the same height.
    */
+  size?: NativeExtendedFabSize;
+  /** Controlled collapse state. */
   value?: boolean;
+  /** Initial collapse state for the uncontrolled case. */
   defaultValue?: boolean;
   onValueChange?: (collapsed: boolean) => void;
   variant?: "primary" | "tonal";
@@ -85,13 +82,11 @@ export const ExtendedFab = forwardRef<
   {
     label,
     icon,
-    collapsed,
-    defaultCollapsed = false,
-    onCollapsedChange,
     value: valueProp,
-    defaultValue,
+    defaultValue = false,
     onValueChange,
     variant = "primary",
+    size = "small",
     disabled = false,
     onPress,
     hitSlop,
@@ -103,11 +98,10 @@ export const ExtendedFab = forwardRef<
 ) {
   const scheme = useKernScheme();
   const [isCollapsed, setCollapsed] = useControllableState(
-    valueProp ?? collapsed,
-    defaultValue ?? defaultCollapsed,
+    valueProp,
+    defaultValue,
     (next) => {
       onValueChange?.(next);
-      onCollapsedChange?.(next);
     },
   );
   const collapsedNow = isCollapsed ?? false;
@@ -139,7 +133,16 @@ export const ExtendedFab = forwardRef<
     [apply],
   );
 
-  const base = fabStyles("default", scheme);
+  // Container + ink resolve through the shared FAB roles: `primary` is the
+  // primary container pair, `tonal` the secondary container pair. (Previously
+  // the label painted `onPrimary` on a primary-container fill — a broken
+  // tonal pair.)
+  const roles = fabColorRoles(variant === "primary" ? "primary" : "secondary", scheme);
+  // Extended size maps onto the FAB size ladder: small 56, medium 80,
+  // large 96. Collapse lands on the square of the same height.
+  const fabSize = size === "small" ? "default" : size;
+  const box = fabSize === "default" ? 56 : fabSize === "medium" ? 80 : 96;
+  const base = { ...fabStyles(fabSize, scheme), backgroundColor: roles.container };
   return (
     <Pressable
       {...props}
@@ -157,13 +160,13 @@ export const ExtendedFab = forwardRef<
       onPress={onPress}
       style={({ pressed }) => [
         base,
-        // Collapsed is the icon FAB: 56x56, no gap, centred. Expanded adds the
-        // label's own padding — the same button at a different width, not a
-        // second component.
+        // Collapsed is the icon FAB: square of the size height, no gap,
+        // centred. Expanded adds the label's own padding — the same button
+        // at a different width, not a second component.
         collapsedNow
-          ? { paddingHorizontal: 0, gap: 0 }
+          ? { paddingHorizontal: 0, gap: 0, minWidth: box, width: box }
           : { paddingHorizontal: 20, gap: 12 },
-        { opacity: disabled ? 0.5 : pressed ? 0.9 : 1 },
+        { opacity: disabled ? 0.38 : pressed ? 0.9 : 1 },
       ]}
     >
       <View
@@ -174,14 +177,7 @@ export const ExtendedFab = forwardRef<
         {icon}
       </View>
       {collapsedNow ? null : (
-        <Text
-          variant="label"
-          style={
-            variant === "primary"
-              ? { color: scheme.color.onPrimary }
-              : undefined
-          }
-        >
+        <Text variant="label" style={{ color: roles.ink }}>
           {label}
         </Text>
       )}

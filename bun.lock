@@ -4,6 +4,10 @@
   "workspaces": {
     "": {
       "name": "kern",
+      "dependencies": {
+        "@types/react-dom": "19",
+        "react-dom": "19",
+      },
       "devDependencies": {
         "@arethetypeswrong/cli": "^0.18.5",
         "@biomejs/biome": "^2.5.14",
@@ -41,6 +45,7 @@
         "@tanstack/react-start": "^1.168.60",
         "@xoroh/kern": "workspace:*",
         "@xoroh/kern-icons": "workspace:*",
+        "@xoroh/kern-material-3": "workspace:*",
         "@xoroh/kern-mcp": "workspace:*",
         "@xoroh/kern-native": "workspace:*",
         "@xoroh/kern-primitives": "workspace:*",
@@ -57,10 +62,29 @@
         "@types/react": "^19.3.0",
         "@types/react-dom": "^19.3.0",
         "@vitejs/plugin-react": "^6.0.1",
+        "react-native-svg": "15.15.5",
         "tailwindcss": "^4.0.0",
         "typescript": "5.9.3",
         "vite": "^8.0.0",
         "wrangler": "^4.70.0",
+      },
+    },
+    "libs/kern-primitives": {
+      "name": "@xoroh/kern-primitives",
+      "version": "0.0.0",
+      "devDependencies": {
+        "@testing-library/react": "^16.3.0",
+        "@types/node": "^26.6.3",
+        "@types/react": "^19.0.0",
+        "jsdom": "^28.0.0",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "tsup": "^8.5.1",
+        "typescript": "5.9.3",
+        "vitest": "^5.0.2",
+      },
+      "peerDependencies": {
+        "react": ">=18",
       },
     },
     "packages/kern": {
@@ -68,6 +92,7 @@
       "version": "0.0.0",
       "dependencies": {
         "@base-ui/react": "^1.8.0",
+        "@xoroh/kern-material-3": "^0.0.0",
         "@xoroh/kern-primitives": "^0.0.0",
         "@xoroh/kern-tokens": "^0.0.0",
         "class-variance-authority": "^0.7.1",
@@ -83,6 +108,7 @@
         "@types/node": "^26.6.3",
         "@types/react": "^19.0.0",
         "@types/react-dom": "^19.0.0",
+        "@xoroh/kern-material-3": "workspace:*",
         "@xoroh/kern-tokens": "workspace:*",
         "axe-core": "^4.10.2",
         "class-variance-authority": "^0.7.1",
@@ -105,13 +131,25 @@
       "name": "@xoroh/kern-cli",
       "version": "0.0.0",
       "bin": {
-        "kern": "./src/kern.ts",
+        "kern": "./dist/kern.js",
       },
       "dependencies": {
+        "@xoroh/kern-contracts": "^0.0.0",
         "typescript": "5.9.3",
       },
       "devDependencies": {
         "@types/node": "^26.6.3",
+        "tsup": "^8.5.1",
+        "typescript": "5.9.3",
+        "vitest": "^5.0.2",
+      },
+    },
+    "packages/kern-contracts": {
+      "name": "@xoroh/kern-contracts",
+      "version": "0.0.0",
+      "devDependencies": {
+        "tsup": "^8.5.1",
+        "typescript": "5.9.3",
         "vitest": "^5.0.2",
       },
     },
@@ -122,6 +160,7 @@
         "@types/node": "^26.6.3",
         "@types/react": "^19",
         "react": "^19",
+        "react-dom": "^19",
         "react-native": "^0.81",
         "react-native-svg": "^15",
         "tsup": "^8.5.1",
@@ -138,12 +177,28 @@
         "react-native-svg",
       ],
     },
+    "packages/kern-material-3": {
+      "name": "@xoroh/kern-material-3",
+      "version": "0.0.0",
+      "dependencies": {
+        "@xoroh/kern-tokens": "^0.0.0",
+      },
+      "devDependencies": {
+        "@types/node": "^26.6.3",
+        "@xoroh/kern-tokens": "workspace:*",
+        "tsup": "^8.5.1",
+        "typescript": "5.9.3",
+        "vitest": "^5.0.2",
+      },
+    },
     "packages/kern-native": {
       "name": "@xoroh/kern-native",
       "version": "0.0.0",
       "dependencies": {
+        "@xoroh/kern-material-3": "^0.0.0",
         "@xoroh/kern-primitives": "^0.0.0",
         "@xoroh/kern-tokens": "^0.0.0",
+        "react-native-svg": "15",
       },
       "devDependencies": {
         "@babel/runtime": "^7.28.0",
@@ -154,6 +209,7 @@
         "@types/jest": "^30.0.0",
         "@types/node": "^26.6.3",
         "@types/react": "^19.3.0",
+        "@xoroh/kern-material-3": "workspace:*",
         "@xoroh/kern-tokens": "workspace:*",
         "jest": "^30.5.2",
         "jest-util": "30.5.1",
@@ -167,24 +223,6 @@
       "peerDependencies": {
         "react": "^19.0.0",
         "react-native": ">=0.86.0 <0.89",
-      },
-    },
-    "packages/kern-primitives": {
-      "name": "@xoroh/kern-primitives",
-      "version": "0.0.0",
-      "devDependencies": {
-        "@testing-library/react": "^16.3.0",
-        "@types/node": "^26.6.3",
-        "@types/react": "^19.0.0",
-        "jsdom": "^28.0.0",
-        "react": "^19.0.0",
-        "react-dom": "^19.0.0",
-        "tsup": "^8.5.1",
-        "typescript": "5.9.3",
-        "vitest": "^5.0.2",
-      },
-      "peerDependencies": {
-        "react": ">=18",
       },
     },
     "packages/kern-tokens": {
@@ -208,10 +246,13 @@
       },
       "dependencies": {
         "@modelcontextprotocol/sdk": "^1.30.1",
+        "@xoroh/kern-cli": "^0.0.0",
+        "@xoroh/kern-icons": "^0.0.0",
         "zod": "^4.6.5",
       },
       "devDependencies": {
         "@types/node": "^26.6.3",
+        "@xoroh/kern-material-3": "workspace:*",
         "bun-types": "^1.4.2",
         "tsup": "^8.5.1",
         "typescript": "5.9.3",
@@ -1113,13 +1154,17 @@
 
     "@xoroh/kern-cli": ["@xoroh/kern-cli@workspace:packages/kern-cli"],
 
+    "@xoroh/kern-contracts": ["@xoroh/kern-contracts@workspace:packages/kern-contracts"],
+
     "@xoroh/kern-icons": ["@xoroh/kern-icons@workspace:packages/kern-icons"],
+
+    "@xoroh/kern-material-3": ["@xoroh/kern-material-3@workspace:packages/kern-material-3"],
 
     "@xoroh/kern-mcp": ["@xoroh/kern-mcp@workspace:packages/mcp"],
 
     "@xoroh/kern-native": ["@xoroh/kern-native@workspace:packages/kern-native"],
 
-    "@xoroh/kern-primitives": ["@xoroh/kern-primitives@workspace:packages/kern-primitives"],
+    "@xoroh/kern-primitives": ["@xoroh/kern-primitives@workspace:libs/kern-primitives"],
 
     "@xoroh/kern-tokens": ["@xoroh/kern-tokens@workspace:packages/kern-tokens"],
 

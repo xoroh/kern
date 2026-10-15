@@ -5,11 +5,11 @@ import type { ConfiguratorSpec, ConfigValues } from "../configurator";
  * Chip configurator — the twenty-seventh Part-4 configurator (move #30),
  * first variant-driven toggle. Knobs are the axes the component doc leaves
  * open: `variant` (filter toggles `aria-pressed`; assist and suggestion are
- * plain actions with no pressed state), `defaultSelected` (filter only —
+ * plain actions with no pressed state), `defaultValue` (filter only —
  * the stage starts pressed), `disabled` (the whole chip goes dead — the
- * edge composition, carried from the move-5 Group lesson). `selected` is
+ * edge composition, carried from the move-5 Group lesson). `value` is
  * controlled so NOT a knob — same rule as `checked`/`open` everywhere;
- * `onSelectedChange` is app wiring, not a knob. The stage shows one live
+ * `onValueChange` is app wiring, not a knob. The stage shows one live
  * chip so the pressed state is unmistakable; the fence teaches the variant
  * line too. The stage remounts by key on every knob so it cannot drift
  * from the fence.
@@ -20,7 +20,7 @@ function variantOf(v: ConfigValues): "filter" | "assist" | "suggestion" {
 }
 
 function selectedOf(v: ConfigValues): boolean {
-  return variantOf(v) === "filter" && v.defaultSelected === true;
+  return variantOf(v) === "filter" && v.defaultValue === true;
 }
 
 function disabledOf(v: ConfigValues): boolean {
@@ -31,7 +31,7 @@ function rootPropsOf(v: ConfigValues): string {
   const variant = variantOf(v);
   const out =
     variant === "filter" ? ['variant="filter"'] : [`variant="${variant}"`];
-  if (selectedOf(v)) out.push("defaultSelected");
+  if (selectedOf(v)) out.push("defaultValue");
   if (disabledOf(v)) out.push("disabled");
   return ` ${out.join(" ")}`;
 }
@@ -51,7 +51,7 @@ export const CHIP_CONFIGURATOR: ConfiguratorSpec = {
     },
     {
       kind: "boolean",
-      name: "defaultSelected",
+      name: "defaultValue",
       label: "Selected (initial state, filter only)",
       default: false,
     },
@@ -71,7 +71,7 @@ export const CHIP_CONFIGURATOR: ConfiguratorSpec = {
         <Chip
           key={`filter-${selectedOf(v) ? "on" : "off"}-${disabled ? "off" : "on"}`}
           variant="filter"
-          defaultSelected={selectedOf(v)}
+          defaultValue={selectedOf(v)}
           disabled={disabled}
         >
           {label}

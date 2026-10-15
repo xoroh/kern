@@ -8,7 +8,7 @@ describe("Chip", () => {
     const onClick = vi.fn();
     const user = userEvent.setup();
     render(
-      <Chip variant="filter" selected onClick={onClick}>
+      <Chip variant="filter" value onClick={onClick}>
         Active
       </Chip>,
     );
@@ -20,12 +20,12 @@ describe("Chip", () => {
 
   it("toggles an uncontrolled filter and reports the next state", async () => {
     const user = userEvent.setup();
-    const onSelectedChange = vi.fn();
+    const onValueChange = vi.fn();
     render(
       <Chip
         variant="filter"
-        defaultSelected={false}
-        onSelectedChange={onSelectedChange}
+        defaultValue={false}
+        onValueChange={onValueChange}
       >
         Available
       </Chip>,
@@ -33,7 +33,7 @@ describe("Chip", () => {
     const chip = screen.getByRole("button", { name: "Available" });
     await user.click(chip);
     expect(chip).toHaveAttribute("aria-pressed", "true");
-    expect(onSelectedChange).toHaveBeenCalledWith(true);
+    expect(onValueChange).toHaveBeenCalledWith(true);
   });
 
   it("does not expose toggle semantics for action chips", () => {
@@ -61,21 +61,49 @@ describe("Chip", () => {
 
   it("paints a selected filter chip in secondary-container (M3, not primary)", () => {
     render(
-      <Chip variant="filter" selected>
+      <Chip variant="filter" value>
         Active
       </Chip>,
     );
     expect(screen.getByRole("button", { name: "Active" })).toHaveClass(
-      "data-selected:bg-(--md-sys-color-secondary-container)",
-      "data-selected:text-(--md-sys-color-on-secondary-container)",
+      "data-selected:bg-(--sys-color-secondary-container)",
+      "data-selected:text-(--sys-color-on-secondary-container)",
     );
   });
 
-  it("renders assist flat with an outline-variant border (M3, not tonal fill)", () => {
+  it("renders assist flat with an outline border (M3, not tonal fill)", () => {
     render(<Chip variant="assist">Search</Chip>);
     expect(screen.getByRole("button", { name: "Search" })).toHaveClass(
-      "border-(--md-sys-color-outline-variant)",
-      "bg-(--md-sys-color-surface)",
+      "border-(--sys-color-outline)",
     );
+    expect(
+      screen.getByRole("button", { name: "Search" }).className,
+    ).not.toContain("bg-(--sys-color-surface)");
+  });
+});
+
+describe("Chip elevated (M3)", () => {
+  it("raises assist to level1 on the container-low fill", () => {
+    render(<Chip elevated>Search</Chip>);
+    expect(screen.getByRole("button", { name: "Search" })).toHaveClass(
+      "bg-(--sys-color-surface-container-low)",
+      "shadow-(--sys-elevation-level1)",
+    );
+  });
+
+  it("ignores elevated on input and suggestion (no M3 treatment)", () => {
+    render(<Chip variant="input" elevated>file.pdf</Chip>);
+    expect(
+      screen.getByRole("button", { name: "file.pdf" }).className,
+    ).not.toContain("shadow-(--sys-elevation-level1)");
+  });
+
+  it("wires the container shape to --comp-chip-container-shape with a small-corner fallback", () => {
+    render(<Chip>Label</Chip>);
+    const chip = screen.getByRole("button", { name: "Label" });
+    expect(chip).toHaveClass(
+      "rounded-[var(--comp-chip-container-shape,var(--sys-shape-corner-small))]",
+    );
+    expect(chip.className).not.toContain("rounded-(--sys-shape-corner-small)");
   });
 });

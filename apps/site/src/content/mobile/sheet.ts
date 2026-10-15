@@ -31,9 +31,10 @@ export const sheet: ComponentDoc = {
   },
   api: [
     {
-      name: "visible",
+      name: "open",
       type: "boolean",
-      note: "Controlled visibility. Required — and note the name: this is `visible`, while `BottomSheet`, `ActionSheet`, `SnapSheet`, `DockSheet`, `EntitySheet` and `BottomSheetPicker` all take `open`. The inconsistency is in the surface, not in your code.",
+      default: "false",
+      note: "Controlled visibility, like `BottomSheet`, `ActionSheet` and `SnapSheet`.",
     },
     {
       name: "title",

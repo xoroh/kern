@@ -1,8 +1,8 @@
-// Generates md.comp.* component-token tables AND the Tailwind adapter.
+// Generates comp.* component-token tables AND the Tailwind adapter.
 //
 // ONE SOURCE OF TRUTH (D-028 / D-026 Fork 3): tokens.json is the only authored file.
 // This script derives:
-//   1. src/comp-tokens.css   — `--md-comp-<component>-<slot>` per component
+//   1. src/comp-tokens.css   — `--comp-<component>-<slot>` per component
 //   2. src/tailwind.css      — a thin map FROM the CSS vars, never a second truth
 // Nothing here may be hand-edited; `bun run generate:tokens` regenerates both and
 // `check:kern` fails if the committed output is stale.
@@ -13,14 +13,16 @@ import { join } from "node:path";
 const ROOT = new URL("../../..", import.meta.url).pathname;
 const read = (p) =>
   JSON.parse(readFileSync(join(ROOT, "packages/kern-tokens/src", p), "utf8"));
+const readTheme = (p) =>
+  JSON.parse(readFileSync(join(ROOT, "packages/kern-material-3/src/themes", p), "utf8"));
 
 const T = read("tokens.json");
-const M3 = read("themes/kern.json");
+const M3 = readTheme("material-3.json");
 
 /**
  * The component token contract. Each entry names an M3 component and the slots M3
  * defines for it. Slots resolve to global roles/typescale — they never introduce a
- * colour, radius or type value of their own. That is what makes `md.comp.*` a
+ * colour, radius or type value of their own. That is what makes `comp.*` a
  * *table* rather than a second source of truth.
  */
 const COMPONENTS = {
@@ -101,7 +103,7 @@ const COMPONENTS = {
 
   // ---- P1-7: extended coverage. Every entry below is M3-specified and resolves
   // to a role/scale value that already exists; none introduces a new value, which
-  // is what keeps `md.comp.*` a table rather than a second source of truth.
+  // is what keeps `comp.*` a table rather than a second source of truth.
   "outlined-button": {
     container: {
       "outline-color": "outline",
@@ -279,7 +281,7 @@ const COMPONENTS = {
       shape: "shape-corner-extra-large",
     },
     // NO elevation slot on purpose: measure-elevation reports the sheet closure
-    // carries no --md-sys-elevation-level token. Asserting a level here would
+    // carries no --sys-elevation-level token. Asserting a level here would
     // make the table claim something the component does not implement — the
     // "table asserts a value nothing renders" failure. Gating this row belongs
     // with the token landing on the component, not before.
@@ -319,39 +321,57 @@ for (const [component, slots] of Object.entries(COMPONENTS)) {
     for (const [attr, target] of Object.entries(entries)) {
       const key = `${component}-${slot}-${attr}`;
       let resolved;
-      if (roleExists(target)) {
-        resolved = `var(--md-sys-color-${target})`;
+      if (target in ICON_SIZE) {
+        resolved = ICON_SIZE[target];
+      } else if (roleExists(target)) {
+        resolved = `var(--sys-color-${target})`;
       } else if (target.startsWith("elevation-level")) {
         if (!T.elevation[target])
-          broken.push(`md.comp.${key} -> unknown elevation "${target}"`);
-        resolved = `var(--md-sys-${target})`;
+          broken.push(`comp.${key} -> unknown elevation "${target}"`);
+        resolved = `var(--sys-${target})`;
       } else if (/^level[0-5]$/.test(target)) {
         if (!T.elevation[target])
-          broken.push(`md.comp.${key} -> unknown elevation "${target}"`);
-        resolved = `var(--md-sys-elevation-${target})`;
+          broken.push(`comp.${key} -> unknown elevation "${target}"`);
+        resolved = `var(--sys-elevation-${target})`;
       } else if (target.startsWith("shape-corner-")) {
         if (!shapeExists(target))
-          broken.push(`md.comp.${key} -> unknown shape "${target}"`);
-        resolved = `var(--md-sys-shape-corner-${target.replace("shape-corner-", "")})`;
+          broken.push(`comp.${key} -> unknown shape "${target}"`);
+        resolved = `var(--sys-shape-corner-${target.replace("shape-corner-", "")})`;
       } else if (target.startsWith("space-")) {
         if (!spacingExists(target))
-          broken.push(`md.comp.${key} -> unknown spacing "${target}"`);
-        resolved = `var(--md-sys-spacing-${target.replace("space-", "")})`;
+          broken.push(`comp.${key} -> unknown spacing "${target}"`);
+        resolved = `var(--sys-spacing-${target})`;
       } else if (target in ICON_SIZE) {
         resolved = ICON_SIZE[target];
       } else if (typeExists(target)) {
-        resolved = `var(--md-sys-typescale-${target})`;
+        // Typography slots expand to one comp var per emitted attribute:
+        // tokens.css defines `--sys-typescale-<scale>-<attr>` (5 attrs),
+        // never a bare `--sys-typescale-<scale>`. A single comp var cannot
+        // hold five properties, so the slot becomes five vars consumers
+        // compose per-property. Every emitted ref resolves by construction.
+        for (const attr of [
+          "font-family",
+          "font-size",
+          "line-height",
+          "letter-spacing",
+          "font-weight",
+        ]) {
+          compLines.push(
+            `  --comp-${key}-${attr}: var(--sys-typescale-${target}-${attr});`,
+          );
+        }
+        continue;
       } else {
-        broken.push(`md.comp.${key} -> unknown target "${target}"`);
+        broken.push(`comp.${key} -> unknown target "${target}"`);
         continue;
       }
-      compLines.push(`  --md-comp-${key}: ${resolved};`);
+      compLines.push(`  --comp-${key}: ${resolved};`);
     }
   }
 }
 
 if (broken.length) {
-  console.error(`md.comp.* table has ${broken.length} broken reference(s):`);
+  console.error(`comp.* table has ${broken.length} broken reference(s):`);
   for (const b of broken) console.error(`  ${b}`);
   process.exit(1);
 }
@@ -360,7 +380,7 @@ const compOut = join(ROOT, "packages/kern-tokens/src/comp-tokens.css");
 writeFileSync(
   compOut,
   `/* GENERATED by scripts/gen-comp-css.mjs from tokens.json — do not edit by hand.
- * Component token tables (md.comp.*): every slot resolves to an existing global
+ * Component token tables (comp.*): every slot resolves to an existing global
  * role, shape, spacing or typescale var, so this can never drift into a second
  * source of truth. Source: tokens.json. */
 :root {
@@ -378,73 +398,75 @@ const tailwindLines = [];
 const colorRoles = Object.keys(M3.color.light);
 for (const role of colorRoles) {
   const slug = role.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`);
-  tailwindLines.push(`  --color-md-${slug}: var(--md-sys-color-${slug});`);
+  tailwindLines.push(`  --color-sys-${slug}: var(--sys-color-${slug});`);
 }
 for (const name of Object.keys(T.spacing)) {
+  // Utility keeps the numeric suffix (`--spacing-sys-100`); the referenced var
+  // keeps the full key (`--sys-spacing-space-100`) as emitted by gen-css.
   tailwindLines.push(
-    `  --spacing-md-${name.replace("space-", "")}: var(--md-sys-spacing-${name.replace("space-", "")});`,
+    `  --spacing-sys-${name.replace(/^space-/, "")}: var(--sys-spacing-${name});`,
   );
 }
 for (const name of Object.keys(T.shape)) {
   tailwindLines.push(
-    `  --radius-md-${name}: var(--md-sys-shape-corner-${name});`,
+    `  --radius-sys-${name}: var(--sys-shape-corner-${name});`,
   );
 }
 for (const name of Object.keys(T.typography.scale)) {
   tailwindLines.push(
-    `  --text-md-${name}: var(--md-sys-typescale-${name}-font-size);`,
+    `  --text-sys-${name}: var(--sys-typescale-${name}-font-size);`,
   );
   tailwindLines.push(
-    `  --leading-md-${name}: var(--md-sys-typescale-${name}-line-height);`,
+    `  --leading-sys-${name}: var(--sys-typescale-${name}-line-height);`,
   );
   tailwindLines.push(
-    `  --tracking-md-${name}: var(--md-sys-typescale-${name}-letter-spacing);`,
+    `  --tracking-sys-${name}: var(--sys-typescale-${name}-letter-spacing);`,
   );
 }
 for (const name of Object.keys(T.typography.scaleEmphasized ?? {})) {
   tailwindLines.push(
-    `  --text-md-emphasized-${name}: var(--md-sys-typescale-emphasized-${name}-font-size);`,
+    `  --text-sys-emphasized-${name}: var(--sys-typescale-emphasized-${name}-font-size);`,
   );
   tailwindLines.push(
-    `  --leading-md-emphasized-${name}: var(--md-sys-typescale-emphasized-${name}-line-height);`,
+    `  --leading-sys-emphasized-${name}: var(--sys-typescale-emphasized-${name}-line-height);`,
   );
   tailwindLines.push(
-    `  --tracking-md-emphasized-${name}: var(--md-sys-typescale-emphasized-${name}-letter-spacing);`,
+    `  --tracking-sys-emphasized-${name}: var(--sys-typescale-emphasized-${name}-letter-spacing);`,
   );
 }
 // Skip DTCG metadata keys (`$comment`, `$schema`, …). They are annotations, not
-// tokens; emitting one produces an invalid custom-property name (`--shadow-md-$comment`)
+// tokens; emitting one produces an invalid custom-property name (`--shadow-sys-$comment`)
 // and a var that resolves to nothing.
 const isTokenKey = (key) => !key.startsWith("$");
 for (const level of Object.keys(T.elevation).filter(isTokenKey)) {
   tailwindLines.push(
-    `  --shadow-md-${level}: var(--md-sys-elevation-${level});`,
+    `  --shadow-sys-${level}: var(--sys-elevation-${level});`,
   );
 }
 for (const name of Object.keys(T.motion.easing ?? {})) {
-  if (name === "standard") continue; // already emitted as --md-sys-motion-easing-standard
+  if (name === "standard") continue; // already emitted as --sys-motion-easing-standard
   tailwindLines.push(
-    `  --ease-md-${name}: var(--md-sys-motion-easing-${name});`,
+    `  --ease-sys-${name}: var(--sys-motion-easing-${name});`,
   );
 }
 for (const name of Object.keys(T.motion.duration ?? {})) {
   tailwindLines.push(
-    `  --duration-md-${name.replace(/(\d+)$/, "-$1")}: var(--md-sys-motion-duration-${name});`,
+    `  --duration-sys-${name.replace(/(\d+)$/, "-$1")}: var(--sys-motion-duration-${name});`,
   );
 }
 
-// ---- P1-8: mirror the md.comp.* tables into the Tailwind adapter.
+// ---- P1-8: mirror the comp.* tables into the Tailwind adapter.
 // `compLines` already holds `<decl>` strings of the form
-// `  --md-comp-<component>-<slot>-<attr>: <resolved>;`, each resolving to a
+// `  --comp-<component>-<slot>-<attr>: <resolved>;`, each resolving to a
 // var() or a single ICON_SIZE literal. Deriving the Tailwind name from the
 // var name and copying the SAME resolved expression keeps this a pure map:
 // no value is recomputed, and nothing here can become a second source of truth.
 // Slots are addressed as `comp-<component>-<slot>-<attr>`.
 for (const line of compLines) {
-  const m = line.match(/^\s*--md-comp-([\w-]+):\s*(.+);$/);
+  const m = line.match(/^\s*--comp-([\w-]+):\s*(.+);$/);
   if (!m) continue;
   const [, name, resolved] = m;
-  tailwindLines.push(`  --comp-md-${name}: ${resolved};`);
+  tailwindLines.push(`  --comp-${name}: ${resolved};`);
 }
 
 const twOut = join(ROOT, "packages/kern-tokens/src/tailwind.css");
@@ -470,7 +492,7 @@ const fmt = spawnSync(
 );
 if (fmt.status !== 0) process.exit(fmt.status ?? 1);
 console.log(
-  `md.comp.* generated: ${compLines.length} slots across ${Object.keys(COMPONENTS).length} components -> ${compOut}`,
+  `comp.* generated: ${compLines.length} slots across ${Object.keys(COMPONENTS).length} components -> ${compOut}`,
 );
 console.log(
   `tailwind adapter generated: ${new Set(tailwindLines).size} vars -> ${twOut}`,

@@ -31,14 +31,14 @@ export function ThemeSwitcher() {
 
   return (
     <section
-      className="flex flex-col gap-3 rounded-(--md-sys-shape-corner-large) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container) p-4"
+      className="flex flex-col gap-3 rounded-(--sys-shape-corner-large) border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container) p-4"
       aria-labelledby={groupId}
     >
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <span id={groupId} className="text-sm font-medium">
           Appearance
         </span>
-        <span className="font-mono text-xs text-(--md-sys-color-on-surface-variant)">
+        <span className="font-mono text-xs text-(--sys-color-on-surface-variant)">
           {mode} · {contrast} ·{" "}
           {typeof variant === "string" ? variant : variant.id}
         </span>
@@ -60,7 +60,7 @@ export function ThemeSwitcher() {
         ))}
       </div>
 
-      <dl className="grid grid-cols-1 gap-1 text-xs text-(--md-sys-color-on-surface-variant) sm:grid-cols-2">
+      <dl className="grid grid-cols-1 gap-1 text-xs text-(--sys-color-on-surface-variant) sm:grid-cols-2">
         <dt className="font-medium">Shipped variants</dt>
         <dd className="m-0 font-mono">
           {variants.map((entry) => entry.id).join(", ")}

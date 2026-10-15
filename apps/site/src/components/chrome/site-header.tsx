@@ -1,42 +1,43 @@
 /**
- * Site header — the primary chrome on every page.
+ * Site header — the M3 top app bar, on every page.
  *
- * A sticky h-14 bar: the K mark, the primary tabs, and a right cluster with
- * the version pill (promoted from the footer), a visible ⌘K button, the
- * GitHub link, the theme toggle, and the Get-started CTA. Below lg the tabs
- * collapse behind a hamburger that opens the mobile drawer — there is exactly
- * one navigation list per viewport, never tabs-plus-menu at once.
+ * Responsive utility bar: 80px desktop, 64px phone, in four beats:
  *
- * The tab destinations are the hub paths: Foundations, Patterns, and
- * Playground land with the hub migration (step 3); Components and Showcase
- * resolve today. The shared hub list lives in app-rail.tsx — the header
- * does not map the docs section.
+ *   1. Hamburger (below lg) + brand lockup — the K mark and wordmark link
+ *      home; there is no Home tab (m3.material.io and MUI both lead with
+ *      the brand instead).
+ *   2. Desktop primary navigation stays in the top header; below lg the same
+ *      destination model lives in the mobile drawer.
+ *   3. Utilities — the version pill (single instance; the footer no longer
+ *      repeats it), the search FIELD (not a button: surface-container-high
+ *      pill with a leading icon, hinted text, and the ⌘K key cap), GitHub,
+ *      and the theme toggle.
+ *   4. The Get-started CTA — the one filled action in the bar.
+ *
+ * Every chrome icon target is 48dp, every color is a role, and the desktop
+ * tabs and mobile drawer are mutually exclusive navigation surfaces.
  */
 import { useLocation } from "@tanstack/react-router";
 import { buttonVariants, cn, Kbd, useKernTheme } from "@xoroh/kern";
 import { Icon } from "@xoroh/kern-icons";
 import { useRef, useState } from "react";
-import { T_LABEL_LG } from "../../domains/shared/systems/type-scale";
-import { isActivePath } from "./app-rail";
+import { T_LABEL_LG, T_SUB } from "../../domains/shared/systems/type-scale";
+import {
+  FOCUS_RING,
+  ICON_BUTTON,
+  PILL_ACTIVE,
+  PILL_REST,
+  STATE_LAYERS,
+  TRANSITION,
+} from "../../domains/shared/systems/ui";
+import { isTabActive, PRIMARY_TABS } from "./app-rail";
 import { GitHubIcon } from "./github-icon";
 import { MobileDrawer } from "./mobile-drawer";
 import { openSearch } from "./search-palette";
 import { VersionSelector } from "./version-selector";
 
-/** The primary destinations, in header order. The drawer reads the same list. */
-export const PRIMARY_TABS: { href: string; label: string }[] = [
-  { href: "/foundations", label: "Foundations" },
-  { href: "/components", label: "Components" },
-  { href: "/patterns", label: "Patterns" },
-  { href: "/playground", label: "Playground" },
-  { href: "/showcase", label: "Showcase" },
-];
-
-// Every header icon button shares the rhythm: 36px target, variant ink, a
-// focus-visible ring in the focus role — keyboard readers get the same
-// affordance as pointer readers.
-const ICON_BUTTON =
-  "inline-flex size-9 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent text-(--md-sys-color-on-surface-variant) hover:bg-(--md-sys-color-surface-container-high) hover:text-(--md-sys-color-on-surface) focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-(--md-sys-color-secondary)";
+/** Brand mark + wordmark — the home link. */
+const BRAND = `flex shrink-0 items-center gap-2 rounded-(--sys-shape-corner-full) px-2 py-1 text-(--sys-color-on-surface) no-underline ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`;
 
 export function SiteHeader() {
   const { pathname } = useLocation();
@@ -45,7 +46,7 @@ export function SiteHeader() {
   const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   return (
-    <header className="sticky top-0 z-50 flex h-14 items-center gap-1 border-b border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface) px-3 sm:px-4">
+    <header className="site-header z-50 flex shrink-0 items-center gap-1 px-3 sm:px-6">
       <button
         ref={menuButtonRef}
         type="button"
@@ -54,28 +55,35 @@ export function SiteHeader() {
         aria-label="Open navigation menu"
         className={cn(ICON_BUTTON, "lg:hidden")}
       >
-        <Icon name="menu" size={20} />
+        <Icon name="menu" size={24} />
       </button>
-      <a
-        href="/"
-        aria-label="Kern home"
-        className="flex h-9 w-9 items-center justify-center rounded-full bg-(--md-sys-color-primary) text-(--md-sys-color-on-primary) no-underline"
-      >
-        <span className={T_LABEL_LG}>K</span>
+
+      <a href="/" aria-label="Kern home" className={BRAND}>
+        <span
+          aria-hidden="true"
+          className="flex size-10 items-center justify-center rounded-(--sys-shape-corner-large) bg-(--sys-color-primary) text-(--sys-color-on-primary)"
+        >
+          <span className={T_SUB}>K</span>
+        </span>
+        <span className={T_SUB}>
+          Kern<span className="text-(--sys-color-primary)">.</span>
+        </span>
       </a>
-      <nav aria-label="Primary" className="ml-2 hidden items-center lg:flex">
+
+      <nav
+        aria-label="Primary"
+        className="ml-4 hidden items-center gap-1 lg:flex"
+      >
         {PRIMARY_TABS.map((tab) => {
-          const active = isActivePath(pathname, tab.href);
+          const active = isTabActive(pathname, tab);
           return (
             <a
               key={tab.href}
               href={tab.href}
               aria-current={active ? "page" : undefined}
               className={cn(
-                "rounded-(--md-sys-shape-corner-full) px-3 py-2 no-underline",
-                active
-                  ? `bg-(--md-sys-color-secondary-container) ${T_LABEL_LG} text-(--md-sys-color-on-secondary-container)`
-                  : `${T_LABEL_LG} text-(--md-sys-color-on-surface-variant) hover:bg-(--md-sys-color-surface-container-high) hover:text-(--md-sys-color-on-surface)`,
+                `inline-flex min-h-12 items-center px-5 no-underline ${T_LABEL_LG} ${TRANSITION}`,
+                active ? PILL_ACTIVE : PILL_REST,
               )}
             >
               {tab.label}
@@ -83,20 +91,31 @@ export function SiteHeader() {
           );
         })}
       </nav>
+
       <div className="ml-auto flex items-center gap-1">
-        <span className="mr-1 hidden md:inline-flex">
+        <span className="mr-1 hidden xl:inline-flex">
           <VersionSelector />
         </span>
+
+        {/* Search is a FIELD, not a button: the M3 search-bar shape —
+            tonal pill, leading icon, hinted text, key cap. Icon-only below
+            sm, where the hint would crowd the bar. */}
         <button
           type="button"
           onClick={openSearch}
           aria-label="Search (Command K)"
-          className="inline-flex h-9 cursor-pointer items-center gap-2 rounded-(--md-sys-shape-corner-full) border-0 bg-(--md-sys-color-surface-container-high) px-3 text-(--md-sys-color-on-surface) hover:bg-(--md-sys-color-surface-container-highest)"
+          className={cn(
+            `inline-flex h-12 min-w-12 cursor-pointer items-center justify-center gap-2 rounded-(--sys-shape-corner-full) border-0 bg-(--sys-color-surface-container-high) px-3 text-(--sys-color-on-surface-variant) hover:bg-(--sys-color-surface-container-highest) ${TRANSITION} sm:justify-start sm:px-4`,
+            FOCUS_RING,
+          )}
         >
-          <Icon name="search" size={16} />
-          <span className={`hidden ${T_LABEL_LG} sm:inline`}>Search</span>
-          <Kbd>⌘K</Kbd>
+          <Icon name="search" size={20} />
+          <span className={`hidden sm:inline ${T_LABEL_LG}`}>Search</span>
+          <span className="hidden sm:inline-flex">
+            <Kbd>⌘K</Kbd>
+          </span>
         </button>
+
         <a
           href="https://github.com/xoroh/kern"
           aria-label="Kern on GitHub"
@@ -105,6 +124,7 @@ export function SiteHeader() {
         >
           <GitHubIcon />
         </a>
+
         <button
           type="button"
           onClick={toggle}
@@ -116,11 +136,12 @@ export function SiteHeader() {
         >
           <Icon
             name={mode === "light" ? "dark-mode" : "light-mode"}
-            size={20}
+            size={22}
           />
         </button>
+
         <a
-          href="/getting-started"
+          href="/docs/getting-started"
           className={cn(
             buttonVariants({ variant: "primary" }),
             "ml-1 hidden no-underline sm:inline-flex",
@@ -129,6 +150,7 @@ export function SiteHeader() {
           Get started
         </a>
       </div>
+
       <MobileDrawer
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}

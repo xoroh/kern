@@ -1,4 +1,4 @@
-import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
+import { type ResolvedTheme } from "@xoroh/kern-tokens";
 import {
   Modal,
   Pressable,
@@ -6,12 +6,12 @@ import {
   View,
   type ViewStyle,
 } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 import { overlayStyles } from "../utils/overlay-styles";
 import { Text } from "./text";
 
 export function alertDialogStyles(
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): { card: ViewStyle } {
   return {
     card: {
@@ -26,13 +26,8 @@ export function alertDialogStyles(
 
 export type NativeAlertDialogProps = {
   /**
-   * Legacy visibility name. Optional now that `open` exists — at least one
-   * of the two is required in practice (`open` wins when both are passed).
-   */
-  visible?: boolean;
-  /**
-   * R2 lexicon alias for `visible`. Controlled-only passthrough — no
-   * `defaultOpen`, no state.
+   * Controlled visibility. Controlled-only passthrough — no `defaultOpen`,
+   * no state.
    */
   open?: boolean;
   title: string;
@@ -57,7 +52,6 @@ export type NativeAlertDialogProps = {
 };
 
 export function AlertDialog({
-  visible,
   open,
   title,
   message,
@@ -78,7 +72,7 @@ export function AlertDialog({
   };
   return (
     <Modal
-      visible={open ?? visible ?? false}
+      visible={open ?? false}
       transparent
       animationType="fade"
       accessibilityViewIsModal

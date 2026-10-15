@@ -1,75 +1,104 @@
 /**
- * Fat footer — four wayfinding columns over a license bar.
+ * Fat footer — the tonal end-band: brand block + four wayfinding columns.
  *
- * The old single-row footer linked nine destinations in one wrapping line; a
- * reader scanning for "where is X" had to read the whole row. The columns
- * group the same destinations the way the nav source groups them, and every
- * href the old footer carried is still here — check-nav counts the footer as
- * a chrome surface that keeps routes reachable, so dropping one would orphan
- * its route.
+ * v2 redesign: the footer sits on `surface-container-low` (the tonal band
+ * that closes every page — sections separate by tone, not shadow), leads
+ * with the brand lockup and the one-line promise, then the same four
+ * grouped columns. Every href the old footer carried is still here —
+ * check-nav counts the footer as a chrome surface that keeps routes
+ * reachable, so dropping one would orphan its route.
+ *
+ * The version pill now lives ONLY in the header (one instance of any datum
+ * per page — v2 dedupe).
  *
  * Column labels are plain text, not headings: they are wayfinding, not
  * document structure, and check-headings requires an id on every h2/h3.
  */
-import { REPO_LICENSE } from "../../generated/changelog";
-import { T_BODY_MD, T_BODY_SM, T_LABEL } from "../../domains/shared/systems/type-scale";
-import { VersionSelector } from "./version-selector";
 
-const COLUMNS: { label: string; links: { label: string; href: string }[] }[] =
-  [
-    {
-      label: "Foundations",
-      links: [
-        { label: "Foundations", href: "/foundations" },
-        { label: "Theme", href: "/foundations/theme" },
-        { label: "Accessibility", href: "/foundations/accessibility" },
-        { label: "Icons", href: "/foundations/icons" },
-      ],
-    },
-    {
-      label: "Components",
-      links: [
-        { label: "All components", href: "/components" },
-        { label: "Web", href: "/components/web" },
-        { label: "Native", href: "/components/mobile" },
-        { label: "Showcase", href: "/showcase" },
-      ],
-    },
-    {
-      label: "Resources",
-      links: [
-        { label: "Docs", href: "/docs" },
-        { label: "Guides", href: "/docs/guides" },
-        { label: "API reference", href: "/docs/api" },
-        { label: "Getting started", href: "/getting-started" },
-      ],
-    },
-    {
-      label: "Project",
-      links: [
-        { label: "About", href: "/about" },
-        { label: "Changelog", href: "/changelog" },
-        { label: "Community", href: "/community" },
-        { label: "License", href: "/legal/license" },
-        { label: "Security", href: "/legal/security" },
-        { label: "GitHub", href: "https://github.com/xoroh/kern" },
-        { label: "xoroh.org", href: "https://xoroh.org" },
-      ],
-    },
-  ];
+import {
+  T_BODY,
+  T_BODY_MD,
+  T_BODY_SM,
+  T_LABEL,
+  T_SUB,
+} from "../../domains/shared/systems/type-scale";
+import { REPO_LICENSE } from "../../generated/changelog";
+
+const COLUMNS: { label: string; links: { label: string; href: string }[] }[] = [
+  {
+    label: "Docs",
+    links: [
+      { label: "Getting started", href: "/docs/getting-started" },
+      { label: "Design systems", href: "/foundations" },
+      { label: "Material 3", href: "/foundations/m3" },
+      { label: "Color", href: "/foundations/m3/color" },
+      { label: "Typography", href: "/foundations/m3/type" },
+      { label: "Theme", href: "/foundations/m3/theme" },
+      { label: "Guides", href: "/docs/guides" },
+    ],
+  },
+  {
+    label: "Components",
+    links: [
+      { label: "All components", href: "/components" },
+      { label: "Web", href: "/components/web" },
+      { label: "React Native", href: "/components/mobile" },
+      { label: "API reference", href: "/reference" },
+      { label: "Blocks", href: "/showcase" },
+      { label: "Patterns", href: "/patterns" },
+    ],
+  },
+  {
+    label: "Resources",
+    links: [
+      { label: "Playground", href: "/playground" },
+      { label: "Icons", href: "/foundations/icons" },
+      { label: "Accessibility", href: "/foundations/accessibility" },
+      { label: "API utilities", href: "/docs/api" },
+      { label: "Primitives", href: "/primitives" },
+      { label: "Tooling", href: "/docs/use-cases" },
+    ],
+  },
+  {
+    label: "Project",
+    links: [
+      { label: "About", href: "/about" },
+      { label: "Changelog", href: "/changelog" },
+      { label: "Community", href: "/community" },
+      { label: "License", href: "/legal/license" },
+      { label: "Security", href: "/legal/security" },
+      { label: "GitHub", href: "https://github.com/xoroh/kern" },
+    ],
+  },
+];
 
 const LINK =
-  "text-(--md-sys-color-on-surface-variant) no-underline hover:text-(--md-sys-color-on-surface)";
+  "text-(--sys-color-on-surface-variant) no-underline hover:text-(--sys-color-on-surface)";
 
 export function Footer() {
   return (
-    <footer className="mt-3 border-t border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface)">
-      <div className="mx-auto w-full max-w-[80rem] px-6 py-10 sm:px-8">
+    <footer className="site-footer mt-12 bg-(--sys-color-surface-container-low)">
+      <div className="mx-auto w-full max-w-[80rem] px-6 py-12 sm:px-8">
+        {/* Brand block — the footer's own header, so the band reads as a
+            closing statement rather than a link dump. */}
+        <div className="mb-10 flex flex-col gap-2">
+          <p className={`m-0 ${T_SUB} text-(--sys-color-on-surface)`}>
+            Kern<span className="text-(--sys-color-primary)">.</span>{" "}
+            <span className="text-(--sys-color-on-surface-variant)">
+              by Xoroh
+            </span>
+          </p>
+          <p
+            className={`m-0 max-w-[52ch] ${T_BODY} ${"text-(--sys-color-on-surface-variant)"}`}
+          >
+            Components, tokens, and docs for web and native — from one source.
+          </p>
+        </div>
         <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">
           {COLUMNS.map((column) => (
             <nav key={column.label} aria-label={`Footer — ${column.label}`}>
               <p
-                className={`m-0 ${T_LABEL} text-(--md-sys-color-on-surface-variant) uppercase`}
+                className={`m-0 ${T_LABEL} text-(--sys-color-on-surface-variant) uppercase`}
               >
                 {column.label}
               </p>
@@ -86,13 +115,12 @@ export function Footer() {
           ))}
         </div>
         <div
-          className={`mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-(--md-sys-color-outline-variant) pt-6 ${T_BODY_SM}`}
+          className={`mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-(--sys-color-outline-variant) pt-6 ${T_BODY_SM}`}
         >
-          <p className="m-0 flex items-center gap-3 text-(--md-sys-color-on-surface-variant)">
+          <p className="m-0 text-(--sys-color-on-surface-variant)">
             Kern by Xoroh · {REPO_LICENSE} License
-            <VersionSelector />
           </p>
-          <p className="m-0 text-(--md-sys-color-on-surface-variant)">
+          <p className="m-0 text-(--sys-color-on-surface-variant)">
             Components, tokens and docs from one source.
           </p>
         </div>

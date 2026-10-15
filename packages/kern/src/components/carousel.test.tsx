@@ -43,7 +43,7 @@ describe("Carousel", () => {
   });
 
   it("clamps at the end", () => {
-    render(<Carousel items={ITEMS} defaultIndex={2} />);
+    render(<Carousel items={ITEMS} defaultValue={2} />);
     expect(screen.getByRole("button", { name: /next/i })).toBeDisabled();
     expect(screen.getByRole("button", { name: /previous/i })).toBeEnabled();
   });
@@ -62,10 +62,10 @@ describe("Carousel", () => {
 
   it("moves forward and reports the new index", async () => {
     const user = userEvent.setup();
-    const onIndexChange = vi.fn();
-    render(<Carousel items={ITEMS} onIndexChange={onIndexChange} />);
+    const onValueChange = vi.fn();
+    render(<Carousel items={ITEMS} onValueChange={onValueChange} />);
     await user.click(screen.getByRole("button", { name: /next/i }));
-    expect(onIndexChange).toHaveBeenCalledWith(1);
+    expect(onValueChange).toHaveBeenCalledWith(1);
     expect(screen.getByText("Two")).toBeInTheDocument();
   });
 
@@ -77,31 +77,31 @@ describe("Carousel", () => {
   // ArrowRight entirely left it green, which is what the mutation check found.
   it("ArrowRight advances", async () => {
     const user = userEvent.setup();
-    const onIndexChange = vi.fn();
-    render(<Carousel items={ITEMS} onIndexChange={onIndexChange} />);
+    const onValueChange = vi.fn();
+    render(<Carousel items={ITEMS} onValueChange={onValueChange} />);
     screen.getByRole("group", { name: /controls/i }).focus();
     await user.keyboard("{ArrowRight}");
-    expect(onIndexChange).toHaveBeenCalledWith(1);
+    expect(onValueChange).toHaveBeenCalledWith(1);
   });
 
   it("ArrowLeft goes back", async () => {
     const user = userEvent.setup();
-    const onIndexChange = vi.fn();
+    const onValueChange = vi.fn();
     render(
-      <Carousel items={ITEMS} defaultIndex={2} onIndexChange={onIndexChange} />,
+      <Carousel items={ITEMS} defaultValue={2} onValueChange={onValueChange} />,
     );
     screen.getByRole("group", { name: /controls/i }).focus();
     await user.keyboard("{ArrowLeft}");
-    expect(onIndexChange).toHaveBeenCalledWith(1);
+    expect(onValueChange).toHaveBeenCalledWith(1);
   });
 
   it("ignores arrow keys while disabled", async () => {
     const user = userEvent.setup();
-    const onIndexChange = vi.fn();
-    render(<Carousel items={ITEMS} disabled onIndexChange={onIndexChange} />);
+    const onValueChange = vi.fn();
+    render(<Carousel items={ITEMS} disabled onValueChange={onValueChange} />);
     screen.getByRole("group", { name: /controls/i }).focus();
     await user.keyboard("{ArrowRight}");
-    expect(onIndexChange).not.toHaveBeenCalled();
+    expect(onValueChange).not.toHaveBeenCalled();
   });
 
   // M3 is explicit that a carousel does not auto-advance: motion that moves
@@ -109,10 +109,10 @@ describe("Carousel", () => {
   it("does not auto-advance", () => {
     vi.useFakeTimers();
     try {
-      const onIndexChange = vi.fn();
-      render(<Carousel items={ITEMS} onIndexChange={onIndexChange} />);
+      const onValueChange = vi.fn();
+      render(<Carousel items={ITEMS} onValueChange={onValueChange} />);
       vi.advanceTimersByTime(60_000);
-      expect(onIndexChange).not.toHaveBeenCalled();
+      expect(onValueChange).not.toHaveBeenCalled();
       expect(screen.getByText("One")).toBeInTheDocument();
     } finally {
       vi.useRealTimers();
@@ -145,7 +145,7 @@ describe("Carousel", () => {
 
   // A controlled index out of range must not blank the carousel.
   it("clamps an out-of-range controlled index instead of rendering nothing", () => {
-    render(<Carousel items={ITEMS} index={99} />);
+    render(<Carousel items={ITEMS} value={99} />);
     // Clamped to the LAST slide, and the next control reflects it — an
     // out-of-range index that left `next` enabled would misreport position.
     const slides = document.querySelectorAll("[data-slot='carousel-item']");
@@ -162,13 +162,13 @@ describe("Carousel", () => {
   // clicks — a dead control with no announcement is a control that lies.
   it("disables both controls and stops traversal when disabled", async () => {
     const user = userEvent.setup();
-    const onIndexChange = vi.fn();
-    render(<Carousel items={ITEMS} disabled onIndexChange={onIndexChange} />);
+    const onValueChange = vi.fn();
+    render(<Carousel items={ITEMS} disabled onValueChange={onValueChange} />);
     expect(region()).toHaveAttribute("aria-disabled", "true");
     expect(screen.getByRole("button", { name: /next/i })).toBeDisabled();
     expect(screen.getByRole("button", { name: /previous/i })).toBeDisabled();
     await user.click(screen.getByRole("button", { name: /next/i }));
-    expect(onIndexChange).not.toHaveBeenCalled();
+    expect(onValueChange).not.toHaveBeenCalled();
   });
 
   // Every `go()` caller is gated (the two controls and the dots carry
@@ -231,9 +231,9 @@ describe("Carousel", () => {
   });
 
   // Move-38 edge: middle mount exposes the middle slide with both controls
-  // live — the defaultIndex knob's painted-verify axis. Ends unclamped.
+  // live — the defaultValue knob's painted-verify axis. Ends unclamped.
   it("mounts the middle slide exposed with both controls live", () => {
-    render(<Carousel items={ITEMS} defaultIndex={1} />);
+    render(<Carousel items={ITEMS} defaultValue={1} />);
     const slides = document.querySelectorAll("[data-slot='carousel-item']");
     expect(slides[1]).not.toHaveAttribute("aria-hidden");
     expect(slides[0]).toHaveAttribute("aria-hidden", "true");

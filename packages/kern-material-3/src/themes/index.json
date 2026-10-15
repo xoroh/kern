@@ -1,0 +1,40 @@
+{
+  "$comment": "Theme catalog used by the MCP server and tooling. Add a theme by adding its file and one entry here.",
+  "themes": [
+    {
+      "id": "material-3",
+      "file": "material-3.json",
+      "name": "Material 3",
+      "description": "Default. Material Design 3 baseline role tables.",
+      "template": false
+    },
+    {
+      "id": "sharp",
+      "file": "sharp.json",
+      "name": "Sharp",
+      "description": "Premium sharp-edge preset.",
+      "template": false
+    },
+    {
+      "id": "compact",
+      "file": "compact.json",
+      "name": "Compact",
+      "description": "Density preset: 0.75x shape scale, color untouched. Extends material-3.",
+      "template": false
+    },
+    {
+      "id": "brand",
+      "file": "brand.json",
+      "name": "Brand",
+      "description": "Worked brand example: primary family on the amber ramp. Extends material-3.",
+      "template": false
+    },
+    {
+      "id": "demo",
+      "file": "demo.json",
+      "name": "Demo tenant",
+      "description": "Demo tenant proving end-to-end preset switching. Extends material-3.",
+      "template": true
+    }
+  ]
+}

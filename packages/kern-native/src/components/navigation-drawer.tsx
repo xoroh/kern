@@ -1,6 +1,5 @@
 import {
   type ResolvedTheme,
-  resolveThemeDetails,
   tokens,
 } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
@@ -12,7 +11,7 @@ import {
   View,
   type ViewStyle,
 } from "react-native";
-import { useKernTheme } from "../theme";
+import { defaultScheme, useKernTheme } from "../theme";
 import { overlayStyles } from "../utils/overlay-styles";
 import {
   NavigationBarItem,
@@ -29,7 +28,7 @@ import { Text } from "./text";
 
 export const SECTION_DRAWER_WIDTH = 360;
 
-export function drawerStyles(scheme: ResolvedTheme = resolveThemeDetails()): {
+export function drawerStyles(scheme: ResolvedTheme = defaultScheme): {
   drawer: ViewStyle;
   header: ViewStyle;
   body: ViewStyle;

@@ -3,7 +3,7 @@
 // tokens.ts imports the canonical JSON directly; it is not a mirrored file.
 // Scoped `[data-kern-theme]` blocks come from the matrix ARTIFACT
 // (themes/matrix.json) via pipeline `scopedDeltas` — one spelling for the
-// `--md-sys-*` names (`varName`/`shapeVarName`), never a per-preset special
+// `--sys-*` names (`varName`/`shapeVarName`), never a per-preset special
 // case in this file. check:theme-matrix fails when the blocks drift from the
 // matrix deltas.
 import { spawnSync } from "node:child_process";
@@ -14,31 +14,30 @@ import { varName as roleVar } from "../src/resolve.ts";
 
 const ROOT = new URL("../../..", import.meta.url).pathname;
 const THEME = join(ROOT, "packages/kern-tokens/src");
+const M3THEMES = join(ROOT, "packages/kern-material-3/src/themes");
 const read = (file) => JSON.parse(readFileSync(join(THEME, file), "utf8"));
+const readTheme = (file) => JSON.parse(readFileSync(join(M3THEMES, file), "utf8"));
 const kebab = (name) => name.replace(/(?<!^)(?=[A-Z])/g, "-").toLowerCase();
 
 const T = read("tokens.json");
-const M3 = read("themes/kern.json");
-const matrix = read("themes/matrix.json");
+const M3 = readTheme("material-3.json");
+const matrix = readTheme("matrix.json");
 const fontFamily = `"${T.typography.webFamily}", "${T.typography.family}", sans-serif`;
-const prefix = (name) => `--md-sys-typescale-${name}`;
-// Dark-mode shadows need higher opacity: black blurs are invisible on black
-// surfaces, so each level steps its alphas up from the light definition.
-const darkElevation = {
-  level0: "none",
-  level1: "0 1px 2px 0 rgba(0, 0, 0, 0.5), 0 1px 3px 1px rgba(0, 0, 0, 0.3)",
-  level2: "0 1px 2px 0 rgba(0, 0, 0, 0.5), 0 2px 6px 2px rgba(0, 0, 0, 0.3)",
-  level3: "0 1px 2px 0 rgba(0, 0, 0, 0.5), 0 4px 8px 3px rgba(0, 0, 0, 0.3)",
-  level4: "0 2px 3px 0 rgba(0, 0, 0, 0.5), 0 6px 10px 4px rgba(0, 0, 0, 0.3)",
-  level5: "0 4px 4px 0 rgba(0, 0, 0, 0.5), 0 8px 12px 6px rgba(0, 0, 0, 0.3)",
-};
+const prefix = (name) => `--sys-typescale-${name}`;
 // DTCG metadata keys (`$comment`, `$schema`, …) are annotations, not tokens. Emitting one
-// produces an invalid custom-property name (`--md-sys-state-$comment`) and a var that
+// produces an invalid custom-property name (`--sys-state-$comment`) and a var that
 // resolves to nothing. EVERY group must filter, not just elevation: `states` was the one
 // that leaked, when it gained a `$comment` while adding M3's fifth state opacity.
 const isTokenKey = (key) => !key.startsWith("$");
 const tokenEntries = (group) =>
   Object.entries(group ?? {}).filter(([k]) => isTokenKey(k));
+// Dark-mode shadows need higher opacity: black blurs are invisible on black
+// surfaces, so each level steps its alphas up from the light definition.
+// Canonical source is `tokens.json` `elevation.<level>.shadowDark` (KERN-021) —
+// this file projects, it never authors a second value table.
+const darkElevation = Object.fromEntries(
+  tokenEntries(T.elevation).map(([level, value]) => [level, value.shadowDark ?? value.shadow]),
+);
 
 const C = [
   '@import "@fontsource-variable/inter";',
@@ -60,19 +59,19 @@ const C = [
   "",
   ".dark {",
   ...Object.entries(darkElevation).map(
-    ([level, shadow]) => `  --md-sys-elevation-${level}: ${shadow};`,
+    ([level, shadow]) => `  --sys-elevation-${level}: ${shadow};`,
   ),
   "}",
   "",
   ":root {",
   ...tokenEntries(T.shape).map(
-    ([name, value]) => `  --md-sys-shape-corner-${name}: ${value};`,
+    ([name, value]) => `  --sys-shape-corner-${name}: ${value};`,
   ),
   // Skip DTCG metadata keys (`$comment`, `$schema`, …). They are annotations, not
   // tokens; emitting one produces an invalid custom-property name and a broken var.
   ...tokenEntries(T.elevation).flatMap(([level, value]) => [
-    `  --md-sys-elevation-${level}: ${value.shadow};`,
-    `  --md-sys-elevation-${level}-dp: ${value.dp};`,
+    `  --sys-elevation-${level}: ${value.shadow};`,
+    `  --sys-elevation-${level}-dp: ${value.dp};`,
   ]),
   ...Object.entries(T.typography.scale).flatMap(([name, style]) => [
     `  ${prefix(name)}-font-family: ${fontFamily};`,
@@ -81,7 +80,7 @@ const C = [
     `  ${prefix(name)}-letter-spacing: ${style.tracking};`,
     `  ${prefix(name)}-font-weight: ${style.weight};`,
   ]),
-  // Emphasized type scale (P1-3 / D-028): md.sys.typescale.emphasized.*.
+  // Emphasized type scale (P1-3 / D-028): sys.typescale.emphasized.*.
   ...Object.entries(T.typography.scaleEmphasized ?? {}).flatMap(
     ([name, style]) => [
       `  ${prefix(`emphasized-${name}`)}-font-family: ${fontFamily};`,
@@ -93,46 +92,46 @@ const C = [
   ),
   // Motion (P1-4 / D-028). The three legacy keys stay verbatim at the top so existing
   // consumers keep resolving; the full grid is emitted alongside them.
-  `  --md-sys-motion-easing-standard: ${T.motion["easing-standard"]};`,
-  `  --md-sys-motion-duration-short: ${T.motion["duration-short"]};`,
-  `  --md-sys-motion-duration-medium: ${T.motion["duration-medium"]};`,
+  `  --sys-motion-easing-standard: ${T.motion["easing-standard"]};`,
+  `  --sys-motion-duration-short: ${T.motion["duration-short"]};`,
+  `  --sys-motion-duration-medium: ${T.motion["duration-medium"]};`,
   ...Object.entries(T.motion.easing ?? {})
     // `easing-standard` is already emitted by the legacy triple above and is the
     // same token (M3 names both). Emitting it twice trips Biome's
     // noDuplicateCustomProperties, so the pool skips it — the value still
     // resolves, and `schemes.standard.easing` points at it correctly.
     .filter(([name]) => name !== "standard")
-    .map(([name, value]) => `  --md-sys-motion-easing-${name}: ${value};`),
+    .map(([name, value]) => `  --sys-motion-easing-${name}: ${value};`),
   ...Object.entries(T.motion.duration ?? {}).map(
-    ([name, value]) => `  --md-sys-motion-duration-${name}: ${value};`,
+    ([name, value]) => `  --sys-motion-duration-${name}: ${value};`,
   ),
   ...Object.entries(T.motion.spring ?? {}).flatMap(([name, spring]) => [
-    `  --md-sys-motion-spring-${name}-stiffness: ${spring.stiffness};`,
-    `  --md-sys-motion-spring-${name}-damping: ${spring.damping};`,
+    `  --sys-motion-spring-${name}-stiffness: ${spring.stiffness};`,
+    `  --sys-motion-spring-${name}-damping: ${spring.damping};`,
   ]),
   ...Object.entries(T.motion.schemes ?? {}).flatMap(([scheme, refs]) =>
     Object.entries(refs).map(
       ([key, target]) =>
-        `  --md-sys-motion-scheme-${scheme}-${key}: var(--md-sys-motion-${
+        `  --sys-motion-scheme-${scheme}-${key}: var(--sys-motion-${
           key.startsWith("easing") ? "easing" : "spring"
         }-${target});`,
     ),
   ),
   ...tokenEntries(T.states).map(
     ([name, value]) =>
-      `  --md-sys-state-${name.replace("-opacity", "")}: ${value};`,
+      `  --sys-state-${name.replace("-opacity", "")}: ${value};`,
   ),
   ...tokenEntries(T.spacing).map(
     // M3 names spacing `space100 = 8dp` (P1-6). The key already carries the `space-`
-    // prefix, so the var is `--md-sys-spacing-space-100`.
-    ([step, value]) => `  --md-sys-spacing-${step}: ${value};`,
+    // prefix, so the var is `--sys-spacing-space-100`.
+    ([step, value]) => `  --sys-spacing-${step}: ${value};`,
   ),
   ...Object.entries(T.spectrum).flatMap(([hue, ramp]) =>
     Object.entries(ramp).map(
-      ([step, value]) => `  --spectrum-${hue}-${step}: ${value.srgb};`,
+      ([step, value]) => `  --ref-palette-${hue}-${step}: ${value.srgb};`,
     ),
   ),
-  `  --kern-font-family: ${fontFamily};`,
+  `  --ref-font-family: ${fontFamily};`,
   "}",
   "",
   // Scoped sub-theme deltas, one block set per preset, from the matrix
@@ -157,62 +156,29 @@ const C = [
         ]
       : []),
   ]),
-  "/* App-token bridge for consumers using generic semantic names. */",
-  ":root {",
-  "  --background: var(--md-sys-color-surface);",
-  "  --foreground: var(--md-sys-color-on-surface);",
-  "  --card: var(--md-sys-color-surface);",
-  "  --primary: var(--md-sys-color-primary);",
-  "  --primary-foreground: var(--md-sys-color-on-primary);",
-  "  --secondary: var(--md-sys-color-surface-container-high);",
-  "  --muted: var(--md-sys-color-surface-container-high);",
-  "  --accent: var(--md-sys-color-surface-tonal);",
-  "  --muted-foreground: var(--md-sys-color-on-surface-variant);",
-  "  --border: var(--md-sys-color-outline-variant);",
-  "  --destructive: var(--md-sys-color-error);",
-  "  --radius: var(--md-sys-shape-corner-small);",
-  "  --sidebar: var(--md-sys-color-surface);",
-  "  --sidebar-foreground: var(--md-sys-color-on-surface);",
-  "  --sidebar-primary: var(--md-sys-color-primary);",
-  "  --sidebar-primary-foreground: var(--md-sys-color-on-primary);",
-  "  --sidebar-accent: var(--md-sys-color-surface-container-high);",
-  "  --sidebar-accent-foreground: var(--md-sys-color-on-surface);",
-  "  --sidebar-border: var(--md-sys-color-outline-variant);",
-  "}",
-  "",
   "@theme inline {",
   ...Object.keys(M3.color.light).map(
-    (role) => `  --color-${kebab(role)}: var(${roleVar(role)});`,
+    (role) => `  --color-sys-${kebab(role)}: var(${roleVar(role)});`,
   ),
   ...tokenEntries(T.shape).map(
     ([name]) =>
-      `  --radius-${kebab(name)}: var(--md-sys-shape-corner-${name});`,
+      `  --radius-sys-${kebab(name)}: var(--sys-shape-corner-${name});`,
   ),
   ...Object.entries(T.spectrum).flatMap(([hue, ramp]) =>
     Object.entries(ramp).map(
       ([step]) =>
-        `  --color-spectrum-${hue}-${step}: var(--spectrum-${hue}-${step});`,
+        `  --color-ref-palette-${hue}-${step}: var(--ref-palette-${hue}-${step});`,
     ),
   ),
   ...Object.entries(T.typography.scale).map(
     ([name, style]) =>
-      `  --text-${name}: ${style.size};\n  --text-${name}--line-height: ${style.lineHeight};\n  --text-${name}--letter-spacing: ${style.tracking};\n  --text-${name}--font-weight: ${style.weight};`,
+      `  --text-sys-${name}: ${style.size};\n  --text-sys-${name}--line-height: ${style.lineHeight};\n  --text-sys-${name}--letter-spacing: ${style.tracking};\n  --text-sys-${name}--font-weight: ${style.weight};`,
   ),
-  "  --font-sans: var(--kern-font-family);",
+  "  --font-sans: var(--ref-font-family);",
   ...tokenEntries(T.spacing).map(
-    ([step, value]) => `  --spacing-${step}: ${value};`,
+    ([step, value]) =>
+      `  --spacing-sys-${step.replace(/^space-/, "")}: ${value};`,
   ),
-  "  --color-background: var(--background);",
-  "  --color-foreground: var(--foreground);",
-  "  --color-card: var(--card);",
-  "  --color-primary: var(--primary);",
-  "  --color-primary-foreground: var(--primary-foreground);",
-  "  --color-secondary: var(--secondary);",
-  "  --color-muted: var(--muted);",
-  "  --color-accent: var(--accent);",
-  "  --color-muted-foreground: var(--muted-foreground);",
-  "  --color-border: var(--border);",
-  "  --color-destructive: var(--destructive);",
   "}",
 ];
 

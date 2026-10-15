@@ -40,7 +40,7 @@ export const INPUT_EXAMPLES: ExampleSpec[] = [
         />
         <p
           id="email-error-message"
-          className={`m-0 ${T_LABEL} text-(--md-sys-color-error)`}
+          className={`m-0 ${T_LABEL} text-(--sys-color-error)`}
         >
           Enter an email address.
         </p>

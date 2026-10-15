@@ -20,7 +20,7 @@ export const popover: ComponentDoc = {
     variants: [],
     // kern's own decision. M3's component elevation table names no popover —
     // it has "menu" and "rich tooltip", which kern maps to `navigation-menu`
-    // and `tooltip`. The popup ships `--md-sys-elevation-level2`. See
+    // and `tooltip`. The popup ships `--sys-elevation-level2`. See
     // Deviations.
     elevation: 2,
   },
@@ -59,10 +59,39 @@ export const popover: ComponentDoc = {
     { name: "PopoverClose", role: "Closes the panel from inside it." },
     { name: "Popover", role: "The namespace object: all of the parts above." },
   ],
+  keyboard: [
+    {
+      key: "Escape",
+      action: "Closes the popover; focus returns to the trigger.",
+    },
+  ],
+  usage: {
+    do: [
+      "Anchor to triggers for transient content and small menus.",
+      "Dismiss on outside tap and Escape alike.",
+    ],
+    dont: [
+      "Don't use for blocking decisions — that is a dialog.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Container",
+      state: "resting",
+      token: "comp.menu.container",
+      value: "surface-container, 4px, level2",
+    },
+  ],
+  faq: [
+    {
+      q: "Popover or menu?",
+      a: "Popover for free content anchored to a trigger; menu for choice lists with keyboard traversal.",
+    },
+  ],
   customization: {
     supported: [
       "`className` on every part, merged after the part's own classes.",
-      "The panel's surface, outline and lift come from the system roles and `--md-sys-elevation-level2`.",
+      "The panel's surface, outline and lift come from the system roles and `--sys-elevation-level2`.",
       "Width is a set value rather than a fixed one, so a wider control can override it with `className`.",
     ],
     notSupported: [

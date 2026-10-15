@@ -5,9 +5,9 @@ import { cn } from "../utils/cn";
 const badgeVariants = cva("kern-badge shrink-0", {
   variants: {
     variant: {
-      dot: "size-1.5 rounded-full bg-(--md-sys-color-error)",
+      dot: "size-1.5 rounded-full bg-(--sys-color-error)",
       count:
-        "inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-(--md-sys-color-error) px-1 text-[11px] font-medium text-(--md-sys-color-on-error)",
+        "inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-(--sys-color-error) px-1 text-[11px] font-medium text-(--sys-color-on-error)",
     },
   },
   defaultVariants: { variant: "count" },

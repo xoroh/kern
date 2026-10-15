@@ -19,7 +19,7 @@ export const collapsible: ComponentDoc = {
   customization: {
     supported: [
       "`title` is the whole trigger row; `children` is the revealed content.",
-      "`expanded` / `defaultExpanded` / `onExpandedChange` are the controlled-uncontrolled pair for the one open flag.",
+      "`open` / `defaultOpen` / `onOpenChange` are the controlled-uncontrolled pair for the one open flag.",
       "`style` is a React Native `ViewStyle` for the wrapper.",
     ],
     notSupported: [
@@ -42,18 +42,18 @@ export const collapsible: ComponentDoc = {
       note: "The revealed content. Unmounted while closed, so a collapsed block renders nothing.",
     },
     {
-      name: "expanded",
+      name: "open",
       type: "boolean",
       note: "Controlled open state.",
     },
     {
-      name: "defaultExpanded",
+      name: "defaultOpen",
       type: "boolean",
       default: "false",
-      note: "Uncontrolled starting state. Omit `expanded` to let the component own it.",
+      note: "Uncontrolled starting state. Omit `open` to let the component own it.",
     },
     {
-      name: "onExpandedChange",
+      name: "onOpenChange",
       type: "(expanded: boolean) => void",
       note: "Fires with the next open flag on every toggle.",
     },

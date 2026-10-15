@@ -4,13 +4,13 @@ import { useState } from "react";
 
 /**
  * First themed screen. The preset picker switches the whole app between the
- * shipped presets — kern (default), sharp, brand, and the demo tenant — plus
- * the light/dark mode axis. `applyKernTheme` writes the resolved role + shape
- * tables onto the document root as CSS variables, so every Kern component
- * repaints with no prop drilling.
+ * shipped presets — material-3 (default), sharp, brand, and the demo tenant —
+ * plus the light/dark mode axis. `applyKernTheme` writes the resolved role +
+ * shape tables onto the document root as CSS variables, so every Kern
+ * component repaints with no prop drilling.
  */
 const PRESETS = [
-  "kern",
+  "material-3",
   "sharp",
   "brand",
   "demo",
@@ -18,7 +18,7 @@ const PRESETS = [
 const MODES = ["light", "dark"] as const satisfies readonly Mode[];
 
 export function App() {
-  const [preset, setPreset] = useState<ThemeId>("kern");
+  const [preset, setPreset] = useState<ThemeId>("material-3");
   const [mode, setMode] = useState<Mode>("light");
 
   function apply(nextPreset: ThemeId, nextMode: Mode): void {

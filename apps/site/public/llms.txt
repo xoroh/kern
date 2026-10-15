@@ -12,60 +12,88 @@ Prefer these machine surfaces over scraping HTML:
 - Copy as Markdown button on every component and Foundations page — page prose + code + links, live-demo controls excluded
 - Agent skills in the repo: .agents/skills/kern/SKILL.md, .agents/skills/kern-agents/SKILL.md and .agents/skills/docs/SKILL.md (https://github.com/xoroh/kern/tree/main/.agents/skills)
 
-## Foundations
+## Overview
 
-- [Foundations](/foundations): Tokens, theme, accessibility, icons — the layer beneath
-- [Theme](/foundations/theme): Color roles in the active theme
-- [Accessibility](/foundations/accessibility): How kern components stay accessible
+- [Design systems](/foundations): The systems kern documents — M3 today, shaped for more
+
+## Material 3
+
+- [Material 3](/foundations/m3): The current system — tokens, theme, and the layer beneath
+- [Tokens](/foundations/m3/tokens): The token architecture — naming, roles, bands
+- [Color](/foundations/m3/color): M3 role system, pairing law, usage rules
+- [Typography](/foundations/m3/type): M3 type scale, specimens, roles
+- [Shape](/foundations/m3/shape): M3 corner scale and shape ladder
+- [Elevation](/foundations/m3/elevation): M3 levels, shadows, surface depth
+- [Motion](/foundations/m3/motion): Easing, durations, springs
+- [States](/foundations/m3/states): State layers, interaction states, focus
+- [Theme](/foundations/m3/theme): M3 color roles in the active theme
+
+## Resources
+
 - [Icons](/foundations/icons): Icon sets and usage
-
-## Docs
-
-- [Overview](/docs): Three ways in, one system underneath
-- [Guides](/docs/guides): How-to guides for common tasks
-- [Use cases](/docs/use-cases): CLI, MCP and skills — what each surface does
-- [API reference](/docs/api): API reference for the public utility surface
-- [Reference](/reference): Concept and contract reference
-- [Contributing](/docs/contributing): How to contribute to kern
+- [Accessibility](/foundations/accessibility): How kern components stay accessible
 
 ## Components
 
 - [All components](/components): Documented family by family
-- [Web](/components/web): Web component families
-- [Native](/components/mobile): Native component families
+- [Web](/components/web): M3 web component families
+- [React Native](/components/mobile): M3 React Native component families
+- [API reference](/reference): Every export in the generated manifest
 
-## Patterns
+## Blocks
 
+- [All blocks](/showcase): Blocks, templates, and example apps built from kern
 - [Patterns](/patterns): Product shapes composed from shipped components
 
-## Playground
+## Studio
 
-- [Playground](/playground): Repaint the system, or search it
+- [Theme studio](/playground): Repaint the system, or search it
 
-## Showcase
+## Develop
 
-- [Showcase](/showcase): Blocks, templates, and example apps built from kern
+- [Getting started](/docs/getting-started): From install to a themed component
+- [Guides](/docs/guides): How-to guides for common tasks
+- [Tooling](/docs/use-cases): CLI, MCP and skills — what each surface does
+- [API utilities](/docs/api): API reference for the public utility surface
+- [Contributing](/docs/contributing): How to contribute to kern
 
 ## Primitives
 
 - [Primitives](/primitives): Headless behavior kernel for web and native
+- [useControllableState](/primitives/use-controllable-state): One state hook for controlled/uncontrolled components
+- [Collection](/primitives/collection): Collection tree and item registration for composite widgets
+- [Dismiss policy](/primitives/dismiss-policy): One dismissal rule for escape / outside-press / pointer-down
+- [Dismiss wiring](/primitives/dismiss-wiring): Wiring helpers that connect dismiss sources to the dismissal policy
+- [Focus trap](/primitives/focus-trap): Focus-trap model: tab cycling bounds and autofocus resolution
+- [Merge refs](/primitives/merge-refs): Compose callback and object refs without losing either
+- [Overlay modality](/primitives/overlay-modality): Tracks which overlay layer owns the keyboard and screen-reader focus
+- [Portal](/primitives/portal): Portal registry and target resolution
+- [Positioning](/primitives/positioning): Floating-position math: origin, rect, viewport clamping
+- [Presence](/primitives/presence): Mount/unmount presence states
+- [Press](/primitives/press): Press phases and activation keys
+- [Roving focus](/primitives/roving): Roving-tabindex keyboard focus for toolbars, tabs, menus
+- [Selection](/primitives/selection): Selection helpers shared by both renderers
+- [Slot](/primitives/slot): Slot prop merging and handler composition
+- [Time](/primitives/time): Time-value formatting and normalization
+- [A11y helpers](/primitives/a11y): Id scopes, direction resolution, visually-hidden styles
 
-## Start
+## Project
 
-- [Getting started](/getting-started): From install to a themed component
-- [Changelog](/changelog): What changed, newest first
 - [About](/about): What kern is and why it exists
+- [Changelog](/changelog): What changed, newest first
 - [Community](/community): Where to ask and share
+- [License](/legal/license): MIT license terms
+- [Security](/legal/security): How to report vulnerabilities
 
-## Foundations pages
+## Foundations pages (Material 3)
 
-- [Tokens](/foundations/tokens): The named values everything else is built from.
-- [Color](/foundations/color): Roles are decisions, not colours — and kern ships more of them than Material 3 does.
-- [Type](/foundations/type): Thirty styles, each rendered by its own tokens.
-- [Elevation](/foundations/elevation): Six levels, and which components rest at which.
-- [Shape](/foundations/shape): The corner scale, including Material 3's Expressive additions.
-- [Motion](/foundations/motion): Spring first, easing as the fallback.
-- [States](/foundations/states): What happens to a surface when it is hovered, pressed, dragged or disabled.
+- [Tokens](/foundations/m3/tokens): The named values everything else is built from.
+- [Color](/foundations/m3/color): Roles are decisions, not colours — and kern ships more of them than Material 3 does.
+- [Typography](/foundations/m3/type): Thirty styles, each rendered by its own tokens.
+- [Shape](/foundations/m3/shape): The corner scale, including Material 3's Expressive additions.
+- [Elevation](/foundations/m3/elevation): Six levels, and which components rest at which.
+- [Motion](/foundations/m3/motion): Spring first, easing as the fallback.
+- [States](/foundations/m3/states): What happens to a surface when it is hovered, pressed, dragged or disabled.
 
 ## Component families — web
 
@@ -137,6 +165,7 @@ Prefer these machine surfaces over scraping HTML:
 - [Preview card](/components/web/preview-card): Preview cards show a richer look at a link's destination before anyone commits to going there.
 - [Progress](/components/web/progress): Progress indicators show how much of something is done while it is still running.
 - [Radio group](/components/web/radio-group): Radio groups let people pick exactly one option from a set they can see all at once.
+- [Rich tooltip](/components/web/rich-tooltip): A tooltip with a subhead, supporting text, and plain-text actions for explanations that need more than a label.
 - [Scroll area](/components/web/scroll-area): Scroll areas give a fixed region its own scrollbar, so the page does not scroll away from under the content.
 - [Search](/components/web/search): Search is a labelled field with submit and clear, for finding things by text.
 - [Secondary tabs](/components/web/secondary-tabs): Secondary tabs switch between related views in the middle of a page, below the primary navigation.
@@ -212,6 +241,7 @@ Prefer these machine surfaces over scraping HTML:
 - [Kern pressable](/components/mobile/kern-pressable): The narrow accessibility-defaults wrap for anything pressable on native: Material's minimum touch target, a button role by default, and `disabled` always reported.
 - [Label](/components/mobile/label): Labels are text rendered in the label style — the typographic role, not the wiring.
 - [Linear progress](/components/mobile/linear-progress): Linear progress is the measured bar — determinate only, with no looping mode.
+- [LinkButton](/components/mobile/link-button): The button treatment on a navigation control: five Material 3 treatments, the link role, one press to a destination.
 - [List detail](/components/mobile/list-detail): List detail is the phone-width master–detail pattern: the list until an item is selected, then the detail with a way back.
 - [List item](/components/mobile/list-item): List items are one row of a list — a required title, an optional supporting line, and a press.
 - [Loader](/components/mobile/loader): Loaders are the small spinner for a wait that needs no explanation.
@@ -235,6 +265,7 @@ Prefer these machine surfaces over scraping HTML:
 - [Popover](/components/mobile/popover): Popovers are anchored panels for rich transient content — a composition of trigger and body.
 - [Progress](/components/mobile/progress): Progress reports how far along something is, as an amount out of a maximum.
 - [Radio group](/components/mobile/radio-group): Radio groups pick exactly one value from a set, and report that one value.
+- [Rich tooltip](/components/mobile/rich-tooltip): A tooltip with a subhead, supporting text, and plain-text actions for explanations that need more than a label.
 - [Scroll area](/components/mobile/scroll-area): Scroll areas are a scroll view with the axis chosen for you, so a horizontal scroll cannot happen by accident.
 - [Search](/components/mobile/search): Search is the text field that reports every change and, separately, when to search.
 - [Secondary tabs](/components/mobile/secondary-tabs): Secondary tabs are the second row of tabs, for the subdivisions within one section.

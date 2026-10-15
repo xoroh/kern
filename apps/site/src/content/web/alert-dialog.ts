@@ -13,7 +13,7 @@ export const alertDialog: ComponentDoc = {
     nativePeer: "AlertDialog",
     variants: [],
     // Material 3 assigns "dialogs (modal)" resting level 3, and the surface
-    // ships `--md-sys-elevation-level3` to match. Asserted against the row.
+    // ships `--sys-elevation-level3` to match. Asserted against the row.
     elevation: 3,
   },
   parts: [
@@ -53,6 +53,39 @@ export const alertDialog: ComponentDoc = {
     {
       name: "AlertDialog",
       role: "The namespace object: all of the parts above.",
+    },
+  ],
+  keyboard: [
+    {
+      key: "Escape",
+      action: "Cancels the alert; focus returns to the trigger.",
+    },
+    {
+      key: "Tab / Shift+Tab",
+      action: "Trapped inside while open.",
+    },
+  ],
+  usage: {
+    do: [
+      "Use for error confirmations and action prompts requiring a response.",
+      "Label by headline or explicit aria-label.",
+    ],
+    dont: [
+      "Don't use for information that needs no response — that is a dialog or snackbar.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Container",
+      state: "resting",
+      token: "comp.dialog.container",
+      value: "surface-container-high, 28px, alert semantics",
+    },
+  ],
+  faq: [
+    {
+      q: "Alert dialog or dialog?",
+      a: "Alert announces as alertdialog for messages requiring response; plain dialog for the rest.",
     },
   ],
   customization: {

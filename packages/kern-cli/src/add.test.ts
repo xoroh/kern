@@ -8,8 +8,10 @@ import {
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { addComponent } from "./add";
-import { loadManifest, WORKSPACE_ROOT } from "./manifest";
+import { addComponent, readProjectConfig } from "./add";
+import { initScaffold } from "./init";
+import { loadRegistry, WORKSPACE_ROOT } from "./manifest";
+import { defineCliConfig } from "@xoroh/kern-contracts";
 
 function freshDest(): string {
   return mkdtempSync(join(tmpdir(), "kern-add-"));
@@ -25,8 +27,18 @@ describe("kern add (Mode 1 smoke)", () => {
       expect(r.npm).toContain("class-variance-authority");
       expect(existsSync(join(dest, "components/button.tsx"))).toBe(true);
       const receipt = JSON.parse(readFileSync(r.receipt, "utf8"));
-      expect(receipt.kern).toBe("0.0.0");
-      expect(Object.keys(receipt.components)).toEqual(["button"]);
+      // v2 receipt: release set pinned, files owned, hashes baselined.
+      expect(receipt.schemaVersion).toBe("2");
+      expect(receipt.config.kern).toBe("0.0.0");
+      expect(receipt.releaseSet).toMatch(/^kern@0\.0\.0\+/);
+      const owners = [
+        ...new Set(receipt.files.map((f: { owner: string }) => f.owner)),
+      ];
+      expect(owners).toEqual(["component:button"]);
+      const row = receipt.files.find(
+        (f: { path: string }) => f.path === "components/button.tsx",
+      );
+      expect(row.baselineHash).toMatch(/^[0-9a-f]{16}$/);
       // Relative imports preserved byte-identical: vendored tree self-closes.
       const src = readFileSync(
         join(WORKSPACE_ROOT, "packages/kern/src/components/button.tsx"),
@@ -49,9 +61,11 @@ describe("kern add (Mode 1 smoke)", () => {
     ).toThrow("unknown component");
   });
 
-  it("refuses native in web-only v1", () => {
+  it("installs a native-only component from the native row (platform first)", {
+    timeout: 120_000,
+  }, () => {
     // Derived, not hardcoded: a manifest name with no web row today.
-    const rows = loadManifest(WORKSPACE_ROOT);
+    const rows = loadRegistry(WORKSPACE_ROOT).rows;
     const web = new Set(
       rows.filter((r) => r.platform === "web").map((r) => r.name),
     );
@@ -60,19 +74,33 @@ describe("kern add (Mode 1 smoke)", () => {
     );
     if (!nativeOnly)
       throw new Error("test setup: no native-only manifest row today");
-    expect(() =>
-      addComponent(nativeOnly.name, {
+    const dest = freshDest();
+    try {
+      // Default platform is web: the native-only name refuses with the
+      // available platforms named — a shared name can never copy web source
+      // for a native install by accident.
+      expect(() =>
+        addComponent(nativeOnly.name, { root: WORKSPACE_ROOT, dest }),
+      ).toThrow("not available for web");
+      const r = addComponent(nativeOnly.name, {
         root: WORKSPACE_ROOT,
-        dest: freshDest(),
-      }),
-    ).toThrow("web-only");
+        dest,
+        platform: "native",
+      });
+      expect(r.platform).toBe("native");
+      expect(r.files.length).toBeGreaterThan(0);
+      const receipt = JSON.parse(readFileSync(r.receipt, "utf8"));
+      expect(receipt.config.platform).toBe("native");
+    } finally {
+      rmSync(dest, { recursive: true, force: true });
+    }
   });
 
   it("merges a second component into the same receipt (add×N shell)", {
     timeout: 180_000,
   }, () => {
     // Derived, not hardcoded: two distinct real web rows today.
-    const rows = loadManifest(WORKSPACE_ROOT);
+    const rows = loadRegistry(WORKSPACE_ROOT).rows;
     const pair = rows
       .filter((r) => r.platform === "web" && r.status === "real")
       .map((r) => r.name)
@@ -87,7 +115,15 @@ describe("kern add (Mode 1 smoke)", () => {
       const receipt = JSON.parse(
         readFileSync(join(dest, "kern.receipt.json"), "utf8"),
       );
-      expect(Object.keys(receipt.components).sort()).toEqual([...pair].sort());
+      const owners = [
+        ...new Set(
+          receipt.files.map(
+            (f: { owner: string; path: string; baselineHash: string }) =>
+              f.owner,
+          ),
+        ),
+      ].sort();
+      expect(owners).toEqual(pair.map((n) => `component:${n}`).sort());
     } finally {
       rmSync(dest, { recursive: true, force: true });
     }
@@ -105,6 +141,35 @@ describe("kern add (Mode 1 smoke)", () => {
       expect(() =>
         addComponent("button", { root: WORKSPACE_ROOT, dest }),
       ).toThrow("mixed-version");
+    } finally {
+      rmSync(dest, { recursive: true, force: true });
+    }
+  });
+
+  it("round-trips the scaffold renderer into add (N6 kern.json contract)", {
+    timeout: 120_000,
+  }, () => {
+    const dest = freshDest();
+    try {
+      initScaffold(dest, { root: WORKSPACE_ROOT });
+      // The writer records `renderer`; the reader maps it onto the platform
+      // default — no flag needed for the scaffolded renderer. The file
+      // itself validates against the single contracts definition.
+      expect(() =>
+        defineCliConfig(
+          JSON.parse(readFileSync(join(dest, "kern.json"), "utf8")),
+        ),
+      ).not.toThrow();
+      expect(readProjectConfig(dest)).toMatchObject({
+        platform: "web",
+        preset: "material-3",
+        pm: "bun",
+      });
+      const before = readFileSync(join(dest, "kern.json"), "utf8");
+      const web = addComponent("button", { root: WORKSPACE_ROOT, dest });
+      expect(web.platform).toBe("web");
+      // Later installs never rewrite the pinned project config.
+      expect(readFileSync(join(dest, "kern.json"), "utf8")).toBe(before);
     } finally {
       rmSync(dest, { recursive: true, force: true });
     }

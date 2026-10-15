@@ -1,0 +1,24 @@
+{
+  "id": "brand",
+  "name": "Brand",
+  "description": "Worked brand example: the primary family repainted onto the amber ramp in both modes (the checked-in form of the configurator seed story), shape untouched. Extends material-3; carries no role table of its own. Every value is a tokens.json palette step.",
+  "extends": "material-3",
+  "template": false,
+  "overrides": {
+    "color": {
+      "light": {
+        "primary": "#713f12",
+        "onPrimary": "#ffffff",
+        "primaryContainer": "#fef9c3",
+        "onPrimaryContainer": "#422006"
+      },
+      "dark": {
+        "primary": "#facc15",
+        "onPrimary": "#422006",
+        "primaryContainer": "#713f12",
+        "onPrimaryContainer": "#fef9c3"
+      }
+    },
+    "shape": {}
+  }
+}

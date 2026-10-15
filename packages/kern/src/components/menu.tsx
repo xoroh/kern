@@ -61,7 +61,7 @@ export function MenuSeparator({ className, ...props }: MenuSeparatorProps) {
     <MenuPrimitive.Separator
       data-slot="menu-separator"
       className={cnState(
-        "kern-menu-separator mx-2 my-1 h-px bg-(--md-sys-color-outline-variant)",
+        "kern-menu-separator mx-2 my-1 h-px bg-(--sys-color-outline-variant)",
         className,
       )}
       {...props}
@@ -74,7 +74,7 @@ export function MenuGroupLabel({ className, ...props }: MenuGroupLabelProps) {
     <MenuPrimitive.GroupLabel
       data-slot="menu-group-label"
       className={cnState(
-        "kern-menu-group-label px-3 py-2 text-xs font-medium text-(--md-sys-color-on-surface-variant)",
+        "kern-menu-group-label px-3 py-2 text-xs font-medium text-(--sys-color-on-surface-variant)",
         className,
       )}
       {...props}

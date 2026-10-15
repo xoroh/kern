@@ -20,7 +20,7 @@ export const snapSheet: ComponentDoc = {
   customization: {
     supported: [
       "`snapPoints` declares the resting heights as viewport fractions with labels, so the set is a decision rather than a guess.",
-      "`index`/`onIndexChange` let the host own which point is showing — the sheet reports and the host decides.",
+      "`value`/`onValueChange` let the host own which point is showing — the sheet reports and the host decides.",
       "`style` is a React Native `ViewStyle`.",
     ],
     notSupported: [
@@ -46,12 +46,18 @@ export const snapSheet: ComponentDoc = {
       note: "The resting heights, each a fraction of the viewport (0–1) with a `label`. The labels are what make the set intelligible rather than a row of numbers.",
     },
     {
-      name: "index",
+      name: "value",
       type: "number",
       note: "Which snap point is showing. Defaults to the FIRST. The sheet renders the highest requested point and the host drives this — so a gesture engine can take over later without changing the interface.",
     },
     {
-      name: "onIndexChange",
+      name: "defaultValue",
+      type: "number",
+      default: "0",
+      note: "Uncontrolled starting point. Omit `value` to let the sheet own it.",
+    },
+    {
+      name: "onValueChange",
       type: "(index: number) => void",
       note: "Fires when the active point changes.",
     },

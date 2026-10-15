@@ -5,7 +5,7 @@
  * WHAT IT ASSERTS
  *
  * Every component page follows one grammar —
- * lede → demo → props → tokens → semantic-dom → accessibility →
+ * lede → demo → usage → semantic-dom → accessibility → props → tokens →
  * limitations → faq → spec — and the assertion is structural, not visual:
  *
  *   1. TEMPLATE ORDER: the h2 `Heading` ids in `component-page.tsx`, in
@@ -67,6 +67,7 @@ const src = readFileSync(PAGE, "utf8");
 // section carry the same id (only one renders), which is asserted as a set.
 const SECTION_OF = {
   Demo: "demo",
+  Usage: "usage",
   ApiReference: "props",
   Theming: "tokens",
   SemanticDom: "semantic-dom",
@@ -107,7 +108,7 @@ const assemblyStart = src.indexOf("export function ComponentPage");
 const assembly = assemblyStart === -1 ? "" : src.slice(assemblyStart);
 const order = [];
 for (const m of assembly.matchAll(
-  /<(Demo|ApiReference|Theming|SemanticDom|Accessibility|Limitations|Faq|Conformance)\b/g,
+  /<(Demo|Usage|ApiReference|Theming|SemanticDom|Accessibility|Limitations|Faq|Conformance)\b/g,
 )) {
   if (order.at(-1) !== m[1]) order.push(m[1]);
 }
@@ -120,26 +121,26 @@ if (h2s.join("\n") !== GRAMMAR_ORDER.join("\n")) {
   );
 }
 
-// The rail: hrefs inside OnThisPage, in order.
-const railStart = src.indexOf("function OnThisPage");
-const railEnd = src.indexOf("function TocLink");
-const rail = [];
-if (railStart === -1 || railEnd === -1 || railEnd < railStart) {
-  fail("cannot locate OnThisPage / TocLink in component-page.tsx");
-} else {
-  const railSrc = src.slice(railStart, railEnd);
-  for (const m of railSrc.matchAll(/href="#([^"]+)"/g)) rail.push(m[1]);
-  if (rail.join("\n") !== GRAMMAR_ORDER.join("\n")) {
-    fail(
-      `OnThisPage rail [${rail.join(", ")}] is not the grammar ` +
-        `[${GRAMMAR_ORDER.join(", ")}] — the rail mirrors the sections exactly`,
-    );
-  }
+// The rail: OnThisPageRail in site-layout.tsx scrapes h2[id] from the
+// rendered page, so it mirrors whatever sections render by construction —
+// no static list to drift. Assert the mechanism, not a literal list.
+const layoutSrc = readFileSync(
+  new URL("../src/domains/shared/chrome/site-layout.tsx", import.meta.url),
+  "utf8",
+);
+if (
+  !layoutSrc.includes("function OnThisPageRail") ||
+  !layoutSrc.includes('querySelectorAll("h2[id]")')
+) {
+  fail(
+    "OnThisPageRail in site-layout.tsx must scrape h2[id] from the rendered page — the rail mirrors the sections by construction",
+  );
 }
 
 // Predicate wiring: the assembly gates conditional sections on the shared
 // predicates, not on inline conditions.
 for (const pred of [
+  "hasUsage(doc)",
   "hasSemanticDom(doc)",
   "hasLimitations(doc)",
   "hasFaq(doc)",
@@ -205,7 +206,7 @@ if (pages.length === 0) {
 }
 
 const exempt = [];
-const coverage = { semanticDom: 0, limitations: 0, faq: 0 };
+const coverage = { usage: 0, semanticDom: 0, limitations: 0, faq: 0 };
 for (const { file, doc } of pages) {
   const at = (msg) => `${file}: ${msg}`;
   for (const row of doc.faq ?? []) {
@@ -246,7 +247,8 @@ for (const { file, doc } of pages) {
   }
   for (const id of GRAMMAR_CONDITIONAL) {
     if (!seq.includes(id)) continue;
-    if (id === "semantic-dom") coverage.semanticDom += 1;
+    if (id === "usage") coverage.usage += 1;
+    else if (id === "semantic-dom") coverage.semanticDom += 1;
     else if (id === "limitations") coverage.limitations += 1;
     else coverage.faq += 1;
   }
@@ -257,7 +259,7 @@ console.log(
   `check-grammar: ${pages.length} content page(s), template order [${h2s.join(" → ")}]`,
 );
 console.log(
-  `check-grammar: conditional coverage — semantic-dom ${coverage.semanticDom}, ` +
+  `check-grammar: conditional coverage — usage ${coverage.usage}, semantic-dom ${coverage.semanticDom}, ` +
     `limitations ${coverage.limitations}, faq ${coverage.faq} (cut when empty, per convention)`,
 );
 if (exempt.length > 0) {

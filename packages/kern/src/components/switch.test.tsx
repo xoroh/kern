@@ -24,11 +24,20 @@ describe("Switch", () => {
       screen
         .getByRole("switch")
         .querySelector('[data-slot="switch-checked-icon"]'),
-    ).toHaveClass("text-(--md-sys-color-on-primary-container)");
+    ).toHaveClass("text-(--sys-color-on-primary-container)");
     expect(
       screen
         .getByRole("switch")
         .querySelector('[data-slot="switch-unchecked-icon"]'),
-    ).toHaveClass("text-(--md-sys-color-surface-container-highest)");
+    ).toHaveClass("text-(--sys-color-surface-container-highest)");
+  });
+
+  it("wires the track shape to --comp-switch-track-shape with a full-corner fallback", () => {
+    render(<Switch aria-label="Notifications" />);
+    const track = screen.getByRole("switch");
+    expect(track).toHaveClass(
+      "rounded-[var(--comp-switch-track-shape,var(--sys-shape-corner-full))]",
+    );
+    expect(track.className).not.toContain("rounded-(--sys-shape-corner-full)");
   });
 });

@@ -20,18 +20,17 @@ No React, no DOM, no peer dependencies. This is the bottom of the package graph.
 | Export | Purpose |
 |---|---|
 | `tokens` | The canonical token set — OKLCH source values with compiled srgb |
-| `feedback` · `functional` · `tones` · `variants` | The role bindings each renderer resolves per theme |
-| theme JSON | `kern.json` (default), `sharp.json`, `brand.json`, `compact.json`, `demo.json`, `index.json` |
+| `functional` · `tones` · `variants` | The role bindings each renderer resolves per theme |
 
-Themes ship as JSON under `src/themes/`, so a consumer can read or generate from
-them without evaluating any code.
+Design-system presets (role tables, contrast policies, seed themes) live in
+`@xoroh/kern-material-3`, whose `src/themes/` ships the JSON so a consumer
+can read or generate from it without evaluating any code.
 
 ## Why the roles are structured
 
-The role set is not an arbitrary list of colour names. It follows the Material 3
-role structure — `primary` / `onPrimary` / `primaryContainer` / `onPrimaryContainer`
-per family. `themes/kern.json` defines **58 colour roles per scheme**, identical
-in light and dark.
+The Material 3 role structure — `primary` / `onPrimary` / `primaryContainer` /
+`onPrimaryContainer` per family — is defined by `@xoroh/kern-material-3`,
+which declares **58 colour roles per scheme**, identical in light and dark.
 
 `surfaceTonal` is a Kern addition (tonal emphasis fills, pairing with
 `onSurface`). Contrast overlays carry only pinned values; unlisted roles inherit
@@ -39,7 +38,7 @@ the base scheme.
 
 > The count above is read from the file. A "45 roles" figure circulated in design
 > research and was ruled on for the site hero; it does not match the current
-> `kern.json` and must not be published without re-deriving it.
+> tables and must not be published without re-deriving it.
 
 ## The boundary
 
@@ -55,7 +54,7 @@ declared dependency graph, so the ordering cannot rot silently.
 Read the raw tokens, or resolve a theme per platform:
 
 ```ts
-import theme from "@xoroh/kern-tokens/src/themes/kern.json";
+import theme from "@xoroh/kern-material-3/themes/material-3.json";
 
 const surface = theme.color.light.surface;
 ```

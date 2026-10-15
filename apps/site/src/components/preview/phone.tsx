@@ -19,9 +19,15 @@ import { useKernTheme } from "@xoroh/kern";
 import { KernThemeProvider } from "@xoroh/kern-native";
 import type { ReactNode } from "react";
 import { StyleSheet, View } from "react-native";
+import { T_CODE } from "../../domains/shared/systems/type-scale";
+import { CARD, INK_SOFT } from "../../domains/shared/systems/ui";
 
 const FRAME = {
   width: 320,
+  // Shrinks rather than overflowing a column narrower than the bezel —
+  // PhoneGrid's clamped tracks guarantee the 320dp phone fits, and this
+  // covers the last few pixels on a very narrow viewport.
+  maxWidth: "100%",
   minHeight: 200,
   alignSelf: "center",
   borderRadius: 28,
@@ -30,15 +36,14 @@ const FRAME = {
 } as const;
 
 const styles = StyleSheet.create({
-  frameLight: {
+  // ONE frame: the bezel and screen are the neutral chrome roles
+  // (outline-variant, surface), so a light and a dark phone sit side by
+  // side without either borrowing a hue. The scheme reaches the content
+  // only through KernThemeProvider below.
+  frame: {
     ...FRAME,
-    borderColor: "#e5e5e5",
-    backgroundColor: "#ffffff",
-  },
-  frameDark: {
-    ...FRAME,
-    borderColor: "#262626",
-    backgroundColor: "#000000",
+    borderColor: "var(--sys-color-outline-variant)",
+    backgroundColor: "var(--sys-color-surface)",
   },
   screen: {
     padding: 16,
@@ -57,28 +62,36 @@ export function PhonePreview({
   children: ReactNode;
 }) {
   const { mode } = useKernTheme();
-  const resolved: "light" | "dark" = scheme ?? (mode === "dark" ? "dark" : "light");
+  const resolved: "light" | "dark" =
+    scheme ?? (mode === "dark" ? "dark" : "light");
   return (
-    <figure className="flex min-w-0 flex-col gap-2 rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface) p-4 md:col-span-1">
+    <figure className={`flex min-w-0 flex-col gap-2 p-4 ${CARD} md:col-span-1`}>
       <div className="flex justify-center py-2">
-        <View
-          style={resolved === "dark" ? styles.frameDark : styles.frameLight}
-        >
+        <View style={styles.frame}>
           <KernThemeProvider mode={resolved}>
             <View style={styles.screen}>{children}</View>
           </KernThemeProvider>
         </View>
       </div>
-      <figcaption className="text-center font-mono text-xs text-(--md-sys-color-on-surface-variant)">
+      <figcaption className={`text-center ${T_CODE} ${INK_SOFT}`}>
         {label}
       </figcaption>
     </figure>
   );
 }
 
+/**
+ * The phone grid clamps its tracks instead of pinning three columns:
+ * `md:grid-cols-3` squeezed 320dp frames into narrow columns and overflowed
+ * the figure. Auto-fill with a `min(100%, …)` floor lets a phone take a
+ * whole track on small screens and packs as many whole phones as fit on
+ * wide ones.
+ */
 export function PhoneGrid({ children }: { children: ReactNode }) {
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-3">{children}</div>
+    <div className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,22rem),1fr))] gap-4">
+      {children}
+    </div>
   );
 }
 

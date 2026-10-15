@@ -12,6 +12,13 @@ import { defineConfig } from "vite";
 // produces duplicated modules.
 const reactNativeAlias = {
   "react-native": fileURLToPath(import.meta.resolve("react-native-web")),
+  // react-native-svg's web implementation. Metro selects `elements.web.js` by
+  // platform extension; Vite has no such mechanism, so the bare specifier is
+  // pinned here. The default entry (`lib/module`) pulls `./fabric` native
+  // views that import `react-native/Libraries/*` — unresolvable on web.
+  "react-native-svg": fileURLToPath(
+    import.meta.resolve("react-native-svg/lib/module/elements.web.js"),
+  ),
 };
 
 const config = defineConfig({

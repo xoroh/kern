@@ -1,7 +1,7 @@
 /**
  * The site's typography, resolved from the kern type scale.
  *
- * Every role resolves to `--md-sys-typescale-<role>-*`, so type is GENERATED
+ * Every role resolves to `--sys-typescale-<role>-*`, so type is GENERATED
  * rather than typed. `scripts/check-typescale.mjs` rejects any ad-hoc
  * `text-*` / `font-*` / `tracking-*` / `leading-*` utility in rendered source
  * — the page that teaches the type scale must use it.
@@ -12,19 +12,21 @@
  *
  * Import these rather than repeating the property list — one place to change
  * if the token names ever move.
+ * styles.css explicitly emits these runtime-built utility names with @source
+ * inline; without that the source scanner silently omits the typography.
  */
 
 const ts = (role: string) =>
   [
-    `[font-family:var(--md-sys-typescale-${role}-font-family)]`,
-    `[font-size:var(--md-sys-typescale-${role}-font-size)]`,
-    `[font-weight:var(--md-sys-typescale-${role}-font-weight)]`,
-    `[line-height:var(--md-sys-typescale-${role}-line-height)]`,
-    `[letter-spacing:var(--md-sys-typescale-${role}-letter-spacing)]`,
+    `[font-family:var(--sys-typescale-${role}-font-family)]`,
+    `[font-size:var(--sys-typescale-${role}-font-size)]`,
+    `[font-weight:var(--sys-typescale-${role}-font-weight)]`,
+    `[line-height:var(--sys-typescale-${role}-line-height)]`,
+    `[letter-spacing:var(--sys-typescale-${role}-letter-spacing)]`,
   ].join(" ");
 
 /** Page title — the one h1. */
-export const T_PAGE = ts("headline-medium");
+export const T_PAGE = `site-page-title ${ts("display-small")}`;
 /** Section heading. */
 export const T_SECTION = ts("headline-small");
 /** Sub-heading inside a section. */
@@ -57,5 +59,7 @@ export const T_CODE = `font-mono ${ts("body-small")}`;
 export const T_KEY = `font-mono ${ts("label-large")}`;
 /** Display accent (hero numerals, big stats). */
 export const T_DISPLAY = ts("display-small");
+/** Marketing display; responsive sizing is owned by the site stylesheet. */
+export const T_HERO = `site-hero-title ${ts("display-large")}`;
 
 export { ts as typescaleRole };

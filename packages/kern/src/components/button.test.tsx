@@ -16,7 +16,7 @@ describe("Button", () => {
     // kern-only `surface-tonal` (m3.material.io/components/buttons/overview).
     render(<Button variant="tonal">Save</Button>);
     expect(screen.getByRole("button")).toHaveClass(
-      "bg-(--md-sys-color-secondary-container)",
+      "bg-(--sys-color-secondary-container)",
     );
   });
 
@@ -71,21 +71,21 @@ describe("Button", () => {
     const { rerender } = render(<Button>Save</Button>);
     const primary = screen.getByRole("button");
     expect(primary).toHaveClass(
-      "before:bg-(--md-sys-color-on-primary)",
-      "hover:before:opacity-[var(--md-sys-state-hover)]",
+      "before:bg-(--sys-color-on-primary)",
+      "hover:before:opacity-[var(--sys-state-hover)]",
     );
     expect(primary.className).not.toContain("hover:opacity-");
     rerender(<Button variant="tonal">Save</Button>);
     expect(screen.getByRole("button")).toHaveClass(
-      "before:bg-(--md-sys-color-on-secondary-container)",
+      "before:bg-(--sys-color-on-secondary-container)",
     );
     rerender(<Button variant="outlined">Save</Button>);
     expect(screen.getByRole("button")).toHaveClass(
-      "before:bg-(--md-sys-color-primary)",
+      "before:bg-(--sys-color-primary)",
     );
     rerender(<Button variant="ghost">Save</Button>);
     const ghost = screen.getByRole("button");
-    expect(ghost).toHaveClass("before:bg-(--md-sys-color-primary)");
+    expect(ghost).toHaveClass("before:bg-(--sys-color-primary)");
     expect(ghost.className).not.toContain("surface-tonal");
     rerender(
       <Button variant="ghost" color="danger">
@@ -93,20 +93,20 @@ describe("Button", () => {
       </Button>,
     );
     expect(screen.getByRole("button")).toHaveClass(
-      "before:bg-(--md-sys-color-error)",
+      "before:bg-(--sys-color-error)",
     );
   });
 
   it("paints the danger treatment per variant without adding a variant", () => {
     const { rerender } = render(<Button color="danger">Delete</Button>);
-    expect(screen.getByRole("button")).toHaveClass("bg-(--md-sys-color-error)");
+    expect(screen.getByRole("button")).toHaveClass("bg-(--sys-color-error)");
     rerender(
       <Button variant="ghost" color="danger">
         Delete
       </Button>,
     );
     expect(screen.getByRole("button")).toHaveClass(
-      "text-(--md-sys-color-error)",
+      "text-(--sys-color-error)",
     );
     // Default color adds no classes — existing rendering cannot change.
     rerender(<Button>Save</Button>);
@@ -117,10 +117,12 @@ describe("Button", () => {
     const { rerender } = render(<Button>Save</Button>);
     expect(screen.getByRole("button").className).not.toContain("rounded-none");
     rerender(<Button shape="square">Save</Button>);
-    expect(screen.getByRole("button")).toHaveClass("rounded-none");
+    // M3 Expressive square is per-size radii (12px at default), not 0px.
+    expect(screen.getByRole("button")).toHaveClass("rounded-(--sys-shape-corner-medium)");
+    expect(screen.getByRole("button").className).not.toContain("rounded-none");
     rerender(<Button shape="rounded">Save</Button>);
     expect(screen.getByRole("button")).toHaveClass(
-      "rounded-(--md-sys-shape-corner-large)",
+      "rounded-(--sys-shape-corner-large)",
     );
   });
 
@@ -196,5 +198,34 @@ describe("Button", () => {
   it("carries the pressed state layer", () => {
     render(<Button>Save</Button>);
     expect(screen.getByRole("button").className).toContain("active:");
+  });
+
+  it("wires the container shape to --comp-button-container-shape with a full-corner fallback", () => {
+    render(<Button>Save</Button>);
+    const button = screen.getByRole("button");
+    expect(button).toHaveClass(
+      "rounded-[var(--comp-button-container-shape,var(--sys-shape-corner-full))]",
+    );
+    expect(button.className).not.toContain("rounded-(--sys-shape-corner-full)");
+  });
+
+  it("keeps shape variants winning over the component token", () => {
+    const { rerender } = render(<Button shape="rounded">Save</Button>);
+    expect(screen.getByRole("button")).toHaveClass(
+      "rounded-(--sys-shape-corner-large)",
+    );
+    rerender(<Button shape="square">Save</Button>);
+    expect(screen.getByRole("button").className).not.toContain("rounded-none");
+  });
+
+  it("toggle morph-to-pill honors the button container token (AUD-003)", () => {
+    render(
+      <Button toggle defaultPressed shape="square">
+        Save
+      </Button>,
+    );
+    expect(screen.getByRole("button")).toHaveClass(
+      "rounded-[var(--comp-button-container-shape,var(--sys-shape-corner-full))]",
+    );
   });
 });

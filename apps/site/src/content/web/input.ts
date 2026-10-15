@@ -21,11 +21,83 @@ export const input: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Input"],
+  keyboard: [
+    {
+      key: "Tab / Shift+Tab",
+      action: "Moves focus into and out of the field. Disabled fields are skipped.",
+    },
+  ],
+  usage: {
+    do: [
+      "Use outlined as the default — it works on any surface.",
+      "Use filled where the field sits on a lower surface and needs separation.",
+      "Label every field — floating label, placeholder, or an external label with `aria-label`.",
+    ],
+    dont: [
+      "Don't leave a field unlabeled — a bare box means nothing to a screen reader.",
+      "Don't use a field where a fixed choice fits — that is a select, radio group, or checkbox.",
+      "Don't pass a sibling FieldMessage alongside `errorMessage` — the prop owns it.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Outlined container",
+      state: "resting",
+      token: "comp.outlined-text-field.container-shape",
+      value: "corner-extra-small 4px, 1px outline",
+    },
+    {
+      element: "Outlined border",
+      state: "focus",
+      token: "comp.outlined-text-field.focus-outline-color",
+      value: "--sys-color-primary, 2px",
+    },
+    {
+      element: "Filled container",
+      state: "resting",
+      token: "comp.filled-text-field.container-color",
+      value: "--sys-color-surface-container-highest",
+    },
+    {
+      element: "Filled indicator",
+      state: "focus",
+      token: "comp.filled-text-field.focus-active-indicator-color",
+      value: "--sys-color-primary, 2px",
+    },
+    {
+      element: "Input text",
+      state: "resting",
+      token: "sys.typescale.body-large",
+      value: "16px / 24px, body-large",
+    },
+    {
+      element: "Input text",
+      state: "disabled",
+      token: "comp.outlined-text-field.disabled-input-text-opacity",
+      value: "on-surface 38%",
+    },
+    {
+      element: "Outlined border",
+      state: "disabled",
+      token: "comp.outlined-text-field.disabled-outline-opacity",
+      value: "on-surface 12%",
+    },
+  ],
+  faq: [
+    {
+      q: "Filled or outlined?",
+      a: "Functionally identical — pick by surface. Filled separates on lower surfaces; outlined works everywhere.",
+    },
+    {
+      q: "How do errors work?",
+      a: "Pass `error` for the state or `errorMessage` for state plus text. The message implies the state and renders as a live alert associated to the field.",
+    },
+  ],
   customization: {
     supported: [
       "`className` is passed through and merged after the input's own classes, so a token-backed utility overrides the shape.",
       "State is exposed as `data-invalid`, and the error border is applied both through that attribute and directly, so it shows with or without a Field.",
-      "Height, radius and border all come from system tokens — `--md-sys-shape-corner-small` and the outline roles.",
+      "Height, radius and border all come from system tokens — `--sys-shape-corner-small` and the outline roles.",
     ],
     notSupported: [
       "There is no `size` or `variant` prop. A field is one height, which is what keeps a form's rows level.",

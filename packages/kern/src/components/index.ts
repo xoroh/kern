@@ -69,9 +69,9 @@ export { Banner, BannerAction, bannerVariants } from "./banner";
 export type { BootIndicatorProps } from "./boot-indicator";
 export { BootIndicator } from "./boot-indicator";
 export type {
-  ButtonM3Variant,
   ButtonColor,
   ButtonIconPosition,
+  ButtonM3Variant,
   ButtonProps,
   ButtonShape,
   ButtonSize,
@@ -89,7 +89,13 @@ export { ButtonGroup } from "./button-group";
 export type { CalendarProps } from "./calendar";
 export { Calendar } from "./calendar";
 export type { CardProps } from "./card";
-export { Card, cardVariants } from "./card";
+export {
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  cardVariants,
+} from "./card";
 export type { CarouselProps } from "./carousel";
 export { Carousel } from "./carousel";
 export type { CheckboxProps } from "./checkbox";
@@ -601,6 +607,7 @@ export type { TextareaProps } from "./textarea";
 export { Textarea } from "./textarea";
 export type {
   TimePickerFormat,
+  TimePickerPresentation,
   TimePickerProps,
   TimePickerValue,
 } from "./time-picker";
@@ -632,6 +639,10 @@ export type {
   TooltipTriggerProps,
 } from "./tooltip";
 export {
+  RichTooltip,
+  RichTooltipActions,
+  RichTooltipContent,
+  RichTooltipTitle,
   Tooltip,
   TooltipContent,
   TooltipProvider,

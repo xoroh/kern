@@ -74,7 +74,7 @@ export function CountrySelectLabel({
     <SelectPrimitive.Label
       data-slot="country-select-label"
       className={cnState(
-        "kern-country-select-label text-sm font-medium text-(--md-sys-color-on-surface)",
+        "kern-country-select-label text-sm font-medium text-(--sys-color-on-surface)",
         className,
       )}
       {...props}
@@ -90,7 +90,7 @@ export function CountrySelectTrigger({
     <SelectPrimitive.Trigger
       data-slot="country-select-trigger"
       className={cnState(
-        "kern-country-select-trigger flex h-14 w-full cursor-pointer items-center justify-between gap-2 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline) bg-(--md-sys-color-surface) px-4 text-base text-(--md-sys-color-on-surface) outline-none transition-colors focus:border-(--md-sys-color-primary) data-disabled:cursor-not-allowed data-disabled:opacity-50 data-placeholder:text-(--md-sys-color-on-surface-variant)",
+        "kern-country-select-trigger flex h-14 w-full cursor-pointer items-center justify-between gap-2 rounded-(--sys-shape-corner-small) border border-(--sys-color-outline) bg-(--sys-color-surface) px-4 text-base text-(--sys-color-on-surface) outline-none transition-colors focus:border-(--sys-color-primary) data-disabled:cursor-not-allowed data-disabled:opacity-50 data-placeholder:text-(--sys-color-on-surface-variant)",
         className,
       )}
       {...props}
@@ -118,7 +118,7 @@ export function CountrySelectContent({
         <SelectPrimitive.Popup
           data-slot="country-select-content"
           className={cnState(
-            "kern-country-select-popup min-w-64 max-h-80 overflow-y-auto rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline) bg-(--md-sys-color-surface) p-2 shadow-(--md-sys-elevation-level2) outline-none",
+            "kern-country-select-popup min-w-28 max-w-[280px] max-h-80 overflow-y-auto rounded-(--sys-shape-corner-small) bg-(--sys-color-surface-container) p-2 shadow-(--sys-elevation-level2) outline-none",
             className,
           )}
           {...props}
@@ -137,7 +137,7 @@ export function CountrySelectItem({
     <SelectPrimitive.Item
       data-slot="country-select-item"
       className={cnState(
-        "kern-country-select-item flex min-h-12 cursor-pointer items-center gap-3 rounded-(--md-sys-shape-corner-extra-small) px-3 text-sm text-(--md-sys-color-on-surface) outline-none select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-highlighted:bg-(--md-sys-color-surface-tonal)",
+        "kern-country-select-item flex min-h-12 cursor-pointer items-center gap-3 rounded-(--sys-shape-corner-extra-small) px-3 text-sm text-(--sys-color-on-surface) outline-none select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-highlighted:bg-(--sys-color-surface-tonal)",
         className,
       )}
       {...props}

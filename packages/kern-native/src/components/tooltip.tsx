@@ -168,3 +168,134 @@ const styles = StyleSheet.create({
   above: { bottom: "100%", marginBottom: 6 },
   below: { top: "100%", marginTop: 6 },
 });
+
+export type RichTooltipAction = {
+  label: string;
+  onPress?: () => void;
+};
+
+export type NativeRichTooltipProps = Omit<
+  PressableProps,
+  "children" | "style" | "onPress" | "ref" | "accessibilityRole"
+> & {
+  /** The trigger's own accessible name. */
+  label: string;
+  /** Subhead shown at the top of the rich surface. */
+  title: string;
+  /** Supporting text under the subhead. */
+  text: string;
+  /** Plain-text actions in a row under the text (M3 rich actions). */
+  actions?: RichTooltipAction[];
+  /** Trigger content. */
+  children?: ReactNode;
+  /** Controlled open state. */
+  open?: boolean;
+  /** Initial open state for the uncontrolled case. */
+  defaultOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  /** Which side of the trigger the surface sits on. M3 default is above. */
+  placement?: "top" | "bottom";
+  testID?: string;
+};
+
+/**
+ * M3 rich tooltip — subhead, supporting text, and plain-text actions.
+ * Same trigger contract as the plain tooltip (focus opens; the title+text
+ * ride `accessibilityHint` so nothing is trapped behind the trigger), but
+ * the surface is surface-container with 12/8/16dp padding and the actions
+ * are real buttons: a rich surface with actions is interactive by spec, so
+ * unlike the plain surface it takes touches.
+ */
+export function RichTooltip({
+  label,
+  title,
+  text,
+  actions = [],
+  children,
+  open,
+  defaultOpen = false,
+  onOpenChange,
+  placement = "top",
+  testID,
+  accessibilityHint,
+  ...props
+}: NativeRichTooltipProps) {
+  const scheme = useKernScheme();
+  const [isOpen, setOpen] = useControllableState(
+    open,
+    defaultOpen,
+    onOpenChange,
+  );
+  const shown = isOpen ?? false;
+
+  return (
+    <View style={styles.root}>
+      <Pressable
+        {...props}
+        testID={testID ?? "kern-rich-tooltip-trigger"}
+        accessibilityRole="button"
+        accessibilityLabel={label}
+        accessibilityHint={
+          accessibilityHint
+            ? `${accessibilityHint}. ${title}. ${text}`
+            : `${title}. ${text}`
+        }
+        accessibilityState={{ expanded: shown }}
+        focusable
+        onFocus={() => setOpen(true)}
+        onBlur={() => setOpen(false)}
+      >
+        {children}
+      </Pressable>
+      {shown ? (
+        <View
+          testID="kern-rich-tooltip-content"
+          accessibilityRole="none"
+          style={[
+            styles.surface,
+            placement === "top" ? styles.above : styles.below,
+            {
+              backgroundColor: scheme.color.surfaceContainer,
+              borderRadius: Number.parseFloat(scheme.shape["extra-small"]),
+              paddingTop: 12,
+              paddingBottom: 8,
+              paddingHorizontal: 16,
+              minWidth: 112,
+              shadowColor: scheme.color.shadow,
+              shadowOpacity: 0.2,
+              shadowRadius: 8,
+              shadowOffset: { width: 0, height: 2 },
+              elevation: 3,
+            },
+          ]}
+        >
+          <Text variant="title" style={{ color: scheme.color.onSurface }}>
+            {title}
+          </Text>
+          <Text variant="body" style={{ color: scheme.color.onSurfaceVariant }}>
+            {text}
+          </Text>
+          {actions.length > 0 ? (
+            <View style={{ flexDirection: "row", gap: 16, marginTop: 4 }}>
+              {actions.map((action) => (
+                <Pressable
+                  key={action.label}
+                  accessibilityRole="button"
+                  accessibilityLabel={action.label}
+                  onPress={action.onPress}
+                >
+                  <Text
+                    variant="label"
+                    style={{ color: scheme.color.primary }}
+                  >
+                    {action.label}
+                  </Text>
+                </Pressable>
+              ))}
+            </View>
+          ) : null}
+        </View>
+      ) : null}
+    </View>
+  );
+}

@@ -1,27 +1,66 @@
 {
   "name": "@xoroh/kern-cli",
   "version": "0.0.0",
-  "description": "Installer for Kern: `kern add <component>` vendors a web component plus its closure (Mode 1, dual delivery).",
+  "description": "Installer for Kern: `kern add` vendors components/blocks plus their closure; `kern create/init/list/diff/upgrade` round it out.",
   "license": "MIT",
-  "private": true,
   "author": "Xoroh",
   "repository": {
     "type": "git",
-    "url": "https://github.com/xoroh/kern.git",
+    "url": "git+https://github.com/xoroh/kern.git",
     "directory": "packages/kern-cli"
   },
-  "bin": {
-    "kern": "./src/kern.ts"
+  "homepage": "https://kern.xoroh.org",
+  "bugs": "https://github.com/xoroh/kern/issues",
+  "engines": {
+    "node": ">=20.19"
   },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "type": "module",
+  "sideEffects": false,
+  "bin": {
+    "kern": "./dist/kern.js"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "src/registry.json",
+    "src/blocks.json",
+    "src/tokens-snapshot",
+    "starters",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
+    "build": "tsup --config tsup.config.ts && cp src/registry.json src/blocks.json dist/ && mkdir -p dist/tokens-snapshot && cp src/tokens-snapshot/*.css dist/tokens-snapshot/",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "check:publish": "publint && attw --pack --ignore-rules=no-resolution"
+  },
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
   },
   "dependencies": {
+    "@xoroh/kern-contracts": "^0.0.0",
     "typescript": "5.9.3"
   },
   "devDependencies": {
     "@types/node": "^26.6.3",
+    "tsup": "^8.5.1",
+    "typescript": "5.9.3",
     "vitest": "^5.0.2"
   }
 }

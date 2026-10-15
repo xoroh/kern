@@ -10,25 +10,19 @@ export type PaginationProps = Omit<
   /** Total page count (>= 1). */
   count: number;
   /** Controlled current page (1-based). */
-  page?: number;
-  /** Uncontrolled initial page. */
-  defaultPage?: number;
-  /** Called with the new 1-based page. */
-  onPageChange?: (page: number) => void;
-  /**
-   * R2 lexicon canonical names (`value` wins when both are passed; both
-   * callbacks fire). `page`/`defaultPage`/`onPageChange` are deprecated
-   * aliases onto the same state.
-   */
   value?: number;
+  /** Uncontrolled initial page. */
   defaultValue?: number;
+  /** Called with the new 1-based page. */
   onValueChange?: (page: number) => void;
   /** Extra content rendered after the page buttons. */
   children?: ReactNode;
 };
 
 const buttonClass =
-  "kern-pagination-button flex h-10 min-w-10 cursor-pointer items-center justify-center rounded-(--md-sys-shape-corner-full) px-2 text-sm text-(--md-sys-color-on-surface) outline-none select-none " + FOCUS_RING_CLASS + " disabled:pointer-events-none disabled:opacity-50 data-current:bg-(--md-sys-color-primary) data-current:text-(--md-sys-color-on-primary)";
+  "kern-pagination-button relative flex h-10 min-w-10 cursor-pointer items-center justify-center rounded-(--sys-shape-corner-full) px-2 text-sm leading-5 font-medium tracking-[0.00625rem] text-(--sys-color-on-surface) outline-none select-none transition-colors duration-200 ease-(--sys-motion-easing-standard) after:absolute after:-inset-1 after:content-[''] " +
+  FOCUS_RING_CLASS +
+  " disabled:pointer-events-none disabled:text-(--sys-color-on-surface)/38 aria-disabled:pointer-events-none aria-disabled:text-(--sys-color-on-surface)/38 before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--sys-color-on-surface) hover:before:opacity-[var(--sys-state-hover)] focus-visible:before:opacity-[var(--sys-state-focus)] active:before:opacity-[var(--sys-state-press)] disabled:before:opacity-0 data-current:bg-(--sys-color-primary) data-current:text-(--sys-color-on-primary) data-current:before:bg-(--sys-color-on-primary)";
 
 function pageWindow(
   current: number,
@@ -65,27 +59,23 @@ function pageWindow(
 /** Page navigation with a sliding window, ellipsis gaps, and prev/next. */
 export function Pagination({
   count,
-  page: pageProp,
-  defaultPage = 1,
-  onPageChange,
-  value,
-  defaultValue,
+  value: valueProp,
+  defaultValue = 1,
   onValueChange,
   children,
   className,
   "aria-label": ariaLabel = "Pagination",
   ...props
 }: PaginationProps) {
-  const [internal, setInternal] = useState(defaultValue ?? defaultPage);
+  const [internal, setInternal] = useState(defaultValue);
   const page = Math.min(
-    Math.max(value ?? pageProp ?? internal, 1),
+    Math.max(valueProp ?? internal, 1),
     Math.max(count, 1),
   );
   function go(next: number) {
     const clamped = Math.min(Math.max(next, 1), Math.max(count, 1));
-    if (value === undefined && pageProp === undefined) setInternal(clamped);
+    if (valueProp === undefined) setInternal(clamped);
     onValueChange?.(clamped);
-    onPageChange?.(clamped);
   }
   return (
     <nav
@@ -109,7 +99,7 @@ export function Pagination({
           <span
             key={entry.key}
             aria-hidden="true"
-            className="px-1 text-sm text-(--md-sys-color-on-surface-variant)"
+            className="px-1 text-sm text-(--sys-color-on-surface-variant)"
           >
             …
           </span>

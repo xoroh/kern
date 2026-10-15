@@ -48,12 +48,12 @@ describe("native parity contract: carousel", () => {
   });
 
   it("moves the selected stop on activation", async () => {
-    const onIndexChange = jest.fn();
+    const onValueChange = jest.fn();
     await render(
       <Carousel
         items={items}
         accessibilityLabel="Promotions"
-        onIndexChange={onIndexChange}
+        onValueChange={onValueChange}
       />,
     );
     await act(async () => {

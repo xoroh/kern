@@ -36,7 +36,8 @@ Cross-cutting: `07-demos` (every component gets a live demo), `08-correctness` (
 11. **Publish 0.1.0** — nothing adoptable until then.
 
 **Batch status (2026-10-09):** batches 1–10 LANDED (P0 truth-pass, P1 primitives standalone incl.
-G1 ruling + G5 versioning doc, P2 correctness P0s/P1s/P2s + start-tier parity suites, P3 demos — web 0
+G1 ruling + G5 versioning doc + G3/G4 module pages (16 anatomy/API/example pages, `primitives-nav.ts`,
+`check-primitives-docs` gate) + rn-reusables adapter recipe (README mapping, live-verify tests), P2 correctness P0s/P1s/P2s + start-tier parity suites, P3 demos — web 0
 demo-less / mobile 12-list / examples 14, P4 components domain, P5 blocks domain (3 blocks + CLI add),
 P6 playground studio, P7 foundations, P8 docs-shell parts, P9 onboarding). Batch 11 (publish 0.1.0) is
 verified code-ready (`check:publish` 6/6, version dry-run: all public packages → 0.1.0) and blocked only

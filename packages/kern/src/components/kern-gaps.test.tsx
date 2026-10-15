@@ -124,7 +124,7 @@ describe("ExtendedFab", () => {
   });
 
   it("collapses to icon-only and KEEPS the accessible name", () => {
-    render(<ExtendedFab icon={PEN} label="Compose" collapsed />);
+    render(<ExtendedFab icon={PEN} label="Compose" value />);
     const button = screen.getByRole("button", { name: "Compose" });
     expect(button).toHaveAttribute("data-collapsed", "true");
     // The visible label is gone, so the name must come from aria-label — a
@@ -135,7 +135,7 @@ describe("ExtendedFab", () => {
   it("expands on demand from the imperative handle when uncontrolled", () => {
     const ref = createRef<ExtendedFabHandle>();
     render(
-      <ExtendedFab ref={ref} icon={PEN} label="Compose" defaultCollapsed />,
+      <ExtendedFab ref={ref} icon={PEN} label="Compose" defaultValue />,
     );
     expect(screen.getByRole("button", { name: "Compose" })).toHaveAttribute(
       "data-collapsed",
@@ -155,18 +155,18 @@ describe("ExtendedFab", () => {
     // The host owns the value. A handle that moved the FAB on its own would
     // make `collapsed` a lie the host cannot keep.
     const ref = createRef<ExtendedFabHandle>();
-    const onCollapsedChange = vi.fn();
+    const onValueChange = vi.fn();
     render(
       <ExtendedFab
         ref={ref}
         icon={PEN}
         label="Compose"
-        collapsed
-        onCollapsedChange={onCollapsedChange}
+        value
+        onValueChange={onValueChange}
       />,
     );
     act(() => ref.current?.expand());
-    expect(onCollapsedChange).toHaveBeenCalledWith(false);
+    expect(onValueChange).toHaveBeenCalledWith(false);
     expect(screen.getByRole("button", { name: "Compose" })).toHaveAttribute(
       "data-collapsed",
       "true",
@@ -174,27 +174,27 @@ describe("ExtendedFab", () => {
   });
 
   it("collapse() is idempotent — it does not fight a host that drives the prop", () => {
-    const onCollapsedChange = vi.fn();
+    const onValueChange = vi.fn();
     const ref = createRef<ExtendedFabHandle>();
     render(
       <ExtendedFab
         ref={ref}
         icon={PEN}
         label="Compose"
-        collapsed={false}
-        onCollapsedChange={onCollapsedChange}
+        value={false}
+        onValueChange={onValueChange}
       />,
     );
     act(() => ref.current?.collapse());
     act(() => ref.current?.collapse());
-    expect(onCollapsedChange).toHaveBeenCalledTimes(1);
-    expect(onCollapsedChange).toHaveBeenCalledWith(true);
+    expect(onValueChange).toHaveBeenCalledTimes(1);
+    expect(onValueChange).toHaveBeenCalledWith(true);
   });
 
   it("toggle() flips whichever state is current", () => {
     const ref = createRef<ExtendedFabHandle>();
     render(
-      <ExtendedFab ref={ref} icon={PEN} label="Compose" defaultCollapsed />,
+      <ExtendedFab ref={ref} icon={PEN} label="Compose" defaultValue />,
     );
     act(() => ref.current?.toggle());
     expect(screen.getByRole("button", { name: "Compose" })).not.toHaveAttribute(
@@ -202,8 +202,8 @@ describe("ExtendedFab", () => {
     );
   });
 
-  it("uncontrolled: defaultCollapsed with no host wiring", () => {
-    render(<ExtendedFab icon={PEN} label="Compose" defaultCollapsed />);
+  it("uncontrolled: defaultValue with no host wiring", () => {
+    render(<ExtendedFab icon={PEN} label="Compose" defaultValue />);
     expect(screen.getByRole("button", { name: "Compose" })).toHaveAttribute(
       "data-collapsed",
       "true",
@@ -213,20 +213,20 @@ describe("ExtendedFab", () => {
   it("does not invent a gesture: a plain click is the host's action", async () => {
     const user = userEvent.setup();
     const onClick = vi.fn();
-    const onCollapsedChange = vi.fn();
+    const onValueChange = vi.fn();
     render(
       <ExtendedFab
         icon={PEN}
         label="Compose"
         onClick={onClick}
-        onCollapsedChange={onCollapsedChange}
+        onValueChange={onValueChange}
       />,
     );
     await user.click(screen.getByRole("button", { name: "Compose" }));
     expect(onClick).toHaveBeenCalledOnce();
     // M3 triggers collapse on scroll, which kern cannot see. Inventing a
     // double-click would be a kern-only gesture consumers then have to find.
-    expect(onCollapsedChange).not.toHaveBeenCalled();
+    expect(onValueChange).not.toHaveBeenCalled();
     expect(screen.getByRole("button", { name: "Compose" })).not.toHaveAttribute(
       "data-collapsed",
     );
@@ -736,49 +736,49 @@ describe("Carousel", () => {
 
   it("advances with the next control and reports the index", async () => {
     const user = userEvent.setup();
-    const onIndexChange = vi.fn();
-    render(<Carousel items={SLIDES} onIndexChange={onIndexChange} />);
+    const onValueChange = vi.fn();
+    render(<Carousel items={SLIDES} onValueChange={onValueChange} />);
     await user.click(screen.getByRole("button", { name: "Next slide" }));
-    expect(onIndexChange).toHaveBeenCalledWith(1);
+    expect(onValueChange).toHaveBeenCalledWith(1);
   });
 
   it("clamps at the ends and disables the control that would do nothing", async () => {
     const user = userEvent.setup();
-    const onIndexChange = vi.fn();
-    render(<Carousel items={SLIDES} onIndexChange={onIndexChange} />);
+    const onValueChange = vi.fn();
+    render(<Carousel items={SLIDES} onValueChange={onValueChange} />);
     // At the first slide: previous is disabled, so its state tells the truth.
     expect(
       screen.getByRole("button", { name: "Previous slide" }),
     ).toBeDisabled();
     await user.click(screen.getByRole("button", { name: "Next slide" }));
     await user.click(screen.getByRole("button", { name: "Next slide" }));
-    expect(onIndexChange).toHaveBeenLastCalledWith(2);
+    expect(onValueChange).toHaveBeenLastCalledWith(2);
     expect(screen.getByRole("button", { name: "Next slide" })).toBeDisabled();
     await user.click(screen.getByRole("button", { name: "Next slide" }));
-    expect(onIndexChange).toHaveBeenCalledTimes(2);
+    expect(onValueChange).toHaveBeenCalledTimes(2);
   });
 
   it("wraps past the ends when asked", async () => {
     const user = userEvent.setup();
-    const onIndexChange = vi.fn();
-    render(<Carousel items={SLIDES} wrap onIndexChange={onIndexChange} />);
+    const onValueChange = vi.fn();
+    render(<Carousel items={SLIDES} wrap onValueChange={onValueChange} />);
     await user.click(screen.getByRole("button", { name: "Previous slide" }));
-    expect(onIndexChange).toHaveBeenCalledWith(2);
+    expect(onValueChange).toHaveBeenCalledWith(2);
   });
 
   it("does not auto-advance: motion that moves content is an a11y failure", async () => {
     vi.useFakeTimers();
-    const onIndexChange = vi.fn();
-    render(<Carousel items={SLIDES} onIndexChange={onIndexChange} />);
+    const onValueChange = vi.fn();
+    render(<Carousel items={SLIDES} onValueChange={onValueChange} />);
     await vi.advanceTimersByTimeAsync(30_000);
-    expect(onIndexChange).not.toHaveBeenCalled();
+    expect(onValueChange).not.toHaveBeenCalled();
     vi.useRealTimers();
   });
 
   it("traverses with Arrow keys from a single tab stop", async () => {
     const user = userEvent.setup();
-    const onIndexChange = vi.fn();
-    render(<Carousel items={SLIDES} onIndexChange={onIndexChange} />);
+    const onValueChange = vi.fn();
+    render(<Carousel items={SLIDES} onValueChange={onValueChange} />);
     // One tab stop for the whole carousel, on the controls group: a 20-slide
     // carousel must not cost 20 tab stops. It is not on the `<section>`,
     // because a non-interactive element with a tab stop is a lint error and a
@@ -787,9 +787,9 @@ describe("Carousel", () => {
     expect(controls).toHaveAttribute("tabindex", "0");
     controls.focus();
     await user.keyboard("{ArrowRight}");
-    expect(onIndexChange).toHaveBeenCalledWith(1);
+    expect(onValueChange).toHaveBeenCalledWith(1);
     await user.keyboard("{ArrowLeft}{ArrowLeft}");
-    expect(onIndexChange).toHaveBeenLastCalledWith(0);
+    expect(onValueChange).toHaveBeenLastCalledWith(0);
   });
 
   it("hides inactive slides from assistive tech rather than reading all of them", () => {
@@ -804,19 +804,19 @@ describe("Carousel", () => {
 
   it("shows the dot indicator only when asked, and it jumps", async () => {
     const user = userEvent.setup();
-    const onIndexChange = vi.fn();
+    const onValueChange = vi.fn();
     const { rerender } = render(
-      <Carousel items={SLIDES} onIndexChange={onIndexChange} />,
+      <Carousel items={SLIDES} onValueChange={onValueChange} />,
     );
     expect(
       screen.queryByRole("button", { name: "Go to Slide 3" }),
     ).not.toBeInTheDocument();
 
     rerender(
-      <Carousel items={SLIDES} showIndicators onIndexChange={onIndexChange} />,
+      <Carousel items={SLIDES} showIndicators onValueChange={onValueChange} />,
     );
     await user.click(screen.getByRole("button", { name: "Go to Slide 3" }));
-    expect(onIndexChange).toHaveBeenCalledWith(2);
+    expect(onValueChange).toHaveBeenCalledWith(2);
     expect(
       screen.getByRole("button", { name: "Go to Slide 3" }),
     ).toHaveAttribute("aria-current", "true");
@@ -824,18 +824,18 @@ describe("Carousel", () => {
 
   it("does nothing when disabled, and says so", async () => {
     const user = userEvent.setup();
-    const onIndexChange = vi.fn();
-    render(<Carousel items={SLIDES} disabled onIndexChange={onIndexChange} />);
+    const onValueChange = vi.fn();
+    render(<Carousel items={SLIDES} disabled onValueChange={onValueChange} />);
     const region = screen.getByRole("region", { name: "Carousel" });
     expect(region).toHaveAttribute("aria-disabled", "true");
     region.focus();
     await user.keyboard("{ArrowRight}");
-    expect(onIndexChange).not.toHaveBeenCalled();
+    expect(onValueChange).not.toHaveBeenCalled();
     expect(screen.getByRole("button", { name: "Next slide" })).toBeDisabled();
   });
 
   it("clamps an out-of-range controlled index instead of blanking", () => {
-    render(<Carousel items={SLIDES} index={99} />);
+    render(<Carousel items={SLIDES} value={99} />);
     expect(screen.getByLabelText("Slide 3 (3 of 3)")).not.toHaveAttribute(
       "aria-hidden",
     );

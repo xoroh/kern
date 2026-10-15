@@ -78,6 +78,10 @@ const NOT_A_COMPONENT = new Map([
     "menu-classes",
     "shared class-name strings for the menu family, not a component",
   ],
+  [
+    "presentation",
+    "web bindings for the @xoroh/kern-primitives presentation models, deliberately NOT barrel-exported (the generated registry treats every barrel export as a component). Surfaces import them directly; presentation.test.tsx exercises them by that direct path.",
+  ],
 ]);
 
 const isTest = (f) => f.includes(".test.");

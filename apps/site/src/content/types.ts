@@ -155,7 +155,7 @@ export type TokenRow = {
   element: string;
   /** `resting`, `hover`, `pressed`, `disabled`, `focus` … */
   state: string;
-  /** e.g. `md.comp.filled-button.container.color`. */
+  /** e.g. `comp.filled-button.container.color`. */
   token: string;
   /**
    * The RESOLVED value, e.g. `#6750A4`. Half the reference: it is where a

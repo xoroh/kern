@@ -2,7 +2,10 @@ import {
   type ColorRole,
   type Contrast,
   type Mode,
+  type MotionAlgorithmId,
+  type ResolvedMotionScheme,
   type ResolvedTheme,
+  resolveMotionScheme,
   resolveThemeDetails,
   type ShapeRole,
   type ThemeSelection,
@@ -17,6 +20,17 @@ import {
 } from "react";
 import { useColorScheme } from "react-native";
 
+export type {
+  MotionAlgorithmId,
+  ResolvedMotionScheme,
+  SpringConfig,
+  SpringKind,
+} from "@xoroh/kern-tokens";
+export {
+  prefersReducedMotion,
+  resolveMotionScheme,
+  springConfig,
+} from "@xoroh/kern-tokens";
 export type { ColorRole, Contrast, Mode, ShapeRole, ThemeSelection };
 
 export type NativeThemeContextValue = {
@@ -43,7 +57,7 @@ export function KernThemeProvider({
   mode: controlledMode,
   defaultMode,
   contrast = "standard",
-  variant = "kern",
+  variant = "material-3",
   children,
 }: KernThemeProviderProps) {
   const osMode = useColorScheme();
@@ -76,8 +90,13 @@ export function KernThemeProvider({
   );
 }
 
-/** Static light default for components rendered outside any provider. */
-const defaultScheme: ResolvedTheme = resolveThemeDetails("light");
+/**
+ * Static light default for components rendered outside any provider, and the
+ * N8 style-function fallback: component-layer defaults reference this
+ * constant instead of resolving presets themselves, so `theme.tsx` is the
+ * only native component-layer importer of `resolveThemeDetails`.
+ */
+export const defaultScheme: ResolvedTheme = resolveThemeDetails("light");
 
 /**
  * Scheme from the nearest provider without subscribing to OS appearance.
@@ -105,11 +124,24 @@ export function useKernTheme(): NativeThemeContextValue {
     context ?? {
       mode,
       contrast: "standard",
-      variant: "kern",
+      variant: "material-3",
       scheme,
       setMode,
       useSystem,
       toggle,
     }
   );
+}
+
+/**
+ * Motion scheme for animated components. Foundations only: resolves the
+ * `standard` / `expressive` / `reduced` algorithm to easing, durations and
+ * `Animated.spring` stiffness/damping pairs from `tokens.motion`. Components
+ * migrate to these values incrementally — no component is rewritten in the
+ * same change that introduces the hook.
+ */
+export function useKernMotion(
+  id: MotionAlgorithmId = "standard",
+): ResolvedMotionScheme {
+  return useMemo(() => resolveMotionScheme(id), [id]);
 }

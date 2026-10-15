@@ -15,6 +15,46 @@ export const secondaryTabs: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["SecondaryTabs"],
+  keyboard: [
+    {
+      key: "Arrow keys",
+      action: "Moves selection and focus between tabs, skipping disabled ones.",
+    },
+    {
+      key: "Home / End",
+      action: "Jumps to the first or last enabled tab.",
+    },
+  ],
+  usage: {
+    do: [
+      "Use inside content areas to separate related sub-sections.",
+      "Mount only the active panel — hidden panels still announce.",
+    ],
+    dont: [
+      "Don't use at the top level — that is primary tabs.",
+      "Don't leave all tabs disabled — the component renders nothing rather than an empty tablist.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Active indicator",
+      state: "resting",
+      token: "comp.secondary-tab.active-indicator",
+      value: "primary, 2px (not 3px)",
+    },
+    {
+      element: "Active label",
+      state: "resting",
+      token: "comp.secondary-tab.active-label",
+      value: "on-surface (not primary)",
+    },
+  ],
+  faq: [
+    {
+      q: "Why is the active text not primary?",
+      a: "Per M3, secondary tabs mark selection with position (the 2px indicator), not color — the active label stays on-surface.",
+    },
+  ],
   customization: {
     supported: [
       "`className` is passed through and merged after the tabs' own classes.",

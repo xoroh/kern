@@ -65,6 +65,27 @@ describe("extended FAB (native)", () => {
     expect(screen.getByTestId("efab").props.accessibilityLabel).toBe("Compose");
   });
 
+  // M3 extended sizes: small 56 / medium 80 / large 96.
+  it.each([
+    ["small", 56],
+    ["medium", 80],
+    ["large", 96],
+  ] as const)("renders the %s bar at %sdp", async (size, height) => {
+    await render(
+      <ExtendedFab
+        icon={<Text>x</Text>}
+        label="Compose"
+        size={size}
+        testID="efab"
+      />,
+    );
+    const style = screen.getByTestId("efab").props.style;
+    const flat = Array.isArray(style)
+      ? Object.assign({}, ...style.filter(Boolean))
+      : style;
+    expect(flat.minHeight).toBe(height);
+  });
+
   // The M3 behaviour the component exists for. Without this the extended FAB is
   // just a button with a wider hit box.
   it("collapses to the icon alone but keeps announcing its name", async () => {
@@ -94,7 +115,7 @@ describe("extended FAB (native)", () => {
         ref={handle}
         icon={<Text>x</Text>}
         label="Compose"
-        onCollapsedChange={(next: boolean) => calls.push(next)}
+        onValueChange={(next: boolean) => calls.push(next)}
       />,
     );
     await act(async () => {
@@ -119,12 +140,12 @@ describe("extended FAB (native)", () => {
     expect(screen.getByText("Compose")).toBeTruthy();
   });
 
-  it("obeys a controlled collapsed prop", async () => {
+  it("obeys a controlled value prop", async () => {
     await render(
       <ExtendedFab
         icon={<Text>x</Text>}
         label="Compose"
-        collapsed
+        value
         testID="efab"
       />,
     );
@@ -297,14 +318,16 @@ describe("split button (native)", () => {
   });
 
   // The separation is the component's reason to exist; if the primary opened the
-  // menu it would be a plain menu button.
+  // menu it would be a plain menu button. NOTE: the press-intent prop here is
+  // `onPress`, not `onClick` — RN Pressable has no DOM click, and the
+  // component documents the split (see its R2 lexicon note).
   it("the primary action does not open the menu", async () => {
     let clicked = 0;
     await render(
       <SplitButton
         label="Save"
         actions={ACTIONS}
-        onClick={() => {
+        onPress={() => {
           clicked += 1;
         }}
       />,

@@ -17,6 +17,43 @@ export const textarea: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Textarea"],
+  keyboard: [
+    {
+      key: "Tab / Shift+Tab",
+      action: "Moves focus into and out of the field. Disabled fields are skipped.",
+    },
+  ],
+  usage: {
+    do: [
+      "Use for multi-line free text — comments, descriptions, messages.",
+      "Set `rows` for the initial height; allow vertical resize via CSS.",
+      "Label every textarea like any field.",
+    ],
+    dont: [
+      "Don't use for single-line values — that is an input.",
+      "Don't fix the height where content grows — let it resize or auto-grow.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Container",
+      state: "resting",
+      token: "comp.outlined-text-field.container-shape",
+      value: "corner-extra-small 4px, 1px outline",
+    },
+    {
+      element: "Input text",
+      state: "resting",
+      token: "sys.typescale.body-large",
+      value: "16px / 24px, body-large",
+    },
+  ],
+  faq: [
+    {
+      q: "How tall should it start?",
+      a: "Two rows by default (`rows=2`); grow with content or allow vertical resize rather than fixing a tall box.",
+    },
+  ],
   customization: {
     supported: [
       "`className` is passed through and merged after the textarea's own classes.",

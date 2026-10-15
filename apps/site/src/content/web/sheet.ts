@@ -16,7 +16,7 @@ export const sheet: ComponentDoc = {
     variants: [],
     // M3 tabulates sheets three ways — "bottom sheet (modal)" and "side sheet
     // (modal)" at level 1, "side sheet (docked)" at level 0 — so `variants`
-    // permits [0, 1]. kern's sheet ships `--md-sys-elevation-level1`, the
+    // permits [0, 1]. kern's sheet ships `--sys-elevation-level1`, the
     // modal level, which is what this page claims.
     elevation: 1,
   },
@@ -46,6 +46,45 @@ export const sheet: ComponentDoc = {
     },
     { name: "SheetClose", role: "Closes the sheet from inside it." },
     { name: "Sheet", role: "The namespace object: all of the parts above." },
+  ],
+  keyboard: [
+    {
+      key: "Escape",
+      action: "Closes the surface; focus returns to the trigger.",
+    },
+    {
+      key: "Tab / Shift+Tab",
+      action: "Trapped inside while modal; the page behind is inert.",
+    },
+  ],
+  usage: {
+    do: [
+      "Use modal sheets for tasks that need focus — the scrim marks the interruption.",
+      "Let content scroll inside with titles pinned where applicable.",
+    ],
+    dont: [
+      "Don't trap focus without announcing modality.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Container",
+      state: "resting",
+      token: "comp.sheet.container",
+      value: "surface-container-low, 28px leading edge, level3",
+    },
+    {
+      element: "Scrim",
+      state: "resting",
+      token: "sys.color.scrim",
+      value: "32%",
+    },
+  ],
+  faq: [
+    {
+      q: "Bottom drawer or side sheet?",
+      a: "Bottom drawers rise for compact flows; side sheets dock for persistent panels.",
+    },
   ],
   customization: {
     supported: [

@@ -51,7 +51,7 @@ scripts/check-elevation-parity.mjs      @xoroh/design-system-lead
 # --------------------------------------------------------- kernel + primitives
 packages/kern/                          @xoroh/kern-lead
 packages/kern-native/                   @xoroh/kern-lead @xoroh/design-system-lead
-packages/kern-primitives/               @xoroh/kern-lead @xoroh/design-system-lead
+libs/kern-primitives/                    @xoroh/kern-lead @xoroh/design-system-lead
 
 # ------------------------------------------------------------- gates (kern-lead)
 scripts/check-consumption.mjs           @xoroh/kern-lead

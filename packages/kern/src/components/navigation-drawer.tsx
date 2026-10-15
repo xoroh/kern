@@ -82,7 +82,7 @@ export function NavigationDrawer({
       <DialogPrimitive.Portal>
         <DialogPrimitive.Backdrop
           data-slot="navigation-drawer-backdrop"
-          className="kern-navigation-drawer-backdrop fixed inset-0 bg-(--md-sys-color-scrim)/40 transition-opacity"
+          className="kern-navigation-drawer-backdrop fixed inset-0 bg-(--sys-color-scrim)/40 transition-opacity"
         />
         <DialogPrimitive.Viewport className="kern-navigation-drawer-viewport fixed inset-0 flex justify-start">
           <DialogPrimitive.Popup
@@ -94,7 +94,7 @@ export function NavigationDrawer({
             aria-modal="true"
             aria-label={title ? undefined : ariaLabel}
             className={cn(
-              "kern-navigation-drawer flex h-full w-[min(22.5rem,80vw)] flex-col overflow-y-auto bg-(--md-sys-color-surface-container-low) pt-6 text-(--md-sys-color-on-surface) outline-none",
+              "kern-navigation-drawer flex h-full w-[min(22.5rem,80vw)] flex-col overflow-y-auto rounded-e-(--sys-shape-corner-large) bg-(--sys-color-surface-container-low) pt-6 text-(--sys-color-on-surface) outline-none",
               className,
             )}
           >
@@ -104,12 +104,12 @@ export function NavigationDrawer({
                 className="flex flex-col gap-1 px-6 pb-6"
               >
                 {title ? (
-                  <DialogPrimitive.Title className="text-(length:--md-sys-typescale-title-large-font-size) font-medium text-(--md-sys-color-on-surface)">
+                  <DialogPrimitive.Title className="text-(length:--sys-typescale-title-large-font-size) font-medium text-(--sys-color-on-surface)">
                     {title}
                   </DialogPrimitive.Title>
                 ) : null}
                 {subtitle ? (
-                  <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
+                  <p className="m-0 text-sm text-(--sys-color-on-surface-variant)">
                     {subtitle}
                   </p>
                 ) : null}

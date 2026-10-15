@@ -54,9 +54,10 @@ const ROOT = resolve(import.meta.dirname, "..");
  * whole publish gate on a file that never existed.
  */
 const MANIFESTS = [
-  "packages/kern-primitives",
+  "libs/kern-primitives",
   "packages/kern",
   "packages/kern-tokens",
+  "packages/kern-material-3",
   "packages/kern-native",
   "packages/kern-icons",
   "packages/mcp",

@@ -181,25 +181,25 @@ describe("IconButton", () => {
   it("applies the tonal variant's container colours", () => {
     render(<IconButton icon={<svg />} label="Add" variant="tonal" />);
     expect(screen.getByRole("button")).toHaveClass(
-      "bg-(--md-sys-color-secondary-container)",
-      "text-(--md-sys-color-on-secondary-container)",
+      "bg-(--sys-color-secondary-container)",
+      "text-(--sys-color-on-secondary-container)",
     );
   });
 
   it("applies the filled variant (M3: primary container + on-primary icon)", () => {
     render(<IconButton icon={<svg />} label="Add" variant="filled" />);
     expect(screen.getByRole("button")).toHaveClass(
-      "bg-(--md-sys-color-primary)",
-      "text-(--md-sys-color-on-primary)",
-      "before:bg-(--md-sys-color-on-primary)",
+      "bg-(--sys-color-primary)",
+      "text-(--sys-color-on-primary)",
+      "before:bg-(--sys-color-on-primary)",
     );
   });
 
   it("gives an unselected filled toggle the M3 unselected treatment", () => {
     render(<IconButton icon={<svg />} label="Add" variant="filled" toggle />);
     expect(screen.getByRole("button")).toHaveClass(
-      "bg-(--md-sys-color-surface-container-highest)",
-      "text-(--md-sys-color-primary)",
+      "bg-(--sys-color-surface-container-highest)",
+      "text-(--sys-color-primary)",
     );
   });
 
@@ -208,8 +208,8 @@ describe("IconButton", () => {
       <IconButton icon={<svg />} label="Add" variant="filled" toggle pressed />,
     );
     expect(screen.getByRole("button")).toHaveClass(
-      "bg-(--md-sys-color-primary)",
-      "text-(--md-sys-color-on-primary)",
+      "bg-(--sys-color-primary)",
+      "text-(--sys-color-on-primary)",
     );
   });
 
@@ -231,6 +231,7 @@ describe("IconButton", () => {
     ["sm", "size-8"],
     ["default", "size-10"],
     ["lg", "size-12"],
+    ["2xl", "size-24"],
   ] as const)("applies the %s size", (size, expected) => {
     render(<IconButton icon={<svg />} label="Add" size={size} />);
     expect(screen.getByRole("button")).toHaveClass(expected);

@@ -4,7 +4,7 @@ import {
   type FeedbackTone,
   type LoadingIndicatorStyle,
   resolveFeedbackVariant,
-} from "@xoroh/kern-tokens";
+} from "@xoroh/kern-material-3";
 import type { ComponentPropsWithRef } from "react";
 import { cn } from "../utils/cn";
 import { CircularProgress } from "./circular-progress";
@@ -49,8 +49,8 @@ export function PageLoader({
       className={cn(
         "kern-page-loader flex min-h-[50vh] flex-col items-center justify-center gap-4",
         inverse
-          ? "bg-(--md-sys-color-inverse-surface) text-(--md-sys-color-inverse-on-surface)"
-          : "bg-(--md-sys-color-surface) text-(--md-sys-color-on-surface)",
+          ? "bg-(--sys-color-inverse-surface) text-(--sys-color-inverse-on-surface)"
+          : "bg-(--sys-color-surface) text-(--sys-color-on-surface)",
         className,
       )}
       {...props}

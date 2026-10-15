@@ -124,7 +124,7 @@ Applied to the five rows filed as "native primitives needing web counterparts":
 | `shape-art` | **CSS** — absolutely-positioned spans | composition of `shape` into 3 decorative layouts |
 | `aspect-ratio` | **CSS** — the CSS property is literally the same name | native impl is 4 lines emitting `aspectRatio` |
 | `arc-rotations` | **shared pure function**, not a component | M3 determinate geometry (`lead = min(ratio,.5)*360-180`); both renderers must agree or a determinate ring diverges across platforms. Belongs in a shared module, not a component file. |
-| `loader-color` | **rejected as a row** | `loaderColor(scheme) => scheme.color.primary` is a one-line role selector; the web side is `border-t-(--md-sys-color-primary)` |
+| `loader-color` | **rejected as a row** | `loaderColor(scheme) => scheme.color.primary` is a one-line role selector; the web side is `border-t-(--sys-color-primary)` |
 
 **5 filed, 0 warranted a web component.** Apply this test to every native-only row before
 building a web counterpart — these five were all filed as missing counterparts and every one

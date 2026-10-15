@@ -27,8 +27,12 @@ blob-report/
 
 # Org/agent scratch — never commit. Canonical registry lives outside the repo;
 # kern/.team/ holds restored task artifacts (see its README), worktrees/polly/
-caches are per-run throwaway.
+# caches are per-run throwaway.
 .team/
+# M3 full archive — durable local reference (~5GB: spec mirror, illustrations,
+# code clones, docs mirrors). Stays on disk, never committed. Curated output
+# for Kern lives in docs/design-systems/m3-usable/ instead.
+docs/design-systems/m3-archive/
 .polly/
 .worktrees/
 **/.tanstack/

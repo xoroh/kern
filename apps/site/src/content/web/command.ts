@@ -14,7 +14,7 @@ export const command: ComponentDoc = {
     // No variant axis. The query is the axis.
     variants: [],
     // kern's own decision. M3's component elevation table names no command
-    // palette. The surface ships `--md-sys-elevation-level3` and the choice is
+    // palette. The surface ships `--sys-elevation-level3` and the choice is
     // registered as K11. See Deviations.
     elevation: 3,
   },

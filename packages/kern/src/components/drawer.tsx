@@ -30,13 +30,13 @@ export function DrawerContent({ className, ...props }: DrawerContentProps) {
     <DrawerPrimitive.Portal>
       <DrawerPrimitive.Backdrop
         data-slot="drawer-backdrop"
-        className="kern-drawer-backdrop fixed inset-0 bg-black/30"
+        className="kern-drawer-backdrop fixed inset-0 bg-(--sys-color-scrim)/32"
       />
       <DrawerPrimitive.Viewport className="kern-drawer-viewport fixed inset-0 flex items-end justify-center">
         <DrawerPrimitive.Popup
           data-slot="drawer-content"
           className={cnState(
-            "kern-drawer-popup max-h-[80vh] w-full max-w-2xl overflow-y-auto rounded-t-(--md-sys-shape-corner-extra-large) border border-(--md-sys-color-outline) bg-(--md-sys-color-surface) p-6 pb-10 shadow-(--md-sys-elevation-level1) outline-none",
+            "kern-drawer-popup max-h-[80vh] w-full max-w-[640px] overflow-y-auto rounded-t-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-low) p-6 pb-10 shadow-(--sys-elevation-level1) outline-none",
             className,
           )}
           {...props}
@@ -51,7 +51,7 @@ export function DrawerTitle({ className, ...props }: DrawerTitleProps) {
     <DrawerPrimitive.Title
       data-slot="drawer-title"
       className={cnState(
-        "kern-drawer-title text-(length:--md-sys-typescale-title-large-font-size) font-medium text-(--md-sys-color-on-surface)",
+        "kern-drawer-title text-(length:--sys-typescale-title-large-font-size) font-medium text-(--sys-color-on-surface)",
         className,
       )}
       {...props}
@@ -67,7 +67,7 @@ export function DrawerDescription({
     <DrawerPrimitive.Description
       data-slot="drawer-description"
       className={cnState(
-        "kern-drawer-description mt-2 text-sm text-(--md-sys-color-on-surface-variant)",
+        "kern-drawer-description mt-2 text-sm text-(--sys-color-on-surface-variant)",
         className,
       )}
       {...props}

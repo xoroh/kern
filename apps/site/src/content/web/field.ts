@@ -53,7 +53,7 @@ export const field: ComponentDoc = {
   customization: {
     supported: [
       "`className` on every part, merged after the part's own classes.",
-      "Tone comes from the system roles — `--md-sys-color-error` for errors, the surface-variant roles for help text.",
+      "Tone comes from the system roles — `--sys-color-error` for errors, the surface-variant roles for help text.",
       "`FieldMessage` takes a `variant` of `description` or `error`, so one line component covers both tones.",
     ],
     notSupported: [

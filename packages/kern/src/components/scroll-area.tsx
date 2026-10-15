@@ -31,7 +31,8 @@ export function ScrollAreaViewport({
     <ScrollAreaPrimitive.Viewport
       data-slot="scroll-area-viewport"
       className={cnState(
-        "kern-scroll-area-viewport h-full w-full overscroll-contain rounded-[inherit] outline-none " + FOCUS_RING_CLASS,
+        "kern-scroll-area-viewport h-full w-full overscroll-contain rounded-[inherit] outline-none " +
+          FOCUS_RING_CLASS,
         className,
       )}
       {...props}
@@ -54,7 +55,7 @@ export function ScrollAreaScrollbar({
     >
       <ScrollAreaPrimitive.Thumb
         data-slot="scroll-area-thumb"
-        className="kern-scroll-area-thumb relative flex-1 rounded-full bg-(--md-sys-color-outline)"
+        className="kern-scroll-area-thumb relative flex-1 rounded-full bg-(--sys-color-outline)"
       />
     </ScrollAreaPrimitive.Scrollbar>
   );

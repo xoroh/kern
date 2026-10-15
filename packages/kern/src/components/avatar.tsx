@@ -9,9 +9,9 @@ const avatarVariants = cva(
   {
     variants: {
       size: {
-        sm: "size-8 rounded-(--md-sys-shape-corner-full) text-xs",
-        default: "size-10 rounded-(--md-sys-shape-corner-full) text-sm",
-        lg: "size-14 rounded-(--md-sys-shape-corner-full) text-base",
+        sm: "size-8 rounded-(--sys-shape-corner-full) text-xs",
+        default: "size-10 rounded-(--sys-shape-corner-full) text-sm",
+        lg: "size-14 rounded-(--sys-shape-corner-full) text-base",
       },
     },
     defaultVariants: { size: "default" },
@@ -53,7 +53,7 @@ export function AvatarFallback({ className, ...props }: AvatarFallbackProps) {
     <AvatarPrimitive.Fallback
       data-slot="avatar-fallback"
       className={cnState(
-        "kern-avatar-fallback flex size-full items-center justify-center bg-(--md-sys-color-primary) font-medium text-(--md-sys-color-on-primary)",
+        "kern-avatar-fallback flex size-full items-center justify-center bg-(--sys-color-primary) font-medium text-(--sys-color-on-primary)",
         className,
       )}
       {...props}

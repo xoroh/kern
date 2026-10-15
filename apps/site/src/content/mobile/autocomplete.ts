@@ -6,7 +6,7 @@ export const autocomplete: ComponentDoc = {
   oneLiner:
     "Autocomplete suggests completions as you type, with a filter you can replace and a message for when nothing matches.",
   features:
-    "Reach for autocomplete when typing is faster than choosing and the set is large enough to need narrowing: an address, a name, a tag. It reports three different things and keeping them apart is the whole wiring — `onValueChange` as the text changes, `onSelect` when a suggestion is COMMITTED, and `onExpandedChange` when the popup opens or closes including dismissal by blur. That last one matters more than it looks: blur is a dismissal like any other, and a popup state that ignores it leaves the interface thinking it is open. The `filter` is replaceable and its default is honest about being local — case-insensitive substring matching, which a host with server-side or fuzzy matching swaps out.",
+    "Reach for autocomplete when typing is faster than choosing and the set is large enough to need narrowing: an address, a name, a tag. It reports three different things and keeping them apart is the whole wiring — `onValueChange` as the text changes, `onSelect` when a suggestion is COMMITTED, and `onOpenChange` when the popup opens or closes including dismissal by blur. That last one matters more than it looks: blur is a dismissal like any other, and a popup state that ignores it leaves the interface thinking it is open. The `filter` is replaceable and its default is honest about being local — case-insensitive substring matching, which a host with server-side or fuzzy matching swaps out.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -58,8 +58,8 @@ export const autocomplete: ComponentDoc = {
       note: "When a suggestion is COMMITTED. Different from typing — choosing is not editing.",
     },
     {
-      name: "onExpandedChange",
-      type: "(expanded: boolean) => void",
+      name: "onOpenChange",
+      type: "(open: boolean) => void",
       note: "When the popup opens or closes, INCLUDING DISMISSAL BY BLUR. Blur is a dismissal like any other, and an interface that ignores it thinks the popup is still open.",
     },
     {
@@ -76,7 +76,7 @@ export const autocomplete: ComponentDoc = {
   aria: [
     "Three callbacks for three different acts — typing, choosing, opening — and keeping them apart is what makes the control predictable.",
     "`emptyMessage` is where a dead end is SAID rather than shown: without it, no matches looks the same as no answer.",
-    "`onExpandedChange` firing on blur means the announced state matches the visible one even when someone taps away.",
+    "`onOpenChange` firing on blur means the announced state matches the visible one even when someone taps away.",
     "The filter being replaceable is also an honesty matter: the default does substring matching and says so, rather than implying a relevance model it does not have.",
   ],
 };

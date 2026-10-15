@@ -81,7 +81,7 @@ function a11yTree(): A11yNode[] {
 
 describe("Dialog role on the RN floor", () => {
   it("declares role=dialog on the labelled surface", async () => {
-    await render(<Dialog visible title="Discard draft?" testID="dlg" />);
+    await render(<Dialog open title="Discard draft?" testID="dlg" />);
 
     const tree = a11yTree();
     const dialogs = tree.filter((node) => node.role === "dialog");
@@ -91,7 +91,7 @@ describe("Dialog role on the RN floor", () => {
   });
 
   it("keeps the repo's accessibilityRole=alert mapping as the fallback", async () => {
-    await render(<Dialog visible title="Discard draft?" testID="dlg" />);
+    await render(<Dialog open title="Discard draft?" testID="dlg" />);
 
     const tree = a11yTree();
     const dialogs = tree.filter((node) => node.role === "dialog");
@@ -99,7 +99,7 @@ describe("Dialog role on the RN floor", () => {
   });
 
   it("never reports role=none on the dialog surface", async () => {
-    await render(<Dialog visible title="Discard draft?" testID="dlg" />);
+    await render(<Dialog open title="Discard draft?" testID="dlg" />);
 
     const surface = a11yTree().find((node) => node.label === "Discard draft?");
     expect(surface?.role).not.toBe("none");
@@ -107,7 +107,7 @@ describe("Dialog role on the RN floor", () => {
   });
 
   it("marks the modal so the content behind it is announced as inert", async () => {
-    await render(<Dialog visible title="Discard draft?" testID="dlg" />);
+    await render(<Dialog open title="Discard draft?" testID="dlg" />);
 
     // `accessibilityViewIsModal` lives on the Modal, one level above the card —
     // asserting the whole tree is how the probe proves it is actually emitted.
@@ -117,7 +117,7 @@ describe("Dialog role on the RN floor", () => {
   it("leaves the alert-dialog sibling on its existing mapping", async () => {
     // AlertDialog is NOT in this task's scope. Pinning it here is a guard: the
     // fix must not silently restyle a sibling through a shared constant.
-    await render(<AlertDialog visible title="Discard draft?" testID="adlg" />);
+    await render(<AlertDialog open title="Discard draft?" testID="adlg" />);
 
     const tree = a11yTree();
     expect(tree.filter((node) => node.role === "dialog")).toHaveLength(0);

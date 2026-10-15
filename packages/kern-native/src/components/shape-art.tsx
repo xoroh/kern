@@ -1,15 +1,19 @@
 import {
-  type FeedbackShapeKind,
   type ResolvedTheme,
-  resolveThemeDetails,
 } from "@xoroh/kern-tokens";
+import {
+  EXPRESSIVE_SHAPE_BOX,
+  expressiveShapePath,
+  type FeedbackShapeKind,
+} from "@xoroh/kern-material-3";
 import {
   type StyleProp,
   View,
   type ViewProps,
   type ViewStyle,
 } from "react-native";
-import { useKernScheme } from "../theme";
+import { Path, Svg } from "react-native-svg";
+import { defaultScheme, useKernScheme } from "../theme";
 import { Shape } from "./shape";
 
 export type ShapeArtLayout = "scatter" | "stack" | "arch";
@@ -73,7 +77,7 @@ const COMPOSITIONS: Record<ShapeArtLayout, readonly Piece[]> = {
 export function shapeArtStyles(
   layout: ShapeArtLayout,
   size: number,
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): { root: ViewStyle; pieces: readonly ViewStyle[] } {
   const height = layout === "scatter" ? size * 0.6 : size;
   return {
@@ -130,6 +134,66 @@ export function ShapeArt({
           />
         </View>
       ))}
+    </View>
+  );
+}
+
+export type ExpressiveShapeProps = Omit<ViewProps, "style"> & {
+  /** Expressive form id from `@xoroh/kern-tokens` (built-in or registered). */
+  shape?: string;
+  /** Box edge in dp. The path always draws in a square viewBox. */
+  size?: number;
+  /** Fill override — classification hues only. */
+  color?: string;
+  style?: StyleProp<ViewStyle>;
+};
+
+/**
+ * expressiveShapeArtStyles — root box for one expressive form. The SVG
+ * viewBox is always square (`EXPRESSIVE_SHAPE_BOX`), so width and height
+ * stay equal: no distortion, no per-shape metrics.
+ */
+export function expressiveShapeArtStyles(size: number): ViewStyle {
+  return { width: size, height: size };
+}
+
+/**
+ * ExpressiveShape — one static M3-Expressive-family form (cookie, burst,
+ * floral…) rendered as vector art via react-native-svg. Decorative only:
+ * hidden from the accessibility tree, carrying no product vocabulary, and
+ * never morphed — Kern pins static radii, so the form is fixed at render.
+ * The `d` string comes from `expressiveShapePath`, the same builder the web
+ * renderer uses, so both sides draw byte-identical art.
+ */
+export function ExpressiveShape({
+  shape = "flower-8",
+  size = 48,
+  color,
+  style,
+  testID,
+  ...props
+}: ExpressiveShapeProps) {
+  const scheme = useKernScheme();
+  const fill = color ?? scheme.color.primary;
+  return (
+    <View
+      {...props}
+      testID={testID ?? "kern-expressive-shape"}
+      accessibilityElementsHidden
+      importantForAccessibility="no-hide-descendants"
+      style={[expressiveShapeArtStyles(size), style]}
+    >
+      <Svg
+        width={size}
+        height={size}
+        viewBox={`0 0 ${EXPRESSIVE_SHAPE_BOX} ${EXPRESSIVE_SHAPE_BOX}`}
+      >
+        <Path
+          testID="kern-expressive-shape-path"
+          d={expressiveShapePath(shape, EXPRESSIVE_SHAPE_BOX)}
+          fill={fill}
+        />
+      </Svg>
     </View>
   );
 }

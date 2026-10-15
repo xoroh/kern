@@ -69,9 +69,9 @@ describe("FabMenu", () => {
     render(<FabMenu icon={<svg />} actions={ACTIONS} />);
     const className = trigger().className;
     expect(className).toContain("size-14");
-    expect(className).toContain("bg-(--md-sys-color-primary)");
-    expect(className).toContain("shadow-(--md-sys-elevation-level3)");
-    expect(className).toContain("rounded-(--md-sys-shape-corner-large)");
+    expect(className).toContain("bg-(--sys-color-primary-container)");
+    expect(className).toContain("shadow-(--sys-elevation-level3)");
+    expect(className).toContain("rounded-(--sys-shape-corner-large)");
   });
 
   // M3's open-state cue is a ROTATION of the icon, not a colour swap.

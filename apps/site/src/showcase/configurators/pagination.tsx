@@ -5,14 +5,14 @@ import type { ConfiguratorSpec, ConfigValues } from "../configurator";
  * Pagination configurator — the twentieth Part-4 configurator (move #22),
  * first kern-owned navigation (custom window logic, no primitive under
  * it). Knobs are the shape axes: `count` (total pages — 5 renders every
- * page, 24 collapses the middle into ellipsis gaps), `defaultPage` (where
+ * page, 24 collapses the middle into ellipsis gaps), `defaultValue` (where
  * the window starts). No `siblingCount`/`boundaryCount` (the window is
  * fixed constants, not props), no `size`/`variant` — none exists to rule
  * out or to offer. The stage is the documented component whole — prev,
  * window, next — so the fence teaches it too. The stage remounts by key on
  * every knob so it cannot drift from the fence.
  *
- * Every knob pairing is in-range by construction (defaultPage 1 or 3
+ * Every knob pairing is in-range by construction (defaultValue 1 or 3
  * against count 5 or 24): the root clamps out-of-range pages, but the
  * knobs never ask it to — clamping is pinned by the edge test, not the
  * stage.
@@ -21,8 +21,8 @@ function countOf(v: ConfigValues): number {
   return v.count === "24" ? 24 : 5;
 }
 
-function defaultPageOf(v: ConfigValues): number {
-  return v.defaultPage === "3" ? 3 : 1;
+function defaultValueOf(v: ConfigValues): number {
+  return v.defaultValue === "3" ? 3 : 1;
 }
 
 export const PAGINATION_CONFIGURATOR: ConfiguratorSpec = {
@@ -40,7 +40,7 @@ export const PAGINATION_CONFIGURATOR: ConfiguratorSpec = {
     },
     {
       kind: "select",
-      name: "defaultPage",
+      name: "defaultValue",
       label: "Starting page",
       options: ["1", "3"],
       default: "1",
@@ -48,12 +48,12 @@ export const PAGINATION_CONFIGURATOR: ConfiguratorSpec = {
   ],
   render: (v) => (
     <Pagination
-      key={`${countOf(v)}-${defaultPageOf(v)}`}
+      key={`${countOf(v)}-${defaultValueOf(v)}`}
       count={countOf(v)}
-      defaultPage={defaultPageOf(v)}
+      defaultValue={defaultValueOf(v)}
       aria-label="Search results"
     />
   ),
   code: (v) =>
-    `<Pagination count={${countOf(v)}} defaultPage={${defaultPageOf(v)}} aria-label="Search results" />`,
+    `<Pagination count={${countOf(v)}} defaultValue={${defaultValueOf(v)}} aria-label="Search results" />`,
 };

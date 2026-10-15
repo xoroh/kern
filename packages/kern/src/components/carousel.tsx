@@ -14,10 +14,7 @@ import { FOCUS_RING_CLASS } from "./focus-ring";
  *
  * Behaviour this component owns:
  *
- * - **Controlled or uncontrolled index**, reported as `onIndexChange`.
- *   R2 callback lexicon (re-homed): `value`/`defaultValue`/`onValueChange`
- *   are the canonical names — `index`/`defaultIndex`/`onIndexChange` are kept
- *   as deprecated aliases resolving to the same state, never a second state.
+ * - **Controlled or uncontrolled index**, reported as `onValueChange`.
  * - **`aria-roledescription="carousel"`** on the region and **on each item**
  *   (`"slide"`), with each item labelled `"3 of 7"`. Without the
  *   roledescription a screen reader announces "group" and the user cannot tell
@@ -45,15 +42,8 @@ export type CarouselProps = {
   /** Accessible name of the carousel region. */
   label?: string;
   /** Controlled active index. */
-  index?: number;
-  /** Initial index for the uncontrolled case. */
-  defaultIndex?: number;
-  onIndexChange?: (index: number) => void;
-  /**
-   * R2 lexicon canonical names. `value` wins when both are passed; both
-   * callbacks fire on every change, so a host mid-migration never misses one.
-   */
   value?: number;
+  /** Initial index for the uncontrolled case. */
   defaultValue?: number;
   onValueChange?: (index: number) => void;
   /** Wrap past the ends instead of disabling the control. M3 default is false. */
@@ -76,11 +66,8 @@ export type CarouselProps = {
 export function Carousel({
   items,
   label = "Carousel",
-  index,
-  defaultIndex = 0,
-  onIndexChange,
   value,
-  defaultValue,
+  defaultValue = 0,
   onValueChange,
   wrap = false,
   showIndicators = false,
@@ -90,14 +77,12 @@ export function Carousel({
   itemKeys,
   testID,
 }: CarouselProps) {
-  const controlled = value !== undefined || index !== undefined;
-  const [uncontrolled, setUncontrolled] = useState(
-    defaultValue ?? defaultIndex,
-  );
+  const controlled = value !== undefined;
+  const [uncontrolled, setUncontrolled] = useState(defaultValue);
   const total = items.length;
   // A controlled index out of range must not blank the carousel. Clamp to the
   // nearest real slide rather than rendering nothing.
-  const requested = controlled ? (value ?? index ?? 0) : uncontrolled;
+  const requested = controlled ? (value ?? 0) : uncontrolled;
   const active = total === 0 ? 0 : Math.min(Math.max(requested, 0), total - 1);
 
   const baseId = useId();
@@ -109,7 +94,6 @@ export function Carousel({
       : Math.min(Math.max(next, 0), total - 1);
     if (!controlled) setUncontrolled(target);
     onValueChange?.(target);
-    onIndexChange?.(target);
   };
 
   const atStart = active === 0;
@@ -152,7 +136,7 @@ export function Carousel({
       <div
         id={`${baseId}-track`}
         data-slot="carousel-viewport"
-        className="relative overflow-hidden rounded-(--md-sys-shape-corner-large) bg-(--md-sys-color-surface-container)"
+        className="relative overflow-hidden rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container)"
       >
         <div
           data-slot="carousel-track"
@@ -203,7 +187,11 @@ export function Carousel({
           aria-controls={`${baseId}-track`}
           disabled={disabled || (!wrap && atStart)}
           onClick={() => go(active - 1)}
-          className={"kern-carousel-previous inline-flex size-10 items-center justify-center rounded-(--md-sys-shape-corner-full) text-(--md-sys-color-on-surface-variant) outline-none select-none hover:bg-(--md-sys-color-surface-container-high) " + FOCUS_RING_CLASS + " disabled:pointer-events-none disabled:opacity-38"}
+          className={
+            "kern-carousel-previous inline-flex size-10 items-center justify-center rounded-(--sys-shape-corner-full) text-(--sys-color-on-surface-variant) outline-none select-none hover:bg-(--sys-color-surface-container-high) " +
+            FOCUS_RING_CLASS +
+            " disabled:pointer-events-none disabled:opacity-38"
+          }
         >
           <svg
             viewBox="0 0 24 24"
@@ -237,8 +225,10 @@ export function Carousel({
                 disabled={disabled}
                 onClick={() => go(i)}
                 className={cn(
-                  "kern-carousel-indicator size-2.5 rounded-(--md-sys-shape-corner-full) bg-(--md-sys-color-outline) outline-none transition-colors " + FOCUS_RING_CLASS + " disabled:pointer-events-none",
-                  i === active && "bg-(--md-sys-color-primary)",
+                  "kern-carousel-indicator size-2.5 rounded-(--sys-shape-corner-full) bg-(--sys-color-outline) outline-none transition-colors " +
+                    FOCUS_RING_CLASS +
+                    " disabled:pointer-events-none",
+                  i === active && "bg-(--sys-color-primary)",
                 )}
               />
             ))}
@@ -252,7 +242,11 @@ export function Carousel({
           aria-controls={`${baseId}-track`}
           disabled={disabled || (!wrap && atEnd)}
           onClick={() => go(active + 1)}
-          className={"kern-carousel-next inline-flex size-10 items-center justify-center rounded-(--md-sys-shape-corner-full) text-(--md-sys-color-on-surface-variant) outline-none select-none hover:bg-(--md-sys-color-surface-container-high) " + FOCUS_RING_CLASS + " disabled:pointer-events-none disabled:opacity-38"}
+          className={
+            "kern-carousel-next inline-flex size-10 items-center justify-center rounded-(--sys-shape-corner-full) text-(--sys-color-on-surface-variant) outline-none select-none hover:bg-(--sys-color-surface-container-high) " +
+            FOCUS_RING_CLASS +
+            " disabled:pointer-events-none disabled:opacity-38"
+          }
         >
           <svg
             viewBox="0 0 24 24"

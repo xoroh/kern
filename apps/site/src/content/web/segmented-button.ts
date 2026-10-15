@@ -45,6 +45,7 @@ export const segmentedButton: ComponentDoc = {
     notSupported: [
       "There is no `variant` or `size` prop. Every segment looks like every other — the difference between them is which one is chosen.",
       "There is no `multiple` prop. A segmented button is a single choice; several independent toggles are a `ToggleGroup`.",
+      "New designs should prefer the expressive `ButtonGroup` (`connected`) — M3 no longer recommends the segmented button and points at the connected button group instead. This component stays for the classic treatment.",
       "There is no `orientation` prop. The bar is horizontal.",
       "There is no `elevation` prop. The control carries no elevation token, and Material 3 places it at resting level 0 — see the metadata strip.",
     ],

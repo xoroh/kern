@@ -867,6 +867,11 @@ export const PROPS_TABLE: Record<
         type: '"horizontal" | "vertical" | undefined',
         required: false,
       },
+      {
+        name: "variant",
+        type: '"standard" | "connected" | undefined',
+        required: false,
+      },
     ],
     curated: ["className", "children", "ref"],
   },
@@ -948,6 +953,37 @@ export const PROPS_TABLE: Record<
         required: false,
       },
       {
+        name: "flipIcon",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "softDisabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "toggle",
+        type: "boolean | undefined",
+        required: false,
+        default: "false",
+      },
+      {
+        name: "pressed",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultPressed",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onPressedChange",
+        type: "((pressed: boolean) => void) | undefined",
+        required: false,
+      },
+      {
         name: "ref",
         type: "Ref<HTMLButtonElement | HTMLAnchorElement> | undefined",
         required: false,
@@ -1006,6 +1042,69 @@ export const PROPS_TABLE: Record<
     ],
     curated: [],
   },
+  CardHeader: {
+    rows: [
+      {
+        name: "as",
+        type: "T | undefined",
+        required: false,
+      },
+      {
+        name: "variant",
+        type: '"elevated" | "outlined" | "filled" | null | undefined',
+        required: false,
+        default: '"filled"',
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  CardContent: {
+    rows: [
+      {
+        name: "as",
+        type: "T | undefined",
+        required: false,
+      },
+      {
+        name: "variant",
+        type: '"elevated" | "outlined" | "filled" | null | undefined',
+        required: false,
+        default: '"filled"',
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  CardActions: {
+    rows: [
+      {
+        name: "as",
+        type: "T | undefined",
+        required: false,
+      },
+      {
+        name: "variant",
+        type: '"elevated" | "outlined" | "filled" | null | undefined',
+        required: false,
+        default: '"filled"',
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
   Carousel: {
     rows: [
       {
@@ -1016,21 +1115,6 @@ export const PROPS_TABLE: Record<
       {
         name: "label",
         type: "string | undefined",
-        required: false,
-      },
-      {
-        name: "index",
-        type: "number | undefined",
-        required: false,
-      },
-      {
-        name: "defaultIndex",
-        type: "number | undefined",
-        required: false,
-      },
-      {
-        name: "onIndexChange",
-        type: "((index: number) => void) | undefined",
         required: false,
       },
       {
@@ -1334,40 +1418,20 @@ export const PROPS_TABLE: Record<
   Chip: {
     rows: [
       {
-        name: "defaultValue",
-        type: "string | number | readonly string[] | (readonly string[] & false) | (readonly string[] & true) | undefined",
-        required: false,
-      },
-      {
-        name: "value",
-        type: "string | number | readonly string[] | (readonly string[] & false) | (readonly string[] & true) | undefined",
-        required: false,
-      },
-      {
         name: "type",
         type: '"button" | "submit" | "reset" | undefined',
         required: false,
       },
       {
+        name: "elevated",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
         name: "variant",
-        type: '"filter" | "assist" | "suggestion" | undefined',
+        type: '"input" | "filter" | "assist" | "suggestion" | undefined',
         required: false,
         default: '"assist"',
-      },
-      {
-        name: "selected",
-        type: "boolean | undefined",
-        required: false,
-      },
-      {
-        name: "defaultSelected",
-        type: "boolean | undefined",
-        required: false,
-      },
-      {
-        name: "onSelectedChange",
-        type: "((selected: boolean) => void) | undefined",
-        required: false,
       },
     ],
     curated: ["className", "disabled"],
@@ -1402,6 +1466,11 @@ export const PROPS_TABLE: Record<
       {
         name: "label",
         type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "fourColor",
+        type: "boolean | undefined",
         required: false,
       },
     ],
@@ -3250,21 +3319,6 @@ export const PROPS_TABLE: Record<
         required: true,
       },
       {
-        name: "collapsed",
-        type: "boolean | undefined",
-        required: false,
-      },
-      {
-        name: "defaultCollapsed",
-        type: "boolean | undefined",
-        required: false,
-      },
-      {
-        name: "onCollapsedChange",
-        type: "((collapsed: boolean) => void) | undefined",
-        required: false,
-      },
-      {
         name: "value",
         type: "boolean | undefined",
         required: false,
@@ -3277,6 +3331,11 @@ export const PROPS_TABLE: Record<
       {
         name: "onValueChange",
         type: "((collapsed: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "size",
+        type: "ExtendedFabSize | undefined",
         required: false,
       },
     ],
@@ -3345,14 +3404,25 @@ export const PROPS_TABLE: Record<
   Fab: {
     rows: [
       {
+        name: "color",
+        type: '"surface" | "primary" | "secondary" | "tertiary" | "primary-fill" | "secondary-fill" | "tertiary-fill" | null | undefined',
+        required: false,
+        default: '"surface"',
+      },
+      {
         name: "size",
-        type: '"sm" | "default" | "icon" | "medium" | "large" | null | undefined',
+        type: '"sm" | "default" | "md" | "icon" | "medium" | "large" | null | undefined',
         required: false,
         default: '"default"',
       },
       {
         name: "aria-label",
         type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "lowered",
+        type: "boolean | undefined",
         required: false,
       },
     ],
@@ -3603,15 +3673,27 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "size",
-        type: '"sm" | "default" | "lg" | null | undefined',
+        type: '"sm" | "default" | "lg" | "md" | "xs" | "xl" | "2xl" | null | undefined',
+        required: false,
+        default: '"default"',
+      },
+      {
+        name: "width",
+        type: '"default" | "narrow" | "wide" | null | undefined',
         required: false,
         default: '"default"',
       },
       {
         name: "variant",
-        type: '"tonal" | "outlined" | "filled" | "standard" | null | undefined',
+        type: '"standard" | "tonal" | "outlined" | "filled" | null | undefined',
         required: false,
         default: '"standard"',
+      },
+      {
+        name: "shape",
+        type: '"square" | "pill" | null | undefined',
+        required: false,
+        default: '"pill"',
       },
       {
         name: "selected",
@@ -3630,6 +3712,26 @@ export const PROPS_TABLE: Record<
         required: false,
       },
       {
+        name: "selectedLabel",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "softDisabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "loading",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "flipIcon",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
         name: "pressed",
         type: "boolean | undefined",
         required: false,
@@ -3641,21 +3743,6 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "onPressedChange",
-        type: "((pressed: boolean) => void) | undefined",
-        required: false,
-      },
-      {
-        name: "value",
-        type: "boolean | undefined",
-        required: false,
-      },
-      {
-        name: "defaultValue",
-        type: "boolean | undefined",
-        required: false,
-      },
-      {
-        name: "onValueChange",
         type: "((pressed: boolean) => void) | undefined",
         required: false,
       },
@@ -3820,6 +3907,26 @@ export const PROPS_TABLE: Record<
         required: false,
       },
       {
+        name: "variant",
+        type: "InputVariant | undefined",
+        required: false,
+      },
+      {
+        name: "prefix",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "suffix",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "showCounter",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
         name: "error",
         type: "boolean | undefined",
         required: false,
@@ -3844,8 +3951,33 @@ export const PROPS_TABLE: Record<
     rows: [
       {
         name: "value",
-        type: "number",
-        required: true,
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "indeterminate",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "fourColor",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "buffer",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "stop",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "wavy",
+        type: "boolean | undefined",
+        required: false,
       },
       {
         name: "label",
@@ -3908,6 +4040,11 @@ export const PROPS_TABLE: Record<
         required: false,
       },
       {
+        name: "selected",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
         name: "onClick",
         type: "((event: MouseEvent<HTMLElement, MouseEvent>) => void) | undefined",
         required: false,
@@ -3955,7 +4092,7 @@ export const PROPS_TABLE: Record<
     rows: [
       {
         name: "size",
-        type: '"sm" | "default" | "lg" | null | undefined',
+        type: '"sm" | "default" | "lg" | "xl" | null | undefined',
         required: false,
         default: '"default"',
       },
@@ -5246,21 +5383,6 @@ export const PROPS_TABLE: Record<
         required: true,
       },
       {
-        name: "page",
-        type: "number | undefined",
-        required: false,
-      },
-      {
-        name: "defaultPage",
-        type: "number | undefined",
-        required: false,
-      },
-      {
-        name: "onPageChange",
-        type: "((page: number) => void) | undefined",
-        required: false,
-      },
-      {
         name: "value",
         type: "number | undefined",
         required: false,
@@ -6200,6 +6322,11 @@ export const PROPS_TABLE: Record<
         type: "boolean | undefined",
         required: false,
       },
+      {
+        name: "variant",
+        type: '"outlined" | "filled" | undefined',
+        required: false,
+      },
     ],
     curated: ["value"],
   },
@@ -6363,6 +6490,11 @@ export const PROPS_TABLE: Record<
       {
         name: "orientation",
         type: "Orientation | undefined",
+        required: false,
+      },
+      {
+        name: "inset",
+        type: '"none" | "start" | "middle" | undefined',
         required: false,
       },
     ],
@@ -6534,16 +6666,6 @@ export const PROPS_TABLE: Record<
         name: "snapPoints",
         type: "readonly number[]",
         required: true,
-      },
-      {
-        name: "index",
-        type: "number | undefined",
-        required: false,
-      },
-      {
-        name: "onIndexChange",
-        type: "((index: number) => void) | undefined",
-        required: false,
       },
       {
         name: "value",
@@ -7864,8 +7986,18 @@ export const PROPS_TABLE: Record<
         required: false,
       },
       {
+        name: "variant",
+        type: '"outlined" | "filled" | undefined',
+        required: false,
+      },
+      {
         name: "error",
         type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "rows",
+        type: "number | undefined",
         required: false,
       },
     ],
@@ -7919,8 +8051,8 @@ export const PROPS_TABLE: Record<
         required: false,
       },
       {
-        name: "dial",
-        type: "undefined",
+        name: "presentation",
+        type: "TimePickerPresentation | undefined",
         required: false,
       },
     ],

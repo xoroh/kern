@@ -82,7 +82,7 @@ function apiEntries(docs: ComponentDoc[], platform: Platform): SearchEntry[] {
       out.push({
         group: "API",
         title: part,
-        hint: `${doc.name} · ${platform === "web" ? "Web" : "Native"} API`,
+        hint: `${doc.name} · ${platform === "web" ? "Web" : "React Native"} API`,
         href: `/components/${platform}/${doc.slug}#props`,
         platform,
         badge:
@@ -121,13 +121,13 @@ const STATIC_ENTRIES: SearchEntry[] = [
 /** Built once per page load from data already in the bundle — no fetch. */
 export function buildSearchIndex(): SearchEntry[] {
   // Role names resolved from the theme package, not hand-copied — the same
-  // pattern routes/foundations/theme/index.tsx uses.
+  // pattern routes/foundations/m3/theme.tsx uses.
   const roles = Object.keys(resolveThemeDetails("light").color);
   const tokens: SearchEntry[] = roles.map((role) => ({
     group: "Tokens",
     title: role,
-    hint: "Color role · see it on the Color page",
-    href: "/foundations/color",
+    hint: "Color role · see it on the M3 Color page",
+    href: "/foundations/m3/color",
   }));
   const blocksDoc = WEB_DOCS.find((d) => d.slug === "search-bar");
   const blocks: SearchEntry[] = (blocksDoc?.parts ?? []).map((part) => ({
@@ -183,13 +183,13 @@ export const SEARCH_SUGGESTIONS: SearchEntry[] = [
   {
     group: "Tokens",
     title: "primary",
-    hint: "Color role · see it on the Color page",
-    href: "/foundations/color",
+    hint: "Color role · see it on the M3 Color page",
+    href: "/foundations/m3/color",
   },
   {
     group: "Guides",
     title: "Get started",
     hint: "From install to a themed component",
-    href: "/getting-started",
+    href: "/docs/getting-started",
   },
 ];

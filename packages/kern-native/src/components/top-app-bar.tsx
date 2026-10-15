@@ -1,11 +1,10 @@
 import {
   type ResolvedTheme,
-  resolveThemeDetails,
   tokens,
 } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
 import { Pressable, type StyleProp, View, type ViewStyle } from "react-native";
-import { useKernTheme } from "../theme";
+import { defaultScheme, useKernTheme } from "../theme";
 import { Text } from "./text";
 
 /**
@@ -38,7 +37,7 @@ export const TOP_APP_BAR_HEIGHTS: Record<TopAppBarSize, number> = {
 
 export function topAppBarStyles(
   size: TopAppBarSize,
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): ViewStyle {
   const padding = Number.parseFloat(tokens.spacing["space-100"]);
   return {

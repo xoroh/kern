@@ -8,6 +8,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { BlockViewer } from "../../domains/blocks/block-viewer";
 import { BLOCK_VIEWS, blockView } from "../../domains/blocks/registry";
+import { PageCard } from "../../domains/shared/chrome/page-card";
 import { SiteLayout } from "../../domains/shared/chrome/site-layout";
 import { routeHead } from "../../domains/shared/systems/seo";
 import { T_BODY, T_PAGE } from "../../domains/shared/systems/type-scale";
@@ -34,38 +35,34 @@ function BlockPage() {
   if (!view) {
     return (
       <SiteLayout>
-        <section className="px-4 py-4 sm:px-6 sm:py-6">
-          <div className="mx-auto flex max-w-[64rem] flex-col gap-4 rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14">
-            <h1 className={`m-0 ${T_PAGE} text-(--md-sys-color-on-surface)`}>
-              No block by that name
-            </h1>
-            <p
-              className={`m-0 ${T_BODY} text-(--md-sys-color-on-surface-variant)`}
+        <PageCard>
+          <h1 className={`m-0 ${T_PAGE} text-(--sys-color-on-surface)`}>
+            No block by that name
+          </h1>
+          <p
+            className={`m-0 ${T_BODY} text-(--sys-color-on-surface-variant)`}
+          >
+            <Link
+              to="/showcase"
+              className="text-(--sys-color-primary) no-underline hover:underline"
             >
-              <Link
-                to="/showcase"
-                className="text-(--md-sys-color-primary) no-underline hover:underline"
-              >
-                Back to the blocks index
-              </Link>
-              .
-            </p>
-          </div>
-        </section>
+              Back to the blocks index
+            </Link>
+            .
+          </p>
+        </PageCard>
       </SiteLayout>
     );
   }
   return (
     <SiteLayout>
-      <section className="px-4 py-4 sm:px-6 sm:py-6">
-        <div className="mx-auto flex max-w-[64rem] flex-col gap-8 rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14">
-          <BlockViewer
-            view={view}
-            prev={BLOCK_VIEWS[index - 1]}
-            next={BLOCK_VIEWS[index + 1]}
-          />
-        </div>
-      </section>
+      <PageCard>
+        <BlockViewer
+          view={view}
+          prev={BLOCK_VIEWS[index - 1]}
+          next={BLOCK_VIEWS[index + 1]}
+        />
+      </PageCard>
     </SiteLayout>
   );
 }

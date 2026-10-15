@@ -19,6 +19,45 @@ export const listItem: ComponentDoc = {
     elevation: 0,
   },
   parts: ["ListItem"],
+  keyboard: [
+    {
+      key: "Tab / Shift+Tab",
+      action: "Moves through actionable rows. Static rows are not stops.",
+    },
+    {
+      key: "Enter / Space",
+      action: "Activates the focused row control.",
+    },
+  ],
+  usage: {
+    do: [
+      "Use the `kern.list-item.container` row height with the shape-scale gutter between rows and state layers on interaction.",
+      "Keep supporting text and icons in their roles and sizes.",
+    ],
+    dont: [
+      "Don't shrink rows below one-line metrics to save space.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Row",
+      state: "resting",
+      token: "comp.list.one-line",
+      value: "56px, body-large on-surface",
+    },
+    {
+      element: "Row",
+      state: "hover",
+      token: "comp.list.hover-layer",
+      value: "on-surface 8%",
+    },
+  ],
+  faq: [
+    {
+      q: "Row or card?",
+      a: "Rows for homogeneous lists; cards for heterogeneous subjects with media and actions.",
+    },
+  ],
   customization: {
     supported: [
       "`className` is passed through and merged after the row's own classes.",

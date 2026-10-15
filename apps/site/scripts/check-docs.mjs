@@ -141,8 +141,7 @@ function pickExport(mod, names, what) {
 }
 
 const elevationModule = await loadFirstModule([
-  "packages/kern-tokens/src/kern-elevation.ts",
-  "packages/kern-tokens/src/m3-elevation.ts",
+  "packages/kern-material-3/src/kern-elevation.ts",
 ]);
 
 const ELEVATION_COMPONENTS = pickExport(
@@ -616,7 +615,7 @@ function checkNoRawValues({ file, doc }) {
   // Everything a reader sees as prose — including the API table's Notes
   // column, which is where "a 48x48 icon button" was hiding in plain sight.
   // Code identifiers in backticks are exempt: naming
-  // `--md-sys-color-primary` is the rule, not the violation.
+  // `--sys-color-primary` is the rule, not the violation.
   const prose = [
     doc.oneLiner,
     doc.features,

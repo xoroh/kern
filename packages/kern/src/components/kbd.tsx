@@ -9,7 +9,7 @@ export function Kbd({ className, ...props }: KbdProps) {
     <kbd
       data-slot="kbd"
       className={cn(
-        "kern-kbd inline-flex h-6 min-w-6 items-center justify-center rounded-(--md-sys-shape-corner-extra-small) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-tonal) px-1.5 font-mono text-[11px] font-medium text-(--md-sys-color-on-surface)",
+        "kern-kbd inline-flex h-6 min-w-6 items-center justify-center rounded-(--sys-shape-corner-extra-small) border border-(--sys-color-outline-variant) bg-(--sys-color-surface-tonal) px-1.5 font-mono text-[11px] font-medium text-(--sys-color-on-surface)",
         className,
       )}
       {...props}

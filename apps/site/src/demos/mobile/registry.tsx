@@ -71,22 +71,44 @@ export type MobileDemo = () => React.ReactElement;
 export function NativeButtonDemo() {
   return (
     <PhoneStack>
-      <PhonePreview label="variant: primary · tonal · ghost">
+      <PhonePreview label="variant: elevated · primary · tonal · outlined · ghost">
         <PhoneRow>
+          <Button variant="elevated">Elevated</Button>
           <Button variant="primary">Primary</Button>
           <Button variant="tonal">Tonal</Button>
+        </PhoneRow>
+        <PhoneRow>
+          <Button variant="outlined">Outlined</Button>
           <Button variant="ghost">Ghost</Button>
         </PhoneRow>
       </PhonePreview>
-      <PhonePreview label="size: default · sm · icon">
+      <PhonePreview label="size: xs · default · sm · xl · icon">
         <PhoneRow>
+          <Button size="xs">XS</Button>
           <Button size="default">Default</Button>
           <Button size="sm">Small</Button>
         </PhoneRow>
+        <PhoneRow>
+          <Button size="xl">XL</Button>
+          <Button size="icon" accessibilityLabel="Search">
+            <Text>+</Text>
+          </Button>
+        </PhoneRow>
       </PhonePreview>
-      <PhonePreview label="state: disabled">
+      <PhonePreview label="color: danger">
+        <PhoneRow>
+          <Button variant="primary" color="danger">
+            Delete
+          </Button>
+          <Button variant="outlined" color="danger">
+            Discard
+          </Button>
+        </PhoneRow>
+      </PhonePreview>
+      <PhonePreview label="state: disabled · loading">
         <PhoneRow>
           <Button disabled>Disabled</Button>
+          <Button loading>Loading</Button>
         </PhoneRow>
       </PhonePreview>
     </PhoneStack>
@@ -147,7 +169,7 @@ export function NativeChipDemo() {
       </PhonePreview>
       <PhonePreview label="variant: filter — tap to toggle">
         <PhoneRow>
-          <Chip variant="filter" defaultSelected>
+          <Chip variant="filter" defaultValue>
             All
           </Chip>
           <Chip variant="filter">Unread</Chip>
@@ -393,16 +415,34 @@ export function NativeEmptyStateDemo() {
 
 export function NativeFabDemo() {
   return (
-    <PhonePreview label="Fab — variant: primary · tonal">
-      <PhoneRow>
-        <Fab label="Compose" variant="primary">
-          <Text>Compose</Text>
-        </Fab>
-        <Fab label="Compose" variant="tonal">
-          <Text>Compose</Text>
-        </Fab>
-      </PhoneRow>
-    </PhonePreview>
+    <>
+      <PhonePreview label="Fab — size: default · small · medium · large">
+        <PhoneRow>
+          <Fab label="Compose" size="default">
+            <Text>Compose</Text>
+          </Fab>
+          <Fab label="Compose" size="medium">
+            <Text>Compose</Text>
+          </Fab>
+          <Fab label="Compose" size="large">
+            <Text>Compose</Text>
+          </Fab>
+        </PhoneRow>
+      </PhonePreview>
+      <PhonePreview label="Fab — color: primary · secondary · tertiary · fills">
+        <PhoneRow>
+          <Fab label="Compose" color="primary">
+            <Text>Compose</Text>
+          </Fab>
+          <Fab label="Compose" color="secondary">
+            <Text>Compose</Text>
+          </Fab>
+          <Fab label="Compose" color="primary-fill">
+            <Text>Compose</Text>
+          </Fab>
+        </PhoneRow>
+      </PhonePreview>
+    </>
   );
 }
 
@@ -544,7 +584,7 @@ export function NativeMeterDemo() {
 export function NativePaginationDemo() {
   return (
     <PhonePreview label="Pagination — windowed pages">
-      <Pagination count={10} defaultPage={4} />
+      <Pagination count={10} defaultValue={4} />
     </PhonePreview>
   );
 }
@@ -724,7 +764,7 @@ export function NativeContrastToggleDemo() {
  */
 export const PREVIEW_REASONS: Record<string, string> = {
   BootSplash:
-    "Full-screen boot surface. It owns the whole viewport by contract, so mounting it inside a phone frame would render it at the wrong scale and hide the frame it is meant to replace. Shown on the /getting-started mobile quickstart instead, at full bleed.",
+    "Full-screen boot surface. It owns the whole viewport by contract, so mounting it inside a phone frame would render it at the wrong scale and hide the frame it is meant to replace. Shown on the /docs/getting-started mobile quickstart instead, at full bleed.",
   MilestoneTrio:
     "Animated shape-art milestone sequence driven by a frame clock. It has no static resting state, so any preview would be a frozen frame that misrepresents it. Exercises the same `CircularProgress` shapes style the previews above do render.",
   SuccessTransform:
@@ -764,7 +804,7 @@ export const PREVIEW_REASONS: Record<string, string> = {
   Collapsible:
     "Disclosure region; its open state is toggled by its own trigger, and the trigger composition is a platform convention this frame cannot supply.",
   Accordion: "Same disclosure-composition reason as Collapsible.",
-  Tabs: "Tab strip with platform-specific layout rules; rendered in the /getting-started mobile quickstart against a real screen.",
+  Tabs: "Tab strip with platform-specific layout rules; rendered in the /docs/getting-started mobile quickstart against a real screen.",
   Select:
     "Modal option list over a host screen; in isolation there is no host to present over.",
   Search:

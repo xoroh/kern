@@ -188,7 +188,7 @@ export function ContextMenuDemo() {
   return (
     <Preview label="ContextMenu — right-click the area" span={3}>
       <ContextMenu.Root>
-        <ContextMenu.Trigger className="flex h-32 w-full max-w-sm items-center justify-center rounded-(--md-sys-shape-corner-small) border border-dashed border-(--md-sys-color-outline-variant) text-sm text-(--md-sys-color-on-surface-variant)">
+        <ContextMenu.Trigger className="flex h-32 w-full max-w-sm items-center justify-center rounded-(--sys-shape-corner-small) border border-dashed border-(--sys-color-outline-variant) text-sm text-(--sys-color-on-surface-variant)">
           Right-click here
         </ContextMenu.Trigger>
         <ContextMenu.Content>
@@ -292,7 +292,7 @@ export function DialogDemo() {
             <Dialog.Close render={<Button variant="ghost">Cancel</Button>} />
             <Dialog.Close
               render={
-                <Button className="bg-(--md-sys-color-error) text-(--md-sys-color-on-error) hover:bg-(--md-sys-color-error)/90">
+                <Button className="bg-(--sys-color-error) text-(--sys-color-on-error) hover:bg-(--sys-color-error)/90">
                   Delete
                 </Button>
               }
@@ -467,7 +467,7 @@ export function MeterDemo() {
 export function PaginationDemo() {
   return (
     <Preview label="Pagination — sliding window with gaps" span={3}>
-      <Pagination count={24} defaultPage={12} aria-label="Pagination" />
+      <Pagination count={24} defaultValue={12} aria-label="Pagination" />
     </Preview>
   );
 }
@@ -479,7 +479,7 @@ export function ScrollAreaDemo() {
   }));
   return (
     <Preview label="ScrollArea — clipped vertical overflow" span={3}>
-      <ScrollArea.Root className="h-40 w-full max-w-xs rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant)">
+      <ScrollArea.Root className="h-40 w-full max-w-xs rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant)">
         <ScrollArea.Viewport className="h-full p-4">
           <ul className="m-0 flex list-none flex-col gap-2 p-0 text-sm">
             {Array.from({ length: 20 }, (_, index) => (

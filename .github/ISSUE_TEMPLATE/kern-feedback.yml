@@ -1,0 +1,58 @@
+name: Kern feedback
+description: Report a bug, improvement, or discovery in Kern (Preview).
+title: "[category] Brief summary"
+labels: ["feedback"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. This form maps 1:1 to the `FeedbackReport`
+        schema (`kern feedback` validates the same fields locally first).
+        No account beyond GitHub is needed; never paste secrets, credentials,
+        or private customer data.
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - bug
+        - improvement
+        - docs
+        - compatibility
+        - discovery
+    validations:
+      required: true
+  - type: input
+    id: title
+    attributes:
+      label: Title
+      placeholder: Switch track ignores the comp override on native
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      placeholder: What happened, what you expected, and the smallest reproduction.
+    validations:
+      required: true
+  - type: input
+    id: component
+    attributes:
+      label: Component (optional)
+      placeholder: switch
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce (optional)
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence (optional — only with consent)
+      description: Snippets or logs you consent to share publicly. Never paste secrets.
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Consent
+      options:
+        - label: I consent to sharing the evidence above publicly.

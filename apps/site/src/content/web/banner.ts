@@ -13,7 +13,7 @@ export const banner: ComponentDoc = {
     nativePeer: "Banner",
     variants: ["variant: info · success · warning · error"],
     // M3 lists "Banner" at resting level 1, and kern now ships
-    // `--md-sys-elevation-level1` on it (ed3c3e1 fixed this — the component
+    // `--sys-elevation-level1` on it (ed3c3e1 fixed this — the component
     // previously shipped a border and no elevation, which was off-spec).
     elevation: 1,
   },
@@ -24,6 +24,29 @@ export const banner: ComponentDoc = {
       spec: "Material 3 defines one semantic feedback pair: error, on-error, error-container and on-error-container. It has no success, warning or info colour roles.",
       kern: "Banner takes four intent variants — info, success, warning and error — backed by kern's status roles, which add success, warning and info in container and on-container forms.",
       why: "A system that can only say 'error' cannot report the three outcomes people actually distinguish: it worked, watch out, and for your information. The twelve status roles are registered as K2 in m3-roles.ts, so the extension is a declared addition to the role space rather than a silent fork of it.",
+    },
+  ],
+  usage: {
+    do: [
+      "Use for inline notices needing icon, text, and actions together.",
+      "Keep to one screen region — banners explain, dialogs interrupt.",
+    ],
+    dont: [
+      "Don't use where a snackbar suffices — transient updates leave with the user.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Container",
+      state: "resting",
+      token: "kern.banner.container",
+      value: "Kern pattern beyond M3; shaped by M3 roles",
+    },
+  ],
+  faq: [
+    {
+      q: "Banner, snackbar, or dialog?",
+      a: "Banner for persistent inline notices; snackbar for transient updates; dialog for blocking decisions.",
     },
   ],
   customization: {

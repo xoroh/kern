@@ -1,5 +1,6 @@
 import { renderHook } from "@testing-library/react";
-import { themes } from "@xoroh/kern-tokens";
+import { themeFromSeed } from "@xoroh/kern-material-3";
+import { themes } from "@xoroh/kern-material-3";
 import { act } from "react";
 import { describe, expect, it } from "vitest";
 import { applyKernTheme, clearKernTheme, useKernTheme } from "./web-theme";
@@ -8,8 +9,8 @@ describe("applyKernTheme", () => {
   it("writes vars onto the target", () => {
     const el = document.createElement("div");
     applyKernTheme(el, "dark");
-    expect(el.style.getPropertyValue("--md-sys-color-primary")).toBe(
-      themes.kern.color.dark.primary,
+    expect(el.style.getPropertyValue("--sys-color-primary")).toBe(
+      themes["material-3"].color.dark.primary,
     );
   });
 
@@ -17,8 +18,41 @@ describe("applyKernTheme", () => {
     const el = document.createElement("div");
     applyKernTheme(el, "dark", "standard", "sharp");
     clearKernTheme(el);
-    expect(el.style.getPropertyValue("--md-sys-color-primary")).toBe("");
+    expect(el.style.getPropertyValue("--sys-color-primary")).toBe("");
     expect(el.dataset.kernTheme).toBeUndefined();
+  });
+
+  it("defaults to the standard motion scheme (no easing overrides)", () => {
+    const el = document.createElement("div");
+    applyKernTheme(el, "light");
+    expect(el.dataset.kernMotion).toBe("standard");
+    expect(el.style.getPropertyValue("--sys-motion-easing-standard")).toBe(
+      "",
+    );
+  });
+
+  it("applies the expressive easing anchor and clears it", () => {
+    const el = document.createElement("div");
+    applyKernTheme(el, "light", "standard", "material-3", "expressive");
+    expect(el.dataset.kernMotion).toBe("expressive");
+    expect(
+      el.style.getPropertyValue("--sys-motion-easing-standard"),
+    ).not.toBe("");
+    clearKernTheme(el);
+    expect(el.style.getPropertyValue("--sys-motion-easing-standard")).toBe(
+      "",
+    );
+    expect(el.dataset.kernMotion).toBeUndefined();
+  });
+
+  it("accepts a seed-generated custom theme as the variant", () => {
+    const el = document.createElement("div");
+    const theme = themeFromSeed("#6750a4", "seed-purple-test");
+    applyKernTheme(el, "light", "standard", theme);
+    expect(el.dataset.kernTheme).toBe("seed-purple-test");
+    expect(el.style.getPropertyValue("--sys-color-primary")).toMatch(
+      /^#[0-9a-f]{6}$/i,
+    );
   });
 });
 

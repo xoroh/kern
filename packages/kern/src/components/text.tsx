@@ -5,13 +5,13 @@ import { cn } from "../utils/cn";
 const textVariants = cva("kern-text", {
   variants: {
     variant: {
-      body: "text-(length:--md-sys-typescale-body-medium-font-size) leading-(--md-sys-typescale-body-medium-line-height) tracking-(--md-sys-typescale-body-medium-letter-spacing) font-(--md-sys-typescale-body-medium-font-weight)",
+      body: "text-(length:--sys-typescale-body-medium-font-size) leading-(--sys-typescale-body-medium-line-height) tracking-(--sys-typescale-body-medium-letter-spacing) font-(--sys-typescale-body-medium-font-weight)",
       label:
-        "text-(length:--md-sys-typescale-label-large-font-size) leading-(--md-sys-typescale-label-large-line-height) tracking-(--md-sys-typescale-label-large-letter-spacing) font-(--md-sys-typescale-label-large-font-weight)",
+        "text-(length:--sys-typescale-label-large-font-size) leading-(--sys-typescale-label-large-line-height) tracking-(--sys-typescale-label-large-letter-spacing) font-(--sys-typescale-label-large-font-weight)",
       title:
-        "text-(length:--md-sys-typescale-title-large-font-size) leading-(--md-sys-typescale-title-large-line-height) tracking-(--md-sys-typescale-title-large-letter-spacing) font-(--md-sys-typescale-title-large-font-weight)",
+        "text-(length:--sys-typescale-title-large-font-size) leading-(--sys-typescale-title-large-line-height) tracking-(--sys-typescale-title-large-letter-spacing) font-(--sys-typescale-title-large-font-weight)",
       headline:
-        "text-(length:--md-sys-typescale-headline-small-font-size) leading-(--md-sys-typescale-headline-small-line-height) tracking-(--md-sys-typescale-headline-small-letter-spacing) font-(--md-sys-typescale-headline-small-font-weight)",
+        "text-(length:--sys-typescale-headline-small-font-size) leading-(--sys-typescale-headline-small-line-height) tracking-(--sys-typescale-headline-small-letter-spacing) font-(--sys-typescale-headline-small-font-weight)",
     },
   },
   defaultVariants: { variant: "body" },
@@ -33,7 +33,7 @@ export function Text<T extends ElementType = "p">({
     <Component
       data-slot="text"
       className={cn(
-        "text-(--md-sys-color-on-surface)",
+        "text-(--sys-color-on-surface)",
         textVariants({ variant }),
         className,
       )}

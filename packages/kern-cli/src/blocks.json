@@ -1,0 +1,65 @@
+[
+  {
+    "name": "settings-screen",
+    "title": "Settings screen",
+    "category": "Settings",
+    "description": "A settings page: labelled rows with supporting text and trailing controls, in a filled card. Reach for it when settings are rows of label plus control.",
+    "file": "settings-screen.tsx",
+    "files": [],
+    "registryDependencies": [
+      "Card",
+      "Separator",
+      "Switch",
+      "SettingsRow",
+      "ThemeToggle"
+    ],
+    "dependencies": [
+      "@xoroh/kern",
+      "@xoroh/kern/start",
+      "react"
+    ],
+    "contents": {
+      "settings-screen.tsx": "/**\n * Block: settings-screen — a settings page composed from shipped components.\n *\n * Category: Settings. Install with `kern add settings-screen`.\n * Dependencies: @xoroh/kern, @xoroh/kern/start, react.\n */\nimport { Card, Separator, Switch } from \"@xoroh/kern\";\nimport { SettingsRow, ThemeToggle } from \"@xoroh/kern/start\";\nimport { useState } from \"react\";\n\nexport function SettingsScreen() {\n  const [notifications, setNotifications] = useState(true);\n  const [mode, setMode] = useState<\"light\" | \"dark\">(\"light\");\n  return (\n    <Card variant=\"filled\" style={{ padding: 8, maxWidth: 480 }}>\n      <SettingsRow\n        label=\"Notifications\"\n        supporting=\"Badges, sounds and banners\"\n        trailing={\n          <Switch\n            aria-label=\"Notifications\"\n            checked={notifications}\n            onCheckedChange={setNotifications}\n          />\n        }\n      />\n      <Separator />\n      <SettingsRow\n        label=\"Appearance\"\n        supporting={mode === \"light\" ? \"Light theme\" : \"Dark theme\"}\n        trailing={\n          <ThemeToggle\n            mode={mode}\n            onToggle={() => setMode((m) => (m === \"light\" ? \"dark\" : \"light\"))}\n          />\n        }\n      />\n    </Card>\n  );\n}\n"
+    }
+  },
+  {
+    "name": "auth-form",
+    "title": "Sign-in form",
+    "category": "Auth",
+    "description": "A sign-in card: labelled email field with helper text, password input, submit action. Reach for it when sign-in is one card, not a page.",
+    "file": "auth-form.tsx",
+    "files": [],
+    "registryDependencies": [
+      "Button",
+      "Card",
+      "Field",
+      "Input"
+    ],
+    "dependencies": [
+      "@xoroh/kern",
+      "react"
+    ],
+    "contents": {
+      "auth-form.tsx": "/**\n * Block: auth-form — a sign-in card composed from shipped components.\n *\n * Category: Auth. Install with `kern add auth-form`.\n * Dependencies: @xoroh/kern, react.\n */\nimport { Button, Card, Field, Input } from \"@xoroh/kern\";\nimport { type ChangeEvent, useState } from \"react\";\n\nexport function AuthForm({ onSubmit }: { onSubmit?: (email: string) => void }) {\n  const [email, setEmail] = useState(\"\");\n  return (\n    <Card variant=\"filled\" style={{ padding: 24, maxWidth: 400 }}>\n      <form\n        onSubmit={(event) => {\n          event.preventDefault();\n          onSubmit?.(email);\n        }}\n        style={{ display: \"flex\", flexDirection: \"column\", gap: 16 }}\n      >\n        <Field.Root>\n          <Field.Label>Email address</Field.Label>\n          <Field.Control\n            placeholder=\"you@example.com\"\n            value={email}\n            onChange={(event: ChangeEvent<HTMLInputElement>) =>\n              setEmail(event.target.value)\n            }\n          />\n          <Field.Description>We only use this for sign-in.</Field.Description>\n        </Field.Root>\n        <Input type=\"password\" aria-label=\"Password\" placeholder=\"Password\" />\n        <Button type=\"submit\">Sign in</Button>\n      </form>\n    </Card>\n  );\n}\n"
+    }
+  },
+  {
+    "name": "empty-search",
+    "title": "Empty search state",
+    "category": "Dashboard",
+    "description": "A no-results state: titled empty state with a clear-search action. Reach for it when a search or filter yields nothing.",
+    "file": "empty-search.tsx",
+    "files": [],
+    "registryDependencies": [
+      "Button",
+      "EmptyState"
+    ],
+    "dependencies": [
+      "@xoroh/kern",
+      "react"
+    ],
+    "contents": {
+      "empty-search.tsx": "/**\n * Block: empty-search — a no-results state composed from shipped components.\n *\n * Category: Dashboard. Install with `kern add empty-search`.\n * Dependencies: @xoroh/kern, react.\n */\nimport { Button, EmptyState } from \"@xoroh/kern\";\n\nexport function EmptySearch({\n  query,\n  onClear,\n}: {\n  query: string;\n  onClear: () => void;\n}) {\n  return (\n    <EmptyState\n      title={`No results for “${query}”`}\n      description=\"Try a different spelling, or clear the search to browse everything.\"\n      action={\n        <Button variant=\"tonal\" onClick={onClear}>\n          Clear search\n        </Button>\n      }\n    />\n  );\n}\n"
+    }
+  }
+]

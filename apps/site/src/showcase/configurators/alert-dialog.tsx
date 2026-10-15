@@ -39,7 +39,7 @@ export const ALERT_DIALOG_CONFIGURATOR: ConfiguratorSpec = {
     <AlertDialog.Root key={openOf(v) ? "open" : "shut"} defaultOpen={openOf(v)}>
       <AlertDialog.Trigger
         render={
-          <Button className="bg-(--md-sys-color-error) text-(--md-sys-color-on-error) hover:bg-(--md-sys-color-error)/90">
+          <Button className="bg-(--sys-color-error) text-(--sys-color-on-error) hover:bg-(--sys-color-error)/90">
             Delete project
           </Button>
         }
@@ -53,7 +53,7 @@ export const ALERT_DIALOG_CONFIGURATOR: ConfiguratorSpec = {
           <AlertDialog.Close render={<Button variant="ghost">Cancel</Button>} />
           <AlertDialog.Close
             render={
-              <Button className="bg-(--md-sys-color-error) text-(--md-sys-color-on-error) hover:bg-(--md-sys-color-error)/90">
+              <Button className="bg-(--sys-color-error) text-(--sys-color-on-error) hover:bg-(--sys-color-error)/90">
                 Delete
               </Button>
             }

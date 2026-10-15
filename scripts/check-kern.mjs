@@ -1,18 +1,20 @@
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join, relative } from "node:path";
+import { isShapeLegal } from "./lib/shape-law.mjs";
+import { codeOnly } from "./lib/source-code.mjs";
 
 const ROOT = new URL("..", import.meta.url).pathname;
 
 const { M3_ROLES, KERN_EXTRA_ROLES, auditRoleInventory } = await import(
-  join(ROOT, "packages/kern-tokens/src/kern-roles.ts")
+  join(ROOT, "packages/kern-material-3/src/kern-roles.ts")
 );
 
 const { auditElevation, KERN_ELEVATION_COMPONENTS } = await import(
-  join(ROOT, "packages/kern-tokens/src/kern-elevation.ts")
+  join(ROOT, "packages/kern-material-3/src/kern-elevation.ts")
 );
 
 const m3 = JSON.parse(
-  readFileSync(join(ROOT, "packages/kern-tokens/src/themes/kern.json"), "utf8"),
+  readFileSync(join(ROOT, "packages/kern-material-3/src/themes/material-3.json"), "utf8"),
 );
 const tokens = JSON.parse(
   readFileSync(join(ROOT, "packages/kern-tokens/src/tokens.json"), "utf8"),
@@ -31,7 +33,7 @@ const schemes = [m3.color.light, m3.color.dark];
 for (const extra of ["sharp", "brand", "compact", "demo"]) {
   const theme = JSON.parse(
     readFileSync(
-      join(ROOT, `packages/kern-tokens/src/themes/${extra}.json`),
+      join(ROOT, `packages/kern-material-3/src/themes/${extra}.json`),
       "utf8",
     ),
   );
@@ -206,17 +208,15 @@ for (const entry of inventory.missingDeviation) {
   }
 }
 
-// 3b. STATE LAYERS (SPECS-1 F1, research A2). M3's state-layers page publishes exactly
-// FIVE overlay opacities: hover +8, focus +10, press +10, drag +16, disabled +38.
-// kern shipped four; `disabled` was the one gap a currency gate would flag, because
-// material-web (from which the other four were taken) DOES define it while being behind on
-// Expressive. Values are asserted against the SPEC page, per SPECS-1: a value check may cite
-// an implementation, but the completeness claim is the spec's.
+// 3b. STATE LAYERS. M3 material-web v0.192 publishes exactly FIVE overlay
+// opacities: hover +8, focus +12, press +12, drag +16, disabled +38.
+// (Earlier kern docs cited .10 for focus/press from older M3 prose; the
+// shipped implementation tokens use 12%.)
 {
   const M3_STATE_OPACITIES = {
     "hover-opacity": "8%",
-    "focus-opacity": "10%",
-    "press-opacity": "10%",
+    "focus-opacity": "12%",
+    "press-opacity": "12%",
     "drag-opacity": "16%",
     "disabled-opacity": "38%",
   };
@@ -225,7 +225,7 @@ for (const entry of inventory.missingDeviation) {
     if (states[key] === undefined) {
       violations.push(
         `states.${key} is missing — M3 defines five state-layer opacities ` +
-          `(hover 8%, focus 10%, press 10%, drag 16%, disabled 38%)`,
+          `(hover 8%, focus 12%, press 12%, drag 16%, disabled 38%)`,
       );
     } else if (states[key] !== expected) {
       violations.push(
@@ -430,18 +430,31 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
       const full = join(webDir, file);
       if (!existsSync(full)) continue;
       for (const [, level] of readFileSync(full, "utf8").matchAll(
-        /--md-sys-elevation-level(\d)/g,
+        /--sys-elevation-level(\d)/g,
       )) {
         levels.add(Number(level));
       }
     }
-    // Two levels in one closure means the component straddles spec rows; report
-    // the set rather than silently picking one.
+    // Two levels in one closure usually means the component straddles spec
+    // rows; report the set rather than silently picking one. Exception: a
+    // resting + hover pair (e.g. button 1→2, FAB 3→4) where every resolved
+    // level is in the component's allowed variants — hover lift is M3 state
+    // behavior, not a second spec row.
     if (levels.size > 1) {
-      violations.push(
-        `${component}: resolves elevation levels {${[...levels].sort().join(", ")}} ` +
-          `across its import closure — M3 assigns one resting level per component`,
-      );
+      const allowed = KERN_ELEVATION_COMPONENTS[component]?.variants ?? [];
+      const allAllowed = [...levels].every((l) => allowed.includes(l));
+      if (!allAllowed) {
+        violations.push(
+          `${component}: resolves elevation levels {${[...levels].sort().join(", ")}} ` +
+            `across its import closure — M3 assigns one resting level per component`,
+        );
+        continue;
+      }
+      // Resting + hover pair: audit against the lowest (resting) level.
+      const resting = Math.min(...levels);
+      const problems = auditElevation(component, resting);
+      violations.push(...problems);
+      if (problems.length === 0) conformant++;
       continue;
     }
     const problems = auditElevation(
@@ -499,7 +512,7 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
     // (the one value components DO consume today) still fails. A blanket group
     // exemption would re-create the blind spot this gate exists to close.
     states:
-      "focus/press/drag are M3 state-layer values (hover +8%, focus +10%, press +10%, drag +16%) that no component yet expresses as a state LAYER: focus is drawn as a ring, press as an opacity dim (0.82/0.9), drag has no implementation. Visual changes beyond this ruling — P1-6 follow-up.",
+      "focus/press/drag are M3 state-layer values (hover +8%, focus +12%, press +12%, drag +16%) that no component yet expresses as a state LAYER: focus is drawn as a ring, press as an opacity dim (0.82/0.9), drag has no implementation. Visual changes beyond this ruling — P1-6 follow-up.",
   };
   // Source roots that may consume tokens (generated output is NOT a consumer).
   const CONSUMER_DIRS = [
@@ -541,7 +554,7 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
       );
     } else if (exempt !== undefined && group === "states") {
       // `hover-opacity` is the consumed one; the other three are the exemption.
-      const hoverUsed = sourceText.includes("--md-sys-state-hover");
+      const hoverUsed = sourceText.includes("--sys-state-hover");
       if (!hoverUsed) {
         violations.push(
           'token group "states": hover-opacity is consumed by NO source file — ' +
@@ -552,8 +565,8 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
   }
 }
 
-// 5c. PRESET CATALOG (P5C). Every themes/index.json entry must extend kern
-// (canonical "kern"; legacy "m3" accepted) and its overrides may only touch
+// 5c. PRESET CATALOG (P5C). Every themes/index.json entry must extend material-3
+// (canonical "material-3") and its overrides may only touch
 // known color/shape roles. A preset carrying its own role table is a second
 // role table — the defect this leg exists to close. check:theme-matrix
 // asserts the same law against resolved output; this leg asserts it against
@@ -561,28 +574,26 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
 {
   const catalog = JSON.parse(
     readFileSync(
-      join(ROOT, "packages/kern-tokens/src/themes/index.json"),
+      join(ROOT, "packages/kern-material-3/src/themes/index.json"),
       "utf8",
     ),
   );
   const colorRoles = new Set(Object.keys(m3.color.light));
   for (const entry of catalog.themes ?? []) {
-    const path = join(ROOT, "packages/kern-tokens/src/themes", entry.file);
+    const path = join(ROOT, "packages/kern-material-3/src/themes", entry.file);
     if (!existsSync(path)) {
       violations.push(
         `themes/index.json lists "${entry.id}" -> ${entry.file}, which does not exist`,
       );
       continue;
     }
-    if (entry.id === "kern") continue;
+    if (entry.id === "material-3") continue;
     const preset = JSON.parse(readFileSync(path, "utf8"));
     const base =
-      preset.extends === undefined || preset.extends === "m3"
-        ? "kern"
-        : preset.extends;
-    if (base !== "kern") {
+      preset.extends === undefined ? "material-3" : preset.extends;
+    if (base !== "material-3") {
       violations.push(
-        `themes/${entry.file}: extends "${preset.extends}" — presets must extend "kern", never a second role table`,
+        `themes/${entry.file}: extends "${preset.extends}" — presets must extend "material-3", never a second role table`,
       );
     }
     for (const mode of ["light", "dark"]) {
@@ -624,15 +635,15 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
   const fullRoleCount = Object.keys(m3.color.light).length;
   const catalog = JSON.parse(
     readFileSync(
-      join(ROOT, "packages/kern-tokens/src/themes/index.json"),
+      join(ROOT, "packages/kern-material-3/src/themes/index.json"),
       "utf8",
     ),
   );
   for (const entry of catalog.themes ?? []) {
-    if (entry.id === "kern") continue;
+    if (entry.id === "material-3") continue;
     const preset = JSON.parse(
       readFileSync(
-        join(ROOT, "packages/kern-tokens/src/themes", entry.file),
+        join(ROOT, "packages/kern-material-3/src/themes", entry.file),
         "utf8",
       ),
     );
@@ -654,6 +665,15 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
     }
   }
 
+  /**
+   * A REAL module reference to a preset theme file: an `import … from "…"`,
+   * a `require("…")`, or a `readFileSync("…")` whose path literal names a
+   * preset. Prose mentioning a preset — a comment, a `title` attribute, a
+   * template literal used as a display label — is not a read.
+   */
+  const PRESET_IMPORT = new RegExp(
+    "(?:from|require\\(|readFileSync\\()\\s*[\"'`][^\"'`]*themes/(?:sharp|brand|compact|demo)\\.json",
+  );
   const presetReaders = [];
   const readerRoots = [
     join(ROOT, "packages/kern-tokens"),
@@ -665,9 +685,10 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
     "packages/kern-tokens/src/resolve.ts",
     "packages/kern-tokens/src/tokens.ts",
     "packages/kern-tokens/scripts/check-contrast.mjs",
+    // The designated M3 preset registrar: reads the five theme tables once to
+    // register them with the universal resolver. Centralization point, not drift.
+    "packages/kern-material-3/src/material-3.ts",
   ]);
-  const presetRead =
-    /(import|from|readFileSync|require)[^;]*themes\/(sharp|brand|compact|demo)\.json/;
   for (const root of readerRoots) {
     if (!existsSync(root)) continue;
     const stack = [root];
@@ -684,8 +705,14 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
         if (/\.(test|rntest)\.tsx?$/.test(entry.name)) continue;
         const rel = relative(ROOT, full);
         if (readerAllow.has(rel)) continue;
-        const src = readFileSync(full, "utf8").replace(/\s+/g, " ");
-        if (presetRead.test(src)) {
+        // CODE ONLY. The old leg scanned raw text, so an explanatory comment and
+        // a `title="…themes/brand.json"` tooltip in the theme studio were
+        // reported as "reads a preset theme file" — a violation nothing could
+        // fix by deleting the offending import, because there was none. That is
+        // the failure class this makes impossible: only a real module reference
+        // counts now.
+        const src = codeOnly(readFileSync(full, "utf8"));
+        if (PRESET_IMPORT.test(src)) {
           presetReaders.push(
             `${rel} reads a preset theme file — every preset resolves through overridesFor in resolve.ts`,
           );
@@ -703,7 +730,7 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
       join(ROOT, "packages/kern-tokens/scripts", script),
       "utf8",
     );
-    if (/=\s*\([^)]*\)\s*=>\s*`--md-sys-color-/.test(src)) {
+    if (/=\s*\([^)]*\)\s*=>\s*`--sys-color-/.test(src)) {
       violations.push(
         `packages/kern-tokens/scripts/${script} defines its own role->var spelling — ` +
           `every switchable value flows through varName() from src/resolve.ts`,
@@ -723,7 +750,7 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
   }
 }
 
-// 6. GENERATED OUTPUT FRESHNESS (P1-7 / P1-8). `md.comp.*` and the Tailwind adapter are
+// 6. GENERATED OUTPUT FRESHNESS (P1-7 / P1-8). `comp.*` and the Tailwind adapter are
 // generated, never hand-edited. If the committed CSS no longer matches what the
 // generators produce from tokens.json, the "one source of truth" invariant is broken —
 // someone hand-edited a derived file.
@@ -743,13 +770,13 @@ for (const dir of SCANNED) {
 
     // 1. CSS custom-property roles must exist in every scheme.
     for (const [, kind, slug] of src.matchAll(
-      /--md-sys-(color|shape-corner)-([a-z0-9-]+)/g,
+      /--sys-(color|shape-corner)-([a-z0-9-]+)/g,
     )) {
       const ok =
         kind === "color" ? inEveryScheme(camel(slug)) : shapeKeys.has(slug);
       if (!ok) {
         violations.push(
-          `${where}: --md-sys-${kind}-${slug} is not a valid ${kind === "color" ? "role" : "shape"}`,
+          `${where}: --sys-${kind}-${slug} is not a valid ${kind === "color" ? "role" : "shape"}`,
         );
       }
     }
@@ -763,11 +790,7 @@ for (const dir of SCANNED) {
     for (const [cls] of src.matchAll(
       /rounded-[a-z0-9-]*(?:\([^)]*\)|\[[^\]]*\])?/g,
     )) {
-      const ok =
-        /^rounded(?:-[a-z]{1,2})?-(?:none|full)$/.test(cls) ||
-        /^rounded(?:-[a-z]{1,2})?-\[inherit\]$/.test(cls) ||
-        /^rounded(?:-[a-z]{1,2})?-\(--md-sys-shape-corner-[a-z-]+\)$/.test(cls);
-      if (!ok) {
+      if (!isShapeLegal(cls, shapeKeys)) {
         violations.push(`${where}: ${cls} — radii come from the shape scale`);
       }
     }

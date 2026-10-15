@@ -64,7 +64,7 @@ export function NavigationMenuTrigger({
     <NavigationMenuPrimitive.Trigger
       data-slot="navigation-menu-trigger"
       className={cnState(
-        "kern-navigation-menu-trigger flex h-10 cursor-pointer items-center gap-1 rounded-(--md-sys-shape-corner-full) px-4 text-sm text-(--md-sys-color-on-surface) outline-none select-none data-highlighted:bg-(--md-sys-color-surface-tonal) data-popup-open:bg-(--md-sys-color-surface-tonal)",
+        "kern-navigation-menu-trigger relative flex h-10 cursor-pointer items-center gap-1 rounded-(--sys-shape-corner-full) px-4 text-sm leading-5 font-medium tracking-[0.00625rem] text-(--sys-color-on-surface) outline-none select-none transition-colors duration-200 ease-(--sys-motion-easing-standard) before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--sys-color-on-surface) data-highlighted:before:opacity-[var(--sys-state-hover)] data-popup-open:before:opacity-[var(--sys-state-hover)] hover:before:opacity-[var(--sys-state-hover)] focus-visible:before:opacity-[var(--sys-state-focus)] active:before:opacity-[var(--sys-state-press)]",
         className,
       )}
       {...props}
@@ -82,7 +82,7 @@ export function NavigationMenuContent({
         <NavigationMenuPrimitive.Popup
           data-slot="navigation-menu-content"
           className={cnState(
-            "kern-navigation-menu-popup rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline) bg-(--md-sys-color-surface) p-2 shadow-(--md-sys-elevation-level2) outline-none",
+            "kern-navigation-menu-popup rounded-(--sys-shape-corner-extra-small) bg-(--sys-color-surface-container) p-2 shadow-(--sys-elevation-level2) outline-none",
             className,
           )}
           {...props}
@@ -100,7 +100,7 @@ export function NavigationMenuLink({
     <NavigationMenuPrimitive.Link
       data-slot="navigation-menu-link"
       className={cnState(
-        "kern-navigation-menu-link flex h-10 items-center rounded-(--md-sys-shape-corner-full) px-4 text-sm text-(--md-sys-color-on-surface) outline-none data-active:bg-(--md-sys-color-surface-tonal)",
+        "kern-navigation-menu-link relative flex h-10 items-center rounded-(--sys-shape-corner-full) px-4 text-sm leading-5 font-medium tracking-[0.00625rem] text-(--sys-color-on-surface) outline-none transition-colors duration-200 ease-(--sys-motion-easing-standard) before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--sys-color-on-surface) hover:before:opacity-[var(--sys-state-hover)] focus-visible:before:opacity-[var(--sys-state-focus)] active:before:opacity-[var(--sys-state-press)] data-active:bg-(--sys-color-secondary-container) data-active:text-(--sys-color-on-secondary-container) data-active:before:bg-(--sys-color-on-secondary-container)",
         className,
       )}
       {...props}

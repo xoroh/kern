@@ -13,14 +13,6 @@ import { Text } from "./text";
 export type NativeCollapsibleProps = Omit<ViewProps, "children" | "style"> & {
   title: string;
   children: ReactNode;
-  expanded?: boolean;
-  defaultExpanded?: boolean;
-  onExpandedChange?: (expanded: boolean) => void;
-  /**
-   * R2 lexicon canonical names (`open` wins when both are passed; both
-   * callbacks fire). `expanded`/`defaultExpanded`/`onExpandedChange` are
-   * deprecated aliases onto the same state.
-   */
   open?: boolean;
   defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
@@ -30,11 +22,8 @@ export type NativeCollapsibleProps = Omit<ViewProps, "children" | "style"> & {
 export function Collapsible({
   title,
   children,
-  expanded,
-  defaultExpanded = false,
-  onExpandedChange,
   open: openProp,
-  defaultOpen,
+  defaultOpen = false,
   onOpenChange,
   style,
   testID,
@@ -42,11 +31,10 @@ export function Collapsible({
 }: NativeCollapsibleProps) {
   const scheme = useKernScheme();
   const [open, setOpen] = useControllableState(
-    openProp ?? expanded,
-    defaultOpen ?? defaultExpanded,
+    openProp,
+    defaultOpen,
     (next) => {
       onOpenChange?.(next);
-      onExpandedChange?.(next);
     },
   );
   const isOpen = open ?? false;

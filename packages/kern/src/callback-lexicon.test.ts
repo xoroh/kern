@@ -4,11 +4,10 @@
  *
  * The lexicon:
  * - Selection/value state: `value` + `defaultValue?` + `onValueChange?`.
- *   Deprecated per-component aliases (`index`/`onIndexChange`,
- *   `page`/`onPageChange`, `selected`/`onSelectedChange`,
- *   `pressed`/`onPressedChange`, `collapsed`/`onCollapsedChange`,
- *   `expanded`/`onExpandedChange`, `visible`) are allowed ONLY beside the
- *   canonical names — an alias without its canonical partner fails here.
+ *   The R2-era per-component aliases (`index`, `page`, `selected`,
+ *   `pressed`-as-value, `collapsed`, `expanded`, `visible`, …) were removed:
+ *   no backward compatibility is kept, so an old alias prop is now a type
+ *   error, and this guard fails any reintroduction as unregistered.
  * - Overlay visibility: `open` + `defaultOpen?` + `onOpenChange?`.
  * - Action callbacks (`onSelect`, `onSearch`, `onCountryChange`, `onClose`,
  *   `onDismiss`, platform `onPress`/`onClick`) are NOT state and are never
@@ -35,69 +34,30 @@ const CANONICAL_OPEN = ["open", "onOpenChange"];
  * Deprecated aliases, each mapped to the file-relative scope they may appear
  * in plus the canonical partner that must accompany them. Format:
  * "relative/path.tsx:aliasProp" -> ["canonicalPartner", ...allOfThese].
+ *
+ * Only non-alias entries remain (canonical button/link-button toggle state,
+ * the sheet dismiss action, internal parity helpers). Reintroduced aliases
+ * fail as unregistered — there is no backward-compat alias inventory.
  */
 const REGISTERED_ALIASES: Record<string, string[]> = {
-  "packages/kern/src/components/carousel.tsx:onIndexChange": [
-    "value",
-    "onValueChange",
+  // Button toggle state uses `pressed` (not `value` — that name is the form
+  // value on buttons), so `onPressedChange` is canonical here, not an alias.
+  // Native mirrors the same contract.
+  "packages/kern/src/components/button.tsx:onPressedChange": ["pressed"],
+  "packages/kern-native/src/components/button.tsx:onPressedChange": ["pressed"],
+  // Toggle-form controls use `pressed` (not `value`), so `onPressedChange`
+  // is canonical here, not an alias.
+  "packages/kern/src/components/icon-button.tsx:onPressedChange": ["pressed"],
+  "packages/kern-native/src/components/icon-button.tsx:onPressedChange": [
+    "pressed",
   ],
-  "packages/kern/src/components/pagination.tsx:onPageChange": [
-    "value",
-    "onValueChange",
-  ],
-  "packages/kern/src/components/chip.tsx:onSelectedChange": [
-    "value",
-    "onValueChange",
-  ],
-  "packages/kern/src/components/icon-button.tsx:onPressedChange": [
-    "value",
-    "onValueChange",
-  ],
-  "packages/kern/src/components/extended-fab.tsx:onCollapsedChange": [
-    "value",
-    "onValueChange",
-  ],
-  "packages/kern/src/components/sheet-family.tsx:onIndexChange": [
-    "value",
-    "onValueChange",
-  ],
+  "packages/kern-native/src/components/toggle.tsx:onPressedChange": ["pressed"],
   "packages/kern/src/components/sheet-family.tsx:onClose": [
     "open",
     "onOpenChange",
   ],
-  "packages/kern/src/components/country-select.tsx:onCountryChange": [
-    "value",
-    "onValueChange",
-  ],
-  "packages/kern/src/components/list-item.tsx:onPress": ["onClick"],
-  "packages/kern/src/start/panes.tsx:onTabChange": ["value", "onValueChange"],
-  "packages/kern-native/src/components/carousel.tsx:onIndexChange": [
-    "value",
-    "onValueChange",
-  ],
-  "packages/kern-native/src/components/autocomplete.tsx:onExpandedChange": [
-    "open",
-    "onOpenChange",
-  ],
-  "packages/kern-native/src/components/sheets.tsx:onIndexChange": [
-    "value",
-    "onValueChange",
-  ],
-  "packages/kern-native/src/components/pagination.tsx:onPageChange": [
-    "value",
-    "onValueChange",
-  ],
-  "packages/kern-native/src/components/chip.tsx:onSelectedChange": [
-    "value",
-    "onValueChange",
-  ],
-  "packages/kern-native/src/components/icon-button.tsx:onPressedChange": [
-    "value",
-    "onValueChange",
-  ],
-  "packages/kern-native/src/components/toggle.tsx:onPressedChange": [
-    "value",
-    "onValueChange",
+  "packages/kern-native/src/components/link-button.tsx:onPressedChange": [
+    "pressed",
   ],
   "packages/kern-native/src/components/web-parity.tsx:onQueryChange": [
     "value",
@@ -106,30 +66,6 @@ const REGISTERED_ALIASES: Record<string, string[]> = {
   "packages/kern-native/src/components/web-parity.tsx:onValuesChange": [
     "values",
     "onValuesChange",
-  ],
-  "packages/kern-native/src/components/extended-fab.tsx:onCollapsedChange": [
-    "value",
-    "onValueChange",
-  ],
-  "packages/kern-native/src/components/collapsible.tsx:onExpandedChange": [
-    "open",
-    "onOpenChange",
-  ],
-  "packages/kern-native/src/components/accordion.tsx:onExpandedChange": [
-    "value",
-    "onValueChange",
-  ],
-  "packages/kern-native/src/components/dialog.tsx:visible": [
-    "open",
-    "onOpenChange",
-  ],
-  "packages/kern-native/src/components/sheet.tsx:visible": [
-    "open",
-    "onOpenChange",
-  ],
-  "packages/kern-native/src/components/alert-dialog.tsx:visible": [
-    "open",
-    "onOpenChange",
   ],
 };
 

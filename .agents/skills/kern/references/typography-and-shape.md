@@ -209,6 +209,13 @@ Shadows depict distance (bigger/softer = farther). Use shadows only to **protect
 
 Component→level reference (M3 canon): L3 dialogs / FAB / date-time pickers / search; L2 scrolled app bar / menus / nav bar / rich tooltip / toolbar; L1 banner / modal sheet / elevated button+card+chips / modal drawer; L0 unscrolled bar / filled-tonal-outlined buttons+cards / lists / nav rail / tabs / sliders / segmented / split. Do not change component defaults.
 
+The baseline toolbar row above is historical. Kern's current **Expressive**
+toolbar is floating at L3 or docked at L0, confirmed by the vendored MDC Android
+`floatingtoolbar/res/values/tokens.xml` (`m3_comp_toolbar_floating_container_elevation`).
+The elevation inventory explicitly covers both treatments and elevated chips at
+L1/default chips at L0. Audit all actual levels, not one matching member of a
+component's import closure; comments are not emitted elevation tokens.
+
 ### Kern Shadow Values
 
 Kern uses one shadow for floating layers (not the MD3 ramp):

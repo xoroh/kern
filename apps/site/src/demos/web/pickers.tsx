@@ -24,7 +24,7 @@ export function AlertDialogDemo() {
       <AlertDialog.Root>
         <AlertDialog.Trigger
           render={
-            <Button className="bg-(--md-sys-color-error) text-(--md-sys-color-on-error) hover:bg-(--md-sys-color-error)/90">
+            <Button className="bg-(--sys-color-error) text-(--sys-color-on-error) hover:bg-(--sys-color-error)/90">
               Delete project
             </Button>
           }
@@ -41,7 +41,7 @@ export function AlertDialogDemo() {
             />
             <AlertDialog.Close
               render={
-                <Button className="bg-(--md-sys-color-error) text-(--md-sys-color-on-error) hover:bg-(--md-sys-color-error)/90">
+                <Button className="bg-(--sys-color-error) text-(--sys-color-on-error) hover:bg-(--sys-color-error)/90">
                   Delete
                 </Button>
               }
@@ -251,7 +251,7 @@ export function SnackbarDemo() {
           label="parts: Provider · Viewport · List · Root · Title · Description · Action · Close"
           span={3}
         >
-          <p className="m-0 max-w-sm text-sm text-(--md-sys-color-on-surface-variant)">
+          <p className="m-0 max-w-sm text-sm text-(--sys-color-on-surface-variant)">
             <code>Snackbar.Provider</code> owns the toast manager,{" "}
             <code>Snackbar.Viewport</code> positions it, and{" "}
             <code>Snackbar.List</code> renders the queue. The markup above is

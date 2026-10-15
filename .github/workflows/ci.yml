@@ -139,6 +139,12 @@ jobs:
       - name: Check the package layering (D-034)
         run: bun run check:layers
 
+      - name: Check native theme boundary (N8)
+        run: bun run check:native-theme
+
+      - name: Check no private kern imports leak
+        run: bun run check:xoroh-leaks
+
       - name: Check every check:* gate is actually invoked by CI
         run: bun run check:workflow
 
@@ -232,13 +238,13 @@ jobs:
         run: bun run build
 
       - name: Check web/native parity contract
-        # AFTER the build: check:parity inspects built kern-primitives dist .d.ts.
+        # AFTER the build: check:parity inspects the built libs/kern-primitives dist .d.ts.
         run: |
           bun run check:parity
           bun run check:currency
 
       - name: Check kernel consumption against built primitives
-        # AFTER the build: check:consumption reads packages/kern-primitives/dist/index.d.ts.
+        # AFTER the build: check:consumption reads libs/kern-primitives/dist/index.d.ts.
         run: bun run check:consumption
 
       - name: Check every declared export exists in dist
@@ -266,7 +272,8 @@ jobs:
       matrix:
         dir:
           - packages/kern-tokens
-          - packages/kern-primitives
+          - packages/kern-material-3
+          - libs/kern-primitives
           - packages/kern
           - packages/kern-icons
           - packages/kern-native
@@ -340,6 +347,25 @@ jobs:
       - name: Prove Metro bundles the mobile app
         run: bun run bundle
         working-directory: apps/mobile
+
+      # A bundle step that only runs the command is not evidence. `expo export`
+      # exits 0 having written metadata.json alone in several failure modes, so
+      # assert the artifacts that make an actually-installable bundle: one JS
+      # bundle per platform and the asset payload the app needs at runtime.
+      # Without this, the CI job was green while the app could not ship.
+      - name: Verify the bundle contains real artifacts
+        working-directory: apps/mobile
+        run: |
+          set -euo pipefail
+          for platform in ios android; do
+            dir="dist/_expo/static/js/$platform"
+            test -d "$dir" || { echo "missing bundle directory: $dir"; exit 1; }
+            count=$(find "$dir" -name '*.hbc' -o -name '*.js' | wc -l | tr -d ' ')
+            test "$count" -ge 1 || { echo "$dir has no JS bundle"; exit 1; }
+          done
+          assets=$(find dist/assets -type f 2>/dev/null | wc -l | tr -d ' ')
+          echo "bundle artifacts: ios+android JS bundles present, $assets asset file(s)"
+          test -f dist/metadata.json || { echo "missing dist/metadata.json"; exit 1; }
 
       - name: Build site
         run: bun run build

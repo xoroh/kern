@@ -37,7 +37,7 @@ export function PopoverContent({ className, ...props }: PopoverContentProps) {
         <PopoverPrimitive.Popup
           data-slot="popover-content"
           className={cnState(
-            "kern-popover-popup w-64 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline) bg-(--md-sys-color-surface) p-4 text-sm text-(--md-sys-color-on-surface) shadow-(--md-sys-elevation-level2) outline-none",
+            "kern-popover-popup w-64 rounded-(--sys-shape-corner-extra-small) bg-(--sys-color-surface-container) p-4 text-sm text-(--sys-color-on-surface) shadow-(--sys-elevation-level2) outline-none",
             className,
           )}
           {...props}
@@ -52,7 +52,7 @@ export function PopoverTitle({ className, ...props }: PopoverTitleProps) {
     <PopoverPrimitive.Title
       data-slot="popover-title"
       className={cnState(
-        "kern-popover-title text-sm font-medium text-(--md-sys-color-on-surface)",
+        "kern-popover-title text-sm font-medium text-(--sys-color-on-surface)",
         className,
       )}
       {...props}
@@ -68,7 +68,7 @@ export function PopoverDescription({
     <PopoverPrimitive.Description
       data-slot="popover-description"
       className={cnState(
-        "kern-popover-description mt-1 text-sm text-(--md-sys-color-on-surface-variant)",
+        "kern-popover-description mt-1 text-sm text-(--sys-color-on-surface-variant)",
         className,
       )}
       {...props}

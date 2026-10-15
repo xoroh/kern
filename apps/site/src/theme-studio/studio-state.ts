@@ -1,7 +1,7 @@
 /**
- * Studio state — the five theme knobs, shareable and persistent.
+ * Studio & Playground state — the theme knobs, shareable and persistent.
  *
- * WHAT THIS IS: the theme studio's state lives in the URL first (a shared
+ * WHAT THIS IS: the theme playground's state lives in the URL first (a shared
  * link reopens the exact theme) with localStorage as the second authority
  * (a refresh keeps the knobs) and defaults third. Every read is validated:
  * a corrupt stored value or a hand-mangled query string falls back per-key,
@@ -10,11 +10,33 @@
  * The URL mapping is the CONTRACT — `studioSearchToState` and
  * `stateToStudioSearch` are pure and round-trip, so a shared link cannot
  * drift from what the sender saw. Params are short (`seed`, `preset`,
- * `dark`, `contrast`, `radius`) and absent keys mean "use the default",
+ * `dark`, `contrast`, `radius`, `font`, `density`) and absent keys mean "use the default",
  * not "clear the theme".
  */
 
 export type StudioContrast = "standard" | "medium" | "high";
+
+export const STUDIO_CONTRASTS: readonly StudioContrast[] = [
+  "standard",
+  "medium",
+  "high",
+];
+
+export const STUDIO_FONTS = [
+  "inter",
+  "roboto",
+  "system",
+  "geist",
+  "mono",
+] as const;
+export type StudioFont = (typeof STUDIO_FONTS)[number];
+
+export const STUDIO_DENSITIES = [
+  "compact",
+  "standard",
+  "comfortable",
+] as const;
+export type StudioDensity = (typeof STUDIO_DENSITIES)[number];
 
 export type StudioState = {
   /** Seed hex, `#rrggbb`. The primary-family approximation reads this. */
@@ -25,23 +47,27 @@ export type StudioState = {
   contrast: StudioContrast;
   /** Corner scale factor, 0.5–2. */
   radius: number;
+  /** Active typeface family for typography tokens preview. */
+  font?: StudioFont;
+  /** UI density / spacing scale. */
+  density?: StudioDensity;
 };
 
 export const STUDIO_DEFAULTS: StudioState = {
   seed: "#6750a4",
-  preset: "kern",
+  preset: "material-3",
   dark: false,
   contrast: "standard",
   radius: 1,
 };
 
-export const STUDIO_STORAGE_KEY = "kern.studio.v1";
+export const STUDIO_STORAGE_KEY = "kern.playground.v1";
 
 export function isHex6(value: string): boolean {
   return /^#[0-9a-fA-F]{6}$/.test(value);
 }
 
-const CONTRASTS: readonly StudioContrast[] = ["standard", "medium", "high"];
+const CONTRASTS = STUDIO_CONTRASTS;
 
 function clampRadius(n: number): number {
   if (!Number.isFinite(n)) return STUDIO_DEFAULTS.radius;
@@ -58,17 +84,17 @@ export function studioSearchToState(
   defaults: StudioState = STUDIO_DEFAULTS,
 ): StudioState {
   const rawPreset = params.preset?.trim();
-  const rawContrast = params.contrast as StudioContrast | undefined;
-  const rawRadius =
-    params.radius === undefined ? undefined : Number(params.radius);
-  const rawDark = params.dark;
-  return {
-    seed:
-      params.seed && isHex6(params.seed)
-        ? params.seed.toLowerCase()
-        : defaults.seed,
+  const rawSeed = params.seed?.trim();
+  const rawDark = params.dark?.trim();
+  const rawContrast = params.contrast?.trim() as StudioContrast | undefined;
+  const rawRadius = params.radius !== undefined ? Number(params.radius) : undefined;
+  const rawFont = params.font?.trim() as StudioFont | undefined;
+  const rawDensity = params.density?.trim() as StudioDensity | undefined;
+
+  const out: StudioState = {
+    seed: rawSeed && isHex6(rawSeed) ? rawSeed.toLowerCase() : defaults.seed,
     preset:
-      rawPreset && /^[a-z0-9][a-z0-9-]{0,63}$/i.test(rawPreset)
+      rawPreset && /^[a-z0-9-]+$/i.test(rawPreset)
         ? rawPreset
         : defaults.preset,
     dark:
@@ -81,6 +107,20 @@ export function studioSearchToState(
         : defaults.contrast,
     radius: rawRadius === undefined ? defaults.radius : clampRadius(rawRadius),
   };
+
+  if (rawFont && STUDIO_FONTS.includes(rawFont)) {
+    out.font = rawFont;
+  } else if (defaults.font) {
+    out.font = defaults.font;
+  }
+
+  if (rawDensity && STUDIO_DENSITIES.includes(rawDensity)) {
+    out.density = rawDensity;
+  } else if (defaults.density) {
+    out.density = defaults.density;
+  }
+
+  return out;
 }
 
 /**
@@ -97,6 +137,16 @@ export function stateToStudioSearch(
   if (state.dark !== defaults.dark) out.dark = state.dark ? "1" : "0";
   if (state.contrast !== defaults.contrast) out.contrast = state.contrast;
   if (state.radius !== defaults.radius) out.radius = String(state.radius);
+  if (state.font && state.font !== defaults.font && state.font !== "inter") {
+    out.font = state.font;
+  }
+  if (
+    state.density &&
+    state.density !== defaults.density &&
+    state.density !== "standard"
+  ) {
+    out.density = state.density;
+  }
   return out;
 }
 
@@ -166,10 +216,27 @@ export function saveStudioState(
 
 function defaultRead(): string | null {
   if (typeof localStorage === "undefined") return null;
-  return localStorage.getItem(STUDIO_STORAGE_KEY);
+  return localStorage.getItem(STUDIO_STORAGE_KEY) ?? localStorage.getItem("kern.studio.v1");
 }
 
 function defaultWrite(value: string): void {
   if (typeof localStorage === "undefined") return;
   localStorage.setItem(STUDIO_STORAGE_KEY, value);
 }
+
+// Playground nomenclature aliases
+export type PlaygroundContrast = StudioContrast;
+export const PLAYGROUND_CONTRASTS = STUDIO_CONTRASTS;
+export const PLAYGROUND_FONTS = STUDIO_FONTS;
+export type PlaygroundFont = StudioFont;
+export const PLAYGROUND_DENSITIES = STUDIO_DENSITIES;
+export type PlaygroundDensity = StudioDensity;
+export type PlaygroundState = StudioState;
+export const PLAYGROUND_DEFAULTS = STUDIO_DEFAULTS;
+export const PLAYGROUND_STORAGE_KEY = STUDIO_STORAGE_KEY;
+export const playgroundSearchToState = studioSearchToState;
+export const stateToPlaygroundSearch = stateToStudioSearch;
+export const searchToPlaygroundState = searchToState;
+export const playgroundStateToSearch = stateToSearch;
+export const loadPlaygroundState = loadStudioState;
+export const savePlaygroundState = saveStudioState;

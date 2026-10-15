@@ -82,7 +82,7 @@ describe("LoadingIndicator", () => {
 
   it("uses the primary colour role for the ring", () => {
     render(<LoadingIndicator />);
-    expect(ring().className).toContain("border-(--md-sys-color-primary)");
+    expect(ring().className).toContain("border-(--sys-color-primary)");
   });
 });
 
@@ -155,5 +155,14 @@ describe("LoadingRegion", () => {
     );
     const region = container.querySelector("[data-slot='loading-region']");
     expect(region).toHaveAttribute("aria-live", "polite");
+  });
+});
+
+describe("LoadingIndicator sizes (M3: 24–240dp range, 48dp default)", () => {
+  it("renders xl at the 48dp spec default", () => {
+    render(<LoadingIndicator size="xl" label="Loading" />);
+    expect(
+      screen.getByRole("status").firstElementChild?.className,
+    ).toContain("size-12");
   });
 });

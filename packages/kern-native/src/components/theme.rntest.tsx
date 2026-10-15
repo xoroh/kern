@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react-native";
-import { themes } from "@xoroh/kern-tokens";
+import { themes } from "@xoroh/kern-material-3";
 import { Text } from "react-native";
 import { KernThemeProvider, useKernTheme } from "../theme";
 
@@ -20,7 +20,7 @@ describe("native useKernTheme", () => {
       </KernThemeProvider>,
     );
     expect(screen.getByTestId("scheme")).toHaveStyle({
-      color: themes.kern.color.dark.onSurface,
+      color: themes["material-3"].color.dark.onSurface,
     });
   });
 });

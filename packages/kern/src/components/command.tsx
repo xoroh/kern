@@ -89,7 +89,7 @@ export function CommandInput({ className, ...props }: CommandInputProps) {
     <ComboboxPrimitive.Input
       data-slot="command-input"
       className={cnState(
-        "kern-command-input h-14 w-full rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline) bg-(--md-sys-color-surface) px-4 text-base text-(--md-sys-color-on-surface) outline-none transition-colors placeholder:text-(--md-sys-color-on-surface-variant) focus:border-(--md-sys-color-primary)",
+        "kern-command-input h-14 w-full rounded-(--sys-shape-corner-small) border border-(--sys-color-outline) bg-(--sys-color-surface) px-4 text-base text-(--sys-color-on-surface) outline-none transition-colors placeholder:text-(--sys-color-on-surface-variant) focus:border-(--sys-color-primary)",
         className,
       )}
       {...props}
@@ -107,7 +107,7 @@ export function CommandContent({ className, ...props }: CommandContentProps) {
         <ComboboxPrimitive.Popup
           data-slot="command-content"
           className={cnState(
-            "kern-command-content min-w-64 max-w-lg rounded-(--md-sys-shape-corner-large) border border-(--md-sys-color-outline) bg-(--md-sys-color-surface-container) p-1 shadow-(--md-sys-elevation-level3) outline-none",
+            "kern-command-content min-w-64 max-w-lg rounded-(--sys-shape-corner-large) border border-(--sys-color-outline) bg-(--sys-color-surface-container) p-1 shadow-(--sys-elevation-level3) outline-none",
             className,
           )}
           {...props}
@@ -147,7 +147,7 @@ export function CommandItem({
       data-slot="command-item"
       value={value}
       className={cnState(
-        "kern-command-item flex min-h-12 cursor-pointer items-center gap-3 rounded-(--md-sys-shape-corner-extra-small) px-3 text-sm text-(--md-sys-color-on-surface) outline-none select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-highlighted:bg-(--md-sys-color-surface-tonal)",
+        "kern-command-item flex min-h-12 cursor-pointer items-center gap-3 rounded-(--sys-shape-corner-extra-small) px-3 text-sm text-(--sys-color-on-surface) outline-none select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-highlighted:bg-(--sys-color-surface-tonal)",
         className,
       )}
       {...props}
@@ -163,7 +163,7 @@ export function CommandItem({
       {shortcut ? (
         <span
           data-slot="command-item-shortcut"
-          className="shrink-0 text-xs text-(--md-sys-color-on-surface-variant)"
+          className="shrink-0 text-xs text-(--sys-color-on-surface-variant)"
         >
           {shortcut}
         </span>
@@ -177,7 +177,7 @@ export function CommandEmpty({ className, ...props }: CommandEmptyProps) {
     <ComboboxPrimitive.Empty
       data-slot="command-empty"
       className={cnState(
-        "kern-command-empty px-3 py-6 text-center text-sm text-(--md-sys-color-on-surface-variant)",
+        "kern-command-empty px-3 py-6 text-center text-sm text-(--sys-color-on-surface-variant)",
         className,
       )}
       {...props}
@@ -193,7 +193,7 @@ export function CommandSeparator({
     <ComboboxPrimitive.Separator
       data-slot="command-separator"
       className={cnState(
-        "kern-command-separator mx-2 my-1 h-px bg-(--md-sys-color-outline-variant)",
+        "kern-command-separator mx-2 my-1 h-px bg-(--sys-color-outline-variant)",
         className,
       )}
       {...props}
@@ -209,7 +209,7 @@ export function CommandGroupLabel({
     <ComboboxPrimitive.GroupLabel
       data-slot="command-group-label"
       className={cnState(
-        "kern-command-group-label px-3 py-2 text-xs font-medium text-(--md-sys-color-on-surface-variant)",
+        "kern-command-group-label px-3 py-2 text-xs font-medium text-(--sys-color-on-surface-variant)",
         className,
       )}
       {...props}

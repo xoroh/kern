@@ -6,13 +6,13 @@ export const buttonGroup: ComponentDoc = {
   oneLiner:
     "The button group lays out buttons as one joined row or column, so related actions read as a set.",
   features:
-    "Reach for a button group when two or more actions belong together and should look joined: a pair of equal choices, a toolbar cluster, a step of related commands. It is pure LAYOUT — a `View` with a direction and a hairline gap — so the buttons inside keep their own treatments, states and press handling. The group itself announces nothing (`role` is `none` on purpose): a group of buttons is still just buttons to assistive technology, and inventing a container role would promise semantics the group does not carry.",
+    "Reach for a button group when two or more actions belong together and should look joined: a pair of equal choices, a toolbar cluster, a step of related commands. `connected` joins with no gap so the buttons read as one control; `standard` spaces them as individuals. It is pure LAYOUT — a `View` with a direction and a variant — so the buttons inside keep their own treatments, states and press handling. The group itself announces nothing (`role` is `none` on purpose): a group of buttons is still just buttons to assistive technology, and inventing a container role would promise semantics the group does not carry.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
     // Exact web counterpart, checked in the web inventory.
     nativePeer: "ButtonGroup",
-    variants: ["orientation: horizontal · vertical"],
+    variants: ["variant: connected · standard", "orientation: horizontal · vertical"],
     elevation: "surface",
   },
   parts: ["ButtonGroup"],
@@ -24,11 +24,17 @@ export const buttonGroup: ComponentDoc = {
     ],
     notSupported: [
       "There is no selection or radio behaviour. A group that picks one option is a `SegmentedButton` or a `RadioGroup`, not this.",
-      "The group does not style its children — each button keeps its own `variant` and `size`. Joining is spacing, not a shared treatment.",
+      "The group does not style its children — each button keeps its own `variant` and `size`. `connected` joins by adjacency; `standard` spaces.",
       "There is no `disabled` for the group. Disable the buttons themselves, so each one reports its own state.",
     ],
   },
   api: [
+    {
+      name: "variant",
+      type: '"connected" | "standard"',
+      default: '"connected"',
+      note: "M3 Expressive group variant. Connected joins into one control with no gap (the expressive successor to the segmented button); standard spaces the buttons as individuals.",
+    },
     {
       name: "children",
       type: "ReactNode",

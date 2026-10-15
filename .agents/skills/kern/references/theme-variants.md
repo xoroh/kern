@@ -55,10 +55,27 @@ A consumer record carries `{ variantId }` (or an inline map validated by `assert
 
 No component or CSS changes needed — components read roles, roles resolve per consumer.
 
+## Seed configurator (audited dynamic color)
+
+```ts
+import { themeFromSeed } from '@xoroh/kern-tokens'
+
+const acme = themeFromSeed('#2563eb', 'acme', {
+  secondarySeed: '#16a34a',   // optional; defaults to the primary hue, muted
+  tertiarySeed: '#a16207',    // optional; defaults to primary hue +60°
+})
+```
+
+One hex becomes a `CustomTheme` (primary + secondary + tertiary families, both modes, following the checked-in brand pattern). `on-*` roles are contrast-resolved, and the result passes through `defineThemePreset` — a seed that cannot reach 4.5:1 throws instead of shipping. Pass it directly as the theme selection: web `applyKernTheme(el, mode, contrast, acme)`, native `<KernThemeProvider variant={acme}>`. Error/success/warning/info/surface roles stay on the kern base; wallpaper-derived seeds are still rejected (see `theming-and-dynamic-color.md`).
+
+## Motion runtime
+
+Algorithms (`presets.ts`: `standard` | `expressive` | `reduced`) resolve via `resolveMotionScheme()` to easing, durations, and spring pairs; `springConfig(kind)` feeds `Animated.spring` natively. Web selects per root: `applyKernTheme(el, mode, contrast, variant, 'expressive')` (sets `data-kern-motion` + easing vars); `useKernTheme({ motion })` persists the choice. Native: `useKernMotion('expressive')`. Default stays `standard` — expressive is opt-in per surface, and components adopt scheme vars incrementally.
+
 ## What variants cannot do
 
 - Add/remove roles (type-level impossible)
-- Dynamic/seed-generated color (rejected: unauditable contrast, breaks design parity — see `theming-and-dynamic-color.md`)
+- Wallpaper/content-derived seeds (unauditable at runtime — only `themeFromSeed`'s validated configurator; see `theming-and-dynamic-color.md`)
 - Per-component overrides (that's the `comp` token level, not theming)
 
 ## Contrast UI

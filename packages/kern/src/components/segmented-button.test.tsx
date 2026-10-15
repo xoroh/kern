@@ -48,10 +48,10 @@ describe("SegmentedButton", () => {
     for (const name of ["Day", "Week", "Month"]) {
       const segment = screen.getByRole("button", { name });
       expect(segment.className).toContain(
-        "data-pressed:bg-(--md-sys-color-secondary-container)",
+        "data-pressed:bg-(--sys-color-secondary-container)",
       );
       expect(segment.className).toContain(
-        "data-pressed:text-(--md-sys-color-on-secondary-container)",
+        "data-pressed:text-(--sys-color-on-secondary-container)",
       );
     }
   });

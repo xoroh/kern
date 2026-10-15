@@ -1,4 +1,4 @@
-import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
+import { type ResolvedTheme } from "@xoroh/kern-tokens";
 import { useState } from "react";
 import {
   Pressable,
@@ -8,7 +8,7 @@ import {
   View,
   type ViewStyle,
 } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 import { inputStyles } from "./input";
 import { Text } from "./text";
 
@@ -63,7 +63,7 @@ export type NativeNumberFieldProps = {
 
 export function numberFieldStyles(
   disabled: boolean,
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): { group: ViewStyle; stepper: ViewStyle; input: TextStyle } {
   const radius = Number.parseFloat(scheme.shape.small);
   return {

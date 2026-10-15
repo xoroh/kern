@@ -7,15 +7,29 @@
  * `check-blocks` proves matches the imports in that source.
  */
 import { Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { CopyButton } from "../../showcase/copy-button";
 import { Example, type ExampleSpec } from "../../showcase/example";
 import { Admonition } from "../shared/chrome/docs-shell-parts";
-import { T_BODY_SM, T_LABEL_LG, T_PAGE } from "../shared/systems/type-scale";
+import {
+  T_BODY_SM,
+  T_CODE,
+  T_LABEL,
+  T_LABEL_LG,
+  T_PAGE,
+} from "../shared/systems/type-scale";
+import { PILL_ACTIVE, PILL_REST, TRANSITION } from "../shared/systems/ui";
 import { type BlockView, installCommand } from "./registry";
 
-const INK = "text-(--md-sys-color-on-surface)";
-const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";
-const CHIP = `inline-flex items-center rounded-(--md-sys-shape-corner-full) border px-3 py-1 ${T_LABEL_LG}`;
+const INK = "text-(--sys-color-on-surface)";
+const INK_SOFT = "text-(--sys-color-on-surface-variant)";
+const LINK = "text-(--sys-color-secondary)";
+/**
+ * Dependency chip: CARD's container expression (surface fill + outline-variant
+ * hairline) at pill radius — same hairline as the cards around it, so a chip
+ * never introduces a second, stronger stroke.
+ */
+const CHIP = `inline-flex items-center rounded-(--sys-shape-corner-full) border border-(--sys-color-outline-variant) bg-(--sys-color-surface) px-3 py-1 ${T_CODE} ${INK}`;
 
 export function BlockViewer({
   view,
@@ -26,6 +40,9 @@ export function BlockViewer({
   prev?: BlockView;
   next?: BlockView;
 }) {
+  const [viewport, setViewport] = useState<"desktop" | "tablet" | "phone">(
+    "desktop",
+  );
   const spec: ExampleSpec = {
     id: view.entry.name,
     title: view.entry.title,
@@ -33,11 +50,17 @@ export function BlockViewer({
     render: view.render,
     code: view.code,
   };
+  const viewportMax =
+    viewport === "phone"
+      ? "max-w-[375px]"
+      : viewport === "tablet"
+        ? "max-w-[768px]"
+        : "";
   return (
-    <section className="flex flex-col gap-8">
+    <section className="flex flex-col gap-10">
       <header className="flex flex-col gap-3">
         <p
-          className={`m-0 ${T_LABEL_LG} text-(--md-sys-color-on-surface-variant) uppercase`}
+          className={`m-0 ${T_LABEL} text-(--sys-color-on-surface-variant) uppercase`}
         >
           {view.entry.category}
         </p>
@@ -49,33 +72,65 @@ export function BlockViewer({
 
       <div className="flex flex-wrap items-center gap-2">
         <code
-          className={`inline-flex items-center gap-2 rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-surface-container-high) px-3 py-1.5 ${T_BODY_SM} ${INK}`}
+          className={`inline-flex items-center gap-2 rounded-(--sys-shape-corner-small) bg-(--sys-color-surface-container-high) px-3 py-1.5 ${T_CODE} ${INK}`}
         >
           {installCommand(view.entry.name)}
         </code>
         <CopyButton text={installCommand(view.entry.name)} label="Copy" />
+        {/*
+          Viewport switch — a pill row of 48dp targets (MIN_TARGET floor) on
+          the one outlined container; selected segment wears the selected
+          pair, the rest carry the state layers.
+        */}
+        <div className="ml-auto flex items-center gap-1 rounded-(--sys-shape-corner-full) border border-(--sys-color-outline-variant) p-0.5">
+          {(["desktop", "tablet", "phone"] as const).map((v) => (
+            <button
+              key={v}
+              type="button"
+              onClick={() => setViewport(v)}
+              aria-pressed={viewport === v}
+              className={`inline-flex min-h-12 cursor-pointer items-center rounded-(--sys-shape-corner-full) px-4 ${T_LABEL_LG} ${TRANSITION} ${
+                viewport === v ? PILL_ACTIVE : PILL_REST
+              }`}
+            >
+              {v === "desktop"
+                ? "Desktop"
+                : v === "tablet"
+                  ? "Tablet"
+                  : "Phone"}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="flex flex-col gap-2">
         <p className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
           npm peers the block imports:{" "}
-          {view.entry.dependencies.map((dep) => (
-            <code key={dep} className={CHIP}>
-              {dep}
-            </code>
-          ))}
+          <span className="inline-flex flex-wrap gap-1.5 align-middle">
+            {view.entry.dependencies.map((dep) => (
+              <code key={dep} className={CHIP}>
+                {dep}
+              </code>
+            ))}
+          </span>
         </p>
         <p className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
           kern exports it renders:{" "}
-          {view.entry.registryDependencies.map((dep) => (
-            <code key={dep} className={CHIP}>
-              {dep}
-            </code>
-          ))}
+          <span className="inline-flex flex-wrap gap-1.5 align-middle">
+            {view.entry.registryDependencies.map((dep) => (
+              <code key={dep} className={CHIP}>
+                {dep}
+              </code>
+            ))}
+          </span>
         </p>
       </div>
 
-      <Example spec={spec} />
+      <div
+        className={`mx-auto w-full transition-[max-width] ease-(--sys-motion-easing-standard) [transition-duration:var(--sys-motion-duration-short3)] ${viewportMax}`}
+      >
+        <Example spec={spec} />
+      </div>
 
       <Admonition intent="note" title="You own the code">
         <code>kern add</code> vendors these files into your tree — they are
@@ -91,7 +146,7 @@ export function BlockViewer({
           <Link
             to="/showcase/$block"
             params={{ block: prev.entry.name }}
-            className={`no-underline ${T_BODY_SM} ${INK}`}
+            className={`no-underline hover:underline ${T_BODY_SM} ${LINK}`}
           >
             ← {prev.entry.title}
           </Link>
@@ -102,7 +157,7 @@ export function BlockViewer({
           <Link
             to="/showcase/$block"
             params={{ block: next.entry.name }}
-            className={`no-underline ${T_BODY_SM} ${INK}`}
+            className={`no-underline hover:underline ${T_BODY_SM} ${LINK}`}
           >
             {next.entry.title} →
           </Link>

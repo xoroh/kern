@@ -17,7 +17,7 @@ export function ToggleGroupRoot<Value extends string = string>({
     <ToggleGroupPrimitive
       data-slot="toggle-group"
       className={cnState(
-        "kern-toggle-group flex items-center gap-1 rounded-(--md-sys-shape-corner-full) bg-(--md-sys-color-surface-tonal) p-1",
+        "kern-toggle-group flex items-center gap-1 rounded-(--sys-shape-corner-full) bg-(--sys-color-surface-tonal) p-1",
         className,
       )}
       {...props}
@@ -33,7 +33,9 @@ export function ToggleGroupItem<Value extends string = string>({
     <TogglePrimitive
       data-slot="toggle-group-item"
       className={cnState(
-        "kern-toggle-group-item flex h-10 min-w-10 cursor-pointer items-center justify-center gap-1.5 rounded-(--md-sys-shape-corner-full) px-3 text-sm font-medium text-(--md-sys-color-on-surface) outline-none select-none " + FOCUS_RING_CLASS + " disabled:pointer-events-none disabled:opacity-50 data-pressed:bg-(--md-sys-color-primary) data-pressed:text-(--md-sys-color-on-primary)",
+        "kern-toggle-group-item relative flex h-10 min-w-10 cursor-pointer items-center justify-center gap-1.5 rounded-(--sys-shape-corner-full) px-3 text-sm leading-5 font-medium tracking-[0.1px] text-(--sys-color-on-surface) transition-[color,background-color,border-color] duration-200 ease-(--sys-motion-easing-standard) outline-none select-none " +
+          FOCUS_RING_CLASS +
+          " disabled:pointer-events-none disabled:text-(--sys-color-on-surface)/38 aria-disabled:pointer-events-none aria-disabled:text-(--sys-color-on-surface)/38 before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--sys-color-on-surface) hover:before:opacity-[var(--sys-state-hover)] focus-visible:before:opacity-[var(--sys-state-focus)] active:before:opacity-[var(--sys-state-press)] disabled:before:opacity-0 data-pressed:bg-(--sys-color-secondary-container) data-pressed:text-(--sys-color-on-secondary-container) data-pressed:before:bg-(--sys-color-on-secondary-container) disabled:data-pressed:bg-(--sys-color-on-surface)/12 disabled:data-pressed:text-(--sys-color-on-surface)/38",
         className,
       )}
       {...props}

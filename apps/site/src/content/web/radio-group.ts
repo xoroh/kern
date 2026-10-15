@@ -26,6 +26,64 @@ export const radioGroup: ComponentDoc = {
       role: "One option. Renders its own `<label>` around the control and the label text, so the name is associated without wiring.",
     },
   ],
+  keyboard: [
+    {
+      key: "Arrow keys",
+      action: "Moves selection within the group. The newly focused radio becomes checked.",
+    },
+    {
+      key: "Tab / Shift+Tab",
+      action: "Moves focus into and out of the group as one stop. Disabled radios are skipped.",
+    },
+    {
+      key: "Space",
+      action: "Checks the focused radio when using manual activation.",
+    },
+  ],
+  usage: {
+    do: [
+      "Use when exactly one option in a set may be chosen — grouped by shared name.",
+      "Place the group in a `radiogroup` with a visible label.",
+      "Give every radio an `aria-label` — radios are never auto-labelled.",
+    ],
+    dont: [
+      "Don't wrap radios inside a `<label>` — it stops screen readers announcing the group count.",
+      "Don't use for independent multi-choices — that is a checkbox.",
+      "Don't use for a single on/off — that is a switch.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Control",
+      state: "resting",
+      token: "comp.radio.icon-size",
+      value: "20px",
+    },
+    {
+      element: "Unselected ring",
+      state: "resting",
+      token: "comp.radio.icon-color",
+      value: "--sys-color-on-surface-variant",
+    },
+    {
+      element: "Selected dot and ring",
+      state: "resting",
+      token: "comp.radio.selected-icon-color",
+      value: "--sys-color-primary",
+    },
+    {
+      element: "State layer",
+      state: "hover",
+      token: "sys.state.hover-state-layer-opacity",
+      value: "8%",
+    },
+  ],
+  faq: [
+    {
+      q: "Radio or select?",
+      a: "Radio shows every option at once (2–5 visible choices). Select hides options behind a menu — better for 6+ options or tight space.",
+    },
+  ],
   customization: {
     supported: [
       "`className` on the group lays out the set; `className` on an item styles the whole option row.",

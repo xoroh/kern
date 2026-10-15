@@ -5,14 +5,20 @@
  * 1. SYNC. The committed `themes/matrix.json` must equal what the live
  *    resolver produces. A hand-edit to the artifact (or a code change that
  *    moves a rendered value) fails here with the regen command, not silently.
- * 2. SINGLE ROLE TABLE. Every cell carries exactly the kern role set —
- *    presets extend kern via overrides, never a second role table.
+ * 2. SINGLE ROLE TABLE. Every cell carries exactly the material-3 role set —
+ *    presets extend material-3 via overrides, never a second role table.
  * 3. CATALOG DISCIPLINE. Every `themes/index.json` entry resolves to a file
- *    whose `extends` canonicalizes to kern, and whose overrides touch only
- *    known color/shape roles.
+ *    whose `extends` canonicalizes to material-3, and whose overrides touch
+ *    only known color/shape roles.
  * 4. COVERAGE. The matrix spans the full mode x contrast x preset cross
- *    product, and the legacy `m3` alias still resolves to kern.
+ *    product. (Clean break: no `kern`/`m3` preset aliases remain.)
  */
+import { registerPreset } from "../src/resolve.ts";
+import { material3PresetRegistrations } from "../../kern-material-3/src/material-3.ts";
+// Explicit registration into THIS resolver instance (source). The M3 module's
+// own import-time registration targets the built package instance, which
+// scripts must not rely on — register here so resolution never depends on dist.
+for (const { id, tables } of material3PresetRegistrations()) registerPreset(id, tables);
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import {
@@ -23,7 +29,7 @@ import {
 import { resolveTheme, resolveThemeDetails, themeIds } from "../src/resolve.ts";
 
 const ROOT = new URL("../../..", import.meta.url).pathname;
-const THEMES = join(ROOT, "packages/kern-tokens/src/themes");
+const THEMES = join(ROOT, "packages/kern-material-3/src/themes");
 const violations = [];
 
 function stable(value) {
@@ -41,14 +47,14 @@ function stable(value) {
 const committedPath = join(THEMES, "matrix.json");
 if (!existsSync(committedPath)) {
   violations.push(
-    "packages/kern-tokens/src/themes/matrix.json is missing — run `bun packages/kern-tokens/scripts/gen-theme-matrix.mjs`",
+    "packages/kern-material-3/src/themes/matrix.json is missing — run `bun packages/kern-tokens/scripts/gen-theme-matrix.mjs`",
   );
 } else {
   const committed = readFileSync(committedPath, "utf8");
   const fresh = `${stable(buildThemeMatrix())}\n`;
   if (committed !== fresh) {
     violations.push(
-      "packages/kern-tokens/src/themes/matrix.json drifted from the live resolver — " +
+      "packages/kern-material-3/src/themes/matrix.json drifted from the live resolver — " +
         "run `bun packages/kern-tokens/scripts/gen-theme-matrix.mjs` and commit the result. " +
         "If the diff moves a rendered value, that is a D6 defect, not a regen.",
     );
@@ -65,7 +71,7 @@ try {
 // 3. CATALOG DISCIPLINE -------------------------------------------------------
 {
   const catalog = JSON.parse(readFileSync(join(THEMES, "index.json"), "utf8"));
-  const base = resolveThemeDetails("light", "standard", "kern");
+  const base = resolveThemeDetails("light", "standard", "material-3");
   const colorRoles = new Set(Object.keys(base.color));
   const shapeRoles = new Set(Object.keys(base.shape));
   for (const entry of catalog.themes ?? []) {
@@ -76,15 +82,13 @@ try {
       );
       continue;
     }
-    if (entry.id === "kern") continue;
+    if (entry.id === "material-3") continue;
     const preset = JSON.parse(readFileSync(file, "utf8"));
     const extendsBase =
-      preset.extends === undefined || preset.extends === "m3"
-        ? "kern"
-        : preset.extends;
-    if (extendsBase !== "kern") {
+      preset.extends === undefined ? "material-3" : preset.extends;
+    if (extendsBase !== "material-3") {
       violations.push(
-        `themes/${entry.file}: extends "${preset.extends}" — presets must extend "kern", never a second role table`,
+        `themes/${entry.file}: extends "${preset.extends}" — presets must extend "material-3", never a second role table`,
       );
     }
     for (const mode of ["light", "dark"]) {
@@ -106,7 +110,7 @@ try {
   }
   const ids = new Set((catalog.themes ?? []).map((entry) => entry.id));
   for (const id of themeIds()) {
-    if (id !== "kern" && !ids.has(id)) {
+    if (id !== "material-3" && !ids.has(id)) {
       violations.push(
         `resolveThemeDetails knows preset "${id}" but themes/index.json does not catalog it`,
       );
@@ -140,18 +144,12 @@ try {
       }
     }
   }
-  // Legacy alias: "m3" canonicalizes to kern, so it resolves identically.
-  const legacy = resolveTheme("light", "standard", "m3");
-  const kern = resolveTheme("light", "standard", "kern");
-  if (stable(legacy) !== stable(kern)) {
-    violations.push('legacy preset alias "m3" no longer resolves to kern');
-  }
 }
 
 // 5. SCOPED-CSS COHERENCE ------------------------------------------------------
 // The matrix is a build artifact, not a trophy file: gen-css.mjs renders its
 // deltas into the shipped `[data-kern-theme]` blocks. This leg parses the
-// committed tokens.css and requires, per non-kern preset, exactly the light
+// committed tokens.css and requires, per non-material-3 preset, exactly the light
 // delta block plus a `.dark` block iff the dark deltas are non-empty — with
 // byte-exact declarations. A hand-edited block or a generator that special-
 // cases one preset fails here.
@@ -216,7 +214,7 @@ try {
   }
   for (const key of blocks.keys()) {
     const id = key.split("/")[1];
-    if (!(buildThemeMatrix().presets.includes(id) && id !== "kern")) {
+    if (!(buildThemeMatrix().presets.includes(id) && id !== "material-3")) {
       violations.push(
         `tokens.css has a scoped block for unknown preset "${id}"`,
       );
@@ -232,5 +230,5 @@ if (violations.length > 0) {
 
 console.log(
   `theme matrix passes: ${buildThemeMatrix().cells.length} cells in sync, ` +
-    `single role table, catalog extends kern, legacy alias resolves`,
+    `single role table, catalog extends material-3`,
 );

@@ -27,20 +27,22 @@ import { fileURLToPath } from "node:url";
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const FIRST_PARTY = "@xoroh/";
 
-/** name -> { dir, manifest } for every workspace package under packages/. */
+/** name -> { dir, manifest } for every workspace package under packages/ and libs/. */
 const packages = new Map();
 
-for (const entry of readdirSync(resolve(ROOT, "packages"), {
-  withFileTypes: true,
-})) {
-  if (!entry.isDirectory()) continue;
-  const dir = resolve(ROOT, "packages", entry.name);
-  const manifestPath = resolve(dir, "package.json");
-  if (!existsSync(manifestPath)) continue;
-  packages.set(entry.name, {
-    dir,
-    manifest: JSON.parse(readFileSync(manifestPath, "utf8")),
-  });
+for (const area of ["packages", "libs"]) {
+  for (const entry of readdirSync(resolve(ROOT, area), {
+    withFileTypes: true,
+  })) {
+    if (!entry.isDirectory()) continue;
+    const dir = resolve(ROOT, area, entry.name);
+    const manifestPath = resolve(dir, "package.json");
+    if (!existsSync(manifestPath)) continue;
+    packages.set(`${area}/${entry.name}`, {
+      dir,
+      manifest: JSON.parse(readFileSync(manifestPath, "utf8")),
+    });
+  }
 }
 
 /** Buildable = has a `build` script. A package with none is not an edge target. */

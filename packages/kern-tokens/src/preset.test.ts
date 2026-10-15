@@ -1,0 +1,374 @@
+/**
+ * Preset model tests incl. the test-only second-preset fixture (P2).
+ *
+ * The `pixel` fixture is deliberately NOT Material 3: 4 shape corners
+ * (vs 10), its own `brand` semantic role, `button: [primary, quiet]`
+ * variants (no tonal/elevated), and an explicit `data-grid: unsupported`
+ * capability. It proves the shared schema validates, represents and
+ * generates a non-M3 preset without touching M3 definitions — and nothing
+ * more. It is not a public design system and ships no components.
+ */
+import { describe, expect, it } from "vitest";
+import { definePreset, isPresetIdShape, type PresetManifest } from "./preset";
+
+/** Test-only second preset. Not exported from the package barrel. */
+const PIXEL_FIXTURE: PresetManifest = {
+  id: "pixel",
+  label: "Pixel (test fixture)",
+  color: {
+    light: { canvas: "#ffffff", ink: "#101418", brand: "#0b5fff" },
+    dark: { canvas: "#101418", ink: "#f2f5f8", brand: "#7aa5ff" },
+  },
+  shape: { none: "0px", sm: "4px", lg: "16px", full: "999px" },
+  extraRoles: ["brand"],
+  variants: { button: ["primary", "quiet"] },
+  capabilities: { "web-renderer": "supported", "data-grid": "unsupported" },
+};
+
+describe("second-preset fixture independence", () => {
+  it("validates without inheriting M3 assumptions", () => {
+    const p = definePreset({ ...PIXEL_FIXTURE });
+    expect(p.id).toBe("pixel");
+    expect(Object.keys(p.shape)).toEqual(["none", "sm", "lg", "full"]);
+    expect(p.color.light.brand).toBe("#0b5fff");
+  });
+
+  it("differs meaningfully from material-3", () => {
+    // M3's ten corner names, as a literal: the universal engine must not
+    // import M3 data even to compare against it.
+    const M3_CORNERS = [
+      "none",
+      "extra-small",
+      "small",
+      "medium",
+      "large",
+      "large-increased",
+      "extra-large",
+      "extra-large-increased",
+      "extra-extra-large",
+      "full",
+    ];
+    expect(Object.keys(PIXEL_FIXTURE.shape)).not.toEqual(M3_CORNERS);
+    expect(PIXEL_FIXTURE.variants?.button).not.toContain("tonal");
+    expect(
+      Object.keys(PIXEL_FIXTURE.color.light),
+    ).not.toContain("primaryContainer");
+  });
+
+  it("serializes with its preset identity intact (registry-representable)", () => {
+    const round = JSON.parse(JSON.stringify(PIXEL_FIXTURE)) as PresetManifest;
+    expect(definePreset(round).id).toBe("pixel");
+    expect(round.variants?.button).toEqual(["primary", "quiet"]);
+  });
+
+  it("represents unsupported capabilities explicitly", () => {
+    expect(PIXEL_FIXTURE.capabilities?.["data-grid"]).toBe("unsupported");
+  });
+});
+
+describe("preset validation rejects malformed manifests", () => {
+  it("rejects bad ids", () => {
+    expect(() =>
+      definePreset({ ...PIXEL_FIXTURE, id: "Pixel!" }),
+    ).toThrowError(/id is/);
+    expect(isPresetIdShape("material-3")).toBe(true);
+    expect(isPresetIdShape("m3")).toBe(true);
+    expect(isPresetIdShape("M3")).toBe(false);
+  });
+
+  it("rejects role asymmetry between modes", () => {
+    expect(() =>
+      definePreset({
+        ...PIXEL_FIXTURE,
+        color: { light: { a: "#ffffff" }, dark: {} },
+      }),
+    ).toThrowError(/missing required color\.dark roles|missing in/);
+  });
+
+  it("rejects non-hex role values", () => {
+    expect(() =>
+      definePreset({
+        ...PIXEL_FIXTURE,
+        color: {
+          light: { canvas: "white" },
+          dark: { canvas: "#101418" },
+        },
+      }),
+    ).toThrowError(/must be a six-digit hex/);
+  });
+
+  it("rejects empty shape tables and bad lengths", () => {
+    expect(() => definePreset({ ...PIXEL_FIXTURE, shape: {} })).toThrowError(
+      /missing required shape/,
+    );
+    expect(() =>
+      definePreset({ ...PIXEL_FIXTURE, shape: { sm: "round" } }),
+    ).toThrowError(/must be a px or rem length/);
+  });
+
+  it("rejects unknown capability states", () => {
+    expect(() =>
+      definePreset({
+        ...PIXEL_FIXTURE,
+        capabilities: { "data-grid": "maybe" as never },
+      }),
+    ).toThrowError(/capability data-grid is/);
+  });
+});
+
+describe("pixel conformance through the universal engine (A2)", () => {
+  // This suite imports only resolve.ts (universal engine) plus the local
+  // pixel fixture — resolution and validation below run against the
+  // registered pixel tables, never M3 role tables or presets.
+  it("registers a non-M3 base and resolves it end to end", async () => {
+    const { registerPreset, resolveThemeDetails } = await import("./resolve");
+    registerPreset("pixel", {
+      color: {
+        light: { ...PIXEL_FIXTURE.color.light },
+        dark: { ...PIXEL_FIXTURE.color.dark },
+      },
+      shape: { ...PIXEL_FIXTURE.shape },
+      policy: {
+        textPairs: [
+          ["ink", "canvas"],
+          ["canvas", "ink"],
+        ],
+        uiPairs: [["brand", "canvas"]],
+        waivers: [],
+      },
+    });
+    for (const mode of ["light", "dark"] as const) {
+      const scheme = resolveThemeDetails(mode, "standard", "pixel");
+      // Exactly the pixel roles — no M3 role may leak into a custom scheme.
+      expect(Object.keys(scheme.color).sort()).toEqual(
+        ["brand", "canvas", "ink"].sort(),
+      );
+      expect(Object.keys(scheme.shape).sort()).toEqual(
+        ["full", "lg", "none", "sm"].sort(),
+      );
+      expect(scheme.color.brand).toBe(PIXEL_FIXTURE.color[mode].brand);
+    }
+  });
+
+  it("validates a custom theme against its own base, not M3", async () => {
+    const { defineThemePreset } = await import("./resolve");
+    const theme = defineThemePreset({
+      id: "pixel-brand",
+      extends: "pixel",
+      overrides: {
+        color: {
+          light: { brand: "#0b5fff" },
+          dark: { brand: "#7aa5ff" },
+        },
+      },
+    });
+    expect(theme.extends).toBe("pixel");
+    expect(() =>
+      defineThemePreset({
+        id: "pixel-bad",
+        extends: "pixel",
+        overrides: {
+          color: { light: { primary: "#ff0000" }, dark: {} },
+        },
+      }),
+    ).toThrow("Unknown color role");
+  });
+
+  it("rejects unknown bases and unknown presets with capability errors", async () => {
+    const { defineThemePreset, resolveThemeDetails } = await import("./resolve");
+    expect(() =>
+      defineThemePreset({
+        id: "pixel-orphan",
+        extends: "nope",
+        overrides: {},
+      }),
+    ).toThrow('Unknown preset "nope"');
+    expect(() => resolveThemeDetails("light", "standard", "nope")).toThrow(
+      'Unknown preset "nope"',
+    );
+  });
+});
+
+describe("pixel authoring requires an explicit base (Finding 1)", () => {
+  it("rejects a CustomTheme without extends instead of attaching to M3", async () => {
+    const { defineThemePreset } = await import("./resolve");
+    expect(() =>
+      defineThemePreset({
+        id: "pixel-no-base",
+        overrides: {
+          color: { light: { brand: "#0b5fff" }, dark: { brand: "#7aa5ff" } },
+        },
+      } as never),
+    ).toThrow("explicit extends base id");
+  });
+
+  it("a non-M3 base validates its own roles without M3 registered", async () => {
+    const { defineThemePreset, registerPreset } = await import("./resolve");
+    registerPreset("pixel-authoring", {
+      color: {
+        light: { canvas: "#ffffff", ink: "#101418" },
+        dark: { canvas: "#101418", ink: "#f2f5f8" },
+      },
+      shape: { none: "0px", full: "999px" },
+      policy: { textPairs: [["ink", "canvas"]], uiPairs: [], waivers: [] },
+    });
+    const theme = defineThemePreset({
+      id: "pixel-authored",
+      extends: "pixel-authoring",
+      overrides: {
+        color: { light: { ink: "#000000" }, dark: { ink: "#ffffff" } },
+      },
+    });
+    expect(theme.extends).toBe("pixel-authoring");
+  });
+});
+
+describe("component-token (comp) overrides (A4-2)", () => {
+  it("themes without comp resolve exactly as before (no comp key)", async () => {
+    const { resolveThemeDetails } = await import("./resolve");
+    const scheme = resolveThemeDetails("light", "standard", "pixel");
+    expect("comp" in scheme).toBe(false);
+    expect(scheme.comp).toBeUndefined();
+    expect(Object.keys(scheme.shape).sort()).toEqual(
+      ["full", "lg", "none", "sm"].sort(),
+    );
+  });
+
+  it("a partial comp object resolves without requiring other slots", async () => {
+    const { resolveThemeDetails } = await import("./resolve");
+    const scheme = resolveThemeDetails("light", "standard", {
+      id: "pixel-comp-partial",
+      extends: "pixel",
+      overrides: { comp: { "switch-track-shape": "4px" } },
+    });
+    expect(scheme.comp).toEqual({ "switch-track-shape": "4px" });
+    // Color and shape tables are untouched by the comp override.
+    expect(Object.keys(scheme.shape).sort()).toEqual(
+      ["full", "lg", "none", "sm"].sort(),
+    );
+    expect(scheme.color.brand).toBe("#0b5fff");
+  });
+
+  it("base comp defaults merge per key with explicit overrides winning", async () => {
+    const { registerPreset, resolveThemeDetails } = await import("./resolve");
+    registerPreset("pixel-comp-base", {
+      color: {
+        light: { canvas: "#ffffff", ink: "#101418" },
+        dark: { canvas: "#101418", ink: "#f2f5f8" },
+      },
+      shape: { none: "0px", full: "999px" },
+      comp: { "switch-track-shape": "8px", "card-container-shape": "12px" },
+      policy: { textPairs: [["ink", "canvas"]], uiPairs: [], waivers: [] },
+    });
+    const scheme = resolveThemeDetails("light", "standard", {
+      id: "pixel-comp-merged",
+      extends: "pixel-comp-base",
+      overrides: { comp: { "switch-track-shape": "4px" } },
+    });
+    // Override wins for its key; the unrelated base key survives.
+    expect(scheme.comp).toEqual({
+      "switch-track-shape": "4px",
+      "card-container-shape": "12px",
+    });
+  });
+
+  it("unknown comp keys pass through inert without touching color/shape", async () => {
+    const { resolveThemeDetails } = await import("./resolve");
+    const plain = resolveThemeDetails("light", "standard", "pixel");
+    const withUnknown = resolveThemeDetails("light", "standard", {
+      id: "pixel-comp-unknown",
+      extends: "pixel",
+      overrides: { comp: { "future-widget-shape": "4px" } },
+    });
+    expect(withUnknown.comp).toEqual({ "future-widget-shape": "4px" });
+    expect(withUnknown.color).toEqual(plain.color);
+    expect(withUnknown.shape).toEqual(plain.shape);
+  });
+
+  it("rejects malformed comp keys and values at theme definition", async () => {
+    const { defineThemePreset } = await import("./resolve");
+    expect(() =>
+      defineThemePreset({
+        id: "pixel-comp-bad-value",
+        extends: "pixel",
+        overrides: { comp: { "switch-track-shape": "round" } },
+      }),
+    ).toThrow("must be a px or rem length");
+    expect(() =>
+      defineThemePreset({
+        id: "pixel-comp-bad-key",
+        extends: "pixel",
+        overrides: { comp: { "Not Kebab!": "4px" } },
+      }),
+    ).toThrow("must be kebab-case");
+  });
+
+  it("cssLengthToDp preserves unit semantics (1.5rem is 24, not 1.5)", async () => {
+    const { cssLengthToDp } = await import("./resolve");
+    expect(cssLengthToDp("12px", 999)).toBe(12);
+    expect(cssLengthToDp("4.5px", 999)).toBe(4.5);
+    expect(cssLengthToDp("1.5rem", 999)).toBe(24);
+    expect(cssLengthToDp("2rem", 999)).toBe(32);
+    expect(cssLengthToDp(undefined, 999)).toBe(999);
+    // Hand-built schemes with malformed values fall back, never NaN.
+    expect(cssLengthToDp("round", 7)).toBe(7);
+    expect(cssLengthToDp("", 7)).toBe(7);
+  });
+
+  it("registerPreset rejects malformed comp like defineThemePreset does (AUD-004)", async () => {
+    const { registerPreset } = await import("./resolve");
+    expect(() =>
+      registerPreset("pixel-comp-bad-base", {
+        color: {
+          light: { canvas: "#ffffff", ink: "#101418" },
+          dark: { canvas: "#101418", ink: "#f2f5f8" },
+        },
+        shape: { none: "0px", full: "999px" },
+        comp: { "switch-track-shape": "round" },
+        policy: { textPairs: [["ink", "canvas"]], uiPairs: [], waivers: [] },
+      }),
+    ).toThrow("must be a px or rem length");
+    expect(() =>
+      registerPreset("pixel-comp-bad-key", {
+        color: {
+          light: { canvas: "#ffffff", ink: "#101418" },
+          dark: { canvas: "#101418", ink: "#f2f5f8" },
+        },
+        shape: { none: "0px", full: "999px" },
+        comp: { "Not Kebab!": "4px" },
+        policy: { textPairs: [["ink", "canvas"]], uiPairs: [], waivers: [] },
+      }),
+    ).toThrow("must be kebab-case");
+    expect(() =>
+      registerPreset("pixel-comp-bad-override", {
+        extends: "pixel",
+        overrides: { comp: { "switch-track-shape": "huge" } },
+      }),
+    ).toThrow("must be a px or rem length");
+  });
+
+  it("three-level chains treat comp exactly like shape: leaf plus ultimate base (AUD-005)", async () => {
+    const { registerPreset, resolveThemeDetails } = await import("./resolve");
+    registerPreset("pixel-chain-mid", {
+      extends: "pixel",
+      overrides: {
+        shape: { sm: "6px" },
+        comp: { "switch-track-shape": "8px" },
+      },
+    });
+    registerPreset("pixel-chain-leaf", {
+      extends: "pixel-chain-mid",
+      overrides: {
+        shape: { lg: "20px" },
+        comp: { "card-container-shape": "4px" },
+      },
+    });
+    const scheme = resolveThemeDetails("light", "standard", "pixel-chain-leaf");
+    // The documented uniform rule: only the leaf's overrides merge over the
+    // ultimate base. Intermediate nodes behave identically for every table —
+    // the mid level's sm/shape and switch-track/comp overrides are dropped,
+    // just as its (absent here) color overrides would be.
+    expect(scheme.shape).toMatchObject({ lg: "20px", sm: "4px" });
+    expect(scheme.comp).toEqual({ "card-container-shape": "4px" });
+  });
+});

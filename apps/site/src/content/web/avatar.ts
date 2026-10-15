@@ -31,6 +31,29 @@ export const avatar: ComponentDoc = {
     },
     { name: "Avatar", role: "The namespace object: Root, Image and Fallback." },
   ],
+  usage: {
+    do: [
+      "Show the person or entity image; fall back to initials on primary.",
+      "Keep full-circle geometry at every size.",
+    ],
+    dont: [
+      "Don't stretch non-square sources — crop to the circle.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Fallback",
+      state: "resting",
+      token: "kern.avatar.fallback",
+      value: "primary + on-primary, full circle",
+    },
+  ],
+  faq: [
+    {
+      q: "What sizes exist?",
+      a: "Small 32, default 40, large 56 — always circular.",
+    },
+  ],
   customization: {
     supported: [
       "`className` on every part, merged after the part's own classes.",

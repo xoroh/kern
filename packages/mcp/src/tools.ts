@@ -23,24 +23,21 @@ export type Platform = "web" | "native";
 /**
  * Presets `get_tokens` accepts. `base` is the shared token source
  * (`tokens.json`); the rest are ids from the theme catalog
- * (`packages/kern-tokens/src/themes/index.json`). `m3` is the pre-rename
- * alias `resolve.ts` (`LEGACY_ALIASES`) still honors — accepted here, resolved
- * to `kern`, so older agents are not broken by the rename.
+ * (`packages/kern-tokens/src/themes/index.json`). `demo` is a template
+ * sample, not a discovery default — it resolves when requested explicitly.
  */
 export const TOKEN_PRESETS = [
   "base",
-  "kern",
-  "m3",
+  "material-3",
   "sharp",
   "brand",
   "compact",
-  "demo",
 ] as const;
 export type TokenPreset = (typeof TOKEN_PRESETS)[number];
 
-/** Canonical catalog id: the legacy alias resolves, everything else is itself. */
+/** Canonical catalog id: presets resolve to themselves (no legacy aliases). */
 export function canonicalPreset(preset: TokenPreset): string {
-  return preset === "m3" ? "kern" : preset;
+  return preset;
 }
 
 // Resolve the kern monorepo root: explicit env first, then dist/src layouts.
@@ -78,6 +75,14 @@ async function readKernFile(rel: string): Promise<string | null> {
   ]);
 }
 
+/** Native component sources: `@xoroh/kern-native` (`packages/kern-native/...`). */
+async function readNativeFile(rel: string): Promise<string | null> {
+  return readFirst([
+    ...repoPaths("packages/kern-native", rel),
+    ...repoPaths("kern-native", rel),
+  ]);
+}
+
 /** Token data: `@xoroh/kern-tokens` (`packages/kern-tokens/...`). */
 async function readTokenFile(rel: string): Promise<string | null> {
   return readFirst([
@@ -86,9 +91,17 @@ async function readTokenFile(rel: string): Promise<string | null> {
   ]);
 }
 
-function tokenFileFor(preset: TokenPreset): string {
-  if (preset === "base") return "src/tokens.json";
-  return `src/themes/${canonicalPreset(preset)}.json`;
+/** M3 preset data: `@xoroh/kern-material-3` (`packages/kern-material-3/...`). */
+async function readThemeFile(rel: string): Promise<string | null> {
+  return readFirst([
+    ...repoPaths("packages/kern-material-3", rel),
+    ...repoPaths("kern-material-3", rel),
+  ]);
+}
+
+function tokenFileFor(preset: TokenPreset): { read: "tokens" | "themes"; rel: string } {
+  if (preset === "base") return { read: "tokens", rel: "src/tokens.json" };
+  return { read: "themes", rel: `src/themes/${canonicalPreset(preset)}.json` };
 }
 
 export async function listComponents(platform?: Platform) {
@@ -98,8 +111,15 @@ export async function listComponents(platform?: Platform) {
     name: c.name,
     export: c.export,
     platform: c.platform,
+    // The subpath that publishes this export — an AI writing the import from
+    // `import` alone emits `@xoroh/kern` for SearchBar, which does not
+    // compile. Both fields ride together, always.
+    entrypoint: c.entrypoint,
     status: c.status,
-    import: c.platform === "web" ? "@xoroh/kern" : "@xoroh/kern-native",
+    import:
+      c.platform === "web"
+        ? `@xoroh/kern${c.entrypoint === "./start" ? "/start" : ""}`
+        : "@xoroh/kern-native",
   }));
   return { count: list.length, components: list };
 }
@@ -109,7 +129,14 @@ export async function getComponent(name: string, platform: Platform = "web") {
     (c) => c.name === name && c.platform === platform,
   );
   if (!entry) return { error: `unknown component: ${platform}/${name}` };
-  const source = await readKernFile(entry.path);
+  // Platform roots, not one root: the old code read EVERY row through
+  // readKernFile, so `getComponent("button", "native")` returned byte-equal
+  // WEB source for a native request — an AI installing from that output ships
+  // the wrong renderer. Native rows resolve against the native package.
+  const source =
+    entry.platform === "native"
+      ? await readNativeFile(entry.path)
+      : await readKernFile(entry.path);
   return {
     ...entry,
     sourceCode:
@@ -119,8 +146,9 @@ export async function getComponent(name: string, platform: Platform = "web") {
 }
 
 export async function getTokens(preset: TokenPreset = "base") {
-  const rel = tokenFileFor(preset);
-  const raw = await readTokenFile(rel);
+  const { read, rel } = tokenFileFor(preset);
+  const raw =
+    read === "themes" ? await readThemeFile(rel) : await readTokenFile(rel);
   if (!raw)
     return {
       error: `tokens unavailable (wanted ${rel}) — run inside the kern monorepo or set KERN_REPO_ROOT`,
@@ -128,8 +156,27 @@ export async function getTokens(preset: TokenPreset = "base") {
   return { preset: canonicalPreset(preset), tokens: JSON.parse(raw) };
 }
 
+/**
+ * The DTCG 2025.10 interchange document (KERN-052) — the machine-readable
+ * token projection for third-party tools. Served from the generated artifact,
+ * validated at generation time, so an agent fetching tokens as DTCG gets the
+ * same values the CSS ships. Unavailable outside a checkout, stated as such.
+ */
+export async function getDtcg(): Promise<
+  { spec: string; document: unknown } | { error: string }
+> {
+  const raw = await readTokenFile("src/dtcg.json");
+  if (!raw) {
+    return {
+      error:
+        "DTCG document unavailable — run inside the kern monorepo or set KERN_REPO_ROOT",
+    };
+  }
+  return { spec: "DTCG 2025.10", document: JSON.parse(raw) };
+}
+
 export async function listThemes() {
-  const raw = await readTokenFile("src/themes/index.json");
+  const raw = await readThemeFile("src/themes/index.json");
   if (!raw)
     return {
       error:
@@ -138,6 +185,259 @@ export async function listThemes() {
   return JSON.parse(raw);
 }
 
+// ---------------------------------------------------------------------------
+// Icons: discovery over the Material catalog (P5).
+//
+// The icon package is big (1342 glyphs) and the MCP server must not bundle
+// it — nor the CLI's TypeScript compiler — so both arrive via OPTIONAL
+// dynamic import. Present workspace install: full data. Absent (packed MCP
+// alone): an error naming the missing package, never fabricated rows. An
+// icon list with invented names is worse than no list: the agent would render
+// a glyph that does not exist.
+//
+
+export type IconInfo = {
+  semantic: string;
+  glyph: string;
+};
+
+export async function listIcons(): Promise<
+  { count: number; semantic: IconInfo[] } | { error: string }
+> {
+  try {
+    const icons = (await import("@xoroh/kern-icons")) as {
+      SEMANTIC_ICONS: Record<string, string>;
+      ICON_COUNT?: number;
+    };
+    const semantic = Object.entries(icons.SEMANTIC_ICONS ?? {}).map(
+      ([semantic, glyph]) => ({ semantic, glyph }),
+    );
+    if (semantic.length === 0) {
+      return {
+        error:
+          "icon package has no semantic map — reinstall @xoroh/kern-icons.",
+      };
+    }
+    return {
+      count:
+        typeof icons.ICON_COUNT === "number"
+          ? icons.ICON_COUNT
+          : semantic.length,
+      semantic,
+    };
+  } catch {
+    return {
+      error:
+        "icon catalog unavailable — install @xoroh/kern-icons beside the MCP server or set KERN_REPO_ROOT",
+    };
+  }
+}
+
+export async function getIcon(
+  name: string,
+): Promise<{ name: string; glyph: string } | { error: string }> {
+  const list = await listIcons();
+  if ("error" in list) return list;
+  const hit =
+    list.semantic.find((i) => i.semantic === name) ??
+    list.semantic.find((i) => i.glyph === name);
+  if (!hit) {
+    return {
+      error: `unknown icon "${name}" — use list_icons for the semantic map. A missing icon renders null with a dev warning, never a neighbouring glyph.`,
+    };
+  }
+  return { name: hit.semantic, glyph: hit.glyph };
+}
+
+// ---------------------------------------------------------------------------
+// Blocks: composed sections as installable units (P5).
+//
+// Metadata only: name, title, category, description and the declared file
+// list, parsed from the site block manifest the `check-blocks` gate already
+// proves. No file bytes here — `getBlock` names the files, `install_plan`
+// vendors them through the CLI. A block row with no files is refused, not
+// listed as installable.
+//
+
+export type BlockInfo = {
+  name: string;
+  title: string;
+  category: string;
+  description: string;
+  files: string[];
+  components: string[];
+};
+
+async function readBlockManifest(): Promise<string | null> {
+  const roots = kernRootCandidates();
+  return readFirst(
+    roots.flatMap((base) => [
+      resolve(base, "apps/site/src/blocks/manifest.ts"),
+      resolve(base, "apps", "site", "src", "blocks", "manifest.ts"),
+    ]),
+  );
+}
+
+function parseBlockRows(src: string): BlockInfo[] {
+  const rows: BlockInfo[] = [];
+  for (const chunk of src.split(/^\s*\{/m).slice(1)) {
+    const name = chunk.match(/name:\s*"([^"]+)"/)?.[1];
+    const file = chunk.match(/file:\s*"([^"]+)"/)?.[1];
+    if (!name || !file) continue;
+    const strList = (key: string): string[] => {
+      const body =
+        chunk.match(new RegExp(`${key}:\\s*\\[([^\\]]*)\\]`, "s"))?.[1] ?? "";
+      return [...body.matchAll(/"([^"]+)"/g)].map((m) => m[1]);
+    };
+    rows.push({
+      name,
+      title: chunk.match(/title:\s*"([^"]+)"/)?.[1] ?? name,
+      category: chunk.match(/category:\s*"([^"]+)"/)?.[1] ?? "Settings",
+      description: chunk.match(/description:\s*"([^"]+)"/)?.[1] ?? "",
+      files: [file, ...strList("files")],
+      components: strList("registryDependencies"),
+    });
+  }
+  return rows;
+}
+
+export async function listBlocks(): Promise<
+  { count: number; blocks: BlockInfo[] } | { error: string }
+> {
+  const src = await readBlockManifest();
+  if (!src) {
+    return {
+      error:
+        "block manifest unavailable — run inside the kern monorepo or set KERN_REPO_ROOT",
+    };
+  }
+  const blocks = parseBlockRows(src);
+  if (blocks.length === 0) {
+    return { error: "parsed 0 block rows — the manifest shape changed." };
+  }
+  return { count: blocks.length, blocks };
+}
+
+export async function getBlock(
+  name: string,
+): Promise<BlockInfo | { error: string }> {
+  const list = await listBlocks();
+  if ("error" in list) return list;
+  const hit = list.blocks.find((b) => b.name === name);
+  if (!hit) return { error: `unknown block: ${name}` };
+  return hit;
+}
+
+// ---------------------------------------------------------------------------
+// Install planning: the deterministic no-write plan (P5).
+//
+// The CLI owns the planning implementation (`planComponent`: resolve, closure,
+// conflict preflight — zero writes). The MCP server exposes it WITHOUT
+// bundling the CLI's TypeScript compiler: an optional dynamic import runs the
+// real planner when the CLI package is installed beside the server, and when
+// it is not, the tool returns the metadata-level plan (registry rows,
+// entrypoints, the exact `kern add` command) labelled `metadata-only`.
+//
+// The label is the load-bearing part. A plan that says "resolved closure"
+// when it only read metadata is a fake validation report — the exact failure
+// this workflow exists to prevent.
+//
+
+export type InstallPlan =
+  | {
+      evidence: "resolved-closure";
+      name: string;
+      platform: string;
+      files: string[];
+      npm: string[];
+      instructions: string[];
+    }
+  | {
+      evidence: "metadata-only";
+      name: string;
+      platform: string;
+      row: {
+        name: string;
+        export: string;
+        platform: string;
+        entrypoint: string;
+        path: string;
+        status: string;
+      };
+      command: string;
+    }
+  | { error: string };
+
+export async function installPlan(
+  name: string,
+  platform: Platform = "web",
+): Promise<InstallPlan> {
+  const entry = COMPONENTS.find(
+    (c) => c.name === name && c.platform === platform,
+  );
+  if (!entry) return { error: `unknown component: ${platform}/${name}` };
+  if (entry.status !== "real") {
+    return { error: `"${name}" is a stub — nothing to install.` };
+  }
+  try {
+    const cli = (await import("@xoroh/kern-cli")) as {
+      planComponent: (
+        name: string,
+        opts: { platform: string },
+      ) => { files: Array<{ out: string }>; npm: string[] };
+    };
+    const plan = cli.planComponent(name, { platform });
+    return {
+      evidence: "resolved-closure",
+      name,
+      platform,
+      files: plan.files.map((f) => f.out),
+      npm: plan.npm,
+      instructions: [
+        `kern add ${name} --platform ${platform}`,
+        ...(plan.npm.length > 0 ? [`bun add ${plan.npm.join(" ")}`] : []),
+      ],
+    };
+  } catch {
+    return {
+      evidence: "metadata-only",
+      name,
+      platform,
+      row: { ...entry },
+      command: `kern add ${name} --platform ${platform}`,
+    };
+  }
+}
+
+/**
+ * Validate a destination against its receipt (KERN-055) — truthful setup
+ * reporting. Runs the CLI's own diff when the CLI package is installed
+ * beside the server; otherwise says so instead of inventing a verdict.
+ * Customized files are REPORTED (owned edits), never "fixed" here.
+ */
+export async function validateInstall(
+  dest: string,
+): Promise<
+  | {
+      dest: string;
+      rows: Array<{ path: string; state: string; owner: string }>;
+    }
+  | { error: string }
+> {
+  try {
+    const cli = (await import("@xoroh/kern-cli")) as {
+      diffDest: (
+        dest: string,
+      ) => Array<{ path: string; state: string; owner: string }>;
+    };
+    return { dest, rows: cli.diffDest(dest) };
+  } catch {
+    return {
+      error:
+        "validation needs @xoroh/kern-cli beside the MCP server — run `kern diff` in the destination instead.",
+    };
+  }
+}
 /**
  * Kern compliance checklist for auditing a screen. The twelve categories
  * mirror the `kern` skill's audit table one-for-one — a checklist that names

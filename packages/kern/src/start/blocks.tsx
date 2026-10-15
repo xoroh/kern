@@ -17,7 +17,7 @@ export function SearchBar({
     <form
       data-slot="search-bar"
       className={cn(
-        "kern-search-bar flex h-12 items-center gap-2 rounded-(--md-sys-shape-corner-full) bg-(--md-sys-color-surface-container-high) px-4 text-(--md-sys-color-on-surface)",
+        "kern-search-bar flex h-12 items-center gap-2 rounded-(--sys-shape-corner-full) bg-(--sys-color-surface-container-high) px-4 text-(--sys-color-on-surface)",
         className,
       )}
       {...props}
@@ -51,7 +51,7 @@ export function SettingsRow({
     <div
       data-slot="settings-row"
       className={cn(
-        "kern-settings-row flex min-h-14 items-center gap-4 px-4 py-3 text-(--md-sys-color-on-surface)",
+        "kern-settings-row flex min-h-14 items-center gap-4 px-4 py-3 text-(--sys-color-on-surface)",
         className,
       )}
       {...props}
@@ -59,7 +59,7 @@ export function SettingsRow({
       <span className="flex min-w-0 flex-1 flex-col">
         <span className="text-sm font-medium">{label}</span>
         {supporting ? (
-          <span className="text-xs text-(--md-sys-color-on-surface-variant)">
+          <span className="text-xs text-(--sys-color-on-surface-variant)">
             {supporting}
           </span>
         ) : null}
@@ -86,7 +86,7 @@ export function StatusBar({
     <div
       data-slot="status-bar"
       className={cn(
-        "kern-status-bar flex h-8 items-center gap-3 border-t border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container) px-3 text-xs text-(--md-sys-color-on-surface-variant)",
+        "kern-status-bar flex h-8 items-center gap-3 border-t border-(--sys-color-outline-variant) bg-(--sys-color-surface-container) px-3 text-xs text-(--sys-color-on-surface-variant)",
         className,
       )}
       {...props}
@@ -120,7 +120,7 @@ export function ThemeToggle({
       type="button"
       aria-label={mode === "dark" ? "Switch to light" : "Switch to dark"}
       className={cn(
-        "kern-theme-toggle inline-flex h-10 w-10 items-center justify-center rounded-(--md-sys-shape-corner-full) text-(--md-sys-color-on-surface) hover:bg-(--md-sys-color-surface-tonal) " + FOCUS_RING_CLASS + " outline-none",
+        "kern-theme-toggle inline-flex h-10 w-10 items-center justify-center rounded-(--sys-shape-corner-full) text-(--sys-color-on-surface) hover:bg-(--sys-color-surface-tonal) " + FOCUS_RING_CLASS + " outline-none",
         className,
       )}
       onClick={onToggle}
@@ -151,7 +151,7 @@ export function ContrastToggle({
         contrast === "high" ? "Use standard contrast" : "Use high contrast"
       }
       className={cn(
-        "kern-contrast-toggle inline-flex h-10 w-10 items-center justify-center rounded-(--md-sys-shape-corner-full) text-(--md-sys-color-on-surface) hover:bg-(--md-sys-color-surface-tonal) " + FOCUS_RING_CLASS + " outline-none",
+        "kern-contrast-toggle inline-flex h-10 w-10 items-center justify-center rounded-(--sys-shape-corner-full) text-(--sys-color-on-surface) hover:bg-(--sys-color-surface-tonal) " + FOCUS_RING_CLASS + " outline-none",
         className,
       )}
       onClick={onToggle}

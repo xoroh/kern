@@ -15,7 +15,7 @@ export function MenubarRoot({ className, ...props }: MenubarRootProps) {
     <MenubarPrimitive
       data-slot="menubar"
       className={cnState(
-        "kern-menubar flex h-12 items-center gap-1 rounded-(--md-sys-shape-corner-full) bg-(--md-sys-color-surface-tonal) px-2",
+        "kern-menubar flex h-12 items-center gap-1 rounded-(--sys-shape-corner-full) bg-(--sys-color-surface-tonal) px-2",
         className,
       )}
       {...props}
@@ -32,7 +32,7 @@ export function MenubarTrigger({ className, ...props }: MenubarTriggerProps) {
     <MenuPrimitive.Trigger
       data-slot="menubar-trigger"
       className={cnState(
-        "kern-menubar-trigger flex h-10 cursor-pointer items-center rounded-(--md-sys-shape-corner-full) px-4 text-sm text-(--md-sys-color-on-surface) outline-none select-none data-highlighted:bg-(--md-sys-color-surface-container-high) data-popup-open:bg-(--md-sys-color-surface-container-high)",
+        "kern-menubar-trigger relative flex h-10 cursor-pointer items-center rounded-(--sys-shape-corner-full) px-4 text-sm leading-5 font-medium tracking-[0.00625rem] text-(--sys-color-on-surface) outline-none select-none transition-colors duration-200 ease-(--sys-motion-easing-standard) before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--sys-color-on-surface) data-highlighted:before:opacity-[var(--sys-state-hover)] data-popup-open:before:opacity-[var(--sys-state-hover)] focus-visible:before:opacity-[var(--sys-state-focus)]",
         className,
       )}
       {...props}

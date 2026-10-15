@@ -31,7 +31,7 @@ export const numberField: ComponentDoc = {
     supported: [
       "`className` on the root lays out the field; `className` on the input styles the text box alone, leaving the steppers as they are.",
       "The group's border and shape are the input's, so a number field sits level beside a text field in a form.",
-      "Stepper hover uses `--md-sys-color-surface-tonal`, and both steppers carry `aria-label`s of their own.",
+      "Stepper hover uses `--sys-color-surface-tonal`, and both steppers carry `aria-label`s of their own.",
     ],
     notSupported: [
       "There is no `size` or `variant` prop. The field is one height, matching the input.",

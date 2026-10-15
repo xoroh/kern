@@ -45,7 +45,7 @@ export function Split({
       role="group"
       aria-label={label}
       className={cn(
-        "kern-split flex min-h-0 w-full flex-1 gap-px bg-(--md-sys-color-outline-variant)",
+        "kern-split flex min-h-0 w-full flex-1 gap-px bg-(--sys-color-outline-variant)",
         className,
       )}
       {...props}
@@ -58,7 +58,7 @@ export function Split({
           // `minmax(0, 1fr)` is the native equivalent of `flex: 1` +
           // `minWidth: 0`: equal share, but a long child may still shrink below
           // its content instead of pushing a sibling off screen.
-          className="min-w-0 flex-1 bg-(--md-sys-color-surface)"
+          className="min-w-0 flex-1 bg-(--sys-color-surface)"
         >
           {child}
         </div>

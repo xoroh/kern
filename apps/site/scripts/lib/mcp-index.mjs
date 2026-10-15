@@ -35,18 +35,18 @@ export function buildMcpIndex(families, foundations, theme) {
       slug: page.slug,
       title: page.title,
       oneLiner: page.oneLiner,
-      page: `/foundations/${page.slug}`,
+      page: `/foundations/m3/${page.slug}`,
       md: `/md/foundations/${page.slug}.md`,
     });
   }
-  // The theme reference page (/foundations/theme) is a docs page, not a
+  // The theme reference page (/foundations/m3/theme) is a docs page, not a
   // registry page: its title/one-liner come from the nav leaf (the same
   // source llms.txt links), its URLs from the route it serves and the file
   // generate-page-md emits. A docs page outside the families + FOUNDATIONS
   // census is exactly the omission this entry exists to prevent.
   if (!theme?.title || !theme?.oneLiner) {
     throw new Error(
-      "buildMcpIndex: no theme page facts — resolve the /foundations/theme nav leaf before calling",
+      "buildMcpIndex: no theme page facts — resolve the /foundations/m3/theme nav leaf before calling",
     );
   }
   pages.push({
@@ -54,7 +54,7 @@ export function buildMcpIndex(families, foundations, theme) {
     slug: "theme",
     title: theme.title,
     oneLiner: theme.oneLiner,
-    page: "/foundations/theme",
+    page: "/foundations/m3/theme",
     md: "/md/foundations/theme.md",
   });
   return {

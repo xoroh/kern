@@ -312,7 +312,7 @@ describe("Slider", () => {
       </Slider.Root>,
     );
     const track = container.querySelector('[data-slot="slider-track"]');
-    expect(track).toHaveClass("bg-(--md-sys-color-surface-container-highest)");
+    expect(track).toHaveClass("bg-(--sys-color-surface-container-highest)");
     expect(track?.className).not.toContain("surface-tonal");
   });
 
@@ -325,7 +325,7 @@ describe("Slider", () => {
     // Interior stops only (25/50/75) — endpoints are the track ends, not stops.
     const stops = container.querySelectorAll('[data-slot="slider-stop"]');
     expect(stops).toHaveLength(3);
-    expect(stops[0]).toHaveClass("bg-(--md-sys-color-primary)");
+    expect(stops[0]).toHaveClass("bg-(--sys-color-primary)");
   });
 
   it("renders no stops for continuous sliders", () => {

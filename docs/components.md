@@ -47,6 +47,9 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `button-group` | `ButtonGroup` | real |
 | `calendar` | `Calendar` | real |
 | `card` | `Card` | real |
+| `card-actions` | `CardActions` | real |
+| `card-content` | `CardContent` | real |
+| `card-header` | `CardHeader` | real |
 | `carousel` | `Carousel` | real |
 | `checkbox` | `Checkbox` | real |
 | `checkbox-group` | `CheckboxGroup` | real |
@@ -200,6 +203,10 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `progress-value` | `ProgressValue` | real |
 | `radio-group` | `RadioGroup` | real |
 | `radio-group-item` | `RadioGroupItem` | real |
+| `rich-tooltip` | `RichTooltip` | real |
+| `rich-tooltip-actions` | `RichTooltipActions` | real |
+| `rich-tooltip-content` | `RichTooltipContent` | real |
+| `rich-tooltip-title` | `RichTooltipTitle` | real |
 | `scroll-area` | `ScrollArea` | real |
 | `scroll-area-root` | `ScrollAreaRoot` | real |
 | `scroll-area-scrollbar` | `ScrollAreaScrollbar` | real |
@@ -324,6 +331,9 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `button-group` | `ButtonGroup` | real |
 | `calendar` | `Calendar` | real |
 | `card` | `Card` | real |
+| `card-actions` | `CardActions` | real |
+| `card-content` | `CardContent` | real |
+| `card-header` | `CardHeader` | real |
 | `carousel` | `Carousel` | real |
 | `checkbox` | `Checkbox` | real |
 | `checkbox-group` | `CheckboxGroup` | real |
@@ -331,6 +341,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `chip` | `Chip` | real |
 | `circular-progress` | `CircularProgress` | real |
 | `collapsible` | `Collapsible` | real |
+| `combobox` | `Combobox` | real |
 | `command` | `Command` | real |
 | `context-menu` | `ContextMenu` | real |
 | `contrast-toggle` | `ContrastToggle` | real |
@@ -341,6 +352,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `empty-state` | `EmptyState` | real |
 | `entity-sheet` | `EntitySheet` | real |
 | `error-boundary` | `ErrorBoundary` | real |
+| `expressive-shape` | `ExpressiveShape` | real |
 | `extended-fab` | `ExtendedFab` | real |
 | `fab` | `Fab` | real |
 | `fab-menu` | `FabMenu` | real |
@@ -359,6 +371,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `kern-pressable` | `KernPressable` | real |
 | `label` | `Label` | real |
 | `linear-progress` | `LinearProgress` | real |
+| `link-button` | `LinkButton` | real |
 | `list-detail` | `ListDetail` | real |
 | `list-item` | `ListItem` | real |
 | `loader` | `Loader` | real |
@@ -383,6 +396,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `progress` | `Progress` | real |
 | `radio-group` | `RadioGroup` | real |
 | `radio-group-item` | `RadioGroupItem` | real |
+| `rich-tooltip` | `RichTooltip` | real |
 | `scroll-area` | `ScrollArea` | real |
 | `search` | `Search` | real |
 | `secondary-tabs` | `SecondaryTabs` | real |

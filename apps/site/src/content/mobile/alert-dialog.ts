@@ -14,7 +14,7 @@ export const alertDialog: ComponentDoc = {
     nativePeer: "AlertDialog",
     variants: [],
     // M3 "dialogs (modal)" rests at level 3; the web counterpart ships
-    // `--md-sys-elevation-level3` to match. Asserted against the row.
+    // `--sys-elevation-level3` to match. Asserted against the row.
     elevation: 3,
   },
   parts: ["AlertDialog"],
@@ -32,9 +32,9 @@ export const alertDialog: ComponentDoc = {
   },
   api: [
     {
-      name: "visible",
+      name: "open",
       type: "boolean",
-      required: true,
+      default: "false",
       note: "Drives the React Native `Modal`. The dialog does not own its own open state — the caller does.",
     },
     {

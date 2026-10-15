@@ -10,14 +10,14 @@ export function ProgressRoot({ className, ...props }: ProgressRootProps) {
     <ProgressPrimitive.Root
       data-slot="progress"
       className={cnState(
-        "kern-progress relative h-1 w-full overflow-hidden rounded-full bg-(--md-sys-color-surface-tonal)",
+        "kern-progress relative h-1 w-full overflow-hidden rounded-full bg-(--sys-color-surface-tonal)",
         className,
       )}
       {...props}
     >
       <ProgressPrimitive.Indicator
         data-slot="progress-indicator"
-        className="kern-progress-indicator block h-full rounded-full bg-(--md-sys-color-primary) transition-[width] duration-200"
+        className="kern-progress-indicator block h-full rounded-full bg-(--sys-color-primary) transition-[width] duration-200"
       />
     </ProgressPrimitive.Root>
   );
@@ -28,7 +28,7 @@ export function ProgressLabel({ className, ...props }: ProgressLabelProps) {
     <ProgressPrimitive.Label
       data-slot="progress-label"
       className={cnState(
-        "kern-progress-label text-xs text-(--md-sys-color-on-surface-variant)",
+        "kern-progress-label text-xs text-(--sys-color-on-surface-variant)",
         className,
       )}
       {...props}

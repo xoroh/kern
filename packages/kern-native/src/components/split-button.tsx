@@ -1,7 +1,7 @@
-import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
+import { type ResolvedTheme } from "@xoroh/kern-tokens";
 import { type ReactNode, useState } from "react";
 import { Modal, Pressable, StyleSheet, View } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 import { overlayStyles } from "../utils/overlay-styles";
 import { menuStyles } from "./menu";
 import { Text } from "./text";
@@ -100,7 +100,7 @@ export type NativeSplitButtonProps = {
 };
 
 export function splitButtonStyles(
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): {
   row: object;
   primary: object;
@@ -165,7 +165,7 @@ export function SplitButton({
           style={({ pressed }) => [
             staticStyles.primary,
             styles.primary,
-            { opacity: disabled ? 0.5 : pressed ? 0.9 : 1 },
+            { opacity: disabled ? 0.38 : pressed ? 0.9 : 1 },
           ]}
         >
           <View
@@ -201,7 +201,7 @@ export function SplitButton({
               style={({ pressed }) => [
                 staticStyles.overflow,
                 styles.overflow,
-                { opacity: disabled ? 0.5 : pressed || open ? 0.9 : 1 },
+                { opacity: disabled ? 0.38 : pressed || open ? 0.9 : 1 },
               ]}
             >
               {/* The chevron is decoration: the half's accessible name comes
@@ -265,7 +265,7 @@ export function SplitButton({
                         backgroundColor: pressed
                           ? scheme.color.surfaceContainerHighest
                           : "transparent",
-                        opacity: action.disabled ? 0.5 : 1,
+                        opacity: action.disabled ? 0.38 : 1,
                       },
                     ]}
                   >

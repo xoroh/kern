@@ -10,78 +10,81 @@
  */
 import { createFileRoute } from "@tanstack/react-router";
 import { Kicker } from "../../components/chrome/kicker";
+import { PageCard } from "../../domains/shared/chrome/page-card";
 import { SiteLayout } from "../../domains/shared/chrome/site-layout";
 import { routeHead } from "../../domains/shared/systems/seo";
-import { T_BODY, T_PAGE, T_SECTION } from "../../domains/shared/systems/type-scale";
+import {
+  T_BODY,
+  T_CODE,
+  T_PAGE,
+  T_SECTION,
+} from "../../domains/shared/systems/type-scale";
+import { LINK } from "../../domains/shared/systems/ui";
 
 export const Route = createFileRoute("/legal/security")({
   head: () =>
-    routeHead("Security", "How to report a vulnerability, and what support to expect."),
+    routeHead(
+      "Security",
+      "How to report a vulnerability, and what support to expect.",
+    ),
   component: Security,
 });
 
-const INK = "text-(--md-sys-color-on-surface)";
-const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";
+const INK = "text-(--sys-color-on-surface)";
+const INK_SOFT = "text-(--sys-color-on-surface-variant)";
 const REPO = "https://github.com/xoroh/kern";
 const POLICY = `${REPO}/blob/main/SECURITY.md`;
 
 function Security() {
   return (
     <SiteLayout>
-      <section className="px-4 py-4 sm:px-6 sm:py-6">
-        <div className="mx-auto flex max-w-[64rem] flex-col gap-12 rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14">
-          <header className="flex flex-col gap-3">
-            <Kicker className={INK_SOFT}>Legal</Kicker>
-            <h1 className={`m-0 ${T_PAGE} ${INK}`}>Security</h1>
-            <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>
-              How to report a vulnerability, and what support to expect. The
-              full policy lives in{" "}
-              <a
-                href={POLICY}
-                className="text-(--md-sys-color-primary) no-underline hover:underline"
-                rel="noreferrer"
-                target="_blank"
-              >
-                SECURITY.md
-              </a>{" "}
-              — this page states what is stable, and links the rest.
-            </p>
-          </header>
+      <PageCard gap={12}>
+        <header className="flex flex-col gap-3">
+          <Kicker className={INK_SOFT}>Legal</Kicker>
+          <h1 className={`m-0 ${T_PAGE} ${INK}`}>Security</h1>
+          <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>
+            How to report a vulnerability, and what support to expect. The full
+            policy lives in{" "}
+            <a href={POLICY} className={LINK} rel="noreferrer" target="_blank">
+              SECURITY.md
+            </a>{" "}
+            — this page states what is stable, and links the rest.
+          </p>
+        </header>
 
-          <div className="flex flex-col gap-3">
-            <h2 id="report" className={`m-0 ${T_SECTION} ${INK}`}>
-              Report privately
-            </h2>
-            <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>
-              Report vulnerabilities through{" "}
-              <a
-                href={`${REPO}/security/advisories/new`}
-                className="text-(--md-sys-color-primary) no-underline hover:underline"
-                rel="noreferrer"
-                target="_blank"
-              >
-                GitHub Security Advisories
-              </a>
-              , never a public issue. Include the affected package and version,
-              the platform and runtime, steps to reproduce with an impact
-              assessment, and whether untrusted input can reach it. Expect
-              acknowledgement within 72 hours.
-            </p>
-          </div>
-
-          <div className="flex flex-col gap-3">
-            <h2 id="supported" className={`m-0 ${T_SECTION} ${INK}`}>
-              What is supported
-            </h2>
-            <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>
-              Kern is pre-1.0. Security fixes target the latest published
-              release — there are no backport guarantees for older versions.
-              Upgrade every <code>@xoroh/*</code> package you depend on to the
-              latest <code>0.x</code> before reporting.
-            </p>
-          </div>
+        <div className="flex flex-col gap-3">
+          <h2 id="report" className={`m-0 ${T_SECTION} ${INK}`}>
+            Report privately
+          </h2>
+          <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>
+            Report vulnerabilities through{" "}
+            <a
+              href={`${REPO}/security/advisories/new`}
+              className={LINK}
+              rel="noreferrer"
+              target="_blank"
+            >
+              GitHub Security Advisories
+            </a>
+            , never a public issue. Include the affected package and version,
+            the platform and runtime, steps to reproduce with an impact
+            assessment, and whether untrusted input can reach it. Expect
+            acknowledgement within 72 hours.
+          </p>
         </div>
-      </section>
+
+        <div className="flex flex-col gap-3">
+          <h2 id="supported" className={`m-0 ${T_SECTION} ${INK}`}>
+            What is supported
+          </h2>
+          <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>
+            Kern is pre-1.0. Security fixes target the latest published release
+            — there are no backport guarantees for older versions. Upgrade every{" "}
+            <code className={T_CODE}>@xoroh/*</code> package you depend on to
+            the latest <code className={T_CODE}>0.x</code> before reporting.
+          </p>
+        </div>
+      </PageCard>
     </SiteLayout>
   );
 }

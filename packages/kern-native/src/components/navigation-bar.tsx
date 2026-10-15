@@ -1,6 +1,5 @@
 import {
   type ResolvedTheme,
-  resolveThemeDetails,
   tokens,
 } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
@@ -13,7 +12,7 @@ import {
   View,
   type ViewStyle,
 } from "react-native";
-import { useKernTheme } from "../theme";
+import { defaultScheme, useKernTheme } from "../theme";
 
 /**
  * M3 navigation bar. Destinations carry an icon slot + label; the active one
@@ -43,7 +42,7 @@ export type NativeNavigationBarProps = {
 };
 
 export function navigationBarStyles(
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): {
   bar: ViewStyle;
   destination: ViewStyle;

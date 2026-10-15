@@ -74,7 +74,7 @@ export function ContextMenuSeparator({
     <ContextMenuPrimitive.Separator
       data-slot="context-menu-separator"
       className={cnState(
-        "kern-context-menu-separator mx-2 my-1 h-px bg-(--md-sys-color-outline-variant)",
+        "kern-context-menu-separator mx-2 my-1 h-px bg-(--sys-color-outline-variant)",
         className,
       )}
       {...props}

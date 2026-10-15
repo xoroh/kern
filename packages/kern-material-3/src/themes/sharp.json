@@ -1,0 +1,20 @@
+{
+  "id": "sharp",
+  "name": "Sharp",
+  "description": "Angular expression of the Kern system: shape-only overrides, color untouched. Extends material-3; carries no role table of its own. Full passes through so pills stay pills.",
+  "extends": "material-3",
+  "overrides": {
+    "shape": {
+      "none": "0px",
+      "extra-small": "0px",
+      "small": "2px",
+      "medium": "2px",
+      "large": "2px",
+      "large-increased": "2px",
+      "extra-large": "2px",
+      "extra-large-increased": "2px",
+      "extra-extra-large": "2px",
+      "full": "9999px"
+    }
+  }
+}

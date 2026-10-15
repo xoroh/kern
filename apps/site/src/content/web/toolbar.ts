@@ -14,10 +14,9 @@ export const toolbar: ComponentDoc = {
     nativePeer: "Toolbar",
     // No variant axis. One treatment.
     variants: [],
-    // M3's row "toolbar" rests at level 2, and the bar ships
-    // `--md-sys-elevation-level2` to match. Asserted against the spec, unlike
-    // most of the overlays around it.
-    elevation: 2,
+    // Expressive floating toolbar defaults to level3; docked is flat.
+    // MDC Android floatingtoolbar/res/values/tokens.xml confirms the L3 token.
+    elevation: 3,
   },
   parts: [
     "Toolbar",
@@ -30,7 +29,7 @@ export const toolbar: ComponentDoc = {
     {
       id: "K3",
       spec: "Material 3 defines no tonal surface role. Its surface roles are the surface, surface-dim, surface-bright and the surface-container family.",
-      kern: "The toolbar's bar is painted with `--md-sys-color-surface-tonal`, a role kern adds beyond M3's 45.",
+      kern: "The toolbar's bar is painted with `--sys-color-surface-tonal`, a role kern adds beyond M3's 45.",
       why: "A toolbar needs a track that reads as a container for its controls rather than as content, and none of M3's surface-container roles is tuned for a rounded bar holding pressed states. The role is registered as K3 in the role inventory, so it is a declared addition rather than a colour invented in a stylesheet. The token is what deviates; this is the component whose whole surface depends on it.",
     },
   ],
@@ -53,10 +52,49 @@ export const toolbar: ComponentDoc = {
     },
     { name: "Toolbar", role: "The namespace object: all of the parts above." },
   ],
+  keyboard: [
+    {
+      key: "Arrow keys",
+      action: "Moves between buttons with roving focus.",
+    },
+    {
+      key: "Tab / Shift+Tab",
+      action: "The toolbar is one stop; arrows move inside it.",
+    },
+  ],
+  usage: {
+    do: [
+      "Use as a floating action strip — formatting, editing, view controls.",
+      "Keep buttons to one concern each; separate groups with dividers.",
+    ],
+    dont: [
+      "Don't use as primary navigation — that is a nav bar, rail, or tabs.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Bar",
+      state: "resting",
+      token: "kern.toolbar.container",
+      value: "floating: full pill, surface-tonal, level3; docked: flat",
+    },
+    {
+      element: "Selected button",
+      state: "resting",
+      token: "kern.toolbar.selected",
+      value: "secondary-container + on-secondary-container",
+    },
+  ],
+  faq: [
+    {
+      q: "Toolbar or menubar?",
+      a: "Toolbar for icon action strips; menubar for desktop menu-bar command patterns.",
+    },
+  ],
   customization: {
     supported: [
       "`className` on every part, merged after that part's own classes.",
-      "The bar is a rounded tonal track with a level-2 lift — see Deviations for the track colour.",
+      "The floating bar is a rounded tonal track at level3; the docked bar is flat — see Deviations for the track colour.",
       "Groups and separators let the bar be divided without new component types.",
     ],
     notSupported: [

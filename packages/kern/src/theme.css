@@ -1,1 +1,80 @@
-@import "@xoroh/kern-theme/theme";
+@import "@xoroh/kern-tokens/theme";
+
+/* SPIKE (D-026 follow-up): registering Kern's own component sources here means
+ * consumers never write an @source line — importing @xoroh/kern/theme both
+ * sets the token values and enrolls this package's class strings in the
+ * consumer's Tailwind scan. Relative to this file, so npm/pnpm/bun layouts
+ * all resolve it identically. */
+@source "./components";
+
+/* M3 linear progress indeterminate motion (2s linear infinite cycle) and
+   four-color cycling (primary → primary-container → tertiary →
+   tertiary-container). Durations per sys.motion; linear easing per the
+   indeterminate spec. */
+@keyframes kern-linear-indeterminate {
+  0% {
+    transform: translateX(-100%) scaleX(0.45);
+  }
+  50% {
+    transform: translateX(35%) scaleX(0.45);
+  }
+  100% {
+    transform: translateX(240%) scaleX(0.45);
+  }
+}
+
+@keyframes kern-linear-indeterminate-secondary {
+  0% {
+    transform: translateX(-150%) scaleX(0.3);
+  }
+  50% {
+    transform: translateX(0%) scaleX(0.3);
+  }
+  100% {
+    transform: translateX(200%) scaleX(0.3);
+  }
+}
+
+@keyframes kern-linear-four-color {
+  0%,
+  24% {
+    background-color: var(--sys-color-primary);
+  }
+  25%,
+  49% {
+    background-color: var(--sys-color-primary-container);
+  }
+  50%,
+  74% {
+    background-color: var(--sys-color-tertiary);
+  }
+  75%,
+  100% {
+    background-color: var(--sys-color-tertiary-container);
+  }
+}
+
+@keyframes kern-circular-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes kern-circular-four-color {
+  0%,
+  24% {
+    stroke: var(--sys-color-primary);
+  }
+  25%,
+  49% {
+    stroke: var(--sys-color-primary-container);
+  }
+  50%,
+  74% {
+    stroke: var(--sys-color-tertiary);
+  }
+  75%,
+  100% {
+    stroke: var(--sys-color-tertiary-container);
+  }
+}

@@ -12,7 +12,7 @@ export const bottomSheet: ComponentDoc = {
     package: "@xoroh/kern",
     nativePeer: "BottomSheet",
     variants: [],
-    // Ships `--md-sys-elevation-level1`, and M3's "bottom sheet (modal)" row
+    // Ships `--sys-elevation-level1`, and M3's "bottom sheet (modal)" row
     // rests at level 1 (the `sheet` row in m3-elevation.ts permits 0/1). No
     // row is keyed under this slug, so check:docs reports the claim as
     // unasserted — a registry gap, not a page gap.

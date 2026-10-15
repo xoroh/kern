@@ -258,7 +258,7 @@ describe("native Popover (P2b-3 tranche 5)", () => {
     // The value was `2`, which matches NO level on M3's scale (0/1/3/6/8/12).
     // An off-scale elevation is not a design choice, it is an inconsistency that
     // cannot be compared to the web side at all — web binds the popover to
-    // `--md-sys-elevation-level2`, which is 3dp.
+    // `--sys-elevation-level2`, which is 3dp.
     //
     // Asserted against the SCALE rather than the literal 3: a test that pins
     // only `toBe(3)` would still pass if someone reintroduced `2` AND someone

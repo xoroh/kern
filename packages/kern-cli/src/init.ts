@@ -36,7 +36,9 @@ import {
 } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { kernVersion, WORKSPACE_ROOT } from "./manifest.js";
+import { defineCliConfig } from "@xoroh/kern-contracts";
+import { kernVersion, loadRegistry, WORKSPACE_ROOT } from "./manifest.js";
+import { type InstallReceipt, readReceipt } from "./receipt.js";
 
 export type InitOptions = {
   /** Workspace root (tests point this at a fixture; default: real workspace). */
@@ -47,6 +49,10 @@ export type InitOptions = {
   force?: boolean;
   /** Working directory the target dir resolves against. Default: process.cwd(). */
   cwd?: string;
+  /** Design-system preset pinned into kern.json (N6). Default: the starter default. */
+  preset?: string;
+  /** Package manager for the scaffold instructions (C2). Default: bun. */
+  pm?: "bun" | "npm" | "pnpm" | "yarn";
 };
 
 export type InitResult = {
@@ -97,13 +103,10 @@ export function initScaffold(dir: string, opts: InitOptions = {}): InitResult {
 
   const receiptPath = join(dest, "kern.receipt.json");
   if (existsSync(receiptPath)) {
-    const prev = JSON.parse(readFileSync(receiptPath, "utf8")) as {
-      kern: string;
-      components?: Record<string, unknown>;
-    };
-    if (prev.kern !== version) {
+    const prev = readReceipt(JSON.parse(readFileSync(receiptPath, "utf8")));
+    if ((prev.config.kern as string) !== version) {
       fail(
-        `receipt pins kern ${prev.kern} but the workspace is ${version} — mixed-version dests are refused. Scaffold from a matching checkout instead.`,
+        `receipt pins kern ${prev.config.kern} but the workspace is ${version} — mixed-version dests are refused. Scaffold from a matching checkout instead.`,
       );
     }
   }
@@ -129,7 +132,8 @@ export function initScaffold(dir: string, opts: InitOptions = {}): InitResult {
   // install` never reaches the registry for an unpublished name.
   const kernDir = join(root, "packages/kern");
   const tokensDir = join(root, "packages/kern-tokens");
-  const primitivesDir = join(root, "packages/kern-primitives");
+  const primitivesDir = join(root, "libs/kern-primitives");
+  const material3Dir = join(root, "packages/kern-material-3");
   const kernDep = opts.registry ? version : `file:${kernDir}`;
   const tokensDep = opts.registry ? version : `file:${tokensDir}`;
   const overrides = opts.registry
@@ -138,6 +142,10 @@ export function initScaffold(dir: string, opts: InitOptions = {}): InitResult {
         "@xoroh/kern": `file:${kernDir}`,
         "@xoroh/kern-tokens": `file:${tokensDir}`,
         "@xoroh/kern-primitives": `file:${primitivesDir}`,
+        // @xoroh/kern depends on its material-3 preset package: without
+        // this pin the transitive dep escapes to the registry (C1-S smoke
+        // proved it — `bun install` failed outside the monorepo).
+        "@xoroh/kern-material-3": `file:${material3Dir}`,
       };
   const pkgPath = join(dest, "package.json");
   writeFileSync(
@@ -153,21 +161,44 @@ export function initScaffold(dir: string, opts: InitOptions = {}): InitResult {
     readFileSync(readmePath, "utf8").replaceAll("__KERN_VERSION__", version),
   );
 
-  const prevComponents = existsSync(receiptPath)
-    ? (
-        JSON.parse(readFileSync(receiptPath, "utf8")) as {
-          components?: Record<string, unknown>;
-        }
-      ).components
-    : undefined;
-  const receipt = {
+  const prevFiles = existsSync(receiptPath)
+    ? readReceipt(JSON.parse(readFileSync(receiptPath, "utf8"))).files
+    : [];
+  // kern.json: the project records its install choices once, and `kern add`
+  // reads them back — target renderer, pinned preset, package manager and
+  // mode are project facts, not flags to re-type (and re-typo) on every
+  // command. Validated by the contracts package: one shape definition, not
+  // a writer/reader pair that can drift.
+  const kernJson = {
+    ...defineCliConfig({
+      target: dest,
+      renderer: "web",
+      mode: "source-hybrid",
+      preset: opts.preset ?? "material-3",
+      pm: opts.pm ?? "bun",
+    }),
     kern: version,
-    mode: "scaffold",
-    components: prevComponents ?? {},
+  };
+  writeFileSync(
+    join(dest, "kern.json"),
+    `${JSON.stringify(kernJson, null, 2)}\n`,
+  );
+  const receipt: InstallReceipt = {
+    schemaVersion: "2",
+    releaseSet: loadRegistry(root).releaseSet,
+    mode: "source-hybrid",
+    files: prevFiles,
+    assets: [],
+    licenses: [],
+    config: { kern: version, scaffold: "web" },
   };
   writeFileSync(receiptPath, `${JSON.stringify(receipt, null, 2)}\n`);
 
-  const instructions = ["bun install", "bun run dev"];
+  const pm = opts.pm ?? "bun";
+  // `bun`/`npm` spell the run subcommand out; `pnpm`/`yarn` run bare.
+  // bun keeps its exact historical instructions (`bun run dev`).
+  const runCmd = pm === "bun" || pm === "npm" ? `${pm} run` : pm;
+  const instructions = [`${pm} install`, `${runCmd} dev`];
   if (opts.registry) {
     instructions.unshift(
       `kern is ${version} and unpublished — these registry names 404 until the first publish. Omit --registry to scaffold with file: deps against your checkout instead.`,

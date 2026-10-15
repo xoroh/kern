@@ -1,7 +1,15 @@
 import { cn } from "@xoroh/kern";
 import type { ReactNode } from "react";
+import { T_CODE } from "../../domains/shared/systems/type-scale";
+import { CARD, INK_SOFT, STAGE } from "../../domains/shared/systems/ui";
 
-/** A labelled stage that a live component demo is rendered into. */
+/**
+ * A labelled stage that a live component demo is rendered into.
+ *
+ * The figure is the site's one card treatment (CARD) and the demo sits on
+ * the site's one demo stage (STAGE), so a specimen here never reads as a
+ * different chrome from an Example or Configurator stage.
+ */
 export function Preview({
   label,
   children,
@@ -20,16 +28,13 @@ export function Preview({
     3: "md:col-span-3",
   } as const;
   return (
-    <figure
-      className={cn(
-        "flex min-w-0 flex-col gap-2 rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface) p-4",
-        SPAN[span],
-      )}
-    >
-      <div className="flex min-h-24 flex-1 items-center justify-center py-2">
+    <figure className={cn("flex min-w-0 flex-col gap-2 p-4", CARD, SPAN[span])}>
+      <div
+        className={`flex min-h-24 flex-1 items-center justify-center p-6 ${STAGE}`}
+      >
         {children}
       </div>
-      <figcaption className="text-center font-mono text-xs text-(--md-sys-color-on-surface-variant)">
+      <figcaption className={`text-center ${T_CODE} ${INK_SOFT}`}>
         {label}
       </figcaption>
     </figure>

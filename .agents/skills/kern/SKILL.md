@@ -172,11 +172,16 @@ import — the map is the contract.
 | --- | --- | --- |
 | Web components | `@xoroh/kern` | React 18+, on `@base-ui/react` |
 | Theme CSS variables | `import "@xoroh/kern/theme"` | side-effect import; one per app |
+| Compiled stylesheet (tokens + keyframes) | `import "@xoroh/kern/styles"` | no Tailwind checkout scan; utilities not included |
 | Tokens as TypeScript | `@xoroh/kern/tokens` | re-exports `@xoroh/kern-tokens` |
+| DTCG interchange document | `@xoroh/kern-tokens/dtcg.json` | DTCG 2025.10 projection, validated at generation |
+| Tailwind adapter | `@xoroh/kern-tokens/tailwind` | maps existing CSS vars; scan your own files |
 | `cn` and helpers | `@xoroh/kern/utils` | pure, no theme dependency |
 | Native components | `@xoroh/kern-native` | React 19, React Native 0.86–0.88 |
 | Web composition | `@xoroh/kern/start` | `TopAppBar`, `Sidebar`, `AppShell`, panes |
 | Icons (either platform) | `@xoroh/kern-icons` | `Icon`, `SEMANTIC_ICONS` |
+| Contract schema (types + validators) | `@xoroh/kern-contracts` | pure metadata; no React/DOM/RN |
+| Installer (CLI + programmatic API) | `kern add` / `@xoroh/kern-cli` | transactional, receipt v2, dry-run upgrades |
 
 There is **no** `@xoroh/kern/native` export. Native is its own package.
 

@@ -1,6 +1,11 @@
 // "@xoroh/kern-native" entry — React Native implementation.
 // StyleSheet + Kern tokens. No styling dependencies.
 
+// Registers the material-3 preset tables, policy and overrides with the
+// universal resolver (side effect). Default consumers resolve M3 without
+// further setup; custom systems register their own preset instead.
+import "@xoroh/kern-material-3";
+
 export type {
   NativeAccordionProps,
   NativeAccordionSection,
@@ -56,7 +61,7 @@ export { ButtonGroup } from "./components/button-group";
 export type { NativeCalendarProps } from "./components/calendar";
 export { Calendar } from "./components/calendar";
 export type { NativeCardProps } from "./components/card";
-export { Card } from "./components/card";
+export { Card, CardActions, CardContent, CardHeader } from "./components/card";
 export type {
   CarouselItem,
   CarouselLayout,
@@ -90,6 +95,18 @@ export {
 } from "./components/circular-progress";
 export type { NativeCollapsibleProps } from "./components/collapsible";
 export { Collapsible } from "./components/collapsible";
+export type {
+  NativeComboboxOption,
+  NativeComboboxProps,
+} from "./components/combobox";
+// `defaultComboboxFilter` only; `comboboxPopupStyles` ships with the styles
+// below. (Mirrors the `defaultAutocompleteFilter` rule above: pure matchers
+// stay module-local so the registry never rows them as components.)
+export {
+  Combobox,
+  comboboxPopupStyles,
+  comboboxStyles,
+} from "./components/combobox";
 export type { NativeContextMenuProps } from "./components/context-menu";
 export { ContextMenu } from "./components/context-menu";
 export type { NativeContrastToggleProps } from "./components/contrast-toggle";
@@ -177,6 +194,8 @@ export {
   LinearProgress,
   linearProgressStyles,
 } from "./components/linear-progress";
+export type { LinkButtonProps } from "./components/link-button";
+export { LinkButton } from "./components/link-button";
 export type { NativeListItemProps } from "./components/list-item";
 export { ListItem } from "./components/list-item";
 export type { NativeLoaderProps, NativeLoaderSize } from "./components/loader";
@@ -304,8 +323,17 @@ export type { NativeSettingsRowProps } from "./components/settings-row";
 export { SettingsRow } from "./components/settings-row";
 export type { ShapeProps } from "./components/shape";
 export { Shape, shapeStyles } from "./components/shape";
-export type { ShapeArtLayout, ShapeArtProps } from "./components/shape-art";
-export { ShapeArt, shapeArtStyles } from "./components/shape-art";
+export type {
+  ExpressiveShapeProps,
+  ShapeArtLayout,
+  ShapeArtProps,
+} from "./components/shape-art";
+export {
+  ExpressiveShape,
+  expressiveShapeArtStyles,
+  ShapeArt,
+  shapeArtStyles,
+} from "./components/shape-art";
 export type { NativeSheetProps } from "./components/sheet";
 export { Sheet, sheetStyles } from "./components/sheet";
 export type { SheetSurfaceProps } from "./components/sheet-surface";
@@ -374,7 +402,10 @@ export type { TextareaProps } from "./components/textarea";
 export { Textarea } from "./components/textarea";
 export type { NativeThemeToggleProps } from "./components/theme-toggle";
 export { ThemeToggle } from "./components/theme-toggle";
-export type { NativeTimePickerProps } from "./components/time-picker";
+export type {
+  NativeTimePickerPresentation,
+  NativeTimePickerProps,
+} from "./components/time-picker";
 export { TimePicker, timeFieldStyles } from "./components/time-picker";
 export type { NativeToggleProps } from "./components/toggle";
 export { Toggle, toggleStyles } from "./components/toggle";
@@ -388,8 +419,12 @@ export type {
   NativeToolbarProps,
 } from "./components/toolbar";
 export { Toolbar, toolbarStyles } from "./components/toolbar";
-export type { NativeTooltipProps } from "./components/tooltip";
-export { Tooltip } from "./components/tooltip";
+export type {
+  NativeRichTooltipProps,
+  NativeTooltipProps,
+  RichTooltipAction,
+} from "./components/tooltip";
+export { RichTooltip, Tooltip } from "./components/tooltip";
 export type {
   NativeTopAppBarProps,
   TopAppBarActionProps,
@@ -429,7 +464,19 @@ export type {
   Contrast,
   KernThemeProviderProps,
   Mode,
+  MotionAlgorithmId,
   NativeThemeContextValue,
+  ResolvedMotionScheme,
+  SpringConfig,
+  SpringKind,
   ThemeSelection,
 } from "./theme";
-export { KernThemeProvider, useKernScheme, useKernTheme } from "./theme";
+export {
+  KernThemeProvider,
+  prefersReducedMotion,
+  resolveMotionScheme,
+  springConfig,
+  useKernMotion,
+  useKernScheme,
+  useKernTheme,
+} from "./theme";

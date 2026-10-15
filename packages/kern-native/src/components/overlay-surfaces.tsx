@@ -398,7 +398,7 @@ function PopoverContent({
         shadowRadius: 8,
         // M3 level 2 == 3dp. This was `2`, which matches NO level on M3's scale
         // (0/1/3/6/8/12) -- an off-scale value is an inconsistency, not a design
-        // choice. Web's `PopoverContent` uses `--md-sys-elevation-level2` (3dp),
+        // choice. Web's `PopoverContent` uses `--sys-elevation-level2` (3dp),
         // so this also restores cross-renderer parity. Same ruling shape as the
         // drawer (35985a5): conform, don't rule.
         elevation: 3,

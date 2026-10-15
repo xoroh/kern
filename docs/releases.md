@@ -2,17 +2,18 @@
 
 Status: current
 
-Changesets. Seven packages publish; each versions independently.
+Changesets. Six packages publish; each versions independently.
+`@xoroh/kern-primitives` is internal (`private: true`) and never publishes.
 `@xoroh/kern-cli` is private and never published.
 
 | Package | Directory | Public | First release |
 |---|---|---|---|
 | `@xoroh/kern` | `packages/kern` | yes | `0.1.0` |
 | `@xoroh/kern-tokens` | `packages/kern-tokens` | yes | `0.1.0` |
-| `@xoroh/kern-primitives` | `packages/kern-primitives` | yes | `0.1.0` |
+| `@xoroh/kern-material-3` | `packages/kern-material-3` | yes | `0.1.0` |
+| `@xoroh/kern-primitives` | `libs/kern-primitives` | no (`private: true`, internal implementation package) | — |
 | `@xoroh/kern-native` | `packages/kern-native` | yes | `0.1.0` |
 | `@xoroh/kern-icons` | `packages/kern-icons` | yes | `0.1.0` |
-| `@xoroh/kern/start` | `packages/kern/src/start` | yes | `0.1.0` |
 | `@xoroh/kern-mcp` | `packages/mcp` | yes | `0.1.0` |
 | `@xoroh/kern-cli` | `packages/kern-cli` | no (`private: true`) | — |
 
@@ -36,8 +37,8 @@ Check what is pending at any time: `bun x changeset status`.
 
 ## Verifying a package before it publishes
 
-`bun run check:publish` runs `publint` + `attw --pack` across all seven
-publishable packages. It catches the failures that only appear after
+`bun run check:publish` runs `publint` + `attw --pack` across all six
+publishable packages (primitives excluded: internal-only). It catches the failures that only appear after
 `npm pack`: broken `exports` conditions, missing `types` for a condition,
 side-effect files missing from `files`. Run it before merging any change that
 touches `package.json` `exports`, `files`, or `peerDependencies`.

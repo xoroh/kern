@@ -14,19 +14,17 @@
  * the route file owns the URL.
  */
 import { Link } from "@tanstack/react-router";
+import { PageCard } from "../shared/chrome/page-card";
 import { SiteLayout } from "../shared/chrome/site-layout";
 import {
   T_BODY_SM,
+  T_CODE,
   T_LEAD,
   T_PAGE,
   T_SECTION,
   T_SMALL_TITLE,
 } from "../shared/systems/type-scale";
-
-const INK = "text-(--md-sys-color-on-surface)";
-const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";
-const CARD =
-  "rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-low)";
+import { CARD, INK, INK_SOFT, LINK } from "../shared/systems/ui";
 
 const PATTERNS: {
   id: string;
@@ -39,7 +37,7 @@ const PATTERNS: {
   {
     id: "pattern-app-shell",
     title: "App shell",
-    body: "The frame every screen hangs in: a top bar, a navigation surface, and a content slot that takes whatever the route renders.",
+    body: "Top bar, navigation, and a content slot.",
     composes: "AppShell with top-app-bar and navigation-drawer slots",
     to: "/components/web/app-shell",
     cta: "Read the app-shell reference",
@@ -47,7 +45,7 @@ const PATTERNS: {
   {
     id: "pattern-form",
     title: "Form with validation",
-    body: "Labels, inputs, and error text wired so a screen reader meets the error before the submit button — grouped in fieldsets, validated as a unit.",
+    body: "Labels, inputs, and error text wired for screen readers.",
     composes: "Form, fieldset, field, and error text",
     to: "/components/web/form",
     cta: "Read the form reference",
@@ -55,7 +53,7 @@ const PATTERNS: {
   {
     id: "pattern-dialog",
     title: "Decision dialog",
-    body: "One question, two honest buttons, no third way out — focus trapped inside until the reader decides, then returned to the trigger.",
+    body: "One question, two buttons, focus trapped until decided.",
     composes: "Dialog with focus trap and labelled actions",
     to: "/components/web/dialog",
     cta: "Read the dialog reference",
@@ -63,7 +61,7 @@ const PATTERNS: {
   {
     id: "pattern-search",
     title: "Command palette and search",
-    body: "The ⌘K on this site is itself the pattern: one box over every registry, ranked and grouped, with an empty state that suggests instead of shrugging.",
+    body: "⌘K search over every registry, ranked and grouped.",
     composes: "Search-bar over the static search index",
     to: "/components/web/search-bar",
     cta: "Read the search-bar reference",
@@ -71,7 +69,7 @@ const PATTERNS: {
   {
     id: "pattern-settings",
     title: "Settings list",
-    body: "Rows that read as sentences — icon, label, control — so ten toggles scan as ten decisions instead of ten widgets.",
+    body: "Icon, label, control — rows that scan as decisions.",
     composes: "List-item rows with switch and checkbox controls",
     to: "/components/web/list-item",
     cta: "Read the list-item reference",
@@ -79,7 +77,7 @@ const PATTERNS: {
   {
     id: "pattern-empty-state",
     title: "Empty states",
-    body: "Nothing here yet is a message, not a gap: name what is missing, say the one action that fills it, and put that action on the page.",
+    body: "Name what is missing, show the one action that fills it.",
     composes: "Empty-state with a single primary action",
     to: "/components/web/empty-state",
     cta: "Read the empty-state reference",
@@ -89,60 +87,51 @@ const PATTERNS: {
 export function PatternsHub() {
   return (
     <SiteLayout>
-      <section className="px-4 py-4 sm:px-6 sm:py-6">
-        <div className="mx-auto flex max-w-[64rem] flex-col gap-8 rounded-(--md-sys-shape-corner-extra-large) bg-(--md-sys-color-surface) p-8 sm:p-14">
-          <header className="flex flex-col gap-3">
-            <h1 className={`m-0 ${T_PAGE} ${INK}`}>Patterns</h1>
-            <p className={`m-0 max-w-[62ch] ${T_LEAD} ${INK_SOFT}`}>
-              Recurring product shapes, composed from shipped components. A
-              pattern names the composition and points at the reference — the
-              component pages stay the single source for API and behaviour.
-            </p>
-          </header>
-
-          <section className="flex flex-col gap-3">
-            <h2 id="start-from-a-pattern" className={`m-0 ${T_SECTION} ${INK}`}>
-              Start from a pattern
-            </h2>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {PATTERNS.map((pattern) => (
-                <article
-                  key={pattern.id}
-                  className={`${CARD} flex flex-col gap-2 p-5`}
-                >
-                  <h3 id={pattern.id} className={`m-0 ${T_SMALL_TITLE} ${INK}`}>
-                    {pattern.title}
-                  </h3>
-                  <p className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
-                    {pattern.body}
-                  </p>
-                  <p className={`m-0 font-mono ${T_BODY_SM} ${INK_SOFT}`}>
-                    {pattern.composes}
-                  </p>
-                  <Link
-                    to={pattern.to}
-                    className={`m-0 mt-1 ${T_BODY_SM} text-(--md-sys-color-primary) no-underline hover:underline`}
-                  >
-                    {pattern.cta} →
-                  </Link>
-                </article>
-              ))}
-            </div>
-          </section>
-
-          <p className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
-            Installable composed sections — blocks with live previews and a{" "}
-            <code>kern add</code> install — live under{" "}
-            <Link
-              to="/showcase"
-              className="text-(--md-sys-color-primary) no-underline hover:underline"
-            >
-              /showcase
-            </Link>
-            .
+      <PageCard>
+        <header className="flex flex-col gap-3">
+          <h1 className={`m-0 ${T_PAGE} ${INK}`}>Patterns</h1>
+          <p className={`m-0 max-w-[62ch] ${T_LEAD} ${INK_SOFT}`}>
+            Recurring product shapes composed from shipped components.
           </p>
-        </div>
-      </section>
+        </header>
+
+        <section className="flex flex-col gap-3">
+          <h2 id="start-from-a-pattern" className={`m-0 ${T_SECTION} ${INK}`}>
+            Start from a pattern
+          </h2>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {PATTERNS.map((pattern) => (
+              <article
+                key={pattern.id}
+                className={`${CARD} flex flex-col gap-2 p-5`}
+              >
+                <h3 id={pattern.id} className={`m-0 ${T_SMALL_TITLE} ${INK}`}>
+                  {pattern.title}
+                </h3>
+                <p className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>{pattern.body}</p>
+                <p className={`m-0 ${T_CODE} ${INK_SOFT}`}>
+                  {pattern.composes}
+                </p>
+                <Link
+                  to={pattern.to}
+                  className={`m-0 mt-1 ${T_BODY_SM} ${LINK}`}
+                >
+                  {pattern.cta} →
+                </Link>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <p className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
+          Installable composed sections — blocks with live previews and a{" "}
+          <code className={T_CODE}>kern add</code> install — live under{" "}
+          <Link to="/showcase" className={LINK}>
+            /showcase
+          </Link>
+          .
+        </p>
+      </PageCard>
     </SiteLayout>
   );
 }

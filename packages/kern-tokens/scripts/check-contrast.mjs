@@ -12,28 +12,31 @@ import {
   activeWaivers,
   contrastIssues,
   orphanedRoles,
+} from "../src/contrast.ts";
+import {
+  MATERIAL_3_POLICY,
   textRolePairs,
   uiRolePairs,
-} from "../src/contrast.ts";
+} from "../../kern-material-3/src/material-3.ts";
 
 const ROOT = new URL("../../..", import.meta.url).pathname;
 const M3 = JSON.parse(
-  readFileSync(join(ROOT, "packages/kern-tokens/src/themes/kern.json"), "utf8"),
+  readFileSync(join(ROOT, "packages/kern-material-3/src/themes/material-3.json"), "utf8"),
 );
 const SHARP = JSON.parse(
   readFileSync(
-    join(ROOT, "packages/kern-tokens/src/themes/sharp.json"),
+    join(ROOT, "packages/kern-material-3/src/themes/sharp.json"),
     "utf8",
   ),
 );
 const BRAND = JSON.parse(
   readFileSync(
-    join(ROOT, "packages/kern-tokens/src/themes/brand.json"),
+    join(ROOT, "packages/kern-material-3/src/themes/brand.json"),
     "utf8",
   ),
 );
 const DEMO = JSON.parse(
-  readFileSync(join(ROOT, "packages/kern-tokens/src/themes/demo.json"), "utf8"),
+  readFileSync(join(ROOT, "packages/kern-material-3/src/themes/demo.json"), "utf8"),
 );
 const TOKENS = JSON.parse(
   readFileSync(join(ROOT, "packages/kern-tokens/src/tokens.json"), "utf8"),
@@ -70,7 +73,7 @@ const orphansSeen = new Set();
 const waivedSeen = new Set();
 
 for (const [presetId, preset] of [
-  ["m3", { overrides: {} }],
+  ["material-3", { overrides: {} }],
   ["sharp", SHARP],
   ["brand", BRAND],
   ["demo", DEMO],
@@ -86,7 +89,7 @@ for (const [presetId, preset] of [
         ...(contrast === "standard" ? {} : M3.contrast[`${mode}-${contrast}`]),
         ...(preset.overrides?.color?.[mode] ?? {}),
       };
-      const failures = contrastIssues(roles, minimum, 3);
+      const failures = contrastIssues(roles, minimum, 3, MATERIAL_3_POLICY);
       for (const failure of failures) {
         console.error(`FAIL ${presetId}/${mode}-${contrast}: ${failure}`);
         issues++;
@@ -94,7 +97,11 @@ for (const [presetId, preset] of [
 
       // Orphan law: every role in the scheme must be reached by a generated
       // pair, or be an explicitly named waiver.
-      for (const orphan of orphanedRoles(roles)) {
+      for (const orphan of orphanedRoles(
+        roles,
+        [...textPairs, ...uiPairs],
+        MATERIAL_3_POLICY.waivers,
+      )) {
         const line = `FAIL orphan role: ${orphan}`;
         if (!orphansSeen.has(line)) {
           console.error(`${line} [${presetId}/${mode}-${contrast}]`);
@@ -102,7 +109,10 @@ for (const [presetId, preset] of [
         }
         issues++;
       }
-      for (const [role, reason] of activeWaivers(roles)) {
+      for (const [role, reason] of activeWaivers(
+        roles,
+        MATERIAL_3_POLICY.waivers,
+      )) {
         waivedSeen.add(`${role}: ${reason}`);
       }
     }

@@ -20,6 +20,37 @@ export const badge: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Badge"],
+  usage: {
+    do: [
+      "Anchor upper-trailing inside icon bounds for counts and unread marks.",
+      "Keep four characters max including any plus sign.",
+      "Keep the default error mapping unless 3:1 contrast is proven.",
+    ],
+    dont: [
+      "Don't decorate with badges — counts and unread state only.",
+      "Don't keep showing a badge after its destination is selected.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Dot",
+      state: "resting",
+      token: "comp.badge.small",
+      value: "6px, error",
+    },
+    {
+      element: "Count",
+      state: "resting",
+      token: "comp.badge.large",
+      value: "16px, 8px shape, error + on-error, 16x34 max",
+    },
+  ],
+  faq: [
+    {
+      q: "Dot or count?",
+      a: "Dot for unread presence; count for numbers. Screen readers hear the number or New notification after the destination.",
+    },
+  ],
   customization: {
     supported: [
       "`className` is passed through and merged after the variant classes.",

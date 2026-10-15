@@ -18,6 +18,29 @@ export const skeleton: ComponentDoc = {
   // M2: a skeleton takes no focus and exposes no ARIA state — an empty
   // accessibility section is a FACT here, not a gap.
   nonInteractive: true,
+  usage: {
+    do: [
+      "Name what loads via aria-label so the wait announces.",
+      "Mirror the incoming layout so content does not jump.",
+    ],
+    dont: [
+      "Do not leave skeletons unnamed.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Shimmer",
+      state: "resting",
+      token: "kern.skeleton.shimmer",
+      value: "Kern pattern beyond M3",
+    },
+  ],
+  faq: [
+    {
+      q: "Skeleton or spinner?",
+      a: "Skeleton for layout-shaped waits; spinner for indeterminate action waits.",
+    },
+  ],
   customization: {
     supported: [
       "`className` is passed through and merged after the skeleton's own classes, which is how its size and shape are chosen.",

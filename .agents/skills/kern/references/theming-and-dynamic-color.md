@@ -1,4 +1,4 @@
-> **Kern note:** MD3 theming architecture. Kern does **not** generate schemes from a seed or use dynamic color — it ships fixed schemes resolved through a shared registry (`packages/kern-tokens/src/`): base light/dark tables + contrast overlays + named variants. See [`theme-variants.md`](theme-variants.md) for authoring, [`kern-tokens.md`](kern-tokens.md) for values.
+> **Kern note:** MD3 theming architecture. Kern ships fixed schemes resolved through a shared registry (`packages/kern-tokens/src/`): base light/dark tables + contrast overlays + named variants — plus an audited seed configurator (`themeFromSeed` in `seed-theme.ts`: one hex → validated `CustomTheme`, fail-loud on contrast). See [`theme-variants.md`](theme-variants.md) for authoring, [`kern-tokens.md`](kern-tokens.md) for values.
 >
 > **Color pipeline law:** canonical values are OKLCH on familiar 50–950 steps (`tokens.json`, each entry `{oklch, srgb}`). Web consumes `oklch()` verbatim; React Native consumes the compiled `srgb` hex (native cannot parse oklch). Steps fill in only with validated values — gaps are intentional. Roles bind steps per M3 rules, never raw values. Preset themes are catalogued in `packages/kern-tokens/src/themes/index.json` — the same file the visual builder, MCP `list_themes`, and copy-paste flows read.
 
@@ -115,7 +115,7 @@ CSS custom properties cascade, so a subtree can override roles. Kern uses this s
 
 ## Dynamic Color / Content-Based Theming
 
-> **Kern:** not used. Wallpaper- and content-derived schemes contradict Kern's fixed neutral chrome. Retained here only as MD3 context: Android uses `dynamicLightColorScheme`/`dynamicDarkColorScheme` (API 31+); web can derive a seed from images via `@material/material-color-utilities`. Kern intentionally does neither.
+> **Kern:** seed-chosen, never wallpaper-derived. `themeFromSeed(seed, id)` is the only sanctioned generator (accent families only, contrast-validated); wallpaper- and content-derived schemes contradict Kern's fixed neutral chrome. Retained here only as MD3 context: Android uses `dynamicLightColorScheme`/`dynamicDarkColorScheme` (API 31+); web can derive a seed from images via `@material/material-color-utilities`. Kern intentionally does neither.
 
 ## High Contrast
 

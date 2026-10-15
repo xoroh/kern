@@ -10,14 +10,14 @@ export function MeterRoot({ className, ...props }: MeterRootProps) {
     <MeterPrimitive.Root
       data-slot="meter"
       className={cnState(
-        "kern-meter relative h-2 w-full overflow-hidden rounded-full bg-(--md-sys-color-surface-tonal)",
+        "kern-meter relative h-2 w-full overflow-hidden rounded-full bg-(--sys-color-surface-tonal)",
         className,
       )}
       {...props}
     >
       <MeterPrimitive.Indicator
         data-slot="meter-indicator"
-        className="kern-meter-indicator block h-full rounded-full bg-(--md-sys-color-secondary)"
+        className="kern-meter-indicator block h-full rounded-full bg-(--sys-color-secondary)"
       />
     </MeterPrimitive.Root>
   );
@@ -28,7 +28,7 @@ export function MeterLabel({ className, ...props }: MeterLabelProps) {
     <MeterPrimitive.Label
       data-slot="meter-label"
       className={cnState(
-        "kern-meter-label text-xs text-(--md-sys-color-on-surface-variant)",
+        "kern-meter-label text-xs text-(--sys-color-on-surface-variant)",
         className,
       )}
       {...props}

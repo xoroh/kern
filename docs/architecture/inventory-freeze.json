@@ -1,0 +1,1016 @@
+{
+  "tool": "scripts/generate-inventory-freeze.mjs",
+  "packages": {
+    "kern": {
+      "name": "@xoroh/kern",
+      "version": "0.0.0",
+      "exports": {
+        ".": {
+          "import": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+          },
+          "require": {
+            "types": "./dist/index.d.cts",
+            "default": "./dist/index.cjs"
+          }
+        },
+        "./theme": "./src/theme.css",
+        "./styles": "./src/styles.css",
+        "./tokens": {
+          "import": {
+            "types": "./dist/tokens.d.ts",
+            "default": "./dist/tokens.js"
+          },
+          "require": {
+            "types": "./dist/tokens.d.cts",
+            "default": "./dist/tokens.cjs"
+          }
+        },
+        "./utils": {
+          "import": {
+            "types": "./dist/utils/cn.d.ts",
+            "default": "./dist/utils/cn.js"
+          },
+          "require": {
+            "types": "./dist/utils/cn.d.cts",
+            "default": "./dist/utils/cn.cjs"
+          }
+        },
+        "./start": {
+          "import": {
+            "types": "./dist/start/index.d.ts",
+            "default": "./dist/start/index.js"
+          },
+          "require": {
+            "types": "./dist/start/index.d.cts",
+            "default": "./dist/start/index.cjs"
+          }
+        }
+      },
+      "bin": null,
+      "files": [
+        "dist",
+        "src/theme.css",
+        "src/styles.css",
+        "src/components",
+        "src/start",
+        "src/utils",
+        "src/tokens.ts",
+        "README.md",
+        "LICENSE"
+      ],
+      "manifestHash": "e03fff42eacffc866bd8b0d7c0dbc6290c1cda3cfa02756b3be561a345a94ac4"
+    },
+    "kern-native": {
+      "name": "@xoroh/kern-native",
+      "version": "0.0.0",
+      "exports": {
+        ".": {
+          "react-native": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+          },
+          "import": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+          },
+          "require": {
+            "types": "./dist/index.d.cts",
+            "default": "./dist/index.cjs"
+          }
+        },
+        "./native": {
+          "react-native": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+          },
+          "import": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+          },
+          "require": {
+            "types": "./dist/index.d.cts",
+            "default": "./dist/index.cjs"
+          }
+        }
+      },
+      "bin": null,
+      "files": [
+        "dist",
+        "src/components",
+        "src/field-context.tsx",
+        "src/fonts.tsx",
+        "src/theme.tsx",
+        "src/utils",
+        "README.md",
+        "LICENSE"
+      ],
+      "manifestHash": "b3e422c2ec9915cc2451ee1a6503d88d7e56b2a3ca0ecca714797fb9df2c78a6"
+    },
+    "kern-tokens": {
+      "name": "@xoroh/kern-tokens",
+      "version": "0.0.0",
+      "exports": {
+        ".": {
+          "import": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+          },
+          "require": {
+            "types": "./dist/index.d.cts",
+            "default": "./dist/index.cjs"
+          }
+        },
+        "./tokens": {
+          "import": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+          },
+          "require": {
+            "types": "./dist/index.d.cts",
+            "default": "./dist/index.cjs"
+          }
+        },
+        "./tokens.json": "./src/tokens.json",
+        "./dtcg.json": "./src/dtcg.json",
+        "./theme": "./src/tokens.css",
+        "./comp-tokens": "./src/comp-tokens.css",
+        "./motion": "./src/motion.css",
+        "./tones": "./src/tones.css",
+        "./tailwind": "./src/tailwind.css"
+      },
+      "bin": null,
+      "files": [
+        "dist",
+        "src/tokens.css",
+        "src/tokens.json",
+        "src/dtcg.json",
+        "src/comp-tokens.css",
+        "src/motion.css",
+        "src/tones.css",
+        "src/tailwind.css",
+        "README.md",
+        "LICENSE"
+      ],
+      "manifestHash": "c7c2a37c9bc1e11923b40dfb4c56cecd50959eebc4e3c87cae425f63df74e2a8"
+    },
+    "kern-primitives": {
+      "name": "@xoroh/kern-primitives",
+      "version": "0.0.0",
+      "exports": {
+        ".": {
+          "import": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+          },
+          "require": {
+            "types": "./dist/index.d.cts",
+            "default": "./dist/index.cjs"
+          }
+        }
+      },
+      "bin": null,
+      "files": [
+        "dist",
+        "README.md",
+        "LICENSE"
+      ],
+      "manifestHash": "66f81f41cb3f13329a21e2ca87dc66c269ee6ced285e491821706abcdb1bc97c"
+    },
+    "kern-icons": {
+      "name": "@xoroh/kern-icons",
+      "version": "0.0.0",
+      "exports": {
+        ".": {
+          "react-native": {
+            "types": "./dist/index.native.d.ts",
+            "default": "./dist/index.native.js"
+          },
+          "import": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+          },
+          "require": {
+            "types": "./dist/index.d.cts",
+            "default": "./dist/index.cjs"
+          }
+        }
+      },
+      "bin": null,
+      "files": [
+        "dist",
+        "THIRD_PARTY",
+        "README.md",
+        "LICENSE"
+      ],
+      "manifestHash": "104e34a523ca98c57a9ec7c60d36a29249c01c6268f8409cf21bfbbeb7ad4a32"
+    },
+    "kern-contracts": {
+      "name": "@xoroh/kern-contracts",
+      "version": "0.0.0",
+      "exports": {
+        ".": {
+          "import": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+          },
+          "require": {
+            "types": "./dist/index.d.cts",
+            "default": "./dist/index.cjs"
+          }
+        },
+        "./schema.json": "./src/schema.json"
+      },
+      "bin": null,
+      "files": [
+        "dist",
+        "src/schema.json",
+        "README.md",
+        "LICENSE"
+      ],
+      "manifestHash": "74d9298ec5604bcd560b102fd75dac182d08d3cbffb25033268fbd21d387444d"
+    },
+    "kern-cli": {
+      "name": "@xoroh/kern-cli",
+      "version": "0.0.0",
+      "exports": {
+        ".": {
+          "import": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+          },
+          "require": {
+            "types": "./dist/index.d.cts",
+            "default": "./dist/index.cjs"
+          }
+        }
+      },
+      "bin": {
+        "kern": "./dist/kern.js"
+      },
+      "files": [
+        "dist",
+        "src/registry.json",
+        "src/blocks.json",
+        "src/tokens-snapshot",
+        "starters",
+        "README.md",
+        "LICENSE"
+      ],
+      "manifestHash": "8d4e5205b30c9da85f5bca5d7a2fe1ec29452f2010db553552ea12383d3a0da0"
+    },
+    "mcp": {
+      "name": "@xoroh/kern-mcp",
+      "version": "0.0.0",
+      "exports": {
+        ".": {
+          "import": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+          },
+          "require": {
+            "types": "./dist/index.d.cts",
+            "default": "./dist/index.cjs"
+          }
+        },
+        "./manifest": {
+          "import": {
+            "types": "./dist/manifest.d.ts",
+            "default": "./dist/manifest.js"
+          },
+          "require": {
+            "types": "./dist/manifest.d.cts",
+            "default": "./dist/manifest.cjs"
+          }
+        },
+        "./package.json": "./package.json",
+        "./maturity": {
+          "import": {
+            "types": "./dist/maturity.d.ts",
+            "default": "./dist/maturity.js"
+          },
+          "require": {
+            "types": "./dist/maturity.d.cts",
+            "default": "./dist/maturity.cjs"
+          }
+        }
+      },
+      "bin": {
+        "kern-mcp": "./dist/index.js"
+      },
+      "files": [
+        "dist",
+        "LICENSE",
+        "README.md"
+      ],
+      "manifestHash": "72b28477f861282e81330127814d0a7d8e2e044da48ef3975b4c5e3a06b48307"
+    }
+  },
+  "barrels": {
+    "web": {
+      "path": "packages/kern/src/components/index.ts",
+      "sha16": "5822759ba525eaa5",
+      "exportCount": 296,
+      "exports": [
+        "Accordion",
+        "AccordionHeader",
+        "AccordionItem",
+        "AccordionPanel",
+        "AccordionRoot",
+        "AccordionTrigger",
+        "ActionSheet",
+        "AlertDialog",
+        "AlertDialogClose",
+        "AlertDialogContent",
+        "AlertDialogDescription",
+        "AlertDialogRoot",
+        "AlertDialogTitle",
+        "AlertDialogTrigger",
+        "Autocomplete",
+        "AutocompleteContent",
+        "AutocompleteEmpty",
+        "AutocompleteInput",
+        "AutocompleteItem",
+        "AutocompleteLabel",
+        "AutocompleteRoot",
+        "Avatar",
+        "AvatarFallback",
+        "AvatarImage",
+        "AvatarRoot",
+        "BUTTON_SIZE_TO_KERN_SIZE",
+        "BUTTON_VARIANT_ALIASES",
+        "Badge",
+        "Banner",
+        "BannerAction",
+        "BootIndicator",
+        "BottomSheet",
+        "BottomSheetPicker",
+        "Button",
+        "ButtonGroup",
+        "CRITICAL_LOADER_CSS",
+        "CRITICAL_LOADER_HTML",
+        "Calendar",
+        "Card",
+        "CardActions",
+        "CardContent",
+        "CardHeader",
+        "Carousel",
+        "Checkbox",
+        "CheckboxGroup",
+        "CheckboxGroupItem",
+        "CheckboxGroupRoot",
+        "Chip",
+        "CircularProgress",
+        "Collapsible",
+        "CollapsiblePanel",
+        "CollapsibleRoot",
+        "CollapsibleTrigger",
+        "Combobox",
+        "ComboboxClear",
+        "ComboboxContent",
+        "ComboboxEmpty",
+        "ComboboxInput",
+        "ComboboxItem",
+        "ComboboxLabel",
+        "ComboboxRoot",
+        "ComboboxTrigger",
+        "Command",
+        "CommandContent",
+        "CommandEmpty",
+        "CommandGroupLabel",
+        "CommandInput",
+        "CommandItem",
+        "CommandList",
+        "CommandRoot",
+        "CommandSeparator",
+        "ContextMenu",
+        "ContextMenuContent",
+        "ContextMenuItem",
+        "ContextMenuRoot",
+        "ContextMenuSeparator",
+        "ContextMenuTrigger",
+        "CountrySelect",
+        "CountrySelectContent",
+        "CountrySelectItem",
+        "CountrySelectLabel",
+        "CountrySelectRoot",
+        "CountrySelectTrigger",
+        "CountrySelectValue",
+        "Dialog",
+        "DialogClose",
+        "DialogContent",
+        "DialogDescription",
+        "DialogRoot",
+        "DialogTitle",
+        "DialogTrigger",
+        "DockSheet",
+        "Drawer",
+        "DrawerClose",
+        "DrawerContent",
+        "DrawerDescription",
+        "DrawerRoot",
+        "DrawerTitle",
+        "DrawerTrigger",
+        "EmptyState",
+        "EntitySheet",
+        "ExtendedFab",
+        "FOCUS_RING_CLASS",
+        "Fab",
+        "FabMenu",
+        "Field",
+        "FieldDescription",
+        "FieldError",
+        "FieldLabel",
+        "FieldMessage",
+        "FieldRoot",
+        "Fieldset",
+        "FieldsetLegend",
+        "FieldsetRoot",
+        "FilterChipRow",
+        "FocusRing",
+        "Form",
+        "IconButton",
+        "Input",
+        "InputOTP",
+        "InputOTPInput",
+        "InputOTPRoot",
+        "Kbd",
+        "KernErrorBoundary",
+        "Label",
+        "LinearProgress",
+        "LinkButton",
+        "ListItem",
+        "Loader",
+        "LoadingButton",
+        "LoadingIndicator",
+        "LoadingRegion",
+        "Menu",
+        "MenuContent",
+        "MenuGroupLabel",
+        "MenuItem",
+        "MenuRoot",
+        "MenuScreen",
+        "MenuSeparator",
+        "MenuSheet",
+        "MenuTrigger",
+        "Menubar",
+        "MenubarContent",
+        "MenubarItem",
+        "MenubarMenu",
+        "MenubarRoot",
+        "MenubarTrigger",
+        "Meter",
+        "MeterLabel",
+        "MeterRoot",
+        "MeterValue",
+        "NAVIGATION_BAR_HEIGHT",
+        "NAVIGATION_BAR_MAX_DESTINATIONS",
+        "NativeSelect",
+        "NavigationBar",
+        "NavigationBarItem",
+        "NavigationDrawer",
+        "NavigationMenu",
+        "NavigationMenuContent",
+        "NavigationMenuItem",
+        "NavigationMenuLink",
+        "NavigationMenuList",
+        "NavigationMenuRoot",
+        "NavigationMenuTrigger",
+        "NumberField",
+        "NumberFieldInput",
+        "NumberFieldRoot",
+        "PageLoader",
+        "Pagination",
+        "Popover",
+        "PopoverClose",
+        "PopoverContent",
+        "PopoverDescription",
+        "PopoverRoot",
+        "PopoverTitle",
+        "PopoverTrigger",
+        "PreviewCard",
+        "PreviewCardContent",
+        "PreviewCardRoot",
+        "PreviewCardTrigger",
+        "Progress",
+        "ProgressLabel",
+        "ProgressRoot",
+        "ProgressValue",
+        "RadioGroup",
+        "RadioGroupItem",
+        "RichTooltip",
+        "RichTooltipActions",
+        "RichTooltipContent",
+        "RichTooltipTitle",
+        "SECTION_DRAWER_WIDTH",
+        "ScrollArea",
+        "ScrollAreaRoot",
+        "ScrollAreaScrollbar",
+        "ScrollAreaViewport",
+        "Search",
+        "SecondaryTabs",
+        "SegmentedButton",
+        "SegmentedButtonItem",
+        "SegmentedButtonRoot",
+        "Select",
+        "SelectContent",
+        "SelectGroup",
+        "SelectGroupLabel",
+        "SelectItem",
+        "SelectItemText",
+        "SelectRoot",
+        "SelectSeparator",
+        "SelectTrigger",
+        "SelectValue",
+        "Separator",
+        "Sheet",
+        "SheetClose",
+        "SheetContent",
+        "SheetDescription",
+        "SheetRoot",
+        "SheetSurface",
+        "SheetTitle",
+        "SheetTrigger",
+        "Skeleton",
+        "Slider",
+        "SliderLabel",
+        "SliderRoot",
+        "SliderThumb",
+        "SliderValue",
+        "Snackbar",
+        "SnackbarAction",
+        "SnackbarClose",
+        "SnackbarDescription",
+        "SnackbarList",
+        "SnackbarProvider",
+        "SnackbarRoot",
+        "SnackbarTitle",
+        "SnackbarViewport",
+        "SnapSheet",
+        "Sonner",
+        "SonnerAction",
+        "SonnerClose",
+        "SonnerDescription",
+        "SonnerList",
+        "SonnerProvider",
+        "SonnerRoot",
+        "SonnerTitle",
+        "SonnerViewport",
+        "Split",
+        "SplitButton",
+        "Switch",
+        "Table",
+        "TableBody",
+        "TableCaption",
+        "TableCell",
+        "TableHead",
+        "TableHeader",
+        "TableRoot",
+        "TableRow",
+        "Tabs",
+        "TabsList",
+        "TabsPanel",
+        "TabsRoot",
+        "TabsTab",
+        "Text",
+        "Textarea",
+        "TimePicker",
+        "Toggle",
+        "ToggleGroup",
+        "ToggleGroupItem",
+        "ToggleGroupRoot",
+        "Toolbar",
+        "ToolbarButton",
+        "ToolbarGroup",
+        "ToolbarRoot",
+        "ToolbarSeparator",
+        "Tooltip",
+        "TooltipContent",
+        "TooltipProvider",
+        "TooltipRoot",
+        "TooltipTrigger",
+        "avatarVariants",
+        "badgeVariants",
+        "bannerVariants",
+        "buttonVariants",
+        "cardVariants",
+        "chipVariants",
+        "createSnackbarManager",
+        "createSonnerManager",
+        "fabVariants",
+        "fieldMessageVariants",
+        "formatClock",
+        "iconButtonVariants",
+        "loaderVariants",
+        "loadingIndicatorVariants",
+        "markAppReady",
+        "textVariants",
+        "useAppReady",
+        "useAutocompleteFilteredItems",
+        "useSnackbarManager"
+      ]
+    },
+    "native": {
+      "path": "packages/kern-native/src/index.ts",
+      "sha16": "0cb9a747d6afcbd2",
+      "exportCount": 191,
+      "exports": [
+        "APP_SHELL_FOOTER_HEIGHT",
+        "APP_SHELL_HEADER_HEIGHT",
+        "Accordion",
+        "ActionSheet",
+        "AlertDialog",
+        "AppShell",
+        "AspectRatio",
+        "Autocomplete",
+        "Avatar",
+        "Badge",
+        "Banner",
+        "BootSplash",
+        "BottomSheet",
+        "BottomSheetPicker",
+        "Button",
+        "ButtonGroup",
+        "Calendar",
+        "Card",
+        "CardActions",
+        "CardContent",
+        "CardHeader",
+        "Carousel",
+        "Checkbox",
+        "CheckboxGroup",
+        "CheckboxGroupItem",
+        "Chip",
+        "CircularProgress",
+        "Collapsible",
+        "Combobox",
+        "Command",
+        "ContextMenu",
+        "ContrastToggle",
+        "CountrySelect",
+        "Dialog",
+        "DockSheet",
+        "Drawer",
+        "EmptyState",
+        "EntitySheet",
+        "ErrorBoundary",
+        "ExpressiveShape",
+        "ExtendedFab",
+        "Fab",
+        "FabMenu",
+        "Field",
+        "FieldMessage",
+        "FieldRoot",
+        "Fieldset",
+        "FieldsetItem",
+        "FieldsetLegend",
+        "FilterChipRow",
+        "IconButton",
+        "IconButtonTarget",
+        "Input",
+        "InputOTP",
+        "Kbd",
+        "KernFontGate",
+        "KernPressable",
+        "KernThemeProvider",
+        "Label",
+        "LinearProgress",
+        "LinkButton",
+        "ListDetail",
+        "ListItem",
+        "Loader",
+        "LoadingButton",
+        "LoadingIndicator",
+        "Menu",
+        "MenuGroupList",
+        "MenuScreen",
+        "MenuSheet",
+        "Menubar",
+        "Meter",
+        "MilestoneTrio",
+        "NATIVE_BUTTON_SIZE_TO_KERN_SIZE",
+        "NATIVE_BUTTON_VARIANT_ALIASES",
+        "NAVIGATION_BAR_HEIGHT",
+        "NAVIGATION_RAIL_EXPANDED_WIDTH",
+        "NAVIGATION_RAIL_WIDTH",
+        "NavigationBar",
+        "NavigationBarItem",
+        "NavigationDrawer",
+        "NavigationMenu",
+        "NavigationRail",
+        "NumberField",
+        "PANE_WIDTHS",
+        "Pagination",
+        "Pane",
+        "Popover",
+        "Progress",
+        "RadioGroup",
+        "RadioGroupItem",
+        "RichTooltip",
+        "SECTION_DRAWER_WIDTH",
+        "ScrollArea",
+        "Search",
+        "SecondaryTabs",
+        "SegmentedButton",
+        "Select",
+        "Separator",
+        "SettingsRow",
+        "Shape",
+        "ShapeArt",
+        "Sheet",
+        "SheetHandle",
+        "SheetSurface",
+        "Skeleton",
+        "Slider",
+        "Snackbar",
+        "SnapSheet",
+        "Split",
+        "SplitButton",
+        "StatusBar",
+        "SuccessTransform",
+        "SupportingPane",
+        "Switch",
+        "TOP_APP_BAR_HEIGHTS",
+        "TOP_APP_BAR_SIZE_TO_KERN_SIZE",
+        "Table",
+        "Tabs",
+        "Text",
+        "Textarea",
+        "ThemeToggle",
+        "TimePicker",
+        "Toggle",
+        "ToggleGroup",
+        "Toolbar",
+        "Tooltip",
+        "TopAppBar",
+        "TopAppBarAction",
+        "TopAppBarToggle",
+        "accordionStyles",
+        "alertDialogStyles",
+        "arcRotations",
+        "autocompleteStyles",
+        "avatarStyles",
+        "bannerStyles",
+        "barStyles",
+        "bootSplashStyles",
+        "bottomSheetStyles",
+        "bottomSheetSurface",
+        "carouselStyles",
+        "checkboxGroupStyles",
+        "comboboxPopupStyles",
+        "comboboxStyles",
+        "dialogStyles",
+        "drawerStyles",
+        "expressiveShapeArtStyles",
+        "fabStyles",
+        "fieldsetStyles",
+        "iconButtonStyles",
+        "inputOTPStyles",
+        "kernFontFaces",
+        "linearProgressStyles",
+        "loadingIndicatorStyles",
+        "menuGroupStyles",
+        "menuStyles",
+        "menubarStyles",
+        "meterStyles",
+        "milestoneStepStyles",
+        "navigationBarStyles",
+        "numberFieldStyles",
+        "pageWindow",
+        "paginationStyles",
+        "prefersReducedMotion",
+        "pressIsCancelled",
+        "progressStyles",
+        "resolveMotionScheme",
+        "ringStyles",
+        "secondaryTabsStyles",
+        "selectStyles",
+        "shapeArtStyles",
+        "shapeStyles",
+        "sheetStyles",
+        "sliderStyles",
+        "snackbarStyles",
+        "splitButtonStyles",
+        "springConfig",
+        "successTransformStyles",
+        "tabsStyles",
+        "timeFieldStyles",
+        "toggleGroupStyles",
+        "toggleStyles",
+        "toolbarStyles",
+        "topAppBarStyles",
+        "useAnyModalOpen",
+        "useFieldset",
+        "useFieldsetDisabled",
+        "useKernFonts",
+        "useKernMotion",
+        "useKernScheme",
+        "useKernTheme"
+      ]
+    },
+    "primitives": {
+      "path": "libs/kern-primitives/src/index.ts",
+      "sha16": "8ab4afc788a68cb1",
+      "exportCount": 40,
+      "exports": [
+        "VISUALLY_HIDDEN_STYLE",
+        "assignRef",
+        "clampRectToViewport",
+        "composeEventHandlers",
+        "createCollectionModel",
+        "createDismissPolicy",
+        "createFocusTrapModel",
+        "createIdScope",
+        "createOverlayModality",
+        "createPortalRegistry",
+        "createPresenceModel",
+        "createPressModel",
+        "createRovingModel",
+        "dismissBranchesFor",
+        "dismissTriggersFor",
+        "formatTimeValue",
+        "isPressActivationKey",
+        "isSelected",
+        "mergeRefs",
+        "mergeSlotProps",
+        "minutesForStep",
+        "nextPresenceState",
+        "nextTrapIndex",
+        "normalizeSelection",
+        "normalizeTimeValue",
+        "resolveAutofocus",
+        "resolveDir",
+        "resolveFloatingOrigin",
+        "resolveFloatingRect",
+        "resolvePortalTarget",
+        "shouldDismissOn",
+        "toTwentyFourHour",
+        "useCollection",
+        "useControllableState",
+        "useMergeRefs",
+        "useOverlayModality",
+        "useOverlayRegistration",
+        "usePresence",
+        "usePress",
+        "useRovingModel"
+      ]
+    },
+    "icons": {
+      "path": "packages/kern-icons/src/index.ts",
+      "sha16": "cbc5946dfd8a5d8b",
+      "exportCount": 29,
+      "exports": [
+        "BRAND_ICON_NAMES",
+        "DEFAULT_ICON_SET",
+        "ICON_COUNT",
+        "ICON_DEFAULT_COLOR",
+        "ICON_DEFAULT_WEIGHT",
+        "ICON_MANIFEST",
+        "ICON_NAMES",
+        "ICON_SHAPES",
+        "ICON_SIZE",
+        "ICON_TOUCH_TARGET",
+        "ICON_VIEW_BOX",
+        "ICON_WEIGHTS",
+        "ICON_WEIGHTS_AXIS",
+        "Icon",
+        "MATERIAL_ICON_NAMES",
+        "SEMANTIC_ICONS",
+        "assertIconName",
+        "getAvailableIconWeights",
+        "getIconSet",
+        "getIconShape",
+        "isIconName",
+        "listIconSets",
+        "registerIconSet",
+        "resolveIconColor",
+        "resolveIconName",
+        "resolveIconPaint",
+        "resolveIconSize",
+        "resolveIconWeight",
+        "useIcon"
+      ]
+    },
+    "tokens": {
+      "path": "packages/kern-tokens/src/index.ts",
+      "sha16": "81ca66607cce4aeb",
+      "exportCount": 19,
+      "exports": [
+        "*reexport:export * from \"./color\"",
+        "*reexport:export * from \"./contrast\"",
+        "*reexport:export * from \"./dtcg/export\"",
+        "*reexport:export * from \"./dtcg/import\"",
+        "*reexport:export * from \"./dtcg/retained\"",
+        "*reexport:export * from \"./dtcg/shared\"",
+        "*reexport:export * from \"./dtcg/validate\"",
+        "*reexport:export * from \"./focus\"",
+        "*reexport:export * from \"./functional\"",
+        "*reexport:export * from \"./motion\"",
+        "*reexport:export * from \"./pipeline\"",
+        "*reexport:export * from \"./preset\"",
+        "*reexport:export * from \"./presets\"",
+        "*reexport:export * from \"./sizes\"",
+        "*reexport:export * from \"./token-graph\"",
+        "*reexport:export * from \"./token-schema\"",
+        "*reexport:export * from \"./tokens\"",
+        "*reexport:export * from \"./tones\"",
+        "*reexport:export * from \"./variants\""
+      ]
+    },
+    "contracts": {
+      "path": "packages/kern-contracts/src/index.ts",
+      "sha16": "afc7590bbacb3989",
+      "exportCount": 7,
+      "exports": [
+        "*reexport:export * from \"./block\"",
+        "*reexport:export * from \"./component\"",
+        "*reexport:export * from \"./icon\"",
+        "*reexport:export * from \"./install\"",
+        "*reexport:export * from \"./provider\"",
+        "*reexport:export * from \"./version\"",
+        "CONTRACT_SCHEMA_VERSION"
+      ]
+    },
+    "cli": {
+      "path": "packages/kern-cli/src/index.ts",
+      "sha16": "714fb6bfc863a79e",
+      "exportCount": 25,
+      "exports": [
+        "WORKSPACE_ROOT",
+        "addBlock",
+        "addComponent",
+        "blockFileBytes",
+        "blockFileList",
+        "blocksDir",
+        "commitPlan",
+        "convertV1",
+        "createApp",
+        "customized",
+        "diffDest",
+        "formatDiff",
+        "formatUpgrade",
+        "initScaffold",
+        "kernVersion",
+        "listBlocks",
+        "listComponents",
+        "loadBlocks",
+        "loadManifest",
+        "loadRegistry",
+        "planComponent",
+        "readProjectConfig",
+        "readReceipt",
+        "resolveClosure",
+        "upgradeComponent"
+      ]
+    },
+    "mcp": {
+      "path": "packages/mcp/src/index.ts",
+      "sha16": "06ceba7180f702b4",
+      "exportCount": 0,
+      "exports": []
+    }
+  },
+  "registry": {
+    "path": "packages/kern-cli/src/registry.json",
+    "sha16": "93a07b88c14b9876",
+    "full": "93a07b88c14b98768e145d2e39e5f04c476cc16b70fe378e85ccdbb9293a6d7f",
+    "rows": 418,
+    "version": "0.0.0",
+    "releaseSet": "kern@0.0.0+418.c6e51cd44435481e"
+  },
+  "blocks": {
+    "path": "packages/kern-cli/src/blocks.json",
+    "sha16": "062ec8e9a807788d",
+    "rows": 3
+  },
+  "generated": {
+    "packages/kern-tokens/src/tokens.css": {
+      "sha16": "0b0158edaf0bdd05"
+    },
+    "packages/kern-tokens/src/comp-tokens.css": {
+      "sha16": "5b000faf63f811bd"
+    },
+    "packages/kern-tokens/src/tailwind.css": {
+      "sha16": "eced9d609b936103"
+    },
+    "packages/kern-tokens/src/tones.css": {
+      "sha16": "30ce3b349b3284e8"
+    },
+    "packages/kern-tokens/src/motion.css": {
+      "sha16": "840fcb9e3bc640d9"
+    },
+    "packages/kern-tokens/src/dtcg.json": {
+      "sha16": "4a1b9b4379dd8bf2"
+    },
+    "packages/kern-tokens/src/themes/matrix.json": {
+      "sha16": null
+    },
+    "packages/mcp/src/manifest.ts": {
+      "sha16": "bdca06d2f65ca718"
+    },
+    "packages/mcp/src/maturity.ts": {
+      "sha16": "bf8f365a3a998c0a"
+    }
+  }
+}

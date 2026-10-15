@@ -1,16 +1,17 @@
 import {
+  type ResolvedTheme,
+} from "@xoroh/kern-tokens";
+import {
   FEEDBACK_SIZE_DP,
   type FeedbackShapeKind,
-  type ResolvedTheme,
-  resolveThemeDetails,
-} from "@xoroh/kern-tokens";
+} from "@xoroh/kern-material-3";
 import {
   type StyleProp,
   View,
   type ViewProps,
   type ViewStyle,
 } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 
 export type ShapeProps = Omit<ViewProps, "style"> & {
   kind: FeedbackShapeKind;
@@ -30,7 +31,7 @@ export function shapeStyles(
   kind: FeedbackShapeKind,
   size: number,
   fill: string,
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
   rotationDeg = 0,
 ): ViewStyle {
   const rotate = `${(kind === "diamond" ? 45 : 0) + rotationDeg}deg`;

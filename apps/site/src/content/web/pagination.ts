@@ -16,6 +16,45 @@ export const pagination: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Pagination"],
+  keyboard: [
+    {
+      key: "Arrow keys",
+      action: "Moves between page buttons.",
+    },
+    {
+      key: "Enter / Space",
+      action: "Navigates to the focused page.",
+    },
+  ],
+  usage: {
+    do: [
+      "Use for splitting long lists across pages — 7 or fewer shows all, more collapses with gaps.",
+      "Mark the current page unambiguously with the primary fill.",
+    ],
+    dont: [
+      "Don't use where infinite scroll fits better — search results, feeds.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Current page",
+      state: "resting",
+      token: "kern.pagination.current",
+      value: "primary fill + on-primary",
+    },
+    {
+      element: "Page button",
+      state: "hover",
+      token: "sys.state.hover",
+      value: "on-surface 8% layer",
+    },
+  ],
+  faq: [
+    {
+      q: "When does the window collapse?",
+      a: "Above 7 pages: first, last, current ±1, with gaps — the reader never pages through dozens of buttons.",
+    },
+  ],
   customization: {
     supported: [
       "`className` is passed through and merged after the nav's own classes.",
@@ -35,17 +74,17 @@ export const pagination: ComponentDoc = {
       note: "Total pages, at least 1. Required — a pagination with no count cannot draw itself.",
     },
     {
-      name: "page",
+      name: "value",
       type: "number",
       note: "Controlled current page, 1-based. One is the first page, matching the number on the button.",
     },
     {
-      name: "defaultPage",
+      name: "defaultValue",
       type: "number",
       note: "Initial page when uncontrolled.",
     },
     {
-      name: "onPageChange",
+      name: "onValueChange",
       type: "(page: number) => void",
       note: "Called with the new page, 1-based — the same numbering the buttons show, so there is no off-by-one between what is displayed and what is reported.",
     },
@@ -64,6 +103,6 @@ export const pagination: ComponentDoc = {
     "The control is a `nav` landmark, so it is reachable from the landmark list and distinguishable from the page's other navigation when it is labelled.",
     "Each page is a real button, so moving through the set is possible from the keyboard alone.",
     "The current page carries `aria-current`, so which page is showing is announced rather than left to be seen.",
-    "Pages are 1-based throughout — the label on the button and the value passed to `onPageChange` are the same number.",
+    "Pages are 1-based throughout — the label on the button and the value passed to `onValueChange` are the same number.",
   ],
 };

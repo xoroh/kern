@@ -10,6 +10,7 @@
  * missing demo must not look the same.
  */
 import { Link } from "@tanstack/react-router";
+import { cn } from "@xoroh/kern";
 import {
   Component,
   type ReactElement,
@@ -26,20 +27,74 @@ import {
 import type { ComponentDoc } from "../../content/types";
 import { MOBILE_DEMOS, PREVIEW_REASONS } from "../../demos/mobile/registry";
 import { demoFor, WEB_PREVIEW_REASONS } from "../../demos/web/registry";
-import { maturityForExports } from "../../systems/maturity";
 import {
   T_BODY_SM,
   T_LABEL,
+  T_LABEL_LG,
   T_LEAD,
   T_SECTION,
   T_SMALL_TITLE,
 } from "../../domains/shared/systems/type-scale";
+import {
+  CARD,
+  FOCUS_RING,
+  INK,
+  INK_SOFT,
+  PILL_ACTIVE,
+  STAGE,
+  STATE_LAYERS,
+  TRANSITION,
+} from "../../domains/shared/systems/ui";
+import { maturityForExports } from "../../systems/maturity";
 
-const INK = "text-(--md-sys-color-on-surface)";
-const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";
-const CARD =
-  "rounded-(--md-sys-shape-corner-large) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface)";
-const CHIP = `inline-flex items-center rounded-(--md-sys-shape-corner-full) border border-(--md-sys-color-outline) px-2 py-0.5 ${T_LABEL}`;
+const CHIP = `inline-flex items-center rounded-(--sys-shape-corner-full) border border-(--sys-color-outline) px-2 py-0.5 ${T_LABEL}`;
+
+/**
+ * Platform switcher — All / Web / Native, shared by the three gallery views.
+ *
+ * One control instead of three hand-rolled chip navs: a 48dp pill row where
+ * the active view carries the selected pair (secondary-container /
+ * on-secondary-container) and the rest carry the M3 state layers. The active
+ * item stays a LINK with `aria-current` — it navigates to itself rather than
+ * posing as a non-interactive tab, so every item is a destination.
+ */
+export function PlatformSwitcher({
+  platform,
+}: {
+  platform?: "web" | "mobile";
+}) {
+  const items = [
+    { label: "All", href: "/components", active: !platform },
+    { label: "Web", href: "/components/web", active: platform === "web" },
+    {
+      label: "Native",
+      href: "/components/mobile",
+      active: platform === "mobile",
+    },
+  ];
+  return (
+    <nav
+      aria-label="Platform"
+      className="flex w-fit flex-wrap items-center gap-1 rounded-full bg-(--sys-color-surface-container) p-1"
+    >
+      {items.map((item) => (
+        <Link
+          key={item.href}
+          to={item.href}
+          aria-current={item.active ? "page" : undefined}
+          className={cn(
+            `inline-flex min-h-12 items-center rounded-(--sys-shape-corner-full) px-5 no-underline ${T_LABEL_LG} ${TRANSITION} ${FOCUS_RING}`,
+            item.active
+              ? `${PILL_ACTIVE}`
+              : `text-(--sys-color-on-surface-variant) ${STATE_LAYERS} hover:text-(--sys-color-on-surface)`,
+          )}
+        >
+          {item.label}
+        </Link>
+      ))}
+    </nav>
+  );
+}
 
 type GalleryCard = {
   slug: string;
@@ -173,14 +228,14 @@ export function ComponentGallery({
   return (
     <div className="flex flex-col gap-10">
       <nav
-        className={`flex flex-wrap items-center gap-2 ${T_BODY_SM} ${INK_SOFT}`}
+        className={`flex flex-wrap items-center gap-1 ${T_BODY_SM}`}
         aria-label="Families"
       >
         {groups.map((g) => (
           <a
             key={g.id}
             href={`#family-${g.id}`}
-            className={`${CHIP} no-underline ${INK}`}
+            className={`inline-flex min-h-12 items-center rounded-(--sys-shape-corner-full) bg-(--sys-color-surface-container-low) px-4 no-underline ${T_LABEL_LG} text-(--sys-color-on-surface) ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`}
           >
             {FAMILY_GROUPS.find((x) => x.id === g.id)?.title} ({g.cards.length})
           </a>
@@ -236,8 +291,12 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
     maturityChip(card.web, "web") ?? maturityChip(card.mobile, "mobile");
 
   return (
-    <article className={`${CARD} flex flex-col overflow-hidden`}>
-      <div className="relative flex h-36 items-center justify-center overflow-hidden border-b border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container) p-3">
+    <article
+      className={`${CARD} site-gallery-card flex flex-col overflow-hidden`}
+    >
+      <div
+        className={`site-gallery-stage relative m-2 flex h-44 items-center justify-center overflow-hidden p-4 ${STAGE}`}
+      >
         {Demo ? (
           isClient ? (
             // The preview is a THUMBNAIL: inert to pointer events so it can
@@ -250,6 +309,7 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
             <div
               className="pointer-events-none flex max-h-full origin-center items-center justify-center overflow-hidden"
               aria-hidden="true"
+              inert
             >
               <DemoBoundary>
                 <Demo />
@@ -264,8 +324,8 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
               className="flex h-full w-full flex-col items-center justify-center gap-2"
               aria-hidden="true"
             >
-              <div className="h-8 w-2/3 rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-surface-container-high)" />
-              <div className="h-8 w-1/2 rounded-(--md-sys-shape-corner-small) bg-(--md-sys-color-surface-container-high)" />
+              <div className="h-8 w-2/3 rounded-(--sys-shape-corner-small) bg-(--sys-color-surface-container-high)" />
+              <div className="h-8 w-1/2 rounded-(--sys-shape-corner-small) bg-(--sys-color-surface-container-high)" />
             </div>
           )
         ) : reason ? (
@@ -290,7 +350,7 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
           </div>
         )}
       </div>
-      <div className="flex flex-col gap-2 p-4">
+      <div className="flex flex-col gap-3 px-5 pt-2 pb-5">
         <div className="flex flex-wrap items-center gap-2">
           <Link
             to="/components/$platform/$component"
@@ -298,7 +358,7 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
               platform: primaryPlatform,
               component: card.slug,
             }}
-            className={`m-0 ${T_SMALL_TITLE} ${INK} no-underline`}
+            className={`m-0 ${T_SMALL_TITLE} ${INK} no-underline hover:underline ${FOCUS_RING}`}
           >
             {primary?.name ?? card.name}
           </Link>
@@ -306,7 +366,7 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
             <Link
               to="/components/$platform/$component"
               params={{ platform: "web", component: card.slug }}
-              className={`${CHIP} no-underline ${INK_SOFT}`}
+              className={`${CHIP} no-underline text-(--sys-color-on-surface-variant) ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING} hover:text-(--sys-color-on-surface)`}
             >
               Web
             </Link>
@@ -315,7 +375,7 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
             <Link
               to="/components/$platform/$component"
               params={{ platform: "mobile", component: card.slug }}
-              className={`${CHIP} no-underline ${INK_SOFT}`}
+              className={`${CHIP} no-underline text-(--sys-color-on-surface-variant) ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING} hover:text-(--sys-color-on-surface)`}
             >
               Native
             </Link>

@@ -1,21 +1,21 @@
 /**
  * The per-component page — the kern component-page template.
  *
- * SECTION ORDER IS THE DELIVERABLE. Phase 3 grammar, no other order:
+ * SECTION ORDER IS THE DELIVERABLE. The v2 grammar, no other order:
  *
- *   lede → demo → props → tokens → semantic-dom → accessibility
+ *   lede → demo → usage → semantic-dom → accessibility → props → tokens
  *   → limitations → faq → spec
  *
  * so the next heading is always the answer to the question the previous one
- * raised: what it is, proof it works, what it takes, what it reads, what it
- * renders as, who it works for, where it stops, what people ask, what the
- * spec says. Source: the Phase 3 DOCS GRAMMAR contract, enforced by
+ * raised: proof it works, when to reach for it, what it renders as, who it
+ * works for, what it takes, what it reads, where it stops, what people ask,
+ * what the spec says. Source: `src/systems/grammar.ts`, enforced by
  * `scripts/check-grammar.mjs` — a page is checked by a gate, not by eye.
  *
  * CONDITIONAL SECTIONS render only when the content carries them
- * (`src/systems/grammar.ts` predicates — semantic-dom, limitations, faq). A
- * heading with nothing under it is noise, and the convention is to cut it
- * rather than ship one. Everything else always renders, with an honest
+ * (`src/systems/grammar.ts` predicates — usage, semantic-dom, limitations,
+ * faq). A heading with nothing under it is noise, and the convention is to
+ * cut it rather than ship one. Everything else always renders, with an honest
  * fallback where the content is not yet written (no demo, no token table,
  * undocumented accessibility) rather than a silent absence.
  */
@@ -47,7 +47,12 @@ import {
   configuratorFor,
   examplesFor,
 } from "../../showcase/registry";
-import { hasFaq, hasLimitations, hasSemanticDom } from "../../systems/grammar";
+import {
+  hasFaq,
+  hasLimitations,
+  hasSemanticDom,
+  hasUsage,
+} from "../../systems/grammar";
 import { maturityForExports } from "../../systems/maturity";
 import {
   registrySearchHref,
@@ -62,7 +67,7 @@ import { CopyMarkdownButton } from "../chrome/copy-markdown-button";
  * leading-relaxed), which meant the component reference contradicted the very
  * scale it documents — and it becomes reader-visible the moment the
  * Foundations type page lands beside it. kern ships all 30 styles as
- * --md-sys-typescale-* (150 vars: family/size/weight/spacing/line-height per
+ * --sys-typescale-* (150 vars: family/size/weight/spacing/line-height per
  * style, baseline + emphasized), so every role below resolves from a token.
  *
  * The role names are checked against the generated token set by
@@ -71,22 +76,22 @@ import { CopyMarkdownButton } from "../chrome/copy-markdown-button";
  */
 const ts = (role: string) =>
   [
-    `[font-family:var(--md-sys-typescale-${role}-font-family)]`,
-    `[font-size:var(--md-sys-typescale-${role}-font-size)]`,
-    `[font-weight:var(--md-sys-typescale-${role}-font-weight)]`,
-    `[line-height:var(--md-sys-typescale-${role}-line-height)]`,
-    `[letter-spacing:var(--md-sys-typescale-${role}-letter-spacing)]`,
+    `[font-family:var(--sys-typescale-${role}-font-family)]`,
+    `[font-size:var(--sys-typescale-${role}-font-size)]`,
+    `[font-weight:var(--sys-typescale-${role}-font-weight)]`,
+    `[line-height:var(--sys-typescale-${role}-line-height)]`,
+    `[letter-spacing:var(--sys-typescale-${role}-letter-spacing)]`,
   ].join(" ");
 
 /** Page title. */
-const H1 = `m-0 text-(--md-sys-color-on-surface) ${ts("headline-medium")}`;
+const H1 = `site-page-title m-0 text-(--sys-color-on-surface) ${ts("display-small")}`;
 /** Section heading — the reader's next question. */
-const H2 = `m-0 text-(--md-sys-color-on-surface) ${ts("headline-small")}`;
+const H2 = `m-0 text-(--sys-color-on-surface) ${ts("headline-small")}`;
 /** Sub-heading inside a section. */
-const H3 = `m-0 text-(--md-sys-color-on-surface) ${ts("title-large")}`;
+const H3 = `m-0 text-(--sys-color-on-surface) ${ts("title-large")}`;
 /** Running text. The token carries size, weight AND line-height. */
-const INK = "text-(--md-sys-color-on-surface)";
-const INK_SOFT = "text-(--md-sys-color-on-surface-variant)";
+const INK = "text-(--sys-color-on-surface)";
+const INK_SOFT = "text-(--sys-color-on-surface-variant)";
 const BODY = `m-0 ${INK_SOFT} ${ts("body-large")}`;
 /** Secondary text — one step down the scale, same voice. */
 const SMALL = ts("body-small");
@@ -111,10 +116,10 @@ const PROSE = `${BODY} max-w-[62ch]`;
  * SIZE and WEIGHT come from the label role so the chips still sit on the
  * scale rather than floating off it.
  */
-const CHIP = `inline-flex items-center gap-1.5 rounded-full border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container) px-3 py-1 font-mono text-(--md-sys-color-on-surface-variant) [font-size:var(--md-sys-typescale-label-large-font-size)] [line-height:var(--md-sys-typescale-label-large-line-height)]`;
+const CHIP = `inline-flex items-center gap-1.5 rounded-full border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container) px-3 py-1 font-mono text-(--sys-color-on-surface-variant) [font-size:var(--sys-typescale-label-large-font-size)] [line-height:var(--sys-typescale-label-large-line-height)]`;
 const CARD =
-  "rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-low)";
-const TH = `py-2 pr-4 text-left text-(--md-sys-color-on-surface) ${ts("title-small")}`;
+  "site-card rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-low)";
+const TH = `py-2 pr-4 text-left text-(--sys-color-on-surface) ${ts("title-small")}`;
 const TD = `py-3 pr-4 align-top ${ts("body-medium")}`;
 
 /**
@@ -145,7 +150,7 @@ function Heading({
       <a
         href={`#${id}`}
         aria-label={`Permalink to ${id.replace(/-/g, " ")}`}
-        className="ml-2 inline-flex items-center text-(--md-sys-color-on-surface-variant) no-underline opacity-0 transition-opacity group-hover:opacity-100 focus-visible:opacity-100"
+        className="ml-2 inline-flex items-center text-(--sys-color-on-surface-variant) no-underline opacity-0 transition-opacity group-hover:opacity-100 focus-visible:opacity-100"
       >
         #
       </a>
@@ -179,90 +184,19 @@ function elevationLabel(
   return { text: `Level ${elevation}`, warn: false };
 }
 
-/* ------------------------------------------------------------------ chips */
-
-function Chip({
-  term,
-  value,
-  warn = false,
-}: {
-  term: string;
-  value: string;
-  warn?: boolean;
-}) {
-  const box = warn
-    ? "inline-flex items-center gap-1.5 rounded-full border border-(--md-sys-color-error) bg-(--md-sys-color-error-container) px-3 py-1 font-mono text-(--md-sys-color-on-error-container) [font-size:var(--md-sys-typescale-label-large-font-size)] [line-height:var(--md-sys-typescale-label-large-line-height)]"
-    : CHIP;
-  // m3 — the strip is a <dl>, so it must contain dt/dd pairs. A <dl> full of
-  // <div>/<span> is a fake description list: assistive tech announces it as a
-  // list of groups and the term/value relationship is lost. `dl > div > dt+dd`
-  // is valid HTML5 and keeps the visual chip intact.
-  return (
-    <div className={box}>
-      {term ? (
-        <dt className="m-0 inline text-(--md-sys-color-on-surface)">
-          {term}:{" "}
-        </dt>
-      ) : null}
-      <dd className="m-0 inline text-(--md-sys-color-on-surface)">{value}</dd>
-    </div>
-  );
-}
-
-/**
- * A chip that points at an external reference. The four ↗ links (M3 spec,
- * WAI-ARIA, Source, Bundle) are the "reference" signal — MUI's meta row does
- * this, and it is the strongest "this page is authoritative" cue in docs.
- * Renders as plain text when no URL is supplied, so a page is never a dead
- * link and the strip is never half-empty.
- */
-function LinkChip({
-  term,
-  value,
-  href,
-}: {
-  term: string;
-  value: string;
-  href?: string;
-}) {
-  // m3 — same rule as Chip: a <dl> must contain dt/dd pairs. The wrapper div
-  // is valid inside <dl> (HTML5 allows `dl > div > dt+dd`) and keeps the
-  // visual chip, including the linked variant.
-  const inner = (
-    <>
-      {term ? (
-        <dt className="m-0 inline text-(--md-sys-color-on-surface)">
-          {term}:{" "}
-        </dt>
-      ) : null}
-      <dd className="m-0 inline text-(--md-sys-color-on-surface)">{value}</dd>
-    </>
-  );
-  if (!href) return <div className={CHIP}>{inner}</div>;
-  return (
-    <div className={CHIP}>
-      <a
-        className="inline-flex items-center gap-1 text-(--md-sys-color-on-surface) no-underline hover:border-(--md-sys-color-outline) hover:bg-(--md-sys-color-surface-container-high)"
-        href={href}
-        rel="noreferrer"
-        target="_blank"
-      >
-        {inner}
-        <span aria-hidden="true" className="text-(--md-sys-color-primary)">
-          ↗
-        </span>
-      </a>
-    </div>
-  );
-}
-
 /* ---------------------------------------------------------- 1. header */
 
 /**
  * Section 1 — Header + metadata strip. Facts before prose: this is what makes
  * a page read as a reference rather than a blog post.
  */
-function MetadataStrip({
+/**
+ * M3-style header links row. One line: state · package · elevation, then
+ * reference links (spec ↗ · source ↗ · bundle ↗ · a11y ↗), then copy actions.
+ * Replaces the 10-chip description list — facts stay, chrome shrinks to a
+ * single wrapping row like MUI's header links.
+ */
+function HeaderLinks({
   doc,
   platform,
 }: {
@@ -271,114 +205,62 @@ function MetadataStrip({
 }) {
   const { meta } = doc;
   const elev = elevationLabel(meta.elevation, meta.elevationBacked !== false);
-  // D-038 — maturity comes from ONE generated source (packages/mcp's
-  // maturity.ts, copied regen-green by scripts/generate-maturity.mjs). It is
-  // resolved, never authored: a page asserts a state only when every export it
-  // owns agrees, and renders no chip at all when the source knows none of them.
   const maturity = maturityForExports(
     doc.parts,
     platform === "web" ? "web" : "native",
   );
   const state = meta.state ?? maturity?.state;
   const version = meta.version ?? maturity?.version;
+  const facts = [state, version, meta.package, `elevation ${elev.text}`].filter(
+    Boolean,
+  );
+  const links: { label: string; href?: string }[] = [
+    {
+      label: "M3 spec",
+      href:
+        typeof meta.specUrl === "string" && meta.specUrl !== "none"
+          ? meta.specUrl
+          : undefined,
+    },
+    { label: "Source", href: meta.sourceUrl },
+    { label: "Bundle", href: meta.bundleUrl },
+    { label: "WAI-ARIA", href: meta.apgUrl },
+  ];
   return (
-    <dl className="m-0 flex flex-wrap items-center gap-2">
-      {/*
-        m6 — `meta.status` is the REGISTRY value (real/stub) and describes our
-        content file, not the component. Publishing it as "Status: real" leaks
-        an internal and tells the reader nothing. The release state
-        (Preview / Stable / Maintained / …) is the fact about the component,
-        and that is what gets shown.
-      */}
-      {state ? <Chip term="State" value={state} /> : null}
-      {version ? <Chip term="Version" value={version} /> : null}
-      <Chip term="Package" value={meta.package} />
-      {meta.platforms?.length ? (
-        <Chip term="Platforms" value={meta.platforms.join(" · ")} />
-      ) : null}
-      <Chip term="Native peer" value={meta.nativePeer} />
-      <Chip term="Elevation" value={elev.text} warn={elev.warn} />
-      {meta.variants.length === 0 ? (
-        <Chip term="Variants" value="none" />
-      ) : (
-        // m3: a `dl > div` must contain a dt. Rendering the axis with no term
-        // produced dd-only groups, which is invalid and loses the pair.
-        // Each entry is authored as `axis: values`, so the axis NAME becomes
-        // the term and the values become the value — otherwise the strip reads
-        // "Variant: variant: elevated · …", a label printed twice.
-        meta.variants.map((axis) => {
-          const sep = axis.indexOf(": ");
-          const term = sep === -1 ? "Variant" : axis.slice(0, sep);
-          const value = sep === -1 ? axis : axis.slice(sep + 2);
-          return (
-            <Chip
-              key={axis}
-              term={term.charAt(0).toUpperCase() + term.slice(1)}
-              value={value}
-            />
-          );
-        })
+    <div className={`flex flex-wrap items-center gap-x-4 gap-y-1 ${SMALL}`}>
+      <span className={INK_SOFT}>{facts.join(" · ")}</span>
+      {links.map((l) =>
+        l.href ? (
+          <a
+            key={l.label}
+            href={l.href}
+            rel="noreferrer"
+            target="_blank"
+            className="text-(--sys-color-secondary) no-underline hover:underline"
+          >
+            {l.label} <span aria-hidden="true">↗</span>
+          </a>
+        ) : null,
       )}
-      {/*
-        TRI-STATE, because the middle and the empty state are different
-        claims: "none" is RECORDED as having no Material 3 source, while
-        undefined is simply NOT RECORDED yet. Rendering the empty state as
-        "kern extension" would tell a reader that Button has no M3 origin —
-        an inverse fabrication, and just as damaging as a dead link.
-      */}
-      <LinkChip
-        term="M3 spec"
-        value={
-          meta.specUrl === "none"
-            ? "none — kern extension"
-            : meta.specUrl
-              ? "spec"
-              : "not recorded"
-        }
-        href={
-          typeof meta.specUrl === "string" && meta.specUrl !== "none"
-            ? meta.specUrl
-            : undefined
-        }
-      />
-      {/*
-        A chip that renders a label with no link promises a fact and delivers
-        none — "WAI-ARIA: APG" with nowhere to go is worse than no chip,
-        because it looks like due diligence. Same treatment as the spec chip
-        above: say what is true, or say there is nothing here.
-      */}
-      <LinkChip
-        term="WAI-ARIA"
-        value={meta.apgUrl ? "APG" : "not linked"}
-        href={meta.apgUrl}
-      />
-      <LinkChip
-        term="Source"
-        value={meta.sourceUrl ? "GitHub" : "not linked"}
-        href={meta.sourceUrl}
-      />
-      <LinkChip
-        term="Bundle"
-        value={meta.bundleUrl ? "size" : "not linked"}
-        href={meta.bundleUrl}
-      />
-    </dl>
+      <CopyMarkdownButton />
+    </div>
   );
 }
 
 /* ------------------------------------------------- grammar: demo */
 
 /**
- * Grammar slot 2 — Demo. Live, interactive, from the real package. Never a
+ * Grammar slot — Demo. Live, interactive, from the real package. Never a
  * screenshot, never a reimplementation: a demo that restates the component's
  * markup teaches the reader the wrong code. Prove it works before asking
  * anyone to read about it.
  *
- * Installation and examples live HERE as h3 subsections rather than as
- * grammar sections of their own: getting it running and seeing it do one job
- * are both "prove it", and the grammar's nine h2 slots stay the page's
- * skeleton. The usage Do/Don't cards close the section — the contrast is the
- * argument for reaching for this component at all.
+ * The section runs proof-first: the live demo, then the state-layer strip
+ * (what hover/focus/press look like — states used to exist only as token
+ * rows, which do not teach), then installation VISIBLE (the 60-second bar
+ * was a collapsed details), then examples and the configurator. The usage
+ * Do/Don't cards moved OUT to their own grammar slot (`usage`) so the TOC
+ * can see them.
  */
 function DemoContent({
   doc,
@@ -401,14 +283,91 @@ function DemoContent({
 
 function Demo({ doc, platform }: { doc: ComponentDoc; platform: Platform }) {
   return (
-    <section className="flex flex-col gap-3" aria-label="Demo">
+    <section className="flex flex-col gap-4" aria-label="Demo">
       <Heading id="demo">Demo</Heading>
       <DemoContent doc={doc} platform={platform} />
+      <StatesStrip doc={doc} />
       <PlaygroundLinks doc={doc} platform={platform} />
       <InstallationBlock doc={doc} />
       <ExamplesBlock doc={doc} />
-      <WhenToUse doc={doc} />
     </section>
+  );
+}
+
+/**
+ * States, taught — the M3 state-layer strip.
+ *
+ * Before this existed, "states" on a component page meant rows in the token
+ * table: a reader could not SEE what hover or press does. This paints the
+ * layer law itself (on-surface over the container at the M3 opacities —
+ * hover 8%, focus 10%, press 10%, drag 16%) as swatches next to the live
+ * demo, then lists the states this family's own token table registers.
+ * The opacities are painted, not asserted: the overlay divs use the theme's
+ * `on-surface` role, so dark mode and contrast themes repaint them live.
+ *
+ * An h3 inside Demo (not a grammar slot): the strip is a lens on the live
+ * demo above it, and the grammar's h2 slots stay the page's skeleton.
+ */
+function StatesStrip({ doc }: { doc: ComponentDoc }) {
+  const registered = [
+    ...new Set((doc.tokens ?? []).map((row) => row.state.trim())),
+  ].filter((s) => s.length > 0 && s !== "resting");
+  const layers: { label: string; opacity: number }[] = [
+    { label: "Rest", opacity: 0 },
+    { label: "Hover", opacity: 0.08 },
+    { label: "Focus", opacity: 0.1 },
+    { label: "Press", opacity: 0.1 },
+    { label: "Drag", opacity: 0.16 },
+  ];
+  return (
+    <div className="flex flex-col gap-2">
+      <Heading id="states" level={3}>
+        States
+      </Heading>
+      <div className="flex flex-wrap gap-2">
+        {layers.map((layer) => (
+          <div key={layer.label} className="flex flex-col items-center gap-1">
+            <span
+              aria-hidden="true"
+              className="relative block h-10 w-16 overflow-hidden rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant) bg-(--sys-color-surface)"
+            >
+              <span
+                className="absolute inset-0"
+                style={{
+                  backgroundColor: "var(--sys-color-on-surface)",
+                  opacity: layer.opacity,
+                }}
+              />
+            </span>
+            <span className={`${TINY} ${INK_SOFT}`}>{layer.label}</span>
+          </div>
+        ))}
+      </div>
+      <p className={PROSE}>
+        State layers are {""}
+        <code>on-surface</code> at 8% hover, 10% focus, 10% press and 16% drag
+        over the container — never a color swap.{" "}
+        <a
+          className="text-(--sys-color-secondary) underline underline-offset-2"
+          href="/foundations/m3/states"
+        >
+          How states work
+        </a>
+        .
+      </p>
+      {registered.length > 0 ? (
+        <p
+          className={`m-0 flex flex-wrap items-center gap-1.5 ${SMALL} ${INK_SOFT}`}
+        >
+          <span>This family registers:</span>
+          {registered.map((state) => (
+            <span key={state} className={CHIP}>
+              {state}
+            </span>
+          ))}
+        </p>
+      ) : null}
+    </div>
   );
 }
 
@@ -428,28 +387,22 @@ function PlaygroundLinks({
 }) {
   const exportName = doc.parts[0];
   return (
-    <p className={PROSE}>
-      Open this entry in the{" "}
+    <div className={`flex flex-wrap items-center gap-x-4 gap-y-1 ${SMALL}`}>
       <a
-        className="text-(--md-sys-color-primary) underline underline-offset-2"
+        className="text-(--sys-color-secondary) no-underline hover:underline"
         href={registrySearchHref(exportName)}
       >
-        playground search
+        Open in playground <span aria-hidden="true">↗</span>
       </a>
       {platform === "web" ? (
-        <>
-          {" "}
-          or repaint it in the{" "}
-          <a
-            className="text-(--md-sys-color-primary) underline underline-offset-2"
-            href={THEME_CONFIGURATOR_HREF}
-          >
-            theme configurator
-          </a>
-        </>
+        <a
+          className="text-(--sys-color-secondary) no-underline hover:underline"
+          href={THEME_CONFIGURATOR_HREF}
+        >
+          Theme configurator <span aria-hidden="true">↗</span>
+        </a>
       ) : null}
-      .
-    </p>
+    </div>
   );
 }
 
@@ -537,10 +490,10 @@ function InstallPicker({ target }: { target: string }) {
             type="button"
             aria-pressed={manager === m.id}
             onClick={() => choose(m.id)}
-            className={`rounded-(--md-sys-shape-corner-small) border px-2.5 py-1 ${SMALL} ${
+            className={`min-h-12 rounded-(--sys-shape-corner-full) border px-4 ${SMALL} ${
               manager === m.id
-                ? "border-(--md-sys-color-primary) bg-(--md-sys-color-primary-container) text-(--md-sys-color-on-primary-container)"
-                : "border-(--md-sys-color-outline) text-(--md-sys-color-on-surface-variant)"
+                ? "border-(--sys-color-primary) bg-(--sys-color-primary-container) text-(--sys-color-on-primary-container)"
+                : "border-(--sys-color-outline) text-(--sys-color-on-surface-variant) hover:bg-(--sys-color-on-surface)/8"
             }`}
           >
             {m.label}
@@ -561,8 +514,11 @@ function InstallationBlock({ doc }: { doc: ComponentDoc }) {
   const pkg = doc.meta.package;
   const target = installTarget(pkg);
   const importStatement = `import { ${doc.parts[0]} } from "${pkg}";`;
+  // VISIBLE, not a collapsed details: the 60-second bar (get it running)
+  // must not hide behind a click. MUI and shadcn both show install on
+  // arrival; a details here made the fastest path on the page the slowest.
   return (
-    <>
+    <div className="flex flex-col gap-2">
       <Heading id="installation" level={3}>
         Installation
       </Heading>
@@ -579,14 +535,14 @@ function InstallationBlock({ doc }: { doc: ComponentDoc }) {
           <CopyButton text={importStatement} />
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
 /* ------------------------------------------- grammar: semantic DOM */
 
 /**
- * Grammar slot 5 — Semantic DOM. The mental model before the contract: the
+ * Grammar slot — Semantic DOM. The mental model before the contract: the
  * part names introduced here are what every later section refers to, and the
  * ARIA roles are what assistive tech actually gets. Anatomy and contract are
  * one section because they describe the same tree — what it is called and
@@ -612,8 +568,8 @@ function SemanticDom({ doc }: { doc: ComponentDoc }) {
             Anatomy
           </Heading>
           <ul className="m-0 flex flex-col gap-2">
-            {rows.map((part) => (
-              <AnatomyRow key={part.name} part={part} />
+            {rows.map((part, index) => (
+              <AnatomyRow key={part.name} part={part} index={index} />
             ))}
           </ul>
         </>
@@ -634,11 +590,23 @@ function SemanticDom({ doc }: { doc: ComponentDoc }) {
   );
 }
 
-function AnatomyRow({ part }: { part: PartRow }) {
+/**
+ * One anatomy part, numbered — the M3 anatomy figure's honest web form.
+ * Every family gets the numbered callout rhythm (1. Container, 2. Label…)
+ * without an invented SVG of geometry the data does not carry: the number
+ * orders the tree, the name is the part id, the role is what it does.
+ */
+function AnatomyRow({ part, index }: { part: PartRow; index: number }) {
   return (
-    <li className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-4">
+    <li className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-4">
+      <span
+        aria-hidden="true"
+        className={`inline-flex size-6 shrink-0 items-center justify-center rounded-full bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container) ${TINY}`}
+      >
+        {index + 1}
+      </span>
       <code
-        className={`shrink-0 font-mono ${SMALL} text-(--md-sys-color-secondary)`}
+        className={`shrink-0 font-mono ${SMALL} text-(--sys-color-secondary)`}
       >
         {part.name}
       </code>
@@ -663,6 +631,30 @@ function AnatomyRow({ part }: { part: PartRow }) {
  */
 
 /**
+ * Grammar slot — Usage, its own top-level section (v2). The Do/Don't cards
+ * used to close Demo as nested h3s, where the "On this page" rail could not
+ * see them — M3's Guidelines pattern demoted to a subsection. Now Usage is
+ * an h2 slot with the cards inside, so every reader lands on the contrast
+ * that is the argument for reaching for this component at all.
+ *
+ * Conditional via `hasUsage(doc)`: a page with no written rule cuts the
+ * section (the template applies the shared predicate, never an inline
+ * condition of its own).
+ */
+function Usage({ doc }: { doc: ComponentDoc }) {
+  return (
+    <section className="flex flex-col gap-4">
+      <Heading id="usage">Usage</Heading>
+      <p className={PROSE}>
+        When to reach for this family — the M3 Guidelines pattern: every rule as
+        a Do and a Don&rsquo;t, side by side, so the contrast is the argument.
+      </p>
+      <WhenToUse doc={doc} />
+    </section>
+  );
+}
+
+/**
  * Do/Don't cards — the M3 Guidelines pattern, and the clearest way to state a
  * usage rule: the two sit side by side so the contrast is the argument.
  *
@@ -680,10 +672,14 @@ function WhenToUse({ doc }: { doc: ComponentDoc }) {
   return (
     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
       {hasDo ? (
-        <div
-          className={`${CARD} border-l-4 border-l-(--md-sys-color-primary) p-4`}
-        >
+        <div className={`${CARD} p-4`}>
           <Heading id="do" level={3}>
+            <span
+              className="text-(--sys-color-secondary)"
+              aria-hidden="true"
+            >
+              ✓
+            </span>{" "}
             Do
           </Heading>
           <ul
@@ -696,10 +692,11 @@ function WhenToUse({ doc }: { doc: ComponentDoc }) {
         </div>
       ) : null}
       {hasDont ? (
-        <div
-          className={`${CARD} border-l-4 border-l-(--md-sys-color-error) p-4`}
-        >
+        <div className={`${CARD} p-4`}>
           <Heading id="dont" level={3}>
+            <span className="text-(--sys-color-error)" aria-hidden="true">
+              ✕
+            </span>{" "}
             Don&rsquo;t
           </Heading>
           <ul
@@ -712,9 +709,7 @@ function WhenToUse({ doc }: { doc: ComponentDoc }) {
         </div>
       ) : null}
       {!hasDo || !hasDont ? (
-        <div
-          className={`${CARD} border-l-4 border-l-(--md-sys-color-outline) p-4`}
-        >
+        <div className={`${CARD} p-4`}>
           <p className={`m-0 ${SMALL} ${INK_SOFT}`}>
             This rule is one-sided: the {hasDo ? "Don’t" : "Do"} half is not
             written yet.{" "}
@@ -767,13 +762,194 @@ function ExamplesBlock({ doc }: { doc: ComponentDoc }) {
 /* ------------------------------------------------- grammar: tokens */
 
 /**
- * Grammar slot 4 — Tokens (auto-tokens). Where "strict M3" becomes visible
+ * Grammar slot — Tokens, the auto-token contract. Where "strict M3" becomes visible
  * per component: which tokens it consumes, at what resting elevation, with
  * which shape. Generated where the token module can supply the table,
  * transcribed where it cannot — and where neither exists yet, the section
  * falls back to stating the resting elevation, which is always true. A
  * heading over nothing is noise; a fallback sentence is not.
  */
+/**
+ * Token kind detection for the visual showcase. M3 token names encode their
+ * kind: color roles reference `--sys-color-*`, shapes reference corner
+ * tokens or carry px radii, elevations reference levels, type references
+ * typescale roles, and opacities carry percentages. Unknown rows fall back
+ * to the table.
+ */
+type TokenKind = "color" | "shape" | "elevation" | "type" | "opacity" | "other";
+
+function tokenKindOf(row: { token: string; value: string }): TokenKind {
+  const hay = `${row.token} ${row.value}`.toLowerCase();
+  if (
+    hay.includes("--sys-color-") ||
+    hay.includes("primary") ||
+    hay.includes("secondary") ||
+    hay.includes("tertiary") ||
+    hay.includes("surface") ||
+    hay.includes("error") ||
+    hay.includes("outline") ||
+    hay.includes("inverse")
+  )
+    return "color";
+  if (
+    hay.includes("corner") ||
+    hay.includes("shape") ||
+    hay.includes("radius") ||
+    hay.includes("9999px") ||
+    /\b\d+px\b/.test(hay)
+  )
+    return "shape";
+  if (
+    hay.includes("elevation") ||
+    hay.includes("level") ||
+    hay.includes("shadow")
+  )
+    return "elevation";
+  if (
+    hay.includes("typescale") ||
+    hay.includes("label-large") ||
+    hay.includes("body-") ||
+    hay.includes("font") ||
+    hay.includes("tracking") ||
+    hay.includes("line-height")
+  )
+    return "type";
+  if (hay.includes("%") || hay.includes("opacity")) return "opacity";
+  return "other";
+}
+
+/** Resolve a color-role value to a CSS color for swatch painting. */
+function swatchStyle(value: string): React.CSSProperties | undefined {
+  const m = value.match(/--sys-color-[a-z-]+/);
+  if (m) return { backgroundColor: `var(${m[0]})` };
+  const hex = value.match(/#[0-9a-fA-F]{3,8}\b/);
+  if (hex) return { backgroundColor: hex[0] };
+  return undefined;
+}
+
+/** Resolve a radius value for shape previews. */
+function radiusStyle(value: string): React.CSSProperties | undefined {
+  if (value.includes("9999px")) return { borderRadius: "9999px" };
+  const m = value.match(/(\d+)px/);
+  if (m) return { borderRadius: `${m[1]}px` };
+  const token = value.match(/--sys-shape-corner-[a-z-]+/);
+  if (token) return { borderRadius: `var(${token[0]})` };
+  return undefined;
+}
+
+/** Resolve an elevation level for shadow previews. */
+function elevationStyle(value: string): React.CSSProperties | undefined {
+  const m = value.match(/level([0-5])/);
+  if (m) return { boxShadow: `var(--sys-elevation-level${m[1]})` };
+  if (value.toLowerCase().includes("level")) return {};
+  return undefined;
+}
+
+/**
+ * Visual token showcase — M3 shows tokens as swatches, shapes, shadows, and
+ * specimens, not as a wall of text. Rows group by detected kind; each card
+ * paints the value it names. The full table follows inside a disclosure for
+ * the exact token strings.
+ */
+function TokenShowcase({
+  tokens,
+}: {
+  tokens: NonNullable<ComponentDoc["tokens"]>;
+}) {
+  const groups = new Map<TokenKind, typeof tokens>();
+  for (const row of tokens) {
+    const kind = tokenKindOf(row);
+    const list = groups.get(kind) ?? [];
+    list.push(row);
+    groups.set(kind, list);
+  }
+  const order: TokenKind[] = ["color", "shape", "elevation", "type", "opacity"];
+  const shown = order.filter((k) => (groups.get(k)?.length ?? 0) > 0);
+  if (shown.length === 0) return null;
+  return (
+    <div className="flex flex-col gap-4">
+      {shown.map((kind) => (
+        <div key={kind} className="flex flex-col gap-2">
+          <p
+            className={`m-0 ${LABEL} text-(--sys-color-on-surface-variant) uppercase`}
+          >
+            {kind === "color"
+              ? "Colors"
+              : kind === "shape"
+                ? "Shapes"
+                : kind === "elevation"
+                  ? "Elevation"
+                  : kind === "type"
+                    ? "Typography"
+                    : "State layers"}
+          </p>
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
+            {(groups.get(kind) ?? []).map((row) => (
+              <div
+                key={`${row.element}-${row.state}-${row.token}`}
+                className={`flex flex-col gap-1.5 rounded-(--sys-shape-corner-medium) border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container-low) p-3`}
+              >
+                {kind === "color" ? (
+                  <span
+                    aria-hidden="true"
+                    className="h-10 w-full rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant)"
+                    style={swatchStyle(row.value)}
+                  />
+                ) : null}
+                {kind === "shape" ? (
+                  <span
+                    aria-hidden="true"
+                    className="h-10 w-full bg-(--sys-color-secondary-container)"
+                    style={radiusStyle(row.value)}
+                  />
+                ) : null}
+                {kind === "elevation" ? (
+                  <span
+                    aria-hidden="true"
+                    className="h-10 w-full rounded-(--sys-shape-corner-small) bg-(--sys-color-surface)"
+                    style={elevationStyle(row.value)}
+                  />
+                ) : null}
+                {kind === "type" ? (
+                  <span
+                    aria-hidden="true"
+                    className={`text-(--sys-color-on-surface) ${ts("label-large")}`}
+                  >
+                    Ag
+                  </span>
+                ) : null}
+                {kind === "opacity" ? (
+                  <span
+                    aria-hidden="true"
+                    className="flex h-10 w-full items-center justify-center rounded-(--sys-shape-corner-small) bg-(--sys-color-surface-container-high)"
+                  >
+                    <span
+                      className="h-6 w-6 rounded-full bg-(--sys-color-primary)"
+                      style={{
+                        opacity: row.value.match(/(\d+)%/)?.[1]
+                          ? Number(row.value.match(/(\d+)%/)?.[1]) / 100
+                          : undefined,
+                      }}
+                    />
+                  </span>
+                ) : null}
+                <span className={`${TINY} text-(--sys-color-on-surface)`}>
+                  {row.element}
+                </span>
+                <span
+                  className={`${TINY} text-(--sys-color-on-surface-variant)`}
+                >
+                  {row.state} · <code>{row.token}</code>
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function Theming({ doc }: { doc: ComponentDoc }) {
   const tokens = doc.tokens;
   return (
@@ -784,48 +960,58 @@ function Theming({ doc }: { doc: ComponentDoc }) {
         instance changes — that is the point of the token layer.
       </p>
       {tokens && tokens.length > 0 ? (
-        <div className="overflow-x-auto">
-          <table className={`w-full border-collapse ${SMALL}`}>
-            <thead>
-              <tr className="border-b border-(--md-sys-color-outline-variant)">
-                <th className={TH}>Element</th>
-                <th className={TH}>State</th>
-                <th className={TH}>Token</th>
-                <th className={TH}>Value</th>
-              </tr>
-            </thead>
-            <tbody>
-              {tokens.map((row) => (
-                <tr
-                  key={`${row.element}-${row.state}-${row.token}`}
-                  className="border-b border-(--md-sys-color-outline-variant)"
-                >
-                  <td className={TD}>{row.element}</td>
-                  <td
-                    className={`${TD} text-(--md-sys-color-on-surface-variant)`}
-                  >
-                    {row.state}
-                  </td>
-                  <td
-                    className={`${TD} font-mono text-(--md-sys-color-primary) [font-size:var(--md-sys-typescale-label-small-font-size)] [line-height:var(--md-sys-typescale-label-small-line-height)]`}
-                  >
-                    {row.token}
-                  </td>
-                  <td
-                    className={`${TD} font-mono text-(--md-sys-color-on-surface-variant) [font-size:var(--md-sys-typescale-label-small-font-size)] [line-height:var(--md-sys-typescale-label-small-line-height)]`}
-                  >
-                    {row.value}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <>
+          <TokenShowcase tokens={tokens} />
+          <details className="group">
+            <summary
+              className={`cursor-pointer ${LABEL} text-(--sys-color-on-surface-variant) uppercase`}
+            >
+              Full token table
+            </summary>
+            <div className="mt-2 overflow-x-auto">
+              <table className={`w-full border-collapse ${SMALL}`}>
+                <thead>
+                  <tr className="border-b border-(--sys-color-outline-variant)">
+                    <th className={TH}>Element</th>
+                    <th className={TH}>State</th>
+                    <th className={TH}>Token</th>
+                    <th className={TH}>Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {tokens.map((row) => (
+                    <tr
+                      key={`${row.element}-${row.state}-${row.token}`}
+                      className="border-b border-(--sys-color-outline-variant)"
+                    >
+                      <td className={TD}>{row.element}</td>
+                      <td
+                        className={`${TD} text-(--sys-color-on-surface-variant)`}
+                      >
+                        {row.state}
+                      </td>
+                      <td
+                        className={`${TD} font-mono text-(--sys-color-primary) [font-size:var(--sys-typescale-label-small-font-size)] [line-height:var(--sys-typescale-label-small-line-height)]`}
+                      >
+                        {row.token}
+                      </td>
+                      <td
+                        className={`${TD} font-mono text-(--sys-color-on-surface-variant) [font-size:var(--sys-typescale-label-small-font-size)] [line-height:var(--sys-typescale-label-small-line-height)]`}
+                      >
+                        {row.value}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </details>
+        </>
       ) : (
         <p className={PROSE}>
           No per-component token table is generated for this one yet. Its
           resting elevation is{" "}
-          <strong className="text-(--md-sys-color-on-surface)">
+          <strong className="text-(--sys-color-on-surface)">
             {
               elevationLabel(
                 doc.meta.elevation,
@@ -954,7 +1140,7 @@ function DemoExpectations({ page }: { page: A11yPage | undefined }) {
 /* -------------------------------------------- grammar: accessibility */
 
 /**
- * Grammar slot 6 — Accessibility. The keyboard contract plus the Part 7
+ * Grammar slot — Accessibility. The keyboard contract plus the Part 7
  * per-demo expectations. The ARIA contract lives in Semantic DOM (it
  * describes the rendered tree) and known gaps live in Limitations (they are
  * boundaries) — this section states behaviour, not vocabulary or caveats.
@@ -1004,7 +1190,7 @@ function Accessibility({
           <div className="overflow-x-auto">
             <table className={`w-full border-collapse ${SMALL}`}>
               <thead>
-                <tr className="border-b border-(--md-sys-color-outline-variant)">
+                <tr className="border-b border-(--sys-color-outline-variant)">
                   <th className={`${TH} w-40`}>Key</th>
                   <th className={TH}>Action</th>
                 </tr>
@@ -1013,17 +1199,17 @@ function Accessibility({
                 {keyboard.map((row) => (
                   <tr
                     key={row.key}
-                    className="border-b border-(--md-sys-color-outline-variant)"
+                    className="border-b border-(--sys-color-outline-variant)"
                   >
                     <td className={TD}>
                       <kbd
-                        className={`rounded border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-high) px-1.5 py-0.5 ${KEYCAP} text-(--md-sys-color-on-surface)`}
+                        className={`rounded border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container-high) px-1.5 py-0.5 ${KEYCAP} text-(--sys-color-on-surface)`}
                       >
                         {row.key}
                       </kbd>
                     </td>
                     <td
-                      className={`${TD} text-(--md-sys-color-on-surface-variant)`}
+                      className={`${TD} text-(--sys-color-on-surface-variant)`}
                     >
                       {row.action}
                     </td>
@@ -1043,7 +1229,7 @@ function Accessibility({
 /* -------------------------------------------- grammar: limitations */
 
 /**
- * Grammar slot 7 — Limitations. The honest boundary: what this family does
+ * Grammar slot — Limitations. The honest boundary: what this family does
  * NOT do, stated so nobody discovers it by accident. Three sources, one home:
  * unsupported customization (moved out of Tokens), known accessibility gaps
  * (moved out of Accessibility), and the grammar-exemption notice for pages
@@ -1065,7 +1251,7 @@ function Limitations({ doc }: { doc: ComponentDoc }) {
       </p>
       {exempt ? (
         <p className={PROSE}>
-          <strong className="text-(--md-sys-color-on-surface)">
+          <strong className="text-(--sys-color-on-surface)">
             Grammar exemption:
           </strong>{" "}
           {exempt}
@@ -1084,16 +1270,16 @@ function Limitations({ doc }: { doc: ComponentDoc }) {
         </>
       )}
       {gaps.length > 0 && (
-        <div className="rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-error) bg-(--md-sys-color-error-container) p-4">
+        <div className="rounded-(--sys-shape-corner-medium) border border-(--sys-color-error) bg-(--sys-color-error-container) p-4">
           <Heading
             id="known-gaps"
             level={3}
-            className="text-(--md-sys-color-on-error-container)"
+            className="text-(--sys-color-on-error-container)"
           >
             Known gaps
           </Heading>
           <ul
-            className={`m-0 mt-2 flex list-disc flex-col gap-2 pl-5 ${SMALL} text-(--md-sys-color-on-error-container)`}
+            className={`m-0 mt-2 flex list-disc flex-col gap-2 pl-5 ${SMALL} text-(--sys-color-on-error-container)`}
           >
             {gaps.map((line) => (
               <li key={line}>{line}</li>
@@ -1108,7 +1294,7 @@ function Limitations({ doc }: { doc: ComponentDoc }) {
 /* --------------------------------------------------- grammar: faq */
 
 /**
- * Grammar slot 8 — FAQ. Questions readers actually ask, answered in the
+ * Grammar slot — FAQ. Questions readers actually ask, answered in the
  * page's own facts. Conditional (grammar predicate `hasFaq`): an invented
  * FAQ is fabrication, so pages with nothing real to answer render no
  * section rather than a reassuring one.
@@ -1119,20 +1305,25 @@ function Faq({ doc }: { doc: ComponentDoc }) {
   return (
     <section className="flex flex-col gap-3">
       <Heading id="faq">FAQ</Heading>
-      <dl className="m-0 flex flex-col gap-4">
+      <div className="flex flex-col gap-1">
         {rows.map((row) => (
-          <div key={row.q} className={`${CARD} flex flex-col gap-1 p-4`}>
-            <dt className={`m-0 ${LABEL} ${INK}`}>{row.q}</dt>
-            <dd className={`m-0 ${SMALL} ${INK_SOFT}`}>{row.a}</dd>
-          </div>
+          <details
+            key={row.q}
+            className="group rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container-low) px-3 py-2"
+          >
+            <summary className={`cursor-pointer list-none ${SMALL} ${INK}`}>
+              {row.q}
+            </summary>
+            <p className={`m-0 mt-1 ${SMALL} ${INK_SOFT}`}>{row.a}</p>
+          </details>
         ))}
-      </dl>
+      </div>
     </section>
   );
 }
 
 /**
- * Grammar slot 9 — Spec. The kern signature, last: strict to the Material 3
+ * Grammar slot — Spec. The kern signature, last: strict to the Material 3
  * spec by default, and every departure declared with a registered id so it
  * can be audited rather than discovered.
  */
@@ -1150,7 +1341,7 @@ function Conformance({ doc }: { doc: ComponentDoc }) {
       {specUrl && specUrl !== "none" ? (
         <p className={PROSE}>
           <a
-            className="text-(--md-sys-color-primary) underline underline-offset-2"
+            className="text-(--sys-color-secondary) underline underline-offset-2"
             href={specUrl}
             rel="noreferrer"
             target="_blank"
@@ -1209,7 +1400,7 @@ function DeviationRow({ row }: { row: Deviation }) {
     <li className={`${CARD} flex flex-col gap-2 p-4`}>
       <div className="flex items-center gap-2">
         <span
-          className={`rounded-full bg-(--md-sys-color-secondary-container) px-2.5 py-0.5 font-mono text-(--md-sys-color-on-secondary-container) [font-size:var(--md-sys-typescale-label-small-font-size)] [line-height:var(--md-sys-typescale-label-small-line-height)]`}
+          className={`rounded-full bg-(--sys-color-secondary-container) px-2.5 py-0.5 font-mono text-(--sys-color-on-secondary-container) [font-size:var(--sys-typescale-label-small-font-size)] [line-height:var(--sys-typescale-label-small-line-height)]`}
         >
           {row.id}
         </span>
@@ -1229,7 +1420,7 @@ function DeviationRow({ row }: { row: Deviation }) {
 /* ------------------------------------------------- grammar: props */
 
 /**
- * Grammar slot 3 — Props. Reference up front, not last: readers arrive here
+ * Grammar slot — Props (reference, after the teaching sections). Reference up front, not last: readers arrive here
  * from search and anchors, and what a component takes is the first question
  * after seeing it work.
  *
@@ -1289,54 +1480,113 @@ function partRows(part: string, content: PropRow[]): ApiRow[] | null {
   return rows;
 }
 
+/**
+ * Collapsible prop rows (Base UI pattern): the summary shows name + type +
+ * default at a glance; expanding reveals the notes. A 20-prop table becomes
+ * a scannable list instead of a wall. The full table follows in a disclosure
+ * for copy-paste and screen-reader table navigation.
+ */
+function PropRows({ rows }: { rows: ApiRow[] }) {
+  return (
+    <div className="flex flex-col gap-1">
+      {rows.map((row) => (
+        <details
+          key={row.name}
+          className="group rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container-low) px-3 py-2"
+        >
+          <summary
+            className={`flex cursor-pointer list-none flex-wrap items-baseline gap-x-3 gap-y-1 ${SMALL}`}
+          >
+            <code className="font-mono text-(--sys-color-on-surface)">
+              {row.name}
+            </code>
+            {row.required ? (
+              <span className={`${TINY} text-(--sys-color-error)`}>
+                required
+              </span>
+            ) : null}
+            <code
+              className={`font-mono text-(--sys-color-on-surface-variant) ${TINY}`}
+            >
+              {row.type}
+            </code>
+            <span
+              className={`ml-auto font-mono text-(--sys-color-on-surface-variant) ${TINY}`}
+            >
+              {row.default ?? "—"}
+            </span>
+          </summary>
+          {row.note ? (
+            <p className={`m-0 mt-1 ${SMALL} ${INK_SOFT}`}>{row.note}</p>
+          ) : null}
+        </details>
+      ))}
+    </div>
+  );
+}
+
 function PropTable({ rows, caption }: { rows: ApiRow[]; caption?: string }) {
   return (
-    <div className="overflow-x-auto">
-      <table className={`w-full border-collapse text-left ${SMALL}`}>
-        {caption ? (
-          <caption className={`pb-2 text-left ${LABEL} ${INK}`}>
-            <code className="font-mono">{caption}</code>
-          </caption>
-        ) : null}
-        <thead>
-          <tr className="border-b border-(--md-sys-color-outline-variant)">
-            <th className={TH}>Prop</th>
-            <th className={TH}>Type</th>
-            <th className={TH}>Default</th>
-            <th className={TH}>Notes</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row) => (
-            <tr
-              key={row.name}
-              className="border-b border-(--md-sys-color-outline-variant)"
-            >
-              <td className={TD}>
-                <code className="font-mono text-(--md-sys-color-on-surface)">
-                  {row.name}
-                </code>
-                {row.required && (
-                  <span className={`ml-2 ${TINY} text-(--md-sys-color-error)`}>
-                    required
-                  </span>
-                )}
-              </td>
-              <td
-                className={`${TD} font-mono text-(--md-sys-color-on-surface-variant) [font-size:var(--md-sys-typescale-label-small-font-size)] [line-height:var(--md-sys-typescale-label-small-line-height)]`}
-              >
-                {row.type}
-              </td>
-              <td
-                className={`${TD} font-mono text-(--md-sys-color-on-surface-variant) [font-size:var(--md-sys-typescale-label-small-font-size)] [line-height:var(--md-sys-typescale-label-small-line-height)]`}
-              >
-                {row.default ?? "—"}
-              </td>
-              <td className={`${TD} ${SMALL} ${INK_SOFT}`}>{row.note ?? ""}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="flex flex-col gap-2">
+      {caption ? (
+        <p className={`m-0 ${LABEL} ${INK}`}>
+          <code className="font-mono">{caption}</code>
+        </p>
+      ) : null}
+      <PropRows rows={rows} />
+      <details className="group">
+        <summary
+          className={`cursor-pointer ${LABEL} text-(--sys-color-on-surface-variant) uppercase`}
+        >
+          Full table
+        </summary>
+        <div className="mt-2 overflow-x-auto">
+          <table className={`w-full border-collapse text-left ${SMALL}`}>
+            <thead>
+              <tr className="border-b border-(--sys-color-outline-variant)">
+                <th className={TH}>Prop</th>
+                <th className={TH}>Type</th>
+                <th className={TH}>Default</th>
+                <th className={TH}>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((row) => (
+                <tr
+                  key={row.name}
+                  className="border-b border-(--sys-color-outline-variant)"
+                >
+                  <td className={TD}>
+                    <code className="font-mono text-(--sys-color-on-surface)">
+                      {row.name}
+                    </code>
+                    {row.required && (
+                      <span
+                        className={`ml-2 ${TINY} text-(--sys-color-error)`}
+                      >
+                        required
+                      </span>
+                    )}
+                  </td>
+                  <td
+                    className={`${TD} font-mono text-(--sys-color-on-surface-variant) [font-size:var(--sys-typescale-label-small-font-size)] [line-height:var(--sys-typescale-label-small-line-height)]`}
+                  >
+                    {row.type}
+                  </td>
+                  <td
+                    className={`${TD} font-mono text-(--sys-color-on-surface-variant) [font-size:var(--sys-typescale-label-small-font-size)] [line-height:var(--sys-typescale-label-small-line-height)]`}
+                  >
+                    {row.default ?? "—"}
+                  </td>
+                  <td className={`${TD} ${SMALL} ${INK_SOFT}`}>
+                    {row.note ?? ""}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </details>
     </div>
   );
 }
@@ -1454,7 +1704,7 @@ function Footer({
   next?: { href: string; title: string };
 }) {
   return (
-    <footer className="flex flex-col gap-4 border-t border-(--md-sys-color-outline-variant) pt-6">
+    <footer className="flex flex-col gap-4 border-t border-(--sys-color-outline-variant) pt-6">
       <nav
         className="flex items-stretch justify-between gap-4"
         aria-label="Pages"
@@ -1489,7 +1739,7 @@ function Footer({
           editing a .tsx when they meant to fix a sentence.
         */}
         <a
-          className="text-(--md-sys-color-primary) underline underline-offset-2"
+          className="text-(--sys-color-secondary) underline underline-offset-2"
           href={editUrlFor(doc, platform)}
           rel="noreferrer"
           target="_blank"
@@ -1498,7 +1748,7 @@ function Footer({
         </a>
         {doc.meta.sourceUrl ? (
           <a
-            className="text-(--md-sys-color-primary) underline underline-offset-2"
+            className="text-(--sys-color-secondary) underline underline-offset-2"
             href={doc.meta.sourceUrl}
             rel="noreferrer"
             target="_blank"
@@ -1512,7 +1762,7 @@ function Footer({
           cannot spend — the prefilled issue is the answer.
         */}
         <a
-          className="text-(--md-sys-color-primary) underline underline-offset-2"
+          className="text-(--sys-color-secondary) underline underline-offset-2"
           href={feedbackUrlFor(doc, platform)}
           rel="noreferrer"
           target="_blank"
@@ -1538,60 +1788,10 @@ function Footer({
 /* -------------------------------------------------------------- page */
 
 /**
- * "On this page" — the right rail (Phase 3 grammar TOC).
- *
- * Rendered in a sticky `aside` beside the article and hidden below the `xl`
- * breakpoint: on narrower viewports the shell's own SectionToc disclosure
- * (site-layout, below `lg`) is the orientation aid, so two TOCs never compete.
- * This component stays a docs component — the shell layout is the redesign
- * lane's, and this file does not touch it.
- *
- * Hrefs are STATIC literals, not built from variables: `check-headings`
- * resolves each one against the explicit Heading ids below, so a TOC link
- * to a missing id is a gate failure, not a silent dead anchor. Entries are in
- * grammar order, and the conditional entries (semantic-dom, limitations, faq)
- * apply the SAME predicates as their sections (`src/systems/grammar.ts`), so
- * the rail can never list a section that is not there.
- */
-function OnThisPage({ doc }: { doc: ComponentDoc }) {
-  return (
-    <nav aria-label="On this page" className="flex flex-col gap-2">
-      <p className={`m-0 ${LABEL} ${INK}`}>On this page</p>
-      <ol className={`m-0 flex list-none flex-col gap-1 p-0 ${SMALL}`}>
-        <TocLink href="#demo" label="Demo" />
-        <TocLink href="#props" label="Props" />
-        <TocLink href="#tokens" label="Tokens" />
-        {hasSemanticDom(doc) ? (
-          <TocLink href="#semantic-dom" label="Semantic DOM" />
-        ) : null}
-        <TocLink href="#accessibility" label="Accessibility" />
-        {hasLimitations(doc) ? (
-          <TocLink href="#limitations" label="Limitations" />
-        ) : null}
-        {hasFaq(doc) ? <TocLink href="#faq" label="FAQ" /> : null}
-        <TocLink href="#spec" label="Spec" />
-      </ol>
-    </nav>
-  );
-}
-
-function TocLink({ href, label }: { href: string; label: string }) {
-  return (
-    <li>
-      <a
-        href={href}
-        className={`${INK_SOFT} no-underline hover:text-(--md-sys-color-on-surface) hover:underline`}
-      >
-        {label}
-      </a>
-    </li>
-  );
-}
-
-/**
- * The page. Article plus right rail: the sections render in the grammar's
- * order and no other order (lede → demo → props → tokens → semantic-dom →
- * accessibility → limitations → faq → spec), and the rail mirrors them.
+ * The page. Article only — the right TOC ("On this page") lives in the
+ * site layout's three-column docs shell, not here. Sections render in the
+ * grammar's order and no other order (lede → demo → props → tokens →
+ * semantic-dom → accessibility → limitations → faq → spec).
  */
 export function ComponentPage({
   doc,
@@ -1614,7 +1814,7 @@ export function ComponentPage({
   const crumbs: Crumb[] = [
     { label: "Components", href: "/components" },
     {
-      label: platform === "web" ? "Web" : "Native",
+      label: platform === "web" ? "Web" : "React Native",
       href: platform === "web" ? "/components/web" : "/components/mobile",
     },
     { label: doc.name },
@@ -1627,47 +1827,44 @@ export function ComponentPage({
     },
     {
       id: "mobile",
-      label: "Native",
+      label: "React Native",
       href: `/components/mobile/${platform === "mobile" ? doc.slug : (peerDoc?.slug ?? "")}`,
     },
   ];
   return (
-    <div className="grid grid-cols-1 gap-8 xl:grid-cols-[minmax(0,1fr)_12rem]">
-      <article className="flex min-w-0 flex-col gap-10" data-copy-md-root>
-        <header className="flex flex-col gap-4">
-          <Breadcrumbs items={crumbs} />
+    <article className="flex min-w-0 flex-col gap-14" data-copy-md-root>
+      <header className="flex flex-col gap-3">
+        <Breadcrumbs items={crumbs} />
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <h1 className={H1}>{doc.name}</h1>
           {peerDoc ? (
             <PlatformTabs tabs={platformTabs} active={platform} />
           ) : null}
-          <h1 className={H1}>{doc.name}</h1>
-          <p className={`m-0 max-w-[62ch] ${LEDE} ${INK_SOFT}`}>
-            {doc.oneLiner}
-          </p>
-          <p className={PROSE}>{doc.features}</p>
-          <MetadataStrip doc={doc} platform={platform} />
-          <div>
-            <CopyMarkdownButton />
-          </div>
-        </header>
-
-        {/* lede above; then the grammar, in order */}
-        <Demo doc={doc} platform={platform} />
-        <ApiReference doc={doc} />
-        <Theming doc={doc} />
-        {hasSemanticDom(doc) ? <SemanticDom doc={doc} /> : null}
-        <Accessibility doc={doc} platform={platform} />
-        {hasLimitations(doc) ? <Limitations doc={doc} /> : null}
-        {hasFaq(doc) ? <Faq doc={doc} /> : null}
-        <Conformance doc={doc} />
-
-        <Footer doc={doc} platform={platform} prev={prev} next={next} />
-      </article>
-
-      <aside className="hidden xl:block">
-        <div className="sticky top-8">
-          <OnThisPage doc={doc} />
         </div>
-      </aside>
-    </div>
+        <p className={`m-0 max-w-[62ch] ${LEDE} ${INK_SOFT}`}>{doc.oneLiner}</p>
+        <details className="group">
+          <summary
+            className={`cursor-pointer ${LABEL} text-(--sys-color-on-surface-variant) uppercase`}
+          >
+            About
+          </summary>
+          <p className={`mt-2 ${PROSE}`}>{doc.features}</p>
+        </details>
+        <HeaderLinks doc={doc} platform={platform} />
+      </header>
+
+      {/* lede above; then the v2 grammar, in order */}
+      <Demo doc={doc} platform={platform} />
+      {hasUsage(doc) ? <Usage doc={doc} /> : null}
+      {hasSemanticDom(doc) ? <SemanticDom doc={doc} /> : null}
+      <Accessibility doc={doc} platform={platform} />
+      <ApiReference doc={doc} />
+      <Theming doc={doc} />
+      {hasLimitations(doc) ? <Limitations doc={doc} /> : null}
+      {hasFaq(doc) ? <Faq doc={doc} /> : null}
+      <Conformance doc={doc} />
+
+      <Footer doc={doc} platform={platform} prev={prev} next={next} />
+    </article>
   );
 }

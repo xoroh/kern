@@ -16,11 +16,21 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { addComponent } from "../../kern-cli/src/add.js";
 import {
+  material3PresetRegistrations,
+} from "../../kern-material-3/src/material-3.js";
+import {
   defineThemePreset,
+  registerPreset,
   resolveThemeDetails,
   themeIds,
   varName,
 } from "../../kern-tokens/src/resolve.js";
+// Explicit registration into the source resolver instance under test (the
+// M3 module's own import-time registration targets the built package
+// instance, which unit tests must not rely on).
+for (const { id, tables } of material3PresetRegistrations()) {
+  registerPreset(id, tables);
+}
 import {
   canonicalPreset,
   designAudit,
@@ -28,6 +38,7 @@ import {
   getTokens,
   listComponents,
   listThemes,
+  TOKEN_PRESETS,
 } from "./tools.js";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -58,18 +69,18 @@ describe("zero-to-screen loop", () => {
     ).themes) {
       expect(entry.description.trim().length > 0).toBe(true);
       expect(
-        existsSync(join(ROOT, "packages/kern-tokens/src/themes", entry.file)),
+        existsSync(join(ROOT, "packages/kern-material-3/src/themes", entry.file)),
         entry.file,
       ).toBe(true);
     }
   });
 
-  it("every catalog preset resolves to a full scheme in both modes", async () => {
+  it("every discovery preset resolves to a full scheme in both modes", async () => {
     const kern = resolveThemeDetails("light");
     const roleCount = Object.keys(kern.color).length;
     const shapeCount = Object.keys(kern.shape).length;
     expect(roleCount > 0).toBe(true);
-    for (const id of themeIds()) {
+    for (const id of TOKEN_PRESETS.filter((p) => p !== "base")) {
       const payload = await getTokens(id);
       expect(hasError(payload), id).toBe(false);
       for (const mode of ["light", "dark"] as const) {
@@ -90,14 +101,14 @@ describe("zero-to-screen loop", () => {
     }
   });
 
-  it("keeps the base source and the m3 alias working", async () => {
+  it("keeps the base source and the material-3 preset working", async () => {
     const base = await getTokens("base");
     expect(hasError(base)).toBe(false);
     expect(typeof (base as { tokens: unknown }).tokens).toBe("object");
-    const aliased = await getTokens("m3");
-    expect(hasError(aliased)).toBe(false);
-    expect((aliased as { preset: string }).preset).toBe("kern");
-    expect(canonicalPreset("m3")).toBe("kern");
+    const preset = await getTokens("material-3");
+    expect(hasError(preset)).toBe(false);
+    expect((preset as { preset: string }).preset).toBe("material-3");
+    expect(canonicalPreset("material-3")).toBe("material-3");
   });
 
   it("lists components and fetches real source, never stubs as code", async () => {
@@ -118,7 +129,13 @@ describe("zero-to-screen loop", () => {
       const result = addComponent("button", { root: ROOT, dest });
       expect(result.files).toContain("components/button.tsx");
       const receipt = JSON.parse(readFileSync(result.receipt, "utf8"));
-      expect(Object.keys(receipt.components)).toEqual(["button"]);
+      expect(receipt.schemaVersion).toBe("2");
+      const owners = [
+        ...new Set(
+          (receipt.files as Array<{ owner: string }>).map((f) => f.owner),
+        ),
+      ];
+      expect(owners).toEqual(["component:button"]);
       const shipped = readFileSync(
         join(ROOT, "packages/kern/src/components/button.tsx"),
         "utf8",
@@ -137,7 +154,7 @@ describe("zero-to-screen loop", () => {
     // passing, the authoring doc is lying and this is where it shows.
     const preset = defineThemePreset({
       id: "agent-zero",
-      extends: "kern",
+      extends: "material-3",
       overrides: {
         color: {
           light: { primary: "#1d4ed8" },
@@ -149,12 +166,14 @@ describe("zero-to-screen loop", () => {
     expect(() =>
       defineThemePreset({
         id: "sharp",
+        extends: "material-3",
         overrides: { color: { light: { primary: "#1d4ed8" } } },
       }),
     ).toThrow("reserved");
     expect(() =>
       defineThemePreset({
         id: "agent-zero-bad",
+        extends: "material-3",
         overrides: { color: { light: { notARole: "#1d4ed8" } } },
       }),
     ).toThrow("Unknown color role");
@@ -168,7 +187,7 @@ describe("zero-to-screen loop", () => {
     expect(hasError(button)).toBe(false);
     const { color } = resolveThemeDetails("light", "standard", "brand");
     expect(/^#[\da-f]{6}$/i.test(color.primary)).toBe(true);
-    expect(varName("primary")).toBe("--md-sys-color-primary");
+    expect(varName("primary")).toBe("--sys-color-primary");
   });
 
   it("design_audit mirrors the kern skill's twelve categories", () => {

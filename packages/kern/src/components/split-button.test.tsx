@@ -213,13 +213,13 @@ describe("SplitButton", () => {
     // The shared pill: full rounding on the container, one rounded corner each.
     const container = document.querySelector("[data-slot='split-button']");
     expect(container?.className).toContain(
-      "rounded-(--md-sys-shape-corner-full)",
+      "rounded-(--sys-shape-corner-full)",
     );
     expect(primary().className).toContain(
-      "rounded-s-(--md-sys-shape-corner-full)",
+      "rounded-s-(--sys-shape-corner-full)",
     );
     expect(overflow().className).toContain(
-      "rounded-e-(--md-sys-shape-corner-full)",
+      "rounded-e-(--sys-shape-corner-full)",
     );
     // The M3 1dp outline divider between the halves.
     expect(overflow().className).toContain("border-s");

@@ -15,7 +15,7 @@ export const countrySelect: ComponentDoc = {
     variants: [],
     // kern's own decision. M3's component elevation table names no select of
     // any kind — its "menu" row is taken by `navigation-menu`. The popup ships
-    // `--md-sys-elevation-level2` and the choice is registered as K6.
+    // `--sys-elevation-level2` and the choice is registered as K6.
     elevation: 2,
   },
   parts: [

@@ -1,6 +1,5 @@
 import {
   type ResolvedTheme,
-  resolveThemeDetails,
   tokens,
 } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
@@ -11,7 +10,7 @@ import {
   type ViewProps,
   type ViewStyle,
 } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 
 /**
  * M3 Meter — a static scalar display: storage used, battery level.
@@ -47,7 +46,7 @@ import { useKernScheme } from "../theme";
 
 export function meterStyles(
   ratio: number,
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): { track: ViewStyle; indicator: ViewStyle } {
   const clamped = Math.min(Math.max(ratio, 0), 1);
   return {

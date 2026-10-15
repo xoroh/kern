@@ -15,8 +15,11 @@
  * swaps to a bundled copy with no shape change).
  */
 import { existsSync, readFileSync } from "node:fs";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { WORKSPACE_ROOT } from "./manifest.js";
+
+const HERE = dirname(fileURLToPath(import.meta.url));
 
 export type BlockCategory = "Auth" | "Settings" | "Dashboard" | "Sidebar";
 
@@ -33,6 +36,8 @@ export type BlockRow = {
   registryDependencies: string[];
   /** npm packages the block imports. */
   dependencies: string[];
+  /** Bundled file bytes (packed installs only; workspace reads disk). */
+  contents?: Record<string, string>;
 };
 
 /** Where block sources live inside the workspace (v1 layout). */
@@ -43,12 +48,25 @@ export function blocksDir(root: string = WORKSPACE_ROOT): string {
 /**
  * Parse `apps/site/src/blocks/manifest.ts` into rows.
  *
- * Text parsing, like `loadManifest`: the manifest is a typed TS source of
+ * Text parsing, like `loadRegistry`: the manifest is a typed TS source of
  * truth both the site and the CLI read, and a shared runtime import would
  * couple the CLI to the site's bundler. The row type above is the contract.
  */
 export function loadBlocks(root: string = WORKSPACE_ROOT): BlockRow[] {
-  const src = readFileSync(join(blocksDir(root), "manifest.ts"), "utf8");
+  // Packed install: no checkout, read the payload emitted at build time.
+  const bundled = join(HERE, "blocks.json");
+  const manifestTs = join(blocksDir(root), "manifest.ts");
+  if (!existsSync(manifestTs)) {
+    if (!existsSync(bundled)) {
+      throw new Error(
+        "no workspace blocks and no bundled blocks.json — reinstall @xoroh/kern-cli.",
+      );
+    }
+    const rows = JSON.parse(readFileSync(bundled, "utf8")) as BlockRow[];
+    if (rows.length === 0) throw new Error("bundled blocks.json is empty.");
+    return rows;
+  }
+  const src = readFileSync(manifestTs, "utf8");
   const chunks = src.split(/^\s*\{/m).slice(1);
   const rows: BlockRow[] = [];
   for (const chunk of chunks) {
@@ -87,8 +105,27 @@ export function blockFileList(
 ): string[] | null {
   const dir = blocksDir(root);
   const all = [row.file, ...row.files];
+  // Packed payload carries bytes; the workspace carries files on disk. Both
+  // are checked — a declared file with neither is a half-block refused aloud.
   for (const f of all) {
-    if (!existsSync(join(dir, f))) return null;
+    if (existsSync(join(dir, f))) continue;
+    if (row.contents?.[f] !== undefined) continue;
+    return null;
   }
   return all;
+}
+
+/** Read one block file: disk in a checkout, payload in a packed install. */
+export function blockFileBytes(
+  row: BlockRow,
+  rel: string,
+  root: string = WORKSPACE_ROOT,
+): string {
+  const disk = join(blocksDir(root), rel);
+  if (existsSync(disk)) return readFileSync(disk, "utf8");
+  const bytes = row.contents?.[rel];
+  if (bytes === undefined) {
+    throw new Error(`block "${row.name}": no bytes for "${rel}" anywhere.`);
+  }
+  return bytes;
 }

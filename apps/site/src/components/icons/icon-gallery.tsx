@@ -48,7 +48,7 @@ export function IconGallery() {
         <h2 id="semantic-map" className="m-0 text-lg font-semibold">
           Semantic map
         </h2>
-        <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
+        <p className="m-0 text-sm text-(--sys-color-on-surface-variant)">
           Kern maps a recurring meaning to one decided symbol, so every product
           picks the same glyph.
         </p>
@@ -57,7 +57,7 @@ export function IconGallery() {
             ([semantic, name]) => (
               <li
                 key={semantic}
-                className="flex items-center gap-2 rounded-(--md-sys-shape-corner-full) border border-(--md-sys-color-outline-variant) px-3 py-1.5"
+                className="flex items-center gap-2 rounded-(--sys-shape-corner-full) border border-(--sys-color-outline-variant) px-3 py-1.5"
               >
                 <Icon
                   name={SEMANTIC_ICONS[semantic] as `${string}:${string}`}
@@ -77,7 +77,7 @@ export function IconGallery() {
         </h2>
         {matches.length === 0 ? (
           <div className="flex flex-col items-start gap-3">
-            <p className="m-0 text-sm text-(--md-sys-color-on-surface-variant)">
+            <p className="m-0 text-sm text-(--sys-color-on-surface-variant)">
               No icon matches “{query}”.
             </p>
             <Button variant="tonal" onClick={() => setQuery("")}>
@@ -89,10 +89,10 @@ export function IconGallery() {
             {matches.map((name) => (
               <li
                 key={name}
-                className="flex flex-col items-center gap-1 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline-variant) p-3"
+                className="flex flex-col items-center gap-1 rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant) p-3"
               >
                 <Icon name={name} size={24} />
-                <span className="w-full truncate text-center font-mono text-[11px] text-(--md-sys-color-on-surface-variant)">
+                <span className="w-full truncate text-center font-mono text-[11px] text-(--sys-color-on-surface-variant)">
                   {name}
                 </span>
               </li>

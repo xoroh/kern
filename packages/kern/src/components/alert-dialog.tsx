@@ -5,7 +5,7 @@ import { cnState } from "../utils/cnState";
 const backdropClass =
   "kern-alert-dialog-backdrop fixed inset-0 bg-black/30 transition-opacity";
 const popupClass =
-  "kern-alert-dialog-popup w-[min(28rem,calc(100vw-2rem))] rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-outline) bg-(--md-sys-color-surface) p-6 shadow-(--md-sys-elevation-level3) outline-none";
+  "kern-alert-dialog-popup w-[min(28rem,calc(100vw-2rem))] rounded-(--sys-shape-corner-medium) border border-(--sys-color-outline) bg-(--sys-color-surface) p-6 shadow-(--sys-elevation-level3) outline-none";
 
 export type AlertDialogRootProps = ComponentProps<
   typeof AlertDialogPrimitive.Root
@@ -76,7 +76,7 @@ export function AlertDialogTitle({
     <AlertDialogPrimitive.Title
       data-slot="alert-dialog-title"
       className={cnState(
-        "kern-alert-dialog-title text-(length:--md-sys-typescale-title-large-font-size) font-medium text-(--md-sys-color-on-surface)",
+        "kern-alert-dialog-title text-(length:--sys-typescale-title-large-font-size) font-medium text-(--sys-color-on-surface)",
         className,
       )}
       {...props}
@@ -92,7 +92,7 @@ export function AlertDialogDescription({
     <AlertDialogPrimitive.Description
       data-slot="alert-dialog-description"
       className={cnState(
-        "kern-alert-dialog-description mt-2 text-sm text-(--md-sys-color-on-surface-variant)",
+        "kern-alert-dialog-description mt-2 text-sm text-(--sys-color-on-surface-variant)",
         className,
       )}
       {...props}

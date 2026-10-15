@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react-native";
+import { defaultScheme } from "../theme";
 import { act } from "react";
 import { AspectRatio } from "./aspect-ratio";
 import { Avatar } from "./avatar";
@@ -13,13 +14,13 @@ import { NavigationMenu } from "./navigation-menu";
 import { Progress } from "./progress";
 import { Search } from "./search";
 import { Skeleton } from "./skeleton";
-import { Slider } from "./slider";
+import { Slider, sliderStyles } from "./slider";
 import { Table } from "./table";
 import { Tabs } from "./tabs";
 import { Text } from "./text";
 import { Toggle } from "./toggle";
 import { ToggleGroup } from "./toggle-group";
-import { Toolbar } from "./toolbar";
+import { Toolbar, toolbarStyles } from "./toolbar";
 
 describe("native Tabs render", () => {
   it("switches panels", async () => {
@@ -121,6 +122,27 @@ describe("native Toolbar render", () => {
       fireEvent.press(screen.getByLabelText("Bold"));
     });
     expect(pressed).toBe(1);
+  });
+
+  it("rests at the 64dp M3 height with color + orientation axes", async () => {
+    const scheme = defaultScheme;
+    expect(toolbarStyles(scheme).minHeight).toBe(64);
+    expect(toolbarStyles(scheme).backgroundColor).toBe(
+      scheme.color.surfaceTonal,
+    );
+    expect(
+      toolbarStyles(scheme, { color: "vibrant" }).backgroundColor,
+    ).toBe(scheme.color.primaryContainer);
+    expect(
+      toolbarStyles(scheme, { orientation: "vertical" }).flexDirection,
+    ).toBe("column");
+  });
+
+  it("docks square and full-bleed with 16dp side padding", async () => {
+    const scheme = defaultScheme;
+    expect(
+      toolbarStyles(scheme, { layout: "docked" }),
+    ).toMatchObject({ borderRadius: 0, paddingHorizontal: 16 });
   });
 });
 
@@ -260,6 +282,16 @@ describe("native Slider render", () => {
     expect(screen.getByLabelText("Volume").props.accessibilityValue.now).toBe(
       31,
     );
+  });
+
+  it("walks the expressive size ladder", async () => {
+    expect(sliderStyles(0.5, false).track.height).toBe(4);
+    expect(sliderStyles(0.5, false, undefined, "xs").track.height).toBe(16);
+    expect(sliderStyles(0.5, false, undefined, "sm").track.height).toBe(24);
+    expect(sliderStyles(0.5, false, undefined, "md").track.height).toBe(40);
+    expect(sliderStyles(0.5, false, undefined, "lg").track.height).toBe(56);
+    expect(sliderStyles(0.5, false, undefined, "xl").track.height).toBe(96);
+    expect(sliderStyles(0.5, false, undefined, "xl").thumb.height).toBe(108);
   });
 });
 

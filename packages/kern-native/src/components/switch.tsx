@@ -1,29 +1,32 @@
 import { useControllableState } from "@xoroh/kern-primitives";
-import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
+import { cssLengthToDp, type ResolvedTheme } from "@xoroh/kern-tokens";
 import {
   Pressable,
   type PressableProps,
   View,
   type ViewStyle,
 } from "react-native";
-import { useKernTheme } from "../theme";
+import { defaultScheme, useKernTheme } from "../theme";
 
 export function switchStyles(
   on: boolean,
   disabled: boolean,
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): { track: ViewStyle; thumb: ViewStyle } {
   return {
     track: {
       width: 52,
       height: 32,
-      borderRadius: Number.parseFloat(scheme.shape.full),
+      borderRadius: cssLengthToDp(
+        scheme.comp?.["switch-track-shape"],
+        Number.parseFloat(scheme.shape.full),
+      ),
       borderWidth: 2,
       borderColor: on ? scheme.color.primary : scheme.color.outline,
       backgroundColor: on ? scheme.color.primary : scheme.color.surface,
       justifyContent: "center",
       paddingHorizontal: 2,
-      opacity: disabled ? 0.5 : 1,
+      opacity: disabled ? 0.38 : 1,
     },
     thumb: {
       width: on ? 24 : 16,

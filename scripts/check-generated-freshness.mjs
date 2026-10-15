@@ -12,9 +12,12 @@
  * source. A gate that passes because it did not look is worse than one that
  * fails.
  *
- * The three generators are run into a TEMP copy of the tree, then compared
- * byte-for-byte against what is committed. Nothing on disk is written, so this
- * is safe to run read-only in CI and on a dirty worktree.
+ * The generators run against the real tree (so they see the real
+ * tokens.json), then every touched file is restored byte-for-byte from a
+ * snapshot taken BEFORE the run — including on crash and on failure. Nothing
+ * committed may differ after this gate runs; verify with `git status`.
+ * This restore-first design replaced the old temp-copy claim (AUD-019):
+ * no full tree copy is needed, and no exit path skips restoration.
  *
  * COMPLETENESS IS A SEPARATE GATE. This one proves the files it lists are
  * fresh. It cannot prove the LIST is complete — and the incompleteness is what
@@ -81,6 +84,7 @@ function* snapshot(fullAbs, outputEntry) {
 
 const stale = [];
 const missing = [];
+const crashed = [];
 
 for (const { name, cmd, outputs } of GENERATORS) {
   // An `outputs` entry may be a FILE or a DIRECTORY (the icon sets are ~35
@@ -103,6 +107,8 @@ for (const { name, cmd, outputs } of GENERATORS) {
   // Run the generator against the real tree, then restore every file it could
   // have touched. This keeps the check honest (the generator sees the real
   // tokens.json) without needing a full tree copy and an install.
+  // A crashing generator must NEVER skip restoration: record the crash and
+  // fall through to compare+restore, exiting nonzero only at the end.
   const run = spawnSync(cmd[0], cmd.slice(1), {
     cwd: ROOT,
     encoding: "utf8",
@@ -111,7 +117,7 @@ for (const { name, cmd, outputs } of GENERATORS) {
     console.error(`FAIL ${name} exited ${run.status}`);
     if (run.stderr)
       console.error(run.stderr.trim().split("\n").slice(-6).join("\n"));
-    process.exit(1);
+    crashed.push(name);
   }
 
   for (const out of outputs) {
@@ -162,6 +168,16 @@ if (missing.length) {
     `generated output missing from the tree (${missing.length}): ${missing.join(", ")}`,
   );
   console.error("Run `bun run generate:tokens` and commit the result.");
+  process.exit(1);
+}
+
+if (crashed.length) {
+  console.error(
+    `generated output crashed during regeneration (${crashed.length}): ${crashed.join(", ")}`,
+  );
+  console.error(
+    "Outputs were restored to their before-state above; fix the crashing generator, do not commit partial output.",
+  );
   process.exit(1);
 }
 

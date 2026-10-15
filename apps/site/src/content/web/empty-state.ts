@@ -15,6 +15,29 @@ export const emptyState: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["EmptyState"],
+  usage: {
+    do: [
+      "Name what is missing and show the one action that fills it.",
+      "Keep title, body, and action together as one unit.",
+    ],
+    dont: [
+      "Don't show empty chrome with no next step — every void needs its action.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Unit",
+      state: "resting",
+      token: "kern.empty-state.unit",
+      value: "Kern pattern beyond M3",
+    },
+  ],
+  faq: [
+    {
+      q: "Empty state or error?",
+      a: "Empty for zero content with a path forward; error messaging for failures with recovery steps.",
+    },
+  ],
   customization: {
     supported: [
       "`className` is passed through and merged after the empty state's own classes.",

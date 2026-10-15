@@ -95,7 +95,7 @@ is expected to change. **Omit when** the component is fully closed — no
 States what is supported (`className` passthrough, a `variant` prop, CSS
 custom properties) and what is not. The "not" is the load-bearing half: a reader
 who assumes a `size` prop exists will waste an afternoon. Name the M3 token
-(`--md-sys-shape-corner-large`), not its resolved value.
+(`--sys-shape-corner-large`), not its resolved value.
 
 ### 5. Deviations — conditional
 

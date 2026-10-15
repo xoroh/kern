@@ -17,9 +17,10 @@ export const TOP_APP_BAR_SIZE_TO_KERN_SIZE: Record<TopAppBarSize, KernSize> = {
 };
 
 const SIZES: Record<TopAppBarSize, string> = {
-  small: "h-14 items-center",
-  medium: "h-24 items-end pb-3",
-  large: "h-28 items-end pb-4",
+  // M3 bar heights: small/center 64dp, medium 112dp, large 152dp.
+  small: "h-16 items-center",
+  medium: "h-28 items-end pb-3",
+  large: "h-[152px] items-end pb-4",
 };
 
 /** M3 top app bar: leading slot, title, trailing actions. */
@@ -40,7 +41,7 @@ export function TopAppBar({
     <header
       data-slot="top-app-bar"
       className={cn(
-        "kern-top-app-bar sticky top-0 z-10 flex w-full gap-2 border-b border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface) px-2 text-(--md-sys-color-on-surface)",
+        "kern-top-app-bar sticky top-0 z-10 flex w-full gap-2 border-b border-(--sys-color-outline-variant) bg-(--sys-color-surface) px-2 text-(--sys-color-on-surface)",
         SIZES[size],
         className,
       )}
@@ -52,9 +53,13 @@ export function TopAppBar({
       <span
         className={cn(
           "min-w-0 flex-1 truncate",
+          // M3 title roles: small = Title Large 22sp, medium = Headline Small
+          // 24sp, large = Headline Medium 28sp.
           size === "small"
-            ? "text-base font-medium"
-            : "px-2 text-2xl font-medium",
+            ? "text-[22px] leading-7 font-medium"
+            : size === "medium"
+              ? "px-2 text-2xl font-medium"
+              : "px-2 text-[28px] leading-9 font-medium",
         )}
       >
         {children}
@@ -83,7 +88,7 @@ export function TopAppBarToggle({
       aria-label={open ? "Close navigation" : "Open navigation"}
       aria-expanded={open}
       className={cn(
-        "kern-top-app-bar-toggle inline-flex h-10 w-10 items-center justify-center rounded-(--md-sys-shape-corner-full) hover:bg-(--md-sys-color-surface-tonal) " + FOCUS_RING_CLASS + " outline-none",
+        "kern-top-app-bar-toggle inline-flex h-10 w-10 items-center justify-center rounded-(--sys-shape-corner-full) hover:bg-(--sys-color-surface-tonal) " + FOCUS_RING_CLASS + " outline-none",
         className,
       )}
       onClick={onToggle}
@@ -121,7 +126,7 @@ export function AppTopBar({
       <span className="flex min-w-0 items-center gap-3">
         <span className="shrink-0 font-semibold">{wordmark}</span>
         {context ? (
-          <span className="flex min-w-0 items-center truncate rounded-(--md-sys-shape-corner-full) bg-(--md-sys-color-surface-tonal) px-3 py-1 text-sm">
+          <span className="flex min-w-0 items-center truncate rounded-(--sys-shape-corner-full) bg-(--sys-color-surface-tonal) px-3 py-1 text-sm">
             {context}
           </span>
         ) : null}
@@ -153,14 +158,14 @@ export function TopBarMenu({
         type="button"
         aria-label={label}
         aria-haspopup="menu"
-        className={"inline-flex h-10 w-10 items-center justify-center rounded-(--md-sys-shape-corner-full) text-(--md-sys-color-on-surface) hover:bg-(--md-sys-color-surface-tonal) " + FOCUS_RING_CLASS + " outline-none"}
+        className={"inline-flex h-10 w-10 items-center justify-center rounded-(--sys-shape-corner-full) text-(--sys-color-on-surface) hover:bg-(--sys-color-surface-tonal) " + FOCUS_RING_CLASS + " outline-none"}
       >
         {trigger ?? <span aria-hidden="true">⋯</span>}
       </button>
       <div
         role="menu"
         aria-label={label}
-        className="absolute end-0 top-12 z-20 min-w-56 rounded-(--md-sys-shape-corner-medium) border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container) p-2 shadow-(--md-sys-elevation-level2)"
+        className="absolute end-0 top-12 z-20 min-w-56 rounded-(--sys-shape-corner-medium) border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container) p-2 shadow-(--sys-elevation-level2)"
       >
         {children}
       </div>
@@ -184,7 +189,7 @@ function MenuItems({ items }: { items: TopBarMenuItem[] }) {
             key={item.id}
             to={item.href}
             role="menuitem"
-            className="block rounded-(--md-sys-shape-corner-small) px-3 py-2 text-sm text-(--md-sys-color-on-surface) hover:bg-(--md-sys-color-surface-tonal)"
+            className="block rounded-(--sys-shape-corner-small) px-3 py-2 text-sm text-(--sys-color-on-surface) hover:bg-(--sys-color-surface-tonal)"
           >
             {item.label}
           </Link>
@@ -194,7 +199,7 @@ function MenuItems({ items }: { items: TopBarMenuItem[] }) {
             type="button"
             role="menuitem"
             onClick={item.onSelect}
-            className="block w-full rounded-(--md-sys-shape-corner-small) px-3 py-2 text-start text-sm text-(--md-sys-color-on-surface) hover:bg-(--md-sys-color-surface-tonal)"
+            className="block w-full rounded-(--sys-shape-corner-small) px-3 py-2 text-start text-sm text-(--sys-color-on-surface) hover:bg-(--sys-color-surface-tonal)"
           >
             {item.label}
           </button>
@@ -244,7 +249,7 @@ export function NotificationsMenu({
   return (
     <TopBarMenu label="Notifications" {...props}>
       {items.length === 0 && empty ? (
-        <p className="px-3 py-2 text-sm text-(--md-sys-color-on-surface-variant)">
+        <p className="px-3 py-2 text-sm text-(--sys-color-on-surface-variant)">
           {empty}
         </p>
       ) : (
@@ -266,7 +271,7 @@ export function UserMenu({
   return (
     <TopBarMenu label="User menu" {...props}>
       {identity ? (
-        <div className="border-b border-(--md-sys-color-outline-variant) px-3 py-2 text-sm">
+        <div className="border-b border-(--sys-color-outline-variant) px-3 py-2 text-sm">
           {identity}
         </div>
       ) : null}

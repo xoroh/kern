@@ -18,7 +18,7 @@ export const previewCard: ComponentDoc = {
     // No variant axis. One treatment.
     variants: [],
     // kern's own decision. M3's component elevation table names no preview
-    // card. The surface ships `--md-sys-elevation-level2` and the choice is
+    // card. The surface ships `--sys-elevation-level2` and the choice is
     // registered as K6. See Deviations.
     elevation: 2,
   },
@@ -57,7 +57,7 @@ export const previewCard: ComponentDoc = {
   customization: {
     supported: [
       "`className` on every part, merged after the part's own classes.",
-      "The surface is `--md-sys-color-surface` with an outline and a level-2 lift, so it reads as hovering beside its trigger rather than sitting in the page.",
+      "The surface is `--sys-color-surface` with an outline and a level-2 lift, so it reads as hovering beside its trigger rather than sitting in the page.",
       "What goes inside `PreviewCardContent` is entirely the caller's — the component supplies the surface and the behaviour, not the layout of the preview.",
     ],
     notSupported: [

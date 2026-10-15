@@ -20,7 +20,7 @@ export function InputOTPInput({ className, ...props }: InputOTPInputProps) {
     <OTPFieldPrimitive.Input
       data-slot="input-otp-input"
       className={cnState(
-        "kern-input-otp-input h-14 w-12 rounded-(--md-sys-shape-corner-small) border border-(--md-sys-color-outline) bg-(--md-sys-color-surface) text-center text-base text-(--md-sys-color-on-surface) outline-none transition-colors focus:border-(--md-sys-color-primary) data-filled:border-(--md-sys-color-primary)",
+        "kern-input-otp-input h-14 w-12 rounded-(--sys-shape-corner-small) border border-(--sys-color-outline) bg-(--sys-color-surface) text-center text-base text-(--sys-color-on-surface) outline-none transition-colors focus:border-(--sys-color-primary) data-filled:border-(--sys-color-primary)",
         className,
       )}
       {...props}

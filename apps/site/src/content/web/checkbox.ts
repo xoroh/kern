@@ -19,6 +19,82 @@ export const checkbox: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Checkbox"],
+  keyboard: [
+    {
+      key: "Space",
+      action: "Toggles the checkbox when focused.",
+    },
+    {
+      key: "Tab / Shift+Tab",
+      action: "Moves focus into and out of the checkbox. Disabled boxes are skipped.",
+    },
+  ],
+  usage: {
+    do: [
+      "Use when each choice is independent and more than one can be on — permissions, ingredients, table columns.",
+      "Use a single checkbox for something agreed to separately — terms, a subscription, a flag.",
+      "Use indeterminate when some (not all) children below are checked.",
+    ],
+    dont: [
+      "Don't use when only one option may be chosen — that is a radio group.",
+      "Don't use for a single on/off that applies immediately — that is a switch.",
+      "Don't render without a label or `aria-label` — an unnamed checkbox means nothing to a screen reader.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Container",
+      state: "resting",
+      token: "comp.checkbox.container-size",
+      value: "18px, 2px shape",
+    },
+    {
+      element: "Unselected outline",
+      state: "resting",
+      token: "comp.checkbox.unselected-outline-color",
+      value: "--sys-color-on-surface-variant, 2px",
+    },
+    {
+      element: "Selected container",
+      state: "resting",
+      token: "comp.checkbox.selected-container-color",
+      value: "--sys-color-primary",
+    },
+    {
+      element: "Selected icon",
+      state: "resting",
+      token: "comp.checkbox.selected-icon-color",
+      value: "--sys-color-on-primary, 18px",
+    },
+    {
+      element: "State layer",
+      state: "hover",
+      token: "sys.state.hover-state-layer-opacity",
+      value: "8%, 40px full",
+    },
+    {
+      element: "Selected container",
+      state: "disabled",
+      token: "comp.checkbox.selected-disabled-container-opacity",
+      value: "on-surface 38%",
+    },
+    {
+      element: "Unselected outline",
+      state: "disabled",
+      token: "comp.checkbox.unselected-disabled-outline-color",
+      value: "on-surface 38%",
+    },
+  ],
+  faq: [
+    {
+      q: "When do I use indeterminate?",
+      a: "When the box parents a set where some (not all) children are checked — typically a select-all control. It sets the mixed ARIA state, not just a dash.",
+    },
+    {
+      q: "Checkbox, radio, or switch?",
+      a: "Checkbox for independent multi-choices; radio for one-of-many; switch for a single on/off that applies immediately.",
+    },
+  ],
   customization: {
     supported: [
       "`className` is passed through and merged after the control's own classes.",

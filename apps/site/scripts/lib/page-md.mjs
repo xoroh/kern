@@ -18,6 +18,7 @@ import {
   hasFaq,
   hasLimitations,
   hasSemanticDom,
+  hasUsage,
 } from "../../src/systems/grammar.ts";
 
 /**
@@ -31,8 +32,19 @@ export function installTarget(pkg) {
   return pkg.startsWith("@") ? segments.slice(0, 2).join("/") : segments[0];
 }
 
+/**
+ * The grammar section ids to the h2 titles their .md carries.
+ *
+ * `usage` was MISSING here while `expectedSections()` had included it since the
+ * grammar gained the section, so every page with a Do/Don't list rendered a
+ * `## Usage` heading that the gate mapped to `undefined` — and the comparison
+ * then failed on 197 families for a reason the message showed as an empty slot.
+ * A label map that is not derivable from the order list is exactly the kind of
+ * second source of truth that drifts; the test below pins them together.
+ */
 const H2 = {
   demo: "Demo",
+  usage: "Usage",
   props: "Props",
   tokens: "Tokens",
   "semantic-dom": "Semantic DOM",
@@ -44,7 +56,16 @@ const H2 = {
 
 /** The h2 titles a doc's .md must carry, in order (non-exempt pages). */
 export function expectedHeadings(doc) {
-  return expectedSections(doc).map((id) => H2[id]);
+  return expectedSections(doc).map((id) => {
+    const title = H2[id];
+    if (!title) {
+      throw new Error(
+        `expectedHeadings: grammar section "${id}" has no h2 title in the H2 map — ` +
+          `the label table has drifted from src/systems/grammar.ts`,
+      );
+    }
+    return title;
+  });
 }
 
 function stripBackticks(s) {
@@ -77,6 +98,15 @@ export function pageMarkdown(doc, platform, { liveDemo = false } = {}) {
     "",
   );
 
+  // GRAMMAR ORDER — demo → usage → semantic-dom → accessibility → props →
+  // tokens → limitations → faq → spec. The predicates are the SHARED ones from
+  // src/systems/grammar.ts, so the .md and the rendered page cannot disagree.
+  //
+  // This used to emit demo → props → tokens → semantic-dom → accessibility,
+  // which the gate flagged on all 197 families. The order is not cosmetic: a
+  // reader (human or model) landing on a page reads top to bottom, and the
+  // grammar puts the contract before the reference.
+
   // demo
   out.push("## Demo", "");
   out.push(
@@ -89,6 +119,50 @@ export function pageMarkdown(doc, platform, { liveDemo = false } = {}) {
     `Import: \`import { ${doc.parts[0]} } from "${meta.package}";\``,
     "",
   );
+
+  // usage — conditional, cut when empty, exactly as the template does.
+  if (hasUsage(doc)) {
+    out.push("## Usage", "");
+    for (const line of doc.usage?.do ?? [])
+      out.push(`- Do: ${stripBackticks(line)}`);
+    for (const line of doc.usage?.dont ?? [])
+      out.push(`- Don't: ${stripBackticks(line)}`);
+    out.push("");
+  }
+
+  // semantic DOM — the mental model before the contract.
+  if (hasSemanticDom(doc)) {
+    out.push("## Semantic DOM", "");
+    if ((doc.anatomy?.length ?? 0) > 0) {
+      out.push("### Anatomy", "");
+      for (const part of doc.anatomy)
+        out.push(`- \`${part.name}\` — ${stripBackticks(part.role)}`);
+      out.push("");
+    }
+    if ((doc.aria?.length ?? 0) > 0) {
+      out.push("### Roles", "");
+      for (const line of doc.aria) out.push(`- ${stripBackticks(line)}`);
+      out.push("");
+    }
+  }
+
+  // accessibility
+  out.push("## Accessibility", "");
+  if ((doc.keyboard?.length ?? 0) > 0) {
+    out.push("| Key | Action |");
+    out.push("| --- | --- |");
+    for (const row of doc.keyboard)
+      out.push(`| \`${row.key}\` | ${stripBackticks(row.action)} |`);
+  } else if (doc.nonInteractive) {
+    out.push(
+      "Not applicable — a non-interactive part with no keyboard interaction and no ARIA state of its own.",
+    );
+  } else {
+    out.push(
+      "Not yet documented — interactive, so the contract exists; it just has not been written up here yet.",
+    );
+  }
+  out.push("");
 
   // props
   out.push("## Props", "");
@@ -120,40 +194,6 @@ export function pageMarkdown(doc, platform, { liveDemo = false } = {}) {
     out.push("", "### Customization");
     for (const line of doc.customization.supported)
       out.push(`- ${stripBackticks(line)}`);
-  }
-  out.push("");
-
-  // semantic DOM
-  if (hasSemanticDom(doc)) {
-    out.push("## Semantic DOM", "");
-    if ((doc.anatomy?.length ?? 0) > 0) {
-      out.push("### Anatomy", "");
-      for (const part of doc.anatomy)
-        out.push(`- \`${part.name}\` — ${stripBackticks(part.role)}`);
-      out.push("");
-    }
-    if ((doc.aria?.length ?? 0) > 0) {
-      out.push("### Roles", "");
-      for (const line of doc.aria) out.push(`- ${stripBackticks(line)}`);
-      out.push("");
-    }
-  }
-
-  // accessibility
-  out.push("## Accessibility", "");
-  if ((doc.keyboard?.length ?? 0) > 0) {
-    out.push("| Key | Action |");
-    out.push("| --- | --- |");
-    for (const row of doc.keyboard)
-      out.push(`| \`${row.key}\` | ${stripBackticks(row.action)} |`);
-  } else if (doc.nonInteractive) {
-    out.push(
-      "Not applicable — a non-interactive part with no keyboard interaction and no ARIA state of its own.",
-    );
-  } else {
-    out.push(
-      "Not yet documented — interactive, so the contract exists; it just has not been written up here yet.",
-    );
   }
   out.push("");
 
@@ -251,7 +291,7 @@ export function themeMarkdown(theme, catalog, counts) {
       "live in the theme configurator (/theme-configurator). What the roles " +
       "mean and where each one goes lives on /foundations/color. Every " +
       "token is also a CSS variable, so a project can read one without " +
-      "importing anything, e.g. `--md-sys-color-primary`.",
+      "importing anything, e.g. `--sys-color-primary`.",
     "",
   );
   return `${out

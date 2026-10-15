@@ -5,6 +5,12 @@
  * 3 derives full schemes from a seed with HCT; this package does not expose
  * that algorithm, so the configurator does the honest subset:
  *
+ * NOTE: `@xoroh/kern-tokens` now ships the canonical generator,
+ * `themeFromSeed(seed, id)` — all three accent families, contrast-validated,
+ * fail-loud. This module stays deliberately narrower (primary-family preview
+ * only) so the configurator page keeps its stated boundaries; new consumers
+ * should prefer `themeFromSeed`.
+ *
  *  1. `makeHueRamp({ hex: seed })` (root-exported from `@xoroh/kern-tokens`)
  *     builds the 50-950 tonal ramp in the seed's hue. The ramp is the
  *     package's own color science — nothing here invents a color.

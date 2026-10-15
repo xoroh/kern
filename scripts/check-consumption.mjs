@@ -45,7 +45,7 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const PKG = join(ROOT, "packages", "kern-primitives");
+const PKG = join(ROOT, "libs", "kern-primitives");
 const DTS = join(PKG, "dist", "index.d.ts");
 const SRC = join(PKG, "src");
 const ADOPTION = join(PKG, "adoption.json");
@@ -74,7 +74,7 @@ function walk(dir) {
 // --- 1. the public entry, read from the BUILT declaration ---------------------
 if (!existsSync(DTS)) {
   console.error(
-    "consumption: UNVERIFIABLE — packages/kern-primitives/dist/index.d.ts is missing.\n" +
+    "consumption: UNVERIFIABLE — libs/kern-primitives/dist/index.d.ts is missing.\n" +
       "  Run `bun run build`. Reporting 0 unconsumed from a build that has not run\n" +
       "  is the gate-looks-green-because-it-did-not-look failure.",
   );
@@ -168,7 +168,7 @@ for (let changed = true; changed; ) {
 const marked = new Map();
 if (!existsSync(ADOPTION)) {
   violations.push(
-    "packages/kern-primitives/adoption.json is missing, so unconsumed exports " +
+    "libs/kern-primitives/adoption.json is missing, so unconsumed exports " +
       "cannot be declared. Every export must be either consumed or marked.",
   );
 } else {
@@ -205,14 +205,14 @@ for (const name of exported) {
 
 for (const name of unconsumedValues) {
   violations.push(
-    `packages/kern-primitives exports ${name} but NO first-party package imports ` +
+    `libs/kern-primitives exports ${name} but NO first-party package imports ` +
       `it, and it is not marked not-yet-adopted in adoption.json. An unconsumed ` +
       `export is unreachable code that passes every other gate.`,
   );
 }
 for (const name of unconsumedTypes) {
   violations.push(
-    `packages/kern-primitives exports type ${name} which no adopted export ` +
+    `libs/kern-primitives exports type ${name} which no adopted export ` +
       `produces, and which adoption.json does not cover.`,
   );
 }

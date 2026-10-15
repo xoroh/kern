@@ -10,7 +10,7 @@ without adopting a whole framework's visual style.
 ## Decision
 
 Compose web widgets on `@base-ui/react` headless primitives. Kern owns all
-styling (Tailwind + `--md-sys-*` tokens) and the public prop surface; Base UI
+styling (Tailwind + `--sys-*` tokens) and the public prop surface; Base UI
 owns behavior. Native counterparts implement the same contract on React Native
 primitives.
 

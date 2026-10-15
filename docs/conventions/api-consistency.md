@@ -107,7 +107,7 @@ barrel-exported).
 
 ## 5. Color — every usage derived, never a typed hex
 
-Web consumes `var(--md-sys-color-*)`, native consumes
+Web consumes `var(--sys-color-*)`, native consumes
 `scheme.color.*`. A hex literal in a component is a defect: it moves
 to tokens, or to a per-domain token with a recorded reason.
 Enforcement: `check:contrast` fails any theme role whose value is not

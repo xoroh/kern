@@ -1,7 +1,6 @@
 import { useRovingModel } from "@xoroh/kern-primitives";
 import {
   type ResolvedTheme,
-  resolveThemeDetails,
   tokens,
 } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
@@ -14,7 +13,7 @@ import {
   View,
   type ViewStyle,
 } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 
 /**
  * Carousel — a set of items shown one at a time, navigated by index.
@@ -22,7 +21,7 @@ import { useKernScheme } from "../theme";
  * ## What it owns
  *
  * - **Which item is active**, controlled or uncontrolled, reported through
- *   `onIndexChange`. Out-of-range values are clamped so a carousel can never
+ *   `onValueChange`. Out-of-range values are clamped so a carousel can never
  *   blank itself.
  * - **One tab stop for the item track.** The group is a single stop and the
  *   active item is the one inside it — the roving model, from
@@ -50,7 +49,7 @@ import { useKernScheme } from "../theme";
  * The track is a horizontal `ScrollView` and a press scrolls the active item
  * into view — so the touch idiom (swipe) and the accessibility model (one active
  * item) cannot disagree. Swiping does NOT change the active index on its own;
- * the host decides, via `onIndexChange`, because a carousel that silently
+ * the host decides, via `onValueChange`, because a carousel that silently
  * re-indexes on a flick makes the control unpredictable for anyone using
  * assistive tech.
  */
@@ -59,11 +58,15 @@ export type CarouselLayout = "single" | "peek";
 
 export function carouselStyles(
   active: boolean,
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): { track: ViewStyle; item: ViewStyle; control: ViewStyle } {
   const _diameter = Number.parseFloat(tokens.spacing["space-400"]);
   return {
-    track: { flexGrow: 1, borderRadius: Number.parseFloat(scheme.shape.large) },
+    track: {
+      flexGrow: 1,
+      // M3 carousel items carry the 28dp extra-large corner.
+      borderRadius: Number.parseFloat(scheme.shape["extra-large"]),
+    },
     item: {
       width: "100%",
       alignItems: "center",
@@ -96,14 +99,6 @@ export type CarouselItem = {
 export type NativeCarouselProps = {
   items: readonly CarouselItem[];
   /** Controlled active index. */
-  index?: number;
-  defaultIndex?: number;
-  onIndexChange?: (index: number) => void;
-  /**
-   * R2 lexicon canonical names (`value` wins when both are passed; both
-   * callbacks fire). `index`/`defaultIndex`/`onIndexChange` are deprecated
-   * aliases onto the same roving state.
-   */
   value?: number;
   defaultValue?: number;
   onValueChange?: (index: number) => void;
@@ -119,11 +114,8 @@ export type NativeCarouselProps = {
 
 export function Carousel({
   items,
-  index: indexProp,
-  defaultIndex = 0,
-  onIndexChange,
   value: valueProp,
-  defaultValue,
+  defaultValue = 0,
   onValueChange,
   accessibilityLabel = "Carousel",
   loop = false,
@@ -141,11 +133,10 @@ export function Carousel({
     count,
     orientation: "horizontal",
     loop,
-    activeIndex: valueProp ?? indexProp,
-    defaultActiveIndex: defaultValue ?? defaultIndex,
+    activeIndex: valueProp,
+    defaultActiveIndex: defaultValue,
     onActiveIndexChange: (next) => {
       onValueChange?.(next);
-      onIndexChange?.(next);
     },
     isDisabled: (i) => disabled || Boolean(items[i]?.disabled),
   });

@@ -27,7 +27,7 @@ export function SegmentedButtonRoot<Value extends string = string>({
     <ToggleGroupPrimitive
       data-slot="segmented-button"
       className={cnState(
-        "kern-segmented-button inline-flex items-center gap-0 rounded-(--md-sys-shape-corner-full) border border-(--md-sys-color-outline) bg-(--md-sys-color-surface) p-1",
+        "kern-segmented-button inline-flex items-center gap-0 rounded-(--sys-shape-corner-full) border border-(--sys-color-outline) bg-(--sys-color-surface) p-1",
         className,
       )}
       {...props}
@@ -86,7 +86,7 @@ export function SegmentedButtonItem<Value extends string = string>({
     <TogglePrimitive
       data-slot="segmented-button-item"
       className={cnState(
-        `kern-segmented-button-item group flex cursor-pointer items-center justify-center gap-1.5 rounded-(--md-sys-shape-corner-full) font-medium text-(--md-sys-color-on-surface) outline-none select-none ${FOCUS_RING_CLASS} disabled:pointer-events-none disabled:opacity-50 data-pressed:bg-(--md-sys-color-secondary-container) data-pressed:text-(--md-sys-color-on-secondary-container) ${SEGMENT_SIZES[size]}`,
+        `kern-segmented-button-item group relative flex cursor-pointer items-center justify-center gap-1.5 rounded-(--sys-shape-corner-full) leading-5 font-medium tracking-[0.1px] text-(--sys-color-on-surface) transition-[color,background-color,border-color] duration-200 ease-(--sys-motion-easing-standard) outline-none select-none ${FOCUS_RING_CLASS} disabled:pointer-events-none disabled:text-(--sys-color-on-surface)/38 aria-disabled:pointer-events-none aria-disabled:text-(--sys-color-on-surface)/38 before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--sys-color-on-surface) hover:before:opacity-[var(--sys-state-hover)] focus-visible:before:opacity-[var(--sys-state-focus)] active:before:opacity-[var(--sys-state-press)] disabled:before:opacity-0 data-pressed:bg-(--sys-color-secondary-container) data-pressed:text-(--sys-color-on-secondary-container) data-pressed:before:bg-(--sys-color-on-secondary-container) disabled:data-pressed:bg-(--sys-color-on-surface)/12 disabled:data-pressed:text-(--sys-color-on-surface)/38 ${SEGMENT_SIZES[size]}`,
         className,
       )}
       {...props}

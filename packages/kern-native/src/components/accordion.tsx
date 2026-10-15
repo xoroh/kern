@@ -1,5 +1,5 @@
 import { useSelection } from "@xoroh/kern-primitives";
-import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
+import { type ResolvedTheme } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
 import {
   Pressable,
@@ -8,7 +8,7 @@ import {
   type ViewProps,
   type ViewStyle,
 } from "react-native";
-import { useKernScheme } from "../theme";
+import { defaultScheme, useKernScheme } from "../theme";
 import { Text } from "./text";
 
 export type NativeAccordionSection = {
@@ -18,7 +18,7 @@ export type NativeAccordionSection = {
 };
 
 export function accordionStyles(
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ): { container: ViewStyle; header: ViewStyle } {
   return {
     container: {
@@ -41,17 +41,9 @@ export function accordionStyles(
 export type NativeAccordionProps = Omit<ViewProps, "children" | "style"> & {
   sections: NativeAccordionSection[];
   /** Controlled open section indexes. */
-  expanded?: number[];
-  defaultExpanded?: number[];
-  onExpandedChange?: (expanded: number[]) => void;
-  /**
-   * R2 lexicon canonical names (`value` wins when both are passed; both
-   * callbacks fire). `expanded`/`defaultExpanded`/`onExpandedChange` are
-   * deprecated aliases onto the same state.
-   */
   value?: number[];
   defaultValue?: number[];
-  onValueChange?: (expanded: number[]) => void;
+  onValueChange?: (value: number[]) => void;
   /** Allow several sections open at once. */
   multiple?: boolean;
   style?: StyleProp<ViewStyle>;
@@ -59,11 +51,8 @@ export type NativeAccordionProps = Omit<ViewProps, "children" | "style"> & {
 
 export function Accordion({
   sections,
-  expanded,
-  defaultExpanded = [],
-  onExpandedChange,
   value: valueProp,
-  defaultValue,
+  defaultValue = [],
   onValueChange,
   multiple = false,
   style,
@@ -71,18 +60,15 @@ export function Accordion({
   ...props
 }: NativeAccordionProps) {
   const scheme = useKernScheme();
-  // Shared selection primitive, keyed by SECTION INDEX: `expanded` is public API
-  // and has always been `number[]`, so the key type is generic rather than
-  // string. The alternative — stringifying indices — would change the public
+  // Shared selection primitive, keyed by SECTION INDEX: the key type is generic
+  // rather than string because the public API has always been `number[]`.
+  // The alternative — stringifying indices — would change the public
   // type to keep an internal detail tidy.
   const [open, setOpen] = useSelection({
-    value: valueProp ?? expanded,
-    defaultValue: defaultValue ?? defaultExpanded,
+    value: valueProp,
+    defaultValue,
     onChange: ((next: readonly number[]) => {
       onValueChange?.(next as number[]);
-      (onExpandedChange as ((next: readonly number[]) => void) | undefined)?.(
-        next,
-      );
     }) as (next: readonly number[]) => void,
     mode: multiple ? "multiple" : "single-toggle",
   });

@@ -1,7 +1,7 @@
 /**
  * P5C theming pipeline — seed -> map -> alias -> component, explicit.
  *
- * The pipeline always existed (tokens.json ramps -> themes/kern.json role
+ * The pipeline always existed (tokens.json ramps -> the design-system role
  * tables + contrast overlays -> resolveThemeDetails/varName/overridesFor ->
  * variants.ts/web-theme.tsx + generated CSS), but it was reconstructible only
  * by reading four files. This module names the four stages as functions so
@@ -38,7 +38,7 @@ import { tokens } from "./tokens";
 // --- Stage 1: seed ----------------------------------------------------------
 // Canonical color source: OKLCH on familiar steps, each entry carrying the
 // compiled sRGB hex native consumes. Roles never hold raw values directly;
-// they bind steps (see themes/kern.json).
+// they bind steps (see the design-system preset tables).
 export type SeedPalettes = typeof tokens.palettes;
 
 /** Stage 1 — the reference ramps everything else binds to. */
@@ -53,7 +53,7 @@ export type MappedScheme = { color: RoleTable; shape: ShapeTable };
 
 /** Stage 2 — the kern base role tables for one mode, before overlays. */
 export function mapStage(mode: Mode = "light"): MappedScheme {
-  const base = resolveThemeDetails(mode, "standard", "kern");
+  const base = resolveThemeDetails(mode, "standard", "material-3");
   return { color: { ...base.color }, shape: { ...base.shape } };
 }
 
@@ -66,7 +66,7 @@ export function mapStage(mode: Mode = "light"): MappedScheme {
 export function aliasStage(
   mode: Mode = "light",
   contrast: Contrast = "standard",
-  preset: ThemeSelection = "kern",
+  preset: ThemeSelection = "material-3",
 ): ResolvedTheme {
   return resolveThemeDetails(mode, contrast, preset);
 }
@@ -79,7 +79,7 @@ export function aliasStage(
  * two renderers cannot drift.
  */
 export type ComponentProjection = {
-  /** CSS custom properties for web (`--md-sys-color-*`, `--md-sys-shape-corner-*`). */
+  /** CSS custom properties for web (`--sys-color-*`, `--sys-shape-corner-*`). */
   cssVars: Record<string, string>;
   /** The scheme object native components read. */
   scheme: ResolvedTheme;
@@ -154,16 +154,16 @@ const CONTRASTS: Contrast[] = ["standard", "medium", "high"];
 
 /**
  * Flatten every mode x contrast x preset context through the pipeline.
- * Preset order follows `themeIds()` (kern, sharp, brand, compact, demo). Legacy
- * alias `"m3"` is NOT a dimension: it canonicalizes to kern, so it would
- * duplicate the kern cells rather than add contexts.
+ * Preset order follows `themeIds()` (material-3, sharp, brand, compact, demo).
+ * The retired legacy alias `"m3"` is NOT a dimension: it canonicalized to
+ * material-3, so it duplicated those cells rather than adding contexts.
  */
 export function buildThemeMatrix(): ThemeMatrix {
   const presets = themeIds() as string[];
   const cells: MatrixCell[] = [];
   for (const mode of MODES) {
     for (const contrast of CONTRASTS) {
-      const base = resolveThemeDetails(mode, contrast, "kern");
+      const base = resolveThemeDetails(mode, contrast, "material-3");
       for (const preset of presets) {
         const resolved = resolveThemeDetails(
           mode,
@@ -217,7 +217,7 @@ export function assertSingleRoleTable(matrix: ThemeMatrix): void {
     (cell) =>
       cell.mode === "light" &&
       cell.contrast === "standard" &&
-      cell.preset === "kern",
+      cell.preset === "material-3",
   );
   if (!kernCell)
     throw new Error("Theme matrix has no light/standard/kern cell.");
@@ -286,7 +286,7 @@ function cellFor(matrix: ThemeMatrix, mode: Mode, preset: string): MatrixCell {
  */
 export function scopedDeltas(matrix: ThemeMatrix): ScopedPresetVars[] {
   return matrix.presets
-    .filter((preset) => preset !== "kern")
+    .filter((preset) => preset !== "material-3")
     .map((id) => {
       const light = cellFor(matrix, "light", id);
       const dark = cellFor(matrix, "dark", id);

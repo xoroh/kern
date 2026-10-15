@@ -29,18 +29,24 @@ pages (anatomy + API + example, Radix-style), install-first landing, M3-neutral 
       siblings (sheet-surface, dialog, tooltip, icon-button) already consume it.
 - [x] G7: publish/document the binding contract (today `presentation.tsx:1-17` bindings are not barrel-exported).
       Document half landed (`docs/binding-contract.md`); publish half is founder-gated, out of scope here.
-- [ ] G3/G4: primitives subdomain (install `bun add @xoroh/kern-primitives`, per-module pages, new
+- [x] G3/G4: primitives subdomain (install `bun add @xoroh/kern-primitives`, per-module pages, new
       `primitives-nav.ts` in `NavSection` shape); P links to C's `/components/mobile/*` for themed components.
+      **Landed 2026-10-09:** install-first landing (`routes/primitives/index.tsx`) + 16 module pages
+      (`routes/primitives/$module.tsx`) each carrying anatomy + API + one compiled example
+      (`domains/primitives/examples.ts`, compiled by `check-snippets`); `PRIMITIVES_NAV` spliced into
+      `NAV_SECTIONS` (sidebar + ⌘K + llms.txt read one list); `check-primitives-docs` pins shape, barrel
+      coverage (81/81 exports, types included), nav agreement and page grammar.
 - [x] G5: versioning story (publish — unblocks pinning). (`docs/versioning.md`; describes, never executes.)
 - [x] G6 (above) + getting-started step 6 (`getting-started.tsx:72-89`) moves to P as "install without ecosystem".
-- [ ] G3/G4: primitives subdomain (install `bun add @xoroh/kern-primitives`, per-module pages, new
-      `primitives-nav.ts` in `NavSection` shape); P links to C's `/components/mobile/*` for themed components.
-- [ ] G5: versioning story (publish — unblocks pinning).
-- [ ] G6 (above) + getting-started step 6 (`getting-started.tsx:72-89`) moves to P as "install without ecosystem".
-- [ ] 2nd-library adapter: **react-native-reusables (`@rn-primitives/*`)** — only headless-behavior fit (Slot/Presence/
-      Portal/dismiss map 1:1; no compiler, no token engine; siblings Dialog/Menu/Popover/Tooltip scale with one
-      recipe). Preconditions: G8 + G7 done + live-verify `Slot`/`Portal`/`asChild` exports. Rejected: gluestack
-      (token engine fights `kern-tokens`), tamagui (compiler + system), dripsy/unistyles (styling, wrong category).
+- [x] 2nd-library adapter: **react-native-reusables (`@rn-primitives/*`)** — only headless-behavior fit (Slot/Presence/
+       Portal/dismiss map 1:1; no compiler, no token engine; siblings Dialog/Menu/Popover/Tooltip scale with one
+       recipe). Preconditions: G8 + G7 done + live-verify `Slot`/`Portal`/`asChild` exports. Rejected: gluestack
+       (token engine fights `kern-tokens`), tamagui (compiler + system), dripsy/unistyles (styling, wrong category).
+      **Landed 2026-10-09 as a recipe, not a dependency (D-031: owning wins):** mapping table + one-recipe-scales
+      note in `packages/kern-primitives/README.md` ("Adapting react-native-reusables"); Slot + Presence + Portal
+      composition live-verified by two "Adapter composition" tests in
+      `packages/kern/src/components/presentation.test.tsx` (asChild trigger → presence-gated portal →
+      suspended unmount).
 
 **Gates:** `check:primitives`, `check:pack`, `publint`/`attw`, `check:dist-exports`.
 **Out of scope:** foreign design-system adapters; second role table (never).

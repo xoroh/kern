@@ -1,5 +1,5 @@
 import { useControllableState } from "@xoroh/kern-primitives";
-import { type ResolvedTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
+import { type ResolvedTheme } from "@xoroh/kern-tokens";
 import { createContext, type ReactNode, useContext } from "react";
 import {
   Pressable,
@@ -9,7 +9,7 @@ import {
   View,
   type ViewStyle,
 } from "react-native";
-import { useKernTheme } from "../theme";
+import { defaultScheme, useKernTheme } from "../theme";
 
 type RadioGroupContextValue = {
   value: string | undefined;
@@ -23,7 +23,7 @@ const RadioGroupContext = createContext<RadioGroupContextValue | null>(null);
 export function radioStyles(
   selected: boolean,
   disabled: boolean,
-  scheme: ResolvedTheme = resolveThemeDetails(),
+  scheme: ResolvedTheme = defaultScheme,
 ) {
   return {
     control: {
@@ -34,7 +34,7 @@ export function radioStyles(
       borderColor: selected ? scheme.color.primary : scheme.color.outline,
       alignItems: "center" as const,
       justifyContent: "center" as const,
-      opacity: disabled ? 0.5 : 1,
+      opacity: disabled ? 0.38 : 1,
     },
     indicator: {
       width: 8,
