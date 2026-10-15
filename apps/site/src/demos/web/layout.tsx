@@ -77,7 +77,7 @@ export function AccordionDemo() {
               "Which platforms?",
               "Web (@xoroh/kern) and React Native (@xoroh/kern-native).",
             ],
-            ["What licence?", "Apache-2.0."],
+            ["What licence?", "MIT."],
           ].map(([question, answer]) => (
             <Accordion.Item key={question} value={question}>
               <Accordion.Header>
