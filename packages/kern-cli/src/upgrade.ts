@@ -23,7 +23,7 @@
 import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
-import { type AddOptions, planComponent } from "./add.js";
+import { type AddOptions, planBlock, planComponent } from "./add.js";
 import { type InstallReceipt, readReceipt } from "./receipt.js";
 
 export type UpgradePlan = {
@@ -52,6 +52,28 @@ export function upgradeComponent(
   name: string,
   opts: AddOptions & { apply?: boolean } = {},
 ): UpgradeResult {
+  const plan = planComponent(name, opts);
+  return upgradeWithPlan(name, "component", plan, opts);
+}
+
+export function upgradeBlock(
+  name: string,
+  opts: AddOptions & { apply?: boolean } = {},
+): UpgradeResult {
+  const plan = planBlock(name, opts);
+  return upgradeWithPlan(name, "block", plan, opts);
+}
+
+function upgradeWithPlan(
+  name: string,
+  kind: "component" | "block",
+  plan: {
+    files: { out: string; bytes: string }[];
+    version: string;
+    releaseSet: string;
+  },
+  opts: AddOptions & { apply?: boolean } = {},
+): UpgradeResult {
   const cwd = opts.cwd ?? process.cwd();
   const dest = opts.dest ?? join(cwd, "components", "kern");
   const receiptPath = join(dest, "kern.receipt.json");
@@ -59,12 +81,11 @@ export function upgradeComponent(
     fail(`no receipt at ${receiptPath} — not a kern dest.`);
   }
   const receipt = readReceipt(JSON.parse(readFileSync(receiptPath, "utf8")));
-  const owned = receipt.files.filter((f) => f.owner === `component:${name}`);
+  const owned = receipt.files.filter((f) => f.owner === `${kind}:${name}`);
   if (owned.length === 0) {
     fail(`"${name}" is not vendored here — run \`kern add ${name}\` first.`);
   }
 
-  const plan = planComponent(name, opts);
   const decided: UpgradePlan = {
     add: [],
     update: [],
@@ -131,7 +152,7 @@ export function upgradeComponent(
         path,
         baselineHash: hash,
         currentHash: hash,
-        owner: `component:${name}`,
+        owner: `${kind}:${name}`,
         customized: false,
       });
     }

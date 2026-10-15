@@ -11,6 +11,7 @@ export {
   addBlock,
   addComponent,
   commitPlan,
+  planBlock,
   planComponent,
   readProjectConfig,
 } from "./add.js";
@@ -35,11 +36,10 @@ export {
 export type { ManifestRow, Registry } from "./manifest.js";
 export {
   kernVersion,
-  loadManifest,
   loadRegistry,
   WORKSPACE_ROOT,
 } from "./manifest.js";
 export type { InstallReceipt } from "./receipt.js";
 export { convertV1, customized, readReceipt } from "./receipt.js";
 export type { UpgradePlan, UpgradeResult } from "./upgrade.js";
-export { formatUpgrade, upgradeComponent } from "./upgrade.js";
+export { formatUpgrade, upgradeBlock, upgradeComponent } from "./upgrade.js";

@@ -43,6 +43,18 @@ export type CliConfig = {
   target: string;
   renderer: "web" | "native" | "both";
   mode: InstallMode;
+  /**
+   * Pinned design-system preset (N6, owner-decided): the scaffold default
+   * (`material-3`) is recorded so later installs/upgrades resolve against
+   * the user's preset, never a silently substituted default.
+   */
+  preset?: string;
+  /**
+   * Package manager the scaffold's instructions target (C2). `bun` is the
+   * validated default; `npm`/`pnpm`/`yarn` emit the matching install/run
+   * commands. Only these four are advertised.
+   */
+  pm?: "bun" | "npm" | "pnpm" | "yarn";
   /** Explicit opt-in before writing over customized files. */
   force?: boolean;
   dryRun?: boolean;
@@ -81,6 +93,17 @@ export function defineCliConfig(config: CliConfig): CliConfig {
   }
   if (!["package", "source-hybrid", "source-snapshot"].includes(config.mode)) {
     fail(`mode is ${config.mode}`);
+  }
+  if (config.preset !== undefined) {
+    if (typeof config.preset !== "string" || !/^[a-z][a-z0-9-]{1,31}$/.test(config.preset)) {
+      fail(`preset is ${config.preset}`);
+    }
+  }
+  if (
+    config.pm !== undefined &&
+    !["bun", "npm", "pnpm", "yarn"].includes(config.pm)
+  ) {
+    fail(`pm is ${config.pm}`);
   }
   return config;
 }

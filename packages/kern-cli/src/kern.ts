@@ -1,7 +1,16 @@
 /** `kern` — dual-delivery installer. Mode 1 (`add`) vendored; Mode 2 is `bun add @xoroh/kern`. */
 import { type AddPlatform, addBlock, addComponent } from "./add.js";
 import { loadBlocks } from "./blocks.js";
+import { createApp } from "./create.js";
+import {
+  digestFeedback,
+  disclosure,
+  FEEDBACK_RETENTION_DAYS,
+  pruneFeedback,
+  submitFeedback,
+} from "./feedback.js";
 import { initScaffold } from "./init.js";
+import { join } from "node:path";
 import {
   diffDest,
   formatDiff,
@@ -9,7 +18,7 @@ import {
   listComponents,
 } from "./list-diff.js";
 import { loadRegistry } from "./manifest.js";
-import { formatUpgrade, upgradeComponent } from "./upgrade.js";
+import { formatUpgrade, upgradeBlock, upgradeComponent } from "./upgrade.js";
 
 const [, , cmd, ...rest] = process.argv;
 
@@ -34,11 +43,23 @@ function platformFlag(): AddPlatform | undefined {
   return value;
 }
 
+function pmFlag(): "bun" | "npm" | "pnpm" | "yarn" | undefined {
+  const value = flagValue("--pm");
+  if (value === undefined) return undefined;
+  if (value !== "bun" && value !== "npm" && value !== "pnpm" && value !== "yarn") {
+    console.error(`kern: --pm is "bun", "npm", "pnpm" or "yarn", not "${value}".`);
+    process.exit(1);
+  }
+  return value;
+}
+
 function usage(): never {
   console.log(`kern — vendored components (Mode 1) + dependency install (Mode 2)
 
-  kern init <dir> [--from <workspace>] [--registry] [--force]
-      scaffold the starter: install → run → themed screen (writes kern.json)
+  kern create <name> [--from <workspace>] [--registry] [--pm bun|npm|pnpm|yarn] [--preset <id>]
+      scaffold a new app (refuses if <name> exists — use init there instead)
+  kern init <dir> [--from <workspace>] [--registry] [--force] [--pm bun|npm|pnpm|yarn] [--preset <id>]
+      scaffold the starter into an existing project: install → run → themed screen (writes kern.json)
   kern add <name> [--dest <dir>] [--platform web|native] [--self-contained]
       vendor a component or block + closure (transactional: a late failure
       writes nothing)
@@ -64,6 +85,8 @@ Pre-publish (0.0.0, unpublished): registry names resolve only after the first
 publish. init defaults to file: deps against your checkout so first run works
 today; add reads the workspace manifest (or the bundled registry in a packed
 install) for the same reason.
+  --pm <m>           package manager for scaffold instructions: bun (default), npm, pnpm, yarn
+  --preset <id>      design-system preset pinned into kern.json (default: material-3)
 
 Receipts (<dest>/kern.receipt.json, schema v2) record release set + file
 hashes + owners from day one: they are what \`kern diff\` / \`kern upgrade\`
@@ -79,7 +102,24 @@ function die(message: string): never {
 if (cmd === undefined || cmd === "--help" || cmd === "-h") usage();
 
 try {
-  if (cmd === "init") {
+  if (cmd === "create") {
+    const name = rest.find((a: string) => !a.startsWith("--"));
+    if (!name) die("kern create: missing <name>.");
+    const from = flagValue("--from");
+    const result = createApp(name as string, {
+      root: from,
+      registry: rest.includes("--registry"),
+      pm: pmFlag(),
+      preset: flagValue("--preset"),
+    });
+    console.log(
+      `kern create: scaffolded ${result.files.length} file(s) into ${result.dir}`,
+    );
+    for (const f of result.files) console.log(`  + ${f}`);
+    console.log(`receipt: ${result.receipt}`);
+    console.log("run these yourself (never executed for you):");
+    for (const line of result.instructions) console.log(`  ${line}`);
+  } else if (cmd === "init") {
     const target = rest.find((a: string) => !a.startsWith("--"));
     if (!target) die("kern init: missing <dir>.");
     const from = flagValue("--from");
@@ -113,6 +153,8 @@ try {
       die(
         `kern add: "${name}" is both a block and a component — rename one (blocks live in apps/site/src/blocks/manifest.ts).`,
       );
+      pm: pmFlag(),
+      preset: flagValue("--preset"),
     }
     if (!isBlock && !isComponent) {
       die(
@@ -141,10 +183,32 @@ try {
     const name = rest.find((a: string) => !a.startsWith("--"));
     if (!name) die("kern upgrade: missing <name>.");
     const dest = flagValue("--dest");
-    const result = upgradeComponent(name, {
-      dest,
-      apply: rest.includes("--apply"),
-    });
+    // Same dual-namespace rule as `add`: a name in both maps is refused,
+    // a block upgrades through the block planner (C3 — no block path was
+    // the gap that left composed installs unupgradable).
+    const blocks = loadBlocks().map((b) => b.name);
+    const components = loadRegistry().rows.map((c) => c.name);
+    const isBlock = blocks.includes(name);
+    const isComponent = components.includes(name);
+    if (isBlock && isComponent) {
+      die(
+        `kern upgrade: "${name}" is both a block and a component — rename one (blocks live in apps/site/src/blocks/manifest.ts).`,
+      );
+    }
+    if (!isBlock && !isComponent) {
+      die(
+        `kern upgrade: unknown name "${name}" — neither a component (registry) nor a block (apps/site/src/blocks/manifest.ts).`,
+      );
+    }
+    const result = isBlock
+      ? upgradeBlock(name, {
+          dest,
+          apply: rest.includes("--apply"),
+        })
+      : upgradeComponent(name, {
+          dest,
+          apply: rest.includes("--apply"),
+        });
     console.log(formatUpgrade(result));
   } else {
     die(`kern: unknown command "${cmd}".`);

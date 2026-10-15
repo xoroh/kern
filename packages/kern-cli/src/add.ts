@@ -86,6 +86,8 @@ function fail(msg: string): never {
 export function readProjectConfig(cwd: string): {
   platform?: AddPlatform;
   mode?: "source-hybrid" | "source-snapshot";
+  preset?: string;
+  pm?: "bun" | "npm" | "pnpm" | "yarn";
 } {
   const file = join(cwd, "kern.json");
   if (!existsSync(file)) return {};
@@ -97,11 +99,33 @@ export function readProjectConfig(cwd: string): {
     const out: {
       platform?: AddPlatform;
       mode?: "source-hybrid" | "source-snapshot";
+      preset?: string;
+      pm?: "bun" | "npm" | "pnpm" | "yarn";
     } = {};
-    if (raw.platform === "web" || raw.platform === "native")
-      out.platform = raw.platform;
+    // N6 contract: the writer records `renderer` (web|native); the reader
+    // maps it onto the add platform default. Registry rows and the
+    // `--platform` flag keep `platform` until the P3 rename — that migration
+    // renames producers and consumers together, never one side alone.
+    if (raw.renderer === "web" || raw.renderer === "native")
+      out.platform = raw.renderer;
     if (raw.mode === "source-hybrid" || raw.mode === "source-snapshot")
       out.mode = raw.mode;
+    // N6 preset pin: recorded at scaffold, read back so later commands
+    // resolve against the user's preset, never a substituted default.
+    if (
+      typeof raw.preset === "string" &&
+      /^[a-z][a-z0-9-]{1,31}$/.test(raw.preset)
+    ) {
+      out.preset = raw.preset;
+    }
+    if (
+      raw.pm === "bun" ||
+      raw.pm === "npm" ||
+      raw.pm === "pnpm" ||
+      raw.pm === "yarn"
+    ) {
+      out.pm = raw.pm;
+    }
     return out;
   } catch {
     return {};
@@ -146,6 +170,11 @@ function resolveSourceTree(
   }
   const tmp = mkdtempSync(join(tmpdir(), "kern-tarball-"));
   try {
+    // Trust boundary (AUD-026, deliberate Preview posture): the tarball is
+    // either packed from the local workspace or the pinned-version registry
+    // tarball — both trusted sources — so plain extraction is sufficient.
+    // If remote/untrusted registries ever arrive, add `--no-same-owner`, a
+    // symlink audit, and a `relative(dest,out)` output guard here.
     execFileSync("tar", ["-xzf", tarball, "-C", tmp]);
   } catch {
     rmSync(tmp, { recursive: true, force: true });
@@ -411,7 +440,16 @@ export function addComponent(name: string, opts: AddOptions = {}): AddResult {
  * phases. Component closures resolve against the web manifest rows; a block
  * dependency with no row fails naming it rather than installing half a block.
  */
-export function addBlock(name: string, opts: AddOptions = {}): AddResult {
+export function planBlock(
+  name: string,
+  opts: AddOptions = {},
+): {
+  platform: AddPlatform;
+  files: PlannedFile[];
+  npm: string[];
+  version: string;
+  releaseSet: string;
+} {
   const root =
     opts.root ?? (process.env.KERN_WORKSPACE as string) ?? WORKSPACE_ROOT;
   const cwd = opts.cwd ?? process.cwd();
@@ -472,10 +510,19 @@ export function addBlock(name: string, opts: AddOptions = {}): AddResult {
   }
 
   const npm = row.dependencies.filter((d) => d !== "react");
-  return commitPlan(
-    name,
-    "block",
-    { files, npm, version: registry.version, releaseSet: registry.releaseSet },
-    { ...opts, platform },
-  );
+  return {
+    platform,
+    files,
+    npm,
+    version: registry.version,
+    releaseSet: registry.releaseSet,
+  };
+}
+
+export function addBlock(name: string, opts: AddOptions = {}): AddResult {
+  const plan = planBlock(name, opts);
+  return commitPlan(name, "block", plan, {
+    ...opts,
+    platform: plan.platform,
+  });
 }

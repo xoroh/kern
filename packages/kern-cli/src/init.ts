@@ -36,6 +36,7 @@ import {
 } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { defineCliConfig } from "@xoroh/kern-contracts";
 import { kernVersion, loadRegistry, WORKSPACE_ROOT } from "./manifest.js";
 import { type InstallReceipt, readReceipt } from "./receipt.js";
 
@@ -48,6 +49,10 @@ export type InitOptions = {
   force?: boolean;
   /** Working directory the target dir resolves against. Default: process.cwd(). */
   cwd?: string;
+  /** Design-system preset pinned into kern.json (N6). Default: the starter default. */
+  preset?: string;
+  /** Package manager for the scaffold instructions (C2). Default: bun. */
+  pm?: "bun" | "npm" | "pnpm" | "yarn";
 };
 
 export type InitResult = {
@@ -137,6 +142,10 @@ export function initScaffold(dir: string, opts: InitOptions = {}): InitResult {
         "@xoroh/kern-tokens": `file:${tokensDir}`,
         "@xoroh/kern-primitives": `file:${primitivesDir}`,
       };
+        // @xoroh/kern depends on its material-3 preset package: without
+        // this pin the transitive dep escapes to the registry (C1-S smoke
+        // proved it — `bun install` failed outside the monorepo).
+        "@xoroh/kern-material-3": `file:${material3Dir}`,
   const pkgPath = join(dest, "package.json");
   writeFileSync(
     pkgPath,
@@ -155,12 +164,18 @@ export function initScaffold(dir: string, opts: InitOptions = {}): InitResult {
     ? readReceipt(JSON.parse(readFileSync(receiptPath, "utf8"))).files
     : [];
   // kern.json: the project records its install choices once, and `kern add`
-  // reads them back — target renderer and mode are project facts, not flags to
-  // re-type (and re-typo) on every command.
+  // reads them back — target renderer, pinned preset, package manager and
+  // mode are project facts, not flags to re-type (and re-typo) on every
+  // command. Validated by the contracts package: one shape definition, not
+  // a writer/reader pair that can drift.
   const kernJson = {
-    target: dest,
-    renderer: "web",
-    mode: "source-hybrid",
+    ...defineCliConfig({
+      target: dest,
+      renderer: "web",
+      mode: "source-hybrid",
+      preset: opts.preset ?? "material-3",
+      pm: opts.pm ?? "bun",
+    }),
     kern: version,
   };
   writeFileSync(
@@ -178,7 +193,11 @@ export function initScaffold(dir: string, opts: InitOptions = {}): InitResult {
   };
   writeFileSync(receiptPath, `${JSON.stringify(receipt, null, 2)}\n`);
 
-  const instructions = ["bun install", "bun run dev"];
+  const pm = opts.pm ?? "bun";
+  // `bun`/`npm` spell the run subcommand out; `pnpm`/`yarn` run bare.
+  // bun keeps its exact historical instructions (`bun run dev`).
+  const runCmd = pm === "bun" || pm === "npm" ? `${pm} run` : pm;
+  const instructions = [`${pm} install`, `${runCmd} dev`];
   if (opts.registry) {
     instructions.unshift(
       `kern is ${version} and unpublished — these registry names 404 until the first publish. Omit --registry to scaffold with file: deps against your checkout instead.`,

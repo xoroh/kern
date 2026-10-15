@@ -9,11 +9,11 @@ import {
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { addComponent, commitPlan, planComponent } from "./add";
+import { addBlock, addComponent, commitPlan, planComponent } from "./add";
 import { diffDest, formatDiff, listBlocks, listComponents } from "./list-diff";
 import { loadRegistry, WORKSPACE_ROOT } from "./manifest";
 import { convertV1, readReceipt } from "./receipt";
-import { formatUpgrade, upgradeComponent } from "./upgrade";
+import { formatUpgrade, upgradeBlock, upgradeComponent } from "./upgrade";
 
 function freshDest(): string {
   return mkdtempSync(join(tmpdir(), "kern-life-"));
