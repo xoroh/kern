@@ -150,6 +150,7 @@ describe("theme engine", () => {
   it("registers variants and reports deltas", () => {
     registerVariant({
       id: "tenant-x",
+      extends: "material-3",
       overrides: { color: { light: { primary: "#1e3a8a" } } },
     });
     expect(getVariant("tenant-x").id).toBe("tenant-x");

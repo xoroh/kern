@@ -29,6 +29,7 @@ const CONSUMED = [
   ["@xoroh/kern-native", "packages/kern-native/dist/index.d.ts"],
   ["@xoroh/kern-icons", "packages/kern-icons/dist/index.d.ts"],
   ["@xoroh/kern-tokens", "packages/kern-tokens/dist/index.d.ts"],
+  ["@xoroh/kern-material-3", "packages/kern-material-3/dist/index.d.ts"],
   // D-034 moved this to the `./start` subpath of @xoroh/kern. The old
   // packages/kern-start/dist path no longer exists.
   ["@xoroh/kern/start", "packages/kern/dist/start/index.d.ts"],

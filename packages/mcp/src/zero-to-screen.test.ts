@@ -166,12 +166,14 @@ describe("zero-to-screen loop", () => {
     expect(() =>
       defineThemePreset({
         id: "sharp",
+        extends: "material-3",
         overrides: { color: { light: { primary: "#1d4ed8" } } },
       }),
     ).toThrow("reserved");
     expect(() =>
       defineThemePreset({
         id: "agent-zero-bad",
+        extends: "material-3",
         overrides: { color: { light: { notARole: "#1d4ed8" } } },
       }),
     ).toThrow("Unknown color role");

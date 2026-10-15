@@ -15,6 +15,12 @@ export type ThemeVariant = {
   id: string;
   label?: string;
   description?: string;
+  /**
+   * Base preset id this variant customizes. Required for the same reason as
+   * `CustomTheme.extends`: a variant without a base would silently attach to
+   * whatever is registered.
+   */
+  extends: string;
   overrides: ThemeOverrides;
 };
 
@@ -51,7 +57,10 @@ type LayerSelection = ThemeSelection | string;
 
 function selectionFor(variant: LayerSelection): ThemeSelection {
   if (typeof variant !== "string") return variant;
-  if (variants.has(variant)) return getVariant(variant);
+  if (variants.has(variant)) {
+    const v = getVariant(variant);
+    return { id: v.id, extends: v.extends, overrides: v.overrides };
+  }
   if ((themeIds() as string[]).includes(variant))
     return variant as ThemeSelection;
   throw new Error(`Unknown variant: ${variant}`);

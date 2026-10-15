@@ -22,7 +22,12 @@ export type ThemeOverrides = {
 
 export type CustomTheme = {
   id: string;
-  extends?: string;
+  /**
+   * Base preset id this theme customizes. Required: a theme without a base
+   * has nothing to override, and silently attaching it to Material 3 would
+   * couple every custom system to M3. The base must be registered.
+   */
+  extends: string;
   overrides: ThemeOverrides;
 };
 
@@ -115,15 +120,15 @@ export function defineThemePreset(theme: CustomTheme): CustomTheme {
   if (!/^[a-z][a-z0-9-]{1,31}$/.test(theme.id)) {
     throw new Error(`Invalid theme id: ${theme.id}`);
   }
-  const baseId = theme.extends === undefined ? "material-3" : theme.extends;
+  if (typeof theme.extends !== "string" || theme.extends.trim() === "") {
+    throw new Error(
+      `Theme "${theme.id}" needs an explicit extends base id — a theme without a base would silently attach to whatever is registered`,
+    );
+  }
+  const baseId = theme.extends;
   const base = baseTables(baseId);
   if (base.color === undefined || base.shape === undefined) {
     throw new Error(`Theme base "${baseId}" carries no color/shape tables`);
-  }
-  if (base.policy === undefined) {
-    throw new Error(
-      `Theme base "${baseId}" carries no contrast policy — validation without one would pass by not looking`,
-    );
   }
   if (base.policy === undefined) {
     throw new Error(
@@ -209,10 +214,15 @@ function resolveBase(id: string): {
 export function resolveThemeDetails(
   mode: Mode = "light",
   contrast: Contrast = "standard",
+  // Default preset id, resolved through the registry like any other id: with
+  // no preset registered under this id the call fails loud listing what is
+  // registered. The id itself is owned by the `@xoroh/kern-material-3`
+  // registration, not by this module — custom systems resolve by passing
+  // their own registered id (or a validated CustomTheme) explicitly.
   variant: ThemeSelection = "material-3",
 ): ResolvedTheme {
   const base = resolveBase(
-    typeof variant === "string" ? variant : (variant.extends ?? "material-3"),
+    typeof variant === "string" ? variant : variant.extends,
   );
   const color = { ...base.color[mode] };
   if (contrast !== "standard") {

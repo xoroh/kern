@@ -188,3 +188,37 @@ describe("pixel conformance through the universal engine (A2)", () => {
     );
   });
 });
+
+describe("pixel authoring requires an explicit base (Finding 1)", () => {
+  it("rejects a CustomTheme without extends instead of attaching to M3", async () => {
+    const { defineThemePreset } = await import("./resolve");
+    expect(() =>
+      defineThemePreset({
+        id: "pixel-no-base",
+        overrides: {
+          color: { light: { brand: "#0b5fff" }, dark: { brand: "#7aa5ff" } },
+        },
+      } as never),
+    ).toThrow("explicit extends base id");
+  });
+
+  it("a non-M3 base validates its own roles without M3 registered", async () => {
+    const { defineThemePreset, registerPreset } = await import("./resolve");
+    registerPreset("pixel-authoring", {
+      color: {
+        light: { canvas: "#ffffff", ink: "#101418" },
+        dark: { canvas: "#101418", ink: "#f2f5f8" },
+      },
+      shape: { none: "0px", full: "999px" },
+      policy: { textPairs: [["ink", "canvas"]], uiPairs: [], waivers: [] },
+    });
+    const theme = defineThemePreset({
+      id: "pixel-authored",
+      extends: "pixel-authoring",
+      overrides: {
+        color: { light: { ink: "#000000" }, dark: { ink: "#ffffff" } },
+      },
+    });
+    expect(theme.extends).toBe("pixel-authoring");
+  });
+});

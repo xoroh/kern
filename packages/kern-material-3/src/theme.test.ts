@@ -47,12 +47,14 @@ describe("resolveTheme", () => {
     expect(() =>
       defineThemePreset({
         id: "unknown",
+        extends: "material-3",
         overrides: { color: { light: { notAColorRole: "#111111" } } },
       }),
     ).toThrow("Unknown color role");
     expect(() =>
       defineThemePreset({
         id: "lowcontrast",
+        extends: "material-3",
         overrides: { color: { light: { onSurface: "#ffffff" } } },
       }),
     ).toThrow("fails light contrast");
