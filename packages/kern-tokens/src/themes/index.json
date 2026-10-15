@@ -2,10 +2,10 @@
   "$comment": "Theme catalog used by the MCP server and tooling. Add a theme by adding its file and one entry here.",
   "themes": [
     {
-      "id": "kern",
-      "file": "kern.json",
-      "name": "Kern",
-      "description": "Default. Friendly rounded Kern expression.",
+      "id": "material-3",
+      "file": "material-3.json",
+      "name": "Material 3",
+      "description": "Default. Material Design 3 baseline role tables.",
       "template": false
     },
     {
@@ -34,7 +34,7 @@
       "file": "demo.json",
       "name": "Demo tenant",
       "description": "Demo tenant proving end-to-end preset switching. Extends kern.",
-      "template": false
+      "template": true
     }
   ]
 }

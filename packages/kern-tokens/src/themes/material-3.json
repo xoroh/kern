@@ -1,5 +1,5 @@
 {
-  "$comment": "Kern default theme (M3). Roles bind palette steps from tokens.json (OKLCH canonical, srgb compiled for native). Values below equal their ramp srgb by construction; source: skill kern-tokens role mapping. secondary/tertiary carry the published Material 3 BASELINE scheme values (material.io baseline: secondary = muted violet-gray, tertiary = muted rose) so the site paints the same purple family every current M3 surface ships. surfaceTonal is a Kern addition (tonal emphasis fills; pairs with on-surface). Contrast overlays carry only skill-pinned values; unlisted roles inherit the base scheme.",
+  "$comment": "material-3 default theme (Material Design 3 baseline). Roles bind palette steps from tokens.json (OKLCH canonical, srgb compiled for native). Values below equal their ramp srgb by construction; source: skill kern-tokens role mapping. secondary/tertiary carry the published Material 3 BASELINE scheme values (material.io baseline: secondary = muted violet-gray, tertiary = muted rose) so the site paints the same purple family every current M3 surface ships. surfaceTonal is a Kern addition (tonal emphasis fills; pairs with on-surface). Contrast overlays carry only skill-pinned values; unlisted roles inherit the base scheme.",
   "color": {
     "light": {
       "primary": "#6750a4",

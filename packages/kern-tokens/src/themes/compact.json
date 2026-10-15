@@ -1,8 +1,8 @@
 {
   "id": "compact",
   "name": "Compact",
-  "description": "Density algorithm as override data: 0.75x shape scale (rounded to 0.5px, full passes through), color untouched. Extends kern; carries no role table of its own.",
-  "extends": "kern",
+  "description": "Density algorithm as override data: 0.75x shape scale (rounded to 0.5px, full passes through), color untouched. Extends material-3; carries no role table of its own.",
+  "extends": "material-3",
   "overrides": {
     "color": {
       "light": {},
