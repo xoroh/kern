@@ -13,7 +13,12 @@
  * 4. COVERAGE. The matrix spans the full mode x contrast x preset cross
  *    product, and the legacy `m3` alias still resolves to kern.
  */
-import "../src/material-3.ts"; // registers the material-3 preset tables (side effect)
+import { registerPreset } from "../src/resolve.ts";
+import { material3PresetRegistrations } from "../../kern-material-3/src/material-3.ts";
+// Explicit registration into THIS resolver instance (source). The M3 module's
+// own import-time registration targets the built package instance, which
+// scripts must not rely on — register here so resolution never depends on dist.
+for (const { id, tables } of material3PresetRegistrations()) registerPreset(id, tables);
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import {
@@ -24,7 +29,7 @@ import {
 import { resolveTheme, resolveThemeDetails, themeIds } from "../src/resolve.ts";
 
 const ROOT = new URL("../../..", import.meta.url).pathname;
-const THEMES = join(ROOT, "packages/kern-tokens/src/themes");
+const THEMES = join(ROOT, "packages/kern-material-3/src/themes");
 const violations = [];
 
 function stable(value) {
@@ -42,14 +47,14 @@ function stable(value) {
 const committedPath = join(THEMES, "matrix.json");
 if (!existsSync(committedPath)) {
   violations.push(
-    "packages/kern-tokens/src/themes/matrix.json is missing — run `bun packages/kern-tokens/scripts/gen-theme-matrix.mjs`",
+    "packages/kern-material-3/src/themes/matrix.json is missing — run `bun packages/kern-tokens/scripts/gen-theme-matrix.mjs`",
   );
 } else {
   const committed = readFileSync(committedPath, "utf8");
   const fresh = `${stable(buildThemeMatrix())}\n`;
   if (committed !== fresh) {
     violations.push(
-      "packages/kern-tokens/src/themes/matrix.json drifted from the live resolver — " +
+      "packages/kern-material-3/src/themes/matrix.json drifted from the live resolver — " +
         "run `bun packages/kern-tokens/scripts/gen-theme-matrix.mjs` and commit the result. " +
         "If the diff moves a rendered value, that is a D6 defect, not a regen.",
     );

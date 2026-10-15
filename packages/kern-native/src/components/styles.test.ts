@@ -5,7 +5,10 @@ vi.mock(
   async () => await import("../../test-doubles/react-native"),
 );
 
-import { resolveThemeDetails, themes } from "@xoroh/kern-tokens";
+import {
+  resolveThemeDetails,
+} from "@xoroh/kern-tokens";
+import { themes } from "@xoroh/kern-material-3";
 import { badgeStyles } from "./badge";
 import { cardStyles } from "./card";
 import { checkboxStyles } from "./checkbox";
@@ -22,7 +25,7 @@ describe("native style maps", () => {
   it("badge dot is 6dp, count carries error fill", () => {
     expect(badgeStyles("dot").container).toMatchObject({ width: 6, height: 6 });
     expect(badgeStyles("count").container.backgroundColor).toBe(
-      themes.kern.color.light.error,
+      themes["material-3"].color.light.error,
     );
   });
 
@@ -31,26 +34,26 @@ describe("native style maps", () => {
     expect(cardStyles("elevated").elevation).toBe(1);
     // M3 card shape is medium (12px), not small.
     expect(cardStyles("filled").borderRadius).toBe(
-      Number.parseFloat(themes.kern.radius.medium),
+      Number.parseFloat(themes["material-3"].radius.medium),
     );
     expect(cardStyles("filled").backgroundColor).toBe(
-      themes.kern.color.light.surfaceContainerHighest,
+      themes["material-3"].color.light.surfaceContainerHighest,
     );
     expect(cardStyles("elevated").backgroundColor).toBe(
-      themes.kern.color.light.surfaceContainerLow,
+      themes["material-3"].color.light.surfaceContainerLow,
     );
     // M3 outlined cards sit on surface, not the filled container.
     expect(cardStyles("outlined").backgroundColor).toBe(
-      themes.kern.color.light.surface,
+      themes["material-3"].color.light.surface,
     );
   });
 
   it("chip selection fills secondary-container per M3", () => {
     expect(chipStyles("filter", true).container.backgroundColor).toBe(
-      themes.kern.color.light.secondaryContainer,
+      themes["material-3"].color.light.secondaryContainer,
     );
     expect(chipStyles("filter", true).label.color).toBe(
-      themes.kern.color.light.onSecondaryContainer,
+      themes["material-3"].color.light.onSecondaryContainer,
     );
     expect(chipStyles("filter", false).container.backgroundColor).toBe(
       "transparent",
@@ -60,7 +63,7 @@ describe("native style maps", () => {
   it("chip elevated raises assist to level1 (M3, ignored elsewhere)", () => {
     expect(
       chipStyles("assist", false, undefined, true).container.backgroundColor,
-    ).toBe(themes.kern.color.light.surfaceContainerLow);
+    ).toBe(themes["material-3"].color.light.surfaceContainerLow);
     expect(
       chipStyles("assist", false, undefined, true).container.elevation,
     ).toBe(1);
@@ -93,26 +96,26 @@ describe("native style maps", () => {
 
   it("field message error uses error role", () => {
     expect(fieldMessageStyles("error").color).toBe(
-      themes.kern.color.light.error,
+      themes["material-3"].color.light.error,
     );
   });
 
   it("input is 56dp with error border swap", () => {
     expect(inputStyles(false, false).minHeight).toBe(56);
     expect(inputStyles(true, false).borderColor).toBe(
-      themes.kern.color.light.error,
+      themes["material-3"].color.light.error,
     );
   });
 
   it("input filled uses surface-container-highest with top-only rounding", () => {
     const filled = inputStyles(false, false, undefined, false, "filled");
     expect(filled.backgroundColor).toBe(
-      themes.kern.color.light.surfaceContainerHighest,
+      themes["material-3"].color.light.surfaceContainerHighest,
     );
     expect(filled.borderTopLeftRadius).toBe(4);
     expect(filled.borderBottomLeftRadius).toBe(0);
     const outlined = inputStyles(false, false, undefined, false, "outlined");
-    expect(outlined.backgroundColor).toBe(themes.kern.color.light.surface);
+    expect(outlined.backgroundColor).toBe(themes["material-3"].color.light.surface);
     expect(outlined.borderBottomLeftRadius).toBe(4);
   });
 

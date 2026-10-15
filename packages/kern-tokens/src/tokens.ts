@@ -1,17 +1,10 @@
-import brand from "./themes/brand.json";
-import compact from "./themes/compact.json";
-import demo from "./themes/demo.json";
-import kern from "./themes/material-3.json";
-import sharp from "./themes/sharp.json";
 import data from "./tokens.json";
 
 /** Reference/system tokens. tokens.json is the canonical data source. */
 export const tokens = data;
 export type KernTokens = typeof tokens;
 
-/** Copyable named presets, shared by apps, docs, and automation. */
-export const themes = { kern, sharp, brand, compact, demo } as const;
-export type KernThemePresets = typeof themes;
-
-// Pure resolver is safe to import from web and native code.
+// Universal theme engine: resolution, validation, registration, projection
+// helpers. Design-system data (presets, policies) registers through it;
+// the engine itself carries no design-system tables.
 export * from "./resolve";

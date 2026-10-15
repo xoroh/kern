@@ -1,7 +1,7 @@
-import { hexToOklch } from "./color";
-import { contrastRatio } from "./contrast";
-import { type CustomTheme, defineThemePreset } from "./resolve";
-import { type HueRamp, makeHueRamp } from "./tones";
+import { hexToOklch } from "@xoroh/kern-tokens";
+import { contrastRatio } from "@xoroh/kern-tokens";
+import { type CustomTheme, defineThemePreset } from "@xoroh/kern-tokens";
+import { type HueRamp, makeHueRamp } from "@xoroh/kern-tokens";
 
 export type SeedThemeOptions = {
   /** Human label for docs/manifests. Defaults to `Seed <hex>`. */

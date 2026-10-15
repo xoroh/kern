@@ -1,10 +1,10 @@
-import "../material-3"; // registers the material-3 preset tables (side effect)
+import "./material-3"; // registers the material-3 preset tables (side effect)
 import { describe, expect, test } from "vitest";
-import { resolveThemeDetails } from "../resolve";
-import { tokens } from "../tokens";
-import { toDtcg } from "./export";
-import { fromDtcg } from "./import";
-import { componentsToHex } from "./shared";
+import { resolveThemeDetails } from "@xoroh/kern-tokens";
+import { tokens } from "@xoroh/kern-tokens";
+import { toDtcg } from "@xoroh/kern-tokens";
+import { fromDtcg } from "@xoroh/kern-tokens";
+import { componentsToHex } from "@xoroh/kern-tokens";
 
 /**
  * Projection proof (KERN-022) — every published artifact traces to the graph.

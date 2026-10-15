@@ -1,7 +1,7 @@
 /**
  * P5C theming pipeline — seed -> map -> alias -> component, explicit.
  *
- * The pipeline always existed (tokens.json ramps -> themes/kern.json role
+ * The pipeline always existed (tokens.json ramps -> the design-system role
  * tables + contrast overlays -> resolveThemeDetails/varName/overridesFor ->
  * variants.ts/web-theme.tsx + generated CSS), but it was reconstructible only
  * by reading four files. This module names the four stages as functions so
@@ -38,7 +38,7 @@ import { tokens } from "./tokens";
 // --- Stage 1: seed ----------------------------------------------------------
 // Canonical color source: OKLCH on familiar steps, each entry carrying the
 // compiled sRGB hex native consumes. Roles never hold raw values directly;
-// they bind steps (see themes/kern.json).
+// they bind steps (see the design-system preset tables).
 export type SeedPalettes = typeof tokens.palettes;
 
 /** Stage 1 — the reference ramps everything else binds to. */

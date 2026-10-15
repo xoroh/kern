@@ -13,9 +13,11 @@ import { join } from "node:path";
 const ROOT = new URL("../../..", import.meta.url).pathname;
 const read = (p) =>
   JSON.parse(readFileSync(join(ROOT, "packages/kern-tokens/src", p), "utf8"));
+const readTheme = (p) =>
+  JSON.parse(readFileSync(join(ROOT, "packages/kern-material-3/src/themes", p), "utf8"));
 
 const T = read("tokens.json");
-const M3 = read("themes/material-3.json");
+const M3 = readTheme("material-3.json");
 
 /**
  * The component token contract. Each entry names an M3 component and the slots M3

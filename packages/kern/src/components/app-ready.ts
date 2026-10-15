@@ -2,7 +2,7 @@ import {
   BRAND_TRIO,
   type FeedbackShapeKind,
   feedbackTiming,
-} from "@xoroh/kern-tokens";
+} from "@xoroh/kern-material-3";
 import { useEffect, useSyncExternalStore } from "react";
 
 const GLYPHS: Record<FeedbackShapeKind, string> = {

@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { KERN_ELEVATION_COMPONENTS } from "../../packages/kern-tokens/src/kern-elevation.ts";
+import { KERN_ELEVATION_COMPONENTS } from "../../packages/kern-material-3/src/kern-elevation.ts";
 import { classifyElevation, elevationCode } from "./elevation-audit.mjs";
 
 describe("elevation audit", () => {

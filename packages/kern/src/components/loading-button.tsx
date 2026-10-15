@@ -1,4 +1,4 @@
-import type { LoadingIndicatorStyle } from "@xoroh/kern-tokens";
+import type { LoadingIndicatorStyle } from "@xoroh/kern-material-3";
 import type { Ref } from "react";
 import { cn } from "../utils/cn";
 import {

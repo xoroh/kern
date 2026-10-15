@@ -3,10 +3,10 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import m3 from "./themes/material-3.json";
-import tokens from "./tokens.json";
+import tokens from "@xoroh/kern-tokens/tokens.json";
 
 const THEME_DIR = dirname(fileURLToPath(import.meta.url));
-const css = readFileSync(join(THEME_DIR, "tokens.css"), "utf8");
+const css = readFileSync(join(THEME_DIR, "..", "..", "kern-tokens", "src", "tokens.css"), "utf8");
 
 const kebab = (name: string) =>
   name.replace(/(?<!^)(?=[A-Z])/g, "-").toLowerCase();
@@ -57,7 +57,7 @@ describe("tokens.css matches the JSON sources", () => {
 });
 
 describe("comp-tokens.css refs resolve in tokens.css (spacing/icon-size regressions)", () => {
-  const comp = readFileSync(join(THEME_DIR, "comp-tokens.css"), "utf8");
+  const comp = readFileSync(join(THEME_DIR, "..", "..", "kern-tokens", "src", "comp-tokens.css"), "utf8");
   const defined = new Set(
     [...css.matchAll(/--sys-[A-Za-z0-9-]+(?=\s*:)/g)].map((m) => m[0]),
   );

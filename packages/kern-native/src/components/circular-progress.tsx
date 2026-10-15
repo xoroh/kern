@@ -1,4 +1,8 @@
 import {
+  type ResolvedTheme,
+  resolveThemeDetails,
+} from "@xoroh/kern-tokens";
+import {
   arcRotations,
   FEEDBACK_SIZE_DP,
   type FeedbackShapeKind,
@@ -6,10 +10,8 @@ import {
   feedbackTiming,
   isLoadingStyleRendered,
   type LoadingIndicatorStyle,
-  type ResolvedTheme,
   resolveFeedbackVariant,
-  resolveThemeDetails,
-} from "@xoroh/kern-tokens";
+} from "@xoroh/kern-material-3";
 import { useEffect, useRef } from "react";
 import {
   Animated,

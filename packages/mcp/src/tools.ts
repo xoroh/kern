@@ -91,9 +91,17 @@ async function readTokenFile(rel: string): Promise<string | null> {
   ]);
 }
 
-function tokenFileFor(preset: TokenPreset): string {
-  if (preset === "base") return "src/tokens.json";
-  return `src/themes/${canonicalPreset(preset)}.json`;
+/** M3 preset data: `@xoroh/kern-material-3` (`packages/kern-material-3/...`). */
+async function readThemeFile(rel: string): Promise<string | null> {
+  return readFirst([
+    ...repoPaths("packages/kern-material-3", rel),
+    ...repoPaths("kern-material-3", rel),
+  ]);
+}
+
+function tokenFileFor(preset: TokenPreset): { read: "tokens" | "themes"; rel: string } {
+  if (preset === "base") return { read: "tokens", rel: "src/tokens.json" };
+  return { read: "themes", rel: `src/themes/${canonicalPreset(preset)}.json` };
 }
 
 export async function listComponents(platform?: Platform) {
@@ -138,8 +146,9 @@ export async function getComponent(name: string, platform: Platform = "web") {
 }
 
 export async function getTokens(preset: TokenPreset = "base") {
-  const rel = tokenFileFor(preset);
-  const raw = await readTokenFile(rel);
+  const { read, rel } = tokenFileFor(preset);
+  const raw =
+    read === "themes" ? await readThemeFile(rel) : await readTokenFile(rel);
   if (!raw)
     return {
       error: `tokens unavailable (wanted ${rel}) — run inside the kern monorepo or set KERN_REPO_ROOT`,
@@ -167,7 +176,7 @@ export async function getDtcg(): Promise<
 }
 
 export async function listThemes() {
-  const raw = await readTokenFile("src/themes/index.json");
+  const raw = await readThemeFile("src/themes/index.json");
   if (!raw)
     return {
       error:

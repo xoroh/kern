@@ -9,8 +9,8 @@ import {
   resolveFunctionalTone,
   setFunctionalOverrides,
   toneClass,
-} from "./functional";
-import { resolveTheme } from "./resolve";
+} from "@xoroh/kern-tokens";
+import { resolveTheme } from "@xoroh/kern-tokens";
 import {
   avatarToneFor,
   getHue,
@@ -22,7 +22,7 @@ import {
   TONAL_STEPS,
   TONE_ROLES,
   userToneFor,
-} from "./tones";
+} from "@xoroh/kern-tokens";
 import {
   assertCompleteScheme,
   getVariant,
@@ -30,7 +30,7 @@ import {
   registerVariant,
   resolveThemeLayers,
   schemeToCssVars,
-} from "./variants";
+} from "@xoroh/kern-tokens";
 
 const light = resolveTheme("light");
 const dark = resolveTheme("dark");
@@ -182,7 +182,7 @@ describe("theme engine", () => {
 
 describe("tone utilities", () => {
   it("generates a class for every functional key", () => {
-    const css = readFileSync(new URL("./tones.css", import.meta.url), "utf8");
+    const css = readFileSync(new URL("../../kern-tokens/src/tones.css", import.meta.url), "utf8");
     for (const [domain, table] of Object.entries(
       functional as Record<string, Record<string, unknown>>,
     )) {

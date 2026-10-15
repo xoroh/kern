@@ -1,10 +1,12 @@
 import {
-  FEEDBACK_SIZE_DP,
-  type FeedbackSize,
-  feedbackTiming,
   type ResolvedTheme,
   resolveThemeDetails,
 } from "@xoroh/kern-tokens";
+import {
+  FEEDBACK_SIZE_DP,
+  type FeedbackSize,
+  feedbackTiming,
+} from "@xoroh/kern-material-3";
 import { useEffect, useRef } from "react";
 import {
   Animated,

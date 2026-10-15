@@ -4,7 +4,7 @@
 import { spawnSync } from "node:child_process";
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { feedbackTiming } from "../src/feedback.ts";
+import { feedbackTiming } from "../../kern-material-3/src/feedback.ts";
 
 const ROOT = new URL("../../..", import.meta.url).pathname;
 const OUT = join(new URL("..", import.meta.url).pathname, "src/motion.css");

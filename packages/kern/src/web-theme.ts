@@ -33,10 +33,10 @@ export {
   resolveThemeDetails,
   shapeVarName,
   springConfig,
-  themeFromSeed,
   themeIds,
   varName,
 } from "@xoroh/kern-tokens";
+export { themeFromSeed } from "@xoroh/kern-material-3";
 
 type ColorPreference = Mode | "system";
 

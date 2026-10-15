@@ -4,7 +4,7 @@ import {
   type FeedbackTone,
   type LoadingIndicatorStyle,
   resolveFeedbackVariant,
-} from "@xoroh/kern-tokens";
+} from "@xoroh/kern-material-3";
 import type { ComponentPropsWithRef } from "react";
 import { cn } from "../utils/cn";
 import { CircularProgress } from "./circular-progress";

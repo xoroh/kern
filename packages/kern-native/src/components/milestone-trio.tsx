@@ -1,11 +1,13 @@
 import {
+  type ResolvedTheme,
+  resolveThemeDetails,
+} from "@xoroh/kern-tokens";
+import {
   BRAND_TRIO,
   FEEDBACK_SIZE_DP,
   type FeedbackShapeKind,
   type FeedbackSize,
-  type ResolvedTheme,
-  resolveThemeDetails,
-} from "@xoroh/kern-tokens";
+} from "@xoroh/kern-material-3";
 import {
   type StyleProp,
   Text,

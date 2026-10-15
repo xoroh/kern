@@ -57,7 +57,11 @@ const LAYERS = {
     rank: 0,
     blurb: "un-styled behaviour kernel",
   },
-  "@xoroh/kern-tokens": { rank: 0, blurb: "token engine + M3 conformance" },
+  "@xoroh/kern-tokens": { rank: 0, blurb: "universal token engine" },
+  // Design systems sit above the universal engine: they consume contracts
+  // and tokens, and renderers consume them. Same-rank edges are forbidden,
+  // so a design system is rank 1, not rank 0.
+  "@xoroh/kern-material-3": { rank: 1, blurb: "Material Design 3 implementation" },
   "@xoroh/kern-icons": { rank: 0, blurb: "standalone icon set" },
   // ADR-P02: pure metadata vocabulary — types/schema/validators only. Rank 0
   // (knows nothing); renderers, tokens metadata, CLI, MCP and the registry

@@ -4,16 +4,12 @@
 
 export * from "./color";
 export * from "./contrast";
-export * from "./expressive-shapes";
-export * from "./feedback";
 export * from "./focus";
 export * from "./functional";
 export * from "./motion";
-export * from "./material-3";
 export * from "./pipeline";
 export * from "./preset";
 export * from "./presets";
-export * from "./seed-theme";
 export * from "./sizes";
 export * from "./dtcg/export";
 export * from "./dtcg/import";
@@ -25,4 +21,3 @@ export * from "./token-schema";
 export * from "./tokens";
 export * from "./tones";
 export * from "./variants";
-export * from "./xoroh-preset";

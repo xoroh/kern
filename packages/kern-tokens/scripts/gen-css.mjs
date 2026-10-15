@@ -14,12 +14,14 @@ import { varName as roleVar } from "../src/resolve.ts";
 
 const ROOT = new URL("../../..", import.meta.url).pathname;
 const THEME = join(ROOT, "packages/kern-tokens/src");
+const M3THEMES = join(ROOT, "packages/kern-material-3/src/themes");
 const read = (file) => JSON.parse(readFileSync(join(THEME, file), "utf8"));
+const readTheme = (file) => JSON.parse(readFileSync(join(M3THEMES, file), "utf8"));
 const kebab = (name) => name.replace(/(?<!^)(?=[A-Z])/g, "-").toLowerCase();
 
 const T = read("tokens.json");
-const M3 = read("themes/material-3.json");
-const matrix = read("themes/matrix.json");
+const M3 = readTheme("material-3.json");
+const matrix = readTheme("matrix.json");
 const fontFamily = `"${T.typography.webFamily}", "${T.typography.family}", sans-serif`;
 const prefix = (name) => `--sys-typescale-${name}`;
 // DTCG metadata keys (`$comment`, `$schema`, …) are annotations, not tokens. Emitting one

@@ -5,7 +5,10 @@ vi.mock(
   async () => await import("../../test-doubles/react-native"),
 );
 
-import { resolveThemeDetails, themes } from "@xoroh/kern-tokens";
+import {
+  resolveThemeDetails,
+} from "@xoroh/kern-tokens";
+import { themes } from "@xoroh/kern-material-3";
 import {
   LINEAR_FOUR_COLOR_DURATION_MS,
   LINEAR_FOUR_COLOR_INPUT_RANGE,
@@ -74,7 +77,7 @@ describe("indeterminate loop (web parity)", () => {
   it("cycles four colors over 8s in web keyframe order", () => {
     expect(LINEAR_FOUR_COLOR_DURATION_MS).toBe(8000);
     expect([...LINEAR_FOUR_COLOR_INPUT_RANGE]).toEqual([0, 0.25, 0.5, 0.75, 1]);
-    const light = themes.kern.color.light;
+    const light = themes["material-3"].color.light;
     expect(linearFourColorStops(resolveThemeDetails("light"))).toEqual([
       light.primary,
       light.primaryContainer,
@@ -88,7 +91,7 @@ describe("linearBufferStyles", () => {
   it("renders the buffer wash behind the bar at 24% primary", () => {
     const { buffer } = linearBufferStyles(0.8, resolveThemeDetails("light"));
     expect(buffer.width).toBe("80%");
-    expect(buffer.backgroundColor).toBe(themes.kern.color.light.primary);
+    expect(buffer.backgroundColor).toBe(themes["material-3"].color.light.primary);
     expect(buffer.opacity).toBe(0.24);
     expect(buffer.position).toBe("absolute");
   });

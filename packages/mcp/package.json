@@ -75,7 +75,8 @@
     "@types/node": "^26.6.3",
     "bun-types": "^1.4.2",
     "tsup": "^8.5.1",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "@xoroh/kern-material-3": "workspace:*"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.30.1",

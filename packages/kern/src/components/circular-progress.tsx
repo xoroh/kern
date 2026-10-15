@@ -5,7 +5,7 @@ import {
   isLoadingStyleRendered,
   type LoadingIndicatorStyle,
   resolveFeedbackVariant,
-} from "@xoroh/kern-tokens";
+} from "@xoroh/kern-material-3";
 import type { ComponentPropsWithRef, CSSProperties } from "react";
 import { cn } from "../utils/cn";
 

@@ -1,10 +1,12 @@
 import {
-  EXPRESSIVE_SHAPE_BOX,
-  expressiveShapePath,
-  type FeedbackShapeKind,
   type ResolvedTheme,
   resolveThemeDetails,
 } from "@xoroh/kern-tokens";
+import {
+  EXPRESSIVE_SHAPE_BOX,
+  expressiveShapePath,
+  type FeedbackShapeKind,
+} from "@xoroh/kern-material-3";
 import {
   type StyleProp,
   View,

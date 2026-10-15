@@ -33,7 +33,8 @@
     "@xoroh/kern-tokens": "workspace:*",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
-    "react-native-web": "^0.21.0"
+    "react-native-web": "^0.21.0",
+    "@xoroh/kern-material-3": "workspace:*"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.26.0",

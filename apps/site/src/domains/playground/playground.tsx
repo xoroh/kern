@@ -37,7 +37,7 @@ import {
   themeIds,
   varName,
 } from "@xoroh/kern-tokens";
-import catalogJson from "@xoroh/kern-tokens/themes/index.json";
+import catalogJson from "@xoroh/kern-material-3/themes/index.json";
 import type { CSSProperties } from "react";
 import { useEffect, useMemo, useState } from "react";
 import { BLOCK_VIEWS, installCommand } from "../blocks/registry";
@@ -672,7 +672,9 @@ export function Playground({
   const presetSource = useMemo(() => {
     const colorJson = JSON.stringify(theme.overrides.color, null, 2);
     const shapeJson = JSON.stringify(theme.overrides.shape, null, 2);
-    return `import { defineThemePreset } from "@xoroh/kern-tokens";
+    return `import {
+  defineThemePreset,
+} from "@xoroh/kern-tokens";
 
 export const playgroundTheme = defineThemePreset({
   id: "playground-theme",

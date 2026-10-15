@@ -9,16 +9,17 @@ import {
   projectToCssVars,
   scopedDeltas,
   seedStage,
-} from "./pipeline";
-import { defineMotionAlgorithm, MOTION_ALGORITHMS } from "./presets";
+} from "@xoroh/kern-tokens";
+import { defineMotionAlgorithm, MOTION_ALGORITHMS } from "@xoroh/kern-tokens";
 import {
   defineThemePreset,
   resolveThemeDetails,
   shapeVarName,
   themeIds,
   varName,
-} from "./resolve";
-import { themes, tokens } from "./tokens";
+} from "@xoroh/kern-tokens";
+import { tokens } from "@xoroh/kern-tokens";
+import { themes } from "./themes";
 
 describe("pipeline stages", () => {
   it("seed exposes the canonical ramps with compiled sRGB", () => {
@@ -29,8 +30,8 @@ describe("pipeline stages", () => {
 
   it("map returns the kern base tables for one mode", () => {
     const mapped = mapStage("light");
-    expect(mapped.color.primary).toBe(themes.kern.color.light.primary);
-    expect(mapped.shape.medium).toBe(themes.kern.radius.medium);
+    expect(mapped.color.primary).toBe(themes["material-3"].color.light.primary);
+    expect(mapped.shape.medium).toBe(themes["material-3"].radius.medium);
   });
 
   it("alias resolves identically to resolveThemeDetails", () => {

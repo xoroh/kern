@@ -5,16 +5,16 @@
  * until the ref/sys split (P2 batch 2b) moves them.
  */
 import { FIXED_ACCENT_FAMILIES } from "./kern-roles";
-import { definePreset, type PresetManifest } from "./preset";
+import { definePreset, type PresetManifest } from "@xoroh/kern-tokens";
 import {
   type ContrastPair,
   type ContrastPolicy,
   type ContrastWaiver,
-} from "./contrast";
+} from "@xoroh/kern-tokens";
 import {
   registerPreset,
   type ThemeOverrides,
-} from "./resolve";
+} from "@xoroh/kern-tokens";
 import brand from "./themes/brand.json";
 import compact from "./themes/compact.json";
 import demo from "./themes/demo.json";
@@ -173,7 +173,7 @@ export function textRolePairs(): ContrastPair[] {
   // is the opposite of over-constraining.
   //
   // NOTE: there is no `error` fixed family and no `FixedContainer` role in M3
-  // (see kern-tokens/src/kern-roles.ts for the verification). Families come from
+  // (see kern-material-3/src/kern-roles.ts for the verification). Families come from
   // FIXED_ACCENT_FAMILIES so this stays in step with the inventory.
   for (const family of FIXED_ACCENT_FAMILIES) {
     const Cap = family[0].toUpperCase() + family.slice(1);
@@ -220,30 +220,53 @@ export const MATERIAL_3_POLICY: ContrastPolicy = {
 };
 
 /**
+ * The material-3 registrations as data: base tables plus override presets.
+ * Pure — assembles no engine state, so repo scripts can register these into
+ * whichever resolver instance they use (source or build) without importing
+ * this module's side effect twice.
+ */
+export function material3PresetRegistrations(): Array<{
+  id: string;
+  tables: Parameters<typeof registerPreset>[1];
+}> {
+  return [
+    {
+      id: "material-3",
+      tables: {
+        color: {
+          light: kern.color.light as Record<string, string>,
+          dark: kern.color.dark as Record<string, string>,
+        },
+        shape: kern.radius as Record<string, string>,
+        contrast: kern.contrast as Record<string, Partial<Record<string, string>>>,
+        policy: MATERIAL_3_POLICY,
+      },
+    },
+    ...(
+      [
+        ["sharp", sharp],
+        ["brand", brand],
+        ["compact", compact],
+        ["demo", demo],
+      ] as const
+    ).map(([id, file]) => ({
+      id,
+      tables: {
+        extends: (file as { extends?: string }).extends ?? "material-3",
+        overrides: (file as { overrides?: ThemeOverrides }).overrides ?? {},
+      },
+    })),
+  ];
+}
+
+/**
  * Register the material-3 base tables, the four override presets and the M3
  * contrast policy with the universal resolver. Importing
- * `@xoroh/kern-tokens` (which re-exports this module) performs the
+ * `@xoroh/kern-material-3` (which re-exports this module) performs the
  * registration, so default consumers resolve M3 without further setup.
  * Consumers that import the resolver directly must import this module (or
  * register their own preset) first — an unregistered id fails loud.
  */
-registerPreset("material-3", {
-  color: {
-    light: kern.color.light as Record<string, string>,
-    dark: kern.color.dark as Record<string, string>,
-  },
-  shape: kern.radius as Record<string, string>,
-  contrast: kern.contrast as Record<string, Partial<Record<string, string>>>,
-  policy: MATERIAL_3_POLICY,
-});
-for (const [id, file] of [
-  ["sharp", sharp],
-  ["brand", brand],
-  ["compact", compact],
-  ["demo", demo],
-] as const) {
-  registerPreset(id, {
-    extends: (file as { extends?: string }).extends ?? "material-3",
-    overrides: (file as { overrides?: ThemeOverrides }).overrides ?? {},
-  });
+for (const { id, tables } of material3PresetRegistrations()) {
+  registerPreset(id, tables);
 }

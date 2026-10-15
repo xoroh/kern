@@ -5,15 +5,15 @@ import { codeOnly } from "./lib/source-code.mjs";
 const ROOT = new URL("..", import.meta.url).pathname;
 
 const { M3_ROLES, KERN_EXTRA_ROLES, auditRoleInventory } = await import(
-  join(ROOT, "packages/kern-tokens/src/kern-roles.ts")
+  join(ROOT, "packages/kern-material-3/src/kern-roles.ts")
 );
 
 const { auditElevation, KERN_ELEVATION_COMPONENTS } = await import(
-  join(ROOT, "packages/kern-tokens/src/kern-elevation.ts")
+  join(ROOT, "packages/kern-material-3/src/kern-elevation.ts")
 );
 
 const m3 = JSON.parse(
-  readFileSync(join(ROOT, "packages/kern-tokens/src/themes/material-3.json"), "utf8"),
+  readFileSync(join(ROOT, "packages/kern-material-3/src/themes/material-3.json"), "utf8"),
 );
 const tokens = JSON.parse(
   readFileSync(join(ROOT, "packages/kern-tokens/src/tokens.json"), "utf8"),
@@ -32,7 +32,7 @@ const schemes = [m3.color.light, m3.color.dark];
 for (const extra of ["sharp", "brand", "compact", "demo"]) {
   const theme = JSON.parse(
     readFileSync(
-      join(ROOT, `packages/kern-tokens/src/themes/${extra}.json`),
+      join(ROOT, `packages/kern-material-3/src/themes/${extra}.json`),
       "utf8",
     ),
   );
@@ -573,13 +573,13 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
 {
   const catalog = JSON.parse(
     readFileSync(
-      join(ROOT, "packages/kern-tokens/src/themes/index.json"),
+      join(ROOT, "packages/kern-material-3/src/themes/index.json"),
       "utf8",
     ),
   );
   const colorRoles = new Set(Object.keys(m3.color.light));
   for (const entry of catalog.themes ?? []) {
-    const path = join(ROOT, "packages/kern-tokens/src/themes", entry.file);
+    const path = join(ROOT, "packages/kern-material-3/src/themes", entry.file);
     if (!existsSync(path)) {
       violations.push(
         `themes/index.json lists "${entry.id}" -> ${entry.file}, which does not exist`,
@@ -634,7 +634,7 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
   const fullRoleCount = Object.keys(m3.color.light).length;
   const catalog = JSON.parse(
     readFileSync(
-      join(ROOT, "packages/kern-tokens/src/themes/index.json"),
+      join(ROOT, "packages/kern-material-3/src/themes/index.json"),
       "utf8",
     ),
   );
@@ -642,7 +642,7 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
     if (entry.id === "material-3") continue;
     const preset = JSON.parse(
       readFileSync(
-        join(ROOT, "packages/kern-tokens/src/themes", entry.file),
+        join(ROOT, "packages/kern-material-3/src/themes", entry.file),
         "utf8",
       ),
     );
@@ -686,7 +686,7 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
     "packages/kern-tokens/scripts/check-contrast.mjs",
     // The designated M3 preset registrar: reads the five theme tables once to
     // register them with the universal resolver. Centralization point, not drift.
-    "packages/kern-tokens/src/material-3.ts",
+    "packages/kern-material-3/src/material-3.ts",
   ]);
   for (const root of readerRoots) {
     if (!existsSync(root)) continue;

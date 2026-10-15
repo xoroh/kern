@@ -26,7 +26,7 @@ import { execFileSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { KERN_ELEVATION_COMPONENTS } from "../packages/kern-tokens/src/kern-elevation.ts";
+import { KERN_ELEVATION_COMPONENTS } from "../packages/kern-material-3/src/kern-elevation.ts";
 import { classifyElevation } from "./lib/elevation-audit.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");

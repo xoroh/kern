@@ -5,7 +5,10 @@ vi.mock(
   async () => await import("../../test-doubles/react-native"),
 );
 
-import { themes, resolveThemeDetails } from "@xoroh/kern-tokens";
+import {
+  resolveThemeDetails,
+} from "@xoroh/kern-tokens";
+import { themes } from "@xoroh/kern-material-3";
 import { buttonStyles } from "./button";
 
 describe("native Button styles", () => {
@@ -13,7 +16,7 @@ describe("native Button styles", () => {
     const { container } = buttonStyles("primary", "default", false);
     expect(container.height).toBe(40);
     expect(container.borderRadius).toBe(
-      Number.parseFloat(themes.kern.radius.full),
+      Number.parseFloat(themes["material-3"].radius.full),
     );
   });
 
@@ -23,13 +26,13 @@ describe("native Button styles", () => {
     // not kern's `surfaceTonal`, and `outlined`/`text` have no fill.
     expect(
       buttonStyles("primary", "default", false).container.backgroundColor,
-    ).toBe(themes.kern.color.light.primary);
+    ).toBe(themes["material-3"].color.light.primary);
     expect(
       buttonStyles("tonal", "default", false).container.backgroundColor,
-    ).toBe(themes.kern.color.light.secondaryContainer);
+    ).toBe(themes["material-3"].color.light.secondaryContainer);
     expect(
       buttonStyles("elevated", "default", false).container.backgroundColor,
-    ).toBe(themes.kern.color.light.surfaceContainerLow);
+    ).toBe(themes["material-3"].color.light.surfaceContainerLow);
     expect(
       buttonStyles("ghost", "default", false).container.backgroundColor,
     ).toBe("transparent");
@@ -77,15 +80,15 @@ describe("native Button styles", () => {
     expect(
       buttonStyles("primary", "default", false, light, { color: "danger" })
         .container.backgroundColor,
-    ).toBe(themes.kern.color.light.error);
+    ).toBe(themes["material-3"].color.light.error);
     expect(
       buttonStyles("tonal", "default", false, light, { color: "danger" })
         .container.backgroundColor,
-    ).toBe(themes.kern.color.light.errorContainer);
+    ).toBe(themes["material-3"].color.light.errorContainer);
     // Positional callers keep the primary treatment — the option defaults.
     expect(
       buttonStyles("primary", "default", false).container.backgroundColor,
-    ).toBe(themes.kern.color.light.primary);
+    ).toBe(themes["material-3"].color.light.primary);
   });
 
   it("selects the corner role through the shape option", () => {

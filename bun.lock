@@ -45,6 +45,7 @@
         "@tanstack/react-start": "^1.168.60",
         "@xoroh/kern": "workspace:*",
         "@xoroh/kern-icons": "workspace:*",
+        "@xoroh/kern-material-3": "workspace:*",
         "@xoroh/kern-mcp": "workspace:*",
         "@xoroh/kern-native": "workspace:*",
         "@xoroh/kern-primitives": "workspace:*",
@@ -73,6 +74,7 @@
       "version": "0.0.0",
       "dependencies": {
         "@base-ui/react": "^1.8.0",
+        "@xoroh/kern-material-3": "^0.0.0",
         "@xoroh/kern-primitives": "^0.0.0",
         "@xoroh/kern-tokens": "^0.0.0",
         "class-variance-authority": "^0.7.1",
@@ -88,6 +90,7 @@
         "@types/node": "^26.6.3",
         "@types/react": "^19.0.0",
         "@types/react-dom": "^19.0.0",
+        "@xoroh/kern-material-3": "workspace:*",
         "@xoroh/kern-tokens": "workspace:*",
         "axe-core": "^4.10.2",
         "class-variance-authority": "^0.7.1",
@@ -113,7 +116,7 @@
         "kern": "./dist/kern.js",
       },
       "dependencies": {
-        "@xoroh/kern-contracts": "workspace:*",
+        "@xoroh/kern-contracts": "^0.0.0",
         "typescript": "5.9.3",
       },
       "devDependencies": {
@@ -156,10 +159,25 @@
         "react-native-svg",
       ],
     },
+    "packages/kern-material-3": {
+      "name": "@xoroh/kern-material-3",
+      "version": "0.0.0",
+      "dependencies": {
+        "@xoroh/kern-tokens": "^0.0.0",
+      },
+      "devDependencies": {
+        "@types/node": "^26.6.3",
+        "@xoroh/kern-tokens": "workspace:*",
+        "tsup": "^8.5.1",
+        "typescript": "5.9.3",
+        "vitest": "^5.0.2",
+      },
+    },
     "packages/kern-native": {
       "name": "@xoroh/kern-native",
       "version": "0.0.0",
       "dependencies": {
+        "@xoroh/kern-material-3": "^0.0.0",
         "@xoroh/kern-primitives": "^0.0.0",
         "@xoroh/kern-tokens": "^0.0.0",
         "react-native-svg": "15",
@@ -173,6 +191,7 @@
         "@types/jest": "^30.0.0",
         "@types/node": "^26.6.3",
         "@types/react": "^19.3.0",
+        "@xoroh/kern-material-3": "workspace:*",
         "@xoroh/kern-tokens": "workspace:*",
         "jest": "^30.5.2",
         "jest-util": "30.5.1",
@@ -227,12 +246,13 @@
       },
       "dependencies": {
         "@modelcontextprotocol/sdk": "^1.30.1",
-        "@xoroh/kern-cli": "workspace:*",
-        "@xoroh/kern-icons": "workspace:*",
+        "@xoroh/kern-cli": "^0.0.0",
+        "@xoroh/kern-icons": "^0.0.0",
         "zod": "^4.6.5",
       },
       "devDependencies": {
         "@types/node": "^26.6.3",
+        "@xoroh/kern-material-3": "workspace:*",
         "bun-types": "^1.4.2",
         "tsup": "^8.5.1",
         "typescript": "5.9.3",
@@ -1137,6 +1157,8 @@
     "@xoroh/kern-contracts": ["@xoroh/kern-contracts@workspace:packages/kern-contracts"],
 
     "@xoroh/kern-icons": ["@xoroh/kern-icons@workspace:packages/kern-icons"],
+
+    "@xoroh/kern-material-3": ["@xoroh/kern-material-3@workspace:packages/kern-material-3"],
 
     "@xoroh/kern-mcp": ["@xoroh/kern-mcp@workspace:packages/mcp"],
 

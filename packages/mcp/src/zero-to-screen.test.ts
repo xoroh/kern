@@ -15,13 +15,22 @@ import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { addComponent } from "../../kern-cli/src/add.js";
-import "../../kern-tokens/src/material-3.js"; // registers the material-3 preset tables (side effect)
+import {
+  material3PresetRegistrations,
+} from "../../kern-material-3/src/material-3.js";
 import {
   defineThemePreset,
+  registerPreset,
   resolveThemeDetails,
   themeIds,
   varName,
 } from "../../kern-tokens/src/resolve.js";
+// Explicit registration into the source resolver instance under test (the
+// M3 module's own import-time registration targets the built package
+// instance, which unit tests must not rely on).
+for (const { id, tables } of material3PresetRegistrations()) {
+  registerPreset(id, tables);
+}
 import {
   canonicalPreset,
   designAudit,
@@ -60,7 +69,7 @@ describe("zero-to-screen loop", () => {
     ).themes) {
       expect(entry.description.trim().length > 0).toBe(true);
       expect(
-        existsSync(join(ROOT, "packages/kern-tokens/src/themes", entry.file)),
+        existsSync(join(ROOT, "packages/kern-material-3/src/themes", entry.file)),
         entry.file,
       ).toBe(true);
     }

@@ -9,7 +9,6 @@
  * more. It is not a public design system and ships no components.
  */
 import { describe, expect, it } from "vitest";
-import { MATERIAL_3_PRESET } from "./material-3";
 import { definePreset, isPresetIdShape, type PresetManifest } from "./preset";
 
 /** Test-only second preset. Not exported from the package barrel. */
@@ -26,14 +25,6 @@ const PIXEL_FIXTURE: PresetManifest = {
   capabilities: { "web-renderer": "supported", "data-grid": "unsupported" },
 };
 
-describe("material-3 preset", () => {
-  it("validates with the full M3 role set", () => {
-    expect(MATERIAL_3_PRESET.id).toBe("material-3");
-    expect(Object.keys(MATERIAL_3_PRESET.color.light)).toHaveLength(58);
-    expect(Object.keys(MATERIAL_3_PRESET.shape)).toHaveLength(10);
-  });
-});
-
 describe("second-preset fixture independence", () => {
   it("validates without inheriting M3 assumptions", () => {
     const p = definePreset({ ...PIXEL_FIXTURE });
@@ -43,9 +34,21 @@ describe("second-preset fixture independence", () => {
   });
 
   it("differs meaningfully from material-3", () => {
-    expect(Object.keys(PIXEL_FIXTURE.shape)).not.toEqual(
-      Object.keys(MATERIAL_3_PRESET.shape),
-    );
+    // M3's ten corner names, as a literal: the universal engine must not
+    // import M3 data even to compare against it.
+    const M3_CORNERS = [
+      "none",
+      "extra-small",
+      "small",
+      "medium",
+      "large",
+      "large-increased",
+      "extra-large",
+      "extra-large-increased",
+      "extra-extra-large",
+      "full",
+    ];
+    expect(Object.keys(PIXEL_FIXTURE.shape)).not.toEqual(M3_CORNERS);
     expect(PIXEL_FIXTURE.variants?.button).not.toContain("tonal");
     expect(
       Object.keys(PIXEL_FIXTURE.color.light),
@@ -114,9 +117,9 @@ describe("preset validation rejects malformed manifests", () => {
 });
 
 describe("pixel conformance through the universal engine (A2)", () => {
-  // This suite imports resolve.ts (universal engine) and material-3.ts (for
-  // the M3 preset id constant only) — resolution and validation below run
-  // against the registered pixel tables, never M3 role tables or presets.
+  // This suite imports only resolve.ts (universal engine) plus the local
+  // pixel fixture — resolution and validation below run against the
+  // registered pixel tables, never M3 role tables or presets.
   it("registers a non-M3 base and resolves it end to end", async () => {
     const { registerPreset, resolveThemeDetails } = await import("./resolve");
     registerPreset("pixel", {

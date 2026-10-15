@@ -1,5 +1,6 @@
 import { renderHook } from "@testing-library/react";
-import { themeFromSeed, themes } from "@xoroh/kern-tokens";
+import { themeFromSeed } from "@xoroh/kern-material-3";
+import { themes } from "@xoroh/kern-material-3";
 import { act } from "react";
 import { describe, expect, it } from "vitest";
 import { applyKernTheme, clearKernTheme, useKernTheme } from "./web-theme";
@@ -9,7 +10,7 @@ describe("applyKernTheme", () => {
     const el = document.createElement("div");
     applyKernTheme(el, "dark");
     expect(el.style.getPropertyValue("--sys-color-primary")).toBe(
-      themes.kern.color.dark.primary,
+      themes["material-3"].color.dark.primary,
     );
   });
 

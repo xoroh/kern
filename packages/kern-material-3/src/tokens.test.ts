@@ -1,9 +1,9 @@
 import "./material-3"; // registers the material-3 preset tables (side effect)
 import { describe, expect, it } from "vitest";
-import { resolveTheme, varName } from "./resolve";
-import { themes } from "./tokens";
+import { resolveTheme, varName } from "@xoroh/kern-tokens";
+import { themes } from "./themes";
 
-const kern = themes.kern as unknown as {
+const kern = themes["material-3"] as unknown as {
   color: { light: Record<string, string>; dark: Record<string, string> };
 };
 const light = kern.color.light;

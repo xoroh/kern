@@ -92,9 +92,11 @@ import {
   FEEDBACK_SHAPES,
   FEEDBACK_SIZE_DP,
   registerFeedbackVariant,
+} from "@xoroh/kern-material-3";
+import {
   resolveFeedbackVariant,
   themes,
-} from "@xoroh/kern-tokens";
+} from "@xoroh/kern-material-3";
 // react-test-renderer ships without type declarations in this workspace.
 // @ts-expect-error — untyped package.
 import { create as createTree } from "react-test-renderer";
@@ -203,7 +205,7 @@ describe("CircularProgress", () => {
     expect(rings.length).toBe(1);
     const ring = flattenStyle(rings[0].props.style);
     expect(ring.width).toBe(FEEDBACK_SIZE_DP.md.container);
-    expect(ring.borderTopColor).toBe(themes.kern.color.light.onSurface);
+    expect(ring.borderTopColor).toBe(themes["material-3"].color.light.onSurface);
     expect(ring.borderLeftColor).toBe("transparent");
   });
 
@@ -216,7 +218,7 @@ describe("CircularProgress", () => {
       expect(style.width).toBe(FEEDBACK_SIZE_DP.md.shape / 2);
       expect(style.height).toBe(FEEDBACK_SIZE_DP.md.shape / 2);
       expect(style.borderRadius).toBe(
-        Number.parseFloat(themes.kern.radius.full),
+        Number.parseFloat(themes["material-3"].radius.full),
       );
     }
   });
@@ -232,7 +234,7 @@ describe("CircularProgress", () => {
       "50%",
     ]);
     expect(flattenStyle(bars[0].props.style).width).toBe(
-      barStyles("md", themes.kern.color.light.onSurface).bar.width,
+      barStyles("md", themes["material-3"].color.light.onSurface).bar.width,
     );
   });
 
@@ -326,7 +328,7 @@ describe("resolveFeedbackVariant parity", () => {
 
 describe("Shape", () => {
   it("renders the six shapes with shape-scale radii", async () => {
-    const radius = themes.kern.radius;
+    const radius = themes["material-3"].radius;
     const tree = await render(
       FEEDBACK_SHAPES.map((kind) => (
         <Shape key={kind} kind={kind} testID={`shape-${kind}`} />
@@ -339,7 +341,7 @@ describe("Shape", () => {
       ]),
     );
     expect(styles.triangle.borderBottomColor).toBe(
-      themes.kern.color.light.onSurface,
+      themes["material-3"].color.light.onSurface,
     );
     expect(styles.triangle.borderLeftColor).toBe("transparent");
     expect(styles.circle.borderRadius).toBe(Number.parseFloat(radius.full));
@@ -428,7 +430,7 @@ describe("LoadingButton", () => {
       ).length,
     ).toBe(1);
     expect(hostsByTestID(busy, "kern-circular-progress").length).toBe(1);
-    expect(ringStyles("sm", themes.kern.color.light.onPrimary).box.width).toBe(
+    expect(ringStyles("sm", themes["material-3"].color.light.onPrimary).box.width).toBe(
       FEEDBACK_SIZE_DP.sm.container,
     );
   });

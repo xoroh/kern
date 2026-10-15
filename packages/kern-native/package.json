@@ -76,7 +76,8 @@
   "dependencies": {
     "@xoroh/kern-primitives": "^0.0.0",
     "@xoroh/kern-tokens": "^0.0.0",
-    "react-native-svg": "15"
+    "react-native-svg": "15",
+    "@xoroh/kern-material-3": "^0.0.0"
   },
   "devDependencies": {
     "@babel/runtime": "^7.28.0",
@@ -95,6 +96,7 @@
     "react-test-renderer": "^19.3.0",
     "tsup": "^8.5.1",
     "typescript": "5.9.3",
-    "vitest": "^5.0.2"
+    "vitest": "^5.0.2",
+    "@xoroh/kern-material-3": "workspace:*"
   }
 }

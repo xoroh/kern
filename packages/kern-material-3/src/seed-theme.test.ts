@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { contrastIssues } from "./contrast";
+import { contrastIssues } from "@xoroh/kern-tokens";
 import { MATERIAL_3_POLICY } from "./material-3";
 import "./material-3";
-import { resolveThemeDetails } from "./resolve";
+import { resolveThemeDetails } from "@xoroh/kern-tokens";
 import { themeFromSeed } from "./seed-theme";
 
 const ACCENT_ROLES = [
