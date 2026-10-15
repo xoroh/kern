@@ -97,7 +97,9 @@ for (const path of [
 ]) {
   test(`phone layout stays within the viewport: ${path}`, async ({ page }) => {
     const errors: string[] = [];
-    page.on("pageerror", (error) => errors.push(error.message));
+    // Keep the component stack in CI output; production hydration failures
+    // otherwise collapse to an opaque minified React error code.
+    page.on("pageerror", (error) => errors.push(error.stack ?? error.message));
     await page.setViewportSize({ width: 390, height: 844 });
     await visit(page, path);
     // /playground is a workbench with no h1 by design; its app rail is the
