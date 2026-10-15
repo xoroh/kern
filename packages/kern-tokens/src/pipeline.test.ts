@@ -69,13 +69,13 @@ describe("pipeline stages", () => {
   });
 
   it("component projects both engines from one input", () => {
-    const resolved = resolveThemeDetails("light", "standard", "kern");
+    const resolved = resolveThemeDetails("light", "standard", "material-3");
     const projected = componentStage(resolved);
     expect(projected.scheme).toBe(resolved);
-    expect(projected.cssVars["--md-sys-color-primary"]).toBe(
+    expect(projected.cssVars["--sys-color-primary"]).toBe(
       resolved.color.primary,
     );
-    expect(projected.cssVars["--md-sys-shape-corner-medium"]).toBe(
+    expect(projected.cssVars["--sys-shape-corner-medium"]).toBe(
       resolved.shape.medium,
     );
     expect(projectToCssVars(resolved)).toEqual(projected.cssVars);
@@ -86,7 +86,7 @@ describe("theme matrix", () => {
   it("covers the full mode x contrast x preset cross product", () => {
     const matrix = buildThemeMatrix();
     expect(matrix.presets).toEqual([
-      "kern",
+      "material-3",
       "sharp",
       "brand",
       "compact",
@@ -109,7 +109,7 @@ describe("theme matrix", () => {
     const matrix = buildThemeMatrix();
     const kern = matrix.cells.find(
       (cell) =>
-        cell.preset === "kern" &&
+        cell.preset === "material-3" &&
         cell.mode === "light" &&
         cell.contrast === "standard",
     );
@@ -130,7 +130,7 @@ describe("theme matrix", () => {
     expect(() =>
       defineThemePreset({
         id: "compact-copy",
-        extends: "kern",
+        extends: "material-3",
         overrides: {
           color: { light: {}, dark: {} },
           shape: { medium: "9px" },
@@ -154,7 +154,7 @@ describe("scoped sub-theme deltas", () => {
     const matrix = buildThemeMatrix();
     const scoped = scopedDeltas(matrix);
     expect(scoped.map((entry) => entry.id).sort()).toEqual(
-      matrix.presets.filter((preset) => preset !== "kern").sort(),
+      matrix.presets.filter((preset) => preset !== "material-3").sort(),
     );
     for (const entry of scoped) {
       for (const mode of ["light", "dark"] as const) {
@@ -185,7 +185,7 @@ describe("scoped sub-theme deltas", () => {
         ...Object.keys(entry.dark),
       ]) {
         expect(variable).toMatch(
-          /^--md-sys-(color-[a-z0-9-]+|shape-corner-[a-z-]+)$/,
+          /^--sys-(color-[a-z0-9-]+|shape-corner-[a-z-]+)$/,
         );
       }
     }
@@ -193,7 +193,7 @@ describe("scoped sub-theme deltas", () => {
     const byId = new Map(
       scopedDeltas(matrix).map((entry) => [entry.id, entry]),
     );
-    expect(byId.get("brand")?.light["--md-sys-color-primary"]).toBe(
+    expect(byId.get("brand")?.light["--sys-color-primary"]).toBe(
       matrix.cells.find(
         (cell) =>
           cell.preset === "brand" &&
@@ -201,7 +201,7 @@ describe("scoped sub-theme deltas", () => {
           cell.contrast === "standard",
       )?.color.primary,
     );
-    expect(byId.get("demo")?.dark["--md-sys-color-secondary"]).toBe(
+    expect(byId.get("demo")?.dark["--sys-color-secondary"]).toBe(
       matrix.cells.find(
         (cell) =>
           cell.preset === "demo" &&
@@ -211,7 +211,7 @@ describe("scoped sub-theme deltas", () => {
     );
     expect(
       Object.keys(byId.get("sharp")?.light ?? {}).some((key) =>
-        key.startsWith("--md-sys-color-"),
+        key.startsWith("--sys-color-"),
       ),
     ).toBe(false);
   });

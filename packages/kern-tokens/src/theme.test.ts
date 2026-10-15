@@ -39,7 +39,7 @@ describe("resolveTheme", () => {
     expect(() =>
       defineThemePreset({
         id: "custom",
-        extends: "kern",
+        extends: "material-3",
         overrides: { color: { light: { primary: "#111111" } } },
       }),
     ).not.toThrow();
@@ -58,6 +58,6 @@ describe("resolveTheme", () => {
   });
 
   it("names vars per M3", () => {
-    expect(varName("onSurface")).toBe("--md-sys-color-on-surface");
+    expect(varName("onSurface")).toBe("--sys-color-on-surface");
   });
 });

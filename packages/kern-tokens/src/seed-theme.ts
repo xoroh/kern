@@ -142,7 +142,7 @@ export function themeFromSeed(
   );
   return defineThemePreset({
     id,
-    extends: "kern",
+    extends: "material-3",
     overrides: {
       color: {
         light: {

@@ -125,7 +125,7 @@ export const KERN_ELEVATION_COMPONENTS = Object.freeze({
   /**
    * M3 tabulates cards TWICE: "card (elevated)" at level 1 and "cards (filled,
    * outlined)" at level 0. Kern's Card implements both through its variant axis —
-   * the `elevated` variant carries `--md-sys-elevation-level1` and the filled and
+   * the `elevated` variant carries `--sys-elevation-level1` and the filled and
    * outlined variants carry none — so one component legitimately covers two rows,
    * exactly as Button does.
    *
@@ -151,7 +151,7 @@ export const KERN_ELEVATION_COMPONENTS = Object.freeze({
    * "button: ships elevation level4, M3 assigns level0/1".
    *
    * Note for the next sweep: a row is only worth adding when the component
-   * actually emits `--md-sys-elevation-level<N>` in its import closure. Adding
+   * actually emits `--sys-elevation-level<N>` in its import closure. Adding
    * `chip`, `banner`, `slider`, `tabs`, `segmented-button` or `carousel` rows
    * would measure `null` and assert nothing while making the summary read
    * "resting elevation 18/18". Those components carry no elevation token today,
@@ -254,7 +254,7 @@ export const KERN_ELEVATION_COMPONENTS = Object.freeze({
    *
    *  - **kern's own siblings already agree.** All four sheet-family modal
    *    surfaces (Sheet, SnapSheet, EntitySheet, the picker sheet) ship
-   *    `--md-sys-elevation-level1`.
+   *    `--sys-elevation-level1`.
    *  - **The drawer is the same kind of surface.** Bottom-anchored
    *    (`items-end justify-center`), top-rounded only
    *    (`rounded-t-extra-large`), `max-h-[80vh]`, with a backdrop. It is a modal

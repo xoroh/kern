@@ -102,12 +102,12 @@ export function motionCssVars(id: MotionAlgorithmId): Record<string, string> {
   const resolved = resolveMotionScheme(id);
   if (resolved.scheme === "standard" && !resolved.suppressSpatial) return {};
   const vars: Record<string, string> = {
-    "--md-sys-motion-easing-standard": resolved.easing,
-    "--md-sys-motion-easing-standard-accelerate": resolved.easingAccelerate,
-    "--md-sys-motion-easing-standard-decelerate": resolved.easingDecelerate,
+    "--sys-motion-easing-standard": resolved.easing,
+    "--sys-motion-easing-standard-accelerate": resolved.easingAccelerate,
+    "--sys-motion-easing-standard-decelerate": resolved.easingDecelerate,
   };
   if (resolved.suppressSpatial) {
-    vars["--md-sys-motion-suppress-spatial"] = "1";
+    vars["--sys-motion-suppress-spatial"] = "1";
   }
   return vars;
 }

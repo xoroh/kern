@@ -175,7 +175,7 @@ describe("theme engine", () => {
 
   it("emits CSS vars per role", () => {
     const vars = schemeToCssVars(light);
-    expect(vars["--md-sys-color-primary"]).toBe(light.primary);
+    expect(vars["--sys-color-primary"]).toBe(light.primary);
   });
 });
 

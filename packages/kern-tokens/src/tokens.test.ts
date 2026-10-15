@@ -122,6 +122,6 @@ describe("resolved tokens match the theme source", () => {
   });
 
   it("names the primary through the M3 CSS variable", () => {
-    expect(varName("primary")).toBe("--md-sys-color-primary");
+    expect(varName("primary")).toBe("--sys-color-primary");
   });
 });

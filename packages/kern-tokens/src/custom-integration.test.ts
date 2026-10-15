@@ -16,7 +16,7 @@ describe("custom theme integration", () => {
   test("preset overrides win over contrast overlays, in every contrast", () => {
     const custom: CustomTheme = {
       id: "probe",
-      extends: "kern",
+      extends: "material-3",
       overrides: {
         color: {
           light: { primary: "#123456" },
@@ -47,7 +47,7 @@ describe("custom theme integration", () => {
 
   test("the Xoroh preset converts on all six contexts without holes", () => {
     const baseRoles = Object.keys(
-      resolveThemeDetails("light", "standard", "kern").color,
+      resolveThemeDetails("light", "standard", "material-3").color,
     );
     for (const mode of ["light", "dark"] as const) {
       for (const contrast of ["standard", "medium", "high"] as const) {

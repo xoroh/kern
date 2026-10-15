@@ -2,13 +2,16 @@
 // No React, no DOM. Both @xoroh/kern (web) and @xoroh/kern-native
 // resolve one identical scheme from here.
 
+export * from "./color";
 export * from "./contrast";
 export * from "./expressive-shapes";
 export * from "./feedback";
 export * from "./focus";
 export * from "./functional";
 export * from "./motion";
+export * from "./material-3";
 export * from "./pipeline";
+export * from "./preset";
 export * from "./presets";
 export * from "./seed-theme";
 export * from "./sizes";

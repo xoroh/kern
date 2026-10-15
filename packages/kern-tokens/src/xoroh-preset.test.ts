@@ -5,7 +5,7 @@ import { XOROH_PRESET } from "./xoroh-preset";
 describe("xoroh compatibility preset", () => {
   test("it loads — defineThemePreset already contrast-gated it", () => {
     expect(XOROH_PRESET.id).toBe("xoroh");
-    expect(XOROH_PRESET.extends).toBe("kern");
+    expect(XOROH_PRESET.extends).toBe("material-3");
   });
 
   test("light resolves the private blue secondary, not the M3 baseline", () => {
@@ -32,12 +32,12 @@ describe("xoroh compatibility preset", () => {
 
   test("tertiary is untouched — the parent scheme has none, and the gap is honest", () => {
     const preset = resolveThemeDetails("light", "standard", XOROH_PRESET);
-    const baseline = resolveThemeDetails("light", "standard", "kern");
+    const baseline = resolveThemeDetails("light", "standard", "material-3");
     expect(preset.color.tertiary).toBe(baseline.color.tertiary);
   });
 
   test("the OSS default is NOT the private theme — no silent rebrand", () => {
-    const baseline = resolveThemeDetails("light", "standard", "kern");
+    const baseline = resolveThemeDetails("light", "standard", "material-3");
     expect(baseline.color.secondary).toBe("#625b71");
     expect(baseline.color.secondary).not.toBe("#2563eb");
   });

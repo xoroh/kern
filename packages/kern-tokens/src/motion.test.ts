@@ -64,16 +64,16 @@ describe("motionCssVars", () => {
 
   it("overrides the easing anchor for expressive", () => {
     const vars = motionCssVars("expressive");
-    expect(vars["--md-sys-motion-easing-standard"]).toBe(
+    expect(vars["--sys-motion-easing-standard"]).toBe(
       tokens.motion.easing.emphasized,
     );
-    expect(vars["--md-sys-motion-easing-standard-accelerate"]).toBe(
+    expect(vars["--sys-motion-easing-standard-accelerate"]).toBe(
       tokens.motion.easing["emphasized-accelerate"],
     );
   });
 
   it("flags spatial suppression for reduced", () => {
-    expect(motionCssVars("reduced")["--md-sys-motion-suppress-spatial"]).toBe(
+    expect(motionCssVars("reduced")["--sys-motion-suppress-spatial"]).toBe(
       "1",
     );
   });

@@ -22,7 +22,7 @@ describe("themeFromSeed", () => {
   it("repaints only the three accent families from one hex", () => {
     const theme = themeFromSeed("#6750a4", "seed-purple");
     expect(theme.id).toBe("seed-purple");
-    expect(theme.extends).toBe("kern");
+    expect(theme.extends).toBe("material-3");
     for (const mode of ["light", "dark"] as const) {
       const roles = Object.keys(theme.overrides.color?.[mode] ?? {}).sort();
       expect(roles).toEqual([...ACCENT_ROLES].sort());
@@ -75,6 +75,6 @@ describe("themeFromSeed", () => {
     expect(() => themeFromSeed("#2563eb", "Bad_Id")).toThrow(
       "Invalid theme id",
     );
-    expect(() => themeFromSeed("#2563eb", "kern")).toThrow("reserved");
+    expect(() => themeFromSeed("#2563eb", "material-3")).toThrow("reserved");
   });
 });

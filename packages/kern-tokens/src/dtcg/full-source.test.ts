@@ -14,9 +14,9 @@ import { validateDtcg } from "./validate";
  * it ships for.
  */
 describe("full-source dtcg interchange", () => {
-  const light = resolveThemeDetails("light", "standard", "kern")
+  const light = resolveThemeDetails("light", "standard", "material-3")
     .color as unknown as Record<string, string>;
-  const dark = resolveThemeDetails("dark", "standard", "kern")
+  const dark = resolveThemeDetails("dark", "standard", "material-3")
     .color as unknown as Record<string, string>;
   const exported = toDtcg({
     tokens: tokens as unknown as Record<string, unknown>,

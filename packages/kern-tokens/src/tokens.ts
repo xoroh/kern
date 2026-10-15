@@ -1,7 +1,7 @@
 import brand from "./themes/brand.json";
 import compact from "./themes/compact.json";
 import demo from "./themes/demo.json";
-import kern from "./themes/kern.json";
+import kern from "./themes/material-3.json";
 import sharp from "./themes/sharp.json";
 import data from "./tokens.json";
 

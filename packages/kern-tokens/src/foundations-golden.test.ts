@@ -15,7 +15,7 @@ import { tokens } from "./tokens";
 
 const MODES: Mode[] = ["light", "dark"];
 const CONTRASTS: Contrast[] = ["standard", "medium", "high"];
-const PRESETS = ["kern", "sharp", "brand", "compact", "demo"] as const;
+const PRESETS = ["material-3", "sharp", "brand", "compact", "demo"] as const;
 
 describe("foundation goldens", () => {
   test("palettes carry OKLCH canonical plus compiled sRGB on every step", () => {
@@ -117,7 +117,7 @@ describe("foundation goldens", () => {
           // Every role the light table names must resolve in every cell — a
           // hole in one contrast is a crash on that contrast.
           for (const role of Object.keys(
-            resolveThemeDetails("light", "standard", "kern").color,
+            resolveThemeDetails("light", "standard", "material-3").color,
           )) {
             expect(
               (resolved.color as unknown as Record<string, string>)[role],
@@ -132,8 +132,8 @@ describe("foundation goldens", () => {
   });
 
   test("light and dark disagree on surfaces — a collapsed mode is not a theme", () => {
-    const light = resolveThemeDetails("light", "standard", "kern").color;
-    const dark = resolveThemeDetails("dark", "standard", "kern").color;
+    const light = resolveThemeDetails("light", "standard", "material-3").color;
+    const dark = resolveThemeDetails("dark", "standard", "material-3").color;
     expect(light.surface).not.toBe(dark.surface);
     expect(light.onSurface).not.toBe(dark.onSurface);
   });

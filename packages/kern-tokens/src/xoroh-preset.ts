@@ -26,7 +26,7 @@ import { type CustomTheme, defineThemePreset } from "./resolve";
 
 export const XOROH_PRESET: CustomTheme = defineThemePreset({
   id: "xoroh",
-  extends: "kern",
+  extends: "material-3",
   overrides: {
     color: {
       light: {
