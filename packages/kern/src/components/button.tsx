@@ -47,7 +47,8 @@ const buttonVariants = cva(
         // the `after:` inset, same as the stock sizes.
         xs: "h-7 gap-1.5 px-3 text-xs after:-inset-2.5 active:rounded-(--sys-shape-corner-small) [&_svg]:size-3.5",
         sm: "h-8 px-4 text-[13px] after:-inset-2 active:rounded-(--sys-shape-corner-small)",
-        default: "h-10 px-4 after:-inset-1 active:rounded-(--sys-shape-corner-small)",
+        default:
+          "h-10 px-4 after:-inset-1 active:rounded-(--sys-shape-corner-small)",
         md: "h-11 px-5 text-[15px] after:-inset-1 active:rounded-(--sys-shape-corner-medium) [&_svg]:size-5",
         xl: "h-12 px-6 text-base after:-inset-1 active:rounded-(--sys-shape-corner-medium) [&_svg]:size-5",
         lg: "h-14 px-7 text-lg after:-inset-0.5 active:rounded-(--sys-shape-corner-large) [&_svg]:size-6",
@@ -146,12 +147,36 @@ const buttonVariants = cva(
       },
       // M3 Expressive square shape per size (XS 12 / S 12 / M 16 / L 28 /
       // XL 28). Kern maps xs/sm/default→12, md/xl→16, lg→28.
-      { shape: "square", size: "xs", class: "rounded-(--sys-shape-corner-medium)" },
-      { shape: "square", size: "sm", class: "rounded-(--sys-shape-corner-medium)" },
-      { shape: "square", size: "default", class: "rounded-(--sys-shape-corner-medium)" },
-      { shape: "square", size: "md", class: "rounded-(--sys-shape-corner-large)" },
-      { shape: "square", size: "xl", class: "rounded-(--sys-shape-corner-large)" },
-      { shape: "square", size: "lg", class: "rounded-(--sys-shape-corner-extra-large)" },
+      {
+        shape: "square",
+        size: "xs",
+        class: "rounded-(--sys-shape-corner-medium)",
+      },
+      {
+        shape: "square",
+        size: "sm",
+        class: "rounded-(--sys-shape-corner-medium)",
+      },
+      {
+        shape: "square",
+        size: "default",
+        class: "rounded-(--sys-shape-corner-medium)",
+      },
+      {
+        shape: "square",
+        size: "md",
+        class: "rounded-(--sys-shape-corner-large)",
+      },
+      {
+        shape: "square",
+        size: "xl",
+        class: "rounded-(--sys-shape-corner-large)",
+      },
+      {
+        shape: "square",
+        size: "lg",
+        class: "rounded-(--sys-shape-corner-extra-large)",
+      },
       // M3 Expressive toggle colors (no toggle text button — ghost has no
       // selected treatment). Unselected filled drops to surface-container;
       // selected elevated/tonal/outlined swap to their emphasis pairs.
@@ -185,12 +210,48 @@ const buttonVariants = cva(
       },
       // M3 Expressive toggle morph: selected round→square per size (and
       // square→round when the resting shape is square).
-      { toggle: true, selected: true, shape: "pill", size: "xs", class: "rounded-(--sys-shape-corner-medium)" },
-      { toggle: true, selected: true, shape: "pill", size: "sm", class: "rounded-(--sys-shape-corner-medium)" },
-      { toggle: true, selected: true, shape: "pill", size: "default", class: "rounded-(--sys-shape-corner-medium)" },
-      { toggle: true, selected: true, shape: "pill", size: "md", class: "rounded-(--sys-shape-corner-large)" },
-      { toggle: true, selected: true, shape: "pill", size: "xl", class: "rounded-(--sys-shape-corner-large)" },
-      { toggle: true, selected: true, shape: "pill", size: "lg", class: "rounded-(--sys-shape-corner-extra-large)" },
+      {
+        toggle: true,
+        selected: true,
+        shape: "pill",
+        size: "xs",
+        class: "rounded-(--sys-shape-corner-medium)",
+      },
+      {
+        toggle: true,
+        selected: true,
+        shape: "pill",
+        size: "sm",
+        class: "rounded-(--sys-shape-corner-medium)",
+      },
+      {
+        toggle: true,
+        selected: true,
+        shape: "pill",
+        size: "default",
+        class: "rounded-(--sys-shape-corner-medium)",
+      },
+      {
+        toggle: true,
+        selected: true,
+        shape: "pill",
+        size: "md",
+        class: "rounded-(--sys-shape-corner-large)",
+      },
+      {
+        toggle: true,
+        selected: true,
+        shape: "pill",
+        size: "xl",
+        class: "rounded-(--sys-shape-corner-large)",
+      },
+      {
+        toggle: true,
+        selected: true,
+        shape: "pill",
+        size: "lg",
+        class: "rounded-(--sys-shape-corner-extra-large)",
+      },
       {
         toggle: true,
         selected: true,
@@ -237,14 +298,7 @@ export type ButtonVariantInput = ButtonVariant | ButtonM3Variant;
 /** The color axis: M3 emphasis (`primary`) or the error treatment (`danger`). */
 export type ButtonColor = "primary" | "danger";
 
-export type ButtonSize =
-  | "xs"
-  | "default"
-  | "sm"
-  | "md"
-  | "xl"
-  | "lg"
-  | "icon";
+export type ButtonSize = "xs" | "default" | "sm" | "md" | "xl" | "lg" | "icon";
 
 /**
  * The shape axis: M3 round (`pill`, the full default), stepped-down corner
@@ -371,20 +425,21 @@ export function Button({
     variantInput in BUTTON_VARIANT_ALIASES
       ? BUTTON_VARIANT_ALIASES[variantInput as ButtonM3Variant]
       : (variantInput as ButtonVariant);
-  if (
-    process.env.NODE_ENV !== "production" &&
-    toggle &&
-    variant === "ghost"
-  ) {
+  if (process.env.NODE_ENV !== "production" && toggle && variant === "ghost") {
     // There is no toggle text button in M3 — render unselected instead of a
     // selected state the spec never defines.
     console.warn(
       "Button: `toggle` on `ghost` (text) has no M3 selected treatment and renders unselected.",
     );
   }
-  const [uncontrolledPressed, setUncontrolledPressed] = useState(defaultPressed);
+  const [uncontrolledPressed, setUncontrolledPressed] =
+    useState(defaultPressed);
   const isPressed =
-    toggle && pressed !== undefined ? pressed : toggle ? uncontrolledPressed : false;
+    toggle && pressed !== undefined
+      ? pressed
+      : toggle
+        ? uncontrolledPressed
+        : false;
   const toggleState = () => {
     if (pressed === undefined) setUncontrolledPressed(!isPressed);
     onPressedChange?.(!isPressed);
@@ -464,7 +519,9 @@ export function Button({
         data-selected={toggle && isPressed ? "" : undefined}
         aria-busy={loading || undefined}
         aria-disabled={blocked || undefined}
-        aria-pressed={toggle ? isPressed : undefined}
+        // No aria-pressed here: the link role does not support it
+        // (useAriaPropsSupportedByRole). Toggle state on anchors travels
+        // via data-selected and toggleState; buttons carry aria-pressed below.
         tabIndex={blocked ? -1 : undefined}
         href={blocked ? undefined : href}
         target={target}
