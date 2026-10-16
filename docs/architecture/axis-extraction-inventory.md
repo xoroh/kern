@@ -53,8 +53,8 @@ inside runtime imports (zero standalone `import type` statements).
 | `dismissPolicy` / `dismissWiring` | `createDismissPolicy`: `kern/.../sheet-family.tsx:4`, `native/.../sheet-surface.tsx:2`; wiring fns: both presentations + sheet surfaces. `dismissTriggersFor`, most types: zero | 12 + 7 | **MOVE policy + REWRITE trigger sources.** `escape` documented as hardware-back; `focus-out` branch has no RN meaning; `system-back` unbound on web. Proof: back-button/scrim/swipe dismissal tests. |
 | `portal` (`createPortalRegistry`, `resolvePortalTarget` + 2 types∅) | both presentations | 7 | **MOVE + REWRITE host binding.** Registry is pure Map+sequence; default `"kern-portal-root"` target is DOM-id vocabulary; hosts already per-renderer. Proof: registry unit + per-host render tests. |
 | `positioning` (per-symbol split) | `resolveFloatingRect`: both presentations (native via `resolvePopoverOrigin`); `Placement`: both presentations; `clampRectToViewport`, `resolveFloatingOrigin`, `PositioningOptions`, `Rect`: **zero** | 7 | **SPLIT.** `resolveFloatingRect` (+`Placement`) MOVES (unit-agnostic math, proven RN consumer). Viewport-clamp + origin EXCLUDED unless AX0 proves a native caller (safe-area semantics differ). Proof: dp-space rect tests; native measurement (`onLayout`/`measure`) stays per-consumer. |
-| `collection` (7 symbols) | zero (docs strings only; `adoption.json` not-yet-adopted: "no audit that any native menu/tree holds real collection state") | 30 | **GATED.** Gate: native menu/tree collection-state audit BEFORE adopting. WAI-APG keyboard model (type-ahead, PageUp/Down, `isTabbable`) needs native re-proof if adopted. |
-| `mergeRefs` (4 symbols) | zero src (only site `examples.ts:89`); `adoption.json` not-yet-adopted ("duplication small, behavior not wrong") | 10 | **GATED.** Gate: measure replaced duplication first (Phase 0.3); move only with a consumer. |
+| `collection` (7 symbols) | zero (docs strings only; `adoption.json` not-yet-adopted: "no audit that any native menu/tree holds real collection state") | 30 | **GATED — audit executed 2026-10-16, gate NOT satisfied, stays gated.** Native menu/tree audit: `menu.tsx`/`menubar.tsx` track only open state (`useState`); `combobox.tsx` tracks value/open/query with no focus model; `autocomplete.tsx` holds a local highlight `activeIndex` (`useState`), not keyed focus/selection/typeahead; web has no collection usage (Base UI owns it). No native component holds real collection state, so there is no adopt-with-consumer candidate; transferring would grow the module count without a consumer. Next: adopt alongside a native menu/combobox collection rewrite (Phase 4), not before. |
+| `mergeRefs` (4 symbols) | zero src (only site `examples.ts:89`); `adoption.json` not-yet-adopted ("duplication small, behavior not wrong") | 10 | **GATED — duplication measured 2026-10-16, gate NOT satisfied, stays gated.** Measurement: exactly one `forwardRef` in all of `packages/kern` (`extended-fab.tsx`), zero innerRef/outerRef forwarding, zero callback-ref merges of two refs into one (the single array-fill in native `input-otp.tsx:197-199` is index assignment, not ref composition and not replaceable by `mergeRefs`); `slot`/render-prop parts merge no refs. There is no replaceable duplication and no consumer, so transfer is refused. Next: move only with a `render`-interop consumer that demonstrably merges an internal ref with a caller ref. |
 | `useControllableState` | see row 1 | — | — |
 
 ∅ = zero runtime importers (excluding tests/docs strings). Full zero-consumer
@@ -86,8 +86,9 @@ their own hook transfer as *internal* unless external need is proven.
   (serves hook + collection composition), `createFocusTrapModel`
   (serves nothing — promote only with a Phase 3 RN trap-integration
   test, else prune).
-- GATE (carried over): `collection` (native menu/tree audit),
-  `mergeRefs` (measure duplication).
+- GATE (audits executed 2026-10-16, both still gated — see rows above):
+  `collection` (no native collection-state holder found),
+  `mergeRefs` (zero replaceable duplication found).
 - EXCLUDE (reaffirmed): `VISUALLY_HIDDEN_STYLE`, `clampRectToViewport`,
   `resolveFloatingOrigin`.
 - Portal: registry + target-resolution owned by Axis, host per renderer,
