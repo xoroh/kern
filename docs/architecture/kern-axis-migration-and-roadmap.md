@@ -539,6 +539,16 @@ phase. Phases overlap only where stated.
   extended. `collection`/`mergeRefs` do NOT transfer — their gates
   fail on dated audit evidence, see `axis-extraction-inventory.md`
   `collection`/`ref-composition` rows (2026-10-16).
+- Switch slice + axis main migration (2026-10-16, owner-authorized).
+  Contract adopted into `axis/docs/COMPONENT_CONTRACT.md`; boundary
+  became a two-zone gate (models pure, `src/components/` RN-host-only)
+  with a 26-case mutation suite; first rendered component `Switch`
+  (unstyled Pressable control, controlled/uncontrolled, terminal
+  disabled, role + checked/disabled state, ref forwarding) with 7
+  RNTL suites; RN peer `>=0.86 <0.89` declared. Merged as Axis PR #9
+  (`3bb5bd14`, `validate` green) after review corrections. Axis
+  canonical branch is now `main` (was `development`; default +
+  protections switched, references retargeted, old branch retired).
 - Native-integration evidence (Workstream C, emulator-independent level).
   RNTL suites green in Axis CI. Metro/Expo-host leg proven on the
   designated verification host: kern `apps/mobile` (Expo 57) `expo
