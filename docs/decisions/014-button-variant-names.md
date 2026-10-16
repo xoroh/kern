@@ -8,7 +8,7 @@ Button variant names drifted from the M3 spec, so spec readers and code readers 
 
 ## Decision
 
-Canonical variants: `filled` / `tonal` / `outlined` / `text` / `elevated`. Implemented as a review-gated migration (codemod across packages, site, tests + deprecation handling).
+Canonical variants: `filled` / `tonal` / `outlined` / `text` / `elevated`. Implemented as a review-gated migration (codemod across packages, site, tests; hard cut, no deprecation — see 020).
 
 ## Rationale
 

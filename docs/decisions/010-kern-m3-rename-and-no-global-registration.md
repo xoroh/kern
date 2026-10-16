@@ -10,7 +10,7 @@ Status: accepted. Date: 2026-10-16.
 
 ## Decision
 
-Rename `kern-material-3` to `kern-m3` (keep compat), and `@xoroh/kern` does not register M3 globally. A `check:layers` rule enforces the split.
+Rename `kern-material-3` to `kern-m3` (hard rename, no compat alias — nothing is published, see 020), and `@xoroh/kern` does not register M3 globally. A `check:layers` rule enforces the split.
 
 ## Rationale
 
