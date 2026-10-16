@@ -34,6 +34,15 @@ export function ApiIndex() {
           >
             Every export in the generated manifest — {rows.length} rows,
             generated, not hand-maintained. Each row links to its family page.
+            Non-component utilities (functions, hooks, factories) are documented
+            on{" "}
+            <Link
+              to="/docs/api"
+              className="text-(--sys-color-secondary) no-underline hover:underline"
+            >
+              API utilities
+            </Link>
+            .
           </p>
         </header>
         {/*
