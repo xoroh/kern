@@ -19,6 +19,7 @@
     "provenance": true
   },
   "type": "module",
+  "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -41,20 +42,6 @@
   },
   "exports": {
     ".": {
-      "react-native": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      }
-    },
-    "./native": {
       "react-native": {
         "types": "./dist/index.d.ts",
         "default": "./dist/index.js"

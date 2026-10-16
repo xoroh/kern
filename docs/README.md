@@ -23,10 +23,16 @@ goes.
 | Doc | What it answers | Source |
 | --- | --- | --- |
 | [`architecture.md`](architecture.md) | What the packages are and how they fit together | hand-written |
+| [`architecture/kern-axis-migration-and-roadmap.md`](architecture/kern-axis-migration-and-roadmap.md) | **Authoritative plan**: migration phases, decisions, risks, validation | hand-written |
 | [`components.md`](components.md) | Which components exist, real or stub | **generated** — `bun run generate:components` |
 | [`platform-parity.md`](platform-parity.md) | How web and native correspond; where they differ | hand-written, counts from the generated inventory |
-| [`releases.md`](releases.md) | How versioning and publishing work | hand-written |
-| [`verification-limits.md`](verification-limits.md) | **What the test suite does and does not prove** — 950 unit tests, no e2e layer, no visual regression | hand-written, figures measured |
+| [`parity-contract.md`](parity-contract.md) | The cross-renderer parity contract (observable semantics) | hand-written |
+| [`binding-contract.md`](binding-contract.md) | Framework binding rules (what each renderer may assume) | hand-written |
+| [`*-family-reference.md`](button-family-reference.md) | Per-family deep references (button, display-overlays, feedback, form, navigation) | hand-written |
+| [`elevation-audit.md`](elevation-audit.md) | Resting-elevation audit, every web concept | **generated** — `bun run audit:elevation` |
+| [`releases.md`](releases.md) + [`versioning.md`](versioning.md) | How versioning and publishing work | hand-written |
+| [`site-design.md`](site-design.md) | Docs-site design system (chrome, grammar, verification) | hand-written |
+| [`verification-limits.md`](verification-limits.md) | **What the test suite does and does not prove** — 1689 tests, 6 e2e specs, no visual regression | hand-written, figures measured |
 
 ## Conventions
 
