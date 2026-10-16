@@ -71,7 +71,7 @@ function OnThisPageRail({ pathname }: { pathname: string }) {
           <li key={item.id} className="m-0 p-0">
             <a
               href={`#${item.id}`}
-              className={`block rounded-(--sys-shape-corner-full) px-3 py-1.5 ${T_BODY_SM} text-(--sys-color-on-surface-variant) no-underline hover:bg-(--sys-color-surface-container-high) hover:text-(--sys-color-on-surface) hover:underline`}
+              className={`block rounded-(--sys-shape-corner-full) px-3 py-1.5 ${T_BODY_SM} text-(--sys-color-on-surface-variant) no-underline hover:bg-(--sys-color-surface-container-high) hover:text-(--sys-color-on-surface) hover:underline active:bg-(--sys-color-on-surface)/12`}
             >
               {item.text}
             </a>

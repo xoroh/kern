@@ -495,7 +495,7 @@ function InstallPicker({ target }: { target: string }) {
             className={`min-h-12 rounded-(--sys-shape-corner-full) border px-4 ${SMALL} ${
               manager === m.id
                 ? "border-(--sys-color-primary) bg-(--sys-color-primary-container) text-(--sys-color-on-primary-container)"
-                : "border-(--sys-color-outline) text-(--sys-color-on-surface-variant) hover:bg-(--sys-color-on-surface)/8"
+                : "border-(--sys-color-outline) text-(--sys-color-on-surface-variant) hover:bg-(--sys-color-on-surface)/8 active:bg-(--sys-color-on-surface)/12"
             }`}
           >
             {m.label}

@@ -240,7 +240,7 @@ export function Pagination({
       {prev ? (
         <a
           href={prev.href}
-          className="flex-1 rounded-(--sys-shape-corner-large-increased) bg-(--sys-color-surface-container-low) p-5 text-(--sys-color-on-surface) no-underline hover:bg-(--sys-color-secondary-container)"
+          className="flex-1 rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-low) p-5 text-(--sys-color-on-surface) no-underline hover:bg-(--sys-color-on-surface)/8 active:bg-(--sys-color-on-surface)/12"
         >
           <span className={T_BODY_SM}>← Previous</span>
           <span className="block">{prev.title}</span>
@@ -251,7 +251,7 @@ export function Pagination({
       {next ? (
         <a
           href={next.href}
-          className="flex-1 rounded-(--sys-shape-corner-large-increased) bg-(--sys-color-surface-container-low) p-5 text-right text-(--sys-color-on-surface) no-underline hover:bg-(--sys-color-secondary-container)"
+          className="flex-1 rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-low) p-5 text-right text-(--sys-color-on-surface) no-underline hover:bg-(--sys-color-on-surface)/8 active:bg-(--sys-color-on-surface)/12"
         >
           <span className={T_BODY_SM}>Next →</span>
           <span className="block">{next.title}</span>

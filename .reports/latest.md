@@ -1,7 +1,7 @@
 # Status report — 2026-10-16, evening (Kern 0.1.0 Preview readiness track)
 
-Baseline: Kern `main` at `fbc0b879` (PR #53 sweep merged). Open: #54 usage batch.
-Tree: this branch fix/testid-selector-contract, unpushed.
+Baseline: Kern `main` at `6c47d95a` (PR #55 testID merged). Open: none.
+Tree: this branch fix/state-layer-contradictions, unpushed.
 
 ## Done (this track)
 - Elevation gaps to zero (this branch, unmerged): 7 spec rows + 3 unassigned entries +
@@ -58,12 +58,15 @@ Tree: this branch fix/testid-selector-contract, unpushed.
 - PR #40 merged: Button toggle+href keeps `aria-pressed` (critic fix 2).
 
 ## In progress
-- Merged: #39–#53 (through no-compat sweep). Open: #54 usage batch.
-- This branch (testID contract): parity/testid-contract.md + testID on
-  Button/DialogContent/Switch with selector tests + changeset.
-- Queued after: (9) testID contract evaluation; usage P1/P2 correctness
-  items; m3 tertiary/chrome + playground fidelity; structure/URL/Button-
-  names/HCT phases (review-gated).
+- Merged: #39–#55.
+- This branch (state-layer contradictions): Pagination hover fill→layer +
+  press; TOC/drawer/picker press layers; copy-button layers + tokenized
+  motion + 32px exception note; Pagination shape unified to extra-large.
+  Gallery already layered (review slightly stale there); TOC hover fill
+  kept as nav convention.
+- Queued after: usage P1/P2 correctness items; m3 tertiary/chrome +
+  playground fidelity; structure/URL/Button-names/HCT phases
+  (review-gated).
 
 ## Blockers / standing gates
 - **Release hold**: no publish, no version bumps, no tags (all `0.0.0`).
