@@ -202,6 +202,10 @@ function registeredDeviationIds() {
     "K8",
     "K9",
     "K10",
+    // K11: accepted 2026-10-03 (snackbar/command/tooltip resting levels).
+    // Keep this list in sync with .team/programs/K-01-deviations.md — a
+    // stale fallback rejects accepted deviations on kern-only clones.
+    "K11",
   ];
   const registry = candidates.find((c) => existsSync(c));
   if (!registry) return new Set(fallback);
@@ -545,7 +549,7 @@ function checkDeviations({ file, doc }) {
     if (!REGISTERED_DEVIATION_IDS.has(d.id)) {
       fail(
         at(
-          `deviation id ${d.id} is not registered in m3-roles.ts (KERN_EXTRA_ROLES) or m3-elevation.ts (KERN_UNASSIGNED_ELEVATION)`,
+          `deviation id ${d.id} is not in .team/programs/K-01-deviations.md (or the K1..K11 fallback on kern-only clones)`,
         ),
       );
     }
