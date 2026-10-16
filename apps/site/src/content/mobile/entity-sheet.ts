@@ -15,7 +15,10 @@ export const entitySheet: ComponentDoc = {
     // point at, so `none` with that stated.
     nativePeer: "none",
     variants: [],
-    elevation: "surface",
+    // Level 0: the native modal sheets carry no elevation token (flat;
+    // web rests at level 1). Whether flat-native is deliberate or missing
+    // elevation is an open owner question — this claims the shipped value.
+    elevation: 0,
   },
   parts: ["EntitySheet"],
   customization: {

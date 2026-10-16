@@ -215,6 +215,15 @@ export const KERN_ELEVATION_COMPONENTS = Object.freeze({
   // executable rather than aspirational.
   "navigation-bar": Object.freeze({ rows: ["navigation bar"], variants: [2] }),
   tooltip: Object.freeze({ rows: ["rich tooltip"], variants: [2] }),
+  /**
+   * RICH-TOOLTIP — same spec row as `tooltip`: M3 tabulates "rich tooltip"
+   * at level 2, and both the plain and rich surfaces ship
+   * `--sys-elevation-level2` from `tooltip.tsx` (measured as one closure).
+   * The page slug is the family name, not the file stem, so the row is keyed
+   * by slug like every other row — `check-kern` resolves the entry file
+   * through the alias map next to its closure walk.
+   */
+  "rich-tooltip": Object.freeze({ rows: ["rich tooltip"], variants: [2] }),
   // Expressive replaces the baseline toolbar: docked is flat, floating is L3.
   // Vendored MDC Android floatingtoolbar/res/values/tokens.xml binds
   // m3_comp_toolbar_floating_container_elevation to m3_sys_elevation_level3.
@@ -229,6 +238,42 @@ export const KERN_ELEVATION_COMPONENTS = Object.freeze({
   }),
   sheet: Object.freeze({
     rows: ["bottom sheet (modal)", "side sheet (modal)", "side sheet (docked)"],
+    variants: [0, 1],
+  }),
+  /**
+   * SHEET-FAMILY MEMBERS — one page per member, shared implementation files.
+   * Web ships `--sys-elevation-level1` (`sheet-family.tsx` closure {1},
+   * `MenuSheet` from `menu-family.tsx` closure {1}): M3's
+   * "bottom sheet (modal)" row. Native modal sheets carry NO token (flat) —
+   * variants [0, 1] accept both shipped values; whether flat-native is
+   * deliberate or missing elevation is an open owner question, recorded on
+   * the mobile pages. Keyed by page slug; `check-kern` resolves each entry
+   * file through the alias map next to its closure walk. The dock sheet is
+   * deliberately NOT here: tokenless on both renderers, its pages claim
+   * "surface".
+   */
+  "bottom-sheet": Object.freeze({
+    rows: ["bottom sheet (modal)"],
+    variants: [0, 1],
+  }),
+  "snap-sheet": Object.freeze({
+    rows: ["bottom sheet (modal)"],
+    variants: [0, 1],
+  }),
+  "entity-sheet": Object.freeze({
+    rows: ["bottom sheet (modal)"],
+    variants: [0, 1],
+  }),
+  "action-sheet": Object.freeze({
+    rows: ["bottom sheet (modal)"],
+    variants: [0, 1],
+  }),
+  "menu-sheet": Object.freeze({
+    rows: ["bottom sheet (modal)"],
+    variants: [0, 1],
+  }),
+  "bottom-sheet-picker": Object.freeze({
+    rows: ["bottom sheet (modal)"],
     variants: [0, 1],
   }),
   /**
@@ -318,6 +363,13 @@ export const KERN_UNASSIGNED_ELEVATION = Object.freeze({
   "preview-card": "kern-decision: M3 does not tabulate this component",
   sonner: "kern-decision: M3 does not tabulate this component",
   tooltip: "K11",
+  // Level-0 native controls — M3's elevation table names no toggle or
+  // link-button row. Level 0 is `shadow: none`, so carrying no token IS the
+  // conformant state; the registry entry exists so the docs gate asserts the
+  // claim instead of reporting a gap. Pages carry the SPECS-1 absence prose.
+  "contrast-toggle": "kern-decision: M3 does not tabulate this component",
+  "theme-toggle": "kern-decision: M3 does not tabulate this component",
+  "link-button": "kern-decision: M3 does not tabulate this component",
 } as const);
 
 /** Every component kern ships a resting elevation for. */
@@ -325,6 +377,26 @@ export const ELEVATED_COMPONENTS = Object.freeze([
   ...Object.keys(KERN_ELEVATION_COMPONENTS),
   ...Object.keys(KERN_UNASSIGNED_ELEVATION),
 ]);
+
+/**
+ * ENTRY-FILE ALIASES — page slug to implementation file, for measurement.
+ *
+ * Gates measure a slug's resting elevation by walking the import closure of
+ * `<slug>.tsx`. One page per sheet member (and `rich-tooltip`) breaks that:
+ * the file stem is the family file, not the slug. Without the alias the
+ * lookup measures a nonexistent file as "no token" — the exact vacuous-pass
+ * the inventory warns against. Consumers: `scripts/check-kern.mjs`,
+ * `scripts/measure-elevation.mjs` (audit). Addressing only — never values.
+ */
+export const ELEVATION_ENTRY_FILES = Object.freeze({
+  "bottom-sheet": "sheet-family.tsx",
+  "snap-sheet": "sheet-family.tsx",
+  "entity-sheet": "sheet-family.tsx",
+  "action-sheet": "sheet-family.tsx",
+  "bottom-sheet-picker": "sheet-family.tsx",
+  "menu-sheet": "menu-family.tsx",
+  "rich-tooltip": "tooltip.tsx",
+} as const);
 
 /**
  * Audit one measured component's resting elevation against the spec inventory.

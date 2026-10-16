@@ -15,17 +15,13 @@ export const dockSheet: ComponentDoc = {
     // arrival, caught while documenting the web side.)
     nativePeer: "DockSheet",
     variants: [],
-    // The native dock sheet is NOT flat: `sheets.tsx` ships `elevation: 3`
-    // with a designed shadow on the panel (measured from source). No registry
-    // row is keyed under this slug, so check:docs reports the claim as
-    // unasserted — a registry gap, not a page gap.
-    // Claimed level 3, unasserted by the elevation table — see the gap report.
-    // NOTE for the token owners: the reviewer flagged this value as likely
-    // INVERTED. web modal sheets claim level 1 while this docked sheet claims
-    // level 3, yet M3's layering has modal floating ABOVE docked. Verify
-    // against M3's resting-elevation table before adding registry rows.
-    elevationBacked: false,
-    elevation: 3,
+    // Deliberate: the native dock sheet ships NO elevation token — a
+    // persistent, non-modal panel at modal elevation misreads as an overlay
+    // (`sheets.tsx` removed a previous `elevation: 3` plus iOS shadow block
+    // for exactly this reason; separation is tonal fill, not shadow). The
+    // old level-3 claim (flagged as likely inverted in review) described the
+    // removed treatment, not the shipped one.
+    elevation: "surface",
   },
   parts: ["DockSheet"],
   customization: {

@@ -647,7 +647,23 @@ const elevSrc = readFileSync(
   join(ROOT, "packages", "kern-material-3", "src", "kern-elevation.ts"),
   "utf8",
 );
-for (const m of elevSrc.matchAll(/^\s{2}"?([a-z0-9-]+)"?:\s*"([^"]+)",$/gm)) {
+/**
+ * Source text of the KERN_UNASSIGNED_ELEVATION block only. The value check
+ * below must not see string-valued rows from other maps in this file
+ * (notably ELEVATION_ENTRY_FILES, whose file-path values are not deviation
+ * citations) — scope structurally, same as `unassignedNames()`.
+ */
+function unassignedBlock() {
+  const start = elevSrc.indexOf("KERN_UNASSIGNED_ELEVATION");
+  if (start === -1) return "";
+  const open = elevSrc.indexOf("{", start);
+  const close = elevSrc.indexOf("}", open);
+  if (open === -1 || close === -1) return "";
+  return elevSrc.slice(open + 1, close);
+}
+for (const m of unassignedBlock().matchAll(
+  /^\s{2}"?([a-z0-9-]+)"?:\s*"([^"]+)",$/gm,
+)) {
   checkDeviationId(m[2], `KERN_UNASSIGNED_ELEVATION.${m[1]}`);
 }
 

@@ -9,9 +9,8 @@ const { M3_ROLES, KERN_EXTRA_ROLES, auditRoleInventory } = await import(
   join(ROOT, "packages/kern-material-3/src/kern-roles.ts")
 );
 
-const { auditElevation, KERN_ELEVATION_COMPONENTS } = await import(
-  join(ROOT, "packages/kern-material-3/src/kern-elevation.ts")
-);
+const { auditElevation, KERN_ELEVATION_COMPONENTS, ELEVATION_ENTRY_FILES } =
+  await import(join(ROOT, "packages/kern-material-3/src/kern-elevation.ts"));
 
 const m3 = JSON.parse(
   readFileSync(
@@ -426,10 +425,19 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
     return seen;
   };
 
+  // Family slugs resolve to their shared implementation file: one page per
+  // sheet member, one file (`sheet-family.tsx`, except `MenuSheet` in
+  // `menu-family.tsx`); `rich-tooltip` shares `tooltip.tsx` with the plain
+  // tooltip. The map lives with the inventory (`ELEVATION_ENTRY_FILES`) so
+  // measurement and audit resolve identically; without the alias the lookup
+  // would measure a nonexistent file as "no token" — the exact vacuous-pass
+  // the inventory warns against.
   let conformant = 0;
   for (const component of Object.keys(KERN_ELEVATION_COMPONENTS)) {
     const levels = new Set();
-    for (const file of closureOf(`${component}.tsx`)) {
+    for (const file of closureOf(
+      ELEVATION_ENTRY_FILES[component] ?? `${component}.tsx`,
+    )) {
       const full = join(webDir, file);
       if (!existsSync(full)) continue;
       for (const [, level] of readFileSync(full, "utf8").matchAll(

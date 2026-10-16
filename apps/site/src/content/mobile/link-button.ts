@@ -72,6 +72,14 @@ export const linkButton: ComponentDoc = {
       "There is no `asChild` takeover — compose routers by URL through `href`.",
     ],
   },
+  deviations: [
+    {
+      id: "K11",
+      spec: 'M3\'s component elevation table names no link-button row. It tabulates "menu" and "rich tooltip" at level 2 and "dialogs (modal)" at level 3, but no row describes a link resting elevation.',
+      kern: "The link button rests at elevation level 0 — text on surface, no shadow token; level 0 is shadow: none.",
+      why: "A link has no container; elevation would put a shadow under text. The level-0 claim is registered in the elevation inventory so it is asserted rather than assumed.",
+    },
+  ],
   api: [
     {
       name: "href",

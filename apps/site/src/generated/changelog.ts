@@ -335,6 +335,13 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
       "Correct the elevation inventory for elevated chips and Expressive floating/docked toolbars. Audit all declared levels through structured measurements, ignore source comments, and reject any unearned shadow instead of accepting a single matching level.",
   },
   {
+    id: "elevation-gaps-zero",
+    packages: ["@xoroh/kern-material-3"],
+    bump: "patch",
+    summary:
+      "Register the sheet-family members, rich-tooltip, and level-0 native controls in the resting-elevation inventory.",
+  },
+  {
     id: "fix-acronym-slugs",
     packages: ["@xoroh/kern-mcp"],
     bump: "patch",

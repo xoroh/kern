@@ -6,10 +6,10 @@ Web concepts in the registry: **301** (the ladder's "68 components" is stale).
 
 | verdict | count | meaning |
 |---|---:|---|
-| ASSERTED | 15 | carries a token; M3 names a level; `check:kern` covers it |
+| ASSERTED | 22 | carries a token; M3 names a level; `check:kern` covers it |
 | ABSENT-0 | 5 | M3 puts it at resting level 0 — `level0` is `shadow: none`, so **no token is the conformant state** |
 | GAP | 0 | **M3 names a level but the component carries no token** — the only real defect class |
-| NO-SPEC | 281 | M3 specifies no resting level — kern extension, CSS wrapper, or sub-part |
+| NO-SPEC | 274 | M3 specifies no resting level — kern extension, CSS wrapper, or sub-part |
 | MISMATCH | 0 | carries a level M3 does not assign to it — an UNEARNED shadow; this fails the audit |
 
 ## Why ABSENT-0 is not a gap
@@ -31,7 +31,7 @@ conformant state, and `check:kern` gates it that way — a row permitting 0 is c
 | `accordion-panel` | — | — | — | NO-SPEC |
 | `accordion-root` | — | — | — | NO-SPEC |
 | `accordion-trigger` | — | — | — | NO-SPEC |
-| `action-sheet` | — | — | — | NO-SPEC |
+| `action-sheet` | 1 | 0/1 | bottom sheet (modal) | ASSERTED |
 | `alert-dialog` | 3 | 3 | dialogs (modal) | ASSERTED |
 | `alert-dialog-close` | — | — | — | NO-SPEC |
 | `alert-dialog-content` | — | — | — | NO-SPEC |
@@ -57,8 +57,8 @@ conformant state, and `check:kern` gates it that way — a row permitting 0 is c
 | `banner` | 1 | 1 | banner | ASSERTED |
 | `banner-action` | — | — | — | NO-SPEC |
 | `boot-indicator` | — | — | — | NO-SPEC |
-| `bottom-sheet` | — | — | — | NO-SPEC |
-| `bottom-sheet-picker` | — | — | — | NO-SPEC |
+| `bottom-sheet` | 1 | 0/1 | bottom sheet (modal) | ASSERTED |
+| `bottom-sheet-picker` | 1 | 0/1 | bottom sheet (modal) | ASSERTED |
 | `button` | 1/2 | 0/1/2 | button (elevated); buttons (filled, tonal, outlined) | ASSERTED |
 | `button-group` | — | — | — | NO-SPEC |
 | `calendar` | — | — | — | NO-SPEC |
@@ -126,7 +126,7 @@ conformant state, and `check:kern` gates it that way — a row permitting 0 is c
 | `drawer-title` | — | — | — | NO-SPEC |
 | `drawer-trigger` | — | — | — | NO-SPEC |
 | `empty-state` | — | — | — | NO-SPEC |
-| `entity-sheet` | — | — | — | NO-SPEC |
+| `entity-sheet` | 1 | 0/1 | bottom sheet (modal) | ASSERTED |
 | `extended-fab` | 3/4 | 3/4 | extended fab | ASSERTED |
 | `fab` | 1/2/3/4 | 1/2/3/4 | fab | ASSERTED |
 | `fab-menu` | 3/4 | 0/3/4 | fab menu (close button); fab menu (list items) | ASSERTED |
@@ -169,7 +169,7 @@ conformant state, and `check:kern` gates it that way — a row permitting 0 is c
 | `menu-root` | — | — | — | NO-SPEC |
 | `menu-screen` | — | — | — | NO-SPEC |
 | `menu-separator` | — | — | — | NO-SPEC |
-| `menu-sheet` | — | — | — | NO-SPEC |
+| `menu-sheet` | 1 | 0/1 | bottom sheet (modal) | ASSERTED |
 | `menu-trigger` | — | — | — | NO-SPEC |
 | `menubar` | — | — | — | NO-SPEC |
 | `menubar-content` | — | — | — | NO-SPEC |
@@ -219,7 +219,7 @@ conformant state, and `check:kern` gates it that way — a row permitting 0 is c
 | `progress-value` | — | — | — | NO-SPEC |
 | `radio-group` | — | — | — | NO-SPEC |
 | `radio-group-item` | — | — | — | NO-SPEC |
-| `rich-tooltip` | — | — | — | NO-SPEC |
+| `rich-tooltip` | 2 | 2 | rich tooltip | ASSERTED |
 | `rich-tooltip-actions` | — | — | — | NO-SPEC |
 | `rich-tooltip-content` | — | — | — | NO-SPEC |
 | `rich-tooltip-title` | — | — | — | NO-SPEC |
@@ -275,7 +275,7 @@ conformant state, and `check:kern` gates it that way — a row permitting 0 is c
 | `snackbar-root` | — | — | — | NO-SPEC |
 | `snackbar-title` | — | — | — | NO-SPEC |
 | `snackbar-viewport` | — | — | — | NO-SPEC |
-| `snap-sheet` | — | — | — | NO-SPEC |
+| `snap-sheet` | 1 | 0/1 | bottom sheet (modal) | ASSERTED |
 | `sonner` | 2 | — | — | NO-SPEC |
 | `sonner-action` | — | — | — | NO-SPEC |
 | `sonner-close` | — | — | — | NO-SPEC |
