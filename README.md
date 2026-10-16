@@ -75,6 +75,13 @@ Seven packages publish; each versions independently.
 | [`docs/`](docs/README.md) | Contributor docs: architecture, parity, releases, conventions |
 | [`.agents/skills/`](.agents/skills/) | Agent knowledge: `kern` (design authority), `docs` (upkeep discipline) |
 
+## Direction
+
+- [`docs/VISION.md`](docs/VISION.md) — north star, principles, non-goals, quality bar.
+- [`docs/decisions/`](docs/decisions/) — owner decisions (ADR per decision).
+- [`docs/IDEAS.md`](docs/IDEAS.md) — owner ideas not yet decided.
+- [`docs/architecture/kern-axis-migration-and-roadmap.md`](docs/architecture/kern-axis-migration-and-roadmap.md) — the single source for planned work.
+
 ## Contributing
 
 Read [`CONTRIBUTING.md`](CONTRIBUTING.md) first — it lists the per-PR
