@@ -11,7 +11,7 @@
 - Kern cutover executes as ONE migration PR once Axis is release-ready (all inventory `complete` + Phase 7 audit).
 
 ## Blockers
-- **Release authorization**: first Axis publish + version bumps + tags remain owner-gated. Consequence: Kern `libs/` deletion and consumer cutover cannot land (would break installs); tracked as the explicit cutover phase, not silent deferral.
+- **Release authorization**: first Axis publish + version bumps + tags remain owner-gated. Consequence: only the publish itself, the spec swap to semver, and version computation wait. Cutover + deletion do NOT wait (owner correction 2026-10-16).
 - **Device validation**: no emulator/simulator/physical-device or screen-reader runs anywhere in either repo (methodology: RNTL + Expo-host export only).
 
 ## Owner decisions (all recorded, none pending from this cycle except standing gates)
@@ -22,5 +22,5 @@
 ## Next steps
 1. Continue Axis coverage batches to the agreed inventory target.
 2. Run the isolated RNP scratch experiment for the future-extension reference.
-3. Obtain release authorization → publish Axis → execute the cutover migration PR → delete `libs/`.
+3. Execute the cutover migration PR once Axis is release-ready (no publish needed); publish + spec swap follow under separate release authorization.
 4. Physical-device matrix when hardware/policy allows.

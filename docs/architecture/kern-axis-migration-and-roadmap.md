@@ -584,11 +584,15 @@ multi-design-system expansion, publication itself.
 > The platform stays extensible: future foundations (React Aria /
 > Radix on web, potentially RNP on native) integrate through
 > documented contracts + registration — no second implementation is
-> built now, and none may be assumed. Step 3 additionally requires
-> the first release-authorized Axis publish (a published `@xoroh/axis`
-> must exist before `libs/` can be deleted; cross-repo `file:`
-> dependencies are prohibited). Phase 0/1 inventory and gate work
-> continue unaffected.
+> built now, and none may be assumed. Trigger correction (owner
+> direction 2026-10-16): cutover and deletion are gated on **Axis
+> release-ready** (all planned components, tests, CI, release flow
+> green) — NOT on publication. Pre-publish, Kern consumes Axis via
+> the committed vendored tarball (`file:` spec, switchable to semver
+> at first publish); the old "no cross-repo file: deps" rule is
+> superseded for this exact mechanism (committed tarball +
+> lockfile pin, never a live relative path). Phase 0/1 inventory and
+> gate work continue unaffected.
 
 1. Replace internal primitive dependencies with the `@xoroh/axis` public
    interface in `kern-native` (~28 files), web (`menu-family`,
@@ -927,7 +931,7 @@ current authority. No competing active roadmap exists.
 |---|---|---|---|
 | D-NAME | Canonical package name | **Resolved for internal readiness 2026-10-16 (owner mandate): working name Axis, package `@xoroh/axis`, single package.** Naming audit: no `kern-axis`/`rn-primitives` legacy names in Kern (only current `@xoroh/kern-primitives` imports, migrating in Phase 4); Axis `axis-core` refs confined to the 6 known placeholder locations (Phase 2 rename scope). Trademark: web search inconclusive — no legal clearance claimed; domain `axis.xoroh.org` NXDOMAIN (unclaimed, not proof). Publication still requires release-policy authorization | Phase 2 |
 | D-DEP | Kern↔Axis dependency model | **Settled by owner instruction** (audit 2026-10-16): Kern Native → Axis through the public package API; Axis independent of Kern (assignment §§3.3, 7). The archived no-dependency model stays superseded and must not be restored. No fresh approval required | — (settled) |
-| D-FOUNDATION-CHOICE | Initial native foundation + future extensibility | **Resolved 2026-10-16 (owner direction): Axis is the initial native foundation; the platform stays extensible** for additional independent foundations (React Aria/Radix on web, potentially RNP on native) through documented contracts + registration — no second implementation is built or assumed now. Kern may depend on Axis, never the reverse; no universal themed implementation; no Axis CLI/MCP (Kern tooling is the AI surface). Predecessor positions superseded: "under consideration / RNP choosable now" and "second provider (rejected)". RNP evidence retained (roninoss/rn-primitives, MIT, 27 unstyled components, no NativeWind requirement, light deps; gaps: no observed tests, dev pin RN 0.83.2, Radix-web coupling, external control) as the future-extension reference. Step 3 (`libs/` deletion) additionally requires the first release-authorized Axis publish. History: interim recommendation (contract → Switch → parallel RNP experiment → select with both evidences) fulfilled in sequence; contract agreed, Switch landed | Phase 4 (proceeds; deletion gated on publish) |
+| D-FOUNDATION-CHOICE | Initial native foundation + future extensibility | **Resolved 2026-10-16 (owner direction): Axis is the initial native foundation; the platform stays extensible** for additional independent foundations (React Aria/Radix on web, potentially RNP on native) through documented contracts + registration — no second implementation is built or assumed now. Kern may depend on Axis, never the reverse; no universal themed implementation; no Axis CLI/MCP (Kern tooling is the AI surface). Predecessor positions superseded: "under consideration / RNP choosable now" and "second provider (rejected)". RNP evidence retained (roninoss/rn-primitives, MIT, 27 unstyled components, no NativeWind requirement, light deps; gaps: no observed tests, dev pin RN 0.83.2, Radix-web coupling, external control) as the future-extension reference. Step 3 (`libs/` deletion) executes in the same migration PR once Axis is release-ready — publication is NOT required (owner correction 2026-10-16); only the spec swap to semver awaits release authorization. History: interim recommendation (contract → Switch → parallel RNP experiment → select with both evidences) fulfilled in sequence; contract agreed, Switch landed | Phase 4 (proceeds; cutover/deletion gated on Axis release-ready, not on publish) |
 | D-STACK | Native stack baseline | Presume RN ≥0.86 <0.89 + React 19 + Expo 57 host (evidence §C.3); adjust only on AX0 findings. locked: Expo CLI 57.0.27 / `expo ~57.0.25` / RN 0.86.3 / React 19.2.3
 (`bun.lock` + `apps/mobile` manifest); peers RN `>=0.86 <0.89`, React
 `^19`. D-STACK evidence-backed 2026-10-16 — recommend RN 0.86.x + React
