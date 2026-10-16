@@ -9,12 +9,22 @@ two cannot drift apart quietly.
 
 ## Install
 
+> 0.1.0 Preview: this package is unpublished (`0.0.0`), so the registry
+> command runs at release. The route that works today is the source
+> install — vendor from a checkout:
+>
+> ```bash
+> bun <checkout>/packages/kern-cli/src/kern.ts add button --platform native --dest components/kern
+> ```
+>
+> Registry path (available at release):
+
 ```bash
 bun add @xoroh/kern-native
 ```
 
 Requires `react-native` and `react` as peers, and pulls in
-`@xoroh/kern-primitives` and `@xoroh/kern-tokens`.
+`@xoroh/axis` and `@xoroh/kern-tokens`.
 
 ## What is in it
 

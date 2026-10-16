@@ -29,7 +29,7 @@
 import { expect, test } from "@playwright/test";
 import { clickUntil, gotoSettled } from "./support/interactions";
 
-const DIALOG_PAGE = "/components/web/dialog";
+const DIALOG_PAGE = "/components/m3/dialog";
 
 test.describe("dialog focus trap", () => {
   test.beforeEach(async ({ page }) => {

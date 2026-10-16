@@ -10,9 +10,9 @@ export const topAppBar: ComponentDoc = {
   meta: {
     status: "real",
     package: "@xoroh/kern/start",
-    // Composition tier — web shell. The native `TopAppBar` is a separate
-    // export in `@xoroh/kern-native` and is documented there.
-    nativePeer: "none",
+    // Composition tier — web shell. The native `TopAppBar` is the same
+    // family on the other tab of this page, not a separate page.
+    nativePeer: "TopAppBar",
     variants: ["size: small · medium · large"],
     elevation: "surface",
   },
@@ -25,6 +25,77 @@ export const topAppBar: ComponentDoc = {
     "HelpMenu",
     "NotificationsMenu",
     "UserMenu",
+  ],
+  anatomy: [
+    {
+      name: "TopAppBar",
+      role: "The bar. Three sizes, leading slot, title, trailing actions — the screen's header.",
+    },
+    {
+      name: "TopAppBarToggle",
+      role: "The sidebar control. Reads `useSidebar()` itself, so the bar and the sidebar stay in sync with no props.",
+    },
+    {
+      name: "AppTopBar",
+      role: "The app-level bar with the standard menus already placed — the shell's header, not a blank bar.",
+    },
+    {
+      name: "TopBarMenu",
+      role: "One menu from `TopBarMenuItem[]`. The four `*Menu` exports are thin wrappers over this.",
+    },
+  ],
+  keyboard: [
+    {
+      key: "Tab / Shift+Tab",
+      action:
+        "Moves through the bar's controls and the open menu's items in order.",
+    },
+    {
+      key: "Enter / Space",
+      action:
+        "Activates the focused control — toggles the sidebar, opens a menu, follows a menu item.",
+    },
+  ],
+  usage: {
+    do: [
+      "Name the screen in the title and keep the trailing slot to screen-level actions.",
+      "Use `AppTopBar` for the shell header — the standard menus are already placed and wired.",
+      "Reach for `TopBarMenu` directly when the menu is custom; wrap it only when the same items repeat.",
+    ],
+    dont: [
+      "Don't invent a fourth size — the three Material 3 heights are the whole axis and the shell lays out against them.",
+      "Don't rewire the `*Menu` wrappers per screen — if the items differ, that is a `TopBarMenu` with its own data.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Bar",
+      state: "resting",
+      token: "sys.color.surface",
+      value: "surface, 1px outline-variant base rule",
+    },
+    {
+      element: "Hover wash",
+      state: "hover",
+      token: "sys.color.surface-tonal",
+      value: "surface-tonal over controls and menu items",
+    },
+    {
+      element: "Menu",
+      state: "resting",
+      token: "sys.color.surface-container",
+      value: "surface-container, medium corners, level2",
+    },
+  ],
+  faq: [
+    {
+      q: "`TopAppBar` or `AppTopBar`?",
+      a: "`AppTopBar` is the shell header with the standard menus placed — reach for it first. `TopAppBar` is the bare bar for screens that need their own composition.",
+    },
+    {
+      q: "Which size?",
+      a: "Small is the default screen header; medium carries a two-line title for top-level screens. The sizes change the bar's height, so the shell can lay out against a known number.",
+    },
   ],
   customization: {
     supported: [

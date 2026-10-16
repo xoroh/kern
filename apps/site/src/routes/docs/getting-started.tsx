@@ -23,7 +23,7 @@ export const Route = createFileRoute("/docs/getting-started")({
 const INSTALL = `bun add @xoroh/kern @xoroh/kern-icons`;
 
 const STYLESHEET = `/* app.css — the only required import */
-@import "@xoroh/kern-tokens/theme";`;
+@import "@xoroh/kern/theme";`;
 
 const FIRST_COMPONENT = `import { Button, Field } from "@xoroh/kern";
 
@@ -147,8 +147,10 @@ function GettingStarted() {
           <p
             className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
           >
-            One package per platform. Preview: packages are unpublished, so this
-            resolves from a checkout — the registry command runs at release.
+            Source path first — available now: scaffold from a checkout and
+            vendor what you need (Steps 8–9). Registry path — available at
+            release: packages are unpublished, so this resolves from a checkout
+            until 0.1.0 publishes.
           </p>
           <Code>{INSTALL}</Code>
         </Step>
@@ -203,8 +205,9 @@ function GettingStarted() {
           >
             Native components take <code>onPress</code> instead of{" "}
             <code>onClick</code>, and resolve the same theme through{" "}
-            <code>KernThemeProvider</code>. Same Preview terms as web: checkout
-            today, registry at release.
+            <code>KernThemeProvider</code>. Source path first — vendor from a
+            checkout (Step 9 covers <code>kern add --platform native</code>);
+            the registry command below runs at release.
           </p>
           <Code>{MOBILE_INSTALL}</Code>
           <Code>{MOBILE_QUICKSTART}</Code>

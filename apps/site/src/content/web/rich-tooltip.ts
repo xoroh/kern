@@ -44,8 +44,38 @@ export const richTooltip: ComponentDoc = {
     {
       element: "Container",
       state: "resting",
-      token: "comp.rich-tooltip.container",
-      value: "surface-container, 4px, level2",
+      token: "sys.color.surface-container",
+      value: "--sys-color-surface-container",
+    },
+    {
+      element: "Title",
+      state: "resting",
+      token: "sys.color.on-surface",
+      value: "--sys-color-on-surface",
+    },
+    {
+      element: "Supporting text",
+      state: "resting",
+      token: "sys.color.on-surface-variant",
+      value: "--sys-color-on-surface-variant",
+    },
+    {
+      element: "Actions",
+      state: "resting",
+      token: "sys.color.primary",
+      value: "--sys-color-primary (plain-text buttons)",
+    },
+    {
+      element: "Container shape",
+      state: "resting",
+      token: "sys.shape.corner-extra-small",
+      value: "4px",
+    },
+    {
+      element: "Container elevation",
+      state: "resting",
+      token: "sys.elevation.level2",
+      value: "level2",
     },
   ],
   api: [

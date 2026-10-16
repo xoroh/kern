@@ -443,9 +443,15 @@ export async function validateInstall(dest: string): Promise<
  * Kern compliance checklist for auditing a screen. The twelve categories
  * mirror the `kern` skill's audit table one-for-one — a checklist that names
  * ten of twelve is the omission class the skill exists to prevent.
+ *
+ * Advisory-only: the categories name what to check, but nothing here
+ * measures the screen — there is no runner behind the checklist, so no
+ * score, pass/fail, or coverage claim is asserted. Agents must treat the
+ * output as headings for their own inspection, not as an audit result.
  */
 export function designAudit() {
   return {
+    advisoryOnly: true,
     categories: [
       "Color roles (no hardcoded hex; correct on-* pairing)",
       "Typography (Inter, correct MD3 scale role)",
