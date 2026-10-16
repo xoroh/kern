@@ -1,6 +1,7 @@
 {
   "name": "@xoroh/kern-cli",
   "version": "0.0.0",
+  "private": true,
   "description": "Installer for Kern: `kern add` vendors components/blocks plus their closure; `kern create/init/list/diff/upgrade` round it out.",
   "license": "MIT",
   "author": "Xoroh",
