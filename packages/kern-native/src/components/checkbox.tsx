@@ -61,10 +61,16 @@ export type NativeCheckboxProps = Omit<
   PressableProps,
   "children" | "style" | "onPress" | "accessibilityState"
 > & {
-  value?: boolean;
-  defaultValue?: boolean;
+  /**
+   * Controlled checked state. Base UI name — there is no `value` prop here
+   * (see api-consistency.md §0).
+   */
+  checked?: boolean;
+  /** Initial checked state for the uncontrolled case. */
+  defaultChecked?: boolean;
   indeterminate?: boolean;
-  onValueChange?: (next: boolean) => void;
+  /** Reports the next checked state. */
+  onCheckedChange?: (next: boolean) => void;
   onPress?: PressableProps["onPress"];
   accessibilityState?: PressableProps["accessibilityState"];
   label?: string;
@@ -73,10 +79,10 @@ export type NativeCheckboxProps = Omit<
 };
 
 export function Checkbox({
-  value,
-  defaultValue = false,
+  checked,
+  defaultChecked = false,
   indeterminate = false,
-  onValueChange,
+  onCheckedChange,
   onPress,
   label,
   accessibilityLabel,
@@ -90,13 +96,13 @@ export function Checkbox({
 }: NativeCheckboxProps) {
   const { scheme } = useKernTheme();
   const [checkedValue, setChecked] = useControllableState(
-    value,
-    defaultValue,
-    onValueChange,
-  );
-  const checked = checkedValue ?? false;
-  const styles = checkboxStyles(
     checked,
+    defaultChecked,
+    onCheckedChange,
+  );
+  const isChecked = checkedValue ?? false;
+  const styles = checkboxStyles(
+    isChecked,
     indeterminate ?? false,
     disabled ?? false,
     scheme,
@@ -109,7 +115,7 @@ export function Checkbox({
       accessibilityLabel={accessibilityLabel ?? label}
       accessibilityState={{
         ...accessibilityState,
-        checked: indeterminate ? "mixed" : checked,
+        checked: indeterminate ? "mixed" : isChecked,
         disabled: disabled ?? undefined,
       }}
       disabled={disabled ?? undefined}
@@ -129,7 +135,7 @@ export function Checkbox({
       <View style={styles.box}>
         {indeterminate ? (
           <Text style={styles.glyph}>−</Text>
-        ) : checked ? (
+        ) : isChecked ? (
           <Text style={styles.glyph}>✓</Text>
         ) : null}
       </View>

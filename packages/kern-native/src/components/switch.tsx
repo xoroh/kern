@@ -42,18 +42,24 @@ export type NativeSwitchProps = Omit<
   PressableProps,
   "children" | "style" | "onPress" | "accessibilityState"
 > & {
-  value?: boolean;
-  defaultValue?: boolean;
-  onValueChange?: (next: boolean) => void;
+  /**
+   * Controlled checked state. Base UI name — there is no `value` prop here
+   * (see api-consistency.md §0).
+   */
+  checked?: boolean;
+  /** Initial checked state for the uncontrolled case. */
+  defaultChecked?: boolean;
+  /** Reports the next checked state. */
+  onCheckedChange?: (next: boolean) => void;
   onPress?: PressableProps["onPress"];
   style?: PressableProps["style"];
   accessibilityState?: PressableProps["accessibilityState"];
 };
 
 export function Switch({
-  value,
-  defaultValue = false,
-  onValueChange,
+  checked,
+  defaultChecked = false,
+  onCheckedChange,
   onPress,
   disabled = false,
   accessibilityState,
@@ -64,9 +70,9 @@ export function Switch({
 }: NativeSwitchProps) {
   const { scheme } = useKernTheme();
   const [onValue, setOn] = useControllableState(
-    value,
-    defaultValue,
-    onValueChange,
+    checked,
+    defaultChecked,
+    onCheckedChange,
   );
   const on = onValue ?? false;
   const styles = switchStyles(on, disabled ?? false, scheme);

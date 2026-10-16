@@ -142,13 +142,13 @@ export function ComponentsScreen() {
           <FieldMessage>Verified</FieldMessage>
           <FieldMessage variant="error">That address bounced</FieldMessage>
           <Checkbox
-            value={checked}
-            onValueChange={setChecked}
+            checked={checked}
+            onCheckedChange={setChecked}
             label="Send updates"
           />
           <Switch
-            value={push}
-            onValueChange={setPush}
+            checked={push}
+            onCheckedChange={setPush}
             accessibilityLabel="Push notifications"
           />
           <RadioGroup value={radio} onValueChange={setRadio}>

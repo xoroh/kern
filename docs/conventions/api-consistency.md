@@ -13,16 +13,23 @@ component, same size scale where the platform allows it).
 
 ## 0. Callbacks — the lexicon (R2 re-home, founder-approved)
 
-Two state shapes, one action rule. The canonical names are `value` /
-`defaultValue` / `onValueChange` (selection and scalar state) and `open` /
-`defaultOpen` / `onOpenChange` (overlay visibility). Older per-component
-names (`index`/`onIndexChange`, `page`/`onPageChange`,
-`selected`/`onSelectedChange`, `pressed`/`onPressedChange`,
-`collapsed`/`onCollapsedChange`, `expanded`/`onExpandedChange`,
-`visible`, `activeTab`/`onTabChange`) are kept as deprecated aliases that
-resolve to the SAME state — one store, two names, both callbacks firing on
-every change, so a host mid-migration never misses one. `value`/`open` win
-when both are passed.
+State props follow **Base UI names per component family** — decided
+2026-10-16 (owner): `checked` for Checkbox/Switch, `pressed` for
+Toggle/toggle-Button, `value` only for value-like components. There is
+deliberately NO universal `value` aliasing onto checked/pressed components.
+
+| Family | State props | Notes |
+|---|---|---|
+| Checkbox / Switch (both renderers) | `checked` / `defaultChecked` / `onCheckedChange` | Base UI passthrough — never renamed. The guard does not see them (no declared prop in Kern source; spread from the primitive), which is why they need no registry entry. |
+| Toggle, toggle-Button, IconButton toggle (both renderers) | `pressed` / `defaultPressed` / `onPressedChange` | Canonical here, not an alias: on buttons `value` is the form value, so `pressed` owns selection. Registered per file in the guard (`REGISTERED_ALIASES`). |
+| Value-like components (select, combobox, sheets detents, chips, fields) | `value` / `defaultValue` / `onValueChange` | Canonical with partner check (`onValueChange` requires `value`). |
+| Overlays (dialog, sheets, popover, menu) | `open` / `defaultOpen` / `onOpenChange` | Canonical with partner check. Dismissal actions (`onClose`, `onDismiss`) are actions, not state. |
+
+Older per-component names (`index`/`onIndexChange`, `page`/`onPageChange`,
+`selected`/`onSelectedChange`, `collapsed`/`onCollapsedChange`,
+`expanded`/`onExpandedChange`, `visible`, `activeTab`/`onTabChange`) were
+removed with no backward compatibility: an old alias prop is now a type
+error, and the guard fails any reintroduction as unregistered.
 
 What is NOT renamed: action callbacks say what happened, not what state
 holds — `onSelect`, `onSearch`, `onCountryChange`, `onConfirm`/`onCancel`,

@@ -6,7 +6,7 @@ export const switchCmp: ComponentDoc = {
   oneLiner:
     "Switches turn one thing on or off immediately, and carry their state in their own appearance.",
   features:
-    "Reach for a switch when flipping it takes effect straight away and there is no save step: notifications on, dark mode, auto-play. It is a pressable with `value`/`onValueChange`, and the state is visible in the control itself, so it needs a label beside it that says WHAT is on. Note there is no `label` prop here at all — unlike `Checkbox`, which offers one and warns about omitting it. Naming the switch is entirely yours, usually with a `Label` or text beside it. If the change only applies after tapping a separate save button, that is a checkbox, not a switch.",
+    "Reach for a switch when flipping it takes effect straight away and there is no save step: notifications on, dark mode, auto-play. It is a pressable with `checked`/`onCheckedChange`, and the state is visible in the control itself, so it needs a label beside it that says WHAT is on. Note there is no `label` prop here at all — unlike `Checkbox`, which offers one and warns about omitting it. Naming the switch is entirely yours, usually with a `Label` or text beside it. If the change only applies after tapping a separate save button, that is a checkbox, not a switch.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -18,7 +18,7 @@ export const switchCmp: ComponentDoc = {
   parts: ["Switch"],
   customization: {
     supported: [
-      "`value`/`defaultValue`/`onValueChange` make it controlled or uncontrolled.",
+      "`checked`/`defaultChecked`/`onCheckedChange` make it controlled or uncontrolled — Base UI names, same as web.",
       "`style` is the `Pressable` style, so the usual pressable styling applies.",
       "`accessibilityState` is re-declared so you can extend what the control reports.",
     ],
@@ -30,12 +30,12 @@ export const switchCmp: ComponentDoc = {
   },
   api: [
     {
-      name: "value / defaultValue",
+      name: "checked / defaultChecked",
       type: "boolean",
-      note: "Controlled or uncontrolled on/off state. `onValueChange` reports the next value.",
+      note: "Controlled or uncontrolled on/off state. `onCheckedChange` reports the next value.",
     },
     {
-      name: "onValueChange",
+      name: "onCheckedChange",
       type: "(next: boolean) => void",
       note: "Reports the next state rather than an event. `onPress` is still available from `PressableProps` if you want the gesture.",
     },

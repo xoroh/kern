@@ -34,7 +34,7 @@ async function mount(row: ParityRow) {
   switch (row.component) {
     case "switch":
       return await render(
-        <Switch testID={row.name} defaultValue={row.expects.initial} />,
+        <Switch testID={row.name} defaultChecked={row.expects.initial} />,
       );
     case "checkbox":
       return await render(<Checkbox testID={row.name} label={row.name} />);
@@ -115,7 +115,7 @@ describe("native parity contract (tranche 1)", () => {
     await render(
       <Switch
         testID={row.name}
-        onValueChange={(next: boolean) => seen.push(next)}
+        onCheckedChange={(next: boolean) => seen.push(next)}
       />,
     );
     await act(async () => {
