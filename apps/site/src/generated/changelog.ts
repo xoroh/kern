@@ -539,6 +539,13 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
       "Ship-installable manifests: no workspace: protocol can reach a published tarball, and internal packages now ship real semver ranges.",
   },
   {
+    id: "snapsheet-uncontrolled-state",
+    packages: ["@xoroh/kern"],
+    bump: "patch",
+    summary:
+      "Fix uncontrolled SnapSheet: the detent no longer freezes at first render.",
+  },
+  {
     id: "split-bottom-sheet-surface",
     packages: ["@xoroh/kern-native"],
     bump: "patch",
