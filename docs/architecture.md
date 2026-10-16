@@ -130,7 +130,7 @@ motion algorithms (`presets.ts`) select among the existing
 `tokens.json` motion schemes as validated data. Presets extend kern via
 overrides — a second role table is rejected by both `check:kern` (source
 leg) and `check:theme-matrix` (resolved-output leg). Decisions:
-`docs/adr/005-theming-pipeline.md`.
+`docs/decisions/005-theming-pipeline.md`.
 
 ## Component composition tiers
 

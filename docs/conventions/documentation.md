@@ -33,7 +33,7 @@ evolves, we re-align — this file records what we follow and where it lands.
 | Tutorials (learning) | `apps/site/` `/getting-started` | Install Kern, render a first `Button` |
 | How-to (task) | `apps/site/` `/docs/guides` | Swap the theme, use Kern in React Native |
 | Reference (information) | Generated from code + tokens: `docs/components.md`, `docs/platform-parity.md` | Component inventory, parity tables |
-| Explanation (understanding) | `docs/adr/`, `docs/archive/2026-10-axis-transition/plan/`, skill canon | Why Base UI, why the renderer split |
+| Explanation (understanding) | `docs/decisions/`, `docs/archive/2026-10-axis-transition/plan/`, skill canon | Why Base UI, why the renderer split |
 
 Our addition on top: **skills as machine-readable reference**. Diátaxis
 predates AI agents; `.agents/skills/kern/` carries the same knowledge in

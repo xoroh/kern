@@ -316,7 +316,9 @@ function ColorPage() {
         <SchemeScope mode={mode} className="flex flex-col">
           {COLOR_GROUPS.map((band) => (
             <div key={band.group} className="mt-6">
-              <div className="mb-2 flex items-baseline gap-2">
+              <div
+                className={`mb-2 flex items-baseline gap-2 ${band.isKern ? "rounded-(--sys-shape-corner-small) bg-(--sys-color-tertiary-container)/40 px-3" : ""}`}
+              >
                 <h3
                   className={`m-0 ${T_SMALL_TITLE} ${F_INK}`}
                   id={`band-${band.group}`}
@@ -449,7 +451,9 @@ function MatrixRow({ role }: { role: ColorRole }) {
   const { mode } = useScheme();
   const other: Mode = mode === "light" ? "dark" : "light";
   return (
-    <div className={`${F_CARD} flex items-center gap-3 p-3`}>
+    <div
+      className={`${F_CARD} flex items-center gap-3 p-3 ${role.kernExtra ? "bg-(--sys-color-tertiary-container)/30" : ""}`}
+    >
       <div
         className="h-10 w-14 shrink-0 rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant)"
         style={{ background: roleVar(role.name) }}

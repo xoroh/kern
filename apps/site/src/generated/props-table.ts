@@ -964,6 +964,11 @@ export const PROPS_TABLE: Record<
         required: false,
       },
       {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+      {
         name: "href",
         type: "string",
         required: true,
@@ -2976,6 +2981,11 @@ export const PROPS_TABLE: Record<
       {
         name: "modal",
         type: 'boolean | "trap-focus" | undefined',
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
         required: false,
       },
     ],
@@ -7833,6 +7843,11 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "uncheckedValue",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
         type: "string | undefined",
         required: false,
       },

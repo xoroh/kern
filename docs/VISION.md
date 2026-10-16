@@ -2,7 +2,7 @@
 
 > **Direction rule.** The roadmap is the single source for planned work; VISION is the test every decision is checked against; ideas only move to the roadmap through an ADR. Roadmap: [`docs/architecture/kern-axis-migration-and-roadmap.md`](architecture/kern-axis-migration-and-roadmap.md).
 
-Status: current. Owner vision, 2026-10-16. This file states direction; it does not plan work. For the plan, read the roadmap. For past decisions, read [`docs/decisions/`](decisions/README.md) and [`docs/adr/`](adr/001-esm-only.md) (see [`docs/README.md`](README.md)).
+Status: current. Owner vision, 2026-10-16. This file states direction; it does not plan work. For the plan, read the roadmap. For past decisions, read [`docs/decisions/`](decisions/README.md) (see [`docs/README.md`](README.md)).
 
 ## North star
 
@@ -44,5 +44,5 @@ Kern is the styled design-system platform (tokens, M3 web + native implementatio
 ## Existing direction docs (link, don't duplicate)
 
 - Roadmap (single source for planned work): [`docs/architecture/kern-axis-migration-and-roadmap.md`](architecture/kern-axis-migration-and-roadmap.md).
-- Decisions: [`docs/decisions/`](decisions/README.md) (owner decisions 2026-10-16) and [`docs/adr/`](adr/001-esm-only.md) (standing architecture ADRs 001–006).
+- Decisions: [`docs/decisions/`](decisions/README.md) (canonical record 001–020, consolidated 2026-10-16).
 - Architecture: [`docs/architecture.md`](architecture.md). Design canon: [`.agents/skills/kern/SKILL.md`](../.agents/skills/kern/SKILL.md).

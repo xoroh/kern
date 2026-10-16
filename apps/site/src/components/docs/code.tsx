@@ -22,12 +22,12 @@ export function Code({ children }: { children: string }) {
   const [copied, setCopied] = useState(false);
   return (
     <div className="relative">
-      {/* 32px overlay affordance (documented exception to the 48dp MIN_TARGET:
-          a full 48dp circle would cover the code it annotates; the affordance
-          is duplicated by the keyboard-accessible block actions beside it). */}
       <button
         type="button"
         className={`absolute top-2 right-2 z-10 flex size-8 cursor-pointer items-center justify-center rounded-full border border-(--sys-color-outline-variant) bg-(--sys-color-surface) text-(--sys-color-on-surface-variant) ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`}
+        // 32px overlay affordance, not the 48dp floor: a full target would
+        // cover the code it copies. Keyboard-reachable via tab (global
+        // :focus-visible ring) with press feedback below.
         aria-label={copied ? "Copied" : "Copy code"}
         onClick={async () => {
           try {

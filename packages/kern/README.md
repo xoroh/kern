@@ -34,7 +34,8 @@ import "@xoroh/kern/theme";
 import { Button } from "@xoroh/kern";
 
 <Button variant="primary">Save</Button>;
-// variant: primary | tonal | ghost — size: default | sm | icon
+// variant: primary | tonal | outlined | ghost (+ elevated) —
+// size: xs · default · sm · md · lg · xl · icon (M3 names land in D-BUTTON-NAMES)
 ```
 
 ```tsx

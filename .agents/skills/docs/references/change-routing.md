@@ -22,7 +22,7 @@ For users, human and AI.
 | --- | --- |
 | Any component added, removed, or re-statused | `bun run generate:components` (never hand-edit `docs/components.md`), then `docs/platform-parity.md` coverage + gaps |
 | A `variant` meaning added or changed | `docs/platform-parity.md` variant-law table |
-| A new package, or a dependency direction change | `docs/architecture.md` + an ADR in `docs/adr/` |
+| A new package, or a dependency direction change | `docs/architecture.md` + an ADR in `docs/decisions/` |
 | A token pipeline change | `docs/architecture.md` token pipeline + `.agents/skills/kern/references/kern-tokens.md` |
 | Import, peer range, or publish config | the package README + `docs/releases.md` if publishable |
 | A new convention | `docs/conventions/` + the index table in `docs/conventions/documentation.md` |
