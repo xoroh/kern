@@ -15,7 +15,7 @@ public API.
 ## The system law
 
 Locked 2026-09-29, recorded in
-[`docs/plan/README.md`](docs/plan/README.md). These are not style preferences
+[`docs/archive/2026-10-axis-transition/plan/README.md`](docs/archive/2026-10-axis-transition/plan/README.md) (archived 2026-10-16). These are not style preferences
 — they are the conditions under which the system stays coherent, and they are
 enforced by `bun run check:m3`:
 

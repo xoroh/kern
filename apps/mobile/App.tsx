@@ -19,7 +19,7 @@ import { ShowcaseThemeProvider } from "./src/showcase-theme";
 /**
  * The kern-native showcase host.
  *
- * Font policy (`docs/plan/native-composition.md` § 8): the *host* loads
+ * Font policy (`docs/archive/2026-10-axis-transition/plan/native-composition.md` § 8): the *host* loads
  * Inter via `expo-font` and hands off; components only ever set a weight.
  * `KernFontGate` holds the first frame until the faces are registered, so
  * nothing paints in the system fallback.

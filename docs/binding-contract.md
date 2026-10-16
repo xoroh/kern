@@ -1,7 +1,7 @@
 # Binding contract
 
 **Status: draft — `mgr-oss` (P1-G7 deputy), 2026-10-09 · for review by `review-m3`.**
-Task: `docs/planning/01-primitives.md` → **G7**. Publish explicitly excluded (founder HOLD) — this file is the document half of G7.
+Task: `docs/archive/2026-10-axis-transition/planning/01-primitives.md` → **G7** (archived 2026-10-16; active plan: `docs/architecture/kern-axis-migration-and-roadmap.md`). Publish explicitly excluded (founder HOLD) — this file is the document half of G7.
 
 This manifest is the **contract for the kernel presentation bindings**. It says which
 bindings exist, what each one binds, and how surfaces import them. It does **not**

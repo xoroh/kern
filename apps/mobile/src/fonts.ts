@@ -1,7 +1,7 @@
 /**
  * Font wiring for the showcase host.
  *
- * Per `docs/plan/native-composition.md` § 8: the *host* loads fonts,
+ * Per `docs/archive/2026-10-axis-transition/plan/native-composition.md` § 8: the *host* loads fonts,
  * components only set weights. `@xoroh/kern-native` ships the face names
  * (`kernFontFaces`) plus an injected-loader hook; the host owns `expo-font`
  * and the asset modules. Swapping the loader is the only seam.
