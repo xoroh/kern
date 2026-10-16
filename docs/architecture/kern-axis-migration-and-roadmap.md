@@ -510,6 +510,34 @@ phase. Phases overlap only where stated.
 - Exit gate: Axis checkout builds from clean clone; zero
   `@xoroh/kern-*`/workspace/relative-cross-repo references in source;
   placeholder name fully gone (`grep` proof).
+- Execution log 2026-10-16 (owner mandate). Slice 1 (Axis `de50f65`):
+  identity + `time`/`useControllableState` (29 tests). Slice 2 (Axis
+  `9bf2ceb`): 12 behavior modules + tests (154 passing), public barrel
+  per contract, `check:boundary` gate, toolchain + extended CI. Both
+  merged to Axis `development` as PR xoroh/axis#3 (merge `e2e2fab1`,
+  `validate` green). Slice 3 = native verification, NO new modules
+  (Axis `ce340bb`, PR xoroh/axis#5 open): jest + RN preset mirroring
+  kern-native's runner (jest 30 / RN 0.87 / RNTL 14), four
+  `*.rntest.tsx` behavior suites (12 tests: controllable state,
+  multi-selection, press binding, overlay stack, portal registry,
+  floating-rect math) consuming the public `./index` entry only
+  (boundary-gate enforced, mutation-verified); CI + `test:all`
+  extended. `collection`/`mergeRefs` do NOT transfer — their gates
+  fail on dated audit evidence, see `axis-extraction-inventory.md`
+  `collection`/`ref-composition` rows (2026-10-16).
+- Native-integration evidence (Workstream C, emulator-independent level).
+  RNTL suites green in Axis CI. Metro/Expo-host leg proven on the
+  designated verification host: kern `apps/mobile` (Expo 57) `expo
+  export` (android + ios) with the shipped Axis ESM `dist/index.js`
+  imported through the app's own babel + resolver config produced real
+  Hermes bundles (ios + android, ~2MB each) containing the Axis public
+  markers — scratch probe, fully reverted, no repo coupling. Lesson:
+  raw `metro build` CLI is not runnable under the bun-store symlink
+  layout (Metro's file-map cannot hash store paths, including its own
+  runtime polyfills); the Expo host is the designated Metro runner,
+  and adoption-time bundling stays gated by kern CI's existing
+  bundle + artifact-verification steps. Physical-device runs remain
+  an explicit Phase 3 gate — nothing here claims them.
 
 ### Phase 3 — Axis native-mobile package readiness
 
@@ -540,6 +568,18 @@ multi-design-system expansion, publication itself.
 - Exit gate: no `@xoroh/kern-primitives` string outside the archive; Kern
   builds/tests/typechecks without `libs/`; M3 implementations untouched in
   behavior.
+- Integration order (recorded 2026-10-16; no code adoption this cycle).
+  Kern cannot consume `@xoroh/axis` until Axis publishes: the package is
+  `0.0.0` + `private`-root + HOLD-intact, publication is release-policy
+  gated and not authorized here, and a cross-repo `file:` dependency would
+  violate repo independence and the boundary both gates enforce. Ordered
+  plan, no premature PRs: (1) Axis PR #5 merged → (2) first Axis publish
+  under release authorization (D-RELEASE pre-publication actions) →
+  (3) kern-native adopts one module behind the public API with
+  consumer + RNTL proofs, old code removed only at zero importers →
+  (4) `libs/kern-primitives` deleted per the hard-cut law above.
+  First-candidate consumer when (2) lands: `useControllableState`
+  (18 importer files, suite-backed) — vertical slice, not a doc edit.
 
 ### Phase 5 — Cross-repository verification
 
