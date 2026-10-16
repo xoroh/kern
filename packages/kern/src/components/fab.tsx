@@ -32,17 +32,15 @@ const fabVariants = cva(
         "tertiary-fill":
           "bg-(--sys-color-tertiary) text-(--sys-color-on-tertiary) before:bg-(--sys-color-on-tertiary) [&_svg]:size-6",
       },
-      // M3 FAB sizes: small 40dp (deprecated — compact only), regular 56dp
+      // M3 FAB sizes: small 40dp (compact only), regular 56dp
       // (corner-large 16px, icon 24px), medium 80dp (expressive), large 96dp
-      // (corner-extra-large 28px, icon 36px). Kern's `medium` (96px) is M3's
-      // LARGE under its pre-expressive name — kept for back-compat, so the
-      // expressive medium ships as `md`. Kern's `large` (128px) is an
-      // extension past the spec.
+      // (corner-extra-large 28px, icon 36px). Kern's `md` is M3's medium;
+      // `large` (128px) is an extension past the spec. One size, one name:
+      // the pre-expressive `medium` (96px under the old name) is gone —
+      // no-compat rule, use `md` (80px) or `large` (128px).
       size: {
         default: "h-14 px-5 rounded-(--sys-shape-corner-large) [&_svg]:size-6",
         md: "h-20 w-20 px-0 rounded-(--sys-shape-corner-extra-large) [&_svg]:size-8",
-        medium:
-          "h-24 w-24 px-0 rounded-(--sys-shape-corner-extra-large) [&_svg]:size-9",
         large:
           "h-32 w-32 px-0 rounded-(--sys-shape-corner-extra-large) [&_svg]:size-9",
         sm: "h-10 px-4 rounded-(--sys-shape-corner-medium) [&_svg]:size-6",

@@ -228,14 +228,14 @@ describe("Fab — four colors, M3 sizes and shapes", () => {
     );
   });
 
-  it("sizes carry M3 shapes: sm 12px, default 16px, medium/large 28px", () => {
+  it("sizes carry M3 shapes: sm 12px, default 16px, md/large 28px", () => {
     expect(fabVariants({ size: "sm" })).toContain(
       "rounded-(--sys-shape-corner-medium)",
     );
     expect(fabVariants({ size: "default" })).toContain(
       "rounded-(--sys-shape-corner-large)",
     );
-    expect(fabVariants({ size: "medium" })).toContain(
+    expect(fabVariants({ size: "md" })).toContain(
       "rounded-(--sys-shape-corner-extra-large)",
     );
   });
@@ -247,7 +247,7 @@ describe("Fab — four colors, M3 sizes and shapes", () => {
   });
 
   it("renders all sizes without crashing", () => {
-    for (const size of ["sm", "default", "medium", "large", "icon"] as const) {
+    for (const size of ["sm", "default", "md", "large", "icon"] as const) {
       render(
         <Fab size={size} aria-label="x">
           <svg />

@@ -134,8 +134,8 @@ describe("loadingIndicatorStyles", () => {
 });
 
 describe("LoadingIndicator sizes (M3: 24–240dp range, 48dp default)", () => {
-  it("renders xl at the 48dp spec default", async () => {
-    expect(loadingIndicatorStyles("xl").ring.width).toBe(48);
-    expect(loadingIndicatorStyles("xl").ring.borderWidth).toBe(4);
+  it("renders the default at the 48dp spec default", async () => {
+    expect(loadingIndicatorStyles("default").ring.width).toBe(48);
+    expect(loadingIndicatorStyles("default").ring.borderWidth).toBe(4);
   });
 });

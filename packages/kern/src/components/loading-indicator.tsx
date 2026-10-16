@@ -36,13 +36,13 @@ const loadingIndicatorVariants = cva(
   "kern-loading-indicator inline-flex animate-spin rounded-full border-2 border-(--sys-color-primary) border-t-transparent motion-reduce:animate-none",
   {
     variants: {
-      // M3 loading indicators range 24–240dp with a 48dp default. `default`
-      // stays 24px for back-compat; `xl` is the spec default at 48px.
+      // M3 loading indicators range 24–240dp with a 48dp default, so the
+      // default IS 48px. No `xl`: one size, one name (no-compat rule —
+      // the old `xl`-as-spec-default alias died with the 24px default).
       size: {
         sm: "size-4 border-2",
-        default: "size-6 border-2",
+        default: "size-12 border-4",
         lg: "size-10 border-4",
-        xl: "size-12 border-4",
       },
     },
     defaultVariants: { size: "default" },
