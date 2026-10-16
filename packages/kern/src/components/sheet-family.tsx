@@ -4,6 +4,7 @@ import {
   createDismissPolicy,
   dismissBranchesFor,
   shouldDismissOn,
+  useControllableState,
 } from "@xoroh/axis";
 import type { ReactNode } from "react";
 import { cn } from "../utils/cn";
@@ -274,12 +275,18 @@ export function SnapSheet({
   className,
   ...surface
 }: SnapSheetProps) {
+  const [stored, setStored] = useControllableState<number>(
+    valueProp,
+    defaultValue,
+    onValueChange,
+  );
   const count = snapPoints.length || 1;
-  const requested = valueProp ?? defaultValue;
-  const current = Math.min(Math.max(requested, 0), count - 1);
+  // Clamp on read (a controlled value may arrive out of range) and on write
+  // (uncontrolled interaction must never store an invalid detent).
+  const current = Math.min(Math.max(stored ?? 0, 0), count - 1);
   const height = `${Math.round((snapPoints[current] ?? 0.5) * 100)}%`;
   const report = (next: number) => {
-    onValueChange?.(next);
+    setStored(Math.min(Math.max(next, 0), count - 1));
   };
 
   return (

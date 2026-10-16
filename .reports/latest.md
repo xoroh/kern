@@ -1,7 +1,7 @@
 # Status report — 2026-10-16, evening (Kern 0.1.0 Preview readiness track)
 
-Baseline: Kern `main` at `3929ac81` (PR #37 merged 14:27Z). CI green on HEAD
-(CI + Release + Deploy `success`). Zero open PRs. Tree clean, pushed, synced.
+Baseline: Kern `main` at `213008b0` (PR #38 audit merged). CI green on HEAD.
+Tree clean, pushed, synced.
 
 ## Done (this track)
 - PR #37 merged: Kern consumes `@xoroh/axis` via vendored tarball
@@ -46,7 +46,16 @@ Baseline: Kern `main` at `3929ac81` (PR #37 merged 14:27Z). CI green on HEAD
   kern/kern-native→primitives lines resolved by the cutover.
 
 ## In progress
-- PR-1 (this report + readiness audit) awaiting CI, then merge.
+- Critic-review fix queue (owner-ordered): (1) SnapSheet uncontrolled
+  resuscitation — this turn's PR (branch fix/snapsheet-uncontrolled); next
+  (2) Button toggle+href aria-pressed, (3) single focus-ring source,
+  (4) versioning-docs contradiction + stale primitives changeset,
+  (5) ref-forwarding consistency, (6) site route dedupe, (7) stale
+  verification-limits/README/native-exports/CLI-flag findings,
+  (8) Base-UI-names API discipline in api-consistency.md,
+  (9) testID/data-* selector contract evaluation.
+- PR #39 (fix/snapsheet-uncontrolled): SnapSheet uncontrolled detent via
+  `useControllableState` + regression test + patch changeset. Awaiting CI.
 - Next: PR-2 roadmap freshness pass (§§B/H/J still pin `f0774ae7`/red CI),
   PR-3 changeset health, PR-4 foundation-registration contract (shapes only),
   PR-5 Preview scope decisions (needs owner sign on any ship commitment).

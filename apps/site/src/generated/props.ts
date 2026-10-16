@@ -8137,52 +8137,52 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "open",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:60",
+      "src": "packages/kern/src/components/sheet-family.tsx:61",
       "note": "Controlled open state."
     },
     {
       "name": "defaultOpen",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:62",
+      "src": "packages/kern/src/components/sheet-family.tsx:63",
       "note": "Initial state when uncontrolled."
     },
     {
       "name": "onOpenChange",
       "type": "((open: boolean) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:63"
+      "src": "packages/kern/src/components/sheet-family.tsx:64"
     },
     {
       "name": "label",
       "type": "string",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:65",
+      "src": "packages/kern/src/components/sheet-family.tsx:66",
       "note": "Accessible name for the surface. Required: a dialog must be nameable."
     },
     {
       "name": "children",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:66"
+      "src": "packages/kern/src/components/sheet-family.tsx:67"
     },
     {
       "name": "className",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:67"
+      "src": "packages/kern/src/components/sheet-family.tsx:68"
     },
     {
       "name": "testID",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:68"
+      "src": "packages/kern/src/components/sheet-family.tsx:69"
     },
     {
       "name": "dir",
       "type": "A11yDir | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:75",
+      "src": "packages/kern/src/components/sheet-family.tsx:76",
       "note": "Text direction for the surface. Passed through verbatim: when absent no\n`dir` attribute renders and the surface inherits the document direction.\nA kernel `ltr` fallback must never render here — it would pin every sheet\nto LTR on RTL pages."
     }
   ],
@@ -8191,67 +8191,67 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "label",
       "type": "string",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:65",
+      "src": "packages/kern/src/components/sheet-family.tsx:66",
       "note": "Accessible name for the surface. Required: a dialog must be nameable."
     },
     {
       "name": "dir",
       "type": "A11yDir | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:75",
+      "src": "packages/kern/src/components/sheet-family.tsx:76",
       "note": "Text direction for the surface. Passed through verbatim: when absent no\n`dir` attribute renders and the surface inherits the document direction.\nA kernel `ltr` fallback must never render here — it would pin every sheet\nto LTR on RTL pages."
     },
     {
       "name": "children",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:66"
+      "src": "packages/kern/src/components/sheet-family.tsx:67"
     },
     {
       "name": "onOpenChange",
       "type": "((open: boolean) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:63"
+      "src": "packages/kern/src/components/sheet-family.tsx:64"
     },
     {
       "name": "open",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:60",
+      "src": "packages/kern/src/components/sheet-family.tsx:61",
       "note": "Controlled open state."
     },
     {
       "name": "defaultOpen",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:62",
+      "src": "packages/kern/src/components/sheet-family.tsx:63",
       "note": "Initial state when uncontrolled."
     },
     {
       "name": "testID",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:68"
+      "src": "packages/kern/src/components/sheet-family.tsx:69"
     },
     {
       "name": "title",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:142",
+      "src": "packages/kern/src/components/sheet-family.tsx:143",
       "note": "Optional heading. When absent the surface is still labelled."
     },
     {
       "name": "onClose",
       "type": "(() => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:148",
+      "src": "packages/kern/src/components/sheet-family.tsx:149",
       "note": "Visible close control. R2 lexicon: this is the dismissal ACTION, not\nstate — open/defaultOpen/onOpenChange on the surface own visibility\n(inherited via `...surface`). Fires when the × control activates."
     },
     {
       "name": "className",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:149"
+      "src": "packages/kern/src/components/sheet-family.tsx:150"
     }
   ],
   "DockSheet": [
@@ -8259,25 +8259,25 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "label",
       "type": "string",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:217"
+      "src": "packages/kern/src/components/sheet-family.tsx:218"
     },
     {
       "name": "children",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:218"
+      "src": "packages/kern/src/components/sheet-family.tsx:219"
     },
     {
       "name": "className",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:219"
+      "src": "packages/kern/src/components/sheet-family.tsx:220"
     },
     {
       "name": "testID",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:220"
+      "src": "packages/kern/src/components/sheet-family.tsx:221"
     }
   ],
   "SnapSheet": [
@@ -8285,79 +8285,79 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "label",
       "type": "string",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:65",
+      "src": "packages/kern/src/components/sheet-family.tsx:66",
       "note": "Accessible name for the surface. Required: a dialog must be nameable."
     },
     {
       "name": "dir",
       "type": "A11yDir | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:75",
+      "src": "packages/kern/src/components/sheet-family.tsx:76",
       "note": "Text direction for the surface. Passed through verbatim: when absent no\n`dir` attribute renders and the surface inherits the document direction.\nA kernel `ltr` fallback must never render here — it would pin every sheet\nto LTR on RTL pages."
     },
     {
       "name": "children",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:66"
+      "src": "packages/kern/src/components/sheet-family.tsx:67"
     },
     {
       "name": "onOpenChange",
       "type": "((open: boolean) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:63"
+      "src": "packages/kern/src/components/sheet-family.tsx:64"
     },
     {
       "name": "open",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:60",
+      "src": "packages/kern/src/components/sheet-family.tsx:61",
       "note": "Controlled open state."
     },
     {
       "name": "defaultOpen",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:62",
+      "src": "packages/kern/src/components/sheet-family.tsx:63",
       "note": "Initial state when uncontrolled."
     },
     {
       "name": "testID",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:68"
+      "src": "packages/kern/src/components/sheet-family.tsx:69"
     },
     {
       "name": "snapPoints",
       "type": "readonly number[]",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:259",
+      "src": "packages/kern/src/components/sheet-family.tsx:260",
       "note": "Detents, as a fraction of viewport height (0–1)."
     },
     {
       "name": "value",
       "type": "number | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:262",
+      "src": "packages/kern/src/components/sheet-family.tsx:263",
       "note": "Index into `snapPoints`; defaults to the first."
     },
     {
       "name": "defaultValue",
       "type": "number | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:263"
+      "src": "packages/kern/src/components/sheet-family.tsx:264"
     },
     {
       "name": "onValueChange",
       "type": "((index: number) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:264"
+      "src": "packages/kern/src/components/sheet-family.tsx:265"
     },
     {
       "name": "className",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:265"
+      "src": "packages/kern/src/components/sheet-family.tsx:266"
     }
   ],
   "EntitySheet": [
@@ -8365,79 +8365,79 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "label",
       "type": "string",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:65",
+      "src": "packages/kern/src/components/sheet-family.tsx:66",
       "note": "Accessible name for the surface. Required: a dialog must be nameable."
     },
     {
       "name": "dir",
       "type": "A11yDir | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:75",
+      "src": "packages/kern/src/components/sheet-family.tsx:76",
       "note": "Text direction for the surface. Passed through verbatim: when absent no\n`dir` attribute renders and the surface inherits the document direction.\nA kernel `ltr` fallback must never render here — it would pin every sheet\nto LTR on RTL pages."
     },
     {
       "name": "children",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:66"
+      "src": "packages/kern/src/components/sheet-family.tsx:67"
     },
     {
       "name": "onOpenChange",
       "type": "((open: boolean) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:63"
+      "src": "packages/kern/src/components/sheet-family.tsx:64"
     },
     {
       "name": "open",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:60",
+      "src": "packages/kern/src/components/sheet-family.tsx:61",
       "note": "Controlled open state."
     },
     {
       "name": "defaultOpen",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:62",
+      "src": "packages/kern/src/components/sheet-family.tsx:63",
       "note": "Initial state when uncontrolled."
     },
     {
       "name": "testID",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:68"
+      "src": "packages/kern/src/components/sheet-family.tsx:69"
     },
     {
       "name": "title",
       "type": "string",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:360"
+      "src": "packages/kern/src/components/sheet-family.tsx:367"
     },
     {
       "name": "subtitle",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:362",
+      "src": "packages/kern/src/components/sheet-family.tsx:369",
       "note": "Supporting line under the title."
     },
     {
       "name": "fields",
       "type": "readonly EntityField[] | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:363"
+      "src": "packages/kern/src/components/sheet-family.tsx:370"
     },
     {
       "name": "action",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:365",
+      "src": "packages/kern/src/components/sheet-family.tsx:372",
       "note": "At most one primary action, per the spec's guidance."
     },
     {
       "name": "className",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:366"
+      "src": "packages/kern/src/components/sheet-family.tsx:373"
     }
   ],
   "BottomSheetPicker": [
@@ -8445,84 +8445,84 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "label",
       "type": "string",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:65",
+      "src": "packages/kern/src/components/sheet-family.tsx:66",
       "note": "Accessible name for the surface. Required: a dialog must be nameable."
     },
     {
       "name": "dir",
       "type": "A11yDir | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:75",
+      "src": "packages/kern/src/components/sheet-family.tsx:76",
       "note": "Text direction for the surface. Passed through verbatim: when absent no\n`dir` attribute renders and the surface inherits the document direction.\nA kernel `ltr` fallback must never render here — it would pin every sheet\nto LTR on RTL pages."
     },
     {
       "name": "children",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:66"
+      "src": "packages/kern/src/components/sheet-family.tsx:67"
     },
     {
       "name": "onOpenChange",
       "type": "((open: boolean) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:63"
+      "src": "packages/kern/src/components/sheet-family.tsx:64"
     },
     {
       "name": "open",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:60",
+      "src": "packages/kern/src/components/sheet-family.tsx:61",
       "note": "Controlled open state."
     },
     {
       "name": "defaultOpen",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:62",
+      "src": "packages/kern/src/components/sheet-family.tsx:63",
       "note": "Initial state when uncontrolled."
     },
     {
       "name": "testID",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:68"
+      "src": "packages/kern/src/components/sheet-family.tsx:69"
     },
     {
       "name": "title",
       "type": "string",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:438"
+      "src": "packages/kern/src/components/sheet-family.tsx:445"
     },
     {
       "name": "options",
       "type": "readonly PickerOption[]",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:439"
+      "src": "packages/kern/src/components/sheet-family.tsx:446"
     },
     {
       "name": "value",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:440"
+      "src": "packages/kern/src/components/sheet-family.tsx:447"
     },
     {
       "name": "multiple",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:442",
+      "src": "packages/kern/src/components/sheet-family.tsx:449",
       "note": "Multi-select exposes `aria-multiselectable`; single-select does not."
     },
     {
       "name": "onSelect",
       "type": "(value: string) => void",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:443"
+      "src": "packages/kern/src/components/sheet-family.tsx:450"
     },
     {
       "name": "className",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:444"
+      "src": "packages/kern/src/components/sheet-family.tsx:451"
     }
   ],
   "ActionSheet": [
@@ -8530,65 +8530,65 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "label",
       "type": "string",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:65",
+      "src": "packages/kern/src/components/sheet-family.tsx:66",
       "note": "Accessible name for the surface. Required: a dialog must be nameable."
     },
     {
       "name": "dir",
       "type": "A11yDir | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:75",
+      "src": "packages/kern/src/components/sheet-family.tsx:76",
       "note": "Text direction for the surface. Passed through verbatim: when absent no\n`dir` attribute renders and the surface inherits the document direction.\nA kernel `ltr` fallback must never render here — it would pin every sheet\nto LTR on RTL pages."
     },
     {
       "name": "children",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:66"
+      "src": "packages/kern/src/components/sheet-family.tsx:67"
     },
     {
       "name": "onOpenChange",
       "type": "((open: boolean) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:63"
+      "src": "packages/kern/src/components/sheet-family.tsx:64"
     },
     {
       "name": "open",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:60",
+      "src": "packages/kern/src/components/sheet-family.tsx:61",
       "note": "Controlled open state."
     },
     {
       "name": "defaultOpen",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:62",
+      "src": "packages/kern/src/components/sheet-family.tsx:63",
       "note": "Initial state when uncontrolled."
     },
     {
       "name": "testID",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:68"
+      "src": "packages/kern/src/components/sheet-family.tsx:69"
     },
     {
       "name": "title",
       "type": "string",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:532"
+      "src": "packages/kern/src/components/sheet-family.tsx:539"
     },
     {
       "name": "actions",
       "type": "readonly ActionSheetAction[]",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:533"
+      "src": "packages/kern/src/components/sheet-family.tsx:540"
     },
     {
       "name": "className",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:535"
+      "src": "packages/kern/src/components/sheet-family.tsx:542"
     }
   ],
   "SheetRoot": [

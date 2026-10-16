@@ -152,9 +152,9 @@ describe("SnapSheet", () => {
 
   it("moves the detent with the arrow keys", () => {
     // A slider that only answers a click is not keyboard-operable; the native
-    // adjustable role this mirrors is. SnapSheet is CONTROLLED (`value` is a
-    // prop), so the assertion is on what the keys REPORT — the host moves the
-    // value, which is the contract.
+    // adjustable role this mirrors is. In controlled mode the assertion is on
+    // what the keys REPORT — the host moves the value, which is the contract.
+    // (Uncontrolled movement is covered by the next case.)
     const onValueChange = vi.fn();
     render(
       <SnapSheet
@@ -194,6 +194,34 @@ describe("SnapSheet", () => {
     );
     screen.getByRole("slider", { name: /snap position/i }).click();
     expect(onValueChange).toHaveBeenCalledWith(1);
+  });
+
+  it("moves on its own in uncontrolled mode (no frozen first render)", () => {
+    // Regression: the detent was `valueProp ?? defaultValue` with no state,
+    // so without `value` every interaction only fired the callback and the
+    // handle never moved. State now lives in `useControllableState`.
+    const onValueChange = vi.fn();
+    render(
+      <SnapSheet
+        open
+        label="Peek"
+        snapPoints={[0.25, 0.5, 0.9]}
+        defaultValue={0}
+        onValueChange={onValueChange}
+      >
+        <p>body</p>
+      </SnapSheet>,
+    );
+    const handle = screen.getByRole("slider", { name: /snap position/i });
+    expect(handle).toHaveAttribute("aria-valuenow", "0");
+    // fireEvent (act-wrapped): a native .click() fires the callback but
+    // React 19 does not flush the state update synchronously outside act(),
+    // so DOM assertions need the wrapped event.
+    fireEvent.click(handle);
+    expect(onValueChange).toHaveBeenCalledWith(1);
+    expect(handle).toHaveAttribute("aria-valuenow", "1");
+    fireEvent.keyDown(handle, { key: "ArrowLeft" });
+    expect(handle).toHaveAttribute("aria-valuenow", "0");
   });
 });
 
