@@ -1,6 +1,6 @@
 # Status report — 2026-10-16, evening (Kern 0.1.0 Preview readiness track)
 
-Baseline: Kern `main` at `213008b0` (PR #38 audit merged). CI green on HEAD.
+Baseline: Kern `main` at `8c1d35e6` (PR #39 SnapSheet merged, CI green).
 Tree clean, pushed, synced.
 
 ## Done (this track)
@@ -45,6 +45,12 @@ Tree clean, pushed, synced.
 - `changeset status`: exactly ONE invalid-tree line left (mcp→cli);
   kern/kern-native→primitives lines resolved by the cutover.
 
+## Done (this turn)
+- PR #39 merged: SnapSheet uncontrolled detent via `useControllableState`
+  (critic fix 1). Test note: React 19 does not flush inlined-Axis-dist state
+  updates synchronously under native `.click()` outside `act()` — DOM
+  assertions on uncontrolled updates need `fireEvent` (act-wrapped).
+
 ## In progress
 - Critic-review fix queue (owner-ordered): (1) SnapSheet uncontrolled
   resuscitation — this turn's PR (branch fix/snapsheet-uncontrolled); next
@@ -54,8 +60,14 @@ Tree clean, pushed, synced.
   verification-limits/README/native-exports/CLI-flag findings,
   (8) Base-UI-names API discipline in api-consistency.md,
   (9) testID/data-* selector contract evaluation.
-- PR #39 (fix/snapsheet-uncontrolled): SnapSheet uncontrolled detent via
-  `useControllableState` + regression test + patch changeset. Awaiting CI.
+- PR #40 (fix/button-toggle-href-aria, this PR): toggle+href keeps
+  `aria-pressed` (critic fix 2) + announcement test + patch changeset.
+  Awaiting CI.
+- Next: critic (3) focus-ring single source + m3 P0 state-layer values with
+  kern-tokens single source; usage P0s (Preview banner, mobile dialog,
+  rich-tooltip/check:docs); critic (4) versioning/changesets; (5) refs;
+  (6) route dedupe; (7) findings bundle; (8) Base-UI-names discipline;
+  (9) testID contract evaluation; then plan PR-2..PR-8.
 - Next: PR-2 roadmap freshness pass (§§B/H/J still pin `f0774ae7`/red CI),
   PR-3 changeset health, PR-4 foundation-registration contract (shapes only),
   PR-5 Preview scope decisions (needs owner sign on any ship commitment).
