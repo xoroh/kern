@@ -58,16 +58,17 @@ Tree clean, pushed, synced (this branch: fix/preview-install-honesty).
 - PR #40 merged: Button toggle+href keeps `aria-pressed` (critic fix 2).
 
 ## In progress
-- Critic-review fix queue: (1) done (#39); (2) done (#40); (3) this branch —
-  focus-ring single source + canonical state layers; then (4) versioning-docs
-  contradiction + stale primitives changeset, (5) ref-forwarding consistency,
-  (6) site route dedupe, (7) stale verification-limits/README/native-exports/
-  CLI-flag findings, (8) Base-UI-names API discipline in api-consistency.md,
-  (9) testID/data-* selector contract evaluation.
-- Usage-review P0s queued after (3): Preview install banner, mobile dialog
-  open/onOpenChange, rich-tooltip + check:docs zero. m3-visual items queued:
-  tertiary/chrome pass, playground fidelity, P2 sweeps. HCT engine + owner
-  questions left for owner (reported, not started).
+- Merged: #39 SnapSheet, #40 Button aria-pressed, #41 state layers.
+- Open, awaiting CI/merge in order: #42 Preview install banner (site),
+  #43 mobile dialog props (site), #44 elevation gaps zero.
+- This branch (release-hygiene, next PR): CLI publishable per owner decision,
+  8-package truth in versioning/releases/CHANGELOG, changeset surgery
+  (9 removed, 2 retargeted), `changeset status` exit 0.
+- Queued after: critic (4 done here) → (5) ref-forwarding, (6) route dedupe,
+  (7) findings bundle, (8) Base-UI-names discipline, (9) testID contract;
+  usage P1/P2 correctness items; m3 tertiary/chrome + playground fidelity;
+  owner-decision phases (structure URLs/registry/rename, Button M3 names,
+  docs depth top-20, HCT engine).
 
 ## Blockers / standing gates
 - **Release hold**: no publish, no version bumps, no tags (all `0.0.0`).

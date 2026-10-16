@@ -1,6 +1,5 @@
 ---
 "@xoroh/kern-native": minor
-"@xoroh/kern-primitives": patch
 ---
 
 Native `Carousel`, the roving primitive's first real consumer — and it found a

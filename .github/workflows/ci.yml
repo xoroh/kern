@@ -299,6 +299,8 @@ jobs:
           - packages/kern-icons
           - packages/kern-native
           - packages/mcp
+          - packages/kern-contracts
+          - packages/kern-cli
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 

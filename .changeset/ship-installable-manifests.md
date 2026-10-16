@@ -1,7 +1,6 @@
 ---
 "@xoroh/kern": patch
 "@xoroh/kern-native": patch
-"@xoroh/kern-primitives": patch
 "@xoroh/kern-mcp": patch
 ---
 

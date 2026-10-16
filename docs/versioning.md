@@ -14,20 +14,24 @@ accumulated changesets into version bumps, changelog entries, and (when
 enabled) npm publishes. Nothing is versioned by hand.
 
 All packages sit at `0.0.0` today — nothing published yet. The first release
-covers `@xoroh/kern-tokens`, `@xoroh/kern`, and `@xoroh/kern-native`
-(see `CHANGELOG.md` → Unreleased).
+covers all eight public packages (see `CHANGELOG.md` → Unreleased):
+`@xoroh/kern-tokens`, `@xoroh/kern-material-3`, `@xoroh/kern`,
+`@xoroh/kern-native`, `@xoroh/kern-icons`, `@xoroh/kern-contracts`,
+`@xoroh/kern-mcp`, and `@xoroh/kern-cli`.
 
 ## 2. The packages
 
 | Package | Published | Notes |
 |---|---|---|
 | `@xoroh/kern-tokens` | yes | tokens + themes + tones, platform-free |
+| `@xoroh/kern-material-3` | yes | Material 3 preset data + elevation |
 | `@xoroh/kern` | yes | web (React) components on Base UI |
 | `@xoroh/kern-native` | yes | native (React Native) components |
-| `@xoroh/kern-primitives` | yes | primitives |
+| `@xoroh/kern-primitives` | no (`private: true`) | internal behavior kernel, never published (deleted at the Axis cutover) |
 | `@xoroh/kern-icons` | yes | icons |
+| `@xoroh/kern-contracts` | yes | contract schema + validators, no UI deps |
 | `@xoroh/kern-mcp` | yes | MCP server + manifest |
-| `@xoroh/kern-cli` | no (`private: true`) | CLI tooling, never published |
+| `@xoroh/kern-cli` | yes | source-vendoring installer (`kern` bin); ships 0.1.0, unpublished until then |
 
 Public packages carry `publishConfig: { access: public, provenance: true }`
 (see e.g. `packages/kern/package.json`).

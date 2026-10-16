@@ -76,7 +76,7 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
   },
   {
     id: "native-carousel",
-    packages: ["@xoroh/kern-native", "@xoroh/kern-primitives"],
+    packages: ["@xoroh/kern-native"],
     bump: "minor",
     summary:
       "Native Carousel, the roving primitive's first real consumer — and it found a real bug in the primitive it was built on.",
@@ -241,20 +241,6 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
       "Theming pipeline is explicit: seed → map → alias → component stages (pipeline.ts), a checked-in mode × contrast × preset matrix (themes/matrix.json, gated by check:theme-matrix), a shape-only compact density preset, and motion algorithms as validated data (presets.ts). No rendered value changes — existing schemes resolve byte-identically.",
   },
   {
-    id: "primitives-roving-index",
-    packages: ["@xoroh/kern-primitives"],
-    bump: "minor",
-    summary:
-      "Add the roving-index model — one tab stop per composite, arrow traversal within.",
-  },
-  {
-    id: "primitives-time-normalisation",
-    packages: ["@xoroh/kern-primitives"],
-    bump: "minor",
-    summary:
-      "Time-picker value normalisation — the pure half of the TimePicker contract.",
-  },
-  {
     id: "seed-configurator-motion-runtime",
     packages: ["@xoroh/kern-tokens", "@xoroh/kern", "@xoroh/kern-native"],
     bump: "minor",
@@ -328,6 +314,12 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
     summary: "Add check:layers — the D-034 package map, now machine-enforced.",
   },
   {
+    id: "cli-publishable",
+    packages: ["@xoroh/kern-cli"],
+    bump: "patch",
+    summary: "The CLI package is publishable: private: true removed.",
+  },
+  {
     id: "elevation-audit-variant-coverage",
     packages: ["@xoroh/kern-tokens"],
     bump: "patch",
@@ -382,13 +374,6 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
     bump: "patch",
     summary:
       "Record the K10 preview-card ruling and drop its non-conformant card border.",
-  },
-  {
-    id: "kern-primitives-publish-metadata",
-    packages: ["@xoroh/kern-primitives"],
-    bump: "patch",
-    summary:
-      "Publish-ready metadata: the tarball now carries the README and the licence.",
   },
   {
     id: "mcp-token-paths-and-loop",
@@ -465,34 +450,6 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
       "Cross-renderer behaviour parity, tranche 2: chips, lists, dialogs, text fields.",
   },
   {
-    id: "primitives-gate-step-0",
-    packages: ["@xoroh/kern-primitives"],
-    bump: "patch",
-    summary:
-      "Add the empty @xoroh/kern-primitives package and check:primitives, the boundary gate for the ratified extraction (step 0 of 4).",
-  },
-  {
-    id: "primitives-reusables-adapter-recipe",
-    packages: ["@xoroh/kern-primitives"],
-    bump: "patch",
-    summary:
-      'Document the react-native-reusables interop recipe ("Adapting react-native-reusables"): the Slot / Presence / Portal / dismiss mapping table and the one-recipe-scales note for Dialog, Menu, Popover and Tooltip. Recipe only — no dependency either way, per D-031 (owning wins). The Slot + Presence + Portal composition the recipe describes is live-verified by the "Adapter composition" tests in @xoroh/kern\'s presentation.test.tsx.',
-  },
-  {
-    id: "primitives-selection",
-    packages: ["@xoroh/kern-primitives"],
-    bump: "patch",
-    summary:
-      "Extract the collection/selection model as the layer's second real primitive.",
-  },
-  {
-    id: "primitives-usecontrollablestate",
-    packages: ["@xoroh/kern-primitives"],
-    bump: "patch",
-    summary:
-      "Move useControllableState into the primitives layer and give it tests.",
-  },
-  {
     id: "regen-manifest-and-reconcile-parity-prose",
     packages: ["@xoroh/kern-mcp"],
     bump: "patch",
@@ -519,20 +476,6 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
       "Repoint native SegmentedButton at the shared selection primitive, closing the set of native selection consumers.",
   },
   {
-    id: "repoint-selection-consumers",
-    packages: ["@xoroh/kern-primitives", "@xoroh/kern-native"],
-    bump: "patch",
-    summary:
-      "Repoint the native selection consumers at the shared primitive, and fix a selection bug on the way.",
-  },
-  {
-    id: "repoint-usecontrollablestate",
-    packages: ["@xoroh/kern-primitives"],
-    bump: "patch",
-    summary:
-      "Repoint every useControllableState consumer at the primitives layer, and delete both per-renderer copies.",
-  },
-  {
     id: "sheet-surface-dismissal-contract",
     packages: ["@xoroh/kern", "@xoroh/kern-native"],
     bump: "patch",
@@ -548,12 +491,7 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
   },
   {
     id: "ship-installable-manifests",
-    packages: [
-      "@xoroh/kern",
-      "@xoroh/kern-native",
-      "@xoroh/kern-primitives",
-      "@xoroh/kern-mcp",
-    ],
+    packages: ["@xoroh/kern", "@xoroh/kern-native", "@xoroh/kern-mcp"],
     bump: "patch",
     summary:
       "Ship-installable manifests: no workspace: protocol can reach a published tarball, and internal packages now ship real semver ranges.",
