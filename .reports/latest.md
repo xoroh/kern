@@ -1,6 +1,6 @@
 # Status report — 2026-10-16, evening (Kern 0.1.0 Preview readiness track)
 
-Baseline: Kern `main` at `8c1d35e6` (PR #39 SnapSheet merged, CI green).
+Baseline: Kern `main` at `4d325055` (PR #40 button aria-pressed merged).
 Tree clean, pushed, synced.
 
 ## Done (this track)
@@ -50,27 +50,19 @@ Tree clean, pushed, synced.
   (critic fix 1). Test note: React 19 does not flush inlined-Axis-dist state
   updates synchronously under native `.click()` outside `act()` — DOM
   assertions on uncontrolled updates need `fireEvent` (act-wrapped).
+- PR #40 merged: Button toggle+href keeps `aria-pressed` (critic fix 2).
 
 ## In progress
-- Critic-review fix queue (owner-ordered): (1) SnapSheet uncontrolled
-  resuscitation — this turn's PR (branch fix/snapsheet-uncontrolled); next
-  (2) Button toggle+href aria-pressed, (3) single focus-ring source,
-  (4) versioning-docs contradiction + stale primitives changeset,
-  (5) ref-forwarding consistency, (6) site route dedupe, (7) stale
-  verification-limits/README/native-exports/CLI-flag findings,
-  (8) Base-UI-names API discipline in api-consistency.md,
+- Critic-review fix queue: (1) done (#39); (2) done (#40); (3) this branch —
+  focus-ring single source + canonical state layers; then (4) versioning-docs
+  contradiction + stale primitives changeset, (5) ref-forwarding consistency,
+  (6) site route dedupe, (7) stale verification-limits/README/native-exports/
+  CLI-flag findings, (8) Base-UI-names API discipline in api-consistency.md,
   (9) testID/data-* selector contract evaluation.
-- PR #40 (fix/button-toggle-href-aria, this PR): toggle+href keeps
-  `aria-pressed` (critic fix 2) + announcement test + patch changeset.
-  Awaiting CI.
-- Next: critic (3) focus-ring single source + m3 P0 state-layer values with
-  kern-tokens single source; usage P0s (Preview banner, mobile dialog,
-  rich-tooltip/check:docs); critic (4) versioning/changesets; (5) refs;
-  (6) route dedupe; (7) findings bundle; (8) Base-UI-names discipline;
-  (9) testID contract evaluation; then plan PR-2..PR-8.
-- Next: PR-2 roadmap freshness pass (§§B/H/J still pin `f0774ae7`/red CI),
-  PR-3 changeset health, PR-4 foundation-registration contract (shapes only),
-  PR-5 Preview scope decisions (needs owner sign on any ship commitment).
+- Usage-review P0s queued after (3): Preview install banner, mobile dialog
+  open/onOpenChange, rich-tooltip + check:docs zero. m3-visual items queued:
+  tertiary/chrome pass, playground fidelity, P2 sweeps. HCT engine + owner
+  questions left for owner (reported, not started).
 
 ## Blockers / standing gates
 - **Release hold**: no publish, no version bumps, no tags (all `0.0.0`).

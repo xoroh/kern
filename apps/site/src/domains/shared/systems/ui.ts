@@ -17,8 +17,10 @@
  * - Site cards use the 28px extra-large corner, stages large, pills full.
  *   These are app compositions; package component shape tokens are unchanged.
  * - Primary is the action and inline-link accent.
- * - State layers: hover = on-surface @ 8%, press = on-surface @ 10%, focus =
- *   a visible secondary ring (2px, 2px offset).
+ * - State layers: hover = on-surface @ 8%, press = on-surface @ 12%,
+ *   focus = a visible secondary ring (3px, no offset — `FOCUS_RING_WIDTH_PX`
+ *   / `FOCUS_RING_OFFSET_PX` in `@xoroh/kern-tokens`; literals stay inline
+ *   so the Tailwind scanner generates them).
  * - Motion: standard easing, short durations, token-resolved. Never a spring.
  * - Interactive targets are ≥48dp (MIN_TARGET).
  */
@@ -65,15 +67,18 @@ export const STRIP =
 /* ---------------------------------------------------------- interaction --- */
 
 /**
- * Focus ring — secondary, 2px, 2px offset. The one keyboard affordance;
- * every interactive element in chrome carries it.
+ * Focus ring — the `@xoroh/kern-tokens` spec (`FOCUS_RING_WIDTH_PX` 3,
+ * `FOCUS_RING_COLOR_ROLE` secondary, `FOCUS_RING_OFFSET_PX` 0). The one
+ * keyboard affordance; every interactive element in chrome carries it.
+ * Literals, not imports: the Tailwind scanner generates these classes from
+ * this file (same constraint as `FOCUS_RING_CLASS` in `@xoroh/kern`).
  */
 export const FOCUS_RING =
-  "focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-(--sys-color-secondary)";
+  "focus-visible:outline-[3px] focus-visible:outline-solid focus-visible:outline-offset-[0px] focus-visible:outline-(--sys-color-secondary)";
 
 /** Hover state layer — on-surface @ 8% (M3 hover). */
 export const HOVER_LAYER = "hover:bg-(--sys-color-on-surface)/8";
-/** Press state layer — on-surface @ 10% (M3 press). */
+/** Press state layer — on-surface @ 12% (M3 pressed-state-layer-opacity). */
 export const PRESS_LAYER = "active:bg-(--sys-color-on-surface)/12";
 /** Hover + press, the transparent-element pair. */
 export const STATE_LAYERS = `${HOVER_LAYER} ${PRESS_LAYER}`;
