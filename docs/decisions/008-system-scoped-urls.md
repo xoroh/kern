@@ -18,4 +18,4 @@ Each system owns its components; URLs make the owner explicit and scale to 10+ s
 
 ## Status
 
-Accepted. Execution: roadmap D-STRUCTURE (phased, after small fixes; large migration PRs review-gated). Partially superseded by [018](018-component-page-tabs.md): the platform segment is dropped in favor of Web/Native tabs; system scoping and redirects stand.
+Accepted. Execution: roadmap D-STRUCTURE (phased, after small fixes; large migration PRs review-gated).

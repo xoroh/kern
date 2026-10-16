@@ -10,7 +10,7 @@ Status: current. Date: 2026-10-16.
 | ADR | Decision | Roadmap link |
 | --- | --- | --- |
 | [007](007-axis-native-foundation.md) | Axis is the native foundation; `kern-primitives` dropped once Axis is ready | D-FOUNDATION-CHOICE, D-DEP |
-| [008](008-system-scoped-urls.md) | System-scoped URLs with redirects (platform segment superseded by 018) | D-STRUCTURE |
+| [008](008-system-scoped-urls.md) | System-scoped URLs `/components/<system>/<platform>/<name>` with redirects | D-STRUCTURE |
 | [009](009-generated-registry-and-system-flag.md) | One generated component registry feeding site, CLI and MCP, plus `--system` | D-STRUCTURE |
 | [010](010-kern-m3-rename-and-no-global-registration.md) | Rename `kern-material-3` to `kern-m3`; `@xoroh/kern` does not register M3 globally | D-STRUCTURE |
 | [011](011-install-docs-release-availability.md) | Install docs: npm commands marked “available at release”, source install primary until publish | D-RELEASE (hold) |
@@ -19,6 +19,3 @@ Status: current. Date: 2026-10-16.
 | [014](014-button-variant-names.md) | M3 button variant names | D-BUTTON-NAMES |
 | [015](015-state-props-base-ui-names.md) | State props follow Base UI names (`checked`, `pressed`) | Parity / contract |
 | [016](016-hct-tonal-palettes.md) | M3 colors use HCT tonal palettes and full color roles | D-HCT |
-| [017](017-per-system-packages.md) | Per-system preset package plus per-platform widget packages | D-STRUCTURE |
-| [018](018-component-page-tabs.md) | Docs one page per component at `/components/<system>/<name>` with Web/Native tabs (supersedes 008 platform segment) | D-STRUCTURE |
-| [019](019-ai-chat-in-kern.md) | AI chat styled parts and blocks live in Kern, voice deferred | — (placement) |
