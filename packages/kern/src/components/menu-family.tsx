@@ -1,5 +1,5 @@
 import { useControllableState } from "@xoroh/axis";
-import type { ReactNode } from "react";
+import type { ReactNode, Ref } from "react";
 import { cn } from "../utils/cn";
 import { SheetSurface } from "./sheet-family";
 
@@ -139,6 +139,8 @@ export type MenuScreenProps = {
   groups: readonly MenuGroup[];
   className?: string;
   testID?: string;
+  /** Ref to the rendered menu container. */
+  ref?: Ref<HTMLDivElement>;
 };
 
 /**
@@ -151,11 +153,13 @@ export function MenuScreen({
   groups,
   className,
   testID,
+  ref,
 }: MenuScreenProps) {
   return (
     <div
       data-slot="menu-screen"
       data-testid={testID ?? "kern-menu-screen"}
+      ref={ref}
       className={cn(
         "flex h-full flex-col overflow-y-auto bg-(--sys-color-surface) p-4",
         className,
@@ -178,6 +182,8 @@ export type MenuSheetProps = {
   groups: readonly MenuGroup[];
   className?: string;
   testID?: string;
+  /** Ref to the rendered sheet surface. */
+  ref?: Ref<HTMLDivElement>;
 };
 
 /**
@@ -193,6 +199,7 @@ export function MenuSheet({
   groups,
   className,
   testID,
+  ref,
 }: MenuSheetProps) {
   return (
     <SheetSurface
@@ -201,6 +208,7 @@ export function MenuSheet({
       onOpenChange={onOpenChange}
       label={title}
       testID={testID ?? "kern-menu-sheet"}
+      ref={ref}
       className={cn(
         "w-[min(24rem,100vw)] gap-3 rounded-t-(--sys-shape-corner-extra-large) p-4 shadow-(--sys-elevation-level1)",
         className,
@@ -231,6 +239,8 @@ export type FilterChipRowProps = {
   label?: string;
   className?: string;
   testID?: string;
+  /** Ref to the rendered group container. */
+  ref?: Ref<HTMLDivElement>;
 };
 
 /**
@@ -249,6 +259,7 @@ export function FilterChipRow({
   label = "Filters",
   className,
   testID,
+  ref,
 }: FilterChipRowProps) {
   const [selected, setSelected] = useControllableState<readonly string[]>(
     value,
@@ -271,6 +282,7 @@ export function FilterChipRow({
       aria-label={label}
       data-slot="filter-chip-row"
       data-testid={testID ?? "kern-filter-chip-row"}
+      ref={ref}
       className={cn(
         "flex flex-row items-center gap-2 overflow-x-auto p-1",
         className,

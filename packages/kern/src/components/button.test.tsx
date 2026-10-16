@@ -56,6 +56,19 @@ describe("Button", () => {
     expect(ref.current).toBe(screen.getByRole("button", { name: "Save" }));
   });
 
+  it("forwards an anchor-typed ref to the link element, never a button ref", () => {
+    // The discriminated union makes a button ref a type error here; at
+    // runtime the anchor node lands in the ref.
+    const ref = createRef<HTMLAnchorElement>();
+    render(
+      <Button href="/next" ref={ref}>
+        Next
+      </Button>,
+    );
+    expect(ref.current).toBe(screen.getByRole("link", { name: "Next" }));
+    expect(ref.current?.tagName).toBe("A");
+  });
+
   it("renders the xs and xl sizes without changing the default", () => {
     const { rerender } = render(<Button>Save</Button>);
     expect(screen.getByRole("button")).toHaveClass("h-10");

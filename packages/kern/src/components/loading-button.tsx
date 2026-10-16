@@ -1,16 +1,19 @@
 import type { LoadingIndicatorStyle } from "@xoroh/kern-material-3";
-import type { Ref } from "react";
+import { assignRef } from "../utils/assignRef";
 import { cn } from "../utils/cn";
 import {
   BUTTON_VARIANT_ALIASES,
+  type ButtonButtonProps,
   type ButtonM3Variant,
-  type ButtonProps,
   type ButtonVariant,
   buttonVariants,
 } from "./button";
 import { CircularProgress } from "./circular-progress";
 
-export type LoadingButtonProps = ButtonProps & {
+export type LoadingButtonProps = Omit<
+  ButtonButtonProps,
+  "href" | "target" | "rel" | "download"
+> & {
   /** Shows the embedded progress indicator and blocks interaction. */
   loading?: boolean;
   /** 0–1 determinate progress while loading. Omit for the loop. */
@@ -35,19 +38,10 @@ export function LoadingButton({
   disabled,
   children,
   ref,
-  href,
-  target,
-  rel,
-  download,
   ...props
 }: LoadingButtonProps) {
-  // LoadingButton is button-only: strip the anchor branch props (href/target/
-  // rel/download) plus the widened union ref so the remainder typechecks as
-  // button props when spread onto the DOM button. No anchor branch here.
-  void href;
-  void target;
-  void rel;
-  void download;
+  // LoadingButton is button-only by type (ButtonButtonProps): anchor props
+  // cannot arrive here, so there is nothing to strip. No anchor branch.
   // Same M3-alias normalization as Button — the cva call only sees Kern names.
   const kernVariant: ButtonVariant | undefined =
     variant !== undefined && variant in BUTTON_VARIANT_ALIASES
@@ -62,7 +56,9 @@ export function LoadingButton({
       className={cn(buttonVariants({ variant: kernVariant, size }), className)}
       disabled={disabled || loading}
       type={type}
-      ref={ref as Ref<HTMLButtonElement>}
+      ref={(node) => {
+        assignRef(ref, node);
+      }}
       {...props}
     >
       {loading ? (

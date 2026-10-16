@@ -1,9 +1,9 @@
 import type { ComponentPropsWithRef } from "react";
-import { Button, type ButtonProps } from "./button";
+import { Button, type ButtonAnchorProps } from "./button";
 
 export type LinkButtonProps = Omit<
-  ButtonProps,
-  "type" | "value" | "href" | "onClick"
+  ButtonAnchorProps,
+  "type" | "value" | "onClick"
 > & {
   /**
    * Destination. Required — a link without an `href` is a button wearing
@@ -44,7 +44,7 @@ export function LinkButton({
   return (
     <Button
       href={href}
-      onClick={onClick as ButtonProps["onClick"]}
+      onClick={onClick as ButtonAnchorProps["onClick"]}
       iconPosition={iconPosition === "end" ? "start" : iconPosition}
       {...props}
     />

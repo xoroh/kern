@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
+import { createRef } from "react";
 import { describe, expect, it, vi } from "vitest";
 import { Switch } from "./switch";
 
@@ -39,5 +40,11 @@ describe("Switch", () => {
       "rounded-[var(--comp-switch-track-shape,var(--sys-shape-corner-full))]",
     );
     expect(track.className).not.toContain("rounded-(--sys-shape-corner-full)");
+  });
+
+  it("forwards a ref to the switch control (spread, React 19 ref-as-prop)", () => {
+    const ref = createRef<HTMLButtonElement>();
+    render(<Switch aria-label="Notifications" ref={ref} />);
+    expect(ref.current).toBe(screen.getByRole("switch"));
   });
 });

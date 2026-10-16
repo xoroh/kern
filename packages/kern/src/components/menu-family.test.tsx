@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import { createRef } from "react";
 import { describe, expect, it, vi } from "vitest";
 import { FilterChipRow, MenuScreen, MenuSheet } from "./menu-family";
 
@@ -44,6 +45,12 @@ describe("MenuScreen", () => {
       screen.getByRole("button", { name: "Sign out" }),
     ).toBeInTheDocument();
   });
+
+  it("forwards a ref to the menu container", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(<MenuScreen label="Main menu" groups={groups} ref={ref} />);
+    expect(ref.current).toBe(screen.getByTestId("kern-menu-screen"));
+  });
 });
 
 describe("MenuSheet", () => {
@@ -53,6 +60,12 @@ describe("MenuSheet", () => {
       screen.getByRole("dialog", { name: "Main menu" }),
     ).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Open" })).toBeInTheDocument();
+  });
+
+  it("forwards a ref to the sheet surface", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(<MenuSheet open title="Main menu" groups={groups} ref={ref} />);
+    expect(ref.current).toBe(screen.getByRole("dialog", { name: "Main menu" }));
   });
 });
 
@@ -94,5 +107,11 @@ describe("FilterChipRow", () => {
     );
     screen.getByRole("button", { name: "Alpha" }).click();
     expect(onValueChange).toHaveBeenCalledWith([]);
+  });
+
+  it("forwards a ref to the group container", () => {
+    const ref = createRef<HTMLDivElement>();
+    render(<FilterChipRow options={options} ref={ref} />);
+    expect(ref.current).toBe(screen.getByRole("group", { name: "Filters" }));
   });
 });

@@ -1085,35 +1085,35 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "variant",
       "type": "ButtonVariantInput | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:332",
+      "src": "packages/kern/src/components/button.tsx:333",
       "default": "\"primary\""
     },
     {
       "name": "size",
       "type": "ButtonSize | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:333",
+      "src": "packages/kern/src/components/button.tsx:334",
       "default": "\"default\""
     },
     {
       "name": "color",
       "type": "ButtonColor | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:334",
+      "src": "packages/kern/src/components/button.tsx:335",
       "default": "\"primary\""
     },
     {
       "name": "shape",
       "type": "ButtonShape | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:335",
+      "src": "packages/kern/src/components/button.tsx:336",
       "default": "\"pill\""
     },
     {
       "name": "block",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:337",
+      "src": "packages/kern/src/components/button.tsx:338",
       "default": "false",
       "note": "Full-width block button."
     },
@@ -1121,83 +1121,55 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "loading",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:339",
+      "src": "packages/kern/src/components/button.tsx:340",
       "note": "Shows the embedded progress indicator and blocks interaction."
     },
     {
       "name": "loadingValue",
       "type": "number | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:341",
+      "src": "packages/kern/src/components/button.tsx:342",
       "note": "0–1 determinate progress while loading. Omit for the loop."
     },
     {
       "name": "loaderStyle",
       "type": "\"spinner\" | \"dots\" | \"bar\" | \"shapes\" | \"conveyor\" | \"contained\" | \"orbit\" | \"morph\" | \"assembly\" | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:343",
+      "src": "packages/kern/src/components/button.tsx:344",
       "note": "Style of the embedded indicator. Defaults to the M3 ring (`spinner`)."
-    },
-    {
-      "name": "href",
-      "type": "string | undefined",
-      "required": false,
-      "src": "packages/kern/src/components/button.tsx:351",
-      "note": "Navigation variant. Renders `<a href>` wearing the button treatment,\ni.e. `role=\"link\"` — for a dedicated link component see `LinkButton`.\nA disabled link drops `href`, leaves the tab order and reports\n`aria-disabled` (the ListItem convention) — links have no `disabled`\nattribute, so there is nothing native to lean on."
-    },
-    {
-      "name": "target",
-      "type": "HTMLAttributeAnchorTarget | undefined",
-      "required": false,
-      "src": "packages/kern/src/components/button.tsx:356",
-      "note": "Anchor target. Only rendered when `href` is set — a button has no\nbrowsing context to open."
-    },
-    {
-      "name": "rel",
-      "type": "string | undefined",
-      "required": false,
-      "src": "packages/kern/src/components/button.tsx:358",
-      "note": "Anchor relationship list. Only rendered when `href` is set."
-    },
-    {
-      "name": "download",
-      "type": "any",
-      "required": false,
-      "src": "packages/kern/src/components/button.tsx:360",
-      "note": "Download hint. Only rendered when `href` is set."
     },
     {
       "name": "icon",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:362",
+      "src": "packages/kern/src/components/button.tsx:346",
       "note": "Leading (or trailing, with `iconPosition`) icon. Hidden from assistive tech."
     },
     {
       "name": "iconPosition",
       "type": "ButtonIconPosition | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:363"
+      "src": "packages/kern/src/components/button.tsx:347"
     },
     {
       "name": "flipIcon",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:369",
+      "src": "packages/kern/src/components/button.tsx:353",
       "note": "Mirrors the icon horizontally in RTL contexts (`rtl:scale-x-[-1]`).\nOpt into it for directional glyphs (arrows, chevrons, back/open cues);\nsymmetric icons must not flip. Per M3's `flip-icon-in-rtl`."
     },
     {
       "name": "softDisabled",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:376",
+      "src": "packages/kern/src/components/button.tsx:360",
       "note": "Soft-disabled: paints the disabled treatment but stays focusable, so the\ncontrol remains discoverable (toolbar pattern per W3C APG disabled-controls\nguidance). Unlike `disabled`, it keeps its tab stop and reports\n`aria-disabled` instead of the `disabled` attribute."
     },
     {
       "name": "toggle",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:384",
+      "src": "packages/kern/src/components/button.tsx:368",
       "default": "false",
       "note": "Renders the button as an M3 Expressive toggle: binary selection with\nround↔square morph and per-variant selected colors. There is no toggle\ntext button — `toggle` on `ghost` warns in dev and renders unselected.\nKeep selected/unselected labels a similar length so the layout holds.\n(`value` stays the form value; toggle state uses `pressed`.)"
     },
@@ -1205,27 +1177,56 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "pressed",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:386",
+      "src": "packages/kern/src/components/button.tsx:370",
       "note": "Controlled selected state. Only meaningful with `toggle`."
     },
     {
       "name": "defaultPressed",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:388",
+      "src": "packages/kern/src/components/button.tsx:372",
       "note": "Initial selected state for the uncontrolled toggle case."
     },
     {
       "name": "onPressedChange",
       "type": "((pressed: boolean) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:389"
+      "src": "packages/kern/src/components/button.tsx:373"
+    },
+    {
+      "name": "href",
+      "type": "string",
+      "required": true,
+      "src": "packages/kern/src/components/button.tsx:388",
+      "note": "Navigation variant. Renders `<a href>` wearing the button treatment,\ni.e. `role=\"link\"` — for a dedicated link component see `LinkButton`.\nA disabled link drops `href`, leaves the tab order and reports\n`aria-disabled` (the ListItem convention) — links have no `disabled`\nattribute, so there is nothing native to lean on."
+    },
+    {
+      "name": "target",
+      "type": "HTMLAttributeAnchorTarget | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/button.tsx:390",
+      "note": "Anchor target. A button has no browsing context to open."
+    },
+    {
+      "name": "rel",
+      "type": "string | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/button.tsx:392",
+      "note": "Anchor relationship list."
+    },
+    {
+      "name": "download",
+      "type": "any",
+      "required": false,
+      "src": "packages/kern/src/components/button.tsx:394",
+      "note": "Download hint."
     },
     {
       "name": "ref",
-      "type": "Ref<HTMLButtonElement | HTMLAnchorElement> | undefined",
+      "type": "Ref<HTMLAnchorElement> | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:390"
+      "src": "packages/kern/src/components/button.tsx:396",
+      "note": "Ref to the rendered anchor."
     }
   ],
   "Calendar": [
@@ -5108,21 +5109,21 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "loading",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/loading-button.tsx:15",
+      "src": "packages/kern/src/components/loading-button.tsx:18",
       "note": "Shows the embedded progress indicator and blocks interaction."
     },
     {
       "name": "value",
       "type": "number | undefined",
       "required": false,
-      "src": "packages/kern/src/components/loading-button.tsx:17",
+      "src": "packages/kern/src/components/loading-button.tsx:20",
       "note": "0–1 determinate progress while loading. Omit for the loop."
     },
     {
       "name": "loaderStyle",
       "type": "\"spinner\" | \"dots\" | \"bar\" | \"shapes\" | \"conveyor\" | \"contained\" | \"orbit\" | \"morph\" | \"assembly\" | undefined",
       "required": false,
-      "src": "packages/kern/src/components/loading-button.tsx:19",
+      "src": "packages/kern/src/components/loading-button.tsx:22",
       "note": "Style of the embedded indicator. Defaults to the M3 ring (`spinner`)."
     }
   ],
@@ -5208,6 +5209,13 @@ export const GENERATED_PROPS: Record<string, Array<{
       "type": "string | undefined",
       "required": false,
       "src": "packages/kern/src/components/menu-family.tsx:141"
+    },
+    {
+      "name": "ref",
+      "type": "Ref<HTMLDivElement> | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/menu-family.tsx:143",
+      "note": "Ref to the rendered menu container."
     }
   ],
   "MenuSheet": [
@@ -5215,43 +5223,50 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "open",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/menu-family.tsx:174"
+      "src": "packages/kern/src/components/menu-family.tsx:178"
     },
     {
       "name": "defaultOpen",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/menu-family.tsx:175"
+      "src": "packages/kern/src/components/menu-family.tsx:179"
     },
     {
       "name": "onOpenChange",
       "type": "((open: boolean) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/menu-family.tsx:176"
+      "src": "packages/kern/src/components/menu-family.tsx:180"
     },
     {
       "name": "title",
       "type": "string",
       "required": true,
-      "src": "packages/kern/src/components/menu-family.tsx:177"
+      "src": "packages/kern/src/components/menu-family.tsx:181"
     },
     {
       "name": "groups",
       "type": "readonly MenuGroup[]",
       "required": true,
-      "src": "packages/kern/src/components/menu-family.tsx:178"
+      "src": "packages/kern/src/components/menu-family.tsx:182"
     },
     {
       "name": "className",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/menu-family.tsx:179"
+      "src": "packages/kern/src/components/menu-family.tsx:183"
     },
     {
       "name": "testID",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/menu-family.tsx:180"
+      "src": "packages/kern/src/components/menu-family.tsx:184"
+    },
+    {
+      "name": "ref",
+      "type": "Ref<HTMLDivElement> | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/menu-family.tsx:186",
+      "note": "Ref to the rendered sheet surface."
     }
   ],
   "FilterChipRow": [
@@ -5259,46 +5274,53 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "options",
       "type": "readonly FilterChipOption[]",
       "required": true,
-      "src": "packages/kern/src/components/menu-family.tsx:224"
+      "src": "packages/kern/src/components/menu-family.tsx:232"
     },
     {
       "name": "value",
       "type": "readonly string[] | undefined",
       "required": false,
-      "src": "packages/kern/src/components/menu-family.tsx:226",
+      "src": "packages/kern/src/components/menu-family.tsx:234",
       "note": "Controlled selection."
     },
     {
       "name": "defaultValue",
       "type": "readonly string[] | undefined",
       "required": false,
-      "src": "packages/kern/src/components/menu-family.tsx:228",
+      "src": "packages/kern/src/components/menu-family.tsx:236",
       "note": "Uncontrolled initial selection."
     },
     {
       "name": "onValueChange",
       "type": "((value: readonly string[]) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/menu-family.tsx:229"
+      "src": "packages/kern/src/components/menu-family.tsx:237"
     },
     {
       "name": "label",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/menu-family.tsx:231",
+      "src": "packages/kern/src/components/menu-family.tsx:239",
       "note": "Accessible name for the group."
     },
     {
       "name": "className",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/menu-family.tsx:232"
+      "src": "packages/kern/src/components/menu-family.tsx:240"
     },
     {
       "name": "testID",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/menu-family.tsx:233"
+      "src": "packages/kern/src/components/menu-family.tsx:241"
+    },
+    {
+      "name": "ref",
+      "type": "Ref<HTMLDivElement> | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/menu-family.tsx:243",
+      "note": "Ref to the rendered group container."
     }
   ],
   "MenuRoot": [
@@ -8179,10 +8201,17 @@ export const GENERATED_PROPS: Record<string, Array<{
       "src": "packages/kern/src/components/sheet-family.tsx:69"
     },
     {
+      "name": "ref",
+      "type": "Ref<HTMLDivElement> | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/sheet-family.tsx:71",
+      "note": "Ref to the rendered surface popup."
+    },
+    {
       "name": "dir",
       "type": "A11yDir | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:76",
+      "src": "packages/kern/src/components/sheet-family.tsx:78",
       "note": "Text direction for the surface. Passed through verbatim: when absent no\n`dir` attribute renders and the surface inherits the document direction.\nA kernel `ltr` fallback must never render here — it would pin every sheet\nto LTR on RTL pages."
     }
   ],
@@ -8195,10 +8224,17 @@ export const GENERATED_PROPS: Record<string, Array<{
       "note": "Accessible name for the surface. Required: a dialog must be nameable."
     },
     {
+      "name": "ref",
+      "type": "Ref<HTMLDivElement> | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/sheet-family.tsx:71",
+      "note": "Ref to the rendered surface popup."
+    },
+    {
       "name": "dir",
       "type": "A11yDir | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:76",
+      "src": "packages/kern/src/components/sheet-family.tsx:78",
       "note": "Text direction for the surface. Passed through verbatim: when absent no\n`dir` attribute renders and the surface inherits the document direction.\nA kernel `ltr` fallback must never render here — it would pin every sheet\nto LTR on RTL pages."
     },
     {
@@ -8237,21 +8273,21 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "title",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:143",
+      "src": "packages/kern/src/components/sheet-family.tsx:147",
       "note": "Optional heading. When absent the surface is still labelled."
     },
     {
       "name": "onClose",
       "type": "(() => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:149",
+      "src": "packages/kern/src/components/sheet-family.tsx:153",
       "note": "Visible close control. R2 lexicon: this is the dismissal ACTION, not\nstate — open/defaultOpen/onOpenChange on the surface own visibility\n(inherited via `...surface`). Fires when the × control activates."
     },
     {
       "name": "className",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:150"
+      "src": "packages/kern/src/components/sheet-family.tsx:154"
     }
   ],
   "DockSheet": [
@@ -8259,25 +8295,25 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "label",
       "type": "string",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:218"
+      "src": "packages/kern/src/components/sheet-family.tsx:222"
     },
     {
       "name": "children",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:219"
+      "src": "packages/kern/src/components/sheet-family.tsx:223"
     },
     {
       "name": "className",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:220"
+      "src": "packages/kern/src/components/sheet-family.tsx:224"
     },
     {
       "name": "testID",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:221"
+      "src": "packages/kern/src/components/sheet-family.tsx:225"
     }
   ],
   "SnapSheet": [
@@ -8289,10 +8325,17 @@ export const GENERATED_PROPS: Record<string, Array<{
       "note": "Accessible name for the surface. Required: a dialog must be nameable."
     },
     {
+      "name": "ref",
+      "type": "Ref<HTMLDivElement> | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/sheet-family.tsx:71",
+      "note": "Ref to the rendered surface popup."
+    },
+    {
       "name": "dir",
       "type": "A11yDir | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:76",
+      "src": "packages/kern/src/components/sheet-family.tsx:78",
       "note": "Text direction for the surface. Passed through verbatim: when absent no\n`dir` attribute renders and the surface inherits the document direction.\nA kernel `ltr` fallback must never render here — it would pin every sheet\nto LTR on RTL pages."
     },
     {
@@ -8331,33 +8374,33 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "snapPoints",
       "type": "readonly number[]",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:260",
+      "src": "packages/kern/src/components/sheet-family.tsx:264",
       "note": "Detents, as a fraction of viewport height (0–1)."
     },
     {
       "name": "value",
       "type": "number | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:263",
+      "src": "packages/kern/src/components/sheet-family.tsx:267",
       "note": "Index into `snapPoints`; defaults to the first."
     },
     {
       "name": "defaultValue",
       "type": "number | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:264"
+      "src": "packages/kern/src/components/sheet-family.tsx:268"
     },
     {
       "name": "onValueChange",
       "type": "((index: number) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:265"
+      "src": "packages/kern/src/components/sheet-family.tsx:269"
     },
     {
       "name": "className",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:266"
+      "src": "packages/kern/src/components/sheet-family.tsx:270"
     }
   ],
   "EntitySheet": [
@@ -8369,10 +8412,17 @@ export const GENERATED_PROPS: Record<string, Array<{
       "note": "Accessible name for the surface. Required: a dialog must be nameable."
     },
     {
+      "name": "ref",
+      "type": "Ref<HTMLDivElement> | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/sheet-family.tsx:71",
+      "note": "Ref to the rendered surface popup."
+    },
+    {
       "name": "dir",
       "type": "A11yDir | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:76",
+      "src": "packages/kern/src/components/sheet-family.tsx:78",
       "note": "Text direction for the surface. Passed through verbatim: when absent no\n`dir` attribute renders and the surface inherits the document direction.\nA kernel `ltr` fallback must never render here — it would pin every sheet\nto LTR on RTL pages."
     },
     {
@@ -8411,33 +8461,33 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "title",
       "type": "string",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:367"
+      "src": "packages/kern/src/components/sheet-family.tsx:371"
     },
     {
       "name": "subtitle",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:369",
+      "src": "packages/kern/src/components/sheet-family.tsx:373",
       "note": "Supporting line under the title."
     },
     {
       "name": "fields",
       "type": "readonly EntityField[] | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:370"
+      "src": "packages/kern/src/components/sheet-family.tsx:374"
     },
     {
       "name": "action",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:372",
+      "src": "packages/kern/src/components/sheet-family.tsx:376",
       "note": "At most one primary action, per the spec's guidance."
     },
     {
       "name": "className",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:373"
+      "src": "packages/kern/src/components/sheet-family.tsx:377"
     }
   ],
   "BottomSheetPicker": [
@@ -8449,10 +8499,17 @@ export const GENERATED_PROPS: Record<string, Array<{
       "note": "Accessible name for the surface. Required: a dialog must be nameable."
     },
     {
+      "name": "ref",
+      "type": "Ref<HTMLDivElement> | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/sheet-family.tsx:71",
+      "note": "Ref to the rendered surface popup."
+    },
+    {
       "name": "dir",
       "type": "A11yDir | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:76",
+      "src": "packages/kern/src/components/sheet-family.tsx:78",
       "note": "Text direction for the surface. Passed through verbatim: when absent no\n`dir` attribute renders and the surface inherits the document direction.\nA kernel `ltr` fallback must never render here — it would pin every sheet\nto LTR on RTL pages."
     },
     {
@@ -8491,38 +8548,38 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "title",
       "type": "string",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:445"
+      "src": "packages/kern/src/components/sheet-family.tsx:449"
     },
     {
       "name": "options",
       "type": "readonly PickerOption[]",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:446"
+      "src": "packages/kern/src/components/sheet-family.tsx:450"
     },
     {
       "name": "value",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:447"
+      "src": "packages/kern/src/components/sheet-family.tsx:451"
     },
     {
       "name": "multiple",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:449",
+      "src": "packages/kern/src/components/sheet-family.tsx:453",
       "note": "Multi-select exposes `aria-multiselectable`; single-select does not."
     },
     {
       "name": "onSelect",
       "type": "(value: string) => void",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:450"
+      "src": "packages/kern/src/components/sheet-family.tsx:454"
     },
     {
       "name": "className",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:451"
+      "src": "packages/kern/src/components/sheet-family.tsx:455"
     }
   ],
   "ActionSheet": [
@@ -8534,10 +8591,17 @@ export const GENERATED_PROPS: Record<string, Array<{
       "note": "Accessible name for the surface. Required: a dialog must be nameable."
     },
     {
+      "name": "ref",
+      "type": "Ref<HTMLDivElement> | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/sheet-family.tsx:71",
+      "note": "Ref to the rendered surface popup."
+    },
+    {
       "name": "dir",
       "type": "A11yDir | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:76",
+      "src": "packages/kern/src/components/sheet-family.tsx:78",
       "note": "Text direction for the surface. Passed through verbatim: when absent no\n`dir` attribute renders and the surface inherits the document direction.\nA kernel `ltr` fallback must never render here — it would pin every sheet\nto LTR on RTL pages."
     },
     {
@@ -8576,19 +8640,19 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "title",
       "type": "string",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:539"
+      "src": "packages/kern/src/components/sheet-family.tsx:543"
     },
     {
       "name": "actions",
       "type": "readonly ActionSheetAction[]",
       "required": true,
-      "src": "packages/kern/src/components/sheet-family.tsx:540"
+      "src": "packages/kern/src/components/sheet-family.tsx:544"
     },
     {
       "name": "className",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/sheet-family.tsx:542"
+      "src": "packages/kern/src/components/sheet-family.tsx:546"
     }
   ],
   "SheetRoot": [
@@ -35915,7 +35979,6 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "defaultValue",
     "dir",
     "disabled",
-    "download",
     "draggable",
     "enterKeyHint",
     "exportparts",
@@ -35927,7 +35990,6 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "formNoValidate",
     "formTarget",
     "hidden",
-    "href",
     "icon",
     "iconPosition",
     "id",
@@ -36125,7 +36187,6 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "property",
     "radioGroup",
     "ref",
-    "rel",
     "resource",
     "results",
     "rev",
@@ -36140,7 +36201,6 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "suppressContentEditableWarning",
     "suppressHydrationWarning",
     "tabIndex",
-    "target",
     "title",
     "toggle",
     "translate",
@@ -36446,6 +36506,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "className",
     "groups",
     "label",
+    "ref",
     "testID"
   ],
   "MenuSheet": [
@@ -36454,6 +36515,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "groups",
     "onOpenChange",
     "open",
+    "ref",
     "testID",
     "title"
   ],
@@ -36463,6 +36525,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "label",
     "onValueChange",
     "options",
+    "ref",
     "testID",
     "value"
   ],
@@ -49757,6 +49820,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "label",
     "onOpenChange",
     "open",
+    "ref",
     "testID"
   ],
   "BottomSheet": [
@@ -49768,6 +49832,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "onClose",
     "onOpenChange",
     "open",
+    "ref",
     "testID",
     "title"
   ],
@@ -49787,6 +49852,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "onOpenChange",
     "onValueChange",
     "open",
+    "ref",
     "snapPoints",
     "testID",
     "value"
@@ -49801,6 +49867,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "label",
     "onOpenChange",
     "open",
+    "ref",
     "subtitle",
     "testID",
     "title"
@@ -49816,6 +49883,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "onSelect",
     "open",
     "options",
+    "ref",
     "testID",
     "title",
     "value"
@@ -49829,6 +49897,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "label",
     "onOpenChange",
     "open",
+    "ref",
     "testID",
     "title"
   ],

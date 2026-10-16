@@ -450,6 +450,13 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
       "Cross-renderer behaviour parity, tranche 2: chips, lists, dialogs, text fields.",
   },
   {
+    id: "ref-forwarding-no-casts",
+    packages: ["@xoroh/kern"],
+    bump: "patch",
+    summary:
+      "Consistent ref forwarding without casts: ButtonProps is now a discriminated union on href (anchor branch takes only anchor refs, button branch only button refs), and both render paths forward through a small internal assignRef helper instead of ref as Ref<…>. MenuScreen, MenuSheet, FilterChipRow, and SheetSurface accept and forward refs; Dialog parts and Switch keep working through spread (now covered by ref-attachment tests). No behavior change.",
+  },
+  {
     id: "regen-manifest-and-reconcile-parity-prose",
     packages: ["@xoroh/kern-mcp"],
     bump: "patch",

@@ -2,6 +2,7 @@ import type { LoadingIndicatorStyle } from "@xoroh/kern-material-3";
 import { cva } from "class-variance-authority";
 import type { ComponentPropsWithRef, ReactNode, Ref } from "react";
 import { useState } from "react";
+import { assignRef } from "../utils/assignRef";
 import { cn } from "../utils/cn";
 import { CircularProgress } from "./circular-progress";
 import { FOCUS_RING_CLASS } from "./focus-ring";
@@ -325,7 +326,7 @@ export const BUTTON_SIZE_TO_KERN_SIZE = {
   lg: "lg",
 } as const;
 
-export type ButtonProps = Omit<
+type ButtonSharedProps = Omit<
   ComponentPropsWithRef<"button">,
   "size" | "ref"
 > & {
@@ -341,23 +342,6 @@ export type ButtonProps = Omit<
   loadingValue?: number;
   /** Style of the embedded indicator. Defaults to the M3 ring (`spinner`). */
   loaderStyle?: LoadingIndicatorStyle;
-  /**
-   * Navigation variant. Renders `<a href>` wearing the button treatment,
-   * i.e. `role="link"` — for a dedicated link component see `LinkButton`.
-   * A disabled link drops `href`, leaves the tab order and reports
-   * `aria-disabled` (the ListItem convention) — links have no `disabled`
-   * attribute, so there is nothing native to lean on.
-   */
-  href?: string;
-  /**
-   * Anchor target. Only rendered when `href` is set — a button has no
-   * browsing context to open.
-   */
-  target?: ComponentPropsWithRef<"a">["target"];
-  /** Anchor relationship list. Only rendered when `href` is set. */
-  rel?: string;
-  /** Download hint. Only rendered when `href` is set. */
-  download?: ComponentPropsWithRef<"a">["download"];
   /** Leading (or trailing, with `iconPosition`) icon. Hidden from assistive tech. */
   icon?: ReactNode;
   iconPosition?: ButtonIconPosition;
@@ -387,8 +371,47 @@ export type ButtonProps = Omit<
   /** Initial selected state for the uncontrolled toggle case. */
   defaultPressed?: boolean;
   onPressedChange?: (pressed: boolean) => void;
-  ref?: Ref<HTMLButtonElement | HTMLAnchorElement>;
 };
+
+/**
+ * Anchor branch — `href` set, `<a>` rendered. The ref accepts only anchors:
+ * a button ref here was the lie the union exists to prevent.
+ */
+export type ButtonAnchorProps = ButtonSharedProps & {
+  /**
+   * Navigation variant. Renders `<a href>` wearing the button treatment,
+   * i.e. `role="link"` — for a dedicated link component see `LinkButton`.
+   * A disabled link drops `href`, leaves the tab order and reports
+   * `aria-disabled` (the ListItem convention) — links have no `disabled`
+   * attribute, so there is nothing native to lean on.
+   */
+  href: string;
+  /** Anchor target. A button has no browsing context to open. */
+  target?: ComponentPropsWithRef<"a">["target"];
+  /** Anchor relationship list. */
+  rel?: string;
+  /** Download hint. */
+  download?: ComponentPropsWithRef<"a">["download"];
+  /** Ref to the rendered anchor. */
+  ref?: Ref<HTMLAnchorElement>;
+};
+
+/**
+ * Button branch — no `href`, `<button>` rendered. Anchor-only attributes
+ * are absent by type, not just ignored at render.
+ */
+export type ButtonButtonProps = ButtonSharedProps & {
+  /** No `href` renders the `<button>`. */
+  href?: undefined;
+  /** Ref to the rendered button. */
+  ref?: Ref<HTMLButtonElement>;
+  target?: undefined;
+  rel?: undefined;
+  download?: undefined;
+};
+
+/** Discriminated on `href`: the rendered element owns the ref type. */
+export type ButtonProps = ButtonAnchorProps | ButtonButtonProps;
 
 export function Button({
   variant: variantInput = "primary",
@@ -529,7 +552,9 @@ export function Button({
         target={target}
         rel={rel}
         download={download}
-        ref={ref as Ref<HTMLAnchorElement>}
+        ref={(node) => {
+          assignRef(ref, node);
+        }}
         className={classes}
         // The cast only re-types the shared remainder (`aria-*`, `autoFocus`,
         // `onFocus`, …) — button-only keys were stripped above.
@@ -561,7 +586,9 @@ export function Button({
       type={type}
       value={value}
       disabled={disabled || loading || undefined}
-      ref={ref as Ref<HTMLButtonElement>}
+      ref={(node) => {
+        assignRef(ref, node);
+      }}
       {...restProps}
       onClick={(event) => {
         // Soft-disabled keeps its tab stop but must not activate — the

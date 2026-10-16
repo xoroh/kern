@@ -69,6 +69,8 @@ export { Banner, BannerAction, bannerVariants } from "./banner";
 export type { BootIndicatorProps } from "./boot-indicator";
 export { BootIndicator } from "./boot-indicator";
 export type {
+  ButtonAnchorProps,
+  ButtonButtonProps,
   ButtonColor,
   ButtonIconPosition,
   ButtonM3Variant,
