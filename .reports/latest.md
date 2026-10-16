@@ -1,7 +1,7 @@
 # Status report — 2026-10-16, evening (Kern 0.1.0 Preview readiness track)
 
-Baseline: Kern `main` at `d2ff70f2` (PR #52 findings bundle merged).
-Tree clean, pushed, synced (this branch: docs/roadmap-decisions-round-2).
+Baseline: Kern `main` at `fbc0b879` (PR #53 sweep merged). Open: #54 usage batch.
+Tree: this branch fix/testid-selector-contract, unpushed.
 
 ## Done (this track)
 - Elevation gaps to zero (this branch, unmerged): 7 spec rows + 3 unassigned entries +
@@ -58,8 +58,9 @@ Tree clean, pushed, synced (this branch: docs/roadmap-decisions-round-2).
 - PR #40 merged: Button toggle+href keeps `aria-pressed` (critic fix 2).
 
 ## In progress
-- Merged: #39–#52 (through findings bundle).
-- Open: #53 (this branch, no-compat sweep).
+- Merged: #39–#53 (through no-compat sweep). Open: #54 usage batch.
+- This branch (testID contract): parity/testid-contract.md + testID on
+  Button/DialogContent/Switch with selector tests + changeset.
 - Queued after: (9) testID contract evaluation; usage P1/P2 correctness
   items; m3 tertiary/chrome + playground fidelity; structure/URL/Button-
   names/HCT phases (review-gated).

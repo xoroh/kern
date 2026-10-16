@@ -537,6 +537,12 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
     summary:
       "Split bottomSheetSurface out of sheet-surface.tsx — step 2 of the ratified kern-primitives extraction order.",
   },
+  {
+    id: "testid-selector-contract",
+    packages: ["@xoroh/kern"],
+    bump: "patch",
+    summary: "Test-selector contract: testID on Button, DialogContent, Switch.",
+  },
 ];
 
 /**
