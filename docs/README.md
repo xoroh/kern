@@ -41,18 +41,31 @@ changesets, parity, stubs. Each one is a rule, not a description.
 
 ## Decisions
 
-[`adr/`](adr/) — accepted decisions with their context. One problem per
-file, numbered, status `accepted` / `superseded`.
+[`decisions/`](decisions/) — the canonical decision record (001–020, consolidated; the old `adr/` location is removed). One problem per
+file, numbered, status `accepted` / `superseded`. Full index: [`decisions/README.md`](decisions/README.md).
 
 | ADR | Decision |
 | --- | --- |
-| [001](adr/001-esm-only.md) | ESM-only package output |
-| [002](adr/002-base-ui-primitives.md) | Base UI primitives for web components |
-| [003](adr/003-generated-inventory.md) | Generate the component inventory; never hand-edit it |
-| [004](adr/004-stability-windows.md) | 1.0 stability carve-out (hard cuts before 1.0; deprecation window from 1.0) — `proposed` |
-| [005](adr/005-theming-pipeline.md) | Theming pipeline explicit: matrix artifact, override-only presets, engine boundary |
-| [006](adr/006-distribution-engine-dtcg.md) | Distribution engine: own-the-code CLI over DTCG tokens, multi-design-system by adapters |
-| [007](adr/007-no-backward-compat-pre-1.0.md) | No backward compatibility before 1.0 Preview publish — one clean API per thing |
+| [001](decisions/001-esm-only.md) | Dual ESM + CJS package output |
+| [002](decisions/002-base-ui-primitives.md) | Base UI primitives for web components |
+| [003](decisions/003-generated-inventory.md) | Generate the component inventory; never hand-edit it |
+| [004](decisions/004-stability-windows.md) | 1.0 stability carve-out (hard cuts before 1.0; deprecation window from 1.0) — `proposed` |
+| [005](decisions/005-theming-pipeline.md) | Theming pipeline explicit: matrix artifact, override-only presets, engine boundary |
+| [006](decisions/006-distribution-engine-dtcg.md) | Distribution engine: own-the-code CLI over DTCG tokens, multi-design-system by adapters |
+| [007](decisions/007-axis-native-foundation.md) | Axis is the native foundation; `kern-primitives` dropped once Axis is ready |
+| [008](decisions/008-system-scoped-urls.md) | System-scoped URLs (superseded by 018 and 020) |
+| [009](decisions/009-generated-registry-and-system-flag.md) | One generated registry plus `--system` |
+| [010](decisions/010-kern-m3-rename-and-no-global-registration.md) | Rename `kern-material-3` to `kern-m3` (hard rename, no alias); `@xoroh/kern` does not register M3 globally |
+| [011](decisions/011-install-docs-release-availability.md) | Install docs honesty until publish |
+| [012](decisions/012-cli-publishable.md) | Kern CLI is publishable in 0.1.0 |
+| [013](decisions/013-docs-depth.md) | Docs depth bar for 0.1.0 |
+| [014](decisions/014-button-variant-names.md) | M3 button variant names (hard cut) |
+| [015](decisions/015-state-props-base-ui-names.md) | State props follow Base UI names |
+| [016](decisions/016-hct-tonal-palettes.md) | HCT tonal palettes and full color roles |
+| [017](decisions/017-per-system-packages.md) | Per-system preset plus per-platform widgets |
+| [018](decisions/018-component-page-tabs.md) | One docs page per component with Web/Native tabs (supersedes 008) |
+| [019](decisions/019-ai-chat-in-kern.md) | AI chat styled parts live in Kern, voice deferred |
+| [020](decisions/020-no-backward-compat.md) | No backward compatibility before the first public release (0.1.0 Preview); merges old `adr/007` |
 
 ## Plans
 
