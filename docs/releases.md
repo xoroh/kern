@@ -2,9 +2,8 @@
 
 Status: current
 
-Changesets. Six packages publish; each versions independently.
+Changesets. Eight packages publish; each versions independently.
 `@xoroh/kern-primitives` is internal (`private: true`) and never publishes.
-`@xoroh/kern-cli` is private and never published.
 
 | Package | Directory | Public | First release |
 |---|---|---|---|
@@ -14,8 +13,9 @@ Changesets. Six packages publish; each versions independently.
 | `@xoroh/kern-primitives` | `libs/kern-primitives` | no (`private: true`, internal implementation package) | — |
 | `@xoroh/kern-native` | `packages/kern-native` | yes | `0.1.0` |
 | `@xoroh/kern-icons` | `packages/kern-icons` | yes | `0.1.0` |
+| `@xoroh/kern-contracts` | `packages/kern-contracts` | yes | `0.1.0` |
 | `@xoroh/kern-mcp` | `packages/mcp` | yes | `0.1.0` |
-| `@xoroh/kern-cli` | `packages/kern-cli` | no (`private: true`) | — |
+| `@xoroh/kern-cli` | `packages/kern-cli` | yes | `0.1.0` |
 
 `@xoroh/kern` subpaths (`.`, `./theme`, `./tokens`, `./utils`) release as one
 version — the `exports` map is the unit, not the file.
@@ -37,7 +37,7 @@ Check what is pending at any time: `bun x changeset status`.
 
 ## Verifying a package before it publishes
 
-`bun run check:publish` runs `publint` + `attw --pack` across all six
+`bun run check:publish` runs `publint` + `attw --pack` across all eight
 publishable packages (primitives excluded: internal-only). It catches the failures that only appear after
 `npm pack`: broken `exports` conditions, missing `types` for a condition,
 side-effect files missing from `files`. Run it before merging any change that

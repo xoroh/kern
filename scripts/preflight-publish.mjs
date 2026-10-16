@@ -61,6 +61,8 @@ const MANIFESTS = [
   "packages/kern-native",
   "packages/kern-icons",
   "packages/mcp",
+  "packages/kern-contracts",
+  "packages/kern-cli",
 ];
 
 /** `workspace:` is legal in devDependencies — npm strips those from the tarball. */
