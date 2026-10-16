@@ -111,9 +111,12 @@ jobs:
           path: test-results/baseline/
           if-no-files-found: warn
 
-  # SPLIT (was one 30-step `build` job): hermetic source gates that need no
-  # built dists. No job shares a filesystem with another, so anything that
-  # reads dist/ builds it in its own job (`dist-gates`, `apps`, `e2e` above).
+  # SPLIT (was one 30-step `build` job): source gates. No job shares a
+  # filesystem with another, so anything that reads dist/ builds it in its
+  # own job (`dist-gates`, `apps`, `e2e`, `pkg` above — and this job below:
+  # check:contrast resolves workspace packages through their built dists,
+  # and preflight:publish packs them, so the "no built dists" claim that
+  # used to sit here was wrong for those readers).
   gates:
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -125,6 +128,13 @@ jobs:
           bun-version: 1.3.8
 
       - run: bun install --frozen-lockfile --ignore-scripts
+
+      - name: Build workspace dependencies
+        # REQUIRED: check:contrast, check:elevation-parity, and
+        # preflight:publish resolve workspace packages through their built
+        # dists (main -> ./dist), and dist/ is gitignored. Same pattern as
+        # the apps/e2e/pkg jobs.
+        run: bun run build
 
       - name: Lint and format check
         run: bun run lint
