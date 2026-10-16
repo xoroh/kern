@@ -96,7 +96,7 @@ function SectionToc({ pathname }: { pathname: string }) {
   }, [pathname]);
   if (items.length < 2) return null;
   return (
-    <details className="rounded-(--sys-shape-corner-large-increased) bg-(--sys-color-surface-container-low) px-4 py-3 2xl:hidden">
+    <details className="rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-low) px-4 py-3 2xl:hidden">
       <summary
         className={`cursor-pointer ${T_LABEL} text-(--sys-color-on-surface-variant) uppercase`}
       >

@@ -105,3 +105,7 @@ export const PILL_REST = `rounded-(--sys-shape-corner-full) text-(--sys-color-on
 
 /** A ≥48dp interactive row (nav items, list rows, toolbar buttons). */
 export const MIN_TARGET = "inline-flex min-h-12 items-center";
+// Exception, documented not waived: configurator checkboxes render at
+// `size-5` (20px) because the 48dp label row carries the target — the box
+// itself is never the touch target. Same rationale as the 32px code-copy
+// button (overlay affordance inside the content it acts on).

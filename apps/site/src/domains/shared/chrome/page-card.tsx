@@ -50,7 +50,7 @@ export function PageCard({
   children: ReactNode;
 }) {
   return (
-    <section className="site-page w-full px-5 py-8 sm:px-10 sm:py-12 lg:px-12">
+    <section className="site-page w-full px-6 py-8 sm:px-10 sm:py-12 lg:px-12">
       <div
         data-copy-md-root={copyMd ? "" : undefined}
         className={cn(
