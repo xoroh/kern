@@ -20,8 +20,8 @@
  * undocumented accessibility) rather than a silent absence.
  */
 
-import { useEffect, useState } from "react";
 import { STATE_LAYER_OPACITIES } from "@xoroh/kern-tokens";
+import { useEffect, useState } from "react";
 import { docForExport, type Platform } from "../../content/index";
 import type {
   ComponentDoc,
