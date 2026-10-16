@@ -262,6 +262,13 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
       "Foundations-first M3 coverage: dynamic color as a seed configurator and the expressive motion runtime.",
   },
   {
+    id: "state-layer-opacities",
+    packages: ["@xoroh/kern-tokens"],
+    bump: "minor",
+    summary:
+      "Add STATE_LAYER_OPACITIES, the single source of truth for M3 state-layer opacities (hover 8%, focus 12%, press 12%, drag 16%, disabled 38%).",
+  },
+  {
     id: "system-expansion",
     packages: [
       "@xoroh/kern",

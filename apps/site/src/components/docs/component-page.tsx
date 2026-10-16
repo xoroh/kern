@@ -21,6 +21,7 @@
  */
 
 import { useEffect, useState } from "react";
+import { STATE_LAYER_OPACITIES } from "@xoroh/kern-tokens";
 import { docForExport, type Platform } from "../../content/index";
 import type {
   ComponentDoc,
@@ -300,7 +301,8 @@ function Demo({ doc, platform }: { doc: ComponentDoc; platform: Platform }) {
  * Before this existed, "states" on a component page meant rows in the token
  * table: a reader could not SEE what hover or press does. This paints the
  * layer law itself (on-surface over the container at the M3 opacities —
- * hover 8%, focus 10%, press 10%, drag 16%) as swatches next to the live
+ * hover 8%, focus 12%, press 12%, drag 16%, from `STATE_LAYER_OPACITIES` in
+ * `@xoroh/kern-tokens`, never retyped here) as swatches next to the live
  * demo, then lists the states this family's own token table registers.
  * The opacities are painted, not asserted: the overlay divs use the theme's
  * `on-surface` role, so dark mode and contrast themes repaint them live.
@@ -314,10 +316,10 @@ function StatesStrip({ doc }: { doc: ComponentDoc }) {
   ].filter((s) => s.length > 0 && s !== "resting");
   const layers: { label: string; opacity: number }[] = [
     { label: "Rest", opacity: 0 },
-    { label: "Hover", opacity: 0.08 },
-    { label: "Focus", opacity: 0.1 },
-    { label: "Press", opacity: 0.1 },
-    { label: "Drag", opacity: 0.16 },
+    { label: "Hover", opacity: STATE_LAYER_OPACITIES.hover },
+    { label: "Focus", opacity: STATE_LAYER_OPACITIES.focus },
+    { label: "Press", opacity: STATE_LAYER_OPACITIES.press },
+    { label: "Drag", opacity: STATE_LAYER_OPACITIES.drag },
   ];
   return (
     <div className="flex flex-col gap-2">
@@ -345,7 +347,7 @@ function StatesStrip({ doc }: { doc: ComponentDoc }) {
       </div>
       <p className={PROSE}>
         State layers are {""}
-        <code>on-surface</code> at 8% hover, 10% focus, 10% press and 16% drag
+        <code>on-surface</code> at 8% hover, 12% focus, 12% press and 16% drag
         over the container — never a color swap.{" "}
         <a
           className="text-(--sys-color-secondary) underline underline-offset-2"
