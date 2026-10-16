@@ -1,26 +1,68 @@
-# Status report — 2026-10-16 (Kern–Axis completion program)
+# Status report — 2026-10-16, evening (Kern 0.1.0 Preview readiness track)
 
-## Done
-- Axis: 22 unstyled components + 14 behavior modules, Switch contract adopted, boundary two-zone gate + 26 mutation tests, RN peer `>=0.86 <0.89`, README docs per component, coverage inventory, changesets. Merged PRs #2–#10 (last: #10 `41cf7ee4`, validate green).
-- Kern: D-FOUNDATION-CHOICE resolved (Axis initial foundation, extensible platform); pre-publish cutover phase planned with validated vendored-tarball mechanism; roadmap milestones current. Merged through PR #34 (`9a221bd0`, 12/12 CI green).
-- Primitives audit: all 14 transferred modules byte-identical in Axis; `collection`/`mergeRefs` re-confirmed zero-importer (stay gated); KERN-WEB keeps 2 symbols (relocate at cutover).
-- Git hygiene: both repos main-only, clean, synced; recovery archives verified (bundles + patches + checksums); stashes empty by design (contents archived with supersession evidence).
+Baseline: Kern `main` at `3929ac81` (PR #37 merged 14:27Z). CI green on HEAD
+(CI + Release + Deploy `success`). Zero open PRs. Tree clean, pushed, synced.
+
+## Done (this track)
+- PR #37 merged: Kern consumes `@xoroh/axis` via vendored tarball
+  (`vendor/axis/axis-bed35547.tgz`, `file:` spec in kern/kern-native/site,
+  lockfile-pinned). No manifest declares `@xoroh/kern-primitives`; no
+  runtime source imports it (residual refs: `libs/` frozen dir, generated
+  changelog, `check-layers.mjs` legacy-name handling — deletion is the other
+  thread's PR).
+- Preview readiness audit landed: `.reports/preview-readiness.md` — all 10
+  Preview requirement families marked done/partial/missing with evidence +
+  ordered PR plan (PR-1..PR-8). Verdict: 6 done, 4 partial
+  (provider-registry runtime, M3 advanced gaps, blocks content thin,
+  changesets invalid-tree line).
+- Archive reconciliation (owner addendum, same PR): full read-only pass over
+  `docs/archive/2026-10-axis-transition/planning/*` + both README stubs +
+  live-roadmap open items. ~30 archived items re-evidenced done on `main`
+  (kern.json read path, renderer-first lookup, SearchBar /start, block
+  closure install, receipt v2, elevation GAP 0, account-balance glyph, all
+  12 MCP tools, mobile bundle, contracts package, DTCG import/export/
+  validate, 19-GHSA reconciled to 0 open); superseded-by-Axis items marked
+  (D19 naming, CLI-publish proposal, KERN-007/016); owner-gated items listed
+  (NO-GO unsigned, HOLD, P7/product); axis-side items marked other-thread.
+  Still-valid items folded into PR-2..PR-6. Archive untouched — live roadmap
+  stays single source of truth.
+- New findings for PR-3: `docs/releases.md` omits `@xoroh/kern-contracts`
+  (7th public package, in `check:publish` fan-out) and the CI `pkg` matrix
+  has no contracts leg.
+- Quality sweep (owner mandate): QF-1 dangling `plan/README.md` law/tracker
+  pointers in three live docs; QF-2 stale pre-cutover
+  `docs/conventions/primitives.md` in the reading order; QF-3 duplicate
+  `./native` export on `@xoroh/kern-native` (zero consumers); QF-4
+  `packages/mcp` dir/name mismatch (67 referencing files — own PR);
+  QF-5 contracts CI-matrix hole (folded into PR-3); QF-6 `designAudit`
+  still static (folded into PR-6); QF-7 parity surface unverified since
+  cutover (84/87 files, 66 same-named — folded into PR-6). Full section in
+  the readiness report; fixes ride in PR-2/PR-3/PR-6/PR-8.
+- Token/Axis split recorded: Kern tokens (canonical JSON + DTCG 2025.10)
+  style Axis-consuming parts consumer-side (e.g. native `switch.tsx`:
+  behavior from `@xoroh/axis`, all values from `ResolvedTheme`); shipped
+  Axis dist contains zero `--*` strings (read-only scan, tarball untouched).
+- `changeset status`: exactly ONE invalid-tree line left (mcp→cli);
+  kern/kern-native→primitives lines resolved by the cutover.
 
 ## In progress
-- Axis coverage PR merged (#10); next batches (Menu/Popover/Select/Combobox positioned overlays, remaining forms/display) scoped in `docs/COVERAGE.md` with the shared `useFloatingPlacement` hook landed.
-- Kern cutover executes as ONE migration PR once Axis is release-ready (all inventory `complete` + Phase 7 audit).
+- PR-1 (this report + readiness audit) awaiting CI, then merge.
+- Next: PR-2 roadmap freshness pass (§§B/H/J still pin `f0774ae7`/red CI),
+  PR-3 changeset health, PR-4 foundation-registration contract (shapes only),
+  PR-5 Preview scope decisions (needs owner sign on any ship commitment).
 
-## Blockers
-- **Release authorization**: first Axis publish + version bumps + tags remain owner-gated. Consequence: only the publish itself, the spec swap to semver, and version computation wait. Cutover + deletion do NOT wait (owner correction 2026-10-16).
-- **Device validation**: no emulator/simulator/physical-device or screen-reader runs anywhere in either repo (methodology: RNTL + Expo-host export only).
+## Blockers / standing gates
+- **Release hold**: no publish, no version bumps, no tags (all `0.0.0`).
+  `RELEASE_CHANGESSETS` unset, `NPM_TOKEN` absent — correctly so.
+- **Deletion PR**: `libs/kern-primitives` removal owned by the other thread;
+  this track does not touch `libs/`, `vendor/axis/*`, or the axis repo.
+- **Device validation**: no emulator/simulator/physical-device or
+  screen-reader runs anywhere (RNTL + Expo-host export only).
+- **Decisions needed from owner (PR-5)**: M3 advanced-part positions
+  (grid/charts/tree/scheduler/RTE rent/build/never for Preview) and the
+  Preview block list (3 shipped vs named additions).
 
-## Owner decisions (all recorded, none pending from this cycle except standing gates)
-- Axis initial native foundation; platform extensible, no second implementation now (D-FOUNDATION-CHOICE, merged).
-- Contract substance approved; Switch first; RN peer at first component (all executed).
-- Publish/release/versions/tags: NOT authorized (hold intact, all manifests `0.0.0`).
-
-## Next steps
-1. Continue Axis coverage batches to the agreed inventory target.
-2. Run the isolated RNP scratch experiment for the future-extension reference.
-3. Execute the cutover migration PR once Axis is release-ready (no publish needed); publish + spec swap follow under separate release authorization.
-4. Physical-device matrix when hardware/policy allows.
+## Owner decisions (standing, unchanged)
+- Axis initial native foundation; extensible platform, no second
+  implementation now (D-FOUNDATION-CHOICE). Cutover/deletion gated on Axis
+  release-ready, NOT on publish.
