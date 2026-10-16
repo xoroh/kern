@@ -184,7 +184,7 @@ kern upgrade button --apply      # update, preserving owned edits`}</Code>
         <section className="flex flex-col gap-4">
           <H2 id="mcp-use-cases">MCP use cases</H2>
           <p className={`m-0 max-w-[62ch] ${T_BODY_SM} ${INK_SOFT}`}>
-            Eleven tools, no memory: an agent reads the registry, pulls source,
+            Twelve tools, no memory: an agent reads the registry, pulls source,
             compares presets, discovers themes and icons, previews blocks, plans
             installs, validates destinations, or runs a screen audit.
           </p>
@@ -213,7 +213,7 @@ kern upgrade button --apply      # update, preserving owned edits`}</Code>
               {
                 use: "Audit a screen",
                 tool: "design_audit",
-                body: "The compliance checklist, mirroring the kern skill's audit table.",
+                body: "The compliance checklist, mirroring the kern skill's audit table. Advisory only — static categories, not measured evidence.",
               },
               {
                 use: "Discover icons",
