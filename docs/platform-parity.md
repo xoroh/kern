@@ -17,7 +17,7 @@ This page is the truth for **naming** and **coverage**. Where the two sides
 disagree, the disagreement is recorded here rather than left implicit.
 
 Naming follows the naming law (unprefixed, M3-canonical — see
-[`plan/README.md`](plan/README.md) "System law"). No `Native` prefix on a
+[`conventions/parity.md`](conventions/parity.md)). No `Native` prefix on a
 component name, no bridge names, no product names.
 
 ## Package and import names

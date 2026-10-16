@@ -46,10 +46,11 @@ file, numbered, status `accepted` / `superseded`.
 
 ## Plans
 
-[`plan/`](plan/) — the roadmap and per-area plans.
-[`plan/README.md`](plan/README.md) holds the tracker table and the locked
-system law; each work item gets its own file with its decisions and
-acceptance criteria.
+[`architecture/kern-axis-migration-and-roadmap.md`](architecture/kern-axis-migration-and-roadmap.md) —
+the authoritative roadmap (tracker, decisions, risks, validation). The old
+[`plan/`](plan/) and [`planning/`](planning/) directories are archived
+history (see `docs/archive/2026-10-axis-transition/ARCHIVE_INDEX.md`); their
+README stubs say so and must not be cited as the plan.
 
 ## Reading order
 
@@ -60,15 +61,16 @@ New to the repo:
    design authority.
 3. [`conventions/file-ownership.md`](conventions/file-ownership.md) — what
    may import what.
-3a. [`conventions/primitives.md`](conventions/primitives.md) — the two-layer
-   shape of `@xoroh/kern-primitives` (renderer-agnostic logic below, Base
-   UI-shaped widget layer above) and the extraction sequence. Enforced by
-   `check:primitives`.
+3a. [`conventions/primitives.md`](conventions/primitives.md) — the post-cutover
+   primitives boundary: `libs/kern-primitives` frozen pending the Axis-side
+   deletion, `@xoroh/axis` as the behavior kernel, retargeted gates.
+   Enforced by `check:primitives`.
 4. [`CONTRIBUTING.md`](../CONTRIBUTING.md) — the per-PR requirements.
 4a. [`verification-limits.md`](verification-limits.md) — what green CI does
    and does not prove. Read it before trusting a passing run as evidence that
    something works.
-5. [`plan/README.md`](plan/README.md) — what is being built next.
+5. [`architecture/kern-axis-migration-and-roadmap.md`](architecture/kern-axis-migration-and-roadmap.md) —
+   what is being built next (phases, decisions, risks).
 
 Building UI with Kern: the package README for the package you need
 (`packages/kern/README.md`), then

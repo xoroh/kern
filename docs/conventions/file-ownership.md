@@ -77,7 +77,7 @@ with the rules above). The gates that *are* automated:
 | --- | --- |
 | `bun run check:kern` | Every role present in every scheme; tokens only, no raw values; shape scale only |
 | `bun run check:contrast` | 4.5:1 text / 3:1 UI across presets × modes × contrast levels |
-| `bun run check:publish` | `publint` + `attw --pack` on all six publishable packages |
+| `bun run check:publish` | `publint` + `attw --pack` on all eight publishable packages |
 | `bun run icons:check` | Committed icon registry matches the Material Symbols source |
 
 Do not add lint machinery for boundaries alone.

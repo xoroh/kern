@@ -1,7 +1,7 @@
 # Status report — 2026-10-16, evening (Kern 0.1.0 Preview readiness track)
 
-Baseline: Kern `main` at `bd83d215` (PR #41 state layers merged, CI green).
-Tree clean, pushed, synced (this branch: fix/preview-install-honesty).
+Baseline: Kern `main` at `abb5bc0d` (PR #46 ref-forwarding merged, CI green).
+Tree clean, pushed, synced (this branch: docs/roadmap-owner-decisions).
 
 ## Done (this track)
 - Elevation gaps to zero (this branch, unmerged): 7 spec rows + 3 unassigned entries +
@@ -58,16 +58,15 @@ Tree clean, pushed, synced (this branch: fix/preview-install-honesty).
 - PR #40 merged: Button toggle+href keeps `aria-pressed` (critic fix 2).
 
 ## In progress
-- Merged: #39 SnapSheet, #40 Button aria-pressed, #41 state layers,
-  #42 Preview banner, #43 mobile dialog, #44 elevation gaps, #45 release
-  hygiene (CLI publishable, 8-package truth, changeset status green).
-- This branch (ref-forwarding, next PR): ButtonProps discriminated union +
-  assignRef helper; Menu/SheetSurface refs; Dialog/Switch spread proof tests.
-- Queued after: (6) route dedupe [done on branch, needs PR], (7) findings
-  bundle, (8) Base-UI-names discipline, (9) testID contract; usage P1/P2;
-  m3 tertiary/chrome + playground; owner-decision phases (structure,
-  Button M3 names, docs depth, HCT).
-  usage P1/P2 correctness items; m3 tertiary/chrome + playground fidelity;
+- Merged: #39–#46 (through ref-forwarding).
+- Open: #47 API utilities vs reference (format fix pushed, CI rerunning).
+- This branch (roadmap decisions): D-STRUCTURE/D-CLI-PUBLISH/D-AXIS-SHIP/
+  D-DOCS-DEPTH/D-BUTTON-NAMES/D-HCT recorded, H-17 resolved, evening
+  freshness addendum, QF-1/QF-2 pointer repairs.
+- Queued after: api-consistency branch (Base-UI names + native checked
+  rename, pushed, needs PR); (7) findings bundle; (9) testID contract;
+  usage P1/P2; m3 tertiary/chrome + playground; owner-decision phases
+  (structure, Button M3 names, docs depth, HCT).
   owner-decision phases (structure URLs/registry/rename, Button M3 names,
   docs depth top-20, HCT engine).
 
