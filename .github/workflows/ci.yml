@@ -360,6 +360,15 @@ jobs:
         run: bun run typecheck
         working-directory: apps/site
 
+      - name: Generate gitignored MCP index
+        # REQUIRED: apps/site/public/mcp/index.json is gitignored, so a clean
+        # runner has no MCP index and check-mcp-index (last in check:docs)
+        # fails with "missing or unparsable". Generate it before checking
+        # (writes ignored files only). Latent until check-props went green
+        # and unblocked the rest of the chain.
+        run: bun --preload ./scripts/preload-rn.mjs scripts/generate-mcp-index.mjs
+        working-directory: apps/site
+
       - name: Check site docs
         run: bun run check:docs
         working-directory: apps/site
