@@ -16,7 +16,10 @@ import { LINK } from "../../domains/shared/systems/ui";
 
 export const Route = createFileRoute("/docs/api")({
   head: () =>
-    routeHead("API reference", "API reference for the public utility surface."),
+    routeHead(
+      "API utilities",
+      "Public utility functions, hooks and factories (non-component exports).",
+    ),
   component: ApiReference,
 });
 
@@ -139,7 +142,7 @@ function ApiReference() {
   return (
     <SiteLayout>
       <PageCard gap={8}>
-        <Kicker>API reference</Kicker>
+        <Kicker>API utilities</Kicker>
         <h1 className={`mt-2 mb-3 ${T_PAGE} text-(--sys-color-on-surface)`}>
           Public utilities
         </h1>
@@ -155,6 +158,13 @@ function ApiReference() {
             href="/components"
           >
             Components
+          </a>{" "}
+          and every export is indexed under{" "}
+          <a
+            className={`${LINK} underline underline-offset-2`}
+            href="/reference"
+          >
+            API reference
           </a>
           .
         </p>
