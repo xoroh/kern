@@ -9,3 +9,4 @@ One topic per line — load the skill, specifics live there:
 - Docs & skills upkeep → `.agents/skills/docs/SKILL.md`
 - Releases → `docs/releases.md`
 - Token values → `packages/kern-tokens/src/tokens.json` (canonical; DTCG interchange in `packages/kern-tokens/src/dtcg.json`)
+- Direction → `docs/VISION.md` (test every decision against it), `docs/decisions/` (ADR per owner decision), `docs/IDEAS.md` (not planned work), roadmap `docs/architecture/kern-axis-migration-and-roadmap.md` (single source for planned work)
