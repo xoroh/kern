@@ -18,7 +18,7 @@ export const checkbox: ComponentDoc = {
   parts: ["Checkbox"],
   customization: {
     supported: [
-      "`value`/`defaultValue`/`onValueChange` make it controlled or uncontrolled.",
+      "`checked`/`defaultChecked`/`onCheckedChange` make it controlled or uncontrolled — Base UI names, same as web.",
       "`indeterminate` is the third state — neither on nor off.",
       "`label` and `labelStyle` set the text and its style separately.",
     ],
@@ -30,9 +30,9 @@ export const checkbox: ComponentDoc = {
   },
   api: [
     {
-      name: "value / defaultValue",
+      name: "checked / defaultChecked",
       type: "boolean",
-      note: "Controlled or uncontrolled checked state. `onValueChange` reports the next value.",
+      note: "Controlled or uncontrolled checked state. `onCheckedChange` reports the next value.",
     },
     {
       name: "indeterminate",
@@ -45,7 +45,7 @@ export const checkbox: ComponentDoc = {
       note: "OPTIONAL — and omitting it leaves a bare control with NO accessible name. The same trap as an icon-only button. Set it, or name the control another way.",
     },
     {
-      name: "onValueChange",
+      name: "onCheckedChange",
       type: "(next: boolean) => void",
       note: "Reports the next state rather than an event. `onPress` is also available from `PressableProps` if you want the gesture itself.",
     },
