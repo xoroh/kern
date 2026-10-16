@@ -5,8 +5,8 @@ vi.mock(
   async () => await import("../../test-doubles/react-native"),
 );
 
-import { defaultScheme } from "../theme";
 import { themes } from "@xoroh/kern-material-3";
+import { defaultScheme } from "../theme";
 import { badgeStyles } from "./badge";
 import { cardStyles } from "./card";
 import { checkboxStyles } from "./checkbox";
@@ -113,7 +113,9 @@ describe("native style maps", () => {
     expect(filled.borderTopLeftRadius).toBe(4);
     expect(filled.borderBottomLeftRadius).toBe(0);
     const outlined = inputStyles(false, false, undefined, false, "outlined");
-    expect(outlined.backgroundColor).toBe(themes["material-3"].color.light.surface);
+    expect(outlined.backgroundColor).toBe(
+      themes["material-3"].color.light.surface,
+    );
     expect(outlined.borderBottomLeftRadius).toBe(4);
   });
 
@@ -168,9 +170,7 @@ describe("native style maps", () => {
   });
 
   it("switch track defaults to full radius and follows its comp override", () => {
-    const full = Number.parseFloat(
-      themes["material-3"].radius.full,
-    );
+    const full = Number.parseFloat(themes["material-3"].radius.full);
     expect(switchStyles(false, false).track.borderRadius).toBe(full);
     const scheme = {
       ...defaultScheme,

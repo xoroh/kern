@@ -17,10 +17,13 @@
  *    gate that fails until someone invents 192 review dates would
  *    manufacture the fabrication it exists to prevent.
  */
-import { readdirSync, readFileSync } from "node:fs";
+import { readdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { SEO_ALLOWED_HOSTS, SITE_JSON_LD } from "../src/domains/shared/systems/seo.ts";
+import {
+  SEO_ALLOWED_HOSTS,
+  SITE_JSON_LD,
+} from "../src/domains/shared/systems/seo.ts";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const APP = join(HERE, "..");
@@ -96,7 +99,7 @@ async function loadDocs(subdir) {
         continue;
       }
       checked++;
-      if (!f.owner || !f.owner.trim())
+      if (!f.owner?.trim())
         bad(`${subdir}/${doc.slug}: freshness.owner is empty`);
       if (!realDate(f.reviewed)) {
         bad(

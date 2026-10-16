@@ -18,7 +18,9 @@ import { fileURLToPath } from "node:url";
 const HERE = dirname(fileURLToPath(import.meta.url));
 const SITE = resolve(HERE, "..");
 
-const { siblingNav } = await import(join(SITE, "src", "systems", "component-nav.ts"));
+const { siblingNav } = await import(
+  join(SITE, "src", "systems", "component-nav.ts")
+);
 const manifest = await import(join(SITE, "src", "generated", "manifest.ts"));
 const { COMPONENTS, componentsOn } = manifest;
 
@@ -28,7 +30,9 @@ const fail = (m) => failures.push(m);
 for (const platform of ["web", "mobile"]) {
   const siblings = componentsOn(platform);
   if (siblings.length === 0) {
-    fail(`componentsOn("${platform}") returned no rows — nothing would be asserted.`);
+    fail(
+      `componentsOn("${platform}") returned no rows — nothing would be asserted.`,
+    );
     continue;
   }
   // The manifest order is the sibling order: the gate pins the sequence, not
@@ -41,7 +45,6 @@ for (const platform of ["web", "mobile"]) {
   }
 
   siblings.forEach((entry, i) => {
-    const title = `Doc ${entry.export}`;
     const { prev, next } = siblingNav(entry, (e) => `Doc ${e.export}`);
     const wantPrev = i > 0 ? siblings[i - 1] : undefined;
     const wantNext = i < siblings.length - 1 ? siblings[i + 1] : undefined;
@@ -51,20 +54,27 @@ for (const platform of ["web", "mobile"]) {
       ["next", next, wantNext],
     ]) {
       if (!want) {
-        if (got) fail(`${entry.slug}: ${side} should be absent at the boundary, got ${got.href}.`);
+        if (got)
+          fail(
+            `${entry.slug}: ${side} should be absent at the boundary, got ${got.href}.`,
+          );
       } else {
         if (!got) {
           fail(`${entry.slug}: ${side} is missing, want ${want.slug}.`);
         } else {
           // THE platform rule: the href stays on this platform's renderer.
           if (got.href !== `/components/${want.slug}`) {
-            fail(`${entry.slug}: ${side} href is ${got.href}, want /components/${want.slug}.`);
+            fail(
+              `${entry.slug}: ${side} href is ${got.href}, want /components/${want.slug}.`,
+            );
           }
           if (!got.href.startsWith(`/components/${platform}/`)) {
             fail(`${entry.slug}: ${side} hops platforms — ${got.href}.`);
           }
           if (got.title !== `Doc ${want.export}`) {
-            fail(`${entry.slug}: ${side} title is "${got.title}", want "Doc ${want.export}".`);
+            fail(
+              `${entry.slug}: ${side} title is "${got.title}", want "Doc ${want.export}".`,
+            );
           }
         }
       }
@@ -75,7 +85,9 @@ for (const platform of ["web", "mobile"]) {
   // lookup; the fallback is what renders for undocumented exports).
   const { next: dflt } = siblingNav(siblings[0]);
   if (siblings.length > 1 && dflt?.title !== siblings[1].export) {
-    fail(`${siblings[0].slug}: default next title is "${dflt?.title}", want "${siblings[1].export}".`);
+    fail(
+      `${siblings[0].slug}: default next title is "${dflt?.title}", want "${siblings[1].export}".`,
+    );
   }
 }
 
@@ -88,7 +100,9 @@ const { prev, next } = siblingNav({
   status: "real",
 });
 if (prev ?? next) {
-  fail(`unknown slug produced a sibling link — the 404 path must stay linkless.`);
+  fail(
+    `unknown slug produced a sibling link — the 404 path must stay linkless.`,
+  );
 }
 
 if (failures.length) {

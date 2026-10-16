@@ -1,6 +1,5 @@
 import { renderHook } from "@testing-library/react";
-import { themeFromSeed } from "@xoroh/kern-material-3";
-import { themes } from "@xoroh/kern-material-3";
+import { themeFromSeed, themes } from "@xoroh/kern-material-3";
 import { act } from "react";
 import { describe, expect, it } from "vitest";
 import { applyKernTheme, clearKernTheme, useKernTheme } from "./web-theme";
@@ -26,22 +25,18 @@ describe("applyKernTheme", () => {
     const el = document.createElement("div");
     applyKernTheme(el, "light");
     expect(el.dataset.kernMotion).toBe("standard");
-    expect(el.style.getPropertyValue("--sys-motion-easing-standard")).toBe(
-      "",
-    );
+    expect(el.style.getPropertyValue("--sys-motion-easing-standard")).toBe("");
   });
 
   it("applies the expressive easing anchor and clears it", () => {
     const el = document.createElement("div");
     applyKernTheme(el, "light", "standard", "material-3", "expressive");
     expect(el.dataset.kernMotion).toBe("expressive");
-    expect(
-      el.style.getPropertyValue("--sys-motion-easing-standard"),
-    ).not.toBe("");
-    clearKernTheme(el);
-    expect(el.style.getPropertyValue("--sys-motion-easing-standard")).toBe(
+    expect(el.style.getPropertyValue("--sys-motion-easing-standard")).not.toBe(
       "",
     );
+    clearKernTheme(el);
+    expect(el.style.getPropertyValue("--sys-motion-easing-standard")).toBe("");
     expect(el.dataset.kernMotion).toBeUndefined();
   });
 

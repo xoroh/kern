@@ -44,7 +44,10 @@ export const SITE_DESCRIPTION = SITE_JSON_LD.description;
 /** Social preview image in `public/` — the honest brand tile, not a screenshot. */
 export const SITE_OG_IMAGE = "/og.png";
 
-export function pageMeta(fullTitle: string, description: string = SITE_DESCRIPTION) {
+export function pageMeta(
+  fullTitle: string,
+  description: string = SITE_DESCRIPTION,
+) {
   return [
     { title: fullTitle },
     { name: "description", content: description },

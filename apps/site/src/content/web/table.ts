@@ -52,9 +52,7 @@ export const table: ComponentDoc = {
       "Use tonal head rows over data rows for scan order.",
       "Let wide tables scroll horizontally inside their wrapper.",
     ],
-    dont: [
-      "Don't center data text - start-align for scanning.",
-    ],
+    dont: ["Don't center data text - start-align for scanning."],
   },
   tokens: [
     {

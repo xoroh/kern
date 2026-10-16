@@ -54,9 +54,7 @@ for (const area of AREAS) {
     try {
       pkg = JSON.parse(readFileSync(pkgJson, "utf8"));
     } catch (err) {
-      violations.push(
-        `${rel}: package.json is not valid JSON: ${err.message}`,
-      );
+      violations.push(`${rel}: package.json is not valid JSON: ${err.message}`);
       continue;
     }
 
@@ -87,22 +85,22 @@ for (const area of AREAS) {
     ) {
       violations.push(
         `${rel}: publishable, with no LICENSE in the package and none at the repo root.`,
-    );
-  }
+      );
+    }
 
-  // Every package needs a description: npm search, `npm view`, Socket cards
-  // and procurement checklists read it before they read code. 1 of 7 packages
-  // had one (R1 inventory). Empty or missing fails the same way a missing
-  // README does — metadata that looks complete and is not.
-  if (
-    typeof pkg.description !== "string" ||
-    pkg.description.trim().length === 0
-  ) {
-    violations.push(
-      `${rel}: package.json has no usable "description". ` +
-        `A package with no description is invisible to search and review.`,
-    );
-  }
+    // Every package needs a description: npm search, `npm view`, Socket cards
+    // and procurement checklists read it before they read code. 1 of 7 packages
+    // had one (R1 inventory). Empty or missing fails the same way a missing
+    // README does — metadata that looks complete and is not.
+    if (
+      typeof pkg.description !== "string" ||
+      pkg.description.trim().length === 0
+    ) {
+      violations.push(
+        `${rel}: package.json has no usable "description". ` +
+          `A package with no description is invisible to search and review.`,
+      );
+    }
   }
 }
 

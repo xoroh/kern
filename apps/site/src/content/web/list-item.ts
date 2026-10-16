@@ -34,9 +34,7 @@ export const listItem: ComponentDoc = {
       "Use the `kern.list-item.container` row height with the shape-scale gutter between rows and state layers on interaction.",
       "Keep supporting text and icons in their roles and sizes.",
     ],
-    dont: [
-      "Don't shrink rows below one-line metrics to save space.",
-    ],
+    dont: ["Don't shrink rows below one-line metrics to save space."],
   },
   tokens: [
     {

@@ -1,4 +1,4 @@
-import { type ResolvedTheme } from "@xoroh/kern-tokens";
+import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import {
   Modal,
   Pressable,
@@ -10,9 +10,9 @@ import { defaultScheme, useKernScheme } from "../theme";
 import { overlayStyles } from "../utils/overlay-styles";
 import { Text } from "./text";
 
-export function alertDialogStyles(
-  scheme: ResolvedTheme = defaultScheme,
-): { card: ViewStyle } {
+export function alertDialogStyles(scheme: ResolvedTheme = defaultScheme): {
+  card: ViewStyle;
+} {
   return {
     card: {
       width: "100%",

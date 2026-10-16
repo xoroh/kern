@@ -33,9 +33,7 @@ export const meter: ComponentDoc = {
       "Label what is measured and show the value beside the bar.",
       "Report progress semantics to assistive tech.",
     ],
-    dont: [
-      "Do not use for unknown waits.",
-    ],
+    dont: ["Do not use for unknown waits."],
   },
   tokens: [
     {

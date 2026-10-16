@@ -13,18 +13,18 @@ import "@xoroh/kern-material-3";
 
 vi.mock("react-native", () => ({ useColorScheme: () => "light" }));
 
+import {
+  defineThemePreset,
+  type ResolvedTheme,
+  resolveThemeDetails,
+} from "@xoroh/kern-tokens";
 import { createElement } from "react";
 // react-test-renderer ships without type declarations in this workspace.
 // @ts-expect-error — untyped package.
 import { act, create as createTree } from "react-test-renderer";
-import {
-  defineThemePreset,
-  resolveThemeDetails,
-  type ResolvedTheme,
-} from "@xoroh/kern-tokens";
-import { KernThemeProvider, useKernScheme } from "./theme";
 import { inputStyles } from "./components/input";
 import { switchStyles } from "./components/switch";
+import { KernThemeProvider, useKernScheme } from "./theme";
 
 async function renderWithScheme(
   variant: Parameters<typeof KernThemeProvider>[0]["variant"],

@@ -55,9 +55,7 @@ describe("Input — outlined is the default treatment", () => {
   it("disables outlined to the M3 split: 38% text, 12% border", () => {
     render(<Input aria-label="name" disabled />);
     const el = screen.getByRole("textbox");
-    expect(el.className).toContain(
-      "disabled:text-(--sys-color-on-surface)/38",
-    );
+    expect(el.className).toContain("disabled:text-(--sys-color-on-surface)/38");
     expect(el.className).toContain(
       "disabled:border-(--sys-color-on-surface)/12",
     );
@@ -88,12 +86,8 @@ describe("Checkbox — 2px shape, on-surface-variant border", () => {
   it("borders on-surface-variant unselected, primary selected", () => {
     render(<Checkbox aria-label="agree" />);
     const el = screen.getByRole("checkbox");
-    expect(el.className).toContain(
-      "border-(--sys-color-on-surface-variant)",
-    );
-    expect(el.className).toContain(
-      "data-checked:border-(--sys-color-primary)",
-    );
+    expect(el.className).toContain("border-(--sys-color-on-surface-variant)");
+    expect(el.className).toContain("data-checked:border-(--sys-color-primary)");
     expect(el.className).toContain("data-checked:bg-(--sys-color-primary)");
   });
 
@@ -220,9 +214,7 @@ describe("SelectTrigger — outlined default, filled variant, 4px shape", () => 
     );
     const el = screen.getByRole("combobox");
     expect(el.className).toContain("border-(--sys-color-outline)");
-    expect(el.className).toContain(
-      "rounded-(--sys-shape-corner-extra-small)",
-    );
+    expect(el.className).toContain("rounded-(--sys-shape-corner-extra-small)");
     expect(el.className).toContain("focus:border-(--sys-color-primary)");
   });
 
@@ -261,18 +253,27 @@ describe("Gap features — affixes, counter, filled textarea", () => {
   it("Input renders prefix and suffix adornments", async () => {
     const { Input } = await import("./input");
     render(<Input aria-label="amount" prefix="$" suffix=".00" />);
-    expect(document.querySelector('[data-slot="input-prefix"]')).toHaveTextContent("$");
-    expect(document.querySelector('[data-slot="input-suffix"]')).toHaveTextContent(".00");
+    expect(
+      document.querySelector('[data-slot="input-prefix"]'),
+    ).toHaveTextContent("$");
+    expect(
+      document.querySelector('[data-slot="input-suffix"]'),
+    ).toHaveTextContent(".00");
   });
 
   it("Input renders a character counter with maxlength", async () => {
     const { Input } = await import("./input");
     render(
-      <Input aria-label="title" maxLength={10} showCounter defaultValue="Short" />,
+      <Input
+        aria-label="title"
+        maxLength={10}
+        showCounter
+        defaultValue="Short"
+      />,
     );
-    expect(document.querySelector('[data-slot="input-counter"]')).toHaveTextContent(
-      "5/10",
-    );
+    expect(
+      document.querySelector('[data-slot="input-counter"]'),
+    ).toHaveTextContent("5/10");
   });
 
   it("Textarea renders the filled treatment", async () => {

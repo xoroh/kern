@@ -95,7 +95,10 @@ export function defineCliConfig(config: CliConfig): CliConfig {
     fail(`mode is ${config.mode}`);
   }
   if (config.preset !== undefined) {
-    if (typeof config.preset !== "string" || !/^[a-z][a-z0-9-]{1,31}$/.test(config.preset)) {
+    if (
+      typeof config.preset !== "string" ||
+      !/^[a-z][a-z0-9-]{1,31}$/.test(config.preset)
+    ) {
       fail(`preset is ${config.preset}`);
     }
   }

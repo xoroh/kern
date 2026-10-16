@@ -8,10 +8,7 @@ import {
   useControllableState,
   useRovingModel,
 } from "@xoroh/kern-primitives";
-import {
-  type ResolvedTheme,
-  tokens,
-} from "@xoroh/kern-tokens";
+import { type ResolvedTheme, tokens } from "@xoroh/kern-tokens";
 import { useMemo, useState } from "react";
 import {
   Pressable,

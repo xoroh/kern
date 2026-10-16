@@ -44,11 +44,7 @@ describe("preserved variant axes", () => {
     "IconButton size %s renders at its width",
     (size) => {
       const { unmount } = render(
-        <IconButton
-          size={size}
-          icon={<svg />}
-          aria-label={`icon ${size}`}
-        />,
+        <IconButton size={size} icon={<svg />} aria-label={`icon ${size}`} />,
       );
       expect(screen.getByRole("button")).toBeDefined();
       unmount();

@@ -136,9 +136,7 @@ describe("native parity contract: contrast-toggle-action", () => {
   it("names the destination and leaves no pressed state", async () => {
     const r = contractFor("contrast-toggle");
     const onToggle = jest.fn();
-    await render(
-      <ContrastToggle contrast="standard" onToggle={onToggle} />,
-    );
+    await render(<ContrastToggle contrast="standard" onToggle={onToggle} />);
     const toggle = screen.getByTestId("kern-contrast-toggle");
     assertParity(
       r,

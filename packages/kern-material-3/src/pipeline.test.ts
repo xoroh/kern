@@ -1,24 +1,23 @@
 import "./material-3"; // registers the material-3 preset tables (side effect)
-import { describe, expect, it } from "vitest";
 import {
   aliasStage,
   assertSingleRoleTable,
   buildThemeMatrix,
   componentStage,
+  defineMotionAlgorithm,
+  defineThemePreset,
+  MOTION_ALGORITHMS,
   mapStage,
   projectToCssVars,
+  resolveThemeDetails,
   scopedDeltas,
   seedStage,
-} from "@xoroh/kern-tokens";
-import { defineMotionAlgorithm, MOTION_ALGORITHMS } from "@xoroh/kern-tokens";
-import {
-  defineThemePreset,
-  resolveThemeDetails,
   shapeVarName,
   themeIds,
+  tokens,
   varName,
 } from "@xoroh/kern-tokens";
-import { tokens } from "@xoroh/kern-tokens";
+import { describe, expect, it } from "vitest";
 import { themes } from "./themes";
 
 describe("pipeline stages", () => {

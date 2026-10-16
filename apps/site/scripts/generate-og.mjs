@@ -50,7 +50,9 @@ function distToSegment(px, py, ax, ay, bx, by) {
 
 function isInk(x, y) {
   if (x >= STEM.x0 && x < STEM.x1 && y >= STEM.y0 && y < STEM.y1) return true;
-  if (distToSegment(x, y, MID.x, MID.y, ARM_END_UP.x, ARM_END_UP.y) <= HALF_THICK)
+  if (
+    distToSegment(x, y, MID.x, MID.y, ARM_END_UP.x, ARM_END_UP.y) <= HALF_THICK
+  )
     return true;
   if (
     distToSegment(x, y, MID.x, MID.y, ARM_END_DOWN.x, ARM_END_DOWN.y) <=
@@ -114,4 +116,6 @@ const png = Buffer.concat([
 ]);
 
 writeFileSync(OUT, png);
-console.log(`generate-og: wrote public/og.png (${png.length} bytes, ${W}x${H})`);
+console.log(
+  `generate-og: wrote public/og.png (${png.length} bytes, ${W}x${H})`,
+);

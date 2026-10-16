@@ -171,9 +171,7 @@ function ThemePage() {
           <h1 className={`m-0 ${T_PAGE} text-(--sys-color-on-surface)`}>
             One theme source, both platforms
           </h1>
-          <p
-            className={`m-0 ${T_BODY} text-(--sys-color-on-surface-variant)`}
-          >
+          <p className={`m-0 ${T_BODY} text-(--sys-color-on-surface-variant)`}>
             <code>@xoroh/kern-tokens</code> is platform-free: no React, no DOM.
             Web reads OKLCH CSS variables, native reads compiled sRGB, and both
             resolve the same {ROLE_COUNT} roles. Every swatch on this page is

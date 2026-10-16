@@ -14,7 +14,10 @@ const { auditElevation, KERN_ELEVATION_COMPONENTS } = await import(
 );
 
 const m3 = JSON.parse(
-  readFileSync(join(ROOT, "packages/kern-material-3/src/themes/material-3.json"), "utf8"),
+  readFileSync(
+    join(ROOT, "packages/kern-material-3/src/themes/material-3.json"),
+    "utf8",
+  ),
 );
 const tokens = JSON.parse(
   readFileSync(join(ROOT, "packages/kern-tokens/src/tokens.json"), "utf8"),
@@ -589,8 +592,7 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
     }
     if (entry.id === "material-3") continue;
     const preset = JSON.parse(readFileSync(path, "utf8"));
-    const base =
-      preset.extends === undefined ? "material-3" : preset.extends;
+    const base = preset.extends === undefined ? "material-3" : preset.extends;
     if (base !== "material-3") {
       violations.push(
         `themes/${entry.file}: extends "${preset.extends}" — presets must extend "material-3", never a second role table`,
@@ -671,9 +673,8 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
    * preset. Prose mentioning a preset — a comment, a `title` attribute, a
    * template literal used as a display label — is not a read.
    */
-  const PRESET_IMPORT = new RegExp(
-    "(?:from|require\\(|readFileSync\\()\\s*[\"'`][^\"'`]*themes/(?:sharp|brand|compact|demo)\\.json",
-  );
+  const PRESET_IMPORT =
+    /(?:from|require\(|readFileSync\()\s*["'`][^"'`]*themes\/(?:sharp|brand|compact|demo)\.json/;
   const presetReaders = [];
   const readerRoots = [
     join(ROOT, "packages/kern-tokens"),

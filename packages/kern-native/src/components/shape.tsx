@@ -1,10 +1,8 @@
 import {
-  type ResolvedTheme,
-} from "@xoroh/kern-tokens";
-import {
   FEEDBACK_SIZE_DP,
   type FeedbackShapeKind,
 } from "@xoroh/kern-material-3";
+import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import {
   type StyleProp,
   View,

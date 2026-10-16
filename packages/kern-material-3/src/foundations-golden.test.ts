@@ -1,7 +1,11 @@
 import "./material-3"; // registers the material-3 preset tables (side effect)
+import {
+  type Contrast,
+  type Mode,
+  resolveThemeDetails,
+  tokens,
+} from "@xoroh/kern-tokens";
 import { describe, expect, test } from "vitest";
-import { type Contrast, type Mode, resolveThemeDetails } from "@xoroh/kern-tokens";
-import { tokens } from "@xoroh/kern-tokens";
 
 /**
  * Foundation golden baseline (KERN-017) — the approved output snapshot every

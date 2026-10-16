@@ -1,7 +1,4 @@
-import {
-  cssLengthToDp,
-  type ResolvedTheme,
-} from "@xoroh/kern-tokens";
+import { cssLengthToDp, type ResolvedTheme } from "@xoroh/kern-tokens";
 import {
   type StyleProp,
   TextInput,

@@ -1,4 +1,4 @@
-import { contrastIssues, type ContrastPolicy } from "./contrast";
+import { type ContrastPolicy, contrastIssues } from "./contrast";
 
 export type Mode = "light" | "dark";
 export type Contrast = "standard" | "medium" | "high";
@@ -89,13 +89,12 @@ const COMP_VALUE_RE = /^(\d+(\.\d+)?px|\d+(\.\d+)?rem)$/;
  * Membership is deliberately NOT checked — the engine owns no component
  * inventory; unknown-but-wellformed keys pass through inert.
  */
-function assertCompTable(
-  comp: CompTable | undefined,
-  where: string,
-): void {
+function assertCompTable(comp: CompTable | undefined, where: string): void {
   for (const [slot, value] of Object.entries(comp ?? {})) {
     if (!COMP_KEY_RE.test(slot)) {
-      throw new Error(`Theme comp key "${slot}" must be kebab-case (${where}).`);
+      throw new Error(
+        `Theme comp key "${slot}" must be kebab-case (${where}).`,
+      );
     }
     if (typeof value !== "string" || !COMP_VALUE_RE.test(value)) {
       throw new Error(
@@ -218,10 +217,7 @@ export function defineThemePreset(theme: CustomTheme): CustomTheme {
   // no component inventory (that would couple it to implementations). Keys
   // must be kebab-case; values follow the shape length convention. Unknown
   // keys pass through inert — no component reads them, so they change nothing.
-  assertCompTable(
-    theme.overrides.comp,
-    `theme ${theme.id} overrides`,
-  );
+  assertCompTable(theme.overrides.comp, `theme ${theme.id} overrides`);
   for (const mode of ["light", "dark"] as const) {
     const issues = contrastIssues(
       resolveThemeDetails(mode, "standard", theme).color,
@@ -299,7 +295,9 @@ export function resolveThemeDetails(
   // behave exactly as their color/shape overrides do). Empty comp stays
   // absent so comp-free themes resolve exactly as before.
   const comp = { ...base.comp, ...(overrides.comp ?? {}) };
-  return Object.keys(comp).length > 0 ? { color, shape, comp } : { color, shape };
+  return Object.keys(comp).length > 0
+    ? { color, shape, comp }
+    : { color, shape };
 }
 
 /** Compatibility helper for consumers that only need the role table. */

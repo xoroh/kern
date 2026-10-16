@@ -1,5 +1,5 @@
-import { describe, expect, it } from "vitest";
 import { contrastIssues } from "@xoroh/kern-tokens";
+import { describe, expect, it } from "vitest";
 import { MATERIAL_3_POLICY } from "./material-3";
 import "./material-3";
 import { resolveThemeDetails } from "@xoroh/kern-tokens";
@@ -38,9 +38,9 @@ describe("themeFromSeed", () => {
     const theme = themeFromSeed("#6750a4", "seed-purple");
     for (const mode of ["light", "dark"] as const) {
       const resolved = resolveThemeDetails(mode, "standard", theme);
-      expect(
-        contrastIssues(resolved.color, 4.5, 3, MATERIAL_3_POLICY),
-      ).toEqual([]);
+      expect(contrastIssues(resolved.color, 4.5, 3, MATERIAL_3_POLICY)).toEqual(
+        [],
+      );
     }
   });
 
@@ -48,9 +48,9 @@ describe("themeFromSeed", () => {
     const theme = themeFromSeed("#7c3aed", "seed-violet");
     for (const mode of ["light", "dark"] as const) {
       const resolved = resolveThemeDetails(mode, "standard", theme);
-      expect(
-        contrastIssues(resolved.color, 4.5, 3, MATERIAL_3_POLICY),
-      ).toEqual([]);
+      expect(contrastIssues(resolved.color, 4.5, 3, MATERIAL_3_POLICY)).toEqual(
+        [],
+      );
     }
   });
 

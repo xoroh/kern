@@ -138,9 +138,7 @@ function GettingStarted() {
           <h1 className={`m-0 ${T_PAGE} text-(--sys-color-on-surface)`}>
             From install to a themed component
           </h1>
-          <p
-            className={`m-0 ${T_BODY} text-(--sys-color-on-surface-variant)`}
-          >
+          <p className={`m-0 ${T_BODY} text-(--sys-color-on-surface-variant)`}>
             Install, theme, render your first component.
           </p>
         </header>

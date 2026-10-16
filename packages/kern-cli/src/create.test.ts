@@ -1,5 +1,10 @@
-import { existsSync, mkdirSync, readFileSync, rmSync } from "node:fs";
-import { mkdtempSync } from "node:fs";
+import {
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  rmSync,
+} from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
@@ -72,9 +77,7 @@ describe("kern create (new app; C1 create/init contract)", () => {
         registry: true,
       });
       expect(r.registry).toBe(true);
-      const pkg = JSON.parse(
-        readFileSync(join(r.dir, "package.json"), "utf8"),
-      );
+      const pkg = JSON.parse(readFileSync(join(r.dir, "package.json"), "utf8"));
       expect(pkg.dependencies["@xoroh/kern"]).toBe("0.0.0");
       expect(r.instructions[0]).toContain("404 until the first publish");
     } finally {

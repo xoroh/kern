@@ -8,11 +8,7 @@
  * installer writes.
  */
 
-import type {
-  DependencySet,
-  DesignSystemId,
-  Renderer,
-} from "./component";
+import type { DependencySet, DesignSystemId, Renderer } from "./component";
 
 export type BlockCategory = "settings" | "auth" | "dashboard" | string;
 

@@ -196,9 +196,7 @@ export function NavigationBar({
               onKeyDown={onKeyDown}
               className={cn(
                 `kern-navigation-bar-destination relative flex min-h-12 flex-1 cursor-pointer flex-col items-center justify-center gap-1 px-2 outline-none select-none transition-colors duration-200 ease-(--sys-motion-easing-standard) ${FOCUS_RING_CLASS} before:absolute before:inset-0 before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--sys-color-on-surface) hover:before:opacity-[var(--sys-state-hover)] focus-visible:before:opacity-[var(--sys-state-focus)] active:before:opacity-[var(--sys-state-press)] data-[active]:before:bg-(--sys-color-on-secondary-container)`,
-                destination.disabled
-                  ? "pointer-events-none opacity-38"
-                  : "",
+                destination.disabled ? "pointer-events-none opacity-38" : "",
                 selected && "text-(--sys-color-on-surface)",
               )}
             >

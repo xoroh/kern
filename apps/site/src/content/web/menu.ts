@@ -54,11 +54,13 @@ export const menu: ComponentDoc = {
   keyboard: [
     {
       key: "Arrow keys",
-      action: "Moves between items with wrapping; typeahead jumps by typed text.",
+      action:
+        "Moves between items with wrapping; typeahead jumps by typed text.",
     },
     {
       key: "Enter / Space",
-      action: "Activates the focused item and closes the menu (unless keep-open).",
+      action:
+        "Activates the focused item and closes the menu (unless keep-open).",
     },
     {
       key: "Escape",

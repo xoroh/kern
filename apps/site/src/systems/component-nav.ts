@@ -14,7 +14,7 @@
  * already imports `docForExport` for its canonical-slug redirect, so it
  * passes the same lookup down.
  */
-import { componentsOn, type ComponentEntry } from "../generated/manifest.ts";
+import { type ComponentEntry, componentsOn } from "../generated/manifest.ts";
 
 export type SiblingLink = { href: string; title: string };
 

@@ -40,7 +40,7 @@ export const button: ComponentDoc = {
   usage: {
     do: [
       "Put one primary action per screen — the filled button carries the hierarchy.",
-      "Use `color=\"danger\"` for destructive actions instead of inventing a sixth variant.",
+      'Use `color="danger"` for destructive actions instead of inventing a sixth variant.',
       "Keep labels to a few words — the button resolves its height from the `kern.button.size` scale and truncates long text.",
       "Use `toggle` for binary Save/Favorite selections with morph and emphasis swap.",
     ],

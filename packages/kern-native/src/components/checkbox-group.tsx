@@ -1,8 +1,5 @@
 import { useSelection } from "@xoroh/kern-primitives";
-import {
-  type ResolvedTheme,
-  tokens,
-} from "@xoroh/kern-tokens";
+import { type ResolvedTheme, tokens } from "@xoroh/kern-tokens";
 import { createContext, type ReactNode, useContext, useMemo } from "react";
 import {
   Pressable,

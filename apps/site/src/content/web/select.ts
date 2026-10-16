@@ -80,7 +80,8 @@ export const select: ComponentDoc = {
     },
     {
       key: "Tab / Shift+Tab",
-      action: "Moves focus into and out of the select. Disabled selects are skipped.",
+      action:
+        "Moves focus into and out of the select. Disabled selects are skipped.",
     },
   ],
   usage: {

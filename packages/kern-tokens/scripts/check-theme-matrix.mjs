@@ -1,4 +1,5 @@
 #!/usr/bin/env bun
+import { material3PresetRegistrations } from "../../kern-material-3/src/material-3.ts";
 /**
  * check:theme-matrix — the P5C theming gate.
  *
@@ -14,11 +15,13 @@
  *    product. (Clean break: no `kern`/`m3` preset aliases remain.)
  */
 import { registerPreset } from "../src/resolve.ts";
-import { material3PresetRegistrations } from "../../kern-material-3/src/material-3.ts";
+
 // Explicit registration into THIS resolver instance (source). The M3 module's
 // own import-time registration targets the built package instance, which
 // scripts must not rely on — register here so resolution never depends on dist.
-for (const { id, tables } of material3PresetRegistrations()) registerPreset(id, tables);
+for (const { id, tables } of material3PresetRegistrations())
+  registerPreset(id, tables);
+
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import {
@@ -26,7 +29,7 @@ import {
   buildThemeMatrix,
   scopedDeltas,
 } from "../src/pipeline.ts";
-import { resolveTheme, resolveThemeDetails, themeIds } from "../src/resolve.ts";
+import { resolveThemeDetails, themeIds } from "../src/resolve.ts";
 
 const ROOT = new URL("../../..", import.meta.url).pathname;
 const THEMES = join(ROOT, "packages/kern-material-3/src/themes");

@@ -34,9 +34,9 @@ function variantOf(v: ConfigValues): Variant {
 
 function sizeOf(v: ConfigValues): Size {
   const s = String(v.size);
-  return (
-    ["xs", "default", "sm", "md", "xl", "lg", "icon"] as const
-  ).includes(s as Size)
+  return (["xs", "default", "sm", "md", "xl", "lg", "icon"] as const).includes(
+    s as Size,
+  )
     ? (s as Size)
     : "default";
 }

@@ -87,9 +87,7 @@ function Guides() {
           <h1 className={`m-0 ${T_PAGE} text-(--sys-color-on-surface)`}>
             Guides
           </h1>
-          <p
-            className={`m-0 ${T_BODY} text-(--sys-color-on-surface-variant)`}
-          >
+          <p className={`m-0 ${T_BODY} text-(--sys-color-on-surface-variant)`}>
             {web} web exports and {mobile} native exports, under one naming law.
             These pages cover the rules that do not fit on a single component
             page.

@@ -72,9 +72,7 @@ export const navigationMenu: ComponentDoc = {
       "Use for site navigation with grouped destinations.",
       "Keep trigger labels short.",
     ],
-    dont: [
-      "Do not nest menus deeper than one level.",
-    ],
+    dont: ["Do not nest menus deeper than one level."],
   },
   tokens: [
     {

@@ -1,4 +1,4 @@
-import { type ResolvedTheme } from "@xoroh/kern-tokens";
+import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import { useRef, useState } from "react";
 import { type StyleProp, TextInput, View, type ViewStyle } from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";

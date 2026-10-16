@@ -68,7 +68,7 @@ export const linkButton: ComponentDoc = {
     ],
     notSupported: [
       "There is no anchor element on this renderer — `target`, `rel` and `download` do not exist here.",
-      "There is no trailing-icon slot — `iconPosition=\"end\"` warns and renders leading.",
+      'There is no trailing-icon slot — `iconPosition="end"` warns and renders leading.',
       "There is no `asChild` takeover — compose routers by URL through `href`.",
     ],
   },
@@ -145,7 +145,7 @@ export const linkButton: ComponentDoc = {
     {
       name: "icon",
       type: "ReactNode",
-      note: "Renders leading beside the label. There is no trailing slot — `iconPosition=\"end\"` warns and renders leading.",
+      note: 'Renders leading beside the label. There is no trailing slot — `iconPosition="end"` warns and renders leading.',
     },
     {
       name: "iconPosition",

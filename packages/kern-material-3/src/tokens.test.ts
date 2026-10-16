@@ -1,6 +1,6 @@
 import "./material-3"; // registers the material-3 preset tables (side effect)
-import { describe, expect, it } from "vitest";
 import { resolveTheme, varName } from "@xoroh/kern-tokens";
+import { describe, expect, it } from "vitest";
 import { themes } from "./themes";
 
 const kern = themes["material-3"] as unknown as {

@@ -1,8 +1,5 @@
 import { useControllableState } from "@xoroh/kern-primitives";
-import {
-  type ResolvedTheme,
-  tokens,
-} from "@xoroh/kern-tokens";
+import { type ResolvedTheme, tokens } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
 import {
   Pressable,
@@ -103,9 +100,7 @@ export type SecondaryTabsProps = {
   testID?: string;
 };
 
-export function secondaryTabsStyles(
-  scheme: ResolvedTheme = defaultScheme,
-): {
+export function secondaryTabsStyles(scheme: ResolvedTheme = defaultScheme): {
   row: ViewStyle;
   tab: ViewStyle;
   indicator: ViewStyle;

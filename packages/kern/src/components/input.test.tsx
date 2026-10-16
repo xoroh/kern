@@ -37,7 +37,9 @@ describe("Input", () => {
     expect(control.className).toContain(
       "rounded-[var(--comp-text-field-container-shape,var(--sys-shape-corner-extra-small))]",
     );
-    expect(control.className).not.toContain("rounded-(--sys-shape-corner-extra-small)");
+    expect(control.className).not.toContain(
+      "rounded-(--sys-shape-corner-extra-small)",
+    );
     // Filled keeps top-only rounding so bottom corners stay zero.
     rerender(<Input aria-label="Email" variant="filled" />);
     expect(screen.getByRole("textbox").className).toContain(

@@ -5,5 +5,11 @@ import material3 from "./themes/material-3.json";
 import sharp from "./themes/sharp.json";
 
 /** Copyable named presets, shared by apps, docs, and automation. */
-export const themes = { "material-3": material3, sharp, brand, compact, demo } as const;
+export const themes = {
+  "material-3": material3,
+  sharp,
+  brand,
+  compact,
+  demo,
+} as const;
 export type KernThemePresets = typeof themes;

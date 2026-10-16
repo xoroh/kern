@@ -446,7 +446,12 @@ export const COLOR_USAGE_ROLES: string[] = [
       ...(s.ink ? [s.ink] : []),
       ...(s.inkAlt ? [s.inkAlt] : []),
     ]),
-    ...USAGE_RULES.flatMap((r) => [r.do.fill, r.do.ink, r.dont.fill, r.dont.ink]),
+    ...USAGE_RULES.flatMap((r) => [
+      r.do.fill,
+      r.do.ink,
+      r.dont.fill,
+      r.dont.ink,
+    ]),
     ...USAGE_SCENES.flatMap((s) => [
       s.backdrop,
       s.panel,

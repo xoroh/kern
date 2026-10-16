@@ -42,9 +42,7 @@ describe("Button family completeness — every member renders", () => {
       "ghost",
     ] as const) {
       const { unmount } = render(<Button variant={variant}>{variant}</Button>);
-      expect(
-        screen.getByRole("button", { name: variant }),
-      ).toBeInTheDocument();
+      expect(screen.getByRole("button", { name: variant })).toBeInTheDocument();
       unmount();
     }
   });
@@ -60,7 +58,9 @@ describe("Button family completeness — every member renders", () => {
         +
       </Button>,
     );
-    expect(screen.getByRole("button", { name: "icon-size" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "icon-size" }),
+    ).toBeInTheDocument();
   });
 
   it("Button renders both colors and all shapes", () => {
@@ -99,18 +99,25 @@ describe("Button family completeness — every member renders", () => {
   });
 
   it("IconButton renders all four variants plus toggle", () => {
-    for (const variant of ["standard", "filled", "tonal", "outlined"] as const) {
+    for (const variant of [
+      "standard",
+      "filled",
+      "tonal",
+      "outlined",
+    ] as const) {
       const { unmount } = render(
-        <IconButton label={`${variant}-icon`} variant={variant} icon={<svg />} />,
+        <IconButton
+          label={`${variant}-icon`}
+          variant={variant}
+          icon={<svg />}
+        />,
       );
       expect(
         screen.getByRole("button", { name: `${variant}-icon` }),
       ).toBeInTheDocument();
       unmount();
     }
-    render(
-      <IconButton label="fav" toggle defaultPressed icon={<svg />} />,
-    );
+    render(<IconButton label="fav" toggle defaultPressed icon={<svg />} />);
     expect(screen.getByRole("button", { name: "fav" })).toHaveAttribute(
       "aria-pressed",
       "true",
@@ -118,7 +125,12 @@ describe("Button family completeness — every member renders", () => {
   });
 
   it("Fab renders all four colors and all sizes", () => {
-    for (const color of ["surface", "primary", "secondary", "tertiary"] as const) {
+    for (const color of [
+      "surface",
+      "primary",
+      "secondary",
+      "tertiary",
+    ] as const) {
       const { unmount } = render(
         <Fab color={color} aria-label={`${color}-fab`}>
           <svg />
@@ -145,7 +157,9 @@ describe("Button family completeness — every member renders", () => {
         <svg />
       </Fab>,
     );
-    expect(screen.getByRole("button", { name: "lowered-fab" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "lowered-fab" }),
+    ).toBeInTheDocument();
   });
 
   it("ExtendedFab renders with label and collapses", () => {

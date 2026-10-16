@@ -73,9 +73,7 @@ describe("motionCssVars", () => {
   });
 
   it("flags spatial suppression for reduced", () => {
-    expect(motionCssVars("reduced")["--sys-motion-suppress-spatial"]).toBe(
-      "1",
-    );
+    expect(motionCssVars("reduced")["--sys-motion-suppress-spatial"]).toBe("1");
   });
 });
 

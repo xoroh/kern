@@ -1,12 +1,14 @@
 import "./material-3"; // registers the material-3 preset tables (side effect)
+import {
+  componentsToHex,
+  fromDtcg,
+  resolveAlias,
+  resolveThemeDetails,
+  toDtcg,
+  tokens,
+  validateDtcg,
+} from "@xoroh/kern-tokens";
 import { describe, expect, test } from "vitest";
-import { resolveThemeDetails } from "@xoroh/kern-tokens";
-import { resolveAlias } from "@xoroh/kern-tokens";
-import { tokens } from "@xoroh/kern-tokens";
-import { toDtcg } from "@xoroh/kern-tokens";
-import { fromDtcg } from "@xoroh/kern-tokens";
-import { componentsToHex } from "@xoroh/kern-tokens";
-import { validateDtcg } from "@xoroh/kern-tokens";
 
 /**
  * Full-source interchange proof (KERN-019/020) — the REAL tokens.json and the
@@ -77,10 +79,8 @@ describe("full-source dtcg interchange", () => {
     expect(level).toBeDefined();
     // The standard shadow composite is the light first layer; the dark
     // variant is preserved alongside, retrievable without guessing.
-    const ext = (level.extensions?.["org.xoroh.kern"] ?? {}) as unknown as Record<
-      string,
-      string
-    >;
+    const ext = (level.extensions?.["org.xoroh.kern"] ??
+      {}) as unknown as Record<string, string>;
     expect(ext.shadowDark).toContain("0.5");
     expect(ext.css).toContain("rgba(0, 0, 0, 0.3)");
   });

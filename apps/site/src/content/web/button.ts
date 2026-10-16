@@ -59,7 +59,7 @@ export const button: ComponentDoc = {
       "Use outlined for important actions that aren't the primary one on the screen.",
       "Use text for the lowest-priority actions, especially when presenting multiple options.",
       "Use elevated only when the button needs visual separation from a patterned background — never by default, to prevent shadow creep.",
-      "Use `color=\"danger\"` for destructive actions (delete, discard, remove).",
+      'Use `color="danger"` for destructive actions (delete, discard, remove).',
       "Use toggle for binary selections like Save or Favorite — outlined icon unselected, filled icon selected.",
       "Keep toggle labels a similar length in both states so the layout holds.",
       "Use sentence case, 1–3 words, on a single line that never truncates.",
@@ -68,7 +68,7 @@ export const button: ComponentDoc = {
     dont: [
       "Don't use a button to navigate — if it moves to another place, use an anchor or `LinkButton`.",
       "Don't stack multiple filled buttons — demote the rest to tonal or outlined.",
-      "Don't put a text label inside `size=\"icon\"` — icon-only means icon plus `aria-label`.",
+      'Don\'t put a text label inside `size="icon"` — icon-only means icon plus `aria-label`.',
       "Don't reach for elevated first — it is a filled tonal with a shadow, reserved for separation cases.",
       "Don't clutter with too many buttons — move low-priority actions to menus or icon buttons.",
       "Don't fix the width narrower than the label or stretch to long flat bars.",

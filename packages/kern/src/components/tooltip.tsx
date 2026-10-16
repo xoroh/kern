@@ -81,10 +81,7 @@ export function RichTooltipContent({
   );
 }
 
-export function RichTooltipTitle({
-  className,
-  ...props
-}: ComponentProps<"p">) {
+export function RichTooltipTitle({ className, ...props }: ComponentProps<"p">) {
   return (
     <p
       data-slot="rich-tooltip-title"

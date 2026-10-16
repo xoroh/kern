@@ -14,7 +14,9 @@ const ROOT = new URL("../../..", import.meta.url).pathname;
 const read = (p) =>
   JSON.parse(readFileSync(join(ROOT, "packages/kern-tokens/src", p), "utf8"));
 const readTheme = (p) =>
-  JSON.parse(readFileSync(join(ROOT, "packages/kern-material-3/src/themes", p), "utf8"));
+  JSON.parse(
+    readFileSync(join(ROOT, "packages/kern-material-3/src/themes", p), "utf8"),
+  );
 
 const T = read("tokens.json");
 const M3 = readTheme("material-3.json");
@@ -341,8 +343,6 @@ for (const [component, slots] of Object.entries(COMPONENTS)) {
         if (!spacingExists(target))
           broken.push(`comp.${key} -> unknown spacing "${target}"`);
         resolved = `var(--sys-spacing-${target})`;
-      } else if (target in ICON_SIZE) {
-        resolved = ICON_SIZE[target];
       } else if (typeExists(target)) {
         // Typography slots expand to one comp var per emitted attribute:
         // tokens.css defines `--sys-typescale-<scale>-<attr>` (5 attrs),
@@ -439,15 +439,11 @@ for (const name of Object.keys(T.typography.scaleEmphasized ?? {})) {
 // and a var that resolves to nothing.
 const isTokenKey = (key) => !key.startsWith("$");
 for (const level of Object.keys(T.elevation).filter(isTokenKey)) {
-  tailwindLines.push(
-    `  --shadow-sys-${level}: var(--sys-elevation-${level});`,
-  );
+  tailwindLines.push(`  --shadow-sys-${level}: var(--sys-elevation-${level});`);
 }
 for (const name of Object.keys(T.motion.easing ?? {})) {
   if (name === "standard") continue; // already emitted as --sys-motion-easing-standard
-  tailwindLines.push(
-    `  --ease-sys-${name}: var(--sys-motion-easing-${name});`,
-  );
+  tailwindLines.push(`  --ease-sys-${name}: var(--sys-motion-easing-${name});`);
 }
 for (const name of Object.keys(T.motion.duration ?? {})) {
   tailwindLines.push(

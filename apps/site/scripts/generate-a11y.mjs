@@ -101,7 +101,7 @@ for (const [platform, { dir, demos: registry }] of Object.entries(PLATFORMS)) {
       };
       writeFileSync(
         join(OUT_DIR, platform, `${doc.slug}.a11y.json`),
-        JSON.stringify(page, null, 2) + "\n",
+        `${JSON.stringify(page, null, 2)}\n`,
       );
       barrel[`${platform}/${doc.slug}`] = page;
       pages++;

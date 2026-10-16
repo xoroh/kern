@@ -25,6 +25,7 @@ import {
   Tabs,
 } from "@xoroh/kern";
 import { Icon } from "@xoroh/kern-icons";
+import catalogJson from "@xoroh/kern-material-3/themes/index.json";
 import {
   type CustomTheme,
   getVariant,
@@ -37,11 +38,11 @@ import {
   themeIds,
   varName,
 } from "@xoroh/kern-tokens";
-import catalogJson from "@xoroh/kern-material-3/themes/index.json";
 import type { CSSProperties } from "react";
 import { useEffect, useMemo, useState } from "react";
-import { BLOCK_VIEWS, installCommand } from "../blocks/registry";
 import { CopyButton } from "../../showcase/copy-button";
+import { BLOCK_VIEWS, installCommand } from "../blocks/registry";
+import { FOCUS_RING } from "../shared/systems/ui";
 import {
   isHex6,
   PLAYGROUND_DEFAULTS,
@@ -51,7 +52,6 @@ import {
   type PlaygroundState,
   type PlaygroundSystem,
 } from "./playground-state";
-import { FOCUS_RING } from "../shared/systems/ui";
 
 /* ---------------------------------------------------------------- kit ---- */
 
@@ -404,7 +404,11 @@ function deriveShadcnScheme(seedHex: string, dark: boolean) {
   }
 }
 
-function deriveThemeScheme(system: PlaygroundSystem, seedHex: string, dark: boolean) {
+function deriveThemeScheme(
+  system: PlaygroundSystem,
+  seedHex: string,
+  dark: boolean,
+) {
   if (system === "astryx") return deriveAstryxScheme(seedHex, dark);
   if (system === "shadcn") return deriveShadcnScheme(seedHex, dark);
   return deriveM3Scheme(seedHex, dark);
@@ -475,7 +479,9 @@ export function Playground({
   const [themeSubTab, setThemeSubTab] = useState<ThemeSubTab>("base");
   const [seedText, setSeedText] = useState(seedHex);
   const [tokenSearch, setTokenSearch] = useState("");
-  const [tokenFilter, setTokenFilter] = useState<"all" | "color" | "shape" | "type">("all");
+  const [tokenFilter, setTokenFilter] = useState<
+    "all" | "color" | "shape" | "type"
+  >("all");
   const [copiedToken, setCopiedToken] = useState<string | null>(null);
   const [selectedBlock, setSelectedBlock] = useState<string>("all");
 
@@ -599,7 +605,11 @@ export function Playground({
   const resolved = useMemo(() => {
     const scheme = resolveThemeLayers(axes.mode, axes.contrast, preset).scheme;
     return {
-      color: { ...scheme, ...(theme.overrides.color?.[axes.mode] ?? {}), ...(currentColors ?? {}) },
+      color: {
+        ...scheme,
+        ...(theme.overrides.color?.[axes.mode] ?? {}),
+        ...(currentColors ?? {}),
+      },
       shape: theme.overrides.shape ?? {},
     };
   }, [axes.mode, axes.contrast, preset, theme, currentColors]);
@@ -705,12 +715,16 @@ export const playgroundTheme = defineThemePreset({
       .filter(([name]) => {
         if (tokenFilter === "color") return name.includes("-color-");
         if (tokenFilter === "shape") return name.includes("-shape-");
-        if (tokenFilter === "type") return name.includes("-typescale-") || name.includes("font");
+        if (tokenFilter === "type")
+          return name.includes("-typescale-") || name.includes("font");
         return true;
       })
       .filter(([name, val]) => {
         if (!search) return true;
-        return name.toLowerCase().includes(search) || val.toLowerCase().includes(search);
+        return (
+          name.toLowerCase().includes(search) ||
+          val.toLowerCase().includes(search)
+        );
       })
       .sort(([a], [b]) => a.localeCompare(b));
   }, [vars, tokenSearch, tokenFilter]);
@@ -757,7 +771,10 @@ export const playgroundTheme = defineThemePreset({
           </a>
 
           {/* Destination Icon Buttons (M3 Navigation Rail) */}
-          <nav aria-label="Playground Destinations" className="flex w-full flex-col items-center gap-3">
+          <nav
+            aria-label="Playground Destinations"
+            className="flex w-full flex-col items-center gap-3"
+          >
             {/* 1. Theme */}
             <button
               type="button"
@@ -820,11 +837,18 @@ export const playgroundTheme = defineThemePreset({
           <button
             type="button"
             onClick={() => setMode(axes.mode === "light" ? "dark" : "light")}
-            title={axes.mode === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}
+            title={
+              axes.mode === "light"
+                ? "Switch to Dark Mode"
+                : "Switch to Light Mode"
+            }
             aria-label="Toggle Light and Dark Mode"
             className={`flex size-10 items-center justify-center rounded-full text-(--sys-color-on-surface-variant) hover:bg-(--sys-color-surface-container-high) hover:text-(--sys-color-on-surface) transition-colors ${FOCUS_RING}`}
           >
-            <Icon name={axes.mode === "light" ? "sunny" : "nightlight"} size={20} />
+            <Icon
+              name={axes.mode === "light" ? "sunny" : "nightlight"}
+              size={20}
+            />
           </button>
 
           {/* Randomize / Shuffle */}
@@ -872,7 +896,10 @@ export const playgroundTheme = defineThemePreset({
         {/* Section 2 Header (64px) */}
         <header className="flex h-16 shrink-0 items-center justify-between px-5">
           <div className="flex items-center gap-2">
-            <h2 id="editor-pane-title" className="m-0 text-base font-semibold tracking-tight text-(--sys-color-on-surface)">
+            <h2
+              id="editor-pane-title"
+              className="m-0 text-base font-semibold tracking-tight text-(--sys-color-on-surface)"
+            >
               {activeRail === "theme" ? "Theme Editor" : "Theme Code"}
             </h2>
           </div>
@@ -963,7 +990,10 @@ export const playgroundTheme = defineThemePreset({
                     Design System
                   </span>
                   <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-(--sys-color-primary)/15 text-(--sys-color-primary) font-semibold">
-                    {SYSTEM_OPTIONS.find((sys) => sys.id === activeSystem)?.label}
+                    {
+                      SYSTEM_OPTIONS.find((sys) => sys.id === activeSystem)
+                        ?.label
+                    }
                   </span>
                 </div>
 
@@ -983,14 +1013,19 @@ export const playgroundTheme = defineThemePreset({
                       >
                         <div className="flex items-center gap-1.5">
                           <Icon name={sys.icon} size={15} />
-                          <span className="text-xs font-medium">{sys.label}</span>
+                          <span className="text-xs font-medium">
+                            {sys.label}
+                          </span>
                         </div>
                       </button>
                     );
                   })}
                 </div>
                 <p className="m-0 text-[11px] text-(--sys-color-on-surface-variant) leading-tight">
-                  {SYSTEM_OPTIONS.find((sys) => sys.id === activeSystem)?.tagline}
+                  {
+                    SYSTEM_OPTIONS.find((sys) => sys.id === activeSystem)
+                      ?.tagline
+                  }
                 </p>
               </div>
 
@@ -1013,7 +1048,8 @@ export const playgroundTheme = defineThemePreset({
                       ? SHADCN_PALETTES
                       : SEED_PALETTES
                   ).map((palette) => {
-                    const isSelected = seedHex.toLowerCase() === palette.hex.toLowerCase();
+                    const isSelected =
+                      seedHex.toLowerCase() === palette.hex.toLowerCase();
                     return (
                       <button
                         key={palette.id}
@@ -1052,7 +1088,9 @@ export const playgroundTheme = defineThemePreset({
                     />
                     <div
                       className="size-full"
-                      style={{ backgroundColor: isHex6(seedText) ? seedText : seedHex }}
+                      style={{
+                        backgroundColor: isHex6(seedText) ? seedText : seedHex,
+                      }}
                     />
                   </div>
                   <input
@@ -1079,7 +1117,9 @@ export const playgroundTheme = defineThemePreset({
                 </div>
 
                 {/* Radius Presets (System-Adapted) */}
-                <div className={`grid gap-1.5 ${activeSystem === "shadcn" ? "grid-cols-5" : "grid-cols-4"}`}>
+                <div
+                  className={`grid gap-1.5 ${activeSystem === "shadcn" ? "grid-cols-5" : "grid-cols-4"}`}
+                >
                   {(activeSystem === "astryx"
                     ? ASTRYX_RADIUS_OPTIONS
                     : activeSystem === "shadcn"
@@ -1202,20 +1242,22 @@ export const playgroundTheme = defineThemePreset({
 
                 {/* Category Pills */}
                 <div className="flex items-center gap-1.5 overflow-x-auto pb-1">
-                  {(["all", "color", "shape", "type"] as const).map((filter) => (
-                    <button
-                      key={filter}
-                      type="button"
-                      onClick={() => setTokenFilter(filter)}
-                      className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
-                        tokenFilter === filter
-                          ? "bg-(--sys-color-primary) text-(--sys-color-on-primary)"
-                          : "bg-(--sys-color-surface-container-high) text-(--sys-color-on-surface-variant) hover:text-(--sys-color-on-surface)"
-                      }`}
-                    >
-                      {filter.charAt(0).toUpperCase() + filter.slice(1)}
-                    </button>
-                  ))}
+                  {(["all", "color", "shape", "type"] as const).map(
+                    (filter) => (
+                      <button
+                        key={filter}
+                        type="button"
+                        onClick={() => setTokenFilter(filter)}
+                        className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
+                          tokenFilter === filter
+                            ? "bg-(--sys-color-primary) text-(--sys-color-on-primary)"
+                            : "bg-(--sys-color-surface-container-high) text-(--sys-color-on-surface-variant) hover:text-(--sys-color-on-surface)"
+                        }`}
+                      >
+                        {filter.charAt(0).toUpperCase() + filter.slice(1)}
+                      </button>
+                    ),
+                  )}
                 </div>
               </div>
 
@@ -1259,7 +1301,11 @@ export const playgroundTheme = defineThemePreset({
                             className="flex size-6 items-center justify-center rounded-full hover:bg-(--sys-color-surface-container-highest)"
                           >
                             <Icon
-                              name={copiedToken === tokenName ? "check" : "content-copy"}
+                              name={
+                                copiedToken === tokenName
+                                  ? "check"
+                                  : "content-copy"
+                              }
                               size={13}
                             />
                           </button>
@@ -1294,7 +1340,9 @@ export const playgroundTheme = defineThemePreset({
 
                 <Tabs.Panel value="css" className="flex flex-col gap-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-xs text-(--sys-color-on-surface-variant)">Tailwind v4 / CSS</span>
+                    <span className="text-xs text-(--sys-color-on-surface-variant)">
+                      Tailwind v4 / CSS
+                    </span>
                     <CopyButton text={cssSource} label="Copy CSS" />
                   </div>
                   <pre className="m-0 max-h-96 overflow-auto rounded-2xl bg-(--sys-color-surface-container-low) p-3 font-mono text-xs whitespace-pre">
@@ -1304,7 +1352,9 @@ export const playgroundTheme = defineThemePreset({
 
                 <Tabs.Panel value="ts" className="flex flex-col gap-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-xs text-(--sys-color-on-surface-variant)">@xoroh/kern-tokens Preset</span>
+                    <span className="text-xs text-(--sys-color-on-surface-variant)">
+                      @xoroh/kern-tokens Preset
+                    </span>
                     <CopyButton text={presetSource} label="Copy TS" />
                   </div>
                   <pre className="m-0 max-h-96 overflow-auto rounded-2xl bg-(--sys-color-surface-container-low) p-3 font-mono text-xs whitespace-pre">
@@ -1314,7 +1364,9 @@ export const playgroundTheme = defineThemePreset({
 
                 <Tabs.Panel value="json" className="flex flex-col gap-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-xs text-(--sys-color-on-surface-variant)">DTCG JSON Tokens</span>
+                    <span className="text-xs text-(--sys-color-on-surface-variant)">
+                      DTCG JSON Tokens
+                    </span>
                     <CopyButton text={jsonSource} label="Copy JSON" />
                   </div>
                   <pre className="m-0 max-h-96 overflow-auto rounded-2xl bg-(--sys-color-surface-container-low) p-3 font-mono text-xs whitespace-pre">
@@ -1324,7 +1376,9 @@ export const playgroundTheme = defineThemePreset({
 
                 <Tabs.Panel value="cli" className="flex flex-col gap-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-xs text-(--sys-color-on-surface-variant)">Terminal Command</span>
+                    <span className="text-xs text-(--sys-color-on-surface-variant)">
+                      Terminal Command
+                    </span>
                     <CopyButton text={cliSource} label="Copy CLI" />
                   </div>
                   <pre className="m-0 rounded-2xl bg-(--sys-color-surface-container-low) p-3 font-mono text-xs whitespace-pre">
@@ -1467,17 +1521,28 @@ export const playgroundTheme = defineThemePreset({
                       <Icon name="cloud" size={22} />
                     </div>
                     <div className="flex flex-col">
-                      <h3 id="dashboard-title" className="m-0 text-lg font-bold tracking-tight text-(--sys-color-on-surface)">
+                      <h3
+                        id="dashboard-title"
+                        className="m-0 text-lg font-bold tracking-tight text-(--sys-color-on-surface)"
+                      >
                         Production Cluster US-East
                       </h3>
                       <span className="text-xs text-(--sys-color-on-surface-variant)">
-                        Kubernetes v1.31 • 48 Pods Active • {SYSTEM_OPTIONS.find((sys) => sys.id === activeSystem)?.label} Engine
+                        Kubernetes v1.31 • 48 Pods Active •{" "}
+                        {
+                          SYSTEM_OPTIONS.find((sys) => sys.id === activeSystem)
+                            ?.label
+                        }{" "}
+                        Engine
                       </span>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <Chip variant="filter"><Icon name="check-circle" size={16} /> <span>Healthy</span></Chip>
+                    <Chip variant="filter">
+                      <Icon name="check-circle" size={16} />{" "}
+                      <span>Healthy</span>
+                    </Chip>
                     <Button variant="ghost" size="icon" aria-label="Settings">
                       <Icon name="settings" size={20} />
                     </Button>
@@ -1498,10 +1563,19 @@ export const playgroundTheme = defineThemePreset({
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 w-full">
                     <div className="flex flex-col">
-                      <span className="font-semibold text-sm text-(--sys-color-on-info-container)">Zero-downtime Canary Deployment Ready</span>
-                      <span className="text-xs text-(--sys-color-on-info-container)/90">All 48 edge proxies synchronized with Kern dynamic color tokens. Traffic ramp is set to 25%.</span>
+                      <span className="font-semibold text-sm text-(--sys-color-on-info-container)">
+                        Zero-downtime Canary Deployment Ready
+                      </span>
+                      <span className="text-xs text-(--sys-color-on-info-container)/90">
+                        All 48 edge proxies synchronized with Kern dynamic color
+                        tokens. Traffic ramp is set to 25%.
+                      </span>
                     </div>
-                    <Button variant="primary" size="sm" className="self-start sm:self-auto shrink-0">
+                    <Button
+                      variant="primary"
+                      size="sm"
+                      className="self-start sm:self-auto shrink-0"
+                    >
                       Rollout Canary
                     </Button>
                   </div>
@@ -1514,9 +1588,7 @@ export const playgroundTheme = defineThemePreset({
                       <span className="text-xs font-medium uppercase tracking-wider text-(--sys-color-on-surface-variant)">
                         API Throughput
                       </span>
-                      <Badge variant="count">
-                        +14.2%
-                      </Badge>
+                      <Badge variant="count">+14.2%</Badge>
                     </div>
                     <span className="text-2xl font-bold tracking-tight text-(--sys-color-on-surface)">
                       42.8k req/s
@@ -1532,9 +1604,7 @@ export const playgroundTheme = defineThemePreset({
                       <span className="text-xs font-medium uppercase tracking-wider text-(--sys-color-on-surface-variant)">
                         p99 Latency
                       </span>
-                      <Badge variant="count">
-                        -8ms
-                      </Badge>
+                      <Badge variant="count">-8ms</Badge>
                     </div>
                     <span className="text-2xl font-bold tracking-tight text-(--sys-color-on-surface)">
                       18.4 ms
@@ -1550,9 +1620,7 @@ export const playgroundTheme = defineThemePreset({
                       <span className="text-xs font-medium uppercase tracking-wider text-(--sys-color-on-surface-variant)">
                         Global Error Rate
                       </span>
-                      <Badge variant="count">
-                        0.002%
-                      </Badge>
+                      <Badge variant="count">0.002%</Badge>
                     </div>
                     <span className="text-2xl font-bold tracking-tight text-(--sys-color-on-surface)">
                       0.002 %
@@ -1571,7 +1639,10 @@ export const playgroundTheme = defineThemePreset({
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <Icon name="dns" size={18} />
-                        <h4 id="active-workloads-title" className="m-0 text-sm font-semibold text-(--sys-color-on-surface)">
+                        <h4
+                          id="active-workloads-title"
+                          className="m-0 text-sm font-semibold text-(--sys-color-on-surface)"
+                        >
                           Active Microservices
                         </h4>
                       </div>
@@ -1580,9 +1651,15 @@ export const playgroundTheme = defineThemePreset({
                         value={selectedSegment}
                         onValueChange={(val) => val && setSelectedSegment(val)}
                       >
-                        <SegmentedButton.Item value="24h">24h</SegmentedButton.Item>
-                        <SegmentedButton.Item value="7d">7d</SegmentedButton.Item>
-                        <SegmentedButton.Item value="30d">30d</SegmentedButton.Item>
+                        <SegmentedButton.Item value="24h">
+                          24h
+                        </SegmentedButton.Item>
+                        <SegmentedButton.Item value="7d">
+                          7d
+                        </SegmentedButton.Item>
+                        <SegmentedButton.Item value="30d">
+                          30d
+                        </SegmentedButton.Item>
                       </SegmentedButton.Root>
                     </div>
 
@@ -1592,28 +1669,50 @@ export const playgroundTheme = defineThemePreset({
                           <Table.Header>Service</Table.Header>
                           <Table.Header>Replica Count</Table.Header>
                           <Table.Header>Health</Table.Header>
-                          <Table.Header className="text-right">Actions</Table.Header>
+                          <Table.Header className="text-right">
+                            Actions
+                          </Table.Header>
                         </Table.Row>
                       </Table.Head>
                       <Table.Body>
                         {[
-                          { name: "auth-gateway", replicas: "12 / 12", status: "Healthy" },
-                          { name: "billing-worker", replicas: "6 / 6", status: "Healthy" },
-                          { name: "search-indexer", replicas: "18 / 18", status: "Healthy" },
-                          { name: "media-transcoder", replicas: "8 / 8", status: "Healthy" },
+                          {
+                            name: "auth-gateway",
+                            replicas: "12 / 12",
+                            status: "Healthy",
+                          },
+                          {
+                            name: "billing-worker",
+                            replicas: "6 / 6",
+                            status: "Healthy",
+                          },
+                          {
+                            name: "search-indexer",
+                            replicas: "18 / 18",
+                            status: "Healthy",
+                          },
+                          {
+                            name: "media-transcoder",
+                            replicas: "8 / 8",
+                            status: "Healthy",
+                          },
                         ].map((row) => (
                           <Table.Row key={row.name}>
                             <Table.Cell className="font-mono text-xs font-medium">
                               {row.name}
                             </Table.Cell>
-                            <Table.Cell className="text-xs">{row.replicas}</Table.Cell>
+                            <Table.Cell className="text-xs">
+                              {row.replicas}
+                            </Table.Cell>
                             <Table.Cell>
-                              <Badge variant="count">
-                                {row.status}
-                              </Badge>
+                              <Badge variant="count">{row.status}</Badge>
                             </Table.Cell>
                             <Table.Cell className="text-right">
-                              <Button variant="ghost" size="sm" className="px-2">
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="px-2"
+                              >
                                 Logs
                               </Button>
                             </Table.Cell>
@@ -1628,7 +1727,10 @@ export const playgroundTheme = defineThemePreset({
                     <div className="flex flex-col gap-4">
                       <div className="flex items-center gap-2">
                         <Icon name="shield" size={18} />
-                        <h4 id="security-policies-title" className="m-0 text-sm font-semibold text-(--sys-color-on-surface)">
+                        <h4
+                          id="security-policies-title"
+                          className="m-0 text-sm font-semibold text-(--sys-color-on-surface)"
+                        >
                           Security Guardrails
                         </h4>
                       </div>
@@ -1705,7 +1807,10 @@ export const playgroundTheme = defineThemePreset({
                 {/* 1. M3 Button Configurations */}
                 <div className="flex flex-col gap-4">
                   <div className="flex items-center justify-between">
-                    <h3 id="m3-button-hierarchy-title" className="m-0 text-base font-bold tracking-tight text-(--sys-color-on-surface)">
+                    <h3
+                      id="m3-button-hierarchy-title"
+                      className="m-0 text-base font-bold tracking-tight text-(--sys-color-on-surface)"
+                    >
                       Material 3 Button Configurations
                     </h3>
                     <span className="text-xs text-(--sys-color-on-surface-variant)">
@@ -1714,21 +1819,11 @@ export const playgroundTheme = defineThemePreset({
                   </div>
 
                   <div className="flex flex-wrap items-center gap-3 rounded-2xl bg-(--sys-color-surface-container-low) p-6">
-                    <Button variant="primary">
-                      Filled Button
-                    </Button>
-                    <Button variant="tonal">
-                      Tonal Button
-                    </Button>
-                    <Button variant="elevated">
-                      Elevated Button
-                    </Button>
-                    <Button variant="outlined">
-                      Outlined Button
-                    </Button>
-                    <Button variant="ghost">
-                      Text Button
-                    </Button>
+                    <Button variant="primary">Filled Button</Button>
+                    <Button variant="tonal">Tonal Button</Button>
+                    <Button variant="elevated">Elevated Button</Button>
+                    <Button variant="outlined">Outlined Button</Button>
+                    <Button variant="ghost">Text Button</Button>
                     <Button variant="primary" disabled>
                       Disabled
                     </Button>
@@ -1738,7 +1833,10 @@ export const playgroundTheme = defineThemePreset({
                 {/* 2. M3 Card Variants */}
                 <div className="flex flex-col gap-4">
                   <div className="flex items-center justify-between">
-                    <h3 id="m3-card-variants-title" className="m-0 text-base font-bold tracking-tight text-(--sys-color-on-surface)">
+                    <h3
+                      id="m3-card-variants-title"
+                      className="m-0 text-base font-bold tracking-tight text-(--sys-color-on-surface)"
+                    >
                       Material 3 Card Variants
                     </h3>
                     <span className="text-xs text-(--sys-color-on-surface-variant)">
@@ -1758,11 +1856,15 @@ export const playgroundTheme = defineThemePreset({
                         Surface Container
                       </span>
                       <p className="m-0 text-xs text-(--sys-color-on-surface-variant)">
-                        No border. Relies on tonal background contrast with the parent canvas.
+                        No border. Relies on tonal background contrast with the
+                        parent canvas.
                       </p>
                     </Card>
 
-                    <Card variant="elevated" className="p-5 flex flex-col gap-2">
+                    <Card
+                      variant="elevated"
+                      className="p-5 flex flex-col gap-2"
+                    >
                       <div className="flex items-center justify-between">
                         <span className="text-xs font-semibold uppercase text-(--sys-color-primary)">
                           Elevated Card
@@ -1773,11 +1875,15 @@ export const playgroundTheme = defineThemePreset({
                         Level 1 Shadow
                       </span>
                       <p className="m-0 text-xs text-(--sys-color-on-surface-variant)">
-                        Soft elevation shadow lifts the card cleanly above the surface.
+                        Soft elevation shadow lifts the card cleanly above the
+                        surface.
                       </p>
                     </Card>
 
-                    <Card variant="outlined" className="p-5 flex flex-col gap-2">
+                    <Card
+                      variant="outlined"
+                      className="p-5 flex flex-col gap-2"
+                    >
                       <div className="flex items-center justify-between">
                         <span className="text-xs font-semibold uppercase text-(--sys-color-primary)">
                           Outlined Card
@@ -1788,7 +1894,8 @@ export const playgroundTheme = defineThemePreset({
                         Outline Hairline
                       </span>
                       <p className="m-0 text-xs text-(--sys-color-on-surface-variant)">
-                        Subtle outline border for distinct structural separation.
+                        Subtle outline border for distinct structural
+                        separation.
                       </p>
                     </Card>
                   </div>
@@ -1798,15 +1905,21 @@ export const playgroundTheme = defineThemePreset({
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   {/* Chips & Badges */}
                   <div className="flex flex-col gap-3 rounded-2xl bg-(--sys-color-surface-container-low) p-5">
-                    <h4 id="chips-badges-title" className="m-0 text-sm font-semibold text-(--sys-color-on-surface)">
+                    <h4
+                      id="chips-badges-title"
+                      className="m-0 text-sm font-semibold text-(--sys-color-on-surface)"
+                    >
                       Chips & Badges
                     </h4>
                     <div className="flex flex-wrap items-center gap-2 pt-1">
-                      <Chip variant="filter" value><Icon name="check" size={16} /> <span>Selected Filter</span></Chip>
-                      <Chip variant="filter">
-                        Filter Chip
+                      <Chip variant="filter" value>
+                        <Icon name="check" size={16} />{" "}
+                        <span>Selected Filter</span>
                       </Chip>
-                      <Chip variant="input"><span>Input Chip</span> <Icon name="close" size={14} /></Chip>
+                      <Chip variant="filter">Filter Chip</Chip>
+                      <Chip variant="input">
+                        <span>Input Chip</span> <Icon name="close" size={14} />
+                      </Chip>
                       <Badge variant="count">Status</Badge>
                       <Badge variant="dot" />
                     </div>
@@ -1814,7 +1927,10 @@ export const playgroundTheme = defineThemePreset({
 
                   {/* Toggles & Segmented Buttons */}
                   <div className="flex flex-col gap-3 rounded-2xl bg-(--sys-color-surface-container-low) p-5">
-                    <h4 id="selection-controls-title" className="m-0 text-sm font-semibold text-(--sys-color-on-surface)">
+                    <h4
+                      id="selection-controls-title"
+                      className="m-0 text-sm font-semibold text-(--sys-color-on-surface)"
+                    >
                       Selection Controls
                     </h4>
                     <div className="flex flex-col gap-3 pt-1">
@@ -1834,11 +1950,19 @@ export const playgroundTheme = defineThemePreset({
                         </span>
                         <SegmentedButton.Root
                           value={selectedSegment}
-                          onValueChange={(val) => val && setSelectedSegment(val)}
+                          onValueChange={(val) =>
+                            val && setSelectedSegment(val)
+                          }
                         >
-                          <SegmentedButton.Item value="24h">Day</SegmentedButton.Item>
-                          <SegmentedButton.Item value="7d">Week</SegmentedButton.Item>
-                          <SegmentedButton.Item value="30d">Month</SegmentedButton.Item>
+                          <SegmentedButton.Item value="24h">
+                            Day
+                          </SegmentedButton.Item>
+                          <SegmentedButton.Item value="7d">
+                            Week
+                          </SegmentedButton.Item>
+                          <SegmentedButton.Item value="30d">
+                            Month
+                          </SegmentedButton.Item>
                         </SegmentedButton.Root>
                       </div>
                     </div>
@@ -1891,7 +2015,10 @@ export const playgroundTheme = defineThemePreset({
                     >
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                         <div className="flex flex-col">
-                          <h3 id={`block-title-${b.entry.name}`} className="m-0 text-base font-bold text-(--sys-color-on-surface)">
+                          <h3
+                            id={`block-title-${b.entry.name}`}
+                            className="m-0 text-base font-bold text-(--sys-color-on-surface)"
+                          >
                             {b.entry.title}
                           </h3>
                           <span className="text-xs text-(--sys-color-on-surface-variant)">
@@ -1923,11 +2050,15 @@ export const playgroundTheme = defineThemePreset({
             {previewView === "palettes" && tonalRamps && (
               <div className="flex flex-col gap-8 rounded-3xl bg-(--sys-color-surface) p-6 lg:p-10 shadow-(--sys-elevation-level1)">
                 <div className="flex flex-col gap-1">
-                  <h3 id="tonal-ramps-title" className="m-0 text-lg font-bold tracking-tight text-(--sys-color-on-surface)">
+                  <h3
+                    id="tonal-ramps-title"
+                    className="m-0 text-lg font-bold tracking-tight text-(--sys-color-on-surface)"
+                  >
                     Material Design 3 Algorithmic Tonal Ladders
                   </h3>
                   <p className="m-0 text-xs text-(--sys-color-on-surface-variant)">
-                    Complete 11-step ramps calculated via OKLCH color science for seed{" "}
+                    Complete 11-step ramps calculated via OKLCH color science
+                    for seed{" "}
                     <span className="font-mono font-bold text-(--sys-color-primary)">
                       {seedHex}
                     </span>
@@ -1944,7 +2075,10 @@ export const playgroundTheme = defineThemePreset({
                   ] as const
                 ).map(({ name, ramp }) => (
                   <div key={name} className="flex flex-col gap-3">
-                    <h4 id={`palette-title-${name.toLowerCase().replace(/\s+/g, '-')}`} className="m-0 text-sm font-semibold text-(--sys-color-on-surface)">
+                    <h4
+                      id={`palette-title-${name.toLowerCase().replace(/\s+/g, "-")}`}
+                      className="m-0 text-sm font-semibold text-(--sys-color-on-surface)"
+                    >
                       {name}
                     </h4>
 
@@ -1992,7 +2126,8 @@ export const playgroundTheme = defineThemePreset({
         <Dialog.Content className="max-w-2xl bg-(--sys-color-surface) text-(--sys-color-on-surface) rounded-3xl p-6">
           <Dialog.Title>Export Material 3 Theme</Dialog.Title>
           <Dialog.Description>
-            Copy theme tokens in Tailwind v4, TypeScript preset, DTCG JSON, or CLI format.
+            Copy theme tokens in Tailwind v4, TypeScript preset, DTCG JSON, or
+            CLI format.
           </Dialog.Description>
 
           <div className="mt-4 flex flex-col gap-4">
@@ -2082,7 +2217,10 @@ export const playgroundTheme = defineThemePreset({
               <Button variant="ghost" onClick={() => setTestDialogOpen(false)}>
                 Cancel
               </Button>
-              <Button variant="primary" onClick={() => setTestDialogOpen(false)}>
+              <Button
+                variant="primary"
+                onClick={() => setTestDialogOpen(false)}
+              >
                 Apply Rules
               </Button>
             </div>

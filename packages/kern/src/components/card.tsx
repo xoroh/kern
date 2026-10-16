@@ -75,10 +75,14 @@ export function CardActions({
   ...props
 }: ComponentPropsWithRef<"div">) {
   return (
+    // biome-ignore lint/a11y/useSemanticElements: card actions are not a form fieldset — a fieldset without a legend has no implicit role and would drop the tested group semantics.
     <div
       data-slot="card-actions"
       role="group"
-      className={cn("kern-card-actions flex items-center justify-end gap-2 p-2", className)}
+      className={cn(
+        "kern-card-actions flex items-center justify-end gap-2 p-2",
+        className,
+      )}
       {...props}
     />
   );

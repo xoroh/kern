@@ -75,9 +75,7 @@ export const sonner: ComponentDoc = {
       "Stack transient messages with actions where snackbars stack.",
       "Dismiss on action, timeout, or swipe.",
     ],
-    dont: [
-      "Do not block on sonner messages.",
-    ],
+    dont: ["Do not block on sonner messages."],
   },
   tokens: [
     {

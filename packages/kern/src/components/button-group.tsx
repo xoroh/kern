@@ -43,7 +43,11 @@ export function ButtonGroup({
                 ? "[&>[data-slot=button]:first-child]:rounded-r-none [&>[data-slot=button]:last-child]:rounded-l-none [&>[data-slot=button]+[data-slot=button]]:-ml-px"
                 : "[&>[data-slot=button]:first-child]:rounded-b-none [&>[data-slot=button]:last-child]:rounded-t-none [&>[data-slot=button]+[data-slot=button]]:-mt-px",
             ]
-          : [orientation === "horizontal" ? "flex-row gap-2" : "flex-col gap-2"],
+          : [
+              orientation === "horizontal"
+                ? "flex-row gap-2"
+                : "flex-col gap-2",
+            ],
         className,
       )}
       {...props}

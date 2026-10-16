@@ -1,5 +1,5 @@
 import { useSelection } from "@xoroh/kern-primitives";
-import { type ResolvedTheme } from "@xoroh/kern-tokens";
+import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import {
   Pressable,
   type StyleProp,
@@ -16,9 +16,9 @@ export type NativeToggleGroupOption = {
   disabled?: boolean;
 };
 
-export function toggleGroupStyles(
-  scheme: ResolvedTheme = defaultScheme,
-): { container: ViewStyle } {
+export function toggleGroupStyles(scheme: ResolvedTheme = defaultScheme): {
+  container: ViewStyle;
+} {
   return {
     container: {
       flexDirection: "row",

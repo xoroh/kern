@@ -26,7 +26,11 @@ import { ToggleGroup } from "./toggle-group";
 
 describe("M3 state-layer opacities", () => {
   it("paints hover at 8% via the state token", () => {
-    const { container } = render(<button className="x">y</button>);
+    const { container } = render(
+      <button type="button" className="x">
+        y
+      </button>,
+    );
     void container;
     // Token contract: --sys-state-hover resolves to 8%.
     expect(
@@ -123,9 +127,7 @@ describe("Button — five variants, M3 colors", () => {
       expect(cls).toContain("disabled:text-(--sys-color-on-surface)/38");
     }
     const outlined = buttonVariants({ variant: "outlined" });
-    expect(outlined).toContain(
-      "disabled:border-(--sys-color-on-surface)/12",
-    );
+    expect(outlined).toContain("disabled:border-(--sys-color-on-surface)/12");
     expect(outlined).toContain("disabled:bg-transparent");
     const ghost = buttonVariants({ variant: "ghost" });
     expect(ghost).toContain("disabled:bg-transparent");
@@ -268,9 +270,7 @@ describe("FabMenu — trigger is a FAB", () => {
   it("trigger uses FAB colors, not button colors", () => {
     render(<FabMenu icon={<svg />} actions={[]} />);
     const trigger = screen.getByRole("button");
-    expect(trigger.className).toContain(
-      "bg-(--sys-color-primary-container)",
-    );
+    expect(trigger.className).toContain("bg-(--sys-color-primary-container)");
     expect(trigger.className).not.toContain("bg-(--sys-color-primary)");
   });
 });

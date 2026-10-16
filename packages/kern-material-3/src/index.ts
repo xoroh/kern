@@ -15,4 +15,4 @@ export * from "./kern-elevation";
 export * from "./kern-roles";
 export * from "./material-3";
 export * from "./seed-theme";
-export { themes, type KernThemePresets } from "./themes";
+export { type KernThemePresets, themes } from "./themes";

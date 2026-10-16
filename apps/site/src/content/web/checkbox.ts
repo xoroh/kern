@@ -26,7 +26,8 @@ export const checkbox: ComponentDoc = {
     },
     {
       key: "Tab / Shift+Tab",
-      action: "Moves focus into and out of the checkbox. Disabled boxes are skipped.",
+      action:
+        "Moves focus into and out of the checkbox. Disabled boxes are skipped.",
     },
   ],
   usage: {

@@ -37,16 +37,9 @@ function mirrorPath(pkgRel: string): string | null {
   return pkgRel.slice("src/".length);
 }
 
-/** Asset leaves: copied verbatim, never parsed as modules. */
-const ASSET_EXT = new Set([
-  ".json",
-  ".css",
-  ".svg",
-  ".png",
-  ".ttf",
-  ".woff",
-  ".woff2",
-]);
+/** Asset leaves: copied verbatim, never parsed as modules. (Extension set
+ * removed as unused; reintroduce with its consumer if asset handling
+ * needs it.) */
 
 export function resolveClosure(
   pkgDir: string,

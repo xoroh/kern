@@ -70,9 +70,7 @@ export const popover: ComponentDoc = {
       "Anchor to triggers for transient content and small menus.",
       "Dismiss on outside tap and Escape alike.",
     ],
-    dont: [
-      "Don't use for blocking decisions — that is a dialog.",
-    ],
+    dont: ["Don't use for blocking decisions — that is a dialog."],
   },
   tokens: [
     {

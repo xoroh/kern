@@ -1,4 +1,4 @@
-import { type ResolvedTheme } from "@xoroh/kern-tokens";
+import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import { type ReactNode, useState } from "react";
 import { Modal, Pressable, StyleSheet, View } from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
@@ -99,9 +99,7 @@ export type NativeSplitButtonProps = {
   testID?: string;
 };
 
-export function splitButtonStyles(
-  scheme: ResolvedTheme = defaultScheme,
-): {
+export function splitButtonStyles(scheme: ResolvedTheme = defaultScheme): {
   row: object;
   primary: object;
   overflow: object;

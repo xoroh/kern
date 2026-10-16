@@ -1,9 +1,6 @@
-import {
-  type ResolvedTheme,
-  tokens,
-} from "@xoroh/kern-tokens";
-import { defaultScheme } from "../theme";
+import { type ResolvedTheme, tokens } from "@xoroh/kern-tokens";
 import type { ViewStyle } from "react-native";
+import { defaultScheme } from "../theme";
 
 /**
  * M3 bottom-sheet surface tokens — `surfaceContainerLow`, XL top corners.

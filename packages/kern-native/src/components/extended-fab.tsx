@@ -137,12 +137,18 @@ export const ExtendedFab = forwardRef<
   // primary container pair, `tonal` the secondary container pair. (Previously
   // the label painted `onPrimary` on a primary-container fill — a broken
   // tonal pair.)
-  const roles = fabColorRoles(variant === "primary" ? "primary" : "secondary", scheme);
+  const roles = fabColorRoles(
+    variant === "primary" ? "primary" : "secondary",
+    scheme,
+  );
   // Extended size maps onto the FAB size ladder: small 56, medium 80,
   // large 96. Collapse lands on the square of the same height.
   const fabSize = size === "small" ? "default" : size;
   const box = fabSize === "default" ? 56 : fabSize === "medium" ? 80 : 96;
-  const base = { ...fabStyles(fabSize, scheme), backgroundColor: roles.container };
+  const base = {
+    ...fabStyles(fabSize, scheme),
+    backgroundColor: roles.container,
+  };
   return (
     <Pressable
       {...props}

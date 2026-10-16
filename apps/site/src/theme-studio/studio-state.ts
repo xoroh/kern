@@ -31,11 +31,7 @@ export const STUDIO_FONTS = [
 ] as const;
 export type StudioFont = (typeof STUDIO_FONTS)[number];
 
-export const STUDIO_DENSITIES = [
-  "compact",
-  "standard",
-  "comfortable",
-] as const;
+export const STUDIO_DENSITIES = ["compact", "standard", "comfortable"] as const;
 export type StudioDensity = (typeof STUDIO_DENSITIES)[number];
 
 export type StudioState = {
@@ -87,7 +83,8 @@ export function studioSearchToState(
   const rawSeed = params.seed?.trim();
   const rawDark = params.dark?.trim();
   const rawContrast = params.contrast?.trim() as StudioContrast | undefined;
-  const rawRadius = params.radius !== undefined ? Number(params.radius) : undefined;
+  const rawRadius =
+    params.radius !== undefined ? Number(params.radius) : undefined;
   const rawFont = params.font?.trim() as StudioFont | undefined;
   const rawDensity = params.density?.trim() as StudioDensity | undefined;
 
@@ -216,7 +213,10 @@ export function saveStudioState(
 
 function defaultRead(): string | null {
   if (typeof localStorage === "undefined") return null;
-  return localStorage.getItem(STUDIO_STORAGE_KEY) ?? localStorage.getItem("kern.studio.v1");
+  return (
+    localStorage.getItem(STUDIO_STORAGE_KEY) ??
+    localStorage.getItem("kern.studio.v1")
+  );
 }
 
 function defaultWrite(value: string): void {

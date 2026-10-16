@@ -1,5 +1,5 @@
 import { useControllableState } from "@xoroh/kern-primitives";
-import { type ResolvedTheme } from "@xoroh/kern-tokens";
+import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import { useMemo, useState } from "react";
 import {
   Modal,
@@ -58,9 +58,7 @@ const triggerStaticStyles = StyleSheet.create({
  * surface-container, at the sheet 50% height cap, floating on the single
  * Kern structural shadow (level 2 = 3dp).
  */
-export function comboboxPopupStyles(
-  scheme: ResolvedTheme = defaultScheme,
-): {
+export function comboboxPopupStyles(scheme: ResolvedTheme = defaultScheme): {
   card: ViewStyle;
 } {
   return {

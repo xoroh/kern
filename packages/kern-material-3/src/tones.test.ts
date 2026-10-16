@@ -1,36 +1,32 @@
 import { readFileSync } from "node:fs";
 import "./material-3"; // registers the material-3 preset tables (side effect)
-import { describe, expect, it } from "vitest";
 import {
+  assertCompleteScheme,
+  avatarToneFor,
   functional,
   functionalTone,
-  isFunctionalTone,
-  registerFunctionalDomain,
-  resolveFunctionalTone,
-  setFunctionalOverrides,
-  toneClass,
-} from "@xoroh/kern-tokens";
-import { resolveTheme } from "@xoroh/kern-tokens";
-import {
-  avatarToneFor,
   getHue,
+  getVariant,
+  isFunctionalTone,
+  listVariants,
   makeHueRamp,
+  registerFunctionalDomain,
   registerHue,
+  registerVariant,
+  resolveFunctionalTone,
+  resolveTheme,
+  resolveThemeLayers,
   SPECTRUM_HUES,
+  schemeToCssVars,
+  setFunctionalOverrides,
   spectrumTone,
   statusTone,
   TONAL_STEPS,
   TONE_ROLES,
+  toneClass,
   userToneFor,
 } from "@xoroh/kern-tokens";
-import {
-  assertCompleteScheme,
-  getVariant,
-  listVariants,
-  registerVariant,
-  resolveThemeLayers,
-  schemeToCssVars,
-} from "@xoroh/kern-tokens";
+import { describe, expect, it } from "vitest";
 
 const light = resolveTheme("light");
 const dark = resolveTheme("dark");
@@ -183,7 +179,10 @@ describe("theme engine", () => {
 
 describe("tone utilities", () => {
   it("generates a class for every functional key", () => {
-    const css = readFileSync(new URL("../../kern-tokens/src/tones.css", import.meta.url), "utf8");
+    const css = readFileSync(
+      new URL("../../kern-tokens/src/tones.css", import.meta.url),
+      "utf8",
+    );
     for (const [domain, table] of Object.entries(
       functional as Record<string, Record<string, unknown>>,
     )) {

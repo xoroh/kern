@@ -1016,9 +1016,9 @@ function StatesPage() {
             <strong className={F_INK}>Focus, 12%</strong> — tab or voice focus.
             Focus also needs a VISIBLE RING, and a ring is not an opacity: it is
             an outline treatment (a colour role plus a width), so it spends{" "}
-            <code>--sys-color-secondary</code> and never a state token. On
-            this site that ring is 2px with a 2px offset, the same ring every
-            control in the chrome carries.
+            <code>--sys-color-secondary</code> and never a state token. On this
+            site that ring is 2px with a 2px offset, the same ring every control
+            in the chrome carries.
           </li>
           <li>
             <strong className={F_INK}>Press, 12%</strong> — the target is held

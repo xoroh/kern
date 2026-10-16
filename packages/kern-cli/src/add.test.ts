@@ -7,11 +7,11 @@ import {
 } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { defineCliConfig } from "@xoroh/kern-contracts";
 import { describe, expect, it } from "vitest";
 import { addComponent, readProjectConfig } from "./add";
 import { initScaffold } from "./init";
 import { loadRegistry, WORKSPACE_ROOT } from "./manifest";
-import { defineCliConfig } from "@xoroh/kern-contracts";
 
 function freshDest(): string {
   return mkdtempSync(join(tmpdir(), "kern-add-"));

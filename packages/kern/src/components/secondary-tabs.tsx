@@ -179,9 +179,7 @@ export function SecondaryTabs({
               className={cn(
                 "kern-secondary-tab relative flex min-h-12 cursor-pointer items-center px-4 text-sm leading-5 font-medium tracking-[0.00625rem] text-(--sys-color-on-surface-variant) outline-none select-none transition-colors duration-200 ease-(--sys-motion-easing-standard) after:absolute after:inset-x-0 after:bottom-0 after:h-[2px] after:rounded-full after:bg-transparent after:content-[''] before:absolute before:inset-0 before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--sys-color-on-surface) hover:before:opacity-[var(--sys-state-hover)] hover:text-(--sys-color-on-surface) focus-visible:before:opacity-[var(--sys-state-focus)] focus-visible:text-(--sys-color-on-surface) active:before:opacity-[var(--sys-state-press)] active:text-(--sys-color-on-surface) " +
                   FOCUS_RING_CLASS,
-                tab.disabled
-                  ? "pointer-events-none opacity-38"
-                  : "",
+                tab.disabled ? "pointer-events-none opacity-38" : "",
                 selected &&
                   "text-(--sys-color-on-surface) after:bg-(--sys-color-primary)",
               )}

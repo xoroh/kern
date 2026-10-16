@@ -185,8 +185,8 @@ kern upgrade button --apply      # update, preserving owned edits`}</Code>
           <H2 id="mcp-use-cases">MCP use cases</H2>
           <p className={`m-0 max-w-[62ch] ${T_BODY_SM} ${INK_SOFT}`}>
             Eleven tools, no memory: an agent reads the registry, pulls source,
-            compares presets, discovers themes and icons, previews blocks,
-            plans installs, validates destinations, or runs a screen audit.
+            compares presets, discovers themes and icons, previews blocks, plans
+            installs, validates destinations, or runs a screen audit.
           </p>
           <ul className="m-0 flex list-none flex-col gap-3 p-0">
             {[

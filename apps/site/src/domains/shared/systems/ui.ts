@@ -34,8 +34,7 @@ export const INK_SOFT = "text-(--sys-color-on-surface-variant)";
  * hover; the global focus ring is
  * visible on keyboard focus.
  */
-export const LINK =
-  "text-(--sys-color-primary) no-underline hover:underline";
+export const LINK = "text-(--sys-color-primary) no-underline hover:underline";
 
 /* ------------------------------------------------------------- surfaces --- */
 

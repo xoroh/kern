@@ -1,7 +1,4 @@
-import {
-  type ResolvedTheme,
-  tokens,
-} from "@xoroh/kern-tokens";
+import { type ResolvedTheme, tokens } from "@xoroh/kern-tokens";
 import { Component, type ErrorInfo, type ReactNode } from "react";
 import {
   ActivityIndicator,
@@ -21,9 +18,7 @@ import { Text } from "./text";
  * host concern — Kern owns the pixels, the host owns the native module.
  */
 
-export function bootSplashStyles(
-  scheme: ResolvedTheme = defaultScheme,
-): {
+export function bootSplashStyles(scheme: ResolvedTheme = defaultScheme): {
   root: ViewStyle;
   mark: ViewStyle;
 } {

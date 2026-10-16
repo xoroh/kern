@@ -74,14 +74,14 @@ function Community() {
             Troubleshooting
           </h2>
           <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>
-            Installs refuse before they write: a conflict names the file and
-            the upgrade path instead of merging into owned code, and{" "}
+            Installs refuse before they write: a conflict names the file and the
+            upgrade path instead of merging into owned code, and{" "}
             <code>kern diff</code> shows what drifted. Broken styles almost
             always mean the theme import is missing — one{" "}
-            <code>import &quot;@xoroh/kern/styles&quot;</code> in the CSS
-            entry. A component that looks unstyled in a vendored tree is
-            usually a skipped Tailwind scan of the installed files. Anything
-            deeper belongs on the{" "}
+            <code>import &quot;@xoroh/kern/styles&quot;</code> in the CSS entry.
+            A component that looks unstyled in a vendored tree is usually a
+            skipped Tailwind scan of the installed files. Anything deeper
+            belongs on the{" "}
             <a href={`${REPO}/issues`} className={LINK}>
               issue tracker
             </a>

@@ -90,9 +90,7 @@ describe("native AlertDialog render", () => {
 describe("native Sheet render", () => {
   it("shows the title and closes", async () => {
     let dismissed = 0;
-    await render(
-      <Sheet open title="Filters" onDismiss={() => dismissed++} />,
-    );
+    await render(<Sheet open title="Filters" onDismiss={() => dismissed++} />);
     expect(screen.getByText("Filters")).toBeTruthy();
     await act(async () => {
       fireEvent.press(screen.getByLabelText("Close sheet"));

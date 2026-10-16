@@ -39,8 +39,7 @@ const fabVariants = cva(
       // expressive medium ships as `md`. Kern's `large` (128px) is an
       // extension past the spec.
       size: {
-        default:
-          "h-14 px-5 rounded-(--sys-shape-corner-large) [&_svg]:size-6",
+        default: "h-14 px-5 rounded-(--sys-shape-corner-large) [&_svg]:size-6",
         md: "h-20 w-20 px-0 rounded-(--sys-shape-corner-extra-large) [&_svg]:size-8",
         medium:
           "h-24 w-24 px-0 rounded-(--sys-shape-corner-extra-large) [&_svg]:size-9",

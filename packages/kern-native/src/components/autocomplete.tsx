@@ -1,5 +1,5 @@
 import { useControllableState } from "@xoroh/kern-primitives";
-import { type ResolvedTheme } from "@xoroh/kern-tokens";
+import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import { useMemo, useState } from "react";
 import {
   Pressable,
@@ -79,9 +79,11 @@ export type NativeAutocompleteProps = {
   testID?: string;
 };
 
-export function autocompleteStyles(
-  scheme: ResolvedTheme = defaultScheme,
-): { popup: ViewStyle; option: ViewStyle; optionActive: ViewStyle } {
+export function autocompleteStyles(scheme: ResolvedTheme = defaultScheme): {
+  popup: ViewStyle;
+  option: ViewStyle;
+  optionActive: ViewStyle;
+} {
   return {
     popup: {
       marginTop: 4,

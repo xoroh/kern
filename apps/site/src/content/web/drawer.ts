@@ -68,9 +68,7 @@ export const drawer: ComponentDoc = {
       "Use modal sheets for tasks that need focus — the scrim marks the interruption.",
       "Let content scroll inside with titles pinned where applicable.",
     ],
-    dont: [
-      "Don't trap focus without announcing modality.",
-    ],
+    dont: ["Don't trap focus without announcing modality."],
   },
   tokens: [
     {

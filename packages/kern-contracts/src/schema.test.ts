@@ -43,9 +43,9 @@ describe("component", () => {
   });
 
   test("a blank designSystem fails", () => {
-    expect(() =>
-      defineComponent(component({ designSystem: "  " })),
-    ).toThrow("designSystem");
+    expect(() => defineComponent(component({ designSystem: "  " }))).toThrow(
+      "designSystem",
+    );
   });
 
   test("a second design system validates — identity is not hardcoded", () => {

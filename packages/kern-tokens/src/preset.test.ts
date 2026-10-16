@@ -50,9 +50,9 @@ describe("second-preset fixture independence", () => {
     ];
     expect(Object.keys(PIXEL_FIXTURE.shape)).not.toEqual(M3_CORNERS);
     expect(PIXEL_FIXTURE.variants?.button).not.toContain("tonal");
-    expect(
-      Object.keys(PIXEL_FIXTURE.color.light),
-    ).not.toContain("primaryContainer");
+    expect(Object.keys(PIXEL_FIXTURE.color.light)).not.toContain(
+      "primaryContainer",
+    );
   });
 
   it("serializes with its preset identity intact (registry-representable)", () => {
@@ -68,9 +68,9 @@ describe("second-preset fixture independence", () => {
 
 describe("preset validation rejects malformed manifests", () => {
   it("rejects bad ids", () => {
-    expect(() =>
-      definePreset({ ...PIXEL_FIXTURE, id: "Pixel!" }),
-    ).toThrowError(/id is/);
+    expect(() => definePreset({ ...PIXEL_FIXTURE, id: "Pixel!" })).toThrowError(
+      /id is/,
+    );
     expect(isPresetIdShape("material-3")).toBe(true);
     expect(isPresetIdShape("m3")).toBe(true);
     expect(isPresetIdShape("M3")).toBe(false);
@@ -175,7 +175,9 @@ describe("pixel conformance through the universal engine (A2)", () => {
   });
 
   it("rejects unknown bases and unknown presets with capability errors", async () => {
-    const { defineThemePreset, resolveThemeDetails } = await import("./resolve");
+    const { defineThemePreset, resolveThemeDetails } = await import(
+      "./resolve"
+    );
     expect(() =>
       defineThemePreset({
         id: "pixel-orphan",

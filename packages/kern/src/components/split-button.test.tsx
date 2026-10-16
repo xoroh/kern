@@ -212,9 +212,7 @@ describe("SplitButton", () => {
     render(<SplitButton label="Save" onClick={vi.fn()} actions={ACTIONS} />);
     // The shared pill: full rounding on the container, one rounded corner each.
     const container = document.querySelector("[data-slot='split-button']");
-    expect(container?.className).toContain(
-      "rounded-(--sys-shape-corner-full)",
-    );
+    expect(container?.className).toContain("rounded-(--sys-shape-corner-full)");
     expect(primary().className).toContain(
       "rounded-s-(--sys-shape-corner-full)",
     );

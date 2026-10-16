@@ -16,7 +16,7 @@ import type { ConfiguratorSpec, ConfigValues } from "../configurator";
  */
 const SLIDES = ["One", "Two", "Three"];
 
-function valueOf(v: ConfigValues): number {
+function slideIndexOf(v: ConfigValues): number {
   const n = Number(v.value);
   return n >= 0 && n < SLIDES.length ? n : 0;
 }
@@ -31,7 +31,7 @@ function indicatorsOf(v: ConfigValues): boolean {
 
 function rootPropsOf(v: ConfigValues): string {
   const out: string[] = [];
-  if (valueOf(v) !== 0) out.push(`defaultValue={${valueOf(v)}}`);
+  if (slideIndexOf(v) !== 0) out.push(`defaultValue={${slideIndexOf(v)}}`);
   if (wrapOf(v)) out.push("wrap");
   if (indicatorsOf(v)) out.push("showIndicators");
   return out.length > 0 ? ` ${out.join(" ")}` : "";
@@ -65,9 +65,9 @@ export const CAROUSEL_CONFIGURATOR: ConfiguratorSpec = {
   ],
   render: (v) => (
     <Carousel
-      key={`${valueOf(v)}-${wrapOf(v) ? "wrap" : "clamp"}-${indicatorsOf(v) ? "dots" : "nodots"}`}
+      key={`${slideIndexOf(v)}-${wrapOf(v) ? "wrap" : "clamp"}-${indicatorsOf(v) ? "dots" : "nodots"}`}
       items={SLIDES.map((s) => <p key={s}>{s}</p>)}
-      defaultValue={valueOf(v)}
+      defaultValue={slideIndexOf(v)}
       wrap={wrapOf(v)}
       showIndicators={indicatorsOf(v)}
     />

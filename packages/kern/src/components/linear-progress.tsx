@@ -97,7 +97,10 @@ export function LinearProgress({
             className="absolute inset-y-0 left-0 h-full w-full origin-left rounded-full bg-(--sys-color-primary) [animation:kern-linear-indeterminate_2s_linear_infinite]"
             style={
               fourColor
-                ? { animation: "kern-linear-indeterminate 2s linear infinite, kern-linear-four-color 8s linear infinite" }
+                ? {
+                    animation:
+                      "kern-linear-indeterminate 2s linear infinite, kern-linear-four-color 8s linear infinite",
+                  }
                 : undefined
             }
           />
@@ -107,7 +110,10 @@ export function LinearProgress({
             className="absolute inset-y-0 left-0 h-full w-full origin-left rounded-full bg-(--sys-color-primary) [animation:kern-linear-indeterminate-secondary_2s_linear_infinite]"
             style={
               fourColor
-                ? { animation: "kern-linear-indeterminate-secondary 2s linear infinite, kern-linear-four-color 8s linear infinite" }
+                ? {
+                    animation:
+                      "kern-linear-indeterminate-secondary 2s linear infinite, kern-linear-four-color 8s linear infinite",
+                  }
                 : undefined
             }
           />

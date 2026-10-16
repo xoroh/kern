@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react-native";
-import { defaultScheme } from "../theme";
 import { act } from "react";
+import { defaultScheme } from "../theme";
 import { AspectRatio } from "./aspect-ratio";
 import { Avatar } from "./avatar";
 import { Button } from "./button";
@@ -130,9 +130,9 @@ describe("native Toolbar render", () => {
     expect(toolbarStyles(scheme).backgroundColor).toBe(
       scheme.color.surfaceTonal,
     );
-    expect(
-      toolbarStyles(scheme, { color: "vibrant" }).backgroundColor,
-    ).toBe(scheme.color.primaryContainer);
+    expect(toolbarStyles(scheme, { color: "vibrant" }).backgroundColor).toBe(
+      scheme.color.primaryContainer,
+    );
     expect(
       toolbarStyles(scheme, { orientation: "vertical" }).flexDirection,
     ).toBe("column");
@@ -140,9 +140,10 @@ describe("native Toolbar render", () => {
 
   it("docks square and full-bleed with 16dp side padding", async () => {
     const scheme = defaultScheme;
-    expect(
-      toolbarStyles(scheme, { layout: "docked" }),
-    ).toMatchObject({ borderRadius: 0, paddingHorizontal: 16 });
+    expect(toolbarStyles(scheme, { layout: "docked" })).toMatchObject({
+      borderRadius: 0,
+      paddingHorizontal: 16,
+    });
   });
 });
 

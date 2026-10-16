@@ -344,7 +344,13 @@ check(
   `color-usage scenes ${USAGE_SCENES.length} != USAGE_SCENE_COUNT ${USAGE_SCENE_COUNT}`,
 );
 for (const scene of USAGE_SCENES) {
-  for (const field of ["backdrop", "panel", "panelInk", "accent", "accentInk"]) {
+  for (const field of [
+    "backdrop",
+    "panel",
+    "panelInk",
+    "accent",
+    "accentInk",
+  ]) {
     check(
       Boolean(scene[field]),
       `color-usage scene "${scene.id}" is missing ${field}`,

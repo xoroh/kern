@@ -5,7 +5,6 @@ import { Field } from "./field";
 import { FieldMessage } from "./field-message";
 import { Input } from "./input";
 import { InputOTP } from "./input-otp";
-import { Label } from "./label";
 import { NumberField } from "./number-field";
 import { RadioGroup, RadioGroupItem } from "./radio-group";
 import { SelectRoot, SelectTrigger, SelectValue } from "./select";

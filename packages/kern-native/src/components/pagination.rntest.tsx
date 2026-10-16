@@ -185,7 +185,9 @@ describe("Pagination", () => {
 
   it("honours a controlled value", async () => {
     const onValueChange = jest.fn();
-    await render(<Pagination count={5} value={2} onValueChange={onValueChange} />);
+    await render(
+      <Pagination count={5} value={2} onValueChange={onValueChange} />,
+    );
     expect(
       screen.getByLabelText("Page 2").props.accessibilityState.selected,
     ).toBe(true);
