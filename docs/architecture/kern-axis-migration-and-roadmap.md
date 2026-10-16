@@ -19,6 +19,36 @@ on 2026-10-15/16. **Reported** = claimed by an earlier artifact, not
 re-observed. **Unverified** = could not be established. SHAs and counts are
 point-in-time; Phase 0 re-pins them.
 
+## Freshness addendum — 2026-10-16 evening (Preview readiness track)
+
+This addendum overlays §§B/H without rewriting their point-in-time record.
+Per-turn live state lives in `.reports/latest.md`; the evening audit +
+reconciliation in `.reports/preview-readiness.md`.
+
+- **HEAD:** `main` at `61157bdd` (PR #45 merged; PRs #37–#45 all merged, zero
+  open PRs). CI green on every merged HEAD (12/12, 14/14 with the new
+  cli/contracts legs). `changeset status` exits 0 (invalid-tree + mixed
+  families resolved by PR #45's changeset surgery).
+- **Cutover complete:** Kern consumes `@xoroh/axis` via vendored tarball
+  (`vendor/axis/axis-bed35547.tgz`, PR #37); `libs/kern-primitives` frozen
+  pending the Axis-side deletion PR (other thread).
+- **Superseded positions:** H-17's `private:true` CLI fix is REVERSED —
+  owner decision D-CLI-PUBLISH (CLI ships 0.1.0, eight public packages).
+  §§B.2/B.7/H-02/H-04 baselines (`f0774ae7`, PRs #18–20 open, red-CI
+  forensics, 240-error lint) describe 2026-10-15/16-morning and are
+  superseded by: lint exit 0, CI green streak since PR #34, PRs #18 closed /
+  #19/#20/#23–#45 merged, Dependabot 0 open alerts (H-12 stands).
+- **New owner decisions (§I):** D-STRUCTURE (system-scoped URLs/registry/
+  `--system`/kern-m3 rename/no global registration/layers rule — phases
+  after small fixes, large PRs review-gated), D-CLI-PUBLISH, D-AXIS-SHIP
+  (Axis own package alongside 0.1.0, axis thread owns), D-DOCS-DEPTH
+  (top-20 full + thin-but-correct + gate), D-BUTTON-NAMES (M3 canonical),
+  D-HCT (spec-correct HCT engine, additive spike then review-gated cutover).
+  Release hold unchanged (no publish/versions/tags; owner decides timing).
+- **Known open owner questions (not trimmed, not started):** native modal
+  sheets flat (no token) — deliberate or missing elevation; device/SR matrix
+  (D-DEVICE); publish timing.
+
 ---
 
 ## A. Executive summary
@@ -910,7 +940,7 @@ current without the evidence noted.
 | H-14 | Preserved-work loss risk | 2 stashes, staged demo fix, 3 dependabot branches, PR #18 branch | P0 / Phase 0 | Disposition log; acceptance: nothing dropped without owner sign |
 | H-15 | Consumer duplication / dual React | Bundled-primitives duplicate-state question open since CURRENT_STATE; Axis must prove no duplicate React/context in packed-consumer test | P1 / Phase 3+5 | Packed-consumer proof with duplicate-context assertions; acceptance: green |
 | H-16 | CLI/MCP closure over Axis | CLI scaffold `file:` refs + MCP manifest/registry rows reference the old identity; vendored closures must resolve `@xoroh/axis` without checkout dependence | P1 / Phase 4 | Per-symbol inventory (Phase 0.3) → updated resolvers + packed-outside-checkout proofs |
-| H-17 | `kern-cli` privacy contradiction | Manifest had **no `private` field** with public `publishConfig` while docs said never-published — and pending changeset `oss-transformation-implementation.md` bumps `@xoroh/kern-cli: minor`, so the first authorized release would have published it. **Fixed 2026-10-16** (`"private": true`, matching `libs/kern-primitives` convention; workspace-local use unaffected). Side effect: `changeset status` gains a third invalid-tree line (mcp→cli) on top of two pre-existing ones (kern/kern-native→primitives) — the status check was already red and is not run in CI; the invalid-tree family must go green before any release (Phase 5 gate). Remaining release coupling: public `@xoroh/kern-mcp` depends on unpublished cli (`^0.0.0`) — resolve (bundle/publish/drop) before any release | P1 / Phase 1 (manifest fix done, uncommitted); release coupling P2 | Manifest fix verified (`changeset status` output recorded); acceptance: docs+manifest+workflow agree (done) and invalid-tree family green before release |
+| H-17 | `kern-cli` privacy contradiction | Manifest had **no `private` field** with public `publishConfig` while docs said never-published — and pending changeset `oss-transformation-implementation.md` bumps `@xoroh/kern-cli: minor`, so the first authorized release would have published it. **Fixed 2026-10-16** (`"private": true`, matching `libs/kern-primitives` convention; workspace-local use unaffected). Side effect: `changeset status` gains a third invalid-tree line (mcp→cli) on top of two pre-existing ones (kern/kern-native→primitives) — the status check was already red and is not run in CI; the invalid-tree family must go green before any release (Phase 5 gate). Remaining release coupling: public `@xoroh/kern-mcp` depends on unpublished cli (`^0.0.0`) — resolve (bundle/publish/drop) before any release | P1 / Phase 1 (manifest fix done, uncommitted); release coupling P2 | Manifest fix verified (`changeset status` output recorded); acceptance: docs+manifest+workflow agree (done) and invalid-tree family green before release. **Resolution 2026-10-16 evening (D-CLI-PUBLISH, opposite direction):** owner decided the CLI SHIPS with 0.1.0 — `private:true` removed (PR #45), eight public packages, `changeset status` green via changeset surgery |
 | H-18 | check-props content-vs-type drift (474 vs 471 ratchet) | Pre-existing on `main` (zero overlap with PR #24 files — verified by filename intersection; unmasked when K11 fix let `check:docs` proceed). Systemic class: compound-part pages document Root-level controlled props (`open/value/disabled/...`) the part types don't carry. Not adjudicable without per-component docs-vs-type calls | P1 / content lane (site-se) | Burn down 3+ rows per the gate's documented defect class and lower BASELINE in the same commit, or owner exception. Never raise BASELINE without removals |
 
 ## I. Decision register
@@ -940,10 +970,16 @@ under D-DEVICE. No NativeWind (ADR-006), no web styling in Axis | Phase 2 |
 | D-SPLIT | One package vs many | Single `@xoroh/axis` until AX0 proves a split (no `axis-primitives` etc. without evidence) | Phase 2 |
 | D-DTCG | DTCG reference + native input shape | Confirm `2025.10` TR reference resolves; freeze Axis's native-value input contract in Phase 1 | Phase 4 |
 | D-DEVICE | Device/SR verification methodology | **Methodology established 2026-10-16:** automated bar = RNTL suites + Metro `bundle` + Expo 57 host proofs (all available in-repo/CI); physical-device runs are an explicit Phase 3 gate with an owner-approved matrix-or-waiver — no device run is claimed before it executes. Emulator-less evidence is honestly labeled, never cited as device proof | Phase 3 |
-| D-RELEASE | Publish rights, 2nd approver, HOLD lift, `NPM_TOKEN`/`RELEASE_CHANGESSETS` | Internal readiness verified 2026-10-16: all manifests `0.0.0` (HOLD intact), release workflow still gated on `main` + var + `npm-publish` env, CLI now `private:true`. Owner actions (2nd approver, HOLD lift, credentials) remain pre-publication and are not authorized here; publication itself stays forbidden | Phase 7 / publication |
+| D-RELEASE | Publish rights, 2nd approver, HOLD lift, `NPM_TOKEN`/`RELEASE_CHANGESSETS` | Internal readiness verified 2026-10-16: all manifests `0.0.0` (HOLD intact), release workflow still gated on `main` + var + `npm-publish` env. Owner direction 2026-10-16 (evening): the CLI SHIPS with 0.1.0 — `private:true` removed, eight public packages, `changeset status` green (PR #45). Owner actions (2nd approver, HOLD lift, credentials, release timing) remain pre-publication and are not authorized here; publication itself stays forbidden | Phase 7 / publication |
 | D-NOGO | NO-GO successor sign-off under this plan | **Extraction authorized 2026-10-16 by explicit owner mandate** (proceed with the Kern–Axis migration incl. Axis extraction once technical preconditions satisfied; preconditions not waived). Recorded here as the mandate's scope, not as release approval | Phase 5 (release sign-off still separate) |
 | D-GHSA | Advisory triage + code-scanning | Dependabot shows 0 open alerts (verified) contradicting the archived "19 GHSA" claim — reconcile; decide whether to enable code-scanning (currently "no analysis found") | Phase 5 |
 | D-P7 | Product-monorepo adoption | **Stays out of scope**, separately authorized or not at all | — (excluded) |
+| D-STRUCTURE | System-scoped structure (per review-structure-scale, owner-approved 2026-10-16 evening) | System-scoped URLs `/components/<system>/<platform>/<name>` with generated 301 redirects from current paths; one generated `ComponentRecord` registry as the single source for site, CLI, and MCP; `--system` flag on CLI and MCP; rename `kern-material-3` → `kern-m3` (keep compat); `@xoroh/kern` must not side-effect-register M3 globally; a `check:layers` rule enforces the split. Constraint: each system owns its own components — no system-agnostic shared themed renderers. Execute in phases AFTER the current small fixes; large migration PRs (renames, URL scheme) open unmerged for owner review | Structure phase (gated) |
+| D-CLI-PUBLISH | CLI ships with 0.1.0 | Owner decision 2026-10-16 evening, superseding H-17's `private:true` fix: `@xoroh/kern-cli` is publishable (manifest already publish-shaped; flag removed in PR #45). Eight public packages; `changeset status` green. No publish until the hold lifts | Phase 7 / publication |
+| D-AXIS-SHIP | Axis ships as its own npm package alongside Kern 0.1.0 | `@xoroh/axis` publishes as an independent package on the 0.1.0 train; the release hold still applies (no versions/tags/publish from either side until authorized). The axis repo (packaging, release prep, component coverage) is owned by the Axis thread; Kern tracks only the consumer side (vendored tarball → semver swap at first authorized publish) | Phase 4/7 |
+| D-DOCS-DEPTH | 0.1.0 docs depth bar | Full pages for the top-20 components on web AND native; every other component gets a thin but correct page (example, API table, a11y notes); gated in `check:docs`. Top-20 list + thin-page contract to be recorded before the content pass | Phase 6 |
+| D-BUTTON-NAMES | Button variants use M3 names | Canonical: `filled/tonal/outlined/text/elevated`. Implementation as a review-gated migration PR (codemod across packages/site/tests + deprecation handling); opened, not merged, until owner review | Structure phase (review-gated) |
+| D-HCT | Spec-correct HCT tonal palettes via `@material/material-color-utilities` | Owner direction 2026-10-16: replace the OKLCH tonal engine (50–950 Tailwind steps, 12-role seed repaint) with HCT + 0–100 ramps + full-scheme mapping (Apache-2.0 dependency). Scale is XL (every generated artifact + goldens + contrast gates move): execute as additive spike first, then a review-gated cutover migration. The OKLCH-vs-HCT divergence stays documented until cutover | HCT phase (review-gated) |
 | Non-blocking (record, don't stall) | Axis website/playground; `kern info`; `mcp` rename; icon `./icons/*` codegen timing; starter matrix; F1 scope; provider-registry placement (deferred: may live neither in Axis (not neutral) nor `libs/` (deleted); trigger: a workstream needing it); second provider (SUPERSEDED 2026-10-16 — the "rejected" position is replaced by D-FOUNDATION-CHOICE, pending resolution) | Decided in Phase 6/7 or later; must not gate Phases 0–5 | — |
 
 ## J. Exact validation commands and acceptance criteria

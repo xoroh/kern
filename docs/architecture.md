@@ -183,11 +183,11 @@ reproducible.
 | `bun run check:generated` | fresh regeneration byte-matches committed artifacts |
 | `bun run check:kern` | Roles complete in every scheme; tokens only; shape scale only |
 | `bun run check:contrast` | 4.5:1 text and 3:1 UI across presets × modes × contrast |
-| `bun run check:publish` | `publint` + `are-the-types-wrong` on all six publishable packages |
+| `bun run check:publish` | `publint` + `are-the-types-wrong` on all eight publishable packages |
 | `bun run icons:check` | Committed icon registry matches its source |
 
 `check:kern` and `check:contrast` are the design law made executable — the M3
-semantics in [`plan/README.md`](plan/README.md) "System law" are not a
+semantics in [`conventions/parity.md`](conventions/parity.md) are not a
 guideline a reviewer has to remember.
 
 ## Adding a component

@@ -1,5 +1,15 @@
 # P2c-2 — the kern-primitives API shape + extraction scope
 
+> **Status (2026-10-16): SUPERSEDED as an active spec — kept as the dated
+> measurement record.** The extraction this planned is EXECUTED: Kern
+> consumes `@xoroh/axis` through its public entry (vendored tarball, PR #37);
+> `libs/kern-primitives/` is frozen pending the Axis-side deletion PR; the
+> boundary gate is retargeted at `@xoroh/axis` (see `scripts/
+> check-primitives.mjs` header). The live rules are the roadmap Phase 4 +
+> D-DEP (`docs/architecture/kern-axis-migration-and-roadmap.md`) and the
+> `check:primitives` gate itself — not the waves, ratios, or rulings below,
+> which describe the 2026-10-02 tree. Do not implement from this file.
+
 **Author:** design-system-lead · **Date:** 2026-10-02 · **Spec. Research + tree measurement; nothing built this turn.**
 Feeds kern-lead's P2c-3 (extraction). The CTO may need to rule items in §6 — they are flagged, not decided.
 
