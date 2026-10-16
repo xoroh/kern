@@ -878,8 +878,10 @@ if (noVisualForm.length > 0) {
   for (const n of noVisualForm) console.log(`  ok   ${n}`);
 }
 if (gaps.length > 0) {
-  console.log(`\ncheck-docs: ${gaps.length} gap(s) — reported, not failing:`);
-  for (const g of gaps) console.log(`  gap  ${g}`);
+  for (const g of gaps)
+    errors.push(
+      `${g} — an unasserted elevation claim is a defect, not a note (gaps fail since the zero-gap sweep)`,
+    );
 }
 
 if (errors.length > 0) {

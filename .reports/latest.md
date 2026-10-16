@@ -4,6 +4,11 @@ Baseline: Kern `main` at `bd83d215` (PR #41 state layers merged, CI green).
 Tree clean, pushed, synced (this branch: fix/preview-install-honesty).
 
 ## Done (this track)
+- Elevation gaps to zero (this branch, unmerged): 7 spec rows + 3 unassigned entries +
+  shared alias map; 6 mobile sheet pages claim 0, dock-sheet corrected to
+  surface, rich-tooltip token row fixed; gaps now fail in check:docs;
+  audit ASSERTED 15→22, GAP 0. Open owner question (not trimmed): native
+  modal sheets are flat (no token) — deliberate or missing elevation?
 - PR #37 merged: Kern consumes `@xoroh/axis` via vendored tarball
   (`vendor/axis/axis-bed35547.tgz`, `file:` spec in kern/kern-native/site,
   lockfile-pinned). No manifest declares `@xoroh/kern-primitives`; no

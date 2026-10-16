@@ -48,6 +48,23 @@ function levelFromDp(dp) {
   return hit ? Number(hit[0]) : null;
 }
 
+/**
+ * Page-slug to implementation-file aliases, shared with the inventory
+ * (`ELEVATION_ENTRY_FILES` in kern-elevation.ts). One page per sheet member
+ * shares a family file, so measuring `<slug>.tsx` directly would read a
+ * nonexistent file as "no token". Loaded lazily with a fallback: under plain
+ * node (no TS loader) the import fails and measurement keeps its historical
+ * direct-stem behavior — the audit runs under bun, where it resolves.
+ */
+let ENTRY_ALIASES = {};
+try {
+  ({ ELEVATION_ENTRY_FILES: ENTRY_ALIASES } = await import(
+    "../packages/kern-material-3/src/kern-elevation.ts"
+  ));
+} catch {
+  ENTRY_ALIASES = {};
+}
+
 const closureOf = (base, file, seen = new Set()) => {
   if (seen.has(file)) return seen;
   seen.add(file);
@@ -108,7 +125,11 @@ if (!json)
 if (!json) console.log("-".repeat(78));
 const measurements = [];
 for (const name of targets) {
-  const { tokens, rawDp, iosShadow } = measure(base, name);
+  // Aliased concepts measure their shared implementation file (same map as
+  // check-kern); the audit table stays keyed by concept name.
+  const entry = ENTRY_ALIASES[name];
+  const stem = entry ? entry.replace(/\.tsx?$/, "") : name;
+  const { tokens, rawDp, iosShadow } = measure(base, stem);
   measurements.push({
     name,
     tokenLevels: [...tokens].sort((a, b) => a - b),

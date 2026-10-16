@@ -28,6 +28,14 @@ export const contrastToggle: ComponentDoc = {
       "There is no label override. The destination name is the contract.",
     ],
   },
+  deviations: [
+    {
+      id: "K11",
+      spec: 'M3\'s component elevation table names no toggle row. It tabulates "menu" and "rich tooltip" at level 2 and "dialogs (modal)" at level 3, but no row describes a toggle resting elevation.',
+      kern: "The toggle rests at elevation level 0 — no shadow token; level 0 is shadow: none.",
+      why: "A borderless round action has no container to lift — a shadow would invent elevation M3 never assigned. The level-0 claim is registered in the elevation inventory so it is asserted rather than assumed.",
+    },
+  ],
   api: [
     {
       name: "contrast",
