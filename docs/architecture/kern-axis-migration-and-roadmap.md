@@ -328,6 +328,10 @@ viewport-rect math), StyleSheet-compatible value flow (never CSS vars).
 - No new token system is created inside Axis. Token-type/reference/output
   validation stays Kern's; Axis validates only that its inputs satisfy its
   documented native value contract.
+- Proof separation (archived §10 guardrail, retained): Axis verification
+  evidence must never be cited as Kern Native device/parity proof, nor
+  Kern evidence as Axis proof. Each project's device, parity, and
+  consumer claims stand on its own runs and artifacts.
 
 ### C.5 AI-first placement
 
@@ -684,6 +688,9 @@ All verified in `xoroh/axis` from a clean clone unless noted. Evidence
   `contents: read`, SHA-pinned actions; CODEOWNERS added.
 - [ ] **Versioning**: changesets flow exercised (`status` + `version`
   dry-run on a branch); no publish (unauthorized).
+- [ ] **Docs build**: API reference + contributor docs build from a clean
+  clone; examples verified (maps archived §10.4 docs-build gate; website
+  and playground stay deferred).
 - [ ] **Release prep (no publish)**: name availability re-check, trademark
   + `axis.xoroh.org` status recorded (D-NAME); `npm-publish`-equivalent
   environment deliberately **not** created until publication is authorized.
@@ -747,7 +754,7 @@ under D-DEVICE. No NativeWind (ADR-006), no web styling in Axis | Phase 2 |
 | D-NOGO | NO-GO successor sign-off under this plan | Owner signs after Phase 5 evidence (replaces archived unsigned NO-GO) | Phase 5 |
 | D-GHSA | Advisory triage + code-scanning | Dependabot shows 0 open alerts (verified) contradicting the archived "19 GHSA" claim — reconcile; decide whether to enable code-scanning (currently "no analysis found") | Phase 5 |
 | D-P7 | Product-monorepo adoption | **Stays out of scope**, separately authorized or not at all | — (excluded) |
-| Non-blocking (record, don't stall) | Axis website/playground; `kern info`; `mcp` rename; icon `./icons/*` codegen timing; starter matrix; F1 scope; second provider (rejected — one foundation, many systems, M3 first) | Decided in Phase 6/7 or later; must not gate Phases 0–5 | — |
+| Non-blocking (record, don't stall) | Axis website/playground; `kern info`; `mcp` rename; icon `./icons/*` codegen timing; starter matrix; F1 scope; provider-registry placement (deferred: may live neither in Axis (not neutral) nor `libs/` (deleted); trigger: a workstream needing it); second provider (rejected — one foundation, many systems, M3 first) | Decided in Phase 6/7 or later; must not gate Phases 0–5 | — |
 
 ## J. Exact validation commands and acceptance criteria
 
