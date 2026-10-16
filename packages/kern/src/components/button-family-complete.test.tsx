@@ -19,7 +19,7 @@ import { ToggleGroup } from "./toggle-group";
  * M3 family inventory vs kern coverage:
  * - Common (elevated/filled/tonal/outlined/text) → Button ✓
  * - Icon (standard/filled/tonal/outlined + toggle) → IconButton ✓
- * - FAB (surface/primary/secondary/tertiary + sm/default/medium/large/icon + lowered) → Fab ✓
+ * - FAB (surface/primary/secondary/tertiary + sm/default/md/large/icon + lowered) → Fab ✓
  * - Extended FAB → ExtendedFab ✓
  * - FAB menu → FabMenu ✓
  * - Segmented (single/multi) → SegmentedButton ✓
@@ -141,7 +141,7 @@ describe("Button family completeness — every member renders", () => {
       ).toBeInTheDocument();
       unmount();
     }
-    for (const size of ["sm", "default", "medium", "large", "icon"] as const) {
+    for (const size of ["sm", "default", "md", "large", "icon"] as const) {
       const { unmount } = render(
         <Fab size={size} aria-label={`${size}-fab`}>
           <svg />

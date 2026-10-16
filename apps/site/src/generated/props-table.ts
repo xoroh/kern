@@ -3426,7 +3426,7 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "size",
-        type: '"sm" | "default" | "md" | "icon" | "medium" | "large" | null | undefined',
+        type: '"sm" | "default" | "md" | "icon" | "large" | null | undefined',
         required: false,
         default: '"default"',
       },
@@ -4107,7 +4107,7 @@ export const PROPS_TABLE: Record<
     rows: [
       {
         name: "size",
-        type: '"sm" | "default" | "lg" | "xl" | null | undefined',
+        type: '"sm" | "default" | "lg" | null | undefined',
         required: false,
         default: '"default"',
       },

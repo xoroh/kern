@@ -49,6 +49,10 @@ file, numbered, status `accepted` / `superseded`.
 | [001](adr/001-esm-only.md) | ESM-only package output |
 | [002](adr/002-base-ui-primitives.md) | Base UI primitives for web components |
 | [003](adr/003-generated-inventory.md) | Generate the component inventory; never hand-edit it |
+| [004](adr/004-stability-windows.md) | 1.0 stability carve-out (hard cuts before 1.0; deprecation window from 1.0) — `proposed` |
+| [005](adr/005-theming-pipeline.md) | Theming pipeline explicit: matrix artifact, override-only presets, engine boundary |
+| [006](adr/006-distribution-engine-dtcg.md) | Distribution engine: own-the-code CLI over DTCG tokens, multi-design-system by adapters |
+| [007](adr/007-no-backward-compat-pre-1.0.md) | No backward compatibility before 1.0 Preview publish — one clean API per thing |
 
 ## Plans
 

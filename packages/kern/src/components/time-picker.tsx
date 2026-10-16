@@ -52,8 +52,8 @@ export type TimePickerValue = {
 export type TimePickerFormat = "12h" | "24h";
 
 /**
- * Which face the picker shows. `listbox` is the default for back-compat and
- * for keyboard/screen-reader correctness; `dial` is M3's clock face over the
+ * Which face the picker shows. `listbox` is the default because it is the
+ * keyboard/screen-reader-correct face; `dial` is M3's clock face over the
  * same state. The reported values are identical either way.
  */
 export type TimePickerPresentation = "listbox" | "dial";

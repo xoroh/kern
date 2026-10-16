@@ -4299,7 +4299,7 @@ export const GENERATED_PROPS: Record<string, Array<{
     },
     {
       "name": "size",
-      "type": "\"sm\" | \"default\" | \"md\" | \"icon\" | \"medium\" | \"large\" | null | undefined",
+      "type": "\"sm\" | \"default\" | \"md\" | \"icon\" | \"large\" | null | undefined",
       "required": false,
       "src": "packages/kern/src/components/fab.tsx:41",
       "default": "\"default\""
@@ -4308,14 +4308,14 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "aria-label",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/fab.tsx:61",
+      "src": "packages/kern/src/components/fab.tsx:59",
       "note": "Accessible name for icon-only fabs."
     },
     {
       "name": "lowered",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/fab.tsx:66",
+      "src": "packages/kern/src/components/fab.tsx:64",
       "note": "Lowered elevation (level1 + `surface-container-low` fill) for FABs\nthat should sit quieter in the layout. Per M3's `lowered` attribute."
     }
   ],
@@ -5130,9 +5130,9 @@ export const GENERATED_PROPS: Record<string, Array<{
   "LoadingIndicator": [
     {
       "name": "size",
-      "type": "\"sm\" | \"default\" | \"lg\" | \"xl\" | null | undefined",
+      "type": "\"sm\" | \"default\" | \"lg\" | null | undefined",
       "required": false,
-      "src": "packages/kern/src/components/loading-indicator.tsx:41",
+      "src": "packages/kern/src/components/loading-indicator.tsx:42",
       "default": "\"default\""
     },
     {

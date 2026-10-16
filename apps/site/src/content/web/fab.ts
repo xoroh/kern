@@ -11,13 +11,11 @@ export const fab: ComponentDoc = {
     status: "real",
     package: "@xoroh/kern",
     nativePeer: "Fab",
-    // M3's floating action button variants are a size axis ("FAB, medium FAB,
-    // large FAB") plus the expressive color styles: three containers, three
-    // fills, surface deprecated. sm is the deprecated 40dp small, md the
-    // expressive 80dp medium; `medium` keeps its pre-expressive name at 96dp
-    // (M3 large) and `large` past the spec at 128dp.
+    // M3's floating action button variants are a size axis. sm is the small,
+    // md the expressive medium, `large` past the spec. One size, one name:
+    // the pre-expressive `medium` is removed (no-compat rule).
     variants: [
-      "size: sm · default · md · medium · large · icon",
+      "size: sm · default · md · large · icon",
       "color: surface · primary · secondary · tertiary · primary-fill · secondary-fill · tertiary-fill",
     ],
     elevation: 3,
@@ -37,14 +35,14 @@ export const fab: ComponentDoc = {
   api: [
     {
       name: "size",
-      type: '"sm" | "default" | "medium" | "large" | "icon"',
+      type: '"sm" | "default" | "md" | "large" | "icon"',
       default: '"default"',
-      note: "M3's size axis: small, default (the Material 3 standard FAB size), medium and large. `icon` is the square form for a single glyph.",
+      note: "M3's size axis: small, default (the standard FAB size), md (expressive medium) and large (extension). `icon` is the square form for a single glyph.",
     },
     {
       name: "aria-label",
       type: "string",
-      note: "Required in practice for `medium`, `large` and `icon`, which render no text. A floating action button with no accessible name is unusable with a screen reader.",
+      note: "Required in practice for `md`, `large` and `icon`, which render no text. A floating action button with no accessible name is unusable with a screen reader.",
     },
     {
       name: "className",

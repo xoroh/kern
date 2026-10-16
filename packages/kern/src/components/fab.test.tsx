@@ -14,16 +14,16 @@ describe("Fab", () => {
     expect(fab).toHaveClass("h-14");
   });
 
-  // T2 edge: medium stretches to 96dp while default holds 56dp — the size
-  // knob's painted-verify axis. Failing-first: asserts the geometries the
+  // T2 edge: md spans 80dp while default holds 56dp — the size knob's
+  // painted-verify axis. Failing-first: asserts the geometries the
   // configurator teaches.
-  it("separates medium geometry from the default", () => {
+  it("separates md geometry from the default", () => {
     const { unmount } = render(
-      <Fab size="medium" data-testid="fab" aria-label="Create">
+      <Fab size="md" data-testid="fab" aria-label="Create">
         +
       </Fab>,
     );
-    expect(screen.getByTestId("fab")).toHaveClass("h-24");
+    expect(screen.getByTestId("fab")).toHaveClass("h-20");
     unmount();
     render(
       <Fab data-testid="fab2" aria-label="Create">
@@ -31,7 +31,7 @@ describe("Fab", () => {
       </Fab>,
     );
     expect(screen.getByTestId("fab2")).toHaveClass("h-14");
-    expect(screen.getByTestId("fab2")).not.toHaveClass("h-24");
+    expect(screen.getByTestId("fab2")).not.toHaveClass("h-20");
   });
 
   it("resolves icon-only content to the square icon geometry (M3 FAB, not pill)", () => {
@@ -46,11 +46,11 @@ describe("Fab", () => {
 
   it("lets an explicit size win over icon-only content", () => {
     render(
-      <Fab data-testid="fab" aria-label="Create" size="medium">
+      <Fab data-testid="fab" aria-label="Create" size="md">
         <svg />
       </Fab>,
     );
-    expect(screen.getByTestId("fab")).toHaveClass("h-24");
+    expect(screen.getByTestId("fab")).toHaveClass("h-20");
   });
 
   it("keeps labelled content on the pill geometry", () => {

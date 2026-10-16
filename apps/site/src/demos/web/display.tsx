@@ -154,9 +154,6 @@ export function FabDemo() {
           <Fab size="md" aria-label="Compose">
             <Plus />
           </Fab>
-          <Fab size="medium" aria-label="Compose">
-            <Plus />
-          </Fab>
           <Fab size="large" aria-label="Compose">
             <Plus />
           </Fab>

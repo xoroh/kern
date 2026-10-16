@@ -71,7 +71,7 @@ describe("LoadingIndicator", () => {
   it("applies each size variant", () => {
     for (const [size, expected] of [
       ["sm", "size-4"],
-      ["default", "size-6"],
+      ["default", "size-12"],
       ["lg", "size-10"],
     ] as const) {
       const { unmount } = render(<LoadingIndicator size={size} />);
@@ -159,8 +159,8 @@ describe("LoadingRegion", () => {
 });
 
 describe("LoadingIndicator sizes (M3: 24–240dp range, 48dp default)", () => {
-  it("renders xl at the 48dp spec default", () => {
-    render(<LoadingIndicator size="xl" label="Loading" />);
+  it("renders the default at the 48dp spec default", () => {
+    render(<LoadingIndicator label="Loading" />);
     expect(screen.getByRole("status").firstElementChild?.className).toContain(
       "size-12",
     );

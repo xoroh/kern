@@ -43,7 +43,7 @@ Add a Markdown file under `.changeset/` named after the change, e.g.
 
 ```md
 ---
-"@xoroh/kern-primitives": patch
+"@xoroh/kern": patch
 ---
 
 One-line summary a user would understand, then the why.

@@ -4,14 +4,14 @@ import type { ConfiguratorSpec, ConfigValues } from "../configurator";
 /**
  * Fab configurator — size, color, and elevation.
  *
- * M3's FAB variants ARE a size axis (56dp / 96dp / 128dp) crossed with a
+ * M3's FAB variants ARE a size axis (56dp / 80dp / 128dp) crossed with a
  * color axis (surface / primary / secondary / tertiary) plus the `lowered`
  * elevation treatment. `sm` and `icon` are density conveniences, not M3
  * sizes, so they are caller choices, not knob options. Children are the
  * caller's icon; `className` merges rather than varies. The stage remounts
  * by key on the knob so it cannot drift from the fence.
  */
-const SIZES = ["sm", "default", "medium", "large", "icon"] as const;
+const SIZES = ["sm", "default", "md", "large", "icon"] as const;
 type FabSize = (typeof SIZES)[number];
 const COLORS = ["surface", "primary", "secondary", "tertiary"] as const;
 type FabColor = (typeof COLORS)[number];

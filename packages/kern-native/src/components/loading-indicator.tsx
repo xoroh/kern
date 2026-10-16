@@ -59,23 +59,21 @@ import { defaultScheme, useKernScheme } from "../theme";
  * deliberately does not try to reach outward and do it for them.
  */
 
-export type LoadingIndicatorSize = "sm" | "default" | "lg" | "xl";
+export type LoadingIndicatorSize = "sm" | "default" | "lg";
 
 export function loadingIndicatorStyles(
   size: LoadingIndicatorSize = "default",
   scheme: ResolvedTheme = defaultScheme,
 ): { ring: ViewStyle } {
-  // M3 range is 24–240dp with a 48dp default; `default` stays 24 for
-  // back-compat and `xl` is the spec default at 48.
+  // M3 range is 24–240dp with a 48dp default, so the default IS 48
+  // (`space-600`). No `xl`: one size, one name (no-compat rule).
   const diameter =
     size === "sm"
       ? 16
       : size === "lg"
         ? 40
-        : size === "xl"
-          ? 48
-          : Number.parseFloat(tokens.spacing["space-300"]);
-  const borderWidth = size === "lg" || size === "xl" ? 4 : 2;
+        : Number.parseFloat(tokens.spacing["space-600"]);
+  const borderWidth = size === "sm" ? 2 : 4;
   return {
     ring: {
       width: diameter,
