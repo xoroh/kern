@@ -508,6 +508,10 @@ function InstallPicker({ target }: { target: string }) {
         </pre>
         <CopyButton text={command} />
       </div>
+      <p className={`m-0 ${SMALL} text-(--sys-color-on-surface-variant)`}>
+        Preview: packages are unpublished — this resolves from a checkout
+        until 0.1.0 publishes.
+      </p>
     </div>
   );
 }
