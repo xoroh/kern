@@ -21,4 +21,17 @@ describe("DialogContent", () => {
     );
     expect(ref.current).toBe(screen.getByRole("dialog"));
   });
+
+  it("renders data-testid from testID", () => {
+    render(
+      <DialogRoot open>
+        <DialogContent aria-label="Details" testID="details-dialog">
+          <p>body</p>
+        </DialogContent>
+      </DialogRoot>,
+    );
+    expect(screen.getByTestId("details-dialog")).toBe(
+      screen.getByRole("dialog"),
+    );
+  });
 });

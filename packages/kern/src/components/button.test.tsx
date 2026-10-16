@@ -257,4 +257,23 @@ describe("Button", () => {
     await user.click(link);
     expect(link).toHaveAttribute("aria-pressed", "true");
   });
+
+  it("renders data-testid from testID on both branches, and nothing without it", () => {
+    const { unmount } = render(<Button testID="save-btn">Save</Button>);
+    expect(screen.getByTestId("save-btn")).toBe(
+      screen.getByRole("button", { name: "Save" }),
+    );
+    unmount();
+    render(
+      <Button testID="next-link" href="/next">
+        Next
+      </Button>,
+    );
+    expect(screen.getByTestId("next-link")).toBe(
+      screen.getByRole("link", { name: "Next" }),
+    );
+    // Opt-in only: no testID means no data-testid attribute at all.
+    const { container } = render(<Button>Plain</Button>);
+    expect(container.querySelector("[data-testid]")).toBeNull();
+  });
 });

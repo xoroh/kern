@@ -1194,38 +1194,45 @@ export const GENERATED_PROPS: Record<string, Array<{
       "src": "packages/kern/src/components/button.tsx:373"
     },
     {
+      "name": "testID",
+      "type": "string | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/button.tsx:378",
+      "note": "Test selector. Rendered as `data-testid` on the root node (both\nbranches); see `parity/testid-contract.md`. Opt-in only — no default."
+    },
+    {
       "name": "href",
       "type": "string",
       "required": true,
-      "src": "packages/kern/src/components/button.tsx:388",
+      "src": "packages/kern/src/components/button.tsx:393",
       "note": "Navigation variant. Renders `<a href>` wearing the button treatment,\ni.e. `role=\"link\"` — for a dedicated link component see `LinkButton`.\nA disabled link drops `href`, leaves the tab order and reports\n`aria-disabled` (the ListItem convention) — links have no `disabled`\nattribute, so there is nothing native to lean on."
     },
     {
       "name": "target",
       "type": "HTMLAttributeAnchorTarget | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:390",
+      "src": "packages/kern/src/components/button.tsx:395",
       "note": "Anchor target. A button has no browsing context to open."
     },
     {
       "name": "rel",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:392",
+      "src": "packages/kern/src/components/button.tsx:397",
       "note": "Anchor relationship list."
     },
     {
       "name": "download",
       "type": "any",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:394",
+      "src": "packages/kern/src/components/button.tsx:399",
       "note": "Download hint."
     },
     {
       "name": "ref",
       "type": "Ref<HTMLAnchorElement> | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:396",
+      "src": "packages/kern/src/components/button.tsx:401",
       "note": "Ref to the rendered anchor."
     }
   ],
@@ -3753,6 +3760,13 @@ export const GENERATED_PROPS: Record<string, Array<{
       "required": false,
       "src": "packages/kern/src/components/dialog.tsx:35",
       "note": "Whether the surface claims modality to assistive tech. Defaults to `true`,\nmatching `DialogPrimitive.Root`'s own default (`modal: true` in the store\ninit) — so existing modal consumers change nothing.\n\nMUST be kept in step with the `modal` passed to `Dialog.Root`: a\n`modal={false}` root with a default `Content` announces itself as modal\nwhile leaving the background interactive, misleading AT users into\nbelieving the page is unavailable (review-m3 4d NOTE-1, measured live).\n\nWhy an explicit prop rather than reading the root: `DialogContent` renders\n`DialogPrimitive.Popup`, which reads `modal` from the root store context —\nand that context (`useDialogRootContext`) is NOT publicly exported\n(the package exports map blocks the deep import; state attributes don't\ninclude `modal`). There is no supported way for this component to derive\nthe value, so it is declared. `\"trap-focus\"` counts as modal here: for a\nscreen-reader user keyboard interaction IS trapped, which is exactly what\nthe marker warns about."
+    },
+    {
+      "name": "testID",
+      "type": "string | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/dialog.tsx:40",
+      "note": "Test selector, rendered as `data-testid` on the popup. See\n`parity/testid-contract.md`. Opt-in only — no default."
     }
   ],
   "DialogTitle": [
@@ -9767,6 +9781,13 @@ export const GENERATED_PROPS: Record<string, Array<{
       "required": false,
       "src": "node_modules/.bun/@base-ui+react@1.8.0+352d071ee9593f59/node_modules/@base-ui/react/switch/root/SwitchRoot.d.mts:92",
       "note": "The value submitted with the form when the switch is off.\nBy default, unchecked switches do not submit any value, matching native checkbox behavior."
+    },
+    {
+      "name": "testID",
+      "type": "string | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/switch.tsx:11",
+      "note": "Test selector, rendered as `data-testid` on the control. See\n`parity/testid-contract.md`. Opt-in only — no default."
     }
   ],
   "Table": [],
@@ -17583,6 +17604,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "suppressHydrationWarning",
     "tabIndex",
     "target",
+    "testID",
     "title",
     "toggle",
     "translate",
@@ -27201,6 +27223,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "suppressContentEditableWarning",
     "suppressHydrationWarning",
     "tabIndex",
+    "testID",
     "title",
     "translate",
     "typeof",
@@ -35324,6 +35347,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "suppressHydrationWarning",
     "tabIndex",
     "target",
+    "testID",
     "title",
     "toggle",
     "translate",
@@ -36201,6 +36225,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "suppressContentEditableWarning",
     "suppressHydrationWarning",
     "tabIndex",
+    "testID",
     "title",
     "toggle",
     "translate",
@@ -56486,6 +56511,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "suppressContentEditableWarning",
     "suppressHydrationWarning",
     "tabIndex",
+    "testID",
     "title",
     "translate",
     "typeof",

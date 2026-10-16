@@ -371,6 +371,11 @@ type ButtonSharedProps = Omit<
   /** Initial selected state for the uncontrolled toggle case. */
   defaultPressed?: boolean;
   onPressedChange?: (pressed: boolean) => void;
+  /**
+   * Test selector. Rendered as `data-testid` on the root node (both
+   * branches); see `parity/testid-contract.md`. Opt-in only — no default.
+   */
+  testID?: string;
 };
 
 /**
@@ -440,6 +445,7 @@ export function Button({
   softDisabled = false,
   children,
   ref,
+  testID,
   ...props
 }: ButtonProps) {
   // M3 aliases normalize to Kern names once, here — the cva call below only
@@ -542,6 +548,7 @@ export function Button({
       // biome-ignore lint/a11y/useAriaPropsSupportedByRole: toggle anchor keeps aria-pressed for AT parity with the button variant.
       <a
         data-slot="button"
+        data-testid={testID}
         data-loading={loading ? "" : undefined}
         data-selected={toggle && isPressed ? "" : undefined}
         aria-busy={loading || undefined}
@@ -577,6 +584,7 @@ export function Button({
   return (
     <button
       data-slot="button"
+      data-testid={testID}
       data-loading={loading ? "" : undefined}
       data-selected={toggle && isPressed ? "" : undefined}
       aria-busy={loading || undefined}
