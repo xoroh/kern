@@ -130,6 +130,19 @@ function TokensPage() {
         </ul>
       </FSection>
 
+      <FSection id="dtcg-projection" title="DTCG interchange notes">
+        <FProse>
+          The DTCG document (<code>@xoroh/kern-tokens/dtcg.json</code>, DTCG
+          2025.10) is the interchange contract, not the storage — three
+          projections are deliberate and documented, not silent. Elevation{" "}
+          <code>shadow</code> projects the first layer only (the full CSS plus{" "}
+          <code>shadowDark</code> live in extensions), motion scheme selections
+          emit as string names to avoid dangling refs, and only
+          standard-contrast sys tokens are emitted (contrast overlays are a
+          theme-catalog concern). See <code>dtcg/export.ts</code>.
+        </FProse>
+      </FSection>
+
       <FSection id="spacing-scale" title="Spacing scale">
         <FProse>
           {SPACING.length} steps, each drawn at its own width — the bar IS the
@@ -303,9 +316,7 @@ function ColorPage() {
         <SchemeScope mode={mode} className="flex flex-col">
           {COLOR_GROUPS.map((band) => (
             <div key={band.group} className="mt-6">
-              <div
-                className={`mb-2 flex items-baseline gap-2 ${band.isKern ? "border-l-4 border-(--sys-color-tertiary) pl-3" : ""}`}
-              >
+              <div className="mb-2 flex items-baseline gap-2">
                 <h3
                   className={`m-0 ${T_SMALL_TITLE} ${F_INK}`}
                   id={`band-${band.group}`}
@@ -335,7 +346,11 @@ function ColorPage() {
           one tonal surface role. They exist because product surfaces need to
           say "this went wrong" and "this went right" without borrowing the
           error role, and Material 3 has no vocabulary for it. Each is
-          registered, so the departure is auditable rather than invisible.
+          registered, so the departure is auditable rather than invisible. The
+          tonal role, <code>surfaceTonal</code>, stands in for M3's
+          primary-tinted <code>surface-tint</code> (which kern does not ship): a
+          neutral emphasis fill pairing with <code>on-surface</code>, used for
+          navigation-bar hovers and stage accents — never for text.
         </FProse>
         <ul className="m-0 flex flex-col gap-1 pl-5">
           {COLOR_ROLES.filter((r) => r.kernExtra).map((r) => (
@@ -434,9 +449,7 @@ function MatrixRow({ role }: { role: ColorRole }) {
   const { mode } = useScheme();
   const other: Mode = mode === "light" ? "dark" : "light";
   return (
-    <div
-      className={`${F_CARD} flex items-center gap-3 p-3 ${role.kernExtra ? "border-l-4 border-(--sys-color-tertiary)" : ""}`}
-    >
+    <div className={`${F_CARD} flex items-center gap-3 p-3`}>
       <div
         className="h-10 w-14 shrink-0 rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant)"
         style={{ background: roleVar(role.name) }}
@@ -1001,7 +1014,7 @@ function StatesPage() {
           numbers above are the law, not a preference: Material 3&apos;s four
           are published in{" "}
           <code>docs/design-systems/m3-usable/tokens/state.md</code> and kern
-          ships them verbatim (hover 8%, focus 12%, press 12%, drag 16%) plus
+          ships them verbatim (hover 8%, focus 10%, press 10%, drag 16%) plus
           its disabled 38%. <code>check:kern</code> asserts all five and rejects
           a sixth — a sixth would be a kern extension, not an M3 state. The full
           interaction reading lives in{" "}
@@ -1013,7 +1026,7 @@ function StatesPage() {
             a target. It fades in and only one layer is on at a time.
           </li>
           <li>
-            <strong className={F_INK}>Focus, 12%</strong> — tab or voice focus.
+            <strong className={F_INK}>Focus, 10%</strong> — tab or voice focus.
             Focus also needs a VISIBLE RING, and a ring is not an opacity: it is
             an outline treatment (a colour role plus a width), so it spends{" "}
             <code>--sys-color-secondary</code> and never a state token. On this
@@ -1021,7 +1034,7 @@ function StatesPage() {
             in the chrome carries.
           </li>
           <li>
-            <strong className={F_INK}>Press, 12%</strong> — the target is held
+            <strong className={F_INK}>Press, 10%</strong> — the target is held
             down; the layer reads as the press landing.
           </li>
           <li>

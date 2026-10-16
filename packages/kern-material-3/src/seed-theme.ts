@@ -103,6 +103,15 @@ function familyRoles(
  * M3 dynamic color as a seed configurator: one hex (plus optional secondary
  * / tertiary seeds) becomes a validated `CustomTheme` extending kern.
  *
+ * DIVERGENCE (ADR-016, roadmap D-HCT): this is an OKLCH configurator over
+ * 50–950 steps repainting 12 accent roles — not spec dynamic color. M3
+ * dynamic color is HCT with 0–100 ramps, key-color palettes, and full-scheme
+ * mapping (error/surface/fixed all move); the spec-correct engine ships as
+ * an additive spike in `@xoroh/kern-tokens` (`hct.ts`: `hctTonalRamp`,
+ * `hctSchemeRoles`) until the review-gated cutover. Until then this
+ * function stays canonical for seeded themes and the divergence stays
+ * documented on the site theme/color pages.
+ *
  * This is the checked-in form of the brand story — the brand preset is a
  * hand-authored primary-family repaint, and this function generates the same
  * shape (primary + secondary + tertiary families, both modes) from any seed.

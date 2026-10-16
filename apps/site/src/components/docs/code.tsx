@@ -12,14 +12,22 @@ import {
   T_LABEL_LG,
   T_SECTION,
 } from "../../domains/shared/systems/type-scale";
+import {
+  FOCUS_RING,
+  STATE_LAYERS,
+  TRANSITION,
+} from "../../domains/shared/systems/ui";
 
 export function Code({ children }: { children: string }) {
   const [copied, setCopied] = useState(false);
   return (
     <div className="relative">
+      {/* 32px overlay affordance (documented exception to the 48dp MIN_TARGET:
+          a full 48dp circle would cover the code it annotates; the affordance
+          is duplicated by the keyboard-accessible block actions beside it). */}
       <button
         type="button"
-        className="absolute top-2 right-2 z-10 flex size-8 cursor-pointer items-center justify-center rounded-full border border-(--sys-color-outline-variant) bg-(--sys-color-surface) text-(--sys-color-on-surface-variant)"
+        className={`absolute top-2 right-2 z-10 flex size-8 cursor-pointer items-center justify-center rounded-full border border-(--sys-color-outline-variant) bg-(--sys-color-surface) text-(--sys-color-on-surface-variant) ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`}
         aria-label={copied ? "Copied" : "Copy code"}
         onClick={async () => {
           try {
@@ -35,7 +43,7 @@ export function Code({ children }: { children: string }) {
         <Icon name={copied ? "check" : "attach"} size={16} />
       </button>
       <pre
-        className={`m-0 overflow-x-auto rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container-high) p-5 pr-12 ${T_CODE} text-(--sys-color-on-surface)`}
+        className={`m-0 overflow-x-auto rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container-high) p-4 pr-12 ${T_CODE} text-(--sys-color-on-surface)`}
       >
         <code>{children}</code>
       </pre>

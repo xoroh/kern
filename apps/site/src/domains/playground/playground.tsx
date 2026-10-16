@@ -42,7 +42,17 @@ import type { CSSProperties } from "react";
 import { useEffect, useMemo, useState } from "react";
 import { CopyButton } from "../../showcase/copy-button";
 import { BLOCK_VIEWS, installCommand } from "../blocks/registry";
-import { FOCUS_RING } from "../shared/systems/ui";
+import {
+  T_BODY,
+  T_BODY_MD,
+  T_BODY_SM,
+  T_CODE,
+  T_KICKER,
+  T_LABEL,
+  T_SECTION,
+  T_SUB,
+} from "../shared/systems/type-scale";
+import { FOCUS_RING, STATE_LAYERS, TRANSITION } from "../shared/systems/ui";
 import {
   isHex6,
   PLAYGROUND_DEFAULTS,
@@ -765,7 +775,7 @@ export const playgroundTheme = defineThemePreset({
             href="/"
             title="Kern Home"
             aria-label="Kern Home"
-            className="flex size-12 items-center justify-center rounded-2xl bg-(--sys-color-primary) text-(--sys-color-on-primary) shadow-(--sys-elevation-level1) transition-transform hover:scale-105 active:scale-95"
+            className={`flex size-12 items-center justify-center rounded-(--sys-shape-corner-large) bg-(--sys-color-primary) text-(--sys-color-on-primary) ${TRANSITION} ${STATE_LAYERS}`}
           >
             <Icon name="palette" size={24} />
           </a>
@@ -783,7 +793,7 @@ export const playgroundTheme = defineThemePreset({
               className={`group flex flex-col items-center gap-1.5 ${FOCUS_RING}`}
             >
               <span
-                className={`flex h-8 w-14 items-center justify-center rounded-full transition-colors ${
+                className={`flex h-8 w-14 items-center justify-center rounded-full ${TRANSITION} ${
                   activeRail === "theme"
                     ? "bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container)"
                     : "text-(--sys-color-on-surface-variant) hover:bg-(--sys-color-surface-container-high) hover:text-(--sys-color-on-surface)"
@@ -792,9 +802,9 @@ export const playgroundTheme = defineThemePreset({
                 <Icon name="palette" size={20} />
               </span>
               <span
-                className={`text-[11px] font-medium leading-none tracking-wide ${
+                className={`${T_LABEL} ${
                   activeRail === "theme"
-                    ? "text-(--sys-color-on-surface) font-semibold"
+                    ? "text-(--sys-color-on-surface)"
                     : "text-(--sys-color-on-surface-variant)"
                 }`}
               >
@@ -810,7 +820,7 @@ export const playgroundTheme = defineThemePreset({
               className={`group flex flex-col items-center gap-1.5 ${FOCUS_RING}`}
             >
               <span
-                className={`flex h-8 w-14 items-center justify-center rounded-full transition-colors ${
+                className={`flex h-8 w-14 items-center justify-center rounded-full ${TRANSITION} ${
                   activeRail === "code"
                     ? "bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container)"
                     : "text-(--sys-color-on-surface-variant) hover:bg-(--sys-color-surface-container-high) hover:text-(--sys-color-on-surface)"
@@ -819,9 +829,9 @@ export const playgroundTheme = defineThemePreset({
                 <Icon name="code" size={20} />
               </span>
               <span
-                className={`text-[11px] font-medium leading-none tracking-wide ${
+                className={`${T_LABEL} ${
                   activeRail === "code"
-                    ? "text-(--sys-color-on-surface) font-semibold"
+                    ? "text-(--sys-color-on-surface)"
                     : "text-(--sys-color-on-surface-variant)"
                 }`}
               >
@@ -843,7 +853,7 @@ export const playgroundTheme = defineThemePreset({
                 : "Switch to Light Mode"
             }
             aria-label="Toggle Light and Dark Mode"
-            className={`flex size-10 items-center justify-center rounded-full text-(--sys-color-on-surface-variant) hover:bg-(--sys-color-surface-container-high) hover:text-(--sys-color-on-surface) transition-colors ${FOCUS_RING}`}
+            className={`flex size-10 items-center justify-center rounded-full text-(--sys-color-on-surface-variant) hover:text-(--sys-color-on-surface) ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`}
           >
             <Icon
               name={axes.mode === "light" ? "sunny" : "nightlight"}
@@ -857,7 +867,7 @@ export const playgroundTheme = defineThemePreset({
             onClick={shuffle}
             title="Randomize Theme"
             aria-label="Randomize Theme"
-            className={`flex size-10 items-center justify-center rounded-full text-(--sys-color-on-surface-variant) hover:bg-(--sys-color-surface-container-high) hover:text-(--sys-color-on-surface) transition-colors ${FOCUS_RING}`}
+            className={`flex size-10 items-center justify-center rounded-full text-(--sys-color-on-surface-variant) hover:text-(--sys-color-on-surface) ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`}
           >
             <Icon name="refresh" size={20} />
           </button>
@@ -868,7 +878,7 @@ export const playgroundTheme = defineThemePreset({
             onClick={reset}
             title="Reset to Defaults"
             aria-label="Reset to Defaults"
-            className={`flex size-10 items-center justify-center rounded-full text-(--sys-color-on-surface-variant) hover:bg-(--sys-color-surface-container-high) hover:text-(--sys-color-on-surface) transition-colors ${FOCUS_RING}`}
+            className={`flex size-10 items-center justify-center rounded-full text-(--sys-color-on-surface-variant) hover:text-(--sys-color-on-surface) ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`}
           >
             <Icon name="close" size={20} />
           </button>
@@ -879,7 +889,7 @@ export const playgroundTheme = defineThemePreset({
             onClick={toggleFullscreen}
             title="Toggle Fullscreen"
             aria-label="Toggle Fullscreen"
-            className={`flex size-10 items-center justify-center rounded-full text-(--sys-color-on-surface-variant) hover:bg-(--sys-color-surface-container-high) hover:text-(--sys-color-on-surface) transition-colors ${FOCUS_RING}`}
+            className={`flex size-10 items-center justify-center rounded-full text-(--sys-color-on-surface-variant) hover:text-(--sys-color-on-surface) ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`}
           >
             <Icon name="fullscreen" size={20} />
           </button>
@@ -898,7 +908,7 @@ export const playgroundTheme = defineThemePreset({
           <div className="flex items-center gap-2">
             <h2
               id="editor-pane-title"
-              className="m-0 text-base font-semibold tracking-tight text-(--sys-color-on-surface)"
+              className={`m-0 ${T_BODY} text-(--sys-color-on-surface)`}
             >
               {activeRail === "theme" ? "Theme Editor" : "Theme Code"}
             </h2>
@@ -915,7 +925,7 @@ export const playgroundTheme = defineThemePreset({
                   id="pane-preset-select"
                   value={preset}
                   onChange={(e) => setPreset(e.target.value)}
-                  className={`h-8 rounded-full border-0 bg-(--sys-color-surface-container-high) px-3 text-xs font-medium text-(--sys-color-on-surface) ${FOCUS_RING}`}
+                  className={`h-8 rounded-full border-0 bg-(--sys-color-surface-container-high) px-3 ${T_BODY_SM} text-(--sys-color-on-surface) ${FOCUS_RING}`}
                 >
                   <optgroup label="Core Presets">
                     {BASE_PRESET_IDS.map((id) => (
@@ -950,9 +960,9 @@ export const playgroundTheme = defineThemePreset({
             <button
               type="button"
               onClick={() => setThemeSubTab("base")}
-              className={`flex-1 pb-2.5 text-center text-xs font-medium transition-colors relative ${
+              className={`flex-1 pb-2.5 text-center ${T_BODY_SM} ${TRANSITION} relative ${
                 themeSubTab === "base"
-                  ? "text-(--sys-color-primary) font-semibold"
+                  ? "text-(--sys-color-primary)"
                   : "text-(--sys-color-on-surface-variant) hover:text-(--sys-color-on-surface)"
               }`}
             >
@@ -964,9 +974,9 @@ export const playgroundTheme = defineThemePreset({
             <button
               type="button"
               onClick={() => setThemeSubTab("tokens")}
-              className={`flex-1 pb-2.5 text-center text-xs font-medium transition-colors relative ${
+              className={`flex-1 pb-2.5 text-center ${T_BODY_SM} ${TRANSITION} relative ${
                 themeSubTab === "tokens"
-                  ? "text-(--sys-color-primary) font-semibold"
+                  ? "text-(--sys-color-primary)"
                   : "text-(--sys-color-on-surface-variant) hover:text-(--sys-color-on-surface)"
               }`}
             >
@@ -986,10 +996,14 @@ export const playgroundTheme = defineThemePreset({
               {/* 0. Design System Architecture (First Choice) */}
               <div className="flex flex-col gap-2.5">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold uppercase tracking-wider text-(--sys-color-on-surface-variant)">
+                  <span
+                    className={`${T_KICKER} uppercase text-(--sys-color-on-surface-variant)`}
+                  >
                     Design System
                   </span>
-                  <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-(--sys-color-primary)/15 text-(--sys-color-primary) font-semibold">
+                  <span
+                    className={`${T_LABEL} font-mono px-2 py-0.5 rounded-full bg-(--sys-color-primary)/15 text-(--sys-color-primary)`}
+                  >
                     {
                       SYSTEM_OPTIONS.find((sys) => sys.id === activeSystem)
                         ?.label
@@ -997,7 +1011,7 @@ export const playgroundTheme = defineThemePreset({
                   </span>
                 </div>
 
-                <div className="grid grid-cols-3 gap-1.5 p-1 rounded-2xl bg-(--sys-color-surface-container-high)">
+                <div className="grid grid-cols-3 gap-1.5 p-1 rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container-high)">
                   {SYSTEM_OPTIONS.map((sys) => {
                     const isSelected = activeSystem === sys.id;
                     return (
@@ -1005,23 +1019,23 @@ export const playgroundTheme = defineThemePreset({
                         key={sys.id}
                         type="button"
                         onClick={() => selectSystem(sys.id)}
-                        className={`flex flex-col items-center justify-center py-2 px-1 rounded-xl text-center transition-all ${FOCUS_RING} ${
+                        className={`flex flex-col items-center justify-center py-2 px-1 rounded-(--sys-shape-corner-medium) text-center ${TRANSITION} ${FOCUS_RING} ${
                           isSelected
-                            ? "bg-(--sys-color-surface-container) text-(--sys-color-on-surface) shadow-xs font-semibold"
+                            ? "bg-(--sys-color-surface-container) text-(--sys-color-on-surface)"
                             : "text-(--sys-color-on-surface-variant) hover:text-(--sys-color-on-surface)"
                         }`}
                       >
                         <div className="flex items-center gap-1.5">
                           <Icon name={sys.icon} size={15} />
-                          <span className="text-xs font-medium">
-                            {sys.label}
-                          </span>
+                          <span className={`${T_BODY_SM}`}>{sys.label}</span>
                         </div>
                       </button>
                     );
                   })}
                 </div>
-                <p className="m-0 text-[11px] text-(--sys-color-on-surface-variant) leading-tight">
+                <p
+                  className={`m-0 ${T_LABEL} text-(--sys-color-on-surface-variant)`}
+                >
                   {
                     SYSTEM_OPTIONS.find((sys) => sys.id === activeSystem)
                       ?.tagline
@@ -1032,10 +1046,12 @@ export const playgroundTheme = defineThemePreset({
               {/* 1. Primary Seed & Colors */}
               <div className="flex flex-col gap-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold uppercase tracking-wider text-(--sys-color-on-surface-variant)">
+                  <span
+                    className={`${T_KICKER} uppercase text-(--sys-color-on-surface-variant)`}
+                  >
                     Seed Color
                   </span>
-                  <span className="font-mono text-xs font-bold text-(--sys-color-primary)">
+                  <span className={`${T_CODE} text-(--sys-color-primary)`}>
                     {seedHex.toUpperCase()}
                   </span>
                 </div>
@@ -1059,7 +1075,7 @@ export const playgroundTheme = defineThemePreset({
                           setSeedText(palette.hex);
                         }}
                         title={palette.name}
-                        className={`group relative flex size-9 items-center justify-center rounded-full transition-transform hover:scale-110 ${FOCUS_RING} ${
+                        className={`group relative flex size-9 items-center justify-center rounded-full ${TRANSITION} ${STATE_LAYERS} ${FOCUS_RING} ${
                           isSelected
                             ? "ring-2 ring-(--sys-color-primary) ring-offset-2 ring-offset-(--sys-color-surface-container)"
                             : ""
@@ -1067,6 +1083,10 @@ export const playgroundTheme = defineThemePreset({
                         style={{ backgroundColor: palette.hex }}
                       >
                         {isSelected ? (
+                          // Data-viz: the check sits on an arbitrary seed hex,
+                          // so no theme role can guarantee contrast — white
+                          // with a scrim shadow is the legible choice, same
+                          // as chart ink on data fills.
                           <span className="flex items-center justify-center text-white drop-shadow-sm">
                             <Icon name="check" size={16} />
                           </span>
@@ -1078,7 +1098,7 @@ export const playgroundTheme = defineThemePreset({
 
                 {/* Custom Hex Pill Input */}
                 <div className="flex items-center gap-2 pt-2">
-                  <div className="relative flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-full shadow-xs">
+                  <div className="relative flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-full">
                     <input
                       type="color"
                       aria-label="Custom Hex Color"
@@ -1100,7 +1120,7 @@ export const playgroundTheme = defineThemePreset({
                     spellCheck={false}
                     onChange={(e) => onSeedText(e.target.value)}
                     placeholder="#6750a4"
-                    className={`h-9 flex-1 rounded-full border-0 bg-(--sys-color-surface-container-high) px-4 font-mono text-xs text-(--sys-color-on-surface) ${FOCUS_RING}`}
+                    className={`h-9 flex-1 rounded-full border-0 bg-(--sys-color-surface-container-high) px-4 ${T_CODE} text-(--sys-color-on-surface) ${FOCUS_RING}`}
                   />
                 </div>
               </div>
@@ -1108,10 +1128,14 @@ export const playgroundTheme = defineThemePreset({
               {/* 2. Shape / Radius */}
               <div className="flex flex-col gap-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold uppercase tracking-wider text-(--sys-color-on-surface-variant)">
+                  <span
+                    className={`${T_KICKER} uppercase text-(--sys-color-on-surface-variant)`}
+                  >
                     Corner Radius Scale
                   </span>
-                  <span className="font-mono text-xs text-(--sys-color-on-surface-variant)">
+                  <span
+                    className={`${T_CODE} text-(--sys-color-on-surface-variant)`}
+                  >
                     {radius.toFixed(2)}x
                   </span>
                 </div>
@@ -1132,9 +1156,9 @@ export const playgroundTheme = defineThemePreset({
                         key={opt.label}
                         type="button"
                         onClick={() => setRadius(opt.factor)}
-                        className={`flex py-2 items-center justify-center rounded-xl text-center text-xs transition-colors ${FOCUS_RING} ${
+                        className={`flex py-2 items-center justify-center rounded-(--sys-shape-corner-medium) text-center ${T_BODY_SM} ${TRANSITION} ${FOCUS_RING} ${
                           isSelected
-                            ? "bg-(--sys-color-primary) text-(--sys-color-on-primary) font-semibold shadow-xs"
+                            ? "bg-(--sys-color-primary) text-(--sys-color-on-primary)"
                             : "bg-(--sys-color-surface-container-high) text-(--sys-color-on-surface-variant) hover:text-(--sys-color-on-surface)"
                         }`}
                       >
@@ -1160,10 +1184,14 @@ export const playgroundTheme = defineThemePreset({
               {/* 3. Typography / Fonts */}
               <div className="flex flex-col gap-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold uppercase tracking-wider text-(--sys-color-on-surface-variant)">
+                  <span
+                    className={`${T_KICKER} uppercase text-(--sys-color-on-surface-variant)`}
+                  >
                     Font Family
                   </span>
-                  <span className="text-xs text-(--sys-color-on-surface-variant)">
+                  <span
+                    className={`${T_BODY_SM} text-(--sys-color-on-surface-variant)`}
+                  >
                     {FONT_OPTIONS.find((f) => f.id === currentFont)?.name}
                   </span>
                 </div>
@@ -1176,9 +1204,9 @@ export const playgroundTheme = defineThemePreset({
                         key={fontOpt.id}
                         type="button"
                         onClick={() => setFont(fontOpt.id)}
-                        className={`px-2 py-2 rounded-xl text-center text-xs transition-colors ${FOCUS_RING} ${
+                        className={`px-2 py-2 rounded-(--sys-shape-corner-medium) text-center ${T_BODY_SM} ${TRANSITION} ${FOCUS_RING} ${
                           isSelected
-                            ? "bg-(--sys-color-primary) text-(--sys-color-on-primary) font-semibold shadow-xs"
+                            ? "bg-(--sys-color-primary) text-(--sys-color-on-primary)"
                             : "bg-(--sys-color-surface-container-high) text-(--sys-color-on-surface-variant) hover:text-(--sys-color-on-surface)"
                         }`}
                       >
@@ -1191,7 +1219,9 @@ export const playgroundTheme = defineThemePreset({
 
               {/* 4. Density / Metrics */}
               <div className="flex flex-col gap-3">
-                <span className="text-xs font-semibold uppercase tracking-wider text-(--sys-color-on-surface-variant)">
+                <span
+                  className={`${T_KICKER} uppercase text-(--sys-color-on-surface-variant)`}
+                >
                   UI Density
                 </span>
                 <div className="grid grid-cols-3 gap-1.5">
@@ -1202,9 +1232,9 @@ export const playgroundTheme = defineThemePreset({
                         key={dens.id}
                         type="button"
                         onClick={() => setDensity(dens.id)}
-                        className={`px-2 py-2 rounded-xl text-center text-xs transition-colors ${FOCUS_RING} ${
+                        className={`px-2 py-2 rounded-(--sys-shape-corner-medium) text-center ${T_BODY_SM} ${TRANSITION} ${FOCUS_RING} ${
                           isSelected
-                            ? "bg-(--sys-color-primary) text-(--sys-color-on-primary) font-semibold shadow-xs"
+                            ? "bg-(--sys-color-primary) text-(--sys-color-on-primary)"
                             : "bg-(--sys-color-surface-container-high) text-(--sys-color-on-surface-variant) hover:text-(--sys-color-on-surface)"
                         }`}
                       >
@@ -1222,10 +1252,14 @@ export const playgroundTheme = defineThemePreset({
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-2.5">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold uppercase tracking-wider text-(--sys-color-on-surface-variant)">
+                  <span
+                    className={`${T_KICKER} uppercase text-(--sys-color-on-surface-variant)`}
+                  >
                     CSS Token Variables
                   </span>
-                  <span className="font-mono text-[11px] text-(--sys-color-on-surface-variant)">
+                  <span
+                    className={`${T_CODE} text-(--sys-color-on-surface-variant)`}
+                  >
                     {displayedTokens.length} active
                   </span>
                 </div>
@@ -1237,7 +1271,7 @@ export const playgroundTheme = defineThemePreset({
                   value={tokenSearch}
                   onChange={(e) => setTokenSearch(e.target.value)}
                   placeholder="Filter tokens..."
-                  className={`h-9 w-full rounded-full border-0 bg-(--sys-color-surface-container-high) px-4 text-xs text-(--sys-color-on-surface) ${FOCUS_RING}`}
+                  className={`h-9 w-full rounded-full border-0 bg-(--sys-color-surface-container-high) px-4 ${T_BODY_SM} text-(--sys-color-on-surface) ${FOCUS_RING}`}
                 />
 
                 {/* Category Pills */}
@@ -1248,7 +1282,7 @@ export const playgroundTheme = defineThemePreset({
                         key={filter}
                         type="button"
                         onClick={() => setTokenFilter(filter)}
-                        className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
+                        className={`rounded-full px-3 py-1 ${T_BODY_SM} ${TRANSITION} ${
                           tokenFilter === filter
                             ? "bg-(--sys-color-primary) text-(--sys-color-on-primary)"
                             : "bg-(--sys-color-surface-container-high) text-(--sys-color-on-surface-variant) hover:text-(--sys-color-on-surface)"
@@ -1262,9 +1296,11 @@ export const playgroundTheme = defineThemePreset({
               </div>
 
               {/* Token List */}
-              <div className="flex flex-col divide-y divide-(--sys-color-outline-variant)/15 rounded-2xl bg-(--sys-color-surface-container-low) p-2">
+              <div className="flex flex-col divide-y divide-(--sys-color-outline-variant)/15 rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container-low) p-2">
                 {displayedTokens.length === 0 ? (
-                  <div className="p-4 text-center text-xs text-(--sys-color-on-surface-variant)">
+                  <div
+                    className={`p-4 text-center ${T_BODY_SM} text-(--sys-color-on-surface-variant)`}
+                  >
                     No tokens match "{tokenSearch}"
                   </div>
                 ) : (
@@ -1276,22 +1312,26 @@ export const playgroundTheme = defineThemePreset({
                     return (
                       <div
                         key={tokenName}
-                        className="flex items-center justify-between gap-2 p-2 hover:bg-(--sys-color-surface-container-high)/50 rounded-xl"
+                        className="flex items-center justify-between gap-2 p-2 hover:bg-(--sys-color-surface-container-high)/50 rounded-(--sys-shape-corner-medium)"
                       >
                         <div className="flex min-w-0 items-center gap-2">
                           {isColor ? (
                             <span
-                              className="size-3.5 shrink-0 rounded-full shadow-xs"
+                              className="size-3.5 shrink-0 rounded-full"
                               style={{ backgroundColor: tokenVal }}
                             />
                           ) : null}
-                          <span className="truncate font-mono text-[11px] text-(--sys-color-on-surface)">
+                          <span
+                            className={`truncate ${T_CODE} text-(--sys-color-on-surface)`}
+                          >
                             {tokenName}
                           </span>
                         </div>
 
                         <div className="flex shrink-0 items-center gap-1.5">
-                          <span className="font-mono text-[11px] text-(--sys-color-on-surface-variant)">
+                          <span
+                            className={`${T_CODE} text-(--sys-color-on-surface-variant)`}
+                          >
                             {tokenVal}
                           </span>
                           <button
@@ -1322,10 +1362,14 @@ export const playgroundTheme = defineThemePreset({
           {activeRail === "code" && (
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-1">
-                <span className="text-xs font-semibold uppercase tracking-wider text-(--sys-color-on-surface-variant)">
+                <span
+                  className={`${T_KICKER} uppercase text-(--sys-color-on-surface-variant)`}
+                >
                   Direct Token Exports
                 </span>
-                <p className="m-0 text-xs text-(--sys-color-on-surface-variant)">
+                <p
+                  className={`m-0 ${T_BODY_SM} text-(--sys-color-on-surface-variant)`}
+                >
                   Ready to copy and paste into your project.
                 </p>
               </div>
@@ -1340,48 +1384,64 @@ export const playgroundTheme = defineThemePreset({
 
                 <Tabs.Panel value="css" className="flex flex-col gap-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-xs text-(--sys-color-on-surface-variant)">
+                    <span
+                      className={`${T_BODY_SM} text-(--sys-color-on-surface-variant)`}
+                    >
                       Tailwind v4 / CSS
                     </span>
                     <CopyButton text={cssSource} label="Copy CSS" />
                   </div>
-                  <pre className="m-0 max-h-96 overflow-auto rounded-2xl bg-(--sys-color-surface-container-low) p-3 font-mono text-xs whitespace-pre">
+                  <pre
+                    className={`m-0 max-h-96 overflow-auto rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container-low) p-3 ${T_CODE} whitespace-pre`}
+                  >
                     {cssSource}
                   </pre>
                 </Tabs.Panel>
 
                 <Tabs.Panel value="ts" className="flex flex-col gap-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-xs text-(--sys-color-on-surface-variant)">
+                    <span
+                      className={`${T_BODY_SM} text-(--sys-color-on-surface-variant)`}
+                    >
                       @xoroh/kern-tokens Preset
                     </span>
                     <CopyButton text={presetSource} label="Copy TS" />
                   </div>
-                  <pre className="m-0 max-h-96 overflow-auto rounded-2xl bg-(--sys-color-surface-container-low) p-3 font-mono text-xs whitespace-pre">
+                  <pre
+                    className={`m-0 max-h-96 overflow-auto rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container-low) p-3 ${T_CODE} whitespace-pre`}
+                  >
                     {presetSource}
                   </pre>
                 </Tabs.Panel>
 
                 <Tabs.Panel value="json" className="flex flex-col gap-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-xs text-(--sys-color-on-surface-variant)">
+                    <span
+                      className={`${T_BODY_SM} text-(--sys-color-on-surface-variant)`}
+                    >
                       DTCG JSON Tokens
                     </span>
                     <CopyButton text={jsonSource} label="Copy JSON" />
                   </div>
-                  <pre className="m-0 max-h-96 overflow-auto rounded-2xl bg-(--sys-color-surface-container-low) p-3 font-mono text-xs whitespace-pre">
+                  <pre
+                    className={`m-0 max-h-96 overflow-auto rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container-low) p-3 ${T_CODE} whitespace-pre`}
+                  >
                     {jsonSource}
                   </pre>
                 </Tabs.Panel>
 
                 <Tabs.Panel value="cli" className="flex flex-col gap-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-xs text-(--sys-color-on-surface-variant)">
+                    <span
+                      className={`${T_BODY_SM} text-(--sys-color-on-surface-variant)`}
+                    >
                       Terminal Command
                     </span>
                     <CopyButton text={cliSource} label="Copy CLI" />
                   </div>
-                  <pre className="m-0 rounded-2xl bg-(--sys-color-surface-container-low) p-3 font-mono text-xs whitespace-pre">
+                  <pre
+                    className={`m-0 rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container-low) p-3 ${T_CODE} whitespace-pre`}
+                  >
                     {cliSource}
                   </pre>
                 </Tabs.Panel>
@@ -1414,9 +1474,9 @@ export const playgroundTheme = defineThemePreset({
                 key={v.id}
                 type="button"
                 onClick={() => setPreviewView(v.id)}
-                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs transition-colors ${FOCUS_RING} ${
+                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full ${T_BODY_SM} ${TRANSITION} ${FOCUS_RING} ${
                   previewView === v.id
-                    ? "bg-(--sys-color-primary) text-(--sys-color-on-primary) shadow-xs font-semibold"
+                    ? "bg-(--sys-color-primary) text-(--sys-color-on-primary)"
                     : "text-(--sys-color-on-surface-variant) hover:text-(--sys-color-on-surface)"
                 }`}
               >
@@ -1432,9 +1492,9 @@ export const playgroundTheme = defineThemePreset({
               type="button"
               onClick={() => setViewport("desktop")}
               title="Desktop Viewport (100%)"
-              className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-xs transition-colors ${
+              className={`flex items-center gap-1 px-3 py-1.5 rounded-full ${T_BODY_SM} ${TRANSITION} ${
                 viewport === "desktop"
-                  ? "bg-(--sys-color-surface-container) text-(--sys-color-on-surface) shadow-xs font-medium"
+                  ? "bg-(--sys-color-surface-container) text-(--sys-color-on-surface)"
                   : "text-(--sys-color-on-surface-variant) hover:text-(--sys-color-on-surface)"
               }`}
             >
@@ -1445,9 +1505,9 @@ export const playgroundTheme = defineThemePreset({
               type="button"
               onClick={() => setViewport("tablet")}
               title="Tablet Viewport (768px)"
-              className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-xs transition-colors ${
+              className={`flex items-center gap-1 px-3 py-1.5 rounded-full ${T_BODY_SM} ${TRANSITION} ${
                 viewport === "tablet"
-                  ? "bg-(--sys-color-surface-container) text-(--sys-color-on-surface) shadow-xs font-medium"
+                  ? "bg-(--sys-color-surface-container) text-(--sys-color-on-surface)"
                   : "text-(--sys-color-on-surface-variant) hover:text-(--sys-color-on-surface)"
               }`}
             >
@@ -1458,9 +1518,9 @@ export const playgroundTheme = defineThemePreset({
               type="button"
               onClick={() => setViewport("mobile")}
               title="Mobile Viewport (390px)"
-              className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-xs transition-colors ${
+              className={`flex items-center gap-1 px-3 py-1.5 rounded-full ${T_BODY_SM} ${TRANSITION} ${
                 viewport === "mobile"
-                  ? "bg-(--sys-color-surface-container) text-(--sys-color-on-surface) shadow-xs font-medium"
+                  ? "bg-(--sys-color-surface-container) text-(--sys-color-on-surface)"
                   : "text-(--sys-color-on-surface-variant) hover:text-(--sys-color-on-surface)"
               }`}
             >
@@ -1477,9 +1537,9 @@ export const playgroundTheme = defineThemePreset({
                   key={c}
                   type="button"
                   onClick={() => setContrast(c)}
-                  className={`px-3 py-1 rounded-full text-xs transition-colors ${FOCUS_RING} ${
+                  className={`px-3 py-1 rounded-full ${T_BODY_SM} ${TRANSITION} ${FOCUS_RING} ${
                     contrast === c
-                      ? "bg-(--sys-color-surface-container) text-(--sys-color-on-surface) shadow-xs font-semibold"
+                      ? "bg-(--sys-color-surface-container) text-(--sys-color-on-surface)"
                       : "text-(--sys-color-on-surface-variant) hover:text-(--sys-color-on-surface)"
                   }`}
                 >
@@ -1492,7 +1552,7 @@ export const playgroundTheme = defineThemePreset({
               variant="primary"
               size="sm"
               onClick={() => setExportOpen(true)}
-              className="flex items-center gap-1.5 shadow-sm"
+              className="flex items-center gap-1.5"
             >
               <Icon name="download" size={16} />
               <span>Export</span>
@@ -1503,7 +1563,7 @@ export const playgroundTheme = defineThemePreset({
         {/* Section 3 Scrollable Canvas */}
         <div className="flex-1 overflow-y-auto p-6 lg:p-10 flex items-start justify-center">
           <div
-            className={`w-full transition-all duration-300 ${
+            className={`w-full ${TRANSITION} ${
               viewport === "mobile"
                 ? "max-w-[390px]"
                 : viewport === "tablet"
@@ -1513,21 +1573,23 @@ export const playgroundTheme = defineThemePreset({
           >
             {/* CANVAS 1: OPS DASHBOARD SCREEN */}
             {previewView === "dashboard" && (
-              <div className="flex flex-col gap-6 rounded-3xl bg-(--sys-color-surface) p-6 lg:p-8 shadow-(--sys-elevation-level1)">
+              <div className="flex flex-col gap-6 rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface) p-6 lg:p-8">
                 {/* Dashboard Top App Bar */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div className="flex items-center gap-3">
-                    <div className="flex size-10 items-center justify-center rounded-2xl bg-(--sys-color-primary-container) text-(--sys-color-on-primary-container)">
+                    <div className="flex size-10 items-center justify-center rounded-(--sys-shape-corner-large) bg-(--sys-color-primary-container) text-(--sys-color-on-primary-container)">
                       <Icon name="cloud" size={22} />
                     </div>
                     <div className="flex flex-col">
                       <h3
                         id="dashboard-title"
-                        className="m-0 text-lg font-bold tracking-tight text-(--sys-color-on-surface)"
+                        className={`m-0 ${T_SUB} text-(--sys-color-on-surface)`}
                       >
                         Production Cluster US-East
                       </h3>
-                      <span className="text-xs text-(--sys-color-on-surface-variant)">
+                      <span
+                        className={`${T_BODY_SM} text-(--sys-color-on-surface-variant)`}
+                      >
                         Kubernetes v1.31 • 48 Pods Active •{" "}
                         {
                           SYSTEM_OPTIONS.find((sys) => sys.id === activeSystem)
@@ -1559,14 +1621,18 @@ export const playgroundTheme = defineThemePreset({
                 {/* Dashboard Hero Banner */}
                 <Banner
                   icon={<Icon name="info" size={20} />}
-                  className="rounded-2xl"
+                  className="rounded-(--sys-shape-corner-large)"
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 w-full">
                     <div className="flex flex-col">
-                      <span className="font-semibold text-sm text-(--sys-color-on-info-container)">
+                      <span
+                        className={`${T_BODY_MD} text-(--sys-color-on-info-container)`}
+                      >
                         Zero-downtime Canary Deployment Ready
                       </span>
-                      <span className="text-xs text-(--sys-color-on-info-container)/90">
+                      <span
+                        className={`${T_BODY_SM} text-(--sys-color-on-info-container)/90`}
+                      >
                         All 48 edge proxies synchronized with Kern dynamic color
                         tokens. Traffic ramp is set to 25%.
                       </span>
@@ -1583,50 +1649,68 @@ export const playgroundTheme = defineThemePreset({
 
                 {/* 3 KPI Metric Cards (Authentic M3 Filled Cards) */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <div className="flex flex-col gap-2 rounded-2xl bg-(--sys-color-surface-container-high) p-5">
+                  <div className="flex flex-col gap-2 rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container-high) p-5">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-medium uppercase tracking-wider text-(--sys-color-on-surface-variant)">
+                      <span
+                        className={`${T_KICKER} uppercase text-(--sys-color-on-surface-variant)`}
+                      >
                         API Throughput
                       </span>
                       <Badge variant="count">+14.2%</Badge>
                     </div>
-                    <span className="text-2xl font-bold tracking-tight text-(--sys-color-on-surface)">
+                    <span
+                      className={`${T_SECTION} text-(--sys-color-on-surface)`}
+                    >
                       42.8k req/s
                     </span>
                     <LinearProgress value={78} />
-                    <span className="text-[11px] text-(--sys-color-on-surface-variant)">
+                    <span
+                      className={`${T_LABEL} text-(--sys-color-on-surface-variant)`}
+                    >
                       Peak window: 45.2k req/s
                     </span>
                   </div>
 
-                  <div className="flex flex-col gap-2 rounded-2xl bg-(--sys-color-surface-container-high) p-5">
+                  <div className="flex flex-col gap-2 rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container-high) p-5">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-medium uppercase tracking-wider text-(--sys-color-on-surface-variant)">
+                      <span
+                        className={`${T_KICKER} uppercase text-(--sys-color-on-surface-variant)`}
+                      >
                         p99 Latency
                       </span>
                       <Badge variant="count">-8ms</Badge>
                     </div>
-                    <span className="text-2xl font-bold tracking-tight text-(--sys-color-on-surface)">
+                    <span
+                      className={`${T_SECTION} text-(--sys-color-on-surface)`}
+                    >
                       18.4 ms
                     </span>
                     <LinearProgress value={24} />
-                    <span className="text-[11px] text-(--sys-color-on-surface-variant)">
+                    <span
+                      className={`${T_LABEL} text-(--sys-color-on-surface-variant)`}
+                    >
                       SLA Threshold: 50.0 ms
                     </span>
                   </div>
 
-                  <div className="flex flex-col gap-2 rounded-2xl bg-(--sys-color-surface-container-high) p-5">
+                  <div className="flex flex-col gap-2 rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container-high) p-5">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-medium uppercase tracking-wider text-(--sys-color-on-surface-variant)">
+                      <span
+                        className={`${T_KICKER} uppercase text-(--sys-color-on-surface-variant)`}
+                      >
                         Global Error Rate
                       </span>
                       <Badge variant="count">0.002%</Badge>
                     </div>
-                    <span className="text-2xl font-bold tracking-tight text-(--sys-color-on-surface)">
+                    <span
+                      className={`${T_SECTION} text-(--sys-color-on-surface)`}
+                    >
                       0.002 %
                     </span>
                     <LinearProgress value={4} />
-                    <span className="text-[11px] text-(--sys-color-on-surface-variant)">
+                    <span
+                      className={`${T_LABEL} text-(--sys-color-on-surface-variant)`}
+                    >
                       Zero 5xx in the last 4 hours
                     </span>
                   </div>
@@ -1635,13 +1719,13 @@ export const playgroundTheme = defineThemePreset({
                 {/* Main 2-Column Workload & Controls Section */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                   {/* Left Column: Workload Table */}
-                  <div className="lg:col-span-2 flex flex-col gap-4 rounded-2xl bg-(--sys-color-surface-container-low) p-5">
+                  <div className="lg:col-span-2 flex flex-col gap-4 rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container-low) p-5">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <Icon name="dns" size={18} />
                         <h4
                           id="active-workloads-title"
-                          className="m-0 text-sm font-semibold text-(--sys-color-on-surface)"
+                          className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface)`}
                         >
                           Active Microservices
                         </h4>
@@ -1698,10 +1782,10 @@ export const playgroundTheme = defineThemePreset({
                           },
                         ].map((row) => (
                           <Table.Row key={row.name}>
-                            <Table.Cell className="font-mono text-xs font-medium">
+                            <Table.Cell className={`${T_CODE}`}>
                               {row.name}
                             </Table.Cell>
-                            <Table.Cell className="text-xs">
+                            <Table.Cell className={`${T_BODY_SM}`}>
                               {row.replicas}
                             </Table.Cell>
                             <Table.Cell>
@@ -1723,13 +1807,13 @@ export const playgroundTheme = defineThemePreset({
                   </div>
 
                   {/* Right Column: Policies & FAB */}
-                  <div className="flex flex-col justify-between gap-4 rounded-2xl bg-(--sys-color-surface-container-low) p-5">
+                  <div className="flex flex-col justify-between gap-4 rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container-low) p-5">
                     <div className="flex flex-col gap-4">
                       <div className="flex items-center gap-2">
                         <Icon name="shield" size={18} />
                         <h4
                           id="security-policies-title"
-                          className="m-0 text-sm font-semibold text-(--sys-color-on-surface)"
+                          className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface)`}
                         >
                           Security Guardrails
                         </h4>
@@ -1737,10 +1821,14 @@ export const playgroundTheme = defineThemePreset({
 
                       <div className="flex items-center justify-between">
                         <div className="flex flex-col">
-                          <span className="text-xs font-medium text-(--sys-color-on-surface)">
+                          <span
+                            className={`${T_BODY_SM} text-(--sys-color-on-surface)`}
+                          >
                             mTLS Enforcement
                           </span>
-                          <span className="text-[11px] text-(--sys-color-on-surface-variant)">
+                          <span
+                            className={`${T_LABEL} text-(--sys-color-on-surface-variant)`}
+                          >
                             Mutual TLS on internal mesh
                           </span>
                         </div>
@@ -1753,10 +1841,14 @@ export const playgroundTheme = defineThemePreset({
 
                       <div className="flex items-center justify-between">
                         <div className="flex flex-col">
-                          <span className="text-xs font-medium text-(--sys-color-on-surface)">
+                          <span
+                            className={`${T_BODY_SM} text-(--sys-color-on-surface)`}
+                          >
                             Strict Rate Limiting
                           </span>
-                          <span className="text-[11px] text-(--sys-color-on-surface-variant)">
+                          <span
+                            className={`${T_LABEL} text-(--sys-color-on-surface-variant)`}
+                          >
                             Max 1,000 req/min per IP
                           </span>
                         </div>
@@ -1768,11 +1860,13 @@ export const playgroundTheme = defineThemePreset({
                       </div>
 
                       <div className="flex flex-col gap-1.5 pt-2">
-                        <div className="flex items-center justify-between text-xs">
+                        <div
+                          className={`flex items-center justify-between ${T_BODY_SM}`}
+                        >
                           <span className="text-(--sys-color-on-surface)">
                             Autoscale Headroom
                           </span>
-                          <span className="font-mono text-(--sys-color-primary) font-semibold">
+                          <span className="font-mono text-(--sys-color-primary)">
                             {demoRange}%
                           </span>
                         </div>
@@ -1803,22 +1897,24 @@ export const playgroundTheme = defineThemePreset({
 
             {/* CANVAS 2: COMPONENT MATRIX */}
             {previewView === "matrix" && (
-              <div className="flex flex-col gap-8 rounded-3xl bg-(--sys-color-surface) p-6 lg:p-10 shadow-(--sys-elevation-level1)">
+              <div className="flex flex-col gap-8 rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface) p-6 lg:p-10">
                 {/* 1. M3 Button Configurations */}
                 <div className="flex flex-col gap-4">
                   <div className="flex items-center justify-between">
                     <h3
                       id="m3-button-hierarchy-title"
-                      className="m-0 text-base font-bold tracking-tight text-(--sys-color-on-surface)"
+                      className={`m-0 ${T_BODY} text-(--sys-color-on-surface)`}
                     >
                       Material 3 Button Configurations
                     </h3>
-                    <span className="text-xs text-(--sys-color-on-surface-variant)">
+                    <span
+                      className={`${T_BODY_SM} text-(--sys-color-on-surface-variant)`}
+                    >
                       5 semantic M3 configurations
                     </span>
                   </div>
 
-                  <div className="flex flex-wrap items-center gap-3 rounded-2xl bg-(--sys-color-surface-container-low) p-6">
+                  <div className="flex flex-wrap items-center gap-3 rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container-low) p-6">
                     <Button variant="primary">Filled Button</Button>
                     <Button variant="tonal">Tonal Button</Button>
                     <Button variant="elevated">Elevated Button</Button>
@@ -1835,11 +1931,13 @@ export const playgroundTheme = defineThemePreset({
                   <div className="flex items-center justify-between">
                     <h3
                       id="m3-card-variants-title"
-                      className="m-0 text-base font-bold tracking-tight text-(--sys-color-on-surface)"
+                      className={`m-0 ${T_BODY} text-(--sys-color-on-surface)`}
                     >
                       Material 3 Card Variants
                     </h3>
-                    <span className="text-xs text-(--sys-color-on-surface-variant)">
+                    <span
+                      className={`${T_BODY_SM} text-(--sys-color-on-surface-variant)`}
+                    >
                       Filled, Elevated, and Outlined
                     </span>
                   </div>
@@ -1847,15 +1945,21 @@ export const playgroundTheme = defineThemePreset({
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <Card variant="filled" className="p-5 flex flex-col gap-2">
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-semibold uppercase text-(--sys-color-primary)">
+                        <span
+                          className={`${T_BODY_SM} uppercase text-(--sys-color-primary)`}
+                        >
                           Filled Card
                         </span>
                         <Icon name="check-circle" size={18} />
                       </div>
-                      <span className="text-sm font-semibold text-(--sys-color-on-surface)">
+                      <span
+                        className={`${T_BODY_MD} text-(--sys-color-on-surface)`}
+                      >
                         Surface Container
                       </span>
-                      <p className="m-0 text-xs text-(--sys-color-on-surface-variant)">
+                      <p
+                        className={`m-0 ${T_BODY_SM} text-(--sys-color-on-surface-variant)`}
+                      >
                         No border. Relies on tonal background contrast with the
                         parent canvas.
                       </p>
@@ -1866,15 +1970,21 @@ export const playgroundTheme = defineThemePreset({
                       className="p-5 flex flex-col gap-2"
                     >
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-semibold uppercase text-(--sys-color-primary)">
+                        <span
+                          className={`${T_BODY_SM} uppercase text-(--sys-color-primary)`}
+                        >
                           Elevated Card
                         </span>
                         <Icon name="trending-up" size={18} />
                       </div>
-                      <span className="text-sm font-semibold text-(--sys-color-on-surface)">
+                      <span
+                        className={`${T_BODY_MD} text-(--sys-color-on-surface)`}
+                      >
                         Level 1 Shadow
                       </span>
-                      <p className="m-0 text-xs text-(--sys-color-on-surface-variant)">
+                      <p
+                        className={`m-0 ${T_BODY_SM} text-(--sys-color-on-surface-variant)`}
+                      >
                         Soft elevation shadow lifts the card cleanly above the
                         surface.
                       </p>
@@ -1885,15 +1995,21 @@ export const playgroundTheme = defineThemePreset({
                       className="p-5 flex flex-col gap-2"
                     >
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-semibold uppercase text-(--sys-color-primary)">
+                        <span
+                          className={`${T_BODY_SM} uppercase text-(--sys-color-primary)`}
+                        >
                           Outlined Card
                         </span>
                         <Icon name="crop-square" size={18} />
                       </div>
-                      <span className="text-sm font-semibold text-(--sys-color-on-surface)">
+                      <span
+                        className={`${T_BODY_MD} text-(--sys-color-on-surface)`}
+                      >
                         Outline Hairline
                       </span>
-                      <p className="m-0 text-xs text-(--sys-color-on-surface-variant)">
+                      <p
+                        className={`m-0 ${T_BODY_SM} text-(--sys-color-on-surface-variant)`}
+                      >
                         Subtle outline border for distinct structural
                         separation.
                       </p>
@@ -1904,10 +2020,10 @@ export const playgroundTheme = defineThemePreset({
                 {/* 3. Selection Controls & Chips */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   {/* Chips & Badges */}
-                  <div className="flex flex-col gap-3 rounded-2xl bg-(--sys-color-surface-container-low) p-5">
+                  <div className="flex flex-col gap-3 rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container-low) p-5">
                     <h4
                       id="chips-badges-title"
-                      className="m-0 text-sm font-semibold text-(--sys-color-on-surface)"
+                      className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface)`}
                     >
                       Chips & Badges
                     </h4>
@@ -1926,16 +2042,18 @@ export const playgroundTheme = defineThemePreset({
                   </div>
 
                   {/* Toggles & Segmented Buttons */}
-                  <div className="flex flex-col gap-3 rounded-2xl bg-(--sys-color-surface-container-low) p-5">
+                  <div className="flex flex-col gap-3 rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container-low) p-5">
                     <h4
                       id="selection-controls-title"
-                      className="m-0 text-sm font-semibold text-(--sys-color-on-surface)"
+                      className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface)`}
                     >
                       Selection Controls
                     </h4>
                     <div className="flex flex-col gap-3 pt-1">
                       <div className="flex items-center justify-between">
-                        <span className="text-xs text-(--sys-color-on-surface)">
+                        <span
+                          className={`${T_BODY_SM} text-(--sys-color-on-surface)`}
+                        >
                           Active Notification Switch
                         </span>
                         <Switch
@@ -1945,7 +2063,9 @@ export const playgroundTheme = defineThemePreset({
                         />
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-xs text-(--sys-color-on-surface)">
+                        <span
+                          className={`${T_BODY_SM} text-(--sys-color-on-surface)`}
+                        >
                           Segmented Selection
                         </span>
                         <SegmentedButton.Root
@@ -1975,14 +2095,14 @@ export const playgroundTheme = defineThemePreset({
             {previewView === "blocks" && (
               <div className="flex flex-col gap-6">
                 {/* Block Selector & Filter Bar */}
-                <div className="flex items-center justify-between gap-4 rounded-2xl bg-(--sys-color-surface) p-3 shadow-(--sys-elevation-level1)">
+                <div className="flex items-center justify-between gap-4 rounded-(--sys-shape-corner-large) bg-(--sys-color-surface) p-3">
                   <div className="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
                     <button
                       type="button"
                       onClick={() => setSelectedBlock("all")}
-                      className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors shrink-0 ${FOCUS_RING} ${
+                      className={`px-3 py-1.5 rounded-full ${T_BODY_SM} ${TRANSITION} shrink-0 ${FOCUS_RING} ${
                         selectedBlock === "all"
-                          ? "bg-(--sys-color-primary) text-(--sys-color-on-primary) font-semibold shadow-xs"
+                          ? "bg-(--sys-color-primary) text-(--sys-color-on-primary)"
                           : "bg-(--sys-color-surface-container) text-(--sys-color-on-surface-variant) hover:text-(--sys-color-on-surface)"
                       }`}
                     >
@@ -1993,9 +2113,9 @@ export const playgroundTheme = defineThemePreset({
                         key={b.entry.name}
                         type="button"
                         onClick={() => setSelectedBlock(b.entry.name)}
-                        className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors shrink-0 ${FOCUS_RING} ${
+                        className={`px-3 py-1.5 rounded-full ${T_BODY_SM} ${TRANSITION} shrink-0 ${FOCUS_RING} ${
                           selectedBlock === b.entry.name
-                            ? "bg-(--sys-color-primary) text-(--sys-color-on-primary) font-semibold shadow-xs"
+                            ? "bg-(--sys-color-primary) text-(--sys-color-on-primary)"
                             : "bg-(--sys-color-surface-container) text-(--sys-color-on-surface-variant) hover:text-(--sys-color-on-surface)"
                         }`}
                       >
@@ -2003,7 +2123,9 @@ export const playgroundTheme = defineThemePreset({
                       </button>
                     ))}
                   </div>
-                  <span className="hidden sm:inline font-mono text-xs text-(--sys-color-on-surface-variant) shrink-0">
+                  <span
+                    className={`hidden sm:inline ${T_CODE} text-(--sys-color-on-surface-variant) shrink-0`}
+                  >
                     {filteredBlocks.length} visible
                   </span>
                 </div>
@@ -2011,23 +2133,27 @@ export const playgroundTheme = defineThemePreset({
                   return (
                     <div
                       key={b.entry.name}
-                      className="flex flex-col gap-4 rounded-3xl bg-(--sys-color-surface) p-6 lg:p-8 shadow-(--sys-elevation-level1)"
+                      className="flex flex-col gap-4 rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface) p-6 lg:p-8"
                     >
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                         <div className="flex flex-col">
                           <h3
                             id={`block-title-${b.entry.name}`}
-                            className="m-0 text-base font-bold text-(--sys-color-on-surface)"
+                            className={`m-0 ${T_BODY} text-(--sys-color-on-surface)`}
                           >
                             {b.entry.title}
                           </h3>
-                          <span className="text-xs text-(--sys-color-on-surface-variant)">
+                          <span
+                            className={`${T_BODY_SM} text-(--sys-color-on-surface-variant)`}
+                          >
                             Category: {b.entry.category}
                           </span>
                         </div>
 
                         <div className="flex items-center gap-2">
-                          <code className="text-[11px] font-mono px-3 py-1 rounded-full bg-(--sys-color-surface-container-high) text-(--sys-color-on-surface-variant)">
+                          <code
+                            className={`${T_LABEL} font-mono px-3 py-1 rounded-full bg-(--sys-color-surface-container-high) text-(--sys-color-on-surface-variant)`}
+                          >
                             {installCommand(b.entry.name)}
                           </code>
                           <CopyButton
@@ -2037,7 +2163,7 @@ export const playgroundTheme = defineThemePreset({
                         </div>
                       </div>
 
-                      <div className="rounded-2xl bg-(--sys-color-surface-container-low) p-6">
+                      <div className="rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container-low) p-6">
                         {b.render()}
                       </div>
                     </div>
@@ -2048,18 +2174,20 @@ export const playgroundTheme = defineThemePreset({
 
             {/* CANVAS 4: TONAL PALETTES */}
             {previewView === "palettes" && tonalRamps && (
-              <div className="flex flex-col gap-8 rounded-3xl bg-(--sys-color-surface) p-6 lg:p-10 shadow-(--sys-elevation-level1)">
+              <div className="flex flex-col gap-8 rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface) p-6 lg:p-10">
                 <div className="flex flex-col gap-1">
                   <h3
                     id="tonal-ramps-title"
-                    className="m-0 text-lg font-bold tracking-tight text-(--sys-color-on-surface)"
+                    className={`m-0 ${T_SUB} text-(--sys-color-on-surface)`}
                   >
                     Material Design 3 Algorithmic Tonal Ladders
                   </h3>
-                  <p className="m-0 text-xs text-(--sys-color-on-surface-variant)">
+                  <p
+                    className={`m-0 ${T_BODY_SM} text-(--sys-color-on-surface-variant)`}
+                  >
                     Complete 11-step ramps calculated via OKLCH color science
                     for seed{" "}
-                    <span className="font-mono font-bold text-(--sys-color-primary)">
+                    <span className="font-mono text-(--sys-color-primary)">
                       {seedHex}
                     </span>
                     .
@@ -2077,12 +2205,16 @@ export const playgroundTheme = defineThemePreset({
                   <div key={name} className="flex flex-col gap-3">
                     <h4
                       id={`palette-title-${name.toLowerCase().replace(/\s+/g, "-")}`}
-                      className="m-0 text-sm font-semibold text-(--sys-color-on-surface)"
+                      className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface)`}
                     >
                       {name}
                     </h4>
 
-                    <div className="grid grid-cols-11 overflow-hidden rounded-2xl shadow-xs">
+                    <div className="grid grid-cols-11 overflow-hidden rounded-(--sys-shape-corner-large)">
+                      {/* Data-viz: cells paint arbitrary ramp hexes, so the
+                          step/hex ink tracks the painted value (white on deep
+                          tones, black on light) — theme roles cannot contrast
+                          data fills. */}
                       {Object.entries(ramp).map(([toneStep, stepData]) => {
                         const hex = stepData.srgb;
                         const toneNum = Number(toneStep);
@@ -2094,14 +2226,14 @@ export const playgroundTheme = defineThemePreset({
                             style={{ backgroundColor: hex }}
                           >
                             <span
-                              className={`text-[11px] font-mono font-medium ${
+                              className={`${T_LABEL} font-mono ${
                                 isLightText ? "text-white" : "text-black"
                               }`}
                             >
                               {toneStep}
                             </span>
                             <span
-                              className={`text-[10px] font-mono uppercase tracking-tighter opacity-80 ${
+                              className={`${T_LABEL} font-mono uppercase opacity-80 ${
                                 isLightText ? "text-white" : "text-black"
                               }`}
                             >
@@ -2123,7 +2255,7 @@ export const playgroundTheme = defineThemePreset({
       {/* EXPORT DIALOG MODAL                                               */}
       {/* ================================================================= */}
       <Dialog.Root open={exportOpen} onOpenChange={setExportOpen}>
-        <Dialog.Content className="max-w-2xl bg-(--sys-color-surface) text-(--sys-color-on-surface) rounded-3xl p-6">
+        <Dialog.Content className="max-w-2xl bg-(--sys-color-surface) text-(--sys-color-on-surface) rounded-(--sys-shape-corner-extra-large) p-6">
           <Dialog.Title>Export Material 3 Theme</Dialog.Title>
           <Dialog.Description>
             Copy theme tokens in Tailwind v4, TypeScript preset, DTCG JSON, or
@@ -2141,48 +2273,64 @@ export const playgroundTheme = defineThemePreset({
 
               <Tabs.Panel value="css" className="mt-3 flex flex-col gap-2">
                 <div className="flex justify-between items-center">
-                  <span className="text-xs text-(--sys-color-on-surface-variant)">
+                  <span
+                    className={`${T_BODY_SM} text-(--sys-color-on-surface-variant)`}
+                  >
                     Paste into your globals.css
                   </span>
                   <CopyButton text={cssSource} label="Copy CSS" />
                 </div>
-                <pre className="m-0 max-h-72 overflow-auto rounded-2xl bg-(--sys-color-surface-container-low) p-4 font-mono text-xs whitespace-pre">
+                <pre
+                  className={`m-0 max-h-72 overflow-auto rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container-low) p-4 ${T_CODE} whitespace-pre`}
+                >
                   {cssSource}
                 </pre>
               </Tabs.Panel>
 
               <Tabs.Panel value="ts" className="mt-3 flex flex-col gap-2">
                 <div className="flex justify-between items-center">
-                  <span className="text-xs text-(--sys-color-on-surface-variant)">
+                  <span
+                    className={`${T_BODY_SM} text-(--sys-color-on-surface-variant)`}
+                  >
                     Use with @xoroh/kern-tokens
                   </span>
                   <CopyButton text={presetSource} label="Copy TypeScript" />
                 </div>
-                <pre className="m-0 max-h-72 overflow-auto rounded-2xl bg-(--sys-color-surface-container-low) p-4 font-mono text-xs whitespace-pre">
+                <pre
+                  className={`m-0 max-h-72 overflow-auto rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container-low) p-4 ${T_CODE} whitespace-pre`}
+                >
                   {presetSource}
                 </pre>
               </Tabs.Panel>
 
               <Tabs.Panel value="json" className="mt-3 flex flex-col gap-2">
                 <div className="flex justify-between items-center">
-                  <span className="text-xs text-(--sys-color-on-surface-variant)">
+                  <span
+                    className={`${T_BODY_SM} text-(--sys-color-on-surface-variant)`}
+                  >
                     W3C Design Token Community Group (DTCG)
                   </span>
                   <CopyButton text={jsonSource} label="Copy JSON" />
                 </div>
-                <pre className="m-0 max-h-72 overflow-auto rounded-2xl bg-(--sys-color-surface-container-low) p-4 font-mono text-xs whitespace-pre">
+                <pre
+                  className={`m-0 max-h-72 overflow-auto rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container-low) p-4 ${T_CODE} whitespace-pre`}
+                >
                   {jsonSource}
                 </pre>
               </Tabs.Panel>
 
               <Tabs.Panel value="cli" className="mt-3 flex flex-col gap-2">
                 <div className="flex justify-between items-center">
-                  <span className="text-xs text-(--sys-color-on-surface-variant)">
+                  <span
+                    className={`${T_BODY_SM} text-(--sys-color-on-surface-variant)`}
+                  >
                     Run in your terminal
                   </span>
                   <CopyButton text={cliSource} label="Copy Command" />
                 </div>
-                <pre className="m-0 rounded-2xl bg-(--sys-color-surface-container-low) p-4 font-mono text-xs whitespace-pre">
+                <pre
+                  className={`m-0 rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container-low) p-4 ${T_CODE} whitespace-pre`}
+                >
                   {cliSource}
                 </pre>
               </Tabs.Panel>
@@ -2199,18 +2347,18 @@ export const playgroundTheme = defineThemePreset({
 
       {/* TEST ROUTING DIALOG */}
       <Dialog.Root open={testDialogOpen} onOpenChange={setTestDialogOpen}>
-        <Dialog.Content className="max-w-md bg-(--sys-color-surface) text-(--sys-color-on-surface) rounded-3xl p-6">
+        <Dialog.Content className="max-w-md bg-(--sys-color-surface) text-(--sys-color-on-surface) rounded-(--sys-shape-corner-extra-large) p-6">
           <Dialog.Title>Configure Routing Engine</Dialog.Title>
           <Dialog.Description>
             Dynamic routing rules applied to cluster US-East.
           </Dialog.Description>
           <div className="mt-4 flex flex-col gap-3">
             <div className="flex items-center justify-between">
-              <span className="text-xs">Edge Cache Acceleration</span>
+              <span className={`${T_BODY_SM}`}>Edge Cache Acceleration</span>
               <Switch defaultChecked aria-label="Edge Cache" />
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-xs">Automatic TLS Rotation</span>
+              <span className={`${T_BODY_SM}`}>Automatic TLS Rotation</span>
               <Switch defaultChecked aria-label="TLS Rotation" />
             </div>
             <div className="flex justify-end gap-2 pt-4">

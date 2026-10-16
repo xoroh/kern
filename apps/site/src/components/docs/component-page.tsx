@@ -37,6 +37,11 @@ import {
   type Crumb,
   PlatformTabs,
 } from "../../domains/shared/chrome/docs-shell-parts";
+import {
+  FOCUS_RING,
+  STATE_LAYERS,
+  TRANSITION,
+} from "../../domains/shared/systems/ui";
 import type { A11yPage } from "../../generated/a11y";
 import { A11Y } from "../../generated/a11y";
 import { PROPS_TABLE } from "../../generated/props-table";
@@ -151,7 +156,7 @@ function Heading({
       <a
         href={`#${id}`}
         aria-label={`Permalink to ${id.replace(/-/g, " ")}`}
-        className="ml-2 inline-flex items-center text-(--sys-color-on-surface-variant) no-underline opacity-0 transition-opacity group-hover:opacity-100 focus-visible:opacity-100"
+        className={`ml-2 inline-flex items-center text-(--sys-color-on-surface-variant) no-underline opacity-0 ${TRANSITION} group-hover:opacity-100 focus-visible:opacity-100`}
       >
         #
       </a>
@@ -301,7 +306,7 @@ function Demo({ doc, platform }: { doc: ComponentDoc; platform: Platform }) {
  * Before this existed, "states" on a component page meant rows in the token
  * table: a reader could not SEE what hover or press does. This paints the
  * layer law itself (on-surface over the container at the M3 opacities —
- * hover 8%, focus 12%, press 12%, drag 16%, from `STATE_LAYER_OPACITIES` in
+ * hover 8%, focus 10%, press 10%, drag 16%, from `STATE_LAYER_OPACITIES` in
  * `@xoroh/kern-tokens`, never retyped here) as swatches next to the live
  * demo, then lists the states this family's own token table registers.
  * The opacities are painted, not asserted: the overlay divs use the theme's
@@ -347,7 +352,7 @@ function StatesStrip({ doc }: { doc: ComponentDoc }) {
       </div>
       <p className={PROSE}>
         State layers are {""}
-        <code>on-surface</code> at 8% hover, 12% focus, 12% press and 16% drag
+        <code>on-surface</code> at 8% hover, 10% focus, 10% press and 16% drag
         over the container — never a color swap.{" "}
         <a
           className="text-(--sys-color-secondary) underline underline-offset-2"
@@ -492,10 +497,10 @@ function InstallPicker({ target }: { target: string }) {
             type="button"
             aria-pressed={manager === m.id}
             onClick={() => choose(m.id)}
-            className={`min-h-12 rounded-(--sys-shape-corner-full) border px-4 ${SMALL} ${
+            className={`min-h-12 rounded-(--sys-shape-corner-full) border px-4 ${SMALL} ${TRANSITION} ${FOCUS_RING} ${
               manager === m.id
                 ? "border-(--sys-color-primary) bg-(--sys-color-primary-container) text-(--sys-color-on-primary-container)"
-                : "border-(--sys-color-outline) text-(--sys-color-on-surface-variant) hover:bg-(--sys-color-on-surface)/8"
+                : `border-(--sys-color-outline) text-(--sys-color-on-surface-variant) ${STATE_LAYERS}`
             }`}
           >
             {m.label}
@@ -1206,7 +1211,7 @@ function Accessibility({
                   >
                     <td className={TD}>
                       <kbd
-                        className={`rounded border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container-high) px-1.5 py-0.5 ${KEYCAP} text-(--sys-color-on-surface)`}
+                        className={`rounded-(--sys-shape-corner-extra-small) border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container-high) px-1.5 py-0.5 ${KEYCAP} text-(--sys-color-on-surface)`}
                       >
                         {row.key}
                       </kbd>
