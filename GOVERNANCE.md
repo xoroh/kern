@@ -34,7 +34,7 @@ Changing any of these is a governance decision, not a code review.
 
 ## Decision records
 
-Architectural decisions live in [`docs/adr/`](docs/adr/). One problem per
+Architectural decisions live in [`docs/decisions/`](docs/decisions/). One problem per
 file, numbered, with `Status: accepted` or `Status: superseded by ADR-NNN`.
 
 A decision needs an ADR when it:
