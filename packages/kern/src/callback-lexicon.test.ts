@@ -55,6 +55,12 @@ const REGISTERED_ALIASES: Record<string, string[]> = {
     "open",
     "onOpenChange",
   ],
+  // Binary-state controls use Base UI `checked` names (api-consistency.md
+  // §0), so `onCheckedChange` is canonical here, not an alias.
+  "packages/kern-native/src/components/switch.tsx:onCheckedChange": ["checked"],
+  "packages/kern-native/src/components/checkbox.tsx:onCheckedChange": [
+    "checked",
+  ],
   "packages/kern-native/src/components/link-button.tsx:onPressedChange": [
     "pressed",
   ],

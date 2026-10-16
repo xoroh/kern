@@ -89,6 +89,13 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
       "Add native CheckboxGroup — a web-only row that was a genuine gap.",
   },
   {
+    id: "native-checked-state-names",
+    packages: ["@xoroh/kern-native"],
+    bump: "minor",
+    summary:
+      "Native Switch and Checkbox use Base UI state names: checked / defaultChecked / onCheckedChange instead of value / defaultValue / onValueChange.",
+  },
+  {
     id: "native-combobox",
     packages: ["@xoroh/kern-native"],
     bump: "minor",
