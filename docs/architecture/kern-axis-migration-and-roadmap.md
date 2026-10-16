@@ -158,6 +158,13 @@ be modified or depended upon.
 
 ### B.3 Axis Git detail (verified)
 
+> Freshness note 2026-10-16: the baseline below is the verified
+> point-in-time record at Axis `638a1a1` (kept as history). It is
+> superseded by extraction slices 1–3: Axis `development` is now at
+> `1f10b92e` with `packages/axis/` (`@xoroh/axis@0.0.0`, 14 behavior
+> modules + tests, RNTL suites, extended CI) — see the Phase 2
+> execution log. Per §A, the repo wins on any remaining divergence.
+
 - 2 commits total: `638a1a1` (CI + manual releases) on top of `14f9c07`
   (scaffold). No stashes, 1 worktree, no tags. Remote branches:
   `origin/development`, `origin/dependabot/github_actions/actions/checkout-7.0.1`
@@ -405,7 +412,7 @@ re-implemented for native in Axis; Kern copy removed after cutover.
 | `packages/kern-cli/src/init.ts` (+ test) | **no symbol imports** (audit 2026-10-16: the two `@xoroh/kern-primitives` hits are `file:` scaffold path strings for native overrides, zero imported symbols) — but the scaffold `file:` coupling must still be resolved at cutover | point scaffold at `@xoroh/axis` (or inline the small needed helper with tests) per-symbol in Phase 4; AX0 records the exact scaffold rows |
 | `apps/site`, `apps/mobile` manifests/tooling | import maps updated; no `workspace:*` leakage into anything Axis publishes |
 | `scripts/check-primitives.mjs` | retargeted: asserts Kern imports primitives **only** via `@xoroh/axis` public entry (plus keeps the no-tokens-in-primitives direction for any residual shared code) |
-| `scripts/check-consumption.mjs`, `check-layers.mjs`, `check-coverage.mjs`, registry generator, MCP manifest (418 rows: 301 web + 117 native) | updated for the new package identity; primitive rows' ownership transfers to Axis discovery |
+| `scripts/check-consumption.mjs`, `check-layers.mjs`, `check-coverage.mjs`, registry generator, MCP manifest (419 rows: 302 web + 117 native — corrected 2026-10-16, was 418/301) | updated for the new package identity; primitive rows' ownership transfers to Axis discovery |
 | `libs/kern-primitives` build (`tsup` esm+cjs+dts, `publint`+`attw`) | re-created under Axis ownership in `packages/core` (renamed package dir per D-NAME) with equivalent rigor |
 | `.changeset/` (74 pending entries incl. `kern-primitives-publish-metadata.md`, `primitives-*.md`, `repoint-*.md`) | Phase 1 audits every primitives-related changeset for stale identity/paths; superseded ones are removed, the rest rewritten to the new package name |
 | Skills (`kern`, `kern-agents`), `llms.txt` generators, `docs/components.md`, parity docs | Phase 4/6 updates; agent instructions must describe the Axis boundary truthfully |
@@ -555,6 +562,15 @@ multi-design-system expansion, publication itself.
 
 ### Phase 4 — Kern integration
 
+> ⚠ BLOCKED pending D-FOUNDATION-CHOICE (recorded 2026-10-16). Steps
+> 1–3 and the exit gate below assume Axis as the single native
+> foundation (single-target replacement; global "no duplicate primitive
+> implementation"). That conflicts with the owner decision that Axis is
+> under consideration and React Native Primitives stays choosable.
+> No Phase 4 integration work (especially step 3) executes until the
+> decision resolves to (a) per-foundation hard-cut or (b) confirmed
+> Axis-only. Phase 0/1 inventory and gate work is unaffected.
+
 1. Replace internal primitive dependencies with the `@xoroh/axis` public
    interface in `kern-native` (~28 files), web (`menu-family`,
    `sheet-family`, `presentation`, + Phase-0 AST stragglers), CLI, and site
@@ -580,6 +596,71 @@ multi-design-system expansion, publication itself.
   (4) `libs/kern-primitives` deleted per the hard-cut law above.
   First-candidate consumer when (2) lands: `useControllableState`
   (18 importer files, suite-backed) — vertical slice, not a doc edit.
+
+#### Product boundaries (2026-10-16)
+
+- **Kern** (§C.1): AI-first, open-source design-system platform — "One
+  foundation. Every design system." Owns design-system-specific web +
+  native implementations, tokens/themes, icons, blocks, playgrounds,
+  docs/discovery, CLI source-vendoring, MCP/AI workflows, and neutral
+  shared infrastructure (contracts, registry, dependency resolution).
+  Never a universal themed implementation across systems.
+- **Axis**: independent, standalone, unstyled React Native component
+  library (Base-UI-for-native direction). Owns native component APIs +
+  rendered components (once the component contract lands), interaction
+  behavior, native a11y semantics, controlled/uncontrolled state, tests,
+  docs, packaging, release lifecycle. Owns NO design-system styling,
+  tokens, or themed variants. Usable without Kern.
+- **Today**: Axis is foundation-only (14 behavior modules, 0 rendered
+  components) — the component library is the goal, not the status.
+- **Contract homes**: Axis public API + implementation rules →
+  authoritative in Axis (component contract doc); Kern design-system +
+  integration rules → authoritative here; shared dependency direction
+  (Kern-may-consume-Axis, never reverse) → D-DEP canonical, mirrored
+  by Axis's platform-neutrality rule. No duplicated editable contract
+  copies.
+
+#### Foundation compatibility evidence (2026-10-16, verified facts only)
+
+Compatibility is never inferred from names. `unknown` means unobserved
+in-repo, not "probably fine".
+
+| Dimension | Base UI (web) | Axis (candidate native) | React Native Primitives (candidate native) |
+|---|---|---|---|
+| Coverage | Dialog/Tooltip/Combobox/Checkbox/Toggle/Toast consumed by `@xoroh/kern`; 302 web manifest rows | 14 behavior modules, 0 components, 0 releases | unknown (zero in-repo references) |
+| Public API | `@base-ui/react@1.8.0`, subpath imports | single `.` entry, ESM+CJS+d.ts, RN-first export condition; peers `react>=18` only | unknown |
+| Behavior | owns web Portal/trap/positioning (kernel never replaces a Base UI part) | contract-only (press begin/end/cancel, presence lifecycle, policy-vs-trigger dismissal, ordered portal registry) | unknown |
+| Accessibility | ARIA roles/states in parity rows; `axe-core` in web devDeps | RN `accessibility*` roles/states required by contract; one harness probe; no device/SR runs anywhere | unknown |
+| Styling | Tailwind v4 + CSS vars; web-only `clip` hiding excluded from Axis | zero CSS-var strings (gated); caller-provided dp/color values; theme resolved consumer-side | unknown |
+| Peers | `@base-ui/react ^1.8.0`, `react>=18`, `react-dom>=18` | `react>=18` only (RN range declared when native bindings land) | unknown |
+| Native compat | N/A | targets RN ≥0.86 <0.89 + React 19; Expo 57 host export proven (scratch, reverted); no device runs | unknown |
+| Tests | web vitest + `testedBy` per parity row | vitest 150 + jest-RNTL 12 + contract test; boundary gate | unknown |
+| Maintenance | external `@base-ui/react`, ADR-002 web-only | sibling repo, changesets, manual releases, HOLD | unknown (ownership/licensing unassessed) |
+
+Existing selection-ready surface (configure, don't invent): `parity/contract.ts`
+(foundation-neutral observable semantics + per-foundation `nativeContract`/
+`testedBy`), MCP `ComponentEntry.platform` + CLI `renderer→platform`
+(the selection channels a foundation choice would extend),
+`kern-contracts` `ComponentRecord` (`capabilities: verified|unverified|
+unsupported`), `adoption.json` + `check:consumption` (adopt-with-consumer
+ledger pattern), retargetable gates (`check-primitives/-layers/-parity/
+-coverage`). None names a second foundation yet — shape sufficient,
+content empty for RNP.
+
+#### Axis documentation-site staged plan (owner-gated start)
+
+Goal: neutral, documentation-focused site (Base UI clarity as the bar):
+install, components, APIs, examples, accessibility, development,
+contribution. Explicitly NOT a styled design system or second product
+identity. Constraints: reuse Xoroh infrastructure where it doesn't couple
+Axis to Kern; no Axis CLI/MCP (Kern tooling stays the AI surface);
+passive discovery metadata first (`keywords`, docs index for agents).
+Stages with entry criteria: (1) metadata (`keywords` + docs index) once
+the component contract lands; (2) site scaffold (`apps/docs`) once the
+first real component API is frozen; (3) per-component pages + a11y
+guidance as components land; (4) deployment approach when release
+operations are authorized. Until then the site stays an empty slot and
+must not gate primitives work.
 
 ### Phase 5 — Cross-repository verification
 
@@ -778,11 +859,17 @@ per-design-system implementations never collapsed; Base UI for web only
 `DTCG_SPEC_VERSION`, re-verify reference); AI-first in Kern, never as Axis
 dependency; MIT licensing; ESM-only (ADR-001); hard cuts, no shims;
 publication HOLD until explicit authorization.
+Active plan: this roadmap — designated by `docs/planning/README`
+(archived 2026-10-16) and the change-routing skill; `architecture/
+0.1.0-preview-redesign.md` is archived/superseded per `ARCHIVE_INDEX`
+(sole authority 2026-10-14 → archive date) and must not be cited as
+current authority. No competing active roadmap exists.
 
 | ID | Question | Position / options | Blocks |
 |---|---|---|---|
 | D-NAME | Canonical package name | **Resolved for internal readiness 2026-10-16 (owner mandate): working name Axis, package `@xoroh/axis`, single package.** Naming audit: no `kern-axis`/`rn-primitives` legacy names in Kern (only current `@xoroh/kern-primitives` imports, migrating in Phase 4); Axis `axis-core` refs confined to the 6 known placeholder locations (Phase 2 rename scope). Trademark: web search inconclusive — no legal clearance claimed; domain `axis.xoroh.org` NXDOMAIN (unclaimed, not proof). Publication still requires release-policy authorization | Phase 2 |
 | D-DEP | Kern↔Axis dependency model | **Settled by owner instruction** (audit 2026-10-16): Kern Native → Axis through the public package API; Axis independent of Kern (assignment §§3.3, 7). The archived no-dependency model stays superseded and must not be restored. No fresh approval required | — (settled) |
+| D-FOUNDATION-CHOICE | One native foundation vs choosable foundations | **Owner decision recorded 2026-10-16, resolution pending:** Axis is the initial native foundation *under consideration* (not settled); React Native Primitives must remain a choosable alternative; Kern may depend on Axis, never the reverse; no universal themed implementation; no Axis CLI/MCP (Kern tooling is the AI surface). **Conflicts in this plan:** Phase 4 steps 1–3 + exit gate (single-target replacement, global no-duplication hard-cut), §K.6 ("no duplicate primitive implementation"), and the "second provider (rejected)" non-blocking note below. Options: (a) re-scope uniqueness per chosen foundation (hard-cut per foundation, two named providers permitted) — preserves all cutover discipline; or (b) confirm Axis-only and explicitly retire the RNP-choosable requirement. Evidence for the decision: foundation compatibility matrix of 2026-10-16 (see Phase 4 evidence block; RNP column is unknown — zero in-repo references to `react-native-primitives`/`@rn-primitives`, verified by grep; the only `RNP` hits mean "RN Paper", a surveyed design system). Until resolved, Phase 4 integration is blocked; inventory/gate work proceeds | Phase 4 (blocks integration, not inventory) |
 | D-STACK | Native stack baseline | Presume RN ≥0.86 <0.89 + React 19 + Expo 57 host (evidence §C.3); adjust only on AX0 findings. locked: Expo CLI 57.0.27 / `expo ~57.0.25` / RN 0.86.3 / React 19.2.3
 (`bun.lock` + `apps/mobile` manifest); peers RN `>=0.86 <0.89`, React
 `^19`. D-STACK evidence-backed 2026-10-16 — recommend RN 0.86.x + React
@@ -795,7 +882,7 @@ under D-DEVICE. No NativeWind (ADR-006), no web styling in Axis | Phase 2 |
 | D-NOGO | NO-GO successor sign-off under this plan | **Extraction authorized 2026-10-16 by explicit owner mandate** (proceed with the Kern–Axis migration incl. Axis extraction once technical preconditions satisfied; preconditions not waived). Recorded here as the mandate's scope, not as release approval | Phase 5 (release sign-off still separate) |
 | D-GHSA | Advisory triage + code-scanning | Dependabot shows 0 open alerts (verified) contradicting the archived "19 GHSA" claim — reconcile; decide whether to enable code-scanning (currently "no analysis found") | Phase 5 |
 | D-P7 | Product-monorepo adoption | **Stays out of scope**, separately authorized or not at all | — (excluded) |
-| Non-blocking (record, don't stall) | Axis website/playground; `kern info`; `mcp` rename; icon `./icons/*` codegen timing; starter matrix; F1 scope; provider-registry placement (deferred: may live neither in Axis (not neutral) nor `libs/` (deleted); trigger: a workstream needing it); second provider (rejected — one foundation, many systems, M3 first) | Decided in Phase 6/7 or later; must not gate Phases 0–5 | — |
+| Non-blocking (record, don't stall) | Axis website/playground; `kern info`; `mcp` rename; icon `./icons/*` codegen timing; starter matrix; F1 scope; provider-registry placement (deferred: may live neither in Axis (not neutral) nor `libs/` (deleted); trigger: a workstream needing it); second provider (SUPERSEDED 2026-10-16 — the "rejected" position is replaced by D-FOUNDATION-CHOICE, pending resolution) | Decided in Phase 6/7 or later; must not gate Phases 0–5 | — |
 
 ## J. Exact validation commands and acceptance criteria
 
