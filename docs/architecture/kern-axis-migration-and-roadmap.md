@@ -463,6 +463,10 @@ phase. Phases overlap only where stated.
    intentional mentions).
 - Exit gate: inventory doc landed; open-PR/stash/demo-fix dispositions
   recorded with owners; no new cross-repo writes.
+  (2026-10-16 execution: inventory landed as
+  `docs/architecture/axis-extraction-inventory.md`; `license/mit-demo`
+  pushed with PR #24 open — merge blocked on owner review + D-NAME/D-NOGO;
+  stashes intact and backed up to `/tmp/opencode/kern-baseline-backup-20261016/`.)
 
 ### Phase 1 — Extraction design and public contract
 
@@ -873,6 +877,16 @@ The migration is complete only when **all** hold:
   commits, and no pushes or Axis/private-repo modifications occurred
   (Axis HEAD `638a1a1` clean; Xoroh moved `156cc28`→`1a1b2c9` by the owner
   session only, clean and in sync).
+- Execution 2026-10-16 (baseline recovery): backup verified at
+  `/tmp/opencode/kern-baseline-backup-20261016/` (patch, diff, tar +
+  SHA256SUMS + manifest; stashes kept intact); planning baseline
+  committed (`d1d6def0` docs, `7aaf851b` CI, `402a7d48` CLI privacy);
+  branch merged with `origin/main` (`c5badbcb`, clean) and pushed;
+  PR #24 open (mergeable, awaiting owner review; D-NAME/D-NOGO block
+  merge). Hosted CI on PR #24 (run `38833031513`): all 7 pkg legs +
+  cold-install + dist-gates green; site typecheck green (apps now fails
+  later at `Check site docs` — 6 pre-existing K11 errors, unmasked);
+  gates/lint + e2e/#418 unchanged. Axis/Xoroh untouched throughout.
 - Audit corrections applied 2026-10-16 (this pass): `main` SHA/sync,
   importer counts, portal/positioning per-symbol verdicts, CLI zero-import
   proof, latest CI run, zero-alert advisory state, H-17 CLI-privacy flag,
