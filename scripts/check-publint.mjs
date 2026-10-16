@@ -24,10 +24,16 @@
  * (`vendor/axis/` is deleted with it; release-checklist item). The
  * release-time backstop is the publish HOLD (owner authorization +
  * npm-publish environment), not this wrapper.
+ *
+ * Runs in a package directory: with no argument, the current working
+ * directory (per-package `check:publish` scripts); with one argument, that
+ * path (root `check:publint`, which covers every Axis consumer in one
+ * command for the workflow wiring contract).
  */
 import { execFileSync } from "node:child_process";
+import { resolve } from "node:path";
 
-const dir = process.cwd();
+const dir = process.argv[2] ? resolve(process.argv[2]) : process.cwd();
 let output;
 try {
   output = execFileSync("bun", ["x", "publint"], {
@@ -49,8 +55,20 @@ const SANCTIONED =
 
 const acknowledged = [];
 const remaining = [];
+// CI colorizes tool output (ANSI SGR escapes around the package name, the
+// spec, and the section headers) while a local pipe does not — matching the
+// raw line would pass here and fail there. Strip all CSI sequences first and
+// match the plain text; original lines are still what gets printed.
+// CSI introducer built dynamically: biome forbids control characters in
+// regex literals (even escaped), and useRegexLiterals only accepts
+// dynamic patterns via new RegExp — this satisfies both.
+const CSI_PATTERN = new RegExp(
+  `${String.fromCharCode(27)}\\[[0-9;?]*[ -/]*[@-~]`,
+  "g",
+);
+const plain = (line) => line.replace(CSI_PATTERN, "").trim();
 for (const line of output.split("\n")) {
-  if (SANCTIONED.test(line.trim())) acknowledged.push(line);
+  if (SANCTIONED.test(plain(line))) acknowledged.push(line);
   else remaining.push(line);
 }
 
@@ -58,17 +76,20 @@ if (acknowledged.length > 0) {
   console.log(
     "check-publint: acknowledged sanctioned pre-publish file: spec (roadmap Phase 4, expires at the semver swap):",
   );
-  for (const line of acknowledged) console.log(`  (sanctioned) ${line.trim()}`);
+  for (const line of acknowledged) console.log(`  (sanctioned) ${plain(line)}`);
 }
 
-const rest = remaining.join("\n").trim();
+const rest = remaining
+  .map((l) => plain(l))
+  .join("\n")
+  .trim();
 // Only ERROR-section numbered items are findings: publint also prints
 // "Suggestions:"/"Warnings:" with numbered items that never fail its exit
 // code, and treating those as failures would cry wolf. Track the section.
 let inErrors = false;
 const remainingFindings = [];
 for (const line of remaining) {
-  const t = line.trim();
+  const t = plain(line);
   if (/^errors:/i.test(t)) {
     inErrors = true;
     continue;
