@@ -8,4 +8,4 @@ One topic per line — load the skill, specifics live there:
 - Consume Kern as an agent (llms.txt, per-page .md, MCP) → `.agents/skills/kern-agents/SKILL.md`
 - Docs & skills upkeep → `.agents/skills/docs/SKILL.md`
 - Releases → `docs/releases.md`
-- Token values → `packages/kern/src/theme/tokens.json`
+- Token values → `packages/kern-tokens/src/tokens.json` (canonical; DTCG interchange in `packages/kern-tokens/src/dtcg.json`)
