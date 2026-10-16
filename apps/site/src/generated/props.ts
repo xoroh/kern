@@ -1771,10 +1771,29 @@ export const GENERATED_PROPS: Record<string, Array<{
     },
     {
       "name": "variant",
-      "type": "\"input\" | \"filter\" | \"assist\" | \"suggestion\" | undefined",
-      "required": false,
+      "type": "\"filter\"",
+      "required": true,
       "src": "packages/kern/src/components/chip.tsx:49",
       "default": "\"assist\""
+    },
+    {
+      "name": "value",
+      "type": "boolean | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/chip.tsx:51",
+      "note": "R2 lexicon canonical selection state."
+    },
+    {
+      "name": "defaultValue",
+      "type": "boolean | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/chip.tsx:52"
+    },
+    {
+      "name": "onValueChange",
+      "type": "((selected: boolean) => void) | undefined",
+      "required": false,
+      "src": "packages/kern/src/components/chip.tsx:53"
     }
   ],
   "CircularProgress": [
@@ -18769,6 +18788,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "dangerouslySetInnerHTML",
     "datatype",
     "defaultChecked",
+    "defaultValue",
     "dir",
     "disabled",
     "draggable",
@@ -18958,6 +18978,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "onTransitionRunCapture",
     "onTransitionStart",
     "onTransitionStartCapture",
+    "onValueChange",
     "onVolumeChange",
     "onVolumeChangeCapture",
     "onWaiting",
@@ -18989,6 +19010,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "type",
     "typeof",
     "unselectable",
+    "value",
     "variant",
     "vocab"
   ],

@@ -1429,9 +1429,24 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "variant",
-        type: '"input" | "filter" | "assist" | "suggestion" | undefined',
-        required: false,
+        type: '"filter"',
+        required: true,
         default: '"assist"',
+      },
+      {
+        name: "value",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: "((selected: boolean) => void) | undefined",
+        required: false,
       },
     ],
     curated: ["className", "disabled"],

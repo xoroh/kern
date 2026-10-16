@@ -47,6 +47,7 @@ import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import ts from "typescript";
 import { readContentApiNames } from "./lib/content-api-names.mjs";
+import { collectTypeSymbols } from "./lib/extract-prop-names.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, "..", "..", "..");
@@ -121,57 +122,49 @@ for (const file of files) {
   for (const alias of aliases) {
     const t = checker.getTypeFromTypeNode(alias.type);
     const props = new Map();
-    // Every name the type carries, INCLUDING react intrinsics. The gate uses
-    // this to distinguish "curated intrinsic" (content documents `type`/`ref`/
-    // `className` — they exist, inherited) from "stale" (names nothing at all).
+    // Every name the type carries, INCLUDING react intrinsics. Union and
+    // intersection members are walked (see lib/extract-prop-names.mjs): a
+    // name on ANY member counts — e.g. Chip's filter-only selection props.
+    // The gate uses this to distinguish "curated intrinsic" (content
+    // documents `type`/`ref`/`className` — they exist, inherited) from
+    // "stale" (names nothing at all).
     const names = new Set();
-    const seen = new Set();
-    (function walk(type) {
-      if (seen.has(type)) return;
-      seen.add(type);
-      if (type.isIntersection?.()) {
-        type.types.forEach(walk);
-        return;
-      }
-      for (const sym of type.getProperties()) {
-        names.add(sym.name);
-        const decl = sym.valueDeclaration ?? sym.declarations?.[0];
-        if (!decl) continue;
-        const declFile = decl.getSourceFile().fileName;
-        const local = decl.getSourceFile() === src;
-        // Base UI passthrough: most components alias the primitive's props
-        // (`ComponentProps<typeof AccordionPrimitive.Root>`), and content
-        // documents THOSE props (value, onValueChange…). Excluding them would
-        // report every passthrough component as undocumented — wrongly, because
-        // the primitive's public props ARE this component's API. React's own
-        // intrinsic attributes (lib.*.d.ts) stay excluded: nobody documents
-        // `onCopy` per component, and MUI explicitly omits native props too.
-        // (Base UI ships .d.ts/.d.mts from its package dir, wherever the package
-        // manager hoists it — match the package path, not the install layout.)
-        const baseUi = /@base-ui[/\\].*\.d\.[cm]?ts$/.test(declFile);
-        if (!local && !baseUi) continue;
-        if (props.has(sym.name)) continue;
-        const propType = checker.getTypeOfSymbolAtLocation(sym, decl);
-        const declSrc = decl.getSourceFile();
-        const declLine =
-          ts.getLineAndCharacterOfPosition(declSrc, decl.getStart()).line + 1;
-        const row = {
-          name: sym.name,
-          type: checker.typeToString(propType),
-          required: (sym.flags & ts.SymbolFlags.Optional) === 0,
-          // Provenance: every value traceable to the declaration it came
-          // from. Base UI passthrough rows point into the installed .d.ts —
-          // that IS their source of truth, stated, not hidden.
-          src: `${relative(ROOT, declSrc.fileName)}:${declLine}`,
-        };
-        if (defaults.has(sym.name)) row.default = defaults.get(sym.name);
-        const doc = ts.displayPartsToString(
-          sym.getDocumentationComment(checker),
-        );
-        if (doc) row.note = doc;
-        props.set(sym.name, row);
-      }
-    })(t);
+    for (const sym of collectTypeSymbols(t)) {
+      names.add(sym.name);
+      const decl = sym.valueDeclaration ?? sym.declarations?.[0];
+      if (!decl) continue;
+      const declFile = decl.getSourceFile().fileName;
+      const local = decl.getSourceFile() === src;
+      // Base UI passthrough: most components alias the primitive's props
+      // (`ComponentProps<typeof AccordionPrimitive.Root>`), and content
+      // documents THOSE props (value, onValueChange…). Excluding them would
+      // report every passthrough component as undocumented — wrongly, because
+      // the primitive's public props ARE this component's API. React's own
+      // intrinsic attributes (lib.*.d.ts) stay excluded: nobody documents
+      // `onCopy` per component, and MUI explicitly omits native props too.
+      // (Base UI ships .d.ts/.d.mts from its package dir, wherever the package
+      // manager hoists it — match the package path, not the install layout.)
+      const baseUi = /@base-ui[/\\].*\.d\.[cm]?ts$/.test(declFile);
+      if (!local && !baseUi) continue;
+      if (props.has(sym.name)) continue;
+      const propType = checker.getTypeOfSymbolAtLocation(sym, decl);
+      const declSrc = decl.getSourceFile();
+      const declLine =
+        ts.getLineAndCharacterOfPosition(declSrc, decl.getStart()).line + 1;
+      const row = {
+        name: sym.name,
+        type: checker.typeToString(propType),
+        required: (sym.flags & ts.SymbolFlags.Optional) === 0,
+        // Provenance: every value traceable to the declaration it came
+        // from. Base UI passthrough rows point into the installed .d.ts —
+        // that IS their source of truth, stated, not hidden.
+        src: `${relative(ROOT, declSrc.fileName)}:${declLine}`,
+      };
+      if (defaults.has(sym.name)) row.default = defaults.get(sym.name);
+      const doc = ts.displayPartsToString(sym.getDocumentationComment(checker));
+      if (doc) row.note = doc;
+      props.set(sym.name, row);
+    }
 
     // Attribute rows to the manifest export(s). The Props type name usually
     // matches its export (`AccordionRootProps` -> `AccordionRoot`); a file with
