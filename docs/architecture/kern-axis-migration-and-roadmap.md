@@ -1,8 +1,9 @@
 # Kern–Axis Migration and Roadmap — Authoritative Plan
 
 Status: **active — the single source of truth.** Created 2026-10-16.
-Supersedes `docs/architecture/0.1.0-preview-redesign.md` and the entire
-`docs/planning/` + `docs/plan/` effort, archived with index at
+Supersedes `docs/architecture/0.1.0-preview-redesign.md` (archived at
+`docs/archive/2026-10-axis-transition/architecture/0.1.0-preview-redesign.md`)
+and the entire `docs/planning/` + `docs/plan/` effort, archived with index at
 `docs/archive/2026-10-axis-transition/ARCHIVE_INDEX.md`.
 Do not implement from archived files.
 
@@ -95,6 +96,12 @@ Sibling checkouts `novexo`, `xoroh-platform` (private product monorepo),
 `xoroh-visual`, and `prod-*-backups` were identified but not inspected beyond
 Git state, per inspection-only rules; the private product monorepo must not
 be modified or depended upon.
+
+> Freshness 2026-10-16: the repo/SHA rows above are the plan-creation
+> baseline (kept as history). Live tips: kern `main d0517f8d`
+> (PRs #25/#28/#29/#30 merged), axis `development 56dc03f9`
+> (extraction slices 1–3, PRs #3/#4/#5/#6 merged; PR #7 contract
+> proposal open). Per §A, the repo wins on any divergence.
 
 ### B.2 Kern Git detail (verified)
 
@@ -869,7 +876,7 @@ current authority. No competing active roadmap exists.
 |---|---|---|---|
 | D-NAME | Canonical package name | **Resolved for internal readiness 2026-10-16 (owner mandate): working name Axis, package `@xoroh/axis`, single package.** Naming audit: no `kern-axis`/`rn-primitives` legacy names in Kern (only current `@xoroh/kern-primitives` imports, migrating in Phase 4); Axis `axis-core` refs confined to the 6 known placeholder locations (Phase 2 rename scope). Trademark: web search inconclusive — no legal clearance claimed; domain `axis.xoroh.org` NXDOMAIN (unclaimed, not proof). Publication still requires release-policy authorization | Phase 2 |
 | D-DEP | Kern↔Axis dependency model | **Settled by owner instruction** (audit 2026-10-16): Kern Native → Axis through the public package API; Axis independent of Kern (assignment §§3.3, 7). The archived no-dependency model stays superseded and must not be restored. No fresh approval required | — (settled) |
-| D-FOUNDATION-CHOICE | One native foundation vs choosable foundations | **Owner decision recorded 2026-10-16, resolution pending:** Axis is the initial native foundation *under consideration* (not settled); React Native Primitives must remain a choosable alternative; Kern may depend on Axis, never the reverse; no universal themed implementation; no Axis CLI/MCP (Kern tooling is the AI surface). **Conflicts in this plan:** Phase 4 steps 1–3 + exit gate (single-target replacement, global no-duplication hard-cut), §K.6 ("no duplicate primitive implementation"), and the "second provider (rejected)" non-blocking note below. Options: (a) re-scope uniqueness per chosen foundation (hard-cut per foundation, two named providers permitted) — preserves all cutover discipline; or (b) confirm Axis-only and explicitly retire the RNP-choosable requirement. Evidence for the decision: foundation compatibility matrix of 2026-10-16 (see Phase 4 evidence block; RNP column is unknown — zero in-repo references to `react-native-primitives`/`@rn-primitives`, verified by grep; the only `RNP` hits mean "RN Paper", a surveyed design system). Until resolved, Phase 4 integration is blocked; inventory/gate work proceeds | Phase 4 (blocks integration, not inventory) |
+| D-FOUNDATION-CHOICE | One native foundation vs choosable foundations | **Owner decision recorded 2026-10-16, resolution pending:** Axis is the initial native foundation *under consideration* (not settled); React Native Primitives must remain a choosable alternative; Kern may depend on Axis, never the reverse; no universal themed implementation; no Axis CLI/MCP (Kern tooling is the AI surface). **Conflicts in this plan:** Phase 4 steps 1–3 + exit gate (single-target replacement, global no-duplication hard-cut), §K.6 ("no duplicate primitive implementation"), and the "second provider (rejected)" non-blocking note below. Options: (a) re-scope uniqueness per chosen foundation (hard-cut per foundation, two named providers permitted) — preserves all cutover discipline; or (b) confirm Axis-only and explicitly retire the RNP-choosable requirement. Evidence for the decision: foundation compatibility matrix of 2026-10-16 (see Phase 4 evidence block; RNP column is unknown — zero in-repo references to `react-native-primitives`/`@rn-primitives`, verified by grep; the only `RNP` hits mean "RN Paper", a surveyed design system). Until resolved, Phase 4 integration is blocked; inventory/gate work proceeds. **Interim recommendation 2026-10-16 (not a selection):** neither candidate is selectable today — Axis has zero rendered components; RNP is externally evidenced (roninoss/rn-primitives, MIT, 27 unstyled components, no NativeWind requirement, light deps, recent SR overhaul, but no observed tests, quiet ~2mo, dev pin RN 0.83.2 with no RN 0.86–0.89/Expo 57 evidence, Radix-web coupling, external control) yet unevaluated in-repo. Recommend the sequenced path: agree the component contract → build the Switch slice → run the RNP scratch experiment in parallel (scratch Expo app at Kern's floor: controlled Switch via StyleSheet only, RNTL role/state/change/disabled assertions, Metro exclusion of `@radix-ui/*`, one emulator TalkBack pass; proposed, not executed) → select only with both evidences. No Kern integration under either name until then | Phase 4 (blocks integration, not inventory) |
 | D-STACK | Native stack baseline | Presume RN ≥0.86 <0.89 + React 19 + Expo 57 host (evidence §C.3); adjust only on AX0 findings. locked: Expo CLI 57.0.27 / `expo ~57.0.25` / RN 0.86.3 / React 19.2.3
 (`bun.lock` + `apps/mobile` manifest); peers RN `>=0.86 <0.89`, React
 `^19`. D-STACK evidence-backed 2026-10-16 — recommend RN 0.86.x + React
