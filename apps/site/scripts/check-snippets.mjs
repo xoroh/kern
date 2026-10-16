@@ -157,20 +157,11 @@ for (const [name, body] of snippets) {
             "@xoroh/kern-icons": [
               join(APP, "node_modules/@xoroh/kern-icons/dist/index.d.ts"),
             ],
-            "@xoroh/kern-primitives": [
-              // The workspace source, not the site's node_modules link: the
-              // published surface is what readers install, and the link is
-              // install-state. (dist is built by `bun run build` at the root;
-              // check:snippets already runs check:dist:types first.)
-              join(
-                APP,
-                "..",
-                "..",
-                "packages",
-                "kern-primitives",
-                "dist",
-                "index.d.ts",
-              ),
+            "@xoroh/axis": [
+              // The installed package (vendored pre-publish tarball):
+              // snippets compile against the same declarations consumers
+              // resolve. No build step needed — dist ships in the tarball.
+              join(APP, "node_modules/@xoroh/axis/dist/index.d.ts"),
             ],
             "react-native": [join(APP, "src/react-native.d.ts")],
           },

@@ -1,4 +1,4 @@
-import { useControllableState } from "@xoroh/kern-primitives";
+import { useControllableState } from "@xoroh/axis";
 import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
 import { Pressable, type PressableProps, type ViewStyle } from "react-native";

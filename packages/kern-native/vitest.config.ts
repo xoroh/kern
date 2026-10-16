@@ -19,5 +19,14 @@ export default defineConfig({
     environment: "node",
     setupFiles: ["./vitest.setup.ts"],
     testTimeout: 15000,
+    server: {
+      deps: {
+        // `@xoroh/axis` ships as compiled dist in node_modules (vendored
+        // pre-publish tarball): externalizing it would load the real
+        // Flow-typed react-native in plain Node. Inline it so the
+        // transform runs and the `react-native` alias above applies.
+        inline: [/@xoroh\/axis/],
+      },
+    },
   },
 });

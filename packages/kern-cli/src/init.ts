@@ -132,8 +132,20 @@ export function initScaffold(dir: string, opts: InitOptions = {}): InitResult {
   // install` never reaches the registry for an unpublished name.
   const kernDir = join(root, "packages/kern");
   const tokensDir = join(root, "packages/kern-tokens");
-  const primitivesDir = join(root, "libs/kern-primitives");
   const material3Dir = join(root, "packages/kern-material-3");
+  // @xoroh/axis pre-publish: exactly one vendored tarball (see vendor/axis
+  // + the migration roadmap). Globbed, not hardcoded, so re-vendoring a new
+  // Axis SHA needs no code change — but two tarballs is an error, never a
+  // choice, because scaffolded installs must resolve deterministically.
+  const axisTarballs = readdirSync(join(root, "vendor", "axis")).filter((f) =>
+    f.endsWith(".tgz"),
+  );
+  if (axisTarballs.length !== 1) {
+    throw new Error(
+      `expected exactly one vendored @xoroh/axis tarball in vendor/axis, found ${axisTarballs.length}`,
+    );
+  }
+  const axisTarball = join(root, "vendor", "axis", axisTarballs[0] as string);
   const kernDep = opts.registry ? version : `file:${kernDir}`;
   const tokensDep = opts.registry ? version : `file:${tokensDir}`;
   const overrides = opts.registry
@@ -141,7 +153,7 @@ export function initScaffold(dir: string, opts: InitOptions = {}): InitResult {
     : {
         "@xoroh/kern": `file:${kernDir}`,
         "@xoroh/kern-tokens": `file:${tokensDir}`,
-        "@xoroh/kern-primitives": `file:${primitivesDir}`,
+        "@xoroh/axis": `file:${axisTarball}`,
         // @xoroh/kern depends on its material-3 preset package: without
         // this pin the transitive dep escapes to the registry (C1-S smoke
         // proved it — `bun install` failed outside the monorepo).

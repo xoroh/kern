@@ -6,7 +6,7 @@ export const carousel: ComponentDoc = {
   oneLiner:
     "The carousel shows a set of items one at a time — one active slide, one tab stop, an index that never disagrees with itself.",
   features:
-    "Reach for a carousel when the items are peers and the screen can only show one at a time: a gallery, a rotating set of cards, a pick from a small collection. The carousel owns WHICH item is active — controlled or uncontrolled, clamped so it can never blank itself — and one roving model from `@xoroh/kern-primitives` drives both the track and the dot row, so the two cannot show different slides. `loop` is opt-in because Material 3's default is to clamp at the ends, and swiping never re-indexes on its own: the active index only changes by an explicit press, so anyone using assistive tech is never moved without acting.",
+    "Reach for a carousel when the items are peers and the screen can only show one at a time: a gallery, a rotating set of cards, a pick from a small collection. The carousel owns WHICH item is active — controlled or uncontrolled, clamped so it can never blank itself — and one roving model from `@xoroh/axis` drives both the track and the dot row, so the two cannot show different slides. `loop` is opt-in because Material 3's default is to clamp at the ends, and swiping never re-indexes on its own: the active index only changes by an explicit press, so anyone using assistive tech is never moved without acting.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",

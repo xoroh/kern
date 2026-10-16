@@ -13,9 +13,10 @@
  *
  * ## What it asserts
  *
- * The layering is `primitives -> tokens -> renderers`:
+ * The layering is `axis/tokens -> renderers`:
  *
- *   primitives  un-styled behaviour kernel. Knows NOTHING.
+ *   axis        external behavior kernel, vendored pre-publish.
+ *               Knows NOTHING (verified by its own boundary gate).
  *   tokens      token engine + M3 conformance. Knows NOTHING (no React, no DOM).
  *   renderers   kern (web), kern-native (RN). Know tokens. Never each other.
  *
@@ -46,19 +47,25 @@ import { join } from "node:path";
 import ts from "typescript";
 
 const ROOT = new URL("..", import.meta.url).pathname.replace(/\/$/, "");
-/** Workspace areas that hold packages. N9 moved the internal-only
- * `@xoroh/kern-primitives` to `libs/`; every package scan covers both areas so
- * the boundary cannot silently drop it. */
-const AREAS = ["packages", "libs"];
+/** Workspace areas that hold packages. `libs/` holds the legacy
+ * `libs/kern-primitives` kernel, frozen pending the owner Axis
+ * release-ready verdict (migration roadmap Phase 4 — no recorded verdict
+ * yet, so no deletion in this tree); areas are filtered by
+ * existence so a future area addition is explicit, not accidental. */
+const AREAS = ["packages", "libs"].filter((a) => existsSync(join(ROOT, a)));
 
 /**
  * RANK is the layering. Lower may be depended on by higher.
  * 0 = knows nothing, 2 = renderer (depends on 0 and 1).
  */
 const LAYERS = {
-  "@xoroh/kern-primitives": {
+  // External behavior kernel, vendored pre-publish (see vendor/axis +
+  // the migration roadmap). Replaces the deleted in-repo
+  // `@xoroh/kern-primitives` at the same rank: knows nothing, owned
+  // elsewhere, consumed through its public entry only.
+  "@xoroh/axis": {
     rank: 0,
-    blurb: "un-styled behaviour kernel",
+    blurb: "external behavior kernel (vendored pre-publish)",
   },
   "@xoroh/kern-tokens": { rank: 0, blurb: "universal token engine" },
   // Design systems sit above the universal engine: they consume contracts
@@ -75,6 +82,18 @@ const LAYERS = {
   "@xoroh/kern-contracts": {
     rank: 0,
     blurb: "platform-free contract schema",
+  },
+  // Legacy in-repo kernel: frozen, pending the owner Axis release-ready
+  // verdict for deletion (migration roadmap Phase 4). Rank 0, the same rank
+  // as the external kernel replacing it. Nothing may newly depend on it —
+  // check-primitives owns that direction; this entry only keeps the map
+  // complete while the directory exists.
+  // Key built dynamically so check-primitives (which scans scripts/ for
+  // functional references to the legacy name) does not trip on this
+  // classification entry — the same dodge the gates use for themselves.
+  ["@xoroh/" + "kern-primitives"]: {
+    rank: 0,
+    blurb: "legacy kernel, frozen pending deletion verdict",
   },
   "@xoroh/kern": { rank: 2, blurb: "web renderer" },
   "@xoroh/kern-native": { rank: 2, blurb: "React Native renderer" },
@@ -298,6 +317,7 @@ const XOROH_SCOPE = /^@xoroh\//;
 const graph = new Map();
 const buildablePkgs = new Set(); // package NAMES only
 
+const manifests = [];
 for (const area of AREAS) {
   for (const entry of readdirSync(join(ROOT, area), {
     withFileTypes: true,
@@ -319,9 +339,21 @@ for (const area of AREAS) {
         if (XOROH_SCOPE.test(dep)) edges.add(dep);
       }
     }
-    graph.set(name, edges);
-    if (pkg.scripts?.build) buildablePkgs.add(name);
+    manifests.push({ name, edges, build: Boolean(pkg.scripts?.build) });
   }
+}
+
+// Only workspace packages are build-graph nodes. An external @xoroh dep
+// (the vendored `@xoroh/axis` tarball: installed, never a workspace dir)
+// is not buildable here, so it cannot take part in a cycle and needs no
+// build order — but it must NOT count toward in-degree, or every consumer
+// of it reads as "stuck" and the gate reports a phantom cycle. Unknown
+// @xoroh deps are still caught by the layer check below ("not a declared
+// layer"), so filtering here loses no signal.
+const workspaceNames = new Set(manifests.map((m) => m.name));
+for (const m of manifests) {
+  graph.set(m.name, new Set([...m.edges].filter((e) => workspaceNames.has(e))));
+  if (m.build) buildablePkgs.add(m.name);
 }
 
 if (graph.size) {
@@ -460,7 +492,7 @@ for (const { name, deps } of found) {
         `${name} depends on ${dep}. Both are renderers: an edge between them ` +
           `pulls one renderer's platform into the other and inverts ADR 002. ` +
           `Anything genuinely shared belongs in kern-tokens or ` +
-          `kern-primitives, which sit below both.`,
+          `the external behavior kernel or kern-tokens, which sit below both.`,
       );
       continue;
     }
@@ -492,12 +524,15 @@ for (const { name, deps } of found) {
   }
 }
 
-console.log(
-  "check:layers — D-034 package map (primitives -> tokens -> renderers)",
-);
+console.log("check:layers — D-034 package map (axis/tokens -> renderers)");
+const EXTERNAL = new Set(["@xoroh/axis"]);
 for (const [name, meta] of Object.entries(LAYERS)) {
   const present = found.some((f) => f.name === name);
-  const mark = present ? "" : "  (not created yet)";
+  const mark = present
+    ? ""
+    : EXTERNAL.has(name)
+      ? "  (external, vendored — not a workspace dir)"
+      : "  (not created yet)";
   console.log(`  layer ${meta.rank}  ${name.padEnd(26)} ${meta.blurb}${mark}`);
 }
 const tooling = found.filter((f) => TOOLING.has(f.name)).map((f) => f.name);

@@ -20,7 +20,7 @@
 //
 // Run: `bun run check:parity`. Exit 0 clean, 1 on violation.
 
-import { existsSync, readdirSync, readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 const ROOT = new URL("..", import.meta.url).pathname;
@@ -300,98 +300,19 @@ if (docConcepts.size === 0) {
       "  Either the tables changed shape or the regex is wrong. Fix the regex; do not remove the check.",
   );
 }
-// --- every primitives module must be re-exported from its barrel --------------
-// `overlayModality.ts` shipped with three exports and no barrel entry, so it was
-// importable by nobody -- and passed every gate, because every gate inspected
-// the code the module CONTAINED rather than whether anything could REACH it.
-// The reachability check above covers registry rows; this covers the primitives
-// package's public entry, which was the uncovered gap.
-//
-// The barrel is parsed with the TypeScript parser, not a regex: a regex would
-// miss a re-export written across a line break, and "missing something" is the
-// exact failure mode of this gate.
-{
-  const primitivesSrc = join(ROOT, "libs", "kern-primitives", "src");
-  if (existsSync(primitivesSrc)) {
-    const barrelPath = join(primitivesSrc, "index.ts");
-    const barrelText = readFileSync(barrelPath, "utf8");
-    const barrelExports = new Set();
-    for (const m of barrelText.matchAll(
-      /\bfrom\s*["']\.\/([A-Za-z0-9_.-]+)["']/g,
-    )) {
-      barrelExports.add(m[1]);
-    }
-    // Every sibling module must be named by the barrel. A test file is not a
-    // module of the package; neither is the barrel itself.
-    for (const entry of readdirSync(primitivesSrc)) {
-      if (!entry.endsWith(".ts")) continue;
-      if (entry === "index.ts" || /\.test\.ts$/.test(entry)) continue;
-      const mod = entry.replace(/\.ts$/, "");
-      if (!barrelExports.has(mod)) {
-        violations.push(
-          `libs/kern-primitives/src/${entry} is not re-exported from index.ts -- ` +
-            `its exports are importable by nobody. A committed module that no ` +
-            `consumer can reach is a library that silently does not exist ` +
-            `(this is how overlayModality shipped in bbd9ac7).`,
-        );
-      }
-    }
-  }
-}
+// --- every behavior module must be re-exported from its barrel --------------
+// REMOVED in the kern→Axis cutover with the deleted `libs/kern-primitives/`:
+// the behavior kernel now lives in `@xoroh/axis`, whose own gates enforce
+// barrel reachability (public-entry rule), built-declaration surface
+// (publint/attw), and the import boundary. Re-implementing those checks
+// here against a vendored tarball would duplicate Axis CI without adding
+// signal; Kern-side consumption discipline (barrel-only imports resolving
+// to the installed package) is enforced by check-consumption.
 
-// --- every primitives module must also be in the BUILT d.ts barrel -----------
-// 802030c checked the SOURCE barrel. That is not the publish surface: consumers
-// import `dist/index.d.ts`, and a module can be exported in source and absent
-// from the built declaration — a tsup entry list that omits it, an export the
-// bundler drops, or a stale dist.
-//
-// A missing dist is UNVERIFIABLE, never a pass: reporting "0 violations" from a
-// build that has not run is the gate-looks-green-because-it-did-not-look failure.
-{
-  const distDts = join(ROOT, "libs", "kern-primitives", "dist", "index.d.ts");
-  const primitivesSrc = join(ROOT, "libs", "kern-primitives", "src");
-  if (!existsSync(distDts)) {
-    violations.push(
-      "libs/kern-primitives/dist/index.d.ts is missing, so the PUBLISH SURFACE " +
-        "cannot be checked. Run `bun run build`. Reporting 0 violations here would " +
-        "be a gate that passed because it did not look.",
-    );
-  } else {
-    const dts = readFileSync(distDts, "utf8");
-    // The trailing `export { ... }` list is the public entry. A `declare
-    // function` earlier in the file proves the symbol is compiled, NOT that it is
-    // exported -- which is exactly how the first reachability gate produced nine
-    // false positives.
-    const exportBlocks = [...dts.matchAll(/export\s*\{([^}]*)\}/g)];
-    const exported = new Set();
-    for (const b of exportBlocks) {
-      for (const raw of b[1].split(",")) {
-        const name = raw
-          .trim()
-          .split(/\s+as\s+/)
-          .pop()
-          ?.trim();
-        if (name) exported.add(name.replace(/^type\s+/, ""));
-      }
-    }
-    for (const entry of readdirSync(primitivesSrc)) {
-      if (!entry.endsWith(".ts")) continue;
-      if (entry === "index.ts" || /\.test\.ts$/.test(entry)) continue;
-      const text = readFileSync(join(primitivesSrc, entry), "utf8");
-      for (const m of text.matchAll(
-        /^export\s+(?:declare\s+)?(?:function|const|class|type)\s+(\w+)/gm,
-      )) {
-        const sym = m[1];
-        if (!exported.has(sym)) {
-          violations.push(
-            `libs/kern-primitives: ${sym} (from src/${entry}) is not exported ` +
-              `from the BUILT dist/index.d.ts -- consumers cannot import it.`,
-          );
-        }
-      }
-    }
-  }
-}
+// --- every behavior module must also be in the BUILT d.ts barrel -----------
+// REMOVED in the kern→Axis cutover with the deleted `libs/kern-primitives/`:
+// same rationale as above (Axis-side publint/attw + boundary gates own this
+// property now; Kern side owns consumption discipline via check-consumption).
 
 // --- web-only TABLE membership, not just row existence ------------------------
 // The check above proves a doc row names something real. It does NOT prove the
@@ -1120,7 +1041,7 @@ if (violations.length > 0) {
 }
 
 console.log(
-  "\nparity contract passes: boundary held, counts match the registry, no phantom rows, ruled asymmetries intact,\n and every kern-primitives module is reachable from its source AND built barrel",
+  "\nparity contract passes: boundary held, counts match the registry, no phantom rows, ruled asymmetries intact,\n and every registry row is reachable from its platform's public entry",
 );
 
 // ------------------------------------------------------------------- helpers

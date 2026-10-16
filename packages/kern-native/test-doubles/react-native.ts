@@ -14,6 +14,18 @@ export const Pressable = stub("Pressable");
 export const ScrollView = stub("ScrollView");
 export const TextInput = stub("TextInput");
 export const ActivityIndicator = stub("ActivityIndicator");
+// Added for the Axis cutover (migration PR): Axis components import
+// these hosts, so the stub must resolve them for headless suites.
+// Real implementations run under jest/RNTL + Expo host instead.
+export const Modal = stub("Modal");
+export const Image = stub("Image");
+export const PanResponder = {
+  create: (config: Record<string, unknown>) => ({
+    panHandlers: {},
+    ...(config as object),
+  }),
+};
+export const useWindowDimensions = () => ({ width: 390, height: 844 });
 
 export const StyleSheet = {
   create: <T extends Record<string, unknown>>(styles: T): T => styles,
@@ -60,6 +72,10 @@ export default {
   ScrollView,
   TextInput,
   ActivityIndicator,
+  Modal,
+  Image,
+  PanResponder,
+  useWindowDimensions,
   StyleSheet,
   Animated,
   Easing,

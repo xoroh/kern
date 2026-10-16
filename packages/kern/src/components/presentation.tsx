@@ -3,7 +3,7 @@
  *
  * ## Dual-path, stated once
  *
- * Every host here binds a `@xoroh/kern-primitives` model to DOM mechanics.
+ * Every host here binds an `@xoroh/axis` model to DOM mechanics.
  * None of them replaces a Base UI part: `Dialog`/`Popover`/`Menu` keep their
  * own `Portal`, trap and positioning. These hosts are the OWNED path the
  * kernel offers alongside — adopted per surface where the surface owns its own
@@ -22,7 +22,6 @@ import {
   type DismissBranches,
   type DismissWiringOptions,
   dismissBranchesFor,
-  isPressActivationKey,
   mergeSlotProps,
   nextTrapIndex,
   type Placement,
@@ -33,8 +32,7 @@ import {
   shouldDismissOn,
   usePresence,
   usePress,
-  VISUALLY_HIDDEN_STYLE,
-} from "@xoroh/kern-primitives";
+} from "@xoroh/axis";
 import {
   type CSSProperties,
   cloneElement,
@@ -48,6 +46,7 @@ import {
   useState,
 } from "react";
 import { createPortal } from "react-dom";
+import { isPressActivationKey, VISUALLY_HIDDEN_STYLE } from "./web-behavior";
 
 // ---------------------------------------------------------------------------
 // VisuallyHidden — screen-reader-only content.

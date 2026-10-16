@@ -7,7 +7,7 @@ import { SheetSurface } from "./sheet-surface";
  * P2c-4 dismiss-policy re-point, proven rather than asserted.
  *
  * `SheetSurface` imports `createDismissPolicy`/`dismissTriggersFor` from
- * `@xoroh/kern-primitives` — but an import is not adoption. These tests prove
+ * `@xoroh/axis` — but an import is not adoption. These tests prove
  * the kernel DECIDES: the trigger sets that reach the scrim, the hardware back
  * path and the close affordance come from the shared policy, so a fix to the
  * rule reaches both renderers instead of silently missing one (the

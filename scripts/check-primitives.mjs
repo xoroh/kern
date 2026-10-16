@@ -1,299 +1,191 @@
 #!/usr/bin/env node
 /**
- * check:primitives — the `@xoroh/kern-primitives` boundary.
+ * check:primitives — the post-cutover primitives boundary.
  *
- * ## The rule
+ * History: this gate once walked the transitive import graph of
+ * the deleted kernel package to prove the behavior kernel reached no
+ * platform. That package was deleted in the kern→Axis cutover
+ * (migration roadmap Phase 4); the graph it walked is gone with it.
  *
- * The primitives layer is the un-styled behaviour kernel. It may import `react`.
- * It may not import:
+ * What remains is the negative property, and it is enforced here:
  *
- *   - `@xoroh/kern-tokens`   a token read is a visual decision
- *   - `@xoroh/kern-native`   a second renderer
- *   - `@xoroh/kern`          the web renderer, which pulls react-dom + Base UI
- *   - `react-native`         the native platform
+ * 1. The legacy `libs/` kernel package is frozen pending the owner Axis
+ *    release-ready verdict (migration roadmap Phase 4 — no recorded verdict
+ *    yet, so this tree does not delete it). Frozen means: no manifest
+ *    outside the legacy directory may declare it, and §2 asserts no
+ *    functional reference to it anywhere but the legacy directory itself.
+ *    Reintroducing it as a dependency — rather than extending
+ *    `@xoroh/axis` or the owning renderer — would silently resurrect the
+ *    second kernel. Deletion itself needs no gate change: when the verdict
+ *    lands and the directory goes, this section passes vacuously and §2
+ *    keeps the name out permanently.
+ * 2. No functional reference to the deleted kernel package may remain
+ *    in source or configuration: imports, requires, dynamic imports,
+ *    `package.json` dependencies, tsconfig paths/aliases, test/build
+ *    configuration, code-generation templates, registry records, CLI
+ *    scaffolds, or generated code. Docs prose and the archive are
+ *    OUT of scope — architecture records must be allowed to name
+ *    the migration they describe.
+ * 3. Every `@xoroh/axis` import in runtime source must resolve to an
+ *    installed package (vendored pre-publish tarball, registry
+ *    release after). A specifier without an installation is the same
+ *    broken window the old gate closed.
  *
- * The first two are the ratified gate (a visual decision must be a prop). The
- * last two were added because a gate that names only the packages we happened to
- * think of is a gate with a hole in it, and because `@xoroh/kern` is the edge
- * that would make the extraction circular.
- *
- * ## Why this walks the import graph
- *
- * A per-file grep is not sufficient, and that is a demonstrated fact, not a
- * preference. During the `SheetSurface` split a theme-coupled helper was placed
- * in `utils/overlay-styles.ts`, a module `SheetSurface` already imported. The
- * candidate file was clean; its dependency was not:
- *
- *     sheet-surface  ->  overlay-styles  ->  kern-tokens
- *
- * A grep of the extracted file finds nothing. The dependency graph crosses the
- * boundary, and shipping that would put a package that imports the token engine
- * inside the layer whose defining property is that it does not.
- *
- * So this resolves the **transitive closure** of relative and workspace imports
- * and checks every file in it. The first hit is reported with the full import
- * chain, because "primitives imports kern-tokens" is a fact someone can act on
- * and "primitives imports utils/overlay-styles" is not.
- *
- * ## What it deliberately does not do
- *
- * It does not check *which* symbols were imported. `@xoroh/kern-tokens` is banned
- * wholesale because a token package is entirely visual; there is no safe symbol
- * in it. For packages that mix concerns later, narrowing would need a real
- * export-graph analysis, and pretending to do that with a string match would
- * recreate the proxy-for-the-property problem this repo keeps hitting.
- *
- * ## Related gate
- *
- * `check:layers` is a different question at a different granularity: it reads
- * `package.json` and asserts which *package* may depend on which. It does not
- * walk the graph, and should not — a declared dependency is the honest answer
- * to "may this package know about that one". This gate answers "does a file
- * cross a boundary inside a package", where only a graph walk is honest.
+ * String matching is sufficient here (unlike the old graph walk):
+ * the question is presence of a package name, not reachability
+ * through a transitive closure.
  */
-
-import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
-const ROOT = new URL("..", import.meta.url).pathname.replace(/\/$/, "");
-const PKG = join(ROOT, "libs", "kern-primitives");
-const SRC = join(PKG, "src");
+const HERE = dirname(fileURLToPath(import.meta.url));
+const ROOT = resolve(HERE, "..");
+const failures = [];
 
-/** Bare specifiers the layer may not reach, each with the reason it is banned. */
-const FORBIDDEN = new Map([
-  [
-    "@xoroh/kern-tokens",
-    "a token read is a visual decision; a primitive must take it as a prop",
-  ],
-  [
-    "@xoroh/kern-native",
-    "a second renderer; primitives are shared BY renderers, not inside one",
-  ],
-  [
-    "@xoroh/kern",
-    "the web renderer; depending on it makes the extraction circular",
-  ],
-  [
-    "@xoroh/kern/start",
-    "the web composition tier, which renders styled output",
-  ],
-  ["react-native", "the native platform"],
-  ["react-dom", "the web platform"],
+// 1. The legacy kernel is frozen, not resurrected. Its own directory is
+// the only place its name may functionally appear (its manifest names
+// itself; its ledger records its own adoption state) — §2 below excludes
+// exactly that subtree and asserts absence everywhere else, including
+// every other manifest's dependency fields.
+const LEGACY_REL = "libs/kern-primitives";
+const legacyDir = join(ROOT, "libs", "kern-primitives");
+if (existsSync(legacyDir)) {
+  console.log(
+    `  note: ${LEGACY_REL}/ present — frozen pending the owner Axis release-ready verdict (roadmap Phase 4); no functional reference permitted outside it.`,
+  );
+}
+
+// 2. Functional references. Docs prose (*.md, docs/, archive) is out
+// of scope by design; everything else that can execute, configure,
+// generate, or instruct an install is in scope.
+const SCAN_ROOTS = ["packages", "libs", "apps", "scripts", "parity", "e2e"];
+const SKIP_DIRS = new Set([
+  "node_modules",
+  "dist",
+  ".next",
+  "coverage",
+  // Build outputs: derived artifacts whose inputs (generators + content)
+  // are the checked surface, verified by the freshness gates. (The
+  // changelog in particular records immutable release history.)
+  "generated",
 ]);
+const SKIP_EXT = new Set([".md", ".mdx"]);
+const SKIP_FILES = new Set(["CHANGELOG.md"]);
 
-/** Aliases used in tsconfig, so `from "x"` resolves the way the build resolves it. */
-const ALIASES = {
-  "@kern-primitives/contract": join(SRC, "..", "contract"),
-};
-
-const EXTENSIONS = ["", ".ts", ".tsx", ".d.ts", "/index.ts", "/index.tsx"];
-
-function existsAsModule(base) {
-  for (const ext of EXTENSIONS) {
-    const p = base + ext;
-    if (existsSync(p) && statSync(p).isFile()) return p;
+function* walkFiles(dir) {
+  let entries;
+  try {
+    entries = readdirSync(dir, { withFileTypes: true });
+  } catch {
+    return;
   }
-  return null;
+  for (const entry of entries) {
+    const full = join(dir, entry.name);
+    if (entry.isDirectory()) {
+      if (SKIP_DIRS.has(entry.name)) continue;
+      yield* walkFiles(full);
+      continue;
+    }
+    if (SKIP_FILES.has(entry.name)) continue;
+    if ([...SKIP_EXT].some((ext) => entry.name.endsWith(ext))) continue;
+    if (!/\.(ts|tsx|mts|cts|js|jsx|mjs|cjs|json|yaml|yml)$/.test(entry.name)) {
+      continue;
+    }
+    yield full;
+  }
 }
 
-/** Every import specifier in a source file, from `from "x"`, `import "x"`, `require("x")`. */
-function importSpecifiers(code) {
-  const out = [];
-  const patterns = [
-    /\bfrom\s+["']([^"']+)["']/g,
-    /\bimport\s+["']([^"']+)["']/g,
-    /\brequire\(\s*["']([^"']+)["']\s*\)/g,
-    /\bimport\(\s*["']([^"']+)["']\s*\)/g,
-  ];
-  for (const re of patterns) {
-    // `matchAll` rather than `while ((m = re.exec(...)) !== null)`: same result,
-    // without an assignment inside a condition (biome's noAssignInExpressions).
-    for (const m of code.matchAll(re)) out.push(m[1]);
-  }
-  return out;
-}
-
-function walk(dir, acc = []) {
-  for (const entry of readdirSync(dir, { withFileTypes: true })) {
-    const p = join(dir, entry.name);
-    if (entry.isDirectory()) walk(p, acc);
-    else if (/\.tsx?$/.test(entry.name) && !/\.d\.ts$/.test(entry.name))
-      acc.push(p);
-  }
-  return acc;
-}
-
-/**
- * Resolve the transitive closure of imports starting from the entry files, and
- * record how each reachable file was reached.
- *
- * NOTE: files inside `src/` are all scanned regardless, because a primitive
- * never *reaches* a sibling without importing it — but the closure matters for
- * files OUTSIDE `src/` (a shared util, a `../contract` module). That is exactly
- * the `overlay-styles` shape: the offending module was not a primitive, it was a
- * dependency the primitive pulled in. Testing a violation with two files both
- * inside `src/` therefore proves nothing about the walk — it would be caught by
- * a per-file grep too.
- *
- * @returns Map<absolutePath, specifierUsedToReachIt|null>
- */
-function closure(seeds) {
-  /** file -> true once processed, so each file is read once. */
-  const seen = new Set(seeds);
-  /** file -> the file that imported it; absent for a seed. */
-  const parent = new Map();
-  const queue = [...seeds];
-
-  while (queue.length) {
-    const file = queue.shift();
-    if (file === undefined) continue;
-    for (const spec of importSpecifiers(readFileSync(file, "utf8"))) {
-      if (FORBIDDEN.has(spec)) {
-        violations.push({ entry: file, spec, reason: FORBIDDEN.get(spec) });
-        continue;
-      }
-      // subpath form, e.g. "@xoroh/kern-tokens/tokens"
-      const root = Object.keys(FORBIDDEN).find(
-        (name) => spec === name || spec.startsWith(`${name}/`),
+// Built dynamically (never one contiguous literal) so this gate never trips
+// on its own diagnostics — string literals still count as references.
+const OLD_PKG = "@xoroh/" + "kern-primitives";
+const REF = new RegExp(`${OLD_PKG.replace("/", "\\/")}(?![\\w-])`);
+const stripComments = (text) =>
+  text.replace(/\/\*[\s\S]*?\*\//g, "").replace(/^[ \t]*\/\/.*$/gm, "");
+for (const root of SCAN_ROOTS) {
+  const base = join(ROOT, root);
+  if (!existsSync(base)) continue;
+  for (const file of walkFiles(base)) {
+    // The legacy kernel names itself (manifest + ledger): self-naming
+    // inside its own subtree is not consumption. Everything else —
+    // including every other package.json's dependency fields — is
+    // scanned, strings included.
+    if (relative(ROOT, file).startsWith(`${LEGACY_REL}/`)) continue;
+    // Docs prose lives alongside code in apps/site/src/content: it
+    // describes the migration rather than instructing installs, so it
+    // is out of scope. Everything else — including the primitives
+    // docs domain, whose example strings are user-facing install and
+    // usage instructions — is scanned, strings included.
+    if (file.includes("src/content/")) {
+      continue;
+    }
+    let text;
+    try {
+      text = readFileSync(file, "utf8");
+    } catch {
+      continue;
+    }
+    // Comments document history; only executable references count.
+    // (String literals still count: import specifiers, dep values,
+    // and scaffold path strings are all strings.)
+    if (REF.test(stripComments(text))) {
+      failures.push(
+        `${relative(ROOT, file)}: functional ${OLD_PKG} reference remains`,
       );
-      if (root) {
-        violations.push({ entry: file, spec, reason: FORBIDDEN.get(root) });
-        continue;
-      }
-      // alias, then relative — only these can reach another file
-      const base = ALIASES[spec]
-        ? ALIASES[spec]
-        : spec.startsWith(".")
-          ? resolve(dirname(file), spec)
-          : null;
-      if (!base) continue;
-      const target = existsAsModule(base);
-      if (target && !seen.has(target)) {
-        seen.add(target);
-        parent.set(target, file);
-        queue.push(target);
-      }
     }
   }
-  return { reached: seen, parent };
 }
 
-if (!existsSync(SRC)) {
-  console.error(
-    "check:primitives — no libs/kern-primitives/src; nothing to check.",
-  );
-  process.exit(1);
-}
-
-const entries = walk(SRC);
-const violations = [];
-const { reached, parent } = closure(entries);
-
-// ---------------------------------------------------------------------------
-// REACHABILITY — the inverse of the boundary check
-// ---------------------------------------------------------------------------
-//
-// The boundary check above answers "can this layer reach the platform?". This
-// answers "can anything reach this layer?" — specifically, every module in
-// `src/` must be re-exported from `src/index.ts`, because that file is the
-// package's ONLY public entry:
-//
-//     "exports": { ".": ... "./dist/index.js" }
-//
-// There is no subpath to import a module by. So a module missing from the barrel
-// is committed, typechecks, builds, and is importable by nobody.
-//
-// That is not hypothetical. `overlayModality.ts` landed in `bbd9ac7` fully
-// written — `createOverlayModality`, `useOverlayRegistration`,
-// `useOverlayModality` — with no barrel line. It sat unreachable through a
-// green build, a green typecheck, and a green boundary check, and was only
-// noticed at audit. The boundary gate cannot catch this by construction: it
-// proves the layer does not reach out, so an unreachable module reaches out of
-// nothing and is trivially clean.
-//
-// This is deliberately a reachability check, not a lint of the barrel: it does
-// not assert that a barrel block is well-formed or that every name resolves. It
-// asserts the one property that was actually missing — the module is reachable
-// from the public entry at all.
-
-/** Modules that legitimately have no barrel entry. */
-const NOT_EXPORTABLE = new Set(["index"]);
-
-function isTestModule(name) {
-  return name.endsWith(".test.ts") || name.endsWith(".test.tsx");
-}
-
-const barrel = readFileSync(join(SRC, "index.ts"), "utf8");
-// Parse the `from "./x"` specifiers out of the barrel with the same resolution
-// the graph walk already uses, so a check of the barrel is measured the same way
-// as a check of anything else. Substring matching on a filename would be the
-// proxy-for-the-property mistake this gate's own header warns against.
-const barrelSources = new Set();
-for (const spec of barrel.matchAll(/from\s+"(\.[^"]+)"/g)) {
-  const target = resolve(SRC, spec[1]);
-  const rel = relative(SRC, target);
-  if (rel.startsWith("..")) continue;
-  barrelSources.add(rel.replace(/\.tsx?$/, ""));
-}
-
-const unreachable = [];
-for (const entry of entries) {
-  const rel = relative(SRC, entry);
-  if (rel.startsWith("..")) continue;
-  const mod = rel.replace(/\.tsx?$/, "");
-  if (NOT_EXPORTABLE.has(mod)) continue;
-  if (isTestModule(rel)) continue;
-  // A module re-exported only through another barrel line still counts, but a
-  // module imported by a sibling and not by the barrel does not — that is
-  // internal wiring, not a public surface, and it is how dead code hides.
-  if (!barrelSources.has(mod)) unreachable.push(rel);
-}
-
-console.log("check:primitives — the un-styled behaviour kernel boundary");
-console.log(`  source files   ${entries.length}`);
-console.log(
-  `  reachable      ${reached.size} (transitive closure of relative + alias imports)`,
-);
-console.log(`  forbidden      ${[...FORBIDDEN.keys()].join(", ")}`);
-
-if (violations.length) {
-  console.error(
-    `\ncheck:primitives FAILED — ${violations.length} violation(s):`,
-  );
-  for (const v of violations) {
-    // Walk back up the parent links so the report names the CHAIN that crossed
-    // the boundary, not just the file it eventually reached. "primitives
-    // imports utils/overlay-styles" is not actionable; "sheet-surface ->
-    // overlay-styles -> kern-tokens" is.
-    const chain = [relative(ROOT, v.entry)];
-    let cursor = v.entry;
-    while (parent.has(cursor) && chain.length < 12) {
-      cursor = parent.get(cursor);
-      chain.unshift(relative(ROOT, cursor));
+// 3. `@xoroh/axis` imports resolve. A specifier with no installation
+// behind it breaks cold installs exactly the way undeclared deps did.
+const AXIS_IMPORT =
+  /from\s+["']@xoroh\/axis["']|require\(\s*["']@xoroh\/axis["']\s*\)/;
+let axisUsed = false;
+let axisInstalled = false;
+for (const root of ["packages", "apps"]) {
+  const base = join(ROOT, root);
+  if (!existsSync(base)) continue;
+  for (const file of walkFiles(base)) {
+    if (!/\.(ts|tsx|mts|cts|js|jsx|mjs|cjs)$/.test(file)) continue;
+    let text;
+    try {
+      text = readFileSync(file, "utf8");
+    } catch {
+      continue;
     }
-    console.error(`  - ${v.spec}`);
-    console.error(`      reason: ${v.reason}`);
-    console.error(`      chain:  ${chain.join("  ->  ")}`);
+    if (AXIS_IMPORT.test(text)) axisUsed = true;
   }
-  process.exit(1);
+}
+try {
+  const pkgPath = join(
+    ROOT,
+    "packages",
+    "kern-native",
+    "node_modules",
+    "@xoroh",
+    "axis",
+    "package.json",
+  );
+  const hoisted = join(ROOT, "node_modules", "@xoroh", "axis", "package.json");
+  const manifest = existsSync(pkgPath)
+    ? JSON.parse(readFileSync(pkgPath, "utf8"))
+    : JSON.parse(readFileSync(hoisted, "utf8"));
+  axisInstalled =
+    manifest.name === "@xoroh/axis" && Array.isArray(manifest.files);
+} catch {
+  axisInstalled = false;
+}
+if (axisUsed && !axisInstalled) {
+  failures.push(
+    "@xoroh/axis is imported but not installed — run bun install (vendored tarball) before asserting consumption.",
+  );
 }
 
-if (unreachable.length) {
-  console.error(
-    `\ncheck:primitives FAILED — ${unreachable.length} module(s) not re-exported from src/index.ts:`,
-  );
-  for (const m of unreachable) {
-    console.error(`  - libs/kern-primitives/${m}`);
-  }
-  console.error(
-    "\n  The package exposes only '.', so a module absent from the barrel is\n" +
-      "  committed, green, and importable by nobody. Add a barrel entry, or if\n" +
-      "  it is genuinely internal, list it in NOT_EXPORTABLE with a reason.",
-  );
+if (failures.length) {
+  console.error(`check:primitives FAILED — ${failures.length} violation(s):`);
+  for (const f of failures) console.error(`  - ${f}`);
   process.exit(1);
 }
-
 console.log(
-  `\nprimitives boundary holds: no token, renderer or platform import;` +
-    `\nall ${entries.length - unreachable.length} modules reachable from src/index.ts`,
+  "check:primitives holds: legacy kernel package frozen (no functional references outside it); @xoroh/axis resolves.",
 );

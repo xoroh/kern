@@ -61,11 +61,9 @@ Prefer these machine surfaces over scraping HTML:
 
 - [Primitives](/primitives): Headless behavior kernel for web and native
 - [useControllableState](/primitives/use-controllable-state): One state hook for controlled/uncontrolled components
-- [Collection](/primitives/collection): Collection tree and item registration for composite widgets
 - [Dismiss policy](/primitives/dismiss-policy): One dismissal rule for escape / outside-press / pointer-down
 - [Dismiss wiring](/primitives/dismiss-wiring): Wiring helpers that connect dismiss sources to the dismissal policy
 - [Focus trap](/primitives/focus-trap): Focus-trap model: tab cycling bounds and autofocus resolution
-- [Merge refs](/primitives/merge-refs): Compose callback and object refs without losing either
 - [Overlay modality](/primitives/overlay-modality): Tracks which overlay layer owns the keyboard and screen-reader focus
 - [Portal](/primitives/portal): Portal registry and target resolution
 - [Positioning](/primitives/positioning): Floating-position math: origin, rect, viewport clamping

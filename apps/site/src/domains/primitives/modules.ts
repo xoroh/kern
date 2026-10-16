@@ -1,17 +1,22 @@
 /**
  * Primitives (P domain) module catalogue.
  *
- * Each entry names one kernel module of `@xoroh/kern-primitives` (see
- * `libs/kern-primitives/src/index.ts`, the barrel this mirrors) and
+ * Each entry names one kernel module of `@xoroh/axis` (see the
+ * installed package's public entry, the barrel this mirrors) and
  * carries the three sections its page renders, in fixed order:
  *
  *   anatomy — the pieces the consumer wires, and what each is for
  *   api     — the exported signatures, with the one decision each encodes
  *   example — one compilable snippet (`examples.ts`, checked by check-snippets)
  *
- * The API rows restate real signatures from `libs/kern-primitives/src`.
+ * The API rows restate real signatures from `@xoroh/axis`.
  * `scripts/check-primitives-docs.mjs` pins the shape and the barrel coverage,
  * so a module page cannot quietly fall back to "later work".
+ *
+ * Gated modules (`collection`, `mergeRefs`) have no rows here: they are
+ * not installable from any package, so documenting them as usable
+ * would be false. They return with their transfer, tests and docs
+ * together, when their adoption gates pass.
  */
 import { PRIMITIVE_EXAMPLES } from "./examples";
 
@@ -74,57 +79,6 @@ const MODULES: Omit<PrimitiveModule, "example">[] = [
         signature: "type StateAction<T> = T | ((previous: T | undefined) => T)",
         description:
           "The updater form, so callers can write setState((prev) => ...) without a second hook.",
-      },
-    ],
-  },
-  {
-    slug: "collection",
-    title: "Collection",
-    blurb: "Collection tree and item registration for composite widgets",
-    exports: [
-      "createCollectionModel",
-      "useCollection",
-      "CollectionItem",
-      "CollectionModel",
-      "CollectionNode",
-      "CollectionOptions",
-      "CollectionOrientation",
-    ],
-    anatomy: [
-      {
-        part: "nodes",
-        role: "The items, in visual order. Each carries key, optional label and a disabled flag.",
-      },
-      {
-        part: "focusedKey / selectedKeys",
-        role: "Resolved state, passed in — the model stores neither, so the caller stays the source of truth.",
-      },
-      {
-        part: "selectionMode",
-        role: 'One of "none" | "single" | "multiple", applied by describe() and isSelected().',
-      },
-      {
-        part: "describe(index)",
-        role: "Everything a renderer needs to draw one item: index, node, focus/selection/disabled state.",
-      },
-    ],
-    api: [
-      {
-        signature:
-          "createCollectionModel(options: CollectionOptions & { focusedKey: string | null; selectedKeys: readonly string[]; onFocusChange?: (key: string | null) => void; onSelectChange?: (keys: readonly string[]) => void }): CollectionModel",
-        description:
-          "The non-React model. Focus and selection are injected, so the same model runs in tests and in both renderers.",
-      },
-      {
-        signature: "useCollection(options: CollectionOptions): CollectionModel",
-        description:
-          "React binding of the same model, owning focus and selection state internally when not controlled.",
-      },
-      {
-        signature:
-          "type CollectionNode = { key: string; label?: string; disabled?: boolean }",
-        description:
-          "The minimum an item must declare. Renderers add their own props around it.",
       },
     ],
   },
@@ -224,7 +178,6 @@ const MODULES: Omit<PrimitiveModule, "example">[] = [
     title: "Focus trap",
     blurb: "Focus-trap model: tab cycling bounds and autofocus resolution",
     exports: [
-      "createFocusTrapModel",
       "nextTrapIndex",
       "resolveAutofocus",
       "AutofocusEvent",
@@ -266,45 +219,7 @@ const MODULES: Omit<PrimitiveModule, "example">[] = [
       },
     ],
   },
-  {
-    slug: "merge-refs",
-    title: "Merge refs",
-    blurb: "Compose callback and object refs without losing either",
-    exports: ["assignRef", "mergeRefs", "useMergeRefs", "PossibleRef"],
-    anatomy: [
-      {
-        part: "PossibleRef<T>",
-        role: "Ref<T> | undefined | null — the three shapes a forwarded ref actually arrives in.",
-      },
-      {
-        part: "assignRef",
-        role: "Writes one node to one ref, handling both function and object forms.",
-      },
-      {
-        part: "useMergeRefs",
-        role: "The stable composite ref for components: both outer and inner refs receive the node.",
-      },
-    ],
-    api: [
-      {
-        signature: "assignRef<T>(ref: PossibleRef<T>, value: T | null): void",
-        description:
-          "The primitive write. Safe on null, which is what React sends on unmount.",
-      },
-      {
-        signature:
-          "mergeRefs<T>(...refs: PossibleRef<T>[]): (value: T | null) => void",
-        description:
-          "Non-React composition when the ref list is already stable.",
-      },
-      {
-        signature:
-          "useMergeRefs<T>(...refs: PossibleRef<T>[]): (value: T | null) => void",
-        description:
-          "React binding. Keeps one stable callback across renders so the host element is not re-attached every render.",
-      },
-    ],
-  },
+
   {
     slug: "overlay-modality",
     title: "Overlay modality",
@@ -393,14 +308,7 @@ const MODULES: Omit<PrimitiveModule, "example">[] = [
     slug: "positioning",
     title: "Positioning",
     blurb: "Floating-position math: origin, rect, viewport clamping",
-    exports: [
-      "clampRectToViewport",
-      "resolveFloatingOrigin",
-      "resolveFloatingRect",
-      "Placement",
-      "PositioningOptions",
-      "Rect",
-    ],
+    exports: ["resolveFloatingRect", "Placement", "PositioningOptions", "Rect"],
     anatomy: [
       {
         part: "anchor",
@@ -485,13 +393,7 @@ const MODULES: Omit<PrimitiveModule, "example">[] = [
     slug: "press",
     title: "Press",
     blurb: "Press phases and activation keys",
-    exports: [
-      "createPressModel",
-      "isPressActivationKey",
-      "usePress",
-      "PressModel",
-      "PressPhase",
-    ],
+    exports: ["usePress", "PressModel", "PressPhase"],
     anatomy: [
       {
         part: 'phase: "idle" | "pressed"',
@@ -531,7 +433,6 @@ const MODULES: Omit<PrimitiveModule, "example">[] = [
     title: "Roving focus",
     blurb: "Roving-tabindex keyboard focus for toolbars, tabs, menus",
     exports: [
-      "createRovingModel",
       "useRovingModel",
       "RovingItem",
       "RovingModel",
@@ -715,13 +616,7 @@ const MODULES: Omit<PrimitiveModule, "example">[] = [
     slug: "a11y",
     title: "A11y helpers",
     blurb: "Id scopes, direction resolution, visually-hidden styles",
-    exports: [
-      "createIdScope",
-      "resolveDir",
-      "VISUALLY_HIDDEN_STYLE",
-      "A11yDir",
-      "IdScope",
-    ],
+    exports: ["createIdScope", "resolveDir", "A11yDir", "IdScope"],
     anatomy: [
       {
         part: "IdScope",

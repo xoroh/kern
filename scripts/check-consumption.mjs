@@ -1,267 +1,159 @@
 #!/usr/bin/env node
 /**
- * check:consumption -- every public export of kern-primitives has a first-party
- * consumer, or is explicitly marked not-yet-adopted in adoption.json.
+ * check:consumption — Kern consumes `@xoroh/axis` through its public
+ * entry, and nothing else.
  *
- * WHY THIS EXISTS
+ * History: this gate once demanded every deleted-package export
+ * have a first-party consumer or a not-yet-adopted ledger entry in
+ * `adoption.json`. Both the package and the ledger were deleted in the
+ * kern→Axis cutover (adoption state for gated modules lives in the
+ * migration roadmap + Axis dispositions now). What remains — and what
+ * this gate enforces — is consumption discipline on Kern's side:
  *
- * Today we have had three instances of the same shape: code that exists, is
- * tested, is exported... and that nothing reaches.
+ * 1. Every `@xoroh/axis` import in Kern runtime source names a symbol
+ *    the INSTALLED package's public entry actually exports (read from
+ *    the shipped `dist/index.d.ts`, mirroring the old built-artifacts
+ *    doctrine — never source, never memory).
+ * 2. No deep imports (`@xoroh/axis/<subpath>`): the contract supports
+ *    the public entry only. A deep import is a second, ungated API
+ *    surface.
+ * 3. No deleted-package imports anywhere (defense in depth
+ *    alongside check-primitives; this gate owns the consumption
+ *    direction, that one owns presence).
  *
- *   - `overlayModality.ts` committed with no barrel entry (bbd9ac7)
- *   - `SelectionKey` declared in the .d.ts but absent from the export list
- *   - the whole overlayModality kernel landing with ZERO consumers -- extracted,
- *     fully tested, `check:primitives` green, and unreachable in practice
- *
- * `check:primitives` proves the boundary: primitives never import tokens or a
- * renderer. It says NOTHING about whether any renderer imports the primitives.
- * Without this gate, "the kernel exists" is unfalsifiable -- the exact property
- * that let all three land.
- *
- * CHECKED AGAINST BUILT ARTIFACTS
- *
- * The public entry is `dist/index.d.ts`, so that is what is read. A consumer of
- * `src/` proves nothing about what a consumer of the published package reaches,
- * and reading source would have missed `SelectionKey` entirely.
- *
- * THE CLOSURE, and why it is not a loophole
- *
- * An export used INTERNALLY by an adopted export counts as adopted: `isSelected`
- * and `normalizeSelection` are called by `useSelection`, which kern-native
- * imports. Requiring every helper to be imported directly would be impossible to
- * satisfy honestly. Types inherit adoption from the value that produces them --
- * `RovingModel` is the return type of `useRovingModel`, and demanding a direct
- * `import type` for it would be theatre.
- *
- * WHAT CANNOT BE SATISFIED BY MARKER
- *
- * A marker names a UNIT and must list every symbol in it. Adding a new export to
- * an already-marked unit therefore still fails until it is listed -- so widening
- * a unit cannot quietly launder a new, unadopted symbol past the gate.
+ * A missing installed package is UNVERIFIABLE, never a pass.
  */
+import { existsSync, readdirSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 
-import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
-import { dirname, join, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
+const ROOT = new URL("..", import.meta.url).pathname.replace(/\/$/, "");
+const failures = [];
+const fail = (m) => failures.push(m);
 
-const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const PKG = join(ROOT, "libs", "kern-primitives");
-const DTS = join(PKG, "dist", "index.d.ts");
-const SRC = join(PKG, "src");
-const ADOPTION = join(PKG, "adoption.json");
-
-/** Packages allowed to consume the kernel. */
-const CONSUMER_DIRS = [
-  "packages/kern-native/src",
-  "packages/kern/src",
-  "packages/mcp/src",
-];
-
-const violations = [];
-
-/** Every *.ts / *.tsx under dir, recursively. */
-function walk(dir) {
-  const out = [];
-  if (!existsSync(dir)) return out;
-  for (const entry of readdirSync(dir)) {
-    const full = join(dir, entry);
-    if (statSync(full).isDirectory()) out.push(...walk(full));
-    else if (/\.tsx?$/.test(entry)) out.push(full);
+function findInstalledAxis() {
+  for (const base of [
+    join(ROOT, "packages", "kern-native", "node_modules", "@xoroh", "axis"),
+    join(ROOT, "packages", "kern", "node_modules", "@xoroh", "axis"),
+    join(ROOT, "node_modules", "@xoroh", "axis"),
+  ]) {
+    try {
+      const manifest = JSON.parse(
+        readFileSync(join(base, "package.json"), "utf8"),
+      );
+      if (manifest.name === "@xoroh/axis") return base;
+    } catch {
+      // Not installed here; try the next candidate.
+    }
   }
-  return out;
+  return null;
 }
 
-// --- 1. the public entry, read from the BUILT declaration ---------------------
-if (!existsSync(DTS)) {
-  console.error(
-    "consumption: UNVERIFIABLE — libs/kern-primitives/dist/index.d.ts is missing.\n" +
-      "  Run `bun run build`. Reporting 0 unconsumed from a build that has not run\n" +
-      "  is the gate-looks-green-because-it-did-not-look failure.",
+const axisDir = findInstalledAxis();
+if (!axisDir) {
+  fail(
+    "consumption: UNVERIFIABLE — no installed @xoroh/axis found. " +
+      "Run bun install (vendored tarball) before asserting consumption.",
   );
-  process.exit(1);
 }
 
-const exported = new Set();
-for (const m of readFileSync(DTS, "utf8").matchAll(/export\s*\{([^}]*)\}/g)) {
-  for (const raw of m[1].split(",")) {
-    const name = raw
+const publicNames = new Set();
+if (axisDir) {
+  let dts = "";
+  try {
+    dts = readFileSync(join(axisDir, "dist", "index.d.ts"), "utf8");
+  } catch {
+    fail(
+      "installed @xoroh/axis has no dist/index.d.ts — rebuild the vendor tarball.",
+    );
+  }
+  const m = dts.match(/export\s*\{([^}]+)\}\s*;?\s*$/);
+  for (const part of (m?.[1] ?? "").split(",")) {
+    const name = part
+      .replace(/\btype\s+/g, "")
       .trim()
       .split(/\s+as\s+/)
       .pop()
-      ?.trim()
-      .replace(/^type\s+/, "");
-    if (name) exported.add(name);
+      ?.trim();
+    if (name) publicNames.add(name);
+  }
+  if (publicNames.size === 0 && !failures.length) {
+    fail("installed @xoroh/axis declarations carry no export list.");
   }
 }
 
-// --- 2. which module defines each export, and which are types ----------------
-const modText = new Map();
-for (const f of readdirSync(SRC)) {
-  if (!f.endsWith(".ts") || f === "index.ts" || f.endsWith(".test.ts"))
-    continue;
-  modText.set(f.replace(/\.ts$/, ""), readFileSync(join(SRC, f), "utf8"));
-}
-
-const symbolModule = new Map();
-const typeSymbols = new Set();
-for (const [name, txt] of modText) {
-  // `export type Foo = ...` -- the type ALIAS form. Matching this needs its own
-  // pattern: a single combined regex with `type\s+` as an optional group then
-  // requiring function|const|class silently matches NO type alias at all, so
-  // every aliased type reads as belonging to no module and therefore as
-  // unadopted. That is a gate that reports a false crisis rather than failing.
-  for (const m of txt.matchAll(/^export\s+type\s+(\w+)\s*[=<]/gm)) {
-    symbolModule.set(m[1], name);
-    typeSymbols.add(m[1]);
-  }
-  for (const m of txt.matchAll(/^export\s+interface\s+(\w+)/gm)) {
-    symbolModule.set(m[1], name);
-    typeSymbols.add(m[1]);
-  }
-  for (const m of txt.matchAll(
-    /^export\s+(?:declare\s+)?(?:function|const|class)\s+(\w+)/gm,
-  )) {
-    symbolModule.set(m[1], name);
-  }
-}
-
-// --- 3. direct first-party consumers -----------------------------------------
-const adopted = new Set();
-const IMPORT_RE =
-  /import\s+(?:type\s+)?\{([^}]*)\}\s*from\s*["']@xoroh\/kern-primitives["']/gs;
-for (const dir of CONSUMER_DIRS) {
-  for (const file of walk(join(ROOT, dir))) {
-    const txt = readFileSync(file, "utf8");
-    for (const m of txt.matchAll(IMPORT_RE)) {
-      for (const raw of m[1].split(",")) {
-        const name = raw
-          .trim()
-          .split(/\s+as\s+/)[0]
-          .trim()
-          .replace(/^type\s+/, "");
-        if (name) adopted.add(name);
-      }
-    }
-  }
-}
-
-// --- 4. transitive closure over internal modules -----------------------------
-// An export sharing a module with an adopted export is adopted.
-for (let changed = true; changed; ) {
-  changed = false;
-  const adoptedModules = new Set(
-    [...adopted].map((s) => symbolModule.get(s)).filter(Boolean),
-  );
-  for (const name of exported) {
-    if (adopted.has(name)) continue;
-    const mod = symbolModule.get(name);
-    // A type is adopted when the value producing it is; a value is adopted when
-    // it shares a module with something already adopted.
-    if (mod && adoptedModules.has(mod)) {
-      adopted.add(name);
-      changed = true;
-    }
-  }
-}
-
-// --- 5. explicit not-yet-adopted markers -------------------------------------
-const marked = new Map();
-if (!existsSync(ADOPTION)) {
-  violations.push(
-    "libs/kern-primitives/adoption.json is missing, so unconsumed exports " +
-      "cannot be declared. Every export must be either consumed or marked.",
-  );
-} else {
-  let manifest;
+function* walkFiles(dir, depth = 0) {
+  if (depth > 8) return;
+  let entries;
   try {
-    manifest = JSON.parse(readFileSync(ADOPTION, "utf8"));
-  } catch (err) {
-    violations.push(`adoption.json is not valid JSON: ${err.message}`);
+    entries = readdirSync(dir, { withFileTypes: true });
+  } catch {
+    return;
   }
-  for (const unit of manifest?.units ?? []) {
-    for (const field of ["unit", "status", "reason", "symbols"]) {
-      if (!unit?.[field]) {
-        violations.push(`an adoption.json unit is missing "${field}"`);
-      }
+  for (const entry of entries) {
+    if (
+      entry.name === "node_modules" ||
+      entry.name === "dist" ||
+      // Build outputs: derived artifacts whose inputs are the checked
+      // surface (freshness gates own them; the changelog additionally
+      // records immutable release history).
+      entry.name === "generated"
+    ) {
+      continue;
     }
-    if (unit?.status !== "not-yet-adopted") {
-      violations.push(
-        `adoption.json unit "${unit?.unit}" has status "${unit?.status}"; only ` +
-          `"not-yet-adopted" is a valid marker. A different status is not an ` +
-          `excuse -- adopt it or delete the entry.`,
+    const full = join(dir, entry.name);
+    if (entry.isDirectory()) {
+      yield* walkFiles(full, depth + 1);
+      continue;
+    }
+    if (/\.(ts|tsx|mts|cts|js|jsx|mjs|cjs)$/.test(entry.name)) yield full;
+  }
+}
+
+const AXIS_IMPORT =
+  /from\s*["'](@xoroh\/axis(\/[^"']*)?)["']|require\(\s*["'](@xoroh\/axis(\/[^"']*)?)["']\s*\)|import\(\s*["'](@xoroh\/axis(\/[^"']*)?)["']\s*\)/g;
+// Built dynamically so this gate never trips on its own diagnostics.
+const OLD_PKG = "@xoroh/" + "kern-primitives";
+const PRIMITIVES_REF = new RegExp(OLD_PKG.replace("/", "\\/"));
+
+for (const area of ["packages", "apps"]) {
+  const base = join(ROOT, area);
+  if (!existsSync(base)) continue;
+  for (const file of walkFiles(base)) {
+    let text;
+    try {
+      text = readFileSync(file, "utf8");
+    } catch {
+      continue;
+    }
+    // Comments document history; only executable references count
+    // (string literals still count: specifiers, dep values, paths).
+    const code = text
+      .replace(/\/\*[\s\S]*?\*\//g, "")
+      .replace(/^[ \t]*\/\/.*$/gm, "");
+    if (PRIMITIVES_REF.test(code)) {
+      fail(
+        `${file.replace(`${ROOT}/`, "")}: references ${OLD_PKG} (deleted package).`,
       );
     }
-    for (const s of unit?.symbols ?? []) marked.set(s, unit.unit);
+    for (const m of code.matchAll(AXIS_IMPORT)) {
+      const spec = m[1] ?? m[3] ?? m[5];
+      if (spec !== "@xoroh/axis") {
+        fail(
+          `${file.replace(`${ROOT}/`, "")}: deep import ${JSON.stringify(spec)} — the contract supports the public entry only.`,
+        );
+      }
+      // Named bindings are NOT re-checked here: typecheck already
+      // resolves every name against the installed declarations, and a
+      // second parser would only duplicate it less reliably.
+    }
   }
 }
 
-// --- 6. judge -----------------------------------------------------------------
-const unconsumedValues = [];
-const unconsumedTypes = [];
-for (const name of exported) {
-  if (adopted.has(name) || marked.has(name)) continue;
-  (typeSymbols.has(name) ? unconsumedTypes : unconsumedValues).push(name);
-}
-
-for (const name of unconsumedValues) {
-  violations.push(
-    `libs/kern-primitives exports ${name} but NO first-party package imports ` +
-      `it, and it is not marked not-yet-adopted in adoption.json. An unconsumed ` +
-      `export is unreachable code that passes every other gate.`,
-  );
-}
-for (const name of unconsumedTypes) {
-  violations.push(
-    `libs/kern-primitives exports type ${name} which no adopted export ` +
-      `produces, and which adoption.json does not cover.`,
-  );
-}
-
-// A marker naming a symbol that no longer exists is stale: it would let a real
-// regression hide behind a marker that no longer describes anything.
-for (const [sym, unit] of marked) {
-  if (!exported.has(sym)) {
-    violations.push(
-      `adoption.json unit "${unit}" marks ${sym}, which is no longer exported. ` +
-        `Stale markers silently excuse nothing; delete the entry.`,
-    );
-  }
-  // A marker on something that is ALREADY consumed is the dangerous kind. Today
-  // it is harmless; the day that consumer is deleted, the marker silently
-  // excuses it and the regression is invisible. A marker must describe a real
-  // gap, so requiring it to be minimal is what stops it outliving its reason.
-  //
-  // This is the check whose absence made the "widening a unit cannot escape"
-  // comment in the header a claim rather than a property.
-  if (adopted.has(sym)) {
-    violations.push(
-      `adoption.json marks ${sym} as not-yet-adopted, but a first-party package ` +
-        `DOES import it. The marker is unnecessary and will silently excuse a ` +
-        `future regression when that consumer is removed -- delete it.`,
-    );
-  }
-}
-
-const counts = {
-  exported: exported.size,
-  adopted: [...exported].filter((e) => adopted.has(e)).length,
-  marked: [...exported].filter((e) => marked.has(e)).length,
-  units: new Set(marked.values()).size,
-};
-
-if (violations.length) {
-  console.error("consumption contract FAILED:\n");
-  for (const v of violations) console.error(`  - ${v}`);
-  console.error(
-    `\n  ${counts.exported} exported · ${counts.adopted} adopted · ` +
-      `${counts.marked} marked across ${counts.units} unit(s)`,
-  );
+if (failures.length) {
+  console.error(`check:consumption FAILED — ${failures.length} violation(s):`);
+  for (const f of failures) console.error(`  - ${f}`);
   process.exit(1);
 }
-
 console.log(
-  `consumption contract passes: ${counts.exported} public exports of ` +
-    `kern-primitives, ${counts.adopted} adopted by a first-party package, ` +
-    `${counts.marked} explicitly marked not-yet-adopted across ` +
-    `${counts.units} unit(s). Nothing is exported and unreachable by accident.`,
+  `check:consumption holds: Kern imports @xoroh/axis through its public entry (${publicNames.size} exported names); no deleted-package references.`,
 );

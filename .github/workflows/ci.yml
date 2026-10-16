@@ -213,6 +213,12 @@ jobs:
       - name: Check every shipped component is exercised by a test
         run: bun run check:coverage
 
+      - name: "Check publint (sanctioned pre-publish file: spec only)"
+        # Root entry the workflow contract requires for scripts/check-publint.mjs.
+        # Covers both @xoroh/axis consumers; the pkg matrix legs run the same
+        # wrapper per-package through check:publish.
+        run: bun run check:publint
+
       - name: Check publishable packages are packable
         run: bun run preflight:publish
 
@@ -250,13 +256,16 @@ jobs:
         run: bun run build
 
       - name: Check web/native parity contract
-        # AFTER the build: check:parity inspects the built libs/kern-primitives dist .d.ts.
+        # AFTER the build: check:parity inspects the built package dists
+        # (kern + kern-native public-entry .d.ts) for registry reachability.
         run: |
           bun run check:parity
           bun run check:currency
 
       - name: Check kernel consumption against built primitives
-        # AFTER the build: check:consumption reads libs/kern-primitives/dist/index.d.ts.
+        # AFTER the build: check:consumption reads the INSTALLED @xoroh/axis
+        # dist/index.d.ts (vendored tarball pre-publish) and asserts Kern
+        # imports it through its public entry only.
         run: bun run check:consumption
 
       - name: Check every declared export exists in dist

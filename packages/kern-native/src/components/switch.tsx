@@ -1,4 +1,4 @@
-import { useControllableState } from "@xoroh/kern-primitives";
+import { useControllableState } from "@xoroh/axis";
 import { cssLengthToDp, type ResolvedTheme } from "@xoroh/kern-tokens";
 import {
   Pressable,

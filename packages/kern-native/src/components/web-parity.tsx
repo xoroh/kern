@@ -1,4 +1,4 @@
-import { useControllableState, useSelection } from "@xoroh/kern-primitives";
+import { useControllableState, useSelection } from "@xoroh/axis";
 import { type ResolvedTheme, tokens } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
 import {
