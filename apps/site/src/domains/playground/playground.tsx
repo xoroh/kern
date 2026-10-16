@@ -1587,14 +1587,14 @@ export const playgroundTheme = defineThemePreset({
                     </div>
 
                     <Table.Root>
-                      <Table.Header>
+                      <Table.Head>
                         <Table.Row>
-                          <Table.Head>Service</Table.Head>
-                          <Table.Head>Replica Count</Table.Head>
-                          <Table.Head>Health</Table.Head>
-                          <Table.Head className="text-right">Actions</Table.Head>
+                          <Table.Header>Service</Table.Header>
+                          <Table.Header>Replica Count</Table.Header>
+                          <Table.Header>Health</Table.Header>
+                          <Table.Header className="text-right">Actions</Table.Header>
                         </Table.Row>
-                      </Table.Header>
+                      </Table.Head>
                       <Table.Body>
                         {[
                           { name: "auth-gateway", replicas: "12 / 12", status: "Healthy" },
