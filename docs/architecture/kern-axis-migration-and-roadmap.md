@@ -597,6 +597,29 @@ multi-design-system expansion, publication itself.
   First-candidate consumer when (2) lands: `useControllableState`
   (18 importer files, suite-backed) — vertical slice, not a doc edit.
 
+#### Product boundaries (2026-10-16)
+
+- **Kern** (§C.1): AI-first, open-source design-system platform — "One
+  foundation. Every design system." Owns design-system-specific web +
+  native implementations, tokens/themes, icons, blocks, playgrounds,
+  docs/discovery, CLI source-vendoring, MCP/AI workflows, and neutral
+  shared infrastructure (contracts, registry, dependency resolution).
+  Never a universal themed implementation across systems.
+- **Axis**: independent, standalone, unstyled React Native component
+  library (Base-UI-for-native direction). Owns native component APIs +
+  rendered components (once the component contract lands), interaction
+  behavior, native a11y semantics, controlled/uncontrolled state, tests,
+  docs, packaging, release lifecycle. Owns NO design-system styling,
+  tokens, or themed variants. Usable without Kern.
+- **Today**: Axis is foundation-only (14 behavior modules, 0 rendered
+  components) — the component library is the goal, not the status.
+- **Contract homes**: Axis public API + implementation rules →
+  authoritative in Axis (component contract doc); Kern design-system +
+  integration rules → authoritative here; shared dependency direction
+  (Kern-may-consume-Axis, never reverse) → D-DEP canonical, mirrored
+  by Axis's platform-neutrality rule. No duplicated editable contract
+  copies.
+
 #### Foundation compatibility evidence (2026-10-16, verified facts only)
 
 Compatibility is never inferred from names. `unknown` means unobserved
@@ -836,6 +859,11 @@ per-design-system implementations never collapsed; Base UI for web only
 `DTCG_SPEC_VERSION`, re-verify reference); AI-first in Kern, never as Axis
 dependency; MIT licensing; ESM-only (ADR-001); hard cuts, no shims;
 publication HOLD until explicit authorization.
+Active plan: this roadmap — designated by `docs/planning/README`
+(archived 2026-10-16) and the change-routing skill; `architecture/
+0.1.0-preview-redesign.md` is archived/superseded per `ARCHIVE_INDEX`
+(sole authority 2026-10-14 → archive date) and must not be cited as
+current authority. No competing active roadmap exists.
 
 | ID | Question | Position / options | Blocks |
 |---|---|---|---|
