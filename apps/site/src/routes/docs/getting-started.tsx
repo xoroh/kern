@@ -147,9 +147,8 @@ function GettingStarted() {
           <p
             className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
           >
-            One package per platform. Preview: packages are unpublished, so
-            this resolves from a checkout — the registry command runs at
-            release.
+            One package per platform. Preview: packages are unpublished, so this
+            resolves from a checkout — the registry command runs at release.
           </p>
           <Code>{INSTALL}</Code>
         </Step>
@@ -280,8 +279,8 @@ function GettingStarted() {
             single-component hybrid where the values stay depended.{" "}
             <code>--self-contained</code> additionally vendors the token CSS
             snapshot: the eject path for owning your values. Like{" "}
-            <code>init</code>, run it from a checkout until the CLI ships on
-            its own.
+            <code>init</code>, run it from a checkout until the CLI ships on its
+            own.
           </p>
           <Code>
             {

@@ -17,8 +17,7 @@ export function PreviewBanner() {
       aria-label="Preview status"
       className={`m-0 bg-(--sys-color-secondary-container) px-4 py-2 text-center text-(--sys-color-on-secondary-container) ${T_LABEL_LG}`}
     >
-      Kern 0.1.0 Preview — packages are unpublished (
-      <code>0.0.0</code>
+      Kern 0.1.0 Preview — packages are unpublished (<code>0.0.0</code>
       ). Install from a checkout; <code>npm i</code> and <code>kern add</code>{" "}
       commands run at release.
     </p>

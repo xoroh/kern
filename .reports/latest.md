@@ -1,7 +1,7 @@
 # Status report — 2026-10-16, evening (Kern 0.1.0 Preview readiness track)
 
-Baseline: Kern `main` at `4d325055` (PR #40 button aria-pressed merged).
-Tree clean, pushed, synced.
+Baseline: Kern `main` at `bd83d215` (PR #41 state layers merged, CI green).
+Tree clean, pushed, synced (this branch: fix/preview-install-honesty).
 
 ## Done (this track)
 - PR #37 merged: Kern consumes `@xoroh/axis` via vendored tarball
