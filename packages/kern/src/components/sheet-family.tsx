@@ -6,7 +6,7 @@ import {
   shouldDismissOn,
   useControllableState,
 } from "@xoroh/axis";
-import type { ReactNode } from "react";
+import type { ReactNode, Ref } from "react";
 import { cn } from "../utils/cn";
 import { KernPortal, VisuallyHidden } from "./presentation";
 import { isPressActivationKey } from "./web-behavior";
@@ -67,6 +67,8 @@ export type SheetSurfaceProps = {
   children?: ReactNode;
   className?: string;
   testID?: string;
+  /** Ref to the rendered surface popup. */
+  ref?: Ref<HTMLDivElement>;
   /**
    * Text direction for the surface. Passed through verbatim: when absent no
    * `dir` attribute renders and the surface inherits the document direction.
@@ -90,6 +92,7 @@ export function SheetSurface({
   className,
   testID,
   dir,
+  ref,
 }: SheetSurfaceProps) {
   return (
     <DialogPrimitive.Root
@@ -116,6 +119,7 @@ export function SheetSurface({
               data-testid={testID ?? "kern-sheet-surface"}
               aria-label={label}
               dir={dir}
+              ref={ref}
               // Base UI's `Dialog.Popup` traps focus and inerts the page but emits
               // no `aria-modal` (measured). Without it a screen reader announces a
               // dialog with no indication the rest of the page is unreachable —

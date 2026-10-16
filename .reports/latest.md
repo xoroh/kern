@@ -58,14 +58,15 @@ Tree clean, pushed, synced (this branch: fix/preview-install-honesty).
 - PR #40 merged: Button toggle+href keeps `aria-pressed` (critic fix 2).
 
 ## In progress
-- Merged: #39 SnapSheet, #40 Button aria-pressed, #41 state layers.
-- Open, awaiting CI/merge in order: #42 Preview install banner (site),
-  #43 mobile dialog props (site), #44 elevation gaps zero.
-- This branch (release-hygiene, next PR): CLI publishable per owner decision,
-  8-package truth in versioning/releases/CHANGELOG, changeset surgery
-  (9 removed, 2 retargeted), `changeset status` exit 0.
-- Queued after: critic (4 done here) → (5) ref-forwarding, (6) route dedupe,
-  (7) findings bundle, (8) Base-UI-names discipline, (9) testID contract;
+- Merged: #39 SnapSheet, #40 Button aria-pressed, #41 state layers,
+  #42 Preview banner, #43 mobile dialog, #44 elevation gaps, #45 release
+  hygiene (CLI publishable, 8-package truth, changeset status green).
+- This branch (ref-forwarding, next PR): ButtonProps discriminated union +
+  assignRef helper; Menu/SheetSurface refs; Dialog/Switch spread proof tests.
+- Queued after: (6) route dedupe [done on branch, needs PR], (7) findings
+  bundle, (8) Base-UI-names discipline, (9) testID contract; usage P1/P2;
+  m3 tertiary/chrome + playground; owner-decision phases (structure,
+  Button M3 names, docs depth, HCT).
   usage P1/P2 correctness items; m3 tertiary/chrome + playground fidelity;
   owner-decision phases (structure URLs/registry/rename, Button M3 names,
   docs depth top-20, HCT engine).

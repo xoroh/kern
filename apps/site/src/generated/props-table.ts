@@ -923,26 +923,6 @@ export const PROPS_TABLE: Record<
         required: false,
       },
       {
-        name: "href",
-        type: "string | undefined",
-        required: false,
-      },
-      {
-        name: "target",
-        type: "HTMLAttributeAnchorTarget | undefined",
-        required: false,
-      },
-      {
-        name: "rel",
-        type: "string | undefined",
-        required: false,
-      },
-      {
-        name: "download",
-        type: "any",
-        required: false,
-      },
-      {
         name: "icon",
         type: "ReactNode",
         required: false,
@@ -984,8 +964,28 @@ export const PROPS_TABLE: Record<
         required: false,
       },
       {
+        name: "href",
+        type: "string",
+        required: true,
+      },
+      {
+        name: "target",
+        type: "HTMLAttributeAnchorTarget | undefined",
+        required: false,
+      },
+      {
+        name: "rel",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "download",
+        type: "any",
+        required: false,
+      },
+      {
         name: "ref",
-        type: "Ref<HTMLButtonElement | HTMLAnchorElement> | undefined",
+        type: "Ref<HTMLAnchorElement> | undefined",
         required: false,
       },
     ],
@@ -4176,6 +4176,11 @@ export const PROPS_TABLE: Record<
         type: "string | undefined",
         required: false,
       },
+      {
+        name: "ref",
+        type: "Ref<HTMLDivElement> | undefined",
+        required: false,
+      },
     ],
     curated: [],
   },
@@ -4216,6 +4221,11 @@ export const PROPS_TABLE: Record<
         type: "string | undefined",
         required: false,
       },
+      {
+        name: "ref",
+        type: "Ref<HTMLDivElement> | undefined",
+        required: false,
+      },
     ],
     curated: [],
   },
@@ -4254,6 +4264,11 @@ export const PROPS_TABLE: Record<
       {
         name: "testID",
         type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "ref",
+        type: "Ref<HTMLDivElement> | undefined",
         required: false,
       },
     ],
@@ -6553,6 +6568,11 @@ export const PROPS_TABLE: Record<
         required: false,
       },
       {
+        name: "ref",
+        type: "Ref<HTMLDivElement> | undefined",
+        required: false,
+      },
+      {
         name: "dir",
         type: "A11yDir | undefined",
         required: false,
@@ -6566,6 +6586,11 @@ export const PROPS_TABLE: Record<
         name: "label",
         type: "string",
         required: true,
+      },
+      {
+        name: "ref",
+        type: "Ref<HTMLDivElement> | undefined",
+        required: false,
       },
       {
         name: "dir",
@@ -6648,6 +6673,11 @@ export const PROPS_TABLE: Record<
         required: true,
       },
       {
+        name: "ref",
+        type: "Ref<HTMLDivElement> | undefined",
+        required: false,
+      },
+      {
         name: "dir",
         type: "A11yDir | undefined",
         required: false,
@@ -6713,6 +6743,11 @@ export const PROPS_TABLE: Record<
         required: true,
       },
       {
+        name: "ref",
+        type: "Ref<HTMLDivElement> | undefined",
+        required: false,
+      },
+      {
         name: "dir",
         type: "A11yDir | undefined",
         required: false,
@@ -6776,6 +6811,11 @@ export const PROPS_TABLE: Record<
         name: "label",
         type: "string",
         required: true,
+      },
+      {
+        name: "ref",
+        type: "Ref<HTMLDivElement> | undefined",
+        required: false,
       },
       {
         name: "dir",
@@ -6846,6 +6886,11 @@ export const PROPS_TABLE: Record<
         name: "label",
         type: "string",
         required: true,
+      },
+      {
+        name: "ref",
+        type: "Ref<HTMLDivElement> | undefined",
+        required: false,
       },
       {
         name: "dir",
