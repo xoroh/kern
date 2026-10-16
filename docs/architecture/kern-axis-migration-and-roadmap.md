@@ -510,6 +510,14 @@ phase. Phases overlap only where stated.
 - Exit gate: Axis checkout builds from clean clone; zero
   `@xoroh/kern-*`/workspace/relative-cross-repo references in source;
   placeholder name fully gone (`grep` proof).
+- Execution log 2026-10-16 (owner mandate): slice 1 (`de50f65`: identity +
+  `time`/`useControllableState`, 29 tests) and slice 2 (`9bf2ceb`: 12
+  behavior modules + tests, 154 passing; public barrel per contract;
+  `check:boundary` gate; toolchain + extended CI) landed on Axis
+  `migration/axis-extraction`, PR xoroh/axis#3 open for review, CI green
+  (run `38845326810`; one follow-up commit for a lint format + CI test
+  scoping fix). `collection`/`mergeRefs` remain gated; native-binding
+  proofs (RNTL/Expo host) and Phase 4 Kern integration are next.
 
 ### Phase 3 — Axis native-mobile package readiness
 
