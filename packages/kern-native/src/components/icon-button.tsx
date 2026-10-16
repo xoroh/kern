@@ -2,7 +2,7 @@ import {
   mergeSlotProps,
   type SlotProps,
   useControllableState,
-} from "@xoroh/kern-primitives";
+} from "@xoroh/axis";
 import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import { cloneElement, isValidElement, type ReactNode } from "react";
 import {

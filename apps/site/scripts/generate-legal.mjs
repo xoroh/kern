@@ -25,7 +25,9 @@ const UNITS = [
   { label: "@xoroh/kern-tokens", file: "packages/kern-tokens/LICENSE" },
   { label: "@xoroh/kern-native", file: "packages/kern-native/LICENSE" },
   { label: "@xoroh/kern-icons", file: "packages/kern-icons/LICENSE" },
-  { label: "@xoroh/kern-primitives", file: "libs/kern-primitives/LICENSE" },
+  // Axis is vendored pre-publish (see vendor/axis): read the license from
+  // the installed package, exactly as consumers receive it.
+  { label: "@xoroh/axis", file: "apps/site/node_modules/@xoroh/axis/LICENSE" },
   { label: "@xoroh/kern-mcp", file: "packages/mcp/LICENSE" },
 ];
 

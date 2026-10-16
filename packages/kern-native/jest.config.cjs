@@ -5,6 +5,24 @@ const reactNativeDir = path.dirname(
   require.resolve("react-native/package.json"),
 );
 
+// `@xoroh/axis` pre-publish resolves to the vendored tarball (see
+// vendor/axis + the migration roadmap): compiled ESM `dist/index.js`
+// that babel-jest must not try to `require()` as CJS. Map it to the
+// shipped CJS artifact instead — this also exercises the dual-package
+// output on every native run. (Workspace source packages bypass this
+// because their realpaths escape `node_modules` and get transformed.)
+// NOTE: resolved as a direct path, not via `require.resolve`, because
+// the Axis `exports` map exposes only "." (no `./package.json`
+// subpath) by design.
+const axisCjs = path.join(
+  __dirname,
+  "node_modules",
+  "@xoroh",
+  "axis",
+  "dist",
+  "index.cjs",
+);
+
 // react-native's paths are pinned explicitly below, so the symlink flag the
 // old config needed is gone: preserving symlinks here actually broke babel's
 // nested `lru-cache` lookup under a bun store.
@@ -43,6 +61,7 @@ module.exports = {
     "/node_modules/(?!.*(@react-native|react-native)/)",
   ],
   moduleNameMapper: {
+    "^@xoroh/axis$": axisCjs,
     // The preset derives its react-native paths with `require.resolve` from
     // inside the hoisted preset package, which can resolve a *different*
     // major than this package develops against (workspace hoisting). Re-point

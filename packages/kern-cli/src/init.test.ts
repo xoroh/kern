@@ -69,9 +69,10 @@ describe("kern init (Mode 2 scaffold)", () => {
       expect(pkg.overrides["@xoroh/kern-tokens"]).toBe(
         pkg.dependencies["@xoroh/kern-tokens"],
       );
-      expect(pkg.overrides["@xoroh/kern-primitives"].startsWith("file:")).toBe(
-        true,
-      );
+      expect(pkg.overrides["@xoroh/axis"].startsWith("file:")).toBe(true);
+      expect(
+        existsSync(pkg.overrides["@xoroh/axis"].slice("file:".length)),
+      ).toBe(true);
       // The transitive preset dep escapes to the registry without this pin
       // (C1-S smoke: `bun install` failed outside the monorepo) — every
       // workspace package @xoroh/kern depends on must be pinned.

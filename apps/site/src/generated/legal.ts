@@ -38,8 +38,8 @@ export const PACKAGE_LICENSES: readonly LicenseRow[] = [
     license: "MIT",
   },
   {
-    label: "@xoroh/kern-primitives",
-    file: "libs/kern-primitives/LICENSE",
+    label: "@xoroh/axis",
+    file: "apps/site/node_modules/@xoroh/axis/LICENSE",
     license: "MIT",
   },
   {

@@ -2,6 +2,13 @@
 /**
  * check-primitives-docs — every kernel module page is real documentation.
  *
+ * Post-cutover, "the kernel" is the `@xoroh/axis` public entry
+ * (installed package, vendored pre-publish tarball) — not
+ * `libs/kern-primitives/`, which was deleted. Barrel coverage reads
+ * the shipped declarations; component exports additionally resolve
+ * against the README shipped inside the package tarball.
+ * (Full design note in the migration roadmap Phase 4 cutover record.)
+ *
  * Runs under bun (like check-search.mjs): the catalogue is TS with
  * transitive imports, which node ESM cannot resolve. Text-scraping the
  * modules would assert the scraper, not the page data.
@@ -88,30 +95,62 @@ for (const mod of PRIMITIVE_MODULES) {
 
 /* --------------------------------------------------- 3. Barrel coverage */
 
-const barrel = readFileSync(
-  join(APP, "..", "..", "libs", "kern-primitives", "src", "index.ts"),
+const axisDts = readFileSync(
+  (() => {
+    for (const candidate of [
+      join(APP, "node_modules", "@xoroh", "axis", "dist", "index.d.ts"),
+      join(
+        APP,
+        "..",
+        "..",
+        "node_modules",
+        "@xoroh",
+        "axis",
+        "dist",
+        "index.d.ts",
+      ),
+    ]) {
+      try {
+        readFileSync(candidate, "utf8");
+        return candidate;
+      } catch {
+        // Not installed here; try the next candidate.
+      }
+    }
+    throw new Error("no installed @xoroh/axis dist found");
+  })(),
   "utf8",
 );
-// Both block and one-line `export { ... } from "..."` forms; `type` modifiers
-// and `as` aliases are stripped so the public NAME is what lands in the set.
-// Comments are stripped first: the selection block carries a multi-line
-// comment containing a literal `}`, which would otherwise end the brace
-// match early and drop the whole block from the set.
-const clean = barrel
-  .replace(/\/\*[\s\S]*?\*\//g, "")
-  .replace(/^[ \t]*\/\/.*$/gm, "");
+// The shipped declarations carry one flat `export { … };` list (no `from`);
+// that list IS the public entry, mirroring the old "built artifacts"
+// doctrine (check-consumption): never assert against source here.
+const flat = axisDts.match(/export\s*\{([^}]+)\}\s*;?\s*$/)?.[1] ?? "";
 const barrelExports = new Set();
-for (const m of clean.matchAll(
-  /export\s*\{([^}]+)\}\s*from\s*["'][^"']+["']/g,
-)) {
-  for (const part of m[1].split(",")) {
-    const name = part
-      .replace(/\btype\s+/g, "")
-      .trim()
-      .split(/\s+as\s+/)
-      .pop()
-      ?.trim();
-    if (name) barrelExports.add(name);
+for (const part of flat.split(",")) {
+  const name = part
+    .replace(/\btype\s+/g, "")
+    .trim()
+    .split(/\s+as\s+/)
+    .pop()
+    ?.trim();
+  if (name) barrelExports.add(name);
+}
+if (barrelExports.size === 0) {
+  fail("installed @xoroh/axis declarations carry no export list.");
+}
+// The installed package README ships in the tarball (`files` allowlist),
+// so component exports resolve to real documentation without leaving
+// this repository. Behavior modules resolve to module pages below.
+let axisReadme = "";
+for (const candidate of [
+  join(APP, "node_modules", "@xoroh", "axis", "README.md"),
+  join(APP, "..", "..", "node_modules", "@xoroh", "axis", "README.md"),
+]) {
+  try {
+    axisReadme = readFileSync(candidate, "utf8");
+    break;
+  } catch {
+    // Not installed here; try the next candidate.
   }
 }
 
@@ -126,15 +165,22 @@ for (const mod of PRIMITIVE_MODULES) {
     documented.set(name, mod.slug);
     if (!barrelExports.has(name)) {
       fail(
-        `"${mod.slug}" documents "${name}", which the primitives barrel does not export.`,
+        `"${mod.slug}" documents "${name}", which the Axis public entry does not export.`,
       );
     }
   }
 }
+if (!axisReadme) {
+  fail(
+    "installed @xoroh/axis README.md is missing — component docs cannot resolve.",
+  );
+}
 for (const name of barrelExports) {
   if (name === "default") continue;
-  if (!documented.has(name)) {
-    fail(`barrel export "${name}" is documented by no module page.`);
+  if (!documented.has(name) && !axisReadme.includes(name)) {
+    fail(
+      `barrel export "${name}" is documented by no module page and appears in no installed Axis README.`,
+    );
   }
 }
 

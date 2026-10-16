@@ -642,7 +642,9 @@ function checkDeviationId(id, where) {
 }
 
 const elevSrc = readFileSync(
-  join(ROOT, "packages", "kern-tokens", "src", "kern-elevation.ts"),
+  // Moved with the A3 extraction (was packages/kern-tokens/src/): the M3
+  // resting-elevation inventory lives in @xoroh/kern-material-3 now.
+  join(ROOT, "packages", "kern-material-3", "src", "kern-elevation.ts"),
   "utf8",
 );
 for (const m of elevSrc.matchAll(/^\s{2}"?([a-z0-9-]+)"?:\s*"([^"]+)",$/gm)) {

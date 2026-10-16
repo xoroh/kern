@@ -2,7 +2,7 @@ import {
   createDismissPolicy,
   dismissBranchesFor,
   shouldDismissOn,
-} from "@xoroh/kern-primitives";
+} from "@xoroh/axis";
 import type { ReactNode } from "react";
 import { type ElementRef, useRef } from "react";
 import {

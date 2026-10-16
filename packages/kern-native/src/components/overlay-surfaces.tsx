@@ -5,7 +5,7 @@ import {
   useControllableState,
   useOverlayModality,
   useOverlayRegistration,
-} from "@xoroh/kern-primitives";
+} from "@xoroh/axis";
 import {
   createContext,
   type ReactNode,
@@ -38,7 +38,7 @@ const OverlayRegistryContext = createContext<OverlayRegistry | null>(null);
  * with no single place that knew which overlay was on top, so each decided
  * independently and a drawer opened over a sheet had no way to know it was not
  * the interactive one. The stack itself is the extracted
- * `@xoroh/kern-primitives` kernel -- this provider is the RENDERER half: the
+ * `@xoroh/axis` kernel -- this provider is the RENDERER half: the
  * registry, a stable id, and the platform trait that expresses "interactive".
  *
  * **Optional on purpose.** A consumer who has not opted in must not get a thrown

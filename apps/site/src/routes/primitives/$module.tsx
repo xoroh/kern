@@ -191,9 +191,9 @@ function PrimitiveModulePage() {
               <p
                 className={`m-0 max-w-[62ch] ${T_BODY_SM} text-(--sys-color-on-surface-variant)`}
               >
-                Imported from <code>@xoroh/kern-primitives</code>. Subpath
-                exports are deferred to 1.0 — the barrel plus tree-shaking
-                covers every consumer today.
+                Imported from <code>@xoroh/axis</code>. Subpath exports are
+                deferred to 1.0 — the barrel plus tree-shaking covers every
+                consumer today.
               </p>
             </section>
 

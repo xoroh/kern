@@ -1,4 +1,4 @@
-import { useRovingModel } from "@xoroh/kern-primitives";
+import { useRovingModel } from "@xoroh/axis";
 import { type ResolvedTheme, tokens } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
 import { type ElementRef, useRef } from "react";
@@ -22,7 +22,7 @@ import { defaultScheme, useKernScheme } from "../theme";
  *   blank itself.
  * - **One tab stop for the item track.** The group is a single stop and the
  *   active item is the one inside it — the roving model, from
- *   `@xoroh/kern-primitives`. This is the first consumer of that primitive.
+ *   `@xoroh/axis`. This is the first consumer of that primitive.
  * - **Wrap or clamp.** `loop: false` is the M3 default: at the last item, Next
  *   is disabled rather than wrapping to the first.
  * - **Disabled** stops navigation and removes the controls from the tab order.

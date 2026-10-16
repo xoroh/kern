@@ -36,7 +36,7 @@
     "build": "tsup src/index.ts --format esm,cjs --dts --dts-resolve --external react --external react-native --external react-native-svg --out-dir dist --clean",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "check:publish": "publint && attw --pack --ignore-rules=no-resolution",
+    "check:publish": "node ../../scripts/check-publint.mjs && attw --pack --ignore-rules=no-resolution",
     "test:jest": "jest"
   },
   "exports": {
@@ -74,7 +74,7 @@
     "react-native": ">=0.86.0 <0.89"
   },
   "dependencies": {
-    "@xoroh/kern-primitives": "^0.0.0",
+    "@xoroh/axis": "file:../../vendor/axis/axis-bed35547.tgz",
     "@xoroh/kern-tokens": "^0.0.0",
     "react-native-svg": "15",
     "@xoroh/kern-material-3": "^0.0.0"

@@ -2,7 +2,7 @@
  * Primitives (P domain) per-module examples.
  *
  * Each constant is a standalone snippet `scripts/check-snippets.mjs` compiles
- * against the real `@xoroh/kern-primitives` surface — the same bar the
+ * against the real `@xoroh/axis` surface — the same bar the
  * getting-started snippets meet. They are named `EXAMPLE_*` (all caps, one
  * per module slug) so that extractor finds them by shape rather than by a
  * hand-kept list.
@@ -11,42 +11,25 @@
  * fragment would be wrapped in a synthetic root and could not show a hook
  * used inside the component that owns it.
  */
-const EXAMPLE_A11Y = `import {
-  createIdScope,
-  resolveDir,
-  VISUALLY_HIDDEN_STYLE,
-} from "@xoroh/kern-primitives";
+const EXAMPLE_A11Y = `import { createIdScope, resolveDir } from "@xoroh/axis";
 
 const ids = createIdScope("dialog");
 const titleId = ids.nextId();
 const dir = resolveDir({ defaultDir: "ltr" });
 
-export function HiddenLabel() {
-  return <span style={VISUALLY_HIDDEN_STYLE}>Close</span>;
+export function DialogLabel({ label }: { label: string }) {
+  return (
+    <span id={titleId} dir={dir}>
+      {label}
+    </span>
+  );
 }
-`;
-
-const EXAMPLE_COLLECTION = `import { createCollectionModel } from "@xoroh/kern-primitives";
-
-const model = createCollectionModel({
-  nodes: [
-    { key: "a", label: "Alpha" },
-    { key: "b", label: "Beta" },
-    { key: "c", label: "Gamma", disabled: true },
-  ],
-  focusedKey: null,
-  selectedKeys: [],
-  selectionMode: "single",
-});
-
-const first = model.describe(0);
-model.setFocus("b");
 `;
 
 const EXAMPLE_DISMISS_POLICY = `import {
   createDismissPolicy,
   dismissTriggersFor,
-} from "@xoroh/kern-primitives";
+} from "@xoroh/axis";
 
 const policy = createDismissPolicy({
   dismissible: true,
@@ -60,7 +43,7 @@ const closesOnEscape = policy.shouldDismiss("escape", true, triggers);
 const EXAMPLE_DISMISS_WIRING = `import {
   dismissBranchesFor,
   shouldDismissOn,
-} from "@xoroh/kern-primitives";
+} from "@xoroh/axis";
 
 const branches = dismissBranchesFor({
   modal: true,
@@ -72,26 +55,15 @@ const closes = shouldDismissOn("escape", true, branches);
 `;
 
 const EXAMPLE_FOCUS_TRAP = `import {
-  createFocusTrapModel,
+  nextTrapIndex,
   resolveAutofocus,
-} from "@xoroh/kern-primitives";
+} from "@xoroh/axis";
 
-const trap = createFocusTrapModel({ count: 3, loop: true });
-const next = trap.move("next");
 const event = resolveAutofocus(3, 1);
+const next = nextTrapIndex(1, 3, "next", true);
 
 if (event.type === "focus-stop") {
   // Focus stops[event.index] in the renderer's own node list.
-}
-`;
-
-const EXAMPLE_MERGE_REFS = `import { useRef, type Ref } from "react";
-import { useMergeRefs } from "@xoroh/kern-primitives";
-
-export function Field({ outerRef }: { outerRef?: Ref<HTMLInputElement> }) {
-  const innerRef = useRef<HTMLInputElement>(null);
-  const ref = useMergeRefs<HTMLInputElement>(outerRef, innerRef);
-  return <input ref={ref} />;
 }
 `;
 
@@ -99,7 +71,7 @@ const EXAMPLE_OVERLAY_MODALITY = `import {
   createOverlayModality,
   useOverlayModality,
   useOverlayRegistration,
-} from "@xoroh/kern-primitives";
+} from "@xoroh/axis";
 
 const registry = createOverlayModality();
 
@@ -113,7 +85,7 @@ export function Dialog({ id }: { id: string }) {
 const EXAMPLE_PORTAL = `import {
   createPortalRegistry,
   resolvePortalTarget,
-} from "@xoroh/kern-primitives";
+} from "@xoroh/axis";
 
 const portals = createPortalRegistry();
 portals.mount("menu-1");
@@ -121,7 +93,7 @@ const order = portals.order();
 const target = resolvePortalTarget({ defaultTarget: "app-overlays" });
 `;
 
-const EXAMPLE_POSITIONING = `import { resolveFloatingRect } from "@xoroh/kern-primitives";
+const EXAMPLE_POSITIONING = `import { resolveFloatingRect } from "@xoroh/axis";
 
 const rect = resolveFloatingRect(
   { x: 120, y: 40, width: 96, height: 32 },
@@ -135,7 +107,7 @@ const rect = resolveFloatingRect(
 );
 `;
 
-const EXAMPLE_PRESENCE = `import { usePresence } from "@xoroh/kern-primitives";
+const EXAMPLE_PRESENCE = `import { usePresence } from "@xoroh/axis";
 
 export function Fade({ open }: { open: boolean }) {
   const { present, state, finishExit } = usePresence(open);
@@ -151,7 +123,7 @@ export function Fade({ open }: { open: boolean }) {
 }
 `;
 
-const EXAMPLE_PRESS = `import { usePress, isPressActivationKey } from "@xoroh/kern-primitives";
+const EXAMPLE_PRESS = `import { usePress } from "@xoroh/axis";
 
 export function SaveButton() {
   const press = usePress({ onPress: save });
@@ -169,7 +141,7 @@ export function SaveButton() {
 }
 `;
 
-const EXAMPLE_ROVING = `import { useRovingModel } from "@xoroh/kern-primitives";
+const EXAMPLE_ROVING = `import { useRovingModel } from "@xoroh/axis";
 
 export function Toolbar({ items }: { items: string[] }) {
   const roving = useRovingModel({
@@ -194,7 +166,7 @@ export function Toolbar({ items }: { items: string[] }) {
 }
 `;
 
-const EXAMPLE_SELECTION = `import { isSelected, useSelection } from "@xoroh/kern-primitives";
+const EXAMPLE_SELECTION = `import { isSelected, useSelection } from "@xoroh/axis";
 
 export function RowPicker() {
   const [selected, toggle] = useSelection<string>({
@@ -216,7 +188,7 @@ export function RowPicker() {
 const EXAMPLE_SLOT = `import {
   composeEventHandlers,
   mergeSlotProps,
-} from "@xoroh/kern-primitives";
+} from "@xoroh/axis";
 
 function open(): void {}
 function track(): void {}
@@ -233,14 +205,14 @@ const EXAMPLE_TIME = `import {
   formatTimeValue,
   minutesForStep,
   normalizeTimeValue,
-} from "@xoroh/kern-primitives";
+} from "@xoroh/axis";
 
 const marks = minutesForStep(15);
 const value = normalizeTimeValue({ hours: 15, minutes: 45 }, 15);
 const shown = formatTimeValue(value, "12h");
 `;
 
-const EXAMPLE_USE_CONTROLLABLE_STATE = `import { useControllableState } from "@xoroh/kern-primitives";
+const EXAMPLE_USE_CONTROLLABLE_STATE = `import { useControllableState } from "@xoroh/axis";
 
 export function Disclosure({
   open,
@@ -267,11 +239,9 @@ export function Disclosure({
 /** One compilable example per module slug. */
 export const PRIMITIVE_EXAMPLES: Record<string, string> = {
   a11y: EXAMPLE_A11Y,
-  collection: EXAMPLE_COLLECTION,
   "dismiss-policy": EXAMPLE_DISMISS_POLICY,
   "dismiss-wiring": EXAMPLE_DISMISS_WIRING,
   "focus-trap": EXAMPLE_FOCUS_TRAP,
-  "merge-refs": EXAMPLE_MERGE_REFS,
   "overlay-modality": EXAMPLE_OVERLAY_MODALITY,
   portal: EXAMPLE_PORTAL,
   positioning: EXAMPLE_POSITIONING,

@@ -212,13 +212,12 @@ function GettingStarted() {
           <p
             className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
           >
-            Prefer no ecosystem? The behavior kernel installs standalone:
-            <code>@xoroh/kern-primitives</code> has no token or renderer
-            dependency (React 18+ is the only peer). Per-module pages land with
+            Prefer no ecosystem? The behavior kernel is Axis-owned and installs
+            standalone with its first published release — until then it ships
+            inside Kern (React 18+ is the only peer). Per-module pages land with
             the primitives subdomain; until then start here and read the module
             index:
           </p>
-          <Code>{"bun add @xoroh/kern-primitives"}</Code>
           <p
             className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
           >

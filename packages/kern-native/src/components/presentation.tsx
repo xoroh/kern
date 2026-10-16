@@ -3,7 +3,7 @@
  *
  * ## Dual-path, stated once
  *
- * Every host here binds a `@xoroh/kern-primitives` model to React Native
+ * Every host here binds an `@xoroh/axis` model to React Native
  * mechanics. None of them replaces a platform owner: `Modal` keeps presenting
  * overlays, `Pressable` keeps reporting presses, `onRequestClose` keeps
  * covering the system back button. These hosts are the OWNED path the kernel
@@ -34,7 +34,7 @@ import {
   resolvePortalTarget,
   shouldDismissOn,
   usePress,
-} from "@xoroh/kern-primitives";
+} from "@xoroh/axis";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Text as RNText, type StyleProp, type TextStyle } from "react-native";
 

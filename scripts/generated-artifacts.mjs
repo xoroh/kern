@@ -170,8 +170,18 @@ export const GENERATORS = [
     // omission class — a hand-maintained llms.txt is a third opinion on the
     // page list that drifts the day a route joins the sidebar but not the
     // text file. Generated from NAV_SECTIONS, compared byte-for-byte.
+    // --preload mirrors the vite react-native alias under bun (same shape
+    // as generate-a11y below): the nav graph reaches @xoroh/kern, whose
+    // dist re-exports the @xoroh/axis barrel since the cutover.
     name: "site generate-llms (nav -> public/llms.txt)",
-    cmd: ["bun", "apps/site/scripts/generate-llms.mjs"],
+    cmd: [
+      "bun",
+      "--cwd",
+      "apps/site",
+      "--preload",
+      "./scripts/preload-rn.mjs",
+      "scripts/generate-llms.mjs",
+    ],
     outputs: ["apps/site/public/llms.txt"],
   },
   {

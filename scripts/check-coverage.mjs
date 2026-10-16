@@ -80,7 +80,11 @@ const NOT_A_COMPONENT = new Map([
   ],
   [
     "presentation",
-    "web bindings for the @xoroh/kern-primitives presentation models, deliberately NOT barrel-exported (the generated registry treats every barrel export as a component). Surfaces import them directly; presentation.test.tsx exercises them by that direct path.",
+    "web bindings for the @xoroh/axis presentation models, deliberately NOT barrel-exported (the generated registry treats every barrel export as a component). Surfaces import them directly; presentation.test.tsx exercises them by that direct path.",
+  ],
+  [
+    "web-behavior",
+    "KERN-WEB relocation: isPressActivationKey + VISUALLY_HIDDEN_STYLE moved here verbatim from libs/kern-primitives (DOM keyboard vocabulary + CSS hiding geometry, no native meaning — never Axis). Deliberately NOT barrel-exported, same as presentation above; sheet-family.tsx and presentation.tsx import it directly by that path.",
   ],
 ]);
 

@@ -1,9 +1,10 @@
 /**
  * /primitives — install-first landing for the headless behavior kernel.
  *
- * `@xoroh/kern-primitives` carries no visual decision (the boundary
- * `check:primitives` enforces over the transitive import closure), so this
- * page installs it standalone and links every kernel module. Each module
+ * `@xoroh/axis` carries no visual decision (the boundary
+ * `check:boundary` enforces in its own repo, mirrored here by
+ * `check:primitives`), so this page documents the kernel both
+ * renderers consume and links every kernel module. Each module
  * page then carries its anatomy, API and one compiled example.
  */
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -14,7 +15,6 @@ import { SiteLayout } from "../../domains/shared/chrome/site-layout";
 import { routeHead } from "../../domains/shared/systems/seo";
 import {
   T_BODY,
-  T_CODE,
   T_PAGE,
   T_SECTION,
 } from "../../domains/shared/systems/type-scale";
@@ -29,8 +29,6 @@ export const Route = createFileRoute("/primitives/")({
   component: Primitives,
 });
 
-const INSTALL = "bun add @xoroh/kern-primitives";
-
 function Primitives() {
   return (
     <SiteLayout>
@@ -42,14 +40,21 @@ function Primitives() {
             className={`m-0 max-w-[62ch] ${T_BODY} text-(--sys-color-on-surface-variant)`}
           >
             Controllable state, overlay modality, roving focus, dismiss policy
-            and the collection/selection model — the logic both renderers
-            implement identically. React 18+ is the only peer.
+            and the selection model — the logic both renderers implement
+            identically. React 18+ is the peer (plus React Native 0.86–0.89 for
+            rendered components).
           </p>
         </header>
         <h2 id="install" className={`m-0 ${T_SECTION}`}>
           Install
         </h2>
-        <pre className={`m-0 ${T_CODE} overflow-x-auto`}>{INSTALL}</pre>
+        <p
+          className={`m-0 max-w-[62ch] ${T_BODY} text-(--sys-color-on-surface-variant)`}
+        >
+          The kernel ships inside Kern (vendored pre-publish tarball);
+          standalone `@xoroh/axis` installation returns with its first published
+          release.
+        </p>
         <h2 id="modules" className={`m-0 ${T_SECTION}`}>
           Modules
         </h2>

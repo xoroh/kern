@@ -7,7 +7,7 @@ import {
   toTwentyFourHour,
   useControllableState,
   useRovingModel,
-} from "@xoroh/kern-primitives";
+} from "@xoroh/axis";
 import { type ResolvedTheme, tokens } from "@xoroh/kern-tokens";
 import { useMemo, useState } from "react";
 import {

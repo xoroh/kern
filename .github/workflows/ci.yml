@@ -250,13 +250,16 @@ jobs:
         run: bun run build
 
       - name: Check web/native parity contract
-        # AFTER the build: check:parity inspects the built libs/kern-primitives dist .d.ts.
+        # AFTER the build: check:parity inspects the built package dists
+        # (kern + kern-native public-entry .d.ts) for registry reachability.
         run: |
           bun run check:parity
           bun run check:currency
 
       - name: Check kernel consumption against built primitives
-        # AFTER the build: check:consumption reads libs/kern-primitives/dist/index.d.ts.
+        # AFTER the build: check:consumption reads the INSTALLED @xoroh/axis
+        # dist/index.d.ts (vendored tarball pre-publish) and asserts Kern
+        # imports it through its public entry only.
         run: bun run check:consumption
 
       - name: Check every declared export exists in dist

@@ -1,4 +1,4 @@
-import { useControllableState } from "@xoroh/kern-primitives";
+import { useControllableState } from "@xoroh/axis";
 import { useState } from "react";
 import {
   Pressable,

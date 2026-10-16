@@ -3,12 +3,12 @@ import {
   type A11yDir,
   createDismissPolicy,
   dismissBranchesFor,
-  isPressActivationKey,
   shouldDismissOn,
-} from "@xoroh/kern-primitives";
+} from "@xoroh/axis";
 import type { ReactNode } from "react";
 import { cn } from "../utils/cn";
 import { KernPortal, VisuallyHidden } from "./presentation";
+import { isPressActivationKey } from "./web-behavior";
 
 /**
  * The kern sheet family — the web versions of the native bottom-sheet concepts.

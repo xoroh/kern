@@ -1,4 +1,4 @@
-import { useSelection } from "@xoroh/kern-primitives";
+import { useSelection } from "@xoroh/axis";
 import { type ResolvedTheme, tokens } from "@xoroh/kern-tokens";
 import { createContext, type ReactNode, useContext, useMemo } from "react";
 import {
