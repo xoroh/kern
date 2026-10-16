@@ -1,7 +1,7 @@
 # Status report — 2026-10-16, evening (Kern 0.1.0 Preview readiness track)
 
-Baseline: Kern `main` at `bd83d215` (PR #41 state layers merged, CI green).
-Tree clean, pushed, synced (this branch: fix/preview-install-honesty).
+Baseline: Kern `main` at `abb5bc0d` (PR #46 ref-forwarding merged, CI green).
+Tree clean, pushed, synced (this branch: docs/roadmap-owner-decisions).
 
 ## Done (this track)
 - Elevation gaps to zero (this branch, unmerged): 7 spec rows + 3 unassigned entries +
