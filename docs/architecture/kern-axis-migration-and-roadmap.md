@@ -603,18 +603,57 @@ multi-design-system expansion, publication itself.
 - Exit gate: no `@xoroh/kern-primitives` string outside the archive; Kern
   builds/tests/typechecks without `libs/`; M3 implementations untouched in
   behavior.
-- Integration order (recorded 2026-10-16; no code adoption this cycle).
-  Kern cannot consume `@xoroh/axis` until Axis publishes: the package is
-  `0.0.0` + `private`-root + HOLD-intact, publication is release-policy
-  gated and not authorized here, and a cross-repo `file:` dependency would
-  violate repo independence and the boundary both gates enforce. Ordered
-  plan, no premature PRs: (1) Axis PR #5 merged → (2) first Axis publish
-  under release authorization (D-RELEASE pre-publication actions) →
-  (3) kern-native adopts one module behind the public API with
-  consumer + RNTL proofs, old code removed only at zero importers →
-  (4) `libs/kern-primitives` deleted per the hard-cut law above.
-  First-candidate consumer when (2) lands: `useControllableState`
-  (18 importer files, suite-backed) — vertical slice, not a doc edit.
+- Integration order (owner correction 2026-10-16: do NOT wait for
+  publish). The pre-publish cutover below replaces the earlier
+  publish-first sequence.
+- Exit gate: no `@xoroh/kern-primitives` string outside the archive; Kern
+  builds/tests/typechecks without `libs/`; M3 implementations untouched in
+  behavior.
+
+#### Pre-publish cutover (explicit migration phase, owner-directed)
+
+Once Axis is release-ready (all components, tests, CI, release flow
+green — §4.2 inventory `complete`, Phase 7 audit passed), Kern cuts
+over in ONE migration PR:
+
+1. **Consume**: `packages/kern-native` (and the 3 web importer files)
+   switch imports to the `@xoroh/axis` public entry, resolved through
+   a **vendored tarball** — `npm pack` output committed at
+   `vendor/axis/axis-<axis-sha>.tgz`, consumed as a `file:` spec with
+   lockfile integrity. Rationale: plain `github:` deps resolve the
+   Axis monorepo root (private, no exports), not `packages/axis`;
+   cross-repo relative `file:` paths break clean clones; the vendored
+   tarball is deterministic, offline-friendly, and switchable
+   (validated 2026-10-16: pack holds only dist/README/LICENSE/
+   package.json — no `src/` leak — and installs via a `file:` spec
+   with lockfile pinning).
+   **At the first release-authorized Axis publish, the spec swaps to
+   the semver range and `vendor/axis/` is deleted** (release-checklist
+   item; `preflight:publish` must fail while a `file:` spec remains).
+2. **Relocate KERN-WEB**: `VISUALLY_HIDDEN_STYLE` +
+   `isPressActivationKey` move into `packages/kern` web-owned code
+   (they never transfer to Axis).
+3. **Retarget gates**: `check-primitives` → Axis-boundary equivalent
+   for residual shared code; `check-consumption`/`check-layers`/
+   `check-coverage` updated; `adoption.json` deleted with `libs/`
+   (its `collection`/`mergeRefs` entries transfer as Axis-side gate
+   records, not Kern ledger rows); CLI scaffold `file:` strings,
+   MCP manifest, site primitives docs/examples, skills/`llms.txt`
+   generators, parity docs updated.
+4. **Test doubles**: extend `packages/kern-native/test-doubles/
+   react-native.ts` (+ jest mocks if needed) with every host binding
+   Axis components import (today: Modal, PanResponder, Image,
+   useWindowDimensions + existing set) so the vitest suite keeps
+   passing against the real Axis barrel.
+5. **Delete** `libs/kern-primitives/` + obsolete package-specific
+   tooling/docs/scripts/aliases/tests/metadata in the same PR, with a
+   migration note (ownership change + replacement interfaces). No
+   shim, no alias (hard-cut law). `collection.*`/`mergeRefs.*` tests
+   transfer to Axis if/when their gates pass, not before.
+6. **Verify**: zero importers (`grep` + AST proof), full Kern gates
+   green, stale-reference scan clean, packed-consumer verification,
+   Axis still independent (no Kern imports — boundary gate on both
+   sides).
 
 #### Product boundaries (2026-10-16)
 
