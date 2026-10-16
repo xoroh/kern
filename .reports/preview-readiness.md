@@ -386,6 +386,24 @@ is flagged instead of assumed.
   link, `apps/site/src/generated/changelog.ts` + `scripts/check-layers.mjs`
   legacy-name refs). NOT this track — tracked here only so nothing is lost.
 
+## Decided follow-ons (owner, post-small-fixes; large PRs review-gated)
+
+- **Structure phase (D-STRUCTURE as refined):** preset + web-widgets +
+  native-widgets per system; `kern-m3` rename with compat; generated
+  ComponentRecord registry; `--system` on CLI/MCP; no global M3
+  side-effect registration; layers rule. `@xoroh/kern` NOT renamed.
+- **URL migration (D-URLS, review-gated):** `/components/<system>/<name>`
+  with Web/Native tabs, platform-column props, parity-linked callouts,
+  generated redirects from all current paths. Opened unmerged.
+- **Button M3 names (D-BUTTON-NAMES, review-gated):** canonical
+  filled/tonal/outlined/text/elevated; codemod + deprecation handling.
+- **Docs depth (D-DOCS-DEPTH):** top-20 full pages web+native; thin-but-
+  correct rest (example, API table, a11y notes); check:docs gate.
+- **HCT engine (D-HCT, review-gated cutover):** additive
+  `@material/material-color-utilities` spike first, then cutover.
+- **AI chat (D-AI-CHAT, post-structure):** chat parts → blocks via
+  `kern add` → native FlashList after device check; voice deferred.
+
 Standing rules for every PR: keep trees clean and pushed, update the roadmap
 reference + `.reports/latest.md` each turn, merge routine PRs only when CI
 is green, never delete unmerged work, no publish/version bumps/tags.

@@ -25,10 +25,10 @@ This addendum overlays §§B/H without rewriting their point-in-time record.
 Per-turn live state lives in `.reports/latest.md`; the evening audit +
 reconciliation in `.reports/preview-readiness.md`.
 
-- **HEAD:** `main` at `61157bdd` (PR #45 merged; PRs #37–#45 all merged, zero
-  open PRs). CI green on every merged HEAD (12/12, 14/14 with the new
-  cli/contracts legs). `changeset status` exits 0 (invalid-tree + mixed
-  families resolved by PR #45's changeset surgery).
+- **HEAD:** `main` at `02650e87` (PR #48 merged; PRs #37–#48 all merged;
+  PR #49 api-consistency open). CI green on every merged HEAD (12/12, 14/14
+  with the new cli/contracts legs). `changeset status` exits 0
+  (invalid-tree + mixed families resolved by PR #45's changeset surgery).
 - **Cutover complete:** Kern consumes `@xoroh/axis` via vendored tarball
   (`vendor/axis/axis-bed35547.tgz`, PR #37); `libs/kern-primitives` frozen
   pending the Axis-side deletion PR (other thread).
@@ -44,6 +44,13 @@ reconciliation in `.reports/preview-readiness.md`.
   (Axis own package alongside 0.1.0, axis thread owns), D-DOCS-DEPTH
   (top-20 full + thin-but-correct + gate), D-BUTTON-NAMES (M3 canonical),
   D-HCT (spec-correct HCT engine, additive spike then review-gated cutover).
+  Later round (same evening): D-STRUCTURE refined for 10+ systems (preset +
+  web-widgets + native-widgets per system, `@xoroh/kern` NOT renamed),
+  D-URLS supersedes the platform segment (one page per component with
+  Web/Native tabs, platform-column props, parity-linked callouts),
+  `@xoroh/axis/models` subpath note, D-AI-CHAT phased after structure work
+  (chat parts → blocks → native FlashList after device check; voice
+  deferred past Preview).
   Release hold unchanged (no publish/versions/tags; owner decides timing).
 - **Known open owner questions (not trimmed, not started):** native modal
   sheets flat (no token) — deliberate or missing elevation; device/SR matrix
@@ -974,9 +981,11 @@ under D-DEVICE. No NativeWind (ADR-006), no web styling in Axis | Phase 2 |
 | D-NOGO | NO-GO successor sign-off under this plan | **Extraction authorized 2026-10-16 by explicit owner mandate** (proceed with the Kern–Axis migration incl. Axis extraction once technical preconditions satisfied; preconditions not waived). Recorded here as the mandate's scope, not as release approval | Phase 5 (release sign-off still separate) |
 | D-GHSA | Advisory triage + code-scanning | Dependabot shows 0 open alerts (verified) contradicting the archived "19 GHSA" claim — reconcile; decide whether to enable code-scanning (currently "no analysis found") | Phase 5 |
 | D-P7 | Product-monorepo adoption | **Stays out of scope**, separately authorized or not at all | — (excluded) |
-| D-STRUCTURE | System-scoped structure (per review-structure-scale, owner-approved 2026-10-16 evening) | System-scoped URLs `/components/<system>/<platform>/<name>` with generated 301 redirects from current paths; one generated `ComponentRecord` registry as the single source for site, CLI, and MCP; `--system` flag on CLI and MCP; rename `kern-material-3` → `kern-m3` (keep compat); `@xoroh/kern` must not side-effect-register M3 globally; a `check:layers` rule enforces the split. Constraint: each system owns its own components — no system-agnostic shared themed renderers. Execute in phases AFTER the current small fixes; large migration PRs (renames, URL scheme) open unmerged for owner review | Structure phase (gated) |
+| D-STRUCTURE | System-scoped structure (per review-structure-scale, owner-approved 2026-10-16 evening; refined same evening) | System-scoped URLs (see D-URLS, which supersedes the platform segment); one generated `ComponentRecord` registry as the single source for site, CLI, and MCP; `--system` flag on CLI and MCP; rename `kern-material-3` → `kern-m3` (keep compat); `@xoroh/kern` must not side-effect-register M3 globally; a `check:layers` rule enforces the split. 10+ systems shape (refinement): `kern-tokens` is the shared engine; per system a platform-free preset package (`kern-m3`, renamed) PLUS separate web and native widget packages; styled code reaches users by CLI vendoring (`kern add --system`) and npm; behavior via Axis/Base UI deps; no shared widgets across systems. `@xoroh/kern` itself is NOT renamed (it is the M3 web widget package). Execute in phases AFTER the current small fixes; large migration PRs (renames, URL scheme) open unmerged for owner review | Structure phase (gated) |
+| D-URLS | Docs URL refinement (supersedes D-STRUCTURE's platform segment) | One page per component at `/components/<system>/<name>` with Web and Native tabs (deep-linkable); prop tables carry a platform column; platform differences render as callouts linked to the parity table; generated redirects from ALL current paths (`/components/web/*`, `/components/mobile/*`, part slugs). Review-gated migration PR, opened unmerged | Structure phase (review-gated) |
 | D-CLI-PUBLISH | CLI ships with 0.1.0 | Owner decision 2026-10-16 evening, superseding H-17's `private:true` fix: `@xoroh/kern-cli` is publishable (manifest already publish-shaped; flag removed in PR #45). Eight public packages; `changeset status` green. No publish until the hold lifts | Phase 7 / publication |
-| D-AXIS-SHIP | Axis ships as its own npm package alongside Kern 0.1.0 | `@xoroh/axis` publishes as an independent package on the 0.1.0 train; the release hold still applies (no versions/tags/publish from either side until authorized). The axis repo (packaging, release prep, component coverage) is owned by the Axis thread; Kern tracks only the consumer side (vendored tarball → semver swap at first authorized publish) | Phase 4/7 |
+| D-AXIS-SHIP | Axis ships as its own npm package alongside Kern 0.1.0 | `@xoroh/axis` publishes as an independent package on the 0.1.0 train; the release hold still applies (no versions/tags/publish from either side until authorized). The axis repo (packaging, release prep, component coverage) is owned by the Axis thread; Kern tracks only the consumer side (vendored tarball → semver swap at first authorized publish). Docs note (same decision round): Kern web may import Axis universal models via `@xoroh/axis/models` — a documented subpath, not deep source | Phase 4/7 |
+| D-AI-CHAT | AI chat for Kern, AFTER the structure work | M3-styled chat parts first (message, markdown + code blocks via one shared remark/mdast parser with per-platform renderers, typing indicator, feedback actions, tool-approval cards with callbacks, model picker composed from Select, static suggestions), then blocks (`chat-screen`, `prompt-input`, `message-list`) via `kern add`; FlashList for the native message list after a device check. Voice deferred past Preview. Phased: parts → blocks → native list; no work starts before D-STRUCTURE lands | Post-structure |
 | D-DOCS-DEPTH | 0.1.0 docs depth bar | Full pages for the top-20 components on web AND native; every other component gets a thin but correct page (example, API table, a11y notes); gated in `check:docs`. Top-20 list + thin-page contract to be recorded before the content pass | Phase 6 |
 | D-BUTTON-NAMES | Button variants use M3 names | Canonical: `filled/tonal/outlined/text/elevated`. Implementation as a review-gated migration PR (codemod across packages/site/tests + deprecation handling); opened, not merged, until owner review | Structure phase (review-gated) |
 | D-HCT | Spec-correct HCT tonal palettes via `@material/material-color-utilities` | Owner direction 2026-10-16: replace the OKLCH tonal engine (50–950 Tailwind steps, 12-role seed repaint) with HCT + 0–100 ramps + full-scheme mapping (Apache-2.0 dependency). Scale is XL (every generated artifact + goldens + contrast gates move): execute as additive spike first, then a review-gated cutover migration. The OKLCH-vs-HCT divergence stays documented until cutover | HCT phase (review-gated) |
