@@ -228,4 +228,20 @@ describe("Button", () => {
       "rounded-[var(--comp-button-container-shape,var(--sys-shape-corner-full))]",
     );
   });
+
+  it("toggle+href keeps aria-pressed so selection is announced on anchors", async () => {
+    // A toggle anchor without aria-pressed leaves selection AT-invisible:
+    // same prop, different a11y contract from the button variant. The state
+    // is announced identically on both render paths.
+    const user = userEvent.setup();
+    render(
+      <Button toggle href="/next">
+        Next
+      </Button>,
+    );
+    const link = screen.getByRole("link", { name: "Next" });
+    expect(link).toHaveAttribute("aria-pressed", "false");
+    await user.click(link);
+    expect(link).toHaveAttribute("aria-pressed", "true");
+  });
 });
