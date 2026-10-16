@@ -19,7 +19,10 @@ export function Code({ children }: { children: string }) {
     <div className="relative">
       <button
         type="button"
-        className="absolute top-2 right-2 z-10 flex size-8 cursor-pointer items-center justify-center rounded-full border border-(--sys-color-outline-variant) bg-(--sys-color-surface) text-(--sys-color-on-surface-variant)"
+        // 32px overlay affordance, not the 48dp floor: a full target would
+        // cover the code it copies. Keyboard-reachable via tab (global
+        // :focus-visible ring) with press feedback below.
+        className="absolute top-2 right-2 z-10 flex size-8 cursor-pointer items-center justify-center rounded-full border border-(--sys-color-outline-variant) bg-(--sys-color-surface) text-(--sys-color-on-surface-variant) hover:bg-(--sys-color-on-surface)/8 active:bg-(--sys-color-on-surface)/12 transition-colors ease-(--sys-motion-easing-standard) [transition-duration:var(--sys-motion-duration-short3)]"
         aria-label={copied ? "Copied" : "Copy code"}
         onClick={async () => {
           try {
