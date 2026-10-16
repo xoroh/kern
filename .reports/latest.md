@@ -58,12 +58,11 @@ Tree: this branch fix/state-layer-contradictions, unpushed.
 - PR #40 merged: Button toggle+href keeps `aria-pressed` (critic fix 2).
 
 ## In progress
-- Merged: #39–#55.
-- This branch (state-layer contradictions): Pagination hover fill→layer +
-  press; TOC/drawer/picker press layers; copy-button layers + tokenized
-  motion + 32px exception note; Pagination shape unified to extra-large.
-  Gallery already layered (review slightly stale there); TOC hover fill
-  kept as nav convention.
+- Merged: #39–#56.
+- Open: #57 (this branch, P2 shape/spacing sweep).
+- Next: structure sequence PRs (1) kern-m3 rename → (2) no-global-registration
+  → (3) unified registry + --system → (4) split widget packages; all large,
+  review-gated, unmerged.
 - Queued after: usage P1/P2 correctness items; m3 tertiary/chrome +
   playground fidelity; structure/URL/Button-names/HCT phases
   (review-gated).
