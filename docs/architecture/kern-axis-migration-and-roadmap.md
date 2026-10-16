@@ -728,6 +728,7 @@ current without the evidence noted.
 | H-15 | Consumer duplication / dual React | Bundled-primitives duplicate-state question open since CURRENT_STATE; Axis must prove no duplicate React/context in packed-consumer test | P1 / Phase 3+5 | Packed-consumer proof with duplicate-context assertions; acceptance: green |
 | H-16 | CLI/MCP closure over Axis | CLI scaffold `file:` refs + MCP manifest/registry rows reference the old identity; vendored closures must resolve `@xoroh/axis` without checkout dependence | P1 / Phase 4 | Per-symbol inventory (Phase 0.3) → updated resolvers + packed-outside-checkout proofs |
 | H-17 | `kern-cli` privacy contradiction | Manifest had **no `private` field** with public `publishConfig` while docs said never-published — and pending changeset `oss-transformation-implementation.md` bumps `@xoroh/kern-cli: minor`, so the first authorized release would have published it. **Fixed 2026-10-16** (`"private": true`, matching `libs/kern-primitives` convention; workspace-local use unaffected). Side effect: `changeset status` gains a third invalid-tree line (mcp→cli) on top of two pre-existing ones (kern/kern-native→primitives) — the status check was already red and is not run in CI; the invalid-tree family must go green before any release (Phase 5 gate). Remaining release coupling: public `@xoroh/kern-mcp` depends on unpublished cli (`^0.0.0`) — resolve (bundle/publish/drop) before any release | P1 / Phase 1 (manifest fix done, uncommitted); release coupling P2 | Manifest fix verified (`changeset status` output recorded); acceptance: docs+manifest+workflow agree (done) and invalid-tree family green before release |
+| H-18 | check-props content-vs-type drift (474 vs 471 ratchet) | Pre-existing on `main` (zero overlap with PR #24 files — verified by filename intersection; unmasked when K11 fix let `check:docs` proceed). Systemic class: compound-part pages document Root-level controlled props (`open/value/disabled/...`) the part types don't carry. Not adjudicable without per-component docs-vs-type calls | P1 / content lane (site-se) | Burn down 3+ rows per the gate's documented defect class and lower BASELINE in the same commit, or owner exception. Never raise BASELINE without removals |
 
 ## I. Decision register
 
@@ -837,7 +838,7 @@ The migration is complete only when **all** hold:
    remains (scan proofs in both repos + packed outputs).
 7. Both projects independently buildable, testable, verifiable from clean
    clones; CI green on `main` (kern/xoroh) and `development` (axis).
-8. H-01–H-17 resolved or explicitly deferred with owner sign and a named
+8. H-01–H-18 resolved or explicitly deferred with owner sign and a named
    follow-up.
 9. Docs, skills, `llms.txt`/MCP discovery, and release procedures describe
    the new architecture truthfully (§F.4 + Phase 6).
