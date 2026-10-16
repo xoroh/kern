@@ -1,7 +1,4 @@
-import {
-  type ResolvedTheme,
-  tokens,
-} from "@xoroh/kern-tokens";
+import { type ResolvedTheme, tokens } from "@xoroh/kern-tokens";
 import {
   Pressable,
   type PressableProps,
@@ -37,7 +34,9 @@ export function listItemStyles(
     },
     title: {
       fontSize: 14,
-      color: selected ? scheme.color.onSecondaryContainer : scheme.color.onSurface,
+      color: selected
+        ? scheme.color.onSecondaryContainer
+        : scheme.color.onSurface,
     },
     supporting: { fontSize: 12, color: scheme.color.onSurfaceVariant },
   };

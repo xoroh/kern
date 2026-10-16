@@ -1,11 +1,8 @@
-import {
-  cssLengthToDp,
-  type ResolvedTheme,
-} from "@xoroh/kern-tokens";
 import type { LoadingIndicatorStyle } from "@xoroh/kern-material-3";
 import { mergeSlotProps, type SlotProps } from "@xoroh/kern-primitives";
-import { cloneElement, isValidElement, useRef, useState } from "react";
+import { cssLengthToDp, type ResolvedTheme } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
+import { cloneElement, isValidElement, useRef, useState } from "react";
 import {
   type GestureResponderEvent,
   Pressable,
@@ -141,8 +138,7 @@ export function buttonStyles(
     selected = false,
   } = options;
   const toggled = toggle && selected && variant !== "ghost";
-  const toggleUnselected =
-    toggle && !selected && variant !== "ghost";
+  const toggleUnselected = toggle && !selected && variant !== "ghost";
   const danger = color === "danger";
   const hasFill =
     variant === "primary" || variant === "tonal" || variant === "elevated";
@@ -357,8 +353,7 @@ export function Button({
     disabled: blocked,
     onPress: () => {
       if (!blockedRef.current && gestureEvent.current) {
-        if (toggle && pressed === undefined)
-          setUncontrolledPressed(!isPressed);
+        if (toggle && pressed === undefined) setUncontrolledPressed(!isPressed);
         if (toggle) onPressedChangeRef.current?.(!isPressed);
         onPressRef.current?.(gestureEvent.current);
       }

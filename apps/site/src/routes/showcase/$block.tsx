@@ -39,9 +39,7 @@ function BlockPage() {
           <h1 className={`m-0 ${T_PAGE} text-(--sys-color-on-surface)`}>
             No block by that name
           </h1>
-          <p
-            className={`m-0 ${T_BODY} text-(--sys-color-on-surface-variant)`}
-          >
+          <p className={`m-0 ${T_BODY} text-(--sys-color-on-surface-variant)`}>
             <Link
               to="/showcase"
               className="text-(--sys-color-primary) no-underline hover:underline"

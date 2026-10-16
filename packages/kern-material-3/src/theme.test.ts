@@ -1,6 +1,6 @@
 import "./material-3"; // registers the material-3 preset tables (side effect)
-import { describe, expect, it } from "vitest";
 import { defineThemePreset, resolveTheme, varName } from "@xoroh/kern-tokens";
+import { describe, expect, it } from "vitest";
 import { themes } from "./themes";
 
 describe("resolveTheme", () => {
@@ -8,7 +8,9 @@ describe("resolveTheme", () => {
     const scheme = resolveTheme("light");
     expect(scheme.primary).toBe(themes["material-3"].color.light.primary);
     expect(scheme.secondary).toBe(themes["material-3"].color.light.secondary);
-    expect(scheme.surfaceTonal).toBe(themes["material-3"].color.light.surfaceTonal);
+    expect(scheme.surfaceTonal).toBe(
+      themes["material-3"].color.light.surfaceTonal,
+    );
   });
 
   it("mirrors assignments in dark", () => {
@@ -21,7 +23,9 @@ describe("resolveTheme", () => {
     expect(resolveTheme("light", "medium").outline).toBe(
       themes["material-3"].contrast["light-medium"].outline,
     );
-    expect(resolveTheme("light").outline).toBe(themes["material-3"].color.light.outline);
+    expect(resolveTheme("light").outline).toBe(
+      themes["material-3"].color.light.outline,
+    );
     expect(resolveTheme("dark", "high").outline).toBe(
       themes["material-3"].contrast["dark-high"].outline,
     );

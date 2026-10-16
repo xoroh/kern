@@ -5,8 +5,8 @@ vi.mock(
   async () => await import("../../test-doubles/react-native"),
 );
 
-import { defaultScheme } from "../theme";
 import { themes } from "@xoroh/kern-material-3";
+import { defaultScheme } from "../theme";
 import { buttonStyles } from "./button";
 
 describe("native Button styles", () => {
@@ -59,9 +59,7 @@ describe("native Button styles", () => {
     expect(buttonStyles("primary", "xs", false).container.height).toBe(28);
     expect(buttonStyles("primary", "xl", false).container.height).toBe(48);
     // Untouched bands hold their metrics.
-    expect(buttonStyles("primary", "default", false).container.height).toBe(
-      40,
-    );
+    expect(buttonStyles("primary", "default", false).container.height).toBe(40);
     expect(buttonStyles("primary", "sm", false).container.height).toBe(32);
   });
 
@@ -180,8 +178,7 @@ describe("M3 Expressive toggle", () => {
       comp: { "button-container-shape": "4px" },
     };
     expect(
-      buttonStyles("primary", "default", false, scheme).container
-        .borderRadius,
+      buttonStyles("primary", "default", false, scheme).container.borderRadius,
     ).toBe(4);
     // The rounded variant keeps its large-corner treatment.
     expect(

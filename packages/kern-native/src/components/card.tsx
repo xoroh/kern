@@ -1,8 +1,4 @@
-import {
-  cssLengthToDp,
-  type ResolvedTheme,
-  tokens,
-} from "@xoroh/kern-tokens";
+import { cssLengthToDp, type ResolvedTheme, tokens } from "@xoroh/kern-tokens";
 import {
   type StyleProp,
   View,
@@ -109,7 +105,12 @@ export function CardActions({
       testID={testID ?? "kern-card-actions"}
       accessibilityRole="none"
       style={[
-        { flexDirection: "row", justifyContent: "flex-end", gap: 8, padding: 8 },
+        {
+          flexDirection: "row",
+          justifyContent: "flex-end",
+          gap: 8,
+          padding: 8,
+        },
         style,
       ]}
     />

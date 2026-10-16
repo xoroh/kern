@@ -562,11 +562,7 @@ export function ExtendedFabDemo() {
     <Preview label="ExtendedFab — label + icon, collapsible" span={3}>
       <Row>
         <ExtendedFab label="Create" icon={<Plus className="size-5" />} />
-        <ExtendedFab
-          label="Create"
-          icon={<Plus className="size-5" />}
-          value
-        />
+        <ExtendedFab label="Create" icon={<Plus className="size-5" />} value />
       </Row>
     </Preview>
   );

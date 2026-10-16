@@ -22,11 +22,7 @@ describe("Chip", () => {
     const user = userEvent.setup();
     const onValueChange = vi.fn();
     render(
-      <Chip
-        variant="filter"
-        defaultValue={false}
-        onValueChange={onValueChange}
-      >
+      <Chip variant="filter" defaultValue={false} onValueChange={onValueChange}>
         Available
       </Chip>,
     );
@@ -92,7 +88,11 @@ describe("Chip elevated (M3)", () => {
   });
 
   it("ignores elevated on input and suggestion (no M3 treatment)", () => {
-    render(<Chip variant="input" elevated>file.pdf</Chip>);
+    render(
+      <Chip variant="input" elevated>
+        file.pdf
+      </Chip>,
+    );
     expect(
       screen.getByRole("button", { name: "file.pdf" }).className,
     ).not.toContain("shadow-(--sys-elevation-level1)");

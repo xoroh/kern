@@ -11,6 +11,7 @@ import {
 } from "@xoroh/kern-tokens";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
+export { themeFromSeed } from "@xoroh/kern-material-3";
 export type {
   ColorRole,
   Contrast,
@@ -36,7 +37,6 @@ export {
   themeIds,
   varName,
 } from "@xoroh/kern-tokens";
-export { themeFromSeed } from "@xoroh/kern-material-3";
 
 type ColorPreference = Mode | "system";
 

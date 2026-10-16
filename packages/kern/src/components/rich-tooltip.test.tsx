@@ -22,13 +22,9 @@ describe("RichTooltip (M3)", () => {
       </Tooltip.Root>,
     );
     const surface = screen.getByText("Autosaved.").closest("div");
-    expect(surface?.className).toContain(
-      "bg-(--sys-color-surface-container)",
-    );
+    expect(surface?.className).toContain("bg-(--sys-color-surface-container)");
     expect(surface?.className).toContain("px-4");
     expect(screen.getByText("Drafts")).toBeTruthy();
-    expect(
-      screen.getByRole("button", { name: "Undo" }),
-    ).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Undo" })).toBeTruthy();
   });
 });

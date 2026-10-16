@@ -16,7 +16,10 @@ export const fab: ComponentDoc = {
     // fills, surface deprecated. sm is the deprecated 40dp small, md the
     // expressive 80dp medium; `medium` keeps its pre-expressive name at 96dp
     // (M3 large) and `large` past the spec at 128dp.
-    variants: ["size: sm · default · md · medium · large · icon", "color: surface · primary · secondary · tertiary · primary-fill · secondary-fill · tertiary-fill"],
+    variants: [
+      "size: sm · default · md · medium · large · icon",
+      "color: surface · primary · secondary · tertiary · primary-fill · secondary-fill · tertiary-fill",
+    ],
     elevation: 3,
   },
   parts: ["Fab"],

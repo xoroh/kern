@@ -105,9 +105,7 @@ describe("Button", () => {
         Delete
       </Button>,
     );
-    expect(screen.getByRole("button")).toHaveClass(
-      "text-(--sys-color-error)",
-    );
+    expect(screen.getByRole("button")).toHaveClass("text-(--sys-color-error)");
     // Default color adds no classes — existing rendering cannot change.
     rerender(<Button>Save</Button>);
     expect(screen.getByRole("button").className).not.toContain("error");
@@ -118,7 +116,9 @@ describe("Button", () => {
     expect(screen.getByRole("button").className).not.toContain("rounded-none");
     rerender(<Button shape="square">Save</Button>);
     // M3 Expressive square is per-size radii (12px at default), not 0px.
-    expect(screen.getByRole("button")).toHaveClass("rounded-(--sys-shape-corner-medium)");
+    expect(screen.getByRole("button")).toHaveClass(
+      "rounded-(--sys-shape-corner-medium)",
+    );
     expect(screen.getByRole("button").className).not.toContain("rounded-none");
     rerender(<Button shape="rounded">Save</Button>);
     expect(screen.getByRole("button")).toHaveClass(

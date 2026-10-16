@@ -39,9 +39,9 @@ describe("feedback", () => {
   });
 
   test("unknown category fails", () => {
-    expect(() =>
-      defineFeedback(report({ category: "rant" as never })),
-    ).toThrow("category");
+    expect(() => defineFeedback(report({ category: "rant" as never }))).toThrow(
+      "category",
+    );
   });
 
   test("blank title and description fail", () => {
@@ -58,21 +58,21 @@ describe("feedback", () => {
   });
 
   test("oversize fields fail instead of silently truncating", () => {
-    expect(() =>
-      defineFeedback(report({ title: "x".repeat(201) })),
-    ).toThrow("exceeds");
+    expect(() => defineFeedback(report({ title: "x".repeat(201) }))).toThrow(
+      "exceeds",
+    );
     expect(() =>
       defineFeedback(report({ description: "x".repeat(8001) })),
     ).toThrow("exceeds");
   });
 
   test("bad renderer and non-boolean consent fail", () => {
-    expect(() =>
-      defineFeedback(report({ renderer: "all" as never })),
-    ).toThrow("renderer");
-    expect(() =>
-      defineFeedback(report({ consent: "yes" as never })),
-    ).toThrow("consent");
+    expect(() => defineFeedback(report({ renderer: "all" as never }))).toThrow(
+      "renderer",
+    );
+    expect(() => defineFeedback(report({ consent: "yes" as never }))).toThrow(
+      "consent",
+    );
   });
 
   test("wrong schema version fails", () => {

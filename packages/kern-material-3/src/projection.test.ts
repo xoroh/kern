@@ -1,10 +1,12 @@
 import "./material-3"; // registers the material-3 preset tables (side effect)
+import {
+  componentsToHex,
+  fromDtcg,
+  resolveThemeDetails,
+  toDtcg,
+  tokens,
+} from "@xoroh/kern-tokens";
 import { describe, expect, test } from "vitest";
-import { resolveThemeDetails } from "@xoroh/kern-tokens";
-import { tokens } from "@xoroh/kern-tokens";
-import { toDtcg } from "@xoroh/kern-tokens";
-import { fromDtcg } from "@xoroh/kern-tokens";
-import { componentsToHex } from "@xoroh/kern-tokens";
 
 /**
  * Projection proof (KERN-022) — every published artifact traces to the graph.

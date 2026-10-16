@@ -75,17 +75,32 @@ describe("Fab", () => {
   });
 
   it.each([
-    ["primary-fill", "bg-(--sys-color-primary)", "text-(--sys-color-on-primary)"],
-    ["secondary-fill", "bg-(--sys-color-secondary)", "text-(--sys-color-on-secondary)"],
-    ["tertiary-fill", "bg-(--sys-color-tertiary)", "text-(--sys-color-on-tertiary)"],
-  ] as const)("paints the expressive %s fill with its on-color", (color, bg, ink) => {
-    render(
-      <Fab data-testid="fab" aria-label="Create" color={color}>
-        <svg />
-      </Fab>,
-    );
-    expect(screen.getByTestId("fab")).toHaveClass(bg, ink);
-  });
+    [
+      "primary-fill",
+      "bg-(--sys-color-primary)",
+      "text-(--sys-color-on-primary)",
+    ],
+    [
+      "secondary-fill",
+      "bg-(--sys-color-secondary)",
+      "text-(--sys-color-on-secondary)",
+    ],
+    [
+      "tertiary-fill",
+      "bg-(--sys-color-tertiary)",
+      "text-(--sys-color-on-tertiary)",
+    ],
+  ] as const)(
+    "paints the expressive %s fill with its on-color",
+    (color, bg, ink) => {
+      render(
+        <Fab data-testid="fab" aria-label="Create" color={color}>
+          <svg />
+        </Fab>,
+      );
+      expect(screen.getByTestId("fab")).toHaveClass(bg, ink);
+    },
+  );
 
   it("warns when disabled — M3 hides the FAB instead", () => {
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {});

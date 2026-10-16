@@ -75,9 +75,9 @@ describe("kern init (Mode 2 scaffold)", () => {
       // The transitive preset dep escapes to the registry without this pin
       // (C1-S smoke: `bun install` failed outside the monorepo) — every
       // workspace package @xoroh/kern depends on must be pinned.
-      expect(
-        pkg.overrides["@xoroh/kern-material-3"].startsWith("file:"),
-      ).toBe(true);
+      expect(pkg.overrides["@xoroh/kern-material-3"].startsWith("file:")).toBe(
+        true,
+      );
       expect(
         existsSync(
           pkg.overrides["@xoroh/kern-material-3"].slice("file:".length),
@@ -149,23 +149,26 @@ describe("kern init (Mode 2 scaffold)", () => {
     ["npm", "npm install", "npm run dev"],
     ["pnpm", "pnpm install", "pnpm dev"],
     ["yarn", "yarn install", "yarn dev"],
-  ] as const)("records pm %s in kern.json with matching instructions", (pm, install, dev) => {
-    const parent = freshDir();
-    try {
-      const r = initScaffold(join(parent, "starter"), {
-        root: WORKSPACE_ROOT,
-        pm,
-      });
-      const kernJson = JSON.parse(
-        readFileSync(join(r.dir, "kern.json"), "utf8"),
-      );
-      expect(kernJson.pm).toBe(pm);
-      expect(r.instructions).toContain(install);
-      expect(r.instructions).toContain(dev);
-    } finally {
-      rmSync(parent, { recursive: true, force: true });
-    }
-  });
+  ] as const)(
+    "records pm %s in kern.json with matching instructions",
+    (pm, install, dev) => {
+      const parent = freshDir();
+      try {
+        const r = initScaffold(join(parent, "starter"), {
+          root: WORKSPACE_ROOT,
+          pm,
+        });
+        const kernJson = JSON.parse(
+          readFileSync(join(r.dir, "kern.json"), "utf8"),
+        );
+        expect(kernJson.pm).toBe(pm);
+        expect(r.instructions).toContain(install);
+        expect(r.instructions).toContain(dev);
+      } finally {
+        rmSync(parent, { recursive: true, force: true });
+      }
+    },
+  );
 
   it("pins the default preset and accepts an explicit one", () => {
     const parent = freshDir();

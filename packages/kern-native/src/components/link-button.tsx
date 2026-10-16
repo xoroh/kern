@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { type ReactNode, useState } from "react";
 import {
   type GestureResponderEvent,
   Linking,
@@ -82,7 +82,8 @@ export function LinkButton({
 }: LinkButtonProps) {
   const scheme = useKernScheme();
   const [uncontrolled, setUncontrolled] = useState(defaultPressed ?? false);
-  const isSelected = toggle && pressed !== undefined ? pressed : toggle ? uncontrolled : false;
+  const isSelected =
+    toggle && pressed !== undefined ? pressed : toggle ? uncontrolled : false;
   // Same M3-alias normalization as Button — buttonStyles only sees Kern names.
   const variant: NativeButtonVariant =
     variantInput in NATIVE_BUTTON_VARIANT_ALIASES

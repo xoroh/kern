@@ -65,10 +65,11 @@ export type DiffRow = {
  */
 export function diffDest(
   dest: string,
+  // Reserved for workspace-scoped resolution; callers pass `{ root }`
+  // (see lifecycle.test.ts) and the receipt lookup intentionally ignores it.
+  // biome-ignore lint/correctness/noUnusedFunctionParameters: see above.
   opts: { root?: string } = {},
 ): DiffRow[] {
-  const root =
-    opts.root ?? (process.env.KERN_WORKSPACE as string) ?? WORKSPACE_ROOT;
   const receiptPath = join(dest, "kern.receipt.json");
   if (!existsSync(receiptPath)) {
     throw new Error(

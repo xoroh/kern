@@ -284,10 +284,7 @@ export function RichTooltip({
                   accessibilityLabel={action.label}
                   onPress={action.onPress}
                 >
-                  <Text
-                    variant="label"
-                    style={{ color: scheme.color.primary }}
-                  >
+                  <Text variant="label" style={{ color: scheme.color.primary }}>
                     {action.label}
                   </Text>
                 </Pressable>

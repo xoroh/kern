@@ -72,27 +72,27 @@ export function SliderRoot({
         ).filter((stop) => stop > min && stop < max)
       : [];
   return (
-      <SliderPrimitive.Root
-        data-slot="slider"
-        data-size={size}
-        className={cnState(
-          "kern-slider group relative flex w-full touch-none items-center outline-none select-none data-disabled:cursor-not-allowed",
-          size === "default" ? "h-12" : SLIDER_ROOT_H[size],
-          className,
-        )}
+    <SliderPrimitive.Root
+      data-slot="slider"
+      data-size={size}
+      className={cnState(
+        "kern-slider group relative flex w-full touch-none items-center outline-none select-none data-disabled:cursor-not-allowed",
+        size === "default" ? "h-12" : SLIDER_ROOT_H[size],
+        className,
+      )}
       min={min}
       max={max}
       step={step}
       {...props}
     >
       <SliderPrimitive.Control className="kern-slider-control flex w-full items-center">
-          <SliderPrimitive.Track
-            data-slot="slider-track"
-            className={cnState(
-              "kern-slider-track relative w-full rounded-full bg-(--sys-color-surface-container-highest) group-data-disabled:bg-(--sys-color-on-surface)/12",
-              size === "default" ? "h-1" : SLIDER_TRACK[size],
-            )}
-          >
+        <SliderPrimitive.Track
+          data-slot="slider-track"
+          className={cnState(
+            "kern-slider-track relative w-full rounded-full bg-(--sys-color-surface-container-highest) group-data-disabled:bg-(--sys-color-on-surface)/12",
+            size === "default" ? "h-1" : SLIDER_TRACK[size],
+          )}
+        >
           {stops.map((stop) => (
             <span
               key={stop}

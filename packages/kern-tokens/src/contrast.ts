@@ -36,8 +36,6 @@ export type ContrastPolicy = {
   waivers: ReadonlyArray<ContrastWaiver>;
 };
 
-
-
 /**
  * THE ORPHAN LAW.
  *

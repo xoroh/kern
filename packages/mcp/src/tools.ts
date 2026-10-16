@@ -99,7 +99,10 @@ async function readThemeFile(rel: string): Promise<string | null> {
   ]);
 }
 
-function tokenFileFor(preset: TokenPreset): { read: "tokens" | "themes"; rel: string } {
+function tokenFileFor(preset: TokenPreset): {
+  read: "tokens" | "themes";
+  rel: string;
+} {
   if (preset === "base") return { read: "tokens", rel: "src/tokens.json" };
   return { read: "themes", rel: `src/themes/${canonicalPreset(preset)}.json` };
 }
@@ -415,9 +418,7 @@ export async function installPlan(
  * beside the server; otherwise says so instead of inventing a verdict.
  * Customized files are REPORTED (owned edits), never "fixed" here.
  */
-export async function validateInstall(
-  dest: string,
-): Promise<
+export async function validateInstall(dest: string): Promise<
   | {
       dest: string;
       rows: Array<{ path: string; state: string; owner: string }>;

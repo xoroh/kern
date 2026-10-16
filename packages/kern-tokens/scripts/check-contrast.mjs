@@ -9,19 +9,22 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import {
-  activeWaivers,
-  contrastIssues,
-  orphanedRoles,
-} from "../src/contrast.ts";
-import {
   MATERIAL_3_POLICY,
   textRolePairs,
   uiRolePairs,
 } from "../../kern-material-3/src/material-3.ts";
+import {
+  activeWaivers,
+  contrastIssues,
+  orphanedRoles,
+} from "../src/contrast.ts";
 
 const ROOT = new URL("../../..", import.meta.url).pathname;
 const M3 = JSON.parse(
-  readFileSync(join(ROOT, "packages/kern-material-3/src/themes/material-3.json"), "utf8"),
+  readFileSync(
+    join(ROOT, "packages/kern-material-3/src/themes/material-3.json"),
+    "utf8",
+  ),
 );
 const SHARP = JSON.parse(
   readFileSync(
@@ -36,7 +39,10 @@ const BRAND = JSON.parse(
   ),
 );
 const DEMO = JSON.parse(
-  readFileSync(join(ROOT, "packages/kern-material-3/src/themes/demo.json"), "utf8"),
+  readFileSync(
+    join(ROOT, "packages/kern-material-3/src/themes/demo.json"),
+    "utf8",
+  ),
 );
 const TOKENS = JSON.parse(
   readFileSync(join(ROOT, "packages/kern-tokens/src/tokens.json"), "utf8"),

@@ -12,7 +12,10 @@ export const buttonGroup: ComponentDoc = {
     status: "real",
     package: "@xoroh/kern",
     nativePeer: "ButtonGroup",
-    variants: ["variant: connected · standard", "orientation: horizontal · vertical"],
+    variants: [
+      "variant: connected · standard",
+      "orientation: horizontal · vertical",
+    ],
     elevation: "surface",
   },
   parts: ["ButtonGroup"],

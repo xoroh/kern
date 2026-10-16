@@ -92,9 +92,7 @@ function UnknownComponent({ slug }: { slug: string }) {
           comes from <code>docs/components.md</code>, so if this export exists
           in a package the manifest is stale — not this page.
         </p>
-        <p
-          className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
-        >
+        <p className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}>
           <Link to="/components/web">Browse web components</Link> ·{" "}
           <Link to="/components/mobile">Browse mobile components</Link>
         </p>
@@ -152,9 +150,7 @@ function ComponentBody() {
             <span aria-hidden="true">/</span>
             <Link to={platformHref}>{isWeb ? "Web" : "Mobile"}</Link>
             <span aria-hidden="true">/</span>
-            <span className="text-(--sys-color-on-surface)">
-              {entry.name}
-            </span>
+            <span className="text-(--sys-color-on-surface)">{entry.name}</span>
           </nav>
         ) : null}
 
@@ -195,9 +191,7 @@ function Undocumented({
           <code>{entry.export}</code>
         </h1>
         <p className={`m-0 ${T_CODE} text-(--sys-color-secondary)`}>{pkg}</p>
-        <p
-          className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
-        >
+        <p className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}>
           {entry.status === "real"
             ? "Implemented and exported from the platform entry point."
             : "Planned placeholder — not exported yet."}
@@ -207,9 +201,7 @@ function Undocumented({
         <h2 id="no-documentation-page-yet" className={`m-0 ${T_SECTION}`}>
           No documentation page yet
         </h2>
-        <p
-          className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
-        >
+        <p className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}>
           This export is in the generated inventory but has no content folder
           under <code>src/content/</code>. That is a gap in the site, not in the
           package — it is tracked by <code>check:docs</code> rather than hidden

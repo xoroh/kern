@@ -1,9 +1,5 @@
 import { useControllableState } from "@xoroh/kern-primitives";
-import {
-  cssLengthToDp,
-  type ResolvedTheme,
-  tokens,
-} from "@xoroh/kern-tokens";
+import { cssLengthToDp, type ResolvedTheme, tokens } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
 import {
   Pressable,
@@ -106,8 +102,7 @@ export function Chip(props: ChipProps) {
     ...pressableProps
   } = props;
   // Canonical filter state, narrowed to the filter branch.
-  const filter =
-    variant === "filter" ? (props as FilterChipProps) : null;
+  const filter = variant === "filter" ? (props as FilterChipProps) : null;
   const { scheme } = useKernTheme();
   const [selectedValue, setSelected] = useControllableState(
     filter?.value,

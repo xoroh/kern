@@ -4,6 +4,11 @@
 
 export * from "./color";
 export * from "./contrast";
+export * from "./dtcg/export";
+export * from "./dtcg/import";
+export * from "./dtcg/retained";
+export * from "./dtcg/shared";
+export * from "./dtcg/validate";
 export * from "./focus";
 export * from "./functional";
 export * from "./motion";
@@ -11,11 +16,6 @@ export * from "./pipeline";
 export * from "./preset";
 export * from "./presets";
 export * from "./sizes";
-export * from "./dtcg/export";
-export * from "./dtcg/import";
-export * from "./dtcg/retained";
-export * from "./dtcg/shared";
-export * from "./dtcg/validate";
 export * from "./token-graph";
 export * from "./token-schema";
 export * from "./tokens";

@@ -68,10 +68,7 @@ export function Pagination({
   ...props
 }: PaginationProps) {
   const [internal, setInternal] = useState(defaultValue);
-  const page = Math.min(
-    Math.max(valueProp ?? internal, 1),
-    Math.max(count, 1),
-  );
+  const page = Math.min(Math.max(valueProp ?? internal, 1), Math.max(count, 1));
   function go(next: number) {
     const clamped = Math.min(Math.max(next, 1), Math.max(count, 1));
     if (valueProp === undefined) setInternal(clamped);

@@ -26,7 +26,9 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
       - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
         with:
-          bun-version: latest
+          # Pinned like every other job: `latest` lets the required
+          # cold-install check drift off the repo's bun@1.3.8 baseline.
+          bun-version: 1.3.8
       - name: Cold-checkout build and dist check
         run: bun run check:cold
 
@@ -109,9 +111,12 @@ jobs:
           path: test-results/baseline/
           if-no-files-found: warn
 
-  # SPLIT (was one 30-step `build` job): hermetic source gates that need no
-  # built dists. No job shares a filesystem with another, so anything that
-  # reads dist/ builds it in its own job (`dist-gates`, `apps`, `e2e` above).
+  # SPLIT (was one 30-step `build` job): source gates. No job shares a
+  # filesystem with another, so anything that reads dist/ builds it in its
+  # own job (`dist-gates`, `apps`, `e2e`, `pkg` above — and this job below:
+  # check:contrast resolves workspace packages through their built dists,
+  # and preflight:publish packs them, so the "no built dists" claim that
+  # used to sit here was wrong for those readers).
   gates:
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -123,6 +128,13 @@ jobs:
           bun-version: 1.3.8
 
       - run: bun install --frozen-lockfile --ignore-scripts
+
+      - name: Build workspace dependencies
+        # REQUIRED: check:contrast, check:elevation-parity, and
+        # preflight:publish resolve workspace packages through their built
+        # dists (main -> ./dist), and dist/ is gitignored. Same pattern as
+        # the apps/e2e/pkg jobs.
+        run: bun run build
 
       - name: Lint and format check
         run: bun run lint
@@ -287,6 +299,14 @@ jobs:
 
       - run: bun install --frozen-lockfile --ignore-scripts
 
+      - name: Build workspace dependencies
+        # REQUIRED on a clean runner: per-package DTS builds (--dts-resolve)
+        # and tests resolve workspace deps through their built dists
+        # (main -> ./dist), and dist/ is gitignored. Same pattern as the
+        # apps/e2e jobs below; without this every leg with workspace
+        # dependencies fails (see CI runs 38820551374/38825478289).
+        run: bun run build
+
       - name: Build package
         run: bun run build
         working-directory: ${{ matrix.dir }}
@@ -327,6 +347,14 @@ jobs:
 
       - name: Build workspace packages
         run: bun run build
+
+      - name: Generate TanStack router tree
+        # REQUIRED: apps/site/src/routeTree.gen.ts is gitignored, so a clean
+        # runner has no route tree and `tsc` fails with TS2307/TS2345 on
+        # every route. Generate it before typechecking (writes ignored files
+        # only).
+        run: bun run generate:routes
+        working-directory: apps/site
 
       - name: Typecheck site
         run: bun run typecheck

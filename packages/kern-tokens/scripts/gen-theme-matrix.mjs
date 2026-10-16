@@ -5,12 +5,15 @@
 // fails when the committed file drifts from what this script produces.
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { registerPreset } from "../src/resolve.ts";
 import { material3PresetRegistrations } from "../../kern-material-3/src/material-3.ts";
+import { registerPreset } from "../src/resolve.ts";
+
 // Explicit registration into THIS resolver instance (source). The M3 module's
 // own import-time registration targets the built package instance, which
 // scripts must not rely on — register here so resolution never depends on dist.
-for (const { id, tables } of material3PresetRegistrations()) registerPreset(id, tables);
+for (const { id, tables } of material3PresetRegistrations())
+  registerPreset(id, tables);
+
 import { buildThemeMatrix } from "../src/pipeline.ts";
 
 const ROOT = new URL("../../..", import.meta.url).pathname;

@@ -1,7 +1,10 @@
 import "./material-3"; // registers the material-3 preset tables (side effect)
+import {
+  type CustomTheme,
+  contrastRatio,
+  resolveThemeDetails,
+} from "@xoroh/kern-tokens";
 import { describe, expect, test } from "vitest";
-import { contrastRatio } from "@xoroh/kern-tokens";
-import { type CustomTheme, resolveThemeDetails } from "@xoroh/kern-tokens";
 import { themeFromSeed } from "./seed-theme";
 
 /**

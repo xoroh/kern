@@ -1085,35 +1085,35 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "variant",
       "type": "ButtonVariantInput | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:278",
+      "src": "packages/kern/src/components/button.tsx:332",
       "default": "\"primary\""
     },
     {
       "name": "size",
       "type": "ButtonSize | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:279",
+      "src": "packages/kern/src/components/button.tsx:333",
       "default": "\"default\""
     },
     {
       "name": "color",
       "type": "ButtonColor | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:280",
+      "src": "packages/kern/src/components/button.tsx:334",
       "default": "\"primary\""
     },
     {
       "name": "shape",
       "type": "ButtonShape | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:281",
+      "src": "packages/kern/src/components/button.tsx:335",
       "default": "\"pill\""
     },
     {
       "name": "block",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:283",
+      "src": "packages/kern/src/components/button.tsx:337",
       "default": "false",
       "note": "Full-width block button."
     },
@@ -1121,83 +1121,83 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "loading",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:285",
+      "src": "packages/kern/src/components/button.tsx:339",
       "note": "Shows the embedded progress indicator and blocks interaction."
     },
     {
       "name": "loadingValue",
       "type": "number | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:287",
+      "src": "packages/kern/src/components/button.tsx:341",
       "note": "0–1 determinate progress while loading. Omit for the loop."
     },
     {
       "name": "loaderStyle",
       "type": "\"spinner\" | \"dots\" | \"bar\" | \"shapes\" | \"conveyor\" | \"contained\" | \"orbit\" | \"morph\" | \"assembly\" | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:289",
+      "src": "packages/kern/src/components/button.tsx:343",
       "note": "Style of the embedded indicator. Defaults to the M3 ring (`spinner`)."
     },
     {
       "name": "href",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:297",
+      "src": "packages/kern/src/components/button.tsx:351",
       "note": "Navigation variant. Renders `<a href>` wearing the button treatment,\ni.e. `role=\"link\"` — for a dedicated link component see `LinkButton`.\nA disabled link drops `href`, leaves the tab order and reports\n`aria-disabled` (the ListItem convention) — links have no `disabled`\nattribute, so there is nothing native to lean on."
     },
     {
       "name": "target",
       "type": "HTMLAttributeAnchorTarget | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:302",
+      "src": "packages/kern/src/components/button.tsx:356",
       "note": "Anchor target. Only rendered when `href` is set — a button has no\nbrowsing context to open."
     },
     {
       "name": "rel",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:304",
+      "src": "packages/kern/src/components/button.tsx:358",
       "note": "Anchor relationship list. Only rendered when `href` is set."
     },
     {
       "name": "download",
       "type": "any",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:306",
+      "src": "packages/kern/src/components/button.tsx:360",
       "note": "Download hint. Only rendered when `href` is set."
     },
     {
       "name": "icon",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:308",
+      "src": "packages/kern/src/components/button.tsx:362",
       "note": "Leading (or trailing, with `iconPosition`) icon. Hidden from assistive tech."
     },
     {
       "name": "iconPosition",
       "type": "ButtonIconPosition | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:309"
+      "src": "packages/kern/src/components/button.tsx:363"
     },
     {
       "name": "flipIcon",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:315",
+      "src": "packages/kern/src/components/button.tsx:369",
       "note": "Mirrors the icon horizontally in RTL contexts (`rtl:scale-x-[-1]`).\nOpt into it for directional glyphs (arrows, chevrons, back/open cues);\nsymmetric icons must not flip. Per M3's `flip-icon-in-rtl`."
     },
     {
       "name": "softDisabled",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:322",
+      "src": "packages/kern/src/components/button.tsx:376",
       "note": "Soft-disabled: paints the disabled treatment but stays focusable, so the\ncontrol remains discoverable (toolbar pattern per W3C APG disabled-controls\nguidance). Unlike `disabled`, it keeps its tab stop and reports\n`aria-disabled` instead of the `disabled` attribute."
     },
     {
       "name": "toggle",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:330",
+      "src": "packages/kern/src/components/button.tsx:384",
       "default": "false",
       "note": "Renders the button as an M3 Expressive toggle: binary selection with\nround↔square morph and per-variant selected colors. There is no toggle\ntext button — `toggle` on `ghost` warns in dev and renders unselected.\nKeep selected/unselected labels a similar length so the layout holds.\n(`value` stays the form value; toggle state uses `pressed`.)"
     },
@@ -1205,27 +1205,27 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "pressed",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:332",
+      "src": "packages/kern/src/components/button.tsx:386",
       "note": "Controlled selected state. Only meaningful with `toggle`."
     },
     {
       "name": "defaultPressed",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:334",
+      "src": "packages/kern/src/components/button.tsx:388",
       "note": "Initial selected state for the uncontrolled toggle case."
     },
     {
       "name": "onPressedChange",
       "type": "((pressed: boolean) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:335"
+      "src": "packages/kern/src/components/button.tsx:389"
     },
     {
       "name": "ref",
       "type": "Ref<HTMLButtonElement | HTMLAnchorElement> | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:336"
+      "src": "packages/kern/src/components/button.tsx:390"
     }
   ],
   "Calendar": [
@@ -4288,14 +4288,14 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "aria-label",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/fab.tsx:62",
+      "src": "packages/kern/src/components/fab.tsx:61",
       "note": "Accessible name for icon-only fabs."
     },
     {
       "name": "lowered",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/fab.tsx:67",
+      "src": "packages/kern/src/components/fab.tsx:66",
       "note": "Lowered elevation (level1 + `surface-container-low` fill) for FABs\nthat should sit quieter in the layout. Per M3's `lowered` attribute."
     }
   ],
@@ -4628,63 +4628,63 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "icon",
       "type": "ReactNode",
       "required": true,
-      "src": "packages/kern/src/components/icon-button.tsx:170",
+      "src": "packages/kern/src/components/icon-button.tsx:239",
       "note": "Icon content. Hidden from assistive tech; the name comes from `label`."
     },
     {
       "name": "label",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:175",
+      "src": "packages/kern/src/components/icon-button.tsx:244",
       "note": "Accessible name, and the text of the M3 tooltip. Required in practice:\nan icon-only button with no name is unusable with a screen reader."
     },
     {
       "name": "selectedLabel",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:181",
+      "src": "packages/kern/src/components/icon-button.tsx:250",
       "note": "Accessible name when the toggle is selected (`aria-label-selected`).\nOnly meaningful with `toggle` — a favorite button reads \"Add to\nfavorites\" unselected and \"Remove from favorites\" selected."
     },
     {
       "name": "softDisabled",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:187",
+      "src": "packages/kern/src/components/icon-button.tsx:256",
       "note": "Soft-disabled: paints the disabled treatment but stays focusable, so\nthe control remains discoverable (toolbar pattern per W3C APG\ndisabled-controls guidance)."
     },
     {
       "name": "loading",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:189",
+      "src": "packages/kern/src/components/icon-button.tsx:258",
       "note": "Shows a loading spinner in place of the icon and blocks interaction."
     },
     {
       "name": "flipIcon",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:195",
+      "src": "packages/kern/src/components/icon-button.tsx:264",
       "note": "Mirrors the icon horizontally in RTL contexts. Opt into it for\ndirectional glyphs only; symmetric icons must not flip. Per M3's\n`flip-icon-in-rtl`."
     },
     {
       "name": "pressed",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:199",
+      "src": "packages/kern/src/components/icon-button.tsx:268",
       "note": "Controlled pressed state. Only meaningful with `toggle`."
     },
     {
       "name": "defaultPressed",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:201",
+      "src": "packages/kern/src/components/icon-button.tsx:270",
       "note": "Initial pressed state for the uncontrolled toggle case."
     },
     {
       "name": "onPressedChange",
       "type": "((pressed: boolean) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/icon-button.tsx:202"
+      "src": "packages/kern/src/components/icon-button.tsx:271"
     }
   ],
   "InputOTPRoot": [
@@ -6123,31 +6123,31 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "label",
       "type": "string",
       "required": true,
-      "src": "packages/kern/src/components/navigation-bar.tsx:241"
+      "src": "packages/kern/src/components/navigation-bar.tsx:239"
     },
     {
       "name": "selected",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/navigation-bar.tsx:242"
+      "src": "packages/kern/src/components/navigation-bar.tsx:240"
     },
     {
       "name": "icon",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/navigation-bar.tsx:243"
+      "src": "packages/kern/src/components/navigation-bar.tsx:241"
     },
     {
       "name": "badge",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/navigation-bar.tsx:244"
+      "src": "packages/kern/src/components/navigation-bar.tsx:242"
     },
     {
       "name": "onSelect",
       "type": "(() => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/navigation-bar.tsx:245"
+      "src": "packages/kern/src/components/navigation-bar.tsx:243"
     }
   ],
   "NavigationDrawer": [

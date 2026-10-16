@@ -674,10 +674,7 @@ function WhenToUse({ doc }: { doc: ComponentDoc }) {
       {hasDo ? (
         <div className={`${CARD} p-4`}>
           <Heading id="do" level={3}>
-            <span
-              className="text-(--sys-color-secondary)"
-              aria-hidden="true"
-            >
+            <span className="text-(--sys-color-secondary)" aria-hidden="true">
               ✓
             </span>{" "}
             Do
@@ -1561,9 +1558,7 @@ function PropTable({ rows, caption }: { rows: ApiRow[]; caption?: string }) {
                       {row.name}
                     </code>
                     {row.required && (
-                      <span
-                        className={`ml-2 ${TINY} text-(--sys-color-error)`}
-                      >
+                      <span className={`ml-2 ${TINY} text-(--sys-color-error)`}>
                         required
                       </span>
                     )}

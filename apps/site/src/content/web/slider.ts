@@ -48,7 +48,8 @@ export const slider: ComponentDoc = {
     },
     {
       key: "Tab / Shift+Tab",
-      action: "Moves focus into and out of the slider. Disabled sliders are skipped.",
+      action:
+        "Moves focus into and out of the slider. Disabled sliders are skipped.",
     },
   ],
   usage: {

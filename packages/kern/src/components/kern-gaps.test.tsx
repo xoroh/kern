@@ -134,9 +134,7 @@ describe("ExtendedFab", () => {
 
   it("expands on demand from the imperative handle when uncontrolled", () => {
     const ref = createRef<ExtendedFabHandle>();
-    render(
-      <ExtendedFab ref={ref} icon={PEN} label="Compose" defaultValue />,
-    );
+    render(<ExtendedFab ref={ref} icon={PEN} label="Compose" defaultValue />);
     expect(screen.getByRole("button", { name: "Compose" })).toHaveAttribute(
       "data-collapsed",
       "true",
@@ -193,9 +191,7 @@ describe("ExtendedFab", () => {
 
   it("toggle() flips whichever state is current", () => {
     const ref = createRef<ExtendedFabHandle>();
-    render(
-      <ExtendedFab ref={ref} icon={PEN} label="Compose" defaultValue />,
-    );
+    render(<ExtendedFab ref={ref} icon={PEN} label="Compose" defaultValue />);
     act(() => ref.current?.toggle());
     expect(screen.getByRole("button", { name: "Compose" })).not.toHaveAttribute(
       "data-collapsed",

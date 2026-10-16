@@ -1,4 +1,6 @@
 /** `kern` — dual-delivery installer. Mode 1 (`add`) vendored; Mode 2 is `bun add @xoroh/kern`. */
+
+import { join } from "node:path";
 import { type AddPlatform, addBlock, addComponent } from "./add.js";
 import { loadBlocks } from "./blocks.js";
 import { createApp } from "./create.js";
@@ -10,7 +12,6 @@ import {
   submitFeedback,
 } from "./feedback.js";
 import { initScaffold } from "./init.js";
-import { join } from "node:path";
 import {
   diffDest,
   formatDiff,
@@ -46,8 +47,15 @@ function platformFlag(): AddPlatform | undefined {
 function pmFlag(): "bun" | "npm" | "pnpm" | "yarn" | undefined {
   const value = flagValue("--pm");
   if (value === undefined) return undefined;
-  if (value !== "bun" && value !== "npm" && value !== "pnpm" && value !== "yarn") {
-    console.error(`kern: --pm is "bun", "npm", "pnpm" or "yarn", not "${value}".`);
+  if (
+    value !== "bun" &&
+    value !== "npm" &&
+    value !== "pnpm" &&
+    value !== "yarn"
+  ) {
+    console.error(
+      `kern: --pm is "bun", "npm", "pnpm" or "yarn", not "${value}".`,
+    );
     process.exit(1);
   }
   return value;
@@ -220,7 +228,8 @@ try {
   } else if (cmd === "feedback") {
     // Subcommand is positional-first only: flag values (e.g. `--category
     // bug`) must never read as subcommands.
-    const sub = rest[0] !== undefined && !rest[0].startsWith("--") ? rest[0] : undefined;
+    const sub =
+      rest[0] !== undefined && !rest[0].startsWith("--") ? rest[0] : undefined;
     if (sub === "digest") {
       console.log(digestFeedback(process.cwd()));
     } else if (sub === "prune") {
@@ -267,7 +276,9 @@ try {
           `duplicate of ${receipt.id} — already in the inbox, nothing added.`,
         );
       } else {
-        console.log(`stored ${receipt.id} — a human files the issue from the URL above.`);
+        console.log(
+          `stored ${receipt.id} — a human files the issue from the URL above.`,
+        );
       }
     }
   } else {

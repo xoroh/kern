@@ -89,8 +89,7 @@ const iconButtonVariants = cva(
       {
         variant: "standard",
         selected: true,
-        class:
-          "text-(--sys-color-primary) before:bg-(--sys-color-primary)",
+        class: "text-(--sys-color-primary) before:bg-(--sys-color-primary)",
       },
       {
         variant: "filled",
@@ -125,20 +124,90 @@ const iconButtonVariants = cva(
       },
       // M3 Expressive square shape per size for the smaller icon-button
       // boxes (8/8/12/12/16/16). Selected toggles morph round to square.
-      { shape: "square", size: "xs", class: "rounded-(--sys-shape-corner-small)" },
-      { shape: "square", size: "sm", class: "rounded-(--sys-shape-corner-small)" },
-      { shape: "square", size: "default", class: "rounded-(--sys-shape-corner-medium)" },
-      { shape: "square", size: "md", class: "rounded-(--sys-shape-corner-medium)" },
-      { shape: "square", size: "lg", class: "rounded-(--sys-shape-corner-large)" },
-      { shape: "square", size: "xl", class: "rounded-(--sys-shape-corner-large)" },
-      { shape: "square", size: "2xl", class: "rounded-(--sys-shape-corner-extra-large)" },
-      { toggle: true, selected: true, shape: "pill", size: "xs", class: "rounded-(--sys-shape-corner-small)" },
-      { toggle: true, selected: true, shape: "pill", size: "sm", class: "rounded-(--sys-shape-corner-small)" },
-      { toggle: true, selected: true, shape: "pill", size: "default", class: "rounded-(--sys-shape-corner-medium)" },
-      { toggle: true, selected: true, shape: "pill", size: "md", class: "rounded-(--sys-shape-corner-medium)" },
-      { toggle: true, selected: true, shape: "pill", size: "lg", class: "rounded-(--sys-shape-corner-large)" },
-      { toggle: true, selected: true, shape: "pill", size: "xl", class: "rounded-(--sys-shape-corner-large)" },
-      { toggle: true, selected: true, shape: "pill", size: "2xl", class: "rounded-(--sys-shape-corner-extra-large)" },
+      {
+        shape: "square",
+        size: "xs",
+        class: "rounded-(--sys-shape-corner-small)",
+      },
+      {
+        shape: "square",
+        size: "sm",
+        class: "rounded-(--sys-shape-corner-small)",
+      },
+      {
+        shape: "square",
+        size: "default",
+        class: "rounded-(--sys-shape-corner-medium)",
+      },
+      {
+        shape: "square",
+        size: "md",
+        class: "rounded-(--sys-shape-corner-medium)",
+      },
+      {
+        shape: "square",
+        size: "lg",
+        class: "rounded-(--sys-shape-corner-large)",
+      },
+      {
+        shape: "square",
+        size: "xl",
+        class: "rounded-(--sys-shape-corner-large)",
+      },
+      {
+        shape: "square",
+        size: "2xl",
+        class: "rounded-(--sys-shape-corner-extra-large)",
+      },
+      {
+        toggle: true,
+        selected: true,
+        shape: "pill",
+        size: "xs",
+        class: "rounded-(--sys-shape-corner-small)",
+      },
+      {
+        toggle: true,
+        selected: true,
+        shape: "pill",
+        size: "sm",
+        class: "rounded-(--sys-shape-corner-small)",
+      },
+      {
+        toggle: true,
+        selected: true,
+        shape: "pill",
+        size: "default",
+        class: "rounded-(--sys-shape-corner-medium)",
+      },
+      {
+        toggle: true,
+        selected: true,
+        shape: "pill",
+        size: "md",
+        class: "rounded-(--sys-shape-corner-medium)",
+      },
+      {
+        toggle: true,
+        selected: true,
+        shape: "pill",
+        size: "lg",
+        class: "rounded-(--sys-shape-corner-large)",
+      },
+      {
+        toggle: true,
+        selected: true,
+        shape: "pill",
+        size: "xl",
+        class: "rounded-(--sys-shape-corner-large)",
+      },
+      {
+        toggle: true,
+        selected: true,
+        shape: "pill",
+        size: "2xl",
+        class: "rounded-(--sys-shape-corner-extra-large)",
+      },
       {
         toggle: true,
         selected: true,
@@ -225,7 +294,11 @@ export function IconButton({
 }: IconButtonProps) {
   const controlled = pressed !== undefined;
   const [uncontrolled, setUncontrolled] = useState(defaultPressed);
-  const isPressed = toggle ? (controlled ? (pressed ?? false) : uncontrolled) : false;
+  const isPressed = toggle
+    ? controlled
+      ? (pressed ?? false)
+      : uncontrolled
+    : false;
   const tooltipId = useId();
 
   if (process.env.NODE_ENV !== "production" && !label) {

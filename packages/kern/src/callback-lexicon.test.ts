@@ -26,9 +26,8 @@ import { describe, expect, it } from "vitest";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 
-/** Every state pair: canonical names that must be present. */
-const CANONICAL_VALUE = ["value", "onValueChange"];
-const CANONICAL_OPEN = ["open", "onOpenChange"];
+/** Every state pair uses canonical names (`value`/`onValueChange`,
+ * `open`/`onOpenChange`); deprecated aliases are listed per file below. */
 
 /**
  * Deprecated aliases, each mapped to the file-relative scope they may appear

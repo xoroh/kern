@@ -1,8 +1,8 @@
 import type { KernSize } from "@xoroh/kern-tokens";
 import type { ComponentPropsWithRef, ReactNode } from "react";
+import { FOCUS_RING_CLASS } from "../components/focus-ring";
 import { cn } from "../utils/cn";
 import { Link } from "./link";
-import { FOCUS_RING_CLASS } from "../components/focus-ring";
 
 export type TopAppBarSize = "small" | "medium" | "large";
 
@@ -88,7 +88,9 @@ export function TopAppBarToggle({
       aria-label={open ? "Close navigation" : "Open navigation"}
       aria-expanded={open}
       className={cn(
-        "kern-top-app-bar-toggle inline-flex h-10 w-10 items-center justify-center rounded-(--sys-shape-corner-full) hover:bg-(--sys-color-surface-tonal) " + FOCUS_RING_CLASS + " outline-none",
+        "kern-top-app-bar-toggle inline-flex h-10 w-10 items-center justify-center rounded-(--sys-shape-corner-full) hover:bg-(--sys-color-surface-tonal) " +
+          FOCUS_RING_CLASS +
+          " outline-none",
         className,
       )}
       onClick={onToggle}
@@ -158,7 +160,11 @@ export function TopBarMenu({
         type="button"
         aria-label={label}
         aria-haspopup="menu"
-        className={"inline-flex h-10 w-10 items-center justify-center rounded-(--sys-shape-corner-full) text-(--sys-color-on-surface) hover:bg-(--sys-color-surface-tonal) " + FOCUS_RING_CLASS + " outline-none"}
+        className={
+          "inline-flex h-10 w-10 items-center justify-center rounded-(--sys-shape-corner-full) text-(--sys-color-on-surface) hover:bg-(--sys-color-surface-tonal) " +
+          FOCUS_RING_CLASS +
+          " outline-none"
+        }
       >
         {trigger ?? <span aria-hidden="true">⋯</span>}
       </button>

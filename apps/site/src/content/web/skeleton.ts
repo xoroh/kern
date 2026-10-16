@@ -23,9 +23,7 @@ export const skeleton: ComponentDoc = {
       "Name what loads via aria-label so the wait announces.",
       "Mirror the incoming layout so content does not jump.",
     ],
-    dont: [
-      "Do not leave skeletons unnamed.",
-    ],
+    dont: ["Do not leave skeletons unnamed."],
   },
   tokens: [
     {

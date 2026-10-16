@@ -52,7 +52,9 @@ describe("Calendar", () => {
 
 describe("Calendar targets (M3)", () => {
   it("widens day boxes to the 48dp minimum via inset", () => {
-    render(<Calendar defaultValue={new Date(2026, 1, 17)} aria-label="Release" />);
+    render(
+      <Calendar defaultValue={new Date(2026, 1, 17)} aria-label="Release" />,
+    );
     const days = document.querySelectorAll("[data-slot='calendar-day']");
     expect(days.length).toBeGreaterThan(0);
     for (const d of Array.from(days)) {

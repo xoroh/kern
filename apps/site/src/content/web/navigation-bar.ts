@@ -34,7 +34,8 @@ export const navigationBar: ComponentDoc = {
   keyboard: [
     {
       key: "Arrow keys",
-      action: "Moves selection and focus between destinations, skipping disabled ones. Selection follows focus.",
+      action:
+        "Moves selection and focus between destinations, skipping disabled ones. Selection follows focus.",
     },
     {
       key: "Home / End",
@@ -42,7 +43,8 @@ export const navigationBar: ComponentDoc = {
     },
     {
       key: "Tab / Shift+Tab",
-      action: "The bar is one tab stop (roving tabindex on the active destination).",
+      action:
+        "The bar is one tab stop (roving tabindex on the active destination).",
     },
   ],
   usage: {

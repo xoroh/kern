@@ -1,7 +1,4 @@
-import {
-  type ResolvedTheme,
-  tokens,
-} from "@xoroh/kern-tokens";
+import { type ResolvedTheme, tokens } from "@xoroh/kern-tokens";
 import {
   createContext,
   type ReactNode,

@@ -29,11 +29,13 @@ export const radioGroup: ComponentDoc = {
   keyboard: [
     {
       key: "Arrow keys",
-      action: "Moves selection within the group. The newly focused radio becomes checked.",
+      action:
+        "Moves selection within the group. The newly focused radio becomes checked.",
     },
     {
       key: "Tab / Shift+Tab",
-      action: "Moves focus into and out of the group as one stop. Disabled radios are skipped.",
+      action:
+        "Moves focus into and out of the group as one stop. Disabled radios are skipped.",
     },
     {
       key: "Space",

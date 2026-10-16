@@ -11,8 +11,8 @@
 import {
   isHex6,
   STUDIO_CONTRASTS,
-  STUDIO_DENSITIES,
   STUDIO_DEFAULTS,
+  STUDIO_DENSITIES,
   STUDIO_FONTS,
   type StudioContrast,
   type StudioDensity,

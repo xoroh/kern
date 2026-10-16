@@ -348,13 +348,7 @@ if (docConcepts.size === 0) {
 // A missing dist is UNVERIFIABLE, never a pass: reporting "0 violations" from a
 // build that has not run is the gate-looks-green-because-it-did-not-look failure.
 {
-  const distDts = join(
-    ROOT,
-    "libs",
-    "kern-primitives",
-    "dist",
-    "index.d.ts",
-  );
+  const distDts = join(ROOT, "libs", "kern-primitives", "dist", "index.d.ts");
   const primitivesSrc = join(ROOT, "libs", "kern-primitives", "src");
   if (!existsSync(distDts)) {
     violations.push(

@@ -1,12 +1,15 @@
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import tokens from "@xoroh/kern-tokens/tokens.json";
 import { describe, expect, it } from "vitest";
 import m3 from "./themes/material-3.json";
-import tokens from "@xoroh/kern-tokens/tokens.json";
 
 const THEME_DIR = dirname(fileURLToPath(import.meta.url));
-const css = readFileSync(join(THEME_DIR, "..", "..", "kern-tokens", "src", "tokens.css"), "utf8");
+const css = readFileSync(
+  join(THEME_DIR, "..", "..", "kern-tokens", "src", "tokens.css"),
+  "utf8",
+);
 
 const kebab = (name: string) =>
   name.replace(/(?<!^)(?=[A-Z])/g, "-").toLowerCase();
@@ -36,9 +39,7 @@ describe("tokens.css matches the JSON sources", () => {
 
   it("contains every shape token", () => {
     for (const [name, value] of Object.entries(tokens.shape)) {
-      expect(css.includes(`--sys-shape-corner-${name}: ${value};`)).toBe(
-        true,
-      );
+      expect(css.includes(`--sys-shape-corner-${name}: ${value};`)).toBe(true);
     }
   });
 
@@ -57,7 +58,10 @@ describe("tokens.css matches the JSON sources", () => {
 });
 
 describe("comp-tokens.css refs resolve in tokens.css (spacing/icon-size regressions)", () => {
-  const comp = readFileSync(join(THEME_DIR, "..", "..", "kern-tokens", "src", "comp-tokens.css"), "utf8");
+  const comp = readFileSync(
+    join(THEME_DIR, "..", "..", "kern-tokens", "src", "comp-tokens.css"),
+    "utf8",
+  );
   const defined = new Set(
     [...css.matchAll(/--sys-[A-Za-z0-9-]+(?=\s*:)/g)].map((m) => m[0]),
   );
@@ -67,9 +71,9 @@ describe("comp-tokens.css refs resolve in tokens.css (spacing/icon-size regressi
   // var cannot hold five CSS properties, so the slot becomes five vars.
   const IN_SCOPE = /--sys-(color|spacing|shape-corner|elevation|typescale)-/;
   it("every in-scope comp var() target is defined in tokens.css", () => {
-    const refs = [
-      ...comp.matchAll(/var\(\s*(--sys-[A-Za-z0-9-]+)\s*\)/g),
-    ].map((m) => m[1]);
+    const refs = [...comp.matchAll(/var\(\s*(--sys-[A-Za-z0-9-]+)\s*\)/g)].map(
+      (m) => m[1],
+    );
     expect(refs.length).toBeGreaterThan(0);
     for (const r of new Set(refs))
       if (IN_SCOPE.test(r)) expect(defined.has(r), r).toBe(true);

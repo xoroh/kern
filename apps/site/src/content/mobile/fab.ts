@@ -12,7 +12,10 @@ export const fab: ComponentDoc = {
     package: "@xoroh/kern-native",
     // Exact web counterpart, checked in the web inventory.
     nativePeer: "Fab",
-    variants: ["size: default · small · medium · large · icon", "color: surface · primary · secondary · tertiary · primary-fill · secondary-fill · tertiary-fill"],
+    variants: [
+      "size: default · small · medium · large · icon",
+      "color: surface · primary · secondary · tertiary · primary-fill · secondary-fill · tertiary-fill",
+    ],
     // M3's "fab" row rests at level 3, and `fabStyles` ships it.
     elevation: 3,
   },

@@ -7,15 +7,17 @@
 // Deterministic output; the file it writes is the consumer's, not a generated
 // artifact of this repo (no registry entry).
 import { writeFileSync } from "node:fs";
-import { registerPreset } from "../src/resolve.ts";
 import { material3PresetRegistrations } from "../../kern-material-3/src/material-3.ts";
+import { registerPreset } from "../src/resolve.ts";
+
 // Explicit registration into THIS resolver instance (source). The M3 module's
 // own import-time registration targets the built package instance, which
 // scripts must not rely on — register here so resolution never depends on dist.
-for (const { id, tables } of material3PresetRegistrations()) registerPreset(id, tables);
-import { resolveThemeDetails } from "../src/resolve.ts";
+for (const { id, tables } of material3PresetRegistrations())
+  registerPreset(id, tables);
+
 import { themeFromSeed } from "../../kern-material-3/src/seed-theme.ts";
-import { varName as roleVar } from "../src/resolve.ts";
+import { resolveThemeDetails, varName as roleVar } from "../src/resolve.ts";
 
 const args = process.argv.slice(2);
 const at = (flag) => {
@@ -29,10 +31,9 @@ if (!out) {
   process.exit(1);
 }
 
-const selection =
-  id.startsWith("#")
-    ? themeFromSeed(id, `seed-${id.slice(1)}`)
-    : id;
+const selection = id.startsWith("#")
+  ? themeFromSeed(id, `seed-${id.slice(1)}`)
+  : id;
 const light = resolveThemeDetails("light", "standard", selection).color;
 const dark = resolveThemeDetails("dark", "standard", selection).color;
 

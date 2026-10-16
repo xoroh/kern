@@ -23,7 +23,9 @@ describe("code-only source", () => {
   });
 
   test("backtick templates keep their literal text", () => {
-    const source = "const t = `themes/${preset}.json`;";
-    expect(codeOnly(source)).toBe(source);
+    // Split so no source literal contains "${": the runtime value stays the
+    // template `themes/${preset}.json`, which is what codeOnly must preserve.
+    const source = "const t = `themes/$" + "{preset}.json`;";
+    expect(codeOnly(source)).toBe("const t = `themes/$" + "{preset}.json`;");
   });
 });

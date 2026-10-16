@@ -20,9 +20,7 @@ export const circularProgress: ComponentDoc = {
       "Reach for four-color cycling for brand moments, not every spinner.",
       "Always label for assistive tech.",
     ],
-    dont: [
-      "Don't leave determinate arcs unlabeled — report value or status.",
-    ],
+    dont: ["Don't leave determinate arcs unlabeled — report value or status."],
   },
   tokens: [
     {
@@ -35,7 +33,8 @@ export const circularProgress: ComponentDoc = {
       element: "Four-color cycle",
       state: "resting",
       token: "comp.circular-progress.four-color",
-      value: "primary, primary-container, tertiary, tertiary-container over 5.332s",
+      value:
+        "primary, primary-container, tertiary, tertiary-container over 5.332s",
     },
   ],
   faq: [

@@ -1,4 +1,4 @@
-import { type ResolvedTheme } from "@xoroh/kern-tokens";
+import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import {
   type StyleProp,
   View,

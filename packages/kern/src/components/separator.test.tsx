@@ -37,7 +37,9 @@ describe("Separator insets (M3)", () => {
   });
 
   it("insets on the vertical axis instead when vertical", () => {
-    render(<Separator data-testid="sep" orientation="vertical" inset="middle" />);
+    render(
+      <Separator data-testid="sep" orientation="vertical" inset="middle" />,
+    );
     expect(screen.getByTestId("sep")).toHaveClass("my-4");
   });
 });

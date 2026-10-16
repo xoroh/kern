@@ -142,12 +142,7 @@ describe("extended FAB (native)", () => {
 
   it("obeys a controlled value prop", async () => {
     await render(
-      <ExtendedFab
-        icon={<Text>x</Text>}
-        label="Compose"
-        value
-        testID="efab"
-      />,
+      <ExtendedFab icon={<Text>x</Text>} label="Compose" value testID="efab" />,
     );
     expect(screen.queryByText("Compose")).toBeNull();
     expect(screen.getByTestId("efab").props.accessibilityLabel).toBe("Compose");

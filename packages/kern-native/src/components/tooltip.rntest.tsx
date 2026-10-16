@@ -22,11 +22,11 @@
  */
 import { assertParity, contractFor } from "@kern-parity/contract";
 import { fireEvent, render, screen } from "@testing-library/react-native";
-import { defaultScheme } from "../theme";
 import { act } from "react";
 import { type StyleProp, StyleSheet, type ViewStyle } from "react-native";
 import { Text } from "../components/text";
 import { RichTooltip, Tooltip } from "../components/tooltip";
+import { defaultScheme } from "../theme";
 
 const R = "native" as const;
 

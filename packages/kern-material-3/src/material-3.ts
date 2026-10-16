@@ -4,17 +4,17 @@
  * so this file introduces no second value source: the tables stay canonical
  * until the ref/sys split (P2 batch 2b) moves them.
  */
-import { FIXED_ACCENT_FAMILIES } from "./kern-roles";
-import { definePreset, type PresetManifest } from "@xoroh/kern-tokens";
+
 import {
   type ContrastPair,
   type ContrastPolicy,
   type ContrastWaiver,
-} from "@xoroh/kern-tokens";
-import {
+  definePreset,
+  type PresetManifest,
   registerPreset,
   type ThemeOverrides,
 } from "@xoroh/kern-tokens";
+import { FIXED_ACCENT_FAMILIES } from "./kern-roles";
 import brand from "./themes/brand.json";
 import compact from "./themes/compact.json";
 import demo from "./themes/demo.json";
@@ -38,7 +38,8 @@ export const MATERIAL_3_PRESET: PresetManifest = definePreset({
     "web-renderer": "supported",
     "native-renderer": "supported",
   },
-  notes: "M3 Expressive (May 2025). Threshold roles (success/warning/info) are Kern extensions carried alongside the M3 set.",
+  notes:
+    "M3 Expressive (May 2025). Threshold roles (success/warning/info) are Kern extensions carried alongside the M3 set.",
 });
 
 /**
@@ -87,7 +88,6 @@ export const INVERSE_ROLES: ReadonlyArray<string> = [
   "inverseOnSurface",
   "inversePrimary",
 ];
-
 
 /**
  * PER-ROLE boundary waivers — the only sanctioned way for a scheme role to sit
@@ -238,7 +238,10 @@ export function material3PresetRegistrations(): Array<{
           dark: kern.color.dark as Record<string, string>,
         },
         shape: kern.radius as Record<string, string>,
-        contrast: kern.contrast as Record<string, Partial<Record<string, string>>>,
+        contrast: kern.contrast as Record<
+          string,
+          Partial<Record<string, string>>
+        >,
         policy: MATERIAL_3_POLICY,
       },
     },

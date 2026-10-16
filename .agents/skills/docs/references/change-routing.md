@@ -27,7 +27,7 @@ For users, human and AI.
 | Import, peer range, or publish config | the package README + `docs/releases.md` if publishable |
 | A new convention | `docs/conventions/` + the index table in `docs/conventions/documentation.md` |
 | Release flow or bump policy | `docs/releases.md` |
-| Roadmap item state | `docs/plan/README.md` tracker row, and the plan file's log |
+| Roadmap item state | `docs/architecture/kern-axis-migration-and-roadmap.md` (active plan; pre-2026-10-16 tracker rows live in `docs/archive/2026-10-axis-transition/plan/README.md`) |
 | An internal `@xoroh/*` dependency (peer range, `workspace:` placement) | `docs/releases.md` §Preflight — peers ship, `workspace:*` stays in `devDependencies` only. Gate: `bun run preflight:publish` |
 
 ## Agent knowledge → `.agents/skills/`

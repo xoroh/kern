@@ -17,7 +17,7 @@
  */
 import { existsSync } from "node:fs";
 import { resolve } from "node:path";
-import { initScaffold, type InitOptions, type InitResult } from "./init.js";
+import { type InitOptions, type InitResult, initScaffold } from "./init.js";
 
 export type CreateOptions = Omit<InitOptions, "force">;
 

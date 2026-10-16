@@ -10,7 +10,7 @@
  * DRY-RUN BY DEFAULT: prints the per-file rewrites and exits 0 without
  * touching anything. `--apply` performs them. This codemod renames MODULES,
  * not symbols: `KernButton` → `Button` prop/callback differences are reviewed
- * per callsite (see docs/planning/XOROH_MIGRATION.md §Concrete import/API
+ * per callsite (see docs/archive/2026-10-axis-transition/planning/XOROH_MIGRATION.md §Concrete import/API
  * mapping), never renamed blindly. A codemod that renames semantics
  * is how a migration compiles and misbehaves.
  *
@@ -19,7 +19,7 @@
  * running it on the parent.
  */
 
-import { readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
+import { readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join, relative } from "node:path";
 
 const ROOT = process.argv.includes("--root")

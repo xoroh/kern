@@ -1,8 +1,5 @@
 import { useControllableState } from "@xoroh/kern-primitives";
-import {
-  type ResolvedTheme,
-  tokens,
-} from "@xoroh/kern-tokens";
+import { type ResolvedTheme, tokens } from "@xoroh/kern-tokens";
 import { useMemo } from "react";
 import {
   Pressable,

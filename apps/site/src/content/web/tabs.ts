@@ -50,7 +50,8 @@ export const tabs: ComponentDoc = {
     },
     {
       key: "Tab / Shift+Tab",
-      action: "The tablist is one stop (roving tabindex); panels are reachable by Tab.",
+      action:
+        "The tablist is one stop (roving tabindex); panels are reachable by Tab.",
     },
   ],
   usage: {

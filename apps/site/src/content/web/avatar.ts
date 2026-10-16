@@ -36,9 +36,7 @@ export const avatar: ComponentDoc = {
       "Show the person or entity image; fall back to initials on primary.",
       "Keep full-circle geometry at every size.",
     ],
-    dont: [
-      "Don't stretch non-square sources — crop to the circle.",
-    ],
+    dont: ["Don't stretch non-square sources — crop to the circle."],
   },
   tokens: [
     {

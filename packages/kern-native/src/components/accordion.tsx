@@ -1,5 +1,5 @@
 import { useSelection } from "@xoroh/kern-primitives";
-import { type ResolvedTheme } from "@xoroh/kern-tokens";
+import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
 import {
   Pressable,
@@ -17,9 +17,10 @@ export type NativeAccordionSection = {
   accessibilityLabel?: string;
 };
 
-export function accordionStyles(
-  scheme: ResolvedTheme = defaultScheme,
-): { container: ViewStyle; header: ViewStyle } {
+export function accordionStyles(scheme: ResolvedTheme = defaultScheme): {
+  container: ViewStyle;
+  header: ViewStyle;
+} {
   return {
     container: {
       borderWidth: 1,

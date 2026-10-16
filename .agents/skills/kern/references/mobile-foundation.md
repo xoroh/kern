@@ -47,7 +47,7 @@ The sheets are built on RN primitives, not on `@gorhom/bottom-sheet` — the
 package still imports only `react`, `react-native`, and
 `@xoroh/kern-tokens`. If gesture handling forces the Expo-only peer set, the
 plan is an `@xoroh/kern-expo` split, decided in one ADR per
-`docs/plan/native-composition.md`.
+`docs/archive/2026-10-axis-transition/plan/native-composition.md`.
 
 ## Re-evaluation triggers
 
@@ -55,7 +55,7 @@ Native composition is the open question, not the primitive layer. If
 sheet/drawer work needs an Expo-only peer set (`@gorhom/bottom-sheet`,
 `reanimated`, `expo-blur`) that bloats `kern-native`, the plan is to split an
 `@xoroh/kern-expo` package — decided in one ADR, per
-`docs/plan/native-composition.md` § Decisions.
+`docs/archive/2026-10-axis-transition/plan/native-composition.md` § Decisions.
 
 If a primitive layer is ever needed rather than composition, revisit
 `roninoss/rn-primitives` (MIT, actively maintained, a hard dependency of

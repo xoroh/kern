@@ -4,6 +4,7 @@
   kern's default seed family — the themed site repaints itself, but a
   favicon has no theme context, so it wears the default. -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>Kern</title>
   <rect width="64" height="64" rx="14" fill="#6750a4"/>
   <text x="32" y="44" font-family="system-ui, sans-serif" font-size="36" font-weight="700" fill="#ffffff" text-anchor="middle">K</text>
 </svg>

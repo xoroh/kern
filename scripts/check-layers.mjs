@@ -64,7 +64,10 @@ const LAYERS = {
   // Design systems sit above the universal engine: they consume contracts
   // and tokens, and renderers consume them. Same-rank edges are forbidden,
   // so a design system is rank 1, not rank 0.
-  "@xoroh/kern-material-3": { rank: 1, blurb: "Material Design 3 implementation" },
+  "@xoroh/kern-material-3": {
+    rank: 1,
+    blurb: "Material Design 3 implementation",
+  },
   "@xoroh/kern-icons": { rank: 0, blurb: "standalone icon set" },
   // ADR-P02: pure metadata vocabulary — types/schema/validators only. Rank 0
   // (knows nothing); renderers, tokens metadata, CLI, MCP and the registry
@@ -139,106 +142,106 @@ for (const area of AREAS) {
     if (!entry.isDirectory()) continue;
     const dir = join(ROOT, area, entry.name);
     const manifestPath = join(dir, "package.json");
-  if (!existsSync(manifestPath)) continue;
-  const pkg = JSON.parse(readFileSync(manifestPath, "utf8"));
+    if (!existsSync(manifestPath)) continue;
+    const pkg = JSON.parse(readFileSync(manifestPath, "utf8"));
 
-  const declared = new Set(
-    [
-      ...Object.keys(pkg.dependencies ?? {}),
-      ...Object.keys(pkg.devDependencies ?? {}),
-      ...Object.keys(pkg.peerDependencies ?? {}),
-      ...Object.keys(pkg.optionalDependencies ?? {}),
-    ].map((d) => d.toLowerCase()),
-  );
-
-  const undeclared = new Map();
-  const srcDir = join(dir, "src");
-  if (!existsSync(srcDir)) continue;
-
-  const walk = (d, depth = 0) => {
-    if (depth > 6) return;
-    let files;
-    try {
-      files = readdirSync(d, { withFileTypes: true });
-    } catch {
-      return;
-    }
-    for (const f of files) {
-      if (f.name === "node_modules" || f.name === "dist") continue;
-      const full = join(d, f.name);
-      if (f.isDirectory()) {
-        walk(full, depth + 1);
-        continue;
-      }
-      if (!/\.(ts|tsx|mts|cts|js|jsx|mjs|cjs)$/.test(f.name)) continue;
-      // Parse rather than regex. The AST sees only real module specifiers, so a
-      // comment saying `... from "x"` cannot invent an import. This gate's
-      // value depends entirely on not crying wolf: a false positive here gets
-      // the whole gate ignored, which is worse than having no gate.
-      const text = readFileSync(full, "utf8");
-      let sf;
-      try {
-        sf = ts.createSourceFile(
-          full,
-          text,
-          ts.ScriptTarget.Latest,
-          /* setParentNodes */ false,
-        );
-      } catch {
-        continue; // unreadable here; typecheck reports it properly
-      }
-
-      const specs = new Set();
-      const addSpec = (node) => {
-        if (node && ts.isStringLiteralLike(node)) specs.add(node.text);
-      };
-      const visit = (node) => {
-        // import x from "p" / export x from "p" / import "p"
-        if (ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) {
-          addSpec(node.moduleSpecifier);
-        }
-        // import("p") and require("p") -- both resolve at runtime
-        if (
-          ts.isCallExpression(node) &&
-          node.arguments.length === 1 &&
-          (node.expression.kind === ts.SyntaxKind.ImportKeyword ||
-            (ts.isIdentifier(node.expression) &&
-              node.expression.text === "require"))
-        ) {
-          addSpec(node.arguments[0]);
-        }
-        ts.forEachChild(node, visit);
-      };
-      visit(sf);
-
-      for (const spec of specs) {
-        if (
-          spec.startsWith(".") ||
-          spec.startsWith("/") ||
-          spec.startsWith("#")
-        )
-          continue;
-        if (spec.startsWith("node:") || spec.startsWith("bun:")) continue;
-        if (builtinModules.includes(spec)) continue;
-        // A package importing itself is a test convenience, not a dependency.
-        if (spec === pkg.name) continue;
-        // Repo-internal aliases, not packages: the parity contract lives at the
-        // repo root and is reached through a path alias on purpose (ADR 002 --
-        // neither renderer imports the other to read it).
-        if (spec.startsWith("@kern-parity/")) continue;
-        const pkgName = packageNameOf(spec).toLowerCase();
-        if (declared.has(pkgName)) continue;
-        if (!undeclared.has(pkgName)) undeclared.set(pkgName, full);
-      }
-    }
-  };
-  walk(srcDir);
-
-  for (const [name, file] of undeclared) {
-    violations.push(
-      `${pkg.name}: imports "${name}" but no dependency declares it (first seen in ${file.replace(`${ROOT}/`, "")})`,
+    const declared = new Set(
+      [
+        ...Object.keys(pkg.dependencies ?? {}),
+        ...Object.keys(pkg.devDependencies ?? {}),
+        ...Object.keys(pkg.peerDependencies ?? {}),
+        ...Object.keys(pkg.optionalDependencies ?? {}),
+      ].map((d) => d.toLowerCase()),
     );
-  }
+
+    const undeclared = new Map();
+    const srcDir = join(dir, "src");
+    if (!existsSync(srcDir)) continue;
+
+    const walk = (d, depth = 0) => {
+      if (depth > 6) return;
+      let files;
+      try {
+        files = readdirSync(d, { withFileTypes: true });
+      } catch {
+        return;
+      }
+      for (const f of files) {
+        if (f.name === "node_modules" || f.name === "dist") continue;
+        const full = join(d, f.name);
+        if (f.isDirectory()) {
+          walk(full, depth + 1);
+          continue;
+        }
+        if (!/\.(ts|tsx|mts|cts|js|jsx|mjs|cjs)$/.test(f.name)) continue;
+        // Parse rather than regex. The AST sees only real module specifiers, so a
+        // comment saying `... from "x"` cannot invent an import. This gate's
+        // value depends entirely on not crying wolf: a false positive here gets
+        // the whole gate ignored, which is worse than having no gate.
+        const text = readFileSync(full, "utf8");
+        let sf;
+        try {
+          sf = ts.createSourceFile(
+            full,
+            text,
+            ts.ScriptTarget.Latest,
+            /* setParentNodes */ false,
+          );
+        } catch {
+          continue; // unreadable here; typecheck reports it properly
+        }
+
+        const specs = new Set();
+        const addSpec = (node) => {
+          if (node && ts.isStringLiteralLike(node)) specs.add(node.text);
+        };
+        const visit = (node) => {
+          // import x from "p" / export x from "p" / import "p"
+          if (ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) {
+            addSpec(node.moduleSpecifier);
+          }
+          // import("p") and require("p") -- both resolve at runtime
+          if (
+            ts.isCallExpression(node) &&
+            node.arguments.length === 1 &&
+            (node.expression.kind === ts.SyntaxKind.ImportKeyword ||
+              (ts.isIdentifier(node.expression) &&
+                node.expression.text === "require"))
+          ) {
+            addSpec(node.arguments[0]);
+          }
+          ts.forEachChild(node, visit);
+        };
+        visit(sf);
+
+        for (const spec of specs) {
+          if (
+            spec.startsWith(".") ||
+            spec.startsWith("/") ||
+            spec.startsWith("#")
+          )
+            continue;
+          if (spec.startsWith("node:") || spec.startsWith("bun:")) continue;
+          if (builtinModules.includes(spec)) continue;
+          // A package importing itself is a test convenience, not a dependency.
+          if (spec === pkg.name) continue;
+          // Repo-internal aliases, not packages: the parity contract lives at the
+          // repo root and is reached through a path alias on purpose (ADR 002 --
+          // neither renderer imports the other to read it).
+          if (spec.startsWith("@kern-parity/")) continue;
+          const pkgName = packageNameOf(spec).toLowerCase();
+          if (declared.has(pkgName)) continue;
+          if (!undeclared.has(pkgName)) undeclared.set(pkgName, full);
+        }
+      }
+    };
+    walk(srcDir);
+
+    for (const [name, file] of undeclared) {
+      violations.push(
+        `${pkg.name}: imports "${name}" but no dependency declares it (first seen in ${file.replace(`${ROOT}/`, "")})`,
+      );
+    }
   }
 }
 
@@ -302,18 +305,22 @@ for (const area of AREAS) {
     if (!entry.isDirectory()) continue;
     const dir = join(ROOT, area, entry.name);
     const manifestPath = join(dir, "package.json");
-  if (!existsSync(manifestPath)) continue;
-  const pkg = JSON.parse(readFileSync(manifestPath, "utf8"));
-  const name = pkg.name;
-  if (!name) continue;
-  const edges = new Set();
-  for (const field of ["dependencies", "devDependencies", "peerDependencies"]) {
-    for (const dep of Object.keys(pkg[field] ?? {})) {
-      if (XOROH_SCOPE.test(dep)) edges.add(dep);
+    if (!existsSync(manifestPath)) continue;
+    const pkg = JSON.parse(readFileSync(manifestPath, "utf8"));
+    const name = pkg.name;
+    if (!name) continue;
+    const edges = new Set();
+    for (const field of [
+      "dependencies",
+      "devDependencies",
+      "peerDependencies",
+    ]) {
+      for (const dep of Object.keys(pkg[field] ?? {})) {
+        if (XOROH_SCOPE.test(dep)) edges.add(dep);
+      }
     }
-  }
-  graph.set(name, edges);
-  if (pkg.scripts?.build) buildablePkgs.add(name);
+    graph.set(name, edges);
+    if (pkg.scripts?.build) buildablePkgs.add(name);
   }
 }
 

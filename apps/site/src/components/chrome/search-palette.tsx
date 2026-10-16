@@ -303,9 +303,7 @@ export function SearchPalette() {
                           go(entry.href);
                         }}
                         className={`block min-h-12 min-w-0 cursor-pointer rounded-(--sys-shape-corner-large) px-4 py-3 no-underline ${
-                          isActive
-                            ? "bg-(--sys-color-secondary-container)"
-                            : ""
+                          isActive ? "bg-(--sys-color-secondary-container)" : ""
                         }`}
                       >
                         <ResultText entry={entry} query={query} />

@@ -16,7 +16,7 @@ Most questions are already answered:
 | How do web and native differ? | [`docs/platform-parity.md`](docs/platform-parity.md) |
 | Why is it built this way? | [`docs/architecture.md`](docs/architecture.md) and [`docs/adr/`](docs/adr/) |
 | How do I contribute? | [`CONTRIBUTING.md`](CONTRIBUTING.md) |
-| Why was X removed? | [`docs/plan/README.md`](docs/plan/README.md) — hard cuts are recorded there |
+| Why was X removed? | [`docs/archive/2026-10-axis-transition/plan/README.md`](docs/archive/2026-10-axis-transition/plan/README.md) — hard cuts are recorded there (archived 2026-10-16; active plan: `docs/architecture/kern-axis-migration-and-roadmap.md`) |
 | Which version is stable? | <https://www.npmjs.com/package/@xoroh/kern> — Kern is pre-1.0; track latest |
 
 ## Asking a question

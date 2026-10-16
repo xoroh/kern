@@ -5,7 +5,12 @@ import { ListItem } from "./list-item";
 describe("ListItem selected (M3)", () => {
   it("paints the selected highlight with shape-scale corners", () => {
     render(
-      <ListItem headline="Inbox" supporting="3 new" selected data-testid="row" />,
+      <ListItem
+        headline="Inbox"
+        supporting="3 new"
+        selected
+        data-testid="row"
+      />,
     );
     const row = screen.getByTestId("row");
     expect(row).toHaveAttribute("data-selected");

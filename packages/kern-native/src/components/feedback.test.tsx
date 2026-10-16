@@ -92,8 +92,6 @@ import {
   FEEDBACK_SHAPES,
   FEEDBACK_SIZE_DP,
   registerFeedbackVariant,
-} from "@xoroh/kern-material-3";
-import {
   resolveFeedbackVariant,
   themes,
 } from "@xoroh/kern-material-3";
@@ -205,7 +203,9 @@ describe("CircularProgress", () => {
     expect(rings.length).toBe(1);
     const ring = flattenStyle(rings[0].props.style);
     expect(ring.width).toBe(FEEDBACK_SIZE_DP.md.container);
-    expect(ring.borderTopColor).toBe(themes["material-3"].color.light.onSurface);
+    expect(ring.borderTopColor).toBe(
+      themes["material-3"].color.light.onSurface,
+    );
     expect(ring.borderLeftColor).toBe("transparent");
   });
 
@@ -381,9 +381,7 @@ describe("LinearProgress", () => {
   });
 
   it("renders the 4dp M3 stop indicator at the track end", async () => {
-    const tree = await render(
-      <LinearProgress value={0.4} label="Sync" stop />,
-    );
+    const tree = await render(<LinearProgress value={0.4} label="Sync" stop />);
     const stops = hostsByTestID(tree, "kern-linear-progress-stop");
     expect(stops.length).toBe(1);
     expect(flattenStyle(stops[0].props.style)).toMatchObject({
@@ -430,8 +428,8 @@ describe("LoadingButton", () => {
       ).length,
     ).toBe(1);
     expect(hostsByTestID(busy, "kern-circular-progress").length).toBe(1);
-    expect(ringStyles("sm", themes["material-3"].color.light.onPrimary).box.width).toBe(
-      FEEDBACK_SIZE_DP.sm.container,
-    );
+    expect(
+      ringStyles("sm", themes["material-3"].color.light.onPrimary).box.width,
+    ).toBe(FEEDBACK_SIZE_DP.sm.container);
   });
 });

@@ -3,7 +3,7 @@ import {
   type SlotProps,
   useControllableState,
 } from "@xoroh/kern-primitives";
-import { type ResolvedTheme } from "@xoroh/kern-tokens";
+import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import { cloneElement, isValidElement, type ReactNode } from "react";
 import {
   Pressable,
@@ -243,16 +243,15 @@ export function IconButton({
   const styles = iconButtonStyles(variant, isPressed, disabled, scheme, size);
   // The icon always pairs with its container (M3 tonal pairing): an
   // explicitly-colored icon is untouched, a bare one tints with the role.
-  const tinted =
-    isValidElement<{ style?: StyleProp<TextStyle> }>(children)
-      ? cloneElement(
-          children,
-          mergeSlotProps<SlotProps>(
-            { style: { color: iconButtonIconColor(variant, isPressed, scheme) } },
-            children.props,
-          ),
-        )
-      : children;
+  const tinted = isValidElement<{ style?: StyleProp<TextStyle> }>(children)
+    ? cloneElement(
+        children,
+        mergeSlotProps<SlotProps>(
+          { style: { color: iconButtonIconColor(variant, isPressed, scheme) } },
+          children.props,
+        ),
+      )
+    : children;
 
   return (
     <Pressable

@@ -27,7 +27,8 @@ export const switchDoc: ComponentDoc = {
     },
     {
       key: "Tab / Shift+Tab",
-      action: "Moves focus into and out of the switch. Disabled switches are skipped.",
+      action:
+        "Moves focus into and out of the switch. Disabled switches are skipped.",
     },
   ],
   usage: {

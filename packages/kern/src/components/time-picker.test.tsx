@@ -339,9 +339,7 @@ describe("TimePicker dial presentation", () => {
   it("defaults to the listbox presentation", () => {
     render(<TimePicker defaultValue={{ hours: 9, minutes: 0 }} />);
     expect(screen.queryByTestId("kern-time-dial")).toBeNull();
-    expect(
-      screen.getByRole("listbox", { name: /^hour/i }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole("listbox", { name: /^hour/i })).toBeInTheDocument();
   });
 
   it("keeps the listbox presentation when asked for it explicitly", () => {
@@ -352,9 +350,7 @@ describe("TimePicker dial presentation", () => {
       />,
     );
     expect(screen.queryByTestId("kern-time-dial")).toBeNull();
-    expect(
-      screen.getByRole("listbox", { name: /^hour/i }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole("listbox", { name: /^hour/i })).toBeInTheDocument();
   });
 
   // Same load-bearing claim as the listbox: 12-hour is a PRESENTATION of
@@ -405,9 +401,7 @@ describe("TimePicker dial presentation", () => {
     expect(dialRadio("15")).toBeInTheDocument();
     expect(dialRadio("45")).toBeInTheDocument();
     // 10 is not on a step-15 grid.
-    expect(
-      within(dialFace()).queryByRole("radio", { name: "10" }),
-    ).toBeNull();
+    expect(within(dialFace()).queryByRole("radio", { name: "10" })).toBeNull();
   });
 
   it("falls back to minute-accurate when step does not divide 60", async () => {

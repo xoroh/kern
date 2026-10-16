@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react-native";
+import { render, screen } from "@testing-library/react-native";
 import { Text as RNText } from "react-native";
 import { Kbd } from "./kbd";
 
@@ -24,11 +24,9 @@ describe("Kbd", () => {
 
   it("composes chords with a space between parts", async () => {
     await render(
-      <>
-        <RNText>
-          <Kbd>Ctrl</Kbd> <Kbd>K</Kbd>
-        </RNText>
-      </>,
+      <RNText>
+        <Kbd>Ctrl</Kbd> <Kbd>K</Kbd>
+      </RNText>,
     );
     expect(screen.getByText("Ctrl")).toBeTruthy();
     expect(screen.getByText("K")).toBeTruthy();

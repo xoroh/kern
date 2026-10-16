@@ -16,7 +16,8 @@ const ROOT = new URL("../../..", import.meta.url).pathname;
 const THEME = join(ROOT, "packages/kern-tokens/src");
 const M3THEMES = join(ROOT, "packages/kern-material-3/src/themes");
 const read = (file) => JSON.parse(readFileSync(join(THEME, file), "utf8"));
-const readTheme = (file) => JSON.parse(readFileSync(join(M3THEMES, file), "utf8"));
+const readTheme = (file) =>
+  JSON.parse(readFileSync(join(M3THEMES, file), "utf8"));
 const kebab = (name) => name.replace(/(?<!^)(?=[A-Z])/g, "-").toLowerCase();
 
 const T = read("tokens.json");
@@ -36,7 +37,10 @@ const tokenEntries = (group) =>
 // Canonical source is `tokens.json` `elevation.<level>.shadowDark` (KERN-021) —
 // this file projects, it never authors a second value table.
 const darkElevation = Object.fromEntries(
-  tokenEntries(T.elevation).map(([level, value]) => [level, value.shadowDark ?? value.shadow]),
+  tokenEntries(T.elevation).map(([level, value]) => [
+    level,
+    value.shadowDark ?? value.shadow,
+  ]),
 );
 
 const C = [

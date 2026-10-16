@@ -5,8 +5,8 @@ vi.mock(
   async () => await import("../../test-doubles/react-native"),
 );
 
-import { defaultScheme } from "../theme";
 import { themes } from "@xoroh/kern-material-3";
+import { defaultScheme } from "../theme";
 import {
   LINEAR_FOUR_COLOR_DURATION_MS,
   LINEAR_FOUR_COLOR_INPUT_RANGE,
@@ -89,7 +89,9 @@ describe("linearBufferStyles", () => {
   it("renders the buffer wash behind the bar at 24% primary", () => {
     const { buffer } = linearBufferStyles(0.8, defaultScheme);
     expect(buffer.width).toBe("80%");
-    expect(buffer.backgroundColor).toBe(themes["material-3"].color.light.primary);
+    expect(buffer.backgroundColor).toBe(
+      themes["material-3"].color.light.primary,
+    );
     expect(buffer.opacity).toBe(0.24);
     expect(buffer.position).toBe("absolute");
   });

@@ -331,9 +331,7 @@ const releaseSet =
   `kern@${kernPkg.version}+${entries.length}.` +
   createHash("sha256")
     .update(
-      entries
-        .map((e) => `${e.platform}/${e.name}=${e.export}`)
-        .join("\n"),
+      entries.map((e) => `${e.platform}/${e.name}=${e.export}`).join("\n"),
     )
     .digest("hex")
     .slice(0, 16);

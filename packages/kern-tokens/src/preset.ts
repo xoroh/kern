@@ -77,10 +77,12 @@ export function definePreset(manifest: PresetManifest): PresetManifest {
   const lightRoles = new Set(Object.keys(manifest.color.light));
   const darkRoles = new Set(Object.keys(manifest.color.dark));
   for (const role of lightRoles) {
-    if (!darkRoles.has(role)) fail(`${manifest.id} role ${role} missing in dark`);
+    if (!darkRoles.has(role))
+      fail(`${manifest.id} role ${role} missing in dark`);
   }
   for (const role of darkRoles) {
-    if (!lightRoles.has(role)) fail(`${manifest.id} role ${role} missing in light`);
+    if (!lightRoles.has(role))
+      fail(`${manifest.id} role ${role} missing in light`);
   }
   if (!manifest.shape || Object.keys(manifest.shape).length === 0) {
     fail(`${manifest.id} is missing required shape corners`);

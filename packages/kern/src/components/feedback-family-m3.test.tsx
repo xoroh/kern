@@ -79,9 +79,7 @@ describe("AlertDialog — alert semantics on the dialog treatment", () => {
         </AlertDialog.Content>
       </AlertDialog.Root>,
     );
-    const popup = document.querySelector(
-      '[data-slot="alert-dialog-content"]',
-    );
+    const popup = document.querySelector('[data-slot="alert-dialog-content"]');
     expect(popup).not.toBeNull();
     expect(popup?.getAttribute("role")).toBe("alertdialog");
   });
@@ -105,9 +103,7 @@ describe("Snackbar — inverse surface, level3, 4px", () => {
     const bar = await screen.findByText("Saved");
     const root = bar.closest('[data-slot="snackbar"]');
     expect(root?.className).toContain("bg-(--sys-color-inverse-surface)");
-    expect(root?.className).toContain(
-      "text-(--sys-color-inverse-on-surface)",
-    );
+    expect(root?.className).toContain("text-(--sys-color-inverse-on-surface)");
     expect(root?.className).toContain("shadow-(--sys-elevation-level3)");
     expect(root?.className).toContain(
       "rounded-(--sys-shape-corner-extra-small)",
@@ -132,9 +128,7 @@ describe("Snackbar — inverse surface, level3, 4px", () => {
       });
     });
     const action = await screen.findByRole("button", { name: "Undo" });
-    expect(action.className).toContain(
-      "text-(--sys-color-inverse-primary)",
-    );
+    expect(action.className).toContain("text-(--sys-color-inverse-primary)");
   });
 });
 
@@ -179,7 +173,7 @@ describe("Banner, Skeleton, EmptyState — supporting roles", () => {
   it("banner renders with icon, text, and actions", () => {
     render(
       <Banner icon={<svg />}>
-        No connection. <button>Fix</button>
+        No connection. <button type="button">Fix</button>
       </Banner>,
     );
     expect(screen.getByText("No connection.")).toBeInTheDocument();
@@ -188,9 +182,7 @@ describe("Banner, Skeleton, EmptyState — supporting roles", () => {
 
   it("skeleton renders an accessible placeholder", () => {
     render(<Skeleton aria-label="Loading content" />);
-    expect(
-      screen.getByLabelText("Loading content"),
-    ).toBeInTheDocument();
+    expect(screen.getByLabelText("Loading content")).toBeInTheDocument();
   });
 
   it("empty state renders title, description, and action", () => {
@@ -198,11 +190,13 @@ describe("Banner, Skeleton, EmptyState — supporting roles", () => {
       <EmptyState
         title="Nothing here"
         description="Get started by creating one."
-        action={<button>Create</button>}
+        action={<button type="button">Create</button>}
       />,
     );
     expect(screen.getByText("Nothing here")).toBeInTheDocument();
-    expect(screen.getByText("Get started by creating one.")).toBeInTheDocument();
+    expect(
+      screen.getByText("Get started by creating one."),
+    ).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Create" })).toBeInTheDocument();
   });
 });

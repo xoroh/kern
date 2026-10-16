@@ -2,7 +2,6 @@ import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { MenuItem, MenuRoot } from "./menu";
 import { menuItemClass, menuPopupClass } from "./menu-classes";
-import { MenubarRoot } from "./menubar";
 import { NavigationBar } from "./navigation-bar";
 import { NavigationDrawer } from "./navigation-drawer";
 import { Pagination } from "./pagination";
@@ -77,9 +76,7 @@ describe("NavigationDrawer — 360px modal, large end rounding", () => {
     );
     const drawer = screen.getByRole("dialog");
     expect(drawer.className).toContain("w-[min(22.5rem,80vw)]");
-    expect(drawer.className).toContain(
-      "rounded-e-(--sys-shape-corner-large)",
-    );
+    expect(drawer.className).toContain("rounded-e-(--sys-shape-corner-large)");
     expect(drawer.className).toContain(
       "bg-(--sys-color-surface-container-low)",
     );
@@ -117,9 +114,7 @@ describe("Tabs — primary 3px indicator, title-small, state layers", () => {
       </Tabs.Root>,
     );
     const tab = screen.getByRole("tab", { name: "Alpha" });
-    expect(tab.className).toContain(
-      "data-selected:text-(--sys-color-primary)",
-    );
+    expect(tab.className).toContain("data-selected:text-(--sys-color-primary)");
     expect(tab.className).toContain(
       "data-selected:before:bg-(--sys-color-primary)",
     );
@@ -209,7 +204,9 @@ describe("Pagination — pill buttons with proper states", () => {
     );
     const current = screen.getByRole("button", { name: "Page 1" });
     expect(current).toBeInTheDocument();
-    expect(current.className).toContain("data-current:bg-(--sys-color-primary)");
+    expect(current.className).toContain(
+      "data-current:bg-(--sys-color-primary)",
+    );
     expect(current.className).toContain(
       "disabled:text-(--sys-color-on-surface)/38",
     );

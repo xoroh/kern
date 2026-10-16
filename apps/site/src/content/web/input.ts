@@ -24,7 +24,8 @@ export const input: ComponentDoc = {
   keyboard: [
     {
       key: "Tab / Shift+Tab",
-      action: "Moves focus into and out of the field. Disabled fields are skipped.",
+      action:
+        "Moves focus into and out of the field. Disabled fields are skipped.",
     },
   ],
   usage: {

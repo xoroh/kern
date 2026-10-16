@@ -50,9 +50,7 @@ export const tooltip: ComponentDoc = {
       "Name icon-only controls on hover and focus.",
       "Keep text to a few words.",
     ],
-    dont: [
-      "Don't duplicate visible labels — tooltips name the unnamed.",
-    ],
+    dont: ["Don't duplicate visible labels — tooltips name the unnamed."],
   },
   tokens: [
     {

@@ -26,7 +26,11 @@ export type { Closure } from "./closure.js";
 export { resolveClosure } from "./closure.js";
 export type { CreateOptions } from "./create.js";
 export { createApp } from "./create.js";
-export type { FeedbackInput, FeedbackReceipt, SubmitOptions } from "./feedback.js";
+export type {
+  FeedbackInput,
+  FeedbackReceipt,
+  SubmitOptions,
+} from "./feedback.js";
 export {
   digestFeedback,
   disclosure,

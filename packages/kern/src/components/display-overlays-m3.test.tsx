@@ -10,8 +10,9 @@ import { Meter } from "./meter";
 import { Popover } from "./popover";
 import { Sheet } from "./sheet";
 import { SonnerProvider, SonnerViewport } from "./sonner";
-import { TableBody, TableCell, TableHead, TableRoot, TableRow } from "./table";
+import { TableBody, TableHead, TableRoot, TableRow } from "./table";
 import { Tooltip } from "./tooltip";
+
 // Tooltip.Provider mirrors overlays.test.tsx usage.
 
 /**
@@ -49,9 +50,7 @@ describe("Chip — 8px shape, label-large, outline treatments", () => {
     expect(el.className).toContain(
       "data-selected:bg-(--sys-color-secondary-container)",
     );
-    expect(
-      document.querySelector('[data-slot="chip-check"]'),
-    ).not.toBeNull();
+    expect(document.querySelector('[data-slot="chip-check"]')).not.toBeNull();
   });
 
   it("paints states as layers with proper disabled split", () => {
@@ -60,9 +59,7 @@ describe("Chip — 8px shape, label-large, outline treatments", () => {
     expect(el.className).toContain(
       "hover:before:opacity-[var(--sys-state-hover)]",
     );
-    expect(el.className).toContain(
-      "disabled:text-(--sys-color-on-surface)/38",
-    );
+    expect(el.className).toContain("disabled:text-(--sys-color-on-surface)/38");
     expect(el.className).not.toContain("disabled:opacity-50");
   });
 });
@@ -71,9 +68,7 @@ describe("Card — elevated/tonal/outlined fills per M3", () => {
   it("elevated fills surface-container-low with level1", () => {
     render(<Card variant="elevated" data-testid="card" />);
     const el = screen.getByTestId("card");
-    expect(el.className).toContain(
-      "bg-(--sys-color-surface-container-low)",
-    );
+    expect(el.className).toContain("bg-(--sys-color-surface-container-low)");
     expect(el.className).toContain("shadow-(--sys-elevation-level1)");
   });
 
@@ -193,9 +188,7 @@ describe("Avatar, Meter, Table, Tooltip, Sonner — supporting roles", () => {
 
   it("meter renders the measured bar", () => {
     render(<Meter.Root value={0.6} aria-label="storage" />);
-    expect(
-      screen.getByRole("meter", { name: "storage" }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole("meter", { name: "storage" })).toBeInTheDocument();
   });
 
   it("table renders with wrapper and headers", () => {

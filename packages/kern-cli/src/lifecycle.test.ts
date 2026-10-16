@@ -1,5 +1,4 @@
 import {
-  existsSync,
   mkdirSync,
   mkdtempSync,
   readFileSync,
@@ -218,7 +217,10 @@ describe("upgrade", () => {
       try {
         addComponent("badge", { root: WORKSPACE_ROOT, dest: other });
         expect(() =>
-          upgradeBlock("settings-screen", { root: WORKSPACE_ROOT, dest: other }),
+          upgradeBlock("settings-screen", {
+            root: WORKSPACE_ROOT,
+            dest: other,
+          }),
         ).toThrow("not vendored here");
       } finally {
         rmSync(other, { recursive: true, force: true });

@@ -23,7 +23,8 @@ export const chip: ComponentDoc = {
   keyboard: [
     {
       key: "Tab / Shift+Tab",
-      action: "Moves focus into and out of each chip. Disabled chips are skipped.",
+      action:
+        "Moves focus into and out of each chip. Disabled chips are skipped.",
     },
     {
       key: "Space / Enter",
