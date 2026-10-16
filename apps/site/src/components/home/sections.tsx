@@ -315,6 +315,10 @@ export function GetStartedBand() {
           <Icon name="content-copy" size={18} />
           {copyState}
         </button>
+        <p className={`m-0 ${T_BODY} ${INK_SOFT}`}>
+          Preview: packages are unpublished — install from a checkout; the
+          registry command runs at release.
+        </p>
         <span className="sr-only" role="status">
           {copyState === "Copied!"
             ? "Install command copied to clipboard."

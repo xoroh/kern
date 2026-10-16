@@ -3,6 +3,7 @@ import { type ReactNode, useEffect, useState } from "react";
 import { ComponentsSidebar } from "../../../components/chrome/components-sidebar";
 import { DocsSidebar } from "../../../components/chrome/docs-sidebar";
 import { Footer } from "../../../components/chrome/footer";
+import { PreviewBanner } from "../../../components/chrome/preview-banner";
 import { SearchPalette } from "../../../components/chrome/search-palette";
 import { SiteHeader } from "../../../components/chrome/site-header";
 import { T_BODY_SM, T_LABEL } from "../systems/type-scale";
@@ -166,6 +167,7 @@ export function SiteLayout({
       >
         <div className="flex min-w-0 flex-1 flex-col">
           {!fullScreen ? <SiteHeader /> : null}
+          {!fullScreen ? <PreviewBanner /> : null}
 
           {/* Body row — min-h-0 lets the content region shrink so overflow
             routes to `main`'s scroll container instead of expanding the shell. */}

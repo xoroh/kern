@@ -303,8 +303,9 @@ kern upgrade button --apply      # update, preserving owned edits`}</Code>
                 className={`m-0 flex list-disc flex-col gap-1 pl-5 ${T_BODY_SM} ${INK_SOFT}`}
               >
                 <li>
-                  Install: <code>kern init</code>, <code>kern add</code>{" "}
-                  (components + blocks)
+                  Install from a checkout: <code>kern init</code>,{" "}
+                  <code>kern add</code> (components + blocks) — bare registry
+                  commands arrive with 0.1.0 publish
                 </li>
                 <li>Live demos, examples and configurators on every page</li>
                 <li>Theme presets + the Playground studio export</li>
