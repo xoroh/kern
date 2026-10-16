@@ -1,6 +1,6 @@
 # What kern's test suite does and does not prove
 
-Status: current · measured 2026-10-07 · every figure below re-derived from the
+Status: current · measured 2026-10-16 · every figure below re-derived from the
 repo, not carried forward
 
 **Read this before treating a green CI run as evidence about behaviour.** This
@@ -17,19 +17,25 @@ Three runners, all real, all in CI on every push and PR.
 
 | Runner | Command | Scope | Suites | Tests |
 |---|---|---|---|---|
-| **vitest** | `bun run test` | `@xoroh/kern-tokens` | 5 | 48 |
-| | | `@xoroh/kern` (web + primitives) | 55 | 526 |
-| | | `@xoroh/kern-icons` | 3 | 76 |
-| | `bun run test:native` | `@xoroh/kern-native`, non-rn files | 5 | 46 |
-| **jest + RNTL** | `bun run test:native:jest` | `@xoroh/kern-native`, `*.rntest.tsx` | 36 | 344 |
-| **playwright** | `bun run test:e2e` | site in chromium via `vite preview` :4173 | 3 | 9 |
-| | | **total** | **107** | **1049** |
+| **vitest** | `bun run test` | `@xoroh/kern-tokens` | 6 | 70 |
+| | | `@xoroh/kern-contracts` | 2 | 32 |
+| | | `@xoroh/kern-material-3` | 13 | 102 |
+| | | `@xoroh/kern` (web) | 77 | 831 |
+| | | `@xoroh/kern-icons` | 5 | 85 |
+| | `bun run test:native` | `@xoroh/kern-native`, non-rn files | 9 | 103 |
+| **jest + RNTL** | `bun run test:native:jest` | `@xoroh/kern-native`, `*.rntest.tsx` | 50 | 449 |
+| **playwright** | `bun run test:e2e` | site in chromium via `vite preview` :4173 | 6 | 17 |
+| | | **total** | **168** | **1689** |
 
-The old "90 suites / 950 tests" figure (2026-10-03) is stale: the unit
-suites grew and the e2e layer below is new. Re-derived 2026-10-07 by running
-each command after `bun run build`: kern-tokens 5/48, kern 55/526, kern-icons
-3/76, kern-native vitest 5/46, kern-native jest 36 suites / 344 tests, e2e
-3 spec files / 9 tests green against a local preview (§2).
+The old "107 suites / 1049 tests" figure (2026-10-07) is stale: the unit
+suites grew (kern 55→77 files, tokens 5→6, native jest 36→50 suites), the
+contracts/material-3 packages joined the fan-out, and the e2e layer doubled
+from 3 specs to 6. Re-derived 2026-10-16 by running each command after
+`bun run build`: kern-tokens 6/70, kern-contracts 2/32, kern-material-3
+13/102, kern 77/831, kern-icons 5/85, kern-native vitest 9/103, kern-native
+jest 50 suites / 449 tests, e2e 6 spec files / 17 tests. (`libs/`
+kern-primitives, 16 test files, is frozen pending deletion and runs outside
+the fan-out; the Axis thread owns its successor suites.)
 
 Two caveats, both measured this run:
 
@@ -38,10 +44,9 @@ Two caveats, both measured this run:
   all 5 with `Failed to resolve entry for package "@xoroh/kern-tokens"` —
   which reads as broken tests but is a missing build. CI builds before it
   tests, so CI does not hit this; a local run that skips the build does.
-- The jest total includes **1 pre-existing failure** observed 2026-10-07:
-  `src/components/fab-family.rntest.tsx` (343 passed, 1 failed of 344).
-  It is a native-component assertion, unrelated to the e2e lane, and is
-  recorded here so nobody reads the 1049 as "all green".
+- The jest total is green: **449/449 across 50 suites** (2026-10-16). The
+  2026-10-07 `fab-family.rntest.tsx` failure is resolved — nothing is
+  quarantined.
 
 `bun run test:all` runs the four unit commands (not e2e). CI runs the same
 unit set per package with the working directory set to that package, plus
@@ -65,9 +70,9 @@ you add a native render test, it goes in a `.rntest.tsx` file and only
 
 ## 2. What runs, and what it still does not prove
 
-### The end-to-end suite exists and is wired — but it is three specs, not coverage
+### The end-to-end suite is six specs, not coverage
 
-Measured, not assumed (2026-10-07):
+Measured, not assumed (2026-10-16):
 
 - **runner declared**: `@playwright/test ^1.63.0` is a root devDependency
 - **invocation**: `bun run test:e2e` → `playwright test --config
@@ -106,12 +111,28 @@ Each spec file and what it proves:
 
 Local proof 2026-10-07 against `vite preview :4173`: **9/9 green**
 (3 dialog + 4 sheet + 2 page-render), so nothing is quarantined and no
-tracking issue was needed. If a spec ever goes red in CI, the rule is: fix
+tracking issue was needed. Three more specs landed since, all green in the
+`e2e` CI job on `main`:
+
+- `e2e/site-design.spec.ts` (5 tests) — desktop header/homepage controls
+  usable, theme toggle persists dark across reload, phone drawer replaces
+  desktop tabs, search opens/filters/restores focus, phone layouts stay in
+  the viewport (incl. the `/playground` hydration case).
+- `e2e/comp-overrides.spec.ts` — comp-token CSS variables resolve real
+  computed styles in a real browser (fallback values + ancestor overrides);
+  would fail loudly if Tailwind skipped the arbitrary-value syntax.
+- `e2e/visual-baseline.spec.ts` — screenshot SEED (captures home + one
+  component page to `test-results/baseline/`, asserts title/one-h1 only).
+  Captures, never pins: a committed pixel baseline sight-unseen would pin
+  whatever the renderer emitted.
+
+If a spec ever goes red in CI, the rule is: fix
 it or quarantine it with a tracking issue — never a silent skip.
 
-What three specs do **not** prove: every other component in a browser, any
-viewport but 1400×1000 Desktop Chrome, keyboard behaviour outside
-dialog/sheet, or visual correctness (see §5.2 — still no visual regression).
+What six specs do **not** prove: every other component in a browser, any
+viewport but Desktop Chrome + phone widths, keyboard behaviour outside
+dialog/sheet, or visual correctness (see §5.2 — still no visual regression;
+the seed above is the precursor, not the gate).
 "Some evidence" replaced "no evidence"; it did not replace a human looking
 at the page.
 
@@ -181,10 +202,11 @@ these as a behaviour claim: a component with one `expect(true)` passes it.
 - **Green CI means:** types resolve, unit tests pass, the design law holds, the
   generated artifacts are current, the registry is internally consistent,
   the 25 M3 citations land on the pages they claim, and a dialog, a sheet,
-  and two pages were seen painted in a real chromium.
+  comp-token overrides, site-design flows, and painted pages were exercised
+  in a real chromium.
 - **Green CI does not mean:** the component was seen by a human, every
   component works in a browser, or every flow is reachable by keyboard.
-  Three specs prove three things; the rest of the runtime still rests on
+  Six specs prove six things; the rest of the runtime still rests on
   jsdom and on someone driving the change.
 - **Visual changes need a painted check.** Screenshot or drive the change
   yourself and say so in the PR. The painted-verify spec catches a
@@ -198,8 +220,9 @@ these as a behaviour claim: a component with one `expect(true)` passes it.
 
 These are absent, not broken. None is asserted anywhere in CI.
 
-1. **Browser automation is three specs thin.** Dialog focus-trap, sheet
-    dismissal, and two painted pages are proven (§2). No focus-trap, no
+1. **Browser automation is six specs thin.** Dialog focus-trap, sheet
+    dismissal, comp-token overrides, site-design flows, two painted pages,
+    and a screenshot seed are proven (§2). No focus-trap, no
     scroll, no route resolution, no real-render evidence for anything else
     on web or site.
 2. **No visual regression.** Nothing compares rendered output against a
