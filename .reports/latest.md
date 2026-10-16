@@ -59,7 +59,9 @@ Tree clean, pushed, synced (this branch: docs/roadmap-decisions-round-2).
 
 ## In progress
 - Merged: #39–#49 (through api-consistency).
-- Open: #51 (this branch, decisions round 2), #52 (findings), #53 (no-compat).
+- Open: #51 (decisions round 2), #53 (no-compat sweep).
+- This branch (findings bundle, next PR): kern-native `./native` removal +
+  sideEffects, verification-limits re-measured, README index completed.
 - Queued after: (9) testID contract evaluation; usage P1/P2 correctness
   items; m3 tertiary/chrome + playground fidelity; structure/URL/Button-
   names/HCT phases (review-gated).

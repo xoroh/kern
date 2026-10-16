@@ -403,6 +403,13 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
       "Native Button no longer swallows a press dispatched without a preceding press-in.",
   },
   {
+    id: "native-exports-hygiene",
+    packages: ["@xoroh/kern-native"],
+    bump: "patch",
+    summary:
+      "Manifest hygiene: drop the duplicate ./native subpath (byte-identical to ., zero consumers) and declare sideEffects: false for tree-shaking. No runtime change.",
+  },
+  {
     id: "p0-design-correctness-tokens",
     packages: ["@xoroh/kern"],
     bump: "patch",
