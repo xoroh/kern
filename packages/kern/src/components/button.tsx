@@ -512,16 +512,18 @@ export function Button({
     void formNoValidate;
     void formTarget;
     void name;
+    // Toggle anchors keep aria-pressed so assistive tech announces selection
+    // state identically to the button variant. `data-selected` mirrors it for
+    // styling; the pressed state is never conveyed by visuals alone.
     return (
+      // biome-ignore lint/a11y/useAriaPropsSupportedByRole: toggle anchor keeps aria-pressed for AT parity with the button variant.
       <a
         data-slot="button"
         data-loading={loading ? "" : undefined}
         data-selected={toggle && isPressed ? "" : undefined}
         aria-busy={loading || undefined}
         aria-disabled={blocked || undefined}
-        // No aria-pressed here: the link role does not support it
-        // (useAriaPropsSupportedByRole). Toggle state on anchors travels
-        // via data-selected and toggleState; buttons carry aria-pressed below.
+        aria-pressed={toggle ? isPressed : undefined}
         tabIndex={blocked ? -1 : undefined}
         href={blocked ? undefined : href}
         target={target}

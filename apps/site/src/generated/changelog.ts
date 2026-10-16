@@ -309,6 +309,12 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
       "Web-extras P1 (roadmap row 7) — the web set is now complete. Five new components, all M3-conformant and built on Base UI behaviors with Kern tokens:",
   },
   {
+    id: "button-toggle-href-pressed",
+    packages: ["@xoroh/kern"],
+    bump: "patch",
+    summary: "Button toggle anchors keep aria-pressed.",
+  },
+  {
     id: "check-layers-gate",
     packages: ["@xoroh/kern"],
     bump: "patch",
