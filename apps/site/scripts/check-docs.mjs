@@ -833,10 +833,13 @@ console.log(
   `check-docs: coverage ${covered}/${total} inventory exports documented (${Math.round((covered / total) * 100)}%)`,
 );
 
-// The undocumented remainder, listed per platform and by name. "Web is
-// finished" is only a meaningful sentence if the gate can show the empty list,
-// so print what is missing rather than only how many. A count hides whether
-// the leftovers are one compound family or fifty orphan rows.
+// The undocumented remainder, listed per platform and by name — and FAILED,
+// not merely reported. Every inventory export is claimed by exactly one
+// family (consistency rule: one component, one page): an unclaimed export
+// is a component the docs do not teach, and a gate that reports it without
+// failing normalizes the gap it exists to close. "Web is finished" is only
+// a meaningful sentence if the gate can show the empty list, so print what
+// is missing rather than only how many.
 function orphansOn(platform) {
   const rows = [];
   for (const key of inventory.keys()) {
@@ -848,16 +851,21 @@ function orphansOn(platform) {
 }
 for (const platform of ["web", "mobile"]) {
   const rows = orphansOn(platform);
-  console.log(
-    `\ncheck-docs: ${platform} — ${rows.length} undocumented export(s) remaining`,
-  );
   if (rows.length === 0) {
     console.log(
-      `  ok   ${platform} is closed: every inventory export has a page`,
+      `\ncheck-docs: ${platform} is closed: every inventory export has a page`,
     );
     continue;
   }
-  for (const name of rows) console.log(`  -    ${name}`);
+  console.log(
+    `\ncheck-docs: ${platform} — ${rows.length} undocumented export(s) remaining`,
+  );
+  for (const name of rows) {
+    console.log(`  -    ${name}`);
+    errors.push(
+      `${platform}/${name}: inventory export with no documenting family — claim it in exactly one family's parts`,
+    );
+  }
 }
 if (conformantNoToken.length > 0) {
   console.log(
