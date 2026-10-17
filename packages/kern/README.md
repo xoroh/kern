@@ -45,7 +45,8 @@ import { Button } from "@xoroh/kern";
 
 <Button variant="primary">Save</Button>;
 // variant: elevated | primary | tonal | outlined | ghost (M3 `filled`/`text`
-// resolve to `primary`/`ghost`) — size: xs | default | sm | md | xl | lg | icon
+// resolve to `primary`/`ghost`; the M3 names land in D-BUTTON-NAMES) —
+// size: xs | default | sm | md | xl | lg | icon
 ```
 
 ```tsx

@@ -2,4 +2,4 @@
 // (side effect). Native components resolve themes through `theme.tsx`, whose
 // default scheme requires a registered preset — without this import every
 // component test fails at module load with "Unknown preset".
-import "@xoroh/kern-material-3";
+import "@xoroh/kern-m3";

@@ -91,11 +91,11 @@ async function readTokenFile(rel: string): Promise<string | null> {
   ]);
 }
 
-/** M3 preset data: `@xoroh/kern-material-3` (`packages/kern-material-3/...`). */
+/** M3 preset data: `@xoroh/kern-m3` (`packages/kern-m3/...`). */
 async function readThemeFile(rel: string): Promise<string | null> {
   return readFirst([
-    ...repoPaths("packages/kern-material-3", rel),
-    ...repoPaths("kern-material-3", rel),
+    ...repoPaths("packages/kern-m3", rel),
+    ...repoPaths("kern-m3", rel),
   ]);
 }
 

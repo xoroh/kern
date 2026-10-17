@@ -59,7 +59,7 @@ function levelFromDp(dp) {
 let ENTRY_ALIASES = {};
 try {
   ({ ELEVATION_ENTRY_FILES: ENTRY_ALIASES } = await import(
-    "../packages/kern-material-3/src/kern-elevation.ts"
+    "../packages/kern-m3/src/kern-elevation.ts"
   ));
 } catch {
   ENTRY_ALIASES = {};

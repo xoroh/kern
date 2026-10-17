@@ -24,7 +24,7 @@ bun add @xoroh/kern-native
 ```
 
 Requires `react-native` and `react` as peers, and pulls in
-`@xoroh/axis` and `@xoroh/kern-tokens`.
+`@xoroh/axis` (vendored pre-publish tarball) and `@xoroh/kern-tokens`.
 
 ## What is in it
 

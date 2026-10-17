@@ -179,7 +179,7 @@ export function MobileDrawer({
               onClose();
               openSearch();
             }}
-            className={`flex min-h-12 w-full cursor-pointer items-center gap-2 rounded-(--sys-shape-corner-full) border-0 bg-transparent px-4 ${T_BODY_MD} text-(--sys-color-on-surface-variant) hover:bg-(--sys-color-on-surface)/8 hover:text-(--sys-color-on-surface) ${FOCUS_RING}`}
+            className={`flex min-h-12 w-full cursor-pointer items-center gap-2 rounded-(--sys-shape-corner-full) border-0 bg-transparent px-4 ${T_BODY_MD} text-(--sys-color-on-surface-variant) hover:bg-(--sys-color-on-surface)/8 hover:text-(--sys-color-on-surface) active:bg-(--sys-color-on-surface)/12 ${FOCUS_RING}`}
           >
             <Icon name="search" size={18} />
             Search (⌘K)
@@ -199,7 +199,7 @@ export function MobileDrawer({
           </a>
           <a
             href="https://github.com/xoroh/kern"
-            className={`${T_BODY_MD} rounded-(--sys-shape-corner-full) px-3 py-3 text-center text-(--sys-color-on-surface-variant) no-underline hover:bg-(--sys-color-on-surface)/8`}
+            className={`${T_BODY_MD} rounded-(--sys-shape-corner-full) px-3 py-3 text-center text-(--sys-color-on-surface-variant) no-underline hover:bg-(--sys-color-on-surface)/8 active:bg-(--sys-color-on-surface)/12`}
           >
             GitHub
           </a>

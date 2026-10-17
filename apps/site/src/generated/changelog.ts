@@ -348,7 +348,7 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
   },
   {
     id: "elevation-gaps-zero",
-    packages: ["@xoroh/kern-material-3"],
+    packages: ["@xoroh/kern-m3"],
     bump: "patch",
     summary:
       "Register the sheet-family members, rich-tooltip, and level-0 native controls in the resting-elevation inventory.",
@@ -543,6 +543,12 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
     bump: "patch",
     summary:
       "Split bottomSheetSurface out of sheet-surface.tsx — step 2 of the ratified kern-primitives extraction order.",
+  },
+  {
+    id: "testid-selector-contract",
+    packages: ["@xoroh/kern"],
+    bump: "patch",
+    summary: "Test-selector contract: testID on Button, DialogContent, Switch.",
   },
 ];
 

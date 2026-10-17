@@ -14,7 +14,7 @@ import { varName as roleVar } from "../src/resolve.ts";
 
 const ROOT = new URL("../../..", import.meta.url).pathname;
 const THEME = join(ROOT, "packages/kern-tokens/src");
-const M3THEMES = join(ROOT, "packages/kern-material-3/src/themes");
+const M3THEMES = join(ROOT, "packages/kern-m3/src/themes");
 const read = (file) => JSON.parse(readFileSync(join(THEME, file), "utf8"));
 const readTheme = (file) =>
   JSON.parse(readFileSync(join(M3THEMES, file), "utf8"));

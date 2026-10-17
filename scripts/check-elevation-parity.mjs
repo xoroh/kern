@@ -643,8 +643,8 @@ function checkDeviationId(id, where) {
 
 const elevSrc = readFileSync(
   // Moved with the A3 extraction (was packages/kern-tokens/src/): the M3
-  // resting-elevation inventory lives in @xoroh/kern-material-3 now.
-  join(ROOT, "packages", "kern-material-3", "src", "kern-elevation.ts"),
+  // resting-elevation inventory lives in @xoroh/kern-m3 now.
+  join(ROOT, "packages", "kern-m3", "src", "kern-elevation.ts"),
   "utf8",
 );
 /**

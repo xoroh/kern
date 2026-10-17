@@ -11,7 +11,7 @@ import {
 } from "@xoroh/kern-tokens";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-export { themeFromSeed } from "@xoroh/kern-material-3";
+export { themeFromSeed } from "@xoroh/kern-m3";
 export type {
   ColorRole,
   Contrast,

@@ -1,7 +1,7 @@
 # Status report — 2026-10-16, evening (Kern 0.1.0 Preview readiness track)
 
-Baseline: Kern `main` at `d2ff70f2` (PR #52 findings bundle merged).
-Tree clean, pushed, synced (this branch: docs/roadmap-decisions-round-2).
+Baseline: Kern `main` at `937e8730` (PR #57 P2 sweep merged). Open: none.
+Tree: this branch structure/1-kern-m3-rename, unpushed (REVIEW ONLY — do not merge).
 
 ## Done (this track)
 - Elevation gaps to zero (this branch, unmerged): 7 spec rows + 3 unassigned entries +
@@ -58,11 +58,12 @@ Tree clean, pushed, synced (this branch: docs/roadmap-decisions-round-2).
 - PR #40 merged: Button toggle+href keeps `aria-pressed` (critic fix 2).
 
 ## In progress
-- Merged: #39–#52 (through findings bundle).
-- Open: #53 (this branch, no-compat sweep).
-- Queued after: (9) testID contract evaluation; usage P1/P2 correctness
-  items; m3 tertiary/chrome + playground fidelity; structure/URL/Button-
-  names/HCT phases (review-gated).
+- Merged: #39–#57. Owner PR #58 (decisions consolidation) noted; decision
+  010 (hard rename, no alias) governs this branch — stub withdrawn.
+- This branch (structure 1, REVIEW ONLY): kern-material-3 → kern-m3 hard
+  rename, 89 files, internal filenames kept, docs tables updated.
+- Next: structure (2) no-global-registration → (3) registry + --system →
+  (4) split widgets; all large, review-gated, unmerged.
 
 ## Blockers / standing gates
 - **Release hold**: no publish, no version bumps, no tags (all `0.0.0`).

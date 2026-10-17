@@ -33,6 +33,11 @@ export type DialogContentProps = Omit<
    * the marker warns about.
    */
   modal?: boolean | "trap-focus";
+  /**
+   * Test selector, rendered as `data-testid` on the popup. See
+   * `parity/testid-contract.md`. Opt-in only — no default.
+   */
+  testID?: string;
 };
 export type DialogTitleProps = ComponentProps<typeof DialogPrimitive.Title>;
 export type DialogDescriptionProps = ComponentProps<
@@ -57,6 +62,7 @@ export function DialogTrigger({ className, ...props }: DialogTriggerProps) {
 export function DialogContent({
   className,
   modal = true,
+  testID,
   ...props
 }: DialogContentProps) {
   return (
@@ -68,6 +74,7 @@ export function DialogContent({
       <DialogPrimitive.Viewport className="kern-dialog-viewport fixed inset-0 flex items-center justify-center p-4">
         <DialogPrimitive.Popup
           data-slot="dialog-content"
+          data-testid={testID}
           // Base UI's Popup traps focus and inerts the rest of the page but
           // does not emit aria-modal; the parity contract requires a modal
           // surface to announce itself as one, and a modal dialog that does

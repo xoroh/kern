@@ -132,7 +132,7 @@ export function initScaffold(dir: string, opts: InitOptions = {}): InitResult {
   // install` never reaches the registry for an unpublished name.
   const kernDir = join(root, "packages/kern");
   const tokensDir = join(root, "packages/kern-tokens");
-  const material3Dir = join(root, "packages/kern-material-3");
+  const material3Dir = join(root, "packages/kern-m3");
   // @xoroh/axis pre-publish: exactly one vendored tarball (see vendor/axis
   // + the migration roadmap). Globbed, not hardcoded, so re-vendoring a new
   // Axis SHA needs no code change — but two tarballs is an error, never a
@@ -157,7 +157,7 @@ export function initScaffold(dir: string, opts: InitOptions = {}): InitResult {
         // @xoroh/kern depends on its material-3 preset package: without
         // this pin the transitive dep escapes to the registry (C1-S smoke
         // proved it — `bun install` failed outside the monorepo).
-        "@xoroh/kern-material-3": `file:${material3Dir}`,
+        "@xoroh/kern-m3": `file:${material3Dir}`,
       };
   const pkgPath = join(dest, "package.json");
   writeFileSync(

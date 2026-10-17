@@ -222,7 +222,7 @@ ${KERN} upgrade button --apply      # update, preserving owned edits`}</Code>
               {
                 use: "Audit a screen (advisory)",
                 tool: "design_audit",
-                body: "The advisory-only compliance checklist, mirroring the kern skill's audit table — it names the categories, it does not measure them.",
+                body: "The compliance checklist, mirroring the kern skill's audit table — advisory only: it names the categories, it does not measure them.",
               },
               {
                 use: "Discover icons",

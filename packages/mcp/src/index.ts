@@ -85,7 +85,7 @@ server.tool(
 
 server.tool(
   "design_audit",
-  "Advisory-only checklist of the twelve Kern compliance categories (no measurements — each category names what to check, it does not score it).",
+  "Advisory-only checklist of the twelve Kern compliance categories for auditing a screen — names what to check, measures nothing (no score, pass/fail, or coverage).",
   {},
   async () => {
     return text(designAudit());

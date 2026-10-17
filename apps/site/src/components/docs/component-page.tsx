@@ -516,7 +516,7 @@ function InstallPicker({
             className={`min-h-12 rounded-(--sys-shape-corner-full) border px-4 ${SMALL} ${
               manager === m.id
                 ? "border-(--sys-color-primary) bg-(--sys-color-primary-container) text-(--sys-color-on-primary-container)"
-                : "border-(--sys-color-outline) text-(--sys-color-on-surface-variant) hover:bg-(--sys-color-on-surface)/8"
+                : "border-(--sys-color-outline) text-(--sys-color-on-surface-variant) hover:bg-(--sys-color-on-surface)/8 active:bg-(--sys-color-on-surface)/12"
             }`}
           >
             {m.label}
@@ -1239,7 +1239,7 @@ function Accessibility({
                   >
                     <td className={TD}>
                       <kbd
-                        className={`rounded border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container-high) px-1.5 py-0.5 ${KEYCAP} text-(--sys-color-on-surface)`}
+                        className={`rounded-(--sys-shape-corner-extra-small) border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container-high) px-1.5 py-0.5 ${KEYCAP} text-(--sys-color-on-surface)`}
                       >
                         {row.key}
                       </kbd>

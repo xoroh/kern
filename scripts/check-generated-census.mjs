@@ -56,7 +56,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
  * The first attempt of this gate matched a bare `\bGENERATED\b` or a bare
  * `DO NOT EDIT` and reported 24 false positives on a clean tree: hand-written
  * files whose PROSE mentions generation (`packages/kern-icons/tools/lib/emit.ts`
- * opens "Emits generated icon code…", `docs/adr/003` is titled "Generated
+ * opens "Emits generated icon code…", `docs/decisions/003` is titled "Generated
  * component inventory", `.githooks/pre-commit` says "a stale generated
  * artefact"). A gate that flags 24 hand-written files on its first run does not
  * get read twice.

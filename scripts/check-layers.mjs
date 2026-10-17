@@ -71,7 +71,7 @@ const LAYERS = {
   // Design systems sit above the universal engine: they consume contracts
   // and tokens, and renderers consume them. Same-rank edges are forbidden,
   // so a design system is rank 1, not rank 0.
-  "@xoroh/kern-material-3": {
+  "@xoroh/kern-m3": {
     rank: 1,
     blurb: "Material Design 3 implementation",
   },

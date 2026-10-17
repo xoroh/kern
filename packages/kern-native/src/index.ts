@@ -4,7 +4,7 @@
 // Registers the material-3 preset tables, policy and overrides with the
 // universal resolver (side effect). Default consumers resolve M3 without
 // further setup; custom systems register their own preset instead.
-import "@xoroh/kern-material-3";
+import "@xoroh/kern-m3";
 
 export type {
   NativeAccordionProps,

@@ -47,4 +47,13 @@ describe("Switch", () => {
     render(<Switch aria-label="Notifications" ref={ref} />);
     expect(ref.current).toBe(screen.getByRole("switch"));
   });
+
+  it("renders data-testid from testID, and nothing without it", () => {
+    render(<Switch aria-label="Notifications" testID="notify-switch" />);
+    expect(screen.getByTestId("notify-switch")).toBe(
+      screen.getByRole("switch"),
+    );
+    const { container } = render(<Switch aria-label="Plain" />);
+    expect(container.querySelector("[data-testid]")).toBeNull();
+  });
 });

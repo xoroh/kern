@@ -5,7 +5,7 @@
 // fails when the committed file drifts from what this script produces.
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { material3PresetRegistrations } from "../../kern-material-3/src/material-3.ts";
+import { material3PresetRegistrations } from "../../kern-m3/src/material-3.ts";
 import { registerPreset } from "../src/resolve.ts";
 
 // Explicit registration into THIS resolver instance (source). The M3 module's
@@ -32,7 +32,7 @@ function stable(value) {
 
 const matrix = buildThemeMatrix();
 writeFileSync(
-  join(ROOT, "packages/kern-material-3/src/themes/matrix.json"),
+  join(ROOT, "packages/kern-m3/src/themes/matrix.json"),
   `${stable(matrix)}\n`,
 );
 console.log(
