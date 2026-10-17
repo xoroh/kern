@@ -36,9 +36,7 @@ const WORK = join(APP, ".snippet-check");
  * They are still checked by hand against the real APIs.
  */
 const NON_TS = new Set([
-  "INSTALL",
   "STYLESHEET",
-  "MOBILE_INSTALL",
   "WEB_PARITY",
   "SNACKBAR",
   "ICON_ALIAS",

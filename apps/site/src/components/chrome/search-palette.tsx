@@ -38,6 +38,7 @@ import {
   type SearchEntry,
   searchSite,
 } from "../../systems/search";
+import { isSlashSearchKey, isToggleSearchKey } from "../../systems/search/shortcut";
 import { ResultText } from "../search/result-text";
 
 export const OPEN_SEARCH_EVENT = "kern:open-search";
@@ -112,10 +113,20 @@ export function SearchPalette() {
       setOpen(true);
     };
     const onKey = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+      if (isToggleSearchKey(e)) {
         e.preventDefault();
         if (open) close();
         else onOpen();
+        return;
+      }
+      // `/` is the fallback chord for environments that swallow Ctrl+K
+      // (browser omnibox, window manager, IME) — see shortcut.ts.
+      if (
+        !open &&
+        isSlashSearchKey(e, e.target as HTMLElement | null)
+      ) {
+        e.preventDefault();
+        onOpen();
       }
     };
     window.addEventListener(OPEN_SEARCH_EVENT, onOpen);

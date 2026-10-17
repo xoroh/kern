@@ -14,6 +14,10 @@ declare module "bun:test" {
   export function expect(value: unknown): {
     toEqual(expected: unknown): void;
     toBe(expected: unknown): void;
+    // Array membership (shortcut/registry fixtures) and the AA contrast
+    // floor in highlight.test.ts — grown deliberately with those tests.
+    toContain(expected: unknown): void;
+    toBeGreaterThanOrEqual(expected: number): void;
     not: {
       toThrow(expected?: unknown): void;
     };

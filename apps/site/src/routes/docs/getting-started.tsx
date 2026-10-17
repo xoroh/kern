@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button, Field } from "@xoroh/kern";
 import { Kicker } from "../../components/chrome/kicker";
 import { Code, Step } from "../../components/docs/code";
+import { InstallTabs } from "../../components/docs/install-tabs";
 import { PageCard } from "../../domains/shared/chrome/page-card";
 import { SiteLayout } from "../../domains/shared/chrome/site-layout";
 import { routeHead } from "../../domains/shared/systems/seo";
@@ -19,8 +20,6 @@ export const Route = createFileRoute("/docs/getting-started")({
     ),
   component: GettingStarted,
 });
-
-const INSTALL = `bun add @xoroh/kern @xoroh/kern-icons`;
 
 const STYLESHEET = `/* app.css — the only required import */
 @import "@xoroh/kern-tokens/theme";`;
@@ -74,8 +73,6 @@ export function App() {
     </AppShell>
   );
 }`;
-
-const MOBILE_INSTALL = `bun add @xoroh/kern-native @xoroh/kern-tokens`;
 
 const MOBILE_QUICKSTART = `import {
   Button,
@@ -150,7 +147,7 @@ function GettingStarted() {
             One package per platform. Preview: packages are unpublished, so this
             resolves from a checkout — the registry command runs at release.
           </p>
-          <Code>{INSTALL}</Code>
+          <InstallTabs target="@xoroh/kern @xoroh/kern-icons" />
         </Step>
 
         <Step n={2} title="Load the theme stylesheet">
@@ -159,7 +156,9 @@ function GettingStarted() {
           >
             One import sets every CSS custom property.
           </p>
-          <Code>{STYLESHEET}</Code>
+          <Code language="css" filename="app.css">
+            {STYLESHEET}
+          </Code>
         </Step>
 
         <Step n={3} title="Render your first component">
@@ -173,7 +172,7 @@ function GettingStarted() {
             </Field.Root>
             <Button variant="primary">Continue</Button>
           </div>
-          <Code>{FIRST_COMPONENT}</Code>
+          <Code filename="sign-in.tsx">{FIRST_COMPONENT}</Code>
         </Step>
 
         <Step n={4} title="Theming">
@@ -182,7 +181,7 @@ function GettingStarted() {
           >
             Same scheme on web and native, persisted across visits.
           </p>
-          <Code>{THEMING}</Code>
+          <Code filename="appearance-toggle.tsx">{THEMING}</Code>
         </Step>
 
         <Step n={5} title="Web quickstart — the app shell">
@@ -194,7 +193,7 @@ function GettingStarted() {
             app shape. Omit the slots you do not need and every other shell
             shape follows.
           </p>
-          <Code>{WEB_QUICKSTART}</Code>
+          <Code filename="app.tsx">{WEB_QUICKSTART}</Code>
         </Step>
 
         <Step n={6} title="Mobile quickstart">
@@ -206,8 +205,8 @@ function GettingStarted() {
             <code>KernThemeProvider</code>. Same Preview terms as web: checkout
             today, registry at release.
           </p>
-          <Code>{MOBILE_INSTALL}</Code>
-          <Code>{MOBILE_QUICKSTART}</Code>
+          <InstallTabs target="@xoroh/kern-native @xoroh/kern-tokens" />
+          <Code filename="save-screen.tsx">{MOBILE_QUICKSTART}</Code>
           {/* P-READY (G6): install without ecosystem — G3/G4 lifts this
                 block onto the primitives subdomain; do not duplicate the
                 install string elsewhere. */}
@@ -254,7 +253,7 @@ function GettingStarted() {
             is unpublished with everything else, so run it from a checkout until
             it ships on its own.
           </p>
-          <Code>
+          <Code language="bash">
             {
               "bun <checkout>/packages/kern-cli/src/kern.ts init my-app\ncd my-app\nbun install\nbun run dev"
             }
@@ -266,7 +265,7 @@ function GettingStarted() {
             <code>applyKernTheme</code> writes the resolved roles onto the
             document root and every component repaints.
           </p>
-          <Code>{PRESET_PICKER}</Code>
+          <Code filename="preset-picker.tsx">{PRESET_PICKER}</Code>
         </Step>
 
         <Step n={9} title="Vendor components with kern add">
@@ -282,7 +281,7 @@ function GettingStarted() {
             <code>init</code>, run it from a checkout until the CLI ships on its
             own.
           </p>
-          <Code>
+          <Code language="bash">
             {
               "bun <checkout>/packages/kern-cli/src/kern.ts add button --dest components/kern\nbun <checkout>/packages/kern-cli/src/kern.ts add dialog --dest components/kern"
             }
