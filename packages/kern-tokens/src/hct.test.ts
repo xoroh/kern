@@ -4,7 +4,7 @@ import { HCT_TONES, hctKeyColor, hctSchemeRoles, hctTonalRamp } from "./hct";
 const HEX = /^#[0-9a-f]{6}$/i;
 const SEED = "#6750a4";
 
-describe("hct tonal engine (ADR-016 spike)", () => {
+describe("hct tonal engine (ADR-016, ADR-021)", () => {
   it("resolves an HCT key color with hue, chroma, and tone", () => {
     const key = hctKeyColor(SEED);
     expect(key.hue).toBeGreaterThan(0);
@@ -60,5 +60,16 @@ describe("hct tonal engine (ADR-016 spike)", () => {
     const light = hctSchemeRoles(SEED, "light");
     expect(light.surfaceTint).toMatch(HEX);
     expect(light.surfaceVariant).toMatch(HEX);
+  });
+
+  it("honours custom secondary and tertiary seeds", () => {
+    const defaultLight = hctSchemeRoles(SEED, "light");
+    const customLight = hctSchemeRoles(SEED, "light", 0, {
+      secondarySeed: "#16a34a",
+      tertiarySeed: "#ea580c",
+    });
+    expect(customLight.primary).toBe(defaultLight.primary);
+    expect(customLight.secondary).not.toBe(defaultLight.secondary);
+    expect(customLight.tertiary).not.toBe(defaultLight.tertiary);
   });
 });

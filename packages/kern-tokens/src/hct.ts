@@ -1,16 +1,15 @@
 /**
- * HCT tonal engine — additive spike (ADR-016, roadmap D-HCT).
+ * HCT tonal engine (ADR-016, ADR-021, roadmap D-HCT).
  *
  * Spec-correct M3 dynamic color via `@material/material-color-utilities`
  * (Apache-2.0): HCT color space, 0–100 tonal ramps, key-color palettes, and
  * full-scheme role mapping through `SchemeTonalSpot` (the M3 baseline
  * dynamic-scheme variant).
  *
- * ADDITIVE ONLY. The OKLCH engine (`tones.ts` / `color.ts`, 50–950 steps,
- * 12-role `themeFromSeed` repaint) stays canonical until the review-gated
- * cutover. Nothing here is consumed by components, generators, or gates yet;
- * the OKLCH-vs-HCT divergence stays documented (site theme/color pages)
- * until cutover. No aliases, no shims (ADR-020).
+ * Per ADR-021, HCT is the primary tonal engine for Kern M3, superseding the
+ * ADR-016 spike. The OKLCH path for M3 is removed with no backward
+ * compatibility or fallbacks (ADR-020). Tonal engine choice is per system;
+ * other design systems in Kern select their own canonical engine.
  */
 
 import {
@@ -117,19 +116,23 @@ const SCHEME_GETTERS = [
 
 export type HctSchemeRole = (typeof SCHEME_GETTERS)[number];
 
+export type HctSchemeOptions = {
+  secondarySeed?: string;
+  tertiarySeed?: string;
+};
+
 /**
  * Full M3 scheme for a seed hex in one mode — every role resolved by the
- * dynamic scheme, not repainted per-family. Unlike `themeFromSeed` (12
- * accent roles, error/surface/fixed untouched), error, surface, outline,
- * inverse, and fixed roles all move with the seed, as M3 dynamic color
- * requires. `contrastLevel` follows MCU (`0` standard; `0.5` medium,
- * `1` high) but kern only exercises standard until the header contrast
- * control lands.
+ * dynamic scheme. Unlike the legacy 12-role accent repaint, error, surface,
+ * outline, inverse, and fixed roles all move with the seed, as M3 dynamic
+ * color requires. `contrastLevel` follows MCU (`0` standard; `0.5` medium,
+ * `1` high).
  */
 export function hctSchemeRoles(
   seedHex: string,
   mode: HctMode,
   contrastLevel = 0,
+  opts?: HctSchemeOptions,
 ): Record<HctSchemeRole, string> {
   assertHex(seedHex);
   const scheme = new SchemeTonalSpot(
@@ -137,6 +140,22 @@ export function hctSchemeRoles(
     mode === "dark",
     contrastLevel,
   );
+  if (opts?.secondarySeed) {
+    assertHex(opts.secondarySeed);
+    (
+      scheme as unknown as { secondaryPalette: TonalPalette }
+    ).secondaryPalette = TonalPalette.fromInt(
+      argbFromHex(opts.secondarySeed),
+    );
+  }
+  if (opts?.tertiarySeed) {
+    assertHex(opts.tertiarySeed);
+    (
+      scheme as unknown as { tertiaryPalette: TonalPalette }
+    ).tertiaryPalette = TonalPalette.fromInt(
+      argbFromHex(opts.tertiarySeed),
+    );
+  }
   const roles = {} as Record<HctSchemeRole, string>;
   for (const role of SCHEME_GETTERS) {
     roles[role] = hexFromArgb(scheme[role as keyof SchemeTonalSpot] as number);

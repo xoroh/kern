@@ -363,14 +363,12 @@ function ThemePage() {
           >
             <li>
               <strong className="text-(--sys-color-on-surface)">
-                OKLCH engine, not HCT (ADR-016).
+                HCT primary tonal engine (ADR-021, superseding ADR-016).
               </strong>{" "}
-              Shipped ramps are OKLCH on 50–950 steps and{" "}
-              <code>themeFromSeed</code> repaints 12 accent roles; M3 dynamic
-              color is HCT with 0–100 ramps, key-color palettes, and full-scheme
-              mapping. The spec-correct engine ships as an additive spike (
-              <code>hctTonalRamp</code>, <code>hctSchemeRoles</code> in{" "}
-              <code>@xoroh/kern-tokens</code>) until the review-gated cutover.
+              Kern M3 uses HCT (via <code>@material/material-color-utilities</code>)
+              with 0–100 ramps and full-scheme role mapping (<code>themeFromSeed</code>{" "}
+              resolves all 45 M3 spec roles); the OKLCH path for M3 is removed with no
+              backward-compat fallback.
             </li>
             <li>
               <strong className="text-(--sys-color-on-surface)">
