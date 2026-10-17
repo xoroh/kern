@@ -45,7 +45,7 @@
         "@tanstack/react-start": "^1.168.60",
         "@xoroh/kern": "workspace:*",
         "@xoroh/kern-icons": "workspace:*",
-        "@xoroh/kern-material-3": "workspace:*",
+        "@xoroh/kern-m3": "workspace:*",
         "@xoroh/kern-mcp": "workspace:*",
         "@xoroh/kern-native": "workspace:*",
         "@xoroh/kern-tokens": "workspace:*",
@@ -93,7 +93,7 @@
       "dependencies": {
         "@base-ui/react": "^1.8.0",
         "@xoroh/axis": "file:../../vendor/axis/axis-bed35547.tgz",
-        "@xoroh/kern-material-3": "^0.0.0",
+        "@xoroh/kern-m3": "^0.0.0",
         "@xoroh/kern-tokens": "^0.0.0",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
@@ -108,7 +108,7 @@
         "@types/node": "^26.6.3",
         "@types/react": "^19.0.0",
         "@types/react-dom": "^19.0.0",
-        "@xoroh/kern-material-3": "workspace:*",
+        "@xoroh/kern-m3": "workspace:*",
         "@xoroh/kern-tokens": "workspace:*",
         "axe-core": "^4.10.2",
         "class-variance-authority": "^0.7.1",
@@ -178,8 +178,8 @@
         "react-native-svg",
       ],
     },
-    "packages/kern-material-3": {
-      "name": "@xoroh/kern-material-3",
+    "packages/kern-m3": {
+      "name": "@xoroh/kern-m3",
       "version": "0.0.0",
       "dependencies": {
         "@xoroh/kern-tokens": "^0.0.0",
@@ -197,7 +197,7 @@
       "version": "0.0.0",
       "dependencies": {
         "@xoroh/axis": "file:../../vendor/axis/axis-bed35547.tgz",
-        "@xoroh/kern-material-3": "^0.0.0",
+        "@xoroh/kern-m3": "^0.0.0",
         "@xoroh/kern-tokens": "^0.0.0",
         "react-native-svg": "15",
       },
@@ -210,7 +210,7 @@
         "@types/jest": "^30.0.0",
         "@types/node": "^26.6.3",
         "@types/react": "^19.3.0",
-        "@xoroh/kern-material-3": "workspace:*",
+        "@xoroh/kern-m3": "workspace:*",
         "@xoroh/kern-tokens": "workspace:*",
         "jest": "^30.5.2",
         "jest-util": "30.5.1",
@@ -253,7 +253,7 @@
       },
       "devDependencies": {
         "@types/node": "^26.6.3",
-        "@xoroh/kern-material-3": "workspace:*",
+        "@xoroh/kern-m3": "workspace:*",
         "bun-types": "^1.4.2",
         "tsup": "^8.5.1",
         "typescript": "5.9.3",
@@ -1159,7 +1159,7 @@
 
     "@xoroh/kern-icons": ["@xoroh/kern-icons@workspace:packages/kern-icons"],
 
-    "@xoroh/kern-material-3": ["@xoroh/kern-material-3@workspace:packages/kern-material-3"],
+    "@xoroh/kern-m3": ["@xoroh/kern-m3@workspace:packages/kern-m3"],
 
     "@xoroh/kern-mcp": ["@xoroh/kern-mcp@workspace:packages/mcp"],
 

@@ -9,7 +9,7 @@ Changesets. Eight packages publish; each versions independently.
 |---|---|---|---|
 | `@xoroh/kern` | `packages/kern` | yes | `0.1.0` |
 | `@xoroh/kern-tokens` | `packages/kern-tokens` | yes | `0.1.0` |
-| `@xoroh/kern-material-3` | `packages/kern-material-3` | yes | `0.1.0` |
+| `@xoroh/kern-m3` | `packages/kern-m3` | yes | `0.1.0` |
 | `@xoroh/kern-primitives` | `libs/kern-primitives` | no (`private: true`, internal implementation package) | — |
 | `@xoroh/kern-native` | `packages/kern-native` | yes | `0.1.0` |
 | `@xoroh/kern-icons` | `packages/kern-icons` | yes | `0.1.0` |

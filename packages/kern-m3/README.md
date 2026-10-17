@@ -1,4 +1,4 @@
-# `@xoroh/kern-material-3`
+# `@xoroh/kern-m3`
 
 Status: current
 
@@ -14,7 +14,7 @@ without further setup; custom systems register their own preset instead.
 ## Install
 
 ```bash
-bun add @xoroh/kern-material-3
+bun add @xoroh/kern-m3
 ```
 
 Depends on `@xoroh/kern-tokens` for the engine. No React, no DOM, no peers.

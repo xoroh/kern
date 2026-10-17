@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react-native";
-import { expressiveShapePath } from "@xoroh/kern-material-3";
+import { expressiveShapePath } from "@xoroh/kern-m3";
 import { ExpressiveShape } from "./shape-art";
 
 // The root hides itself from accessibility (decorative-only art), which also

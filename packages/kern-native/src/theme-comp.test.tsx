@@ -9,7 +9,7 @@ import { describe, expect, it, vi } from "vitest";
  */
 
 // Importing the design system registers its presets with the resolver.
-import "@xoroh/kern-material-3";
+import "@xoroh/kern-m3";
 
 vi.mock("react-native", () => ({ useColorScheme: () => "light" }));
 

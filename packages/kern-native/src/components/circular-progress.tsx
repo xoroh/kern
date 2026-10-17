@@ -7,7 +7,7 @@ import {
   isLoadingStyleRendered,
   type LoadingIndicatorStyle,
   resolveFeedbackVariant,
-} from "@xoroh/kern-material-3";
+} from "@xoroh/kern-m3";
 import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import { useEffect, useRef } from "react";
 import {
