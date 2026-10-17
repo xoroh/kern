@@ -135,6 +135,18 @@ a defect in the page.
 4. **A page never claims a gate result.** "M3 conformant" is a claim
    `check:kern` makes, not a page. Link the gate.
 
+## Depth bar
+
+Top 20 full pages on web AND native; every other component a thin but
+correct page (example, API table, a11y notes) — per
+`docs/decisions/013-docs-depth.md`. FULL means usage (do + don't), token
+table, keyboard contract, screen-reader notes (`aria`), FAQ, and the API
+table. Anatomy is not in the bar: single-part families have nothing to
+decompose. The family list lives in
+`apps/site/scripts/lib/top-families.mjs` and is enforced by
+`apps/site/scripts/check-docs.mjs`, so the list and the gate cannot drift
+apart.
+
 ## Enforcement status
 
 **This grammar is enforced.** The validator is

@@ -15,19 +15,34 @@
 
 /** The full index document the emitter writes and the gate re-derives. */
 export function buildMcpIndex(families, foundations, theme) {
-  const pages = [];
+  // One page per family (018): the union of both renderers' slugs, each
+  // with its renderer list and per-renderer .md files. The page URL is the
+  // system address; the md URLs are the files generate-page-md emits.
+  const bySlug = new Map();
   for (const [platform, docs] of Object.entries(families)) {
     for (const doc of docs) {
-      pages.push({
-        kind: "family",
-        platform,
-        slug: doc.slug,
-        title: doc.name,
-        oneLiner: doc.oneLiner,
-        page: `/components/${platform}/${doc.slug}`,
-        md: `/md/${platform}/${doc.slug}.md`,
-      });
+      if (!bySlug.has(doc.slug))
+        bySlug.set(doc.slug, { web: null, mobile: null });
+      bySlug.get(doc.slug)[platform] = doc;
     }
+  }
+  const pages = [];
+  for (const [slug, pair] of [...bySlug.entries()].sort((a, b) =>
+    a[0].localeCompare(b[0]),
+  )) {
+    const primary = pair.web ?? pair.mobile;
+    pages.push({
+      kind: "family",
+      slug,
+      platforms: [pair.web && "web", pair.mobile && "mobile"].filter(Boolean),
+      title: primary.name,
+      oneLiner: primary.oneLiner,
+      page: `/components/m3/${slug}`,
+      md: [
+        pair.web && `/md/web/${slug}.md`,
+        pair.mobile && `/md/mobile/${slug}.md`,
+      ].filter(Boolean),
+    });
   }
   for (const page of foundations) {
     pages.push({

@@ -23,7 +23,7 @@
 import { expect, test } from "@playwright/test";
 import { expectPainted } from "./support/painted";
 
-const ROUTES = ["/", "/components/web/dialog"] as const;
+const ROUTES = ["/", "/components/m3/dialog"] as const;
 
 test.describe("visual baseline (seed captures)", () => {
   for (const route of ROUTES) {

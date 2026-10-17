@@ -104,6 +104,15 @@ function Guides() {
             <code>onPress</code> natively.
           </p>
           <Code>{WEB_PARITY}</Code>
+          <p
+            className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
+          >
+            Token tables come in two dialects for the same roles. Web reads CSS
+            variables (<code>--sys-color-surface-container</code>); native reads{" "}
+            <code>ResolvedTheme</code> scheme fields (
+            <code>theme.color.surfaceContainer</code>). Same roles, different
+            syntax — a page comparing tabs is comparing dialects, not systems.
+          </p>
         </Step>
 
         <Step n={2} title="Deliberate asymmetries">

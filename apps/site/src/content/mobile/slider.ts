@@ -17,6 +17,53 @@ export const slider: ComponentDoc = {
     elevation: 0,
   },
   parts: ["Slider"],
+  keyboard: [
+    {
+      key: "External keyboard / switch control",
+      action:
+        "Adjusts through the platform's increment/decrement actions on the `adjustable` role — the value, min and max ride `accessibilityValue`.",
+    },
+    {
+      key: "Swipe + double-tap-and-hold (TalkBack / VoiceOver)",
+      action:
+        "Announces as adjustable with the current value; the adjust gesture (or volume-key style steppers where the host maps them) moves by `step`.",
+    },
+  ],
+  usage: {
+    do: [
+      "Set `min`, `max` and `step` so the range and increment are explicit — the announced value means nothing without bounds.",
+      "Drive `value`/`onValueChange` when the value feeds live output (volume, brightness); uncontrolled is fine for set-and-forget.",
+      'Label it with `accessibilityLabel` — the default "Value" names nothing.',
+    ],
+    dont: [
+      "Don't use a slider for a small fixed set of options — that is a segmented button or select.",
+      "Don't leave `disabled` to styling — the state flows into `accessibilityState` and dims the track to 38%.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Track",
+      state: "resting",
+      token: "theme.color.surfaceTonal",
+      value: "surfaceTonal, dims to 38% when disabled",
+    },
+    {
+      element: "Fill and thumb",
+      state: "resting",
+      token: "theme.color.primary",
+      value: "primary fill plus primary thumb at the value position",
+    },
+  ],
+  faq: [
+    {
+      q: "Slider or stepper?",
+      a: "A continuous range with immediate visual feedback means slider; exact stepped values mean a stepper or select. Fine-grained but bounded means slider.",
+    },
+    {
+      q: "How does this differ from the web slider?",
+      a: "Same contract (value, min/max/step, controlled or uncontrolled). There is no keyboard-arrow handling to document — adjustment is the platform's increment/decrement actions on the adjustable role.",
+    },
+  ],
   customization: {
     supported: [
       "`value`/`defaultValue`/`onValueChange` make it controlled or uncontrolled.",

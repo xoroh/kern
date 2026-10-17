@@ -6,10 +6,11 @@
  * - Admonition: a callout band with a semantic role per intent. Content
  *   pages compose it; no page draws its own warning box (one visual, one
  *   a11y treatment).
- * - PlatformTabs: the web/RN switcher. Today the two platforms are separate
- *   pages linked by `meta.nativePeer`; this component makes the switch a
- *   first-class control AND persists the reader's platform choice
- *   (localStorage) so the next visit lands on the platform they read last.
+ * - PlatformTabs: the web/RN switcher. One family page serves both
+ *   renderers under `/components/m3/<name>` (`?tab=` view state); this
+ *   component makes the switch a first-class control AND persists the
+ *   reader's platform choice (localStorage) so the next visit lands on the
+ *   platform they read last.
  *   The variant MEANING is frozen per platform (`docs/platform-parity.md`) —
  *   this control navigates, it never relabels.
  */

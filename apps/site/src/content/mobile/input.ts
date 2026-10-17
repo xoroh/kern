@@ -17,6 +17,71 @@ export const input: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Input"],
+  keyboard: [
+    {
+      key: "External keyboard",
+      action:
+        "The field takes native focus and the OS keyboard opens; there is no key handling of its own — entry, correction and dismissal belong to the platform.",
+    },
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "The field announces its label (or the enclosing field's label), its hint, and the error message when invalid; double-tap focuses and opens the keyboard.",
+    },
+  ],
+  usage: {
+    do: [
+      "Pick the variant by surface: `outlined` draws the `1px` outline, `filled` fills `surfaceContainerHighest` with a bottom indicator.",
+      "Mark errors with `error` plus `errorMessage` — the message rides the focused hint because native has no invalid state.",
+      "Let the enclosing field own the label where one exists (`field.label` becomes the accessible label automatically).",
+    ],
+    dont: [
+      "Don't read `placeholder` as the label — it is the unfilled state's example text, announced only until entry starts.",
+      "Don't disable by styling alone — `editable={false}` carries the disabled state the placeholder and text colors follow.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Outlined field",
+      state: "resting",
+      token: "theme.color.outline",
+      value: "1px outline on surface, minHeight 56",
+    },
+    {
+      element: "Filled field",
+      state: "resting",
+      token: "theme.color.surfaceContainerHighest",
+      value: "surfaceContainerHighest fill, extra-small top corners",
+    },
+    {
+      element: "Field border",
+      state: "error",
+      token: "theme.color.error",
+      value: "error border via `error` or the field's error",
+    },
+    {
+      element: "Entered text",
+      state: "resting",
+      token: "theme.color.onSurface",
+      value: "onSurface, 16px / 24px",
+    },
+    {
+      element: "Placeholder",
+      state: "resting",
+      token: "theme.color.onSurfaceVariant",
+      value: "onSurfaceVariant (38% onSurface when disabled)",
+    },
+  ],
+  faq: [
+    {
+      q: "How is an error announced?",
+      a: "React Native has no invalid state, so the error message joins the focused field's hint and `FieldMessage` adds the live alert nearby. `error` paints the border; `errorMessage` speaks.",
+    },
+    {
+      q: "Filled or outlined?",
+      a: "Functionally identical — pick by surface. Outlined draws the full 1px outline; filled fills the container and rounds only the top corners.",
+    },
+  ],
   customization: {
     supported: [
       "It is `TextInputProps`, so the usual React Native text-field props are available — `value`, `onChangeText`, `keyboardType`, `placeholder` and the rest.",
