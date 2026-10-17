@@ -132,6 +132,7 @@ Prefer these machine surfaces over scraping HTML:
 - [Field](/components/web/field): A field pairs a control with its label, its help text and its error, and wires them together.
 - [Fieldset](/components/web/fieldset): Fieldsets group related controls under one legend and give them a shared disabled state.
 - [Filter chip row](/components/web/filter-chip-row): The filter chip row is a horizontal row of multi-select toggles — press once to apply a filter, press again to remove it.
+- [Focus ring](/components/web/focus-ring): Focus rings paint the visible keyboard-focus treatment on host content.
 - [Form](/components/web/form): Forms collect several values and hand them over together.
 - [Icon button](/components/web/icon-button): Icon buttons are buttons whose content is a single glyph.
 - [Input OTP](/components/web/input-otp): OTP inputs take a short numeric code one character at a time, as it is typed.
@@ -140,6 +141,7 @@ Prefer these machine surfaces over scraping HTML:
 - [Kern error boundary](/components/web/kern-error-boundary): The kern error boundary catches a thrown render, shows your fallback with a working reset, and never reloads the page to recover.
 - [Label](/components/web/label): Labels name the control they sit beside.
 - [Linear progress](/components/web/linear-progress): Linear progress shows how much of a task is done, as a bar across a width.
+- [Link button](/components/web/link-button): Link buttons wear the button treatment on a navigation control — an anchor, not an action.
 - [Link](/components/web/link): Links are anchors that can be pointed at your host router, so kern never hardcodes one.
 - [List item](/components/web/list-item): List items are rows in a list — a headline, optional supporting text, and optional leading and trailing slots.
 - [Loader](/components/web/loader): Loaders say something is happening, in the space where it is happening.
@@ -168,6 +170,7 @@ Prefer these machine surfaces over scraping HTML:
 - [Search](/components/web/search): Search is a labelled field with submit and clear, for finding things by text.
 - [Secondary tabs](/components/web/secondary-tabs): Secondary tabs switch between related views in the middle of a page, below the primary navigation.
 - [Segmented button](/components/web/segmented-button): Segmented buttons show a small set of options side by side, with the chosen one visibly selected.
+- [Select group](/components/web/select-group): Select groups collect related options under one label inside the open list.
 - [Select](/components/web/select): Selects let someone choose one value from a set too long to show on the page.
 - [Separator](/components/web/separator): Separators divide one region of content from the next.
 - [Sheet surface](/components/web/sheet-surface): Sheet surface is the shared modal and scrim shell — the one place a kern sheet gets its dismissal path.
@@ -216,6 +219,7 @@ Prefer these machine surfaces over scraping HTML:
 - [Chip](/components/mobile/chip): Chips are compact labelled controls: assist and suggestion chips act, filter chips toggle.
 - [Circular progress](/components/mobile/circular-progress): Circular progress is the ring — measured when it has a value, looping when it does not.
 - [Collapsible](/components/mobile/collapsible): The collapsible is one disclosure: a title row that reveals or hides the content beneath it.
+- [Combobox](/components/mobile/combobox): Comboboxes pick one value from a set, either from the list or by typing to narrow it.
 - [Command](/components/mobile/command): Command palettes are a modal dialog with a search field and a grouped, scrollable list of actions.
 - [Context menu](/components/mobile/context-menu): Context menus attach a list of actions to arbitrary content, opened the platform's own way.
 - [ContrastToggle](/components/mobile/contrast-toggle): One action that requests a contrast change, named for where the press goes rather than where it is.
@@ -236,6 +240,7 @@ Prefer these machine surfaces over scraping HTML:
 - [Icon button](/components/mobile/icon-button): Icon buttons are buttons whose only content is an icon, so their name must be supplied.
 - [Input OTP](/components/mobile/input-otp): Input OTP is the one-code-per-position field, with a completion callback and a per-position keyboard.
 - [Input](/components/mobile/input): Inputs are the text field, with an error state that is announced rather than only coloured.
+- [Kbd](/components/mobile/kbd): Kbds show a keyboard shortcut or key as text, in the shape of a key.
 - [Kern pressable](/components/mobile/kern-pressable): The narrow accessibility-defaults wrap for anything pressable on native: Material's minimum touch target, a button role by default, and `disabled` always reported.
 - [Label](/components/mobile/label): Labels are text rendered in the label style — the typographic role, not the wiring.
 - [Linear progress](/components/mobile/linear-progress): Linear progress is the measured bar — determinate only, with no looping mode.
@@ -270,6 +275,7 @@ Prefer these machine surfaces over scraping HTML:
 - [Segmented button](/components/mobile/segmented-button): Segmented buttons are a joined row of choices where the selection is shown by a check, not a fill.
 - [Select](/components/mobile/select): Selects choose one value from a list of options you supply.
 - [Separator](/components/mobile/separator): Separators draw a line between things — horizontal or vertical.
+- [Settings row](/components/mobile/settings-row): Settings rows pair a label and supporting text with the control that owns them.
 - [Shape art](/components/mobile/shape-art): Shape art composes kern shapes into a decorative arrangement — scatter, stack or arch.
 - [Shape](/components/mobile/shape): Shapes are the six basic forms in the kern radius language, drawn from the shape scale rather than freehand.
 - [Sheet handle](/components/mobile/sheet-handle): Sheet handles are the small drag affordance drawn at the top of a sheet.
@@ -281,6 +287,7 @@ Prefer these machine surfaces over scraping HTML:
 - [Snap sheet](/components/mobile/snap-sheet): Snap sheets settle at one of a few fixed heights, so a panel can be half open or fully open.
 - [Split button](/components/mobile/split-button): Split buttons pair one primary action with a list of alternatives, in two halves.
 - [Split](/components/mobile/split): The split is an N-column layout: two or three equal columns divided by a hairline, the same way the web split draws them.
+- [Status bar](/components/mobile/status-bar): Status bars hold one centered status with leading and trailing slots.
 - [Success transform](/components/mobile/success-transform): Success transforms are the completion moment — a disc and a tick, or the loader that precedes it.
 - [Supporting pane](/components/mobile/supporting-pane): Supporting panes hold the secondary panel beside main content, and hide it entirely on a compact screen.
 - [Switch](/components/mobile/switch): Switches turn one thing on or off immediately, and carry their state in their own appearance.

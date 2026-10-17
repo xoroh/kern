@@ -3641,7 +3641,7 @@ export const PROPS_TABLE: Record<
   },
   FocusRing: {
     rows: [],
-    curated: [],
+    curated: ["children", "className"],
   },
   Form: {
     rows: [
@@ -4025,7 +4025,7 @@ export const PROPS_TABLE: Record<
         required: false,
       },
     ],
-    curated: [],
+    curated: ["children", "className"],
   },
   ListItem: {
     rows: [

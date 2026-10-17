@@ -19,7 +19,21 @@ export const card: ComponentDoc = {
     // documented in Customization, same as Button's two-row case.
     elevation: 0,
   },
-  parts: ["Card"],
+  parts: ["Card", "CardHeader", "CardContent", "CardActions"],
+  anatomy: [
+    {
+      name: "CardHeader",
+      role: "The title slot. Headline first, supporting text under it.",
+    },
+    {
+      name: "CardContent",
+      role: "The body. Holds the content the card groups.",
+    },
+    {
+      name: "CardActions",
+      role: 'The action row. A right-aligned row of real pressables; the row itself takes no role (`accessibilityRole="none"`), so each control announces on its own.',
+    },
+  ],
   customization: {
     supported: [
       "`variant` is the three Material 3 card treatments. Note the two elevation rows Material 3 tabulates: `cards (filled, outlined)` rest at level 0 (`shadow: none`) and `card (elevated)` at level 1. The page claims the base, 0; `elevated` is the one that raises.",
@@ -27,7 +41,7 @@ export const card: ComponentDoc = {
       "`style` is a React Native `ViewStyle`.",
     ],
     notSupported: [
-      "There are no `title`/`media`/`actions` slots. Those are a card COMPOSITION you build inside this surface.",
+      "There is no `title`/`media` prop. Compose `CardHeader`, `CardContent` and `CardActions` inside the surface instead.",
       "There is no `interactive` or `onPress` prop. A pressable card is a `ListItem`, or a card you put a control in.",
       "There is no `size` or `density` prop. The card is as big as its content and its container.",
     ],

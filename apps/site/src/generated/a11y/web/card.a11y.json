@@ -19,6 +19,18 @@
           "basis": "card.ts states no aria contract for Card — screen-reader behaviour is unclaimed"
         }
       ]
+    },
+    "CardHeader": {
+      "hasLiveDemo": false,
+      "expectations": []
+    },
+    "CardContent": {
+      "hasLiveDemo": false,
+      "expectations": []
+    },
+    "CardActions": {
+      "hasLiveDemo": false,
+      "expectations": []
     }
   }
 }
