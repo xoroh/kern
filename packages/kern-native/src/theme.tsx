@@ -18,7 +18,7 @@ import {
   useMemo,
   useState,
 } from "react";
-import { useColorScheme } from "react-native";
+import { useColorScheme as useDeviceColorScheme } from "react-native";
 
 export type {
   MotionAlgorithmId,
@@ -60,7 +60,7 @@ export function KernThemeProvider({
   variant = "material-3",
   children,
 }: KernThemeProviderProps) {
-  const osMode = useColorScheme();
+  const osMode = useDeviceColorScheme();
   const [manualMode, setManualMode] = useState<Mode | undefined>(defaultMode);
   const mode =
     controlledMode ?? manualMode ?? (osMode === "dark" ? "dark" : "light");
@@ -114,7 +114,7 @@ export function useKernScheme(): ResolvedTheme {
 /** Read the active scheme; outside a provider, follow the OS appearance. */
 export function useKernTheme(): NativeThemeContextValue {
   const context = useContext(ThemeContext);
-  const osMode = useColorScheme();
+  const osMode = useDeviceColorScheme();
   const mode = osMode === "dark" ? "dark" : "light";
   const scheme = useMemo(() => resolveThemeDetails(mode), [mode]);
   const setMode = useCallback((_next: Mode) => {}, []);
@@ -144,4 +144,32 @@ export function useKernMotion(
   id: MotionAlgorithmId = "standard",
 ): ResolvedMotionScheme {
   return useMemo(() => resolveMotionScheme(id), [id]);
+}
+
+export type ColorSchemeMode = Mode | "system";
+
+/**
+ * App-level light/dark/system color scheme hook for React Native.
+ *
+ * Reads active appearance from the nearest KernThemeProvider or OS appearance,
+ * returning { mode, resolved, setMode, toggle }.
+ */
+export function useColorScheme() {
+  const { mode, toggle, setMode, useSystem: applySystem } = useKernTheme();
+  const setModeWithSystem = useCallback(
+    (next: ColorSchemeMode) => {
+      if (next === "system") {
+        applySystem();
+      } else {
+        setMode(next);
+      }
+    },
+    [setMode, applySystem],
+  );
+  return {
+    mode,
+    resolved: mode,
+    setMode: setModeWithSystem,
+    toggle,
+  };
 }

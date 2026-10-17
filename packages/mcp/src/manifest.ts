@@ -2013,6 +2013,14 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    name: "theme-toggle",
+    export: "ThemeToggle",
+    platform: "web",
+    entrypoint: ".",
+    path: "src/components/theme-toggle.tsx",
+    status: "real",
+  },
+  {
     name: "time-picker",
     export: "TimePicker",
     platform: "web",
@@ -2183,14 +2191,6 @@ export const COMPONENTS: ComponentEntry[] = [
   {
     name: "status-bar",
     export: "StatusBar",
-    platform: "web",
-    entrypoint: "./start",
-    path: "src/start/blocks.tsx",
-    status: "real",
-  },
-  {
-    name: "theme-toggle",
-    export: "ThemeToggle",
     platform: "web",
     entrypoint: "./start",
     path: "src/start/blocks.tsx",

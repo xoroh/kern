@@ -600,10 +600,6 @@ export const A11Y: Record<string, A11yPage> = {
         "hasLiveDemo": false,
         "expectations": []
       },
-      "ThemeToggle": {
-        "hasLiveDemo": false,
-        "expectations": []
-      },
       "ContrastToggle": {
         "hasLiveDemo": false,
         "expectations": []
@@ -5067,6 +5063,30 @@ export const A11Y: Record<string, A11yPage> = {
             "expect": "pass",
             "provenance": "derived",
             "basis": "aria contract carries 3 line(s) in textarea.ts — roles, names and states are stated, not assumed"
+          }
+        ]
+      }
+    }
+  },
+  "web/theme-toggle": {
+    "page": "web/theme-toggle",
+    "measured": false,
+    "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    "demos": {
+      "ThemeToggle": {
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "theme-toggle.ts documents no keyboard rows for ThemeToggle — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in theme-toggle.ts — roles, names and states are stated, not assumed"
           }
         ]
       }

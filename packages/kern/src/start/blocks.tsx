@@ -104,36 +104,7 @@ export function StatusBar({
   );
 }
 
-/** Toggles light/dark; the host owns the actual mode state. */
-export function ThemeToggle({
-  mode,
-  onToggle,
-  className,
-  ...props
-}: Omit<ComponentPropsWithRef<"button">, "children" | "onChange"> & {
-  mode: "light" | "dark";
-  onToggle: () => void;
-}) {
-  return (
-    <button
-      data-slot="theme-toggle"
-      type="button"
-      aria-label={mode === "dark" ? "Switch to light" : "Switch to dark"}
-      className={cn(
-        "kern-theme-toggle inline-flex h-10 w-10 items-center justify-center rounded-(--sys-shape-corner-full) text-(--sys-color-on-surface) hover:bg-(--sys-color-surface-tonal) " +
-          FOCUS_RING_CLASS +
-          " outline-none",
-        className,
-      )}
-      onClick={onToggle}
-      {...props}
-    >
-      <span aria-hidden="true" className="text-base leading-none">
-        {mode === "dark" ? "☾" : "☀"}
-      </span>
-    </button>
-  );
-}
+export { ThemeToggle, type ThemeToggleProps } from "../components/theme-toggle";
 
 /** Toggles standard/high contrast; the host owns the contrast state. */
 export function ContrastToggle({

@@ -8078,6 +8078,51 @@ export const PROPS_TABLE: Record<
     ],
     curated: ["aria-describedby", "ref"],
   },
+  ThemeToggle: {
+    rows: [
+      {
+        name: "mode",
+        type: '"light" | "dark" | undefined',
+        required: false,
+      },
+      {
+        name: "onToggle",
+        type: "(() => void) | undefined",
+        required: false,
+      },
+      {
+        name: "variant",
+        type: "IconButtonVariant | undefined",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "selectedLabel",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "sunIcon",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "moonIcon",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: ["disabled", "className"],
+  },
   TimePicker: {
     rows: [
       {
