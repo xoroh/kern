@@ -1,6 +1,7 @@
 # Report: PR 1 — Refresh vendor/axis to 82c3179 and wire stale-tarball check
 
 Date: 2026-10-17
+PR: https://github.com/xoroh/kern/pull/66
 Branch: `feat/m3-adopt-axis-render` (stacked on `origin/main` at `7434d369` — the kern-m3 rename PR #61 landed first and this work rebased onto it)
 Commits: `0007e99a` (refresh + gate), `8f4fae5b` (report + generated site props sync)
 Related: Part 1 of 3 for Kern adopting current Axis
