@@ -25,7 +25,7 @@ import {
   Tabs,
 } from "@xoroh/kern";
 import { Icon } from "@xoroh/kern-icons";
-import catalogJson from "@xoroh/kern-material-3/themes/index.json";
+import catalogJson from "@xoroh/kern-m3/themes/index.json";
 import {
   type CustomTheme,
   getVariant,

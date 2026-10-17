@@ -16,7 +16,7 @@
   teaching 10/10 against 12/12 tokens) inverted after this: tokens move
   12→10, docs already taught 10/10 in prose in places and now agree everywhere.
 - **HCT cutover as primary tonal engine for Kern M3 (ADR-021, superseding ADR-016).**
-  Cutover accepted and completed: `themeFromSeed` in `@xoroh/kern-material-3`
+  Cutover accepted and completed: `themeFromSeed` in `@xoroh/kern-m3`
   now produces the full 45 M3 spec roles (primary, secondary, tertiary, error,
   surface, surface containers, outline, inverse, fixed) using HCT via
   `@material/material-color-utilities` (`SchemeTonalSpot`). The legacy OKLCH
@@ -35,10 +35,10 @@
   - `@xoroh/kern-tokens`: `packages/kern-tokens/src/hct.ts` provides `hctKeyColor`,
     `hctTonalRamp` (0–100 ramps), and `hctSchemeRoles` (`SchemeTonalSpot` with
     custom secondary/tertiary seed support).
-  - `@xoroh/kern-material-3`: `themeFromSeed` in `src/seed-theme.ts` cut over from
+  - `@xoroh/kern-m3`: `themeFromSeed` in `src/seed-theme.ts` cut over from
     legacy OKLCH 12-role repaint to full 45-role HCT dynamic schemes. Removed
     all OKLCH dependencies from M3 seed theming.
-  - Golden tests in `packages/kern-material-3/src/seed-theme.test.ts` asserting exact
+  - Golden tests in `packages/kern-m3/src/seed-theme.test.ts` asserting exact
     reference match against `@material/material-color-utilities` across seeds
     `#6750a4` (baseline purple), `#006a6a` (teal), `#2563eb` (blue), and `#7c3aed` (violet),
     light and dark modes.
@@ -97,7 +97,7 @@ Full visual pass generated via Playwright across 6 primary pages in 1440 desktop
 
 ## Verification
 
-- **Typecheck:** `bun run typecheck` across all 6 packages (`@xoroh/kern-tokens`, `@xoroh/kern-contracts`, `@xoroh/kern-material-3`, `@xoroh/kern`, `@xoroh/kern-native`, `@xoroh/kern-icons`) exits 0.
-- **Package Tests:** `bun run test` (all packages) exits 0 with 100% passing tests (including 106 tests in `kern-material-3` with golden MCU assertions, 76 in `kern-tokens`, 85 in `kern-icons`, and root suites).
+- **Typecheck:** `bun run typecheck` across all 6 packages (`@xoroh/kern-tokens`, `@xoroh/kern-contracts`, `@xoroh/kern-m3`, `@xoroh/kern`, `@xoroh/kern-native`, `@xoroh/kern-icons`) exits 0.
+- **Package Tests:** `bun run test` (all packages) exits 0 with 100% passing tests (including 106 tests in `kern-m3` with golden MCU assertions, 76 in `kern-tokens`, 85 in `kern-icons`, and root suites).
 - **Site Docs Check:** `apps/site check:docs` exits 0 (all 24 verification gates pass: check-docs, check-spec-urls, check-typescale, check-headings, extract-prop-names, check-props, check-nav, check-component-nav, check-primitives-docs, check-focus-trap, check-search, check-examples, check-tokens, check-markdown, check-llms, check-seo, check-configurators, check-blocks, studio-state, check-gallery, check-a11y, check-grammar, check-page-md, check-mcp-index).
 - **PR Status:** PR #59 is merged with `origin/main` (commit `061b3b7b`), clean worktree, ready to push for GitHub CI.

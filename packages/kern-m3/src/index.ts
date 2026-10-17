@@ -1,5 +1,5 @@
 /**
- * `@xoroh/kern-material-3` — Material Design 3 as a Kern design system.
+ * `@xoroh/kern-m3` — Material Design 3 as a Kern design system.
  *
  * Everything M3-specific lives here: role tables and presets, the contrast
  * policy and pair builders, seed-theme generation, feedback spec and

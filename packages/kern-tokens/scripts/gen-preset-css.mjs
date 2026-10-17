@@ -7,7 +7,7 @@
 // Deterministic output; the file it writes is the consumer's, not a generated
 // artifact of this repo (no registry entry).
 import { writeFileSync } from "node:fs";
-import { material3PresetRegistrations } from "../../kern-material-3/src/material-3.ts";
+import { material3PresetRegistrations } from "../../kern-m3/src/material-3.ts";
 import { registerPreset } from "../src/resolve.ts";
 
 // Explicit registration into THIS resolver instance (source). The M3 module's
@@ -16,7 +16,7 @@ import { registerPreset } from "../src/resolve.ts";
 for (const { id, tables } of material3PresetRegistrations())
   registerPreset(id, tables);
 
-import { themeFromSeed } from "../../kern-material-3/src/seed-theme.ts";
+import { themeFromSeed } from "../../kern-m3/src/seed-theme.ts";
 import { resolveThemeDetails, varName as roleVar } from "../src/resolve.ts";
 
 const args = process.argv.slice(2);

@@ -57,7 +57,7 @@ const MANIFESTS = [
   "libs/kern-primitives",
   "packages/kern",
   "packages/kern-tokens",
-  "packages/kern-material-3",
+  "packages/kern-m3",
   "packages/kern-native",
   "packages/kern-icons",
   "packages/mcp",

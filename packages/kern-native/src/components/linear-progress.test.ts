@@ -5,7 +5,7 @@ vi.mock(
   async () => await import("../../test-doubles/react-native"),
 );
 
-import { themes } from "@xoroh/kern-material-3";
+import { themes } from "@xoroh/kern-m3";
 import { defaultScheme } from "../theme";
 import {
   LINEAR_FOUR_COLOR_DURATION_MS,

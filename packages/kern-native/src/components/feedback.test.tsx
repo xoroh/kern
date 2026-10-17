@@ -94,7 +94,7 @@ import {
   registerFeedbackVariant,
   resolveFeedbackVariant,
   themes,
-} from "@xoroh/kern-material-3";
+} from "@xoroh/kern-m3";
 // react-test-renderer ships without type declarations in this workspace.
 // @ts-expect-error — untyped package.
 import { create as createTree } from "react-test-renderer";

@@ -173,7 +173,7 @@ export function textRolePairs(): ContrastPair[] {
   // is the opposite of over-constraining.
   //
   // NOTE: there is no `error` fixed family and no `FixedContainer` role in M3
-  // (see kern-material-3/src/kern-roles.ts for the verification). Families come from
+  // (see kern-m3/src/kern-roles.ts for the verification). Families come from
   // FIXED_ACCENT_FAMILIES so this stays in step with the inventory.
   for (const family of FIXED_ACCENT_FAMILIES) {
     const Cap = family[0].toUpperCase() + family.slice(1);
@@ -211,7 +211,7 @@ export function uiRolePairs(): ContrastPair[] {
  * This is Material Design 3's policy — the pair-generation rules, the surface
  * matrix and the named waivers — living with the M3 preset data rather than in
  * the universal engine. `contrast.ts` only applies a policy it is given; it
- * invents none. A3 moves this module whole into `@xoroh/kern-material-3`.
+ * invents none. A3 moves this module whole into `@xoroh/kern-m3`.
  */
 export const MATERIAL_3_POLICY: ContrastPolicy = {
   textPairs: textRolePairs(),
@@ -265,7 +265,7 @@ export function material3PresetRegistrations(): Array<{
 /**
  * Register the material-3 base tables, the four override presets and the M3
  * contrast policy with the universal resolver. Importing
- * `@xoroh/kern-material-3` (which re-exports this module) performs the
+ * `@xoroh/kern-m3` (which re-exports this module) performs the
  * registration, so default consumers resolve M3 without further setup.
  * Consumers that import the resolver directly must import this module (or
  * register their own preset) first — an unregistered id fails loud.

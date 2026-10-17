@@ -24,4 +24,4 @@ Under ADR 020 (no backward compatibility before 0.1.0 Preview), maintaining dual
 
 ## Status
 
-Accepted. Date: 2026-10-17. Supersedes ADR 016. Applied to `@xoroh/kern-material-3` (`themeFromSeed`), `@xoroh/kern-tokens` (`hct.ts`), and site documentation.
+Accepted. Date: 2026-10-17. Supersedes ADR 016. Applied to `@xoroh/kern-m3` (`themeFromSeed`), `@xoroh/kern-tokens` (`hct.ts`), and site documentation.

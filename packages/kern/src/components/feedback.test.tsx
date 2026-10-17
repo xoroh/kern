@@ -2,7 +2,7 @@ import { render, renderHook, screen } from "@testing-library/react";
 import {
   registerFeedbackVariant,
   resolveFeedbackVariant,
-} from "@xoroh/kern-material-3";
+} from "@xoroh/kern-m3";
 import { describe, expect, it, vi } from "vitest";
 import { markAppReady, useAppReady } from "./app-ready";
 import { BootIndicator } from "./boot-indicator";

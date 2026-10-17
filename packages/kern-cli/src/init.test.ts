@@ -76,13 +76,9 @@ describe("kern init (Mode 2 scaffold)", () => {
       // The transitive preset dep escapes to the registry without this pin
       // (C1-S smoke: `bun install` failed outside the monorepo) — every
       // workspace package @xoroh/kern depends on must be pinned.
-      expect(pkg.overrides["@xoroh/kern-material-3"].startsWith("file:")).toBe(
-        true,
-      );
+      expect(pkg.overrides["@xoroh/kern-m3"].startsWith("file:")).toBe(true);
       expect(
-        existsSync(
-          pkg.overrides["@xoroh/kern-material-3"].slice("file:".length),
-        ),
+        existsSync(pkg.overrides["@xoroh/kern-m3"].slice("file:".length)),
       ).toBe(true);
       const readme = readFileSync(join(dir, "README.md"), "utf8");
       expect(readme).toContain("0.0.0");
