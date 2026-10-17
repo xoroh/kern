@@ -9,7 +9,7 @@ import { fireEvent, render, screen } from "@testing-library/react-native";
 import { defaultScheme } from "../theme";
 import { Fab, fabColorRoles, fabStyles } from "./fab";
 
-const light = defaultScheme;
+const light = defaultScheme();
 
 describe("Fab sizes (native)", () => {
   it.each([

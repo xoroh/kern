@@ -45,7 +45,7 @@ export type MenuGroup = {
  * signature compatibility. It is prefixed `_` to say so plainly: the styles
  * themselves are scheme-independent by design, not by oversight.
  */
-export function menuGroupStyles(_scheme: ResolvedTheme = defaultScheme): {
+export function menuGroupStyles(_scheme: ResolvedTheme = defaultScheme()): {
   heading: ViewStyle;
   action: ViewStyle;
 } {

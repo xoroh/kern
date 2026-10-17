@@ -1,6 +1,14 @@
 import "@testing-library/jest-dom/vitest";
+import { registerM3 } from "@xoroh/kern-m3";
 import { cleanup } from "@testing-library/react";
 import { afterEach } from "vitest";
+
+// Explicit M3 registration (decision 010), test harness included: this
+// setup is the suite's ENTRY, exactly as an app calls `registerM3()` once at
+// startup. Importing "@xoroh/kern" or "@xoroh/kern-m3" registers nothing —
+// entry-purity.test.ts proves that on a fresh module registry this setup
+// cannot reach.
+registerM3();
 
 afterEach(() => {
   cleanup();

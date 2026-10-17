@@ -99,7 +99,7 @@ export type NativeSplitButtonProps = {
   testID?: string;
 };
 
-export function splitButtonStyles(scheme: ResolvedTheme = defaultScheme): {
+export function splitButtonStyles(scheme: ResolvedTheme = defaultScheme()): {
   row: object;
   primary: object;
   overflow: object;

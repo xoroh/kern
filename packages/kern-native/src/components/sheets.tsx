@@ -24,7 +24,7 @@ export type BottomSheetSize = "medium" | "large";
 
 export function bottomSheetStyles(
   size: BottomSheetSize,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
 ): ViewStyle {
   return {
     backgroundColor: scheme.color.surfaceContainerLow,

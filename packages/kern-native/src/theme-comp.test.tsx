@@ -8,8 +8,13 @@ import { describe, expect, it, vi } from "vitest";
  * KernThemeProvider → useKernScheme — instead of a hand-built scheme.
  */
 
-// Importing the design system registers its presets with the resolver.
-import "@xoroh/kern-m3";
+// Explicit M3 registration (decision 010): the suite's setup already
+// registers; re-registering is idempotent and keeps this file's dependency
+// on the system entry honest rather than relying on an import side effect
+// that no longer exists.
+import { registerM3 } from "@xoroh/kern-m3";
+
+registerM3();
 
 vi.mock("react-native", () => ({ useColorScheme: () => "light" }));
 

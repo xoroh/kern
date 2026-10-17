@@ -17,7 +17,7 @@ export type NativeTab = {
   content?: ReactNode;
 };
 
-export function tabsStyles(scheme: ResolvedTheme = defaultScheme): {
+export function tabsStyles(scheme: ResolvedTheme = defaultScheme()): {
   bar: ViewStyle;
   active: ViewStyle;
 } {

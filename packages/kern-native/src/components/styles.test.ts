@@ -130,7 +130,7 @@ describe("native style maps", () => {
   });
 
   it("selected list items take the M3 highlight (secondary-container, 16dp)", () => {
-    const scheme = defaultScheme;
+    const scheme = defaultScheme();
     expect(listItemStyles(scheme, true).row).toMatchObject({
       backgroundColor: scheme.color.secondaryContainer,
       borderRadius: 16,
@@ -173,7 +173,7 @@ describe("native style maps", () => {
     const full = Number.parseFloat(themes["material-3"].radius.full);
     expect(switchStyles(false, false).track.borderRadius).toBe(full);
     const scheme = {
-      ...defaultScheme,
+      ...defaultScheme(),
       comp: { "switch-track-shape": "4px" },
     };
     const styles = switchStyles(false, false, scheme);
@@ -186,7 +186,7 @@ describe("native style maps", () => {
 
   it("input corners follow the text-field override with filled bottoms at zero", () => {
     const scheme = {
-      ...defaultScheme,
+      ...defaultScheme(),
       comp: { "text-field-container-shape": "12px" },
     };
     const filled = inputStyles(false, false, scheme, false, "filled");
@@ -206,14 +206,14 @@ describe("native style maps", () => {
     expect(cardStyles("filled").borderRadius).toBe(12);
     expect(
       cardStyles("filled", {
-        ...defaultScheme,
+        ...defaultScheme(),
         comp: { "card-container-shape": "4px" },
       }).borderRadius,
     ).toBe(4);
     expect(chipStyles("assist", false).container.borderRadius).toBe(8);
     expect(
       chipStyles("assist", false, {
-        ...defaultScheme,
+        ...defaultScheme(),
         comp: { "chip-container-shape": "4px" },
       }).container.borderRadius,
     ).toBe(4);

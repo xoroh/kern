@@ -33,7 +33,7 @@ export type MilestoneTrioProps = Omit<ViewProps, "children" | "style"> & {
  */
 export function milestoneStepStyles(
   state: "done" | "current" | "todo",
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
 ): { step: ViewStyle; glyph: ViewStyle; label: TextStyle } {
   return {
     step: {

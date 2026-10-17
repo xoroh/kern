@@ -63,7 +63,7 @@ export type NativeNumberFieldProps = {
 
 export function numberFieldStyles(
   disabled: boolean,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
 ): { group: ViewStyle; stepper: ViewStyle; input: TextStyle } {
   const radius = Number.parseFloat(scheme.shape.small);
   return {

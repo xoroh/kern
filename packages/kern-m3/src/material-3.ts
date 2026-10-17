@@ -264,12 +264,18 @@ export function material3PresetRegistrations(): Array<{
 
 /**
  * Register the material-3 base tables, the four override presets and the M3
- * contrast policy with the universal resolver. Importing
- * `@xoroh/kern-m3` (which re-exports this module) performs the
- * registration, so default consumers resolve M3 without further setup.
- * Consumers that import the resolver directly must import this module (or
- * register their own preset) first — an unregistered id fails loud.
+ * contrast policy with the universal resolver. THE one registration entry
+ * point for this system — importing `@xoroh/kern-m3` registers nothing
+ * (decision 010: no system is the implicit global default; a renderer that
+ * registered on import would choose the system for every app that imports
+ * it). Applications call this once at entry, before anything resolves an
+ * M3 theme id; an unregistered id fails loud at resolve time.
+ *
+ * Idempotent: the resolver stores presets in a map, so a double call
+ * overwrites with identical tables.
  */
-for (const { id, tables } of material3PresetRegistrations()) {
-  registerPreset(id, tables);
+export function registerM3(): void {
+  for (const { id, tables } of material3PresetRegistrations()) {
+    registerPreset(id, tables);
+  }
 }

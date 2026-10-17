@@ -34,7 +34,7 @@ export const TOP_APP_BAR_HEIGHTS: Record<TopAppBarSize, number> = {
 
 export function topAppBarStyles(
   size: TopAppBarSize,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
 ): ViewStyle {
   const padding = Number.parseFloat(tokens.spacing["space-100"]);
   return {

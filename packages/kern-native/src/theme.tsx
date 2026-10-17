@@ -90,13 +90,25 @@ export function KernThemeProvider({
   );
 }
 
+let cachedDefaultScheme: ResolvedTheme | undefined;
+
 /**
  * Static light default for components rendered outside any provider, and the
  * N8 style-function fallback: component-layer defaults reference this
- * constant instead of resolving presets themselves, so `theme.tsx` is the
+ * function instead of resolving presets themselves, so `theme.tsx` is the
  * only native component-layer importer of `resolveThemeDetails`.
+ *
+ * Resolved lazily and memoized since decision 010 (no global registration):
+ * `@xoroh/kern-native` must be importable BEFORE the app calls
+ * `registerM3()` — ESM imports evaluate before the importing module's body
+ * runs, so a module-scope resolution would throw "Unknown preset" before
+ * registration could ever happen. First call comes after registration (a
+ * default parameter value evaluates at call time, when the app entry has
+ * already run) and is then cached, keeping the old static-value semantics.
  */
-export const defaultScheme: ResolvedTheme = resolveThemeDetails("light");
+export function defaultScheme(): ResolvedTheme {
+  return (cachedDefaultScheme ??= resolveThemeDetails("light"));
+}
 
 /**
  * Scheme from the nearest provider without subscribing to OS appearance.
@@ -108,7 +120,7 @@ export const defaultScheme: ResolvedTheme = resolveThemeDetails("light");
  */
 export function useKernScheme(): ResolvedTheme {
   const context = useContext(ThemeContext);
-  return context?.scheme ?? defaultScheme;
+  return context?.scheme ?? defaultScheme();
 }
 
 /** Read the active scheme; outside a provider, follow the OS appearance. */

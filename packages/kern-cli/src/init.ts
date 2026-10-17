@@ -125,7 +125,7 @@ export function initScaffold(dir: string, opts: InitOptions = {}): InitResult {
   const files: string[] = [];
   copyTree(STARTERS_WEB_DIR, dest, files, "");
 
-  // Resolve the two kern deps honestly: file: against the checkout while
+  // Resolve the three kern deps honestly: file: against the checkout while
   // 0.0.0 is unpublished, versioned names behind --registry for post-publish.
   // The overrides pin the transitive workspace packages (@xoroh/kern itself
   // depends on workspace-pinned siblings) to the same checkout, so `bun
@@ -148,6 +148,11 @@ export function initScaffold(dir: string, opts: InitOptions = {}): InitResult {
   const axisTarball = join(root, "vendor", "axis", axisTarballs[0] as string);
   const kernDep = opts.registry ? version : `file:${kernDir}`;
   const tokensDep = opts.registry ? version : `file:${tokensDir}`;
+  // The starter imports @xoroh/kern-m3 directly — the app owns the design
+  // system choice and calls registerM3() once at entry (decision 010), so it
+  // declares the system package itself rather than leaning on a renderer's
+  // transitive dependency.
+  const material3Dep = opts.registry ? version : `file:${material3Dir}`;
   const overrides = opts.registry
     ? {}
     : {
@@ -164,6 +169,7 @@ export function initScaffold(dir: string, opts: InitOptions = {}): InitResult {
     pkgPath,
     readFileSync(pkgPath, "utf8")
       .replace("__KERN_DEP__", kernDep)
+      .replace("__KERN_M3_DEP__", material3Dep)
       .replace("__KERN_TOKENS_DEP__", tokensDep)
       .replace("__KERN_OVERRIDES__", JSON.stringify(overrides, null, 2)),
   );
