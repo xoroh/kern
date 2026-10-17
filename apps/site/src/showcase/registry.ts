@@ -47,12 +47,25 @@ import { TOGGLE_CONFIGURATOR } from "./configurators/toggle";
 import { TOGGLE_GROUP_CONFIGURATOR } from "./configurators/toggle-group";
 import { TOOLTIP_CONFIGURATOR } from "./configurators/tooltip";
 import type { ExampleSpec } from "./example";
+import { BADGE_EXAMPLES } from "./examples/badge";
 import { BUTTON_EXAMPLES } from "./examples/button";
+import { CHIP_EXAMPLES } from "./examples/chip";
+import { DIALOG_EXAMPLES } from "./examples/dialog";
+import { FAB_EXAMPLES } from "./examples/fab";
 import { CARD_EXAMPLES } from "./examples/card";
 import { DIALOG_EXAMPLES } from "./examples/dialog";
 import { CHECKBOX_EXAMPLES, INPUT_EXAMPLES } from "./examples/input";
 import { MENU_EXAMPLES, MENUBAR_EXAMPLES } from "./examples/menu";
+import { RADIO_GROUP_EXAMPLES } from "./examples/radio-group";
+import { SEPARATOR_EXAMPLES } from "./examples/separator";
+import { SELECT_EXAMPLES } from "./examples/select";
+import { SLIDER_EXAMPLES } from "./examples/slider";
+import { SNACKBAR_EXAMPLES } from "./examples/snackbar";
 import { SWITCH_EXAMPLES } from "./examples/switch";
+import { TABS_EXAMPLES } from "./examples/tabs";
+import { TEXTAREA_EXAMPLES } from "./examples/textarea";
+import { TOGGLE_EXAMPLES } from "./examples/toggle";
+import { TOOLTIP_EXAMPLES } from "./examples/tooltip";
 
 /**
  * The Example registry — export name → the examples for it.
@@ -74,6 +87,18 @@ export const EXAMPLES: Record<string, ExampleSpec[]> = {
   Card: CARD_EXAMPLES,
   Dialog: DIALOG_EXAMPLES,
   Switch: SWITCH_EXAMPLES,
+  Tabs: TABS_EXAMPLES,
+  Select: SELECT_EXAMPLES,
+  Slider: SLIDER_EXAMPLES,
+  RadioGroup: RADIO_GROUP_EXAMPLES,
+  Toggle: TOGGLE_EXAMPLES,
+  Badge: BADGE_EXAMPLES,
+  Chip: CHIP_EXAMPLES,
+  Snackbar: SNACKBAR_EXAMPLES,
+  Tooltip: TOOLTIP_EXAMPLES,
+  Separator: SEPARATOR_EXAMPLES,
+  Fab: FAB_EXAMPLES,
+  Textarea: TEXTAREA_EXAMPLES,
 };
 
 /** Every export that has at least one registered example. */

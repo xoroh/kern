@@ -60,6 +60,37 @@ button:focus-visible {
 .site-main .font-mono {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
 }
+
+/* Code highlighting — the theme, not the classifier.
+ *
+ * `highlight.tsx` only emits `tok-*` classes; every color here is a
+ * `--sys-color-*` role, so light and dark code themes fall out of the token
+ * layer with no extra hex and no `.dark` overrides: the same roles the
+ * components read. Roles were chosen for WCAG 2.2 AA (4.5:1) small-text
+ * contrast against `surface-container-high` in both modes — verified by the
+ * ratios recorded in the PR-A report, not by eye.
+ *
+ * Sharing is deliberate, not a shortage: keywords and tags share `primary`
+ * (both are structure), types and numbers share `secondary`, and attributes
+ * stay in the base ink so prop *values* (strings) are what pop.
+ */
+.codeblock .tok-keyword,
+.codeblock .tok-tag,
+.codeblock .tok-command {
+  color: var(--sys-color-primary);
+}
+.codeblock .tok-string {
+  color: var(--sys-color-tertiary);
+}
+.codeblock .tok-number,
+.codeblock .tok-type,
+.codeblock .tok-flag {
+  color: var(--sys-color-secondary);
+}
+.codeblock .tok-comment,
+.codeblock .tok-operator {
+  color: var(--sys-color-on-surface-variant);
+}
 .site-sidebar,
 .site-toc {
   background: var(--sys-color-surface-container-low);
