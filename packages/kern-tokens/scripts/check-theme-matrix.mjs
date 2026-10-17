@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-import { material3PresetRegistrations } from "../../kern-material-3/src/material-3.ts";
+import { material3PresetRegistrations } from "../../kern-m3/src/material-3.ts";
 /**
  * check:theme-matrix — the P5C theming gate.
  *
@@ -32,7 +32,7 @@ import {
 import { resolveThemeDetails, themeIds } from "../src/resolve.ts";
 
 const ROOT = new URL("../../..", import.meta.url).pathname;
-const THEMES = join(ROOT, "packages/kern-material-3/src/themes");
+const THEMES = join(ROOT, "packages/kern-m3/src/themes");
 const violations = [];
 
 function stable(value) {
@@ -50,14 +50,14 @@ function stable(value) {
 const committedPath = join(THEMES, "matrix.json");
 if (!existsSync(committedPath)) {
   violations.push(
-    "packages/kern-material-3/src/themes/matrix.json is missing — run `bun packages/kern-tokens/scripts/gen-theme-matrix.mjs`",
+    "packages/kern-m3/src/themes/matrix.json is missing — run `bun packages/kern-tokens/scripts/gen-theme-matrix.mjs`",
   );
 } else {
   const committed = readFileSync(committedPath, "utf8");
   const fresh = `${stable(buildThemeMatrix())}\n`;
   if (committed !== fresh) {
     violations.push(
-      "packages/kern-material-3/src/themes/matrix.json drifted from the live resolver — " +
+      "packages/kern-m3/src/themes/matrix.json drifted from the live resolver — " +
         "run `bun packages/kern-tokens/scripts/gen-theme-matrix.mjs` and commit the result. " +
         "If the diff moves a rendered value, that is a D6 defect, not a regen.",
     );

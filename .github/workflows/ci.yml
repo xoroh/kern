@@ -293,7 +293,7 @@ jobs:
       matrix:
         dir:
           - packages/kern-tokens
-          - packages/kern-material-3
+          - packages/kern-m3
           - libs/kern-primitives
           - packages/kern
           - packages/kern-icons

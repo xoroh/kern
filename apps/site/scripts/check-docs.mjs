@@ -141,7 +141,7 @@ function pickExport(mod, names, what) {
 }
 
 const elevationModule = await loadFirstModule([
-  "packages/kern-material-3/src/kern-elevation.ts",
+  "packages/kern-m3/src/kern-elevation.ts",
 ]);
 
 const ELEVATION_COMPONENTS = pickExport(

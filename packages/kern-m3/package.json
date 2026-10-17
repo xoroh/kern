@@ -1,5 +1,5 @@
 {
-  "name": "@xoroh/kern-material-3",
+  "name": "@xoroh/kern-m3",
   "version": "0.0.0",
   "description": "Material Design 3 implementation for Kern: roles, presets, contrast policy, seed themes, and M3-specific foundations.",
   "keywords": [
@@ -13,7 +13,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/xoroh/kern.git",
-    "directory": "packages/kern-material-3"
+    "directory": "packages/kern-m3"
   },
   "homepage": "https://kern.xoroh.org",
   "bugs": "https://github.com/xoroh/kern/issues",

@@ -3,7 +3,7 @@ import {
   FEEDBACK_SIZE_DP,
   type FeedbackShapeKind,
   type FeedbackSize,
-} from "@xoroh/kern-material-3";
+} from "@xoroh/kern-m3";
 import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import {
   type StyleProp,
