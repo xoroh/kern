@@ -116,7 +116,7 @@
     "@xoroh/kern-m3": "workspace:*"
   },
   "dependencies": {
-    "@xoroh/axis": "file:../../vendor/axis/axis-bed35547.tgz",
+    "@xoroh/axis": "file:../../vendor/axis/axis-82c3179.tgz",
     "@base-ui/react": "^1.8.0",
     "@xoroh/kern-tokens": "^0.0.0",
     "class-variance-authority": "^0.7.1",

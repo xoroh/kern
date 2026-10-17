@@ -19,6 +19,7 @@
     "check:generated": "node scripts/check-generated-freshness.mjs",
     "check:generated:census": "node scripts/check-generated-census.mjs",
     "check:stale-refs": "node scripts/check-stale-refs.mjs",
+    "check:stale-tarball": "node scripts/check-stale-tarball.mjs",
     "check:ts-policy": "node scripts/check-ts-policy.mjs",
     "check:commit-intent": "node scripts/check-commit-intent.mjs",
     "test:scripts": "bun test scripts/lib/codeowners.test.mjs scripts/lib/elevation-audit.test.mjs scripts/lib/source-code.test.mjs scripts/lib/shape-law.test.mjs",
