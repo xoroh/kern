@@ -39,6 +39,7 @@ import {
   SeparatorDemo,
   SkeletonDemo,
   TextDemo,
+  ThemeToggleDemo,
 } from "./display";
 import {
   CheckboxDemo,
@@ -382,6 +383,7 @@ const byExport: Record<string, WebDemo> = {
   TimePicker: TimePickerDemo,
   Text: TextDemo,
   Textarea: TextareaDemo,
+  ThemeToggle: ThemeToggleDemo,
   Toggle: ToggleDemo,
   ToggleGroup: ToggleGroupDemo,
   ToggleGroupItem: ToggleGroupDemo,

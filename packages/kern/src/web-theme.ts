@@ -38,7 +38,18 @@ export {
   varName,
 } from "@xoroh/kern-tokens";
 
-type ColorPreference = Mode | "system";
+export type ColorPreference = Mode | "system";
+export type ColorSchemeMode = ColorPreference;
+
+export const COLOR_SCHEME_STORAGE_KEY = "kern-tokens-mode";
+const STORAGE_KEY = COLOR_SCHEME_STORAGE_KEY;
+
+/**
+ * First-paint theme init script. Inlined into <head> before stylesheets and
+ * before React hydrates so stored or OS appearance applies without flash.
+ * Mirrors `kern-tokens-mode` -> `.dark` class + `document.documentElement.style.colorScheme`.
+ */
+export const COLOR_SCHEME_INIT = `(function(){try{var m=localStorage.getItem('${STORAGE_KEY}');var d=m==='dark'||(m!=='light'&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',d);document.documentElement.style.colorScheme=d?'dark':'light';}catch(e){}})();`;
 
 /** Apply a resolved role + shape table to an element as CSS variables. */
 export function applyKernTheme(
@@ -81,8 +92,6 @@ export function clearKernTheme(target: HTMLElement): void {
   delete target.dataset.kernContrast;
   delete target.dataset.kernMotion;
 }
-
-const STORAGE_KEY = "kern-tokens-mode";
 
 export type WebThemeOptions = {
   contrast?: Contrast;
@@ -153,7 +162,10 @@ export function useKernTheme(options: WebThemeOptions = {}) {
     }
   }, [mode, preference, preferenceLoaded, contrast, variant, motion]);
 
-  const setMode = useCallback((next: Mode) => setPreference(next), []);
+  const setMode = useCallback(
+    (next: ColorSchemeMode) => setPreference(next),
+    [],
+  );
   const useSystem = useCallback(() => setPreference("system"), []);
   const toggle = useCallback(
     () => setPreference(mode === "dark" ? "light" : "dark"),
@@ -171,4 +183,15 @@ export function useKernTheme(options: WebThemeOptions = {}) {
     useSystem,
     toggle,
   };
+}
+
+/**
+ * App-level light/dark/system color scheme hook.
+ *
+ * Returns the user preference (`mode`: `"light" | "dark" | "system"`),
+ * active appearance (`resolved`: `"light" | "dark"`), `setMode`, and `toggle`.
+ */
+export function useColorScheme() {
+  const { mode: resolved, preference: mode, setMode, toggle } = useKernTheme();
+  return { mode, resolved, setMode, toggle };
 }

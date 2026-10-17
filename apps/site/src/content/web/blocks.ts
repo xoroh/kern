@@ -20,13 +20,7 @@ export const blocks: ComponentDoc = {
     variants: [],
     elevation: "surface",
   },
-  parts: [
-    "SearchBar",
-    "SettingsRow",
-    "StatusBar",
-    "ThemeToggle",
-    "ContrastToggle",
-  ],
+  parts: ["SearchBar", "SettingsRow", "StatusBar", "ContrastToggle"],
   customization: {
     supported: [
       "Each is its own export, so a shell takes what it needs.",
@@ -53,11 +47,6 @@ export const blocks: ComponentDoc = {
       name: "StatusBar",
       type: "component",
       note: "The strip along the bottom of a shell.",
-    },
-    {
-      name: "ThemeToggle",
-      type: "component",
-      note: "A KERN INVENTION, not a Material 3 component. It switches the theme; there is no spec row behind it and none is claimed.",
     },
     {
       name: "ContrastToggle",

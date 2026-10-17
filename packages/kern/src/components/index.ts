@@ -607,6 +607,8 @@ export type { TextProps } from "./text";
 export { Text, textVariants } from "./text";
 export type { TextareaProps } from "./textarea";
 export { Textarea } from "./textarea";
+export type { ThemeToggleProps } from "./theme-toggle";
+export { ThemeToggle } from "./theme-toggle";
 export type {
   TimePickerFormat,
   TimePickerPresentation,

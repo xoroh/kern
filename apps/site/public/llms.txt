@@ -185,6 +185,7 @@ Prefer these machine surfaces over scraping HTML:
 - [Tabs](/components/web/tabs): Tabs switch between related views of the same subject without leaving the page.
 - [Text](/components/web/text): Text renders a line of type at one of the typescale's styles.
 - [Textarea](/components/web/textarea): Textareas take several lines of text from someone and hand it to you.
+- [ThemeToggle](/components/web/theme-toggle): One action that switches the color scheme between light and dark.
 - [Time picker](/components/web/time-picker): Time pickers set a time of day with explicit hour and minute fields.
 - [Toggle group](/components/web/toggle-group): Toggle groups hold related toggles together as one control, picking either one option or several.
 - [Toggle](/components/web/toggle): Toggles are buttons that stay pressed, for a setting you switch on and off.

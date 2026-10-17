@@ -1,6 +1,6 @@
 {
   "version": "0.0.0",
-  "releaseSet": "kern@0.0.0+418.c6e51cd44435481e",
+  "releaseSet": "kern@0.0.0+418.e47926193fec379e",
   "rows": [
     {
       "name": "accordion-root",
@@ -2003,6 +2003,14 @@
       "status": "real"
     },
     {
+      "name": "theme-toggle",
+      "export": "ThemeToggle",
+      "platform": "web",
+      "entrypoint": ".",
+      "path": "src/components/theme-toggle.tsx",
+      "status": "real"
+    },
+    {
       "name": "time-picker",
       "export": "TimePicker",
       "platform": "web",
@@ -2173,14 +2181,6 @@
     {
       "name": "status-bar",
       "export": "StatusBar",
-      "platform": "web",
-      "entrypoint": "./start",
-      "path": "src/start/blocks.tsx",
-      "status": "real"
-    },
-    {
-      "name": "theme-toggle",
-      "export": "ThemeToggle",
       "platform": "web",
       "entrypoint": "./start",
       "path": "src/start/blocks.tsx",
