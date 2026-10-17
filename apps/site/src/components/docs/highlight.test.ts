@@ -1,4 +1,4 @@
-import { describe, expect, test } from "bun:test";
+import { describe, expect, it } from "bun:test";
 import { tokenize } from "./highlight";
 
 /**
@@ -27,11 +27,11 @@ export function Actions({ count = 0 }: { count?: number }) {
   return <Button variant="elevated" disabled={count > 0}>Save</Button>;
 }`;
 
-  test("round-trips the source exactly", () => {
+  it("round-trips the source exactly", () => {
     expect(textOf(src, "tsx")).toBe(src);
   });
 
-  test("classifies keywords, strings, comments, tags, attrs, numbers", () => {
+  it("classifies keywords, strings, comments, tags, attrs, numbers", () => {
     const got = classesOf(src, "tsx");
     expect(got).toContain("import=>tok-keyword");
     expect(got).toContain("export=>tok-keyword");
@@ -42,19 +42,19 @@ export function Actions({ count = 0 }: { count?: number }) {
     expect(got).toContain("0=>tok-number");
   });
 
-  test("booleans read as literals, capitalized types as types", () => {
+  it("booleans read as literals, capitalized types as types", () => {
     const got = classesOf("const on = true;\nlet w: Mode = null;", "tsx");
     expect(got).toContain("true=>tok-number");
     expect(got).toContain("null=>tok-number");
     expect(got).toContain("Mode=>tok-type");
   });
 
-  test("member-expression tags color as one tag", () => {
+  it("member-expression tags color as one tag", () => {
     const got = classesOf("<Field.Label>Email</Field.Label>", "tsx");
     expect(got).toContain("Field.Label=>tok-tag");
   });
 
-  test("a fence containing < never becomes markup", () => {
+  it("a fence containing < never becomes markup", () => {
     const tokens = tokenize("<Button>1 < 2</Button>", "tsx");
     expect(tokens.map((t) => t.text).join("")).toBe("<Button>1 < 2</Button>");
   });
@@ -65,11 +65,11 @@ describe("bash", () => {
 npm i @xoroh/kern --save-dev # until publish
 kern add button --platform native && kern diff`;
 
-  test("round-trips the source exactly", () => {
+  it("round-trips the source exactly", () => {
     expect(textOf(src, "bash")).toBe(src);
   });
 
-  test("classifies commands, flags, operators, trailing comments", () => {
+  it("classifies commands, flags, operators, trailing comments", () => {
     const got = classesOf(src, "bash");
     expect(got).toContain("bun=>tok-command");
     expect(got).toContain("npm=>tok-command");
@@ -79,7 +79,7 @@ kern add button --platform native && kern diff`;
     expect(got).toContain("# until publish=>tok-comment");
   });
 
-  test("quoted values stay whole strings", () => {
+  it("quoted values stay whole strings", () => {
     const got = classesOf('kern add "my button" --dest ./out', "bash");
     expect(got).toContain('"my button"=>tok-string');
   });
@@ -90,11 +90,11 @@ describe("css", () => {
 @import "@xoroh/kern-tokens/theme";
 .stage { color: var(--sys-color-primary); }`;
 
-  test("round-trips the source exactly", () => {
+  it("round-trips the source exactly", () => {
     expect(textOf(src, "css")).toBe(src);
   });
 
-  test("classifies at-rules, strings, comments, selectors, properties", () => {
+  it("classifies at-rules, strings, comments, selectors, properties", () => {
     const got = classesOf(src, "css");
     expect(got).toContain("@import=>tok-keyword");
     expect(got).toContain('"@xoroh/kern-tokens/theme"=>tok-string');
@@ -147,7 +147,7 @@ describe("code theme contrast", () => {
     "tok-operator": { light: "#525252", dark: "#d4d4d4" },
   };
   for (const [cls, hex] of Object.entries(roles)) {
-    test(`${cls} passes AA on the code surface, light and dark`, () => {
+    it(`${cls} passes AA on the code surface, light and dark`, () => {
       expect(ratio(hex.light, codeBg.light)).toBeGreaterThanOrEqual(4.5);
       expect(ratio(hex.dark, codeBg.dark)).toBeGreaterThanOrEqual(4.5);
     });

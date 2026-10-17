@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { useId, useState } from "react";
-import { HighlightedCode } from "../docs/highlight";
+import { HighlightedCode } from "../components/docs/highlight";
 import {
   T_BODY_SM,
   T_CODE,

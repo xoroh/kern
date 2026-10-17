@@ -59,6 +59,7 @@ import {
   THEME_CONFIGURATOR_HREF,
 } from "../../systems/playground-links";
 import { CopyMarkdownButton } from "../chrome/copy-markdown-button";
+import { HighlightedCode } from "./highlight";
 import { InstallTabs } from "./install-tabs";
 
 /**
@@ -476,8 +477,10 @@ function InstallationBlock({ doc }: { doc: ComponentDoc }) {
       <InstallPicker target={target} />
       <div className={`${CARD} flex flex-col gap-2 p-4`}>
         <div className="flex items-center gap-2">
-          <pre className={`m-0 flex-1 overflow-x-auto ${CODE} ${INK}`}>
-            <code>{importStatement}</code>
+          <pre
+            className={`codeblock m-0 flex-1 overflow-x-auto ${CODE} ${INK}`}
+          >
+            <HighlightedCode code={importStatement} language="tsx" />
           </pre>
           <CopyButton text={importStatement} />
         </div>

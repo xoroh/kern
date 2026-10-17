@@ -50,7 +50,6 @@ import type { ExampleSpec } from "./example";
 import { BADGE_EXAMPLES } from "./examples/badge";
 import { BUTTON_EXAMPLES } from "./examples/button";
 import { CHIP_EXAMPLES } from "./examples/chip";
-import { DIALOG_EXAMPLES } from "./examples/dialog";
 import { FAB_EXAMPLES } from "./examples/fab";
 import { CARD_EXAMPLES } from "./examples/card";
 import { DIALOG_EXAMPLES } from "./examples/dialog";

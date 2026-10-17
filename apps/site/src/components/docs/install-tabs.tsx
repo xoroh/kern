@@ -78,7 +78,7 @@ export function InstallTabs({ target }: { target: string }) {
       </div>
       <div className="codeblock flex items-center gap-2">
         <pre
-          className={`m-0 flex-1 overflow-x-auto ${CODE} text-(--sys-color-on-surface)`}
+          className={`m-0 flex-1 overflow-x-auto rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container-high) px-4 py-3 ${CODE} text-(--sys-color-on-surface)`}
         >
           <HighlightedCode code={command} language="bash" />
         </pre>

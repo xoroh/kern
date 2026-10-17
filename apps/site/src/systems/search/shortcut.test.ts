@@ -1,4 +1,4 @@
-import { describe, expect, test } from "bun:test";
+import { describe, expect, it } from "bun:test";
 import { isSlashSearchKey, isToggleSearchKey } from "./shortcut";
 
 /**
@@ -7,22 +7,22 @@ import { isSlashSearchKey, isToggleSearchKey } from "./shortcut";
  * finding means the chord contract gets a test, not just a handler.
  */
 describe("isToggleSearchKey", () => {
-  test("Control+K opens (Linux/Windows primary)", () => {
+  it("Control+K opens (Linux/Windows primary)", () => {
     expect(
       isToggleSearchKey({ key: "k", metaKey: false, ctrlKey: true }),
     ).toBe(true);
   });
-  test("Command+K opens (macOS primary)", () => {
+  it("Command+K opens (macOS primary)", () => {
     expect(
       isToggleSearchKey({ key: "k", metaKey: true, ctrlKey: false }),
     ).toBe(true);
   });
-  test("a bare k does not open", () => {
+  it("a bare k does not open", () => {
     expect(
       isToggleSearchKey({ key: "k", metaKey: false, ctrlKey: false }),
     ).toBe(false);
   });
-  test("Control alone does not open", () => {
+  it("Control alone does not open", () => {
     expect(
       isToggleSearchKey({ key: "Control", metaKey: false, ctrlKey: true }),
     ).toBe(false);
@@ -30,7 +30,7 @@ describe("isToggleSearchKey", () => {
 });
 
 describe("isSlashSearchKey", () => {
-  test("/ opens the palette outside text entry", () => {
+  it("/ opens the palette outside text entry", () => {
     expect(
       isSlashSearchKey(
         { key: "/", metaKey: false, ctrlKey: false },
@@ -38,7 +38,7 @@ describe("isSlashSearchKey", () => {
       ),
     ).toBe(true);
   });
-  test("/ stays text inside inputs, textareas, selects and editable regions", () => {
+  it("/ stays text inside inputs, textareas, selects and editable regions", () => {
     for (const target of [
       { tagName: "INPUT" },
       { tagName: "TEXTAREA" },
@@ -53,7 +53,7 @@ describe("isSlashSearchKey", () => {
       ).toBe(false);
     }
   });
-  test("modified / chords do not open", () => {
+  it("modified / chords do not open", () => {
     expect(
       isSlashSearchKey(
         { key: "/", metaKey: false, ctrlKey: true },
