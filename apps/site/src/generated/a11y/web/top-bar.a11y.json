@@ -1,0 +1,24 @@
+{
+  "page": "web/top-bar",
+  "measured": false,
+  "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+  "demos": {
+    "TopBar": {
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "keyboard-operable",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "keyboard contract carries 3 row(s) in top-bar.ts — every operable action has a documented key"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 3 line(s) in top-bar.ts — roles, names and states are stated, not assumed"
+        }
+      ]
+    }
+  }
+}

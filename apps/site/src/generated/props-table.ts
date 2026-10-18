@@ -8633,4 +8633,114 @@ export const PROPS_TABLE: Record<
     ],
     curated: [],
   },
+  Hero: {
+    rows: [
+      {
+        name: "eyebrow",
+        type: "ReactNode",
+        required: true,
+      },
+      {
+        name: "title",
+        type: "ReactNode",
+        required: true,
+      },
+      {
+        name: "lede",
+        type: "ReactNode",
+        required: true,
+      },
+      {
+        name: "actions",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "art",
+        type: "ReactNode",
+        required: false,
+      },
+    ],
+    curated: ["id", "className"],
+  },
+  TopBar: {
+    rows: [
+      {
+        name: "brand",
+        type: "ReactNode",
+        required: true,
+      },
+      {
+        name: "items",
+        type: "readonly TopBarItem[]",
+        required: true,
+      },
+      {
+        name: "activePath",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "homeTo",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "actions",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "navLabel",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "menuLabel",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "closeMenuLabel",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "sticky",
+        type: "boolean | undefined",
+        required: false,
+      },
+    ],
+    curated: ["className"],
+  },
+  SiteFooter: {
+    rows: [
+      {
+        name: "brand",
+        type: "ReactNode",
+        required: true,
+      },
+      {
+        name: "summary",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "groups",
+        type: "readonly SiteFooterGroup[]",
+        required: true,
+      },
+      {
+        name: "legal",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "trailing",
+        type: "ReactNode",
+        required: false,
+      },
+    ],
+    curated: ["className"],
+  },
 };

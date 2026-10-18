@@ -103,6 +103,7 @@ import {
   TopAppBarDemo,
   AccordionDemo as WebAccordionDemo,
 } from "./layout";
+import { HeroDemo, SiteFooterDemo, TopBarDemo } from "./marketing";
 import {
   AlertDialogDemo,
   AutocompleteDemo,
@@ -258,6 +259,7 @@ const byExport: Record<string, WebDemo> = {
   FieldsetRoot: FieldsetDemo,
   FilterChipRow: FilterChipRowDemo,
   Form: FormDemo,
+  Hero: HeroDemo,
   IconButton: IconButtonDemo,
   Input: InputDemo,
   InputOTP: InputOTPDemo,
@@ -327,6 +329,7 @@ const byExport: Record<string, WebDemo> = {
   ScrollAreaViewport: ScrollAreaDemo,
   Search: SearchDemo,
   SearchBar: SearchBarDemo,
+  SiteFooter: SiteFooterDemo,
   SecondaryTabs: SecondaryTabsDemo,
   SegmentedButton: SegmentedButtonDemo,
   SegmentedButtonItem: SegmentedButtonDemo,
@@ -400,6 +403,7 @@ const byExport: Record<string, WebDemo> = {
   TooltipTrigger: TooltipDemo,
   TopAppBar: TopAppBarDemo,
   TopAppBarToggle: TopAppBarDemo,
+  TopBar: TopBarDemo,
 };
 
 /** The demo for a manifest row, or undefined when the row has no live demo. */

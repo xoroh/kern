@@ -133,6 +133,7 @@ Prefer these machine surfaces over scraping HTML:
 - [Fieldset](/components/web/fieldset): Fieldsets group related controls under one legend and give them a shared disabled state.
 - [Filter chip row](/components/web/filter-chip-row): The filter chip row is a horizontal row of multi-select toggles — press once to apply a filter, press again to remove it.
 - [Form](/components/web/form): Forms collect several values and hand them over together.
+- [Hero](/components/web/hero): Hero opens a page with its main heading, supporting copy, actions, and optional art.
 - [Icon button](/components/web/icon-button): Icon buttons are buttons whose content is a single glyph.
 - [Input OTP](/components/web/input-otp): OTP inputs take a short numeric code one character at a time, as it is typed.
 - [Input](/components/web/input): Inputs take a single line of text from someone and hand it to you.
@@ -173,6 +174,7 @@ Prefer these machine surfaces over scraping HTML:
 - [Sheet surface](/components/web/sheet-surface): Sheet surface is the shared modal and scrim shell — the one place a kern sheet gets its dismissal path.
 - [Sheet](/components/web/sheet): Sheets slide in from the side to hold a focused task beside the content behind them.
 - [Sidebar](/components/web/sidebar): Sidebars are the app's persistent navigation region, composed from a provider, sections and items.
+- [SiteFooter](/components/web/site-footer): SiteFooter closes a site page with a brand summary, grouped navigation, and optional legal content.
 - [Skeleton](/components/web/skeleton): Skeletons stand in for content that is still loading, in the shape it will have.
 - [Slider](/components/web/slider): Sliders pick a value from a range by feel, showing where it sits along the way.
 - [Snackbar](/components/web/snackbar): Snackbars confirm something happened, briefly, without interrupting what someone is doing.
@@ -192,6 +194,7 @@ Prefer these machine surfaces over scraping HTML:
 - [Toolbar](/components/web/toolbar): Toolbars hold the controls that act on the content below them.
 - [Tooltip](/components/web/tooltip): Tooltips name or explain a control the moment someone hovers or focuses it.
 - [Top app bar](/components/web/top-app-bar): The top app bar is the screen's header — leading slot, title, trailing actions — plus the app-level bar and its menus.
+- [TopBar](/components/web/top-bar): TopBar is a responsive site header with a brand link, primary navigation, and an actions slot.
 
 ## Component families — mobile
 

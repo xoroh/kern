@@ -127,6 +127,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `focus-ring` | `FocusRing` | real |
 | `form` | `Form` | real |
 | `help-menu` | `HelpMenu` | real |
+| `hero` | `Hero` | real |
 | `icon-button` | `IconButton` | real |
 | `input` | `Input` | real |
 | `input-otp` | `InputOTP` | real |
@@ -244,6 +245,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `sidebar-header` | `SidebarHeader` | real |
 | `sidebar-item` | `SidebarItem` | real |
 | `sidebar-provider` | `SidebarProvider` | real |
+| `site-footer` | `SiteFooter` | real |
 | `skeleton` | `Skeleton` | real |
 | `slider` | `Slider` | real |
 | `slider-label` | `SliderLabel` | real |
@@ -308,6 +310,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `tooltip-trigger` | `TooltipTrigger` | real |
 | `top-app-bar` | `TopAppBar` | real |
 | `top-app-bar-toggle` | `TopAppBarToggle` | real |
+| `top-bar` | `TopBar` | real |
 | `top-bar-menu` | `TopBarMenu` | real |
 | `user-menu` | `UserMenu` | real |
 

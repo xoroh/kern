@@ -843,6 +843,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    slug: "web/hero",
+    name: "hero",
+    export: "Hero",
+    platform: "web",
+    status: "real",
+  },
+  {
     slug: "web/icon-button",
     name: "icon-button",
     export: "IconButton",
@@ -1662,6 +1669,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    slug: "web/site-footer",
+    name: "site-footer",
+    export: "SiteFooter",
+    platform: "web",
+    status: "real",
+  },
+  {
     slug: "web/skeleton",
     name: "skeleton",
     export: "Skeleton",
@@ -2106,6 +2120,13 @@ export const COMPONENTS: ComponentEntry[] = [
     slug: "web/top-app-bar-toggle",
     name: "top-app-bar-toggle",
     export: "TopAppBarToggle",
+    platform: "web",
+    status: "real",
+  },
+  {
+    slug: "web/top-bar",
+    name: "top-bar",
+    export: "TopBar",
     platform: "web",
     status: "real",
   },
@@ -2953,7 +2974,7 @@ export const COMPONENT_COUNT = COMPONENTS.length;
  * different units, do not compare them.
  */
 export const PARITY_COUNTS = {
-  web: 301,
+  web: 304,
   native: 117,
   shared: 92,
 };
