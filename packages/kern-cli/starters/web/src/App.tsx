@@ -1,6 +1,6 @@
 import { applyKernTheme, Button, type Mode, type ThemeId } from "@xoroh/kern";
-import { registerM3 } from "@xoroh/kern-m3";
 import { AppShell } from "@xoroh/kern/start";
+import { registerM3 } from "@xoroh/kern-m3";
 import { useState } from "react";
 
 // The app owns the design-system choice (decision 010): register M3 once at

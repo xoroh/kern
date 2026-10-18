@@ -66,9 +66,7 @@ describe("kern init (Mode 2 scaffold)", () => {
       ).toBe(true);
       // Direct system dependency: the starter imports @xoroh/kern-m3 itself
       // (registerM3 at entry) — honest dependency, not a transitive accident.
-      expect(pkg.dependencies["@xoroh/kern-m3"].startsWith("file:")).toBe(
-        true,
-      );
+      expect(pkg.dependencies["@xoroh/kern-m3"].startsWith("file:")).toBe(true);
       expect(
         existsSync(pkg.dependencies["@xoroh/kern-m3"].slice("file:".length)),
       ).toBe(true);

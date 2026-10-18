@@ -107,7 +107,10 @@ let cachedDefaultScheme: ResolvedTheme | undefined;
  * already run) and is then cached, keeping the old static-value semantics.
  */
 export function defaultScheme(): ResolvedTheme {
-  return (cachedDefaultScheme ??= resolveThemeDetails("light"));
+  if (cachedDefaultScheme === undefined) {
+    cachedDefaultScheme = resolveThemeDetails("light");
+  }
+  return cachedDefaultScheme;
 }
 
 /**

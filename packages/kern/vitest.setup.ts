@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom/vitest";
-import { registerM3 } from "@xoroh/kern-m3";
 import { cleanup } from "@testing-library/react";
+import { registerM3 } from "@xoroh/kern-m3";
 import { afterEach } from "vitest";
 
 // Explicit M3 registration (decision 010), test harness included: this

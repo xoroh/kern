@@ -20,7 +20,7 @@ export const Route = createFileRoute("/docs/getting-started")({
   component: GettingStarted,
 });
 
-const INSTALL = `bun add @xoroh/kern @xoroh/kern-icons @xoroh/kern-m3`;
+const INSTALL = `bun add @xoroh/kern @xoroh/kern-icons @xoroh/kern-m3 @xoroh/kern-tokens`;
 
 const REGISTER = `// main.tsx — one explicit call, before anything resolves a theme.
 // Importing @xoroh/kern registers nothing (decision 010): the app chooses
@@ -82,7 +82,7 @@ export function App() {
   );
 }`;
 
-const MOBILE_INSTALL = `bun add @xoroh/kern-native @xoroh/kern-tokens`;
+const MOBILE_INSTALL = `bun add @xoroh/kern-native @xoroh/kern-m3 @xoroh/kern-tokens`;
 
 const MOBILE_QUICKSTART = `import { registerM3 } from "@xoroh/kern-m3";
 import {
