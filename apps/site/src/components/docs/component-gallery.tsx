@@ -397,23 +397,20 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
 
 /** The lede under the All gallery's H1 — used only by /components. */
 export function GalleryLede() {
-  // The All view merges both platforms, so it states both coverages rather
-  // than one blended number: a blended "X of Y" would double-count families
-  // documented on both platforms. Same R4 rule as the platform views — the
-  // coverage gap is stated before anything implies parity of polish.
+  // The All view merges both platforms, so keep coverage separate rather than
+  // double-counting families documented on both platforms.
   const web = demoCoverage("web");
   const mobile = demoCoverage("mobile");
   return (
     <div className="flex flex-col gap-2">
       <p className={`m-0 max-w-[62ch] ${T_LEAD} ${INK_SOFT}`}>
-        Every component family, grouped by the job it does. Cards show the real
-        component from the package — the same code you install — and name what
-        is missing rather than hiding it.
+        Browse components by the job they do, try a live example, then open a
+        family page for its API, tokens, and install path.
       </p>
       <p className={`m-0 max-w-[62ch] ${T_BODY_SM} ${INK_SOFT}`}>
-        Live demos for {web.withDemo} of {web.total} web families and{" "}
-        {mobile.withDemo} of {mobile.total} native families — the rest say so on
-        their card instead of showing an empty tile.
+        Live examples cover {web.withDemo} of {web.total} web families and{" "}
+        {mobile.withDemo} of {mobile.total} native families; every other family
+        still has a reference page.
       </p>
     </div>
   );

@@ -173,7 +173,8 @@ kern upgrade button --apply      # update, preserving owned edits`}</Code>
               <p className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
                 The manifest row for the requested platform is selected before
                 lookup, so a shared name can never copy web source for a native
-                install. Metro and font setup ride in the printed instructions.
+                install. The CLI prints peer-dependency and Metro notes with the
+                install instructions.
               </p>
               <Code>{`kern add button --platform native`}</Code>
             </li>
@@ -203,7 +204,7 @@ kern upgrade button --apply      # update, preserving owned edits`}</Code>
               {
                 use: "Compare presets",
                 tool: "get_tokens",
-                body: "Base tokens or a full preset (`kern`/`sharp`/`brand`/`compact`/`demo`) to diff two themes.",
+                body: "Base tokens or a full preset (`material-3`/`sharp`/`brand`/`compact`) to diff two themes.",
               },
               {
                 use: "Discover themes",

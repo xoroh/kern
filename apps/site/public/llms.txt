@@ -54,6 +54,8 @@ Prefer these machine surfaces over scraping HTML:
 - [Getting started](/docs/getting-started): From install to a themed component
 - [Guides](/docs/guides): How-to guides for common tasks
 - [Tooling](/docs/use-cases): CLI, MCP and skills — what each surface does
+- [CLI](/docs/cli): kern create / init / add / diff / upgrade / feedback
+- [MCP server](/docs/mcp): Connect any MCP host — Claude Code, Cursor, VS Code, Zed
 - [API utilities](/docs/api): API reference for the public utility surface
 - [Contributing](/docs/contributing): How to contribute to kern
 

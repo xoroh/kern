@@ -1787,14 +1787,9 @@ export function ComponentPage({
           ) : null}
         </div>
         <p className={`m-0 max-w-[62ch] ${LEDE} ${INK_SOFT}`}>{doc.oneLiner}</p>
-        <details className="group">
-          <summary
-            className={`cursor-pointer ${LABEL} text-(--sys-color-on-surface-variant) uppercase`}
-          >
-            About
-          </summary>
-          <p className={`mt-2 ${PROSE}`}>{doc.features}</p>
-        </details>
+        {doc.features ? (
+          <p className={`m-0 max-w-[70ch] ${PROSE}`}>{doc.features}</p>
+        ) : null}
         <HeaderLinks doc={doc} platform={platform} />
       </header>
 
