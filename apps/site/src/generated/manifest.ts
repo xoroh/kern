@@ -2803,6 +2803,20 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    slug: "mobile/snackbar-provider",
+    name: "snackbar-provider",
+    export: "SnackbarProvider",
+    platform: "mobile",
+    status: "real",
+  },
+  {
+    slug: "mobile/snackbar-viewport",
+    name: "snackbar-viewport",
+    export: "SnackbarViewport",
+    platform: "mobile",
+    status: "real",
+  },
+  {
     slug: "mobile/snap-sheet",
     name: "snap-sheet",
     export: "SnapSheet",

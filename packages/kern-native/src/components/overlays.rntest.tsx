@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react-native";
 import { act } from "react";
+import { Pressable } from "react-native";
 import { Accordion } from "./accordion";
 import { AlertDialog } from "./alert-dialog";
 import { Collapsible } from "./collapsible";
@@ -10,7 +11,12 @@ import { Select } from "./select";
 import { Sheet } from "./sheet";
 import { SheetSurface } from "./sheet-surface";
 import { BottomSheet } from "./sheets";
-import { Snackbar } from "./snackbar";
+import {
+  Snackbar,
+  SnackbarProvider,
+  SnackbarViewport,
+  useSnackbar,
+} from "./snackbar";
 import { Text } from "./text";
 
 describe("native Accordion render", () => {
@@ -252,5 +258,37 @@ describe("native Select render", () => {
     });
     expect(chosen).toBe("pro");
     expect(screen.getByLabelText("Plan")).toBeTruthy();
+  });
+});
+
+describe("native Snackbar queue via Axis Toast", () => {
+  it("queues and auto-dismisses toasts", async () => {
+    function Trigger() {
+      const sb = useSnackbar();
+      return (
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Add Toast"
+          onPress={() =>
+            sb.add({ message: "Queued notification", duration: 100 })
+          }
+        >
+          <Text>Add Toast</Text>
+        </Pressable>
+      );
+    }
+
+    await render(
+      <SnackbarProvider>
+        <Trigger />
+        <SnackbarViewport testID="sb-vp" />
+      </SnackbarProvider>,
+    );
+
+    await act(async () => {
+      fireEvent.press(screen.getByLabelText("Add Toast"));
+    });
+
+    expect(screen.getByText("Queued notification")).toBeTruthy();
   });
 });

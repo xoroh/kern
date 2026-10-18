@@ -371,8 +371,19 @@ export type { NativeSkeletonProps } from "./components/skeleton";
 export { Skeleton } from "./components/skeleton";
 export type { NativeSliderProps } from "./components/slider";
 export { Slider, sliderStyles } from "./components/slider";
-export type { NativeSnackbarProps } from "./components/snackbar";
-export { Snackbar, snackbarStyles } from "./components/snackbar";
+export type {
+  NativeSnackbarProps,
+  NativeSnackbarViewportProps,
+  SnackbarManager,
+  SnackbarOptions,
+} from "./components/snackbar";
+export {
+  Snackbar,
+  SnackbarProvider,
+  SnackbarViewport,
+  snackbarStyles,
+  useSnackbar,
+} from "./components/snackbar";
 export type { NativeSplitProps, SPLIT_GAP } from "./components/split";
 export { Split } from "./components/split";
 export type {

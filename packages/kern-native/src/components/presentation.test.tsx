@@ -37,7 +37,7 @@ vi.mock("react-native", async () => {
   };
 });
 
-import { View } from "react-native";
+import { Text, View } from "react-native";
 // react-test-renderer ships without type declarations in this workspace.
 // @ts-expect-error — untyped package.
 import { create as createTree, act as rendererAct } from "react-test-renderer";
@@ -342,5 +342,29 @@ describe("useKernDir (native)", () => {
     expect(probeHook(() => useKernDir({ defaultDir: "rtl" })).current()).toBe(
       "rtl",
     );
+  });
+});
+
+describe("Axis Portal and PortalHost on Native", () => {
+  it("mounts portaled content into PortalHost in order", async () => {
+    const { Portal, PortalHost } = await import("./presentation");
+    let tree!: TestTree;
+    rendererAct(() => {
+      tree = createTree(
+        <PortalHost testID="test-host">
+          <View testID="child-view">
+            <Portal>
+              <Text testID="portaled-text">Hello from Axis Portal</Text>
+            </Portal>
+          </View>
+        </PortalHost>,
+      ) as TestTree;
+    });
+
+    const host = tree.root.findAll((node) => node.props?.testID === "test-host")[0];
+    expect(host).toBeTruthy();
+    const portaled = tree.root.findAll((node) => node.props?.testID === "portaled-text")[0];
+    expect(portaled.props.children).toBe("Hello from Axis Portal");
+    rendererAct(() => tree.unmount());
   });
 });

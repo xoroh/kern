@@ -1,4 +1,12 @@
+import {
+  ToastProvider as AxisToastProvider,
+  ToastViewport as AxisToastViewport,
+  type ToastManager,
+  type ToastOptions,
+  useToast as useAxisToast,
+} from "@xoroh/axis";
 import type { ResolvedTheme } from "@xoroh/kern-tokens";
+import type { ReactNode } from "react";
 import { Pressable, type StyleProp, View, type ViewStyle } from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
 import { Text } from "./text";
@@ -40,6 +48,9 @@ export type NativeSnackbarProps = {
   testID?: string;
 };
 
+/**
+ * Single-shot M3 Snackbar.
+ */
 export function Snackbar({
   visible,
   message,
@@ -78,4 +89,54 @@ export function Snackbar({
       ) : null}
     </View>
   );
+}
+
+/**
+ * Provider owning the Axis Toast / Snackbar queue on Native.
+ */
+export function SnackbarProvider({ children }: { children?: ReactNode }) {
+  return <AxisToastProvider>{children}</AxisToastProvider>;
+}
+
+export type NativeSnackbarViewportProps = {
+  testID?: string;
+  style?: StyleProp<ViewStyle>;
+  limit?: number;
+};
+
+/**
+ * Viewport rendering queued Snackbars using M3 styling.
+ */
+export function SnackbarViewport({
+  testID,
+  style,
+  limit,
+}: NativeSnackbarViewportProps) {
+  return (
+    <AxisToastViewport
+      testID={testID}
+      style={[
+        {
+          position: "absolute",
+          bottom: 16,
+          left: 16,
+          right: 16,
+          gap: 8,
+          zIndex: 9999,
+        },
+        style,
+      ]}
+      limit={limit}
+    />
+  );
+}
+
+export type SnackbarOptions = ToastOptions;
+export type SnackbarManager = ToastManager;
+
+/**
+ * Hook to add, dismiss, or clear queued Snackbars.
+ */
+export function useSnackbar(): SnackbarManager {
+  return useAxisToast();
 }

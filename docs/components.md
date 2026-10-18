@@ -412,6 +412,8 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `skeleton` | `Skeleton` | real |
 | `slider` | `Slider` | real |
 | `snackbar` | `Snackbar` | real |
+| `snackbar-provider` | `SnackbarProvider` | real |
+| `snackbar-viewport` | `SnackbarViewport` | real |
 | `snap-sheet` | `SnapSheet` | real |
 | `split` | `Split` | real |
 | `split-button` | `SplitButton` | real |
