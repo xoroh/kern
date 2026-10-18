@@ -39,7 +39,7 @@ PR B closes review findings #3, #4, #5, #6, and #8 of the site design review:
 
 ## PR link
 
-*(filled when opened)*
+[#70](https://github.com/xoroh/kern/pull/70)
 
 ## Commands run + real output
 
