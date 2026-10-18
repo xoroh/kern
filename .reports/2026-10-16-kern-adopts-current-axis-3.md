@@ -2,7 +2,7 @@
 
 Date: 2026-10-19
 Branch: `feat/m3-adopt-axis-toast-portal`
-PR: https://github.com/xoroh/kern/pull/70
+PR: https://github.com/xoroh/kern/pull/71
 Related: Part 3 of 3 for Kern adopting current Axis
 
 ## Overview
