@@ -1,3 +1,4 @@
+import { Progress as AxisProgress } from "@xoroh/axis";
 import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import {
   ActivityIndicator,
@@ -20,6 +21,14 @@ export type NativeLoaderProps = {
   testID?: string;
 };
 
+/**
+ * M3 loader — the spinner for an unmeasured wait, on Axis `Progress`.
+ *
+ * The open state is `value={null}` (Axis indeterminate): the part owns the
+ * progressbar role and the busy state, while the spinner itself stays
+ * Kern-styled (primary, two sizes) via `render`. A measurable amount is
+ * `Progress`; this is the unmeasured wait.
+ */
 export function Loader({
   size = "large",
   label = "Loading",
@@ -28,12 +37,35 @@ export function Loader({
 }: NativeLoaderProps) {
   const scheme = useKernScheme();
   return (
-    <View testID={testID ?? "kern-loader"} style={style}>
-      <ActivityIndicator
-        size={size}
-        color={loaderColor(scheme)}
-        accessibilityLabel={label}
-      />
-    </View>
+    <AxisProgress
+      value={null}
+      accessibilityLabel={label}
+      testID={testID ?? "kern-loader"}
+      style={style}
+      render={(slotProps) => (
+        <View
+          accessible={slotProps.accessible as boolean | undefined}
+          accessibilityRole={
+            slotProps.accessibilityRole as
+              | React.ComponentProps<typeof View>["accessibilityRole"]
+              | undefined
+          }
+          accessibilityState={
+            slotProps.accessibilityState as
+              | React.ComponentProps<typeof View>["accessibilityState"]
+              | undefined
+          }
+          accessibilityLabel={
+            slotProps.accessibilityLabel as string | undefined
+          }
+          testID={slotProps.testID as string | undefined}
+          style={slotProps.style as React.ComponentProps<typeof View>["style"]}
+        >
+          {/* Unlabeled: the host above carries the accessible name; naming
+              the spinner too would announce the wait twice. */}
+          <ActivityIndicator size={size} color={loaderColor(scheme)} />
+        </View>
+      )}
+    />
   );
 }

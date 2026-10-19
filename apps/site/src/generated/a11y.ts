@@ -7079,7 +7079,7 @@ export const A11Y: Record<string, A11yPage> = {
             expect: "pass",
             provenance: "derived",
             basis:
-              "aria contract carries 3 line(s) in linear-progress.ts — roles, names and states are stated, not assumed",
+              "aria contract carries 2 line(s) in linear-progress.ts — roles, names and states are stated, not assumed",
           },
         ],
       },

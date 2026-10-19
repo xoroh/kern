@@ -54,11 +54,11 @@ export const linearProgress: ComponentDoc = {
   customization: {
     supported: [
       "`className` is passed through and merged after the bar's own classes, which is how its height and colour are set.",
-      "Determinate and indeterminate are both supported — a value fills the bar, no value gives the travelling loop.",
+      "Determinate and indeterminate are both supported — a value fills the bar, `null` gives the travelling loop.",
     ],
     notSupported: [
       "There is no `size` or `thickness` prop. The height is `className`.",
-      "There is no `indeterminate` boolean. Leaving `value` unset is that state, matching `Progress` and `CircularProgress` — one convention across all three.",
+      "There is no `indeterminate` boolean. Passing `value={null}` is that state, matching `Progress` and `CircularProgress` — one convention across all three.",
       "There is no `label` prop. What is running is the surrounding content's to say.",
     ],
   },
@@ -66,7 +66,7 @@ export const linearProgress: ComponentDoc = {
     {
       name: "value",
       type: "number | null",
-      note: "How much is done. A number fills the bar; leaving it unset gives the indeterminate loop. There is no separate `indeterminate` prop — the three progress components share one convention.",
+      note: "How much is done. A number fills the bar; `null` gives the indeterminate loop. There is no separate `indeterminate` prop — the three progress components share one convention.",
     },
     {
       name: "max",

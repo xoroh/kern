@@ -16,7 +16,7 @@
           "rule": "aria-contract",
           "expect": "pass",
           "provenance": "derived",
-          "basis": "aria contract carries 3 line(s) in linear-progress.ts — roles, names and states are stated, not assumed"
+          "basis": "aria contract carries 2 line(s) in linear-progress.ts — roles, names and states are stated, not assumed"
         }
       ]
     }
