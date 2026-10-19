@@ -47,7 +47,7 @@ function SearchPaletteMount() {
     window.addEventListener("keydown", onKey);
     // Idle preload: the entry stays lean for LCP, and the chunk usually
     // arrives before anyone presses ⌘K. Intent (above) always wins.
-    let timer: number | undefined;
+    let timer: ReturnType<typeof setTimeout> | undefined;
     let idleId: number | undefined;
     if ("requestIdleCallback" in window) {
       idleId = (
@@ -56,7 +56,7 @@ function SearchPaletteMount() {
         }
       ).requestIdleCallback(() => arm("ready"));
     } else {
-      timer = window.setTimeout(() => arm("ready"), 3000);
+      timer = globalThis.setTimeout(() => arm("ready"), 3000);
     }
     return () => {
       window.removeEventListener(OPEN_SEARCH_EVENT, onEvent);
@@ -66,7 +66,7 @@ function SearchPaletteMount() {
           window as unknown as { cancelIdleCallback: (id: number) => void }
         ).cancelIdleCallback?.(idleId);
       }
-      if (timer !== undefined) window.clearTimeout(timer);
+      if (timer !== undefined) globalThis.clearTimeout(timer);
     };
   }, []);
   if (mode === null) return null;
