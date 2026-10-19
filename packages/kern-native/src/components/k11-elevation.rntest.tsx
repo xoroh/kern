@@ -1,7 +1,6 @@
 import { render, screen } from "@testing-library/react-native";
 import { Text as RNText } from "react-native";
 import { snackbarStyles } from "./snackbar";
-import { defaultScheme } from "../theme";
 import { Tooltip } from "./tooltip";
 import { Command } from "./web-parity";
 
@@ -29,7 +28,7 @@ describe("K11 native resting levels", () => {
     // The single-shot `visible`/`message` Snackbar was removed per ADR-020
     // (one current API: the Axis-backed queue). The resting level now pins
     // the style function the viewport clones onto every queued toast.
-    const style = snackbarStyles(defaultScheme);
+    const style = snackbarStyles();
     // 6dp, NOT 3dp. M3's scale is unevenly spaced (0/1/3/6/8/12), so
     // `elevation: 3` is 3dp = LEVEL 2 — which is what this pinned until
     // `check:elevation-parity` mapped dp into level space and found native one
