@@ -251,7 +251,7 @@ describe("tooltip trigger (native)", () => {
         <Text>Save</Text>
       </Tooltip>,
     );
-    const scheme = defaultScheme;
+    const scheme = defaultScheme();
     const surfaceStyle = flatten(
       screen.getByTestId("kern-tooltip-content").props.style,
     );

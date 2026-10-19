@@ -1,7 +1,4 @@
-import {
-  FEEDBACK_SIZE_DP,
-  type FeedbackShapeKind,
-} from "@xoroh/kern-material-3";
+import { FEEDBACK_SIZE_DP, type FeedbackShapeKind } from "@xoroh/kern-m3";
 import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import {
   type StyleProp,
@@ -29,7 +26,7 @@ export function shapeStyles(
   kind: FeedbackShapeKind,
   size: number,
   fill: string,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
   rotationDeg = 0,
 ): ViewStyle {
   const rotate = `${(kind === "diamond" ? 45 : 0) + rotationDeg}deg`;

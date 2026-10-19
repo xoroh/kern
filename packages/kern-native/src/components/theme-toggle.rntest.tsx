@@ -42,3 +42,35 @@ describe("ThemeToggle", () => {
     expect(calls).toBe(0);
   });
 });
+
+import { KernThemeProvider, useColorScheme } from "../theme";
+import { Text } from "./text";
+
+function SchemeConsumer() {
+  const { mode, resolved } = useColorScheme();
+  return (
+    <>
+      <Text testID="mode-val">{mode}</Text>
+      <Text testID="resolved-val">{resolved}</Text>
+      <ThemeToggle testID="scheme-toggle" />
+    </>
+  );
+}
+
+describe("ThemeToggle + useColorScheme native provider integration", () => {
+  it("renders uncontrolled inside KernThemeProvider and toggles theme", async () => {
+    await render(
+      <KernThemeProvider defaultMode="light">
+        <SchemeConsumer />
+      </KernThemeProvider>,
+    );
+    expect(screen.getByTestId("mode-val").props.children).toBe("light");
+    expect(screen.getByTestId("resolved-val").props.children).toBe("light");
+    expect(screen.getByLabelText("Switch to dark")).toBeTruthy();
+
+    await fireEvent.press(screen.getByTestId("scheme-toggle"));
+    expect(screen.getByTestId("mode-val").props.children).toBe("dark");
+    expect(screen.getByTestId("resolved-val").props.children).toBe("dark");
+    expect(screen.getByLabelText("Switch to light")).toBeTruthy();
+  });
+});

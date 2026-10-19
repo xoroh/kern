@@ -1,4 +1,4 @@
-import type { LoadingIndicatorStyle } from "@xoroh/kern-material-3";
+import type { LoadingIndicatorStyle } from "@xoroh/kern-m3";
 import { cva } from "class-variance-authority";
 import type { ComponentPropsWithRef, ReactNode, Ref } from "react";
 import { useState } from "react";
@@ -326,10 +326,7 @@ export const BUTTON_SIZE_TO_KERN_SIZE = {
   lg: "lg",
 } as const;
 
-type ButtonSharedProps = Omit<
-  ComponentPropsWithRef<"button">,
-  "size" | "ref"
-> & {
+type ButtonDesignProps = {
   variant?: ButtonVariantInput;
   size?: ButtonSize;
   color?: ButtonColor;
@@ -371,6 +368,8 @@ type ButtonSharedProps = Omit<
   /** Initial selected state for the uncontrolled toggle case. */
   defaultPressed?: boolean;
   onPressedChange?: (pressed: boolean) => void;
+  /** Disabled treatment for either the button or anchor branch. */
+  disabled?: boolean;
   /**
    * Test selector. Rendered as `data-testid` on the root node (both
    * branches); see `parity/testid-contract.md`. Opt-in only — no default.
@@ -382,72 +381,204 @@ type ButtonSharedProps = Omit<
  * Anchor branch — `href` set, `<a>` rendered. The ref accepts only anchors:
  * a button ref here was the lie the union exists to prevent.
  */
-export type ButtonAnchorProps = ButtonSharedProps & {
-  /**
-   * Navigation variant. Renders `<a href>` wearing the button treatment,
-   * i.e. `role="link"` — for a dedicated link component see `LinkButton`.
-   * A disabled link drops `href`, leaves the tab order and reports
-   * `aria-disabled` (the ListItem convention) — links have no `disabled`
-   * attribute, so there is nothing native to lean on.
-   */
-  href: string;
-  /** Anchor target. A button has no browsing context to open. */
-  target?: ComponentPropsWithRef<"a">["target"];
-  /** Anchor relationship list. */
-  rel?: string;
-  /** Download hint. */
-  download?: ComponentPropsWithRef<"a">["download"];
-  /** Ref to the rendered anchor. */
-  ref?: Ref<HTMLAnchorElement>;
-};
+export type ButtonAnchorProps = Omit<
+  ComponentPropsWithRef<"a">,
+  "ref" | "size" | "color"
+> &
+  ButtonDesignProps & {
+    /**
+     * Navigation variant. Renders `<a href>` wearing the button treatment,
+     * i.e. `role="link"` — for a dedicated link component see `LinkButton`.
+     * A disabled link drops `href`, leaves the tab order and reports
+     * `aria-disabled` (the ListItem convention) — links have no `disabled`
+     * attribute, so there is nothing native to lean on.
+     */
+    href: string;
+    /** Button submission attributes have no meaning on a link. */
+    type?: undefined;
+    value?: undefined;
+    /** Anchor target. A button has no browsing context to open. */
+    target?: ComponentPropsWithRef<"a">["target"];
+    /** Anchor relationship list. */
+    rel?: string;
+    /** Download hint. */
+    download?: ComponentPropsWithRef<"a">["download"];
+    /** Ref to the rendered anchor. */
+    ref?: Ref<HTMLAnchorElement>;
+  };
 
 /**
  * Button branch — no `href`, `<button>` rendered. Anchor-only attributes
  * are absent by type, not just ignored at render.
  */
-export type ButtonButtonProps = ButtonSharedProps & {
-  /** No `href` renders the `<button>`. */
-  href?: undefined;
-  /** Ref to the rendered button. */
-  ref?: Ref<HTMLButtonElement>;
-  target?: undefined;
-  rel?: undefined;
-  download?: undefined;
-};
+export type ButtonButtonProps = Omit<
+  ComponentPropsWithRef<"button">,
+  "size" | "ref" | "color" | "disabled"
+> &
+  ButtonDesignProps & {
+    /** No `href` renders the `<button>`. */
+    href?: undefined;
+    /** Ref to the rendered button. */
+    ref?: Ref<HTMLButtonElement>;
+    target?: undefined;
+    rel?: undefined;
+    download?: undefined;
+  };
 
 /** Discriminated on `href`: the rendered element owns the ref type. */
 export type ButtonProps = ButtonAnchorProps | ButtonButtonProps;
 
-export function Button({
-  variant: variantInput = "primary",
-  size,
-  color = "primary",
-  shape,
-  block,
-  loading = false,
-  loadingValue,
-  loaderStyle,
-  href,
-  target,
-  rel,
-  download,
-  icon,
-  iconPosition = "start",
-  flipIcon = false,
-  toggle = false,
-  pressed,
-  defaultPressed = false,
-  onPressedChange,
-  type = "button",
-  value,
-  className,
-  disabled,
-  softDisabled = false,
-  children,
-  ref,
-  testID,
-  ...props
-}: ButtonProps) {
+function anchorDOMProps({
+  variant: _variant,
+  size: _size,
+  color: _color,
+  shape: _shape,
+  block: _block,
+  loading: _loading,
+  loadingValue: _loadingValue,
+  loaderStyle: _loaderStyle,
+  icon: _icon,
+  iconPosition: _iconPosition,
+  flipIcon: _flipIcon,
+  softDisabled: _softDisabled,
+  toggle: _toggle,
+  pressed: _pressed,
+  defaultPressed: _defaultPressed,
+  onPressedChange: _onPressedChange,
+  disabled: _disabled,
+  testID: _testID,
+  href: _href,
+  type: _type,
+  value: _value,
+  target: _target,
+  rel: _rel,
+  download: _download,
+  ref: _ref,
+  onClick: _onClick,
+  className: _className,
+  children: _children,
+  ...domProps
+}: ButtonAnchorProps) {
+  void [
+    _variant,
+    _size,
+    _color,
+    _shape,
+    _block,
+    _loading,
+    _loadingValue,
+    _loaderStyle,
+    _icon,
+    _iconPosition,
+    _flipIcon,
+    _softDisabled,
+    _toggle,
+    _pressed,
+    _defaultPressed,
+    _onPressedChange,
+    _disabled,
+    _testID,
+    _href,
+    _type,
+    _value,
+    _target,
+    _rel,
+    _download,
+    _ref,
+    _onClick,
+    _className,
+    _children,
+  ];
+  return domProps;
+}
+
+function buttonDOMProps({
+  variant: _variant,
+  size: _size,
+  color: _color,
+  shape: _shape,
+  block: _block,
+  loading: _loading,
+  loadingValue: _loadingValue,
+  loaderStyle: _loaderStyle,
+  icon: _icon,
+  iconPosition: _iconPosition,
+  flipIcon: _flipIcon,
+  softDisabled: _softDisabled,
+  toggle: _toggle,
+  pressed: _pressed,
+  defaultPressed: _defaultPressed,
+  onPressedChange: _onPressedChange,
+  disabled: _disabled,
+  testID: _testID,
+  href: _href,
+  target: _target,
+  rel: _rel,
+  download: _download,
+  type: _type,
+  value: _value,
+  ref: _ref,
+  onClick: _onClick,
+  className: _className,
+  children: _children,
+  ...domProps
+}: ButtonButtonProps) {
+  void [
+    _variant,
+    _size,
+    _color,
+    _shape,
+    _block,
+    _loading,
+    _loadingValue,
+    _loaderStyle,
+    _icon,
+    _iconPosition,
+    _flipIcon,
+    _softDisabled,
+    _toggle,
+    _pressed,
+    _defaultPressed,
+    _onPressedChange,
+    _disabled,
+    _testID,
+    _href,
+    _target,
+    _rel,
+    _download,
+    _type,
+    _value,
+    _ref,
+    _onClick,
+    _className,
+    _children,
+  ];
+  return domProps;
+}
+
+export function Button(rawProps: ButtonProps) {
+  const {
+    variant: variantInput = "primary",
+    size,
+    color = "primary",
+    shape,
+    block,
+    loading = false,
+    loadingValue,
+    loaderStyle,
+    icon,
+    iconPosition = "start",
+    flipIcon = false,
+    toggle = false,
+    pressed,
+    defaultPressed = false,
+    onPressedChange,
+    className,
+    disabled,
+    softDisabled = false,
+    children,
+    testID,
+  } = rawProps;
   // M3 aliases normalize to Kern names once, here — the cva call below only
   // ever sees Kern names, so existing rendering cannot change.
   const variant: ButtonVariant =
@@ -517,30 +648,8 @@ export function Button({
     </>
   );
 
-  if (href !== undefined) {
-    const anchorClick = props.onClick as unknown as
-      | ComponentPropsWithRef<"a">["onClick"]
-      | undefined;
-    // Button-only attributes never reach the link: `type` and `value` are
-    // destructured above; the `form*` submission attributes live in `props`
-    // and are stripped here (an anchor submits nothing).
-    const {
-      form,
-      formAction,
-      formEncType,
-      formMethod,
-      formNoValidate,
-      formTarget,
-      name,
-      ...anchorProps
-    } = props;
-    void form;
-    void formAction;
-    void formEncType;
-    void formMethod;
-    void formNoValidate;
-    void formTarget;
-    void name;
+  if (rawProps.href !== undefined) {
+    const anchorProps = anchorDOMProps(rawProps);
     // Toggle anchors keep aria-pressed so assistive tech announces selection
     // state identically to the button variant. `data-selected` mirrors it for
     // styling; the pressed state is never conveyed by visuals alone.
@@ -555,24 +664,22 @@ export function Button({
         aria-disabled={blocked || undefined}
         aria-pressed={toggle ? isPressed : undefined}
         tabIndex={blocked ? -1 : undefined}
-        href={blocked ? undefined : href}
-        target={target}
-        rel={rel}
-        download={download}
+        href={blocked ? undefined : rawProps.href}
+        target={rawProps.target}
+        rel={rawProps.rel}
+        download={rawProps.download}
         ref={(node) => {
-          assignRef(ref, node);
+          assignRef(rawProps.ref, node);
         }}
         className={classes}
-        // The cast only re-types the shared remainder (`aria-*`, `autoFocus`,
-        // `onFocus`, …) — button-only keys were stripped above.
-        {...(anchorProps as unknown as ComponentPropsWithRef<"a">)}
+        {...anchorProps}
         onClick={(event) => {
           if (blocked) {
             event.preventDefault();
             return;
           }
           if (toggle) toggleState();
-          anchorClick?.(event);
+          rawProps.onClick?.(event);
         }}
       >
         {content}
@@ -580,7 +687,7 @@ export function Button({
     );
   }
 
-  const { onClick: rawOnClick, ...restProps } = props;
+  const buttonProps = buttonDOMProps(rawProps);
   return (
     <button
       data-slot="button"
@@ -591,13 +698,13 @@ export function Button({
       aria-disabled={blocked || undefined}
       aria-pressed={toggle ? isPressed : undefined}
       className={classes}
-      type={type}
-      value={value}
+      type={rawProps.type ?? "button"}
+      value={rawProps.value}
       disabled={disabled || loading || undefined}
       ref={(node) => {
-        assignRef(ref, node);
+        assignRef(rawProps.ref, node);
       }}
-      {...restProps}
+      {...buttonProps}
       onClick={(event) => {
         // Soft-disabled keeps its tab stop but must not activate — the
         // native `disabled` attribute is deliberately absent, so guard here.
@@ -606,7 +713,7 @@ export function Button({
           return;
         }
         if (toggle) toggleState();
-        (rawOnClick as React.MouseEventHandler<HTMLButtonElement>)?.(event);
+        rawProps.onClick?.(event);
       }}
     >
       {content}

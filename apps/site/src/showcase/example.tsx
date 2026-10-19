@@ -192,7 +192,7 @@ export function Example({ spec }: { spec: ExampleSpec }) {
               <CopyButton text={spec.code} />
             </div>
             <pre
-              className={`codeblock m-0 overflow-x-auto bg-(--sys-color-surface-container-high) p-6 ${T_CODE} text-(--sys-color-on-surface)`}
+              className={`codeblock m-0 overflow-x-auto rounded-b-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-high) p-6 ${T_CODE} text-(--sys-color-on-surface)`}
             >
               <HighlightedCode code={spec.code} language="tsx" />
             </pre>

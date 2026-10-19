@@ -91,11 +91,11 @@ async function readTokenFile(rel: string): Promise<string | null> {
   ]);
 }
 
-/** M3 preset data: `@xoroh/kern-material-3` (`packages/kern-material-3/...`). */
+/** M3 preset data: `@xoroh/kern-m3` (`packages/kern-m3/...`). */
 async function readThemeFile(rel: string): Promise<string | null> {
   return readFirst([
-    ...repoPaths("packages/kern-material-3", rel),
-    ...repoPaths("kern-material-3", rel),
+    ...repoPaths("packages/kern-m3", rel),
+    ...repoPaths("kern-m3", rel),
   ]);
 }
 
@@ -443,9 +443,15 @@ export async function validateInstall(dest: string): Promise<
  * Kern compliance checklist for auditing a screen. The twelve categories
  * mirror the `kern` skill's audit table one-for-one — a checklist that names
  * ten of twelve is the omission class the skill exists to prevent.
+ *
+ * Advisory-only: the categories name what to check, but nothing here
+ * measures the screen — there is no runner behind the checklist, so no
+ * score, pass/fail, or coverage claim is asserted. Agents must treat the
+ * output as headings for their own inspection, not as an audit result.
  */
 export function designAudit() {
   return {
+    advisoryOnly: true,
     categories: [
       "Color roles (no hardcoded hex; correct on-* pairing)",
       "Typography (Inter, correct MD3 scale role)",

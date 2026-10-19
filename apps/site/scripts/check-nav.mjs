@@ -19,7 +19,7 @@
  *
  * 1. Every NAV_LEAVES href resolves to a route file under src/routes
  *    (TanStack file-based routing: /docs/guides -> docs/guides.tsx, with
- *    /x -> x.tsx or x/index.tsx, and /components/web -> the $platform route).
+ *    /x -> x.tsx or x/index.tsx, and /components/web -> the web/index.tsx gallery route).
  * 2. No duplicate hrefs in the nav (two leaves, one destination — the map
  *    lying about the territory).
  * 3. Zero orphans: every top-level route must be reachable from at least one
@@ -49,8 +49,9 @@ function candidates(href) {
   return [
     join(SITE, "src", "routes", `${rel}.tsx`),
     join(SITE, "src", "routes", rel, "index.tsx"),
-    // Dynamic segments: /components/web/* is served by $platform.tsx.
-    join(SITE, "src", "routes", rel, "$platform.tsx"),
+    // Dynamic segments: family pages (/components/m3/*) are served by the
+    // $system route — a `$`-prefixed directory, skipped by the orphan walk.
+    join(SITE, "src", "routes", rel, "$system.tsx"),
     join(SITE, "src", "routes", rel, "$slug.tsx"),
   ];
 }
@@ -99,7 +100,7 @@ for (const leaf of leaves) {
 // keyboard). Anything left over is an orphan and fails. The walk used to
 // stop one level deep, so nested hubs (foundations/theme, components/web,
 // components/mobile, legal/*) were never scanned — a hub added without a
-// nav entry passed silently. Dynamic segments ($page, $platform, $component)
+// nav entry passed silently. Dynamic segments ($page, $system, $component)
 // are skipped: they are instances of their hub, reached through it.
 const covered = new Set([...seen.keys()]);
 for (const file of [

@@ -15,7 +15,7 @@ const read = (p) =>
   JSON.parse(readFileSync(join(ROOT, "packages/kern-tokens/src", p), "utf8"));
 const readTheme = (p) =>
   JSON.parse(
-    readFileSync(join(ROOT, "packages/kern-material-3/src/themes", p), "utf8"),
+    readFileSync(join(ROOT, "packages/kern-m3/src/themes", p), "utf8"),
   );
 
 const T = read("tokens.json");

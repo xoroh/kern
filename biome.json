@@ -54,7 +54,7 @@
       "includes": [
         "docs/archive/**",
         "packages/kern-tokens/src/dtcg.json",
-        "packages/kern-material-3/src/themes/matrix.json",
+        "packages/kern-m3/src/themes/matrix.json",
         "packages/kern-cli/src/blocks.json",
         "apps/site/src/generated/a11y.ts"
       ],

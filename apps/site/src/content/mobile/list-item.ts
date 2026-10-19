@@ -18,6 +18,65 @@ export const listItem: ComponentDoc = {
     elevation: 0,
   },
   parts: ["ListItem"],
+  keyboard: [
+    {
+      key: "Enter / Space via external keyboard",
+      action:
+        "Activates the focused actionable row. Static rows (no `onPress`) are not stops.",
+    },
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "Rows announce title plus supporting as one label; actionable rows read as buttons and double-tap activates.",
+    },
+  ],
+  usage: {
+    do: [
+      "`title` is required and `supporting` is the second line — one subject per row.",
+      "Mark the current row with `selected`: the secondary-container fill with `16dp` corners is the whole signal.",
+      "Rows without `onPress` are static text — no role, no stop.",
+    ],
+    dont: [
+      "Don't put two actions in one row — split the rows instead.",
+      "Don't restyle `contentStyle` past spacing — the row's `56dp` rhythm is what scans.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Row",
+      state: "resting",
+      token: "transparent",
+      value: "no fill — rows separate by rhythm, not paint, minHeight 56",
+    },
+    {
+      element: "Selected row",
+      state: "selected",
+      token: "theme.color.secondaryContainer",
+      value: "secondaryContainer fill, 16px corners",
+    },
+    {
+      element: "Title",
+      state: "resting",
+      token: "theme.color.onSurface",
+      value: "onSurface 14px (onSecondaryContainer when selected)",
+    },
+    {
+      element: "Supporting",
+      state: "resting",
+      token: "theme.color.onSurfaceVariant",
+      value: "onSurfaceVariant 12px second line",
+    },
+  ],
+  faq: [
+    {
+      q: "List item or card?",
+      a: "Rows in a scrolling set mean list items; one subject with its own actions means a card. A pressable card is a list item, per the card page.",
+    },
+    {
+      q: "How does this differ from the web list item?",
+      a: "Same contract (`title`/`supporting`, `selected` fill, static-vs-actionable rows). The accessible label joins title and supporting with a comma, and the role defaults to button only when `onPress` is set.",
+    },
+  ],
   customization: {
     supported: [
       "`title` is required and `supporting` is the second line.",

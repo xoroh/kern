@@ -10,10 +10,9 @@ export const combobox: ComponentDoc = {
   meta: {
     status: "real",
     package: "@xoroh/kern",
-    // Native has no `Combobox`. Its typeahead selection surface is
-    // `Autocomplete`, which is not the same component. Recorded in
-    // docs/parity-contract.md as a real coverage asymmetry.
-    nativePeer: "none",
+    // Native `Combobox` is the same component on the other renderer —
+    // type-to-filter single choice with the popup list. Documented there.
+    nativePeer: "Combobox",
     // No variant axis. One treatment; the state is open, closed or cleared.
     variants: [],
     // kern's own decision. M3's component elevation table names no combobox.

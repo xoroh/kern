@@ -23,13 +23,13 @@ No React, no DOM, no peer dependencies. This is the bottom of the package graph.
 | `functional` · `tones` · `variants` | The role bindings each renderer resolves per theme |
 
 Design-system presets (role tables, contrast policies, seed themes) live in
-`@xoroh/kern-material-3`, whose `src/themes/` ships the JSON so a consumer
+`@xoroh/kern-m3`, whose `src/themes/` ships the JSON so a consumer
 can read or generate from it without evaluating any code.
 
 ## Why the roles are structured
 
 The Material 3 role structure — `primary` / `onPrimary` / `primaryContainer` /
-`onPrimaryContainer` per family — is defined by `@xoroh/kern-material-3`,
+`onPrimaryContainer` per family — is defined by `@xoroh/kern-m3`,
 which declares **58 colour roles per scheme**, identical in light and dark.
 
 `surfaceTonal` is a Kern addition (tonal emphasis fills, pairing with
@@ -54,7 +54,7 @@ declared dependency graph, so the ordering cannot rot silently.
 Read the raw tokens, or resolve a theme per platform:
 
 ```ts
-import theme from "@xoroh/kern-material-3/themes/material-3.json";
+import theme from "@xoroh/kern-m3/themes/material-3.json";
 
 const surface = theme.color.light.surface;
 ```

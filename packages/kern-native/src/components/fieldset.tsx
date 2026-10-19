@@ -80,7 +80,7 @@ export function useFieldset(): FieldsetContextValue | null {
 
 export function fieldsetStyles(
   disabled: boolean,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
 ): { root: ViewStyle; legend: TextStyle } {
   return {
     root: {

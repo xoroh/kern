@@ -1,4 +1,4 @@
-import type { LoadingIndicatorStyle } from "@xoroh/kern-material-3";
+import type { LoadingIndicatorStyle } from "@xoroh/kern-m3";
 import { assignRef } from "../utils/assignRef";
 import { cn } from "../utils/cn";
 import {

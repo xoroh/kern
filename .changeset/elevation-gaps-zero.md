@@ -1,5 +1,5 @@
 ---
-"@xoroh/kern-material-3": patch
+"@xoroh/kern-m3": patch
 ---
 
 Register the sheet-family members, rich-tooltip, and level-0 native

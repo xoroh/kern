@@ -93,205 +93,126 @@ Prefer these machine surfaces over scraping HTML:
 - [Motion](/foundations/m3/motion): Spring first, easing as the fallback.
 - [States](/foundations/m3/states): What happens to a surface when it is hovered, pressed, dragged or disabled.
 
-## Component families — web
+## Component families (M3)
 
-- [Accordion](/components/web/accordion): Accordions stack collapsible sections, so a long page can be scanned as headings first.
-- [Action sheet](/components/web/action-sheet): The action sheet is a titled list of actions in a bottom sheet — the one surface for "what do you want to do with this?"
-- [Alert dialog](/components/web/alert-dialog): Alert dialogs interrupt for a decision that must be made before anything else continues.
-- [App shell](/components/web/app-shell): The app shell is the frame around everything else — top bar, rail, drawer, status bar — with every region optional.
-- [Autocomplete](/components/web/autocomplete): Autocompletes suggest values as someone types, and fill in the one they mean.
-- [Avatar](/components/web/avatar): Avatars show who something belongs to, as an image or as initials.
-- [Badge](/components/web/badge): Badges flag a small, countable change on something that already has a label.
-- [Banner](/components/web/banner): Banners report something the whole screen needs to know, without blocking what people are doing.
-- [Blocks](/components/web/search-bar): Blocks are the small shell pieces — a search bar, a settings row, a status bar, and the theme and contrast toggles.
-- [Boot indicator](/components/web/boot-indicator): Boot indicators are the branded loading surface shown while the app itself starts.
-- [Bottom sheet picker](/components/web/bottom-sheet-picker): The bottom sheet picker is a selector in a sheet — a titled list of options where the selection is announced, not just tinted.
-- [Bottom sheet](/components/web/bottom-sheet): The bottom sheet is a modal surface anchored to the bottom edge: content, an optional heading and a visible way out.
-- [Button group](/components/web/button-group): Button groups join buttons into one segmented control.
-- [Button](/components/web/button): Buttons let people carry out an action with a single tap, click or key press.
-- [Calendar](/components/web/calendar): Calendars pick a single date from a month grid.
-- [Card](/components/web/card): Cards group related content and actions into a single surface.
-- [Carousel](/components/web/carousel): Carousels show one slide at a time from a set, moved through with controls or by gesture.
-- [Checkbox group](/components/web/checkbox-group): A checkbox group collects several independent choices into one value you can read at once.
-- [Checkbox](/components/web/checkbox): Checkboxes let people pick several things from a set, or agree to something one at a time.
-- [Chip](/components/web/chip): Chips are compact elements that represent an attribute, an action, or a filter.
-- [Circular progress](/components/web/circular-progress): Circular progress shows how much of a task is done, as a ring.
-- [Collapsible](/components/web/collapsible): Collapsibles hide a section of content behind a trigger and show it on demand.
-- [Combobox](/components/web/combobox): Comboboxes pick one value from a set, either from the list or by typing to narrow it.
-- [Command](/components/web/command): Commands are searchable lists of actions and destinations, filtered as you type.
-- [Context menu](/components/web/context-menu): Context menus offer the actions for a thing where the thing is, opened by right-clicking it.
-- [Country select](/components/web/country-select): Country selects pick a country from a list, showing its flag and dial code alongside its name.
-- [Dialog](/components/web/dialog): A dialog asks people to complete a focused task before they carry on with the rest of the app.
-- [Dock sheet](/components/web/dock-sheet): The dock sheet is a persistent quick-action bar peeking from the bottom edge — a region, not a dialog.
-- [Drawer](/components/web/drawer): A drawer is a panel that slides up from the bottom edge for a short, self-contained step.
-- [Empty state](/components/web/empty-state): Empty states say what is missing, and offer the one thing that would fix it.
-- [Entity sheet](/components/web/entity-sheet): The entity sheet is the read-mostly detail surface for one record — a title, its fields, and at most one action.
-- [Extended FAB](/components/web/extended-fab): Extended FABs are the labelled floating action button — the one primary action, with its name beside its icon.
-- [FAB menu](/components/web/fab-menu): FAB menus hold several related actions behind one floating button, opened on tap.
-- [Floating action button](/components/web/fab): The floating action button is the single most important action on a screen.
-- [Field](/components/web/field): A field pairs a control with its label, its help text and its error, and wires them together.
-- [Fieldset](/components/web/fieldset): Fieldsets group related controls under one legend and give them a shared disabled state.
-- [Filter chip row](/components/web/filter-chip-row): The filter chip row is a horizontal row of multi-select toggles — press once to apply a filter, press again to remove it.
-- [Form](/components/web/form): Forms collect several values and hand them over together.
-- [Icon button](/components/web/icon-button): Icon buttons are buttons whose content is a single glyph.
-- [Input OTP](/components/web/input-otp): OTP inputs take a short numeric code one character at a time, as it is typed.
-- [Input](/components/web/input): Inputs take a single line of text from someone and hand it to you.
-- [Kbd](/components/web/kbd): Kbds show a keyboard key or shortcut as text, in the shape of a key.
-- [Kern error boundary](/components/web/kern-error-boundary): The kern error boundary catches a thrown render, shows your fallback with a working reset, and never reloads the page to recover.
-- [Label](/components/web/label): Labels name the control they sit beside.
-- [Linear progress](/components/web/linear-progress): Linear progress shows how much of a task is done, as a bar across a width.
-- [Link](/components/web/link): Links are anchors that can be pointed at your host router, so kern never hardcodes one.
-- [List item](/components/web/list-item): List items are rows in a list — a headline, optional supporting text, and optional leading and trailing slots.
-- [Loader](/components/web/loader): Loaders say something is happening, in the space where it is happening.
-- [Loading button](/components/web/loading-button): Loading buttons show that the action they trigger is still running, without changing size.
-- [Loading indicator](/components/web/loading-indicator): Loading indicators are the labelled spinner — a wait with its name attached.
-- [Loading region](/components/web/loading-region): Loading regions swap between content and a loading state as work starts and finishes.
-- [Menu screen](/components/web/menu-screen): The menu screen is a full-height list of grouped destinations and actions — a settings-style page, not a menu.
-- [Menu sheet](/components/web/menu-sheet): The menu sheet hosts a grouped action menu in a bottom sheet — the same menu data as the menu screen, with a dismissal path around it.
-- [Menu](/components/web/menu): Menus list the actions available on something, opened from the control that owns them.
-- [Menubar](/components/web/menubar): A menubar is a horizontal row of menus, the way an application exposes its commands.
-- [Meter](/components/web/meter): Meters show a value against a range, so a quantity can be read at a glance.
-- [Native select](/components/web/native-select): Native selects are the browser's own dropdown, styled to sit with the rest of a form.
-- [Navigation bar](/components/web/navigation-bar): The navigation bar is the compact-screen destination switcher that sits along the bottom edge.
-- [Navigation drawer](/components/web/navigation-drawer): The navigation drawer is the modal panel that lists an app's top-level destinations on larger screens.
-- [Navigation menu](/components/web/navigation-menu): Navigation menus open a panel of links from a trigger in a site's main navigation.
-- [Number field](/components/web/number-field): Number fields take a number from someone, with steppers to nudge it up and down.
-- [Page loader](/components/web/page-loader): Page loaders are the centred loading surface for a region that is still coming.
-- [Pagination](/components/web/pagination): Pagination moves through a long set of results one page at a time.
-- [Pane](/components/web/pane): Panes are content regions on a width scale, and the layout shapes built from them — a page, a split, a list-and-detail.
-- [Popover](/components/web/popover): Popovers surface a small panel of content or controls next to whatever opened them.
-- [Preview card](/components/web/preview-card): Preview cards show a richer look at a link's destination before anyone commits to going there.
-- [Progress](/components/web/progress): Progress indicators show how much of something is done while it is still running.
-- [Radio group](/components/web/radio-group): Radio groups let people pick exactly one option from a set they can see all at once.
-- [Rich tooltip](/components/web/rich-tooltip): A tooltip with a subhead, supporting text, and plain-text actions for explanations that need more than a label.
-- [Scroll area](/components/web/scroll-area): Scroll areas give a fixed region its own scrollbar, so the page does not scroll away from under the content.
-- [Search](/components/web/search): Search is a labelled field with submit and clear, for finding things by text.
-- [Secondary tabs](/components/web/secondary-tabs): Secondary tabs switch between related views in the middle of a page, below the primary navigation.
-- [Segmented button](/components/web/segmented-button): Segmented buttons show a small set of options side by side, with the chosen one visibly selected.
-- [Select](/components/web/select): Selects let someone choose one value from a set too long to show on the page.
-- [Separator](/components/web/separator): Separators divide one region of content from the next.
-- [Sheet surface](/components/web/sheet-surface): Sheet surface is the shared modal and scrim shell — the one place a kern sheet gets its dismissal path.
-- [Sheet](/components/web/sheet): Sheets slide in from the side to hold a focused task beside the content behind them.
-- [Sidebar](/components/web/sidebar): Sidebars are the app's persistent navigation region, composed from a provider, sections and items.
-- [Skeleton](/components/web/skeleton): Skeletons stand in for content that is still loading, in the shape it will have.
-- [Slider](/components/web/slider): Sliders pick a value from a range by feel, showing where it sits along the way.
-- [Snackbar](/components/web/snackbar): Snackbars confirm something happened, briefly, without interrupting what someone is doing.
-- [Snap sheet](/components/web/snap-sheet): The snap sheet is a bottom sheet with detents — a modal surface that occupies one of a declared set of heights.
-- [Sonner](/components/web/sonner): Sonner raises transient messages with an intent — it worked, watch out, here is a problem — and an optional action.
-- [Split button](/components/web/split-button): Split buttons pair one primary action with a menu of related alternatives.
-- [Split](/components/web/split): The split is an N-column layout: two or three equal columns divided by a hairline, named as one region for assistive technology.
-- [Switch](/components/web/switch): A switch turns a single setting on or off and applies it at once.
-- [Table](/components/web/table): Tables lay out rows of related values so they can be compared down a column.
-- [Tabs](/components/web/tabs): Tabs switch between related views of the same subject without leaving the page.
-- [Text](/components/web/text): Text renders a line of type at one of the typescale's styles.
-- [Textarea](/components/web/textarea): Textareas take several lines of text from someone and hand it to you.
-- [Time picker](/components/web/time-picker): Time pickers set a time of day with explicit hour and minute fields.
-- [Toggle group](/components/web/toggle-group): Toggle groups hold related toggles together as one control, picking either one option or several.
-- [Toggle](/components/web/toggle): Toggles are buttons that stay pressed, for a setting you switch on and off.
-- [Toolbar](/components/web/toolbar): Toolbars hold the controls that act on the content below them.
-- [Tooltip](/components/web/tooltip): Tooltips name or explain a control the moment someone hovers or focuses it.
-- [Top app bar](/components/web/top-app-bar): The top app bar is the screen's header — leading slot, title, trailing actions — plus the app-level bar and its menus.
-
-## Component families — mobile
-
-- [Accordion](/components/mobile/accordion): The accordion is a stack of disclosure sections where opening one can close the rest, keyed by section index.
-- [Action sheet](/components/mobile/action-sheet): Action sheets are the titled bottom surface with a dismiss path and a body — either your own content or a standard action list.
-- [Alert dialog](/components/mobile/alert-dialog): The alert dialog is a modal confirmation: a title, an optional message and the two decisions, one of them destructive.
-- [App shell](/components/mobile/app-shell): The app shell is the application frame — header, side navigation, body, footer — with every region a named landmark.
-- [Aspect ratio](/components/mobile/aspect-ratio): Aspect ratio boxes keep a fixed width-to-height ratio, whatever width they are given.
-- [Autocomplete](/components/mobile/autocomplete): Autocomplete suggests completions as you type, with a filter you can replace and a message for when nothing matches.
-- [Avatar](/components/mobile/avatar): Avatars show a person or thing — an image when one loads, initials when one does not.
-- [Badge](/components/mobile/badge): Badges mark a count or a presence on something else — a dot, or a number.
-- [Banner](/components/mobile/banner): The banner reports something the whole screen needs to know, in flow, without blocking the work beneath it.
-- [Boot splash](/components/mobile/boot-splash): Boot splashes cover the first moment of an app, with your mark and optional milestone steps.
-- [Bottom sheet picker](/components/mobile/bottom-sheet-picker): Bottom sheet pickers choose one value from a list, using the platform's own bottom-sheet interaction.
-- [Bottom sheet](/components/mobile/bottom-sheet): Bottom sheets slide up from the bottom edge to hold a short, self-contained step.
-- [Button group](/components/mobile/button-group): The button group lays out buttons as one joined row or column, so related actions read as a set.
-- [Button](/components/mobile/button): The button is the standard action control: five Material 3 treatments, four sizes, one press.
-- [Calendar](/components/mobile/calendar): The calendar is a month grid for picking one date — bounded by min and max, driven by a controlled or uncontrolled value.
-- [Card](/components/mobile/card): Cards group related content on one surface, in three Material 3 treatments.
-- [Carousel](/components/mobile/carousel): The carousel shows a set of items one at a time — one active slide, one tab stop, an index that never disagrees with itself.
-- [Checkbox group](/components/mobile/checkbox-group): Checkbox groups collect several independent choices and report them as one list of values.
-- [Checkbox](/components/mobile/checkbox): Checkboxes are a three-state choice — on, off, or indeterminate — for one thing.
-- [Chip](/components/mobile/chip): Chips are compact labelled controls: assist and suggestion chips act, filter chips toggle.
-- [Circular progress](/components/mobile/circular-progress): Circular progress is the ring — measured when it has a value, looping when it does not.
-- [Collapsible](/components/mobile/collapsible): The collapsible is one disclosure: a title row that reveals or hides the content beneath it.
-- [Command](/components/mobile/command): Command palettes are a modal dialog with a search field and a grouped, scrollable list of actions.
-- [Context menu](/components/mobile/context-menu): Context menus attach a list of actions to arbitrary content, opened the platform's own way.
-- [ContrastToggle](/components/mobile/contrast-toggle): One action that requests a contrast change, named for where the press goes rather than where it is.
-- [Country select](/components/mobile/country-select): Country selects choose a country from data you supply — kern ships no country list.
-- [Dialog](/components/mobile/dialog): Dialogs interrupt for one decision — a title, some content, and up to a few actions.
-- [Dock sheet](/components/mobile/dock-sheet): Dock sheets are the minimal bottom panel — content in a sheet, with no title and no action row.
-- [Drawer](/components/mobile/drawer): Drawers slide a panel in from the side over the current screen, with a title and a real open state.
-- [Empty state](/components/mobile/empty-state): The empty state tells someone what is missing, why it is missing, and what to do about it — in place of the content that would be there.
-- [Entity sheet](/components/mobile/entity-sheet): Entity sheets show the detail of one record — label, value pairs — in a bottom sheet.
-- [Error boundary](/components/mobile/error-boundary): Error boundaries catch a thrown render so one broken screen does not blank the whole app.
-- [Extended fab](/components/mobile/extended-fab): Extended fabs are floating action buttons that carry a label and can collapse to an icon on demand.
-- [Fab menu](/components/mobile/fab-menu): Fab menus are a floating button that opens a short list of actions, with the icon swapping while open.
-- [Fab](/components/mobile/fab): The floating action button is the one primary action of a screen, raised and always within thumb reach.
-- [Field](/components/mobile/field): Fields pair a control with its label, description and error message, and wire them together for assistive tech.
-- [Fieldset](/components/mobile/fieldset): Fieldsets group controls under a shared legend and give them one disabled state.
-- [Filter chip row](/components/mobile/filter-chip-row): Filter chip rows collect multiple filter choices and report the whole set.
-- [Icon button target](/components/mobile/icon-button-target): Icon button targets are the touch-target wrapper that brings a small button up to the platform minimum.
-- [Icon button](/components/mobile/icon-button): Icon buttons are buttons whose only content is an icon, so their name must be supplied.
-- [Input OTP](/components/mobile/input-otp): Input OTP is the one-code-per-position field, with a completion callback and a per-position keyboard.
-- [Input](/components/mobile/input): Inputs are the text field, with an error state that is announced rather than only coloured.
-- [Kern pressable](/components/mobile/kern-pressable): The narrow accessibility-defaults wrap for anything pressable on native: Material's minimum touch target, a button role by default, and `disabled` always reported.
-- [Label](/components/mobile/label): Labels are text rendered in the label style — the typographic role, not the wiring.
-- [Linear progress](/components/mobile/linear-progress): Linear progress is the measured bar — determinate only, with no looping mode.
-- [LinkButton](/components/mobile/link-button): The button treatment on a navigation control: five Material 3 treatments, the link role, one press to a destination.
-- [List detail](/components/mobile/list-detail): List detail is the phone-width master–detail pattern: the list until an item is selected, then the detail with a way back.
-- [List item](/components/mobile/list-item): List items are one row of a list — a required title, an optional supporting line, and a press.
-- [Loader](/components/mobile/loader): Loaders are the small spinner for a wait that needs no explanation.
-- [Loading button](/components/mobile/loading-button): Loading buttons keep their label and footprint while working, and show the wait in their leading slot.
-- [Loading indicator](/components/mobile/loading-indicator): Loading indicators are the spinner that can say what it is doing, in three sizes.
-- [Menu group list](/components/mobile/menu-group-list): Menu group lists render groups of actions under their headings — the shared list the menu screens and sheets are both built from.
-- [Menu screen](/components/mobile/menu-screen): Menu screens present grouped actions inline — the settings-style page of a menu.
-- [Menu sheet](/components/mobile/menu-sheet): Menu sheets host grouped actions in a bottom sheet — the same data a menu screen takes, presented over the current screen.
-- [Menu](/components/mobile/menu): Menus show a short list of actions attached to a trigger you supply.
-- [Menubar](/components/mobile/menubar): Menubars hold several named menus in one bar, each opening its own list of actions.
-- [Meter](/components/mobile/meter): Meters show a reading within bounds — storage used, a score, a level — and can announce it as something readable.
-- [Milestone trio](/components/mobile/milestone-trio): Milestone trios show where someone is in a short sequence — done, current, and what is left.
-- [Navigation bar item](/components/mobile/navigation-bar-item): Navigation bar items are one destination row for vertical containers — a drawer, a rail or a sidebar list.
-- [Navigation bar](/components/mobile/navigation-bar): Navigation bars hold an app's top-level destinations in a fixed-height bar at the bottom of a compact screen.
-- [Navigation drawer](/components/mobile/navigation-drawer): Navigation drawers hold the full destination list in a modal panel, for apps with more places than a bar can carry.
-- [Navigation menu](/components/mobile/navigation-menu): Navigation menus are a plain list of navigation links, one of which is marked active.
-- [Navigation rail](/components/mobile/navigation-rail): The navigation rail is the persistent vertical navigation surface — icon-only by default, a labelled sidebar when expanded.
-- [Number field](/components/mobile/number-field): Number fields hold a number with steppers that clamp at their bound rather than wrapping.
-- [Pagination](/components/mobile/pagination): Pagination moves through pages of content, with a windowed row and no wrapping at the ends.
-- [Pane](/components/mobile/pane): The pane is a tonal container that separates one region from another — the phone-width mirror of the web pane.
-- [Popover](/components/mobile/popover): Popovers are anchored panels for rich transient content — a composition of trigger and body.
-- [Progress](/components/mobile/progress): Progress reports how far along something is, as an amount out of a maximum.
-- [Radio group](/components/mobile/radio-group): Radio groups pick exactly one value from a set, and report that one value.
-- [Rich tooltip](/components/mobile/rich-tooltip): A tooltip with a subhead, supporting text, and plain-text actions for explanations that need more than a label.
-- [Scroll area](/components/mobile/scroll-area): Scroll areas are a scroll view with the axis chosen for you, so a horizontal scroll cannot happen by accident.
-- [Search](/components/mobile/search): Search is the text field that reports every change and, separately, when to search.
-- [Secondary tabs](/components/mobile/secondary-tabs): Secondary tabs are the second row of tabs, for the subdivisions within one section.
-- [Segmented button](/components/mobile/segmented-button): Segmented buttons are a joined row of choices where the selection is shown by a check, not a fill.
-- [Select](/components/mobile/select): Selects choose one value from a list of options you supply.
-- [Separator](/components/mobile/separator): Separators draw a line between things — horizontal or vertical.
-- [Shape art](/components/mobile/shape-art): Shape art composes kern shapes into a decorative arrangement — scatter, stack or arch.
-- [Shape](/components/mobile/shape): Shapes are the six basic forms in the kern radius language, drawn from the shape scale rather than freehand.
-- [Sheet handle](/components/mobile/sheet-handle): Sheet handles are the small drag affordance drawn at the top of a sheet.
-- [Sheet surface](/components/mobile/sheet-surface): Sheet surfaces are the shared bottom-sheet shell — scrim, dismissal, close affordance and body — that the sheets are built on.
-- [Sheet](/components/mobile/sheet): The native sheet is a titled panel over the current screen, with a body and a dismissal path.
-- [Skeleton](/components/mobile/skeleton): Skeletons are the placeholder shape shown while content loads.
-- [Slider](/components/mobile/slider): Sliders pick a number along a range by moving a thumb.
-- [Snackbar](/components/mobile/snackbar): Snackbars confirm something happened, briefly, with an optional action to undo it.
-- [Snap sheet](/components/mobile/snap-sheet): Snap sheets settle at one of a few fixed heights, so a panel can be half open or fully open.
-- [Split button](/components/mobile/split-button): Split buttons pair one primary action with a list of alternatives, in two halves.
-- [Split](/components/mobile/split): The split is an N-column layout: two or three equal columns divided by a hairline, the same way the web split draws them.
-- [Success transform](/components/mobile/success-transform): Success transforms are the completion moment — a disc and a tick, or the loader that precedes it.
-- [Supporting pane](/components/mobile/supporting-pane): Supporting panes hold the secondary panel beside main content, and hide it entirely on a compact screen.
-- [Switch](/components/mobile/switch): Switches turn one thing on or off immediately, and carry their state in their own appearance.
-- [Table](/components/mobile/table): Tables lay out rows of string data under named columns.
-- [Tabs](/components/mobile/tabs): Tabs switch between peer views of the same thing, and carry their content with them.
-- [Text](/components/mobile/text): Text renders a string in one of the four kern type roles, with the theme's ink and nothing else decided for you.
-- [Textarea](/components/mobile/textarea): Textareas are the multi-line text field — the input with line breaks turned on.
-- [ThemeToggle](/components/mobile/theme-toggle): One action that requests a theme change, named for where the press goes rather than where it is.
-- [Time picker](/components/mobile/time-picker): The time picker is hour and minute — plus the period in 12-hour mode — as traversable listboxes, with the value kept in 24-hour state.
-- [Toggle group](/components/mobile/toggle-group): Toggle groups hold several toggles and report either one selection or several, depending on `multiple`.
-- [Toggle](/components/mobile/toggle): Toggles are pressable buttons that hold a pressed state, and they call it `pressed`.
-- [Toolbar](/components/mobile/toolbar): Toolbars hold a row of actions — labelled, optional, and individually disableable.
-- [Tooltip](/components/mobile/tooltip): Tooltips attach one line of supplementary text to a trigger, and never trap that text behind the trigger.
-- [Top app bar](/components/mobile/top-app-bar): Top app bars name the screen and hold the actions that belong to it, along its top edge.
+- [Accordion](/components/m3/accordion): Accordions stack collapsible sections, so a long page can be scanned as headings first. Renders: Web + Native. Markdown: /md/web/accordion.md, /md/mobile/accordion.md.
+- [Action sheet](/components/m3/action-sheet): The action sheet is a titled list of actions in a bottom sheet — the one surface for "what do you want to do with this?" Renders: Web + Native. Markdown: /md/web/action-sheet.md, /md/mobile/action-sheet.md.
+- [Alert dialog](/components/m3/alert-dialog): Alert dialogs interrupt for a decision that must be made before anything else continues. Renders: Web + Native. Markdown: /md/web/alert-dialog.md, /md/mobile/alert-dialog.md.
+- [App shell](/components/m3/app-shell): The app shell is the frame around everything else — top bar, rail, drawer, status bar — with every region optional. Renders: Web + Native. Markdown: /md/web/app-shell.md, /md/mobile/app-shell.md.
+- [Aspect ratio](/components/m3/aspect-ratio): Aspect ratio boxes keep a fixed width-to-height ratio, whatever width they are given. Renders: Native. Markdown: /md/mobile/aspect-ratio.md.
+- [Autocomplete](/components/m3/autocomplete): Autocompletes suggest values as someone types, and fill in the one they mean. Renders: Web + Native. Markdown: /md/web/autocomplete.md, /md/mobile/autocomplete.md.
+- [Avatar](/components/m3/avatar): Avatars show who something belongs to, as an image or as initials. Renders: Web + Native. Markdown: /md/web/avatar.md, /md/mobile/avatar.md.
+- [Badge](/components/m3/badge): Badges flag a small, countable change on something that already has a label. Renders: Web + Native. Markdown: /md/web/badge.md, /md/mobile/badge.md.
+- [Banner](/components/m3/banner): Banners report something the whole screen needs to know, without blocking what people are doing. Renders: Web + Native. Markdown: /md/web/banner.md, /md/mobile/banner.md.
+- [Boot indicator](/components/m3/boot-indicator): Boot indicators are the branded loading surface shown while the app itself starts. Renders: Web. Markdown: /md/web/boot-indicator.md.
+- [Boot splash](/components/m3/boot-splash): Boot splashes cover the first moment of an app, with your mark and optional milestone steps. Renders: Native. Markdown: /md/mobile/boot-splash.md.
+- [Bottom sheet](/components/m3/bottom-sheet): The bottom sheet is a modal surface anchored to the bottom edge: content, an optional heading and a visible way out. Renders: Web + Native. Markdown: /md/web/bottom-sheet.md, /md/mobile/bottom-sheet.md.
+- [Bottom sheet picker](/components/m3/bottom-sheet-picker): The bottom sheet picker is a selector in a sheet — a titled list of options where the selection is announced, not just tinted. Renders: Web + Native. Markdown: /md/web/bottom-sheet-picker.md, /md/mobile/bottom-sheet-picker.md.
+- [Button](/components/m3/button): Buttons let people carry out an action with a single tap, click or key press. Renders: Web + Native. Markdown: /md/web/button.md, /md/mobile/button.md.
+- [Button group](/components/m3/button-group): Button groups join buttons into one segmented control. Renders: Web + Native. Markdown: /md/web/button-group.md, /md/mobile/button-group.md.
+- [Calendar](/components/m3/calendar): Calendars pick a single date from a month grid. Renders: Web + Native. Markdown: /md/web/calendar.md, /md/mobile/calendar.md.
+- [Card](/components/m3/card): Cards group related content and actions into a single surface. Renders: Web + Native. Markdown: /md/web/card.md, /md/mobile/card.md.
+- [Carousel](/components/m3/carousel): Carousels show one slide at a time from a set, moved through with controls or by gesture. Renders: Web + Native. Markdown: /md/web/carousel.md, /md/mobile/carousel.md.
+- [Checkbox](/components/m3/checkbox): Checkboxes let people pick several things from a set, or agree to something one at a time. Renders: Web + Native. Markdown: /md/web/checkbox.md, /md/mobile/checkbox.md.
+- [Checkbox group](/components/m3/checkbox-group): A checkbox group collects several independent choices into one value you can read at once. Renders: Web + Native. Markdown: /md/web/checkbox-group.md, /md/mobile/checkbox-group.md.
+- [Chip](/components/m3/chip): Chips are compact elements that represent an attribute, an action, or a filter. Renders: Web + Native. Markdown: /md/web/chip.md, /md/mobile/chip.md.
+- [Circular progress](/components/m3/circular-progress): Circular progress shows how much of a task is done, as a ring. Renders: Web + Native. Markdown: /md/web/circular-progress.md, /md/mobile/circular-progress.md.
+- [Collapsible](/components/m3/collapsible): Collapsibles hide a section of content behind a trigger and show it on demand. Renders: Web + Native. Markdown: /md/web/collapsible.md, /md/mobile/collapsible.md.
+- [Combobox](/components/m3/combobox): Comboboxes pick one value from a set, either from the list or by typing to narrow it. Renders: Web + Native. Markdown: /md/web/combobox.md, /md/mobile/combobox.md.
+- [Command](/components/m3/command): Commands are searchable lists of actions and destinations, filtered as you type. Renders: Web + Native. Markdown: /md/web/command.md, /md/mobile/command.md.
+- [Context menu](/components/m3/context-menu): Context menus offer the actions for a thing where the thing is, opened by right-clicking it. Renders: Web + Native. Markdown: /md/web/context-menu.md, /md/mobile/context-menu.md.
+- [ContrastToggle](/components/m3/contrast-toggle): One action that requests a contrast change, named for where the press goes rather than where it is. Renders: Native. Markdown: /md/mobile/contrast-toggle.md.
+- [Country select](/components/m3/country-select): Country selects pick a country from a list, showing its flag and dial code alongside its name. Renders: Web + Native. Markdown: /md/web/country-select.md, /md/mobile/country-select.md.
+- [Dialog](/components/m3/dialog): A dialog asks people to complete a focused task before they carry on with the rest of the app. Renders: Web + Native. Markdown: /md/web/dialog.md, /md/mobile/dialog.md.
+- [Dock sheet](/components/m3/dock-sheet): The dock sheet is a persistent quick-action bar peeking from the bottom edge — a region, not a dialog. Renders: Web + Native. Markdown: /md/web/dock-sheet.md, /md/mobile/dock-sheet.md.
+- [Drawer](/components/m3/drawer): A drawer is a panel that slides up from the bottom edge for a short, self-contained step. Renders: Web + Native. Markdown: /md/web/drawer.md, /md/mobile/drawer.md.
+- [Empty state](/components/m3/empty-state): Empty states say what is missing, and offer the one thing that would fix it. Renders: Web + Native. Markdown: /md/web/empty-state.md, /md/mobile/empty-state.md.
+- [Entity sheet](/components/m3/entity-sheet): The entity sheet is the read-mostly detail surface for one record — a title, its fields, and at most one action. Renders: Web + Native. Markdown: /md/web/entity-sheet.md, /md/mobile/entity-sheet.md.
+- [Error boundary](/components/m3/error-boundary): Error boundaries catch a thrown render so one broken screen does not blank the whole app. Renders: Native. Markdown: /md/mobile/error-boundary.md.
+- [Extended FAB](/components/m3/extended-fab): Extended FABs are the labelled floating action button — the one primary action, with its name beside its icon. Renders: Web + Native. Markdown: /md/web/extended-fab.md, /md/mobile/extended-fab.md.
+- [Floating action button](/components/m3/fab): The floating action button is the single most important action on a screen. Renders: Web + Native. Markdown: /md/web/fab.md, /md/mobile/fab.md.
+- [FAB menu](/components/m3/fab-menu): FAB menus hold several related actions behind one floating button, opened on tap. Renders: Web + Native. Markdown: /md/web/fab-menu.md, /md/mobile/fab-menu.md.
+- [Field](/components/m3/field): A field pairs a control with its label, its help text and its error, and wires them together. Renders: Web + Native. Markdown: /md/web/field.md, /md/mobile/field.md.
+- [Fieldset](/components/m3/fieldset): Fieldsets group related controls under one legend and give them a shared disabled state. Renders: Web + Native. Markdown: /md/web/fieldset.md, /md/mobile/fieldset.md.
+- [Filter chip row](/components/m3/filter-chip-row): The filter chip row is a horizontal row of multi-select toggles — press once to apply a filter, press again to remove it. Renders: Web + Native. Markdown: /md/web/filter-chip-row.md, /md/mobile/filter-chip-row.md.
+- [Focus ring](/components/m3/focus-ring): Focus rings paint the visible keyboard-focus treatment on host content. Renders: Web. Markdown: /md/web/focus-ring.md.
+- [Form](/components/m3/form): Forms collect several values and hand them over together. Renders: Web. Markdown: /md/web/form.md.
+- [Hero](/components/m3/hero): Hero opens a page with its main heading, supporting copy, actions, and optional art. Renders: Web. Markdown: /md/web/hero.md.
+- [Icon button](/components/m3/icon-button): Icon buttons are buttons whose content is a single glyph. Renders: Web + Native. Markdown: /md/web/icon-button.md, /md/mobile/icon-button.md.
+- [Icon button target](/components/m3/icon-button-target): Icon button targets are the touch-target wrapper that brings a small button up to the platform minimum. Renders: Native. Markdown: /md/mobile/icon-button-target.md.
+- [Input](/components/m3/input): Inputs take a single line of text from someone and hand it to you. Renders: Web + Native. Markdown: /md/web/input.md, /md/mobile/input.md.
+- [Input OTP](/components/m3/input-otp): OTP inputs take a short numeric code one character at a time, as it is typed. Renders: Web + Native. Markdown: /md/web/input-otp.md, /md/mobile/input-otp.md.
+- [Kbd](/components/m3/kbd): Kbds show a keyboard key or shortcut as text, in the shape of a key. Renders: Web + Native. Markdown: /md/web/kbd.md, /md/mobile/kbd.md.
+- [Kern error boundary](/components/m3/kern-error-boundary): The kern error boundary catches a thrown render, shows your fallback with a working reset, and never reloads the page to recover. Renders: Web. Markdown: /md/web/kern-error-boundary.md.
+- [Kern pressable](/components/m3/kern-pressable): The narrow accessibility-defaults wrap for anything pressable on native: Material's minimum touch target, a button role by default, and `disabled` always reported. Renders: Native. Markdown: /md/mobile/kern-pressable.md.
+- [Label](/components/m3/label): Labels name the control they sit beside. Renders: Web + Native. Markdown: /md/web/label.md, /md/mobile/label.md.
+- [Linear progress](/components/m3/linear-progress): Linear progress shows how much of a task is done, as a bar across a width. Renders: Web + Native. Markdown: /md/web/linear-progress.md, /md/mobile/linear-progress.md.
+- [Link](/components/m3/link): Links are anchors that can be pointed at your host router, so kern never hardcodes one. Renders: Web. Markdown: /md/web/link.md.
+- [Link button](/components/m3/link-button): Link buttons wear the button treatment on a navigation control — an anchor, not an action. Renders: Web + Native. Markdown: /md/web/link-button.md, /md/mobile/link-button.md.
+- [List detail](/components/m3/list-detail): List detail is the phone-width master–detail pattern: the list until an item is selected, then the detail with a way back. Renders: Native. Markdown: /md/mobile/list-detail.md.
+- [List item](/components/m3/list-item): List items are rows in a list — a headline, optional supporting text, and optional leading and trailing slots. Renders: Web + Native. Markdown: /md/web/list-item.md, /md/mobile/list-item.md.
+- [Loader](/components/m3/loader): Loaders say something is happening, in the space where it is happening. Renders: Web + Native. Markdown: /md/web/loader.md, /md/mobile/loader.md.
+- [Loading button](/components/m3/loading-button): Loading buttons show that the action they trigger is still running, without changing size. Renders: Web + Native. Markdown: /md/web/loading-button.md, /md/mobile/loading-button.md.
+- [Loading indicator](/components/m3/loading-indicator): Loading indicators are the labelled spinner — a wait with its name attached. Renders: Web + Native. Markdown: /md/web/loading-indicator.md, /md/mobile/loading-indicator.md.
+- [Loading region](/components/m3/loading-region): Loading regions swap between content and a loading state as work starts and finishes. Renders: Web. Markdown: /md/web/loading-region.md.
+- [Menu](/components/m3/menu): Menus list the actions available on something, opened from the control that owns them. Renders: Web + Native. Markdown: /md/web/menu.md, /md/mobile/menu.md.
+- [Menu group list](/components/m3/menu-group-list): Menu group lists render groups of actions under their headings — the shared list the menu screens and sheets are both built from. Renders: Native. Markdown: /md/mobile/menu-group-list.md.
+- [Menu screen](/components/m3/menu-screen): The menu screen is a full-height list of grouped destinations and actions — a settings-style page, not a menu. Renders: Web + Native. Markdown: /md/web/menu-screen.md, /md/mobile/menu-screen.md.
+- [Menu sheet](/components/m3/menu-sheet): The menu sheet hosts a grouped action menu in a bottom sheet — the same menu data as the menu screen, with a dismissal path around it. Renders: Web + Native. Markdown: /md/web/menu-sheet.md, /md/mobile/menu-sheet.md.
+- [Menubar](/components/m3/menubar): A menubar is a horizontal row of menus, the way an application exposes its commands. Renders: Web + Native. Markdown: /md/web/menubar.md, /md/mobile/menubar.md.
+- [Meter](/components/m3/meter): Meters show a value against a range, so a quantity can be read at a glance. Renders: Web + Native. Markdown: /md/web/meter.md, /md/mobile/meter.md.
+- [Milestone trio](/components/m3/milestone-trio): Milestone trios show where someone is in a short sequence — done, current, and what is left. Renders: Native. Markdown: /md/mobile/milestone-trio.md.
+- [Native select](/components/m3/native-select): Native selects are the browser's own dropdown, styled to sit with the rest of a form. Renders: Web. Markdown: /md/web/native-select.md.
+- [Navigation bar](/components/m3/navigation-bar): The navigation bar is the compact-screen destination switcher that sits along the bottom edge. Renders: Web + Native. Markdown: /md/web/navigation-bar.md, /md/mobile/navigation-bar.md.
+- [Navigation bar item](/components/m3/navigation-bar-item): Navigation bar items are one destination row for vertical containers — a drawer, a rail or a sidebar list. Renders: Native. Markdown: /md/mobile/navigation-bar-item.md.
+- [Navigation drawer](/components/m3/navigation-drawer): The navigation drawer is the modal panel that lists an app's top-level destinations on larger screens. Renders: Web + Native. Markdown: /md/web/navigation-drawer.md, /md/mobile/navigation-drawer.md.
+- [Navigation menu](/components/m3/navigation-menu): Navigation menus open a panel of links from a trigger in a site's main navigation. Renders: Web + Native. Markdown: /md/web/navigation-menu.md, /md/mobile/navigation-menu.md.
+- [Navigation rail](/components/m3/navigation-rail): The navigation rail is the persistent vertical navigation surface — icon-only by default, a labelled sidebar when expanded. Renders: Native. Markdown: /md/mobile/navigation-rail.md.
+- [Number field](/components/m3/number-field): Number fields take a number from someone, with steppers to nudge it up and down. Renders: Web + Native. Markdown: /md/web/number-field.md, /md/mobile/number-field.md.
+- [Page loader](/components/m3/page-loader): Page loaders are the centred loading surface for a region that is still coming. Renders: Web. Markdown: /md/web/page-loader.md.
+- [Pagination](/components/m3/pagination): Pagination moves through a long set of results one page at a time. Renders: Web + Native. Markdown: /md/web/pagination.md, /md/mobile/pagination.md.
+- [Pane](/components/m3/pane): Panes are content regions on a width scale, and the layout shapes built from them — a page, a split, a list-and-detail. Renders: Web + Native. Markdown: /md/web/pane.md, /md/mobile/pane.md.
+- [Popover](/components/m3/popover): Popovers surface a small panel of content or controls next to whatever opened them. Renders: Web + Native. Markdown: /md/web/popover.md, /md/mobile/popover.md.
+- [Preview card](/components/m3/preview-card): Preview cards show a richer look at a link's destination before anyone commits to going there. Renders: Web. Markdown: /md/web/preview-card.md.
+- [Progress](/components/m3/progress): Progress indicators show how much of something is done while it is still running. Renders: Web + Native. Markdown: /md/web/progress.md, /md/mobile/progress.md.
+- [Radio group](/components/m3/radio-group): Radio groups let people pick exactly one option from a set they can see all at once. Renders: Web + Native. Markdown: /md/web/radio-group.md, /md/mobile/radio-group.md.
+- [Rich tooltip](/components/m3/rich-tooltip): A tooltip with a subhead, supporting text, and plain-text actions for explanations that need more than a label. Renders: Web + Native. Markdown: /md/web/rich-tooltip.md, /md/mobile/rich-tooltip.md.
+- [Scroll area](/components/m3/scroll-area): Scroll areas give a fixed region its own scrollbar, so the page does not scroll away from under the content. Renders: Web + Native. Markdown: /md/web/scroll-area.md, /md/mobile/scroll-area.md.
+- [Search](/components/m3/search): Search is a labelled field with submit and clear, for finding things by text. Renders: Web + Native. Markdown: /md/web/search.md, /md/mobile/search.md.
+- [Blocks](/components/m3/search-bar): Blocks are the small shell pieces — a search bar, a settings row, a status bar, and the theme and contrast toggles. Renders: Web. Markdown: /md/web/search-bar.md.
+- [Secondary tabs](/components/m3/secondary-tabs): Secondary tabs switch between related views in the middle of a page, below the primary navigation. Renders: Web + Native. Markdown: /md/web/secondary-tabs.md, /md/mobile/secondary-tabs.md.
+- [Segmented button](/components/m3/segmented-button): Segmented buttons show a small set of options side by side, with the chosen one visibly selected. Renders: Web + Native. Markdown: /md/web/segmented-button.md, /md/mobile/segmented-button.md.
+- [Select](/components/m3/select): Selects let someone choose one value from a set too long to show on the page. Renders: Web + Native. Markdown: /md/web/select.md, /md/mobile/select.md.
+- [Select group](/components/m3/select-group): Select groups collect related options under one label inside the open list. Renders: Web. Markdown: /md/web/select-group.md.
+- [Separator](/components/m3/separator): Separators divide one region of content from the next. Renders: Web + Native. Markdown: /md/web/separator.md, /md/mobile/separator.md.
+- [Settings row](/components/m3/settings-row): Settings rows pair a label and supporting text with the control that owns them. Renders: Native. Markdown: /md/mobile/settings-row.md.
+- [Shape](/components/m3/shape): Shapes are the six basic forms in the kern radius language, drawn from the shape scale rather than freehand. Renders: Native. Markdown: /md/mobile/shape.md.
+- [Shape art](/components/m3/shape-art): Shape art composes kern shapes into a decorative arrangement — scatter, stack or arch. Renders: Native. Markdown: /md/mobile/shape-art.md.
+- [Sheet](/components/m3/sheet): Sheets slide in from the side to hold a focused task beside the content behind them. Renders: Web + Native. Markdown: /md/web/sheet.md, /md/mobile/sheet.md.
+- [Sheet handle](/components/m3/sheet-handle): Sheet handles are the small drag affordance drawn at the top of a sheet. Renders: Native. Markdown: /md/mobile/sheet-handle.md.
+- [Sheet surface](/components/m3/sheet-surface): Sheet surface is the shared modal and scrim shell — the one place a kern sheet gets its dismissal path. Renders: Web + Native. Markdown: /md/web/sheet-surface.md, /md/mobile/sheet-surface.md.
+- [Sidebar](/components/m3/sidebar): Sidebars are the app's persistent navigation region, composed from a provider, sections and items. Renders: Web. Markdown: /md/web/sidebar.md.
+- [SiteFooter](/components/m3/site-footer): SiteFooter closes a site page with a brand summary, grouped navigation, and optional legal content. Renders: Web. Markdown: /md/web/site-footer.md.
+- [Skeleton](/components/m3/skeleton): Skeletons stand in for content that is still loading, in the shape it will have. Renders: Web + Native. Markdown: /md/web/skeleton.md, /md/mobile/skeleton.md.
+- [Slider](/components/m3/slider): Sliders pick a value from a range by feel, showing where it sits along the way. Renders: Web + Native. Markdown: /md/web/slider.md, /md/mobile/slider.md.
+- [Snackbar](/components/m3/snackbar): Snackbars confirm something happened, briefly, without interrupting what someone is doing. Renders: Web + Native. Markdown: /md/web/snackbar.md, /md/mobile/snackbar.md.
+- [Snap sheet](/components/m3/snap-sheet): The snap sheet is a bottom sheet with detents — a modal surface that occupies one of a declared set of heights. Renders: Web + Native. Markdown: /md/web/snap-sheet.md, /md/mobile/snap-sheet.md.
+- [Sonner](/components/m3/sonner): Sonner raises transient messages with an intent — it worked, watch out, here is a problem — and an optional action. Renders: Web. Markdown: /md/web/sonner.md.
+- [Split](/components/m3/split): The split is an N-column layout: two or three equal columns divided by a hairline, named as one region for assistive technology. Renders: Web + Native. Markdown: /md/web/split.md, /md/mobile/split.md.
+- [Split button](/components/m3/split-button): Split buttons pair one primary action with a menu of related alternatives. Renders: Web + Native. Markdown: /md/web/split-button.md, /md/mobile/split-button.md.
+- [Status bar](/components/m3/status-bar): Status bars hold one centered status with leading and trailing slots. Renders: Native. Markdown: /md/mobile/status-bar.md.
+- [Success transform](/components/m3/success-transform): Success transforms are the completion moment — a disc and a tick, or the loader that precedes it. Renders: Native. Markdown: /md/mobile/success-transform.md.
+- [Supporting pane](/components/m3/supporting-pane): Supporting panes hold the secondary panel beside main content, and hide it entirely on a compact screen. Renders: Native. Markdown: /md/mobile/supporting-pane.md.
+- [Switch](/components/m3/switch): A switch turns a single setting on or off and applies it at once. Renders: Web + Native. Markdown: /md/web/switch.md, /md/mobile/switch.md.
+- [Table](/components/m3/table): Tables lay out rows of related values so they can be compared down a column. Renders: Web + Native. Markdown: /md/web/table.md, /md/mobile/table.md.
+- [Tabs](/components/m3/tabs): Tabs switch between related views of the same subject without leaving the page. Renders: Web + Native. Markdown: /md/web/tabs.md, /md/mobile/tabs.md.
+- [Text](/components/m3/text): Text renders a line of type at one of the typescale's styles. Renders: Web + Native. Markdown: /md/web/text.md, /md/mobile/text.md.
+- [Textarea](/components/m3/textarea): Textareas take several lines of text from someone and hand it to you. Renders: Web + Native. Markdown: /md/web/textarea.md, /md/mobile/textarea.md.
+- [ThemeToggle](/components/m3/theme-toggle): One action that switches the color scheme between light and dark. Renders: Web + Native. Markdown: /md/web/theme-toggle.md, /md/mobile/theme-toggle.md.
+- [Time picker](/components/m3/time-picker): Time pickers set a time of day with explicit hour and minute fields. Renders: Web + Native. Markdown: /md/web/time-picker.md, /md/mobile/time-picker.md.
+- [Toggle](/components/m3/toggle): Toggles are buttons that stay pressed, for a setting you switch on and off. Renders: Web + Native. Markdown: /md/web/toggle.md, /md/mobile/toggle.md.
+- [Toggle group](/components/m3/toggle-group): Toggle groups hold related toggles together as one control, picking either one option or several. Renders: Web + Native. Markdown: /md/web/toggle-group.md, /md/mobile/toggle-group.md.
+- [Toolbar](/components/m3/toolbar): Toolbars hold the controls that act on the content below them. Renders: Web + Native. Markdown: /md/web/toolbar.md, /md/mobile/toolbar.md.
+- [Tooltip](/components/m3/tooltip): Tooltips name or explain a control the moment someone hovers or focuses it. Renders: Web + Native. Markdown: /md/web/tooltip.md, /md/mobile/tooltip.md.
+- [Top app bar](/components/m3/top-app-bar): The top app bar is the screen's header — leading slot, title, trailing actions — plus the app-level bar and its menus. Renders: Web + Native. Markdown: /md/web/top-app-bar.md, /md/mobile/top-app-bar.md.
+- [TopBar](/components/m3/top-bar): TopBar is a responsive site header with a brand link, primary navigation, and an actions slot. Renders: Web. Markdown: /md/web/top-bar.md.

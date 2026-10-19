@@ -24,7 +24,7 @@
 import { expect, test } from "@playwright/test";
 import { clickUntil, gotoSettled } from "./support/interactions";
 
-const SHEET_PAGE = "/components/web/sheet";
+const SHEET_PAGE = "/components/m3/sheet";
 
 test.describe("sheet dismissal", () => {
   test.beforeEach(async ({ page }) => {

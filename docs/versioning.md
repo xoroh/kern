@@ -15,7 +15,7 @@ enabled) npm publishes. Nothing is versioned by hand.
 
 All packages sit at `0.0.0` today — nothing published yet. The first release
 covers all eight public packages (see `CHANGELOG.md` → Unreleased):
-`@xoroh/kern-tokens`, `@xoroh/kern-material-3`, `@xoroh/kern`,
+`@xoroh/kern-tokens`, `@xoroh/kern-m3`, `@xoroh/kern`,
 `@xoroh/kern-native`, `@xoroh/kern-icons`, `@xoroh/kern-contracts`,
 `@xoroh/kern-mcp`, and `@xoroh/kern-cli`.
 
@@ -24,7 +24,7 @@ covers all eight public packages (see `CHANGELOG.md` → Unreleased):
 | Package | Published | Notes |
 |---|---|---|
 | `@xoroh/kern-tokens` | yes | tokens + themes + tones, platform-free |
-| `@xoroh/kern-material-3` | yes | Material 3 preset data + elevation |
+| `@xoroh/kern-m3` | yes | Material 3 preset data + elevation |
 | `@xoroh/kern` | yes | web (React) components on Base UI |
 | `@xoroh/kern-native` | yes | native (React Native) components |
 | `@xoroh/kern-primitives` | no (`private: true`) | internal behavior kernel, never published (deleted at the Axis cutover) |

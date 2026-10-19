@@ -4,6 +4,7 @@
 
 export * from "./blocks";
 export * from "./link";
+export * from "./marketing";
 export * from "./navigation";
 export * from "./panes";
 export * from "./scaffolds";

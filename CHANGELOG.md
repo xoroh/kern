@@ -11,7 +11,7 @@ Running `changeset version` writes each package's history to
 Nothing published yet. The first release covers all eight public packages:
 
 - `@xoroh/kern-tokens` — tokens + themes + tones (platform-free)
-- `@xoroh/kern-material-3` — Material 3 preset data + elevation
+- `@xoroh/kern-m3` — Material 3 preset data + elevation
 - `@xoroh/kern` — web (React) components on Base UI (incl. `/start` composition)
 - `@xoroh/kern-native` — native (React Native) components
 - `@xoroh/kern-icons` — multi-set icon registry + `Icon` (web + native)
