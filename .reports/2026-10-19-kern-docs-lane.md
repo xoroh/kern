@@ -14,4 +14,5 @@
 ## PR log
 | PR | What | SHA | Checks | Result |
 |---|---|---|---|---|
-| gate-scope | `for:` scoped attribution in check-props + lib + test (5 tests), PropRow.for, grammar note | — | build ok; site typecheck ok (after CI-style route regen; routes failures pre-existing at baseline); biome clean; full check:docs chain green (mcp-index needed CI-style pre-gen); test:scripts 32 pass; check-props output byte-identical (471/924) | ready to open |
+| gate-scope | `for:` scoped attribution in check-props + lib + test (5 tests), PropRow.for, grammar note | — | build ok; site typecheck ok (after CI-style route regen; routes failures pre-existing at baseline); biome clean; full check:docs chain green (mcp-index needed CI-style pre-gen); test:scripts 32 pass; check-props output byte-identical (471/924) | MERGED #76 (091a705d) |
+| batch-1 | command/combobox/autocomplete content (157 props: 924→767), 2 JSDoc + carried notes, parser balanced-scan fix + regression test | — | root build ok; kern + site typecheck ok; repo lint clean; full check:docs chain exit 0; checkApiUnique forced single-row-per-name (per-part rows collapsed) | ready to open |
