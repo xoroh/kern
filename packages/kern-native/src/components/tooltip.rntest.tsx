@@ -22,7 +22,8 @@
  */
 import { assertParity, contractFor } from "@kern-parity/contract";
 import { fireEvent, render, screen } from "@testing-library/react-native";
-import { act } from "react";
+import { PortalHost } from "@xoroh/axis";
+import { act, type ReactElement } from "react";
 import { type StyleProp, StyleSheet, type ViewStyle } from "react-native";
 import { Text } from "../components/text";
 import { RichTooltip, Tooltip } from "../components/tooltip";
@@ -39,10 +40,17 @@ function trigger(name: string) {
   return screen.getByLabelText(name);
 }
 
+/** Axis #73: compound portals paint at a root PortalHost — with no mounted
+ * host they warn and render nothing. Every render in this suite goes
+ * through the host so open-state assertions see the painted layers. */
+function renderWithHost(element: ReactElement) {
+  return render(<PortalHost>{element}</PortalHost>);
+}
+
 describe("native parity contract (tranche 4): tooltip", () => {
   it("delivers the supplementary text to assistive technology", async () => {
     const row = contractFor("tooltip");
-    await render(
+    await renderWithHost(
       <Tooltip label={row.name} hint={row.hintCarriesText}>
         <Text>Save</Text>
       </Tooltip>,
@@ -63,7 +71,7 @@ describe("native parity contract (tranche 4): tooltip", () => {
     // while focused would put the text behind an interaction, which is M3's
     // NC-3 negative: a tooltip must not hide crucial information.
     const row = contractFor("tooltip");
-    await render(
+    await renderWithHost(
       <Tooltip label={row.name} hint={row.hintCarriesText}>
         <Text>Save</Text>
       </Tooltip>,
@@ -84,7 +92,7 @@ describe("native parity contract (tranche 4): tooltip", () => {
     const row = contractFor("tooltip");
     if (!row.surfaceInert)
       throw new Error("tooltip row must declare surfaceInert");
-    await render(
+    await renderWithHost(
       <Tooltip label={row.name} hint={row.hintCarriesText} defaultOpen>
         <Text>Save</Text>
       </Tooltip>,
@@ -108,7 +116,7 @@ describe("native parity contract (tranche 4): tooltip", () => {
 
   it("merges a host's own hint rather than replacing it", async () => {
     const row = contractFor("tooltip");
-    await render(
+    await renderWithHost(
       <Tooltip
         label={row.name}
         hint={row.hintCarriesText}
@@ -128,7 +136,7 @@ describe("tooltip trigger (native)", () => {
     // M3's trigger is hover OR focus. Touch has no hover; focus exists on every
     // RN platform that has one at all (keyboard, switch, TV, screen readers).
     // Opening on focus is therefore M3-conformant as written, not a substitute.
-    await render(
+    await renderWithHost(
       <Tooltip label="Save" hint="Saves your draft">
         <Text>Save</Text>
       </Tooltip>,
@@ -142,7 +150,7 @@ describe("tooltip trigger (native)", () => {
   });
 
   it("closes on blur", async () => {
-    await render(
+    await renderWithHost(
       <Tooltip label="Save" hint="Saves your draft">
         <Text>Save</Text>
       </Tooltip>,
@@ -161,7 +169,7 @@ describe("tooltip trigger (native)", () => {
     // A host that opens its own layout on the second report would be reacting
     // to an echo of its own state.
     const seen: boolean[] = [];
-    await render(
+    await renderWithHost(
       <Tooltip
         label="Save"
         hint="Saves your draft"
@@ -183,7 +191,7 @@ describe("tooltip trigger (native)", () => {
   });
 
   it("host-controlled: the host owns the surface, the trigger does not", async () => {
-    await render(
+    await renderWithHost(
       <Tooltip label="Save" hint="Saves your draft" open={false}>
         <Text>Save</Text>
       </Tooltip>,
@@ -199,7 +207,7 @@ describe("tooltip trigger (native)", () => {
     // If the hint leaked into the accessible NAME, a screen reader would
     // announce "Save, Saves your draft" as one label and the supplement would
     // read as part of the control's identity.
-    await render(
+    await renderWithHost(
       <Tooltip label="Save" hint="Saves your draft" defaultOpen>
         <Text>Save</Text>
       </Tooltip>,
@@ -214,7 +222,7 @@ describe("tooltip trigger (native)", () => {
     // hover/mouse path to the native tooltip, this fires: the touch affordance
     // is `design-system-lead`'s open ruling (D-026.1′ / SPECS-6), and shipping a
     // gesture before that ruling would make the behaviour a kern invention.
-    await render(
+    await renderWithHost(
       <Tooltip label="Save" hint="Saves your draft">
         <Text>Save</Text>
       </Tooltip>,
@@ -226,7 +234,7 @@ describe("tooltip trigger (native)", () => {
   });
 
   it("announces the expanded state on the trigger", async () => {
-    await render(
+    await renderWithHost(
       <Tooltip label="Save" hint="Saves your draft">
         <Text>Save</Text>
       </Tooltip>,
@@ -246,7 +254,7 @@ describe("tooltip trigger (native)", () => {
     // publishes for web — and not on some hand-picked dark colour. Resolving
     // the theme is what turns a role into a hex, so a hex here is correct; a
     // hex that is NOT the role's value would be the bug.
-    await render(
+    await renderWithHost(
       <Tooltip label="Save" hint="Saves your draft" defaultOpen>
         <Text>Save</Text>
       </Tooltip>,
@@ -262,7 +270,7 @@ describe("tooltip trigger (native)", () => {
   });
 
   it("places the surface on the requested side", async () => {
-    await render(
+    await renderWithHost(
       <Tooltip
         label="Save"
         hint="Saves your draft"
@@ -281,7 +289,7 @@ describe("tooltip trigger (native)", () => {
 
 describe("RichTooltip (native)", () => {
   it("announces title and text through the trigger hint", async () => {
-    await render(
+    await renderWithHost(
       <RichTooltip label="Sync" title="Sync" text="Saves your draft first">
         <Text>Sync</Text>
       </RichTooltip>,
@@ -292,7 +300,7 @@ describe("RichTooltip (native)", () => {
   });
 
   it("renders title, text and actions on open", async () => {
-    await render(
+    await renderWithHost(
       <RichTooltip
         label="Sync now"
         title="Draft sync"
@@ -310,7 +318,7 @@ describe("RichTooltip (native)", () => {
 
   it("fires the action press", async () => {
     const onPress = jest.fn();
-    await render(
+    await renderWithHost(
       <RichTooltip
         label="Sync"
         title="Sync"

@@ -5,6 +5,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 
+import { PortalHost } from "@xoroh/axis";
 import "@fontsource-variable/inter/index.css";
 import { Kicker } from "../components/chrome/kicker";
 import { SiteLayout } from "../domains/shared/chrome/site-layout";
@@ -112,7 +113,12 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         />
       </head>
       <body>
-        {children}
+        {/* ONE portal host for the whole site (Axis #73): native previews
+            (react-native-web) that open Axis compound overlays paint through
+            this host — with no mounted host their portals render nothing.
+            Web components use Base UI portals into document.body and are
+            unaffected. */}
+        <PortalHost>{children}</PortalHost>
 
         <Scripts />
       </body>

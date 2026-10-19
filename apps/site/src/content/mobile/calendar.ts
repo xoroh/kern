@@ -24,7 +24,7 @@ export const calendar: ComponentDoc = {
     ],
     notSupported: [
       "There is no range selection and no multi-select. One date is the whole contract — a booking range is two calendars or a composed pair.",
-      "No locale or first-day-of-week control: the week starts Sunday and the month names are English. Internationalisation is not solved here.",
+      "No locale or first-day-of-week control: weekday order and month names resolve from the Axis date model (English, Sunday-first, by default), so a non-English interface still needs a different calendar or a change here.",
       "There is no day-content slot. Days are day numbers — an availability dot or a price per day is a composed grid, not this one.",
     ],
   },

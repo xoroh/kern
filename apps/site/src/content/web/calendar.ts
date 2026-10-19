@@ -22,7 +22,7 @@ export const calendar: ComponentDoc = {
       "The value is a `Date` at midnight local time, so comparing two selected dates is a whole-day comparison rather than an instant one.",
     ],
     notSupported: [
-      "There is no locale or first-day-of-week prop. The weekday initials and the month names are English and fixed in the component, so a non-English interface needs a different calendar or a change to this one — this is a real limitation, not an oversight to work around silently.",
+      "There is no locale or first-day-of-week prop. The weekday names and the month names resolve from the Axis date model (English, Sunday-first, by default), so a non-English interface needs a different calendar or a change here — this is a real limitation, not an oversight to work around silently.",
       "There is no `mode` prop for ranges. This is single-date picking; a range needs two dates and a different control.",
       "There is no `highlightDates` or `events` prop. The grid shows dates, not what happens on them.",
     ],

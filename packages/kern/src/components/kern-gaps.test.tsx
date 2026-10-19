@@ -571,7 +571,7 @@ describe("TimePicker", () => {
     );
     expect(screen.getByText("3:00 PM")).toBeInTheDocument();
     const hours = screen.getByRole("listbox", { name: "Hour" });
-    within(hours).getByRole("option", { name: "03" }).focus();
+    within(hours).getByRole("option", { name: "3" }).focus();
     await user.keyboard("{ArrowDown}");
     // "4 PM" is 16:00 in state, not 4.
     expect(onValueChange).toHaveBeenLastCalledWith({ hours: 16, minutes: 0 });
