@@ -8,9 +8,8 @@ For users, human and AI.
 
 | Change | Update |
 | --- | --- |
-| New or removed web component | `/components/web` |
-| New or removed native component | `/components/mobile` |
-| A component's props or variants | its page on `/components/web` or `/components/mobile` |
+| New or removed component | `/components` (one gallery URL; `?platform=` filters in place) |
+| A component's page, props, variants or demo | its family page at `/components/m3/<name>` (Web/Native switch via `?tab=`) |
 | Install or first-run flow | `/getting-started` |
 | Theme, presets, contrast, token reference | `/theme` |
 | Task walkthrough (swap the theme, use in RN) | `/docs/guides` |

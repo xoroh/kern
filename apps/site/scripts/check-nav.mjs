@@ -19,7 +19,7 @@
  *
  * 1. Every NAV_LEAVES href resolves to a route file under src/routes
  *    (TanStack file-based routing: /docs/guides -> docs/guides.tsx, with
- *    /x -> x.tsx or x/index.tsx, and /components/web -> the web/index.tsx gallery route).
+ *    /x -> x.tsx or x/index.tsx).
  * 2. No duplicate hrefs in the nav (two leaves, one destination — the map
  *    lying about the territory).
  * 3. Zero orphans: every top-level route must be reachable from at least one
@@ -29,9 +29,11 @@
  *    the footer, or the ⌘K palette (/search, opened from every page).
  *    Anything still unlisted fails. Some routes are destinations, not
  *    wayfinding — the rail and footer are what keep them listed, so the
- *    omission from the sidebar stays a decision, not drift. Redirect stubs
- *    (`throw redirect(...)` — the old paths kept as aliases after a move)
- *    are exempt: they are reached through their target, not the nav.
+ *    omission from the sidebar stays a decision, not drift. Routes that
+ *    `throw redirect(...)` to pick a default (a default tab, variant, or
+ *    theme — never a compat alias; old paths are deleted, not redirected
+ *    per ADR-020/D-051) are exempt: the redirect picks the destination,
+ *    and the destination is what the nav lists.
  */
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
@@ -98,9 +100,8 @@ for (const leaf of leaves) {
 // drawer's secondary list), the docs-context rail (RAIL_ITEMS), the footer,
 // or the ⌘K palette (/search opens from every page via header, drawer, and
 // keyboard). Anything left over is an orphan and fails. The walk used to
-// stop one level deep, so nested hubs (foundations/theme, components/web,
-// components/mobile, legal/*) were never scanned — a hub added without a
-// nav entry passed silently. Dynamic segments ($page, $system, $component)
+// stop one level deep, so nested hubs (foundations/theme, legal/*) were
+// never scanned — a hub added without a nav entry passed silently. Dynamic segments ($page, $system, $component)
 // are skipped: they are instances of their hub, reached through it.
 const covered = new Set([...seen.keys()]);
 for (const file of [
@@ -119,8 +120,10 @@ for (const file of [
 covered.add("/search");
 const unlisted = [];
 /**
- * Redirect stubs (`throw redirect(...)`) are aliases of their target, not
- * orphan destinations — reached through the page they point at.
+ * Default-picking redirects (`throw redirect(...)` to a default tab,
+ * variant, or theme) are aliases of their target, not orphan destinations —
+ * reached through the page they pick. Compat aliases are gone (ADR-020/D-051):
+ * nothing here may redirect an old path to a new one.
  */
 function isRedirectAlias(file) {
   try {
