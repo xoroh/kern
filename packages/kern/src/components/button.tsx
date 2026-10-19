@@ -1,7 +1,8 @@
+import { Button as ButtonPrimitive } from "@base-ui/react/button";
+import { Toggle as TogglePrimitive } from "@base-ui/react/toggle";
 import type { LoadingIndicatorStyle } from "@xoroh/kern-m3";
-import { cva } from "class-variance-authority";
+import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentPropsWithRef, ReactNode, Ref } from "react";
-import { useState } from "react";
 import { assignRef } from "../utils/assignRef";
 import { cn } from "../utils/cn";
 import { CircularProgress } from "./circular-progress";
@@ -271,26 +272,23 @@ const buttonVariants = cva(
   },
 );
 
-export type ButtonVariant =
-  | "elevated"
-  | "filled"
-  | "tonal"
-  | "outlined"
-  | "text";
+type ButtonCvaProps = VariantProps<typeof buttonVariants>;
+
+export type ButtonVariant = NonNullable<ButtonCvaProps["variant"]>;
 
 /** Accepted variant prop: the five M3 configurations (014, hard cut per 020). */
 
 /** The color axis: M3 emphasis (`primary`) or the error treatment (`danger`). */
-export type ButtonColor = "primary" | "danger";
+export type ButtonColor = NonNullable<ButtonCvaProps["color"]>;
 
-export type ButtonSize = "xs" | "default" | "sm" | "md" | "xl" | "lg" | "icon";
+export type ButtonSize = NonNullable<ButtonCvaProps["size"]>;
 
 /**
  * The shape axis: M3 round (`pill`, the full default), stepped-down corner
  * (`rounded`, Kern extension), or M3 Expressive square (per-size 12–28dp —
  * not 0px). Toggle-selected morphs round↔square automatically.
  */
-export type ButtonShape = "pill" | "rounded" | "square";
+export type ButtonShape = NonNullable<ButtonCvaProps["shape"]>;
 
 /** Which side of the label the `icon` slot renders on. */
 export type ButtonIconPosition = "start" | "end";
@@ -556,7 +554,8 @@ export function Button(rawProps: ButtonProps) {
     toggle = false,
     pressed,
     defaultPressed = false,
-    onPressedChange,
+    // onPressedChange is read off rawProps at the primitive (kept out of the
+    // destructure so the hand-rolled toggle state it once fed stays deleted).
     className,
     disabled,
     softDisabled = false,
@@ -570,31 +569,20 @@ export function Button(rawProps: ButtonProps) {
       "Button: `toggle` on `text` has no M3 selected treatment and renders unselected.",
     );
   }
-  const [uncontrolledPressed, setUncontrolledPressed] =
-    useState(defaultPressed);
-  const isPressed =
-    toggle && pressed !== undefined
-      ? pressed
-      : toggle
-        ? uncontrolledPressed
-        : false;
-  const toggleState = () => {
-    if (pressed === undefined) setUncontrolledPressed(!isPressed);
-    onPressedChange?.(!isPressed);
-  };
   const blocked = disabled || loading || softDisabled;
-  const classes = cn(
-    buttonVariants({
-      variant,
-      color,
-      size,
-      shape,
-      block,
-      toggle,
-      selected: toggle ? isPressed : false,
-    }),
-    className,
-  );
+  const classesFor = (selected: boolean) =>
+    cn(
+      buttonVariants({
+        variant,
+        color,
+        size,
+        shape,
+        block,
+        toggle,
+        selected: toggle ? selected : false,
+      }),
+      className,
+    );
   // The icon slot is order, not margin: `iconPosition` only chooses which
   // side of the label renders first, and the 8px M3 icon spacing is the
   // flex `gap` — so the pair flips automatically under RTL with no
@@ -626,61 +614,180 @@ export function Button(rawProps: ButtonProps) {
     </>
   );
 
-  if (rawProps.href !== undefined) {
-    const anchorProps = anchorDOMProps(rawProps);
-    // Toggle anchors keep aria-pressed so assistive tech announces selection
-    // state identically to the button variant. `data-selected` mirrors it for
-    // styling; the pressed state is never conveyed by visuals alone.
+  // Toggle mode renders the Base UI Toggle primitive (the same way
+  // toggle.tsx does): pressed state, keyboard behavior and `aria-pressed`
+  // come from the primitive, never from hand-rolled state. The selected
+  // classes read the primitive's state through the className function, so
+  // controlled and uncontrolled toggles paint identically. `data-selected`
+  // mirrors `pressed` exactly when controlled; uncontrolled toggles expose
+  // state through the primitive's own `data-pressed`/`aria-pressed`.
+  if (toggle) {
+    if (rawProps.href !== undefined) {
+      // Anchor-flavored DOM handlers (onSelect, onCopy, …) are typed for
+      // <a> and cannot ride the button-typed primitive: they spread onto
+      // the rendered anchor instead, where they fire natively exactly as
+      // before. Only primitive-owned props stay on TogglePrimitive.
+      // (anchorDOMProps already strips onClick — consumer clicks run only
+      // through the guarded handler below — plus children and ref.)
+      const anchorElProps = anchorDOMProps(rawProps);
+      return (
+        <TogglePrimitive
+          nativeButton={false}
+          render={
+            // Explicit link role: the primitive sets role="button" on
+            // non-native renders, but an anchor with an href is a link —
+            // the element's own props win the merge. (Disabled anchors
+            // keep the link announcement instead of going generic; the
+            // href cases the tests pin are exact.)
+            <a
+              // biome-ignore lint/a11y/noRedundantRoles: overrides the primitive's role="button"; without it anchors announce as buttons.
+              role="link"
+              href={blocked ? undefined : rawProps.href}
+              target={rawProps.target}
+              rel={rawProps.rel}
+              download={rawProps.download}
+              tabIndex={blocked ? -1 : undefined}
+              {...anchorElProps}
+            />
+          }
+          pressed={pressed}
+          defaultPressed={defaultPressed}
+          onPressedChange={rawProps.onPressedChange}
+          disabled={disabled || loading || undefined}
+          data-slot="button"
+          data-testid={testID}
+          data-loading={loading ? "" : undefined}
+          data-selected={pressed !== undefined && pressed ? "" : undefined}
+          aria-busy={loading || undefined}
+          aria-disabled={blocked || undefined}
+          className={(state) => classesFor(state.pressed)}
+          ref={(node) => {
+            // The primitive types its ref as the rendered element: an
+            // anchor here, truthfully an HTMLAnchorElement at runtime.
+            assignRef(
+              rawProps.ref,
+              node as unknown as HTMLAnchorElement | null,
+            );
+          }}
+          onClick={(event) => {
+            if (blocked) {
+              event.preventDefault();
+              return;
+            }
+            // Soft-disabled keeps its tab stop but must not activate — the
+            // native `disabled` attribute is deliberately absent, so guard here.
+            if (softDisabled) {
+              event.preventDefault();
+              return;
+            }
+            rawProps.onClick?.(
+              event as unknown as React.MouseEvent<HTMLAnchorElement>,
+            );
+          }}
+        >
+          {content}
+        </TogglePrimitive>
+      );
+    }
+    const toggleButtonProps = buttonDOMProps(rawProps);
     return (
-      // biome-ignore lint/a11y/useAriaPropsSupportedByRole: toggle anchor keeps aria-pressed for AT parity with the button variant.
-      <a
+      <TogglePrimitive
+        pressed={pressed}
+        defaultPressed={defaultPressed}
+        onPressedChange={rawProps.onPressedChange}
+        disabled={disabled || loading || undefined}
         data-slot="button"
         data-testid={testID}
         data-loading={loading ? "" : undefined}
-        data-selected={toggle && isPressed ? "" : undefined}
+        data-selected={pressed !== undefined && pressed ? "" : undefined}
         aria-busy={loading || undefined}
         aria-disabled={blocked || undefined}
-        aria-pressed={toggle ? isPressed : undefined}
-        tabIndex={blocked ? -1 : undefined}
-        href={blocked ? undefined : rawProps.href}
-        target={rawProps.target}
-        rel={rawProps.rel}
-        download={rawProps.download}
+        className={(state) => classesFor(state.pressed)}
+        type={rawProps.type ?? "button"}
         ref={(node) => {
           assignRef(rawProps.ref, node);
         }}
-        className={classes}
-        {...anchorProps}
+        {...toggleButtonProps}
+        onClick={(event) => {
+          // Soft-disabled keeps its tab stop but must not activate — the
+          // native `disabled` attribute is deliberately absent, so guard here.
+          if (softDisabled) {
+            event.preventDefault();
+            return;
+          }
+          rawProps.onClick?.(event);
+        }}
+      >
+        {content}
+      </TogglePrimitive>
+    );
+  }
+
+  if (rawProps.href !== undefined) {
+    // Same split as the toggle anchor: anchor-flavored handlers ride the
+    // rendered <a> natively; only primitive-owned props stay on the primitive.
+    // anchorDOMProps already strips onClick (consumer clicks run only
+    // through the guarded handler below), children, and ref.
+    const anchorElProps = anchorDOMProps(rawProps);
+    return (
+      <ButtonPrimitive
+        nativeButton={false}
+        render={
+          // Explicit link role (see toggle anchor above): the primitive
+          // sets role="button" on non-native renders; the element wins.
+          <a
+            // biome-ignore lint/a11y/noRedundantRoles: overrides the primitive's role="button"; without it anchors announce as buttons.
+            role="link"
+            href={blocked ? undefined : rawProps.href}
+            target={rawProps.target}
+            rel={rawProps.rel}
+            download={rawProps.download}
+            tabIndex={blocked ? -1 : undefined}
+            {...anchorElProps}
+          />
+        }
+        disabled={disabled || loading || undefined}
+        data-slot="button"
+        data-testid={testID}
+        data-loading={loading ? "" : undefined}
+        aria-busy={loading || undefined}
+        aria-disabled={blocked || undefined}
+        className={classesFor(false)}
+        ref={(node) => {
+          // Truthfully an HTMLAnchorElement at runtime (see toggle anchor).
+          assignRef(rawProps.ref, node as unknown as HTMLAnchorElement | null);
+        }}
         onClick={(event) => {
           if (blocked) {
             event.preventDefault();
             return;
           }
-          if (toggle) toggleState();
-          rawProps.onClick?.(event);
+          rawProps.onClick?.(
+            event as unknown as React.MouseEvent<HTMLAnchorElement>,
+          );
         }}
       >
         {content}
-      </a>
+      </ButtonPrimitive>
     );
   }
 
   const buttonProps = buttonDOMProps(rawProps);
   return (
-    <button
+    <ButtonPrimitive
       data-slot="button"
       data-testid={testID}
       data-loading={loading ? "" : undefined}
-      data-selected={toggle && isPressed ? "" : undefined}
       aria-busy={loading || undefined}
       aria-disabled={blocked || undefined}
-      aria-pressed={toggle ? isPressed : undefined}
-      className={classes}
+      className={classesFor(false)}
       type={rawProps.type ?? "button"}
       value={rawProps.value}
       disabled={disabled || loading || undefined}
       ref={(node) => {
-        assignRef(rawProps.ref, node);
+        // Truthfully an HTMLButtonElement at runtime; the primitive types
+        // its ref as the generic HTMLElement.
+        assignRef(rawProps.ref, node as unknown as HTMLButtonElement | null);
       }}
       {...buttonProps}
       onClick={(event) => {
@@ -690,12 +797,11 @@ export function Button(rawProps: ButtonProps) {
           event.preventDefault();
           return;
         }
-        if (toggle) toggleState();
         rawProps.onClick?.(event);
       }}
     >
       {content}
-    </button>
+    </ButtonPrimitive>
   );
 }
 
