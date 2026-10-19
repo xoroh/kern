@@ -2192,6 +2192,30 @@ export const A11Y: Record<string, A11yPage> = {
       }
     }
   },
+  "web/hero": {
+    "page": "web/hero",
+    "measured": false,
+    "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    "demos": {
+      "Hero": {
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "keyboard contract carries 1 row(s) in hero.ts — every operable action has a documented key"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 2 line(s) in hero.ts — roles, names and states are stated, not assumed"
+          }
+        ]
+      }
+    }
+  },
   "web/icon-button": {
     "page": "web/icon-button",
     "measured": false,
@@ -4315,6 +4339,30 @@ export const A11Y: Record<string, A11yPage> = {
       }
     }
   },
+  "web/site-footer": {
+    "page": "web/site-footer",
+    "measured": false,
+    "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    "demos": {
+      "SiteFooter": {
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "keyboard contract carries 2 row(s) in site-footer.ts — every operable action has a documented key"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in site-footer.ts — roles, names and states are stated, not assumed"
+          }
+        ]
+      }
+    }
+  },
   "web/skeleton": {
     "page": "web/skeleton",
     "measured": false,
@@ -5506,6 +5554,30 @@ export const A11Y: Record<string, A11yPage> = {
       "UserMenu": {
         "hasLiveDemo": false,
         "expectations": []
+      }
+    }
+  },
+  "web/top-bar": {
+    "page": "web/top-bar",
+    "measured": false,
+    "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    "demos": {
+      "TopBar": {
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "keyboard contract carries 3 row(s) in top-bar.ts — every operable action has a documented key"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 3 line(s) in top-bar.ts — roles, names and states are stated, not assumed"
+          }
+        ]
       }
     }
   },

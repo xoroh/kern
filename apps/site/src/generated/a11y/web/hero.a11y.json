@@ -1,0 +1,24 @@
+{
+  "page": "web/hero",
+  "measured": false,
+  "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+  "demos": {
+    "Hero": {
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "keyboard-operable",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "keyboard contract carries 1 row(s) in hero.ts — every operable action has a documented key"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 2 line(s) in hero.ts — roles, names and states are stated, not assumed"
+        }
+      ]
+    }
+  }
+}

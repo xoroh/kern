@@ -1,6 +1,6 @@
 {
   "version": "0.0.0",
-  "releaseSet": "kern@0.0.0+419.f5e37bf4f5ce6f02",
+  "releaseSet": "kern@0.0.0+422.83a0f1cf1f63da0d",
   "rows": [
     {
       "name": "accordion-root",
@@ -2208,6 +2208,30 @@
       "platform": "web",
       "entrypoint": "./start",
       "path": "src/start/link.tsx",
+      "status": "real"
+    },
+    {
+      "name": "hero",
+      "export": "Hero",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/marketing.tsx",
+      "status": "real"
+    },
+    {
+      "name": "top-bar",
+      "export": "TopBar",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/marketing.tsx",
+      "status": "real"
+    },
+    {
+      "name": "site-footer",
+      "export": "SiteFooter",
+      "platform": "web",
+      "entrypoint": "./start",
+      "path": "src/start/marketing.tsx",
       "status": "real"
     },
     {
