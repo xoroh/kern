@@ -105,7 +105,7 @@ export function SiteHeader() {
           onClick={openSearch}
           aria-label="Search (Command K)"
           className={cn(
-            `inline-flex h-12 min-w-12 cursor-pointer items-center justify-center gap-2 rounded-(--sys-shape-corner-full) border-0 bg-(--sys-color-surface-container-high) px-3 text-(--sys-color-on-surface-variant) hover:bg-(--sys-color-surface-container-highest) ${TRANSITION} sm:justify-start sm:px-4`,
+            `inline-flex h-12 min-w-12 cursor-pointer items-center justify-center gap-2 rounded-(--sys-shape-corner-full) border-0 bg-(--sys-color-surface-container-high) px-3 text-(--sys-color-on-surface-variant) ${STATE_LAYERS} ${TRANSITION} sm:justify-start sm:px-4`,
             FOCUS_RING,
           )}
         >

@@ -12,6 +12,11 @@ import {
   T_LABEL_LG,
   T_SECTION,
 } from "../../domains/shared/systems/type-scale";
+import {
+  FOCUS_RING,
+  STATE_LAYERS,
+  TRANSITION,
+} from "../../domains/shared/systems/ui";
 
 export function Code({ children }: { children: string }) {
   const [copied, setCopied] = useState(false);
@@ -19,10 +24,10 @@ export function Code({ children }: { children: string }) {
     <div className="relative">
       <button
         type="button"
+        className={`absolute top-2 right-2 z-10 flex size-8 cursor-pointer items-center justify-center rounded-full border border-(--sys-color-outline-variant) bg-(--sys-color-surface) text-(--sys-color-on-surface-variant) ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`}
         // 32px overlay affordance, not the 48dp floor: a full target would
         // cover the code it copies. Keyboard-reachable via tab (global
         // :focus-visible ring) with press feedback below.
-        className="absolute top-2 right-2 z-10 flex size-8 cursor-pointer items-center justify-center rounded-full border border-(--sys-color-outline-variant) bg-(--sys-color-surface) text-(--sys-color-on-surface-variant) hover:bg-(--sys-color-on-surface)/8 active:bg-(--sys-color-on-surface)/12 transition-colors ease-(--sys-motion-easing-standard) [transition-duration:var(--sys-motion-duration-short3)]"
         aria-label={copied ? "Copied" : "Copy code"}
         onClick={async () => {
           try {
@@ -38,7 +43,7 @@ export function Code({ children }: { children: string }) {
         <Icon name={copied ? "check" : "attach"} size={16} />
       </button>
       <pre
-        className={`m-0 overflow-x-auto rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container-high) p-5 pr-12 ${T_CODE} text-(--sys-color-on-surface)`}
+        className={`m-0 overflow-x-auto rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container-high) p-4 pr-12 ${T_CODE} text-(--sys-color-on-surface)`}
       >
         <code>{children}</code>
       </pre>

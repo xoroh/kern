@@ -16,7 +16,7 @@ export type NativeToggleGroupOption = {
   disabled?: boolean;
 };
 
-export function toggleGroupStyles(scheme: ResolvedTheme = defaultScheme): {
+export function toggleGroupStyles(scheme: ResolvedTheme = defaultScheme()): {
   container: ViewStyle;
 } {
   return {

@@ -288,7 +288,16 @@ export function GetStartedBand() {
         </div>
         <div className="home-code-lines">
           <code className={T_CODE}>
-            <span className="code-comment">{"// 01 — Install"}</span>
+            <span className="code-comment">
+              {"// 01 — Install (source, available now)"}
+            </span>
+            <br />
+            {"bun <checkout>/packages/kern-cli/src/kern.ts init my-app"}
+          </code>
+          <code className={T_CODE}>
+            <span className="code-comment">
+              {"// 01b — Registry (available at release)"}
+            </span>
             <br />
             {command}
           </code>

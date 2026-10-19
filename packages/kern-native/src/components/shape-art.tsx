@@ -75,7 +75,7 @@ const COMPOSITIONS: Record<ShapeArtLayout, readonly Piece[]> = {
 export function shapeArtStyles(
   layout: ShapeArtLayout,
   size: number,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
 ): { root: ViewStyle; pieces: readonly ViewStyle[] } {
   const height = layout === "scatter" ? size * 0.6 : size;
   return {

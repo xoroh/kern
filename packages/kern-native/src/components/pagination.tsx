@@ -83,7 +83,7 @@ export function pageWindow(current: number, count: number): PaginationEntry[] {
 export function paginationStyles(
   _current: number,
   disabled: boolean,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
 ): {
   pager: ViewStyle;
   page: ViewStyle;

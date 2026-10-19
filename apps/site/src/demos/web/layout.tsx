@@ -59,6 +59,7 @@ import {
 } from "@xoroh/kern/start";
 import { useState } from "react";
 import { Preview, PreviewStack, Row } from "../../components/preview/preview";
+import { T_BODY_MD, T_BODY_SM } from "../../domains/shared/systems/type-scale";
 
 export function AccordionDemo() {
   return (
@@ -99,7 +100,7 @@ export function CollapsibleDemo() {
         <Collapsible.Root>
           <Collapsible.Trigger>What is included?</Collapsible.Trigger>
           <Collapsible.Panel>
-            <p className="m-0 text-sm">
+            <p className={`m-0 ${T_BODY_MD}`}>
               Tokens, components, theme presets and a CLI scaffold.
             </p>
           </Collapsible.Panel>
@@ -188,7 +189,9 @@ export function ContextMenuDemo() {
   return (
     <Preview label="ContextMenu — right-click the area" span={3}>
       <ContextMenu.Root>
-        <ContextMenu.Trigger className="flex h-32 w-full max-w-sm items-center justify-center rounded-(--sys-shape-corner-small) border border-dashed border-(--sys-color-outline-variant) text-sm text-(--sys-color-on-surface-variant)">
+        <ContextMenu.Trigger
+          className={`flex h-32 w-full max-w-sm items-center justify-center rounded-(--sys-shape-corner-small) border border-dashed border-(--sys-color-outline-variant) ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
+        >
           Right-click here
         </ContextMenu.Trigger>
         <ContextMenu.Content>
@@ -377,7 +380,7 @@ export function PreviewCardDemo() {
             render={<Button variant="ghost">@xoroh</Button>}
           />
           <PreviewCard.Content>
-            <p className="m-0 text-sm">
+            <p className={`m-0 ${T_BODY_MD}`}>
               The open-source design system following Material Design 3.
             </p>
           </PreviewCard.Content>
@@ -481,7 +484,7 @@ export function ScrollAreaDemo() {
     <Preview label="ScrollArea — clipped vertical overflow" span={3}>
       <ScrollArea.Root className="h-40 w-full max-w-xs rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant)">
         <ScrollArea.Viewport className="h-full p-4">
-          <ul className="m-0 flex list-none flex-col gap-2 p-0 text-sm">
+          <ul className={`m-0 flex list-none flex-col gap-2 p-0 ${T_BODY_MD}`}>
             {Array.from({ length: 20 }, (_, index) => (
               // The row's own ordinal is a stable identity for a fixed, never-
               // reordered list, and it is already in hand — so no index key.
@@ -548,7 +551,7 @@ export function BottomSheetDemo() {
         onOpenChange={setOpen}
         onClose={() => setOpen(false)}
       >
-        <p className="m-0 text-sm">Narrow the result set.</p>
+        <p className={`m-0 ${T_BODY_MD}`}>Narrow the result set.</p>
       </BottomSheet>
     </Preview>
   );
@@ -562,7 +565,7 @@ export function DockSheetDemo() {
     >
       <div className="w-full max-w-sm">
         <DockSheet label="Quick actions">
-          <p className="m-0 text-sm">Pinned actions live here.</p>
+          <p className={`m-0 ${T_BODY_MD}`}>Pinned actions live here.</p>
         </DockSheet>
       </div>
     </Preview>
@@ -581,7 +584,7 @@ export function EntitySheetDemo() {
         open={open}
         onOpenChange={setOpen}
       >
-        <p className="m-0 text-sm">Owner: Design systems.</p>
+        <p className={`m-0 ${T_BODY_MD}`}>Owner: Design systems.</p>
       </EntitySheet>
     </Preview>
   );
@@ -598,7 +601,7 @@ export function SnapSheetDemo() {
         open={open}
         onOpenChange={setOpen}
       >
-        <p className="m-0 text-sm">Settles at quarter, half, full.</p>
+        <p className={`m-0 ${T_BODY_MD}`}>Settles at quarter, half, full.</p>
       </SnapSheet>
     </Preview>
   );
@@ -625,7 +628,7 @@ export function BottomSheetPickerDemo() {
           setOpen(false);
         }}
       />
-      <p className="m-0 text-sm">Selected: {value}</p>
+      <p className={`m-0 ${T_BODY_MD}`}>Selected: {value}</p>
     </Preview>
   );
 }
@@ -650,7 +653,7 @@ export function ActionSheetDemo() {
           },
         ]}
       />
-      <p className="m-0 text-sm">Last action: {last}</p>
+      <p className={`m-0 ${T_BODY_MD}`}>Last action: {last}</p>
     </Preview>
   );
 }
@@ -661,7 +664,9 @@ export function SheetSurfaceDemo() {
     <Preview label="SheetSurface — the dismissal primitive" span={3}>
       <SheetOpener label="Open surface" onOpen={() => setOpen(true)} />
       <SheetSurface label="Surface" open={open} onOpenChange={setOpen}>
-        <p className="m-0 text-sm">Scrim, Escape and focus return live here.</p>
+        <p className={`m-0 ${T_BODY_MD}`}>
+          Scrim, Escape and focus return live here.
+        </p>
       </SheetSurface>
     </Preview>
   );
@@ -757,12 +762,12 @@ export function SecondaryTabsDemo() {
             {
               value: "overview",
               label: "Overview",
-              content: <p className="m-0 text-sm">Overview panel.</p>,
+              content: <p className={`m-0 ${T_BODY_MD}`}>Overview panel.</p>,
             },
             {
               value: "usage",
               label: "Usage",
-              content: <p className="m-0 text-sm">Usage panel.</p>,
+              content: <p className={`m-0 ${T_BODY_MD}`}>Usage panel.</p>,
             },
           ]}
         />
@@ -778,10 +783,10 @@ export function CarouselDemo() {
         <Carousel
           label="Highlights"
           items={[
-            <p key="one" className="m-0 text-sm">
+            <p key="one" className={`m-0 ${T_BODY_MD}`}>
               Slide one.
             </p>,
-            <p key="two" className="m-0 text-sm">
+            <p key="two" className={`m-0 ${T_BODY_MD}`}>
               Slide two.
             </p>,
           ]}
@@ -838,7 +843,7 @@ export function TopAppBarDemo() {
             <TopAppBarToggle open={open} onToggle={() => setOpen((v) => !v)} />
           }
         >
-          <span className="text-sm font-medium">Kern</span>
+          <span className={`${T_BODY_MD}`}>Kern</span>
         </TopAppBar>
       </div>
     </Preview>
@@ -852,12 +857,12 @@ export function AppShellDemo() {
         <AppShell
           topBar={
             <TopAppBar>
-              <span className="text-sm font-medium">Kern</span>
+              <span className={`${T_BODY_MD}`}>Kern</span>
             </TopAppBar>
           }
-          statusBar={<p className="m-0 px-4 py-1 text-xs">Synced</p>}
+          statusBar={<p className={`m-0 px-4 py-1 ${T_BODY_SM}`}>Synced</p>}
         >
-          <p className="m-0 p-4 text-sm">Body region.</p>
+          <p className={`m-0 p-4 ${T_BODY_MD}`}>Body region.</p>
         </AppShell>
       </div>
     </Preview>
@@ -888,7 +893,7 @@ export function PaneDemo() {
     <Preview label="Pane — bounded content region" span={3}>
       <div className="w-full max-w-sm">
         <Pane width="default">
-          <p className="m-0 text-sm">Reading-width content.</p>
+          <p className={`m-0 ${T_BODY_MD}`}>Reading-width content.</p>
         </Pane>
       </div>
     </Preview>
@@ -900,15 +905,15 @@ export function SplitDemo() {
     <Preview label="Split — N-column region + grid recipe" span={3}>
       <div className="flex w-full flex-col gap-2">
         <Split label="Two columns" columns={2}>
-          <p className="m-0 p-2 text-sm">Left</p>
-          <p className="m-0 p-2 text-sm">Right</p>
+          <p className={`m-0 p-2 ${T_BODY_MD}`}>Left</p>
+          <p className={`m-0 p-2 ${T_BODY_MD}`}>Right</p>
         </Split>
         <SplitGrid columns={2}>
           <SplitPanel>
-            <p className="m-0 p-2 text-sm">Grid left</p>
+            <p className={`m-0 p-2 ${T_BODY_MD}`}>Grid left</p>
           </SplitPanel>
           <SplitPanel>
-            <p className="m-0 p-2 text-sm">Grid right</p>
+            <p className={`m-0 p-2 ${T_BODY_MD}`}>Grid right</p>
           </SplitPanel>
         </SplitGrid>
       </div>

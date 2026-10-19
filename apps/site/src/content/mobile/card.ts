@@ -19,7 +19,70 @@ export const card: ComponentDoc = {
     // documented in Customization, same as Button's two-row case.
     elevation: 0,
   },
-  parts: ["Card"],
+  parts: ["Card", "CardHeader", "CardContent", "CardActions"],
+  anatomy: [
+    {
+      name: "CardHeader",
+      role: "The title slot. Headline first, supporting text under it.",
+    },
+    {
+      name: "CardContent",
+      role: "The body. Holds the content the card groups.",
+    },
+    {
+      name: "CardActions",
+      role: 'The action row. A right-aligned row of real pressables; the row itself takes no role (`accessibilityRole="none"`), so each control announces on its own.',
+    },
+  ],
+  keyboard: [
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "A card takes no focus and exposes no state of its own — content inside reads in order, and pressable children (a `ListItem`, an action) read as themselves. Double-tap activates the child, never the card.",
+    },
+  ],
+  usage: {
+    do: [
+      "Use one card per subject with a scannable hierarchy — headline, supporting text, actions.",
+      "Pick the variant by surface alone: filled, outlined, or elevated all carry the same content contract.",
+      "Make a pressable card by putting the press in a child (`ListItem`), not on the card.",
+    ],
+    dont: [
+      "Don't nest interactivity — directly actionable or container-with-actions, never both.",
+      "Don't scroll inside cards — expand to reveal instead.",
+      "Don't force non-card content into cards — spacing, headlines, or dividers may serve better.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Filled container",
+      state: "resting",
+      token: "theme.color.surfaceContainerHighest",
+      value: "surfaceContainerHighest, medium corners, level 0",
+    },
+    {
+      element: "Outlined container",
+      state: "resting",
+      token: "theme.color.surface",
+      value: "surface with 1px outlineVariant border",
+    },
+    {
+      element: "Elevated container",
+      state: "resting",
+      token: "theme.color.surfaceContainerLow",
+      value: "surfaceContainerLow, level 1 (the family's raised row)",
+    },
+  ],
+  faq: [
+    {
+      q: "When is a card elevated?",
+      a: "Material 3 tabulates two rows: filled and outlined rest at level 0, the elevated card at level 1. Elevation is the variant — there is no elevation prop.",
+    },
+    {
+      q: "How does this differ from the web card?",
+      a: "The three-variant contract and the 0/1 elevation split are identical. The native card is a `View` with kern-drawn fills (no global CSS), and pressability always lives in a child.",
+    },
+  ],
   customization: {
     supported: [
       "`variant` is the three Material 3 card treatments. Note the two elevation rows Material 3 tabulates: `cards (filled, outlined)` rest at level 0 (`shadow: none`) and `card (elevated)` at level 1. The page claims the base, 0; `elevated` is the one that raises.",
@@ -27,7 +90,7 @@ export const card: ComponentDoc = {
       "`style` is a React Native `ViewStyle`.",
     ],
     notSupported: [
-      "There are no `title`/`media`/`actions` slots. Those are a card COMPOSITION you build inside this surface.",
+      "There is no `title`/`media` prop. Compose `CardHeader`, `CardContent` and `CardActions` inside the surface instead.",
       "There is no `interactive` or `onPress` prop. A pressable card is a `ListItem`, or a card you put a control in.",
       "There is no `size` or `density` prop. The card is as big as its content and its container.",
     ],

@@ -33,7 +33,7 @@ export type SuccessTransformProps = Omit<ViewProps, "children" | "style"> & {
 export function successTransformStyles(
   size: FeedbackSize,
   success: string,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
 ): { check: ViewStyle; tick: ViewStyle } {
   const edge = FEEDBACK_SIZE_DP[size].shape * 1.6;
   return {

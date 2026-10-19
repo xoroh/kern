@@ -19,7 +19,10 @@ export type CommandOption = {
   onSelect?: (value: string) => void;
 };
 
-export type CommandRootProps = ComponentProps<typeof ComboboxPrimitive.Root> & {
+export type CommandRootProps = Omit<
+  ComboboxPrimitive.Root.Props<string, false, CommandOption>,
+  "items" | "filter"
+> & {
   /** Rows to filter and render. */
   options: readonly CommandOption[];
   /** Called with the chosen option's value. */
@@ -64,10 +67,10 @@ export function CommandRoot({
   ...props
 }: CommandRootProps) {
   return (
-    <ComboboxPrimitive.Root
+    <ComboboxPrimitive.Root<string, false, CommandOption>
       data-slot="command"
-      items={options as unknown as CommandOption[]}
-      filter={(item, query) => commandFilter(item as CommandOption, query)}
+      items={options}
+      filter={commandFilter}
       openOnInputClick
       autoHighlight
       onValueChange={(value, eventDetails) => {

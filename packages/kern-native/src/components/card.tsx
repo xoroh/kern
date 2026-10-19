@@ -11,7 +11,7 @@ export type NativeCardVariant = "filled" | "outlined" | "elevated";
 
 export function cardStyles(
   variant: NativeCardVariant,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
 ): ViewStyle {
   const base: ViewStyle = {
     borderRadius: cssLengthToDp(

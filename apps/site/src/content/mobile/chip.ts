@@ -18,6 +18,65 @@ export const chip: ComponentDoc = {
     elevation: 0,
   },
   parts: ["Chip"],
+  keyboard: [
+    {
+      key: "Enter / Space via external keyboard",
+      action:
+        "Activates the focused chip — filter chips toggle their selected state.",
+    },
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "Chips read in order with their label and selected/disabled states; double-tap activates or toggles.",
+    },
+  ],
+  usage: {
+    do: [
+      "Use the variant that matches the job: action, filter (with the selection trio), input, suggestion.",
+      "Keep labels to a few words — a chip is a token, not a sentence.",
+      "Filter chips carry `value`/`defaultValue`/`onValueChange`, so the selection is state like any other.",
+    ],
+    dont: [
+      "Don't use chips for long multi-select sets that must stay visible all at once — that is a filter chip row.",
+      "Don't stack more than a few action chips — a menu carries longer choice lists better.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Unselected container",
+      state: "resting",
+      token: "theme.color.surfaceContainerLow",
+      value: "surfaceContainerLow, 1px outline border, small corners",
+    },
+    {
+      element: "Selected filter container",
+      state: "selected",
+      token: "theme.color.secondaryContainer",
+      value: "secondaryContainer (filter variant only)",
+    },
+    {
+      element: "Selected filter label",
+      state: "selected",
+      token: "theme.color.onSecondaryContainer",
+      value: "onSecondaryContainer; unselected labels are onSurface",
+    },
+    {
+      element: "Container",
+      state: "resting",
+      token: "theme.shape.small",
+      value: "small corners, minHeight 32",
+    },
+  ],
+  faq: [
+    {
+      q: "Chip or button?",
+      a: "A chip marks a choice, filter, or input among peers; a button carries an action. Choosing among visible options means chips.",
+    },
+    {
+      q: "How does this differ from the web chip?",
+      a: "Same four-variant contract with the same selection trio on filter. The container is kern-drawn (no elevation — chips rest flat on both renderers) and selection announces through `accessibilityState`.",
+    },
+  ],
   customization: {
     supported: [
       "`variant` is the M3 chip kind; `filter` additionally takes the selection trio (`value`, `defaultValue`, `onValueChange`).",
