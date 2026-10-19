@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * check-release-sweep — the final no-internal-files sweep before any release.
+ * release-sweep — the final no-internal-files sweep before any release.
  *
  * WHAT IT CHECKS
  *
@@ -23,7 +23,7 @@
  * A failure names the exact path. The release does not proceed until the
  * sweep is green — see `docs/releases.md`.
  *
- * Usage: `bun run check:release-sweep` (needs `bun run build` first: pack
+ * Usage: `bun run release-sweep` (needs `bun run build` first: pack
  * lists cover `dist/`, which is gitignored).
  */
 import { execFileSync } from "node:child_process";
@@ -179,10 +179,10 @@ for (const pkg of PACKAGES) {
 
 for (const n of notes) console.log(`  note  ${n}`);
 if (failures.length > 0) {
-  console.error("check-release-sweep FAILED — internal files found:");
+  console.error("release-sweep FAILED — internal files found:");
   for (const f of failures) console.error(`  - ${f}`);
   process.exit(1);
 }
 console.log(
-  "check-release-sweep passes: no internal files in the repo or any pack output.",
+  "release-sweep passes: no internal files in the repo or any pack output.",
 );
