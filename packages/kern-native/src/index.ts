@@ -472,6 +472,7 @@ export type {
 } from "./fonts";
 export { KernFontGate, kernFontFaces, useKernFonts } from "./fonts";
 export type {
+  ColorSchemeMode,
   Contrast,
   KernThemeProviderProps,
   Mode,
@@ -487,6 +488,7 @@ export {
   prefersReducedMotion,
   resolveMotionScheme,
   springConfig,
+  useColorScheme,
   useKernMotion,
   useKernScheme,
   useKernTheme,

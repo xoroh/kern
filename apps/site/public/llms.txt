@@ -207,7 +207,7 @@ Prefer these machine surfaces over scraping HTML:
 - [Tabs](/components/m3/tabs): Tabs switch between related views of the same subject without leaving the page. Renders: Web + Native. Markdown: /md/web/tabs.md, /md/mobile/tabs.md.
 - [Text](/components/m3/text): Text renders a line of type at one of the typescale's styles. Renders: Web + Native. Markdown: /md/web/text.md, /md/mobile/text.md.
 - [Textarea](/components/m3/textarea): Textareas take several lines of text from someone and hand it to you. Renders: Web + Native. Markdown: /md/web/textarea.md, /md/mobile/textarea.md.
-- [ThemeToggle](/components/m3/theme-toggle): One action that requests a theme change, named for where the press goes rather than where it is. Renders: Native. Markdown: /md/mobile/theme-toggle.md.
+- [ThemeToggle](/components/m3/theme-toggle): One action that switches the color scheme between light and dark. Renders: Web + Native. Markdown: /md/web/theme-toggle.md, /md/mobile/theme-toggle.md.
 - [Time picker](/components/m3/time-picker): Time pickers set a time of day with explicit hour and minute fields. Renders: Web + Native. Markdown: /md/web/time-picker.md, /md/mobile/time-picker.md.
 - [Toggle](/components/m3/toggle): Toggles are buttons that stay pressed, for a setting you switch on and off. Renders: Web + Native. Markdown: /md/web/toggle.md, /md/mobile/toggle.md.
 - [Toggle group](/components/m3/toggle-group): Toggle groups hold related toggles together as one control, picking either one option or several. Renders: Web + Native. Markdown: /md/web/toggle-group.md, /md/mobile/toggle-group.md.

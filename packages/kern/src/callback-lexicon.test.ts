@@ -89,6 +89,7 @@ const ACTION_ALLOWLIST = new Set([
   "onConfirm",
   "onCancel",
   "onAction",
+  "onToggle",
 ]);
 
 async function tsxFiles(dir: string, out: string[] = []): Promise<string[]> {

@@ -2029,6 +2029,14 @@ export const MATURITY: readonly MaturityRow[] = [
     version: "0.0.0",
   },
   {
+    name: "theme-toggle",
+    export: "ThemeToggle",
+    platform: "web",
+    entrypoint: ".",
+    state: "Preview",
+    version: "0.0.0",
+  },
+  {
     name: "time-picker",
     export: "TimePicker",
     platform: "web",
@@ -2199,14 +2207,6 @@ export const MATURITY: readonly MaturityRow[] = [
   {
     name: "status-bar",
     export: "StatusBar",
-    platform: "web",
-    entrypoint: "./start",
-    state: "Preview",
-    version: "0.0.0",
-  },
-  {
-    name: "theme-toggle",
-    export: "ThemeToggle",
     platform: "web",
     entrypoint: "./start",
     state: "Preview",
