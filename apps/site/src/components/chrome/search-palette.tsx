@@ -37,12 +37,8 @@ import {
   TRANSITION,
 } from "../../domains/shared/systems/ui";
 import { trapTarget } from "../../systems/focus-trap";
-import {
-  buildSearchIndex,
-  SEARCH_SUGGESTIONS,
-  type SearchEntry,
-  searchSite,
-} from "../../systems/search";
+import type { SearchEntry } from "../../systems/search";
+import { SEARCH_SUGGESTIONS } from "../../systems/search/suggestions";
 import {
   isSlashSearchKey,
   isToggleSearchKey,
@@ -50,9 +46,11 @@ import {
 import { ResultText } from "../search/result-text";
 import { OPEN_SEARCH_EVENT } from "./search-opener";
 
-function flatten(groups: ReturnType<typeof searchSite>): SearchEntry[] {
+function flatten(groups: { entries: SearchEntry[] }[]): SearchEntry[] {
   return groups.flatMap((g) => g.entries);
 }
+
+type SearchModule = typeof import("../../systems/search");
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])';
@@ -83,8 +81,24 @@ export function SearchPalette({
   const triggerRef = useRef<Element | null>(null);
   const listId = useId();
 
-  const index = useMemo(() => buildSearchIndex(), []);
-  const groups = useMemo(() => searchSite(query, index), [query, index]);
+  const [searchMod, setSearchMod] = useState<SearchModule | null>(null);
+  useEffect(() => {
+    let live = true;
+    void import("../../systems/search").then((m) => {
+      if (live) setSearchMod(m);
+    });
+    return () => {
+      live = false;
+    };
+  }, []);
+  const index = useMemo(
+    () => (searchMod ? searchMod.buildSearchIndex() : []),
+    [searchMod],
+  );
+  const groups = useMemo(
+    () => (searchMod ? searchMod.searchSite(query, index) : []),
+    [query, index, searchMod],
+  );
   const flat = useMemo(() => flatten(groups), [groups]);
 
   const close = useCallback(() => {
