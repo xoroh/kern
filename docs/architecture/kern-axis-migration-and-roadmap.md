@@ -1,6 +1,7 @@
 # Kern–Axis Migration and Roadmap — Authoritative Plan
 
 Status: **active — the single source of truth.** Created 2026-10-16.
+Last consolidated 2026-10-19 (see the status consolidation section below).
 Supersedes `docs/architecture/0.1.0-preview-redesign.md` (archived at
 `docs/archive/2026-10-axis-transition/architecture/0.1.0-preview-redesign.md`)
 and the entire `docs/planning/` + `docs/plan/` effort, archived with index at
@@ -18,6 +19,89 @@ Conventions: **Verified** = observed by the planning agent via read/git/gh/npm
 on 2026-10-15/16. **Reported** = claimed by an earlier artifact, not
 re-observed. **Unverified** = could not be established. SHAs and counts are
 point-in-time; Phase 0 re-pins them.
+
+## Status consolidation — 2026-10-19 05:05 CEST (Kern Lead)
+
+This overlay supersedes the 2026-10-19 02:50 CEST overlay below and the status
+lines in §§A/B/H for the current state. Evidence: `git`/`gh` checks by the Kern
+Lead at the time above; the cleanup lane ran PRs #59–#74 down to ONE open PR
+(this one — outcome record
+`.reports/2026-10-19-kern-cleanup-lane-outcome.md`). The test for every item is
+`docs/VISION.md`; decisions are `docs/decisions/001-021`. Release hold unchanged.
+
+### Done on `main` (`fc5b2df3`, verified; the repo wins on drift)
+
+- **Axis is the native foundation (007):** Kern consumes `@xoroh/axis` via vendored
+  tarball (`vendor/axis/axis-82c3179.tgz`, #66). Zero live `@xoroh/kern-primitives`
+  importers remain; `libs/kern-primitives/` is frozen but still in the tree and workspaces.
+- **Per-system shape for M3 (017):** platform-free preset `@xoroh/kern-m3` (only depends
+  on `@xoroh/kern-tokens`) plus web widgets `@xoroh/kern` and native widgets
+  `@xoroh/kern-native`. No shared themed renderer across systems.
+- **`kern-material-3` → `kern-m3` hard rename, no alias (010, first half):** #61,
+  merged 2026-10-17 07:01 CEST.
+- **DTCG tokens (VISION 4):** DTCG 2025.10 export/import/validate in `@xoroh/kern-tokens`.
+- **AI-first surfaces exist:** generated component manifest, CLI `registry.json` from the same
+  generator, 12 MCP tools, generated `llms.txt`, per-page `.md`, `/mcp/index.json`.
+- **CLI vendoring engine (006):** `kern add/list/diff/upgrade`; CLI publish-shaped (012).
+- **Small-fix track #39–#58:** SnapSheet, toggle `aria-pressed`, state-layer single source,
+  mobile Dialog `open`, ref forwarding, install honesty banner (#42), elevation gaps,
+  release hygiene, Base UI state names (015), native exports, no-compat sweep (020),
+  testID contract, usage batch, state-layer contradictions, P2 shape/spacing sweep,
+  decision records consolidated (#58).
+- **Cleanup lane 2026-10-19 (all squash-merged to main):** #73 bun 1.4.3 pin (lockfile
+  fix); #74 gap audit + site design review; #67 no global M3 registration; #59 M3
+  fidelity + HCT cutover + ADR-021 (supersedes 016's spike); #60 usage-presentation
+  (system routes, install honesty, top-20 depth); #62 undocumented exports to zero
+  (coverage gate fails on gaps); #66 Axis vendor `82c3179` + stale-tarball gate; #69
+  `render` adoption with casts removed; #65 UseColorScheme + ThemeToggle port; #68
+  Hero/TopBar/SiteFooter marketing compositions; #64/#70 site premium A/B;
+  #71 Axis Toast/Portal adoption in native (single-shot `Snackbar` removed per
+  ADR-020; mobile showcase migrated to the queue API). #63 closed as a duplicate
+  of #66 with a pointer comment (both of its commits were contained in the kept line).
+- **D-051 no redirects before the first release:** ADR-020 wins (Faroeq via Grok Bot
+  2026-10-19 02:51 CEST). Old `/components/web|mobile/*` URLs are removed, not
+  redirected. This supersedes "with redirects" in the 2026-10-16 structure approval
+  and in D-URLS (§I).
+
+### In open PRs (not merged; state at 2026-10-19 05:05 CEST)
+
+| PR | What | CI / mergeability | Blocker |
+|---|---|---|---|
+| #72 | This roadmap consolidation (status + D-051 + next steps) | — | Merge last; all other lanes are merged |
+
+### Left, in order (to Preview 0.1.0, near-Alpha)
+
+1. **Re-vendor Axis to `b85a5c3`:** Axis #57 (compound Select/Tooltip) and #60
+   (OverlayRoot/PortalHost) are merged upstream. Refresh `vendor/axis/` to a tarball
+   at/after `b85a5c3` through the stale-tarball gate flow (the #66 pattern): keep one
+   root `PortalHost` and drop the Kern `Modal` wrapping. Then Kern adopts the compound
+   Select/Tooltip + OverlayRoot APIs and deletes any pending copies.
+2. **Docs gate 2:** 920 undocumented generated props → 0, then flip the check to failing.
+   The in-progress work lived in `/tmp/opencode/kern-gate2-props` and was lost in the
+   2026-10-18 23:32 CEST reboot; restart from main.
+3. **Docs depth bar (013):** commit the top-20 list and the thin-page contract as a file the
+   gate reads (missing everywhere).
+4. **Button variant names (014):** remove `BUTTON_VARIANT_ALIASES` (still in 9 files on main),
+   hard cut per 020.
+5. **Registry `--system` flag (009):** CLI `add/list` and MCP tools take `--system`
+   (default `m3`); registry already carries the data. No branch has started this.
+6. **System-scoped URLs (008/018):** one page per component at `/components/<system>/<name>`
+   with Web/Native tabs; remove the old `/components/web|mobile/*` shapes that #60 still keeps.
+   **Resolved 2026-10-19 02:51 CEST (Faroeq via Grok Bot):** ADR-020 wins. No redirects
+   from the old `/components/web|mobile/*` URLs before the first release; old URLs are
+   removed, not redirected. This supersedes "with redirects" in the 2026-10-16 structure
+   approval and in D-URLS (§I). PR #60 stays as is.
+7. **MCP bundles its data:** tools still read checkout files at runtime; inline the registry
+   so `npx @xoroh/kern-mcp` works outside a clone. Same check for `kern add` blocks.
+8. **Delete `libs/kern-primitives`** (planned migration PR, reviewed) once the Axis vendor
+    refresh is on main; remove the workspace entry and legacy shims in gates.
+9. **Site design PR C** (hero with real Kern UI, layered dark surfaces, mobile first
+    viewport) and the entry-chunk perf pass (mobile Lighthouse < 95 today).
+10. **AI chat (019):** M3 chat parts, then blocks, after items 1-8.
+11. **Release tail (Faroeq-gated):** device and screen-reader pass, advisories re-verify,
+    publish rights, then the Preview bar judgment. No publish, version or tag before that.
+
+---
 
 ## Freshness addendum — 2026-10-16 evening (Preview readiness track)
 
@@ -982,7 +1066,7 @@ under D-DEVICE. No NativeWind (ADR-006), no web styling in Axis | Phase 2 |
 | D-GHSA | Advisory triage + code-scanning | Dependabot shows 0 open alerts (verified) contradicting the archived "19 GHSA" claim — reconcile; decide whether to enable code-scanning (currently "no analysis found") | Phase 5 |
 | D-P7 | Product-monorepo adoption | **Stays out of scope**, separately authorized or not at all | — (excluded) |
 | D-STRUCTURE | System-scoped structure (per review-structure-scale, owner-approved 2026-10-16 evening; refined same evening; rename terms per decision 010) | System-scoped URLs (see D-URLS, which supersedes the platform segment); one generated `ComponentRecord` registry as the single source for site, CLI, and MCP; `--system` flag on CLI and MCP; rename `kern-material-3` → `kern-m3` as a HARD rename with no compat alias (decision 010; nothing published); `@xoroh/kern` must not side-effect-register M3 globally; a `check:layers` rule enforces the split. 10+ systems shape (refinement): `kern-tokens` is the shared engine; per system a platform-free preset package (`kern-m3`, renamed) PLUS separate web and native widget packages; styled code reaches users by CLI vendoring (`kern add --system`) and npm; behavior via Axis/Base UI deps; no shared widgets across systems. `@xoroh/kern` itself is NOT renamed (it is the M3 web widget package). Execute in phases AFTER the current small fixes; large migration PRs (renames, URL scheme) open unmerged for owner review | Structure phase (gated) |
-| D-URLS | Docs URL refinement (supersedes D-STRUCTURE's platform segment) | One page per component at `/components/<system>/<name>` with Web and Native tabs (deep-linkable); prop tables carry a platform column; platform differences render as callouts linked to the parity table; generated redirects from ALL current paths (`/components/web/*`, `/components/mobile/*`, part slugs). Review-gated migration PR, opened unmerged | Structure phase (review-gated) |
+| D-URLS | Docs URL refinement (supersedes D-STRUCTURE's platform segment) | One page per component at `/components/<system>/<name>` with Web and Native tabs (deep-linkable); prop tables carry a platform column; platform differences render as callouts linked to the parity table; no redirects from old paths before the first release (ADR-020; Faroeq via Grok Bot, 2026-10-19 02:51 CEST, superseding the earlier "generated redirects from ALL current paths" wording) — old `/components/web/*` and `/components/mobile/*` shapes are removed. Review-gated migration PR, opened unmerged | Structure phase (review-gated) |
 | D-CLI-PUBLISH | CLI ships with 0.1.0 | Owner decision 2026-10-16 evening, superseding H-17's `private:true` fix: `@xoroh/kern-cli` is publishable (manifest already publish-shaped; flag removed in PR #45). Eight public packages; `changeset status` green. No publish until the hold lifts | Phase 7 / publication |
 | D-AXIS-SHIP | Axis ships as its own npm package alongside Kern 0.1.0 | `@xoroh/axis` publishes as an independent package on the 0.1.0 train; the release hold still applies (no versions/tags/publish from either side until authorized). The axis repo (packaging, release prep, component coverage) is owned by the Axis thread; Kern tracks only the consumer side (vendored tarball → semver swap at first authorized publish). Docs note (same decision round): Kern web may import Axis universal models via `@xoroh/axis/models` — a documented subpath, not deep source | Phase 4/7 |
 | D-AI-CHAT | AI chat for Kern, AFTER the structure work | M3-styled chat parts first (message, markdown + code blocks via one shared remark/mdast parser with per-platform renderers, typing indicator, feedback actions, tool-approval cards with callbacks, model picker composed from Select, static suggestions), then blocks (`chat-screen`, `prompt-input`, `message-list`) via `kern add`; FlashList for the native message list after a device check. Voice deferred past Preview. Phased: parts → blocks → native list; no work starts before D-STRUCTURE lands | Post-structure |
