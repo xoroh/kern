@@ -15,8 +15,17 @@ export const richTooltip: ComponentDoc = {
     variants: [],
     elevation: 2,
   },
-  parts: ["RichTooltipContent", "RichTooltipTitle", "RichTooltipActions"],
+  parts: [
+    "RichTooltip",
+    "RichTooltipContent",
+    "RichTooltipTitle",
+    "RichTooltipActions",
+  ],
   anatomy: [
+    {
+      name: "RichTooltip",
+      role: "The namespace object: all of the parts below.",
+    },
     {
       name: "RichTooltipContent",
       role: "The rich surface. Portals to the end of the document and positions itself against the trigger, padding resolved from the `kern.rich-tooltip.container` shape and spacing roles on `surface-container`.",

@@ -118,7 +118,7 @@ Prefer these machine surfaces over scraping HTML:
 - [Chip](/components/m3/chip): Chips are compact elements that represent an attribute, an action, or a filter. Renders: Web + Native. Markdown: /md/web/chip.md, /md/mobile/chip.md.
 - [Circular progress](/components/m3/circular-progress): Circular progress shows how much of a task is done, as a ring. Renders: Web + Native. Markdown: /md/web/circular-progress.md, /md/mobile/circular-progress.md.
 - [Collapsible](/components/m3/collapsible): Collapsibles hide a section of content behind a trigger and show it on demand. Renders: Web + Native. Markdown: /md/web/collapsible.md, /md/mobile/collapsible.md.
-- [Combobox](/components/m3/combobox): Comboboxes pick one value from a set, either from the list or by typing to narrow it. Renders: Web. Markdown: /md/web/combobox.md.
+- [Combobox](/components/m3/combobox): Comboboxes pick one value from a set, either from the list or by typing to narrow it. Renders: Web + Native. Markdown: /md/web/combobox.md, /md/mobile/combobox.md.
 - [Command](/components/m3/command): Commands are searchable lists of actions and destinations, filtered as you type. Renders: Web + Native. Markdown: /md/web/command.md, /md/mobile/command.md.
 - [Context menu](/components/m3/context-menu): Context menus offer the actions for a thing where the thing is, opened by right-clicking it. Renders: Web + Native. Markdown: /md/web/context-menu.md, /md/mobile/context-menu.md.
 - [ContrastToggle](/components/m3/contrast-toggle): One action that requests a contrast change, named for where the press goes rather than where it is. Renders: Native. Markdown: /md/mobile/contrast-toggle.md.
@@ -135,18 +135,19 @@ Prefer these machine surfaces over scraping HTML:
 - [Field](/components/m3/field): A field pairs a control with its label, its help text and its error, and wires them together. Renders: Web + Native. Markdown: /md/web/field.md, /md/mobile/field.md.
 - [Fieldset](/components/m3/fieldset): Fieldsets group related controls under one legend and give them a shared disabled state. Renders: Web + Native. Markdown: /md/web/fieldset.md, /md/mobile/fieldset.md.
 - [Filter chip row](/components/m3/filter-chip-row): The filter chip row is a horizontal row of multi-select toggles — press once to apply a filter, press again to remove it. Renders: Web + Native. Markdown: /md/web/filter-chip-row.md, /md/mobile/filter-chip-row.md.
+- [Focus ring](/components/m3/focus-ring): Focus rings paint the visible keyboard-focus treatment on host content. Renders: Web. Markdown: /md/web/focus-ring.md.
 - [Form](/components/m3/form): Forms collect several values and hand them over together. Renders: Web. Markdown: /md/web/form.md.
 - [Icon button](/components/m3/icon-button): Icon buttons are buttons whose content is a single glyph. Renders: Web + Native. Markdown: /md/web/icon-button.md, /md/mobile/icon-button.md.
 - [Icon button target](/components/m3/icon-button-target): Icon button targets are the touch-target wrapper that brings a small button up to the platform minimum. Renders: Native. Markdown: /md/mobile/icon-button-target.md.
 - [Input](/components/m3/input): Inputs take a single line of text from someone and hand it to you. Renders: Web + Native. Markdown: /md/web/input.md, /md/mobile/input.md.
 - [Input OTP](/components/m3/input-otp): OTP inputs take a short numeric code one character at a time, as it is typed. Renders: Web + Native. Markdown: /md/web/input-otp.md, /md/mobile/input-otp.md.
-- [Kbd](/components/m3/kbd): Kbds show a keyboard key or shortcut as text, in the shape of a key. Renders: Web. Markdown: /md/web/kbd.md.
+- [Kbd](/components/m3/kbd): Kbds show a keyboard key or shortcut as text, in the shape of a key. Renders: Web + Native. Markdown: /md/web/kbd.md, /md/mobile/kbd.md.
 - [Kern error boundary](/components/m3/kern-error-boundary): The kern error boundary catches a thrown render, shows your fallback with a working reset, and never reloads the page to recover. Renders: Web. Markdown: /md/web/kern-error-boundary.md.
 - [Kern pressable](/components/m3/kern-pressable): The narrow accessibility-defaults wrap for anything pressable on native: Material's minimum touch target, a button role by default, and `disabled` always reported. Renders: Native. Markdown: /md/mobile/kern-pressable.md.
 - [Label](/components/m3/label): Labels name the control they sit beside. Renders: Web + Native. Markdown: /md/web/label.md, /md/mobile/label.md.
 - [Linear progress](/components/m3/linear-progress): Linear progress shows how much of a task is done, as a bar across a width. Renders: Web + Native. Markdown: /md/web/linear-progress.md, /md/mobile/linear-progress.md.
 - [Link](/components/m3/link): Links are anchors that can be pointed at your host router, so kern never hardcodes one. Renders: Web. Markdown: /md/web/link.md.
-- [LinkButton](/components/m3/link-button): The button treatment on a navigation control: five Material 3 treatments, the link role, one press to a destination. Renders: Native. Markdown: /md/mobile/link-button.md.
+- [Link button](/components/m3/link-button): Link buttons wear the button treatment on a navigation control — an anchor, not an action. Renders: Web + Native. Markdown: /md/web/link-button.md, /md/mobile/link-button.md.
 - [List detail](/components/m3/list-detail): List detail is the phone-width master–detail pattern: the list until an item is selected, then the detail with a way back. Renders: Native. Markdown: /md/mobile/list-detail.md.
 - [List item](/components/m3/list-item): List items are rows in a list — a headline, optional supporting text, and optional leading and trailing slots. Renders: Web + Native. Markdown: /md/web/list-item.md, /md/mobile/list-item.md.
 - [Loader](/components/m3/loader): Loaders say something is happening, in the space where it is happening. Renders: Web + Native. Markdown: /md/web/loader.md, /md/mobile/loader.md.
@@ -181,7 +182,9 @@ Prefer these machine surfaces over scraping HTML:
 - [Secondary tabs](/components/m3/secondary-tabs): Secondary tabs switch between related views in the middle of a page, below the primary navigation. Renders: Web + Native. Markdown: /md/web/secondary-tabs.md, /md/mobile/secondary-tabs.md.
 - [Segmented button](/components/m3/segmented-button): Segmented buttons show a small set of options side by side, with the chosen one visibly selected. Renders: Web + Native. Markdown: /md/web/segmented-button.md, /md/mobile/segmented-button.md.
 - [Select](/components/m3/select): Selects let someone choose one value from a set too long to show on the page. Renders: Web + Native. Markdown: /md/web/select.md, /md/mobile/select.md.
+- [Select group](/components/m3/select-group): Select groups collect related options under one label inside the open list. Renders: Web. Markdown: /md/web/select-group.md.
 - [Separator](/components/m3/separator): Separators divide one region of content from the next. Renders: Web + Native. Markdown: /md/web/separator.md, /md/mobile/separator.md.
+- [Settings row](/components/m3/settings-row): Settings rows pair a label and supporting text with the control that owns them. Renders: Native. Markdown: /md/mobile/settings-row.md.
 - [Shape](/components/m3/shape): Shapes are the six basic forms in the kern radius language, drawn from the shape scale rather than freehand. Renders: Native. Markdown: /md/mobile/shape.md.
 - [Shape art](/components/m3/shape-art): Shape art composes kern shapes into a decorative arrangement — scatter, stack or arch. Renders: Native. Markdown: /md/mobile/shape-art.md.
 - [Sheet](/components/m3/sheet): Sheets slide in from the side to hold a focused task beside the content behind them. Renders: Web + Native. Markdown: /md/web/sheet.md, /md/mobile/sheet.md.
@@ -195,6 +198,7 @@ Prefer these machine surfaces over scraping HTML:
 - [Sonner](/components/m3/sonner): Sonner raises transient messages with an intent — it worked, watch out, here is a problem — and an optional action. Renders: Web. Markdown: /md/web/sonner.md.
 - [Split](/components/m3/split): The split is an N-column layout: two or three equal columns divided by a hairline, named as one region for assistive technology. Renders: Web + Native. Markdown: /md/web/split.md, /md/mobile/split.md.
 - [Split button](/components/m3/split-button): Split buttons pair one primary action with a menu of related alternatives. Renders: Web + Native. Markdown: /md/web/split-button.md, /md/mobile/split-button.md.
+- [Status bar](/components/m3/status-bar): Status bars hold one centered status with leading and trailing slots. Renders: Native. Markdown: /md/mobile/status-bar.md.
 - [Success transform](/components/m3/success-transform): Success transforms are the completion moment — a disc and a tick, or the loader that precedes it. Renders: Native. Markdown: /md/mobile/success-transform.md.
 - [Supporting pane](/components/m3/supporting-pane): Supporting panes hold the secondary panel beside main content, and hide it entirely on a compact screen. Renders: Native. Markdown: /md/mobile/supporting-pane.md.
 - [Switch](/components/m3/switch): A switch turns a single setting on or off and applies it at once. Renders: Web + Native. Markdown: /md/web/switch.md, /md/mobile/switch.md.

@@ -18,7 +18,21 @@ export const card: ComponentDoc = {
     // token and rest on the surface — see Customization.
     elevation: 1,
   },
-  parts: ["Card"],
+  parts: ["Card", "CardHeader", "CardContent", "CardActions"],
+  anatomy: [
+    {
+      name: "CardHeader",
+      role: "The title slot. Headline first, supporting text under it.",
+    },
+    {
+      name: "CardContent",
+      role: "The body. Holds flush content like images as well as prose.",
+    },
+    {
+      name: "CardActions",
+      role: 'The action row. Carries `role="group"` so the actions announce as a set.',
+    },
+  ],
   keyboard: [
     {
       key: "Tab / Shift+Tab",

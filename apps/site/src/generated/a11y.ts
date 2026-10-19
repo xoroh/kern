@@ -775,6 +775,18 @@ export const A11Y: Record<string, A11yPage> = {
             "basis": "aria contract carries 2 line(s) in card.ts — roles, names and states are stated, not assumed"
           }
         ]
+      },
+      "CardHeader": {
+        "hasLiveDemo": false,
+        "expectations": []
+      },
+      "CardContent": {
+        "hasLiveDemo": false,
+        "expectations": []
+      },
+      "CardActions": {
+        "hasLiveDemo": false,
+        "expectations": []
       }
     }
   },
@@ -2149,6 +2161,17 @@ export const A11Y: Record<string, A11yPage> = {
       }
     }
   },
+  "web/focus-ring": {
+    "page": "web/focus-ring",
+    "measured": false,
+    "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    "demos": {
+      "FocusRing": {
+        "hasLiveDemo": false,
+        "expectations": []
+      }
+    }
+  },
   "web/form": {
     "page": "web/form",
     "measured": false,
@@ -2370,6 +2393,30 @@ export const A11Y: Record<string, A11yPage> = {
             "expect": "pass",
             "provenance": "derived",
             "basis": "aria contract carries 3 line(s) in linear-progress.ts — roles, names and states are stated, not assumed"
+          }
+        ]
+      }
+    }
+  },
+  "web/link-button": {
+    "page": "web/link-button",
+    "measured": false,
+    "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    "demos": {
+      "LinkButton": {
+        "hasLiveDemo": true,
+        "expectations": [
+          {
+            "rule": "keyboard-operable",
+            "expect": "gap",
+            "provenance": "derived",
+            "basis": "link-button.ts documents no keyboard rows for LinkButton — the contract is unwritten, treat as a gap not a pass"
+          },
+          {
+            "rule": "aria-contract",
+            "expect": "pass",
+            "provenance": "derived",
+            "basis": "aria contract carries 2 line(s) in link-button.ts — roles, names and states are stated, not assumed"
           }
         ]
       }
@@ -3607,6 +3654,10 @@ export const A11Y: Record<string, A11yPage> = {
     "measured": false,
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
+      "RichTooltip": {
+        "hasLiveDemo": false,
+        "expectations": []
+      },
       "RichTooltipContent": {
         "hasLiveDemo": false,
         "expectations": []
@@ -3799,6 +3850,17 @@ export const A11Y: Record<string, A11yPage> = {
             "basis": "aria contract carries 4 line(s) in segmented-button.ts — roles, names and states are stated, not assumed"
           }
         ]
+      }
+    }
+  },
+  "web/select-group": {
+    "page": "web/select-group",
+    "measured": false,
+    "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    "demos": {
+      "SelectGroup": {
+        "hasLiveDemo": false,
+        "expectations": []
       }
     }
   },
@@ -5704,6 +5766,18 @@ export const A11Y: Record<string, A11yPage> = {
             "basis": "aria contract carries 3 line(s) in card.ts — roles, names and states are stated, not assumed"
           }
         ]
+      },
+      "CardHeader": {
+        "hasLiveDemo": false,
+        "expectations": []
+      },
+      "CardContent": {
+        "hasLiveDemo": false,
+        "expectations": []
+      },
+      "CardActions": {
+        "hasLiveDemo": false,
+        "expectations": []
       }
     }
   },
@@ -5850,6 +5924,17 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "Collapsible": {
+        "hasLiveDemo": false,
+        "expectations": []
+      }
+    }
+  },
+  "mobile/combobox": {
+    "page": "mobile/combobox",
+    "measured": false,
+    "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    "demos": {
+      "Combobox": {
         "hasLiveDemo": false,
         "expectations": []
       }
@@ -6218,6 +6303,17 @@ export const A11Y: Record<string, A11yPage> = {
             "basis": "aria contract carries 3 line(s) in input.ts — roles, names and states are stated, not assumed"
           }
         ]
+      }
+    }
+  },
+  "mobile/kbd": {
+    "page": "mobile/kbd",
+    "measured": false,
+    "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    "demos": {
+      "Kbd": {
+        "hasLiveDemo": false,
+        "expectations": []
       }
     }
   },
@@ -6807,12 +6903,27 @@ export const A11Y: Record<string, A11yPage> = {
       }
     }
   },
+  "mobile/settings-row": {
+    "page": "mobile/settings-row",
+    "measured": false,
+    "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    "demos": {
+      "SettingsRow": {
+        "hasLiveDemo": false,
+        "expectations": []
+      }
+    }
+  },
   "mobile/shape-art": {
     "page": "mobile/shape-art",
     "measured": false,
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "ShapeArt": {
+        "hasLiveDemo": false,
+        "expectations": []
+      },
+      "ExpressiveShape": {
         "hasLiveDemo": false,
         "expectations": []
       }
@@ -6962,6 +7073,17 @@ export const A11Y: Record<string, A11yPage> = {
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
       "Split": {
+        "hasLiveDemo": false,
+        "expectations": []
+      }
+    }
+  },
+  "mobile/status-bar": {
+    "page": "mobile/status-bar",
+    "measured": false,
+    "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    "demos": {
+      "StatusBar": {
         "hasLiveDemo": false,
         "expectations": []
       }
@@ -7224,6 +7346,10 @@ export const A11Y: Record<string, A11yPage> = {
         "expectations": []
       },
       "TopAppBarAction": {
+        "hasLiveDemo": false,
+        "expectations": []
+      },
+      "TopAppBarToggle": {
         "hasLiveDemo": false,
         "expectations": []
       }

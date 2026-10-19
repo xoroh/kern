@@ -16,7 +16,7 @@ export const topAppBar: ComponentDoc = {
     variants: ["size: small · center · medium"],
     elevation: "surface",
   },
-  parts: ["TopAppBar", "TopAppBarAction"],
+  parts: ["TopAppBar", "TopAppBarAction", "TopAppBarToggle"],
   keyboard: [
     {
       key: "Swipe + double-tap (TalkBack / VoiceOver)",
@@ -74,6 +74,10 @@ export const topAppBar: ComponentDoc = {
       name: "TopAppBarAction",
       role: "An icon action sized to Material 3's minimum touch target. Its `label` is required — it is the action's name, not optional decoration.",
     },
+    {
+      name: "TopAppBarToggle",
+      role: "The leading button that opens and closes the shell's rail or drawer. Its accessible name says what the press does (`Open navigation` while closed), and `expanded` carries the open state.",
+    },
   ],
   customization: {
     supported: [
@@ -128,6 +132,17 @@ export const topAppBar: ComponentDoc = {
       name: "onPress",
       type: "() => void",
       note: "On `TopAppBarAction`: what it does.",
+    },
+    {
+      name: "open",
+      type: "boolean",
+      required: true,
+      note: "On `TopAppBarToggle`: whether the rail or drawer is open. The accessible name follows it (`Open navigation` while closed).",
+    },
+    {
+      name: "onToggle",
+      type: "() => void",
+      note: "On `TopAppBarToggle`: flips the shell open state. `expanded` mirrors `open` for screen readers.",
     },
   ],
   aria: [

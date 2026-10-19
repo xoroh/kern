@@ -19,6 +19,18 @@
           "basis": "aria contract carries 2 line(s) in card.ts — roles, names and states are stated, not assumed"
         }
       ]
+    },
+    "CardHeader": {
+      "hasLiveDemo": false,
+      "expectations": []
+    },
+    "CardContent": {
+      "hasLiveDemo": false,
+      "expectations": []
+    },
+    "CardActions": {
+      "hasLiveDemo": false,
+      "expectations": []
     }
   }
 }
