@@ -199,7 +199,7 @@ export function FDeviations({
         {items.map((d) => (
           <span
             key={d.id}
-            className={`inline-flex items-center gap-1 rounded-(--sys-shape-corner-full) border border-(--sys-color-outline) px-2 py-0.5 ${T_BODY_SM} ${INK}`}
+            className={`inline-flex items-center gap-1.5 rounded-(--sys-shape-corner-full) bg-(--sys-color-surface-container-high) px-3 py-1 ${T_BODY_SM} ${INK}`}
           >
             <strong className={INK}>{d.id}</strong>
             <span className={INK_SOFT}>{d.note}</span>
@@ -433,7 +433,7 @@ export function FoundationLayout({
         <p className={`m-0 max-w-[65ch] ${T_LEAD} ${INK_SOFT}`}>
           {page.oneLiner}
         </p>
-        <div className="border-t border-(--sys-color-outline-variant)/70 pt-3">
+        <div className="pt-1">
           <FDeviations items={page.deviations ?? []} />
         </div>
       </header>
@@ -441,7 +441,7 @@ export function FoundationLayout({
       {children}
 
       <nav
-        className="flex items-stretch justify-between gap-4 border-t border-(--sys-color-outline-variant) pt-6"
+        className="flex items-stretch justify-between gap-4 pt-6"
         aria-label="Foundations"
       >
         {prev ? (

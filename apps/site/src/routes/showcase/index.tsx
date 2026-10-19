@@ -173,7 +173,7 @@ function Showcase() {
             {STILL_PLANNED.map((item) => (
               <li
                 key={item.title}
-                className="flex flex-col gap-1 rounded-(--sys-shape-corner-large) border border-(--sys-color-outline-variant) p-4"
+                className="flex flex-col gap-1 rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-low) p-5"
               >
                 <p className={`m-0 ${T_BODY} ${INK}`}>
                   <strong>{item.title}</strong> — planned, not yet built.

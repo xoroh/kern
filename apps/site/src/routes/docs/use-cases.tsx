@@ -34,7 +34,7 @@ export const Route = createFileRoute("/docs/use-cases")({
 const INK = "text-(--sys-color-on-surface)";
 const INK_SOFT = "text-(--sys-color-on-surface-variant)";
 const CARD =
-  "rounded-(--sys-shape-corner-medium) border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container-low)";
+  "rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-low)";
 
 /**
  * Preview honesty (011): the `kern` binary is unpublished, so every command

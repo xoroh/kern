@@ -47,7 +47,7 @@ import {
 } from "../../domains/shared/systems/ui";
 import { maturityForExports } from "../../systems/maturity";
 
-const CHIP = `inline-flex items-center rounded-(--sys-shape-corner-full) border border-(--sys-color-outline) px-2 py-0.5 ${T_LABEL}`;
+const CHIP = `inline-flex items-center rounded-(--sys-shape-corner-full) bg-(--sys-color-surface-container-high) px-2.5 py-0.5 ${T_LABEL}`;
 
 /**
  * Platform switcher — All / Web / Native, on the one gallery route.
@@ -364,14 +364,14 @@ export function ComponentGallery({
   return (
     <div className="flex flex-col gap-10">
       <nav
-        className={`flex flex-wrap items-center gap-1.5 rounded-(--sys-shape-corner-extra-large) border border-(--sys-color-outline-variant)/70 bg-(--sys-color-surface-container-low) p-2 ${T_BODY_SM}`}
+        className={`flex flex-wrap items-center gap-1.5 rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-low) p-2 ${T_BODY_SM}`}
         aria-label="Families"
       >
         {groups.map((g) => (
           <a
             key={g.id}
             href={`#family-${g.id}`}
-            className={`inline-flex min-h-12 items-center gap-2 rounded-(--sys-shape-corner-full) bg-(--sys-color-surface-container-lowest) px-4 no-underline ${T_LABEL_LG} text-(--sys-color-on-surface) ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`}
+            className={`inline-flex min-h-12 items-center gap-2 rounded-(--sys-shape-corner-full) bg-(--sys-color-surface-container) px-4 no-underline ${T_LABEL_LG} text-(--sys-color-on-surface) ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`}
           >
             <span>{FAMILY_GROUPS.find((x) => x.id === g.id)?.title}</span>
             <span
@@ -387,7 +387,7 @@ export function ComponentGallery({
         const meta = FAMILY_GROUPS.find((x) => x.id === g.id);
         return (
           <section key={g.id} className="flex flex-col gap-4">
-            <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-(--sys-color-outline-variant)/70 pb-3">
+            <div className="flex flex-wrap items-baseline justify-between gap-2 pb-1">
               <div className="flex flex-col gap-1">
                 <h2 id={`family-${g.id}`} className={`m-0 ${T_SECTION} ${INK}`}>
                   {meta?.title}

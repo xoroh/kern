@@ -158,12 +158,12 @@ function DocsIndex() {
               <div key={s.title} className={CARD_LINK}>
                 <p className={`m-0 ${T_SMALL_TITLE}`}>{s.title}</p>
                 <p className={`m-0 mt-1.5 ${T_BODY_SM} ${SOFT}`}>{s.why}</p>
-                <ul className="m-0 mt-4 flex list-none flex-wrap gap-2 border-t border-(--sys-color-outline-variant)/60 pt-3 p-0">
+                <ul className="m-0 mt-3 flex list-none flex-wrap gap-2 p-0">
                   {s.links.map((l) => (
                     <li key={l.to}>
                       <Link
                         to={l.to}
-                        className={`inline-flex items-center gap-1 rounded-full bg-(--sys-color-surface-container-lowest) border border-(--sys-color-outline-variant)/80 px-3 py-1.5 no-underline hover:bg-(--sys-color-secondary-container) hover:text-(--sys-color-on-secondary-container) ${T_BODY_SM} text-(--sys-color-on-surface)`}
+                        className={`inline-flex items-center gap-1 rounded-full bg-(--sys-color-surface-container-high) px-3 py-1.5 no-underline hover:bg-(--sys-color-secondary-container) hover:text-(--sys-color-on-secondary-container) ${T_BODY_SM} text-(--sys-color-on-surface)`}
                       >
                         {l.label} <span aria-hidden="true">→</span>
                       </Link>
@@ -225,7 +225,7 @@ function DocsIndex() {
               button. An agent that starts here never needs to scrape HTML. */}
         <section
           aria-labelledby="for-ai-agents"
-          className="flex flex-col gap-3 border-t border-(--sys-color-outline-variant) pt-6"
+          className="flex flex-col gap-3 rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-low) p-6"
         >
           <h2 id="for-ai-agents" className={`m-0 ${T_SMALL_TITLE}`}>
             For AI agents

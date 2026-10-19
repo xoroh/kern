@@ -45,7 +45,7 @@ export function ApiIndex() {
             .
           </p>
         </header>
-        <div className="overflow-x-auto rounded-(--sys-shape-corner-extra-large) border border-(--sys-color-outline-variant)/80 bg-(--sys-color-surface-container-low) p-4 sm:p-6">
+        <div className="overflow-x-auto rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-low) p-4 sm:p-6">
           <table className="w-full border-collapse text-left">
             <thead>
               <tr className="border-b border-(--sys-color-outline-variant)">

@@ -119,16 +119,12 @@ export function Configurator({ spec }: { spec: ConfiguratorSpec }) {
       ref={rootRef}
       className={`${CARD} m-0 flex flex-col overflow-hidden`}
     >
-      <figcaption className="flex flex-col gap-1 border-b border-(--sys-color-outline-variant) px-6 py-4">
+      <figcaption className="flex flex-col gap-1 px-6 pt-5 pb-3">
         <h3
           id={`configurator-${spec.id}`}
           className={`m-0 ${T_LEAD} text-(--sys-color-on-surface)`}
         >
           {spec.title}
-          {/*
-            Per-demo permalink, same contract as Example's: this anchor is the
-            configurator's address, always visible rather than hover-revealed.
-          */}
           <a
             href={`#configurator-${spec.id}`}
             aria-label={`Permalink to ${spec.title}`}
@@ -141,15 +137,7 @@ export function Configurator({ spec }: { spec: ConfiguratorSpec }) {
         <p className={`m-0 ${BODY}`}>{spec.description}</p>
       </figcaption>
 
-      {/*
-        Knob rows: every row is a MIN_TARGET (≥48dp). The select is 48dp tall
-        on its own, because a <select> does not open from a label click — the
-        control itself has to meet the floor; the checkbox keeps its explicit
-        non-shrinking square and leans on the wrapping 48dp label row as its
-        click target. Caption and control sit in one row so selects and
-        checkboxes share the same baseline.
-      */}
-      <div className="flex flex-wrap items-center gap-x-6 gap-y-2 border-b border-(--sys-color-outline-variant) px-6 py-4">
+      <div className="flex flex-wrap items-center gap-x-6 gap-y-2 px-6 py-3">
         {spec.controls.map((c) =>
           c.kind === "select" ? (
             <label key={c.name} className={`${MIN_TARGET} gap-3 ${LABEL}`}>
@@ -159,7 +147,7 @@ export function Configurator({ spec }: { spec: ConfiguratorSpec }) {
                 defaultValue={c.default}
                 onChange={(e) => set(c.name, e.target.value)}
                 aria-label={c.label}
-                className={`h-12 rounded-(--sys-shape-corner-small) border border-(--sys-color-outline) bg-(--sys-color-surface) px-3 ${FOCUS_RING}`}
+                className={`h-12 rounded-(--sys-shape-corner-small) border-0 bg-(--sys-color-surface-container-high) px-3 ${FOCUS_RING}`}
               >
                 {c.options.map((o) => (
                   <option key={o} value={o}>
@@ -169,11 +157,6 @@ export function Configurator({ spec }: { spec: ConfiguratorSpec }) {
               </select>
             </label>
           ) : (
-            // The box is an explicit square that never shrinks in the flex
-            // row, and it inherits the root color-scheme (set by the theme
-            // init + useKernTheme), so the native face follows dark mode
-            // instead of painting a light control on a dark stage. The
-            // wrapping 48dp label row is the click target.
             <label key={c.name} className={`${MIN_TARGET} gap-3 ${LABEL}`}>
               {c.label}
               <input
@@ -188,15 +171,15 @@ export function Configurator({ spec }: { spec: ConfiguratorSpec }) {
         )}
       </div>
 
-      <div className={STAGE}>{spec.render(values)}</div>
+      <div className={`mx-3 ${STAGE}`}>{spec.render(values)}</div>
 
-      <div className="flex flex-col">
-        <div className="flex items-center justify-between border-y border-(--sys-color-outline-variant) px-4 py-1">
+      <div className="flex flex-col p-3">
+        <div className="flex items-center justify-between px-3 pb-1">
           <span className={BODY}>Code</span>
           <CopyButton text={spec.code(values)} />
         </div>
         <pre
-          className={`m-0 overflow-x-auto rounded-b-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-high) p-6 ${T_CODE} text-(--sys-color-on-surface)`}
+          className={`m-0 overflow-x-auto rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container-high) p-5 ${T_CODE} text-(--sys-color-on-surface)`}
         >
           <code>{spec.code(values)}</code>
         </pre>

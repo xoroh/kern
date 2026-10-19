@@ -122,7 +122,7 @@ export function Footer() {
           ))}
         </div>
         <div
-          className={`mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-(--sys-color-outline-variant) pt-6 ${T_BODY_SM}`}
+          className={`mt-10 flex flex-wrap items-center justify-between gap-4 pt-6 ${T_BODY_SM}`}
         >
           <p className="m-0 text-(--sys-color-on-surface-variant)">
             Kern by Xoroh · {REPO_LICENSE} License

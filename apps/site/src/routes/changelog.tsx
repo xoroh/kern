@@ -54,7 +54,7 @@ function Changelog() {
             {RECENT_CHANGES.map((entry) => (
               <li
                 key={entry.id}
-                className="flex flex-col gap-2.5 rounded-(--sys-shape-corner-extra-large) border border-(--sys-color-outline-variant)/70 bg-(--sys-color-surface-container-low) p-5"
+                className="flex flex-col gap-2.5 rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-low) p-5"
               >
                 <div className="flex flex-wrap items-center gap-2.5">
                   <span className={BUMP_BADGE}>{entry.bump}</span>

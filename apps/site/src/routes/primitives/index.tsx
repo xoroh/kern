@@ -62,7 +62,7 @@ function Primitives() {
           {PRIMITIVE_MODULES.map((m) => (
             <li
               key={m.slug}
-              className="flex flex-col gap-1.5 rounded-(--sys-shape-corner-extra-large) border border-(--sys-color-outline-variant)/70 bg-(--sys-color-surface-container-low) p-5"
+              className="flex flex-col gap-1.5 rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-low) p-5"
             >
               <Link
                 to="/primitives/$module"

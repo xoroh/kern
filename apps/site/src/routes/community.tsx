@@ -40,7 +40,7 @@ function Community() {
             all happen on GitHub — this page points at the real places.
           </p>
         </header>
-        <div className="flex flex-col gap-3 rounded-(--sys-shape-corner-extra-large) border border-(--sys-color-outline-variant)/70 bg-(--sys-color-surface-container-low) p-6">
+        <div className="flex flex-col gap-3 rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-low) p-6">
           <h2 id="report-an-issue" className={`m-0 ${T_SECTION} ${INK}`}>
             Report an issue
           </h2>
@@ -54,7 +54,7 @@ function Community() {
             not as a bug.
           </p>
         </div>
-        <div className="flex flex-col gap-3 rounded-(--sys-shape-corner-extra-large) border border-(--sys-color-outline-variant)/70 bg-(--sys-color-surface-container-low) p-6">
+        <div className="flex flex-col gap-3 rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-low) p-6">
           <h2 id="contribute" className={`m-0 ${T_SECTION} ${INK}`}>
             Contribute
           </h2>
@@ -69,7 +69,7 @@ function Community() {
             green.
           </p>
         </div>
-        <div className="flex flex-col gap-3 rounded-(--sys-shape-corner-extra-large) border border-(--sys-color-outline-variant)/70 bg-(--sys-color-surface-container-low) p-6">
+        <div className="flex flex-col gap-3 rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-low) p-6">
           <h2 id="troubleshooting" className={`m-0 ${T_SECTION} ${INK}`}>
             Troubleshooting
           </h2>
@@ -90,7 +90,7 @@ function Community() {
         </div>
         <nav
           aria-label="Keep exploring"
-          className="flex flex-col gap-3 rounded-(--sys-shape-corner-extra-large) border border-(--sys-color-outline-variant)/70 bg-(--sys-color-surface-container-low) p-6"
+          className="flex flex-col gap-3 rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-low) p-6"
         >
           <h2 id="keep-exploring" className={`m-0 ${T_SECTION} ${INK}`}>
             Keep exploring

@@ -189,7 +189,7 @@ function GettingStarted() {
         </Step>
 
         <Step n={3} title="Render your first component">
-          <div className="flex flex-col gap-4 rounded-(--sys-shape-corner-medium) border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container-low) p-6">
+          <div className="flex flex-col gap-4 rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container) p-6">
             <Field.Root>
               <Field.Label>Email</Field.Label>
               <Field.Control type="email" placeholder="you@example.com" />

@@ -158,7 +158,7 @@ export function PlatformTabs({
               FOCUS_RING,
               isActive
                 ? "bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container)"
-                : `border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container-low) text-(--sys-color-on-surface-variant) ${STATE_LAYERS}`,
+                : `bg-(--sys-color-surface-container) text-(--sys-color-on-surface-variant) ${STATE_LAYERS}`,
             )}
           >
             {tab.label}
@@ -243,7 +243,7 @@ export function Pagination({
   return (
     <nav
       aria-label={label}
-      className="flex items-stretch justify-between gap-4 border-t border-(--sys-color-outline-variant) pt-6"
+      className="flex items-stretch justify-between gap-4 pt-6"
     >
       {prev ? (
         <a

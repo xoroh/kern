@@ -76,15 +76,9 @@ export function DocsSidebar() {
     )
     .sort((a, b) => b.href.length - a.href.length)[0]?.href;
   return (
-    <nav aria-label="Docs sections" className="flex flex-col gap-3">
-      {sections.map((section, idx) => (
-        <div
-          key={section.label}
-          className={cn(
-            "flex flex-col gap-1",
-            idx > 0 && "border-t border-(--sys-color-outline-variant)/70 pt-3",
-          )}
-        >
+    <nav aria-label="Docs sections" className="flex flex-col gap-5">
+      {sections.map((section) => (
+        <div key={section.label} className="flex flex-col gap-1">
           <p
             className={`m-0 px-4 py-1 ${T_LABEL} text-(--sys-color-on-surface-variant) uppercase`}
           >

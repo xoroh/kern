@@ -85,7 +85,7 @@ function SystemsHub() {
                 {system.status === "current" ? "Current system — " : ""}
                 {system.blurb}
               </span>
-              <span className="m-0 mt-3 flex flex-wrap gap-3 border-t border-(--sys-color-outline-variant)/60 pt-3">
+              <span className="m-0 mt-2 flex flex-wrap gap-3">
                 <Link
                   to={system.foundationsHref}
                   className={`m-0 ${T_BODY_SM} ${LINK}`}

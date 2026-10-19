@@ -100,17 +100,12 @@ export function Example({ spec }: { spec: ExampleSpec }) {
 
   return (
     <figure className={`${CARD} m-0 flex flex-col overflow-hidden`}>
-      <figcaption className="flex flex-col gap-1 border-b border-(--sys-color-outline-variant) px-6 py-4">
+      <figcaption className="flex flex-col gap-1 px-6 pt-5 pb-3">
         <h3
           id={`example-${spec.id}`}
           className={`m-0 ${T_LEAD} text-(--sys-color-on-surface)`}
         >
           {spec.title}
-          {/*
-            Per-demo permalink: every docs demo is independently openable —
-            this anchor is the demo's address, and the Export/Repro buttons in
-            the Code panel are its copyable form.
-          */}
           <a
             href={`#example-${spec.id}`}
             aria-label={`Permalink to ${spec.title}`}
@@ -127,7 +122,7 @@ export function Example({ spec }: { spec: ExampleSpec }) {
         <div
           role="tablist"
           aria-label={`${spec.title} view`}
-          className="flex gap-1 border-b border-(--sys-color-outline-variant) px-4 pt-2"
+          className="flex gap-1 px-4 pt-1"
           onKeyDown={onTabKey}
         >
           {(
@@ -145,10 +140,10 @@ export function Example({ spec }: { spec: ExampleSpec }) {
               aria-controls={t.key === "preview" ? previewId : codeId}
               tabIndex={tab === t.key ? 0 : -1}
               onClick={() => setTab(t.key)}
-              className={`-mb-px inline-flex min-h-12 items-center border-b-[3px] px-3 ${T_BODY_SM} ${TRANSITION} ${
+              className={`inline-flex min-h-12 cursor-pointer items-center rounded-full border-0 px-4 ${T_BODY_SM} ${TRANSITION} ${
                 tab === t.key
-                  ? "border-(--sys-color-primary) text-(--sys-color-primary)"
-                  : "border-transparent text-(--sys-color-on-surface-variant) hover:text-(--sys-color-on-surface)"
+                  ? "bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container)"
+                  : "bg-transparent text-(--sys-color-on-surface-variant) hover:text-(--sys-color-on-surface)"
               }`}
             >
               {t.label}
@@ -157,7 +152,7 @@ export function Example({ spec }: { spec: ExampleSpec }) {
         </div>
       ) : null}
 
-      {!spec.code && <div className={STAGE}>{spec.render()}</div>}
+      {!spec.code && <div className={`m-3 ${STAGE}`}>{spec.render()}</div>}
 
       {spec.code && (
         <>
@@ -167,7 +162,7 @@ export function Example({ spec }: { spec: ExampleSpec }) {
             aria-labelledby={`${base}-tab-preview`}
             data-view="preview"
             hidden={tab !== "preview"}
-            className={STAGE}
+            className={`m-3 ${STAGE}`}
           >
             {spec.render()}
           </div>
@@ -178,21 +173,15 @@ export function Example({ spec }: { spec: ExampleSpec }) {
             aria-labelledby={`${base}-tab-code`}
             data-view="code"
             hidden={tab !== "code"}
-            className="flex flex-col"
+            className="flex flex-col p-3"
           >
-            {/*
-            Per-demo export: Copy is the fence as shown; Export is the same
-            fence as a standalone module (imports derived from the tags used);
-            Repro is that module as a bug-report template. Buttons, so the
-            copy-markdown export skips them like the rest of the demo chrome.
-          */}
-            <div className="flex flex-wrap items-center justify-end gap-2 border-b border-(--sys-color-outline-variant) px-4 py-1">
+            <div className="flex flex-wrap items-center justify-end gap-2 px-2 pb-2">
               <CopyButton text={demoExportSource(spec)} label="Export" />
               <CopyButton text={demoReproSource(spec)} label="Repro" />
               <CopyButton text={spec.code} />
             </div>
             <pre
-              className={`codeblock m-0 overflow-x-auto rounded-b-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-high) p-6 ${T_CODE} text-(--sys-color-on-surface)`}
+              className={`codeblock m-0 overflow-x-auto rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container-high) p-5 ${T_CODE} text-(--sys-color-on-surface)`}
             >
               <HighlightedCode code={spec.code} language="tsx" />
             </pre>

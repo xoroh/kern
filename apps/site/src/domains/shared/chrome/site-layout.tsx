@@ -179,14 +179,14 @@ function OnThisPageRail({ pathname }: { pathname: string }) {
   return (
     <nav
       aria-label="On this page"
-      className="flex flex-col gap-3 rounded-(--sys-shape-corner-large-increased) border border-(--sys-color-outline-variant)/70 bg-(--sys-color-surface) p-4"
+      className="flex flex-col gap-3 rounded-(--sys-shape-corner-large-increased) bg-(--sys-color-surface) p-4"
     >
       <p
         className={`m-0 px-2 ${T_LABEL} text-(--sys-color-on-surface-variant) uppercase`}
       >
         On this page
       </p>
-      <ul className="m-0 flex list-none flex-col gap-0.5 border-l border-(--sys-color-outline-variant) p-0 pl-2">
+      <ul className="m-0 flex list-none flex-col gap-0.5 p-0">
         {items.map((item) => {
           const active = item.id === activeId;
           return (
@@ -225,13 +225,13 @@ function SectionToc({ pathname }: { pathname: string }) {
   }, [pathname]);
   if (items.length < 2) return null;
   return (
-    <details className="rounded-(--sys-shape-corner-large) border border-(--sys-color-outline-variant)/70 bg-(--sys-color-surface-container-low) px-4 py-3 xl:hidden">
+    <details className="rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-low) px-4 py-3 xl:hidden">
       <summary
         className={`cursor-pointer ${T_LABEL} text-(--sys-color-on-surface-variant) uppercase`}
       >
         On this page
       </summary>
-      <ul className="m-0 mt-2 flex list-none flex-col gap-1 border-t border-(--sys-color-outline-variant)/60 pt-2 p-0">
+      <ul className="m-0 mt-2 flex list-none flex-col gap-1 p-0">
         {items.map((item) => (
           <li key={item.id} className="m-0 p-0">
             <a
@@ -312,7 +312,7 @@ export function SiteLayout({
             {/* Left sidebar — sticky M3 Navigation Drawer container, viewport-height, its own scroll. */}
             {withSidebar ? (
               <aside
-                className={`site-sidebar hidden w-64 shrink-0 overflow-hidden rounded-(--sys-shape-corner-extra-large) border border-(--sys-color-outline-variant)/80 bg-(--sys-color-surface) lg:block ${
+                className={`site-sidebar hidden w-64 shrink-0 overflow-hidden lg:block ${
                   isFullHeight
                     ? "overflow-hidden"
                     : "sticky top-[calc(var(--site-header-h)+48px)] max-h-[calc(100dvh-var(--site-header-h)-64px)] overflow-y-auto"

@@ -182,7 +182,7 @@ export function PaletteBand() {
                 <span className={`truncate ${T_CODE}`}>{tokenLabel}</span>
               </div>
               <div
-                className="flex h-7 overflow-hidden border-y border-(--sys-color-outline-variant)/60"
+                className="flex h-7 overflow-hidden"
                 role="img"
                 aria-label={`${name} tonal palette`}
               >
@@ -207,7 +207,7 @@ export function PaletteBand() {
       </div>
 
       {/* M3 Surface Container Hierarchy */}
-      <div className="mt-6 rounded-(--sys-shape-corner-extra-large) border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container-low) p-5">
+      <div className="mt-6 rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-low) p-5">
         <div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
           <div>
             <p className={`m-0 ${T_LABEL_LG} ${INK}`}>
@@ -226,7 +226,7 @@ export function PaletteBand() {
           {SURFACE_CONTAINERS.map((step) => (
             <div
               key={step.token}
-              className="flex flex-col justify-between gap-3 rounded-(--sys-shape-corner-large) border border-(--sys-color-outline-variant) p-3.5"
+              className="flex flex-col justify-between gap-3 rounded-(--sys-shape-corner-large) p-3.5"
               style={{
                 backgroundColor: `var(${step.token})`,
                 color: "var(--sys-color-on-surface)",
@@ -234,7 +234,6 @@ export function PaletteBand() {
             >
               <div className="flex items-center justify-between gap-2">
                 <span className={T_LABEL_LG}>{step.label}</span>
-                <span className="size-3 rounded-full border border-(--sys-color-outline)" />
               </div>
               <div className="flex flex-col gap-0.5">
                 <code className={`truncate ${T_CODE}`}>{step.token}</code>
@@ -250,7 +249,7 @@ export function PaletteBand() {
         {["error", "success", "warning", "info"].map((role) => (
           <span
             key={role}
-            className="rounded-full border border-(--sys-color-outline-variant)/50 px-4 py-1.5 capitalize"
+            className="rounded-full px-4 py-1.5 capitalize"
             style={{
               backgroundColor: `var(--sys-color-${role}-container)`,
               color: `var(--sys-color-on-${role}-container)`,

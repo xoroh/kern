@@ -82,7 +82,7 @@ export function ComponentsSidebar() {
     : null;
 
   return (
-    <nav aria-label="Component catalog" className="flex flex-col gap-3">
+    <nav aria-label="Component catalog" className="flex flex-col gap-5">
       <div className="flex flex-col gap-1">
         <p
           className={`m-0 px-4 py-1 ${T_LABEL} text-(--sys-color-on-surface-variant) uppercase`}
@@ -114,7 +114,7 @@ export function ComponentsSidebar() {
           })}
         </ul>
       </div>
-      <div className="flex flex-col gap-1 border-t border-(--sys-color-outline-variant)/70 pt-3">
+      <div className="flex flex-col gap-1">
         <p
           className={`m-0 px-4 py-1 ${T_LABEL} text-(--sys-color-on-surface-variant) uppercase`}
         >
@@ -151,7 +151,7 @@ export function ComponentsSidebar() {
                   </span>
                 </a>
                 {isGroupActive ? (
-                  <ul className="m-0 ml-5 flex list-none flex-col gap-0.5 border-l border-(--sys-color-outline-variant) py-1 pl-2">
+                  <ul className="m-0 ml-5 flex list-none flex-col gap-0.5 py-1 pl-2">
                     {groupItems.map((item) => {
                       const isItemActive = item.slug === activeComponentSlug;
                       return (

@@ -43,7 +43,7 @@ function About() {
             documents every deliberate departure in the open.
           </p>
         </header>
-        <div className="flex flex-col gap-3 rounded-(--sys-shape-corner-extra-large) border border-(--sys-color-outline-variant)/70 bg-(--sys-color-surface-container-low) p-6">
+        <div className="flex flex-col gap-3 rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-low) p-6">
           <h2 id="license" className={`m-0 ${T_SECTION} ${INK}`}>
             License
           </h2>
@@ -54,7 +54,7 @@ function About() {
         </div>
         <nav
           aria-label="Project links"
-          className="flex flex-col gap-3 rounded-(--sys-shape-corner-extra-large) border border-(--sys-color-outline-variant)/70 bg-(--sys-color-surface-container-low) p-6"
+          className="flex flex-col gap-3 rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-low) p-6"
         >
           <h2 id="project-links" className={`m-0 ${T_SECTION} ${INK}`}>
             Project links

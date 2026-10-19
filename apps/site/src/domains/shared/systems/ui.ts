@@ -41,26 +41,23 @@ export const LINK =
 /* ------------------------------------------------------------- surfaces --- */
 
 /**
- * CARD — M3 tonal content container (surface-container-low with subtle
- * outline-variant hairline for crisp M3 containment across light and dark).
+ * CARD — rounded tonal content group. Flat, with no perimeter stroke.
  */
 export const CARD =
-  "site-card rounded-(--sys-shape-corner-extra-large) border border-(--sys-color-outline-variant)/70 bg-(--sys-color-surface-container-low)";
+  "site-card rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-low)";
 
 /**
- * CARD_FILLED — the next step of the M3 neutral tonal ladder.
+ * CARD_FILLED — the next step of the tonal ladder, without a stroke.
  */
 export const CARD_FILLED =
   "site-card rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container)";
 
 /**
  * STAGE — the ONE demo chrome. Every live demo, preview, and specimen sits
- * on this clean M3 neutral surface-container-lowest stage inside a CARD so
- * component colors (primary, secondary, tertiary, status) render accurately
- * without a competing purple backdrop.
+ * on this tonal stage inside a CARD. Separates by tone, with no perimeter stroke.
  */
 export const STAGE =
-  "site-stage rounded-(--sys-shape-corner-large) border border-(--sys-color-outline-variant)/80 bg-(--sys-color-surface-container-lowest)";
+  "site-stage rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container)";
 
 /** A small tonal strip inside a card — code heads, table heads, callouts. */
 export const STRIP =

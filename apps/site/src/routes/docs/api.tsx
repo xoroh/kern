@@ -174,7 +174,7 @@ function ApiReference() {
         {entries.map((entry) => (
           <section
             key={entry.name}
-            className="mb-10 rounded-(--sys-shape-corner-medium) border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container-low) p-6"
+            className="mb-10 rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-low) p-6"
           >
             <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
               <h2

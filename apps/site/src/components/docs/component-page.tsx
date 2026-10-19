@@ -114,7 +114,7 @@ const PROSE = `${BODY} max-w-[62ch]`;
  * SIZE and WEIGHT come from the label role so the chips still sit on the
  * scale rather than floating off it.
  */
-const CHIP = `inline-flex items-center gap-1.5 rounded-full border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container) px-3 py-1 font-mono text-(--sys-color-on-surface-variant) [font-size:var(--sys-typescale-label-large-font-size)] [line-height:var(--sys-typescale-label-large-line-height)]`;
+const CHIP = `inline-flex items-center gap-1.5 rounded-full bg-(--sys-color-surface-container-high) px-3 py-1 font-mono text-(--sys-color-on-surface-variant) [font-size:var(--sys-typescale-label-large-font-size)] [line-height:var(--sys-typescale-label-large-line-height)]`;
 const CARD =
   "site-card rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-low)";
 const TH = `py-2 pr-4 text-left text-(--sys-color-on-surface) ${ts("title-small")}`;
@@ -226,7 +226,7 @@ function HeaderLinks({
   ];
   return (
     <div
-      className={`flex flex-wrap items-center justify-between gap-3 border-t border-(--sys-color-outline-variant)/70 pt-4 ${SMALL}`}
+      className={`flex flex-wrap items-center justify-between gap-3 pt-2 ${SMALL}`}
     >
       <span className={CHIP}>{facts.join(" · ")}</span>
       <div className="flex flex-wrap items-center gap-2">
@@ -237,7 +237,7 @@ function HeaderLinks({
               href={l.href}
               rel="noreferrer"
               target="_blank"
-              className={`inline-flex items-center gap-1 rounded-full border border-(--sys-color-outline-variant) bg-(--sys-color-surface) px-3 py-1 text-(--sys-color-secondary) no-underline hover:bg-(--sys-color-surface-container-high) hover:underline ${TRANSITION}`}
+              className={`inline-flex items-center gap-1 rounded-full bg-(--sys-color-surface-container) px-3 py-1 text-(--sys-color-secondary) no-underline hover:bg-(--sys-color-surface-container-high) hover:underline ${TRANSITION}`}
             >
               {l.label} <span aria-hidden="true">↗</span>
             </a>
@@ -360,11 +360,11 @@ function StatesStrip({ doc }: { doc: ComponentDoc }) {
         {layers.map((layer) => (
           <div
             key={layer.label}
-            className="flex flex-col items-center gap-1.5 rounded-(--sys-shape-corner-medium) border border-(--sys-color-outline-variant)/70 bg-(--sys-color-surface-container-lowest) p-2.5"
+            className="flex flex-col items-center gap-1.5 rounded-(--sys-shape-corner-medium) bg-(--sys-color-surface-container) p-2.5"
           >
             <span
               aria-hidden="true"
-              className="relative flex h-10 w-full items-center justify-center overflow-hidden rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant) bg-(--sys-color-surface)"
+              className="relative flex h-10 w-full items-center justify-center overflow-hidden rounded-(--sys-shape-corner-small) bg-(--sys-color-surface)"
             >
               <span
                 className="absolute inset-0"
@@ -433,7 +433,7 @@ function PlaygroundLinks({
       </a>
       {platform === "web" ? (
         <a
-          className={`inline-flex items-center gap-1 rounded-full border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container-low) px-3.5 py-1.5 text-(--sys-color-secondary) no-underline hover:bg-(--sys-color-surface-container-high) ${TRANSITION}`}
+          className={`inline-flex items-center gap-1 rounded-full bg-(--sys-color-surface-container) px-3.5 py-1.5 text-(--sys-color-secondary) no-underline hover:bg-(--sys-color-surface-container-high) ${TRANSITION}`}
           href={THEME_CONFIGURATOR_HREF}
         >
           Theme configurator <span aria-hidden="true">↗</span>
@@ -617,7 +617,7 @@ function SemanticDom({ doc }: { doc: ComponentDoc }) {
  */
 function AnatomyRow({ part, index }: { part: PartRow; index: number }) {
   return (
-    <li className="flex flex-col gap-1.5 rounded-(--sys-shape-corner-large) border border-(--sys-color-outline-variant)/60 bg-(--sys-color-surface-container-lowest) px-4 py-3 sm:flex-row sm:items-center sm:gap-4">
+    <li className="flex flex-col gap-1.5 rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container) px-4 py-3 sm:flex-row sm:items-center sm:gap-4">
       <span
         aria-hidden="true"
         className={`inline-flex size-6 shrink-0 items-center justify-center rounded-full bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container) ${TINY}`}
@@ -936,12 +936,12 @@ function TokenShowcase({
             {(groups.get(kind) ?? []).map((row) => (
               <div
                 key={`${row.element}-${row.state}-${row.token}`}
-                className={`flex flex-col gap-1.5 rounded-(--sys-shape-corner-medium) border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container-low) p-3`}
+                className={`flex flex-col gap-1.5 rounded-(--sys-shape-corner-medium) bg-(--sys-color-surface-container-low) p-3`}
               >
                 {kind === "color" ? (
                   <span
                     aria-hidden="true"
-                    className="h-10 w-full rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant)"
+                    className="h-10 w-full rounded-(--sys-shape-corner-small)"
                     style={swatchStyle(row.value)}
                   />
                 ) : null}
@@ -1354,16 +1354,16 @@ function Faq({ doc }: { doc: ComponentDoc }) {
   return (
     <section className="flex flex-col gap-3">
       <Heading id="faq">FAQ</Heading>
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-1.5">
         {rows.map((row) => (
           <details
             key={row.q}
-            className="group rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container-low) px-3 py-2"
+            className="group rounded-(--sys-shape-corner-medium) bg-(--sys-color-surface-container-low) px-4 py-3"
           >
             <summary className={`cursor-pointer list-none ${SMALL} ${INK}`}>
               {row.q}
             </summary>
-            <p className={`m-0 mt-1 ${SMALL} ${INK_SOFT}`}>{row.a}</p>
+            <p className={`m-0 mt-1.5 ${SMALL} ${INK_SOFT}`}>{row.a}</p>
           </details>
         ))}
       </div>
@@ -1541,7 +1541,7 @@ function PropRows({ rows }: { rows: ApiRow[] }) {
       {rows.map((row) => (
         <details
           key={row.name}
-          className="group rounded-(--sys-shape-corner-medium) border border-(--sys-color-outline-variant)/70 bg-(--sys-color-surface-container-lowest) px-4 py-2.5"
+          className="group rounded-(--sys-shape-corner-medium) bg-(--sys-color-surface-container) px-4 py-2.5"
         >
           <summary
             className={`flex cursor-pointer list-none flex-wrap items-baseline gap-x-3 gap-y-1 ${SMALL}`}
@@ -1568,11 +1568,7 @@ function PropRows({ rows }: { rows: ApiRow[] }) {
             </span>
           </summary>
           {row.note ? (
-            <p
-              className={`m-0 mt-2 border-t border-(--sys-color-outline-variant)/50 pt-2 ${SMALL} ${INK_SOFT}`}
-            >
-              {row.note}
-            </p>
+            <p className={`m-0 mt-2 pt-1 ${SMALL} ${INK_SOFT}`}>{row.note}</p>
           ) : null}
         </details>
       ))}
@@ -1759,7 +1755,7 @@ function Footer({
   next?: { href: string; title: string };
 }) {
   return (
-    <footer className="flex flex-col gap-4 border-t border-(--sys-color-outline-variant) pt-6">
+    <footer className="flex flex-col gap-4 pt-6">
       <nav
         className="flex items-stretch justify-between gap-4"
         aria-label="Pages"

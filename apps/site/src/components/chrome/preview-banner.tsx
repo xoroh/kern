@@ -16,7 +16,7 @@ export function PreviewBanner() {
     <div
       role="note"
       aria-label="Preview status"
-      className={`m-0 flex items-center justify-center gap-2 border-t border-(--sys-color-outline-variant)/60 bg-(--sys-color-surface-container) px-4 py-1.5 text-center text-(--sys-color-on-surface-variant) ${T_BODY_SM}`}
+      className={`m-0 flex items-center justify-center gap-2 bg-(--sys-color-surface-container) px-4 py-1.5 text-center text-(--sys-color-on-surface-variant) ${T_BODY_SM}`}
     >
       <span className="inline-flex items-center gap-1 rounded-full bg-(--sys-color-secondary-container) px-2 py-0.5 text-(--sys-color-on-secondary-container)">
         <Icon name="science" size={14} />

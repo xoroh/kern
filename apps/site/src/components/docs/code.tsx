@@ -80,8 +80,8 @@ export function Code({
   const { copied, copy } = useCopy(children);
   if (filename) {
     return (
-      <div className="overflow-hidden rounded-(--sys-shape-corner-large) border border-(--sys-color-outline-variant)">
-        <div className="flex min-h-12 items-center gap-2 border-b border-(--sys-color-outline-variant) bg-(--sys-color-surface-container-low) px-4 py-2">
+      <div className="overflow-hidden rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container-low)">
+        <div className="flex min-h-12 items-center gap-2 bg-(--sys-color-surface-container) px-4 py-2">
           <span
             className={`min-w-0 flex-1 truncate font-mono text-(--sys-color-on-surface-variant) [font-size:var(--sys-typescale-label-medium-font-size)] [line-height:var(--sys-typescale-label-medium-line-height)]`}
           >
@@ -107,7 +107,7 @@ export function Code({
     <div className="relative">
       <button
         type="button"
-        className={`absolute top-2 right-2 z-10 flex h-8 min-w-8 cursor-pointer items-center justify-center gap-1 rounded-full border border-(--sys-color-outline-variant) bg-(--sys-color-surface) px-2 text-(--sys-color-on-surface-variant) ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`}
+        className={`absolute top-2 right-2 z-10 flex h-8 min-w-8 cursor-pointer items-center justify-center gap-1 rounded-full border-0 bg-(--sys-color-surface) px-2 text-(--sys-color-on-surface-variant) ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`}
         // 32px overlay affordance, not the 48dp floor: a full target would
         // cover the code it copies. Keyboard-reachable via tab (global
         // :focus-visible ring) with press feedback below.
@@ -140,7 +140,7 @@ export function Step({
   children: React.ReactNode;
 }) {
   return (
-    <section className="flex flex-col gap-4 rounded-(--sys-shape-corner-extra-large) border border-(--sys-color-outline-variant)/70 bg-(--sys-color-surface-container-low) p-6">
+    <section className="flex flex-col gap-4 rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-low) p-6">
       <h2
         id={`step-${n}`}
         className={`m-0 flex items-center gap-3 ${T_SECTION} text-(--sys-color-on-surface)`}

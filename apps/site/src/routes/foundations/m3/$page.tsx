@@ -727,7 +727,7 @@ function TypePage() {
         <div className="flex flex-col gap-3">
           {TYPE_STYLES.map((s) => (
             <div key={s.role} className={`${F_CARD} flex flex-col gap-2 p-4`}>
-              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-(--sys-color-outline-variant)/60 pb-2">
+              <div className="flex flex-wrap items-center justify-between gap-2 pb-1">
                 <span
                   className={`rounded-full bg-(--sys-color-secondary-container) px-2.5 py-0.5 font-mono ${T_LABEL} text-(--sys-color-on-secondary-container)`}
                 >
@@ -814,7 +814,7 @@ function ShapePage() {
               className={`${F_CARD} flex flex-col items-center gap-2.5 p-4 text-center`}
             >
               <div
-                className="h-16 w-16 border-2 border-(--sys-color-secondary) bg-(--sys-color-secondary-container)"
+                className="h-16 w-16 bg-(--sys-color-secondary-container)"
                 style={{ borderRadius: String(leaf.value) }}
                 aria-hidden="true"
               />

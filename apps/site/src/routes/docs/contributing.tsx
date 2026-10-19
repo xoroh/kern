@@ -180,7 +180,7 @@ function Contributing() {
             a clean build proves they are reproducible.
           </p>
           <pre
-            className={`m-0 overflow-x-auto rounded-(--sys-shape-corner-medium) border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container-low) p-4 ${T_CODE} text-(--sys-color-on-surface)`}
+            className={`m-0 overflow-x-auto rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container-low) p-4 ${T_CODE} text-(--sys-color-on-surface)`}
           >
             {`packages/kern-tokens/src/tokens.css      bun run generate:tokens
 packages/kern-tokens/src/tones.css       bun run generate:tones
