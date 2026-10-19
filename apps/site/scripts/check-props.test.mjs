@@ -1,23 +1,30 @@
 import { describe, expect, test } from "bun:test";
-import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { spawnSync } from "node:child_process";
+import {
+  mkdtempSync,
+  readFileSync,
+  renameSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { readContentApiRows } from "./lib/content-api-names.mjs";
 import { computeCoverage } from "./lib/prop-coverage.mjs";
 
+const site = dirname(dirname(fileURLToPath(import.meta.url)));
+const gate = join(site, "scripts", "check-props.mjs");
+
+function runGate() {
+  return spawnSync("node", [gate], { cwd: site, encoding: "utf8" });
+}
+
 /**
  * The scoped-row contract: part-specific props must be documentable without
- * reading as stale on siblings. Pins, on fixtures (never the real tree, so
- * the burn-down PRs do not churn this file):
- *
- * 1. an unscoped row on a prop one sibling does not carry counts stale for
- *    that sibling (the legacy ratchet, unchanged);
- * 2. the same row with `for` counts nowhere stale and clears the covered
- *    part's debt while leaving the uncovered sibling reported;
- * 3. `for` naming a non-part, a part with no generated export, or a name
- *    none of the scoped parts carries is a scope error;
- * 4. the row parser finds `for` before `note:` and never inside prose, and
- *    survives `{...}` snippets and `code` spans in notes.
+ * reading as stale on siblings. Pins, on fixtures — plus the gate-2 flip
+ * tests at the bottom, which run the real gate on the real tree so a
+ * regression in parsing or attribution cannot hide behind a mock.
  */
 
 const GEN = {
@@ -150,6 +157,48 @@ describe("prop-coverage scoping", () => {
       ]);
     } finally {
       rmSync(dir, { recursive: true, force: true });
+    }
+  });
+});
+
+/**
+ * Gate-2 flip: the coverage count is no longer reported, it fails.
+ * Pins both halves of the acceptance on the real tree (not fixtures, so a
+ * regression in parsing or attribution cannot hide behind a mock):
+ *
+ * 1. zero debt → exit 0 with the zero line (fails BEFORE the burn-down,
+ *    when 924 props were uncovered);
+ * 2. one api row taken away → exit 1 naming the export and prop (fails if
+ *    anyone reverts the flip back to report-only).
+ */
+describe("coverage gate flip", () => {
+  test("zero undocumented props passes", () => {
+    const run = runGate();
+    expect(run.status).toBe(0);
+    expect(run.stdout).toContain(
+      "coverage debt: zero — every generated prop is documented.",
+    );
+  });
+
+  test("one new undocumented prop fails the run, not just reports", () => {
+    const page = join(site, "src", "content", "web", "toggle.ts");
+    const aside = `${page}.gated-aside`;
+    const src = readFileSync(page, "utf8");
+    const row = `    {
+      name: "nativeButton",
+      type: "boolean | undefined",
+      note: "Declares whether the \`render\` replacement is a native \`<button>\`, so semantics and keyboard behavior stay correct.",
+    },
+`;
+    expect(src).toContain(row);
+    renameSync(page, aside);
+    try {
+      writeFileSync(page, src.replace(row, ""));
+      const run = runGate();
+      expect(run.status).toBe(1);
+      expect(run.stderr).toContain("Toggle: nativeButton");
+    } finally {
+      renameSync(aside, page);
     }
   });
 });

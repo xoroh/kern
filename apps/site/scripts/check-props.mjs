@@ -6,24 +6,18 @@
  *
  * Component pages carry hand-typed `api` arrays. Of six repos audited, only
  * shadcn hand-writes props tables — the rot risk. `generate-props` extracts
- * the truth from source; this gate enforces the half that is always rot and
- * reports the half that is curation debt:
+ * the truth from source; this gate enforces both halves that are always rot:
  *
  *   ENFORCED: no stale rows. A content `api` name that NOTHING in the
  *   component's type carries — not local, not Base UI passthrough, not even
  *   react-intrinsic — documents nothing. Always a failure.
  *
- *   REPORTED: coverage. Generated (local + Base UI) names missing from the
- *   content `api` are printed with a count and do NOT fail. Content curates:
- *   it documents the props users need (`type`, `ref`, `className`) without
- *   transcribing all 100+ intrinsics, and Base UI passthrough props are being
- *   burned down in later parts. A reported number that only goes down is
- *   honest; failing on curation would force transcribing `onCopy` per
- *   component, which is exactly the rot this pipeline exists to prevent.
- *   (MUI explicitly omits native props too.)
- *
- *   Gate 2 flips REPORTED to ENFORCED once the burn-down reaches zero: any
- *   undocumented generated prop fails. Until then the count is the ratchet.
+ *   ENFORCED (gate 2, flipped once the burn-down reached zero): coverage.
+ *   Every generated (local + Base UI) name missing from the content `api`
+ *   fails with the export and prop named. Content still curates — it
+ *   documents the props users need without transcribing all 100+
+ *   intrinsics — but an undocumented generated prop is now a defect, not
+ *   debt. (MUI explicitly omits native props too.)
  *
  * SCOPED ROWS. A row may carry `for: ["PartA", ...]` to document a prop
  * only on the parts whose types carry it (compound families: `nativeButton`
@@ -99,10 +93,10 @@ console.log(
   `check-props passes: ${checked} web exports cross-checked, stale rows ${stale.length} (baseline ${BASELINE}, must not grow).`,
 );
 if (uncoveredByExport.length) {
-  console.log(
-    `coverage debt (reported, not failing): ${uncovered} generated props not yet documented:`,
+  console.error(
+    `props coverage contract FAILED — ${uncovered} generated prop(s) not documented:\n`,
   );
-  for (const line of uncoveredByExport) console.log(`  - ${line}`);
-} else {
-  console.log("coverage debt: zero — every generated prop is documented.");
+  for (const line of uncoveredByExport) console.error(`  - ${line}`);
+  process.exit(1);
 }
+console.log("coverage debt: zero — every generated prop is documented.");
