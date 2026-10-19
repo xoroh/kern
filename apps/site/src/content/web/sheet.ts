@@ -99,22 +99,32 @@ export const sheet: ComponentDoc = {
   api: [
     {
       name: "side",
+      for: ["SheetContent"],
       type: '"left" | "right"',
       default: '"right"',
       note: "On `SheetContent`: which edge the panel enters from. Placement, not a variant.",
     },
     {
       name: "open",
+      for: ["SheetRoot"],
       type: "boolean",
       note: "Controlled open state on `SheetRoot`. Omit for uncontrolled.",
     },
     {
       name: "onOpenChange",
+      for: ["SheetRoot"],
       type: "(open: boolean, eventDetails: object) => void",
       note: "Fires on every open and close, including Escape and scrim clicks.",
     },
     {
       name: "className",
+      for: [
+        "SheetTrigger",
+        "SheetContent",
+        "SheetTitle",
+        "SheetDescription",
+        "SheetClose",
+      ],
       type: "string",
       note: "Accepted on every part, merged after that part's classes.",
     },
