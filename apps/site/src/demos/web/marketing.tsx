@@ -1,7 +1,7 @@
 import { Button, ThemeToggle } from "@xoroh/kern";
 import { Hero, SiteFooter, TopBar } from "@xoroh/kern/start";
-import { T_BODY_SM } from "../../domains/shared/systems/type-scale";
 import { Preview } from "../../components/preview/preview";
+import { T_BODY_SM } from "../../domains/shared/systems/type-scale";
 
 const TOP_BAR_ITEMS = [
   { to: "/projects", label: "Projects" },
@@ -49,7 +49,9 @@ export function TopBarDemo() {
           activePath="/docs/guides"
           actions={<ThemeToggle />}
         />
-        <div className={`flex min-h-32 items-center justify-center bg-(--sys-color-surface-container) ${T_BODY_SM} text-(--sys-color-on-surface-variant)`}>
+        <div
+          className={`flex min-h-32 items-center justify-center bg-(--sys-color-surface-container) ${T_BODY_SM} text-(--sys-color-on-surface-variant)`}
+        >
           Page content
         </div>
       </div>
