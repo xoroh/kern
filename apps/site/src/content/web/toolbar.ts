@@ -124,6 +124,34 @@ export const toolbar: ComponentDoc = {
       type: '"horizontal" | "vertical"',
       note: "On the root: which way the controls are laid out and which arrow keys move between them. The visual layout is still `className`.",
     },
+    {
+      name: "style",
+      type: "CSSProperties | ((state) => CSSProperties | undefined) | undefined",
+      note: "Style for the part, or a function of the part's state returning style — `ToolbarRootState` on the bar, `ToolbarGroupState` on a group, `ToolbarButtonState` (disabled, focused) on a control, `SeparatorState` on a divider.",
+    },
+    {
+      name: "render",
+      type: "ReactElement | ((props, state) => ReactElement) | undefined",
+      note: "Replaces the part's element with another tag or composes it with another component — the render function receives the part's props and state. Set `nativeButton` on a control when the replacement is a native `<button>`.",
+    },
+    {
+      name: "loopFocus",
+      for: ["ToolbarRoot"],
+      type: "boolean | undefined",
+      note: "Whether arrow keys wrap from the last control back to the first. Disabled stops at the ends.",
+    },
+    {
+      name: "nativeButton",
+      for: ["ToolbarButton"],
+      type: "boolean | undefined",
+      note: "Declares whether the `render` replacement is a native `<button>`, so semantics and keyboard behavior stay correct.",
+    },
+    {
+      name: "focusableWhenDisabled",
+      for: ["ToolbarButton"],
+      type: "boolean | undefined",
+      note: "Whether a disabled control stays focusable. For controls that must remain discoverable while unavailable.",
+    },
   ],
   aria: [
     "The root is a toolbar landmark, so it appears in a screen reader's landmark list and can be jumped to directly.",

@@ -26,6 +26,7 @@ export type SonnerViewportProps = ComponentProps<
   typeof ToastPrimitive.Viewport
 >;
 export type SonnerRootProps = ComponentProps<typeof ToastPrimitive.Root> & {
+  /** Semantic tone for the toast: leading icon and border role. Falls back to the message intent, then `info`. */
   intent?: SonnerIntent;
 };
 export type SonnerTitleProps = ComponentProps<typeof ToastPrimitive.Title>;
