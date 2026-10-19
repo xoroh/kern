@@ -3345,6 +3345,15 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    name: "overlay-modality-provider",
+    export: "OverlayModalityProvider",
+    platform: "native",
+    system: "kern-m3",
+    entrypoint: ".",
+    path: "src/components/overlay-surfaces.tsx",
+    status: "real",
+  },
+  {
     name: "drawer",
     export: "Drawer",
     platform: "native",

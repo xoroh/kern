@@ -6741,6 +6741,10 @@ export const A11Y: Record<string, A11yPage> = {
         hasLiveDemo: false,
         expectations: [],
       },
+      OverlayModalityProvider: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
     },
   },
   "mobile/empty-state": {

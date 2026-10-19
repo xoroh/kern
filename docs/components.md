@@ -393,6 +393,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `navigation-menu` | `NavigationMenu` | real |
 | `navigation-rail` | `NavigationRail` | real |
 | `number-field` | `NumberField` | real |
+| `overlay-modality-provider` | `OverlayModalityProvider` | real |
 | `pagination` | `Pagination` | real |
 | `pane` | `Pane` | real |
 | `popover` | `Popover` | real |

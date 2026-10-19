@@ -2670,6 +2670,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    slug: "mobile/overlay-modality-provider",
+    name: "overlay-modality-provider",
+    export: "OverlayModalityProvider",
+    platform: "mobile",
+    status: "real",
+  },
+  {
     slug: "mobile/pagination",
     name: "pagination",
     export: "Pagination",
@@ -2982,7 +2989,7 @@ export const COMPONENT_COUNT = COMPONENTS.length;
  */
 export const PARITY_COUNTS = {
   web: 304,
-  native: 118,
+  native: 119,
   shared: 91,
 };
 

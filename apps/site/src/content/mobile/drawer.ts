@@ -18,7 +18,7 @@ export const drawer: ComponentDoc = {
     // sheet) — the same kind of surface, so the same resting elevation.
     elevation: 1,
   },
-  parts: ["Drawer"],
+  parts: ["Drawer", "OverlayModalityProvider"],
   customization: {
     supported: [
       "`title` is the panel's name and `children` is its body.",
