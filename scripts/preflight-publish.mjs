@@ -37,7 +37,23 @@
  * entry is a release-semantics decision (K-05, kern-lead) — this gate only
  * reports it.
  *
- * Exit 0 = every packed manifest is installable as npm would ship it.
+ * Two modes (lead decision, release lane):
+ *
+ *   default (`bun run preflight:publish`, wired into CI on every PR) —
+ *   fail on `workspace:` in shipped fields only.
+ *
+ *   release (`--release`, run by hand before any publish and by the
+ *   documented release steps) — additionally fail on `file:` and `link:`
+ *   in shipped fields. Those are the Axis-vendor shape (`file:../../
+ *   vendor/axis/*.tgz` in kern/kern-native today): resolvable inside this
+ *   monorepo, broken the moment a consumer installs the tarball. Release
+ *   mode is RED until the Axis cutover lands (`docs/releases.md`), which is
+ *   exactly what a release gate is for — but PR CI stays green meanwhile,
+ *   because every lane would otherwise be held hostage to another lane's
+ *   cutover.
+ *
+ * Exit 0 = every packed manifest is installable as npm would ship it
+ * (plus, in release mode, addressable from the registry).
  */
 
 import { execFileSync } from "node:child_process";
@@ -46,6 +62,37 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 
 const ROOT = resolve(import.meta.dirname, "..");
+
+/** `--release`: also fail on `file:`/`link:` (the Axis-vendor shape). */
+const RELEASE_MODE = process.argv.includes("--release");
+
+/**
+ * npm is the pack tool because the release publishes through it — but npm
+ * is not guaranteed on every machine (this repo runs on bun). A missing
+ * binary must read as a missing prerequisite, not as a publish defect:
+ * without this probe the failure below reports "could not pack <pkg>"
+ * and sends the operator hunting a packaging bug that does not exist.
+ * (No shim is vendored: the gate must run the real npm.)
+ */
+try {
+  execFileSync("npm", ["--version"], { stdio: "ignore" });
+} catch (err) {
+  if (err.code === "ENOENT") {
+    console.error(
+      "preflight-publish: npm is not installed. This gate packs the way " +
+        "the release packs (npm, not bun) — install Node.js/npm and re-run.",
+    );
+    process.exit(1);
+  }
+  throw err;
+}
+
+function packWithNpm(dir) {
+  execFileSync("npm", ["pack", "--pack-destination", workdir], {
+    cwd: dir,
+    stdio: "ignore",
+  });
+}
 
 /**
  * `@xoroh/kern/start` is a SUBPATH export of `@xoroh/kern` (D-034), not its own
@@ -107,10 +154,7 @@ try {
     // worse than useless, because the operator sees a Node error instead of the
     // publish problem that caused it.
     try {
-      execFileSync("npm", ["pack", "--pack-destination", workdir], {
-        cwd: dir,
-        stdio: "ignore",
-      });
+      packWithNpm(dir);
     } catch (err) {
       throw new Error(
         `preflight-publish: could not pack ${source.name} (${rel}). ` +
@@ -162,6 +206,18 @@ try {
             `  ${packed.name}  ${field}.${name} = "${range}"  survived packing (${rel})`,
           );
         }
+        // Release mode only: `file:`/`link:` resolve inside this monorepo
+        // and break every consumer install (today: the Axis vendor tarball
+        // in kern/kern-native — see the Axis cutover in docs/releases.md).
+        if (
+          RELEASE_MODE &&
+          typeof range === "string" &&
+          (range.startsWith("file:") || range.startsWith("link:"))
+        ) {
+          failures.push(
+            `  ${packed.name}  ${field}.${name} = "${range}"  is not registry-addressable (${rel})`,
+          );
+        }
       }
     }
     checked.push(packed.name);
@@ -172,13 +228,15 @@ try {
 
 if (failures.length > 0) {
   console.error(
-    "preflight-publish: FAILED — a workspace: specifier reached a published manifest\n",
+    "preflight-publish: FAILED — a non-registry specifier reached a published manifest\n",
   );
   for (const line of failures) console.error(line);
   console.error(
     "\nPacked with NPM, which is what `changeset publish` uses to publish. npm has\n" +
-      "no workspace protocol, so this specifier ships VERBATIM and every consumer\n" +
-      "install of the affected package fails with EUNSUPPORTEDPROTOCOL.\n" +
+      "no workspace protocol, so a workspace: specifier ships VERBATIM and every\n" +
+      "consumer install of the affected package fails with EUNSUPPORTEDPROTOCOL.\n" +
+      "file:/link: specifiers fail only in --release mode: they resolve inside\n" +
+      "this monorepo and break consumer installs the same way (Axis cutover).\n" +
       "\nThe fix is a release-semantics decision (K-05) and belongs to kern-lead:\n" +
       "declare the internal package as a peerDependency with an explicit range, or\n" +
       "remove the entry. Do not silence this gate.",
@@ -187,6 +245,6 @@ if (failures.length > 0) {
 }
 
 console.log(
-  `preflight-publish: ok — ${checked.length} packages packed with npm, no ` +
-    `workspace: in any shipped manifest (${checked.join(", ")})`,
+  `preflight-publish${RELEASE_MODE ? " (--release)" : ""}: ok — ${checked.length} packages packed with npm, ` +
+    `no workspace:${RELEASE_MODE ? " nor file:/link:" : ""} in any shipped manifest (${checked.join(", ")})`,
 );
