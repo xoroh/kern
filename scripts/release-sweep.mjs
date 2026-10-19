@@ -7,9 +7,8 @@
  * 1. Repo half: forbidden internal paths present in the checkout —
  *    `.team/`, root scratch dirs, stray tarballs (outside the vendored
  *    `vendor/` tree), superseded planning dirs with real content, and
- *    `.reports/` (lane reports live outside git since the 2026-10-19 Faroeq
- *    rule; whatever is still committed blocks the release until the hygiene
- *    lane moves it).
+ *    `.reports/` (reports live outside git; whatever is still committed
+ *    blocks the release until it is moved out).
  * 2. Pack half: for every publishable package, the `bun pm pack --dry-run`
  *    file list must not contain internal files — tests, planning/roadmap/
  *    audit material, agent notes, reports, team files, scratch, or nested
@@ -117,7 +116,7 @@ for (const dir of ["docs/planning", "docs/plan"]) {
   if (reports.length > 0) {
     fail(
       "repo",
-      `.reports/ holds ${reports.length} committed file(s) — lane reports live outside git since 2026-10-19; the hygiene lane moves these before release`,
+      `.reports/ holds ${reports.length} committed file(s) — reports live outside git; move them out before release`,
     );
   }
 }
@@ -135,7 +134,7 @@ const PACK_FORBIDDEN = [
   [/\.test\.[cm]?[jt]sx?$/, "test file"],
   [/\.rntest\.[jt]sx?$/, "native test file"],
   [/__tests__\//, "test directory"],
-  [/\.reports\//, "lane report"],
+  [/\.reports\//, "report file"],
   [/\.team\//, "team registry"],
   [/(planning|roadmap)/i, "planning material"],
   [/audit/i, "audit material"],

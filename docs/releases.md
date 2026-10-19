@@ -70,15 +70,12 @@ after `bun run build`:
    out as `0.1.0` — while on `0.x`, land breaking changes as minors (see
    `docs/conventions/changesets.md`); a `major` on `0.0.0` would publish
    `1.0.0`, a stability promise this repo has not made.
-4. Sweep for internal files: `bun run release-sweep`. It fails on
-   lane reports, planning leftovers, scratch and stray tarballs in the repo,
-   and on test/planning/audit/report files inside any pack output. The
-   release does not proceed until it is green; each failure names its owner
-   (usually the hygiene lane). It is intentionally a manual release command,
-   not a CI gate: promoting it to `check:*` + CI wiring happens once the
-   open verdicts below are settled and it runs green. Never `npm publish`,
-   tag, bump versions, deploy, or touch secrets as part of the dry run —
-   preparation only, founder-gated execution.
+4. Sweep for internal files: `bun run release-sweep`. Maintainers run it
+   before a release and it must be green: it fails on reports,
+   planning leftovers, scratch and stray tarballs in the repo, and on
+   test, planning, audit or report files inside any pack output. It is
+   not yet a CI gate. Never `npm publish`, tag, bump versions, deploy,
+   or touch secrets as part of the dry run — preparation only.
 
 ## Preflight: internal dependencies are peerDependencies, never `workspace:*`
 
