@@ -9,7 +9,7 @@ import {
   type ViewStyle,
 } from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
-import { overlayStyles } from "../utils/overlay-styles";
+import { scrimStyle } from "../utils/overlay-styles";
 import { useKernPortalRegistration } from "./presentation";
 import { Text } from "./text";
 
@@ -98,7 +98,7 @@ export function Dialog({
       accessibilityViewIsModal
       onRequestClose={notifyDismiss}
     >
-      <View style={overlayStyles.scrim}>
+      <View style={scrimStyle(scheme)}>
         <View
           // `role`, NOT `accessibilityRole`, carries the dialog role: the
           // platform-trait union (`AccessibilityRole`) has no `dialog` member,

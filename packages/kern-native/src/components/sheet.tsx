@@ -8,7 +8,7 @@ import {
   type ViewStyle,
 } from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
-import { overlayStyles } from "../utils/overlay-styles";
+import { bottomScrimStyle } from "../utils/overlay-styles";
 import { Text } from "./text";
 
 export function sheetStyles(scheme: ResolvedTheme = defaultScheme()): {
@@ -67,7 +67,7 @@ export function Sheet({
       accessibilityViewIsModal
       onRequestClose={notifyDismiss}
     >
-      <View style={overlayStyles.bottomScrim}>
+      <View style={bottomScrimStyle(scheme)}>
         <Pressable
           accessibilityLabel="Dismiss sheet"
           onPress={notifyDismiss}

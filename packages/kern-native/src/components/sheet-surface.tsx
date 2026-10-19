@@ -15,7 +15,8 @@ import {
   View,
   type ViewStyle,
 } from "react-native";
-import { overlayStyles } from "../utils/overlay-styles";
+import { bottomScrimStyle, scrimStyle } from "../utils/overlay-styles";
+import { useKernScheme } from "../theme";
 import { useKernOverlay } from "./overlay-surfaces";
 import { describeAutofocus, useKernPortalRegistration } from "./presentation";
 
@@ -108,6 +109,7 @@ export function SheetSurface({
   placement = "bottom",
   style,
 }: SheetSurfaceProps) {
+  const scheme = useKernScheme();
   // The dismissal DECISION is the shared `dismiss-policy` primitive
   // (P2c-2 Wave 1); the triggers below stay native. This line used to encode
   // the rule by hand — `dismissible ?? Boolean(onDismiss)` — which is the
@@ -197,8 +199,8 @@ export function SheetSurface({
       <View
         style={
           placement === "bottom"
-            ? overlayStyles.bottomScrim
-            : overlayStyles.scrim
+            ? bottomScrimStyle(scheme)
+            : scrimStyle(scheme)
         }
       >
         <Pressable

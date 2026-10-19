@@ -17,10 +17,11 @@ import { defaultScheme } from "../theme";
  * ## Why it is NOT in `utils/overlay-styles.ts`
  *
  * That was the first attempt and it does not work. `overlay-styles.ts` holds
- * `overlayStyles`, the static scrim geometry shared by eleven components
- * (dialog, menu, select, drawer, sheet, menubar, …), so it cannot be moved
- * without touching all of them — and `SheetSurface` imports `overlayStyles`, so
- * placing this function there made the theme dependency **transitive**:
+ * `scrimStyle`/`bottomScrimStyle`, the scheme-aware scrim shared by eleven
+ * components (dialog, menu, select, drawer, sheet, menubar, …), so it cannot
+ * be moved without touching all of them — and `SheetSurface` imports those
+ * style functions, so placing this function there made the theme dependency
+ * **transitive**:
  * `sheet-surface` → `overlay-styles` → `kern-tokens`. `SheetSurface`'s own source
  * would have been clean and its dependency graph would still have crossed the
  * gate.

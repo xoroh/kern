@@ -2,7 +2,7 @@ import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import { type ReactNode, useState } from "react";
 import { Modal, Pressable, StyleSheet, View } from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
-import { overlayStyles } from "../utils/overlay-styles";
+import { scrimStyle } from "../utils/overlay-styles";
 import { menuStyles } from "./menu";
 import { Text } from "./text";
 
@@ -228,7 +228,7 @@ export function SplitButton({
           animationType="fade"
           onRequestClose={() => setOpen(false)}
         >
-          <View style={overlayStyles.scrim}>
+          <View style={scrimStyle(scheme)}>
             <View accessibilityRole="menu" style={card.card}>
               {actions.map((action, index) => (
                 <View key={action.key}>

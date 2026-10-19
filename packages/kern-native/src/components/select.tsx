@@ -103,7 +103,7 @@ export function Select({
           <Text variant="body">▾</Text>
         </SelectTrigger>
         <SelectPortal>
-          <SelectBackdrop style={{ backgroundColor: "rgba(0, 0, 0, 0.3)" }} />
+          <SelectBackdrop style={{ backgroundColor: scheme.color.scrim }} />
           <SelectPositioner>
             <SelectPopup style={styles.card}>
               {options.map((option) => (

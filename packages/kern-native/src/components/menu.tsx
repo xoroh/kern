@@ -72,7 +72,7 @@ export function Menu({
           {trigger}
         </MenuTrigger>
         <MenuPortal>
-          <MenuBackdrop style={{ backgroundColor: "rgba(0, 0, 0, 0.3)" }} />
+          <MenuBackdrop style={{ backgroundColor: scheme.color.scrim }} />
           <MenuPositioner>
             <MenuPopup style={[styles.card, style]}>
               {items.map((item) => (

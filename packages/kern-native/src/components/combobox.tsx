@@ -11,7 +11,7 @@ import {
   type ViewStyle,
 } from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
-import { overlayStyles } from "../utils/overlay-styles";
+import { scrimStyle } from "../utils/overlay-styles";
 import { inputStyles } from "./input";
 import { Text } from "./text";
 
@@ -242,7 +242,7 @@ export function Combobox({
         accessibilityViewIsModal
         onRequestClose={dismiss}
       >
-        <View style={overlayStyles.scrim}>
+        <View style={scrimStyle(scheme)}>
           <Pressable
             testID={`${popupBase}-scrim`}
             accessibilityRole="button"
