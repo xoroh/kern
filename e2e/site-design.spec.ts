@@ -31,15 +31,16 @@ test("desktop header and homepage controls are usable", async ({ page }) => {
     navigation.getByRole("link", { name: "Docs", exact: true }),
   ).toBeVisible();
   expect((await navigation.boundingBox())?.y).toBeLessThan(80);
+  // Site PR-C hero: twin CTA anchors (were "Make something" toggle buttons).
   await page
-    .getByRole("button", { name: "Make something", exact: true })
+    .getByRole("link", { name: /Start building/, exact: false })
     .click();
-  await expect(
-    page.getByRole("button", { name: "Made it yours", exact: true }),
-  ).toBeVisible();
-  const design = page.getByRole("button", { name: "Design", exact: true });
-  await design.click();
-  await expect(design).toHaveAttribute("aria-pressed", "false");
+  await expect(page).toHaveURL(/docs\/getting-started/);
+  await page.goto("/");
+  await page
+    .getByRole("link", { name: /Explore components/, exact: false })
+    .click();
+  await expect(page).toHaveURL(/components/);
 });
 
 test("theme toggle persists dark mode across a reload", async ({ page }) => {
