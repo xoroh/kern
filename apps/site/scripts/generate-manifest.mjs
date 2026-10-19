@@ -10,9 +10,11 @@
 import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { formatText } from "../../../scripts/lib/format-generated.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const APP = join(HERE, "..");
+const ROOT = join(APP, "..", "..");
 const DOCS = join(APP, "..", "..", "docs", "components.md");
 
 /** Section heading in components.md -> the platform slug the site routes on. */
@@ -220,8 +222,6 @@ export function familyEntries(slug: string): ComponentEntry[] {
 
 const target = join(APP, "src", "generated", "manifest.ts");
 mkdirSync(dirname(target), { recursive: true });
-writeFileSync(target, out, "utf8");
-
 // The output is a TRACKED, generated file (S2 co-sign ruling: "from a tracked
 // input -> track it"), so whatever this script writes must already satisfy the
 // repo formatter. Emitting unformatted code meant every `bun run generate` left
@@ -229,18 +229,21 @@ writeFileSync(target, out, "utf8");
 // on a fresh checkout — the kind of gate failure that looks like someone broke
 // something when nobody did. Format here, at the source, rather than relying on
 // someone to remember to run `format` after generating.
-try {
-  const { execFileSync } = await import("node:child_process");
-  execFileSync("npx", ["biome", "check", "--write", target], {
-    stdio: "ignore",
-  });
-} catch {
-  // Formatter unavailable (offline / no npx). The file is still written and
-  // correct; only its formatting is not guaranteed, and `bun run lint` will say so.
-  console.warn(
-    "generate-manifest: could not run biome; run `bun run format` before lint",
-  );
-}
+//
+// F-02: format BEFORE writing, via the shared helper. It resolves the
+// workspace biome bin or the pinned `bun x` fallback and THROWS rather than
+// writing unformatted output — the old `npx biome` + warn-and-continue wrote
+// lint-red bytes with exit 0 on any machine without npx.
+writeFileSync(
+  target,
+  formatText({
+    root: ROOT,
+    text: out,
+    stdinFilePath: "manifest.ts",
+    label: "generate-manifest: manifest.ts",
+  }),
+  "utf8",
+);
 
 console.log(
   "generate-manifest: " +
