@@ -122,6 +122,13 @@ keyboard interactions it implements, and what it hands back to assistive tech.
 The parity contract's assertions are the source; a page that contradicts them is
 a defect in the page.
 
+A row may carry `for: ["PartA", ...]` to document a prop only on the parts
+whose types carry it (compound families: `nativeButton` on triggers,
+`initialFocus` on content). Rows without `for` document the prop on every
+part in the file. The props gate fails a `for` that names a non-part or a
+name nothing scoped carries; the page renders per-part tables merged by name,
+so a scoped row lands exactly where the type carries it.
+
 ## Consistency rules
 
 1. **One component, one page.** Compound parts (`Dialog`, `DialogTitle`,

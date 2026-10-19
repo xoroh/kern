@@ -194,6 +194,15 @@ export type PropRow = {
   default?: string;
   required?: boolean;
   /**
+   * Scope: the family parts this row documents. Omit to document the prop
+   * on every part in the file (the common case — shared props). Set to
+   * document a part-specific prop (`nativeButton` on triggers,
+   * `initialFocus` on content) without reading as stale on the siblings
+   * whose types do not carry it. Every entry must name a part of the same
+   * family file; the props gate fails anything else.
+   */
+  for?: string[];
+  /**
    * The load-bearing half of the row: what the prop *implies*. A prop that sets
    * an ARIA attribute, controls focus or implies another prop says so here.
    */
