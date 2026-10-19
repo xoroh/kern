@@ -63,11 +63,7 @@ const CHIP = `inline-flex items-center rounded-(--sys-shape-corner-full) border 
  */
 export type GalleryPlatform = "web" | "mobile";
 
-export function PlatformSwitcher({
-  platform,
-}: {
-  platform?: GalleryPlatform;
-}) {
+export function PlatformSwitcher({ platform }: { platform?: GalleryPlatform }) {
   const items = [
     {
       label: "All",
