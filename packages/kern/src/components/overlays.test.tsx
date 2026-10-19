@@ -335,21 +335,15 @@ describe("Menu", () => {
     await user.click(screen.getByRole("button", { name: "File" }));
     await user.keyboard("{ArrowDown}");
     await waitFor(() =>
-      expect(
-        screen.getByRole("menuitem", { name: "New" }),
-      ).toHaveFocus(),
+      expect(screen.getByRole("menuitem", { name: "New" })).toHaveFocus(),
     );
     await user.keyboard("{ArrowDown}");
     await waitFor(() =>
-      expect(
-        screen.getByRole("menuitem", { name: "Open" }),
-      ).toHaveFocus(),
+      expect(screen.getByRole("menuitem", { name: "Open" })).toHaveFocus(),
     );
     await user.keyboard("{ArrowDown}");
     await waitFor(() =>
-      expect(
-        screen.getByRole("menuitem", { name: "New" }),
-      ).toHaveFocus(),
+      expect(screen.getByRole("menuitem", { name: "New" })).toHaveFocus(),
     );
   });
 });
