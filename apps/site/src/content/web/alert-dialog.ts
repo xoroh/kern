@@ -103,21 +103,31 @@ export const alertDialog: ComponentDoc = {
   api: [
     {
       name: "open",
+      for: ["AlertDialogRoot"],
       type: "boolean",
       note: "Controlled open state on `AlertDialogRoot`. Omit for uncontrolled.",
     },
     {
       name: "onOpenChange",
+      for: ["AlertDialogRoot"],
       type: "(open: boolean, eventDetails: object) => void",
       note: "Fires on every open and close, including Escape and backdrop clicks.",
     },
     {
       name: "className",
+      for: [
+        "AlertDialogTrigger",
+        "AlertDialogContent",
+        "AlertDialogTitle",
+        "AlertDialogDescription",
+        "AlertDialogClose",
+      ],
       type: "string",
       note: "Accepted on every part, merged after that part's classes.",
     },
     {
       name: "disabled",
+      for: ["AlertDialogTrigger", "AlertDialogClose"],
       type: "boolean",
       note: "On the trigger or on an action button.",
     },

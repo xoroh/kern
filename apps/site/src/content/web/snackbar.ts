@@ -130,27 +130,32 @@ export const snackbar: ComponentDoc = {
   },
   api: [
     {
-      name: "open",
-      type: "boolean",
-      note: "Controlled visibility on `SnackbarRoot`. Omit to let the queue manage it.",
-    },
-    {
-      name: "onOpenChange",
-      type: "(open: boolean) => void",
-      note: "Fires when it appears and when it goes, whether by timeout or by being dismissed.",
-    },
-    {
       name: "className",
+      for: [
+        "SnackbarRoot",
+        "SnackbarTitle",
+        "SnackbarDescription",
+        "SnackbarAction",
+        "SnackbarClose",
+      ],
       type: "string",
       note: "Accepted on every part, merged after that part's classes.",
     },
     {
       name: "onClick",
+      for: [
+        "SnackbarRoot",
+        "SnackbarTitle",
+        "SnackbarDescription",
+        "SnackbarAction",
+        "SnackbarClose",
+      ],
       type: "() => void",
       note: "On `SnackbarAction`: the single thing to do about it. One action only — a snackbar with a choice in it is a dialog in the wrong shape.",
     },
     {
       name: "disabled",
+      for: ["SnackbarAction", "SnackbarClose"],
       type: "boolean",
       note: "On the action or the close control.",
     },

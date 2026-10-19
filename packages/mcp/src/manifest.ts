@@ -1716,6 +1716,15 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    name: "select-item-indicator",
+    export: "SelectItemIndicator",
+    platform: "web",
+    system: "kern-m3",
+    entrypoint: ".",
+    path: "src/components/select.tsx",
+    status: "real",
+  },
+  {
     name: "select-separator",
     export: "SelectSeparator",
     platform: "web",

@@ -4409,6 +4409,10 @@ export const A11Y: Record<string, A11yPage> = {
           },
         ],
       },
+      SelectItemIndicator: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
       SelectGroupLabel: {
         hasLiveDemo: true,
         expectations: [

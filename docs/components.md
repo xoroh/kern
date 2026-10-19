@@ -224,6 +224,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `select-group` | `SelectGroup` | real |
 | `select-group-label` | `SelectGroupLabel` | real |
 | `select-item` | `SelectItem` | real |
+| `select-item-indicator` | `SelectItemIndicator` | real |
 | `select-item-text` | `SelectItemText` | real |
 | `select-root` | `SelectRoot` | real |
 | `select-separator` | `SelectSeparator` | real |

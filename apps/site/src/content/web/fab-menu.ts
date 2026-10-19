@@ -59,11 +59,6 @@ export const fabMenu: ComponentDoc = {
       note: "Overrides the trigger's accessible name, and therefore the menu's. The menu surface INHERITS its name from the trigger; it does not carry one of its own.",
     },
     {
-      name: "separated",
-      type: "boolean",
-      note: "On an action: draws a divider before it. Use it to fence off the action that is unlike the others.",
-    },
-    {
       name: "open",
       type: "boolean",
       note: "Controlled open state. Omit for uncontrolled.",

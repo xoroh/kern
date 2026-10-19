@@ -45,11 +45,6 @@ export const text: ComponentDoc = {
       type: "string",
       note: "Merged after the variant's classes.",
     },
-    {
-      name: "ref",
-      type: "React.Ref<HTMLElement>",
-      note: "Forwarded to the rendered element.",
-    },
   ],
   aria: [
     '`as` decides what assistive tech hears. A `title` variant rendered with `as="p"` looks like a heading and is not one.',

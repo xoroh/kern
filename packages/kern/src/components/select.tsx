@@ -1,4 +1,5 @@
 import { Select as SelectPrimitive } from "@base-ui/react/select";
+import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentProps } from "react";
 import { cnState } from "../utils/cnState";
 
@@ -6,15 +7,31 @@ export type SelectRootProps<
   T = unknown,
   Multiple extends boolean | undefined = false,
 > = ComponentProps<typeof SelectPrimitive.Root<T, Multiple>>;
+
+const selectTriggerVariants = cva(
+  "kern-select-trigger flex h-14 w-full cursor-pointer items-center justify-between gap-2 text-base text-(--sys-color-on-surface) outline-none transition-colors data-disabled:cursor-not-allowed data-placeholder:text-(--sys-color-on-surface-variant)",
+  {
+    variants: {
+      /**
+       * M3 select treatment. `outlined` (default) draws the 1px outline;
+       * `filled` fills `surface-container-highest` with a bottom active
+       * indicator. Functionally identical — pick by surface.
+       */
+      variant: {
+        outlined:
+          "rounded-(--sys-shape-corner-extra-small) border border-(--sys-color-outline) bg-(--sys-color-surface) px-4 hover:border-(--sys-color-on-surface) focus:border-2 focus:border-(--sys-color-primary) focus:px-[15px] data-disabled:border-(--sys-color-on-surface)/12 data-disabled:bg-transparent data-disabled:text-(--sys-color-on-surface)/38",
+        filled:
+          "rounded-t-(--sys-shape-corner-extra-small) border-b border-(--sys-color-on-surface-variant) bg-(--sys-color-surface-container-highest) px-4 focus:border-b-2 focus:border-(--sys-color-primary) data-disabled:border-(--sys-color-on-surface)/38 data-disabled:bg-(--sys-color-on-surface)/4 data-disabled:text-(--sys-color-on-surface)/38",
+      },
+    },
+    defaultVariants: { variant: "outlined" },
+  },
+);
+
 export type SelectTriggerProps = ComponentProps<
   typeof SelectPrimitive.Trigger
 > & {
-  /**
-   * M3 select treatment. `outlined` (default) draws the 1px outline;
-   * `filled` fills `surface-container-highest` with a bottom active
-   * indicator. Functionally identical — pick by surface.
-   */
-  variant?: "outlined" | "filled";
+  variant?: NonNullable<VariantProps<typeof selectTriggerVariants>["variant"]>;
 };
 export type SelectContentProps = ComponentProps<typeof SelectPrimitive.Popup>;
 export type SelectItemProps = ComponentProps<typeof SelectPrimitive.Item>;
@@ -41,13 +58,7 @@ export function SelectTrigger({
     <SelectPrimitive.Trigger
       data-slot="select-trigger"
       data-variant={variant}
-      className={cnState(
-        "kern-select-trigger flex h-14 w-full cursor-pointer items-center justify-between gap-2 text-base text-(--sys-color-on-surface) outline-none transition-colors data-disabled:cursor-not-allowed data-placeholder:text-(--sys-color-on-surface-variant) " +
-          (variant === "filled"
-            ? "rounded-t-(--sys-shape-corner-extra-small) border-b border-(--sys-color-on-surface-variant) bg-(--sys-color-surface-container-highest) px-4 focus:border-b-2 focus:border-(--sys-color-primary) data-disabled:border-(--sys-color-on-surface)/38 data-disabled:bg-(--sys-color-on-surface)/4 data-disabled:text-(--sys-color-on-surface)/38"
-            : "rounded-(--sys-shape-corner-extra-small) border border-(--sys-color-outline) bg-(--sys-color-surface) px-4 hover:border-(--sys-color-on-surface) focus:border-2 focus:border-(--sys-color-primary) focus:px-[15px] data-disabled:border-(--sys-color-on-surface)/12 data-disabled:bg-transparent data-disabled:text-(--sys-color-on-surface)/38"),
-        className,
-      )}
+      className={cnState(selectTriggerVariants({ variant }), className)}
       {...props}
     />
   );
@@ -98,6 +109,22 @@ export function SelectItemText(
   return <SelectPrimitive.ItemText data-slot="select-item-text" {...props} />;
 }
 
+export function SelectItemIndicator({
+  className,
+  ...props
+}: ComponentProps<typeof SelectPrimitive.ItemIndicator>) {
+  return (
+    <SelectPrimitive.ItemIndicator
+      data-slot="select-item-indicator"
+      className={cnState(
+        "kern-select-item-indicator ml-auto flex shrink-0 items-center",
+        className,
+      )}
+      {...props}
+    />
+  );
+}
+
 export function SelectSeparator({ className, ...props }: SelectSeparatorProps) {
   return (
     <SelectPrimitive.Separator
@@ -145,7 +172,10 @@ export const Select = {
   Content: SelectContent,
   Item: SelectItem,
   ItemText: SelectItemText,
+  ItemIndicator: SelectItemIndicator,
   Separator: SelectSeparator,
   Group: SelectGroup,
   GroupLabel: SelectGroupLabel,
 };
+
+export { selectTriggerVariants };

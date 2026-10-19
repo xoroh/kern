@@ -28,6 +28,7 @@ export const select: ComponentDoc = {
     "SelectContent",
     "SelectItem",
     "SelectItemText",
+    "SelectItemIndicator",
     "SelectGroupLabel",
     "SelectSeparator",
   ],
@@ -58,6 +59,10 @@ export const select: ComponentDoc = {
     },
     { name: "SelectItem", role: "One option." },
     { name: "SelectItemText", role: "The option's label text." },
+    {
+      name: "SelectItemIndicator",
+      role: "The selected mark inside an option. Renders only while its option is selected.",
+    },
     {
       name: "SelectGroupLabel",
       role: "A heading for a run of related options.",
@@ -137,46 +142,61 @@ export const select: ComponentDoc = {
   api: [
     {
       name: "value",
+      for: ["SelectRoot", "SelectItem"],
       type: "SelectValueType<Value, Multiple> | null",
-      note: "Controlled selection on `SelectRoot`, generic over the value type and nullable — an empty select is `null`, not `undefined`. Omit for uncontrolled.",
+      note: "Controlled selection on `SelectRoot`, generic over the value type and nullable — an empty select is `null`, not `undefined`. Omit for uncontrolled. On an item it is the unique value identifying the option. On an item it is the unique value identifying the option.",
     },
     {
       name: "defaultValue",
+      for: ["SelectRoot"],
       type: "SelectValueType<Value, Multiple> | null",
       note: "Initial selection when uncontrolled.",
     },
     {
       name: "onValueChange",
+      for: ["SelectRoot"],
       type: "(value, eventDetails: SelectRootChangeEventDetails) => void",
       note: "Fires when the selection changes. `eventDetails` carries the reason — `itemPress`, `escapeKey`, `outsidePress` and so on — so a handler can tell a deliberate choice from a dismiss.",
     },
     {
       name: "items",
+      for: ["SelectRoot"],
       type: "Record<string, ReactNode> | ReadonlyArray<{ label, value }> | ReadonlyArray<Group>",
       note: "The options, on `SelectRoot`. Accepts a label map, a list of `{ label, value }` pairs, or grouped items.",
     },
     {
       name: "itemToStringLabel",
+      for: ["SelectRoot"],
       type: "(itemValue: Value) => string",
       note: "Converts an object value to the text shown in the trigger. Needed only when values are objects that are not `{ value, label }` — that shape is read automatically.",
     },
     {
       name: "itemToStringValue",
+      for: ["SelectRoot"],
       type: "(itemValue: Value) => string",
       note: "Converts an object value to a string for form submission. Separate from `itemToStringLabel` because what a person reads and what a form posts are not the same thing.",
     },
     {
       name: "isItemEqualToValue",
+      for: ["SelectRoot"],
       type: "(itemValue: Value, value: Value) => boolean",
       note: "Custom match between an option and the current selection. Defaults to `Object.is`, which fails for object values created fresh on each render.",
     },
     {
       name: "className",
+      for: [
+        "SelectTrigger",
+        "SelectContent",
+        "SelectItem",
+        "SelectGroupLabel",
+        "SelectSeparator",
+      ],
       type: "string",
       note: "Accepted on every part, merged after that part's classes.",
     },
     {
       name: "disabled",
+      for: ["SelectRoot", "SelectTrigger", "SelectItem"],
       type: "boolean",
       note: "Disables the control. The trigger dims and will not open.",
     },

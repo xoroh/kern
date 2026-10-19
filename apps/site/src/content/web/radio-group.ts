@@ -106,11 +106,13 @@ export const radioGroup: ComponentDoc = {
     },
     {
       name: "defaultValue",
+      for: ["RadioGroup"],
       type: "Value",
       note: "Initial selection when uncontrolled. Same generic type as `value`.",
     },
     {
       name: "onValueChange",
+      for: ["RadioGroup"],
       type: "(value: Value, eventDetails: unknown) => void",
       note: "Fires on every change with the newly selected value, not an event. The value is typed to the group.",
     },
@@ -126,6 +128,7 @@ export const radioGroup: ComponentDoc = {
     },
     {
       name: "controlClassName",
+      for: ["RadioGroupItem"],
       type: "string",
       note: "On an item: styles the radio control on its own. Kept separate from `className` so the circle and the row can be restyled independently.",
     },

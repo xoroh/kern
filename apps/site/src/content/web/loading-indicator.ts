@@ -45,11 +45,6 @@ export const loadingIndicator: ComponentDoc = {
       note: "From the feedback scale.",
     },
     {
-      name: "tone",
-      type: "FeedbackTone",
-      note: "From the feedback scale.",
-    },
-    {
       name: "className",
       type: "string",
       note: "Merged after the indicator's own classes.",

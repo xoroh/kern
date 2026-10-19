@@ -70,16 +70,19 @@ export const previewCard: ComponentDoc = {
   api: [
     {
       name: "open",
+      for: ["PreviewCardRoot"],
       type: "boolean",
       note: "Controlled open state on `PreviewCardRoot`. Omit for uncontrolled — the usual case, since a preview is driven by hover and focus.",
     },
     {
       name: "onOpenChange",
+      for: ["PreviewCardRoot"],
       type: "(open: boolean) => void",
       note: "Fires on every open and close, including Escape.",
     },
     {
       name: "className",
+      for: ["PreviewCardTrigger", "PreviewCardContent"],
       type: "string",
       note: "Accepted on every part, merged after that part's classes.",
     },

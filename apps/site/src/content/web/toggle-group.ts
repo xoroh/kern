@@ -56,16 +56,19 @@ export const toggleGroup: ComponentDoc = {
     },
     {
       name: "defaultValue",
+      for: ["ToggleGroupRoot"],
       type: "Value | Value[]",
       note: "Initial selection when uncontrolled.",
     },
     {
       name: "onValueChange",
+      for: ["ToggleGroupRoot"],
       type: "(value) => void",
       note: "Fires when the selection changes, carrying the whole selection rather than one item at a time.",
     },
     {
       name: "pressed",
+      for: ["ToggleGroupItem"],
       type: "boolean",
       note: "On an item: controlled pressed state. Inside a group this is normally driven by the group.",
     },

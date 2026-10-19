@@ -64,16 +64,19 @@ export const meter: ComponentDoc = {
   api: [
     {
       name: "value",
+      for: ["MeterRoot"],
       type: "number",
       note: "The current reading on `MeterRoot`.",
     },
     {
       name: "min",
+      for: ["MeterRoot"],
       type: "number",
       note: "Bottom of the range.",
     },
     {
       name: "max",
+      for: ["MeterRoot"],
       type: "number",
       note: "Top of the range.",
     },

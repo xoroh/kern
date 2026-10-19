@@ -123,16 +123,25 @@ export const dialog: ComponentDoc = {
   api: [
     {
       name: "open",
+      for: ["DialogRoot"],
       type: "boolean",
       note: "Controlled open state on `DialogRoot`. Omit it for uncontrolled.",
     },
     {
       name: "onOpenChange",
+      for: ["DialogRoot"],
       type: "(open: boolean, eventDetails: object) => void",
       note: "Fires on every open and close, including Escape and backdrop clicks.",
     },
     {
       name: "className",
+      for: [
+        "DialogTrigger",
+        "DialogContent",
+        "DialogTitle",
+        "DialogDescription",
+        "DialogClose",
+      ],
       type: "string",
       note: "Accepted on every part, merged after that part's classes.",
     },

@@ -88,11 +88,13 @@ export const table: ComponentDoc = {
     },
     {
       name: "colSpan",
+      for: ["TableHeader", "TableCell"],
       type: "number",
       note: "On `TableCell` and `TableHeader`: how many columns the cell spans. A cell that spans a header row's columns is how a grouped header is built.",
     },
     {
       name: "scope",
+      for: ["TableHeader", "TableCell"],
       type: '"row" | "col" | "rowgroup" | "colgroup"',
       note: "On `TableHeader`: what the header applies to. Setting it is what lets a screen reader announce the column name with each cell's value.",
     },

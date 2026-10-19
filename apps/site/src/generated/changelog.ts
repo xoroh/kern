@@ -339,6 +339,13 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
       "Web-extras P1 (roadmap row 7) — the web set is now complete. Five new components, all M3-conformant and built on Base UI behaviors with Kern tokens:",
   },
   {
+    id: "web-select-indicator",
+    packages: ["@xoroh/kern"],
+    bump: "minor",
+    summary:
+      "Web Select: trigger treatments move into selectTriggerVariants cva (same classes), and Select.ItemIndicator joins the compound export for the selected-option mark. CountrySelect inherits both.",
+  },
+  {
     id: "button-toggle-href-pressed",
     packages: ["@xoroh/kern"],
     bump: "patch",
@@ -580,6 +587,13 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
     packages: ["@xoroh/kern"],
     bump: "patch",
     summary: "Test-selector contract: testID on Button, DialogContent, Switch.",
+  },
+  {
+    id: "web-button-base-ui",
+    packages: ["@xoroh/kern"],
+    bump: "patch",
+    summary:
+      "Web Button renders on Base UI Button/Toggle primitives instead of hand-rolled elements; axis prop types derive from VariantProps<typeof buttonVariants>. No prop changes, no class changes. Two known micro-deltas: uncontrolled toggles expose state via the primitive's data-pressed/aria-pressed (data-selected mirrors only controlled pressed), and toggle value no longer reaches the DOM (it collides with the Toggle group-identity value).",
   },
 ];
 

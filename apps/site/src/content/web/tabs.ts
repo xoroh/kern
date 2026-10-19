@@ -113,16 +113,19 @@ export const tabs: ComponentDoc = {
   api: [
     {
       name: "value",
+      for: ["TabsRoot", "TabsTab", "TabsPanel"],
       type: "string | number",
-      note: "Controlled selection on `TabsRoot`. Omit for uncontrolled.",
+      note: "Controlled selection on `TabsRoot`. Omit for uncontrolled. On a tab it is the tab’s value; on a panel it selects the tab that shows it.",
     },
     {
       name: "defaultValue",
+      for: ["TabsRoot"],
       type: "string | number",
       note: "Initial selection when uncontrolled.",
     },
     {
       name: "onValueChange",
+      for: ["TabsRoot"],
       type: "(value: string | number) => void",
       note: "Fires on every selection change, including arrow-key navigation.",
     },
@@ -133,6 +136,7 @@ export const tabs: ComponentDoc = {
     },
     {
       name: "disabled",
+      for: ["TabsTab"],
       type: "boolean",
       note: "On `TabsTab`: removes it from the tab order and dims it.",
     },

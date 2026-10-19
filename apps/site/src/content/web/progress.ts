@@ -44,11 +44,13 @@ export const progress: ComponentDoc = {
   api: [
     {
       name: "value",
+      for: ["ProgressRoot"],
       type: "number | null",
       note: "How much is done on `ProgressRoot`. A number is determinate; leaving it unset is the indeterminate state — there is no separate `indeterminate` prop.",
     },
     {
       name: "max",
+      for: ["ProgressRoot"],
       type: "number",
       note: "What the whole job is. The bar is filled relative to this.",
     },

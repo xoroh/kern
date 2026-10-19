@@ -61,11 +61,6 @@ export const circularProgress: ComponentDoc = {
       note: "How much is done. A number is determinate; leaving it unset gives the indeterminate loop — the same convention `Progress` uses, with no separate boolean.",
     },
     {
-      name: "max",
-      type: "number",
-      note: "What the whole task is. The ring is drawn relative to this.",
-    },
-    {
       name: "className",
       type: "string",
       note: "Merged after the indicator's own classes. Size and colour come from here.",
