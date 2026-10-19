@@ -1,14 +1,23 @@
 /**
  * Hero — the homepage opening, painted in the M3 palette.
  *
- * Quiet tonal paper, editorial display type, and two graphic specimens
- * beside a live composition of real package controls. The specimens are
- * decorative; the controls have their actual selection and feedback states.
+ * Quiet tonal paper, editorial display type, and a live composition of real
+ * package controls: a workspace settings card with working selection and
+ * feedback states, plus the install command. No decorative specimens — the
+ * product is the visual.
  *
  * Ink is `on-primary-container` for the same reason: it is the role paired
  * with the primary container; the page repaints in both light and dark modes.
  */
-import { Button, buttonVariants, Chip, cn, Switch } from "@xoroh/kern";
+import {
+  Avatar,
+  Button,
+  buttonVariants,
+  Chip,
+  cn,
+  SegmentedButton,
+  Switch,
+} from "@xoroh/kern";
 import { Icon } from "@xoroh/kern-icons";
 import { useState } from "react";
 import {
@@ -18,92 +27,89 @@ import {
   T_SUB,
 } from "../../domains/shared/systems/type-scale";
 import { Kicker } from "../chrome/kicker";
+import { InstallTabs } from "../docs/install-tabs";
 
 const INK = "text-(--sys-color-on-primary-container)";
 
-/** A static Material-inspired rosette, painted entirely with semantic roles. */
-export function MaterialBloom() {
+/**
+ * Workspace settings — a believable slice of app UI composed from real
+ * package controls, every one of them live: the switch toggles, the
+ * segmented control moves exclusively, Save reports back. What a visitor
+ * touches here is what they ship.
+ */
+function WorkspaceCard() {
+  const [notify, setNotify] = useState(true);
+  const [saved, setSaved] = useState(false);
   return (
-    <svg viewBox="0 0 240 240" aria-hidden="true" className="material-bloom">
-      {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((angle) => (
-        <ellipse
-          key={angle}
-          cx="120"
-          cy="75"
-          rx="29"
-          ry="64"
-          transform={`rotate(${angle} 120 120)`}
-          fill="var(--sys-color-primary)"
+    <section className="hero-app-card" aria-label="Workspace settings demo">
+      <div className="flex items-center gap-3">
+        <Avatar.Root size="default">
+          <Avatar.Fallback delay={0}>Ac</Avatar.Fallback>
+        </Avatar.Root>
+        <div className="flex min-w-0 flex-1 flex-col">
+          <span className={T_LABEL_LG}>Acme project</span>
+          <span className={`${T_SUB} hero-dim`}>3 members · synced</span>
+        </div>
+        <Chip variant="assist">Pro</Chip>
+      </div>
+      <div className="hero-app-row">
+        <span className={T_LABEL_LG} id="hero-notify">
+          Notifications
+        </span>
+        <Switch
+          aria-labelledby="hero-notify"
+          checked={notify}
+          onCheckedChange={(next) => {
+            setNotify(next);
+            setSaved(false);
+          }}
         />
-      ))}
-      <circle
-        cx="120"
-        cy="120"
-        r="41"
-        fill="var(--sys-color-tertiary-container)"
-      />
-      <path
-        d="M101 120h38m-19-19v38"
-        stroke="var(--sys-color-on-tertiary-container)"
-        strokeWidth="3"
-        strokeLinecap="round"
-      />
-    </svg>
+      </div>
+      <div className="hero-app-row">
+        <span className={T_LABEL_LG} id="hero-density">
+          Density
+        </span>
+        <SegmentedButton.Root defaultValue={["comfortable"]} aria-label="Density">
+          <SegmentedButton.Item value="comfortable">
+            Comfortable
+          </SegmentedButton.Item>
+          <SegmentedButton.Item value="compact">Compact</SegmentedButton.Item>
+        </SegmentedButton.Root>
+      </div>
+      <div className="hero-app-actions">
+        <Button variant="text" onClick={() => setSaved(false)}>
+          Reset
+        </Button>
+        <Button
+          variant="filled"
+          onClick={() => setSaved(true)}
+          aria-live="polite"
+        >
+          <Icon name={saved ? "check" : "save"} size={18} />
+          {saved ? "Saved" : "Save changes"}
+        </Button>
+      </div>
+      <span className="sr-only" role="status">
+        {saved ? "Workspace settings saved in this demo." : ""}
+      </span>
+    </section>
   );
 }
 
-/** Real controls: selection, state, and feedback are not painted imitations. */
-function LiveCluster() {
-  const [saved, setSaved] = useState(false);
+/** Install, honestly: the command works at 0.1.0; until then the checkout does. */
+function InstallCard() {
   return (
-    <section className="hero-art" aria-label="Try Kern components">
-      <div className="hero-bloom-tile">
-        <MaterialBloom />
-        <span className={T_LABEL_LG}>Shape your ideas</span>
-        <span aria-hidden="true" className="hero-tile-arrow">
-          ↗
-        </span>
+    <section className="hero-install" aria-label="Install Kern">
+      <div className="hero-install-tabs">
+        <InstallTabs target="@xoroh/kern" />
       </div>
-      <div className="hero-type-tile">
-        <span aria-hidden="true" className="hero-aa">
-          Aa
-        </span>
-        <div className={`flex justify-between ${T_LABEL_LG}`}>
-          <span>Type with character</span>
-          <span aria-hidden="true">↗</span>
-        </div>
-      </div>
-      <div className="hero-control-tile">
-        <div className="flex items-center justify-between gap-4">
-          <span className={`flex items-center gap-2 ${T_LABEL_LG}`}>
-            <Icon name="science" size={20} /> A little playground
-          </span>
-          <span className="hero-live-dot" aria-hidden="true" />
-        </div>
-        <p className={`my-4 ${T_SUB}`}>Small details. Big difference.</p>
-        <div className="flex flex-wrap gap-2">
-          <Chip variant="filter" defaultValue>
-            Design
-          </Chip>
-          <Chip variant="filter">Develop</Chip>
-          <Chip variant="filter">Make it yours</Chip>
-        </div>
-        <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
-          <div
-            className={`flex cursor-pointer items-center gap-3 ${T_LABEL_LG}`}
-          >
-            <Switch defaultChecked aria-label="Express yourself" />
-            Express yourself
-          </div>
-          <Button variant="filled" onClick={() => setSaved(!saved)}>
-            <Icon name={saved ? "check" : "add"} size={18} />
-            {saved ? "Made it yours" : "Make something"}
-          </Button>
-        </div>
-        <span className="sr-only" role="status">
-          {saved ? "Your idea is saved in this demo." : ""}
-        </span>
-      </div>
+      <p className={`m-0 ${T_SUB} hero-dim`}>
+        Free and open source — publishes with 0.1.0. Until then,{" "}
+        <a href="/docs/getting-started" className="hero-dim-link">
+          start from a checkout
+        </a>
+        .
+      </p>
     </section>
   );
 }
@@ -156,7 +162,10 @@ export function Hero() {
             </span>
           </div>
         </div>
-        <LiveCluster />
+        <div className="hero-art">
+          <WorkspaceCard />
+          <InstallCard />
+        </div>
       </div>
     </section>
   );
