@@ -317,13 +317,15 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
           isClient ? (
             // The preview is a THUMBNAIL: inert to pointer events so it can
             // never swallow the card's links or trap a click on a demo control.
-            // Centered, not top-left: a demo taller than the well used to clip
-            // mid-text from the top (Button variants cut off), reading as a
-            // rendering bug. Centering clips both edges equally when a demo
-            // still overflows, and fits everything shorter exactly. Rendered
-            // at natural size: the old scale-90 popped on mount.
+            // A fitting demo centers exactly (m-auto); an overflowing one
+            // top/left-aligns so the first preview stays readable instead of
+            // the stack's middle cropping on both edges. Rendered at natural
+            // size: the old scale-90 popped on mount. Figure chrome compacts
+            // in thumbnails (figure p-4→p-2, stage p-6→p-2) so narrow wells
+            // don't clip demo text — scoped to descendants, the well and
+            // the family pages keep full chrome.
             <div
-              className="pointer-events-none m-auto flex max-h-full max-w-full min-h-0 min-w-0 origin-center overflow-hidden"
+              className="pointer-events-none m-auto flex max-h-full max-w-full min-h-0 min-w-0 origin-center overflow-hidden [&_.site-card]:p-2 [&_.site-stage]:p-2"
               aria-hidden="true"
               inert
             >
