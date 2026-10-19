@@ -281,6 +281,7 @@ export { NumberField, numberFieldStyles } from "./components/number-field";
 export type { DrawerProps } from "./components/overlay-surfaces";
 export {
   Drawer,
+  OverlayModalityProvider,
   Popover,
   ScrollArea,
   useAnyModalOpen,

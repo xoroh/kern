@@ -1,15 +1,16 @@
-import { useControllableState } from "@xoroh/axis";
-import type { ResolvedTheme } from "@xoroh/kern-tokens";
-import { useState } from "react";
 import {
-  Modal,
-  Pressable,
-  type StyleProp,
-  View,
-  type ViewStyle,
-} from "react-native";
+  SelectItem as AxisSelectItem,
+  SelectBackdrop,
+  SelectPopup,
+  SelectPortal,
+  SelectPositioner,
+  SelectRoot,
+  SelectTrigger,
+  SelectValue,
+} from "@xoroh/axis";
+import type { ResolvedTheme } from "@xoroh/kern-tokens";
+import { type StyleProp, View, type ViewStyle } from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
-import { overlayStyles } from "../utils/overlay-styles";
 import { menuStyles } from "./menu";
 import { Text } from "./text";
 
@@ -49,6 +50,15 @@ export type NativeSelectProps = {
   testID?: string;
 };
 
+/**
+ * M3 select — one value from a known set, on the Axis `SelectRoot` compound.
+ *
+ * The open list paints through `SelectPortal` at the app's root `PortalHost`
+ * (no RN `Modal` of its own: one root presents every layer). `onDismiss`
+ * fires when the list goes away WITHOUT a selection — scrim press, system
+ * back, escape — so a caller can tell a pick (`onValueChange`) from a
+ * bail-out. Choosing an option never fires `onDismiss`.
+ */
 export function Select({
   options,
   value,
@@ -63,81 +73,64 @@ export function Select({
 }: NativeSelectProps) {
   const scheme = useKernScheme();
   const styles = menuStyles(scheme);
-  const [current, setCurrent] = useControllableState(
-    value,
-    defaultValue,
-    onValueChange,
-  );
-  const [open, setOpen] = useState(false);
-  const selected = options.find((option) => option.value === current);
-  function dismiss() {
-    setOpen(false);
-    onDismiss?.();
-  }
   return (
     <View testID={testID ?? "kern-select"}>
-      <Pressable
-        accessibilityRole="combobox"
-        accessibilityLabel={accessibilityLabel}
-        accessibilityState={{ expanded: open, disabled }}
+      <SelectRoot
+        value={value}
+        defaultValue={defaultValue}
+        onValueChange={onValueChange}
+        onDismiss={onDismiss}
         disabled={disabled}
-        hitSlop={{ top: 4, bottom: 4, left: 4, right: 4 }}
-        onPress={() => setOpen(true)}
-        style={[
-          selectStyles(scheme).trigger,
-          { opacity: disabled ? 0.38 : 1 },
-          style,
-        ]}
+        items={options}
       >
-        <Text
-          style={
-            selected ? undefined : { color: scheme.color.onSurfaceVariant }
-          }
+        <SelectTrigger
+          accessibilityLabel={accessibilityLabel}
+          disabled={disabled}
+          style={[
+            selectStyles(scheme).trigger,
+            { opacity: disabled ? 0.38 : 1 },
+            style,
+          ]}
         >
-          {selected ? selected.label : placeholder}
-        </Text>
-        <Text variant="body">▾</Text>
-      </Pressable>
-      <Modal
-        visible={open}
-        transparent
-        animationType="fade"
-        onRequestClose={dismiss}
-      >
-        <View style={overlayStyles.scrim}>
-          <View accessibilityRole="menu" style={styles.card}>
-            {options.map((option) => {
-              const isSelected = option.value === current;
-              return (
-                <Pressable
+          <SelectValue
+            placeholder={placeholder}
+            style={({ placeholder: showingPlaceholder }) =>
+              showingPlaceholder
+                ? { color: scheme.color.onSurfaceVariant }
+                : undefined
+            }
+          />
+          <Text variant="body">▾</Text>
+        </SelectTrigger>
+        <SelectPortal>
+          <SelectBackdrop style={{ backgroundColor: "rgba(0, 0, 0, 0.3)" }} />
+          <SelectPositioner>
+            <SelectPopup style={styles.card}>
+              {options.map((option) => (
+                <AxisSelectItem
                   key={option.value}
-                  accessibilityRole="menuitem"
+                  value={option.value}
+                  label={option.label}
                   accessibilityLabel={option.label}
-                  accessibilityState={{ selected: isSelected }}
-                  hitSlop={{ top: 4, bottom: 4, left: 4, right: 4 }}
-                  onPress={() => {
-                    setCurrent(option.value);
-                    dismiss();
-                  }}
-                  style={{
+                  style={({ selected }) => ({
                     minHeight: 48,
                     justifyContent: "center",
                     paddingHorizontal: 12,
                     borderRadius: Number.parseFloat(
                       scheme.shape["extra-small"],
                     ),
-                    backgroundColor: isSelected
+                    backgroundColor: selected
                       ? scheme.color.surfaceTonal
                       : "transparent",
-                  }}
+                  })}
                 >
                   <Text>{option.label}</Text>
-                </Pressable>
-              );
-            })}
-          </View>
-        </View>
-      </Modal>
+                </AxisSelectItem>
+              ))}
+            </SelectPopup>
+          </SelectPositioner>
+        </SelectPortal>
+      </SelectRoot>
     </View>
   );
 }
