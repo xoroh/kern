@@ -100,16 +100,19 @@ export const tooltip: ComponentDoc = {
   api: [
     {
       name: "open",
+      for: ["TooltipRoot"],
       type: "boolean",
       note: "Controlled open state on `TooltipRoot`. Normally left uncontrolled — a tooltip is driven by hover and focus.",
     },
     {
       name: "onOpenChange",
+      for: ["TooltipRoot"],
       type: "(open: boolean) => void",
       note: "Fires on every open and close, including Escape.",
     },
     {
       name: "className",
+      for: ["TooltipTrigger", "TooltipContent"],
       type: "string",
       note: "Accepted on every part, merged after that part's classes.",
     },
