@@ -70,6 +70,11 @@ export const filterChipRow: ComponentDoc = {
       default: '"kern-filter-chip-row"',
       note: "Test hook for the row.",
     },
+    {
+      name: "ref",
+      type: "Ref<HTMLDivElement> | undefined",
+      note: "Ref to the rendered row element.",
+    },
   ],
   aria: [
     "The row is a `group` named by `label`; each chip is a toggle button carrying `aria-pressed` — the selection is announced, not just tinted.",

@@ -80,6 +80,11 @@ export const badge: ComponentDoc = {
       type: "string",
       note: "Merged after the variant classes.",
     },
+    {
+      name: "max",
+      type: "number | undefined",
+      note: "Truncation ceiling for numeric counts. Past `max` the badge shows `{max}+` (M3: 99+) while the accessible name keeps the full count. Non-numeric children render untouched.",
+    },
   ],
   aria: [
     'The badge is `role="img"`, so a label on it is announced as a single unit rather than as loose text.',

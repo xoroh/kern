@@ -80,6 +80,21 @@ export const carousel: ComponentDoc = {
       type: "boolean",
       note: "Renders the dot indicator row.",
     },
+    {
+      name: "disabled",
+      type: "boolean | undefined",
+      note: "Blocks interaction with the carousel controls.",
+    },
+    {
+      name: "className",
+      type: "string | undefined",
+      note: "Merged after the carousel's own classes.",
+    },
+    {
+      name: "testID",
+      type: "string | undefined",
+      note: "Test selector, rendered as `data-testid` on the region. Opt-in only — no default.",
+    },
   ],
   aria: [
     "The carousel is a named region, so it appears in the landmark list and can be jumped to.",

@@ -83,6 +83,16 @@ export const fabMenu: ComponentDoc = {
       type: "string",
       note: "Styles the trigger button on its own, without touching the menu.",
     },
+    {
+      name: "defaultOpen",
+      type: "boolean | undefined",
+      note: "Initial open state for the uncontrolled case.",
+    },
+    {
+      name: "testID",
+      type: "string | undefined",
+      note: "Test selector, rendered as `data-testid` on the menu. Opt-in only — no default.",
+    },
   ],
   aria: [
     "The trigger is a button with `aria-expanded`, so whether the menu is open is announced before it is opened.",

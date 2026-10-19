@@ -59,6 +59,21 @@ export const toggle: ComponentDoc = {
       type: "string",
       note: "Merged after the toggle's own classes.",
     },
+    {
+      name: "nativeButton",
+      type: "boolean | undefined",
+      note: "Declares whether the `render` replacement is a native `<button>`, so semantics and keyboard behavior stay correct.",
+    },
+    {
+      name: "render",
+      type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ToggleState> | undefined",
+      note: "Replaces the toggle element with another tag or composes it with another component — the render function receives the toggle's props and state. Set `nativeButton` when the replacement is a native `<button>`.",
+    },
+    {
+      name: "style",
+      type: "CSSProperties | ((state: ToggleState) => CSSProperties | undefined) | undefined",
+      note: "Style for the toggle, or a function of its state (pressed, disabled) returning style.",
+    },
   ],
   aria: [
     "The toggle is a real button with `aria-pressed`, so its state is announced as pressed or not pressed rather than implied by colour.",

@@ -88,6 +88,24 @@ export const banner: ComponentDoc = {
       type: "string",
       note: "Merged after the variant classes.",
     },
+    {
+      name: "open",
+      for: ["Banner"],
+      type: "boolean | undefined",
+      note: "Controlled visibility. `open` wins when passed; `open={false}` renders nothing. The dismiss button drives one close path — `onOpenChange(false)` plus `onDismiss()` — so both stay in sync.",
+    },
+    {
+      name: "defaultOpen",
+      for: ["Banner"],
+      type: "boolean | undefined",
+      note: "Initial visibility in the uncontrolled case. Defaults to open.",
+    },
+    {
+      name: "onOpenChange",
+      for: ["Banner"],
+      type: "((open: boolean) => void) | undefined",
+      note: "Fires when the banner opens or closes. The controlled-`open` observer and the dismiss path's other half.",
+    },
   ],
   aria: [
     'The banner is a live region: `role="status"` by default (polite), or `role="alert"` when `assertive` is set.',

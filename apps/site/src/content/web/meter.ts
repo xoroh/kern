@@ -87,6 +87,40 @@ export const meter: ComponentDoc = {
       type: "ReactNode",
       note: "On `MeterValue`: how the reading is rendered. Supply it when a raw number needs units or formatting.",
     },
+    {
+      name: "style",
+      type: "CSSProperties | ((state) => CSSProperties | undefined) | undefined",
+      note: "Style for the part, or a function of the part's state returning style — `MeterRootState` on the meter, `MeterLabelState` on the label.",
+    },
+    {
+      name: "aria-valuetext",
+      for: ["MeterRoot"],
+      type: "string | undefined",
+      note: "Spoken value for assistive tech, in place of the raw `aria-valuenow`. A description, not a name.",
+    },
+    {
+      name: "render",
+      type: "ReactElement | ((props, state) => ReactElement) | undefined",
+      note: "Replaces the part's element with another tag or composes it with another component — the render function receives the part's props and state.",
+    },
+    {
+      name: "locale",
+      for: ["MeterRoot"],
+      type: "LocalesArgument",
+      note: "Locale for `Intl.NumberFormat` when rendering the value. Defaults to the runtime locale.",
+    },
+    {
+      name: "format",
+      for: ["MeterRoot"],
+      type: "NumberFormatOptions | undefined",
+      note: "Options to format the value.",
+    },
+    {
+      name: "getAriaValueText",
+      for: ["MeterRoot"],
+      type: "((formattedValue: string, value: number) => string) | undefined",
+      note: "Computes the spoken value for `aria-valuenow` — what screen reader users hear instead of the bare number.",
+    },
   ],
   aria: [
     "The gauge is a meter-role element with `aria-valuenow`, `aria-valuemin` and `aria-valuemax`, so the reading is announced as a number rather than as a bar width.",
