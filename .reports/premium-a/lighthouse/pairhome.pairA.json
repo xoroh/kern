@@ -341,9 +341,7 @@
             "duration": 92.81600000000002
           }
         ],
-        "sortedBy": [
-          "duration"
-        ]
+        "sortedBy": ["duration"]
       },
       "guidanceLevel": 1
     },
@@ -427,9 +425,7 @@
         "summary": {
           "wastedMs": 232.11199999999997
         },
-        "sortedBy": [
-          "total"
-        ]
+        "sortedBy": ["total"]
       },
       "guidanceLevel": 1
     },
@@ -924,9 +920,7 @@
             "rtt": 0.0537
           }
         ],
-        "sortedBy": [
-          "rtt"
-        ]
+        "sortedBy": ["rtt"]
       }
     },
     "network-server-latency": {
@@ -959,9 +953,7 @@
             "serverResponseTime": 71.06629999999998
           }
         ],
-        "sortedBy": [
-          "serverResponseTime"
-        ]
+        "sortedBy": ["serverResponseTime"]
       }
     },
     "main-thread-tasks": {
@@ -1332,12 +1324,8 @@
             "startTime": 1825.0663
           }
         ],
-        "sortedBy": [
-          "duration"
-        ],
-        "skipSumming": [
-          "startTime"
-        ],
+        "sortedBy": ["duration"],
+        "skipSumming": ["startTime"],
         "debugData": {
           "type": "debugdata",
           "urls": [
@@ -4145,9 +4133,7 @@
             "totalBytes": 938
           }
         ],
-        "sortedBy": [
-          "totalBytes"
-        ]
+        "sortedBy": ["totalBytes"]
       },
       "guidanceLevel": 1
     },
@@ -4170,9 +4156,7 @@
         "items": [],
         "overallSavingsMs": 0,
         "overallSavingsBytes": 0,
-        "sortedBy": [
-          "wastedBytes"
-        ],
+        "sortedBy": ["wastedBytes"],
         "debugData": {
           "type": "debugdata",
           "metricSavings": {
@@ -4203,9 +4187,7 @@
         "items": [],
         "overallSavingsMs": 0,
         "overallSavingsBytes": 0,
-        "sortedBy": [
-          "wastedBytes"
-        ],
+        "sortedBy": ["wastedBytes"],
         "debugData": {
           "type": "debugdata",
           "metricSavings": {
@@ -4235,9 +4217,7 @@
         "items": [],
         "overallSavingsMs": 0,
         "overallSavingsBytes": 0,
-        "sortedBy": [
-          "wastedBytes"
-        ],
+        "sortedBy": ["wastedBytes"],
         "debugData": {
           "type": "debugdata",
           "metricSavings": {
@@ -4267,9 +4247,7 @@
         "items": [],
         "overallSavingsMs": 0,
         "overallSavingsBytes": 0,
-        "sortedBy": [
-          "wastedBytes"
-        ],
+        "sortedBy": ["wastedBytes"],
         "debugData": {
           "type": "debugdata",
           "metricSavings": {
@@ -4540,9 +4518,7 @@
           }
         ],
         "items": [],
-        "skipSumming": [
-          "wastedMs"
-        ]
+        "skipSumming": ["wastedMs"]
       },
       "guidanceLevel": 3
     },
@@ -4976,9 +4952,7 @@
     }
   },
   "configSettings": {
-    "output": [
-      "json"
-    ],
+    "output": ["json"],
     "maxWaitForFcp": 30000,
     "maxWaitForLoad": 45000,
     "pauseAfterFcpMs": 1000,
@@ -5025,20 +4999,13 @@
     "extraHeaders": null,
     "precomputedLanternData": null,
     "onlyAudits": null,
-    "onlyCategories": [
-      "performance",
-      "accessibility"
-    ],
+    "onlyCategories": ["performance", "accessibility"],
     "skipAudits": null
   },
   "categories": {
     "performance": {
       "title": "Performance",
-      "supportedModes": [
-        "navigation",
-        "timespan",
-        "snapshot"
-      ],
+      "supportedModes": ["navigation", "timespan", "snapshot"],
       "auditRefs": [
         {
           "id": "first-contentful-paint",
@@ -5299,10 +5266,7 @@
       "title": "Accessibility",
       "description": "These checks highlight opportunities to [improve the accessibility of your web app](https://developer.chrome.com/docs/lighthouse/accessibility/). Automatic detection can only detect a subset of issues and does not guarantee the accessibility of your web app, so [manual testing](https://web.dev/articles/how-to-review) is also encouraged.",
       "manualDescription": "These items address areas which an automated testing tool cannot cover. Learn more in our guide on [conducting an accessibility review](https://web.dev/articles/how-to-review).",
-      "supportedModes": [
-        "navigation",
-        "snapshot"
-      ],
+      "supportedModes": ["navigation", "snapshot"],
       "auditRefs": [
         {
           "id": "accesskeys",
@@ -5767,9 +5731,7 @@
   "entities": [
     {
       "name": "127.0.0.1",
-      "origins": [
-        "http://127.0.0.1:4176"
-      ],
+      "origins": ["http://127.0.0.1:4176"],
       "isFirstParty": true,
       "isUnrecognized": true
     }
@@ -7921,9 +7883,7 @@
       "core/audits/metrics/largest-contentful-paint.js | description": [
         "audits[largest-contentful-paint].description"
       ],
-      "core/lib/i18n/i18n.js | speedIndexMetric": [
-        "audits[speed-index].title"
-      ],
+      "core/lib/i18n/i18n.js | speedIndexMetric": ["audits[speed-index].title"],
       "core/audits/metrics/speed-index.js | description": [
         "audits[speed-index].description"
       ],
@@ -8005,15 +7965,11 @@
         "audits[network-rtt].details.headings[1].label",
         "audits[network-server-latency].details.headings[1].label"
       ],
-      "core/lib/i18n/i18n.js | interactiveMetric": [
-        "audits.interactive.title"
-      ],
+      "core/lib/i18n/i18n.js | interactiveMetric": ["audits.interactive.title"],
       "core/audits/metrics/interactive.js | description": [
         "audits.interactive.description"
       ],
-      "core/audits/user-timings.js | title": [
-        "audits[user-timings].title"
-      ],
+      "core/audits/user-timings.js | title": ["audits[user-timings].title"],
       "core/audits/user-timings.js | description": [
         "audits[user-timings].description"
       ],
@@ -8033,9 +7989,7 @@
         "audits[lcp-breakdown-insight].details.items[0].headings[1].label",
         "audits[render-blocking-insight].details.headings[2].label"
       ],
-      "core/audits/redirects.js | title": [
-        "audits.redirects.title"
-      ],
+      "core/audits/redirects.js | title": ["audits.redirects.title"],
       "core/audits/redirects.js | description": [
         "audits.redirects.description"
       ],
@@ -8048,9 +8002,7 @@
       "core/audits/mainthread-work-breakdown.js | columnCategory": [
         "audits[mainthread-work-breakdown].details.headings[0].label"
       ],
-      "core/audits/bootup-time.js | title": [
-        "audits[bootup-time].title"
-      ],
+      "core/audits/bootup-time.js | title": ["audits[bootup-time].title"],
       "core/audits/bootup-time.js | description": [
         "audits[bootup-time].description"
       ],
@@ -8063,9 +8015,7 @@
       "core/audits/bootup-time.js | columnScriptParse": [
         "audits[bootup-time].details.headings[3].label"
       ],
-      "core/audits/network-rtt.js | title": [
-        "audits[network-rtt].title"
-      ],
+      "core/audits/network-rtt.js | title": ["audits[network-rtt].title"],
       "core/audits/network-rtt.js | description": [
         "audits[network-rtt].description"
       ],
@@ -8114,9 +8064,7 @@
       "core/lib/i18n/i18n.js | thirdPartyResourceType": [
         "audits[resource-summary].details.items[8].label"
       ],
-      "core/audits/layout-shifts.js | title": [
-        "audits[layout-shifts].title"
-      ],
+      "core/audits/layout-shifts.js | title": ["audits[layout-shifts].title"],
       "core/audits/layout-shifts.js | description": [
         "audits[layout-shifts].description"
       ],
@@ -8128,9 +8076,7 @@
       "core/audits/layout-shifts.js | columnScore": [
         "audits[layout-shifts].details.headings[1].label"
       ],
-      "core/audits/long-tasks.js | title": [
-        "audits[long-tasks].title"
-      ],
+      "core/audits/long-tasks.js | title": ["audits[long-tasks].title"],
       "core/audits/long-tasks.js | description": [
         "audits[long-tasks].description"
       ],
@@ -8148,9 +8094,7 @@
       "core/audits/non-composited-animations.js | description": [
         "audits[non-composited-animations].description"
       ],
-      "core/audits/unsized-images.js | title": [
-        "audits[unsized-images].title"
-      ],
+      "core/audits/unsized-images.js | title": ["audits[unsized-images].title"],
       "core/audits/unsized-images.js | description": [
         "audits[unsized-images].description"
       ],
@@ -8325,9 +8269,7 @@
       "core/audits/accessibility/button-name.js | description": [
         "audits[button-name].description"
       ],
-      "core/audits/accessibility/bypass.js | title": [
-        "audits.bypass.title"
-      ],
+      "core/audits/accessibility/bypass.js | title": ["audits.bypass.title"],
       "core/audits/accessibility/bypass.js | description": [
         "audits.bypass.description"
       ],
@@ -8343,9 +8285,7 @@
       "core/audits/accessibility/definition-list.js | description": [
         "audits[definition-list].description"
       ],
-      "core/audits/accessibility/dlitem.js | title": [
-        "audits.dlitem.title"
-      ],
+      "core/audits/accessibility/dlitem.js | title": ["audits.dlitem.title"],
       "core/audits/accessibility/dlitem.js | description": [
         "audits.dlitem.description"
       ],
@@ -8439,9 +8379,7 @@
       "core/audits/accessibility/label-content-name-mismatch.js | description": [
         "audits[label-content-name-mismatch].description"
       ],
-      "core/audits/accessibility/label.js | title": [
-        "audits.label.title"
-      ],
+      "core/audits/accessibility/label.js | title": ["audits.label.title"],
       "core/audits/accessibility/label.js | description": [
         "audits.label.description"
       ],
@@ -8463,9 +8401,7 @@
       "core/audits/accessibility/link-in-text-block.js | description": [
         "audits[link-in-text-block].description"
       ],
-      "core/audits/accessibility/list.js | title": [
-        "audits.list.title"
-      ],
+      "core/audits/accessibility/list.js | title": ["audits.list.title"],
       "core/audits/accessibility/list.js | description": [
         "audits.list.description"
       ],
@@ -8615,12 +8551,8 @@
       "core/audits/byte-efficiency/unused-javascript.js | description": [
         "audits[unused-javascript].description"
       ],
-      "core/audits/bf-cache.js | title": [
-        "audits[bf-cache].title"
-      ],
-      "core/audits/bf-cache.js | description": [
-        "audits[bf-cache].description"
-      ],
+      "core/audits/bf-cache.js | title": ["audits[bf-cache].title"],
+      "core/audits/bf-cache.js | description": ["audits[bf-cache].description"],
       "node_modules/@paulirish/trace_engine/models/trace/insights/Cache.js | title": [
         "audits[cache-insight].title"
       ],

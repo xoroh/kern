@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
+import { T_BODY_SM, T_CODE } from "../../domains/shared/systems/type-scale";
 import { CopyButton } from "../../showcase/copy-button";
-import {
-  T_BODY_SM,
-  T_CODE,
-} from "../../domains/shared/systems/type-scale";
 import { HighlightedCode } from "./highlight";
 
 /**

@@ -116,7 +116,9 @@ export function Code({
           </span>
         ) : null}
       </button>
-      <pre className={`${PRE} rounded-(--sys-shape-corner-large) pr-12 ${CODE_TEXT}`}>
+      <pre
+        className={`${PRE} rounded-(--sys-shape-corner-large) pr-12 ${CODE_TEXT}`}
+      >
         <HighlightedCode code={children} language={language} />
       </pre>
     </div>

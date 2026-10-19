@@ -23,7 +23,7 @@
  * Runs under bun: it imports the TS registry directly, like check-examples.
  */
 import { execFileSync } from "node:child_process";
-import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -108,9 +108,7 @@ function tsconfig() {
         "@xoroh/kern-icons": [
           join(APP, "node_modules/@xoroh/kern-icons/dist/index.d.ts"),
         ],
-        "@xoroh/axis": [
-          join(APP, "node_modules/@xoroh/axis/dist/index.d.ts"),
-        ],
+        "@xoroh/axis": [join(APP, "node_modules/@xoroh/axis/dist/index.d.ts")],
         "react-native": [join(APP, "src/react-native.d.ts")],
       },
     },

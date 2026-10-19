@@ -52,8 +52,7 @@ export function SiteHeader() {
   const [mac, setMac] = useState(true);
   useEffect(() => {
     setMac(
-      /mac/i.test(navigator.platform ?? "") ||
-        /mac/i.test(navigator.userAgent),
+      /mac/i.test(navigator.platform ?? "") || /mac/i.test(navigator.userAgent),
     );
   }, []);
 
