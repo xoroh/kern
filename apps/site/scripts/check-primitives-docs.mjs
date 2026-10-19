@@ -216,6 +216,9 @@ const isComponentExport = (name) => {
       "TimePickerValue",
       "Align",
       "Placement",
+      // Avatar image-load state union (#84 parity-1): a member type of the
+      // Avatar parts, covered with the component family, not a module.
+      "ImageLoadingStatus",
       // Overlay composition hooks (Axis #60). Like useToast above, the `use*`
       // prefix defeats the component-name prefix rule, so they need explicit
       // acceptance: no site module page covers them yet (module pages are the

@@ -95,7 +95,7 @@ describe("TimePicker", () => {
   it("reports 24-hour state when a 12-hour face shows PM", async () => {
     const user = userEvent.setup();
     const onValueChange = vi.fn();
-    // Start at 15:00 so the period is ALREADY pm — otherwise "03" means 03:00.
+    // Start at 15:00 so the period is ALREADY pm — otherwise "3" means 03:00.
     render(
       <TimePicker
         defaultValue={{ hours: 15, minutes: 0 }}
@@ -103,7 +103,7 @@ describe("TimePicker", () => {
         onValueChange={onValueChange}
       />,
     );
-    await user.click(optionsIn("hour", "03"));
+    await user.click(optionsIn("hour", "3"));
     expect(onValueChange).toHaveBeenCalledWith(
       expect.objectContaining({ hours: 15 }),
     );
@@ -112,7 +112,7 @@ describe("TimePicker", () => {
   it("reports 24-hour state when AM is chosen", async () => {
     const user = userEvent.setup();
     const onValueChange = vi.fn();
-    // Start at 03:00 (am), so choosing "09" means 09:00 and NOT 21:00.
+    // Start at 03:00 (am), so choosing "9" means 09:00 and NOT 21:00.
     render(
       <TimePicker
         defaultValue={{ hours: 3, minutes: 0 }}
@@ -120,7 +120,7 @@ describe("TimePicker", () => {
         onValueChange={onValueChange}
       />,
     );
-    await user.click(optionsIn("hour", "09"));
+    await user.click(optionsIn("hour", "9"));
     expect(onValueChange).toHaveBeenCalledWith(
       expect.objectContaining({ hours: 9 }),
     );
@@ -139,7 +139,7 @@ describe("TimePicker", () => {
         onValueChange={onValueChange}
       />,
     );
-    await user.click(optionsIn("hour", "09"));
+    await user.click(optionsIn("hour", "9"));
     expect(onValueChange).toHaveBeenCalledWith(
       expect.objectContaining({ hours: 21 }),
     );
@@ -294,7 +294,7 @@ describe("TimePicker", () => {
       <TimePicker defaultValue={{ hours: 9, minutes: 30 }} format="12h" />,
     );
     expect(
-      screen.getByRole("option", { name: "09", selected: true }),
+      screen.getByRole("option", { name: "9", selected: true }),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("option", { name: "30", selected: true }),
@@ -354,7 +354,7 @@ describe("TimePicker dial presentation", () => {
   });
 
   // Same load-bearing claim as the listbox: 12-hour is a PRESENTATION of
-  // 24-hour state. "03" on a PM face reports 15, not 3.
+  // 24-hour state. "3" on a PM face reports 15, not 3.
   it("reports 24-hour state when an hour is picked on a 12-hour dial", async () => {
     const user = userEvent.setup();
     const onValueChange = vi.fn();
@@ -366,7 +366,7 @@ describe("TimePicker dial presentation", () => {
         onValueChange={onValueChange}
       />,
     );
-    await user.click(dialRadio("03"));
+    await user.click(dialRadio("3"));
     expect(onValueChange).toHaveBeenCalledWith(
       expect.objectContaining({ hours: 15 }),
     );
@@ -384,7 +384,7 @@ describe("TimePicker dial presentation", () => {
         onValueChange={() => {}}
       />,
     );
-    await user.click(dialRadio("03"));
+    await user.click(dialRadio("3"));
     expect(dialFace()).toHaveAttribute("aria-label", "Minute");
   });
 

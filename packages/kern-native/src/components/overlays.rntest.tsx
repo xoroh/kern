@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react-native";
-import { act } from "react";
+import { PortalHost } from "@xoroh/axis";
+import { act, type ReactElement } from "react";
 import { Pressable } from "react-native";
 import { Accordion } from "./accordion";
 import { AlertDialog } from "./alert-dialog";
@@ -19,9 +20,16 @@ import {
 } from "./snackbar";
 import { Text } from "./text";
 
+/** Axis #73: compound portals paint at a root PortalHost — with no mounted
+ * host they warn and render nothing. Every render in this suite goes
+ * through the host so open-state assertions see the painted layers. */
+function renderWithHost(element: ReactElement) {
+  return render(<PortalHost>{element}</PortalHost>);
+}
+
 describe("native Accordion render", () => {
   it("expands and collapses sections", async () => {
-    await render(
+    await renderWithHost(
       <Accordion
         sections={[
           { title: "One", content: "First body" },
@@ -43,7 +51,7 @@ describe("native Accordion render", () => {
 
 describe("native Collapsible render", () => {
   it("toggles content", async () => {
-    await render(
+    await renderWithHost(
       <Collapsible title="Details">
         <Text>More info</Text>
       </Collapsible>,
@@ -59,7 +67,7 @@ describe("native Collapsible render", () => {
 describe("native Dialog render", () => {
   it("confirms through the primary action", async () => {
     let confirmed = 0;
-    await render(
+    await renderWithHost(
       <Dialog
         open
         title="Order 42"
@@ -77,7 +85,7 @@ describe("native Dialog render", () => {
 describe("native AlertDialog render", () => {
   it("cancels through the cancel action", async () => {
     let cancelled = 0;
-    await render(
+    await renderWithHost(
       <AlertDialog
         open
         title="Delete?"
@@ -96,7 +104,9 @@ describe("native AlertDialog render", () => {
 describe("native Sheet render", () => {
   it("shows the title and closes", async () => {
     let dismissed = 0;
-    await render(<Sheet open title="Filters" onDismiss={() => dismissed++} />);
+    await renderWithHost(
+      <Sheet open title="Filters" onDismiss={() => dismissed++} />,
+    );
     expect(screen.getByText("Filters")).toBeTruthy();
     await act(async () => {
       fireEvent.press(screen.getByLabelText("Close sheet"));
@@ -108,7 +118,7 @@ describe("native Sheet render", () => {
 describe("SheetSurface dismissal (P2b-2)", () => {
   it("gives BottomSheet a visible close affordance that fires onDismiss", async () => {
     let dismissed = 0;
-    await render(
+    await renderWithHost(
       <BottomSheet open title="Filters" onDismiss={() => dismissed++}>
         <Text variant="body">Body</Text>
       </BottomSheet>,
@@ -122,7 +132,7 @@ describe("SheetSurface dismissal (P2b-2)", () => {
 
   it("keeps the scrim as a second dismissal path", async () => {
     let dismissed = 0;
-    await render(
+    await renderWithHost(
       <BottomSheet open title="Filters" onDismiss={() => dismissed++}>
         <Text variant="body">Body</Text>
       </BottomSheet>,
@@ -143,7 +153,7 @@ describe("SheetSurface dismissal (P2b-2)", () => {
    * The default must still be `×` so no existing call site changed appearance.
    */
   it("defaults the close glyph to ×", async () => {
-    await render(
+    await renderWithHost(
       <SheetSurface
         open
         title="Filters"
@@ -160,7 +170,7 @@ describe("SheetSurface dismissal (P2b-2)", () => {
   });
 
   it("lets a caller substitute the close glyph without changing the name", async () => {
-    await render(
+    await renderWithHost(
       <SheetSurface
         open
         title="Filters"
@@ -180,7 +190,7 @@ describe("SheetSurface dismissal (P2b-2)", () => {
 describe("native Menu render", () => {
   it("opens on trigger and selects an item", async () => {
     let chosen = "";
-    await render(
+    await renderWithHost(
       <Menu
         triggerLabel="File"
         trigger={<Text>Open menu</Text>}
@@ -200,7 +210,7 @@ describe("native Menu render", () => {
 describe("native ContextMenu render", () => {
   it("opens on long press", async () => {
     let chosen = "";
-    await render(
+    await renderWithHost(
       <ContextMenu
         triggerLabel="Area"
         items={[{ label: "Copy", onSelect: () => (chosen = "copy") }]}
@@ -221,7 +231,7 @@ describe("native ContextMenu render", () => {
 describe("native Select render", () => {
   it("chooses an option", async () => {
     let chosen = "";
-    await render(
+    await renderWithHost(
       <Select
         accessibilityLabel="Plan"
         options={[
@@ -259,7 +269,7 @@ describe("native Snackbar queue via Axis Toast", () => {
       );
     }
 
-    await render(
+    await renderWithHost(
       <SnackbarProvider>
         <Trigger />
         <SnackbarViewport testID="sb-vp" />
@@ -289,7 +299,7 @@ describe("native Snackbar queue via Axis Toast", () => {
       );
     }
 
-    await render(
+    await renderWithHost(
       <SnackbarProvider>
         <Trigger />
         <SnackbarViewport testID="sb-styled" />

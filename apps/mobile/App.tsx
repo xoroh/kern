@@ -1,8 +1,10 @@
+import { PortalHost } from "@xoroh/axis";
 import {
   KernFontGate,
   KernThemeProvider,
   NavigationBar,
   type NavigationDestination,
+  OverlayModalityProvider,
   Text,
   useAnyModalOpen,
   useKernScheme,
@@ -80,7 +82,18 @@ export default function App() {
           </View>
         }
       >
-        <Screens />
+        {/* ONE overlay stack + ONE portal host for the whole app (Axis #73):
+          compound overlays (Menu, Select, Tooltip, …) paint through this
+          PortalHost — without a mounted host their portals render nothing —
+          and Kern Modal surfaces share the same modality registry via
+          OverlayModalityProvider, so useAnyModalOpen sees every overlay.
+          The host wraps Screens (not the reverse) so the
+          background-inerting flag on Screens never hides open overlays. */}
+        <OverlayModalityProvider>
+          <PortalHost style={{ flex: 1 }}>
+            <Screens />
+          </PortalHost>
+        </OverlayModalityProvider>
       </KernFontGate>
     </ShowcaseThemeProvider>
   );
