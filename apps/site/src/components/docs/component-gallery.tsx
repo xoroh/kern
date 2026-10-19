@@ -140,8 +140,34 @@ function FitWidth({ children }: { children: ReactNode }) {
     const fit = () => {
       if (!alive || !el.parentElement) return;
       const avail = el.parentElement.clientWidth;
-      const need = el.scrollWidth;
-      if (avail > 0 && need > avail + 1) setZoom(avail / need);
+      // Max over the subtree: an inner scroller (chip rows, tab lists)
+      // clips without growing the wrapper's own scrollWidth.
+      let need = el.scrollWidth;
+      for (const d of el.querySelectorAll("*")) {
+        const w = (d as HTMLElement).scrollWidth;
+        if (w > need) need = w;
+      }
+      // `input.scrollWidth` reports the box, not the text — canvas-measure
+      // field text (value, else placeholder) plus its padding instead.
+      const canvas = document.createElement("canvas").getContext("2d");
+      if (canvas) {
+        for (const f of el.querySelectorAll("input, textarea")) {
+          const field = f as HTMLInputElement;
+          const cs = getComputedStyle(field);
+          canvas.font = `${cs.fontStyle} ${cs.fontVariant} ${cs.fontWeight} ${cs.fontSize}/${cs.lineHeight} ${cs.fontFamily}`;
+          const text = field.value || field.placeholder || "";
+          const textW =
+            canvas.measureText(text).width +
+            Number.parseFloat(cs.letterSpacing || "0") * text.length;
+          const fieldNeed =
+            textW +
+            Number.parseFloat(cs.paddingLeft || "0") +
+            Number.parseFloat(cs.paddingRight || "0") +
+            2;
+          if (fieldNeed > need) need = fieldNeed;
+        }
+      }
+      if (avail > 0 && need > avail + 8) setZoom(avail / need);
     };
     fit();
     if (typeof document !== "undefined" && "fonts" in document) {
