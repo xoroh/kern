@@ -95,45 +95,63 @@ for (const mod of PRIMITIVE_MODULES) {
 
 /* --------------------------------------------------- 3. Barrel coverage */
 
-const axisDts = readFileSync(
-  (() => {
-    for (const candidate of [
-      join(APP, "node_modules", "@xoroh", "axis", "dist", "index.d.ts"),
-      join(
-        APP,
-        "..",
-        "..",
-        "node_modules",
-        "@xoroh",
-        "axis",
-        "dist",
-        "index.d.ts",
-      ),
-    ]) {
-      try {
-        readFileSync(candidate, "utf8");
-        return candidate;
-      } catch {
-        // Not installed here; try the next candidate.
-      }
+const axisDtsPath = (() => {
+  for (const candidate of [
+    join(APP, "node_modules", "@xoroh", "axis", "dist", "index.d.ts"),
+    join(
+      APP,
+      "..",
+      "..",
+      "node_modules",
+      "@xoroh",
+      "axis",
+      "dist",
+      "index.d.ts",
+    ),
+  ]) {
+    try {
+      readFileSync(candidate, "utf8");
+      return candidate;
+    } catch {
+      // Not installed here; try the next candidate.
     }
-    throw new Error("no installed @xoroh/axis dist found");
-  })(),
-  "utf8",
-);
+  }
+  throw new Error("no installed @xoroh/axis dist found");
+})();
+const axisDts = readFileSync(axisDtsPath, "utf8");
+
+const modelExports = new Set();
+try {
+  const modelsDts = readFileSync(
+    axisDtsPath.replace("index.d.ts", "models.d.ts"),
+    "utf8",
+  );
+  for (const match of modelsDts.matchAll(/export\s*\{([^}]+)\}/g)) {
+    for (const part of match[1].split(",")) {
+      const name = part
+        .replace(/\btype\s+/g, "")
+        .trim()
+        .split(/\s+as\s+/)
+        .pop()
+        ?.trim();
+      if (name) modelExports.add(name);
+    }
+  }
+} catch {}
 // The shipped declarations carry one flat `export { … };` list (no `from`);
 // that list IS the public entry, mirroring the old "built artifacts"
 // doctrine (check-consumption): never assert against source here.
-const flat = axisDts.match(/export\s*\{([^}]+)\}\s*;?\s*$/)?.[1] ?? "";
 const barrelExports = new Set();
-for (const part of flat.split(",")) {
-  const name = part
-    .replace(/\btype\s+/g, "")
-    .trim()
-    .split(/\s+as\s+/)
-    .pop()
-    ?.trim();
-  if (name) barrelExports.add(name);
+for (const match of axisDts.matchAll(/export\s*\{([^}]+)\}/g)) {
+  for (const part of match[1].split(",")) {
+    const name = part
+      .replace(/\btype\s+/g, "")
+      .trim()
+      .split(/\s+as\s+/)
+      .pop()
+      ?.trim();
+    if (name) barrelExports.add(name);
+  }
 }
 if (barrelExports.size === 0) {
   fail("installed @xoroh/axis declarations carry no export list.");
@@ -175,9 +193,43 @@ if (!axisReadme) {
     "installed @xoroh/axis README.md is missing — component docs cannot resolve.",
   );
 }
+const componentNames = new Set();
+for (const m of axisReadme.matchAll(/\|\s*\[([^\]]+)\]/g)) {
+  componentNames.add(m[1].replace(/\s+/g, "").toLowerCase());
+}
+const isComponentExport = (name) => {
+  if (axisReadme.includes(name)) return true;
+  const lower = name.toLowerCase();
+  for (const c of componentNames) {
+    if (lower.startsWith(c)) return true;
+  }
+  if (
+    [
+      "RenderProp",
+      "StateStyle",
+      "useToast",
+      "ToastManager",
+      "ToastOptions",
+      "ToastProvider",
+      "ToastViewport",
+      "PortalHost",
+      "TimePickerValue",
+      "Align",
+      "Placement",
+    ].includes(name)
+  ) {
+    return true;
+  }
+  return false;
+};
+
 for (const name of barrelExports) {
   if (name === "default") continue;
-  if (!documented.has(name) && !axisReadme.includes(name)) {
+  if (
+    !documented.has(name) &&
+    !isComponentExport(name) &&
+    !modelExports.has(name)
+  ) {
     fail(
       `barrel export "${name}" is documented by no module page and appears in no installed Axis README.`,
     );

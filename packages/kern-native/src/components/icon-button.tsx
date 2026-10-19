@@ -72,7 +72,7 @@ export function iconButtonStyles(
   variant: IconButtonVariant,
   pressed: boolean,
   disabled: boolean,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
   size: NativeIconButtonSize = "default",
 ): ViewStyle {
   const box = ICON_BUTTON_BOX[size];
@@ -141,7 +141,7 @@ export function iconButtonStyles(
 export function iconButtonIconColor(
   variant: IconButtonVariant,
   pressed: boolean,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
 ): string {
   if (pressed) {
     switch (variant) {

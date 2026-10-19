@@ -40,6 +40,8 @@ const ROOT = join(APP, "..", "..");
 const CONTENT = join(APP, "src", "content");
 const INVENTORY = join(ROOT, "docs", "components.md");
 
+const { TOP_FAMILIES } = await import("./lib/top-families.mjs");
+
 const errors = [];
 const gaps = [];
 /**
@@ -670,7 +672,7 @@ function checkCanonicalSlug({ platform, file, doc }) {
   if (!inventoryNames.has(`${platform}:${doc.slug}`)) {
     fail(
       `${file}: family slug "${doc.slug}" is not a row in the generated inventory — ` +
-        `the canonical URL /components/${platform}/${doc.slug} would 404 and every ` +
+        `the canonical URL /components/m3/${doc.slug} would 404 and every ` +
         `part URL would 301 into it`,
     );
   }
@@ -833,10 +835,13 @@ console.log(
   `check-docs: coverage ${covered}/${total} inventory exports documented (${Math.round((covered / total) * 100)}%)`,
 );
 
-// The undocumented remainder, listed per platform and by name. "Web is
-// finished" is only a meaningful sentence if the gate can show the empty list,
-// so print what is missing rather than only how many. A count hides whether
-// the leftovers are one compound family or fifty orphan rows.
+// The undocumented remainder, listed per platform and by name — and FAILED,
+// not merely reported. Every inventory export is claimed by exactly one
+// family (consistency rule: one component, one page): an unclaimed export
+// is a component the docs do not teach, and a gate that reports it without
+// failing normalizes the gap it exists to close. "Web is finished" is only
+// a meaningful sentence if the gate can show the empty list, so print what
+// is missing rather than only how many.
 function orphansOn(platform) {
   const rows = [];
   for (const key of inventory.keys()) {
@@ -848,16 +853,21 @@ function orphansOn(platform) {
 }
 for (const platform of ["web", "mobile"]) {
   const rows = orphansOn(platform);
-  console.log(
-    `\ncheck-docs: ${platform} — ${rows.length} undocumented export(s) remaining`,
-  );
   if (rows.length === 0) {
     console.log(
-      `  ok   ${platform} is closed: every inventory export has a page`,
+      `\ncheck-docs: ${platform} is closed: every inventory export has a page`,
     );
     continue;
   }
-  for (const name of rows) console.log(`  -    ${name}`);
+  console.log(
+    `\ncheck-docs: ${platform} — ${rows.length} undocumented export(s) remaining`,
+  );
+  for (const name of rows) {
+    console.log(`  -    ${name}`);
+    errors.push(
+      `${platform}/${name}: inventory export with no documenting family — claim it in exactly one family's parts`,
+    );
+  }
 }
 if (conformantNoToken.length > 0) {
   console.log(
@@ -882,6 +892,43 @@ if (gaps.length > 0) {
     errors.push(
       `${g} — an unasserted elevation claim is a defect, not a note (gaps fail since the zero-gap sweep)`,
     );
+}
+
+// ------------------------------------------------------- top-20 depth bar
+// 013/D-DOCS-DEPTH: the twenty families users land on most carry full pages
+// on web AND native. FULL means usage (do + don't), token table, keyboard
+// contract, screen-reader notes (`aria`), FAQ, and the API table. Anatomy
+// is deliberately NOT in the bar — single-part families have nothing to
+// decompose. Every other family gets a thin-but-correct page (example, API
+// table, a11y notes): checked by the gates above, not here.
+{
+  const byKey = new Map(
+    pages.map((p) => [`${p.platform}/${p.doc.slug}`, p.doc]),
+  );
+  for (const slug of TOP_FAMILIES) {
+    for (const platform of ["web", "mobile"]) {
+      const doc = byKey.get(`${platform}/${slug}`);
+      if (!doc) {
+        errors.push(
+          `top-20 ${platform}/${slug}: no content page — the depth bar needs the family on both renderers`,
+        );
+        continue;
+      }
+      const missing = [];
+      if (!doc.usage?.do?.length || !doc.usage?.dont?.length)
+        missing.push("usage (do + don't)");
+      if (!doc.tokens?.length) missing.push("tokens");
+      if (!doc.keyboard?.length) missing.push("keyboard");
+      if (!doc.aria?.length) missing.push("aria");
+      if (!doc.faq?.length) missing.push("faq");
+      if (!doc.api?.length) missing.push("api");
+      if (missing.length > 0) {
+        errors.push(
+          `top-20 ${platform}/${slug}: not a full page — missing ${missing.join(", ")}`,
+        );
+      }
+    }
+  }
 }
 
 if (errors.length > 0) {

@@ -31,7 +31,7 @@ const SLIDER_GEOMETRY: Record<
 export function sliderStyles(
   ratio: number,
   disabled: boolean,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
   size: NativeSliderSize = "default",
 ): { track: ViewStyle; fill: ViewStyle; thumb: ViewStyle } {
   const clamped = Math.min(Math.max(ratio, 0), 1);

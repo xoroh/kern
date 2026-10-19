@@ -24,9 +24,12 @@ import {
   varName,
 } from "../../kern-tokens/src/resolve.js";
 
-// Explicit registration into the source resolver instance under test (the
-// M3 module's own import-time registration targets the built package
-// instance, which unit tests must not rely on).
+// Explicit registration into the source resolver instance under test. The
+// data function + source registerPreset, not registerM3(), because registerM3
+// inside the M3 module targets the built package instance of
+// @xoroh/kern-tokens — which unit tests must not rely on. (Since decision
+// 010 the M3 entry registers nothing on import anyway; this is registration
+// as an application does it, scoped to the instance under test.)
 for (const { id, tables } of material3PresetRegistrations()) {
   registerPreset(id, tables);
 }

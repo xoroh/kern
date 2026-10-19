@@ -10,8 +10,19 @@ documentation, and tooling. MIT licensed and usable by people and AI agents.
 
 ## Install
 
+> 0.1.0 Preview: packages are unpublished (`0.0.0`), so every registry
+> command below runs at release. The route that works today is the source
+> install — scaffold from a checkout and vendor what you need:
+>
+> ```bash
+> bun <checkout>/packages/kern-cli/src/kern.ts init my-app
+> bun <checkout>/packages/kern-cli/src/kern.ts add button --dest components/kern
+> ```
+>
+> Registry path (available at release):
+
 ```bash
-bun add @xoroh/kern @xoroh/kern-tokens
+bun add @xoroh/kern
 ```
 
 Web components need `@base-ui/react`, `react`, `react-dom`, and Tailwind CSS
