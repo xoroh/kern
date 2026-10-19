@@ -116,6 +116,16 @@ export const search: ComponentDoc = {
       type: "string",
       note: "Merged after the form's own classes.",
     },
+    {
+      name: "leading",
+      type: "ReactNode",
+      note: "Leading slot (M3: search icon, avatar, or menu control). Defaults to the search icon.",
+    },
+    {
+      name: "trailing",
+      type: "ReactNode",
+      note: "Trailing slot (M3: avatar or overflow control). The clear action renders beside it, never inside it.",
+    },
   ],
   aria: [
     'The component renders a `<form>` with `role="search"` and `aria-label`, which is the recommended pattern for a search landmark — a bare input with a magnifier icon is not.',

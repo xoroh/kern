@@ -16,8 +16,8 @@
  *   with no generated export, or a name none of the scoped parts carries
  *   is a hard scope error, not a silent skip.
  * - uncovered: per generated row, no attributed content row of the same
- *   name in the part's family. Reported by check-props today; the gate-2
- *   flip turns it into a failure.
+ *   name in the part's family. Failing since the gate-2 flip: an
+ *   undocumented generated prop fails the gate.
  */
 
 export function computeCoverage({ gen, all, files }) {

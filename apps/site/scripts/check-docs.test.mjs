@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { spawnSync } from "node:child_process";
-import { existsSync, renameSync } from "node:fs";
+import { existsSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -49,6 +49,48 @@ describe("check-docs orphan gate", () => {
       expect(run.status).toBe(1);
       expect(run.stderr).toContain(
         "web/FocusRing: inventory export with no documenting family",
+      );
+    } finally {
+      renameSync(aside, page);
+    }
+  }, 60_000);
+});
+
+/**
+ * Regression: the thin-page contract (013/D-DOCS-DEPTH, second half).
+ *
+ * Every family outside the top-20 list carries a thin-but-correct page:
+ * the THIN_PAGE_CONTRACT sections in lib/top-families.mjs (API table +
+ * a11y notes; the API half is also required of every page by checkSections).
+ * These two tests pin both halves:
+ *
+ *   1. the current tree passes the contract (fails BEFORE the two mobile
+ *      toggles gained aria notes);
+ *   2. a thin page with its aria notes taken away fails naming the page
+ *      (fails if anyone weakens the contract back to prose).
+ */
+describe("check-docs thin-page contract", () => {
+  test("every non-top-20 family carries the thin-page contract", () => {
+    const run = runGate();
+    expect(run.status).toBe(0);
+    expect(run.stderr).not.toContain("not a thin page");
+  }, 60_000);
+
+  test("a thin page without a11y notes fails the run, not just reports", () => {
+    const page = join(site, "src", "content", "mobile", "theme-toggle.ts");
+    const aside = `${page}.gated-aside`;
+    expect(existsSync(page)).toBe(true);
+    renameSync(page, aside);
+    try {
+      const src = readFileSync(aside, "utf8");
+      const start = src.indexOf("  aria: [");
+      expect(start).toBeGreaterThan(-1);
+      const end = src.indexOf("],", start) + 2;
+      writeFileSync(page, src.slice(0, start) + src.slice(end));
+      const run = runGate();
+      expect(run.status).toBe(1);
+      expect(run.stderr).toContain(
+        "thin-page mobile/theme-toggle: not a thin page — missing aria",
       );
     } finally {
       renameSync(aside, page);

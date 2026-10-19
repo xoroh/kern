@@ -145,14 +145,17 @@ so a scoped row lands exactly where the type carries it.
 ## Depth bar
 
 Top 20 full pages on web AND native; every other component a thin but
-correct page (example, API table, a11y notes) — per
-`docs/decisions/013-docs-depth.md`. FULL means usage (do + don't), token
-table, keyboard contract, screen-reader notes (`aria`), FAQ, and the API
-table. Anatomy is not in the bar: single-part families have nothing to
-decompose. The family list lives in
-`apps/site/scripts/lib/top-families.mjs` and is enforced by
-`apps/site/scripts/check-docs.mjs`, so the list and the gate cannot drift
-apart.
+correct page — per `docs/decisions/013-docs-depth.md`. FULL means usage (do
++ don't), token table, keyboard contract, screen-reader notes (`aria`), FAQ,
+and the API table. THIN means exactly the contract in
+`apps/site/scripts/lib/top-families.mjs` (`THIN_PAGE_CONTRACT`): a non-empty
+API table and non-empty screen-reader notes; examples ride the pairing bar
+for the top 20 (`PAIRED_EXPORTS` in `check-example-code.mjs`) and the
+gallery registry everywhere else. Anatomy is not in the bar: single-part
+families have nothing to decompose. The family list (`TOP_FAMILIES`) and the
+contract live in that one file and are enforced by
+`apps/site/scripts/check-docs.mjs`, so the list, the contract and the gate
+cannot drift apart.
 
 ## Enforcement status
 

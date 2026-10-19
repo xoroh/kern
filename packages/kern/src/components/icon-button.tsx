@@ -268,6 +268,7 @@ export type IconButtonProps = Omit<
     pressed?: boolean;
     /** Initial pressed state for the uncontrolled toggle case. */
     defaultPressed?: boolean;
+    /** Fires when the toggle flips, with the new pressed state. */
     onPressedChange?: (pressed: boolean) => void;
   };
 

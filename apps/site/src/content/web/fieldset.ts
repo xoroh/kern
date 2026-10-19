@@ -55,6 +55,16 @@ export const fieldset: ComponentDoc = {
       type: "ReactNode",
       note: "The controls. DOM order is reading order, so keep the legend first.",
     },
+    {
+      name: "style",
+      type: "CSSProperties | ((state) => CSSProperties | undefined) | undefined",
+      note: "Style for the part, or a function of the part's state returning style — `FieldsetRootState` on the set, `FieldsetLegendState` on the legend.",
+    },
+    {
+      name: "render",
+      type: "ReactElement | ((props, state) => ReactElement) | undefined",
+      note: "Replaces the part's element with another tag or composes it with another component — the render function receives the part's props and state.",
+    },
   ],
   aria: [
     "The root is a group with the legend as its accessible name, so the question is announced before its controls.",

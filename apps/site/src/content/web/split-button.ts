@@ -65,6 +65,11 @@ export const splitButton: ComponentDoc = {
       type: "boolean",
       note: "Disables both halves together.",
     },
+    {
+      name: "testID",
+      type: "string | undefined",
+      note: "Test selector, rendered as `data-testid` on the control. Opt-in only — no default.",
+    },
   ],
   aria: [
     'The primary half is a real button named by `label`, so it announces what it does rather than "button".',

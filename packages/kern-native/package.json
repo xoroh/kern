@@ -31,7 +31,10 @@
     "src/theme.tsx",
     "src/utils",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "!src/**/*.test.*",
+    "!src/**/*.rntest.*",
+    "!src/**/__tests__"
   ],
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --dts-resolve --external react --external react-native --external react-native-svg --out-dir dist --clean",

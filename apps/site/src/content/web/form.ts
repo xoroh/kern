@@ -44,6 +44,36 @@ export const form: ComponentDoc = {
       type: "React.Ref<HTMLFormElement>",
       note: "Forwarded to the underlying `<form>`.",
     },
+    {
+      name: "validationMode",
+      type: "FormValidationMode | undefined",
+      note: "When fields validate: `onSubmit` (default, re-validating on change after submitting), `onBlur`, or `onChange`. A field's own mode wins over this.",
+    },
+    {
+      name: "errors",
+      type: "Errors | undefined",
+      note: "Validation errors keyed by field `name`, typically after a server round-trip. Values are the error(s) for that field.",
+    },
+    {
+      name: "onFormSubmit",
+      type: '((formValues: Record<string, any>, eventDetails: { reason: "none"; event: Event; }) => void) | undefined',
+      note: "Fires when the form submits, with the values keyed by field name. The native submit is already prevented.",
+    },
+    {
+      name: "actionsRef",
+      type: "RefObject<FormActions | null> | undefined",
+      note: "Imperative handle: `validate()` validates every field, or one field by name.",
+    },
+    {
+      name: "render",
+      type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<DetailedHTMLProps<FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>, FormState> | undefined",
+      note: "Replaces the form element with another tag or composes it with another component — the render function receives the form's props and state.",
+    },
+    {
+      name: "style",
+      type: "CSSProperties | ((state: FormState) => CSSProperties | undefined) | undefined",
+      note: "Style for the form, or a function of its state returning style.",
+    },
   ],
   aria: [
     "A real `<form>` element, so Enter submits it and the browser's autofill and validation behave as expected.",

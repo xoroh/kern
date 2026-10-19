@@ -53,6 +53,76 @@ export const iconButton: ComponentDoc = {
       type: "React.Ref<HTMLButtonElement>",
       note: "Forwarded to the underlying `<button>`.",
     },
+    {
+      name: "toggle",
+      type: "boolean | null | undefined",
+      note: "Renders the button as a toggle that reports its state. The selected treatment follows the variant.",
+    },
+    {
+      name: "size",
+      type: '"sm" | "default" | "lg" | "md" | "xs" | "xl" | "2xl" | null | undefined',
+      note: "Density size from `xs` to `2xl`; default is the standard control. `2xl` is the Expressive L size — already past the minimum touch target, so it carries no extra target inset.",
+    },
+    {
+      name: "width",
+      type: '"default" | "narrow" | "wide" | null | undefined',
+      note: "Horizontal proportion: `narrow` (3/4), `default` square, `wide` (4/3).",
+    },
+    {
+      name: "shape",
+      type: '"square" | "pill" | null | undefined',
+      note: "Container shape: `pill` (default) or `square`.",
+    },
+    {
+      name: "selected",
+      type: "boolean | null | undefined",
+      note: "Selected treatment for toggle buttons. Pairs with `toggle`; a plain button has no selected state to show.",
+    },
+    {
+      name: "icon",
+      type: "ReactNode",
+      note: "Icon content. Hidden from assistive tech; the name comes from `label`.",
+    },
+    {
+      name: "label",
+      type: "string | undefined",
+      note: "Accessible name, and the text of the M3 tooltip. Required in practice: an icon-only button with no name is unusable with a screen reader.",
+    },
+    {
+      name: "selectedLabel",
+      type: "string | undefined",
+      note: 'Accessible name when the toggle is selected (`aria-label-selected`). Only meaningful with `toggle` — a favorite button reads "Add to favorites" unselected and "Remove from favorites" selected.',
+    },
+    {
+      name: "softDisabled",
+      type: "boolean | undefined",
+      note: "Soft-disabled: paints the disabled treatment but stays focusable, so the control remains discoverable (the toolbar pattern for disabled controls).",
+    },
+    {
+      name: "loading",
+      type: "boolean | undefined",
+      note: "Shows a loading spinner in place of the icon and blocks interaction.",
+    },
+    {
+      name: "flipIcon",
+      type: "boolean | undefined",
+      note: "Mirrors the icon horizontally in RTL contexts. Opt into it for directional glyphs only; symmetric icons must not flip.",
+    },
+    {
+      name: "pressed",
+      type: "boolean | undefined",
+      note: "Controlled pressed state. Only meaningful with `toggle`.",
+    },
+    {
+      name: "defaultPressed",
+      type: "boolean | undefined",
+      note: "Initial pressed state for the uncontrolled toggle case.",
+    },
+    {
+      name: "onPressedChange",
+      type: "((pressed: boolean) => void) | undefined",
+      note: "Fires when the toggle flips, with the new pressed state.",
+    },
   ],
   aria: [
     '`aria-label` is not optional in practice. A glyph-only button with no name is announced as "button" and is unusable with a screen reader.',

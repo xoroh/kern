@@ -143,12 +143,12 @@ describe("Progress — M3 track, indicator, four-color, buffer", () => {
   });
 
   it("linear supports indeterminate, four-color, and buffer", () => {
-    const { unmount } = render(<LinearProgress indeterminate label="Wait" />);
+    const { unmount } = render(<LinearProgress value={null} label="Wait" />);
     expect(
       document.querySelector('[data-slot="linear-progress-indicator"]'),
     ).not.toBeNull();
     unmount();
-    render(<LinearProgress indeterminate fourColor label="Wait" />);
+    render(<LinearProgress value={null} fourColor label="Wait" />);
     expect(
       document.querySelector('[data-slot="linear-progress-indicator"]'),
     ).not.toBeNull();

@@ -3986,12 +3986,7 @@ export const PROPS_TABLE: Record<
     rows: [
       {
         name: "value",
-        type: "number | undefined",
-        required: false,
-      },
-      {
-        name: "indeterminate",
-        type: "boolean | undefined",
+        type: "number | null | undefined",
         required: false,
       },
       {

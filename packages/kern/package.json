@@ -35,7 +35,10 @@
     "src/utils",
     "src/tokens.ts",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "!src/**/*.test.*",
+    "!src/**/*.rntest.*",
+    "!src/**/__tests__"
   ],
   "scripts": {
     "build": "tsup src/index.ts src/tokens.ts src/utils/cn.ts src/start/index.ts --format esm,cjs --dts --dts-resolve --external react --external react-dom --external /^@base-ui\\// --external @xoroh/kern-tokens --external @tanstack/react-router --out-dir dist --clean",

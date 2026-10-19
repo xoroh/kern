@@ -474,6 +474,13 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
       "M3 resting-elevation conformance, an icon usage gate, and the per-component doc grammar (ladder Phase 2, design-system-lead).",
   },
   {
+    id: "pack-exclude-tests",
+    packages: ["@xoroh/kern", "@xoroh/kern-native"],
+    bump: "patch",
+    summary:
+      "Stop shipping test files in the published tarballs: src/*/.test., src//.rntest. and src/*/tests are negated in files. Component sources still ship (packed kern add vendors from them); only the 114 test files (1.7MB) drop out. No API or behavior change.",
+  },
+  {
     id: "parity-contract-and-concept-rule",
     packages: ["@xoroh/kern"],
     bump: "patch",

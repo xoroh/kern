@@ -102,6 +102,11 @@ export const secondaryTabs: ComponentDoc = {
       type: "boolean",
       note: "On a tab: it cannot be selected and is announced as unavailable.",
     },
+    {
+      name: "testID",
+      type: "string | undefined",
+      note: "Test selector, rendered as `data-testid` on the tab list. Opt-in only — no default.",
+    },
   ],
   aria: [
     "The set is a tablist with tabs and tabpanels, so the structure is announced rather than looked at.",

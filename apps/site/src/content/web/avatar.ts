@@ -91,6 +91,34 @@ export const avatar: ComponentDoc = {
       type: "React.Ref<HTMLSpanElement>",
       note: "Forwarded to the underlying root.",
     },
+    {
+      name: "style",
+      type: "CSSProperties | ((state) => CSSProperties | undefined) | undefined",
+      note: "Style for the part, or a function of the part's state returning style — `AvatarRootState` on the root, `AvatarImageState` on the image, `AvatarFallbackState` on the fallback.",
+    },
+    {
+      name: "render",
+      type: "ReactElement | ((props, state) => ReactElement) | undefined",
+      note: "Replaces the part's element with another tag or composes it with another component — the render function receives the part's props and state.",
+    },
+    {
+      name: "keepMounted",
+      for: ["AvatarImage"],
+      type: "boolean | undefined",
+      note: 'Whether the image stays mounted and loads in place instead of preloading. For `loading="lazy"` and optimized image components.',
+    },
+    {
+      name: "onLoadingStatusChange",
+      for: ["AvatarImage"],
+      type: "((status: ImageLoadingStatus) => void) | undefined",
+      note: "Fires when the image loading status changes. Where the fallback handoff observes without owning state.",
+    },
+    {
+      name: "delay",
+      for: ["AvatarFallback"],
+      type: "number | undefined",
+      note: "Milliseconds to wait before showing the fallback. Hides the flash on fast loads.",
+    },
   ],
   aria: [
     "The avatar is decorative when the person's name is already next to it, and should be hidden from assistive tech in that case — otherwise the name is announced twice.",

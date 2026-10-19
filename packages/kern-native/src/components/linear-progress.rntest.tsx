@@ -84,7 +84,7 @@ describe("LinearProgress determinate (unchanged)", () => {
 
 describe("LinearProgress indeterminate", () => {
   it("renders two sliding bars with no numeric value", async () => {
-    await render(<LinearProgress indeterminate label="Wait" />);
+    await render(<LinearProgress value={null} label="Wait" />);
     expect(screen.getByTestId("kern-linear-progress-indicator")).toBeTruthy();
     expect(
       screen.getByTestId("kern-linear-progress-indicator-secondary"),
@@ -97,7 +97,7 @@ describe("LinearProgress indeterminate", () => {
   });
 
   it("drives the bars on a 2s linear loop", async () => {
-    await render(<LinearProgress indeterminate label="Wait" />);
+    await render(<LinearProgress value={null} label="Wait" />);
     expect(Animated.loop).toHaveBeenCalled();
     expect(timingDurations()).toContain(2000);
     const slideCall = timingSpy.mock.calls.find(
@@ -116,7 +116,7 @@ describe("LinearProgress indeterminate", () => {
   });
 
   it("stops every loop on unmount", async () => {
-    const view = await render(<LinearProgress indeterminate label="Wait" />);
+    const view = await render(<LinearProgress value={null} label="Wait" />);
     expect(handles.length).toBeGreaterThan(0);
     // RNTL v14 unmount is async (act-wrapped) — the loop cleanup lands
     // after the await, matching the async `render` contract.
@@ -127,13 +127,13 @@ describe("LinearProgress indeterminate", () => {
   });
 
   it("hides the stop indicator while indeterminate", async () => {
-    await render(<LinearProgress indeterminate label="Wait" stop />);
+    await render(<LinearProgress value={null} label="Wait" stop />);
     expect(screen.queryByTestId("kern-linear-progress-stop")).toBeNull();
   });
 
   it("holds static bars and starts no loops under reduced motion", async () => {
     motionMock.mockReturnValue({ suppressSpatial: true });
-    await render(<LinearProgress indeterminate label="Wait" />);
+    await render(<LinearProgress value={null} label="Wait" />);
     // "The feedback does not move" — both bars stay rendered, mid-cycle.
     expect(screen.getByTestId("kern-linear-progress-indicator")).toBeTruthy();
     expect(
@@ -145,7 +145,7 @@ describe("LinearProgress indeterminate", () => {
 
 describe("LinearProgress fourColor", () => {
   it("adds an 8s color cycle to the 2s slide loop", async () => {
-    await render(<LinearProgress indeterminate fourColor label="Wait" />);
+    await render(<LinearProgress value={null} fourColor label="Wait" />);
     expect(timingDurations()).toContain(2000);
     expect(timingDurations()).toContain(8000);
     const colorCall = timingSpy.mock.calls.find(
@@ -159,13 +159,13 @@ describe("LinearProgress fourColor", () => {
   });
 
   it("runs no color cycle without fourColor", async () => {
-    await render(<LinearProgress indeterminate label="Wait" />);
+    await render(<LinearProgress value={null} label="Wait" />);
     expect(timingDurations()).not.toContain(8000);
   });
 
   it("holds the primary color under reduced motion", async () => {
     motionMock.mockReturnValue({ suppressSpatial: true });
-    await render(<LinearProgress indeterminate fourColor label="Wait" />);
+    await render(<LinearProgress value={null} fourColor label="Wait" />);
     expect(timingDurations()).not.toContain(8000);
     expect(screen.getByTestId("kern-linear-progress-indicator")).toBeTruthy();
   });
@@ -184,7 +184,7 @@ describe("LinearProgress wavy", () => {
   });
 
   it("ignores wavy while indeterminate", async () => {
-    await render(<LinearProgress indeterminate label="Wait" wavy />);
+    await render(<LinearProgress value={null} label="Wait" wavy />);
     expect(screen.queryByTestId("kern-linear-progress-wave")).toBeNull();
     expect(screen.getByTestId("kern-linear-progress-indicator")).toBeTruthy();
   });
@@ -202,7 +202,7 @@ describe("LinearProgress buffer", () => {
   });
 
   it("ignores buffer while indeterminate", async () => {
-    await render(<LinearProgress indeterminate buffer={0.8} label="Wait" />);
+    await render(<LinearProgress value={null} buffer={0.8} label="Wait" />);
     expect(screen.queryByTestId("kern-linear-progress-buffer")).toBeNull();
   });
 });
