@@ -339,6 +339,13 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
       "Web-extras P1 (roadmap row 7) — the web set is now complete. Five new components, all M3-conformant and built on Base UI behaviors with Kern tokens:",
   },
   {
+    id: "web-select-indicator",
+    packages: ["@xoroh/kern"],
+    bump: "minor",
+    summary:
+      "Web Select: trigger treatments move into selectTriggerVariants cva (same classes), and Select.ItemIndicator joins the compound export for the selected-option mark. CountrySelect inherits both.",
+  },
+  {
     id: "button-toggle-href-pressed",
     packages: ["@xoroh/kern"],
     bump: "patch",

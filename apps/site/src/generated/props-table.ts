@@ -6379,8 +6379,9 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "variant",
-        type: '"filled" | "outlined" | undefined',
+        type: 'NonNullable<"filled" | "outlined" | null | undefined> | undefined',
         required: false,
+        default: '"outlined"',
       },
     ],
     curated: [],

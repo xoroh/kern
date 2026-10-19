@@ -7982,10 +7982,10 @@ export const GENERATED_PROPS: Record<
     },
     {
       name: "variant",
-      type: '"filled" | "outlined" | undefined',
+      type: 'NonNullable<"filled" | "outlined" | null | undefined> | undefined',
       required: false,
-      src: "packages/kern/src/components/select.tsx:17",
-      note: "M3 select treatment. `outlined` (default) draws the 1px outline;\n`filled` fills `surface-container-highest` with a bottom active\nindicator. Functionally identical — pick by surface.",
+      src: "packages/kern/src/components/select.tsx:34",
+      default: '"outlined"',
     },
   ],
   SelectContent: [

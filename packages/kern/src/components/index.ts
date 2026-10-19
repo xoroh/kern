@@ -461,11 +461,13 @@ export {
   SelectGroup,
   SelectGroupLabel,
   SelectItem,
+  SelectItemIndicator,
   SelectItemText,
   SelectRoot,
   SelectSeparator,
   SelectTrigger,
   SelectValue,
+  selectTriggerVariants,
 } from "./select";
 export type { SeparatorProps } from "./separator";
 export { Separator } from "./separator";
