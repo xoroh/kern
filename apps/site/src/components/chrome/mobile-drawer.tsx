@@ -30,7 +30,7 @@ import {
 } from "../../domains/shared/systems/ui";
 import { trapTarget } from "../../systems/focus-trap";
 import { isActivePath, isTabActive, PRIMARY_TABS } from "./app-rail";
-import { openSearch } from "./search-palette";
+import { openSearch } from "./search-opener";
 
 /** Destinations that are not primary tabs but must stay reachable by hand. */
 const SECONDARY: { href: string; label: string }[] = [

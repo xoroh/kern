@@ -48,12 +48,7 @@ import {
   isToggleSearchKey,
 } from "../../systems/search/shortcut";
 import { ResultText } from "../search/result-text";
-
-export const OPEN_SEARCH_EVENT = "kern:open-search";
-
-export function openSearch() {
-  window.dispatchEvent(new CustomEvent(OPEN_SEARCH_EVENT));
-}
+import { OPEN_SEARCH_EVENT } from "./search-opener";
 
 function flatten(groups: ReturnType<typeof searchSite>): SearchEntry[] {
   return groups.flatMap((g) => g.entries);
@@ -73,8 +68,13 @@ function setRegionsHidden(hidden: boolean) {
   }
 }
 
-export function SearchPalette() {
-  const [open, setOpen] = useState(false);
+export function SearchPalette({
+  initialOpen = false,
+}: {
+  /** Open immediately on mount — the lazy mount path (first open). */
+  initialOpen?: boolean;
+} = {}) {
+  const [open, setOpen] = useState(initialOpen);
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
   const navigate = useNavigate();

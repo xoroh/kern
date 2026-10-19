@@ -33,7 +33,7 @@ import {
 import { isTabActive, PRIMARY_TABS } from "./app-rail";
 import { GitHubIcon } from "./github-icon";
 import { MobileDrawer } from "./mobile-drawer";
-import { openSearch } from "./search-palette";
+import { openSearch } from "./search-opener";
 import { VersionSelector } from "./version-selector";
 
 /** Brand mark + wordmark — the home link. */
