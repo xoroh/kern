@@ -2803,6 +2803,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    slug: "mobile/state-layer",
+    name: "state-layer",
+    export: "StateLayer",
+    platform: "mobile",
+    status: "real",
+  },
+  {
     slug: "mobile/status-bar",
     name: "status-bar",
     export: "StatusBar",
@@ -2933,7 +2940,7 @@ export const COMPONENT_COUNT = COMPONENTS.length;
  */
 export const PARITY_COUNTS = {
   web: 296,
-  native: 119,
+  native: 120,
   shared: 91,
 };
 

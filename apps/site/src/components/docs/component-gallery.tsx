@@ -244,7 +244,9 @@ class DemoBoundary extends Component<
     // top/left-aligns an overflowing one (negative free space floors auto
     // margins to zero) so the first preview stays readable instead of the
     // stack's middle being cropped on both edges.
-    return <div className="m-auto min-h-0 w-full min-w-0">{this.props.children}</div>;
+    return (
+      <div className="m-auto min-h-0 w-full min-w-0">{this.props.children}</div>
+    );
   }
 }
 

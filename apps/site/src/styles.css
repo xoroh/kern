@@ -26,9 +26,8 @@ body {
      tokens, so this animates mode changes and nothing else. */
   transition:
     background-color var(--sys-motion-duration-medium1)
-      var(--sys-motion-easing-standard),
-    color var(--sys-motion-duration-medium1)
-      var(--sys-motion-easing-standard);
+    var(--sys-motion-easing-standard),
+    color var(--sys-motion-duration-medium1) var(--sys-motion-easing-standard);
 }
 
 /* The document is the scroll container now, so the root owns the smooth

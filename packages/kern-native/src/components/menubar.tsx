@@ -11,8 +11,8 @@ import {
 import { defaultScheme, useKernScheme } from "../theme";
 import { scrimStyle } from "../utils/overlay-styles";
 import { menuStyles, type NativeMenuItem } from "./menu";
-import { Text } from "./text";
 import { DISABLED_CONTENT_OPACITY } from "./state-layer";
+import { Text } from "./text";
 
 export type NativeMenubarMenu = {
   label: string;

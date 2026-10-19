@@ -3561,6 +3561,15 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    name: "state-layer",
+    export: "StateLayer",
+    platform: "native",
+    system: "kern-m3",
+    entrypoint: ".",
+    path: "src/components/state-layer.tsx",
+    status: "real",
+  },
+  {
     name: "status-bar",
     export: "StatusBar",
     platform: "native",

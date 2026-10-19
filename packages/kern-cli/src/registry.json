@@ -1,6 +1,6 @@
 {
   "version": "0.0.0",
-  "releaseSet": "kern@0.0.0+415.d1d9bfa880ae120d",
+  "releaseSet": "kern@0.0.0+416.ba5f57eaf3fe08ee",
   "rows": [
     {
       "name": "accordion-root",
@@ -3546,6 +3546,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/split.tsx",
+      "status": "real"
+    },
+    {
+      "name": "state-layer",
+      "export": "StateLayer",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/state-layer.tsx",
       "status": "real"
     },
     {

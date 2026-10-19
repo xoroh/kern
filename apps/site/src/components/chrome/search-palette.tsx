@@ -38,11 +38,11 @@ import {
 } from "../../domains/shared/systems/ui";
 import { trapTarget } from "../../systems/focus-trap";
 import type { SearchEntry } from "../../systems/search";
-import { SEARCH_SUGGESTIONS } from "../../systems/search/suggestions";
 import {
   isSlashSearchKey,
   isToggleSearchKey,
 } from "../../systems/search/shortcut";
+import { SEARCH_SUGGESTIONS } from "../../systems/search/suggestions";
 import { ResultText } from "../search/result-text";
 import { OPEN_SEARCH_EVENT } from "./search-opener";
 

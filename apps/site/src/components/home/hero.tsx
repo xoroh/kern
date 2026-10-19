@@ -69,7 +69,10 @@ function WorkspaceCard() {
         <span className={T_LABEL_LG} id="hero-density">
           Density
         </span>
-        <SegmentedButton.Root defaultValue={["comfortable"]} aria-label="Density">
+        <SegmentedButton.Root
+          defaultValue={["comfortable"]}
+          aria-label="Density"
+        >
           <SegmentedButton.Item value="comfortable">
             Comfortable
           </SegmentedButton.Item>

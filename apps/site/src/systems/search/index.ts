@@ -167,4 +167,3 @@ export function searchSite(
 }
 
 export { SEARCH_SUGGESTIONS } from "./suggestions";
-

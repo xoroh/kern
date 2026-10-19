@@ -15,8 +15,8 @@ import {
   View,
   type ViewStyle,
 } from "react-native";
-import { bottomScrimStyle, scrimStyle } from "../utils/overlay-styles";
 import { useKernScheme } from "../theme";
+import { bottomScrimStyle, scrimStyle } from "../utils/overlay-styles";
 import { useKernOverlay } from "./overlay-surfaces";
 import { describeAutofocus, useKernPortalRegistration } from "./presentation";
 
@@ -198,9 +198,7 @@ export function SheetSurface({
     >
       <View
         style={
-          placement === "bottom"
-            ? bottomScrimStyle(scheme)
-            : scrimStyle(scheme)
+          placement === "bottom" ? bottomScrimStyle(scheme) : scrimStyle(scheme)
         }
       >
         <Pressable

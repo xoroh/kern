@@ -52,13 +52,13 @@ again. Measured from the generated registry instead:
 
 | Measure | Value |
 |---|---|
-| Registry rows | **415** (web 296, native 119) |
+| Registry rows | **416** (web 296, native 120) |
 | **Shared** (already both sides) | **91** |
-| **Native-only → needs a web version** | **12** in **9 files** |
+| **Native-only → needs a web version** | **13** in **10 files** |
 | **Web-only → needs a native version** | **37** in **19 files** |
 | Stub rows | **0** |
 
-<!-- gate:counts 91 12 37 0 -->
+<!-- gate:counts 91 13 37 0 -->
 
 Machine-readable line above: `check:parity` (`scripts/check-parity.mjs`) re-derives
 these from the registry and fails if they drift, so the prose above cannot quietly
@@ -167,7 +167,7 @@ later reader does not "fix" them back:
 
 ---
 
-## Native-only concepts → need a web version (12)
+## Native-only concepts → need a web version (13)
 
 Grouped by surface. `M3 source` is the M3 spec tab that governs the behaviour.
 
@@ -198,6 +198,7 @@ Grouped by surface. `M3 source` is the M3 spec tab that governs the behaviour.
 | 23 | `expressive-shape` | Expressive morph-shape art (superellipse/scallop/star families) | decorative SVG `path` from the shared `expressiveShapePath` builder — same `d` string both renderers | `ExpressiveShape` (`src/components/shape-art.tsx`) over `react-native-svg`, `aria-hidden`, shared geometry from `@xoroh/kern-tokens` `expressive-shapes` | M3 Expressive · Shape library (family-parameterized; vertex-exact Compose tables not vendored — see module header) | `expressive-shapes.test.ts` + `shape-art.rntest.tsx` |
 | 24 | `icon-button-target` | 48dp touch-target guarantee for icon buttons | CSS/platform-owned focus-target styling — no Kern component (same class as the `focus-ring` row below) | `IconButtonTarget` (`src/components/icon-button.tsx`, `kern-icon-button-target`) — the icon button's own box is 40dp, so a toolbar needs this to guarantee the rest | M3 · Icon buttons (48dp target) | owning workstream's suite (row recorded for count honesty) |
 | 25 | `snackbar-provider` | Owns the native snackbar queue (Axis Toast backing) | **no web counterpart by design** — web `Snackbar.Provider` is a compound part of the shared-name web family; the native queue provider is the Axis `ToastProvider` with no bare-`Snackbar` twin since the single-shot compat was removed (ADR-020) | `SnackbarProvider` (`src/components/snackbar.tsx`) — owns `createToastQueue` + payloads; renders no host element | M3 · Snackbars | `overlays.rntest.tsx` (queue suite) |
+| 26 | `state-layer` | Pressed state-layer overlay (M3 interaction states) | CSS `::before` state layer at the pressed opacity — same token, web paints it in stylesheets | `StateLayer` (`src/components/state-layer.tsx`) — overlay in the content color at `STATE_LAYER_OPACITIES.press`, caller keeps `overflow: hidden` + matching radius | M3 · States | `state-layer.test.ts` |
 | 26 | `snackbar-viewport` | Paints queued native snackbars with the M3 surface | **no web counterpart by design** — same split as row 25; the viewport clones each queued Axis `Toast` with `snackbarStyles()` (inverseSurface, level 3) | `SnackbarViewport` (`src/components/snackbar.tsx`) — absolute bottom container, `limit` caps visible toasts | M3 · Snackbars | `overlays.rntest.tsx` (M3 surface suite) |
 
 ### Resolved 2026-10-03 — tranche 2: the menu family BUILT (native-only 13 → 10)

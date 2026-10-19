@@ -1,5 +1,5 @@
-import { Icon } from "@xoroh/kern-icons";
 import { useSelection } from "@xoroh/axis";
+import { Icon } from "@xoroh/kern-icons";
 import { type ResolvedTheme, tokens } from "@xoroh/kern-tokens";
 import { createContext, type ReactNode, useContext, useMemo } from "react";
 import {
@@ -210,7 +210,9 @@ export function CheckboxGroupItem({
       {({ pressed: pressedNow }) => (
         <>
           <View style={styles.box}>
-            {checked ? <Icon name="check" size={13} color={styles.tick.color} /> : null}
+            {checked ? (
+              <Icon name="check" size={13} color={styles.tick.color} />
+            ) : null}
           </View>
           {typeof children === "string" || typeof children === "number" ? (
             <Text style={{ fontSize: 14, color: group.scheme.color.onSurface }}>

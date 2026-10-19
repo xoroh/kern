@@ -10,8 +10,8 @@ import type { TextStyle, ViewStyle } from "react-native";
 import { Pressable, type StyleProp, TextInput, View } from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
 import { inputStyles } from "./input";
-import { Text } from "./text";
 import { DISABLED_CONTENT_OPACITY } from "./state-layer";
+import { Text } from "./text";
 
 /**
  * M3 stepped numeric field, on the Axis `NumberField` compound

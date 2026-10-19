@@ -11,8 +11,8 @@ import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
 import { type StyleProp, View, type ViewStyle } from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
-import { Text } from "./text";
 import { DISABLED_CONTENT_OPACITY } from "./state-layer";
+import { Text } from "./text";
 
 export type NativeMenuItem = {
   label: string;

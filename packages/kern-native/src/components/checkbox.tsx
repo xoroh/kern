@@ -1,5 +1,5 @@
-import { Icon } from "@xoroh/kern-icons";
 import { useControllableState } from "@xoroh/axis";
+import { Icon } from "@xoroh/kern-icons";
 import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import {
   Pressable,
@@ -125,7 +125,7 @@ export function Checkbox({
           setChecked((previous) => !previous);
         }
       }}
-      style={({ pressed: pressedNow }) => [
+      style={[
         { minHeight: 48, flexDirection: "row", alignItems: "center", gap: 8 },
         style,
       ]}

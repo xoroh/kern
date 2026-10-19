@@ -3577,6 +3577,15 @@ export const MATURITY: readonly MaturityRow[] = [
     version: "0.0.0",
   },
   {
+    name: "state-layer",
+    export: "StateLayer",
+    platform: "native",
+    system: "kern-m3",
+    entrypoint: ".",
+    state: "Preview",
+    version: "0.0.0",
+  },
+  {
     name: "status-bar",
     export: "StatusBar",
     platform: "native",
@@ -4040,6 +4049,7 @@ export const MATURITY_BY_STATE: Readonly<
     "split-button",
     "split-grid",
     "split-panel",
+    "state-layer",
     "status-bar",
     "success-transform",
     "supporting-pane",

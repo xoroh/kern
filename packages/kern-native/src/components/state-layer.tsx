@@ -71,7 +71,12 @@ export type StateLayerProps = {
 };
 
 /** Paint-only pressed wash. Returns null when not pressed. */
-export function StateLayer({ ink, radius = 0, visible, testID }: StateLayerProps) {
+export function StateLayer({
+  ink,
+  radius = 0,
+  visible,
+  testID,
+}: StateLayerProps) {
   if (!visible) return null;
   return (
     <View

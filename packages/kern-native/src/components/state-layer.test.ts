@@ -1,5 +1,5 @@
-import { describe, expect, it } from "vitest";
 import { STATE_LAYER_OPACITIES } from "@xoroh/kern-tokens";
+import { describe, expect, it } from "vitest";
 import {
   DISABLED_CONTENT_OPACITY,
   stateLayerColor,

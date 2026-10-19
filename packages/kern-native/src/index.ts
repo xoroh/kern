@@ -368,13 +368,6 @@ export type { NativeSkeletonProps } from "./components/skeleton";
 export { Skeleton } from "./components/skeleton";
 export type { NativeSliderProps } from "./components/slider";
 export { Slider, sliderStyles } from "./components/slider";
-export type { StateLayerProps } from "./components/state-layer";
-export {
-  DISABLED_CONTENT_OPACITY,
-  StateLayer,
-  stateLayerColor,
-  stateLayerStyle,
-} from "./components/state-layer";
 export type {
   NativeSnackbarViewportProps,
   SnackbarManager,
@@ -393,6 +386,13 @@ export type {
   NativeSplitButtonProps,
 } from "./components/split-button";
 export { SplitButton, splitButtonStyles } from "./components/split-button";
+export type { StateLayerProps } from "./components/state-layer";
+export {
+  DISABLED_CONTENT_OPACITY,
+  StateLayer,
+  stateLayerColor,
+  stateLayerStyle,
+} from "./components/state-layer";
 export type { NativeStatusBarProps } from "./components/status-bar";
 export { StatusBar } from "./components/status-bar";
 export type {

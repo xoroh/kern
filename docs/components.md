@@ -412,6 +412,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `snap-sheet` | `SnapSheet` | real |
 | `split` | `Split` | real |
 | `split-button` | `SplitButton` | real |
+| `state-layer` | `StateLayer` | real |
 | `status-bar` | `StatusBar` | real |
 | `success-transform` | `SuccessTransform` | real |
 | `supporting-pane` | `SupportingPane` | real |
