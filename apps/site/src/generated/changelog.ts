@@ -15,18 +15,18 @@ export type ChangeEntry = {
 
 export const RECENT_CHANGES: readonly ChangeEntry[] = [
   {
-    id: "contracts-design-system-identity",
-    packages: ["@xoroh/kern-contracts"],
-    bump: "major",
-    summary:
-      "BREAKING — component and block records carry design-system identity instead of the hardcoded Material provider.",
-  },
-  {
     id: "breaking-native-barrel-retirements",
     packages: ["@xoroh/kern-native"],
     bump: "minor",
     summary:
       "BREAKING — the native public barrel no longer exports four symbols.",
+  },
+  {
+    id: "contracts-design-system-identity",
+    packages: ["@xoroh/kern-contracts"],
+    bump: "minor",
+    summary:
+      "BREAKING — component and block records carry design-system identity instead of the hardcoded Material provider.",
   },
   {
     id: "d-034-package-structure",
@@ -472,6 +472,13 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
     bump: "patch",
     summary:
       "M3 resting-elevation conformance, an icon usage gate, and the per-component doc grammar (ladder Phase 2, design-system-lead).",
+  },
+  {
+    id: "pack-exclude-tests",
+    packages: ["@xoroh/kern", "@xoroh/kern-native"],
+    bump: "patch",
+    summary:
+      "Stop shipping test files in the published tarballs: src/*/.test., src//.rntest. and src/*/tests are negated in files. Component sources still ship (packed kern add vendors from them); only the 114 test files (1.7MB) drop out. No API or behavior change.",
   },
   {
     id: "parity-contract-and-concept-rule",

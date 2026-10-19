@@ -35,9 +35,7 @@ Prefer these machine surfaces over scraping HTML:
 
 ## Components
 
-- [All components](/components): Documented family by family
-- [Web](/components/web): M3 web component families
-- [React Native](/components/mobile): M3 React Native component families
+- [All components](/components): Documented family by family, filterable by platform in place
 - [API reference](/reference): Every export in the generated manifest
 
 ## Blocks
