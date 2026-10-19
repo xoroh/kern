@@ -67,3 +67,25 @@ writeFileSync(OUT, `${JSON.stringify(index, null, 2)}\n`);
 console.log(
   `generate-mcp-index: wrote ${index.count} page(s) to public/mcp/index.json`,
 );
+
+// Roadmap item 7: the SAME index object is emitted as the MCP package's
+// bundled docs payload (`packages/mcp/src/docs-index.json`, tracked +
+// freshness-gated, published as the `./docs-index` subpath). The packed MCP
+// server has no checkout to read and no site to fetch from at runtime —
+// without this copy the docs corpus would be unreachable offline. Emitted
+// HERE (not re-derived MCP-side) because this script already holds every
+// input (content docs, foundations, nav) in one context; a second derivation
+// would be a second opinion that drifts.
+const DOCS_INDEX_OUT = join(
+  APP,
+  "..",
+  "..",
+  "packages",
+  "mcp",
+  "src",
+  "docs-index.json",
+);
+writeFileSync(DOCS_INDEX_OUT, `${JSON.stringify(index, null, 2)}\n`);
+console.log(
+  `generate-mcp-index: wrote ${index.count} page(s) to packages/mcp/src/docs-index.json`,
+);

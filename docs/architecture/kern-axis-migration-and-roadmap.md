@@ -92,8 +92,12 @@ Lead at the time above; the cleanup lane ran PRs #59–#74 down to ONE open PR
    with Web/Native tabs; the old `/components/web|mobile/*` index routes are deleted outright,
    no redirects (D-051; the in-system part-slug 301 in `$component.tsx` stays). Gallery filters
    in place via `?platform=`; nav/sidebar/footer/llms.txt point at the one gallery URL.
-7. **MCP bundles its data:** tools still read checkout files at runtime; inline the registry
-   so `npx @xoroh/kern-mcp` works outside a clone. Same check for `kern add` blocks.
+7. **MCP bundles its data: DONE** — tools serve the build-time bundle
+   (`bundled-data.ts`: tokens, presets, catalog, DTCG, blocks) plus the
+   registry and docs index from dist; no checkout file is read at runtime
+   for data (component sources stay checkout-resolved and explicit).
+   Proven by a packed-tarball test that runs every tool from a temp dir
+   outside the repo.
 8. **Delete `libs/kern-primitives`** (planned migration PR, reviewed) once the Axis vendor
     refresh is on main; remove the workspace entry and legacy shims in gates.
 9. **Site design PR C** (hero with real Kern UI, layered dark surfaces, mobile first
