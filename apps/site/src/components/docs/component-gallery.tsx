@@ -325,7 +325,7 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
             // don't clip demo text — scoped to descendants, the well and
             // the family pages keep full chrome.
             <div
-              className="pointer-events-none m-auto flex max-h-full max-w-full min-h-0 min-w-0 origin-center overflow-hidden [&_.site-card]:p-2 [&_.site-stage]:p-2"
+              className="pointer-events-none m-auto flex max-h-full max-w-full min-h-0 min-w-0 origin-center overflow-hidden [mask-image:linear-gradient(to_bottom,black_82%,transparent_98%)] [&_.site-card]:p-2 [&_.site-stage]:p-2"
               aria-hidden="true"
               inert
             >
