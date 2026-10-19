@@ -119,4 +119,12 @@ describe("component manifest", () => {
       expect(["real", "stub"].includes(entry.status)).toBe(true);
     }
   });
+
+  it("carries the design system on every row (decision 009)", () => {
+    // kern-m3 is the only system today; a row without one is a registry the
+    // --system consumers cannot resolve against.
+    for (const entry of COMPONENTS) {
+      expect(entry.system, entry.name).toBe("kern-m3");
+    }
+  });
 });
