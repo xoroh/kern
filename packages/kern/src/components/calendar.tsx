@@ -1,5 +1,6 @@
 import {
   buildCalendarGrid,
+  type CalendarKey,
   isCalendarDateDisabled,
   parseCalendarDate,
   resolveCalendarFocus,
@@ -9,7 +10,6 @@ import {
   shiftCalendarMonth,
   toCalendarDate,
   toCalendarMonth,
-  type CalendarKey,
   useControllableState,
 } from "@xoroh/axis";
 import type { ComponentPropsWithRef } from "react";
@@ -141,9 +141,13 @@ export function Calendar({
     // The old Kern handler only knew the four arrows.
     if (!CALENDAR_KEYS.has(event.key)) return;
     event.preventDefault();
-    const nextISO = resolveCalendarFocus(toISO(cursor), event.key as CalendarKey, {
-      firstDayOfWeek: firstDay,
-    });
+    const nextISO = resolveCalendarFocus(
+      toISO(cursor),
+      event.key as CalendarKey,
+      {
+        firstDayOfWeek: firstDay,
+      },
+    );
     if (nextISO === null) return;
     if (isCalendarDateDisabled(nextISO, { minDate: minISO, maxDate: maxISO }))
       return;
@@ -219,7 +223,15 @@ export function Calendar({
         {grid.weeks.flatMap((week, weekIndex) =>
           week.map((cell, dayIndex) => {
             if (cell === null) {
-              return <span key={`blank-${weekIndex}-${dayIndex}`} aria-hidden="true" />;
+              // Blank filler: the grid never reorders (static month layout),
+              // so a positional key is stable by construction.
+              return (
+                <span
+                  // biome-ignore lint/suspicious/noArrayIndexKey: grid position is the identity; blanks carry no data to key on.
+                  key={`blank-${weekIndex}-${dayIndex}`}
+                  aria-hidden="true"
+                />
+              );
             }
             const date = fromISO(cell.iso);
             const cursorISO = toISO(cursor);

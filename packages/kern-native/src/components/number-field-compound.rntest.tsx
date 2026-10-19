@@ -1,5 +1,5 @@
-import { PortalHost } from "@xoroh/axis";
 import { fireEvent, render, screen } from "@testing-library/react-native";
+import { PortalHost } from "@xoroh/axis";
 import { act } from "react";
 import { NumberField } from "./number-field";
 
@@ -32,16 +32,12 @@ describe("number-field compound adoption", () => {
         onValueChange={(v) => seen.push(v)}
       />,
     );
-    expect(screen.getByTestId("kern-number-field-input").props.value).toBe(
-      "5",
-    );
+    expect(screen.getByTestId("kern-number-field-input").props.value).toBe("5");
     await act(async () => {
       fireEvent.press(screen.getByLabelText("Increase"));
     });
     expect(seen).toEqual([7]);
-    expect(screen.getByTestId("kern-number-field-input").props.value).toBe(
-      "7",
-    );
+    expect(screen.getByTestId("kern-number-field-input").props.value).toBe("7");
   });
 
   it("stays disabled at the bound and fires nothing there", async () => {
@@ -95,9 +91,7 @@ describe("number-field compound adoption", () => {
       fireEvent.press(screen.getByLabelText("Increase"));
     });
     expect(seen).toEqual([]);
-    expect(screen.getByTestId("kern-number-field-input").props.value).toBe(
-      "5",
-    );
+    expect(screen.getByTestId("kern-number-field-input").props.value).toBe("5");
   });
 
   it("clamps typed input on blur (Base UI order), not while typing", async () => {

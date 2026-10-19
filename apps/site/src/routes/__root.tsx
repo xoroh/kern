@@ -118,9 +118,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             this host — with no mounted host their portals render nothing.
             Web components use Base UI portals into document.body and are
             unaffected. */}
-        <PortalHost>
-          {children}
-        </PortalHost>
+        <PortalHost>{children}</PortalHost>
 
         <Scripts />
       </body>

@@ -14,6 +14,7 @@
  */
 import { assertParity, contractFor } from "@kern-parity/contract";
 import { fireEvent, render, screen } from "@testing-library/react-native";
+import { clampNumberValue } from "@xoroh/axis";
 import { act } from "react";
 import {
   Autocomplete,
@@ -22,7 +23,6 @@ import {
 } from "../components/autocomplete";
 import { InputOTP, toOTPPositions } from "../components/input-otp";
 import { NumberField } from "../components/number-field";
-import { clampNumberValue } from "@xoroh/axis";
 
 const R = "native" as const;
 

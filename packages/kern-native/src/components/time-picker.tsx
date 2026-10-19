@@ -5,7 +5,6 @@ import {
   normalizeTimeValue,
   type TimePickerFormat,
   type TimePickerValue,
-  type TimeParts,
   toTwentyFourHour,
   useControllableState,
   useRovingModel,
@@ -466,10 +465,6 @@ export function TimePicker({
   // localized digits plus the locale day period. The selection math below
   // stays numeric (`shown`/`toTwentyFourHour`); only what is PAINTED goes
   // through the model, so display can never drift from the value contract.
-  const parts: TimeParts = useMemo(
-    () => formatTimeParts(current, format),
-    [current, format],
-  );
   const scheme = useKernScheme();
 
   const commit = (next: Partial<TimePickerValue>) => {

@@ -40,7 +40,6 @@ function trigger(name: string) {
   return screen.getByLabelText(name);
 }
 
-
 /** Axis #73: compound portals paint at a root PortalHost — with no mounted
  * host they warn and render nothing. Every render in this suite goes
  * through the host so open-state assertions see the painted layers. */

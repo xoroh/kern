@@ -6,8 +6,8 @@ import {
   NumberFieldRoot as AxisRoot,
 } from "@xoroh/axis";
 import type { ResolvedTheme } from "@xoroh/kern-tokens";
-import { Pressable, type StyleProp, TextInput, View } from "react-native";
 import type { TextStyle, ViewStyle } from "react-native";
+import { Pressable, type StyleProp, TextInput, View } from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
 import { inputStyles } from "./input";
 import { Text } from "./text";

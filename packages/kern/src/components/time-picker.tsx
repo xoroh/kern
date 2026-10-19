@@ -680,10 +680,8 @@ export function TimePicker({
   const periodOptions = (["am", "pm"] as const).map((value_) => ({
     value: value_ === "am" ? 0 : 1,
     text:
-      formatTimeParts(
-        { hours: value_ === "am" ? 9 : 15, minutes: 0 },
-        "12h",
-      ).period ?? value_.toUpperCase(),
+      formatTimeParts({ hours: value_ === "am" ? 9 : 15, minutes: 0 }, "12h")
+        .period ?? value_.toUpperCase(),
     selected: value_ === period,
   }));
 

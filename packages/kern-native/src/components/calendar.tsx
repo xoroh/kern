@@ -1,12 +1,12 @@
 import {
   buildCalendarGrid,
+  parseCalendarDate,
   resolveCalendarMonthNames,
   resolveCalendarSelection,
   resolveLocaleFirstDay,
   shiftCalendarMonth,
   toCalendarDate,
   toCalendarMonth,
-  parseCalendarDate,
   useControllableState,
 } from "@xoroh/axis";
 import { useMemo, useState } from "react";
@@ -202,9 +202,12 @@ export function Calendar({
         {grid.weeks.flatMap((week, weekIndex) =>
           week.map((cell, dayIndex) => {
             if (cell === null) {
+              // Blank filler: the grid never reorders (static month layout),
+              // so a positional key is stable by construction.
               return (
                 <View
-                  key={`blank-${weekIndex}-${dayIndex}`}
+                  // biome-ignore lint/suspicious/noArrayIndexKey: grid position is the identity; blanks carry no data to key on.
+                  key={`blank-${monthKey}-${weekIndex}-${dayIndex}`}
                   style={{ width: `${100 / 7}%` }}
                 />
               );

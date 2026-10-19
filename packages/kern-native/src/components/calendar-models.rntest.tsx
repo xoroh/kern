@@ -35,7 +35,9 @@ describe("calendar model adoption", () => {
       />,
     );
     await act(async () => {
-      fireEvent.press(screen.getByLabelText(new Date(2026, 7, 15).toDateString()));
+      fireEvent.press(
+        screen.getByLabelText(new Date(2026, 7, 15).toDateString()),
+      );
     });
     expect(seen).toHaveLength(1);
     expect(seen[0]?.getFullYear()).toBe(2026);

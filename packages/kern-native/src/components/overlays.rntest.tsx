@@ -20,7 +20,6 @@ import {
 } from "./snackbar";
 import { Text } from "./text";
 
-
 /** Axis #73: compound portals paint at a root PortalHost — with no mounted
  * host they warn and render nothing. Every render in this suite goes
  * through the host so open-state assertions see the painted layers. */
@@ -105,7 +104,9 @@ describe("native AlertDialog render", () => {
 describe("native Sheet render", () => {
   it("shows the title and closes", async () => {
     let dismissed = 0;
-    await renderWithHost(<Sheet open title="Filters" onDismiss={() => dismissed++} />);
+    await renderWithHost(
+      <Sheet open title="Filters" onDismiss={() => dismissed++} />,
+    );
     expect(screen.getByText("Filters")).toBeTruthy();
     await act(async () => {
       fireEvent.press(screen.getByLabelText("Close sheet"));
