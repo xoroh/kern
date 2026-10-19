@@ -22,9 +22,7 @@ export type SeedThemeOptions = {
 
 const HEX = /^#[\da-f]{6}$/i;
 
-function filterM3Roles(
-  roles: Record<string, string>,
-): Record<string, string> {
+function filterM3Roles(roles: Record<string, string>): Record<string, string> {
   const filtered: Record<string, string> = {};
   for (const role of M3_ROLES) {
     if (role in roles) {
@@ -78,9 +76,7 @@ export function themeFromSeed(
   const lightRoles = filterM3Roles(
     hctSchemeRoles(seed, "light", 0, schemeOpts),
   );
-  const darkRoles = filterM3Roles(
-    hctSchemeRoles(seed, "dark", 0, schemeOpts),
-  );
+  const darkRoles = filterM3Roles(hctSchemeRoles(seed, "dark", 0, schemeOpts));
 
   return defineThemePreset({
     id,

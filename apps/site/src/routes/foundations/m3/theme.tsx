@@ -365,9 +365,10 @@ function ThemePage() {
               <strong className="text-(--sys-color-on-surface)">
                 HCT primary tonal engine (ADR-021, superseding ADR-016).
               </strong>{" "}
-              Kern M3 uses HCT (via <code>@material/material-color-utilities</code>)
-              with 0–100 ramps and full-scheme role mapping (<code>themeFromSeed</code>{" "}
-              resolves all 45 M3 spec roles); the OKLCH path for M3 is removed with no
+              Kern M3 uses HCT (via{" "}
+              <code>@material/material-color-utilities</code>) with 0–100 ramps
+              and full-scheme role mapping (<code>themeFromSeed</code> resolves
+              all 45 M3 spec roles); the OKLCH path for M3 is removed with no
               backward-compat fallback.
             </li>
             <li>

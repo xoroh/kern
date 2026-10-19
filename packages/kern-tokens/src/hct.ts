@@ -142,19 +142,13 @@ export function hctSchemeRoles(
   );
   if (opts?.secondarySeed) {
     assertHex(opts.secondarySeed);
-    (
-      scheme as unknown as { secondaryPalette: TonalPalette }
-    ).secondaryPalette = TonalPalette.fromInt(
-      argbFromHex(opts.secondarySeed),
-    );
+    (scheme as unknown as { secondaryPalette: TonalPalette }).secondaryPalette =
+      TonalPalette.fromInt(argbFromHex(opts.secondarySeed));
   }
   if (opts?.tertiarySeed) {
     assertHex(opts.tertiarySeed);
-    (
-      scheme as unknown as { tertiaryPalette: TonalPalette }
-    ).tertiaryPalette = TonalPalette.fromInt(
-      argbFromHex(opts.tertiarySeed),
-    );
+    (scheme as unknown as { tertiaryPalette: TonalPalette }).tertiaryPalette =
+      TonalPalette.fromInt(argbFromHex(opts.tertiarySeed));
   }
   const roles = {} as Record<HctSchemeRole, string>;
   for (const role of SCHEME_GETTERS) {

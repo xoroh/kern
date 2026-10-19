@@ -73,9 +73,7 @@ for (const mode of ["light", "dark"]) {
     waitUntil: "networkidle",
   });
   await page.waitForTimeout(600);
-  const filled = page
-    .getByRole("button", { name: /filled|primary/i })
-    .first();
+  const filled = page.getByRole("button", { name: /filled|primary/i }).first();
   if ((await filled.count()) > 0) {
     await filled.hover();
     await page.waitForTimeout(300);
