@@ -6,7 +6,8 @@
     "useIgnoreFile": true
   },
   "files": {
-    "includes": ["**", "!apps/site/src/generated/props.ts"]
+    "includes": ["**"],
+    "maxSize": 4194304
   },
   "formatter": {
     "enabled": true,
@@ -55,8 +56,7 @@
         "docs/archive/**",
         "packages/kern-tokens/src/dtcg.json",
         "packages/kern-m3/src/themes/matrix.json",
-        "packages/kern-cli/src/blocks.json",
-        "apps/site/src/generated/a11y.ts"
+        "packages/kern-cli/src/blocks.json"
       ],
       "formatter": { "enabled": false },
       "linter": { "enabled": false },

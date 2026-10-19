@@ -19,10 +19,12 @@
 import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { formatText } from "../../../scripts/lib/format-generated.mjs";
 import { deriveExpectations } from "./a11y-derive.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const APP = join(HERE, "..");
+const ROOT = join(APP, "..", "..");
 const OUT_DIR = join(APP, "src", "generated", "a11y");
 const OVERRIDES = join(APP, "src", "a11y-overrides");
 
@@ -129,5 +131,16 @@ export type A11yPage = {
 };
 export const A11Y: Record<string, A11yPage> = ${JSON.stringify(barrel, null, 2)};
 `;
-writeFileSync(join(APP, "src", "generated", "a11y.ts"), barrelSrc);
+// F-02: the barrel embeds JSON syntax (quoted keys) that biome reformats —
+// route it through the shared formatter so regen agrees with `bun run lint`
+// by construction instead of by luck.
+writeFileSync(
+  join(APP, "src", "generated", "a11y.ts"),
+  formatText({
+    root: ROOT,
+    text: barrelSrc,
+    stdinFilePath: "a11y.ts",
+    label: "generate-a11y: a11y.ts",
+  }),
+);
 console.log(`generate-a11y: wrote ${pages} pages, ${demos} demo entries`);

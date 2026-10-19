@@ -3,6 +3,7 @@
 // A file counts as real when it contains no "not implemented yet" throw.
 import { readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { formatText } from "../../../scripts/lib/format-generated.mjs";
 
 const ROOT = new URL("../../..", import.meta.url).pathname;
 // `src/start/` is the web COMPOSITION tier, published as the `@xoroh/kern/start`
@@ -315,7 +316,18 @@ export const COMPONENTS: ComponentEntry[] = [
 ${entries.map(render).join("\n")}
 ];
 `;
-writeFileSync(join(ROOT, "packages/mcp/src/manifest.ts"), out);
+// F-02: the registry template is hand-formatted today, but nothing enforced
+// that — route it through the shared formatter so a future template edit can
+// never write lint-red bytes with exit 0.
+writeFileSync(
+  join(ROOT, "packages/mcp/src/manifest.ts"),
+  formatText({
+    root: ROOT,
+    text: out,
+    stdinFilePath: "manifest.ts",
+    label: "generate-manifest (mcp): manifest.ts",
+  }),
+);
 console.log(`wrote ${entries.length} entries`);
 
 // The CLI's bundled payload (KERN-034): the same rows plus version and a

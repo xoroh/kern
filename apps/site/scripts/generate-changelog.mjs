@@ -26,6 +26,7 @@
 import { readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { formatText } from "../../../scripts/lib/format-generated.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const SITE = join(HERE, "..");
@@ -167,22 +168,14 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = ${JSON.stringify(entries, 
 export const REPO_LICENSE = ${JSON.stringify(licenseOf())};
 `;
 
-const { execFileSync } = await import("node:child_process");
-let formatted = text;
-try {
-  formatted = execFileSync(
-    join(SITE, "..", "..", "node_modules", ".bin", "biome"),
-    ["format", "--stdin-file-path=changelog.ts"],
-    { input: text, encoding: "utf8", cwd: SITE },
-  );
-} catch {
-  // biome absent (partial install, release runner): write unformatted rather
-  // than fail, and let the freshness gate report the difference honestly.
-  console.warn(
-    "generate-changelog: could not run biome; wrote unformatted — run `bun run format` before lint",
-  );
-  formatted = text;
-}
+// F-02: format via the shared helper — workspace biome bin or pinned `bun x`
+// fallback, throwing rather than writing unformatted output.
+const formatted = formatText({
+  root: ROOT,
+  text,
+  stdinFilePath: "changelog.ts",
+  label: "generate-changelog: changelog.ts",
+});
 writeFileSync(out, formatted);
 
 const byBump = entries.reduce((acc, e) => {
