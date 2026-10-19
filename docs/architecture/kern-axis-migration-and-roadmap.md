@@ -88,12 +88,10 @@ Lead at the time above; the cleanup lane ran PRs #59–#74 down to ONE open PR
    component tools take `--system` (default `kern-m3`, the only current
    system); the generated registry carries `system` on every row
    (`manifest.ts` + `registry.json`, hashed into the release set). Tested both.
-6. **System-scoped URLs (008/018):** one page per component at `/components/<system>/<name>`
-   with Web/Native tabs; remove the old `/components/web|mobile/*` shapes that #60 still keeps.
-   **Resolved 2026-10-19 02:51 CEST (Faroeq via Grok Bot):** ADR-020 wins. No redirects
-   from the old `/components/web|mobile/*` URLs before the first release; old URLs are
-   removed, not redirected. This supersedes "with redirects" in the 2026-10-16 structure
-   approval and in D-URLS (§I). PR #60 stays as is.
+6. **System-scoped URLs (008/018): DONE** — one page per component at `/components/<system>/<name>`
+   with Web/Native tabs; the old `/components/web|mobile/*` index routes are deleted outright,
+   no redirects (D-051; the in-system part-slug 301 in `$component.tsx` stays). Gallery filters
+   in place via `?platform=`; nav/sidebar/footer/llms.txt point at the one gallery URL.
 7. **MCP bundles its data:** tools still read checkout files at runtime; inline the registry
    so `npx @xoroh/kern-mcp` works outside a clone. Same check for `kern add` blocks.
 8. **Delete `libs/kern-primitives`** (planned migration PR, reviewed) once the Axis vendor
