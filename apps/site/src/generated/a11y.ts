@@ -6675,10 +6675,10 @@ export const A11Y: Record<string, A11yPage> = {
           },
           {
             rule: "aria-contract",
-            expect: "gap",
+            expect: "pass",
             provenance: "derived",
             basis:
-              "contrast-toggle.ts states no aria contract for ContrastToggle — screen-reader behaviour is unclaimed",
+              "aria contract carries 4 line(s) in contrast-toggle.ts — roles, names and states are stated, not assumed",
           },
         ],
       },
@@ -7960,10 +7960,10 @@ export const A11Y: Record<string, A11yPage> = {
           },
           {
             rule: "aria-contract",
-            expect: "gap",
+            expect: "pass",
             provenance: "derived",
             basis:
-              "theme-toggle.ts states no aria contract for ThemeToggle — screen-reader behaviour is unclaimed",
+              "aria contract carries 4 line(s) in theme-toggle.ts — roles, names and states are stated, not assumed",
           },
         ],
       },

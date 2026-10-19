@@ -14,9 +14,9 @@
         },
         {
           "rule": "aria-contract",
-          "expect": "gap",
+          "expect": "pass",
           "provenance": "derived",
-          "basis": "contrast-toggle.ts states no aria contract for ContrastToggle — screen-reader behaviour is unclaimed"
+          "basis": "aria contract carries 4 line(s) in contrast-toggle.ts — roles, names and states are stated, not assumed"
         }
       ]
     }

@@ -58,4 +58,10 @@ export const themeToggle: ComponentDoc = {
       note: "Layout for the `48dp` target.",
     },
   ],
+  aria: [
+    "The accessible name always names the destination mode, so the action reads the same before and after the press.",
+    "There is no pressed or selected state to announce — the mode lives in the host, and the control reports the request, not the outcome.",
+    "The glyph is decorative and hidden from the accessibility tree; the name carries the meaning.",
+    "When disabled, the control reports `disabled` in the accessibility state.",
+  ],
 };
