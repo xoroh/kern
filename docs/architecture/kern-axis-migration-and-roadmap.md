@@ -83,8 +83,10 @@ Lead at the time above; the cleanup lane ran PRs #59–#74 down to ONE open PR
    gate reads (missing everywhere).
 4. **Button variant names (014):** remove `BUTTON_VARIANT_ALIASES` (still in 9 files on main),
    hard cut per 020.
-5. **Registry `--system` flag (009):** CLI `add/list` and MCP tools take `--system`
-   (default `m3`); registry already carries the data. No branch has started this.
+5. **Registry `--system` flag (009): DONE** — CLI `add/list` and the MCP
+   component tools take `--system` (default `kern-m3`, the only current
+   system); the generated registry carries `system` on every row
+   (`manifest.ts` + `registry.json`, hashed into the release set). Tested both.
 6. **System-scoped URLs (008/018):** one page per component at `/components/<system>/<name>`
    with Web/Native tabs; remove the old `/components/web|mobile/*` shapes that #60 still keeps.
    **Resolved 2026-10-19 02:51 CEST (Faroeq via Grok Bot):** ADR-020 wins. No redirects
