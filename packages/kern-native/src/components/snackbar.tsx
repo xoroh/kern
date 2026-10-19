@@ -1,7 +1,14 @@
+import {
+  ToastProvider as AxisToastProvider,
+  ToastViewport as AxisToastViewport,
+  type ToastManager,
+  type ToastOptions,
+  useToast as useAxisToast,
+} from "@xoroh/axis";
 import type { ResolvedTheme } from "@xoroh/kern-tokens";
-import { Pressable, type StyleProp, View, type ViewStyle } from "react-native";
+import { Children, cloneElement, isValidElement, type ReactNode } from "react";
+import { type StyleProp, View, type ViewStyle } from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
-import { Text } from "./text";
 
 export function snackbarStyles(
   scheme: ResolvedTheme = defaultScheme(),
@@ -30,52 +37,76 @@ export function snackbarStyles(
   };
 }
 
-export type NativeSnackbarProps = {
-  visible: boolean;
-  message: string;
-  actionLabel?: string;
-  onAction?: () => void;
-  onDismiss?: () => void;
-  style?: StyleProp<ViewStyle>;
+/**
+ * Provider owning the Axis Toast / Snackbar queue on Native.
+ */
+export function SnackbarProvider({ children }: { children?: ReactNode }) {
+  return <AxisToastProvider>{children}</AxisToastProvider>;
+}
+
+export type NativeSnackbarViewportProps = {
   testID?: string;
+  style?: StyleProp<ViewStyle>;
+  limit?: number;
 };
 
-export function Snackbar({
-  visible,
-  message,
-  actionLabel,
-  onAction,
-  onDismiss,
-  style,
+/**
+ * Viewport rendering queued Snackbars using M3 styling.
+ *
+ * Axis paints each queued toast unstyled by design (visuals are
+ * caller-provided), so the viewport clones every queued `Toast` with
+ * the M3 Snackbar surface style. One current API: queue via
+ * `useSnackbar`, paint here. No single-shot `visible`/`message`
+ * component (ADR-020: pre-publish removal, not a compat alias).
+ */
+export function SnackbarViewport({
   testID,
-}: NativeSnackbarProps) {
+  style,
+  limit,
+}: NativeSnackbarViewportProps) {
   const scheme = useKernScheme();
-  if (!visible) return null;
+  const toastStyle = snackbarStyles(scheme);
   return (
-    <View
-      accessibilityRole="alert"
-      testID={testID ?? "kern-snackbar"}
-      style={[snackbarStyles(scheme), style]}
-    >
-      <Text style={{ flex: 1, color: scheme.color.inverseOnSurface }}>
-        {message}
-      </Text>
-      {actionLabel ? (
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel={actionLabel}
-          hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
-          style={{ minHeight: 48, justifyContent: "center" }}
-          onPress={() => {
-            onAction?.();
-            onDismiss?.();
-          }}
-        >
-          <Text variant="label" style={{ color: scheme.color.inversePrimary }}>
-            {actionLabel}
-          </Text>
-        </Pressable>
-      ) : null}
-    </View>
+    <AxisToastViewport
+      testID={testID}
+      style={[
+        {
+          position: "absolute",
+          bottom: 16,
+          left: 16,
+          right: 16,
+          gap: 8,
+          zIndex: 9999,
+        },
+        style,
+      ]}
+      limit={limit}
+      render={(props) => {
+        const { children, ...rest } = props as {
+          children?: ReactNode;
+          testID?: string;
+          style?: StyleProp<ViewStyle>;
+        };
+        return (
+          <View testID={rest.testID} style={rest.style}>
+            {Children.map(children, (child) =>
+              isValidElement<{ style?: StyleProp<ViewStyle> }>(child)
+                ? cloneElement(child, { style: toastStyle })
+                : child,
+            )}
+          </View>
+        );
+      }}
+    />
   );
+}
+
+export type SnackbarOptions = ToastOptions;
+export type SnackbarManager = ToastManager;
+
+/**
+ * Hook to add, dismiss, or clear queued Snackbars.
+ */
+export function useSnackbar(): SnackbarManager {
+  return useAxisToast();
 }

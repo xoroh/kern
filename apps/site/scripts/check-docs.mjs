@@ -905,9 +905,26 @@ if (gaps.length > 0) {
   const byKey = new Map(
     pages.map((p) => [`${p.platform}/${p.doc.slug}`, p.doc]),
   );
+  // ADR-020 split families (web compound vs native queue) share a concept
+  // but not an export name: bare `snackbar` is web-only, the native halves
+  // are `snackbar-provider`/`snackbar-viewport`. The family page renders a
+  // peer note instead of a second tab (link/LinkButton precedent), so the
+  // bar follows the same peer link rather than demanding one slug.
+  const byExport = new Map(
+    pages.flatMap((p) =>
+      (p.doc.parts ?? []).map((part) => [`${p.platform}:${part}`, p.doc]),
+    ),
+  );
   for (const slug of TOP_FAMILIES) {
     for (const platform of ["web", "mobile"]) {
-      const doc = byKey.get(`${platform}/${slug}`);
+      let doc = byKey.get(`${platform}/${slug}`);
+      if (!doc) {
+        const other = platform === "web" ? "mobile" : "web";
+        const peer = byKey.get(`${other}/${slug}`)?.meta?.nativePeer;
+        if (typeof peer === "string" && peer !== "none") {
+          doc = byExport.get(`${platform}:${peer}`);
+        }
+      }
       if (!doc) {
         errors.push(
           `top-20 ${platform}/${slug}: no content page — the depth bar needs the family on both renderers`,

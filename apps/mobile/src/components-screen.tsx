@@ -29,7 +29,8 @@ import {
   SegmentedButton,
   ShapeArt,
   Slider,
-  Snackbar,
+  SnackbarProvider,
+  SnackbarViewport,
   SuccessTransform,
   Switch,
   Tabs,
@@ -38,6 +39,7 @@ import {
   ToggleGroup,
   Toolbar,
   useKernScheme,
+  useSnackbar,
 } from "@xoroh/kern-native";
 import type { ReactNode } from "react";
 import { useState } from "react";
@@ -56,11 +58,20 @@ function Row({ children }: { children: ReactNode }) {
 }
 
 export function ComponentsScreen() {
+  return (
+    <SnackbarProvider>
+      <ComponentsScreenBody />
+      <SnackbarViewport />
+    </SnackbarProvider>
+  );
+}
+
+function ComponentsScreenBody() {
+  const snackbar = useSnackbar();
   const [sheet, setSheet] = useState(false);
   const [picker, setPicker] = useState(false);
   const [create, setCreate] = useState(false);
   const [command, setCommand] = useState(false);
-  const [snack, setSnack] = useState(false);
   const [country, setCountry] = useState("NL");
   const [segment, setSegment] = useState("day");
   const [toggle, setToggle] = useState<string | string[]>(["wifi"]);
@@ -75,7 +86,13 @@ export function ComponentsScreen() {
       <ShowcaseSection title="Actions">
         <Row>
           <View style={{ flexDirection: "row", gap: 8, flexWrap: "wrap" }}>
-            <Button onPress={() => setSnack(true)}>Primary</Button>
+            <Button
+              onPress={() =>
+                snackbar.add({ message: "Trip assigned", actionLabel: "Undo" })
+              }
+            >
+              Primary
+            </Button>
             <Button variant="tonal">Tonal</Button>
             <Button variant="ghost">Ghost</Button>
             <Button disabled>Disabled</Button>
@@ -300,18 +317,6 @@ export function ComponentsScreen() {
               { key: "b", label: "Open settings", group: "Go" },
               { key: "c", label: "Toggle dark mode", group: "Actions" },
             ]}
-          />
-        </View>
-      ) : null}
-
-      {snack ? (
-        <View style={{ position: "absolute", left: 16, right: 16, bottom: 16 }}>
-          <Snackbar
-            visible
-            message="Trip assigned"
-            actionLabel="Undo"
-            onAction={() => setSnack(false)}
-            onDismiss={() => setSnack(false)}
           />
         </View>
       ) : null}

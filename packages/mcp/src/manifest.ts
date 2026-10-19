@@ -3189,8 +3189,16 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
-    name: "snackbar",
-    export: "Snackbar",
+    name: "snackbar-provider",
+    export: "SnackbarProvider",
+    platform: "native",
+    entrypoint: ".",
+    path: "src/components/snackbar.tsx",
+    status: "real",
+  },
+  {
+    name: "snackbar-viewport",
+    export: "SnackbarViewport",
     platform: "native",
     entrypoint: ".",
     path: "src/components/snackbar.tsx",
