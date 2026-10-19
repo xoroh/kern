@@ -10,7 +10,7 @@
 - Charts (Community → Pro advanced → Premium WebGL): Y / **G** (R: theme-don't-build, ECharts/Recharts spike).
 - Tree View (Community → Pro dnd/virtualization): Y / **G** (no kern tree).
 - Scheduler: Y (Premium) / **G** (on-demand only).
-- Feedback (Alert, Snackbar, Dialog, Backdrop, Skeleton, Progress): Y / **B** (all incl. sonner, skeleton).
+- Feedback (Alert, Snackbar, Dialog, Backdrop, Skeleton, Progress): Y / **B** (all incl. skeleton).
 - Navigation (AppBar, Drawer, Tabs, BottomNavigation, Breadcrumbs, Menu, Pagination, SpeedDial, Stepper, Timeline): Y / **B** most (drawer, tabs, menubar, menu, pagination, navigation-bar/drawer; steppers/timeline/speed-dial = G).
 - Surfaces (Card, Paper, Accordion, Container, Grid/Stack/Box): Y / **B** (card, accordion; layout via native layouts + start panes).
 - Utils (Modal, Popover, Popper, Portal, Transitions, useMediaQuery, ClickAway): Y / **B** (popover, overlay-surfaces, transitions via motion tokens).

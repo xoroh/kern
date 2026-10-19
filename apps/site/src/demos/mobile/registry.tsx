@@ -557,7 +557,7 @@ export function NativeSnackbarDemo() {
     );
   }
   return (
-    <PhonePreview label="Snackbar — M3 transient messaging (no Sonner twin)">
+    <PhonePreview label="Snackbar — M3 transient messaging">
       <SnackbarProvider>
         <QueueTrigger />
         <SnackbarViewport />

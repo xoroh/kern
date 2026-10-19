@@ -198,7 +198,6 @@ Prefer these machine surfaces over scraping HTML:
 - [Snackbar](/components/m3/snackbar): Snackbars confirm something happened, briefly, without interrupting what someone is doing. Renders: Web. Markdown: /md/web/snackbar.md.
 - [Snackbar](/components/m3/snackbar-provider): Snackbars confirm something happened, briefly, with an optional action to undo it. Renders: Native. Markdown: /md/mobile/snackbar-provider.md.
 - [Snap sheet](/components/m3/snap-sheet): The snap sheet is a bottom sheet with detents — a modal surface that occupies one of a declared set of heights. Renders: Web + Native. Markdown: /md/web/snap-sheet.md, /md/mobile/snap-sheet.md.
-- [Sonner](/components/m3/sonner): Sonner raises transient messages with an intent — it worked, watch out, here is a problem — and an optional action. Renders: Web. Markdown: /md/web/sonner.md.
 - [Split](/components/m3/split): The split is an N-column layout: two or three equal columns divided by a hairline, named as one region for assistive technology. Renders: Web + Native. Markdown: /md/web/split.md, /md/mobile/split.md.
 - [Split button](/components/m3/split-button): Split buttons pair one primary action with a menu of related alternatives. Renders: Web + Native. Markdown: /md/web/split-button.md, /md/mobile/split-button.md.
 - [Status bar](/components/m3/status-bar): Status bars hold one centered status with leading and trailing slots. Renders: Native. Markdown: /md/mobile/status-bar.md.

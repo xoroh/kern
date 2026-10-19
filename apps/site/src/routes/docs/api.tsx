@@ -112,15 +112,15 @@ const ENTRIES: ApiEntry[] = [
     ],
   },
   {
-    name: "createSonnerManager",
+    name: "createSnackbarManager",
     kind: "factory",
     package: "@xoroh/kern",
-    signature: "createSonnerManager(): SonnerApi",
+    signature: "createSnackbarManager(): SnackbarApi",
     oneLiner:
-      "Creates a toast manager you own, for wiring sonner into your own app shell.",
+      "Creates the imperative snackbar surface you own: show, promise and dismiss over a toast manager.",
     contract: [
-      "Returns a `SonnerApi`. Pass its `toastManager` to the `SonnerProvider`'s `ToastMount` to mount the manager into the tree.",
-      "Use this when the app shell owns the toast instance rather than reaching for the default one.",
+      "Returns a `SnackbarApi` with `show`, `promise`, `dismiss`, and the underlying `toastManager`. Pass `toastManager` to `SnackbarProvider` to mount the manager into the tree.",
+      "Use this when the app shell owns the toast instance rather than reaching for the default one. There are no intent helpers — M3 has no tone.",
     ],
     notes: [
       "Not a component and not in the component registry — the registry collects components on purpose. It is public API and this is where it is documented.",

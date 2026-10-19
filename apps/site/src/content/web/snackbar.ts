@@ -122,7 +122,7 @@ export const snackbar: ComponentDoc = {
       "Round corners and height are system tokens, so a theme moves every snackbar at once.",
     ],
     notSupported: [
-      "There is no `variant`, `tone` or `intent` prop. A snackbar is a neutral confirmation; if the tone matters, that is `Sonner`, which has an intent axis.",
+      "There is no `variant`, `tone` or `intent` prop. A snackbar is a neutral confirmation.",
       "There is no `position` prop on the snackbar itself. Where it appears is the viewport's business.",
       "There is no `duration` prop on the component. How long it stays is the queue's, not the surface's.",
       "There is no `elevation` prop. The resting level is a registered decision — see Deviations.",

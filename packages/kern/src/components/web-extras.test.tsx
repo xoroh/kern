@@ -6,7 +6,7 @@ import { Banner, BannerAction } from "./banner";
 import { Command } from "./command";
 import { type CountryOption, CountrySelect } from "./country-select";
 import { SegmentedButton } from "./segmented-button";
-import { createSonnerManager, Sonner } from "./sonner";
+import { createSnackbarManager, Snackbar } from "./snackbar";
 
 describe("Banner", () => {
   it("renders its message under a polite status role", () => {
@@ -232,39 +232,20 @@ describe("CountrySelect", () => {
   });
 });
 
-describe("Sonner", () => {
+describe("Snackbar manager", () => {
   it("shows a message through the imperative manager", async () => {
-    const manager = createSonnerManager();
+    const manager = createSnackbarManager();
     render(
-      <Sonner.Provider toastManager={manager.toastManager}>
-        <Sonner.Viewport>
-          <Sonner.List />
-        </Sonner.Viewport>
-      </Sonner.Provider>,
+      <Snackbar.Provider toastManager={manager.toastManager}>
+        <Snackbar.Viewport>
+          <Snackbar.List />
+        </Snackbar.Viewport>
+      </Snackbar.Provider>,
     );
     act(() => {
-      manager.success({ title: "Saved" });
+      manager.show({ title: "Saved" });
     });
     expect(await screen.findByText("Saved")).toBeInTheDocument();
-  });
-
-  it("marks the intent so the border role can differ", async () => {
-    const manager = createSonnerManager();
-    render(
-      <Sonner.Provider toastManager={manager.toastManager}>
-        <Sonner.Viewport>
-          <Sonner.List />
-        </Sonner.Viewport>
-      </Sonner.Provider>,
-    );
-    act(() => {
-      manager.error({ title: "Upload failed" });
-    });
-    const toast = await screen.findByText("Upload failed");
-    expect(toast.closest("[data-slot='sonner']")).toHaveAttribute(
-      "data-intent",
-      "error",
-    );
   });
 
   it("renders the action and fires it", async () => {
@@ -274,16 +255,16 @@ describe("Sonner", () => {
     // fail (scratch probe, RED confirmed, deleted).
     const user = userEvent.setup();
     const onAction = vi.fn();
-    const manager = createSonnerManager();
+    const manager = createSnackbarManager();
     render(
-      <Sonner.Provider toastManager={manager.toastManager}>
-        <Sonner.Viewport>
-          <Sonner.List />
-        </Sonner.Viewport>
-      </Sonner.Provider>,
+      <Snackbar.Provider toastManager={manager.toastManager}>
+        <Snackbar.Viewport>
+          <Snackbar.List />
+        </Snackbar.Viewport>
+      </Snackbar.Provider>,
     );
     act(() => {
-      manager.success({
+      manager.show({
         title: "Saved",
         action: { label: "Undo", onClick: onAction },
       });
@@ -293,17 +274,17 @@ describe("Sonner", () => {
   });
 
   it("dismisses by id", async () => {
-    const manager = createSonnerManager();
+    const manager = createSnackbarManager();
     render(
-      <Sonner.Provider toastManager={manager.toastManager}>
-        <Sonner.Viewport>
-          <Sonner.List />
-        </Sonner.Viewport>
-      </Sonner.Provider>,
+      <Snackbar.Provider toastManager={manager.toastManager}>
+        <Snackbar.Viewport>
+          <Snackbar.List />
+        </Snackbar.Viewport>
+      </Snackbar.Provider>,
     );
     let id = "";
     act(() => {
-      id = manager.info("Syncing");
+      id = manager.show("Syncing");
     });
     expect(await screen.findByText("Syncing")).toBeInTheDocument();
     act(() => {
@@ -313,13 +294,13 @@ describe("Sonner", () => {
   });
 
   it("swaps the loading message when the promise resolves", async () => {
-    const manager = createSonnerManager();
+    const manager = createSnackbarManager();
     render(
-      <Sonner.Provider toastManager={manager.toastManager}>
-        <Sonner.Viewport>
-          <Sonner.List />
-        </Sonner.Viewport>
-      </Sonner.Provider>,
+      <Snackbar.Provider toastManager={manager.toastManager}>
+        <Snackbar.Viewport>
+          <Snackbar.List />
+        </Snackbar.Viewport>
+      </Snackbar.Provider>,
     );
     await act(async () => {
       await manager.promise(Promise.resolve("done"), {
@@ -330,5 +311,26 @@ describe("Sonner", () => {
     });
     expect(await screen.findByText("Saved")).toBeInTheDocument();
     expect(screen.queryByText("Saving…")).toBeNull();
+  });
+
+  it("swaps the error message when the promise rejects", async () => {
+    const manager = createSnackbarManager();
+    render(
+      <Snackbar.Provider toastManager={manager.toastManager}>
+        <Snackbar.Viewport>
+          <Snackbar.List />
+        </Snackbar.Viewport>
+      </Snackbar.Provider>,
+    );
+    await act(async () => {
+      await expect(
+        manager.promise(Promise.reject(new Error("nope")), {
+          loading: { title: "Saving…" },
+          success: { title: "Saved" },
+          error: { title: "Failed" },
+        }),
+      ).rejects.toThrow("nope");
+    });
+    expect(await screen.findByText("Failed")).toBeInTheDocument();
   });
 });

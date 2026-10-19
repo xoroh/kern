@@ -526,8 +526,10 @@ export {
 } from "./slider";
 export type {
   SnackbarActionProps,
+  SnackbarApi,
   SnackbarCloseProps,
   SnackbarDescriptionProps,
+  SnackbarMessage,
   SnackbarProviderProps,
   SnackbarRootProps,
   SnackbarTitleProps,
@@ -545,31 +547,6 @@ export {
   SnackbarViewport,
   useSnackbarManager,
 } from "./snackbar";
-export type {
-  SonnerActionProps,
-  SonnerApi,
-  SonnerCloseProps,
-  SonnerDescriptionProps,
-  SonnerIntent,
-  SonnerManager,
-  SonnerMessage,
-  SonnerProviderProps,
-  SonnerRootProps,
-  SonnerTitleProps,
-  SonnerViewportProps,
-} from "./sonner";
-export {
-  createSonnerManager,
-  Sonner,
-  SonnerAction,
-  SonnerClose,
-  SonnerDescription,
-  SonnerList,
-  SonnerProvider,
-  SonnerRoot,
-  SonnerTitle,
-  SonnerViewport,
-} from "./sonner";
 export type { SplitProps } from "./split";
 export { Split } from "./split";
 export type { SplitButtonAction, SplitButtonProps } from "./split-button";

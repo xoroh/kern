@@ -9,7 +9,6 @@ import { ListItem } from "./list-item";
 import { Meter } from "./meter";
 import { Popover } from "./popover";
 import { Sheet } from "./sheet";
-import { SonnerProvider, SonnerViewport } from "./sonner";
 import { TableBody, TableHead, TableRoot, TableRow } from "./table";
 import { Tooltip } from "./tooltip";
 
@@ -176,7 +175,7 @@ describe("Popover — menu-surface treatment", () => {
   });
 });
 
-describe("Avatar, Meter, Table, Tooltip, Sonner — supporting roles", () => {
+describe("Avatar, Meter, Table, Tooltip — supporting roles", () => {
   it("avatar renders full-circle image or primary fallback", () => {
     render(
       <Avatar.Root aria-label="Ada Lovelace">
@@ -224,16 +223,5 @@ describe("Avatar, Meter, Table, Tooltip, Sonner — supporting roles", () => {
     expect(surface?.className).toContain(
       "rounded-(--sys-shape-corner-extra-small)",
     );
-  });
-
-  it("sonner renders transient stack", () => {
-    render(
-      <SonnerProvider>
-        <SonnerViewport />
-      </SonnerProvider>,
-    );
-    expect(
-      document.querySelector('[data-slot="sonner-viewport"]'),
-    ).not.toBeNull();
   });
 });

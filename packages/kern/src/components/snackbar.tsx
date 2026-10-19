@@ -106,6 +106,47 @@ export function SnackbarClose({ className, ...props }: SnackbarCloseProps) {
   );
 }
 
+/** A message the snackbar shows. M3 has no tone or intent colours: every
+ * message is neutral confirmation, so there is no `intent` field. */
+export type SnackbarMessage = {
+  /** Headline text. */
+  title?: ReactNode;
+  /** Supporting line under the title. */
+  description?: ReactNode;
+  /** Optional single action label. */
+  action?: { label: string; onClick: () => void };
+  /** Milliseconds before auto-dismiss. `0` keeps it until dismissed. */
+  timeout?: number;
+};
+
+function toSnackbarMessage(
+  input: SnackbarMessage | ReactNode,
+): SnackbarMessage {
+  return typeof input === "object" && input !== null && "title" in input
+    ? (input as SnackbarMessage)
+    : { title: input as ReactNode };
+}
+
+export type SnackbarApi = {
+  /** Underlying Base UI toast manager; hand it to `SnackbarProvider`. */
+  toastManager: ReturnType<typeof ToastPrimitive.createToastManager>;
+  /** Show a message; returns its id. */
+  show: (message: SnackbarMessage | ReactNode) => string;
+  /** Shows a loading message that swaps to the result on settle (M3
+   * loading-then-result): resolve swaps text, reject swaps text and
+   * rethrows. No tone on either branch — M3 has none. */
+  promise: <Value>(
+    promiseValue: Promise<Value>,
+    messages: {
+      loading: SnackbarMessage;
+      success: SnackbarMessage | ReactNode;
+      error: SnackbarMessage | ReactNode;
+    },
+  ) => Promise<Value>;
+  /** Dismiss one message, or all when no id is given. */
+  dismiss: (id?: string) => void;
+};
+
 /** Renders every queued toast with the Kern recipe. Place inside Viewport. */
 export function SnackbarList() {
   const { toasts } = ToastPrimitive.useToastManager();
@@ -138,5 +179,45 @@ export const Snackbar = {
   Close: SnackbarClose,
 };
 
-export const createSnackbarManager = ToastPrimitive.createToastManager;
 export const useSnackbarManager = ToastPrimitive.useToastManager;
+
+/**
+ * The imperative surface a `Snackbar` app calls:
+ * `const snackbar = createSnackbarManager(); snackbar.show({ title: "Saved" })`.
+ * Pair it with `SnackbarProvider toastManager={snackbar.toastManager}`.
+ * No intent helpers (`info/success/warning/error`): M3 has no tone, so a
+ * toned call has nowhere to go.
+ */
+export function createSnackbarManager(): SnackbarApi {
+  const manager = ToastPrimitive.createToastManager();
+
+  function show(input: SnackbarMessage | ReactNode): string {
+    const message = toSnackbarMessage(input);
+    return manager.add({
+      title: message.title,
+      description: message.description,
+      timeout: message.timeout,
+      actionProps: message.action
+        ? { children: message.action.label, onClick: message.action.onClick }
+        : undefined,
+    });
+  }
+
+  return {
+    toastManager: manager,
+    show,
+    promise: (promiseValue, messages) => {
+      const id = show({ ...toSnackbarMessage(messages.loading), timeout: 0 });
+      return promiseValue
+        .then((value) => {
+          manager.update(id, toSnackbarMessage(messages.success));
+          return value;
+        })
+        .catch((error: unknown) => {
+          manager.update(id, toSnackbarMessage(messages.error));
+          throw error;
+        });
+    },
+    dismiss: (id) => manager.close(id),
+  };
+}

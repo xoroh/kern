@@ -145,7 +145,7 @@ fills) and the 38%/30% disabled split.
 | Bottom sheet / side sheet | `Drawer` / `Sheet side` | shared container-low + level1 treatment |
 | Menu surface | `menuPopupClass` / `Popover` | shared 4px + level2 treatment |
 | Tooltip | `Tooltip` compound | inverse treatment |
-| — | `Avatar` / `Meter` / `Table` / `Sonner` | Kern patterns beyond M3 |
+| — | `Avatar` / `Meter` / `Table` | Kern patterns beyond M3 |
 
 ---
 
@@ -158,7 +158,7 @@ fills) and the 38%/30% disabled split.
 3. **No avatar/remove subcomponents on Chip** — compose `Avatar` + trailing
    `IconButton` beside the chip; a combined API is tracked, not shipped.
 4. **No `soft-disabled` on chips** — disabled chips leave tab order.
-5. **Avatar/meter/table/sonner are Kern inventions** — shaped by M3 roles
+5. **Avatar/meter/table are Kern inventions** — shaped by M3 roles
    with no M3 source to conform to.
 6. **Inter** instead of Roboto for all type.
 
@@ -208,5 +208,5 @@ fills) and the 38%/30% disabled split.
   padding); sheets are not separately tabulated in the tokens fetched.
 - **No material-web snackbar/tooltip/badge components** — badge values come
   from the m3 spec tabs; tooltip inverse roles from system tokens.
-- **Avatar/meter/table/sonner** have no M3 source; values are Kern decisions
+- **Avatar/meter/table** have no M3 source; values are Kern decisions
   recorded here, not conformance claims.

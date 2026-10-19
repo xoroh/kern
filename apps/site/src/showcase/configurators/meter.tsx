@@ -6,7 +6,6 @@ import type { ConfiguratorSpec, ConfigValues } from "../configurator";
  * status indicator past Progress. Knobs are the scale axes the component doc
  * leaves open: `value` (where the fill sits), `max` (what it sits against),
  * `min` (what it rises from). No `variant`/`tone` (a meter carries no
- * judgement — that is Sonner), no `size`/`thickness`, no `showValue` (the
  * Value part is rendered, not toggled) — all ruled out, so none is a knob.
  * The stage shows the documented anatomy whole — label, value, bar — so the
  * fence teaches it too. The stage remounts by key on every knob so it
@@ -38,7 +37,7 @@ export const METER_CONFIGURATOR: ConfiguratorSpec = {
   id: "meter-knobs",
   title: "Configure the meter",
   description:
-    "A static scalar: value against its scale, nothing more. The bar never moves on its own and takes no input — for work in flight, that is Progress; for tone, Sonner. The knobs describe the next mount (the stage remounts by key): the combinations are in-range by construction, so an over-max pairing is not on offer.",
+    "A static scalar: value against its scale, nothing more. The bar never moves on its own and takes no input — for work in flight, that is Progress. The knobs describe the next mount (the stage remounts by key): the combinations are in-range by construction, so an over-max pairing is not on offer.",
   controls: [
     {
       kind: "select",

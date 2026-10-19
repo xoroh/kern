@@ -90,7 +90,7 @@ describe("Snackbar — inverse surface, level3, 4px", () => {
     const { createSnackbarManager } = await import("./snackbar");
     const manager = createSnackbarManager();
     render(
-      <Snackbar.Provider toastManager={manager}>
+      <Snackbar.Provider toastManager={manager.toastManager}>
         <Snackbar.Viewport>
           <Snackbar.List />
         </Snackbar.Viewport>
@@ -98,7 +98,7 @@ describe("Snackbar — inverse surface, level3, 4px", () => {
     );
     const { act } = await import("react");
     act(() => {
-      manager.add({ title: "Saved" });
+      manager.show({ title: "Saved" });
     });
     const bar = await screen.findByText("Saved");
     const root = bar.closest('[data-slot="snackbar"]');
@@ -114,7 +114,7 @@ describe("Snackbar — inverse surface, level3, 4px", () => {
     const { createSnackbarManager } = await import("./snackbar");
     const manager = createSnackbarManager();
     render(
-      <Snackbar.Provider toastManager={manager}>
+      <Snackbar.Provider toastManager={manager.toastManager}>
         <Snackbar.Viewport>
           <Snackbar.List />
         </Snackbar.Viewport>
@@ -122,9 +122,9 @@ describe("Snackbar — inverse surface, level3, 4px", () => {
     );
     const { act } = await import("react");
     act(() => {
-      manager.add({
+      manager.show({
         title: "Saved",
-        actionProps: { children: "Undo", onClick: () => {} },
+        action: { label: "Undo", onClick: () => {} },
       });
     });
     const action = await screen.findByRole("button", { name: "Undo" });

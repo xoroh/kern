@@ -263,15 +263,6 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `snackbar-title` | `SnackbarTitle` | real |
 | `snackbar-viewport` | `SnackbarViewport` | real |
 | `snap-sheet` | `SnapSheet` | real |
-| `sonner` | `Sonner` | real |
-| `sonner-action` | `SonnerAction` | real |
-| `sonner-close` | `SonnerClose` | real |
-| `sonner-description` | `SonnerDescription` | real |
-| `sonner-list` | `SonnerList` | real |
-| `sonner-provider` | `SonnerProvider` | real |
-| `sonner-root` | `SonnerRoot` | real |
-| `sonner-title` | `SonnerTitle` | real |
-| `sonner-viewport` | `SonnerViewport` | real |
 | `split` | `Split` | real |
 | `split-button` | `SplitButton` | real |
 | `split-grid` | `SplitGrid` | real |
