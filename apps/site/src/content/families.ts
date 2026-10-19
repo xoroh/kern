@@ -193,6 +193,7 @@ export const FAMILY_OF: Record<string, FamilyGroupId> = {
   kbd: "utilities",
   blocks: "utilities",
   "kern-pressable": "utilities",
+  "state-layer": "utilities",
 };
 
 /** The group a family belongs to. Unknown slugs land in `utilities` — visible. */
