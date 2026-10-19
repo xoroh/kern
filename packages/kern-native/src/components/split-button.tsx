@@ -4,6 +4,7 @@ import { Modal, Pressable, StyleSheet, View } from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
 import { scrimStyle } from "../utils/overlay-styles";
 import { menuStyles } from "./menu";
+import { DISABLED_CONTENT_OPACITY, StateLayer } from "./state-layer";
 import { Text } from "./text";
 
 const staticStyles = StyleSheet.create({
@@ -52,7 +53,7 @@ const staticStyles = StyleSheet.create({
  *
  * - **Two tab stops, two names.** The primary button is named by `label`; the
  *   overflow trigger is named by `menuLabel` (defaulting to `` `${label} more` ``)
- *   and carries `accessibilityState.expanded`, the RN half of
+ *   and carries `aria-expanded`, the press half of
  *   `aria-haspopup` + `aria-expanded`. A split button built as one element is
  *   announced as one button, so the overflow action is unreachable by name.
  * - **Geometry that reads as one control** — the primary carries the full
@@ -147,12 +148,13 @@ export function SplitButton({
       <View
         testID={testID ?? "kern-split-button"}
         style={[staticStyles.row, styles.row, style]}
-        accessibilityState={{ disabled: disabled || undefined }}
+        aria-disabled={disabled || undefined}
       >
         <Pressable
+          role="button"
           accessibilityRole="button"
+          aria-disabled={disabled || undefined}
           accessibilityLabel={label}
-          accessibilityState={{ disabled: disabled || undefined }}
           disabled={disabled}
           hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
           onPress={() => {
@@ -160,22 +162,31 @@ export function SplitButton({
             // menu. That separation is the component's whole reason to exist.
             onPress?.();
           }}
-          style={({ pressed }) => [
+          style={[
             staticStyles.primary,
             styles.primary,
-            { opacity: disabled ? 0.38 : pressed ? 0.9 : 1 },
+            { opacity: disabled ? DISABLED_CONTENT_OPACITY : 1 },
           ]}
         >
-          <View
-            accessible={false}
-            importantForAccessibility="no"
-            style={{ flexDirection: "row", alignItems: "center" }}
-          >
-            {icon}
-          </View>
-          <Text variant="label" style={{ color: scheme.color.onPrimary }}>
-            {label}
-          </Text>
+          {({ pressed: isPressed }) => (
+            <>
+              <View
+                accessible={false}
+                importantForAccessibility="no"
+                style={{ flexDirection: "row", alignItems: "center" }}
+              >
+                {icon}
+              </View>
+              <Text variant="label" style={{ color: scheme.color.onPrimary }}>
+                {label}
+              </Text>
+              <StateLayer
+                ink={scheme.color.onPrimary}
+                radius={Number.parseFloat(scheme.shape.full)}
+                visible={isPressed && !disabled}
+              />
+            </>
+          )}
         </Pressable>
 
         {hasOverflow ? (
@@ -187,35 +198,43 @@ export function SplitButton({
             />
             <Pressable
               testID="kern-split-button-overflow"
+              role="button"
               accessibilityRole="button"
+              aria-disabled={disabled || undefined}
+              aria-expanded={open}
               accessibilityLabel={overflowName}
-              accessibilityState={{
-                expanded: open,
-                disabled: disabled || undefined,
-              }}
               disabled={disabled}
               hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
               onPress={() => setOpen(!open)}
-              style={({ pressed }) => [
+              style={[
                 staticStyles.overflow,
                 styles.overflow,
-                { opacity: disabled ? 0.38 : pressed || open ? 0.9 : 1 },
+                { opacity: disabled ? DISABLED_CONTENT_OPACITY : 1 },
               ]}
             >
-              {/* The chevron is decoration: the half's accessible name comes
-                  from `overflowName`, so announcing it too would double it. */}
-              <View
-                accessible={false}
-                importantForAccessibility="no"
-                style={{
-                  width: 10,
-                  height: 10,
-                  borderRightWidth: 2,
-                  borderBottomWidth: 2,
-                  borderColor: scheme.color.onPrimary,
-                  transform: [{ rotate: "45deg" }],
-                }}
-              />
+              {({ pressed: isPressed }) => (
+                <>
+                  {/* The chevron is decoration: the half's accessible name comes
+                      from `overflowName`, so announcing it too would double it. */}
+                  <View
+                    accessible={false}
+                    importantForAccessibility="no"
+                    style={{
+                      width: 10,
+                      height: 10,
+                      borderRightWidth: 2,
+                      borderBottomWidth: 2,
+                      borderColor: scheme.color.onPrimary,
+                      transform: [{ rotate: "45deg" }],
+                    }}
+                  />
+                  <StateLayer
+                    ink={scheme.color.onPrimary}
+                    radius={Number.parseFloat(scheme.shape.full)}
+                    visible={(isPressed || open) && !disabled}
+                  />
+                </>
+              )}
             </Pressable>
           </>
         ) : null}
@@ -243,9 +262,10 @@ export function SplitButton({
                     />
                   ) : null}
                   <Pressable
+                    role="menuitem"
                     accessibilityRole="menuitem"
+                    aria-disabled={action.disabled || undefined}
                     accessibilityLabel={action.label}
-                    accessibilityState={{ disabled: action.disabled }}
                     disabled={action.disabled}
                     hitSlop={{ top: 4, bottom: 4, left: 4, right: 4 }}
                     onPress={() => {
@@ -254,20 +274,29 @@ export function SplitButton({
                       // cannot forget to.
                       setOpen(false);
                     }}
-                    style={({ pressed }) => [
+                    style={[
                       staticStyles.item,
                       {
                         borderRadius: Number.parseFloat(
                           scheme.shape["extra-small"],
                         ),
-                        backgroundColor: pressed
-                          ? scheme.color.surfaceContainerHighest
-                          : "transparent",
-                        opacity: action.disabled ? 0.38 : 1,
+                        backgroundColor: "transparent",
+                        opacity: action.disabled ? DISABLED_CONTENT_OPACITY : 1,
                       },
                     ]}
                   >
-                    <Text variant="label">{action.label}</Text>
+                    {({ pressed: isPressed }) => (
+                      <>
+                        <Text variant="label">{action.label}</Text>
+                        <StateLayer
+                          ink={scheme.color.onSurface}
+                          radius={Number.parseFloat(
+                            scheme.shape["extra-small"],
+                          )}
+                          visible={isPressed && !action.disabled}
+                        />
+                      </>
+                    )}
                   </Pressable>
                 </View>
               ))}

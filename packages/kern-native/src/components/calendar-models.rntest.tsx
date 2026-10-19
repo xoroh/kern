@@ -56,7 +56,12 @@ describe("calendar model adoption", () => {
       />,
     );
     const early = screen.getByLabelText(new Date(2026, 7, 1).toDateString());
-    expect(early.props.accessibilityState.disabled).toBe(true);
+    expect(
+      screen.queryByRole("button", {
+        name: new Date(2026, 7, 1).toDateString(),
+        disabled: true,
+      }),
+    ).toBeTruthy();
     await act(async () => {
       fireEvent.press(early);
     });

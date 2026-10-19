@@ -61,7 +61,7 @@ export function chipStyles(
 
 type CommonChipProps = Omit<
   PressableProps,
-  "children" | "style" | "onPress" | "accessibilityState" | "accessibilityRole"
+  "children" | "style" | "onPress" | "accessibilityRole"
 > & {
   children: ReactNode;
   onPress?: PressableProps["onPress"];

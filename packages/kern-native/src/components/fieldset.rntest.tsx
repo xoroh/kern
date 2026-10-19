@@ -22,7 +22,7 @@ function Probe({ label }: { label: string }) {
     <Pressable
       accessibilityRole="button"
       accessibilityLabel={label}
-      accessibilityState={{ disabled: inherited }}
+      aria-disabled={inherited}
     >
       <RNText>{label}</RNText>
     </Pressable>
@@ -74,11 +74,9 @@ describe("Fieldset", () => {
         <FieldsetLegend>Billing</FieldsetLegend>
       </Fieldset>,
     );
-    expect(
-      screen.getByTestId("kern-fieldset").props.accessibilityState,
-    ).toEqual({
-      disabled: true,
-    });
+    // The group is a plain View, not an accessibility element, so no role
+    // query can see it — assert the normalized disabled state instead.
+    expect(screen.getByTestId("kern-fieldset")).toBeDisabled();
   });
 
   /**
@@ -93,9 +91,9 @@ describe("Fieldset", () => {
         <Probe label="Name" />
       </Fieldset>,
     );
-    expect(screen.getByLabelText("Name").props.accessibilityState).toEqual({
-      disabled: true,
-    });
+    expect(
+      screen.queryByRole("button", { name: "Name", disabled: true }),
+    ).toBeTruthy();
   });
 
   it("leaves descendants enabled when the fieldset is not disabled", async () => {
@@ -105,9 +103,9 @@ describe("Fieldset", () => {
         <Probe label="Name" />
       </Fieldset>,
     );
-    expect(screen.getByLabelText("Name").props.accessibilityState).toEqual({
-      disabled: false,
-    });
+    expect(
+      screen.queryByRole("button", { name: "Name", disabled: true }),
+    ).toBeNull();
   });
 
   /** Nesting is how forms compose: an outer group must win over an inner one. */
@@ -121,9 +119,9 @@ describe("Fieldset", () => {
         </Fieldset>
       </Fieldset>,
     );
-    expect(screen.getByLabelText("Name").props.accessibilityState).toEqual({
-      disabled: true,
-    });
+    expect(
+      screen.queryByRole("button", { name: "Name", disabled: true }),
+    ).toBeTruthy();
   });
 
   /**
@@ -133,10 +131,8 @@ describe("Fieldset", () => {
   it("reports not-disabled for a control used outside any fieldset", async () => {
     await render(<Probe label="Standalone" />);
     expect(
-      screen.getByLabelText("Standalone").props.accessibilityState,
-    ).toEqual({
-      disabled: false,
-    });
+      screen.queryByRole("button", { name: "Standalone", disabled: true }),
+    ).toBeNull();
   });
 
   it("reflects the inherited state on an item", async () => {
@@ -148,9 +144,9 @@ describe("Fieldset", () => {
         </FieldsetItem>
       </Fieldset>,
     );
-    expect(
-      screen.getByTestId("kern-fieldset-item").props.accessibilityState,
-    ).toEqual({ disabled: true });
+    // The item carries no role of its own, so the inherited state is read
+    // through the disabled matcher rather than a role query.
+    expect(screen.getByTestId("kern-fieldset-item")).toBeDisabled();
   });
 
   it("renders the legend text", async () => {

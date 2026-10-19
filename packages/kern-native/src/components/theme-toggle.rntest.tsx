@@ -37,7 +37,13 @@ describe("ThemeToggle", () => {
       />,
     );
     const node = screen.getByTestId("toggle");
-    expect(node.props.accessibilityState?.disabled).toBe(true);
+    expect(node.props.testID).toBe("toggle");
+    expect(
+      screen.queryByRole("button", {
+        name: "Switch to light",
+        disabled: true,
+      }),
+    ).toBeTruthy();
     await fireEvent.press(screen.getByLabelText("Switch to light"));
     expect(calls).toBe(0);
   });

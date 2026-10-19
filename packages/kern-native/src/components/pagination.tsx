@@ -22,7 +22,7 @@ import { DISABLED_CONTENT_OPACITY } from "./state-layer";
  *   for "where am I".
  * - **The current page is announced as current.** Web marks it with
  *   `aria-current="page"`; React Native has no `aria-current`, so the nearest
- *   axis is `accessibilityState.selected` on the page button. That is a genuine
+ *   axis is `aria-selected` on the page button. That is a genuine
  *   platform limitation and is recorded as one rather than papered over — a
  *   screen reader on native gets "selected" where the web gets "current page".
  * - **Prev/next clamp at the ends** and are disabled there rather than wrapping.
@@ -240,7 +240,8 @@ function PageButton({
       accessibilityLabel={label}
       // RN has no `aria-current`, so "selected" is the axis that carries "this
       // is the page you are on". A deliberate platform substitution, recorded.
-      accessibilityState={{ selected: current, disabled: disabledNow }}
+      aria-selected={current}
+      aria-disabled={disabledNow}
       disabled={disabledNow}
       onPress={disabledNow ? undefined : onPress}
       // 40dp visual box widened to the 48dp minimum target.

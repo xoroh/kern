@@ -7,6 +7,7 @@ import {
   type ViewStyle,
 } from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
+import { DISABLED_CONTENT_OPACITY } from "./state-layer";
 import { Text } from "./text";
 
 export type NativeToolbarAction = {
@@ -99,7 +100,7 @@ export function Toolbar({
           key={action.label}
           accessibilityRole="button"
           accessibilityLabel={action.label}
-          accessibilityState={{ disabled: action.disabled }}
+          aria-disabled={action.disabled}
           disabled={action.disabled}
           hitSlop={{ top: 4, bottom: 4, left: 4, right: 4 }}
           onPress={action.onPress}
@@ -109,7 +110,7 @@ export function Toolbar({
             alignItems: "center",
             justifyContent: "center",
             borderRadius: Number.parseFloat(scheme.shape.full),
-            opacity: action.disabled ? 0.38 : 1,
+            opacity: action.disabled ? DISABLED_CONTENT_OPACITY : 1,
           }}
         >
           <Text variant="label">{action.label}</Text>

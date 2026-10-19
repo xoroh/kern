@@ -39,7 +39,7 @@ import { defaultScheme, useKernScheme } from "../theme";
  * **There are no arrow keys on a touch device**, so the roving model's traversal
  * is driven by pressing an item or the Next/Previous controls. The MODEL is
  * shared; only the input mechanism is per-platform. The model's `isTabbable` maps
- * onto `accessibilityState.selected` here, where web would map it onto `tabIndex`.
+ * onto `aria-selected` here, where web would map it onto `tabIndex`.
  *
  * ## Scrolling
  *
@@ -153,7 +153,7 @@ export function Carousel({
       // roledescription is unavailable.
       role="group"
       accessibilityLabel={accessibilityLabel}
-      accessibilityState={{ disabled }}
+      aria-disabled={disabled}
       style={style}
     >
       <ScrollView
@@ -190,10 +190,8 @@ export function Carousel({
               // reports "1 of 5" rather than five unranked objects.
               accessibilityRole="image"
               accessibilityLabel={label}
-              accessibilityState={{
-                selected: described.isTabbable,
-                disabled: isDisabled,
-              }}
+              aria-selected={described.isTabbable}
+              aria-disabled={isDisabled || undefined}
               disabled={isDisabled}
               onPress={() => go(i)}
               style={[
@@ -225,10 +223,8 @@ export function Carousel({
               testID={`kern-carousel-dot-${item.value}`}
               accessibilityRole="button"
               accessibilityLabel={`${item.accessibilityLabel ?? item.value}, ${i + 1} of ${count}`}
-              accessibilityState={{
-                selected: described.isActive,
-                disabled: disabled || Boolean(item.disabled),
-              }}
+              aria-selected={described.isActive}
+              aria-disabled={disabled || Boolean(item.disabled) || undefined}
               disabled={disabled || Boolean(item.disabled)}
               onPress={() => go(i)}
               style={[styles.control]}

@@ -200,7 +200,7 @@ export function InputOTP({
             // Every position names itself, INCLUDING the first — the web side
             // cannot do this (see the file header).
             accessibilityLabel={`Digit ${index + 1} of ${length}`}
-            accessibilityState={{ disabled }}
+            aria-disabled={disabled}
             editable={!disabled}
             keyboardType={keyboardType}
             maxLength={length}

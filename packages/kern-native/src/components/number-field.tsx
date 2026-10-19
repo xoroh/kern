@@ -146,7 +146,7 @@ export function NumberField({
         <Pressable
           accessibilityRole="button"
           accessibilityLabel={label}
-          accessibilityState={{ disabled: terminal || undefined }}
+          aria-disabled={terminal}
           disabled={terminal}
           hitSlop={{ top: 4, bottom: 4, left: 4, right: 4 }}
           onPress={slot.onPress}
@@ -214,7 +214,7 @@ export function NumberField({
                     min,
                     max,
                   }}
-                  accessibilityState={{ disabled }}
+                  aria-disabled={disabled}
                   editable={slot.editable}
                   keyboardType="numeric"
                   testID={slot.testID}

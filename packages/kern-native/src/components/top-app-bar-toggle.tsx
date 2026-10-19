@@ -1,5 +1,6 @@
 import { Pressable, type StyleProp, type ViewStyle } from "react-native";
 import { useKernTheme } from "../theme";
+import { DISABLED_CONTENT_OPACITY } from "./state-layer";
 import { Text } from "./text";
 
 export type NativeTopAppBarToggleProps = {
@@ -16,7 +17,7 @@ export type NativeTopAppBarToggleProps = {
  *
  * Mirrors web `TopAppBarToggle` in `packages/kern/src/start/top-app-bar.tsx`:
  * the accessible name says what the press DOES ("Open navigation" while
- * closed), and `accessibilityState.expanded` carries the open state so a
+ * closed), and `aria-expanded` carries the open state so a
  * screen reader announces it without relying on the name alone. A 48dp
  * touch target; the glyph is decorative.
  */
@@ -34,7 +35,8 @@ export function TopAppBarToggle({
       accessible
       accessibilityRole="button"
       accessibilityLabel={open ? "Close navigation" : "Open navigation"}
-      accessibilityState={{ expanded: open, disabled: disabled ?? false }}
+      aria-expanded={open}
+      aria-disabled={disabled}
       disabled={disabled}
       onPress={onToggle}
       style={[
@@ -45,7 +47,7 @@ export function TopAppBarToggle({
           justifyContent: "center",
           borderRadius: 24,
           backgroundColor: "transparent",
-          opacity: disabled ? 0.38 : 1,
+          opacity: disabled ? DISABLED_CONTENT_OPACITY : 1,
         },
         style,
       ]}

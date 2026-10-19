@@ -42,7 +42,7 @@ export function switchStyles(
 
 export type NativeSwitchProps = Omit<
   PressableProps,
-  "children" | "style" | "onPress" | "accessibilityState"
+  "children" | "style" | "onPress"
 > & {
   /**
    * Controlled checked state. Base UI name — there is no `value` prop here

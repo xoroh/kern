@@ -4,12 +4,20 @@ import { TopAppBarToggle } from "./top-app-bar-toggle";
 describe("TopAppBarToggle", () => {
   it("names the action and reports expanded state", async () => {
     await render(<TopAppBarToggle open={false} onToggle={() => {}} />);
-    const closed = screen.getByLabelText("Open navigation");
-    expect(closed.props.accessibilityState?.expanded).toBe(false);
+    expect(
+      screen.queryByRole("button", {
+        name: "Open navigation",
+        expanded: false,
+      }),
+    ).toBeTruthy();
     await screen.unmount();
     await render(<TopAppBarToggle open onToggle={() => {}} />);
-    const open = screen.getByLabelText("Close navigation");
-    expect(open.props.accessibilityState?.expanded).toBe(true);
+    expect(
+      screen.queryByRole("button", {
+        name: "Close navigation",
+        expanded: true,
+      }),
+    ).toBeTruthy();
   });
 
   it("calls onToggle on press", async () => {
@@ -39,8 +47,11 @@ describe("TopAppBarToggle", () => {
       />,
     );
     expect(
-      screen.getByTestId("toggle").props.accessibilityState?.disabled,
-    ).toBe(true);
+      screen.queryByRole("button", {
+        name: "Open navigation",
+        disabled: true,
+      }),
+    ).toBeTruthy();
     await fireEvent.press(screen.getByLabelText("Open navigation"));
     expect(calls).toBe(0);
   });

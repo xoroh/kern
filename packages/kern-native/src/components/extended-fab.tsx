@@ -9,6 +9,7 @@ import {
 import { Pressable, type PressableProps, View } from "react-native";
 import { useKernScheme } from "../theme";
 import { fabColorRoles, fabStyles } from "./fab";
+import { DISABLED_CONTENT_OPACITY, StateLayer } from "./state-layer";
 import { Text } from "./text";
 
 /**
@@ -90,7 +91,6 @@ export const ExtendedFab = forwardRef<
     disabled = false,
     onPress,
     hitSlop,
-    accessibilityState,
     testID,
     ...props
   },
@@ -153,18 +153,16 @@ export const ExtendedFab = forwardRef<
     <Pressable
       {...props}
       testID={testID ?? "kern-extended-fab"}
+      role="button"
       accessibilityRole="button"
+      aria-disabled={disabled || undefined}
       // Always on the element: collapsed, the visible label is gone and this is
       // the only thing left to announce.
       accessibilityLabel={label}
-      accessibilityState={{
-        ...accessibilityState,
-        disabled: disabled || undefined,
-      }}
       disabled={disabled}
       hitSlop={hitSlop ?? { top: 8, bottom: 8, left: 8, right: 8 }}
       onPress={onPress}
-      style={({ pressed }) => [
+      style={[
         base,
         // Collapsed is the icon FAB: square of the size height, no gap,
         // centred. Expanded adds the label's own padding — the same button
@@ -172,20 +170,29 @@ export const ExtendedFab = forwardRef<
         collapsedNow
           ? { paddingHorizontal: 0, gap: 0, minWidth: box, width: box }
           : { paddingHorizontal: 20, gap: 12 },
-        { opacity: disabled ? 0.38 : pressed ? 0.9 : 1 },
+        { opacity: disabled ? DISABLED_CONTENT_OPACITY : 1 },
       ]}
     >
-      <View
-        accessible={false}
-        importantForAccessibility="no"
-        style={{ alignItems: "center", justifyContent: "center" }}
-      >
-        {icon}
-      </View>
-      {collapsedNow ? null : (
-        <Text variant="label" style={{ color: roles.ink }}>
-          {label}
-        </Text>
+      {({ pressed: isPressed }) => (
+        <>
+          <View
+            accessible={false}
+            importantForAccessibility="no"
+            style={{ alignItems: "center", justifyContent: "center" }}
+          >
+            {icon}
+          </View>
+          {collapsedNow ? null : (
+            <Text variant="label" style={{ color: roles.ink }}>
+              {label}
+            </Text>
+          )}
+          <StateLayer
+            ink={roles.ink}
+            radius={Number.parseFloat(scheme.shape.full)}
+            visible={isPressed && !disabled}
+          />
+        </>
       )}
     </Pressable>
   );

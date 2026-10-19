@@ -51,7 +51,9 @@ describe("number-field compound adoption", () => {
       />,
     );
     const dec = screen.getByLabelText("Decrease");
-    expect(dec.props.accessibilityState.disabled).toBe(true);
+    expect(
+      screen.queryByRole("button", { name: "Decrease", disabled: true }),
+    ).toBeTruthy();
     await act(async () => {
       fireEvent.press(dec);
     });
@@ -68,11 +70,11 @@ describe("number-field compound adoption", () => {
       />,
     );
     expect(
-      screen.getByLabelText("Increase").props.accessibilityState.disabled,
-    ).toBe(true);
+      screen.queryByRole("button", { name: "Increase", disabled: true }),
+    ).toBeTruthy();
     expect(
-      screen.getByLabelText("Decrease").props.accessibilityState.disabled,
-    ).toBe(true);
+      screen.queryByRole("button", { name: "Decrease", disabled: true }),
+    ).toBeTruthy();
   });
 
   it("readOnly is terminal like disabled (Axis #87)", async () => {
@@ -85,8 +87,8 @@ describe("number-field compound adoption", () => {
       />,
     );
     expect(
-      screen.getByLabelText("Increase").props.accessibilityState.disabled,
-    ).toBe(true);
+      screen.queryByRole("button", { name: "Increase", disabled: true }),
+    ).toBeTruthy();
     await act(async () => {
       fireEvent.press(screen.getByLabelText("Increase"));
     });

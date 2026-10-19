@@ -125,8 +125,11 @@ describe("native parity contract: theme-toggle-action", () => {
     assertParity(
       r,
       R,
-      String(toggle.props.accessibilityState?.selected ?? "absent"),
-      "absent",
+      screen.queryByRole("button", {
+        name: "Switch to light",
+        selected: true,
+      }),
+      null,
       "no pressed axis latches behind",
     );
   });
@@ -156,8 +159,11 @@ describe("native parity contract: contrast-toggle-action", () => {
     assertParity(
       r,
       R,
-      String(toggle.props.accessibilityState?.selected ?? "absent"),
-      "absent",
+      screen.queryByRole("button", {
+        name: "Use high contrast",
+        selected: true,
+      }),
+      null,
       "no pressed axis latches behind",
     );
   });
@@ -192,8 +198,13 @@ describe("native parity contract: top-app-bar-toggle-expanded", () => {
     assertParity(
       r,
       R,
-      String(toggle.props.accessibilityState?.expanded ?? ""),
-      "true",
+      Boolean(
+        screen.queryByRole("button", {
+          name: "Close navigation",
+          expanded: true,
+        }),
+      ),
+      true,
       "the open state is reported to assistive technology",
     );
   });

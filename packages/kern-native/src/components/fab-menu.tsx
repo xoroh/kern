@@ -4,7 +4,7 @@ import { useKernScheme } from "../theme";
 import { scrimStyle } from "../utils/overlay-styles";
 import { fabStyles } from "./fab";
 import { menuStyles } from "./menu";
-import { DISABLED_CONTENT_OPACITY } from "./state-layer";
+import { DISABLED_CONTENT_OPACITY, StateLayer } from "./state-layer";
 import { Text } from "./text";
 
 const staticStyles = StyleSheet.create({
@@ -106,19 +106,24 @@ export function FabMenu({
     <View>
       <Pressable
         testID={testID ?? "kern-fab-menu"}
+        role="button"
         accessibilityRole="button"
+        aria-expanded={isOpen}
         accessibilityLabel={name}
-        // `expanded` is the ARIA half of `aria-haspopup` + `aria-expanded`: on
-        // RN it is the only way the trigger reports that it owns a popup.
-        accessibilityState={{ expanded: isOpen }}
         hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
         onPress={() => setOpen(!isOpen)}
-        style={({ pressed }) => [
-          fabStyles("default", scheme),
-          { opacity: pressed ? 0.9 : 1 },
-        ]}
+        style={[fabStyles("default", scheme), { overflow: "hidden" as const }]}
       >
-        {isOpen ? (openIcon ?? icon) : icon}
+        {({ pressed: isPressed }) => (
+          <>
+            {isOpen ? (openIcon ?? icon) : icon}
+            <StateLayer
+              ink={scheme.color.onPrimaryContainer}
+              radius={Number.parseFloat(scheme.shape.large)}
+              visible={isPressed}
+            />
+          </>
+        )}
       </Pressable>
       <Modal
         // An empty action list renders NO surface at all: a trigger that opens
@@ -147,30 +152,38 @@ export function FabMenu({
                   />
                 ) : null}
                 <Pressable
+                  role="menuitem"
                   accessibilityRole="menuitem"
+                  aria-disabled={action.disabled || undefined}
                   accessibilityLabel={action.label}
-                  accessibilityState={{ disabled: action.disabled }}
                   disabled={action.disabled}
                   hitSlop={{ top: 4, bottom: 4, left: 4, right: 4 }}
                   onPress={() => {
                     action.onSelect?.();
                     setOpen(false);
                   }}
-                  style={({ pressed }) => [
+                  style={[
                     staticStyles.item,
                     {
                       borderRadius: Number.parseFloat(
                         scheme.shape["extra-small"],
                       ),
-                      backgroundColor: pressed
-                        ? scheme.color.surfaceContainerHighest
-                        : "transparent",
+                      backgroundColor: "transparent",
                       opacity: action.disabled ? DISABLED_CONTENT_OPACITY : 1,
                     },
                   ]}
                 >
-                  {action.icon}
-                  <Text variant="label">{action.label}</Text>
+                  {({ pressed: isPressed }) => (
+                    <>
+                      {action.icon}
+                      <Text variant="label">{action.label}</Text>
+                      <StateLayer
+                        ink={scheme.color.onSurface}
+                        radius={Number.parseFloat(scheme.shape["extra-small"])}
+                        visible={isPressed && !action.disabled}
+                      />
+                    </>
+                  )}
                 </Pressable>
               </View>
             ))}

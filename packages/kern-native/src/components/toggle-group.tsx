@@ -8,6 +8,7 @@ import {
   type ViewStyle,
 } from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
+import { DISABLED_CONTENT_OPACITY } from "./state-layer";
 import { Text } from "./text";
 
 export type NativeToggleGroupOption = {
@@ -82,7 +83,8 @@ export function ToggleGroup({
             key={option.value}
             accessibilityRole="radio"
             accessibilityLabel={option.label}
-            accessibilityState={{ selected: active, disabled: option.disabled }}
+            aria-selected={active}
+            aria-disabled={option.disabled}
             disabled={option.disabled}
             hitSlop={{ top: 4, bottom: 4, left: 4, right: 4 }}
             onPress={() => toggle(option.value)}
@@ -94,7 +96,7 @@ export function ToggleGroup({
               paddingHorizontal: 12,
               borderRadius: Number.parseFloat(scheme.shape.full),
               backgroundColor: active ? scheme.color.primary : "transparent",
-              opacity: option.disabled ? 0.38 : 1,
+              opacity: option.disabled ? DISABLED_CONTENT_OPACITY : 1,
             }}
           >
             <Text

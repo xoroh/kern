@@ -10,6 +10,7 @@ import {
   type ViewStyle,
 } from "react-native";
 import { defaultScheme, useKernTheme } from "../theme";
+import { StateLayer } from "./state-layer";
 
 /**
  * M3 navigation bar. Destinations carry an icon slot + label; the active one
@@ -103,38 +104,48 @@ export function NavigationBar({
           return (
             <Pressable
               key={destination.key}
+              role="tab"
               accessibilityRole="tab"
-              accessibilityState={{
-                selected,
-                disabled: Boolean(destination.disabled),
-              }}
+              aria-selected={selected}
+              aria-disabled={destination.disabled || undefined}
               accessibilityLabel={destination.label}
               disabled={destination.disabled}
               onPress={() => onValueChange(destination.key)}
-              style={({ pressed }) => [
-                styles.destination,
-                pressed && !destination.disabled
-                  ? { opacity: 0.82 }
-                  : undefined,
-              ]}
+              style={[styles.destination, { overflow: "hidden" as const }]}
             >
-              <View
-                style={[
-                  styles.indicator,
-                  selected
-                    ? { backgroundColor: scheme.color.secondaryContainer }
-                    : null,
-                ]}
-              >
-                {destination.icon}
-                {destination.badge}
-              </View>
-              <Text
-                numberOfLines={1}
-                style={selected ? styles.activeLabel : styles.label}
-              >
-                {destination.label}
-              </Text>
+              {({ pressed: isPressed }) => (
+                <>
+                  <View
+                    style={[
+                      styles.indicator,
+                      { overflow: "hidden" as const },
+                      selected
+                        ? {
+                            backgroundColor: scheme.color.secondaryContainer,
+                          }
+                        : null,
+                    ]}
+                  >
+                    {destination.icon}
+                    {destination.badge}
+                    <StateLayer
+                      ink={
+                        selected
+                          ? scheme.color.onSecondaryContainer
+                          : scheme.color.onSurface
+                      }
+                      radius={Number.parseFloat(scheme.shape.full)}
+                      visible={isPressed && !destination.disabled}
+                    />
+                  </View>
+                  <Text
+                    numberOfLines={1}
+                    style={selected ? styles.activeLabel : styles.label}
+                  >
+                    {destination.label}
+                  </Text>
+                </>
+              )}
             </Pressable>
           );
         })}
@@ -146,7 +157,7 @@ export function NavigationBar({
 
 export type NavigationBarItemProps = Omit<
   PressableProps,
-  "children" | "style" | "onPress" | "accessibilityRole" | "accessibilityState"
+  "children" | "style" | "onPress" | "accessibilityRole"
 > & {
   label: string;
   selected?: boolean;
@@ -178,8 +189,9 @@ export function NavigationBarItem({
     <Pressable
       {...props}
       testID={testID ?? "kern-navigation-bar-item"}
+      role="button"
       accessibilityRole="button"
-      accessibilityState={{ selected }}
+      aria-selected={selected || undefined}
       accessibilityLabel={accessibilityLabel ?? label}
       onPress={onPress}
       style={({ pressed }) => [
@@ -193,23 +205,36 @@ export function NavigationBarItem({
           backgroundColor: selected
             ? scheme.color.secondaryContainer
             : "transparent",
+          overflow: "hidden" as const,
         },
-        pressed ? { opacity: 0.82 } : undefined,
         typeof style === "function" ? style({ pressed }) : style,
       ]}
     >
-      {icon}
-      <Text
-        numberOfLines={1}
-        style={[
-          styles.label,
-          { flex: 1 },
-          selected ? styles.activeLabel : null,
-        ]}
-      >
-        {label}
-      </Text>
-      {badge}
+      {({ pressed: isPressed }) => (
+        <>
+          {icon}
+          <Text
+            numberOfLines={1}
+            style={[
+              styles.label,
+              { flex: 1 },
+              selected ? styles.activeLabel : null,
+            ]}
+          >
+            {label}
+          </Text>
+          {badge}
+          <StateLayer
+            ink={
+              selected
+                ? scheme.color.onSecondaryContainer
+                : scheme.color.onSurface
+            }
+            radius={Number.parseFloat(scheme.shape.full)}
+            visible={isPressed}
+          />
+        </>
+      )}
     </Pressable>
   );
 }

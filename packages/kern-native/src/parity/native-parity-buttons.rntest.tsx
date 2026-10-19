@@ -34,7 +34,11 @@ async function mount(row: ParityRow) {
   switch (row.component) {
     case "switch":
       return await render(
-        <Switch testID={row.name} defaultChecked={row.expects.initial} />,
+        <Switch
+          testID={row.name}
+          accessibilityLabel={row.name}
+          defaultChecked={row.expects.initial}
+        />,
       );
     case "checkbox":
       return await render(<Checkbox testID={row.name} label={row.name} />);
@@ -45,16 +49,23 @@ async function mount(row: ParityRow) {
   }
 }
 
-/** Read the control's state on the axis the contract names, via accessibility
- *  semantics only — never a Base UI or DOM internal. */
+/** Read the control's state on the axis the contract names, through RNTL role
+ *  queries: the checked axis via `checked: true`, anything else via
+ *  `selected: true` (a button reports no persistent selected state, so that
+ *  query is null — which is exactly the old `false`). */
 function readAxis(row: ParityRow): boolean {
-  const state = screen.getByTestId(row.name).props.accessibilityState ?? {};
-  if (row.axis === "checked") return Boolean(state.checked);
-  return Boolean(state.selected);
+  if (row.axis === "checked")
+    return Boolean(
+      screen.queryByRole(row.role, { name: row.name, checked: true }),
+    );
+  return Boolean(
+    screen.queryByRole(row.role, { name: row.name, selected: true }),
+  );
 }
 
 function roleOf(row: ParityRow): string | undefined {
-  return screen.getByTestId(row.name).props.accessibilityRole;
+  const props = screen.getByTestId(row.name).props as Record<string, unknown>;
+  return (props.role ?? props.accessibilityRole) as string | undefined;
 }
 
 describe("native parity contract (tranche 1)", () => {
@@ -96,7 +107,9 @@ describe("native parity contract (tranche 1)", () => {
 
   it("switch: a disabled switch does not change state on press", async () => {
     const row = contractFor("switch");
-    await render(<Switch testID={row.name} disabled />);
+    await render(
+      <Switch testID={row.name} accessibilityLabel={row.name} disabled />,
+    );
     await act(async () => {
       fireEvent.press(screen.getByTestId(row.name));
     });

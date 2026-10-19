@@ -2,6 +2,7 @@ import { type ResolvedTheme, tokens } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
 import { Pressable, type StyleProp, View, type ViewStyle } from "react-native";
 import { defaultScheme, useKernTheme } from "../theme";
+import { DISABLED_CONTENT_OPACITY, StateLayer } from "./state-layer";
 import { Text } from "./text";
 
 /**
@@ -122,23 +123,35 @@ export function TopAppBarAction({
   disabled,
   testID,
 }: TopAppBarActionProps) {
+  const { scheme } = useKernTheme();
   return (
     <Pressable
       testID={testID ?? "kern-top-app-bar-action"}
+      role="button"
       accessibilityRole="button"
+      aria-disabled={disabled || undefined}
       accessibilityLabel={label}
-      accessibilityState={{ disabled: Boolean(disabled) }}
       disabled={disabled}
       onPress={onPress}
-      style={({ pressed }) => ({
+      style={{
         minWidth: 48,
         minHeight: 48,
         alignItems: "center",
         justifyContent: "center",
-        opacity: disabled ? 0.38 : pressed ? 0.82 : 1,
-      })}
+        overflow: "hidden" as const,
+        opacity: disabled ? DISABLED_CONTENT_OPACITY : 1,
+      }}
     >
-      {children}
+      {({ pressed: isPressed }) => (
+        <>
+          {children}
+          <StateLayer
+            ink={scheme.color.onSurface}
+            radius={24}
+            visible={isPressed && !disabled}
+          />
+        </>
+      )}
     </Pressable>
   );
 }

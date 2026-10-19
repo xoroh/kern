@@ -44,8 +44,8 @@ describe("native NavigationBar render", () => {
       <NavigationBarItem label="Home" selected icon={<Text>⌂</Text>} />,
     );
     expect(
-      screen.getByLabelText("Home").props.accessibilityState.selected,
-    ).toBe(true);
+      screen.queryByRole("button", { name: "Home", selected: true }),
+    ).toBeTruthy();
   });
 });
 

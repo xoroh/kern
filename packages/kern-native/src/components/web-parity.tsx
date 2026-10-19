@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
 import { SheetHandle } from "./sheets";
+import { DISABLED_CONTENT_OPACITY, StateLayer } from "./state-layer";
 import { Text } from "./text";
 
 /**
@@ -179,12 +180,13 @@ export function Command({
                 .map((action) => (
                   <Pressable
                     key={action.key}
+                    role="menuitem"
                     accessibilityRole="menuitem"
+                    aria-disabled={action.disabled || undefined}
                     accessibilityLabel={action.label}
-                    accessibilityState={{ disabled: Boolean(action.disabled) }}
                     disabled={action.disabled}
                     onPress={action.onPress}
-                    style={({ pressed }) => ({
+                    style={{
                       minHeight: 48,
                       flexDirection: "row",
                       alignItems: "center",
@@ -192,20 +194,29 @@ export function Command({
                       paddingHorizontal: Number.parseFloat(
                         tokens.spacing["space-200"],
                       ),
-                      opacity: action.disabled ? 0.38 : pressed ? 0.82 : 1,
-                    })}
+                      overflow: "hidden" as const,
+                      opacity: action.disabled ? DISABLED_CONTENT_OPACITY : 1,
+                    }}
                   >
-                    {action.icon}
-                    <RNText
-                      numberOfLines={1}
-                      style={{
-                        flex: 1,
-                        fontSize: 15,
-                        color: scheme.color.onSurface,
-                      }}
-                    >
-                      {action.label}
-                    </RNText>
+                    {({ pressed: isPressed }) => (
+                      <>
+                        {action.icon}
+                        <RNText
+                          numberOfLines={1}
+                          style={{
+                            flex: 1,
+                            fontSize: 15,
+                            color: scheme.color.onSurface,
+                          }}
+                        >
+                          {action.label}
+                        </RNText>
+                        <StateLayer
+                          ink={scheme.color.onSurface}
+                          visible={isPressed && !action.disabled}
+                        />
+                      </>
+                    )}
                   </Pressable>
                 ))}
             </View>
@@ -298,15 +309,15 @@ export function SegmentedButton({
         return (
           <Pressable
             key={option.value}
+            role={multiple ? "checkbox" : "radio"}
             accessibilityRole={multiple ? "checkbox" : "radio"}
-            accessibilityState={{
-              selected: active,
-              disabled: Boolean(option.disabled),
-            }}
+            aria-selected={active}
+            aria-checked={multiple ? active : undefined}
+            aria-disabled={option.disabled || undefined}
             accessibilityLabel={option.label}
             disabled={option.disabled}
             onPress={() => select(option.value)}
-            style={({ pressed }) => ({
+            style={{
               flex: 1,
               minHeight: 40,
               flexDirection: "row",
@@ -319,27 +330,40 @@ export function SegmentedButton({
               backgroundColor: active
                 ? scheme.color.secondaryContainer
                 : "transparent",
-              opacity: option.disabled ? 0.38 : pressed ? 0.82 : 1,
-            })}
+              overflow: "hidden" as const,
+              opacity: option.disabled ? DISABLED_CONTENT_OPACITY : 1,
+            }}
           >
-            {option.icon}
-            <RNText
-              numberOfLines={1}
-              style={{
-                fontSize: 13,
-                fontWeight: active ? "600" : "500",
-                color: active
-                  ? scheme.color.onSecondaryContainer
-                  : scheme.color.onSurface,
-              }}
-            >
-              {option.label}
-            </RNText>
-            {active ? (
-              <RNText style={{ color: scheme.color.onSecondaryContainer }}>
-                ✓
-              </RNText>
-            ) : null}
+            {({ pressed: isPressed }) => (
+              <>
+                {option.icon}
+                <RNText
+                  numberOfLines={1}
+                  style={{
+                    fontSize: 13,
+                    fontWeight: active ? "600" : "500",
+                    color: active
+                      ? scheme.color.onSecondaryContainer
+                      : scheme.color.onSurface,
+                  }}
+                >
+                  {option.label}
+                </RNText>
+                {active ? (
+                  <RNText style={{ color: scheme.color.onSecondaryContainer }}>
+                    ✓
+                  </RNText>
+                ) : null}
+                <StateLayer
+                  ink={
+                    active
+                      ? scheme.color.onSecondaryContainer
+                      : scheme.color.onSurface
+                  }
+                  visible={isPressed && !option.disabled}
+                />
+              </>
+            )}
           </Pressable>
         );
       })}
@@ -377,14 +401,16 @@ export function CountrySelect({
   return (
     <Pressable
       testID={testID ?? "kern-country-select"}
+      role="combobox"
       accessibilityRole="combobox"
+      aria-expanded={false}
       accessibilityLabel="Country"
       accessibilityValue={{ text: selected?.label ?? "Select country" }}
       onPress={() => {
         const next = options.find((option) => !option.disabled);
         if (next) onValueChange(next.code);
       }}
-      style={({ pressed }) => [
+      style={[
         {
           minHeight: 56,
           flexDirection: "row",
@@ -395,27 +421,40 @@ export function CountrySelect({
           borderColor: scheme.color.outline,
           borderRadius: Number.parseFloat(scheme.shape.small),
           backgroundColor: scheme.color.surface,
-          opacity: pressed ? 0.82 : 1,
+          overflow: "hidden" as const,
         },
         style,
       ]}
     >
-      <View style={{ flex: 1 }}>
-        <RNText style={{ fontSize: 11, color: scheme.color.onSurfaceVariant }}>
-          {selected?.code ?? "—"}
-        </RNText>
-        <RNText
-          numberOfLines={1}
-          style={{ fontSize: 15, color: scheme.color.onSurface }}
-        >
-          {selected?.label ?? "Select country"}
-        </RNText>
-      </View>
-      {selected?.dial ? (
-        <RNText style={{ fontSize: 13, color: scheme.color.onSurfaceVariant }}>
-          {selected.dial}
-        </RNText>
-      ) : null}
+      {({ pressed: isPressed }) => (
+        <>
+          <View style={{ flex: 1 }}>
+            <RNText
+              style={{ fontSize: 11, color: scheme.color.onSurfaceVariant }}
+            >
+              {selected?.code ?? "—"}
+            </RNText>
+            <RNText
+              numberOfLines={1}
+              style={{ fontSize: 15, color: scheme.color.onSurface }}
+            >
+              {selected?.label ?? "Select country"}
+            </RNText>
+          </View>
+          {selected?.dial ? (
+            <RNText
+              style={{ fontSize: 13, color: scheme.color.onSurfaceVariant }}
+            >
+              {selected.dial}
+            </RNText>
+          ) : null}
+          <StateLayer
+            ink={scheme.color.onSurface}
+            radius={Number.parseFloat(scheme.shape.small)}
+            visible={isPressed}
+          />
+        </>
+      )}
     </Pressable>
   );
 }

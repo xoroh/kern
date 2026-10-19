@@ -35,7 +35,7 @@ import { Text } from "./text";
  *
  * ## Accessibility
  *
- * Each item is `accessibilityRole="checkbox"` with `accessibilityState.checked`
+ * Each item is `accessibilityRole="checkbox"` with `aria-checked`
  * — NOT `selected`. RadioGroup uses `selected` because that is the ARIA
  * `radio` mapping RN exposes; a checkbox reports `checked`, and using `selected`
  * here would be the same class of bug the drawer row documents (a prop value
@@ -142,7 +142,7 @@ export function CheckboxGroup({
 
 export type CheckboxGroupItemProps = Omit<
   PressableProps,
-  "children" | "style" | "onPress" | "accessibilityState" | "accessibilityRole"
+  "children" | "style" | "onPress" | "accessibilityRole"
 > & {
   value: string;
   children?: ReactNode;

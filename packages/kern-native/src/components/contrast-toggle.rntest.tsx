@@ -43,8 +43,11 @@ describe("ContrastToggle", () => {
       />,
     );
     expect(
-      screen.getByTestId("toggle").props.accessibilityState?.disabled,
-    ).toBe(true);
+      screen.queryByRole("button", {
+        name: "Use high contrast",
+        disabled: true,
+      }),
+    ).toBeTruthy();
     await fireEvent.press(screen.getByLabelText("Use high contrast"));
     expect(calls).toBe(0);
   });

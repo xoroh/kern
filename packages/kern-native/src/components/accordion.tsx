@@ -91,7 +91,7 @@ export function Accordion({
             <Pressable
               accessibilityRole="button"
               accessibilityLabel={label}
-              accessibilityState={{ expanded: isOpen }}
+              aria-expanded={isOpen}
               hitSlop={{ top: 4, bottom: 4, left: 4, right: 4 }}
               onPress={() => toggle(index)}
               style={styles.header}

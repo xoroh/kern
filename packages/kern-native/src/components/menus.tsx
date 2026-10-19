@@ -12,6 +12,7 @@ import { defaultScheme, useKernScheme } from "../theme";
 import { NavigationBarItem } from "./navigation-bar";
 import { SheetSurface } from "./sheet-surface";
 import { SheetHandle } from "./sheets";
+import { DISABLED_CONTENT_OPACITY, StateLayer } from "./state-layer";
 import { Text } from "./text";
 
 /**
@@ -92,41 +93,51 @@ export function MenuGroupList({
           {group.actions.map((action) => (
             <Pressable
               key={action.key}
+              role="menuitem"
               accessibilityRole="menuitem"
+              aria-disabled={action.disabled || undefined}
               accessibilityLabel={action.label}
-              accessibilityState={{ disabled: Boolean(action.disabled) }}
               disabled={action.disabled}
               onPress={action.onPress}
-              style={({ pressed }) => [
+              style={[
                 styles.action,
+                { overflow: "hidden" as const },
                 {
-                  opacity: action.disabled ? 0.38 : pressed ? 0.82 : 1,
+                  opacity: action.disabled ? DISABLED_CONTENT_OPACITY : 1,
                 },
               ]}
             >
-              {action.icon}
-              <View style={{ flex: 1 }}>
-                <RNText
-                  style={{
-                    fontSize: 15,
-                    color: action.destructive
-                      ? scheme.color.error
-                      : scheme.color.onSurface,
-                  }}
-                >
-                  {action.label}
-                </RNText>
-                {action.supporting ? (
-                  <RNText
-                    style={{
-                      fontSize: 12,
-                      color: scheme.color.onSurfaceVariant,
-                    }}
-                  >
-                    {action.supporting}
-                  </RNText>
-                ) : null}
-              </View>
+              {({ pressed: isPressed }) => (
+                <>
+                  {action.icon}
+                  <View style={{ flex: 1 }}>
+                    <RNText
+                      style={{
+                        fontSize: 15,
+                        color: action.destructive
+                          ? scheme.color.error
+                          : scheme.color.onSurface,
+                      }}
+                    >
+                      {action.label}
+                    </RNText>
+                    {action.supporting ? (
+                      <RNText
+                        style={{
+                          fontSize: 12,
+                          color: scheme.color.onSurfaceVariant,
+                        }}
+                      >
+                        {action.supporting}
+                      </RNText>
+                    ) : null}
+                  </View>
+                  <StateLayer
+                    ink={scheme.color.onSurface}
+                    visible={isPressed && !action.disabled}
+                  />
+                </>
+              )}
             </Pressable>
           ))}
         </View>

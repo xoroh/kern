@@ -30,7 +30,7 @@ describe("foundation adoption: Loader is an Axis indeterminate Progress", () => 
     await render(<Loader label="Saving" />);
     const host = screen.getByTestId("kern-loader");
     expect(host.props.accessibilityRole).toBe("progressbar");
-    expect(host.props.accessibilityState).toMatchObject({ busy: true });
+    expect(host.props["aria-busy"]).toBe(true);
     expect(host.props.accessibilityLabel).toBe("Saving");
   });
 
@@ -53,7 +53,7 @@ describe("foundation adoption: Progress is an Axis determinate Progress", () => 
     const bar = screen.getByTestId("kern-progress-plain");
     // Determinate-only per the component contract: unknown waits use
     // Loader, so an omitted value reads 0%, never indeterminate-busy.
-    expect(bar.props.accessibilityState?.busy).toBeFalsy();
+    expect(bar.props["aria-busy"]).toBeFalsy();
     expect(bar.props.accessibilityValue).toEqual({ now: 0, min: 0, max: 100 });
   });
 });

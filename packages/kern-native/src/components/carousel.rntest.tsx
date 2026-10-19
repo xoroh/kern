@@ -25,10 +25,15 @@ describe("Carousel", () => {
    */
   it("makes exactly one item the selected stop", async () => {
     await render(<Carousel items={ITEMS} />);
-    const selected = ITEMS.map(
-      (i) => item(i.accessibilityLabel).props.accessibilityState.selected,
-    );
-    expect(selected).toEqual([true, false, false]);
+    expect(
+      screen.queryByRole("image", { name: "Slide one", selected: true }),
+    ).toBeTruthy();
+    expect(
+      screen.queryByRole("image", { name: "Slide two", selected: true }),
+    ).toBeNull();
+    expect(
+      screen.queryByRole("image", { name: "Slide three", selected: true }),
+    ).toBeNull();
   });
 
   it("moves the single stop when an item is pressed", async () => {
@@ -38,15 +43,22 @@ describe("Carousel", () => {
       fireEvent.press(item("Slide three"));
     });
     expect(onValueChange).toHaveBeenCalledWith(2);
-    const selected = ITEMS.map(
-      (i) => item(i.accessibilityLabel).props.accessibilityState.selected,
-    );
-    expect(selected).toEqual([false, false, true]);
+    expect(
+      screen.queryByRole("image", { name: "Slide one", selected: true }),
+    ).toBeNull();
+    expect(
+      screen.queryByRole("image", { name: "Slide two", selected: true }),
+    ).toBeNull();
+    expect(
+      screen.queryByRole("image", { name: "Slide three", selected: true }),
+    ).toBeTruthy();
   });
 
   it("starts from defaultValue", async () => {
     await render(<Carousel items={ITEMS} defaultValue={1} />);
-    expect(item("Slide two").props.accessibilityState.selected).toBe(true);
+    expect(
+      screen.queryByRole("image", { name: "Slide two", selected: true }),
+    ).toBeTruthy();
   });
 
   it("honours a controlled value and does not move itself", async () => {
@@ -59,7 +71,9 @@ describe("Carousel", () => {
     });
     expect(onValueChange).toHaveBeenCalledWith(1);
     // The host was told and did not move it.
-    expect(item("Slide one").props.accessibilityState.selected).toBe(true);
+    expect(
+      screen.queryByRole("image", { name: "Slide one", selected: true }),
+    ).toBeTruthy();
   });
 
   /** M3's default is to clamp, not wrap. */
@@ -85,9 +99,9 @@ describe("Carousel", () => {
     await render(
       <Carousel items={ITEMS} disabled onValueChange={onValueChange} />,
     );
-    expect(
-      screen.getByLabelText("Carousel").props.accessibilityState.disabled,
-    ).toBe(true);
+    // The group is a plain View, not an accessibility element, so no role
+    // query can see it — assert the normalized disabled state instead.
+    expect(screen.getByLabelText("Carousel")).toBeDisabled();
     await act(async () => {
       fireEvent.press(item("Slide two"));
     });
@@ -106,7 +120,9 @@ describe("Carousel", () => {
         onValueChange={onValueChange}
       />,
     );
-    expect(item("Slide two").props.accessibilityState.disabled).toBe(true);
+    expect(
+      screen.queryByRole("image", { name: "Slide two", disabled: true }),
+    ).toBeTruthy();
     expect(screen.getByLabelText("Slide three, 3 of 3")).toBeTruthy();
     await act(async () => {
       fireEvent.press(item("Slide two"));

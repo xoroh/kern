@@ -43,6 +43,9 @@ export function Loader({
       testID={testID ?? "kern-loader"}
       style={style}
       render={(slotProps) => (
+        // Axis reports its indeterminate progress through its own slot prop;
+        // Loader is always indeterminate (`value={null}`), so the busy state
+        // is constant here and lands directly on the aria-* half of the pair.
         <View
           accessible={slotProps.accessible as boolean | undefined}
           accessibilityRole={
@@ -50,11 +53,7 @@ export function Loader({
               | React.ComponentProps<typeof View>["accessibilityRole"]
               | undefined
           }
-          accessibilityState={
-            slotProps.accessibilityState as
-              | React.ComponentProps<typeof View>["accessibilityState"]
-              | undefined
-          }
+          aria-busy
           accessibilityLabel={
             slotProps.accessibilityLabel as string | undefined
           }

@@ -13,6 +13,7 @@ import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import { type StyleProp, View, type ViewStyle } from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
 import { menuStyles } from "./menu";
+import { DISABLED_CONTENT_OPACITY } from "./state-layer";
 import { Text } from "./text";
 
 export type NativeSelectOption = {
@@ -89,7 +90,7 @@ export function Select({
           disabled={disabled}
           style={[
             selectStyles(scheme).trigger,
-            { opacity: disabled ? 0.38 : 1 },
+            { opacity: disabled ? DISABLED_CONTENT_OPACITY : 1 },
             style,
           ]}
         >

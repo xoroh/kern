@@ -29,7 +29,7 @@ import { DISABLED_CONTENT_OPACITY, StateLayer } from "./state-layer";
  *
  * A toggle icon button that does not report its state is "a plain button
  * wearing a selected colour" — precisely the state a screen reader cannot see.
- * That is why `selected` is carried in `accessibilityState` even when the
+ * That is why `selected` is carried in `aria-selected` even when the
  * button is used as a plain action, and why the state is controllable.
  *
  * ## The accessible name is mandatory, not optional
@@ -40,10 +40,10 @@ import { DISABLED_CONTENT_OPACITY, StateLayer } from "./state-layer";
  * drives BOTH the announced name and any tooltip the host renders from it —
  * one prop, so a sighted hover and an announced name cannot drift apart.
  *
- * `accessibilityState.selected` (not `checked`) mirrors `Toggle`: on a
+ * `aria-selected` (not `aria-checked`) mirrors `Toggle`: on a
  * `role="button"`, `selected` is the axis RN exposes for pressed state. This is
  * the same axis `CheckboxGroupItem` deliberately does NOT use — a checkbox
- * reports `checked`, a button reports `selected`.
+ * reports `aria-checked`, a button reports `aria-selected`.
  *
  * ## Touch target
  *
@@ -188,12 +188,7 @@ export function pressIsCancelled(event?: {
 
 export type NativeIconButtonProps = Omit<
   PressableProps,
-  | "children"
-  | "style"
-  | "onPress"
-  | "accessibilityState"
-  | "accessibilityRole"
-  | "testID"
+  "children" | "style" | "onPress" | "accessibilityRole" | "testID"
 > & {
   /** REQUIRED. The accessible name — there is no visible text to supply one. */
   label: string;

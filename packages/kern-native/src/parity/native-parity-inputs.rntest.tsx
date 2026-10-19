@@ -39,7 +39,9 @@ describe("autocomplete (native)", () => {
     );
     const field = screen.getByTestId("kern-autocomplete-input");
     expect(field.props.accessibilityRole).toBe("combobox");
-    expect(field.props.accessibilityState.expanded).toBe(false);
+    expect(
+      screen.queryByRole("combobox", { name: "Fruit", expanded: false }),
+    ).toBeTruthy();
   });
 
   it("opens only once the query matches something", async () => {
@@ -52,12 +54,16 @@ describe("autocomplete (native)", () => {
     await act(async () => {
       field.props.onFocus();
     });
-    expect(field.props.accessibilityState.expanded).toBe(false);
+    expect(
+      screen.queryByRole("combobox", { name: "Fruit", expanded: false }),
+    ).toBeTruthy();
 
     await act(async () => {
       field.props.onChangeText("be");
     });
-    expect(field.props.accessibilityState.expanded).toBe(true);
+    expect(
+      screen.getByRole("combobox", { name: "Fruit", expanded: true }),
+    ).toBeTruthy();
     expect(screen.getByLabelText("Beta")).toBeTruthy();
     // Alpha and Gamma do not match "be".
     expect(screen.queryByLabelText("Alpha")).toBeNull();
@@ -97,9 +103,8 @@ describe("autocomplete (native)", () => {
       "Gamma",
     );
     expect(
-      screen.getByTestId("kern-autocomplete-input").props.accessibilityState
-        .expanded,
-    ).toBe(false);
+      screen.queryByRole("combobox", { name: "Fruit", expanded: false }),
+    ).toBeTruthy();
     expect(closes).toEqual([false]);
   });
 
@@ -120,16 +125,14 @@ describe("autocomplete (native)", () => {
       field.props.onChangeText("a");
     });
     expect(
-      screen.getByTestId("kern-autocomplete-input").props.accessibilityState
-        .expanded,
-    ).toBe(true);
+      screen.getByRole("combobox", { name: "Fruit", expanded: true }),
+    ).toBeTruthy();
     await act(async () => {
       field.props.onBlur();
     });
     expect(
-      screen.getByTestId("kern-autocomplete-input").props.accessibilityState
-        .expanded,
-    ).toBe(false);
+      screen.queryByRole("combobox", { name: "Fruit", expanded: false }),
+    ).toBeTruthy();
     expect(selected).toBeUndefined();
     expect(screen.queryByLabelText("Alpha")).toBeNull();
   });
@@ -148,9 +151,8 @@ describe("autocomplete (native)", () => {
       field.props.onChangeText("zzz");
     });
     expect(
-      screen.getByTestId("kern-autocomplete-input").props.accessibilityState
-        .expanded,
-    ).toBe(false);
+      screen.queryByRole("combobox", { name: "Fruit", expanded: false }),
+    ).toBeTruthy();
     expect(
       String(
         screen.getByTestId("kern-autocomplete-input").props.accessibilityHint,
@@ -177,9 +179,8 @@ describe("autocomplete (native)", () => {
       field.props.onChangeText("a");
     });
     expect(
-      screen.getByTestId("kern-autocomplete-input").props.accessibilityState
-        .expanded,
-    ).toBe(false);
+      screen.queryByRole("combobox", { name: "Fruit", expanded: false }),
+    ).toBeTruthy();
     expect(selected).toBeUndefined();
   });
 
@@ -200,8 +201,12 @@ describe("autocomplete (native)", () => {
       field.props.onChangeText("e");
     });
     const beta = screen.getByLabelText("Beta");
-    expect(beta.props.accessibilityState.disabled).toBe(true);
-    expect(beta.props.accessibilityState.selected).toBe(true);
+    expect(
+      screen.getByRole("menuitem", { name: "Beta", disabled: true }),
+    ).toBeTruthy();
+    expect(
+      screen.getByRole("menuitem", { name: "Beta", selected: true }),
+    ).toBeTruthy();
     await act(async () => {
       fireEvent.press(beta);
     });
@@ -217,8 +222,8 @@ describe("autocomplete (native)", () => {
       field.props.onFocus();
       field.props.onChangeText("a");
     });
-    const active = ["Alpha", "Beta", "Gamma"].filter(
-      (label) => screen.getByLabelText(label).props.accessibilityState.selected,
+    const active = ["Alpha", "Beta", "Gamma"].filter((label) =>
+      screen.queryByRole("menuitem", { name: label, selected: true }),
     );
     expect(active).toEqual(["Alpha"]);
   });
@@ -407,7 +412,9 @@ describe("number-field (native)", () => {
       />,
     );
     const dec = screen.getByLabelText("Decrease");
-    expect(dec.props.accessibilityState.disabled).toBe(true);
+    expect(
+      screen.getByRole("button", { name: "Decrease", disabled: true }),
+    ).toBeTruthy();
     await act(async () => {
       fireEvent.press(dec);
     });
@@ -426,7 +433,9 @@ describe("number-field (native)", () => {
       />,
     );
     const inc = screen.getByLabelText("Increase");
-    expect(inc.props.accessibilityState.disabled).toBe(true);
+    expect(
+      screen.getByRole("button", { name: "Increase", disabled: true }),
+    ).toBeTruthy();
     await act(async () => {
       fireEvent.press(inc);
     });
@@ -465,15 +474,15 @@ describe("number-field (native)", () => {
         onValueChange={(v) => seen.push(v)}
       />,
     );
-    // Asserted on the announced axis, not on the `disabled` prop: RNTL's
-    // host element does not carry it, and `accessibilityState.disabled` is
-    // what a screen reader actually reads.
+    // Asserted through the disabled role-query option, not the `disabled`
+    // prop: RNTL's host element does not carry it, and the role query reads
+    // what a screen reader actually announces.
     expect(
-      screen.getByLabelText("Increase").props.accessibilityState.disabled,
-    ).toBe(true);
+      screen.getByRole("button", { name: "Increase", disabled: true }),
+    ).toBeTruthy();
     expect(
-      screen.getByLabelText("Decrease").props.accessibilityState.disabled,
-    ).toBe(true);
+      screen.getByRole("button", { name: "Decrease", disabled: true }),
+    ).toBeTruthy();
     await act(async () => {
       fireEvent.press(screen.getByLabelText("Increase"));
       fireEvent.press(screen.getByLabelText("Decrease"));
@@ -655,7 +664,9 @@ describe("input-otp (native)", () => {
     const box = screen.getByTestId("kern-input-otp-0");
     expect(box.props.keyboardType).toBe("numeric");
     expect(box.props.editable).toBe(false);
-    expect(box.props.accessibilityState.disabled).toBe(true);
+    expect(
+      screen.getByRole("none", { name: "Digit 1 of 2", disabled: true }),
+    ).toBeTruthy();
   });
 
   it("splits a value into exactly `length` positions", () => {

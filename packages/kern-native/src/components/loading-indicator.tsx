@@ -55,7 +55,7 @@ import { defaultScheme, useKernScheme } from "../theme";
  *
  * The web places `aria-busy` on the region being loaded. The indicator cannot do
  * that — it is a descendant, not an ancestor of the content. Hosts set
- * `accessibilityState={{ busy: true }}` on the region they wrap; this component
+ * `aria-busy` on the region they wrap; this component
  * deliberately does not try to reach outward and do it for them.
  */
 

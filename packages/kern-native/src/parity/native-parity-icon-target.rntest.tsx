@@ -61,14 +61,22 @@ describe("native parity contract: icon-button-target", () => {
   it("still reports its pressed state on a toggle icon button", async () => {
     const row = contractFor("icon-button-target");
     await render(<IconButton label={row.name} pressed={false} />);
-    const el = screen.getByLabelText(row.name);
-    expect(el.props.accessibilityState.selected).toBe(false);
+    // A controlled `pressed` prop starts unpressed...
+    expect(
+      screen.getByRole("button", { name: row.name, selected: false }),
+    ).toBeTruthy();
     await act(async () => {
-      fireEvent.press(el);
+      fireEvent.press(screen.getByLabelText(row.name));
     });
-    // A controlled `pressed` prop does not move on its own, so this asserts the
-    // state axis is at least REPORTED, which is the cross-renderer obligation.
-    expect(el.props.accessibilityState).toHaveProperty("selected");
+    // ...and does not move on its own, so it is still reported as unpressed.
+    // Either query throws if the selected axis stops being reported, which is
+    // the cross-renderer obligation.
+    expect(
+      screen.getByRole("button", { name: row.name, selected: false }),
+    ).toBeTruthy();
+    expect(
+      screen.queryByRole("button", { name: row.name, selected: true }),
+    ).toBeNull();
   });
 
   it("the native minimum is NOT the web's WCAG 24px", () => {

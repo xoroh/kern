@@ -69,7 +69,7 @@ export function Tabs({
               key={tab.value}
               accessibilityRole="tab"
               accessibilityLabel={tab.label}
-              accessibilityState={{ selected }}
+              aria-selected={selected}
               hitSlop={{ top: 4, bottom: 4, left: 4, right: 4 }}
               onPress={() => setCurrent(tab.value)}
               style={[

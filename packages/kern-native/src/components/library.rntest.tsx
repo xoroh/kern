@@ -44,13 +44,15 @@ describe("native Toggle render", () => {
   it("toggles selected state", async () => {
     await render(<Toggle accessibilityLabel="Mute">M</Toggle>);
     const toggle = screen.getByLabelText("Mute");
-    expect(toggle.props.accessibilityState.selected).toBe(false);
+    expect(
+      screen.queryByRole("button", { name: "Mute", selected: true }),
+    ).toBeNull();
     await act(async () => {
       fireEvent.press(toggle);
     });
     expect(
-      screen.getByLabelText("Mute").props.accessibilityState.selected,
-    ).toBe(true);
+      screen.queryByRole("button", { name: "Mute", selected: true }),
+    ).toBeTruthy();
   });
 });
 
@@ -68,11 +70,11 @@ describe("native ToggleGroup render", () => {
       fireEvent.press(screen.getByLabelText("Right"));
     });
     expect(
-      screen.getByLabelText("Right").props.accessibilityState.selected,
-    ).toBe(true);
+      screen.queryByRole("radio", { name: "Right", selected: true }),
+    ).toBeTruthy();
     expect(
-      screen.getByLabelText("Left").props.accessibilityState.selected,
-    ).toBe(false);
+      screen.queryByRole("radio", { name: "Left", selected: true }),
+    ).toBeNull();
   });
 });
 

@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { defaultScheme, useKernScheme, useKernTheme } from "../theme";
 import { Chip } from "./chip";
+import { StateLayer } from "./state-layer";
 import { Text } from "./text";
 
 /**
@@ -149,32 +150,38 @@ export function SecondaryTabs({
           return (
             <Pressable
               key={tab.value}
+              role="tab"
               accessibilityRole="tab"
-              accessibilityState={{ selected }}
+              aria-selected={selected}
               accessibilityLabel={tab.label}
               onPress={() => setCurrent(tab.value)}
-              style={({ pressed }) => [
-                styles.tab,
-                pressed ? { opacity: 0.82 } : undefined,
-              ]}
+              style={[styles.tab, { overflow: "hidden" as const }]}
             >
-              <RNText
-                style={{
-                  fontSize: 14,
-                  fontWeight: selected ? "600" : "500",
-                  color: selected
-                    ? scheme.color.onSurface
-                    : scheme.color.onSurfaceVariant,
-                }}
-              >
-                {tab.label}
-              </RNText>
-              <View
-                style={[
-                  styles.indicator,
-                  { marginTop: 2, opacity: selected ? 1 : 0 },
-                ]}
-              />
+              {({ pressed: isPressed }) => (
+                <>
+                  <RNText
+                    style={{
+                      fontSize: 14,
+                      fontWeight: selected ? "600" : "500",
+                      color: selected
+                        ? scheme.color.onSurface
+                        : scheme.color.onSurfaceVariant,
+                    }}
+                  >
+                    {tab.label}
+                  </RNText>
+                  <View
+                    style={[
+                      styles.indicator,
+                      { marginTop: 2, opacity: selected ? 1 : 0 },
+                    ]}
+                  />
+                  <StateLayer
+                    ink={scheme.color.onSurface}
+                    visible={isPressed}
+                  />
+                </>
+              )}
             </Pressable>
           );
         })}
@@ -271,21 +278,33 @@ export function ListDetail({
         <View style={{ flex: 1 }}>
           {onBack ? (
             <Pressable
+              role="button"
               accessibilityRole="button"
               accessibilityLabel={backLabel}
               onPress={onBack}
-              style={({ pressed }) => ({
+              style={{
                 minHeight: 48,
                 justifyContent: "center",
                 paddingHorizontal: Number.parseFloat(
                   tokens.spacing["space-200"],
                 ),
-                opacity: pressed ? 0.82 : 1,
-              })}
+                overflow: "hidden" as const,
+              }}
             >
-              <Text variant="label" style={{ color: scheme.color.secondary }}>
-                ‹ {backLabel}
-              </Text>
+              {({ pressed: isPressed }) => (
+                <>
+                  <Text
+                    variant="label"
+                    style={{ color: scheme.color.secondary }}
+                  >
+                    ‹ {backLabel}
+                  </Text>
+                  <StateLayer
+                    ink={scheme.color.onSurface}
+                    visible={isPressed}
+                  />
+                </>
+              )}
             </Pressable>
           ) : null}
           {detail}

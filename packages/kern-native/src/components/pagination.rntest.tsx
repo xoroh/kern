@@ -77,9 +77,10 @@ describe("Pagination", () => {
    */
   it("marks the current page", async () => {
     await render(<Pagination count={5} defaultValue={3} />);
-    const states = [1, 2, 3, 4, 5].map(
-      (n) =>
-        screen.getByLabelText(`Page ${n}`).props.accessibilityState.selected,
+    const states = [1, 2, 3, 4, 5].map((n) =>
+      Boolean(
+        screen.queryByRole("button", { name: `Page ${n}`, selected: true }),
+      ),
     );
     expect(states).toEqual([false, false, true, false, false]);
   });
@@ -87,15 +88,15 @@ describe("Pagination", () => {
   it("disables previous on the first page", async () => {
     await render(<Pagination count={5} defaultValue={1} />);
     expect(
-      screen.getByLabelText("Previous page").props.accessibilityState.disabled,
-    ).toBe(true);
+      screen.queryByRole("button", { name: "Previous page", disabled: true }),
+    ).toBeTruthy();
   });
 
   it("disables next on the last page", async () => {
     await render(<Pagination count={5} defaultValue={5} />);
     expect(
-      screen.getByLabelText("Next page").props.accessibilityState.disabled,
-    ).toBe(true);
+      screen.queryByRole("button", { name: "Next page", disabled: true }),
+    ).toBeTruthy();
   });
 
   it("moves forward and reports the new page", async () => {
@@ -108,8 +109,8 @@ describe("Pagination", () => {
     });
     expect(onValueChange).toHaveBeenCalledWith(3);
     expect(
-      screen.getByLabelText("Page 3").props.accessibilityState.selected,
-    ).toBe(true);
+      screen.queryByRole("button", { name: "Page 3", selected: true }),
+    ).toBeTruthy();
   });
 
   it("moves backward", async () => {
@@ -163,7 +164,9 @@ describe("Pagination", () => {
       <Pagination count={3} defaultValue={3} onValueChange={onValueChange} />,
     );
     const next = screen.getByLabelText("Next page");
-    expect(next.props.accessibilityState.disabled).toBe(true);
+    expect(
+      screen.queryByRole("button", { name: "Next page", disabled: true }),
+    ).toBeTruthy();
     await act(async () => {
       fireEvent.press(next);
     });
@@ -176,7 +179,9 @@ describe("Pagination", () => {
       <Pagination count={3} defaultValue={1} onValueChange={onValueChange} />,
     );
     const prev = screen.getByLabelText("Previous page");
-    expect(prev.props.accessibilityState.disabled).toBe(true);
+    expect(
+      screen.queryByRole("button", { name: "Previous page", disabled: true }),
+    ).toBeTruthy();
     await act(async () => {
       fireEvent.press(prev);
     });
@@ -189,23 +194,23 @@ describe("Pagination", () => {
       <Pagination count={5} value={2} onValueChange={onValueChange} />,
     );
     expect(
-      screen.getByLabelText("Page 2").props.accessibilityState.selected,
-    ).toBe(true);
+      screen.queryByRole("button", { name: "Page 2", selected: true }),
+    ).toBeTruthy();
     await act(async () => {
       fireEvent.press(screen.getByLabelText("Next page"));
     });
     // Told, but the host decides — the control must not move itself.
     expect(onValueChange).toHaveBeenCalledWith(3);
     expect(
-      screen.getByLabelText("Page 2").props.accessibilityState.selected,
-    ).toBe(true);
+      screen.queryByRole("button", { name: "Page 2", selected: true }),
+    ).toBeTruthy();
   });
 
   /** A host that hands back an out-of-range page must not produce nonsense. */
   it("clamps an out-of-range controlled page", async () => {
     await render(<Pagination count={5} value={99} />);
     expect(
-      screen.getByLabelText("Page 5").props.accessibilityState.selected,
-    ).toBe(true);
+      screen.queryByRole("button", { name: "Page 5", selected: true }),
+    ).toBeTruthy();
   });
 });

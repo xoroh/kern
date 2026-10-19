@@ -32,8 +32,8 @@ describe("NavigationRail", () => {
         onValueChange={() => {}}
       />,
     );
-    const states = destinations.map(
-      (d) => screen.getByLabelText(d.label).props.accessibilityState.selected,
+    const states = destinations.map((d) =>
+      Boolean(screen.queryByRole("tab", { name: d.label, selected: true })),
     );
     // One selected stop, never zero and never two — the same roving-model
     // obligation the carousel and time-picker already prove.
@@ -72,8 +72,8 @@ describe("NavigationRail", () => {
     // greyed: the user is told it is unavailable and it goes anyway.
     expect(onValueChange).not.toHaveBeenCalled();
     expect(
-      screen.getByLabelText("Settings").props.accessibilityState.disabled,
-    ).toBe(true);
+      screen.queryByRole("tab", { name: "Settings", disabled: true }),
+    ).toBeTruthy();
   });
 
   it("keeps the destination nameable when collapsed", async () => {

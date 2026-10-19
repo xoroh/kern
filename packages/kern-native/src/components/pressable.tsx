@@ -14,14 +14,14 @@ export const MIN_TOUCH_TARGET = 48;
 
 export type KernPressableProps = Omit<
   PressableProps,
-  "style" | "accessibilityState" | "accessibilityRole"
+  "style" | "accessibilityRole"
 > & {
   /** Rendered inside. */
   children?: ReactNode;
   /** Override the default `button` role. A menu item is not a button. */
   accessibilityRole?: PressableProps["accessibilityRole"];
-  /** Merged with the wrapper's own `disabled`, never substituted. */
-  accessibilityState?: PressableProps["accessibilityState"];
+  /** Override the default `button` role (web `role` half of the pair). */
+  role?: PressableProps["role"];
   style?: PressableProps["style"];
 };
 
@@ -49,22 +49,24 @@ export type KernPressableProps = Omit<
  */
 export function KernPressable({
   children,
+  role,
   accessibilityRole = "button",
-  accessibilityState,
   disabled = false,
   style,
   ...rest
 }: KernPressableProps) {
+  // One default, two props: an explicit `role` wins, otherwise the
+  // `accessibilityRole` (itself defaulting to `button`) carries both.
+  const resolvedRole: PressableProps["role"] =
+    role ?? (accessibilityRole as PressableProps["role"]);
   return (
     <Pressable
+      role={resolvedRole}
       accessibilityRole={accessibilityRole}
-      // MERGED, not replaced: a caller supplying only `selected` must still get
-      // `disabled: false` reported, or the control's state axis is incomplete
-      // for a screen reader.
-      accessibilityState={{
-        ...accessibilityState,
-        disabled: disabled || accessibilityState?.disabled === true,
-      }}
+      // Always reported, even when the caller only supplied another state:
+      // a control that refuses the press but does not report `disabled`
+      // looks available and is not.
+      aria-disabled={disabled}
       disabled={disabled}
       style={(state) => [
         { minHeight: MIN_TOUCH_TARGET, minWidth: MIN_TOUCH_TARGET },

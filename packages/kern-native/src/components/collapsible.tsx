@@ -43,7 +43,7 @@ export function Collapsible({
       <Pressable
         accessibilityRole="button"
         accessibilityLabel={title}
-        accessibilityState={{ expanded: isOpen }}
+        aria-expanded={isOpen}
         hitSlop={{ top: 4, bottom: 4, left: 4, right: 4 }}
         onPress={() => setOpen((previous) => !previous)}
         style={{ minHeight: 48, justifyContent: "center" }}

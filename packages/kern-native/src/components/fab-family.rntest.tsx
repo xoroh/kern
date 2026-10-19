@@ -165,7 +165,9 @@ describe("extended FAB (native)", () => {
     // refused at the platform boundary rather than by a kern guard — the
     // stronger guarantee. Assert both facts.
     expect(fab.props.onPress).toBeUndefined();
-    expect(fab.props.accessibilityState?.disabled).toBe(true);
+    expect(
+      screen.queryByRole("button", { name: "Compose", disabled: true }),
+    ).toBeTruthy();
     expect(pressed).toBe(0);
     // Disabled must not also collapse it: a dead FAB that changes shape reads as
     // a state change the user cannot act on.
@@ -198,9 +200,9 @@ describe("FAB menu (native)", () => {
       <FabMenu icon={<Text>+</Text>} actions={ACTIONS} testID="fm" />,
     );
     expect(menuIsOpen()).toBe(false);
-    expect(screen.getByTestId("fm").props.accessibilityState.expanded).toBe(
-      false,
-    );
+    expect(
+      screen.queryByRole("button", { name: "New", expanded: false }),
+    ).toBeTruthy();
     // M3/ARIA: an unnamed menu trigger is an unreachable menu. The name defaults
     // to the first action, which is the one most likely to be wanted.
     expect(screen.getByTestId("fm").props.accessibilityLabel).toBe("New");
@@ -215,8 +217,8 @@ describe("FAB menu (native)", () => {
     });
     expect(menuIsOpen()).toBe(true);
     expect(
-      screen.getByTestId("kern-fab-menu").props.accessibilityState.expanded,
-    ).toBe(true);
+      screen.queryByRole("button", { name: "New", expanded: true }),
+    ).toBeTruthy();
     await act(async () => {
       fireEvent.press(screen.getByLabelText("Edit"));
     });
@@ -293,7 +295,9 @@ describe("FAB menu (native)", () => {
       fireEvent.press(screen.getByTestId("kern-fab-menu"));
     });
     const item = screen.getByLabelText("New");
-    expect(item.props.accessibilityState?.disabled).toBe(true);
+    expect(
+      screen.queryByRole("menuitem", { name: "New", disabled: true }),
+    ).toBeTruthy();
     // Disabled means unreachable: the state is announced AND the press does not
     // land. A greyed row that still fires is worse than one that looks dead.
     expect(item.props.onPress).toBeUndefined();
@@ -355,9 +359,8 @@ describe("split button (native)", () => {
     });
     expect(menuIsOpen()).toBe(true);
     expect(
-      screen.getByTestId("kern-split-button-overflow").props.accessibilityState
-        .expanded,
-    ).toBe(true);
+      screen.queryByRole("button", { name: "Save more", expanded: true }),
+    ).toBeTruthy();
     await act(async () => {
       fireEvent.press(screen.getByLabelText("Save as"));
     });

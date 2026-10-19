@@ -133,7 +133,7 @@ export type NativeComboboxProps = {
  * trigger, and closes. Options mirror the web listbox semantics through
  * the roles RN has: the list is `accessibilityRole="list"`, each option
  * carries the ARIA `role="option"` (the `accessibilityRole` union has no
- * `option` member) plus `accessibilityState.selected`, and the trigger
+ * `option` member) plus `aria-selected`, and the trigger
  * reports `expanded` (the `Menu` precedent).
  */
 export function Combobox({
@@ -205,7 +205,8 @@ export function Combobox({
         testID={`${popupBase}-trigger`}
         accessibilityRole="button"
         accessibilityLabel={accessibilityLabel}
-        accessibilityState={{ expanded: shown ?? false, disabled }}
+        aria-expanded={shown ?? false}
+        aria-disabled={disabled}
         disabled={disabled}
         hitSlop={{ top: 4, bottom: 4, left: 4, right: 4 }}
         onPress={() => setShown(true)}
@@ -282,10 +283,8 @@ export function Combobox({
                       accessibilityRole="menuitem"
                       role="option"
                       accessibilityLabel={option.label}
-                      accessibilityState={{
-                        selected: isSelected,
-                        disabled: Boolean(option.disabled),
-                      }}
+                      aria-selected={isSelected}
+                      aria-disabled={option.disabled || undefined}
                       disabled={option.disabled}
                       hitSlop={{ top: 4, bottom: 4, left: 4, right: 4 }}
                       onPress={() => commit(option)}

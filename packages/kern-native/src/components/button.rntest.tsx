@@ -22,10 +22,9 @@ describe("native Button render", () => {
     // its label with busy state. Assert the label text separately.
     const button = screen.getByRole("button");
     expect(button).toBeDisabled();
-    expect(button.props.accessibilityState).toMatchObject({
-      disabled: true,
-      busy: true,
-    });
+    expect(
+      screen.queryByRole("button", { disabled: true, busy: true }),
+    ).toBeTruthy();
     expect(screen.getByText("Save")).toBeOnTheScreen();
   });
 

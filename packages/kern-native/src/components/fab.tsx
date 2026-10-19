@@ -2,6 +2,7 @@ import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
 import { Pressable, type PressableProps, type ViewStyle } from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
+import { DISABLED_CONTENT_OPACITY, StateLayer } from "./state-layer";
 import { Text } from "./text";
 
 // M3 FAB variants are a SIZE axis — small / FAB / medium FAB / large FAB
@@ -168,6 +169,7 @@ export function Fab({
     <Pressable
       {...props}
       testID={testID ?? "kern-fab"}
+      role="button"
       accessibilityRole="button"
       accessibilityLabel={label}
       disabled={disabled}
@@ -175,13 +177,22 @@ export function Fab({
       onPress={onPress}
       style={({ pressed }) => [
         fabStyles(size, scheme, color, lowered),
-        { opacity: disabled ? 0.38 : pressed ? 0.9 : 1 },
+        { opacity: disabled ? DISABLED_CONTENT_OPACITY : 1 },
         typeof style === "function" ? style({ pressed }) : style,
       ]}
     >
-      <Text variant="label" style={{ color: roles.ink }}>
-        {children}
-      </Text>
+      {({ pressed: isPressed }) => (
+        <>
+          <Text variant="label" style={{ color: roles.ink }}>
+            {children}
+          </Text>
+          <StateLayer
+            ink={roles.ink}
+            radius={Number.parseFloat(scheme.shape.large)}
+            visible={isPressed && !disabled}
+          />
+        </>
+      )}
     </Pressable>
   );
 }

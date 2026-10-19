@@ -38,23 +38,25 @@ describe("IconButton", () => {
   it("reports the toggle state", async () => {
     await render(<IconButton label="Bold" defaultPressed />);
     expect(
-      screen.getByLabelText("Bold").props.accessibilityState.selected,
-    ).toBe(true);
+      screen.queryByRole("button", { name: "Bold", selected: true }),
+    ).toBeTruthy();
   });
 
   it("starts unpressed and reports pressing", async () => {
     const onPressedChange = jest.fn();
     await render(<IconButton label="Bold" onPressedChange={onPressedChange} />);
     const el = screen.getByLabelText("Bold");
-    expect(el.props.accessibilityState.selected).toBe(false);
+    expect(
+      screen.queryByRole("button", { name: "Bold", selected: true }),
+    ).toBeNull();
 
     await act(async () => {
       fireEvent.press(el);
     });
     expect(onPressedChange).toHaveBeenCalledWith(true);
     expect(
-      screen.getByLabelText("Bold").props.accessibilityState.selected,
-    ).toBe(true);
+      screen.queryByRole("button", { name: "Bold", selected: true }),
+    ).toBeTruthy();
   });
 
   it("unchecks on a second press", async () => {
@@ -82,15 +84,17 @@ describe("IconButton", () => {
       />,
     );
     const el = screen.getByLabelText("Bold");
-    expect(el.props.accessibilityState.selected).toBe(false);
+    expect(
+      screen.queryByRole("button", { name: "Bold", selected: true }),
+    ).toBeNull();
     await act(async () => {
       fireEvent.press(el);
     });
     // The host was told, and did not move: the control stays where it was put.
     expect(onPressedChange).toHaveBeenCalledWith(true);
     expect(
-      screen.getByLabelText("Bold").props.accessibilityState.selected,
-    ).toBe(false);
+      screen.queryByRole("button", { name: "Bold", selected: true }),
+    ).toBeNull();
   });
 
   it("does not toggle when disabled", async () => {
@@ -99,7 +103,9 @@ describe("IconButton", () => {
       <IconButton label="Bold" disabled onPressedChange={onPressedChange} />,
     );
     const el = screen.getByLabelText("Bold");
-    expect(el.props.accessibilityState.disabled).toBe(true);
+    expect(
+      screen.queryByRole("button", { name: "Bold", disabled: true }),
+    ).toBeTruthy();
     await act(async () => {
       fireEvent.press(el);
     });
@@ -112,8 +118,9 @@ describe("IconButton", () => {
    */
   it("uses the selected axis, not checked", async () => {
     await render(<IconButton label="Bold" defaultPressed />);
-    const state = screen.getByLabelText("Bold").props.accessibilityState;
-    expect(state.checked).toBeUndefined();
+    expect(
+      screen.queryByRole("button", { name: "Bold", checked: true }),
+    ).toBeNull();
   });
 
   /**

@@ -239,11 +239,15 @@ describe("tooltip trigger (native)", () => {
         <Text>Save</Text>
       </Tooltip>,
     );
-    expect(trigger("Save").props.accessibilityState.expanded).toBe(false);
+    expect(
+      screen.queryByRole("button", { name: "Save", expanded: false }),
+    ).toBeTruthy();
     await act(async () => {
       trigger("Save").props.onFocus();
     });
-    expect(trigger("Save").props.accessibilityState.expanded).toBe(true);
+    expect(
+      screen.queryByRole("button", { name: "Save", expanded: true }),
+    ).toBeTruthy();
   });
 
   it("resolves the surface to M3's inverse-surface pair", async () => {

@@ -11,7 +11,7 @@ import {
   type ViewStyle,
 } from "react-native";
 import { defaultScheme, useKernTheme } from "../theme";
-import { StateLayer } from "./state-layer";
+import { DISABLED_CONTENT_OPACITY, StateLayer } from "./state-layer";
 
 function withAlpha(color: string, alpha: number): string {
   if (/^#[0-9a-fA-F]{6}$/.test(color)) {
@@ -42,11 +42,11 @@ export function checkboxStyles(
       borderColor: marked
         ? "transparent"
         : disabled
-          ? withAlpha(scheme.color.onSurface, 0.38)
+          ? withAlpha(scheme.color.onSurface, DISABLED_CONTENT_OPACITY)
           : scheme.color.onSurfaceVariant,
       backgroundColor: marked
         ? disabled
-          ? withAlpha(scheme.color.onSurface, 0.38)
+          ? withAlpha(scheme.color.onSurface, DISABLED_CONTENT_OPACITY)
           : scheme.color.primary
         : scheme.color.surface,
       alignItems: "center",
@@ -63,7 +63,7 @@ export function checkboxStyles(
 
 export type NativeCheckboxProps = Omit<
   PressableProps,
-  "children" | "style" | "onPress" | "accessibilityState"
+  "children" | "style" | "onPress"
 > & {
   /**
    * Controlled checked state. Base UI name — there is no `value` prop here

@@ -18,6 +18,7 @@ import {
   type ViewStyle,
 } from "react-native";
 import { useKernScheme } from "../theme";
+import { DISABLED_CONTENT_OPACITY } from "./state-layer";
 import { Text } from "./text";
 
 function startOfDay(date: Date): Date {
@@ -221,10 +222,8 @@ export function Calendar({
                 <Pressable
                   accessibilityRole="button"
                   accessibilityLabel={date.toDateString()}
-                  accessibilityState={{
-                    selected: cell.selected,
-                    disabled: cell.disabled,
-                  }}
+                  aria-selected={cell.selected}
+                  aria-disabled={cell.disabled || undefined}
                   disabled={cell.disabled}
                   hitSlop={{ top: 2, bottom: 2, left: 2, right: 2 }}
                   onPress={() => pick(cell.iso)}
@@ -237,7 +236,7 @@ export function Calendar({
                     backgroundColor: cell.selected
                       ? scheme.color.primary
                       : "transparent",
-                    opacity: cell.disabled ? 0.3 : 1,
+                    opacity: cell.disabled ? DISABLED_CONTENT_OPACITY : 1,
                   }}
                 >
                   <Text

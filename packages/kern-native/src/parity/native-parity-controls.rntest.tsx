@@ -31,12 +31,17 @@ import { Textarea } from "../components/textarea";
 
 const R = "native" as const;
 
-/** Read a control's boolean state on whichever axis the contract names.
- *  RN reports the `pressed` axis as `accessibilityState.selected`. */
-function readAxis(el: { props: Record<string, unknown> }, row: ParityRow) {
-  const state = (el.props.accessibilityState ?? {}) as Record<string, unknown>;
-  if (row.axis === "checked") return Boolean(state.checked);
-  return Boolean(state.selected);
+/** Read a control's boolean state on whichever axis the contract names, through
+ *  RNTL role queries: the checked axis via `checked: true`, the pressed axis
+ *  via `selected: true`. */
+function readAxis(row: ParityRow) {
+  if (row.axis === "checked")
+    return Boolean(
+      screen.queryByRole(row.role, { name: row.name, checked: true }),
+    );
+  return Boolean(
+    screen.queryByRole(row.role, { name: row.name, selected: true }),
+  );
 }
 
 describe("native parity contract (tranche 2): chip", () => {
@@ -47,7 +52,7 @@ describe("native parity contract (tranche 2): chip", () => {
     assertParity(
       row,
       R,
-      readAxis(el, row),
+      readAxis(row),
       row.expects.initial,
       "a filter chip starts unselected",
     );
@@ -57,7 +62,7 @@ describe("native parity contract (tranche 2): chip", () => {
     assertParity(
       row,
       R,
-      readAxis(el, row),
+      readAxis(row),
       row.expects.afterActivate,
       `after one activation should be ${row.expects.afterActivate}`,
     );
@@ -67,7 +72,7 @@ describe("native parity contract (tranche 2): chip", () => {
     assertParity(
       row,
       R,
-      readAxis(el, row),
+      readAxis(row),
       row.expects.initial,
       "a selected filter chip must release again",
     );
@@ -87,7 +92,7 @@ describe("native parity contract (tranche 2): chip", () => {
     assertParity(
       row,
       R,
-      readAxis(el, row),
+      readAxis(row),
       row.expects.afterDisabledActivate,
       "a disabled chip must stay unselected",
     );
@@ -116,7 +121,7 @@ describe("native parity contract (tranche 2): chip", () => {
     assertParity(
       row,
       R,
-      readAxis(el, row),
+      readAxis(row),
       row.expects.afterActivate,
       "an assist chip is not a toggle: activation must not leave a selected state",
     );
@@ -279,9 +284,8 @@ describe("native parity contract (tranche 2): text fields", () => {
           <Textarea accessibilityLabel={row.name} testID="f" editable={false} />
         ),
       );
-      const el = screen.getByTestId("f");
       const disabled = Boolean(
-        (el.props.accessibilityState as { disabled?: boolean })?.disabled,
+        screen.queryByRole("none", { name: row.name, disabled: true }),
       );
       assertParity(
         row,
@@ -306,7 +310,7 @@ describe("native parity contract (tranche 2): text fields", () => {
       />,
     );
     const hint = String(screen.getByTestId("f").props.accessibilityHint ?? "");
-    // RN has no `accessibilityState.invalid`, so native announces the error
+    // RN exposes no invalid state on text inputs, so native announces the error
     // through the hint. Asserting THAT is asserting this renderer's documented
     // mechanism, not pinning the web renderer's `aria-invalid`.
     assertParity(

@@ -234,7 +234,7 @@ export function buttonStyles(
 
 export type NativeButtonProps = Omit<
   PressableProps,
-  "onPress" | "accessibilityRole" | "accessibilityState"
+  "onPress" | "accessibilityRole"
 > & {
   variant?: NativeButtonVariant;
   size?: NativeButtonSize;
@@ -356,12 +356,11 @@ export function Button({
     <Pressable
       {...props}
       testID={testID ?? "kern-button"}
+      role="button"
       accessibilityRole="button"
-      accessibilityState={{
-        disabled: blocked,
-        busy: loading || undefined,
-        selected: toggle ? isPressed : undefined,
-      }}
+      aria-disabled={blocked || undefined}
+      aria-busy={loading || undefined}
+      aria-pressed={toggle ? isPressed : undefined}
       disabled={blocked}
       hitSlop={size === "xs" ? 10 : size === "sm" ? 8 : size === "xl" ? 0 : 4}
       android_ripple={{

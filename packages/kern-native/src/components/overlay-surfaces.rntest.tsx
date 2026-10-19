@@ -66,7 +66,6 @@ type A11yNode = {
   a11yRole?: string;
   label?: string;
   isModal?: boolean;
-  expanded?: boolean;
   scroll?: unknown;
   /** The host node's resolved style. Carried so a suite can assert a STYLE
    *  property (resting elevation) on the node it found by label, rather than
@@ -84,7 +83,6 @@ function a11yTree(): A11yNode[] {
       children?: unknown[];
     };
     const props = candidate.props ?? {};
-    const state = (props.accessibilityState ?? {}) as { expanded?: boolean };
     if (
       props.role !== undefined ||
       props.accessibilityRole !== undefined ||
@@ -96,7 +94,6 @@ function a11yTree(): A11yNode[] {
         a11yRole: props.accessibilityRole as string | undefined,
         label: props.accessibilityLabel as string | undefined,
         isModal: props.accessibilityViewIsModal as boolean | undefined,
-        expanded: state.expanded,
         scroll: props.accessibilityScroll,
         style: props.style,
       });
@@ -140,7 +137,9 @@ describe("native Drawer (P2b-3 tranche 5)", () => {
         <Drawer.Content />
       </Drawer>,
     );
-    expect(labelled("Open menu")?.expanded).toBe(false);
+    expect(
+      screen.queryByLabelText("Open menu", { includeHiddenElements: true }),
+    ).not.toBeExpanded();
   });
 
   it("reports expanded=true on the trigger when open", async () => {
@@ -149,7 +148,9 @@ describe("native Drawer (P2b-3 tranche 5)", () => {
         <Drawer.Content />
       </Drawer>,
     );
-    expect(labelled("Open menu")?.expanded).toBe(true);
+    expect(
+      screen.queryByLabelText("Open menu", { includeHiddenElements: true }),
+    ).toBeExpanded();
   });
 
   it("dismisses on the scrim press", async () => {
@@ -223,7 +224,9 @@ describe("native Popover (P2b-3 tranche 5)", () => {
         </Popover.Content>
       </Popover.Root>,
     );
-    expect(labelled("Show details")?.expanded).toBe(false);
+    expect(
+      screen.queryByLabelText("Show details", { includeHiddenElements: true }),
+    ).not.toBeExpanded();
   });
 
   it("opens from the trigger", async () => {

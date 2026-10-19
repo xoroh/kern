@@ -77,7 +77,7 @@ export function ContextMenu({
                 key={item.label}
                 accessibilityRole="menuitem"
                 accessibilityLabel={item.label}
-                accessibilityState={{ disabled: item.disabled }}
+                aria-disabled={item.disabled}
                 disabled={item.disabled}
                 hitSlop={{ top: 4, bottom: 4, left: 4, right: 4 }}
                 onPress={() => {

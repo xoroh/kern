@@ -13,6 +13,7 @@ import {
   type NativeButtonSize,
   type NativeButtonVariant,
 } from "./button";
+import { StateLayer } from "./state-layer";
 
 export type LinkButtonProps = {
   /**
@@ -96,6 +97,14 @@ export function LinkButton({
     toggle,
     selected: toggle ? isSelected : false,
   });
+  const layerRadius =
+    typeof styles.container.borderRadius === "number"
+      ? styles.container.borderRadius
+      : 0;
+  const layerInk =
+    typeof styles.label.color === "string"
+      ? styles.label.color
+      : scheme.color.onSurface;
   function handlePress(event: GestureResponderEvent) {
     if (toggle && pressed === undefined) setUncontrolled(!isSelected);
     if (toggle) onPressedChange?.(!isSelected);
@@ -108,24 +117,34 @@ export function LinkButton({
   return (
     <Pressable
       testID={testID ?? "kern-link-button"}
+      role="link"
       accessibilityRole="link"
-      accessibilityState={{ disabled }}
+      aria-disabled={disabled}
       accessibilityHint={href}
       disabled={disabled}
       hitSlop={size === "xs" ? 10 : size === "sm" ? 8 : size === "xl" ? 0 : 4}
       onPress={handlePress}
       style={({ pressed: isPressed }) => [
         styles.container,
-        isPressed && !disabled ? { opacity: 0.82 } : undefined,
+        { overflow: "hidden" as const },
         typeof style === "function" ? style({ pressed: isPressed }) : style,
       ]}
     >
-      {/* `end` is coerced to `start` above — the icon always leads. */}
-      {icon}
-      {typeof children === "string" || typeof children === "number" ? (
-        <Text style={[styles.label, labelStyle]}>{children}</Text>
-      ) : (
-        children
+      {({ pressed: isPressed }) => (
+        <>
+          {/* `end` is coerced to `start` above — the icon always leads. */}
+          {icon}
+          {typeof children === "string" || typeof children === "number" ? (
+            <Text style={[styles.label, labelStyle]}>{children}</Text>
+          ) : (
+            children
+          )}
+          <StateLayer
+            ink={layerInk}
+            radius={layerRadius}
+            visible={isPressed && !disabled}
+          />
+        </>
       )}
     </Pressable>
   );

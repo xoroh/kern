@@ -72,7 +72,9 @@ describe("KernPressable", () => {
     // Both halves matter, and they fail independently: a control that refuses
     // the press but does not report `disabled` is worse than one that does
     // neither, because it looks available and is not.
-    expect(el.props.accessibilityState.disabled).toBe(true);
+    expect(
+      screen.queryByRole("button", { name: "Save", disabled: true }),
+    ).toBeTruthy();
     await act(async () => {
       fireEvent.press(el);
     });
@@ -80,17 +82,17 @@ describe("KernPressable", () => {
   });
 
   it("passes through an explicit selected state unchanged", async () => {
-    await render(
-      <KernPressable
-        accessibilityLabel="Bold"
-        accessibilityState={{ selected: true }}
-      />,
-    );
-    const el = screen.getByLabelText("Bold");
-    expect(el.props.accessibilityState.selected).toBe(true);
-    // ...and the wrapper's own defaults are MERGED, not substituted: disabled is
-    // still reported even though the caller only supplied selected.
-    expect(el.props.accessibilityState.disabled).toBe(false);
+    await render(<KernPressable accessibilityLabel="Bold" aria-selected />);
+    const label = screen.getByLabelText("Bold");
+    expect(label).toBeTruthy();
+    expect(
+      screen.queryByRole("button", { name: "Bold", selected: true }),
+    ).toBeTruthy();
+    // ...and the wrapper's own defaults still report: disabled is present
+    // even though the caller only supplied selected.
+    expect(
+      screen.queryByRole("button", { name: "Bold", disabled: false }),
+    ).toBeTruthy();
   });
 
   it("renders its children and accepts a testID", async () => {

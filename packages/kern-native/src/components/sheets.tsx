@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
 import { SheetSurface } from "./sheet-surface";
+import { DISABLED_CONTENT_OPACITY, StateLayer } from "./state-layer";
 import { Text } from "./text";
 
 /**
@@ -359,11 +360,10 @@ export function BottomSheetPicker({
         return (
           <Pressable
             key={option.value}
+            role="menuitem"
             accessibilityRole="menuitem"
-            accessibilityState={{
-              selected,
-              disabled: Boolean(option.disabled),
-            }}
+            aria-selected={selected}
+            aria-disabled={option.disabled || undefined}
             accessibilityLabel={option.label}
             disabled={option.disabled}
             onPress={() => {
@@ -372,38 +372,47 @@ export function BottomSheetPicker({
               onDismiss?.();
               onOpenChange?.(false);
             }}
-            style={({ pressed }) => ({
+            style={{
               minHeight: 56,
               flexDirection: "row",
               alignItems: "center",
               gap: Number.parseFloat(tokens.spacing["space-150"]),
               paddingHorizontal: Number.parseFloat(tokens.spacing["space-200"]),
-              opacity: option.disabled ? 0.38 : pressed ? 0.82 : 1,
-            })}
+              overflow: "hidden" as const,
+              opacity: option.disabled ? DISABLED_CONTENT_OPACITY : 1,
+            }}
           >
-            <View style={{ flex: 1 }}>
-              <Text
-                style={{
-                  color: selected
-                    ? scheme.color.onSurface
-                    : scheme.color.onSurfaceVariant,
-                  fontWeight: selected ? "600" : "400",
-                }}
-              >
-                {option.label}
-              </Text>
-              {option.supporting ? (
-                <Text
-                  variant="label"
-                  style={{ color: scheme.color.onSurfaceVariant }}
-                >
-                  {option.supporting}
-                </Text>
-              ) : null}
-            </View>
-            {selected ? (
-              <Icon name="check" color={scheme.color.primary} />
-            ) : null}
+            {({ pressed: isPressed }) => (
+              <>
+                <View style={{ flex: 1 }}>
+                  <Text
+                    style={{
+                      color: selected
+                        ? scheme.color.onSurface
+                        : scheme.color.onSurfaceVariant,
+                      fontWeight: selected ? "600" : "400",
+                    }}
+                  >
+                    {option.label}
+                  </Text>
+                  {option.supporting ? (
+                    <Text
+                      variant="label"
+                      style={{ color: scheme.color.onSurfaceVariant }}
+                    >
+                      {option.supporting}
+                    </Text>
+                  ) : null}
+                </View>
+                {selected ? (
+                  <Icon name="check" color={scheme.color.primary} />
+                ) : null}
+                <StateLayer
+                  ink={scheme.color.onSurface}
+                  visible={isPressed && !option.disabled}
+                />
+              </>
+            )}
           </Pressable>
         );
       })}

@@ -28,7 +28,7 @@ export function toggleStyles(
 
 export type NativeToggleProps = Omit<
   PressableProps,
-  "children" | "style" | "onPress" | "accessibilityState" | "accessibilityRole"
+  "children" | "style" | "onPress" | "accessibilityRole"
 > & {
   children: ReactNode;
   pressed?: boolean;

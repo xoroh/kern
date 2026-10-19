@@ -88,7 +88,8 @@ export function NavigationRail({
             // same substitution `NavigationBar` already makes, so the two
             // navigations read the same way to a screen reader.
             accessibilityRole="tab"
-            accessibilityState={{ selected, disabled }}
+            aria-selected={selected}
+            aria-disabled={disabled}
             // The label is the accessible name in BOTH modes -- see the mode
             // doc. Collapsing is visual only.
             accessibilityLabel={destination.label}

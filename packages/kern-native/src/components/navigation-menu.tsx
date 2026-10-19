@@ -40,7 +40,7 @@ export function NavigationMenu({
           key={item.label}
           accessibilityRole="link"
           accessibilityLabel={item.label}
-          accessibilityState={{ selected: item.active }}
+          aria-selected={item.active}
           hitSlop={{ top: 4, bottom: 4, left: 4, right: 4 }}
           onPress={item.onPress}
           style={{

@@ -399,10 +399,8 @@ describe("LoadingButton", () => {
     const idle = await render(<LoadingButton>Send</LoadingButton>);
     const idleRoot = hostsByTestID(idle, "kern-loading-button")[0];
     expect(idleRoot.props.accessibilityRole).toBe("button");
-    expect(idleRoot.props.accessibilityState).toEqual({
-      disabled: false,
-      busy: false,
-    });
+    expect(idleRoot.props["aria-disabled"]).toBeUndefined();
+    expect(idleRoot.props["aria-busy"]).toBeUndefined();
     expect(idleRoot.props.disabled).toBe(false);
     expect(
       idle.root.findAll(
@@ -417,10 +415,8 @@ describe("LoadingButton", () => {
       </LoadingButton>,
     );
     const busyRoot = hostsByTestID(busy, "kern-loading-button")[0];
-    expect(busyRoot.props.accessibilityState).toEqual({
-      disabled: true,
-      busy: true,
-    });
+    expect(busyRoot.props["aria-disabled"]).toBe(true);
+    expect(busyRoot.props["aria-busy"]).toBe(true);
     expect(busyRoot.props.disabled).toBe(true);
     expect(
       busy.root.findAll(

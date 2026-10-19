@@ -312,7 +312,7 @@ function DrawerTriggerAnnouncer({
     <Pressable
       accessibilityRole="button"
       accessibilityLabel="Open menu"
-      accessibilityState={{ expanded: open }}
+      aria-expanded={open}
     >
       <Text>{title}</Text>
     </Pressable>
@@ -373,7 +373,7 @@ function PopoverTrigger({
     <Pressable
       accessibilityRole="button"
       accessibilityLabel={label}
-      accessibilityState={{ expanded: open }}
+      aria-expanded={open}
       onPress={() => setOpen(!open)}
     >
       {children ?? <Text>{label}</Text>}

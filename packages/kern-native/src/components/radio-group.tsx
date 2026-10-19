@@ -10,6 +10,7 @@ import {
   type ViewStyle,
 } from "react-native";
 import { defaultScheme, useKernTheme } from "../theme";
+import { DISABLED_CONTENT_OPACITY, StateLayer } from "./state-layer";
 
 type RadioGroupContextValue = {
   value: string | undefined;
@@ -34,7 +35,7 @@ export function radioStyles(
       borderColor: selected ? scheme.color.primary : scheme.color.outline,
       alignItems: "center" as const,
       justifyContent: "center" as const,
-      opacity: disabled ? 0.38 : 1,
+      opacity: disabled ? DISABLED_CONTENT_OPACITY : 1,
     },
     indicator: {
       width: 8,
@@ -90,11 +91,10 @@ export function RadioGroup({
 
 export type RadioGroupItemProps = Omit<
   PressableProps,
-  "children" | "style" | "onPress" | "accessibilityState"
+  "children" | "style" | "onPress"
 > & {
   value: string;
   children: ReactNode;
-  accessibilityState?: PressableProps["accessibilityState"];
   onPress?: PressableProps["onPress"];
   style?: PressableProps["style"];
 };
@@ -105,7 +105,6 @@ export function RadioGroupItem({
   onPress,
   style,
   disabled,
-  accessibilityState,
   hitSlop,
   testID,
   ...props
@@ -121,12 +120,10 @@ export function RadioGroupItem({
     <Pressable
       {...props}
       testID={testID ?? `kern-radio-${value}`}
+      role="radio"
       accessibilityRole="radio"
-      accessibilityState={{
-        ...accessibilityState,
-        checked: selected,
-        disabled: isDisabled,
-      }}
+      aria-checked={selected}
+      aria-disabled={isDisabled || undefined}
       disabled={isDisabled}
       hitSlop={hitSlop ?? { top: 12, bottom: 12, left: 12, right: 12 }}
       onPress={(event) => {
@@ -139,20 +136,28 @@ export function RadioGroupItem({
           flexDirection: "row",
           alignItems: "center",
           gap: 8,
+          overflow: "hidden" as const,
         },
-        pressed && !isDisabled ? { opacity: 0.82 } : undefined,
         typeof style === "function" ? style({ pressed }) : style,
       ]}
     >
-      <View style={styles.control}>
-        {selected ? <View style={styles.indicator} /> : null}
-      </View>
-      {typeof children === "string" || typeof children === "number" ? (
-        <Text style={{ fontSize: 14, color: group.scheme.color.onSurface }}>
-          {children}
-        </Text>
-      ) : (
-        children
+      {({ pressed: isPressed }) => (
+        <>
+          <View style={styles.control}>
+            {selected ? <View style={styles.indicator} /> : null}
+          </View>
+          {typeof children === "string" || typeof children === "number" ? (
+            <Text style={{ fontSize: 14, color: group.scheme.color.onSurface }}>
+              {children}
+            </Text>
+          ) : (
+            children
+          )}
+          <StateLayer
+            ink={group.scheme.color.onSurface}
+            visible={isPressed && !isDisabled}
+          />
+        </>
       )}
     </Pressable>
   );

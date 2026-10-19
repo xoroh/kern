@@ -9,6 +9,7 @@ import {
   type ViewStyle,
 } from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
+import { DISABLED_CONTENT_OPACITY } from "./state-layer";
 
 export type NativeSliderSize = "default" | "xs" | "sm" | "md" | "lg" | "xl";
 
@@ -44,7 +45,7 @@ export function sliderStyles(
       height: trackH,
       borderRadius: trackH / 2,
       backgroundColor: scheme.color.surfaceTonal,
-      opacity: disabled ? 0.38 : 1,
+      opacity: disabled ? DISABLED_CONTENT_OPACITY : 1,
     },
     fill: {
       height: trackH,
@@ -119,7 +120,7 @@ export function Slider({
       <Pressable
         accessibilityRole="adjustable"
         accessibilityLabel={accessibilityLabel}
-        accessibilityState={{ disabled }}
+        aria-disabled={disabled}
         accessibilityValue={{ now: numeric, min, max }}
         accessibilityActions={[{ name: "increment" }, { name: "decrement" }]}
         disabled={disabled}

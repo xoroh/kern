@@ -39,8 +39,10 @@ export function LoadingButton({
     <Pressable
       {...props}
       testID={testID ?? "kern-loading-button"}
+      role="button"
       accessibilityRole="button"
-      accessibilityState={{ disabled: blocked, busy: loading }}
+      aria-disabled={blocked || undefined}
+      aria-busy={loading || undefined}
       disabled={blocked}
       hitSlop={size === "sm" ? 8 : 4}
       onPress={(event: GestureResponderEvent) => onPress?.(event)}

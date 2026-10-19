@@ -1,5 +1,6 @@
 import { Pressable, type StyleProp, type ViewStyle } from "react-native";
 import { useKernTheme } from "../theme";
+import { DISABLED_CONTENT_OPACITY } from "./state-layer";
 import { Text } from "./text";
 
 export type NativeThemeToggleProps = {
@@ -36,7 +37,7 @@ export function ThemeToggle({
       accessible
       accessibilityRole="button"
       accessibilityLabel={label}
-      accessibilityState={{ disabled: disabled ?? false }}
+      aria-disabled={disabled}
       disabled={disabled}
       onPress={onToggle}
       style={[
@@ -47,7 +48,7 @@ export function ThemeToggle({
           justifyContent: "center",
           borderRadius: 24,
           backgroundColor: "transparent",
-          opacity: disabled ? 0.38 : 1,
+          opacity: disabled ? DISABLED_CONTENT_OPACITY : 1,
         },
         style,
       ]}

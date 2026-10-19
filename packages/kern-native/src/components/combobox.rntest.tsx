@@ -91,11 +91,11 @@ describe("native Combobox", () => {
     // The option carries the web listbox role plus the selection axis.
     expect(screen.getByLabelText("Apple").props.role).toBe("option");
     expect(
-      screen.getByLabelText("Apple").props.accessibilityState,
-    ).toMatchObject({ selected: true });
+      screen.queryByRole("option", { name: "Apple", selected: true }),
+    ).toBeTruthy();
     expect(
-      screen.getByLabelText("Banana").props.accessibilityState,
-    ).toMatchObject({ selected: false });
+      screen.queryByRole("option", { name: "Banana", selected: true }),
+    ).toBeNull();
   });
 
   it("reflects a controlled value in the trigger", async () => {
@@ -146,18 +146,25 @@ describe("native Combobox", () => {
     await render(
       <Combobox accessibilityLabel="Pick a fruit" options={OPTIONS} />,
     );
-    // NOTE: captured before opening — once the Modal is open the trigger
-    // sits outside it and RNTL hides it from accessible queries (the
-    // platform behaviour `accessibilityViewIsModal` describes). The held
-    // instance still reflects the latest props after `act`.
+    // NOTE: once the Modal is open the trigger sits outside it and RNTL
+    // hides it from accessible queries (the platform behaviour
+    // `accessibilityViewIsModal` describes), so the open assertion opts
+    // into hidden elements. The closed assertion needs no such opt-in.
     const trigger = screen.getByLabelText("Pick a fruit");
     expect(trigger.props.accessibilityRole).toBe("button");
-    expect(trigger.props.accessibilityState).toMatchObject({
-      expanded: false,
-    });
+    expect(
+      screen.queryByRole("button", {
+        name: "Pick a fruit",
+        expanded: false,
+      }),
+    ).toBeTruthy();
     await open();
-    expect(trigger.props.accessibilityState).toMatchObject({
-      expanded: true,
-    });
+    expect(
+      screen.queryByRole("button", {
+        name: "Pick a fruit",
+        expanded: true,
+        includeHiddenElements: true,
+      }),
+    ).toBeTruthy();
   });
 });

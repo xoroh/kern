@@ -180,7 +180,8 @@ function Option({
     <Pressable
       accessibilityRole="option"
       accessibilityLabel={label}
-      accessibilityState={{ selected, disabled }}
+      aria-selected={selected}
+      aria-disabled={disabled}
       disabled={disabled}
       onPress={onPress}
       testID={`kern-time-option-${label}`}
@@ -341,7 +342,8 @@ function DialRing({
             key={option.value}
             accessibilityRole="option"
             accessibilityLabel={labelText}
-            accessibilityState={{ selected, disabled: described.disabled }}
+            aria-selected={selected}
+            aria-disabled={described.disabled}
             disabled={described.disabled}
             onPress={() => {
               if (!described.disabled) onSelect(i);
@@ -630,7 +632,7 @@ export function TimePicker({
               key={mode}
               accessibilityLabel={`Show ${text.toLowerCase()}s`}
               accessibilityRole="button"
-              accessibilityState={{ selected: active }}
+              aria-selected={active}
               onPress={() => setDialMode(mode)}
               testID={`kern-time-dial-mode-${mode}`}
               style={{

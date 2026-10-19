@@ -15,8 +15,8 @@ describe("CheckboxGroup", () => {
       </CheckboxGroup>,
     );
     expect(
-      screen.getByLabelText("Alpha").props.accessibilityState.checked,
-    ).toBe(false);
+      screen.queryByRole("checkbox", { name: "Alpha", checked: true }),
+    ).toBeNull();
   });
 
   it("starts from defaultValue", async () => {
@@ -27,11 +27,11 @@ describe("CheckboxGroup", () => {
       </CheckboxGroup>,
     );
     expect(
-      screen.getByLabelText("Alpha").props.accessibilityState.checked,
-    ).toBe(true);
-    expect(screen.getByLabelText("Beta").props.accessibilityState.checked).toBe(
-      false,
-    );
+      screen.queryByRole("checkbox", { name: "Alpha", checked: true }),
+    ).toBeTruthy();
+    expect(
+      screen.queryByRole("checkbox", { name: "Beta", checked: true }),
+    ).toBeNull();
   });
 
   /**
@@ -56,11 +56,11 @@ describe("CheckboxGroup", () => {
 
     expect(onValueChange).toHaveBeenLastCalledWith(["a", "b"]);
     expect(
-      screen.getByLabelText("Alpha").props.accessibilityState.checked,
-    ).toBe(true);
-    expect(screen.getByLabelText("Beta").props.accessibilityState.checked).toBe(
-      true,
-    );
+      screen.queryByRole("checkbox", { name: "Alpha", checked: true }),
+    ).toBeTruthy();
+    expect(
+      screen.queryByRole("checkbox", { name: "Beta", checked: true }),
+    ).toBeTruthy();
   });
 
   /** Additive mode also means activating a CHECKED item UNCHECKS it. */
@@ -82,8 +82,8 @@ describe("CheckboxGroup", () => {
     });
     expect(onValueChange).toHaveBeenLastCalledWith(["b"]);
     expect(
-      screen.getByLabelText("Alpha").props.accessibilityState.checked,
-    ).toBe(false);
+      screen.queryByRole("checkbox", { name: "Alpha", checked: true }),
+    ).toBeNull();
   });
 
   it("exposes the group itself to assistive tech", async () => {
@@ -107,9 +107,12 @@ describe("CheckboxGroup", () => {
         <CheckboxGroupItem value="a">Alpha</CheckboxGroupItem>
       </CheckboxGroup>,
     );
-    const state = screen.getByLabelText("Alpha").props.accessibilityState;
-    expect(state.checked).toBe(true);
-    expect(state.selected).toBeUndefined();
+    expect(
+      screen.queryByRole("checkbox", { name: "Alpha", checked: true }),
+    ).toBeTruthy();
+    expect(
+      screen.queryByRole("checkbox", { name: "Alpha", selected: true }),
+    ).toBeNull();
   });
 
   it("disables every item when the group is disabled", async () => {
@@ -125,7 +128,9 @@ describe("CheckboxGroup", () => {
     );
 
     const item = screen.getByLabelText("Alpha");
-    expect(item.props.accessibilityState.disabled).toBe(true);
+    expect(
+      screen.queryByRole("checkbox", { name: "Alpha", disabled: true }),
+    ).toBeTruthy();
     await act(async () => {
       fireEvent.press(item);
     });

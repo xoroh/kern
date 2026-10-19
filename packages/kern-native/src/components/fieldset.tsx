@@ -155,7 +155,7 @@ export function Fieldset({
         testID={testID ?? "kern-fieldset"}
         role="group"
         accessibilityLabel={accessibilityLabel ?? legend}
-        accessibilityState={{ disabled: effectiveDisabled }}
+        aria-disabled={effectiveDisabled}
         style={[styles.root, style]}
       >
         {children}
@@ -235,7 +235,7 @@ export function FieldsetItem({
     <View
       {...props}
       testID={testID ?? "kern-fieldset-item"}
-      accessibilityState={{ disabled }}
+      aria-disabled={disabled}
       style={[
         {
           minHeight: 48,

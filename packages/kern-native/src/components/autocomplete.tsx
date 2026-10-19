@@ -37,7 +37,7 @@ import { Text } from "./text";
  *    a web fix owed by P2b-4, not a contract.
  * 2. **No `aria-activedescendant` analogue is invented.** RN has no
  *    activedescendant; the active suggestion is exposed as
- *    `accessibilityState.selected` on the row itself, which is the axis the
+ *    `aria-selected` on the row itself, which is the axis the
  *    parity contract already defines as `selected`.
  */
 
@@ -194,7 +194,8 @@ export function Autocomplete({
           accessibilityRole="combobox"
           accessibilityLabel={accessibilityLabel}
           accessibilityHint={hint || undefined}
-          accessibilityState={{ expanded, disabled }}
+          aria-expanded={expanded}
+          aria-disabled={disabled}
           editable={!disabled}
           placeholder={placeholder}
           placeholderTextColor={scheme.color.onSurfaceVariant}
@@ -229,10 +230,8 @@ export function Autocomplete({
                 key={suggestion.value}
                 accessibilityRole="menuitem"
                 accessibilityLabel={suggestion.label}
-                accessibilityState={{
-                  selected: isActive,
-                  disabled: Boolean(suggestion.disabled),
-                }}
+                aria-selected={isActive}
+                aria-disabled={suggestion.disabled || undefined}
                 disabled={suggestion.disabled}
                 hitSlop={{ top: 4, bottom: 4, left: 4, right: 4 }}
                 onPress={() => commit(suggestion)}

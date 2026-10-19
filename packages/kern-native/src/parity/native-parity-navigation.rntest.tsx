@@ -32,13 +32,14 @@ describe("native parity contract: carousel", () => {
     const r = contractFor("carousel");
     await render(<Carousel items={items} accessibilityLabel="Promotions" />);
     // The roving model: ONE selected stop for the whole track, never N.
-    const selected = items.map(
-      (i) =>
-        screen.getByLabelText(i.accessibilityLabel).props.accessibilityState
-          .selected,
+    const selected = items.map((i) =>
+      screen.queryByRole("image", {
+        name: i.accessibilityLabel,
+        selected: true,
+      }),
     );
     expect(selected.filter(Boolean)).toHaveLength(1);
-    expect(selected[0]).toBe(true);
+    expect(selected[0]).toBeTruthy();
     expect(r.role).toBe("group");
   });
 
@@ -59,13 +60,14 @@ describe("native parity contract: carousel", () => {
     await act(async () => {
       fireEvent.press(screen.getByLabelText("Slide three"));
     });
-    const selected = items.map(
-      (i) =>
-        screen.getByLabelText(i.accessibilityLabel).props.accessibilityState
-          .selected,
+    const selected = items.map((i) =>
+      screen.queryByRole("image", {
+        name: i.accessibilityLabel,
+        selected: true,
+      }),
     );
     expect(selected.filter(Boolean)).toHaveLength(1);
-    expect(selected[2]).toBe(true);
+    expect(selected[2]).toBeTruthy();
   });
 });
 
@@ -81,11 +83,11 @@ describe("native parity contract: time-picker", () => {
     // THREE separate single selections (hour, minute, period) — not one across
     // the picker, and not many per field.
     expect(
-      screen.getByLabelText("Hour 09").props.accessibilityState.selected,
-    ).toBe(true);
+      screen.getByRole("option", { name: "Hour 09", selected: true }),
+    ).toBeTruthy();
     expect(
-      screen.getByLabelText("Minute 30").props.accessibilityState.selected,
-    ).toBe(true);
+      screen.getByRole("option", { name: "Minute 30", selected: true }),
+    ).toBeTruthy();
     expect(r.role).toBe("list");
   });
 

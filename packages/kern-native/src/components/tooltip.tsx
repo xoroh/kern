@@ -117,7 +117,7 @@ export function Tooltip({
           accessibilityHint={
             accessibilityHint ? `${accessibilityHint}. ${hint}` : hint
           }
-          accessibilityState={{ expanded: shown }}
+          aria-expanded={shown}
           focusable
           onFocus={() => setOpen(true)}
           onBlur={() => setOpen(false)}
@@ -259,7 +259,7 @@ export function RichTooltip({
               ? `${accessibilityHint}. ${title}. ${text}`
               : `${title}. ${text}`
           }
-          accessibilityState={{ expanded: shown }}
+          aria-expanded={shown}
           focusable
           onFocus={() => setOpen(true)}
           onBlur={() => setOpen(false)}

@@ -7,6 +7,7 @@ import {
 } from "react-native";
 import { useNativeField } from "../field-context";
 import { defaultScheme, useKernTheme } from "../theme";
+import { DISABLED_CONTENT_OPACITY } from "./state-layer";
 
 function withAlpha(color: string, alpha: number): string {
   if (/^#[0-9a-fA-F]{6}$/.test(color)) {
@@ -44,7 +45,10 @@ export function inputStyles(
     borderColor: error
       ? scheme.color.error
       : disabled
-        ? withAlpha(scheme.color.onSurface, filled ? 0.38 : 0.12)
+        ? withAlpha(
+            scheme.color.onSurface,
+            filled ? DISABLED_CONTENT_OPACITY : 0.12,
+          )
         : filled
           ? scheme.color.onSurfaceVariant
           : scheme.color.outline,
@@ -59,7 +63,7 @@ export function inputStyles(
     lineHeight: 24,
     letterSpacing: 0.5,
     color: disabled
-      ? withAlpha(scheme.color.onSurface, 0.38)
+      ? withAlpha(scheme.color.onSurface, DISABLED_CONTENT_OPACITY)
       : scheme.color.onSurface,
     textAlignVertical: multiline ? "top" : "center",
   };
@@ -91,7 +95,7 @@ export function Input({
   const field = useNativeField();
   const hasError = error || Boolean(field?.error);
   const isDisabled = props.editable === false;
-  // RN has no accessibilityState.invalid. Announce the error through the
+  // RN exposes no invalid state on text inputs. Announce the error through the
   // focused field hint; FieldMessage adds the live alert nearby.
   const hint = [
     accessibilityHint,
@@ -106,10 +110,10 @@ export function Input({
       testID={props.testID ?? "kern-input"}
       accessibilityLabel={accessibilityLabel ?? field?.label}
       accessibilityHint={hint || undefined}
-      accessibilityState={{ disabled: Boolean(props.editable === false) }}
+      aria-disabled={props.editable === false}
       placeholderTextColor={
         isDisabled
-          ? withAlpha(scheme.color.onSurface, 0.38)
+          ? withAlpha(scheme.color.onSurface, DISABLED_CONTENT_OPACITY)
           : scheme.color.onSurfaceVariant
       }
       multiline={multiline}
