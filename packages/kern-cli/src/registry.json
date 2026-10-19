@@ -1,6 +1,6 @@
 {
   "version": "0.0.0",
-  "releaseSet": "kern@0.0.0+418.e47926193fec379e",
+  "releaseSet": "kern@0.0.0+419.f5e37bf4f5ce6f02",
   "rows": [
     {
       "name": "accordion-root",
@@ -3155,8 +3155,16 @@
       "status": "real"
     },
     {
-      "name": "snackbar",
-      "export": "Snackbar",
+      "name": "snackbar-provider",
+      "export": "SnackbarProvider",
+      "platform": "native",
+      "entrypoint": ".",
+      "path": "src/components/snackbar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "snackbar-viewport",
+      "export": "SnackbarViewport",
       "platform": "native",
       "entrypoint": ".",
       "path": "src/components/snackbar.tsx",
