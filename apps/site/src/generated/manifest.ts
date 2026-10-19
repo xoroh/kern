@@ -2995,7 +2995,7 @@ export const COMPONENT_COUNT = COMPONENTS.length;
  * different units, do not compare them.
  */
 export const PARITY_COUNTS = {
-  web: 304,
+  web: 305,
   native: 119,
   shared: 91,
 };
