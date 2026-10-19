@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { tokenize } from "./highlight";
+import { type HighlightLanguage, tokenize } from "./highlight";
 
 /**
  * The tokenizer only classifies — joining every token must reproduce the
@@ -7,13 +7,13 @@ import { tokenize } from "./highlight";
  * character teaches the wrong code, so the round-trip is asserted on every
  * fixture, not just the classification.
  */
-function textOf(source: string, language: "tsx" | "bash" | "css"): string {
+function textOf(source: string, language: HighlightLanguage): string {
   return tokenize(source, language)
     .map((t) => t.text)
     .join("");
 }
 
-function classesOf(source: string, language: "tsx" | "bash" | "css"): string[] {
+function classesOf(source: string, language: HighlightLanguage): string[] {
   return tokenize(source, language)
     .filter((t) => t.cls !== null)
     .map((t) => `${t.text}=>${t.cls}`);
@@ -101,6 +101,43 @@ describe("css", () => {
     expect(got).toContain("/* the only required import */=>tok-comment");
     expect(got).toContain(".stage=>tok-tag");
     expect(got).toContain("color=>tok-attr");
+  });
+});
+
+describe("json", () => {
+  const src = `// any MCP host: Claude Code, Cursor, VS Code, Zed
+{
+  "mcpServers": {
+    "kern": { "command": "bunx", "args": ["@xoroh/kern-mcp", "--fresh"] }
+  }
+}`;
+
+  it("round-trips the source exactly", () => {
+    expect(textOf(src, "json")).toBe(src);
+  });
+
+  it("classifies keys, strings, comments, literals", () => {
+    const got = classesOf(src, "json");
+    expect(got).toContain('"mcpServers"=>tok-type');
+    expect(got).toContain('"command"=>tok-type');
+    expect(got).toContain('"bunx"=>tok-string');
+    expect(got).toContain('"@xoroh/kern-mcp"=>tok-string');
+    expect(got).toContain(
+      "// any MCP host: Claude Code, Cursor, VS Code, Zed=>tok-comment",
+    );
+  });
+
+  it("numbers and booleans color, punctuation stays base ink", () => {
+    const got = classesOf(
+      `{ "version": 2, "pinned": true, "x": null }`,
+      "json",
+    );
+    expect(got).toContain("2=>tok-number");
+    expect(got).toContain("true=>tok-keyword");
+    expect(got).toContain("null=>tok-keyword");
+    // classesOf drops unclassified tokens, so base-ink punctuation shows
+    // only as an ABSENCE — no token is just a brace or a colon.
+    expect(got.filter((c) => /^[":{}[\],]+=>/.test(c)).length).toBe(0);
   });
 });
 

@@ -13,11 +13,31 @@
   box-sizing: border-box;
 }
 
+:root {
+  --site-header-h: 80px;
+}
+
 body {
   margin: 0;
   font-family: var(--ref-font-family);
   background: var(--sys-color-surface);
   color: var(--sys-color-on-surface);
+}
+
+/* The document is the scroll container now, so the root owns the smooth
+   scrolling, the stable gutter and the shell background (overscroll and
+   pull-behind-the-header regions must not flash a different surface).
+   Motion-pref-respecting: people who ask for reduced motion get instant
+   jumps instead of the smooth glide. */
+html {
+  background: var(--sys-color-surface-container-low);
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 a:focus-visible,
@@ -26,15 +46,18 @@ button:focus-visible {
   outline-offset: 2px;
 }
 
-/* Site expression, not library overrides: package demos keep their own tokens. */
 .site-shell {
   --site-panel-radius: var(--sys-shape-corner-extra-large);
   --site-hero-radius: var(--sys-shape-corner-extra-extra-large);
   background: var(--sys-color-surface-container-low);
 }
 
+.site-chrome {
+  background: var(--sys-color-surface-container-low);
+  border-bottom: 1px solid var(--sys-color-outline-variant);
+}
 .site-header {
-  min-height: 80px;
+  height: var(--site-header-h);
 }
 .site-body {
   padding: 0 16px 16px;
@@ -42,11 +65,9 @@ button:focus-visible {
 .site-main {
   background: var(--sys-color-surface);
   border-radius: var(--site-panel-radius);
-  scrollbar-gutter: stable;
-  scroll-behavior: smooth;
 }
 .site-main :is(h2, h3)[id] {
-  scroll-margin-top: 32px;
+  scroll-margin-top: calc(var(--site-header-h) + 24px);
 }
 .site-main:focus {
   outline: none;
@@ -510,8 +531,8 @@ a.site-card:active::after {
   }
 }
 @media (max-width: 1023px) {
-  .site-header {
-    min-height: 72px;
+  :root {
+    --site-header-h: 72px;
   }
   .site-body {
     padding: 0 12px 12px;
@@ -559,8 +580,8 @@ a.site-card:active::after {
   }
 }
 @media (max-width: 639px) {
-  .site-header {
-    min-height: 64px;
+  :root {
+    --site-header-h: 64px;
   }
   .site-body {
     padding: 0;

@@ -172,14 +172,9 @@ function ThemePage() {
             One theme source, both platforms
           </h1>
           <p className={`m-0 ${T_BODY} text-(--sys-color-on-surface-variant)`}>
-            <code>@xoroh/kern-tokens</code> is platform-free: no React, no DOM.
-            Web reads OKLCH CSS variables, native reads compiled sRGB, and both
-            resolve the same {ROLE_COUNT} roles. Every swatch on this page is
-            read from the package, not copied into the site, and the two
-            controls below repaint them live — scheme and contrast are resolved
-            the same way an app resolves them. This page is the reference — what
-            the roles resolve to. What the roles MEAN and where each one goes
-            lives on{" "}
+            <code>@xoroh/kern-tokens</code> gives web and native the same{" "}
+            {ROLE_COUNT} semantic color roles. Switch the controls to preview
+            how your app resolves them. What the roles <em>mean</em> lives on{" "}
             <Link
               to="/foundations/m3/$page"
               params={{ page: "color" }}

@@ -7,7 +7,7 @@ import { PreviewBanner } from "../../../components/chrome/preview-banner";
 import { SearchPalette } from "../../../components/chrome/search-palette";
 import { SiteHeader } from "../../../components/chrome/site-header";
 import { T_BODY_SM, T_LABEL } from "../systems/type-scale";
-import { FOCUS_RING, STATE_LAYERS, TRANSITION } from "../systems/ui";
+import { FOCUS_RING, TRANSITION } from "../systems/ui";
 
 /**
  * Docs-section paths render with the three-column layout: left sidebar tree,
@@ -24,6 +24,20 @@ const SIDEBAR_PREFIXES = [
   "/styles",
   "/reference",
 ];
+
+/**
+ * The spy line: headings at or above this viewport Y count as "read past".
+ * One header height + a small margin, in sync with the scroll-mt the
+ * headings use for anchor jumps.
+ */
+function spyLine(): number {
+  const header =
+    typeof document !== "undefined"
+      ? document.querySelector("header.site-header")
+      : null;
+  const h = header?.getBoundingClientRect().bottom ?? 0;
+  return h + 8;
+}
 
 /**
  * Read `h2[id]` items from `#main` — the shared TOC data source for both
@@ -48,17 +62,51 @@ function readTocItems(): { id: string; text: string }[] {
 /**
  * "On this page" — the right rail (desktop TOC).
  *
- * Sticky beside the content, hidden below `xl` so it never competes with
- * the `SectionToc` disclosure that covers narrow viewports. Items are read
- * from the rendered page DOM, so this works for every docs page without
- * knowing its grammar.
+ * Sticky beside the content from 1280px up (shadcn/radix keep the rail on
+ * desktop; below that the `SectionToc` disclosure covers the page). Items are
+ * read from the rendered page DOM, so this works for every docs page without
+ * knowing its grammar; the scroll-spy marks the section the reader is in.
  */
 function OnThisPageRail({ pathname }: { pathname: string }) {
   const [items, setItems] = useState<{ id: string; text: string }[]>([]);
+  const [activeId, setActiveId] = useState<string | null>(null);
   // biome-ignore lint/correctness/useExhaustiveDependencies: pathname triggers re-read on route change
   useEffect(() => {
     setItems(readTocItems());
+    setActiveId(null);
   }, [pathname]);
+  // Scroll-spy: the first heading below the sticky header marks the section
+  // the reader is in. A scroll listener with a rAF coalesce is deliberately
+  // boring and cheap — one read of getBoundingClientRect per frame batch
+  // beats an IntersectionObserver graph that changes with every layout.
+  useEffect(() => {
+    if (items.length === 0) return;
+    const ids = items.map((item) => item.id);
+    let frame = 0;
+    const measure = () => {
+      frame = 0;
+      let current: string | null = null;
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        if (el.getBoundingClientRect().top <= spyLine()) current = id;
+        else break;
+      }
+      setActiveId(current);
+    };
+    const onScroll = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(measure);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    measure();
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, [items]);
   if (items.length < 2) return null;
   return (
     <nav aria-label="On this page" className="flex flex-col gap-2">
@@ -67,27 +115,36 @@ function OnThisPageRail({ pathname }: { pathname: string }) {
       >
         On this page
       </p>
-      <ul className="m-0 flex list-none flex-col gap-1 p-0">
-        {items.map((item) => (
-          <li key={item.id} className="m-0 p-0">
-            <a
-              href={`#${item.id}`}
-              className={`block rounded-(--sys-shape-corner-full) px-3 py-1.5 ${T_BODY_SM} text-(--sys-color-on-surface-variant) no-underline hover:text-(--sys-color-on-surface) hover:underline ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`}
-            >
-              {item.text}
-            </a>
-          </li>
-        ))}
+      <ul className="m-0 flex list-none flex-col gap-0.5 p-0">
+        {items.map((item) => {
+          const active = item.id === activeId;
+          return (
+            <li key={item.id} className="m-0 p-0">
+              <a
+                href={`#${item.id}`}
+                aria-current={active ? "location" : undefined}
+                className={`block rounded-(--sys-shape-corner-full) px-3 py-1.5 ${T_BODY_SM} no-underline ${TRANSITION} ${FOCUS_RING} ${
+                  active
+                    ? "bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container) font-medium"
+                    : "text-(--sys-color-on-surface-variant) hover:bg-(--sys-color-surface-container-high) hover:text-(--sys-color-on-surface) hover:underline active:bg-(--sys-color-on-surface)/10"
+                }`}
+              >
+                {item.text}
+              </a>
+            </li>
+          );
+        })}
       </ul>
     </nav>
   );
 }
 
 /**
- * "On this page" disclosure for viewports where the sidebar tree and right
- * rail are both hidden (below lg). Same DOM-scraped data as the right rail;
- * renders nothing with fewer than two sections. Scrolls with the content
- * since it lives inside `main`.
+ * "On this page" disclosure for viewports where sidebar tree and right rail
+ * are both hidden (below lg). Same DOM-scraped data as the right rail;
+ * renders NOTHING from 1280px up, where the rail owns the job, and renders
+ * nothing with fewer than two sections. Scrolls with the content since it
+ * lives inside `main`.
  */
 function SectionToc({ pathname }: { pathname: string }) {
   const [items, setItems] = useState<{ id: string; text: string }[]>([]);
@@ -97,7 +154,7 @@ function SectionToc({ pathname }: { pathname: string }) {
   }, [pathname]);
   if (items.length < 2) return null;
   return (
-    <details className="rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-low) px-4 py-3 2xl:hidden">
+    <details className="rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-low) px-4 py-3 xl:hidden">
       <summary
         className={`cursor-pointer ${T_LABEL} text-(--sys-color-on-surface-variant) uppercase`}
       >
@@ -122,17 +179,17 @@ function SectionToc({ pathname }: { pathname: string }) {
 /**
  * SiteLayout — the app shell.
  *
- * Uses the kern `AppShell` scroll model: `h-dvh` on the root so the page
- * never grows past the viewport, `min-h-0` on the body row so content can
- * shrink, and exactly one `overflow-auto` on `main` — the only scrolling
- * element. The header is a structurally pinned flex sibling above the body
- * row; the sidebars are `shrink-0` with independent `overflow-y-auto` inners.
- * The footer lives inside `main` so it scrolls with the content.
+ * Uses the DOCUMENT scroll model: the page grows naturally under the
+ * viewport, `main` does not own a scroll container, and the browser's own
+ * scrollbar, find, scroll-restoration and full-page capture all behave like
+ * an ordinary document (the review's finding: an inner scroll container
+ * breaks all four). The chrome is pinned with CSS sticky: header at top,
+ * sidebar and TOC rails as sticky self-scrolling columns; `main` grows.
  *
- * When `fullHeight` or `fullScreen` is true, `main` does not scroll (`overflow-hidden`, no footer)
- * allowing full-bleed workbench apps (like Playground) to handle their
- * own internal pane-level scrolling without moving the outer page.
- * When `fullScreen` is true, the site header is omitted so the app owns the entire screen.
+ * Workbench routes opt OUT via `fullHeight`/`fullScreen`: the shell returns
+ * to a pinned `h-dvh` layout, `main` gets `h-full overflow-hidden` and the
+ * panes own their internal scrolling. `fullScreen` also omits the header so
+ * the app owns the whole screen.
  */
 export function SiteLayout({
   children,
@@ -163,45 +220,71 @@ export function SiteLayout({
           it is open. The palette itself renders outside them (below), so
           insetting the page never traps the dialog it is trying to show. */}
       <div
-        className="site-shell flex h-dvh bg-(--sys-color-surface-container-low)"
+        className={`site-shell flex bg-(--sys-color-surface-container-low) flex-col ${isFullHeight ? "h-dvh" : "min-h-dvh"}`}
         data-chrome="content"
       >
         <div className="flex min-w-0 flex-1 flex-col">
-          {!fullScreen ? <SiteHeader /> : null}
-          {!fullScreen ? <PreviewBanner /> : null}
+          {!fullScreen ? (
+            <div
+              className={`site-chrome shrink-0 ${isFullHeight ? "" : "sticky top-0 z-30"}`}
+            >
+              <SiteHeader />
+              <PreviewBanner />
+            </div>
+          ) : null}
 
-          {/* Body row — min-h-0 lets the content region shrink so overflow
-            routes to `main`'s scroll container instead of expanding the shell. */}
-          <div className="site-body flex min-h-0 flex-1">
-            {/* Left sidebar — shrink-0, fixed width, independent scroll.
-              The M3 sidebar surface: `bg-surface`, `border-e` hairline,
-              inner list scrolls without moving the shell. */}
+          {/* Body row — items-start so the sticky rails can pin instead of
+            stretching; min-h-0 only matters in the pinned full-height mode. */}
+          <div
+            className={`site-body flex ${isFullHeight ? "min-h-0 flex-1" : "items-start"}`}
+          >
+            {/* Left sidebar — sticky, viewport-height, its own scroll.
+              The M3 sidebar surface: `bg-surface`, hairline `border-e`. */}
             {withSidebar ? (
-              <aside className="site-sidebar hidden w-60 shrink-0 overflow-hidden lg:block">
-                <div className="h-full overflow-y-auto px-3 py-6">
+              <aside
+                className={`site-sidebar hidden w-60 shrink-0 overflow-hidden lg:block ${
+                  isFullHeight
+                    ? "overflow-hidden"
+                    : "sticky top-[var(--site-header-h)] max-h-[calc(100dvh-var(--site-header-h))] overflow-y-auto"
+                }`}
+              >
+                <div
+                  className={
+                    isFullHeight
+                      ? "h-full overflow-y-auto px-3 py-6"
+                      : "px-3 py-6"
+                  }
+                >
                   {isComponents ? <ComponentsSidebar /> : <DocsSidebar />}
                 </div>
               </aside>
             ) : null}
 
-            {/* Main — THE scroll container. When isFullHeight is set, main fits exact height
-                without scrolling, and inner panes manage their own overflow-y-auto. */}
+            {/* Main — grows naturally (document scroll); pinned + hidden
+                overflow in the full-height workbench mode. */}
             <main
               id="main"
-              className={`site-main flex min-w-0 flex-1 flex-col ${isFullHeight ? "h-full overflow-hidden" : "overflow-auto"} ${withSidebar ? "site-main-docs" : ""}`}
+              className={`site-main flex min-w-0 flex-1 flex-col ${isFullHeight ? "h-full overflow-hidden" : ""} ${withSidebar ? "site-main-docs" : ""}`}
               tabIndex={-1}
             >
               {/* Tablet/phone fallback for the sidebar tree and TOC: these
-                live inside `main` so they scroll with the content. */}
+                live inside `main` so they scroll with the content; below xl
+                the rail is hidden and this disclosure takes over. */}
               {withSidebar ? <SectionToc pathname={pathname} /> : null}
               {children}
               {!isFullHeight ? <Footer /> : null}
             </main>
 
-            {/* Right TOC — shrink-0, fixed width, independent scroll. */}
+            {/* Right TOC — sticky, from 1280px it shadows shadcn/radix. */}
             {withSidebar ? (
-              <aside className="site-toc hidden w-48 shrink-0 overflow-hidden 2xl:block">
-                <div className="h-full overflow-y-auto px-4 py-6">
+              <aside
+                className={`site-toc hidden w-48 shrink-0 xl:block ${
+                  isFullHeight
+                    ? "hidden"
+                    : "sticky top-[var(--site-header-h)] max-h-[calc(100dvh-var(--site-header-h))] overflow-y-auto"
+                }`}
+              >
+                <div className="px-4 py-6">
                   <OnThisPageRail pathname={pathname} />
                 </div>
               </aside>

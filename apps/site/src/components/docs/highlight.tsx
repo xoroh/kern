@@ -12,12 +12,13 @@ import type { ReactNode } from "react";
  * read — dogfooding, not a vendored TextMate theme.
  *
  * Coverage is deliberately narrow: TSX (every component snippet), bash
- * (install commands) and CSS (the one theme import). Anything else renders
- * in the base ink rather than a wrong color — an uncolored token is honest,
- * a miscolored one teaches the wrong grammar.
+ * (install commands), CSS (the one theme import) and JSON (the MCP host
+ * config snippets). Anything else renders in the base ink rather than a
+ * wrong color — an uncolored token is honest, a miscolored one teaches
+ * the wrong grammar.
  */
 
-export type HighlightLanguage = "tsx" | "bash" | "css";
+export type HighlightLanguage = "tsx" | "bash" | "css" | "json";
 
 type Token = { text: string; cls: string | null };
 
@@ -324,9 +325,71 @@ function tokenizeCss(src: string): Token[] {
   return out;
 }
 
+/**
+ * JSON — one small scanner for the config snippets the MCP page emits
+ * (host config, `.kern` manifests). Strings stay `tok-string` unless a
+ * lookahead colon makes them object keys (`tok-type`), `true/false/null`
+ * read as keywords, and `//` comments are tolerated JSONC-style because
+ * every snippet on the docs uses them to point at what to edit.
+ */
+function tokenizeJson(src: string): Token[] {
+  const out: Token[] = [];
+  let i = 0;
+  const n = src.length;
+  while (i < n) {
+    const ch = src[i];
+    if (ch === '"') {
+      let k = i + 1;
+      while (k < n && src[k] !== '"') {
+        if (src[k] === "\\") k += 1;
+        k += 1;
+      }
+      const end = Math.min(k + 1, n);
+      let m = end;
+      while (src[m] === " ") m += 1;
+      out.push({
+        text: src.slice(i, end),
+        cls: src[m] === ":" ? "tok-type" : "tok-string",
+      });
+      i = end;
+      continue;
+    }
+    if (ch === "/" && src[i + 1] === "/") {
+      let k = i;
+      while (k < n && src[k] !== "\n") k += 1;
+      out.push({ text: src.slice(i, k), cls: "tok-comment" });
+      i = k;
+      continue;
+    }
+    if (/[0-9]/.test(ch) || (ch === "-" && /[0-9]/.test(src[i + 1] ?? ""))) {
+      let k = i + 1;
+      while (k < n && /[0-9.eE+]/.test(src[k])) k += 1;
+      out.push({ text: src.slice(i, k), cls: "tok-number" });
+      i = k;
+      continue;
+    }
+    if (/[A-Za-z]/.test(ch)) {
+      let k = i;
+      while (k < n && /[A-Za-z_.]/.test(src[k])) k += 1;
+      out.push({
+        text: src.slice(i, k),
+        cls: /^(true|false|null)$/.test(src.slice(i, k))
+          ? "tok-keyword"
+          : "tok-type",
+      });
+      i = k;
+      continue;
+    }
+    out.push({ text: ch, cls: null });
+    i += 1;
+  }
+  return out;
+}
+
 export function tokenize(source: string, language: HighlightLanguage): Token[] {
   if (language === "bash") return tokenizeBash(source);
   if (language === "css") return tokenizeCss(source);
+  if (language === "json") return tokenizeJson(source);
   return tokenizeTsx(source);
 }
 
