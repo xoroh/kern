@@ -1792,11 +1792,7 @@ export const playgroundTheme = defineThemePreset({
                               <Badge variant="count">{row.status}</Badge>
                             </Table.Cell>
                             <Table.Cell className="text-right">
-                              <Button
-                                variant="text"
-                                size="sm"
-                                className="px-2"
-                              >
+                              <Button variant="text" size="sm" className="px-2">
                                 Logs
                               </Button>
                             </Table.Cell>
@@ -2365,10 +2361,7 @@ export const playgroundTheme = defineThemePreset({
               <Button variant="text" onClick={() => setTestDialogOpen(false)}>
                 Cancel
               </Button>
-              <Button
-                variant="filled"
-                onClick={() => setTestDialogOpen(false)}
-              >
+              <Button variant="filled" onClick={() => setTestDialogOpen(false)}>
                 Apply Rules
               </Button>
             </div>

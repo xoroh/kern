@@ -11,8 +11,8 @@ import { KERN_SIZES, type KernSize } from "@xoroh/kern-tokens";
 import { describe, expect, it } from "vitest";
 import {
   BUTTON_SIZE_TO_KERN_SIZE,
-  buttonVariants,
   type ButtonVariant,
+  buttonVariants,
 } from "../components/button";
 import {
   TOP_APP_BAR_SIZE_TO_KERN_SIZE,

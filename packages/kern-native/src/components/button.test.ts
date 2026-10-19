@@ -103,8 +103,8 @@ describe("native Button styles", () => {
   it("stretches with the block option", () => {
     const light = defaultScheme();
     expect(
-      buttonStyles("filled", "default", false, light, { block: true })
-        .container.alignSelf,
+      buttonStyles("filled", "default", false, light, { block: true }).container
+        .alignSelf,
     ).toBe("stretch");
     expect(
       buttonStyles("filled", "default", false).container.alignSelf,

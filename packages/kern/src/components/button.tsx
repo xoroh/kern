@@ -29,8 +29,7 @@ const buttonVariants = cva(
           "bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container) hover:shadow-(--sys-elevation-level1) before:bg-(--sys-color-on-secondary-container) disabled:bg-(--sys-color-on-surface)/12 disabled:text-(--sys-color-on-surface)/38",
         outlined:
           "border border-(--sys-color-outline) text-(--sys-color-primary) before:bg-(--sys-color-primary) focus-visible:border-(--sys-color-primary) disabled:border-(--sys-color-on-surface)/12 disabled:bg-transparent disabled:text-(--sys-color-on-surface)/38",
-        text:
-          "text-(--sys-color-primary) before:bg-(--sys-color-primary) disabled:bg-transparent disabled:text-(--sys-color-on-surface)/38",
+        text: "text-(--sys-color-primary) before:bg-(--sys-color-primary) disabled:bg-transparent disabled:text-(--sys-color-on-surface)/38",
       },
       // The color axis, not a variant axis: `danger` re-paints the five M3
       // configurations in the error roles instead of adding a sixth shape.
