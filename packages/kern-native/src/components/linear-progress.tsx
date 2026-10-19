@@ -13,14 +13,11 @@ import { defaultScheme, useKernMotion, useKernScheme } from "../theme";
 
 export type LinearProgressProps = Omit<ViewProps, "children" | "style"> & {
   /**
-   * 0–1 determinate progress. Ignored when `indeterminate` is set.
+   * 0–1 determinate progress. `null` is the indeterminate loop for unknown
+   * durations (Axis `value={null}` convention — no separate boolean, so a
+   * value and a mode can never contradict each other).
    */
-  value?: number;
-  /**
-   * Looping motion with no endpoint for unknown durations. Per M3 the two
-   * bars slide on a 2s linear cycle.
-   */
-  indeterminate?: boolean;
+  value?: number | null;
   /**
    * Cycle the indeterminate bars through primary → primary-container →
    * tertiary → tertiary-container instead of holding primary.
@@ -324,12 +321,11 @@ function WavyIndicator({ ratio, color }: { ratio: number; color: string }) {
 
 /**
  * LinearProgress — M3 linear progress. Determinate by value (bar, wavy, or
- * buffer), indeterminate by loop, four-color by cycle. Width transitions
+ * buffer), indeterminate by `null`, four-color by cycle. Width transitions
  * stay inside Kern's 200ms utility cap on the web projection.
  */
 export function LinearProgress({
   value = 0,
-  indeterminate = false,
   fourColor = false,
   buffer,
   wavy = false,
@@ -340,7 +336,8 @@ export function LinearProgress({
   ...props
 }: LinearProgressProps) {
   const scheme = useKernScheme();
-  const ratio = clamp01(value);
+  const indeterminate = value === null;
+  const ratio = clamp01(value ?? 0);
   const buffered = buffer === undefined ? null : clamp01(buffer);
   const styles = linearProgressStyles(ratio, scheme);
   const bufferStyles =

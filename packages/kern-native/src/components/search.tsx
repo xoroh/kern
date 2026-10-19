@@ -1,12 +1,15 @@
-import { useControllableState } from "@xoroh/axis";
+import {
+  Button as AxisButton,
+  Field as AxisField,
+  Input as AxisInput,
+  useControllableState,
+} from "@xoroh/axis";
 import { useState } from "react";
 import {
-  Pressable,
   type StyleProp,
   StyleSheet,
   TextInput,
   type TextInputProps,
-  View,
   type ViewStyle,
 } from "react-native";
 import { useKernScheme } from "../theme";
@@ -50,6 +53,12 @@ export function Search({
   onSearch,
   style,
   testID,
+  secureTextEntry,
+  editable,
+  multiline,
+  numberOfLines,
+  onBlur,
+  onFocus,
   ...props
 }: NativeSearchProps) {
   const scheme = useKernScheme();
@@ -60,22 +69,34 @@ export function Search({
   );
   const [focused, setFocused] = useState(false);
   const query = current ?? "";
+
+  // State stays Kern-owned (controlled mirror into Axis Input — the
+  // `Tooltip` precedent): the public value/defaultValue contract and the
+  // clear affordance need the text here, while Axis owns the input
+  // mechanics (submit/blur wiring, controlled plumbing).
+  // NOTE (documented stripping, kept): a caller `onSubmitEditing` is ignored —
+  // submit means `onSearch` in this component (configurator comment). It stays
+  // in `...props` only so nothing else drops it; the slot wiring below wins.
+  const commit = (text: string) => setCurrent(text);
+  const clear = () => setCurrent("");
+  const submit = () => {
+    onSearch?.(query);
+  };
+
   return (
-    <View
+    <AxisField
       testID={testID ?? "kern-search"}
       style={[staticStyles.container, style]}
     >
-      <TextInput
-        {...props}
-        accessibilityLabel={label}
-        accessibilityRole="search"
-        placeholderTextColor={scheme.color.onSurfaceVariant}
+      <AxisInput
         value={query}
-        onChangeText={setCurrent}
-        onFocus={() => setFocused(true)}
-        onBlur={() => setFocused(false)}
-        onSubmitEditing={() => onSearch?.(query)}
-        returnKeyType="search"
+        onValueChange={commit}
+        onSubmitEditing={submit}
+        secureTextEntry={secureTextEntry}
+        editable={editable}
+        multiline={multiline}
+        numberOfLines={numberOfLines}
+        accessibilityLabel={label}
         style={{
           flex: 1,
           minHeight: 56,
@@ -89,18 +110,55 @@ export function Search({
           fontSize: 16,
           color: scheme.color.onSurface,
         }}
+        render={(slot) => {
+          // SlotProps is an untyped record by design (Base UI parity), so
+          // every prop is narrowed at the boundary — never cast blindly.
+          const value = slot.value as string;
+          const onChangeText = slot.onChangeText as
+            | ((text: string) => void)
+            | undefined;
+          const onSubmitEditing = slot.onSubmitEditing as
+            | (() => void)
+            | undefined;
+          const onSlotBlur = slot.onBlur as (() => void) | undefined;
+          return (
+            <TextInput
+              {...props}
+              value={value}
+              onChangeText={onChangeText}
+              onSubmitEditing={onSubmitEditing}
+              onBlur={(event) => {
+                onSlotBlur?.();
+                onBlur?.(event);
+                setFocused(false);
+              }}
+              onFocus={(event) => {
+                onFocus?.(event);
+                setFocused(true);
+              }}
+              placeholderTextColor={scheme.color.onSurfaceVariant}
+              accessibilityRole="search"
+              returnKeyType="search"
+              secureTextEntry={slot.secureTextEntry as boolean | undefined}
+              editable={slot.editable as boolean | undefined}
+              multiline={slot.multiline as boolean | undefined}
+              numberOfLines={slot.numberOfLines as number | undefined}
+              accessibilityLabel={slot.accessibilityLabel as string | undefined}
+              testID={slot.testID as string | undefined}
+              style={slot.style as TextInputProps["style"]}
+            />
+          );
+        }}
       />
       {query ? (
-        <Pressable
-          accessibilityRole="button"
+        <AxisButton
           accessibilityLabel="Clear search"
-          hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
-          onPress={() => setCurrent("")}
+          onPress={clear}
           style={staticStyles.clear}
         >
           <Text variant="title">×</Text>
-        </Pressable>
+        </AxisButton>
       ) : null}
-    </View>
+    </AxisField>
   );
 }

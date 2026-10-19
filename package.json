@@ -52,6 +52,7 @@
     "check:coverage": "node scripts/check-coverage.mjs",
     "check:publish": "bun run --filter @xoroh/kern check:publish && bun run --filter @xoroh/kern-tokens check:publish && bun run --filter @xoroh/kern-native check:publish && bun run --filter @xoroh/kern-icons check:publish && bun run --filter @xoroh/kern-mcp check:publish && bun run --filter @xoroh/kern-contracts check:publish && bun run --filter @xoroh/kern-m3 check:publish && bun run --filter @xoroh/kern-cli check:publish && bun run preflight:publish",
     "preflight:publish": "node scripts/preflight-publish.mjs",
+    "preflight:release": "node scripts/preflight-publish.mjs --release",
     "check:publint": "node scripts/check-publint.mjs packages/kern && node scripts/check-publint.mjs packages/kern-native",
     "check:dist": "node scripts/check-dist-exports.mjs",
     "check:dist:types": "node scripts/check-dist-types.mjs",

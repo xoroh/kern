@@ -76,23 +76,21 @@ after `bun run build`:
    test, planning, audit or report files inside any pack output. It is
    not yet a CI gate. Never `npm publish`, tag, bump versions, deploy,
    or touch secrets as part of the dry run — preparation only.
+5. Release-mode preflight: `bun run preflight:release`. Green means every
+   shipped dependency resolves from the registry. Red today on the Axis
+   vendor tarball (see Axis cutover below) — that red is the release
+   blocker, not background noise.
 
-## Preflight: internal dependencies are peerDependencies, never `workspace:*`
+## Preflight: internal dependencies ship with a real range, never `workspace:*`
 
 Requested by K-05 and enforced by `scripts/preflight-publish.mjs`, which runs
 as the last step of `bun run check:publish` (and standalone as
 `bun run preflight:publish`).
 
-**The rule: an internal `@xoroh/*` dependency that ships must be declared in
-`peerDependencies` with a real range. `workspace:` is never allowed in
-`dependencies`, `peerDependencies` or `optionalDependencies` — only in
-`devDependencies`.**
-
-Why it must be a peer: `kern-tokens` ships the tokens and the theme runtime. A
-consumer must resolve **one** instance of it. Two copies split the token
-objects and scheme resolution apart and theming breaks in ways that are
-miserable to debug. That is the definition of a peer dependency. The same
-applies to `kern` for `/kern/start`.
+**The rule: an internal `@xoroh/*` dependency that ships is declared in
+`dependencies` with a real range — these are runtime needs, not peer
+expectations. `workspace:` is never allowed in `dependencies`,
+`peerDependencies` or `optionalDependencies` — only in `devDependencies`.**
 
 Why `workspace:*` cannot be shipped: **npm does not rewrite the `workspace:`
 protocol on pack** — only pnpm and yarn do. A `workspace:*` spec in a shipped
@@ -105,30 +103,57 @@ npm pack <pkg> && npm i <pkg>.tgz
 ```
 
 `publint` and `attw` do not catch this: they lint the manifest, not the packed
-tarball. That is the whole reason `preflight:publish` exists.
+tarball. That is the whole reason `preflight:publish` exists. The gate packs
+with npm (the tool `changeset publish` uses), so it inspects the artefact
+consumers receive. npm is required to run it; without npm it says so and
+exits instead of failing confusingly.
 
 ### How Kern does it
 
 ```
-packages/kern        peerDependencies  @xoroh/kern-tokens: "*"
+packages/kern        dependencies      @xoroh/kern-tokens: "^0.0.0", @xoroh/kern-m3: "^0.0.0"
+                     devDependencies   @xoroh/kern-tokens: "workspace:*", @xoroh/kern-m3: "workspace:*"
+packages/kern-native dependencies      @xoroh/kern-tokens: "^0.0.0", @xoroh/kern-m3: "^0.0.0"
+                     devDependencies   @xoroh/kern-tokens: "workspace:*", @xoroh/kern-m3: "workspace:*"
+packages/kern-m3     dependencies      @xoroh/kern-tokens: "^0.0.0"
                      devDependencies   @xoroh/kern-tokens: "workspace:*"
-packages/kern-native peerDependencies  @xoroh/kern-tokens: "*"
-                     devDependencies   @xoroh/kern-tokens: "workspace:*"
-packages/kern/src/start  peerDependencies  @xoroh/kern: "*"
-                     devDependencies   @xoroh/kern: "workspace:*"
+packages/mcp         dependencies      @xoroh/kern-cli: "^0.0.0", @xoroh/kern-icons: "^0.0.0"
+                     devDependencies   @xoroh/kern-m3: "workspace:*"
+packages/kern-cli    dependencies      @xoroh/kern-contracts: "^0.0.0"
 ```
 
 The `devDependencies` copy is what makes the monorepo resolve locally; the
-`peerDependencies` copy is what the consumer sees. Both are required.
+`dependencies` copy is what the consumer installs. Both are required.
 
 ### Tightening the range
 
-The `"*"` ranges are deliberate **for 0.1.0 only**, and they are the last open
-item on this rule: every package is still at `"version": "0.0.0"`, so a
-`^0.1.0` range would exclude the only version that actually exists. The
-tightening to `^0.1.0` happens in the same commit that first sets `0.1.0`.
-Ruled and parked in `.team/reports/S1-rulings.md` §S1.4 — do not write the
-range early, and do not "fix" it to `^0.1.0` before the bump lands.
+The `"^0.0.0"` ranges move to `"^0.1.0"` in the bump commit: `changeset
+version` rewrites internal ranges alongside the versions
+(`updateInternalDependencies`). Do not write `^0.1.0` early, and do not
+hand-edit the ranges — the version commit owns them.
+
+### Release mode: no `file:`/`link:` in shipped fields
+
+`bun run preflight:release` runs the same gate plus a registry-addressability
+check: `file:` and `link:` specifiers in shipped fields fail. They resolve
+inside this monorepo and break consumer installs exactly like `workspace:`.
+It is red today on the Axis vendor tarball — see the Axis cutover below —
+so it runs by hand before a publish, not in PR CI.
+
+## Axis cutover (before Kern publishes)
+
+`@xoroh/kern` and `@xoroh/kern-native` currently resolve `@xoroh/axis`
+from a vendored tarball (`file:../../vendor/axis/*.tgz`), which works in
+this monorepo and breaks everywhere else. Switch it in this order:
+
+1. `@xoroh/axis` 0.1.0 is published first.
+2. `kern` and `kern-native` switch `@xoroh/axis` from
+   `file:../../vendor/axis/*.tgz` to `^0.1.0` from the registry, and
+   `vendor/axis` is deleted.
+3. Refresh `bun.lock`, then re-run all release gates: build,
+   `check:publish`, preflight in release mode (`bun run preflight:release`),
+   `release-sweep`.
+4. Only then does Kern publish.
 
 ## Founder HOLD — build+verify only
 
