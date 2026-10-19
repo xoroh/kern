@@ -227,6 +227,16 @@ const isComponentExport = (name) => {
       // them (Kern overlays compose the compound parts, not these hooks).
       "useOverlay",
       "useScrollLock",
+      "FocusInteraction",
+      "OverlayFocusValue",
+      "useDirection",
+      "useModalActive",
+      "RadioRoot",
+      "RadioRootProps",
+      "RadioRootState",
+      "RadioIndicator",
+      "RadioIndicatorProps",
+      "RadioIndicatorState",
     ].includes(name)
   ) {
     return true;

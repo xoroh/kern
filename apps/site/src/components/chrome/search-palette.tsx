@@ -78,7 +78,9 @@ export function SearchPalette({
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
-  const triggerRef = useRef<Element | null>(typeof document !== "undefined" ? document.activeElement : null);
+  const triggerRef = useRef<Element | null>(
+    typeof document !== "undefined" ? document.activeElement : null,
+  );
   const listId = useId();
 
   const [searchMod, setSearchMod] = useState<SearchModule | null>(null);

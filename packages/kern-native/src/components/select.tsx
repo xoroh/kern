@@ -80,7 +80,12 @@ export function Select({
       <SelectRoot
         value={value}
         defaultValue={defaultValue}
-        onValueChange={onValueChange ? (val) => onValueChange(typeof val === "string" ? val : (val[0] ?? "")) : undefined}
+        onValueChange={
+          onValueChange
+            ? (val) =>
+                onValueChange(typeof val === "string" ? val : (val[0] ?? ""))
+            : undefined
+        }
         onDismiss={onDismiss}
         disabled={disabled}
         items={options}

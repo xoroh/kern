@@ -1,6 +1,6 @@
 import {
-  ProgressIndicator,
   ProgressRoot as AxisProgressRoot,
+  ProgressIndicator,
   ProgressTrack,
 } from "@xoroh/axis";
 import type { ResolvedTheme } from "@xoroh/kern-tokens";
