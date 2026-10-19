@@ -140,23 +140,16 @@ function FitWidth({ children }: { children: ReactNode }) {
     const fit = () => {
       if (!alive || !el.parentElement) return;
       const avail = el.parentElement.clientWidth;
-      // Max over the subtree: an inner scroller (chip rows, tab lists)
-      // clips without growing the wrapper's own scrollWidth. True
-      // scrollers (overflow-x auto/scroll) get a right-edge fade affordance
-      // instead of a hard cut — see .thumb-scroll-x in styles.css.
+      // Natural width: max over the subtree, since an inner scroller
+      // (chip rows, tab lists) clips without growing the wrapper's own
+      // scrollWidth. `input` reports the box, not the text — canvas-measure
+      // field text (value, else placeholder) plus its padding instead.
       let need = el.scrollWidth;
+      let innerOverflow = need > el.clientWidth + 8;
       for (const d of el.querySelectorAll("*")) {
         const h = d as HTMLElement;
         if (h.scrollWidth > need) need = h.scrollWidth;
-        const ox = getComputedStyle(h).overflowX;
-        if (
-          (ox === "auto" || ox === "scroll" || ox === "hidden") &&
-          h.scrollWidth > h.clientWidth + 8 &&
-          // Never fade the well plumbing itself: only demo content.
-          !h.classList.contains("site-gallery-stage")
-        ) {
-          h.classList.add("thumb-scroll-x");
-        }
+        if (h.scrollWidth > h.clientWidth + 8) innerOverflow = true;
       }
       // `input.scrollWidth` reports the box, not the text — canvas-measure
       // field text (value, else placeholder) plus its padding instead.
@@ -176,9 +169,17 @@ function FitWidth({ children }: { children: ReactNode }) {
             Number.parseFloat(cs.paddingRight || "0") +
             2;
           if (fieldNeed > need) need = fieldNeed;
+          if (fieldNeed > field.clientWidth + 8) innerOverflow = true;
         }
       }
       if (avail > 0 && need > avail + 8) setZoom(avail / need);
+      // A mask on a scroller resolves against its scroll area (wrong edge),
+      // so the fade lives on the demo wrapper itself — a non-scrolling box
+      // whose right edge is exactly where the well clips. Only when the
+      // wrapper spans the well: a narrower demo keeps a crisp edge.
+      if (innerOverflow && el.clientWidth >= avail - 4) {
+        el.classList.add("thumb-scroll-x");
+      }
     };
     fit();
     if (typeof document !== "undefined" && "fonts" in document) {
