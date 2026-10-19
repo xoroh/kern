@@ -82,8 +82,12 @@ Lead at the time above; the cleanup lane ran PRs #59–#74 down to ONE open PR
    failing (`check-props` exits 1 naming the export and prop; pinned by
    `check-props.test.mjs` on the real tree). Burn-down ran in batches
    (#76 gate scoping, #79/#80/#82/#83/#88/#92 content).
-3. **Docs depth bar (013):** commit the top-20 list and the thin-page contract as a file the
-   gate reads (missing everywhere).
+3. **Docs depth bar (013): DONE** — the top-20 list and the thin-page contract
+   live as one file the gate reads: `TOP_FAMILIES` + `THIN_PAGE_CONTRACT` in
+   `apps/site/scripts/lib/top-families.mjs`, enforced per page by
+   `check-docs.mjs` (full section set on top-20 web AND native; API table +
+   a11y notes everywhere else) and pinned by `check-docs.test.mjs`. Two
+   mobile toggles gained the aria notes the new gate requires.
 4. **Button variant names (014):** DONE — `BUTTON_VARIANT_ALIASES` removed
    from all 9 files, variants are `filled`/`tonal`/`outlined`/`text`/`elevated`,
    hard cut per 020, old names rejected by type tests.
@@ -1078,7 +1082,7 @@ under D-DEVICE. No NativeWind (ADR-006), no web styling in Axis | Phase 2 |
 | D-CLI-PUBLISH | CLI ships with 0.1.0 | Owner decision 2026-10-16 evening, superseding H-17's `private:true` fix: `@xoroh/kern-cli` is publishable (manifest already publish-shaped; flag removed in PR #45). Eight public packages; `changeset status` green. No publish until the hold lifts | Phase 7 / publication |
 | D-AXIS-SHIP | Axis ships as its own npm package alongside Kern 0.1.0 | `@xoroh/axis` publishes as an independent package on the 0.1.0 train; the release hold still applies (no versions/tags/publish from either side until authorized). The axis repo (packaging, release prep, component coverage) is owned by the Axis thread; Kern tracks only the consumer side (vendored tarball → semver swap at first authorized publish). Docs note (same decision round): Kern web may import Axis universal models via `@xoroh/axis/models` — a documented subpath, not deep source | Phase 4/7 |
 | D-AI-CHAT | AI chat for Kern, AFTER the structure work | M3-styled chat parts first (message, markdown + code blocks via one shared remark/mdast parser with per-platform renderers, typing indicator, feedback actions, tool-approval cards with callbacks, model picker composed from Select, static suggestions), then blocks (`chat-screen`, `prompt-input`, `message-list`) via `kern add`; FlashList for the native message list after a device check. Voice deferred past Preview. Phased: parts → blocks → native list; no work starts before D-STRUCTURE lands | Post-structure |
-| D-DOCS-DEPTH | 0.1.0 docs depth bar | Full pages for the top-20 components on web AND native; every other component gets a thin but correct page (example, API table, a11y notes); gated in `check:docs`. Top-20 list + thin-page contract to be recorded before the content pass | Phase 6 |
+| D-DOCS-DEPTH | 0.1.0 docs depth bar | Full pages for the top-20 components on web AND native; every other component gets a thin but correct page (example, API table, a11y notes); gated in `check:docs`. Top-20 list + thin-page contract recorded as `TOP_FAMILIES` + `THIN_PAGE_CONTRACT` in `apps/site/scripts/lib/top-families.mjs`, read by the gate | Phase 6 |
 | D-BUTTON-NAMES | Button variants use M3 names | Canonical: `filled/tonal/outlined/text/elevated`. Implementation as a review-gated migration PR (codemod across packages/site/tests + deprecation handling); opened, not merged, until owner review | Structure phase (review-gated) |
 | D-HCT | Spec-correct HCT tonal palettes via `@material/material-color-utilities` | Owner direction 2026-10-16: replace the OKLCH tonal engine (50–950 Tailwind steps, 12-role seed repaint) with HCT + 0–100 ramps + full-scheme mapping (Apache-2.0 dependency). Scale is XL (every generated artifact + goldens + contrast gates move): execute as additive spike first, then a review-gated cutover migration. The OKLCH-vs-HCT divergence stays documented until cutover | HCT phase (review-gated) |
 | Non-blocking (record, don't stall) | Axis website/playground; `kern info`; `mcp` rename; icon `./icons/*` codegen timing; starter matrix; F1 scope; provider-registry placement (deferred: may live neither in Axis (not neutral) nor `libs/` (deleted); trigger: a workstream needing it); second provider (SUPERSEDED 2026-10-16 — the "rejected" position is replaced by D-FOUNDATION-CHOICE, pending resolution) | Decided in Phase 6/7 or later; must not gate Phases 0–5 | — |
