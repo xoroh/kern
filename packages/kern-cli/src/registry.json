@@ -1,6 +1,6 @@
 {
   "version": "0.0.0",
-  "releaseSet": "kern@0.0.0+420.30672d9939e5a8b2",
+  "releaseSet": "kern@0.0.0+419.aa79074b26b60379",
   "rows": [
     {
       "name": "accordion-root",
@@ -3152,14 +3152,6 @@
       "platform": "native",
       "entrypoint": ".",
       "path": "src/components/slider.tsx",
-      "status": "real"
-    },
-    {
-      "name": "snackbar",
-      "export": "Snackbar",
-      "platform": "native",
-      "entrypoint": ".",
-      "path": "src/components/snackbar.tsx",
       "status": "real"
     },
     {

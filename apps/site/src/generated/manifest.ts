@@ -2796,13 +2796,6 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
-    slug: "mobile/snackbar",
-    name: "snackbar",
-    export: "Snackbar",
-    platform: "mobile",
-    status: "real",
-  },
-  {
     slug: "mobile/snackbar-provider",
     name: "snackbar-provider",
     export: "SnackbarProvider",

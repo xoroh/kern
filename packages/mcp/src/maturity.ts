@@ -3181,14 +3181,6 @@ export const MATURITY: readonly MaturityRow[] = [
     version: "0.0.0",
   },
   {
-    name: "snackbar",
-    export: "Snackbar",
-    platform: "native",
-    entrypoint: ".",
-    state: "Preview",
-    version: "0.0.0",
-  },
-  {
     name: "snackbar-provider",
     export: "SnackbarProvider",
     platform: "native",
