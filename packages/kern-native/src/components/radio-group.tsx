@@ -23,7 +23,7 @@ const RadioGroupContext = createContext<RadioGroupContextValue | null>(null);
 export function radioStyles(
   selected: boolean,
   disabled: boolean,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
 ) {
   return {
     control: {

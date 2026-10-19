@@ -19,6 +19,60 @@ export const navigationBar: ComponentDoc = {
   // (`navigation-bar-item`), so this page owns only the bar itself. The row is
   // referenced in prose above — "one component, one page" holds.
   parts: ["NavigationBar"],
+  keyboard: [
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "Destinations read as tabs with their label and selected/disabled states; double-tap navigates.",
+    },
+  ],
+  usage: {
+    do: [
+      "Declare destinations as data — `key`, `label`, optional `icon`, `badge`, `disabled` — so the bar is one declaration.",
+      "Keep three to five destinations; the bar is top-level navigation, not a menu.",
+      "Dock the screen's primary action in `floating` where Material 3 puts the FAB.",
+    ],
+    dont: [
+      "Don't nest navigation inside a destination — one tap moves one level.",
+      "Don't use the bar for fewer than three destinations — tabs or a segmented control carry small sets better.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Bar",
+      state: "resting",
+      token: "theme.color.surfaceContainer",
+      value: "surfaceContainer, fixed height, 1px outlineVariant top rule",
+    },
+    {
+      element: "Active indicator",
+      state: "selected",
+      token: "theme.color.secondaryContainer",
+      value: "secondaryContainer pill, minWidth 64, height 32",
+    },
+    {
+      element: "Active label",
+      state: "selected",
+      token: "theme.color.onSurface",
+      value: "onSurface, 12px, semibold",
+    },
+    {
+      element: "Inactive label",
+      state: "resting",
+      token: "theme.color.onSurfaceVariant",
+      value: "onSurfaceVariant, 12px, medium",
+    },
+  ],
+  faq: [
+    {
+      q: "Navigation bar, rail, or drawer?",
+      a: "Compact screens get the bar (bottom, three to five destinations); wide screens get the rail or drawer. Same destinations, different dock — `NavigationBarItem` renders the row inside any of them.",
+    },
+    {
+      q: "How does this differ from the web navigation bar?",
+      a: "The contract is the same (destinations as data, single selection, FAB dock). Heights and the indicator pill are native-drawn to the same roles.",
+    },
+  ],
   customization: {
     supported: [
       "`destinations` are data — `key`, `label`, optional `icon`, optional `badge`, optional `disabled`.",

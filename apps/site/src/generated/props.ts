@@ -1085,35 +1085,35 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "variant",
       "type": "ButtonVariantInput | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:330",
+      "src": "packages/kern/src/components/button.tsx:333",
       "default": "\"primary\""
     },
     {
       "name": "size",
       "type": "ButtonSize | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:331",
+      "src": "packages/kern/src/components/button.tsx:334",
       "default": "\"default\""
     },
     {
       "name": "color",
       "type": "ButtonColor | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:332",
+      "src": "packages/kern/src/components/button.tsx:335",
       "default": "\"primary\""
     },
     {
       "name": "shape",
       "type": "ButtonShape | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:333",
+      "src": "packages/kern/src/components/button.tsx:336",
       "default": "\"pill\""
     },
     {
       "name": "block",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:335",
+      "src": "packages/kern/src/components/button.tsx:338",
       "default": "false",
       "note": "Full-width block button."
     },
@@ -1121,55 +1121,55 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "loading",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:337",
+      "src": "packages/kern/src/components/button.tsx:340",
       "note": "Shows the embedded progress indicator and blocks interaction."
     },
     {
       "name": "loadingValue",
       "type": "number | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:339",
+      "src": "packages/kern/src/components/button.tsx:342",
       "note": "0–1 determinate progress while loading. Omit for the loop."
     },
     {
       "name": "loaderStyle",
       "type": "\"spinner\" | \"dots\" | \"bar\" | \"shapes\" | \"conveyor\" | \"contained\" | \"orbit\" | \"morph\" | \"assembly\" | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:341",
+      "src": "packages/kern/src/components/button.tsx:344",
       "note": "Style of the embedded indicator. Defaults to the M3 ring (`spinner`)."
     },
     {
       "name": "icon",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:343",
+      "src": "packages/kern/src/components/button.tsx:346",
       "note": "Leading (or trailing, with `iconPosition`) icon. Hidden from assistive tech."
     },
     {
       "name": "iconPosition",
       "type": "ButtonIconPosition | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:344"
+      "src": "packages/kern/src/components/button.tsx:347"
     },
     {
       "name": "flipIcon",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:350",
+      "src": "packages/kern/src/components/button.tsx:353",
       "note": "Mirrors the icon horizontally in RTL contexts (`rtl:scale-x-[-1]`).\nOpt into it for directional glyphs (arrows, chevrons, back/open cues);\nsymmetric icons must not flip. Per M3's `flip-icon-in-rtl`."
     },
     {
       "name": "softDisabled",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:357",
+      "src": "packages/kern/src/components/button.tsx:360",
       "note": "Soft-disabled: paints the disabled treatment but stays focusable, so the\ncontrol remains discoverable (toolbar pattern per W3C APG disabled-controls\nguidance). Unlike `disabled`, it keeps its tab stop and reports\n`aria-disabled` instead of the `disabled` attribute."
     },
     {
       "name": "toggle",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:365",
+      "src": "packages/kern/src/components/button.tsx:368",
       "default": "false",
       "note": "Renders the button as an M3 Expressive toggle: binary selection with\nround↔square morph and per-variant selected colors. There is no toggle\ntext button — `toggle` on `ghost` warns in dev and renders unselected.\nKeep selected/unselected labels a similar length so the layout holds.\n(`value` stays the form value; toggle state uses `pressed`.)"
     },
@@ -1177,82 +1177,62 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "pressed",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:367",
+      "src": "packages/kern/src/components/button.tsx:370",
       "note": "Controlled selected state. Only meaningful with `toggle`."
     },
     {
       "name": "defaultPressed",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:369",
+      "src": "packages/kern/src/components/button.tsx:372",
       "note": "Initial selected state for the uncontrolled toggle case."
     },
     {
       "name": "onPressedChange",
       "type": "((pressed: boolean) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:370"
-    },
-    {
-      "name": "disabled",
-      "type": "boolean | undefined",
-      "required": false,
-      "src": "packages/kern/src/components/button.tsx:372",
-      "note": "Disabled treatment for either the button or anchor branch."
+      "src": "packages/kern/src/components/button.tsx:373"
     },
     {
       "name": "testID",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:377",
+      "src": "packages/kern/src/components/button.tsx:378",
       "note": "Test selector. Rendered as `data-testid` on the root node (both\nbranches); see `parity/testid-contract.md`. Opt-in only — no default."
     },
     {
       "name": "href",
       "type": "string",
       "required": true,
-      "src": "packages/kern/src/components/button.tsx:396",
+      "src": "packages/kern/src/components/button.tsx:393",
       "note": "Navigation variant. Renders `<a href>` wearing the button treatment,\ni.e. `role=\"link\"` — for a dedicated link component see `LinkButton`.\nA disabled link drops `href`, leaves the tab order and reports\n`aria-disabled` (the ListItem convention) — links have no `disabled`\nattribute, so there is nothing native to lean on."
-    },
-    {
-      "name": "type",
-      "type": "undefined",
-      "required": false,
-      "src": "packages/kern/src/components/button.tsx:398",
-      "note": "Button submission attributes have no meaning on a link."
-    },
-    {
-      "name": "value",
-      "type": "undefined",
-      "required": false,
-      "src": "packages/kern/src/components/button.tsx:399"
     },
     {
       "name": "target",
       "type": "HTMLAttributeAnchorTarget | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:401",
+      "src": "packages/kern/src/components/button.tsx:395",
       "note": "Anchor target. A button has no browsing context to open."
     },
     {
       "name": "rel",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:403",
+      "src": "packages/kern/src/components/button.tsx:397",
       "note": "Anchor relationship list."
     },
     {
       "name": "download",
       "type": "any",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:405",
+      "src": "packages/kern/src/components/button.tsx:399",
       "note": "Download hint."
     },
     {
       "name": "ref",
       "type": "Ref<HTMLAnchorElement> | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:407",
+      "src": "packages/kern/src/components/button.tsx:401",
       "note": "Ref to the rendered anchor."
     }
   ],
@@ -2518,18 +2498,18 @@ export const GENERATED_PROPS: Record<string, Array<{
   ],
   "CommandRoot": [
     {
-      "name": "defaultValue",
-      "type": "string | null | undefined",
-      "required": false,
-      "src": "node_modules/.bun/@base-ui+react@1.9.0+2fde69a3fd50c568/node_modules/@base-ui/react/combobox/root/ComboboxRoot.d.mts:60",
-      "note": "The uncontrolled selected value of the combobox when it's initially rendered.\n\nTo render a controlled combobox, use the `value` prop instead."
-    },
-    {
       "name": "form",
       "type": "string | undefined",
       "required": false,
       "src": "node_modules/.bun/@base-ui+react@1.9.0+2fde69a3fd50c568/node_modules/@base-ui/react/combobox/root/AriaCombobox.d.mts:24",
       "note": "Identifies the form that owns the internal input.\nUseful when the combobox is rendered outside the form."
+    },
+    {
+      "name": "filter",
+      "type": "((item: unknown, query: string, itemToString?: ((item: unknown) => string) | undefined) => boolean) | null | undefined",
+      "required": false,
+      "src": "node_modules/.bun/@base-ui+react@1.9.0+2fde69a3fd50c568/node_modules/@base-ui/react/combobox/root/AriaCombobox.d.mts:158",
+      "note": "Filter function used to match items vs input query.\nReceives the source item, which is the derived value's item when `items` is a `createItems()`\ncollection, and the item itself otherwise."
     },
     {
       "name": "id",
@@ -2552,20 +2532,6 @@ export const GENERATED_PROPS: Record<string, Array<{
       "note": "Whether the component should ignore user interaction."
     },
     {
-      "name": "value",
-      "type": "string | null | undefined",
-      "required": false,
-      "src": "node_modules/.bun/@base-ui+react@1.9.0+2fde69a3fd50c568/node_modules/@base-ui/react/combobox/root/ComboboxRoot.d.mts:91",
-      "note": "The selected value of the combobox. Use when controlled."
-    },
-    {
-      "name": "onOpenChange",
-      "type": "((open: boolean, eventDetails: OpenChangeEventDetails) => void) | undefined",
-      "required": false,
-      "src": "node_modules/.bun/@base-ui+react@1.9.0+2fde69a3fd50c568/node_modules/@base-ui/react/combobox/root/ComboboxRoot.d.mts:72",
-      "note": "Event handler called when the popup is opened or closed."
-    },
-    {
       "name": "name",
       "type": "string | undefined",
       "required": false,
@@ -2578,13 +2544,6 @@ export const GENERATED_PROPS: Record<string, Array<{
       "required": false,
       "src": "node_modules/.bun/@base-ui+react@1.9.0+2fde69a3fd50c568/node_modules/@base-ui/react/combobox/root/AriaCombobox.d.mts:204",
       "note": "Determines if the popup enters a modal state when open.\n- `true`: user interaction is limited to the popup: document page scroll is locked and pointer interactions on outside elements are disabled.\n- `false`: user interaction with the rest of the document is allowed.\n\nOn touch devices, a `true` modal blocks outside taps but leaves the page scrollable unless the popup spans nearly the full viewport width, matching native iOS behavior."
-    },
-    {
-      "name": "actionsRef",
-      "type": "RefObject<Actions | null> | undefined",
-      "required": false,
-      "src": "node_modules/.bun/@base-ui+react@1.9.0+2fde69a3fd50c568/node_modules/@base-ui/react/combobox/root/ComboboxRoot.d.mts:68",
-      "note": "A ref to imperative actions.\n- `unmount`: Ends the closing phase of the combobox after an externally controlled closing animation finishes.\nCall `preventUnmountOnClose()` in `onOpenChange` first, otherwise the combobox completes closing on its own.\nWhether it leaves the DOM is decided by `keepMounted` on the portal.\n- `close`: Closes the combobox imperatively when called."
     },
     {
       "name": "open",
@@ -2622,18 +2581,11 @@ export const GENERATED_PROPS: Record<string, Array<{
       "note": "Whether the list is rendered inline without using the component's own popup.\n\nSpecify `open` unconditionally in conjunction with this prop so the list is considered\nvisible: `<Combobox.Root inline open>`\n\nIn a `Combobox.Root` > `Dialog.Root` composition, bind the Combobox's `open` and\n`onOpenChange` props to the `Dialog`'s `open` and `onOpenChange` state instead so the\ncomponent resets its transient state (filter query, highlighted item, and input value) when\nthe dialog closes."
     },
     {
-      "name": "itemToStringValue",
-      "type": "((itemValue: string) => string) | undefined",
+      "name": "items",
+      "type": "readonly any[] | readonly Group<any>[] | ComboboxItemCollection<unknown, unknown> | undefined",
       "required": false,
-      "src": "node_modules/.bun/@base-ui+react@1.9.0+2fde69a3fd50c568/node_modules/@base-ui/react/combobox/root/ComboboxRoot.d.mts:48",
-      "note": "When the item values are objects (`<Combobox.Item value={object}>`), this function converts the object value to a string representation for form submission.\nIf the shape of the object is `{ value, label }`, the value will be used automatically without needing to specify this prop.\nWith a `createItems()` collection, this receives the derived value."
-    },
-    {
-      "name": "isItemEqualToValue",
-      "type": "((itemValue: string, value: string) => boolean) | undefined",
-      "required": false,
-      "src": "node_modules/.bun/@base-ui+react@1.9.0+2fde69a3fd50c568/node_modules/@base-ui/react/combobox/root/ComboboxRoot.d.mts:54",
-      "note": "Custom comparison logic used to determine if a combobox item value matches the current selected value. Useful when item values are objects without matching referentially.\nWith a `createItems()` collection, both arguments are derived values.\nDefaults to `Object.is` comparison."
+      "src": "node_modules/.bun/@base-ui+react@1.9.0+2fde69a3fd50c568/node_modules/@base-ui/react/combobox/root/AriaCombobox.d.mts:143",
+      "note": "The items to be displayed in the list.\nCan be a flat array of items, an array of groups with items, or a collection created by\nthe `createItems()` function, which derives each item's selection value and label.\nNullish entries are not supported: remove them from the data before passing it."
     },
     {
       "name": "inputValue",
@@ -2650,41 +2602,6 @@ export const GENERATED_PROPS: Record<string, Array<{
       "note": "The uncontrolled input value when initially rendered.\n\nTo render a controlled input, use the `inputValue` prop instead."
     },
     {
-      "name": "onInputValueChange",
-      "type": "((inputValue: string, eventDetails: ChangeEventDetails) => void) | undefined",
-      "required": false,
-      "src": "node_modules/.bun/@base-ui+react@1.9.0+2fde69a3fd50c568/node_modules/@base-ui/react/combobox/root/ComboboxRoot.d.mts:76",
-      "note": "Event handler called when the input value changes."
-    },
-    {
-      "name": "autoComplete",
-      "type": "string | undefined",
-      "required": false,
-      "src": "node_modules/.bun/@base-ui+react@1.9.0+2fde69a3fd50c568/node_modules/@base-ui/react/combobox/root/ComboboxRoot.d.mts:24",
-      "note": "Provides a hint to the browser for autofill."
-    },
-    {
-      "name": "itemToStringLabel",
-      "type": "((itemValue: string) => string) | undefined",
-      "required": false,
-      "src": "node_modules/.bun/@base-ui+react@1.9.0+2fde69a3fd50c568/node_modules/@base-ui/react/combobox/root/ComboboxRoot.d.mts:42",
-      "note": "When the item values are objects (`<Combobox.Item value={object}>`), this function converts the object value to a string representation for display in the input.\nIf the shape of the object is `{ value, label }`, the label will be used automatically without needing to specify this prop.\nWith a `createItems()` collection, this receives the derived value, and the collection's\n`getLabel` takes precedence for values it can resolve."
-    },
-    {
-      "name": "autoHighlight",
-      "type": "boolean | undefined",
-      "required": false,
-      "src": "node_modules/.bun/@base-ui+react@1.9.0+2fde69a3fd50c568/node_modules/@base-ui/react/combobox/root/ComboboxRoot.d.mts:29",
-      "note": "Whether the first matching item is highlighted automatically while filtering."
-    },
-    {
-      "name": "highlightItemOnHover",
-      "type": "boolean | undefined",
-      "required": false,
-      "src": "node_modules/.bun/@base-ui+react@1.9.0+2fde69a3fd50c568/node_modules/@base-ui/react/combobox/root/ComboboxRoot.d.mts:35",
-      "note": "Whether moving the pointer over items should highlight them.\nDisabling this prop allows CSS `:hover` to be differentiated from the `:focus` (`data-highlighted`) state."
-    },
-    {
       "name": "openOnInputClick",
       "type": "boolean | undefined",
       "required": false,
@@ -2693,7 +2610,7 @@ export const GENERATED_PROPS: Record<string, Array<{
     },
     {
       "name": "filteredItems",
-      "type": "readonly CommandOption[] | readonly Group<CommandOption>[] | undefined",
+      "type": "readonly unknown[] | readonly Group<unknown>[] | undefined",
       "required": false,
       "src": "node_modules/.bun/@base-ui+react@1.9.0+2fde69a3fd50c568/node_modules/@base-ui/react/combobox/root/AriaCombobox.d.mts:152",
       "note": "Filtered items to display in the list.\nWhen provided, the list uses these items instead of filtering the `items` prop internally.\nWhen `items` is also provided, this array must preserve its flat or grouped structure.\nWith a `createItems()` collection, pass source items rather than derived values.\nNullish entries are not supported, as in `items`.\nUse when you want to control filtering logic externally with the `useFilter()` hook."
@@ -2718,13 +2635,6 @@ export const GENERATED_PROPS: Record<string, Array<{
       "required": false,
       "src": "node_modules/.bun/@base-ui+react@1.9.0+2fde69a3fd50c568/node_modules/@base-ui/react/combobox/root/AriaCombobox.d.mts:93",
       "note": "Whether to loop keyboard focus back to the input when the end of the list is reached while using the arrow keys. The first item can then be reached by pressing <kbd>ArrowDown</kbd> again from the input, or the last item can be reached by pressing <kbd>ArrowUp</kbd> from the input.\nThe input is always included in the focus loop per [ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/).\nWhen disabled, focus does not move when on the last element and the user presses <kbd>ArrowDown</kbd>, or when on the first element and the user presses <kbd>ArrowUp</kbd>."
-    },
-    {
-      "name": "onItemHighlighted",
-      "type": "((highlightedValue: string | undefined, eventDetails: HighlightEventDetails) => void) | undefined",
-      "required": false,
-      "src": "node_modules/.bun/@base-ui+react@1.9.0+2fde69a3fd50c568/node_modules/@base-ui/react/combobox/root/ComboboxRoot.d.mts:87",
-      "note": "Callback fired when an item is highlighted or unhighlighted.\nReceives the highlighted item value (or `undefined` if no item is highlighted) and event details with a `reason` property describing why the highlight changed.\nThe `reason` can be:\n- `'keyboard'`: the highlight changed due to keyboard navigation.\n- `'pointer'`: the highlight changed due to pointer hovering. The event may be a `MouseEvent`\n  rather than a `PointerEvent`.\n- `'none'`: the highlight changed for another reason, such as typing, `autoHighlight`, the\n  item list changing, or the popup opening or closing."
     },
     {
       "name": "inputRef",
@@ -2755,24 +2665,108 @@ export const GENERATED_PROPS: Record<string, Array<{
       "note": "The locale to use for string comparison.\nDefaults to the user's runtime locale."
     },
     {
-      "name": "onValueChange",
-      "type": "((value: string | null, eventDetails: ChangeEventDetails) => void) | undefined",
-      "required": false,
-      "src": "node_modules/.bun/@base-ui+react@1.9.0+2fde69a3fd50c568/node_modules/@base-ui/react/combobox/root/ComboboxRoot.d.mts:95",
-      "note": "Event handler called when the selected value of the combobox changes."
-    },
-    {
       "name": "multiple",
-      "type": "false | undefined",
+      "type": "boolean | undefined",
       "required": false,
       "src": "node_modules/.bun/@base-ui+react@1.9.0+2fde69a3fd50c568/node_modules/@base-ui/react/combobox/root/ComboboxRoot.d.mts:19",
       "note": "Whether multiple items can be selected."
     },
     {
+      "name": "autoComplete",
+      "type": "string | undefined",
+      "required": false,
+      "src": "node_modules/.bun/@base-ui+react@1.9.0+2fde69a3fd50c568/node_modules/@base-ui/react/combobox/root/ComboboxRoot.d.mts:24",
+      "note": "Provides a hint to the browser for autofill."
+    },
+    {
+      "name": "autoHighlight",
+      "type": "boolean | undefined",
+      "required": false,
+      "src": "node_modules/.bun/@base-ui+react@1.9.0+2fde69a3fd50c568/node_modules/@base-ui/react/combobox/root/ComboboxRoot.d.mts:29",
+      "note": "Whether the first matching item is highlighted automatically while filtering."
+    },
+    {
+      "name": "highlightItemOnHover",
+      "type": "boolean | undefined",
+      "required": false,
+      "src": "node_modules/.bun/@base-ui+react@1.9.0+2fde69a3fd50c568/node_modules/@base-ui/react/combobox/root/ComboboxRoot.d.mts:35",
+      "note": "Whether moving the pointer over items should highlight them.\nDisabling this prop allows CSS `:hover` to be differentiated from the `:focus` (`data-highlighted`) state."
+    },
+    {
+      "name": "itemToStringLabel",
+      "type": "((itemValue: unknown) => string) | undefined",
+      "required": false,
+      "src": "node_modules/.bun/@base-ui+react@1.9.0+2fde69a3fd50c568/node_modules/@base-ui/react/combobox/root/ComboboxRoot.d.mts:42",
+      "note": "When the item values are objects (`<Combobox.Item value={object}>`), this function converts the object value to a string representation for display in the input.\nIf the shape of the object is `{ value, label }`, the label will be used automatically without needing to specify this prop.\nWith a `createItems()` collection, this receives the derived value, and the collection's\n`getLabel` takes precedence for values it can resolve."
+    },
+    {
+      "name": "itemToStringValue",
+      "type": "((itemValue: unknown) => string) | undefined",
+      "required": false,
+      "src": "node_modules/.bun/@base-ui+react@1.9.0+2fde69a3fd50c568/node_modules/@base-ui/react/combobox/root/ComboboxRoot.d.mts:48",
+      "note": "When the item values are objects (`<Combobox.Item value={object}>`), this function converts the object value to a string representation for form submission.\nIf the shape of the object is `{ value, label }`, the value will be used automatically without needing to specify this prop.\nWith a `createItems()` collection, this receives the derived value."
+    },
+    {
+      "name": "isItemEqualToValue",
+      "type": "((itemValue: unknown, value: unknown) => boolean) | undefined",
+      "required": false,
+      "src": "node_modules/.bun/@base-ui+react@1.9.0+2fde69a3fd50c568/node_modules/@base-ui/react/combobox/root/ComboboxRoot.d.mts:54",
+      "note": "Custom comparison logic used to determine if a combobox item value matches the current selected value. Useful when item values are objects without matching referentially.\nWith a `createItems()` collection, both arguments are derived values.\nDefaults to `Object.is` comparison."
+    },
+    {
+      "name": "defaultValue",
+      "type": "unknown",
+      "required": false,
+      "src": "node_modules/.bun/@base-ui+react@1.9.0+2fde69a3fd50c568/node_modules/@base-ui/react/combobox/root/ComboboxRoot.d.mts:60",
+      "note": "The uncontrolled selected value of the combobox when it's initially rendered.\n\nTo render a controlled combobox, use the `value` prop instead."
+    },
+    {
+      "name": "actionsRef",
+      "type": "RefObject<Actions | null> | undefined",
+      "required": false,
+      "src": "node_modules/.bun/@base-ui+react@1.9.0+2fde69a3fd50c568/node_modules/@base-ui/react/combobox/root/ComboboxRoot.d.mts:68",
+      "note": "A ref to imperative actions.\n- `unmount`: Ends the closing phase of the combobox after an externally controlled closing animation finishes.\nCall `preventUnmountOnClose()` in `onOpenChange` first, otherwise the combobox completes closing on its own.\nWhether it leaves the DOM is decided by `keepMounted` on the portal.\n- `close`: Closes the combobox imperatively when called."
+    },
+    {
+      "name": "onOpenChange",
+      "type": "((open: boolean, eventDetails: OpenChangeEventDetails) => void) | undefined",
+      "required": false,
+      "src": "node_modules/.bun/@base-ui+react@1.9.0+2fde69a3fd50c568/node_modules/@base-ui/react/combobox/root/ComboboxRoot.d.mts:72",
+      "note": "Event handler called when the popup is opened or closed."
+    },
+    {
+      "name": "onInputValueChange",
+      "type": "((inputValue: string, eventDetails: ChangeEventDetails) => void) | undefined",
+      "required": false,
+      "src": "node_modules/.bun/@base-ui+react@1.9.0+2fde69a3fd50c568/node_modules/@base-ui/react/combobox/root/ComboboxRoot.d.mts:76",
+      "note": "Event handler called when the input value changes."
+    },
+    {
+      "name": "onItemHighlighted",
+      "type": "((highlightedValue: unknown, eventDetails: HighlightEventDetails) => void) | undefined",
+      "required": false,
+      "src": "node_modules/.bun/@base-ui+react@1.9.0+2fde69a3fd50c568/node_modules/@base-ui/react/combobox/root/ComboboxRoot.d.mts:87",
+      "note": "Callback fired when an item is highlighted or unhighlighted.\nReceives the highlighted item value (or `undefined` if no item is highlighted) and event details with a `reason` property describing why the highlight changed.\nThe `reason` can be:\n- `'keyboard'`: the highlight changed due to keyboard navigation.\n- `'pointer'`: the highlight changed due to pointer hovering. The event may be a `MouseEvent`\n  rather than a `PointerEvent`.\n- `'none'`: the highlight changed for another reason, such as typing, `autoHighlight`, the\n  item list changing, or the popup opening or closing."
+    },
+    {
+      "name": "value",
+      "type": "unknown",
+      "required": false,
+      "src": "node_modules/.bun/@base-ui+react@1.9.0+2fde69a3fd50c568/node_modules/@base-ui/react/combobox/root/ComboboxRoot.d.mts:91",
+      "note": "The selected value of the combobox. Use when controlled."
+    },
+    {
+      "name": "onValueChange",
+      "type": "((value: unknown, eventDetails: ChangeEventDetails) => void) | undefined",
+      "required": false,
+      "src": "node_modules/.bun/@base-ui+react@1.9.0+2fde69a3fd50c568/node_modules/@base-ui/react/combobox/root/ComboboxRoot.d.mts:95",
+      "note": "Event handler called when the selected value of the combobox changes."
+    },
+    {
       "name": "options",
       "type": "readonly CommandOption[]",
       "required": true,
-      "src": "packages/kern/src/components/command.tsx:27",
+      "src": "packages/kern/src/components/command.tsx:24",
       "note": "Rows to filter and render."
     }
   ],
@@ -3008,19 +3002,19 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "value",
       "type": "string",
       "required": true,
-      "src": "packages/kern/src/components/command.tsx:49"
+      "src": "packages/kern/src/components/command.tsx:46"
     },
     {
       "name": "icon",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/command.tsx:50"
+      "src": "packages/kern/src/components/command.tsx:47"
     },
     {
       "name": "shortcut",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/command.tsx:51"
+      "src": "packages/kern/src/components/command.tsx:48"
     }
   ],
   "ContextMenuRoot": [
@@ -17418,7 +17412,6 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "formTarget",
     "hidden",
     "href",
-    "hrefLang",
     "icon",
     "iconPosition",
     "id",
@@ -17436,7 +17429,6 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "loaderStyle",
     "loading",
     "loadingValue",
-    "media",
     "name",
     "nonce",
     "onAbort",
@@ -17609,7 +17601,6 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "onWheel",
     "onWheelCapture",
     "part",
-    "ping",
     "popover",
     "popoverTarget",
     "popoverTargetAction",
@@ -17618,7 +17609,6 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "property",
     "radioGroup",
     "ref",
-    "referrerPolicy",
     "rel",
     "resource",
     "results",
@@ -22341,6 +22331,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "defaultOpen",
     "defaultValue",
     "disabled",
+    "filter",
     "filteredItems",
     "form",
     "grid",
@@ -22352,6 +22343,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "isItemEqualToValue",
     "itemToStringLabel",
     "itemToStringValue",
+    "items",
     "limit",
     "locale",
     "loopFocus",
@@ -35156,9 +35148,14 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "enterKeyHint",
     "exportparts",
     "flipIcon",
+    "form",
+    "formAction",
+    "formEncType",
+    "formMethod",
+    "formNoValidate",
+    "formTarget",
     "hidden",
     "href",
-    "hrefLang",
     "icon",
     "iconPosition",
     "id",
@@ -35176,7 +35173,7 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "loaderStyle",
     "loading",
     "loadingValue",
-    "media",
+    "name",
     "nonce",
     "onAbort",
     "onAbortCapture",
@@ -35348,7 +35345,6 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "onWheel",
     "onWheelCapture",
     "part",
-    "ping",
     "popover",
     "popoverTarget",
     "popoverTargetAction",
@@ -35357,7 +35353,6 @@ export const ALL_PROP_NAMES: Record<string, string[]> = {
     "property",
     "radioGroup",
     "ref",
-    "referrerPolicy",
     "rel",
     "resource",
     "results",

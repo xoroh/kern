@@ -40,13 +40,13 @@ component docs.
 | State    | Opacity | Token                         |
 | -------- | ------- | ----------------------------- |
 | Hover    | **8%**  | `hover-state-layer-opacity`   |
-| Focus    | **12%** | `focus-state-layer-opacity`   |
-| Pressed  | **12%** | `pressed-state-layer-opacity` |
+| Focus    | **10%** | `focus-state-layer-opacity`   |
+| Pressed  | **10%** | `pressed-state-layer-opacity` |
 | Dragged  | **16%** | `dragged-state-layer-opacity` |
 | Disabled | 38% label / 12% container | —                      |
 
-> Kern tokens: `--sys-state-hover: 8%`, `--sys-state-focus: 12%`,
-> `--sys-state-press: 12%`, `--sys-state-drag: 16%`,
+> Kern tokens: `--sys-state-hover: 8%`, `--sys-state-focus: 10%`,
+> `--sys-state-press: 10%`, `--sys-state-drag: 16%`,
 > `--sys-state-disabled: 38%`.
 
 ### Shape (`sys.shape`)

@@ -76,7 +76,7 @@ describe("indeterminate loop (web parity)", () => {
     expect(LINEAR_FOUR_COLOR_DURATION_MS).toBe(8000);
     expect([...LINEAR_FOUR_COLOR_INPUT_RANGE]).toEqual([0, 0.25, 0.5, 0.75, 1]);
     const light = themes["material-3"].color.light;
-    expect(linearFourColorStops(defaultScheme)).toEqual([
+    expect(linearFourColorStops(defaultScheme())).toEqual([
       light.primary,
       light.primaryContainer,
       light.tertiary,
@@ -87,7 +87,7 @@ describe("indeterminate loop (web parity)", () => {
 
 describe("linearBufferStyles", () => {
   it("renders the buffer wash behind the bar at 24% primary", () => {
-    const { buffer } = linearBufferStyles(0.8, defaultScheme);
+    const { buffer } = linearBufferStyles(0.8, defaultScheme());
     expect(buffer.width).toBe("80%");
     expect(buffer.backgroundColor).toBe(
       themes["material-3"].color.light.primary,

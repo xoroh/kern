@@ -191,7 +191,7 @@ export function Example({ spec }: { spec: ExampleSpec }) {
               <CopyButton text={spec.code} />
             </div>
             <pre
-              className={`m-0 overflow-x-auto bg-(--sys-color-surface-container-high) p-6 ${T_CODE} text-(--sys-color-on-surface)`}
+              className={`m-0 overflow-x-auto rounded-b-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-high) p-6 ${T_CODE} text-(--sys-color-on-surface)`}
             >
               <code>{spec.code}</code>
             </pre>

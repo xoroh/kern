@@ -202,15 +202,18 @@ for (const [file, rel] of [
 const { mdHrefForPathname } = await import(
   join(APP, "src", "components", "chrome", "copy-markdown-button.tsx")
 );
-for (const [pathname, href] of [
-  ["/components/web/button", "/md/web/button.md"],
-  ["/components/mobile/button", "/md/mobile/button.md"],
-  ["/foundations/m3/color", "/md/foundations/color.md"],
-  ["/foundations/m3/theme", "/md/foundations/theme.md"],
+for (const [pathname, platform, href] of [
+  ["/components/m3/button", "web", "/md/web/button.md"],
+  ["/components/m3/button", "mobile", "/md/mobile/button.md"],
+  ["/components/m3/dialog", undefined, null],
+  ["/components/web/button", undefined, null],
+  ["/components/mobile/button", undefined, null],
+  ["/foundations/m3/color", undefined, "/md/foundations/color.md"],
+  ["/foundations/m3/theme", undefined, "/md/foundations/theme.md"],
 ]) {
-  if (mdHrefForPathname(pathname) !== href) {
+  if (mdHrefForPathname(pathname, platform) !== href) {
     bad(
-      `View-.md maps ${pathname} to ${mdHrefForPathname(pathname)}, want ${href}`,
+      `View-.md maps ${pathname}${platform ? ` + ${platform}` : ""} to ${mdHrefForPathname(pathname, platform)}, want ${href}`,
     );
   }
 }

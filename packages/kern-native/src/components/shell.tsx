@@ -18,7 +18,7 @@ import { Text } from "./text";
  * host concern — Kern owns the pixels, the host owns the native module.
  */
 
-export function bootSplashStyles(scheme: ResolvedTheme = defaultScheme): {
+export function bootSplashStyles(scheme: ResolvedTheme = defaultScheme()): {
   root: ViewStyle;
   mark: ViewStyle;
 } {

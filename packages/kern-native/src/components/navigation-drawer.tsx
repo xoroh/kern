@@ -25,7 +25,7 @@ import { Text } from "./text";
 
 export const SECTION_DRAWER_WIDTH = 360;
 
-export function drawerStyles(scheme: ResolvedTheme = defaultScheme): {
+export function drawerStyles(scheme: ResolvedTheme = defaultScheme()): {
   drawer: ViewStyle;
   header: ViewStyle;
   body: ViewStyle;

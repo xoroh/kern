@@ -127,7 +127,7 @@ export function buttonStyles(
   variant: NativeButtonVariant,
   size: NativeButtonSize,
   disabled: boolean,
-  theme: ResolvedTheme = defaultScheme,
+  theme: ResolvedTheme = defaultScheme(),
   options: NativeButtonStyleOptions & NativeButtonToggleOptions = {},
 ): { container: ViewStyle; label: TextStyle } {
   const {

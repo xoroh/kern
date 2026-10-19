@@ -18,6 +18,53 @@ export const search: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Search"],
+  keyboard: [
+    {
+      key: "Enter",
+      action:
+        "Submits the form — `onSearch` fires with the query. No extra wiring: it is a real form.",
+    },
+    {
+      key: "Tab / Shift+Tab",
+      action:
+        "Moves through leading slot, field, clear control, and trailing slot in order.",
+    },
+  ],
+  usage: {
+    do: [
+      "`label` names the landmark, `placeholder` hints the empty field — keep them different jobs, not two copies.",
+      "Run the query in `onSearch`, mirror keystrokes in `onValueChange` — submit and change are separate moments.",
+      "Use the trailing slot for the one control that belongs with search (avatar, overflow) — the clear action renders beside it.",
+    ],
+    dont: [
+      "Don't pass `onSubmit` or `onChange` — the type omits them on purpose; `onSearch` and `onValueChange` are the handlers.",
+      "Don't render results inside the bar — search finds, what it finds is the page's business.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Bar",
+      state: "resting",
+      token: "comp.search.bar",
+      value: "surface-container-high, full pill, h-14",
+    },
+    {
+      element: "Clear control",
+      state: "hover",
+      token: "sys.state.hover-state-layer-opacity",
+      value: "8% on-surface-variant wash over the 40px clear button",
+    },
+  ],
+  faq: [
+    {
+      q: "Why is there no `onSubmit`?",
+      a: "The type strips it deliberately — the form submits internally and reports through `onSearch`. Passing `onSubmit` will not typecheck, which is the point.",
+    },
+    {
+      q: "Search or text field with a button?",
+      a: "A landmark with submit-and-clear semantics means search. Free entry with validation means a text field.",
+    },
+  ],
   customization: {
     supported: [
       "`className` is passed through to the form, merged after its own classes.",

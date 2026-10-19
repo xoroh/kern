@@ -216,7 +216,7 @@ describe("iconButton M3 sizes + selected treatments", () => {
   });
 
   it("lands selected fills per variant (M3 toggle-selected)", async () => {
-    const scheme = defaultScheme;
+    const scheme = defaultScheme();
     expect(
       iconButtonStyles("filled", true, false, scheme).backgroundColor,
     ).toBe(scheme.color.primary);
@@ -235,7 +235,7 @@ describe("iconButton M3 sizes + selected treatments", () => {
   });
 
   it("pairs the icon ink with its container", async () => {
-    const scheme = defaultScheme;
+    const scheme = defaultScheme();
     expect(iconButtonIconColor("filled", false, scheme)).toBe(
       scheme.color.primary,
     );

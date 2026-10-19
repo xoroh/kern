@@ -8,7 +8,7 @@ import { Text } from "./text";
 export function toggleStyles(
   pressed: boolean,
   disabled: boolean,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
 ): ViewStyle {
   return {
     minHeight: 40,

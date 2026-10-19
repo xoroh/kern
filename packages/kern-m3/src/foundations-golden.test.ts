@@ -1,4 +1,3 @@
-import "./material-3"; // registers the material-3 preset tables (side effect)
 import {
   type Contrast,
   type Mode,

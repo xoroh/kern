@@ -56,7 +56,7 @@ function clamp01(value: number): number {
  */
 export function linearProgressStyles(
   ratio: number,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
 ): { track: ViewStyle; fill: ViewStyle } {
   const clamped = clamp01(ratio);
   const radius = Number.parseFloat(scheme.shape.full);
@@ -133,7 +133,7 @@ export const LINEAR_FOUR_COLOR_INPUT_RANGE = [0, 0.25, 0.5, 0.75, 1] as const;
  * Native blends linearly between stops; web steps discretely.
  */
 export function linearFourColorStops(
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
 ): [string, string, string, string] {
   return [
     scheme.color.primary,
@@ -149,7 +149,7 @@ export function linearFourColorStops(
  */
 export function linearBufferStyles(
   buffer: number,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
 ): { buffer: ViewStyle } {
   const clamped = clamp01(buffer);
   return {

@@ -100,7 +100,7 @@ export type SecondaryTabsProps = {
   testID?: string;
 };
 
-export function secondaryTabsStyles(scheme: ResolvedTheme = defaultScheme): {
+export function secondaryTabsStyles(scheme: ResolvedTheme = defaultScheme()): {
   row: ViewStyle;
   tab: ViewStyle;
   indicator: ViewStyle;

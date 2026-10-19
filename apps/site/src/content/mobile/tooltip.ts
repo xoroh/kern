@@ -16,6 +16,59 @@ export const tooltip: ComponentDoc = {
     elevation: 2,
   },
   parts: ["Tooltip"],
+  keyboard: [
+    {
+      key: "External keyboard (Tab)",
+      action:
+        "Focus opens the surface and blur closes it — the trigger's focus IS the open state for the plain tooltip.",
+    },
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "The trigger announces its label plus the hint (merged, never replaced) with the expanded state; the plain surface itself is inert text, never a stop.",
+    },
+  ],
+  usage: {
+    do: [
+      "Name icon-only controls: `label` is the accessible name, `hint` the supplementary text — two separate strings, on purpose.",
+      "Keep the hint to a few words; explanations with actions are the rich tooltip's job.",
+      "Let focus drive it — `open`/`onOpenChange` exist for the cases focus cannot cover, not as the default.",
+    ],
+    dont: [
+      "Don't duplicate visible labels — tooltips name the unnamed.",
+      "Don't put crucial information only in a tooltip — it must exist some other way too.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Plain surface",
+      state: "resting",
+      token: "theme.color.inverseSurface",
+      value: "inverseSurface, extra-small corners, level 2 (3dp)",
+    },
+    {
+      element: "Plain label",
+      state: "resting",
+      token: "theme.color.inverseOnSurface",
+      value: "inverseOnSurface label text",
+    },
+    {
+      element: "Rich surface",
+      state: "resting",
+      token: "theme.color.surfaceContainer",
+      value: "surfaceContainer with 12/8/16dp padding and real buttons",
+    },
+  ],
+  faq: [
+    {
+      q: "Plain or rich?",
+      a: "A label for an unnamed control means plain. A subhead plus supporting text plus actions means rich — and if the rich surface has no actions and no subhead, that is a plain tooltip.",
+    },
+    {
+      q: "How does this differ from the web tooltip?",
+      a: 'Same trigger contract (focus opens) and same K11 level-2 resting elevation on the plain surface. The plain surface is inert (`pointerEvents="none"`, `role="text"`) so touches fall through to the trigger; the rich surface takes touches because its actions are interactive by spec.',
+    },
+  ],
   customization: {
     supported: [
       "`label` is the trigger's name and `hint` is the supplementary text — two separate strings, on purpose.",
@@ -56,7 +109,7 @@ export const tooltip: ComponentDoc = {
     {
       name: "open / defaultOpen / onOpenChange",
       type: "boolean / (open: boolean) => void",
-      note: "The controllable pattern — the `open` family, matching `Drawer` and `Popover`, not `Dialog`'s `visible`.",
+      note: "The controllable pattern — the `open` family, matching `Drawer` and `Popover`, not `Snackbar`'s `visible`.",
     },
     {
       name: "children",
