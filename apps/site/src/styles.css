@@ -22,6 +22,13 @@ body {
   font-family: var(--ref-font-family);
   background: var(--sys-color-surface);
   color: var(--sys-color-on-surface);
+  /* Theme switch cross-fade: the only writers of these roles are the theme
+     tokens, so this animates mode changes and nothing else. */
+  transition:
+    background-color var(--sys-motion-duration-medium1)
+      var(--sys-motion-easing-standard),
+    color var(--sys-motion-duration-medium1)
+      var(--sys-motion-easing-standard);
 }
 
 /* The document is the scroll container now, so the root owns the smooth
@@ -209,6 +216,20 @@ a.site-card:active::after {
   outline: 2px solid var(--sys-color-primary);
   outline-offset: 2px;
 }
+/**
+ * Gallery thumbnails emulate a narrow container: multi-column preview grids
+ * collapse to one column (what container queries would do), so the first
+ * preview reads whole and the rest fade below. Family pages keep their grid.
+ * Right-edge fade for true scrollers (chip rows, tab lists), added at
+ * runtime by FitWidth only where an overflow-x element actually overflows —
+ * a scroll affordance, not a crop.
+ */
+.site-gallery-stage .preview-grid {
+  grid-template-columns: 1fr;
+}
+.thumb-scroll-x {
+  mask-image: linear-gradient(to right, black 88%, transparent 98%);
+}
 .site-footer {
   border-radius: var(--site-panel-radius);
   margin: 48px 16px 16px;
@@ -234,6 +255,10 @@ a.site-card:active::after {
   gap: clamp(32px, 5vw, 80px);
   align-items: center;
 }
+/* Grid blowout guard: tracks shrink instead of following min-content. */
+.home-hero-grid > * {
+  min-width: 0;
+}
 .site-hero-title {
   font-size: clamp(56px, 6.5vw, 104px);
   font-weight: 500;
@@ -246,64 +271,64 @@ a.site-card:active::after {
 }
 .hero-art {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 12px;
 }
-.hero-bloom-tile,
-.hero-type-tile {
-  position: relative;
-  min-height: 230px;
+/**
+ * Workspace settings card — the hero's composed product shot. Real package
+ * controls on layered M3 surfaces: surface-container-low card on the tinted
+ * panel, container-high rows inside. Dark mode layers the same way through
+ * the roles (no dark overrides).
+ */
+.hero-app-card {
   border-radius: var(--site-panel-radius);
-  overflow: hidden;
-}
-.hero-bloom-tile {
-  padding: 16px 20px;
-  background: var(--sys-color-primary-container);
-  color: var(--sys-color-on-primary-container);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.material-bloom {
-  display: block;
-  width: min(100%, 200px);
-  height: 180px;
-  margin: auto;
-}
-.hero-tile-arrow {
-  position: absolute;
-  right: 18px;
-  bottom: 15px;
-}
-.hero-type-tile {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   padding: 20px;
-  background: var(--sys-color-primary);
-  color: var(--sys-color-on-primary);
-}
-.hero-aa {
-  display: block;
-  margin: auto;
-  font-size: clamp(72px, 8.5vw, 140px);
-  font-weight: 400;
-  letter-spacing: -0.09em;
-  line-height: 1;
-}
-.hero-control-tile {
-  grid-column: 1 / -1;
-  border-radius: var(--site-panel-radius);
-  padding: 24px;
-  background: var(--sys-color-surface);
+  background: var(--sys-color-surface-container-low);
   color: var(--sys-color-on-surface);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: var(--sys-elevation-level2);
 }
-.hero-live-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 100%;
-  background: var(--sys-color-primary);
+.hero-app-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px 16px;
+  padding: 12px 12px;
+  border-radius: var(--sys-shape-corner-medium);
+  background: var(--sys-color-surface-container-high);
+  margin-top: 8px;
 }
+.hero-app-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  margin-top: 12px;
+}
+.hero-dim {
+  color: var(--sys-color-on-surface-variant);
+}
+/** Install block: the command earns its surface from InstallTabs already. */
+.hero-install {
+  border-radius: var(--site-panel-radius);
+  padding: 20px;
+  background: var(--sys-color-surface-container-low);
+  color: var(--sys-color-on-surface);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: var(--sys-elevation-level1);
+}
+.hero-install-tabs {
+  min-width: 0;
+}
+.hero-dim-link {
+  color: var(--sys-color-primary);
+}
+
 .home-section {
   max-width: 88rem;
   width: 100%;
@@ -508,16 +533,6 @@ a.site-card:active::after {
   .home-hero-grid {
     gap: 32px;
   }
-  .hero-bloom-tile,
-  .hero-type-tile {
-    min-height: 190px;
-  }
-  .material-bloom {
-    height: 144px;
-  }
-  .hero-control-tile {
-    padding: 20px;
-  }
   .home-section-head {
     align-items: flex-start;
     flex-direction: column;
@@ -557,16 +572,6 @@ a.site-card:active::after {
     max-width: 620px;
     width: 100%;
   }
-  .hero-bloom-tile,
-  .hero-type-tile {
-    min-height: 220px;
-  }
-  .material-bloom {
-    height: 176px;
-  }
-  .hero-aa {
-    font-size: 116px;
-  }
   .home-explore-grid {
     grid-template-columns: 1fr;
   }
@@ -599,20 +604,6 @@ a.site-card:active::after {
   }
   .hero-art {
     gap: 8px;
-  }
-  .hero-bloom-tile,
-  .hero-type-tile {
-    min-height: 188px;
-    padding: 16px;
-  }
-  .material-bloom {
-    height: 138px;
-  }
-  .hero-aa {
-    font-size: 96px;
-  }
-  .hero-control-tile {
-    padding: 20px 16px;
   }
   .home-section {
     padding: 40px 20px 0;

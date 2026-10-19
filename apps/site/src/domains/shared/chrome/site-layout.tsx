@@ -1,13 +1,81 @@
 import { useLocation } from "@tanstack/react-router";
-import { type ReactNode, useEffect, useState } from "react";
+import { lazy, type ReactNode, Suspense, useEffect, useState } from "react";
 import { ComponentsSidebar } from "../../../components/chrome/components-sidebar";
 import { DocsSidebar } from "../../../components/chrome/docs-sidebar";
 import { Footer } from "../../../components/chrome/footer";
 import { PreviewBanner } from "../../../components/chrome/preview-banner";
-import { SearchPalette } from "../../../components/chrome/search-palette";
+import { OPEN_SEARCH_EVENT } from "../../../components/chrome/search-opener";
 import { SiteHeader } from "../../../components/chrome/site-header";
+import {
+  isSlashSearchKey,
+  isToggleSearchKey,
+} from "../../../systems/search/shortcut";
 import { T_BODY_SM, T_LABEL } from "../systems/type-scale";
 import { FOCUS_RING, TRANSITION } from "../systems/ui";
+
+const LazySearchPalette = lazy(() =>
+  import("../../../components/chrome/search-palette").then((m) => ({
+    default: m.SearchPalette,
+  })),
+);
+
+/**
+ * Palette mount — keeps the search index out of the entry chunk.
+ *
+ * The palette (and through it, the whole content corpus) loads on first
+ * open intent (⌘K/Ctrl+K, `/`, header/drawer button) or on idle, whichever
+ * comes first. `open` renders it already open (the arming event predates
+ * the mount); `ready` preloads it closed. The real palette owns all keys
+ * once mounted — this wrapper only arms.
+ */
+function SearchPaletteMount() {
+  const [mode, setMode] = useState<"open" | "ready" | null>(null);
+  useEffect(() => {
+    const arm = (next: "open" | "ready") =>
+      setMode((prev) => (prev === "open" ? prev : next));
+    const onEvent = () => arm("open");
+    const onKey = (e: KeyboardEvent) => {
+      if (
+        isToggleSearchKey(e) ||
+        isSlashSearchKey(e, e.target as HTMLElement | null)
+      ) {
+        e.preventDefault();
+        arm("open");
+      }
+    };
+    window.addEventListener(OPEN_SEARCH_EVENT, onEvent);
+    window.addEventListener("keydown", onKey);
+    // Idle preload: the entry stays lean for LCP, and the chunk usually
+    // arrives before anyone presses ⌘K. Intent (above) always wins.
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    let idleId: number | undefined;
+    if ("requestIdleCallback" in window) {
+      idleId = (
+        window as unknown as {
+          requestIdleCallback: (cb: () => void) => number;
+        }
+      ).requestIdleCallback(() => arm("ready"));
+    } else {
+      timer = globalThis.setTimeout(() => arm("ready"), 3000);
+    }
+    return () => {
+      window.removeEventListener(OPEN_SEARCH_EVENT, onEvent);
+      window.removeEventListener("keydown", onKey);
+      if (idleId !== undefined) {
+        (
+          window as unknown as { cancelIdleCallback: (id: number) => void }
+        ).cancelIdleCallback?.(idleId);
+      }
+      if (timer !== undefined) globalThis.clearTimeout(timer);
+    };
+  }, []);
+  if (mode === null) return null;
+  return (
+    <Suspense fallback={null}>
+      <LazySearchPalette initialOpen={mode === "open"} />
+    </Suspense>
+  );
+}
 
 /**
  * Docs-section paths render with the three-column layout: left sidebar tree,
@@ -293,7 +361,7 @@ export function SiteLayout({
         </div>
       </div>
       {/* SearchPalette is outside the shell — it is a modal overlay. */}
-      <SearchPalette />
+      <SearchPaletteMount />
     </>
   );
 }

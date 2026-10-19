@@ -1,8 +1,10 @@
 /**
  * Palette shortcut matchers — pure so they are unit-testable.
  *
- * The ⌘K/Ctrl+K handler lives on `window` in `search-palette.tsx`; what
- * counts as "the shortcut" lives here, where `shortcut.test.ts` pins it.
+ * The global chord listener lives on `window` in the layout's
+ * `SearchPaletteMount` (so it works before the palette chunk loads); the
+ * palette keeps its own while open. What counts as "the shortcut" lives
+ * here, where `shortcut.test.ts` pins it.
  * The review caught Ctrl+K doing nothing on Linux/Chromium: the page-level
  * handler already matched `ctrlKey`, but a browser that consumes the chord
  * (omnibox, WM, IME) never delivers the event — so `/` (GitHub's fallback,

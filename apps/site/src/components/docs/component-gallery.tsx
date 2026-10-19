@@ -16,6 +16,7 @@ import {
   type ReactElement,
   type ReactNode,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import { MOBILE_DOCS, WEB_DOCS } from "../../content";
@@ -117,6 +118,95 @@ type GalleryCard = {
   mobile?: ComponentDoc;
 };
 
+/**
+ * Width-fit wrapper for gallery thumbnails.
+ *
+ * A live demo composed for a full-width family page is often wider than
+ * the ~260px card well (nav bars, pagination windows, tab rows, footers).
+ * Cropping those reads as a broken demo; this measures once after mount
+ * (and again after webfonts land) and `zoom`s the demo to the well width
+ * when it overflows. Height still crops with the well's fade — width is
+ * guaranteed, height is a thumbnail. `zoom` scales layout (unlike
+ * transform), so no compensation math; engines without it ignore the
+ * style and keep the crop.
+ */
+function FitWidth({ children }: { children: ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [zoom, setZoom] = useState(1);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    let alive = true;
+    const fit = () => {
+      if (!alive || !el.parentElement) return;
+      const avail = el.parentElement.clientWidth;
+      // Natural width: max over the subtree, since an inner scroller
+      // (chip rows, tab lists) clips without growing the wrapper's own
+      // scrollWidth. Clipping elements get a right-edge fade at the cut
+      // (mask resolves to the clipper's own box — verified against
+      // overflow auto and hidden alike); the wrapper keeps one as a
+      // backstop for visible spill that reaches the well edge.
+      let need = el.scrollWidth;
+      let innerOverflow = need > el.clientWidth + 8;
+      for (const d of el.querySelectorAll("*")) {
+        const h = d as HTMLElement;
+        if (h.scrollWidth > need) need = h.scrollWidth;
+        if (h.scrollWidth > h.clientWidth + 8) innerOverflow = true;
+        const ox = getComputedStyle(h).overflowX;
+        if (
+          (ox === "auto" ||
+            ox === "scroll" ||
+            ox === "hidden" ||
+            ox === "clip") &&
+          h.scrollWidth > h.clientWidth + 8
+        ) {
+          h.classList.add("thumb-scroll-x");
+        }
+      }
+      // `input.scrollWidth` reports the box, not the text — canvas-measure
+      // field text (value, else placeholder) plus its padding instead.
+      const canvas = document.createElement("canvas").getContext("2d");
+      if (canvas) {
+        for (const f of el.querySelectorAll("input, textarea")) {
+          const field = f as HTMLInputElement;
+          const cs = getComputedStyle(field);
+          canvas.font = `${cs.fontStyle} ${cs.fontVariant} ${cs.fontWeight} ${cs.fontSize}/${cs.lineHeight} ${cs.fontFamily}`;
+          const text = field.value || field.placeholder || "";
+          const textW =
+            canvas.measureText(text).width +
+            Number.parseFloat(cs.letterSpacing || "0") * text.length;
+          const fieldNeed =
+            textW +
+            Number.parseFloat(cs.paddingLeft || "0") +
+            Number.parseFloat(cs.paddingRight || "0") +
+            2;
+          if (fieldNeed > need) need = fieldNeed;
+          if (fieldNeed > field.clientWidth + 8) innerOverflow = true;
+        }
+      }
+      if (avail > 0 && need > avail + 8) setZoom(avail / need);
+      // The wrapper keeps a fade as a backstop for visible spill that
+      // reaches the well edge. Only when the wrapper spans the well: a
+      // narrower demo keeps a crisp edge.
+      if (innerOverflow && el.clientWidth >= avail - 4) {
+        el.classList.add("thumb-scroll-x");
+      }
+    };
+    fit();
+    if (typeof document !== "undefined" && "fonts" in document) {
+      void document.fonts.ready.then(() => fit());
+    }
+    return () => {
+      alive = false;
+    };
+  }, []);
+  return (
+    <div ref={ref} style={zoom < 1 ? { zoom } : undefined}>
+      {children}
+    </div>
+  );
+}
+
 /** True once the component has mounted on the client (SSR renders false). */
 function useClientMount(): boolean {
   const [client, setClient] = useState(false);
@@ -150,7 +240,11 @@ class DemoBoundary extends Component<
         </div>
       );
     }
-    return this.props.children;
+    // `m-auto` in the flex well below: centers a fitting demo, and
+    // top/left-aligns an overflowing one (negative free space floors auto
+    // margins to zero) so the first preview stays readable instead of the
+    // stack's middle being cropped on both edges.
+    return <div className="m-auto min-h-0 w-full min-w-0">{this.props.children}</div>;
   }
 }
 
@@ -313,18 +407,22 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
           isClient ? (
             // The preview is a THUMBNAIL: inert to pointer events so it can
             // never swallow the card's links or trap a click on a demo control.
-            // Centered, not top-left: a demo taller than the well used to clip
-            // mid-text from the top (Button variants cut off), reading as a
-            // rendering bug. Centering clips both edges equally when a demo
-            // still overflows, and fits everything shorter exactly. Rendered
-            // at natural size: the old scale-90 popped on mount.
+            // A fitting demo centers exactly (m-auto); an overflowing one
+            // top/left-aligns so the first preview stays readable instead of
+            // the stack's middle cropping on both edges. Rendered at natural
+            // size: the old scale-90 popped on mount. Figure chrome compacts
+            // in thumbnails (figure p-4→p-2, stage p-6→p-2) so narrow wells
+            // don't clip demo text — scoped to descendants, the well and
+            // the family pages keep full chrome.
             <div
-              className="pointer-events-none flex max-h-full origin-center items-center justify-center overflow-hidden"
+              className="pointer-events-none m-auto flex max-h-full max-w-full min-h-0 min-w-0 origin-center overflow-hidden [mask-image:linear-gradient(to_bottom,black_82%,transparent_98%)] [&_.site-card]:p-2 [&_.site-stage]:p-2"
               aria-hidden="true"
               inert
             >
               <DemoBoundary>
-                <Demo />
+                <FitWidth>
+                  <Demo />
+                </FitWidth>
               </DemoBoundary>
             </div>
           ) : (

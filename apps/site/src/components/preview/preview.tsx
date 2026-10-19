@@ -44,7 +44,9 @@ export function Preview({
 /** Vertical rhythm wrapper for a family of previews. */
 export function PreviewGrid({ children }: { children: ReactNode }) {
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-3">{children}</div>
+    <div className="preview-grid grid grid-cols-1 gap-4 md:grid-cols-3">
+      {children}
+    </div>
   );
 }
 

@@ -37,27 +37,20 @@ import {
   TRANSITION,
 } from "../../domains/shared/systems/ui";
 import { trapTarget } from "../../systems/focus-trap";
-import {
-  buildSearchIndex,
-  SEARCH_SUGGESTIONS,
-  type SearchEntry,
-  searchSite,
-} from "../../systems/search";
+import type { SearchEntry } from "../../systems/search";
+import { SEARCH_SUGGESTIONS } from "../../systems/search/suggestions";
 import {
   isSlashSearchKey,
   isToggleSearchKey,
 } from "../../systems/search/shortcut";
 import { ResultText } from "../search/result-text";
+import { OPEN_SEARCH_EVENT } from "./search-opener";
 
-export const OPEN_SEARCH_EVENT = "kern:open-search";
-
-export function openSearch() {
-  window.dispatchEvent(new CustomEvent(OPEN_SEARCH_EVENT));
-}
-
-function flatten(groups: ReturnType<typeof searchSite>): SearchEntry[] {
+function flatten(groups: { entries: SearchEntry[] }[]): SearchEntry[] {
   return groups.flatMap((g) => g.entries);
 }
+
+type SearchModule = typeof import("../../systems/search");
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])';
@@ -73,8 +66,13 @@ function setRegionsHidden(hidden: boolean) {
   }
 }
 
-export function SearchPalette() {
-  const [open, setOpen] = useState(false);
+export function SearchPalette({
+  initialOpen = false,
+}: {
+  /** Open immediately on mount — the lazy mount path (first open). */
+  initialOpen?: boolean;
+} = {}) {
+  const [open, setOpen] = useState(initialOpen);
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
   const navigate = useNavigate();
@@ -83,8 +81,24 @@ export function SearchPalette() {
   const triggerRef = useRef<Element | null>(null);
   const listId = useId();
 
-  const index = useMemo(() => buildSearchIndex(), []);
-  const groups = useMemo(() => searchSite(query, index), [query, index]);
+  const [searchMod, setSearchMod] = useState<SearchModule | null>(null);
+  useEffect(() => {
+    let live = true;
+    void import("../../systems/search").then((m) => {
+      if (live) setSearchMod(m);
+    });
+    return () => {
+      live = false;
+    };
+  }, []);
+  const index = useMemo(
+    () => (searchMod ? searchMod.buildSearchIndex() : []),
+    [searchMod],
+  );
+  const groups = useMemo(
+    () => (searchMod ? searchMod.searchSite(query, index) : []),
+    [query, index, searchMod],
+  );
   const flat = useMemo(() => flatten(groups), [groups]);
 
   const close = useCallback(() => {
