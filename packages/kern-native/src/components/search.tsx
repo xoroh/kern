@@ -1,6 +1,6 @@
 import {
   Button as AxisButton,
-  Field as AxisField,
+  FieldRoot as AxisField,
   Input as AxisInput,
   useControllableState,
 } from "@xoroh/axis";

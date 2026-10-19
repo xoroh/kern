@@ -24,7 +24,7 @@
       "version": "0.0.0",
       "dependencies": {
         "@expo-google-fonts/inter": "^0.4.2",
-        "@xoroh/axis": "file:../../vendor/axis/axis-637b959.tgz",
+        "@xoroh/axis": "file:../../vendor/axis/axis-3f0cfbd.tgz",
         "@xoroh/kern-native": "workspace:*",
         "expo": "~57.0.25",
         "expo-font": "^57.0.4",
@@ -62,7 +62,7 @@
         "@types/react": "^19.3.0",
         "@types/react-dom": "^19.3.0",
         "@vitejs/plugin-react": "^6.0.1",
-        "@xoroh/axis": "file:../../vendor/axis/axis-637b959.tgz",
+        "@xoroh/axis": "file:../../vendor/axis/axis-3f0cfbd.tgz",
         "react-native-svg": "15.15.5",
         "tailwindcss": "^4.0.0",
         "typescript": "5.9.3",
@@ -93,7 +93,7 @@
       "version": "0.0.0",
       "dependencies": {
         "@base-ui/react": "^1.8.0",
-        "@xoroh/axis": "file:../../vendor/axis/axis-637b959.tgz",
+        "@xoroh/axis": "file:../../vendor/axis/axis-3f0cfbd.tgz",
         "@xoroh/kern-m3": "^0.0.0",
         "@xoroh/kern-tokens": "^0.0.0",
         "class-variance-authority": "^0.7.1",
@@ -200,7 +200,7 @@
       "name": "@xoroh/kern-native",
       "version": "0.0.0",
       "dependencies": {
-        "@xoroh/axis": "file:../../vendor/axis/axis-637b959.tgz",
+        "@xoroh/axis": "file:../../vendor/axis/axis-3f0cfbd.tgz",
         "@xoroh/kern-icons": "^0.0.0",
         "@xoroh/kern-m3": "^0.0.0",
         "@xoroh/kern-tokens": "^0.0.0",
@@ -1158,7 +1158,7 @@
 
     "@xmldom/xmldom": ["@xmldom/xmldom@0.8.15", "", {}, "sha512-/5NV/vDALVFDXgLmfsy9TRCBlKwO2LNBFzpzvb9iIj+jR+eSc6DLYYvVOdivT/jm7MtU6TebYuRmzEOI7w40UA=="],
 
-    "@xoroh/axis": ["@xoroh/axis@../../vendor/axis/axis-637b959.tgz", { "peerDependencies": { "react": ">=18", "react-native": ">=0.86 <0.89" } }, "sha512-MGovM7vKlqv6lRgh51UosS0MG0Fgy2FwqXo2yyD1jIuKvol65yMVw0sgXHo4F8mi/NeNsisOd5TnM4CEU2ThUQ=="],
+    "@xoroh/axis": ["@xoroh/axis@../../vendor/axis/axis-3f0cfbd.tgz", { "peerDependencies": { "react": ">=18", "react-native": ">=0.86 <0.89" } }, "sha512-aYNGOqqXfJ1+zvlI3IU+Ebtp+5EVwmbyS8l2itVtRgbMxJOUDRVU+G79cVvMPFV7+Uq68ItnoOzLcE98nJBTZg=="],
 
     "@xoroh/kern": ["@xoroh/kern@workspace:packages/kern"],
 

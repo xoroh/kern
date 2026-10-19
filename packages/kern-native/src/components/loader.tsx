@@ -1,4 +1,4 @@
-import { Progress as AxisProgress } from "@xoroh/axis";
+import { ProgressRoot as AxisProgressRoot } from "@xoroh/axis";
 import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import {
   ActivityIndicator,
@@ -22,7 +22,7 @@ export type NativeLoaderProps = {
 };
 
 /**
- * M3 loader — the spinner for an unmeasured wait, on Axis `Progress`.
+ * M3 loader — the spinner for an unmeasured wait, on Axis `ProgressRoot`.
  *
  * The open state is `value={null}` (Axis indeterminate): the part owns the
  * progressbar role and the busy state, while the spinner itself stays
@@ -37,12 +37,12 @@ export function Loader({
 }: NativeLoaderProps) {
   const scheme = useKernScheme();
   return (
-    <AxisProgress
+    <AxisProgressRoot
       value={null}
       accessibilityLabel={label}
       testID={testID ?? "kern-loader"}
       style={style}
-      render={(slotProps) => (
+      render={(slotProps: Record<string, unknown>) => (
         // Axis reports its indeterminate progress through its own slot prop;
         // Loader is always indeterminate (`value={null}`), so the busy state
         // is constant here and lands directly on the aria-* half of the pair.

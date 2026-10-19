@@ -1,4 +1,8 @@
-import { Progress as AxisProgress } from "@xoroh/axis";
+import {
+  ProgressIndicator,
+  ProgressRoot as AxisProgressRoot,
+  ProgressTrack,
+} from "@xoroh/axis";
 import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import type { StyleProp, ViewProps, ViewStyle } from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
@@ -32,7 +36,7 @@ export type NativeProgressProps = Omit<ViewProps, "children" | "style"> & {
 };
 
 /**
- * M3 progress — the determinate bar, on Axis `Progress`.
+ * M3 progress — the determinate bar, on Axis `ProgressRoot`.
  *
  * Determinate-only per the component contract (unknown waits use `Loader`):
  * an omitted `value` reads 0%, never indeterminate-busy. The part owns the
@@ -50,14 +54,17 @@ export function Progress({
   const scheme = useKernScheme();
   const styles = progressStyles(value / max, scheme);
   return (
-    <AxisProgress
+    <AxisProgressRoot
       {...props}
       value={value}
       max={max}
       accessibilityLabel={accessibilityLabel}
       testID={testID ?? "kern-progress"}
       style={[styles.track, style]}
-      barStyle={styles.fill}
-    />
+    >
+      <ProgressTrack style={styles.track}>
+        <ProgressIndicator style={styles.fill} />
+      </ProgressTrack>
+    </AxisProgressRoot>
   );
 }
