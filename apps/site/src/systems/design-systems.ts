@@ -17,8 +17,8 @@
  *    `m3/` dir; old top-level paths stay as redirect stubs, per the
  *    `throw redirect` convention check-nav exempts).
  * 4. Components stay on the shared platform gallery until a system ships its
- *    own renderer set — then nest to `/components/<id>/<platform>/<name>`
- *    the same way foundations nests today.
+ *    own renderer set — then nest to `/components/<id>/<name>` with
+ *    Web/Native tabs the same way foundations nests today.
  */
 
 export type DesignSystem = {

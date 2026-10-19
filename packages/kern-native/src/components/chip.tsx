@@ -17,7 +17,7 @@ export type ChipVariant = "assist" | "filter" | "input" | "suggestion";
 export function chipStyles(
   variant: ChipVariant,
   selected: boolean,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
   elevated = false,
 ): { container: ViewStyle; label: TextStyle } {
   const isFilter = variant === "filter";

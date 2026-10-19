@@ -9,8 +9,8 @@
 | State | Opacity | Notes |
 |-------|---------|-------|
 | Hover | 8% | Cursor pause, fade in, one at a time |
-| Focus | 12% | Tab/voice, visible ring indicator, one at a time |
-| Press | 12% | Ripple + optional elevation lift |
+| Focus | 10% | Tab/voice, visible ring indicator, one at a time |
+| Press | 10% | Ripple + optional elevation lift |
 | Drag | 16% | Low-emphasis overlay + elevation; cards/chips/lists/sliders only |
 
 Layer is 40dp, target is 48dp. One layer at a time; combinable with selected/activated.

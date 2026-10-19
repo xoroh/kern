@@ -11,7 +11,7 @@ import { defaultScheme, useKernTheme } from "../theme";
 export function switchStyles(
   on: boolean,
   disabled: boolean,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
 ): { track: ViewStyle; thumb: ViewStyle } {
   return {
     track: {

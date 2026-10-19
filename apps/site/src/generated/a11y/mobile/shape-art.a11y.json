@@ -6,6 +6,10 @@
     "ShapeArt": {
       "hasLiveDemo": false,
       "expectations": []
+    },
+    "ExpressiveShape": {
+      "hasLiveDemo": false,
+      "expectations": []
     }
   }
 }

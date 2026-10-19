@@ -27,13 +27,14 @@ back; it never rewrites `kern.json`.
 
 ## Install modes
 
-Mode 1 (`kern add`) vendors web-component installs — `add.ts` (copy +
+Mode 1 (`kern add`) vendors component installs — `add.ts` (copy +
 receipt), `closure.ts` (transitive relative-import closure), `manifest.ts`
 (registry seam over `packages/mcp/src/manifest.ts`), `kern.ts` (CLI entry).
-Web-only; native is refused until the Metro asset story is scoped. Blocks
-upgrade through the block planner (`kern upgrade <block>`); components
-through the component planner. Customized files are preserved, never
-overwritten.
+Web is the default; `--platform native` vendors the native row (Metro and
+font setup ride in the printed instructions). Blocks are web-only in this
+release — a block with no native manifest is refused aloud. Components
+upgrade through the component planner, blocks through the block planner.
+Customized files are preserved, never overwritten.
 
 Mode 2 needs no command: `bun add @xoroh/kern` for the versioned dependency.
 

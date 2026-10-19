@@ -7,6 +7,16 @@ one package, subpath exports.
 
 ## Install
 
+> 0.1.0 Preview: this package is unpublished (`0.0.0`), so the registry
+> command runs at release. The route that works today is the source
+> install — vendor from a checkout:
+>
+> ```bash
+> bun <checkout>/packages/kern-cli/src/kern.ts add button --dest components/kern
+> ```
+>
+> Registry path (available at release):
+
 ```bash
 bun add @xoroh/kern
 ```
@@ -34,8 +44,9 @@ import "@xoroh/kern/theme";
 import { Button } from "@xoroh/kern";
 
 <Button variant="primary">Save</Button>;
-// variant: primary | tonal | outlined | ghost (+ elevated) —
-// size: xs · default · sm · md · lg · xl · icon (M3 names land in D-BUTTON-NAMES)
+// variant: elevated | primary | tonal | outlined | ghost (M3 `filled`/`text`
+// resolve to `primary`/`ghost`; the M3 names land in D-BUTTON-NAMES) —
+// size: xs | default | sm | md | xl | lg | icon
 ```
 
 ```tsx

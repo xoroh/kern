@@ -27,6 +27,17 @@ export const tooltip: ComponentDoc = {
     "TooltipContent",
     "TooltipProvider",
   ],
+  keyboard: [
+    {
+      key: "Tab / Shift+Tab",
+      action:
+        "Focus opens the tooltip on the trigger — an icon-only control is labelled for keyboard users too.",
+    },
+    {
+      key: "Escape",
+      action: "Dismisses the open tooltip without moving focus.",
+    },
+  ],
   anatomy: [
     {
       name: "TooltipProvider",

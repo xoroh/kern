@@ -17,7 +17,7 @@
  * - Site cards use the 28px extra-large corner, stages large, pills full.
  *   These are app compositions; package component shape tokens are unchanged.
  * - Primary is the action and inline-link accent.
- * - State layers: hover = on-surface @ 8%, press = on-surface @ 12%,
+ * - State layers: hover = on-surface @ 8%, press = on-surface @ 10%,
  *   focus = a visible secondary ring (3px, no offset — `FOCUS_RING_WIDTH_PX`
  *   / `FOCUS_RING_OFFSET_PX` in `@xoroh/kern-tokens`; literals stay inline
  *   so the Tailwind scanner generates them).
@@ -78,8 +78,8 @@ export const FOCUS_RING =
 
 /** Hover state layer — on-surface @ 8% (M3 hover). */
 export const HOVER_LAYER = "hover:bg-(--sys-color-on-surface)/8";
-/** Press state layer — on-surface @ 12% (M3 pressed-state-layer-opacity). */
-export const PRESS_LAYER = "active:bg-(--sys-color-on-surface)/12";
+/** Press state layer — on-surface @ 10% (M3 pressed-state-layer-opacity). */
+export const PRESS_LAYER = "active:bg-(--sys-color-on-surface)/10";
 /** Hover + press, the transparent-element pair. */
 export const STATE_LAYERS = `${HOVER_LAYER} ${PRESS_LAYER}`;
 

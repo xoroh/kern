@@ -1,6 +1,13 @@
 import { applyKernTheme, Button, type Mode, type ThemeId } from "@xoroh/kern";
 import { AppShell } from "@xoroh/kern/start";
+import { registerM3 } from "@xoroh/kern-m3";
 import { useState } from "react";
+
+// The app owns the design-system choice (decision 010): register M3 once at
+// entry. Importing "@xoroh/kern" registers nothing — applyKernTheme below
+// resolves "material-3" (and its overrides) only because of this call, and
+// an unregistered preset fails loud.
+registerM3();
 
 /**
  * First themed screen. The preset picker switches the whole app between the

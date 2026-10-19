@@ -89,15 +89,39 @@ const families = {
   web: await loadDocs("web"),
   mobile: await loadDocs("mobile"),
 };
+// One page per family (018): the map lists the family URL once, with the
+// per-renderer .md files named beside it for agents that fetch source.
+const bySlug = new Map();
 for (const [platform, docs] of Object.entries(families)) {
-  lines.push(`## Component families — ${platform}`, "");
   for (const doc of docs) {
-    lines.push(
-      link(doc.name, `/components/${platform}/${doc.slug}`, doc.oneLiner),
-    );
+    if (!bySlug.has(doc.slug))
+      bySlug.set(doc.slug, { web: null, mobile: null });
+    bySlug.get(doc.slug)[platform] = doc;
   }
-  lines.push("");
 }
+lines.push(`## Component families (M3)`, "");
+for (const [slug, pair] of [...bySlug.entries()].sort((a, b) =>
+  a[0].localeCompare(b[0]),
+)) {
+  const primary = pair.web ?? pair.mobile;
+  const renders = [pair.web && "Web", pair.mobile && "Native"]
+    .filter(Boolean)
+    .join(" + ");
+  const md = [
+    pair.web && `/md/web/${slug}.md`,
+    pair.mobile && `/md/mobile/${slug}.md`,
+  ]
+    .filter(Boolean)
+    .join(", ");
+  lines.push(
+    link(
+      primary.name,
+      `/components/m3/${slug}`,
+      `${primary.oneLiner} Renders: ${renders}. Markdown: ${md}.`,
+    ),
+  );
+}
+lines.push("");
 
 mkdirSync(join(APP, "public"), { recursive: true });
 writeFileSync(OUT, lines.join("\n"));
