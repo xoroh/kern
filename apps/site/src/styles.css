@@ -210,10 +210,16 @@ a.site-card:active::after {
   outline-offset: 2px;
 }
 /**
- * Right-edge fade for true scrollers inside gallery thumbnails (chip rows,
- * tab lists). Added at runtime by FitWidth only where an overflow-x
- * auto/scroll element actually overflows — a scroll affordance, not a crop.
+ * Gallery thumbnails emulate a narrow container: multi-column preview grids
+ * collapse to one column (what container queries would do), so the first
+ * preview reads whole and the rest fade below. Family pages keep their grid.
+ * Right-edge fade for true scrollers (chip rows, tab lists), added at
+ * runtime by FitWidth only where an overflow-x element actually overflows —
+ * a scroll affordance, not a crop.
  */
+.site-gallery-stage .preview-grid {
+  grid-template-columns: 1fr;
+}
 .thumb-scroll-x {
   mask-image: linear-gradient(to right, black 88%, transparent 98%);
 }

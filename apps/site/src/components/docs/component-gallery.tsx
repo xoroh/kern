@@ -150,8 +150,10 @@ function FitWidth({ children }: { children: ReactNode }) {
         if (h.scrollWidth > need) need = h.scrollWidth;
         const ox = getComputedStyle(h).overflowX;
         if (
-          (ox === "auto" || ox === "scroll") &&
-          h.scrollWidth > h.clientWidth + 8
+          (ox === "auto" || ox === "scroll" || ox === "hidden") &&
+          h.scrollWidth > h.clientWidth + 8 &&
+          // Never fade the well plumbing itself: only demo content.
+          !h.classList.contains("site-gallery-stage")
         ) {
           h.classList.add("thumb-scroll-x");
         }
