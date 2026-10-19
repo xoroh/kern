@@ -49,6 +49,35 @@ entries that point at missing `dist/` files. The Release workflow runs
 `bun run build` before its "Verify publishable packages" step for the same
 reason (CI already builds each package before its own `check:publish`).
 
+## Release dry run (no publish)
+
+What a release would ship, without shipping it. Run from the repo root
+after `bun run build`:
+
+1. Pack every publishable package and read the file list:
+   `cd packages/<name> && bun pm pack --dry-run`. The eight publishable
+   packages are the table at the top of this file. `@xoroh/kern` and
+   `@xoroh/kern-native` intentionally ship their `src/` trees (packed
+   `kern add` vendors component sources from the tarball) — everything else
+   ships `dist` plus declared data files.
+2. Provenance: every publishable manifest carries
+   `"publishConfig": {"access": "public", "provenance": true}`, and the
+   release job runs with `id-token: write` plus `PUBLISH_PROVENANCE=true`
+   (see `.github/workflows/release.yml`). `npm publish` without both emits
+   no provenance attestation.
+3. Changelog: `bun x changeset status` (read-only) shows what the pending
+   `.changeset/*.md` files would release. First release per package goes
+   out as `0.1.0` — while on `0.x`, land breaking changes as minors (see
+   `docs/conventions/changesets.md`); a `major` on `0.0.0` would publish
+   `1.0.0`, a stability promise this repo has not made.
+4. Sweep for internal files: `bun run check:release-sweep`. It fails on
+   lane reports, planning leftovers, scratch and stray tarballs in the repo,
+   and on test/planning/audit/report files inside any pack output. The
+   release does not proceed until it is green; each failure names its owner
+   (usually the hygiene lane). Never `npm publish`, tag, bump versions,
+   deploy, or touch secrets as part of the dry run — preparation only,
+   founder-gated execution.
+
 ## Preflight: internal dependencies are peerDependencies, never `workspace:*`
 
 Requested by K-05 and enforced by `scripts/preflight-publish.mjs`, which runs
