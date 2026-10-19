@@ -73,7 +73,7 @@ export type MobileDemo = () => React.ReactElement;
 export function NativeButtonDemo() {
   return (
     <PhoneStack>
-      <PhonePreview label="variant: elevated · primary · tonal · outlined · ghost">
+      <PhonePreview label="variant: elevated · filled · tonal · outlined · text">
         <PhoneRow>
           <Button variant="elevated">Elevated</Button>
           <Button variant="filled">Filled</Button>
