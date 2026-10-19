@@ -12,10 +12,24 @@
  * reader only looked under `packages/kern`, so `get_tokens` and `list_themes`
  * failed even inside the monorepo with `KERN_REPO_ROOT` set — the first wall
  * an agent building a themed screen walks into.
+ *
+ * Roadmap item 7: token, theme, DTCG and block data are served from the
+ * build-time bundle (`./bundled-data.js`), never read from a checkout —
+ * only component SOURCE bytes still resolve through `KERN_REPO_ROOT`, and
+ * only because verbatim source is never embedded (the COMPONENT_SOURCES
+ * precedent). Outside a checkout the source reads name what is missing
+ * instead of inventing it.
  */
 import { readFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  BUNDLED_BLOCKS,
+  BUNDLED_DTCG,
+  BUNDLED_THEMES_CATALOG,
+  BUNDLED_TOKEN_THEMES,
+  BUNDLED_TOKENS_BASE,
+} from "./bundled-data.js";
 import { COMPONENTS } from "./manifest.js";
 
 export type Platform = "web" | "native";
@@ -56,7 +70,7 @@ export function resolveSystem(
 /**
  * Presets `get_tokens` accepts. `base` is the shared token source
  * (`tokens.json`); the rest are ids from the theme catalog
- * (`packages/kern-tokens/src/themes/index.json`). `demo` is a template
+ * (`packages/kern-m3/src/themes/index.json`). `demo` is a template
  * sample, not a discovery default — it resolves when requested explicitly.
  */
 export const TOKEN_PRESETS = [
@@ -73,7 +87,12 @@ export function canonicalPreset(preset: TokenPreset): string {
   return preset;
 }
 
-// Resolve the kern monorepo root: explicit env first, then dist/src layouts.
+// Resolve the kern monorepo root for COMPONENT SOURCE reads only.
+// Everything else the tools serve is bundled at build time
+// (`./bundled-data.js`, roadmap item 7) — no checkout file is read at
+// runtime for data. Component sources are the documented exception: verbatim
+// source is never embedded (the COMPONENT_SOURCES precedent), so outside a
+// checkout `get_component` names the missing source explicitly instead.
 // NOTE: published bundles will inline the registry instead (see README).
 function kernRootCandidates(): string[] {
   const here = dirname(fileURLToPath(import.meta.url));
@@ -114,30 +133,6 @@ async function readNativeFile(rel: string): Promise<string | null> {
     ...repoPaths("packages/kern-native", rel),
     ...repoPaths("kern-native", rel),
   ]);
-}
-
-/** Token data: `@xoroh/kern-tokens` (`packages/kern-tokens/...`). */
-async function readTokenFile(rel: string): Promise<string | null> {
-  return readFirst([
-    ...repoPaths("packages/kern-tokens", rel),
-    ...repoPaths("kern-tokens", rel),
-  ]);
-}
-
-/** M3 preset data: `@xoroh/kern-m3` (`packages/kern-m3/...`). */
-async function readThemeFile(rel: string): Promise<string | null> {
-  return readFirst([
-    ...repoPaths("packages/kern-m3", rel),
-    ...repoPaths("kern-m3", rel),
-  ]);
-}
-
-function tokenFileFor(preset: TokenPreset): {
-  read: "tokens" | "themes";
-  rel: string;
-} {
-  if (preset === "base") return { read: "tokens", rel: "src/tokens.json" };
-  return { read: "themes", rel: `src/themes/${canonicalPreset(preset)}.json` };
 }
 
 export async function listComponents(platform?: Platform, system?: string) {
@@ -198,43 +193,31 @@ export async function getComponent(
 }
 
 export async function getTokens(preset: TokenPreset = "base") {
-  const { read, rel } = tokenFileFor(preset);
-  const raw =
-    read === "themes" ? await readThemeFile(rel) : await readTokenFile(rel);
-  if (!raw)
-    return {
-      error: `tokens unavailable (wanted ${rel}) — run inside the kern monorepo or set KERN_REPO_ROOT`,
-    };
-  return { preset: canonicalPreset(preset), tokens: JSON.parse(raw) };
+  // Roadmap item 7: served from the build-time bundle, never read from a
+  // checkout — the packed tarball answers from dist.
+  if (preset === "base")
+    return { preset: canonicalPreset(preset), tokens: BUNDLED_TOKENS_BASE };
+  return {
+    preset: canonicalPreset(preset),
+    tokens: BUNDLED_TOKEN_THEMES[canonicalPreset(preset)],
+  };
 }
 
 /**
  * The DTCG 2025.10 interchange document (KERN-052) — the machine-readable
- * token projection for third-party tools. Served from the generated artifact,
- * validated at generation time, so an agent fetching tokens as DTCG gets the
- * same values the CSS ships. Unavailable outside a checkout, stated as such.
+ * token projection for third-party tools. Served from the build-time bundle
+ * (validated at generation time), so an agent fetching tokens as DTCG gets
+ * the same values the CSS ships — inside a checkout or from a packed tarball.
  */
 export async function getDtcg(): Promise<
   { spec: string; document: unknown } | { error: string }
 > {
-  const raw = await readTokenFile("src/dtcg.json");
-  if (!raw) {
-    return {
-      error:
-        "DTCG document unavailable — run inside the kern monorepo or set KERN_REPO_ROOT",
-    };
-  }
-  return { spec: "DTCG 2025.10", document: JSON.parse(raw) };
+  return { spec: "DTCG 2025.10", document: BUNDLED_DTCG };
 }
 
 export async function listThemes() {
-  const raw = await readThemeFile("src/themes/index.json");
-  if (!raw)
-    return {
-      error:
-        "theme catalog unavailable — run inside the kern monorepo or set KERN_REPO_ROOT",
-    };
-  return JSON.parse(raw);
+  // Roadmap item 7: the catalog rides the build-time bundle.
+  return BUNDLED_THEMES_CATALOG;
 }
 
 // ---------------------------------------------------------------------------
@@ -320,52 +303,16 @@ export type BlockInfo = {
   components: string[];
 };
 
-async function readBlockManifest(): Promise<string | null> {
-  const roots = kernRootCandidates();
-  return readFirst(
-    roots.flatMap((base) => [
-      resolve(base, "apps/site/src/blocks/manifest.ts"),
-      resolve(base, "apps", "site", "src", "blocks", "manifest.ts"),
-    ]),
-  );
-}
-
-function parseBlockRows(src: string): BlockInfo[] {
-  const rows: BlockInfo[] = [];
-  for (const chunk of src.split(/^\s*\{/m).slice(1)) {
-    const name = chunk.match(/name:\s*"([^"]+)"/)?.[1];
-    const file = chunk.match(/file:\s*"([^"]+)"/)?.[1];
-    if (!name || !file) continue;
-    const strList = (key: string): string[] => {
-      const body =
-        chunk.match(new RegExp(`${key}:\\s*\\[([^\\]]*)\\]`, "s"))?.[1] ?? "";
-      return [...body.matchAll(/"([^"]+)"/g)].map((m) => m[1]);
-    };
-    rows.push({
-      name,
-      title: chunk.match(/title:\s*"([^"]+)"/)?.[1] ?? name,
-      category: chunk.match(/category:\s*"([^"]+)"/)?.[1] ?? "Settings",
-      description: chunk.match(/description:\s*"([^"]+)"/)?.[1] ?? "",
-      files: [file, ...strList("files")],
-      components: strList("registryDependencies"),
-    });
-  }
-  return rows;
-}
-
 export async function listBlocks(): Promise<
   { count: number; blocks: BlockInfo[] } | { error: string }
 > {
-  const src = await readBlockManifest();
-  if (!src) {
-    return {
-      error:
-        "block manifest unavailable — run inside the kern monorepo or set KERN_REPO_ROOT",
-    };
-  }
-  const blocks = parseBlockRows(src);
+  // Roadmap item 7: block rows ride the build-time bundle (parsed from the
+  // site manifest by generate-bundle.mjs) — no checkout read at runtime.
+  // The parser lives in the generator now; a row the manifest does not parse
+  // is refused at build time, not listed as installable at runtime.
+  const blocks: BlockInfo[] = BUNDLED_BLOCKS;
   if (blocks.length === 0) {
-    return { error: "parsed 0 block rows — the manifest shape changed." };
+    return { error: "bundled 0 block rows — regenerate the MCP bundle." };
   }
   return { count: blocks.length, blocks };
 }
