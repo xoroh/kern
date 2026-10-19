@@ -1,10 +1,6 @@
+import { Progress as AxisProgress } from "@xoroh/axis";
 import type { ResolvedTheme } from "@xoroh/kern-tokens";
-import {
-  type StyleProp,
-  View,
-  type ViewProps,
-  type ViewStyle,
-} from "react-native";
+import type { StyleProp, ViewProps, ViewStyle } from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
 
 export function progressStyles(
@@ -35,8 +31,16 @@ export type NativeProgressProps = Omit<ViewProps, "children" | "style"> & {
   style?: StyleProp<ViewStyle>;
 };
 
+/**
+ * M3 progress — the determinate bar, on Axis `Progress`.
+ *
+ * Determinate-only per the component contract (unknown waits use `Loader`):
+ * an omitted `value` reads 0%, never indeterminate-busy. The part owns the
+ * progressbar role, the clamped value and the min/max reading; the track
+ * and fill stay Kern-styled via `style`/`barStyle`.
+ */
 export function Progress({
-  value,
+  value = 0,
   max = 100,
   accessibilityLabel = "Progress",
   style,
@@ -44,22 +48,16 @@ export function Progress({
   ...props
 }: NativeProgressProps) {
   const scheme = useKernScheme();
-  const ratio = value === undefined ? 0 : value / max;
-  const styles = progressStyles(value === undefined ? 0 : ratio, scheme);
+  const styles = progressStyles(value / max, scheme);
   return (
-    <View
+    <AxisProgress
       {...props}
-      testID={testID ?? "kern-progress"}
-      accessibilityRole="progressbar"
+      value={value}
+      max={max}
       accessibilityLabel={accessibilityLabel}
-      accessibilityValue={
-        value === undefined ? { text: "Loading" } : { now: value, min: 0, max }
-      }
-      style={style}
-    >
-      <View style={styles.track}>
-        <View style={styles.fill} />
-      </View>
-    </View>
+      testID={testID ?? "kern-progress"}
+      style={[styles.track, style]}
+      barStyle={styles.fill}
+    />
   );
 }

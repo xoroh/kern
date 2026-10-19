@@ -7,14 +7,11 @@ export type LinearProgressProps = Omit<
   "children"
 > & {
   /**
-   * 0–1 determinate progress. Ignored when `indeterminate` is set.
+   * 0–1 determinate progress. `null` is the indeterminate loop for unknown
+   * durations (Axis `value={null}` convention — no separate boolean, so a
+   * value and a mode can never contradict each other).
    */
-  value?: number;
-  /**
-   * Looping motion with no endpoint for unknown durations. Per M3 the two
-   * bars slide on a 2s linear cycle.
-   */
-  indeterminate?: boolean;
+  value?: number | null;
   /**
    * Cycle the indeterminate bars through primary → primary-container →
    * tertiary → tertiary-container instead of holding primary.
@@ -53,7 +50,6 @@ function clamp01(value: number): number {
  */
 export function LinearProgress({
   value = 0,
-  indeterminate = false,
   fourColor = false,
   buffer,
   stop = false,
@@ -62,7 +58,8 @@ export function LinearProgress({
   className,
   ...props
 }: LinearProgressProps) {
-  const ratio = clamp01(value);
+  const indeterminate = value === null;
+  const ratio = clamp01(value ?? 0);
   const buffered = buffer === undefined ? null : clamp01(buffer);
   // Pattern ids must be document-unique and URL-safe (`useId` emits colons).
   const waveId = `kern-wave-${useId().replace(/[^a-zA-Z0-9]/g, "")}`;
