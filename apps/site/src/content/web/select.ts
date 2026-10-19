@@ -28,6 +28,7 @@ export const select: ComponentDoc = {
     "SelectContent",
     "SelectItem",
     "SelectItemText",
+    "SelectItemIndicator",
     "SelectGroupLabel",
     "SelectSeparator",
   ],
@@ -58,6 +59,10 @@ export const select: ComponentDoc = {
     },
     { name: "SelectItem", role: "One option." },
     { name: "SelectItemText", role: "The option's label text." },
+    {
+      name: "SelectItemIndicator",
+      role: "The selected mark inside an option. Renders only while its option is selected.",
+    },
     {
       name: "SelectGroupLabel",
       role: "A heading for a run of related options.",

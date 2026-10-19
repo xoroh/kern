@@ -1522,6 +1522,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    slug: "web/select-item-indicator",
+    name: "select-item-indicator",
+    export: "SelectItemIndicator",
+    platform: "web",
+    status: "real",
+  },
+  {
     slug: "web/select-item-text",
     name: "select-item-text",
     export: "SelectItemText",

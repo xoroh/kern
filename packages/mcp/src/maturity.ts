@@ -1732,6 +1732,15 @@ export const MATURITY: readonly MaturityRow[] = [
     version: "0.0.0",
   },
   {
+    name: "select-item-indicator",
+    export: "SelectItemIndicator",
+    platform: "web",
+    system: "kern-m3",
+    entrypoint: ".",
+    state: "Preview",
+    version: "0.0.0",
+  },
+  {
     name: "select-separator",
     export: "SelectSeparator",
     platform: "web",
@@ -4066,6 +4075,7 @@ export const MATURITY_BY_STATE: Readonly<
     "select-group",
     "select-group-label",
     "select-item",
+    "select-item-indicator",
     "select-item-text",
     "select-root",
     "select-separator",
