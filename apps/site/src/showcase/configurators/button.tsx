@@ -5,8 +5,8 @@ import type { ConfiguratorSpec, ConfigValues } from "../configurator";
 /**
  * Button configurator — the full M3 matrix.
  *
- * Every axis the Button owns: all five variants (elevated/primary/tonal/
- * outlined/ghost), all five sizes (xs/default/sm/xl/icon), both colors,
+ * Every axis the Button owns: all five variants (elevated/filled/tonal/
+ * outlined/text), all five sizes (xs/default/sm/xl/icon), both colors,
  * all three shapes, plus block, loading, and disabled. Non-default positions
  * are the ones emitted into the fence; the stage passes everything
  * explicitly, same values object either way.
@@ -15,7 +15,7 @@ import type { ConfiguratorSpec, ConfigValues } from "../configurator";
  * text label (the page's own API note) — stage and fence emit the real
  * `<Icon>` together, so the fence cannot teach the bug it documents.
  */
-type Variant = "elevated" | "primary" | "tonal" | "outlined" | "ghost";
+type Variant = "elevated" | "filled" | "tonal" | "outlined" | "text";
 type Size = "xs" | "default" | "sm" | "md" | "xl" | "lg" | "icon";
 type Color = "primary" | "danger";
 type Shape = "pill" | "rounded" | "square";
@@ -26,10 +26,10 @@ const ICON_LABEL = "Add";
 function variantOf(v: ConfigValues): Variant {
   const s = String(v.variant);
   return (
-    ["elevated", "primary", "tonal", "outlined", "ghost"] as const
+    ["elevated", "filled", "tonal", "outlined", "text"] as const
   ).includes(s as Variant)
     ? (s as Variant)
-    : "primary";
+    : "filled";
 }
 
 function sizeOf(v: ConfigValues): Size {
@@ -58,7 +58,7 @@ function isIcon(v: ConfigValues): boolean {
 
 function propsOf(v: ConfigValues): string {
   const out: string[] = [];
-  if (variantOf(v) !== "primary") out.push(`variant="${variantOf(v)}"`);
+  if (variantOf(v) !== "filled") out.push(`variant="${variantOf(v)}"`);
   if (sizeOf(v) !== "default") out.push(`size="${sizeOf(v)}"`);
   if (colorOf(v) !== "primary") out.push(`color="${colorOf(v)}"`);
   if (shapeOf(v) !== "pill") out.push(`shape="${shapeOf(v)}"`);
@@ -84,8 +84,8 @@ export const BUTTON_CONFIGURATOR: ConfiguratorSpec = {
       kind: "select",
       name: "variant",
       label: "Variant",
-      options: ["elevated", "primary", "tonal", "outlined", "ghost"],
-      default: "primary",
+      options: ["elevated", "filled", "tonal", "outlined", "text"],
+      default: "filled",
     },
     {
       kind: "select",

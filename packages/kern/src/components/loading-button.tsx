@@ -1,13 +1,8 @@
 import type { LoadingIndicatorStyle } from "@xoroh/kern-m3";
 import { assignRef } from "../utils/assignRef";
 import { cn } from "../utils/cn";
-import {
-  BUTTON_VARIANT_ALIASES,
-  type ButtonButtonProps,
-  type ButtonM3Variant,
-  type ButtonVariant,
-  buttonVariants,
-} from "./button";
+import type { ButtonButtonProps } from "./button";
+import { buttonVariants } from "./button";
 import { CircularProgress } from "./circular-progress";
 
 export type LoadingButtonProps = Omit<
@@ -42,18 +37,13 @@ export function LoadingButton({
 }: LoadingButtonProps) {
   // LoadingButton is button-only by type (ButtonButtonProps): anchor props
   // cannot arrive here, so there is nothing to strip. No anchor branch.
-  // Same M3-alias normalization as Button — the cva call only sees Kern names.
-  const kernVariant: ButtonVariant | undefined =
-    variant !== undefined && variant in BUTTON_VARIANT_ALIASES
-      ? BUTTON_VARIANT_ALIASES[variant as ButtonM3Variant]
-      : (variant as ButtonVariant | undefined);
   return (
     <button
       data-slot="loading-button"
       data-testid="loading-button"
       data-loading={loading ? "" : undefined}
       aria-busy={loading ? true : undefined}
-      className={cn(buttonVariants({ variant: kernVariant, size }), className)}
+      className={cn(buttonVariants({ variant, size }), className)}
       disabled={disabled || loading}
       type={type}
       ref={(node) => {

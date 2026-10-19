@@ -37,12 +37,12 @@ export const PREVIEW_CARD_CONFIGURATOR: ConfiguratorSpec = {
   ],
   render: (v) => (
     <PreviewCard.Root key={openOf(v) ? "open" : "shut"} defaultOpen={openOf(v)}>
-      <PreviewCard.Trigger render={<Button variant="ghost">@xoroh</Button>} />
+      <PreviewCard.Trigger render={<Button variant="text">@xoroh</Button>} />
       <PreviewCard.Content>
         The open-source design system following Material Design 3.
       </PreviewCard.Content>
     </PreviewCard.Root>
   ),
   code: (v) =>
-    `<PreviewCard.Root${rootPropsOf(v)}>\n  <PreviewCard.Trigger render={<Button variant="ghost">@xoroh</Button>} />\n  <PreviewCard.Content>\n    The open-source design system following Material Design 3.\n  </PreviewCard.Content>\n</PreviewCard.Root>\n\n// No delay prop: open timing belongs to the primitive.\n// handle/triggerId are app wiring, not props here.`,
+    `<PreviewCard.Root${rootPropsOf(v)}>\n  <PreviewCard.Trigger render={<Button variant="text">@xoroh</Button>} />\n  <PreviewCard.Content>\n    The open-source design system following Material Design 3.\n  </PreviewCard.Content>\n</PreviewCard.Root>\n\n// No delay prop: open timing belongs to the primitive.\n// handle/triggerId are app wiring, not props here.`,
 };

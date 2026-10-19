@@ -94,7 +94,7 @@ function ComponentsScreenBody() {
               Primary
             </Button>
             <Button variant="tonal">Tonal</Button>
-            <Button variant="ghost">Ghost</Button>
+            <Button variant="text">Text</Button>
             <Button disabled>Disabled</Button>
           </View>
           <View style={{ flexDirection: "row", gap: 8 }}>

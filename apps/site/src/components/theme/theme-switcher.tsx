@@ -55,7 +55,7 @@ export function ThemeSwitcher() {
           <Button
             key={entry.id}
             size="sm"
-            variant={preference === entry.id ? "primary" : "tonal"}
+            variant={preference === entry.id ? "filled" : "tonal"}
             aria-pressed={preference === entry.id}
             onClick={() =>
               entry.id === "system" ? setSystem() : setMode(entry.id)
