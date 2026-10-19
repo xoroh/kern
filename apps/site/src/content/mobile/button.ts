@@ -6,7 +6,7 @@ export const button: ComponentDoc = {
   oneLiner:
     "The button is the standard action control: five Material 3 treatments, four sizes, one press.",
   features:
-    'Reach for a button when tapping causes something: submit, save, open, confirm. The variant axis mirrors the web union exactly — `primary` is Material 3\'s filled button, `tonal` and `outlined` the quieter pair, `ghost` the text button, and `elevated` the one treatment that raises — because the variant law is one meaning per name across both renderers, not one name count. `color="danger"` re-paints any of the five in the error roles instead of adding a sixth vocabulary word. `size` walks the compact `xs`, the default height, the small `sm`, the large `xl` and the square `icon` box. `loading` swaps in the progress indicator and blocks the press until it clears, and `icon` renders beside the label with the same icon `gap` the web pair uses.',
+    'Reach for a button when tapping causes something: submit, save, open, confirm. The variant axis mirrors the web union exactly — `filled` is the emphasis treatment, `tonal` and `outlined` the quieter pair, `text` the quietest, and `elevated` the one treatment that raises — because the variant law is one meaning per name across both renderers, not one name count. `color="danger"` re-paints any of the five in the error roles instead of adding a sixth vocabulary word. `size` walks the compact `xs`, the default height, the small `sm`, the large `xl` and the square `icon` box. `loading` swaps in the progress indicator and blocks the press until it clears, and `icon` renders beside the label with the same icon `gap` the web pair uses.',
   meta: {
     specUrl: "https://m3.material.io/components/buttons",
     status: "real",
@@ -14,7 +14,7 @@ export const button: ComponentDoc = {
     // Exact web counterpart, checked in the web inventory.
     nativePeer: "Button",
     variants: [
-      "variant: elevated · primary · tonal · outlined · ghost",
+      "variant: elevated · filled · tonal · outlined · text",
       "color: primary · danger",
       "size: xs · default · sm · xl · icon",
       "shape: pill · rounded · square",
@@ -46,9 +46,9 @@ export const button: ComponentDoc = {
     ],
     dont: [
       "Don't use a button to navigate — navigate with a list item or link, not an action control.",
-      "Don't stack multiple primary buttons — demote the rest to tonal, outlined, or ghost.",
+      "Don't stack multiple filled buttons — demote the rest to tonal, outlined, or text.",
       "Don't render a glyph-only button without an accessibility label from the pressable props.",
-      "Don't toggle ghost — there is no selected text treatment.",
+      "Don't toggle text — there is no selected text treatment.",
     ],
   },
   tokens: [
@@ -123,9 +123,9 @@ export const button: ComponentDoc = {
   api: [
     {
       name: "variant",
-      type: 'NativeButtonVariantInput ("elevated" | "primary" | "tonal" | "outlined" | "ghost", plus "filled" | "text" aliases)',
-      default: '"primary"',
-      note: 'The treatment. One meaning per name with the web union — `primary` is M3\'s filled button. There is no sixth: an error action is `color="danger"` on any of the five.',
+      type: 'NativeButtonVariant ("elevated" | "filled" | "tonal" | "outlined" | "text")',
+      default: '"filled"',
+      note: 'The treatment. One name per variant on both renderers — `filled` is M3\'s filled button. There is no sixth: an error action is `color="danger"` on any of the five.',
     },
     {
       name: "color",

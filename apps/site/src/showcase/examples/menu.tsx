@@ -88,7 +88,7 @@ export const MENUBAR_EXAMPLES: ExampleSpec[] = [
     render: () => (
       <MenubarRoot>
         <MenubarMenu>
-          <MenuTrigger render={<Button variant="ghost">File</Button>} />
+          <MenuTrigger render={<Button variant="text">File</Button>} />
           <MenuContent>
             <MenuItem>New</MenuItem>
             <MenuItem>Open…</MenuItem>
@@ -97,7 +97,7 @@ export const MENUBAR_EXAMPLES: ExampleSpec[] = [
           </MenuContent>
         </MenubarMenu>
         <MenubarMenu>
-          <MenuTrigger render={<Button variant="ghost">Edit</Button>} />
+          <MenuTrigger render={<Button variant="text">Edit</Button>} />
           <MenuContent>
             <MenuItem>Undo</MenuItem>
             <MenuItem>Redo</MenuItem>
@@ -107,13 +107,13 @@ export const MENUBAR_EXAMPLES: ExampleSpec[] = [
     ),
     code: `<MenubarRoot>
   <MenubarMenu>
-    <MenuTrigger render={<Button variant="ghost">File</Button>} />
+    <MenuTrigger render={<Button variant="text">File</Button>} />
     <MenuContent>
       <MenuItem>New</MenuItem>
     </MenuContent>
   </MenubarMenu>
   <MenubarMenu>
-    <MenuTrigger render={<Button variant="ghost">Edit</Button>} />
+    <MenuTrigger render={<Button variant="text">Edit</Button>} />
     <MenuContent>
       <MenuItem>Undo</MenuItem>
     </MenuContent>

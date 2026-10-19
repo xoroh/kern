@@ -6,7 +6,7 @@ export const button: ComponentDoc = {
   oneLiner:
     "Buttons let people carry out an action with a single tap, click or key press.",
   features:
-    'Reach for a button when the next step is an action the person intends to take: saving a form, sending a message, opening a dialog. Put one primary action on a screen and give it the primary variant; every lower-emphasis action takes tonal, outlined or ghost so the hierarchy reads at a glance. A button is not a link — if it moves to another place rather than doing something here, use an anchor, or `LinkButton` when the destination should wear the button treatment. Destructive actions have no variant of their own: `color="danger"` re-paints the five variants in the error roles, which keeps the action vocabulary at five instead of six. A busy button keeps its label and reports it: `loading` swaps in the progress indicator and blocks interaction until it clears. Binary choices get `toggle`: the button morphs round to square when selected, swaps to its emphasis pair, and reports `aria-pressed`.',
+    'Reach for a button when the next step is an action the person intends to take: saving a form, sending a message, opening a dialog. Put one primary action on a screen and give it the filled variant; every lower-emphasis action takes tonal, outlined or text so the hierarchy reads at a glance. A button is not a link — if it moves to another place rather than doing something here, use an anchor, or `LinkButton` when the destination should wear the button treatment. Destructive actions have no variant of their own: `color="danger"` re-paints the five variants in the error roles, which keeps the action vocabulary at five instead of six. A busy button keeps its label and reports it: `loading` swaps in the progress indicator and blocks interaction until it clears. Binary choices get `toggle`: the button morphs round to square when selected, swaps to its emphasis pair, and reports `aria-pressed`.',
   meta: {
     // Canonical M3 spec page — title identity-verified live; gate re-checks.
     specUrl: "https://m3.material.io/components/buttons",
@@ -14,7 +14,7 @@ export const button: ComponentDoc = {
     package: "@xoroh/kern",
     nativePeer: "Button",
     variants: [
-      "variant: elevated · primary · tonal · outlined · ghost",
+      "variant: elevated · filled · tonal · outlined · text",
       "color: primary · danger",
       "size: xs · default · sm · md · xl · lg · icon",
       "shape: pill · rounded · square",
@@ -23,7 +23,7 @@ export const button: ComponentDoc = {
     // M3 tabulates buttons twice: "button (elevated)" at level 1 and
     // "buttons (filled, tonal, outlined)" at level 0. kern's `variant` axis
     // covers both rows, so `m3-elevation.ts` permits [0, 1] for this family.
-    // The default variant is `primary` (filled), which carries no elevation
+    // The default variant is `filled`, which carries no elevation
     // token and rests at level 0; `elevated` is the one that lifts, and it is
     // recorded in Customization because the strip holds a single value.
     elevation: 0,
@@ -56,7 +56,7 @@ export const button: ComponentDoc = {
     do: [
       "Use filled for important, final actions that complete a flow — Save, Join now, Confirm. It has the most visual impact after the FAB.",
       "Use tonal where a lower-priority button needs slightly more emphasis than an outline gives — `Next` in an onboarding flow.",
-      "Use outlined for important actions that aren't the primary one on the screen.",
+      "Use outlined for important actions that aren't the main one on the screen.",
       "Use text for the lowest-priority actions, especially when presenting multiple options.",
       "Use elevated only when the button needs visual separation from a patterned background — never by default, to prevent shadow creep.",
       'Use `color="danger"` for destructive actions (delete, discard, remove).',
@@ -159,15 +159,15 @@ export const button: ComponentDoc = {
   ],
   faq: [
     {
-      q: "When do I use ghost vs outlined?",
-      a: "Ghost for the lowest-emphasis inline actions (dialog secondary actions, inline list actions). Outlined where a visible boundary helps scanning — grouped actions, forms, toolbars.",
+      q: "When do I use text vs outlined?",
+      a: "Text for the lowest-emphasis inline actions (dialog secondary actions, inline list actions). Outlined where a visible boundary helps scanning — grouped actions, forms, toolbars.",
     },
     {
       q: "How does `loading` differ from `disabled`?",
       a: "`loading` shows the progress indicator and reports `aria-busy` while blocking interaction like `disabled`. Use it when the action is in flight; use `disabled` when the action is unavailable.",
     },
     {
-      q: "Why does `elevated` lift on hover but `primary` doesn't rest elevated?",
+      q: "Why does `elevated` lift on hover but `filled` doesn't rest elevated?",
       a: "Per M3: elevated rests at level1 and lifts to level2 on hover; filled rests at level0 and lifts to level1 on hover. The resting shadow is the variant's identity — only hover adds lift.",
     },
   ],
@@ -189,14 +189,14 @@ export const button: ComponentDoc = {
   api: [
     {
       name: "variant",
-      type: '"elevated" | "primary" | "tonal" | "outlined" | "ghost"',
-      default: '"primary"',
-      note: 'M3\'s five color configurations. `filled` and `text` are accepted as aliases for `primary` and `ghost`. There is no sixth: an error action is `color="danger"` on any of the five.',
+      type: '"elevated" | "filled" | "tonal" | "outlined" | "text"',
+      default: '"filled"',
+      note: 'M3\'s five color configurations. There is no sixth: an error action is `color="danger"` on any of the five.',
     },
     {
       name: "color",
       type: '"primary" | "danger"',
-      default: '"primary"',
+      default: '"filled"',
       note: "The error treatment, not a variant. `danger` re-paints the variant's structure in the error roles; `primary` adds no classes.",
     },
     {
@@ -215,7 +215,7 @@ export const button: ComponentDoc = {
       name: "toggle",
       type: "boolean",
       default: "false",
-      note: "Renders an M3 Expressive toggle: binary selection with round-to-square morph, per-variant selected colors, and `aria-pressed`. No toggle text button — `ghost` warns and renders unselected.",
+      note: "Renders an M3 Expressive toggle: binary selection with round-to-square morph, per-variant selected colors, and `aria-pressed`. No toggle text button — `text` warns and renders unselected.",
     },
     {
       name: "pressed",

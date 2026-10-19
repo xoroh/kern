@@ -94,7 +94,7 @@ export function SaveScreen() {
   return (
     <KernThemeProvider>
       <Text variant="headline">Save changes</Text>
-      <Button variant="primary" onPress={save}>
+      <Button variant="filled" onPress={save}>
         Save
       </Button>
     </KernThemeProvider>
@@ -132,7 +132,7 @@ export function PresetPicker() {
       {PRESETS.map((p) => (
         <Button
           key={p}
-          variant={p === preset ? "primary" : "outlined"}
+          variant={p === preset ? "filled" : "outlined"}
           onClick={() => apply(p)}
         >
           {p}
@@ -197,7 +197,7 @@ function GettingStarted() {
                 We only use this for sign-in.
               </Field.Description>
             </Field.Root>
-            <Button variant="primary">Continue</Button>
+            <Button variant="filled">Continue</Button>
           </div>
           <Code filename="sign-in.tsx">{FIRST_COMPONENT}</Code>
         </Step>

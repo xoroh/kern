@@ -86,10 +86,10 @@ export const SHEET_CONFIGURATOR: ConfiguratorSpec = {
       <Sheet.Content side={sideOf(v)} modal={modalOf(v)}>
         <Sheet.Title>Filters</Sheet.Title>
         <Sheet.Description>Narrow the result set.</Sheet.Description>
-        <Sheet.Close render={<Button variant="ghost">Close</Button>} />
+        <Sheet.Close render={<Button variant="text">Close</Button>} />
       </Sheet.Content>
     </Sheet.Root>
   ),
   code: (v) =>
-    `<Sheet.Root${rootPropsOf(v)}>\n  <Sheet.Trigger render={<Button variant="tonal">Open sheet</Button>} />\n  <Sheet.Content${contentPropsOf(v)}>\n    <Sheet.Title>Filters</Sheet.Title>\n    <Sheet.Description>\n      Narrow the result set.\n    </Sheet.Description>\n    <Sheet.Close render={<Button variant="ghost">Close</Button>} />\n  </Sheet.Content>\n</Sheet.Root>`,
+    `<Sheet.Root${rootPropsOf(v)}>\n  <Sheet.Trigger render={<Button variant="tonal">Open sheet</Button>} />\n  <Sheet.Content${contentPropsOf(v)}>\n    <Sheet.Title>Filters</Sheet.Title>\n    <Sheet.Description>\n      Narrow the result set.\n    </Sheet.Description>\n    <Sheet.Close render={<Button variant="text">Close</Button>} />\n  </Sheet.Content>\n</Sheet.Root>`,
 };

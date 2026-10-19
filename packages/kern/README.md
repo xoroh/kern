@@ -43,9 +43,8 @@ import "@xoroh/kern/theme";
 ```tsx
 import { Button } from "@xoroh/kern";
 
-<Button variant="primary">Save</Button>;
-// variant: elevated | primary | tonal | outlined | ghost (M3 `filled`/`text`
-// resolve to `primary`/`ghost`; the M3 names land in D-BUTTON-NAMES) —
+<Button variant="filled">Save</Button>;
+// variant: elevated | filled | tonal | outlined | text —
 // size: xs | default | sm | md | xl | lg | icon
 ```
 
@@ -102,7 +101,7 @@ never the reverse — see `../../docs/conventions/file-ownership.md`.
 ```tsx
 import { Button } from "@xoroh/kern-native";
 
-<Button variant="primary" label="Save" onPress={save} />;
+<Button variant="filled" label="Save" onPress={save} />;
 // same names, same variants, same tokens — StyleSheet, no styling deps
 ```
 

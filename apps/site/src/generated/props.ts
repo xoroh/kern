@@ -1083,37 +1083,37 @@ export const GENERATED_PROPS: Record<string, Array<{
   "Button": [
     {
       "name": "variant",
-      "type": "ButtonVariantInput | undefined",
+      "type": "ButtonVariant | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:330",
-      "default": "\"primary\""
+      "src": "packages/kern/src/components/button.tsx:315",
+      "default": "\"filled\""
     },
     {
       "name": "size",
       "type": "ButtonSize | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:331",
+      "src": "packages/kern/src/components/button.tsx:316",
       "default": "\"default\""
     },
     {
       "name": "color",
       "type": "ButtonColor | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:332",
+      "src": "packages/kern/src/components/button.tsx:317",
       "default": "\"primary\""
     },
     {
       "name": "shape",
       "type": "ButtonShape | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:333",
+      "src": "packages/kern/src/components/button.tsx:318",
       "default": "\"pill\""
     },
     {
       "name": "block",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:335",
+      "src": "packages/kern/src/components/button.tsx:320",
       "default": "false",
       "note": "Full-width block button."
     },
@@ -1121,138 +1121,138 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "loading",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:337",
+      "src": "packages/kern/src/components/button.tsx:322",
       "note": "Shows the embedded progress indicator and blocks interaction."
     },
     {
       "name": "loadingValue",
       "type": "number | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:339",
+      "src": "packages/kern/src/components/button.tsx:324",
       "note": "0–1 determinate progress while loading. Omit for the loop."
     },
     {
       "name": "loaderStyle",
       "type": "\"spinner\" | \"dots\" | \"bar\" | \"shapes\" | \"conveyor\" | \"contained\" | \"orbit\" | \"morph\" | \"assembly\" | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:341",
+      "src": "packages/kern/src/components/button.tsx:326",
       "note": "Style of the embedded indicator. Defaults to the M3 ring (`spinner`)."
     },
     {
       "name": "icon",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:343",
+      "src": "packages/kern/src/components/button.tsx:328",
       "note": "Leading (or trailing, with `iconPosition`) icon. Hidden from assistive tech."
     },
     {
       "name": "iconPosition",
       "type": "ButtonIconPosition | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:344"
+      "src": "packages/kern/src/components/button.tsx:329"
     },
     {
       "name": "flipIcon",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:350",
+      "src": "packages/kern/src/components/button.tsx:335",
       "note": "Mirrors the icon horizontally in RTL contexts (`rtl:scale-x-[-1]`).\nOpt into it for directional glyphs (arrows, chevrons, back/open cues);\nsymmetric icons must not flip. Per M3's `flip-icon-in-rtl`."
     },
     {
       "name": "softDisabled",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:357",
+      "src": "packages/kern/src/components/button.tsx:342",
       "note": "Soft-disabled: paints the disabled treatment but stays focusable, so the\ncontrol remains discoverable (toolbar pattern per W3C APG disabled-controls\nguidance). Unlike `disabled`, it keeps its tab stop and reports\n`aria-disabled` instead of the `disabled` attribute."
     },
     {
       "name": "toggle",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:365",
+      "src": "packages/kern/src/components/button.tsx:350",
       "default": "false",
-      "note": "Renders the button as an M3 Expressive toggle: binary selection with\nround↔square morph and per-variant selected colors. There is no toggle\ntext button — `toggle` on `ghost` warns in dev and renders unselected.\nKeep selected/unselected labels a similar length so the layout holds.\n(`value` stays the form value; toggle state uses `pressed`.)"
+      "note": "Renders the button as an M3 Expressive toggle: binary selection with\nround↔square morph and per-variant selected colors. There is no toggle\ntext button — `toggle` on `text` warns in dev and renders unselected.\nKeep selected/unselected labels a similar length so the layout holds.\n(`value` stays the form value; toggle state uses `pressed`.)"
     },
     {
       "name": "pressed",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:367",
+      "src": "packages/kern/src/components/button.tsx:352",
       "note": "Controlled selected state. Only meaningful with `toggle`."
     },
     {
       "name": "defaultPressed",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:369",
+      "src": "packages/kern/src/components/button.tsx:354",
       "note": "Initial selected state for the uncontrolled toggle case."
     },
     {
       "name": "onPressedChange",
       "type": "((pressed: boolean) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:370"
+      "src": "packages/kern/src/components/button.tsx:355"
     },
     {
       "name": "disabled",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:372",
+      "src": "packages/kern/src/components/button.tsx:357",
       "note": "Disabled treatment for either the button or anchor branch."
     },
     {
       "name": "testID",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:377",
+      "src": "packages/kern/src/components/button.tsx:362",
       "note": "Test selector. Rendered as `data-testid` on the root node (both\nbranches); see `parity/testid-contract.md`. Opt-in only — no default."
     },
     {
       "name": "href",
       "type": "string",
       "required": true,
-      "src": "packages/kern/src/components/button.tsx:396",
+      "src": "packages/kern/src/components/button.tsx:381",
       "note": "Navigation variant. Renders `<a href>` wearing the button treatment,\ni.e. `role=\"link\"` — for a dedicated link component see `LinkButton`.\nA disabled link drops `href`, leaves the tab order and reports\n`aria-disabled` (the ListItem convention) — links have no `disabled`\nattribute, so there is nothing native to lean on."
     },
     {
       "name": "type",
       "type": "undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:398",
+      "src": "packages/kern/src/components/button.tsx:383",
       "note": "Button submission attributes have no meaning on a link."
     },
     {
       "name": "value",
       "type": "undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:399"
+      "src": "packages/kern/src/components/button.tsx:384"
     },
     {
       "name": "target",
       "type": "HTMLAttributeAnchorTarget | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:401",
+      "src": "packages/kern/src/components/button.tsx:386",
       "note": "Anchor target. A button has no browsing context to open."
     },
     {
       "name": "rel",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:403",
+      "src": "packages/kern/src/components/button.tsx:388",
       "note": "Anchor relationship list."
     },
     {
       "name": "download",
       "type": "any",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:405",
+      "src": "packages/kern/src/components/button.tsx:390",
       "note": "Download hint."
     },
     {
       "name": "ref",
       "type": "Ref<HTMLAnchorElement> | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:407",
+      "src": "packages/kern/src/components/button.tsx:392",
       "note": "Ref to the rendered anchor."
     }
   ],
@@ -1300,7 +1300,7 @@ export const GENERATED_PROPS: Record<string, Array<{
     },
     {
       "name": "variant",
-      "type": "\"elevated\" | \"outlined\" | \"filled\" | null | undefined",
+      "type": "\"elevated\" | \"filled\" | \"outlined\" | null | undefined",
       "required": false,
       "src": "packages/kern/src/components/card.tsx:9",
       "default": "\"filled\""
@@ -1321,7 +1321,7 @@ export const GENERATED_PROPS: Record<string, Array<{
     },
     {
       "name": "variant",
-      "type": "\"elevated\" | \"outlined\" | \"filled\" | null | undefined",
+      "type": "\"elevated\" | \"filled\" | \"outlined\" | null | undefined",
       "required": false,
       "src": "packages/kern/src/components/card.tsx:9",
       "default": "\"filled\""
@@ -1342,7 +1342,7 @@ export const GENERATED_PROPS: Record<string, Array<{
     },
     {
       "name": "variant",
-      "type": "\"elevated\" | \"outlined\" | \"filled\" | null | undefined",
+      "type": "\"elevated\" | \"filled\" | \"outlined\" | null | undefined",
       "required": false,
       "src": "packages/kern/src/components/card.tsx:9",
       "default": "\"filled\""
@@ -1363,7 +1363,7 @@ export const GENERATED_PROPS: Record<string, Array<{
     },
     {
       "name": "variant",
-      "type": "\"elevated\" | \"outlined\" | \"filled\" | null | undefined",
+      "type": "\"elevated\" | \"filled\" | \"outlined\" | null | undefined",
       "required": false,
       "src": "packages/kern/src/components/card.tsx:9",
       "default": "\"filled\""
@@ -4652,7 +4652,7 @@ export const GENERATED_PROPS: Record<string, Array<{
     },
     {
       "name": "variant",
-      "type": "\"standard\" | \"tonal\" | \"outlined\" | \"filled\" | null | undefined",
+      "type": "\"standard\" | \"filled\" | \"tonal\" | \"outlined\" | null | undefined",
       "required": false,
       "src": "packages/kern/src/components/icon-button.tsx:40",
       "default": "\"standard\""
@@ -5136,21 +5136,21 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "loading",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/loading-button.tsx:18",
+      "src": "packages/kern/src/components/loading-button.tsx:13",
       "note": "Shows the embedded progress indicator and blocks interaction."
     },
     {
       "name": "value",
       "type": "number | undefined",
       "required": false,
-      "src": "packages/kern/src/components/loading-button.tsx:20",
+      "src": "packages/kern/src/components/loading-button.tsx:15",
       "note": "0–1 determinate progress while loading. Omit for the loop."
     },
     {
       "name": "loaderStyle",
       "type": "\"spinner\" | \"dots\" | \"bar\" | \"shapes\" | \"conveyor\" | \"contained\" | \"orbit\" | \"morph\" | \"assembly\" | undefined",
       "required": false,
-      "src": "packages/kern/src/components/loading-button.tsx:22",
+      "src": "packages/kern/src/components/loading-button.tsx:17",
       "note": "Style of the embedded indicator. Defaults to the M3 ring (`spinner`)."
     }
   ],
@@ -7983,7 +7983,7 @@ export const GENERATED_PROPS: Record<string, Array<{
     },
     {
       "name": "variant",
-      "type": "\"outlined\" | \"filled\" | undefined",
+      "type": "\"filled\" | \"outlined\" | undefined",
       "required": false,
       "src": "packages/kern/src/components/select.tsx:17",
       "note": "M3 select treatment. `outlined` (default) draws the 1px outline;\n`filled` fills `surface-container-highest` with a bottom active\nindicator. Functionally identical — pick by surface."
@@ -10044,7 +10044,7 @@ export const GENERATED_PROPS: Record<string, Array<{
     },
     {
       "name": "variant",
-      "type": "\"outlined\" | \"filled\" | undefined",
+      "type": "\"filled\" | \"outlined\" | undefined",
       "required": false,
       "src": "packages/kern/src/components/textarea.tsx:14",
       "note": "M3 text-field treatment. `outlined` (default) draws the 1px outline;\n`filled` fills `surface-container-highest`. Functionally identical."

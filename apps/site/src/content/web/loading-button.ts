@@ -48,8 +48,8 @@ export const loadingButton: ComponentDoc = {
     },
     {
       name: "variant",
-      type: '"elevated" | "primary" | "tonal" | "outlined" | "ghost"',
-      default: '"primary"',
+      type: '"elevated" | "filled" | "tonal" | "outlined" | "text"',
+      default: '"filled"',
       note: "Inherited from `Button` unchanged — this is the button family's five configurations.",
     },
     {

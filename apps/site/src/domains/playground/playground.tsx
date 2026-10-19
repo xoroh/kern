@@ -1549,7 +1549,7 @@ export const playgroundTheme = defineThemePreset({
             </div>
 
             <Button
-              variant="primary"
+              variant="filled"
               size="sm"
               onClick={() => setExportOpen(true)}
               className="flex items-center gap-1.5"
@@ -1605,11 +1605,11 @@ export const playgroundTheme = defineThemePreset({
                       <Icon name="check-circle" size={16} />{" "}
                       <span>Healthy</span>
                     </Chip>
-                    <Button variant="ghost" size="icon" aria-label="Settings">
+                    <Button variant="text" size="icon" aria-label="Settings">
                       <Icon name="settings" size={20} />
                     </Button>
                     <Button
-                      variant="primary"
+                      variant="filled"
                       size="sm"
                       onClick={() => setTestDialogOpen(true)}
                     >
@@ -1638,7 +1638,7 @@ export const playgroundTheme = defineThemePreset({
                       </span>
                     </div>
                     <Button
-                      variant="primary"
+                      variant="filled"
                       size="sm"
                       className="self-start sm:self-auto shrink-0"
                     >
@@ -1793,7 +1793,7 @@ export const playgroundTheme = defineThemePreset({
                             </Table.Cell>
                             <Table.Cell className="text-right">
                               <Button
-                                variant="ghost"
+                                variant="text"
                                 size="sm"
                                 className="px-2"
                               >
@@ -1915,12 +1915,12 @@ export const playgroundTheme = defineThemePreset({
                   </div>
 
                   <div className="flex flex-wrap items-center gap-3 rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container-low) p-6">
-                    <Button variant="primary">Filled Button</Button>
+                    <Button variant="filled">Filled Button</Button>
                     <Button variant="tonal">Tonal Button</Button>
                     <Button variant="elevated">Elevated Button</Button>
                     <Button variant="outlined">Outlined Button</Button>
-                    <Button variant="ghost">Text Button</Button>
-                    <Button variant="primary" disabled>
+                    <Button variant="text">Text Button</Button>
+                    <Button variant="filled" disabled>
                       Disabled
                     </Button>
                   </div>
@@ -2362,11 +2362,11 @@ export const playgroundTheme = defineThemePreset({
               <Switch defaultChecked aria-label="TLS Rotation" />
             </div>
             <div className="flex justify-end gap-2 pt-4">
-              <Button variant="ghost" onClick={() => setTestDialogOpen(false)}>
+              <Button variant="text" onClick={() => setTestDialogOpen(false)}>
                 Cancel
               </Button>
               <Button
-                variant="primary"
+                variant="filled"
                 onClick={() => setTestDialogOpen(false)}
               >
                 Apply Rules
