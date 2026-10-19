@@ -3,10 +3,7 @@ import { act } from "react";
 import { Modal, Pressable } from "react-native";
 import { Dialog } from "./dialog";
 import { Menu } from "./menu";
-import {
-  OverlayModalityProvider,
-  useAnyModalOpen,
-} from "./overlay-surfaces";
+import { OverlayModalityProvider, useAnyModalOpen } from "./overlay-surfaces";
 import { Select } from "./select";
 import { Text } from "./text";
 import { Tooltip } from "./tooltip";
@@ -62,15 +59,10 @@ async function countModals(element: React.ReactElement): Promise<number> {
       record(type);
       return (jsxsOrig as (...a: Array<unknown>) => unknown)(type, ...rest);
     }),
-    jest
-      .spyOn(jsxDevRuntime, "jsxDEV")
-      .mockImplementation((type, ...rest) => {
-        record(type);
-        return (jsxDevOrig as (...a: Array<unknown>) => unknown)(
-          type,
-          ...rest,
-        );
-      }),
+    jest.spyOn(jsxDevRuntime, "jsxDEV").mockImplementation((type, ...rest) => {
+      record(type);
+      return (jsxDevOrig as (...a: Array<unknown>) => unknown)(type, ...rest);
+    }),
   ];
   try {
     await render(element);
@@ -240,7 +232,9 @@ describe("overlay-compound adoption: one shared modality stack", () => {
     function Probe() {
       const modalOpen = useAnyModalOpen();
       return (
-        <Pressable accessibilityLabel={modalOpen ? "modal-open" : "modal-closed"}>
+        <Pressable
+          accessibilityLabel={modalOpen ? "modal-open" : "modal-closed"}
+        >
           <Text>probe</Text>
         </Pressable>
       );

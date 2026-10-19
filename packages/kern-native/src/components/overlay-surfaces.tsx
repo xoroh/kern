@@ -1,5 +1,5 @@
 import {
-  createOverlayModality,
+  type createOverlayModality,
   getSharedOverlayModality,
   type OverlayId,
   type OverlayModalityState,

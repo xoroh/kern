@@ -1,6 +1,6 @@
 import {
-  MenuBackdrop,
   MenuItem as AxisMenuItem,
+  MenuBackdrop,
   MenuPopup,
   MenuPortal,
   MenuPositioner,
@@ -72,9 +72,7 @@ export function Menu({
           {trigger}
         </MenuTrigger>
         <MenuPortal>
-          <MenuBackdrop
-            style={{ backgroundColor: "rgba(0, 0, 0, 0.3)" }}
-          />
+          <MenuBackdrop style={{ backgroundColor: "rgba(0, 0, 0, 0.3)" }} />
           <MenuPositioner>
             <MenuPopup style={[styles.card, style]}>
               {items.map((item) => (

@@ -1,5 +1,4 @@
-import { TooltipPortal, TooltipRoot } from "@xoroh/axis";
-import { useControllableState } from "@xoroh/axis";
+import { TooltipPortal, TooltipRoot, useControllableState } from "@xoroh/axis";
 import type { ReactNode } from "react";
 import { Pressable, type PressableProps, StyleSheet, View } from "react-native";
 import { useKernScheme } from "../theme";
@@ -277,9 +276,7 @@ export function RichTooltip({
                 placement === "top" ? styles.above : styles.below,
                 {
                   backgroundColor: scheme.color.surfaceContainer,
-                  borderRadius: Number.parseFloat(
-                    scheme.shape["extra-small"],
-                  ),
+                  borderRadius: Number.parseFloat(scheme.shape["extra-small"]),
                   paddingTop: 12,
                   paddingBottom: 8,
                   paddingHorizontal: 16,

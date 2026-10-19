@@ -1,6 +1,6 @@
 import {
-  SelectBackdrop,
   SelectItem as AxisSelectItem,
+  SelectBackdrop,
   SelectPopup,
   SelectPortal,
   SelectPositioner,
@@ -9,11 +9,7 @@ import {
   SelectValue,
 } from "@xoroh/axis";
 import type { ResolvedTheme } from "@xoroh/kern-tokens";
-import {
-  type StyleProp,
-  View,
-  type ViewStyle,
-} from "react-native";
+import { type StyleProp, View, type ViewStyle } from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
 import { menuStyles } from "./menu";
 import { Text } from "./text";
@@ -107,9 +103,7 @@ export function Select({
           <Text variant="body">▾</Text>
         </SelectTrigger>
         <SelectPortal>
-          <SelectBackdrop
-            style={{ backgroundColor: "rgba(0, 0, 0, 0.3)" }}
-          />
+          <SelectBackdrop style={{ backgroundColor: "rgba(0, 0, 0, 0.3)" }} />
           <SelectPositioner>
             <SelectPopup style={styles.card}>
               {options.map((option) => (
