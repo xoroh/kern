@@ -225,26 +225,22 @@ function HeaderLinks({
     { label: "WAI-ARIA", href: meta.apgUrl },
   ];
   return (
-    <div
-      className={`flex flex-wrap items-center justify-between gap-3 pt-2 ${SMALL}`}
-    >
-      <span className={CHIP}>{facts.join(" · ")}</span>
-      <div className="flex flex-wrap items-center gap-2">
-        {links.map((l) =>
-          l.href ? (
-            <a
-              key={l.label}
-              href={l.href}
-              rel="noreferrer"
-              target="_blank"
-              className={`inline-flex items-center gap-1 rounded-full bg-(--sys-color-surface-container) px-3 py-1 text-(--sys-color-secondary) no-underline hover:bg-(--sys-color-surface-container-high) hover:underline ${TRANSITION}`}
-            >
-              {l.label} <span aria-hidden="true">↗</span>
-            </a>
-          ) : null,
-        )}
-        <CopyMarkdownButton platform={platform} />
-      </div>
+    <div className={`flex flex-wrap items-center gap-x-5 gap-y-2 ${SMALL}`}>
+      <span className={`${INK_SOFT}`}>{facts.join(" · ")}</span>
+      {links.map((l) =>
+        l.href ? (
+          <a
+            key={l.label}
+            href={l.href}
+            rel="noreferrer"
+            target="_blank"
+            className="text-(--sys-color-secondary) no-underline hover:underline"
+          >
+            {l.label} <span aria-hidden="true">↗</span>
+          </a>
+        ) : null,
+      )}
+      <CopyMarkdownButton platform={platform} />
     </div>
   );
 }
@@ -1886,14 +1882,14 @@ export function ComponentPage({
     href: `/components/m3/${familySlug}?tab=${id}`,
   }));
   return (
-    <article className="flex min-w-0 flex-col gap-12" data-copy-md-root>
-      <header className={`${CARD} flex flex-col gap-4 p-6 sm:p-8`}>
+    <article className="flex min-w-0 flex-col gap-16" data-copy-md-root>
+      <header className="flex flex-col gap-4">
         <Breadcrumbs items={crumbs} />
-        <div className="flex flex-wrap items-end justify-between gap-3">
-          <span className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div className="flex flex-col gap-1.5">
             <h1 className={H1}>{doc.name}</h1>
-            <span className={CHIP}>{systemLabel}</span>
-          </span>
+            <p className={`m-0 ${SMALL} ${INK_SOFT}`}>{systemLabel}</p>
+          </div>
           {platformTabs.length > 1 ? (
             <PlatformTabs
               tabs={platformTabs}

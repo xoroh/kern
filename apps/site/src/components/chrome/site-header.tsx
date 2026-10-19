@@ -77,14 +77,11 @@ export function SiteHeader() {
           <span className={T_LABEL_LG}>K</span>
         </span>
         <span className={T_SUB}>Kern</span>
-        <span className="hidden rounded-full bg-(--sys-color-secondary-container) px-2 py-0.5 text-(--sys-color-on-secondary-container) sm:inline-flex [font-size:var(--sys-typescale-label-small-font-size)] [line-height:var(--sys-typescale-label-small-line-height)] [font-weight:var(--sys-typescale-label-small-font-weight)]">
-          M3
-        </span>
       </a>
 
       <nav
         aria-label="Primary"
-        className="ml-4 hidden items-center gap-1 lg:flex"
+        className="ml-2 hidden items-center gap-0.5 lg:flex"
       >
         {PRIMARY_TABS.map((tab) => {
           const active = isTabActive(pathname, tab);
@@ -94,7 +91,7 @@ export function SiteHeader() {
               href={tab.href}
               aria-current={active ? "page" : undefined}
               className={cn(
-                `inline-flex min-h-12 items-center px-5 no-underline ${T_LABEL_LG} ${TRANSITION}`,
+                `inline-flex min-h-10 items-center px-4 no-underline ${T_LABEL_LG} ${TRANSITION}`,
                 active ? PILL_ACTIVE : PILL_REST,
               )}
             >
@@ -117,7 +114,7 @@ export function SiteHeader() {
           onClick={openSearch}
           aria-label="Search (Command K)"
           className={cn(
-            `inline-flex h-12 min-w-12 cursor-pointer items-center justify-center gap-2 rounded-(--sys-shape-corner-full) border-0 bg-(--sys-color-surface-container-high) px-3 text-(--sys-color-on-surface-variant) ${STATE_LAYERS} ${TRANSITION} sm:justify-start sm:px-4`,
+            `inline-flex h-10 min-w-10 cursor-pointer items-center justify-center gap-2 rounded-(--sys-shape-corner-full) border-0 bg-(--sys-color-surface-container-high) px-3 text-(--sys-color-on-surface-variant) ${STATE_LAYERS} ${TRANSITION} sm:justify-start sm:px-4`,
             FOCUS_RING,
           )}
         >

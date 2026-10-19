@@ -45,15 +45,13 @@ function ComponentsGallery() {
   const { platform } = Route.useSearch();
   return (
     <SiteLayout>
-      <PageCard width="wide">
-        <header className="site-docs-welcome flex flex-col gap-4">
-          <div className="flex flex-wrap items-start justify-between gap-4">
-            <div className="flex flex-col gap-2">
-              <h1 className={`m-0 ${T_PAGE} ${INK}`}>Components</h1>
-              <GalleryLede />
-            </div>
-            <PlatformSwitcher platform={platform} />
+      <PageCard width="wide" gap={12}>
+        <header className="flex flex-col gap-5">
+          <div className="flex flex-col gap-3">
+            <h1 className={`m-0 ${T_PAGE} ${INK}`}>Components</h1>
+            <GalleryLede />
           </div>
+          <PlatformSwitcher platform={platform} />
         </header>
         <ComponentGallery platform={platform} />
       </PageCard>

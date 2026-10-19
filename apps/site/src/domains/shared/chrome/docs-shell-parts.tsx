@@ -16,6 +16,7 @@
  */
 
 import { cn } from "@xoroh/kern";
+import { Icon } from "@xoroh/kern-icons";
 import type { ReactNode } from "react";
 import { T_BODY_SM, T_LABEL_LG } from "../systems/type-scale";
 import { FOCUS_RING, STATE_LAYERS, TRANSITION } from "../systems/ui";
@@ -119,12 +120,14 @@ export function savePlatformChoice(id: string): void {
 }
 
 /**
- * Persisted platform tabs (web/RN switcher).
+ * Persisted platform tabs (web/RN switcher) as an M3 segmented button.
  *
- * `tabs` is the domain's pair (or set); `active` is the one showing. Picking
- * a tab remembers it (`loadPlatformChoice` reads it back) and navigates via
- * plain anchors — the hrefs are real routes, so the switch works without
- * JavaScript and crawlers see both pages.
+ * `tabs` is the domain's pair (or set); `active` is the one showing. The
+ * active segment carries the selected pair with the M3 check mark; segments
+ * are 40dp in one outlined container. Picking a tab remembers it
+ * (`loadPlatformChoice` reads it back) and navigates via plain anchors —
+ * the hrefs are real routes, so the switch works without JavaScript and
+ * crawlers see both pages.
  */
 export function PlatformTabs({
   tabs,
@@ -139,7 +142,10 @@ export function PlatformTabs({
   onPick?: (id: string) => void;
 }) {
   return (
-    <nav aria-label={label} className="flex flex-wrap items-center gap-2">
+    <nav
+      aria-label={label}
+      className="flex w-fit flex-wrap items-center gap-1 rounded-full border border-(--sys-color-outline-variant) p-1"
+    >
       {tabs.map((tab) => {
         const isActive = tab.id === active;
         return (
@@ -152,15 +158,16 @@ export function PlatformTabs({
               onPick?.(tab.id);
             }}
             className={cn(
-              "inline-flex min-h-12 items-center rounded-(--sys-shape-corner-full) px-5 py-2 no-underline",
+              "inline-flex min-h-10 items-center gap-1.5 rounded-(--sys-shape-corner-full) px-4 no-underline",
               T_LABEL_LG,
               TRANSITION,
               FOCUS_RING,
               isActive
                 ? "bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container)"
-                : `bg-(--sys-color-surface-container) text-(--sys-color-on-surface-variant) ${STATE_LAYERS}`,
+                : `text-(--sys-color-on-surface-variant) ${STATE_LAYERS} hover:text-(--sys-color-on-surface)`,
             )}
           >
+            {isActive ? <Icon name="check" size={16} /> : null}
             {tab.label}
           </a>
         );

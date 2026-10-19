@@ -1,5 +1,5 @@
-import { Icon } from "@xoroh/kern-icons";
 import { useState } from "react";
+import { ChromeIcon } from "../components/chrome/chrome-icons";
 import { T_BODY_SM } from "../domains/shared/systems/type-scale";
 import {
   FOCUS_RING,
@@ -53,7 +53,7 @@ export function CopyButton({
 
   return (
     <button type="button" onClick={copy} className={COPY_BUTTON_CLASS}>
-      <Icon name={copied ? "check" : "content-copy"} size={16} />
+      <ChromeIcon name={copied ? "check" : "content-copy"} size={16} />
       {copied ? "Copied" : label}
     </button>
   );

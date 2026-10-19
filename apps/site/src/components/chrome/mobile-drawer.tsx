@@ -17,7 +17,6 @@
  */
 import { useLocation } from "@tanstack/react-router";
 import { buttonVariants, cn } from "@xoroh/kern";
-import { Icon } from "@xoroh/kern-icons";
 import { type RefObject, useEffect, useRef } from "react";
 import { T_BODY_MD, T_LABEL } from "../../domains/shared/systems/type-scale";
 import {
@@ -30,6 +29,7 @@ import {
 } from "../../domains/shared/systems/ui";
 import { trapTarget } from "../../systems/focus-trap";
 import { isActivePath, isTabActive, PRIMARY_TABS } from "./app-rail";
+import { ChromeIcon } from "./chrome-icons";
 import { openSearch } from "./search-opener";
 
 /** Destinations that are not primary tabs but must stay reachable by hand. */
@@ -125,7 +125,7 @@ export function MobileDrawer({
             aria-label="Close navigation menu"
             className={ICON_BUTTON}
           >
-            <Icon name="close" size={24} />
+            <ChromeIcon name="close" size={24} />
           </button>
         </div>
 
@@ -183,7 +183,7 @@ export function MobileDrawer({
             }}
             className={`flex min-h-12 w-full cursor-pointer items-center gap-2 rounded-(--sys-shape-corner-full) border-0 bg-transparent px-4 ${T_BODY_MD} text-(--sys-color-on-surface-variant) hover:text-(--sys-color-on-surface) ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`}
           >
-            <Icon name="search" size={18} />
+            <ChromeIcon name="search" size={18} />
             Search (⌘K)
           </button>
         </nav>

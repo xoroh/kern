@@ -70,8 +70,8 @@ button:focus-visible {
   height: var(--site-header-h);
 }
 .site-body {
-  padding: 0 16px 24px;
-  gap: 12px;
+  padding: 0 24px 32px;
+  gap: 24px;
 }
 .site-main {
   background: var(--sys-color-surface);
@@ -130,10 +130,10 @@ button:focus-visible {
 }
 .site-sidebar,
 .site-toc {
-  background: var(--sys-color-surface-container-low);
+  background: transparent;
 }
 .site-toc {
-  padding-left: 8px;
+  padding-left: 4px;
 }
 .site-page-title {
   font-size: clamp(32px, 3.6vw, 48px);
@@ -193,15 +193,6 @@ a.site-card:active::after {
 .site-enter {
   animation: site-enter var(--sys-motion-duration-short4)
     var(--sys-motion-easing-emphasized);
-}
-.site-stage {
-  background: var(--sys-color-surface-container);
-}
-.site-gallery-card {
-  background: var(--sys-color-surface-container-low);
-}
-.site-gallery-card .site-gallery-stage {
-  background: var(--sys-color-surface-container);
 }
 .site-gallery-card:focus-within {
   outline: 2px solid var(--sys-color-secondary);

@@ -18,10 +18,10 @@
  */
 
 import { useLocation } from "@tanstack/react-router";
-import { Icon } from "@xoroh/kern-icons";
 import { useState } from "react";
 import { COPY_BUTTON_CLASS } from "../../showcase/copy-button";
 import { domToMarkdown } from "../../systems/dom-to-markdown";
+import { ChromeIcon } from "./chrome-icons";
 
 /**
  * Same M3 outlined button as every copy action (the shared class keeps the
@@ -92,7 +92,7 @@ export function CopyMarkdownButton({ platform }: { platform?: string } = {}) {
         title="Copy this page as Markdown for pasting into an LLM (prose + code + links; live-demo controls excluded)"
         className={COPY_BUTTON_CLASS}
       >
-        <Icon name={copied ? "check" : "content-copy"} size={16} />
+        <ChromeIcon name={copied ? "check" : "content-copy"} size={16} />
         {copied ? "Copied" : "Copy as Markdown"}
       </button>
       {mdHref ? (
@@ -101,7 +101,7 @@ export function CopyMarkdownButton({ platform }: { platform?: string } = {}) {
           title="Open this page's canonical Markdown (same content, for fetching into an LLM)"
           className={`${COPY_BUTTON_CLASS} no-underline`}
         >
-          <Icon name="description" size={16} />
+          <ChromeIcon name="description" size={16} />
           View .md
         </a>
       ) : null}

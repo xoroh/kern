@@ -177,12 +177,9 @@ function OnThisPageRail({ pathname }: { pathname: string }) {
   }, [items]);
   if (items.length < 2) return null;
   return (
-    <nav
-      aria-label="On this page"
-      className="flex flex-col gap-3 rounded-(--sys-shape-corner-large-increased) bg-(--sys-color-surface) p-4"
-    >
+    <nav aria-label="On this page" className="flex flex-col gap-1.5">
       <p
-        className={`m-0 px-2 ${T_LABEL} text-(--sys-color-on-surface-variant) uppercase`}
+        className={`m-0 px-3 ${T_LABEL} text-(--sys-color-on-surface-variant) uppercase`}
       >
         On this page
       </p>
@@ -197,7 +194,7 @@ function OnThisPageRail({ pathname }: { pathname: string }) {
                 className={`block rounded-(--sys-shape-corner-full) px-3 py-1.5 ${T_BODY_SM} no-underline ${TRANSITION} ${FOCUS_RING} ${
                   active
                     ? "bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container)"
-                    : "text-(--sys-color-on-surface-variant) hover:bg-(--sys-color-surface-container-high) hover:text-(--sys-color-on-surface) active:bg-(--sys-color-on-surface)/10"
+                    : "text-(--sys-color-on-surface-variant) hover:text-(--sys-color-on-surface) active:bg-(--sys-color-on-surface)/10"
                 }`}
               >
                 {item.text}
@@ -295,12 +292,12 @@ export function SiteLayout({
         data-chrome="content"
       >
         <div className="flex min-w-0 flex-1 flex-col">
+          {!fullScreen ? <PreviewBanner /> : null}
           {!fullScreen ? (
             <div
               className={`site-chrome shrink-0 ${isFullHeight ? "" : "sticky top-0 z-30"}`}
             >
               <SiteHeader />
-              <PreviewBanner />
             </div>
           ) : null}
 

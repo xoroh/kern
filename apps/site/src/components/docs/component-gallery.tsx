@@ -11,6 +11,7 @@
  */
 import { Link } from "@tanstack/react-router";
 import { cn } from "@xoroh/kern";
+import { Icon } from "@xoroh/kern-icons";
 import {
   Component,
   type ReactElement,
@@ -28,38 +29,30 @@ import {
 import type { ComponentDoc } from "../../content/types";
 import { type DemoRegistries, useDemoRegistries } from "../../demos/lazy";
 import {
+  T_BODY,
   T_BODY_SM,
-  T_LABEL,
   T_LABEL_LG,
-  T_LEAD,
   T_SECTION,
-  T_SMALL_TITLE,
+  T_SUB,
 } from "../../domains/shared/systems/type-scale";
 import {
-  CARD,
   FOCUS_RING,
   INK,
   INK_SOFT,
   PILL_ACTIVE,
-  STAGE,
   STATE_LAYERS,
   TRANSITION,
 } from "../../domains/shared/systems/ui";
-import { maturityForExports } from "../../systems/maturity";
-
-const CHIP = `inline-flex items-center rounded-(--sys-shape-corner-full) bg-(--sys-color-surface-container-high) px-2.5 py-0.5 ${T_LABEL}`;
 
 /**
  * Platform switcher — All / Web / Native, on the one gallery route.
  *
- * One control instead of three hand-rolled chip navs: a 48dp pill row where
- * the active view carries the selected pair (secondary-container /
- * on-secondary-container) and the rest carry the M3 state layers. The active
- * item stays a LINK with `aria-current` — it navigates to itself rather than
- * posing as a non-interactive tab, so every item is a destination. Filtering
- * is view state (`?platform=`, 018): one gallery URL, not one route per
- * platform — the former platform index routes are deleted
- * outright (D-051, no redirects).
+ * An M3 segmented button: 40dp segments in one outlined container, the
+ * active segment carrying the selected pair (secondary-container /
+ * on-secondary-container) with the M3 check mark. The active item stays a
+ * LINK with `aria-current` — it navigates to itself rather than posing as a
+ * non-interactive tab, so every item is a destination. Filtering is view
+ * state (`?platform=`, 018): one gallery URL, not one route per platform.
  */
 export type GalleryPlatform = "web" | "mobile";
 
@@ -87,7 +80,7 @@ export function PlatformSwitcher({ platform }: { platform?: GalleryPlatform }) {
   return (
     <nav
       aria-label="Platform"
-      className="flex w-fit flex-wrap items-center gap-1 rounded-full bg-(--sys-color-surface-container) p-1"
+      className="flex w-fit flex-wrap items-center gap-1 rounded-full border border-(--sys-color-outline-variant) p-1"
     >
       {items.map((item) => (
         <Link
@@ -96,12 +89,13 @@ export function PlatformSwitcher({ platform }: { platform?: GalleryPlatform }) {
           search={item.search}
           aria-current={item.active ? "page" : undefined}
           className={cn(
-            `inline-flex min-h-12 items-center rounded-(--sys-shape-corner-full) px-5 no-underline ${T_LABEL_LG} ${TRANSITION} ${FOCUS_RING}`,
+            `inline-flex min-h-10 items-center gap-1.5 rounded-(--sys-shape-corner-full) px-4 no-underline ${T_LABEL_LG} ${TRANSITION} ${FOCUS_RING}`,
             item.active
               ? `${PILL_ACTIVE}`
               : `text-(--sys-color-on-surface-variant) ${STATE_LAYERS} hover:text-(--sys-color-on-surface)`,
           )}
         >
+          {item.active ? <Icon name="check" size={16} /> : null}
           {item.label}
         </Link>
       ))}
@@ -330,18 +324,6 @@ function previewReason(
   return undefined;
 }
 
-function maturityChip(
-  doc: ComponentDoc | undefined,
-  platform: "web" | "mobile",
-): string | undefined {
-  if (!doc) return undefined;
-  const row = maturityForExports(
-    doc.parts,
-    platform === "web" ? "web" : "native",
-  );
-  return row ? `${row.version} · ${row.state}` : undefined;
-}
-
 export function ComponentGallery({
   platform,
 }: {
@@ -362,47 +344,20 @@ export function ComponentGallery({
   }
 
   return (
-    <div className="flex flex-col gap-10">
-      <nav
-        className={`flex flex-wrap items-center gap-1.5 rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-low) p-2 ${T_BODY_SM}`}
-        aria-label="Families"
-      >
-        {groups.map((g) => (
-          <a
-            key={g.id}
-            href={`#family-${g.id}`}
-            className={`inline-flex min-h-12 items-center gap-2 rounded-(--sys-shape-corner-full) bg-(--sys-color-surface-container) px-4 no-underline ${T_LABEL_LG} text-(--sys-color-on-surface) ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`}
-          >
-            <span>{FAMILY_GROUPS.find((x) => x.id === g.id)?.title}</span>
-            <span
-              className={`rounded-full bg-(--sys-color-secondary-container) px-2 py-0.5 ${T_LABEL} text-(--sys-color-on-secondary-container)`}
-            >
-              {g.cards.length}
-            </span>
-          </a>
-        ))}
-      </nav>
-
+    <div className="flex flex-col gap-16">
       {groups.map((g) => {
         const meta = FAMILY_GROUPS.find((x) => x.id === g.id);
         return (
-          <section key={g.id} className="flex flex-col gap-4">
-            <div className="flex flex-wrap items-baseline justify-between gap-2 pb-1">
-              <div className="flex flex-col gap-1">
-                <h2 id={`family-${g.id}`} className={`m-0 ${T_SECTION} ${INK}`}>
-                  {meta?.title}
-                </h2>
-                <p className={`m-0 max-w-[62ch] ${T_BODY_SM} ${INK_SOFT}`}>
-                  {meta?.blurb}
-                </p>
-              </div>
-              <span
-                className={`rounded-full bg-(--sys-color-secondary-container) px-3 py-1 ${T_LABEL} text-(--sys-color-on-secondary-container)`}
-              >
-                {g.cards.length} families
+          <section key={g.id} className="flex flex-col gap-6">
+            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <h2 id={`family-${g.id}`} className={`m-0 ${T_SECTION} ${INK}`}>
+                {meta?.title}
+              </h2>
+              <span className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
+                {g.cards.length}
               </span>
             </div>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {g.cards.map((card) => (
                 <GalleryCardView key={card.slug} card={card} mods={mods} />
               ))}
@@ -447,15 +402,11 @@ function GalleryCardView({
   const reason = primary
     ? previewReason(primary, card.web ? "web" : "mobile", mods)
     : undefined;
-  const maturity =
-    maturityChip(card.web, "web") ?? maturityChip(card.mobile, "mobile");
 
   return (
-    <article
-      className={`${CARD} site-gallery-card flex flex-col overflow-hidden`}
-    >
+    <article className="group flex min-w-0 flex-col gap-4">
       <div
-        className={`site-gallery-stage relative m-2 flex h-44 items-center justify-center overflow-hidden p-4 ${STAGE}`}
+        className={`site-gallery-stage relative flex h-48 items-center justify-center overflow-hidden rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-secondary-container) p-6 ${TRANSITION} group-hover:shadow-(--sys-elevation-level1)`}
       >
         {Demo ? (
           ready ? (
@@ -469,7 +420,7 @@ function GalleryCardView({
             // don't clip demo text — scoped to descendants, the well and
             // the family pages keep full chrome.
             <div
-              className="pointer-events-none m-auto flex max-h-full max-w-full min-h-0 min-w-0 origin-center overflow-hidden [mask-image:linear-gradient(to_bottom,black_82%,transparent_98%)] [&_.site-card]:p-2 [&_.site-stage]:p-2"
+              className="pointer-events-none m-auto flex max-h-full max-w-full min-h-0 min-w-0 origin-center overflow-hidden [mask-image:linear-gradient(to_bottom,black_82%,transparent_98%)] [&_.site-card]:bg-transparent [&_.site-card]:p-2 [&_.site-stage]:bg-transparent [&_.site-stage]:p-2 [&_figcaption]:hidden"
               aria-hidden="true"
               inert
             >
@@ -480,16 +431,16 @@ function GalleryCardView({
               </DemoBoundary>
             </div>
           ) : (
-            // SSR skeleton: the same h-36 well, filled with container-high
-            // blocks, so the mount swap changes texture, not layout. Static
-            // on purpose — a shimmer would spend motion on a frame that
-            // resolves in the same tick as hydration.
+            // SSR skeleton: same well, filled with surface blocks, so the
+            // mount swap changes texture, not layout. Static on purpose — a
+            // shimmer would spend motion on a frame that resolves in the same
+            // tick as hydration.
             <div
               className="flex h-full w-full flex-col items-center justify-center gap-2"
               aria-hidden="true"
             >
-              <div className="h-8 w-2/3 rounded-(--sys-shape-corner-small) bg-(--sys-color-surface-container-high)" />
-              <div className="h-8 w-1/2 rounded-(--sys-shape-corner-small) bg-(--sys-color-surface-container-high)" />
+              <div className="h-8 w-2/3 rounded-(--sys-shape-corner-small) bg-(--sys-color-surface)" />
+              <div className="h-8 w-1/2 rounded-(--sys-shape-corner-small) bg-(--sys-color-surface)" />
             </div>
           )
         ) : reason ? (
@@ -514,75 +465,31 @@ function GalleryCardView({
           </div>
         )}
       </div>
-      <div className="flex flex-col gap-3 px-5 pt-2 pb-5">
-        <div className="flex flex-wrap items-center gap-2">
-          <Link
-            to="/components/$system/$component"
-            params={{
-              system: "m3",
-              component: card.slug,
-            }}
-            className={`m-0 ${T_SMALL_TITLE} ${INK} no-underline hover:underline ${TRANSITION} ${FOCUS_RING}`}
-          >
-            {primary?.name ?? card.name}
-          </Link>
-          {card.web ? (
-            <Link
-              to="/components/$system/$component"
-              params={{ system: "m3", component: card.slug }}
-              search={{ tab: "web" }}
-              className={`${CHIP} no-underline text-(--sys-color-on-surface-variant) ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING} hover:text-(--sys-color-on-surface)`}
-            >
-              Web
-            </Link>
-          ) : null}
-          {card.mobile ? (
-            <Link
-              to="/components/$system/$component"
-              params={{ system: "m3", component: card.slug }}
-              search={{ tab: "mobile" }}
-              className={`${CHIP} no-underline text-(--sys-color-on-surface-variant) ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING} hover:text-(--sys-color-on-surface)`}
-            >
-              Native
-            </Link>
-          ) : null}
-        </div>
-        <p className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>{card.oneLiner}</p>
-        <div className="flex flex-wrap items-center gap-2">
-          {maturity ? (
-            <span className={`${CHIP} ${INK_SOFT}`}>{maturity}</span>
-          ) : null}
-          {mods.web && card.web && !findDemo(card.web, "web", mods) ? (
-            <span className={`${CHIP} ${INK_SOFT}`}>Demo coming</span>
-          ) : null}
-        </div>
+      <div className="flex flex-col gap-1 px-1">
+        <Link
+          to="/components/$system/$component"
+          params={{
+            system: "m3",
+            component: card.slug,
+          }}
+          className={`m-0 ${T_SUB} ${INK} w-fit no-underline group-hover:underline ${TRANSITION} ${FOCUS_RING}`}
+        >
+          {primary?.name ?? card.name}
+        </Link>
+        <p className={`m-0 line-clamp-2 ${T_BODY_SM} ${INK_SOFT}`}>
+          {card.oneLiner}
+        </p>
       </div>
     </article>
   );
 }
 
-/** The lede under the All gallery's H1 — used only by /components. */
+/** The lede under the gallery H1 — one line, used only by /components. */
 export function GalleryLede() {
-  // The All view merges both platforms, so keep coverage separate rather than
-  // double-counting families documented on both platforms. Registries arrive
-  // async: the sentence keeps its two-line box with placeholders until the
-  // counts land, so the swap changes characters, not layout.
-  const mods = useDemoRegistries("both");
-  const web = demoCoverage("web", mods);
-  const mobile = demoCoverage("mobile", mods);
-  const count = (n: number, loaded: boolean) => (loaded ? String(n) : "…");
   return (
-    <div className="flex flex-col gap-2">
-      <p className={`m-0 max-w-[62ch] ${T_LEAD} ${INK_SOFT}`}>
-        Browse components by the job they do, try a live example, then open a
-        family page for its API, tokens, and install path.
-      </p>
-      <p className={`m-0 max-w-[62ch] ${T_BODY_SM} ${INK_SOFT}`}>
-        Live examples cover {count(web.withDemo, mods.web !== undefined)} of{" "}
-        {web.total} web families and{" "}
-        {count(mobile.withDemo, mods.mobile !== undefined)} of {mobile.total}{" "}
-        native families; every other family still has a reference page.
-      </p>
-    </div>
+    <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>
+      Browse components by the job they do — open a family page for its live
+      examples, API, tokens, and install path.
+    </p>
   );
 }
