@@ -964,6 +964,11 @@ export const PROPS_TABLE: Record<
         required: false,
       },
       {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
         name: "testID",
         type: "string | undefined",
         required: false,
@@ -972,6 +977,16 @@ export const PROPS_TABLE: Record<
         name: "href",
         type: "string",
         required: true,
+      },
+      {
+        name: "type",
+        type: "undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "undefined",
+        required: false,
       },
       {
         name: "target",
@@ -994,7 +1009,7 @@ export const PROPS_TABLE: Record<
         required: false,
       },
     ],
-    curated: ["className", "type"],
+    curated: ["className"],
   },
   Calendar: {
     rows: [
@@ -1999,13 +2014,13 @@ export const PROPS_TABLE: Record<
   CommandRoot: {
     rows: [
       {
-        name: "form",
-        type: "string | undefined",
+        name: "defaultValue",
+        type: "string | null | undefined",
         required: false,
       },
       {
-        name: "filter",
-        type: "((item: unknown, query: string, itemToString?: ((item: unknown) => string) | undefined) => boolean) | null | undefined",
+        name: "form",
+        type: "string | undefined",
         required: false,
       },
       {
@@ -2024,6 +2039,16 @@ export const PROPS_TABLE: Record<
         required: false,
       },
       {
+        name: "value",
+        type: "string | null | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChange",
+        type: "((open: boolean, eventDetails: OpenChangeEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
         name: "name",
         type: "string | undefined",
         required: false,
@@ -2031,6 +2056,11 @@ export const PROPS_TABLE: Record<
       {
         name: "modal",
         type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "actionsRef",
+        type: "RefObject<Actions | null> | undefined",
         required: false,
       },
       {
@@ -2059,8 +2089,13 @@ export const PROPS_TABLE: Record<
         required: false,
       },
       {
-        name: "items",
-        type: "readonly any[] | readonly Group<any>[] | ComboboxItemCollection<unknown, unknown> | undefined",
+        name: "itemToStringValue",
+        type: "((itemValue: string) => string) | undefined",
+        required: false,
+      },
+      {
+        name: "isItemEqualToValue",
+        type: "((itemValue: string, value: string) => boolean) | undefined",
         required: false,
       },
       {
@@ -2074,13 +2109,38 @@ export const PROPS_TABLE: Record<
         required: false,
       },
       {
+        name: "onInputValueChange",
+        type: "((inputValue: string, eventDetails: ChangeEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "autoComplete",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "itemToStringLabel",
+        type: "((itemValue: string) => string) | undefined",
+        required: false,
+      },
+      {
+        name: "autoHighlight",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "highlightItemOnHover",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
         name: "openOnInputClick",
         type: "boolean | undefined",
         required: false,
       },
       {
         name: "filteredItems",
-        type: "readonly unknown[] | readonly Group<unknown>[] | undefined",
+        type: "readonly CommandOption[] | readonly Group<CommandOption>[] | undefined",
         required: false,
       },
       {
@@ -2096,6 +2156,11 @@ export const PROPS_TABLE: Record<
       {
         name: "loopFocus",
         type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onItemHighlighted",
+        type: "((highlightedValue: string | undefined, eventDetails: HighlightEventDetails) => void) | undefined",
         required: false,
       },
       {
@@ -2119,73 +2184,13 @@ export const PROPS_TABLE: Record<
         required: false,
       },
       {
-        name: "multiple",
-        type: "boolean | undefined",
-        required: false,
-      },
-      {
-        name: "autoComplete",
-        type: "string | undefined",
-        required: false,
-      },
-      {
-        name: "autoHighlight",
-        type: "boolean | undefined",
-        required: false,
-      },
-      {
-        name: "highlightItemOnHover",
-        type: "boolean | undefined",
-        required: false,
-      },
-      {
-        name: "itemToStringLabel",
-        type: "((itemValue: unknown) => string) | undefined",
-        required: false,
-      },
-      {
-        name: "itemToStringValue",
-        type: "((itemValue: unknown) => string) | undefined",
-        required: false,
-      },
-      {
-        name: "isItemEqualToValue",
-        type: "((itemValue: unknown, value: unknown) => boolean) | undefined",
-        required: false,
-      },
-      {
-        name: "defaultValue",
-        type: "unknown",
-        required: false,
-      },
-      {
-        name: "actionsRef",
-        type: "RefObject<Actions | null> | undefined",
-        required: false,
-      },
-      {
-        name: "onOpenChange",
-        type: "((open: boolean, eventDetails: OpenChangeEventDetails) => void) | undefined",
-        required: false,
-      },
-      {
-        name: "onInputValueChange",
-        type: "((inputValue: string, eventDetails: ChangeEventDetails) => void) | undefined",
-        required: false,
-      },
-      {
-        name: "onItemHighlighted",
-        type: "((highlightedValue: unknown, eventDetails: HighlightEventDetails) => void) | undefined",
-        required: false,
-      },
-      {
-        name: "value",
-        type: "unknown",
-        required: false,
-      },
-      {
         name: "onValueChange",
-        type: "((value: unknown, eventDetails: ChangeEventDetails) => void) | undefined",
+        type: "((value: string | null, eventDetails: ChangeEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "multiple",
+        type: "false | undefined",
         required: false,
       },
       {
