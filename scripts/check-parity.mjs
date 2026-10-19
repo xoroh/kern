@@ -437,7 +437,6 @@ for (const name of DELIBERATE) {
 for (const [name, why] of [
   ["segmented-button", "ships on BOTH sides (native in web-parity.tsx)"],
   ["command", "ships on BOTH sides (native in web-parity.tsx)"],
-  ["snackbar", "ships on BOTH sides"],
   // T2 P0-counts test-pin: `input-otp-input` / `input-otp-root` are compound
   // PARTS of the shared `input-otp` concept (same class as
   // `accordion-trigger`), collapsed by the concept rule — not phantom rows.
@@ -447,6 +446,26 @@ for (const [name, why] of [
     violations.push(
       `CONCEPT RULE REGRESSION: "${name}" is not counted as shared, but ${why}.\n` +
         "  A name is a sub-part only when stripping yields a name already registered on the SAME platform.",
+    );
+  }
+}
+
+// ADR-020, PR #71: the snackbar family is a RULED API split, not a gap.
+// Web ships compound parts (bare `snackbar` + sub-parts); native ships the
+// Axis-backed queue (`snackbar-provider` / `snackbar-viewport` concepts +
+// `useSnackbar`). If any of these moves tables, the parity doc rows move
+// with it — do not re-add a compat alias to make the canary pass.
+if (!webOnly.includes("snackbar")) {
+  violations.push(
+    'CONCEPT RULE REGRESSION: "snackbar" is not web-only.\n' +
+      "  Bare `Snackbar` is the web compound root; native has no bare twin since the single-shot compat was removed.",
+  );
+}
+for (const name of ["snackbar-provider", "snackbar-viewport"]) {
+  if (!nativeOnly.includes(name)) {
+    violations.push(
+      `CONCEPT RULE REGRESSION: "${name}" is not native-only.\n` +
+        "  The native queue halves have no web twins (web Provider/Viewport are compound parts of `snackbar`).",
     );
   }
 }

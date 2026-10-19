@@ -2817,9 +2817,16 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
-    slug: "mobile/snackbar",
-    name: "snackbar",
-    export: "Snackbar",
+    slug: "mobile/snackbar-provider",
+    name: "snackbar-provider",
+    export: "SnackbarProvider",
+    platform: "mobile",
+    status: "real",
+  },
+  {
+    slug: "mobile/snackbar-viewport",
+    name: "snackbar-viewport",
+    export: "SnackbarViewport",
     platform: "mobile",
     status: "real",
   },
@@ -2975,8 +2982,8 @@ export const COMPONENT_COUNT = COMPONENTS.length;
  */
 export const PARITY_COUNTS = {
   web: 304,
-  native: 117,
-  shared: 92,
+  native: 118,
+  shared: 91,
 };
 
 const BY_SLUG = new Map(COMPONENTS.map((c) => [c.slug, c]));
@@ -3099,6 +3106,7 @@ export const FAMILIES: string[] = [
   "skeleton",
   "slider",
   "snackbar",
+  "snackbar-provider",
   "snap-sheet",
   "sonner",
   "split",

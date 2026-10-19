@@ -354,6 +354,9 @@ export const KERN_ELEVATION_COMPONENTS = Object.freeze({
  */
 export const KERN_UNASSIGNED_ELEVATION = Object.freeze({
   snackbar: "K11",
+  // ADR-020 (PR #71): native ships the Axis-backed queue, not a bare twin of
+  // the web compound — the queue halves carry the same K11 level-3 decision.
+  "snackbar-provider": "K11",
   select: "kern-decision: M3 does not tabulate this component",
   "country-select": "kern-decision: M3 does not tabulate this component",
   combobox: "kern-decision: M3 does not tabulate this component",

@@ -12,7 +12,7 @@ export const snackbar: ComponentDoc = {
     specUrl: "https://m3.material.io/components/snackbar",
     status: "real",
     package: "@xoroh/kern",
-    nativePeer: "Snackbar",
+    nativePeer: "SnackbarProvider",
     // No variant axis. The inverse-surface treatment is the whole look.
     variants: [],
     // kern's own decision. M3's component elevation table does not name a

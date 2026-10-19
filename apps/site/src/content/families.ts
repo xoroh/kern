@@ -135,6 +135,7 @@ export const FAMILY_OF: Record<string, FamilyGroupId> = {
   "boot-splash": "communication",
   skeleton: "communication",
   snackbar: "communication",
+  "snackbar-provider": "communication",
   sonner: "communication",
   tooltip: "communication",
   meter: "communication",

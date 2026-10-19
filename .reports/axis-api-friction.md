@@ -11,3 +11,4 @@ owns the fix. Seed: Pipeline (`fusion-crab-snipe_r-07-r-010`).
 
 Entries appended per-PR; each carries the PR that hit it (PR 1 =
 `feat/m3-adopt-axis-render`, vendor refresh @ Axis `82c3179`).
+| 2 | `packages/kern-native/src/components/snackbar.tsx` (PR 3) | Typed `style` access inside `ToastViewport` render prop | `RenderProp<ToastViewportState, SlotProps>` leaves `style` as `unknown` in `SlotProps` | Type `SlotProps.style` as `StyleProp<ViewStyle>` on native target or expose typed slot props |

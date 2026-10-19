@@ -195,7 +195,8 @@ Prefer these machine surfaces over scraping HTML:
 - [SiteFooter](/components/m3/site-footer): SiteFooter closes a site page with a brand summary, grouped navigation, and optional legal content. Renders: Web. Markdown: /md/web/site-footer.md.
 - [Skeleton](/components/m3/skeleton): Skeletons stand in for content that is still loading, in the shape it will have. Renders: Web + Native. Markdown: /md/web/skeleton.md, /md/mobile/skeleton.md.
 - [Slider](/components/m3/slider): Sliders pick a value from a range by feel, showing where it sits along the way. Renders: Web + Native. Markdown: /md/web/slider.md, /md/mobile/slider.md.
-- [Snackbar](/components/m3/snackbar): Snackbars confirm something happened, briefly, without interrupting what someone is doing. Renders: Web + Native. Markdown: /md/web/snackbar.md, /md/mobile/snackbar.md.
+- [Snackbar](/components/m3/snackbar): Snackbars confirm something happened, briefly, without interrupting what someone is doing. Renders: Web. Markdown: /md/web/snackbar.md.
+- [Snackbar](/components/m3/snackbar-provider): Snackbars confirm something happened, briefly, with an optional action to undo it. Renders: Native. Markdown: /md/mobile/snackbar-provider.md.
 - [Snap sheet](/components/m3/snap-sheet): The snap sheet is a bottom sheet with detents — a modal surface that occupies one of a declared set of heights. Renders: Web + Native. Markdown: /md/web/snap-sheet.md, /md/mobile/snap-sheet.md.
 - [Sonner](/components/m3/sonner): Sonner raises transient messages with an intent — it worked, watch out, here is a problem — and an optional action. Renders: Web. Markdown: /md/web/sonner.md.
 - [Split](/components/m3/split): The split is an N-column layout: two or three equal columns divided by a hairline, named as one region for assistive technology. Renders: Web + Native. Markdown: /md/web/split.md, /md/mobile/split.md.
