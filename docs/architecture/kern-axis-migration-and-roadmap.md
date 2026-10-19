@@ -20,18 +20,19 @@ on 2026-10-15/16. **Reported** = claimed by an earlier artifact, not
 re-observed. **Unverified** = could not be established. SHAs and counts are
 point-in-time; Phase 0 re-pins them.
 
-## Status consolidation — 2026-10-19 02:50 CEST (Kern Lead)
+## Status consolidation — 2026-10-19 05:05 CEST (Kern Lead)
 
-This overlay supersedes the 2026-10-16 addendum below and the status lines in
-§§A/B/H for the current state. Evidence: `.reports/2026-10-19-kern-roadmap-gap-audit.md`
-(read-only audit thread, untracked on the main checkout) plus `git`/`gh` checks by the
-Kern Lead at the time above. The test for every item is `docs/VISION.md`; decisions are
-`docs/decisions/001-020` (021 pending, see below). Release hold unchanged.
+This overlay supersedes the 2026-10-19 02:50 CEST overlay below and the status
+lines in §§A/B/H for the current state. Evidence: `git`/`gh` checks by the Kern
+Lead at the time above; the cleanup lane ran PRs #59–#74 down to ONE open PR
+(this one — outcome record
+`.reports/2026-10-19-kern-cleanup-lane-outcome.md`). The test for every item is
+`docs/VISION.md`; decisions are `docs/decisions/001-021`. Release hold unchanged.
 
-### Done on `main` (`7434d369`)
+### Done on `main` (`fc5b2df3`, verified; the repo wins on drift)
 
 - **Axis is the native foundation (007):** Kern consumes `@xoroh/axis` via vendored
-  tarball (`vendor/axis/axis-bed35547.tgz`, #37). Zero live `@xoroh/kern-primitives`
+  tarball (`vendor/axis/axis-82c3179.tgz`, #66). Zero live `@xoroh/kern-primitives`
   importers remain; `libs/kern-primitives/` is frozen but still in the tree and workspaces.
 - **Per-system shape for M3 (017):** platform-free preset `@xoroh/kern-m3` (only depends
   on `@xoroh/kern-tokens`) plus web widgets `@xoroh/kern` and native widgets
@@ -47,53 +48,57 @@ Kern Lead at the time above. The test for every item is `docs/VISION.md`; decisi
   release hygiene, Base UI state names (015), native exports, no-compat sweep (020),
   testID contract, usage batch, state-layer contradictions, P2 shape/spacing sweep,
   decision records consolidated (#58).
+- **Cleanup lane 2026-10-19 (all squash-merged to main):** #73 bun 1.4.3 pin (lockfile
+  fix); #74 gap audit + site design review; #67 no global M3 registration; #59 M3
+  fidelity + HCT cutover + ADR-021 (supersedes 016's spike); #60 usage-presentation
+  (system routes, install honesty, top-20 depth); #62 undocumented exports to zero
+  (coverage gate fails on gaps); #66 Axis vendor `82c3179` + stale-tarball gate; #69
+  `render` adoption with casts removed; #65 UseColorScheme + ThemeToggle port; #68
+  Hero/TopBar/SiteFooter marketing compositions; #64/#70 site premium A/B;
+  #71 Axis Toast/Portal adoption in native (single-shot `Snackbar` removed per
+  ADR-020; mobile showcase migrated to the queue API). #63 closed as a duplicate
+  of #66 with a pointer comment (both of its commits were contained in the kept line).
+- **D-051 no redirects before the first release:** ADR-020 wins (Faroeq via Grok Bot
+  2026-10-19 02:51 CEST). Old `/components/web|mobile/*` URLs are removed, not
+  redirected. This supersedes "with redirects" in the 2026-10-16 structure approval
+  and in D-URLS (§I).
 
-### In open PRs (not merged; state at 2026-10-19 02:45 CEST)
+### In open PRs (not merged; state at 2026-10-19 05:05 CEST)
 
 | PR | What | CI / mergeability | Blocker |
 |---|---|---|---|
-| #67 | structure (2): no global M3 registration, explicit `registerM3()`, entry-purity tests, `check:layers` rule (010 second half) | 14/14 green, CLEAN | Review only |
-| #59 | M3 fidelity: 8/10/10/16 state layers, tertiary, token-law sweep, typescale gate 227→0; HCT cutover + ADR-021 | 0 checks, CONFLICTING | Local `fix/m3-fidelity` has 2 real commits (`a071afcc` HCT cutover + ADR-021, merge `3a088c95` with current main) **not pushed**; pushing resolves the conflict |
-| #60 | Docs usage-presentation: Preview banner, source-first install, mobile Dialog `open`, `/components/<system>/<name>` route with Web/Native tabs, top-20 depth | 14/14 green, CLEAN | Merge after #59 |
-| #62 | Docs gate 1: undocumented exports 402→418, coverage gate fails on gaps | 14/14 green, BEHIND | Rebase after #59/#60 |
-| #63 / #66 | Axis vendor refresh `bed35547` → `82c3179` + stale-tarball gate | all jobs fail | **Duplicates** (same job, two PRs). CI fails at install: `bun.lock` written with lockfileVersion 2 by laptop bun 1.4.3, CI pins bun 1.3.8. Keep one, close the other |
-| #69 | Axis `render` adoption, casts removed in button/command | all jobs fail | Same lockfile cause; contains the vendor swap |
-| #71 | Native Toast/Portal on Axis | all jobs fail | Same lockfile cause. Review the kept `<Snackbar visible>` path against 020 (no compat) |
-| #64 → #70 | Site PR A (syntax highlight, Preview/Code, palette keys) → PR B (sticky TOC, document scroll, CLI/MCP pages) | 13/14, `gates` fails on Biome lint (24 / 30 errors) | Fix lint; #64 BEHIND |
-| #65 → #68 | kern-pending port: UseColorScheme + ThemeToggle → Hero, TopBar, SiteFooter in `@xoroh/kern/start` | 14/14 green, CLEAN | Review; then Site Lead swaps and deletes `kern-pending/` copies |
+| #72 | This roadmap consolidation (status + D-051 + next steps) | — | Merge last; all other lanes are merged |
 
 ### Left, in order (to Preview 0.1.0, near-Alpha)
 
-1. **Unblock the queue (no new features):** push local `fix/m3-fidelity` (#59); align the
-   bun version (CI pin vs laptop, then regenerate `bun.lock` once) so #63/#66/#69/#71 can
-   run; close the duplicate of #63/#66; fix Biome lint on #64/#70.
-2. **Merge order:** #67 → #59 → #60 → #62 → one vendor refresh → #69 → #71 → #64 → #70
-   → #65 → #68. Each merge is judged on screenshots of the running site/demo, not CI only
-   (`.team/rules.md` DoD).
-3. **ADR-021 HCT primary tonal engine for M3** lands with #59 (supersedes 016's spike).
-4. **Docs gate 2:** 920 undocumented generated props → 0, then flip the check to failing.
+1. **Re-vendor Axis to `b85a5c3`:** Axis #57 (compound Select/Tooltip) and #60
+   (OverlayRoot/PortalHost) are merged upstream. Refresh `vendor/axis/` to a tarball
+   at/after `b85a5c3` through the stale-tarball gate flow (the #66 pattern): keep one
+   root `PortalHost` and drop the Kern `Modal` wrapping. Then Kern adopts the compound
+   Select/Tooltip + OverlayRoot APIs and deletes any pending copies.
+2. **Docs gate 2:** 920 undocumented generated props → 0, then flip the check to failing.
    The in-progress work lived in `/tmp/opencode/kern-gate2-props` and was lost in the
-   2026-10-18 23:32 CEST reboot; restart from main after #60/#62.
-5. **Docs depth bar (013):** commit the top-20 list and the thin-page contract as a file the
+   2026-10-18 23:32 CEST reboot; restart from main.
+3. **Docs depth bar (013):** commit the top-20 list and the thin-page contract as a file the
    gate reads (missing everywhere).
-6. **Button variant names (014):** remove `BUTTON_VARIANT_ALIASES` (still in 9 files on main),
+4. **Button variant names (014):** remove `BUTTON_VARIANT_ALIASES` (still in 9 files on main),
    hard cut per 020.
-7. **Registry `--system` flag (009):** CLI `add/list` and MCP tools take `--system`
+5. **Registry `--system` flag (009):** CLI `add/list` and MCP tools take `--system`
    (default `m3`); registry already carries the data. No branch has started this.
-8. **System-scoped URLs (008/018):** one page per component at `/components/<system>/<name>`
+6. **System-scoped URLs (008/018):** one page per component at `/components/<system>/<name>`
    with Web/Native tabs; remove the old `/components/web|mobile/*` shapes that #60 still keeps.
    **Resolved 2026-10-19 02:51 CEST (Faroeq via Grok Bot):** ADR-020 wins. No redirects
    from the old `/components/web|mobile/*` URLs before the first release; old URLs are
    removed, not redirected. This supersedes "with redirects" in the 2026-10-16 structure
    approval and in D-URLS (§I). PR #60 stays as is.
-9. **MCP bundles its data:** tools still read checkout files at runtime; inline the registry
+7. **MCP bundles its data:** tools still read checkout files at runtime; inline the registry
    so `npx @xoroh/kern-mcp` works outside a clone. Same check for `kern add` blocks.
-10. **Delete `libs/kern-primitives`** (planned migration PR, reviewed) once the Axis vendor
+8. **Delete `libs/kern-primitives`** (planned migration PR, reviewed) once the Axis vendor
     refresh is on main; remove the workspace entry and legacy shims in gates.
-11. **Site design PR C** (hero with real Kern UI, layered dark surfaces, mobile first
+9. **Site design PR C** (hero with real Kern UI, layered dark surfaces, mobile first
     viewport) and the entry-chunk perf pass (mobile Lighthouse < 95 today).
-12. **AI chat (019):** M3 chat parts, then blocks, after items 1-10.
-13. **Release tail (Faroeq-gated):** device and screen-reader pass, advisories re-verify,
+10. **AI chat (019):** M3 chat parts, then blocks, after items 1-8.
+11. **Release tail (Faroeq-gated):** device and screen-reader pass, advisories re-verify,
     publish rights, then the Preview bar judgment. No publish, version or tag before that.
 
 ---
