@@ -2,11 +2,12 @@
 /**
  * check-llms.mjs — public/llms.txt is the COMPLETE page map (T3 gate).
  *
- * WHAT IT ASSERTS: every component family (web + mobile content docs),
- * every foundations page, and every nav leaf has exactly one link entry
- * with the exact href the site routes on. A new page without a map entry
- * fails here — the agent reading llms.txt must never conclude the site has
- * fewer pages than it does (the Part-6 16-leaf omission, closed by T3).
+ * WHAT IT ASSERTS: every component family (the content slug union — one
+ * family page at /components/m3/<slug>, 018), every foundations page, and
+ * every nav leaf has exactly one link entry with the exact href the site
+ * routes on. A new page without a map entry fails here — the agent reading
+ * llms.txt must never conclude the site has fewer pages than it does (the
+ * Part-6 16-leaf omission, closed by T3).
  *
  * WHAT IT DOES NOT ASSERT: link prose quality (oneLiners are the pages'
  * own), reachability (routes are check-nav's lane), or freshness against a
@@ -56,12 +57,14 @@ for (const section of NAV_SECTIONS) {
 }
 for (const page of FOUNDATIONS)
   want(`/foundations/m3/${page.slug}`, "foundations page");
-for (const [platform, docs] of [
-  ["web", await loadDocs("web")],
-  ["mobile", await loadDocs("mobile")],
-]) {
-  for (const doc of docs)
-    want(`/components/${platform}/${doc.slug}`, `family "${doc.name}"`);
+{
+  // One page per family: the slug union across both renderers, each wanted
+  // exactly once at the system address.
+  const slugs = new Set();
+  for (const docs of [await loadDocs("web"), await loadDocs("mobile")]) {
+    for (const doc of docs) slugs.add(doc.slug);
+  }
+  for (const slug of slugs) want(`/components/m3/${slug}`, `family "${slug}"`);
 }
 
 if (failures > 0) {

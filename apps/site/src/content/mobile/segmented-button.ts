@@ -18,6 +18,65 @@ export const segmentedButton: ComponentDoc = {
     elevation: 0,
   },
   parts: ["SegmentedButton"],
+  keyboard: [
+    {
+      key: "Enter / Space via external keyboard",
+      action:
+        "Activates the focused segment — selects in single mode, toggles in multiple mode.",
+    },
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "The group reads as a radio group (single) or checkboxes (multiple); each segment announces its label and selected state; double-tap chooses.",
+    },
+  ],
+  usage: {
+    do: [
+      "Use single mode for mutually exclusive views or aspects; plural props (`values`/`defaultValues`) switch to multiple mode.",
+      "Keep two to five options with one-word labels — segments are a switchboard, not a menu.",
+      "Let the check mark carry selection in multiple mode — it is the only treatment that reads unambiguously.",
+    ],
+    dont: [
+      "Don't use a segmented button for navigation between screens — that is tabs or the navigation bar.",
+      "Don't mix single and plural props — which axis was used IS the mode.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Bar",
+      state: "resting",
+      token: "theme.color.outline",
+      value: "1px outline joined row, full pill, minHeight 40 per segment",
+    },
+    {
+      element: "Selected segment",
+      state: "selected",
+      token: "theme.color.secondaryContainer",
+      value: "secondaryContainer fill with check mark",
+    },
+    {
+      element: "Selected label",
+      state: "selected",
+      token: "theme.color.onSecondaryContainer",
+      value: "onSecondaryContainer, semibold (unselected: onSurface, medium)",
+    },
+    {
+      element: "Disabled segment",
+      state: "disabled",
+      token: "opacity 0.38",
+      value: "whole segment dims to 38%",
+    },
+  ],
+  faq: [
+    {
+      q: "Segmented button, tabs, or chips?",
+      a: "A value switch inside one view means segmented button; switching views means tabs; selecting among visible peers means chips or filter rows.",
+    },
+    {
+      q: "How does this differ from the web segmented button?",
+      a: "Same contract: single mode is radio semantics (activating never deselects), multiple mode is checkboxes, and the plural-props axis is the mode. Selection reads through the secondary fill plus the check on both renderers.",
+    },
+  ],
   customization: {
     supported: [
       "`options` are data — `value`, `label`, optional `icon`, optional `disabled`.",

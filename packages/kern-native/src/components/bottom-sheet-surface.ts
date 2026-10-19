@@ -31,7 +31,7 @@ import { defaultScheme } from "../theme";
  * which is why it is called out rather than discovered later.
  */
 export function bottomSheetSurface(
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
 ): ViewStyle {
   return {
     backgroundColor: scheme.color.surfaceContainerLow,

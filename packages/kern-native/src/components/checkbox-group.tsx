@@ -56,7 +56,7 @@ const CheckboxGroupContext = createContext<CheckboxGroupContextValue | null>(
 export function checkboxGroupStyles(
   checked: boolean,
   disabled: boolean,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
 ): { box: ViewStyle; tick: TextStyle } {
   return {
     box: {

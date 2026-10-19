@@ -36,6 +36,52 @@ export const segmentedButton: ComponentDoc = {
       role: "The namespace object: Root and Item.",
     },
   ],
+  keyboard: [
+    {
+      key: "Tab / Shift+Tab",
+      action:
+        "Moves through the segments in order — each segment is its own stop.",
+    },
+    {
+      key: "Enter / Space",
+      action: "Chooses the focused segment.",
+    },
+  ],
+  usage: {
+    do: [
+      "Use for a single choice among two to five peer options that all fit on screen.",
+      "Keep labels to one word — the segments share one border and read as one control.",
+      "Restyle the chosen look through `data-pressed` when the theme needs it — no new props required.",
+    ],
+    dont: [
+      "Don't use it for multiple selection — that is a `ToggleGroup`. One choice is the whole pattern.",
+      "Don't reach for it for new designs by default — M3 points at the connected `ButtonGroup` instead; this stays for the classic treatment.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Bar",
+      state: "resting",
+      token: "comp.segmented-button.bar",
+      value: "surface, 1px outline border, full pill, level 0",
+    },
+    {
+      element: "Selected segment",
+      state: "selected",
+      token: "sys.color.secondary-container",
+      value: "secondary-container fill with on-secondary-container ink",
+    },
+  ],
+  faq: [
+    {
+      q: "Segmented button or connected button group?",
+      a: "New designs should prefer the connected `ButtonGroup` — M3 no longer recommends the segmented button. This component stays for the classic single-choice treatment.",
+    },
+    {
+      q: "How does this differ from the native segmented button?",
+      a: "Single-choice-only here vs single-or-multiple natively (the plural-props axis is the mode there). The selected treatment — secondary fill plus ink swap — matches; native additionally marks the check.",
+    },
+  ],
   customization: {
     supported: [
       "`className` on the root and on each item, merged after their own classes.",

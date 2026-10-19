@@ -19,7 +19,7 @@ import { expect, test } from "@playwright/test";
 
 const CASES = [
   {
-    page: "/components/web/button",
+    page: "/components/m3/button",
     selector: ".kern-button",
     variable: "--comp-button-container-shape",
     // corner-full = 9999px per the shape scale.
@@ -27,28 +27,28 @@ const CASES = [
     override: "4px",
   },
   {
-    page: "/components/web/card",
+    page: "/components/m3/card",
     selector: ".kern-card",
     variable: "--comp-card-container-shape",
     fallback: "12px",
     override: "4px",
   },
   {
-    page: "/components/web/chip",
+    page: "/components/m3/chip",
     selector: ".kern-chip",
     variable: "--comp-chip-container-shape",
     fallback: "8px",
     override: "4px",
   },
   {
-    page: "/components/web/switch",
+    page: "/components/m3/switch",
     selector: ".kern-switch",
     variable: "--comp-switch-track-shape",
     fallback: "9999px",
     override: "4px",
   },
   {
-    page: "/components/web/input",
+    page: "/components/m3/input",
     selector: '[data-slot="input"]',
     variable: "--comp-text-field-container-shape",
     fallback: "4px",

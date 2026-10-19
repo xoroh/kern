@@ -5,6 +5,6 @@
  * re-exports the shared registries rather than duplicating them. When a
  * second system ships its own components, this is where its docs diverge
  * from the shared gallery — and the routes nest to
- * `/components/<id>/<platform>/<name>` beside it.
+ * `/components/<id>/<name>` beside it.
  */
 export { MOBILE_DOCS, WEB_DOCS } from "../..";

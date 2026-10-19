@@ -9,7 +9,7 @@ import { defaultScheme, useKernScheme } from "../theme";
 
 export type NativeLoaderSize = "small" | "large";
 
-export function loaderColor(scheme: ResolvedTheme = defaultScheme): string {
+export function loaderColor(scheme: ResolvedTheme = defaultScheme()): string {
   return scheme.color.primary;
 }
 

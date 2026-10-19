@@ -50,7 +50,7 @@ export type NativeInputOTPProps = {
   testID?: string;
 };
 
-export function inputOTPStyles(scheme: ResolvedTheme = defaultScheme): {
+export function inputOTPStyles(scheme: ResolvedTheme = defaultScheme()): {
   box: ViewStyle;
   boxFilled: ViewStyle;
   boxFocused: ViewStyle;

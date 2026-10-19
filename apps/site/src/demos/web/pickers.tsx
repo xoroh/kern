@@ -17,6 +17,7 @@ import {
 } from "@xoroh/kern";
 import { useState } from "react";
 import { Preview, PreviewStack, Row } from "../../components/preview/preview";
+import { T_BODY_MD } from "../../domains/shared/systems/type-scale";
 
 export function AlertDialogDemo() {
   return (
@@ -251,7 +252,9 @@ export function SnackbarDemo() {
           label="parts: Provider · Viewport · List · Root · Title · Description · Action · Close"
           span={3}
         >
-          <p className="m-0 max-w-sm text-sm text-(--sys-color-on-surface-variant)">
+          <p
+            className={`m-0 max-w-sm ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
+          >
             <code>Snackbar.Provider</code> owns the toast manager,{" "}
             <code>Snackbar.Viewport</code> positions it, and{" "}
             <code>Snackbar.List</code> renders the queue. The markup above is

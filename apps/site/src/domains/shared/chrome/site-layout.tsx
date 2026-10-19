@@ -7,6 +7,7 @@ import { PreviewBanner } from "../../../components/chrome/preview-banner";
 import { SearchPalette } from "../../../components/chrome/search-palette";
 import { SiteHeader } from "../../../components/chrome/site-header";
 import { T_BODY_SM, T_LABEL } from "../systems/type-scale";
+import { FOCUS_RING, STATE_LAYERS, TRANSITION } from "../systems/ui";
 
 /**
  * Docs-section paths render with the three-column layout: left sidebar tree,
@@ -71,7 +72,7 @@ function OnThisPageRail({ pathname }: { pathname: string }) {
           <li key={item.id} className="m-0 p-0">
             <a
               href={`#${item.id}`}
-              className={`block rounded-(--sys-shape-corner-full) px-3 py-1.5 ${T_BODY_SM} text-(--sys-color-on-surface-variant) no-underline hover:bg-(--sys-color-surface-container-high) hover:text-(--sys-color-on-surface) hover:underline active:bg-(--sys-color-on-surface)/12`}
+              className={`block rounded-(--sys-shape-corner-full) px-3 py-1.5 ${T_BODY_SM} text-(--sys-color-on-surface-variant) no-underline hover:text-(--sys-color-on-surface) hover:underline ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`}
             >
               {item.text}
             </a>

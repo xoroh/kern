@@ -55,7 +55,7 @@ export type CarouselLayout = "single" | "peek";
 
 export function carouselStyles(
   active: boolean,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
 ): { track: ViewStyle; item: ViewStyle; control: ViewStyle } {
   const _diameter = Number.parseFloat(tokens.spacing["space-400"]);
   return {
