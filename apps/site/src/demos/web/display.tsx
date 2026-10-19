@@ -34,6 +34,7 @@ import {
   Separator,
   Skeleton,
   Text,
+  ThemeToggle,
 } from "@xoroh/kern";
 import { Link, LinkProvider } from "@xoroh/kern/start";
 import {
@@ -659,6 +660,16 @@ export function KernErrorBoundaryDemo() {
       >
         <p className={`m-0 ${T_BODY_MD}`}>Healthy content renders untouched.</p>
       </KernErrorBoundary>
+    </Preview>
+  );
+}
+
+export function ThemeToggleDemo() {
+  return (
+    <Preview label="ThemeToggle — destination-named light/dark toggle" span={3}>
+      <Row>
+        <ThemeToggle />
+      </Row>
     </Preview>
   );
 }

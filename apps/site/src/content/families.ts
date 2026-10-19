@@ -82,6 +82,7 @@ export const FAMILY_OF: Record<string, FamilyGroupId> = {
   "fab-menu": "action",
   "icon-button": "action",
   "icon-button-target": "action",
+  "theme-toggle": "action",
   "loading-button": "action",
   "split-button": "action",
   link: "action",
