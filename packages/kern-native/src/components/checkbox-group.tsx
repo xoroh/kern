@@ -11,8 +11,8 @@ import {
   type ViewStyle,
 } from "react-native";
 import { defaultScheme, useKernTheme } from "../theme";
+import { DISABLED_CONTENT_OPACITY, StateLayer } from "./state-layer";
 import { Text } from "./text";
-import { DISABLED_CONTENT_OPACITY } from "./state-layer";
 
 /**
  * CheckboxGroup — several independent checkboxes sharing one value.
@@ -144,7 +144,6 @@ export type CheckboxGroupItemProps = Omit<
 > & {
   value: string;
   children?: ReactNode;
-  accessibilityState?: PressableProps["accessibilityState"];
   /** Overrides the name derived from string `children`. */
   accessibilityLabel?: string;
   onPress?: PressableProps["onPress"];
@@ -156,7 +155,6 @@ export type CheckboxGroupItemProps = Omit<
 export function CheckboxGroupItem({
   value,
   children,
-  accessibilityState,
   accessibilityLabel,
   onPress,
   disabled,
@@ -185,13 +183,10 @@ export function CheckboxGroupItem({
     <Pressable
       {...props}
       testID={testID ?? `kern-checkbox-group-${value}`}
-      accessibilityRole="checkbox"
+      role="checkbox"
       accessibilityLabel={accessibilityLabel ?? derivedLabel}
-      accessibilityState={{
-        ...accessibilityState,
-        checked,
-        disabled: isDisabled,
-      }}
+      aria-checked={checked}
+      aria-disabled={isDisabled}
       disabled={isDisabled}
       hitSlop={hitSlop ?? { top: 12, bottom: 12, left: 12, right: 12 }}
       onPress={(event) => {
@@ -200,26 +195,33 @@ export function CheckboxGroupItem({
         // cancels the press must not change selection.
         if (!isDisabled && !event.isDefaultPrevented()) group.toggle(value);
       }}
-      style={({ pressed }) => [
+      style={({ pressed: pressedNow }) => [
         {
           minHeight: 48,
           flexDirection: "row",
           alignItems: "center",
           gap: Number.parseFloat(tokens.spacing["space-100"]),
         },
-        pressed && !isDisabled ? { opacity: 0.82 } : undefined,
-        typeof style === "function" ? style({ pressed }) : style,
+        typeof style === "function" ? style({ pressed: pressedNow }) : style,
       ]}
     >
-      <View style={styles.box}>
-        {checked ? <Icon name="check" size={13} color={styles.tick.color} /> : null}
-      </View>
-      {typeof children === "string" || typeof children === "number" ? (
-        <Text style={{ fontSize: 14, color: group.scheme.color.onSurface }}>
-          {children}
-        </Text>
-      ) : (
-        children
+      {({ pressed: pressedNow }) => (
+        <>
+          <View style={styles.box}>
+            {checked ? <Icon name="check" size={13} color={styles.tick.color} /> : null}
+          </View>
+          {typeof children === "string" || typeof children === "number" ? (
+            <Text style={{ fontSize: 14, color: group.scheme.color.onSurface }}>
+              {children}
+            </Text>
+          ) : (
+            children
+          )}
+          <StateLayer
+            ink={group.scheme.color.onSurface}
+            visible={pressedNow && !isDisabled}
+          />
+        </>
       )}
     </Pressable>
   );

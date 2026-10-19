@@ -7,6 +7,7 @@ import {
   type ViewStyle,
 } from "react-native";
 import { defaultScheme, useKernTheme } from "../theme";
+import { DISABLED_CONTENT_OPACITY, StateLayer } from "./state-layer";
 
 export function switchStyles(
   on: boolean,
@@ -25,8 +26,9 @@ export function switchStyles(
       borderColor: on ? scheme.color.primary : scheme.color.outline,
       backgroundColor: on ? scheme.color.primary : scheme.color.surface,
       justifyContent: "center",
+      overflow: "hidden",
       paddingHorizontal: 2,
-      opacity: disabled ? 0.38 : 1,
+      opacity: disabled ? DISABLED_CONTENT_OPACITY : 1,
     },
     thumb: {
       width: on ? 24 : 16,
@@ -53,7 +55,6 @@ export type NativeSwitchProps = Omit<
   onCheckedChange?: (next: boolean) => void;
   onPress?: PressableProps["onPress"];
   style?: PressableProps["style"];
-  accessibilityState?: PressableProps["accessibilityState"];
 };
 
 export function Switch({
@@ -62,7 +63,6 @@ export function Switch({
   onCheckedChange,
   onPress,
   disabled = false,
-  accessibilityState,
   hitSlop,
   style,
   testID,
@@ -80,12 +80,9 @@ export function Switch({
     <Pressable
       {...props}
       testID={testID ?? "kern-switch"}
-      accessibilityRole="switch"
-      accessibilityState={{
-        ...accessibilityState,
-        checked: on,
-        disabled: disabled ?? undefined,
-      }}
+      role="switch"
+      aria-checked={on}
+      aria-disabled={disabled ?? undefined}
       disabled={disabled ?? undefined}
       hitSlop={hitSlop ?? { top: 8, bottom: 8, left: 8, right: 8 }}
       onPress={(event) => {
@@ -94,13 +91,24 @@ export function Switch({
           setOn((previous) => !previous);
         }
       }}
-      style={({ pressed }) => [
+      style={({ pressed: pressedNow }) => [
         styles.track,
-        pressed && !disabled ? { opacity: 0.82 } : undefined,
-        typeof style === "function" ? style({ pressed }) : style,
+        typeof style === "function" ? style({ pressed: pressedNow }) : style,
       ]}
     >
-      <View style={styles.thumb} />
+      {({ pressed: pressedNow }) => (
+        <>
+          <View style={styles.thumb} />
+          <StateLayer
+            ink={on ? scheme.color.onPrimary : scheme.color.onSurface}
+            radius={cssLengthToDp(
+              scheme.comp?.["switch-track-shape"],
+              Number.parseFloat(scheme.shape.full),
+            )}
+            visible={pressedNow && !disabled}
+          />
+        </>
+      )}
     </Pressable>
   );
 }

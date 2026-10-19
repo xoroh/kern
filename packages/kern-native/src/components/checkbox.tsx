@@ -11,6 +11,7 @@ import {
   type ViewStyle,
 } from "react-native";
 import { defaultScheme, useKernTheme } from "../theme";
+import { StateLayer } from "./state-layer";
 
 function withAlpha(color: string, alpha: number): string {
   if (/^#[0-9a-fA-F]{6}$/.test(color)) {
@@ -73,7 +74,6 @@ export type NativeCheckboxProps = Omit<
   /** Reports the next checked state. */
   onCheckedChange?: (next: boolean) => void;
   onPress?: PressableProps["onPress"];
-  accessibilityState?: PressableProps["accessibilityState"];
   label?: string;
   style?: StyleProp<ViewStyle>;
   labelStyle?: StyleProp<TextStyle>;
@@ -87,7 +87,6 @@ export function Checkbox({
   onPress,
   label,
   accessibilityLabel,
-  accessibilityState,
   disabled = false,
   hitSlop,
   style,
@@ -112,13 +111,10 @@ export function Checkbox({
     <Pressable
       {...props}
       testID={testID ?? "kern-checkbox"}
-      accessibilityRole="checkbox"
+      role="checkbox"
       accessibilityLabel={accessibilityLabel ?? label}
-      accessibilityState={{
-        ...accessibilityState,
-        checked: indeterminate ? "mixed" : isChecked,
-        disabled: disabled ?? undefined,
-      }}
+      aria-checked={indeterminate ? "mixed" : isChecked}
+      aria-disabled={disabled ?? undefined}
       disabled={disabled ?? undefined}
       hitSlop={hitSlop ?? { top: 15, bottom: 15, left: 15, right: 15 }}
       onPress={(event) => {
@@ -127,24 +123,31 @@ export function Checkbox({
           setChecked((previous) => !previous);
         }
       }}
-      style={({ pressed }) => [
+      style={({ pressed: pressedNow }) => [
         { minHeight: 48, flexDirection: "row", alignItems: "center", gap: 8 },
-        pressed && !disabled ? { opacity: 0.82 } : undefined,
         style,
       ]}
     >
-      <View style={styles.box}>
-        {indeterminate ? (
-          <Text style={styles.glyph}>−</Text>
-        ) : isChecked ? (
-          <Icon name="check" size={12} color={styles.glyph.color} />
-        ) : null}
-      </View>
-      {label ? (
-        <Text style={[{ color: scheme.color.onSurface }, labelStyle]}>
-          {label}
-        </Text>
-      ) : null}
+      {({ pressed: pressedNow }) => (
+        <>
+          <View style={styles.box}>
+            {indeterminate ? (
+              <Text style={styles.glyph}>−</Text>
+            ) : isChecked ? (
+              <Icon name="check" size={12} color={styles.glyph.color} />
+            ) : null}
+          </View>
+          {label ? (
+            <Text style={[{ color: scheme.color.onSurface }, labelStyle]}>
+              {label}
+            </Text>
+          ) : null}
+          <StateLayer
+            ink={scheme.color.onSurface}
+            visible={pressedNow && !disabled}
+          />
+        </>
+      )}
     </Pressable>
   );
 }
