@@ -7,10 +7,7 @@ import { PreviewBanner } from "../../../components/chrome/preview-banner";
 import { SearchPalette } from "../../../components/chrome/search-palette";
 import { SiteHeader } from "../../../components/chrome/site-header";
 import { T_BODY_SM, T_LABEL } from "../systems/type-scale";
-import {
-  FOCUS_RING,
-  TRANSITION,
-} from "../systems/ui";
+import { FOCUS_RING, TRANSITION } from "../systems/ui";
 
 /**
  * Docs-section paths render with the three-column layout: left sidebar tree,

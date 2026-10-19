@@ -130,7 +130,7 @@ test("TOC rail is visible on desktop >=1280px and hidden below", async ({
   page,
 }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
-  await visit(page, "/components/web/button");
+  await visit(page, "/components/m3/button");
   const tocAside = page.locator("aside.site-toc");
   await expect(tocAside).toBeVisible();
   await expect(
@@ -145,7 +145,7 @@ test("document (not inner main) is the scroll container on docs pages", async ({
   page,
 }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
-  await visit(page, "/components/web/button");
+  await visit(page, "/components/m3/button");
   const scrollModel = await page.evaluate(() => {
     const main = document.getElementById("main");
     const doc = document.documentElement;
