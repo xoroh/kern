@@ -1,7 +1,9 @@
-# Status report — 2026-10-16, evening (Kern 0.1.0 Preview readiness track)
+# Status report — 2026-10-18, morning (Kern 0.1.0 Preview readiness track)
 
-Baseline: Kern `main` at `937e8730` (PR #57 P2 sweep merged). Open: none.
-Tree: this branch structure/1-kern-m3-rename, unpushed (REVIEW ONLY — do not merge).
+Baseline: Kern `main` at `7434d369` (structure 1 merged by Kern Lead as #61).
+Open: PR #67 structure (2), CI 14/14 green, REVIEW ONLY — do not merge.
+Tree: branch `structure/2-no-global-registration`, pushed, 2 commits
+(`c3c32e0b` + lint follow-up `36337e70`).
 
 ## Done (this track)
 - Elevation gaps to zero (this branch, unmerged): 7 spec rows + 3 unassigned entries +
@@ -58,12 +60,15 @@ Tree: this branch structure/1-kern-m3-rename, unpushed (REVIEW ONLY — do not m
 - PR #40 merged: Button toggle+href keeps `aria-pressed` (critic fix 2).
 
 ## In progress
-- Merged: #39–#57. Owner PR #58 (decisions consolidation) noted; decision
-  010 (hard rename, no alias) governs this branch — stub withdrawn.
-- This branch (structure 1, REVIEW ONLY): kern-material-3 → kern-m3 hard
-  rename, 89 files, internal filenames kept, docs tables updated.
-- Next: structure (2) no-global-registration → (3) registry + --system →
-  (4) split widgets; all large, review-gated, unmerged.
+- Merged: #39–#57, #61 (structure 1, hard rename, as `7434d369`). Owner PR
+  #58 (decisions consolidation) noted; decision 010 governs this branch.
+- PR #67 (structure 2, REVIEW ONLY): no global M3 registration —
+  `registerM3()` explicit, renderers register nothing; native `defaultScheme`
+  lazy (forced by ESM import order, not scope creep); check:layers source
+  rule enforces the split. Full note:
+  `.reports/structure-2-no-global-registration.md`. CI 14/14 green.
+- Next: structure (3) registry + --system → (4) split widgets; large,
+  review-gated, unmerged.
 
 ## Blockers / standing gates
 - **Release hold**: no publish, no version bumps, no tags (all `0.0.0`).

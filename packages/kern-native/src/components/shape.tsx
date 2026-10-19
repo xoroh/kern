@@ -26,7 +26,7 @@ export function shapeStyles(
   kind: FeedbackShapeKind,
   size: number,
   fill: string,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
   rotationDeg = 0,
 ): ViewStyle {
   const rotate = `${(kind === "diamond" ? 45 : 0) + rotationDeg}deg`;

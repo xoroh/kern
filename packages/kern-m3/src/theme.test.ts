@@ -1,4 +1,3 @@
-import "./material-3"; // registers the material-3 preset tables (side effect)
 import { defineThemePreset, resolveTheme, varName } from "@xoroh/kern-tokens";
 import { describe, expect, it } from "vitest";
 import { themes } from "./themes";

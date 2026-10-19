@@ -25,7 +25,7 @@ export type NativeFabColor =
 
 export function fabColorRoles(
   color: NativeFabColor,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
 ): { container: string; ink: string } {
   switch (color) {
     case "surface":
@@ -65,7 +65,7 @@ export function fabColorRoles(
 
 export function fabStyles(
   size: NativeFabSize,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
   color: NativeFabColor = "primary",
   /**
    * M3's `lowered` attribute: a FAB that sits quieter in the layout — level 1

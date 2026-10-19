@@ -79,7 +79,7 @@ export type NativeAutocompleteProps = {
   testID?: string;
 };
 
-export function autocompleteStyles(scheme: ResolvedTheme = defaultScheme): {
+export function autocompleteStyles(scheme: ResolvedTheme = defaultScheme()): {
   popup: ViewStyle;
   option: ViewStyle;
   optionActive: ViewStyle;
