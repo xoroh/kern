@@ -46,7 +46,9 @@ export type CommandItemProps = Omit<
   ComponentProps<typeof ComboboxPrimitive.Item>,
   "value"
 > & {
+  /** Stable option value: what filtering compares and `onValueChange` receives. */
   value: string;
+  /** Leading adornment, rendered in its own slot before the label. */
   icon?: ReactNode;
   shortcut?: string;
 };

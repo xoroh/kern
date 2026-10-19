@@ -68,10 +68,13 @@ export function readContentApiRows(contentWebDir) {
       const partNames = [...partsMatch[1].matchAll(/"([^"]+)"/g)].map(
         (m) => m[1],
       );
-      const apiBlock = src.match(/api:\s*\[([\s\S]*?)\n\s*\],/);
+      // The api array is located by balanced scanning, not regex: row `for:`
+      // arrays close on their own `],` line, which a lazy `...,]` pattern
+      // would mistake for the end of the block.
+      const apiBlock = extractApiBlock(src, partsMatch.index ?? 0);
       const rows = [];
       if (apiBlock) {
-        for (const rowText of splitRowObjects(apiBlock[1])) {
+        for (const rowText of splitRowObjects(apiBlock)) {
           const row = parseRow(rowText);
           if (row) rows.push(row);
         }
@@ -81,6 +84,47 @@ export function readContentApiRows(contentWebDir) {
   }
   walk(contentWebDir);
   return out;
+}
+
+function extractApiBlock(src, fromIndex) {
+  const key = /\bapi:\s*\[/g;
+  key.lastIndex = fromIndex;
+  const found = key.exec(src);
+  if (!found) return null;
+  const open = found.index + found[0].length - 1;
+  let depth = 0;
+  let i = open;
+  const n = src.length;
+  while (i < n) {
+    const c = src[i];
+    if (c === '"' || c === "'" || c === "`") {
+      const q = c;
+      i += 1;
+      while (i < n && src[i] !== q) {
+        if (src[i] === "\\") i += 1;
+        i += 1;
+      }
+      i += 1;
+      continue;
+    }
+    if (c === "/" && (src[i + 1] === "/" || src[i + 1] === "*")) {
+      if (src[i + 1] === "/") {
+        while (i < n && src[i] !== "\n") i += 1;
+      } else {
+        i += 2;
+        while (i < n && !(src[i] === "*" && src[i + 1] === "/")) i += 1;
+        i += 2;
+      }
+      continue;
+    }
+    if (c === "[") depth += 1;
+    else if (c === "]") {
+      depth -= 1;
+      if (depth === 0) return src.slice(open + 1, i);
+    }
+    i += 1;
+  }
+  return null;
 }
 
 function splitRowObjects(block) {
