@@ -31,7 +31,7 @@ component name, no bridge names, no product names.
 | `@xoroh/kern-tokens` | tokens, themes, tones, feedback, variant registry | both |
 | `@xoroh/kern-native` | React Native components | native |
 | `@xoroh/kern-icons` | icon registry + `Icon` (web + native) | both |
-| `@xoroh/kern/start` | web composition (blocks, navigation, panes, scaffolds) | web |
+| `@xoroh/kern/start` | web composition (blocks, marketing, navigation, panes, scaffolds) | web |
 
 `@xoroh/kern/native` is **not** an export of `@xoroh/kern`. Native lives in
 its own package, `@xoroh/kern-native` (which also accepts a `/native`
@@ -42,7 +42,7 @@ subpath for symmetry with the old single-package layout).
 | Tier | Web | Native |
 | --- | --- | --- |
 | Component | `@xoroh/kern` | `@xoroh/kern-native` |
-| Block (pattern composition, slot-driven) | `@xoroh/kern/start` (`TopAppBar`, `SearchBar`, `Sidebar`, `NavigationRail`, …) | `@xoroh/kern-native` (`NavigationBar`, `NavigationDrawer`, `MenuScreen`, `BottomSheet`, …) |
+| Block (pattern composition, slot-driven) | `@xoroh/kern/start` (`TopAppBar`, `TopBar`, `Hero`, `SiteFooter`, `SearchBar`, `Sidebar`, `NavigationRail`, …) | `@xoroh/kern-native` (`NavigationBar`, `NavigationDrawer`, `MenuScreen`, `BottomSheet`, …) |
 | Scaffold (page frame = named regions) | `@xoroh/kern/start` (`AppShell`, `Document`) | `@xoroh/kern-native` (`BootSplash`, panes) |
 
 Same tier model, same names, different package boundary: web composition
@@ -147,7 +147,7 @@ is therefore usually an API-shape difference, not a missing feature.
 | `toggle` | 4 | 2 |
 | `toolbar` | 5 | 1 |
 
-Totals: **300** web exports, **117** native exports, **92** shared concepts
+Totals: **304** web exports, **117** native exports, **92** shared concepts
 (`PARITY_COUNTS` in `parity/contract.ts`, generated from
 [`components.md`](components.md) — never hand-edit; see "Keeping this page
 honest" below).
@@ -189,6 +189,7 @@ These are real differences in the current tree. None is a naming violation.
 - `focus-ring`: web DOM/CSS visible focus indicator; native uses host focus / pressable state.
 - `page-loader` / `loading-region`: web page-level loading state composition helpers.
 - Web composition blocks in `@xoroh/kern/start` (`Sidebar`, `SearchBar`, `TopAppBarToggle`, `Inspector`, `Page`, etc., where native composition uses its own modules like `layouts.tsx` and `navigation-drawer.tsx`).
+- Marketing compositions in `@xoroh/kern/start` (`Hero`, `TopBar`, `SiteFooter`): these are web site patterns with route and content slots, not native component counterparts.
 
 `combobox` is a shared concept: native ships a flat `Combobox`, web exports 9 multipart parts. `popover` ships on both renderers (`packages/kern-native/src/components/overlay-surfaces.tsx`). `input-otp` is a shared concept that ships on both platforms.
 
