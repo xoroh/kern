@@ -1,15 +1,16 @@
+import {
+  MenuItem as AxisMenuItem,
+  MenuBackdrop,
+  MenuPopup,
+  MenuPortal,
+  MenuPositioner,
+  MenuRoot,
+  MenuTrigger,
+} from "@xoroh/axis";
 import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
-import { useState } from "react";
-import {
-  Modal,
-  Pressable,
-  type StyleProp,
-  View,
-  type ViewStyle,
-} from "react-native";
+import { type StyleProp, View, type ViewStyle } from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
-import { overlayStyles } from "../utils/overlay-styles";
 import { Text } from "./text";
 
 export type NativeMenuItem = {
@@ -42,6 +43,15 @@ export type NativeMenuProps = {
   testID?: string;
 };
 
+/**
+ * M3 menu — an anchored list of actions on the Axis `MenuRoot` compound.
+ *
+ * The open popup paints through `MenuPortal` at the app's root `PortalHost`
+ * (no RN `Modal` of its own: one root presents every layer — Android back,
+ * stacking and dismissal belong to the `OverlayRoot` the compound owns).
+ * Dismissal paths: scrim press, system back and escape reach `onDismiss`;
+ * choosing an item fires its `onSelect` first, then `onDismiss`, then closes.
+ */
 export function Menu({
   trigger,
   triggerLabel,
@@ -52,56 +62,45 @@ export function Menu({
 }: NativeMenuProps) {
   const scheme = useKernScheme();
   const styles = menuStyles(scheme);
-  const [open, setOpen] = useState(false);
-  function dismiss() {
-    setOpen(false);
-    onDismiss?.();
-  }
   return (
     <View testID={testID ?? "kern-menu"}>
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel={triggerLabel}
-        hitSlop={{ top: 4, bottom: 4, left: 4, right: 4 }}
-        onPress={() => setOpen(true)}
-        style={{ minHeight: 48, justifyContent: "center" }}
-      >
-        {trigger}
-      </Pressable>
-      <Modal
-        visible={open}
-        transparent
-        animationType="fade"
-        onRequestClose={dismiss}
-      >
-        <View style={overlayStyles.scrim}>
-          <View accessibilityRole="menu" style={[styles.card, style]}>
-            {items.map((item) => (
-              <Pressable
-                key={item.label}
-                accessibilityRole="menuitem"
-                accessibilityLabel={item.label}
-                accessibilityState={{ disabled: item.disabled }}
-                disabled={item.disabled}
-                hitSlop={{ top: 4, bottom: 4, left: 4, right: 4 }}
-                onPress={() => {
-                  item.onSelect?.();
-                  dismiss();
-                }}
-                style={{
-                  minHeight: 48,
-                  justifyContent: "center",
-                  paddingHorizontal: 12,
-                  borderRadius: Number.parseFloat(scheme.shape["extra-small"]),
-                  opacity: item.disabled ? 0.5 : 1,
-                }}
-              >
-                <Text>{item.label}</Text>
-              </Pressable>
-            ))}
-          </View>
-        </View>
-      </Modal>
+      <MenuRoot onDismiss={onDismiss}>
+        <MenuTrigger
+          accessibilityLabel={triggerLabel}
+          style={{ minHeight: 48, justifyContent: "center" }}
+        >
+          {trigger}
+        </MenuTrigger>
+        <MenuPortal>
+          <MenuBackdrop style={{ backgroundColor: "rgba(0, 0, 0, 0.3)" }} />
+          <MenuPositioner>
+            <MenuPopup style={[styles.card, style]}>
+              {items.map((item) => (
+                <AxisMenuItem
+                  key={item.label}
+                  accessibilityLabel={item.label}
+                  disabled={item.disabled}
+                  onClick={() => {
+                    item.onSelect?.();
+                    onDismiss?.();
+                  }}
+                  style={({ disabled }) => ({
+                    minHeight: 48,
+                    justifyContent: "center",
+                    paddingHorizontal: 12,
+                    borderRadius: Number.parseFloat(
+                      scheme.shape["extra-small"],
+                    ),
+                    opacity: disabled ? 0.5 : 1,
+                  })}
+                >
+                  <Text>{item.label}</Text>
+                </AxisMenuItem>
+              ))}
+            </MenuPopup>
+          </MenuPositioner>
+        </MenuPortal>
+      </MenuRoot>
     </View>
   );
 }

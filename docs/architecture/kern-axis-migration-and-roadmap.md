@@ -32,7 +32,7 @@ Lead at the time above; the cleanup lane ran PRs #59–#74 down to ONE open PR
 ### Done on `main` (`fc5b2df3`, verified; the repo wins on drift)
 
 - **Axis is the native foundation (007):** Kern consumes `@xoroh/axis` via vendored
-  tarball (`vendor/axis/axis-82c3179.tgz`, #66). Zero live `@xoroh/kern-primitives`
+  tarball (axis `82c3179`, #66). Zero live `@xoroh/kern-primitives`
   importers remain; `libs/kern-primitives/` is frozen but still in the tree and workspaces.
 - **Per-system shape for M3 (017):** platform-free preset `@xoroh/kern-m3` (only depends
   on `@xoroh/kern-tokens`) plus web widgets `@xoroh/kern` and native widgets
@@ -71,11 +71,13 @@ Lead at the time above; the cleanup lane ran PRs #59–#74 down to ONE open PR
 
 ### Left, in order (to Preview 0.1.0, near-Alpha)
 
-1. **Re-vendor Axis to `b85a5c3`:** Axis #57 (compound Select/Tooltip) and #60
-   (OverlayRoot/PortalHost) are merged upstream. Refresh `vendor/axis/` to a tarball
-   at/after `b85a5c3` through the stale-tarball gate flow (the #66 pattern): keep one
+1. **Re-vendor Axis to `f600e7f`:** Axis #57 (compound Select/Tooltip/Menu),
+   #60 (OverlayRoot/PortalHost) and the scope phase-2 folds (Textarea→Input,
+   Sheet→Drawer, Calendar/TimePicker→models, Search/Loader/Text/Trigger
+   removal) are merged upstream. Refresh `vendor/axis/` to a tarball
+   at `f600e7f` through the stale-tarball gate flow (the #66 pattern): keep one
    root `PortalHost` and drop the Kern `Modal` wrapping. Then Kern adopts the compound
-   Select/Tooltip + OverlayRoot APIs and deletes any pending copies.
+   Select/Tooltip/Menu + OverlayRoot APIs and deletes any pending copies.
 2. **Docs gate 2:** 920 undocumented generated props → 0, then flip the check to failing.
    The in-progress work lived in `/tmp/opencode/kern-gate2-props` and was lost in the
    2026-10-18 23:32 CEST reboot; restart from main.
@@ -119,7 +121,7 @@ reconciliation in `.reports/preview-readiness.md`.
   with the new cli/contracts legs). `changeset status` exits 0
   (invalid-tree + mixed families resolved by PR #45's changeset surgery).
 - **Cutover complete:** Kern consumes `@xoroh/axis` via vendored tarball
-  (`vendor/axis/axis-82c3179.tgz`, PR #37); `libs/kern-primitives` frozen
+  (axis `82c3179`, PR #37); `libs/kern-primitives` frozen
   pending the Axis-side deletion PR (other thread).
 - **Superseded positions:** H-17's `private:true` CLI fix is REVERSED —
   owner decision D-CLI-PUBLISH (CLI ships 0.1.0, eight public packages).

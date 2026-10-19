@@ -52,13 +52,13 @@ again. Measured from the generated registry instead:
 
 | Measure | Value |
 |---|---|
-| Registry rows | **422** (web 304, native 118) |
+| Registry rows | **423** (web 304, native 119) |
 | **Shared** (already both sides) | **91** |
-| **Native-only → needs a web version** | **11** in **9 files** |
+| **Native-only → needs a web version** | **12** in **9 files** |
 | **Web-only → needs a native version** | **38** in **19 files** |
 | Stub rows | **0** |
 
-<!-- gate:counts 91 11 38 0 -->
+<!-- gate:counts 91 12 38 0 -->
 
 Machine-readable line above: `check:parity` (`scripts/check-parity.mjs`) re-derives
 these from the registry and fails if they drift, so the prose above cannot quietly
@@ -167,7 +167,7 @@ later reader does not "fix" them back:
 
 ---
 
-## Native-only concepts → need a web version (11)
+## Native-only concepts → need a web version (12)
 
 Grouped by surface. `M3 source` is the M3 spec tab that governs the behaviour.
 
