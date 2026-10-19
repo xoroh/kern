@@ -48,7 +48,9 @@ import {
   Separator,
   Skeleton,
   Slider,
-  Snackbar,
+  SnackbarProvider,
+  SnackbarViewport,
+  useSnackbar,
   Switch,
   Text,
   Textarea,
@@ -537,14 +539,29 @@ export function NativeCountrySelectDemo() {
 }
 
 export function NativeSnackbarDemo() {
+  function QueueTrigger() {
+    const snackbar = useSnackbar();
+    return (
+      <Button
+        variant="tonal"
+        onPress={() =>
+          snackbar.add({
+            message: "Build queued",
+            actionLabel: "View",
+            duration: 0,
+          })
+        }
+      >
+        Queue snackbar
+      </Button>
+    );
+  }
   return (
     <PhonePreview label="Snackbar — M3 transient messaging (no Sonner twin)">
-      <Snackbar
-        visible
-        message="Build queued"
-        actionLabel="View"
-        onAction={() => {}}
-      />
+      <SnackbarProvider>
+        <QueueTrigger />
+        <SnackbarViewport />
+      </SnackbarProvider>
     </PhonePreview>
   );
 }

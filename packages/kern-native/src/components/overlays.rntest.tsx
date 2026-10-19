@@ -12,9 +12,9 @@ import { Sheet } from "./sheet";
 import { SheetSurface } from "./sheet-surface";
 import { BottomSheet } from "./sheets";
 import {
-  Snackbar,
   SnackbarProvider,
   SnackbarViewport,
+  snackbarStyles,
   useSnackbar,
 } from "./snackbar";
 import { Text } from "./text";
@@ -177,25 +177,6 @@ describe("SheetSurface dismissal (P2b-2)", () => {
   });
 });
 
-describe("native Snackbar render", () => {
-  it("shows the message and fires the action", async () => {
-    let acted = 0;
-    await render(
-      <Snackbar
-        visible
-        message="Saved"
-        actionLabel="Undo"
-        onAction={() => acted++}
-      />,
-    );
-    expect(screen.getByText("Saved")).toBeTruthy();
-    await act(async () => {
-      fireEvent.press(screen.getByLabelText("Undo"));
-    });
-    expect(acted).toBe(1);
-  });
-});
-
 describe("native Menu render", () => {
   it("opens on trigger and selects an item", async () => {
     let chosen = "";
@@ -290,5 +271,42 @@ describe("native Snackbar queue via Axis Toast", () => {
     });
 
     expect(screen.getByText("Queued notification")).toBeTruthy();
+  });
+
+  it("paints queued toasts with the M3 Snackbar surface", async () => {
+    function Trigger() {
+      const sb = useSnackbar();
+      return (
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Add Toast"
+          onPress={() =>
+            sb.add({ message: "Styled notification", duration: 0 })
+          }
+        >
+          <Text>Add Toast</Text>
+        </Pressable>
+      );
+    }
+
+    await render(
+      <SnackbarProvider>
+        <Trigger />
+        <SnackbarViewport testID="sb-styled" />
+      </SnackbarProvider>,
+    );
+
+    await act(async () => {
+      fireEvent.press(screen.getByLabelText("Add Toast"));
+    });
+
+    const toast = screen.getByTestId("sb-styled-toast-0");
+    const style = Array.isArray(toast.props.style)
+      ? Object.assign({}, ...toast.props.style.filter(Boolean))
+      : toast.props.style;
+    // M3 Snackbar surface (snackbarStyles): inverseSurface + level 3 (6dp).
+    expect(style.backgroundColor).toBeDefined();
+    expect(style.elevation).toBe(6);
+    expect(snackbarStyles().backgroundColor).toBe(style.backgroundColor);
   });
 });

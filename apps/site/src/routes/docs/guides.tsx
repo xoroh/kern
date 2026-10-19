@@ -27,15 +27,28 @@ import { Button } from "@xoroh/kern-native"; // native
 // Native takes onPress.
 <Button variant="primary" onPress={save}>Save</Button>`;
 
-const SNACKBAR = `// Native: M3 transient messaging.
-import { Snackbar } from "@xoroh/kern-native";
+const SNACKBAR = `// Native: M3 transient messaging (queue, not single-shot).
+import {
+  SnackbarProvider,
+  SnackbarViewport,
+  useSnackbar,
+} from "@xoroh/kern-native";
 
-<Snackbar
-  visible={saved}
-  message="Build queued"
-  actionLabel="View"
-  onAction={open}
-/>;`;
+function SaveButton() {
+  const snackbar = useSnackbar();
+  return (
+    <Button
+      onPress={() => snackbar.add({ message: "Build queued", actionLabel: "View" })}
+    >
+      Save
+    </Button>
+  );
+}
+
+<SnackbarProvider>
+  <SaveButton />
+  <SnackbarViewport />
+</SnackbarProvider>;`;
 
 const ICON_ALIAS = `import { Icon } from "@xoroh/kern-icons";
 

@@ -372,13 +372,11 @@ export { Skeleton } from "./components/skeleton";
 export type { NativeSliderProps } from "./components/slider";
 export { Slider, sliderStyles } from "./components/slider";
 export type {
-  NativeSnackbarProps,
   NativeSnackbarViewportProps,
   SnackbarManager,
   SnackbarOptions,
 } from "./components/snackbar";
 export {
-  Snackbar,
   SnackbarProvider,
   SnackbarViewport,
   snackbarStyles,
