@@ -142,14 +142,26 @@ function FitWidth({ children }: { children: ReactNode }) {
       const avail = el.parentElement.clientWidth;
       // Natural width: max over the subtree, since an inner scroller
       // (chip rows, tab lists) clips without growing the wrapper's own
-      // scrollWidth. `input` reports the box, not the text — canvas-measure
-      // field text (value, else placeholder) plus its padding instead.
+      // scrollWidth. Clipping elements get a right-edge fade at the cut
+      // (mask resolves to the clipper's own box — verified against
+      // overflow auto and hidden alike); the wrapper keeps one as a
+      // backstop for visible spill that reaches the well edge.
       let need = el.scrollWidth;
       let innerOverflow = need > el.clientWidth + 8;
       for (const d of el.querySelectorAll("*")) {
         const h = d as HTMLElement;
         if (h.scrollWidth > need) need = h.scrollWidth;
         if (h.scrollWidth > h.clientWidth + 8) innerOverflow = true;
+        const ox = getComputedStyle(h).overflowX;
+        if (
+          (ox === "auto" ||
+            ox === "scroll" ||
+            ox === "hidden" ||
+            ox === "clip") &&
+          h.scrollWidth > h.clientWidth + 8
+        ) {
+          h.classList.add("thumb-scroll-x");
+        }
       }
       // `input.scrollWidth` reports the box, not the text — canvas-measure
       // field text (value, else placeholder) plus its padding instead.
@@ -173,10 +185,9 @@ function FitWidth({ children }: { children: ReactNode }) {
         }
       }
       if (avail > 0 && need > avail + 8) setZoom(avail / need);
-      // A mask on a scroller resolves against its scroll area (wrong edge),
-      // so the fade lives on the demo wrapper itself — a non-scrolling box
-      // whose right edge is exactly where the well clips. Only when the
-      // wrapper spans the well: a narrower demo keeps a crisp edge.
+      // The wrapper keeps a fade as a backstop for visible spill that
+      // reaches the well edge. Only when the wrapper spans the well: a
+      // narrower demo keeps a crisp edge.
       if (innerOverflow && el.clientWidth >= avail - 4) {
         el.classList.add("thumb-scroll-x");
       }
