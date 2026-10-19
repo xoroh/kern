@@ -10,9 +10,9 @@ export const kbd: ComponentDoc = {
   meta: {
     status: "real",
     package: "@xoroh/kern",
-    // Native has no `Kbd`. There is no keyboard on a touch surface, so the
-    // concept has no counterpart.
-    nativePeer: "none",
+    // Native `Kbd` renders the same key-as-text treatment for shortcuts
+    // shown on touch surfaces. Documented there.
+    nativePeer: "Kbd",
     variants: [],
     elevation: "surface",
   },

@@ -73,7 +73,7 @@ import { defaultScheme, useKernScheme } from "../theme";
 
 export function timeFieldStyles(
   selected: boolean,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
 ): { field: ViewStyle; option: ViewStyle } {
   return {
     field: {

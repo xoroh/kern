@@ -90,14 +90,11 @@ for (const platform of ["web", "mobile"]) {
     );
   }
   const catalog = JSON.parse(
-    readFileSync(
-      join(ROOT, "packages/kern-material-3/src/themes/index.json"),
-      "utf8",
-    ),
+    readFileSync(join(ROOT, "packages/kern-m3/src/themes/index.json"), "utf8"),
   );
   const kernTheme = JSON.parse(
     readFileSync(
-      join(ROOT, "packages/kern-material-3/src/themes/material-3.json"),
+      join(ROOT, "packages/kern-m3/src/themes/material-3.json"),
       "utf8",
     ),
   );

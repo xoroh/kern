@@ -17,6 +17,59 @@ export const search: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Search"],
+  keyboard: [
+    {
+      key: "External keyboard",
+      action:
+        "The field takes native focus and the OS keyboard opens; entry and dismissal belong to the platform, `onSearch` carries the query to run.",
+    },
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "The bar announces as search with its label; the clear control reads as a button and double-tap clears the query.",
+    },
+  ],
+  usage: {
+    do: [
+      "`label` names the field — the placeholder is separate and defaults to the same wording.",
+      "Keep `onValueChange` (live change) and `onSearch` (the query to run) separate — they are two different moments.",
+      "Use the docked bar for in-screen search; full search with results wants its own route.",
+    ],
+    dont: [
+      "Don't submit from `onValueChange` — wait for `onSearch`, or every keystroke runs a query.",
+      "Don't hide the clear control's label — it is the only control in the bar besides entry.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Bar",
+      state: "resting",
+      token: "theme.color.surfaceContainerHigh",
+      value: "surfaceContainerHigh stadium, full pill, minHeight 56",
+    },
+    {
+      element: "Bar border",
+      state: "focused",
+      token: "theme.color.primary",
+      value: "1px primary border only while focused",
+    },
+    {
+      element: "Query text",
+      state: "resting",
+      token: "theme.color.onSurface",
+      value: "onSurface; placeholder is onSurfaceVariant",
+    },
+  ],
+  faq: [
+    {
+      q: "Search or text field?",
+      a: "A query that runs (`onSearch`) with a clear control means search. Free entry with validation means a text field.",
+    },
+    {
+      q: "How does this differ from the web search?",
+      a: "Same contract (`label`, live change vs run, `onSubmit`/`onChange` stripped in favor of `onSearch`/`onValueChange`). The docked stadium and the focus-only border are drawn to the same roles natively.",
+    },
+  ],
   customization: {
     supported: [
       "`label` names the field.",

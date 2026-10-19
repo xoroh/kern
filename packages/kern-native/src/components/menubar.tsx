@@ -19,7 +19,7 @@ export type NativeMenubarMenu = {
 };
 
 export function menubarStyles(
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
 ): ViewStyle {
   return {
     flexDirection: "row",

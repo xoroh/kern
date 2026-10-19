@@ -87,7 +87,7 @@ test.describe("page render (painted-verify)", () => {
   test("a component detail page paints too (the deepest real render)", async ({
     page,
   }) => {
-    await page.goto("/components/web/dialog", { waitUntil: "networkidle" });
+    await page.goto("/components/m3/dialog", { waitUntil: "networkidle" });
     await page.waitForLoadState("networkidle");
     await page.waitForTimeout(500);
 

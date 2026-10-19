@@ -31,6 +31,11 @@ import {
   T_KEY,
   T_LABEL_MD,
 } from "../../domains/shared/systems/type-scale";
+import {
+  FOCUS_RING,
+  STATE_LAYERS,
+  TRANSITION,
+} from "../../domains/shared/systems/ui";
 import { trapTarget } from "../../systems/focus-trap";
 import {
   buildSearchIndex,
@@ -226,7 +231,7 @@ export function SearchPalette() {
         onClick={close}
         className="absolute inset-0 cursor-default border-0 bg-(--sys-color-scrim)/30"
       />
-      <div className="relative w-full max-w-xl overflow-hidden rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface) shadow-(--sys-elevation-level3)">
+      <div className="site-enter relative w-full max-w-xl overflow-hidden rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface) shadow-(--sys-elevation-level3)">
         <div className="flex items-center gap-3 border-b border-(--sys-color-outline-variant) p-5">
           <input
             ref={inputRef}
@@ -313,8 +318,10 @@ export function SearchPalette() {
                           e.preventDefault();
                           go(entry.href);
                         }}
-                        className={`block min-h-12 min-w-0 cursor-pointer rounded-(--sys-shape-corner-large) px-4 py-3 no-underline ${
-                          isActive ? "bg-(--sys-color-secondary-container)" : ""
+                        className={`block min-h-12 min-w-0 cursor-pointer rounded-(--sys-shape-corner-large) px-4 py-3 no-underline ${TRANSITION} ${FOCUS_RING} ${
+                          isActive
+                            ? "bg-(--sys-color-secondary-container)"
+                            : STATE_LAYERS
                         }`}
                       >
                         <ResultText entry={entry} query={query} />
@@ -363,7 +370,7 @@ function PaletteSuggestions({
           key={entry.href}
           type="button"
           onClick={() => onPick(entry.href)}
-          className={`cursor-pointer border-0 bg-transparent px-2 py-1.5 text-left ${T_BODY_MD} text-(--sys-color-on-surface) hover:bg-(--sys-color-surface-container)`}
+          className={`cursor-pointer rounded-(--sys-shape-corner-small) border-0 bg-transparent px-2 py-1.5 text-left ${T_BODY_MD} text-(--sys-color-on-surface) ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`}
         >
           {entry.title}
           <span

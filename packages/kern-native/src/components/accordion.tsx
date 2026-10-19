@@ -17,7 +17,7 @@ export type NativeAccordionSection = {
   accessibilityLabel?: string;
 };
 
-export function accordionStyles(scheme: ResolvedTheme = defaultScheme): {
+export function accordionStyles(scheme: ResolvedTheme = defaultScheme()): {
   container: ViewStyle;
   header: ViewStyle;
 } {

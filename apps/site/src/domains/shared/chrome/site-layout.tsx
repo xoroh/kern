@@ -7,6 +7,10 @@ import { PreviewBanner } from "../../../components/chrome/preview-banner";
 import { SearchPalette } from "../../../components/chrome/search-palette";
 import { SiteHeader } from "../../../components/chrome/site-header";
 import { T_BODY_SM, T_LABEL } from "../systems/type-scale";
+import {
+  FOCUS_RING,
+  TRANSITION,
+} from "../systems/ui";
 
 /**
  * Docs-section paths render with the three-column layout: left sidebar tree,
@@ -122,10 +126,10 @@ function OnThisPageRail({ pathname }: { pathname: string }) {
               <a
                 href={`#${item.id}`}
                 aria-current={active ? "location" : undefined}
-                className={`block rounded-(--sys-shape-corner-full) px-3 py-1.5 ${T_BODY_SM} no-underline transition-colors ${
+                className={`block rounded-(--sys-shape-corner-full) px-3 py-1.5 ${T_BODY_SM} no-underline ${TRANSITION} ${FOCUS_RING} ${
                   active
                     ? "bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container) font-medium"
-                    : "text-(--sys-color-on-surface-variant) hover:bg-(--sys-color-surface-container-high) hover:text-(--sys-color-on-surface) hover:underline active:bg-(--sys-color-on-surface)/12"
+                    : "text-(--sys-color-on-surface-variant) hover:bg-(--sys-color-surface-container-high) hover:text-(--sys-color-on-surface) hover:underline active:bg-(--sys-color-on-surface)/10"
                 }`}
               >
                 {item.text}

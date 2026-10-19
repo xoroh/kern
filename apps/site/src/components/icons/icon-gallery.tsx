@@ -14,6 +14,11 @@ import {
   SEMANTIC_ICONS,
 } from "@xoroh/kern-icons";
 import { useState } from "react";
+import {
+  T_BODY_MD,
+  T_CODE,
+  T_SUB,
+} from "../../domains/shared/systems/type-scale";
 
 /** How many icons the grid paints before it stops — 1340 SVGs would stall SSR. */
 const PAGE = 120;
@@ -45,10 +50,10 @@ export function IconGallery() {
       </div>
 
       <section className="flex flex-col gap-3">
-        <h2 id="semantic-map" className="m-0 text-lg font-semibold">
+        <h2 id="semantic-map" className={`m-0 ${T_SUB}`}>
           Semantic map
         </h2>
-        <p className="m-0 text-sm text-(--sys-color-on-surface-variant)">
+        <p className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}>
           Kern maps a recurring meaning to one decided symbol, so every product
           picks the same glyph.
         </p>
@@ -63,7 +68,7 @@ export function IconGallery() {
                   name={SEMANTIC_ICONS[semantic] as `${string}:${string}`}
                   size={18}
                 />
-                <span className="text-sm">{semantic}</span>
+                <span className={`${T_BODY_MD}`}>{semantic}</span>
                 <Kbd>{name}</Kbd>
               </li>
             ),
@@ -72,12 +77,14 @@ export function IconGallery() {
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 id="icon-list" className="m-0 text-lg font-semibold">
+        <h2 id="icon-list" className={`m-0 ${T_SUB}`}>
           {query.trim() ? "Matches" : `First ${PAGE} of ${ICON_COUNT}`}
         </h2>
         {matches.length === 0 ? (
           <div className="flex flex-col items-start gap-3">
-            <p className="m-0 text-sm text-(--sys-color-on-surface-variant)">
+            <p
+              className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
+            >
               No icon matches “{query}”.
             </p>
             <Button variant="tonal" onClick={() => setQuery("")}>
@@ -92,7 +99,9 @@ export function IconGallery() {
                 className="flex flex-col items-center gap-1 rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant) p-3"
               >
                 <Icon name={name} size={24} />
-                <span className="w-full truncate text-center font-mono text-[11px] text-(--sys-color-on-surface-variant)">
+                <span
+                  className={`w-full truncate text-center ${T_CODE} text-(--sys-color-on-surface-variant)`}
+                >
                   {name}
                 </span>
               </li>

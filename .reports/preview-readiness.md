@@ -68,7 +68,7 @@ unchanged — need a Preview-scope decision record, PR-5):
   base roles, typography, shape, elevation, motion, states, spacing).
 - DTCG 2025.10 interchange (`src/dtcg/*`, `dtcg.json` projection,
   round-trip fixtures green).
-- Presets via `@xoroh/kern-material-3` themes catalog
+- Presets via `@xoroh/kern-m3` themes catalog
   (material-3, sharp, compact, demo + matrix); generators emit CSS vars,
   comp-tokens, tones/motion CSS, Tailwind adapter.
 - `check:contrast` (1656 checks), `check:theme-matrix` (30 cells) green.

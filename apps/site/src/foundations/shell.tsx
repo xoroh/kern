@@ -28,7 +28,7 @@ import {
   T_PAGE,
   T_SECTION,
 } from "../domains/shared/systems/type-scale";
-import { CARD, INK, INK_SOFT } from "../domains/shared/systems/ui";
+import { CARD, INK, INK_SOFT, TRANSITION } from "../domains/shared/systems/ui";
 
 export type FoundationPage = {
   /** route segment, e.g. "color" */
@@ -160,7 +160,7 @@ export function FSection({
         <a
           href={`#${id}`}
           aria-label={`Permalink to ${id.replace(/-/g, " ")}`}
-          className="ml-2 inline-flex items-center text-(--sys-color-on-surface-variant) no-underline opacity-0 transition-opacity group-hover:opacity-100 focus-visible:opacity-100"
+          className={`ml-2 inline-flex items-center text-(--sys-color-on-surface-variant) no-underline opacity-0 ${TRANSITION} group-hover:opacity-100 focus-visible:opacity-100`}
         >
           #
         </a>

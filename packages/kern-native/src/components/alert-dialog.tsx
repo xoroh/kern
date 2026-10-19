@@ -10,7 +10,7 @@ import { defaultScheme, useKernScheme } from "../theme";
 import { overlayStyles } from "../utils/overlay-styles";
 import { Text } from "./text";
 
-export function alertDialogStyles(scheme: ResolvedTheme = defaultScheme): {
+export function alertDialogStyles(scheme: ResolvedTheme = defaultScheme()): {
   card: ViewStyle;
 } {
   return {

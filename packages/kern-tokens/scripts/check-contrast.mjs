@@ -12,7 +12,7 @@ import {
   MATERIAL_3_POLICY,
   textRolePairs,
   uiRolePairs,
-} from "../../kern-material-3/src/material-3.ts";
+} from "../../kern-m3/src/material-3.ts";
 import {
   activeWaivers,
   contrastIssues,
@@ -22,27 +22,18 @@ import {
 const ROOT = new URL("../../..", import.meta.url).pathname;
 const M3 = JSON.parse(
   readFileSync(
-    join(ROOT, "packages/kern-material-3/src/themes/material-3.json"),
+    join(ROOT, "packages/kern-m3/src/themes/material-3.json"),
     "utf8",
   ),
 );
 const SHARP = JSON.parse(
-  readFileSync(
-    join(ROOT, "packages/kern-material-3/src/themes/sharp.json"),
-    "utf8",
-  ),
+  readFileSync(join(ROOT, "packages/kern-m3/src/themes/sharp.json"), "utf8"),
 );
 const BRAND = JSON.parse(
-  readFileSync(
-    join(ROOT, "packages/kern-material-3/src/themes/brand.json"),
-    "utf8",
-  ),
+  readFileSync(join(ROOT, "packages/kern-m3/src/themes/brand.json"), "utf8"),
 );
 const DEMO = JSON.parse(
-  readFileSync(
-    join(ROOT, "packages/kern-material-3/src/themes/demo.json"),
-    "utf8",
-  ),
+  readFileSync(join(ROOT, "packages/kern-m3/src/themes/demo.json"), "utf8"),
 );
 const TOKENS = JSON.parse(
   readFileSync(join(ROOT, "packages/kern-tokens/src/tokens.json"), "utf8"),

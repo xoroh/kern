@@ -6,15 +6,15 @@ import { codeOnly } from "./lib/source-code.mjs";
 const ROOT = new URL("..", import.meta.url).pathname;
 
 const { M3_ROLES, KERN_EXTRA_ROLES, auditRoleInventory } = await import(
-  join(ROOT, "packages/kern-material-3/src/kern-roles.ts")
+  join(ROOT, "packages/kern-m3/src/kern-roles.ts")
 );
 
 const { auditElevation, KERN_ELEVATION_COMPONENTS, ELEVATION_ENTRY_FILES } =
-  await import(join(ROOT, "packages/kern-material-3/src/kern-elevation.ts"));
+  await import(join(ROOT, "packages/kern-m3/src/kern-elevation.ts"));
 
 const m3 = JSON.parse(
   readFileSync(
-    join(ROOT, "packages/kern-material-3/src/themes/material-3.json"),
+    join(ROOT, "packages/kern-m3/src/themes/material-3.json"),
     "utf8",
   ),
 );
@@ -35,7 +35,7 @@ const schemes = [m3.color.light, m3.color.dark];
 for (const extra of ["sharp", "brand", "compact", "demo"]) {
   const theme = JSON.parse(
     readFileSync(
-      join(ROOT, `packages/kern-material-3/src/themes/${extra}.json`),
+      join(ROOT, `packages/kern-m3/src/themes/${extra}.json`),
       "utf8",
     ),
   );
@@ -210,15 +210,15 @@ for (const entry of inventory.missingDeviation) {
   }
 }
 
-// 3b. STATE LAYERS. M3 material-web v0.192 publishes exactly FIVE overlay
-// opacities: hover +8, focus +12, press +12, drag +16, disabled +38.
-// (Earlier kern docs cited .10 for focus/press from older M3 prose; the
-// shipped implementation tokens use 12%.)
+// 3b. STATE LAYERS. m3.material.io interaction/states publishes exactly FIVE
+// overlay opacities: hover +8, focus +10, press +10, drag +16, disabled +38.
+// (material-web v0.192 still ships 12% for focus/press — stale relative to
+// the live spec; the live spec is canonical here.)
 {
   const M3_STATE_OPACITIES = {
     "hover-opacity": "8%",
-    "focus-opacity": "12%",
-    "press-opacity": "12%",
+    "focus-opacity": "10%",
+    "press-opacity": "10%",
     "drag-opacity": "16%",
     "disabled-opacity": "38%",
   };
@@ -227,7 +227,7 @@ for (const entry of inventory.missingDeviation) {
     if (states[key] === undefined) {
       violations.push(
         `states.${key} is missing — M3 defines five state-layer opacities ` +
-          `(hover 8%, focus 12%, press 12%, drag 16%, disabled 38%)`,
+          `(hover 8%, focus 10%, press 10%, drag 16%, disabled 38%)`,
       );
     } else if (states[key] !== expected) {
       violations.push(
@@ -523,7 +523,7 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
     // (the one value components DO consume today) still fails. A blanket group
     // exemption would re-create the blind spot this gate exists to close.
     states:
-      "focus/press/drag are M3 state-layer values (hover +8%, focus +12%, press +12%, drag +16%) that no component yet expresses as a state LAYER: focus is drawn as a ring, press as an opacity dim (0.82/0.9), drag has no implementation. Visual changes beyond this ruling — P1-6 follow-up.",
+      "focus/press/drag are M3 state-layer values (hover +8%, focus +10%, press +10%, drag +16%) that no component yet expresses as a state LAYER: focus is drawn as a ring, press as an opacity dim (0.82/0.9), drag has no implementation. Visual changes beyond this ruling — P1-6 follow-up.",
   };
   // Source roots that may consume tokens (generated output is NOT a consumer).
   const CONSUMER_DIRS = [
@@ -584,14 +584,11 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
 // the source files, so the failure points at the file to fix.
 {
   const catalog = JSON.parse(
-    readFileSync(
-      join(ROOT, "packages/kern-material-3/src/themes/index.json"),
-      "utf8",
-    ),
+    readFileSync(join(ROOT, "packages/kern-m3/src/themes/index.json"), "utf8"),
   );
   const colorRoles = new Set(Object.keys(m3.color.light));
   for (const entry of catalog.themes ?? []) {
-    const path = join(ROOT, "packages/kern-material-3/src/themes", entry.file);
+    const path = join(ROOT, "packages/kern-m3/src/themes", entry.file);
     if (!existsSync(path)) {
       violations.push(
         `themes/index.json lists "${entry.id}" -> ${entry.file}, which does not exist`,
@@ -644,16 +641,13 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
 {
   const fullRoleCount = Object.keys(m3.color.light).length;
   const catalog = JSON.parse(
-    readFileSync(
-      join(ROOT, "packages/kern-material-3/src/themes/index.json"),
-      "utf8",
-    ),
+    readFileSync(join(ROOT, "packages/kern-m3/src/themes/index.json"), "utf8"),
   );
   for (const entry of catalog.themes ?? []) {
     if (entry.id === "material-3") continue;
     const preset = JSON.parse(
       readFileSync(
-        join(ROOT, "packages/kern-material-3/src/themes", entry.file),
+        join(ROOT, "packages/kern-m3/src/themes", entry.file),
         "utf8",
       ),
     );
@@ -696,7 +690,7 @@ for (const corner of ["large-increased", "extra-large-increased"]) {
     "packages/kern-tokens/scripts/check-contrast.mjs",
     // The designated M3 preset registrar: reads the five theme tables once to
     // register them with the universal resolver. Centralization point, not drift.
-    "packages/kern-material-3/src/material-3.ts",
+    "packages/kern-m3/src/material-3.ts",
   ]);
   for (const root of readerRoots) {
     if (!existsSync(root)) continue;

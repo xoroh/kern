@@ -18,7 +18,7 @@ export type NativeMenuItem = {
   disabled?: boolean;
 };
 
-export function menuStyles(scheme: ResolvedTheme = defaultScheme): {
+export function menuStyles(scheme: ResolvedTheme = defaultScheme()): {
   card: ViewStyle;
 } {
   return {

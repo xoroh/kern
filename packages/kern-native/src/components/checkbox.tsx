@@ -25,7 +25,7 @@ export function checkboxStyles(
   checked: boolean,
   indeterminate: boolean,
   disabled: boolean,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
 ): { box: ViewStyle; glyph: TextStyle } {
   const marked = checked || indeterminate;
   return {

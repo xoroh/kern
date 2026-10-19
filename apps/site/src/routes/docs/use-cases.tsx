@@ -36,6 +36,13 @@ const INK_SOFT = "text-(--sys-color-on-surface-variant)";
 const CARD =
   "rounded-(--sys-shape-corner-medium) border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container-low)";
 
+/**
+ * Preview honesty (011): the `kern` binary is unpublished, so every command
+ * on this page runs from a checkout until 0.1.0 ships — never as a bare
+ * `kern` on PATH. One const, so the prefix cannot drift per block.
+ */
+const KERN = "bun <checkout>/packages/kern-cli/src/kern.ts";
+
 function H2({ id, children }: { id: string; children: React.ReactNode }) {
   return (
     <h2 id={id} className={`m-0 ${T_SECTION} ${INK}`}>
@@ -71,15 +78,17 @@ function UseCases() {
               <p className={`m-0 ${T_LABEL_LG} ${INK}`}>Mode 1 — vendored</p>
               <p className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
                 <code>kern add &lt;name&gt;</code> copies the component and its
-                import closure into your tree. You own the code: edit it, keep
-                it; upgrades arrive through <code>kern upgrade</code>, which
-                preserves your edits instead of overwriting them. Tokens stay
-                depended by default (hybrid); <code>--self-contained</code>{" "}
-                vendors the token CSS too.
+                import closure into your tree — run from a checkout until the
+                CLI publishes (every command on this page carries the checkout
+                prefix). You own the code: edit it, keep it; upgrades arrive
+                through <code>kern upgrade</code>, which preserves your edits
+                instead of overwriting them. Tokens stay depended by default
+                (hybrid); <code>--self-contained</code> vendors the token CSS
+                too.
               </p>
-              <Code>{`kern init my-app        # scaffold: install → run → themed screen
-kern add button        # vendor one component + closure
-kern add chip card     # vendor several (receipt merges)`}</Code>
+              <Code>{`${KERN} init my-app        # scaffold: install → run → themed screen
+${KERN} add button        # vendor one component + closure
+${KERN} add chip card     # vendor several (receipt merges)`}</Code>
             </article>
             <article className={`${CARD} flex flex-col gap-2 p-5`}>
               <p className={`m-0 ${T_LABEL_LG} ${INK}`}>Mode 2 — depended</p>
@@ -162,9 +171,9 @@ kern add chip card     # vendor several (receipt merges)`}</Code>
                 files — owned edits are preserved and reported, never
                 overwritten.
               </p>
-              <Code>{`kern diff                         # receipt vs destination
-kern upgrade button              # plan only, no writes
-kern upgrade button --apply      # update, preserving owned edits`}</Code>
+              <Code>{`${KERN} diff                         # receipt vs destination
+${KERN} upgrade button              # plan only, no writes
+${KERN} upgrade button --apply      # update, preserving owned edits`}</Code>
             </li>
             <li className={`${CARD} flex flex-col gap-2 p-5`}>
               <p className={`m-0 ${T_LABEL_LG} ${INK}`}>
@@ -176,7 +185,7 @@ kern upgrade button --apply      # update, preserving owned edits`}</Code>
                 install. The CLI prints peer-dependency and Metro notes with the
                 install instructions.
               </p>
-              <Code>{`kern add button --platform native`}</Code>
+              <Code>{`${KERN} add button --platform native`}</Code>
             </li>
           </ol>
         </section>
@@ -212,9 +221,9 @@ kern upgrade button --apply      # update, preserving owned edits`}</Code>
                 body: "The theme catalog with copy-paste pointers — the same file the Playground studio reads.",
               },
               {
-                use: "Audit a screen",
+                use: "Audit a screen (advisory)",
                 tool: "design_audit",
-                body: "The compliance checklist, mirroring the kern skill's audit table. Advisory only — static categories, not measured evidence.",
+                body: "The compliance checklist, mirroring the kern skill's audit table — advisory only: it names the categories, it does not measure them.",
               },
               {
                 use: "Discover icons",
@@ -294,8 +303,9 @@ kern upgrade button --apply      # update, preserving owned edits`}</Code>
           <Admonition intent="warning" title="Coming is not available">
             A command or status named here as <em>coming</em> must never be run
             or relied on. Where a surface cannot show something honestly, it
-            shows nothing — the same rule that keeps the <code>kern add</code>{" "}
-            tab out of the install picker until the CLI publishes.
+            shows nothing — the same rule that keeps bare <code>kern</code> out
+            of the install picker: its source command carries the checkout
+            prefix until the CLI publishes.
           </Admonition>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <article className={`${CARD} flex flex-col gap-2 p-5`}>
@@ -304,9 +314,11 @@ kern upgrade button --apply      # update, preserving owned edits`}</Code>
                 className={`m-0 flex list-disc flex-col gap-1 pl-5 ${T_BODY_SM} ${INK_SOFT}`}
               >
                 <li>
-                  Install from a checkout: <code>kern init</code>,{" "}
-                  <code>kern add</code> (components + blocks) — bare registry
-                  commands arrive with 0.1.0 publish
+                  Source install from a checkout: <code>kern init</code>,{" "}
+                  <code>kern add</code> (web + native components, web blocks)
+                  via the checkout runner below — bare <code>kern</code> on PATH
+                  and registry <code>npm i</code> commands arrive with 0.1.0
+                  publish
                 </li>
                 <li>Live demos, examples and configurators on every page</li>
                 <li>Theme presets + the Playground studio export</li>

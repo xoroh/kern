@@ -7,7 +7,7 @@ import {
   isLoadingStyleRendered,
   type LoadingIndicatorStyle,
   resolveFeedbackVariant,
-} from "@xoroh/kern-material-3";
+} from "@xoroh/kern-m3";
 import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import { useEffect, useRef } from "react";
 import {
@@ -68,7 +68,7 @@ export { arcRotations };
 export function ringStyles(
   size: FeedbackSize,
   fill: string,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
 ): {
   box: ViewStyle;
   track: ViewStyle;
@@ -117,7 +117,7 @@ export function ringStyles(
 export function barStyles(
   size: FeedbackSize,
   fill: string,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
 ): {
   row: ViewStyle;
   bar: ViewStyle;

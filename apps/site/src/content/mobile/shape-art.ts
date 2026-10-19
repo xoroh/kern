@@ -15,7 +15,17 @@ export const shapeArt: ComponentDoc = {
     variants: ["layout: scatter · stack · arch"],
     elevation: "surface",
   },
-  parts: ["ShapeArt"],
+  parts: ["ShapeArt", "ExpressiveShape"],
+  anatomy: [
+    {
+      name: "ShapeArt",
+      role: "The fixed composition. `layout` picks scatter, stack or arch; `size` and `opacity` scale and fade the whole mark.",
+    },
+    {
+      name: "ExpressiveShape",
+      role: "The single expressive mark. One classification-hued shape at a caller-chosen size.",
+    },
+  ],
   customization: {
     supported: [
       "`layout` is the three arrangements — `scatter`, `stack`, `arch`.",

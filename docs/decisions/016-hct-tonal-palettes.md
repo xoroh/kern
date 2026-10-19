@@ -16,4 +16,4 @@ Spec-correct color keeps Kern schemes interoperable with the Material ecosystem 
 
 ## Status
 
-Accepted. Date: 2026-10-16. Roadmap: D-HCT. Scale is XL (artifacts, goldens, contrast gates move); the OKLCH-vs-HCT divergence stays documented until cutover.
+Superseded by [021](021-hct-primary-tonal-engine-for-m3.md). Date: 2026-10-16 (superseded 2026-10-17). Roadmap: D-HCT. Cutover completed: HCT is the primary tonal engine for Kern M3.

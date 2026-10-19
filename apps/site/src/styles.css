@@ -127,7 +127,21 @@ button:focus-visible {
   text-wrap: balance;
 }
 .site-card {
-  transition: background-color 150ms;
+  transition: background-color var(--sys-motion-duration-short3)
+    var(--sys-motion-easing-standard);
+  position: relative;
+}
+a.site-card:hover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--sys-color-on-surface);
+  opacity: var(--sys-state-hover);
+  pointer-events: none;
+}
+a.site-card:active::after {
+  opacity: var(--sys-state-press);
 }
 .site-docs-welcome {
   padding: clamp(24px, 3vw, 40px);
@@ -149,8 +163,23 @@ button:focus-visible {
   background: var(--sys-color-primary-container);
   color: var(--sys-color-on-primary-container);
 }
-a.site-card:hover {
-  background: var(--sys-color-secondary-container);
+/* Modal enter — the M3 container-transform's honest web form: a short4
+   fade + rise on the emphasized easing for the palette and drawer panels.
+   The reduced-motion reset below collapses it; entering with no motion at
+   all is what read broken next to the motion specimens page. */
+@keyframes site-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.site-enter {
+  animation: site-enter var(--sys-motion-duration-short4)
+    var(--sys-motion-easing-emphasized);
 }
 .site-stage {
   background: color-mix(

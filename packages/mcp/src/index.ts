@@ -85,7 +85,7 @@ server.tool(
 
 server.tool(
   "design_audit",
-  "Kern compliance checklist for auditing a screen. Advisory only: static categories, not measured evidence.",
+  "Advisory-only checklist of the twelve Kern compliance categories for auditing a screen — names what to check, measures nothing (no score, pass/fail, or coverage).",
   {},
   async () => {
     return text(designAudit());

@@ -9,7 +9,7 @@ import { defaultScheme, useKernTheme } from "../theme";
 
 export function dividerStyles(
   orientation: "horizontal" | "vertical",
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
   inset: "none" | "start" | "middle" = "none",
 ): ViewStyle {
   const base =

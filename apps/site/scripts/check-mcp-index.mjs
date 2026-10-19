@@ -5,9 +5,11 @@
  * WHAT IT ASSERTS
  *
  * 1. EMISSION: public/mcp/index.json exists, parses, and carries exactly one
- *    entry per docs page (web + mobile families, foundations pages, the
- *    theme reference page) through the SAME module the emitter uses (`scripts/lib/mcp-index.mjs` — one
- *    function, two callers). A page the emitter drops fails here.
+ *    entry per docs page (the family slug union — one family page at
+ *    /components/m3/<slug> — plus foundations pages and the theme
+ *    reference page) through the SAME module the emitter uses
+ *    (`scripts/lib/mcp-index.mjs` — one function, two callers). A page the
+ *    emitter drops fails here.
  * 2. FRESHNESS TRIPWIRE: each entry embeds its page's own one-liner. A stale
  *    index (content edited, index not regenerated) still carries the old
  *    sentence — so the tripwire catches drift without byte-comparing files.
@@ -85,19 +87,25 @@ if (got.count !== want.count) {
 }
 
 const byKey = new Map(
-  got.pages?.map((p) => [`${p.kind}/${p.platform ?? ""}/${p.slug}`, p]) ?? [],
+  got.pages?.map((p) => [
+    `${p.kind}/${[...(p.platforms ?? (p.platform ? [p.platform] : []))].sort().join("+")}/${p.slug}`,
+    p,
+  ]) ?? [],
 );
 for (const entry of want.pages) {
-  const key = `${entry.kind}/${entry.platform ?? ""}/${entry.slug}`;
+  const key = `${entry.kind}/${[...(entry.platforms ?? [])].sort().join("+")}/${entry.slug}`;
   const actual = byKey.get(key);
   if (!actual) {
     bad(`${key}: indexed nowhere — regen (bun run generate)`);
     continue;
   }
   byKey.delete(key);
-  if (actual.page !== entry.page || actual.md !== entry.md) {
+  if (
+    actual.page !== entry.page ||
+    JSON.stringify(actual.md) !== JSON.stringify(entry.md)
+  ) {
     bad(
-      `${key}: URLs [${actual.page} / ${actual.md}] are not [${entry.page} / ${entry.md}]`,
+      `${key}: URLs [${actual.page} / ${JSON.stringify(actual.md)}] are not [${entry.page} / ${JSON.stringify(entry.md)}]`,
     );
   }
   if (actual.oneLiner !== entry.oneLiner) {

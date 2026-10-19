@@ -11,6 +11,7 @@ export * from "./dtcg/shared";
 export * from "./dtcg/validate";
 export * from "./focus";
 export * from "./functional";
+export * from "./hct";
 export * from "./motion";
 export * from "./pipeline";
 export * from "./preset";

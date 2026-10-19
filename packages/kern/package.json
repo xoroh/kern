@@ -113,15 +113,15 @@
     "tsup": "^8.5.1",
     "typescript": "5.9.3",
     "vitest": "^5.0.2",
-    "@xoroh/kern-material-3": "workspace:*"
+    "@xoroh/kern-m3": "workspace:*"
   },
   "dependencies": {
-    "@xoroh/axis": "file:../../vendor/axis/axis-bed35547.tgz",
+    "@xoroh/axis": "file:../../vendor/axis/axis-82c3179.tgz",
     "@base-ui/react": "^1.8.0",
     "@xoroh/kern-tokens": "^0.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "tailwind-merge": "^3.7.0",
-    "@xoroh/kern-material-3": "^0.0.0"
+    "@xoroh/kern-m3": "^0.0.0"
   }
 }

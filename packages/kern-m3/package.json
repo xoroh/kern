@@ -1,0 +1,68 @@
+{
+  "name": "@xoroh/kern-m3",
+  "version": "0.0.0",
+  "description": "Material Design 3 implementation for Kern: roles, presets, contrast policy, seed themes, and M3-specific foundations.",
+  "keywords": [
+    "material-3",
+    "design-system",
+    "tokens",
+    "kern"
+  ],
+  "license": "MIT",
+  "author": "Xoroh",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xoroh/kern.git",
+    "directory": "packages/kern-m3"
+  },
+  "homepage": "https://kern.xoroh.org",
+  "bugs": "https://github.com/xoroh/kern/issues",
+  "engines": {
+    "node": ">=20.19"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "src/themes/*.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --dts-resolve --out-dir dist --clean",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "check:publish": "publint && attw --pack --ignore-rules=no-resolution"
+  },
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./themes/*": "./src/themes/*",
+    "./package.json": "./package.json"
+  },
+  "dependencies": {
+    "@xoroh/kern-tokens": "^0.0.0"
+  },
+  "devDependencies": {
+    "@xoroh/kern-tokens": "workspace:*",
+    "tsup": "^8.5.1",
+    "typescript": "5.9.3",
+    "vitest": "^5.0.2",
+    "@types/node": "^26.6.3"
+  }
+}

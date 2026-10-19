@@ -1,5 +1,5 @@
 import { mergeSlotProps, type SlotProps } from "@xoroh/axis";
-import type { LoadingIndicatorStyle } from "@xoroh/kern-material-3";
+import type { LoadingIndicatorStyle } from "@xoroh/kern-m3";
 import { cssLengthToDp, type ResolvedTheme } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
 import { cloneElement, isValidElement, useRef, useState } from "react";
@@ -127,7 +127,7 @@ export function buttonStyles(
   variant: NativeButtonVariant,
   size: NativeButtonSize,
   disabled: boolean,
-  theme: ResolvedTheme = defaultScheme,
+  theme: ResolvedTheme = defaultScheme(),
   options: NativeButtonStyleOptions & NativeButtonToggleOptions = {},
 ): { container: ViewStyle; label: TextStyle } {
   const {

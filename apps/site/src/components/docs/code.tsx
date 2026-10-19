@@ -16,6 +16,11 @@ import {
   T_LABEL_LG,
   T_SECTION,
 } from "../../domains/shared/systems/type-scale";
+import {
+  FOCUS_RING,
+  STATE_LAYERS,
+  TRANSITION,
+} from "../../domains/shared/systems/ui";
 import { HighlightedCode, type HighlightLanguage } from "./highlight";
 
 const PRE =
@@ -102,10 +107,10 @@ export function Code({
     <div className="relative">
       <button
         type="button"
+        className={`absolute top-2 right-2 z-10 flex h-8 min-w-8 cursor-pointer items-center justify-center gap-1 rounded-full border border-(--sys-color-outline-variant) bg-(--sys-color-surface) px-2 text-(--sys-color-on-surface-variant) ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`}
         // 32px overlay affordance, not the 48dp floor: a full target would
         // cover the code it copies. Keyboard-reachable via tab (global
         // :focus-visible ring) with press feedback below.
-        className="absolute top-2 right-2 z-10 flex h-8 min-w-8 cursor-pointer items-center justify-center gap-1 rounded-full border border-(--sys-color-outline-variant) bg-(--sys-color-surface) px-2 text-(--sys-color-on-surface-variant) hover:bg-(--sys-color-on-surface)/8 active:bg-(--sys-color-on-surface)/12 transition-colors ease-(--sys-motion-easing-standard) [transition-duration:var(--sys-motion-duration-short3)]"
         aria-label={copied ? "Copied" : "Copy code"}
         onClick={copy}
       >

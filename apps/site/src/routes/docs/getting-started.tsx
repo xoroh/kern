@@ -21,8 +21,14 @@ export const Route = createFileRoute("/docs/getting-started")({
   component: GettingStarted,
 });
 
+const REGISTER = `// main.tsx — one explicit call, before anything resolves a theme.
+// Importing @xoroh/kern registers nothing (decision 010): the app chooses
+// its design system, the renderer never chooses it for you.
+import { registerM3 } from "@xoroh/kern-m3";
+
+registerM3();`;
 const STYLESHEET = `/* app.css — the only required import */
-@import "@xoroh/kern-tokens/theme";`;
+@import "@xoroh/kern/theme";`;
 
 const FIRST_COMPONENT = `import { Button, Field } from "@xoroh/kern";
 
@@ -74,11 +80,15 @@ export function App() {
   );
 }`;
 
-const MOBILE_QUICKSTART = `import {
+const MOBILE_QUICKSTART = `import { registerM3 } from "@xoroh/kern-m3";
+import {
   Button,
   KernThemeProvider,
   Text,
 } from "@xoroh/kern-native";
+
+// The app owns the design-system choice: register once at entry.
+registerM3();
 
 export function SaveScreen() {
   return (
@@ -101,6 +111,12 @@ const ICONS = `import { Icon } from "@xoroh/kern-icons";
 
 const PRESET_PICKER = `import { useState } from "react";
 import { applyKernTheme, Button, type Mode, type ThemeId } from "@xoroh/kern";
+import { registerM3 } from "@xoroh/kern-m3";
+
+// The app owns the design-system choice: register once at entry.
+// Importing "@xoroh/kern" registers nothing — an unregistered preset
+// fails loud.
+registerM3();
 
 const PRESETS = ["material-3", "sharp", "brand", "demo"] as const satisfies readonly ThemeId[];
 
@@ -140,14 +156,25 @@ function GettingStarted() {
           </p>
         </header>
 
-        <Step n={1} title="Install the packages">
+        <Step n={1} title="Install and register the system">
           <p
             className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
           >
-            One package per platform. Preview: packages are unpublished, so this
-            resolves from a checkout — the registry command runs at release.
+            Source path first — available now: scaffold from a checkout and
+            vendor what you need (Steps 8–9). Registry path — available at
+            release: packages are unpublished, so this resolves from a checkout
+            until 0.1.0 publishes.
           </p>
-          <InstallTabs target="@xoroh/kern @xoroh/kern-icons" />
+          <InstallTabs target="@xoroh/kern @xoroh/kern-icons @xoroh/kern-m3 @xoroh/kern-tokens" />
+          <p
+            className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
+          >
+            Registration is one explicit call at your entry, before anything
+            resolves a theme — importing the renderer registers nothing, so the
+            app owns the design-system choice. An unregistered preset fails
+            loud, never silently unthemed.
+          </p>
+          <Code>{REGISTER}</Code>
         </Step>
 
         <Step n={2} title="Load the theme stylesheet">
@@ -202,10 +229,11 @@ function GettingStarted() {
           >
             Native components take <code>onPress</code> instead of{" "}
             <code>onClick</code>, and resolve the same theme through{" "}
-            <code>KernThemeProvider</code>. Same Preview terms as web: checkout
-            today, registry at release.
+            <code>KernThemeProvider</code>. Source path first — vendor from a
+            checkout (Step 9 covers <code>kern add --platform native</code>);
+            the registry command below runs at release.
           </p>
-          <InstallTabs target="@xoroh/kern-native @xoroh/kern-tokens" />
+          <InstallTabs target="@xoroh/kern-native @xoroh/kern-m3 @xoroh/kern-tokens" />
           <Code filename="save-screen.tsx">{MOBILE_QUICKSTART}</Code>
           {/* P-READY (G6): install without ecosystem — G3/G4 lifts this
                 block onto the primitives subdomain; do not duplicate the
