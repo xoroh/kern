@@ -37,7 +37,12 @@ import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { blockFileBytes, blockFileList, loadBlocks } from "./blocks.js";
 import { resolveClosure } from "./closure.js";
-import { loadRegistry, payloadDir, WORKSPACE_ROOT } from "./manifest.js";
+import {
+  loadRegistry,
+  payloadDir,
+  resolveSystem,
+  WORKSPACE_ROOT,
+} from "./manifest.js";
 import { type InstallReceipt, readReceipt } from "./receipt.js";
 
 export type AddPlatform = "web" | "native";
@@ -53,6 +58,8 @@ export type AddOptions = {
   cwd?: string;
   /** Renderer to install. Default: web (or kern.json). */
   platform?: AddPlatform;
+  /** Design system to install from (decision 009). Default: the only current system. */
+  system?: string;
   /** Install mode recorded in the receipt. Default from flags/kern.json. */
   mode?: "source-hybrid" | "source-snapshot";
 };
@@ -212,7 +219,13 @@ export function planComponent(
     opts.selfContained ?? project.mode === "source-snapshot";
 
   const registry = loadRegistry(root);
-  const candidates = registry.rows.filter((r) => r.name === name);
+  // Decision 009: the system gates row selection before the platform does.
+  // Unknown systems fail here naming what the registry carries — resolving
+  // against the wrong system would vendor nothing while reporting success.
+  const system = resolveSystem(registry.rows, opts.system);
+  const candidates = registry.rows.filter(
+    (r) => r.name === name && r.system === system,
+  );
   if (candidates.length === 0) {
     fail(
       `unknown component "${name}" — names come from the registry, run \`kern list\` or check the docs.`,
@@ -476,6 +489,10 @@ export function planBlock(
   }
 
   const registry = loadRegistry(root);
+  // Decision 009: the system flag validates even for blocks (blocks are
+  // web-only M3 compositions with no system of their own) — installing M3
+  // bytes under a foreign system name must fail, not silently succeed.
+  const system = resolveSystem(registry.rows, opts.system);
   const files: PlannedFile[] = [];
   for (const rel of list) {
     files.push({
@@ -490,7 +507,8 @@ export function planBlock(
   const seen = new Set<string>();
   for (const exportName of row.registryDependencies) {
     const dep = registry.rows.find(
-      (r) => r.export === exportName && r.platform === "web",
+      (r) =>
+        r.export === exportName && r.platform === "web" && r.system === system,
     );
     if (!dep) {
       fail(

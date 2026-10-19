@@ -1,11 +1,12 @@
 {
   "version": "0.0.0",
-  "releaseSet": "kern@0.0.0+422.83a0f1cf1f63da0d",
+  "releaseSet": "kern@0.0.0+422.b5999ea29de528ca",
   "rows": [
     {
       "name": "accordion-root",
       "export": "AccordionRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/accordion.tsx",
       "status": "real"
@@ -14,6 +15,7 @@
       "name": "accordion-item",
       "export": "AccordionItem",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/accordion.tsx",
       "status": "real"
@@ -22,6 +24,7 @@
       "name": "accordion-header",
       "export": "AccordionHeader",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/accordion.tsx",
       "status": "real"
@@ -30,6 +33,7 @@
       "name": "accordion-trigger",
       "export": "AccordionTrigger",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/accordion.tsx",
       "status": "real"
@@ -38,6 +42,7 @@
       "name": "accordion-panel",
       "export": "AccordionPanel",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/accordion.tsx",
       "status": "real"
@@ -46,6 +51,7 @@
       "name": "accordion",
       "export": "Accordion",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/accordion.tsx",
       "status": "real"
@@ -54,6 +60,7 @@
       "name": "alert-dialog-root",
       "export": "AlertDialogRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/alert-dialog.tsx",
       "status": "real"
@@ -62,6 +69,7 @@
       "name": "alert-dialog-trigger",
       "export": "AlertDialogTrigger",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/alert-dialog.tsx",
       "status": "real"
@@ -70,6 +78,7 @@
       "name": "alert-dialog-content",
       "export": "AlertDialogContent",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/alert-dialog.tsx",
       "status": "real"
@@ -78,6 +87,7 @@
       "name": "alert-dialog-title",
       "export": "AlertDialogTitle",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/alert-dialog.tsx",
       "status": "real"
@@ -86,6 +96,7 @@
       "name": "alert-dialog-description",
       "export": "AlertDialogDescription",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/alert-dialog.tsx",
       "status": "real"
@@ -94,6 +105,7 @@
       "name": "alert-dialog-close",
       "export": "AlertDialogClose",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/alert-dialog.tsx",
       "status": "real"
@@ -102,6 +114,7 @@
       "name": "alert-dialog",
       "export": "AlertDialog",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/alert-dialog.tsx",
       "status": "real"
@@ -110,6 +123,7 @@
       "name": "autocomplete-root",
       "export": "AutocompleteRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/autocomplete.tsx",
       "status": "real"
@@ -118,6 +132,7 @@
       "name": "autocomplete-label",
       "export": "AutocompleteLabel",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/autocomplete.tsx",
       "status": "real"
@@ -126,6 +141,7 @@
       "name": "autocomplete-input",
       "export": "AutocompleteInput",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/autocomplete.tsx",
       "status": "real"
@@ -134,6 +150,7 @@
       "name": "autocomplete-content",
       "export": "AutocompleteContent",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/autocomplete.tsx",
       "status": "real"
@@ -142,6 +159,7 @@
       "name": "autocomplete-item",
       "export": "AutocompleteItem",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/autocomplete.tsx",
       "status": "real"
@@ -150,6 +168,7 @@
       "name": "autocomplete-empty",
       "export": "AutocompleteEmpty",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/autocomplete.tsx",
       "status": "real"
@@ -158,6 +177,7 @@
       "name": "autocomplete",
       "export": "Autocomplete",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/autocomplete.tsx",
       "status": "real"
@@ -166,6 +186,7 @@
       "name": "avatar-root",
       "export": "AvatarRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/avatar.tsx",
       "status": "real"
@@ -174,6 +195,7 @@
       "name": "avatar-image",
       "export": "AvatarImage",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/avatar.tsx",
       "status": "real"
@@ -182,6 +204,7 @@
       "name": "avatar-fallback",
       "export": "AvatarFallback",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/avatar.tsx",
       "status": "real"
@@ -190,6 +213,7 @@
       "name": "avatar",
       "export": "Avatar",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/avatar.tsx",
       "status": "real"
@@ -198,6 +222,7 @@
       "name": "badge",
       "export": "Badge",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/badge.tsx",
       "status": "real"
@@ -206,6 +231,7 @@
       "name": "banner",
       "export": "Banner",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/banner.tsx",
       "status": "real"
@@ -214,6 +240,7 @@
       "name": "banner-action",
       "export": "BannerAction",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/banner.tsx",
       "status": "real"
@@ -222,6 +249,7 @@
       "name": "boot-indicator",
       "export": "BootIndicator",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/boot-indicator.tsx",
       "status": "real"
@@ -230,6 +258,7 @@
       "name": "button-group",
       "export": "ButtonGroup",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/button-group.tsx",
       "status": "real"
@@ -238,6 +267,7 @@
       "name": "button",
       "export": "Button",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/button.tsx",
       "status": "real"
@@ -246,6 +276,7 @@
       "name": "calendar",
       "export": "Calendar",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/calendar.tsx",
       "status": "real"
@@ -254,6 +285,7 @@
       "name": "card",
       "export": "Card",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/card.tsx",
       "status": "real"
@@ -262,6 +294,7 @@
       "name": "card-header",
       "export": "CardHeader",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/card.tsx",
       "status": "real"
@@ -270,6 +303,7 @@
       "name": "card-content",
       "export": "CardContent",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/card.tsx",
       "status": "real"
@@ -278,6 +312,7 @@
       "name": "card-actions",
       "export": "CardActions",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/card.tsx",
       "status": "real"
@@ -286,6 +321,7 @@
       "name": "carousel",
       "export": "Carousel",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/carousel.tsx",
       "status": "real"
@@ -294,6 +330,7 @@
       "name": "checkbox-group-root",
       "export": "CheckboxGroupRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/checkbox-group.tsx",
       "status": "real"
@@ -302,6 +339,7 @@
       "name": "checkbox-group-item",
       "export": "CheckboxGroupItem",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/checkbox-group.tsx",
       "status": "real"
@@ -310,6 +348,7 @@
       "name": "checkbox-group",
       "export": "CheckboxGroup",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/checkbox-group.tsx",
       "status": "real"
@@ -318,6 +357,7 @@
       "name": "checkbox",
       "export": "Checkbox",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/checkbox.tsx",
       "status": "real"
@@ -326,6 +366,7 @@
       "name": "chip",
       "export": "Chip",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/chip.tsx",
       "status": "real"
@@ -334,6 +375,7 @@
       "name": "circular-progress",
       "export": "CircularProgress",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/circular-progress.tsx",
       "status": "real"
@@ -342,6 +384,7 @@
       "name": "collapsible-root",
       "export": "CollapsibleRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/collapsible.tsx",
       "status": "real"
@@ -350,6 +393,7 @@
       "name": "collapsible-trigger",
       "export": "CollapsibleTrigger",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/collapsible.tsx",
       "status": "real"
@@ -358,6 +402,7 @@
       "name": "collapsible-panel",
       "export": "CollapsiblePanel",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/collapsible.tsx",
       "status": "real"
@@ -366,6 +411,7 @@
       "name": "collapsible",
       "export": "Collapsible",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/collapsible.tsx",
       "status": "real"
@@ -374,6 +420,7 @@
       "name": "combobox-root",
       "export": "ComboboxRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/combobox.tsx",
       "status": "real"
@@ -382,6 +429,7 @@
       "name": "combobox-label",
       "export": "ComboboxLabel",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/combobox.tsx",
       "status": "real"
@@ -390,6 +438,7 @@
       "name": "combobox-input",
       "export": "ComboboxInput",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/combobox.tsx",
       "status": "real"
@@ -398,6 +447,7 @@
       "name": "combobox-trigger",
       "export": "ComboboxTrigger",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/combobox.tsx",
       "status": "real"
@@ -406,6 +456,7 @@
       "name": "combobox-clear",
       "export": "ComboboxClear",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/combobox.tsx",
       "status": "real"
@@ -414,6 +465,7 @@
       "name": "combobox-content",
       "export": "ComboboxContent",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/combobox.tsx",
       "status": "real"
@@ -422,6 +474,7 @@
       "name": "combobox-item",
       "export": "ComboboxItem",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/combobox.tsx",
       "status": "real"
@@ -430,6 +483,7 @@
       "name": "combobox-empty",
       "export": "ComboboxEmpty",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/combobox.tsx",
       "status": "real"
@@ -438,6 +492,7 @@
       "name": "combobox",
       "export": "Combobox",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/combobox.tsx",
       "status": "real"
@@ -446,6 +501,7 @@
       "name": "command-root",
       "export": "CommandRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/command.tsx",
       "status": "real"
@@ -454,6 +510,7 @@
       "name": "command-input",
       "export": "CommandInput",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/command.tsx",
       "status": "real"
@@ -462,6 +519,7 @@
       "name": "command-content",
       "export": "CommandContent",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/command.tsx",
       "status": "real"
@@ -470,6 +528,7 @@
       "name": "command-list",
       "export": "CommandList",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/command.tsx",
       "status": "real"
@@ -478,6 +537,7 @@
       "name": "command-item",
       "export": "CommandItem",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/command.tsx",
       "status": "real"
@@ -486,6 +546,7 @@
       "name": "command-empty",
       "export": "CommandEmpty",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/command.tsx",
       "status": "real"
@@ -494,6 +555,7 @@
       "name": "command-separator",
       "export": "CommandSeparator",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/command.tsx",
       "status": "real"
@@ -502,6 +564,7 @@
       "name": "command-group-label",
       "export": "CommandGroupLabel",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/command.tsx",
       "status": "real"
@@ -510,6 +573,7 @@
       "name": "command",
       "export": "Command",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/command.tsx",
       "status": "real"
@@ -518,6 +582,7 @@
       "name": "context-menu-root",
       "export": "ContextMenuRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/context-menu.tsx",
       "status": "real"
@@ -526,6 +591,7 @@
       "name": "context-menu-trigger",
       "export": "ContextMenuTrigger",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/context-menu.tsx",
       "status": "real"
@@ -534,6 +600,7 @@
       "name": "context-menu-content",
       "export": "ContextMenuContent",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/context-menu.tsx",
       "status": "real"
@@ -542,6 +609,7 @@
       "name": "context-menu-item",
       "export": "ContextMenuItem",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/context-menu.tsx",
       "status": "real"
@@ -550,6 +618,7 @@
       "name": "context-menu-separator",
       "export": "ContextMenuSeparator",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/context-menu.tsx",
       "status": "real"
@@ -558,6 +627,7 @@
       "name": "context-menu",
       "export": "ContextMenu",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/context-menu.tsx",
       "status": "real"
@@ -566,6 +636,7 @@
       "name": "country-select-root",
       "export": "CountrySelectRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/country-select.tsx",
       "status": "real"
@@ -574,6 +645,7 @@
       "name": "country-select-label",
       "export": "CountrySelectLabel",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/country-select.tsx",
       "status": "real"
@@ -582,6 +654,7 @@
       "name": "country-select-trigger",
       "export": "CountrySelectTrigger",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/country-select.tsx",
       "status": "real"
@@ -590,6 +663,7 @@
       "name": "country-select-value",
       "export": "CountrySelectValue",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/country-select.tsx",
       "status": "real"
@@ -598,6 +672,7 @@
       "name": "country-select-content",
       "export": "CountrySelectContent",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/country-select.tsx",
       "status": "real"
@@ -606,6 +681,7 @@
       "name": "country-select-item",
       "export": "CountrySelectItem",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/country-select.tsx",
       "status": "real"
@@ -614,6 +690,7 @@
       "name": "country-select",
       "export": "CountrySelect",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/country-select.tsx",
       "status": "real"
@@ -622,6 +699,7 @@
       "name": "dialog-root",
       "export": "DialogRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/dialog.tsx",
       "status": "real"
@@ -630,6 +708,7 @@
       "name": "dialog-trigger",
       "export": "DialogTrigger",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/dialog.tsx",
       "status": "real"
@@ -638,6 +717,7 @@
       "name": "dialog-content",
       "export": "DialogContent",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/dialog.tsx",
       "status": "real"
@@ -646,6 +726,7 @@
       "name": "dialog-title",
       "export": "DialogTitle",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/dialog.tsx",
       "status": "real"
@@ -654,6 +735,7 @@
       "name": "dialog-description",
       "export": "DialogDescription",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/dialog.tsx",
       "status": "real"
@@ -662,6 +744,7 @@
       "name": "dialog-close",
       "export": "DialogClose",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/dialog.tsx",
       "status": "real"
@@ -670,6 +753,7 @@
       "name": "dialog",
       "export": "Dialog",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/dialog.tsx",
       "status": "real"
@@ -678,6 +762,7 @@
       "name": "drawer-root",
       "export": "DrawerRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/drawer.tsx",
       "status": "real"
@@ -686,6 +771,7 @@
       "name": "drawer-trigger",
       "export": "DrawerTrigger",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/drawer.tsx",
       "status": "real"
@@ -694,6 +780,7 @@
       "name": "drawer-content",
       "export": "DrawerContent",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/drawer.tsx",
       "status": "real"
@@ -702,6 +789,7 @@
       "name": "drawer-title",
       "export": "DrawerTitle",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/drawer.tsx",
       "status": "real"
@@ -710,6 +798,7 @@
       "name": "drawer-description",
       "export": "DrawerDescription",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/drawer.tsx",
       "status": "real"
@@ -718,6 +807,7 @@
       "name": "drawer-close",
       "export": "DrawerClose",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/drawer.tsx",
       "status": "real"
@@ -726,6 +816,7 @@
       "name": "drawer",
       "export": "Drawer",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/drawer.tsx",
       "status": "real"
@@ -734,6 +825,7 @@
       "name": "empty-state",
       "export": "EmptyState",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/empty-state.tsx",
       "status": "real"
@@ -742,6 +834,7 @@
       "name": "kern-error-boundary",
       "export": "KernErrorBoundary",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/error-boundary.tsx",
       "status": "real"
@@ -750,6 +843,7 @@
       "name": "extended-fab",
       "export": "ExtendedFab",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/extended-fab.tsx",
       "status": "real"
@@ -758,6 +852,7 @@
       "name": "fab-menu",
       "export": "FabMenu",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/fab-menu.tsx",
       "status": "real"
@@ -766,6 +861,7 @@
       "name": "fab",
       "export": "Fab",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/fab.tsx",
       "status": "real"
@@ -774,6 +870,7 @@
       "name": "field-message",
       "export": "FieldMessage",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/field-message.tsx",
       "status": "real"
@@ -782,6 +879,7 @@
       "name": "field-root",
       "export": "FieldRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/field.tsx",
       "status": "real"
@@ -790,6 +888,7 @@
       "name": "field-label",
       "export": "FieldLabel",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/field.tsx",
       "status": "real"
@@ -798,6 +897,7 @@
       "name": "field-description",
       "export": "FieldDescription",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/field.tsx",
       "status": "real"
@@ -806,6 +906,7 @@
       "name": "field-error",
       "export": "FieldError",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/field.tsx",
       "status": "real"
@@ -814,6 +915,7 @@
       "name": "field",
       "export": "Field",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/field.tsx",
       "status": "real"
@@ -822,6 +924,7 @@
       "name": "fieldset-root",
       "export": "FieldsetRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/fieldset.tsx",
       "status": "real"
@@ -830,6 +933,7 @@
       "name": "fieldset-legend",
       "export": "FieldsetLegend",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/fieldset.tsx",
       "status": "real"
@@ -838,6 +942,7 @@
       "name": "fieldset",
       "export": "Fieldset",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/fieldset.tsx",
       "status": "real"
@@ -846,6 +951,7 @@
       "name": "focus-ring",
       "export": "FocusRing",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/focus-ring.tsx",
       "status": "real"
@@ -854,6 +960,7 @@
       "name": "form",
       "export": "Form",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/form.tsx",
       "status": "real"
@@ -862,6 +969,7 @@
       "name": "icon-button",
       "export": "IconButton",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/icon-button.tsx",
       "status": "real"
@@ -870,6 +978,7 @@
       "name": "input-otp-root",
       "export": "InputOTPRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/input-otp.tsx",
       "status": "real"
@@ -878,6 +987,7 @@
       "name": "input-otp-input",
       "export": "InputOTPInput",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/input-otp.tsx",
       "status": "real"
@@ -886,6 +996,7 @@
       "name": "input-otp",
       "export": "InputOTP",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/input-otp.tsx",
       "status": "real"
@@ -894,6 +1005,7 @@
       "name": "input",
       "export": "Input",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/input.tsx",
       "status": "real"
@@ -902,6 +1014,7 @@
       "name": "kbd",
       "export": "Kbd",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kbd.tsx",
       "status": "real"
@@ -910,6 +1023,7 @@
       "name": "label",
       "export": "Label",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/label.tsx",
       "status": "real"
@@ -918,6 +1032,7 @@
       "name": "linear-progress",
       "export": "LinearProgress",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/linear-progress.tsx",
       "status": "real"
@@ -926,6 +1041,7 @@
       "name": "link-button",
       "export": "LinkButton",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/link-button.tsx",
       "status": "real"
@@ -934,6 +1050,7 @@
       "name": "list-item",
       "export": "ListItem",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/list-item.tsx",
       "status": "real"
@@ -942,6 +1059,7 @@
       "name": "loader",
       "export": "Loader",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/loader.tsx",
       "status": "real"
@@ -950,6 +1068,7 @@
       "name": "loading-button",
       "export": "LoadingButton",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/loading-button.tsx",
       "status": "real"
@@ -958,6 +1077,7 @@
       "name": "loading-indicator",
       "export": "LoadingIndicator",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/loading-indicator.tsx",
       "status": "real"
@@ -966,6 +1086,7 @@
       "name": "loading-region",
       "export": "LoadingRegion",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/loading-indicator.tsx",
       "status": "real"
@@ -974,6 +1095,7 @@
       "name": "menu-screen",
       "export": "MenuScreen",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menu-family.tsx",
       "status": "real"
@@ -982,6 +1104,7 @@
       "name": "menu-sheet",
       "export": "MenuSheet",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menu-family.tsx",
       "status": "real"
@@ -990,6 +1113,7 @@
       "name": "filter-chip-row",
       "export": "FilterChipRow",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menu-family.tsx",
       "status": "real"
@@ -998,6 +1122,7 @@
       "name": "menu-root",
       "export": "MenuRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menu.tsx",
       "status": "real"
@@ -1006,6 +1131,7 @@
       "name": "menu-trigger",
       "export": "MenuTrigger",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menu.tsx",
       "status": "real"
@@ -1014,6 +1140,7 @@
       "name": "menu-content",
       "export": "MenuContent",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menu.tsx",
       "status": "real"
@@ -1022,6 +1149,7 @@
       "name": "menu-item",
       "export": "MenuItem",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menu.tsx",
       "status": "real"
@@ -1030,6 +1158,7 @@
       "name": "menu-separator",
       "export": "MenuSeparator",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menu.tsx",
       "status": "real"
@@ -1038,6 +1167,7 @@
       "name": "menu-group-label",
       "export": "MenuGroupLabel",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menu.tsx",
       "status": "real"
@@ -1046,6 +1176,7 @@
       "name": "menu",
       "export": "Menu",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menu.tsx",
       "status": "real"
@@ -1054,6 +1185,7 @@
       "name": "menubar-root",
       "export": "MenubarRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menubar.tsx",
       "status": "real"
@@ -1062,6 +1194,7 @@
       "name": "menubar-menu",
       "export": "MenubarMenu",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menubar.tsx",
       "status": "real"
@@ -1070,6 +1203,7 @@
       "name": "menubar-trigger",
       "export": "MenubarTrigger",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menubar.tsx",
       "status": "real"
@@ -1078,6 +1212,7 @@
       "name": "menubar-content",
       "export": "MenubarContent",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menubar.tsx",
       "status": "real"
@@ -1086,6 +1221,7 @@
       "name": "menubar-item",
       "export": "MenubarItem",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menubar.tsx",
       "status": "real"
@@ -1094,6 +1230,7 @@
       "name": "menubar",
       "export": "Menubar",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menubar.tsx",
       "status": "real"
@@ -1102,6 +1239,7 @@
       "name": "meter-root",
       "export": "MeterRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/meter.tsx",
       "status": "real"
@@ -1110,6 +1248,7 @@
       "name": "meter-label",
       "export": "MeterLabel",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/meter.tsx",
       "status": "real"
@@ -1118,6 +1257,7 @@
       "name": "meter-value",
       "export": "MeterValue",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/meter.tsx",
       "status": "real"
@@ -1126,6 +1266,7 @@
       "name": "meter",
       "export": "Meter",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/meter.tsx",
       "status": "real"
@@ -1134,6 +1275,7 @@
       "name": "native-select",
       "export": "NativeSelect",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/native-select.tsx",
       "status": "real"
@@ -1142,6 +1284,7 @@
       "name": "navigation-bar",
       "export": "NavigationBar",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/navigation-bar.tsx",
       "status": "real"
@@ -1150,6 +1293,7 @@
       "name": "navigation-bar-item",
       "export": "NavigationBarItem",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/navigation-bar.tsx",
       "status": "real"
@@ -1158,6 +1302,7 @@
       "name": "navigation-drawer",
       "export": "NavigationDrawer",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/navigation-drawer.tsx",
       "status": "real"
@@ -1166,6 +1311,7 @@
       "name": "navigation-menu-root",
       "export": "NavigationMenuRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/navigation-menu.tsx",
       "status": "real"
@@ -1174,6 +1320,7 @@
       "name": "navigation-menu-list",
       "export": "NavigationMenuList",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/navigation-menu.tsx",
       "status": "real"
@@ -1182,6 +1329,7 @@
       "name": "navigation-menu-item",
       "export": "NavigationMenuItem",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/navigation-menu.tsx",
       "status": "real"
@@ -1190,6 +1338,7 @@
       "name": "navigation-menu-trigger",
       "export": "NavigationMenuTrigger",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/navigation-menu.tsx",
       "status": "real"
@@ -1198,6 +1347,7 @@
       "name": "navigation-menu-content",
       "export": "NavigationMenuContent",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/navigation-menu.tsx",
       "status": "real"
@@ -1206,6 +1356,7 @@
       "name": "navigation-menu-link",
       "export": "NavigationMenuLink",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/navigation-menu.tsx",
       "status": "real"
@@ -1214,6 +1365,7 @@
       "name": "navigation-menu",
       "export": "NavigationMenu",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/navigation-menu.tsx",
       "status": "real"
@@ -1222,6 +1374,7 @@
       "name": "number-field-root",
       "export": "NumberFieldRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/number-field.tsx",
       "status": "real"
@@ -1230,6 +1383,7 @@
       "name": "number-field-input",
       "export": "NumberFieldInput",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/number-field.tsx",
       "status": "real"
@@ -1238,6 +1392,7 @@
       "name": "number-field",
       "export": "NumberField",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/number-field.tsx",
       "status": "real"
@@ -1246,6 +1401,7 @@
       "name": "page-loader",
       "export": "PageLoader",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/page-loader.tsx",
       "status": "real"
@@ -1254,6 +1410,7 @@
       "name": "pagination",
       "export": "Pagination",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/pagination.tsx",
       "status": "real"
@@ -1262,6 +1419,7 @@
       "name": "popover-root",
       "export": "PopoverRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/popover.tsx",
       "status": "real"
@@ -1270,6 +1428,7 @@
       "name": "popover-trigger",
       "export": "PopoverTrigger",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/popover.tsx",
       "status": "real"
@@ -1278,6 +1437,7 @@
       "name": "popover-content",
       "export": "PopoverContent",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/popover.tsx",
       "status": "real"
@@ -1286,6 +1446,7 @@
       "name": "popover-title",
       "export": "PopoverTitle",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/popover.tsx",
       "status": "real"
@@ -1294,6 +1455,7 @@
       "name": "popover-description",
       "export": "PopoverDescription",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/popover.tsx",
       "status": "real"
@@ -1302,6 +1464,7 @@
       "name": "popover-close",
       "export": "PopoverClose",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/popover.tsx",
       "status": "real"
@@ -1310,6 +1473,7 @@
       "name": "popover",
       "export": "Popover",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/popover.tsx",
       "status": "real"
@@ -1318,6 +1482,7 @@
       "name": "preview-card-root",
       "export": "PreviewCardRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/preview-card.tsx",
       "status": "real"
@@ -1326,6 +1491,7 @@
       "name": "preview-card-trigger",
       "export": "PreviewCardTrigger",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/preview-card.tsx",
       "status": "real"
@@ -1334,6 +1500,7 @@
       "name": "preview-card-content",
       "export": "PreviewCardContent",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/preview-card.tsx",
       "status": "real"
@@ -1342,6 +1509,7 @@
       "name": "preview-card",
       "export": "PreviewCard",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/preview-card.tsx",
       "status": "real"
@@ -1350,6 +1518,7 @@
       "name": "progress-root",
       "export": "ProgressRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/progress.tsx",
       "status": "real"
@@ -1358,6 +1527,7 @@
       "name": "progress-label",
       "export": "ProgressLabel",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/progress.tsx",
       "status": "real"
@@ -1366,6 +1536,7 @@
       "name": "progress-value",
       "export": "ProgressValue",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/progress.tsx",
       "status": "real"
@@ -1374,6 +1545,7 @@
       "name": "progress",
       "export": "Progress",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/progress.tsx",
       "status": "real"
@@ -1382,6 +1554,7 @@
       "name": "radio-group",
       "export": "RadioGroup",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/radio-group.tsx",
       "status": "real"
@@ -1390,6 +1563,7 @@
       "name": "radio-group-item",
       "export": "RadioGroupItem",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/radio-group.tsx",
       "status": "real"
@@ -1398,6 +1572,7 @@
       "name": "scroll-area-root",
       "export": "ScrollAreaRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/scroll-area.tsx",
       "status": "real"
@@ -1406,6 +1581,7 @@
       "name": "scroll-area-viewport",
       "export": "ScrollAreaViewport",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/scroll-area.tsx",
       "status": "real"
@@ -1414,6 +1590,7 @@
       "name": "scroll-area-scrollbar",
       "export": "ScrollAreaScrollbar",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/scroll-area.tsx",
       "status": "real"
@@ -1422,6 +1599,7 @@
       "name": "scroll-area",
       "export": "ScrollArea",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/scroll-area.tsx",
       "status": "real"
@@ -1430,6 +1608,7 @@
       "name": "search",
       "export": "Search",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/search.tsx",
       "status": "real"
@@ -1438,6 +1617,7 @@
       "name": "secondary-tabs",
       "export": "SecondaryTabs",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/secondary-tabs.tsx",
       "status": "real"
@@ -1446,6 +1626,7 @@
       "name": "segmented-button-root",
       "export": "SegmentedButtonRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/segmented-button.tsx",
       "status": "real"
@@ -1454,6 +1635,7 @@
       "name": "segmented-button-item",
       "export": "SegmentedButtonItem",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/segmented-button.tsx",
       "status": "real"
@@ -1462,6 +1644,7 @@
       "name": "segmented-button",
       "export": "SegmentedButton",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/segmented-button.tsx",
       "status": "real"
@@ -1470,6 +1653,7 @@
       "name": "select-root",
       "export": "SelectRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/select.tsx",
       "status": "real"
@@ -1478,6 +1662,7 @@
       "name": "select-trigger",
       "export": "SelectTrigger",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/select.tsx",
       "status": "real"
@@ -1486,6 +1671,7 @@
       "name": "select-value",
       "export": "SelectValue",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/select.tsx",
       "status": "real"
@@ -1494,6 +1680,7 @@
       "name": "select-content",
       "export": "SelectContent",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/select.tsx",
       "status": "real"
@@ -1502,6 +1689,7 @@
       "name": "select-item",
       "export": "SelectItem",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/select.tsx",
       "status": "real"
@@ -1510,6 +1698,7 @@
       "name": "select-item-text",
       "export": "SelectItemText",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/select.tsx",
       "status": "real"
@@ -1518,6 +1707,7 @@
       "name": "select-separator",
       "export": "SelectSeparator",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/select.tsx",
       "status": "real"
@@ -1526,6 +1716,7 @@
       "name": "select-group",
       "export": "SelectGroup",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/select.tsx",
       "status": "real"
@@ -1534,6 +1725,7 @@
       "name": "select-group-label",
       "export": "SelectGroupLabel",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/select.tsx",
       "status": "real"
@@ -1542,6 +1734,7 @@
       "name": "select",
       "export": "Select",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/select.tsx",
       "status": "real"
@@ -1550,6 +1743,7 @@
       "name": "separator",
       "export": "Separator",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/separator.tsx",
       "status": "real"
@@ -1558,6 +1752,7 @@
       "name": "sheet-surface",
       "export": "SheetSurface",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheet-family.tsx",
       "status": "real"
@@ -1566,6 +1761,7 @@
       "name": "bottom-sheet",
       "export": "BottomSheet",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheet-family.tsx",
       "status": "real"
@@ -1574,6 +1770,7 @@
       "name": "dock-sheet",
       "export": "DockSheet",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheet-family.tsx",
       "status": "real"
@@ -1582,6 +1779,7 @@
       "name": "snap-sheet",
       "export": "SnapSheet",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheet-family.tsx",
       "status": "real"
@@ -1590,6 +1788,7 @@
       "name": "entity-sheet",
       "export": "EntitySheet",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheet-family.tsx",
       "status": "real"
@@ -1598,6 +1797,7 @@
       "name": "bottom-sheet-picker",
       "export": "BottomSheetPicker",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheet-family.tsx",
       "status": "real"
@@ -1606,6 +1806,7 @@
       "name": "action-sheet",
       "export": "ActionSheet",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheet-family.tsx",
       "status": "real"
@@ -1614,6 +1815,7 @@
       "name": "sheet-root",
       "export": "SheetRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheet.tsx",
       "status": "real"
@@ -1622,6 +1824,7 @@
       "name": "sheet-trigger",
       "export": "SheetTrigger",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheet.tsx",
       "status": "real"
@@ -1630,6 +1833,7 @@
       "name": "sheet-content",
       "export": "SheetContent",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheet.tsx",
       "status": "real"
@@ -1638,6 +1842,7 @@
       "name": "sheet-title",
       "export": "SheetTitle",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheet.tsx",
       "status": "real"
@@ -1646,6 +1851,7 @@
       "name": "sheet-description",
       "export": "SheetDescription",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheet.tsx",
       "status": "real"
@@ -1654,6 +1860,7 @@
       "name": "sheet-close",
       "export": "SheetClose",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheet.tsx",
       "status": "real"
@@ -1662,6 +1869,7 @@
       "name": "sheet",
       "export": "Sheet",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheet.tsx",
       "status": "real"
@@ -1670,6 +1878,7 @@
       "name": "skeleton",
       "export": "Skeleton",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/skeleton.tsx",
       "status": "real"
@@ -1678,6 +1887,7 @@
       "name": "slider-root",
       "export": "SliderRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/slider.tsx",
       "status": "real"
@@ -1686,6 +1896,7 @@
       "name": "slider-thumb",
       "export": "SliderThumb",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/slider.tsx",
       "status": "real"
@@ -1694,6 +1905,7 @@
       "name": "slider-label",
       "export": "SliderLabel",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/slider.tsx",
       "status": "real"
@@ -1702,6 +1914,7 @@
       "name": "slider-value",
       "export": "SliderValue",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/slider.tsx",
       "status": "real"
@@ -1710,6 +1923,7 @@
       "name": "slider",
       "export": "Slider",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/slider.tsx",
       "status": "real"
@@ -1718,6 +1932,7 @@
       "name": "snackbar-provider",
       "export": "SnackbarProvider",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/snackbar.tsx",
       "status": "real"
@@ -1726,6 +1941,7 @@
       "name": "snackbar-viewport",
       "export": "SnackbarViewport",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/snackbar.tsx",
       "status": "real"
@@ -1734,6 +1950,7 @@
       "name": "snackbar-root",
       "export": "SnackbarRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/snackbar.tsx",
       "status": "real"
@@ -1742,6 +1959,7 @@
       "name": "snackbar-title",
       "export": "SnackbarTitle",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/snackbar.tsx",
       "status": "real"
@@ -1750,6 +1968,7 @@
       "name": "snackbar-description",
       "export": "SnackbarDescription",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/snackbar.tsx",
       "status": "real"
@@ -1758,6 +1977,7 @@
       "name": "snackbar-action",
       "export": "SnackbarAction",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/snackbar.tsx",
       "status": "real"
@@ -1766,6 +1986,7 @@
       "name": "snackbar-close",
       "export": "SnackbarClose",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/snackbar.tsx",
       "status": "real"
@@ -1774,6 +1995,7 @@
       "name": "snackbar-list",
       "export": "SnackbarList",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/snackbar.tsx",
       "status": "real"
@@ -1782,6 +2004,7 @@
       "name": "snackbar",
       "export": "Snackbar",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/snackbar.tsx",
       "status": "real"
@@ -1790,6 +2013,7 @@
       "name": "sonner-provider",
       "export": "SonnerProvider",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sonner.tsx",
       "status": "real"
@@ -1798,6 +2022,7 @@
       "name": "sonner-viewport",
       "export": "SonnerViewport",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sonner.tsx",
       "status": "real"
@@ -1806,6 +2031,7 @@
       "name": "sonner-root",
       "export": "SonnerRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sonner.tsx",
       "status": "real"
@@ -1814,6 +2040,7 @@
       "name": "sonner-title",
       "export": "SonnerTitle",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sonner.tsx",
       "status": "real"
@@ -1822,6 +2049,7 @@
       "name": "sonner-description",
       "export": "SonnerDescription",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sonner.tsx",
       "status": "real"
@@ -1830,6 +2058,7 @@
       "name": "sonner-action",
       "export": "SonnerAction",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sonner.tsx",
       "status": "real"
@@ -1838,6 +2067,7 @@
       "name": "sonner-close",
       "export": "SonnerClose",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sonner.tsx",
       "status": "real"
@@ -1846,6 +2076,7 @@
       "name": "sonner-list",
       "export": "SonnerList",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sonner.tsx",
       "status": "real"
@@ -1854,6 +2085,7 @@
       "name": "sonner",
       "export": "Sonner",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sonner.tsx",
       "status": "real"
@@ -1862,6 +2094,7 @@
       "name": "split-button",
       "export": "SplitButton",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/split-button.tsx",
       "status": "real"
@@ -1870,6 +2103,7 @@
       "name": "split",
       "export": "Split",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/split.tsx",
       "status": "real"
@@ -1878,6 +2112,7 @@
       "name": "switch",
       "export": "Switch",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/switch.tsx",
       "status": "real"
@@ -1886,6 +2121,7 @@
       "name": "table-root",
       "export": "TableRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/table.tsx",
       "status": "real"
@@ -1894,6 +2130,7 @@
       "name": "table-head",
       "export": "TableHead",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/table.tsx",
       "status": "real"
@@ -1902,6 +2139,7 @@
       "name": "table-body",
       "export": "TableBody",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/table.tsx",
       "status": "real"
@@ -1910,6 +2148,7 @@
       "name": "table-row",
       "export": "TableRow",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/table.tsx",
       "status": "real"
@@ -1918,6 +2157,7 @@
       "name": "table-header",
       "export": "TableHeader",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/table.tsx",
       "status": "real"
@@ -1926,6 +2166,7 @@
       "name": "table-cell",
       "export": "TableCell",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/table.tsx",
       "status": "real"
@@ -1934,6 +2175,7 @@
       "name": "table-caption",
       "export": "TableCaption",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/table.tsx",
       "status": "real"
@@ -1942,6 +2184,7 @@
       "name": "table",
       "export": "Table",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/table.tsx",
       "status": "real"
@@ -1950,6 +2193,7 @@
       "name": "tabs-root",
       "export": "TabsRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/tabs.tsx",
       "status": "real"
@@ -1958,6 +2202,7 @@
       "name": "tabs-list",
       "export": "TabsList",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/tabs.tsx",
       "status": "real"
@@ -1966,6 +2211,7 @@
       "name": "tabs-tab",
       "export": "TabsTab",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/tabs.tsx",
       "status": "real"
@@ -1974,6 +2220,7 @@
       "name": "tabs-panel",
       "export": "TabsPanel",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/tabs.tsx",
       "status": "real"
@@ -1982,6 +2229,7 @@
       "name": "tabs",
       "export": "Tabs",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/tabs.tsx",
       "status": "real"
@@ -1990,6 +2238,7 @@
       "name": "text",
       "export": "Text",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/text.tsx",
       "status": "real"
@@ -1998,6 +2247,7 @@
       "name": "textarea",
       "export": "Textarea",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/textarea.tsx",
       "status": "real"
@@ -2006,6 +2256,7 @@
       "name": "theme-toggle",
       "export": "ThemeToggle",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/theme-toggle.tsx",
       "status": "real"
@@ -2014,6 +2265,7 @@
       "name": "time-picker",
       "export": "TimePicker",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/time-picker.tsx",
       "status": "real"
@@ -2022,6 +2274,7 @@
       "name": "toggle-group-root",
       "export": "ToggleGroupRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/toggle-group.tsx",
       "status": "real"
@@ -2030,6 +2283,7 @@
       "name": "toggle-group-item",
       "export": "ToggleGroupItem",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/toggle-group.tsx",
       "status": "real"
@@ -2038,6 +2292,7 @@
       "name": "toggle-group",
       "export": "ToggleGroup",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/toggle-group.tsx",
       "status": "real"
@@ -2046,6 +2301,7 @@
       "name": "toggle",
       "export": "Toggle",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/toggle.tsx",
       "status": "real"
@@ -2054,6 +2310,7 @@
       "name": "toolbar-root",
       "export": "ToolbarRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/toolbar.tsx",
       "status": "real"
@@ -2062,6 +2319,7 @@
       "name": "toolbar-group",
       "export": "ToolbarGroup",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/toolbar.tsx",
       "status": "real"
@@ -2070,6 +2328,7 @@
       "name": "toolbar-button",
       "export": "ToolbarButton",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/toolbar.tsx",
       "status": "real"
@@ -2078,6 +2337,7 @@
       "name": "toolbar-separator",
       "export": "ToolbarSeparator",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/toolbar.tsx",
       "status": "real"
@@ -2086,6 +2346,7 @@
       "name": "toolbar",
       "export": "Toolbar",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/toolbar.tsx",
       "status": "real"
@@ -2094,6 +2355,7 @@
       "name": "tooltip-provider",
       "export": "TooltipProvider",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/tooltip.tsx",
       "status": "real"
@@ -2102,6 +2364,7 @@
       "name": "tooltip-root",
       "export": "TooltipRoot",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/tooltip.tsx",
       "status": "real"
@@ -2110,6 +2373,7 @@
       "name": "tooltip-trigger",
       "export": "TooltipTrigger",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/tooltip.tsx",
       "status": "real"
@@ -2118,6 +2382,7 @@
       "name": "tooltip-content",
       "export": "TooltipContent",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/tooltip.tsx",
       "status": "real"
@@ -2126,6 +2391,7 @@
       "name": "rich-tooltip-content",
       "export": "RichTooltipContent",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/tooltip.tsx",
       "status": "real"
@@ -2134,6 +2400,7 @@
       "name": "rich-tooltip-title",
       "export": "RichTooltipTitle",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/tooltip.tsx",
       "status": "real"
@@ -2142,6 +2409,7 @@
       "name": "rich-tooltip-actions",
       "export": "RichTooltipActions",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/tooltip.tsx",
       "status": "real"
@@ -2150,6 +2418,7 @@
       "name": "tooltip",
       "export": "Tooltip",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/tooltip.tsx",
       "status": "real"
@@ -2158,6 +2427,7 @@
       "name": "rich-tooltip",
       "export": "RichTooltip",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/tooltip.tsx",
       "status": "real"
@@ -2166,6 +2436,7 @@
       "name": "search-bar",
       "export": "SearchBar",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/blocks.tsx",
       "status": "real"
@@ -2174,6 +2445,7 @@
       "name": "settings-row",
       "export": "SettingsRow",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/blocks.tsx",
       "status": "real"
@@ -2182,6 +2454,7 @@
       "name": "status-bar",
       "export": "StatusBar",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/blocks.tsx",
       "status": "real"
@@ -2190,6 +2463,7 @@
       "name": "contrast-toggle",
       "export": "ContrastToggle",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/blocks.tsx",
       "status": "real"
@@ -2198,6 +2472,7 @@
       "name": "link-provider",
       "export": "LinkProvider",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/link.tsx",
       "status": "real"
@@ -2206,6 +2481,7 @@
       "name": "link",
       "export": "Link",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/link.tsx",
       "status": "real"
@@ -2214,6 +2490,7 @@
       "name": "hero",
       "export": "Hero",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/marketing.tsx",
       "status": "real"
@@ -2222,6 +2499,7 @@
       "name": "top-bar",
       "export": "TopBar",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/marketing.tsx",
       "status": "real"
@@ -2230,6 +2508,7 @@
       "name": "site-footer",
       "export": "SiteFooter",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/marketing.tsx",
       "status": "real"
@@ -2238,6 +2517,7 @@
       "name": "sidebar-provider",
       "export": "SidebarProvider",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/navigation.tsx",
       "status": "real"
@@ -2246,6 +2526,7 @@
       "name": "sidebar",
       "export": "Sidebar",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/navigation.tsx",
       "status": "real"
@@ -2254,6 +2535,7 @@
       "name": "sidebar-header",
       "export": "SidebarHeader",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/navigation.tsx",
       "status": "real"
@@ -2262,6 +2544,7 @@
       "name": "sidebar-content",
       "export": "SidebarContent",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/navigation.tsx",
       "status": "real"
@@ -2270,6 +2553,7 @@
       "name": "sidebar-footer",
       "export": "SidebarFooter",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/navigation.tsx",
       "status": "real"
@@ -2278,6 +2562,7 @@
       "name": "sidebar-item",
       "export": "SidebarItem",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/navigation.tsx",
       "status": "real"
@@ -2286,6 +2571,7 @@
       "name": "navigation-rail",
       "export": "NavigationRail",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/navigation.tsx",
       "status": "real"
@@ -2294,6 +2580,7 @@
       "name": "navigation-rail-button",
       "export": "NavigationRailButton",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/navigation.tsx",
       "status": "real"
@@ -2302,6 +2589,7 @@
       "name": "section-drawer",
       "export": "SectionDrawer",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/navigation.tsx",
       "status": "real"
@@ -2310,6 +2598,7 @@
       "name": "pane",
       "export": "Pane",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/panes.tsx",
       "status": "real"
@@ -2318,6 +2607,7 @@
       "name": "page",
       "export": "Page",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/panes.tsx",
       "status": "real"
@@ -2326,6 +2616,7 @@
       "name": "split-grid",
       "export": "SplitGrid",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/panes.tsx",
       "status": "real"
@@ -2334,6 +2625,7 @@
       "name": "split-panel",
       "export": "SplitPanel",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/panes.tsx",
       "status": "real"
@@ -2342,6 +2634,7 @@
       "name": "list-detail",
       "export": "ListDetail",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/panes.tsx",
       "status": "real"
@@ -2350,6 +2643,7 @@
       "name": "inspector",
       "export": "Inspector",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/panes.tsx",
       "status": "real"
@@ -2358,6 +2652,7 @@
       "name": "app-shell",
       "export": "AppShell",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/scaffolds.tsx",
       "status": "real"
@@ -2366,6 +2661,7 @@
       "name": "document",
       "export": "Document",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/scaffolds.tsx",
       "status": "real"
@@ -2374,6 +2670,7 @@
       "name": "top-app-bar",
       "export": "TopAppBar",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/top-app-bar.tsx",
       "status": "real"
@@ -2382,6 +2679,7 @@
       "name": "top-app-bar-toggle",
       "export": "TopAppBarToggle",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/top-app-bar.tsx",
       "status": "real"
@@ -2390,6 +2688,7 @@
       "name": "app-top-bar",
       "export": "AppTopBar",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/top-app-bar.tsx",
       "status": "real"
@@ -2398,6 +2697,7 @@
       "name": "top-bar-menu",
       "export": "TopBarMenu",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/top-app-bar.tsx",
       "status": "real"
@@ -2406,6 +2706,7 @@
       "name": "apps-menu",
       "export": "AppsMenu",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/top-app-bar.tsx",
       "status": "real"
@@ -2414,6 +2715,7 @@
       "name": "help-menu",
       "export": "HelpMenu",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/top-app-bar.tsx",
       "status": "real"
@@ -2422,6 +2724,7 @@
       "name": "notifications-menu",
       "export": "NotificationsMenu",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/top-app-bar.tsx",
       "status": "real"
@@ -2430,6 +2733,7 @@
       "name": "user-menu",
       "export": "UserMenu",
       "platform": "web",
+      "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/top-app-bar.tsx",
       "status": "real"
@@ -2438,6 +2742,7 @@
       "name": "accordion",
       "export": "Accordion",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/accordion.tsx",
       "status": "real"
@@ -2446,6 +2751,7 @@
       "name": "alert-dialog",
       "export": "AlertDialog",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/alert-dialog.tsx",
       "status": "real"
@@ -2454,6 +2760,7 @@
       "name": "app-shell",
       "export": "AppShell",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/app-shell.tsx",
       "status": "real"
@@ -2462,6 +2769,7 @@
       "name": "aspect-ratio",
       "export": "AspectRatio",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/aspect-ratio.tsx",
       "status": "real"
@@ -2470,6 +2778,7 @@
       "name": "autocomplete",
       "export": "Autocomplete",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/autocomplete.tsx",
       "status": "real"
@@ -2478,6 +2787,7 @@
       "name": "avatar",
       "export": "Avatar",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/avatar.tsx",
       "status": "real"
@@ -2486,6 +2796,7 @@
       "name": "badge",
       "export": "Badge",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/badge.tsx",
       "status": "real"
@@ -2494,6 +2805,7 @@
       "name": "button-group",
       "export": "ButtonGroup",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/button-group.tsx",
       "status": "real"
@@ -2502,6 +2814,7 @@
       "name": "button",
       "export": "Button",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/button.tsx",
       "status": "real"
@@ -2510,6 +2823,7 @@
       "name": "calendar",
       "export": "Calendar",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/calendar.tsx",
       "status": "real"
@@ -2518,6 +2832,7 @@
       "name": "card",
       "export": "Card",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/card.tsx",
       "status": "real"
@@ -2526,6 +2841,7 @@
       "name": "card-header",
       "export": "CardHeader",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/card.tsx",
       "status": "real"
@@ -2534,6 +2850,7 @@
       "name": "card-content",
       "export": "CardContent",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/card.tsx",
       "status": "real"
@@ -2542,6 +2859,7 @@
       "name": "card-actions",
       "export": "CardActions",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/card.tsx",
       "status": "real"
@@ -2550,6 +2868,7 @@
       "name": "carousel",
       "export": "Carousel",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/carousel.tsx",
       "status": "real"
@@ -2558,6 +2877,7 @@
       "name": "checkbox-group",
       "export": "CheckboxGroup",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/checkbox-group.tsx",
       "status": "real"
@@ -2566,6 +2886,7 @@
       "name": "checkbox-group-item",
       "export": "CheckboxGroupItem",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/checkbox-group.tsx",
       "status": "real"
@@ -2574,6 +2895,7 @@
       "name": "checkbox",
       "export": "Checkbox",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/checkbox.tsx",
       "status": "real"
@@ -2582,6 +2904,7 @@
       "name": "chip",
       "export": "Chip",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/chip.tsx",
       "status": "real"
@@ -2590,6 +2913,7 @@
       "name": "circular-progress",
       "export": "CircularProgress",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/circular-progress.tsx",
       "status": "real"
@@ -2598,6 +2922,7 @@
       "name": "collapsible",
       "export": "Collapsible",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/collapsible.tsx",
       "status": "real"
@@ -2606,6 +2931,7 @@
       "name": "combobox",
       "export": "Combobox",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/combobox.tsx",
       "status": "real"
@@ -2614,6 +2940,7 @@
       "name": "context-menu",
       "export": "ContextMenu",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/context-menu.tsx",
       "status": "real"
@@ -2622,6 +2949,7 @@
       "name": "contrast-toggle",
       "export": "ContrastToggle",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/contrast-toggle.tsx",
       "status": "real"
@@ -2630,6 +2958,7 @@
       "name": "dialog",
       "export": "Dialog",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/dialog.tsx",
       "status": "real"
@@ -2638,6 +2967,7 @@
       "name": "empty-state",
       "export": "EmptyState",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/empty-state.tsx",
       "status": "real"
@@ -2646,6 +2976,7 @@
       "name": "extended-fab",
       "export": "ExtendedFab",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/extended-fab.tsx",
       "status": "real"
@@ -2654,6 +2985,7 @@
       "name": "fab-menu",
       "export": "FabMenu",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/fab-menu.tsx",
       "status": "real"
@@ -2662,6 +2994,7 @@
       "name": "fab",
       "export": "Fab",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/fab.tsx",
       "status": "real"
@@ -2670,6 +3003,7 @@
       "name": "field-message",
       "export": "FieldMessage",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/field-message.tsx",
       "status": "real"
@@ -2678,6 +3012,7 @@
       "name": "field",
       "export": "Field",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/field.tsx",
       "status": "real"
@@ -2686,6 +3021,7 @@
       "name": "field-root",
       "export": "FieldRoot",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/field.tsx",
       "status": "real"
@@ -2694,6 +3030,7 @@
       "name": "fieldset",
       "export": "Fieldset",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/fieldset.tsx",
       "status": "real"
@@ -2702,6 +3039,7 @@
       "name": "fieldset-legend",
       "export": "FieldsetLegend",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/fieldset.tsx",
       "status": "real"
@@ -2710,6 +3048,7 @@
       "name": "fieldset-item",
       "export": "FieldsetItem",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/fieldset.tsx",
       "status": "real"
@@ -2718,6 +3057,7 @@
       "name": "icon-button",
       "export": "IconButton",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/icon-button.tsx",
       "status": "real"
@@ -2726,6 +3066,7 @@
       "name": "icon-button-target",
       "export": "IconButtonTarget",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/icon-button.tsx",
       "status": "real"
@@ -2734,6 +3075,7 @@
       "name": "input-otp",
       "export": "InputOTP",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/input-otp.tsx",
       "status": "real"
@@ -2742,6 +3084,7 @@
       "name": "input",
       "export": "Input",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/input.tsx",
       "status": "real"
@@ -2750,6 +3093,7 @@
       "name": "kbd",
       "export": "Kbd",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kbd.tsx",
       "status": "real"
@@ -2758,6 +3102,7 @@
       "name": "label",
       "export": "Label",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/label.tsx",
       "status": "real"
@@ -2766,6 +3111,7 @@
       "name": "filter-chip-row",
       "export": "FilterChipRow",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/layouts.tsx",
       "status": "real"
@@ -2774,6 +3120,7 @@
       "name": "secondary-tabs",
       "export": "SecondaryTabs",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/layouts.tsx",
       "status": "real"
@@ -2782,6 +3129,7 @@
       "name": "pane",
       "export": "Pane",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/layouts.tsx",
       "status": "real"
@@ -2790,6 +3138,7 @@
       "name": "list-detail",
       "export": "ListDetail",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/layouts.tsx",
       "status": "real"
@@ -2798,6 +3147,7 @@
       "name": "supporting-pane",
       "export": "SupportingPane",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/layouts.tsx",
       "status": "real"
@@ -2806,6 +3156,7 @@
       "name": "linear-progress",
       "export": "LinearProgress",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/linear-progress.tsx",
       "status": "real"
@@ -2814,6 +3165,7 @@
       "name": "link-button",
       "export": "LinkButton",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/link-button.tsx",
       "status": "real"
@@ -2822,6 +3174,7 @@
       "name": "list-item",
       "export": "ListItem",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/list-item.tsx",
       "status": "real"
@@ -2830,6 +3183,7 @@
       "name": "loader",
       "export": "Loader",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/loader.tsx",
       "status": "real"
@@ -2838,6 +3192,7 @@
       "name": "loading-button",
       "export": "LoadingButton",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/loading-button.tsx",
       "status": "real"
@@ -2846,6 +3201,7 @@
       "name": "loading-indicator",
       "export": "LoadingIndicator",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/loading-indicator.tsx",
       "status": "real"
@@ -2854,6 +3210,7 @@
       "name": "menu",
       "export": "Menu",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menu.tsx",
       "status": "real"
@@ -2862,6 +3219,7 @@
       "name": "menubar",
       "export": "Menubar",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menubar.tsx",
       "status": "real"
@@ -2870,6 +3228,7 @@
       "name": "menu-group-list",
       "export": "MenuGroupList",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menus.tsx",
       "status": "real"
@@ -2878,6 +3237,7 @@
       "name": "menu-screen",
       "export": "MenuScreen",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menus.tsx",
       "status": "real"
@@ -2886,6 +3246,7 @@
       "name": "menu-sheet",
       "export": "MenuSheet",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menus.tsx",
       "status": "real"
@@ -2894,6 +3255,7 @@
       "name": "action-sheet",
       "export": "ActionSheet",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menus.tsx",
       "status": "real"
@@ -2902,6 +3264,7 @@
       "name": "meter",
       "export": "Meter",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/meter.tsx",
       "status": "real"
@@ -2910,6 +3273,7 @@
       "name": "milestone-trio",
       "export": "MilestoneTrio",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/milestone-trio.tsx",
       "status": "real"
@@ -2918,6 +3282,7 @@
       "name": "navigation-bar",
       "export": "NavigationBar",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/navigation-bar.tsx",
       "status": "real"
@@ -2926,6 +3291,7 @@
       "name": "navigation-bar-item",
       "export": "NavigationBarItem",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/navigation-bar.tsx",
       "status": "real"
@@ -2934,6 +3300,7 @@
       "name": "navigation-drawer",
       "export": "NavigationDrawer",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/navigation-drawer.tsx",
       "status": "real"
@@ -2942,6 +3309,7 @@
       "name": "navigation-menu",
       "export": "NavigationMenu",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/navigation-menu.tsx",
       "status": "real"
@@ -2950,6 +3318,7 @@
       "name": "navigation-rail",
       "export": "NavigationRail",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/navigation-rail.tsx",
       "status": "real"
@@ -2958,6 +3327,7 @@
       "name": "number-field",
       "export": "NumberField",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/number-field.tsx",
       "status": "real"
@@ -2966,6 +3336,7 @@
       "name": "drawer",
       "export": "Drawer",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/overlay-surfaces.tsx",
       "status": "real"
@@ -2974,6 +3345,7 @@
       "name": "popover",
       "export": "Popover",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/overlay-surfaces.tsx",
       "status": "real"
@@ -2982,6 +3354,7 @@
       "name": "scroll-area",
       "export": "ScrollArea",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/overlay-surfaces.tsx",
       "status": "real"
@@ -2990,6 +3363,7 @@
       "name": "pagination",
       "export": "Pagination",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/pagination.tsx",
       "status": "real"
@@ -2998,6 +3372,7 @@
       "name": "kern-pressable",
       "export": "KernPressable",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/pressable.tsx",
       "status": "real"
@@ -3006,6 +3381,7 @@
       "name": "progress",
       "export": "Progress",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/progress.tsx",
       "status": "real"
@@ -3014,6 +3390,7 @@
       "name": "radio-group",
       "export": "RadioGroup",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/radio-group.tsx",
       "status": "real"
@@ -3022,6 +3399,7 @@
       "name": "radio-group-item",
       "export": "RadioGroupItem",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/radio-group.tsx",
       "status": "real"
@@ -3030,6 +3408,7 @@
       "name": "search",
       "export": "Search",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/search.tsx",
       "status": "real"
@@ -3038,6 +3417,7 @@
       "name": "select",
       "export": "Select",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/select.tsx",
       "status": "real"
@@ -3046,6 +3426,7 @@
       "name": "separator",
       "export": "Separator",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/separator.tsx",
       "status": "real"
@@ -3054,6 +3435,7 @@
       "name": "settings-row",
       "export": "SettingsRow",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/settings-row.tsx",
       "status": "real"
@@ -3062,6 +3444,7 @@
       "name": "shape-art",
       "export": "ShapeArt",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/shape-art.tsx",
       "status": "real"
@@ -3070,6 +3453,7 @@
       "name": "expressive-shape",
       "export": "ExpressiveShape",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/shape-art.tsx",
       "status": "real"
@@ -3078,6 +3462,7 @@
       "name": "shape",
       "export": "Shape",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/shape.tsx",
       "status": "real"
@@ -3086,6 +3471,7 @@
       "name": "sheet-surface",
       "export": "SheetSurface",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheet-surface.tsx",
       "status": "real"
@@ -3094,6 +3480,7 @@
       "name": "sheet",
       "export": "Sheet",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheet.tsx",
       "status": "real"
@@ -3102,6 +3489,7 @@
       "name": "sheet-handle",
       "export": "SheetHandle",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheets.tsx",
       "status": "real"
@@ -3110,6 +3498,7 @@
       "name": "bottom-sheet",
       "export": "BottomSheet",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheets.tsx",
       "status": "real"
@@ -3118,6 +3507,7 @@
       "name": "snap-sheet",
       "export": "SnapSheet",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheets.tsx",
       "status": "real"
@@ -3126,6 +3516,7 @@
       "name": "dock-sheet",
       "export": "DockSheet",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheets.tsx",
       "status": "real"
@@ -3134,6 +3525,7 @@
       "name": "bottom-sheet-picker",
       "export": "BottomSheetPicker",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheets.tsx",
       "status": "real"
@@ -3142,6 +3534,7 @@
       "name": "entity-sheet",
       "export": "EntitySheet",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheets.tsx",
       "status": "real"
@@ -3150,6 +3543,7 @@
       "name": "boot-splash",
       "export": "BootSplash",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/shell.tsx",
       "status": "real"
@@ -3158,6 +3552,7 @@
       "name": "error-boundary",
       "export": "ErrorBoundary",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/shell.tsx",
       "status": "real"
@@ -3166,6 +3561,7 @@
       "name": "skeleton",
       "export": "Skeleton",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/skeleton.tsx",
       "status": "real"
@@ -3174,6 +3570,7 @@
       "name": "slider",
       "export": "Slider",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/slider.tsx",
       "status": "real"
@@ -3182,6 +3579,7 @@
       "name": "snackbar-provider",
       "export": "SnackbarProvider",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/snackbar.tsx",
       "status": "real"
@@ -3190,6 +3588,7 @@
       "name": "snackbar-viewport",
       "export": "SnackbarViewport",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/snackbar.tsx",
       "status": "real"
@@ -3198,6 +3597,7 @@
       "name": "split-button",
       "export": "SplitButton",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/split-button.tsx",
       "status": "real"
@@ -3206,6 +3606,7 @@
       "name": "split",
       "export": "Split",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/split.tsx",
       "status": "real"
@@ -3214,6 +3615,7 @@
       "name": "status-bar",
       "export": "StatusBar",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/status-bar.tsx",
       "status": "real"
@@ -3222,6 +3624,7 @@
       "name": "success-transform",
       "export": "SuccessTransform",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/success-transform.tsx",
       "status": "real"
@@ -3230,6 +3633,7 @@
       "name": "switch",
       "export": "Switch",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/switch.tsx",
       "status": "real"
@@ -3238,6 +3642,7 @@
       "name": "table",
       "export": "Table",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/table.tsx",
       "status": "real"
@@ -3246,6 +3651,7 @@
       "name": "tabs",
       "export": "Tabs",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/tabs.tsx",
       "status": "real"
@@ -3254,6 +3660,7 @@
       "name": "text",
       "export": "Text",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/text.tsx",
       "status": "real"
@@ -3262,6 +3669,7 @@
       "name": "textarea",
       "export": "Textarea",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/textarea.tsx",
       "status": "real"
@@ -3270,6 +3678,7 @@
       "name": "theme-toggle",
       "export": "ThemeToggle",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/theme-toggle.tsx",
       "status": "real"
@@ -3278,6 +3687,7 @@
       "name": "time-picker",
       "export": "TimePicker",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/time-picker.tsx",
       "status": "real"
@@ -3286,6 +3696,7 @@
       "name": "toggle-group",
       "export": "ToggleGroup",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/toggle-group.tsx",
       "status": "real"
@@ -3294,6 +3705,7 @@
       "name": "toggle",
       "export": "Toggle",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/toggle.tsx",
       "status": "real"
@@ -3302,6 +3714,7 @@
       "name": "toolbar",
       "export": "Toolbar",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/toolbar.tsx",
       "status": "real"
@@ -3310,6 +3723,7 @@
       "name": "tooltip",
       "export": "Tooltip",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/tooltip.tsx",
       "status": "real"
@@ -3318,6 +3732,7 @@
       "name": "rich-tooltip",
       "export": "RichTooltip",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/tooltip.tsx",
       "status": "real"
@@ -3326,6 +3741,7 @@
       "name": "top-app-bar-toggle",
       "export": "TopAppBarToggle",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/top-app-bar-toggle.tsx",
       "status": "real"
@@ -3334,6 +3750,7 @@
       "name": "top-app-bar",
       "export": "TopAppBar",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/top-app-bar.tsx",
       "status": "real"
@@ -3342,6 +3759,7 @@
       "name": "top-app-bar-action",
       "export": "TopAppBarAction",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/top-app-bar.tsx",
       "status": "real"
@@ -3350,6 +3768,7 @@
       "name": "command",
       "export": "Command",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/web-parity.tsx",
       "status": "real"
@@ -3358,6 +3777,7 @@
       "name": "segmented-button",
       "export": "SegmentedButton",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/web-parity.tsx",
       "status": "real"
@@ -3366,6 +3786,7 @@
       "name": "country-select",
       "export": "CountrySelect",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/web-parity.tsx",
       "status": "real"
@@ -3374,6 +3795,7 @@
       "name": "banner",
       "export": "Banner",
       "platform": "native",
+      "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/web-parity.tsx",
       "status": "real"
