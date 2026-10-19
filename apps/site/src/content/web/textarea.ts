@@ -89,6 +89,31 @@ export const textarea: ComponentDoc = {
       type: "React.Ref<HTMLTextAreaElement>",
       note: "Forwarded to the underlying `<textarea>`.",
     },
+    {
+      name: "defaultValue",
+      type: "string | number | readonly string[] | undefined",
+      note: "Initial value when uncontrolled. The field edits text; `value` makes it controlled.",
+    },
+    {
+      name: "style",
+      type: "CSSProperties | ((state: FieldControlState) => CSSProperties | undefined) | undefined",
+      note: "Style for the control, or a function of its state (focused, filled, disabled, invalid) returning style.",
+    },
+    {
+      name: "onValueChange",
+      type: '((value: string, eventDetails: { reason: "none"; event: Event; cancel: () => void; allowPropagation: () => void; isCanceled: boolean; isPropagationAllowed: boolean; trigger: Element | undefined; }) => void) | undefined',
+      note: "Fires when the text changes. The controlled-`value` counterpart for observing; the `reason` form carries cancellation for composed controls.",
+    },
+    {
+      name: "variant",
+      type: '"filled" | "outlined" | undefined',
+      note: "M3 treatment: `outlined` (default) draws the outline; `filled` fills `surface-container-highest` with a bottom active indicator. Functionally identical — pick by surface.",
+    },
+    {
+      name: "rows",
+      type: "number | undefined",
+      note: "Initial visible row count. Defaults to 2 per M3.",
+    },
   ],
   aria: [
     "The control is a real `<textarea>`, so multi-line editing, selection and screen-reader text handling all behave as expected.",

@@ -116,6 +116,11 @@ export const chip: ComponentDoc = {
       type: '"button" | "submit" | "reset"',
       default: '"button"',
     },
+    {
+      name: "elevated",
+      type: "boolean | undefined",
+      note: "M3 elevated treatment (assist + filter): level1 shadow on the surface-container-low fill. Ignored for input/suggestion chips, which have no elevated treatment.",
+    },
   ],
   aria: [
     "The chip renders a real `<button>`, so it is reachable and activatable by keyboard without extra wiring.",

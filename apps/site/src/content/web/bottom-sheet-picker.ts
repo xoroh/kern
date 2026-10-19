@@ -93,6 +93,21 @@ export const bottomSheetPicker: ComponentDoc = {
       type: "string",
       note: "Test hook, forwarded to the shell — which defaults it to `kern-sheet-surface` when omitted.",
     },
+    {
+      name: "ref",
+      type: "Ref<HTMLDivElement> | undefined",
+      note: "Ref to the rendered sheet popup.",
+    },
+    {
+      name: "dir",
+      type: "A11yDir | undefined",
+      note: "Text direction for the sheet, passed through verbatim. When absent no `dir` renders and the sheet inherits the document direction — never a hardcoded fallback.",
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      note: "Custom content for the picker body. Omit it for the standard option list.",
+    },
   ],
   aria: [
     "The list is a real `listbox` with `option` rows reporting `aria-selected` — the selection is structural, and `aria-multiselectable` appears only when `multiple` is set.",

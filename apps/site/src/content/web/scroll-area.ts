@@ -68,6 +68,22 @@ export const scrollArea: ComponentDoc = {
       type: "React.Ref<HTMLDivElement>",
       note: "Forwarded to the underlying element. Each part forwards to its own.",
     },
+    {
+      name: "style",
+      type: "CSSProperties | ((state) => CSSProperties | undefined) | undefined",
+      note: "Style for the part, or a function of the part's state returning style — `ScrollAreaRootState` on the region, `ScrollAreaViewportState` on the viewport.",
+    },
+    {
+      name: "render",
+      type: "ReactElement | ((props, state) => ReactElement) | undefined",
+      note: "Replaces the part's element with another tag or composes it with another component — the render function receives the part's props and state.",
+    },
+    {
+      name: "overflowEdgeThreshold",
+      for: ["ScrollAreaRoot"],
+      type: "number | Partial<{ xStart: number; xEnd: number; yStart: number; yEnd: number; }> | undefined",
+      note: "Pixels to scroll past an edge before the overflow attributes apply. One number for all edges, or per-edge.",
+    },
   ],
   aria: [
     "The viewport is a real scroll container, so it is keyboard-scrollable when focused and announces its overflow state.",

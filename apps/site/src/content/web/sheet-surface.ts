@@ -67,6 +67,16 @@ export const sheetSurface: ComponentDoc = {
       default: '"kern-sheet-surface"',
       note: "Test hook for the popup surface; the backdrop carries its own derived slot.",
     },
+    {
+      name: "ref",
+      type: "Ref<HTMLDivElement> | undefined",
+      note: "Ref to the rendered surface popup.",
+    },
+    {
+      name: "dir",
+      type: "A11yDir | undefined",
+      note: "Text direction for the surface, passed through verbatim. When absent no `dir` renders and the surface inherits the document direction — never a hardcoded fallback.",
+    },
   ],
   aria: [
     'The surface is `role="dialog"` with `aria-modal="true"` — and the modal flag is set BY HAND: Base UI\'s dialog popup traps focus and inerts the page but emits no `aria-modal` (measured), which left the visual and accessibility trees disagreeing about whether the user is trapped.',

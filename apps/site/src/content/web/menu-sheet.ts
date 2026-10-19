@@ -71,6 +71,11 @@ export const menuSheet: ComponentDoc = {
       default: '"kern-menu-sheet"',
       note: "Test hook for the sheet's surface.",
     },
+    {
+      name: "ref",
+      type: "Ref<HTMLDivElement> | undefined",
+      note: "Ref to the rendered sheet surface.",
+    },
   ],
   aria: [
     "Each group is a `group` named by its heading; an ungrouped list is one unnamed list rather than a group with an empty name, so no blank label is offered.",

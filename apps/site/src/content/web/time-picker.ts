@@ -72,6 +72,16 @@ export const timePicker: ComponentDoc = {
       type: "string",
       note: "Merged after the picker's own classes.",
     },
+    {
+      name: "testID",
+      type: "string | undefined",
+      note: "Test selector, rendered as `data-testid` on the picker. Opt-in only — no default.",
+    },
+    {
+      name: "presentation",
+      type: "TimePickerPresentation | undefined",
+      note: "Which face the picker shows. `listbox` (default) is three listboxes; `dial` is the M3 clock face. Same state, same value contract.",
+    },
   ],
   aria: [
     "The hour and minute fields are real inputs, so they take numeric entry and are reachable one at a time by keyboard.",

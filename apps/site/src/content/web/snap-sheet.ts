@@ -86,6 +86,21 @@ export const snapSheet: ComponentDoc = {
       type: "string",
       note: "Test hook, forwarded to the shell — which defaults it to `kern-sheet-surface` when omitted.",
     },
+    {
+      name: "ref",
+      type: "Ref<HTMLDivElement> | undefined",
+      note: "Ref to the rendered sheet popup.",
+    },
+    {
+      name: "dir",
+      type: "A11yDir | undefined",
+      note: "Text direction for the sheet, passed through verbatim. When absent no `dir` renders and the sheet inherits the document direction — never a hardcoded fallback.",
+    },
+    {
+      name: "defaultValue",
+      type: "number | undefined",
+      note: "Index into `snapPoints` for the initial detent. Defaults to the first.",
+    },
   ],
   aria: [
     "The detent control is a button carrying `aria-valuenow`, `aria-valuemin` and `aria-valuemax` — the web equivalent of the native adjustable role: the height is a VALUE the user changes, and it is announced as one.",

@@ -37,6 +37,16 @@ export const loader: ComponentDoc = {
       type: "boolean",
       note: "Set it when the loader is purely visual and the surrounding content already says what is happening.",
     },
+    {
+      name: "size",
+      type: '"sm" | "default" | "lg" | null | undefined',
+      note: "Spinner size. Defaults to `default`.",
+    },
+    {
+      name: "label",
+      type: "string | undefined",
+      note: "Accessible label announced while loading. Defaults to “Loading”.",
+    },
   ],
   aria: [
     "A loader conveys state visually. Where the surrounding content already says what is loading, the loader should be `aria-hidden` so it is not announced as stray content.",

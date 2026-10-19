@@ -80,6 +80,11 @@ export const themeToggle: ComponentDoc = {
       type: "string",
       note: "Merged after the button's own classes.",
     },
+    {
+      name: "testID",
+      type: "string | undefined",
+      note: "Test selector, rendered as `data-testid` on the button. Opt-in only — no default.",
+    },
   ],
   aria: [
     'The accessible label always names the destination ("Switch to light" while dark, "Switch to dark" while light) per M3 accessibility guidelines.',

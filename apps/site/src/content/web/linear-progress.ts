@@ -83,6 +83,31 @@ export const linearProgress: ComponentDoc = {
       type: "string",
       note: "Names the bar when the surrounding content does not.",
     },
+    {
+      name: "fourColor",
+      type: "boolean | undefined",
+      note: "Cycles the indeterminate bars through primary, primary-container, tertiary and tertiary-container instead of holding primary.",
+    },
+    {
+      name: "buffer",
+      type: "number | undefined",
+      note: "Buffer level from 0 to 1, rendered as dots behind the bar: known progress in the bar, unknown progress in the buffer.",
+    },
+    {
+      name: "stop",
+      type: "boolean | undefined",
+      note: "M3 stop indicator: a primary circle marking the end of the track. Determinate only.",
+    },
+    {
+      name: "wavy",
+      type: "boolean | undefined",
+      note: "M3 expressive wavy indicator (determinate only) at the platform wave geometry. Indeterminate ignores it; the loops have no wave phase. Web-only: native has no SVG engine to draw the wave with.",
+    },
+    {
+      name: "label",
+      type: "string | undefined",
+      note: "Accessible label for the bar.",
+    },
   ],
   aria: [
     "It is a progressbar with `aria-valuenow`, `aria-valuemin` and `aria-valuemax`, so the amount done is announced as a number rather than as a width.",

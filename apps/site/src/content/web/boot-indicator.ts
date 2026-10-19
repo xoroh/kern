@@ -66,6 +66,11 @@ export const bootIndicator: ComponentDoc = {
       type: "string",
       note: "Merged after the indicator's own classes.",
     },
+    {
+      name: "size",
+      type: '"sm" | "lg" | "md" | undefined',
+      note: "Density size. Defaults to the large boot treatment.",
+    },
   ],
   aria: [
     "The surface announces that the application is starting; the shape trio is decoration beside that.",

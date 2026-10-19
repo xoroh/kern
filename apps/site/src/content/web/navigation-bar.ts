@@ -144,6 +144,36 @@ export const navigationBar: ComponentDoc = {
       type: "string",
       note: "Merged after the bar's own classes.",
     },
+    {
+      name: "testID",
+      for: ["NavigationBar"],
+      type: "string | undefined",
+      note: "Test selector, rendered as `data-testid` on the bar. Opt-in only — no default.",
+    },
+    {
+      name: "selected",
+      for: ["NavigationBarItem"],
+      type: "boolean | undefined",
+      note: "Whether this destination is the current one. Drives the active indicator.",
+    },
+    {
+      name: "icon",
+      for: ["NavigationBarItem"],
+      type: "ReactNode",
+      note: "The destination glyph. Required.",
+    },
+    {
+      name: "badge",
+      for: ["NavigationBarItem"],
+      type: "ReactNode",
+      note: "Count or dot badge on the icon.",
+    },
+    {
+      name: "onSelect",
+      for: ["NavigationBarItem"],
+      type: "(() => void) | undefined",
+      note: "Fires when the destination is chosen.",
+    },
   ],
   aria: [
     "The bar is a `navigation` landmark with the accessible name `label` gives it, so it is reachable from a screen reader's landmark list.",
