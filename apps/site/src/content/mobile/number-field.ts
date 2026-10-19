@@ -6,7 +6,7 @@ export const numberField: ComponentDoc = {
   oneLiner:
     "Number fields hold a number with steppers that clamp at their bound rather than wrapping.",
   features:
-    "Reach for a number field when the answer is a number within limits and the bounds matter: a quantity, a duration, a count. `min` and `max` are enforced by clamping, and the behaviour worth knowing is that a press at the bound does nothing — it does not wrap and does not fire a change. That is deliberate: a bound press that reports an edit makes every host persisting on change write a value nobody chose. `format` is one function used in both directions — for display AND for parsing typed input — so what is shown and what is read stay the same number.",
+    "Reach for a number field when the answer is a number within limits and the bounds matter: a quantity, a duration, a count. `min` and `max` are enforced by clamping, and the behaviour worth knowing is that a press at the bound does nothing — it does not wrap and does not fire a change. That is deliberate: a bound press that reports an edit makes every host persisting on change write a value nobody chose. Display and parsing go through `Intl` (`locale` + `format`), so what is shown and what is read stay the same number.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -18,21 +18,28 @@ export const numberField: ComponentDoc = {
   parts: ["NumberField"],
   customization: {
     supported: [
-      "`value`/`defaultValue`/`onValueChange` make it controlled or uncontrolled.",
+      "`value`/`defaultValue`/`onValueChange` make it controlled or uncontrolled; `null` is the empty value.",
       "`min`, `max` and `step` set the bounds and the increment.",
-      "`format` formats the value for display AND for parsing typed input — one function, both directions.",
+      "`locale` + `format` (`Intl.NumberFormat` options) localise display and parsing — one spec, both directions.",
+      "`onValueCommitted` fires when a value commits (blur after typing, stepper release), later than `onValueChange`.",
+      "`readOnly` freezes the field like `disabled` without announcing it as disabled.",
     ],
     notSupported: [
       "There is no wrapping at the bounds. A press at `min` or `max` does nothing.",
       "There is no `precision` or rounding prop. `step` is the increment size, not a grid the value snaps to.",
-      "There is no `suffix`/`prefix` prop. Units go in the label or the format.",
+      "There is no `suffix`/`prefix` prop. Units go in the label, or in a currency `format`.",
     ],
   },
   api: [
     {
       name: "value / defaultValue",
-      type: "number",
-      note: "The current number. `onValueChange` reports the value.",
+      type: "number | null",
+      note: "The current number; `null` is empty. `onValueChange` reports the value, including `null` when the field is cleared.",
+    },
+    {
+      name: "onValueCommitted",
+      type: "(value: number | null) => void",
+      note: "Fires when a value commits: blur after typing, stepper or scrub release after stepping.",
     },
     {
       name: "min / max",
@@ -45,19 +52,24 @@ export const numberField: ComponentDoc = {
       note: "The increment size. It is NOT a grid the value snaps to: `step` says how far a press moves the value, not where the value must sit.",
     },
     {
+      name: "locale",
+      type: "string",
+      note: "BCP 47 locale for display formatting and parsing. Defaults to the runtime locale.",
+    },
+    {
       name: "format",
-      type: "(value: number) => string",
-      note: "Formats for display AND for parsing typed input — one function in both directions, so what is shown and what is read are the same number.",
+      type: "Intl.NumberFormatOptions",
+      note: "Options for `Intl.NumberFormat` when rendering and parsing the value. The locale comes from `locale`.",
+    },
+    {
+      name: "readOnly",
+      type: "boolean",
+      note: "Terminal like `disabled`: steppers and typing stop changing the value — but it is not announced as disabled.",
     },
     {
       name: "incrementLabel / decrementLabel",
       type: "string",
       note: "The two steppers' accessible names. They are two controls and need two names.",
-    },
-    {
-      name: "clampToRange(next, min, max)",
-      type: "(next, min, max) => number",
-      note: "Exported pure helper — the clamp, with no snapping. Documented here rather than given a page, since it is not a component and not a registry row.",
     },
     {
       name: "accessibilityLabel",
@@ -68,6 +80,6 @@ export const numberField: ComponentDoc = {
   aria: [
     "`incrementLabel` and `decrementLabel` name the two steppers — without them they are unnamed buttons either side of a number.",
     "Clamping rather than wrapping is an accessibility guarantee too: the value never moves somewhere the person did not ask for, and the steppers report disabled at their bound.",
-    "`format` keeping display and parsing in step means what is read aloud matches what is on screen.",
+    "`locale`/`format` keeping display and parsing in step means what is read aloud matches what is on screen.",
   ],
 };
