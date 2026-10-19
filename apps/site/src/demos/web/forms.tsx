@@ -21,6 +21,7 @@ import {
   ToggleGroup,
 } from "@xoroh/kern";
 import { Preview, PreviewStack, Row } from "../../components/preview/preview";
+import { T_BODY_MD } from "../../domains/shared/systems/type-scale";
 
 export function InputDemo() {
   return (
@@ -93,7 +94,7 @@ export function FormDemo() {
         </Field.Root>
         <button
           type="submit"
-          className="kern-button inline-flex h-10 items-center justify-center rounded-(--sys-shape-corner-full) bg-(--sys-color-primary) px-4 text-sm font-medium text-(--sys-color-on-primary)"
+          className={`kern-button inline-flex h-10 items-center justify-center rounded-(--sys-shape-corner-full) bg-(--sys-color-primary) px-4 ${T_BODY_MD} text-(--sys-color-on-primary)`}
         >
           Save
         </button>
