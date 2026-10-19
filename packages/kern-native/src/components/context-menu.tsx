@@ -8,9 +8,10 @@ import {
   type ViewStyle,
 } from "react-native";
 import { useKernScheme } from "../theme";
-import { overlayStyles } from "../utils/overlay-styles";
+import { scrimStyle } from "../utils/overlay-styles";
 import { menuStyles, type NativeMenuItem } from "./menu";
 import { Text } from "./text";
+import { DISABLED_CONTENT_OPACITY } from "./state-layer";
 
 export type NativeContextMenuProps = {
   children: ReactNode;
@@ -69,7 +70,7 @@ export function ContextMenu({
         animationType="fade"
         onRequestClose={dismiss}
       >
-        <View style={overlayStyles.scrim}>
+        <View style={scrimStyle(scheme)}>
           <View accessibilityRole="menu" style={[styles.card, style]}>
             {items.map((item) => (
               <Pressable
@@ -88,7 +89,7 @@ export function ContextMenu({
                   justifyContent: "center",
                   paddingHorizontal: 12,
                   borderRadius: Number.parseFloat(scheme.shape["extra-small"]),
-                  opacity: item.disabled ? 0.5 : 1,
+                  opacity: item.disabled ? DISABLED_CONTENT_OPACITY : 1,
                 }}
               >
                 <Text>{item.label}</Text>

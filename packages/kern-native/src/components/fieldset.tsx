@@ -16,6 +16,7 @@ import {
   type ViewStyle,
 } from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
+import { DISABLED_CONTENT_OPACITY } from "./state-layer";
 
 /**
  * M3 Fieldset — grouped controls with a shared legend and disabled state.
@@ -89,7 +90,7 @@ export function fieldsetStyles(
       borderRadius: Number.parseFloat(scheme.shape.small),
       padding: Number.parseFloat(tokens.spacing["space-200"]),
       gap: Number.parseFloat(tokens.spacing["space-150"]),
-      opacity: disabled ? 0.5 : 1,
+      opacity: disabled ? DISABLED_CONTENT_OPACITY : 1,
     },
     legend: {
       fontSize: 14,
@@ -239,7 +240,7 @@ export function FieldsetItem({
         {
           minHeight: 48,
           justifyContent: "center",
-          opacity: disabled ? 0.5 : 1,
+          opacity: disabled ? DISABLED_CONTENT_OPACITY : 1,
         },
         style,
       ]}

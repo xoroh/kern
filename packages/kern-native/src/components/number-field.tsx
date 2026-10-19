@@ -11,6 +11,7 @@ import { Pressable, type StyleProp, TextInput, View } from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
 import { inputStyles } from "./input";
 import { Text } from "./text";
+import { DISABLED_CONTENT_OPACITY } from "./state-layer";
 
 /**
  * M3 stepped numeric field, on the Axis `NumberField` compound
@@ -68,7 +69,7 @@ export function numberFieldStyles(
       borderRadius: radius,
       backgroundColor: scheme.color.surface,
       overflow: "hidden",
-      opacity: disabled ? 0.5 : 1,
+      opacity: disabled ? DISABLED_CONTENT_OPACITY : 1,
     },
     stepper: {
       width: 48,

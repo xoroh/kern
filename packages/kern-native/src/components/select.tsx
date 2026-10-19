@@ -8,6 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@xoroh/axis";
+import { Icon } from "@xoroh/kern-icons";
 import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import { type StyleProp, View, type ViewStyle } from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
@@ -100,10 +101,10 @@ export function Select({
                 : undefined
             }
           />
-          <Text variant="body">▾</Text>
+          <Icon name="arrow_drop_down" />
         </SelectTrigger>
         <SelectPortal>
-          <SelectBackdrop style={{ backgroundColor: "rgba(0, 0, 0, 0.3)" }} />
+          <SelectBackdrop style={{ backgroundColor: scheme.color.scrim }} />
           <SelectPositioner>
             <SelectPopup style={styles.card}>
               {options.map((option) => (

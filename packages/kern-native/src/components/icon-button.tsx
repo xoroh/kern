@@ -14,6 +14,7 @@ import {
   type ViewStyle,
 } from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
+import { DISABLED_CONTENT_OPACITY, StateLayer } from "./state-layer";
 
 /**
  * M3 icon button — the canonical square, icon-only action.
@@ -82,7 +83,8 @@ export function iconButtonStyles(
     alignItems: "center",
     justifyContent: "center",
     borderRadius: Number.parseFloat(scheme.shape.full),
-    opacity: disabled ? 0.38 : 1,
+    overflow: "hidden",
+    opacity: disabled ? DISABLED_CONTENT_OPACITY : 1,
   };
 
   // M3 toggle-selected treatments per style (mirrors the web compounds):
@@ -257,10 +259,11 @@ export function IconButton({
     <Pressable
       {...props}
       testID={testID ?? "kern-icon-button"}
-      accessibilityRole="button"
+      role="button"
       // Mandatory: without this the control is announced with no name at all.
       accessibilityLabel={label}
-      accessibilityState={{ selected: isPressed, disabled }}
+      aria-selected={isPressed}
+      aria-disabled={disabled}
       disabled={disabled}
       // Visual box per size; hitSlop widens the small boxes out to the 48dp
       // minimum, larger boxes already clear it.
@@ -278,13 +281,21 @@ export function IconButton({
         // cancels the press must not change state.
         if (!disabled && !pressIsCancelled(event)) setPressed(!isPressed);
       }}
-      style={({ pressed }) => [
+      style={({ pressed: pressedNow }) => [
         styles,
-        pressed && !disabled ? { opacity: 0.62 } : undefined,
-        typeof style === "function" ? style({ pressed }) : style,
+        typeof style === "function" ? style({ pressed: pressedNow }) : style,
       ]}
     >
-      {tinted}
+      {({ pressed: pressedNow }) => (
+        <>
+          {tinted}
+          <StateLayer
+            ink={iconButtonIconColor(variant, isPressed, scheme)}
+            radius={Number.parseFloat(scheme.shape.full)}
+            visible={pressedNow && !disabled}
+          />
+        </>
+      )}
     </Pressable>
   );
 }

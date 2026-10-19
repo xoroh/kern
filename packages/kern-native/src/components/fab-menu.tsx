@@ -1,10 +1,11 @@
 import { type ReactNode, useState } from "react";
 import { Modal, Pressable, StyleSheet, View } from "react-native";
 import { useKernScheme } from "../theme";
-import { overlayStyles } from "../utils/overlay-styles";
+import { scrimStyle } from "../utils/overlay-styles";
 import { fabStyles } from "./fab";
 import { menuStyles } from "./menu";
 import { Text } from "./text";
+import { DISABLED_CONTENT_OPACITY } from "./state-layer";
 
 const staticStyles = StyleSheet.create({
   separator: {
@@ -129,7 +130,7 @@ export function FabMenu({
         animationType="fade"
         onRequestClose={() => setOpen(false)}
       >
-        <View style={overlayStyles.scrim}>
+        <View style={scrimStyle(scheme)}>
           {/* No accessibilityLabel here, deliberately: the trigger already names
               the surface, and a second name would compete with it. */}
           <View accessibilityRole="menu" style={card.card}>
@@ -164,7 +165,7 @@ export function FabMenu({
                       backgroundColor: pressed
                         ? scheme.color.surfaceContainerHighest
                         : "transparent",
-                      opacity: action.disabled ? 0.5 : 1,
+                      opacity: action.disabled ? DISABLED_CONTENT_OPACITY : 1,
                     },
                   ]}
                 >

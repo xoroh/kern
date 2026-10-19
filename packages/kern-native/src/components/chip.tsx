@@ -9,6 +9,7 @@ import {
   type ViewStyle,
 } from "react-native";
 import { defaultScheme, useKernTheme } from "../theme";
+import { StateLayer } from "./state-layer";
 
 // M3 lists FOUR chip variants (m3.material.io/components/chips/overview):
 // assist, filter, input, suggestion. `input` was missing here too.
@@ -28,6 +29,7 @@ export function chipStyles(
       scheme.comp?.["chip-container-shape"],
       Number.parseFloat(scheme.shape.small),
     ),
+    overflow: "hidden",
     paddingHorizontal: 16,
     flexDirection: "row",
     alignItems: "center",
@@ -113,13 +115,18 @@ export function Chip(props: ChipProps) {
   );
   const selected = variant === "filter" && Boolean(selectedValue);
   const styles = chipStyles(variant, selected, scheme, elevated);
+  const radius = cssLengthToDp(
+    scheme.comp?.["chip-container-shape"],
+    Number.parseFloat(scheme.shape.small),
+  );
 
   return (
     <Pressable
       {...pressableProps}
       testID={testID ?? "kern-chip"}
-      accessibilityRole="button"
-      accessibilityState={{ selected, disabled: Boolean(disabled) }}
+      role="button"
+      aria-selected={selected}
+      aria-disabled={Boolean(disabled)}
       disabled={disabled}
       hitSlop={8}
       onPress={(event) => {
@@ -130,14 +137,22 @@ export function Chip(props: ChipProps) {
       }}
       style={(state) => [
         styles.container,
-        state.pressed && !disabled ? { opacity: 0.82 } : undefined,
         typeof style === "function" ? style(state) : style,
       ]}
     >
-      {typeof children === "string" || typeof children === "number" ? (
-        <Text style={[styles.label, labelStyle]}>{children}</Text>
-      ) : (
-        children
+      {(state) => (
+        <>
+          {typeof children === "string" || typeof children === "number" ? (
+            <Text style={[styles.label, labelStyle]}>{children}</Text>
+          ) : (
+            children
+          )}
+          <StateLayer
+            ink={scheme.color.onSurface}
+            radius={radius}
+            visible={state.pressed && !disabled}
+          />
+        </>
       )}
     </Pressable>
   );

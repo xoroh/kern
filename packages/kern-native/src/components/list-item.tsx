@@ -1,4 +1,5 @@
 import { type ResolvedTheme, tokens } from "@xoroh/kern-tokens";
+import { type ResolvedTheme, tokens } from "@xoroh/kern-tokens";
 import {
   Pressable,
   type PressableProps,
@@ -9,6 +10,7 @@ import {
   type ViewStyle,
 } from "react-native";
 import { defaultScheme, useKernTheme } from "../theme";
+import { StateLayer } from "./state-layer";
 
 export function listItemStyles(
   scheme: ResolvedTheme = defaultScheme(),
@@ -24,11 +26,12 @@ export function listItemStyles(
       flexDirection: "row" as const,
       alignItems: "center" as const,
       gap: Number.parseFloat(tokens.spacing["space-150"]),
-      // M3 selected list item: secondary-container fill, 16dp corners.
+      overflow: "hidden" as const,
+      // M3 selected list item: secondary-container fill, large corners.
       ...(selected
         ? {
             backgroundColor: scheme.color.secondaryContainer,
-            borderRadius: 16,
+            borderRadius: Number.parseFloat(scheme.shape.large),
           }
         : null),
     },
@@ -77,6 +80,7 @@ export function ListItem({
 }: NativeListItemProps) {
   const { scheme } = useKernTheme();
   const styles = listItemStyles(scheme, selected);
+  const radius = selected ? Number.parseFloat(scheme.shape.large) : 0;
   return (
     <Pressable
       {...props}
@@ -87,18 +91,26 @@ export function ListItem({
       }
       disabled={disabled}
       onPress={onPress}
-      style={({ pressed }) => [
+      style={({ pressed: pressedNow }) => [
         styles.row,
-        pressed && !disabled ? { opacity: 0.82 } : undefined,
-        typeof style === "function" ? style({ pressed }) : style,
+        typeof style === "function" ? style({ pressed: pressedNow }) : style,
       ]}
     >
-      <View style={[{ flex: 1 }, contentStyle]}>
-        <Text style={[styles.title, titleStyle]}>{title}</Text>
-        {supporting ? (
-          <Text style={styles.supporting}>{supporting}</Text>
-        ) : null}
-      </View>
+      {({ pressed: pressedNow }) => (
+        <>
+          <View style={[{ flex: 1 }, contentStyle]}>
+            <Text style={[styles.title, titleStyle]}>{title}</Text>
+            {supporting ? (
+              <Text style={styles.supporting}>{supporting}</Text>
+            ) : null}
+          </View>
+          <StateLayer
+            ink={scheme.color.onSurface}
+            radius={radius}
+            visible={pressedNow && !disabled}
+          />
+        </>
+      )}
     </Pressable>
   );
 }

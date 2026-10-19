@@ -3,6 +3,7 @@ import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
 import { Pressable, type PressableProps, type ViewStyle } from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
+import { DISABLED_CONTENT_OPACITY, StateLayer } from "./state-layer";
 import { Text } from "./text";
 
 export function toggleStyles(
@@ -18,9 +19,10 @@ export function toggleStyles(
     justifyContent: "center",
     gap: 6,
     borderRadius: Number.parseFloat(scheme.shape.full),
+    overflow: "hidden",
     paddingHorizontal: 12,
     backgroundColor: pressed ? scheme.color.primary : "transparent",
-    opacity: disabled ? 0.38 : 1,
+    opacity: disabled ? DISABLED_CONTENT_OPACITY : 1,
   };
 }
 
@@ -34,7 +36,6 @@ export type NativeToggleProps = Omit<
   onPressedChange?: (pressed: boolean) => void;
   onPress?: PressableProps["onPress"];
   style?: PressableProps["style"];
-  accessibilityState?: PressableProps["accessibilityState"];
 };
 
 export function Toggle({
@@ -44,7 +45,6 @@ export function Toggle({
   onPressedChange,
   onPress,
   disabled = false,
-  accessibilityState,
   hitSlop,
   style,
   testID,
@@ -63,12 +63,9 @@ export function Toggle({
     <Pressable
       {...props}
       testID={testID ?? "kern-toggle"}
-      accessibilityRole="button"
-      accessibilityState={{
-        ...accessibilityState,
-        selected: active,
-        disabled: disabled ?? undefined,
-      }}
+      role="button"
+      aria-selected={active}
+      aria-disabled={disabled ?? undefined}
       disabled={disabled ?? undefined}
       hitSlop={hitSlop ?? { top: 8, bottom: 8, left: 8, right: 8 }}
       onPress={(event) => {
@@ -79,16 +76,24 @@ export function Toggle({
       }}
       style={({ pressed: pressedState }) => [
         toggleStyles(active, disabled ?? false, scheme),
-        pressedState && !disabled ? { opacity: 0.82 } : undefined,
         typeof style === "function" ? style({ pressed: pressedState }) : style,
       ]}
     >
-      <Text
-        variant="label"
-        style={active ? { color: scheme.color.onPrimary } : undefined}
-      >
-        {children}
-      </Text>
+      {({ pressed: pressedState }) => (
+        <>
+          <Text
+            variant="label"
+            style={active ? { color: scheme.color.onPrimary } : undefined}
+          >
+            {children}
+          </Text>
+          <StateLayer
+            ink={active ? scheme.color.onPrimary : scheme.color.onSurface}
+            radius={Number.parseFloat(scheme.shape.full)}
+            visible={pressedState && !disabled}
+          />
+        </>
+      )}
     </Pressable>
   );
 }

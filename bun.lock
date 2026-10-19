@@ -198,6 +198,7 @@
       "version": "0.0.0",
       "dependencies": {
         "@xoroh/axis": "file:../../vendor/axis/axis-637b959.tgz",
+        "@xoroh/kern-icons": "^0.0.0",
         "@xoroh/kern-m3": "^0.0.0",
         "@xoroh/kern-tokens": "^0.0.0",
         "react-native-svg": "15",
@@ -211,6 +212,7 @@
         "@types/jest": "^30.0.0",
         "@types/node": "^26.6.3",
         "@types/react": "^19.3.0",
+        "@xoroh/kern-icons": "workspace:*",
         "@xoroh/kern-m3": "workspace:*",
         "@xoroh/kern-tokens": "workspace:*",
         "jest": "^30.5.2",

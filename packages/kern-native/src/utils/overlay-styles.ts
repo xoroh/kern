@@ -1,22 +1,31 @@
-import { StyleSheet } from "react-native";
+import type { ResolvedTheme } from "@xoroh/kern-tokens";
+import type { ViewStyle } from "react-native";
 
 /**
- * Shared static presentation for Modal-based overlays. Hoisted with
- * `StyleSheet.create` so every dialog, sheet, menu, and select reuses one
- * registered style instead of allocating per render. Cards stay per
- * component because radius, width, and padding differ.
+ * Shared scrim geometry for Modal-based overlays. The COLOR is the M3
+ * `scheme.color.scrim` token (N10: the old `rgba(0, 0, 0, 0.3)` literal is
+ * gone) — so these are functions of the scheme, not a static registered
+ * style. Geometry is shared; radius/padding stay per component.
  */
-export const overlayStyles = StyleSheet.create({
-  scrim: {
-    flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.3)",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 24,
-  },
-  bottomScrim: {
-    flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.3)",
-    justifyContent: "flex-end",
-  },
-});
+
+const scrimGeometry: ViewStyle = {
+  flex: 1,
+  alignItems: "center",
+  justifyContent: "center",
+  padding: 24,
+};
+
+const bottomScrimGeometry: ViewStyle = {
+  flex: 1,
+  justifyContent: "flex-end",
+};
+
+/** Centred-modal scrim: geometry + scheme scrim. */
+export function scrimStyle(scheme: ResolvedTheme): ViewStyle {
+  return { ...scrimGeometry, backgroundColor: scheme.color.scrim };
+}
+
+/** Bottom-sheet scrim: geometry + scheme scrim. */
+export function bottomScrimStyle(scheme: ResolvedTheme): ViewStyle {
+  return { ...bottomScrimGeometry, backgroundColor: scheme.color.scrim };
+}

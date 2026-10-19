@@ -9,7 +9,7 @@ import {
   type ViewStyle,
 } from "react-native";
 import { defaultScheme, useKernTheme } from "../theme";
-import { overlayStyles } from "../utils/overlay-styles";
+import { scrimStyle } from "../utils/overlay-styles";
 import {
   NavigationBarItem,
   type NavigationDestination,
@@ -97,7 +97,7 @@ export function NavigationDrawer({
       accessibilityViewIsModal
       onRequestClose={notifyDismiss}
     >
-      <View style={overlayStyles.scrim}>
+      <View style={scrimStyle(scheme)}>
         <Pressable
           accessibilityLabel="Dismiss navigation drawer"
           onPress={notifyDismiss}
