@@ -1,0 +1,1833 @@
+{
+  "name": "kern-docs-corpus",
+  "generatedBy": "apps/site/scripts/generate-mcp-index.mjs — do not hand-edit; regenerate with `bun run generate`",
+  "surfaces": {
+    "map": "/llms.txt",
+    "mdPattern": "per-page markdown at /md/{web|mobile}/<slug>.md and /md/foundations/<slug>.md"
+  },
+  "count": 130,
+  "pages": [
+    {
+      "kind": "family",
+      "slug": "accordion",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Accordion",
+      "oneLiner": "Accordions stack collapsible sections, so a long page can be scanned as headings first.",
+      "page": "/components/m3/accordion",
+      "md": [
+        "/md/web/accordion.md",
+        "/md/mobile/accordion.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "action-sheet",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Action sheet",
+      "oneLiner": "The action sheet is a titled list of actions in a bottom sheet — the one surface for \"what do you want to do with this?\"",
+      "page": "/components/m3/action-sheet",
+      "md": [
+        "/md/web/action-sheet.md",
+        "/md/mobile/action-sheet.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "alert-dialog",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Alert dialog",
+      "oneLiner": "Alert dialogs interrupt for a decision that must be made before anything else continues.",
+      "page": "/components/m3/alert-dialog",
+      "md": [
+        "/md/web/alert-dialog.md",
+        "/md/mobile/alert-dialog.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "app-shell",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "App shell",
+      "oneLiner": "The app shell is the frame around everything else — top bar, rail, drawer, status bar — with every region optional.",
+      "page": "/components/m3/app-shell",
+      "md": [
+        "/md/web/app-shell.md",
+        "/md/mobile/app-shell.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "aspect-ratio",
+      "platforms": [
+        "mobile"
+      ],
+      "title": "Aspect ratio",
+      "oneLiner": "Aspect ratio boxes keep a fixed width-to-height ratio, whatever width they are given.",
+      "page": "/components/m3/aspect-ratio",
+      "md": [
+        "/md/mobile/aspect-ratio.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "autocomplete",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Autocomplete",
+      "oneLiner": "Autocompletes suggest values as someone types, and fill in the one they mean.",
+      "page": "/components/m3/autocomplete",
+      "md": [
+        "/md/web/autocomplete.md",
+        "/md/mobile/autocomplete.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "avatar",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Avatar",
+      "oneLiner": "Avatars show who something belongs to, as an image or as initials.",
+      "page": "/components/m3/avatar",
+      "md": [
+        "/md/web/avatar.md",
+        "/md/mobile/avatar.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "badge",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Badge",
+      "oneLiner": "Badges flag a small, countable change on something that already has a label.",
+      "page": "/components/m3/badge",
+      "md": [
+        "/md/web/badge.md",
+        "/md/mobile/badge.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "banner",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Banner",
+      "oneLiner": "Banners report something the whole screen needs to know, without blocking what people are doing.",
+      "page": "/components/m3/banner",
+      "md": [
+        "/md/web/banner.md",
+        "/md/mobile/banner.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "boot-indicator",
+      "platforms": [
+        "web"
+      ],
+      "title": "Boot indicator",
+      "oneLiner": "Boot indicators are the branded loading surface shown while the app itself starts.",
+      "page": "/components/m3/boot-indicator",
+      "md": [
+        "/md/web/boot-indicator.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "boot-splash",
+      "platforms": [
+        "mobile"
+      ],
+      "title": "Boot splash",
+      "oneLiner": "Boot splashes cover the first moment of an app, with your mark and optional milestone steps.",
+      "page": "/components/m3/boot-splash",
+      "md": [
+        "/md/mobile/boot-splash.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "bottom-sheet",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Bottom sheet",
+      "oneLiner": "The bottom sheet is a modal surface anchored to the bottom edge: content, an optional heading and a visible way out.",
+      "page": "/components/m3/bottom-sheet",
+      "md": [
+        "/md/web/bottom-sheet.md",
+        "/md/mobile/bottom-sheet.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "bottom-sheet-picker",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Bottom sheet picker",
+      "oneLiner": "The bottom sheet picker is a selector in a sheet — a titled list of options where the selection is announced, not just tinted.",
+      "page": "/components/m3/bottom-sheet-picker",
+      "md": [
+        "/md/web/bottom-sheet-picker.md",
+        "/md/mobile/bottom-sheet-picker.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "button",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Button",
+      "oneLiner": "Buttons let people carry out an action with a single tap, click or key press.",
+      "page": "/components/m3/button",
+      "md": [
+        "/md/web/button.md",
+        "/md/mobile/button.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "button-group",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Button group",
+      "oneLiner": "Button groups join buttons into one segmented control.",
+      "page": "/components/m3/button-group",
+      "md": [
+        "/md/web/button-group.md",
+        "/md/mobile/button-group.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "calendar",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Calendar",
+      "oneLiner": "Calendars pick a single date from a month grid.",
+      "page": "/components/m3/calendar",
+      "md": [
+        "/md/web/calendar.md",
+        "/md/mobile/calendar.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "card",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Card",
+      "oneLiner": "Cards group related content and actions into a single surface.",
+      "page": "/components/m3/card",
+      "md": [
+        "/md/web/card.md",
+        "/md/mobile/card.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "carousel",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Carousel",
+      "oneLiner": "Carousels show one slide at a time from a set, moved through with controls or by gesture.",
+      "page": "/components/m3/carousel",
+      "md": [
+        "/md/web/carousel.md",
+        "/md/mobile/carousel.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "checkbox",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Checkbox",
+      "oneLiner": "Checkboxes let people pick several things from a set, or agree to something one at a time.",
+      "page": "/components/m3/checkbox",
+      "md": [
+        "/md/web/checkbox.md",
+        "/md/mobile/checkbox.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "checkbox-group",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Checkbox group",
+      "oneLiner": "A checkbox group collects several independent choices into one value you can read at once.",
+      "page": "/components/m3/checkbox-group",
+      "md": [
+        "/md/web/checkbox-group.md",
+        "/md/mobile/checkbox-group.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "chip",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Chip",
+      "oneLiner": "Chips are compact elements that represent an attribute, an action, or a filter.",
+      "page": "/components/m3/chip",
+      "md": [
+        "/md/web/chip.md",
+        "/md/mobile/chip.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "circular-progress",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Circular progress",
+      "oneLiner": "Circular progress shows how much of a task is done, as a ring.",
+      "page": "/components/m3/circular-progress",
+      "md": [
+        "/md/web/circular-progress.md",
+        "/md/mobile/circular-progress.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "collapsible",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Collapsible",
+      "oneLiner": "Collapsibles hide a section of content behind a trigger and show it on demand.",
+      "page": "/components/m3/collapsible",
+      "md": [
+        "/md/web/collapsible.md",
+        "/md/mobile/collapsible.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "combobox",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Combobox",
+      "oneLiner": "Comboboxes pick one value from a set, either from the list or by typing to narrow it.",
+      "page": "/components/m3/combobox",
+      "md": [
+        "/md/web/combobox.md",
+        "/md/mobile/combobox.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "command",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Command",
+      "oneLiner": "Commands are searchable lists of actions and destinations, filtered as you type.",
+      "page": "/components/m3/command",
+      "md": [
+        "/md/web/command.md",
+        "/md/mobile/command.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "context-menu",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Context menu",
+      "oneLiner": "Context menus offer the actions for a thing where the thing is, opened by right-clicking it.",
+      "page": "/components/m3/context-menu",
+      "md": [
+        "/md/web/context-menu.md",
+        "/md/mobile/context-menu.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "contrast-toggle",
+      "platforms": [
+        "mobile"
+      ],
+      "title": "ContrastToggle",
+      "oneLiner": "One action that requests a contrast change, named for where the press goes rather than where it is.",
+      "page": "/components/m3/contrast-toggle",
+      "md": [
+        "/md/mobile/contrast-toggle.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "country-select",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Country select",
+      "oneLiner": "Country selects pick a country from a list, showing its flag and dial code alongside its name.",
+      "page": "/components/m3/country-select",
+      "md": [
+        "/md/web/country-select.md",
+        "/md/mobile/country-select.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "dialog",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Dialog",
+      "oneLiner": "A dialog asks people to complete a focused task before they carry on with the rest of the app.",
+      "page": "/components/m3/dialog",
+      "md": [
+        "/md/web/dialog.md",
+        "/md/mobile/dialog.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "dock-sheet",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Dock sheet",
+      "oneLiner": "The dock sheet is a persistent quick-action bar peeking from the bottom edge — a region, not a dialog.",
+      "page": "/components/m3/dock-sheet",
+      "md": [
+        "/md/web/dock-sheet.md",
+        "/md/mobile/dock-sheet.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "drawer",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Drawer",
+      "oneLiner": "A drawer is a panel that slides up from the bottom edge for a short, self-contained step.",
+      "page": "/components/m3/drawer",
+      "md": [
+        "/md/web/drawer.md",
+        "/md/mobile/drawer.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "empty-state",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Empty state",
+      "oneLiner": "Empty states say what is missing, and offer the one thing that would fix it.",
+      "page": "/components/m3/empty-state",
+      "md": [
+        "/md/web/empty-state.md",
+        "/md/mobile/empty-state.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "entity-sheet",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Entity sheet",
+      "oneLiner": "The entity sheet is the read-mostly detail surface for one record — a title, its fields, and at most one action.",
+      "page": "/components/m3/entity-sheet",
+      "md": [
+        "/md/web/entity-sheet.md",
+        "/md/mobile/entity-sheet.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "error-boundary",
+      "platforms": [
+        "mobile"
+      ],
+      "title": "Error boundary",
+      "oneLiner": "Error boundaries catch a thrown render so one broken screen does not blank the whole app.",
+      "page": "/components/m3/error-boundary",
+      "md": [
+        "/md/mobile/error-boundary.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "extended-fab",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Extended FAB",
+      "oneLiner": "Extended FABs are the labelled floating action button — the one primary action, with its name beside its icon.",
+      "page": "/components/m3/extended-fab",
+      "md": [
+        "/md/web/extended-fab.md",
+        "/md/mobile/extended-fab.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "fab",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Floating action button",
+      "oneLiner": "The floating action button is the single most important action on a screen.",
+      "page": "/components/m3/fab",
+      "md": [
+        "/md/web/fab.md",
+        "/md/mobile/fab.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "fab-menu",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "FAB menu",
+      "oneLiner": "FAB menus hold several related actions behind one floating button, opened on tap.",
+      "page": "/components/m3/fab-menu",
+      "md": [
+        "/md/web/fab-menu.md",
+        "/md/mobile/fab-menu.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "field",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Field",
+      "oneLiner": "A field pairs a control with its label, its help text and its error, and wires them together.",
+      "page": "/components/m3/field",
+      "md": [
+        "/md/web/field.md",
+        "/md/mobile/field.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "fieldset",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Fieldset",
+      "oneLiner": "Fieldsets group related controls under one legend and give them a shared disabled state.",
+      "page": "/components/m3/fieldset",
+      "md": [
+        "/md/web/fieldset.md",
+        "/md/mobile/fieldset.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "filter-chip-row",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Filter chip row",
+      "oneLiner": "The filter chip row is a horizontal row of multi-select toggles — press once to apply a filter, press again to remove it.",
+      "page": "/components/m3/filter-chip-row",
+      "md": [
+        "/md/web/filter-chip-row.md",
+        "/md/mobile/filter-chip-row.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "focus-ring",
+      "platforms": [
+        "web"
+      ],
+      "title": "Focus ring",
+      "oneLiner": "Focus rings paint the visible keyboard-focus treatment on host content.",
+      "page": "/components/m3/focus-ring",
+      "md": [
+        "/md/web/focus-ring.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "form",
+      "platforms": [
+        "web"
+      ],
+      "title": "Form",
+      "oneLiner": "Forms collect several values and hand them over together.",
+      "page": "/components/m3/form",
+      "md": [
+        "/md/web/form.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "hero",
+      "platforms": [
+        "web"
+      ],
+      "title": "Hero",
+      "oneLiner": "Hero opens a page with its main heading, supporting copy, actions, and optional art.",
+      "page": "/components/m3/hero",
+      "md": [
+        "/md/web/hero.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "icon-button",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Icon button",
+      "oneLiner": "Icon buttons are buttons whose content is a single glyph.",
+      "page": "/components/m3/icon-button",
+      "md": [
+        "/md/web/icon-button.md",
+        "/md/mobile/icon-button.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "icon-button-target",
+      "platforms": [
+        "mobile"
+      ],
+      "title": "Icon button target",
+      "oneLiner": "Icon button targets are the touch-target wrapper that brings a small button up to the platform minimum.",
+      "page": "/components/m3/icon-button-target",
+      "md": [
+        "/md/mobile/icon-button-target.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "input",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Input",
+      "oneLiner": "Inputs take a single line of text from someone and hand it to you.",
+      "page": "/components/m3/input",
+      "md": [
+        "/md/web/input.md",
+        "/md/mobile/input.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "input-otp",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Input OTP",
+      "oneLiner": "OTP inputs take a short numeric code one character at a time, as it is typed.",
+      "page": "/components/m3/input-otp",
+      "md": [
+        "/md/web/input-otp.md",
+        "/md/mobile/input-otp.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "kbd",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Kbd",
+      "oneLiner": "Kbds show a keyboard key or shortcut as text, in the shape of a key.",
+      "page": "/components/m3/kbd",
+      "md": [
+        "/md/web/kbd.md",
+        "/md/mobile/kbd.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "kern-error-boundary",
+      "platforms": [
+        "web"
+      ],
+      "title": "Kern error boundary",
+      "oneLiner": "The kern error boundary catches a thrown render, shows your fallback with a working reset, and never reloads the page to recover.",
+      "page": "/components/m3/kern-error-boundary",
+      "md": [
+        "/md/web/kern-error-boundary.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "kern-pressable",
+      "platforms": [
+        "mobile"
+      ],
+      "title": "Kern pressable",
+      "oneLiner": "The narrow accessibility-defaults wrap for anything pressable on native: Material's minimum touch target, a button role by default, and `disabled` always reported.",
+      "page": "/components/m3/kern-pressable",
+      "md": [
+        "/md/mobile/kern-pressable.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "label",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Label",
+      "oneLiner": "Labels name the control they sit beside.",
+      "page": "/components/m3/label",
+      "md": [
+        "/md/web/label.md",
+        "/md/mobile/label.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "linear-progress",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Linear progress",
+      "oneLiner": "Linear progress shows how much of a task is done, as a bar across a width.",
+      "page": "/components/m3/linear-progress",
+      "md": [
+        "/md/web/linear-progress.md",
+        "/md/mobile/linear-progress.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "link",
+      "platforms": [
+        "web"
+      ],
+      "title": "Link",
+      "oneLiner": "Links are anchors that can be pointed at your host router, so kern never hardcodes one.",
+      "page": "/components/m3/link",
+      "md": [
+        "/md/web/link.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "link-button",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Link button",
+      "oneLiner": "Link buttons wear the button treatment on a navigation control — an anchor, not an action.",
+      "page": "/components/m3/link-button",
+      "md": [
+        "/md/web/link-button.md",
+        "/md/mobile/link-button.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "list-detail",
+      "platforms": [
+        "mobile"
+      ],
+      "title": "List detail",
+      "oneLiner": "List detail is the phone-width master–detail pattern: the list until an item is selected, then the detail with a way back.",
+      "page": "/components/m3/list-detail",
+      "md": [
+        "/md/mobile/list-detail.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "list-item",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "List item",
+      "oneLiner": "List items are rows in a list — a headline, optional supporting text, and optional leading and trailing slots.",
+      "page": "/components/m3/list-item",
+      "md": [
+        "/md/web/list-item.md",
+        "/md/mobile/list-item.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "loader",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Loader",
+      "oneLiner": "Loaders say something is happening, in the space where it is happening.",
+      "page": "/components/m3/loader",
+      "md": [
+        "/md/web/loader.md",
+        "/md/mobile/loader.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "loading-button",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Loading button",
+      "oneLiner": "Loading buttons show that the action they trigger is still running, without changing size.",
+      "page": "/components/m3/loading-button",
+      "md": [
+        "/md/web/loading-button.md",
+        "/md/mobile/loading-button.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "loading-indicator",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Loading indicator",
+      "oneLiner": "Loading indicators are the labelled spinner — a wait with its name attached.",
+      "page": "/components/m3/loading-indicator",
+      "md": [
+        "/md/web/loading-indicator.md",
+        "/md/mobile/loading-indicator.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "loading-region",
+      "platforms": [
+        "web"
+      ],
+      "title": "Loading region",
+      "oneLiner": "Loading regions swap between content and a loading state as work starts and finishes.",
+      "page": "/components/m3/loading-region",
+      "md": [
+        "/md/web/loading-region.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "menu",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Menu",
+      "oneLiner": "Menus list the actions available on something, opened from the control that owns them.",
+      "page": "/components/m3/menu",
+      "md": [
+        "/md/web/menu.md",
+        "/md/mobile/menu.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "menu-group-list",
+      "platforms": [
+        "mobile"
+      ],
+      "title": "Menu group list",
+      "oneLiner": "Menu group lists render groups of actions under their headings — the shared list the menu screens and sheets are both built from.",
+      "page": "/components/m3/menu-group-list",
+      "md": [
+        "/md/mobile/menu-group-list.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "menu-screen",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Menu screen",
+      "oneLiner": "The menu screen is a full-height list of grouped destinations and actions — a settings-style page, not a menu.",
+      "page": "/components/m3/menu-screen",
+      "md": [
+        "/md/web/menu-screen.md",
+        "/md/mobile/menu-screen.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "menu-sheet",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Menu sheet",
+      "oneLiner": "The menu sheet hosts a grouped action menu in a bottom sheet — the same menu data as the menu screen, with a dismissal path around it.",
+      "page": "/components/m3/menu-sheet",
+      "md": [
+        "/md/web/menu-sheet.md",
+        "/md/mobile/menu-sheet.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "menubar",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Menubar",
+      "oneLiner": "A menubar is a horizontal row of menus, the way an application exposes its commands.",
+      "page": "/components/m3/menubar",
+      "md": [
+        "/md/web/menubar.md",
+        "/md/mobile/menubar.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "meter",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Meter",
+      "oneLiner": "Meters show a value against a range, so a quantity can be read at a glance.",
+      "page": "/components/m3/meter",
+      "md": [
+        "/md/web/meter.md",
+        "/md/mobile/meter.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "milestone-trio",
+      "platforms": [
+        "mobile"
+      ],
+      "title": "Milestone trio",
+      "oneLiner": "Milestone trios show where someone is in a short sequence — done, current, and what is left.",
+      "page": "/components/m3/milestone-trio",
+      "md": [
+        "/md/mobile/milestone-trio.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "native-select",
+      "platforms": [
+        "web"
+      ],
+      "title": "Native select",
+      "oneLiner": "Native selects are the browser's own dropdown, styled to sit with the rest of a form.",
+      "page": "/components/m3/native-select",
+      "md": [
+        "/md/web/native-select.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "navigation-bar",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Navigation bar",
+      "oneLiner": "The navigation bar is the compact-screen destination switcher that sits along the bottom edge.",
+      "page": "/components/m3/navigation-bar",
+      "md": [
+        "/md/web/navigation-bar.md",
+        "/md/mobile/navigation-bar.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "navigation-bar-item",
+      "platforms": [
+        "mobile"
+      ],
+      "title": "Navigation bar item",
+      "oneLiner": "Navigation bar items are one destination row for vertical containers — a drawer, a rail or a sidebar list.",
+      "page": "/components/m3/navigation-bar-item",
+      "md": [
+        "/md/mobile/navigation-bar-item.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "navigation-drawer",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Navigation drawer",
+      "oneLiner": "The navigation drawer is the modal panel that lists an app's top-level destinations on larger screens.",
+      "page": "/components/m3/navigation-drawer",
+      "md": [
+        "/md/web/navigation-drawer.md",
+        "/md/mobile/navigation-drawer.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "navigation-menu",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Navigation menu",
+      "oneLiner": "Navigation menus open a panel of links from a trigger in a site's main navigation.",
+      "page": "/components/m3/navigation-menu",
+      "md": [
+        "/md/web/navigation-menu.md",
+        "/md/mobile/navigation-menu.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "navigation-rail",
+      "platforms": [
+        "mobile"
+      ],
+      "title": "Navigation rail",
+      "oneLiner": "The navigation rail is the persistent vertical navigation surface — icon-only by default, a labelled sidebar when expanded.",
+      "page": "/components/m3/navigation-rail",
+      "md": [
+        "/md/mobile/navigation-rail.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "number-field",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Number field",
+      "oneLiner": "Number fields take a number from someone, with steppers to nudge it up and down.",
+      "page": "/components/m3/number-field",
+      "md": [
+        "/md/web/number-field.md",
+        "/md/mobile/number-field.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "page-loader",
+      "platforms": [
+        "web"
+      ],
+      "title": "Page loader",
+      "oneLiner": "Page loaders are the centred loading surface for a region that is still coming.",
+      "page": "/components/m3/page-loader",
+      "md": [
+        "/md/web/page-loader.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "pagination",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Pagination",
+      "oneLiner": "Pagination moves through a long set of results one page at a time.",
+      "page": "/components/m3/pagination",
+      "md": [
+        "/md/web/pagination.md",
+        "/md/mobile/pagination.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "pane",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Pane",
+      "oneLiner": "Panes are content regions on a width scale, and the layout shapes built from them — a page, a split, a list-and-detail.",
+      "page": "/components/m3/pane",
+      "md": [
+        "/md/web/pane.md",
+        "/md/mobile/pane.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "popover",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Popover",
+      "oneLiner": "Popovers surface a small panel of content or controls next to whatever opened them.",
+      "page": "/components/m3/popover",
+      "md": [
+        "/md/web/popover.md",
+        "/md/mobile/popover.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "preview-card",
+      "platforms": [
+        "web"
+      ],
+      "title": "Preview card",
+      "oneLiner": "Preview cards show a richer look at a link's destination before anyone commits to going there.",
+      "page": "/components/m3/preview-card",
+      "md": [
+        "/md/web/preview-card.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "progress",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Progress",
+      "oneLiner": "Progress indicators show how much of something is done while it is still running.",
+      "page": "/components/m3/progress",
+      "md": [
+        "/md/web/progress.md",
+        "/md/mobile/progress.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "radio-group",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Radio group",
+      "oneLiner": "Radio groups let people pick exactly one option from a set they can see all at once.",
+      "page": "/components/m3/radio-group",
+      "md": [
+        "/md/web/radio-group.md",
+        "/md/mobile/radio-group.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "rich-tooltip",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Rich tooltip",
+      "oneLiner": "A tooltip with a subhead, supporting text, and plain-text actions for explanations that need more than a label.",
+      "page": "/components/m3/rich-tooltip",
+      "md": [
+        "/md/web/rich-tooltip.md",
+        "/md/mobile/rich-tooltip.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "scroll-area",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Scroll area",
+      "oneLiner": "Scroll areas give a fixed region its own scrollbar, so the page does not scroll away from under the content.",
+      "page": "/components/m3/scroll-area",
+      "md": [
+        "/md/web/scroll-area.md",
+        "/md/mobile/scroll-area.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "search",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Search",
+      "oneLiner": "Search is a labelled field with submit and clear, for finding things by text.",
+      "page": "/components/m3/search",
+      "md": [
+        "/md/web/search.md",
+        "/md/mobile/search.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "search-bar",
+      "platforms": [
+        "web"
+      ],
+      "title": "Blocks",
+      "oneLiner": "Blocks are the small shell pieces — a search bar, a settings row, a status bar, and the theme and contrast toggles.",
+      "page": "/components/m3/search-bar",
+      "md": [
+        "/md/web/search-bar.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "secondary-tabs",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Secondary tabs",
+      "oneLiner": "Secondary tabs switch between related views in the middle of a page, below the primary navigation.",
+      "page": "/components/m3/secondary-tabs",
+      "md": [
+        "/md/web/secondary-tabs.md",
+        "/md/mobile/secondary-tabs.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "segmented-button",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Segmented button",
+      "oneLiner": "Segmented buttons show a small set of options side by side, with the chosen one visibly selected.",
+      "page": "/components/m3/segmented-button",
+      "md": [
+        "/md/web/segmented-button.md",
+        "/md/mobile/segmented-button.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "select",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Select",
+      "oneLiner": "Selects let someone choose one value from a set too long to show on the page.",
+      "page": "/components/m3/select",
+      "md": [
+        "/md/web/select.md",
+        "/md/mobile/select.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "select-group",
+      "platforms": [
+        "web"
+      ],
+      "title": "Select group",
+      "oneLiner": "Select groups collect related options under one label inside the open list.",
+      "page": "/components/m3/select-group",
+      "md": [
+        "/md/web/select-group.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "separator",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Separator",
+      "oneLiner": "Separators divide one region of content from the next.",
+      "page": "/components/m3/separator",
+      "md": [
+        "/md/web/separator.md",
+        "/md/mobile/separator.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "settings-row",
+      "platforms": [
+        "mobile"
+      ],
+      "title": "Settings row",
+      "oneLiner": "Settings rows pair a label and supporting text with the control that owns them.",
+      "page": "/components/m3/settings-row",
+      "md": [
+        "/md/mobile/settings-row.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "shape",
+      "platforms": [
+        "mobile"
+      ],
+      "title": "Shape",
+      "oneLiner": "Shapes are the six basic forms in the kern radius language, drawn from the shape scale rather than freehand.",
+      "page": "/components/m3/shape",
+      "md": [
+        "/md/mobile/shape.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "shape-art",
+      "platforms": [
+        "mobile"
+      ],
+      "title": "Shape art",
+      "oneLiner": "Shape art composes kern shapes into a decorative arrangement — scatter, stack or arch.",
+      "page": "/components/m3/shape-art",
+      "md": [
+        "/md/mobile/shape-art.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "sheet",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Sheet",
+      "oneLiner": "Sheets slide in from the side to hold a focused task beside the content behind them.",
+      "page": "/components/m3/sheet",
+      "md": [
+        "/md/web/sheet.md",
+        "/md/mobile/sheet.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "sheet-handle",
+      "platforms": [
+        "mobile"
+      ],
+      "title": "Sheet handle",
+      "oneLiner": "Sheet handles are the small drag affordance drawn at the top of a sheet.",
+      "page": "/components/m3/sheet-handle",
+      "md": [
+        "/md/mobile/sheet-handle.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "sheet-surface",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Sheet surface",
+      "oneLiner": "Sheet surface is the shared modal and scrim shell — the one place a kern sheet gets its dismissal path.",
+      "page": "/components/m3/sheet-surface",
+      "md": [
+        "/md/web/sheet-surface.md",
+        "/md/mobile/sheet-surface.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "sidebar",
+      "platforms": [
+        "web"
+      ],
+      "title": "Sidebar",
+      "oneLiner": "Sidebars are the app's persistent navigation region, composed from a provider, sections and items.",
+      "page": "/components/m3/sidebar",
+      "md": [
+        "/md/web/sidebar.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "site-footer",
+      "platforms": [
+        "web"
+      ],
+      "title": "SiteFooter",
+      "oneLiner": "SiteFooter closes a site page with a brand summary, grouped navigation, and optional legal content.",
+      "page": "/components/m3/site-footer",
+      "md": [
+        "/md/web/site-footer.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "skeleton",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Skeleton",
+      "oneLiner": "Skeletons stand in for content that is still loading, in the shape it will have.",
+      "page": "/components/m3/skeleton",
+      "md": [
+        "/md/web/skeleton.md",
+        "/md/mobile/skeleton.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "slider",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Slider",
+      "oneLiner": "Sliders pick a value from a range by feel, showing where it sits along the way.",
+      "page": "/components/m3/slider",
+      "md": [
+        "/md/web/slider.md",
+        "/md/mobile/slider.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "snackbar",
+      "platforms": [
+        "web"
+      ],
+      "title": "Snackbar",
+      "oneLiner": "Snackbars confirm something happened, briefly, without interrupting what someone is doing.",
+      "page": "/components/m3/snackbar",
+      "md": [
+        "/md/web/snackbar.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "snackbar-provider",
+      "platforms": [
+        "mobile"
+      ],
+      "title": "Snackbar",
+      "oneLiner": "Snackbars confirm something happened, briefly, with an optional action to undo it.",
+      "page": "/components/m3/snackbar-provider",
+      "md": [
+        "/md/mobile/snackbar-provider.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "snap-sheet",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Snap sheet",
+      "oneLiner": "The snap sheet is a bottom sheet with detents — a modal surface that occupies one of a declared set of heights.",
+      "page": "/components/m3/snap-sheet",
+      "md": [
+        "/md/web/snap-sheet.md",
+        "/md/mobile/snap-sheet.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "sonner",
+      "platforms": [
+        "web"
+      ],
+      "title": "Sonner",
+      "oneLiner": "Sonner raises transient messages with an intent — it worked, watch out, here is a problem — and an optional action.",
+      "page": "/components/m3/sonner",
+      "md": [
+        "/md/web/sonner.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "split",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Split",
+      "oneLiner": "The split is an N-column layout: two or three equal columns divided by a hairline, named as one region for assistive technology.",
+      "page": "/components/m3/split",
+      "md": [
+        "/md/web/split.md",
+        "/md/mobile/split.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "split-button",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Split button",
+      "oneLiner": "Split buttons pair one primary action with a menu of related alternatives.",
+      "page": "/components/m3/split-button",
+      "md": [
+        "/md/web/split-button.md",
+        "/md/mobile/split-button.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "status-bar",
+      "platforms": [
+        "mobile"
+      ],
+      "title": "Status bar",
+      "oneLiner": "Status bars hold one centered status with leading and trailing slots.",
+      "page": "/components/m3/status-bar",
+      "md": [
+        "/md/mobile/status-bar.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "success-transform",
+      "platforms": [
+        "mobile"
+      ],
+      "title": "Success transform",
+      "oneLiner": "Success transforms are the completion moment — a disc and a tick, or the loader that precedes it.",
+      "page": "/components/m3/success-transform",
+      "md": [
+        "/md/mobile/success-transform.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "supporting-pane",
+      "platforms": [
+        "mobile"
+      ],
+      "title": "Supporting pane",
+      "oneLiner": "Supporting panes hold the secondary panel beside main content, and hide it entirely on a compact screen.",
+      "page": "/components/m3/supporting-pane",
+      "md": [
+        "/md/mobile/supporting-pane.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "switch",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Switch",
+      "oneLiner": "A switch turns a single setting on or off and applies it at once.",
+      "page": "/components/m3/switch",
+      "md": [
+        "/md/web/switch.md",
+        "/md/mobile/switch.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "table",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Table",
+      "oneLiner": "Tables lay out rows of related values so they can be compared down a column.",
+      "page": "/components/m3/table",
+      "md": [
+        "/md/web/table.md",
+        "/md/mobile/table.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "tabs",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Tabs",
+      "oneLiner": "Tabs switch between related views of the same subject without leaving the page.",
+      "page": "/components/m3/tabs",
+      "md": [
+        "/md/web/tabs.md",
+        "/md/mobile/tabs.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "text",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Text",
+      "oneLiner": "Text renders a line of type at one of the typescale's styles.",
+      "page": "/components/m3/text",
+      "md": [
+        "/md/web/text.md",
+        "/md/mobile/text.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "textarea",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Textarea",
+      "oneLiner": "Textareas take several lines of text from someone and hand it to you.",
+      "page": "/components/m3/textarea",
+      "md": [
+        "/md/web/textarea.md",
+        "/md/mobile/textarea.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "theme-toggle",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "ThemeToggle",
+      "oneLiner": "One action that switches the color scheme between light and dark.",
+      "page": "/components/m3/theme-toggle",
+      "md": [
+        "/md/web/theme-toggle.md",
+        "/md/mobile/theme-toggle.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "time-picker",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Time picker",
+      "oneLiner": "Time pickers set a time of day with explicit hour and minute fields.",
+      "page": "/components/m3/time-picker",
+      "md": [
+        "/md/web/time-picker.md",
+        "/md/mobile/time-picker.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "toggle",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Toggle",
+      "oneLiner": "Toggles are buttons that stay pressed, for a setting you switch on and off.",
+      "page": "/components/m3/toggle",
+      "md": [
+        "/md/web/toggle.md",
+        "/md/mobile/toggle.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "toggle-group",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Toggle group",
+      "oneLiner": "Toggle groups hold related toggles together as one control, picking either one option or several.",
+      "page": "/components/m3/toggle-group",
+      "md": [
+        "/md/web/toggle-group.md",
+        "/md/mobile/toggle-group.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "toolbar",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Toolbar",
+      "oneLiner": "Toolbars hold the controls that act on the content below them.",
+      "page": "/components/m3/toolbar",
+      "md": [
+        "/md/web/toolbar.md",
+        "/md/mobile/toolbar.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "tooltip",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Tooltip",
+      "oneLiner": "Tooltips name or explain a control the moment someone hovers or focuses it.",
+      "page": "/components/m3/tooltip",
+      "md": [
+        "/md/web/tooltip.md",
+        "/md/mobile/tooltip.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "top-app-bar",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Top app bar",
+      "oneLiner": "The top app bar is the screen's header — leading slot, title, trailing actions — plus the app-level bar and its menus.",
+      "page": "/components/m3/top-app-bar",
+      "md": [
+        "/md/web/top-app-bar.md",
+        "/md/mobile/top-app-bar.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "top-bar",
+      "platforms": [
+        "web"
+      ],
+      "title": "TopBar",
+      "oneLiner": "TopBar is a responsive site header with a brand link, primary navigation, and an actions slot.",
+      "page": "/components/m3/top-bar",
+      "md": [
+        "/md/web/top-bar.md"
+      ]
+    },
+    {
+      "kind": "foundations",
+      "slug": "tokens",
+      "title": "Tokens",
+      "oneLiner": "The named values everything else is built from.",
+      "page": "/foundations/m3/tokens",
+      "md": "/md/foundations/tokens.md"
+    },
+    {
+      "kind": "foundations",
+      "slug": "color",
+      "title": "Color",
+      "oneLiner": "Roles are decisions, not colours — and kern ships more of them than Material 3 does.",
+      "page": "/foundations/m3/color",
+      "md": "/md/foundations/color.md"
+    },
+    {
+      "kind": "foundations",
+      "slug": "type",
+      "title": "Typography",
+      "oneLiner": "Thirty styles, each rendered by its own tokens.",
+      "page": "/foundations/m3/type",
+      "md": "/md/foundations/type.md"
+    },
+    {
+      "kind": "foundations",
+      "slug": "shape",
+      "title": "Shape",
+      "oneLiner": "The corner scale, including Material 3's Expressive additions.",
+      "page": "/foundations/m3/shape",
+      "md": "/md/foundations/shape.md"
+    },
+    {
+      "kind": "foundations",
+      "slug": "elevation",
+      "title": "Elevation",
+      "oneLiner": "Six levels, and which components rest at which.",
+      "page": "/foundations/m3/elevation",
+      "md": "/md/foundations/elevation.md"
+    },
+    {
+      "kind": "foundations",
+      "slug": "motion",
+      "title": "Motion",
+      "oneLiner": "Spring first, easing as the fallback.",
+      "page": "/foundations/m3/motion",
+      "md": "/md/foundations/motion.md"
+    },
+    {
+      "kind": "foundations",
+      "slug": "states",
+      "title": "States",
+      "oneLiner": "What happens to a surface when it is hovered, pressed, dragged or disabled.",
+      "page": "/foundations/m3/states",
+      "md": "/md/foundations/states.md"
+    },
+    {
+      "kind": "theme",
+      "slug": "theme",
+      "title": "Theme",
+      "oneLiner": "M3 color roles in the active theme",
+      "page": "/foundations/m3/theme",
+      "md": "/md/foundations/theme.md"
+    }
+  ]
+}

@@ -220,6 +220,33 @@ export const GENERATORS = [
     ],
   },
   {
+    // The MCP server's runtime data, frozen at build time (roadmap item 7):
+    // tokens, theme presets + catalog, DTCG, block metadata. tools.ts
+    // imports the emitted module instead of reading checkout files, so the
+    // packed tarball serves data from dist.
+    name: "generate-bundle (token/block data -> MCP bundled-data.ts)",
+    cmd: ["bun", "packages/mcp/scripts/generate-bundle.mjs"],
+    outputs: ["packages/mcp/src/bundled-data.ts"],
+  },
+  {
+    // The docs corpus index for the MCP server, emitted as the package's
+    // bundled docs payload (published as the `./docs-index` subpath) by the
+    // same script that serves it to the site. --preload/--cwd mirror the
+    // generate-a11y entry: the derivation reaches @xoroh/kern through the
+    // react-native alias. Only the tracked payload is listed (public/ is
+    // gitignored build output, owned by check-mcp-index instead).
+    name: "site generate-mcp-index (docs corpus -> MCP docs-index.json)",
+    cmd: [
+      "bun",
+      "--cwd",
+      "apps/site",
+      "--preload",
+      "./scripts/preload-rn.mjs",
+      "scripts/generate-mcp-index.mjs",
+    ],
+    outputs: ["packages/mcp/src/docs-index.json"],
+  },
+  {
     // The icon sets: ~35 files across one generated tree. ONE entry owns the
     // whole directory rather than listing 35 outputs, because a completeness
     // gate that has to be updated per generated file is a gate that will be

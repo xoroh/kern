@@ -56,7 +56,8 @@
         "docs/archive/**",
         "packages/kern-tokens/src/dtcg.json",
         "packages/kern-m3/src/themes/matrix.json",
-        "packages/kern-cli/src/blocks.json"
+        "packages/kern-cli/src/blocks.json",
+        "packages/mcp/src/docs-index.json"
       ],
       "formatter": { "enabled": false },
       "linter": { "enabled": false },

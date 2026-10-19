@@ -10,8 +10,8 @@ components, fetch source and tokens, audit screens.
 { "mcpServers": { "kern": { "command": "bunx", "args": ["@xoroh/kern-mcp"] } } }
 ```
 
-Inside this monorepo, point it at the workspace (until the registry is
-bundled at publish — see below):
+Inside this monorepo, point it at the workspace so component SOURCES resolve
+(`get_component` source bytes are the one thing never bundled):
 
 ```json
 { "env": { "KERN_REPO_ROOT": "/path/to/kern" } }
@@ -34,13 +34,16 @@ bundled at publish — see below):
 
 ## Distribution status
 
-The registry (`manifest.ts`) is bundled at build time, so inventory, plans
-and validation work anywhere. Component/token/block/icon SOURCES still read
-from a checkout (`KERN_REPO_ROOT` overrides) and say so explicitly when
-absent — every tool names what it could not reach instead of inventing it.
-`install_plan` runs the real CLI planner when `@xoroh/kern-cli` is installed
-beside the server (`resolved-closure`) and labels metadata-only output when
-it is not.
+The registry (`manifest.ts`), the runtime data bundle (`bundled-data.ts`:
+base tokens, theme presets + catalog, DTCG, block metadata) and the docs
+corpus index (`docs-index.json`) are all generated at build time and packed,
+so inventory, plans, tokens, blocks and validation work anywhere with no
+checkout to read. Component SOURCES still resolve through a checkout
+(`KERN_REPO_ROOT` overrides) and say so explicitly when absent — verbatim
+source is never embedded, and every tool names what it could not reach
+instead of inventing it. `install_plan` runs the real CLI planner when
+`@xoroh/kern-cli` is installed beside the server (`resolved-closure`) and
+labels metadata-only output when it is not.
 
 ## License
 
