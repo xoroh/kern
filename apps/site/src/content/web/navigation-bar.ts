@@ -106,6 +106,7 @@ export const navigationBar: ComponentDoc = {
   api: [
     {
       name: "destinations",
+      for: ["NavigationBar"],
       type: "NavigationDestination[]",
       note: "The places, as data: `key`, `label`, optional `icon`, optional `badge`, optional `disabled`. The same shape feeds the rail and the drawer, so a host declares its destinations once.",
     },
@@ -121,6 +122,7 @@ export const navigationBar: ComponentDoc = {
     },
     {
       name: "onValueChange",
+      for: ["NavigationBar"],
       type: "(key: string) => void",
       note: "Fires when the active destination changes, with the key rather than an event.",
     },
@@ -131,11 +133,13 @@ export const navigationBar: ComponentDoc = {
     },
     {
       name: "floating",
+      for: ["NavigationBar"],
       type: "ReactNode",
       note: "Rendered above the bar. In M3 this is the FAB dock.",
     },
     {
       name: "disabled",
+      for: ["NavigationBarItem"],
       type: "boolean",
       note: "On a destination: announced as unavailable, skipped by keyboard traversal, and inert to activation.",
     },

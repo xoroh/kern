@@ -54,23 +54,27 @@ export const collapsible: ComponentDoc = {
   api: [
     {
       name: "open",
+      for: ["CollapsibleRoot"],
       type: "boolean",
       note: "Controlled open state on `CollapsibleRoot`. Omit for uncontrolled.",
     },
     {
       name: "defaultOpen",
+      for: ["CollapsibleRoot"],
       type: "boolean",
       note: "Initial state when uncontrolled. A section open by default is a section people read; choose it deliberately.",
     },
     {
       name: "onOpenChange",
+      for: ["CollapsibleRoot"],
       type: "(open: boolean) => void",
       note: "Fires when the state flips, however it was flipped.",
     },
     {
       name: "disabled",
+      for: ["CollapsibleRoot", "CollapsibleTrigger"],
       type: "boolean",
-      note: "On the trigger: it will not open the panel and is announced as unavailable.",
+      note: "On the root it locks the section closed; on the trigger it will not open the panel and is announced as unavailable.",
     },
     {
       name: "className",

@@ -52,16 +52,19 @@ export const checkboxGroup: ComponentDoc = {
     },
     {
       name: "defaultValue",
+      for: ["CheckboxGroupRoot"],
       type: "string[]",
       note: "Initial selection when uncontrolled.",
     },
     {
       name: "onValueChange",
+      for: ["CheckboxGroupRoot"],
       type: "(value: string[]) => void",
       note: "Fires on every change with the full selection, so one handler sees the whole answer rather than one box at a time.",
     },
     {
       name: "label",
+      for: ["CheckboxGroupItem"],
       type: "ReactNode",
       note: "Required on `CheckboxGroupItem`. Not optional here as it is on `Checkbox`: an item in a set with no name cannot be chosen deliberately.",
     },

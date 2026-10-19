@@ -85,38 +85,55 @@ export const command: ComponentDoc = {
   api: [
     {
       name: "options",
+      for: ["CommandRoot"],
       type: "readonly CommandOption[]",
       note: "The rows, as data on `CommandRoot`. Each carries `value`, `label`, and optionally `keywords`, `icon`, `shortcut`, `disabled` and `onSelect`. Filtering and rendering both come from this.",
     },
     {
       name: "onValueChange",
+      for: ["CommandRoot"],
       type: "(value: string | null, eventDetails?) => void",
       note: "Fires when an option is chosen, with its value. Nullable — nothing chosen is `null` rather than an empty string.",
     },
     {
-      name: "keywords",
-      type: "string[]",
-      note: "On an option: extra search terms matched against the query, alongside the label. This is how someone finds a thing by the word they would use for it rather than the word you named it with.",
-    },
-    {
       name: "shortcut",
+      for: ["CommandItem"],
       type: "string",
       note: "On an option: the trailing keyboard hint, rendered in a `Kbd`. Text to display, not a binding — the shortcut is wired by the host.",
     },
     {
       name: "onSelect",
+      for: [
+        "CommandInput",
+        "CommandContent",
+        "CommandList",
+        "CommandItem",
+        "CommandGroupLabel",
+        "CommandSeparator",
+        "CommandEmpty",
+      ],
       type: "(value: string) => void",
       note: "On an option: invoked after it is chosen, in addition to `onValueChange` on the root. Use it for per-option behaviour.",
     },
     {
       name: "className",
+      for: [
+        "CommandInput",
+        "CommandContent",
+        "CommandList",
+        "CommandItem",
+        "CommandGroupLabel",
+        "CommandSeparator",
+        "CommandEmpty",
+      ],
       type: "string",
       note: "Accepted on every part, merged after that part's classes.",
     },
     {
       name: "disabled",
+      for: ["CommandRoot", "CommandInput", "CommandItem"],
       type: "boolean",
-      note: "On an option: it stays visible but cannot be chosen.",
+      note: "On the root it locks the whole palette; on an option it stays visible but cannot be chosen.",
     },
     {
       name: "defaultValue",

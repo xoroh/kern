@@ -66,21 +66,30 @@ export const contextMenu: ComponentDoc = {
   api: [
     {
       name: "open",
+      for: ["ContextMenuRoot"],
       type: "boolean",
       note: "Controlled open state on `ContextMenuRoot`. Omit for uncontrolled.",
     },
     {
       name: "onOpenChange",
+      for: ["ContextMenuRoot"],
       type: "(open: boolean, eventDetails: object) => void",
       note: "Fires on every open and close, including Escape and outside clicks.",
     },
     {
       name: "className",
+      for: [
+        "ContextMenuTrigger",
+        "ContextMenuContent",
+        "ContextMenuItem",
+        "ContextMenuSeparator",
+      ],
       type: "string",
       note: "Accepted on every part, merged after that part's classes.",
     },
     {
       name: "disabled",
+      for: ["ContextMenuRoot", "ContextMenuItem"],
       type: "boolean",
       note: "On an item: skipped rather than left as a dead entry.",
     },

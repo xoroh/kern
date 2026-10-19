@@ -69,11 +69,6 @@ export const linearProgress: ComponentDoc = {
       note: "How much is done. A number fills the bar; `null` gives the indeterminate loop. There is no separate `indeterminate` prop — the three progress components share one convention.",
     },
     {
-      name: "max",
-      type: "number",
-      note: "What the whole task is. The bar fills relative to this.",
-    },
-    {
       name: "className",
       type: "string",
       note: "Merged after the bar's own classes. Height and colour come from here.",

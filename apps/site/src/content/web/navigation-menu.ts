@@ -109,11 +109,13 @@ export const navigationMenu: ComponentDoc = {
   api: [
     {
       name: "value",
+      for: ["NavigationMenuRoot", "NavigationMenuItem"],
       type: "string",
-      note: "Controlled open item on `NavigationMenuRoot`. Omit for uncontrolled.",
+      note: "Controlled open item on `NavigationMenuRoot`. Omit for uncontrolled. On an item it is the unique value identifying it. On an item it is the unique value identifying it — use it to control the menu programmatically.",
     },
     {
       name: "onValueChange",
+      for: ["NavigationMenuRoot"],
       type: "(value: string) => void",
       note: "Fires when the open item changes, including when it closes.",
     },
@@ -124,11 +126,13 @@ export const navigationMenu: ComponentDoc = {
     },
     {
       name: "disabled",
+      for: ["NavigationMenuTrigger"],
       type: "boolean",
       note: "On a trigger: the item cannot be opened and is announced as unavailable.",
     },
     {
       name: "href",
+      for: ["NavigationMenuLink"],
       type: "string",
       note: "On `NavigationMenuLink`. It is a link, so it navigates rather than acting.",
     },

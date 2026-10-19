@@ -47,11 +47,13 @@ export const numberField: ComponentDoc = {
     },
     {
       name: "defaultValue",
+      for: ["NumberFieldRoot"],
       type: "number | null",
       note: "Initial value when uncontrolled.",
     },
     {
       name: "onValueChange",
+      for: ["NumberFieldRoot"],
       type: "(value: number | null, eventDetails: object) => void",
       note: "Fires on every change, from typing or from a stepper press.",
     },

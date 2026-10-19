@@ -67,12 +67,14 @@ export const avatar: ComponentDoc = {
   api: [
     {
       name: "size",
+      for: ["AvatarRoot"],
       type: '"sm" | "default" | "lg"',
       default: '"default"',
       note: "One of three fixed dimensions. Note the names are `sm`, `default` and `lg` — not `medium` or `large`.",
     },
     {
       name: "src",
+      for: ["AvatarImage"],
       type: "string",
       note: "On `AvatarImage`: the image URL. It renders only once loaded, so a slow or missing image falls through to the fallback rather than flashing a broken frame.",
     },

@@ -77,36 +77,43 @@ export const autocomplete: ComponentDoc = {
   api: [
     {
       name: "value",
+      for: ["AutocompleteRoot", "AutocompleteItem"],
       type: "T",
-      note: "Controlled value on `AutocompleteRoot`, generic over the value type. The text can be a value no suggestion matched — that is the point of an autocomplete.",
+      note: "Controlled value on `AutocompleteRoot`, generic over the value type. The text can be a value no suggestion matched — that is the point of an autocomplete. On an item it is the unique value identifying the suggestion.",
     },
     {
       name: "defaultValue",
+      for: ["AutocompleteRoot"],
       type: "T",
       note: "Initial value when uncontrolled.",
     },
     {
       name: "onValueChange",
+      for: ["AutocompleteRoot"],
       type: "(value: T, eventDetails: object) => void",
       note: "Fires as the value changes, whether from typing or from choosing a suggestion.",
     },
     {
       name: "items",
+      for: ["AutocompleteRoot"],
       type: "Item[]",
       note: "The suggestions. Data-driven, and short lists read better than complete ones.",
     },
     {
-      name: "itemToString",
-      type: "(item) => string",
-      note: "How a suggestion becomes the text placed in the field. Needed when values are objects.",
-    },
-    {
       name: "className",
+      for: [
+        "AutocompleteLabel",
+        "AutocompleteInput",
+        "AutocompleteContent",
+        "AutocompleteItem",
+        "AutocompleteEmpty",
+      ],
       type: "string",
       note: "Accepted on every part, merged after that part's classes. Note `AutocompleteLabel` is a plain `<label>`, not a primitive wrapper.",
     },
     {
       name: "disabled",
+      for: ["AutocompleteRoot", "AutocompleteInput", "AutocompleteItem"],
       type: "boolean",
       note: "On a suggestion, or on the field.",
     },

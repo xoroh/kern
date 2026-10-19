@@ -64,22 +64,26 @@ export const banner: ComponentDoc = {
   api: [
     {
       name: "variant",
+      for: ["Banner"],
       type: '"info" | "success" | "warning" | "error"',
       default: '"info"',
       note: "The intent. Drives the status role pair the banner is coloured with — see Deviations.",
     },
     {
       name: "icon",
+      for: ["Banner"],
       type: "ReactNode",
       note: "Leading slot. Usually an icon matching the intent.",
     },
     {
       name: "assertive",
+      for: ["Banner"],
       type: "boolean",
       note: "Switches the live-region role from `status` to `alert`, so it interrupts rather than queues. Off by default — an assertive banner for routine state is a nuisance to screen-reader users.",
     },
     {
       name: "onDismiss",
+      for: ["Banner"],
       type: "() => void",
       note: "Renders a dismiss control and calls back when pressed. Omit it and no dismiss control appears.",
     },

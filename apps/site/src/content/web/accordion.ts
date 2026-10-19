@@ -60,23 +60,27 @@ export const accordion: ComponentDoc = {
   api: [
     {
       name: "value",
+      for: ["AccordionRoot", "AccordionItem", "AccordionTrigger"],
       type: "string | string[]",
-      note: "Controlled open sections on `AccordionRoot`. One value for a single-open stack, several for independent sections — the shape says which behaviour you are in.",
+      note: "Controlled open sections on `AccordionRoot`. One value for a single-open stack, several for independent sections. On an item it is the section’s value in the open set.",
     },
     {
       name: "defaultValue",
+      for: ["AccordionRoot"],
       type: "string | string[]",
       note: "Initial open sections when uncontrolled.",
     },
     {
       name: "onValueChange",
+      for: ["AccordionRoot"],
       type: "(value) => void",
       note: "Fires when the open set changes.",
     },
     {
       name: "disabled",
+      for: ["AccordionRoot", "AccordionItem", "AccordionTrigger"],
       type: "boolean",
-      note: "On a trigger: the section cannot be opened and is announced as unavailable.",
+      note: "On the root it locks every section; on an item just that section — it cannot be opened and is announced as unavailable.",
     },
     {
       name: "className",
