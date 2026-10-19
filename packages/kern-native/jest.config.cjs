@@ -89,6 +89,18 @@ module.exports = {
       "jest-mocks",
       "react-native-svg.cjs",
     ),
+    // `@xoroh/kern-icons` ships a dual entry (web `index` + native
+    // `index.native`); jest's resolver takes the `require` condition (web),
+    // whose `Icon` shape is not a component. Native suites need the shipped
+    // native CJS artifact — same rationale as the Axis mapping above.
+    "^@xoroh/kern-icons$": path.join(
+      __dirname,
+      "node_modules",
+      "@xoroh",
+      "kern-icons",
+      "dist",
+      "index.native.cjs",
+    ),
     // The cross-renderer parity contract lives at the repo root, outside any
     // package, so kern-native never imports @xoroh/kern to read it (ADR 002).
     // The web suite aliases the same path; both sides read one declaration.

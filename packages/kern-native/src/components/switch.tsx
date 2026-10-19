@@ -81,6 +81,7 @@ export function Switch({
       {...props}
       testID={testID ?? "kern-switch"}
       role="switch"
+      accessibilityRole="switch"
       aria-checked={on}
       aria-disabled={disabled ?? undefined}
       disabled={disabled ?? undefined}

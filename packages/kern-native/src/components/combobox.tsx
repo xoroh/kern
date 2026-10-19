@@ -234,7 +234,7 @@ export function Combobox({
           >
             {selectedOption ? selectedOption.label : placeholder}
           </Text>
-          <Icon name="arrow_drop_down" />
+          <Icon name="arrow-drop-down" />
         </View>
       </Pressable>
       <Modal

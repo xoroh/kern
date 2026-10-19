@@ -101,7 +101,7 @@ export function Select({
                 : undefined
             }
           />
-          <Icon name="arrow_drop_down" />
+          <Icon name="arrow-drop-down" />
         </SelectTrigger>
         <SelectPortal>
           <SelectBackdrop style={{ backgroundColor: scheme.color.scrim }} />

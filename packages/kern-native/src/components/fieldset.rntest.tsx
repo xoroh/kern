@@ -7,6 +7,7 @@ import {
   fieldsetStyles,
   useFieldsetDisabled,
 } from "./fieldset";
+import { DISABLED_CONTENT_OPACITY } from "./state-layer";
 
 /**
  * The behaviour under test is INHERITANCE: on the web `<fieldset disabled>`
@@ -164,7 +165,9 @@ describe("Fieldset", () => {
 
 describe("fieldsetStyles", () => {
   it("dims a disabled group and leaves an enabled one alone", async () => {
-    expect(fieldsetStyles(true).root.opacity).toBe(0.5);
+    // Disabled content uses the shared M3 token (DISABLED_CONTENT_OPACITY),
+    // not a per-component literal.
+    expect(fieldsetStyles(true).root.opacity).toBe(DISABLED_CONTENT_OPACITY);
     expect(fieldsetStyles(false).root.opacity).toBe(1);
   });
 });

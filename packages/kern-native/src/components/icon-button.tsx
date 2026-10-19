@@ -260,6 +260,7 @@ export function IconButton({
       {...props}
       testID={testID ?? "kern-icon-button"}
       role="button"
+      accessibilityRole="button"
       // Mandatory: without this the control is announced with no name at all.
       accessibilityLabel={label}
       aria-selected={isPressed}

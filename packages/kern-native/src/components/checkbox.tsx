@@ -114,6 +114,7 @@ export function Checkbox({
       {...props}
       testID={testID ?? "kern-checkbox"}
       role="checkbox"
+      accessibilityRole="checkbox"
       accessibilityLabel={accessibilityLabel ?? label}
       aria-checked={indeterminate ? "mixed" : isChecked}
       aria-disabled={disabled ?? undefined}

@@ -6,6 +6,14 @@
 // `testID` / accessibility queries work exactly as they do against the
 // components' RN host wrappers. Vector-specific props (`d`, `fill`, …) land
 // on the View harmlessly.
+//
+// The module itself IS the Svg stub function, with every named stub attached
+// as a property. This shape is load-bearing: tsup-compiled consumers
+// (kern-icons `dist/index.native.cjs`) import via esbuild `__toESM(mod, 1)`
+// — node mode — which unconditionally sets `.default` to the module object
+// itself. A namespace object here therefore renders as "got: object" the
+// moment an Icon mounts. A function export makes `.default` the Svg
+// component, and `__copyProps` picks the named stubs up off its properties.
 const React = require("react");
 const { View } = require("react-native");
 
@@ -16,8 +24,9 @@ const stub = (name) => {
   return C;
 };
 
+const Svg = stub("Svg");
+
 const names = [
-  "Svg",
   "Circle",
   "Ellipse",
   "G",
@@ -43,7 +52,11 @@ const names = [
   "ForeignObject",
 ];
 
-const out = {};
-for (const name of names) out[name] = stub(name);
-out.default = out;
-module.exports = out;
+for (const name of names) Svg[name] = stub(name);
+// The real package also exports `Svg` by name — components import
+// `{ Circle, Line, Svg }` — so the function carries a self-reference.
+Svg.Svg = Svg;
+// Self-reference for Babel-style interop readers (`mod.__esModule` is
+// deliberately NOT set: see above).
+Svg.default = Svg;
+module.exports = Svg;

@@ -41,29 +41,6 @@ export const Mask = stub("Mask");
 export const Marker = stub("Marker");
 export const ForeignObject = stub("ForeignObject");
 
-export default {
-  Svg,
-  Circle,
-  Ellipse,
-  G,
-  Text,
-  TSpan,
-  TextPath,
-  Path,
-  Polygon,
-  Polyline,
-  Line,
-  Rect,
-  Use,
-  Image,
-  Symbol,
-  Defs,
-  LinearGradient,
-  RadialGradient,
-  Stop,
-  ClipPath,
-  Pattern,
-  Mask,
-  Marker,
-  ForeignObject,
-};
+// The real package default-exports the Svg component. A namespace object
+// here crashes the moment an Icon mounts (same flaw as the jest mock had).
+export default Svg;
