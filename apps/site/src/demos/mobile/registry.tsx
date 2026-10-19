@@ -73,7 +73,7 @@ export type MobileDemo = () => React.ReactElement;
 export function NativeButtonDemo() {
   return (
     <PhoneStack>
-      <PhonePreview label="variant: elevated · primary · tonal · outlined · ghost">
+      <PhonePreview label="variant: elevated · filled · tonal · outlined · text">
         <PhoneRow>
           <Button variant="elevated">Elevated</Button>
           <Button variant="filled">Filled</Button>
@@ -835,7 +835,7 @@ export const PREVIEW_REASONS: Record<string, string> = {
   Toolbar:
     "Desktop-pattern toolbar; the native TopAppBar is the mobile equivalent and is listed below.",
   Table:
-    "Tables do not exist as a native pattern; this is the documented web-parity counterpart and is covered on /components/web.",
+    "Tables do not exist as a native pattern; this is the documented web-parity counterpart and is covered on /components?platform=web.",
   Calendar:
     "Full-screen month grid; the same reason as Tabs — it needs a real screen to own.",
   Field:

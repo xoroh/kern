@@ -15,7 +15,7 @@ export const BUTTON_EXAMPLES: ExampleSpec[] = [
     id: "variants",
     title: "The five variants",
     description:
-      "Material 3's five, and no more. `elevated`, `primary`, `tonal`, `outlined`, `ghost` — the axis is emphasis, and it is closed.",
+      "Material 3's five, and no more. `elevated`, `filled`, `tonal`, `outlined`, `text` — the axis is emphasis, and it is closed.",
     render: () => (
       <>
         <Button variant="elevated">Elevated</Button>
