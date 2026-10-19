@@ -50,25 +50,37 @@ import { maturityForExports } from "../../systems/maturity";
 const CHIP = `inline-flex items-center rounded-(--sys-shape-corner-full) border border-(--sys-color-outline) px-2 py-0.5 ${T_LABEL}`;
 
 /**
- * Platform switcher — All / Web / Native, shared by the three gallery views.
+ * Platform switcher — All / Web / Native, on the one gallery route.
  *
  * One control instead of three hand-rolled chip navs: a 48dp pill row where
  * the active view carries the selected pair (secondary-container /
  * on-secondary-container) and the rest carry the M3 state layers. The active
  * item stays a LINK with `aria-current` — it navigates to itself rather than
- * posing as a non-interactive tab, so every item is a destination.
+ * posing as a non-interactive tab, so every item is a destination. Filtering
+ * is view state (`?platform=`, 018): one gallery URL, not one route per
+ * platform — the former platform index routes are deleted
+ * outright (D-051, no redirects).
  */
-export function PlatformSwitcher({
-  platform,
-}: {
-  platform?: "web" | "mobile";
-}) {
+export type GalleryPlatform = "web" | "mobile";
+
+export function PlatformSwitcher({ platform }: { platform?: GalleryPlatform }) {
   const items = [
-    { label: "All", href: "/components", active: !platform },
-    { label: "Web", href: "/components/web", active: platform === "web" },
+    {
+      label: "All",
+      to: "/components",
+      search: {},
+      active: !platform,
+    },
+    {
+      label: "Web",
+      to: "/components",
+      search: { platform: "web" },
+      active: platform === "web",
+    },
     {
       label: "Native",
-      href: "/components/mobile",
+      to: "/components",
+      search: { platform: "mobile" },
       active: platform === "mobile",
     },
   ];
@@ -79,8 +91,9 @@ export function PlatformSwitcher({
     >
       {items.map((item) => (
         <Link
-          key={item.href}
-          to={item.href}
+          key={item.label}
+          to={item.to}
+          search={item.search}
           aria-current={item.active ? "page" : undefined}
           className={cn(
             `inline-flex min-h-12 items-center rounded-(--sys-shape-corner-full) px-5 no-underline ${T_LABEL_LG} ${TRANSITION} ${FOCUS_RING}`,
@@ -268,8 +281,8 @@ export function ComponentGallery({
 
 function GalleryCardView({ card }: { card: GalleryCard }) {
   // Demos are CLIENT-ONLY. The web demo components are not SSR-safe (they
-  // abort the server stream — measured: /components and /components/web
-  // SSR-truncated to the head until this gate existed), so the thumbnail
+  // abort the server stream — measured: /components SSR-truncated to the
+  // head until this gate existed), so the thumbnail
   // renders after mount. The card's text, chips and links are server-rendered
   // regardless; only the preview waits.
   const isClient = useClientMount();

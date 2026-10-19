@@ -36,3 +36,6 @@ docs/design-systems/m3-archive/
 .polly/
 .worktrees/
 **/.tanstack/
+
+# Lane scratch reports, screenshots and notes (never in git)
+.reports/

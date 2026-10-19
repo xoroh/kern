@@ -44,7 +44,6 @@ export const PRIMARY_TABS: PrimaryTab[] = [
       "/changelog",
       "/reference",
       "/icons",
-      "/accessibility",
     ],
   },
   { href: "/components", label: "Components", match: ["/components"] },

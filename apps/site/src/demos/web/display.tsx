@@ -61,7 +61,7 @@ export function ButtonDemo() {
   return (
     <PreviewStack>
       <Preview
-        label="variant — elevated · primary · tonal · outlined · ghost"
+        label="variant — elevated · filled · tonal · outlined · text"
         span={3}
       >
         <Row>

@@ -11,7 +11,7 @@ import type { ConfiguratorSpec, ConfigValues } from "../configurator";
  * nothing to configure), and `handle`/`actionsRef`/`onOpenChange`/
  * `triggerId` are imperative or callbacks, not knobs. The stage shows the
  * documented anatomy whole — danger trigger, title, description, Cancel
- * ghost plus Delete danger closes — so the fence teaches it too. The
+ * text plus Delete danger closes — so the fence teaches it too. The
  * stage remounts by key on the knob so it cannot drift from the fence.
  */
 function openOf(v: ConfigValues): boolean {

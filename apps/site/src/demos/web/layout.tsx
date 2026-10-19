@@ -214,10 +214,10 @@ export function NavigationMenuDemo() {
             <NavigationMenu.Item>
               <NavigationMenu.Trigger>Product</NavigationMenu.Trigger>
               <NavigationMenu.Content>
-                <NavigationMenu.Link href="/components/web">
+                <NavigationMenu.Link href="/components?platform=web">
                   Web components
                 </NavigationMenu.Link>
-                <NavigationMenu.Link href="/components/mobile">
+                <NavigationMenu.Link href="/components?platform=mobile">
                   Mobile components
                 </NavigationMenu.Link>
               </NavigationMenu.Content>

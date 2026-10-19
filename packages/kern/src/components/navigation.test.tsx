@@ -133,7 +133,7 @@ describe("NavigationMenu", () => {
           <NavigationMenu.Item value="products">
             <NavigationMenu.Trigger>Products</NavigationMenu.Trigger>
             <NavigationMenu.Content>
-              <NavigationMenu.Link href="/components/web">
+              <NavigationMenu.Link href="/components">
                 Web components
               </NavigationMenu.Link>
             </NavigationMenu.Content>
