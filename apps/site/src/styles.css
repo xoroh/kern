@@ -221,7 +221,7 @@ a.site-card:active::after {
   grid-template-columns: 1fr;
 }
 .thumb-scroll-x {
-  mask-image: linear-gradient(to right, black 70%, transparent 100%);
+  mask-image: linear-gradient(to right, black 88%, transparent 98%);
 }
 .site-footer {
   border-radius: var(--site-panel-radius);
