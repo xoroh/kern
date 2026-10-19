@@ -145,6 +145,66 @@ export const checkbox: ComponentDoc = {
       type: "string",
       note: "Merged after the control's own classes.",
     },
+    {
+      name: "style",
+      type: "CSSProperties | ((state: CheckboxRootState) => CSSProperties | undefined) | undefined",
+      note: "Style for the control, or a function of its state (checked, indeterminate, disabled, focused) returning style. The M3 container shape is fixed rather than a sys-shape step, so it lives in `style` rather than a radius utility.",
+    },
+    {
+      name: "form",
+      type: "string | undefined",
+      note: "Id of the form that owns the hidden input, so the checkbox can live outside the `<form>` and still submit with it.",
+    },
+    {
+      name: "id",
+      type: "string | undefined",
+      note: "Id of the input element. Labels and descriptions wire to it.",
+    },
+    {
+      name: "value",
+      type: "string | undefined",
+      note: 'The checkbox\'s value. Identifies it within a checkbox group; a checked box submits this, or the native `"on"` when omitted.',
+    },
+    {
+      name: "render",
+      type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, CheckboxRootState> | undefined",
+      note: "Replaces the control element with another tag or composes it with another component. Set `nativeButton` when the replacement is a native `<button>`.",
+    },
+    {
+      name: "name",
+      type: "string | undefined",
+      note: "Field name submitted with the form. What the server receives under.",
+    },
+    {
+      name: "nativeButton",
+      type: "boolean | undefined",
+      note: "Whether the `render` replacement is a native `<button>`. Set it when it is, so semantics stay correct.",
+    },
+    {
+      name: "required",
+      type: "boolean | undefined",
+      note: "Whether the checkbox must be ticked before form submission.",
+    },
+    {
+      name: "readOnly",
+      type: "boolean | undefined",
+      note: "Whether the checkbox is fixed: it still shows its state but cannot be ticked or unticked.",
+    },
+    {
+      name: "inputRef",
+      type: "Ref<HTMLInputElement> | undefined",
+      note: "Ref to the hidden input element that carries the submission value.",
+    },
+    {
+      name: "parent",
+      type: "boolean | undefined",
+      note: "Whether the checkbox controls a group of child checkboxes. Only inside a checkbox group.",
+    },
+    {
+      name: "uncheckedValue",
+      type: "string | undefined",
+      note: "Value submitted with the form when the checkbox is unchecked. Unchecked boxes submit nothing by default, like native checkboxes.",
+    },
   ],
   aria: [
     "The control is a real checkbox, so it carries the checkbox role and `aria-checked`, and Space toggles it.",

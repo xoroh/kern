@@ -130,6 +130,49 @@ export const radioGroup: ComponentDoc = {
       note: "On an item: styles the radio control on its own. Kept separate from `className` so the circle and the row can be restyled independently.",
     },
     {
+      name: "form",
+      for: ["RadioGroup"],
+      type: "string | undefined",
+      note: "Id of the form that owns the radio inputs, so the group can live outside the `<form>` and still submit with it.",
+    },
+    {
+      name: "name",
+      for: ["RadioGroup"],
+      type: "string | undefined",
+      note: "Field name submitted with the form. Shared by every option — it is what groups them server-side. What the server receives under.",
+    },
+    {
+      name: "required",
+      type: "boolean | undefined",
+      note: "Whether choosing an option is required before form submission. Set on the group, or on an option for itself.",
+    },
+    {
+      name: "readOnly",
+      type: "boolean | undefined",
+      note: "Whether the choice is fixed. Set on the group to lock every option, or on one option to lock just it.",
+    },
+    {
+      name: "inputRef",
+      type: "Ref<HTMLInputElement> | undefined",
+      note: "Ref to the hidden input element that carries the submission value.",
+    },
+    {
+      name: "style",
+      type: "CSSProperties | ((state) => CSSProperties | undefined) | undefined",
+      note: "Style for the part, or a function of the part's state returning style — `RadioGroupState` on the group, `RadioRootState` on an option.",
+    },
+    {
+      name: "render",
+      type: "ReactElement | ((props, state) => ReactElement) | undefined",
+      note: "Replaces the part's element with another tag or composes it with another component — the render function receives the part's props and state. Set `nativeButton` on an option when the replacement is a native `<button>`.",
+    },
+    {
+      name: "nativeButton",
+      for: ["RadioGroupItem"],
+      type: "boolean | undefined",
+      note: "Declares whether the `render` replacement is a native `<button>`, so semantics and keyboard behavior stay correct.",
+    },
+    {
       name: "disabled",
       type: "boolean",
       note: "Disables one option, or the whole set from the group.",

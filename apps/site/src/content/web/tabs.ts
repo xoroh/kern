@@ -136,6 +136,46 @@ export const tabs: ComponentDoc = {
       type: "boolean",
       note: "On `TabsTab`: removes it from the tab order and dims it.",
     },
+    {
+      name: "orientation",
+      for: ["TabsRoot"],
+      type: "Orientation | undefined",
+      note: "Whether tabs lay out horizontally or vertically. Vertical tabs read top to bottom with the panel beside them.",
+    },
+    {
+      name: "loopFocus",
+      for: ["TabsList"],
+      type: "boolean | undefined",
+      note: "Whether arrow keys wrap from the last tab back to the first. Disabled stops at the ends.",
+    },
+    {
+      name: "activateOnFocus",
+      for: ["TabsList"],
+      type: "boolean | undefined",
+      note: "Whether moving focus with the arrow keys selects the tab immediately. Off means focus previews and Enter/Space selects — kinder when panels are expensive.",
+    },
+    {
+      name: "nativeButton",
+      for: ["TabsTab"],
+      type: "boolean | undefined",
+      note: "Declares whether the `render` replacement is a native `<button>`, so semantics and keyboard behavior stay correct.",
+    },
+    {
+      name: "keepMounted",
+      for: ["TabsPanel"],
+      type: "boolean | undefined",
+      note: "Whether a hidden panel stays in the DOM. Keep it for panels whose state is expensive to rebuild; unmounted panels reset when revisited.",
+    },
+    {
+      name: "style",
+      type: "CSSProperties | ((state) => CSSProperties | undefined) | undefined",
+      note: "Style for the part, or a function of the part's state returning style — `TabsRootState` on the root, `TabsListState` on the row, `TabsTabState` (selected, disabled) on a tab, `TabsPanelState` on a panel.",
+    },
+    {
+      name: "render",
+      type: "ReactElement | ((props, state) => ReactElement) | undefined",
+      note: "Replaces the part's element with another tag or composes it with another component — the render function receives the part's props and state. Set `nativeButton` on a tab when the replacement is a native `<button>`.",
+    },
   ],
   aria: [
     "The list is the tablist, each trigger a tab, and each panel a tabpanel — so the roles are the WAI-ARIA tabs pattern rather than a styled button row.",

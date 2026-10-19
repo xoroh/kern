@@ -125,6 +125,66 @@ export const switchDoc: ComponentDoc = {
       type: "string",
       note: "Merged after the track's own classes. The thumb takes `className` through its own composition.",
     },
+    {
+      name: "style",
+      type: "CSSProperties | ((state: SwitchRootState) => CSSProperties | undefined) | undefined",
+      note: "Style for the control, or a function of its state (checked, disabled, focused) returning style.",
+    },
+    {
+      name: "form",
+      type: "string | undefined",
+      note: "Id of the form that owns the hidden input, so the switch can live outside the `<form>` and still submit with it.",
+    },
+    {
+      name: "id",
+      type: "string | undefined",
+      note: "Id of the hidden input element. When `nativeButton` is set, the id lands on the root instead.",
+    },
+    {
+      name: "value",
+      type: "string | undefined",
+      note: 'Value submitted with the form when the switch is on. An on-switch submits `"on"` like a native checkbox unless this says otherwise.',
+    },
+    {
+      name: "render",
+      type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, SwitchRootState> | undefined",
+      note: "Replaces the control element with another tag or composes it with another component. Set `nativeButton` when the replacement is a native `<button>`.",
+    },
+    {
+      name: "name",
+      type: "string | undefined",
+      note: "Field name submitted with the form. What the server receives under.",
+    },
+    {
+      name: "nativeButton",
+      type: "boolean | undefined",
+      note: "Whether the `render` replacement is a native `<button>`. Set it when it is, so semantics and the id placement stay correct.",
+    },
+    {
+      name: "required",
+      type: "boolean | undefined",
+      note: "Whether the switch must be on before form submission.",
+    },
+    {
+      name: "readOnly",
+      type: "boolean | undefined",
+      note: "Whether the switch is fixed: it still shows its state but cannot be flipped.",
+    },
+    {
+      name: "inputRef",
+      type: "Ref<HTMLInputElement> | undefined",
+      note: "Ref to the hidden input element that carries the submission value.",
+    },
+    {
+      name: "uncheckedValue",
+      type: "string | undefined",
+      note: "Value submitted with the form when the switch is off. Unchecked switches submit nothing by default, like native checkboxes.",
+    },
+    {
+      name: "testID",
+      type: "string | undefined",
+      note: "Test selector, rendered as `data-testid` on the control. Opt-in only — no default. See `parity/testid-contract.md`.",
+    },
   ],
   aria: [
     'The root sets `role="switch"` and reflects state as `aria-checked`.',
