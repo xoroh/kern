@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react-native";
-import { act } from "react";
+import { PortalHost } from "@xoroh/axis";
+import { act, type ReactElement } from "react";
 import { Modal, Pressable } from "react-native";
 import { Dialog } from "./dialog";
 import { Menu } from "./menu";
@@ -65,11 +66,19 @@ async function countModals(element: React.ReactElement): Promise<number> {
     }),
   ];
   try {
-    await render(element);
+    await renderWithHost(element);
   } finally {
     for (const spy of spies) spy.mockRestore();
   }
   return count;
+}
+
+
+/** Axis #73: compound portals paint at a root PortalHost — with no mounted
+ * host they warn and render nothing. Every render in this suite goes
+ * through the host so open-state assertions see the painted layers. */
+function renderWithHost(element: ReactElement) {
+  return render(<PortalHost>{element}</PortalHost>);
 }
 
 describe("overlay-compound adoption: no direct Modal wrapping", () => {
@@ -117,7 +126,7 @@ describe("overlay-compound adoption: no direct Modal wrapping", () => {
 describe("overlay-compound adoption: OverlayPortal presentation", () => {
   it("Menu opens its items through the compound and dismisses on scrim", async () => {
     let dismissed = 0;
-    await render(
+    await renderWithHost(
       <Menu
         triggerLabel="File"
         trigger={<Text>Open menu</Text>}
@@ -143,7 +152,7 @@ describe("overlay-compound adoption: OverlayPortal presentation", () => {
 
   it("Select opens its options through the compound and dismisses on scrim", async () => {
     let dismissed = 0;
-    await render(
+    await renderWithHost(
       <Select
         accessibilityLabel="Plan"
         options={[
@@ -170,7 +179,7 @@ describe("overlay-compound adoption: OverlayPortal presentation", () => {
   it("Select reports dismissal only when nothing was chosen (pick vs bail-out)", async () => {
     let chosen = "";
     let dismissed = 0;
-    await render(
+    await renderWithHost(
       <Select
         accessibilityLabel="Plan"
         options={[
@@ -199,7 +208,7 @@ describe("overlay-compound adoption: OverlayPortal presentation", () => {
 
   it("Menu item selection fires onSelect then onDismiss, then closes", async () => {
     const calls: Array<string> = [];
-    await render(
+    await renderWithHost(
       <Menu
         triggerLabel="File"
         trigger={<Text>Open menu</Text>}
@@ -239,7 +248,7 @@ describe("overlay-compound adoption: one shared modality stack", () => {
         </Pressable>
       );
     }
-    await render(
+    await renderWithHost(
       <OverlayModalityProvider>
         <Probe />
         <Menu
@@ -256,7 +265,13 @@ describe("overlay-compound adoption: one shared modality stack", () => {
     // Before the stack unification the Axis overlay registered in Axis's
     // own shared registry while `useAnyModalOpen` read Kern's — so an open
     // Axis menu left the background interactive.
-    expect(screen.getByLabelText("modal-open")).toBeTruthy();
+    //
+    // The probe sits BEHIND the open modal layer, so it is hidden from
+    // assistive tech while the menu is up; its state is still readable
+    // with the hidden-element opt-in (the Axis compound-test precedent).
+    expect(
+      screen.getByLabelText("modal-open", { includeHiddenElements: true }),
+    ).toBeTruthy();
     await act(async () => {
       fireEvent.press(screen.getByLabelText("Dismiss menu"));
     });
@@ -266,7 +281,7 @@ describe("overlay-compound adoption: one shared modality stack", () => {
 
 describe("overlay-compound adoption: Tooltip keeps its M3 contract", () => {
   it("opens on focus, carries the hint, stays inert and modal-free", async () => {
-    await render(
+    await renderWithHost(
       <Tooltip label="Save" hint="Saves your draft">
         <Text>Save</Text>
       </Tooltip>,

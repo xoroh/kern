@@ -1,3 +1,14 @@
+import {
+  buildCalendarGrid,
+  resolveCalendarMonthNames,
+  resolveCalendarSelection,
+  resolveLocaleFirstDay,
+  shiftCalendarMonth,
+  toCalendarDate,
+  toCalendarMonth,
+  parseCalendarDate,
+  useControllableState,
+} from "@xoroh/axis/models";
 import { useMemo, useState } from "react";
 import {
   Pressable,
@@ -9,32 +20,18 @@ import {
 import { useKernScheme } from "../theme";
 import { Text } from "./text";
 
-const WEEKDAYS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
-const MONTHS = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-
 function startOfDay(date: Date): Date {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate());
 }
 
-function sameDay(a: Date, b: Date): boolean {
-  return (
-    a.getFullYear() === b.getFullYear() &&
-    a.getMonth() === b.getMonth() &&
-    a.getDate() === b.getDate()
-  );
+function toISO(date: Date): string {
+  return toCalendarDate(date.getFullYear(), date.getMonth(), date.getDate());
+}
+
+function fromISO(iso: string): Date {
+  const parts = parseCalendarDate(iso);
+  if (parts === null) return new Date();
+  return new Date(parts.year, parts.monthIndex, parts.day);
 }
 
 export type NativeCalendarProps = Omit<ViewProps, "children" | "style"> & {
@@ -47,6 +44,19 @@ export type NativeCalendarProps = Omit<ViewProps, "children" | "style"> & {
   style?: StyleProp<ViewStyle>;
 };
 
+/**
+ * M3 calendar, on the Axis calendar model.
+ *
+ * The grid, month names, weekday order, disabled bounds and selection all
+ * resolve through `@xoroh/axis/models` (`buildCalendarGrid`,
+ * `resolveCalendarMonthNames`, `resolveLocaleFirstDay`,
+ * `resolveCalendarSelection`, `shiftCalendarMonth`); the viewed month and
+ * the selection stay Kern-held (`useControllableState` for the value, a
+ * local cursor for the month). Weekday headers are the model's locale
+ * short names in locale first-day order — `Sun`, not the old hardcoded
+ * two-letter set. Month stepping is DST-safe UTC arithmetic (local
+ * `setDate` math skips days across DST transitions).
+ */
 export function Calendar({
   value: valueProp,
   defaultValue,
@@ -59,34 +69,59 @@ export function Calendar({
   ...props
 }: NativeCalendarProps) {
   const scheme = useKernScheme();
-  const [internal, setInternal] = useState(() =>
-    startOfDay(defaultValue ?? valueProp ?? new Date()),
+  const [selected, setSelected] = useControllableState<Date | undefined>(
+    valueProp ? startOfDay(valueProp) : undefined,
+    defaultValue ? startOfDay(defaultValue) : undefined,
+    (next) => {
+      // `setSelected` below only ever stores Dates (invalid ISO falls back
+      // to today), so `undefined` never reaches the caller — but the hook
+      // types the channel as optional, hence the guard.
+      if (next !== undefined) onValueChange?.(next);
+    },
   );
-  const [cursor, setCursor] = useState(() =>
-    startOfDay(valueProp ?? defaultValue ?? new Date()),
+  const [monthKey, setMonthKey] = useState(() => {
+    const initial = selected ?? new Date();
+    return toCalendarMonth(initial.getFullYear(), initial.getMonth());
+  });
+
+  const firstDay = resolveLocaleFirstDay();
+  const monthNames = useMemo(() => resolveCalendarMonthNames(), []);
+  const selectedISO = selected ? toISO(selected) : null;
+  const minISO = min ? toISO(min) : undefined;
+  const maxISO = max ? toISO(max) : undefined;
+
+  const grid = useMemo(
+    () =>
+      buildCalendarGrid(monthKey, {
+        firstDayOfWeek: firstDay,
+        selected: selectedISO,
+        minDate: minISO,
+        maxDate: maxISO,
+      }),
+    [monthKey, firstDay, selectedISO, minISO, maxISO],
   );
-  const value = valueProp ? startOfDay(valueProp) : internal;
-  const viewYear = cursor.getFullYear();
-  const viewMonth = cursor.getMonth();
-  const minDay = min ? startOfDay(min) : undefined;
-  const maxDay = max ? startOfDay(max) : undefined;
 
-  const cells = useMemo(() => {
-    const first = new Date(viewYear, viewMonth, 1).getDay();
-    const days = new Date(viewYear, viewMonth + 1, 0).getDate();
-    const out: { key: string; date: Date | null }[] = [];
-    for (let day = 1 - first; day <= days; day++)
-      out.push({
-        key: `day-${viewYear}-${viewMonth}-${day}`,
-        date: day < 1 ? null : new Date(viewYear, viewMonth, day),
-      });
-    return out;
-  }, [viewYear, viewMonth]);
+  const [viewYear, viewMonth] = monthKey.split("-").map(Number) as [
+    number,
+    number,
+  ];
+  const monthIndex = viewMonth - 1;
 
-  function pick(date: Date) {
-    if (valueProp === undefined) setInternal(date);
-    setCursor(date);
-    onValueChange?.(date);
+  function pick(iso: string) {
+    const resolved = resolveCalendarSelection(iso, {
+      mode: "single",
+      minDate: minISO,
+      maxDate: maxISO,
+    });
+    if (resolved === null || resolved.value === null) return;
+    const date = fromISO(resolved.value);
+    setSelected(date);
+    setMonthKey(toCalendarMonth(date.getFullYear(), date.getMonth()));
+  }
+
+  function stepMonth(delta: -1 | 1) {
+    const next = shiftCalendarMonth(viewYear, monthIndex, delta);
+    setMonthKey(toCalendarMonth(next.year, next.monthIndex));
   }
 
   const daySize = 40;
@@ -118,7 +153,7 @@ export function Calendar({
           accessibilityRole="button"
           accessibilityLabel="Previous month"
           hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
-          onPress={() => setCursor(new Date(viewYear, viewMonth - 1, 1))}
+          onPress={() => stepMonth(-1)}
           style={{
             minHeight: 48,
             minWidth: 48,
@@ -129,13 +164,13 @@ export function Calendar({
           <Text variant="title">‹</Text>
         </Pressable>
         <Text variant="label">
-          {MONTHS[viewMonth]} {viewYear}
+          {monthNames[monthIndex]} {viewYear}
         </Text>
         <Pressable
           accessibilityRole="button"
           accessibilityLabel="Next month"
           hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
-          onPress={() => setCursor(new Date(viewYear, viewMonth + 1, 1))}
+          onPress={() => stepMonth(1)}
           style={{
             minHeight: 48,
             minWidth: 48,
@@ -147,7 +182,7 @@ export function Calendar({
         </Pressable>
       </View>
       <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-        {WEEKDAYS.map((day) => (
+        {grid.weekdayNames.map((day) => (
           <View
             key={day}
             style={{
@@ -164,48 +199,58 @@ export function Calendar({
             </Text>
           </View>
         ))}
-        {cells.map(({ key, date }) => {
-          if (date === null)
-            return <View key={key} style={{ width: `${100 / 7}%` }} />;
-          const disabled =
-            (minDay !== undefined && date < minDay) ||
-            (maxDay !== undefined && date > maxDay);
-          const selected = sameDay(date, value);
-          return (
-            <View
-              key={date.getTime()}
-              style={{ width: `${100 / 7}%`, alignItems: "center" }}
-            >
-              <Pressable
-                accessibilityRole="button"
-                accessibilityLabel={date.toDateString()}
-                accessibilityState={{ selected, disabled }}
-                disabled={disabled}
-                hitSlop={{ top: 2, bottom: 2, left: 2, right: 2 }}
-                onPress={() => pick(date)}
-                style={{
-                  width: daySize,
-                  height: daySize,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: daySize / 2,
-                  backgroundColor: selected
-                    ? scheme.color.primary
-                    : "transparent",
-                  opacity: disabled ? 0.3 : 1,
-                }}
+        {grid.weeks.flatMap((week, weekIndex) =>
+          week.map((cell, dayIndex) => {
+            if (cell === null) {
+              return (
+                <View
+                  key={`blank-${weekIndex}-${dayIndex}`}
+                  style={{ width: `${100 / 7}%` }}
+                />
+              );
+            }
+            const date = fromISO(cell.iso);
+            return (
+              <View
+                key={cell.iso}
+                style={{ width: `${100 / 7}%`, alignItems: "center" }}
               >
-                <Text
-                  style={
-                    selected ? { color: scheme.color.onPrimary } : undefined
-                  }
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel={date.toDateString()}
+                  accessibilityState={{
+                    selected: cell.selected,
+                    disabled: cell.disabled,
+                  }}
+                  disabled={cell.disabled}
+                  hitSlop={{ top: 2, bottom: 2, left: 2, right: 2 }}
+                  onPress={() => pick(cell.iso)}
+                  style={{
+                    width: daySize,
+                    height: daySize,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: daySize / 2,
+                    backgroundColor: cell.selected
+                      ? scheme.color.primary
+                      : "transparent",
+                    opacity: cell.disabled ? 0.3 : 1,
+                  }}
                 >
-                  {date.getDate()}
-                </Text>
-              </Pressable>
-            </View>
-          );
-        })}
+                  <Text
+                    style={
+                      cell.selected
+                        ? { color: scheme.color.onPrimary }
+                        : undefined
+                    }
+                  >
+                    {cell.day}
+                  </Text>
+                </Pressable>
+              </View>
+            );
+          }),
+        )}
       </View>
     </View>
   );

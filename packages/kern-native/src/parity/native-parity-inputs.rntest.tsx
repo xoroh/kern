@@ -21,7 +21,8 @@ import {
   defaultAutocompleteFilter,
 } from "../components/autocomplete";
 import { InputOTP, toOTPPositions } from "../components/input-otp";
-import { clampToRange, NumberField } from "../components/number-field";
+import { NumberField } from "../components/number-field";
+import { clampNumberValue } from "@xoroh/axis/models";
 
 const R = "native" as const;
 
@@ -433,8 +434,8 @@ describe("number-field (native)", () => {
     expect(screen.getByTestId("kern-number-field-input").props.value).toBe("4");
   });
 
-  it("clamps a typed value that is out of range", async () => {
-    const seen: number[] = [];
+  it("clamps typed input on blur (Base UI order), not while typing", async () => {
+    const seen: Array<number | null> = [];
     await render(
       <NumberField
         defaultValue={0}
@@ -446,7 +447,13 @@ describe("number-field (native)", () => {
     await act(async () => {
       screen.getByTestId("kern-number-field-input").props.onChangeText("99");
     });
-    expect(seen).toEqual([10]);
+    // Typing reports the parsed value; the clamp commits on blur (the
+    // Axis compound order — the old Kern order clamped mid-keystroke).
+    expect(seen).toEqual([99]);
+    await act(async () => {
+      screen.getByTestId("kern-number-field-input").props.onBlur();
+    });
+    expect(seen).toEqual([99, 10]);
   });
 
   it("a disabled field refuses both steppers", async () => {
@@ -493,14 +500,18 @@ describe("number-field (native)", () => {
 
   it("clamps to the range without snapping to a step grid", () => {
     // The stepper is arithmetic, not a grid: measured on web, 5 with step 2
-    // decrements to 3, so `step` must not re-snap the result.
-    expect(clampToRange(11, 0, 10)).toBe(10);
-    expect(clampToRange(-5, 0, 10)).toBe(0);
-    expect(clampToRange(7, 0, 10)).toBe(7);
-    expect(clampToRange(Number.NaN, 2, 10)).toBe(2);
+    // decrements to 3, so `step` must not re-snap the result. Clamping is the
+    // Axis number model (`clampNumberValue`); Kern-local `clampToRange` is gone.
+    expect(clampNumberValue(11, 0, 10)).toBe(10);
+    expect(clampNumberValue(-5, 0, 10)).toBe(0);
+    expect(clampNumberValue(7, 0, 10)).toBe(7);
+    // Non-finite input passes through the model clamp (comparisons are
+    // false); unparseable text never reaches it — `parseNumberValue`
+    // resolves it to `null` first (the old Kern clamp mapped NaN to min).
+    expect(clampNumberValue(Number.NaN, 2, 10)).toBeNaN();
     // Non-finite bounds (the default) must not produce NaN.
     expect(
-      clampToRange(5, Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY),
+      clampNumberValue(5, Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY),
     ).toBe(5);
   });
 });

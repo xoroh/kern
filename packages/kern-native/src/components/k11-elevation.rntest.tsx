@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react-native";
+import { PortalHost } from "@xoroh/axis";
 import { Text as RNText } from "react-native";
 import { snackbarStyles } from "./snackbar";
 import { Tooltip } from "./tooltip";
@@ -23,6 +24,14 @@ function styleOf(testID: string) {
     : style;
 }
 
+
+/** Axis #73: compound portals paint at a root PortalHost — with no mounted
+ * host they warn and render nothing. Every render in this suite goes
+ * through the host so open-state assertions see the painted layers. */
+function renderWithHost(element: ReactElement) {
+  return render(<PortalHost>{element}</PortalHost>);
+}
+
 describe("K11 native resting levels", () => {
   it("Snackbar rests at level 3 (6dp) — matching web's elevation-level3", async () => {
     // The single-shot `visible`/`message` Snackbar was removed per ADR-020
@@ -40,7 +49,7 @@ describe("K11 native resting levels", () => {
   });
 
   it("Tooltip rests at level 2 (3dp)", async () => {
-    await render(
+    await renderWithHost(
       <Tooltip label="Help" hint="More info" testID="tt" open>
         <RNText>trigger</RNText>
       </Tooltip>,
@@ -56,7 +65,7 @@ describe("K11 native resting levels", () => {
   it("Command rests at level 3 (6dp) — the Dialog variant", async () => {
     // K-01 K11 + the settled command ruling: Command IS the Dialog variant, so
     // level 3 follows the surface's role (interrupting modal), not its plumbing.
-    await render(
+    await renderWithHost(
       <Command
         open
         title="Actions"
