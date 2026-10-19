@@ -1,9 +1,13 @@
 import { describe, expect, it } from "bun:test";
 import {
+  DEFAULT_SYSTEM,
   getBlock,
+  getComponent,
   getIcon,
   installPlan,
+  knownSystems,
   listBlocks,
+  listComponents,
   listIcons,
 } from "./tools.js";
 
@@ -118,5 +122,50 @@ describe("install planning", () => {
     const cli = planComponent("badge", { root: WORKSPACE_ROOT });
     expect([...mcp.files].sort()).toEqual(cli.files.map((f) => f.out).sort());
     expect([...mcp.npm].sort()).toEqual([...cli.npm].sort());
+  });
+});
+
+describe("system flag (decision 009)", () => {
+  it("the registry carries one known system, defaulted", () => {
+    expect(DEFAULT_SYSTEM).toBe("kern-m3");
+    expect(knownSystems()).toContain("kern-m3");
+  });
+
+  it("lists default to kern-m3 and refuses unknown systems", async () => {
+    const def = await listComponents();
+    expect("error" in def).toBe(false);
+    if ("error" in def) return;
+    expect(def.system).toBe("kern-m3");
+    expect(def.count).toBeGreaterThan(100);
+    expect(def.components.every((c) => c.system === "kern-m3")).toBe(true);
+    const explicit = await listComponents("web", "kern-m3");
+    expect("error" in explicit).toBe(false);
+    const miss = await listComponents("web", "nope");
+    expect(miss).toMatchObject({
+      error: expect.stringContaining('unknown system "nope"'),
+    });
+  });
+
+  it("gets default to kern-m3 and refuses unknown systems", async () => {
+    const hit = await getComponent("button");
+    expect("error" in hit).toBe(false);
+    if ("error" in hit) return;
+    expect(hit.system).toBe("kern-m3");
+    expect(await getComponent("button", "web", "nope")).toMatchObject({
+      error: expect.stringContaining('unknown system "nope"'),
+    });
+  });
+
+  it("plans default to kern-m3 with system-labelled commands", async () => {
+    const plan = await installPlan("button");
+    expect("error" in plan).toBe(false);
+    if ("error" in plan) return;
+    expect(plan.system).toBe("kern-m3");
+    const commands =
+      plan.evidence === "resolved-closure" ? plan.instructions : [plan.command];
+    expect(commands[0]).toContain("--system kern-m3");
+    expect(await installPlan("button", "web", "nope")).toMatchObject({
+      error: expect.stringContaining('unknown system "nope"'),
+    });
   });
 });

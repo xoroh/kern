@@ -44,6 +44,18 @@ function platformFlag(): AddPlatform | undefined {
   return value;
 }
 
+function systemFlag(): string | undefined {
+  const value = flagValue("--system");
+  if (value === undefined) return undefined;
+  // Format-guard only; existence is resolved against the registry (which
+  // names what it carries) by add/list below. No aliases, no fallbacks.
+  if (!/^[a-z][a-z0-9-]{1,31}$/.test(value)) {
+    console.error(`kern: --system is a design-system id, not "${value}".`);
+    process.exit(1);
+  }
+  return value;
+}
+
 function pmFlag(): "bun" | "npm" | "pnpm" | "yarn" | undefined {
   const value = flagValue("--pm");
   if (value === undefined) return undefined;
@@ -68,10 +80,10 @@ function usage(): never {
       scaffold a new app (refuses if <name> exists — use init there instead)
   kern init <dir> [--from <workspace>] [--registry] [--force] [--pm bun|npm|pnpm|yarn] [--preset <id>]
       scaffold the starter into an existing project: install → run → themed screen (writes kern.json)
-  kern add <name> [--dest <dir>] [--platform web|native] [--self-contained]
+  kern add <name> [--dest <dir>] [--platform web|native] [--system <id>] [--self-contained]
       vendor a component or block + closure (transactional: a late failure
       writes nothing)
-  kern list [--platform web|native|all]
+  kern list [--platform web|native|all] [--system <id>]
       what the registry holds, with platform, entrypoint and status
   kern diff [--dest <dir>]
       receipt vs destination: current, customized, removed
@@ -95,6 +107,7 @@ Options:
   --preset <id>      design-system preset pinned into kern.json (default: material-3)
   --dest <dir>       where vendored code lands (default: ./components/kern)
   --platform <p>     web (default) or native; native selects the native row first
+  --system <id>      design system to install from (default: kern-m3, the only current system)
   --self-contained   vendor the token CSS snapshot too (default: hybrid — values stayed depended)
   --apply            kern upgrade: perform the plan (default is dry-run)
 
@@ -157,6 +170,7 @@ try {
     if (!name) die("kern add: missing <name>.");
     const dest = flagValue("--dest");
     const platform = platformFlag();
+    const system = systemFlag();
     const selfContained = rest.includes("--self-contained");
     // Blocks and components share the `add` verb and the name space. A name
     // that exists in BOTH is refused rather than silently resolved to one:
@@ -177,8 +191,8 @@ try {
       );
     }
     const result = isBlock
-      ? addBlock(name, { dest, selfContained, platform })
-      : addComponent(name, { dest, selfContained, platform });
+      ? addBlock(name, { dest, selfContained, platform, system })
+      : addComponent(name, { dest, selfContained, platform, system });
     console.log(
       `kern add ${name}: vendored ${result.files.length} file(s)${isBlock ? " (block)" : ""} [${result.platform}]`,
     );
@@ -188,7 +202,8 @@ try {
     for (const line of result.instructions) console.log(`  ${line}`);
   } else if (cmd === "list") {
     const platform = platformFlag() ?? "all";
-    for (const line of listComponents({ platform })) console.log(line);
+    const system = systemFlag();
+    for (const line of listComponents({ platform, system })) console.log(line);
     console.log("--- blocks ---");
     for (const line of listBlocks()) console.log(line);
   } else if (cmd === "diff") {

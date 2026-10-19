@@ -15,7 +15,7 @@ import { createHash } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { loadBlocks } from "./blocks.js";
-import { loadRegistry, WORKSPACE_ROOT } from "./manifest.js";
+import { loadRegistry, resolveSystem, WORKSPACE_ROOT } from "./manifest.js";
 import { readReceipt } from "./receipt.js";
 
 function sha16(bytes: string): string {
@@ -25,20 +25,30 @@ function sha16(bytes: string): string {
 export type ListOptions = {
   root?: string;
   platform?: "web" | "native" | "all";
+  /** Design system to list (decision 009). Default: the only current system. */
+  system?: string;
 };
 
 export function listComponents(
-  opts: { root?: string; platform?: "web" | "native" | "all" } = {},
+  opts: {
+    root?: string;
+    platform?: "web" | "native" | "all";
+    system?: string;
+  } = {},
 ): string[] {
   const root =
     opts.root ?? (process.env.KERN_WORKSPACE as string) ?? WORKSPACE_ROOT;
   const platform = opts.platform ?? "all";
   const { rows } = loadRegistry(root);
+  const system = resolveSystem(rows, opts.system);
   return rows
-    .filter((r) => platform === "all" || r.platform === platform)
+    .filter(
+      (r) =>
+        (platform === "all" || r.platform === platform) && r.system === system,
+    )
     .map(
       (r) =>
-        `${r.name} — ${r.export} (${r.platform}, ${r.entrypoint}, ${r.status})`,
+        `${r.name} — ${r.export} (${r.platform}, ${r.entrypoint}, ${r.status}, ${r.system})`,
     )
     .sort();
 }
