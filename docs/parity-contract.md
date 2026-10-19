@@ -52,13 +52,13 @@ again. Measured from the generated registry instead:
 
 | Measure | Value |
 |---|---|
-| Registry rows | **424** (web 305, native 119) |
+| Registry rows | **415** (web 296, native 119) |
 | **Shared** (already both sides) | **91** |
 | **Native-only → needs a web version** | **12** in **9 files** |
-| **Web-only → needs a native version** | **38** in **19 files** |
+| **Web-only → needs a native version** | **37** in **19 files** |
 | Stub rows | **0** |
 
-<!-- gate:counts 91 12 38 0 -->
+<!-- gate:counts 91 12 37 0 -->
 
 Machine-readable line above: `check:parity` (`scripts/check-parity.mjs`) re-derives
 these from the registry and fails if they drift, so the prose above cannot quietly
@@ -399,7 +399,7 @@ were restored from backup afterwards.
 
 ---
 
-## Web-only concepts → need a native version (38)
+## Web-only concepts → need a native version (37)
 
 The heading previously read **34** while the machine gate read **42** — the
 `gate:counts` line was right and the sentence a human reads was stale, which is
@@ -438,8 +438,7 @@ ever stops being shared.
 | 9 | `avatar-image` | The avatar image | `alt` text / `role="img"` | `Image` + `accessibilityLabel` | M3 · Avatar | GAP |
 | 10 | `page-loader` | Full-page loading | `role="status"`/`progressbar` | `ActivityIndicator` | M3 · Progress | GAP |
 | 11 | `form` | Form container | landmark + validation association | `accessibilityRole="summary"` | M3 · Text fields | GAP |
-| 12 | `sonner` | Imperative transient messages | `role="status"`, `aria-live` | **deliberately no native counterpart** — D-026/S1.3 ruling: M3 = `Snackbar` | M3 · Snackbars | n/a |
-| 13 | `loading-region` | The region being loaded, with `aria-busy` | `aria-busy` on the region, `aria-live="polite"` | `accessibilityState.busy` on the container | M3 · Progress | `m3-gaps.test.tsx` |
+| 12 | `loading-region` | The region being loaded, with `aria-busy` | `aria-busy` on the region, `aria-live="polite"` | `accessibilityState.busy` on the container | M3 · Progress | `m3-gaps.test.tsx` |
 
 Rows 22-24 are recorded so the set is complete and the **reasons are recorded**,
 per the S2.3-style bar of "either renders or carries an explicit prose reason".
@@ -452,33 +451,33 @@ native and the count fell 42 → 39, and again in **tranche 2**, when
 `extended-fab`, `fab-menu` and `split-button` shipped and it fell 39 → 37.
 
 ---
-| 14 | `app-top-bar` | Top app bar for an application frame | `AppTopBar` — heading + actions row **covered, not separate work** — it is pure composition over `TopAppBar` (size/leading/trailing + children) and owns no layout of its own; native `TopAppBar` carries the same slots via title/size/leading/trailing/supporting (ruled 2026-10-02, read at `src/start/top-app-bar.tsx:88`) | — (composition tier; no governing component page verified) | GAP |
-| 15 | `apps-menu` | Application-switcher menu in a top bar | `AppsMenu` — a `menu` of applications | **covered, not separate work** — native `Menubar` — web is a preset fixing the label to "Apps"; web composes with children, native parameterises with items. API-shape difference, not a behavioural gap (ruled 2026-10-02, P2b-3 start tranche) | M3 · Menus | GAP |
-| 16 | `document` | Scrollable document surface | `Document` — the scroll container **platform primitive, not work** — a scroll surface; React Native's is `ScrollView`. A Kern wrapper would be `native-select` again: a platform primitive wearing a Kern name (ruled 2026-10-02) | — (composition tier; no governing component page verified) | GAP |
-| 17 | `help-menu` | Help menu in a top bar | `HelpMenu` — a `menu` | **covered, not separate work** — native `Menubar` — web is a preset fixing the label to "Help"; web composes with children, native parameterises with items. API-shape difference, not a behavioural gap (ruled 2026-10-02, P2b-3 start tranche) | M3 · Menus | GAP |
-| 18 | `inspector` | Inspector pane in a split layout | `Inspector` — side pane **covered, not separate work** — native has both parts already: `Pane` for the region and `SecondaryTabs` for the tab set with an active axis. Web composes them into one component; native exposes the parts it has (ruled 2026-10-02) | — (composition tier; no governing component page verified) | GAP |
-| 19 | `link` | Anchor link styled to the design language | `Link` — `a` with kern tokens **deliberate platform asymmetry** — React Native has no anchor element; the behaviour (activate to open a URL) exists as a Pressable, as it does for `native-select`. No native Link will be built (ruled 2026-10-02) | — (composition tier; no governing component page verified) | GAP |
-| 20 | `menubar-menu` | One menu in a menubar | `MenubarMenu` — `role="menu"`, arrow keys | **covered, not separate work** — native `Menubar` IS this shape (`{label, items}`); web composes with children, native parameterises with items. API-shape difference, not a behavioural gap (ruled 2026-10-02, P2b-3 start tranche) | M3 · Menus | GAP |
-| 21 | `notifications-menu` | Notifications menu in a top bar | `NotificationsMenu` — a `menu` | **covered, not separate work** — native `Menubar` — web is a preset fixing the label; web composes with children, native parameterises with items. API-shape difference, not a behavioural gap (ruled 2026-10-02, P2b-3 start tranche) | M3 · Menus | GAP |
-| 22 | `page` | Page surface in a pane layout | `Page` — the primary content pane **covered, not separate work** — a bounded content region; native `Pane` takes named widths where web's `Page` caps the reading width. Same affordance, different vocabulary (ruled 2026-10-02) | — (composition tier; no governing component page verified) | GAP |
-| 23 | `search-bar` | Search input block | `SearchBar` — labelled `searchbox` **covered, not separate work** — web's `SearchBar` is a presentational slot container (a form with leading/trailing/children, no state); the search behaviour is the input, and native `Search` carries it with a label, a value and a submit. Same row-ownership call that cut `form` (ruled 2026-10-02) | — (composition tier; no governing component page verified) | GAP |
-| 24 | `section-drawer` | Section drawer within a navigation surface | `SectionDrawer` — labelled region | **covered, not separate work** — native `NavigationDrawer` (`destinations`, `title`, `footer`); web composes with children, native parameterises with items. API-shape difference, not a behavioural gap (ruled 2026-10-02, P2b-3 start tranche) | M3 · Navigation drawer | GAP |
-| 25 | `sidebar` | Sidebar navigation | `Sidebar` — landmark + list **covered by the rail family** (the rail shipped with a persistent/expanded mode) — a persistent navigation region is behaviour native lacks (`NavigationDrawer` is `open`-controlled; a drawer you must open is not a sidebar). Per the Expressive mapping it is the expanded presentation of a navigation rail, so it is built as ONE family with a persistent mode, NOT as a separate Sidebar component (ruled 2026-10-02) | M3 · Navigation drawer | GAP |
-| 26 | `table-body` | Body region of a table (compound part of `table`) | `TableBody` — row group | **covered, not separate work** — native `Table` renders this from its `columns`/`rows` model; web's composable subpart is an API-shape difference, not a behavioural gap (ruled 2026-10-02) | M3 · Data tables | GAP |
-| 27 | `table-caption` | Caption of a table (compound part) | `TableCaption` — `caption` | **covered** — native `Table` takes a `caption` prop: text rendered AND appended to the accessible name (no caption element exists on this platform). No separate export, so the row stays web-only by export | M3 · Data tables | GAP |
-| 28 | `table-cell` | A cell (compound part of `table`) | `TableCell` — `cell` role | **covered, not separate work** — native `Table` renders this from its `columns`/`rows` model; web's composable subpart is an API-shape difference, not a behavioural gap (ruled 2026-10-02) | M3 · Data tables | GAP |
-| 29 | `table-head` | Header region of a table (compound part) | `TableHead` — columnheader group | **covered, not separate work** — native `Table` renders this from its `columns`/`rows` model; web's composable subpart is an API-shape difference, not a behavioural gap (ruled 2026-10-02) | M3 · Data tables | GAP |
-| 30 | `top-bar-menu` | Generic menu slot in a top bar | `TopBarMenu` — a `menu` | **covered, not separate work** — native `Menubar` takes `menus: {label, items}[]`; web composes with children, native parameterises with items. API-shape difference, not a behavioural gap (ruled 2026-10-02, P2b-3 start tranche) | M3 · Menus | GAP |
-| 31 | `user-menu` | User/account menu in a top bar | `UserMenu` — a `menu` | **covered, not separate work** — native `Menubar` — web is a preset fixing the label; web composes with children, native parameterises with items. API-shape difference, not a behavioural gap (ruled 2026-10-02, P2b-3 start tranche) | M3 · Menus | GAP |
-| 32 | `navigation-rail-button` | One destination in a navigation rail | `NavigationRailButton` — a `role=tab` with a selected axis | **covered, not separate work** — native `NavigationRail` renders each destination as a `tab` with the same selected axis; web's separate export is an API-shape difference, and the family is ONE component by ruling (ruled 2026-10-02) | M3 · Navigation rail | `navigation-rail.rntest.tsx` |
-| 33 | `split-grid` | Equal-column grid at the composition tier | `SplitGrid` — 2- or 3-column CSS grid the caller fills with `SplitPanel`s; **no role and no label of its own** | **covered, not separate work** — native `Split` (shared, row 482 below) is the accessible N-column region and renders the columns itself; `SplitGrid` is the web grid recipe for the same division. A native `SplitGrid` would be a second name for the shape `Split` already has. Renamed from `Split` on 2026-10-03 so it does not collide with the `Split` primitive — see `.team/reports/kern-split-ruling.md` | M3 · Lists → Pane | `start.test.tsx` (composition tier) |
-| 34 | `focus-ring` | One-off focus-visible ring wrapper | `FocusRing` — `data-slot="focus-ring"` span owning the `FOCUS_RING_CLASS` treatment (`ring-2` + `secondary` role, geometry from `@xoroh/kern-tokens` `FOCUS_RING_*`); the host gives focus, the span never owns the tab stop | no native peer yet — focus styling on this platform is platform-owned; GAP (records the debt, not a ruling) | M3 · States | `focus-ring.test.tsx` |
-| 35 | `hero` | Page-opening composition | `Hero` — eyebrow/title/lede/actions/art slots; stacks on narrow screens, art beside the message at wider widths; section labelled by its `h1` | no native peer yet — marketing page pattern; GAP (composition tier, no native counterpart ruled yet) | — (composition tier; no M3 source, kern extension) | `marketing.test.tsx` (composition tier) |
-| 36 | `site-footer` | Multi-column site footer | `SiteFooter` — brand/summary slots, data-driven link groups (`to` via host `LinkProvider`, `href` anchors), legal/trailing slots; each group a nav landmark labelled by its heading | no native peer yet — marketing site pattern; GAP (composition tier, no native counterpart ruled yet) | — (composition tier; no M3 source, kern extension) | `marketing.test.tsx` (composition tier) |
-| 37 | `top-bar` | Responsive site header | `TopBar` — brand link, host-owned `activePath` with `aria-current`, actions slot, mobile disclosure with Escape-to-close and focus return | no native peer yet — marketing site pattern; GAP (composition tier, no native counterpart ruled yet) | — (composition tier; no M3 source, kern extension) | `marketing.test.tsx` (composition tier) |
+| 13 | `app-top-bar` | Top app bar for an application frame | `AppTopBar` — heading + actions row **covered, not separate work** — it is pure composition over `TopAppBar` (size/leading/trailing + children) and owns no layout of its own; native `TopAppBar` carries the same slots via title/size/leading/trailing/supporting (ruled 2026-10-02, read at `src/start/top-app-bar.tsx:88`) | — (composition tier; no governing component page verified) | GAP |
+| 14 | `apps-menu` | Application-switcher menu in a top bar | `AppsMenu` — a `menu` of applications | **covered, not separate work** — native `Menubar` — web is a preset fixing the label to "Apps"; web composes with children, native parameterises with items. API-shape difference, not a behavioural gap (ruled 2026-10-02, P2b-3 start tranche) | M3 · Menus | GAP |
+| 15 | `document` | Scrollable document surface | `Document` — the scroll container **platform primitive, not work** — a scroll surface; React Native's is `ScrollView`. A Kern wrapper would be `native-select` again: a platform primitive wearing a Kern name (ruled 2026-10-02) | — (composition tier; no governing component page verified) | GAP |
+| 16 | `help-menu` | Help menu in a top bar | `HelpMenu` — a `menu` | **covered, not separate work** — native `Menubar` — web is a preset fixing the label to "Help"; web composes with children, native parameterises with items. API-shape difference, not a behavioural gap (ruled 2026-10-02, P2b-3 start tranche) | M3 · Menus | GAP |
+| 17 | `inspector` | Inspector pane in a split layout | `Inspector` — side pane **covered, not separate work** — native has both parts already: `Pane` for the region and `SecondaryTabs` for the tab set with an active axis. Web composes them into one component; native exposes the parts it has (ruled 2026-10-02) | — (composition tier; no governing component page verified) | GAP |
+| 18 | `link` | Anchor link styled to the design language | `Link` — `a` with kern tokens **deliberate platform asymmetry** — React Native has no anchor element; the behaviour (activate to open a URL) exists as a Pressable, as it does for `native-select`. No native Link will be built (ruled 2026-10-02) | — (composition tier; no governing component page verified) | GAP |
+| 19 | `menubar-menu` | One menu in a menubar | `MenubarMenu` — `role="menu"`, arrow keys | **covered, not separate work** — native `Menubar` IS this shape (`{label, items}`); web composes with children, native parameterises with items. API-shape difference, not a behavioural gap (ruled 2026-10-02, P2b-3 start tranche) | M3 · Menus | GAP |
+| 20 | `notifications-menu` | Notifications menu in a top bar | `NotificationsMenu` — a `menu` | **covered, not separate work** — native `Menubar` — web is a preset fixing the label; web composes with children, native parameterises with items. API-shape difference, not a behavioural gap (ruled 2026-10-02, P2b-3 start tranche) | M3 · Menus | GAP |
+| 21 | `page` | Page surface in a pane layout | `Page` — the primary content pane **covered, not separate work** — a bounded content region; native `Pane` takes named widths where web's `Page` caps the reading width. Same affordance, different vocabulary (ruled 2026-10-02) | — (composition tier; no governing component page verified) | GAP |
+| 22 | `search-bar` | Search input block | `SearchBar` — labelled `searchbox` **covered, not separate work** — web's `SearchBar` is a presentational slot container (a form with leading/trailing/children, no state); the search behaviour is the input, and native `Search` carries it with a label, a value and a submit. Same row-ownership call that cut `form` (ruled 2026-10-02) | — (composition tier; no governing component page verified) | GAP |
+| 23 | `section-drawer` | Section drawer within a navigation surface | `SectionDrawer` — labelled region | **covered, not separate work** — native `NavigationDrawer` (`destinations`, `title`, `footer`); web composes with children, native parameterises with items. API-shape difference, not a behavioural gap (ruled 2026-10-02, P2b-3 start tranche) | M3 · Navigation drawer | GAP |
+| 24 | `sidebar` | Sidebar navigation | `Sidebar` — landmark + list **covered by the rail family** (the rail shipped with a persistent/expanded mode) — a persistent navigation region is behaviour native lacks (`NavigationDrawer` is `open`-controlled; a drawer you must open is not a sidebar). Per the Expressive mapping it is the expanded presentation of a navigation rail, so it is built as ONE family with a persistent mode, NOT as a separate Sidebar component (ruled 2026-10-02) | M3 · Navigation drawer | GAP |
+| 25 | `table-body` | Body region of a table (compound part of `table`) | `TableBody` — row group | **covered, not separate work** — native `Table` renders this from its `columns`/`rows` model; web's composable subpart is an API-shape difference, not a behavioural gap (ruled 2026-10-02) | M3 · Data tables | GAP |
+| 26 | `table-caption` | Caption of a table (compound part) | `TableCaption` — `caption` | **covered** — native `Table` takes a `caption` prop: text rendered AND appended to the accessible name (no caption element exists on this platform). No separate export, so the row stays web-only by export | M3 · Data tables | GAP |
+| 27 | `table-cell` | A cell (compound part of `table`) | `TableCell` — `cell` role | **covered, not separate work** — native `Table` renders this from its `columns`/`rows` model; web's composable subpart is an API-shape difference, not a behavioural gap (ruled 2026-10-02) | M3 · Data tables | GAP |
+| 28 | `table-head` | Header region of a table (compound part) | `TableHead` — columnheader group | **covered, not separate work** — native `Table` renders this from its `columns`/`rows` model; web's composable subpart is an API-shape difference, not a behavioural gap (ruled 2026-10-02) | M3 · Data tables | GAP |
+| 29 | `top-bar-menu` | Generic menu slot in a top bar | `TopBarMenu` — a `menu` | **covered, not separate work** — native `Menubar` takes `menus: {label, items}[]`; web composes with children, native parameterises with items. API-shape difference, not a behavioural gap (ruled 2026-10-02, P2b-3 start tranche) | M3 · Menus | GAP |
+| 30 | `user-menu` | User/account menu in a top bar | `UserMenu` — a `menu` | **covered, not separate work** — native `Menubar` — web is a preset fixing the label; web composes with children, native parameterises with items. API-shape difference, not a behavioural gap (ruled 2026-10-02, P2b-3 start tranche) | M3 · Menus | GAP |
+| 31 | `navigation-rail-button` | One destination in a navigation rail | `NavigationRailButton` — a `role=tab` with a selected axis | **covered, not separate work** — native `NavigationRail` renders each destination as a `tab` with the same selected axis; web's separate export is an API-shape difference, and the family is ONE component by ruling (ruled 2026-10-02) | M3 · Navigation rail | `navigation-rail.rntest.tsx` |
+| 32 | `split-grid` | Equal-column grid at the composition tier | `SplitGrid` — 2- or 3-column CSS grid the caller fills with `SplitPanel`s; **no role and no label of its own** | **covered, not separate work** — native `Split` (shared, row 482 below) is the accessible N-column region and renders the columns itself; `SplitGrid` is the web grid recipe for the same division. A native `SplitGrid` would be a second name for the shape `Split` already has. Renamed from `Split` on 2026-10-03 so it does not collide with the `Split` primitive — see `.team/reports/kern-split-ruling.md` | M3 · Lists → Pane | `start.test.tsx` (composition tier) |
+| 33 | `focus-ring` | One-off focus-visible ring wrapper | `FocusRing` — `data-slot="focus-ring"` span owning the `FOCUS_RING_CLASS` treatment (`ring-2` + `secondary` role, geometry from `@xoroh/kern-tokens` `FOCUS_RING_*`); the host gives focus, the span never owns the tab stop | no native peer yet — focus styling on this platform is platform-owned; GAP (records the debt, not a ruling) | M3 · States | `focus-ring.test.tsx` |
+| 34 | `hero` | Page-opening composition | `Hero` — eyebrow/title/lede/actions/art slots; stacks on narrow screens, art beside the message at wider widths; section labelled by its `h1` | no native peer yet — marketing page pattern; GAP (composition tier, no native counterpart ruled yet) | — (composition tier; no M3 source, kern extension) | `marketing.test.tsx` (composition tier) |
+| 35 | `site-footer` | Multi-column site footer | `SiteFooter` — brand/summary slots, data-driven link groups (`to` via host `LinkProvider`, `href` anchors), legal/trailing slots; each group a nav landmark labelled by its heading | no native peer yet — marketing site pattern; GAP (composition tier, no native counterpart ruled yet) | — (composition tier; no M3 source, kern extension) | `marketing.test.tsx` (composition tier) |
+| 36 | `top-bar` | Responsive site header | `TopBar` — brand link, host-owned `activePath` with `aria-current`, actions slot, mobile disclosure with Escape-to-close and focus return | no native peer yet — marketing site pattern; GAP (composition tier, no native counterpart ruled yet) | — (composition tier; no M3 source, kern extension) | `marketing.test.tsx` (composition tier) |
 
 
-| 38 | `snackbar` | Transient confirmation, web compound parts | `Snackbar` + `SnackbarAction/Close/Description/List/Provider/Root/Title/Viewport` — Base UI-backed compound family | **ruled API split, not a gap** — native ships the Axis-backed queue (`useSnackbar` + `SnackbarProvider/Viewport`) under the same M3 concept; bare `Snackbar` is web-only since the single-shot compat was removed (ADR-020, PR #71) | M3 · Snackbars | `disclosure.test.tsx` (Snackbar suite) |
+| 37 | `snackbar` | Transient confirmation, web compound parts | `Snackbar` + `SnackbarAction/Close/Description/List/Provider/Root/Title/Viewport` — Base UI-backed compound family | **ruled API split, not a gap** — native ships the Axis-backed queue (`useSnackbar` + `SnackbarProvider/Viewport`) under the same M3 concept; bare `Snackbar` is web-only since the single-shot compat was removed (ADR-020, PR #71) | M3 · Snackbars | `disclosure.test.tsx` (Snackbar suite) |
 
 ### Moved out — `combobox` and `link-button` now SHARED
 
@@ -845,18 +844,11 @@ symmetrised, and P2b-2/3 must not "fix" them:
 1. **`kbd`** — a keyboard-key glyph. Touch devices have no keys. Ruled: web-only
    interaction concept, documented as such (consistent with the existing parity
    doc's treatment of `tooltip`).
-2. **`sonner` + `create-sonner-manager`** — ruled in D-026/S1.3: M3 expresses
-   transient messaging as **`Snackbar`**, which **ships on both sides** (`Snackbar`
-   is in the 83 shared). Web `Sonner` is `Snackbar`'s *imperative API* over the
-   same toast manager (`packages/kern/src/components/snackbar.tsx:137` exports
-   `createSnackbarManager`). Shipping it natively under a second name would break
-   the naming law and duplicate one surface. **The parity row is
-   `sonner → Snackbar (native)`, marked deliberate.**
-3. **`native-select`** — the RN form is the platform's `Picker`, not a Kern
+2. **`native-select`** — the RN form is the platform's `Picker`, not a Kern
    component. The contract is the *behaviour* (single-choice, opens a modal
    chooser, reports the selection), not a shared component name.
 
-4. **`preview-card`** — **RULED, K10** (`review-m3`,
+3. **`preview-card`** — **RULED, K10** (`review-m3`,
    `.team/reports/reviews/m3/2026-10-01-preview-card-ruling.md`, registered in
    `.team/programs/K-01-deviations.md`). M3's component taxonomy contains no
    preview-card, so no canonical name exists; the strict reading of the naming law
@@ -866,6 +858,14 @@ symmetrised, and P2b-2/3 must not "fix" them:
    As a **web-only asymmetry** — hover/focus preview has no touch analogue, the
    same asymmetry class as `kbd`. The allow-list entry is scoped to the `ext:` band
    via T4-V2 rather than the naming law being silently broken.
+
+4. **RETIRED: `sonner` + `create-sonner-manager`** — the D-026/S1.3 asymmetry
+   ruling is superseded: Faroeq decision 2026-10-19 deletes `Sonner`
+   outright (M3 names it Snackbar, M3 has no tone — no alias, no compat).
+   The imperative pieces moved to `createSnackbarManager`
+   (`show`/`promise`/`dismiss`, intent-free). Recorded here so the removal
+   reads as a ruled retirement, not a gap — see "Retired asymmetry" in
+   `docs/platform-parity.md`.
 
 ---
 
@@ -934,10 +934,10 @@ symmetrised, and P2b-2/3 must not "fix" them:
    or the two will diverge on the first component either gets built.
 
 4. **A contract that records an asymmetry is more useful than one that hides it.**
-   `kbd`, `sonner` and `native-select` will never symmetrise, and rows 26-28 exist
+   `kbd` and `native-select` will never symmetrise, and the ruled rows exist
    precisely so a future reader does not re-litigate them as bugs. **Recommend every
    future parity gate distinguish "missing" from "deliberate asymmetry"**, with the
-   ruling cited — otherwise the gate fires forever on three components that are
+   ruling cited — otherwise the gate fires forever on components that are
    correct, and a permanently-red gate is a gate people stop reading.
 
 5. **D-028's "complete M3" cannot be counted until this manifest settles what a
