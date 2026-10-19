@@ -41,8 +41,6 @@ const COLUMNS: { label: string; links: { label: string; href: string }[] }[] = [
     label: "Components",
     links: [
       { label: "All components", href: "/components" },
-      { label: "Web", href: "/components/web" },
-      { label: "React Native", href: "/components/mobile" },
       { label: "API reference", href: "/reference" },
       { label: "Blocks", href: "/showcase" },
       { label: "Patterns", href: "/patterns" },

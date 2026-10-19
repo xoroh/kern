@@ -81,10 +81,10 @@ export const NAVIGATION_MENU_CONFIGURATOR: ConfiguratorSpec = {
         <NavigationMenu.Item value="products">
           <NavigationMenu.Trigger>Products</NavigationMenu.Trigger>
           <NavigationMenu.Content>
-            <NavigationMenu.Link href="/components/web">
+            <NavigationMenu.Link href="/components?platform=web">
               Web components
             </NavigationMenu.Link>
-            <NavigationMenu.Link href="/components/mobile">
+            <NavigationMenu.Link href="/components?platform=mobile">
               Mobile components
             </NavigationMenu.Link>
           </NavigationMenu.Content>
@@ -99,5 +99,5 @@ export const NAVIGATION_MENU_CONFIGURATOR: ConfiguratorSpec = {
     </NavigationMenu.Root>
   ),
   code: (v) =>
-    `<NavigationMenu.Root${rootPropsOf(v)}>\n  <NavigationMenu.List>\n    <NavigationMenu.Item value="products">\n      <NavigationMenu.Trigger>Products</NavigationMenu.Trigger>\n      <NavigationMenu.Content>\n        <NavigationMenu.Link href="/components/web">Web components</NavigationMenu.Link>\n        <NavigationMenu.Link href="/components/mobile">Mobile components</NavigationMenu.Link>\n      </NavigationMenu.Content>\n    </NavigationMenu.Item>\n    <NavigationMenu.Item value="company">\n      <NavigationMenu.Trigger>Company</NavigationMenu.Trigger>\n      <NavigationMenu.Content>\n        <NavigationMenu.Link href="/about">About</NavigationMenu.Link>\n      </NavigationMenu.Content>\n    </NavigationMenu.Item>\n  </NavigationMenu.List>\n</NavigationMenu.Root>`,
+    `<NavigationMenu.Root${rootPropsOf(v)}>\n  <NavigationMenu.List>\n    <NavigationMenu.Item value="products">\n      <NavigationMenu.Trigger>Products</NavigationMenu.Trigger>\n      <NavigationMenu.Content>\n        <NavigationMenu.Link href="/components?platform=web">Web components</NavigationMenu.Link>\n        <NavigationMenu.Link href="/components?platform=mobile">Mobile components</NavigationMenu.Link>\n      </NavigationMenu.Content>\n    </NavigationMenu.Item>\n    <NavigationMenu.Item value="company">\n      <NavigationMenu.Trigger>Company</NavigationMenu.Trigger>\n      <NavigationMenu.Content>\n        <NavigationMenu.Link href="/about">About</NavigationMenu.Link>\n      </NavigationMenu.Content>\n    </NavigationMenu.Item>\n  </NavigationMenu.List>\n</NavigationMenu.Root>`,
 };

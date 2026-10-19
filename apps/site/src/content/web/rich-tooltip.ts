@@ -36,7 +36,7 @@ export const richTooltip: ComponentDoc = {
     },
     {
       name: "RichTooltipActions",
-      role: "The action row. Plain-text buttons (ghost Buttons) the reader can act on without leaving the tooltip.",
+      role: "The action row. Plain-text buttons (text Buttons) the reader can act on without leaving the tooltip.",
     },
   ],
   usage: {

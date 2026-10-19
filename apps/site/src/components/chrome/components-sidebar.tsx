@@ -11,6 +11,9 @@
  * v2: rows are 48dp pills with M3 state layers; catalog rows carry the
  * selected pair when active. Family anchors are same-page jumps (no route
  * state), so they render as rest pills — the gallery scrolls them into view.
+ *
+ * Platform filtering is view state on the gallery itself (`?platform=`,
+ * 018) — one gallery URL, so the sidebar lists no platform rows.
  */
 import { useLocation } from "@tanstack/react-router";
 import { cn } from "@xoroh/kern";
@@ -28,8 +31,6 @@ import {
 
 const CATALOG: { label: string; href: string }[] = [
   { label: "All components", href: "/components" },
-  { label: "Web", href: "/components/web" },
-  { label: "React Native", href: "/components/mobile" },
   { label: "Reference index", href: "/reference" },
 ];
 

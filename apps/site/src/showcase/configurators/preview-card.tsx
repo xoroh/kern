@@ -9,7 +9,7 @@ import type { ConfiguratorSpec, ConfigValues } from "../configurator";
  * else is fixed anatomy or app wiring by design: open timing is the
  * primitive's (no delay prop exists), and `handle`/`triggerId` are
  * imperative or identifiers, not knobs. The stage shows the documented
- * anatomy whole — ghost trigger plus card body as plain text (never the
+ * anatomy whole — text trigger plus card body as plain text (never the
  * demo's ad-hoc `text-sm`, per the move-27 typescale lesson) — so the
  * fence teaches it too. The stage remounts by key on the knob so it
  * cannot drift from the fence.
