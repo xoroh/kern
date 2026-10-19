@@ -78,9 +78,10 @@ Lead at the time above; the cleanup lane ran PRs #59–#74 down to ONE open PR
    at `f600e7f` through the stale-tarball gate flow (the #66 pattern): keep one
    root `PortalHost` and drop the Kern `Modal` wrapping. Then Kern adopts the compound
    Select/Tooltip/Menu + OverlayRoot APIs and deletes any pending copies.
-2. **Docs gate 2:** 920 undocumented generated props → 0, then flip the check to failing.
-   The in-progress work lived in `/tmp/opencode/kern-gate2-props` and was lost in the
-   2026-10-18 23:32 CEST reboot; restart from main.
+2. **Docs gate 2: DONE** — 920 undocumented generated props → 0, check flipped to
+   failing (`check-props` exits 1 naming the export and prop; pinned by
+   `check-props.test.mjs` on the real tree). Burn-down ran in batches
+   (#76 gate scoping, #79/#80/#82/#83/#88/#92 content).
 3. **Docs depth bar (013):** commit the top-20 list and the thin-page contract as a file the
    gate reads (missing everywhere).
 4. **Button variant names (014):** DONE — `BUTTON_VARIANT_ALIASES` removed
