@@ -7,7 +7,7 @@
 //
 // Reads (outside apps/site, read-only):  ../../docs/components.md
 // Writes (inside apps/site):              src/generated/manifest.ts
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -127,6 +127,36 @@ const toEntry = (platform) => (c) => ({
   status: c.status,
 });
 
+/** Union of both renderers' family names, sorted once (see FAMILIES). */
+const familyOrder = await loadFamilySlugs();
+
+async function loadFamilySlugs() {
+  // Family slugs are the CONTENT slugs (one page per component family —
+  // manifest rows include compound parts like dialog-content, which 301 to
+  // the family page and must never become pages). Same discovery the site
+  // and check-docs use: one content file, one family.
+  const slugs = new Set();
+  for (const platform of ["web", "mobile"]) {
+    const dir = join(APP, "src", "content", platform);
+    for (const file of readdirSync(dir)
+      .filter((f) => f.endsWith(".ts"))
+      .sort()) {
+      const mod = await import(join(dir, file));
+      for (const value of Object.values(mod)) {
+        if (value && typeof value === "object" && "slug" in value) {
+          slugs.add(value.slug);
+        }
+      }
+    }
+  }
+  if (slugs.size === 0) {
+    throw new Error(
+      "generate-manifest: no content slugs found under src/content/ — refusing to emit an empty FAMILIES",
+    );
+  }
+  return [...slugs].sort((a, b) => a.localeCompare(b));
+}
+
 const all = []
   .concat(byPlatform.web.map(toEntry("web")))
   .concat(byPlatform.mobile.map(toEntry("mobile")));
@@ -168,6 +198,23 @@ export function getComponent(slug: string): ComponentEntry | undefined {
 
 export function componentsOn(platform: Platform): ComponentEntry[] {
   return COMPONENTS.filter((c) => c.platform === platform);
+}
+
+/**
+ * The M3 family order — one page per component at /components/m3/<name>
+ * (018). The sorted union of CONTENT slugs (one content file, one family):
+ * manifest rows include compound parts (dialog-content) that 301 to the
+ * family page and must never become siblings, so the manifest is the wrong
+ * source. Sorted here so the generator (not every reader) owns the
+ * sequence; check-component-nav pins it against src/content/.
+ */
+export const FAMILIES: string[] = ${JSON.stringify(familyOrder, null, 2)};
+
+/** Every registry row for one family slug, web first when both exist. */
+export function familyEntries(slug: string): ComponentEntry[] {
+  return COMPONENTS.filter((c) => c.name === slug).sort((a, b) =>
+    a.platform === b.platform ? 0 : a.platform === "web" ? -1 : 1,
+  );
 }
 `;
 

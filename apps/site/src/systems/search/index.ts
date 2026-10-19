@@ -47,8 +47,8 @@ export type SearchEntry = {
   badge?: string;
   /**
    * Renderer the hit belongs to. Set on Components and API rows so the row
-   * can carry a visible Web/Native marker — two families share a name
-   * ("Button" web vs mobile) and the href alone does not disambiguate.
+   * carries a visible Web/Native marker — both renderers share one family
+   * page, so the badge and hint (not the href) disambiguate them.
    */
   platform?: Platform;
 };
@@ -59,7 +59,7 @@ function docEntries(docs: ComponentDoc[], platform: Platform): SearchEntry[] {
     group: "Components" as const,
     title: doc.name,
     hint: doc.oneLiner,
-    href: `/components/${platform}/${doc.slug}`,
+    href: `/components/m3/${doc.slug}`,
     platform,
     badge:
       maturityForExports(doc.parts, native)?.state ??
@@ -83,7 +83,7 @@ function apiEntries(docs: ComponentDoc[], platform: Platform): SearchEntry[] {
         group: "API",
         title: part,
         hint: `${doc.name} · ${platform === "web" ? "Web" : "React Native"} API`,
-        href: `/components/${platform}/${doc.slug}#props`,
+        href: `/components/m3/${doc.slug}#props`,
         platform,
         badge:
           maturityForExports([part], native)?.state ??
@@ -134,7 +134,7 @@ export function buildSearchIndex(): SearchEntry[] {
     group: "Blocks",
     title: part,
     hint: blocksDoc?.oneLiner ?? "Shell furniture block",
-    href: `/components/web/${blocksDoc?.slug ?? "search-bar"}`,
+    href: `/components/m3/${blocksDoc?.slug ?? "search-bar"}`,
   }));
   return [
     ...docEntries(WEB_DOCS, "web"),
@@ -172,13 +172,13 @@ export const SEARCH_SUGGESTIONS: SearchEntry[] = [
     group: "Components",
     title: "Button",
     hint: "Start with the most-used family",
-    href: "/components/web/button",
+    href: "/components/m3/button",
   },
   {
     group: "Components",
     title: "Dialog",
     hint: "Modal tasks and decisions",
-    href: "/components/web/dialog",
+    href: "/components/m3/dialog",
   },
   {
     group: "Tokens",

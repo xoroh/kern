@@ -91,7 +91,7 @@ test("search still opens, filters, and restores focus", async ({ page }) => {
 for (const path of [
   "/",
   "/docs",
-  "/components/web/button",
+  "/components/m3/button",
   "/playground",
   "/showcase",
 ]) {

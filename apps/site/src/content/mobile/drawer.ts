@@ -6,7 +6,7 @@ export const drawer: ComponentDoc = {
   oneLiner:
     "Drawers slide a panel in from the side over the current screen, with a title and a real open state.",
   features:
-    "Reach for a drawer when the content is secondary to what is on screen and should slide over it rather than replace it: filters, details, a short form. It is a modal panel with a title, and unlike most of this family it has a proper open STATE — `open`, `defaultOpen` and `onOpenChange` — so it works controlled or uncontrolled and reports every change. That is worth noticing, because `Dialog`, `Snackbar` and `Sheet` take `visible` and `onDismiss` instead. If you are moving code between these surfaces, that rename is the first thing you will hit.",
+    "Reach for a drawer when the content is secondary to what is on screen and should slide over it rather than replace it: filters, details, a short form. It is a modal panel with a title, and unlike most of this family it has a proper open STATE — `open`, `defaultOpen` and `onOpenChange` — so it works controlled or uncontrolled and reports every change. That is worth noticing, because `Dialog`, `Sheet` and `Snackbar` are controlled-only (`Dialog` and `Sheet` share the `open`/`onOpenChange` contract; `Snackbar` takes `visible` and `onDismiss`). If you are moving code between these surfaces, the missing uncontrolled case is the first thing you will hit.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -22,7 +22,7 @@ export const drawer: ComponentDoc = {
   customization: {
     supported: [
       "`title` is the panel's name and `children` is its body.",
-      "`open`/`defaultOpen`/`onOpenChange` make it controlled OR uncontrolled, which is more than the `visible`-based surfaces offer.",
+      "`open`/`defaultOpen`/`onOpenChange` make it controlled OR uncontrolled, which is more than the controlled-only surfaces (`Dialog`, `Sheet`, `Snackbar`) offer.",
       "`style` is available through the underlying modal props it extends.",
     ],
     notSupported: [
@@ -35,12 +35,12 @@ export const drawer: ComponentDoc = {
     {
       name: "open",
       type: "boolean",
-      note: "Controlled open state. Optional — omit it and `defaultOpen` plus `onOpenChange` give you the uncontrolled case. This is the `open`/`onOpenChange` family, NOT the `visible`/`onDismiss` one that `Dialog`, `Snackbar` and `Sheet` use.",
+      note: "Controlled open state. Optional — omit it and `defaultOpen` plus `onOpenChange` give you the uncontrolled case. `Dialog` and `Sheet` share the `open`/`onOpenChange` contract without the uncontrolled case; `Snackbar` takes `visible`/`onDismiss` instead.",
     },
     {
       name: "defaultOpen",
       type: "boolean",
-      note: "Initial state for the uncontrolled case. The presence of this prop is exactly what the `visible`-based surfaces do not have.",
+      note: "Initial state for the uncontrolled case. The controlled-only surfaces (`Dialog`, `Sheet`, `Snackbar`) do not have this prop.",
     },
     {
       name: "onOpenChange",

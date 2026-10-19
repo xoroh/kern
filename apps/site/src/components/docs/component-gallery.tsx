@@ -274,7 +274,6 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
   // regardless; only the preview waits.
   const isClient = useClientMount();
   const primary = card.web ?? card.mobile;
-  const primaryPlatform = card.web ? "web" : "mobile";
   const demo = card.web
     ? findDemo(card.web, "web")
     : card.mobile
@@ -353,9 +352,9 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
       <div className="flex flex-col gap-3 px-5 pt-2 pb-5">
         <div className="flex flex-wrap items-center gap-2">
           <Link
-            to="/components/$platform/$component"
+            to="/components/$system/$component"
             params={{
-              platform: primaryPlatform,
+              system: "m3",
               component: card.slug,
             }}
             className={`m-0 ${T_SMALL_TITLE} ${INK} no-underline hover:underline ${TRANSITION} ${FOCUS_RING}`}
@@ -364,8 +363,9 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
           </Link>
           {card.web ? (
             <Link
-              to="/components/$platform/$component"
-              params={{ platform: "web", component: card.slug }}
+              to="/components/$system/$component"
+              params={{ system: "m3", component: card.slug }}
+              search={{ tab: "web" }}
               className={`${CHIP} no-underline text-(--sys-color-on-surface-variant) ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING} hover:text-(--sys-color-on-surface)`}
             >
               Web
@@ -373,8 +373,9 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
           ) : null}
           {card.mobile ? (
             <Link
-              to="/components/$platform/$component"
-              params={{ platform: "mobile", component: card.slug }}
+              to="/components/$system/$component"
+              params={{ system: "m3", component: card.slug }}
+              search={{ tab: "mobile" }}
               className={`${CHIP} no-underline text-(--sys-color-on-surface-variant) ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING} hover:text-(--sys-color-on-surface)`}
             >
               Native

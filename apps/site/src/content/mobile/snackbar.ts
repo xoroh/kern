@@ -6,7 +6,7 @@ export const snackbar: ComponentDoc = {
   oneLiner:
     "Snackbars confirm something happened, briefly, with an optional action to undo it.",
   features:
-    "Reach for a snackback when the result of an action needs confirming and nothing more: a message sent, a setting saved, an item removed. It appears over the content, it says one thing, and it goes away. The optional action is what makes it useful rather than decorative — undo, retry, view — but keep it to one, and keep the action reversible, because a snackbar that disappears is a poor place for a decision. It takes `visible` and `onDismiss`, matching `Dialog` and `Sheet`, which differs from the `open`/`onOpenChange` surfaces in the same family.",
+    "Reach for a snackback when the result of an action needs confirming and nothing more: a message sent, a setting saved, an item removed. It appears over the content, it says one thing, and it goes away. The optional action is what makes it useful rather than decorative — undo, retry, view — but keep it to one, and keep the action reversible, because a snackbar that disappears is a poor place for a decision. It takes `visible` and `onDismiss` — the only surface in the family still on that contract (`Dialog` and `Sheet` share the `open`/`onOpenChange` contract, alongside `Drawer`, `Popover` and `Tooltip`).",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +16,54 @@ export const snackbar: ComponentDoc = {
     elevation: 2,
   },
   parts: ["Snackbar"],
+  keyboard: [
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "Announces as an alert when it appears; the optional action reads as a button and double-tap runs it, then dismisses.",
+    },
+  ],
+  usage: {
+    do: [
+      "Confirm exactly one thing — sent, saved, removed — then get out of the way.",
+      "Offer at most one reversible action (undo, retry, view); the action fires `onAction` and dismisses in one press.",
+      "Drive `visible` from the event that caused it and clear it in `onDismiss` — the host owns timing, not the component.",
+    ],
+    dont: [
+      "Don't put decisions in a snackbar — a transient surface is a poor place for a choice; that is a dialog.",
+      "Don't stack snackbars — one message at a time, or none of them reads.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Container",
+      state: "resting",
+      token: "theme.color.inverseSurface",
+      value: "inverseSurface, level 3 (elevation 6, iOS quartet)",
+    },
+    {
+      element: "Message",
+      state: "resting",
+      token: "theme.color.inverseOnSurface",
+      value: "inverseOnSurface",
+    },
+    {
+      element: "Action",
+      state: "resting",
+      token: "theme.color.inversePrimary",
+      value: "inversePrimary label button, minHeight 48",
+    },
+  ],
+  faq: [
+    {
+      q: "Snackbar or dialog?",
+      a: "Low importance with an optional reversible action and auto-dismiss means snackbar; a required decision that blocks means dialog. Blocking never belongs in a transient.",
+    },
+    {
+      q: "Why `visible` instead of `open`?",
+      a: "The snackbar is the one surface still on the `visible`/`onDismiss` contract — it renders nothing while hidden and carries no open state to control. Everything else in the family moved to `open`.",
+    },
+  ],
   deviations: [
     {
       id: "K11",
