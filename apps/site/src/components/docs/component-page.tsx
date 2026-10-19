@@ -21,7 +21,6 @@
  */
 
 import { STATE_LAYER_OPACITIES } from "@xoroh/kern-tokens";
-import { useEffect, useState } from "react";
 import type { Platform } from "../../content/index";
 import type {
   ComponentDoc,
@@ -38,11 +37,7 @@ import {
   PlatformTabs,
   savePlatformChoice,
 } from "../../domains/shared/chrome/docs-shell-parts";
-import {
-  FOCUS_RING,
-  STATE_LAYERS,
-  TRANSITION,
-} from "../../domains/shared/systems/ui";
+import { TRANSITION } from "../../domains/shared/systems/ui";
 import type { A11yPage } from "../../generated/a11y";
 import { A11Y } from "../../generated/a11y";
 import { PROPS_TABLE } from "../../generated/props-table";
@@ -66,6 +61,8 @@ import {
   THEME_CONFIGURATOR_HREF,
 } from "../../systems/playground-links";
 import { CopyMarkdownButton } from "../chrome/copy-markdown-button";
+import { HighlightedCode } from "./highlight";
+import { InstallTabs } from "./install-tabs";
 
 /**
  * M1 — the page that TEACHES the type scale must USE the type scale.
@@ -452,17 +449,10 @@ function installTarget(pkg: string): string {
  * package-manager tabs below are marked available-at-release. No bare-`kern`
  * tab: a tab instructing `npx kern add` would teach a failing command, so
  * the source command carries its checkout prefix. When the CLI publishes,
- * the prefix drops and the tab stays where it is.
+ * the prefix drops and the tab stays where it is. The registry tabs live in
+ * the shared `InstallTabs` (same component the getting-started page uses,
+ * so the commands and the persisted choice cannot drift).
  */
-const MANAGERS = [
-  { id: "npm", label: "npm", command: (t: string) => `npm i ${t}` },
-  { id: "bun", label: "bun", command: (t: string) => `bun add ${t}` },
-  { id: "pnpm", label: "pnpm", command: (t: string) => `pnpm add ${t}` },
-  { id: "yarn", label: "yarn", command: (t: string) => `yarn add ${t}` },
-] as const;
-
-type ManagerId = (typeof MANAGERS)[number]["id"];
-
 function InstallPicker({
   target,
   sourceCommand,
@@ -470,28 +460,6 @@ function InstallPicker({
   target: string;
   sourceCommand: string;
 }) {
-  const [manager, setManager] = useState<ManagerId>("npm");
-  useEffect(() => {
-    try {
-      const stored = window.localStorage.getItem("kern-pkg-manager");
-      if (stored && MANAGERS.some((m) => m.id === stored)) {
-        setManager(stored as ManagerId);
-      }
-    } catch {
-      // Private mode / SSR: default npm stands.
-    }
-  }, []);
-  function choose(id: ManagerId) {
-    setManager(id);
-    try {
-      window.localStorage.setItem("kern-pkg-manager", id);
-    } catch {
-      // Choice still applies for the session.
-    }
-  }
-  const command =
-    MANAGERS.find((m) => m.id === manager)?.command(target) ??
-    `npm i ${target}`;
   return (
     <div className={`${CARD} flex flex-col gap-2 p-4`}>
       <p className={`m-0 ${SMALL} text-(--sys-color-on-surface-variant)`}>
@@ -506,34 +474,7 @@ function InstallPicker({
       <p className={`m-0 ${SMALL} text-(--sys-color-on-surface-variant)`}>
         Registry — available at release (0.1.0 publishes):
       </p>
-      {/* biome-ignore lint/a11y/useSemanticElements: a package-manager picker group is not a form fieldset */}
-      <div
-        role="group"
-        aria-label="Package manager"
-        className="flex flex-wrap gap-1.5"
-      >
-        {MANAGERS.map((m) => (
-          <button
-            key={m.id}
-            type="button"
-            aria-pressed={manager === m.id}
-            onClick={() => choose(m.id)}
-            className={`min-h-12 rounded-(--sys-shape-corner-full) border px-4 ${SMALL} ${TRANSITION} ${FOCUS_RING} ${
-              manager === m.id
-                ? "border-(--sys-color-primary) bg-(--sys-color-primary-container) text-(--sys-color-on-primary-container)"
-                : `border-(--sys-color-outline) text-(--sys-color-on-surface-variant) ${STATE_LAYERS}`
-            }`}
-          >
-            {m.label}
-          </button>
-        ))}
-      </div>
-      <div className="flex items-center gap-2">
-        <pre className={`m-0 flex-1 overflow-x-auto ${CODE} ${INK}`}>
-          <code>{command}</code>
-        </pre>
-        <CopyButton text={command} />
-      </div>
+      <InstallTabs target={target} />
       <p className={`m-0 ${SMALL} text-(--sys-color-on-surface-variant)`}>
         Preview: packages are unpublished — this resolves from a checkout until
         0.1.0 publishes.
@@ -573,8 +514,10 @@ function InstallationBlock({
       <InstallPicker target={target} sourceCommand={sourceCommand} />
       <div className={`${CARD} flex flex-col gap-2 p-4`}>
         <div className="flex items-center gap-2">
-          <pre className={`m-0 flex-1 overflow-x-auto ${CODE} ${INK}`}>
-            <code>{importStatement}</code>
+          <pre
+            className={`codeblock m-0 flex-1 overflow-x-auto ${CODE} ${INK}`}
+          >
+            <HighlightedCode code={importStatement} language="tsx" />
           </pre>
           <CopyButton text={importStatement} />
         </div>
