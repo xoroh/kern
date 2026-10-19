@@ -196,7 +196,7 @@ export function Configurator({ spec }: { spec: ConfiguratorSpec }) {
           <CopyButton text={spec.code(values)} />
         </div>
         <pre
-          className={`m-0 overflow-x-auto bg-(--sys-color-surface-container-high) p-6 ${T_CODE} text-(--sys-color-on-surface)`}
+          className={`m-0 overflow-x-auto rounded-b-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-high) p-6 ${T_CODE} text-(--sys-color-on-surface)`}
         >
           <code>{spec.code(values)}</code>
         </pre>

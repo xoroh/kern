@@ -43,6 +43,9 @@ describe("kern init (Mode 2 scaffold)", () => {
         expect(app).toContain(`"${preset}"`);
       }
       expect(app).toContain("applyKernTheme");
+      // The app owns the design-system choice (decision 010): it registers
+      // M3 explicitly at entry and declares the system package it imports.
+      expect(app).toContain("registerM3");
       // Stylesheet pair: utilities compile, values resolve.
       const css = readFileSync(join(dir, "src/app.css"), "utf8");
       expect(css).toContain("tailwindcss");
@@ -61,6 +64,12 @@ describe("kern init (Mode 2 scaffold)", () => {
           join(pkg.dependencies["@xoroh/kern-tokens"].slice("file:".length)),
         ),
       ).toBe(true);
+      // Direct system dependency: the starter imports @xoroh/kern-m3 itself
+      // (registerM3 at entry) — honest dependency, not a transitive accident.
+      expect(pkg.dependencies["@xoroh/kern-m3"].startsWith("file:")).toBe(true);
+      expect(
+        existsSync(pkg.dependencies["@xoroh/kern-m3"].slice("file:".length)),
+      ).toBe(true);
       // Transitive workspace pins: install must never reach the registry
       // for an unpublished name.
       expect(pkg.overrides["@xoroh/kern"]).toBe(
@@ -76,13 +85,9 @@ describe("kern init (Mode 2 scaffold)", () => {
       // The transitive preset dep escapes to the registry without this pin
       // (C1-S smoke: `bun install` failed outside the monorepo) — every
       // workspace package @xoroh/kern depends on must be pinned.
-      expect(pkg.overrides["@xoroh/kern-material-3"].startsWith("file:")).toBe(
-        true,
-      );
+      expect(pkg.overrides["@xoroh/kern-m3"].startsWith("file:")).toBe(true);
       expect(
-        existsSync(
-          pkg.overrides["@xoroh/kern-material-3"].slice("file:".length),
-        ),
+        existsSync(pkg.overrides["@xoroh/kern-m3"].slice("file:".length)),
       ).toBe(true);
       const readme = readFileSync(join(dir, "README.md"), "utf8");
       expect(readme).toContain("0.0.0");

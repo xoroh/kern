@@ -1,4 +1,4 @@
-import type { LoadingIndicatorStyle } from "@xoroh/kern-material-3";
+import type { LoadingIndicatorStyle } from "@xoroh/kern-m3";
 import { cva } from "class-variance-authority";
 import type { ComponentPropsWithRef, ReactNode, Ref } from "react";
 import { useState } from "react";

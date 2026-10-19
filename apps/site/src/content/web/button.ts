@@ -130,7 +130,7 @@ export const button: ComponentDoc = {
       element: "State layer",
       state: "focus / pressed",
       token: "sys.state.focus-state-layer-opacity",
-      value: "12%",
+      value: "10%",
     },
     {
       element: "Label",

@@ -125,14 +125,14 @@ export function initScaffold(dir: string, opts: InitOptions = {}): InitResult {
   const files: string[] = [];
   copyTree(STARTERS_WEB_DIR, dest, files, "");
 
-  // Resolve the two kern deps honestly: file: against the checkout while
+  // Resolve the three kern deps honestly: file: against the checkout while
   // 0.0.0 is unpublished, versioned names behind --registry for post-publish.
   // The overrides pin the transitive workspace packages (@xoroh/kern itself
   // depends on workspace-pinned siblings) to the same checkout, so `bun
   // install` never reaches the registry for an unpublished name.
   const kernDir = join(root, "packages/kern");
   const tokensDir = join(root, "packages/kern-tokens");
-  const material3Dir = join(root, "packages/kern-material-3");
+  const material3Dir = join(root, "packages/kern-m3");
   // @xoroh/axis pre-publish: exactly one vendored tarball (see vendor/axis
   // + the migration roadmap). Globbed, not hardcoded, so re-vendoring a new
   // Axis SHA needs no code change — but two tarballs is an error, never a
@@ -148,6 +148,11 @@ export function initScaffold(dir: string, opts: InitOptions = {}): InitResult {
   const axisTarball = join(root, "vendor", "axis", axisTarballs[0] as string);
   const kernDep = opts.registry ? version : `file:${kernDir}`;
   const tokensDep = opts.registry ? version : `file:${tokensDir}`;
+  // The starter imports @xoroh/kern-m3 directly — the app owns the design
+  // system choice and calls registerM3() once at entry (decision 010), so it
+  // declares the system package itself rather than leaning on a renderer's
+  // transitive dependency.
+  const material3Dep = opts.registry ? version : `file:${material3Dir}`;
   const overrides = opts.registry
     ? {}
     : {
@@ -157,13 +162,14 @@ export function initScaffold(dir: string, opts: InitOptions = {}): InitResult {
         // @xoroh/kern depends on its material-3 preset package: without
         // this pin the transitive dep escapes to the registry (C1-S smoke
         // proved it — `bun install` failed outside the monorepo).
-        "@xoroh/kern-material-3": `file:${material3Dir}`,
+        "@xoroh/kern-m3": `file:${material3Dir}`,
       };
   const pkgPath = join(dest, "package.json");
   writeFileSync(
     pkgPath,
     readFileSync(pkgPath, "utf8")
       .replace("__KERN_DEP__", kernDep)
+      .replace("__KERN_M3_DEP__", material3Dep)
       .replace("__KERN_TOKENS_DEP__", tokensDep)
       .replace("__KERN_OVERRIDES__", JSON.stringify(overrides, null, 2)),
   );

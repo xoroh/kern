@@ -69,9 +69,9 @@ export function ApiIndex() {
                 >
                   <td className={`m-0 ${T_BODY} py-2 pr-4 font-mono`}>
                     <Link
-                      to="/components/$platform/$component"
+                      to="/components/$system/$component"
                       params={{
-                        platform: row.platform,
+                        system: "m3",
                         component: row.name,
                       }}
                       className="text-(--sys-color-primary) no-underline hover:underline"

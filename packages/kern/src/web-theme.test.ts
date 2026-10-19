@@ -1,5 +1,5 @@
 import { renderHook } from "@testing-library/react";
-import { themeFromSeed, themes } from "@xoroh/kern-material-3";
+import { themeFromSeed, themes } from "@xoroh/kern-m3";
 import { act } from "react";
 import { describe, expect, it } from "vitest";
 import { applyKernTheme, clearKernTheme, useKernTheme } from "./web-theme";

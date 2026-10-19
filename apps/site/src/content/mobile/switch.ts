@@ -16,6 +16,71 @@ export const switchCmp: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Switch"],
+  keyboard: [
+    {
+      key: "Enter / Space via external keyboard",
+      action:
+        "Toggles when focused — the pressable owns activation, matching the web peer.",
+    },
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "Announces as a switch with its on/off and disabled states; double-tap toggles.",
+    },
+  ],
+  usage: {
+    do: [
+      "Use for settings that take effect the moment they flip — the switch IS the commit.",
+      "Keep one switch per row with its label beside it, so the announcement names what flips.",
+      "Drive `checked` from state when the setting can change from elsewhere (server push, reset-all).",
+    ],
+    dont: [
+      "Don't use a switch for form options that submit together — those are checkboxes.",
+      "Don't hide the state in color alone — the thumb's side and the track fill carry it together.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Track on",
+      state: "checked",
+      token: "theme.color.primary",
+      value: "primary track, 52×32",
+    },
+    {
+      element: "Track off",
+      state: "resting",
+      token: "theme.color.outline",
+      value: "2px outline border on surface",
+    },
+    {
+      element: "Thumb on",
+      state: "checked",
+      token: "theme.color.onPrimary",
+      value: "onPrimary 24px thumb, trailing side",
+    },
+    {
+      element: "Thumb off",
+      state: "resting",
+      token: "theme.color.outline",
+      value: "outline 16px thumb, leading side",
+    },
+    {
+      element: "Track shape",
+      state: "resting",
+      token: "theme.shape.full",
+      value: "full pill, pressed dims to 0.82",
+    },
+  ],
+  faq: [
+    {
+      q: "Switch or checkbox?",
+      a: "Immediate effect means switch; submit-together options mean checkbox. If flipping it does nothing until save, it is not a switch.",
+    },
+    {
+      q: "How does this differ from the web switch?",
+      a: "Same `checked` vocabulary, same 52×32 geometry. The track and thumb are kern-drawn styles (with `switch-track-shape` theming the container) rather than Base UI parts, and state is `accessibilityState`, not ARIA.",
+    },
+  ],
   customization: {
     supported: [
       "`checked`/`defaultChecked`/`onCheckedChange` make it controlled or uncontrolled — Base UI names, same as web.",

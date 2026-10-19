@@ -33,6 +33,18 @@ export const card: ComponentDoc = {
       role: 'The action row. Carries `role="group"` so the actions announce as a set.',
     },
   ],
+  keyboard: [
+    {
+      key: "Tab / Shift+Tab",
+      action:
+        "Reaches the card itself only when `as` renders it as a link — otherwise the tab stops are the interactive children, and the card is not one.",
+    },
+    {
+      key: "Enter / Space",
+      action:
+        "Activates the card-as-link, or the focused child control. A plain `div` card takes no key.",
+    },
+  ],
   usage: {
     do: [
       "Use one card per subject with scan-first hierarchy: headline, supporting text, actions.",
@@ -101,5 +113,9 @@ export const card: ComponentDoc = {
       type: "string",
       note: "Merged after the variant classes.",
     },
+  ],
+  aria: [
+    'A plain card exposes no semantics of its own — content reads in order, and the actions row carries `role="group"` so the actions announce as a set.',
+    "A card rendered as a link through `as` is the interactive element: it takes focus and activates like the link it is.",
   ],
 };

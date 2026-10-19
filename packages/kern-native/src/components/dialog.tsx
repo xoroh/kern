@@ -30,7 +30,7 @@ const staticStyles = StyleSheet.create({
   },
 });
 
-export function dialogStyles(scheme: ResolvedTheme = defaultScheme): {
+export function dialogStyles(scheme: ResolvedTheme = defaultScheme()): {
   card: ViewStyle;
 } {
   return {

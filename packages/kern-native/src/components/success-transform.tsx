@@ -2,7 +2,7 @@ import {
   FEEDBACK_SIZE_DP,
   type FeedbackSize,
   feedbackTiming,
-} from "@xoroh/kern-material-3";
+} from "@xoroh/kern-m3";
 import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import { useEffect, useRef } from "react";
 import {
@@ -33,7 +33,7 @@ export type SuccessTransformProps = Omit<ViewProps, "children" | "style"> & {
 export function successTransformStyles(
   size: FeedbackSize,
   success: string,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
 ): { check: ViewStyle; tick: ViewStyle } {
   const edge = FEEDBACK_SIZE_DP[size].shape * 1.6;
   return {

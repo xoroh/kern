@@ -275,7 +275,7 @@ export function resolveThemeDetails(
   contrast: Contrast = "standard",
   // Default preset id, resolved through the registry like any other id: with
   // no preset registered under this id the call fails loud listing what is
-  // registered. The id itself is owned by the `@xoroh/kern-material-3`
+  // registered. The id itself is owned by the `@xoroh/kern-m3`
   // registration, not by this module — custom systems resolve by passing
   // their own registered id (or a validated CustomTheme) explicitly.
   variant: ThemeSelection = "material-3",

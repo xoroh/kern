@@ -6,7 +6,7 @@ export const popover: ComponentDoc = {
   oneLiner:
     "Popovers are anchored panels for rich transient content — a composition of trigger and body.",
   features:
-    "Reach for a popover when something needs to appear beside its trigger and hold more than a line: a small form, a preview, a set of details. It is a composition rather than a single component — `Root`, `Trigger`, `Content`, `Body` — so the trigger is yours and the panel is yours. The open state is the controllable pattern (`open`, `defaultOpen`, `onOpenChange`), matching `Drawer` and `Tooltip` and differing from the `visible`-based `Dialog`, `Snackbar` and `Sheet`. Keep the content short and leaveable; a popover that grows into a form wants a dialog or a sheet.",
+    "Reach for a popover when something needs to appear beside its trigger and hold more than a line: a small form, a preview, a set of details. It is a composition rather than a single component — `Root`, `Trigger`, `Content`, `Body` — so the trigger is yours and the panel is yours. The open state is the controllable pattern (`open`, `defaultOpen`, `onOpenChange`), matching `Drawer` and `Tooltip` and differing from the `visible`-based `Snackbar` (`Dialog` and `Sheet` share the `open`/`onOpenChange` contract). Keep the content short and leaveable; a popover that grows into a form wants a dialog or a sheet.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",

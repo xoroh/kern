@@ -39,7 +39,7 @@ const PATTERNS: {
     title: "App shell",
     body: "Top bar, navigation, and a content slot.",
     composes: "AppShell with top-app-bar and navigation-drawer slots",
-    to: "/components/web/app-shell",
+    to: "/components/m3/app-shell",
     cta: "Read the app-shell reference",
   },
   {
@@ -47,7 +47,7 @@ const PATTERNS: {
     title: "Form with validation",
     body: "Labels, inputs, and error text wired for screen readers.",
     composes: "Form, fieldset, field, and error text",
-    to: "/components/web/form",
+    to: "/components/m3/form",
     cta: "Read the form reference",
   },
   {
@@ -55,7 +55,7 @@ const PATTERNS: {
     title: "Decision dialog",
     body: "One question, two buttons, focus trapped until decided.",
     composes: "Dialog with focus trap and labelled actions",
-    to: "/components/web/dialog",
+    to: "/components/m3/dialog",
     cta: "Read the dialog reference",
   },
   {
@@ -63,7 +63,7 @@ const PATTERNS: {
     title: "Command palette and search",
     body: "⌘K search over every registry, ranked and grouped.",
     composes: "Search-bar over the static search index",
-    to: "/components/web/search-bar",
+    to: "/components/m3/search-bar",
     cta: "Read the search-bar reference",
   },
   {
@@ -71,7 +71,7 @@ const PATTERNS: {
     title: "Settings list",
     body: "Icon, label, control — rows that scan as decisions.",
     composes: "List-item rows with switch and checkbox controls",
-    to: "/components/web/list-item",
+    to: "/components/m3/list-item",
     cta: "Read the list-item reference",
   },
   {
@@ -79,7 +79,7 @@ const PATTERNS: {
     title: "Empty states",
     body: "Name what is missing, show the one action that fills it.",
     composes: "Empty-state with a single primary action",
-    to: "/components/web/empty-state",
+    to: "/components/m3/empty-state",
     cta: "Read the empty-state reference",
   },
 ];

@@ -11,7 +11,7 @@ import {
 import { defaultScheme, useKernTheme } from "../theme";
 
 export function listItemStyles(
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
   selected = false,
 ): {
   row: ViewStyle;

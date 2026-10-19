@@ -21,7 +21,7 @@ resolve the same scheme, so a token change lands everywhere at once.
 | Package | Directory | Renderer | Owns |
 | --- | --- | --- | --- |
 | `@xoroh/kern-tokens` | `packages/kern-tokens` | platform-free | `tokens.json` (canonical source), theme presets, contrast overlays, tones, feedback spec, variant registry, generated CSS |
-| `@xoroh/kern-material-3` | `packages/kern-material-3` | platform-free | Material Design 3 preset tables, themes, and M3 algorithms |
+| `@xoroh/kern-m3` | `packages/kern-m3` | platform-free | Material Design 3 preset tables, themes, and M3 algorithms |
 | `@xoroh/kern-contracts` | `packages/kern-contracts` | platform-free | Provider/component/block/icon/install record schemas + validators |
 | `@xoroh/kern` | `packages/kern` | web (DOM) | The web component set, the web theme runtime, `cn` helpers |
 | `@xoroh/kern/start` | `packages/kern/src/start` | web (DOM) | Composition: blocks, top app bar, navigation, panes, scaffolds, link seam |

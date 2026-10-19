@@ -16,11 +16,11 @@ describe("STATE_LAYER_OPACITIES", () => {
     );
   });
 
-  it("ships the material-web v0.192 canonical values", () => {
+  it("ships the m3.material.io canonical values (live spec 8/10/10/16/38)", () => {
     expect(STATE_LAYER_OPACITIES).toEqual({
       hover: 0.08,
-      focus: 0.12,
-      press: 0.12,
+      focus: 0.1,
+      press: 0.1,
       drag: 0.16,
       disabled: 0.38,
     });

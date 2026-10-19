@@ -1,7 +1,9 @@
-# Status report — 2026-10-16, evening (Kern 0.1.0 Preview readiness track)
+# Status report — 2026-10-18, morning (Kern 0.1.0 Preview readiness track)
 
-Baseline: Kern `main` at `6c47d95a` (PR #55 testID merged). Open: none.
-Tree: this branch fix/state-layer-contradictions, unpushed.
+Baseline: Kern `main` at `7434d369` (structure 1 merged by Kern Lead as #61).
+Open: PR #67 structure (2), CI 14/14 green, REVIEW ONLY — do not merge.
+Tree: branch `structure/2-no-global-registration`, pushed, 2 commits
+(`c3c32e0b` + lint follow-up `36337e70`).
 
 ## Done (this track)
 - Elevation gaps to zero (this branch, unmerged): 7 spec rows + 3 unassigned entries +
@@ -58,14 +60,15 @@ Tree: this branch fix/state-layer-contradictions, unpushed.
 - PR #40 merged: Button toggle+href keeps `aria-pressed` (critic fix 2).
 
 ## In progress
-- Merged: #39–#56.
-- Open: #57 (this branch, P2 shape/spacing sweep).
-- Next: structure sequence PRs (1) kern-m3 rename → (2) no-global-registration
-  → (3) unified registry + --system → (4) split widget packages; all large,
+- Merged: #39–#57, #61 (structure 1, hard rename, as `7434d369`). Owner PR
+  #58 (decisions consolidation) noted; decision 010 governs this branch.
+- PR #67 (structure 2, REVIEW ONLY): no global M3 registration —
+  `registerM3()` explicit, renderers register nothing; native `defaultScheme`
+  lazy (forced by ESM import order, not scope creep); check:layers source
+  rule enforces the split. Full note:
+  `.reports/structure-2-no-global-registration.md`. CI 14/14 green.
+- Next: structure (3) registry + --system → (4) split widgets; large,
   review-gated, unmerged.
-- Queued after: usage P1/P2 correctness items; m3 tertiary/chrome +
-  playground fidelity; structure/URL/Button-names/HCT phases
-  (review-gated).
 
 ## Blockers / standing gates
 - **Release hold**: no publish, no version bumps, no tags (all `0.0.0`).

@@ -40,6 +40,8 @@ const ROOT = join(APP, "..", "..");
 const CONTENT = join(APP, "src", "content");
 const INVENTORY = join(ROOT, "docs", "components.md");
 
+const { TOP_FAMILIES } = await import("./lib/top-families.mjs");
+
 const errors = [];
 const gaps = [];
 /**
@@ -141,7 +143,7 @@ function pickExport(mod, names, what) {
 }
 
 const elevationModule = await loadFirstModule([
-  "packages/kern-material-3/src/kern-elevation.ts",
+  "packages/kern-m3/src/kern-elevation.ts",
 ]);
 
 const ELEVATION_COMPONENTS = pickExport(
@@ -670,7 +672,7 @@ function checkCanonicalSlug({ platform, file, doc }) {
   if (!inventoryNames.has(`${platform}:${doc.slug}`)) {
     fail(
       `${file}: family slug "${doc.slug}" is not a row in the generated inventory — ` +
-        `the canonical URL /components/${platform}/${doc.slug} would 404 and every ` +
+        `the canonical URL /components/m3/${doc.slug} would 404 and every ` +
         `part URL would 301 into it`,
     );
   }
@@ -890,6 +892,43 @@ if (gaps.length > 0) {
     errors.push(
       `${g} — an unasserted elevation claim is a defect, not a note (gaps fail since the zero-gap sweep)`,
     );
+}
+
+// ------------------------------------------------------- top-20 depth bar
+// 013/D-DOCS-DEPTH: the twenty families users land on most carry full pages
+// on web AND native. FULL means usage (do + don't), token table, keyboard
+// contract, screen-reader notes (`aria`), FAQ, and the API table. Anatomy
+// is deliberately NOT in the bar — single-part families have nothing to
+// decompose. Every other family gets a thin-but-correct page (example, API
+// table, a11y notes): checked by the gates above, not here.
+{
+  const byKey = new Map(
+    pages.map((p) => [`${p.platform}/${p.doc.slug}`, p.doc]),
+  );
+  for (const slug of TOP_FAMILIES) {
+    for (const platform of ["web", "mobile"]) {
+      const doc = byKey.get(`${platform}/${slug}`);
+      if (!doc) {
+        errors.push(
+          `top-20 ${platform}/${slug}: no content page — the depth bar needs the family on both renderers`,
+        );
+        continue;
+      }
+      const missing = [];
+      if (!doc.usage?.do?.length || !doc.usage?.dont?.length)
+        missing.push("usage (do + don't)");
+      if (!doc.tokens?.length) missing.push("tokens");
+      if (!doc.keyboard?.length) missing.push("keyboard");
+      if (!doc.aria?.length) missing.push("aria");
+      if (!doc.faq?.length) missing.push("faq");
+      if (!doc.api?.length) missing.push("api");
+      if (missing.length > 0) {
+        errors.push(
+          `top-20 ${platform}/${slug}: not a full page — missing ${missing.join(", ")}`,
+        );
+      }
+    }
+  }
 }
 
 if (errors.length > 0) {

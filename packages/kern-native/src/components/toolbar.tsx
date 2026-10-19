@@ -20,7 +20,7 @@ export type NativeToolbarOrientation = "horizontal" | "vertical";
 export type NativeToolbarLayout = "floating" | "docked";
 
 export function toolbarStyles(
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
   options?: {
     color?: NativeToolbarColor;
     orientation?: NativeToolbarOrientation;

@@ -42,6 +42,7 @@ import {
   PreviewStack,
   Row,
 } from "../../components/preview/preview";
+import { T_BODY_MD } from "../../domains/shared/systems/type-scale";
 
 const Gear = (props: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
@@ -292,8 +293,10 @@ export function CardDemo() {
       {(["filled", "outlined", "elevated"] as const).map((variant) => (
         <Preview key={variant} label={`variant — ${variant}`}>
           <Card variant={variant} className="w-full max-w-56 p-6 text-left">
-            <p className="m-0 font-medium">Card content</p>
-            <p className="m-0 mt-1 text-sm text-(--sys-color-on-surface-variant)">
+            <p className="m-0">Card content</p>
+            <p
+              className={`m-0 mt-1 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
+            >
               Cards group related content.
             </p>
           </Card>
@@ -330,7 +333,7 @@ export function KbdDemo() {
   return (
     <Preview label="Kbd — semantic key markup">
       <Row>
-        <span className="flex items-center gap-1 text-sm">
+        <span className={`flex items-center gap-1 ${T_BODY_MD}`}>
           <Kbd>Ctrl</Kbd>
           <span>+</span>
           <Kbd>K</Kbd>
@@ -343,7 +346,7 @@ export function KbdDemo() {
 export function LabelDemo() {
   return (
     <Preview label="Label">
-      <Label className="text-sm font-medium">Email address</Label>
+      <Label className={`${T_BODY_MD}`}>Email address</Label>
     </Preview>
   );
 }
@@ -352,9 +355,9 @@ export function SeparatorDemo() {
   return (
     <Preview label="Separator" span={3}>
       <div className="flex w-full max-w-xs flex-col items-center gap-3">
-        <span className="text-sm">Above</span>
+        <span className={`${T_BODY_MD}`}>Above</span>
         <Separator className="w-full" />
-        <span className="text-sm">Below</span>
+        <span className={`${T_BODY_MD}`}>Below</span>
       </div>
     </Preview>
   );
@@ -632,12 +635,12 @@ export function LoadingRegionDemo() {
     <PreviewStack>
       <Preview label="LoadingRegion — loading" span={3}>
         <LoadingRegion loading label="Dashboard">
-          <p className="m-0 text-sm">Dashboard content.</p>
+          <p className={`m-0 ${T_BODY_MD}`}>Dashboard content.</p>
         </LoadingRegion>
       </Preview>
       <Preview label="LoadingRegion — ready" span={3}>
         <LoadingRegion loading={false} label="Dashboard">
-          <p className="m-0 text-sm">Dashboard content.</p>
+          <p className={`m-0 ${T_BODY_MD}`}>Dashboard content.</p>
         </LoadingRegion>
       </Preview>
     </PreviewStack>
@@ -649,10 +652,12 @@ export function KernErrorBoundaryDemo() {
     <Preview label="KernErrorBoundary — fallback on throw" span={3}>
       <KernErrorBoundary
         fallback={({ error }) => (
-          <p className="m-0 text-sm">Caught: {(error as Error).message}</p>
+          <p className={`m-0 ${T_BODY_MD}`}>
+            Caught: {(error as Error).message}
+          </p>
         )}
       >
-        <p className="m-0 text-sm">Healthy content renders untouched.</p>
+        <p className={`m-0 ${T_BODY_MD}`}>Healthy content renders untouched.</p>
       </KernErrorBoundary>
     </Preview>
   );

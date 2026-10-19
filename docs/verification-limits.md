@@ -19,7 +19,7 @@ Three runners, all real, all in CI on every push and PR.
 |---|---|---|---|---|
 | **vitest** | `bun run test` | `@xoroh/kern-tokens` | 6 | 70 |
 | | | `@xoroh/kern-contracts` | 2 | 32 |
-| | | `@xoroh/kern-material-3` | 13 | 102 |
+| | | `@xoroh/kern-m3` | 13 | 102 |
 | | | `@xoroh/kern` (web) | 77 | 831 |
 | | | `@xoroh/kern-icons` | 5 | 85 |
 | | `bun run test:native` | `@xoroh/kern-native`, non-rn files | 9 | 103 |
