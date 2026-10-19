@@ -129,13 +129,25 @@ describe("prop-coverage scoping", () => {
   test("parser: for before note, prose mentions of for ignored, braces survive", () => {
     const dir = fixture({
       "x.ts": FAMILY(
-        `{ name: "shared", for: ["Root"], type: "string", note: "What it is for: a region fetching its content, shaped like \`{ value }\`." },`,
+        `{ name: "shared", for: ["Root"], type: "string", note: "What it is for: a region fetching its content, shaped like \`{ value }\`." },
+         {
+           name: "open",
+           for: [
+             "Root",
+             "Ns",
+           ],
+           type: "boolean",
+           note: "A multi-line scope list closes on its own bracket line.",
+         },`,
       ),
     });
     try {
       const files = readContentApiRows(dir);
       expect(files).toHaveLength(1);
-      expect(files[0].rows).toEqual([{ name: "shared", for: ["Root"] }]);
+      expect(files[0].rows).toEqual([
+        { name: "shared", for: ["Root"] },
+        { name: "open", for: ["Root", "Ns"] },
+      ]);
     } finally {
       rmSync(dir, { recursive: true, force: true });
     }
