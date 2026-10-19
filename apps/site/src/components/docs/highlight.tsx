@@ -107,7 +107,10 @@ function tokenizeTsx(src: string): Token[] {
     // JSX tags: <Name, </Name, <name — the name takes the tag role, and an
     // attribute name before `=` takes the attr role. Member expressions
     // (<Field.Root) color the whole dotted path as one tag.
-    if (ch === "<" && (isIdentStart(next) || (next === "/" && isIdentStart(src[i + 2] ?? "")))) {
+    if (
+      ch === "<" &&
+      (isIdentStart(next) || (next === "/" && isIdentStart(src[i + 2] ?? "")))
+    ) {
       let j = i + 1;
       if (src[j] === "/") j += 1;
       let k = j;
@@ -164,8 +167,7 @@ function tokenizeTsx(src: string): Token[] {
       const word = src.slice(i, k);
       let j = i - 1;
       while (src[j] === " " || src[j] === "\t") j -= 1;
-      const atTextStart =
-        j < 0 || src[j] === "\n" || src[j] === ">";
+      const atTextStart = j < 0 || src[j] === "\n" || src[j] === ">";
       if (TSX_KEYWORDS.has(word)) push(word, "tok-keyword");
       else if (TSX_BOOLEANS.has(word)) push(word, "tok-number");
       else if (/^[A-Z]/.test(word) && !atTextStart) push(word, "tok-type");
@@ -296,7 +298,10 @@ function tokenizeCss(src: string): Token[] {
       while (src[m] === " ") m += 1;
       if (src[m] === ":") {
         if (ch === "-") out.push({ text: "-", cls: null });
-        out.push({ text: src.slice(ch === "-" ? i + 1 : i, k), cls: "tok-attr" });
+        out.push({
+          text: src.slice(ch === "-" ? i + 1 : i, k),
+          cls: "tok-attr",
+        });
         i = k;
         continue;
       }

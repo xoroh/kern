@@ -8,14 +8,14 @@ import { isSlashSearchKey, isToggleSearchKey } from "./shortcut";
  */
 describe("isToggleSearchKey", () => {
   it("Control+K opens (Linux/Windows primary)", () => {
-    expect(
-      isToggleSearchKey({ key: "k", metaKey: false, ctrlKey: true }),
-    ).toBe(true);
+    expect(isToggleSearchKey({ key: "k", metaKey: false, ctrlKey: true })).toBe(
+      true,
+    );
   });
   it("Command+K opens (macOS primary)", () => {
-    expect(
-      isToggleSearchKey({ key: "k", metaKey: true, ctrlKey: false }),
-    ).toBe(true);
+    expect(isToggleSearchKey({ key: "k", metaKey: true, ctrlKey: false })).toBe(
+      true,
+    );
   });
   it("a bare k does not open", () => {
     expect(
@@ -46,10 +46,7 @@ describe("isSlashSearchKey", () => {
       { tagName: "DIV", isContentEditable: true },
     ]) {
       expect(
-        isSlashSearchKey(
-          { key: "/", metaKey: false, ctrlKey: false },
-          target,
-        ),
+        isSlashSearchKey({ key: "/", metaKey: false, ctrlKey: false }, target),
       ).toBe(false);
     }
   });
