@@ -23,6 +23,7 @@
   },
   "files": [
     "dist",
+    "src/docs-index.json",
     "LICENSE",
     "README.md"
   ],
@@ -52,6 +53,7 @@
       }
     },
     "./package.json": "./package.json",
+    "./docs-index": "./src/docs-index.json",
     "./maturity": {
       "import": {
         "types": "./dist/maturity.d.ts",
