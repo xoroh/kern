@@ -202,3 +202,44 @@ describe("coverage gate flip", () => {
     }
   });
 });
+
+/**
+ * Stale gate: zero is the only passing count (the 471 baseline is gone).
+ * Pins, on the real tree:
+ *
+ *   1. zero stale rows → exit 0;
+ *   2. one bogus api row added → exit 1 naming the part and prop (fails
+ *      if anyone reintroduces a baseline or otherwise stops failing).
+ */
+describe("stale gate zero", () => {
+  test("zero stale rows passes", () => {
+    const run = runGate();
+    expect(run.status).toBe(0);
+    expect(run.stdout).toContain("stale rows 0.");
+  });
+
+  test("a row naming nothing fails the run with part and prop", () => {
+    const page = join(site, "src", "content", "web", "toggle.ts");
+    const aside = `${page}.gated-aside`;
+    const src = readFileSync(page, "utf8");
+    const anchor = "  ],\n  aria: [";
+    expect(src).toContain(anchor);
+    const row = `    {
+      name: "definitelyNotAProp",
+      type: "string",
+      note: "Stale-gate probe: no part carries this name.",
+    },
+`;
+    renameSync(page, aside);
+    try {
+      writeFileSync(page, src.replace(anchor, `${row}${anchor}`));
+      const run = runGate();
+      expect(run.status).toBe(1);
+      expect(run.stderr).toContain(
+        'Toggle: content api names "definitelyNotAProp"',
+      );
+    } finally {
+      renameSync(aside, page);
+    }
+  });
+});

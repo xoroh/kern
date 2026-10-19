@@ -9,8 +9,8 @@
  *
  * Semantics (see check-props.mjs WHY):
  * - stale: an UNSCOPED content name nothing in the part's type carries.
- *   Still counted per part, still ratcheted — the content lane owns that
- *   burn-down and this lane must not move it by redefinition.
+ *   Still counted per part; the gate hard-fails on any stale row (the old
+ *   471 baseline and its ratchet are gone with the burn-down).
  * - scoped rows (`for: [...]`) attribute only to the listed parts: they
  *   never count as stale anywhere, but a scope naming a non-part, a part
  *   with no generated export, or a name none of the scoped parts carries
