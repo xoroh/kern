@@ -176,6 +176,8 @@ jobs:
         run: |
           bun run --cwd apps/site generate:routes
           bun run check:stale-refs
+      - name: Check vendored tarball references are current
+        run: bun run check:stale-tarball
 
       - name: Check the two renderers agree on resting elevation
         # D-038 follow-on. `check-elevation-parity` asserts one resting elevation

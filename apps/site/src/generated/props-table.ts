@@ -413,7 +413,7 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "onOpenChange",
-        type: "((open: boolean, eventDetails: AutocompleteRootChangeEventDetails) => void) | undefined",
+        type: "((open: boolean, eventDetails: AutocompleteRootOpenChangeEventDetails) => void) | undefined",
         required: false,
       },
       {
@@ -1760,7 +1760,7 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "onOpenChange",
-        type: "((open: boolean, eventDetails: ChangeEventDetails) => void) | undefined",
+        type: "((open: boolean, eventDetails: OpenChangeEventDetails) => void) | undefined",
         required: false,
       },
       {
@@ -2165,7 +2165,7 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "onOpenChange",
-        type: "((open: boolean, eventDetails: ChangeEventDetails) => void) | undefined",
+        type: "((open: boolean, eventDetails: OpenChangeEventDetails) => void) | undefined",
         required: false,
       },
       {
@@ -2454,6 +2454,11 @@ export const PROPS_TABLE: Record<
         required: false,
       },
       {
+        name: "onItemHighlighted",
+        type: "((highlightedItem: HTMLElement | undefined, eventDetails: MenuRootHighlightEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
         name: "orientation",
         type: "MenuRootOrientation | undefined",
         required: false,
@@ -2625,7 +2630,7 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "onOpenChange",
-        type: "((open: boolean, eventDetails: SelectRootChangeEventDetails) => void) | undefined",
+        type: "((open: boolean, eventDetails: SelectRootOpenChangeEventDetails) => void) | undefined",
         required: false,
       },
       {
@@ -4317,6 +4322,11 @@ export const PROPS_TABLE: Record<
         required: false,
       },
       {
+        name: "onItemHighlighted",
+        type: "((highlightedItem: HTMLElement | undefined, eventDetails: MenuRootHighlightEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
         name: "open",
         type: "boolean | undefined",
         required: false,
@@ -4624,6 +4634,11 @@ export const PROPS_TABLE: Record<
       {
         name: "onOpenChangeComplete",
         type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onItemHighlighted",
+        type: "((highlightedItem: HTMLElement | undefined, eventDetails: MenuRootHighlightEventDetails) => void) | undefined",
         required: false,
       },
       {
@@ -6269,7 +6284,7 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "onOpenChange",
-        type: "((open: boolean, eventDetails: SelectRootChangeEventDetails) => void) | undefined",
+        type: "((open: boolean, eventDetails: SelectRootOpenChangeEventDetails) => void) | undefined",
         required: false,
       },
       {
@@ -6314,17 +6329,17 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "defaultValue",
-        type: "SelectValueType<T, Multiple> | null | undefined",
+        type: "SelectInputValue<T, Multiple> | null | undefined",
         required: false,
       },
       {
         name: "value",
-        type: "SelectValueType<T, Multiple> | null | undefined",
+        type: "SelectInputValue<T, Multiple> | null | undefined",
         required: false,
       },
       {
         name: "onValueChange",
-        type: "((value: SelectValueType<T, Multiple> | (Multiple extends true ? never : null), eventDetails: SelectRootChangeEventDetails) => void) | undefined",
+        type: "((value: SelectOutputValue<T, Multiple> | (Multiple extends true ? never : null), eventDetails: SelectRootChangeEventDetails) => void) | undefined",
         required: false,
       },
     ],

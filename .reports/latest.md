@@ -12,7 +12,7 @@ Tree: branch `structure/2-no-global-registration`, pushed, 2 commits
   audit ASSERTED 15→22, GAP 0. Open owner question (not trimmed): native
   modal sheets are flat (no token) — deliberate or missing elevation?
 - PR #37 merged: Kern consumes `@xoroh/axis` via vendored tarball
-  (`vendor/axis/axis-bed35547.tgz`, `file:` spec in kern/kern-native/site,
+  (`vendor/axis/axis-82c3179.tgz`, `file:` spec in kern/kern-native/site,
   lockfile-pinned). No manifest declares `@xoroh/kern-primitives`; no
   runtime source imports it (residual refs: `libs/` frozen dir, generated
   changelog, `check-layers.mjs` legacy-name handling — deletion is the other
