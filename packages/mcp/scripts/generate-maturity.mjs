@@ -34,6 +34,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { formatText } from "../../../scripts/lib/format-generated.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "..");
 
@@ -240,22 +241,20 @@ export function maturityFor(name: string): MaturityRow | undefined {
 // over the same bytes -- which is exactly how COMPONENT_SOURCES died, and it
 // makes every commit touch this file.
 //
-// So format the generated text with the repo's own biome before writing it. The
+// So format the generated text with the repo's biome before writing it. The
 // generator then agrees with the formatter instead of racing it, and a stale
 // diff here means a real change rather than whitespace.
-const { execFileSync } = await import("node:child_process");
-let formatted = out;
-try {
-  formatted = execFileSync(
-    "./node_modules/.bin/biome",
-    ["format", "--stdin-file-path=maturity.ts"],
-    { input: out, encoding: "utf8", cwd: ROOT },
-  );
-} catch {
-  // biome absent (a partial install, or the release runner): write unformatted
-  // rather than fail. The freshness gate will report the difference honestly.
-  formatted = out;
-}
+//
+// F-02: format via the shared helper — workspace biome bin or pinned `bun x`
+// fallback, throwing rather than writing unformatted output. The old
+// `./node_modules/.bin/biome`-or-unformatted fallback wrote lint-red bytes
+// with exit 0 whenever the bin was missing.
+const formatted = formatText({
+  root: ROOT,
+  text: out,
+  stdinFilePath: "maturity.ts",
+  label: "generate-maturity: maturity.ts",
+});
 
 writeFileSync(OUT, formatted);
 
