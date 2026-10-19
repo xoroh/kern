@@ -1,3 +1,4 @@
+import { Icon } from "@xoroh/kern-icons";
 import { useControllableState } from "@xoroh/axis";
 import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import { useMemo, useState } from "react";
@@ -13,6 +14,7 @@ import {
 import { defaultScheme, useKernScheme } from "../theme";
 import { scrimStyle } from "../utils/overlay-styles";
 import { inputStyles } from "./input";
+import { DISABLED_CONTENT_OPACITY } from "./state-layer";
 import { Text } from "./text";
 
 export type NativeComboboxOption = {
@@ -207,7 +209,7 @@ export function Combobox({
         disabled={disabled}
         hitSlop={{ top: 4, bottom: 4, left: 4, right: 4 }}
         onPress={() => setShown(true)}
-        style={[triggerStaticStyles.trigger, { opacity: disabled ? 0.38 : 1 }]}
+        style={triggerStaticStyles.trigger}
       >
         <View
           style={{
@@ -220,7 +222,7 @@ export function Combobox({
             borderRadius: Number.parseFloat(scheme.shape["extra-small"]),
             backgroundColor: scheme.color.surface,
             paddingHorizontal: 16,
-            opacity: disabled ? 0.38 : 1,
+            opacity: disabled ? DISABLED_CONTENT_OPACITY : 1,
           }}
         >
           <Text
@@ -232,7 +234,7 @@ export function Combobox({
           >
             {selectedOption ? selectedOption.label : placeholder}
           </Text>
-          <Text variant="body">▾</Text>
+          <Icon name="arrow_drop_down" />
         </View>
       </Pressable>
       <Modal

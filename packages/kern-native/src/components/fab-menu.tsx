@@ -5,6 +5,7 @@ import { scrimStyle } from "../utils/overlay-styles";
 import { fabStyles } from "./fab";
 import { menuStyles } from "./menu";
 import { Text } from "./text";
+import { DISABLED_CONTENT_OPACITY } from "./state-layer";
 
 const staticStyles = StyleSheet.create({
   separator: {
@@ -164,7 +165,7 @@ export function FabMenu({
                       backgroundColor: pressed
                         ? scheme.color.surfaceContainerHighest
                         : "transparent",
-                      opacity: action.disabled ? 0.5 : 1,
+                      opacity: action.disabled ? DISABLED_CONTENT_OPACITY : 1,
                     },
                   ]}
                 >

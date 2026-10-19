@@ -1,10 +1,10 @@
+import { Icon } from "@xoroh/kern-icons";
 import { useSelection } from "@xoroh/axis";
 import { type ResolvedTheme, tokens } from "@xoroh/kern-tokens";
 import { createContext, type ReactNode, useContext, useMemo } from "react";
 import {
   Pressable,
   type PressableProps,
-  Text as RNText,
   type StyleProp,
   type TextStyle,
   View,
@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { defaultScheme, useKernTheme } from "../theme";
 import { Text } from "./text";
+import { DISABLED_CONTENT_OPACITY } from "./state-layer";
 
 /**
  * CheckboxGroup — several independent checkboxes sharing one value.
@@ -68,7 +69,7 @@ export function checkboxGroupStyles(
       backgroundColor: checked ? scheme.color.primary : scheme.color.surface,
       alignItems: "center",
       justifyContent: "center",
-      opacity: disabled ? 0.5 : 1,
+      opacity: disabled ? DISABLED_CONTENT_OPACITY : 1,
     },
     tick: {
       fontSize: 13,
@@ -211,7 +212,7 @@ export function CheckboxGroupItem({
       ]}
     >
       <View style={styles.box}>
-        {checked ? <RNText style={styles.tick}>✓</RNText> : null}
+        {checked ? <Icon name="check" size={13} color={styles.tick.color} /> : null}
       </View>
       {typeof children === "string" || typeof children === "number" ? (
         <Text style={{ fontSize: 14, color: group.scheme.color.onSurface }}>

@@ -12,6 +12,7 @@ import type { ReactNode } from "react";
 import { type StyleProp, View, type ViewStyle } from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
 import { Text } from "./text";
+import { DISABLED_CONTENT_OPACITY } from "./state-layer";
 
 export type NativeMenuItem = {
   label: string;
@@ -91,7 +92,7 @@ export function Menu({
                     borderRadius: Number.parseFloat(
                       scheme.shape["extra-small"],
                     ),
-                    opacity: disabled ? 0.5 : 1,
+                    opacity: disabled ? DISABLED_CONTENT_OPACITY : 1,
                   })}
                 >
                   <Text>{item.label}</Text>

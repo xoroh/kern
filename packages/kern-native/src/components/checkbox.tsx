@@ -1,3 +1,4 @@
+import { Icon } from "@xoroh/kern-icons";
 import { useControllableState } from "@xoroh/axis";
 import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import {
@@ -136,7 +137,7 @@ export function Checkbox({
         {indeterminate ? (
           <Text style={styles.glyph}>−</Text>
         ) : isChecked ? (
-          <Text style={styles.glyph}>✓</Text>
+          <Icon name="check" size={12} color={styles.glyph.color} />
         ) : null}
       </View>
       {label ? (

@@ -10,6 +10,7 @@ import {
   type ViewStyle,
 } from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
+import { DISABLED_CONTENT_OPACITY } from "./state-layer";
 
 /**
  * Page navigation with a sliding window, ellipsis gaps, and prev/next.
@@ -104,7 +105,7 @@ export function paginationStyles(
       alignItems: "center",
       justifyContent: "center",
       borderRadius: Number.parseFloat(scheme.shape.full),
-      opacity: disabled ? 0.5 : 1,
+      opacity: disabled ? DISABLED_CONTENT_OPACITY : 1,
     },
     currentPage: {
       backgroundColor: scheme.color.primary,
@@ -247,7 +248,7 @@ function PageButton({
       style={[
         styles.page,
         current ? styles.currentPage : null,
-        { opacity: disabledNow ? 0.5 : 1 },
+        { opacity: disabledNow ? DISABLED_CONTENT_OPACITY : 1 },
       ]}
     >
       <RNText
