@@ -1,18 +1,17 @@
 /**
- * R2 size foundation + variant map, re-homed (T1) — web side.
+ * R2 size foundation + Button variant names, re-homed (T1) — web side.
  *
  * Guards the additive contract ported from the platform fork's R2 series:
  * the foundation is exactly sm|md|lg, the TopAppBar alias map is exhaustive
- * over M3 names, and the Button M3 aliases resolve to existing styles only
- * (`filled`→primary, `text`→ghost; `elevated` exists, `destructive` absent).
+ * over M3 names, and Button variants are exactly the five M3 configurations
+ * (014, hard cut per 020 — no aliases).
  */
 
 import { KERN_SIZES, type KernSize } from "@xoroh/kern-tokens";
 import { describe, expect, it } from "vitest";
 import {
   BUTTON_SIZE_TO_KERN_SIZE,
-  BUTTON_VARIANT_ALIASES,
-  type ButtonM3Variant,
+  buttonVariants,
   type ButtonVariant,
 } from "../components/button";
 import {
@@ -51,24 +50,34 @@ describe("KernSize foundation (web)", () => {
   });
 });
 
-describe("Button variant map (web)", () => {
-  it("M3 aliases resolve to existing Kern styles", () => {
-    expect(BUTTON_VARIANT_ALIASES).toEqual({
-      filled: "primary",
-      text: "ghost",
-    });
-    const m3: ButtonM3Variant[] = ["filled", "text"];
-    for (const m of m3)
-      expect(["primary", "ghost"]).toContain(BUTTON_VARIANT_ALIASES[m]);
+describe("Button variant names (web, 014)", () => {
+  it("is exactly the five M3 configurations", () => {
+    const variants: ButtonVariant[] = [
+      "elevated",
+      "filled",
+      "tonal",
+      "outlined",
+      "text",
+    ];
+    expect(variants).toHaveLength(5);
+    for (const variant of variants)
+      expect(buttonVariants({ variant })).toBeTruthy();
+  });
+
+  it("rejects the pre-014 Kern names", () => {
+    // @ts-expect-error — "primary" was renamed to "filled" (014, hard cut per 020).
+    buttonVariants({ variant: "primary" });
+    // @ts-expect-error — "ghost" was renamed to "text" (014, hard cut per 020).
+    buttonVariants({ variant: "ghost" });
   });
 
   it("elevated exists as a style; destructive is not a variant axis", () => {
     const kern: ButtonVariant[] = [
       "elevated",
-      "primary",
+      "filled",
       "tonal",
       "outlined",
-      "ghost",
+      "text",
     ];
     expect(kern).toContain("elevated");
     expect(kern).not.toContain("destructive");

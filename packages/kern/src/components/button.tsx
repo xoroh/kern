@@ -14,8 +14,7 @@ const buttonVariants = cva(
       // M3's FIVE color configurations (m3.material.io/components/buttons/overview):
       // elevated, filled, tonal, outlined, text. The error treatment is NOT a
       // sixth variant — it is the `color` axis below (`danger`), which swaps
-      // the roles while the variant keeps its structure. `ghost` maps to M3's
-      // `text` button.
+      // the roles while the variant keeps its structure.
       //
       // Hover/focus/press are state LAYERS, not dims: the `before:` overlay
       // paints the layer color at the state opacity over the container while
@@ -24,13 +23,13 @@ const buttonVariants = cva(
       variant: {
         elevated:
           "bg-(--sys-color-surface-container-low) text-(--sys-color-primary) shadow-(--sys-elevation-level1) hover:shadow-(--sys-elevation-level2) before:bg-(--sys-color-primary) disabled:bg-(--sys-color-on-surface)/12 disabled:text-(--sys-color-on-surface)/38",
-        primary:
+        filled:
           "bg-(--sys-color-primary) text-(--sys-color-on-primary) hover:shadow-(--sys-elevation-level1) before:bg-(--sys-color-on-primary) disabled:bg-(--sys-color-on-surface)/12 disabled:text-(--sys-color-on-surface)/38",
         tonal:
           "bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container) hover:shadow-(--sys-elevation-level1) before:bg-(--sys-color-on-secondary-container) disabled:bg-(--sys-color-on-surface)/12 disabled:text-(--sys-color-on-surface)/38",
         outlined:
           "border border-(--sys-color-outline) text-(--sys-color-primary) before:bg-(--sys-color-primary) focus-visible:border-(--sys-color-primary) disabled:border-(--sys-color-on-surface)/12 disabled:bg-transparent disabled:text-(--sys-color-on-surface)/38",
-        ghost:
+        text:
           "text-(--sys-color-primary) before:bg-(--sys-color-primary) disabled:bg-transparent disabled:text-(--sys-color-on-surface)/38",
       },
       // The color axis, not a variant axis: `danger` re-paints the five M3
@@ -84,7 +83,7 @@ const buttonVariants = cva(
       // surface and re-paint their ink. Disabled always wins back to the
       // on-surface washes regardless of danger.
       {
-        variant: "primary",
+        variant: "filled",
         color: "danger",
         class:
           "bg-(--sys-color-error) text-(--sys-color-on-error) before:bg-(--sys-color-on-error) disabled:bg-(--sys-color-on-surface)/12 disabled:text-(--sys-color-on-surface)/38",
@@ -108,41 +107,41 @@ const buttonVariants = cva(
           "border-(--sys-color-error) text-(--sys-color-error) before:bg-(--sys-color-error) focus-visible:border-(--sys-color-error) disabled:border-(--sys-color-on-surface)/12 disabled:bg-transparent disabled:text-(--sys-color-on-surface)/38",
       },
       {
-        variant: "ghost",
+        variant: "text",
         color: "danger",
         class:
           "text-(--sys-color-error) before:bg-(--sys-color-error) disabled:bg-transparent disabled:text-(--sys-color-on-surface)/38",
       },
       // M3 text buttons use tighter horizontal padding (12px) than the
       // contained treatments (24px). Kern's base sizes are already compact
-      // (px-4/16px), so ghost steps one notch tighter per size.
+      // (px-4/16px), so text steps one notch tighter per size.
       {
-        variant: "ghost",
+        variant: "text",
         size: "xs",
         class: "px-2",
       },
       {
-        variant: "ghost",
+        variant: "text",
         size: "sm",
         class: "px-2",
       },
       {
-        variant: "ghost",
+        variant: "text",
         size: "default",
         class: "px-3",
       },
       {
-        variant: "ghost",
+        variant: "text",
         size: "md",
         class: "px-3",
       },
       {
-        variant: "ghost",
+        variant: "text",
         size: "xl",
         class: "px-4",
       },
       {
-        variant: "ghost",
+        variant: "text",
         size: "lg",
         class: "px-4",
       },
@@ -178,7 +177,7 @@ const buttonVariants = cva(
         size: "lg",
         class: "rounded-(--sys-shape-corner-extra-large)",
       },
-      // M3 Expressive toggle colors (no toggle text button — ghost has no
+      // M3 Expressive toggle colors (no toggle text button — text has no
       // selected treatment). Unselected filled drops to surface-container;
       // selected elevated/tonal/outlined swap to their emphasis pairs.
       {
@@ -189,7 +188,7 @@ const buttonVariants = cva(
           "bg-(--sys-color-primary) text-(--sys-color-on-primary) before:bg-(--sys-color-on-primary)",
       },
       {
-        variant: "primary",
+        variant: "filled",
         toggle: true,
         selected: false,
         class:
@@ -262,7 +261,7 @@ const buttonVariants = cva(
       },
     ],
     defaultVariants: {
-      variant: "primary",
+      variant: "filled",
       color: "primary",
       size: "default",
       shape: "pill",
@@ -275,26 +274,12 @@ const buttonVariants = cva(
 
 export type ButtonVariant =
   | "elevated"
-  | "primary"
+  | "filled"
   | "tonal"
   | "outlined"
-  | "ghost";
+  | "text";
 
-/**
- * R2 variant map, re-homed (T1): M3 names as aliases onto the Kern styles.
- * `filled`/`text` resolve to existing styles — no new visuals. `elevated`
- * already exists here, so it is not an alias. `ghost`/`danger` are Kern
- * extensions (see docs/conventions/api-consistency.md). Exhaustive Record —
- * new M3 names break typecheck here.
- */
-export type ButtonM3Variant = "filled" | "text";
-export const BUTTON_VARIANT_ALIASES: Record<ButtonM3Variant, ButtonVariant> = {
-  filled: "primary",
-  text: "ghost",
-};
-
-/** Accepted variant prop: Kern names or M3 aliases (normalized internally). */
-export type ButtonVariantInput = ButtonVariant | ButtonM3Variant;
+/** Accepted variant prop: the five M3 configurations (014, hard cut per 020). */
 
 /** The color axis: M3 emphasis (`primary`) or the error treatment (`danger`). */
 export type ButtonColor = "primary" | "danger";
@@ -327,7 +312,7 @@ export const BUTTON_SIZE_TO_KERN_SIZE = {
 } as const;
 
 type ButtonDesignProps = {
-  variant?: ButtonVariantInput;
+  variant?: ButtonVariant;
   size?: ButtonSize;
   color?: ButtonColor;
   shape?: ButtonShape;
@@ -358,7 +343,7 @@ type ButtonDesignProps = {
   /**
    * Renders the button as an M3 Expressive toggle: binary selection with
    * round↔square morph and per-variant selected colors. There is no toggle
-   * text button — `toggle` on `ghost` warns in dev and renders unselected.
+   * text button — `toggle` on `text` warns in dev and renders unselected.
    * Keep selected/unselected labels a similar length so the layout holds.
    * (`value` stays the form value; toggle state uses `pressed`.)
    */
@@ -558,7 +543,7 @@ function buttonDOMProps({
 
 export function Button(rawProps: ButtonProps) {
   const {
-    variant: variantInput = "primary",
+    variant = "filled",
     size,
     color = "primary",
     shape,
@@ -579,17 +564,11 @@ export function Button(rawProps: ButtonProps) {
     children,
     testID,
   } = rawProps;
-  // M3 aliases normalize to Kern names once, here — the cva call below only
-  // ever sees Kern names, so existing rendering cannot change.
-  const variant: ButtonVariant =
-    variantInput in BUTTON_VARIANT_ALIASES
-      ? BUTTON_VARIANT_ALIASES[variantInput as ButtonM3Variant]
-      : (variantInput as ButtonVariant);
-  if (process.env.NODE_ENV !== "production" && toggle && variant === "ghost") {
+  if (process.env.NODE_ENV !== "production" && toggle && variant === "text") {
     // There is no toggle text button in M3 — render unselected instead of a
     // selected state the spec never defines.
     console.warn(
-      "Button: `toggle` on `ghost` (text) has no M3 selected treatment and renders unselected.",
+      "Button: `toggle` on `text` has no M3 selected treatment and renders unselected.",
     );
   }
   const [uncontrolledPressed, setUncontrolledPressed] =
