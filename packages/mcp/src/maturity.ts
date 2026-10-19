@@ -3361,6 +3361,15 @@ export const MATURITY: readonly MaturityRow[] = [
     version: "0.0.0",
   },
   {
+    name: "overlay-modality-provider",
+    export: "OverlayModalityProvider",
+    platform: "native",
+    system: "kern-m3",
+    entrypoint: ".",
+    state: "Preview",
+    version: "0.0.0",
+  },
+  {
     name: "drawer",
     export: "Drawer",
     platform: "native",
@@ -4018,6 +4027,7 @@ export const MATURITY_BY_STATE: Readonly<
     "number-field",
     "number-field-input",
     "number-field-root",
+    "overlay-modality-provider",
     "page",
     "page-loader",
     "pagination",

@@ -1,6 +1,6 @@
 {
   "version": "0.0.0",
-  "releaseSet": "kern@0.0.0+422.b5999ea29de528ca",
+  "releaseSet": "kern@0.0.0+423.13bb977e019bb993",
   "rows": [
     {
       "name": "accordion-root",
@@ -3330,6 +3330,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/number-field.tsx",
+      "status": "real"
+    },
+    {
+      "name": "overlay-modality-provider",
+      "export": "OverlayModalityProvider",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/overlay-surfaces.tsx",
       "status": "real"
     },
     {

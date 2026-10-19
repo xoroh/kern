@@ -216,6 +216,14 @@ const isComponentExport = (name) => {
       "TimePickerValue",
       "Align",
       "Placement",
+      // Overlay composition hooks (Axis #60). Like useToast above, the `use*`
+      // prefix defeats the component-name prefix rule, so they need explicit
+      // acceptance: no site module page covers them yet (module pages are the
+      // docs lane's curation with runnable examples). Documented upstream in
+      // the Axis repo (docs/components/overlay.md); Kern itself never calls
+      // them (Kern overlays compose the compound parts, not these hooks).
+      "useOverlay",
+      "useScrollLock",
     ].includes(name)
   ) {
     return true;

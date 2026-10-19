@@ -6,6 +6,10 @@
     "Drawer": {
       "hasLiveDemo": false,
       "expectations": []
+    },
+    "OverlayModalityProvider": {
+      "hasLiveDemo": false,
+      "expectations": []
     }
   }
 }
