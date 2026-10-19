@@ -138,6 +138,46 @@ export const input: ComponentDoc = {
       type: "React.Ref<HTMLInputElement>",
       note: "Forwarded to the underlying control.",
     },
+    {
+      name: "defaultValue",
+      type: "string | number | readonly string[] | undefined",
+      note: "Initial value when uncontrolled. The field edits text; `value` makes it controlled.",
+    },
+    {
+      name: "style",
+      type: "CSSProperties | ((state: FieldControlState) => CSSProperties | undefined) | undefined",
+      note: "Style for the control, or a function of its state (focused, filled, disabled, invalid) returning style.",
+    },
+    {
+      name: "render",
+      type: "ReactElement | ((props, state) => ReactElement) | undefined",
+      note: "Replaces the control element with another tag or composes it with another component — the render function receives the control's props and state.",
+    },
+    {
+      name: "onValueChange",
+      type: '((value: string, eventDetails: { reason: "none"; event: Event; cancel: () => void; allowPropagation: () => void; isCanceled: boolean; isPropagationAllowed: boolean; trigger: Element | undefined; }) => void) | undefined',
+      note: "Fires when the text changes. The controlled-`value` counterpart for observing; the `reason` form carries cancellation for composed controls.",
+    },
+    {
+      name: "variant",
+      type: "InputVariant | undefined",
+      note: "M3 treatment: `outlined` (default) draws the outline that moves to `primary` on focus; `filled` fills `surface-container-highest` with a bottom active indicator. Functionally identical — pick by surface.",
+    },
+    {
+      name: "prefix",
+      type: "ReactNode",
+      note: "Affix text inside the field before the value (`$` in `$0.00`). Set in `on-surface-variant`, per M3's prefix-text role.",
+    },
+    {
+      name: "suffix",
+      type: "ReactNode",
+      note: "Affix text inside the field after the value (`.00` in `$0.00`). Set in `on-surface-variant`, per M3's suffix-text role.",
+    },
+    {
+      name: "showCounter",
+      type: "boolean | undefined",
+      note: "Shows a `current/maxlength` counter beneath the field when `maxLength` is set. Per M3, the counter appears automatically with `maxlength`.",
+    },
   ],
   aria: [
     "The input takes the label of the `FieldLabel` it sits inside, so it has an accessible name without an `aria-label` of its own.",

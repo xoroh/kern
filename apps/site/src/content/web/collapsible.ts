@@ -77,6 +77,34 @@ export const collapsible: ComponentDoc = {
       type: "string",
       note: "Accepted on every part, merged after that part's classes.",
     },
+    {
+      name: "style",
+      type: "CSSProperties | ((state) => CSSProperties | undefined) | undefined",
+      note: "Style for the part, or a function of the part's state returning style — `CollapsibleRootState` on the stack, `CollapsibleTriggerState` on the trigger, `CollapsiblePanelState` on the panel.",
+    },
+    {
+      name: "render",
+      type: "ReactElement | ((props, state) => ReactElement) | undefined",
+      note: "Replaces the part's element with another tag or composes it with another component — the render function receives the part's props and state. Set `nativeButton` on the trigger when the replacement is a native `<button>`.",
+    },
+    {
+      name: "nativeButton",
+      for: ["CollapsibleTrigger"],
+      type: "boolean | undefined",
+      note: "Declares whether the `render` replacement is a native `<button>`, so semantics and keyboard behavior stay correct.",
+    },
+    {
+      name: "hiddenUntilFound",
+      for: ["CollapsiblePanel"],
+      type: "boolean | undefined",
+      note: 'Lets the browser\'s find-in-page locate and expand the panel contents. Overrides `keepMounted`, hiding the panel with `hidden="until-found"` instead of removing it from the DOM.',
+    },
+    {
+      name: "keepMounted",
+      for: ["CollapsiblePanel"],
+      type: "boolean | undefined",
+      note: "Keeps the panel in the DOM while closed. Ignored when `hiddenUntilFound` is set.",
+    },
   ],
   aria: [
     "The trigger carries `aria-expanded`, so whether the section is open is announced rather than left to be inferred from an arrow.",

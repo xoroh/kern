@@ -4736,7 +4736,8 @@ export const GENERATED_PROPS: Record<
       name: "onPressedChange",
       type: "((pressed: boolean) => void) | undefined",
       required: false,
-      src: "packages/kern/src/components/icon-button.tsx:271",
+      src: "packages/kern/src/components/icon-button.tsx:272",
+      note: "Fires when the toggle flips, with the new pressed state.",
     },
   ],
   InputOTPRoot: [
@@ -9516,7 +9517,8 @@ export const GENERATED_PROPS: Record<
       name: "intent",
       type: "SonnerIntent | undefined",
       required: false,
-      src: "packages/kern/src/components/sonner.tsx:29",
+      src: "packages/kern/src/components/sonner.tsx:30",
+      note: "Semantic tone for the toast: leading icon and border role. Falls back to the message intent, then `info`.",
     },
   ],
   SonnerTitle: [
