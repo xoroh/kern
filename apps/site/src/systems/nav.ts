@@ -197,19 +197,7 @@ export const COMPONENTS_NAV: NavSection[] = [
       {
         label: "All components",
         href: "/components",
-        hint: "Documented family by family",
-        group: "Pages",
-      },
-      {
-        label: "Web",
-        href: "/components/web",
-        hint: "M3 web component families",
-        group: "Pages",
-      },
-      {
-        label: "React Native",
-        href: "/components/mobile",
-        hint: "M3 React Native component families",
+        hint: "Documented family by family, filterable by platform in place",
         group: "Pages",
       },
       {
