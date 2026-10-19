@@ -46,7 +46,7 @@ export const fabMenu: ComponentDoc = {
     {
       name: "open / defaultOpen / onOpenChange",
       type: "boolean / (open: boolean) => void",
-      note: "The controllable pattern — matching `Popover`, `Drawer` and `Tooltip`, not `Dialog`'s `visible`.",
+      note: "The controllable pattern — matching `Popover`, `Drawer` and `Tooltip`, not `Snackbar`'s `visible`.",
     },
     {
       name: "menuLabel",

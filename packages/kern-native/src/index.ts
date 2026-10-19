@@ -1,10 +1,12 @@
 // "@xoroh/kern-native" entry — React Native implementation.
 // StyleSheet + Kern tokens. No styling dependencies.
 
-// Registers the material-3 preset tables, policy and overrides with the
-// universal resolver (side effect). Default consumers resolve M3 without
-// further setup; custom systems register their own preset instead.
-import "@xoroh/kern-m3";
+// Registers NOTHING with the theme resolver (decision 010): a renderer must
+// not choose a design system for the app that imports it. Apps that want M3
+// call `registerM3()` from `@xoroh/kern-m3` once at entry; an unregistered
+// theme id fails loud at resolve time. (Native resolves themes lazily —
+// `defaultScheme()` — precisely so this entry is importable before that
+// call.)
 
 export type {
   NativeAccordionProps,
@@ -371,8 +373,17 @@ export type { NativeSkeletonProps } from "./components/skeleton";
 export { Skeleton } from "./components/skeleton";
 export type { NativeSliderProps } from "./components/slider";
 export { Slider, sliderStyles } from "./components/slider";
-export type { NativeSnackbarProps } from "./components/snackbar";
-export { Snackbar, snackbarStyles } from "./components/snackbar";
+export type {
+  NativeSnackbarViewportProps,
+  SnackbarManager,
+  SnackbarOptions,
+} from "./components/snackbar";
+export {
+  SnackbarProvider,
+  SnackbarViewport,
+  snackbarStyles,
+  useSnackbar,
+} from "./components/snackbar";
 export type { NativeSplitProps, SPLIT_GAP } from "./components/split";
 export { Split } from "./components/split";
 export type {
@@ -461,6 +472,7 @@ export type {
 } from "./fonts";
 export { KernFontGate, kernFontFaces, useKernFonts } from "./fonts";
 export type {
+  ColorSchemeMode,
   Contrast,
   KernThemeProviderProps,
   Mode,
@@ -476,6 +488,7 @@ export {
   prefersReducedMotion,
   resolveMotionScheme,
   springConfig,
+  useColorScheme,
   useKernMotion,
   useKernScheme,
   useKernTheme,

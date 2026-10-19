@@ -48,14 +48,15 @@ export const INPUT_EXAMPLES: ExampleSpec[] = [
     ),
     // type-scale-exempt: the line below is EXAMPLE CODE shown to the reader,
     // not rendered typography. A consumer's own class names are theirs to
-    // choose; the rule governs what OUR pages paint.
+    // choose; the rule governs what OUR pages paint. The fence must
+    // typecheck as React (className), which is what check-example-code runs.
     code: `<Input
   id="email-error-example"
   defaultValue="not-an-email"
   aria-invalid="true"
   aria-describedby="email-error-message"
 />
-<p id="email-error-message" class="text-xs text-red-600">
+<p id="email-error-message" className="text-xs text-red-600">
   Enter an email.
 </p>`,
   },

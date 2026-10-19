@@ -38,7 +38,7 @@ export type NativeNavigationBarProps = {
   testID?: string;
 };
 
-export function navigationBarStyles(scheme: ResolvedTheme = defaultScheme): {
+export function navigationBarStyles(scheme: ResolvedTheme = defaultScheme()): {
   bar: ViewStyle;
   destination: ViewStyle;
   indicator: ViewStyle;

@@ -274,7 +274,6 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
   // regardless; only the preview waits.
   const isClient = useClientMount();
   const primary = card.web ?? card.mobile;
-  const primaryPlatform = card.web ? "web" : "mobile";
   const demo = card.web
     ? findDemo(card.web, "web")
     : card.mobile
@@ -353,19 +352,20 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
       <div className="flex flex-col gap-3 px-5 pt-2 pb-5">
         <div className="flex flex-wrap items-center gap-2">
           <Link
-            to="/components/$platform/$component"
+            to="/components/$system/$component"
             params={{
-              platform: primaryPlatform,
+              system: "m3",
               component: card.slug,
             }}
-            className={`m-0 ${T_SMALL_TITLE} ${INK} no-underline hover:underline ${FOCUS_RING}`}
+            className={`m-0 ${T_SMALL_TITLE} ${INK} no-underline hover:underline ${TRANSITION} ${FOCUS_RING}`}
           >
             {primary?.name ?? card.name}
           </Link>
           {card.web ? (
             <Link
-              to="/components/$platform/$component"
-              params={{ platform: "web", component: card.slug }}
+              to="/components/$system/$component"
+              params={{ system: "m3", component: card.slug }}
+              search={{ tab: "web" }}
               className={`${CHIP} no-underline text-(--sys-color-on-surface-variant) ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING} hover:text-(--sys-color-on-surface)`}
             >
               Web
@@ -373,8 +373,9 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
           ) : null}
           {card.mobile ? (
             <Link
-              to="/components/$platform/$component"
-              params={{ platform: "mobile", component: card.slug }}
+              to="/components/$system/$component"
+              params={{ system: "m3", component: card.slug }}
+              search={{ tab: "mobile" }}
               className={`${CHIP} no-underline text-(--sys-color-on-surface-variant) ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING} hover:text-(--sys-color-on-surface)`}
             >
               Native
@@ -397,23 +398,20 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
 
 /** The lede under the All gallery's H1 — used only by /components. */
 export function GalleryLede() {
-  // The All view merges both platforms, so it states both coverages rather
-  // than one blended number: a blended "X of Y" would double-count families
-  // documented on both platforms. Same R4 rule as the platform views — the
-  // coverage gap is stated before anything implies parity of polish.
+  // The All view merges both platforms, so keep coverage separate rather than
+  // double-counting families documented on both platforms.
   const web = demoCoverage("web");
   const mobile = demoCoverage("mobile");
   return (
     <div className="flex flex-col gap-2">
       <p className={`m-0 max-w-[62ch] ${T_LEAD} ${INK_SOFT}`}>
-        Every component family, grouped by the job it does. Cards show the real
-        component from the package — the same code you install — and name what
-        is missing rather than hiding it.
+        Browse components by the job they do, try a live example, then open a
+        family page for its API, tokens, and install path.
       </p>
       <p className={`m-0 max-w-[62ch] ${T_BODY_SM} ${INK_SOFT}`}>
-        Live demos for {web.withDemo} of {web.total} web families and{" "}
-        {mobile.withDemo} of {mobile.total} native families — the rest say so on
-        their card instead of showing an empty tile.
+        Live examples cover {web.withDemo} of {web.total} web families and{" "}
+        {mobile.withDemo} of {mobile.total} native families; every other family
+        still has a reference page.
       </p>
     </div>
   );

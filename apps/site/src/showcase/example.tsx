@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { useId, useState } from "react";
+import { HighlightedCode } from "../components/docs/highlight";
 import {
   T_BODY_SM,
   T_CODE,
@@ -191,9 +192,9 @@ export function Example({ spec }: { spec: ExampleSpec }) {
               <CopyButton text={spec.code} />
             </div>
             <pre
-              className={`m-0 overflow-x-auto bg-(--sys-color-surface-container-high) p-6 ${T_CODE} text-(--sys-color-on-surface)`}
+              className={`codeblock m-0 overflow-x-auto rounded-b-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-high) p-6 ${T_CODE} text-(--sys-color-on-surface)`}
             >
-              <code>{spec.code}</code>
+              <HighlightedCode code={spec.code} language="tsx" />
             </pre>
           </div>
         </>

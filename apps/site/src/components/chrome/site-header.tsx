@@ -20,7 +20,7 @@
 import { useLocation } from "@tanstack/react-router";
 import { buttonVariants, cn, Kbd, useKernTheme } from "@xoroh/kern";
 import { Icon } from "@xoroh/kern-icons";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { T_LABEL_LG, T_SUB } from "../../domains/shared/systems/type-scale";
 import {
   FOCUS_RING,
@@ -44,6 +44,17 @@ export function SiteHeader() {
   const { mode, toggle } = useKernTheme();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+  // The hint shows the chord that works HERE: ⌘K on macOS, Ctrl K
+  // elsewhere (the review caught a bare ⌘K hint on Linux). Post-mount so
+  // SSR keeps one face and hydration never mismatches. The accessible name
+  // below stays exactly "Search (Command K)" — the e2e suite matches it
+  // exactly and lives outside this PR's paths.
+  const [mac, setMac] = useState(true);
+  useEffect(() => {
+    setMac(
+      /mac/i.test(navigator.platform ?? "") || /mac/i.test(navigator.userAgent),
+    );
+  }, []);
 
   return (
     <header className="site-header z-50 flex shrink-0 items-center gap-1 px-3 sm:px-6">
@@ -105,14 +116,14 @@ export function SiteHeader() {
           onClick={openSearch}
           aria-label="Search (Command K)"
           className={cn(
-            `inline-flex h-12 min-w-12 cursor-pointer items-center justify-center gap-2 rounded-(--sys-shape-corner-full) border-0 bg-(--sys-color-surface-container-high) px-3 text-(--sys-color-on-surface-variant) hover:bg-(--sys-color-surface-container-highest) ${TRANSITION} sm:justify-start sm:px-4`,
+            `inline-flex h-12 min-w-12 cursor-pointer items-center justify-center gap-2 rounded-(--sys-shape-corner-full) border-0 bg-(--sys-color-surface-container-high) px-3 text-(--sys-color-on-surface-variant) ${STATE_LAYERS} ${TRANSITION} sm:justify-start sm:px-4`,
             FOCUS_RING,
           )}
         >
           <Icon name="search" size={20} />
           <span className={`hidden sm:inline ${T_LABEL_LG}`}>Search</span>
           <span className="hidden sm:inline-flex">
-            <Kbd>⌘K</Kbd>
+            <Kbd>{mac ? "⌘K" : "Ctrl K"}</Kbd>
           </span>
         </button>
 

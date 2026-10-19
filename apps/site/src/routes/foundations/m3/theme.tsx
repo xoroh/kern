@@ -172,14 +172,9 @@ function ThemePage() {
             One theme source, both platforms
           </h1>
           <p className={`m-0 ${T_BODY} text-(--sys-color-on-surface-variant)`}>
-            <code>@xoroh/kern-tokens</code> is platform-free: no React, no DOM.
-            Web reads OKLCH CSS variables, native reads compiled sRGB, and both
-            resolve the same {ROLE_COUNT} roles. Every swatch on this page is
-            read from the package, not copied into the site, and the two
-            controls below repaint them live — scheme and contrast are resolved
-            the same way an app resolves them. This page is the reference — what
-            the roles resolve to. What the roles MEAN and where each one goes
-            lives on{" "}
+            <code>@xoroh/kern-tokens</code> gives web and native the same{" "}
+            {ROLE_COUNT} semantic color roles. Switch the controls to preview
+            how your app resolves them. What the roles <em>mean</em> lives on{" "}
             <Link
               to="/foundations/m3/$page"
               params={{ page: "color" }}
@@ -347,6 +342,99 @@ function ThemePage() {
         </section>
 
         <section className="flex flex-col gap-4">
+          <h2 id="divergences" className={`m-0 ${T_SECTION}`}>
+            Divergences from Material 3
+          </h2>
+          <p
+            className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
+          >
+            Strict to the spec by default; every deliberate departure owned here
+            with its rationale, so a reviewer finds decisions, not deviations.
+            Component pages register their own departures under Spec — this
+            section owns the token-layer ones.
+          </p>
+          <ul
+            className={`m-0 flex list-disc flex-col gap-2 pl-5 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
+          >
+            <li>
+              <strong className="text-(--sys-color-on-surface)">
+                HCT primary tonal engine (ADR-021, superseding ADR-016).
+              </strong>{" "}
+              Kern M3 uses HCT (via{" "}
+              <code>@material/material-color-utilities</code>) with 0–100 ramps
+              and full-scheme role mapping (<code>themeFromSeed</code> resolves
+              all 45 M3 spec roles); the OKLCH path for M3 is removed with no
+              backward-compat fallback.
+            </li>
+            <li>
+              <strong className="text-(--sys-color-on-surface)">
+                <code>surfaceTonal</code>, not <code>surface-tint</code> (K3).
+              </strong>{" "}
+              M3&apos;s primary-tinted <code>surface-tint</code> is not shipped;
+              kern&apos;s tonal emphasis fill pairs with <code>on-surface</code>{" "}
+              and carries navigation-bar hovers and stage accents.
+            </li>
+            <li>
+              <strong className="text-(--sys-color-on-surface)">
+                <code>FixedDim</code> roles.
+              </strong>{" "}
+              Tone-invariant fixed dims exist in the MCU scheme tables and are
+              kept as kern extensions with the same fill-only contract as fixed
+              accents.
+            </li>
+            <li>
+              <strong className="text-(--sys-color-on-surface)">
+                Fixed accents are reference roles.
+              </strong>{" "}
+              They render in the matrix above and nowhere in production UI —
+              prefer non-fixed containers in UI; fixed colors never change tone,
+              so they cannot be made contrast-safe per scheme.
+            </li>
+            <li>
+              <strong className="text-(--sys-color-on-surface)">
+                No <code>surface-variant</code>.
+              </strong>{" "}
+              Absent by design: it is not a current-spec role (only{" "}
+              <code>surface</code> / <code>on-surface</code> /{" "}
+              <code>on-surface-variant</code>).
+            </li>
+            <li>
+              <strong className="text-(--sys-color-on-surface)">
+                FAB defaults to <code>surface</code>.
+              </strong>{" "}
+              The spec default is <code>primary-container</code>; kern&apos;s
+              default sits quieter, documented on the FAB&apos;s own page.
+            </li>
+            <li>
+              <strong className="text-(--sys-color-on-surface)">
+                No resting shadow; tonal separation instead.
+              </strong>{" "}
+              Cards separate by container tone, elevation renders only on
+              floating layers — the site law in{" "}
+              <code>domains/shared/systems/ui.ts</code>.
+            </li>
+            <li>
+              <strong className="text-(--sys-color-on-surface)">
+                DTCG projection notes.
+              </strong>{" "}
+              Elevation <code>shadow</code> projects the first layer only (full
+              CSS plus <code>shadowDark</code> in extensions), motion scheme
+              selections emit as string names, and only standard-contrast sys
+              tokens are emitted — see <code>dtcg/export.ts</code>.
+            </li>
+            <li>
+              <strong className="text-(--sys-color-on-surface)">
+                Docs chrome is site convention, not M3.
+              </strong>{" "}
+              Sidebars, code blocks, tables, search palette, breadcrumbs,
+              PlatformTabs, pagination cards, admonitions, and the On-this-page
+              rail have no M3 counterpart; they compose roles, shape, type, and
+              state layers correctly but are catalogued, not conformed.
+            </li>
+          </ul>
+        </section>
+
+        <section className="flex flex-col gap-4">
           <h2 id="the-same-roles-rendering" className={`m-0 ${T_SECTION}`}>
             The same roles, rendering
           </h2>
@@ -368,7 +456,7 @@ function ThemePage() {
             </Preview>
             <Preview label="Card · Chip · Badge" span={3}>
               <div className="flex flex-wrap items-center justify-center gap-3">
-                <Card variant="elevated" className="p-5">
+                <Card variant="elevated" className="p-6">
                   <p className={`m-0 ${T_BODY_MD}`}>Card surface</p>
                 </Card>
                 <Chip variant="filter" defaultValue>

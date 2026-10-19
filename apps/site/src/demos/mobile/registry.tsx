@@ -48,7 +48,8 @@ import {
   Separator,
   Skeleton,
   Slider,
-  Snackbar,
+  SnackbarProvider,
+  SnackbarViewport,
   Switch,
   Text,
   Textarea,
@@ -57,6 +58,7 @@ import {
   Toggle,
   ToggleGroup,
   Tooltip,
+  useSnackbar,
 } from "@xoroh/kern-native";
 import { View } from "react-native";
 import {
@@ -537,14 +539,29 @@ export function NativeCountrySelectDemo() {
 }
 
 export function NativeSnackbarDemo() {
+  function QueueTrigger() {
+    const snackbar = useSnackbar();
+    return (
+      <Button
+        variant="tonal"
+        onPress={() =>
+          snackbar.add({
+            message: "Build queued",
+            actionLabel: "View",
+            duration: 0,
+          })
+        }
+      >
+        Queue snackbar
+      </Button>
+    );
+  }
   return (
     <PhonePreview label="Snackbar — M3 transient messaging (no Sonner twin)">
-      <Snackbar
-        visible
-        message="Build queued"
-        actionLabel="View"
-        onAction={() => {}}
-      />
+      <SnackbarProvider>
+        <QueueTrigger />
+        <SnackbarViewport />
+      </SnackbarProvider>
     </PhonePreview>
   );
 }

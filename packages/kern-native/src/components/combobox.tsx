@@ -23,7 +23,7 @@ export type NativeComboboxOption = {
   disabled?: boolean;
 };
 
-export function comboboxStyles(scheme: ResolvedTheme = defaultScheme): {
+export function comboboxStyles(scheme: ResolvedTheme = defaultScheme()): {
   option: ViewStyle;
   optionSelected: ViewStyle;
 } {
@@ -58,7 +58,7 @@ const triggerStaticStyles = StyleSheet.create({
  * surface-container, at the sheet 50% height cap, floating on the single
  * Kern structural shadow (level 2 = 3dp).
  */
-export function comboboxPopupStyles(scheme: ResolvedTheme = defaultScheme): {
+export function comboboxPopupStyles(scheme: ResolvedTheme = defaultScheme()): {
   card: ViewStyle;
 } {
   return {

@@ -295,3 +295,13 @@ export function useKernDir(options?: {
 }): A11yDir {
   return resolveDir(options);
 }
+
+// ---------------------------------------------------------------------------
+// Standalone Portal & PortalHost (Axis parity)
+// ---------------------------------------------------------------------------
+export {
+  Portal,
+  PortalHost,
+  type PortalHostProps,
+  type PortalProps,
+} from "@xoroh/axis";

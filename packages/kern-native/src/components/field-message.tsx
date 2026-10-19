@@ -9,7 +9,7 @@ import { defaultScheme, useKernTheme } from "../theme";
 
 export function fieldMessageStyles(
   variant: "description" | "error",
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
 ): TextStyle {
   return {
     fontSize: 12,

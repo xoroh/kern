@@ -109,7 +109,7 @@ reconciliation in `.reports/preview-readiness.md`.
   with the new cli/contracts legs). `changeset status` exits 0
   (invalid-tree + mixed families resolved by PR #45's changeset surgery).
 - **Cutover complete:** Kern consumes `@xoroh/axis` via vendored tarball
-  (`vendor/axis/axis-bed35547.tgz`, PR #37); `libs/kern-primitives` frozen
+  (`vendor/axis/axis-82c3179.tgz`, PR #37); `libs/kern-primitives` frozen
   pending the Axis-side deletion PR (other thread).
 - **Superseded positions:** H-17's `private:true` CLI fix is REVERSED —
   owner decision D-CLI-PUBLISH (CLI ships 0.1.0, eight public packages).

@@ -159,6 +159,18 @@ export const DEVELOP_NAV: NavSection[] = [
         group: "Guides",
       },
       {
+        label: "CLI",
+        href: "/docs/cli",
+        hint: "kern create / init / add / diff / upgrade / feedback",
+        group: "Guides",
+      },
+      {
+        label: "MCP server",
+        href: "/docs/mcp",
+        hint: "Connect any MCP host — Claude Code, Cursor, VS Code, Zed",
+        group: "Guides",
+      },
+      {
         label: "API utilities",
         href: "/docs/api",
         hint: "API reference for the public utility surface",

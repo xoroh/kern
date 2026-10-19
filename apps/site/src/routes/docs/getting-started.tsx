@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button, Field } from "@xoroh/kern";
 import { Kicker } from "../../components/chrome/kicker";
 import { Code, Step } from "../../components/docs/code";
+import { InstallTabs } from "../../components/docs/install-tabs";
 import { PageCard } from "../../domains/shared/chrome/page-card";
 import { SiteLayout } from "../../domains/shared/chrome/site-layout";
 import { routeHead } from "../../domains/shared/systems/seo";
@@ -20,10 +21,14 @@ export const Route = createFileRoute("/docs/getting-started")({
   component: GettingStarted,
 });
 
-const INSTALL = `bun add @xoroh/kern @xoroh/kern-icons`;
+const REGISTER = `// main.tsx — one explicit call, before anything resolves a theme.
+// Importing @xoroh/kern registers nothing (decision 010): the app chooses
+// its design system, the renderer never chooses it for you.
+import { registerM3 } from "@xoroh/kern-m3";
 
+registerM3();`;
 const STYLESHEET = `/* app.css — the only required import */
-@import "@xoroh/kern-tokens/theme";`;
+@import "@xoroh/kern/theme";`;
 
 const FIRST_COMPONENT = `import { Button, Field } from "@xoroh/kern";
 
@@ -75,13 +80,15 @@ export function App() {
   );
 }`;
 
-const MOBILE_INSTALL = `bun add @xoroh/kern-native @xoroh/kern-tokens`;
-
-const MOBILE_QUICKSTART = `import {
+const MOBILE_QUICKSTART = `import { registerM3 } from "@xoroh/kern-m3";
+import {
   Button,
   KernThemeProvider,
   Text,
 } from "@xoroh/kern-native";
+
+// The app owns the design-system choice: register once at entry.
+registerM3();
 
 export function SaveScreen() {
   return (
@@ -104,6 +111,12 @@ const ICONS = `import { Icon } from "@xoroh/kern-icons";
 
 const PRESET_PICKER = `import { useState } from "react";
 import { applyKernTheme, Button, type Mode, type ThemeId } from "@xoroh/kern";
+import { registerM3 } from "@xoroh/kern-m3";
+
+// The app owns the design-system choice: register once at entry.
+// Importing "@xoroh/kern" registers nothing — an unregistered preset
+// fails loud.
+registerM3();
 
 const PRESETS = ["material-3", "sharp", "brand", "demo"] as const satisfies readonly ThemeId[];
 
@@ -143,14 +156,25 @@ function GettingStarted() {
           </p>
         </header>
 
-        <Step n={1} title="Install the packages">
+        <Step n={1} title="Install and register the system">
           <p
             className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
           >
-            One package per platform. Preview: packages are unpublished, so this
-            resolves from a checkout — the registry command runs at release.
+            Source path first — available now: scaffold from a checkout and
+            vendor what you need (Steps 8–9). Registry path — available at
+            release: packages are unpublished, so this resolves from a checkout
+            until 0.1.0 publishes.
           </p>
-          <Code>{INSTALL}</Code>
+          <InstallTabs target="@xoroh/kern @xoroh/kern-icons @xoroh/kern-m3 @xoroh/kern-tokens" />
+          <p
+            className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
+          >
+            Registration is one explicit call at your entry, before anything
+            resolves a theme — importing the renderer registers nothing, so the
+            app owns the design-system choice. An unregistered preset fails
+            loud, never silently unthemed.
+          </p>
+          <Code>{REGISTER}</Code>
         </Step>
 
         <Step n={2} title="Load the theme stylesheet">
@@ -159,7 +183,9 @@ function GettingStarted() {
           >
             One import sets every CSS custom property.
           </p>
-          <Code>{STYLESHEET}</Code>
+          <Code language="css" filename="app.css">
+            {STYLESHEET}
+          </Code>
         </Step>
 
         <Step n={3} title="Render your first component">
@@ -173,7 +199,7 @@ function GettingStarted() {
             </Field.Root>
             <Button variant="primary">Continue</Button>
           </div>
-          <Code>{FIRST_COMPONENT}</Code>
+          <Code filename="sign-in.tsx">{FIRST_COMPONENT}</Code>
         </Step>
 
         <Step n={4} title="Theming">
@@ -182,7 +208,7 @@ function GettingStarted() {
           >
             Same scheme on web and native, persisted across visits.
           </p>
-          <Code>{THEMING}</Code>
+          <Code filename="appearance-toggle.tsx">{THEMING}</Code>
         </Step>
 
         <Step n={5} title="Web quickstart — the app shell">
@@ -194,7 +220,7 @@ function GettingStarted() {
             app shape. Omit the slots you do not need and every other shell
             shape follows.
           </p>
-          <Code>{WEB_QUICKSTART}</Code>
+          <Code filename="app.tsx">{WEB_QUICKSTART}</Code>
         </Step>
 
         <Step n={6} title="Mobile quickstart">
@@ -203,11 +229,12 @@ function GettingStarted() {
           >
             Native components take <code>onPress</code> instead of{" "}
             <code>onClick</code>, and resolve the same theme through{" "}
-            <code>KernThemeProvider</code>. Same Preview terms as web: checkout
-            today, registry at release.
+            <code>KernThemeProvider</code>. Source path first — vendor from a
+            checkout (Step 9 covers <code>kern add --platform native</code>);
+            the registry command below runs at release.
           </p>
-          <Code>{MOBILE_INSTALL}</Code>
-          <Code>{MOBILE_QUICKSTART}</Code>
+          <InstallTabs target="@xoroh/kern-native @xoroh/kern-m3 @xoroh/kern-tokens" />
+          <Code filename="save-screen.tsx">{MOBILE_QUICKSTART}</Code>
           {/* P-READY (G6): install without ecosystem — G3/G4 lifts this
                 block onto the primitives subdomain; do not duplicate the
                 install string elsewhere. */}
@@ -254,7 +281,7 @@ function GettingStarted() {
             is unpublished with everything else, so run it from a checkout until
             it ships on its own.
           </p>
-          <Code>
+          <Code language="bash">
             {
               "bun <checkout>/packages/kern-cli/src/kern.ts init my-app\ncd my-app\nbun install\nbun run dev"
             }
@@ -266,7 +293,7 @@ function GettingStarted() {
             <code>applyKernTheme</code> writes the resolved roles onto the
             document root and every component repaints.
           </p>
-          <Code>{PRESET_PICKER}</Code>
+          <Code filename="preset-picker.tsx">{PRESET_PICKER}</Code>
         </Step>
 
         <Step n={9} title="Vendor components with kern add">
@@ -282,7 +309,7 @@ function GettingStarted() {
             <code>init</code>, run it from a checkout until the CLI ships on its
             own.
           </p>
-          <Code>
+          <Code language="bash">
             {
               "bun <checkout>/packages/kern-cli/src/kern.ts add button --dest components/kern\nbun <checkout>/packages/kern-cli/src/kern.ts add dialog --dest components/kern"
             }

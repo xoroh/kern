@@ -413,7 +413,7 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "onOpenChange",
-        type: "((open: boolean, eventDetails: AutocompleteRootChangeEventDetails) => void) | undefined",
+        type: "((open: boolean, eventDetails: AutocompleteRootOpenChangeEventDetails) => void) | undefined",
         required: false,
       },
       {
@@ -964,6 +964,11 @@ export const PROPS_TABLE: Record<
         required: false,
       },
       {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
         name: "testID",
         type: "string | undefined",
         required: false,
@@ -972,6 +977,16 @@ export const PROPS_TABLE: Record<
         name: "href",
         type: "string",
         required: true,
+      },
+      {
+        name: "type",
+        type: "undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "undefined",
+        required: false,
       },
       {
         name: "target",
@@ -994,7 +1009,7 @@ export const PROPS_TABLE: Record<
         required: false,
       },
     ],
-    curated: ["className", "type"],
+    curated: ["className"],
   },
   Calendar: {
     rows: [
@@ -1760,7 +1775,7 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "onOpenChange",
-        type: "((open: boolean, eventDetails: ChangeEventDetails) => void) | undefined",
+        type: "((open: boolean, eventDetails: OpenChangeEventDetails) => void) | undefined",
         required: false,
       },
       {
@@ -1999,13 +2014,13 @@ export const PROPS_TABLE: Record<
   CommandRoot: {
     rows: [
       {
-        name: "form",
-        type: "string | undefined",
+        name: "defaultValue",
+        type: "string | null | undefined",
         required: false,
       },
       {
-        name: "filter",
-        type: "((item: unknown, query: string, itemToString?: ((item: unknown) => string) | undefined) => boolean) | null | undefined",
+        name: "form",
+        type: "string | undefined",
         required: false,
       },
       {
@@ -2024,6 +2039,16 @@ export const PROPS_TABLE: Record<
         required: false,
       },
       {
+        name: "value",
+        type: "string | null | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChange",
+        type: "((open: boolean, eventDetails: OpenChangeEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
         name: "name",
         type: "string | undefined",
         required: false,
@@ -2031,6 +2056,11 @@ export const PROPS_TABLE: Record<
       {
         name: "modal",
         type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "actionsRef",
+        type: "RefObject<Actions | null> | undefined",
         required: false,
       },
       {
@@ -2059,8 +2089,13 @@ export const PROPS_TABLE: Record<
         required: false,
       },
       {
-        name: "items",
-        type: "readonly any[] | readonly Group<any>[] | ComboboxItemCollection<unknown, unknown> | undefined",
+        name: "itemToStringValue",
+        type: "((itemValue: string) => string) | undefined",
+        required: false,
+      },
+      {
+        name: "isItemEqualToValue",
+        type: "((itemValue: string, value: string) => boolean) | undefined",
         required: false,
       },
       {
@@ -2074,13 +2109,38 @@ export const PROPS_TABLE: Record<
         required: false,
       },
       {
+        name: "onInputValueChange",
+        type: "((inputValue: string, eventDetails: ChangeEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "autoComplete",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "itemToStringLabel",
+        type: "((itemValue: string) => string) | undefined",
+        required: false,
+      },
+      {
+        name: "autoHighlight",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "highlightItemOnHover",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
         name: "openOnInputClick",
         type: "boolean | undefined",
         required: false,
       },
       {
         name: "filteredItems",
-        type: "readonly unknown[] | readonly Group<unknown>[] | undefined",
+        type: "readonly CommandOption[] | readonly Group<CommandOption>[] | undefined",
         required: false,
       },
       {
@@ -2096,6 +2156,11 @@ export const PROPS_TABLE: Record<
       {
         name: "loopFocus",
         type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onItemHighlighted",
+        type: "((highlightedValue: string | undefined, eventDetails: HighlightEventDetails) => void) | undefined",
         required: false,
       },
       {
@@ -2119,73 +2184,13 @@ export const PROPS_TABLE: Record<
         required: false,
       },
       {
-        name: "multiple",
-        type: "boolean | undefined",
-        required: false,
-      },
-      {
-        name: "autoComplete",
-        type: "string | undefined",
-        required: false,
-      },
-      {
-        name: "autoHighlight",
-        type: "boolean | undefined",
-        required: false,
-      },
-      {
-        name: "highlightItemOnHover",
-        type: "boolean | undefined",
-        required: false,
-      },
-      {
-        name: "itemToStringLabel",
-        type: "((itemValue: unknown) => string) | undefined",
-        required: false,
-      },
-      {
-        name: "itemToStringValue",
-        type: "((itemValue: unknown) => string) | undefined",
-        required: false,
-      },
-      {
-        name: "isItemEqualToValue",
-        type: "((itemValue: unknown, value: unknown) => boolean) | undefined",
-        required: false,
-      },
-      {
-        name: "defaultValue",
-        type: "unknown",
-        required: false,
-      },
-      {
-        name: "actionsRef",
-        type: "RefObject<Actions | null> | undefined",
-        required: false,
-      },
-      {
-        name: "onOpenChange",
-        type: "((open: boolean, eventDetails: ChangeEventDetails) => void) | undefined",
-        required: false,
-      },
-      {
-        name: "onInputValueChange",
-        type: "((inputValue: string, eventDetails: ChangeEventDetails) => void) | undefined",
-        required: false,
-      },
-      {
-        name: "onItemHighlighted",
-        type: "((highlightedValue: unknown, eventDetails: HighlightEventDetails) => void) | undefined",
-        required: false,
-      },
-      {
-        name: "value",
-        type: "unknown",
-        required: false,
-      },
-      {
         name: "onValueChange",
-        type: "((value: unknown, eventDetails: ChangeEventDetails) => void) | undefined",
+        type: "((value: string | null, eventDetails: ChangeEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "multiple",
+        type: "false | undefined",
         required: false,
       },
       {
@@ -2454,6 +2459,11 @@ export const PROPS_TABLE: Record<
         required: false,
       },
       {
+        name: "onItemHighlighted",
+        type: "((highlightedItem: HTMLElement | undefined, eventDetails: MenuRootHighlightEventDetails) => void) | undefined",
+        required: false,
+      },
+      {
         name: "orientation",
         type: "MenuRootOrientation | undefined",
         required: false,
@@ -2625,7 +2635,7 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "onOpenChange",
-        type: "((open: boolean, eventDetails: SelectRootChangeEventDetails) => void) | undefined",
+        type: "((open: boolean, eventDetails: SelectRootOpenChangeEventDetails) => void) | undefined",
         required: false,
       },
       {
@@ -3641,7 +3651,7 @@ export const PROPS_TABLE: Record<
   },
   FocusRing: {
     rows: [],
-    curated: [],
+    curated: ["children", "className"],
   },
   Form: {
     rows: [
@@ -4025,7 +4035,7 @@ export const PROPS_TABLE: Record<
         required: false,
       },
     ],
-    curated: [],
+    curated: ["children", "className"],
   },
   ListItem: {
     rows: [
@@ -4314,6 +4324,11 @@ export const PROPS_TABLE: Record<
       {
         name: "onOpenChangeComplete",
         type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onItemHighlighted",
+        type: "((highlightedItem: HTMLElement | undefined, eventDetails: MenuRootHighlightEventDetails) => void) | undefined",
         required: false,
       },
       {
@@ -4624,6 +4639,11 @@ export const PROPS_TABLE: Record<
       {
         name: "onOpenChangeComplete",
         type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onItemHighlighted",
+        type: "((highlightedItem: HTMLElement | undefined, eventDetails: MenuRootHighlightEventDetails) => void) | undefined",
         required: false,
       },
       {
@@ -6269,7 +6289,7 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "onOpenChange",
-        type: "((open: boolean, eventDetails: SelectRootChangeEventDetails) => void) | undefined",
+        type: "((open: boolean, eventDetails: SelectRootOpenChangeEventDetails) => void) | undefined",
         required: false,
       },
       {
@@ -6314,17 +6334,17 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "defaultValue",
-        type: "SelectValueType<T, Multiple> | null | undefined",
+        type: "SelectInputValue<T, Multiple> | null | undefined",
         required: false,
       },
       {
         name: "value",
-        type: "SelectValueType<T, Multiple> | null | undefined",
+        type: "SelectInputValue<T, Multiple> | null | undefined",
         required: false,
       },
       {
         name: "onValueChange",
-        type: "((value: SelectValueType<T, Multiple> | (Multiple extends true ? never : null), eventDetails: SelectRootChangeEventDetails) => void) | undefined",
+        type: "((value: SelectOutputValue<T, Multiple> | (Multiple extends true ? never : null), eventDetails: SelectRootChangeEventDetails) => void) | undefined",
         required: false,
       },
     ],
@@ -8078,6 +8098,51 @@ export const PROPS_TABLE: Record<
     ],
     curated: ["aria-describedby", "ref"],
   },
+  ThemeToggle: {
+    rows: [
+      {
+        name: "mode",
+        type: '"light" | "dark" | undefined',
+        required: false,
+      },
+      {
+        name: "onToggle",
+        type: "(() => void) | undefined",
+        required: false,
+      },
+      {
+        name: "variant",
+        type: "IconButtonVariant | undefined",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "selectedLabel",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "sunIcon",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "moonIcon",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: ["disabled", "className"],
+  },
   TimePicker: {
     rows: [
       {
@@ -8587,5 +8652,115 @@ export const PROPS_TABLE: Record<
       },
     ],
     curated: [],
+  },
+  Hero: {
+    rows: [
+      {
+        name: "eyebrow",
+        type: "ReactNode",
+        required: true,
+      },
+      {
+        name: "title",
+        type: "ReactNode",
+        required: true,
+      },
+      {
+        name: "lede",
+        type: "ReactNode",
+        required: true,
+      },
+      {
+        name: "actions",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "art",
+        type: "ReactNode",
+        required: false,
+      },
+    ],
+    curated: ["id", "className"],
+  },
+  TopBar: {
+    rows: [
+      {
+        name: "brand",
+        type: "ReactNode",
+        required: true,
+      },
+      {
+        name: "items",
+        type: "readonly TopBarItem[]",
+        required: true,
+      },
+      {
+        name: "activePath",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "homeTo",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "actions",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "navLabel",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "menuLabel",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "closeMenuLabel",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "sticky",
+        type: "boolean | undefined",
+        required: false,
+      },
+    ],
+    curated: ["className"],
+  },
+  SiteFooter: {
+    rows: [
+      {
+        name: "brand",
+        type: "ReactNode",
+        required: true,
+      },
+      {
+        name: "summary",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "groups",
+        type: "readonly SiteFooterGroup[]",
+        required: true,
+      },
+      {
+        name: "legal",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "trailing",
+        type: "ReactNode",
+        required: false,
+      },
+    ],
+    curated: ["className"],
   },
 };

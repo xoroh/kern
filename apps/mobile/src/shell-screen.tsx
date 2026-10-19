@@ -6,11 +6,13 @@ import {
   type NavigationDestination,
   NavigationDrawer,
   SecondaryTabs,
-  Snackbar,
+  SnackbarProvider,
+  SnackbarViewport,
   SupportingPane,
   Text,
   TopAppBar,
   TopAppBarAction,
+  useSnackbar,
 } from "@xoroh/kern-native";
 import { useState } from "react";
 import { useWindowDimensions, View } from "react-native";
@@ -35,10 +37,19 @@ const DESTINATIONS: NavigationDestination[] = [
 ];
 
 export function ShellScreen() {
+  return (
+    <SnackbarProvider>
+      <ShellScreenBody />
+      <SnackbarViewport />
+    </SnackbarProvider>
+  );
+}
+
+function ShellScreenBody() {
+  const snackbar = useSnackbar();
   const [destination, setDestination] = useState("board");
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [tab, setTab] = useState("open");
-  const [snack, setSnack] = useState(false);
   const { width } = useWindowDimensions();
   const wide = width >= 600;
 
@@ -81,7 +92,12 @@ export function ShellScreen() {
           </TopAppBarAction>
         }
         trailing={
-          <TopAppBarAction label="Assign trip" onPress={() => setSnack(true)}>
+          <TopAppBarAction
+            label="Assign trip"
+            onPress={() =>
+              snackbar.add({ message: "Trip 44 assigned", actionLabel: "Undo" })
+            }
+          >
             <Text variant="label">＋</Text>
           </TopAppBarAction>
         }
@@ -125,18 +141,6 @@ export function ShellScreen() {
           </View>
         }
       />
-
-      {snack ? (
-        <View style={{ position: "absolute", left: 16, right: 16, bottom: 96 }}>
-          <Snackbar
-            visible
-            message="Trip 44 assigned"
-            actionLabel="Undo"
-            onAction={() => setSnack(false)}
-            onDismiss={() => setSnack(false)}
-          />
-        </View>
-      ) : null}
     </View>
   );
 }

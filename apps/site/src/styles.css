@@ -13,11 +13,31 @@
   box-sizing: border-box;
 }
 
+:root {
+  --site-header-h: 80px;
+}
+
 body {
   margin: 0;
   font-family: var(--ref-font-family);
   background: var(--sys-color-surface);
   color: var(--sys-color-on-surface);
+}
+
+/* The document is the scroll container now, so the root owns the smooth
+   scrolling, the stable gutter and the shell background (overscroll and
+   pull-behind-the-header regions must not flash a different surface).
+   Motion-pref-respecting: people who ask for reduced motion get instant
+   jumps instead of the smooth glide. */
+html {
+  background: var(--sys-color-surface-container-low);
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 a:focus-visible,
@@ -26,15 +46,18 @@ button:focus-visible {
   outline-offset: 2px;
 }
 
-/* Site expression, not library overrides: package demos keep their own tokens. */
 .site-shell {
   --site-panel-radius: var(--sys-shape-corner-extra-large);
   --site-hero-radius: var(--sys-shape-corner-extra-extra-large);
   background: var(--sys-color-surface-container-low);
 }
 
+.site-chrome {
+  background: var(--sys-color-surface-container-low);
+  border-bottom: 1px solid var(--sys-color-outline-variant);
+}
 .site-header {
-  min-height: 80px;
+  height: var(--site-header-h);
 }
 .site-body {
   padding: 0 16px 16px;
@@ -42,11 +65,9 @@ button:focus-visible {
 .site-main {
   background: var(--sys-color-surface);
   border-radius: var(--site-panel-radius);
-  scrollbar-gutter: stable;
-  scroll-behavior: smooth;
 }
 .site-main :is(h2, h3)[id] {
-  scroll-margin-top: 32px;
+  scroll-margin-top: calc(var(--site-header-h) + 24px);
 }
 .site-main:focus {
   outline: none;
@@ -59,6 +80,37 @@ button:focus-visible {
 }
 .site-main .font-mono {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* Code highlighting — the theme, not the classifier.
+ *
+ * `highlight.tsx` only emits `tok-*` classes; every color here is a
+ * `--sys-color-*` role, so light and dark code themes fall out of the token
+ * layer with no extra hex and no `.dark` overrides: the same roles the
+ * components read. Roles were chosen for WCAG 2.2 AA (4.5:1) small-text
+ * contrast against `surface-container-high` in both modes — verified by the
+ * ratios recorded in the PR-A report, not by eye.
+ *
+ * Sharing is deliberate, not a shortage: keywords and tags share `primary`
+ * (both are structure), types and numbers share `secondary`, and attributes
+ * stay in the base ink so prop *values* (strings) are what pop.
+ */
+.codeblock .tok-keyword,
+.codeblock .tok-tag,
+.codeblock .tok-command {
+  color: var(--sys-color-primary);
+}
+.codeblock .tok-string {
+  color: var(--sys-color-tertiary);
+}
+.codeblock .tok-number,
+.codeblock .tok-type,
+.codeblock .tok-flag {
+  color: var(--sys-color-secondary);
+}
+.codeblock .tok-comment,
+.codeblock .tok-operator {
+  color: var(--sys-color-on-surface-variant);
 }
 .site-sidebar,
 .site-toc {
@@ -75,7 +127,21 @@ button:focus-visible {
   text-wrap: balance;
 }
 .site-card {
-  transition: background-color 150ms;
+  transition: background-color var(--sys-motion-duration-short3)
+    var(--sys-motion-easing-standard);
+  position: relative;
+}
+a.site-card:hover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--sys-color-on-surface);
+  opacity: var(--sys-state-hover);
+  pointer-events: none;
+}
+a.site-card:active::after {
+  opacity: var(--sys-state-press);
 }
 .site-docs-welcome {
   padding: clamp(24px, 3vw, 40px);
@@ -97,8 +163,23 @@ button:focus-visible {
   background: var(--sys-color-primary-container);
   color: var(--sys-color-on-primary-container);
 }
-a.site-card:hover {
-  background: var(--sys-color-secondary-container);
+/* Modal enter — the M3 container-transform's honest web form: a short4
+   fade + rise on the emphasized easing for the palette and drawer panels.
+   The reduced-motion reset below collapses it; entering with no motion at
+   all is what read broken next to the motion specimens page. */
+@keyframes site-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.site-enter {
+  animation: site-enter var(--sys-motion-duration-short4)
+    var(--sys-motion-easing-emphasized);
 }
 .site-stage {
   background: color-mix(
@@ -450,8 +531,8 @@ a.site-card:hover {
   }
 }
 @media (max-width: 1023px) {
-  .site-header {
-    min-height: 72px;
+  :root {
+    --site-header-h: 72px;
   }
   .site-body {
     padding: 0 12px 12px;
@@ -499,8 +580,8 @@ a.site-card:hover {
   }
 }
 @media (max-width: 639px) {
-  .site-header {
-    min-height: 64px;
+  :root {
+    --site-header-h: 64px;
   }
   .site-body {
     padding: 0;

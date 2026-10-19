@@ -18,7 +18,7 @@ export type NativeSelectOption = {
   label: string;
 };
 
-export function selectStyles(scheme: ResolvedTheme = defaultScheme): {
+export function selectStyles(scheme: ResolvedTheme = defaultScheme()): {
   trigger: ViewStyle;
 } {
   return {

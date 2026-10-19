@@ -21,8 +21,7 @@
  */
 
 import { STATE_LAYER_OPACITIES } from "@xoroh/kern-tokens";
-import { useEffect, useState } from "react";
-import { docForExport, type Platform } from "../../content/index";
+import type { Platform } from "../../content/index";
 import type {
   ComponentDoc,
   Deviation,
@@ -36,7 +35,9 @@ import {
   Breadcrumbs,
   type Crumb,
   PlatformTabs,
+  savePlatformChoice,
 } from "../../domains/shared/chrome/docs-shell-parts";
+import { TRANSITION } from "../../domains/shared/systems/ui";
 import type { A11yPage } from "../../generated/a11y";
 import { A11Y } from "../../generated/a11y";
 import { PROPS_TABLE } from "../../generated/props-table";
@@ -60,6 +61,8 @@ import {
   THEME_CONFIGURATOR_HREF,
 } from "../../systems/playground-links";
 import { CopyMarkdownButton } from "../chrome/copy-markdown-button";
+import { HighlightedCode } from "./highlight";
+import { InstallTabs } from "./install-tabs";
 
 /**
  * M1 — the page that TEACHES the type scale must USE the type scale.
@@ -151,7 +154,7 @@ function Heading({
       <a
         href={`#${id}`}
         aria-label={`Permalink to ${id.replace(/-/g, " ")}`}
-        className="ml-2 inline-flex items-center text-(--sys-color-on-surface-variant) no-underline opacity-0 transition-opacity group-hover:opacity-100 focus-visible:opacity-100"
+        className={`ml-2 inline-flex items-center text-(--sys-color-on-surface-variant) no-underline opacity-0 ${TRANSITION} group-hover:opacity-100 focus-visible:opacity-100`}
       >
         #
       </a>
@@ -243,7 +246,7 @@ function HeaderLinks({
           </a>
         ) : null,
       )}
-      <CopyMarkdownButton />
+      <CopyMarkdownButton platform={platform} />
     </div>
   );
 }
@@ -289,7 +292,7 @@ function Demo({ doc, platform }: { doc: ComponentDoc; platform: Platform }) {
       <DemoContent doc={doc} platform={platform} />
       <StatesStrip doc={doc} />
       <PlaygroundLinks doc={doc} platform={platform} />
-      <InstallationBlock doc={doc} />
+      <InstallationBlock doc={doc} platform={platform} />
       <ExamplesBlock doc={doc} />
     </section>
   );
@@ -301,7 +304,7 @@ function Demo({ doc, platform }: { doc: ComponentDoc; platform: Platform }) {
  * Before this existed, "states" on a component page meant rows in the token
  * table: a reader could not SEE what hover or press does. This paints the
  * layer law itself (on-surface over the container at the M3 opacities —
- * hover 8%, focus 12%, press 12%, drag 16%, from `STATE_LAYER_OPACITIES` in
+ * hover 8%, focus 10%, press 10%, drag 16%, from `STATE_LAYER_OPACITIES` in
  * `@xoroh/kern-tokens`, never retyped here) as swatches next to the live
  * demo, then lists the states this family's own token table registers.
  * The opacities are painted, not asserted: the overlay divs use the theme's
@@ -347,7 +350,7 @@ function StatesStrip({ doc }: { doc: ComponentDoc }) {
       </div>
       <p className={PROSE}>
         State layers are {""}
-        <code>on-surface</code> at 8% hover, 12% focus, 12% press and 16% drag
+        <code>on-surface</code> at 8% hover, 10% focus, 10% press and 16% drag
         over the container — never a color swap.{" "}
         <a
           className="text-(--sys-color-secondary) underline underline-offset-2"
@@ -440,74 +443,38 @@ function installTarget(pkg: string): string {
 }
 
 /**
- * Install picker (Part 8, Mantine pattern). The package-manager tabs switch
- * the install command; the choice persists per browser. No `kern add` mode:
- * the CLI is v0.0.0 and unpublished (verified 404 on the registry), so a tab
- * instructing `npx kern add` would teach a failing command. When the CLI
- * publishes, the mode belongs here beside these four.
+ * Install picker (Part 8, Mantine pattern). Source FIRST, registry second
+ * (011): the `kern` binary is unpublished, so the available-now route is
+ * vendoring from a checkout — the checkout-runner command leads, and the
+ * package-manager tabs below are marked available-at-release. No bare-`kern`
+ * tab: a tab instructing `npx kern add` would teach a failing command, so
+ * the source command carries its checkout prefix. When the CLI publishes,
+ * the prefix drops and the tab stays where it is. The registry tabs live in
+ * the shared `InstallTabs` (same component the getting-started page uses,
+ * so the commands and the persisted choice cannot drift).
  */
-const MANAGERS = [
-  { id: "npm", label: "npm", command: (t: string) => `npm i ${t}` },
-  { id: "bun", label: "bun", command: (t: string) => `bun add ${t}` },
-  { id: "pnpm", label: "pnpm", command: (t: string) => `pnpm add ${t}` },
-  { id: "yarn", label: "yarn", command: (t: string) => `yarn add ${t}` },
-] as const;
-
-type ManagerId = (typeof MANAGERS)[number]["id"];
-
-function InstallPicker({ target }: { target: string }) {
-  const [manager, setManager] = useState<ManagerId>("npm");
-  useEffect(() => {
-    try {
-      const stored = window.localStorage.getItem("kern-pkg-manager");
-      if (stored && MANAGERS.some((m) => m.id === stored)) {
-        setManager(stored as ManagerId);
-      }
-    } catch {
-      // Private mode / SSR: default npm stands.
-    }
-  }, []);
-  function choose(id: ManagerId) {
-    setManager(id);
-    try {
-      window.localStorage.setItem("kern-pkg-manager", id);
-    } catch {
-      // Choice still applies for the session.
-    }
-  }
-  const command =
-    MANAGERS.find((m) => m.id === manager)?.command(target) ??
-    `npm i ${target}`;
+function InstallPicker({
+  target,
+  sourceCommand,
+}: {
+  target: string;
+  sourceCommand: string;
+}) {
   return (
     <div className={`${CARD} flex flex-col gap-2 p-4`}>
-      {/* biome-ignore lint/a11y/useSemanticElements: a package-manager picker group is not a form fieldset */}
-      <div
-        role="group"
-        aria-label="Package manager"
-        className="flex flex-wrap gap-1.5"
-      >
-        {MANAGERS.map((m) => (
-          <button
-            key={m.id}
-            type="button"
-            aria-pressed={manager === m.id}
-            onClick={() => choose(m.id)}
-            className={`min-h-12 rounded-(--sys-shape-corner-full) border px-4 ${SMALL} ${
-              manager === m.id
-                ? "border-(--sys-color-primary) bg-(--sys-color-primary-container) text-(--sys-color-on-primary-container)"
-                : "border-(--sys-color-outline) text-(--sys-color-on-surface-variant) hover:bg-(--sys-color-on-surface)/8 active:bg-(--sys-color-on-surface)/12"
-            }`}
-          >
-            {m.label}
-          </button>
-        ))}
-      </div>
+      <p className={`m-0 ${SMALL} text-(--sys-color-on-surface-variant)`}>
+        Source — available now. Vendor from a checkout:
+      </p>
       <div className="flex items-center gap-2">
         <pre className={`m-0 flex-1 overflow-x-auto ${CODE} ${INK}`}>
-          <code>{command}</code>
+          <code>{sourceCommand}</code>
         </pre>
-        <CopyButton text={command} />
+        <CopyButton text={sourceCommand} />
       </div>
+      <p className={`m-0 ${SMALL} text-(--sys-color-on-surface-variant)`}>
+        Registry — available at release (0.1.0 publishes):
+      </p>
+      <InstallTabs target={target} />
       <p className={`m-0 ${SMALL} text-(--sys-color-on-surface-variant)`}>
         Preview: packages are unpublished — this resolves from a checkout until
         0.1.0 publishes.
@@ -516,9 +483,21 @@ function InstallPicker({ target }: { target: string }) {
   );
 }
 
-function InstallationBlock({ doc }: { doc: ComponentDoc }) {
+function InstallationBlock({
+  doc,
+  platform,
+}: {
+  doc: ComponentDoc;
+  platform: Platform;
+}) {
   const pkg = doc.meta.package;
   const target = installTarget(pkg);
+  // Source-first (011): the checkout-runner vendor command is the route that
+  // works today; the registry tabs below it are marked available-at-release.
+  const sourceCommand =
+    `bun <checkout>/packages/kern-cli/src/kern.ts add ${doc.slug}` +
+    (platform === "mobile" ? " --platform native" : "") +
+    " --dest components/kern";
   const importStatement = `import { ${doc.parts[0]} } from "${pkg}";`;
   // VISIBLE, not a collapsed details: the 60-second bar (get it running)
   // must not hide behind a click. MUI and shadcn both show install on
@@ -532,11 +511,13 @@ function InstallationBlock({ doc }: { doc: ComponentDoc }) {
         Every export on this page ships in <code>{target}</code> and is imported
         from <code>{pkg}</code>. There is no per-component install.
       </p>
-      <InstallPicker target={target} />
+      <InstallPicker target={target} sourceCommand={sourceCommand} />
       <div className={`${CARD} flex flex-col gap-2 p-4`}>
         <div className="flex items-center gap-2">
-          <pre className={`m-0 flex-1 overflow-x-auto ${CODE} ${INK}`}>
-            <code>{importStatement}</code>
+          <pre
+            className={`codeblock m-0 flex-1 overflow-x-auto ${CODE} ${INK}`}
+          >
+            <HighlightedCode code={importStatement} language="tsx" />
           </pre>
           <CopyButton text={importStatement} />
         </div>
@@ -1793,55 +1774,76 @@ function Footer({
  * site layout's three-column docs shell, not here. Sections render in the
  * grammar's order and no other order (lede → demo → props → tokens →
  * semantic-dom → accessibility → limitations → faq → spec).
+ *
+ * One page per component family (`/components/m3/<name>`, 018): the header
+ * carries the family name with its system chip and the Web/Native tabs,
+ * and the article below renders the ACTIVE platform's doc. Tabs are real
+ * `?tab=` links — the switch works without JavaScript and crawlers see
+ * both renderers — and picking one remembers the choice for the next visit.
+ * A family documented on one renderer only renders no tabs (a tab that
+ * goes nowhere is a lie); a `peerNote` then points at the same component
+ * under its other-renderer name where one exists.
  */
 export function ComponentPage({
   doc,
   platform,
+  familySlug,
+  systemLabel,
+  tabs,
+  peerNote,
   prev,
   next,
 }: {
   doc: ComponentDoc;
   platform: Platform;
+  /** The family slug — the page address, shared by both tabs. */
+  familySlug: string;
+  /** System label for the header chip (e.g. "M3") — the page's owner. */
+  systemLabel: string;
+  /** The renderers this family is documented on (one or both). */
+  tabs: Platform[];
+  /** Same component under another name on the other renderer, if any. */
+  peerNote?: { label: string; href: string };
   prev?: { href: string; title: string };
   next?: { href: string; title: string };
 }) {
-  // Docs-shell chrome (P8): the trail and the platform switcher. The switcher
-  // navigates the peer page and remembers the reader's platform; a family
-  // with no peer renders no switcher (a tab that goes nowhere is a lie).
-  const peerPlatform: Platform = platform === "web" ? "mobile" : "web";
-  const peerDoc = doc.meta.nativePeer
-    ? docForExport(peerPlatform, doc.meta.nativePeer)
-    : undefined;
   const crumbs: Crumb[] = [
     { label: "Components", href: "/components" },
-    {
-      label: platform === "web" ? "Web" : "React Native",
-      href: platform === "web" ? "/components/web" : "/components/mobile",
-    },
     { label: doc.name },
   ];
-  const platformTabs = [
-    {
-      id: "web",
-      label: "Web",
-      href: `/components/web/${platform === "web" ? doc.slug : (peerDoc?.slug ?? "")}`,
-    },
-    {
-      id: "mobile",
-      label: "React Native",
-      href: `/components/mobile/${platform === "mobile" ? doc.slug : (peerDoc?.slug ?? "")}`,
-    },
-  ];
+  const platformTabs = tabs.map((id) => ({
+    id,
+    label: id === "web" ? "Web" : "React Native",
+    href: `/components/m3/${familySlug}?tab=${id}`,
+  }));
   return (
     <article className="flex min-w-0 flex-col gap-14" data-copy-md-root>
       <header className="flex flex-col gap-3">
         <Breadcrumbs items={crumbs} />
         <div className="flex flex-wrap items-end justify-between gap-3">
-          <h1 className={H1}>{doc.name}</h1>
-          {peerDoc ? (
-            <PlatformTabs tabs={platformTabs} active={platform} />
+          <span className="flex flex-wrap items-center gap-3">
+            <h1 className={H1}>{doc.name}</h1>
+            <span className={CHIP}>{systemLabel}</span>
+          </span>
+          {platformTabs.length > 1 ? (
+            <PlatformTabs
+              tabs={platformTabs}
+              active={platform}
+              onPick={savePlatformChoice}
+            />
           ) : null}
         </div>
+        {peerNote ? (
+          <p className={`m-0 ${SMALL} ${INK_SOFT}`}>
+            Also documented for the other renderer:{" "}
+            <a
+              href={peerNote.href}
+              className="text-(--sys-color-secondary) no-underline hover:underline"
+            >
+              {peerNote.label}
+            </a>
+          </p>
+        ) : null}
         <p className={`m-0 max-w-[62ch] ${LEDE} ${INK_SOFT}`}>{doc.oneLiner}</p>
         <details className="group">
           <summary

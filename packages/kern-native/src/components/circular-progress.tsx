@@ -68,7 +68,7 @@ export { arcRotations };
 export function ringStyles(
   size: FeedbackSize,
   fill: string,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
 ): {
   box: ViewStyle;
   track: ViewStyle;
@@ -117,7 +117,7 @@ export function ringStyles(
 export function barStyles(
   size: FeedbackSize,
   fill: string,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
 ): {
   row: ViewStyle;
   bar: ViewStyle;

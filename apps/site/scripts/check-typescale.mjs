@@ -155,7 +155,12 @@ for (const file of files) {
   // marker is a visible decision, never a silent skip.
   const exempt = /type-scale-exempt/.test(text);
   const inScope =
-    rel.startsWith("src/showcase/") || rel.startsWith("src/components/docs/");
+    rel.startsWith("src/showcase/") ||
+    rel.startsWith("src/components/docs/") ||
+    rel.startsWith("src/components/icons/") ||
+    rel.startsWith("src/components/theme/") ||
+    rel.startsWith("src/demos/") ||
+    rel.startsWith("src/domains/playground/");
   for (const m of rendered.matchAll(ADHOC_TYPE)) {
     const where = `${rel}: ad-hoc type utility "${m[0]}"`;
     if (exempt) continue; // deliberate, documented example code — not debt

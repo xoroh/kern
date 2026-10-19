@@ -28,6 +28,11 @@
  *      importing `@xoroh/kern` would pull react-dom and Base UI into a React
  *      Native bundle and invert ADR 002.
  *
+ * Plus two source-level rules (decision 010 / kern-start composition),
+ * because their violations would land in FILE content, not in package.json:
+ * a renderer must never register a design system, and kern-start must
+ * compose via `@xoroh/kern` rather than importing Base UI directly.
+ *
  * ## What it deliberately does NOT do
  *
  * It reads `package.json`, not the import graph. That is the right granularity
@@ -307,6 +312,67 @@ if (existsSync(START_DIR)) {
   walkStart(START_DIR);
 }
 
+// --- decision 010: renderers never register a design system -----------------
+// "@xoroh/kern must not register M3 globally" is the kind of claim that
+// silently reverts the first time someone adds `import "@xoroh/kern-m3"` to a
+// renderer file chasing a test failure. Asserted from real source: renderer
+// code (the shipped src/, excluding tests — test setups are consumers and
+// register explicitly, like apps) may import VALUES from a system package
+// (types, feedback timing, shape data — a rank-1 dependency) but must never
+// side-effect-import one or call a registration function. Registration
+// belongs to the application entry, once, explicitly.
+const RENDERER_DIRS = [
+  ["kern", join(ROOT, "packages", "kern", "src")],
+  ["kern-native", join(ROOT, "packages", "kern-native", "src")],
+];
+for (const [pkgName, dir] of RENDERER_DIRS) {
+  if (!existsSync(dir)) continue;
+  const walkRenderer = (d, depth = 0) => {
+    if (depth > 8) return;
+    let files;
+    try {
+      files = readdirSync(d, { withFileTypes: true });
+    } catch {
+      return;
+    }
+    for (const f of files) {
+      if (f.name === "node_modules" || f.name === "dist") continue;
+      const full = join(d, f.name);
+      if (f.isDirectory()) {
+        walkRenderer(full, depth + 1);
+        continue;
+      }
+      // Test files are consumers of the renderer, like apps; their setups
+      // register explicitly. The rule is about shipped component code.
+      if (/\.test\.|\.rntest\./.test(f.name)) continue;
+      if (!/\.(ts|tsx|mts|cts)$/.test(f.name)) continue;
+      const text = readFileSync(full, "utf8");
+      const code = text
+        .replace(/\/\*[\s\S]*?\*\//g, "")
+        .replace(/^\s*\/\/.*$/gm, "");
+      // Bare side-effect import: `import "@xoroh/kern-m3";` — a value import
+      // has a clause (`import { x } from ...`) and is fine.
+      if (/import\s+["']@xoroh\/kern-[^"']+["']/.test(code)) {
+        violations.push(
+          `${pkgName} side-effect-imports a system package (${full.slice(ROOT.length + 1)}) — ` +
+            `renderers host every system and register none. The app entry ` +
+            `calls registerM3()/registerPreset() once (decision 010).`,
+        );
+      }
+      // Registration calls in shipped renderer code.
+      if (/\b(registerM3|registerPreset|defineThemePreset)\s*\(/.test(code)) {
+        violations.push(
+          `${pkgName} registers a design system (${full.slice(ROOT.length + 1)}) — ` +
+            `registration belongs to the application entry, never a renderer ` +
+            `(decision 010). An unregistered id must fail loud at the app, ` +
+            `not be papered over inside the component layer.`,
+        );
+      }
+    }
+  };
+  walkRenderer(dir);
+}
+
 // --- D-037: the build graph must be acyclic, and must COVER every buildable -----
 // Build order is derived from these same declarations, so a cycle here is a
 // cycle in the build. The orchestrator would catch it too, but as a build
@@ -545,5 +611,5 @@ if (violations.length) {
 }
 
 console.log(
-  "\npackage layering holds: no upward edges, no renderer-to-renderer edge,\n every tsconfig types[] entry is a declared dependency,\n every bare import resolves to a declared dependency,\n kern-start composes via @xoroh/kern with no direct Base UI import,\n and the build graph is acyclic and covers every buildable package",
+  "\npackage layering holds: no upward edges, no renderer-to-renderer edge,\n every tsconfig types[] entry is a declared dependency,\n every bare import resolves to a declared dependency,\n kern-start composes via @xoroh/kern with no direct Base UI import,\n no renderer registers a design system (decision 010),\n and the build graph is acyclic and covers every buildable package",
 );

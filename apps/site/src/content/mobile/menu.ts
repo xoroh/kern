@@ -18,6 +18,54 @@ export const menu: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Menu"],
+  keyboard: [
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "The trigger announces its label; the open menu reads as a menu and each item as a menu item with its disabled state; double-tap chooses.",
+    },
+  ],
+  usage: {
+    do: [
+      "Declare items as data — `label`, optional `onSelect`, optional `disabled` — so the list renders identically wherever it opens.",
+      "Keep the item count short enough to scan; a menu is a choice, not a catalog.",
+      "Disabled items stay visible and inert rather than vanishing, so the set reads as stable.",
+    ],
+    dont: [
+      "Don't nest menus — one level is the whole pattern.",
+      "Don't put the only path to a destination inside a menu without a visible trigger that names it.",
+    ],
+  },
+  tokens: [
+    {
+      element: "Surface",
+      state: "resting",
+      token: "theme.color.surfaceContainer",
+      value: "surfaceContainer, minWidth 112",
+    },
+    {
+      element: "Surface shape",
+      state: "resting",
+      token: "theme.shape.small",
+      value: "small corners",
+    },
+    {
+      element: "Item",
+      state: "resting",
+      token: "theme.color.onSurface",
+      value: "onSurface label, minHeight 48",
+    },
+  ],
+  faq: [
+    {
+      q: "Menu or action sheet?",
+      a: "A menu hangs off its trigger where it stands; an action sheet rises as its own surface with a fixed action row. Trigger-anchored choice means menu.",
+    },
+    {
+      q: "How does this differ from the web menu?",
+      a: "The contract is the same (items as data, disabled stays visible). The surface is a native modal with a scrim rather than a positioned popup, and the trigger is a slot you own.",
+    },
+  ],
   customization: {
     supported: [
       "`trigger` is a slot, so the control that opens the menu is entirely yours.",

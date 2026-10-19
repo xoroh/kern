@@ -2,9 +2,9 @@
 
 > Rule: the roadmap is the single source for planned work; VISION is the test every decision is checked against; ideas only move to the roadmap through an ADR.
 
-Status: current. Date: 2026-10-16.
+Status: current. Date: 2026-10-17.
 
-- Vision: [`../VISION.md`](../VISION.md). Roadmap (single source for planned work): [`../architecture/kern-axis-migration-and-roadmap.md`](../architecture/kern-axis-migration-and-roadmap.md). This folder is the single canonical record (001–020, consolidated 2026-10-16; the old `docs/adr/` location is removed).
+- Vision: [`../VISION.md`](../VISION.md). Roadmap (single source for planned work): [`../architecture/kern-axis-migration-and-roadmap.md`](../architecture/kern-axis-migration-and-roadmap.md). This folder is the single canonical record (001–021).
 - This folder records decisions with context, decision, rationale, status, date. The roadmap §I remains the execution register; these files are the durable record, not a second plan.
 
 | ADR | Decision | Roadmap link |
@@ -24,8 +24,9 @@ Status: current. Date: 2026-10-16.
 | [013](013-docs-depth.md) | Docs depth: full pages for top 20, correct thin pages for the rest | D-DOCS-DEPTH |
 | [014](014-button-variant-names.md) | M3 button variant names (hard cut, no deprecation) | D-BUTTON-NAMES |
 | [015](015-state-props-base-ui-names.md) | State props follow Base UI names (`checked`, `pressed`) | Parity / contract |
-| [016](016-hct-tonal-palettes.md) | M3 colors use HCT tonal palettes and full color roles | D-HCT |
+| [016](016-hct-tonal-palettes.md) | M3 colors use HCT tonal palettes and full color roles (superseded by 021) | D-HCT |
 | [017](017-per-system-packages.md) | Per-system preset package plus per-platform widget packages | D-STRUCTURE |
 | [018](018-component-page-tabs.md) | Docs one page per component at `/components/<system>/<name>` with Web/Native tabs (supersedes 008) | D-STRUCTURE |
 | [019](019-ai-chat-in-kern.md) | AI chat styled parts and blocks live in Kern, voice deferred | — (placement) |
 | [020](020-no-backward-compat.md) | No backward compatibility before the first public release (0.1.0 Preview); merges old `adr/007` (same rule) | Owner rule |
+| [021](021-hct-primary-tonal-engine-for-m3.md) | HCT / material-color-utilities as primary tonal engine for Kern M3 (supersedes 016) | D-HCT |

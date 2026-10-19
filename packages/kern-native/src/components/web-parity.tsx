@@ -425,7 +425,7 @@ export type BannerVariant = "info" | "success" | "warning" | "error";
 
 export function bannerStyles(
   variant: BannerVariant,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
 ): {
   container: ViewStyle;
   title: TextStyle;

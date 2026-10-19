@@ -9,7 +9,7 @@ import { defaultScheme, useKernScheme } from "../theme";
 
 export function progressStyles(
   ratio: number,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
 ): { track: ViewStyle; fill: ViewStyle } {
   const clamped = Math.min(Math.max(ratio, 0), 1);
   return {
