@@ -150,7 +150,11 @@ class DemoBoundary extends Component<
         </div>
       );
     }
-    return this.props.children;
+    // `m-auto` in the flex well below: centers a fitting demo, and
+    // top/left-aligns an overflowing one (negative free space floors auto
+    // margins to zero) so the first preview stays readable instead of the
+    // stack's middle being cropped on both edges.
+    return <div className="m-auto min-h-0 w-full min-w-0">{this.props.children}</div>;
   }
 }
 
@@ -319,7 +323,7 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
             // still overflows, and fits everything shorter exactly. Rendered
             // at natural size: the old scale-90 popped on mount.
             <div
-              className="pointer-events-none flex max-h-full origin-center items-center justify-center overflow-hidden"
+              className="pointer-events-none m-auto flex max-h-full max-w-full min-h-0 min-w-0 origin-center overflow-hidden"
               aria-hidden="true"
               inert
             >
