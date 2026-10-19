@@ -119,15 +119,64 @@ function TokensPage() {
         </FProse>
       </FSection>
       <FSection id="groups" title="What kern ships">
-        <ul className="m-0 flex flex-col gap-1 pl-5">
-          <li>Colour — {ROLE_COUNT} roles per scheme</li>
-          <li>Type — {TYPE_STYLE_COUNT} styles</li>
-          <li>Shape — {SHAPE.length} corner roles</li>
-          <li>Elevation — {ELEVATION_LEVELS.length} levels (dp and shadow)</li>
-          <li>Motion — easings, durations, springs and two schemes</li>
-          <li>States — {STATES.length} layer opacities</li>
-          <li>Spacing — {SPACING.length} steps (this page, below)</li>
-        </ul>
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {[
+            {
+              title: "Colour",
+              metric: `${ROLE_COUNT} roles per scheme`,
+              detail: "Primary, Secondary, Tertiary, Neutral & Neutral Variant",
+            },
+            {
+              title: "Type",
+              metric: `${TYPE_STYLE_COUNT} styles`,
+              detail: "15 baseline + 15 emphasized Material 3 styles",
+            },
+            {
+              title: "Shape",
+              metric: `${SHAPE.length} corner roles`,
+              detail: "From 0px sharp to 9999px full pill",
+            },
+            {
+              title: "Elevation",
+              metric: `${ELEVATION_LEVELS.length} levels`,
+              detail: "dp heights (0–12dp) and dual-layer shadows",
+            },
+            {
+              title: "Motion",
+              metric: `${MOTION_SPRING.length} springs · ${MOTION_EASING.length} easings`,
+              detail: "Standard & expressive schemes with duration steps",
+            },
+            {
+              title: "States",
+              metric: `${STATES.length} layer opacities`,
+              detail: "Hover 8%, focus 10%, press 10%, drag 16%, disabled 38%",
+            },
+            {
+              title: "Spacing",
+              metric: `${SPACING.length} steps`,
+              detail: "8dp base unit scale (space-0 through space-900)",
+            },
+          ].map((item) => (
+            <div
+              key={item.title}
+              className={`${F_CARD} flex flex-col gap-1 p-4`}
+            >
+              <div className="flex items-center justify-between gap-2">
+                <span className={`m-0 ${T_SMALL_TITLE} ${F_INK}`}>
+                  {item.title}
+                </span>
+                <span
+                  className={`rounded-full bg-(--sys-color-secondary-container) px-2.5 py-0.5 ${T_LABEL} text-(--sys-color-on-secondary-container)`}
+                >
+                  {item.metric}
+                </span>
+              </div>
+              <span className={`m-0 ${T_BODY_SM} ${F_INK_SOFT}`}>
+                {item.detail}
+              </span>
+            </div>
+          ))}
+        </div>
       </FSection>
 
       <FSection id="dtcg-projection" title="DTCG interchange notes">
@@ -158,17 +207,15 @@ function TokensPage() {
           while spacing carries values, and the values are read from this one
           table.
         </FProse>
-        <div className="flex flex-col gap-2">
+        <div className={`${F_CARD} flex flex-col gap-2.5 p-5`}>
           {SPACING.map((leaf) => (
             <div key={leaf.key} className="flex items-center gap-3">
-              <span
-                className={`w-24 shrink-0 font-mono ${T_LABEL} ${F_INK_SOFT}`}
-              >
+              <span className={`w-24 shrink-0 font-mono ${T_LABEL} ${F_INK}`}>
                 {leaf.key}
               </span>
               <div
                 aria-hidden="true"
-                className="h-4 rounded-(--sys-shape-corner-small) bg-(--sys-color-primary)"
+                className="h-4 rounded-(--sys-shape-corner-small) bg-(--sys-color-secondary)"
                 style={{ width: String(leaf.value) }}
               />
               <span className={`font-mono ${T_LABEL} ${F_INK_SOFT}`}>
@@ -677,9 +724,20 @@ function TypePage() {
       </FSection>
 
       <FSection id="specimens" title="Specimens">
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-3">
           {TYPE_STYLES.map((s) => (
-            <div key={s.role} className="flex flex-col gap-1">
+            <div key={s.role} className={`${F_CARD} flex flex-col gap-2 p-4`}>
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-(--sys-color-outline-variant)/60 pb-2">
+                <span
+                  className={`rounded-full bg-(--sys-color-secondary-container) px-2.5 py-0.5 font-mono ${T_LABEL} text-(--sys-color-on-secondary-container)`}
+                >
+                  {s.role}
+                </span>
+                <span className={`font-mono ${T_LABEL} ${F_INK_SOFT}`}>
+                  {s.fontSize} / {s.lineHeight} · weight {s.fontWeight} ·
+                  tracking {s.letterSpacing}
+                </span>
+              </div>
               <span
                 style={{
                   fontFamily: s.fontFamily || undefined,
@@ -688,12 +746,9 @@ function TypePage() {
                   lineHeight: s.lineHeight || undefined,
                   letterSpacing: s.letterSpacing || undefined,
                 }}
-                className={F_INK}
+                className={`overflow-x-auto ${F_INK}`}
               >
                 The quick brown fox
-              </span>
-              <span className={`font-mono ${T_LABEL} ${F_INK_SOFT}`}>
-                {s.role} · {s.fontSize} · {s.fontWeight} · {s.lineHeight}
               </span>
             </div>
           ))}
@@ -752,18 +807,23 @@ function ShapePage() {
         </FProse>
       </FSection>
       <FSection id="ladder" title="The ladder">
-        <div className="flex flex-wrap items-end gap-4">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
           {SHAPE.map((leaf) => (
-            <div key={leaf.key} className="flex flex-col items-center gap-2">
+            <div
+              key={leaf.key}
+              className={`${F_CARD} flex flex-col items-center gap-2.5 p-4 text-center`}
+            >
               <div
-                className="h-16 w-16 border border-(--sys-color-outline-variant) bg-(--sys-color-primary-container)"
+                className="h-16 w-16 border-2 border-(--sys-color-secondary) bg-(--sys-color-secondary-container)"
                 style={{ borderRadius: String(leaf.value) }}
                 aria-hidden="true"
               />
-              <span className={`font-mono ${T_LABEL} ${F_INK_SOFT}`}>
+              <span className={`font-mono ${T_LABEL} ${F_INK}`}>
                 {leaf.key}
               </span>
-              <span className={`font-mono ${T_LABEL} ${F_INK_SOFT}`}>
+              <span
+                className={`rounded-full bg-(--sys-color-surface-container-high) px-2 py-0.5 font-mono ${T_LABEL} ${F_INK_SOFT}`}
+              >
                 {String(leaf.value)}
               </span>
             </div>

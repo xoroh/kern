@@ -1,4 +1,5 @@
-import { T_LABEL_LG } from "../../domains/shared/systems/type-scale";
+import { Icon } from "@xoroh/kern-icons";
+import { T_BODY_SM, T_CODE } from "../../domains/shared/systems/type-scale";
 
 /**
  * Preview honesty banner — one line, every page.
@@ -12,19 +13,21 @@ import { T_LABEL_LG } from "../../domains/shared/systems/type-scale";
  */
 export function PreviewBanner() {
   return (
-    <p
+    <div
       role="note"
       aria-label="Preview status"
-      className={`m-0 bg-(--sys-color-secondary-container) px-4 py-2 text-center text-(--sys-color-on-secondary-container) ${T_LABEL_LG}`}
+      className={`m-0 flex items-center justify-center gap-2 border-t border-(--sys-color-outline-variant)/60 bg-(--sys-color-surface-container) px-4 py-1.5 text-center text-(--sys-color-on-surface-variant) ${T_BODY_SM}`}
     >
-      <span className="sm:hidden">
-        0.1.0 Preview — install from a checkout.
+      <span className="inline-flex items-center gap-1 rounded-full bg-(--sys-color-secondary-container) px-2 py-0.5 text-(--sys-color-on-secondary-container)">
+        <Icon name="science" size={14} />
+        <span>0.1.0 Preview</span>
       </span>
+      <span className="sm:hidden">Install from a checkout.</span>
       <span className="hidden sm:inline">
-        Kern 0.1.0 Preview — packages are unpublished (<code>0.0.0</code>
-        ). Install from a checkout; <code>npm i</code> and <code>kern add</code>{" "}
-        commands run at release.
+        Packages are unpublished (<code className={T_CODE}>0.0.0</code>).
+        Install from a checkout; <code className={T_CODE}>npm i</code> and{" "}
+        <code className={T_CODE}>kern add</code> commands run at release.
       </span>
-    </p>
+    </div>
   );
 }

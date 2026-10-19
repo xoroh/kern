@@ -29,8 +29,7 @@ import type {
   PropRow,
   RestingElevation,
 } from "../../content/types";
-import { MOBILE_DEMOS } from "../../demos/mobile/registry";
-import { WEB_DEMOS } from "../../demos/web/registry";
+import { useDemoRegistries, useShowcaseRegistry } from "../../demos/lazy";
 import {
   Breadcrumbs,
   type Crumb,
@@ -44,11 +43,6 @@ import { PROPS_TABLE } from "../../generated/props-table";
 import { Configurator } from "../../showcase/configurator";
 import { CopyButton } from "../../showcase/copy-button";
 import { ExampleList } from "../../showcase/example";
-import {
-  CONFIGURATORS,
-  configuratorFor,
-  examplesFor,
-} from "../../showcase/registry";
 import {
   hasFaq,
   hasLimitations,
@@ -231,22 +225,26 @@ function HeaderLinks({
     { label: "WAI-ARIA", href: meta.apgUrl },
   ];
   return (
-    <div className={`flex flex-wrap items-center gap-x-4 gap-y-1 ${SMALL}`}>
-      <span className={INK_SOFT}>{facts.join(" · ")}</span>
-      {links.map((l) =>
-        l.href ? (
-          <a
-            key={l.label}
-            href={l.href}
-            rel="noreferrer"
-            target="_blank"
-            className="text-(--sys-color-secondary) no-underline hover:underline"
-          >
-            {l.label} <span aria-hidden="true">↗</span>
-          </a>
-        ) : null,
-      )}
-      <CopyMarkdownButton platform={platform} />
+    <div
+      className={`flex flex-wrap items-center justify-between gap-3 border-t border-(--sys-color-outline-variant)/70 pt-4 ${SMALL}`}
+    >
+      <span className={CHIP}>{facts.join(" · ")}</span>
+      <div className="flex flex-wrap items-center gap-2">
+        {links.map((l) =>
+          l.href ? (
+            <a
+              key={l.label}
+              href={l.href}
+              rel="noreferrer"
+              target="_blank"
+              className={`inline-flex items-center gap-1 rounded-full border border-(--sys-color-outline-variant) bg-(--sys-color-surface) px-3 py-1 text-(--sys-color-secondary) no-underline hover:bg-(--sys-color-surface-container-high) hover:underline ${TRANSITION}`}
+            >
+              {l.label} <span aria-hidden="true">↗</span>
+            </a>
+          ) : null,
+        )}
+        <CopyMarkdownButton platform={platform} />
+      </div>
     </div>
   );
 }
@@ -273,8 +271,27 @@ function DemoContent({
   doc: ComponentDoc;
   platform: Platform;
 }) {
-  const demo = platform === "web" ? WEB_DEMOS : MOBILE_DEMOS;
-  const live = demo[doc.parts[0]];
+  // Demo registries arrive async (see `demos/lazy`): the web registry pulls
+  // every web demo and the mobile registry pulls `@xoroh/kern-native`, so
+  // neither belongs in this route chunk. Only the ACTIVE tab's side loads —
+  // a web-tab page never downloads the native renderer. SSR and prerender
+  // emit the fixed-height skeleton below; the client swaps in the live demo
+  // (or the honest gap text) when the chunk lands.
+  const mods = useDemoRegistries(platform);
+  const demoMap =
+    platform === "web" ? mods.web?.WEB_DEMOS : mods.mobile?.MOBILE_DEMOS;
+  if (!demoMap) {
+    return (
+      <div
+        className="flex min-h-64 flex-col items-center justify-center gap-2"
+        aria-hidden="true"
+      >
+        <div className="h-8 w-2/3 rounded-(--sys-shape-corner-small) bg-(--sys-color-surface-container-high)" />
+        <div className="h-8 w-1/2 rounded-(--sys-shape-corner-small) bg-(--sys-color-surface-container-high)" />
+      </div>
+    );
+  }
+  const live = demoMap[doc.parts[0]];
   return live ? (
     live()
   ) : (
@@ -287,11 +304,13 @@ function DemoContent({
 
 function Demo({ doc, platform }: { doc: ComponentDoc; platform: Platform }) {
   return (
-    <section className="flex flex-col gap-4" aria-label="Demo">
-      <Heading id="demo">Demo</Heading>
+    <section className="flex flex-col gap-5" aria-label="Demo">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <Heading id="demo">Demo</Heading>
+        <PlaygroundLinks doc={doc} platform={platform} />
+      </div>
       <DemoContent doc={doc} platform={platform} />
       <StatesStrip doc={doc} />
-      <PlaygroundLinks doc={doc} platform={platform} />
       <InstallationBlock doc={doc} platform={platform} />
       <ExamplesBlock doc={doc} />
     </section>
@@ -325,16 +344,27 @@ function StatesStrip({ doc }: { doc: ComponentDoc }) {
     { label: "Drag", opacity: STATE_LAYER_OPACITIES.drag },
   ];
   return (
-    <div className="flex flex-col gap-2">
-      <Heading id="states" level={3}>
-        States
-      </Heading>
-      <div className="flex flex-wrap gap-2">
+    <div className={`${CARD} flex flex-col gap-3 p-5`}>
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <Heading id="states" level={3}>
+          States
+        </Heading>
+        <a
+          className={`${SMALL} text-(--sys-color-secondary) no-underline hover:underline`}
+          href="/foundations/m3/states"
+        >
+          M3 state layer specification →
+        </a>
+      </div>
+      <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-5">
         {layers.map((layer) => (
-          <div key={layer.label} className="flex flex-col items-center gap-1">
+          <div
+            key={layer.label}
+            className="flex flex-col items-center gap-1.5 rounded-(--sys-shape-corner-medium) border border-(--sys-color-outline-variant)/70 bg-(--sys-color-surface-container-lowest) p-2.5"
+          >
             <span
               aria-hidden="true"
-              className="relative block h-10 w-16 overflow-hidden rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant) bg-(--sys-color-surface)"
+              className="relative flex h-10 w-full items-center justify-center overflow-hidden rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant) bg-(--sys-color-surface)"
             >
               <span
                 className="absolute inset-0"
@@ -343,15 +373,17 @@ function StatesStrip({ doc }: { doc: ComponentDoc }) {
                   opacity: layer.opacity,
                 }}
               />
+              <span className={`relative z-10 font-mono ${TINY} ${INK}`}>
+                {Math.round(layer.opacity * 100)}%
+              </span>
             </span>
-            <span className={`${TINY} ${INK_SOFT}`}>{layer.label}</span>
+            <span className={`${TINY} ${INK}`}>{layer.label}</span>
           </div>
         ))}
       </div>
       <p className={PROSE}>
-        State layers are {""}
-        <code>on-surface</code> at 8% hover, 10% focus, 10% press and 16% drag
-        over the container — never a color swap.{" "}
+        State layers apply <code>on-surface</code> at 8% hover, 10% focus, 10%
+        press, and 16% drag over the container — never a manual color swap.{" "}
         <a
           className="text-(--sys-color-secondary) underline underline-offset-2"
           href="/foundations/m3/states"
@@ -392,16 +424,16 @@ function PlaygroundLinks({
 }) {
   const exportName = doc.parts[0];
   return (
-    <div className={`flex flex-wrap items-center gap-x-4 gap-y-1 ${SMALL}`}>
+    <div className={`flex flex-wrap items-center gap-2 ${SMALL}`}>
       <a
-        className="text-(--sys-color-secondary) no-underline hover:underline"
+        className={`inline-flex items-center gap-1 rounded-full bg-(--sys-color-secondary-container) px-3.5 py-1.5 text-(--sys-color-on-secondary-container) no-underline ${TRANSITION}`}
         href={registrySearchHref(exportName)}
       >
         Open in playground <span aria-hidden="true">↗</span>
       </a>
       {platform === "web" ? (
         <a
-          className="text-(--sys-color-secondary) no-underline hover:underline"
+          className={`inline-flex items-center gap-1 rounded-full border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container-low) px-3.5 py-1.5 text-(--sys-color-secondary) no-underline hover:bg-(--sys-color-surface-container-high) ${TRANSITION}`}
           href={THEME_CONFIGURATOR_HREF}
         >
           Theme configurator <span aria-hidden="true">↗</span>
@@ -543,26 +575,26 @@ function SemanticDom({ doc }: { doc: ComponentDoc }) {
   const aria = doc.aria ?? [];
   if (rows.length === 0 && aria.length === 0) return null;
   return (
-    <section className="flex flex-col gap-3">
+    <section className="flex flex-col gap-4">
       <Heading id="semantic-dom">Semantic DOM</Heading>
       <p className={PROSE}>
         What this family renders as — the parts it is built from and the roles
         assistive tech is handed.
       </p>
       {rows.length > 0 ? (
-        <>
+        <div className={`${CARD} flex flex-col gap-3 p-5`}>
           <Heading id="anatomy" level={3}>
             Anatomy
           </Heading>
-          <ul className="m-0 flex flex-col gap-2">
+          <ul className="m-0 flex list-none flex-col gap-2 p-0">
             {rows.map((part, index) => (
               <AnatomyRow key={part.name} part={part} index={index} />
             ))}
           </ul>
-        </>
+        </div>
       ) : null}
       {aria.length > 0 && (
-        <>
+        <div className={`${CARD} flex flex-col gap-3 p-5`}>
           <Heading id="contract" level={3}>
             Roles
           </Heading>
@@ -571,7 +603,7 @@ function SemanticDom({ doc }: { doc: ComponentDoc }) {
               <li key={line}>{line}</li>
             ))}
           </ul>
-        </>
+        </div>
       )}
     </section>
   );
@@ -585,7 +617,7 @@ function SemanticDom({ doc }: { doc: ComponentDoc }) {
  */
 function AnatomyRow({ part, index }: { part: PartRow; index: number }) {
   return (
-    <li className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-4">
+    <li className="flex flex-col gap-1.5 rounded-(--sys-shape-corner-large) border border-(--sys-color-outline-variant)/60 bg-(--sys-color-surface-container-lowest) px-4 py-3 sm:flex-row sm:items-center sm:gap-4">
       <span
         aria-hidden="true"
         className={`inline-flex size-6 shrink-0 items-center justify-center rounded-full bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container) ${TINY}`}
@@ -593,7 +625,7 @@ function AnatomyRow({ part, index }: { part: PartRow; index: number }) {
         {index + 1}
       </span>
       <code
-        className={`shrink-0 font-mono ${SMALL} text-(--sys-color-secondary)`}
+        className={`shrink-0 rounded-(--sys-shape-corner-extra-small) bg-(--sys-color-surface-container-high) px-2 py-0.5 font-mono ${SMALL} text-(--sys-color-on-surface)`}
       >
         {part.name}
       </code>
@@ -657,43 +689,55 @@ function WhenToUse({ doc }: { doc: ComponentDoc }) {
   const hasDont = use.dont.length > 0;
   if (!hasDo && !hasDont) return null;
   return (
-    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
       {hasDo ? (
-        <div className={`${CARD} p-4`}>
-          <Heading id="do" level={3}>
-            <span className="text-(--sys-color-secondary)" aria-hidden="true">
-              ✓
-            </span>{" "}
-            Do
-          </Heading>
-          <ul
-            className={`m-0 mt-2 flex list-disc flex-col gap-2 pl-5 ${SMALL} ${INK_SOFT}`}
-          >
-            {use.do.map((line) => (
-              <li key={line}>{line}</li>
-            ))}
-          </ul>
+        <div className={`${CARD} overflow-hidden`}>
+          <div className="h-1.5 w-full bg-(--sys-color-success)" />
+          <div className="p-5">
+            <Heading id="do" level={3}>
+              <span
+                className="mr-1.5 inline-flex size-6 items-center justify-center rounded-full bg-(--sys-color-success-container) text-(--sys-color-on-success-container)"
+                aria-hidden="true"
+              >
+                ✓
+              </span>{" "}
+              Do
+            </Heading>
+            <ul
+              className={`m-0 mt-3 flex list-disc flex-col gap-2 pl-5 ${SMALL} ${INK_SOFT}`}
+            >
+              {use.do.map((line) => (
+                <li key={line}>{line}</li>
+              ))}
+            </ul>
+          </div>
         </div>
       ) : null}
       {hasDont ? (
-        <div className={`${CARD} p-4`}>
-          <Heading id="dont" level={3}>
-            <span className="text-(--sys-color-error)" aria-hidden="true">
-              ✕
-            </span>{" "}
-            Don&rsquo;t
-          </Heading>
-          <ul
-            className={`m-0 mt-2 flex list-disc flex-col gap-2 pl-5 ${SMALL} ${INK_SOFT}`}
-          >
-            {use.dont.map((line) => (
-              <li key={line}>{line}</li>
-            ))}
-          </ul>
+        <div className={`${CARD} overflow-hidden`}>
+          <div className="h-1.5 w-full bg-(--sys-color-error)" />
+          <div className="p-5">
+            <Heading id="dont" level={3}>
+              <span
+                className="mr-1.5 inline-flex size-6 items-center justify-center rounded-full bg-(--sys-color-error-container) text-(--sys-color-on-error-container)"
+                aria-hidden="true"
+              >
+                ✕
+              </span>{" "}
+              Don&rsquo;t
+            </Heading>
+            <ul
+              className={`m-0 mt-3 flex list-disc flex-col gap-2 pl-5 ${SMALL} ${INK_SOFT}`}
+            >
+              {use.dont.map((line) => (
+                <li key={line}>{line}</li>
+              ))}
+            </ul>
+          </div>
         </div>
       ) : null}
       {!hasDo || !hasDont ? (
-        <div className={`${CARD} p-4`}>
+        <div className={`${CARD} p-5`}>
           <p className={`m-0 ${SMALL} ${INK_SOFT}`}>
             This rule is one-sided: the {hasDo ? "Don’t" : "Do"} half is not
             written yet.{" "}
@@ -717,11 +761,32 @@ function WhenToUse({ doc }: { doc: ComponentDoc }) {
  * render no subsection, rather than an empty promise.
  */
 function ExamplesBlock({ doc }: { doc: ComponentDoc }) {
-  const examples = doc.parts.flatMap((part) => examplesFor(part));
+  // The showcase registry (every configurator + example, plus the barrel
+  // `<Icon>` the configurator stages render) arrives async with the demos —
+  // see `demos/lazy`. SSR and prerender emit the heading with a fixed-height
+  // skeleton; the client swaps in examples/configurator when the chunk lands.
+  const showcase = useShowcaseRegistry();
+  if (!showcase) {
+    return (
+      <>
+        <Heading id="examples" level={3}>
+          Examples
+        </Heading>
+        <div
+          className="flex min-h-40 flex-col items-center justify-center gap-2"
+          aria-hidden="true"
+        >
+          <div className="h-8 w-2/3 rounded-(--sys-shape-corner-small) bg-(--sys-color-surface-container-high)" />
+          <div className="h-8 w-1/2 rounded-(--sys-shape-corner-small) bg-(--sys-color-surface-container-high)" />
+        </div>
+      </>
+    );
+  }
+  const examples = doc.parts.flatMap((part) => showcase.examplesFor(part));
   // First registered configurator across the family's parts, if any —
   // flagships only, so most pages see nothing here.
   const configurator = doc.parts
-    .map((part) => configuratorFor(part))
+    .map((part) => showcase.configuratorFor(part))
     .find((c) => c !== undefined);
   if (examples.length === 0 && !configurator) return null;
   return (
@@ -733,9 +798,9 @@ function ExamplesBlock({ doc }: { doc: ComponentDoc }) {
       {!configurator && examples.length > 0 ? (
         <p className={SMALL}>
           Interactive knob panels ship for a flagship subset only (
-          {Object.keys(CONFIGURATORS).length} components) — knobs are a teaching
-          extra, not the contract. Every component carries live demos and
-          examples regardless.
+          {Object.keys(showcase.CONFIGURATORS).length} components) — knobs are a
+          teaching extra, not the contract. Every component carries live demos
+          and examples regardless.
         </p>
       ) : null}
       <ExampleList examples={examples} />
@@ -1167,7 +1232,7 @@ function Accessibility({
       <Heading id="accessibility">Accessibility</Heading>
 
       {keyboard?.length ? (
-        <>
+        <div className={`${CARD} flex flex-col gap-3 p-5`}>
           <Heading id="keyboard" level={3}>
             Keyboard
           </Heading>
@@ -1183,11 +1248,11 @@ function Accessibility({
                 {keyboard.map((row) => (
                   <tr
                     key={row.key}
-                    className="border-b border-(--sys-color-outline-variant)"
+                    className="border-b border-(--sys-color-outline-variant)/60 last:border-b-0"
                   >
                     <td className={TD}>
                       <kbd
-                        className={`rounded-(--sys-shape-corner-extra-small) border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container-high) px-1.5 py-0.5 ${KEYCAP} text-(--sys-color-on-surface)`}
+                        className={`rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container-high) px-2 py-0.5 ${KEYCAP} text-(--sys-color-on-surface)`}
                       >
                         {row.key}
                       </kbd>
@@ -1202,7 +1267,7 @@ function Accessibility({
               </tbody>
             </table>
           </div>
-        </>
+        </div>
       ) : null}
 
       <DemoExpectations page={a11y} />
@@ -1472,11 +1537,11 @@ function partRows(part: string, content: PropRow[]): ApiRow[] | null {
  */
 function PropRows({ rows }: { rows: ApiRow[] }) {
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col gap-1.5">
       {rows.map((row) => (
         <details
           key={row.name}
-          className="group rounded-(--sys-shape-corner-small) border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container-low) px-3 py-2"
+          className="group rounded-(--sys-shape-corner-medium) border border-(--sys-color-outline-variant)/70 bg-(--sys-color-surface-container-lowest) px-4 py-2.5"
         >
           <summary
             className={`flex cursor-pointer list-none flex-wrap items-baseline gap-x-3 gap-y-1 ${SMALL}`}
@@ -1485,12 +1550,14 @@ function PropRows({ rows }: { rows: ApiRow[] }) {
               {row.name}
             </code>
             {row.required ? (
-              <span className={`${TINY} text-(--sys-color-error)`}>
+              <span
+                className={`rounded-full bg-(--sys-color-error-container) px-2 py-0.5 ${TINY} text-(--sys-color-on-error-container)`}
+              >
                 required
               </span>
             ) : null}
             <code
-              className={`font-mono text-(--sys-color-on-surface-variant) ${TINY}`}
+              className={`rounded-(--sys-shape-corner-extra-small) bg-(--sys-color-surface-container-high) px-1.5 py-0.5 font-mono text-(--sys-color-on-surface-variant) ${TINY}`}
             >
               {row.type}
             </code>
@@ -1501,7 +1568,11 @@ function PropRows({ rows }: { rows: ApiRow[] }) {
             </span>
           </summary>
           {row.note ? (
-            <p className={`m-0 mt-1 ${SMALL} ${INK_SOFT}`}>{row.note}</p>
+            <p
+              className={`m-0 mt-2 border-t border-(--sys-color-outline-variant)/50 pt-2 ${SMALL} ${INK_SOFT}`}
+            >
+              {row.note}
+            </p>
           ) : null}
         </details>
       ))}
@@ -1511,10 +1582,12 @@ function PropRows({ rows }: { rows: ApiRow[] }) {
 
 function PropTable({ rows, caption }: { rows: ApiRow[]; caption?: string }) {
   return (
-    <div className="flex flex-col gap-2">
+    <div className={`${CARD} flex flex-col gap-3 p-5`}>
       {caption ? (
         <p className={`m-0 ${LABEL} ${INK}`}>
-          <code className="font-mono">{caption}</code>
+          <code className="rounded-full bg-(--sys-color-secondary-container) px-3 py-1 font-mono text-(--sys-color-on-secondary-container)">
+            {caption}
+          </code>
         </p>
       ) : null}
       <PropRows rows={rows} />
@@ -1817,8 +1890,8 @@ export function ComponentPage({
     href: `/components/m3/${familySlug}?tab=${id}`,
   }));
   return (
-    <article className="flex min-w-0 flex-col gap-14" data-copy-md-root>
-      <header className="flex flex-col gap-3">
+    <article className="flex min-w-0 flex-col gap-12" data-copy-md-root>
+      <header className={`${CARD} flex flex-col gap-4 p-6 sm:p-8`}>
         <Breadcrumbs items={crumbs} />
         <div className="flex flex-wrap items-end justify-between gap-3">
           <span className="flex flex-wrap items-center gap-3">
@@ -1844,15 +1917,8 @@ export function ComponentPage({
             </a>
           </p>
         ) : null}
-        <p className={`m-0 max-w-[62ch] ${LEDE} ${INK_SOFT}`}>{doc.oneLiner}</p>
-        <details className="group">
-          <summary
-            className={`cursor-pointer ${LABEL} text-(--sys-color-on-surface-variant) uppercase`}
-          >
-            About
-          </summary>
-          <p className={`mt-2 ${PROSE}`}>{doc.features}</p>
-        </details>
+        <p className={`m-0 max-w-[65ch] ${LEDE} ${INK}`}>{doc.oneLiner}</p>
+        <p className={`m-0 ${PROSE}`}>{doc.features}</p>
         <HeaderLinks doc={doc} platform={platform} />
       </header>
 

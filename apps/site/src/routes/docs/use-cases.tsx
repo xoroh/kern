@@ -55,7 +55,7 @@ function UseCases() {
   return (
     <SiteLayout>
       <PageCard gap={10}>
-        <header className="flex flex-col gap-3">
+        <header className="site-docs-welcome flex flex-col gap-3">
           <Kicker className={INK_SOFT}>Docs</Kicker>
           <h1 className={`m-0 ${T_PAGE} ${INK}`}>Use cases</h1>
           <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>

@@ -49,6 +49,8 @@ const JOURNEYS = [
   {
     title: "Build an app",
     icon: "code" as const,
+    iconTone:
+      "bg-(--sys-color-primary-container) text-(--sys-color-on-primary-container)",
     what: "Install, set a theme, ship a screen. Web or native — one contract.",
     to: "/docs/getting-started" as const,
     cta: "Start building",
@@ -56,6 +58,8 @@ const JOURNEYS = [
   {
     title: "Understand the system",
     icon: "menu-book" as const,
+    iconTone:
+      "bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container)",
     what: "Tokens, roles, shape, motion — the decisions beneath the components.",
     to: "/foundations" as const,
     cta: "Open foundations",
@@ -63,6 +67,8 @@ const JOURNEYS = [
   {
     title: "Migrate",
     icon: "arrow-forward" as const,
+    iconTone:
+      "bg-(--sys-color-tertiary-container) text-(--sys-color-on-tertiary-container)",
     what: "Coming from Material or another kit? The guides hold the honest delta.",
     to: "/docs/guides" as const,
     cta: "Read the guides",
@@ -122,10 +128,12 @@ function DocsIndex() {
           <h2 id="journeys" className={`m-0 ${T_SMALL_TITLE}`}>
             Where do I fit
           </h2>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             {JOURNEYS.map((j) => (
               <Link key={j.title} to={j.to} className={CARD_LINK}>
-                <span className="site-journey-icon">
+                <span
+                  className={`mb-4 flex size-12 items-center justify-center rounded-(--sys-shape-corner-large) ${j.iconTone}`}
+                >
                   <Icon name={j.icon} size={24} />
                 </span>
                 <p className={`m-0 ${T_SMALL_TITLE}`}>{j.title}</p>
@@ -145,16 +153,19 @@ function DocsIndex() {
           <h2 id="section-map" className={`m-0 ${T_SMALL_TITLE}`}>
             What is here
           </h2>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {SECTIONS.map((s) => (
               <div key={s.title} className={CARD_LINK}>
                 <p className={`m-0 ${T_SMALL_TITLE}`}>{s.title}</p>
-                <p className={`m-0 mt-2 ${T_BODY_SM} ${SOFT}`}>{s.why}</p>
-                <ul className="m-0 mt-3 flex list-none flex-col gap-1 p-0">
+                <p className={`m-0 mt-1.5 ${T_BODY_SM} ${SOFT}`}>{s.why}</p>
+                <ul className="m-0 mt-4 flex list-none flex-wrap gap-2 border-t border-(--sys-color-outline-variant)/60 pt-3 p-0">
                   {s.links.map((l) => (
                     <li key={l.to}>
-                      <Link to={l.to} className={`${LINK} ${T_BODY_SM}`}>
-                        {l.label}
+                      <Link
+                        to={l.to}
+                        className={`inline-flex items-center gap-1 rounded-full bg-(--sys-color-surface-container-lowest) border border-(--sys-color-outline-variant)/80 px-3 py-1.5 no-underline hover:bg-(--sys-color-secondary-container) hover:text-(--sys-color-on-secondary-container) ${T_BODY_SM} text-(--sys-color-on-surface)`}
+                      >
+                        {l.label} <span aria-hidden="true">→</span>
                       </Link>
                     </li>
                   ))}

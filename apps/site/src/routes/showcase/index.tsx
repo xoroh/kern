@@ -68,7 +68,7 @@ function Showcase() {
   return (
     <SiteLayout>
       <PageCard width="wide" gap={12}>
-        <header className="flex flex-col gap-3">
+        <header className="site-docs-welcome flex flex-col gap-3">
           <Kicker className={INK_SOFT}>Blocks</Kicker>
           <h1 className={`m-0 ${T_PAGE} ${INK}`}>Blocks</h1>
           <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>

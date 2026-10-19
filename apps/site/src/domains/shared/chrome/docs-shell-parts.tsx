@@ -157,8 +157,8 @@ export function PlatformTabs({
               TRANSITION,
               FOCUS_RING,
               isActive
-                ? "bg-(--sys-color-primary-container) text-(--sys-color-on-primary-container)"
-                : `bg-(--sys-color-surface-container-low) text-(--sys-color-on-surface-variant) ${STATE_LAYERS}`,
+                ? "bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container)"
+                : `border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container-low) text-(--sys-color-on-surface-variant) ${STATE_LAYERS}`,
             )}
           >
             {tab.label}

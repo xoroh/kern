@@ -33,7 +33,7 @@ function Primitives() {
   return (
     <SiteLayout>
       <PageCard>
-        <header className="flex flex-col gap-3">
+        <header className="site-docs-welcome flex flex-col gap-3">
           <Kicker>Primitives</Kicker>
           <h1 className={`m-0 ${T_PAGE}`}>Behavior kernel, no visuals</h1>
           <p
@@ -58,15 +58,18 @@ function Primitives() {
         <h2 id="modules" className={`m-0 ${T_SECTION}`}>
           Modules
         </h2>
-        <ul className="m-0 flex list-none flex-col gap-4 p-0">
+        <ul className="m-0 grid list-none grid-cols-1 gap-3 p-0 sm:grid-cols-2">
           {PRIMITIVE_MODULES.map((m) => (
-            <li key={m.slug} className="flex flex-col gap-1">
+            <li
+              key={m.slug}
+              className="flex flex-col gap-1.5 rounded-(--sys-shape-corner-extra-large) border border-(--sys-color-outline-variant)/70 bg-(--sys-color-surface-container-low) p-5"
+            >
               <Link
                 to="/primitives/$module"
                 params={{ module: m.slug }}
                 className={LINK}
               >
-                {m.title}
+                {m.title} →
               </Link>
               <p
                 className={`m-0 ${T_BODY} text-(--sys-color-on-surface-variant)`}

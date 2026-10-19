@@ -88,7 +88,7 @@ export function PatternsHub() {
   return (
     <SiteLayout>
       <PageCard>
-        <header className="flex flex-col gap-3">
+        <header className="site-docs-welcome flex flex-col gap-3">
           <h1 className={`m-0 ${T_PAGE} ${INK}`}>Patterns</h1>
           <p className={`m-0 max-w-[62ch] ${T_LEAD} ${INK_SOFT}`}>
             Recurring product shapes composed from shipped components.

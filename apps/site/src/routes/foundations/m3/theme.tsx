@@ -166,7 +166,7 @@ function ThemePage() {
   return (
     <SiteLayout>
       <PageCard gap={10} copyMd>
-        <header className="flex flex-col gap-3">
+        <header className="site-docs-welcome flex flex-col gap-3">
           <Kicker>Theme</Kicker>
           <h1 className={`m-0 ${T_PAGE} text-(--sys-color-on-surface)`}>
             One theme source, both platforms

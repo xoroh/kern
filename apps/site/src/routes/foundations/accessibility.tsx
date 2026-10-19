@@ -66,7 +66,7 @@ function Accessibility() {
   return (
     <SiteLayout>
       <PageCard gap={12}>
-        <header className="flex flex-col gap-3">
+        <header className="site-docs-welcome flex flex-col gap-3">
           <Kicker className={INK_SOFT}>Accessibility</Kicker>
           <h1 className={`m-0 ${T_PAGE} ${INK}`}>Accessibility statement</h1>
           <p className={PROSE}>

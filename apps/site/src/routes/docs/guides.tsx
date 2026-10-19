@@ -95,7 +95,7 @@ function Guides() {
   return (
     <SiteLayout>
       <PageCard>
-        <header className="flex flex-col gap-3">
+        <header className="site-docs-welcome flex flex-col gap-3">
           <Kicker>Docs / Guides</Kicker>
           <h1 className={`m-0 ${T_PAGE} text-(--sys-color-on-surface)`}>
             Guides

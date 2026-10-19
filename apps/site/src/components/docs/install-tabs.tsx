@@ -65,8 +65,8 @@ export function InstallTabs({ target }: { target: string }) {
             onClick={() => choose(m.id)}
             className={`min-h-12 cursor-pointer rounded-(--sys-shape-corner-full) border px-4 ${T_BODY_SM} ${
               manager === m.id
-                ? "border-(--sys-color-primary) bg-(--sys-color-primary-container) text-(--sys-color-on-primary-container)"
-                : "border-(--sys-color-outline) text-(--sys-color-on-surface-variant) hover:bg-(--sys-color-on-surface)/8 active:bg-(--sys-color-on-surface)/12"
+                ? "border-transparent bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container)"
+                : "border-(--sys-color-outline-variant) bg-(--sys-color-surface) text-(--sys-color-on-surface-variant) hover:bg-(--sys-color-on-surface)/8 active:bg-(--sys-color-on-surface)/12"
             }`}
           >
             {m.label}

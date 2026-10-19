@@ -80,16 +80,25 @@ export function Footer() {
         {/* Brand block — the footer's own header, so the band reads as a
             closing statement rather than a link dump. */}
         <div className="mb-10 flex flex-col gap-2">
-          <p className={`m-0 ${T_SUB} text-(--sys-color-on-surface)`}>
-            Kern<span className="text-(--sys-color-primary)">.</span>{" "}
-            <span className="text-(--sys-color-on-surface-variant)">
-              by Xoroh
+          <div className="flex items-center gap-2.5">
+            <span
+              aria-hidden="true"
+              className={`flex size-8 items-center justify-center rounded-(--sys-shape-corner-small) bg-(--sys-color-primary) text-(--sys-color-on-primary) ${T_BODY_MD}`}
+            >
+              K
             </span>
-          </p>
+            <p className={`m-0 ${T_SUB} text-(--sys-color-on-surface)`}>
+              Kern{" "}
+              <span className="text-(--sys-color-on-surface-variant)">
+                by Xoroh
+              </span>
+            </p>
+          </div>
           <p
-            className={`m-0 max-w-[52ch] ${T_BODY} ${"text-(--sys-color-on-surface-variant)"}`}
+            className={`m-0 max-w-[52ch] ${T_BODY} text-(--sys-color-on-surface-variant)`}
           >
-            Components, tokens, and docs for web and native — from one source.
+            Material 3 components, DTCG tokens, and agent-first docs for React
+            and React Native — from one source.
           </p>
         </div>
         <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">

@@ -662,11 +662,17 @@ export function Playground({
         chroma: 0.012,
       });
 
+      const neutralVariantRamp = makeHueRamp({
+        hue: baseOklch.h,
+        chroma: 0.024,
+      });
+
       return {
         primary: primaryRamp,
         secondary: secondaryRamp,
         tertiary: tertiaryRamp,
         neutral: neutralRamp,
+        neutralVariant: neutralVariantRamp,
       };
     } catch {
       return null;
@@ -1002,7 +1008,7 @@ export const playgroundTheme = defineThemePreset({
                     Design System
                   </span>
                   <span
-                    className={`${T_LABEL} font-mono px-2 py-0.5 rounded-full bg-(--sys-color-primary)/15 text-(--sys-color-primary)`}
+                    className={`${T_LABEL} font-mono px-2 py-0.5 rounded-full bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container)`}
                   >
                     {
                       SYSTEM_OPTIONS.find((sys) => sys.id === activeSystem)
@@ -1158,7 +1164,7 @@ export const playgroundTheme = defineThemePreset({
                         onClick={() => setRadius(opt.factor)}
                         className={`flex py-2 items-center justify-center rounded-(--sys-shape-corner-medium) text-center ${T_BODY_SM} ${TRANSITION} ${FOCUS_RING} ${
                           isSelected
-                            ? "bg-(--sys-color-primary) text-(--sys-color-on-primary)"
+                            ? "bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container)"
                             : "bg-(--sys-color-surface-container-high) text-(--sys-color-on-surface-variant) hover:text-(--sys-color-on-surface)"
                         }`}
                       >
@@ -1206,7 +1212,7 @@ export const playgroundTheme = defineThemePreset({
                         onClick={() => setFont(fontOpt.id)}
                         className={`px-2 py-2 rounded-(--sys-shape-corner-medium) text-center ${T_BODY_SM} ${TRANSITION} ${FOCUS_RING} ${
                           isSelected
-                            ? "bg-(--sys-color-primary) text-(--sys-color-on-primary)"
+                            ? "bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container)"
                             : "bg-(--sys-color-surface-container-high) text-(--sys-color-on-surface-variant) hover:text-(--sys-color-on-surface)"
                         }`}
                       >
@@ -1234,7 +1240,7 @@ export const playgroundTheme = defineThemePreset({
                         onClick={() => setDensity(dens.id)}
                         className={`px-2 py-2 rounded-(--sys-shape-corner-medium) text-center ${T_BODY_SM} ${TRANSITION} ${FOCUS_RING} ${
                           isSelected
-                            ? "bg-(--sys-color-primary) text-(--sys-color-on-primary)"
+                            ? "bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container)"
                             : "bg-(--sys-color-surface-container-high) text-(--sys-color-on-surface-variant) hover:text-(--sys-color-on-surface)"
                         }`}
                       >
@@ -1284,7 +1290,7 @@ export const playgroundTheme = defineThemePreset({
                         onClick={() => setTokenFilter(filter)}
                         className={`rounded-full px-3 py-1 ${T_BODY_SM} ${TRANSITION} ${
                           tokenFilter === filter
-                            ? "bg-(--sys-color-primary) text-(--sys-color-on-primary)"
+                            ? "bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container)"
                             : "bg-(--sys-color-surface-container-high) text-(--sys-color-on-surface-variant) hover:text-(--sys-color-on-surface)"
                         }`}
                       >
@@ -1476,7 +1482,7 @@ export const playgroundTheme = defineThemePreset({
                 onClick={() => setPreviewView(v.id)}
                 className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full ${T_BODY_SM} ${TRANSITION} ${FOCUS_RING} ${
                   previewView === v.id
-                    ? "bg-(--sys-color-primary) text-(--sys-color-on-primary)"
+                    ? "bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container)"
                     : "text-(--sys-color-on-surface-variant) hover:text-(--sys-color-on-surface)"
                 }`}
               >
@@ -2098,7 +2104,7 @@ export const playgroundTheme = defineThemePreset({
                       onClick={() => setSelectedBlock("all")}
                       className={`px-3 py-1.5 rounded-full ${T_BODY_SM} ${TRANSITION} shrink-0 ${FOCUS_RING} ${
                         selectedBlock === "all"
-                          ? "bg-(--sys-color-primary) text-(--sys-color-on-primary)"
+                          ? "bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container)"
                           : "bg-(--sys-color-surface-container) text-(--sys-color-on-surface-variant) hover:text-(--sys-color-on-surface)"
                       }`}
                     >
@@ -2111,7 +2117,7 @@ export const playgroundTheme = defineThemePreset({
                         onClick={() => setSelectedBlock(b.entry.name)}
                         className={`px-3 py-1.5 rounded-full ${T_BODY_SM} ${TRANSITION} shrink-0 ${FOCUS_RING} ${
                           selectedBlock === b.entry.name
-                            ? "bg-(--sys-color-primary) text-(--sys-color-on-primary)"
+                            ? "bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container)"
                             : "bg-(--sys-color-surface-container) text-(--sys-color-on-surface-variant) hover:text-(--sys-color-on-surface)"
                         }`}
                       >
@@ -2196,6 +2202,10 @@ export const playgroundTheme = defineThemePreset({
                     { name: "Secondary Palette", ramp: tonalRamps.secondary },
                     { name: "Tertiary Palette", ramp: tonalRamps.tertiary },
                     { name: "Neutral Palette", ramp: tonalRamps.neutral },
+                    {
+                      name: "Neutral Variant Palette",
+                      ramp: tonalRamps.neutralVariant,
+                    },
                   ] as const
                 ).map(({ name, ramp }) => (
                   <div key={name} className="flex flex-col gap-3">

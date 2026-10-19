@@ -5,13 +5,10 @@ application design, not a change to the published component or token contracts.
 
 ## Sources and ownership
 
-- Colors resolve from `@xoroh/kern-tokens/theme` and the existing `kern` theme:
-  purple primary, muted violet secondary, rose tertiary, and neutral surfaces.
-- `apps/site/src/styles.css` owns the site shell, responsive marketing display,
-  illustrated specimens, and homepage layouts. Every color uses semantic roles;
-  there is no separate hardcoded marketing palette.
-- `apps/site/src/domains/shared/systems/ui.ts` owns shared rounded cards, tonal
-  demo stages, navigation states, and focus treatment.
+- Colors resolve from `@xoroh/kern-tokens/theme` and the `material-3` preset in `@xoroh/kern-m3`:
+  all five Material Design 3 baseline tonal palettes — Primary (`primary`), Secondary (`m3violet`), Tertiary (`m3rose`), Neutral (`m3neutral`), and Neutral Variant (`m3neutralVariant`) — feed the 58 semantic color roles across light, dark, and contrast contexts.
+- `apps/site/src/styles.css` owns the site shell, M3 surface-container reading panes, neutral demo stages, and homepage layouts. Every color uses semantic roles; primary purple is reserved for high-emphasis CTAs and active controls while navigation indicators, filter pills, and secondary accents use `secondary-container` / `secondary` and surfaces use the M3 Neutral container hierarchy (`surface-container-lowest` through `surface-container-highest`).
+- `apps/site/src/domains/shared/systems/ui.ts` owns shared rounded cards, tonal demo stages, navigation states, and focus treatment.
 - `apps/site/src/domains/shared/systems/type-scale.ts` owns typographic roles.
   Page titles use display-small; marketing headings adapt without changing the
   library's type tokens.

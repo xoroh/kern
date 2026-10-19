@@ -56,7 +56,7 @@ function SystemsHub() {
   return (
     <SiteLayout>
       <PageCard>
-        <header className="flex flex-col gap-3">
+        <header className="site-docs-welcome flex flex-col gap-3">
           <h1 className={`m-0 ${T_PAGE} ${INK}`}>Design systems</h1>
           <p className={`m-0 max-w-[62ch] ${T_LEAD} ${INK_SOFT}`}>
             Kern documents one design system today — Material 3 — and the tree
@@ -66,19 +66,26 @@ function SystemsHub() {
         </header>
 
         <nav
-          className="grid grid-cols-1 gap-3 sm:grid-cols-2"
+          className="grid grid-cols-1 gap-4 sm:grid-cols-2"
           aria-label="Design systems"
         >
           {DESIGN_SYSTEMS.map((system) => (
-            <div key={system.id} className={`${CARD} flex flex-col gap-1 p-5`}>
-              <span className={`m-0 ${T_SMALL_TITLE} ${INK}`}>
-                {system.label}
-              </span>
+            <div key={system.id} className={`${CARD} flex flex-col gap-2 p-6`}>
+              <div className="flex items-center justify-between gap-2">
+                <span className={`m-0 ${T_SMALL_TITLE} ${INK}`}>
+                  {system.label}
+                </span>
+                <span
+                  className={`rounded-full bg-(--sys-color-secondary-container) px-2.5 py-0.5 ${T_BODY_SM} text-(--sys-color-on-secondary-container)`}
+                >
+                  {system.status === "current" ? "Active" : system.status}
+                </span>
+              </div>
               <span className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
                 {system.status === "current" ? "Current system — " : ""}
                 {system.blurb}
               </span>
-              <span className="m-0 mt-2 flex flex-wrap gap-4">
+              <span className="m-0 mt-3 flex flex-wrap gap-3 border-t border-(--sys-color-outline-variant)/60 pt-3">
                 <Link
                   to={system.foundationsHref}
                   className={`m-0 ${T_BODY_SM} ${LINK}`}

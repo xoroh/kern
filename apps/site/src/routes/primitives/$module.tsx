@@ -96,7 +96,7 @@ function PrimitiveModulePage() {
           </header>
         ) : (
           <>
-            <header className="flex flex-col gap-3">
+            <header className="site-docs-welcome flex flex-col gap-3">
               <Breadcrumbs
                 items={[
                   { label: "Primitives", href: "/primitives" },
@@ -126,9 +126,12 @@ function PrimitiveModulePage() {
                 The pieces you wire. The module decides behavior; your renderer
                 draws the markup.
               </p>
-              <dl className="m-0 flex flex-col gap-3">
+              <dl className="m-0 flex flex-col gap-2.5 rounded-(--sys-shape-corner-extra-large) border border-(--sys-color-outline-variant)/70 bg-(--sys-color-surface-container-low) p-5">
                 {mod.anatomy.map((row) => (
-                  <div key={row.part} className="flex flex-col gap-1">
+                  <div
+                    key={row.part}
+                    className="flex flex-col gap-1 rounded-(--sys-shape-corner-large) border border-(--sys-color-outline-variant)/60 bg-(--sys-color-surface-container-lowest) p-3.5"
+                  >
                     <dt className={`m-0 ${T_SMALL_TITLE} font-mono`}>
                       {row.part}
                     </dt>
@@ -146,11 +149,14 @@ function PrimitiveModulePage() {
               <h2 id="api" className={`m-0 ${T_SECTION}`}>
                 API
               </h2>
-              <ul className="m-0 flex list-none flex-col gap-4 p-0">
+              <ul className="m-0 flex list-none flex-col gap-3 rounded-(--sys-shape-corner-extra-large) border border-(--sys-color-outline-variant)/70 bg-(--sys-color-surface-container-low) p-5">
                 {mod.api.map((row) => (
-                  <li key={row.signature} className="flex flex-col gap-1">
+                  <li
+                    key={row.signature}
+                    className="flex flex-col gap-1.5 rounded-(--sys-shape-corner-large) border border-(--sys-color-outline-variant)/60 bg-(--sys-color-surface-container-lowest) p-3.5"
+                  >
                     <code
-                      className={`m-0 ${T_BODY_SM} overflow-x-auto font-mono text-(--sys-color-on-surface)`}
+                      className={`m-0 ${T_BODY_SM} overflow-x-auto rounded-(--sys-shape-corner-small) bg-(--sys-color-surface-container-high) px-2.5 py-1 font-mono text-(--sys-color-on-surface)`}
                     >
                       {row.signature}
                     </code>
@@ -181,9 +187,12 @@ function PrimitiveModulePage() {
               <h2 id="exports" className={`m-0 ${T_SECTION}`}>
                 Barrel exports
               </h2>
-              <ul className="m-0 flex list-none flex-col gap-2 p-0">
+              <ul className="m-0 flex list-none flex-wrap gap-2 p-0">
                 {mod.exports.map((name) => (
-                  <li key={name} className={`m-0 ${T_BODY} font-mono`}>
+                  <li
+                    key={name}
+                    className={`m-0 rounded-full border border-(--sys-color-outline-variant) bg-(--sys-color-surface-container-low) px-3 py-1 ${T_BODY_SM} font-mono`}
+                  >
                     {name}
                   </li>
                 ))}

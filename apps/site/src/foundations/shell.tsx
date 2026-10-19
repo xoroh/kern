@@ -405,24 +405,36 @@ export function FoundationLayout({
 
   return (
     <article className="flex flex-col gap-10" data-copy-md-root>
-      <header className="flex flex-col gap-3">
-        <nav
-          className={`flex flex-wrap items-center gap-2 ${T_BODY_SM} ${INK_SOFT}`}
-          aria-label="Breadcrumb"
-        >
-          <Link to="/foundations">Design systems</Link>
-          <span aria-hidden="true">/</span>
-          <Link to="/foundations/m3">Material 3</Link>
-          <span aria-hidden="true">/</span>
-          <span className={INK}>{page.title}</span>
-        </nav>
+      <header className={`${CARD} flex flex-col gap-4 p-6 sm:p-8`}>
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <nav
+            className={`flex flex-wrap items-center gap-2 ${T_BODY_SM} ${INK_SOFT}`}
+            aria-label="Breadcrumb"
+          >
+            <Link
+              to="/foundations"
+              className="text-(--sys-color-on-surface-variant) no-underline hover:underline"
+            >
+              Design systems
+            </Link>
+            <span aria-hidden="true">/</span>
+            <Link
+              to="/foundations/m3"
+              className="text-(--sys-color-on-surface-variant) no-underline hover:underline"
+            >
+              Material 3
+            </Link>
+            <span aria-hidden="true">/</span>
+            <span className={INK}>{page.title}</span>
+          </nav>
+          <CopyMarkdownButton />
+        </div>
         <h1 className={`m-0 ${T_PAGE} ${INK}`}>{page.title}</h1>
-        <p className={`m-0 max-w-[62ch] ${T_LEAD} ${INK_SOFT}`}>
+        <p className={`m-0 max-w-[65ch] ${T_LEAD} ${INK_SOFT}`}>
           {page.oneLiner}
         </p>
-        <FDeviations items={page.deviations ?? []} />
-        <div>
-          <CopyMarkdownButton />
+        <div className="border-t border-(--sys-color-outline-variant)/70 pt-3">
+          <FDeviations items={page.deviations ?? []} />
         </div>
       </header>
 

@@ -26,8 +26,7 @@ import {
   familyFor,
 } from "../../content/families";
 import type { ComponentDoc } from "../../content/types";
-import { MOBILE_DEMOS, PREVIEW_REASONS } from "../../demos/mobile/registry";
-import { demoFor, WEB_PREVIEW_REASONS } from "../../demos/web/registry";
+import { type DemoRegistries, useDemoRegistries } from "../../demos/lazy";
 import {
   T_BODY_SM,
   T_LABEL,
@@ -268,22 +267,38 @@ function collect(platform?: "web" | "mobile"): GalleryCard[] {
 }
 
 /** How many families on a platform have at least one live demo. */
-export function demoCoverage(platform: "web" | "mobile"): {
+export function demoCoverage(
+  platform: "web" | "mobile",
+  mods: DemoRegistries | null,
+): {
   withDemo: number;
   total: number;
 } {
   const docs = platform === "web" ? WEB_DOCS : MOBILE_DOCS;
-  const withDemo = docs.filter((doc) => findDemo(doc, platform)).length;
+  const withDemo = mods
+    ? docs.filter((doc) => findDemo(doc, platform, mods)).length
+    : 0;
   return { withDemo, total: docs.length };
 }
 
 function findDemo(
   doc: ComponentDoc,
   platform: "web" | "mobile",
+  mods: DemoRegistries,
 ): (() => ReactElement) | undefined {
+  if (platform === "web") {
+    const mod = mods.web;
+    if (!mod) return undefined;
+    for (const part of doc.parts) {
+      const demo = mod.demoFor(part);
+      if (demo) return demo as () => ReactElement;
+    }
+    return undefined;
+  }
+  const mod = mods.mobile;
+  if (!mod) return undefined;
   for (const part of doc.parts) {
-    const demo =
-      platform === "web" ? demoFor(part) : (MOBILE_DEMOS[part] as never);
+    const demo = mod.MOBILE_DEMOS[part] as never;
     if (demo) return demo as () => ReactElement;
   }
   return undefined;
@@ -301,8 +316,13 @@ function findDemo(
 function previewReason(
   doc: ComponentDoc,
   platform: "web" | "mobile",
+  mods: DemoRegistries,
 ): string | undefined {
-  const reasons = platform === "web" ? WEB_PREVIEW_REASONS : PREVIEW_REASONS;
+  const reasons =
+    platform === "web"
+      ? mods.web?.WEB_PREVIEW_REASONS
+      : mods.mobile?.PREVIEW_REASONS;
+  if (!reasons) return undefined;
   for (const part of doc.parts) {
     const reason = reasons[part];
     if (reason) return reason;
@@ -328,6 +348,13 @@ export function ComponentGallery({
   platform?: "web" | "mobile";
 }) {
   const cards = collect(platform);
+  // Demo registries arrive async (see `demos/lazy`): the card text, chips
+  // and links are server-rendered regardless, and the preview well keeps its
+  // fixed height with a skeleton until the chunk lands — no layout shift.
+  // The web-filtered view never needs the native side (every card there has
+  // a web doc); the All and mobile-filtered views need both, because dual
+  // families preview their web demo and mobile-only families theirs.
+  const mods = useDemoRegistries(platform === "web" ? "web" : "both");
   const groups: { id: FamilyGroupId; cards: GalleryCard[] }[] = [];
   for (const group of FAMILY_GROUPS) {
     const inGroup = cards.filter((c) => familyFor(c.slug) === group.id);
@@ -337,16 +364,21 @@ export function ComponentGallery({
   return (
     <div className="flex flex-col gap-10">
       <nav
-        className={`flex flex-wrap items-center gap-1 ${T_BODY_SM}`}
+        className={`flex flex-wrap items-center gap-1.5 rounded-(--sys-shape-corner-extra-large) border border-(--sys-color-outline-variant)/70 bg-(--sys-color-surface-container-low) p-2 ${T_BODY_SM}`}
         aria-label="Families"
       >
         {groups.map((g) => (
           <a
             key={g.id}
             href={`#family-${g.id}`}
-            className={`inline-flex min-h-12 items-center rounded-(--sys-shape-corner-full) bg-(--sys-color-surface-container-low) px-4 no-underline ${T_LABEL_LG} text-(--sys-color-on-surface) ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`}
+            className={`inline-flex min-h-12 items-center gap-2 rounded-(--sys-shape-corner-full) bg-(--sys-color-surface-container-lowest) px-4 no-underline ${T_LABEL_LG} text-(--sys-color-on-surface) ${STATE_LAYERS} ${TRANSITION} ${FOCUS_RING}`}
           >
-            {FAMILY_GROUPS.find((x) => x.id === g.id)?.title} ({g.cards.length})
+            <span>{FAMILY_GROUPS.find((x) => x.id === g.id)?.title}</span>
+            <span
+              className={`rounded-full bg-(--sys-color-secondary-container) px-2 py-0.5 ${T_LABEL} text-(--sys-color-on-secondary-container)`}
+            >
+              {g.cards.length}
+            </span>
           </a>
         ))}
       </nav>
@@ -355,17 +387,24 @@ export function ComponentGallery({
         const meta = FAMILY_GROUPS.find((x) => x.id === g.id);
         return (
           <section key={g.id} className="flex flex-col gap-4">
-            <div className="flex flex-col gap-1">
-              <h2 id={`family-${g.id}`} className={`m-0 ${T_SECTION} ${INK}`}>
-                {meta?.title}
-              </h2>
-              <p className={`m-0 max-w-[62ch] ${T_BODY_SM} ${INK_SOFT}`}>
-                {meta?.blurb}
-              </p>
+            <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-(--sys-color-outline-variant)/70 pb-3">
+              <div className="flex flex-col gap-1">
+                <h2 id={`family-${g.id}`} className={`m-0 ${T_SECTION} ${INK}`}>
+                  {meta?.title}
+                </h2>
+                <p className={`m-0 max-w-[62ch] ${T_BODY_SM} ${INK_SOFT}`}>
+                  {meta?.blurb}
+                </p>
+              </div>
+              <span
+                className={`rounded-full bg-(--sys-color-secondary-container) px-3 py-1 ${T_LABEL} text-(--sys-color-on-secondary-container)`}
+              >
+                {g.cards.length} families
+              </span>
             </div>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {g.cards.map((card) => (
-                <GalleryCardView key={card.slug} card={card} />
+                <GalleryCardView key={card.slug} card={card} mods={mods} />
               ))}
             </div>
           </section>
@@ -375,25 +414,38 @@ export function ComponentGallery({
   );
 }
 
-function GalleryCardView({ card }: { card: GalleryCard }) {
+function GalleryCardView({
+  card,
+  mods,
+}: {
+  card: GalleryCard;
+  mods: DemoRegistries;
+}) {
   // Demos are CLIENT-ONLY. The web demo components are not SSR-safe (they
   // abort the server stream — measured: /components SSR-truncated to the
   // head until this gate existed), so the thumbnail
   // renders after mount. The card's text, chips and links are server-rendered
   // regardless; only the preview waits.
   const isClient = useClientMount();
+  // The thumbnail waits for the registry its demo lives in: dual families
+  // preview the web demo, mobile-only families the mobile one (same rule as
+  // before — only the delivery changed from static to async).
+  const needsMobile = !card.web && !!card.mobile;
+  const ready =
+    isClient &&
+    (needsMobile ? mods.mobile !== undefined : mods.web !== undefined);
   const primary = card.web ?? card.mobile;
   const demo = card.web
-    ? findDemo(card.web, "web")
+    ? findDemo(card.web, "web", mods)
     : card.mobile
-      ? findDemo(card.mobile, "mobile")
+      ? findDemo(card.mobile, "mobile", mods)
       : undefined;
   // Rendered as a JSX COMPONENT below, never called as a function: a demo
   // called inline would run its hooks as part of THIS component's hook list,
   // and the client-mount flip would change the hook count (React #310).
   const Demo = demo;
   const reason = primary
-    ? previewReason(primary, card.web ? "web" : "mobile")
+    ? previewReason(primary, card.web ? "web" : "mobile", mods)
     : undefined;
   const maturity =
     maturityChip(card.web, "web") ?? maturityChip(card.mobile, "mobile");
@@ -406,7 +458,7 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
         className={`site-gallery-stage relative m-2 flex h-44 items-center justify-center overflow-hidden p-4 ${STAGE}`}
       >
         {Demo ? (
-          isClient ? (
+          ready ? (
             // The preview is a THUMBNAIL: inert to pointer events so it can
             // never swallow the card's links or trap a click on a demo control.
             // A fitting demo centers exactly (m-auto); an overflowing one
@@ -500,7 +552,7 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
           {maturity ? (
             <span className={`${CHIP} ${INK_SOFT}`}>{maturity}</span>
           ) : null}
-          {card.web && !findDemo(card.web, "web") ? (
+          {mods.web && card.web && !findDemo(card.web, "web", mods) ? (
             <span className={`${CHIP} ${INK_SOFT}`}>Demo coming</span>
           ) : null}
         </div>
@@ -512,9 +564,13 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
 /** The lede under the All gallery's H1 — used only by /components. */
 export function GalleryLede() {
   // The All view merges both platforms, so keep coverage separate rather than
-  // double-counting families documented on both platforms.
-  const web = demoCoverage("web");
-  const mobile = demoCoverage("mobile");
+  // double-counting families documented on both platforms. Registries arrive
+  // async: the sentence keeps its two-line box with placeholders until the
+  // counts land, so the swap changes characters, not layout.
+  const mods = useDemoRegistries("both");
+  const web = demoCoverage("web", mods);
+  const mobile = demoCoverage("mobile", mods);
+  const count = (n: number, loaded: boolean) => (loaded ? String(n) : "…");
   return (
     <div className="flex flex-col gap-2">
       <p className={`m-0 max-w-[62ch] ${T_LEAD} ${INK_SOFT}`}>
@@ -522,9 +578,10 @@ export function GalleryLede() {
         family page for its API, tokens, and install path.
       </p>
       <p className={`m-0 max-w-[62ch] ${T_BODY_SM} ${INK_SOFT}`}>
-        Live examples cover {web.withDemo} of {web.total} web families and{" "}
-        {mobile.withDemo} of {mobile.total} native families; every other family
-        still has a reference page.
+        Live examples cover {count(web.withDemo, mods.web !== undefined)} of{" "}
+        {web.total} web families and{" "}
+        {count(mobile.withDemo, mods.mobile !== undefined)} of {mobile.total}{" "}
+        native families; every other family still has a reference page.
       </p>
     </div>
   );

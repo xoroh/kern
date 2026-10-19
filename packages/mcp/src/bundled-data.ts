@@ -63,6 +63,7 @@ export const BUNDLED_TOKENS_BASE: Record<string, unknown> = {
     m3violet: {
       "10": { oklch: "oklch(22.7% 0.035 293.7)", srgb: "#1d192b" },
       "20": { oklch: "oklch(31.1% 0.011 308.1)", srgb: "#322f35" },
+      "25": { oklch: "oklch(31.2% 0.036 298)", srgb: "#332d41" },
       "30": { oklch: "oklch(40.1% 0.034 298.6)", srgb: "#4a4458" },
       "40": { oklch: "oklch(48.6% 0.036 299.6)", srgb: "#625b71" },
       "80": { oklch: "oklch(83.0% 0.037 303.0)", srgb: "#ccc2dc" },
@@ -75,6 +76,35 @@ export const BUNDLED_TOKENS_BASE: Record<string, unknown> = {
       "40": { oklch: "oklch(49.0% 0.061 358.4)", srgb: "#7d5260" },
       "80": { oklch: "oklch(83.7% 0.067 359.4)", srgb: "#efb8c8" },
       "90": { oklch: "oklch(91.8% 0.046 357.6)", srgb: "#ffd8e4" },
+    },
+    m3neutral: {
+      "4": { oklch: "oklch(16.4% 0.013 300.2)", srgb: "#0f0d13" },
+      "6": { oklch: "oklch(18.7% 0.012 300.4)", srgb: "#141218" },
+      "10": { oklch: "oklch(22.7% 0.01 303.7)", srgb: "#1d1b20" },
+      "12": { oklch: "oklch(24.5% 0.013 298.5)", srgb: "#211f26" },
+      "17": { oklch: "oklch(28.6% 0.013 298.6)", srgb: "#2b2930" },
+      "20": { oklch: "oklch(31.1% 0.011 308.1)", srgb: "#322f35" },
+      "22": { oklch: "oklch(33.0% 0.012 298.8)", srgb: "#36343b" },
+      "24": { oklch: "oklch(34.6% 0.011 308.1)", srgb: "#3b383e" },
+      "87": { oklch: "oklch(89.0% 0.014 314.8)", srgb: "#ded8e1" },
+      "90": { oklch: "oklch(91.4% 0.014 314.8)", srgb: "#e6e0e9" },
+      "92": { oklch: "oklch(93.3% 0.015 312.2)", srgb: "#ece6f0" },
+      "94": { oklch: "oklch(95.4% 0.015 312.2)", srgb: "#f3edf7" },
+      "95": { oklch: "oklch(95.9% 0.012 317.7)", srgb: "#f5eff7" },
+      "96": { oklch: "oklch(96.7% 0.012 313.2)", srgb: "#f7f2fa" },
+      "98": { oklch: "oklch(98.4% 0.013 321.9)", srgb: "#fef7ff" },
+    },
+    m3neutralVariant: {
+      "10": { oklch: "oklch(22.5% 0.016 302.2)", srgb: "#1d1a22" },
+      "20": { oklch: "oklch(31.1% 0.015 302.6)", srgb: "#322f37" },
+      "30": { oklch: "oklch(39.8% 0.017 303.7)", srgb: "#49454f" },
+      "40": { oklch: "oklch(48.4% 0.015 301)", srgb: "#605d66" },
+      "50": { oklch: "oklch(56.7% 0.016 308.1)", srgb: "#79747e" },
+      "60": { oklch: "oklch(65.7% 0.015 304)", srgb: "#938f99" },
+      "70": { oklch: "oklch(74.2% 0.017 306.3)", srgb: "#aea9b4" },
+      "80": { oklch: "oklch(82.9% 0.018 308.2)", srgb: "#cac4d0" },
+      "90": { oklch: "oklch(91.6% 0.018 311.6)", srgb: "#e7e0ec" },
+      "95": { oklch: "oklch(95.8% 0.018 311.6)", srgb: "#f5eefa" },
     },
   },
   spectrum: {
@@ -642,27 +672,27 @@ export const BUNDLED_TOKEN_THEMES: Record<string, Record<string, unknown>> = {
         onInfo: "#ffffff",
         infoContainer: "#dbeafe",
         onInfoContainer: "#1e3a8a",
-        surface: "#ffffff",
-        onSurface: "#262626",
-        onSurfaceVariant: "#525252",
+        surface: "#fef7ff",
+        onSurface: "#1d1b20",
+        onSurfaceVariant: "#49454f",
         surfaceContainerLowest: "#ffffff",
-        surfaceContainerLow: "#fafafa",
-        surfaceContainer: "#f5f5f5",
-        surfaceContainerHigh: "#e5e5e5",
-        surfaceContainerHighest: "#d4d4d4",
-        surfaceDim: "#d4d4d4",
-        surfaceBright: "#ffffff",
-        outline: "#737373",
-        outlineVariant: "#e5e5e5",
-        inverseSurface: "#000000",
-        inverseOnSurface: "#ffffff",
+        surfaceContainerLow: "#f7f2fa",
+        surfaceContainer: "#f3edf7",
+        surfaceContainerHigh: "#ece6f0",
+        surfaceContainerHighest: "#e6e0e9",
+        surfaceDim: "#ded8e1",
+        surfaceBright: "#fef7ff",
+        outline: "#79747e",
+        outlineVariant: "#cac4d0",
+        inverseSurface: "#322f35",
+        inverseOnSurface: "#f5eff7",
         inversePrimary: "#d0bcff",
         scrim: "#000000",
         shadow: "#000000",
-        primaryFixed: "#171717",
-        primaryFixedDim: "#0a0a0a",
+        primaryFixed: "#381e72",
+        primaryFixedDim: "#21005d",
         onPrimaryFixed: "#ffffff",
-        onPrimaryFixedVariant: "#f5f5f5",
+        onPrimaryFixedVariant: "#eaddff",
         secondaryFixed: "#4a4458",
         secondaryFixedDim: "#322f35",
         onSecondaryFixed: "#ffffff",
@@ -671,7 +701,7 @@ export const BUNDLED_TOKEN_THEMES: Record<string, Record<string, unknown>> = {
         tertiaryFixedDim: "#31111d",
         onTertiaryFixed: "#ffffff",
         onTertiaryFixedVariant: "#ffd8e4",
-        surfaceTonal: "#efefef",
+        surfaceTonal: "#e7e0ec",
       },
       dark: {
         primary: "#d0bcff",
@@ -679,7 +709,7 @@ export const BUNDLED_TOKEN_THEMES: Record<string, Record<string, unknown>> = {
         primaryContainer: "#4f378b",
         onPrimaryContainer: "#eaddff",
         secondary: "#ccc2dc",
-        onSecondary: "#322f35",
+        onSecondary: "#332d41",
         secondaryContainer: "#4a4458",
         onSecondaryContainer: "#e8def8",
         tertiary: "#efb8c8",
@@ -702,27 +732,27 @@ export const BUNDLED_TOKEN_THEMES: Record<string, Record<string, unknown>> = {
         onInfo: "#172554",
         infoContainer: "#1e3a8a",
         onInfoContainer: "#dbeafe",
-        surface: "#000000",
-        onSurface: "#ffffff",
-        onSurfaceVariant: "#d4d4d4",
-        surfaceContainerLowest: "#000000",
-        surfaceContainerLow: "#0a0a0a",
-        surfaceContainer: "#171717",
-        surfaceContainerHigh: "#171717",
-        surfaceContainerHighest: "#262626",
-        surfaceDim: "#000000",
-        surfaceBright: "#262626",
-        outline: "#737373",
-        outlineVariant: "#262626",
-        inverseSurface: "#ffffff",
-        inverseOnSurface: "#000000",
+        surface: "#141218",
+        onSurface: "#e6e0e9",
+        onSurfaceVariant: "#cac4d0",
+        surfaceContainerLowest: "#0f0d13",
+        surfaceContainerLow: "#1d1b20",
+        surfaceContainer: "#211f26",
+        surfaceContainerHigh: "#2b2930",
+        surfaceContainerHighest: "#36343b",
+        surfaceDim: "#141218",
+        surfaceBright: "#3b383e",
+        outline: "#938f99",
+        outlineVariant: "#49454f",
+        inverseSurface: "#e6e0e9",
+        inverseOnSurface: "#322f35",
         inversePrimary: "#6750a4",
         scrim: "#000000",
         shadow: "#000000",
-        primaryFixed: "#171717",
-        primaryFixedDim: "#0a0a0a",
+        primaryFixed: "#381e72",
+        primaryFixedDim: "#21005d",
         onPrimaryFixed: "#ffffff",
-        onPrimaryFixedVariant: "#f5f5f5",
+        onPrimaryFixedVariant: "#eaddff",
         secondaryFixed: "#4a4458",
         secondaryFixedDim: "#322f35",
         onSecondaryFixed: "#ffffff",
@@ -731,7 +761,7 @@ export const BUNDLED_TOKEN_THEMES: Record<string, Record<string, unknown>> = {
         tertiaryFixedDim: "#31111d",
         onTertiaryFixed: "#ffffff",
         onTertiaryFixedVariant: "#ffd8e4",
-        surfaceTonal: "#262626",
+        surfaceTonal: "#322f35",
       },
     },
     radius: {
@@ -1507,6 +1537,366 @@ export const BUNDLED_DTCG: unknown = {
         $extensions: { "org.xoroh.kern": { provenance: "palettes.green" } },
         $type: "color",
       },
+      m3neutral: {
+        "4": {
+          $extensions: {
+            "org.xoroh.kern": {
+              oklch: "oklch(16.4% 0.013 300.2)",
+              srgb: "#0f0d13",
+            },
+          },
+          $type: "color",
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.058824, 0.05098, 0.07451],
+          },
+        },
+        "6": {
+          $extensions: {
+            "org.xoroh.kern": {
+              oklch: "oklch(18.7% 0.012 300.4)",
+              srgb: "#141218",
+            },
+          },
+          $type: "color",
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.078431, 0.070588, 0.094118],
+          },
+        },
+        "10": {
+          $extensions: {
+            "org.xoroh.kern": {
+              oklch: "oklch(22.7% 0.01 303.7)",
+              srgb: "#1d1b20",
+            },
+          },
+          $type: "color",
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.113725, 0.105882, 0.12549],
+          },
+        },
+        "12": {
+          $extensions: {
+            "org.xoroh.kern": {
+              oklch: "oklch(24.5% 0.013 298.5)",
+              srgb: "#211f26",
+            },
+          },
+          $type: "color",
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.129412, 0.121569, 0.14902],
+          },
+        },
+        "17": {
+          $extensions: {
+            "org.xoroh.kern": {
+              oklch: "oklch(28.6% 0.013 298.6)",
+              srgb: "#2b2930",
+            },
+          },
+          $type: "color",
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.168627, 0.160784, 0.188235],
+          },
+        },
+        "20": {
+          $extensions: {
+            "org.xoroh.kern": {
+              oklch: "oklch(31.1% 0.011 308.1)",
+              srgb: "#322f35",
+            },
+          },
+          $type: "color",
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.196078, 0.184314, 0.207843],
+          },
+        },
+        "22": {
+          $extensions: {
+            "org.xoroh.kern": {
+              oklch: "oklch(33.0% 0.012 298.8)",
+              srgb: "#36343b",
+            },
+          },
+          $type: "color",
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.211765, 0.203922, 0.231373],
+          },
+        },
+        "24": {
+          $extensions: {
+            "org.xoroh.kern": {
+              oklch: "oklch(34.6% 0.011 308.1)",
+              srgb: "#3b383e",
+            },
+          },
+          $type: "color",
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.231373, 0.219608, 0.243137],
+          },
+        },
+        "87": {
+          $extensions: {
+            "org.xoroh.kern": {
+              oklch: "oklch(89.0% 0.014 314.8)",
+              srgb: "#ded8e1",
+            },
+          },
+          $type: "color",
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.870588, 0.847059, 0.882353],
+          },
+        },
+        "90": {
+          $extensions: {
+            "org.xoroh.kern": {
+              oklch: "oklch(91.4% 0.014 314.8)",
+              srgb: "#e6e0e9",
+            },
+          },
+          $type: "color",
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.901961, 0.878431, 0.913725],
+          },
+        },
+        "92": {
+          $extensions: {
+            "org.xoroh.kern": {
+              oklch: "oklch(93.3% 0.015 312.2)",
+              srgb: "#ece6f0",
+            },
+          },
+          $type: "color",
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.92549, 0.901961, 0.941176],
+          },
+        },
+        "94": {
+          $extensions: {
+            "org.xoroh.kern": {
+              oklch: "oklch(95.4% 0.015 312.2)",
+              srgb: "#f3edf7",
+            },
+          },
+          $type: "color",
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.952941, 0.929412, 0.968627],
+          },
+        },
+        "95": {
+          $extensions: {
+            "org.xoroh.kern": {
+              oklch: "oklch(95.9% 0.012 317.7)",
+              srgb: "#f5eff7",
+            },
+          },
+          $type: "color",
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.960784, 0.937255, 0.968627],
+          },
+        },
+        "96": {
+          $extensions: {
+            "org.xoroh.kern": {
+              oklch: "oklch(96.7% 0.012 313.2)",
+              srgb: "#f7f2fa",
+            },
+          },
+          $type: "color",
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.968627, 0.94902, 0.980392],
+          },
+        },
+        "98": {
+          $extensions: {
+            "org.xoroh.kern": {
+              oklch: "oklch(98.4% 0.013 321.9)",
+              srgb: "#fef7ff",
+            },
+          },
+          $type: "color",
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.996078, 0.968627, 1],
+          },
+        },
+        $extensions: { "org.xoroh.kern": { provenance: "palettes.m3neutral" } },
+        $type: "color",
+      },
+      m3neutralVariant: {
+        "10": {
+          $extensions: {
+            "org.xoroh.kern": {
+              oklch: "oklch(22.5% 0.016 302.2)",
+              srgb: "#1d1a22",
+            },
+          },
+          $type: "color",
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.113725, 0.101961, 0.133333],
+          },
+        },
+        "20": {
+          $extensions: {
+            "org.xoroh.kern": {
+              oklch: "oklch(31.1% 0.015 302.6)",
+              srgb: "#322f37",
+            },
+          },
+          $type: "color",
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.196078, 0.184314, 0.215686],
+          },
+        },
+        "30": {
+          $extensions: {
+            "org.xoroh.kern": {
+              oklch: "oklch(39.8% 0.017 303.7)",
+              srgb: "#49454f",
+            },
+          },
+          $type: "color",
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.286275, 0.270588, 0.309804],
+          },
+        },
+        "40": {
+          $extensions: {
+            "org.xoroh.kern": {
+              oklch: "oklch(48.4% 0.015 301)",
+              srgb: "#605d66",
+            },
+          },
+          $type: "color",
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.376471, 0.364706, 0.4],
+          },
+        },
+        "50": {
+          $extensions: {
+            "org.xoroh.kern": {
+              oklch: "oklch(56.7% 0.016 308.1)",
+              srgb: "#79747e",
+            },
+          },
+          $type: "color",
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.47451, 0.454902, 0.494118],
+          },
+        },
+        "60": {
+          $extensions: {
+            "org.xoroh.kern": {
+              oklch: "oklch(65.7% 0.015 304)",
+              srgb: "#938f99",
+            },
+          },
+          $type: "color",
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.576471, 0.560784, 0.6],
+          },
+        },
+        "70": {
+          $extensions: {
+            "org.xoroh.kern": {
+              oklch: "oklch(74.2% 0.017 306.3)",
+              srgb: "#aea9b4",
+            },
+          },
+          $type: "color",
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.682353, 0.662745, 0.705882],
+          },
+        },
+        "80": {
+          $extensions: {
+            "org.xoroh.kern": {
+              oklch: "oklch(82.9% 0.018 308.2)",
+              srgb: "#cac4d0",
+            },
+          },
+          $type: "color",
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.792157, 0.768627, 0.815686],
+          },
+        },
+        "90": {
+          $extensions: {
+            "org.xoroh.kern": {
+              oklch: "oklch(91.6% 0.018 311.6)",
+              srgb: "#e7e0ec",
+            },
+          },
+          $type: "color",
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.905882, 0.878431, 0.92549],
+          },
+        },
+        "95": {
+          $extensions: {
+            "org.xoroh.kern": {
+              oklch: "oklch(95.8% 0.018 311.6)",
+              srgb: "#f5eefa",
+            },
+          },
+          $type: "color",
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.960784, 0.933333, 0.980392],
+          },
+        },
+        $extensions: {
+          "org.xoroh.kern": { provenance: "palettes.m3neutralVariant" },
+        },
+        $type: "color",
+      },
       m3rose: {
         "10": {
           $extensions: {
@@ -1622,6 +2012,20 @@ export const BUNDLED_DTCG: unknown = {
             alpha: 1,
             colorSpace: "srgb",
             components: [0.196078, 0.184314, 0.207843],
+          },
+        },
+        "25": {
+          $extensions: {
+            "org.xoroh.kern": {
+              oklch: "oklch(31.2% 0.036 298)",
+              srgb: "#332d41",
+            },
+          },
+          $type: "color",
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.2, 0.176471, 0.254902],
           },
         },
         "30": {
@@ -4310,10 +4714,14 @@ export const BUNDLED_DTCG: unknown = {
             "org.xoroh.kern": {
               mode: "dark",
               role: "inverseOnSurface",
-              srgb: "#000000",
+              srgb: "#322f35",
             },
           },
-          $value: { alpha: 1, colorSpace: "srgb", components: [0, 0, 0] },
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.196078, 0.184314, 0.207843],
+          },
         },
         inversePrimary: {
           $extensions: {
@@ -4334,10 +4742,14 @@ export const BUNDLED_DTCG: unknown = {
             "org.xoroh.kern": {
               mode: "dark",
               role: "inverseSurface",
-              srgb: "#ffffff",
+              srgb: "#e6e0e9",
             },
           },
-          $value: { alpha: 1, colorSpace: "srgb", components: [1, 1, 1] },
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.901961, 0.878431, 0.913725],
+          },
         },
         onError: {
           $extensions: {
@@ -4434,13 +4846,13 @@ export const BUNDLED_DTCG: unknown = {
             "org.xoroh.kern": {
               mode: "dark",
               role: "onPrimaryFixedVariant",
-              srgb: "#f5f5f5",
+              srgb: "#eaddff",
             },
           },
           $value: {
             alpha: 1,
             colorSpace: "srgb",
-            components: [0.960784, 0.960784, 0.960784],
+            components: [0.917647, 0.866667, 1],
           },
         },
         onSecondary: {
@@ -4448,13 +4860,13 @@ export const BUNDLED_DTCG: unknown = {
             "org.xoroh.kern": {
               mode: "dark",
               role: "onSecondary",
-              srgb: "#322f35",
+              srgb: "#332d41",
             },
           },
           $value: {
             alpha: 1,
             colorSpace: "srgb",
-            components: [0.196078, 0.184314, 0.207843],
+            components: [0.2, 0.176471, 0.254902],
           },
         },
         onSecondaryContainer: {
@@ -4528,23 +4940,27 @@ export const BUNDLED_DTCG: unknown = {
             "org.xoroh.kern": {
               mode: "dark",
               role: "onSurface",
-              srgb: "#ffffff",
+              srgb: "#e6e0e9",
             },
           },
-          $value: { alpha: 1, colorSpace: "srgb", components: [1, 1, 1] },
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.901961, 0.878431, 0.913725],
+          },
         },
         onSurfaceVariant: {
           $extensions: {
             "org.xoroh.kern": {
               mode: "dark",
               role: "onSurfaceVariant",
-              srgb: "#d4d4d4",
+              srgb: "#cac4d0",
             },
           },
           $value: {
             alpha: 1,
             colorSpace: "srgb",
-            components: [0.831373, 0.831373, 0.831373],
+            components: [0.792157, 0.768627, 0.815686],
           },
         },
         onTertiary: {
@@ -4632,13 +5048,13 @@ export const BUNDLED_DTCG: unknown = {
             "org.xoroh.kern": {
               mode: "dark",
               role: "outline",
-              srgb: "#737373",
+              srgb: "#938f99",
             },
           },
           $value: {
             alpha: 1,
             colorSpace: "srgb",
-            components: [0.45098, 0.45098, 0.45098],
+            components: [0.576471, 0.560784, 0.6],
           },
         },
         outlineVariant: {
@@ -4646,13 +5062,13 @@ export const BUNDLED_DTCG: unknown = {
             "org.xoroh.kern": {
               mode: "dark",
               role: "outlineVariant",
-              srgb: "#262626",
+              srgb: "#49454f",
             },
           },
           $value: {
             alpha: 1,
             colorSpace: "srgb",
-            components: [0.14902, 0.14902, 0.14902],
+            components: [0.286275, 0.270588, 0.309804],
           },
         },
         primary: {
@@ -4688,13 +5104,13 @@ export const BUNDLED_DTCG: unknown = {
             "org.xoroh.kern": {
               mode: "dark",
               role: "primaryFixed",
-              srgb: "#171717",
+              srgb: "#381e72",
             },
           },
           $value: {
             alpha: 1,
             colorSpace: "srgb",
-            components: [0.090196, 0.090196, 0.090196],
+            components: [0.219608, 0.117647, 0.447059],
           },
         },
         primaryFixedDim: {
@@ -4702,13 +5118,13 @@ export const BUNDLED_DTCG: unknown = {
             "org.xoroh.kern": {
               mode: "dark",
               role: "primaryFixedDim",
-              srgb: "#0a0a0a",
+              srgb: "#21005d",
             },
           },
           $value: {
             alpha: 1,
             colorSpace: "srgb",
-            components: [0.039216, 0.039216, 0.039216],
+            components: [0.129412, 0, 0.364706],
           },
         },
         scrim: {
@@ -4812,23 +5228,27 @@ export const BUNDLED_DTCG: unknown = {
             "org.xoroh.kern": {
               mode: "dark",
               role: "surface",
-              srgb: "#000000",
+              srgb: "#141218",
             },
           },
-          $value: { alpha: 1, colorSpace: "srgb", components: [0, 0, 0] },
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.078431, 0.070588, 0.094118],
+          },
         },
         surfaceBright: {
           $extensions: {
             "org.xoroh.kern": {
               mode: "dark",
               role: "surfaceBright",
-              srgb: "#262626",
+              srgb: "#3b383e",
             },
           },
           $value: {
             alpha: 1,
             colorSpace: "srgb",
-            components: [0.14902, 0.14902, 0.14902],
+            components: [0.231373, 0.219608, 0.243137],
           },
         },
         surfaceContainer: {
@@ -4836,13 +5256,13 @@ export const BUNDLED_DTCG: unknown = {
             "org.xoroh.kern": {
               mode: "dark",
               role: "surfaceContainer",
-              srgb: "#171717",
+              srgb: "#211f26",
             },
           },
           $value: {
             alpha: 1,
             colorSpace: "srgb",
-            components: [0.090196, 0.090196, 0.090196],
+            components: [0.129412, 0.121569, 0.14902],
           },
         },
         surfaceContainerHigh: {
@@ -4850,13 +5270,13 @@ export const BUNDLED_DTCG: unknown = {
             "org.xoroh.kern": {
               mode: "dark",
               role: "surfaceContainerHigh",
-              srgb: "#171717",
+              srgb: "#2b2930",
             },
           },
           $value: {
             alpha: 1,
             colorSpace: "srgb",
-            components: [0.090196, 0.090196, 0.090196],
+            components: [0.168627, 0.160784, 0.188235],
           },
         },
         surfaceContainerHighest: {
@@ -4864,13 +5284,13 @@ export const BUNDLED_DTCG: unknown = {
             "org.xoroh.kern": {
               mode: "dark",
               role: "surfaceContainerHighest",
-              srgb: "#262626",
+              srgb: "#36343b",
             },
           },
           $value: {
             alpha: 1,
             colorSpace: "srgb",
-            components: [0.14902, 0.14902, 0.14902],
+            components: [0.211765, 0.203922, 0.231373],
           },
         },
         surfaceContainerLow: {
@@ -4878,13 +5298,13 @@ export const BUNDLED_DTCG: unknown = {
             "org.xoroh.kern": {
               mode: "dark",
               role: "surfaceContainerLow",
-              srgb: "#0a0a0a",
+              srgb: "#1d1b20",
             },
           },
           $value: {
             alpha: 1,
             colorSpace: "srgb",
-            components: [0.039216, 0.039216, 0.039216],
+            components: [0.113725, 0.105882, 0.12549],
           },
         },
         surfaceContainerLowest: {
@@ -4892,33 +5312,41 @@ export const BUNDLED_DTCG: unknown = {
             "org.xoroh.kern": {
               mode: "dark",
               role: "surfaceContainerLowest",
-              srgb: "#000000",
+              srgb: "#0f0d13",
             },
           },
-          $value: { alpha: 1, colorSpace: "srgb", components: [0, 0, 0] },
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.058824, 0.05098, 0.07451],
+          },
         },
         surfaceDim: {
           $extensions: {
             "org.xoroh.kern": {
               mode: "dark",
               role: "surfaceDim",
-              srgb: "#000000",
+              srgb: "#141218",
             },
           },
-          $value: { alpha: 1, colorSpace: "srgb", components: [0, 0, 0] },
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.078431, 0.070588, 0.094118],
+          },
         },
         surfaceTonal: {
           $extensions: {
             "org.xoroh.kern": {
               mode: "dark",
               role: "surfaceTonal",
-              srgb: "#262626",
+              srgb: "#322f35",
             },
           },
           $value: {
             alpha: 1,
             colorSpace: "srgb",
-            components: [0.14902, 0.14902, 0.14902],
+            components: [0.196078, 0.184314, 0.207843],
           },
         },
         tertiary: {
@@ -5061,10 +5489,14 @@ export const BUNDLED_DTCG: unknown = {
             "org.xoroh.kern": {
               mode: "light",
               role: "inverseOnSurface",
-              srgb: "#ffffff",
+              srgb: "#f5eff7",
             },
           },
-          $value: { alpha: 1, colorSpace: "srgb", components: [1, 1, 1] },
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.960784, 0.937255, 0.968627],
+          },
         },
         inversePrimary: {
           $extensions: {
@@ -5085,10 +5517,14 @@ export const BUNDLED_DTCG: unknown = {
             "org.xoroh.kern": {
               mode: "light",
               role: "inverseSurface",
-              srgb: "#000000",
+              srgb: "#322f35",
             },
           },
-          $value: { alpha: 1, colorSpace: "srgb", components: [0, 0, 0] },
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.196078, 0.184314, 0.207843],
+          },
         },
         onError: {
           $extensions: {
@@ -5177,13 +5613,13 @@ export const BUNDLED_DTCG: unknown = {
             "org.xoroh.kern": {
               mode: "light",
               role: "onPrimaryFixedVariant",
-              srgb: "#f5f5f5",
+              srgb: "#eaddff",
             },
           },
           $value: {
             alpha: 1,
             colorSpace: "srgb",
-            components: [0.960784, 0.960784, 0.960784],
+            components: [0.917647, 0.866667, 1],
           },
         },
         onSecondary: {
@@ -5263,13 +5699,13 @@ export const BUNDLED_DTCG: unknown = {
             "org.xoroh.kern": {
               mode: "light",
               role: "onSurface",
-              srgb: "#262626",
+              srgb: "#1d1b20",
             },
           },
           $value: {
             alpha: 1,
             colorSpace: "srgb",
-            components: [0.14902, 0.14902, 0.14902],
+            components: [0.113725, 0.105882, 0.12549],
           },
         },
         onSurfaceVariant: {
@@ -5277,13 +5713,13 @@ export const BUNDLED_DTCG: unknown = {
             "org.xoroh.kern": {
               mode: "light",
               role: "onSurfaceVariant",
-              srgb: "#525252",
+              srgb: "#49454f",
             },
           },
           $value: {
             alpha: 1,
             colorSpace: "srgb",
-            components: [0.321569, 0.321569, 0.321569],
+            components: [0.286275, 0.270588, 0.309804],
           },
         },
         onTertiary: {
@@ -5363,13 +5799,13 @@ export const BUNDLED_DTCG: unknown = {
             "org.xoroh.kern": {
               mode: "light",
               role: "outline",
-              srgb: "#737373",
+              srgb: "#79747e",
             },
           },
           $value: {
             alpha: 1,
             colorSpace: "srgb",
-            components: [0.45098, 0.45098, 0.45098],
+            components: [0.47451, 0.454902, 0.494118],
           },
         },
         outlineVariant: {
@@ -5377,13 +5813,13 @@ export const BUNDLED_DTCG: unknown = {
             "org.xoroh.kern": {
               mode: "light",
               role: "outlineVariant",
-              srgb: "#e5e5e5",
+              srgb: "#cac4d0",
             },
           },
           $value: {
             alpha: 1,
             colorSpace: "srgb",
-            components: [0.898039, 0.898039, 0.898039],
+            components: [0.792157, 0.768627, 0.815686],
           },
         },
         primary: {
@@ -5419,13 +5855,13 @@ export const BUNDLED_DTCG: unknown = {
             "org.xoroh.kern": {
               mode: "light",
               role: "primaryFixed",
-              srgb: "#171717",
+              srgb: "#381e72",
             },
           },
           $value: {
             alpha: 1,
             colorSpace: "srgb",
-            components: [0.090196, 0.090196, 0.090196],
+            components: [0.219608, 0.117647, 0.447059],
           },
         },
         primaryFixedDim: {
@@ -5433,13 +5869,13 @@ export const BUNDLED_DTCG: unknown = {
             "org.xoroh.kern": {
               mode: "light",
               role: "primaryFixedDim",
-              srgb: "#0a0a0a",
+              srgb: "#21005d",
             },
           },
           $value: {
             alpha: 1,
             colorSpace: "srgb",
-            components: [0.039216, 0.039216, 0.039216],
+            components: [0.129412, 0, 0.364706],
           },
         },
         scrim: {
@@ -5547,33 +5983,41 @@ export const BUNDLED_DTCG: unknown = {
             "org.xoroh.kern": {
               mode: "light",
               role: "surface",
-              srgb: "#ffffff",
+              srgb: "#fef7ff",
             },
           },
-          $value: { alpha: 1, colorSpace: "srgb", components: [1, 1, 1] },
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.996078, 0.968627, 1],
+          },
         },
         surfaceBright: {
           $extensions: {
             "org.xoroh.kern": {
               mode: "light",
               role: "surfaceBright",
-              srgb: "#ffffff",
+              srgb: "#fef7ff",
             },
           },
-          $value: { alpha: 1, colorSpace: "srgb", components: [1, 1, 1] },
+          $value: {
+            alpha: 1,
+            colorSpace: "srgb",
+            components: [0.996078, 0.968627, 1],
+          },
         },
         surfaceContainer: {
           $extensions: {
             "org.xoroh.kern": {
               mode: "light",
               role: "surfaceContainer",
-              srgb: "#f5f5f5",
+              srgb: "#f3edf7",
             },
           },
           $value: {
             alpha: 1,
             colorSpace: "srgb",
-            components: [0.960784, 0.960784, 0.960784],
+            components: [0.952941, 0.929412, 0.968627],
           },
         },
         surfaceContainerHigh: {
@@ -5581,13 +6025,13 @@ export const BUNDLED_DTCG: unknown = {
             "org.xoroh.kern": {
               mode: "light",
               role: "surfaceContainerHigh",
-              srgb: "#e5e5e5",
+              srgb: "#ece6f0",
             },
           },
           $value: {
             alpha: 1,
             colorSpace: "srgb",
-            components: [0.898039, 0.898039, 0.898039],
+            components: [0.92549, 0.901961, 0.941176],
           },
         },
         surfaceContainerHighest: {
@@ -5595,13 +6039,13 @@ export const BUNDLED_DTCG: unknown = {
             "org.xoroh.kern": {
               mode: "light",
               role: "surfaceContainerHighest",
-              srgb: "#d4d4d4",
+              srgb: "#e6e0e9",
             },
           },
           $value: {
             alpha: 1,
             colorSpace: "srgb",
-            components: [0.831373, 0.831373, 0.831373],
+            components: [0.901961, 0.878431, 0.913725],
           },
         },
         surfaceContainerLow: {
@@ -5609,13 +6053,13 @@ export const BUNDLED_DTCG: unknown = {
             "org.xoroh.kern": {
               mode: "light",
               role: "surfaceContainerLow",
-              srgb: "#fafafa",
+              srgb: "#f7f2fa",
             },
           },
           $value: {
             alpha: 1,
             colorSpace: "srgb",
-            components: [0.980392, 0.980392, 0.980392],
+            components: [0.968627, 0.94902, 0.980392],
           },
         },
         surfaceContainerLowest: {
@@ -5633,13 +6077,13 @@ export const BUNDLED_DTCG: unknown = {
             "org.xoroh.kern": {
               mode: "light",
               role: "surfaceDim",
-              srgb: "#d4d4d4",
+              srgb: "#ded8e1",
             },
           },
           $value: {
             alpha: 1,
             colorSpace: "srgb",
-            components: [0.831373, 0.831373, 0.831373],
+            components: [0.870588, 0.847059, 0.882353],
           },
         },
         surfaceTonal: {
@@ -5647,13 +6091,13 @@ export const BUNDLED_DTCG: unknown = {
             "org.xoroh.kern": {
               mode: "light",
               role: "surfaceTonal",
-              srgb: "#efefef",
+              srgb: "#e7e0ec",
             },
           },
           $value: {
             alpha: 1,
             colorSpace: "srgb",
-            components: [0.937255, 0.937255, 0.937255],
+            components: [0.905882, 0.878431, 0.92549],
           },
         },
         tertiary: {

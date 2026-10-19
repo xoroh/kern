@@ -19,7 +19,6 @@
  */
 import { useLocation } from "@tanstack/react-router";
 import { buttonVariants, cn, Kbd, useKernTheme } from "@xoroh/kern";
-import { Icon } from "@xoroh/kern-icons";
 import { useEffect, useRef, useState } from "react";
 import { T_LABEL_LG, T_SUB } from "../../domains/shared/systems/type-scale";
 import {
@@ -31,6 +30,7 @@ import {
   TRANSITION,
 } from "../../domains/shared/systems/ui";
 import { isTabActive, PRIMARY_TABS } from "./app-rail";
+import { ChromeIcon } from "./chrome-icons";
 import { GitHubIcon } from "./github-icon";
 import { MobileDrawer } from "./mobile-drawer";
 import { openSearch } from "./search-opener";
@@ -66,18 +66,19 @@ export function SiteHeader() {
         aria-label="Open navigation menu"
         className={cn(ICON_BUTTON, "lg:hidden")}
       >
-        <Icon name="menu" size={24} />
+        <ChromeIcon name="menu" size={24} />
       </button>
 
       <a href="/" aria-label="Kern home" className={BRAND}>
         <span
           aria-hidden="true"
-          className="flex size-10 items-center justify-center rounded-(--sys-shape-corner-large) bg-(--sys-color-primary) text-(--sys-color-on-primary)"
+          className="flex size-9 items-center justify-center rounded-(--sys-shape-corner-medium) bg-(--sys-color-primary) text-(--sys-color-on-primary)"
         >
-          <span className={T_SUB}>K</span>
+          <span className={T_LABEL_LG}>K</span>
         </span>
-        <span className={T_SUB}>
-          Kern<span className="text-(--sys-color-primary)">.</span>
+        <span className={T_SUB}>Kern</span>
+        <span className="hidden rounded-full bg-(--sys-color-secondary-container) px-2 py-0.5 text-(--sys-color-on-secondary-container) sm:inline-flex [font-size:var(--sys-typescale-label-small-font-size)] [line-height:var(--sys-typescale-label-small-line-height)] [font-weight:var(--sys-typescale-label-small-font-weight)]">
+          M3
         </span>
       </a>
 
@@ -120,7 +121,7 @@ export function SiteHeader() {
             FOCUS_RING,
           )}
         >
-          <Icon name="search" size={20} />
+          <ChromeIcon name="search" size={20} />
           <span className={`hidden sm:inline ${T_LABEL_LG}`}>Search</span>
           <span className="hidden sm:inline-flex">
             <Kbd>{mac ? "⌘K" : "Ctrl K"}</Kbd>
@@ -145,7 +146,7 @@ export function SiteHeader() {
           title={mode === "light" ? "Dark" : "Light"}
           className={ICON_BUTTON}
         >
-          <Icon
+          <ChromeIcon
             name={mode === "light" ? "dark-mode" : "light-mode"}
             size={22}
           />

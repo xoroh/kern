@@ -37,7 +37,7 @@ function Changelog() {
   return (
     <SiteLayout>
       <PageCard gap={12}>
-        <header className="flex flex-col gap-3">
+        <header className="site-docs-welcome flex flex-col gap-3">
           <Kicker className={INK_SOFT}>Changelog</Kicker>
           <h1 className={`m-0 ${T_PAGE} ${INK}`}>Changelog</h1>
           <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>
@@ -50,17 +50,20 @@ function Changelog() {
             No pending changes. The tree is quiet.
           </p>
         ) : (
-          <ul className="m-0 flex list-none flex-col gap-6 p-0">
+          <ul className="m-0 flex list-none flex-col gap-4 p-0">
             {RECENT_CHANGES.map((entry) => (
-              <li key={entry.id} className="flex flex-col gap-2">
-                <div className="flex flex-wrap items-center gap-2">
+              <li
+                key={entry.id}
+                className="flex flex-col gap-2.5 rounded-(--sys-shape-corner-extra-large) border border-(--sys-color-outline-variant)/70 bg-(--sys-color-surface-container-low) p-5"
+              >
+                <div className="flex flex-wrap items-center gap-2.5">
                   <span className={BUMP_BADGE}>{entry.bump}</span>
                   <h2 id={entry.id} className={`m-0 ${T_SECTION} ${INK}`}>
                     {entry.id}
                   </h2>
                 </div>
                 <p className={`m-0 ${T_BODY} ${INK_SOFT}`}>{entry.summary}</p>
-                <p className={`m-0 ${T_LABEL} ${INK_SOFT}`}>
+                <p className={`m-0 font-mono ${T_LABEL} ${INK_SOFT}`}>
                   {entry.packages.join(" · ")}
                 </p>
               </li>

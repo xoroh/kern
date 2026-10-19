@@ -32,7 +32,7 @@ function Community() {
   return (
     <SiteLayout>
       <PageCard gap={12}>
-        <header className="flex flex-col gap-3">
+        <header className="site-docs-welcome flex flex-col gap-3">
           <Kicker className={INK_SOFT}>Community</Kicker>
           <h1 className={`m-0 ${T_PAGE} ${INK}`}>Community</h1>
           <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>
@@ -40,7 +40,7 @@ function Community() {
             all happen on GitHub — this page points at the real places.
           </p>
         </header>
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 rounded-(--sys-shape-corner-extra-large) border border-(--sys-color-outline-variant)/70 bg-(--sys-color-surface-container-low) p-6">
           <h2 id="report-an-issue" className={`m-0 ${T_SECTION} ${INK}`}>
             Report an issue
           </h2>
@@ -54,7 +54,7 @@ function Community() {
             not as a bug.
           </p>
         </div>
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 rounded-(--sys-shape-corner-extra-large) border border-(--sys-color-outline-variant)/70 bg-(--sys-color-surface-container-low) p-6">
           <h2 id="contribute" className={`m-0 ${T_SECTION} ${INK}`}>
             Contribute
           </h2>
@@ -69,7 +69,7 @@ function Community() {
             green.
           </p>
         </div>
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 rounded-(--sys-shape-corner-extra-large) border border-(--sys-color-outline-variant)/70 bg-(--sys-color-surface-container-low) p-6">
           <h2 id="troubleshooting" className={`m-0 ${T_SECTION} ${INK}`}>
             Troubleshooting
           </h2>
@@ -88,7 +88,10 @@ function Community() {
             , with the receipt and the failing command.
           </p>
         </div>
-        <nav aria-label="Keep exploring" className="flex flex-col gap-3">
+        <nav
+          aria-label="Keep exploring"
+          className="flex flex-col gap-3 rounded-(--sys-shape-corner-extra-large) border border-(--sys-color-outline-variant)/70 bg-(--sys-color-surface-container-low) p-6"
+        >
           <h2 id="keep-exploring" className={`m-0 ${T_SECTION} ${INK}`}>
             Keep exploring
           </h2>

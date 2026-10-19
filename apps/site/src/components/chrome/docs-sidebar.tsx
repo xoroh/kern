@@ -27,6 +27,7 @@
  */
 import { useLocation } from "@tanstack/react-router";
 import { cn } from "@xoroh/kern";
+import { Icon, type IconNameInput } from "@xoroh/kern-icons";
 import {
   T_BODY_MD,
   T_LABEL,
@@ -36,8 +37,32 @@ import {
   FOCUS_RING,
   PILL_ACTIVE,
   PILL_REST,
+  TRANSITION,
 } from "../../domains/shared/systems/ui";
 import { DEVELOP_NAV, FOUNDATIONS_NAV } from "../../systems/nav";
+
+const LEAF_ICONS: Record<string, IconNameInput> = {
+  "/foundations": "layers",
+  "/foundations/m3": "palette",
+  "/foundations/m3/tokens": "science",
+  "/foundations/m3/color": "palette",
+  "/foundations/m3/type": "edit",
+  "/foundations/m3/shape": "crop-square",
+  "/foundations/m3/elevation": "trending-up",
+  "/foundations/m3/motion": "refresh",
+  "/foundations/m3/states": "check-circle",
+  "/foundations/m3/theme": "sunny",
+  "/foundations/icons": "widgets",
+  "/foundations/accessibility": "shield",
+  "/docs/getting-started": "menu-book",
+  "/docs/guides": "dashboard",
+  "/docs/use-cases": "settings",
+  "/docs/cli": "code",
+  "/docs/mcp": "cloud",
+  "/docs/api": "dns",
+  "/docs/contributing": "favorite",
+  "/primitives": "layers",
+};
 
 export function DocsSidebar() {
   const { pathname } = useLocation();
@@ -51,30 +76,40 @@ export function DocsSidebar() {
     )
     .sort((a, b) => b.href.length - a.href.length)[0]?.href;
   return (
-    <nav aria-label="Docs sections" className="flex flex-col gap-5">
-      {sections.map((section) => (
-        <div key={section.label} className="flex flex-col gap-1">
+    <nav aria-label="Docs sections" className="flex flex-col gap-3">
+      {sections.map((section, idx) => (
+        <div
+          key={section.label}
+          className={cn(
+            "flex flex-col gap-1",
+            idx > 0 && "border-t border-(--sys-color-outline-variant)/70 pt-3",
+          )}
+        >
           <p
-            className={`m-0 px-3 ${T_LABEL} text-(--sys-color-on-surface-variant) uppercase`}
+            className={`m-0 px-4 py-1 ${T_LABEL} text-(--sys-color-on-surface-variant) uppercase`}
           >
             {section.label}
           </p>
           <ul className="m-0 flex list-none flex-col gap-0.5 p-0">
             {section.leaves.map((leaf) => {
               const active = leaf.href === activeHref;
+              const icon =
+                LEAF_ICONS[leaf.href] ??
+                (leaf.href.startsWith("/primitives/") ? "dns" : "menu-book");
               return (
                 <li key={leaf.href} className="m-0 p-0">
                   <a
                     href={leaf.href}
                     aria-current={active ? "page" : undefined}
                     className={cn(
-                      `min-h-12 rounded-(--sys-shape-corner-full) px-4 no-underline ${FOCUS_RING}`,
+                      `flex min-h-12 items-center gap-3 rounded-(--sys-shape-corner-full) px-4 no-underline ${TRANSITION} ${FOCUS_RING}`,
                       active
-                        ? `${PILL_ACTIVE} flex items-center ${T_LABEL_LG}`
-                        : `${PILL_REST} flex items-center ${T_BODY_MD}`,
+                        ? `${PILL_ACTIVE} ${T_LABEL_LG}`
+                        : `${PILL_REST} ${T_BODY_MD}`,
                     )}
                   >
-                    {leaf.label}
+                    <Icon name={icon} size={18} filled={active} />
+                    <span className="truncate">{leaf.label}</span>
                   </a>
                 </li>
               );

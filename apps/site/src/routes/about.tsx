@@ -34,7 +34,7 @@ function About() {
   return (
     <SiteLayout>
       <PageCard gap={12}>
-        <header className="flex flex-col gap-3">
+        <header className="site-docs-welcome flex flex-col gap-3">
           <Kicker className={INK_SOFT}>About</Kicker>
           <h1 className={`m-0 ${T_PAGE} ${INK}`}>About kern</h1>
           <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>
@@ -43,7 +43,7 @@ function About() {
             documents every deliberate departure in the open.
           </p>
         </header>
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 rounded-(--sys-shape-corner-extra-large) border border-(--sys-color-outline-variant)/70 bg-(--sys-color-surface-container-low) p-6">
           <h2 id="license" className={`m-0 ${T_SECTION} ${INK}`}>
             License
           </h2>
@@ -52,7 +52,10 @@ function About() {
             license text ships with the repository.
           </p>
         </div>
-        <nav aria-label="Project links" className="flex flex-col gap-3">
+        <nav
+          aria-label="Project links"
+          className="flex flex-col gap-3 rounded-(--sys-shape-corner-extra-large) border border-(--sys-color-outline-variant)/70 bg-(--sys-color-surface-container-low) p-6"
+        >
           <h2 id="project-links" className={`m-0 ${T_SECTION} ${INK}`}>
             Project links
           </h2>

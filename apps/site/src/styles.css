@@ -14,13 +14,13 @@
 }
 
 :root {
-  --site-header-h: 80px;
+  --site-header-h: 68px;
 }
 
 body {
   margin: 0;
   font-family: var(--ref-font-family);
-  background: var(--sys-color-surface);
+  background: var(--sys-color-surface-container-low);
   color: var(--sys-color-on-surface);
   /* Theme switch cross-fade: the only writers of these roles are the theme
      tokens, so this animates mode changes and nothing else. */
@@ -48,32 +48,39 @@ html {
 
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid var(--sys-color-primary);
+  outline: 2px solid var(--sys-color-secondary);
   outline-offset: 2px;
 }
 
 .site-shell {
   --site-panel-radius: var(--sys-shape-corner-extra-large);
-  --site-hero-radius: var(--sys-shape-corner-extra-extra-large);
+  --site-hero-radius: var(--sys-shape-corner-extra-large-increased);
   background: var(--sys-color-surface-container-low);
 }
 
 .site-chrome {
-  background: var(--sys-color-surface-container-low);
+  background: color-mix(
+    in srgb,
+    var(--sys-color-surface-container-low) 92%,
+    transparent
+  );
+  backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--sys-color-outline-variant);
 }
 .site-header {
   height: var(--site-header-h);
 }
 .site-body {
-  padding: 0 16px 16px;
+  padding: 12px 16px 24px;
+  gap: 16px;
 }
 .site-main {
   background: var(--sys-color-surface);
+  border: 1px solid var(--sys-color-outline-variant);
   border-radius: var(--site-panel-radius);
 }
 .site-main :is(h2, h3)[id] {
-  scroll-margin-top: calc(var(--site-header-h) + 24px);
+  scroll-margin-top: calc(var(--site-header-h) + 48px);
 }
 .site-main:focus {
   outline: none;
@@ -83,6 +90,11 @@ button:focus-visible {
 }
 .site-page :where(:not(pre)) > code {
   overflow-wrap: anywhere;
+  border-radius: var(--sys-shape-corner-extra-small);
+  background: var(--sys-color-surface-container-high);
+  padding: 2px 6px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.9em;
 }
 .site-main .font-mono {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -118,22 +130,25 @@ button:focus-visible {
 .codeblock .tok-operator {
   color: var(--sys-color-on-surface-variant);
 }
-.site-sidebar,
-.site-toc {
+.site-sidebar {
   background: var(--sys-color-surface-container-low);
 }
 .site-toc {
-  padding-left: 8px;
+  background: transparent;
+  padding-left: 4px;
 }
 .site-page-title {
-  font-size: clamp(36px, 4vw, 56px);
-  line-height: 1.12;
-  letter-spacing: -0.045em;
+  font-size: clamp(32px, 3.6vw, 48px);
+  line-height: 1.14;
+  letter-spacing: -0.03em;
   font-weight: 500;
   text-wrap: balance;
 }
 .site-card {
-  transition: background-color var(--sys-motion-duration-short3)
+  transition:
+    background-color var(--sys-motion-duration-short3)
+    var(--sys-motion-easing-standard),
+    border-color var(--sys-motion-duration-short3)
     var(--sys-motion-easing-standard);
   position: relative;
 }
@@ -152,11 +167,9 @@ a.site-card:active::after {
 .site-docs-welcome {
   padding: clamp(24px, 3vw, 40px);
   border-radius: var(--site-panel-radius);
-  background: var(--sys-color-primary-container);
-  color: var(--sys-color-on-primary-container);
-}
-.site-docs-welcome :is(p, h1) {
-  color: inherit;
+  background: var(--sys-color-surface-container);
+  border: 1px solid var(--sys-color-outline-variant);
+  color: var(--sys-color-on-surface);
 }
 .site-journey-icon {
   display: flex;
@@ -165,9 +178,9 @@ a.site-card:active::after {
   width: 48px;
   height: 48px;
   border-radius: var(--sys-shape-corner-large);
-  margin-bottom: 20px;
-  background: var(--sys-color-primary-container);
-  color: var(--sys-color-on-primary-container);
+  margin-bottom: 16px;
+  background: var(--sys-color-secondary-container);
+  color: var(--sys-color-on-secondary-container);
 }
 /* Modal enter — the M3 container-transform's honest web form: a short4
    fade + rise on the emphasized easing for the palette and drawer panels.
@@ -188,31 +201,16 @@ a.site-card:active::after {
     var(--sys-motion-easing-emphasized);
 }
 .site-stage {
-  background: color-mix(
-    in srgb,
-    var(--sys-color-primary-container) 32%,
-    var(--sys-color-surface-container-low)
-  );
+  background: var(--sys-color-surface-container-lowest);
 }
 .site-gallery-card {
   background: var(--sys-color-surface-container-low);
 }
-.site-gallery-card:nth-child(3n + 2) .site-gallery-stage {
-  background: color-mix(
-    in srgb,
-    var(--sys-color-tertiary-container) 38%,
-    var(--sys-color-surface-container-low)
-  );
-}
-.site-gallery-card:nth-child(3n + 3) .site-gallery-stage {
-  background: color-mix(
-    in srgb,
-    var(--sys-color-secondary-container) 50%,
-    var(--sys-color-surface-container-low)
-  );
+.site-gallery-card .site-gallery-stage {
+  background: var(--sys-color-surface-container-lowest);
 }
 .site-gallery-card:focus-within {
-  outline: 2px solid var(--sys-color-primary);
+  outline: 2px solid var(--sys-color-secondary);
   outline-offset: 2px;
 }
 /**
@@ -231,27 +229,25 @@ a.site-card:active::after {
 }
 .site-footer {
   border-radius: var(--site-panel-radius);
+  border: 1px solid var(--sys-color-outline-variant);
   margin: 48px 16px 16px;
 }
 
-/* Editorial home: quiet paper, saturated specimens, generous breathing room. */
+/* Editorial home: M3 neutral container surfaces, balanced tonal accents, generous breathing room. */
 .home-hero {
   margin: 16px;
-  padding: clamp(24px, 4vw, 64px);
+  padding: clamp(24px, 4vw, 56px);
   border-radius: var(--site-hero-radius);
-  background: color-mix(
-    in srgb,
-    var(--sys-color-primary-container) 30%,
-    var(--sys-color-surface)
-  );
-  color: var(--sys-color-on-primary-container);
+  background: var(--sys-color-surface-container-low);
+  border: 1px solid var(--sys-color-outline-variant);
+  color: var(--sys-color-on-surface);
 }
 .home-hero-grid {
   max-width: 88rem;
   margin: auto;
   display: grid;
   grid-template-columns: 1.05fr 1fr;
-  gap: clamp(32px, 5vw, 80px);
+  gap: clamp(32px, 4.5vw, 64px);
   align-items: center;
 }
 /* Grid blowout guard: tracks shrink instead of following min-content. */
@@ -259,35 +255,35 @@ a.site-card:active::after {
   min-width: 0;
 }
 .site-hero-title {
-  font-size: clamp(56px, 6.5vw, 104px);
+  font-size: clamp(48px, 5.5vw, 84px);
   font-weight: 500;
-  line-height: 1.04;
-  letter-spacing: -0.065em;
+  line-height: 1.05;
+  letter-spacing: -0.045em;
 }
 .home-cta {
-  min-height: 56px;
-  padding-inline: 26px;
+  min-height: 52px;
+  padding-inline: 24px;
 }
 .hero-art {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 12px;
+  gap: 14px;
 }
 /**
  * Workspace settings card — the hero's composed product shot. Real package
- * controls on layered M3 surfaces: surface-container-low card on the tinted
- * panel, container-high rows inside. Dark mode layers the same way through
- * the roles (no dark overrides).
+ * controls on layered M3 surfaces: surface-container-lowest card on the
+ * surface-container-low hero, surface-container rows inside.
  */
 .hero-app-card {
   border-radius: var(--site-panel-radius);
-  padding: 20px;
-  background: var(--sys-color-surface-container-low);
+  padding: 22px;
+  background: var(--sys-color-surface-container-lowest);
+  border: 1px solid var(--sys-color-outline-variant);
   color: var(--sys-color-on-surface);
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  box-shadow: var(--sys-elevation-level2);
+  gap: 6px;
+  box-shadow: var(--sys-elevation-level1);
 }
 .hero-app-row {
   display: flex;
@@ -295,16 +291,16 @@ a.site-card:active::after {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 12px 16px;
-  padding: 12px 12px;
-  border-radius: var(--sys-shape-corner-medium);
-  background: var(--sys-color-surface-container-high);
-  margin-top: 8px;
+  padding: 12px 14px;
+  border-radius: var(--sys-shape-corner-large);
+  background: var(--sys-color-surface-container);
+  margin-top: 6px;
 }
 .hero-app-actions {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 4px;
+  gap: 8px;
   margin-top: 12px;
 }
 .hero-dim {
@@ -313,26 +309,26 @@ a.site-card:active::after {
 /** Install block: the command earns its surface from InstallTabs already. */
 .hero-install {
   border-radius: var(--site-panel-radius);
-  padding: 20px;
-  background: var(--sys-color-surface-container-low);
+  padding: 20px 22px;
+  background: var(--sys-color-surface-container-lowest);
+  border: 1px solid var(--sys-color-outline-variant);
   color: var(--sys-color-on-surface);
   display: flex;
   flex-direction: column;
   gap: 12px;
-  box-shadow: var(--sys-elevation-level1);
 }
 .hero-install-tabs {
   min-width: 0;
 }
 .hero-dim-link {
-  color: var(--sys-color-primary);
+  color: var(--sys-color-secondary);
 }
 
 .home-section {
   max-width: 88rem;
   width: 100%;
   margin: auto;
-  padding: clamp(36px, 5vw, 72px) clamp(24px, 4vw, 64px) 16px;
+  padding: clamp(36px, 4.5vw, 64px) clamp(24px, 4vw, 56px) 16px;
 }
 .home-section-head {
   display: flex;
@@ -344,13 +340,13 @@ a.site-card:active::after {
 .home-section-head h2,
 .home-start h2 {
   font-size: clamp(28px, 3vw, 40px);
-  line-height: 1.2;
-  letter-spacing: -0.04em;
+  line-height: 1.18;
+  letter-spacing: -0.03em;
 }
 .home-text-link {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   min-height: 48px;
   flex-shrink: 0;
 }
@@ -363,54 +359,58 @@ a.site-card:active::after {
   border-radius: var(--site-panel-radius);
   overflow: hidden;
   background: var(--sys-color-surface-container-low);
+  border: 1px solid var(--sys-color-outline-variant);
 }
 .home-explore-art {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 14px;
-  min-height: 228px;
-  margin: 8px;
+  min-height: 220px;
+  margin: 10px;
   border-radius: var(--sys-shape-corner-large-increased);
   overflow: hidden;
 }
 .home-component-art {
   flex-direction: column;
   padding: 20px;
-  background: var(--sys-color-secondary-container);
+  background: var(--sys-color-surface-container-lowest);
+  border: 1px solid var(--sys-color-outline-variant);
 }
 .home-foundation-art {
-  background: var(--sys-color-tertiary-container);
+  background: var(--sys-color-secondary-container);
   padding: 24px;
   gap: 0;
 }
 .foundation-square,
 .foundation-circle,
 .foundation-arch {
-  width: 92px;
-  height: 92px;
+  width: 88px;
+  height: 88px;
   flex-shrink: 1;
 }
 .foundation-square {
-  background: var(--sys-color-tertiary);
+  background: var(--sys-color-secondary);
   border-radius: var(--sys-shape-corner-large);
   transform: rotate(-12deg);
-  margin-right: -20px;
+  margin-right: -18px;
 }
 .foundation-circle {
-  background: var(--sys-color-on-tertiary-container);
+  background: var(--sys-color-tertiary-container);
+  border: 2px solid var(--sys-color-tertiary);
   border-radius: 50%;
   z-index: 1;
 }
 .foundation-arch {
-  background: var(--sys-color-surface);
+  background: var(--sys-color-surface-container-lowest);
+  border: 1px solid var(--sys-color-outline-variant);
   border-radius: 50% 50% 0 0;
   transform: rotate(12deg);
-  margin-left: -20px;
+  margin-left: -18px;
 }
 .home-theme-art {
-  background: var(--sys-color-primary-container);
-  color: var(--sys-color-on-primary-container);
+  background: var(--sys-color-surface-container-high);
+  color: var(--sys-color-on-surface);
   position: relative;
 }
 .home-theme-art > svg {
@@ -418,47 +418,49 @@ a.site-card:active::after {
 }
 .theme-art-stack {
   display: flex;
-  height: 148px;
-  width: 230px;
-  transform: rotate(-12deg);
+  height: 140px;
+  width: 240px;
+  transform: rotate(-10deg);
 }
 .theme-art-stack span {
-  width: 92px;
+  width: 84px;
   flex-shrink: 0;
-  margin-right: -46px;
+  margin-right: -38px;
   border-radius: var(--sys-shape-corner-full);
+  border: 1px solid var(--sys-color-outline-variant);
 }
 .theme-art-stack span:nth-child(1) {
-  background: var(--sys-color-primary);
+  background: var(--sys-color-primary-container);
 }
 .theme-art-stack span:nth-child(2) {
-  background: var(--sys-color-secondary);
+  background: var(--sys-color-secondary-container);
 }
 .theme-art-stack span:nth-child(3) {
-  background: var(--sys-color-tertiary);
-}
-.theme-art-stack span:nth-child(4) {
   background: var(--sys-color-tertiary-container);
 }
+.theme-art-stack span:nth-child(4) {
+  background: var(--sys-color-surface-container-lowest);
+}
 .home-explore-copy {
-  padding: 20px 24px 24px;
+  padding: 18px 24px 24px;
 }
 .palette-card {
   border-radius: var(--site-panel-radius);
   overflow: hidden;
   background: var(--sys-color-surface-container-low);
+  border: 1px solid var(--sys-color-outline-variant);
 }
 .palette-role {
-  padding: 24px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 24px;
+  gap: 16px;
 }
 .palette-circle {
   display: flex;
-  width: 80px;
-  height: 80px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   align-items: center;
   justify-content: center;
@@ -469,11 +471,12 @@ a.site-card:active::after {
   grid-template-columns: 1fr 1fr;
   align-items: center;
   gap: 48px;
-  margin: 64px 24px 0;
-  padding: clamp(24px, 4vw, 64px);
+  margin: 56px 24px 0;
+  padding: clamp(24px, 4vw, 56px);
   border-radius: var(--site-hero-radius);
-  background: var(--sys-color-primary-container);
-  color: var(--sys-color-on-primary-container);
+  background: var(--sys-color-surface-container);
+  border: 1px solid var(--sys-color-outline-variant);
+  color: var(--sys-color-on-surface);
 }
 .home-code-panel {
   padding: 28px;

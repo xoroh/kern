@@ -46,10 +46,14 @@ function ComponentsGallery() {
   return (
     <SiteLayout>
       <PageCard width="wide">
-        <header className="flex flex-col gap-3">
-          <h1 className={`m-0 ${T_PAGE} ${INK}`}>Components</h1>
-          <GalleryLede />
-          <PlatformSwitcher platform={platform} />
+        <header className="site-docs-welcome flex flex-col gap-4">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div className="flex flex-col gap-2">
+              <h1 className={`m-0 ${T_PAGE} ${INK}`}>Components</h1>
+              <GalleryLede />
+            </div>
+            <PlatformSwitcher platform={platform} />
+          </div>
         </header>
         <ComponentGallery platform={platform} />
       </PageCard>

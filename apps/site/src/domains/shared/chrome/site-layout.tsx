@@ -177,13 +177,16 @@ function OnThisPageRail({ pathname }: { pathname: string }) {
   }, [items]);
   if (items.length < 2) return null;
   return (
-    <nav aria-label="On this page" className="flex flex-col gap-2">
+    <nav
+      aria-label="On this page"
+      className="flex flex-col gap-3 rounded-(--sys-shape-corner-large-increased) border border-(--sys-color-outline-variant)/70 bg-(--sys-color-surface) p-4"
+    >
       <p
-        className={`m-0 ${T_LABEL} text-(--sys-color-on-surface-variant) uppercase`}
+        className={`m-0 px-2 ${T_LABEL} text-(--sys-color-on-surface-variant) uppercase`}
       >
         On this page
       </p>
-      <ul className="m-0 flex list-none flex-col gap-0.5 p-0">
+      <ul className="m-0 flex list-none flex-col gap-0.5 border-l border-(--sys-color-outline-variant) p-0 pl-2">
         {items.map((item) => {
           const active = item.id === activeId;
           return (
@@ -193,8 +196,8 @@ function OnThisPageRail({ pathname }: { pathname: string }) {
                 aria-current={active ? "location" : undefined}
                 className={`block rounded-(--sys-shape-corner-full) px-3 py-1.5 ${T_BODY_SM} no-underline ${TRANSITION} ${FOCUS_RING} ${
                   active
-                    ? "bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container) font-medium"
-                    : "text-(--sys-color-on-surface-variant) hover:bg-(--sys-color-surface-container-high) hover:text-(--sys-color-on-surface) hover:underline active:bg-(--sys-color-on-surface)/10"
+                    ? "bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container)"
+                    : "text-(--sys-color-on-surface-variant) hover:bg-(--sys-color-surface-container-high) hover:text-(--sys-color-on-surface) active:bg-(--sys-color-on-surface)/10"
                 }`}
               >
                 {item.text}
@@ -222,18 +225,18 @@ function SectionToc({ pathname }: { pathname: string }) {
   }, [pathname]);
   if (items.length < 2) return null;
   return (
-    <details className="rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-low) px-4 py-3 xl:hidden">
+    <details className="rounded-(--sys-shape-corner-large) border border-(--sys-color-outline-variant)/70 bg-(--sys-color-surface-container-low) px-4 py-3 xl:hidden">
       <summary
         className={`cursor-pointer ${T_LABEL} text-(--sys-color-on-surface-variant) uppercase`}
       >
         On this page
       </summary>
-      <ul className="m-0 mt-2 flex list-none flex-col gap-1 p-0">
+      <ul className="m-0 mt-2 flex list-none flex-col gap-1 border-t border-(--sys-color-outline-variant)/60 pt-2 p-0">
         {items.map((item) => (
           <li key={item.id} className="m-0 p-0">
             <a
               href={`#${item.id}`}
-              className={`block py-1 ${T_BODY_SM} text-(--sys-color-secondary) no-underline hover:underline`}
+              className={`block rounded-(--sys-shape-corner-full) px-2 py-1 ${T_BODY_SM} text-(--sys-color-secondary) no-underline hover:bg-(--sys-color-surface-container-high) hover:underline`}
             >
               {item.text}
             </a>
@@ -306,21 +309,18 @@ export function SiteLayout({
           <div
             className={`site-body flex ${isFullHeight ? "min-h-0 flex-1" : "items-start"}`}
           >
-            {/* Left sidebar — sticky, viewport-height, its own scroll.
-              The M3 sidebar surface: `bg-surface`, hairline `border-e`. */}
+            {/* Left sidebar — sticky M3 Navigation Drawer container, viewport-height, its own scroll. */}
             {withSidebar ? (
               <aside
-                className={`site-sidebar hidden w-60 shrink-0 overflow-hidden lg:block ${
+                className={`site-sidebar hidden w-64 shrink-0 overflow-hidden rounded-(--sys-shape-corner-extra-large) border border-(--sys-color-outline-variant)/80 bg-(--sys-color-surface) lg:block ${
                   isFullHeight
                     ? "overflow-hidden"
-                    : "sticky top-[var(--site-header-h)] max-h-[calc(100dvh-var(--site-header-h))] overflow-y-auto"
+                    : "sticky top-[calc(var(--site-header-h)+48px)] max-h-[calc(100dvh-var(--site-header-h)-64px)] overflow-y-auto"
                 }`}
               >
                 <div
                   className={
-                    isFullHeight
-                      ? "h-full overflow-y-auto px-3 py-6"
-                      : "px-3 py-6"
+                    isFullHeight ? "h-full overflow-y-auto p-3" : "p-3"
                   }
                 >
                   {isComponents ? <ComponentsSidebar /> : <DocsSidebar />}
@@ -346,13 +346,13 @@ export function SiteLayout({
             {/* Right TOC — sticky, from 1280px it shadows shadcn/radix. */}
             {withSidebar ? (
               <aside
-                className={`site-toc hidden w-48 shrink-0 xl:block ${
+                className={`site-toc hidden w-56 shrink-0 xl:block ${
                   isFullHeight
                     ? "hidden"
-                    : "sticky top-[var(--site-header-h)] max-h-[calc(100dvh-var(--site-header-h))] overflow-y-auto"
+                    : "sticky top-[calc(var(--site-header-h)+48px)] max-h-[calc(100dvh-var(--site-header-h)-64px)] overflow-y-auto"
                 }`}
               >
-                <div className="px-4 py-6">
+                <div className="py-1">
                   <OnThisPageRail pathname={pathname} />
                 </div>
               </aside>

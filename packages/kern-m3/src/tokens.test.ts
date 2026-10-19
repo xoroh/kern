@@ -79,15 +79,15 @@ describe("kern default theme — approved values", () => {
   });
 
   it("pins the light surface and error roles", () => {
-    expect(light.surface).toBe("#ffffff");
+    expect(light.surface).toBe("#fef7ff");
     expect(light.error).toBe("#dc2626");
   });
 
-  it("uses the M3 dark seed primary on a black surface", () => {
+  it("uses the M3 dark seed primary on the M3 dark surface", () => {
     // A dark scheme that kept a black primary would render a black button on a
-    // black page — invisible, and no contrast check catches it.
+    // dark page — invisible, and no contrast check catches it.
     expect(dark.primary).toBe("#d0bcff");
-    expect(dark.surface).toBe("#000000");
+    expect(dark.surface).toBe("#141218");
     expect(dark.primaryContainer).toBe("#4f378b");
     expect(dark.onPrimaryContainer).toBe("#eaddff");
   });

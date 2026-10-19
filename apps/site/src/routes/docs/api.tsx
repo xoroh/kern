@@ -142,32 +142,34 @@ function ApiReference() {
   return (
     <SiteLayout>
       <PageCard gap={8}>
-        <Kicker>API utilities</Kicker>
-        <h1 className={`mt-2 mb-3 ${T_PAGE} text-(--sys-color-on-surface)`}>
-          Public utilities
-        </h1>
-        <p
-          className={`mt-0 mb-8 ${T_BODY} text-(--sys-color-on-surface-variant)`}
-        >
-          kern exports API that is not a component: pure functions, predicates,
-          hooks and factories. They are reachable from the packages' public
-          entries and are documented here as what they are — a contract, not an
-          anatomy. Components live under{" "}
-          <a
-            className={`${LINK} underline underline-offset-2`}
-            href="/components"
+        <header className="site-docs-welcome flex flex-col gap-3">
+          <Kicker>API utilities</Kicker>
+          <h1 className={`m-0 ${T_PAGE} text-(--sys-color-on-surface)`}>
+            Public utilities
+          </h1>
+          <p
+            className={`m-0 max-w-[65ch] ${T_BODY} text-(--sys-color-on-surface-variant)`}
           >
-            Components
-          </a>{" "}
-          and every export is indexed under{" "}
-          <a
-            className={`${LINK} underline underline-offset-2`}
-            href="/reference"
-          >
-            API reference
-          </a>
-          .
-        </p>
+            kern exports API that is not a component: pure functions,
+            predicates, hooks and factories. They are reachable from the
+            packages' public entries and are documented here as what they are —
+            a contract, not an anatomy. Components live under{" "}
+            <a
+              className={`${LINK} underline underline-offset-2`}
+              href="/components"
+            >
+              Components
+            </a>{" "}
+            and every export is indexed under{" "}
+            <a
+              className={`${LINK} underline underline-offset-2`}
+              href="/reference"
+            >
+              API reference
+            </a>
+            .
+          </p>
+        </header>
 
         {entries.map((entry) => (
           <section

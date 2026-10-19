@@ -72,17 +72,22 @@ function M3Hub() {
   return (
     <SiteLayout>
       <PageCard>
-        <header className="flex flex-col gap-3">
+        <header className="site-docs-welcome flex flex-col gap-3">
           <nav
             className={`flex flex-wrap items-center gap-2 ${T_BODY_SM} ${INK_SOFT}`}
             aria-label="Breadcrumb"
           >
-            <Link to="/foundations">Design systems</Link>
+            <Link
+              to="/foundations"
+              className="text-(--sys-color-on-surface-variant) no-underline hover:underline"
+            >
+              Design systems
+            </Link>
             <span aria-hidden="true">/</span>
             <span className={INK}>Material 3</span>
           </nav>
           <h1 className={`m-0 ${T_PAGE} ${INK}`}>Material 3</h1>
-          <p className={`m-0 max-w-[62ch] ${T_LEAD} ${INK_SOFT}`}>
+          <p className={`m-0 max-w-[65ch] ${T_LEAD} ${INK_SOFT}`}>
             The values the current system is built from, and the rules that
             govern them. Everything on these pages is read from the token
             package — the numbers are generated, so they cannot disagree with
@@ -100,7 +105,7 @@ function M3Hub() {
           />
         </div>
 
-        <p className={`m-0 max-w-[62ch] ${T_BODY_SM} ${INK_SOFT}`}>
+        <p className={`m-0 max-w-[65ch] ${T_BODY_SM} ${INK_SOFT}`}>
           {ROLE_COUNT} colour roles in kern: {M3_ROLE_COUNT} are Material 3's
           and {KERN_EXTRA_COUNT} are registered kern deviations — status colours
           and a tonal surface role, each with an id in the deviations registry
@@ -116,13 +121,18 @@ function M3Hub() {
               key={page.slug}
               to="/foundations/m3/$page"
               params={{ page: page.slug }}
-              className={`${CARD} flex flex-col gap-1 p-5 no-underline`}
+              className={`${CARD} flex flex-col justify-between gap-2 p-5 no-underline`}
             >
-              <span className={`m-0 ${T_SMALL_TITLE} ${INK}`}>
-                {page.title}
-              </span>
-              <span className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
-                {page.oneLiner}
+              <div className="flex flex-col gap-1">
+                <span className={`m-0 ${T_SMALL_TITLE} ${INK}`}>
+                  {page.title}
+                </span>
+                <span className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
+                  {page.oneLiner}
+                </span>
+              </div>
+              <span className={`m-0 mt-1 ${T_BODY_SM} ${LINK}`}>
+                Explore {page.title.toLowerCase()} →
               </span>
             </Link>
           ))}

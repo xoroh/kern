@@ -32,37 +32,39 @@ export const INK = "text-(--sys-color-on-surface)";
 /** Secondary ink — descriptions, captions, table cells. */
 export const INK_SOFT = "text-(--sys-color-on-surface-variant)";
 /**
- * Inline link — Primary, the site's action accent. Underline appears on
- * hover; the global focus ring is
- * visible on keyboard focus.
+ * Inline link — Secondary (M3 tonal link accent) so inline prose links
+ * read clearly without flooding body copy with primary purple highlights.
  */
-export const LINK = "text-(--sys-color-primary) no-underline hover:underline";
+export const LINK =
+  "text-(--sys-color-secondary) no-underline hover:text-(--sys-color-primary) hover:underline underline-offset-4";
 
 /* ------------------------------------------------------------- surfaces --- */
 
 /**
- * CARD — rounded tonal content group. Flat, with no perimeter stroke.
+ * CARD — M3 tonal content container (surface-container-low with subtle
+ * outline-variant hairline for crisp M3 containment across light and dark).
  */
 export const CARD =
-  "site-card rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container-low)";
+  "site-card rounded-(--sys-shape-corner-extra-large) border border-(--sys-color-outline-variant)/70 bg-(--sys-color-surface-container-low)";
 
 /**
- * CARD_FILLED — the next step of the tonal ladder, without a stroke.
+ * CARD_FILLED — the next step of the M3 neutral tonal ladder.
  */
 export const CARD_FILLED =
   "site-card rounded-(--sys-shape-corner-extra-large) bg-(--sys-color-surface-container)";
 
 /**
  * STAGE — the ONE demo chrome. Every live demo, preview, and specimen sits
- * on this tonal stage inside a CARD. The site-stage class owns the subtle
- * accent mix; it never overrides the rendered component's theme.
+ * on this clean M3 neutral surface-container-lowest stage inside a CARD so
+ * component colors (primary, secondary, tertiary, status) render accurately
+ * without a competing purple backdrop.
  */
 export const STAGE =
-  "site-stage rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container)";
+  "site-stage rounded-(--sys-shape-corner-large) border border-(--sys-color-outline-variant)/80 bg-(--sys-color-surface-container-lowest)";
 
 /** A small tonal strip inside a card — code heads, table heads, callouts. */
 export const STRIP =
-  "rounded-(--sys-shape-corner-small) bg-(--sys-color-surface-container-low)";
+  "rounded-(--sys-shape-corner-medium) bg-(--sys-color-surface-container)";
 
 /* ---------------------------------------------------------- interaction --- */
 

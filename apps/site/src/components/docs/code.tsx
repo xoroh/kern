@@ -9,7 +9,6 @@
  * paints from `--sys-color-*` roles, light + `.dark`), so code blocks
  * repaint with the theme instead of wearing a vendored TextMate theme.
  */
-import { Icon } from "@xoroh/kern-icons";
 import { useState } from "react";
 import {
   T_CODE,
@@ -21,6 +20,7 @@ import {
   STATE_LAYERS,
   TRANSITION,
 } from "../../domains/shared/systems/ui";
+import { ChromeIcon } from "../chrome/chrome-icons";
 import { HighlightedCode, type HighlightLanguage } from "./highlight";
 
 const PRE =
@@ -93,7 +93,7 @@ export function Code({
             aria-label={copied ? "Copied" : `Copy ${filename}`}
             className="inline-flex min-h-10 shrink-0 cursor-pointer items-center gap-1.5 rounded-full border-0 bg-transparent px-3 font-mono text-(--sys-color-primary) hover:bg-(--sys-color-on-surface)/8 active:bg-(--sys-color-on-surface)/12 [font-size:var(--sys-typescale-label-medium-font-size)] [line-height:var(--sys-typescale-label-medium-line-height)]"
           >
-            <Icon name={copied ? "check" : "content-copy"} size={16} />
+            <ChromeIcon name={copied ? "check" : "content-copy"} size={16} />
             {copied ? "Copied" : "Copy"}
           </button>
         </div>
@@ -114,7 +114,7 @@ export function Code({
         aria-label={copied ? "Copied" : "Copy code"}
         onClick={copy}
       >
-        <Icon name={copied ? "check" : "content-copy"} size={16} />
+        <ChromeIcon name={copied ? "check" : "content-copy"} size={16} />
         {copied ? (
           <span className="pr-1 font-mono [font-size:var(--sys-typescale-label-small-font-size)] [line-height:var(--sys-typescale-label-small-line-height)]">
             Copied
@@ -140,14 +140,14 @@ export function Step({
   children: React.ReactNode;
 }) {
   return (
-    <section className="flex flex-col gap-3">
+    <section className="flex flex-col gap-4 rounded-(--sys-shape-corner-extra-large) border border-(--sys-color-outline-variant)/70 bg-(--sys-color-surface-container-low) p-6">
       <h2
         id={`step-${n}`}
         className={`m-0 flex items-center gap-3 ${T_SECTION} text-(--sys-color-on-surface)`}
       >
         <span
           aria-hidden="true"
-          className={`flex size-7 shrink-0 items-center justify-center rounded-full bg-(--sys-color-secondary-container) ${T_LABEL_LG} text-(--sys-color-on-secondary-container)`}
+          className={`flex size-8 shrink-0 items-center justify-center rounded-full bg-(--sys-color-secondary-container) ${T_LABEL_LG} text-(--sys-color-on-secondary-container)`}
         >
           {n}
         </span>

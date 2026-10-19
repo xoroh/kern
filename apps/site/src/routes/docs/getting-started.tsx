@@ -145,8 +145,8 @@ export function PresetPicker() {
 function GettingStarted() {
   return (
     <SiteLayout>
-      <PageCard width="narrow">
-        <header className="flex flex-col gap-3">
+      <PageCard>
+        <header className="site-docs-welcome flex flex-col gap-3">
           <Kicker>Getting started</Kicker>
           <h1 className={`m-0 ${T_PAGE} text-(--sys-color-on-surface)`}>
             From install to a themed component

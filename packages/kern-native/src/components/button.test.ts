@@ -44,7 +44,7 @@ describe("native Button styles", () => {
     // Container carries no opacity (the wash is baked into the background
     // color) so the two washes never compound.
     expect(container.opacity).toBeUndefined();
-    expect(container.backgroundColor).toMatch(/#2626261f/i);
+    expect(container.backgroundColor).toMatch(/#1d1b201f/i);
     expect(label.opacity).toBe(0.38);
     // Transparent variants keep a transparent fill when disabled.
     expect(
@@ -52,7 +52,7 @@ describe("native Button styles", () => {
     ).toBe("transparent");
     expect(
       buttonStyles("outlined", "default", true).container.borderColor,
-    ).toMatch(/#2626261f/i);
+    ).toMatch(/#1d1b201f/i);
   });
 
   it("sizes xs and xl onto the sm and lg bands", () => {

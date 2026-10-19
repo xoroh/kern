@@ -39,7 +39,7 @@ function Contributing() {
   return (
     <SiteLayout>
       <PageCard gap={12}>
-        <header className="flex flex-col gap-3">
+        <header className="site-docs-welcome flex flex-col gap-3">
           <Kicker className={INK_SOFT}>Docs · Contributing</Kicker>
           <h1 className={`m-0 ${T_PAGE} ${INK}`}>Contributing to kern</h1>
           <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>

@@ -22,7 +22,7 @@ export function ApiIndex() {
   return (
     <SiteLayout>
       <PageCard>
-        <header className="flex flex-col gap-3">
+        <header className="site-docs-welcome flex flex-col gap-3">
           <p
             className={`m-0 ${T_LABEL} text-(--sys-color-on-surface-variant) uppercase`}
           >
@@ -45,43 +45,65 @@ export function ApiIndex() {
             .
           </p>
         </header>
-        {/*
-            Phase 3 grammar — mobile tables: the index table scrolls
-            horizontally inside its container below the breakpoint where it
-            fits, instead of blowing out the page. Same `overflow-x-auto`
-            treatment the component-page tables already carry.
-          */}
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto rounded-(--sys-shape-corner-extra-large) border border-(--sys-color-outline-variant)/80 bg-(--sys-color-surface-container-low) p-4 sm:p-6">
           <table className="w-full border-collapse text-left">
             <thead>
               <tr className="border-b border-(--sys-color-outline-variant)">
-                <th className={`m-0 ${T_LABEL} pb-2 text-left`}>Export</th>
-                <th className={`m-0 ${T_LABEL} pb-2 text-left`}>Family</th>
-                <th className={`m-0 ${T_LABEL} pb-2 text-left`}>Platform</th>
-                <th className={`m-0 ${T_LABEL} pb-2 text-left`}>Status</th>
+                <th
+                  className={`m-0 ${T_LABEL} pb-3 text-left uppercase text-(--sys-color-on-surface-variant)`}
+                >
+                  Export
+                </th>
+                <th
+                  className={`m-0 ${T_LABEL} pb-3 text-left uppercase text-(--sys-color-on-surface-variant)`}
+                >
+                  Family
+                </th>
+                <th
+                  className={`m-0 ${T_LABEL} pb-3 text-left uppercase text-(--sys-color-on-surface-variant)`}
+                >
+                  Platform
+                </th>
+                <th
+                  className={`m-0 ${T_LABEL} pb-3 text-left uppercase text-(--sys-color-on-surface-variant)`}
+                >
+                  Status
+                </th>
               </tr>
             </thead>
             <tbody>
               {rows.map((row) => (
                 <tr
                   key={`${row.platform}/${row.export}`}
-                  className="border-b border-(--sys-color-outline-variant)"
+                  className="border-b border-(--sys-color-outline-variant)/60 last:border-b-0"
                 >
-                  <td className={`m-0 ${T_BODY} py-2 pr-4 font-mono`}>
+                  <td className={`m-0 ${T_BODY} py-2.5 pr-4 font-mono`}>
                     <Link
                       to="/components/$system/$component"
                       params={{
                         system: "m3",
                         component: row.name,
                       }}
-                      className="text-(--sys-color-primary) no-underline hover:underline"
+                      className="text-(--sys-color-secondary) no-underline hover:text-(--sys-color-primary) hover:underline"
                     >
                       {row.export}
                     </Link>
                   </td>
-                  <td className={`m-0 ${T_BODY} py-2 pr-4`}>{row.name}</td>
-                  <td className={`m-0 ${T_BODY} py-2 pr-4`}>{row.platform}</td>
-                  <td className={`m-0 ${T_BODY} py-2`}>{row.status}</td>
+                  <td
+                    className={`m-0 ${T_BODY} py-2.5 pr-4 text-(--sys-color-on-surface-variant)`}
+                  >
+                    {row.name}
+                  </td>
+                  <td className={`m-0 ${T_LABEL} py-2.5 pr-4`}>
+                    <span className="rounded-full bg-(--sys-color-secondary-container) px-2.5 py-0.5 text-(--sys-color-on-secondary-container)">
+                      {row.platform}
+                    </span>
+                  </td>
+                  <td className={`m-0 ${T_LABEL} py-2.5`}>
+                    <span className="rounded-full bg-(--sys-color-surface-container-high) px-2.5 py-0.5 text-(--sys-color-on-surface-variant)">
+                      {row.status}
+                    </span>
+                  </td>
                 </tr>
               ))}
             </tbody>

@@ -29,7 +29,8 @@ import {
 import { Kicker } from "../chrome/kicker";
 import { InstallTabs } from "../docs/install-tabs";
 
-const INK = "text-(--sys-color-on-primary-container)";
+const INK = "text-(--sys-color-on-surface)";
+const INK_SOFT = "text-(--sys-color-on-surface-variant)";
 
 /**
  * Workspace settings — a believable slice of app UI composed from real
@@ -42,20 +43,31 @@ function WorkspaceCard() {
   const [saved, setSaved] = useState(false);
   return (
     <section className="hero-app-card" aria-label="Workspace settings demo">
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 pb-1">
         <Avatar.Root size="default">
           <Avatar.Fallback delay={0}>Ac</Avatar.Fallback>
         </Avatar.Root>
         <div className="flex min-w-0 flex-1 flex-col">
-          <span className={T_LABEL_LG}>Acme project</span>
-          <span className={`${T_SUB} hero-dim`}>3 members · synced</span>
+          <span className={T_LABEL_LG}>Acme workspace</span>
+          <span className={`${T_SUB} hero-dim`}>
+            Material 3 · Web + React Native
+          </span>
         </div>
-        <Chip variant="assist">Pro</Chip>
+        <Chip variant="filter" defaultValue>
+          Synced
+        </Chip>
       </div>
       <div className="hero-app-row">
-        <span className={T_LABEL_LG} id="hero-notify">
-          Notifications
-        </span>
+        <div className="flex flex-col">
+          <span className={T_LABEL_LG} id="hero-notify">
+            Push notifications
+          </span>
+          <span
+            className={`m-0 ${INK_SOFT} [font-size:var(--sys-typescale-body-small-font-size)] [line-height:var(--sys-typescale-body-small-line-height)]`}
+          >
+            Real-time token and release alerts
+          </span>
+        </div>
         <Switch
           aria-labelledby="hero-notify"
           checked={notify}
@@ -67,7 +79,7 @@ function WorkspaceCard() {
       </div>
       <div className="hero-app-row">
         <span className={T_LABEL_LG} id="hero-density">
-          Density
+          Layout density
         </span>
         <SegmentedButton.Root
           defaultValue={["comfortable"]}
@@ -122,15 +134,20 @@ export function Hero() {
     <section className="home-hero">
       <div className="home-hero-grid">
         <div className="flex flex-col justify-center">
-          <Kicker className={INK}>Material 3. Made for you.</Kicker>
+          <div className="inline-flex w-fit items-center gap-2 rounded-full bg-(--sys-color-secondary-container) px-3.5 py-1.5">
+            <Kicker className="text-(--sys-color-on-secondary-container)">
+              Material 3 · Web & Native
+            </Kicker>
+          </div>
           <h1 className={`my-6 ${T_HERO} ${INK}`}>
             Make it
             <br />
-            <span className="text-(--sys-color-primary)">feel right.</span>
+            <span className="text-(--sys-color-secondary)">feel right.</span>
           </h1>
-          <p className={`m-0 max-w-[38ch] text-pretty ${T_BODY} ${INK}`}>
-            Thoughtful components. Expressive color. A shared foundation for
-            beautiful experiences on web and native.
+          <p className={`m-0 max-w-[42ch] text-pretty ${T_BODY} ${INK_SOFT}`}>
+            Authentic Material Design 3 components, HCT tonal palettes, and W3C
+            DTCG tokens — engineered for React web, React Native, and AI agents
+            from one shared foundation.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
             <a
@@ -145,7 +162,7 @@ export function Hero() {
             <a
               href="/components"
               className={cn(
-                buttonVariants({ variant: "outlined" }),
+                buttonVariants({ variant: "tonal" }),
                 "home-cta no-underline",
               )}
             >
@@ -153,13 +170,17 @@ export function Hero() {
             </a>
           </div>
           <div
-            className={`mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 ${T_LABEL_LG} ${INK}`}
+            className={`mt-8 flex flex-wrap items-center gap-2 ${T_LABEL_LG} ${INK}`}
           >
-            <span className="flex items-center gap-1.5">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-(--sys-color-surface-container-high) px-3.5 py-1.5">
               <Icon name="check" size={16} />
               React + React Native
             </span>
-            <span className="flex items-center gap-1.5">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-(--sys-color-surface-container-high) px-3.5 py-1.5">
+              <Icon name="check" size={16} />
+              58 M3 Semantic Roles
+            </span>
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-(--sys-color-surface-container-high) px-3.5 py-1.5">
               <Icon name="check" size={16} />
               Open source
             </span>

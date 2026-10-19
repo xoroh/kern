@@ -166,7 +166,7 @@ describe("code theme contrast", () => {
    * token regeneration that moves a value fails here rather than silently
    * shipping unreadable code. Measured ratios: light >= 5.1, dark >= 10.5.
    */
-  const codeBg = { light: "#e5e5e5", dark: "#171717" };
+  const codeBg = { light: "#ece6f0", dark: "#2b2930" };
   const roles = {
     // tok-keyword, tok-tag, tok-command: primary.
     "tok-keyword": { light: "#6750a4", dark: "#d0bcff" },
@@ -180,8 +180,8 @@ describe("code theme contrast", () => {
     "tok-command": { light: "#6750a4", dark: "#d0bcff" },
     "tok-flag": { light: "#625b71", dark: "#ccc2dc" },
     // tok-comment, tok-operator: on-surface-variant.
-    "tok-comment": { light: "#525252", dark: "#d4d4d4" },
-    "tok-operator": { light: "#525252", dark: "#d4d4d4" },
+    "tok-comment": { light: "#49454f", dark: "#cac4d0" },
+    "tok-operator": { light: "#49454f", dark: "#cac4d0" },
   };
   for (const [cls, hex] of Object.entries(roles)) {
     it(`${cls} passes AA on the code surface, light and dark`, () => {
