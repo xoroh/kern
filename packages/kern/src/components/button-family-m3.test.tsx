@@ -43,7 +43,7 @@ describe("M3 state-layer opacities", () => {
 
 describe("Button — five variants, M3 colors", () => {
   const cases: Array<{
-    variant: "elevated" | "primary" | "tonal" | "outlined" | "ghost";
+    variant: "elevated" | "filled" | "tonal" | "outlined" | "text";
     container: string;
     label: string;
     layer: string;
@@ -55,7 +55,7 @@ describe("Button — five variants, M3 colors", () => {
       layer: "before:bg-(--sys-color-primary)",
     },
     {
-      variant: "primary",
+      variant: "filled",
       container: "bg-(--sys-color-primary)",
       label: "text-(--sys-color-on-primary)",
       layer: "before:bg-(--sys-color-on-primary)",
@@ -73,7 +73,7 @@ describe("Button — five variants, M3 colors", () => {
       layer: "before:bg-(--sys-color-primary)",
     },
     {
-      variant: "ghost",
+      variant: "text",
       container: "",
       label: "text-(--sys-color-primary)",
       layer: "before:bg-(--sys-color-primary)",
@@ -95,7 +95,7 @@ describe("Button — five variants, M3 colors", () => {
   });
 
   it("filled and tonal lift to level1 on hover", () => {
-    expect(buttonVariants({ variant: "primary" })).toContain(
+    expect(buttonVariants({ variant: "filled" })).toContain(
       "hover:shadow-(--sys-elevation-level1)",
     );
     expect(buttonVariants({ variant: "tonal" })).toContain(
@@ -110,7 +110,7 @@ describe("Button — five variants, M3 colors", () => {
   });
 
   it("paints hover, focus, and pressed as layers — never a whole-button dim", () => {
-    const cls = buttonVariants({ variant: "primary" });
+    const cls = buttonVariants({ variant: "filled" });
     expect(cls).toContain("hover:before:opacity-[var(--sys-state-hover)]");
     expect(cls).toContain(
       "focus-visible:before:opacity-[var(--sys-state-focus)]",
@@ -121,7 +121,7 @@ describe("Button — five variants, M3 colors", () => {
   });
 
   it("disables to the M3 12%/38% split per variant", () => {
-    for (const v of ["elevated", "primary", "tonal"] as const) {
+    for (const v of ["elevated", "filled", "tonal"] as const) {
       const cls = buttonVariants({ variant: v });
       expect(cls).toContain("disabled:bg-(--sys-color-on-surface)/12");
       expect(cls).toContain("disabled:text-(--sys-color-on-surface)/38");
@@ -129,13 +129,13 @@ describe("Button — five variants, M3 colors", () => {
     const outlined = buttonVariants({ variant: "outlined" });
     expect(outlined).toContain("disabled:border-(--sys-color-on-surface)/12");
     expect(outlined).toContain("disabled:bg-transparent");
-    const ghost = buttonVariants({ variant: "ghost" });
-    expect(ghost).toContain("disabled:bg-transparent");
-    expect(ghost).toContain("disabled:text-(--sys-color-on-surface)/38");
+    const textButton = buttonVariants({ variant: "text" });
+    expect(textButton).toContain("disabled:bg-transparent");
+    expect(textButton).toContain("disabled:text-(--sys-color-on-surface)/38");
   });
 
   it("uses 20px icons with labels and label-large type (M3 current)", () => {
-    const cls = buttonVariants({ variant: "primary" });
+    const cls = buttonVariants({ variant: "filled" });
     expect(cls).toContain("[&_svg]:size-5");
     expect(cls).not.toContain("[&_svg]:size-[18px]");
     expect(cls).toContain("tracking-[0.1px]");
@@ -143,14 +143,14 @@ describe("Button — five variants, M3 colors", () => {
     expect(cls).toContain("font-medium");
   });
 
-  it("ghost uses tighter text-button padding", () => {
-    expect(buttonVariants({ variant: "ghost", size: "default" })).toContain(
+  it("text uses tighter text-button padding", () => {
+    expect(buttonVariants({ variant: "text", size: "default" })).toContain(
       "px-3",
     );
   });
 
   it("danger re-paints but disabled always wins back to on-surface", () => {
-    const cls = buttonVariants({ variant: "primary", color: "danger" });
+    const cls = buttonVariants({ variant: "filled", color: "danger" });
     expect(cls).toContain("bg-(--sys-color-error)");
     expect(cls).toContain("disabled:bg-(--sys-color-on-surface)/12");
   });

@@ -193,7 +193,7 @@ export function MobileDrawer({
             href="/docs/getting-started"
             onClick={onClose}
             className={cn(
-              buttonVariants({ variant: "primary" }),
+              buttonVariants({ variant: "filled" }),
               "no-underline",
             )}
           >

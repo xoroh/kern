@@ -38,7 +38,7 @@ export function AlertDialogDemo() {
           </AlertDialog.Description>
           <div className="mt-6 flex justify-end gap-2">
             <AlertDialog.Close
-              render={<Button variant="ghost">Cancel</Button>}
+              render={<Button variant="text">Cancel</Button>}
             />
             <AlertDialog.Close
               render={

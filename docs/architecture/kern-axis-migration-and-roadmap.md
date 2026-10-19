@@ -83,8 +83,9 @@ Lead at the time above; the cleanup lane ran PRs #59–#74 down to ONE open PR
    2026-10-18 23:32 CEST reboot; restart from main.
 3. **Docs depth bar (013):** commit the top-20 list and the thin-page contract as a file the
    gate reads (missing everywhere).
-4. **Button variant names (014):** remove `BUTTON_VARIANT_ALIASES` (still in 9 files on main),
-   hard cut per 020.
+4. **Button variant names (014):** DONE — `BUTTON_VARIANT_ALIASES` removed
+   from all 9 files, variants are `filled`/`tonal`/`outlined`/`text`/`elevated`,
+   hard cut per 020, old names rejected by type tests.
 5. **Registry `--system` flag (009): DONE** — CLI `add/list` and the MCP
    component tools take `--system` (default `kern-m3`, the only current
    system); the generated registry carries `system` on every row

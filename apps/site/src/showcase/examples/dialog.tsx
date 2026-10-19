@@ -20,7 +20,7 @@ export const DIALOG_EXAMPLES: ExampleSpec[] = [
           <Dialog.Description>
             This removes the project and its build history.
           </Dialog.Description>
-          <Dialog.Close render={<Button variant="ghost">Cancel</Button>} />
+          <Dialog.Close render={<Button variant="text">Cancel</Button>} />
         </Dialog.Content>
       </Dialog.Root>
     ),
@@ -29,7 +29,7 @@ export const DIALOG_EXAMPLES: ExampleSpec[] = [
   <Dialog.Content>
     <Dialog.Title>Delete this project?</Dialog.Title>
     <Dialog.Description>This removes the project.</Dialog.Description>
-    <Dialog.Close render={<Button variant="ghost">Cancel</Button>} />
+    <Dialog.Close render={<Button variant="text">Cancel</Button>} />
   </Dialog.Content>
 </Dialog.Root>`,
   },

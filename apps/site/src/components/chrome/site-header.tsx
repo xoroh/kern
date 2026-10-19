@@ -154,7 +154,7 @@ export function SiteHeader() {
         <a
           href="/docs/getting-started"
           className={cn(
-            buttonVariants({ variant: "primary" }),
+            buttonVariants({ variant: "filled" }),
             "ml-1 hidden no-underline sm:inline-flex",
           )}
         >

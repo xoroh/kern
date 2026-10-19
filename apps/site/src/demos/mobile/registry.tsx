@@ -76,12 +76,12 @@ export function NativeButtonDemo() {
       <PhonePreview label="variant: elevated · primary · tonal · outlined · ghost">
         <PhoneRow>
           <Button variant="elevated">Elevated</Button>
-          <Button variant="primary">Primary</Button>
+          <Button variant="filled">Filled</Button>
           <Button variant="tonal">Tonal</Button>
         </PhoneRow>
         <PhoneRow>
           <Button variant="outlined">Outlined</Button>
-          <Button variant="ghost">Ghost</Button>
+          <Button variant="text">Text</Button>
         </PhoneRow>
       </PhonePreview>
       <PhonePreview label="size: xs · default · sm · xl · icon">
@@ -99,7 +99,7 @@ export function NativeButtonDemo() {
       </PhonePreview>
       <PhonePreview label="color: danger">
         <PhoneRow>
-          <Button variant="primary" color="danger">
+          <Button variant="filled" color="danger">
             Delete
           </Button>
           <Button variant="outlined" color="danger">

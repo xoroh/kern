@@ -8,9 +8,7 @@ import {
 import { useKernScheme } from "../theme";
 import {
   buttonStyles,
-  NATIVE_BUTTON_VARIANT_ALIASES,
   type NativeButtonColor,
-  type NativeButtonM3Variant,
   type NativeButtonShape,
   type NativeButtonSize,
   type NativeButtonVariant,
@@ -26,7 +24,7 @@ export type LinkButtonProps = {
   /** Overrides the default `Linking.openURL(href)` press. */
   onPress?: (event: GestureResponderEvent) => void;
   children: ReactNode;
-  variant?: NativeButtonVariant | NativeButtonM3Variant;
+  variant?: NativeButtonVariant;
   size?: NativeButtonSize;
   color?: NativeButtonColor;
   shape?: NativeButtonShape;
@@ -64,7 +62,7 @@ export function LinkButton({
   href,
   onPress,
   children,
-  variant: variantInput = "primary",
+  variant = "filled",
   size = "default",
   color = "primary",
   shape = "pill",
@@ -84,11 +82,6 @@ export function LinkButton({
   const [uncontrolled, setUncontrolled] = useState(defaultPressed ?? false);
   const isSelected =
     toggle && pressed !== undefined ? pressed : toggle ? uncontrolled : false;
-  // Same M3-alias normalization as Button — buttonStyles only sees Kern names.
-  const variant: NativeButtonVariant =
-    variantInput in NATIVE_BUTTON_VARIANT_ALIASES
-      ? NATIVE_BUTTON_VARIANT_ALIASES[variantInput as NativeButtonM3Variant]
-      : (variantInput as NativeButtonVariant);
   if (process.env.NODE_ENV !== "production" && iconPosition === "end") {
     // M3 forbids trailing icons on link buttons: the outbound cue lives at
     // the inline start, and a trailing icon reads as a second action.
