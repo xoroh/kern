@@ -2961,8 +2961,8 @@ export const COMPONENT_COUNT = COMPONENTS.length;
  */
 export const PARITY_COUNTS = {
   web: 301,
-  native: 117,
-  shared: 92,
+  native: 118,
+  shared: 91,
 };
 
 const BY_SLUG = new Map(COMPONENTS.map((c) => [c.slug, c]));
@@ -3083,6 +3083,7 @@ export const FAMILIES: string[] = [
   "skeleton",
   "slider",
   "snackbar",
+  "snackbar-provider",
   "snap-sheet",
   "sonner",
   "split",

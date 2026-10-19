@@ -6,12 +6,7 @@ import {
   useToast as useAxisToast,
 } from "@xoroh/axis";
 import type { ResolvedTheme } from "@xoroh/kern-tokens";
-import {
-  Children,
-  cloneElement,
-  isValidElement,
-  type ReactNode,
-} from "react";
+import { Children, cloneElement, isValidElement, type ReactNode } from "react";
 import { type StyleProp, View, type ViewStyle } from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
 

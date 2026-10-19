@@ -7021,27 +7021,18 @@ export const A11Y: Record<string, A11yPage> = {
       }
     }
   },
-  "mobile/snackbar": {
-    "page": "mobile/snackbar",
+  "mobile/snackbar-provider": {
+    "page": "mobile/snackbar-provider",
     "measured": false,
     "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     "demos": {
-      "Snackbar": {
-        "hasLiveDemo": true,
-        "expectations": [
-          {
-            "rule": "keyboard-operable",
-            "expect": "pass",
-            "provenance": "derived",
-            "basis": "keyboard contract carries 1 row(s) in snackbar.ts — every operable action has a documented key"
-          },
-          {
-            "rule": "aria-contract",
-            "expect": "pass",
-            "provenance": "derived",
-            "basis": "aria contract carries 3 line(s) in snackbar.ts — roles, names and states are stated, not assumed"
-          }
-        ]
+      "SnackbarProvider": {
+        "hasLiveDemo": false,
+        "expectations": []
+      },
+      "SnackbarViewport": {
+        "hasLiveDemo": false,
+        "expectations": []
       }
     }
   },

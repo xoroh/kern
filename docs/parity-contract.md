@@ -52,13 +52,13 @@ again. Measured from the generated registry instead:
 
 | Measure | Value |
 |---|---|
-| Registry rows | **418** (web 301, native 117) |
-| **Shared** (already both sides) | **92** |
-| **Native-only → needs a web version** | **9** in **8 files** |
-| **Web-only → needs a native version** | **34** in **18 files** |
+| Registry rows | **419** (web 301, native 118) |
+| **Shared** (already both sides) | **91** |
+| **Native-only → needs a web version** | **11** in **9 files** |
+| **Web-only → needs a native version** | **35** in **19 files** |
 | Stub rows | **0** |
 
-<!-- gate:counts 92 9 34 0 -->
+<!-- gate:counts 91 11 35 0 -->
 
 Machine-readable line above: `check:parity` (`scripts/check-parity.mjs`) re-derives
 these from the registry and fails if they drift, so the prose above cannot quietly
@@ -167,7 +167,7 @@ later reader does not "fix" them back:
 
 ---
 
-## Native-only concepts → need a web version (9)
+## Native-only concepts → need a web version (11)
 
 Grouped by surface. `M3 source` is the M3 spec tab that governs the behaviour.
 
@@ -197,6 +197,8 @@ Grouped by surface. `M3 source` is the M3 spec tab that governs the behaviour.
 | 22 | `kern-pressable` | Accessibility-defaults wrap for a non-Button pressable | **deliberate platform asymmetry** — the wrapper's whole content is the **48dp** minimum touch target, which is Material's number. The web is governed by WCAG 2.2 Target Size (Minimum) at 24×24 CSS px. Pinning one figure across both would assert a value the other platform's standard does not state (ruled 2026-10-03) | `KernPressable` — `Pressable` + `MIN_TOUCH_TARGET`, `button` role by default, `disabled` always reported | M3 · Buttons (the 48dp touch target) | `pressable.rntest.tsx` |
 | 23 | `expressive-shape` | Expressive morph-shape art (superellipse/scallop/star families) | decorative SVG `path` from the shared `expressiveShapePath` builder — same `d` string both renderers | `ExpressiveShape` (`src/components/shape-art.tsx`) over `react-native-svg`, `aria-hidden`, shared geometry from `@xoroh/kern-tokens` `expressive-shapes` | M3 Expressive · Shape library (family-parameterized; vertex-exact Compose tables not vendored — see module header) | `expressive-shapes.test.ts` + `shape-art.rntest.tsx` |
 | 24 | `icon-button-target` | 48dp touch-target guarantee for icon buttons | CSS/platform-owned focus-target styling — no Kern component (same class as the `focus-ring` row below) | `IconButtonTarget` (`src/components/icon-button.tsx`, `kern-icon-button-target`) — the icon button's own box is 40dp, so a toolbar needs this to guarantee the rest | M3 · Icon buttons (48dp target) | owning workstream's suite (row recorded for count honesty) |
+| 25 | `snackbar-provider` | Owns the native snackbar queue (Axis Toast backing) | **no web counterpart by design** — web `Snackbar.Provider` is a compound part of the shared-name web family; the native queue provider is the Axis `ToastProvider` with no bare-`Snackbar` twin since the single-shot compat was removed (ADR-020) | `SnackbarProvider` (`src/components/snackbar.tsx`) — owns `createToastQueue` + payloads; renders no host element | M3 · Snackbars | `overlays.rntest.tsx` (queue suite) |
+| 26 | `snackbar-viewport` | Paints queued native snackbars with the M3 surface | **no web counterpart by design** — same split as row 25; the viewport clones each queued Axis `Toast` with `snackbarStyles()` (inverseSurface, level 3) | `SnackbarViewport` (`src/components/snackbar.tsx`) — absolute bottom container, `limit` caps visible toasts | M3 · Snackbars | `overlays.rntest.tsx` (M3 surface suite) |
 
 ### Resolved 2026-10-03 — tranche 2: the menu family BUILT (native-only 13 → 10)
 
@@ -397,7 +399,7 @@ were restored from backup afterwards.
 
 ---
 
-## Web-only concepts → need a native version (34)
+## Web-only concepts → need a native version (35)
 
 The heading previously read **34** while the machine gate read **42** — the
 `gate:counts` line was right and the sentence a human reads was stale, which is
@@ -472,6 +474,8 @@ native and the count fell 42 → 39, and again in **tranche 2**, when
 | 33 | `split-grid` | Equal-column grid at the composition tier | `SplitGrid` — 2- or 3-column CSS grid the caller fills with `SplitPanel`s; **no role and no label of its own** | **covered, not separate work** — native `Split` (shared, row 482 below) is the accessible N-column region and renders the columns itself; `SplitGrid` is the web grid recipe for the same division. A native `SplitGrid` would be a second name for the shape `Split` already has. Renamed from `Split` on 2026-10-03 so it does not collide with the `Split` primitive — see `.team/reports/kern-split-ruling.md` | M3 · Lists → Pane | `start.test.tsx` (composition tier) |
 | 34 | `focus-ring` | One-off focus-visible ring wrapper | `FocusRing` — `data-slot="focus-ring"` span owning the `FOCUS_RING_CLASS` treatment (`ring-2` + `secondary` role, geometry from `@xoroh/kern-tokens` `FOCUS_RING_*`); the host gives focus, the span never owns the tab stop | no native peer yet — focus styling on this platform is platform-owned; GAP (records the debt, not a ruling) | M3 · States | `focus-ring.test.tsx` |
 
+
+| 35 | `snackbar` | Transient confirmation, web compound parts | `Snackbar` + `SnackbarAction/Close/Description/List/Provider/Root/Title/Viewport` — Base UI-backed compound family | **ruled API split, not a gap** — native ships the Axis-backed queue (`useSnackbar` + `SnackbarProvider/Viewport`) under the same M3 concept; bare `Snackbar` is web-only since the single-shot compat was removed (ADR-020, PR #71) | M3 · Snackbars | `disclosure.test.tsx` (Snackbar suite) |
 
 ### Moved out — `combobox` and `link-button` now SHARED
 

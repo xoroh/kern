@@ -50,7 +50,6 @@ import {
   Slider,
   SnackbarProvider,
   SnackbarViewport,
-  useSnackbar,
   Switch,
   Text,
   Textarea,
@@ -59,6 +58,7 @@ import {
   Toggle,
   ToggleGroup,
   Tooltip,
+  useSnackbar,
 } from "@xoroh/kern-native";
 import { View } from "react-native";
 import {

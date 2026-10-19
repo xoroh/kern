@@ -361,9 +361,13 @@ describe("Axis Portal and PortalHost on Native", () => {
       ) as TestTree;
     });
 
-    const host = tree.root.findAll((node) => node.props?.testID === "test-host")[0];
+    const host = tree.root.findAll(
+      (node) => node.props?.testID === "test-host",
+    )[0];
     expect(host).toBeTruthy();
-    const portaled = tree.root.findAll((node) => node.props?.testID === "portaled-text")[0];
+    const portaled = tree.root.findAll(
+      (node) => node.props?.testID === "portaled-text",
+    )[0];
     expect(portaled.props.children).toBe("Hello from Axis Portal");
     rendererAct(() => tree.unmount());
   });
