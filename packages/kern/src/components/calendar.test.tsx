@@ -48,6 +48,27 @@ describe("Calendar", () => {
     await user.keyboard("{ArrowRight}");
     expect(day("Wed Feb 18 2026")).toHaveFocus();
   });
+
+  it("jumps to row edges with Home/End (Axis focus model)", async () => {
+    // Fail-before: the old Kern handler only knew the four arrows.
+    const user = userEvent.setup();
+    render(<Calendar defaultValue={FEB_17_2026} aria-label="Release" />);
+    day("Tue Feb 17 2026").focus();
+    await user.keyboard("{Home}");
+    expect(day("Sun Feb 15 2026")).toHaveFocus();
+    await user.keyboard("{End}");
+    expect(day("Sat Feb 21 2026")).toHaveFocus();
+  });
+
+  it("moves the same day across months with PageUp/PageDown", async () => {
+    const user = userEvent.setup();
+    render(<Calendar defaultValue={FEB_17_2026} aria-label="Release" />);
+    day("Tue Feb 17 2026").focus();
+    await user.keyboard("{PageDown}");
+    expect(day("Tue Mar 17 2026")).toHaveFocus();
+    await user.keyboard("{PageUp}");
+    expect(day("Tue Feb 17 2026")).toHaveFocus();
+  });
 });
 
 describe("Calendar targets (M3)", () => {

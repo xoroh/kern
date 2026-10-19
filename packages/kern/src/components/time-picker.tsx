@@ -1,3 +1,4 @@
+import { formatTimeParts } from "@xoroh/axis";
 import { useId, useMemo, useRef, useState } from "react";
 import { cn } from "../utils/cn";
 
@@ -113,12 +114,12 @@ function toHours(display: number, period: "am" | "pm"): number {
 }
 
 function formatClock(value: TimePickerValue, format: TimePickerFormat): string {
-  if (format === "24h") {
-    return `${String(value.hours).padStart(2, "0")}:${String(value.minutes).padStart(2, "0")}`;
-  }
-  const period = value.hours < 12 ? "AM" : "PM";
-  const hour12 = value.hours % 12 === 0 ? 12 : value.hours % 12;
-  return `${hour12}:${String(value.minutes).padStart(2, "0")} ${period}`;
+  // Display strings come from the Axis time model; the local padStart/period
+  // assembly is gone. Output is identical for the default locale.
+  const parts = formatTimeParts(value, format);
+  return parts.period === null
+    ? `${parts.hours}:${parts.minutes}`
+    : `${parts.hours}:${parts.minutes} ${parts.period}`;
 }
 
 // ---------------------------------------------------------------------------
@@ -173,7 +174,10 @@ function dialHourOptions(
       const display = index === 0 ? 12 : index;
       return {
         value: toHours(display, period),
-        text: String(display).padStart(2, "0"),
+        text: formatTimeParts(
+          { hours: toHours(display, period), minutes: 0 },
+          "12h",
+        ).hours,
         selected: display === hour12,
         angle: (index / 12) * Math.PI * 2,
         radius: DIAL_RING_RADIUS,
@@ -186,7 +190,7 @@ function dialHourOptions(
     const hour = index === 0 ? 0 : index + 12;
     return {
       value: hour,
-      text: String(hour).padStart(2, "0"),
+      text: formatTimeParts({ hours: hour, minutes: 0 }, "24h").hours,
       selected: hour === hours,
       angle: (index / 12) * Math.PI * 2,
       radius: DIAL_RING_RADIUS,
@@ -198,7 +202,7 @@ function dialHourOptions(
     const hour = index === 0 ? 12 : index;
     return {
       value: hour,
-      text: String(hour).padStart(2, "0"),
+      text: formatTimeParts({ hours: hour, minutes: 0 }, "24h").hours,
       selected: hour === hours,
       angle: (index / 12) * Math.PI * 2,
       radius: DIAL_INNER_RADIUS,
@@ -221,7 +225,9 @@ function dialMinuteOptions(
     const labeled = minute % 5 === 0 || minutes.length <= 12;
     return {
       value: minute,
-      text: String(minute).padStart(2, "0"),
+      // Minutes render two digits in both modes (the model pads minutes to 2
+      // regardless of 12h/24h), so the format is fixed here, not threaded.
+      text: formatTimeParts({ hours: 0, minutes: minute }, "24h").minutes,
       selected: minute === currentMinutes,
       angle: (minute / 60) * Math.PI * 2,
       radius: DIAL_RING_RADIUS,
@@ -654,26 +660,30 @@ export function TimePicker({
     const hours = toHours(display, period as "am" | "pm");
     return {
       value: display,
-      text: String(display).padStart(2, "0"),
+      text: formatTimeParts({ hours, minutes: 0 }, "12h").hours,
       selected: format === "12h" ? display === hour12 : hours === current.hours,
     };
   });
 
   const hourOptions24 = Array.from({ length: 24 }, (_, hours) => ({
     value: hours,
-    text: String(hours).padStart(2, "0"),
+    text: formatTimeParts({ hours, minutes: 0 }, "24h").hours,
     selected: hours === current.hours,
   }));
 
   const minuteFieldOptions = minutes.map((minute) => ({
     value: minute,
-    text: String(minute).padStart(2, "0"),
+    text: formatTimeParts({ hours: 0, minutes: minute }, format).minutes,
     selected: minute === current.minutes,
   }));
 
   const periodOptions = (["am", "pm"] as const).map((value_) => ({
     value: value_ === "am" ? 0 : 1,
-    text: value_.toUpperCase(),
+    text:
+      formatTimeParts(
+        { hours: value_ === "am" ? 9 : 15, minutes: 0 },
+        "12h",
+      ).period ?? value_.toUpperCase(),
     selected: value_ === period,
   }));
 

@@ -1,9 +1,11 @@
 import {
+  formatTimeParts,
   formatTimeValue,
   minutesForStep,
   normalizeTimeValue,
   type TimePickerFormat,
   type TimePickerValue,
+  type TimeParts,
   toTwentyFourHour,
   useControllableState,
   useRovingModel,
@@ -460,6 +462,14 @@ export function TimePicker({
 
   const minuteValues = useMemo(() => minutesForStep(step), [step]);
   const shown = formatTimeValue(current, format);
+  // Display strings come from the Axis time model (`formatTimeParts`):
+  // localized digits plus the locale day period. The selection math below
+  // stays numeric (`shown`/`toTwentyFourHour`); only what is PAINTED goes
+  // through the model, so display can never drift from the value contract.
+  const parts: TimeParts = useMemo(
+    () => formatTimeParts(current, format),
+    [current, format],
+  );
   const scheme = useKernScheme();
 
   const commit = (next: Partial<TimePickerValue>) => {
@@ -486,7 +496,12 @@ export function TimePicker({
             : current.hours
         }
         format={(h) =>
-          format === "12h" ? String(h + 1) : String(h).padStart(2, "0")
+          format === "12h"
+            ? formatTimeParts(
+                { hours: toTwentyFourHour(h + 1, shown.period), minutes: 0 },
+                format,
+              ).hours
+            : formatTimeParts({ hours: h, minutes: 0 }, format).hours
         }
         onSelect={(i) => {
           if (format === "12h") {
@@ -500,7 +515,9 @@ export function TimePicker({
         label="Minute"
         values={minuteValues}
         selectedIndex={Math.max(minuteValues.indexOf(current.minutes), 0)}
-        format={(m) => String(m).padStart(2, "0")}
+        format={(m) =>
+          formatTimeParts({ hours: 0, minutes: m }, format).minutes
+        }
         onSelect={(i) => commit({ minutes: minuteValues[i] })}
       />
       {format === "12h" ? (
@@ -508,7 +525,10 @@ export function TimePicker({
           label="Period"
           values={[0, 1]}
           selectedIndex={shown.period === "AM" ? 0 : 1}
-          format={(p) => (p === 0 ? "AM" : "PM")}
+          format={(p) =>
+            formatTimeParts({ hours: p === 0 ? 9 : 15, minutes: 0 }, "12h")
+              .period ?? (p === 0 ? "AM" : "PM")
+          }
           onSelect={(i) =>
             commit({
               hours: toTwentyFourHour(shown.hours, i === 0 ? "AM" : "PM"),
@@ -526,7 +546,10 @@ export function TimePicker({
     format === "12h"
       ? Array.from({ length: 12 }, (_, i) => ({
           value: toTwentyFourHour(i + 1, shown.period),
-          text: String(i + 1),
+          text: formatTimeParts(
+            { hours: toTwentyFourHour(i + 1, shown.period), minutes: 0 },
+            format,
+          ).hours,
           angle: (i / 12) * Math.PI * 2,
           radius: DIAL_RING_RADIUS,
           dot: DIAL_DOT,
@@ -535,7 +558,10 @@ export function TimePicker({
       : [
           ...Array.from({ length: 12 }, (_, i) => ({
             value: i === 0 ? 0 : i + 12,
-            text: String(i === 0 ? 0 : i + 12).padStart(2, "0"),
+            text: formatTimeParts(
+              { hours: i === 0 ? 0 : i + 12, minutes: 0 },
+              format,
+            ).hours,
             angle: (i / 12) * Math.PI * 2,
             radius: DIAL_RING_RADIUS,
             dot: DIAL_DOT,
@@ -543,7 +569,10 @@ export function TimePicker({
           })),
           ...Array.from({ length: 12 }, (_, i) => ({
             value: i === 0 ? 12 : i,
-            text: String(i === 0 ? 12 : i).padStart(2, "0"),
+            text: formatTimeParts(
+              { hours: i === 0 ? 12 : i, minutes: 0 },
+              format,
+            ).hours,
             angle: (i / 12) * Math.PI * 2,
             radius: DIAL_INNER_RADIUS,
             dot: DIAL_INNER_DOT,
@@ -581,7 +610,7 @@ export function TimePicker({
     const labeled = m % 5 === 0 || minuteValues.length <= 12;
     return {
       value: m,
-      text: String(m).padStart(2, "0"),
+      text: formatTimeParts({ hours: 0, minutes: m }, format).minutes,
       angle: (m / 60) * Math.PI * 2,
       radius: DIAL_RING_RADIUS,
       dot: labeled ? DIAL_DOT : DIAL_MINOR_DOT,
@@ -676,7 +705,10 @@ export function TimePicker({
           label="Period"
           values={[0, 1]}
           selectedIndex={shown.period === "AM" ? 0 : 1}
-          format={(p) => (p === 0 ? "AM" : "PM")}
+          format={(p) =>
+            formatTimeParts({ hours: p === 0 ? 9 : 15, minutes: 0 }, "12h")
+              .period ?? (p === 0 ? "AM" : "PM")
+          }
           onSelect={(i) =>
             commit({
               hours: toTwentyFourHour(shown.hours, i === 0 ? "AM" : "PM"),

@@ -22,7 +22,7 @@ import {
 } from "../components/autocomplete";
 import { InputOTP, toOTPPositions } from "../components/input-otp";
 import { NumberField } from "../components/number-field";
-import { clampNumberValue } from "@xoroh/axis/models";
+import { clampNumberValue } from "@xoroh/axis";
 
 const R = "native" as const;
 

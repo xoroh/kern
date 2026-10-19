@@ -8,7 +8,7 @@ import {
   toCalendarMonth,
   parseCalendarDate,
   useControllableState,
-} from "@xoroh/axis/models";
+} from "@xoroh/axis";
 import { useMemo, useState } from "react";
 import {
   Pressable,
