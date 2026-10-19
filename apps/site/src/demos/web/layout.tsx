@@ -292,7 +292,7 @@ export function DialogDemo() {
             This removes the project and its build history. It cannot be undone.
           </Dialog.Description>
           <div className="mt-6 flex justify-end gap-2">
-            <Dialog.Close render={<Button variant="ghost">Cancel</Button>} />
+            <Dialog.Close render={<Button variant="text">Cancel</Button>} />
             <Dialog.Close
               render={
                 <Button className="bg-(--sys-color-error) text-(--sys-color-on-error) hover:bg-(--sys-color-error)/90">
@@ -377,7 +377,7 @@ export function PreviewCardDemo() {
       <div className="w-full max-w-xs">
         <PreviewCard.Root>
           <PreviewCard.Trigger
-            render={<Button variant="ghost">@xoroh</Button>}
+            render={<Button variant="text">@xoroh</Button>}
           />
           <PreviewCard.Content>
             <p className={`m-0 ${T_BODY_MD}`}>

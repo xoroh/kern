@@ -22,10 +22,10 @@ import { Button } from "@xoroh/kern";        // web
 import { Button } from "@xoroh/kern-native"; // native
 
 // Web takes onClick and DOM props.
-<Button variant="primary" onClick={save}>Save</Button>
+<Button variant="filled" onClick={save}>Save</Button>
 
 // Native takes onPress.
-<Button variant="primary" onPress={save}>Save</Button>`;
+<Button variant="filled" onPress={save}>Save</Button>`;
 
 const SNACKBAR = `// Native: M3 transient messaging (queue, not single-shot).
 import {
@@ -85,7 +85,7 @@ import { createRoot } from "react-dom/client";
 import { Button } from "@xoroh/kern";
 
 createRoot(document.getElementById("root")).render(
-  React.createElement(Button, { variant: "primary" }, "Continue")
+  React.createElement(Button, { variant: "filled" }, "Continue")
 );
 </script>`;
 

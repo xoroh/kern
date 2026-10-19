@@ -155,7 +155,7 @@ export function ComponentProof() {
       <div className="home-explore-grid">
         <article className="home-explore-card">
           <div className="home-explore-art home-component-art">
-            <Button variant="primary">
+            <Button variant="filled">
               Let's create <Icon name="add" size={18} />
             </Button>
             <div className="flex items-center gap-3">
@@ -269,7 +269,7 @@ export function GetStartedBand() {
         <Link
           to="/docs/getting-started"
           className={cn(
-            buttonVariants({ variant: "primary" }),
+            buttonVariants({ variant: "filled" }),
             "home-cta mt-7 w-fit no-underline",
           )}
         >

@@ -50,7 +50,7 @@ export const ALERT_DIALOG_CONFIGURATOR: ConfiguratorSpec = {
           The project and its build history are removed. This cannot be undone.
         </AlertDialog.Description>
         <div className="mt-6 flex justify-end gap-2">
-          <AlertDialog.Close render={<Button variant="ghost">Cancel</Button>} />
+          <AlertDialog.Close render={<Button variant="text">Cancel</Button>} />
           <AlertDialog.Close
             render={
               <Button className="bg-(--sys-color-error) text-(--sys-color-on-error) hover:bg-(--sys-color-error)/90">
@@ -63,5 +63,5 @@ export const ALERT_DIALOG_CONFIGURATOR: ConfiguratorSpec = {
     </AlertDialog.Root>
   ),
   code: (v) =>
-    `<AlertDialog.Root${rootPropsOf(v)}>\n  <AlertDialog.Trigger render={<Button>Delete project</Button>} />\n  <AlertDialog.Content>\n    <AlertDialog.Title>Delete this project?</AlertDialog.Title>\n    <AlertDialog.Description>\n      The project and its build history are removed. This cannot be undone.\n    </AlertDialog.Description>\n    <AlertDialog.Close render={<Button variant="ghost">Cancel</Button>} />\n    <AlertDialog.Close render={<Button>Delete</Button>} />\n  </AlertDialog.Content>\n</AlertDialog.Root>\n\n// Always modal: Root strips modal and disablePointerDismissal by design.\n// handle/actionsRef/onOpenChange/triggerId are app wiring, not props here.`,
+    `<AlertDialog.Root${rootPropsOf(v)}>\n  <AlertDialog.Trigger render={<Button>Delete project</Button>} />\n  <AlertDialog.Content>\n    <AlertDialog.Title>Delete this project?</AlertDialog.Title>\n    <AlertDialog.Description>\n      The project and its build history are removed. This cannot be undone.\n    </AlertDialog.Description>\n    <AlertDialog.Close render={<Button variant="text">Cancel</Button>} />\n    <AlertDialog.Close render={<Button>Delete</Button>} />\n  </AlertDialog.Content>\n</AlertDialog.Root>\n\n// Always modal: Root strips modal and disablePointerDismissal by design.\n// handle/actionsRef/onOpenChange/triggerId are app wiring, not props here.`,
 };

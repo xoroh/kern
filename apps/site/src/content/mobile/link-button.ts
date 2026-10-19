@@ -14,7 +14,7 @@ export const linkButton: ComponentDoc = {
     // Exact web counterpart, checked in the web inventory.
     nativePeer: "LinkButton",
     variants: [
-      "variant: elevated · primary · tonal · outlined · ghost",
+      "variant: elevated · filled · tonal · outlined · text",
       "color: primary · danger",
       "size: xs · default · sm · xl · icon",
       "shape: pill · rounded · square",
@@ -43,7 +43,7 @@ export const linkButton: ComponentDoc = {
     dont: [
       "Don't use a LinkButton for in-place actions — saving, sending and opening dialogs are `Button` jobs.",
       "Don't put the icon at the end — M3 link buttons cannot carry trailing icons.",
-      "Don't stack multiple primary links — demote the rest to tonal, outlined, or ghost.",
+      "Don't stack multiple filled links — demote the rest to tonal, outlined, or text.",
     ],
   },
   tokens: [
@@ -100,9 +100,9 @@ export const linkButton: ComponentDoc = {
     },
     {
       name: "variant",
-      type: 'NativeButtonVariant | NativeButtonM3Variant ("filled" | "text" aliases)',
-      default: '"primary"',
-      note: "The five M3 treatments, same names as Button — M3 `filled`/`text` resolve to `primary`/`ghost`.",
+      type: 'NativeButtonVariant ("elevated" | "filled" | "tonal" | "outlined" | "text")',
+      default: '"filled"',
+      note: "The five M3 treatments, same names as Button.",
     },
     {
       name: "color",

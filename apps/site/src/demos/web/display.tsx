@@ -66,10 +66,10 @@ export function ButtonDemo() {
       >
         <Row>
           <Button variant="elevated">Elevated</Button>
-          <Button variant="primary">Primary</Button>
+          <Button variant="filled">Filled</Button>
           <Button variant="tonal">Tonal</Button>
           <Button variant="outlined">Outlined</Button>
-          <Button variant="ghost">Ghost</Button>
+          <Button variant="text">Text</Button>
         </Row>
       </Preview>
       <Preview

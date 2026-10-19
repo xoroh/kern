@@ -45,19 +45,13 @@ export { bottomSheetSurface } from "./components/bottom-sheet-surface";
 export type {
   NativeButtonColor,
   NativeButtonIconPosition,
-  NativeButtonM3Variant,
   NativeButtonProps,
   NativeButtonShape,
   NativeButtonSize,
   NativeButtonStyleOptions,
   NativeButtonVariant,
-  NativeButtonVariantInput,
 } from "./components/button";
-export {
-  Button,
-  NATIVE_BUTTON_SIZE_TO_KERN_SIZE,
-  NATIVE_BUTTON_VARIANT_ALIASES,
-} from "./components/button";
+export { Button, NATIVE_BUTTON_SIZE_TO_KERN_SIZE } from "./components/button";
 export type { NativeButtonGroupProps } from "./components/button-group";
 export { ButtonGroup } from "./components/button-group";
 export type { NativeCalendarProps } from "./components/calendar";

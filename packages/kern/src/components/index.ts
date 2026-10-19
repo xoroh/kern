@@ -73,16 +73,13 @@ export type {
   ButtonButtonProps,
   ButtonColor,
   ButtonIconPosition,
-  ButtonM3Variant,
   ButtonProps,
   ButtonShape,
   ButtonSize,
   ButtonVariant,
-  ButtonVariantInput,
 } from "./button";
 export {
   BUTTON_SIZE_TO_KERN_SIZE,
-  BUTTON_VARIANT_ALIASES,
   Button,
   buttonVariants,
 } from "./button";
