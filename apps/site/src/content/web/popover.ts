@@ -102,21 +102,31 @@ export const popover: ComponentDoc = {
   api: [
     {
       name: "open",
+      for: ["PopoverRoot"],
       type: "boolean",
       note: "Controlled open state on `PopoverRoot`. Omit for uncontrolled.",
     },
     {
       name: "onOpenChange",
+      for: ["PopoverRoot"],
       type: "(open: boolean, eventDetails: object) => void",
       note: "Fires on every open and close, including Escape and outside clicks.",
     },
     {
       name: "className",
+      for: [
+        "PopoverTrigger",
+        "PopoverContent",
+        "PopoverTitle",
+        "PopoverDescription",
+        "PopoverClose",
+      ],
       type: "string",
       note: "Accepted on every part, merged after that part's classes.",
     },
     {
       name: "disabled",
+      for: ["PopoverTrigger", "PopoverClose"],
       type: "boolean",
       note: "On the trigger: it will not open the panel and is announced as unavailable.",
     },

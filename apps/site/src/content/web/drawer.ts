@@ -105,16 +105,25 @@ export const drawer: ComponentDoc = {
   api: [
     {
       name: "open",
+      for: ["DrawerRoot"],
       type: "boolean",
       note: "Controlled open state on `DrawerRoot`. Omit for uncontrolled.",
     },
     {
       name: "onOpenChange",
+      for: ["DrawerRoot"],
       type: "(open: boolean, eventDetails: object) => void",
       note: "Fires on every open and close, including Escape and backdrop clicks.",
     },
     {
       name: "className",
+      for: [
+        "DrawerTrigger",
+        "DrawerContent",
+        "DrawerTitle",
+        "DrawerDescription",
+        "DrawerClose",
+      ],
       type: "string",
       note: "Accepted on every part, merged after that part's classes.",
     },
