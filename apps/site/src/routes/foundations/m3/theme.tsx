@@ -446,9 +446,9 @@ function ThemePage() {
           <PreviewGrid>
             <Preview label="Button — every variant" span={3}>
               <div className="flex flex-wrap items-center justify-center gap-3">
-                <Button>Primary</Button>
+                <Button>Filled</Button>
                 <Button variant="tonal">Tonal</Button>
-                <Button variant="ghost">Ghost</Button>
+                <Button variant="text">Text</Button>
                 <Button className="bg-(--sys-color-error) text-(--sys-color-on-error) hover:bg-(--sys-color-error)/90">
                   Error
                 </Button>

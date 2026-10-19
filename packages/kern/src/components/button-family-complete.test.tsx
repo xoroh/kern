@@ -36,10 +36,10 @@ describe("Button family completeness — every member renders", () => {
   it("Button renders all five variants", () => {
     for (const variant of [
       "elevated",
-      "primary",
+      "filled",
       "tonal",
       "outlined",
-      "ghost",
+      "text",
     ] as const) {
       const { unmount } = render(<Button variant={variant}>{variant}</Button>);
       expect(screen.getByRole("button", { name: variant })).toBeInTheDocument();

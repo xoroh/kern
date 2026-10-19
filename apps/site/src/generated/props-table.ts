@@ -879,9 +879,9 @@ export const PROPS_TABLE: Record<
     rows: [
       {
         name: "variant",
-        type: "ButtonVariantInput | undefined",
+        type: "ButtonVariant | undefined",
         required: false,
-        default: '"primary"',
+        default: '"filled"',
       },
       {
         name: "size",
@@ -1050,7 +1050,7 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "variant",
-        type: '"elevated" | "outlined" | "filled" | null | undefined',
+        type: '"elevated" | "filled" | "outlined" | null | undefined',
         required: false,
         default: '"filled"',
       },
@@ -1071,7 +1071,7 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "variant",
-        type: '"elevated" | "outlined" | "filled" | null | undefined',
+        type: '"elevated" | "filled" | "outlined" | null | undefined',
         required: false,
         default: '"filled"',
       },
@@ -1092,7 +1092,7 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "variant",
-        type: '"elevated" | "outlined" | "filled" | null | undefined',
+        type: '"elevated" | "filled" | "outlined" | null | undefined',
         required: false,
         default: '"filled"',
       },
@@ -1113,7 +1113,7 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "variant",
-        type: '"elevated" | "outlined" | "filled" | null | undefined',
+        type: '"elevated" | "filled" | "outlined" | null | undefined',
         required: false,
         default: '"filled"',
       },
@@ -3720,7 +3720,7 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "variant",
-        type: '"standard" | "tonal" | "outlined" | "filled" | null | undefined',
+        type: '"standard" | "filled" | "tonal" | "outlined" | null | undefined',
         required: false,
         default: '"standard"',
       },
@@ -6384,7 +6384,7 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "variant",
-        type: '"outlined" | "filled" | undefined',
+        type: '"filled" | "outlined" | undefined',
         required: false,
       },
     ],
@@ -8082,7 +8082,7 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "variant",
-        type: '"outlined" | "filled" | undefined',
+        type: '"filled" | "outlined" | undefined',
         required: false,
       },
       {

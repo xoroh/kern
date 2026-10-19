@@ -55,7 +55,7 @@ export type MetadataStrip = {
   nativePeer: string;
   /**
    * One entry per variant axis, rendered as its own chip:
-   * `"variant: elevated · primary · tonal · outlined · ghost"`. An empty array
+   * `"variant: elevated · filled · tonal · outlined · text"`. An empty array
    * is the convention's `"none"` — the component exposes no variant axis. An
    * axis listed here that the component does not actually accept is a defect,
    * and the props table is where a reader would catch it.

@@ -1,10 +1,10 @@
 /**
- * R2 size foundation + variant map, re-homed (T1) — native side.
+ * R2 size foundation + Button variant names, re-homed (T1) — native side.
  *
  * Mirrors `packages/kern/src/start/sizes.test.ts`. The Button codemod map
  * covers exactly the automatically-migratable sizes (`icon` is shape, not
- * scale — intentionally absent), and the M3 aliases resolve to existing
- * styles only (`filled`→primary, `text`→ghost; `elevated` exists natively).
+ * scale — intentionally absent), and Button variants are exactly the five
+ * M3 configurations (014, hard cut per 020 — no aliases).
  */
 import { describe, expect, it, vi } from "vitest";
 
@@ -15,9 +15,8 @@ vi.mock(
 
 import { KERN_SIZES, type KernSize } from "@xoroh/kern-tokens";
 import {
+  buttonStyles,
   NATIVE_BUTTON_SIZE_TO_KERN_SIZE,
-  NATIVE_BUTTON_VARIANT_ALIASES,
-  type NativeButtonM3Variant,
   type NativeButtonVariant,
 } from "./button";
 import {
@@ -54,24 +53,34 @@ describe("KernSize foundation (native mirror)", () => {
   });
 });
 
-describe("Button variant map (native)", () => {
-  it("M3 aliases resolve to existing Kern styles", () => {
-    expect(NATIVE_BUTTON_VARIANT_ALIASES).toEqual({
-      filled: "primary",
-      text: "ghost",
-    });
-    const m3: NativeButtonM3Variant[] = ["filled", "text"];
-    for (const m of m3)
-      expect(["primary", "ghost"]).toContain(NATIVE_BUTTON_VARIANT_ALIASES[m]);
+describe("Button variant names (native, 014)", () => {
+  it("is exactly the five M3 configurations", () => {
+    const variants: NativeButtonVariant[] = [
+      "elevated",
+      "filled",
+      "tonal",
+      "outlined",
+      "text",
+    ];
+    expect(variants).toHaveLength(5);
+    for (const variant of variants)
+      expect(buttonStyles(variant, "default", false)).toBeTruthy();
+  });
+
+  it("rejects the pre-014 Kern names", () => {
+    // @ts-expect-error — "primary" was renamed to "filled" (014, hard cut per 020).
+    buttonStyles("primary", "default", false);
+    // @ts-expect-error — "ghost" was renamed to "text" (014, hard cut per 020).
+    buttonStyles("ghost", "default", false);
   });
 
   it("elevated exists as a style; destructive is not a variant axis", () => {
     const kern: NativeButtonVariant[] = [
       "elevated",
-      "primary",
+      "filled",
       "tonal",
       "outlined",
-      "ghost",
+      "text",
     ];
     expect(kern).toContain("elevated");
     expect(kern).not.toContain("destructive");

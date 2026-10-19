@@ -1,13 +1,7 @@
 import type { LoadingIndicatorStyle } from "@xoroh/kern-m3";
 import { type GestureResponderEvent, Pressable, Text } from "react-native";
 import { useKernScheme } from "../theme";
-import {
-  buttonStyles,
-  NATIVE_BUTTON_VARIANT_ALIASES,
-  type NativeButtonM3Variant,
-  type NativeButtonProps,
-  type NativeButtonVariant,
-} from "./button";
+import { buttonStyles, type NativeButtonProps } from "./button";
 import { CircularProgress } from "./circular-progress";
 
 export type LoadingButtonProps = NativeButtonProps & {
@@ -28,7 +22,7 @@ export function LoadingButton({
   loading = false,
   value,
   loaderStyle,
-  variant: variantInput = "primary",
+  variant = "filled",
   size = "default",
   children,
   onPress,
@@ -40,11 +34,6 @@ export function LoadingButton({
 }: LoadingButtonProps) {
   const scheme = useKernScheme();
   const blocked = Boolean(disabled) || loading;
-  // Same M3-alias normalization as Button — buttonStyles only sees Kern names.
-  const variant: NativeButtonVariant =
-    variantInput in NATIVE_BUTTON_VARIANT_ALIASES
-      ? NATIVE_BUTTON_VARIANT_ALIASES[variantInput as NativeButtonM3Variant]
-      : (variantInput as NativeButtonVariant);
   const styles = buttonStyles(variant, size, blocked, scheme);
   return (
     <Pressable
@@ -69,7 +58,7 @@ export function LoadingButton({
           size="sm"
           label="Loading"
           color={
-            variant === "primary"
+            variant === "filled"
               ? scheme.color.onPrimary
               : scheme.color.onSurface
           }

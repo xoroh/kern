@@ -17,13 +17,13 @@ import { CircularProgress } from "./circular-progress";
 import { useKernPress } from "./presentation";
 
 // M3: elevated, filled, tonal, outlined, text (m3.material.io/components/buttons/overview).
-// Mirrors the web union exactly — the variant law requires one MEANING, not one name count.
+// Mirrors the web union exactly — one name per variant on both renderers (014, hard cut per 020).
 export type NativeButtonVariant =
   | "elevated"
-  | "primary"
+  | "filled"
   | "tonal"
   | "outlined"
-  | "ghost";
+  | "text";
 export type NativeButtonSize = "xs" | "default" | "sm" | "xl" | "icon";
 
 /** The color axis, mirroring web: M3 emphasis or the error treatment. */
@@ -34,26 +34,6 @@ export type NativeButtonShape = "pill" | "rounded" | "square";
 
 /** Which side of the label the `icon` slot renders on. */
 export type NativeButtonIconPosition = "start" | "end";
-
-/**
- * R2 variant map, re-homed (T1): M3 names as aliases onto the Kern styles.
- * `filled`/`text` resolve to existing styles — no new visuals. `elevated`
- * already exists here, so it is not an alias. Exhaustive Record — new M3
- * names break typecheck here.
- */
-export type NativeButtonM3Variant = "filled" | "text";
-export const NATIVE_BUTTON_VARIANT_ALIASES: Record<
-  NativeButtonM3Variant,
-  NativeButtonVariant
-> = {
-  filled: "primary",
-  text: "ghost",
-};
-
-/** Accepted variant prop: Kern names or M3 aliases (normalized internally). */
-export type NativeButtonVariantInput =
-  | NativeButtonVariant
-  | NativeButtonM3Variant;
 
 /**
  * R2 size foundation, re-homed (T1): Button sizes onto `KernSize`.
@@ -117,7 +97,7 @@ function withAlpha(color: string, alpha: number): string {
 }
 
 export type NativeButtonToggleOptions = {
-  /** M3 Expressive toggle mode. No toggle text button — ghost renders unselected. */
+  /** M3 Expressive toggle mode. No toggle text button — text renders unselected. */
   toggle?: boolean;
   /** Selected state. Only meaningful with `toggle`. */
   selected?: boolean;
@@ -137,11 +117,11 @@ export function buttonStyles(
     toggle = false,
     selected = false,
   } = options;
-  const toggled = toggle && selected && variant !== "ghost";
-  const toggleUnselected = toggle && !selected && variant !== "ghost";
+  const toggled = toggle && selected && variant !== "text";
+  const toggleUnselected = toggle && !selected && variant !== "text";
   const danger = color === "danger";
   const hasFill =
-    variant === "primary" || variant === "tonal" || variant === "elevated";
+    variant === "filled" || variant === "tonal" || variant === "elevated";
   // M3 Expressive square radii per size (12/12/12/16); selected toggles
   // morph pill to square, square back to pill. A button-container-shape
   // override redefines "pill" wherever the full radius is read.
@@ -175,7 +155,7 @@ export function buttonStyles(
         ? withAlpha(theme.color.onSurface, 0.12)
         : "transparent"
       : danger
-        ? variant === "primary"
+        ? variant === "filled"
           ? theme.color.error
           : variant === "tonal"
             ? theme.color.errorContainer
@@ -185,14 +165,14 @@ export function buttonStyles(
         : toggled
           ? variant === "elevated"
             ? theme.color.primary
-            : variant === "primary"
+            : variant === "filled"
               ? theme.color.primary
               : variant === "tonal"
                 ? theme.color.secondary
                 : theme.color.inverseSurface
-          : toggleUnselected && variant === "primary"
+          : toggleUnselected && variant === "filled"
             ? theme.color.surfaceContainer
-            : variant === "primary"
+            : variant === "filled"
               ? theme.color.primary
               : variant === "tonal"
                 ? theme.color.secondaryContainer
@@ -224,7 +204,7 @@ export function buttonStyles(
     color: disabled
       ? theme.color.onSurface
       : danger
-        ? variant === "primary"
+        ? variant === "filled"
           ? theme.color.onError
           : variant === "tonal"
             ? theme.color.onErrorContainer
@@ -232,20 +212,20 @@ export function buttonStyles(
         : toggled
           ? variant === "elevated"
             ? theme.color.onPrimary
-            : variant === "primary"
+            : variant === "filled"
               ? theme.color.onPrimary
               : variant === "tonal"
                 ? theme.color.onSecondary
                 : theme.color.inverseOnSurface
-          : toggleUnselected && variant === "primary"
+          : toggleUnselected && variant === "filled"
             ? theme.color.onSurfaceVariant
-            : variant === "primary"
+            : variant === "filled"
               ? theme.color.onPrimary
               : variant === "tonal"
                 ? theme.color.onSecondaryContainer
                 : variant === "elevated" ||
                     variant === "outlined" ||
-                    variant === "ghost"
+                    variant === "text"
                   ? theme.color.primary
                   : theme.color.onSurface,
   };
@@ -256,7 +236,7 @@ export type NativeButtonProps = Omit<
   PressableProps,
   "onPress" | "accessibilityRole" | "accessibilityState"
 > & {
-  variant?: NativeButtonVariantInput;
+  variant?: NativeButtonVariant;
   size?: NativeButtonSize;
   color?: NativeButtonColor;
   shape?: NativeButtonShape;
@@ -273,7 +253,7 @@ export type NativeButtonProps = Omit<
   iconPosition?: NativeButtonIconPosition;
   /**
    * Renders an M3 Expressive toggle: binary selection with round-to-square
-   * morph and per-variant selected colors. No toggle text button — `ghost`
+   * morph and per-variant selected colors. No toggle text button — `text`
    * renders unselected.
    */
   toggle?: boolean;
@@ -289,7 +269,7 @@ export type NativeButtonProps = Omit<
 };
 
 export function Button({
-  variant: variantInput = "primary",
+  variant = "filled",
   size = "default",
   color = "primary",
   shape = "pill",
@@ -312,12 +292,6 @@ export function Button({
   ...props
 }: NativeButtonProps) {
   const { scheme } = useKernTheme();
-  // M3 aliases normalize to Kern names once, here — buttonStyles and the
-  // ripple below only ever see Kern names, so rendering cannot change.
-  const variant: NativeButtonVariant =
-    variantInput in NATIVE_BUTTON_VARIANT_ALIASES
-      ? NATIVE_BUTTON_VARIANT_ALIASES[variantInput as NativeButtonM3Variant]
-      : (variantInput as NativeButtonVariant);
   const blocked = Boolean(disabled) || loading;
   const [uncontrolledPressed, setUncontrolledPressed] =
     useState(defaultPressed);
@@ -391,7 +365,7 @@ export function Button({
       disabled={blocked}
       hitSlop={size === "xs" ? 10 : size === "sm" ? 8 : size === "xl" ? 0 : 4}
       android_ripple={{
-        color: `${variant === "primary" ? scheme.color.onPrimary : scheme.color.onSurface}20`,
+        color: `${variant === "filled" ? scheme.color.onPrimary : scheme.color.onSurface}20`,
         borderless: size === "icon",
       }}
       onPressIn={(event: GestureResponderEvent) => {
@@ -417,10 +391,10 @@ export function Button({
           label="Loading"
           color={
             color === "danger"
-              ? variant === "primary"
+              ? variant === "filled"
                 ? scheme.color.onError
                 : scheme.color.error
-              : variant === "primary"
+              : variant === "filled"
                 ? scheme.color.onPrimary
                 : scheme.color.onSurface
           }

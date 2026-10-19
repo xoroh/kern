@@ -95,7 +95,7 @@ function LiveCluster() {
             <Switch defaultChecked aria-label="Express yourself" />
             Express yourself
           </div>
-          <Button variant="primary" onClick={() => setSaved(!saved)}>
+          <Button variant="filled" onClick={() => setSaved(!saved)}>
             <Icon name={saved ? "check" : "add"} size={18} />
             {saved ? "Made it yours" : "Make something"}
           </Button>
@@ -127,7 +127,7 @@ export function Hero() {
             <a
               href="/docs/getting-started"
               className={cn(
-                buttonVariants({ variant: "primary" }),
+                buttonVariants({ variant: "filled" }),
                 "home-cta no-underline",
               )}
             >

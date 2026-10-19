@@ -23,7 +23,7 @@ describe("Button", () => {
   it("offers M3's five colour configurations", () => {
     // M3: elevated, filled, tonal, outlined, text. `destructive` is not one of them.
     const { rerender } = render(<Button variant="elevated">Save</Button>);
-    for (const variant of ["primary", "tonal", "outlined", "ghost"] as const) {
+    for (const variant of ["filled", "tonal", "outlined", "text"] as const) {
       rerender(<Button variant={variant}>Save</Button>);
       expect(screen.getByRole("button")).toHaveAttribute("data-slot", "button");
     }
@@ -82,12 +82,12 @@ describe("Button", () => {
     // M3: an 8% layer of the on-color over the container, label full-strength.
     // Whole-button hover:opacity dims the label too — that was the bug.
     const { rerender } = render(<Button>Save</Button>);
-    const primary = screen.getByRole("button");
-    expect(primary).toHaveClass(
+    const filled = screen.getByRole("button");
+    expect(filled).toHaveClass(
       "before:bg-(--sys-color-on-primary)",
       "hover:before:opacity-[var(--sys-state-hover)]",
     );
-    expect(primary.className).not.toContain("hover:opacity-");
+    expect(filled.className).not.toContain("hover:opacity-");
     rerender(<Button variant="tonal">Save</Button>);
     expect(screen.getByRole("button")).toHaveClass(
       "before:bg-(--sys-color-on-secondary-container)",
@@ -96,12 +96,12 @@ describe("Button", () => {
     expect(screen.getByRole("button")).toHaveClass(
       "before:bg-(--sys-color-primary)",
     );
-    rerender(<Button variant="ghost">Save</Button>);
-    const ghost = screen.getByRole("button");
-    expect(ghost).toHaveClass("before:bg-(--sys-color-primary)");
-    expect(ghost.className).not.toContain("surface-tonal");
+    rerender(<Button variant="text">Save</Button>);
+    const textButton = screen.getByRole("button");
+    expect(textButton).toHaveClass("before:bg-(--sys-color-primary)");
+    expect(textButton.className).not.toContain("surface-tonal");
     rerender(
-      <Button variant="ghost" color="danger">
+      <Button variant="text" color="danger">
         Delete
       </Button>,
     );
@@ -114,7 +114,7 @@ describe("Button", () => {
     const { rerender } = render(<Button color="danger">Delete</Button>);
     expect(screen.getByRole("button")).toHaveClass("bg-(--sys-color-error)");
     rerender(
-      <Button variant="ghost" color="danger">
+      <Button variant="text" color="danger">
         Delete
       </Button>,
     );
