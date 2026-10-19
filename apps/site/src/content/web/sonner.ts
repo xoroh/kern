@@ -107,36 +107,26 @@ export const sonner: ComponentDoc = {
   api: [
     {
       name: "intent",
+      for: ["SonnerRoot"],
       type: '"info" | "success" | "warning" | "error"',
       note: "On `SonnerRoot`, and implied by the `info`/`success`/`warning`/`error` methods on the API. Drives the icon slot and the accent role — see Deviations.",
     },
     {
       name: "timeout",
+      for: ["SonnerProvider"],
       type: "number",
       note: "Milliseconds before auto-dismiss. `0` keeps it on screen until it is dismissed deliberately, which is the right value for anything that needs reading.",
     },
     {
-      name: "action",
-      type: "{ label: string; onClick: () => void }",
-      note: "One action, on the message. `label` is what is shown; the button's own name follows it.",
-    },
-    {
-      name: "show",
-      type: "(message: SonnerMessage) => string",
-      note: "Raises a message and returns its id, so it can be dismissed later. The generic form of the intent-specific methods.",
-    },
-    {
-      name: "promise",
-      type: "(promise, { loading, success, error }) => Promise",
-      note: "Raises the loading message and swaps it for the success or error one when the promise settles. Returns the original promise, so it composes with the call it wraps. This is the case that otherwise needs three hand-written states.",
-    },
-    {
-      name: "dismiss",
-      type: "(id?: string) => void",
-      note: "Dismisses one message by id, or all of them when called with nothing.",
-    },
-    {
       name: "className",
+      for: [
+        "SonnerViewport",
+        "SonnerRoot",
+        "SonnerTitle",
+        "SonnerDescription",
+        "SonnerAction",
+        "SonnerClose",
+      ],
       type: "string",
       note: "Accepted on every part, merged after that part's classes.",
     },
