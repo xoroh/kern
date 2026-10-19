@@ -40,7 +40,9 @@ const ROOT = join(APP, "..", "..");
 const CONTENT = join(APP, "src", "content");
 const INVENTORY = join(ROOT, "docs", "components.md");
 
-const { TOP_FAMILIES } = await import("./lib/top-families.mjs");
+const { TOP_FAMILIES, THIN_PAGE_CONTRACT } = await import(
+  "./lib/top-families.mjs"
+);
 
 const errors = [];
 const gaps = [];
@@ -900,7 +902,10 @@ if (gaps.length > 0) {
 // contract, screen-reader notes (`aria`), FAQ, and the API table. Anatomy
 // is deliberately NOT in the bar — single-part families have nothing to
 // decompose. Every other family gets a thin-but-correct page (example, API
-// table, a11y notes): checked by the gates above, not here.
+// table, a11y notes): `api` is required of every page by checkSections, and
+// the thin contract below additionally requires `aria` — both read from
+// THIN_PAGE_CONTRACT in lib/top-families.mjs, so the list, the contract
+// and the gate cannot drift apart.
 {
   const byKey = new Map(
     pages.map((p) => [`${p.platform}/${p.doc.slug}`, p.doc]),
@@ -944,6 +949,19 @@ if (gaps.length > 0) {
           `top-20 ${platform}/${slug}: not a full page — missing ${missing.join(", ")}`,
         );
       }
+    }
+  }
+  // Thin-page contract: every family outside the top 20 carries at least
+  // the contract sections. Checked per page (web and mobile separately —
+  // a thin page on one renderer does not cover the other).
+  const topSlugs = new Set(TOP_FAMILIES);
+  for (const { platform, doc } of pages) {
+    if (topSlugs.has(doc.slug)) continue;
+    const missing = THIN_PAGE_CONTRACT.filter((key) => !doc[key]?.length);
+    if (missing.length > 0) {
+      errors.push(
+        `thin-page ${platform}/${doc.slug}: not a thin page — missing ${missing.join(", ")}`,
+      );
     }
   }
 }

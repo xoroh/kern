@@ -39,3 +39,18 @@ export const TOP_FAMILIES = [
   "tooltip",
   "top-app-bar",
 ];
+
+/**
+ * The thin-page contract (013/D-DOCS-DEPTH, second half): every family
+ * outside TOP_FAMILIES carries a thin-but-correct page — an example, an API
+ * table, and a11y notes. Field names are ComponentDoc keys; every entry
+ * means present and non-empty.
+ *
+ * Enforcement split (stated, not implied): `api` is already required of
+ * every page by checkSections, so the depth bar additionally requires
+ * `aria` on thin pages. Examples ride the pairing bar (PAIRED_EXPORTS in
+ * check-example-code.mjs — the top-20 cut, enforced) and the gallery
+ * registry (everywhere else, reported with written reasons) — a second
+ * example gate here would double-own that bar.
+ */
+export const THIN_PAGE_CONTRACT = ["api", "aria"];
