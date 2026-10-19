@@ -30,7 +30,10 @@ const SIDEBAR_PREFIXES = [
  * headings use for anchor jumps.
  */
 function spyLine(): number {
-  const header = typeof document !== "undefined" ? document.querySelector("header.site-header") : null;
+  const header =
+    typeof document !== "undefined"
+      ? document.querySelector("header.site-header")
+      : null;
   const h = header?.getBoundingClientRect().bottom ?? 0;
   return h + 8;
 }
@@ -244,7 +247,13 @@ export function SiteLayout({
                     : "sticky top-[var(--site-header-h)] max-h-[calc(100dvh-var(--site-header-h))] overflow-y-auto"
                 }`}
               >
-                <div className={isFullHeight ? "h-full overflow-y-auto px-3 py-6" : "px-3 py-6"}>
+                <div
+                  className={
+                    isFullHeight
+                      ? "h-full overflow-y-auto px-3 py-6"
+                      : "px-3 py-6"
+                  }
+                >
                   {isComponents ? <ComponentsSidebar /> : <DocsSidebar />}
                 </div>
               </aside>

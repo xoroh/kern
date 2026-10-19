@@ -91,7 +91,10 @@ function Cli() {
         <section className="flex flex-col gap-3">
           <H2 id="run">Run the preview CLI</H2>
           <Code language="bash">{RUN}</Code>
-          <Admonition intent="warning" title="Preview distribution (0.0.0, unpublished)">
+          <Admonition
+            intent="warning"
+            title="Preview distribution (0.0.0, unpublished)"
+          >
             The public package is not published, so <code>bunx</code> cannot
             install it yet. From this checkout, run the source entrypoint shown
             above. <code>create</code> and <code>init</code> use checkout
@@ -140,13 +143,13 @@ function Cli() {
           <p className={`m-0 max-w-[62ch] ${T_BODY_SM} ${INK_SOFT}`}>
             Copies the component and its full transitive import closure
             (resolved through the same manifest the MCP server reads), merging
-            into one receipt. Two token modes: the default keeps token values
-            as a dependency (one source of truth), while{" "}
+            into one receipt. Two token modes: the default keeps token values as
+            a dependency (one source of truth), while{" "}
             <code>--self-contained</code> vendors a snapshot recorded in the
             receipt so later drift is detectable. Web is the default;{" "}
             <code>--platform native</code> selects the native manifest row
-            before lookup and prints the peer-dependency and Metro notes. A
-            name with no row for the requested platform is refused rather than
+            before lookup and prints the peer-dependency and Metro notes. A name
+            with no row for the requested platform is refused rather than
             resolved to the wrong renderer.
           </p>
           <Code language="bash">{ADD}</Code>
@@ -154,13 +157,15 @@ function Cli() {
         </section>
 
         <section className="flex flex-col gap-3">
-          <H2 id="diff-upgrade">diff + upgrade — audit and update under receipt control</H2>
+          <H2 id="diff-upgrade">
+            diff + upgrade — audit and update under receipt control
+          </H2>
           <p className={`m-0 max-w-[62ch] ${T_BODY_SM} ${INK_SOFT}`}>
             <code>kern.receipt.json</code> (schema v2) records the release set,
             per-file hashes and owners from day one. <code>diff</code> is the
             audit; <code>upgrade</code> dry-runs by default and{" "}
-            <code>--apply</code> updates everything except your customized
-            files — owned edits are preserved and reported, never overwritten.
+            <code>--apply</code> updates everything except your customized files
+            — owned edits are preserved and reported, never overwritten.
           </p>
           <Code language="bash">{DIFF_UPGRADE}</Code>
         </section>
@@ -168,9 +173,9 @@ function Cli() {
         <section className="flex flex-col gap-3">
           <H2 id="feedback">feedback — file a report</H2>
           <p className={`m-0 max-w-[62ch] ${T_BODY_SM} ${INK_SOFT}`}>
-            Validates against the shared schema, discloses exactly what would
-            be stored, and writes to <code>.kern/feedback/</code> — then prints
-            a pre-filled GitHub issue URL <em>the human files by hand</em>.
+            Validates against the shared schema, discloses exactly what would be
+            stored, and writes to <code>.kern/feedback/</code> — then prints a
+            pre-filled GitHub issue URL <em>the human files by hand</em>.
             Nothing is sent automatically; evidence is opt-in via{" "}
             <code>--consent</code>; retention is 90 days with explicit deletion
             (<code>kern feedback prune</code>). <code>digest</code> prints an

@@ -373,7 +373,9 @@ function tokenizeJson(src: string): Token[] {
       while (k < n && /[A-Za-z_.]/.test(src[k])) k += 1;
       out.push({
         text: src.slice(i, k),
-        cls: /^(true|false|null)$/.test(src.slice(i, k)) ? "tok-keyword" : "tok-type",
+        cls: /^(true|false|null)$/.test(src.slice(i, k))
+          ? "tok-keyword"
+          : "tok-type",
       });
       i = k;
       continue;

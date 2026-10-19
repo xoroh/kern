@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { tokenize, type HighlightLanguage } from "./highlight";
+import { type HighlightLanguage, tokenize } from "./highlight";
 
 /**
  * The tokenizer only classifies — joining every token must reproduce the
@@ -128,7 +128,10 @@ describe("json", () => {
   });
 
   it("numbers and booleans color, punctuation stays base ink", () => {
-    const got = classesOf(`{ "version": 2, "pinned": true, "x": null }`, "json");
+    const got = classesOf(
+      `{ "version": 2, "pinned": true, "x": null }`,
+      "json",
+    );
     expect(got).toContain("2=>tok-number");
     expect(got).toContain("true=>tok-keyword");
     expect(got).toContain("null=>tok-keyword");

@@ -126,18 +126,24 @@ for (const path of [
   });
 }
 
-test("TOC rail is visible on desktop >=1280px and hidden below", async ({ page }) => {
+test("TOC rail is visible on desktop >=1280px and hidden below", async ({
+  page,
+}) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await visit(page, "/components/web/button");
   const tocAside = page.locator("aside.site-toc");
   await expect(tocAside).toBeVisible();
-  await expect(tocAside.getByRole("navigation", { name: "On this page" })).toBeVisible();
+  await expect(
+    tocAside.getByRole("navigation", { name: "On this page" }),
+  ).toBeVisible();
 
   await page.setViewportSize({ width: 1024, height: 900 });
   await expect(tocAside).toBeHidden();
 });
 
-test("document (not inner main) is the scroll container on docs pages", async ({ page }) => {
+test("document (not inner main) is the scroll container on docs pages", async ({
+  page,
+}) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await visit(page, "/components/web/button");
   const scrollModel = await page.evaluate(() => {
@@ -153,7 +159,9 @@ test("document (not inner main) is the scroll container on docs pages", async ({
   expect(scrollModel.docScrollH).toBeGreaterThan(scrollModel.docClientH);
 });
 
-test("reduced motion disables smooth scroll on html document", async ({ page }) => {
+test("reduced motion disables smooth scroll on html document", async ({
+  page,
+}) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await visit(page, "/");
   const scrollBehavior = await page.evaluate(() => {
@@ -162,12 +170,22 @@ test("reduced motion disables smooth scroll on html document", async ({ page }) 
   expect(scrollBehavior).toBe("auto");
 });
 
-test("dedicated CLI and MCP pages render with correct hierarchy", async ({ page }) => {
+test("dedicated CLI and MCP pages render with correct hierarchy", async ({
+  page,
+}) => {
   await visit(page, "/docs/cli");
-  await expect(page.getByRole("heading", { level: 1, name: "CLI" })).toBeVisible();
-  await expect(page.getByRole("heading", { level: 2, name: /run/i })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { level: 1, name: "CLI" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { level: 2, name: /run/i }),
+  ).toBeVisible();
 
   await visit(page, "/docs/mcp");
-  await expect(page.getByRole("heading", { level: 1, name: "MCP server" })).toBeVisible();
-  await expect(page.getByRole("heading", { level: 2, name: "Connect" })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { level: 1, name: "MCP server" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { level: 2, name: "Connect" }),
+  ).toBeVisible();
 });

@@ -49,7 +49,6 @@ function H3({ id, children }: { id: string; children: React.ReactNode }) {
   );
 }
 
-
 const CLAUDE_CURSOR = `{
   "mcpServers": {
     "kern": {
@@ -103,12 +102,21 @@ const TOOLS: { name: string; what: string }[] = [
     name: "get_tokens",
     what: "base tokens or a theme preset id (material-3 / sharp / brand / compact)",
   },
-  { name: "get_dtcg", what: "DTCG 2025.10 interchange document — all foundations + sys roles" },
+  {
+    name: "get_dtcg",
+    what: "DTCG 2025.10 interchange document — all foundations + sys roles",
+  },
   { name: "list_themes", what: "The theme catalog the visual builder reads" },
   { name: "list_icons", what: "Semantic icon map and catalog count" },
-  { name: "get_icon", what: "Resolve one semantic or glyph name; unknown names error" },
+  {
+    name: "get_icon",
+    what: "Resolve one semantic or glyph name; unknown names error",
+  },
   { name: "list_blocks", what: "Composed blocks installable as a unit" },
-  { name: "get_block", what: "One block's files, component dependencies and install command" },
+  {
+    name: "get_block",
+    what: "One block's files, component dependencies and install command",
+  },
   {
     name: "install_plan",
     what: "Deterministic no-write install plan, evidence-labelled (resolved-closure vs metadata-only)",
@@ -117,7 +125,10 @@ const TOOLS: { name: string; what: string }[] = [
     name: "validate_install",
     what: "Receipt-vs-destination diff; customized files reported, never fixed",
   },
-  { name: "design_audit", what: "Advisory 12-category compliance checklist for a screen" },
+  {
+    name: "design_audit",
+    what: "Advisory 12-category compliance checklist for a screen",
+  },
 ];
 
 function Mcp() {
@@ -130,40 +141,49 @@ function Mcp() {
           <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>
             Skills teach an agent what right looks like;{" "}
             <code>@xoroh/kern-mcp</code> lets it <em>do</em> things — list
-            components, fetch source and tokens, plan an install, audit a
-            screen — through the Model Context Protocol, from any MCP host.
+            components, fetch source and tokens, plan an install, audit a screen
+            — through the Model Context Protocol, from any MCP host.
           </p>
         </header>
 
         <section className="flex flex-col gap-3">
           <H2 id="connect">Connect</H2>
-          <Admonition intent="warning" title="Preview distribution (0.0.0, unpublished)">
+          <Admonition
+            intent="warning"
+            title="Preview distribution (0.0.0, unpublished)"
+          >
             The public package is not published yet, so the <code>bunx</code>{" "}
             examples below work after the first release. To connect from this
             checkout today, use the workspace config and set its absolute repo
             path.
           </Admonition>
-          <H3 id="connect-claude">
-            Claude Code and Cursor
-          </H3>
+          <H3 id="connect-claude">Claude Code and Cursor</H3>
           <p className={`m-0 max-w-[62ch] ${T_BODY_SM} ${INK_SOFT}`}>
             Claude Code accepts this in project <code>.mcp.json</code> (or via{" "}
-            <code>claude mcp add</code>); Cursor uses <code>.cursor/mcp.json</code>.
-            Both use the <code>mcpServers</code> shape.
+            <code>claude mcp add</code>); Cursor uses{" "}
+            <code>.cursor/mcp.json</code>. Both use the <code>mcpServers</code>{" "}
+            shape.
           </p>
-          <Code language="json" filename=".mcp.json">{CLAUDE_CURSOR}</Code>
+          <Code language="json" filename=".mcp.json">
+            {CLAUDE_CURSOR}
+          </Code>
           <H3 id="connect-vscode">VS Code</H3>
           <p className={`m-0 max-w-[62ch] ${T_BODY_SM} ${INK_SOFT}`}>
             In <code>.vscode/mcp.json</code>, VS Code uses <code>servers</code>{" "}
-            and requires <code>type: &quot;stdio&quot;</code> for a local process.
+            and requires <code>type: &quot;stdio&quot;</code> for a local
+            process.
           </p>
-          <Code language="json" filename=".vscode/mcp.json">{VS_CODE}</Code>
+          <Code language="json" filename=".vscode/mcp.json">
+            {VS_CODE}
+          </Code>
           <H3 id="connect-zed">Zed</H3>
           <p className={`m-0 max-w-[62ch] ${T_BODY_SM} ${INK_SOFT}`}>
             Zed stores local servers under <code>context_servers</code>; its{" "}
             <code>command</code> is an object with a path and arguments.
           </p>
-          <Code language="json" filename="settings.json">{ZED}</Code>
+          <Code language="json" filename="settings.json">
+            {ZED}
+          </Code>
           <p className={`m-0 max-w-[62ch] ${T_BODY_SM} ${INK_SOFT}`}>
             In this monorepo, point the command at the checkout and set{" "}
             <code>KERN_REPO_ROOT</code> so source-reading tools can find files.
@@ -171,7 +191,9 @@ function Mcp() {
             the same command, arguments, and environment value inside the host
             wrapper above.
           </p>
-          <Code language="json" filename=".mcp.json">{WORKSPACE}</Code>
+          <Code language="json" filename=".mcp.json">
+            {WORKSPACE}
+          </Code>
         </section>
 
         <section className="flex flex-col gap-3">
@@ -229,8 +251,8 @@ function Mcp() {
         </section>
 
         <Admonition intent="note" title="Agents start at the machine surface">
-          The agent-facing index lives at <code>/mcp/index.json</code> (page
-          map + per-page markdown links); <code>llms.txt</code> and per-page{" "}
+          The agent-facing index lives at <code>/mcp/index.json</code> (page map
+          + per-page markdown links); <code>llms.txt</code> and per-page{" "}
           <code>.md</code> stay fetchable without the server. This page is for
           the human wiring the config up.
         </Admonition>
