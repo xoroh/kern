@@ -5,7 +5,7 @@
     "map": "/llms.txt",
     "mdPattern": "per-page markdown at /md/{web|mobile}/<slug>.md and /md/foundations/<slug>.md"
   },
-  "count": 129,
+  "count": 130,
   "pages": [
     {
       "kind": "family",
@@ -1518,6 +1518,19 @@
       "md": [
         "/md/web/split-button.md",
         "/md/mobile/split-button.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "state-layer",
+      "platforms": [
+        "mobile"
+      ],
+      "title": "State layer",
+      "oneLiner": "The M3 pressed wash for native: an overlay in the content color at the pressed state-layer opacity, clipped to the container shape.",
+      "page": "/components/m3/state-layer",
+      "md": [
+        "/md/mobile/state-layer.md"
       ]
     },
     {

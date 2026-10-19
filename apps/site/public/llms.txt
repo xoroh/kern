@@ -200,6 +200,7 @@ Prefer these machine surfaces over scraping HTML:
 - [Snap sheet](/components/m3/snap-sheet): The snap sheet is a bottom sheet with detents — a modal surface that occupies one of a declared set of heights. Renders: Web + Native. Markdown: /md/web/snap-sheet.md, /md/mobile/snap-sheet.md.
 - [Split](/components/m3/split): The split is an N-column layout: two or three equal columns divided by a hairline, named as one region for assistive technology. Renders: Web + Native. Markdown: /md/web/split.md, /md/mobile/split.md.
 - [Split button](/components/m3/split-button): Split buttons pair one primary action with a menu of related alternatives. Renders: Web + Native. Markdown: /md/web/split-button.md, /md/mobile/split-button.md.
+- [State layer](/components/m3/state-layer): The M3 pressed wash for native: an overlay in the content color at the pressed state-layer opacity, clipped to the container shape. Renders: Native. Markdown: /md/mobile/state-layer.md.
 - [Status bar](/components/m3/status-bar): Status bars hold one centered status with leading and trailing slots. Renders: Native. Markdown: /md/mobile/status-bar.md.
 - [Success transform](/components/m3/success-transform): Success transforms are the completion moment — a disc and a tick, or the loader that precedes it. Renders: Native. Markdown: /md/mobile/success-transform.md.
 - [Supporting pane](/components/m3/supporting-pane): Supporting panes hold the secondary panel beside main content, and hide it entirely on a compact screen. Renders: Native. Markdown: /md/mobile/supporting-pane.md.

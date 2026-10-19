@@ -7636,6 +7636,17 @@ export const A11Y: Record<string, A11yPage> = {
       },
     },
   },
+  "mobile/state-layer": {
+    page: "mobile/state-layer",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      StateLayer: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
   "mobile/status-bar": {
     page: "mobile/status-bar",
     measured: false,

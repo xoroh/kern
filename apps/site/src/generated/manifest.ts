@@ -3068,6 +3068,7 @@ export const FAMILIES: string[] = [
   "snap-sheet",
   "split",
   "split-button",
+  "state-layer",
   "status-bar",
   "success-transform",
   "supporting-pane",
