@@ -1,5 +1,6 @@
 import {
   createOverlayModality,
+  getSharedOverlayModality,
   type OverlayId,
   type OverlayModalityState,
   useControllableState,
@@ -41,6 +42,13 @@ const OverlayRegistryContext = createContext<OverlayRegistry | null>(null);
  * `@xoroh/axis` kernel -- this provider is the RENDERER half: the
  * registry, a stable id, and the platform trait that expresses "interactive".
  *
+ * The provided registry is Axis's SHARED one (`getSharedOverlayModality`),
+ * the same instance `OverlayRoot` defaults to. Kern's Modal-based surfaces
+ * (`Drawer`, `SheetSurface`) and Axis compound overlays (`MenuRoot`,
+ * `SelectRoot`, `DialogRoot`, ...) therefore register in the SAME stack:
+ * one root, one "topmost" answer, one `useAnyModalOpen` signal for the
+ * background-inerting contract below.
+ *
  * **Optional on purpose.** A consumer who has not opted in must not get a thrown
  * error at render time, so with no provider every overlay is interactive -- the
  * correct behaviour for exactly one overlay, and the pre-P2c-4 behaviour.
@@ -50,7 +58,7 @@ export function OverlayModalityProvider({
 }: {
   children?: ReactNode;
 }) {
-  const registry = useMemo(() => createOverlayModality(), []);
+  const registry = useMemo(() => getSharedOverlayModality(), []);
   return (
     <OverlayRegistryContext.Provider value={registry}>
       {children}
@@ -82,8 +90,11 @@ export function useKernOverlay(active: boolean): { isInteractive: boolean } {
   return { isInteractive: !state.isInertOutside(id) };
 }
 
-/** Used only when no provider is mounted; see `useKernOverlay`. */
-const FALLBACK_REGISTRY = createOverlayModality();
+/**
+ * Used only when no provider is mounted; see `useKernOverlay`. The shared
+ * instance, so unwrapped overlays join the same stack Axis roots use.
+ */
+const FALLBACK_REGISTRY = getSharedOverlayModality();
 
 /**
  * Background-inerting contract for modal consumers (D3a — read before wiring).

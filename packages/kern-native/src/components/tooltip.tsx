@@ -1,3 +1,4 @@
+import { TooltipPortal, TooltipRoot } from "@xoroh/axis";
 import { useControllableState } from "@xoroh/axis";
 import type { ReactNode } from "react";
 import { Pressable, type PressableProps, StyleSheet, View } from "react-native";
@@ -93,62 +94,76 @@ export function Tooltip({
   );
   const shown = isOpen ?? false;
 
+  // Axis hosts the tip state (`TooltipRoot`, controlled-mirrored so the
+  // public open API stays the single source) and the in-box host
+  // (`TooltipPortal`). The TRIGGER, the surface and the geometry stay
+  // Kern-owned: M3's touch trigger is focus, not the long-press
+  // `TooltipTrigger` owns; the plain-tip placement is the absolute
+  // above/below rule below, not measured `TooltipPositioner` placement
+  // (which would also keep the tip invisible until measured); and the
+  // surface keeps `role="text"` (the parity contract pins it — a plain
+  // tip is a label, so `TooltipPopup`'s `tooltip` role would be wrong
+  // here). See the Axis friction note in the lane report.
   return (
-    <View style={styles.root}>
-      <Pressable
-        {...props}
-        testID={testID ?? "kern-tooltip-trigger"}
-        accessibilityRole="button"
-        accessibilityLabel={label}
-        // The hint is merged rather than replaced: a host that supplied its own
-        // hint has not asked to lose it, and M3's obligation is that the
-        // supplementary text REACHES the user.
-        accessibilityHint={
-          accessibilityHint ? `${accessibilityHint}. ${hint}` : hint
-        }
-        accessibilityState={{ expanded: shown }}
-        focusable
-        onFocus={() => setOpen(true)}
-        onBlur={() => setOpen(false)}
-      >
-        {children}
-      </Pressable>
-      {shown ? (
-        <View
-          testID="kern-tooltip-content"
-          // role="text", not a role of its own: the plain M3 tooltip is a label,
-          // and web measures the same way (its popup carries no `role`). Making
-          // it a `dialog`/`menu` here would be a native-only invention.
-          accessibilityRole="text"
-          // Inert: a supplementary label never takes a touch, so a touch landing
-          // on it must reach the trigger underneath rather than be swallowed.
-          pointerEvents="none"
-          style={[
-            styles.surface,
-            placement === "top" ? styles.above : styles.below,
-            {
-              backgroundColor: scheme.color.inverseSurface,
-              borderRadius: Number.parseFloat(scheme.shape["extra-small"]),
-              // K11: plain tooltip = level 2 = 3dp. M3 tabulates only the RICH
-              // tooltip (also 2); the plain hint-surface is kern's. iOS values
-              // follow PopoverContent, the other level-2 surface.
-              shadowColor: scheme.color.shadow,
-              shadowOpacity: 0.2,
-              shadowRadius: 8,
-              shadowOffset: { width: 0, height: 2 },
-              elevation: 3,
-            },
-          ]}
+    <TooltipRoot open={shown} onOpenChange={setOpen}>
+      <View style={styles.root}>
+        <Pressable
+          {...props}
+          testID={testID ?? "kern-tooltip-trigger"}
+          accessibilityRole="button"
+          accessibilityLabel={label}
+          // The hint is merged rather than replaced: a host that supplied its own
+          // hint has not asked to lose it, and M3's obligation is that the
+          // supplementary text REACHES the user.
+          accessibilityHint={
+            accessibilityHint ? `${accessibilityHint}. ${hint}` : hint
+          }
+          accessibilityState={{ expanded: shown }}
+          focusable
+          onFocus={() => setOpen(true)}
+          onBlur={() => setOpen(false)}
         >
-          <Text
-            variant="label"
-            style={{ color: scheme.color.inverseOnSurface }}
-          >
-            {hint}
-          </Text>
-        </View>
-      ) : null}
-    </View>
+          {children}
+        </Pressable>
+        <TooltipPortal>
+          {shown ? (
+            <View
+              testID="kern-tooltip-content"
+              // role="text", not a role of its own: the plain M3 tooltip is a label,
+              // and web measures the same way (its popup carries no `role`). Making
+              // it a `dialog`/`menu` here would be a native-only invention.
+              accessibilityRole="text"
+              // Inert: a supplementary label never takes a touch, so a touch landing
+              // on it must reach the trigger underneath rather than be swallowed.
+              pointerEvents="none"
+              style={[
+                styles.surface,
+                placement === "top" ? styles.above : styles.below,
+                {
+                  backgroundColor: scheme.color.inverseSurface,
+                  borderRadius: Number.parseFloat(scheme.shape["extra-small"]),
+                  // K11: plain tooltip = level 2 = 3dp. M3 tabulates only the RICH
+                  // tooltip (also 2); the plain hint-surface is kern's. iOS values
+                  // follow PopoverContent, the other level-2 surface.
+                  shadowColor: scheme.color.shadow,
+                  shadowOpacity: 0.2,
+                  shadowRadius: 8,
+                  shadowOffset: { width: 0, height: 2 },
+                  elevation: 3,
+                },
+              ]}
+            >
+              <Text
+                variant="label"
+                style={{ color: scheme.color.inverseOnSurface }}
+              >
+                {hint}
+              </Text>
+            </View>
+          ) : null}
+        </TooltipPortal>
+      </View>
+    </TooltipRoot>
   );
 }
 
@@ -228,71 +243,87 @@ export function RichTooltip({
   );
   const shown = isOpen ?? false;
 
+  // Same hosting as the plain tip (`TooltipRoot` + `TooltipPortal`, state
+  // mirrored, Kern trigger and surface). The rich surface stays a plain
+  // host view: it can hold action buttons, so the tip container must not
+  // take the non-interactive `tooltip` role.
   return (
-    <View style={styles.root}>
-      <Pressable
-        {...props}
-        testID={testID ?? "kern-rich-tooltip-trigger"}
-        accessibilityRole="button"
-        accessibilityLabel={label}
-        accessibilityHint={
-          accessibilityHint
-            ? `${accessibilityHint}. ${title}. ${text}`
-            : `${title}. ${text}`
-        }
-        accessibilityState={{ expanded: shown }}
-        focusable
-        onFocus={() => setOpen(true)}
-        onBlur={() => setOpen(false)}
-      >
-        {children}
-      </Pressable>
-      {shown ? (
-        <View
-          testID="kern-rich-tooltip-content"
-          accessibilityRole="none"
-          style={[
-            styles.surface,
-            placement === "top" ? styles.above : styles.below,
-            {
-              backgroundColor: scheme.color.surfaceContainer,
-              borderRadius: Number.parseFloat(scheme.shape["extra-small"]),
-              paddingTop: 12,
-              paddingBottom: 8,
-              paddingHorizontal: 16,
-              minWidth: 112,
-              shadowColor: scheme.color.shadow,
-              shadowOpacity: 0.2,
-              shadowRadius: 8,
-              shadowOffset: { width: 0, height: 2 },
-              elevation: 3,
-            },
-          ]}
+    <TooltipRoot open={shown} onOpenChange={setOpen}>
+      <View style={styles.root}>
+        <Pressable
+          {...props}
+          testID={testID ?? "kern-rich-tooltip-trigger"}
+          accessibilityRole="button"
+          accessibilityLabel={label}
+          accessibilityHint={
+            accessibilityHint
+              ? `${accessibilityHint}. ${title}. ${text}`
+              : `${title}. ${text}`
+          }
+          accessibilityState={{ expanded: shown }}
+          focusable
+          onFocus={() => setOpen(true)}
+          onBlur={() => setOpen(false)}
         >
-          <Text variant="title" style={{ color: scheme.color.onSurface }}>
-            {title}
-          </Text>
-          <Text variant="body" style={{ color: scheme.color.onSurfaceVariant }}>
-            {text}
-          </Text>
-          {actions.length > 0 ? (
-            <View style={{ flexDirection: "row", gap: 16, marginTop: 4 }}>
-              {actions.map((action) => (
-                <Pressable
-                  key={action.label}
-                  accessibilityRole="button"
-                  accessibilityLabel={action.label}
-                  onPress={action.onPress}
-                >
-                  <Text variant="label" style={{ color: scheme.color.primary }}>
-                    {action.label}
-                  </Text>
-                </Pressable>
-              ))}
+          {children}
+        </Pressable>
+        <TooltipPortal>
+          {shown ? (
+            <View
+              testID="kern-rich-tooltip-content"
+              accessibilityRole="none"
+              style={[
+                styles.surface,
+                placement === "top" ? styles.above : styles.below,
+                {
+                  backgroundColor: scheme.color.surfaceContainer,
+                  borderRadius: Number.parseFloat(
+                    scheme.shape["extra-small"],
+                  ),
+                  paddingTop: 12,
+                  paddingBottom: 8,
+                  paddingHorizontal: 16,
+                  minWidth: 112,
+                  shadowColor: scheme.color.shadow,
+                  shadowOpacity: 0.2,
+                  shadowRadius: 8,
+                  shadowOffset: { width: 0, height: 2 },
+                  elevation: 3,
+                },
+              ]}
+            >
+              <Text variant="title" style={{ color: scheme.color.onSurface }}>
+                {title}
+              </Text>
+              <Text
+                variant="body"
+                style={{ color: scheme.color.onSurfaceVariant }}
+              >
+                {text}
+              </Text>
+              {actions.length > 0 ? (
+                <View style={{ flexDirection: "row", gap: 16, marginTop: 4 }}>
+                  {actions.map((action) => (
+                    <Pressable
+                      key={action.label}
+                      accessibilityRole="button"
+                      accessibilityLabel={action.label}
+                      onPress={action.onPress}
+                    >
+                      <Text
+                        variant="label"
+                        style={{ color: scheme.color.primary }}
+                      >
+                        {action.label}
+                      </Text>
+                    </Pressable>
+                  ))}
+                </View>
+              ) : null}
             </View>
           ) : null}
-        </View>
-      ) : null}
-    </View>
+        </TooltipPortal>
+      </View>
+    </TooltipRoot>
   );
 }
