@@ -128,15 +128,13 @@ function Guides() {
           </p>
         </Step>
 
-        <Step n={2} title="Deliberate asymmetries">
+        <Step n={2} title="One transient surface">
           <p
             className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
           >
             Not every surface exists twice. M3 expresses transient messaging as{" "}
-            <code>Snackbar</code>, so the native package ships that and stops.
-            The web-only <code>Sonner</code> is a second name for one idea, and
-            is recorded as a deliberate asymmetry rather than a gap to be
-            closed.
+            <code>Snackbar</code>, so both packages ship that and stop — one
+            surface, one name, on each renderer.
           </p>
           <Code>{SNACKBAR}</Code>
         </Step>

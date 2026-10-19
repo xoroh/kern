@@ -9,7 +9,7 @@
 - Icon buttons (filled/tonal/outlined/standard): Y / **B** (icon-button).
 - Chips (assist/filter/input/suggestion): Y / **B** (chip; variants mapped).
 - Dialog (+full-screen) / Alert: Y / **B** (dialog, alert-dialog).
-- Snackbar: Y / **B** (snackbar + sonner).
+- Snackbar: Y / **B** (snackbar).
 - Progress (linear/circular): Y / **B**.
 - Switch / Checkbox / Radio: Y / **B**.
 - Slider: Y / **B**.

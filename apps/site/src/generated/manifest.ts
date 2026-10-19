@@ -1795,69 +1795,6 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
-    slug: "web/sonner",
-    name: "sonner",
-    export: "Sonner",
-    platform: "web",
-    status: "real",
-  },
-  {
-    slug: "web/sonner-action",
-    name: "sonner-action",
-    export: "SonnerAction",
-    platform: "web",
-    status: "real",
-  },
-  {
-    slug: "web/sonner-close",
-    name: "sonner-close",
-    export: "SonnerClose",
-    platform: "web",
-    status: "real",
-  },
-  {
-    slug: "web/sonner-description",
-    name: "sonner-description",
-    export: "SonnerDescription",
-    platform: "web",
-    status: "real",
-  },
-  {
-    slug: "web/sonner-list",
-    name: "sonner-list",
-    export: "SonnerList",
-    platform: "web",
-    status: "real",
-  },
-  {
-    slug: "web/sonner-provider",
-    name: "sonner-provider",
-    export: "SonnerProvider",
-    platform: "web",
-    status: "real",
-  },
-  {
-    slug: "web/sonner-root",
-    name: "sonner-root",
-    export: "SonnerRoot",
-    platform: "web",
-    status: "real",
-  },
-  {
-    slug: "web/sonner-title",
-    name: "sonner-title",
-    export: "SonnerTitle",
-    platform: "web",
-    status: "real",
-  },
-  {
-    slug: "web/sonner-viewport",
-    name: "sonner-viewport",
-    export: "SonnerViewport",
-    platform: "web",
-    status: "real",
-  },
-  {
     slug: "web/split",
     name: "split",
     export: "Split",
@@ -2995,7 +2932,7 @@ export const COMPONENT_COUNT = COMPONENTS.length;
  * different units, do not compare them.
  */
 export const PARITY_COUNTS = {
-  web: 305,
+  web: 296,
   native: 119,
   shared: 91,
 };
@@ -3122,7 +3059,6 @@ export const FAMILIES: string[] = [
   "snackbar",
   "snackbar-provider",
   "snap-sheet",
-  "sonner",
   "split",
   "split-button",
   "status-bar",

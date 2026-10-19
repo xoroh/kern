@@ -8,15 +8,12 @@ import {
   Calendar,
   Combobox,
   CountrySelect,
-  createSonnerManager,
   Menubar,
   NativeSelect,
   Snackbar,
-  Sonner,
   useAutocompleteFilteredItems,
 } from "@xoroh/kern";
-import { useState } from "react";
-import { Preview, PreviewStack, Row } from "../../components/preview/preview";
+import { Preview, PreviewStack } from "../../components/preview/preview";
 import { T_BODY_MD } from "../../domains/shared/systems/type-scale";
 
 export function AlertDialogDemo() {
@@ -263,66 +260,5 @@ export function SnackbarDemo() {
         </Preview>
       </PreviewStack>
     </Snackbar.Provider>
-  );
-}
-
-/**
- * Sonner is the deliberate web/native asymmetry recorded as S1.3: it has no
- * native counterpart because M3 expresses transient messaging as Snackbar.
- * The demo shows the real root surface and a live button that pushes a toast
- * through a real manager.
- */
-export function SonnerDemo() {
-  const [manager] = useState(() => createSonnerManager());
-  return (
-    // Self-contained, like SnackbarDemo above: the provider is part of the
-    // family (Sonner.Provider owns the toast manager), and the viewport is
-    // what the pushed toasts actually render into. Without the provider the
-    // roots consumed `useToastManager` bare — Base UI error #73.
-    <Sonner.Provider>
-      <Sonner.Viewport />
-      <PreviewStack>
-        <Preview label="push a toast through a real manager" span={3}>
-          <Row>
-            {(["info", "success", "warning", "error"] as const).map(
-              (intent) => (
-                <Button
-                  key={intent}
-                  variant="tonal"
-                  size="sm"
-                  onClick={() =>
-                    manager[intent]({
-                      title: `${intent} toast`,
-                      description: "Sent by Sonner.",
-                    })
-                  }
-                >
-                  {intent}
-                </Button>
-              ),
-            )}
-          </Row>
-        </Preview>
-        <Preview label="the surface Sonner.Root renders" span={3}>
-          <div className="w-full max-w-sm">
-            <Sonner.Root
-              toast={{
-                id: "demo",
-                title: "Saved",
-                description: "Your changes are live.",
-              }}
-              intent="success"
-            >
-              <div className="flex min-w-0 flex-col">
-                <Sonner.Title />
-                <Sonner.Description />
-              </div>
-              <Sonner.Action onClick={() => {}}>Undo</Sonner.Action>
-              <Sonner.Close />
-            </Sonner.Root>
-          </div>
-        </Preview>
-      </PreviewStack>
-    </Sonner.Provider>
   );
 }

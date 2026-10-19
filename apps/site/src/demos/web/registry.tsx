@@ -113,7 +113,6 @@ import {
   MenubarDemo,
   NativeSelectDemo,
   SnackbarDemo,
-  SonnerDemo,
 } from "./pickers";
 
 export type WebDemo = () => React.ReactElement;
@@ -172,16 +171,6 @@ const byExport: Record<string, WebDemo> = {
   SnackbarRoot: SnackbarDemo,
   SnackbarTitle: SnackbarDemo,
   SnackbarViewport: SnackbarDemo,
-  Sonner: SonnerDemo,
-  SonnerAction: SonnerDemo,
-  SonnerClose: SonnerDemo,
-  SonnerDescription: SonnerDemo,
-  SonnerList: SonnerDemo,
-  SonnerProvider: SonnerDemo,
-  SonnerRoot: SonnerDemo,
-  SonnerTitle: SonnerDemo,
-  SonnerViewport: SonnerDemo,
-  createSonnerManager: SonnerDemo,
   AccordionHeader: WebAccordionDemo,
   AccordionItem: WebAccordionDemo,
   AccordionPanel: WebAccordionDemo,

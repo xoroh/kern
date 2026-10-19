@@ -40,7 +40,6 @@ import { SEPARATOR_CONFIGURATOR } from "./configurators/separator";
 import { SHEET_CONFIGURATOR } from "./configurators/sheet";
 import { SLIDER_CONFIGURATOR } from "./configurators/slider";
 import { SNACKBAR_CONFIGURATOR } from "./configurators/snackbar";
-import { SONNER_CONFIGURATOR } from "./configurators/sonner";
 import { SWITCH_CONFIGURATOR } from "./configurators/switch";
 import { TABS_CONFIGURATOR } from "./configurators/tabs";
 import { TOGGLE_CONFIGURATOR } from "./configurators/toggle";
@@ -108,7 +107,7 @@ export function examplesFor(exportName: string): ExampleSpec[] {
 /**
  * The Configurator registry — export name → its configurator, if any.
  *
- * Flagships first (Button, Switch, Dialog), then Sheet, Select, Popover, Slider, Sonner, NumberField, Accordion, Progress, Field, ToggleGroup, Meter, Autocomplete, Drawer, Menu, Menubar, Pagination, Snackbar, Tabs, Tooltip, NavigationMenu, Collapsible, CountrySelect, CheckboxGroup, Chip, Search, AlertDialog, PreviewCard, Form, InputOTP, ContextMenu, Toggle, Carousel, Card, Badge, Avatar, Segmented button, Fab, Icon button, Banner, Separator, Loader: one entry per
+ * Flagships first (Button, Switch, Dialog), then Sheet, Select, Popover, Slider, NumberField, Accordion, Progress, Field, ToggleGroup, Meter, Autocomplete, Drawer, Menu, Menubar, Pagination, Snackbar, Tabs, Tooltip, NavigationMenu, Collapsible, CountrySelect, CheckboxGroup, Chip, Search, AlertDialog, PreviewCard, Form, InputOTP, ContextMenu, Toggle, Carousel, Card, Badge, Avatar, Segmented button, Fab, Icon button, Banner, Separator, Loader: one entry per
  * component, same keying as EXAMPLES, so a family page looks its
  * configurator up the same way. The harness is proven; further components
  * plug in here with zero template edits. Latest: Loader.
@@ -159,7 +158,6 @@ export const CONFIGURATORS: Record<string, ConfiguratorSpec> = {
   Separator: SEPARATOR_CONFIGURATOR,
   Slider: SLIDER_CONFIGURATOR,
   Snackbar: SNACKBAR_CONFIGURATOR,
-  Sonner: SONNER_CONFIGURATOR,
   SegmentedButton: SEGMENTED_BUTTON_CONFIGURATOR,
 };
 

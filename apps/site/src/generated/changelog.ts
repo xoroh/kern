@@ -285,6 +285,13 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
       "Foundations-first M3 coverage: dynamic color as a seed configurator and the expressive motion runtime.",
   },
   {
+    id: "sonner-deletion",
+    packages: ["@xoroh/kern"],
+    bump: "minor",
+    summary:
+      "Delete Sonner (component, compound, manager, intent axis): M3 names it Snackbar and M3 has no tone, with no alias. The imperative pieces move to createSnackbarManager, which now returns { toastManager, show, promise, dismiss } over SnackbarMessage (no intent); update toastManager={manager} call sites to manager.toastManager, manager.add to manager.show, and manager.close to manager.dismiss.",
+  },
+  {
     id: "state-layer-opacities",
     packages: ["@xoroh/kern-tokens"],
     bump: "minor",

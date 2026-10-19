@@ -1,6 +1,6 @@
 {
   "version": "0.0.0",
-  "releaseSet": "kern@0.0.0+424.687d7ef4d8901819",
+  "releaseSet": "kern@0.0.0+415.d1d9bfa880ae120d",
   "rows": [
     {
       "name": "accordion-root",
@@ -2016,87 +2016,6 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/snackbar.tsx",
-      "status": "real"
-    },
-    {
-      "name": "sonner-provider",
-      "export": "SonnerProvider",
-      "platform": "web",
-      "system": "kern-m3",
-      "entrypoint": ".",
-      "path": "src/components/sonner.tsx",
-      "status": "real"
-    },
-    {
-      "name": "sonner-viewport",
-      "export": "SonnerViewport",
-      "platform": "web",
-      "system": "kern-m3",
-      "entrypoint": ".",
-      "path": "src/components/sonner.tsx",
-      "status": "real"
-    },
-    {
-      "name": "sonner-root",
-      "export": "SonnerRoot",
-      "platform": "web",
-      "system": "kern-m3",
-      "entrypoint": ".",
-      "path": "src/components/sonner.tsx",
-      "status": "real"
-    },
-    {
-      "name": "sonner-title",
-      "export": "SonnerTitle",
-      "platform": "web",
-      "system": "kern-m3",
-      "entrypoint": ".",
-      "path": "src/components/sonner.tsx",
-      "status": "real"
-    },
-    {
-      "name": "sonner-description",
-      "export": "SonnerDescription",
-      "platform": "web",
-      "system": "kern-m3",
-      "entrypoint": ".",
-      "path": "src/components/sonner.tsx",
-      "status": "real"
-    },
-    {
-      "name": "sonner-action",
-      "export": "SonnerAction",
-      "platform": "web",
-      "system": "kern-m3",
-      "entrypoint": ".",
-      "path": "src/components/sonner.tsx",
-      "status": "real"
-    },
-    {
-      "name": "sonner-close",
-      "export": "SonnerClose",
-      "platform": "web",
-      "system": "kern-m3",
-      "entrypoint": ".",
-      "path": "src/components/sonner.tsx",
-      "status": "real"
-    },
-    {
-      "name": "sonner-list",
-      "export": "SonnerList",
-      "platform": "web",
-      "system": "kern-m3",
-      "entrypoint": ".",
-      "path": "src/components/sonner.tsx",
-      "status": "real"
-    },
-    {
-      "name": "sonner",
-      "export": "Sonner",
-      "platform": "web",
-      "system": "kern-m3",
-      "entrypoint": ".",
-      "path": "src/components/sonner.tsx",
       "status": "real"
     },
     {

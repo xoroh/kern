@@ -81,7 +81,7 @@ export const snackbar: ComponentDoc = {
       "`style` on the queued surface is the exported `snackbarStyles()` if you need the treatment without the component.",
     ],
     notSupported: [
-      "There is no `intent` or `tone` variant. A snackbar is neutral confirmation; a status with tone is `Sonner` or `Banner`.",
+      "There is no `intent` or `tone` variant. A snackbar is neutral confirmation.",
       "There is no single-shot `visible`/`message` component. Queue via `useSnackbar()` — one current API.",
       "There is one action at most. `actionLabel`/`onAction` are a single pair, not a list.",
     ],

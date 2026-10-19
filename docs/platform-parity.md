@@ -193,25 +193,15 @@ These are real differences in the current tree. None is a naming violation.
 
 `combobox` is a shared concept: native ships a flat `Combobox`, web exports 9 multipart parts. `popover` ships on both renderers (`packages/kern-native/src/components/overlay-surfaces.tsx`). `input-otp` is a shared concept that ships on both platforms.
 
-### Deliberate asymmetry: `Sonner` has no native counterpart
+### Retired asymmetry: `Sonner` is deleted
 
-`sonner` is a **deliberate asymmetry, not a gap** — ruled 2026-10-01
-(`.team/reports/S1-rulings.md` §S1.3). Two reasons, both structural:
-
-1. **M3 expresses transient messaging as `Snackbar`**, which already ships on
-   both platforms. A second native component under a second name would break
-   the naming law ("unprefixed, M3-canonical, one name per concept").
-2. **`Sonner` is not a separate surface at all.** On web it is the *imperative*
-   API over the **same** Base UI `Toast` manager that backs web `Snackbar`:
-   `snackbar.tsx:137` exports `createSnackbarManager =
-   ToastPrimitive.createToastManager`, and `sonner.tsx:190` calls the same
-   factory. One primitive, two names, two call styles.
-
-So the correct statement is the asymmetry, not the gap: **web gets an
-imperative toast entry point (`Sonner`); native ships the declarative
-`Snackbar` only.** Both cover the same M3 need, neither is missing a feature,
-and shipping native `Sonner` would duplicate one surface under a forbidden
-name.
+`Sonner` was a deliberate asymmetry (ruled 2026-10-01): a second, toned
+name over the same Base UI `Toast` manager that backs web `Snackbar`.
+Deleted 2026-10-19 — M3 names it Snackbar and M3 has no tone, so the
+second name and its intent axis are gone with no alias. The useful
+imperative pieces (`show`, `promise`, `dismiss`) live on
+`createSnackbarManager`, which returns them alongside the `toastManager`
+for `SnackbarProvider`.
 
 **Native-only concepts** (19), in two groups:
 

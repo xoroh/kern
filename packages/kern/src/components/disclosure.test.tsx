@@ -97,14 +97,14 @@ describe("Snackbar", () => {
   it("shows a message through the manager", async () => {
     const manager = createSnackbarManager();
     render(
-      <Snackbar.Provider toastManager={manager}>
+      <Snackbar.Provider toastManager={manager.toastManager}>
         <Snackbar.Viewport>
           <Snackbar.List />
         </Snackbar.Viewport>
       </Snackbar.Provider>,
     );
     act(() => {
-      manager.add({ title: "Saved" });
+      manager.show({ title: "Saved" });
     });
     expect(await screen.findByText("Saved")).toBeInTheDocument();
   });
@@ -112,7 +112,7 @@ describe("Snackbar", () => {
   it("dismisses a message through the manager", async () => {
     const manager = createSnackbarManager();
     render(
-      <Snackbar.Provider toastManager={manager}>
+      <Snackbar.Provider toastManager={manager.toastManager}>
         <Snackbar.Viewport>
           <Snackbar.List />
         </Snackbar.Viewport>
@@ -120,11 +120,11 @@ describe("Snackbar", () => {
     );
     let id = "";
     act(() => {
-      id = manager.add({ title: "Saved" });
+      id = manager.show({ title: "Saved" });
     });
     expect(await screen.findByText("Saved")).toBeInTheDocument();
     act(() => {
-      manager.close(id);
+      manager.dismiss(id);
     });
     expect(screen.queryByText("Saved")).not.toBeInTheDocument();
   });
@@ -138,16 +138,16 @@ describe("Snackbar", () => {
     const onAction = vi.fn();
     const manager = createSnackbarManager();
     render(
-      <Snackbar.Provider toastManager={manager}>
+      <Snackbar.Provider toastManager={manager.toastManager}>
         <Snackbar.Viewport>
           <Snackbar.List />
         </Snackbar.Viewport>
       </Snackbar.Provider>,
     );
     act(() => {
-      manager.add({
+      manager.show({
         title: "Saved",
-        actionProps: { children: "Undo", onClick: onAction },
+        action: { label: "Undo", onClick: onAction },
       });
     });
     await user.click(await screen.findByRole("button", { name: "Undo" }));
