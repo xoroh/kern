@@ -2,7 +2,6 @@ import { contrastIssues, resolveThemeDetails } from "@xoroh/kern-tokens";
 import { describe, expect, it } from "vitest";
 import { M3_ROLES } from "./kern-roles";
 import { MATERIAL_3_POLICY } from "./material-3";
-import "./material-3";
 import { themeFromSeed } from "./seed-theme";
 
 describe("themeFromSeed (HCT engine per ADR-021)", () => {

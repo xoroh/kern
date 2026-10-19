@@ -11,7 +11,7 @@ import { defaultScheme, useKernScheme } from "../theme";
 import { overlayStyles } from "../utils/overlay-styles";
 import { Text } from "./text";
 
-export function sheetStyles(scheme: ResolvedTheme = defaultScheme): {
+export function sheetStyles(scheme: ResolvedTheme = defaultScheme()): {
   card: ViewStyle;
 } {
   return {

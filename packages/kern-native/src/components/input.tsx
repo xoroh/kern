@@ -23,7 +23,7 @@ export type NativeInputVariant = "outlined" | "filled";
 export function inputStyles(
   error: boolean,
   multiline: boolean,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
   disabled = false,
   variant: NativeInputVariant = "outlined",
 ): TextStyle {
