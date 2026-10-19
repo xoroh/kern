@@ -116,6 +116,7 @@ describe("zero-to-screen loop", () => {
 
   it("lists components and fetches real source, never stubs as code", async () => {
     const list = await listComponents("web");
+    if ("error" in list) throw new Error(list.error);
     expect(list.count > 0).toBe(true);
     const button = await getComponent("button", "web");
     expect(hasError(button)).toBe(false);

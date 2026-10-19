@@ -25,6 +25,8 @@ export type ManifestRow = {
   name: string;
   export: string;
   platform: "web" | "native";
+  /** Design system this row belongs to (decision 009 — "kern-m3" today). */
+  system: string;
   /** The package subpath that publishes this export: "." or "./start". */
   entrypoint: string;
   path: string;
@@ -43,15 +45,50 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 /** Workspace root from `packages/kern-cli/src` — checkout layout only. */
 export const WORKSPACE_ROOT = resolve(HERE, "..", "..", "..");
 
+/**
+ * Decision 009: the only current design system. CLI `add`/`list` and the MCP
+ * tools default to it; the registry (generated, single source) carries the
+ * system on every row, and `resolveSystem` below refuses anything it does
+ * not carry. A second system lands as registry rows first — this default
+ * does not move until the product says M3 is no longer first.
+ */
+export const DEFAULT_SYSTEM = "kern-m3";
+
+/** Systems the registry actually carries, in first-seen order. */
+export function knownSystems(rows: Pick<ManifestRow, "system">[]): string[] {
+  return [...new Set(rows.map((r) => r.system))];
+}
+
+/**
+ * Resolve the requested system against what the registry carries. Returns
+ * the default when nothing was requested; throws naming the known systems
+ * otherwise — an install from a system the registry never heard of would
+ * vendor nothing while reporting success.
+ */
+export function resolveSystem(
+  rows: Pick<ManifestRow, "system">[],
+  requested?: string,
+): string {
+  const known = knownSystems(rows);
+  const system = requested ?? DEFAULT_SYSTEM;
+  if (!known.includes(system)) {
+    throw new Error(
+      `unknown system "${system}" — registry knows: ${known.join(", ")}.`,
+    );
+  }
+  return system;
+}
+
 const ROW_RE =
-  /\{\s*name:\s*"([^"]+)",\s*export:\s*"([^"]+)",\s*platform:\s*"(web|native)",\s*entrypoint:\s*"([^"]+)",\s*path:\s*"([^"]+)",\s*status:\s*"(real|stub)",\s*\}/gs;
+  /\{\s*name:\s*"([^"]+)",\s*export:\s*"([^"]+)",\s*platform:\s*"(web|native)",\s*system:\s*"([^"]+)",\s*entrypoint:\s*"([^"]+)",\s*path:\s*"([^"]+)",\s*status:\s*"(real|stub)",\s*\}/gs;
 
 function parseManifestSource(src: string): ManifestRow[] {
   return [...src.matchAll(ROW_RE)].map(
-    ([, name, exportName, platform, entrypoint, path, status]) => ({
+    ([, name, exportName, platform, system, entrypoint, path, status]) => ({
       name,
       export: exportName,
       platform: platform as "web" | "native",
+      system,
       entrypoint,
       path,
       status: status as "real" | "stub",
@@ -61,7 +98,11 @@ function parseManifestSource(src: string): ManifestRow[] {
 
 function releaseSetFor(version: string, rows: ManifestRow[]): string {
   const hash = createHash("sha256")
-    .update(rows.map((r) => `${r.platform}/${r.name}=${r.export}`).join("\n"))
+    .update(
+      rows
+        .map((r) => `${r.system}/${r.platform}/${r.name}=${r.export}`)
+        .join("\n"),
+    )
     .digest("hex")
     .slice(0, 16);
   return `kern@${version}+${rows.length}.${hash}`;
@@ -110,6 +151,11 @@ export function loadRegistry(root?: string): Registry {
     payload.rows.length === 0
   ) {
     throw new Error("bundled registry.json is empty or malformed.");
+  }
+  if (payload.rows.some((r) => typeof r.system !== "string" || !r.system)) {
+    throw new Error(
+      "bundled registry.json predates the system column (decision 009) — run `bun run generate:components` and repack.",
+    );
   }
   return payload;
 }

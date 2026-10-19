@@ -35,11 +35,15 @@ describe("platform source routing", () => {
 
   it("reports unknown platform/name pairs instead of guessing", async () => {
     const got = await getComponent("does-not-exist", "native");
+    if (!("error" in got))
+      throw new Error("expected an unknown-component error");
     expect(got.error).toMatch("unknown component");
   });
 
   it("lists the published import per platform", async () => {
-    const { components } = await listComponents();
+    const list = await listComponents();
+    if ("error" in list) throw new Error(list.error);
+    const { components } = list;
     const web = components.find(
       (c) => c.name === "button" && c.platform === "web",
     );
@@ -51,7 +55,9 @@ describe("platform source routing", () => {
   });
 
   it("publishes the /start entrypoint on composition rows", async () => {
-    const { components } = await listComponents("web");
+    const list = await listComponents("web");
+    if ("error" in list) throw new Error(list.error);
+    const { components } = list;
     const searchBar = components.find((c) => c.name === "search-bar");
     expect(searchBar?.entrypoint).toBe("./start");
     expect(searchBar?.import).toBe("@xoroh/kern/start");

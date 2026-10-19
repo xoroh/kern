@@ -52,8 +52,11 @@ export {
 } from "./list-diff.js";
 export type { ManifestRow, Registry } from "./manifest.js";
 export {
+  DEFAULT_SYSTEM,
   kernVersion,
+  knownSystems,
   loadRegistry,
+  resolveSystem,
   WORKSPACE_ROOT,
 } from "./manifest.js";
 export type { InstallReceipt } from "./receipt.js";

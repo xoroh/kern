@@ -3,6 +3,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 import {
+  DEFAULT_SYSTEM,
   designAudit,
   getBlock,
   getComponent,
@@ -32,15 +33,24 @@ function text(payload: unknown) {
 
 server.tool(
   "list_components",
-  "List Kern UI components with build status. Filter by platform.",
+  "List Kern UI components with build status. Filter by platform and design system.",
   {
     platform: z
       .enum(["web", "native"])
       .optional()
       .describe("web (React) or native (React Native)"),
+    system: z
+      .string()
+      .default(DEFAULT_SYSTEM)
+      .describe("design system id (kern-m3, the only current system)"),
   },
-  async ({ platform }) => {
-    return text(await listComponents(platform as Platform | undefined));
+  async ({ platform, system }) => {
+    return text(
+      await listComponents(
+        platform as Platform | undefined,
+        system ?? DEFAULT_SYSTEM,
+      ),
+    );
   },
 );
 
@@ -50,9 +60,19 @@ server.tool(
   {
     name: z.string().describe("kebab-case component name, e.g. button"),
     platform: z.enum(["web", "native"]).default("web"),
+    system: z
+      .string()
+      .default(DEFAULT_SYSTEM)
+      .describe("design system id (kern-m3, the only current system)"),
   },
-  async ({ name, platform }) => {
-    return text(await getComponent(name, (platform ?? "web") as Platform));
+  async ({ name, platform, system }) => {
+    return text(
+      await getComponent(
+        name,
+        (platform ?? "web") as Platform,
+        system ?? DEFAULT_SYSTEM,
+      ),
+    );
   },
 );
 
@@ -134,9 +154,19 @@ server.tool(
   {
     name: z.string().describe("kebab-case component name, e.g. button"),
     platform: z.enum(["web", "native"]).default("web"),
+    system: z
+      .string()
+      .default(DEFAULT_SYSTEM)
+      .describe("design system id (kern-m3, the only current system)"),
   },
-  async ({ name, platform }) => {
-    return text(await installPlan(name, (platform ?? "web") as Platform));
+  async ({ name, platform, system }) => {
+    return text(
+      await installPlan(
+        name,
+        (platform ?? "web") as Platform,
+        system ?? DEFAULT_SYSTEM,
+      ),
+    );
   },
 );
 

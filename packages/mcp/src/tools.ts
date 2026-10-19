@@ -21,6 +21,39 @@ import { COMPONENTS } from "./manifest.js";
 export type Platform = "web" | "native";
 
 /**
+ * Decision 009: the only current design system. The component tools default
+ * to it; the generated registry (`./manifest.js`, single source) carries the
+ * system on every row. Mirrors `@xoroh/kern-cli`'s `DEFAULT_SYSTEM` without
+ * importing the CLI statically — a static import would drag the CLI's
+ * TypeScript compiler into the packed server (see the install-plan note
+ * below). The registry rows are the authority; this literal is the default.
+ */
+export const DEFAULT_SYSTEM = "kern-m3";
+
+/** Systems the generated registry actually carries, in first-seen order. */
+export function knownSystems(): string[] {
+  return [...new Set(COMPONENTS.map((c) => c.system))];
+}
+
+/**
+ * Resolve the requested system against the registry. Returns `{ system }`
+ * or `{ error }` naming what the registry carries — never an empty result
+ * the caller could mistake for "no components".
+ */
+export function resolveSystem(
+  requested?: string,
+): { system: string } | { error: string } {
+  const known = knownSystems();
+  const system = requested ?? DEFAULT_SYSTEM;
+  if (!known.includes(system)) {
+    return {
+      error: `unknown system "${system}" — registry knows: ${known.join(", ")}.`,
+    };
+  }
+  return { system };
+}
+
+/**
  * Presets `get_tokens` accepts. `base` is the shared token source
  * (`tokens.json`); the rest are ids from the theme catalog
  * (`packages/kern-tokens/src/themes/index.json`). `demo` is a template
@@ -107,13 +140,17 @@ function tokenFileFor(preset: TokenPreset): {
   return { read: "themes", rel: `src/themes/${canonicalPreset(preset)}.json` };
 }
 
-export async function listComponents(platform?: Platform) {
+export async function listComponents(platform?: Platform, system?: string) {
+  const resolved = resolveSystem(system);
+  if ("error" in resolved) return resolved;
   const list = COMPONENTS.filter(
-    (c) => !platform || c.platform === platform,
+    (c) =>
+      (!platform || c.platform === platform) && c.system === resolved.system,
   ).map((c) => ({
     name: c.name,
     export: c.export,
     platform: c.platform,
+    system: c.system,
     // The subpath that publishes this export — an AI writing the import from
     // `import` alone emits `@xoroh/kern` for SearchBar, which does not
     // compile. Both fields ride together, always.
@@ -124,14 +161,26 @@ export async function listComponents(platform?: Platform) {
         ? `@xoroh/kern${c.entrypoint === "./start" ? "/start" : ""}`
         : "@xoroh/kern-native",
   }));
-  return { count: list.length, components: list };
+  return { system: resolved.system, count: list.length, components: list };
 }
 
-export async function getComponent(name: string, platform: Platform = "web") {
+export async function getComponent(
+  name: string,
+  platform: Platform = "web",
+  system?: string,
+) {
+  const resolved = resolveSystem(system);
+  if ("error" in resolved) return resolved;
   const entry = COMPONENTS.find(
-    (c) => c.name === name && c.platform === platform,
+    (c) =>
+      c.name === name &&
+      c.platform === platform &&
+      c.system === resolved.system,
   );
-  if (!entry) return { error: `unknown component: ${platform}/${name}` };
+  if (!entry)
+    return {
+      error: `unknown component: ${resolved.system}/${platform}/${name}`,
+    };
   // Platform roots, not one root: the old code read EVERY row through
   // readKernFile, so `getComponent("button", "native")` returned byte-equal
   // WEB source for a native request — an AI installing from that output ships
@@ -351,6 +400,7 @@ export type InstallPlan =
       evidence: "resolved-closure";
       name: string;
       platform: string;
+      system: string;
       files: string[];
       npm: string[];
       instructions: string[];
@@ -359,10 +409,12 @@ export type InstallPlan =
       evidence: "metadata-only";
       name: string;
       platform: string;
+      system: string;
       row: {
         name: string;
         export: string;
         platform: string;
+        system: string;
         entrypoint: string;
         path: string;
         status: string;
@@ -374,11 +426,20 @@ export type InstallPlan =
 export async function installPlan(
   name: string,
   platform: Platform = "web",
+  system?: string,
 ): Promise<InstallPlan> {
+  const resolved = resolveSystem(system);
+  if ("error" in resolved) return resolved;
   const entry = COMPONENTS.find(
-    (c) => c.name === name && c.platform === platform,
+    (c) =>
+      c.name === name &&
+      c.platform === platform &&
+      c.system === resolved.system,
   );
-  if (!entry) return { error: `unknown component: ${platform}/${name}` };
+  if (!entry)
+    return {
+      error: `unknown component: ${resolved.system}/${platform}/${name}`,
+    };
   if (entry.status !== "real") {
     return { error: `"${name}" is a stub — nothing to install.` };
   }
@@ -386,18 +447,22 @@ export async function installPlan(
     const cli = (await import("@xoroh/kern-cli")) as {
       planComponent: (
         name: string,
-        opts: { platform: string },
+        opts: { platform: string; system: string },
       ) => { files: Array<{ out: string }>; npm: string[] };
     };
-    const plan = cli.planComponent(name, { platform });
+    const plan = cli.planComponent(name, {
+      platform,
+      system: resolved.system,
+    });
     return {
       evidence: "resolved-closure",
       name,
       platform,
+      system: resolved.system,
       files: plan.files.map((f) => f.out),
       npm: plan.npm,
       instructions: [
-        `kern add ${name} --platform ${platform}`,
+        `kern add ${name} --platform ${platform} --system ${resolved.system}`,
         ...(plan.npm.length > 0 ? [`bun add ${plan.npm.join(" ")}`] : []),
       ],
     };
@@ -406,8 +471,9 @@ export async function installPlan(
       evidence: "metadata-only",
       name,
       platform,
+      system: resolved.system,
       row: { ...entry },
-      command: `kern add ${name} --platform ${platform}`,
+      command: `kern add ${name} --platform ${platform} --system ${resolved.system}`,
     };
   }
 }

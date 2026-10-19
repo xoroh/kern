@@ -79,18 +79,19 @@ function concepts(names) {
 }
 
 const src = readFileSync(MANIFEST, "utf8");
-// `entrypoint` sits between `platform` and `path` in the generator's render
-// order. A row-shape regex that does not carry it parses ZERO rows and reports
-// "run bun run generate:components first" about a registry that is perfectly
-// fresh — the gate blames the tree for its own drift.
+// `system` sits between `platform` and `entrypoint` in the generator's render
+// order (decision 009). A row-shape regex that does not carry it parses ZERO
+// rows and reports "run bun run generate:components first" about a registry
+// that is perfectly fresh — the gate blames the tree for its own drift.
 const rows = [
   ...src.matchAll(
-    /\{\s*name:\s*"([^"]+)",\s*export:\s*"([^"]+)",\s*platform:\s*"(web|native)",\s*entrypoint:\s*"([^"]+)",\s*path:\s*"([^"]+)",\s*status:\s*"(real|stub)",\s*\}/gs,
+    /\{\s*name:\s*"([^"]+)",\s*export:\s*"([^"]+)",\s*platform:\s*"(web|native)",\s*system:\s*"([^"]+)",\s*entrypoint:\s*"([^"]+)",\s*path:\s*"([^"]+)",\s*status:\s*"(real|stub)",\s*\}/gs,
   ),
-].map(([, name, exportName, platform, entrypoint, path, status]) => ({
+].map(([, name, exportName, platform, system, entrypoint, path, status]) => ({
   name,
   exportName,
   platform,
+  system,
   entrypoint,
   path,
   status,

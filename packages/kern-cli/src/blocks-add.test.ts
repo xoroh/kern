@@ -75,6 +75,7 @@ export function Root() {
     name: "button",
     export: "Button",
     platform: "web",
+    system: "kern-m3",
     entrypoint: ".",
     path: "src/components/button.tsx",
     status: "real",
