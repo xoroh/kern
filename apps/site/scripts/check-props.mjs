@@ -10,7 +10,9 @@
  *
  *   ENFORCED: no stale rows. A content `api` name that NOTHING in the
  *   component's type carries — not local, not Base UI passthrough, not even
- *   react-intrinsic — documents nothing. Always a failure.
+ *   react-intrinsic — documents nothing. Always a failure, with the part and
+ *   prop named. Zero is the only passing count: there is no baseline and no
+ *   ratchet (the 471-row burn-down that used to live here is done).
  *
  *   ENFORCED (gate 2, flipped once the burn-down reached zero): coverage.
  *   Every generated (local + Base UI) name missing from the content `api`
@@ -72,25 +74,19 @@ if (unjudgeable.length) {
   );
 }
 
-// Ratchet, not amnesty. The first run recorded 471 stale rows across 157
-// exports — overwhelmingly copy-pasted Root props onto compound parts
-// (AlertDialogTrigger/Content/Title/Description all documenting Root's
-// `open`; Root-only `value`/`disabled` on Items and Triggers) plus className
-// rows on state-only Roots that render no DOM. That burn-down belongs to the
-// content lane (site-se), with the exact list in
-// .team/reports/SITE-REDESIGN-part0-props.md. What this gate enforces today:
-// the count must not GROW. A falling count updates the baseline in the same
-// commit that earns it; a rising count fails with the new rows named.
-const BASELINE = 471;
-if (stale.length > BASELINE) {
+// The stale burn-down is done (471 -> 0 across the gate-2 lane): a content
+// `api` name nothing in the part's type carries documents nothing, and the
+// gate fails on the first one, with the part and prop named. There is no
+// baseline and no ratchet any more — zero is the only passing count.
+if (stale.length) {
   console.error(
-    `props coverage contract FAILED — stale rows grew ${BASELINE} -> ${stale.length}:\n`,
+    `props coverage contract FAILED — ${stale.length} stale row(s) document nothing:\n`,
   );
   for (const v of stale) console.error(`  - ${v}`);
   process.exit(1);
 }
 console.log(
-  `check-props passes: ${checked} web exports cross-checked, stale rows ${stale.length} (baseline ${BASELINE}, must not grow).`,
+  `check-props passes: ${checked} web exports cross-checked, stale rows 0.`,
 );
 if (uncoveredByExport.length) {
   console.error(
