@@ -1085,35 +1085,35 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "variant",
       "type": "ButtonVariant | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:315",
+      "src": "packages/kern/src/components/button.tsx:314",
       "default": "\"filled\""
     },
     {
       "name": "size",
       "type": "ButtonSize | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:316",
+      "src": "packages/kern/src/components/button.tsx:315",
       "default": "\"default\""
     },
     {
       "name": "color",
       "type": "ButtonColor | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:317",
+      "src": "packages/kern/src/components/button.tsx:316",
       "default": "\"primary\""
     },
     {
       "name": "shape",
       "type": "ButtonShape | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:318",
+      "src": "packages/kern/src/components/button.tsx:317",
       "default": "\"pill\""
     },
     {
       "name": "block",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:320",
+      "src": "packages/kern/src/components/button.tsx:319",
       "default": "false",
       "note": "Full-width block button."
     },
@@ -1121,55 +1121,55 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "loading",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:322",
+      "src": "packages/kern/src/components/button.tsx:321",
       "note": "Shows the embedded progress indicator and blocks interaction."
     },
     {
       "name": "loadingValue",
       "type": "number | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:324",
+      "src": "packages/kern/src/components/button.tsx:323",
       "note": "0–1 determinate progress while loading. Omit for the loop."
     },
     {
       "name": "loaderStyle",
       "type": "\"spinner\" | \"dots\" | \"bar\" | \"shapes\" | \"conveyor\" | \"contained\" | \"orbit\" | \"morph\" | \"assembly\" | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:326",
+      "src": "packages/kern/src/components/button.tsx:325",
       "note": "Style of the embedded indicator. Defaults to the M3 ring (`spinner`)."
     },
     {
       "name": "icon",
       "type": "ReactNode",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:328",
+      "src": "packages/kern/src/components/button.tsx:327",
       "note": "Leading (or trailing, with `iconPosition`) icon. Hidden from assistive tech."
     },
     {
       "name": "iconPosition",
       "type": "ButtonIconPosition | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:329"
+      "src": "packages/kern/src/components/button.tsx:328"
     },
     {
       "name": "flipIcon",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:335",
+      "src": "packages/kern/src/components/button.tsx:334",
       "note": "Mirrors the icon horizontally in RTL contexts (`rtl:scale-x-[-1]`).\nOpt into it for directional glyphs (arrows, chevrons, back/open cues);\nsymmetric icons must not flip. Per M3's `flip-icon-in-rtl`."
     },
     {
       "name": "softDisabled",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:342",
+      "src": "packages/kern/src/components/button.tsx:341",
       "note": "Soft-disabled: paints the disabled treatment but stays focusable, so the\ncontrol remains discoverable (toolbar pattern per W3C APG disabled-controls\nguidance). Unlike `disabled`, it keeps its tab stop and reports\n`aria-disabled` instead of the `disabled` attribute."
     },
     {
       "name": "toggle",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:350",
+      "src": "packages/kern/src/components/button.tsx:349",
       "default": "false",
       "note": "Renders the button as an M3 Expressive toggle: binary selection with\nround↔square morph and per-variant selected colors. There is no toggle\ntext button — `toggle` on `text` warns in dev and renders unselected.\nKeep selected/unselected labels a similar length so the layout holds.\n(`value` stays the form value; toggle state uses `pressed`.)"
     },
@@ -1177,82 +1177,82 @@ export const GENERATED_PROPS: Record<string, Array<{
       "name": "pressed",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:352",
+      "src": "packages/kern/src/components/button.tsx:351",
       "note": "Controlled selected state. Only meaningful with `toggle`."
     },
     {
       "name": "defaultPressed",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:354",
+      "src": "packages/kern/src/components/button.tsx:353",
       "note": "Initial selected state for the uncontrolled toggle case."
     },
     {
       "name": "onPressedChange",
       "type": "((pressed: boolean) => void) | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:355"
+      "src": "packages/kern/src/components/button.tsx:354"
     },
     {
       "name": "disabled",
       "type": "boolean | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:357",
+      "src": "packages/kern/src/components/button.tsx:356",
       "note": "Disabled treatment for either the button or anchor branch."
     },
     {
       "name": "testID",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:362",
+      "src": "packages/kern/src/components/button.tsx:361",
       "note": "Test selector. Rendered as `data-testid` on the root node (both\nbranches); see `parity/testid-contract.md`. Opt-in only — no default."
     },
     {
       "name": "href",
       "type": "string",
       "required": true,
-      "src": "packages/kern/src/components/button.tsx:381",
+      "src": "packages/kern/src/components/button.tsx:380",
       "note": "Navigation variant. Renders `<a href>` wearing the button treatment,\ni.e. `role=\"link\"` — for a dedicated link component see `LinkButton`.\nA disabled link drops `href`, leaves the tab order and reports\n`aria-disabled` (the ListItem convention) — links have no `disabled`\nattribute, so there is nothing native to lean on."
     },
     {
       "name": "type",
       "type": "undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:383",
+      "src": "packages/kern/src/components/button.tsx:382",
       "note": "Button submission attributes have no meaning on a link."
     },
     {
       "name": "value",
       "type": "undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:384"
+      "src": "packages/kern/src/components/button.tsx:383"
     },
     {
       "name": "target",
       "type": "HTMLAttributeAnchorTarget | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:386",
+      "src": "packages/kern/src/components/button.tsx:385",
       "note": "Anchor target. A button has no browsing context to open."
     },
     {
       "name": "rel",
       "type": "string | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:388",
+      "src": "packages/kern/src/components/button.tsx:387",
       "note": "Anchor relationship list."
     },
     {
       "name": "download",
       "type": "any",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:390",
+      "src": "packages/kern/src/components/button.tsx:389",
       "note": "Download hint."
     },
     {
       "name": "ref",
       "type": "Ref<HTMLAnchorElement> | undefined",
       "required": false,
-      "src": "packages/kern/src/components/button.tsx:392",
+      "src": "packages/kern/src/components/button.tsx:391",
       "note": "Ref to the rendered anchor."
     }
   ],
