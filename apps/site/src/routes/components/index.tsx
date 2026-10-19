@@ -8,8 +8,8 @@
  *
  * Platform filtering is view state on this one route (`?platform=web|mobile`,
  * 018): there is exactly one gallery URL, and the switcher links keep every
- * filter position a destination. The old `/components/web|mobile` index
- * routes were deleted outright (D-051 — no redirects before 1.0).
+ * filter position a destination. The former platform index routes were
+ * deleted outright (D-051 — no redirects before 1.0).
  */
 import { createFileRoute } from "@tanstack/react-router";
 import {

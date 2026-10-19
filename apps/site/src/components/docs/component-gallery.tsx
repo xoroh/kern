@@ -58,7 +58,7 @@ const CHIP = `inline-flex items-center rounded-(--sys-shape-corner-full) border 
  * item stays a LINK with `aria-current` — it navigates to itself rather than
  * posing as a non-interactive tab, so every item is a destination. Filtering
  * is view state (`?platform=`, 018): one gallery URL, not one route per
- * platform — the old `/components/web|mobile` index routes are deleted
+ * platform — the former platform index routes are deleted
  * outright (D-051, no redirects).
  */
 export type GalleryPlatform = "web" | "mobile";
