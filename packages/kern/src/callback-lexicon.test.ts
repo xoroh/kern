@@ -72,6 +72,12 @@ const REGISTERED_ALIASES: Record<string, string[]> = {
     "values",
     "onValuesChange",
   ],
+  // `onValueCommitted` fires alongside the canonical pair: blur after typing,
+  // stepper/scrub release after stepping. It never stands without `value`,
+  // so it registers here rather than as an alias.
+  "packages/kern-native/src/components/number-field.tsx:onValueCommitted": [
+    "value",
+  ],
 };
 
 /** Action callbacks: state-free by definition, never renamed. */

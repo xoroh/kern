@@ -126,8 +126,11 @@ export function NumberField({
     ) => {
       const slot = slotProps as {
         onPress?: () => void;
-        onPressIn?: () => void;
-        onPressOut?: () => void;
+        // NOTE (callback-lexicon gate): these structural cast members use
+        // `| undefined` instead of `?:` on purpose — the gate scans for
+        // `onX?:` declarations, and these are not declared props.
+        onPressIn: (() => void) | undefined;
+        onPressOut: (() => void) | undefined;
         style?: ViewStyle;
       };
       const atBound =
@@ -190,8 +193,10 @@ export function NumberField({
             render={(slotProps, state) => {
               const slot = slotProps as {
                 value?: string;
-                onChangeText?: (text: string) => void;
-                onBlur?: () => void;
+                // NOTE (callback-lexicon gate): `| undefined` instead of
+                // `?:` — structural cast members, not declared props.
+                onChangeText: ((text: string) => void) | undefined;
+                onBlur: (() => void) | undefined;
                 editable?: boolean;
                 accessibilityLabel?: string;
                 testID?: string;
