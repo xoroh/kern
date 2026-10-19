@@ -7,9 +7,17 @@ contrast policy and pair builders, seed-theme generation, the feedback spec
 and expressive shapes.
 
 The universal theme engine lives in `@xoroh/kern-tokens` and knows none of
-this. Importing this package registers the M3 preset tables, policy and
-overrides with that engine (side effect) — default consumers resolve M3
-without further setup; custom systems register their own preset instead.
+this. Importing this package registers nothing with that engine (decision
+010: no system is the implicit global default). Applications call
+`registerM3()` once at entry — before anything resolves an M3 theme id:
+
+```ts
+import { registerM3 } from "@xoroh/kern-m3";
+
+registerM3(); // base "material-3" + sharp/brand/compact/demo overrides
+```
+
+Custom systems register their own preset instead (or as well).
 
 ## Install
 

@@ -357,7 +357,7 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
               system: "m3",
               component: card.slug,
             }}
-            className={`m-0 ${T_SMALL_TITLE} ${INK} no-underline hover:underline ${FOCUS_RING}`}
+            className={`m-0 ${T_SMALL_TITLE} ${INK} no-underline hover:underline ${TRANSITION} ${FOCUS_RING}`}
           >
             {primary?.name ?? card.name}
           </Link>

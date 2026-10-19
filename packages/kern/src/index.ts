@@ -1,9 +1,9 @@
 // "@xoroh/kern" — web components (React, Base UI behaviors, Kern tokens).
 
-// Registers the material-3 preset tables, policy and overrides with the
-// universal resolver (side effect). Default consumers resolve M3 without
-// further setup; custom systems register their own preset instead.
-import "@xoroh/kern-m3";
+// Registers NOTHING with the theme resolver (decision 010): a renderer must
+// not choose a design system for the app that imports it. Apps that want M3
+// call `registerM3()` from `@xoroh/kern-m3` once at entry; an unregistered
+// theme id fails loud at resolve time.
 
 export * from "./components/index";
 export * from "./tokens";

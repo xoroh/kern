@@ -4064,13 +4064,13 @@
         "$value": 0.16
       },
       "focus-opacity": {
-        "$value": 0.12
+        "$value": 0.1
       },
       "hover-opacity": {
         "$value": 0.08
       },
       "press-opacity": {
-        "$value": 0.12
+        "$value": 0.1
       }
     },
     "type": {

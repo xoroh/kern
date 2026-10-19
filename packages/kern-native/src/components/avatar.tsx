@@ -14,7 +14,7 @@ export type NativeAvatarSize = "small" | "default" | "large";
 
 export function avatarStyles(
   size: NativeAvatarSize,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
 ): { container: ViewStyle; radius: number; dimension: number } {
   const dimension = size === "small" ? 32 : size === "large" ? 56 : 40;
   return {

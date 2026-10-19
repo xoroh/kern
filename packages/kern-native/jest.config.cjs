@@ -58,7 +58,10 @@ module.exports = {
   // because the real path contains a nested `node_modules/.bun/<pkg>/` before
   // the package name — match on the whole tail instead of the first segment.
   transformIgnorePatterns: [
-    "/node_modules/(?!.*(@react-native|react-native)/)",
+    // `@material/material-color-utilities` ships ESM-only (`type: module`);
+    // the HCT spike in `@xoroh/kern-tokens` imports it at barrel load, so
+    // every RNTL suite requires it as CJS here. Transform it like RN.
+    "/node_modules/(?!.*(@react-native|react-native|@material/material-color-utilities)/)",
   ],
   moduleNameMapper: {
     "^@xoroh/axis$": axisCjs,

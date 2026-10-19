@@ -125,7 +125,7 @@ describe("native Toolbar render", () => {
   });
 
   it("rests at the 64dp M3 height with color + orientation axes", async () => {
-    const scheme = defaultScheme;
+    const scheme = defaultScheme();
     expect(toolbarStyles(scheme).minHeight).toBe(64);
     expect(toolbarStyles(scheme).backgroundColor).toBe(
       scheme.color.surfaceTonal,
@@ -139,7 +139,7 @@ describe("native Toolbar render", () => {
   });
 
   it("docks square and full-bleed with 16dp side padding", async () => {
-    const scheme = defaultScheme;
+    const scheme = defaultScheme();
     expect(toolbarStyles(scheme, { layout: "docked" })).toMatchObject({
       borderRadius: 0,
       paddingHorizontal: 16,

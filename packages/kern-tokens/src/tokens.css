@@ -433,8 +433,8 @@
     --sys-motion-spring-effects-slow
   );
   --sys-state-hover: 8%;
-  --sys-state-focus: 12%;
-  --sys-state-press: 12%;
+  --sys-state-focus: 10%;
+  --sys-state-press: 10%;
   --sys-state-drag: 16%;
   --sys-state-disabled: 38%;
   --sys-spacing-space-0: 0px;

@@ -12,7 +12,7 @@ export type NativeBadgeVariant = "dot" | "count";
 
 export function badgeStyles(
   variant: NativeBadgeVariant,
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
 ): {
   container: ViewStyle;
   label: TextStyle;

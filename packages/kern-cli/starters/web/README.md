@@ -12,11 +12,11 @@ bun run dev
 ## Where the dependencies come from
 
 Kern is `__KERN_VERSION__` and **unpublished**: the registry names
-(`@xoroh/kern`, `@xoroh/kern-tokens`) resolve only after the first publish,
-so this scaffold points both at your checkout with `file:` dependencies (see
-`package.json`). That is the dogfood path, not a forever decision — at
-publish, swap the two `file:` entries for the published version and delete
-this section.
+(`@xoroh/kern`, `@xoroh/kern-m3`, `@xoroh/kern-tokens`) resolve only after
+the first publish, so this scaffold points all three at your checkout with
+`file:` dependencies (see `package.json`). That is the dogfood path, not a
+forever decision — at publish, swap the three `file:` entries for the
+published version and delete this section.
 
 Everything else (`react`, `vite`, `tailwindcss`) installs from the registry
 today. Tailwind v4 is required, not decorative: Kern components are styled

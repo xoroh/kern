@@ -8,6 +8,12 @@
 import { Button, useKernTheme } from "@xoroh/kern";
 import { listHues, listVariants } from "@xoroh/kern-tokens";
 import { useId } from "react";
+import {
+  T_BODY_MD,
+  T_BODY_SM,
+  T_CODE,
+  T_LABEL_MD,
+} from "../../domains/shared/systems/type-scale";
 
 const MODES = [
   { id: "light", label: "Light" },
@@ -35,10 +41,10 @@ export function ThemeSwitcher() {
       aria-labelledby={groupId}
     >
       <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <span id={groupId} className="text-sm font-medium">
+        <span id={groupId} className={`${T_BODY_MD}`}>
           Appearance
         </span>
-        <span className="font-mono text-xs text-(--sys-color-on-surface-variant)">
+        <span className={`${T_CODE} text-(--sys-color-on-surface-variant)`}>
           {mode} · {contrast} ·{" "}
           {typeof variant === "string" ? variant : variant.id}
         </span>
@@ -60,12 +66,14 @@ export function ThemeSwitcher() {
         ))}
       </div>
 
-      <dl className="grid grid-cols-1 gap-1 text-xs text-(--sys-color-on-surface-variant) sm:grid-cols-2">
-        <dt className="font-medium">Shipped variants</dt>
+      <dl
+        className={`grid grid-cols-1 gap-1 ${T_BODY_SM} text-(--sys-color-on-surface-variant) sm:grid-cols-2`}
+      >
+        <dt className={`${T_LABEL_MD}`}>Shipped variants</dt>
         <dd className="m-0 font-mono">
           {variants.map((entry) => entry.id).join(", ")}
         </dd>
-        <dt className="font-medium">Registered hues</dt>
+        <dt className={`${T_LABEL_MD}`}>Registered hues</dt>
         <dd className="m-0 font-mono">{hueCount} in the spectrum</dd>
       </dl>
     </section>

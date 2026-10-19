@@ -63,7 +63,7 @@ export type LoadingIndicatorSize = "sm" | "default" | "lg";
 
 export function loadingIndicatorStyles(
   size: LoadingIndicatorSize = "default",
-  scheme: ResolvedTheme = defaultScheme,
+  scheme: ResolvedTheme = defaultScheme(),
 ): { ring: ViewStyle } {
   // M3 range is 24–240dp with a 48dp default, so the default IS 48
   // (`space-600`). No `xl`: one size, one name (no-compat rule).

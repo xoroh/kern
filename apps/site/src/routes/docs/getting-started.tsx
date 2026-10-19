@@ -20,7 +20,14 @@ export const Route = createFileRoute("/docs/getting-started")({
   component: GettingStarted,
 });
 
-const INSTALL = `bun add @xoroh/kern @xoroh/kern-icons`;
+const INSTALL = `bun add @xoroh/kern @xoroh/kern-icons @xoroh/kern-m3 @xoroh/kern-tokens`;
+
+const REGISTER = `// main.tsx — one explicit call, before anything resolves a theme.
+// Importing @xoroh/kern registers nothing (decision 010): the app chooses
+// its design system, the renderer never chooses it for you.
+import { registerM3 } from "@xoroh/kern-m3";
+
+registerM3();`;
 
 const STYLESHEET = `/* app.css — the only required import */
 @import "@xoroh/kern/theme";`;
@@ -75,13 +82,17 @@ export function App() {
   );
 }`;
 
-const MOBILE_INSTALL = `bun add @xoroh/kern-native @xoroh/kern-tokens`;
+const MOBILE_INSTALL = `bun add @xoroh/kern-native @xoroh/kern-m3 @xoroh/kern-tokens`;
 
-const MOBILE_QUICKSTART = `import {
+const MOBILE_QUICKSTART = `import { registerM3 } from "@xoroh/kern-m3";
+import {
   Button,
   KernThemeProvider,
   Text,
 } from "@xoroh/kern-native";
+
+// The app owns the design-system choice: register once at entry.
+registerM3();
 
 export function SaveScreen() {
   return (
@@ -104,6 +115,12 @@ const ICONS = `import { Icon } from "@xoroh/kern-icons";
 
 const PRESET_PICKER = `import { useState } from "react";
 import { applyKernTheme, Button, type Mode, type ThemeId } from "@xoroh/kern";
+import { registerM3 } from "@xoroh/kern-m3";
+
+// The app owns the design-system choice: register once at entry.
+// Importing "@xoroh/kern" registers nothing — an unregistered preset
+// fails loud.
+registerM3();
 
 const PRESETS = ["material-3", "sharp", "brand", "demo"] as const satisfies readonly ThemeId[];
 
@@ -143,7 +160,7 @@ function GettingStarted() {
           </p>
         </header>
 
-        <Step n={1} title="Install the packages">
+        <Step n={1} title="Install and register the system">
           <p
             className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
           >
@@ -153,6 +170,15 @@ function GettingStarted() {
             until 0.1.0 publishes.
           </p>
           <Code>{INSTALL}</Code>
+          <p
+            className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
+          >
+            Registration is one explicit call at your entry, before anything
+            resolves a theme — importing the renderer registers nothing, so the
+            app owns the design-system choice. An unregistered preset fails
+            loud, never silently unthemed.
+          </p>
+          <Code>{REGISTER}</Code>
         </Step>
 
         <Step n={2} title="Load the theme stylesheet">
