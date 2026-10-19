@@ -81,7 +81,6 @@ export const card: ComponentDoc = {
     {
       q: "How does this differ from the web card?",
       a: "The three-variant contract and the 0/1 elevation split are identical. The native card is a `View` with kern-drawn fills (no global CSS), and pressability always lives in a child.",
->>>>>>> origin/main
     },
   ],
   customization: {
