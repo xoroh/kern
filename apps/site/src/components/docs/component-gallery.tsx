@@ -16,6 +16,7 @@ import {
   type ReactElement,
   type ReactNode,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import { MOBILE_DOCS, WEB_DOCS } from "../../content";
@@ -116,6 +117,46 @@ type GalleryCard = {
   web?: ComponentDoc;
   mobile?: ComponentDoc;
 };
+
+/**
+ * Width-fit wrapper for gallery thumbnails.
+ *
+ * A live demo composed for a full-width family page is often wider than
+ * the ~260px card well (nav bars, pagination windows, tab rows, footers).
+ * Cropping those reads as a broken demo; this measures once after mount
+ * (and again after webfonts land) and `zoom`s the demo to the well width
+ * when it overflows. Height still crops with the well's fade — width is
+ * guaranteed, height is a thumbnail. `zoom` scales layout (unlike
+ * transform), so no compensation math; engines without it ignore the
+ * style and keep the crop.
+ */
+function FitWidth({ children }: { children: ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [zoom, setZoom] = useState(1);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    let alive = true;
+    const fit = () => {
+      if (!alive || !el.parentElement) return;
+      const avail = el.parentElement.clientWidth;
+      const need = el.scrollWidth;
+      if (avail > 0 && need > avail + 1) setZoom(avail / need);
+    };
+    fit();
+    if (typeof document !== "undefined" && "fonts" in document) {
+      void document.fonts.ready.then(() => fit());
+    }
+    return () => {
+      alive = false;
+    };
+  }, []);
+  return (
+    <div ref={ref} style={zoom < 1 ? { zoom } : undefined}>
+      {children}
+    </div>
+  );
+}
 
 /** True once the component has mounted on the client (SSR renders false). */
 function useClientMount(): boolean {
@@ -330,7 +371,9 @@ function GalleryCardView({ card }: { card: GalleryCard }) {
               inert
             >
               <DemoBoundary>
-                <Demo />
+                <FitWidth>
+                  <Demo />
+                </FitWidth>
               </DemoBoundary>
             </div>
           ) : (
