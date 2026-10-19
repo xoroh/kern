@@ -141,11 +141,20 @@ function FitWidth({ children }: { children: ReactNode }) {
       if (!alive || !el.parentElement) return;
       const avail = el.parentElement.clientWidth;
       // Max over the subtree: an inner scroller (chip rows, tab lists)
-      // clips without growing the wrapper's own scrollWidth.
+      // clips without growing the wrapper's own scrollWidth. True
+      // scrollers (overflow-x auto/scroll) get a right-edge fade affordance
+      // instead of a hard cut — see .thumb-scroll-x in styles.css.
       let need = el.scrollWidth;
       for (const d of el.querySelectorAll("*")) {
-        const w = (d as HTMLElement).scrollWidth;
-        if (w > need) need = w;
+        const h = d as HTMLElement;
+        if (h.scrollWidth > need) need = h.scrollWidth;
+        const ox = getComputedStyle(h).overflowX;
+        if (
+          (ox === "auto" || ox === "scroll") &&
+          h.scrollWidth > h.clientWidth + 8
+        ) {
+          h.classList.add("thumb-scroll-x");
+        }
       }
       // `input.scrollWidth` reports the box, not the text — canvas-measure
       // field text (value, else placeholder) plus its padding instead.

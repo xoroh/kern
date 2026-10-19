@@ -209,6 +209,14 @@ a.site-card:active::after {
   outline: 2px solid var(--sys-color-primary);
   outline-offset: 2px;
 }
+/**
+ * Right-edge fade for true scrollers inside gallery thumbnails (chip rows,
+ * tab lists). Added at runtime by FitWidth only where an overflow-x
+ * auto/scroll element actually overflows — a scroll affordance, not a crop.
+ */
+.thumb-scroll-x {
+  mask-image: linear-gradient(to right, black 88%, transparent 98%);
+}
 .site-footer {
   border-radius: var(--site-panel-radius);
   margin: 48px 16px 16px;

@@ -226,7 +226,9 @@ export function SearchDemo() {
     <PreviewStack>
       <Preview label="default" span={3}>
         <div className="w-full max-w-sm">
-          <Search label="Search components" placeholder="Search components" />
+          {/* Placeholder stays short on purpose: gallery cards render this
+              demo in a ~200px well, and a 17-character placeholder clips. */}
+          <Search label="Search components" placeholder="Search" />
         </div>
       </Preview>
       <Preview label="with a value (clear button appears)" span={3}>
