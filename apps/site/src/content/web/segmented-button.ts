@@ -104,11 +104,13 @@ export const segmentedButton: ComponentDoc = {
     },
     {
       name: "defaultValue",
+      for: ["SegmentedButtonRoot"],
       type: "Value",
       note: "Initial selection when uncontrolled.",
     },
     {
       name: "onValueChange",
+      for: ["SegmentedButtonRoot"],
       type: "(value: Value) => void",
       note: "Fires when the chosen segment changes.",
     },

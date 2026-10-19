@@ -65,6 +65,7 @@ export const field: ComponentDoc = {
   api: [
     {
       name: "variant",
+      for: ["FieldMessage"],
       type: '"description" | "error"',
       default: '"description"',
       note: "On `FieldMessage`. The `error` variant takes the alert role, so it interrupts; `description` does not.",

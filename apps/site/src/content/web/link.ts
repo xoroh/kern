@@ -29,26 +29,6 @@ export const link: ComponentDoc = {
   },
   api: [
     {
-      name: "LinkProvider",
-      type: "(props: { component: LinkComponent; children }) => ReactNode",
-      note: "Injects the host's link component. Wrap the app once and every `Link` below uses it.",
-    },
-    {
-      name: "LinkComponent",
-      type: "(props: LinkProps) => ReactNode",
-      note: "The shape a host must provide — any component taking `LinkProps`. This is the whole contract.",
-    },
-    {
-      name: "useLinkComponent()",
-      type: "() => LinkComponent",
-      note: "Reads the injected component below the provider.",
-    },
-    {
-      name: "Link",
-      type: "(props: LinkProps) => ReactNode",
-      note: "Renders through the injected component. `LinkProps` is `AnchorHTMLAttributes<HTMLAnchorElement>` plus `to?: string`. Without a provider it renders a plain `<a>`.",
-    },
-    {
       name: "to",
       type: "string",
       note: "Router location, for hosts whose router uses one. `href` is still available for a plain URL.",

@@ -105,31 +105,37 @@ export const slider: ComponentDoc = {
   api: [
     {
       name: "value",
+      for: ["SliderRoot"],
       type: "number | number[]",
       note: "Controlled value on `SliderRoot`. A single number for one thumb, an array for a range with two — the shape says whether you are picking a point or a span.",
     },
     {
       name: "defaultValue",
+      for: ["SliderRoot"],
       type: "number | number[]",
       note: "Initial value when uncontrolled.",
     },
     {
       name: "onValueChange",
+      for: ["SliderRoot"],
       type: "(value, eventDetails: object) => void",
       note: "Fires as the value moves, including while dragging.",
     },
     {
       name: "min",
+      for: ["SliderRoot"],
       type: "number",
       note: "Lower end of the track.",
     },
     {
       name: "max",
+      for: ["SliderRoot"],
       type: "number",
       note: "Upper end of the track.",
     },
     {
       name: "step",
+      for: ["SliderRoot"],
       type: "number",
       note: "How fine the movement is, and how far one arrow key press travels. Set it to the smallest difference that matters.",
     },
@@ -140,6 +146,7 @@ export const slider: ComponentDoc = {
     },
     {
       name: "disabled",
+      for: ["SliderRoot", "SliderThumb"],
       type: "boolean",
       note: "Blocks interaction and dims the control.",
     },

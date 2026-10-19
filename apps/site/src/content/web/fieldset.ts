@@ -42,6 +42,7 @@ export const fieldset: ComponentDoc = {
   api: [
     {
       name: "disabled",
+      for: ["FieldsetRoot"],
       type: "boolean",
       note: "Disables the whole group at once. This is the reason to use a fieldset rather than a styled wrapper — one flag, one answer, all controls.",
     },

@@ -98,24 +98,16 @@ export const menubar: ComponentDoc = {
   },
   api: [
     {
-      name: "value",
-      type: "string",
-      note: "Controlled open menu on `MenubarRoot`. Omit for uncontrolled.",
-    },
-    {
-      name: "onValueChange",
-      type: "(value: string) => void",
-      note: "Fires when the open menu changes. Because the bar owns the whole set, one handler sees every open and close.",
-    },
-    {
       name: "className",
+      for: ["MenubarRoot", "MenubarTrigger", "MenubarContent", "MenubarItem"],
       type: "string",
       note: "Accepted on every part, merged after that part's classes.",
     },
     {
       name: "disabled",
+      for: ["MenubarRoot", "MenubarMenu", "MenubarTrigger", "MenubarItem"],
       type: "boolean",
-      note: "On a trigger or an item.",
+      note: "On a trigger or an item. On the bar it disables the whole set. On the bar it disables the whole set.",
     },
     {
       name: "modal",

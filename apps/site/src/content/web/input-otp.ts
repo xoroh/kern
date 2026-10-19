@@ -47,11 +47,13 @@ export const inputOtp: ComponentDoc = {
     },
     {
       name: "defaultValue",
+      for: ["InputOTPRoot"],
       type: "string",
       note: "Initial code when uncontrolled.",
     },
     {
       name: "onValueChange",
+      for: ["InputOTPRoot"],
       type: "(value: string) => void",
       note: "Fires as the code changes, with the whole string so far.",
     },
