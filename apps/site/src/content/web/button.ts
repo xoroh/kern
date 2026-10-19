@@ -314,5 +314,20 @@ export const button: ComponentDoc = {
       type: "React.Ref<HTMLButtonElement | HTMLAnchorElement>",
       note: "Forwarded to the underlying `<button>`, or the `<a>` when `href` is set.",
     },
+    {
+      name: "disabled",
+      type: "boolean | undefined",
+      note: "Disabled treatment for either branch — button or anchor. On the link branch it drops `href`, leaves the tab order and reports `aria-disabled`; there is no native `disabled` on an `<a>` to lean on.",
+    },
+    {
+      name: "testID",
+      type: "string | undefined",
+      note: "Test selector, rendered as `data-testid` on the root node in both branches. Opt-in only — no default. See `parity/testid-contract.md`.",
+    },
+    {
+      name: "value",
+      type: "undefined",
+      note: "Absent by type on the link branch: button submission attributes have no meaning on an `<a>`. (Toggle state uses `pressed`; `value` stays the form value on the button branch.)",
+    },
   ],
 };

@@ -79,6 +79,52 @@ export const toggleGroup: ComponentDoc = {
       type: "boolean",
       note: "On an item, or on the root to disable the whole set.",
     },
+    {
+      name: "orientation",
+      for: ["ToggleGroupRoot"],
+      type: "Orientation | undefined",
+      note: "Whether toggles lay out horizontally or vertically.",
+    },
+    {
+      name: "loopFocus",
+      for: ["ToggleGroupRoot"],
+      type: "boolean | undefined",
+      note: "Whether arrow keys wrap from the last toggle back to the first. Disabled stops at the ends.",
+    },
+    {
+      name: "multiple",
+      for: ["ToggleGroupRoot"],
+      type: "boolean | undefined",
+      note: "When true several toggles can stay pressed at once. False (default) makes it an exclusive choice: pressing one releases the others.",
+    },
+    {
+      name: "render",
+      type: "ReactElement | ((props, state) => ReactElement) | undefined",
+      note: "Replaces the part's element with another tag or composes it with another component — the render function receives the part's props and state. Set `nativeButton` on a toggle when the replacement is a native `<button>`.",
+    },
+    {
+      name: "style",
+      type: "CSSProperties | ((state) => CSSProperties | undefined) | undefined",
+      note: "Style for the part, or a function of the part's state returning style — `ToggleGroupState` on the group, `ToggleState` (pressed, disabled) on a toggle.",
+    },
+    {
+      name: "defaultPressed",
+      for: ["ToggleGroupItem"],
+      type: "boolean | undefined",
+      note: "Whether the toggle starts pressed in the uncontrolled case. Use `pressed` for controlled.",
+    },
+    {
+      name: "onPressedChange",
+      for: ["ToggleGroupItem"],
+      type: '((pressed: boolean, eventDetails: { reason: "none"; event: Event; cancel: () => void; allowPropagation: () => void; isCanceled: boolean; isPropagationAllowed: boolean; trigger: Element | undefined; }) => void) | undefined',
+      note: "Fires when the toggle is pressed or released.",
+    },
+    {
+      name: "nativeButton",
+      for: ["ToggleGroupItem"],
+      type: "boolean | undefined",
+      note: "Declares whether the `render` replacement is a native `<button>`, so semantics and keyboard behavior stay correct.",
+    },
   ],
   aria: [
     "Each item is a real button carrying `aria-pressed`, so its state is announced rather than implied by colour.",

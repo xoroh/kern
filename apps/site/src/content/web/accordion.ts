@@ -83,6 +83,58 @@ export const accordion: ComponentDoc = {
       type: "string",
       note: "Accepted on every part, merged after that part's classes.",
     },
+    {
+      name: "hiddenUntilFound",
+      for: ["AccordionRoot", "AccordionPanel"],
+      type: "boolean | undefined",
+      note: 'Lets the browser\'s find-in-page locate and expand the panel contents. Overrides `keepMounted`, hiding the panel with `hidden="until-found"` instead of removing it from the DOM.',
+    },
+    {
+      name: "keepMounted",
+      for: ["AccordionRoot", "AccordionPanel"],
+      type: "boolean | undefined",
+      note: "Keeps the panel in the DOM while closed. Ignored when `hiddenUntilFound` is set.",
+    },
+    {
+      name: "loopFocus",
+      for: ["AccordionRoot"],
+      type: "boolean | undefined",
+      note: "Deprecated: arrow-key focus looping was removed per the ARIA practices update. This prop no longer affects keyboard focus.",
+    },
+    {
+      name: "multiple",
+      for: ["AccordionRoot"],
+      type: "boolean | undefined",
+      note: "Whether several sections can be open at once. Single-open by default.",
+    },
+    {
+      name: "orientation",
+      for: ["AccordionRoot"],
+      type: "Orientation | undefined",
+      note: "Deprecated: arrow-key orientation handling was removed per the ARIA practices update. This prop no longer affects keyboard focus.",
+    },
+    {
+      name: "onOpenChange",
+      for: ["AccordionItem"],
+      type: "((open: boolean, eventDetails: AccordionItemChangeEventDetails) => void) | undefined",
+      note: "Fires when this section opens or closes.",
+    },
+    {
+      name: "nativeButton",
+      for: ["AccordionTrigger"],
+      type: "boolean | undefined",
+      note: "Declares whether the `render` replacement is a native `<button>`, so semantics and keyboard behavior stay correct.",
+    },
+    {
+      name: "style",
+      type: "CSSProperties | ((state) => CSSProperties | undefined) | undefined",
+      note: "Style for the part, or a function of the part's state returning style — generic state on the stack, `AccordionItemState` on a section, `AccordionHeaderState` on a heading, `AccordionTriggerState` on a trigger, `AccordionPanelState` on a panel.",
+    },
+    {
+      name: "render",
+      type: "ReactElement | ((props, state) => ReactElement) | undefined",
+      note: "Replaces the part's element with another tag or composes it with another component — the render function receives the part's props and state. Set `nativeButton` on the trigger when the replacement is a native `<button>`.",
+    },
   ],
   aria: [
     "Each trigger is a heading with a button inside it, so the sections form a document outline rather than a pile of buttons.",

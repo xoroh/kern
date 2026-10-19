@@ -68,6 +68,11 @@ export const extendedFab: ComponentDoc = {
       type: "string",
       note: "Merged after the FAB's own classes.",
     },
+    {
+      name: "size",
+      type: "ExtendedFabSize | undefined",
+      note: "M3 extended size. `small` is the current rendering, kept default; `medium` and `large` swap the expressive geometry.",
+    },
   ],
   aria: [
     "The FAB is a real button, so it is reachable and activatable by keyboard.",

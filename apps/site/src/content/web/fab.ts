@@ -112,6 +112,16 @@ export const fab: ComponentDoc = {
       type: "React.Ref<HTMLButtonElement>",
       note: "Forwarded to the underlying `<button>`.",
     },
+    {
+      name: "color",
+      type: '"surface" | "primary" | "secondary" | "tertiary" | "primary-fill" | "secondary-fill" | "tertiary-fill" | null | undefined',
+      note: "M3 container treatment: the three containers, the three fills, or surface. Kern default is `surface` — the neutral chrome — not the spec default `primary-container`. Each pairs its container with its on-color.",
+    },
+    {
+      name: "lowered",
+      type: "boolean | undefined",
+      note: "Lowered elevation for FABs that should sit quieter in the layout. Per M3's `lowered` attribute.",
+    },
   ],
   aria: [
     "A fab is a `<button>` with a visible focus ring — keyboard users reach it in page order and activate with Enter or Space.",

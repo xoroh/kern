@@ -52,6 +52,11 @@ export const menuScreen: ComponentDoc = {
       default: '"kern-menu-screen"',
       note: "Test hook for the screen.",
     },
+    {
+      name: "ref",
+      type: "Ref<HTMLDivElement> | undefined",
+      note: "Ref to the rendered screen element.",
+    },
   ],
   aria: [
     "The whole screen is a `list` named by `label`; each headed group is a `group` named by its heading — an ungrouped list stays one unnamed list rather than a group with an empty name.",

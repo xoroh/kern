@@ -45,6 +45,21 @@ export const separator: ComponentDoc = {
       type: "string",
       note: "Merged after the separator's own classes.",
     },
+    {
+      name: "style",
+      type: "CSSProperties | ((state: SeparatorState) => CSSProperties | undefined) | undefined",
+      note: "Style for the divider, or a function of its state returning style.",
+    },
+    {
+      name: "render",
+      type: "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, SeparatorState> | undefined",
+      note: "Replaces the divider element with another tag or composes it with another component.",
+    },
+    {
+      name: "inset",
+      type: '"none" | "start" | "middle" | undefined',
+      note: "M3 divider insets: `none` full-bleed, `start` a leading inset, `middle` insets on both sides.",
+    },
   ],
   aria: [
     "The separator element carries the separator role, and its orientation is announced with it.",

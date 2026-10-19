@@ -109,6 +109,16 @@ export const listItem: ComponentDoc = {
       type: "string",
       note: "Merged after the row's own classes.",
     },
+    {
+      name: "selected",
+      type: "boolean | undefined",
+      note: "M3 selected state: secondary-container fill with the selected corner, ink on-secondary-container. Navigation rows also report `aria-current`.",
+    },
+    {
+      name: "onClick",
+      type: "((event: MouseEvent<HTMLElement, MouseEvent>) => void) | undefined",
+      note: "Extra props for the row element when it is interactive. A row that navigates is a link; this is for the rest.",
+    },
   ],
   aria: [
     'A static row is an `<li>` with `role="listitem"` STATED rather than left implicit, so the role can be asserted and cannot silently regress.',

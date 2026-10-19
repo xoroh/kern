@@ -75,6 +75,36 @@ export const circularProgress: ComponentDoc = {
       type: "string",
       note: "Names the indicator when the surrounding content does not.",
     },
+    {
+      name: "loaderStyle",
+      type: "LoadingIndicatorStyle | undefined",
+      note: "Loading-indicator style for indeterminate waits. Determinate renders the M3 circular arc regardless of style — known progress means determinate.",
+    },
+    {
+      name: "size",
+      type: '"sm" | "lg" | "md" | undefined',
+      note: "Density size. Defaults to `md`.",
+    },
+    {
+      name: "shapes",
+      type: "readonly FeedbackShapeKind[] | undefined",
+      note: "Shapes for the `shapes` style. Defaults to the brand trio.",
+    },
+    {
+      name: "tenantId",
+      type: "string | undefined",
+      note: "Tenant variant override; unknown ids fail loud.",
+    },
+    {
+      name: "label",
+      type: "string | undefined",
+      note: "Accessible label for the indicator.",
+    },
+    {
+      name: "fourColor",
+      type: "boolean | undefined",
+      note: "Cycles the indeterminate arc through primary, primary-container, tertiary and tertiary-container instead of holding the current color.",
+    },
   ],
   aria: [
     "It is a progressbar with `aria-valuenow`, `aria-valuemin` and `aria-valuemax`, so the amount done is announced as a number.",

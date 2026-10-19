@@ -138,6 +138,16 @@ export const navigationDrawer: ComponentDoc = {
       type: "string",
       note: "Merged after the drawer's own classes.",
     },
+    {
+      name: "aria-label",
+      type: "string | undefined",
+      note: "Accessible name for the drawer landmark.",
+    },
+    {
+      name: "testID",
+      type: "string | undefined",
+      note: "Test selector, rendered as `data-testid` on the drawer. Opt-in only — no default.",
+    },
   ],
   aria: [
     'The drawer sets `role="dialog"` and `aria-modal`, because a modal drawer inerts the page behind it and must say so.',
