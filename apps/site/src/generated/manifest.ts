@@ -3040,6 +3040,7 @@ export const FAMILIES: string[] = [
   "filter-chip-row",
   "focus-ring",
   "form",
+  "hero",
   "icon-button",
   "icon-button-target",
   "input",
@@ -3094,6 +3095,7 @@ export const FAMILIES: string[] = [
   "sheet-handle",
   "sheet-surface",
   "sidebar",
+  "site-footer",
   "skeleton",
   "slider",
   "snackbar",
@@ -3116,6 +3118,7 @@ export const FAMILIES: string[] = [
   "toolbar",
   "tooltip",
   "top-app-bar",
+  "top-bar",
 ];
 
 /** Every registry row for one family slug, web first when both exist. */

@@ -137,6 +137,7 @@ Prefer these machine surfaces over scraping HTML:
 - [Filter chip row](/components/m3/filter-chip-row): The filter chip row is a horizontal row of multi-select toggles — press once to apply a filter, press again to remove it. Renders: Web + Native. Markdown: /md/web/filter-chip-row.md, /md/mobile/filter-chip-row.md.
 - [Focus ring](/components/m3/focus-ring): Focus rings paint the visible keyboard-focus treatment on host content. Renders: Web. Markdown: /md/web/focus-ring.md.
 - [Form](/components/m3/form): Forms collect several values and hand them over together. Renders: Web. Markdown: /md/web/form.md.
+- [Hero](/components/m3/hero): Hero opens a page with its main heading, supporting copy, actions, and optional art. Renders: Web. Markdown: /md/web/hero.md.
 - [Icon button](/components/m3/icon-button): Icon buttons are buttons whose content is a single glyph. Renders: Web + Native. Markdown: /md/web/icon-button.md, /md/mobile/icon-button.md.
 - [Icon button target](/components/m3/icon-button-target): Icon button targets are the touch-target wrapper that brings a small button up to the platform minimum. Renders: Native. Markdown: /md/mobile/icon-button-target.md.
 - [Input](/components/m3/input): Inputs take a single line of text from someone and hand it to you. Renders: Web + Native. Markdown: /md/web/input.md, /md/mobile/input.md.
@@ -191,6 +192,7 @@ Prefer these machine surfaces over scraping HTML:
 - [Sheet handle](/components/m3/sheet-handle): Sheet handles are the small drag affordance drawn at the top of a sheet. Renders: Native. Markdown: /md/mobile/sheet-handle.md.
 - [Sheet surface](/components/m3/sheet-surface): Sheet surface is the shared modal and scrim shell — the one place a kern sheet gets its dismissal path. Renders: Web + Native. Markdown: /md/web/sheet-surface.md, /md/mobile/sheet-surface.md.
 - [Sidebar](/components/m3/sidebar): Sidebars are the app's persistent navigation region, composed from a provider, sections and items. Renders: Web. Markdown: /md/web/sidebar.md.
+- [SiteFooter](/components/m3/site-footer): SiteFooter closes a site page with a brand summary, grouped navigation, and optional legal content. Renders: Web. Markdown: /md/web/site-footer.md.
 - [Skeleton](/components/m3/skeleton): Skeletons stand in for content that is still loading, in the shape it will have. Renders: Web + Native. Markdown: /md/web/skeleton.md, /md/mobile/skeleton.md.
 - [Slider](/components/m3/slider): Sliders pick a value from a range by feel, showing where it sits along the way. Renders: Web + Native. Markdown: /md/web/slider.md, /md/mobile/slider.md.
 - [Snackbar](/components/m3/snackbar): Snackbars confirm something happened, briefly, without interrupting what someone is doing. Renders: Web + Native. Markdown: /md/web/snackbar.md, /md/mobile/snackbar.md.
@@ -213,3 +215,4 @@ Prefer these machine surfaces over scraping HTML:
 - [Toolbar](/components/m3/toolbar): Toolbars hold the controls that act on the content below them. Renders: Web + Native. Markdown: /md/web/toolbar.md, /md/mobile/toolbar.md.
 - [Tooltip](/components/m3/tooltip): Tooltips name or explain a control the moment someone hovers or focuses it. Renders: Web + Native. Markdown: /md/web/tooltip.md, /md/mobile/tooltip.md.
 - [Top app bar](/components/m3/top-app-bar): The top app bar is the screen's header — leading slot, title, trailing actions — plus the app-level bar and its menus. Renders: Web + Native. Markdown: /md/web/top-app-bar.md, /md/mobile/top-app-bar.md.
+- [TopBar](/components/m3/top-bar): TopBar is a responsive site header with a brand link, primary navigation, and an actions slot. Renders: Web. Markdown: /md/web/top-bar.md.
