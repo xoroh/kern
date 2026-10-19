@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { AlertDialog } from "./alert-dialog";
@@ -315,6 +315,13 @@ describe("Menu", () => {
     // the whole reason the knob exists, so the test pins the wrap.
     // Sensitivity-proven: the same assertions with loopFocus off fail
     // (scratch probe, RED confirmed, deleted).
+    //
+    // Determinism note: `findByRole` waits for the item to mount, but focus
+    // lands a tick after the highlight commits (Base UI moves highlight,
+    // then focus follows) — asserting it synchronously flakes under CI load
+    // (3-of-4 red on one HEAD, 50/50 green locally). `waitFor` retries the
+    // focus read instead of assuming the same-tick settle, without changing
+    // what is asserted.
     const user = userEvent.setup();
     render(
       <Menu.Root>
@@ -327,11 +334,23 @@ describe("Menu", () => {
     );
     await user.click(screen.getByRole("button", { name: "File" }));
     await user.keyboard("{ArrowDown}");
-    expect(await screen.findByRole("menuitem", { name: "New" })).toHaveFocus();
+    await waitFor(() =>
+      expect(
+        screen.getByRole("menuitem", { name: "New" }),
+      ).toHaveFocus(),
+    );
     await user.keyboard("{ArrowDown}");
-    expect(await screen.findByRole("menuitem", { name: "Open" })).toHaveFocus();
+    await waitFor(() =>
+      expect(
+        screen.getByRole("menuitem", { name: "Open" }),
+      ).toHaveFocus(),
+    );
     await user.keyboard("{ArrowDown}");
-    expect(await screen.findByRole("menuitem", { name: "New" })).toHaveFocus();
+    await waitFor(() =>
+      expect(
+        screen.getByRole("menuitem", { name: "New" }),
+      ).toHaveFocus(),
+    );
   });
 });
 
