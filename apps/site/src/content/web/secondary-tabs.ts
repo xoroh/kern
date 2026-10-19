@@ -98,11 +98,6 @@ export const secondaryTabs: ComponentDoc = {
       note: "Merged after the tabs' own classes.",
     },
     {
-      name: "disabled",
-      type: "boolean",
-      note: "On a tab: it cannot be selected and is announced as unavailable.",
-    },
-    {
       name: "testID",
       type: "string | undefined",
       note: "Test selector, rendered as `data-testid` on the tab list. Opt-in only — no default.",

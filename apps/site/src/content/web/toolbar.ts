@@ -116,13 +116,15 @@ export const toolbar: ComponentDoc = {
     },
     {
       name: "disabled",
+      for: ["ToolbarRoot", "ToolbarGroup", "ToolbarButton"],
       type: "boolean",
-      note: "On a button. Disabled controls are skipped rather than left as dead stops in the focus order.",
+      note: "On a control it is skipped in the focus order rather than left as a dead stop. Set on the bar or a group to disable everything inside.",
     },
     {
       name: "orientation",
+      for: ["ToolbarRoot", "ToolbarSeparator"],
       type: '"horizontal" | "vertical"',
-      note: "On the root: which way the controls are laid out and which arrow keys move between them. The visual layout is still `className`.",
+      note: "On the root: which way the controls are laid out and which arrow keys move between them. The visual layout is still `className`. On a separator: the divider’s direction.",
     },
     {
       name: "style",

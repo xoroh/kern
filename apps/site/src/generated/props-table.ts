@@ -572,7 +572,7 @@ export const PROPS_TABLE: Record<
         required: false,
       },
     ],
-    curated: ["value"],
+    curated: [],
   },
   AutocompleteContent: {
     rows: [
@@ -676,7 +676,7 @@ export const PROPS_TABLE: Record<
   },
   AutocompleteLabel: {
     rows: [],
-    curated: ["defaultValue", "className"],
+    curated: ["className"],
   },
   AvatarRoot: {
     rows: [
@@ -1824,7 +1824,7 @@ export const PROPS_TABLE: Record<
         required: false,
       },
     ],
-    curated: ["value"],
+    curated: [],
   },
   ComboboxTrigger: {
     rows: [
@@ -1854,7 +1854,7 @@ export const PROPS_TABLE: Record<
         required: false,
       },
     ],
-    curated: ["value"],
+    curated: [],
   },
   ComboboxClear: {
     rows: [
@@ -1889,7 +1889,7 @@ export const PROPS_TABLE: Record<
         required: false,
       },
     ],
-    curated: ["value"],
+    curated: [],
   },
   ComboboxContent: {
     rows: [
@@ -4747,7 +4747,7 @@ export const PROPS_TABLE: Record<
         required: false,
       },
     ],
-    curated: ["value"],
+    curated: [],
   },
   MenubarContent: {
     rows: [
@@ -5193,7 +5193,7 @@ export const PROPS_TABLE: Record<
         required: false,
       },
     ],
-    curated: ["value"],
+    curated: [],
   },
   NavigationMenuContent: {
     rows: [
@@ -6384,7 +6384,7 @@ export const PROPS_TABLE: Record<
         default: '"outlined"',
       },
     ],
-    curated: ["value"],
+    curated: [],
   },
   SelectContent: {
     rows: [

@@ -36,11 +36,6 @@ export const separator: ComponentDoc = {
       note: "Which way it runs. The element carries the matching role, so a vertical divider is announced as one rather than as a horizontal rule.",
     },
     {
-      name: "decorative",
-      type: "boolean",
-      note: "Marks the line as decoration. Set it when the division is purely visual — otherwise assistive tech announces a separator where the content already breaks naturally.",
-    },
-    {
       name: "className",
       type: "string",
       note: "Merged after the separator's own classes.",

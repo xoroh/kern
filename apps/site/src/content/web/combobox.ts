@@ -81,36 +81,51 @@ export const combobox: ComponentDoc = {
   api: [
     {
       name: "value",
+      for: ["ComboboxRoot", "ComboboxItem"],
       type: "T | null",
-      note: "Controlled choice on `ComboboxRoot`, generic over the value type and nullable — nothing chosen is `null`, not an empty string.",
+      note: "Controlled choice on `ComboboxRoot`, generic over the value type and nullable — nothing chosen is `null`, not an empty string. On an item it is the unique value identifying the option.",
     },
     {
       name: "defaultValue",
+      for: ["ComboboxRoot"],
       type: "T | null",
       note: "Initial choice when uncontrolled.",
     },
     {
       name: "onValueChange",
+      for: ["ComboboxRoot"],
       type: "(value: T | null, eventDetails: object) => void",
       note: "Fires when the choice changes, including when it is cleared back to `null`.",
     },
     {
       name: "items",
+      for: ["ComboboxRoot"],
       type: "Item[]",
       note: "The options. The list is data-driven rather than assembled by hand.",
     },
     {
-      name: "itemToString",
-      type: "(item) => string",
-      note: "How an option becomes the text in the input. Needed when values are objects rather than strings.",
-    },
-    {
       name: "className",
+      for: [
+        "ComboboxLabel",
+        "ComboboxInput",
+        "ComboboxTrigger",
+        "ComboboxClear",
+        "ComboboxContent",
+        "ComboboxItem",
+        "ComboboxEmpty",
+      ],
       type: "string",
       note: "Accepted on every part, merged after that part's classes.",
     },
     {
       name: "disabled",
+      for: [
+        "ComboboxRoot",
+        "ComboboxInput",
+        "ComboboxTrigger",
+        "ComboboxClear",
+        "ComboboxItem",
+      ],
       type: "boolean",
       note: "On an option, or on the whole field.",
     },

@@ -129,21 +129,31 @@ export const menu: ComponentDoc = {
   api: [
     {
       name: "open",
+      for: ["MenuRoot"],
       type: "boolean",
       note: "Controlled open state on `MenuRoot`. Omit for uncontrolled.",
     },
     {
       name: "onOpenChange",
+      for: ["MenuRoot"],
       type: "(open: boolean, eventDetails: object) => void",
       note: "Fires on every open and close, including Escape and outside clicks.",
     },
     {
       name: "className",
+      for: [
+        "MenuTrigger",
+        "MenuContent",
+        "MenuItem",
+        "MenuSeparator",
+        "MenuGroupLabel",
+      ],
       type: "string",
       note: "Accepted on every part, merged after that part's classes.",
     },
     {
       name: "disabled",
+      for: ["MenuRoot", "MenuTrigger", "MenuItem"],
       type: "boolean",
       note: "On an item, or on the trigger. A disabled item is skipped rather than left as a dead entry.",
     },

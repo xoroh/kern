@@ -80,36 +80,30 @@ export const countrySelect: ComponentDoc = {
   api: [
     {
       name: "options",
+      for: ["CountrySelectRoot"],
       type: "readonly CountryOption[]",
       note: "The countries, on `CountrySelectRoot`. Each carries `code`, `name`, and optionally `dialCode`, `flag` and `disabled`. The Select's `items` prop is omitted — this replaces it.",
     },
     {
       name: "onCountryChange",
+      for: ["CountrySelectRoot"],
       type: "(country: CountryOption | null) => void",
       note: "Fires with the whole chosen country, not just its code — so a dial code and a flag are available without a second lookup. Nullable: nothing chosen is `null`.",
     },
     {
-      name: "code",
-      type: "string",
-      note: "On an option: the stable key, conventionally the ISO 3166-1 alpha-2 code. It is what you store; the name is what you show.",
-    },
-    {
-      name: "dialCode",
-      type: "string",
-      note: "On an option: the dial code WITHOUT the leading `+`. Storing it unprefixed is deliberate — the caller decides how to render it, so a formatted number is not baked into the data.",
-    },
-    {
-      name: "flag",
-      type: "ReactNode",
-      note: "On an option: the leading adornment. A flag emoji, an icon, or any node — the component does not own a flag set.",
-    },
-    {
       name: "className",
+      for: [
+        "CountrySelectTrigger",
+        "CountrySelectContent",
+        "CountrySelectItem",
+        "CountrySelectLabel",
+      ],
       type: "string",
       note: "Accepted on every part, merged after that part's classes.",
     },
     {
       name: "disabled",
+      for: ["CountrySelectRoot", "CountrySelectTrigger", "CountrySelectItem"],
       type: "boolean",
       note: "On an option, or on the whole select.",
     },
