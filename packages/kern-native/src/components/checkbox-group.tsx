@@ -58,7 +58,9 @@ export function checkboxGroupStyles(
   checked: boolean,
   disabled: boolean,
   scheme: ResolvedTheme = defaultScheme(),
-): { box: ViewStyle; tick: TextStyle } {
+  // The tick color is always a scheme role string (never undefined), so the
+  // Icon `color` prop below typechecks without a cast.
+): { box: ViewStyle; tick: TextStyle & { color: string } } {
   return {
     box: {
       width: 18,
