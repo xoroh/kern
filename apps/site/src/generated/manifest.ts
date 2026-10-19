@@ -1522,6 +1522,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    slug: "web/select-item-indicator",
+    name: "select-item-indicator",
+    export: "SelectItemIndicator",
+    platform: "web",
+    status: "real",
+  },
+  {
     slug: "web/select-item-text",
     name: "select-item-text",
     export: "SelectItemText",
@@ -2988,7 +2995,7 @@ export const COMPONENT_COUNT = COMPONENTS.length;
  * different units, do not compare them.
  */
 export const PARITY_COUNTS = {
-  web: 304,
+  web: 305,
   native: 119,
   shared: 91,
 };

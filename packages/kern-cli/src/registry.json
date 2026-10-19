@@ -1,6 +1,6 @@
 {
   "version": "0.0.0",
-  "releaseSet": "kern@0.0.0+423.13bb977e019bb993",
+  "releaseSet": "kern@0.0.0+424.687d7ef4d8901819",
   "rows": [
     {
       "name": "accordion-root",
@@ -1697,6 +1697,15 @@
     {
       "name": "select-item-text",
       "export": "SelectItemText",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/select.tsx",
+      "status": "real"
+    },
+    {
+      "name": "select-item-indicator",
+      "export": "SelectItemIndicator",
       "platform": "web",
       "system": "kern-m3",
       "entrypoint": ".",
