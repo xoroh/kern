@@ -22,6 +22,16 @@
  *   component, which is exactly the rot this pipeline exists to prevent.
  *   (MUI explicitly omits native props too.)
  *
+ *   Gate 2 flips REPORTED to ENFORCED once the burn-down reaches zero: any
+ *   undocumented generated prop fails. Until then the count is the ratchet.
+ *
+ * SCOPED ROWS. A row may carry `for: ["PartA", ...]` to document a prop
+ * only on the parts whose types carry it (compound families: `nativeButton`
+ * on triggers, `initialFocus` on content). Unscoped rows attribute to every
+ * part in the file, as always. A scope naming a non-part, a part with no
+ * generated export, or a name none of the scoped parts carries is a scope
+ * error and fails — a scope that documents nothing is the rot class.
+ *
  * SCOPE (stated, not implied)
  *
  * Web content only (`src/content/web`). The generator extracts web Props
@@ -32,7 +42,8 @@
  */
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { readContentApiNames } from "./lib/content-api-names.mjs";
+import { readContentApiRows } from "./lib/content-api-names.mjs";
+import { computeCoverage } from "./lib/prop-coverage.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const SITE = resolve(HERE, "..");
@@ -41,41 +52,24 @@ const generated = await import(join(SITE, "src", "generated", "props.ts"));
 const GEN = generated.GENERATED_PROPS;
 const ALL = generated.ALL_PROP_NAMES ?? {};
 
-// Content api names, per part — one parser shared with generate-props.
-const contentNames = readContentApiNames(join(SITE, "src", "content", "web"));
+// Content api rows, per file — one parser shared with generate-props.
+const files = readContentApiRows(join(SITE, "src", "content", "web"));
 
-const stale = [];
-let uncovered = 0;
-const uncoveredByExport = [];
-const unjudgeable = [];
-let checked = 0;
-for (const [exp, rows] of Object.entries(GEN)) {
-  const documented = contentNames.get(exp);
-  if (!documented) continue; // no web content page claims this export — not this gate's job
-  // The type did not resolve (no rows AND no names): the extractor cannot
-  // judge this export, so the gate reports UNJUDGEABLE instead of calling
-  // every content row stale. A gate that cannot inspect evidence must not
-  // silently pass — or falsely fail.
-  if (rows.length === 0 && (ALL[exp] ?? []).length === 0) {
-    unjudgeable.push(exp);
-    continue;
-  }
-  checked += 1;
-  const known = new Set([...rows.map((r) => r.name), ...(ALL[exp] ?? [])]);
-  for (const n of documented) {
-    if (!known.has(n)) {
-      stale.push(
-        `${exp}: content api names "${n}", which nothing in the component's type carries.`,
-      );
-    }
-  }
-  const missing = rows
-    .filter((r) => !documented.has(r.name))
-    .map((r) => r.name);
-  if (missing.length) {
-    uncovered += missing.length;
-    uncoveredByExport.push(`${exp}: ${missing.join(", ")}`);
-  }
+const {
+  stale,
+  uncovered,
+  uncoveredByExport,
+  unjudgeable,
+  checked,
+  scopeErrors,
+} = computeCoverage({ gen: GEN, all: ALL, files });
+
+if (scopeErrors.length) {
+  console.error(
+    `props coverage contract FAILED — ${scopeErrors.length} scoped row(s) document nothing:\n`,
+  );
+  for (const e of scopeErrors) console.error(`  - ${e}`);
+  process.exit(1);
 }
 
 if (unjudgeable.length) {
