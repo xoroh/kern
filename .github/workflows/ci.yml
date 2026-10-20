@@ -296,7 +296,6 @@ jobs:
         dir:
           - packages/kern-tokens
           - packages/kern-m3
-          - libs/kern-primitives
           - packages/kern
           - packages/kern-icons
           - packages/kern-native

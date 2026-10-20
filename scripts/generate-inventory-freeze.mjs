@@ -61,7 +61,6 @@ const pkgs = [
   "kern",
   "kern-native",
   "kern-tokens",
-  "kern-primitives",
   "kern-icons",
   "kern-contracts",
   "kern-cli",
@@ -90,7 +89,6 @@ const barrels = {};
 const barrelPaths = {
   web: "packages/kern/src/components/index.ts",
   native: "packages/kern-native/src/index.ts",
-  primitives: "libs/kern-primitives/src/index.ts",
   icons: "packages/kern-icons/src/index.ts",
   tokens: "packages/kern-tokens/src/index.ts",
   contracts: "packages/kern-contracts/src/index.ts",

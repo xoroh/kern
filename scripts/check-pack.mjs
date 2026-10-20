@@ -36,7 +36,7 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 /** Workspace areas holding packages. N9 moved the internal-only primitives to libs/. */
-const AREAS = ["packages", "libs"];
+const AREAS = ["packages", "libs"].filter((a) => existsSync(join(ROOT, a)));
 
 const violations = [];
 let checked = 0;

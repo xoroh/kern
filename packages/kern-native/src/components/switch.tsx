@@ -1,9 +1,15 @@
-import { useControllableState } from "@xoroh/axis";
-import { cssLengthToDp, type ResolvedTheme } from "@xoroh/kern-tokens";
 import {
+  SwitchRoot as AxisSwitchRoot,
+  SwitchThumb as AxisSwitchThumb,
+  type SwitchRootProps,
+  type SwitchThumbProps,
+} from "@xoroh/axis";
+import { cssLengthToDp, type ResolvedTheme } from "@xoroh/kern-tokens";
+import { useState } from "react";
+import {
+  type GestureResponderEvent,
   Pressable,
   type PressableProps,
-  View,
   type ViewStyle,
 } from "react-native";
 import { defaultScheme, useKernTheme } from "../theme";
@@ -57,6 +63,13 @@ export type NativeSwitchProps = Omit<
   style?: PressableProps["style"];
 };
 
+export {
+  AxisSwitchRoot as SwitchRoot,
+  AxisSwitchThumb as SwitchThumb,
+  type SwitchRootProps,
+  type SwitchThumbProps,
+};
+
 export function Switch({
   checked,
   defaultChecked = false,
@@ -69,47 +82,71 @@ export function Switch({
   ...props
 }: NativeSwitchProps) {
   const { scheme } = useKernTheme();
-  const [onValue, setOn] = useControllableState(
-    checked,
-    defaultChecked,
-    onCheckedChange,
-  );
-  const on = onValue ?? false;
+  const [onRaw, setOnRaw] = useState(defaultChecked);
+  const on = checked !== undefined ? checked : onRaw;
   const styles = switchStyles(on, disabled ?? false, scheme);
+
+  const a11yLabel = props.accessibilityLabel ?? props["aria-label"];
   return (
-    <Pressable
-      {...props}
-      testID={testID ?? "kern-switch"}
-      role="switch"
-      accessibilityRole="switch"
-      aria-checked={on}
-      aria-disabled={disabled ?? undefined}
-      disabled={disabled ?? undefined}
-      hitSlop={hitSlop ?? { top: 8, bottom: 8, left: 8, right: 8 }}
-      onPress={(event) => {
-        onPress?.(event);
-        if (!disabled && !event.isDefaultPrevented()) {
-          setOn((previous) => !previous);
-        }
+    <AxisSwitchRoot
+      checked={checked}
+      defaultChecked={defaultChecked}
+      onCheckedChange={(next) => {
+        setOnRaw(next);
+        onCheckedChange?.(next);
       }}
-      style={({ pressed: pressedNow }) => [
-        styles.track,
-        typeof style === "function" ? style({ pressed: pressedNow }) : style,
-      ]}
-    >
-      {({ pressed: pressedNow }) => (
-        <>
-          <View style={styles.thumb} />
-          <StateLayer
-            ink={on ? scheme.color.onPrimary : scheme.color.onSurface}
-            radius={cssLengthToDp(
-              scheme.comp?.["switch-track-shape"],
-              Number.parseFloat(scheme.shape.full),
-            )}
-            visible={pressedNow && !disabled}
-          />
-        </>
+      disabled={disabled}
+      testID={testID ?? "kern-switch"}
+      aria-label={a11yLabel}
+      aria-labelledby={props["aria-labelledby"]}
+      style={styles.track}
+      render={(rootProps) => (
+        <Pressable
+          {...props}
+          {...rootProps}
+          role="switch"
+          accessibilityRole="switch"
+          accessibilityLabel={a11yLabel}
+          aria-checked={on}
+          aria-disabled={disabled ?? undefined}
+          disabled={disabled ?? undefined}
+          hitSlop={hitSlop ?? { top: 8, bottom: 8, left: 8, right: 8 }}
+          onPress={(event) => {
+            onPress?.(event);
+            if (!disabled && !event.isDefaultPrevented()) {
+              setOnRaw(!on);
+              onCheckedChange?.(!on);
+              const rootOnPress = rootProps.onPress;
+              if (typeof rootOnPress === "function") {
+                (rootOnPress as (e: GestureResponderEvent) => void)(event);
+              }
+            }
+          }}
+          style={({ pressed: pressedNow }) => [
+            styles.track,
+            typeof style === "function"
+              ? style({ pressed: pressedNow })
+              : style,
+          ]}
+        >
+          {({ pressed: pressedNow }) => (
+            <>
+              <AxisSwitchThumb style={styles.thumb} />
+              <StateLayer
+                ink={on ? scheme.color.onPrimary : scheme.color.onSurface}
+                radius={cssLengthToDp(
+                  scheme.comp?.["switch-track-shape"],
+                  Number.parseFloat(scheme.shape.full),
+                )}
+                visible={pressedNow && !disabled}
+              />
+            </>
+          )}
+        </Pressable>
       )}
-    </Pressable>
+    />
   );
 }
+
+Switch.Root = AxisSwitchRoot;
+Switch.Thumb = AxisSwitchThumb;

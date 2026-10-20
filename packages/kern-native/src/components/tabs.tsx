@@ -1,13 +1,16 @@
-import { useControllableState } from "@xoroh/axis";
-import type { ResolvedTheme } from "@xoroh/kern-tokens";
-import type { ReactNode } from "react";
 import {
-  Pressable,
-  type StyleProp,
-  View,
-  type ViewProps,
-  type ViewStyle,
-} from "react-native";
+  TabsList as AxisTabsList,
+  TabsPanel as AxisTabsPanel,
+  TabsRoot as AxisTabsRoot,
+  TabsTrigger as AxisTabsTrigger,
+  type TabsListProps,
+  type TabsPanelProps,
+  type TabsRootProps,
+  type TabsTriggerProps,
+} from "@xoroh/axis";
+import type { ResolvedTheme } from "@xoroh/kern-tokens";
+import { type ReactNode, useState } from "react";
+import type { StyleProp, ViewProps, ViewStyle } from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
 import { Text } from "./text";
 
@@ -42,6 +45,17 @@ export type NativeTabsProps = Omit<ViewProps, "children" | "style"> & {
   style?: StyleProp<ViewStyle>;
 };
 
+export {
+  AxisTabsList as TabsList,
+  AxisTabsPanel as TabsPanel,
+  AxisTabsRoot as TabsRoot,
+  AxisTabsTrigger as TabsTrigger,
+  type TabsListProps,
+  type TabsPanelProps,
+  type TabsRootProps,
+  type TabsTriggerProps,
+};
+
 export function Tabs({
   tabs,
   value,
@@ -52,26 +66,30 @@ export function Tabs({
   ...props
 }: NativeTabsProps) {
   const scheme = useKernScheme();
-  const [current, setCurrent] = useControllableState(
-    value,
-    defaultValue ?? tabs[0]?.value,
-    onValueChange,
-  );
   const styles = tabsStyles(scheme);
-  const active = tabs.find((tab) => tab.value === current) ?? tabs[0];
+  const [activeRaw, setActiveRaw] = useState(defaultValue ?? tabs[0]?.value);
+  const active = value !== undefined ? value : activeRaw;
+
   return (
-    <View {...props} testID={testID ?? "kern-tabs"} style={style}>
-      <View accessibilityRole="tablist" style={styles.bar}>
+    <AxisTabsRoot
+      value={value}
+      defaultValue={defaultValue ?? tabs[0]?.value}
+      onValueChange={(val) => {
+        setActiveRaw(val);
+        onValueChange?.(val);
+      }}
+      testID={testID ?? "kern-tabs"}
+      style={style}
+      {...props}
+    >
+      <AxisTabsList style={styles.bar}>
         {tabs.map((tab) => {
-          const selected = tab.value === active?.value;
+          const selected = tab.value === active;
           return (
-            <Pressable
+            <AxisTabsTrigger
               key={tab.value}
-              accessibilityRole="tab"
+              value={tab.value}
               accessibilityLabel={tab.label}
-              aria-selected={selected}
-              hitSlop={{ top: 4, bottom: 4, left: 4, right: 4 }}
-              onPress={() => setCurrent(tab.value)}
               style={[
                 {
                   minHeight: 48,
@@ -91,13 +109,26 @@ export function Tabs({
               >
                 {tab.label}
               </Text>
-            </Pressable>
+            </AxisTabsTrigger>
           );
         })}
-      </View>
-      {active?.content ? (
-        <View style={{ paddingVertical: 16 }}>{active.content}</View>
-      ) : null}
-    </View>
+      </AxisTabsList>
+      {tabs.map((tab) =>
+        tab.content ? (
+          <AxisTabsPanel
+            key={tab.value}
+            value={tab.value}
+            style={{ paddingVertical: 16 }}
+          >
+            {tab.content}
+          </AxisTabsPanel>
+        ) : null,
+      )}
+    </AxisTabsRoot>
   );
 }
+
+Tabs.Root = AxisTabsRoot;
+Tabs.List = AxisTabsList;
+Tabs.Trigger = AxisTabsTrigger;
+Tabs.Panel = AxisTabsPanel;

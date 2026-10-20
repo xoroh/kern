@@ -1,4 +1,8 @@
-import { mergeSlotProps, type SlotProps } from "@xoroh/axis";
+import {
+  Button as AxisButton,
+  mergeSlotProps,
+  type SlotProps,
+} from "@xoroh/axis";
 import type { LoadingIndicatorStyle } from "@xoroh/kern-m3";
 import { cssLengthToDp, type ResolvedTheme } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
@@ -15,6 +19,7 @@ import {
 import { defaultScheme, useKernTheme } from "../theme";
 import { CircularProgress } from "./circular-progress";
 import { useKernPress } from "./presentation";
+import { StateLayer } from "./state-layer";
 
 // M3: elevated, filled, tonal, outlined, text (m3.material.io/components/buttons/overview).
 // Mirrors the web union exactly — one name per variant on both renderers (014, hard cut per 020).
@@ -353,59 +358,102 @@ export function Button({
       )
     : (icon ?? null);
   return (
-    <Pressable
-      {...props}
+    <AxisButton
       testID={testID ?? "kern-button"}
-      role="button"
-      accessibilityRole="button"
-      aria-disabled={blocked || undefined}
-      aria-busy={loading || undefined}
-      aria-pressed={toggle ? isPressed : undefined}
       disabled={blocked}
-      hitSlop={size === "xs" ? 10 : size === "sm" ? 8 : size === "xl" ? 0 : 4}
-      android_ripple={{
-        color: `${variant === "filled" ? scheme.color.onPrimary : scheme.color.onSurface}20`,
-        borderless: size === "icon",
+      loading={loading}
+      aria-label={props["aria-label"]}
+      aria-labelledby={props["aria-labelledby"]}
+      onPress={() => {
+        if (!blockedRef.current && gestureEvent.current) {
+          if (toggle && pressed === undefined)
+            setUncontrolledPressed(!isPressed);
+          if (toggle) onPressedChangeRef.current?.(!isPressed);
+          onPressRef.current?.(gestureEvent.current);
+        }
       }}
-      onPressIn={(event: GestureResponderEvent) => {
-        gestureEvent.current = event;
-        press.onPressIn();
-      }}
-      onPressOut={press.onPressOut}
-      onPress={(event: GestureResponderEvent) => {
-        if (!gestureEvent.current) gestureEvent.current = event;
-        press.onPress();
-      }}
-      style={({ pressed }) => [
-        styles.container,
-        pressed && !blocked ? { opacity: 0.82 } : undefined,
-        typeof style === "function" ? style({ pressed }) : style,
-      ]}
-    >
-      {loading ? (
-        <CircularProgress
-          value={loadingValue}
-          loaderStyle={loaderStyle}
-          size="sm"
-          label="Loading"
-          color={
-            color === "danger"
-              ? variant === "filled"
-                ? scheme.color.onError
-                : scheme.color.error
-              : variant === "filled"
-                ? scheme.color.onPrimary
-                : scheme.color.onSurface
+      render={(axisProps) => (
+        <Pressable
+          {...props}
+          {...axisProps}
+          role="button"
+          accessibilityRole="button"
+          aria-disabled={blocked || undefined}
+          aria-busy={loading || undefined}
+          aria-pressed={toggle ? isPressed : undefined}
+          disabled={blocked}
+          hitSlop={
+            size === "xs" ? 10 : size === "sm" ? 8 : size === "xl" ? 0 : 4
           }
-        />
-      ) : null}
-      {iconPosition === "start" ? iconSlot : null}
-      {typeof children === "string" || typeof children === "number" ? (
-        <Text style={[styles.label, labelStyle]}>{children}</Text>
-      ) : (
-        children
+          android_ripple={{
+            color: `${variant === "filled" ? scheme.color.onPrimary : scheme.color.onSurface}20`,
+            borderless: size === "icon",
+          }}
+          onPressIn={(event: GestureResponderEvent) => {
+            gestureEvent.current = event;
+            press.onPressIn();
+          }}
+          onPressOut={press.onPressOut}
+          onPress={(event: GestureResponderEvent) => {
+            if (!gestureEvent.current) gestureEvent.current = event;
+            press.onPress();
+          }}
+          style={({ pressed: pressedNow }) => [
+            styles.container,
+            typeof style === "function"
+              ? style({ pressed: pressedNow })
+              : style,
+          ]}
+        >
+          {({ pressed: pressedNow }) => (
+            <>
+              {loading ? (
+                <CircularProgress
+                  value={loadingValue}
+                  loaderStyle={loaderStyle}
+                  size="sm"
+                  label="Loading"
+                  color={
+                    color === "danger"
+                      ? variant === "filled"
+                        ? scheme.color.onError
+                        : scheme.color.error
+                      : variant === "filled"
+                        ? scheme.color.onPrimary
+                        : scheme.color.onSurface
+                  }
+                />
+              ) : null}
+              {iconPosition === "start" ? iconSlot : null}
+              {typeof children === "string" || typeof children === "number" ? (
+                <Text style={[styles.label, labelStyle]}>{children}</Text>
+              ) : (
+                children
+              )}
+              {iconPosition === "end" ? iconSlot : null}
+              <StateLayer
+                ink={
+                  color === "danger"
+                    ? variant === "filled"
+                      ? scheme.color.onError
+                      : scheme.color.error
+                    : variant === "filled"
+                      ? scheme.color.onPrimary
+                      : scheme.color.onSurface
+                }
+                radius={
+                  shape === "pill"
+                    ? Number.parseFloat(scheme.shape.full)
+                    : shape === "square"
+                      ? Number.parseFloat(scheme.shape.none)
+                      : Number.parseFloat(scheme.shape.small)
+                }
+                visible={pressedNow && !blocked}
+              />
+            </>
+          )}
+        </Pressable>
       )}
-      {iconPosition === "end" ? iconSlot : null}
-    </Pressable>
+    />
   );
 }

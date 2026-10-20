@@ -123,4 +123,14 @@ describe("Dialog role on the RN floor", () => {
     expect(tree.filter((node) => node.role === "dialog")).toHaveLength(0);
     expect(tree.some((node) => node.a11yRole === "alert")).toBe(true);
   });
+  it("exposes compound parts Root, Trigger, Portal, Backdrop, Popup, Title, Description, Close", () => {
+    expect(Dialog.Root).toBeDefined();
+    expect(Dialog.Trigger).toBeDefined();
+    expect(Dialog.Portal).toBeDefined();
+    expect(Dialog.Backdrop).toBeDefined();
+    expect(Dialog.Popup).toBeDefined();
+    expect(Dialog.Title).toBeDefined();
+    expect(Dialog.Description).toBeDefined();
+    expect(Dialog.Close).toBeDefined();
+  });
 });

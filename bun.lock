@@ -70,24 +70,6 @@
         "wrangler": "^4.70.0",
       },
     },
-    "libs/kern-primitives": {
-      "name": "@xoroh/kern-primitives",
-      "version": "0.0.0",
-      "devDependencies": {
-        "@testing-library/react": "^16.3.0",
-        "@types/node": "^26.6.3",
-        "@types/react": "^19.0.0",
-        "jsdom": "^28.0.0",
-        "react": "^19.0.0",
-        "react-dom": "^19.0.0",
-        "tsup": "^8.5.1",
-        "typescript": "5.9.3",
-        "vitest": "^5.0.2",
-      },
-      "peerDependencies": {
-        "react": ">=18",
-      },
-    },
     "packages/kern": {
       "name": "@xoroh/kern",
       "version": "0.0.0",
@@ -1173,8 +1155,6 @@
     "@xoroh/kern-mcp": ["@xoroh/kern-mcp@workspace:packages/mcp"],
 
     "@xoroh/kern-native": ["@xoroh/kern-native@workspace:packages/kern-native"],
-
-    "@xoroh/kern-primitives": ["@xoroh/kern-primitives@workspace:libs/kern-primitives"],
 
     "@xoroh/kern-tokens": ["@xoroh/kern-tokens@workspace:packages/kern-tokens"],
 

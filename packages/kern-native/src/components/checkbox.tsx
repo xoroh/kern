@@ -1,7 +1,14 @@
-import { useControllableState } from "@xoroh/axis";
+import {
+  CheckboxIndicator as AxisCheckboxIndicator,
+  CheckboxRoot as AxisCheckboxRoot,
+  type CheckboxIndicatorProps,
+  type CheckboxRootProps,
+} from "@xoroh/axis";
 import { Icon } from "@xoroh/kern-icons";
 import type { ResolvedTheme } from "@xoroh/kern-tokens";
+import { useState } from "react";
 import {
+  type GestureResponderEvent,
   Pressable,
   type PressableProps,
   type StyleProp,
@@ -77,8 +84,15 @@ export type NativeCheckboxProps = Omit<
   onCheckedChange?: (next: boolean) => void;
   onPress?: PressableProps["onPress"];
   label?: string;
-  style?: StyleProp<ViewStyle>;
+  style?: PressableProps["style"];
   labelStyle?: StyleProp<TextStyle>;
+};
+
+export {
+  AxisCheckboxIndicator as CheckboxIndicator,
+  AxisCheckboxRoot as CheckboxRoot,
+  type CheckboxIndicatorProps,
+  type CheckboxRootProps,
 };
 
 export function Checkbox({
@@ -97,60 +111,85 @@ export function Checkbox({
   ...props
 }: NativeCheckboxProps) {
   const { scheme } = useKernTheme();
-  const [checkedValue, setChecked] = useControllableState(
-    checked,
-    defaultChecked,
-    onCheckedChange,
-  );
-  const isChecked = checkedValue ?? false;
+  const [isCheckedRaw, setIsCheckedRaw] = useState(defaultChecked);
+  const isChecked = checked !== undefined ? checked : isCheckedRaw;
   const styles = checkboxStyles(
     isChecked,
     indeterminate ?? false,
     disabled ?? false,
     scheme,
   );
+
   return (
-    <Pressable
-      {...props}
-      testID={testID ?? "kern-checkbox"}
-      role="checkbox"
-      accessibilityRole="checkbox"
-      accessibilityLabel={accessibilityLabel ?? label}
-      aria-checked={indeterminate ? "mixed" : isChecked}
-      aria-disabled={disabled ?? undefined}
-      disabled={disabled ?? undefined}
-      hitSlop={hitSlop ?? { top: 15, bottom: 15, left: 15, right: 15 }}
-      onPress={(event) => {
-        onPress?.(event);
-        if (!disabled && !event.isDefaultPrevented() && !indeterminate) {
-          setChecked((previous) => !previous);
-        }
+    <AxisCheckboxRoot
+      checked={checked}
+      defaultChecked={defaultChecked}
+      indeterminate={indeterminate}
+      onCheckedChange={(next) => {
+        setIsCheckedRaw(next);
+        onCheckedChange?.(next);
       }}
+      disabled={disabled}
+      testID={testID ?? "kern-checkbox"}
+      aria-label={accessibilityLabel ?? label}
+      accessibilityLabel={accessibilityLabel ?? label}
       style={[
         { minHeight: 48, flexDirection: "row", alignItems: "center", gap: 8 },
-        style,
+        typeof style === "function" ? undefined : style,
       ]}
-    >
-      {({ pressed: pressedNow }) => (
-        <>
-          <View style={styles.box}>
-            {indeterminate ? (
-              <Text style={styles.glyph}>−</Text>
-            ) : isChecked ? (
-              <Icon name="check" size={12} color={styles.glyph.color} />
-            ) : null}
-          </View>
-          {label ? (
-            <Text style={[{ color: scheme.color.onSurface }, labelStyle]}>
-              {label}
-            </Text>
-          ) : null}
-          <StateLayer
-            ink={scheme.color.onSurface}
-            visible={pressedNow && !disabled}
-          />
-        </>
+      render={(rootProps) => (
+        <Pressable
+          {...props}
+          {...rootProps}
+          accessibilityRole="checkbox"
+          accessibilityLabel={accessibilityLabel ?? label}
+          hitSlop={hitSlop ?? { top: 15, bottom: 15, left: 15, right: 15 }}
+          onPress={(event) => {
+            onPress?.(event);
+            if (!disabled && !event.isDefaultPrevented() && !indeterminate) {
+              const rootOnPress = rootProps.onPress;
+              if (typeof rootOnPress === "function") {
+                (rootOnPress as (e: GestureResponderEvent) => void)(event);
+              }
+            }
+          }}
+          style={({ pressed: pressedNow }) => [
+            {
+              minHeight: 48,
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 8,
+            },
+            typeof style === "function"
+              ? style({ pressed: pressedNow })
+              : style,
+          ]}
+        >
+          {({ pressed: pressedNow }) => (
+            <>
+              <View style={styles.box}>
+                {indeterminate ? (
+                  <Text style={styles.glyph}>−</Text>
+                ) : isChecked ? (
+                  <Icon name="check" size={12} color={styles.glyph.color} />
+                ) : null}
+              </View>
+              {label ? (
+                <Text style={[{ color: scheme.color.onSurface }, labelStyle]}>
+                  {label}
+                </Text>
+              ) : null}
+              <StateLayer
+                ink={scheme.color.onSurface}
+                visible={pressedNow && !disabled}
+              />
+            </>
+          )}
+        </Pressable>
       )}
-    </Pressable>
+    />
   );
 }
+
+Checkbox.Root = AxisCheckboxRoot;
+Checkbox.Indicator = AxisCheckboxIndicator;

@@ -1,3 +1,21 @@
+import {
+  DialogBackdrop as AxisDialogBackdrop,
+  DialogClose as AxisDialogClose,
+  DialogDescription as AxisDialogDescription,
+  DialogPopup as AxisDialogPopup,
+  DialogPortal as AxisDialogPortal,
+  DialogRoot as AxisDialogRoot,
+  DialogTitle as AxisDialogTitle,
+  DialogTrigger as AxisDialogTrigger,
+  type DialogBackdropProps,
+  type DialogCloseProps,
+  type DialogDescriptionProps,
+  type DialogPopupProps,
+  type DialogPortalProps,
+  type DialogRootProps,
+  type DialogTitleProps,
+  type DialogTriggerProps,
+} from "@xoroh/axis";
 import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
 import {
@@ -69,6 +87,25 @@ export type NativeDialogProps = {
   testID?: string;
 };
 
+export {
+  AxisDialogBackdrop as DialogBackdrop,
+  AxisDialogClose,
+  AxisDialogDescription as DialogDescription,
+  AxisDialogPopup as DialogPopup,
+  AxisDialogPortal as DialogPortal,
+  AxisDialogRoot as DialogRoot,
+  AxisDialogTitle as DialogTitle,
+  AxisDialogTrigger as DialogTrigger,
+  type DialogBackdropProps,
+  type DialogCloseProps,
+  type DialogDescriptionProps,
+  type DialogPopupProps,
+  type DialogPortalProps,
+  type DialogRootProps,
+  type DialogTitleProps,
+  type DialogTriggerProps,
+};
+
 export function Dialog({
   open,
   title,
@@ -91,67 +128,86 @@ export function Dialog({
     onOpenChange?.(false);
   };
   return (
-    <Modal
-      visible={shown}
-      transparent
-      animationType="fade"
-      accessibilityViewIsModal
-      onRequestClose={notifyDismiss}
+    <AxisDialogRoot
+      open={shown}
+      onOpenChange={(next) => {
+        onOpenChange?.(next);
+        if (!next) onDismiss?.();
+      }}
     >
-      <View style={scrimStyle(scheme)}>
-        <View
-          // `role`, NOT `accessibilityRole`, carries the dialog role: the
-          // platform-trait union (`AccessibilityRole`) has no `dialog` member,
-          // while the ARIA-aligned `Role` union does — Fabric resolves it to
-          // `Role::Dialog`. `accessibilityRole="alert"` is retained as the
-          // repo's existing dialog mapping (cf. alert-dialog.tsx), the closest
-          // real trait VoiceOver/TalkBack have for an interrupting container.
-          role="dialog"
-          accessibilityRole="alert"
-          accessibilityLabel={title}
-          testID={testID ?? "kern-dialog"}
-          style={[styles.card, style]}
-        >
-          <Text variant="title">{title}</Text>
-          {children ? <View style={staticStyles.body}>{children}</View> : null}
-          {actions.length > 0 ? (
-            <View style={staticStyles.actions}>
-              {actions.map((action) => (
-                <Pressable
-                  key={action.label}
-                  accessibilityRole="button"
-                  accessibilityLabel={action.label}
-                  hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
-                  style={[
-                    staticStyles.action,
-                    {
-                      borderRadius: Number.parseFloat(scheme.shape.full),
-                      backgroundColor: action.primary
-                        ? scheme.color.primary
-                        : "transparent",
-                    },
-                  ]}
-                  onPress={() => {
-                    action.onPress?.();
-                    onDismiss?.();
-                  }}
-                >
-                  <Text
-                    variant="label"
-                    style={
-                      action.primary
-                        ? { color: scheme.color.onPrimary }
-                        : undefined
-                    }
+      <Modal
+        visible={shown}
+        transparent
+        animationType="fade"
+        accessibilityViewIsModal
+        onRequestClose={notifyDismiss}
+      >
+        <View style={scrimStyle(scheme)}>
+          <View
+            // `role`, NOT `accessibilityRole`, carries the dialog role: the
+            // platform-trait union (`AccessibilityRole`) has no `dialog` member,
+            // while the ARIA-aligned `Role` union does — Fabric resolves it to
+            // `Role::Dialog`. `accessibilityRole="alert"` is retained as the
+            // repo's existing dialog mapping (cf. alert-dialog.tsx), the closest
+            // real trait VoiceOver/TalkBack have for an interrupting container.
+            role="dialog"
+            accessibilityRole="alert"
+            accessibilityLabel={title}
+            testID={testID ?? "kern-dialog"}
+            style={[styles.card, style]}
+          >
+            <Text variant="title">{title}</Text>
+            {children ? (
+              <View style={staticStyles.body}>{children}</View>
+            ) : null}
+            {actions.length > 0 ? (
+              <View style={staticStyles.actions}>
+                {actions.map((action) => (
+                  <Pressable
+                    key={action.label}
+                    accessibilityRole="button"
+                    accessibilityLabel={action.label}
+                    hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                    style={[
+                      staticStyles.action,
+                      {
+                        borderRadius: Number.parseFloat(scheme.shape.full),
+                        backgroundColor: action.primary
+                          ? scheme.color.primary
+                          : "transparent",
+                      },
+                    ]}
+                    onPress={() => {
+                      action.onPress?.();
+                      notifyDismiss();
+                    }}
                   >
-                    {action.label}
-                  </Text>
-                </Pressable>
-              ))}
-            </View>
-          ) : null}
+                    <Text
+                      variant="label"
+                      style={
+                        action.primary
+                          ? { color: scheme.color.onPrimary }
+                          : undefined
+                      }
+                    >
+                      {action.label}
+                    </Text>
+                  </Pressable>
+                ))}
+              </View>
+            ) : null}
+          </View>
         </View>
-      </View>
-    </Modal>
+      </Modal>
+    </AxisDialogRoot>
   );
 }
+
+Dialog.Root = AxisDialogRoot;
+Dialog.Trigger = AxisDialogTrigger;
+Dialog.Portal = AxisDialogPortal;
+Dialog.Backdrop = AxisDialogBackdrop;
+Dialog.Popup = AxisDialogPopup;
+Dialog.Title = AxisDialogTitle;
+Dialog.Description = AxisDialogDescription;
+Dialog.Close = AxisDialogClose;

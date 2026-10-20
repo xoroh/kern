@@ -46,7 +46,6 @@ const FIRST_PARTY = [
   // N9 moved the internal-only primitives to libs/.
   { dir: "packages/kern", pkg: "kern" },
   { dir: "packages/kern-tokens", pkg: "kern-tokens" },
-  { dir: "libs/kern-primitives", pkg: "kern-primitives" },
   { dir: "packages/kern-native", pkg: "kern-native" },
   { dir: "packages/kern-icons", pkg: "kern-icons" },
   { dir: "packages/mcp", pkg: "kern-mcp" },

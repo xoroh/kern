@@ -101,7 +101,6 @@ function packWithNpm(dir) {
  * whole publish gate on a file that never existed.
  */
 const MANIFESTS = [
-  "libs/kern-primitives",
   "packages/kern",
   "packages/kern-tokens",
   "packages/kern-m3",
