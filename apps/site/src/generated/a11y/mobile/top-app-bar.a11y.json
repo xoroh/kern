@@ -4,12 +4,38 @@
   "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
   "demos": {
     "TopAppBar": {
-      "hasLiveDemo": false,
-      "expectations": []
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "keyboard-operable",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "keyboard contract carries 2 row(s) in top-app-bar.ts — every operable action has a documented key"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 4 line(s) in top-app-bar.ts — roles, names and states are stated, not assumed"
+        }
+      ]
     },
     "TopAppBarAction": {
-      "hasLiveDemo": false,
-      "expectations": []
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "keyboard-operable",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "keyboard contract carries 2 row(s) in top-app-bar.ts — every operable action has a documented key"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 4 line(s) in top-app-bar.ts — roles, names and states are stated, not assumed"
+        }
+      ]
     },
     "TopAppBarToggle": {
       "hasLiveDemo": false,

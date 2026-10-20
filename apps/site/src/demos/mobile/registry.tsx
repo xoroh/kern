@@ -9,6 +9,7 @@
 import { PortalHost } from "@xoroh/axis";
 import { Icon } from "@xoroh/kern-icons";
 import {
+  Accordion,
   AppShell,
   AspectRatio,
   Autocomplete,
@@ -17,6 +18,7 @@ import {
   Banner,
   Button,
   ButtonGroup,
+  Calendar,
   Card,
   Carousel,
   Checkbox,
@@ -24,6 +26,7 @@ import {
   CheckboxGroupItem,
   Chip,
   CircularProgress,
+  Collapsible,
   Combobox,
   Command,
   ContrastToggle,
@@ -37,6 +40,7 @@ import {
   Fieldset,
   FieldsetItem,
   FieldsetLegend,
+  FilterChipRow,
   Form,
   IconButton,
   IconButtonTarget,
@@ -47,14 +51,19 @@ import {
   Label,
   LinearProgress,
   LinkButton,
+  ListDetail,
   ListItem,
   Loader,
   LoadingButton,
   LoadingIndicator,
+  Menu,
   Meter,
+  NavigationBar,
+  NavigationBarItem,
   NavigationRail,
   NumberField,
   Pagination,
+  Pane,
   Popover,
   Progress,
   RadioGroup,
@@ -62,9 +71,12 @@ import {
   RichTooltip,
   ScrollArea,
   Search,
+  SecondaryTabs,
   SegmentedButton,
+  Select,
   Separator,
   SettingsRow,
+  Shape,
   Skeleton,
   Slider,
   SnackbarProvider,
@@ -73,17 +85,24 @@ import {
   SplitButton,
   StateLayer,
   StatusBar,
+  SupportingPane,
   Switch,
+  Table,
+  Tabs,
   Text,
   Textarea,
   ThemeToggle,
   TimePicker,
   Toggle,
   ToggleGroup,
+  Toolbar,
   Tooltip,
+  TopAppBar,
+  TopAppBarAction,
   useKernScheme,
   useSnackbar,
 } from "@xoroh/kern-native";
+import { useState } from "react";
 import { View } from "react-native";
 import {
   PhoneGrid,
@@ -1287,6 +1306,394 @@ export function NativeRichTooltipDemo() {
   );
 }
 
+export function NativeAccordionDemo() {
+  return (
+    <PhonePreview label="Accordion — expandable sections">
+      <Accordion
+        defaultValue={[0]}
+        sections={[
+          {
+            title: "Network settings",
+            content: (
+              <View style={{ padding: 12 }}>
+                <Text variant="body">
+                  Configure Wi-Fi, mobile data, and hotspot.
+                </Text>
+              </View>
+            ),
+          },
+          {
+            title: "Display & brightness",
+            content: (
+              <View style={{ padding: 12 }}>
+                <Text variant="body">
+                  Manage screen timeout and color profile.
+                </Text>
+              </View>
+            ),
+          },
+        ]}
+      />
+    </PhonePreview>
+  );
+}
+
+export function NativeCollapsibleDemo() {
+  return (
+    <PhonePreview label="Collapsible — trigger with toggleable body">
+      <Collapsible title="Advanced settings" defaultOpen>
+        <View style={{ paddingVertical: 8 }}>
+          <Text variant="body">
+            Developer options and diagnostic telemetry.
+          </Text>
+        </View>
+      </Collapsible>
+    </PhonePreview>
+  );
+}
+
+export function NativeTabsDemo() {
+  return (
+    <PhonePreview label="Tabs — primary filled indicator">
+      <Tabs
+        defaultValue="overview"
+        tabs={[
+          {
+            value: "overview",
+            label: "Overview",
+            content: (
+              <View style={{ paddingVertical: 12 }}>
+                <Text variant="body">
+                  Project metrics and active contributors.
+                </Text>
+              </View>
+            ),
+          },
+          {
+            value: "activity",
+            label: "Activity",
+            content: (
+              <View style={{ paddingVertical: 12 }}>
+                <Text variant="body">
+                  Recent commits and build notifications.
+                </Text>
+              </View>
+            ),
+          },
+        ]}
+      />
+    </PhonePreview>
+  );
+}
+
+export function NativeSecondaryTabsDemo() {
+  return (
+    <PhonePreview label="SecondaryTabs — flat underline indicator">
+      <SecondaryTabs
+        defaultValue="day"
+        tabs={[
+          {
+            value: "day",
+            label: "Day",
+            content: (
+              <View style={{ paddingVertical: 12 }}>
+                <Text variant="body">Hourly breakdown for today.</Text>
+              </View>
+            ),
+          },
+          {
+            value: "week",
+            label: "Week",
+            content: (
+              <View style={{ paddingVertical: 12 }}>
+                <Text variant="body">7-day aggregated summary.</Text>
+              </View>
+            ),
+          },
+          {
+            value: "month",
+            label: "Month",
+            content: (
+              <View style={{ paddingVertical: 12 }}>
+                <Text variant="body">Monthly trend analysis.</Text>
+              </View>
+            ),
+          },
+        ]}
+      />
+    </PhonePreview>
+  );
+}
+
+export function NativeFilterChipRowDemo() {
+  return (
+    <PhonePreview label="FilterChipRow — horizontally scrolling filter rail">
+      <FilterChipRow
+        defaultValue={["all"]}
+        options={[
+          { value: "all", label: "All items" },
+          { value: "unread", label: "Unread" },
+          { value: "starred", label: "Starred" },
+          { value: "archived", label: "Archived" },
+        ]}
+      />
+    </PhonePreview>
+  );
+}
+
+export function NativeTableDemo() {
+  return (
+    <PhonePreview label="Table — tabular dataset with accessible caption">
+      <Table
+        caption="Recent deploy performance"
+        columns={[
+          { key: "service", title: "Service" },
+          { key: "latency", title: "Latency" },
+          { key: "status", title: "Status" },
+        ]}
+        rows={[
+          { service: "Auth", latency: "12ms", status: "Healthy" },
+          { service: "API Gateway", latency: "24ms", status: "Healthy" },
+          { service: "Workers", latency: "85ms", status: "Degraded" },
+        ]}
+      />
+    </PhonePreview>
+  );
+}
+
+export function NativeToolbarDemo() {
+  return (
+    <PhonePreview label="Toolbar — floating action pill">
+      <Toolbar
+        actions={[
+          { label: "Edit" },
+          { label: "Copy" },
+          { label: "Share" },
+          { label: "Delete" },
+        ]}
+      />
+    </PhonePreview>
+  );
+}
+
+export function NativeTopAppBarDemo() {
+  return (
+    <PhonePreview label="TopAppBar — M3 screen header with leading and trailing actions">
+      <TopAppBar
+        title="Settings"
+        size="small"
+        leading={
+          <TopAppBarAction label="Navigate back">
+            <Icon name="arrow-back" size={24} />
+          </TopAppBarAction>
+        }
+        trailing={
+          <TopAppBarAction label="More options">
+            <Icon name="more-vert" size={24} />
+          </TopAppBarAction>
+        }
+      />
+    </PhonePreview>
+  );
+}
+
+export function NativeNavigationBarDemo() {
+  function NavSample() {
+    const scheme = useKernScheme();
+    const [tab, setTab] = useState("home");
+    const ink = (selected: boolean) =>
+      selected
+        ? scheme.color.onSecondaryContainer
+        : scheme.color.onSurfaceVariant;
+    return (
+      <View style={{ width: "100%", gap: 16 }}>
+        <NavigationBar
+          value={tab}
+          onValueChange={setTab}
+          destinations={[
+            {
+              key: "home",
+              label: "Home",
+              icon: <Icon name="home" color={ink(tab === "home")} />,
+            },
+            {
+              key: "search",
+              label: "Search",
+              icon: <Icon name="search" color={ink(tab === "search")} />,
+            },
+            {
+              key: "settings",
+              label: "Settings",
+              icon: <Icon name="settings" color={ink(tab === "settings")} />,
+            },
+          ]}
+        />
+        <NavigationBarItem
+          label="Single item (vertical context)"
+          selected
+          icon={<Icon name="home" color={scheme.color.onSecondaryContainer} />}
+        />
+      </View>
+    );
+  }
+  return (
+    <PhonePreview label="NavigationBar — 80dp bottom navigation with M3 selection pill">
+      <NavSample />
+    </PhonePreview>
+  );
+}
+
+export function NativePaneDemo() {
+  return (
+    <PhonePreview label="Pane & SupportingPane — tonal layout containers">
+      <View style={{ gap: 12 }}>
+        <Pane variant="canvas" padded>
+          <Text variant="title">Canvas Pane</Text>
+          <Text variant="body">
+            Container ladder foundation with subtle background tint.
+          </Text>
+        </Pane>
+        <Pane variant="surface" padded>
+          <Text variant="title">Surface Pane</Text>
+          <Text variant="body">Layered card surface with rounded corners.</Text>
+        </Pane>
+        <SupportingPane
+          currentWidth={800}
+          compactBreakpoint={600}
+          supporting={
+            <Pane variant="surface" padded>
+              <Text variant="label">Supporting rail info</Text>
+            </Pane>
+          }
+        >
+          <Pane variant="surface" padded>
+            <Text variant="body">Main content beside supporting pane</Text>
+          </Pane>
+        </SupportingPane>
+      </View>
+    </PhonePreview>
+  );
+}
+
+export function NativeListDetailDemo() {
+  function ListDetailSample() {
+    const [selected, setSelected] = useState<string | null>(null);
+    return (
+      <View style={{ height: 260 }}>
+        <ListDetail
+          showingDetail={selected !== null}
+          onBack={() => setSelected(null)}
+          backLabel="All messages"
+          list={
+            <View style={{ gap: 8, padding: 8 }}>
+              {["Security alert", "Team invite", "Weekly digest"].map(
+                (item) => (
+                  <ListItem
+                    key={item}
+                    title={item}
+                    supporting="Tap to view details"
+                    onPress={() => setSelected(item)}
+                  />
+                ),
+              )}
+            </View>
+          }
+          detail={
+            <View style={{ padding: 16, gap: 8 }}>
+              <Text variant="headline">{selected ?? ""}</Text>
+              <Text variant="body">
+                Full message details and action items for this thread.
+              </Text>
+            </View>
+          }
+        />
+      </View>
+    );
+  }
+  return (
+    <PhonePreview label="ListDetail — responsive master-detail collapsing at phone width">
+      <ListDetailSample />
+    </PhonePreview>
+  );
+}
+
+export function NativeShapeDemo() {
+  function ShapeSample() {
+    const scheme = useKernScheme();
+    return (
+      <View
+        style={{
+          flexDirection: "row",
+          flexWrap: "wrap",
+          gap: 16,
+          justifyContent: "center",
+          alignItems: "center",
+          paddingVertical: 12,
+        }}
+      >
+        <Shape kind="circle" size={48} color={scheme.color.primary} />
+        <Shape kind="square" size={48} color={scheme.color.secondary} />
+        <Shape kind="pill" size={48} color={scheme.color.tertiary} />
+        <Shape kind="diamond" size={40} color={scheme.color.error} />
+        <Shape
+          kind="triangle"
+          size={44}
+          color={scheme.color.primaryContainer}
+        />
+      </View>
+    );
+  }
+  return (
+    <PhonePreview label="Shape — geometric feedback primitives in Kern radius language">
+      <ShapeSample />
+    </PhonePreview>
+  );
+}
+
+export function NativeCalendarDemo() {
+  return (
+    <PhonePreview label="Calendar — M3 month grid on Axis calendar model">
+      <Calendar defaultValue={new Date(2026, 9, 20)} />
+    </PhonePreview>
+  );
+}
+
+export function NativeSelectDemo() {
+  return (
+    <PhonePreview label="Select — single/multi pick on Axis SelectRoot">
+      <PortalHost>
+        <Select
+          defaultValue="standard"
+          placeholder="Select shipping option"
+          options={[
+            { value: "standard", label: "Standard (3–5 business days)" },
+            { value: "express", label: "Express (1–2 business days)" },
+            { value: "overnight", label: "Overnight delivery" },
+          ]}
+        />
+      </PortalHost>
+    </PhonePreview>
+  );
+}
+
+export function NativeMenuDemo() {
+  return (
+    <PhonePreview label="Menu — anchored action list on Axis MenuRoot">
+      <PortalHost>
+        <Menu
+          trigger={<Button variant="outlined">Options</Button>}
+          triggerLabel="Options menu"
+          items={[
+            { label: "Duplicate" },
+            { label: "Move to project" },
+            { label: "Archive", disabled: true },
+          ]}
+        />
+      </PortalHost>
+    </PhonePreview>
+  );
+}
+
 /**
  * Components with no live preview, each with the reason. The acceptance bar
  * is "renders honestly **or** carries an explicit prose reason it cannot" —
@@ -1301,8 +1708,6 @@ export const PREVIEW_REASONS: Record<string, string> = {
     "A timed success animation with no static state, for the same reason as MilestoneTrio.",
   ShapeArt:
     "Pure shape-art animation surface with no static state; the concrete animated consumers are listed above.",
-  Shape:
-    "The static shape primitive is internal to the shape-art surfaces above; on its own it renders an unstyled primitive with no consumer-facing contract.",
   MenuScreen:
     "Full-screen menu destination; presented modally over a host screen, and in isolation there is no host to present over.",
   MenuSheet:
@@ -1317,26 +1722,16 @@ export const PREVIEW_REASONS: Record<string, string> = {
   EntitySheet: "Modal detail sheet, same reason.",
   SheetHandle:
     "The drag handle of the sheets above; it has no meaning detached from its sheet.",
-  NavigationBar:
-    "Device chrome that owns the bottom safe area; in a browser frame it renders flush with the page edge and cannot show its inset behaviour honestly.",
-  NavigationBarItem: "One segment of NavigationBar, same chrome reason.",
   NavigationDrawer:
     "Full-screen drawer over a host screen; in isolation there is no host to present over.",
   NavigationMenu:
     "Platform menu surface with no static open state in the RNW renderer.",
   Menubar:
     "Desktop-pattern menu bar with no native counterpart in a phone frame; the native Menu preview covers the same contract.",
-  Menu: "Context menu surface whose open state is gesture-driven; RNW has no equivalent long-press, so any preview would be a fabricated interaction.",
   ContextMenu: "Same gesture-driven open state as Menu.",
   Dialog:
     "Modal dialog over a host screen; in isolation there is no host to present over.",
   AlertDialog: "Modal confirmation over a host screen, same reason.",
-  Collapsible:
-    "Disclosure region; its open state is toggled by its own trigger, and the trigger composition is a platform convention this frame cannot supply.",
-  Accordion: "Same disclosure-composition reason as Collapsible.",
-  Tabs: "Tab strip with platform-specific layout rules; rendered in the /docs/getting-started mobile quickstart against a real screen.",
-  Select:
-    "Modal option list over a host screen; in isolation there is no host to present over.",
   Search:
     "Rendered above; listed here only because the export also covers the modal suggestion sheet on device.",
   Sheet:
@@ -1345,25 +1740,8 @@ export const PREVIEW_REASONS: Record<string, string> = {
     "Not a component: the per-shape arc rotation table that CircularProgress reads to draw its indeterminate arc. It is data consumed by the CircularProgress preview above, not a renderable surface.",
   loaderColor:
     "Not a component: a style helper resolving the spinner colour from a scheme. The Loader preview above renders the result.",
-  Toolbar:
-    "Desktop-pattern toolbar; the native TopAppBar is the mobile equivalent and is listed below.",
-  Table:
-    "Tables do not exist as a native pattern; this is the documented web-parity counterpart and is covered on /components?platform=web.",
-  Calendar:
-    "Full-screen month grid; the same reason as Tabs — it needs a real screen to own.",
   Field:
     "A form-field composition requiring a host `Input` inside a real form context; the parts it composes are previewed above.",
-  Pane: "Split-view pane requiring a host navigation context to size against.",
-  ListDetail:
-    "Master/detail layout requiring a host screen, same reason as Pane.",
-  SupportingPane:
-    "Supporting pane requiring a host screen, same reason as Pane.",
-  FilterChipRow:
-    "Horizontal chip row built on Chip, which is previewed above; the row adds scroll clipping, not a new component contract.",
-  SecondaryTabs: "Secondary tab strip; same reason as Tabs.",
-  TopAppBar:
-    "Top app bar for a host screen; rendered in the mobile quickstart at full bleed.",
-  TopAppBarAction: "One action of TopAppBar, same reason.",
   Drawer:
     "M3 modal drawer over a host screen. It wraps a React Native `Modal`, which react-native-web renders as a full-viewport overlay, so inside the phone frame it would cover the frame itself and hide the host screen it presents over — and there is no host screen in the frame to present it over.",
   SheetSurface:
@@ -1374,12 +1752,14 @@ export const PREVIEW_REASONS: Record<string, string> = {
 
 /** Every native export, mapped to a live preview. */
 const byExport: Record<string, MobileDemo> = {
+  Accordion: NativeAccordionDemo,
   AppShell: NativeAppShellDemo,
   Avatar: NativeAvatarDemo,
   Autocomplete: NativeAutocompleteDemo,
   Badge: NativeBadgeDemo,
   Button: NativeButtonDemo,
   ButtonGroup: NativeButtonGroupDemo,
+  Calendar: NativeCalendarDemo,
   Card: NativeCardDemo,
   Carousel: NativeCarouselDemo,
   CheckboxGroup: NativeCheckboxGroupDemo,
@@ -1388,6 +1768,7 @@ const byExport: Record<string, MobileDemo> = {
   Banner: NativeBannerDemo,
   Checkbox: NativeCheckboxDemo,
   Chip: NativeChipDemo,
+  Collapsible: NativeCollapsibleDemo,
   Combobox: NativeComboboxDemo,
   ContrastToggle: NativeContrastToggleDemo,
   CountrySelect: NativeCountrySelectDemo,
@@ -1402,6 +1783,7 @@ const byExport: Record<string, MobileDemo> = {
   Fieldset: NativeFieldsetDemo,
   FieldsetItem: NativeFieldsetDemo,
   FieldsetLegend: NativeFieldsetDemo,
+  FilterChipRow: NativeFilterChipRowDemo,
   Form: NativeFormDemo,
   IconButton: NativeIconButtonDemo,
   IconButtonTarget: NativeIconButtonDemo,
@@ -1412,14 +1794,19 @@ const byExport: Record<string, MobileDemo> = {
   Label: NativeLabelDemo,
   LinearProgress: NativeLinearProgressDemo,
   LinkButton: NativeLinkButtonDemo,
+  ListDetail: NativeListDetailDemo,
   ListItem: NativeListItemDemo,
   LoadingButton: NativeLoadingButtonDemo,
   Loader: NativeLoaderDemo,
   LoadingIndicator: NativeLoadingIndicatorDemo,
+  Menu: NativeMenuDemo,
   Meter: NativeMeterDemo,
+  NavigationBar: NativeNavigationBarDemo,
+  NavigationBarItem: NativeNavigationBarDemo,
   NavigationRail: NativeNavigationRailDemo,
   NumberField: NativeNumberFieldDemo,
   Pagination: NativePaginationDemo,
+  Pane: NativePaneDemo,
   Popover: NativePopoverDemo,
   Progress: NativeProgressDemo,
   RadioGroup: NativeRadioGroupDemo,
@@ -1427,8 +1814,11 @@ const byExport: Record<string, MobileDemo> = {
   RichTooltip: NativeRichTooltipDemo,
   ScrollArea: NativeScrollAreaDemo,
   Search: NativeSearchDemo,
+  SecondaryTabs: NativeSecondaryTabsDemo,
   SegmentedButton: NativeSegmentedButtonDemo,
+  Select: NativeSelectDemo,
   SettingsRow: NativeSettingsRowDemo,
+  Shape: NativeShapeDemo,
   Snackbar: NativeSnackbarDemo,
   // The provider and its viewport are one surface: the queue lives in the
   // provider, the viewport paints it. Same demo, both export names.
@@ -1441,14 +1831,20 @@ const byExport: Record<string, MobileDemo> = {
   SplitButton: NativeSplitButtonDemo,
   StateLayer: NativeStateLayerDemo,
   StatusBar: NativeStatusBarDemo,
+  SupportingPane: NativePaneDemo,
   Switch: NativeSwitchDemo,
+  Table: NativeTableDemo,
+  Tabs: NativeTabsDemo,
   Text: NativeTextDemo,
   Textarea: NativeTextareaDemo,
   ThemeToggle: NativeThemeToggleDemo,
   TimePicker: NativeTimePickerDemo,
   Toggle: NativeToggleDemo,
   ToggleGroup: NativeToggleGroupDemo,
+  Toolbar: NativeToolbarDemo,
   Tooltip: NativeTooltipDemo,
+  TopAppBar: NativeTopAppBarDemo,
+  TopAppBarAction: NativeTopAppBarDemo,
 };
 
 export const MOBILE_DEMOS = byExport;
