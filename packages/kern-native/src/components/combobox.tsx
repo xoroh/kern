@@ -1,5 +1,4 @@
-import { useControllableState } from "@xoroh/axis";
-import { defaultCollectionMatch } from "@xoroh/axis/models";
+import { defaultCollectionMatch, useControllableState } from "@xoroh/axis";
 import { Icon } from "@xoroh/kern-icons";
 import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import { useMemo, useState } from "react";
