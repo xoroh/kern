@@ -31,7 +31,9 @@ const FIRST_PARTY = "@xoroh/";
 const packages = new Map();
 
 for (const area of ["packages", "libs"]) {
-  for (const entry of readdirSync(resolve(ROOT, area), {
+  const areaDir = resolve(ROOT, area);
+  if (!existsSync(areaDir)) continue;
+  for (const entry of readdirSync(areaDir, {
     withFileTypes: true,
   })) {
     if (!entry.isDirectory()) continue;
@@ -59,91 +61,67 @@ for (const [name] of buildable) {
     ...(manifest.dependencies ?? {}),
     ...(manifest.devDependencies ?? {}),
   };
-  const deps = new Set();
+  const firstParty = new Set();
   for (const dep of Object.keys(declared)) {
     if (!dep.startsWith(FIRST_PARTY)) continue;
-    // Only packages that actually build constrain our order.
-    if (buildable.has(dep)) deps.add(dep);
+    if (buildable.has(dep)) firstParty.add(dep);
   }
-  edges.set(name, deps);
+  edges.set(name, firstParty);
 }
 
-// Kahn's algorithm. `buildable` is insertion-ordered, so a package with no
-// unmet deps keeps a stable, deterministic position.
-const ordered = [];
-const remaining = new Map(edges);
-
-while (remaining.size > 0) {
-  const ready = [];
-  for (const [name, deps] of remaining) {
-    let blocked = false;
-    for (const dep of deps) {
-      // A dep that has not been emitted yet blocks us — unless it was filtered
-      // out because it is not buildable (already handled above).
-      if (remaining.has(dep)) {
-        blocked = true;
-        break;
-      }
-    }
-    if (!blocked) ready.push(name);
-  }
-
-  if (ready.length === 0) {
-    const cycle = [...remaining.keys()].sort().join(", ");
-    process.stderr.write(
-      `\nbuild-order: FAILED — dependency cycle among buildable packages:\n  ${cycle}\n\n` +
-        `Build order is derived from declared @xoroh/* dependencies, so a cycle\n` +
-        `means the manifests are mutually dependent and no build order exists.\n\n`,
-    );
-    process.exit(1);
-  }
-
-  for (const name of ready) {
-    ordered.push(name);
-    remaining.delete(name);
+// Kahn's algorithm: topological sort.
+const inDegree = new Map();
+for (const [name] of buildable) inDegree.set(name, 0);
+for (const [, deps] of edges) {
+  for (const dep of deps) {
+    inDegree.set(dep, (inDegree.get(dep) ?? 0) + 1);
   }
 }
 
-if (process.argv.includes("--print")) {
-  for (const name of ordered) process.stdout.write(`${name}\n`);
-  process.exit(0);
+// A dependency must build BEFORE the package that declares it, so in-degree 0
+// here means "nobody is waiting on me to build first" — which is the REVERSE
+// order (leaves first). Reverse the sort at the end so prerequisites build
+// before their consumers.
+const reverse = [];
+const queue = [];
+for (const [name, deg] of inDegree) {
+  if (deg === 0) queue.push(name);
 }
 
-process.stdout.write(
-  `build-order: ${ordered.length} buildable package(s), derived from declared deps:\n` +
-    ordered.map((n) => `  ${n}`).join("\n") +
-    "\n\n",
-);
-
-let failed = null;
-for (const name of ordered) {
-  const dir = packages.get(buildable.get(name)).dir;
-  process.stdout.write(`\n--- build: ${name} ---\n`);
-  // node:child_process, not the `Bun` global: this script is invoked as
-  // `node scripts/build-order.mjs`, where `Bun` is undefined and referencing it
-  // throws. (Same trap as scripts/build-lock.mjs — see 520e94d.)
-  const result = spawnSync("bun", ["run", "build"], {
-    cwd: dir,
-    stdio: "inherit",
-  });
-  // spawnSync populates `status`; `exitCode` is an alias that is only populated
-  // for async spawn. With stdio:"inherit" here `exitCode` is `undefined`, so
-  // comparing `result.exitCode !== 0` was ALWAYS true and every package looked
-  // like a failure — even though each built correctly.
-  const code = result.status ?? result.exitCode ?? 1;
-  if (code !== 0) {
-    failed = name;
-    break;
+while (queue.length > 0) {
+  const current = queue.shift();
+  reverse.push(current);
+  for (const dep of edges.get(current) ?? []) {
+    const nextDeg = inDegree.get(dep) - 1;
+    inDegree.set(dep, nextDeg);
+    if (nextDeg === 0) queue.push(dep);
   }
 }
 
-if (failed) {
-  process.stderr.write(
-    `\nbuild-order: FAILED — ${failed} exited non-zero. Its own output above is the cause.\n`,
+if (reverse.length !== buildable.size) {
+  const unbuilt = [...buildable.keys()].filter(
+    (name) => !reverse.includes(name),
+  );
+  console.error(
+    `Dependency cycle detected among buildable packages: ${unbuilt.join(", ")}`,
   );
   process.exit(1);
 }
 
-process.stdout.write(
-  `\nbuild-order: ok — ${ordered.length} package(s) built in dependency order.\n`,
-);
+const order = reverse.reverse();
+
+console.log(`Build order (${order.length} packages): ${order.join(" -> ")}`);
+
+for (const name of order) {
+  const dirName = buildable.get(name);
+  const { dir } = packages.get(dirName);
+  console.log(`\nBuilding ${name} (${dirName})...`);
+  const result = spawnSync("bun", ["run", "build"], {
+    cwd: dir,
+    stdio: "inherit",
+  });
+  if (result.status !== 0) {
+    console.error(`Build failed for ${name} (exit ${result.status})`);
+    process.exit(result.status ?? 1);
+  }
+}
