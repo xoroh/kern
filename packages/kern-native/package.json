@@ -64,7 +64,7 @@
     "react-native": ">=0.86.0 <0.89"
   },
   "dependencies": {
-    "@xoroh/axis": "file:../../vendor/axis/axis-7464d2d.tgz",
+    "@xoroh/axis": "^0.1.2",
     "@xoroh/kern-tokens": "^0.0.0",
     "react-native-svg": "15",
     "@xoroh/kern-m3": "^0.0.0",

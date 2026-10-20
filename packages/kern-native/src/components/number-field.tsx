@@ -241,14 +241,15 @@ export function NumberField({
               const fieldState = state as {
                 value?: number | null;
               };
+              // The VALUE is announced by the Axis group host, which is the
+              // `role="spinbutton"` element carrying `aria-valuenow` and the
+              // range. Repeating it on the inner TextInput announced the
+              // number twice: once as the spinbutton's value and once as the
+              // text field's value. One owner, one announcement.
+              void fieldState;
               return (
                 <TextInput
                   accessibilityLabel={slot["aria-label"]}
-                  accessibilityValue={{
-                    now: fieldState.value ?? undefined,
-                    min,
-                    max,
-                  }}
                   aria-disabled={disabled}
                   editable={slot.editable}
                   keyboardType="numeric"

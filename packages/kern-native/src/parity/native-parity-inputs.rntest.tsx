@@ -504,7 +504,15 @@ describe("number-field (native)", () => {
     );
     const field = screen.getByTestId("kern-number-field-input");
     expect(field.props.accessibilityLabel).toBe("Count");
-    expect(field.props.accessibilityValue).toEqual({ now: 5, min: 0, max: 10 });
+    // The spinbutton host owns the value: Axis renders the group as
+    // `role="spinbutton"` with `aria-valuenow`/`aria-valuemin`/
+    // `aria-valuemax`, so the number is announced ONCE, by the element that
+    // is the number. The inner text field repeats no value of its own.
+    const host = screen.getByRole("spinbutton");
+    expect(host.props["aria-valuenow"]).toBe(5);
+    expect(host.props["aria-valuemin"]).toBe(0);
+    expect(host.props["aria-valuemax"]).toBe(10);
+    expect(field.props.accessibilityValue).toBeUndefined();
   });
 
   it("clamps to the range without snapping to a step grid", () => {

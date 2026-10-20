@@ -27,6 +27,20 @@ const config = defineConfig({
     // random per connection, so the parent domains are allowlisted once.
     allowedHosts: [".run.pinggy-free.link", ".free.pinggy.net"],
   },
+  define: {
+    // react-native-web's `Animated` fallback calls `global.cancelAnimationFrame`
+    // and `global.requestAnimationFrame` — a Node-ism a browser does not have.
+    // Every INDETERMINATE kern-native animation (a spinner, a loading
+    // indicator) went through that path and threw `ReferenceError: global is
+    // not defined` on its first frame, which blanked the page it animated.
+    //
+    // `globalThis` already carries every global the browser has, so pointing
+    // `global` at it gives the renderer the name it expects and changes
+    // nothing else. The define is here, at the bundler's seam, because a
+    // shim inside one demo file would only repair the page that happened to
+    // load it.
+    global: "globalThis",
+  },
   resolve: {
     tsconfigPaths: true,
     alias: reactNativeAlias,

@@ -48,6 +48,6 @@
     "typescript": "5.9.3",
     "vite": "^8.0.0",
     "wrangler": "^4.70.0",
-    "@xoroh/axis": "file:../../vendor/axis/axis-7464d2d.tgz"
+    "@xoroh/axis": "^0.1.2"
   }
 }
