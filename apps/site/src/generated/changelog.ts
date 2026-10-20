@@ -112,6 +112,13 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
       "License is now MIT (previously Apache-2.0). Native shape values now resolve from the M3 shape scale and the FAB shadow uses the scrim role. New scripts/check-kern.mjs (bun run check:kern, wired into CI) enforces the mechanically checkable M3 laws: semantic roles must exist in every scheme, components use tokens instead of raw colors, and radii come from the shape scale.",
   },
   {
+    id: "n10-pressed-state-layer-and-aria-only",
+    packages: ["@xoroh/kern-native", "@xoroh/kern-tokens"],
+    bump: "minor",
+    summary:
+      "N10, completed: the pressed state layer, the disabled content wash, and the role/aria pass-through.",
+  },
+  {
     id: "native-carousel",
     packages: ["@xoroh/kern-native"],
     bump: "minor",
@@ -474,6 +481,13 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
       "Manifest hygiene: drop the duplicate ./native subpath (byte-identical to ., zero consumers) and declare sideEffects: false for tree-shaking. No runtime change.",
   },
   {
+    id: "one-standard-docs-corpus",
+    packages: ["@xoroh/kern-mcp"],
+    bump: "patch",
+    summary:
+      "The docs corpus is one standard, and the machine surface carries it.",
+  },
+  {
     id: "p0-design-correctness-tokens",
     packages: ["@xoroh/kern"],
     bump: "patch",
@@ -533,6 +547,12 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
     bump: "patch",
     summary:
       "Cross-renderer behaviour parity, tranche 2: chips, lists, dialogs, text fields.",
+  },
+  {
+    id: "published-axis-dependency",
+    packages: ["@xoroh/kern", "@xoroh/kern-native", "@xoroh/kern-cli"],
+    bump: "patch",
+    summary: "Depend on the PUBLISHED @xoroh/axis instead of a vendored copy.",
   },
   {
     id: "ref-forwarding-no-casts",
