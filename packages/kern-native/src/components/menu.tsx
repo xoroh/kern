@@ -1,11 +1,50 @@
 import {
+  MenuArrow as AxisMenuArrow,
+  MenuBackdrop as AxisMenuBackdrop,
+  MenuCheckboxItem as AxisMenuCheckboxItem,
+  MenuCheckboxItemIndicator as AxisMenuCheckboxItemIndicator,
+  MenuClear as AxisMenuClear,
+  MenuEmpty as AxisMenuEmpty,
+  MenuGroup as AxisMenuGroup,
+  MenuGroupLabel as AxisMenuGroupLabel,
+  MenuInput as AxisMenuInput,
   MenuItem as AxisMenuItem,
-  MenuBackdrop,
-  MenuPopup,
-  MenuPortal,
-  MenuPositioner,
-  MenuRoot,
-  MenuTrigger,
+  MenuLinkItem as AxisMenuLinkItem,
+  MenuPopup as AxisMenuPopup,
+  MenuPortal as AxisMenuPortal,
+  MenuPositioner as AxisMenuPositioner,
+  MenuRadioGroup as AxisMenuRadioGroup,
+  MenuRadioItem as AxisMenuRadioItem,
+  MenuRadioItemIndicator as AxisMenuRadioItemIndicator,
+  MenuRoot as AxisMenuRoot,
+  MenuSeparator as AxisMenuSeparator,
+  MenuSubmenuContent as AxisMenuSubmenuContent,
+  MenuSubmenuRoot as AxisMenuSubmenuRoot,
+  MenuSubmenuTrigger as AxisMenuSubmenuTrigger,
+  MenuTrigger as AxisMenuTrigger,
+  type MenuArrowProps,
+  type MenuBackdropProps,
+  type MenuCheckboxItemIndicatorProps,
+  type MenuCheckboxItemProps,
+  type MenuClearProps,
+  type MenuEmptyProps,
+  type MenuGroupLabelProps,
+  type MenuGroupProps,
+  type MenuInputProps,
+  type MenuItemProps,
+  type MenuLinkItemProps,
+  type MenuPopupProps,
+  type MenuPortalProps,
+  type MenuPositionerProps,
+  type MenuRadioGroupProps,
+  type MenuRadioItemIndicatorProps,
+  type MenuRadioItemProps,
+  type MenuRootProps,
+  type MenuSeparatorProps,
+  type MenuSubmenuContentProps,
+  type MenuSubmenuRootProps,
+  type MenuSubmenuTriggerProps,
+  type MenuTriggerProps,
 } from "@xoroh/axis";
 import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
@@ -39,9 +78,61 @@ export type NativeMenuProps = {
   trigger: ReactNode;
   triggerLabel: string;
   items: NativeMenuItem[];
+  open?: boolean;
+  defaultOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
   onDismiss?: () => void;
   style?: StyleProp<ViewStyle>;
   testID?: string;
+};
+
+export {
+  AxisMenuArrow as MenuArrow,
+  AxisMenuBackdrop as MenuBackdrop,
+  AxisMenuCheckboxItem as MenuCheckboxItem,
+  AxisMenuCheckboxItemIndicator as MenuCheckboxItemIndicator,
+  AxisMenuClear as MenuClear,
+  AxisMenuEmpty as MenuEmpty,
+  AxisMenuGroup as MenuGroup,
+  AxisMenuGroupLabel as MenuGroupLabel,
+  AxisMenuInput as MenuInput,
+  AxisMenuItem as MenuItem,
+  AxisMenuLinkItem as MenuLinkItem,
+  AxisMenuPopup as MenuPopup,
+  AxisMenuPortal as MenuPortal,
+  AxisMenuPositioner as MenuPositioner,
+  AxisMenuRadioGroup as MenuRadioGroup,
+  AxisMenuRadioItem as MenuRadioItem,
+  AxisMenuRadioItemIndicator as MenuRadioItemIndicator,
+  AxisMenuRoot as MenuRoot,
+  AxisMenuSeparator as MenuSeparator,
+  AxisMenuSubmenuContent as MenuSubmenuContent,
+  AxisMenuSubmenuRoot as MenuSubmenuRoot,
+  AxisMenuSubmenuTrigger as MenuSubmenuTrigger,
+  AxisMenuTrigger as MenuTrigger,
+  type MenuArrowProps,
+  type MenuBackdropProps,
+  type MenuCheckboxItemIndicatorProps,
+  type MenuCheckboxItemProps,
+  type MenuClearProps,
+  type MenuEmptyProps,
+  type MenuGroupLabelProps,
+  type MenuGroupProps,
+  type MenuInputProps,
+  type MenuItemProps,
+  type MenuLinkItemProps,
+  type MenuPopupProps,
+  type MenuPortalProps,
+  type MenuPositionerProps,
+  type MenuRadioGroupProps,
+  type MenuRadioItemIndicatorProps,
+  type MenuRadioItemProps,
+  type MenuRootProps,
+  type MenuSeparatorProps,
+  type MenuSubmenuContentProps,
+  type MenuSubmenuRootProps,
+  type MenuSubmenuTriggerProps,
+  type MenuTriggerProps,
 };
 
 /**
@@ -57,6 +148,9 @@ export function Menu({
   trigger,
   triggerLabel,
   items,
+  open,
+  defaultOpen,
+  onOpenChange,
   onDismiss,
   style,
   testID,
@@ -65,17 +159,22 @@ export function Menu({
   const styles = menuStyles(scheme);
   return (
     <View testID={testID ?? "kern-menu"}>
-      <MenuRoot onDismiss={onDismiss}>
-        <MenuTrigger
+      <AxisMenuRoot
+        open={open}
+        defaultOpen={defaultOpen}
+        onOpenChange={onOpenChange}
+        onDismiss={onDismiss}
+      >
+        <AxisMenuTrigger
           accessibilityLabel={triggerLabel}
           style={{ minHeight: 48, justifyContent: "center" }}
         >
           {trigger}
-        </MenuTrigger>
-        <MenuPortal>
-          <MenuBackdrop style={{ backgroundColor: scheme.color.scrim }} />
-          <MenuPositioner>
-            <MenuPopup style={[styles.card, style]}>
+        </AxisMenuTrigger>
+        <AxisMenuPortal>
+          <AxisMenuBackdrop style={{ backgroundColor: scheme.color.scrim }} />
+          <AxisMenuPositioner>
+            <AxisMenuPopup style={[styles.card, style]}>
               {items.map((item) => (
                 <AxisMenuItem
                   key={item.label}
@@ -98,10 +197,34 @@ export function Menu({
                   <Text>{item.label}</Text>
                 </AxisMenuItem>
               ))}
-            </MenuPopup>
-          </MenuPositioner>
-        </MenuPortal>
-      </MenuRoot>
+            </AxisMenuPopup>
+          </AxisMenuPositioner>
+        </AxisMenuPortal>
+      </AxisMenuRoot>
     </View>
   );
 }
+
+Menu.Root = AxisMenuRoot;
+Menu.Trigger = AxisMenuTrigger;
+Menu.Portal = AxisMenuPortal;
+Menu.Positioner = AxisMenuPositioner;
+Menu.Backdrop = AxisMenuBackdrop;
+Menu.Popup = AxisMenuPopup;
+Menu.Arrow = AxisMenuArrow;
+Menu.Item = AxisMenuItem;
+Menu.CheckboxItem = AxisMenuCheckboxItem;
+Menu.CheckboxItemIndicator = AxisMenuCheckboxItemIndicator;
+Menu.RadioGroup = AxisMenuRadioGroup;
+Menu.RadioItem = AxisMenuRadioItem;
+Menu.RadioItemIndicator = AxisMenuRadioItemIndicator;
+Menu.SubmenuRoot = AxisMenuSubmenuRoot;
+Menu.SubmenuTrigger = AxisMenuSubmenuTrigger;
+Menu.SubmenuContent = AxisMenuSubmenuContent;
+Menu.Group = AxisMenuGroup;
+Menu.GroupLabel = AxisMenuGroupLabel;
+Menu.Separator = AxisMenuSeparator;
+Menu.Clear = AxisMenuClear;
+Menu.Empty = AxisMenuEmpty;
+Menu.Input = AxisMenuInput;
+Menu.LinkItem = AxisMenuLinkItem;

@@ -1,3 +1,4 @@
+import { OTPFieldRoot, type OTPFieldRootProps } from "@xoroh/axis";
 import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import { useRef, useState } from "react";
 import { type StyleProp, TextInput, View, type ViewStyle } from "react-native";
@@ -80,6 +81,9 @@ export function toOTPPositions(value: string, length: number): string[] {
 /**
  * One-time-code input: a boxed character per position, advancing as it fills.
  */
+
+export { OTPFieldRoot as InputOTPRoot, OTPFieldRoot, type OTPFieldRootProps };
+
 export function InputOTP({
   length = 6,
   value,
@@ -265,3 +269,5 @@ export function OTPBox({
     </View>
   );
 }
+
+InputOTP.Root = OTPFieldRoot;

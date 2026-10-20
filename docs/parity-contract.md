@@ -52,13 +52,13 @@ again. Measured from the generated registry instead:
 
 | Measure | Value |
 |---|---|
-| Registry rows | **416** (web 296, native 120) |
-| **Shared** (already both sides) | **91** |
+| Registry rows | **417** (web 296, native 121) |
+| **Shared** (already both sides) | **92** |
 | **Native-only → needs a web version** | **13** in **10 files** |
-| **Web-only → needs a native version** | **37** in **19 files** |
+| **Web-only → needs a native version** | **36** in **18 files** |
 | Stub rows | **0** |
 
-<!-- gate:counts 91 13 37 0 -->
+<!-- gate:counts 92 13 36 0 -->
 
 Machine-readable line above: `check:parity` (`scripts/check-parity.mjs`) re-derives
 these from the registry and fails if they drift, so the prose above cannot quietly
@@ -314,6 +314,7 @@ than the full family.
 | `autocomplete` | `Autocomplete` (`src/components/autocomplete.tsx`) | The query, the filtered set, the active suggestion, and both exits (commit / dismiss). RN has no combobox primitive, so unlike web — four pass-throughs over Base UI — this owns the behaviour outright. The popup opens on a **non-empty matching** query only, closes on commit and on blur, reports exactly one active suggestion, and **announces an empty result instead of opening an empty box** | shipped, **no contract row** (see below) |
 | `input-otp` | `InputOTP` (`src/components/input-otp.tsx`) | The segmented value, advance-on-fill, retreat-from-empty, and **paste distribution that overwrites from the pasted position**. Every position names itself, including the first — web cannot | shipped, contract row |
 | `number-field` | `NumberField` (`src/components/number-field.tsx`) | The stepper, the clamp, and the value the host is told. Both steppers announce themselves disabled at their bound, and a press that lands on the value already showing fires nothing | shipped, contract row |
+| `form` | `Form` (`src/components/form.tsx`) | Form container on Axis `Form` behavior primitive with validation wiring, field registration, error aggregation | shipped, contract row |
 
 ### What the behaviour test cut, and why that is the point
 
@@ -400,7 +401,7 @@ were restored from backup afterwards.
 
 ---
 
-## Web-only concepts → need a native version (37)
+## Web-only concepts → need a native version (36)
 
 The heading previously read **34** while the machine gate read **42** — the
 `gate:counts` line was right and the sentence a human reads was stale, which is
@@ -438,8 +439,7 @@ ever stops being shared.
 | 8 | `avatar-fallback` | Initials shown when no image | text alternative, `role="img"` on parent | `Text` fallback | M3 · Avatar | GAP |
 | 9 | `avatar-image` | The avatar image | `alt` text / `role="img"` | `Image` + `accessibilityLabel` | M3 · Avatar | GAP |
 | 10 | `page-loader` | Full-page loading | `role="status"`/`progressbar` | `ActivityIndicator` | M3 · Progress | GAP |
-| 11 | `form` | Form container | landmark + validation association | `accessibilityRole="summary"` | M3 · Text fields | GAP |
-| 12 | `loading-region` | The region being loaded, with `aria-busy` | `aria-busy` on the region, `aria-live="polite"` | `accessibilityState.busy` on the container | M3 · Progress | `m3-gaps.test.tsx` |
+| 11 | `loading-region` | The region being loaded, with `aria-busy` | `aria-busy` on the region, `aria-live="polite"` | `accessibilityState.busy` on the container | M3 · Progress | `m3-gaps.test.tsx` |
 
 Rows 22-24 are recorded so the set is complete and the **reasons are recorded**,
 per the S2.3-style bar of "either renders or carries an explicit prose reason".

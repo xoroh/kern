@@ -11,7 +11,7 @@ export const form: ComponentDoc = {
     package: "@xoroh/kern",
     // Native has no `Form`. React Native has no form element; submission is
     // an explicit control and the fields are wired by the screen.
-    nativePeer: "none",
+    nativePeer: "Form",
     variants: [],
     elevation: "surface",
   },

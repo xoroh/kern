@@ -614,13 +614,15 @@
       "kind": "family",
       "slug": "form",
       "platforms": [
-        "web"
+        "web",
+        "mobile"
       ],
       "title": "Form",
       "oneLiner": "Forms collect several values and hand them over together.",
       "page": "/components/m3/form",
       "md": [
-        "/md/web/form.md"
+        "/md/web/form.md",
+        "/md/mobile/form.md"
       ]
     },
     {

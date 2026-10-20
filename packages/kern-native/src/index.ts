@@ -147,6 +147,12 @@ export {
   useFieldsetDisabled,
 } from "./components/fieldset";
 export type {
+  FormActions,
+  FormState,
+  NativeFormProps,
+} from "./components/form";
+export { Form } from "./components/form";
+export type {
   IconButtonVariant,
   NativeIconButtonProps,
 } from "./components/icon-button";

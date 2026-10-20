@@ -4,6 +4,13 @@ import {
   NumberFieldIncrement as AxisIncrement,
   NumberFieldInput as AxisInput,
   NumberFieldRoot as AxisRoot,
+  NumberFieldScrubArea as AxisScrubArea,
+  type NumberFieldDecrementProps,
+  type NumberFieldGroupProps,
+  type NumberFieldIncrementProps,
+  type NumberFieldInputProps,
+  type NumberFieldRootProps,
+  type NumberFieldScrubAreaProps,
 } from "@xoroh/axis";
 import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import type { TextStyle, ViewStyle } from "react-native";
@@ -87,6 +94,21 @@ export function numberFieldStyles(
     },
   };
 }
+
+export {
+  AxisDecrement as NumberFieldDecrement,
+  AxisGroup as NumberFieldGroup,
+  AxisIncrement as NumberFieldIncrement,
+  AxisInput as NumberFieldInput,
+  AxisRoot as NumberFieldRoot,
+  AxisScrubArea as NumberFieldScrubArea,
+  type NumberFieldDecrementProps,
+  type NumberFieldGroupProps,
+  type NumberFieldIncrementProps,
+  type NumberFieldInputProps,
+  type NumberFieldRootProps,
+  type NumberFieldScrubAreaProps,
+};
 
 export function NumberField({
   value,
@@ -235,3 +257,10 @@ export function NumberField({
     </AxisRoot>
   );
 }
+
+NumberField.Root = AxisRoot;
+NumberField.Group = AxisGroup;
+NumberField.Input = AxisInput;
+NumberField.Increment = AxisIncrement;
+NumberField.Decrement = AxisDecrement;
+NumberField.ScrubArea = AxisScrubArea;

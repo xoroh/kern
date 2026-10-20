@@ -1,12 +1,36 @@
 import {
+  SelectArrow as AxisSelectArrow,
+  SelectBackdrop as AxisSelectBackdrop,
+  SelectGroup as AxisSelectGroup,
+  SelectGroupLabel as AxisSelectGroupLabel,
   SelectItem as AxisSelectItem,
-  SelectBackdrop,
-  SelectPopup,
-  SelectPortal,
-  SelectPositioner,
-  SelectRoot,
-  SelectTrigger,
-  SelectValue,
+  SelectItemIndicator as AxisSelectItemIndicator,
+  SelectItemText as AxisSelectItemText,
+  SelectPopup as AxisSelectPopup,
+  SelectPortal as AxisSelectPortal,
+  SelectPositioner as AxisSelectPositioner,
+  SelectRoot as AxisSelectRoot,
+  SelectScrollDownArrow as AxisSelectScrollDownArrow,
+  SelectScrollUpArrow as AxisSelectScrollUpArrow,
+  SelectSeparator as AxisSelectSeparator,
+  SelectTrigger as AxisSelectTrigger,
+  SelectValue as AxisSelectValue,
+  type SelectArrowProps,
+  type SelectBackdropProps,
+  type SelectGroupLabelProps,
+  type SelectGroupProps,
+  type SelectItemIndicatorProps,
+  type SelectItemProps,
+  type SelectItemTextProps,
+  type SelectPopupProps,
+  type SelectPortalProps,
+  type SelectPositionerProps,
+  type SelectRootProps,
+  type SelectScrollDownArrowProps,
+  type SelectScrollUpArrowProps,
+  type SelectSeparatorProps,
+  type SelectTriggerProps,
+  type SelectValueProps,
 } from "@xoroh/axis";
 import { Icon } from "@xoroh/kern-icons";
 import type { ResolvedTheme } from "@xoroh/kern-tokens";
@@ -41,25 +65,66 @@ export function selectStyles(scheme: ResolvedTheme = defaultScheme()): {
 
 export type NativeSelectProps = {
   options: NativeSelectOption[];
-  value?: string;
-  defaultValue?: string;
-  onValueChange?: (value: string) => void;
+  value?: string | string[] | null;
+  defaultValue?: string | string[] | null;
+  onValueChange?: (value: string | string[]) => void;
   placeholder?: string;
   accessibilityLabel?: string;
   disabled?: boolean;
+  multiple?: boolean;
+  alignItemWithTrigger?: boolean;
+  open?: boolean;
+  defaultOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
   onDismiss?: () => void;
   style?: StyleProp<ViewStyle>;
   testID?: string;
 };
 
+export {
+  AxisSelectArrow as SelectArrow,
+  AxisSelectBackdrop as SelectBackdrop,
+  AxisSelectGroup as SelectGroup,
+  AxisSelectGroupLabel as SelectGroupLabel,
+  AxisSelectItem as SelectItem,
+  AxisSelectItemIndicator as SelectItemIndicator,
+  AxisSelectItemText as SelectItemText,
+  AxisSelectPopup as SelectPopup,
+  AxisSelectPortal as SelectPortal,
+  AxisSelectPositioner as SelectPositioner,
+  AxisSelectRoot as SelectRoot,
+  AxisSelectScrollDownArrow as SelectScrollDownArrow,
+  AxisSelectScrollUpArrow as SelectScrollUpArrow,
+  AxisSelectSeparator as SelectSeparator,
+  AxisSelectTrigger as SelectTrigger,
+  AxisSelectValue as SelectValue,
+  type SelectArrowProps,
+  type SelectBackdropProps,
+  type SelectGroupLabelProps,
+  type SelectGroupProps,
+  type SelectItemIndicatorProps,
+  type SelectItemProps,
+  type SelectItemTextProps,
+  type SelectPopupProps,
+  type SelectPortalProps,
+  type SelectPositionerProps,
+  type SelectRootProps,
+  type SelectScrollDownArrowProps,
+  type SelectScrollUpArrowProps,
+  type SelectSeparatorProps,
+  type SelectTriggerProps,
+  type SelectValueProps,
+};
+
 /**
- * M3 select — one value from a known set, on the Axis `SelectRoot` compound.
+ * M3 select — one or more values from a known set, on the Axis `SelectRoot` compound.
  *
  * The open list paints through `SelectPortal` at the app's root `PortalHost`
  * (no RN `Modal` of its own: one root presents every layer). `onDismiss`
  * fires when the list goes away WITHOUT a selection — scrim press, system
  * back, escape — so a caller can tell a pick (`onValueChange`) from a
- * bail-out. Choosing an option never fires `onDismiss`.
+ * bail-out. Choosing an option in single-select closes the list; multi-select
+ * keeps it open and reports the updated array.
  */
 export function Select({
   options,
@@ -69,6 +134,11 @@ export function Select({
   placeholder = "Select",
   accessibilityLabel = "Select",
   disabled = false,
+  multiple = false,
+  alignItemWithTrigger = true,
+  open,
+  defaultOpen,
+  onOpenChange,
   onDismiss,
   style,
   testID,
@@ -77,20 +147,19 @@ export function Select({
   const styles = menuStyles(scheme);
   return (
     <View testID={testID ?? "kern-select"}>
-      <SelectRoot
+      <AxisSelectRoot
         value={value}
         defaultValue={defaultValue}
-        onValueChange={
-          onValueChange
-            ? (val) =>
-                onValueChange(typeof val === "string" ? val : (val[0] ?? ""))
-            : undefined
-        }
+        onValueChange={onValueChange}
+        open={open}
+        defaultOpen={defaultOpen}
+        onOpenChange={onOpenChange}
         onDismiss={onDismiss}
         disabled={disabled}
+        multiple={multiple}
         items={options}
       >
-        <SelectTrigger
+        <AxisSelectTrigger
           accessibilityLabel={accessibilityLabel}
           disabled={disabled}
           style={[
@@ -99,7 +168,7 @@ export function Select({
             style,
           ]}
         >
-          <SelectValue
+          <AxisSelectValue
             placeholder={placeholder}
             style={({ placeholder: showingPlaceholder }) =>
               showingPlaceholder
@@ -108,11 +177,11 @@ export function Select({
             }
           />
           <Icon name="arrow-drop-down" />
-        </SelectTrigger>
-        <SelectPortal>
-          <SelectBackdrop style={{ backgroundColor: scheme.color.scrim }} />
-          <SelectPositioner>
-            <SelectPopup style={styles.card}>
+        </AxisSelectTrigger>
+        <AxisSelectPortal>
+          <AxisSelectBackdrop style={{ backgroundColor: scheme.color.scrim }} />
+          <AxisSelectPositioner alignItemWithTrigger={alignItemWithTrigger}>
+            <AxisSelectPopup style={styles.card}>
               {options.map((option) => (
                 <AxisSelectItem
                   key={option.value}
@@ -121,7 +190,9 @@ export function Select({
                   accessibilityLabel={option.label}
                   style={({ selected }) => ({
                     minHeight: 48,
-                    justifyContent: "center",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
                     paddingHorizontal: 12,
                     borderRadius: Number.parseFloat(
                       scheme.shape["extra-small"],
@@ -131,13 +202,35 @@ export function Select({
                       : "transparent",
                   })}
                 >
-                  <Text>{option.label}</Text>
+                  <AxisSelectItemText>
+                    <Text>{option.label}</Text>
+                  </AxisSelectItemText>
+                  <AxisSelectItemIndicator>
+                    <Icon name="check" size={18} />
+                  </AxisSelectItemIndicator>
                 </AxisSelectItem>
               ))}
-            </SelectPopup>
-          </SelectPositioner>
-        </SelectPortal>
-      </SelectRoot>
+            </AxisSelectPopup>
+          </AxisSelectPositioner>
+        </AxisSelectPortal>
+      </AxisSelectRoot>
     </View>
   );
 }
+
+Select.Root = AxisSelectRoot;
+Select.Trigger = AxisSelectTrigger;
+Select.Value = AxisSelectValue;
+Select.Portal = AxisSelectPortal;
+Select.Positioner = AxisSelectPositioner;
+Select.Backdrop = AxisSelectBackdrop;
+Select.Popup = AxisSelectPopup;
+Select.Arrow = AxisSelectArrow;
+Select.ScrollUpArrow = AxisSelectScrollUpArrow;
+Select.ScrollDownArrow = AxisSelectScrollDownArrow;
+Select.Group = AxisSelectGroup;
+Select.GroupLabel = AxisSelectGroupLabel;
+Select.Item = AxisSelectItem;
+Select.ItemText = AxisSelectItemText;
+Select.ItemIndicator = AxisSelectItemIndicator;
+Select.Separator = AxisSelectSeparator;

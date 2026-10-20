@@ -1,4 +1,5 @@
 import { useControllableState } from "@xoroh/axis";
+import { defaultCollectionMatch } from "@xoroh/axis/models";
 import { Icon } from "@xoroh/kern-icons";
 import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import { useMemo, useState } from "react";
@@ -45,7 +46,7 @@ export function defaultComboboxFilter(
   option: NativeComboboxOption,
   query: string,
 ): boolean {
-  return option.label.toLowerCase().includes(query.trim().toLowerCase());
+  return defaultCollectionMatch(query, option.label);
 }
 
 const triggerStaticStyles = StyleSheet.create({

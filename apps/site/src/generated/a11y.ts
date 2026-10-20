@@ -6733,6 +6733,17 @@ export const A11Y: Record<string, A11yPage> = {
       },
     },
   },
+  "mobile/form": {
+    page: "mobile/form",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      Form: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
   "mobile/icon-button-target": {
     page: "mobile/icon-button-target",
     measured: false,

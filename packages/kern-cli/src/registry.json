@@ -1,6 +1,6 @@
 {
   "version": "0.0.0",
-  "releaseSet": "kern@0.0.0+416.ba5f57eaf3fe08ee",
+  "releaseSet": "kern@0.0.0+417.516de6ba57cba905",
   "rows": [
     {
       "name": "accordion-root",
@@ -2979,6 +2979,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/fieldset.tsx",
+      "status": "real"
+    },
+    {
+      "name": "form",
+      "export": "Form",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/form.tsx",
       "status": "real"
     },
     {

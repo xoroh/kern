@@ -136,7 +136,7 @@ Prefer these machine surfaces over scraping HTML:
 - [Fieldset](/components/m3/fieldset): Fieldsets group related controls under one legend and give them a shared disabled state. Renders: Web + Native. Markdown: /md/web/fieldset.md, /md/mobile/fieldset.md.
 - [Filter chip row](/components/m3/filter-chip-row): The filter chip row is a horizontal row of multi-select toggles — press once to apply a filter, press again to remove it. Renders: Web + Native. Markdown: /md/web/filter-chip-row.md, /md/mobile/filter-chip-row.md.
 - [Focus ring](/components/m3/focus-ring): Focus rings paint the visible keyboard-focus treatment on host content. Renders: Web. Markdown: /md/web/focus-ring.md.
-- [Form](/components/m3/form): Forms collect several values and hand them over together. Renders: Web. Markdown: /md/web/form.md.
+- [Form](/components/m3/form): Forms collect several values and hand them over together. Renders: Web + Native. Markdown: /md/web/form.md, /md/mobile/form.md.
 - [Hero](/components/m3/hero): Hero opens a page with its main heading, supporting copy, actions, and optional art. Renders: Web. Markdown: /md/web/hero.md.
 - [Icon button](/components/m3/icon-button): Icon buttons are buttons whose content is a single glyph. Renders: Web + Native. Markdown: /md/web/icon-button.md, /md/mobile/icon-button.md.
 - [Icon button target](/components/m3/icon-button-target): Icon button targets are the touch-target wrapper that brings a small button up to the platform minimum. Renders: Native. Markdown: /md/mobile/icon-button-target.md.

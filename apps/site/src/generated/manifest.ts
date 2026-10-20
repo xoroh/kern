@@ -2425,6 +2425,13 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    slug: "mobile/form",
+    name: "form",
+    export: "Form",
+    platform: "mobile",
+    status: "real",
+  },
+  {
     slug: "mobile/icon-button",
     name: "icon-button",
     export: "IconButton",
@@ -2940,8 +2947,8 @@ export const COMPONENT_COUNT = COMPONENTS.length;
  */
 export const PARITY_COUNTS = {
   web: 296,
-  native: 120,
-  shared: 91,
+  native: 121,
+  shared: 92,
 };
 
 const BY_SLUG = new Map(COMPONENTS.map((c) => [c.slug, c]));

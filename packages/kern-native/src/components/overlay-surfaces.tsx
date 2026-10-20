@@ -1,4 +1,23 @@
 import {
+  DrawerBackdrop as AxisDrawerBackdrop,
+  DrawerClose as AxisDrawerClose,
+  DrawerDescription as AxisDrawerDescription,
+  DrawerHandle as AxisDrawerHandle,
+  DrawerPopup as AxisDrawerPopup,
+  DrawerPortal as AxisDrawerPortal,
+  DrawerRoot as AxisDrawerRoot,
+  DrawerTitle as AxisDrawerTitle,
+  DrawerTrigger as AxisDrawerTrigger,
+  PopoverArrow as AxisPopoverArrow,
+  PopoverBackdrop as AxisPopoverBackdrop,
+  PopoverClose as AxisPopoverClose,
+  PopoverDescription as AxisPopoverDescription,
+  PopoverPopup as AxisPopoverPopup,
+  PopoverPortal as AxisPopoverPortal,
+  PopoverPositioner as AxisPopoverPositioner,
+  PopoverRoot as AxisPopoverRoot,
+  PopoverTitle as AxisPopoverTitle,
+  PopoverTrigger as AxisPopoverTrigger,
   type createOverlayModality,
   getSharedOverlayModality,
   type OverlayId,
@@ -180,6 +199,28 @@ export type DrawerProps = Omit<ModalProps, "visible" | "onRequestClose"> & {
   children?: ReactNode;
 };
 
+export {
+  AxisDrawerBackdrop as DrawerBackdrop,
+  AxisDrawerClose as DrawerClose,
+  AxisDrawerDescription as DrawerDescription,
+  AxisDrawerHandle as DrawerHandle,
+  AxisDrawerPopup as DrawerPopup,
+  AxisDrawerPortal as DrawerPortal,
+  AxisDrawerRoot as DrawerRoot,
+  AxisDrawerTitle as DrawerTitle,
+  AxisDrawerTrigger as DrawerTrigger,
+  AxisPopoverArrow as PopoverArrow,
+  AxisPopoverBackdrop as PopoverBackdrop,
+  AxisPopoverClose as PopoverClose,
+  AxisPopoverDescription as PopoverDescription,
+  AxisPopoverPopup as PopoverPopup,
+  AxisPopoverPortal as PopoverPortal,
+  AxisPopoverPositioner as PopoverPositioner,
+  AxisPopoverRoot,
+  AxisPopoverTitle as PopoverTitle,
+  AxisPopoverTrigger,
+};
+
 function DrawerBody({
   onDismiss,
   children,
@@ -319,6 +360,15 @@ function DrawerTriggerAnnouncer({
   );
 }
 
+Drawer.Root = AxisDrawerRoot;
+Drawer.Trigger = AxisDrawerTrigger;
+Drawer.Portal = AxisDrawerPortal;
+Drawer.Backdrop = AxisDrawerBackdrop;
+Drawer.Popup = AxisDrawerPopup;
+Drawer.Title = AxisDrawerTitle;
+Drawer.Description = AxisDrawerDescription;
+Drawer.Close = AxisDrawerClose;
+Drawer.Handle = AxisDrawerHandle;
 Drawer.Content = DrawerContent;
 
 function DrawerContent({ children }: { children?: ReactNode }) {
@@ -435,6 +485,14 @@ export const Popover = {
   Trigger: PopoverTrigger,
   Content: PopoverContent,
   Body: PopoverBody,
+  Title: AxisPopoverTitle,
+  Description: AxisPopoverDescription,
+  Close: AxisPopoverClose,
+  Portal: AxisPopoverPortal,
+  Positioner: AxisPopoverPositioner,
+  Popup: AxisPopoverPopup,
+  Backdrop: AxisPopoverBackdrop,
+  Arrow: AxisPopoverArrow,
 };
 
 /* -------------------------------------------------------------- ScrollArea */

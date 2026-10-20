@@ -543,3 +543,33 @@ describe("parity contract rows for this family", () => {
     }
   });
 });
+
+describe("Drawer and Popover compound parts", () => {
+  it("exposes compound parts on Drawer", () => {
+    expect(Drawer.Root).toBeDefined();
+    expect(Drawer.Trigger).toBeDefined();
+    expect(Drawer.Portal).toBeDefined();
+    expect(Drawer.Backdrop).toBeDefined();
+    expect(Drawer.Popup).toBeDefined();
+    expect(Drawer.Title).toBeDefined();
+    expect(Drawer.Description).toBeDefined();
+    expect(Drawer.Close).toBeDefined();
+    expect(Drawer.Handle).toBeDefined();
+    expect(Drawer.Content).toBeDefined();
+  });
+
+  it("exposes compound parts on Popover", () => {
+    expect(Popover.Root).toBeDefined();
+    expect(Popover.Trigger).toBeDefined();
+    expect(Popover.Content).toBeDefined();
+    expect(Popover.Body).toBeDefined();
+    expect(Popover.Title).toBeDefined();
+    expect(Popover.Description).toBeDefined();
+    expect(Popover.Close).toBeDefined();
+    expect(Popover.Portal).toBeDefined();
+    expect(Popover.Positioner).toBeDefined();
+    expect(Popover.Popup).toBeDefined();
+    expect(Popover.Backdrop).toBeDefined();
+    expect(Popover.Arrow).toBeDefined();
+  });
+});

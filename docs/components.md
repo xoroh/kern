@@ -358,6 +358,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `fieldset-item` | `FieldsetItem` | real |
 | `fieldset-legend` | `FieldsetLegend` | real |
 | `filter-chip-row` | `FilterChipRow` | real |
+| `form` | `Form` | real |
 | `icon-button` | `IconButton` | real |
 | `icon-button-target` | `IconButtonTarget` | real |
 | `input` | `Input` | real |

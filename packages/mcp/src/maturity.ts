@@ -3010,6 +3010,15 @@ export const MATURITY: readonly MaturityRow[] = [
     version: "0.0.0",
   },
   {
+    name: "form",
+    export: "Form",
+    platform: "native",
+    system: "kern-m3",
+    entrypoint: ".",
+    state: "Preview",
+    version: "0.0.0",
+  },
+  {
     name: "icon-button",
     export: "IconButton",
     platform: "native",

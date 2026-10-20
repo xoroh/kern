@@ -1,4 +1,5 @@
 import { useControllableState } from "@xoroh/axis";
+import { defaultCollectionMatch } from "@xoroh/axis/models";
 import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import { useMemo, useState } from "react";
 import {
@@ -107,7 +108,7 @@ export function defaultAutocompleteFilter(
   suggestion: AutocompleteSuggestion,
   query: string,
 ): boolean {
-  return suggestion.label.toLowerCase().includes(query.trim().toLowerCase());
+  return defaultCollectionMatch(query, suggestion.label);
 }
 
 /**
