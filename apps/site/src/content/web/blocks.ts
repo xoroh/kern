@@ -6,6 +6,10 @@ export const blocks: ComponentDoc = {
   oneLiner:
     "Blocks are the small shell pieces — a search bar, a settings row, a status bar, and the theme and contrast toggles.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     // M4: the route slug and the content filename disagree here (blocks.ts
     // carries the search-bar page), so "Edit this page" cannot derive its
     // target. Point it at the real file explicitly.

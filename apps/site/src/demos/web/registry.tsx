@@ -8,6 +8,17 @@
  * and every part resolve to the same family demo, because the part has no
  * meaning outside its parent.
  */
+import {
+  Button,
+  FocusRing,
+  RichTooltip,
+  Select,
+  SelectGroup,
+  SelectGroupLabel,
+  Tooltip,
+} from "@xoroh/kern";
+import { Preview } from "../../components/preview/preview";
+import { T_BODY_MD, T_BODY_SM } from "../../domains/shared/systems/type-scale";
 import { componentsOn } from "../../generated/manifest";
 import {
   AvatarDemo,
@@ -116,6 +127,111 @@ import {
 } from "./pickers";
 
 export type WebDemo = () => React.ReactElement;
+
+/**
+ * SelectGroup — the group container inside an open select.
+ *
+ * The group means nothing outside the select: it is a `role="group"`
+ * container that names a set of options, so the demo mounts the real select
+ * around it and shows the label the options are announced under.
+ */
+export function SelectGroupDemo() {
+  return (
+    <Preview label="SelectGroup — options under one label" span={3}>
+      <div className="w-full max-w-xs">
+        <Select.Root
+          items={[
+            { value: "ada", label: "Ada Lovelace" },
+            { value: "grace", label: "Grace Hopper" },
+            { value: "alan", label: "Alan Turing" },
+          ]}
+        >
+          <Select.Trigger aria-label="Reviewer">
+            <Select.Value placeholder="Assign a reviewer" />
+          </Select.Trigger>
+          <Select.Content>
+            <SelectGroup>
+              <SelectGroupLabel>Design</SelectGroupLabel>
+              <Select.Item value="ada">
+                <Select.ItemText>Ada Lovelace</Select.ItemText>
+              </Select.Item>
+              <Select.Item value="grace">
+                <Select.ItemText>Grace Hopper</Select.ItemText>
+              </Select.Item>
+            </SelectGroup>
+            <Select.Separator />
+            <SelectGroup>
+              <SelectGroupLabel>Engineering</SelectGroupLabel>
+              <Select.Item value="alan">
+                <Select.ItemText>Alan Turing</Select.ItemText>
+              </Select.Item>
+            </SelectGroup>
+          </Select.Content>
+        </Select.Root>
+      </div>
+    </Preview>
+  );
+}
+
+/**
+ * RichTooltip — the M3 rich surface: a subhead, supporting text, and
+ * plain-text actions, carried by the tooltip primitive it is built on.
+ *
+ * The surface opens on hover AND on focus, so the explanation reaches a
+ * keyboard user with no pointer at all.
+ */
+export function RichTooltipDemo() {
+  return (
+    <Preview label="RichTooltip — hover or focus the trigger" span={3}>
+      <div className="w-full max-w-xs">
+        <Tooltip.Provider>
+          <Tooltip.Root>
+            <Tooltip.Trigger render={<Button variant="tonal">Deploy</Button>} />
+            <RichTooltip.Content>
+              <RichTooltip.Title>Deploy build 4821</RichTooltip.Title>
+              <p className={`m-0 ${T_BODY_MD}`}>
+                Ships the current tokens to the production edge.
+              </p>
+              <RichTooltip.Actions>
+                <Button variant="text">Deploy</Button>
+                <Button variant="text">Cancel</Button>
+              </RichTooltip.Actions>
+            </RichTooltip.Content>
+          </Tooltip.Root>
+        </Tooltip.Provider>
+      </div>
+    </Preview>
+  );
+}
+
+/**
+ * FocusRing — the centralized keyboard-focus treatment for host content.
+ *
+ * The wrapper owns the treatment, never the tab stop: the host gives the
+ * focus (here, a `tabIndex`), so the ring paints for keyboard focus only and
+ * the wrapper cannot steal keyboard order.
+ */
+export function FocusRingDemo() {
+  return (
+    <Preview label="FocusRing — press Tab to focus the host" span={3}>
+      <div className="flex w-full max-w-sm flex-col items-center gap-3">
+        <FocusRing
+          tabIndex={0}
+          className="inline-block rounded-(--sys-shape-corner-small) border border-(--sys-color-outline) px-4 py-3 text-(--sys-color-on-surface)"
+        >
+          <span className={`${T_BODY_MD}`}>Tab onto this host element</span>
+        </FocusRing>
+        <p
+          className={`m-0 text-center ${T_BODY_SM} text-(--sys-color-on-surface-variant)`}
+        >
+          The ring is the 3px secondary outline. Kern components paint it
+          themselves; this wrapper is for host content that is not a Kern
+          component.
+        </p>
+      </div>
+    </Preview>
+  );
+}
 
 /**
  * Every exported symbol, mapped to the demo that renders it. A family
@@ -247,6 +363,7 @@ const byExport: Record<string, WebDemo> = {
   FieldsetLegend: FieldsetDemo,
   FieldsetRoot: FieldsetDemo,
   FilterChipRow: FilterChipRowDemo,
+  FocusRing: FocusRingDemo,
   Form: FormDemo,
   Hero: HeroDemo,
   IconButton: IconButtonDemo,
@@ -312,6 +429,10 @@ const byExport: Record<string, WebDemo> = {
   ProgressValue: ProgressDemo,
   RadioGroup: RadioGroupDemo,
   RadioGroupItem: RadioGroupDemo,
+  RichTooltip: RichTooltipDemo,
+  RichTooltipActions: RichTooltipDemo,
+  RichTooltipContent: RichTooltipDemo,
+  RichTooltipTitle: RichTooltipDemo,
   ScrollArea: ScrollAreaDemo,
   ScrollAreaRoot: ScrollAreaDemo,
   ScrollAreaScrollbar: ScrollAreaDemo,
@@ -325,6 +446,7 @@ const byExport: Record<string, WebDemo> = {
   SegmentedButtonRoot: SegmentedButtonDemo,
   Select: SelectDemo,
   SelectContent: SelectDemo,
+  SelectGroup: SelectGroupDemo,
   SelectGroupLabel: SelectDemo,
   SelectItem: SelectDemo,
   SelectItemText: SelectDemo,

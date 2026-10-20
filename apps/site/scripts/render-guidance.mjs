@@ -16,15 +16,12 @@
  * and compares byte-for-byte, so a hand-edit to a guidance file is caught.
  */
 import { mkdirSync, writeFileSync } from "node:fs";
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+import { join } from "node:path";
 import {
   GUIDANCE_DIR,
   loadManifest,
   renderGuidanceFile,
 } from "./lib/guidance.mjs";
-
-const APP = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 mkdirSync(GUIDANCE_DIR, { recursive: true });
 

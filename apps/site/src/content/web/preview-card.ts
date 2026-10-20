@@ -6,6 +6,10 @@ export const previewCard: ComponentDoc = {
   oneLiner:
     "Preview cards show a richer look at a link's destination before anyone commits to going there.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     status: "real",
     package: "@xoroh/kern",
     // Native has no `PreviewCard`. There is no counterpart surface; the

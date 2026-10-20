@@ -6,6 +6,10 @@ export const linkButton: ComponentDoc = {
   oneLiner:
     "The button treatment on a navigation control: five Material 3 treatments, the link role, one press to a destination.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     specUrl: "https://m3.material.io/components/buttons",
     status: "real",
     package: "@xoroh/kern-native",

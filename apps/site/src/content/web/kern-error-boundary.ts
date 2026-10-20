@@ -6,6 +6,10 @@ export const kernErrorBoundary: ComponentDoc = {
   oneLiner:
     "The kern error boundary catches a thrown render, shows your fallback with a working reset, and never reloads the page to recover.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     status: "real",
     package: "@xoroh/kern",
     nativePeer: "ErrorBoundary",

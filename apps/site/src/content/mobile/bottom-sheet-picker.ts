@@ -6,6 +6,10 @@ export const bottomSheetPicker: ComponentDoc = {
   oneLiner:
     "Bottom sheet pickers choose one value from a list, using the platform's own bottom-sheet interaction.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     status: "real",
     package: "@xoroh/kern-native",
     // The web counterpart is `Select` on `@xoroh/kern`, which is a different

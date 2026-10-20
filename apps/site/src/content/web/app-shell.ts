@@ -6,6 +6,10 @@ export const appShell: ComponentDoc = {
   oneLiner:
     "The app shell is the frame around everything else — top bar, rail, drawer, status bar — with every region optional.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     status: "real",
     package: "@xoroh/kern/start",
     // Composition tier — the web app frame, no native counterpart expected.

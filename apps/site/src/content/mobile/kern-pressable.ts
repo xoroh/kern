@@ -6,6 +6,10 @@ export const kernPressable: ComponentDoc = {
   oneLiner:
     "The narrow accessibility-defaults wrap for anything pressable on native: Material's minimum touch target, a button role by default, and `disabled` always reported.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     status: "real",
     package: "@xoroh/kern-native",
     // Native-only by RULING: the 48dp figure is Material's, and the web is

@@ -6,6 +6,10 @@ export const filterChipRow: ComponentDoc = {
   oneLiner:
     "Filter chip rows collect multiple filter choices and report the whole set.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     status: "real",
     package: "@xoroh/kern-native",
     // Native-only composition of chips. Web composes filters from its own

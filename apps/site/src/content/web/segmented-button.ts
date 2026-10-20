@@ -6,6 +6,10 @@ export const segmentedButton: ComponentDoc = {
   oneLiner:
     "Segmented buttons show a small set of options side by side, with the chosen one visibly selected.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     // Canonical M3 spec page — title identity-verified live; gate re-checks.
     specUrl: "https://m3.material.io/components/segmented-buttons",
     status: "real",

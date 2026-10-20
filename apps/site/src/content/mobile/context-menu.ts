@@ -6,6 +6,10 @@ export const contextMenu: ComponentDoc = {
   oneLiner:
     "Context menus attach a list of actions to arbitrary content, opened the platform's own way.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     status: "real",
     package: "@xoroh/kern-native",
     // The web counterpart IS `ContextMenu` on `@xoroh/kern`, though the web one

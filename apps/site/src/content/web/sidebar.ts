@@ -6,6 +6,10 @@ export const sidebar: ComponentDoc = {
   oneLiner:
     "Sidebars are the app's persistent navigation region, composed from a provider, sections and items.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     status: "real",
     package: "@xoroh/kern/start",
     // Composition tier: no native counterpart is expected — these are web

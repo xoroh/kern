@@ -6,6 +6,10 @@ export const menuScreen: ComponentDoc = {
   oneLiner:
     "Menu screens present grouped actions inline — the settings-style page of a menu.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     status: "real",
     package: "@xoroh/kern-native",
     // No web counterpart: the web `Menu` is an anchored popup compound, not an

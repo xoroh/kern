@@ -6,6 +6,10 @@ export const topAppBar: ComponentDoc = {
   oneLiner:
     "Top app bars name the screen and hold the actions that belong to it, along its top edge.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     status: "real",
     package: "@xoroh/kern-native",
     // Same family as the web shell composition (`@xoroh/kern/start`

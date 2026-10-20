@@ -6,6 +6,10 @@ export const toggle: ComponentDoc = {
   oneLiner:
     "Toggles are pressable buttons that hold a pressed state, and they call it `pressed`.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     status: "real",
     package: "@xoroh/kern-native",
     // Exact web counterpart, checked in the web inventory.

@@ -6,6 +6,10 @@ export const split: ComponentDoc = {
   oneLiner:
     "The split is an N-column layout: two or three equal columns divided by a hairline, the same way the web split draws them.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     status: "real",
     package: "@xoroh/kern-native",
     // Exact web counterpart, checked in the web inventory.

@@ -6,6 +6,10 @@ export const aspectRatio: ComponentDoc = {
   oneLiner:
     "Aspect ratio boxes keep a fixed width-to-height ratio, whatever width they are given.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     status: "real",
     package: "@xoroh/kern-native",
     // Native-only. The web gets this from CSS `aspect-ratio`, so there is no

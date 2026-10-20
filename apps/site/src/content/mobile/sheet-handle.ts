@@ -6,6 +6,10 @@ export const sheetHandle: ComponentDoc = {
   oneLiner:
     "Sheet handles are the small drag affordance drawn at the top of a sheet.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     status: "real",
     package: "@xoroh/kern-native",
     // No web counterpart: the web `Sheet` is a side panel and carries no drag

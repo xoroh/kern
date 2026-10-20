@@ -6,6 +6,10 @@ export const drawer: ComponentDoc = {
   oneLiner:
     "A drawer is a panel that slides up from the bottom edge for a short, self-contained step.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     status: "real",
     package: "@xoroh/kern",
     // Native has no `Drawer`. Its bottom-anchored surface is `Sheet`

@@ -6,6 +6,10 @@ export const text: ComponentDoc = {
   oneLiner:
     "Text renders a string in one of the four kern type roles, with the theme's ink and nothing else decided for you.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     status: "real",
     package: "@xoroh/kern-native",
     // Exact web counterpart, checked in the web inventory.

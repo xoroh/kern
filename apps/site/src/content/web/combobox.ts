@@ -6,6 +6,10 @@ export const combobox: ComponentDoc = {
   oneLiner:
     "Comboboxes pick one value from a set, either from the list or by typing to narrow it.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     status: "real",
     package: "@xoroh/kern",
     // Native `Combobox` is the same component on the other renderer —

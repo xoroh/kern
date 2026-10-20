@@ -6,6 +6,10 @@ export const actionSheet: ComponentDoc = {
   oneLiner:
     "Action sheets are the titled bottom surface with a dismiss path and a body — either your own content or a standard action list.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     status: "real",
     package: "@xoroh/kern-native",
     // No web counterpart. The web `Sheet` is a side panel and `Menu` is an

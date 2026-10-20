@@ -6,6 +6,10 @@ export const menubar: ComponentDoc = {
   oneLiner:
     "Menubars hold several named menus in one bar, each opening its own list of actions.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     status: "real",
     package: "@xoroh/kern-native",
     // The web counterpart IS `Menubar` on `@xoroh/kern`, though the web one is

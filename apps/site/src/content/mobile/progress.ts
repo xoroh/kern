@@ -6,6 +6,10 @@ export const progress: ComponentDoc = {
   oneLiner:
     "Progress reports how far along something is, as an amount out of a maximum.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     status: "real",
     package: "@xoroh/kern-native",
     // Exact web counterpart, checked in the web inventory.

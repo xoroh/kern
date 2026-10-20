@@ -7,6 +7,10 @@ export const switchDoc: ComponentDoc = {
   name: "Switch",
   oneLiner: "A switch turns a single setting on or off and applies it at once.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     // Canonical M3 spec page — title identity-verified live; gate re-checks.
     specUrl: "https://m3.material.io/components/switch",
     status: "real",

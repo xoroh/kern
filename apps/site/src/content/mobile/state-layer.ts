@@ -6,6 +6,10 @@ export const stateLayer: ComponentDoc = {
   oneLiner:
     "The M3 pressed wash for native: an overlay in the content color at the pressed state-layer opacity, clipped to the container shape.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     status: "real",
     package: "@xoroh/kern-native",
     nativePeer: "none",

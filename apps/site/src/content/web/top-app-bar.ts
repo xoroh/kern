@@ -6,6 +6,10 @@ export const topAppBar: ComponentDoc = {
   oneLiner:
     "The top app bar is the screen's header — leading slot, title, trailing actions — plus the app-level bar and its menus.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     status: "real",
     package: "@xoroh/kern/start",
     // Composition tier — web shell. The native `TopAppBar` is the same

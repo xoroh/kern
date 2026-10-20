@@ -6,6 +6,10 @@ export const dockSheet: ComponentDoc = {
   oneLiner:
     "Dock sheets are the minimal bottom panel — content in a sheet, with no title and no action row.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     status: "real",
     package: "@xoroh/kern-native",
     // Web counterpart landed in the P2b-2 sheet family (6901013); checked in

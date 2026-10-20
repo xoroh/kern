@@ -6,6 +6,10 @@ export const shapeArt: ComponentDoc = {
   oneLiner:
     "Shape art composes kern shapes into a decorative arrangement — scatter, stack or arch.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     status: "real",
     package: "@xoroh/kern-native",
     // Native-only kern brand surface. No web export to name.

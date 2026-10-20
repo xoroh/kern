@@ -5,7 +5,11 @@
  * phone frame. A component with no preview is listed in `PREVIEW_REASONS`
  * with an explicit reason — never a silent omission (S2.3).
  */
+
+import { PortalHost } from "@xoroh/axis";
+import { Icon } from "@xoroh/kern-icons";
 import {
+  AppShell,
   AspectRatio,
   Autocomplete,
   Avatar,
@@ -20,36 +24,55 @@ import {
   CheckboxGroupItem,
   Chip,
   CircularProgress,
+  Combobox,
   Command,
   ContrastToggle,
   CountrySelect,
   EmptyState,
+  ErrorBoundary,
+  ExtendedFab,
   Fab,
+  FabMenu,
   FieldMessage,
+  Fieldset,
+  FieldsetItem,
+  FieldsetLegend,
+  Form,
   IconButton,
   IconButtonTarget,
   Input,
   InputOTP,
+  Kbd,
+  KernPressable,
   Label,
   LinearProgress,
+  LinkButton,
   ListItem,
   Loader,
   LoadingButton,
+  LoadingIndicator,
   Meter,
+  NavigationRail,
   NumberField,
   Pagination,
   Popover,
   Progress,
   RadioGroup,
   RadioGroupItem,
+  RichTooltip,
   ScrollArea,
   Search,
   SegmentedButton,
   Separator,
+  SettingsRow,
   Skeleton,
   Slider,
   SnackbarProvider,
   SnackbarViewport,
+  Split,
+  SplitButton,
+  StateLayer,
+  StatusBar,
   Switch,
   Text,
   Textarea,
@@ -58,6 +81,7 @@ import {
   Toggle,
   ToggleGroup,
   Tooltip,
+  useKernScheme,
   useSnackbar,
 } from "@xoroh/kern-native";
 import { View } from "react-native";
@@ -69,6 +93,28 @@ import {
 } from "../../components/preview/phone";
 
 export type MobileDemo = () => React.ReactElement;
+
+/**
+ * The renderer environment these previews run in.
+ *
+ * react-native-web's `Animated` fallback path calls
+ * `global.cancelAnimationFrame(...)` and `global.requestAnimationFrame(...)`
+ * — Node-isms a browser does not define. Every indeterminate animation in
+ * kern-native (the `CircularProgress` and `LoadingIndicator` rings) goes
+ * through that path, so without a `global` the animation throws
+ * `ReferenceError: global is not defined` on its first loop and takes the
+ * whole page down with it.
+ *
+ * The fix lives in `vite.config.ts` (`define: { global: "globalThis" }`),
+ * at the bundler's seam, where it repairs EVERY page that runs a kern-native
+ * animation - not only this one. The shim stays here as well for the paths
+ * that reach the renderer outside the bundle, and it is idempotent: if the
+ * bundle already defined `global`, this one stands aside.
+ */
+const rendererScope = globalThis as typeof globalThis & { global?: unknown };
+if (rendererScope.global === undefined) {
+  rendererScope.global = globalThis;
+}
 
 export function NativeButtonDemo() {
   return (
@@ -557,7 +603,7 @@ export function NativeSnackbarDemo() {
     );
   }
   return (
-    <PhonePreview label="Snackbar — M3 transient messaging">
+    <PhonePreview label="SnackbarProvider — the queue; SnackbarViewport paints it">
       <SnackbarProvider>
         <QueueTrigger />
         <SnackbarViewport />
@@ -774,6 +820,473 @@ export function NativeContrastToggleDemo() {
   );
 }
 
+/* ------------------------------------------------------------------------- *
+ * The families that shipped with neither a preview nor a stated reason.
+ *
+ * Every demo below mounts the REAL `@xoroh/kern-native` component with its
+ * real props — nothing here is a mock-up of a component that exists
+ * somewhere else. The three families whose whole surface IS a modal
+ * (Drawer, SheetSurface, ActionSheet) carry a reason in `PREVIEW_REASONS`
+ * instead: a modal presented over a host screen has no honest preview
+ * inside a phone frame, because the frame is not the host.
+ * ------------------------------------------------------------------------- */
+
+export function NativeKbdDemo() {
+  return (
+    <PhoneStack>
+      <PhonePreview label="Kbd — a key as text">
+        <PhoneRow>
+          <Kbd>Esc</Kbd>
+          <Kbd>Tab</Kbd>
+          <Kbd>Enter</Kbd>
+        </PhoneRow>
+      </PhonePreview>
+      <PhonePreview label="Kbd — a chord, composed by the caller">
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
+          <Kbd>Ctrl</Kbd>
+          <Text variant="label">+</Text>
+          <Kbd>K</Kbd>
+        </View>
+      </PhonePreview>
+    </PhoneStack>
+  );
+}
+
+export function NativeFieldsetDemo() {
+  return (
+    <PhoneStack>
+      <PhonePreview label="Fieldset — the group is named by its legend">
+        <Fieldset>
+          <FieldsetLegend>Delivery</FieldsetLegend>
+          <FieldsetItem>
+            <RadioGroup defaultValue="standard" accessibilityLabel="Delivery">
+              <RadioGroupItem value="standard">Standard</RadioGroupItem>
+              <RadioGroupItem value="express">Express</RadioGroupItem>
+            </RadioGroup>
+          </FieldsetItem>
+        </Fieldset>
+      </PhonePreview>
+      <PhonePreview label="Fieldset — disabled dims the group and every row in it">
+        <Fieldset disabled>
+          <FieldsetLegend>Billing</FieldsetLegend>
+          <FieldsetItem>
+            <Text variant="body">Card details are locked</Text>
+          </FieldsetItem>
+        </Fieldset>
+      </PhonePreview>
+    </PhoneStack>
+  );
+}
+
+export function NativeSplitDemo() {
+  return (
+    <PhoneStack>
+      <PhonePreview label="Split — two equal columns, hairline between">
+        <View style={{ height: 96 }}>
+          <Split>
+            <View style={{ padding: 12 }}>
+              <Text variant="label">Inbox</Text>
+            </View>
+            <View style={{ padding: 12 }}>
+              <Text variant="label">Sent</Text>
+            </View>
+          </Split>
+        </View>
+      </PhonePreview>
+      <PhonePreview label="Split — three equal columns">
+        <View style={{ height: 96 }}>
+          <Split columns={3}>
+            <View style={{ padding: 12 }}>
+              <Text variant="label">One</Text>
+            </View>
+            <View style={{ padding: 12 }}>
+              <Text variant="label">Two</Text>
+            </View>
+            <View style={{ padding: 12 }}>
+              <Text variant="label">Three</Text>
+            </View>
+          </Split>
+        </View>
+      </PhonePreview>
+    </PhoneStack>
+  );
+}
+
+export function NativeSplitButtonDemo() {
+  return (
+    <PhonePreview label="SplitButton — the primary action, then its overflow">
+      <SplitButton
+        label="Save"
+        actions={[
+          { key: "duplicate", label: "Duplicate" },
+          { key: "move", label: "Move to folder", separated: true },
+          { key: "delete", label: "Delete", disabled: true },
+        ]}
+      />
+    </PhonePreview>
+  );
+}
+
+export function NativeSettingsRowDemo() {
+  return (
+    <PhonePreview label="SettingsRow — label, supporting text, trailing control">
+      <View style={{ gap: 8 }}>
+        <SettingsRow
+          label="Notifications"
+          supporting="Alerts for mentions and replies"
+          trailing={<Switch defaultValue />}
+        />
+        <SettingsRow label="Dark theme" trailing={<Switch />} />
+      </View>
+    </PhonePreview>
+  );
+}
+
+export function NativeStatusBarDemo() {
+  return (
+    <PhonePreview label="StatusBar — leading, centred status, trailing">
+      <StatusBar
+        leading={<Text variant="label">12:00</Text>}
+        trailing={<Text variant="label">LTE</Text>}
+      >
+        Syncing
+      </StatusBar>
+    </PhonePreview>
+  );
+}
+
+/** A screen that fails to render — the reason `ErrorBoundary` exists. */
+function FailingPanel(): React.ReactElement {
+  throw new Error("Could not load the project");
+}
+
+/** The same screen, loaded. */
+function LoadedPanel(): React.ReactElement {
+  return <Text variant="body">Project loaded</Text>;
+}
+
+export function NativeErrorBoundaryDemo() {
+  return (
+    <PhoneStack>
+      <PhonePreview label="ErrorBoundary — a thrown render is caught, not blanked">
+        <ErrorBoundary>
+          <FailingPanel />
+        </ErrorBoundary>
+      </PhonePreview>
+      <PhonePreview label="ErrorBoundary — children render when nothing throws">
+        <ErrorBoundary>
+          <LoadedPanel />
+        </ErrorBoundary>
+      </PhonePreview>
+    </PhoneStack>
+  );
+}
+
+export function NativeFormDemo() {
+  return (
+    <PhonePreview label="Form — the container that collects values and reports validity">
+      <Form onFormSubmit={() => {}} validationMode="onSubmit">
+        <Label>Email address</Label>
+        <Input placeholder="you@example.com" />
+        <Button variant="filled">Submit</Button>
+      </Form>
+    </PhonePreview>
+  );
+}
+
+export function NativeLoadingIndicatorDemo() {
+  return (
+    <PhoneStack>
+      <PhonePreview label="LoadingIndicator — size: small · default · large">
+        <PhoneRow>
+          <LoadingIndicator size="sm" />
+          <LoadingIndicator />
+          <LoadingIndicator size="lg" />
+        </PhoneRow>
+      </PhonePreview>
+      <PhonePreview label="LoadingIndicator — the status region carries the name">
+        <LoadingIndicator label="Syncing" showLabel />
+      </PhonePreview>
+    </PhoneStack>
+  );
+}
+
+export function NativeKernPressableDemo() {
+  function PressableSample() {
+    const scheme = useKernScheme();
+    return (
+      <PhoneRow>
+        <KernPressable
+          accessibilityLabel="Add item"
+          onPress={() => {}}
+          style={{
+            backgroundColor: scheme.color.secondaryContainer,
+            borderRadius: 12,
+            paddingHorizontal: 16,
+            justifyContent: "center",
+          }}
+        >
+          <Icon
+            name="add"
+            size={20}
+            color={scheme.color.onSecondaryContainer}
+          />
+        </KernPressable>
+      </PhoneRow>
+    );
+  }
+  return (
+    <PhonePreview label="KernPressable — a 48dp target around your own content">
+      <PressableSample />
+    </PhonePreview>
+  );
+}
+
+/** The rail's destinations, with their glyphs in the rail's ink roles. */
+function railDestinations(scheme: ReturnType<typeof useKernScheme>) {
+  const ink = (selected: boolean) =>
+    selected
+      ? scheme.color.onSecondaryContainer
+      : scheme.color.onSurfaceVariant;
+  return [
+    {
+      key: "home",
+      label: "Home",
+      icon: <Icon name="home" color={ink(true)} />,
+    },
+    {
+      key: "search",
+      label: "Search",
+      icon: <Icon name="search" color={ink(false)} />,
+    },
+    {
+      key: "settings",
+      label: "Settings",
+      icon: <Icon name="settings" color={ink(false)} />,
+    },
+  ];
+}
+
+export function NativeNavigationRailDemo() {
+  function RailSample({ mode }: { mode: "collapsed" | "expanded" }) {
+    const scheme = useKernScheme();
+    return (
+      <View style={{ height: 180, alignItems: "flex-start" }}>
+        <NavigationRail
+          destinations={railDestinations(scheme)}
+          value="home"
+          onValueChange={() => {}}
+          mode={mode}
+        />
+      </View>
+    );
+  }
+  return (
+    <PhoneStack>
+      <PhonePreview label="NavigationRail — collapsed: icons only, names kept">
+        <RailSample mode="collapsed" />
+      </PhonePreview>
+      <PhonePreview label="NavigationRail — expanded: the persistent sidebar">
+        <RailSample mode="expanded" />
+      </PhonePreview>
+    </PhoneStack>
+  );
+}
+
+export function NativeLinkButtonDemo() {
+  return (
+    <PhonePreview label="LinkButton — the button treatment on a navigation control">
+      <View style={{ gap: 12 }}>
+        <LinkButton href="https://kern.xoroh.org" variant="filled">
+          Read the docs
+        </LinkButton>
+        <LinkButton href="https://kern.xoroh.org" variant="text">
+          Release notes
+        </LinkButton>
+      </View>
+    </PhonePreview>
+  );
+}
+
+export function NativeStateLayerDemo() {
+  function StateLayerSample() {
+    const scheme = useKernScheme();
+    const surface = {
+      position: "relative",
+      overflow: "hidden",
+      borderRadius: 12,
+      backgroundColor: scheme.color.secondaryContainer,
+      paddingVertical: 16,
+      paddingHorizontal: 16,
+    } as const;
+    const ink = scheme.color.onSecondaryContainer;
+    return (
+      <PhoneRow>
+        <View style={surface}>
+          <Text variant="label" style={{ color: ink }}>
+            Resting
+          </Text>
+        </View>
+        <View style={surface}>
+          <Text variant="label" style={{ color: ink }}>
+            Pressed
+          </Text>
+          <StateLayer ink={ink} radius={12} visible />
+        </View>
+      </PhoneRow>
+    );
+  }
+  return (
+    <PhonePreview label="StateLayer — the pressed wash, painted in the content colour">
+      <StateLayerSample />
+    </PhonePreview>
+  );
+}
+
+export function NativeComboboxDemo() {
+  return (
+    <PhonePreview label="Combobox — the trigger opens a filterable option list">
+      <Combobox
+        options={[
+          { value: "de", label: "Germany" },
+          { value: "fr", label: "France" },
+          { value: "nl", label: "Netherlands" },
+        ]}
+        placeholder="Choose a country"
+        accessibilityLabel="Country"
+      />
+    </PhonePreview>
+  );
+}
+
+export function NativeAppShellDemo() {
+  function ShellSample() {
+    const scheme = useKernScheme();
+    return (
+      <View style={{ height: 300 }}>
+        <AppShell
+          header={
+            <Text variant="title" style={{ color: scheme.color.onSurface }}>
+              Kern
+            </Text>
+          }
+          navigation={
+            <NavigationRail
+              destinations={railDestinations(scheme)}
+              value="home"
+              onValueChange={() => {}}
+            />
+          }
+          body={
+            <View style={{ padding: 12 }}>
+              <Text variant="body">The body region</Text>
+            </View>
+          }
+          footer={
+            <Text
+              variant="label"
+              style={{ color: scheme.color.onSurfaceVariant }}
+            >
+              The footer region
+            </Text>
+          }
+        />
+      </View>
+    );
+  }
+  return (
+    <PhonePreview label="AppShell — header, side navigation, body, footer">
+      <ShellSample />
+    </PhonePreview>
+  );
+}
+
+export function NativeExtendedFabDemo() {
+  function ExtendedFabSample({ collapsed }: { collapsed: boolean }) {
+    const scheme = useKernScheme();
+    return (
+      <PhoneRow>
+        <ExtendedFab
+          label="Compose"
+          icon={<Icon name="edit" color={scheme.color.onPrimaryContainer} />}
+          defaultValue={collapsed}
+        />
+      </PhoneRow>
+    );
+  }
+  return (
+    <PhoneStack>
+      <PhonePreview label="ExtendedFab — the labelled primary action">
+        <ExtendedFabSample collapsed={false} />
+      </PhonePreview>
+      <PhonePreview label="ExtendedFab — collapsed to its icon; the label stays the name">
+        <ExtendedFabSample collapsed />
+      </PhonePreview>
+    </PhoneStack>
+  );
+}
+
+export function NativeFabMenuDemo() {
+  function FabMenuSample() {
+    const scheme = useKernScheme();
+    return (
+      <PhoneRow>
+        <FabMenu
+          label="Actions"
+          icon={<Icon name="add" color={scheme.color.onPrimaryContainer} />}
+          actions={[
+            { key: "create", label: "Create", onSelect: () => {} },
+            { key: "upload", label: "Upload", onSelect: () => {} },
+            {
+              key: "archive",
+              label: "Archive",
+              disabled: true,
+              separated: true,
+            },
+          ]}
+        />
+      </PhoneRow>
+    );
+  }
+  return (
+    <PhonePreview label="FabMenu — one trigger, a menu of actions behind it">
+      <FabMenuSample />
+    </PhonePreview>
+  );
+}
+
+export function NativeRichTooltipDemo() {
+  function RichTooltipSample() {
+    const scheme = useKernScheme();
+    return (
+      // The rich surface paints through an Axis `PortalHost`. The site mounts
+      // one at the app root, which would float the surface off the phone
+      // frame; hosting it here is what an app does anyway — the portal paints
+      // into the nearest host above it, so this one keeps the surface in the
+      // frame, where the reader can see it.
+      <PortalHost>
+        <RichTooltip
+          label="Sync status"
+          title="Sync is on"
+          text="Drafts upload in the background while you work."
+          actions={[{ label: "Learn more", onPress: () => {} }]}
+          defaultOpen
+          placement="bottom"
+        >
+          <Text variant="body" style={{ color: scheme.color.onSurface }}>
+            Sync status
+          </Text>
+        </RichTooltip>
+      </PortalHost>
+    );
+  }
+  return (
+    <PhonePreview label="RichTooltip — subhead, supporting text, plain-text actions">
+      <RichTooltipSample />
+    </PhonePreview>
+  );
+}
+
 /**
  * Components with no live preview, each with the reason. The acceptance bar
  * is "renders honestly **or** carries an explicit prose reason it cannot" —
@@ -851,10 +1364,17 @@ export const PREVIEW_REASONS: Record<string, string> = {
   TopAppBar:
     "Top app bar for a host screen; rendered in the mobile quickstart at full bleed.",
   TopAppBarAction: "One action of TopAppBar, same reason.",
+  Drawer:
+    "M3 modal drawer over a host screen. It wraps a React Native `Modal`, which react-native-web renders as a full-viewport overlay, so inside the phone frame it would cover the frame itself and hide the host screen it presents over — and there is no host screen in the frame to present it over.",
+  SheetSurface:
+    "The shared Modal + scrim primitive the sheet family hosts in. It is a React Native `Modal`, which react-native-web renders as a full-viewport overlay rather than a surface inside the phone frame, so a preview would show the sheet covering the whole page instead of the frame. The sheets it powers (MenuSheet, BottomSheet, SnapSheet, DockSheet, EntitySheet) carry the same reason.",
+  ActionSheet:
+    "Modal action sheet over a host screen; in isolation there is no host to present over.",
 };
 
 /** Every native export, mapped to a live preview. */
 const byExport: Record<string, MobileDemo> = {
+  AppShell: NativeAppShellDemo,
   Avatar: NativeAvatarDemo,
   Autocomplete: NativeAutocompleteDemo,
   Badge: NativeBadgeDemo,
@@ -868,36 +1388,59 @@ const byExport: Record<string, MobileDemo> = {
   Banner: NativeBannerDemo,
   Checkbox: NativeCheckboxDemo,
   Chip: NativeChipDemo,
+  Combobox: NativeComboboxDemo,
   ContrastToggle: NativeContrastToggleDemo,
   CountrySelect: NativeCountrySelectDemo,
   CircularProgress: NativeCircularProgressDemo,
   Command: NativeCommandDemo,
   EmptyState: NativeEmptyStateDemo,
+  ErrorBoundary: NativeErrorBoundaryDemo,
+  ExtendedFab: NativeExtendedFabDemo,
   Fab: NativeFabDemo,
+  FabMenu: NativeFabMenuDemo,
   FieldMessage: NativeFieldMessageDemo,
+  Fieldset: NativeFieldsetDemo,
+  FieldsetItem: NativeFieldsetDemo,
+  FieldsetLegend: NativeFieldsetDemo,
+  Form: NativeFormDemo,
   IconButton: NativeIconButtonDemo,
   IconButtonTarget: NativeIconButtonDemo,
   Input: NativeInputDemo,
   InputOTP: NativeInputOTPDemo,
+  Kbd: NativeKbdDemo,
+  KernPressable: NativeKernPressableDemo,
   Label: NativeLabelDemo,
   LinearProgress: NativeLinearProgressDemo,
+  LinkButton: NativeLinkButtonDemo,
   ListItem: NativeListItemDemo,
   LoadingButton: NativeLoadingButtonDemo,
   Loader: NativeLoaderDemo,
+  LoadingIndicator: NativeLoadingIndicatorDemo,
   Meter: NativeMeterDemo,
+  NavigationRail: NativeNavigationRailDemo,
   NumberField: NativeNumberFieldDemo,
   Pagination: NativePaginationDemo,
   Popover: NativePopoverDemo,
   Progress: NativeProgressDemo,
   RadioGroup: NativeRadioGroupDemo,
   RadioGroupItem: NativeRadioGroupDemo,
+  RichTooltip: NativeRichTooltipDemo,
   ScrollArea: NativeScrollAreaDemo,
   Search: NativeSearchDemo,
   SegmentedButton: NativeSegmentedButtonDemo,
+  SettingsRow: NativeSettingsRowDemo,
   Snackbar: NativeSnackbarDemo,
+  // The provider and its viewport are one surface: the queue lives in the
+  // provider, the viewport paints it. Same demo, both export names.
+  SnackbarProvider: NativeSnackbarDemo,
+  SnackbarViewport: NativeSnackbarDemo,
   Separator: NativeSeparatorDemo,
   Skeleton: NativeSkeletonDemo,
   Slider: NativeSliderDemo,
+  Split: NativeSplitDemo,
+  SplitButton: NativeSplitButtonDemo,
+  StateLayer: NativeStateLayerDemo,
+  StatusBar: NativeStatusBarDemo,
   Switch: NativeSwitchDemo,
   Text: NativeTextDemo,
   Textarea: NativeTextareaDemo,

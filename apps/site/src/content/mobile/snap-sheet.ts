@@ -6,6 +6,10 @@ export const snapSheet: ComponentDoc = {
   oneLiner:
     "Snap sheets settle at one of a few fixed heights, so a panel can be half open or fully open.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     status: "real",
     package: "@xoroh/kern-native",
     // No web counterpart: the web `Sheet` is a side panel at one size. There

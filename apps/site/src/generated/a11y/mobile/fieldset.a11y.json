@@ -4,16 +4,55 @@
   "note": "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
   "demos": {
     "Fieldset": {
-      "hasLiveDemo": false,
-      "expectations": []
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "focusable",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "Fieldset is a non-interactive part (fieldset.ts: nonInteractive) — takes no focus, so no keyboard trap or missing-focus-indicator finding can apply"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 4 line(s) in fieldset.ts — roles, names and states are stated, not assumed"
+        }
+      ]
     },
     "FieldsetLegend": {
-      "hasLiveDemo": false,
-      "expectations": []
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "focusable",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "FieldsetLegend is a non-interactive part (fieldset.ts: nonInteractive) — takes no focus, so no keyboard trap or missing-focus-indicator finding can apply"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 4 line(s) in fieldset.ts — roles, names and states are stated, not assumed"
+        }
+      ]
     },
     "FieldsetItem": {
-      "hasLiveDemo": false,
-      "expectations": []
+      "hasLiveDemo": true,
+      "expectations": [
+        {
+          "rule": "focusable",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "FieldsetItem is a non-interactive part (fieldset.ts: nonInteractive) — takes no focus, so no keyboard trap or missing-focus-indicator finding can apply"
+        },
+        {
+          "rule": "aria-contract",
+          "expect": "pass",
+          "provenance": "derived",
+          "basis": "aria contract carries 4 line(s) in fieldset.ts — roles, names and states are stated, not assumed"
+        }
+      ]
     }
   }
 }

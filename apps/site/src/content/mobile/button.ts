@@ -6,6 +6,10 @@ export const button: ComponentDoc = {
   oneLiner:
     "The button is the standard action control: five Material 3 treatments, four sizes, one press.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     specUrl: "https://m3.material.io/components/buttons",
     status: "real",
     package: "@xoroh/kern-native",

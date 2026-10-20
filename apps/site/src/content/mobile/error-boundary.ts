@@ -6,6 +6,10 @@ export const errorBoundary: ComponentDoc = {
   oneLiner:
     "Error boundaries catch a thrown render so one broken screen does not blank the whole app.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     status: "real",
     package: "@xoroh/kern-native",
     // The web counterpart is named `KernErrorBoundary`, not `ErrorBoundary` —

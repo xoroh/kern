@@ -6,6 +6,10 @@ export const input: ComponentDoc = {
   oneLiner:
     "Inputs take a single line of text from someone and hand it to you.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     status: "real",
     package: "@xoroh/kern",
     // Native ships `Input` with the same `errorMessage` contract: the message

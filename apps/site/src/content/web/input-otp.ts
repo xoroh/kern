@@ -6,6 +6,10 @@ export const inputOtp: ComponentDoc = {
   oneLiner:
     "OTP inputs take a short numeric code one character at a time, as it is typed.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     status: "real",
     package: "@xoroh/kern",
     nativePeer: "InputOTP",

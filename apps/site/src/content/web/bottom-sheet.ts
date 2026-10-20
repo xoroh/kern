@@ -6,6 +6,10 @@ export const bottomSheet: ComponentDoc = {
   oneLiner:
     "The bottom sheet is a modal surface anchored to the bottom edge: content, an optional heading and a visible way out.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     status: "real",
     package: "@xoroh/kern",
     nativePeer: "BottomSheet",

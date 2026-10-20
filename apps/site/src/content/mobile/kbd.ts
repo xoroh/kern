@@ -6,6 +6,10 @@ export const kbd: ComponentDoc = {
   oneLiner:
     "Kbds show a keyboard shortcut or key as text, in the shape of a key.",
   meta: {
+    // Who owns this page's accuracy, and when it was last reviewed.
+    // A real review event: the correctness pass and the one-standard
+    // migration both read every page on this date.
+    freshness: { owner: "kern-lead", reviewed: "2026-10-20" },
     status: "real",
     package: "@xoroh/kern-native",
     // The same key-as-text treatment as web `Kbd` — one label, static text,
