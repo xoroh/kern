@@ -78,10 +78,12 @@ describe("kern init (Mode 2 scaffold)", () => {
       expect(pkg.overrides["@xoroh/kern-tokens"]).toBe(
         pkg.dependencies["@xoroh/kern-tokens"],
       );
-      expect(pkg.overrides["@xoroh/axis"].startsWith("file:")).toBe(true);
-      expect(
-        existsSync(pkg.overrides["@xoroh/axis"].slice("file:".length)),
-      ).toBe(true);
+      // Axis is PUBLISHED, so the starter pins the published range - the
+      // same one the library depends on. A vendored tarball would be a
+      // second Axis to keep in step, and a `file:` specifier would fail
+      // every install outside this checkout.
+      expect(pkg.overrides["@xoroh/axis"]).toBe("^0.1.2");
+      expect(pkg.overrides["@xoroh/axis"].startsWith("file:")).toBe(false);
       // The transitive preset dep escapes to the registry without this pin
       // (C1-S smoke: `bun install` failed outside the monorepo) — every
       // workspace package @xoroh/kern depends on must be pinned.

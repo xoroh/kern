@@ -37,7 +37,12 @@ import {
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { defineCliConfig } from "@xoroh/kern-contracts";
-import { kernVersion, loadRegistry, WORKSPACE_ROOT } from "./manifest.js";
+import {
+  axisVersion,
+  kernVersion,
+  loadRegistry,
+  WORKSPACE_ROOT,
+} from "./manifest.js";
 import { type InstallReceipt, readReceipt } from "./receipt.js";
 
 export type InitOptions = {
@@ -133,19 +138,13 @@ export function initScaffold(dir: string, opts: InitOptions = {}): InitResult {
   const kernDir = join(root, "packages/kern");
   const tokensDir = join(root, "packages/kern-tokens");
   const material3Dir = join(root, "packages/kern-m3");
-  // @xoroh/axis pre-publish: exactly one vendored tarball (see vendor/axis
-  // + the migration roadmap). Globbed, not hardcoded, so re-vendoring a new
-  // Axis SHA needs no code change — but two tarballs is an error, never a
-  // choice, because scaffolded installs must resolve deterministically.
-  const axisTarballs = readdirSync(join(root, "vendor", "axis")).filter((f) =>
-    f.endsWith(".tgz"),
-  );
-  if (axisTarballs.length !== 1) {
-    throw new Error(
-      `expected exactly one vendored @xoroh/axis tarball in vendor/axis, found ${axisTarballs.length}`,
-    );
-  }
-  const axisTarball = join(root, "vendor", "axis", axisTarballs[0] as string);
+  // @xoroh/axis is PUBLISHED, so the starter pins the published range
+  // rather than a vendored tarball: the axis override exists so a
+  // transitive dependency never escapes to the registry for a name that
+  // cannot be installed there — and Axis can be installed there. The range
+  // is read from the library's own manifest, so the scaffold can never
+  // pin a version the library does not use.
+  const axisDep = axisVersion(root);
   const kernDep = opts.registry ? version : `file:${kernDir}`;
   const tokensDep = opts.registry ? version : `file:${tokensDir}`;
   // The starter imports @xoroh/kern-m3 directly — the app owns the design
@@ -158,7 +157,7 @@ export function initScaffold(dir: string, opts: InitOptions = {}): InitResult {
     : {
         "@xoroh/kern": `file:${kernDir}`,
         "@xoroh/kern-tokens": `file:${tokensDir}`,
-        "@xoroh/axis": `file:${axisTarball}`,
+        "@xoroh/axis": axisDep,
         // @xoroh/kern depends on its material-3 preset package: without
         // this pin the transitive dep escapes to the registry (C1-S smoke
         // proved it — `bun install` failed outside the monorepo).

@@ -160,6 +160,31 @@ export function loadRegistry(root?: string): Registry {
   return payload;
 }
 
+/**
+ * The @xoroh/axis RANGE the library depends on.
+ *
+ * Axis is published, so a scaffolded app pins the same range the library
+ * uses rather than a vendored copy of it. Read from the library's own
+ * manifest so the two can never drift: a scaffold that pinned a different
+ * Axis than the library would resolve a different Axis than the code it
+ * was written against.
+ */
+export function axisVersion(root?: string): string {
+  const forced = process.env.KERN_WORKSPACE as string | undefined;
+  const workspace = root ?? forced ?? WORKSPACE_ROOT;
+  const manifest = join(workspace, "packages/kern/package.json");
+  if (existsSync(manifest)) {
+    const pkg = JSON.parse(readFileSync(manifest, "utf8")) as {
+      dependencies?: Record<string, string>;
+    };
+    const spec = pkg.dependencies?.["@xoroh/axis"];
+    if (spec) return spec;
+  }
+  throw new Error(
+    "cannot determine the @xoroh/axis range — no checkout to read it from.",
+  );
+}
+
 /** Kern version stamped into receipts — the thing `kern diff` compares against. */
 export function kernVersion(root?: string): string {
   const forced = process.env.KERN_WORKSPACE as string | undefined;
