@@ -14,9 +14,15 @@
  *    the INSTALLED package's public entry actually exports (read from
  *    the shipped `dist/index.d.ts`, mirroring the old built-artifacts
  *    doctrine — never source, never memory).
- * 2. No deep imports (`@xoroh/axis/<subpath>`): the contract supports
- *    the public entry only. A deep import is a second, ungated API
- *    surface.
+ * 2. No deep imports (`@xoroh/axis/<subpath>`) - with ONE documented
+ *    exception: `@xoroh/axis/models`, the UNIVERSAL zone. It is a
+ *    published export entry (its own `exports` map, its own declarations),
+ *    and Axis's boundary gate proves its closure contains no react-native
+ *    anywhere. The root entry is the NATIVE zone, and a WEB consumer
+ *    that imports it installs react-native - whose source is Flow, which no
+ *    JS runtime can parse. A deep import into the models zone is a
+ *    documented, gated surface; a deep import into anything else is the
+ *    second, ungated API surface this gate exists to refuse.
  * 3. No deleted-package imports anywhere (defense in depth
  *    alongside check-primitives; this gate owns the consumption
  *    direction, that one owns presence).
@@ -137,9 +143,9 @@ for (const area of ["packages", "apps"]) {
     }
     for (const m of code.matchAll(AXIS_IMPORT)) {
       const spec = m[1] ?? m[3] ?? m[5];
-      if (spec !== "@xoroh/axis") {
+      if (spec !== "@xoroh/axis" && spec !== "@xoroh/axis/models") {
         fail(
-          `${file.replace(`${ROOT}/`, "")}: deep import ${JSON.stringify(spec)} — the contract supports the public entry only.`,
+          `${file.replace(`${ROOT}/`, "")}: deep import ${JSON.stringify(spec)} - the contract supports the public entry (and the models zone) only.`,
         );
       }
       // Named bindings are NOT re-checked here: typecheck already

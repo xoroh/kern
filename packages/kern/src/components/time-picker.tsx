@@ -1,4 +1,10 @@
-import { formatTimeParts } from "@xoroh/axis";
+// The MODELS zone of Axis: universal behaviour, pure TypeScript/React, with
+// no react-native anywhere in its closure. The web package must not reach for
+// the root entry — that entry is the NATIVE zone, and importing it makes
+// every web consumer install react-native (whose source is Flow, which no
+// JS runtime can parse). The models subpath is a published, gated entry:
+// Axis's own boundary gate proves its closure is renderer-free.
+import { formatTimeParts } from "@xoroh/axis/models";
 import { useId, useMemo, useRef, useState } from "react";
 import { cn } from "../utils/cn";
 

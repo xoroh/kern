@@ -1,3 +1,9 @@
+// The MODELS zone of Axis: universal behaviour, pure TypeScript/React, with
+// no react-native anywhere in its closure. The web package must not reach for
+// the root entry — that entry is the NATIVE zone, and importing it makes
+// every web consumer install react-native (whose source is Flow, which no
+// JS runtime can parse). The models subpath is a published, gated entry:
+// Axis's own boundary gate proves its closure is renderer-free.
 import {
   buildCalendarGrid,
   type CalendarKey,
@@ -11,7 +17,7 @@ import {
   toCalendarDate,
   toCalendarMonth,
   useControllableState,
-} from "@xoroh/axis";
+} from "@xoroh/axis/models";
 import type { ComponentPropsWithRef } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "../utils/cn";

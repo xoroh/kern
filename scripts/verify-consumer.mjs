@@ -44,8 +44,14 @@ const FIRST_PARTY = [
   // short name (they differ for MCP: packages/mcp ships @xoroh/kern-mcp —
   // the mismatch that once failed every pack with a bare ENOENT).
   // N9 moved the internal-only primitives to libs/.
+  //
+  // EVERY publishable package belongs here. A missing one is invisible
+  // until the fixture install 404s on it — @xoroh/kern-m3 was missing, and
+  // the proof failed at "install tarballs" with an error that pointed
+  // nowhere near the omission.
   { dir: "packages/kern", pkg: "kern" },
   { dir: "packages/kern-tokens", pkg: "kern-tokens" },
+  { dir: "packages/kern-m3", pkg: "kern-m3" },
   { dir: "packages/kern-native", pkg: "kern-native" },
   { dir: "packages/kern-icons", pkg: "kern-icons" },
   { dir: "packages/mcp", pkg: "kern-mcp" },
@@ -179,7 +185,7 @@ mkdirSync(PACKS, { recursive: true });
 // --- 0. pack every publishable package --------------------------------------
 const tarballs = {};
 step(
-  "pack 8 tarballs with npm (workspace: would ship verbatim — none allowed)",
+  `pack ${FIRST_PARTY.length} tarballs with npm (workspace: would ship verbatim — none allowed)`,
   () => {
     for (const { dir, pkg } of FIRST_PARTY) {
       // Resumable: tarball names are deterministic, so a previous run's packs
@@ -281,7 +287,7 @@ step("standalone web: install tarballs, no checkout aliases", () => {
   );
   writeFileSync(
     join(WEB, "app.tsx"),
-    `import { Button } from "@xoroh/kern";\nimport "@xoroh/kern/styles";\n\nexport function App() {\n  return <Button variant="primary">Ship it</Button>;\n}\n`,
+    `import { Button } from "@xoroh/kern";\nimport "@xoroh/kern/styles";\n\nexport function App() {\n  return <Button variant="filled">Ship it</Button>;\n}\n`,
   );
   writeFileSync(
     join(WEB, "render.mjs"),
@@ -377,7 +383,7 @@ step("nested workspace: two apps, hoisting-independent, override holds", () => {
     );
     writeFileSync(
       join(dir, "app.tsx"),
-      `import { Button } from "@xoroh/kern";\n\nexport function App() {\n  return <Button variant="primary" className={${app === "a" ? '"override-a"' : '"override-b"'}}>Go</Button>;\n}\n`,
+      `import { Button } from "@xoroh/kern";\n\nexport function App() {\n  return <Button variant="filled" className={${app === "a" ? '"override-a"' : '"override-b"'}}>Go</Button>;\n}\n`,
     );
   }
   sh(`"${BUN}" install --no-progress 2>&1 | tail -1`, WS);
