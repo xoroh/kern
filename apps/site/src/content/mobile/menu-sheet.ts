@@ -5,8 +5,6 @@ export const menuSheet: ComponentDoc = {
   name: "Menu sheet",
   oneLiner:
     "Menu sheets host grouped actions in a bottom sheet — the same data a menu screen takes, presented over the current screen.",
-  features:
-    "Reach for a menu sheet when the grouped actions should come up over what someone is doing and be leavable, rather than living on a page of their own. It takes exactly the same `groups` data that `MenuScreen` does, so moving an action from a screen into a sheet is a hosting decision and not a rewrite. It hosts through the shared sheet shell, which is what makes the dismissal contract real: scrim press and hardware back both dismiss. That was not always true, and the page says so — this component previously rendered a bare view with no modal, no scrim and no dismissal path while declaring an `onDismiss` it destructured and never used, so a caller passing it got a sheet that could not be closed.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -20,6 +18,18 @@ export const menuSheet: ComponentDoc = {
     elevation: 0,
   },
   parts: ["MenuSheet"],
+  keyboard: [
+    {
+      key: "Android back button",
+      action:
+        "Dismisses the sheet — the surface's request-close path calls `onDismiss` and reports `onOpenChange(false)`.",
+    },
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "Moves through the grouped actions in order; double-tap runs the action.",
+    },
+  ],
   customization: {
     supported: [
       "`groups` are data, identical to `MenuScreen`'s, so content moves between the two without being rewritten.",

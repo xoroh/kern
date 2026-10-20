@@ -5,8 +5,6 @@ export const navigationBar: ComponentDoc = {
   name: "Navigation bar",
   oneLiner:
     "The navigation bar is the compact-screen destination switcher that sits along the bottom edge.",
-  features:
-    "Reach for a navigation bar when a small-screen app has three to five top-level places and people move between them constantly. It stays put while content scrolls, so the way out of a screen is always under a thumb. M3 caps it at five destinations — past that, the targets stop being tappable and the bar becomes a drawer. It shares one destination list with the navigation rail and the navigation drawer, so you declare your places once and every surface renders them. This component owns its own selection and keyboard behaviour rather than delegating to a primitive.",
   meta: {
     // Canonical M3 spec page — title identity-verified live; gate re-checks.
     specUrl: "https://m3.material.io/components/navigation-bar",
@@ -21,16 +19,9 @@ export const navigationBar: ComponentDoc = {
     elevation: 2,
   },
   parts: ["NavigationBar", "NavigationBarItem"],
-  anatomy: [
-    {
-      name: "NavigationBar",
-      role: "The bar. Owns selection, keyboard traversal and the navigation landmark.",
-    },
-    {
-      name: "NavigationBarItem",
-      role: "One destination: icon, label and optional badge. Declared as data rather than as markup.",
-    },
-  ],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting", "hover"],
   keyboard: [
     {
       key: "Arrow keys",
@@ -45,50 +36,6 @@ export const navigationBar: ComponentDoc = {
       key: "Tab / Shift+Tab",
       action:
         "The bar is one tab stop (roving tabindex on the active destination).",
-    },
-  ],
-  usage: {
-    do: [
-      "Use for 3–5 top-level destinations on compact screens — fewer is a tab strip, more becomes a drawer.",
-      "Keep one destination active; the pill marks where the reader is.",
-      "Badge counts inside the icon bounds, never as decoration.",
-    ],
-    dont: [
-      "Don't put fewer than 3 destinations — use Tabs instead.",
-      "Don't put more than 5 — use a navigation drawer.",
-      "Don't bury the primary action here — that is a FAB docked above the bar.",
-    ],
-  },
-  tokens: [
-    {
-      element: "Bar",
-      state: "resting",
-      token: "comp.navigation-bar.container",
-      value: "80px, surface-container, level2",
-    },
-    {
-      element: "Selected icon pill",
-      state: "resting",
-      token: "comp.navigation-bar.selected-pill",
-      value: "h-8 w-16, secondary-container, full",
-    },
-    {
-      element: "Selected icon",
-      state: "resting",
-      token: "comp.navigation-bar.selected-icon",
-      value: "on-secondary-container, 24px",
-    },
-    {
-      element: "Destination",
-      state: "hover",
-      token: "sys.state.hover-state-layer-opacity",
-      value: "8% on-surface layer",
-    },
-  ],
-  faq: [
-    {
-      q: "Bar, rail, or drawer?",
-      a: "Bar for compact screens with 3–5 destinations; rail for medium screens; drawer for many destinations or modal contexts. One destination list drives all three.",
     },
   ],
   customization: {

@@ -5,8 +5,6 @@ export const menuSheet: ComponentDoc = {
   name: "Menu sheet",
   oneLiner:
     "The menu sheet hosts a grouped action menu in a bottom sheet — the same menu data as the menu screen, with a dismissal path around it.",
-  features:
-    'Reach for a menu sheet when a grouped set of actions should arrive from the bottom edge and leave without ceremony: an overflow menu, a contextual set of commands. The data is the SAME the `MenuScreen` takes — groups of actions with labels, supporting lines and an optional destructive flag — so an action can move between the two surfaces without being rewritten. The sheet hosts through `SheetSurface` rather than re-implementing dismissal: one place owns scrim, Escape and focus return, so a fix there lands here too. A destructive action is expressed as a ROLE — error ink on the error container — not as a variant axis, so the component count does not grow a "danger" treatment.',
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -20,6 +18,23 @@ export const menuSheet: ComponentDoc = {
     elevation: 1,
   },
   parts: ["MenuSheet"],
+  keyboard: [
+    {
+      key: "Escape",
+      action:
+        "Closes the sheet; focus returns to the element that had it before the sheet opened.",
+    },
+    {
+      key: "Tab / Shift+Tab",
+      action:
+        "Trapped inside the sheet while it is open; the page behind is inert.",
+    },
+    {
+      key: "Enter / Space",
+      action:
+        "Activates the focused action row — the rows are real buttons, so the press is the browser's.",
+    },
+  ],
   customization: {
     supported: [
       "`groups` is the shared menu data: `{ heading?, actions }` per group, actions carrying label, supporting line, icon, disabled and destructive flags.",

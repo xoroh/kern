@@ -4,8 +4,6 @@ export const circularProgress: ComponentDoc = {
   slug: "circular-progress",
   name: "Circular progress",
   oneLiner: "Circular progress shows how much of a task is done, as a ring.",
-  features:
-    "Reach for a circular progress when the wait is short and the ring should sit in the thing it reports on: a button's leading slot, a card's centre, a list row. It is the shape that fits a square hole, which is why it is what `LoadingButton` embeds. Show the number where the wait is long enough for the number to help. If the value is meaningful at rest, that is a meter; if the shape should span the width of a region, that is linear progress.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -14,35 +12,13 @@ export const circularProgress: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["CircularProgress"],
-  usage: {
-    do: [
-      "Use the loop for unknown waits, determinate arcs for known fractions.",
-      "Reach for four-color cycling for brand moments, not every spinner.",
-      "Always label for assistive tech.",
-    ],
-    dont: ["Don't leave determinate arcs unlabeled — report value or status."],
-  },
-  tokens: [
-    {
-      element: "Ring",
-      state: "resting",
-      token: "comp.circular-progress",
-      value: "48px, 8.333% arc, primary",
-    },
-    {
-      element: "Four-color cycle",
-      state: "resting",
-      token: "comp.circular-progress.four-color",
-      value:
-        "primary, primary-container, tertiary, tertiary-container over 5.332s",
-    },
-  ],
-  faq: [
-    {
-      q: "When is four-color right?",
-      a: "Brand moments and app-level waits — not inline form spinners.",
-    },
-  ],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
+  // A progress ring is a STATUS, not a control: it takes no focus and
+  // handles no keys, so there is no keyboard contract to write. What it
+  // announces is the aria contract below.
+  nonInteractive: true,
   customization: {
     supported: [
       "`className` is passed through and merged after the indicator's own classes, which is how its size and colour are set.",

@@ -5,8 +5,6 @@ export const filterChipRow: ComponentDoc = {
   name: "Filter chip row",
   oneLiner:
     "The filter chip row is a horizontal row of multi-select toggles — press once to apply a filter, press again to remove it.",
-  features:
-    "Reach for a filter chip row when the reader is narrowing a set and should SEE the active filters as they work: tags, facets, quick categories. The row is a group and each chip is a real toggle carrying `aria-pressed` — and multi-select is the contract, so a second press REMOVES the value rather than being ignored. A filter that cannot be switched off is not a toggle. The selection is controllable from outside (the same controlled-uncontrolled pair the native row uses) and the row scrolls horizontally rather than wrapping, so a filter set does not eat the screen's height.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -18,6 +16,20 @@ export const filterChipRow: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["FilterChipRow"],
+  // The keyboard contract, read off the chips: each one is a real button
+  // carrying `aria-pressed`, and pressing it twice is meaningful.
+  keyboard: [
+    {
+      key: "Enter / Space",
+      action:
+        "Toggles the focused chip. A second press removes the value again — `aria-pressed` goes false — which is what makes the row a set of toggles rather than a row of one-way buttons.",
+    },
+    {
+      key: "Tab / Shift+Tab",
+      action:
+        "Moves between the chips — each chip is its own stop, and the row around them is a group named by `label`.",
+    },
+  ],
   customization: {
     supported: [
       "`options` is data: `{ value, label }` per chip — value is the identity, label is what is read.",

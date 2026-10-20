@@ -4,8 +4,6 @@ export const skeleton: ComponentDoc = {
   slug: "skeleton",
   name: "Skeleton",
   oneLiner: "Skeletons are the placeholder shape shown while content loads.",
-  features:
-    "Reach for a skeleton when the layout is known before the content is: a list of rows, a card, a profile. It reserves the space and hints the shape, so the page does not jump when the real thing arrives. It is deliberately the smallest component in the family — a styled view, no content, no animation prop — because the shape is yours: you compose skeletons to match what is coming. Keep them honest about the shape, and do not use them for waits whose length is unknown; that is a loader or a progress indicator, which say something rather than showing a shape that never fills.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",

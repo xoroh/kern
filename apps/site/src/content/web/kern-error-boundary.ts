@@ -5,8 +5,6 @@ export const kernErrorBoundary: ComponentDoc = {
   name: "Kern error boundary",
   oneLiner:
     "The kern error boundary catches a thrown render, shows your fallback with a working reset, and never reloads the page to recover.",
-  features:
-    "Reach for this boundary wherever a subtree's failure should degrade to a message instead of blanking the app. React ships no error boundary of its own, so this is a real class boundary, not a wrapper: a thrown render is caught, the fallback receives BOTH the error and a `reset` callback, and `onError` reports the error with its component stack so a host can forward a real report. Recovery is a re-mount, not a reload — the subtree is keyed on a generation counter, so `reset` discards the failed instance and mounts fresh while host state (a session, an in-flight fetch) survives. The name carries the `Kern` prefix because native's counterpart is `ErrorBoundary`: same role, different name across packages, and the pages cross-reference rather than pretend otherwise.",
   meta: {
     status: "real",
     package: "@xoroh/kern",

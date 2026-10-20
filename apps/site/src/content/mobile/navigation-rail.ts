@@ -5,8 +5,6 @@ export const navigationRail: ComponentDoc = {
   name: "Navigation rail",
   oneLiner:
     "The navigation rail is the persistent vertical navigation surface — icon-only by default, a labelled sidebar when expanded.",
-  features:
-    "Reach for a navigation rail when the app's top-level destinations should stay visible while the body changes: a workspace, a tool with a fixed set of sections. It is ONE component with two modes, because the Expressive mapping says a persistent sidebar IS the expanded presentation of a rail — two components differing only in width would be a split without a difference. The destinations are the same `NavigationDestination` data the `NavigationBar` takes, so one destination list drives both surfaces. Collapsing is a VISUAL decision only: the label stays the accessible name in both modes, so an icon-only rail is never an unnamed rail.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,20 @@ export const navigationRail: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["NavigationRail"],
+  // The contract, read off the component: every destination is a pressable
+  // that reports its key, and the label names it in both modes.
+  keyboard: [
+    {
+      key: "Enter / Space via external keyboard",
+      action:
+        "Activates the focused destination, which reports its key to `onValueChange`. The rail reports the request — the host owns which destination is current.",
+    },
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "Moves between the destinations; each reads as a tab with its selected and disabled state, and double-tap selects it. The label is the accessible name in both modes, so a collapsed rail is still usable.",
+    },
+  ],
   customization: {
     supported: [
       "`destinations` is the shared navigation destination data — key, label, icon, badge and disabled — the same shape `NavigationBar` accepts.",

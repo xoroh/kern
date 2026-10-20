@@ -5,8 +5,6 @@ export const label: ComponentDoc = {
   name: "Label",
   oneLiner:
     "Labels are text rendered in the label style — the typographic role, not the wiring.",
-  features:
-    "Reach for a label when you want text in Material 3's label typography. It is `Text` with `variant=\"label\"` and nothing else, which is worth being clear about: this is the type ROLE, and it does not by itself name a control. If you want a control to be named, that is `Field.Root`'s `label` — which publishes through context and becomes the control's accessible name automatically. Reaching for this component to label an input would give you text that looks right and names nothing. It is for the cases where the label style is what you want: a row header in a list, a small caption in a form you are laying out by hand.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,10 @@ export const label: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Label"],
+  // A label is TEXT in the label type role: it takes no focus and handles no
+  // keys. Naming a control is `Field.Root`'s `label`, and that is where the
+  // keyboard behaviour lives.
+  nonInteractive: true,
   customization: {
     supported: [
       "It is `TextProps`, so everything `Text` takes — `style`, `numberOfLines`, `onPress` and the rest.",

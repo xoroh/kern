@@ -5,8 +5,6 @@ export const input: ComponentDoc = {
   name: "Input",
   oneLiner:
     "Inputs take a single line of text from someone and hand it to you.",
-  features:
-    "Reach for an input when the answer is one short line: a name, an email, a search term, a quantity. Wrap it in a Field so the label, help text and error are wired to it — an input on its own has no label and no way to report a problem. Pick the `type` that matches the answer, because it changes the keyboard on a phone and the validation the browser offers for free. If the answer is longer than a line, that is a textarea; if it is one of a known set of values, that is a select.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -21,77 +19,19 @@ export const input: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Input"],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting", "focus", "disabled"],
   keyboard: [
     {
       key: "Tab / Shift+Tab",
       action:
         "Moves focus into and out of the field. Disabled fields are skipped.",
     },
-  ],
-  usage: {
-    do: [
-      "Use outlined as the default — it works on any surface.",
-      "Use filled where the field sits on a lower surface and needs separation.",
-      "Label every field — floating label, placeholder, or an external label with `aria-label`.",
-    ],
-    dont: [
-      "Don't leave a field unlabeled — a bare box means nothing to a screen reader.",
-      "Don't use a field where a fixed choice fits — that is a select, radio group, or checkbox.",
-      "Don't pass a sibling FieldMessage alongside `errorMessage` — the prop owns it.",
-    ],
-  },
-  tokens: [
     {
-      element: "Outlined container",
-      state: "resting",
-      token: "comp.outlined-text-field.container-shape",
-      value: "corner-extra-small 4px, 1px outline",
-    },
-    {
-      element: "Outlined border",
-      state: "focus",
-      token: "comp.outlined-text-field.focus-outline-color",
-      value: "--sys-color-primary, 2px",
-    },
-    {
-      element: "Filled container",
-      state: "resting",
-      token: "comp.filled-text-field.container-color",
-      value: "--sys-color-surface-container-highest",
-    },
-    {
-      element: "Filled indicator",
-      state: "focus",
-      token: "comp.filled-text-field.focus-active-indicator-color",
-      value: "--sys-color-primary, 2px",
-    },
-    {
-      element: "Input text",
-      state: "resting",
-      token: "sys.typescale.body-large",
-      value: "16px / 24px, body-large",
-    },
-    {
-      element: "Input text",
-      state: "disabled",
-      token: "comp.outlined-text-field.disabled-input-text-opacity",
-      value: "on-surface 38%",
-    },
-    {
-      element: "Outlined border",
-      state: "disabled",
-      token: "comp.outlined-text-field.disabled-outline-opacity",
-      value: "on-surface 12%",
-    },
-  ],
-  faq: [
-    {
-      q: "Filled or outlined?",
-      a: "Functionally identical — pick by surface. Filled separates on lower surfaces; outlined works everywhere.",
-    },
-    {
-      q: "How do errors work?",
-      a: "Pass `error` for the state or `errorMessage` for state plus text. The message implies the state and renders as a live alert associated to the field.",
+      key: "Enter",
+      action:
+        "Submits the form the field sits in, when there is one. The field is a real `input`, so the browser's own form handling is what runs — the component adds no key handling of its own.",
     },
   ],
   customization: {

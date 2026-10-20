@@ -5,8 +5,6 @@ export const dialog: ComponentDoc = {
   name: "Dialog",
   oneLiner:
     "Dialogs interrupt for one decision — a title, some content, and up to a few actions.",
-  features:
-    "Reach for a dialog when the answer has to happen before anything else can: confirming something irreversible, asking for one value, telling someone something that blocks. It is modal and it is brief. Keep the content to a sentence or two and the actions to two — Material 3's dialog caps the action row at two, and a third means the decision is bigger than a dialog. Visibility is `open` with `onOpenChange` reporting state, like the web peer; `onDismiss` is the dismissal action (what happens when it goes away), not the state.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,9 @@ export const dialog: ComponentDoc = {
     elevation: 3,
   },
   parts: ["Dialog"],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
   keyboard: [
     {
       key: "Android back button",
@@ -26,59 +27,6 @@ export const dialog: ComponentDoc = {
       key: "Swipe + double-tap (TalkBack / VoiceOver)",
       action:
         'The `title` announces when the dialog appears (`role="dialog"`, announced as an alert); actions read as buttons in order and double-tap activates.',
-    },
-  ],
-  usage: {
-    do: [
-      "Name the decision in `title` — it is the accessible label, so it announces what interrupted.",
-      "Keep to two actions with `primary` on the confirming one; a third means the decision is bigger than a dialog.",
-      "Drive `open` from state and mirror it in `onOpenChange` so dismiss and state never disagree.",
-    ],
-    dont: [
-      "Don't put the decision's context only in `children` styling — the title is what assistive tech hears first.",
-      "Don't use a dialog for non-blocking information — that is a snackbar.",
-    ],
-  },
-  tokens: [
-    {
-      element: "Surface",
-      state: "resting",
-      token: "theme.color.surface",
-      value: "surface, 24px padding",
-    },
-    {
-      element: "Surface shape",
-      state: "resting",
-      token: "theme.shape.medium",
-      value: "medium corners",
-    },
-    {
-      element: "Primary action",
-      state: "resting",
-      token: "theme.color.primary",
-      value: "primary fill, pill, minHeight 48",
-    },
-    {
-      element: "Primary action label",
-      state: "resting",
-      token: "theme.color.onPrimary",
-      value: "onPrimary",
-    },
-    {
-      element: "Secondary action",
-      state: "resting",
-      token: "transparent",
-      value: "no fill — emphasis comes from position, not paint",
-    },
-  ],
-  faq: [
-    {
-      q: "`open` or `onDismiss` — which owns the state?",
-      a: "`open`/`onOpenChange` own the state, exactly like the web peer. `onDismiss` is the dismissal action (what happens when it goes away), fired alongside the `false` report — including the Android back button.",
-    },
-    {
-      q: "How does this differ from the web dialog?",
-      a: "The contract is the same (`open`, two-action cap, modal). The surface is a native `Modal` with `fade`, the scrim is host-drawn, and actions are data rather than composed parts — no `DialogTrigger`/`DialogContent` tree.",
     },
   ],
   customization: {

@@ -5,8 +5,6 @@ export const loadingButton: ComponentDoc = {
   name: "Loading button",
   oneLiner:
     "Loading buttons show that the action they trigger is still running, without changing size.",
-  features:
-    "Reach for a loading button when someone presses something and then waits: submitting a form, saving, sending. The rule it follows is the important part — it keeps its label and its footprint while loading, so nothing on the page moves when the wait starts. A button that shrinks to a spinner loses its meaning at exactly the moment the person is wondering what they pressed. It blocks interaction while loading, so the action cannot be fired twice. If the wait is long enough to leave the screen, the progress is not the button's problem.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -17,6 +15,20 @@ export const loadingButton: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["LoadingButton"],
+  // The contract, read off the button: it is a real button, and while it is
+  // loading it is disabled — which is what makes a double submit impossible.
+  keyboard: [
+    {
+      key: "Enter / Space",
+      action:
+        "Activates the button when it is idle. While `loading` is set the button is disabled, so the action cannot be fired a second time.",
+    },
+    {
+      key: "Tab",
+      action:
+        "Reaches the button as an ordinary stop — unless it is loading, because a disabled button is out of the tab order entirely.",
+    },
+  ],
   customization: {
     supported: [
       "Everything `Button` supports — `variant`, `size`, `className` — because it takes `ButtonProps` and adds to them.",

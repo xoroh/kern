@@ -5,8 +5,6 @@ export const menu: ComponentDoc = {
   name: "Menu",
   oneLiner:
     "Menus list the actions available on something, opened from the control that owns them.",
-  features:
-    "Reach for a menu when a set of actions belongs to one thing and showing them all would crowd it: a row's overflow, a file's options, an editor's insert menu. The menu is about doing — every entry acts and closes. If an entry goes somewhere instead, that is a navigation menu; if it picks a value, that is a select. Group related entries and label the groups, because a flat list of twelve verbs is a memory test. Destructive entries belong at the bottom, away from the ones people mean to press.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -27,30 +25,9 @@ export const menu: ComponentDoc = {
     "MenuSeparator",
     "MenuGroupLabel",
   ],
-  anatomy: [
-    { name: "MenuRoot", role: "Owns the open state for one menu." },
-    {
-      name: "MenuTrigger",
-      role: "The control the menu belongs to. Carries the expanded state.",
-    },
-    {
-      name: "MenuContent",
-      role: "The list surface. Portals to the end of the document and positions itself against its trigger.",
-    },
-    {
-      name: "MenuItem",
-      role: "One action. Activating it runs it and closes the menu.",
-    },
-    {
-      name: "MenuSeparator",
-      role: "A divider between runs of related actions.",
-    },
-    {
-      name: "MenuGroupLabel",
-      role: "Names a run of related actions, so the list reads as sections rather than a flat column.",
-    },
-    { name: "Menu", role: "The namespace object: all of the parts above." },
-  ],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting", "hover", "disabled"],
   keyboard: [
     {
       key: "Arrow keys",
@@ -69,49 +46,6 @@ export const menu: ComponentDoc = {
     {
       key: "Tab",
       action: "Closes the menu and moves focus out.",
-    },
-  ],
-  usage: {
-    do: [
-      "Anchor to the trigger with a relative parent; the menu positions to it.",
-      "Keep items to one line with an optional supporting line — dense rows use the menu-item height role.",
-      "Separate groups with dividers (separator role, never focusable).",
-    ],
-    dont: [
-      "Don't nest deeper than one submenu — flatten instead.",
-      "Don't hide disabled items — show them inert so the set reads complete.",
-    ],
-  },
-  tokens: [
-    {
-      element: "Container",
-      state: "resting",
-      token: "comp.menu.container",
-      value: "surface-container, 4px, level2",
-    },
-    {
-      element: "Selected item",
-      state: "resting",
-      token: "comp.menu.selected",
-      value: "secondary-container + on-secondary-container",
-    },
-    {
-      element: "Item",
-      state: "hover",
-      token: "comp.menu.item-hover",
-      value: "on-surface 8% layer",
-    },
-    {
-      element: "Item label",
-      state: "disabled",
-      token: "comp.list.disabled-label",
-      value: "on-surface 30%",
-    },
-  ],
-  faq: [
-    {
-      q: "Menu, select, or combobox?",
-      a: "Menu for command lists from a trigger; select for fixed-value form fields; combobox for filter-as-you-type.",
     },
   ],
   customization: {

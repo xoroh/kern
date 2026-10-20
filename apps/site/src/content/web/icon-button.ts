@@ -4,8 +4,6 @@ export const iconButton: ComponentDoc = {
   slug: "icon-button",
   name: "Icon button",
   oneLiner: "Icon buttons are buttons whose content is a single glyph.",
-  features:
-    "Reach for an icon button when the action is familiar enough to survive without words and space is tight: a close, a favourite, an overflow menu. The name is the hard part — a glyph means nothing to a screen reader and something different to everyone at first, so the button needs an accessible name and usually a tooltip. Use it for actions, not for navigation, which is a link. If you cannot name the action in two words, it needs a label and is a regular button.",
   meta: {
     // Canonical M3 spec page — title identity-verified live; gate re-checks.
     specUrl: "https://m3.material.io/components/icon-buttons",
@@ -16,6 +14,18 @@ export const iconButton: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["IconButton"],
+  keyboard: [
+    {
+      key: "Enter / Space",
+      action:
+        "Activates the button. In the toggle form the press flips the state and `aria-pressed` follows it.",
+    },
+    {
+      key: "Tab",
+      action:
+        "Moves focus to the icon button. A soft-disabled button keeps its tab stop on purpose, so the control stays discoverable.",
+    },
+  ],
   customization: {
     supported: [
       "`className` is passed through and merged after the button's own classes.",

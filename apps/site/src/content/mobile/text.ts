@@ -5,8 +5,6 @@ export const text: ComponentDoc = {
   name: "Text",
   oneLiner:
     "Text renders a string in one of the four kern type roles, with the theme's ink and nothing else decided for you.",
-  features:
-    "Reach for this Text whenever you are drawing words on a kern surface and you want them to sit on the type scale rather than in it by hand. `variant` names a TYPE ROLE — body, label, title, headline — and the size, line height, tracking, weight and font face all resolve from the kern typography tokens, so text cannot drift off-scale. The colour defaults to the theme's on-surface ink and `style` comes last, so a deliberate override wins while an accidental one stays visible in review. Everything a React Native `Text` accepts it still accepts — it is a `Text`, not a wrapper around one.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,11 @@ export const text: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Text"],
+  // Non-interactive BY NATURE: text renders a type style over React Native's
+  // `Text` and nothing else. It takes no focus, exposes no state and handles
+  // no key of its own, so there is no keyboard contract to document — saying so
+  // is a fact rather than a gap.
+  nonInteractive: true,
   customization: {
     supported: [
       "`variant` is a type role from the kern typography tokens; the metrics come with it.",

@@ -5,8 +5,6 @@ export const statusBar: ComponentDoc = {
   name: "Status bar",
   oneLiner:
     "Status bars hold one centered status with leading and trailing slots.",
-  features:
-    "Reach for a status bar when a screen needs a persistent status strip outside the content region: sync state, connection, draft count. The centered child is the status text; leading and trailing are slots for indicators or actions. It announces as a summary landmark, so a screen reader can find the status without entering the content. What the web blocks catalog composes from parts, native ships as one strip.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -17,31 +15,16 @@ export const statusBar: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["StatusBar"],
-  usage: {
-    do: [
-      "Keep the centered child to one short status — the strip is `32dp` tall and truncates to one line.",
-      "Put indicators in `leading` and actions in `trailing`; the middle belongs to the status.",
-      'Name it with `accessibilityLabel` where "Status" would not say which status.',
-    ],
-    dont: [
-      "Don't load navigation into the strip — leading and trailing are indicators and actions, not destinations.",
-      "Don't duplicate the status in the content region — one status, one place.",
-    ],
-  },
-  tokens: [
-    {
-      element: "Strip",
-      state: "resting",
-      token: "theme.color.surfaceContainer",
-      value: "surfaceContainer, minHeight 32, 1px outlineVariant top rule",
-    },
-  ],
-  faq: [
-    {
-      q: "Status bar or banner?",
-      a: "A persistent strip outside the content means status bar; a report inside the screen means banner. Chrome versus content.",
-    },
-  ],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
+  // Non-interactive BY NATURE: the strip is a labelled summary landmark —
+  // leading slot, centered status, trailing slot. It takes no focus, exposes
+  // no state of its own and handles no key; the parity contract records the
+  // same row as static content. The slots may hold actions, but those are the
+  // caller's controls, not the strip's. So there is no keyboard contract to
+  // document, and saying so is a fact rather than a gap.
+  nonInteractive: true,
   customization: {
     supported: [
       "`children` is the centered status — a string renders as one-line label text, a node renders as-is.",

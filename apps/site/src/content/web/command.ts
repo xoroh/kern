@@ -5,8 +5,6 @@ export const command: ComponentDoc = {
   name: "Command",
   oneLiner:
     "Commands are searchable lists of actions and destinations, filtered as you type.",
-  features:
-    "Reach for a command palette when there are many things to do or places to go and finding them by typing beats hunting through menus: an app's action palette, a jump-to-record field, a settings search. Each option carries its own keywords, so people can find a thing by the word they would use for it rather than the word you named it with. Group related options and label the groups, because a flat filtered list of forty actions is still forty actions. If the set is small enough to see all at once, a menu is quicker than a search box.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -29,45 +27,30 @@ export const command: ComponentDoc = {
     "CommandSeparator",
     "CommandEmpty",
   ],
-  deviations: [
+  // The keyboard contract, read off the combobox primitive the palette is
+  // built on: the input keeps the focus, the arrows move a HIGHLIGHT through
+  // the matching options, and Enter takes the highlighted one.
+  keyboard: [
     {
-      id: "K11",
-      spec: "M3's component elevation table names no command palette and no searchable list. It tabulates menus at level 2 and modal dialogs at level 3; neither describes a filtered list of actions.",
-      kern: "The command surface rests at elevation level 3.",
-      why: "A command palette is summoned over everything and dismissed on a keypress — it behaves like a dialog even though it is built on the combobox primitive. Dialog height is what keeps it visually above the page it interrupts. Registered as K11 in the kern deviations registry — review-m3 ruled this resting elevation a kern choice, not a transcription of M3, so the citation is the registry rather than a spec row.",
-    },
-  ],
-  anatomy: [
-    {
-      name: "CommandRoot",
-      role: "The field. Takes the options as data and owns the query and the selection.",
+      key: "Type",
+      action:
+        "Narrows the list as you type. The focus stays in the field — the rows are filtered around it, not walked through it.",
     },
     {
-      name: "CommandInput",
-      role: "The query box. Filtering happens as it changes.",
+      key: "ArrowDown / ArrowUp",
+      action:
+        "Moves the highlight through the matching options. The highlight is the preview of the choice; the field keeps the focus.",
     },
     {
-      name: "CommandContent",
-      role: "The list surface. Portals to the end of the document and positions itself against the input.",
-    },
-    { name: "CommandList", role: "The scrollable set of matching options." },
-    {
-      name: "CommandItem",
-      role: "One row. Carries a leading icon and a trailing keyboard hint alongside its label.",
+      key: "Enter",
+      action:
+        "Chooses the highlighted option. `onValueChange` fires with its value, then that option's own `onSelect`.",
     },
     {
-      name: "CommandGroupLabel",
-      role: "Names a run of related options, so the filtered list still reads as sections.",
+      key: "Escape",
+      action:
+        "Closes the popup and returns focus to the trigger, without changing the choice.",
     },
-    {
-      name: "CommandSeparator",
-      role: "A divider between runs of options.",
-    },
-    {
-      name: "CommandEmpty",
-      role: "What to show when the query matches nothing — the only thing on screen that says the filter is too narrow.",
-    },
-    { name: "Command", role: "The namespace object: all of the parts above." },
   ],
   customization: {
     supported: [

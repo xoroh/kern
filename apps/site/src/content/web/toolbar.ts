@@ -4,8 +4,6 @@ export const toolbar: ComponentDoc = {
   slug: "toolbar",
   name: "Toolbar",
   oneLiner: "Toolbars hold the controls that act on the content below them.",
-  features:
-    "Reach for a toolbar when a set of controls belongs to a surface and should stay reachable while that surface is used: a text editor's formatting bar, a table's bulk actions, a canvas's tools. Group related controls and separate the groups, because a single unbroken row of icons is a memory test. Keep it to actions on what is below it — navigation and settings belong elsewhere. If the bar has only two or three controls, a row of buttons does the job and a toolbar adds nothing but a container.",
   meta: {
     // Canonical M3 spec page — title identity-verified live; gate re-checks.
     specUrl: "https://m3.material.io/components/toolbars",
@@ -25,33 +23,9 @@ export const toolbar: ComponentDoc = {
     "ToolbarButton",
     "ToolbarSeparator",
   ],
-  deviations: [
-    {
-      id: "K3",
-      spec: "Material 3 defines no tonal surface role. Its surface roles are the surface, surface-dim, surface-bright and the surface-container family.",
-      kern: "The toolbar's bar is painted with `--sys-color-surface-tonal`, a role kern adds beyond M3's 45.",
-      why: "A toolbar needs a track that reads as a container for its controls rather than as content, and none of M3's surface-container roles is tuned for a rounded bar holding pressed states. The role is registered as K3 in the role inventory, so it is a declared addition rather than a colour invented in a stylesheet. The token is what deviates; this is the component whose whole surface depends on it.",
-    },
-  ],
-  anatomy: [
-    {
-      name: "ToolbarRoot",
-      role: "The bar. Holds the controls and moves focus between them.",
-    },
-    {
-      name: "ToolbarGroup",
-      role: "A run of related controls, so the bar reads as sections rather than a line of icons.",
-    },
-    {
-      name: "ToolbarButton",
-      role: "One control. A real button in the toolbar's focus order.",
-    },
-    {
-      name: "ToolbarSeparator",
-      role: "A divider between groups.",
-    },
-    { name: "Toolbar", role: "The namespace object: all of the parts above." },
-  ],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
   keyboard: [
     {
       key: "Arrow keys",
@@ -61,34 +35,10 @@ export const toolbar: ComponentDoc = {
       key: "Tab / Shift+Tab",
       action: "The toolbar is one stop; arrows move inside it.",
     },
-  ],
-  usage: {
-    do: [
-      "Use as a floating action strip — formatting, editing, view controls.",
-      "Keep buttons to one concern each; separate groups with dividers.",
-    ],
-    dont: [
-      "Don't use as primary navigation — that is a nav bar, rail, or tabs.",
-    ],
-  },
-  tokens: [
     {
-      element: "Bar",
-      state: "resting",
-      token: "kern.toolbar.container",
-      value: "floating: full pill, surface-tonal, level3; docked: flat",
-    },
-    {
-      element: "Selected button",
-      state: "resting",
-      token: "kern.toolbar.selected",
-      value: "secondary-container + on-secondary-container",
-    },
-  ],
-  faq: [
-    {
-      q: "Toolbar or menubar?",
-      a: "Toolbar for icon action strips; menubar for desktop menu-bar command patterns.",
+      key: "Enter / Space",
+      action:
+        "Runs the focused toolbar button. The buttons are real buttons, so the press is the browser's own.",
     },
   ],
   customization: {

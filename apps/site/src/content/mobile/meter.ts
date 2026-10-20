@@ -5,8 +5,6 @@ export const meter: ComponentDoc = {
   name: "Meter",
   oneLiner:
     "Meters show a reading within bounds — storage used, a score, a level — and can announce it as something readable.",
-  features:
-    'Reach for a meter when the value is a measurement someone needs to read rather than set: disk used, a quota, a test score. It looks like a progress bar and is a different thing — a meter reports what IS, progress reports how far along something is getting. The prop worth knowing is `valueText`: it is the formatted reading announced INSTEAD of the bare number, so a meter can say "3.2 GB of 8 GB" rather than "40". It falls back to the raw value, which is the case where the reading sounds like nonsense. Material 3 pairs a meter with a label, and `accessibilityLabel` is that name.',
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,10 @@ export const meter: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Meter"],
+  // M2: a meter REPORTS a reading; it does not collect one. The
+  // `role="meter"` view takes no focus and answers no key, so the ARIA
+  // contract below is the whole story.
+  nonInteractive: true,
   customization: {
     supported: [
       "`value`, `min` and `max` set the reading and its bounds.",

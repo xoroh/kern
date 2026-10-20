@@ -5,8 +5,6 @@ export const richTooltip: ComponentDoc = {
   name: "Rich tooltip",
   oneLiner:
     "A tooltip with a subhead, supporting text, and plain-text actions for explanations that need more than a label.",
-  features:
-    "Reach for a rich tooltip when a plain label cannot carry the explanation. It follows the plain tooltip's trigger contract — focus opens, the title and text ride the accessibility hint so touch users lose nothing — but the surface is `surface-container` with padding resolved from the spacing scale, and the actions are real buttons. If there are no actions and no subhead, that is a plain Tooltip.",
   meta: {
     specUrl: "https://m3.material.io/components/tooltips",
     status: "real",
@@ -16,22 +14,27 @@ export const richTooltip: ComponentDoc = {
     elevation: 2,
   },
   parts: ["RichTooltip"],
-  usage: {
-    do: [
-      "Give the tooltip a title, supporting text, and actions that go somewhere.",
-      "Keep actions to short labels — the surface is small.",
-    ],
-    dont: [
-      "Don't put crucial information only in a tooltip — it must exist some other way too.",
-      "Don't use a rich tooltip where a plain label suffices; size is emphasis.",
-    ],
-  },
-  tokens: [
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
+  // The contract, read off the component: FOCUS is the trigger on this
+  // renderer — touch has no hover, and the hint is never hidden behind the
+  // trigger because it also rides the accessibility hint.
+  keyboard: [
     {
-      element: "Container",
-      state: "resting",
-      token: "theme.color.surfaceContainer",
-      value: "surfaceContainer",
+      key: "Focus (keyboard, switch, TV)",
+      action:
+        "Opens the surface. The title and the text ride the trigger's accessibility hint whether or not the surface is showing, so nothing is trapped behind the focus.",
+    },
+    {
+      key: "Blur",
+      action:
+        "Closes the surface — the trigger closes it as soon as it loses focus.",
+    },
+    {
+      key: "Double-tap (TalkBack / VoiceOver)",
+      action:
+        "Activates one of the surface's actions. They are real buttons in the accessibility tree after the trigger.",
     },
   ],
   api: [

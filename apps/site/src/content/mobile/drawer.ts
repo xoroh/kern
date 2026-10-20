@@ -5,8 +5,6 @@ export const drawer: ComponentDoc = {
   name: "Drawer",
   oneLiner:
     "Drawers slide a panel in from the side over the current screen, with a title and a real open state.",
-  features:
-    "Reach for a drawer when the content is secondary to what is on screen and should slide over it rather than replace it: filters, details, a short form. It is a modal panel with a title, and unlike most of this family it has a proper open STATE — `open`, `defaultOpen` and `onOpenChange` — so it works controlled or uncontrolled and reports every change. That is worth noticing, because `Dialog`, `Sheet` and `Snackbar` are controlled-only (`Dialog` and `Sheet` share the `open`/`onOpenChange` contract; `Snackbar` takes `visible` and `onDismiss`). If you are moving code between these surfaces, the missing uncontrolled case is the first thing you will hit.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -19,6 +17,18 @@ export const drawer: ComponentDoc = {
     elevation: 1,
   },
   parts: ["Drawer", "OverlayModalityProvider"],
+  keyboard: [
+    {
+      key: "Android hardware back",
+      action:
+        "Closes the drawer. The modal's request-close handler is what runs, and the content behind the drawer becomes interactive again.",
+    },
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        'The scrim reads as a button named "Dismiss menu"; double-tap on it closes the drawer. The hidden trigger announces the open state before the drawer has ever been opened.',
+    },
+  ],
   customization: {
     supported: [
       "`title` is the panel's name and `children` is its body.",

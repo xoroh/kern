@@ -5,8 +5,6 @@ export const emptyState: ComponentDoc = {
   name: "Empty state",
   oneLiner:
     "The empty state tells someone what is missing, why it is missing, and what to do about it — in place of the content that would be there.",
-  features:
-    "Reach for an empty state wherever a list, a search or a collection would render and there is nothing to render: no results yet, no items created, nothing allowed. It is a centered stack — an optional visual, a title, an optional description and an optional action — so the message and the way out arrive together. The action slot is where the fix lives: an empty state that describes the problem and offers no next step is a dead end with good manners.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,10 @@ export const emptyState: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["EmptyState"],
+  // M2: an empty state is a STATE, not a control. It takes no focus and
+  // answers no key of its own — the control in the `action` slot is what the
+  // screen reader reaches, and the row never speaks for it.
+  nonInteractive: true,
   customization: {
     supported: [
       "`visual` is a slot for an illustration or glyph above the message.",

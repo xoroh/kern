@@ -5,8 +5,6 @@ export const bootIndicator: ComponentDoc = {
   name: "Boot indicator",
   oneLiner:
     "Boot indicators are the branded loading surface shown while the app itself starts.",
-  features:
-    "Reach for a boot indicator for the moment before the app has anything to show: mounted at the app root while bootstrapping, and hidden once the app is ready. It is the themed, post-script twin of the inlined critical loader — the same shape trio, the same stagger, the same easing — so the handoff from the pre-script shell to the running app does not jump. It is not a page loader: that one is for a region still coming, this is for the application still arriving. Note that Material 3 has no splash-screen spec at all, so this surface is a kern-branded one rather than a conformance claim.",
   meta: {
     status: "real",
     package: "@xoroh/kern",

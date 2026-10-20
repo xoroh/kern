@@ -5,8 +5,6 @@ export const linearProgress: ComponentDoc = {
   name: "Linear progress",
   oneLiner:
     "Linear progress is the measured bar — determinate by value, looping on null.",
-  features:
-    'Reach for linear progress when the wait has a known amount and a horizontal bar is the right shape: an upload, a build step, a fill. `value` in 0–1 fills the bar; `null` runs the indeterminate 2s loop for genuinely unknown lengths. If the length is unknown and a loop overstates it, use `CircularProgress` without a value or a `Loader`, which say "working" without implying a quantity.',
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,11 @@ export const linearProgress: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["LinearProgress"],
+  // A progressbar is a STATUS, not a control: it is not an adjustable, so it
+  // takes no focus and handles no key. What it reports is its value, and
+  // that is the ARIA contract below — not a keyboard one. So there is no
+  // keyboard contract to write, and saying so is a fact rather than a gap.
+  nonInteractive: true,
   customization: {
     supported: [
       "`value` in 0–1 sets the fill. Values outside the range are clamped rather than overflowing.",

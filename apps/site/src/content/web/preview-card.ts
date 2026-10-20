@@ -5,8 +5,6 @@ export const previewCard: ComponentDoc = {
   name: "Preview card",
   oneLiner:
     "Preview cards show a richer look at a link's destination before anyone commits to going there.",
-  features:
-    "Reach for a preview card when a link leads somewhere worth seeing first: a profile, a document, a product. It fills the gap between a bare link and navigating away — the title and a summary appear beside the trigger, so someone can decide without losing their place. Keep it to what would change the decision to click. It is not a tooltip, which explains a control, and not a popover, which holds controls. If the preview needs to be acted on, that is a popover wearing a different hat.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -27,32 +25,6 @@ export const previewCard: ComponentDoc = {
     "PreviewCardRoot",
     "PreviewCardTrigger",
     "PreviewCardContent",
-  ],
-  deviations: [
-    {
-      id: "K6",
-      spec: "M3's component elevation table names no preview card. It tabulates rich tooltips at level 2 and menus at level 2, but a tooltip names a control and a menu lists actions — neither describes a preview of a destination.",
-      kern: "The preview surface rests at elevation level 2.",
-      why: "The card floats above the page beside its trigger, so it needs the same lift as the other anchored overlays at that height. Borrowing the rich-tooltip row would assert that M3 described this surface, which it does not. Registered as K6 in the elevation inventory so the level is a recorded decision.",
-    },
-  ],
-  anatomy: [
-    {
-      name: "PreviewCardRoot",
-      role: "Owns the open state. Accepts `open`/`onOpenChange` to control it.",
-    },
-    {
-      name: "PreviewCardTrigger",
-      role: "The link or control the preview describes. Hovering or focusing it opens the card.",
-    },
-    {
-      name: "PreviewCardContent",
-      role: "The preview surface. Portals to the end of the document and positions itself against its trigger.",
-    },
-    {
-      name: "PreviewCard",
-      role: "The namespace object: Root, Trigger and Content.",
-    },
   ],
   customization: {
     supported: [

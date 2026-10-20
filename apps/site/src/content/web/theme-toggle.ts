@@ -4,8 +4,6 @@ export const themeToggle: ComponentDoc = {
   slug: "theme-toggle",
   name: "ThemeToggle",
   oneLiner: "One action that switches the color scheme between light and dark.",
-  features:
-    "Built on IconButton toggle form with M3 state layers, `48dp` minimum touch target, and destination-named accessible labels per M3 accessibility guidelines (“Switch to light” while dark, “Switch to dark” while light). Supports uncontrolled zero-config drop-in backed by useColorScheme or controlled host mode and onToggle.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -14,6 +12,20 @@ export const themeToggle: ComponentDoc = {
     elevation: 0,
   },
   parts: ["ThemeToggle"],
+  // The keyboard contract, read off the icon button underneath: it is one
+  // real button, and the toggle form is what carries the state.
+  keyboard: [
+    {
+      key: "Enter / Space",
+      action:
+        "Activates the button and switches the scheme. The accessible name names the DESTINATION, so the announcement is the same before and after the press.",
+    },
+    {
+      key: "Tab / Shift+Tab",
+      action:
+        "Moves focus into and out of the toggle — it is a single button, not a pair of controls.",
+    },
+  ],
   customization: {
     supported: [
       "`mode` and `onToggle` for controlled host state; defaults to automatic theme switching via `useColorScheme()` when omitted.",
@@ -26,14 +38,6 @@ export const themeToggle: ComponentDoc = {
       "There is no visible text label. An icon button with visible text is a regular Button.",
     ],
   },
-  deviations: [
-    {
-      id: "K11",
-      spec: 'M3\'s component elevation table names no toggle row. It tabulates "menu" and "rich tooltip" at level 2 and "dialogs (modal)" at level 3, but no row describes a toggle resting elevation.',
-      kern: "The toggle rests at elevation level 0 — no shadow token; level 0 is shadow: none.",
-      why: "A borderless round action has no container to lift — a shadow would invent elevation M3 never assigned. The level-0 claim is registered in the elevation inventory so it is asserted rather than assumed.",
-    },
-  ],
   api: [
     {
       name: "mode",

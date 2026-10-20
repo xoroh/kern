@@ -7,10 +7,10 @@
       "hasLiveDemo": true,
       "expectations": [
         {
-          "rule": "keyboard-operable",
-          "expect": "gap",
+          "rule": "focusable",
+          "expect": "pass",
           "provenance": "derived",
-          "basis": "meter.ts documents no keyboard rows for Meter — the contract is unwritten, treat as a gap not a pass"
+          "basis": "Meter is a non-interactive part (meter.ts: nonInteractive) — takes no focus, so no keyboard trap or missing-focus-indicator finding can apply"
         },
         {
           "rule": "aria-contract",
@@ -24,10 +24,10 @@
       "hasLiveDemo": true,
       "expectations": [
         {
-          "rule": "keyboard-operable",
-          "expect": "gap",
+          "rule": "focusable",
+          "expect": "pass",
           "provenance": "derived",
-          "basis": "meter.ts documents no keyboard rows for MeterRoot — the contract is unwritten, treat as a gap not a pass"
+          "basis": "MeterRoot is a non-interactive part (meter.ts: nonInteractive) — takes no focus, so no keyboard trap or missing-focus-indicator finding can apply"
         },
         {
           "rule": "aria-contract",
@@ -41,10 +41,10 @@
       "hasLiveDemo": true,
       "expectations": [
         {
-          "rule": "keyboard-operable",
-          "expect": "gap",
+          "rule": "focusable",
+          "expect": "pass",
           "provenance": "derived",
-          "basis": "meter.ts documents no keyboard rows for MeterLabel — the contract is unwritten, treat as a gap not a pass"
+          "basis": "MeterLabel is a non-interactive part (meter.ts: nonInteractive) — takes no focus, so no keyboard trap or missing-focus-indicator finding can apply"
         },
         {
           "rule": "aria-contract",
@@ -58,10 +58,10 @@
       "hasLiveDemo": true,
       "expectations": [
         {
-          "rule": "keyboard-operable",
-          "expect": "gap",
+          "rule": "focusable",
+          "expect": "pass",
           "provenance": "derived",
-          "basis": "meter.ts documents no keyboard rows for MeterValue — the contract is unwritten, treat as a gap not a pass"
+          "basis": "MeterValue is a non-interactive part (meter.ts: nonInteractive) — takes no focus, so no keyboard trap or missing-focus-indicator finding can apply"
         },
         {
           "rule": "aria-contract",

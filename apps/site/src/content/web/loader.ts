@@ -5,8 +5,6 @@ export const loader: ComponentDoc = {
   name: "Loader",
   oneLiner:
     "Loaders say something is happening, in the space where it is happening.",
-  features:
-    "Reach for a loader when work is underway and the person should see where: next to a button that is submitting, inside a card that is fetching, replacing content briefly. The advantage over a spinner in the middle of the screen is placement — a loader sits where the wait is, so there is no question about what is stuck. Keep it small and near the thing it reports on. If the wait is long and its length is knowable, that is progress; if the whole page is unavailable, that is a page loader.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -15,13 +13,17 @@ export const loader: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Loader"],
+  // A spinner is a STATUS, not a control: it takes no focus and handles no
+  // keys, so there is no keyboard contract to write. What it announces is
+  // the aria contract below.
+  nonInteractive: true,
   customization: {
     supported: [
       "`className` is passed through and merged after the loader's own classes, which is how its size and colour are set.",
       "It is a plain element, so it can sit inline with text or fill a container.",
     ],
     notSupported: [
-      "There is no `size` prop. The size is `className`, because the right size depends entirely on where it sits.",
+      "The size is `size` (`sm`, `default`, `lg`), and `className` still wins for anything the scale does not cover.",
       "There is no `variant` for ring versus dots versus bar. One look.",
       "There is no `label` prop. What is loading is the surrounding content's to say; a bare loader should be hidden from assistive tech.",
     ],

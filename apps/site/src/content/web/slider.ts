@@ -5,8 +5,6 @@ export const slider: ComponentDoc = {
   name: "Slider",
   oneLiner:
     "Sliders pick a value from a range by feel, showing where it sits along the way.",
-  features:
-    "Reach for a slider when the answer is a range and the shape of it matters more than the exact number: volume, opacity, a price ceiling, an intensity. The value is continuous and the extremes are visible, so someone can see what is possible before committing. Show the number beside it — a slider alone says roughly where, not what. If the value must be exact, that is a number field; if it is one of a few known options, that is not a range at all.",
   meta: {
     // Canonical M3 spec page — title identity-verified live; gate re-checks.
     specUrl: "https://m3.material.io/components/sliders",
@@ -21,22 +19,9 @@ export const slider: ComponentDoc = {
     elevation: 0,
   },
   parts: ["Slider", "SliderRoot", "SliderThumb", "SliderLabel", "SliderValue"],
-  anatomy: [
-    {
-      name: "SliderRoot",
-      role: "The control. Owns the value and the range, and lays out the track, thumb and labels.",
-    },
-    {
-      name: "SliderThumb",
-      role: "The handle. Drag it, or move it with the keyboard, to change the value.",
-    },
-    { name: "SliderLabel", role: "Names the slider." },
-    {
-      name: "SliderValue",
-      role: "Renders the current number beside the track, so the position reads as a value and not just as a distance.",
-    },
-    { name: "Slider", role: "The namespace object: all of the parts above." },
-  ],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
   keyboard: [
     {
       key: "Arrow keys",
@@ -50,44 +35,6 @@ export const slider: ComponentDoc = {
       key: "Tab / Shift+Tab",
       action:
         "Moves focus into and out of the slider. Disabled sliders are skipped.",
-    },
-  ],
-  usage: {
-    do: [
-      "Use for settings along a track — volume, brightness, image filters.",
-      "Use discrete with ticks where only specific values are valid.",
-      "Use range with two handles for a minimum and maximum.",
-      "Show a value label where the exact number matters.",
-    ],
-    dont: [
-      "Don't use where the value needs typing — pair with or use a number field.",
-      "Don't hide the value when it drives a decision — label it.",
-    ],
-  },
-  tokens: [
-    {
-      element: "Active track",
-      state: "resting",
-      token: "comp.slider.active-track-color",
-      value: "--sys-color-primary, full shape",
-    },
-    {
-      element: "Inactive track",
-      state: "resting",
-      token: "comp.slider.inactive-track-color",
-      value: "--sys-color-surface-container-highest",
-    },
-    {
-      element: "Handle",
-      state: "resting",
-      token: "comp.slider.handle-color",
-      value: "--sys-color-primary, full shape",
-    },
-  ],
-  faq: [
-    {
-      q: "Continuous, discrete, or range?",
-      a: "Continuous for subjective ranges; discrete with ticks and step for fixed values; range with two handles for a minimum and maximum.",
     },
   ],
   customization: {

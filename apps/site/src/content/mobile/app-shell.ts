@@ -5,8 +5,6 @@ export const appShell: ComponentDoc = {
   name: "App shell",
   oneLiner:
     "The app shell is the application frame — header, side navigation, body, footer — with every region a named landmark.",
-  features:
-    "Reach for the app shell once and at the root: it is the frame the rest of the app composes inside, the native counterpart to the web `AppShell`. The four regions are slots — pass the ones you have and omit the rest — and the body renders always, because a shell whose content disappears is not a shell. Each supplied region is a NAMED landmark rather than a bare view: a frame that renders a header, a rail and a body but calls them all the same thing is three unlabelled boxes to a screen reader. The body and the navigation sit SIDE BY SIDE by construction, so the classic responsive failure — navigation stacked above content — cannot happen.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,10 @@ export const appShell: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["AppShell"],
+  // M2: the shell is a FRAME — named regions around the content. It takes
+  // no focus and answers no key; what is inside each region is what the
+  // screen reader reaches.
+  nonInteractive: true,
   customization: {
     supported: [
       "`header`, `navigation`, `body` and `footer` are plain slots; each supplied one becomes a named region.",

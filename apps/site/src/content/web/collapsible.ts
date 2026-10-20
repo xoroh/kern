@@ -5,8 +5,6 @@ export const collapsible: ComponentDoc = {
   name: "Collapsible",
   oneLiner:
     "Collapsibles hide a section of content behind a trigger and show it on demand.",
-  features:
-    "Reach for a collapsible when some of the content is optional reading: the details behind a summary, the advanced settings under a form, the rest of a long list. The trigger is the contract — what it says must describe what opens, and its state must be visible. Keep the thing that opens self-contained; a collapsible whose content needs the context above it has just hidden something important. If everything should be open all the time, do not build the toggle. If the content is navigation, that is a disclosure in a menu, not a collapsible.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -21,22 +19,16 @@ export const collapsible: ComponentDoc = {
     "CollapsibleTrigger",
     "CollapsiblePanel",
   ],
-  anatomy: [
+  keyboard: [
     {
-      name: "CollapsibleRoot",
-      role: "Owns the open state. Accepts `open`/`onOpenChange` to control it.",
+      key: "Enter / Space",
+      action:
+        "Reveals or hides the section from the trigger. The trigger is a real button carrying `aria-expanded`, so the state is announced rather than implied by what is on screen.",
     },
     {
-      name: "CollapsibleTrigger",
-      role: "What opens it. Carries the expanded state, so its meaning is announced rather than implied by an arrow rotating.",
-    },
-    {
-      name: "CollapsiblePanel",
-      role: "The revealed content. Kept out of the tab order while closed.",
-    },
-    {
-      name: "Collapsible",
-      role: "The namespace object: Root, Trigger and Panel.",
+      key: "Tab",
+      action:
+        "Moves into the panel's content when the section is open. A closed panel is not in the page at all, so there is nothing to tab into.",
     },
   ],
   customization: {

@@ -5,8 +5,6 @@ export const snapSheet: ComponentDoc = {
   name: "Snap sheet",
   oneLiner:
     "The snap sheet is a bottom sheet with detents — a modal surface that occupies one of a declared set of heights.",
-  features:
-    "Reach for a snap sheet when the sheet has natural resting heights: a half-expanded preview and a full detail, a peek and a read. The detents are fractions of the viewport, and the sheet clamps the requested index into range — an out-of-range index cannot blank the sheet, and an empty detent list falls back to one middle height. The detent control itself is a VALUE, not a toggle: it announces its position in the set, so the same control reads correctly to anyone who cannot see the height change. Like every modal sheet here it hosts through `SheetSurface`, so scrim, Escape and focus return come with it.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -20,6 +18,33 @@ export const snapSheet: ComponentDoc = {
     elevation: 1,
   },
   parts: ["SnapSheet"],
+  // The keyboard contract, read off the detent control: it is a slider, so
+  // the height is announced as the value it is.
+  keyboard: [
+    {
+      key: "ArrowRight / ArrowUp",
+      action:
+        "Moves the detent control to the next stop. The control is a slider with a real value, so the height it settled at is announced.",
+    },
+    {
+      key: "ArrowLeft / ArrowDown",
+      action: "Moves the detent control to the previous stop.",
+    },
+    {
+      key: "Home / End",
+      action: "Jumps to the first or the last detent.",
+    },
+    {
+      key: "Enter / Space",
+      action:
+        "Advances one detent — the same step as the right arrow. A slider that moved on arrows but ignored the activation keys would not be keyboard-operable.",
+    },
+    {
+      key: "Escape",
+      action:
+        "Closes the sheet and returns the focus to the trigger — the dismissal path every kern sheet inherits from the shared shell.",
+    },
+  ],
   customization: {
     supported: [
       "`snapPoints` declares the detents as viewport fractions; `value` / `onValueChange` are the controlled-uncontrolled pair for which one is active.",

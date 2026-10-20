@@ -5,8 +5,6 @@ export const bottomSheetPicker: ComponentDoc = {
   name: "Bottom sheet picker",
   oneLiner:
     "Bottom sheet pickers choose one value from a list, using the platform's own bottom-sheet interaction.",
-  features:
-    "Reach for a bottom sheet picker when the answer is one value from a known set and the platform's own sheet is the fastest way to choose it: a country, a category, a sort order. It is the native counterpart of the web `Select`, and it is worth being clear that they are different components on different platforms rather than one component styled twice. Material 3 marks the selected row with a check rather than tinting the row, so selection is legible without relying on colour.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -21,6 +19,20 @@ export const bottomSheetPicker: ComponentDoc = {
     elevation: 0,
   },
   parts: ["BottomSheetPicker"],
+  // The touch contract: the sheet is a modal surface, so the reader lands
+  // inside it and the two ways out are the back button and the pick itself.
+  keyboard: [
+    {
+      key: "Double-tap (TalkBack / VoiceOver)",
+      action:
+        "Picks the focused option. The press reports that option's value and closes the picker through `onOpenChange(false)`.",
+    },
+    {
+      key: "Android back button",
+      action:
+        "Dismisses the sheet without a choice — the surface's request-close path calls `onDismiss` and reports `onOpenChange(false)`.",
+    },
+  ],
   customization: {
     supported: [
       "`className`-free like the rest of the native surface: `style` is a React Native `ViewStyle`.",

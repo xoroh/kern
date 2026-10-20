@@ -4,8 +4,6 @@ export const table: ComponentDoc = {
   slug: "table",
   name: "Table",
   oneLiner: "Tables lay out rows of string data under named columns.",
-  features:
-    "Reach for a table when the content is genuinely tabular — the same few fields repeated per record — and the reader is comparing down a column. Columns are named and rows are keyed records of strings, so the data is a declaration and the table does the layout. Keep it to what fits: a compact screen compares two or three columns well and ten badly, and a row that needs to wrap into a paragraph wants a `ListItem` or a card instead. The table is a grid of text, so it is right for numbers and statuses and wrong for anything that needs its own controls per cell.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -15,6 +13,12 @@ export const table: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Table"],
+  // Pure LAYOUT: the native table is a block of text under named columns.
+  // Its cells are plain strings with no renderers, so there is no control in
+  // it to reach: the table takes no focus, binds no key and exposes no state
+  // of its own. So there is no keyboard contract to write, and saying so is a
+  // fact rather than a gap.
+  nonInteractive: true,
   customization: {
     supported: [
       "`columns` are data — `key` and `title` — and `rows` are records keyed by those columns.",

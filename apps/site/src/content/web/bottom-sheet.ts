@@ -5,8 +5,6 @@ export const bottomSheet: ComponentDoc = {
   name: "Bottom sheet",
   oneLiner:
     "The bottom sheet is a modal surface anchored to the bottom edge: content, an optional heading and a visible way out.",
-  features:
-    "Reach for a bottom sheet when a task wants the bottom of the screen and the rest of the page should wait: a confirmation, a short form, a piece of detail that owns the moment. It hosts through `SheetSurface`, so scrim press, Escape and focus return come with it — the sheet does not re-implement dismissal, it inherits the one place that owns it. The heading is optional (the surface is labelled either way) and the close control is opt-in through `onClose`, which is M3's dismissal affordance for the sheet. Its height is capped so a sheet never swallows the screen, and it rests at the modal elevation — it sits above content, and says so.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -21,6 +19,23 @@ export const bottomSheet: ComponentDoc = {
     elevation: 1,
   },
   parts: ["BottomSheet"],
+  keyboard: [
+    {
+      key: "Escape",
+      action:
+        "Closes the sheet and reports it through `onOpenChange`; focus returns to what opened it.",
+    },
+    {
+      key: "Tab / Shift+Tab",
+      action:
+        "Trapped inside the sheet while it is open — the page behind it is inert, and the sheet is announced as a modal dialog.",
+    },
+    {
+      key: "Enter / Space",
+      action:
+        "Activates the focused control, including the visible close control when `onClose` renders one.",
+    },
+  ],
   customization: {
     supported: [
       "`label` names the surface for assistive technology even when `title` is omitted.",

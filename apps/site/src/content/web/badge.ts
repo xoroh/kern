@@ -5,8 +5,6 @@ export const badge: ComponentDoc = {
   name: "Badge",
   oneLiner:
     "Badges flag a small, countable change on something that already has a label.",
-  features:
-    "Reach for a badge when an item has news and the item already has a name people read: three unread messages on an inbox, a dot on a settings entry. A dot says something changed without saying how much, which is right when the count is meaningless or huge. A count is right when the number is the point. Never let a badge be the only way to learn the information — put the same fact in the label or the accessible name, because a badge is decoration on top of meaning, not meaning itself.",
   meta: {
     // Canonical M3 spec page — title identity-verified live; gate re-checks.
     specUrl: "https://m3.material.io/components/badges",
@@ -20,37 +18,13 @@ export const badge: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Badge"],
-  usage: {
-    do: [
-      "Anchor upper-trailing inside icon bounds for counts and unread marks.",
-      "Keep four characters max including any plus sign.",
-      "Keep the default error mapping unless 3:1 contrast is proven.",
-    ],
-    dont: [
-      "Don't decorate with badges — counts and unread state only.",
-      "Don't keep showing a badge after its destination is selected.",
-    ],
-  },
-  tokens: [
-    {
-      element: "Dot",
-      state: "resting",
-      token: "comp.badge.small",
-      value: "6px, error",
-    },
-    {
-      element: "Count",
-      state: "resting",
-      token: "comp.badge.large",
-      value: "16px, 8px shape, error + on-error, 16x34 max",
-    },
-  ],
-  faq: [
-    {
-      q: "Dot or count?",
-      a: "Dot for unread presence; count for numbers. Screen readers hear the number or New notification after the destination.",
-    },
-  ],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
+  // M2: a badge MARKS something else. It is a `role="img"` span — it takes
+  // no focus and answers no key, so the ARIA contract below is the whole
+  // story.
+  nonInteractive: true,
   customization: {
     supported: [
       "`className` is passed through and merged after the variant classes.",

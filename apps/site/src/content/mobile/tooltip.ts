@@ -5,8 +5,6 @@ export const tooltip: ComponentDoc = {
   name: "Tooltip",
   oneLiner:
     "Tooltips attach one line of supplementary text to a trigger, and never trap that text behind the trigger.",
-  features:
-    "Reach for a tooltip when a control needs one line of extra explanation: what an icon-only button does, what a setting means. The design decision worth understanding is how it treats the text. `label` is the TRIGGER's own accessible name and `hint` is the supplementary line — and the hint is carried as `accessibilityHint` whether or not the surface is showing. That is deliberate: on touch there is no hover, so a tooltip that only exists while open would hold information nobody can reach. The text is never trapped behind the trigger. `placement` is `top` or `bottom`, and Material 3's default is above.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,9 @@ export const tooltip: ComponentDoc = {
     elevation: 2,
   },
   parts: ["Tooltip"],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
   keyboard: [
     {
       key: "External keyboard (Tab)",
@@ -26,47 +27,6 @@ export const tooltip: ComponentDoc = {
       key: "Swipe + double-tap (TalkBack / VoiceOver)",
       action:
         "The trigger announces its label plus the hint (merged, never replaced) with the expanded state; the plain surface itself is inert text, never a stop.",
-    },
-  ],
-  usage: {
-    do: [
-      "Name icon-only controls: `label` is the accessible name, `hint` the supplementary text — two separate strings, on purpose.",
-      "Keep the hint to a few words; explanations with actions are the rich tooltip's job.",
-      "Let focus drive it — `open`/`onOpenChange` exist for the cases focus cannot cover, not as the default.",
-    ],
-    dont: [
-      "Don't duplicate visible labels — tooltips name the unnamed.",
-      "Don't put crucial information only in a tooltip — it must exist some other way too.",
-    ],
-  },
-  tokens: [
-    {
-      element: "Plain surface",
-      state: "resting",
-      token: "theme.color.inverseSurface",
-      value: "inverseSurface, extra-small corners, level 2 (3dp)",
-    },
-    {
-      element: "Plain label",
-      state: "resting",
-      token: "theme.color.inverseOnSurface",
-      value: "inverseOnSurface label text",
-    },
-    {
-      element: "Rich surface",
-      state: "resting",
-      token: "theme.color.surfaceContainer",
-      value: "surfaceContainer with 12/8/16dp padding and real buttons",
-    },
-  ],
-  faq: [
-    {
-      q: "Plain or rich?",
-      a: "A label for an unnamed control means plain. A subhead plus supporting text plus actions means rich — and if the rich surface has no actions and no subhead, that is a plain tooltip.",
-    },
-    {
-      q: "How does this differ from the web tooltip?",
-      a: 'Same trigger contract (focus opens) and same K11 level-2 resting elevation on the plain surface. The plain surface is inert (`pointerEvents="none"`, `role="text"`) so touches fall through to the trigger; the rich surface takes touches because its actions are interactive by spec.',
     },
   ],
   customization: {
@@ -81,14 +41,6 @@ export const tooltip: ComponentDoc = {
       "There is no `side`/`align` beyond `placement`. It sits above or below, not left or right.",
     ],
   },
-  deviations: [
-    {
-      id: "K11",
-      spec: "M3's component elevation table tabulates only the RICH tooltip at level 2; it names no plain tooltip.",
-      kern: "The (plain) tooltip popup rests at elevation level 2.",
-      why: "review-m3 ruled the plain-tooltip level a kern choice sharing the rich row's height, not a transcription of M3 (K11); the citation is the registry, not the spec row.",
-    },
-  ],
   api: [
     {
       name: "label",

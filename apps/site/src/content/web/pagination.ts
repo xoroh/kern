@@ -5,8 +5,6 @@ export const pagination: ComponentDoc = {
   name: "Pagination",
   oneLiner:
     "Pagination moves through a long set of results one page at a time.",
-  features:
-    "Reach for pagination when the result set is too long to render at once and people move through it deliberately: search results, a records table, an archive. Show where in the set they are, because a page of results with no position is a page with no context. Pages are numbered from one, matching what the control shows and what people expect. If the set is meant to be scanned continuously, that is infinite scroll, and it is a different trade — it makes going back impossible without keeping your place.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -16,43 +14,18 @@ export const pagination: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Pagination"],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting", "hover"],
   keyboard: [
     {
-      key: "Arrow keys",
-      action: "Moves between page buttons.",
+      key: "Tab / Shift+Tab",
+      action:
+        "Moves focus between the page buttons. Each page is a real button, so the set is reachable from the keyboard alone.",
     },
     {
       key: "Enter / Space",
       action: "Navigates to the focused page.",
-    },
-  ],
-  usage: {
-    do: [
-      "Use for splitting long lists across pages — 7 or fewer shows all, more collapses with gaps.",
-      "Mark the current page unambiguously with the primary fill.",
-    ],
-    dont: [
-      "Don't use where infinite scroll fits better — search results, feeds.",
-    ],
-  },
-  tokens: [
-    {
-      element: "Current page",
-      state: "resting",
-      token: "kern.pagination.current",
-      value: "primary fill + on-primary",
-    },
-    {
-      element: "Page button",
-      state: "hover",
-      token: "sys.state.hover",
-      value: "on-surface 8% layer",
-    },
-  ],
-  faq: [
-    {
-      q: "When does the window collapse?",
-      a: "Above 7 pages: first, last, current ±1, with gaps — the reader never pages through dozens of buttons.",
     },
   ],
   customization: {

@@ -5,8 +5,6 @@ export const topBar: ComponentDoc = {
   name: "TopBar",
   oneLiner:
     "TopBar is a responsive site header with a brand link, primary navigation, and an actions slot.",
-  features:
-    "Reach for TopBar when a site needs its main destinations at the top of every page. You provide the brand, route list, current path, and optional actions; a `LinkProvider` lets the host router render internal links without making routing a package dependency. On narrow screens the links move into an accessible disclosure, and Escape closes it and returns focus to its trigger.",
   meta: {
     specUrl: "none",
     status: "real",
@@ -108,14 +106,4 @@ export const topBar: ComponentDoc = {
         "Closes the expanded mobile navigation and returns focus to its trigger.",
     },
   ],
-  usage: {
-    do: [
-      "Pass the current pathname so the active destination and `aria-current` stay synchronized with the host router.",
-      "Keep the primary route list short enough to fit the desktop bar; put secondary destinations in a separate surface.",
-    ],
-    dont: [
-      "Don't put action buttons inside `items`; use the `actions` slot for actions and controls.",
-      "Don't render two TopBars on one page; each adds a primary navigation landmark and sticky layer.",
-    ],
-  },
 };

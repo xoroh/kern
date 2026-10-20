@@ -5,8 +5,6 @@ export const numberField: ComponentDoc = {
   name: "Number field",
   oneLiner:
     "Number fields take a number from someone, with steppers to nudge it up and down.",
-  features:
-    "Reach for a number field when the answer is a quantity and small steps matter: a count, a percentage, a timeout. The steppers make the increment explicit, which is the point — someone can reach the value without knowing what to type. Keep the step meaningful for the thing being set; a stepper that moves by one on a value measured in thousands is decoration. If the number is really a choice between known values, that is a select; if it is a range with a feel to it, that is a slider.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -16,16 +14,23 @@ export const numberField: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["NumberField", "NumberFieldRoot", "NumberFieldInput"],
-  anatomy: [
+  // The keyboard contract, read off the field and the two steppers: the keys
+  // and the buttons move the value by the same amount.
+  keyboard: [
     {
-      name: "NumberFieldRoot",
-      role: "The field. Owns the value and the step, and lays out its parts.",
+      key: "ArrowUp / ArrowDown",
+      action:
+        "Steps the value by `step` — up raises it and down lowers it. The keys and the steppers move it by the same amount.",
     },
     {
-      name: "NumberFieldInput",
-      role: "Renders the whole stepper group — decrement, the input itself, and increment — not just the text box. `className` lands on the input only.",
+      key: "Home / End",
+      action: "Jumps to `min` or `max` — the bound, where the field has one.",
     },
-    { name: "NumberField", role: "The namespace object: Root and Input." },
+    {
+      key: "Enter / Space",
+      action:
+        'Activates the focused stepper. The two steppers are real buttons named "Decrease" and "Increase", and at a bound the press does nothing because the button is disabled there.',
+    },
   ],
   customization: {
     supported: [

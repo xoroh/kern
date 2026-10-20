@@ -5,8 +5,6 @@ export const sheet: ComponentDoc = {
   name: "Sheet",
   oneLiner:
     "Sheets slide in from the side to hold a focused task beside the content behind them.",
-  features:
-    "Reach for a sheet when someone needs to work on one thing without losing the place they came from: editing a record's details beside its list, filtering results while keeping them in view. It is modal — the scrim and the focus trap mean the rest of the page waits — so keep the task short and give it a title that says what is being changed. It enters from the right by default; the left is for a document outline or a tree, where the edge matters. If the task belongs to a compact screen or should replace the view rather than accompany it, that is a dialog or a route.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -29,24 +27,9 @@ export const sheet: ComponentDoc = {
     "SheetDescription",
     "SheetClose",
   ],
-  anatomy: [
-    {
-      name: "SheetRoot",
-      role: "Owns the open state. Accepts `open`/`onOpenChange` to control it.",
-    },
-    { name: "SheetTrigger", role: "The element that opens the sheet." },
-    {
-      name: "SheetContent",
-      role: "The panel. Portals to the end of the document, renders the scrim and traps focus. Slides in from `side`.",
-    },
-    { name: "SheetTitle", role: "Names the sheet — what is being worked on." },
-    {
-      name: "SheetDescription",
-      role: "Supporting line under the title, wired to `aria-describedby`.",
-    },
-    { name: "SheetClose", role: "Closes the sheet from inside it." },
-    { name: "Sheet", role: "The namespace object: all of the parts above." },
-  ],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
   keyboard: [
     {
       key: "Escape",
@@ -56,32 +39,10 @@ export const sheet: ComponentDoc = {
       key: "Tab / Shift+Tab",
       action: "Trapped inside while modal; the page behind is inert.",
     },
-  ],
-  usage: {
-    do: [
-      "Use modal sheets for tasks that need focus — the scrim marks the interruption.",
-      "Let content scroll inside with titles pinned where applicable.",
-    ],
-    dont: ["Don't trap focus without announcing modality."],
-  },
-  tokens: [
     {
-      element: "Container",
-      state: "resting",
-      token: "comp.sheet.container",
-      value: "surface-container-low, 28px leading edge, level3",
-    },
-    {
-      element: "Scrim",
-      state: "resting",
-      token: "sys.color.scrim",
-      value: "32%",
-    },
-  ],
-  faq: [
-    {
-      q: "Bottom drawer or side sheet?",
-      a: "Bottom drawers rise for compact flows; side sheets dock for persistent panels.",
+      key: "Enter / Space",
+      action:
+        "Activates the focused control inside the panel — the close control, and whatever the host put in the panel.",
     },
   ],
   customization: {

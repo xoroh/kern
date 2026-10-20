@@ -5,8 +5,6 @@ export const textarea: ComponentDoc = {
   name: "Textarea",
   oneLiner:
     "Textareas take several lines of text from someone and hand it to you.",
-  features:
-    "Reach for a textarea when the answer is prose and its length is the point: a message, a description, a bug report. It matches the input's border and type so a form mixing both keeps one rhythm, and it starts tall enough to signal that more than a line is expected. Wrap it in a Field so its label, help text and error are wired to it — the same as an input. If the answer is one line, that is an input; if it is a choice, that is not text at all.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -17,42 +15,19 @@ export const textarea: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Textarea"],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
   keyboard: [
+    {
+      key: "Enter",
+      action:
+        "Inserts a line break in the field. It does not submit the form — submitting is the form's business, and a multi-line field that submitted on Enter would be a trap.",
+    },
     {
       key: "Tab / Shift+Tab",
       action:
         "Moves focus into and out of the field. Disabled fields are skipped.",
-    },
-  ],
-  usage: {
-    do: [
-      "Use for multi-line free text — comments, descriptions, messages.",
-      "Set `rows` for the initial height; allow vertical resize via CSS.",
-      "Label every textarea like any field.",
-    ],
-    dont: [
-      "Don't use for single-line values — that is an input.",
-      "Don't fix the height where content grows — let it resize or auto-grow.",
-    ],
-  },
-  tokens: [
-    {
-      element: "Container",
-      state: "resting",
-      token: "comp.outlined-text-field.container-shape",
-      value: "corner-extra-small 4px, 1px outline",
-    },
-    {
-      element: "Input text",
-      state: "resting",
-      token: "sys.typescale.body-large",
-      value: "16px / 24px, body-large",
-    },
-  ],
-  faq: [
-    {
-      q: "How tall should it start?",
-      a: "Two rows by default (`rows=2`); grow with content or allow vertical resize rather than fixing a tall box.",
     },
   ],
   customization: {

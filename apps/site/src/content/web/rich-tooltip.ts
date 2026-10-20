@@ -5,8 +5,6 @@ export const richTooltip: ComponentDoc = {
   name: "Rich tooltip",
   oneLiner:
     "A tooltip with a subhead, supporting text, and plain-text actions for explanations that need more than a label.",
-  features:
-    "Reach for a rich tooltip when a plain label cannot carry the explanation: a feature introduction, a settings hint with a next step, a definition with an action. It opens on hover and focus like the plain tooltip, but the surface is surface-container with room for a subhead, a few lines of supporting text, and text-button actions. If there are no actions and no subhead, that is a plain Tooltip, not a poor rich one.",
   meta: {
     specUrl: "https://m3.material.io/components/tooltips",
     status: "real",
@@ -21,70 +19,27 @@ export const richTooltip: ComponentDoc = {
     "RichTooltipTitle",
     "RichTooltipActions",
   ],
-  anatomy: [
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
+  // The keyboard contract, read off the tooltip primitive the rich surface
+  // is built on: the trigger is a real button, the surface opens on focus
+  // as well as on hover, and Escape dismisses it.
+  keyboard: [
     {
-      name: "RichTooltip",
-      role: "The namespace object: all of the parts below.",
+      key: "Focus (on the trigger)",
+      action:
+        "Opens the surface. The tooltip is triggered by focus as well as by hover, so the explanation reaches a keyboard user with no pointer at all.",
     },
     {
-      name: "RichTooltipContent",
-      role: "The rich surface. Portals to the end of the document and positions itself against the trigger, padding resolved from the `kern.rich-tooltip.container` shape and spacing roles on `surface-container`.",
+      key: "Enter / Space",
+      action:
+        "Activates the focused control — the trigger itself, or one of the actions in the surface, which are real buttons.",
     },
     {
-      name: "RichTooltipTitle",
-      role: "The subhead. One short line naming what the tooltip explains.",
-    },
-    {
-      name: "RichTooltipActions",
-      role: "The action row. Plain-text buttons (text Buttons) the reader can act on without leaving the tooltip.",
-    },
-  ],
-  usage: {
-    do: [
-      "Give the tooltip a subhead, supporting text, and at least the shape of a next step.",
-      "Keep actions to plain text buttons — the surface is small and loud actions unbalance it.",
-    ],
-    dont: [
-      "Don't put crucial information only in a tooltip — rich or plain, it must exist some other way too.",
-      "Don't use a rich tooltip where a plain label suffices; size is emphasis.",
-    ],
-  },
-  tokens: [
-    {
-      element: "Container",
-      state: "resting",
-      token: "sys.color.surface-container",
-      value: "--sys-color-surface-container",
-    },
-    {
-      element: "Title",
-      state: "resting",
-      token: "sys.color.on-surface",
-      value: "--sys-color-on-surface",
-    },
-    {
-      element: "Supporting text",
-      state: "resting",
-      token: "sys.color.on-surface-variant",
-      value: "--sys-color-on-surface-variant",
-    },
-    {
-      element: "Actions",
-      state: "resting",
-      token: "sys.color.primary",
-      value: "--sys-color-primary (plain-text buttons)",
-    },
-    {
-      element: "Container shape",
-      state: "resting",
-      token: "sys.shape.corner-extra-small",
-      value: "4px",
-    },
-    {
-      element: "Container elevation",
-      state: "resting",
-      token: "sys.elevation.level2",
-      value: "level2",
+      key: "Escape",
+      action:
+        "Dismisses the surface. The focus never left the trigger, so it is still there afterwards.",
     },
   ],
   api: [

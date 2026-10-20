@@ -5,8 +5,6 @@ export const radioGroup: ComponentDoc = {
   name: "Radio group",
   oneLiner:
     "Radio groups pick exactly one value from a set, and report that one value.",
-  features:
-    "Reach for a radio group when the answer is one of a known few and the alternatives should be visible at once: a plan, a delivery method, a size. The group owns the selection and `value` is a single `string`, which is the whole difference from a checkbox group — one choice versus many, and the type says so. `disabled` on the group disables every item. Each item's `children` is required here, unlike the checkbox group's optional one, because a radio with no label is a radio nobody can tell apart from its neighbours.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -17,6 +15,15 @@ export const radioGroup: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["RadioGroup", "RadioGroupItem"],
+  // The touch contract: the group is exclusive, so the press replaces the
+  // previous choice.
+  keyboard: [
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "Moves through the options, each announcing its own checked state; double-tap selects the focused option and replaces the previous choice.",
+    },
+  ],
   customization: {
     supported: [
       "`value`/`defaultValue`/`onValueChange` make it controlled or uncontrolled, and the value is ONE string.",

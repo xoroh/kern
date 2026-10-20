@@ -5,8 +5,6 @@ export const field: ComponentDoc = {
   name: "Field",
   oneLiner:
     "A field pairs a control with its label, its help text and its error, and wires them together.",
-  features:
-    "Reach for a field whenever you render a labelled control — it is the thing that makes a text box a form control rather than a box. It owns the association a screen reader needs: the label names the control, the description and the error are announced with it, and the error announces itself when it appears. Reach for the individual parts when you are composing something the field does not cover, but keep the wiring — a label that is not associated with its input is a label sighted users benefit from and everyone else does not.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -28,28 +26,10 @@ export const field: ComponentDoc = {
     "FieldError",
     "FieldMessage",
   ],
-  anatomy: [
-    {
-      name: "FieldRoot",
-      role: "The stack. Groups the parts and owns the association between them.",
-    },
-    {
-      name: "FieldLabel",
-      role: "Names the control. Becomes its accessible name.",
-    },
-    {
-      name: "FieldDescription",
-      role: "Help text. Wired to `aria-describedby` so it is read with the control.",
-    },
-    {
-      name: "FieldError",
-      role: "The error line. Announces itself when it appears.",
-    },
-    {
-      name: "FieldMessage",
-      role: "The generic message line in either tone, used by `Input` to render its own error.",
-    },
-  ],
+  // M2: the field is a WIRING container — label, control, description,
+  // error. It takes no focus and answers no key; the control it holds is
+  // the tab stop, and the parts are what it hands that control.
+  nonInteractive: true,
   customization: {
     supported: [
       "`className` on every part, merged after the part's own classes.",

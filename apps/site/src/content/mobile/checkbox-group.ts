@@ -5,8 +5,6 @@ export const checkboxGroup: ComponentDoc = {
   name: "Checkbox group",
   oneLiner:
     "Checkbox groups collect several independent choices and report them as one list of values.",
-  features:
-    "Reach for a checkbox group when several things can be chosen at once and the result is a set: filters, permissions, options. The group owns the selection — `value` is a `string[]` and every change reports the whole list — so the state is one thing rather than many. `disabled` on the group disables every item unless an item overrides it, which is the same inherited-disabled idea the fieldset family implements for arbitrary controls. Each item names itself from its `children` when they are a plain string, so the common case needs no labelling work.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -17,6 +15,14 @@ export const checkboxGroup: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["CheckboxGroup", "CheckboxGroupItem"],
+  // The touch contract: the group is additive, so the press toggles.
+  keyboard: [
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "Moves through the options, each announcing its own checked and disabled state; double-tap ticks an option, and double-tapping a ticked option unticks it — the group is additive, not exclusive.",
+    },
+  ],
   customization: {
     supported: [
       "`value`/`defaultValue`/`onValueChange` make it controlled or uncontrolled, and the value is the whole selected list.",

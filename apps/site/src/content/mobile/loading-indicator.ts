@@ -5,8 +5,6 @@ export const loadingIndicator: ComponentDoc = {
   name: "Loading indicator",
   oneLiner:
     "Loading indicators are the spinner that can say what it is doing, in three sizes.",
-  features:
-    "Reach for a loading indicator when the wait should explain itself: a page loading its data, a search running, a file uploading. It is the spinner plus a label that can be made visible, which is the difference between it and `Loader` — the label is the accessible name either way, but here you can also show it. Three sizes sit on top of the same ring. Keep the visible label short and in the present tense; it is what someone reads while they wait, and it is the only thing on screen telling them this is progress rather than a broken page.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,10 @@ export const loadingIndicator: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["LoadingIndicator"],
+  // M2: the native ring is a polite live region too — it measures nothing,
+  // takes no focus and answers no key, so the ARIA contract below is the
+  // whole story.
+  nonInteractive: true,
   customization: {
     supported: [
       "`label` is the accessible name and, with `showLabel`, the visible text too.",

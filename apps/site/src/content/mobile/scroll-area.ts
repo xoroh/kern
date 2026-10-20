@@ -5,8 +5,6 @@ export const scrollArea: ComponentDoc = {
   name: "Scroll area",
   oneLiner:
     "Scroll areas are a scroll view with the axis chosen for you, so a horizontal scroll cannot happen by accident.",
-  features:
-    "Reach for a scroll area when content overflows and you want a definite axis: a column of results, a long panel, a row of chips. It is React Native's `ScrollView` with the `horizontal` prop taken OUT of the inherited type and re-declared, which is the whole point — the axis is an explicit decision rather than something you inherit by spreading props. Passing `horizontal` turns it into the sideways case deliberately. Use it wherever an uncontrolled `ScrollView` would otherwise sprawl.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,13 @@ export const scrollArea: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["ScrollArea"],
+  keyboard: [
+    {
+      key: "Swipe (TalkBack / VoiceOver)",
+      action:
+        "Scrolls the region — the scroll view is the platform's, so the gesture is the platform's.",
+    },
+  ],
   customization: {
     supported: [
       "`horizontal` is re-declared, so the axis is an explicit choice.",

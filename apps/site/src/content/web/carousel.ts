@@ -5,8 +5,6 @@ export const carousel: ComponentDoc = {
   name: "Carousel",
   oneLiner:
     "Carousels show one slide at a time from a set, moved through with controls or by gesture.",
-  features:
-    "Reach for a carousel when the content is a small set of comparable things and showing one at a time is worth the cost of hiding the rest: a gallery of photos, a rotating set of featured items. Show the controls and the position, because content nobody can reach is content nobody sees. Be honest about the trade — anything past the first slide is seen by fewer people, so put the thing that matters first. If all the content matters equally, show it all; a carousel is a way to fit more in less space, not a way to present more.",
   meta: {
     // Canonical M3 spec page — title identity-verified live; gate re-checks.
     specUrl: "https://m3.material.io/components/carousel",
@@ -21,6 +19,25 @@ export const carousel: ComponentDoc = {
     elevation: 0,
   },
   parts: ["Carousel"],
+  // The keyboard contract, read off the region and the controls group: the
+  // arrow keys move the slide, and the controls are real buttons.
+  keyboard: [
+    {
+      key: "ArrowLeft / ArrowRight",
+      action:
+        "Moves to the previous or the next slide. The handler sits on the carousel region, so the key travels up from whichever control inside it has focus. At the ends a clamped carousel stays put — the Previous control is disabled there rather than silently wrapping.",
+    },
+    {
+      key: "Enter / Space",
+      action:
+        "Activates the focused control. The Previous and Next buttons and the dot indicators are real buttons, so the slide changes without a pointer.",
+    },
+    {
+      key: "Tab",
+      action:
+        "Reaches the controls group as one stop and then the controls inside it. The slide wrappers are not tab stops, and an inactive slide is inert, so a long set is not walked end to end.",
+    },
+  ],
   customization: {
     supported: [
       "`className` on the carousel, merged after its own classes.",

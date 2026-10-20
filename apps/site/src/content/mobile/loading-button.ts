@@ -5,8 +5,6 @@ export const loadingButton: ComponentDoc = {
   name: "Loading button",
   oneLiner:
     "Loading buttons keep their label and footprint while working, and show the wait in their leading slot.",
-  features:
-    "Reach for a loading button when the action itself is what is in progress: submitting a form, sending a message, saving. The rule it follows is Material 3's and it is the reason the component exists — never resize chrome for progress. The button keeps its label and its size while loading, so the page does not jump under the pointer that just pressed it, and the wait is shown by a `CircularProgress` in the leading slot. `loading` also blocks interaction, so a double submit is not possible. If the wait is not tied to the button — a background task, a page load — it is `Loader` or `LoadingIndicator`, not this.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,21 @@ export const loadingButton: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["LoadingButton"],
+  // The contract, read off the pressable: it is a real button, and while it
+  // is loading it is blocked — which is what makes a double submit
+  // impossible.
+  keyboard: [
+    {
+      key: "Double-tap (TalkBack / VoiceOver)",
+      action:
+        "Presses the button when it is idle. While `loading` is set the pressable is blocked, so the action cannot be fired a second time.",
+    },
+    {
+      key: "Swipe (TalkBack / VoiceOver)",
+      action:
+        "Reaches the button as an ordinary stop, and announces it as busy for as long as the action runs — the wait is state, not a change of label.",
+    },
+  ],
   customization: {
     supported: [
       "Every `Button` prop — it IS a button with the wait added, so `variant` and `size` work as on `Button`.",

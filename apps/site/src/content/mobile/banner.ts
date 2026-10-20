@@ -5,8 +5,6 @@ export const banner: ComponentDoc = {
   name: "Banner",
   oneLiner:
     "The banner reports something the whole screen needs to know, in flow, without blocking the work beneath it.",
-  features:
-    "Reach for a banner when a condition applies to the entire view and the reader can carry on regardless: a build is queued, a connection dropped, a trial is ending. Unlike the snackbar it never dismisses itself and it carries at most one action — the banner is the message, and its variant is the intent: info, success, warning or error, mapped onto the kern status roles. On native it is a `View` in your layout: you place it where the region begins, and it stays until the condition clears and you stop rendering it.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -19,12 +17,19 @@ export const banner: ComponentDoc = {
     elevation: 1,
   },
   parts: ["Banner"],
-  deviations: [
+  // The banner is a LIVE REGION, not a dialog: it never takes focus and never
+  // moves it. The dismiss control is the one control the banner contributes;
+  // the action slot is whatever the host put in it.
+  keyboard: [
     {
-      id: "K2",
-      spec: "Material 3 defines one semantic feedback pair: error, on-error, error-container and on-error-container. It has no success, warning or info colour roles.",
-      kern: "Banner takes four intent variants — info, success, warning and error — backed by kern's status roles, which add success, warning and info in container and on-container forms.",
-      why: "A system that can only say 'error' cannot report the three outcomes people actually distinguish: it worked, watch out, and for your information. The twelve status roles are registered as K2 in the roles module, so the extension is a declared addition to the role space rather than a silent fork of it.",
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "The banner is announced as an alert when it appears, without moving focus; the dismiss control reads as a button and double-tap dismisses it.",
+    },
+    {
+      key: "Enter / Space via external keyboard or switch control",
+      action:
+        "Runs the focused control — the dismiss control, or the action the host put in the slot.",
     },
   ],
   customization: {

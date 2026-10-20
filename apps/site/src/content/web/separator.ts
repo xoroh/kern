@@ -4,8 +4,6 @@ export const separator: ComponentDoc = {
   slug: "separator",
   name: "Separator",
   oneLiner: "Separators divide one region of content from the next.",
-  features:
-    "Reach for a separator when a boundary between two runs of content would otherwise be invisible: between sections of a menu, above a footer, between a form's groups. It is a rule, not a spacer — if the two things are separate enough to need a line, they are usually separate enough to be two sections with their own headings. Keep separators few; a list where every row is divided is a list where the divider has stopped meaning anything.",
   meta: {
     status: "real",
     package: "@xoroh/kern",

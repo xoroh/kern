@@ -5,8 +5,6 @@ export const contextMenu: ComponentDoc = {
   name: "Context menu",
   oneLiner:
     "Context menus attach a list of actions to arbitrary content, opened the platform's own way.",
-  features:
-    "Reach for a context menu when the actions belong to whatever is under the finger rather than to a button beside it: an item in a list, an image, a row in a table. The content is yours — `children` is the surface the menu is attached to — and `triggerLabel` names it, because an arbitrary node cannot name itself. It reuses the same `NativeMenuItem` shape as `Menu` and `Menubar`, so an action moves between them unchanged. Note the callback is `onSelect`, where the grouped menu family calls the same thing `onPress`.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -17,6 +15,22 @@ export const contextMenu: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["ContextMenu"],
+  keyboard: [
+    {
+      key: "Long press",
+      action:
+        "Opens the menu over the thing that was pressed — the platform's own gesture, not a tap.",
+    },
+    {
+      key: "Android back button",
+      action: "Dismisses the open menu through the modal's request-close path.",
+    },
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "Moves through the items in order; double-tap runs the item and closes the menu.",
+    },
+  ],
   customization: {
     supported: [
       "`children` is the surface the menu attaches to — whatever the actions belong to.",

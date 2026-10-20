@@ -5,8 +5,6 @@ export const calendar: ComponentDoc = {
   name: "Calendar",
   oneLiner:
     "The calendar is a month grid for picking one date — bounded by min and max, driven by a controlled or uncontrolled value.",
-  features:
-    "Reach for a calendar when the answer is a date within a visible month: a deadline, a booking day, a filter anchor. The grid owns the month view — previous and next month buttons, the leading blanks, the disabled days outside `min` and `max` — while the SELECTED DATE is the usual controlled-uncontrolled pair, so a form can own it or let the calendar hold it. Everything is normalised to the start of the day, so selecting a date reports midnight of that day and comparisons against `min` and `max` cannot drift across time zones' hours.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,20 @@ export const calendar: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Calendar"],
+  // The touch contract: there are no arrow keys on a phone, so traversal is
+  // by press. The month steppers and the days are separate named controls.
+  keyboard: [
+    {
+      key: "Double-tap (TalkBack / VoiceOver)",
+      action:
+        "Picks the focused day. Each day is a `button` pressable named with its full date and reporting `selected`, so the press lands on a date rather than on a number.",
+    },
+    {
+      key: "Swipe (TalkBack / VoiceOver)",
+      action:
+        "Moves through the month name, the two month steppers and the days in reading order; the selected day announces as selected.",
+    },
+  ],
   customization: {
     supported: [
       "`value` / `defaultValue` / `onValueChange` are the controlled-uncontrolled pair for the selected date.",

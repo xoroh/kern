@@ -5,8 +5,6 @@ export const navigationMenu: ComponentDoc = {
   name: "Navigation menu",
   oneLiner:
     "Navigation menus open a panel of links from a trigger in a site's main navigation.",
-  features:
-    "Reach for a navigation menu when a section of the site has several related destinations and showing them all in the bar would crowd it: a Docs menu over its guides, reference and changelog. The trigger opens a panel and stays put while the panel is explored, so someone can look before they leap. It is the wrong tool for choosing a value — that is a select — and the wrong tool for acting — that is a menu. If the panel is mostly text, consider just showing the links.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -27,36 +25,9 @@ export const navigationMenu: ComponentDoc = {
     "NavigationMenuContent",
     "NavigationMenuLink",
   ],
-  anatomy: [
-    {
-      name: "NavigationMenuRoot",
-      role: "Owns which item is open. The whole menu hangs off it.",
-    },
-    {
-      name: "NavigationMenuList",
-      role: "The row of triggers.",
-    },
-    {
-      name: "NavigationMenuItem",
-      role: "One entry: a trigger, and the panel it opens.",
-    },
-    {
-      name: "NavigationMenuTrigger",
-      role: "Opens the panel for its item. Carries the expanded state.",
-    },
-    {
-      name: "NavigationMenuContent",
-      role: "The panel. Portals to the end of the document and positions itself against its trigger.",
-    },
-    {
-      name: "NavigationMenuLink",
-      role: "A destination inside a panel. A link, not a button — it goes somewhere.",
-    },
-    {
-      name: "NavigationMenu",
-      role: "The namespace object: all of the parts above.",
-    },
-  ],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
   keyboard: [
     {
       key: "Arrow keys",
@@ -65,33 +36,6 @@ export const navigationMenu: ComponentDoc = {
     {
       key: "Escape",
       action: "Closes the menu and returns focus to the trigger.",
-    },
-  ],
-  usage: {
-    do: [
-      "Use for site navigation with grouped destinations.",
-      "Keep trigger labels short.",
-    ],
-    dont: ["Do not nest menus deeper than one level."],
-  },
-  tokens: [
-    {
-      element: "Popup",
-      state: "resting",
-      token: "comp.menu.container",
-      value: "surface-container, 4px, level2",
-    },
-    {
-      element: "Active link",
-      state: "resting",
-      token: "comp.navigation-menu.active",
-      value: "secondary-container pill plus on-secondary-container",
-    },
-  ],
-  faq: [
-    {
-      q: "Menu or menubar?",
-      a: "NavigationMenu for site wayfinding with dropdowns.",
     },
   ],
   customization: {

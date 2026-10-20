@@ -5,8 +5,6 @@ export const inputOTP: ComponentDoc = {
   name: "Input OTP",
   oneLiner:
     "Input OTP is the one-code-per-position field, with a completion callback and a per-position keyboard.",
-  features:
-    "Reach for it when the answer is a short fixed-length code: a one-time code, a PIN, an invite code. The length is a number of POSITIONS rather than a character cap, and the field fills one position at a time. Two props do the work. `onComplete` fires once every position is filled, which is where you submit — no separate done button to miss. And `keyboardType` restricts the per-position keyboard, with `numeric` matching `inputmode=numeric`, so a numeric code asks for a number pad instead of a full keyboard.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -17,6 +15,25 @@ export const inputOTP: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["InputOTP"],
+  // The contract, read off the component: every position is a real text
+  // input, and the retreat rule hangs off the key press itself.
+  keyboard: [
+    {
+      key: "0–9",
+      action:
+        "Types into the position and moves on to the next one — the numeric keyboard is the default, and the code advances as it is filled.",
+    },
+    {
+      key: "Backspace",
+      action:
+        "Steps back one position when the current box is already empty. The retreat hangs off the key press itself, because clearing an empty box changes no text and so fires no change event.",
+    },
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        'Moves between the positions; each one names itself — "Digit n of N" — so a reader knows which position they are in before they type.',
+    },
+  ],
   customization: {
     supported: [
       "`length` sets the number of positions.",

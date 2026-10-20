@@ -5,8 +5,6 @@ export const extendedFab: ComponentDoc = {
   name: "Extended FAB",
   oneLiner:
     "Extended FABs are the labelled floating action button — the one primary action, with its name beside its icon.",
-  features:
-    "Reach for an extended FAB when the screen's single most important action is not obvious from its icon alone. The label is the whole reason to choose this over a plain FAB: it says what the action does. It collapses to the icon-only form as the screen scrolls, which is Material 3's behaviour, and since the component cannot see where the host is scrolled to, the trigger is an explicit handle you call rather than a gesture kern would have to invent. Keep it to one per screen — two primary actions are not two primary actions, they are two buttons.",
   meta: {
     // Canonical M3 spec page — title identity-verified live; gate re-checks.
     specUrl: "https://m3.material.io/components/extended-fab",
@@ -20,6 +18,18 @@ export const extendedFab: ComponentDoc = {
     elevation: 3,
   },
   parts: ["ExtendedFab"],
+  keyboard: [
+    {
+      key: "Enter / Space",
+      action:
+        "Runs the action. The fab is a real button, and the label is its accessible name in both states — so collapsing it to the icon never leaves it unnamed.",
+    },
+    {
+      key: "Tab / Shift+Tab",
+      action:
+        "Moves focus into and out of the fab. A disabled fab is skipped in the tab order.",
+    },
+  ],
   customization: {
     supported: [
       "`className` is passed through and merged after the FAB's own classes.",

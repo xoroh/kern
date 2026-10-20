@@ -5,8 +5,6 @@ export const link: ComponentDoc = {
   name: "Link",
   oneLiner:
     "Links are anchors that can be pointed at your host router, so kern never hardcodes one.",
-  features:
-    "Reach for `Link` instead of a bare `<a>` anywhere kern renders navigation. The design here is dependency injection and it is worth understanding: kern ships no router, so `LinkProvider` lets the host supply its own link component — TanStack's, React Router's, any `(props) => ReactNode` — and every `Link` inside renders through it. Without a provider, `Link` falls back to a plain `<a>`. That means the same kern components work in any host, and navigation is decided once at the root rather than per call site. Pass `to` when the host router uses a location, or `href` for a plain URL.",
   meta: {
     status: "real",
     package: "@xoroh/kern/start",

@@ -5,8 +5,6 @@ export const button: ComponentDoc = {
   name: "Button",
   oneLiner:
     "The button is the standard action control: five Material 3 treatments, four sizes, one press.",
-  features:
-    'Reach for a button when tapping causes something: submit, save, open, confirm. The variant axis mirrors the web union exactly — `filled` is the emphasis treatment, `tonal` and `outlined` the quieter pair, `text` the quietest, and `elevated` the one treatment that raises — because the variant law is one meaning per name across both renderers, not one name count. `color="danger"` re-paints any of the five in the error roles instead of adding a sixth vocabulary word. `size` walks the compact `xs`, the default height, the small `sm`, the large `xl` and the square `icon` box. `loading` swaps in the progress indicator and blocks the press until it clears, and `icon` renders beside the label with the same icon `gap` the web pair uses.',
   meta: {
     specUrl: "https://m3.material.io/components/buttons",
     status: "real",
@@ -25,6 +23,9 @@ export const button: ComponentDoc = {
     elevation: 0,
   },
   parts: ["Button"],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting", "pressed"],
   keyboard: [
     {
       key: "Enter / Space",
@@ -35,74 +36,6 @@ export const button: ComponentDoc = {
       key: "Swipe + double-tap (TalkBack / VoiceOver)",
       action:
         "Moves through buttons in order; double-tap activates. Disabled buttons are skipped.",
-    },
-  ],
-  usage: {
-    do: [
-      "Put one primary action per screen — the filled button carries the hierarchy.",
-      'Use `color="danger"` for destructive actions instead of inventing a sixth variant.',
-      "Keep labels to a few words — the button resolves its height from the `kern.button.size` scale and truncates long text.",
-      "Use `toggle` for binary Save/Favorite selections with morph and emphasis swap.",
-    ],
-    dont: [
-      "Don't use a button to navigate — navigate with a list item or link, not an action control.",
-      "Don't stack multiple filled buttons — demote the rest to tonal, outlined, or text.",
-      "Don't render a glyph-only button without an accessibility label from the pressable props.",
-      "Don't toggle text — there is no selected text treatment.",
-    ],
-  },
-  tokens: [
-    {
-      element: "Filled container",
-      state: "resting",
-      token: "theme.color.primary",
-      value: "primary",
-    },
-    {
-      element: "Filled label",
-      state: "resting",
-      token: "theme.color.onPrimary",
-      value: "onPrimary (14px / 20px, 500, 0.1px)",
-    },
-    {
-      element: "Tonal container",
-      state: "resting",
-      token: "theme.color.secondaryContainer",
-      value: "secondaryContainer",
-    },
-    {
-      element: "Elevated container",
-      state: "resting",
-      token: "theme.color.surfaceContainerLow",
-      value: "surfaceContainerLow (separates by fill, not shadow)",
-    },
-    {
-      element: "Outlined border",
-      state: "resting",
-      token: "theme.color.outline",
-      value: "outline, 1px",
-    },
-    {
-      element: "Press feedback",
-      state: "pressed",
-      token: "opacity 0.82 + android_ripple",
-      value: "whole-container dim; ripple follows the treatment ink",
-    },
-    {
-      element: "Container",
-      state: "resting",
-      token: "theme.shape.full",
-      value: "9999px pill",
-    },
-  ],
-  faq: [
-    {
-      q: "Why does native `elevated` have no shadow?",
-      a: "On native the raised treatment separates by its `surfaceContainerLow` fill rather than a shadow — the level-1 row is the spec's, not the paint's. The FAB family still carries level-3 shadows.",
-    },
-    {
-      q: "How do I get the treatment without the component?",
-      a: "Use the exported `buttonStyles(variant, size, disabled, theme, options)` — it returns the container and label styles with the same color, shape, and block options.",
     },
   ],
   customization: {

@@ -5,8 +5,6 @@ export const combobox: ComponentDoc = {
   name: "Combobox",
   oneLiner:
     "Comboboxes pick one value from a set, either from the list or by typing to narrow it.",
-  features:
-    "Reach for a combobox when the answer is one of many known values and typing is quicker than scrolling: an assignee, a tag, a country, a template. It shows the current choice and offers the rest on demand, and the input filters as you type — so it is a select you can search and an autocomplete you can also browse. It is the wrong tool when the answer is free text, which is an input, or when the set is short enough to read, which is a radio group. Clear is its own control, because getting out of a wrong choice matters as much as getting in.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -31,39 +29,29 @@ export const combobox: ComponentDoc = {
     "ComboboxItem",
     "ComboboxEmpty",
   ],
-  deviations: [
+  // The keyboard contract, read off the combobox primitive: the input keeps
+  // the focus, the arrows move a HIGHLIGHT through the options, and Enter
+  // takes the highlighted one.
+  keyboard: [
     {
-      id: "K6",
-      spec: 'M3\'s component elevation table names no combobox. It tabulates "menu" at level 2 and search at level 3; neither describes a typeahead selection field.',
-      kern: "The combobox popup rests at elevation level 2.",
-      why: "The open list behaves as an overlay above the page and needs the lift the other anchored overlays have. Borrowing the menu row would assert M3 described this surface, which it does not. Registered as K6 in the elevation inventory so the level is a recorded decision.",
-    },
-  ],
-  anatomy: [
-    {
-      name: "ComboboxRoot",
-      role: "Owns the query and the chosen value. Generic over the value type.",
-    },
-    { name: "ComboboxLabel", role: "Names the field." },
-    { name: "ComboboxInput", role: "Shows the choice and takes the query." },
-    {
-      name: "ComboboxTrigger",
-      role: "Opens the list without typing, for anyone who would rather browse.",
+      key: "Type",
+      action:
+        "Filters the options as you type. The focus stays in the field — the list is filtered around it, not walked through it.",
     },
     {
-      name: "ComboboxClear",
-      role: "Empties the field. Its own control, because undoing a wrong choice should not require selecting a right one.",
+      key: "ArrowDown / ArrowUp",
+      action:
+        "Moves the highlight through the options. The highlight is the preview of the choice; the field keeps the focus.",
     },
     {
-      name: "ComboboxContent",
-      role: "The list surface. Portals to the end of the document and positions itself against the input.",
+      key: "Enter",
+      action: "Chooses the highlighted option.",
     },
-    { name: "ComboboxItem", role: "One option." },
     {
-      name: "ComboboxEmpty",
-      role: "What to show when the query matches nothing.",
+      key: "Escape",
+      action:
+        "Closes the popup without changing the choice, and returns focus to the input.",
     },
-    { name: "Combobox", role: "The namespace object: all of the parts above." },
   ],
   customization: {
     supported: [

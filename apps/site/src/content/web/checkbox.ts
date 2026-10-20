@@ -5,8 +5,6 @@ export const checkbox: ComponentDoc = {
   name: "Checkbox",
   oneLiner:
     "Checkboxes let people pick several things from a set, or agree to something one at a time.",
-  features:
-    "Reach for a checkbox when each choice is independent and more than one can be on: permissions, ingredients, the columns you want in a table. A single checkbox is right for something you agree to separately from anything else — terms, a subscription, a flag. If only one option in a set may be chosen, that is a radio group; if the choice is a single thing you turn on and off and it applies immediately, that is a switch. Give the checkbox a label — an unnamed checkbox is a shape that means nothing to a screen reader.",
   meta: {
     // Canonical M3 spec page — title identity-verified live; gate re-checks.
     specUrl: "https://m3.material.io/components/checkbox",
@@ -19,6 +17,9 @@ export const checkbox: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Checkbox"],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting", "hover", "disabled"],
   keyboard: [
     {
       key: "Space",
@@ -28,72 +29,6 @@ export const checkbox: ComponentDoc = {
       key: "Tab / Shift+Tab",
       action:
         "Moves focus into and out of the checkbox. Disabled boxes are skipped.",
-    },
-  ],
-  usage: {
-    do: [
-      "Use when each choice is independent and more than one can be on — permissions, ingredients, table columns.",
-      "Use a single checkbox for something agreed to separately — terms, a subscription, a flag.",
-      "Use indeterminate when some (not all) children below are checked.",
-    ],
-    dont: [
-      "Don't use when only one option may be chosen — that is a radio group.",
-      "Don't use for a single on/off that applies immediately — that is a switch.",
-      "Don't render without a label or `aria-label` — an unnamed checkbox means nothing to a screen reader.",
-    ],
-  },
-  tokens: [
-    {
-      element: "Container",
-      state: "resting",
-      token: "comp.checkbox.container-size",
-      value: "18px, 2px shape",
-    },
-    {
-      element: "Unselected outline",
-      state: "resting",
-      token: "comp.checkbox.unselected-outline-color",
-      value: "--sys-color-on-surface-variant, 2px",
-    },
-    {
-      element: "Selected container",
-      state: "resting",
-      token: "comp.checkbox.selected-container-color",
-      value: "--sys-color-primary",
-    },
-    {
-      element: "Selected icon",
-      state: "resting",
-      token: "comp.checkbox.selected-icon-color",
-      value: "--sys-color-on-primary, 18px",
-    },
-    {
-      element: "State layer",
-      state: "hover",
-      token: "sys.state.hover-state-layer-opacity",
-      value: "8%, 40px full",
-    },
-    {
-      element: "Selected container",
-      state: "disabled",
-      token: "comp.checkbox.selected-disabled-container-opacity",
-      value: "on-surface 38%",
-    },
-    {
-      element: "Unselected outline",
-      state: "disabled",
-      token: "comp.checkbox.unselected-disabled-outline-color",
-      value: "on-surface 38%",
-    },
-  ],
-  faq: [
-    {
-      q: "When do I use indeterminate?",
-      a: "When the box parents a set where some (not all) children are checked — typically a select-all control. It sets the mixed ARIA state, not just a dash.",
-    },
-    {
-      q: "Checkbox, radio, or switch?",
-      a: "Checkbox for independent multi-choices; radio for one-of-many; switch for a single on/off that applies immediately.",
     },
   ],
   customization: {

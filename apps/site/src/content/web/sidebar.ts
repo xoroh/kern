@@ -5,8 +5,6 @@ export const sidebar: ComponentDoc = {
   name: "Sidebar",
   oneLiner:
     "Sidebars are the app's persistent navigation region, composed from a provider, sections and items.",
-  features:
-    "Reach for a sidebar when the app has enough destinations that they should always be reachable — a tool, a console, a docs site. It is a composition rather than one component: `SidebarProvider` owns the open state and exposes it through `useSidebar`, then `Sidebar` lays out `Header`, `Content` and `Footer` regions with `SidebarItem`s in them. That separation is deliberate — the state is one place, the chrome is several, and a shell can swap any region without forking. `NavigationRail` and `SectionDrawer` are the two narrower forms of the same destination list, so the places are declared once and the container is chosen per breakpoint.",
   meta: {
     status: "real",
     package: "@xoroh/kern/start",
@@ -26,6 +24,21 @@ export const sidebar: ComponentDoc = {
     "NavigationRail",
     "NavigationRailButton",
     "SectionDrawer",
+  ],
+  // The sidebar is a NAVIGATION LANDMARK: it takes no focus of its own, and
+  // its destinations are the tab stops. A closed sidebar renders no
+  // destinations at all, so while it is closed it is not in the tab order.
+  keyboard: [
+    {
+      key: "Tab / Shift+Tab",
+      action:
+        "Moves through the sidebar's destinations in order. A closed sidebar renders no destinations, so it takes no focus at all.",
+    },
+    {
+      key: "Enter / Space",
+      action:
+        "Follows the focused destination. A destination with an href is a link; without one it is a button, and the press runs it.",
+    },
   ],
   customization: {
     supported: [

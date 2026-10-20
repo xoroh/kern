@@ -5,8 +5,6 @@ export const table: ComponentDoc = {
   name: "Table",
   oneLiner:
     "Tables lay out rows of related values so they can be compared down a column.",
-  features:
-    "Reach for a table when the data is genuinely tabular - several attributes per record, and the point is comparing them across rows. Give every column a header and keep the values in a column aligned, because the comparison is the whole reason the table exists. On a narrow screen a table that scrolls sideways is better than one that reflows into unrelated cards; a card list loses the comparison that made the table worth building. If each record stands alone and nothing is compared, that is a list, not a table.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -26,46 +24,23 @@ export const table: ComponentDoc = {
     "TableCell",
     "TableCaption",
   ],
-  anatomy: [
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
+  // A semantic table is NOT a data grid: the component binds no key and takes
+  // no focus. What the host puts inside the cells is what the tab order
+  // reaches, and the table's own contribution is the row and column
+  // relationship a screen reader reads out.
+  keyboard: [
     {
-      name: "TableRoot",
-      role: "The `<table>` itself. The namespace `Table` also exposes all of the parts below.",
+      key: "Tab / Shift+Tab",
+      action:
+        "Moves through the interactive controls inside the cells, in reading order. The table itself takes no focus — the comparison is read, not operated.",
     },
     {
-      name: "TableHead",
-      role: "The `<thead>`. The header ROWS go here - see the warning below.",
-    },
-    {
-      name: "TableHeader",
-      role: "One `<th>`. A header CELL, not the header section. The names are one letter apart and they are not interchangeable.",
-    },
-    { name: "TableBody", role: "The `<tbody>`." },
-    { name: "TableRow", role: "One `<tr>`." },
-    { name: "TableCell", role: "One `<td>`." },
-    {
-      name: "TableCaption",
-      role: "The `<caption>`. Names the table for assistive tech - the only place a table gets a title it can announce.",
-    },
-  ],
-  usage: {
-    do: [
-      "Use tonal head rows over data rows for scan order.",
-      "Let wide tables scroll horizontally inside their wrapper.",
-    ],
-    dont: ["Don't center data text - start-align for scanning."],
-  },
-  tokens: [
-    {
-      element: "Wrapper",
-      state: "resting",
-      token: "kern.table.wrapper",
-      value: "outline-variant border, 8px",
-    },
-  ],
-  faq: [
-    {
-      q: "Table or list?",
-      a: "Tables for multi-column data; lists for single-column rows with actions.",
+      key: "Enter / Space",
+      action:
+        "Activates the focused control inside a cell. The table binds no key of its own; there is no sorting or selection for one to move.",
     },
   ],
   customization: {

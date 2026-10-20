@@ -5,8 +5,6 @@ export const avatar: ComponentDoc = {
   name: "Avatar",
   oneLiner:
     "Avatars show who something belongs to, as an image or as initials.",
-  features:
-    "Reach for an avatar when identity is the thing being conveyed: the author of a comment, the owner of a record, the members of a team. The fallback matters as much as the image — many people have no image, and an empty circle is worse than initials. Size it to the density of what it sits in; a 56-pixel face in a dense table row is a face that pushes the data aside. Do not use an avatar as a button's only content without a label, and do not rely on it to identify someone to a screen reader.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -16,42 +14,15 @@ export const avatar: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Avatar", "AvatarRoot", "AvatarImage", "AvatarFallback"],
-  anatomy: [
-    {
-      name: "AvatarRoot",
-      role: "The frame. Owns the size and clips whatever is inside to the avatar's shape.",
-    },
-    {
-      name: "AvatarImage",
-      role: "The photograph. Renders only once the image has actually loaded.",
-    },
-    {
-      name: "AvatarFallback",
-      role: "What shows when there is no image or it has not loaded — initials, an icon, a colour. Without it the avatar is an empty circle.",
-    },
-    { name: "Avatar", role: "The namespace object: Root, Image and Fallback." },
-  ],
-  usage: {
-    do: [
-      "Show the person or entity image; fall back to initials on primary.",
-      "Keep full-circle geometry at every size.",
-    ],
-    dont: ["Don't stretch non-square sources — crop to the circle."],
-  },
-  tokens: [
-    {
-      element: "Fallback",
-      state: "resting",
-      token: "kern.avatar.fallback",
-      value: "primary + on-primary, full circle",
-    },
-  ],
-  faq: [
-    {
-      q: "What sizes exist?",
-      a: "Small 32, default 40, large 56 — always circular.",
-    },
-  ],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
+  // Presentational BY CONSTRUCTION: the avatar is a frame with an image and a
+  // fallback. It takes no focus, handles no key and exposes no state of its
+  // own. A host that makes an avatar a link owns that link's contract — the
+  // avatar does not bring one with it. So there is no keyboard contract to
+  // write, and saying so is a fact rather than a gap.
+  nonInteractive: true,
   customization: {
     supported: [
       "`className` on every part, merged after the part's own classes.",

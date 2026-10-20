@@ -4,8 +4,6 @@ export const form: ComponentDoc = {
   slug: "form",
   name: "Form",
   oneLiner: "Forms collect several values and hand them over together.",
-  features:
-    "Reach for a form when the answer is several fields submitted as one: a sign-up, a record's details, a filter set. It is a real `<form>`, so Enter submits it and the browser's own validation and autofill work without help. Group related fields and ask one question per field — a field asking two things gets one answer and loses the other. When the fields are a single question's options rather than separate answers, put them in a fieldset with a legend so the grouping is announced as well as seen.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -16,6 +14,18 @@ export const form: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Form"],
+  keyboard: [
+    {
+      key: "Enter",
+      action:
+        "Submits the form from a text field — the form element's own behaviour. A field that fails validation blocks the submit, and the focus moves to the first control that needs fixing.",
+    },
+    {
+      key: "Tab",
+      action:
+        "Moves between the fields in document order; the form element itself is not a focus stop.",
+    },
+  ],
   customization: {
     supported: [
       "`className` is passed through and merged after the form's own classes.",

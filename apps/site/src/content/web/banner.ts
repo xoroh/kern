@@ -5,8 +5,6 @@ export const banner: ComponentDoc = {
   name: "Banner",
   oneLiner:
     "Banners report something the whole screen needs to know, without blocking what people are doing.",
-  features:
-    "Reach for a banner when a condition applies to the entire view and someone can carry on regardless: a build is queued, a trial is ending, a connection dropped. It sits at the top of the content it refers to and stays until the condition clears — a banner that disappears on its own is a toast, not a banner. Pick the variant that matches the intent rather than the urgency you feel: info for neutral state, success for something that worked, warning for something to watch, error for something that needs attention.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -18,35 +16,22 @@ export const banner: ComponentDoc = {
     elevation: 1,
   },
   parts: ["Banner", "BannerAction"],
-  deviations: [
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
+  // The banner is a LIVE REGION, not a dialog: it never takes focus and
+  // never moves it. The controls it carries — the dismiss control and the
+  // optional action — are the tab stops.
+  keyboard: [
     {
-      id: "K2",
-      spec: "Material 3 defines one semantic feedback pair: error, on-error, error-container and on-error-container. It has no success, warning or info colour roles.",
-      kern: "Banner takes four intent variants — info, success, warning and error — backed by kern's status roles, which add success, warning and info in container and on-container forms.",
-      why: "A system that can only say 'error' cannot report the three outcomes people actually distinguish: it worked, watch out, and for your information. The twelve status roles are registered as K2 in m3-roles.ts, so the extension is a declared addition to the role space rather than a silent fork of it.",
+      key: "Tab / Shift+Tab",
+      action:
+        "Moves to the controls the banner carries — the dismiss control, and the action if the host put one in. The banner itself takes no focus and never steals it.",
     },
-  ],
-  usage: {
-    do: [
-      "Use for inline notices needing icon, text, and actions together.",
-      "Keep to one screen region — banners explain, dialogs interrupt.",
-    ],
-    dont: [
-      "Don't use where a snackbar suffices — transient updates leave with the user.",
-    ],
-  },
-  tokens: [
     {
-      element: "Container",
-      state: "resting",
-      token: "kern.banner.container",
-      value: "Kern pattern beyond M3; shaped by M3 roles",
-    },
-  ],
-  faq: [
-    {
-      q: "Banner, snackbar, or dialog?",
-      a: "Banner for persistent inline notices; snackbar for transient updates; dialog for blocking decisions.",
+      key: "Enter / Space",
+      action:
+        "Activates the focused control — the dismiss control, which closes the banner, or the banner's action.",
     },
   ],
   customization: {

@@ -5,8 +5,6 @@ export const scrollArea: ComponentDoc = {
   name: "Scroll area",
   oneLiner:
     "Scroll areas give a fixed region its own scrollbar, so the page does not scroll away from under the content.",
-  features:
-    "Reach for a scroll area when a region must stay a certain height while its content runs long: a sidebar, a code panel, a log. The point is that the scrollbar belongs to the region rather than to the page, so the shell around it stays put. Keep the region's height fixed by its surroundings rather than by a magic number where you can. If the whole page should scroll, let the page scroll — a nested scroll region inside a scrolling page is a fight over the wheel.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -22,22 +20,16 @@ export const scrollArea: ComponentDoc = {
     "ScrollAreaViewport",
     "ScrollAreaScrollbar",
   ],
-  anatomy: [
+  keyboard: [
     {
-      name: "ScrollAreaRoot",
-      role: "The region. Owns the overflow behaviour and the scrollbar's relationship to it.",
+      key: "Tab",
+      action:
+        "Moves focus to the scrollable region — the viewport is a focus stop, so a keyboard user can reach the content and scroll it.",
     },
     {
-      name: "ScrollAreaViewport",
-      role: "The scrolling content. What overflows this is what the scrollbar moves through.",
-    },
-    {
-      name: "ScrollAreaScrollbar",
-      role: "The scrollbar itself, drawn against the region rather than the window.",
-    },
-    {
-      name: "ScrollArea",
-      role: "The namespace object: Root, Viewport and Scrollbar.",
+      key: "Arrow keys",
+      action:
+        "Scroll the region once it has focus; the viewport is a native scroll container, so the browser's own scrolling applies.",
     },
   ],
   customization: {

@@ -5,8 +5,6 @@ export const stateLayer: ComponentDoc = {
   name: "State layer",
   oneLiner:
     "The M3 pressed wash for native: an overlay in the content color at the pressed state-layer opacity, clipped to the container shape.",
-  features:
-    "Reach for this when a pressable needs pressed feedback and whole-control opacity would dim the label too — Material 3 never dims a control to signal press. The wash reads its opacity from the DTCG states token, so a token change moves every control at once. It is paint, not content: pointer-transparent and hidden from assistive tech. The host Pressable keeps overflow hidden plus the matching radius, or the wash escapes the container shape.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",

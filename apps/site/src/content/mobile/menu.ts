@@ -5,8 +5,6 @@ export const menu: ComponentDoc = {
   name: "Menu",
   oneLiner:
     "Menus show a short list of actions attached to a trigger you supply.",
-  features:
-    "Reach for a menu when a trigger should offer a few actions without taking the reader anywhere: an overflow list, a set of options on an item, an edit menu. The trigger is yours — you pass the content and you pass its NAME, because `triggerLabel` is required rather than inferred. The items are data, and note the callback is `onSelect`, not `onPress`: the grouped menu family (`MenuGroupList`, `MenuScreen`, `MenuSheet`) calls the same thing `onPress`, so copying an action between the two forms needs that one rename. Keep the list short and the actions reversible; a menu with many choices or destructive ones wants a different surface.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -18,52 +16,24 @@ export const menu: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Menu"],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
   keyboard: [
+    {
+      key: "Escape",
+      action:
+        "Dismisses the menu. Escape, a scrim press and the system back all reach the same `onDismiss`, so the host has one callback to wire.",
+    },
+    {
+      key: "Android hardware back",
+      action:
+        "Dismisses the menu too: the overlay's request-close is wired to the same `onDismiss` the scrim press reaches.",
+    },
     {
       key: "Swipe + double-tap (TalkBack / VoiceOver)",
       action:
         "The trigger announces its label; the open menu reads as a menu and each item as a menu item with its disabled state; double-tap chooses.",
-    },
-  ],
-  usage: {
-    do: [
-      "Declare items as data — `label`, optional `onSelect`, optional `disabled` — so the list renders identically wherever it opens.",
-      "Keep the item count short enough to scan; a menu is a choice, not a catalog.",
-      "Disabled items stay visible and inert rather than vanishing, so the set reads as stable.",
-    ],
-    dont: [
-      "Don't nest menus — one level is the whole pattern.",
-      "Don't put the only path to a destination inside a menu without a visible trigger that names it.",
-    ],
-  },
-  tokens: [
-    {
-      element: "Surface",
-      state: "resting",
-      token: "theme.color.surfaceContainer",
-      value: "surfaceContainer, minWidth 112",
-    },
-    {
-      element: "Surface shape",
-      state: "resting",
-      token: "theme.shape.small",
-      value: "small corners",
-    },
-    {
-      element: "Item",
-      state: "resting",
-      token: "theme.color.onSurface",
-      value: "onSurface label, minHeight 48",
-    },
-  ],
-  faq: [
-    {
-      q: "Menu or action sheet?",
-      a: "A menu hangs off its trigger where it stands; an action sheet rises as its own surface with a fixed action row. Trigger-anchored choice means menu.",
-    },
-    {
-      q: "How does this differ from the web menu?",
-      a: "The contract is the same (items as data, disabled stays visible). The surface is a native modal with a scrim rather than a positioned popup, and the trigger is a slot you own.",
     },
   ],
   customization: {

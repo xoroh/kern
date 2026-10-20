@@ -5,8 +5,6 @@ export const command: ComponentDoc = {
   name: "Command",
   oneLiner:
     "Command palettes are a modal dialog with a search field and a grouped, scrollable list of actions.",
-  features:
-    "Reach for a command palette when the app has many actions and the fast path is typing one: an editor's commands, a console's operations. It is Material 3's shape — a modal dialog with a leading search field and a grouped, scrollable action list — and the native form of the same idea cmdk made common. Actions are data, and the two fields worth using are `group` and `keywords`. `group` gives the flat list its headings (Material 3's \"command group\"), and `keywords` is what makes an action findable under a name other than its label, so a command can be reached the way someone thinks of it rather than only the way it is written.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,12 +14,23 @@ export const command: ComponentDoc = {
     elevation: 3,
   },
   parts: ["Command"],
-  deviations: [
+  // The contract, read off the component: the leading field is a real text
+  // input, and every row in the list is a pressable with its own label.
+  keyboard: [
     {
-      id: "K11",
-      spec: "M3's component elevation table names no command palette and no searchable list. It tabulates menus at level 2 and modal dialogs at level 3; neither describes a filtered list of actions.",
-      kern: "The command surface rests at elevation level 3.",
-      why: "A command palette is summoned over everything and dismissed on a keypress — it behaves like a dialog even though it is built on the combobox primitive. Dialog height is what keeps it visually above the page it interrupts. Registered as K11 in the kern deviations registry — review-m3 ruled this resting elevation a kern choice, not a transcription of M3, so the citation is the registry rather than a spec row.",
+      key: "Type",
+      action:
+        "Filters the actions as you type. The field at the top of the palette is a real text input, so the list is reachable without seeing it.",
+    },
+    {
+      key: "Double-tap (TalkBack / VoiceOver)",
+      action:
+        "Activates an action in the list. Each row is a `menuitem` pressable named by its label, and a disabled one announces as unavailable.",
+    },
+    {
+      key: "Double-tap on the close control (TalkBack / VoiceOver)",
+      action:
+        'Dismisses the palette. It is a real button labelled "Close command palette", not a decoration.',
     },
   ],
   customization: {

@@ -5,8 +5,6 @@ export const pageLoader: ComponentDoc = {
   name: "Page loader",
   oneLiner:
     "Page loaders are the centred loading surface for a region that is still coming.",
-  features:
-    "Reach for a page loader when a region's content is not ready and the space should say so rather than sit blank: a route loading, a panel fetching, a report computing. It is centred in its region, which is the difference between it and a `Loader` that sits inline with what it reports on. For the branded full-screen boot moment there is `BootIndicator` instead — a page loader is for a part of the page, not for the app starting up. Keep the label about what is loading rather than that something is loading.",
   meta: {
     status: "real",
     package: "@xoroh/kern",

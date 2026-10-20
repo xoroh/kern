@@ -5,8 +5,6 @@ export const panes: ComponentDoc = {
   name: "Pane",
   oneLiner:
     "Panes are content regions on a width scale, and the layout shapes built from them — a page, a split, a list-and-detail.",
-  features:
-    "Reach for a pane when content needs a region of its own with a sensible measure. The width is a scale — `narrow`, `default`, `wide`, `full` — and not a pixel value, so a page stays readable instead of stretching across a wide screen. The family then composes: `Page` is the ordinary one-region page, `SplitGrid` and `SplitPanel` divide the space, `ListDetail` is the master-detail pattern, and `Inspector` is the side panel for the record under the cursor. Declaring the measure as a scale is the point — it keeps every screen on the same rhythm. The equal-column split at this tier is `SplitGrid`, not `Split`: `Split` is the primitive component and takes any children, while `SplitGrid` is the grid recipe that expects `SplitPanel` columns. They are two components with two names — see the split ruling.",
   meta: {
     status: "real",
     package: "@xoroh/kern/start",
@@ -16,6 +14,11 @@ export const panes: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Pane", "Page", "SplitGrid", "SplitPanel", "ListDetail", "Inspector"],
+  // Pure LAYOUT: the pane is a `<section>` with a measure applied. It takes
+  // no focus, handles no key and exposes no state of its own — the controls
+  // the host puts inside it are the tab stops. So there is no keyboard
+  // contract to write, and saying so is a fact rather than a gap.
+  nonInteractive: true,
   customization: {
     supported: [
       "`width` is the four-step measure scale, so content stays readable on a wide screen.",

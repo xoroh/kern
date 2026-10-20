@@ -5,8 +5,6 @@ export const chip: ComponentDoc = {
   name: "Chip",
   oneLiner:
     "Chips are compact elements that represent an attribute, an action, or a filter.",
-  features:
-    "Reach for a chip when you need to show something a person can act on without giving it the weight of a button: a tag on a record, a filter in a search UI, a suggested reply. Chips come in four flavours and the flavour is the choice — assist for a quick action, filter for something selectable, input for something removable, suggestion for something offered. Put chips in a row with other chips; a chip on its own is usually a button or a label that has lost its way.",
   meta: {
     // Canonical M3 spec page — title identity-verified live; gate re-checks.
     specUrl: "https://m3.material.io/components/chips",
@@ -20,6 +18,9 @@ export const chip: ComponentDoc = {
     elevation: 0,
   },
   parts: ["Chip"],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
   keyboard: [
     {
       key: "Tab / Shift+Tab",
@@ -33,38 +34,6 @@ export const chip: ComponentDoc = {
     {
       key: "Backspace / Delete",
       action: "Removes the focused input chip.",
-    },
-  ],
-  usage: {
-    do: [
-      "Use assist for smart cross-app actions, filter for collection tags, input for user-entered discretes, suggestion for dynamic narrowing.",
-      "Always render chips in sets that scroll horizontally — never one alone.",
-      "Keep labels to 20 characters, skipping articles.",
-    ],
-    dont: [
-      "Don't finish tasks with chips — Save and Cancel are buttons, not chips.",
-      "Don't mix single- and multi-select filter behavior on one page.",
-      "Don't elevate chips on the page — elevation is for images only, never for pressed state (ripple instead).",
-    ],
-  },
-  tokens: [
-    {
-      element: "Container",
-      state: "resting",
-      token: "comp.chip.container",
-      value: "8px shape, 32px high, label-large",
-    },
-    {
-      element: "Selected filter",
-      state: "resting",
-      token: "comp.filter-chip.selected",
-      value: "secondary-container + on-secondary-container + check",
-    },
-  ],
-  faq: [
-    {
-      q: "Which chip do I use?",
-      a: "Assist for actions, filter for tags, input for user-entered discretes, suggestion for dynamic narrowing.",
     },
   ],
   customization: {

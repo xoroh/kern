@@ -5,8 +5,6 @@ export const sheetSurface: ComponentDoc = {
   name: "Sheet surface",
   oneLiner:
     "Sheet surfaces are the shared bottom-sheet shell — scrim, dismissal, close affordance and body — that the sheets are built on.",
-  features:
-    "Reach for a sheet surface when you are building a bottom panel of your own and want the parts that are easy to get wrong for free: the scrim, the hardware-back path, a visible way out. It is the shell the sheet family shares, so building on it means your panel behaves like the rest rather than merely looking like it. The rule worth internalising is the dismissal default: if you supply `onDismiss`, the close affordance appears. A panel that declares a dismissal path always has a visible way out, and you opt out only when the sheet is deliberately scrim-and-back only.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -17,6 +15,23 @@ export const sheetSurface: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["SheetSurface"],
+  keyboard: [
+    {
+      key: "Android hardware back",
+      action:
+        "Dismisses the surface through the same path as the scrim and the close control — one dismissal, reported to both `onDismiss` and `onOpenChange`.",
+    },
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        'The scrim reads as a button named "Dismiss <title>" and the close control as "Close <title>"; double-tap on either dismisses the surface.',
+    },
+    {
+      key: "On open",
+      action:
+        "The accessibility cursor moves inside the surface — onto the close control when the dismissal policy renders one, so the first stop is always actionable.",
+    },
+  ],
   customization: {
     supported: [
       "`surface` takes the card's `ViewStyle`, and it is passed the resolved scheme so the body reads tokens rather than literal colours.",

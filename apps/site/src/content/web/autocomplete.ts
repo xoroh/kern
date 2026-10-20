@@ -5,8 +5,6 @@ export const autocomplete: ComponentDoc = {
   name: "Autocomplete",
   oneLiner:
     "Autocompletes suggest values as someone types, and fill in the one they mean.",
-  features:
-    "Reach for an autocomplete when the answer is free text but usually something already known: a city, a username, a tag that exists. It completes rather than restricts — someone can still type a value that is not suggested. That is the line between this and a combobox, which picks from a fixed set, so choose deliberately: if the value must come from the list, that is a combobox. Keep the suggestions short and ordered by likelihood, because a list of forty equally-plausible completions is a list nobody reads.",
   meta: {
     // Canonical M3 spec page — title identity-verified live; gate re-checks.
     specUrl: "https://m3.material.io/components/text-fields",
@@ -29,36 +27,24 @@ export const autocomplete: ComponentDoc = {
     "AutocompleteItem",
     "AutocompleteEmpty",
   ],
-  deviations: [
+  keyboard: [
     {
-      id: "K6",
-      spec: 'M3\'s component elevation table names no autocomplete. It tabulates "menu" at level 2 and search at level 3; neither describes a completion list attached to a text field.',
-      kern: "The suggestion list rests at elevation level 2.",
-      why: "The suggestions float above the page beside the field, so they need the same lift as the other anchored overlays. Borrowing a neighbouring row would assert M3 described this surface. Registered as K6 in the elevation inventory so the level is a recorded decision.",
-    },
-  ],
-  anatomy: [
-    {
-      name: "AutocompleteRoot",
-      role: "Owns the text and the suggestion list. Generic over the value type.",
-    },
-    { name: "AutocompleteLabel", role: "Names the field." },
-    {
-      name: "AutocompleteInput",
-      role: "The text field. Typing narrows the suggestions; the text itself stays editable.",
+      key: "ArrowDown / ArrowUp",
+      action:
+        "Moves the highlight through the suggestions and opens the list; with `loopFocus` on, the last suggestion hands the highlight back to the input.",
     },
     {
-      name: "AutocompleteContent",
-      role: "The suggestion surface. Portals to the end of the document and positions itself against the input.",
-    },
-    { name: "AutocompleteItem", role: "One suggestion." },
-    {
-      name: "AutocompleteEmpty",
-      role: "What to show when nothing is suggested — which is a normal state here, since the answer may not be in the list at all.",
+      key: "Enter",
+      action:
+        "Fills the field with the highlighted suggestion and closes the list. It does not submit the owning form unless `submitOnItemClick` says so.",
     },
     {
-      name: "Autocomplete",
-      role: "The namespace object: all of the parts above.",
+      key: "Escape",
+      action: "Closes the suggestion list; the text stays as it was typed.",
+    },
+    {
+      key: "Tab",
+      action: "Moves focus out of the field — the list closes behind it.",
     },
   ],
   customization: {

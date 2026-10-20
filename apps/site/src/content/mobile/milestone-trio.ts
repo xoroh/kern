@@ -5,8 +5,6 @@ export const milestoneTrio: ComponentDoc = {
   name: "Milestone trio",
   oneLiner:
     "Milestone trios show where someone is in a short sequence — done, current, and what is left.",
-  features:
-    "Reach for a milestone trio when a flow has a few named stages and the person should see where they are: onboarding, a checkout, a setup. The steps are labels and `progress` is the completed COUNT, so the display is derived rather than each step being styled by hand. The three states are the point: a done step is full, the current one is a pulsing loader, and what is left is dim. That gives the row a readable shape — you can see what is finished, what is happening now, and what is still ahead without reading a word.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",

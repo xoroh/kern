@@ -5,8 +5,6 @@ export const navigationMenu: ComponentDoc = {
   name: "Navigation menu",
   oneLiner:
     "Navigation menus are a plain list of navigation links, one of which is marked active.",
-  features:
-    "Reach for a navigation menu when the destinations are a simple list of links and the current one should be obvious: a section switcher, a filter list, a set of tabs rendered as text. It is the quietest member of the navigation family — no scrim, no overlay, no selection model to wire. Note that its items are shaped differently from the rest of the family: a `NavigationMenuItem` carries `active` as a flag on the item, where `NavigationBar` and `NavigationDrawer` select by a `value` key and report `onValueChange`. That is deliberate — a plain list marks its current link, while the bar and drawer are controls with a selection the host owns.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,15 @@ export const navigationMenu: ComponentDoc = {
     elevation: 2,
   },
   parts: ["NavigationMenu"],
+  // The touch contract: a plain list of named destinations, with the current
+  // one marked.
+  keyboard: [
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "Moves between the destinations; double-tap follows the focused one. Each item is a `link` pressable named by its label, and the current destination announces as selected.",
+    },
+  ],
   customization: {
     supported: [
       "`items` are data — `label`, optional `active`, optional `onPress`.",

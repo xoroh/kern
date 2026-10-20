@@ -5,8 +5,6 @@ export const filterChipRow: ComponentDoc = {
   name: "Filter chip row",
   oneLiner:
     "Filter chip rows collect multiple filter choices and report the whole set.",
-  features:
-    "Reach for a filter chip row when several filters can be on at once and it helps to see them all: categories, tags, statuses. The row is options as data and the selection is a `string[]`, so it is explicitly a many-of-many control — which is the difference from `SegmentedButton`'s single mode and from `Select`'s one value. Chips are the right shape for this because each choice is visible and individually removable; a dropdown would hide the active set. Keep the option count modest, since the point is seeing what is on.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -17,6 +15,20 @@ export const filterChipRow: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["FilterChipRow"],
+  // The contract, read off the component: the row is a horizontal scroll of
+  // chips, and every chip is a real pressable.
+  keyboard: [
+    {
+      key: "Enter / Space via external keyboard",
+      action:
+        "Activates the focused chip, which toggles it. The selection is a SET, so a second press removes the filter again rather than being ignored.",
+    },
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "Moves along the row; double-tap a chip to apply the filter and double-tap it again to remove it. Every chip is a pressable with its own label, so the active set is readable chip by chip.",
+    },
+  ],
   customization: {
     supported: [
       "`options` are data — `value` and `label`.",

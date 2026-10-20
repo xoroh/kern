@@ -237,6 +237,13 @@ const isComponentExport = (name) => {
       "RadioIndicator",
       "RadioIndicatorProps",
       "RadioIndicatorState",
+      // The context hooks the compound parts read (Axis 0.1.2). They are
+      // the internals of ContextMenu, PreviewCard and Toast — documented
+      // upstream in the Axis repo, and never called by Kern: a consumer
+      // composes the parts, it does not reach into their context.
+      "useContextMenuContext",
+      "usePreviewCardContext",
+      "useToastRootContext",
     ].includes(name)
   ) {
     return true;

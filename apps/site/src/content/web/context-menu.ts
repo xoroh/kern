@@ -5,8 +5,6 @@ export const contextMenu: ComponentDoc = {
   name: "Context menu",
   oneLiner:
     "Context menus offer the actions for a thing where the thing is, opened by right-clicking it.",
-  features:
-    "Reach for a context menu when the actions on an object are what a pointer user expects to find by right-clicking it: a file in a list, a block in an editor, a row in a table. It is the same menu of actions a menu would show — the difference is where it opens and how it is summoned. Never make it the only route to an action: right-click is unavailable on touch and invisible to anyone who does not already know it is there. Whatever it offers must also be reachable from a visible control.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -25,30 +23,25 @@ export const contextMenu: ComponentDoc = {
     "ContextMenuItem",
     "ContextMenuSeparator",
   ],
-  anatomy: [
+  keyboard: [
     {
-      name: "ContextMenuRoot",
-      role: "Owns the open state. Accepts `open`/`onOpenChange` to control it.",
+      key: "Right-click (or long-press on touch)",
+      action:
+        "Opens the menu at the pointer. The trigger is a plain region rather than a button, so no key opens the menu.",
     },
     {
-      name: "ContextMenuTrigger",
-      role: "The surface that owns the actions. Right-clicking it opens the menu at the pointer.",
+      key: "Arrow keys",
+      action:
+        "Move between the items with wrapping; typeahead jumps to an item by its typed text.",
     },
     {
-      name: "ContextMenuContent",
-      role: "The list surface. Portals to the end of the document and positions at the pointer rather than against a control.",
+      key: "Enter / Space",
+      action: "Activates the focused item and closes the menu.",
     },
     {
-      name: "ContextMenuItem",
-      role: "One action. Activating it runs it and closes the menu.",
-    },
-    {
-      name: "ContextMenuSeparator",
-      role: "A divider between runs of related actions.",
-    },
-    {
-      name: "ContextMenu",
-      role: "The namespace object: all of the parts above.",
+      key: "Escape",
+      action:
+        "Closes the menu without choosing; focus returns to the element that had it before the menu opened.",
     },
   ],
   customization: {

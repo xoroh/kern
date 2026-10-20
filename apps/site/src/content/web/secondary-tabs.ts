@@ -5,8 +5,6 @@ export const secondaryTabs: ComponentDoc = {
   name: "Secondary tabs",
   oneLiner:
     "Secondary tabs switch between related views in the middle of a page, below the primary navigation.",
-  features:
-    "Reach for secondary tabs when a section of a screen has several views of one thing and they belong below, not at the top: a record's overview, activity and settings. They are the second level — primary navigation says where you are, secondary tabs say which part of it you are looking at. The tabs come as data, including their content, so the whole set is one declaration. If the panels are different places with their own URLs, they are navigation and not tabs.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -15,6 +13,9 @@ export const secondaryTabs: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["SecondaryTabs"],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
   keyboard: [
     {
       key: "Arrow keys",
@@ -23,36 +24,6 @@ export const secondaryTabs: ComponentDoc = {
     {
       key: "Home / End",
       action: "Jumps to the first or last enabled tab.",
-    },
-  ],
-  usage: {
-    do: [
-      "Use inside content areas to separate related sub-sections.",
-      "Mount only the active panel — hidden panels still announce.",
-    ],
-    dont: [
-      "Don't use at the top level — that is primary tabs.",
-      "Don't leave all tabs disabled — the component renders nothing rather than an empty tablist.",
-    ],
-  },
-  tokens: [
-    {
-      element: "Active indicator",
-      state: "resting",
-      token: "comp.secondary-tab.active-indicator",
-      value: "primary, 2px (not 3px)",
-    },
-    {
-      element: "Active label",
-      state: "resting",
-      token: "comp.secondary-tab.active-label",
-      value: "on-surface (not primary)",
-    },
-  ],
-  faq: [
-    {
-      q: "Why is the active text not primary?",
-      a: "Per M3, secondary tabs mark selection with position (the 2px indicator), not color — the active label stays on-surface.",
     },
   ],
   customization: {

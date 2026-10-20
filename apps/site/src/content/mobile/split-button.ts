@@ -5,8 +5,6 @@ export const splitButton: ComponentDoc = {
   name: "Split button",
   oneLiner:
     "Split buttons pair one primary action with a list of alternatives, in two halves.",
-  features:
-    "Reach for a split button when there is one obvious action and a few near-neighbours: save and its variants, submit and its options. The left half does the primary thing and the right half opens the rest. Two details make it behave. The icon is hidden from assistive tech, because the primary action's name is `label` and an icon beside it is decoration — announcing both would say the same thing twice. And an empty `actions` list renders NO overflow half, so the control degrades to a plain button rather than showing a dead second half. `separated` on an action draws a divider above it, which is how a destructive choice stays away from the ordinary ones.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,19 @@ export const splitButton: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["SplitButton"],
+  // The contract, read off the two halves and the modal the overflow opens.
+  keyboard: [
+    {
+      key: "Double-tap (TalkBack / VoiceOver)",
+      action:
+        "Presses the focused half. The primary half runs its action and leaves the menu closed; the overflow half opens the menu and reports that it is expanded.",
+    },
+    {
+      key: "Android back button",
+      action:
+        "Dismisses the open overflow menu — the menu's own request-close path closes it.",
+    },
+  ],
   customization: {
     supported: [
       "`label` is the primary action AND its accessible name, so the two cannot disagree.",

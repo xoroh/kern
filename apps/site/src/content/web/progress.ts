@@ -5,8 +5,6 @@ export const progress: ComponentDoc = {
   name: "Progress",
   oneLiner:
     "Progress indicators show how much of something is done while it is still running.",
-  features:
-    "Reach for progress when work is happening and the person is waiting: a file uploading, a build running, a form submitting. Show the number as well as the bar wherever you can, because a bar alone says roughly and waiting is easier when roughly becomes a figure. Indeterminate progress is the honest state when you genuinely do not know how much is left — a fake percentage is worse than admitting it. If the value is complete and meaningful at rest, that is a meter, not progress: progress is only meaningful while it moves.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -17,18 +15,11 @@ export const progress: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Progress", "ProgressRoot", "ProgressLabel", "ProgressValue"],
-  anatomy: [
-    {
-      name: "ProgressRoot",
-      role: "The gauge. Owns the value and the range, and renders the track.",
-    },
-    { name: "ProgressLabel", role: "Names what is being done." },
-    {
-      name: "ProgressValue",
-      role: "Renders the figure beside the track, so waiting is easier with a number than with a length.",
-    },
-    { name: "Progress", role: "The namespace object: Root, Label and Value." },
-  ],
+  // M2: a progress indicator REPORTS on work happening elsewhere. It is a
+  // progressbar, it takes no focus and it answers no key — so there is no
+  // keyboard contract to write, and the ARIA contract below is the whole
+  // story.
+  nonInteractive: true,
   customization: {
     supported: [
       "`className` on every part, merged after the part's own classes.",

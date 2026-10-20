@@ -10,7 +10,7 @@
           "rule": "keyboard-operable",
           "expect": "pass",
           "provenance": "derived",
-          "basis": "keyboard contract carries 2 row(s) in segmented-button.ts — every operable action has a documented key"
+          "basis": "keyboard contract carries 3 row(s) in segmented-button.ts — every operable action has a documented key"
         },
         {
           "rule": "aria-contract",

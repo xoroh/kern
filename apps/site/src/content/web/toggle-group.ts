@@ -5,8 +5,6 @@ export const toggleGroup: ComponentDoc = {
   name: "Toggle group",
   oneLiner:
     "Toggle groups hold related toggles together as one control, picking either one option or several.",
-  features:
-    "Reach for a toggle group when several related on-off or select-one choices belong in a single bar of controls: text alignment, visible columns, a date range's ends. The group is the segmented control — one container, one row of options, and the pressed one reads against the rest. Choose the mode deliberately: exclusive when the options are alternatives, multi-select when they are independent flags. If the options are alternatives but too many to fit in a bar, that is a radio group or a select.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -17,24 +15,24 @@ export const toggleGroup: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["ToggleGroup", "ToggleGroupRoot", "ToggleGroupItem"],
-  deviations: [
+  // The keyboard contract, read off the composite the group is built on: the
+  // row is ONE tab stop, the arrow keys move focus along it, and each item
+  // is a real button carrying `aria-pressed`.
+  keyboard: [
     {
-      id: "K3",
-      spec: "Material 3 defines no tonal surface role. Its surface roles are the surface, surface-dim, surface-bright and the surface-container family.",
-      kern: "The group's container is painted with `--sys-color-surface-tonal`, a role kern adds beyond M3's 45.",
-      why: "A segmented control needs a track that reads as a container rather than as content, and none of M3's surface-container roles is tuned for a pill-shaped track holding pressed states. The role is registered as K3 in the role inventory, so it is a declared addition to the legal role space rather than a colour invented in a stylesheet. It is the token that deviates; this is simply the component whose whole look depends on it.",
-    },
-  ],
-  anatomy: [
-    {
-      name: "ToggleGroupRoot",
-      role: "The track. Owns the selection model — exclusive or multi-select — and the aggregate value.",
+      key: "Arrow keys",
+      action:
+        "Moves focus along the row of toggles. The group is a single tab stop, so five options do not cost five tab stops.",
     },
     {
-      name: "ToggleGroupItem",
-      role: "One option. Takes the same props as `Toggle`, because it is a `Toggle` in a group; its `value` is what it contributes to the selection.",
+      key: "Home / End",
+      action: "Jumps to the first or last toggle.",
     },
-    { name: "ToggleGroup", role: "The namespace object: Root and Item." },
+    {
+      key: "Enter / Space",
+      action:
+        "Presses the focused toggle. In the exclusive mode that releases the others — the group's value is the selection, not a list of booleans.",
+    },
   ],
   customization: {
     supported: [

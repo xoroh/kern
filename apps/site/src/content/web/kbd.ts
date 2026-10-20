@@ -5,8 +5,6 @@ export const kbd: ComponentDoc = {
   name: "Kbd",
   oneLiner:
     "Kbds show a keyboard key or shortcut as text, in the shape of a key.",
-  features:
-    "Reach for kbd when a shortcut is worth showing beside the thing it does: a menu item's binding, a toolbar hint, an editor's chord. It renders a key as text, so it reads correctly in a screen reader and copies correctly as prose. It does not BIND anything — the shortcut is the application's to wire, and the kbd only shows it. Keep the notation consistent across the product, because a shortcut written one way in a menu and another way in a toolbar is two shortcuts to learn.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -17,6 +15,11 @@ export const kbd: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Kbd"],
+  // Static text BY CONSTRUCTION: the kbd renders a `<kbd>` element and binds
+  // nothing. It takes no focus, handles no key, and has no state of its own —
+  // the shortcut it names is the application's to wire. So there is no
+  // keyboard contract to write, and saying so is a fact rather than a gap.
+  nonInteractive: true,
   customization: {
     supported: [
       "`className` is passed through and merged after the kbd's own classes.",

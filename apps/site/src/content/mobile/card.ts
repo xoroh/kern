@@ -5,8 +5,6 @@ export const card: ComponentDoc = {
   name: "Card",
   oneLiner:
     "Cards group related content on one surface, in three Material 3 treatments.",
-  features:
-    "Reach for a card when several things belong together and should read as one unit: an item and its actions, a summary and its detail. The three variants are Material 3's — `filled`, `outlined` and `elevated` — and the difference is how the card separates from what is behind it: a fill, a hairline, or a shadow. Choose the quietest one that works. `elevated` is the only one that raises, and it is also the one to use sparingly: a screen where every card is elevated is a screen with no hierarchy. The card is a `View`, so what goes inside is entirely yours.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -20,67 +18,14 @@ export const card: ComponentDoc = {
     elevation: 0,
   },
   parts: ["Card", "CardHeader", "CardContent", "CardActions"],
-  anatomy: [
-    {
-      name: "CardHeader",
-      role: "The title slot. Headline first, supporting text under it.",
-    },
-    {
-      name: "CardContent",
-      role: "The body. Holds the content the card groups.",
-    },
-    {
-      name: "CardActions",
-      role: 'The action row. A right-aligned row of real pressables; the row itself takes no role (`accessibilityRole="none"`), so each control announces on its own.',
-    },
-  ],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
   keyboard: [
     {
       key: "Swipe + double-tap (TalkBack / VoiceOver)",
       action:
         "A card takes no focus and exposes no state of its own — content inside reads in order, and pressable children (a `ListItem`, an action) read as themselves. Double-tap activates the child, never the card.",
-    },
-  ],
-  usage: {
-    do: [
-      "Use one card per subject with a scannable hierarchy — headline, supporting text, actions.",
-      "Pick the variant by surface alone: filled, outlined, or elevated all carry the same content contract.",
-      "Make a pressable card by putting the press in a child (`ListItem`), not on the card.",
-    ],
-    dont: [
-      "Don't nest interactivity — directly actionable or container-with-actions, never both.",
-      "Don't scroll inside cards — expand to reveal instead.",
-      "Don't force non-card content into cards — spacing, headlines, or dividers may serve better.",
-    ],
-  },
-  tokens: [
-    {
-      element: "Filled container",
-      state: "resting",
-      token: "theme.color.surfaceContainerHighest",
-      value: "surfaceContainerHighest, medium corners, level 0",
-    },
-    {
-      element: "Outlined container",
-      state: "resting",
-      token: "theme.color.surface",
-      value: "surface with 1px outlineVariant border",
-    },
-    {
-      element: "Elevated container",
-      state: "resting",
-      token: "theme.color.surfaceContainerLow",
-      value: "surfaceContainerLow, level 1 (the family's raised row)",
-    },
-  ],
-  faq: [
-    {
-      q: "When is a card elevated?",
-      a: "Material 3 tabulates two rows: filled and outlined rest at level 0, the elevated card at level 1. Elevation is the variant — there is no elevation prop.",
-    },
-    {
-      q: "How does this differ from the web card?",
-      a: "The three-variant contract and the 0/1 elevation split are identical. The native card is a `View` with kern-drawn fills (no global CSS), and pressability always lives in a child.",
     },
   ],
   customization: {

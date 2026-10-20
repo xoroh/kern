@@ -4,8 +4,6 @@ export const text: ComponentDoc = {
   slug: "text",
   name: "Text",
   oneLiner: "Text renders a line of type at one of the typescale's styles.",
-  features:
-    "Reach for text when a line of copy should sit on the typescale rather than on whatever size the browser defaults to. The variant picks the style; the element picks the meaning — a title rendered as a paragraph is a heading to everyone who can see it and a paragraph to everyone who cannot. Choose `as` for the semantics and `variant` for the look, and do not let one stand in for the other. If the line is a heading, it is a heading element regardless of how large it is drawn.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -15,6 +13,12 @@ export const text: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Text"],
+  // Non-interactive BY NATURE: text renders a type style and nothing else.
+  // It takes no focus, exposes no state and handles no key of its own — the
+  // `as` prop can change the ELEMENT, but the component still adds no
+  // behaviour. So there is no keyboard contract to document, and saying so is
+  // a fact rather than a gap.
+  nonInteractive: true,
   customization: {
     supported: [
       "`variant` selects one of the typescale's styles, and every property it sets — size, line height, letter spacing, weight — comes from the typescale tokens rather than from numbers in the component.",

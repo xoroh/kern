@@ -5,8 +5,6 @@ export const secondaryTabs: ComponentDoc = {
   name: "Secondary tabs",
   oneLiner:
     "Secondary tabs are the second row of tabs, for the subdivisions within one section.",
-  features:
-    "Reach for secondary tabs when a section has its own facets and a second level is clearer than a longer first one: the settings page of one feature, the views within one report. The data shape is identical to `Tabs` — `value`, `label`, optional `content` — so moving a tab between the two rows is a placement decision rather than a rewrite. The difference is the emphasis and where it sits: a secondary row belongs UNDER a primary one, marking subdivisions of the section the primary tab already chose. Two rows of tabs of equal weight is a hierarchy that says nothing.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,23 @@ export const secondaryTabs: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["SecondaryTabs"],
+  keyboard: [
+    {
+      key: "Arrow keys",
+      action:
+        "Do not change the selection: each tab is its own focus stop on this renderer, and the panel follows the press rather than the traversal.",
+    },
+    {
+      key: "Enter / Space",
+      action:
+        "Activates the focused tab — the press selects it and shows its panel.",
+    },
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "Moves through the tabs in order; double-tap selects the tab and shows its panel.",
+    },
+  ],
   customization: {
     supported: [
       "`tabs` are data — `value`, `label`, optional `content` — the same shape `Tabs` takes.",

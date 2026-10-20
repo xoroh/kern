@@ -4,8 +4,6 @@ export const card: ComponentDoc = {
   slug: "card",
   name: "Card",
   oneLiner: "Cards group related content and actions into a single surface.",
-  features:
-    "Reach for a card when several pieces of information belong together and travel together: a product with its price and its action, a summary with its numbers, a person with their role. A card is a container, so it wants content that can stand alone — if the content only makes sense in context with what is around it, a divider or a heading is probably doing the job better. Cards are most legible in a grid, where their shared shape does the grouping for you.",
   meta: {
     // Canonical M3 spec page — title identity-verified live; gate re-checks.
     specUrl: "https://m3.material.io/components/cards",
@@ -19,20 +17,9 @@ export const card: ComponentDoc = {
     elevation: 1,
   },
   parts: ["Card", "CardHeader", "CardContent", "CardActions"],
-  anatomy: [
-    {
-      name: "CardHeader",
-      role: "The title slot. Headline first, supporting text under it.",
-    },
-    {
-      name: "CardContent",
-      role: "The body. Holds flush content like images as well as prose.",
-    },
-    {
-      name: "CardActions",
-      role: 'The action row. Carries `role="group"` so the actions announce as a set.',
-    },
-  ],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
   keyboard: [
     {
       key: "Tab / Shift+Tab",
@@ -43,44 +30,6 @@ export const card: ComponentDoc = {
       key: "Enter / Space",
       action:
         "Activates the card-as-link, or the focused child control. A plain `div` card takes no key.",
-    },
-  ],
-  usage: {
-    do: [
-      "Use one card per subject with scan-first hierarchy: headline, supporting text, actions.",
-      "Pick the variant by style alone — all three share legibility and function.",
-      "Group related cards in grids, lists, or carousels at shared resting elevation.",
-    ],
-    dont: [
-      "Don't force non-card content into cards — spacing, headlines, or dividers may serve better.",
-      "Don't nest interactivity — directly actionable or container-with-actions, never both.",
-      "Don't scroll inside cards — expand to reveal instead.",
-    ],
-  },
-  tokens: [
-    {
-      element: "Elevated container",
-      state: "resting",
-      token: "comp.card.elevated",
-      value: "surface-container-low, level1, 12px",
-    },
-    {
-      element: "Filled container",
-      state: "resting",
-      token: "comp.card.filled",
-      value: "surface-container-highest, 12px",
-    },
-    {
-      element: "Outlined container",
-      state: "resting",
-      token: "comp.card.outlined",
-      value: "surface + outline-variant, 12px",
-    },
-  ],
-  faq: [
-    {
-      q: "Which card variant?",
-      a: "Style choice only: elevated for separation with shadow, filled for subtle separation, outlined for a visible boundary with the most emphasis.",
     },
   ],
   customization: {

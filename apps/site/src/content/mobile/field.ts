@@ -5,8 +5,6 @@ export const field: ComponentDoc = {
   name: "Field",
   oneLiner:
     "Fields pair a control with its label, description and error message, and wire them together for assistive tech.",
-  features:
-    "Reach for a field whenever a control needs a name and somewhere to explain itself. The whole point is the wiring: the label, the description and the error are passed through context, and the control reads them so its accessible name and its described-by text are correct without you connecting anything by hand. `error` takes precedence over `description` — when there is an error it is shown and the description is not, because two messages under one field is two messages too many. The composition is a namespace (`Root`, `Label`, `Description`, `Error`, `Control`) so the parts are discoverable, and `Root` is also exported standalone as `FieldRoot`.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -20,6 +18,10 @@ export const field: ComponentDoc = {
   // is standalone enough to deserve its own row, so it is listed here and
   // documented below.
   parts: ["Field", "FieldRoot", "FieldMessage"],
+  // M2: the field is a WIRING container — label, control, message. It
+  // takes no focus and answers no key; the control it holds is what the
+  // screen reader reaches, and the field is what hands it its name.
+  nonInteractive: true,
   customization: {
     supported: [
       "`label` is required; `description` and `error` are optional strings that the composition renders as messages.",

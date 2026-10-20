@@ -4,8 +4,6 @@ export const calendar: ComponentDoc = {
   slug: "calendar",
   name: "Calendar",
   oneLiner: "Calendars pick a single date from a month grid.",
-  features:
-    "Reach for a calendar when the answer is one date and seeing the week around it helps: a birthday, a deadline, an appointment. The month grid is the point — people pick a date by its position as much as by its number. Constrain it with `min` and `max` rather than letting someone choose a date you will only reject. It is a month calendar for single-date picking: a range, or a date with a time, is not this component. Arrow keys move between the days, so it works without a pointer.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -15,6 +13,30 @@ export const calendar: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Calendar"],
+  // The grid contract, read off the day buttons and the Axis calendar model
+  // the handler calls: the days are a roving-tabindex grid, and the model
+  // decides where each key lands.
+  keyboard: [
+    {
+      key: "Arrow keys",
+      action:
+        "Move the day cursor: left and right by a day, up and down by a week. The focused day follows the cursor, so the two cannot disagree.",
+    },
+    {
+      key: "Home / End",
+      action: "Jump to the first or the last day of the week the cursor is in.",
+    },
+    {
+      key: "PageUp / PageDown",
+      action:
+        "Move the same day of the month one month back or forward, so the cursor can cross a month boundary without leaving the grid.",
+    },
+    {
+      key: "Tab",
+      action:
+        "Enters and leaves the grid as one stop. The days carry a roving tabindex, so only the cursor day is a tab stop at a time — and a day outside `min` and `max` is skipped rather than focused.",
+    },
+  ],
   customization: {
     supported: [
       "`className` is passed through and merged after the calendar's own classes.",

@@ -5,8 +5,6 @@ export const accordion: ComponentDoc = {
   name: "Accordion",
   oneLiner:
     "The accordion is a stack of disclosure sections where opening one can close the rest, keyed by section index.",
-  features:
-    "Reach for the accordion when several sections compete for the same vertical space and the reader usually needs only one: an FAQ, a settings group, a filter stack. Sections are DATA, not children — you pass an array of `{ title, content }` and the accordion owns the headers, the toggle state and the disclosure. By default opening a section closes the others (`multiple` opts out of that), and the open set is a plain index array, so controlled and uncontrolled use are the same shape. Closed sections are unmounted, not hidden, so a collapsed accordion costs nothing to render.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,21 @@ export const accordion: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Accordion"],
+  // The contract, read off the component: each header is a button-role
+  // pressable that reports its expanded state, and a closed section's
+  // content is unmounted rather than hidden.
+  keyboard: [
+    {
+      key: "Double-tap (TalkBack / VoiceOver)",
+      action:
+        "Activates a section header. It is a button pressable, and it reports its expanded state, so the toggle is announced before it happens.",
+    },
+    {
+      key: "Swipe (TalkBack / VoiceOver)",
+      action:
+        "Moves between the section headers in order. A closed section's content is unmounted, so nothing hidden leaks into the accessibility tree.",
+    },
+  ],
   customization: {
     supported: [
       "`sections` is data: each entry carries a `title`, the `content` node and an optional `accessibilityLabel` for when the visible title is not the right announcement.",

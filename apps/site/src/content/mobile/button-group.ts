@@ -5,8 +5,6 @@ export const buttonGroup: ComponentDoc = {
   name: "Button group",
   oneLiner:
     "The button group lays out buttons as one joined row or column, so related actions read as a set.",
-  features:
-    "Reach for a button group when two or more actions belong together and should look joined: a pair of equal choices, a toolbar cluster, a step of related commands. `connected` joins with no gap so the buttons read as one control; `standard` spaces them as individuals. It is pure LAYOUT — a `View` with a direction and a variant — so the buttons inside keep their own treatments, states and press handling. The group itself announces nothing (`role` is `none` on purpose): a group of buttons is still just buttons to assistive technology, and inventing a container role would promise semantics the group does not carry.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -19,6 +17,10 @@ export const buttonGroup: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["ButtonGroup"],
+  // M2: the group reports the `none` role — it is layout. It takes no
+  // focus and answers no key; the buttons inside it are what the screen
+  // reader reaches.
+  nonInteractive: true,
   customization: {
     supported: [
       "`orientation` is the only layout decision: a joined row or a joined column.",

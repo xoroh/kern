@@ -5,8 +5,6 @@ export const segmentedButton: ComponentDoc = {
   name: "Segmented button",
   oneLiner:
     "Segmented buttons show a small set of options side by side, with the chosen one visibly selected.",
-  features:
-    "Reach for a segmented button when there are two to four options and seeing all of them at once is the point: a view mode, a time range, a unit. The set is the control — the options sit in one bar so they can be compared directly, which is exactly what makes it better than a select for a short list. Keep the labels short and parallel; a segment whose label wraps has outgrown the control. If only one option can be chosen and there are more than four, that is a radio group or a select.",
   meta: {
     // Canonical M3 spec page — title identity-verified live; gate re-checks.
     specUrl: "https://m3.material.io/components/segmented-buttons",
@@ -22,64 +20,31 @@ export const segmentedButton: ComponentDoc = {
     elevation: 0,
   },
   parts: ["SegmentedButton", "SegmentedButtonRoot", "SegmentedButtonItem"],
-  anatomy: [
-    {
-      name: "SegmentedButtonRoot",
-      role: "The bar. Owns the selection and lays the segments out as one control.",
-    },
-    {
-      name: "SegmentedButtonItem",
-      role: "One option. Selected and unselected read against each other within the bar.",
-    },
-    {
-      name: "SegmentedButton",
-      role: "The namespace object: Root and Item.",
-    },
-  ],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting", "selected"],
+  // The group is a COMPOSITE: the toggle group roves focus between the
+  // segments, so the bar is ONE tab stop and the arrow keys move inside it.
+  // The ARIA section below already says so — this table is the same fact in
+  // the form a keyboard user can act on.
   keyboard: [
     {
-      key: "Tab / Shift+Tab",
+      key: "ArrowRight / ArrowLeft",
       action:
-        "Moves through the segments in order — each segment is its own stop.",
+        "Moves between the segments with roving focus — up and down instead on a vertical bar. The bar is one tab stop, so the arrows are how you work through the choices.",
+    },
+    {
+      key: "Home / End",
+      action: "Jumps to the first or the last segment.",
     },
     {
       key: "Enter / Space",
       action: "Chooses the focused segment.",
     },
-  ],
-  usage: {
-    do: [
-      "Use for a single choice among two to five peer options that all fit on screen.",
-      "Keep labels to one word — the segments share one border and read as one control.",
-      "Restyle the chosen look through `data-pressed` when the theme needs it — no new props required.",
-    ],
-    dont: [
-      "Don't use it for multiple selection — that is a `ToggleGroup`. One choice is the whole pattern.",
-      "Don't reach for it for new designs by default — M3 points at the connected `ButtonGroup` instead; this stays for the classic treatment.",
-    ],
-  },
-  tokens: [
     {
-      element: "Bar",
-      state: "resting",
-      token: "comp.segmented-button.bar",
-      value: "surface, 1px outline border, full pill, level 0",
-    },
-    {
-      element: "Selected segment",
-      state: "selected",
-      token: "sys.color.secondary-container",
-      value: "secondary-container fill with on-secondary-container ink",
-    },
-  ],
-  faq: [
-    {
-      q: "Segmented button or connected button group?",
-      a: "New designs should prefer the connected `ButtonGroup` — M3 no longer recommends the segmented button. This component stays for the classic single-choice treatment.",
-    },
-    {
-      q: "How does this differ from the native segmented button?",
-      a: "Single-choice-only here vs single-or-multiple natively (the plural-props axis is the mode there). The selected treatment — secondary fill plus ink swap — matches; native additionally marks the check.",
+      key: "Tab / Shift+Tab",
+      action:
+        "Leaves the whole bar as one stop — in to the chosen segment, out to the next control on the page.",
     },
   ],
   customization: {

@@ -5,8 +5,6 @@ export const actionSheet: ComponentDoc = {
   name: "Action sheet",
   oneLiner:
     "Action sheets are the titled bottom surface with a dismiss path and a body — either your own content or a standard action list.",
-  features:
-    "Reach for an action sheet when a titled surface needs to come up from the bottom and be leavable: an app switcher, a create menu, a set of related actions. It is one component for what used to be two, and the merge is the point. `children` lets you own the body entirely — tiles, a custom layout — while `actions` gives the standard Material 3 action list. Supply `children` and `actions` is ignored, so decide which one you mean. Or supply neither and get a plain titled surface. What it guarantees is the dismissal contract: scrim press and hardware back both reach `onDismiss`.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -20,6 +18,21 @@ export const actionSheet: ComponentDoc = {
     elevation: 0,
   },
   parts: ["ActionSheet"],
+  // The contract, read off the modal the sheet hosts through: the scrim
+  // press and the hardware back button are the two ways out, and each
+  // action is a real pressable with its own label.
+  keyboard: [
+    {
+      key: "Hardware back (Android)",
+      action:
+        "Closes the sheet. The modal's request-close is wired to the same `onDismiss` path as a scrim press, so there is always a way out.",
+    },
+    {
+      key: "Double-tap (TalkBack / VoiceOver)",
+      action:
+        "Activates an action in the list. Each one is a real pressable with a label and an optional supporting line.",
+    },
+  ],
   customization: {
     supported: [
       "`children` owns the body outright — the slot-driven case, for app switcher tiles and anything with its own layout.",

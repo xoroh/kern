@@ -5,8 +5,6 @@ export const pane: ComponentDoc = {
   name: "Pane",
   oneLiner:
     "The pane is a tonal container that separates one region from another — the phone-width mirror of the web pane.",
-  features:
-    "Reach for a pane when a region must read as its own surface: a settings group on a canvas, a form section, the one card group on a screen. It follows the layered surface law — `canvas` sits on the container ladder behind, `surface` is the white card group on top — so the two variants are positions in the stack, not colours to choose between. The pane is a `View` with a shape radius and optional padding: what goes inside is entirely yours, and the pane's whole job is deciding what the region behind it is made of.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,11 @@ export const pane: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Pane"],
+  // Pure LAYOUT: the pane is a view with a fill applied. It takes no focus,
+  // handles no key and exposes no state of its own — the controls the host
+  // puts inside it are what the screen reader reaches. So there is no
+  // keyboard contract to write, and saying so is a fact rather than a gap.
+  nonInteractive: true,
   customization: {
     supported: [
       "`variant` is the layer: `canvas` on the container ladder, `surface` as the card group.",

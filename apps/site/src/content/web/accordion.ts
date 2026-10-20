@@ -5,8 +5,6 @@ export const accordion: ComponentDoc = {
   name: "Accordion",
   oneLiner:
     "Accordions stack collapsible sections, so a long page can be scanned as headings first.",
-  features:
-    "Reach for an accordion when the content is several sections of the same kind and most readers want only one or two: FAQs, a settings page, a record's grouped details. The headings become the index, which is the point — you can see the shape of the whole without reading it. Keep each section self-contained and the headings short enough to compare at a glance. If everyone needs all of it, do not hide it; an accordion is for content that is optional to read, not for content that is merely long.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -22,27 +20,19 @@ export const accordion: ComponentDoc = {
     "AccordionTrigger",
     "AccordionPanel",
   ],
-  anatomy: [
+  // The keyboard contract, read off the trigger: it is a real button inside
+  // a heading, and a closed section's panel is not in the DOM to be
+  // tabbed into.
+  keyboard: [
     {
-      name: "AccordionRoot",
-      role: "The stack. Owns which sections are open — one at a time or several, as the primitive allows.",
-    },
-    { name: "AccordionItem", role: "One section: its heading and its panel." },
-    {
-      name: "AccordionHeader",
-      role: "The heading wrapper. It is what makes the trigger a heading in the document outline.",
-    },
-    {
-      name: "AccordionTrigger",
-      role: "What opens the section. Carries the expanded state.",
+      key: "Enter / Space",
+      action:
+        "Activates the focused trigger — opens the section, or closes it again if it is already open.",
     },
     {
-      name: "AccordionPanel",
-      role: "The revealed content, out of the tab order while its section is closed.",
-    },
-    {
-      name: "Accordion",
-      role: "The namespace object: all of the parts above.",
+      key: "Tab",
+      action:
+        "Moves between the triggers and whatever the open panel holds. A closed section's panel is out of the tab order, so a collapsed stack never parks focus on hidden controls.",
     },
   ],
   customization: {

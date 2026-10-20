@@ -5,8 +5,6 @@ export const dockSheet: ComponentDoc = {
   name: "Dock sheet",
   oneLiner:
     "The dock sheet is a persistent quick-action bar peeking from the bottom edge — a region, not a dialog.",
-  features:
-    "Reach for a dock sheet when a small set of actions should stay reachable at the bottom of the screen WITHOUT taking the screen over: a contextual toolbar, a quick-action strip. Docked is not dialog — it does not take the interaction lock, it does not trap focus and it carries no elevation token, because a persistent panel at modal elevation misreads as an overlay. That is a deliberate divergence from the modal sheets in this family, and it is why the dock sheet is not a `SheetSurface`: it is a labelled region you render in your layout, and its content is yours.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -19,6 +17,22 @@ export const dockSheet: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["DockSheet"],
+  // The dock is a REGION, not a dialog: it takes no focus of its own, traps
+  // nothing and binds no key. The tab stops are the controls the host put
+  // inside it, in the order it put them — which is the whole difference
+  // between a dock and a modal sheet.
+  keyboard: [
+    {
+      key: "Tab / Shift+Tab",
+      action:
+        "Moves through the controls inside the dock in order. The dock itself takes no focus and traps nothing, so the page behind it stays reachable.",
+    },
+    {
+      key: "Enter / Space",
+      action:
+        "Activates the focused control inside the dock. The dock binds no key of its own.",
+    },
+  ],
   customization: {
     supported: [
       "`label` names the region for assistive technology — the dock is navigable by name.",

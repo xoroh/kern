@@ -5,8 +5,6 @@ export const navigationBar: ComponentDoc = {
   name: "Navigation bar",
   oneLiner:
     "Navigation bars hold an app's top-level destinations in a fixed-height bar at the bottom of a compact screen.",
-  features:
-    "Reach for a navigation bar when the app has three to five top-level places and someone will move between them often. It shares its destination data with the drawer and with `NavigationBarItem`, so you declare your places once and let the containers differ. The height is fixed and exported, so screens lay out against a known number and the bar never reflows when labels change. The active destination gets Material 3's active indicator — a pill behind the icon — so selection is legible in shape as well as colour. The `floating` slot sits under the bar, which is where Material 3 docks a FAB.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -19,58 +17,14 @@ export const navigationBar: ComponentDoc = {
   // (`navigation-bar-item`), so this page owns only the bar itself. The row is
   // referenced in prose above — "one component, one page" holds.
   parts: ["NavigationBar"],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting", "selected"],
   keyboard: [
     {
       key: "Swipe + double-tap (TalkBack / VoiceOver)",
       action:
         "Destinations read as tabs with their label and selected/disabled states; double-tap navigates.",
-    },
-  ],
-  usage: {
-    do: [
-      "Declare destinations as data — `key`, `label`, optional `icon`, `badge`, `disabled` — so the bar is one declaration.",
-      "Keep three to five destinations; the bar is top-level navigation, not a menu.",
-      "Dock the screen's primary action in `floating` where Material 3 puts the FAB.",
-    ],
-    dont: [
-      "Don't nest navigation inside a destination — one tap moves one level.",
-      "Don't use the bar for fewer than three destinations — tabs or a segmented control carry small sets better.",
-    ],
-  },
-  tokens: [
-    {
-      element: "Bar",
-      state: "resting",
-      token: "theme.color.surfaceContainer",
-      value: "surfaceContainer, fixed height, 1px outlineVariant top rule",
-    },
-    {
-      element: "Active indicator",
-      state: "selected",
-      token: "theme.color.secondaryContainer",
-      value: "secondaryContainer pill, minWidth 64, height 32",
-    },
-    {
-      element: "Active label",
-      state: "selected",
-      token: "theme.color.onSurface",
-      value: "onSurface, 12px, semibold",
-    },
-    {
-      element: "Inactive label",
-      state: "resting",
-      token: "theme.color.onSurfaceVariant",
-      value: "onSurfaceVariant, 12px, medium",
-    },
-  ],
-  faq: [
-    {
-      q: "Navigation bar, rail, or drawer?",
-      a: "Compact screens get the bar (bottom, three to five destinations); wide screens get the rail or drawer. Same destinations, different dock — `NavigationBarItem` renders the row inside any of them.",
-    },
-    {
-      q: "How does this differ from the web navigation bar?",
-      a: "The contract is the same (destinations as data, single selection, FAB dock). Heights and the indicator pill are native-drawn to the same roles.",
     },
   ],
   customization: {

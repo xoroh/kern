@@ -5,8 +5,6 @@ export const toolbar: ComponentDoc = {
   name: "Toolbar",
   oneLiner:
     "Toolbars hold a row of actions — labelled, optional, and individually disableable.",
-  features:
-    "Reach for a toolbar when a surface has a set of actions that belong to it and should sit together: a document's formatting actions, an editor's commands. Actions are data — `label`, optional `onPress`, optional `disabled` — so the row is a declaration and every action is named by construction. That last part matters more than it looks: a toolbar is the classic place for icon-only buttons with no names, and because `label` is required here, that failure is not reachable. Keep the actions to what the surface actually needs; a toolbar that grows into a menu is asking for `Menubar`.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -17,6 +15,13 @@ export const toolbar: ComponentDoc = {
     elevation: 3,
   },
   parts: ["Toolbar"],
+  keyboard: [
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "The bar reads as a toolbar named by its label, and each action as a button with its own label; double-tap runs the action. A disabled action is announced as unavailable and cannot be run.",
+    },
+  ],
   customization: {
     supported: [
       "`actions` are data — `label`, optional `onPress`, optional `disabled`.",

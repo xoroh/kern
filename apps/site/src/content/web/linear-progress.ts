@@ -5,8 +5,6 @@ export const linearProgress: ComponentDoc = {
   name: "Linear progress",
   oneLiner:
     "Linear progress shows how much of a task is done, as a bar across a width.",
-  features:
-    "Reach for linear progress when the wait should span the region it belongs to: loading a page's content, filling a quota over time, processing a file. It is the shape that reads as a measure along an axis, which is why it is what a full-width wait wants. Show the number beside it where the wait is long enough for the number to help. If the value is meaningful at rest, that is a meter; if the shape should sit inside a small control, that is a circular progress.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -15,42 +13,14 @@ export const linearProgress: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["LinearProgress"],
-  usage: {
-    do: [
-      "Use determinate bars for known fractions, loops for unknown waits.",
-      "Add buffer dots where part of the work is measurable and part is not.",
-      "Always label for assistive tech.",
-    ],
-    dont: [
-      "Don't leave progress unlabeled — determinate reports value, loops report status.",
-    ],
-  },
-  tokens: [
-    {
-      element: "Track",
-      state: "resting",
-      token: "comp.linear-progress.track",
-      value: "surface-container-highest, 4px",
-    },
-    {
-      element: "Indicator",
-      state: "resting",
-      token: "comp.linear-progress.indicator",
-      value: "primary, 4px",
-    },
-    {
-      element: "Loop",
-      state: "resting",
-      token: "comp.linear-progress.loop",
-      value: "2s linear infinite, two offset bars",
-    },
-  ],
-  faq: [
-    {
-      q: "When is buffer right?",
-      a: "Streaming and staged work — known progress in the bar, unknown in the dots.",
-    },
-  ],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
+  // A progressbar is a STATUS, not a control: it is not a slider, so it
+  // takes no focus and handles no key. What it reports is its value, and
+  // that is the ARIA contract below — not a keyboard one. So there is no
+  // keyboard contract to write, and saying so is a fact rather than a gap.
+  nonInteractive: true,
   customization: {
     supported: [
       "`className` is passed through and merged after the bar's own classes, which is how its height and colour are set.",

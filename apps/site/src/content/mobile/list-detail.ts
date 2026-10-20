@@ -5,8 +5,6 @@ export const listDetail: ComponentDoc = {
   name: "List detail",
   oneLiner:
     "List detail is the phone-width master–detail pattern: the list until an item is selected, then the detail with a way back.",
-  features:
-    "Reach for list-detail when a collection and its record share one screen and the screen is a phone: mail, settings, a browse-and-read flow. It takes the SAME data shape as the web `ListDetail` — a list slot, a detail slot and one flag — so a shared app drives both renderers from one state; only the presentation differs, collapsing to one pane at a time. The back affordance is part of the component and only exists when a host handler provides it: a detail pane with no way back is a trap, so the pressable is wired to `onBack` rather than assumed.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,20 @@ export const listDetail: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["ListDetail"],
+  // The contract, read off the component: the one control it owns is the
+  // back affordance, and it is a real named button — not a gesture.
+  keyboard: [
+    {
+      key: "Double-tap (TalkBack / VoiceOver)",
+      action:
+        "Activates the back affordance. It is a `button` pressable named by `backLabel`, and it calls `onBack` — which brings the list back.",
+    },
+    {
+      key: "Swipe (TalkBack / VoiceOver)",
+      action:
+        "Moves through the content of whichever pane is showing. Only one pane is in the tree at a time, so the order never crosses a hidden pane.",
+    },
+  ],
   customization: {
     supported: [
       "`list` and `detail` are plain slots — the panes' content is entirely yours.",

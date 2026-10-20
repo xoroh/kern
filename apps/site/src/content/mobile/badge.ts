@@ -5,8 +5,6 @@ export const badge: ComponentDoc = {
   name: "Badge",
   oneLiner:
     "Badges mark a count or a presence on something else — a dot, or a number.",
-  features:
-    "Reach for a badge when something needs a marker on it: unread messages on an icon, pending items on a tab. It is the two Material 3 badge forms — `dot` for presence and `count` for a quantity — and `children` is the number when the variant is `count`. A badge is always attached to something, so it has no life of its own: the thing it marks is the real control, and the badge only reports. That is why the label matters, and why a bare dot with no label is a change only sighted people notice.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,10 @@ export const badge: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Badge"],
+  // M2: a badge MARKS something else. It is a text-role view — it takes no
+  // focus and answers no key, so the ARIA contract below is the whole
+  // story.
+  nonInteractive: true,
   customization: {
     supported: [
       "`variant` is the two Material 3 badge forms, `dot` and `count`.",

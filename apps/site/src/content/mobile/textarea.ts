@@ -5,8 +5,6 @@ export const textarea: ComponentDoc = {
   name: "Textarea",
   oneLiner:
     "Textareas are the multi-line text field — the input with line breaks turned on.",
-  features:
-    "Reach for a textarea when the answer is a paragraph rather than a phrase: a comment, a description, a message. It is the same component as `Input` with `multiline` forced, and the `multiline` prop is deliberately removed from its type so it cannot be turned off — a textarea that can become single-line is just an input with a confusing name. Everything said about `Input` applies here: inside `Field.Root` it takes its label and error from context, and its error is announced through `accessibilityHint` because React Native has no invalid state.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,25 @@ export const textarea: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Textarea"],
+  // The contract, read off the component: it is the multi-line `Input`, so
+  // the field itself owns no key handling.
+  keyboard: [
+    {
+      key: "Enter",
+      action:
+        "Inserts a line break in the field. It does not submit the form — submitting is the form's business, and a multi-line field that submitted on Enter would be a trap.",
+    },
+    {
+      key: "External keyboard",
+      action:
+        "The field takes native focus and the OS keyboard opens; apart from the line break above, the component handles no key of its own — entry, correction and dismissal belong to the platform.",
+    },
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "The field announces its label (or the enclosing field's label), its hint, and the error message when invalid; double-tap focuses and opens the keyboard.",
+    },
+  ],
   customization: {
     supported: [
       "Every `Input` prop except `multiline` — the text-field surface is shared deliberately.",

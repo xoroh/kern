@@ -5,8 +5,6 @@ export const timePicker: ComponentDoc = {
   name: "Time picker",
   oneLiner:
     "Time pickers set a time of day with explicit hour and minute fields.",
-  features:
-    "Reach for a time picker when the answer is a time of day and precision matters: a scheduled send, an appointment, a reminder. The fields are explicit rather than a single text box, so nobody has to guess the expected format. The invariant that matters is that the state is always 24-hour, whatever the display format — `12h` adds an AM/PM field without changing what is stored, so switching the display never changes the value. If the answer is a duration rather than a time of day, this is not the tool.",
   meta: {
     // Canonical M3 spec page — title identity-verified live; gate re-checks.
     specUrl: "https://m3.material.io/components/time-pickers",
@@ -17,6 +15,25 @@ export const timePicker: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["TimePicker"],
+  // The contract, read off the listboxes: each field is its own roving axis,
+  // so the picker is three tab stops rather than one.
+  keyboard: [
+    {
+      key: "Arrow keys",
+      action:
+        "Move within a field and select as they go — the hour, minute and period fields each have their own roving axis, so the value is never out of step with the focus. The dial face traverses the same way over its radio ring.",
+    },
+    {
+      key: "Home / End",
+      action:
+        "Jump to the first or the last option of the focused field — the first hour, the last minute.",
+    },
+    {
+      key: "Tab",
+      action:
+        "Moves between the fields, which are three stops rather than one, so the minutes are reachable without arrowing through every hour.",
+    },
+  ],
   customization: {
     supported: [
       "`format` chooses between a 24-hour display and a 12-hour one with an AM/PM field. It changes what is RENDERED, never what is stored.",

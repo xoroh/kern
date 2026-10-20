@@ -5,8 +5,6 @@ export const alertDialog: ComponentDoc = {
   name: "Alert dialog",
   oneLiner:
     "The alert dialog is a modal confirmation: a title, an optional message and the two decisions, one of them destructive.",
-  features:
-    "Reach for an alert dialog when the reader is about to cause something they cannot undo — delete, discard, sign out — and the decision deserves a stop. It is DATA, not composition: you pass a title, a message and the two labels, and the dialog owns the modal presentation, the scrim and the button row. The confirm button is painted in the error colour on purpose: the destructive action should look destructive before it happens. The dialog is a React Native `Modal`, so Android back is wired to cancel for free.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -18,6 +16,18 @@ export const alertDialog: ComponentDoc = {
     elevation: 3,
   },
   parts: ["AlertDialog"],
+  keyboard: [
+    {
+      key: "Android hardware back",
+      action:
+        "Cancels the dialog — the modal's request-close path runs the cancel action and then reports the close.",
+    },
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "The dialog is announced as an alert dialog named by its title; the two decisions read as buttons, and double-tap on one makes the choice.",
+    },
+  ],
   customization: {
     supported: [
       "`title`, `message` and the two labels are plain props — the dialog is a decision, not a layout.",

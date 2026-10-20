@@ -5,8 +5,6 @@ export const shapeArt: ComponentDoc = {
   name: "Shape art",
   oneLiner:
     "Shape art composes kern shapes into a decorative arrangement — scatter, stack or arch.",
-  features:
-    "Reach for shape art when an empty state, a boot screen or a hero wants a mark that is unmistakably kern without being a logo. It arranges `Shape` pieces in one of three layouts — `scatter`, `stack`, `arch` — and every piece is placed by FRACTION of the composition size rather than by pixels, so the arrangement holds together at any size. It is decoration through and through: no content, no meaning, no state. If something needs saying, say it in text beside it.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,16 +14,11 @@ export const shapeArt: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["ShapeArt", "ExpressiveShape"],
-  anatomy: [
-    {
-      name: "ShapeArt",
-      role: "The fixed composition. `layout` picks scatter, stack or arch; `size` and `opacity` scale and fade the whole mark.",
-    },
-    {
-      name: "ExpressiveShape",
-      role: "The single expressive mark. One classification-hued shape at a caller-chosen size.",
-    },
-  ],
+  // Decoration BY CONSTRUCTION: the composition is hidden from the
+  // accessibility tree and carries no product vocabulary. It takes no focus,
+  // handles no key and exposes no state — so there is no keyboard contract to
+  // write, and saying so is a fact rather than a gap.
+  nonInteractive: true,
   customization: {
     supported: [
       "`layout` is the three arrangements — `scatter`, `stack`, `arch`.",

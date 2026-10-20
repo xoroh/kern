@@ -5,8 +5,6 @@ export const tabs: ComponentDoc = {
   name: "Tabs",
   oneLiner:
     "Tabs switch between related views of the same subject without leaving the page.",
-  features:
-    "Reach for tabs when the content is genuinely parallel — the same thing seen from several angles, like a conversation's messages, details and files. Give each tab a short noun label and keep the number small enough that no label is hidden behind a scroll. Tabs are not navigation: if the panels are really different places with their own URLs, use links and let people bookmark them. Keep a panel's content independent of the others, so switching back does not lose what someone typed.",
   meta: {
     // Canonical M3 spec page — title identity-verified live; gate re-checks.
     specUrl: "https://m3.material.io/components/tabs",
@@ -21,24 +19,9 @@ export const tabs: ComponentDoc = {
     elevation: 0,
   },
   parts: ["Tabs", "TabsRoot", "TabsList", "TabsTab", "TabsPanel"],
-  anatomy: [
-    {
-      name: "TabsRoot",
-      role: "Owns which tab is selected. Accepts `value`/`onValueChange` to control it.",
-    },
-    {
-      name: "TabsList",
-      role: "The row of tab triggers. Handles the arrow-key roving focus between them.",
-    },
-    {
-      name: "TabsTab",
-      role: "One trigger. Carries the selected state and the indicator.",
-    },
-    {
-      name: "TabsPanel",
-      role: "The content for one tab, kept in the DOM only while selected.",
-    },
-  ],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting", "hover"],
   keyboard: [
     {
       key: "Arrow keys",
@@ -53,49 +36,10 @@ export const tabs: ComponentDoc = {
       action:
         "The tablist is one stop (roving tabindex); panels are reachable by Tab.",
     },
-  ],
-  usage: {
-    do: [
-      "Use primary tabs under the top app bar for main destinations.",
-      "Keep one tab active; every tab references its panel via aria-controls.",
-      "Label icon-only tabs for assistive tech.",
-    ],
-    dont: [
-      "Don't mix primary and secondary tabs in one bar.",
-      "Don't use tabs for navigation away — tabs switch views, they never leave.",
-      "Don't use fewer than three tabs — use segmented buttons or plain text.",
-    ],
-  },
-  tokens: [
     {
-      element: "Container",
-      state: "resting",
-      token: "comp.primary-tab.container",
-      value: "surface, 48px, no rounding",
-    },
-    {
-      element: "Active indicator",
-      state: "resting",
-      token: "comp.primary-tab.active-indicator",
-      value: "primary, 3px, (3px 3px 0 0)",
-    },
-    {
-      element: "Active label",
-      state: "resting",
-      token: "comp.primary-tab.active-label",
-      value: "primary, title-small",
-    },
-    {
-      element: "Inactive label",
-      state: "hover",
-      token: "comp.primary-tab.inactive-hover",
-      value: "on-surface + 8% layer",
-    },
-  ],
-  faq: [
-    {
-      q: "Primary or secondary?",
-      a: "Primary under the app bar for main destinations (3px indicator, primary active text). Secondary inside content for sub-sections (2px indicator, on-surface active text).",
+      key: "Enter / Space",
+      action:
+        "Activates the focused tab. The tab is a real button carrying `aria-selected`, so the press is the browser's own.",
     },
   ],
   customization: {

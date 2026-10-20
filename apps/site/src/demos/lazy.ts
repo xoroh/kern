@@ -19,6 +19,8 @@ import { useEffect, useState } from "react";
 export type WebDemoRegistry = typeof import("../demos/web/registry");
 export type MobileDemoRegistry = typeof import("../demos/mobile/registry");
 export type ShowcaseRegistry = typeof import("../showcase/registry");
+export type NativeShowcaseRegistry =
+  typeof import("../showcase/registry.native");
 
 export type DemoRegistries = {
   web?: WebDemoRegistry;
@@ -63,17 +65,33 @@ export function useDemoRegistries(need: DemoNeed = "both"): DemoRegistries {
   return mods;
 }
 
-/** The showcase registry (configurators + examples), or null until it arrives. */
-export function useShowcaseRegistry(): ShowcaseRegistry | null {
+/**
+ * The showcase registry for the platform the page belongs to, or null until
+ * it arrives.
+ *
+ * The two halves are separate modules on purpose: the web registry carries
+ * the configurators and the web examples, the native registry the native
+ * examples (which import `@xoroh/kern-native`). One registry would pull the
+ * native bundle — and through it the icon registry — into every web page's
+ * chunk, which is the boundary `useDemoRegistries` already keeps for the
+ * demo registries.
+ */
+export function useShowcaseRegistry(
+  platform: "web" | "mobile" = "web",
+): ShowcaseRegistry | NativeShowcaseRegistry | null {
   const [mod, setMod] = useState<ShowcaseRegistry | null>(null);
   useEffect(() => {
     let live = true;
-    void import("../showcase/registry").then((m) => {
-      if (live) setMod(m);
+    const load =
+      platform === "mobile"
+        ? import("../showcase/registry.native")
+        : import("../showcase/registry");
+    void load.then((m) => {
+      if (live) setMod(m as ShowcaseRegistry);
     });
     return () => {
       live = false;
     };
-  }, []);
+  }, [platform]);
   return mod;
 }

@@ -1,27 +1,31 @@
 // The per-component documentation gate.
 //
-// `docs/conventions/component-docs.md` specifies the page grammar and states
-// that the validator lands with the first page — "a validator that passes over
-// zero pages is the 'gate that passes while changing nothing' failure mode, so
-// none is written yet". This is that validator, and it asserts what the
+// `docs/conventions/component-docs.md` specifies the page grammar — the ONE
+// standard (ADR-115) — and this is that validator. It asserts what the
 // convention says it asserts:
 //
-//   1. the six sections, in order, with required/conditional respected;
-//   2. the metadata strip's elevation matches `m3-elevation.ts`;
-//   3. the status matches the generated inventory;
-//   4. no page contains a raw hex colour, a dp/px literal, or a bare
+//   1. the metadata strip's elevation matches `m3-elevation.ts`;
+//   2. the status matches the generated inventory;
+//   3. no page contains a raw hex colour, a dp/px literal, or a bare
 //      dimension ("48x48") — the class that used to slip past.
 //
 // Plus the checks the contract implies and a page cannot self-certify:
 //
-//   5. a deviation id resolves to a registered id (else it is an undocumented
+//   4. a deviation id resolves to a registered id (else it is an undocumented
 //      fork, not a deviation);
-//   6. a component whose elevation is a kern decision carries that decision's
+//   5. a component whose elevation is a kern decision carries that decision's
 //      deviation id;
-//   7. every part a family claims exists in the generated inventory, and no
+//   6. every part a family claims exists in the generated inventory, and no
 //      export is claimed by two families;
-//   8. at least one content page exists — the failure mode the convention
+//   7. at least one content page exists — the failure mode the convention
 //      names, made impossible.
+//
+// AND THE GUIDANCE CORPUS, because the standard splits the page in two: the
+// teaching half moved to `docs/m3-guidance/<family>.md`, and the guidance
+// gate (scripts/check-guidance.mjs) runs inside this one — presence,
+// byte-identity with the manifest, zero lost lines, and no moved field left
+// on a page. The rules that read `doc.deviations` and `doc.usage` read them
+// from the guidance manifest, because that is where they live now.
 //
 // GAPS are reported but do not fail: a component that neither elevation
 // inventory covers has an unasserted elevation, and a manifest row with no
@@ -40,9 +44,19 @@ const ROOT = join(APP, "..", "..");
 const CONTENT = join(APP, "src", "content");
 const INVENTORY = join(ROOT, "docs", "components.md");
 
-const { TOP_FAMILIES, THIN_PAGE_CONTRACT } = await import(
-  "./lib/top-families.mjs"
-);
+/**
+ * The guidance corpus — the teaching half of every page, moved to
+ * `docs/m3-guidance/<family>.md`. The rules that used to read `doc.deviations`
+ * and `doc.usage` read them from HERE, because that is where they live now.
+ */
+const { guidanceFor } = await import("./lib/guidance.mjs");
+/**
+ * The guidance gate itself (one function, two callers): it is wired into
+ * this run so `bun run check:docs` asserts the guidance corpus — presence,
+ * byte-identity with the manifest, zero lost lines, and no moved field left
+ * on a page.
+ */
+const { checkGuidance } = await import("./check-guidance.mjs");
 
 const errors = [];
 const gaps = [];
@@ -268,15 +282,12 @@ function checkSections({ file, doc }) {
   if (!doc.oneLiner || doc.oneLiner.length > 200) {
     fail(at("`oneLiner` must be one sentence (<= 200 chars)"));
   }
-  if (!doc.features || doc.features.trim().length === 0) {
-    fail(at("section 3 `features` is required and must not be empty"));
-  }
 
-  // Section 1 — metadata strip. Every field cross-checked by another gate, so
+  // The metadata strip. Every field cross-checked by another gate, so
   // a missing one is not prose, it is an unverifiable claim.
   const meta = doc.meta;
   if (!meta) {
-    fail(at("section 1 `meta` is required"));
+    fail(at("the metadata strip's `meta` is required"));
   } else {
     if (!["real", "stub"].includes(meta.status)) {
       fail(at("`meta.status` must be `real` or `stub`"));
@@ -288,9 +299,11 @@ function checkSections({ file, doc }) {
     }
   }
 
-  // Section 6 — API is required and must not be empty.
+  // The props table is required and must not be empty.
   if (!Array.isArray(doc.api) || doc.api.length === 0) {
-    fail(at("section 6 `api` is required and must have at least one row"));
+    fail(
+      at("`api` (the props table) is required and must have at least one row"),
+    );
   } else {
     for (const row of doc.api) {
       if (!row.name || !row.type) {
@@ -299,7 +312,7 @@ function checkSections({ file, doc }) {
     }
   }
 
-  // Sections 4 and 5 are conditional. A present-but-empty one is noise, and
+  // Customization is conditional. A present-but-empty one is noise, and
   // the convention says to cut it rather than ship a heading over nothing.
   if (doc.customization) {
     if (
@@ -308,21 +321,20 @@ function checkSections({ file, doc }) {
     ) {
       fail(
         at(
-          "section 4 `customization.supported` must not be empty when the section is present",
+          "`customization.supported` must not be empty when the section is present",
         ),
       );
     }
     if (!Array.isArray(doc.customization.notSupported)) {
-      fail(at("section 4 `customization.notSupported` must be an array"));
+      fail(at("`customization.notSupported` must be an array"));
     }
   }
-  if (doc.deviations !== undefined) {
-    if (!Array.isArray(doc.deviations) || doc.deviations.length === 0) {
-      fail(at("section 5 `deviations` is present but empty — cut the section"));
-    }
-  }
+  // The DEVIATIONS moved to `docs/m3-guidance/<family>.md` with the rest of
+  // the teaching half, so there is nothing left to check for "present but
+  // empty" here: the manifest builder drops an empty list, and the
+  // guidance gate asserts the records themselves.
 
-  // Section 2 is rendered from the demo registry keyed by parts[0], so the
+  // The demo is rendered from the demo registry keyed by parts[0], so the
   // family must name at least one export or there is nothing to show.
   if (!Array.isArray(doc.parts) || doc.parts.length === 0) {
     fail(at("`parts` must name at least the root export"));
@@ -330,7 +342,7 @@ function checkSections({ file, doc }) {
 }
 
 // ------------------------------------------------------------- elevation
-function checkElevation({ file, doc }) {
+function checkElevation({ platform, file, doc }) {
   const at = (msg) => `${file}: ${msg}`;
   const level = doc.meta?.elevation;
   const slug = doc.slug;
@@ -419,7 +431,7 @@ function checkElevation({ file, doc }) {
         ),
       );
     }
-    const deviations = doc.deviations ?? [];
+    const deviations = guidanceDeviations({ platform, doc });
     const ids = deviations.map((d) => d.id);
 
     if (kernDecision.startsWith("kern-decision:")) {
@@ -496,7 +508,7 @@ function checkElevation({ file, doc }) {
       if (!owns) {
         fail(
           at(
-            `elevation is a kern decision (M3 does not tabulate this component) but section 5 carries no deviation saying so — a deliberate choice is reading as conformance`,
+            `elevation is a kern decision (M3 does not tabulate this component) but the family's guidance carries no deviation saying so — a deliberate choice is reading as conformance`,
           ),
         );
       }
@@ -506,7 +518,7 @@ function checkElevation({ file, doc }) {
     if (!ids.includes(kernDecision)) {
       fail(
         at(
-          `elevation is a kern decision registered as ${kernDecision}, but section 5 does not carry that deviation id`,
+          `elevation is a kern decision registered as ${kernDecision}, but the family's guidance does not carry that deviation id`,
         ),
       );
     }
@@ -541,9 +553,32 @@ function checkElevation({ file, doc }) {
 }
 
 // -------------------------------------------------------------- deviations
-function checkDeviations({ file, doc }) {
+/**
+ * The deviations for a page — read from the guidance corpus.
+ *
+ * The records moved to `docs/m3-guidance/<family>.md` on 2026-10-19 (the
+ * one standard): they are decision records about the spec, not page
+ * reference. The rules that assert them did NOT move — they read the
+ * deviations from where they now live, so a deviation id that resolves to
+ * nothing is still a failure.
+ */
+function guidanceDeviations({ platform, doc }) {
+  return guidanceFor(doc.slug, platform)?.deviations ?? [];
+}
+
+/**
+ * The guidance content for a page: the moved prose (features, the
+ * Do/Don't pair, the anatomy, the deviations, the FAQ). The rules below
+ * read it from here rather than from the page, because the page no longer
+ * carries it.
+ */
+function guidanceEntry({ platform, doc }) {
+  return guidanceFor(doc.slug, platform) ?? {};
+}
+
+function checkDeviations({ platform, file, doc }) {
   const at = (msg) => `${file}: ${msg}`;
-  for (const d of doc.deviations ?? []) {
+  for (const d of guidanceDeviations({ platform, doc })) {
     if (!d.id) {
       fail(
         at("a deviation with no id is an undocumented fork, not a deviation"),
@@ -620,22 +655,24 @@ function checkNoRawValues({ file, doc }) {
     ["raw dimension value", /\b\d+(?:\.\d+)?\s*[xX×]\s*\d+(?:\.\d+)?\b/],
   ];
 
-  // Everything a reader sees as prose — including the API table's Notes
-  // column, which is where "a 48x48 icon button" was hiding in plain sight.
-  // Code identifiers in backticks are exempt: naming
+  // Everything a reader sees as PROSE ON THE PAGE — including the API
+  // table's Notes column, which is where "a 48x48 icon button" was hiding in
+  // plain sight. Code identifiers in backticks are exempt: naming
   // `--sys-color-primary` is the rule, not the violation.
+  //
+  // SCOPE (stated, not implied): the rule binds the PAGE. The guidance file
+  // is the M3 mapping — a document whose job is to record what the spec
+  // says, so a quoted spec dimension there ("the 3px indicator", "52×32
+  // track") is a CITATION, not a pasted token with a token to link. The
+  // moved prose (features, the Do/Don't pair, the anatomy, the deviations,
+  // the FAQ) is therefore not in this list; the token table never was.
   const prose = [
     doc.oneLiner,
-    doc.features,
     ...(doc.customization?.supported ?? []),
     ...(doc.customization?.notSupported ?? []),
-    ...(doc.deviations ?? []).flatMap((d) => [d.spec, d.kern, d.why]),
     ...(doc.aria ?? []),
-    ...(doc.usage?.do ?? []),
-    ...(doc.usage?.dont ?? []),
     ...(doc.accessibilityGaps ?? []),
     ...(doc.keyboard ?? []).map((row) => row.action),
-    ...(doc.anatomy ?? []).map((part) => part.role),
     ...(doc.api ?? []).map((row) => row.note),
   ].filter(Boolean);
 
@@ -775,10 +812,13 @@ function checkEditTarget({ platform, file, doc }) {
  * What is NOT correct is leaving it half-written: the template renders
  * gracefully, and the gate fails loudly to drive completion. Render
  * gracefully + fail loudly, not one or the other.
+ *
+ * The pair moved to the guidance file with the rest of the teaching half, so
+ * the rule reads it from there — the rule did not move with the content.
  */
-function checkUsage({ file, doc }) {
+function checkUsage({ platform, file, doc }) {
   const at = (msg) => `${file}: ${msg}`;
-  const use = doc.usage;
+  const use = guidanceEntry({ platform, doc }).usage;
   if (!use) return;
   const hasDo = (use.do ?? []).length > 0;
   const hasDont = (use.dont ?? []).length > 0;
@@ -809,6 +849,15 @@ function checkUsage({ file, doc }) {
   }
 }
 
+// ------------------------------------------------------------ guidance gate
+// The guidance corpus gate runs HERE, inside the docs gate: one standard
+// means the guidance is part of the page's contract, so it is asserted in
+// the same run that asserts the page. The pages are handed in because they
+// are already loaded here — importing 209 TypeScript modules twice in one
+// run is waste, and the gate's job is to assert, not to be slow.
+const guidance = await checkGuidance(pages);
+for (const e of guidance.errors) fail(`check-guidance: ${e}`);
+
 // ------------------------------------------------------------------- run
 for (const page of pages) {
   checkSections(page);
@@ -833,6 +882,9 @@ const total = inventory.size;
 const covered = [...documented].filter((k) => inventory.has(k)).length;
 
 console.log(`check-docs: ${pages.length} content page(s)`);
+console.log(
+  `check-docs: guidance corpus — ${guidance.families} guidance file(s) checked in docs/m3-guidance (manifest, byte-identity, zero lost lines)`,
+);
 console.log(
   `check-docs: coverage ${covered}/${total} inventory exports documented (${Math.round((covered / total) * 100)}%)`,
 );
@@ -894,76 +946,6 @@ if (gaps.length > 0) {
     errors.push(
       `${g} — an unasserted elevation claim is a defect, not a note (gaps fail since the zero-gap sweep)`,
     );
-}
-
-// ------------------------------------------------------- top-20 depth bar
-// 013/D-DOCS-DEPTH: the twenty families users land on most carry full pages
-// on web AND native. FULL means usage (do + don't), token table, keyboard
-// contract, screen-reader notes (`aria`), FAQ, and the API table. Anatomy
-// is deliberately NOT in the bar — single-part families have nothing to
-// decompose. Every other family gets a thin-but-correct page (example, API
-// table, a11y notes): `api` is required of every page by checkSections, and
-// the thin contract below additionally requires `aria` — both read from
-// THIN_PAGE_CONTRACT in lib/top-families.mjs, so the list, the contract
-// and the gate cannot drift apart.
-{
-  const byKey = new Map(
-    pages.map((p) => [`${p.platform}/${p.doc.slug}`, p.doc]),
-  );
-  // ADR-020 split families (web compound vs native queue) share a concept
-  // but not an export name: bare `snackbar` is web-only, the native halves
-  // are `snackbar-provider`/`snackbar-viewport`. The family page renders a
-  // peer note instead of a second tab (link/LinkButton precedent), so the
-  // bar follows the same peer link rather than demanding one slug.
-  const byExport = new Map(
-    pages.flatMap((p) =>
-      (p.doc.parts ?? []).map((part) => [`${p.platform}:${part}`, p.doc]),
-    ),
-  );
-  for (const slug of TOP_FAMILIES) {
-    for (const platform of ["web", "mobile"]) {
-      let doc = byKey.get(`${platform}/${slug}`);
-      if (!doc) {
-        const other = platform === "web" ? "mobile" : "web";
-        const peer = byKey.get(`${other}/${slug}`)?.meta?.nativePeer;
-        if (typeof peer === "string" && peer !== "none") {
-          doc = byExport.get(`${platform}:${peer}`);
-        }
-      }
-      if (!doc) {
-        errors.push(
-          `top-20 ${platform}/${slug}: no content page — the depth bar needs the family on both renderers`,
-        );
-        continue;
-      }
-      const missing = [];
-      if (!doc.usage?.do?.length || !doc.usage?.dont?.length)
-        missing.push("usage (do + don't)");
-      if (!doc.tokens?.length) missing.push("tokens");
-      if (!doc.keyboard?.length) missing.push("keyboard");
-      if (!doc.aria?.length) missing.push("aria");
-      if (!doc.faq?.length) missing.push("faq");
-      if (!doc.api?.length) missing.push("api");
-      if (missing.length > 0) {
-        errors.push(
-          `top-20 ${platform}/${slug}: not a full page — missing ${missing.join(", ")}`,
-        );
-      }
-    }
-  }
-  // Thin-page contract: every family outside the top 20 carries at least
-  // the contract sections. Checked per page (web and mobile separately —
-  // a thin page on one renderer does not cover the other).
-  const topSlugs = new Set(TOP_FAMILIES);
-  for (const { platform, doc } of pages) {
-    if (topSlugs.has(doc.slug)) continue;
-    const missing = THIN_PAGE_CONTRACT.filter((key) => !doc[key]?.length);
-    if (missing.length > 0) {
-      errors.push(
-        `thin-page ${platform}/${doc.slug}: not a thin page — missing ${missing.join(", ")}`,
-      );
-    }
-  }
 }
 
 if (errors.length > 0) {

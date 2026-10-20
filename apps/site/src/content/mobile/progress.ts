@@ -5,8 +5,6 @@ export const progress: ComponentDoc = {
   name: "Progress",
   oneLiner:
     "Progress reports how far along something is, as an amount out of a maximum.",
-  features:
-    "Reach for progress when the wait has a measurable amount and showing it helps: an upload, a build, a multi-step task. It takes a value and a maximum and reports the proportion, which is the whole difference between it and the loaders — those describe a wait, this measures one. Prefer it over a spinner whenever the number is genuinely known, because an unmeasured wait shown as unmeasured makes people wait worse than they need to. Note it names its accessible name `accessibilityLabel`, where `LoadingIndicator` calls the same thing `label` — the two do not share a prop name despite doing the same job.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,10 @@ export const progress: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Progress"],
+  // M2: the native bar is a `progressbar` too — it measures, it does not
+  // collect. It takes no focus and answers no key, so the ARIA contract
+  // below is the whole story.
+  nonInteractive: true,
   customization: {
     supported: [
       "`value` and `max` set the amount, so the proportion is derived rather than passed in as a percentage.",

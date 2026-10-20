@@ -5,8 +5,6 @@ export const entitySheet: ComponentDoc = {
   name: "Entity sheet",
   oneLiner:
     "Entity sheets show the detail of one record — label, value pairs — in a bottom sheet.",
-  features:
-    "Reach for an entity sheet when someone taps a record and wants to see what it is before deciding what to do: a booking's details, an order's summary, a contact's fields. It is read-mostly by design — the field values sit on the highest surface container so the eye lands on the VALUE rather than the label, which is the same hierarchy the web entity panes use. `data` marks a field for the monospaced data treatment, which is how an identifier reads as an identifier. Keep it to the fields that help the decision; a dump of every attribute is a database view, not a detail sheet.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -21,6 +19,21 @@ export const entitySheet: ComponentDoc = {
     elevation: 0,
   },
   parts: ["EntitySheet"],
+  // The native entity sheet is a MODAL sheet: it is hosted in the shared
+  // sheet shell, so the accessibility focus moves inside it when it opens and
+  // both scrim press and the hardware back button dismiss it.
+  keyboard: [
+    {
+      key: "Android back button",
+      action:
+        "Dismisses the sheet — the shell's request-close path fires `onDismiss` and reports `onOpenChange(false)`.",
+    },
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "The title announces the record when the sheet opens, the field values read in order beneath it, and the action row reads as buttons that double-tap runs.",
+    },
+  ],
   customization: {
     supported: [
       "`fields` are data — `label`, `value`, optional `data` — so the detail is a declaration rather than markup.",

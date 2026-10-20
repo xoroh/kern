@@ -5,8 +5,6 @@ export const alertDialog: ComponentDoc = {
   name: "Alert dialog",
   oneLiner:
     "Alert dialogs interrupt for a decision that must be made before anything else continues.",
-  features:
-    'Reach for an alert dialog when the answer changes what happens next and cannot be deferred: confirming a deletion, accepting terms, discarding unsaved work. It is modal on purpose — the rest of the page waits. Name the consequence in the description, not just the action, because "Delete" alone does not say what goes. Offer the safe choice first and give the destructive one its own weight. If the choice can be made later, it is a banner or a snackbar with an undo, not an interruption.',
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -25,36 +23,9 @@ export const alertDialog: ComponentDoc = {
     "AlertDialogDescription",
     "AlertDialogClose",
   ],
-  anatomy: [
-    {
-      name: "AlertDialogRoot",
-      role: "Owns the open state. Accepts `open`/`onOpenChange` to control it.",
-    },
-    {
-      name: "AlertDialogTrigger",
-      role: "The control that raises the alert. Focus returns here when it closes.",
-    },
-    {
-      name: "AlertDialogContent",
-      role: "The dialog surface. Portals to the end of the document, renders the backdrop and traps focus.",
-    },
-    {
-      name: "AlertDialogTitle",
-      role: "The question being decided. Becomes the dialog's accessible name.",
-    },
-    {
-      name: "AlertDialogDescription",
-      role: "What the decision costs — the part that says what goes if the answer is yes.",
-    },
-    {
-      name: "AlertDialogClose",
-      role: "Dismisses the dialog from inside it.",
-    },
-    {
-      name: "AlertDialog",
-      role: "The namespace object: all of the parts above.",
-    },
-  ],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
   keyboard: [
     {
       key: "Escape",
@@ -64,28 +35,10 @@ export const alertDialog: ComponentDoc = {
       key: "Tab / Shift+Tab",
       action: "Trapped inside while open.",
     },
-  ],
-  usage: {
-    do: [
-      "Use for error confirmations and action prompts requiring a response.",
-      "Label by headline or explicit aria-label.",
-    ],
-    dont: [
-      "Don't use for information that needs no response — that is a dialog or snackbar.",
-    ],
-  },
-  tokens: [
     {
-      element: "Container",
-      state: "resting",
-      token: "comp.dialog.container",
-      value: "surface-container-high, 28px, alert semantics",
-    },
-  ],
-  faq: [
-    {
-      q: "Alert dialog or dialog?",
-      a: "Alert announces as alertdialog for messages requiring response; plain dialog for the rest.",
+      key: "Enter / Space",
+      action:
+        "Runs the focused action. The close control and any button the caller puts in the panel are real buttons, so the press is the browser's.",
     },
   ],
   customization: {

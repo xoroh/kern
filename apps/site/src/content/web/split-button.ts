@@ -5,8 +5,6 @@ export const splitButton: ComponentDoc = {
   name: "Split button",
   oneLiner:
     "Split buttons pair one primary action with a menu of related alternatives.",
-  features:
-    "Reach for a split button when there is one action people take most of the time and a few they take occasionally: the usual export plus the other formats, the default send plus the scheduled ones. The left half does the common thing immediately; the right half opens the rest. It earns its space only when the alternatives genuinely relate to the primary — a menu of unrelated actions behind a labelled button is just a button with a drawer. If the primary changes, so should its label; a split button whose main action is a guess is worse than a plain menu.",
   meta: {
     // Canonical M3 spec page — title identity-verified live; gate re-checks.
     specUrl: "https://m3.material.io/components/split-button",
@@ -17,6 +15,30 @@ export const splitButton: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["SplitButton"],
+  // The contract, read off the two halves and the menu they open: two tab
+  // stops with two names, and a menu that behaves like every other menu.
+  keyboard: [
+    {
+      key: "Tab",
+      action:
+        "Reaches the two halves as two stops — the primary button and the overflow trigger — because they are two controls with two names, and one control with two hit regions could be announced as neither.",
+    },
+    {
+      key: "Enter / Space",
+      action:
+        "On the primary half, runs the action and leaves the menu closed; on the overflow half, opens the menu. Keeping those apart is the whole reason the component is two halves.",
+    },
+    {
+      key: "Arrow keys",
+      action:
+        "Move between the overflow items once the menu is open, with wrapping.",
+    },
+    {
+      key: "Escape",
+      action:
+        "Closes the open menu without choosing, and focus returns to the overflow trigger.",
+    },
+  ],
   customization: {
     supported: [
       "`className` is passed through and merged after the control's own classes.",

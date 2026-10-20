@@ -5,8 +5,6 @@ export const emptyState: ComponentDoc = {
   name: "Empty state",
   oneLiner:
     "Empty states say what is missing, and offer the one thing that would fix it.",
-  features:
-    "Reach for an empty state whenever a region would have content and does not: no results for a search, nothing in the cart, no projects yet. An unexplained blank region reads as broken; saying what is missing and how to change that turns a dead end into a doorway. Keep it to one recovery action — the single most likely thing that fills the space. Distinguish the two reasons for emptiness where it matters: nothing exists yet, and the current filter hides everything, are different problems with different fixes.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -15,29 +13,14 @@ export const emptyState: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["EmptyState"],
-  usage: {
-    do: [
-      "Name what is missing and show the one action that fills it.",
-      "Keep title, body, and action together as one unit.",
-    ],
-    dont: [
-      "Don't show empty chrome with no next step — every void needs its action.",
-    ],
-  },
-  tokens: [
-    {
-      element: "Unit",
-      state: "resting",
-      token: "kern.empty-state.unit",
-      value: "Kern pattern beyond M3",
-    },
-  ],
-  faq: [
-    {
-      q: "Empty state or error?",
-      a: "Empty for zero content with a path forward; error messaging for failures with recovery steps.",
-    },
-  ],
+  // M2: an empty state is a STATE, not a control. It takes no focus and
+  // answers no key of its own — the recovery control in the `action` slot is
+  // what the keyboard reaches, and it is a real button because the caller
+  // put a real button there.
+  nonInteractive: true,
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
   customization: {
     supported: [
       "`className` is passed through and merged after the empty state's own classes.",

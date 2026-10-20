@@ -5,8 +5,6 @@ export const select: ComponentDoc = {
   name: "Select",
   oneLiner:
     "Selects let someone choose one value from a set too long to show on the page.",
-  features:
-    "Reach for a select when the answer is one of a known set and the set is too long to lay out — countries, timezones, a parent record. It shows the current choice on the trigger and the rest only on demand, which is what makes it compact. If the set is short enough to read at a glance, a radio group is better: a select hides the alternatives, and someone cannot choose what they have not seen. If the answer is several values, that is a checkbox group or a multi-select, not this.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -32,44 +30,9 @@ export const select: ComponentDoc = {
     "SelectGroupLabel",
     "SelectSeparator",
   ],
-  deviations: [
-    {
-      id: "K6",
-      spec: 'M3\'s component elevation table does not name a select. It tabulates "menu" at resting level 2, and kern maps that row to `navigation-menu`, so there is no spec row a select could conform to.',
-      kern: "The select popup rests at elevation level 2, matching the menu row's level.",
-      why: "The open list behaves as an overlay above the page, so it needs the same lift a menu has — but claiming the menu row would assert something M3 never said about selects. The level is registered as K6 in m3-elevation.ts so the choice is a recorded decision rather than an incidental value in a stylesheet.",
-    },
-  ],
-  anatomy: [
-    {
-      name: "SelectRoot",
-      role: "Owns the open state and the selected value. Generic over the value type, so a select of numbers stays numbers.",
-    },
-    {
-      name: "SelectTrigger",
-      role: "The closed control showing the current choice. Opens the list.",
-    },
-    {
-      name: "SelectValue",
-      role: "Renders the selected value inside the trigger.",
-    },
-    {
-      name: "SelectContent",
-      role: "The list surface. Portals to the end of the document and positions itself against the trigger.",
-    },
-    { name: "SelectItem", role: "One option." },
-    { name: "SelectItemText", role: "The option's label text." },
-    {
-      name: "SelectItemIndicator",
-      role: "The selected mark inside an option. Renders only while its option is selected.",
-    },
-    {
-      name: "SelectGroupLabel",
-      role: "A heading for a run of related options.",
-    },
-    { name: "SelectSeparator", role: "A divider between runs of options." },
-    { name: "Select", role: "The namespace object: all of the parts above." },
-  ],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
   keyboard: [
     {
       key: "Enter / Space / ArrowDown",
@@ -80,6 +43,10 @@ export const select: ComponentDoc = {
       action: "Moves through options once open. Typeahead jumps by typed text.",
     },
     {
+      key: "Home / End",
+      action: "Jumps to the first or the last option in the open list.",
+    },
+    {
       key: "Escape",
       action: "Closes the menu and returns focus to the trigger.",
     },
@@ -87,43 +54,6 @@ export const select: ComponentDoc = {
       key: "Tab / Shift+Tab",
       action:
         "Moves focus into and out of the select. Disabled selects are skipped.",
-    },
-  ],
-  usage: {
-    do: [
-      "Use for choosing one value from a fixed list — 6+ options or tight space where radios won't fit.",
-      "Mirror the text-field treatment: filled on lower surfaces, outlined everywhere else.",
-      "Mark mandatory selects `required`.",
-    ],
-    dont: [
-      "Don't use for 2–5 always-visible choices — that is a radio group or segmented button.",
-      "Don't use for free text — that is an input or combobox.",
-    ],
-  },
-  tokens: [
-    {
-      element: "Filled container",
-      state: "resting",
-      token: "comp.filled-select.text-field-container-color",
-      value: "--sys-color-surface-container-highest, 4px top",
-    },
-    {
-      element: "Outlined container",
-      state: "resting",
-      token: "comp.outlined-select.text-field-container-shape",
-      value: "corner-extra-small 4px, 1px outline",
-    },
-    {
-      element: "Menu surface",
-      state: "resting",
-      token: "comp.menu.container-color",
-      value: "surface, level2 shadow",
-    },
-  ],
-  faq: [
-    {
-      q: "Select, combobox, or autocomplete?",
-      a: "Select for a fixed closed list. Combobox when the list filters as you type. Autocomplete when suggestions complete free text.",
     },
   ],
   customization: {

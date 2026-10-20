@@ -5,8 +5,6 @@ export const contrastToggle: ComponentDoc = {
   name: "ContrastToggle",
   oneLiner:
     "One action that requests a contrast change, named for where the press goes rather than where it is.",
-  features:
-    "Reach for a contrast toggle when the host owns the contrast level and needs one control to flip it. The accessible name always names the destination — “Use high contrast” while standard — so the action reads the same before and after the press. There is no pressed axis and none latches: the level lives in the host, not in the control, and the toggle reports the request through `onToggle`. The touch target is `48dp` with a decorative “Aa” glyph hidden from the tree.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -17,6 +15,20 @@ export const contrastToggle: ComponentDoc = {
     elevation: 0,
   },
   parts: ["ContrastToggle"],
+  // The touch contract: one action, named for where it goes, with no latched
+  // state to report.
+  keyboard: [
+    {
+      key: "Double-tap (TalkBack / VoiceOver)",
+      action:
+        'Requests the contrast change. The name says where the press goes — "Use high contrast" while the level is standard — and there is no pressed state to announce, because the level lives in the host.',
+    },
+    {
+      key: "Swipe (TalkBack / VoiceOver)",
+      action:
+        "Reaches the toggle as a `button` on the platform's minimum touch target, named for the destination level rather than for the current one.",
+    },
+  ],
   customization: {
     supported: [
       "`contrast` names the current level; the label is derived from it, never passed separately.",
@@ -28,14 +40,6 @@ export const contrastToggle: ComponentDoc = {
       "There is no label override. The destination name is the contract.",
     ],
   },
-  deviations: [
-    {
-      id: "K11",
-      spec: 'M3\'s component elevation table names no toggle row. It tabulates "menu" and "rich tooltip" at level 2 and "dialogs (modal)" at level 3, but no row describes a toggle resting elevation.',
-      kern: "The toggle rests at elevation level 0 — no shadow token; level 0 is shadow: none.",
-      why: "A borderless round action has no container to lift — a shadow would invent elevation M3 never assigned. The level-0 claim is registered in the elevation inventory so it is asserted rather than assumed.",
-    },
-  ],
   api: [
     {
       name: "contrast",

@@ -8,9 +8,9 @@
       "expectations": [
         {
           "rule": "keyboard-operable",
-          "expect": "gap",
+          "expect": "pass",
           "provenance": "derived",
-          "basis": "banner.ts documents no keyboard rows for Banner — the contract is unwritten, treat as a gap not a pass"
+          "basis": "keyboard contract carries 2 row(s) in banner.ts — every operable action has a documented key"
         },
         {
           "rule": "aria-contract",

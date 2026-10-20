@@ -5,8 +5,6 @@ export const kbd: ComponentDoc = {
   name: "Kbd",
   oneLiner:
     "Kbds show a keyboard shortcut or key as text, in the shape of a key.",
-  features:
-    "Reach for kbd when a shortcut is worth showing beside the thing it does: a menu item's binding, a settings hint, a chord in help text. It renders one non-wrapping label in a monospace face with an outline-variant border, exposed as static text — so it reads correctly in a screen reader and copies correctly as prose. It does not BIND anything. Chords are composed by the caller with a space between `Kbd` parts, the same contract as web.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -17,38 +15,14 @@ export const kbd: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Kbd"],
-  usage: {
-    do: [
-      "Show the shortcut where its action lives — menus, hints, help.",
-      "Compose chords with a space between parts, matching the web contract.",
-      "Keep the label to the key itself; the surrounding text says what it does.",
-    ],
-    dont: [
-      "Don't bind anything with it — the kbd only shows, the application wires.",
-      "Don't restyle it past recognition — the key shape is what makes a shortcut scannable.",
-    ],
-  },
-  tokens: [
-    {
-      element: "Key",
-      state: "resting",
-      token: "theme.color.surfaceContainerHigh",
-      value:
-        "surfaceContainerHigh fill, 1px outlineVariant border, 4px corners",
-    },
-    {
-      element: "Glyph",
-      state: "resting",
-      token: "theme.color.onSurface",
-      value: "onSurface monospace label, single line",
-    },
-  ],
-  faq: [
-    {
-      q: "Why show keyboard shortcuts on a touch surface?",
-      a: "External keyboards exist — and the kbd's job is showing the binding, not pressing it. The treatment is identical on both renderers so documentation can share the notation.",
-    },
-  ],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
+  // Static text BY CONSTRUCTION: the kbd is exposed on the accessibility tree
+  // as text and binds nothing. It never takes focus and never handles a key —
+  // the shortcut it names is the application's to wire. So there is no
+  // keyboard contract to write, and saying so is a fact rather than a gap.
+  nonInteractive: true,
   customization: {
     supported: [
       "`children` is the key as text — a string, rendered, not interpreted.",

@@ -5,8 +5,6 @@ export const dockSheet: ComponentDoc = {
   name: "Dock sheet",
   oneLiner:
     "Dock sheets are the minimal bottom panel — content in a sheet, with no title and no action row.",
-  features:
-    "Reach for a dock sheet when the thing to show is content rather than a decision: a keyboard accessory, a media dock, a small tool strip that belongs at the bottom edge. It is the smallest member of the sheet family and the only one with no title, because what it holds is self-explanatory or already labelled by whatever opened it. If the panel needs a name and a decision, that is a `BottomSheet`; if it needs to remember a height, that is a `SnapSheet`.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -24,6 +22,21 @@ export const dockSheet: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["DockSheet"],
+  // The native dock sheet is a plain view, not a modal: it takes no focus of
+  // its own, traps nothing and binds no key. The dismiss pressable, when the
+  // host asks for one, is the only control the sheet contributes.
+  keyboard: [
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "The docked content reads in order and double-tap runs whichever control is focused; the dismiss pressable, when there is one, reads as a button.",
+    },
+    {
+      key: "Enter / Space via external keyboard or switch control",
+      action:
+        "Runs the focused control in the dock — the same press a touch makes.",
+    },
+  ],
   customization: {
     supported: [
       "`children` is the whole surface, so what docks is entirely the caller's.",

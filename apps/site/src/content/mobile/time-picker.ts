@@ -5,8 +5,6 @@ export const timePicker: ComponentDoc = {
   name: "Time picker",
   oneLiner:
     "The time picker is hour and minute — plus the period in 12-hour mode — as traversable listboxes, with the value kept in 24-hour state.",
-  features:
-    "Reach for a time picker when the answer is a time of day: a reminder, a booking slot, a schedule entry. Each field is its OWN traversal axis — the web contract is one tab stop per field, and the picker mirrors it with a roving model per field — so a keyboard user can reach the minutes without passing through the hours. Twelve-hour is PRESENTATION, never state: the value is 24-hour internally and always normalised before it is reported, so a consumer that persists it cannot drift. `step` sets minute granularity, and an out-of-range value can never reach `onValueChange`.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,21 @@ export const timePicker: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["TimePicker"],
+  // The touch contract: there are no arrow keys on a phone, so traversal is
+  // by pressing an option. The roving model is shared with the web; only the
+  // input mechanism differs.
+  keyboard: [
+    {
+      key: "Double-tap (TalkBack / VoiceOver)",
+      action:
+        "Picks the focused option in whichever field the reader is on — the hour, the minute or the period — and reports the normalised 24-hour value.",
+    },
+    {
+      key: "Swipe (TalkBack / VoiceOver)",
+      action:
+        "Moves between the fields and through their options. Each field is its own traversal axis, so the minutes are reachable without walking every hour.",
+    },
+  ],
   customization: {
     supported: [
       "`value` / `defaultValue` / `onValueChange` are the controlled-uncontrolled pair; the callback always receives the NORMALISED value.",

@@ -5,8 +5,6 @@ export const meter: ComponentDoc = {
   name: "Meter",
   oneLiner:
     "Meters show a value against a range, so a quantity can be read at a glance.",
-  features:
-    "Reach for a meter when the number has a meaning that depends on where it sits: a quota filling up, a score against a maximum, a level running low. Unlike a slider it is read-only — a meter reports, it does not collect. Show the number as well as the bar, because the bar says roughly and the number says what. If the value is a progress through something still running, that is a progress indicator, not a meter: a meter's range is meaningful at rest.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -16,39 +14,13 @@ export const meter: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Meter", "MeterRoot", "MeterLabel", "MeterValue"],
-  anatomy: [
-    {
-      name: "MeterRoot",
-      role: "The gauge. Owns the value and the range, and renders the track.",
-    },
-    { name: "MeterLabel", role: "Names what is being measured." },
-    {
-      name: "MeterValue",
-      role: "Renders the number beside the track, so the reading is a value and not only a length.",
-    },
-    { name: "Meter", role: "The namespace object: Root, Label and Value." },
-  ],
-  usage: {
-    do: [
-      "Label what is measured and show the value beside the bar.",
-      "Report progress semantics to assistive tech.",
-    ],
-    dont: ["Do not use for unknown waits."],
-  },
-  tokens: [
-    {
-      element: "Bar",
-      state: "resting",
-      token: "kern.meter.bar",
-      value: "Kern pattern beyond M3",
-    },
-  ],
-  faq: [
-    {
-      q: "Meter or progress?",
-      a: "Meter for measured quantities with labels; progress for action waits.",
-    },
-  ],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
+  // M2: a meter REPORTS a reading; it does not collect one. It is a
+  // meter-role element that takes no focus and answers no key, so the ARIA
+  // contract below is the whole story.
+  nonInteractive: true,
   customization: {
     supported: [
       "`className` on every part, merged after the part's own classes.",

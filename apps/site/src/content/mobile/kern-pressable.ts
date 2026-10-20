@@ -5,8 +5,6 @@ export const kernPressable: ComponentDoc = {
   name: "Kern pressable",
   oneLiner:
     "The narrow accessibility-defaults wrap for anything pressable on native: Material's minimum touch target, a button role by default, and `disabled` always reported.",
-  features:
-    "Reach for this when you are building a pressable that is not a Button and not an IconButton — a list row, a card, a chip-shaped target, a custom control — and you want kern's accessibility defaults applied without adopting a visual component. It owns exactly three things and passes everything else straight to React Native's `Pressable`: Material's minimum touch target, `button` as a DEFAULT role rather than an override, and `disabled` reported even when the caller supplied only `selected`. Everything visual is yours. It is deliberately not a Button: it has no variant, no size and no styling of its own, because a wrapper that grew those would be a new primitive family wearing a thin name and would duplicate the decision `Button` already made.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -19,6 +17,18 @@ export const kernPressable: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["KernPressable"],
+  keyboard: [
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "The control reads as a button unless the caller overrides the role, and double-tap runs the press.",
+    },
+    {
+      key: "Swipe over a disabled control (TalkBack / VoiceOver)",
+      action:
+        "The disabled state is always reported, so a control that refuses the press still says so instead of looking available.",
+    },
+  ],
   customization: {
     supported: [
       "`accessibilityRole` overrides the `button` default, so a menu item can say it is a menu item.",

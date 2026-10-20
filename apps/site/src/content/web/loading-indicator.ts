@@ -5,8 +5,6 @@ export const loadingIndicator: ComponentDoc = {
   name: "Loading indicator",
   oneLiner:
     "Loading indicators are the labelled spinner — a wait with its name attached.",
-  features:
-    "Reach for a loading indicator when the wait needs to say what it is for: a region fetching its content, a step in a wizard, a background sync. The label is the difference between this and a bare `Loader` — it names the wait instead of leaving someone to guess. Whether the label is visible or only announced is a prop, so the same component serves the inline and the announced cases. If the wait has a knowable length, that is progress rather than a spinner.",
   meta: {
     // Canonical M3 spec page — title identity-verified live; gate re-checks.
     specUrl: "https://m3.material.io/components/loading-indicator",
@@ -17,6 +15,10 @@ export const loadingIndicator: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["LoadingIndicator"],
+  // A loading indicator is a STATUS, not a control: it is a polite live
+  // region that takes no focus and answers no key, so there is no keyboard
+  // contract to write. What it announces is the aria contract below.
+  nonInteractive: true,
   customization: {
     supported: [
       "`size` and `tone` come from the feedback scale, so the indicator matches the rest of the family.",

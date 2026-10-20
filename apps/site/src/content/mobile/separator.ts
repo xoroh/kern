@@ -4,8 +4,6 @@ export const separator: ComponentDoc = {
   slug: "separator",
   name: "Separator",
   oneLiner: "Separators draw a line between things — horizontal or vertical.",
-  features:
-    "Reach for a separator when two things need dividing and the division is visual rather than semantic: a break in a toolbar, a rule between list groups. It is a `View` with an `orientation`, and that is the whole component. Note what it is not: a separator is decoration between content, not a heading. If the division names what follows, that is a heading or a group label, and a line alone will not tell anyone where one section ends and the next begins.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",

@@ -5,8 +5,6 @@ export const bottomSheetPicker: ComponentDoc = {
   name: "Bottom sheet picker",
   oneLiner:
     "The bottom sheet picker is a selector in a sheet — a titled list of options where the selection is announced, not just tinted.",
-  features:
-    "Reach for a picker sheet when choosing is the whole task and the options need more room than a select: a list with supporting lines, a set that wants the bottom of the screen. The options are data — value, label, an optional supporting line and a disabled flag — and the list is a real listbox: each option reports its selected state, and the check mark carries that state alongside the tint so the selection never depends on colour alone. `multiple` exposes multi-select semantics on the list; the selection itself is the host's, reported through `onSelect`. It hosts through `SheetSurface`, so scrim, Escape and focus return come with it.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -20,6 +18,25 @@ export const bottomSheetPicker: ComponentDoc = {
     elevation: 1,
   },
   parts: ["BottomSheetPicker"],
+  // The sheet contract, read off the shell it hosts through: the popup traps
+  // focus and inerts the page, so Tab stays inside and Escape is the way out.
+  keyboard: [
+    {
+      key: "Tab / Shift+Tab",
+      action:
+        "Cycles focus among the sheet's own controls while the page behind it is inert — the popup traps focus and marks itself `aria-modal`.",
+    },
+    {
+      key: "Enter / Space",
+      action:
+        "Picks the focused option. Every option is a real button, so the press reports that option's value through `onSelect`.",
+    },
+    {
+      key: "Escape",
+      action:
+        "Dismisses the sheet through `onOpenChange`, and focus returns to the trigger that opened it.",
+    },
+  ],
   customization: {
     supported: [
       "`options` is data: `{ value, label, supporting?, disabled? }` per row.",

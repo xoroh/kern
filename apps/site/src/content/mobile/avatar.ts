@@ -5,8 +5,6 @@ export const avatar: ComponentDoc = {
   name: "Avatar",
   oneLiner:
     "Avatars show a person or thing — an image when one loads, initials when one does not.",
-  features:
-    "Reach for an avatar wherever a record has a face or a mark: a sender on a message, a member of a team, an account in a drawer. The useful behaviour is the fallback: `source` takes the image and `fallback` is the initials shown when no image loads, so a slow or missing image degrades to something recognisable rather than to an empty box. Pick the size from the three the family ships rather than setting one, so an avatar looks the same wherever it appears. And name it — an avatar next to a name is decoration, an avatar on its own is the identity and needs an accessible label.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,13 @@ export const avatar: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Avatar"],
+  // Presentational BY CONSTRUCTION: the avatar is an image with an initials
+  // fallback. It is exposed as an image, takes no focus, handles no key and
+  // exposes no state of its own. A host that makes an avatar pressable owns
+  // that control's contract — the avatar does not bring one with it. So there
+  // is no keyboard contract to write, and saying so is a fact rather than a
+  // gap.
+  nonInteractive: true,
   customization: {
     supported: [
       "`source` takes an image, and `fallback` is the initials shown when no image loads.",

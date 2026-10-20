@@ -5,8 +5,6 @@ export const carousel: ComponentDoc = {
   name: "Carousel",
   oneLiner:
     "The carousel shows a set of items one at a time — one active slide, one tab stop, an index that never disagrees with itself.",
-  features:
-    "Reach for a carousel when the items are peers and the screen can only show one at a time: a gallery, a rotating set of cards, a pick from a small collection. The carousel owns WHICH item is active — controlled or uncontrolled, clamped so it can never blank itself — and one roving model from `@xoroh/axis` drives both the track and the dot row, so the two cannot show different slides. `loop` is opt-in because Material 3's default is to clamp at the ends, and swiping never re-indexes on its own: the active index only changes by an explicit press, so anyone using assistive tech is never moved without acting.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -18,6 +16,20 @@ export const carousel: ComponentDoc = {
     elevation: 0,
   },
   parts: ["Carousel"],
+  // The contract, read off the component: the track is one roving stop, the
+  // dots are buttons, and a swipe scrolls the track WITHOUT moving the index.
+  keyboard: [
+    {
+      key: "Enter / Space via external keyboard",
+      action:
+        "Activates the focused dot, which makes that slide the active one. The slides are announced as images rather than as buttons, so the dot row is the control that takes a key.",
+    },
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "Moves through the slides; the track is ONE tab stop and the active slide is the stop inside it. Double-tap on a slide or a dot makes it the active one — a swipe alone scrolls the track and does not move the index, because the host decides that.",
+    },
+  ],
   customization: {
     supported: [
       "`items` is data: each carries a stable `value` (the key), optional `content`, an `accessibilityLabel` and its own `disabled` flag.",

@@ -5,8 +5,6 @@ export const split: ComponentDoc = {
   name: "Split",
   oneLiner:
     "The split is an N-column layout: two or three equal columns divided by a hairline, named as one region for assistive technology.",
-  features:
-    "Reach for a split when a region should be divided into equal columns and the division itself is the design: a compare view, a two-up form, a three-pane preview. The dividers are drawn as a hairline GAP over a divider-coloured container, so there is no leading border before the first column and no trailing one after the last, at any column count. Each column is an equal share that may still shrink below its content, so one long child cannot push its siblings off screen. The region is a labelled `group`, because a layout still needs a name — without one a screen-reader user has no way to announce the region before entering it. This is the PRIMITIVE: it wraps each child in its own column and takes any children. The equal-column grid built on `SplitPanel`, at the composition tier, is `SplitGrid` — a different component with a different name.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -16,6 +14,10 @@ export const split: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Split"],
+  // The split is LAYOUT: it names a region for assistive tech and divides
+  // the space, but it takes no focus and handles no keys. The controls
+  // inside the columns own their own keyboard behaviour.
+  nonInteractive: true,
   customization: {
     supported: [
       "`columns` declares the intended shape (2 or 3) and `children` are the columns, in order.",

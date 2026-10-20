@@ -1,14 +1,23 @@
 /**
- * The docs page grammar — v2 (M3-shaped), in reading order:
+ * The docs page grammar — THE ONE STANDARD (ADR-115), in reading order:
  *
- *   lede → demo → usage → semantic-dom → accessibility → props → tokens →
- *   limitations → faq → spec
+ *   lede → demo → example → props → accessibility → limitations → spec →
+ *   customization
  *
- * Proof before prose (the live demo answers "does it work"), then the M3
- * Guidelines pattern (usage Do/Don't as its own top-level section — it used
- * to hide inside Demo where the TOC could not see it), then the mental model
- * (what it renders as, who it works for), and only then reference (props,
- * tokens) and boundaries (limitations, faq, spec).
+ * Proof before prose (the live demo answers "does it work", the code example
+ * answers "how do I write it"), then reference (props), then the contract
+ * (accessibility), then the honest edges (limitations), then the source
+ * (spec), and last the escape hatch (customization).
+ *
+ * WHAT MOVED OUT OF THE PAGE
+ *
+ * The teaching half of a component page — features prose, the Do/Don't pair,
+ * the token table, the FAQ, the deviations and the anatomy — lives in
+ * `docs/m3-guidance/<family>.md`, one file per family, moved verbatim. The
+ * page keeps the REFERENCE core. That is why this grammar has no `usage`,
+ * `tokens`, `faq` or `semantic-dom` slot: those sections do not render on the
+ * page any more, and a grammar slot that renders nothing is a lie the reader
+ * pays for.
  *
  * WHY A SHARED MODULE
  *
@@ -36,68 +45,56 @@ import type { ComponentDoc } from "../content/types";
  */
 export const GRAMMAR_ORDER = [
   "demo",
-  "usage",
-  "semantic-dom",
-  "accessibility",
+  "example",
   "props",
-  "tokens",
+  "accessibility",
   "limitations",
-  "faq",
   "spec",
+  "customization",
 ];
 
 /** Sections that render on every non-exempt page (with honest fallbacks). */
 export const GRAMMAR_REQUIRED = [
   "demo",
+  "example",
   "props",
-  "tokens",
   "accessibility",
   "spec",
 ];
 
-/** Sections that render only when the content carries them. */
-export const GRAMMAR_CONDITIONAL = [
-  "usage",
-  "semantic-dom",
-  "limitations",
-  "faq",
-];
-
 /**
- * Usage renders when the page has written at least one rule: a Do or a
- * Don't. Half-pairs still render (the section states which half is
- * missing); an absent or empty `usage` cuts the section, per convention —
- * a heading over nothing is noise.
+ * Sections that render only when the content carries them. Both are the
+ * "honest state" pair: a boundary the component really has, and an escape
+ * hatch it really offers.
  */
-export function hasUsage(doc: ComponentDoc): boolean {
-  return (doc.usage?.do.length ?? 0) > 0 || (doc.usage?.dont.length ?? 0) > 0;
-}
+export const GRAMMAR_CONDITIONAL = ["limitations", "customization"];
 
 /**
- * Semantic DOM renders when the page states either half of it: the part
- * anatomy or the ARIA contract. A page with neither has no DOM semantics to
- * document, and a heading over nothing is noise — cut, per convention.
- */
-export function hasSemanticDom(doc: ComponentDoc): boolean {
-  return (doc.anatomy?.length ?? 0) > 0 || (doc.aria?.length ?? 0) > 0;
-}
-
-/**
- * Limitations renders when the page states any boundary: unsupported
- * customization, known accessibility gaps, or the exemption notice. Same
- * rule — no boundary on record, no section.
+ * Limitations renders when the page states any boundary: a known
+ * accessibility gap, or the exemption notice. The `customization` half is NOT
+ * part of it any more — "what this component does not let you change" is the
+ * customization section's own subject, and merging the two is what made the
+ * old page say the same thing twice. Same rule as before: no boundary on
+ * record, no section.
  */
 export function hasLimitations(doc: ComponentDoc): boolean {
-  if ((doc.customization?.notSupported.length ?? 0) > 0) return true;
   if ((doc.accessibilityGaps?.length ?? 0) > 0) return true;
   return (
     typeof doc.grammarExempt === "string" && doc.grammarExempt.trim().length > 0
   );
 }
 
-/** FAQ renders only when the page carries at least one entry. */
-export function hasFaq(doc: ComponentDoc): boolean {
-  return (doc.faq?.length ?? 0) > 0;
+/**
+ * Customization renders when the component really offers an extension
+ * surface: at least one supported line, or at least one line naming what is
+ * NOT supported. Both halves count — a component that only says "you cannot
+ * change the radius" has a customization section, and cutting it would hide
+ * the trap it names.
+ */
+export function hasCustomization(doc: ComponentDoc): boolean {
+  if (!doc.customization) return false;
+  if ((doc.customization.supported?.length ?? 0) > 0) return true;
+  return (doc.customization.notSupported?.length ?? 0) > 0;
 }
 
 /**
@@ -105,13 +102,10 @@ export function hasFaq(doc: ComponentDoc): boolean {
  * Exempt pages (`grammarExempt` set) are listed by the gate, not ordered by it.
  */
 export function expectedSections(doc: ComponentDoc): string[] {
-  const out = ["demo"];
-  if (hasUsage(doc)) out.push("usage");
-  if (hasSemanticDom(doc)) out.push("semantic-dom");
-  out.push("accessibility", "props", "tokens");
+  const out = ["demo", "example", "props", "accessibility"];
   if (hasLimitations(doc)) out.push("limitations");
-  if (hasFaq(doc)) out.push("faq");
   out.push("spec");
+  if (hasCustomization(doc)) out.push("customization");
   return out;
 }
 

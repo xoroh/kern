@@ -5,8 +5,6 @@ export const fabMenu: ComponentDoc = {
   name: "FAB menu",
   oneLiner:
     "FAB menus hold several related actions behind one floating button, opened on tap.",
-  features:
-    "Reach for a FAB menu when a screen has several closely related primary actions and showing each as its own button would scatter them: composing different kinds of content, adding different kinds of thing. The actions come as data, so the menu is a list you pass in. Separate the ones that are unlike the rest — a destructive action in the middle of creative ones is a mis-tap waiting to happen. If there is only one action, that is a plain FAB; if the actions are not related, they belong in different places on the screen rather than behind one door.",
   meta: {
     // Canonical M3 spec page — title identity-verified live; gate re-checks.
     specUrl: "https://m3.material.io/components/fab-menu",
@@ -20,6 +18,26 @@ export const fabMenu: ComponentDoc = {
     elevation: 3,
   },
   parts: ["FabMenu"],
+  keyboard: [
+    {
+      key: "Enter / Space",
+      action:
+        'Opens the menu from the FAB, and activates an action once one is focused. The trigger carries `aria-haspopup="menu"`, so the menu is announced before it is opened.',
+    },
+    {
+      key: "Arrow keys",
+      action:
+        "Move between the actions with wrapping; typeahead jumps to an action by its typed text.",
+    },
+    {
+      key: "Escape",
+      action: "Closes the menu without activating; focus returns to the FAB.",
+    },
+    {
+      key: "Tab",
+      action: "Closes the menu and moves focus out of it.",
+    },
+  ],
   customization: {
     supported: [
       "`className` styles the menu and `triggerClassName` styles the button, so the two can be adjusted without one affecting the other.",

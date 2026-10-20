@@ -32,6 +32,13 @@ const APP = join(HERE, "..");
 const WORK = join(APP, ".example-check");
 
 const { EXAMPLES } = await import(join(APP, "src", "showcase", "registry.ts"));
+// The native half of the showcase lives in its own registry (a native
+// example imports `@xoroh/kern-native`, which must not reach a web chunk).
+// The fence gate covers both halves — a native fence that stops compiling is
+// just as broken as a web one.
+const { EXAMPLES: NATIVE_EXAMPLES } = await import(
+  join(APP, "src", "showcase", "registry.native.ts")
+);
 const { demoExportSource } = await import(
   join(APP, "src", "showcase", "demo-export.ts")
 );
@@ -103,7 +110,13 @@ function tsconfig() {
           join(APP, "node_modules/@xoroh/kern-native/dist/index.d.ts"),
         ],
         "@xoroh/kern/start": [
-          join(APP, "node_modules/@xoroh/kern/start/dist/index.d.ts"),
+          // The `/start` subpath is an EXPORT of the `@xoroh/kern` package
+          // (`packages/kern/package.json` → `exports["./start"]`), so its
+          // declarations live under `dist/start` — not under a
+          // `node_modules/@xoroh/kern/start` directory, which does not exist.
+          // Pointing the mapping at the wrong path made every fence that
+          // imports a composition-tier component fail to resolve.
+          join(APP, "node_modules/@xoroh/kern/dist/start/index.d.ts"),
         ],
         "@xoroh/kern-icons": [
           join(APP, "node_modules/@xoroh/kern-icons/dist/index.d.ts"),
@@ -126,7 +139,10 @@ mkdirSync(WORK, { recursive: true });
 // invocations would take minutes — a single program with one file per
 // example compiles in one pass, and tsc names the failing file.
 const files = [];
-for (const [exportName, specs] of Object.entries(EXAMPLES)) {
+for (const [exportName, specs] of Object.entries({
+  ...EXAMPLES,
+  ...NATIVE_EXAMPLES,
+})) {
   for (const spec of specs) {
     if ((spec.code ?? "").trim() === "") continue;
     const source = demoExportSource(spec);

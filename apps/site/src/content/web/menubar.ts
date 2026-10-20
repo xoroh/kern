@@ -5,8 +5,6 @@ export const menubar: ComponentDoc = {
   name: "Menubar",
   oneLiner:
     "A menubar is a horizontal row of menus, the way an application exposes its commands.",
-  features:
-    "Reach for a menubar when a full application surface needs its command set always reachable and grouped by task: File, Edit, View, Insert. It is the desktop application pattern and it belongs to app shells, not to web pages — a marketing site with a menubar is wearing someone else's clothes. Each menu in the bar is a normal menu, so the entries follow the same rules: actions, grouped, destructive ones last. The bar is for breadth; if you have two menus, you probably have two buttons.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -25,63 +23,26 @@ export const menubar: ComponentDoc = {
     "MenubarContent",
     "MenubarItem",
   ],
-  anatomy: [
-    {
-      name: "MenubarRoot",
-      role: "The bar. Owns which of its menus is open, so opening one closes the others.",
-    },
-    {
-      name: "MenubarMenu",
-      role: "One menu's grouping inside the bar.",
-    },
-    {
-      name: "MenubarTrigger",
-      role: "The bar entry that opens its menu. Carries the expanded state.",
-    },
-    {
-      name: "MenubarContent",
-      role: "The list surface for one menu, positioned against its trigger.",
-    },
-    { name: "MenubarItem", role: "One action inside a menu." },
-    { name: "Menubar", role: "The namespace object: all of the parts above." },
-  ],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
   keyboard: [
     {
       key: "Arrow keys",
-      action: "Moves between top-level menus; Down opens the focused menu.",
+      action: "Moves between the top-level menus in the bar.",
+    },
+    {
+      key: "Home / End",
+      action: "Jumps to the first or last menu in the bar.",
+    },
+    {
+      key: "Enter / Space",
+      action:
+        "Opens the focused menu — the trigger is a real button, and the menu takes the focus when it opens.",
     },
     {
       key: "Escape",
       action: "Closes the open menu and returns focus to its trigger.",
-    },
-  ],
-  usage: {
-    do: [
-      "Use for desktop File/Edit/View command patterns.",
-      "Keep top-level labels to one word each.",
-    ],
-    dont: [
-      "Don't use on touch-first surfaces — reach for a menu button instead.",
-    ],
-  },
-  tokens: [
-    {
-      element: "Bar",
-      state: "resting",
-      token: "kern.menubar.container",
-      value: "full pill, surface-tonal, h-12",
-    },
-    {
-      element: "Open trigger",
-      state: "resting",
-      token: "kern.menubar.open",
-      value: "on-surface 8% layer",
-    },
-  ],
-  faq: [
-    {
-      q: "Menubar or navigation menu?",
-      a: "Menubar for application command strips; NavigationMenu for site wayfinding dropdowns.",
     },
   ],
   customization: {

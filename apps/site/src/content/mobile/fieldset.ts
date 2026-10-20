@@ -5,8 +5,6 @@ export const fieldset: ComponentDoc = {
   name: "Fieldset",
   oneLiner:
     "Fieldsets group controls under a shared legend and give them one disabled state.",
-  features:
-    "Reach for a fieldset when several controls answer one question and should be enabled or disabled together: a set of delivery options, a group of toggles. On the web this is a thin wrapper over `<fieldset>` and the browser hands you two behaviours for free — inherited disabled state, and the legend as the group's name. React Native has neither, so this component supplies both: `disabled` is published through context and read with `useFieldsetDisabled()`, and the legend names the group when it is the first child. That is the whole reason the family has an extra part on native: a plain `View` cannot know it is disabled, so `FieldsetItem` exists to visibly reflect it.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -19,6 +17,10 @@ export const fieldset: ComponentDoc = {
   // natively, so there is no web export for it. The gate's peer check is the
   // reason this is stated rather than assumed.
   parts: ["Fieldset", "FieldsetLegend", "FieldsetItem"],
+  // M2: the group is a `role="group"` view, not a control. It takes no
+  // focus and answers no key — the controls inside it are what the screen
+  // reader reaches, and the group publishes the disabled state to them.
+  nonInteractive: true,
   customization: {
     supported: [
       "`disabled` disables the group, published through context for `useFieldsetDisabled()`.",

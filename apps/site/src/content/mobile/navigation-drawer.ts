@@ -5,8 +5,6 @@ export const navigationDrawer: ComponentDoc = {
   name: "Navigation drawer",
   oneLiner:
     "Navigation drawers hold the full destination list in a modal panel, for apps with more places than a bar can carry.",
-  features:
-    "Reach for a navigation drawer when the app has more destinations than a navigation bar can hold, or when a compact screen needs the full list rather than five icons. It shares one destination list with the bar and with `NavigationBarItem`, so you declare your places once. This is the modal variant: a scrim, a focus trap and dismissal, with a headline and supporting line above the list and a footer slot below it for an account row, an app switcher or sign-out. Material 3 only forbids the bar and the modal drawer being visible at once — which is the host's decision, not this component's, so nothing here enforces it.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -20,6 +18,20 @@ export const navigationDrawer: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["NavigationDrawer"],
+  // The contract, read off the component: a modal with a scrim and a
+  // request-close, both routed to the same dismissal.
+  keyboard: [
+    {
+      key: "Android hardware back",
+      action:
+        "Closes the drawer and reports it through `onOpenChange(false)`, alongside `onDismiss` — the same path a scrim press takes.",
+    },
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        'The drawer is a modal, so the content behind it is not reachable. The scrim reads as a button named "Dismiss navigation drawer"; double-tap on it closes the drawer, and choosing a destination reports the choice and closes the drawer with it.',
+    },
+  ],
   customization: {
     supported: [
       "`destinations` are data, shared with `NavigationBar` and `NavigationBarItem` — one declaration of your places.",

@@ -5,8 +5,6 @@ export const form: ComponentDoc = {
   name: "Form",
   oneLiner:
     "Native form container powered by the Axis Form behavior primitive.",
-  features:
-    "Reach for a form when several fields validate and submit together. Built on the Axis Form primitive, it coordinates validation timing, field registration, error aggregation, and submit handling across native Field controls.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -15,6 +13,13 @@ export const form: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Form"],
+  keyboard: [
+    {
+      key: "Enter / Space",
+      action:
+        "Activates the submit control — there is no native form submit on this renderer, so the press is what calls `actions.submit()`, and `onFormSubmit` fires only when every registered field validates.",
+    },
+  ],
   customization: {
     supported: [
       "`style` is passed through to the form container View.",

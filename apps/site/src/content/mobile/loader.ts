@@ -5,8 +5,6 @@ export const loader: ComponentDoc = {
   name: "Loader",
   oneLiner:
     "Loaders are the small spinner for a wait that needs no explanation.",
-  features:
-    "Reach for a loader when something is in progress and the shape of the wait does not matter: a button submitting, a row refreshing, a region filling. It is the simplest member of the feedback family — a spinner in the primary colour, two sizes, an optional label. The label is worth setting even when nothing is visibly shown, because a spinner with no name is announced as nothing at all. When the wait has a measurable amount, that is `Progress`; when it lives inside a button, that is `LoadingButton`; when it needs to say what it is doing, that is `LoadingIndicator` with its label shown.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,10 @@ export const loader: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Loader"],
+  // A spinner is a STATUS, not a control: it takes no focus and handles no
+  // keys, so there is no keyboard contract to write. What it announces is
+  // the aria contract below.
+  nonInteractive: true,
   customization: {
     supported: [
       "`size` is the two Material 3 loader sizes, `small` and `large`.",

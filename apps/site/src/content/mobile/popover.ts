@@ -5,8 +5,6 @@ export const popover: ComponentDoc = {
   name: "Popover",
   oneLiner:
     "Popovers are anchored panels for rich transient content — a composition of trigger and body.",
-  features:
-    "Reach for a popover when something needs to appear beside its trigger and hold more than a line: a small form, a preview, a set of details. It is a composition rather than a single component — `Root`, `Trigger`, `Content`, `Body` — so the trigger is yours and the panel is yours. The open state is the controllable pattern (`open`, `defaultOpen`, `onOpenChange`), matching `Drawer` and `Tooltip` and differing from the `visible`-based `Snackbar` (`Dialog` and `Sheet` share the `open`/`onOpenChange` contract). Keep the content short and leaveable; a popover that grows into a form wants a dialog or a sheet.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,12 +14,16 @@ export const popover: ComponentDoc = {
     elevation: 2,
   },
   parts: ["Popover"],
-  deviations: [
+  keyboard: [
     {
-      id: "K6",
-      spec: 'M3\'s component elevation table names no popover. It tabulates "menu" and "rich tooltip" at level 2, which kern maps to `navigation-menu` and `tooltip` respectively — neither row describes a popover.',
-      kern: "The popover surface rests at elevation level 2.",
-      why: "The panel floats above the page beside its trigger and needs the same lift the other anchored overlays at that height have, but borrowing the menu row would claim M3 said something about popovers it never said. Registered as K6 in the elevation inventory so the level is a recorded decision rather than a number sitting in a stylesheet.",
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "The trigger reads as a button and announces whether the panel is open; double-tap opens it, and double-tap on it again closes it.",
+    },
+    {
+      key: "Swipe + double-tap on the panel (TalkBack / VoiceOver)",
+      action:
+        "The panel is announced as a dialog named by its label, and its body is a labelled dismiss control — double-tap on it dismisses the panel.",
     },
   ],
   customization: {

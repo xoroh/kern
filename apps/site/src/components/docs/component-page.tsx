@@ -1,31 +1,38 @@
 /**
  * The per-component page — the kern component-page template.
  *
- * SECTION ORDER IS THE DELIVERABLE. The v2 grammar, no other order:
+ * SECTION ORDER IS THE DELIVERABLE. The one standard, no other order:
  *
- *   lede → demo → usage → semantic-dom → accessibility → props → tokens
- *   → limitations → faq → spec
+ *   lede → demo → example → props → accessibility → limitations → spec
+ *   → customization
  *
  * so the next heading is always the answer to the question the previous one
- * raised: proof it works, when to reach for it, what it renders as, who it
- * works for, what it takes, what it reads, where it stops, what people ask,
- * what the spec says. Source: `src/systems/grammar.ts`, enforced by
- * `scripts/check-grammar.mjs` — a page is checked by a gate, not by eye.
+ * raised: proof it works, the code that uses it, what it takes, how it reads
+ * to assistive tech, where it stops, what the spec says, what you may change.
+ * Source: `src/systems/grammar.ts`, enforced by `scripts/check-grammar.mjs` —
+ * a page is checked by a gate, not by eye.
+ *
+ * THE TEACHING HALF MOVED OUT (ADR-115). `features`, the usage Do/Don't,
+ * the token table, the FAQ, the deviations and the anatomy were GUIDANCE, not
+ * reference: they live in `docs/m3-guidance/<family>.md` now, one file per
+ * family, and the header links there exactly once. What stays on the page is
+ * the reference a reader cannot get anywhere else — the live demo, the coded
+ * example, the props, the accessibility contract, the boundaries, the spec
+ * link and the escape hatch.
  *
  * CONDITIONAL SECTIONS render only when the content carries them
- * (`src/systems/grammar.ts` predicates — usage, semantic-dom, limitations,
- * faq). A heading with nothing under it is noise, and the convention is to
- * cut it rather than ship one. Everything else always renders, with an honest
- * fallback where the content is not yet written (no demo, no token table,
- * undocumented accessibility) rather than a silent absence.
+ * (limitations: a known accessibility gap or the grammar-exemption notice;
+ * customization: a real extension surface). A heading with nothing under it
+ * is noise, and the convention is to cut it rather than ship one. Everything
+ * else always renders, with an honest fallback where the content is not yet
+ * written (no demo, no coded example, undocumented accessibility) rather than
+ * a silent absence.
  */
 
 import { STATE_LAYER_OPACITIES } from "@xoroh/kern-tokens";
 import type { Platform } from "../../content/index";
 import type {
   ComponentDoc,
-  Deviation,
-  PartRow,
   PropRow,
   RestingElevation,
 } from "../../content/types";
@@ -43,12 +50,7 @@ import { PROPS_TABLE } from "../../generated/props-table";
 import { Configurator } from "../../showcase/configurator";
 import { CopyButton } from "../../showcase/copy-button";
 import { ExampleList } from "../../showcase/example";
-import {
-  hasFaq,
-  hasLimitations,
-  hasSemanticDom,
-  hasUsage,
-} from "../../systems/grammar";
+import { hasCustomization, hasLimitations } from "../../systems/grammar";
 import { maturityForExports } from "../../systems/maturity";
 import {
   registrySearchHref,
@@ -256,9 +258,9 @@ function HeaderLinks({
  * The section runs proof-first: the live demo, then the state-layer strip
  * (what hover/focus/press look like — states used to exist only as token
  * rows, which do not teach), then installation VISIBLE (the 60-second bar
- * was a collapsed details), then examples and the configurator. The usage
- * Do/Don't cards moved OUT to their own grammar slot (`usage`) so the TOC
- * can see them.
+ * was a collapsed details). The coded examples and the configurator have
+ * their own slot (`example`) — a reader looking for "how do I write this"
+ * must find them in the page's skeleton, not nested under a demo.
  */
 function DemoContent({
   doc,
@@ -308,7 +310,6 @@ function Demo({ doc, platform }: { doc: ComponentDoc; platform: Platform }) {
       <DemoContent doc={doc} platform={platform} />
       <StatesStrip doc={doc} />
       <InstallationBlock doc={doc} platform={platform} />
-      <ExamplesBlock doc={doc} />
     </section>
   );
 }
@@ -321,16 +322,20 @@ function Demo({ doc, platform }: { doc: ComponentDoc; platform: Platform }) {
  * layer law itself (on-surface over the container at the M3 opacities —
  * hover 8%, focus 10%, press 10%, drag 16%, from `STATE_LAYER_OPACITIES` in
  * `@xoroh/kern-tokens`, never retyped here) as swatches next to the live
- * demo, then lists the states this family's own token table registers.
+ * demo, then lists the states this family registers.
  * The opacities are painted, not asserted: the overlay divs use the theme's
  * `on-surface` role, so dark mode and contrast themes repaint them live.
+ *
+ * The state LIST is content, not reference: it came off the token table when
+ * that table moved to the guidance file, and it is carried on the doc as
+ * `states` so the strip keeps naming the states the family actually has.
  *
  * An h3 inside Demo (not a grammar slot): the strip is a lens on the live
  * demo above it, and the grammar's h2 slots stay the page's skeleton.
  */
 function StatesStrip({ doc }: { doc: ComponentDoc }) {
   const registered = [
-    ...new Set((doc.tokens ?? []).map((row) => row.state.trim())),
+    ...new Set((doc.states ?? []).map((s) => s.trim())),
   ].filter((s) => s.length > 0 && s !== "resting");
   const layers: { label: string; opacity: number }[] = [
     { label: "Rest", opacity: 0 },
@@ -554,220 +559,34 @@ function InstallationBlock({
   );
 }
 
-/* ------------------------------------------- grammar: semantic DOM */
+/* ------------------------------------------- grammar: example */
 
 /**
- * Grammar slot — Semantic DOM. The mental model before the contract: the
- * part names introduced here are what every later section refers to, and the
- * ARIA roles are what assistive tech actually gets. Anatomy and contract are
- * one section because they describe the same tree — what it is called and
- * what it means.
+ * Grammar slot — Example. The family's CODED USAGE EXAMPLE: the thing a
+ * reader copies. It was an h3 buried under the live demo, which made the
+ * page's most-used answer — "how do I write this?" — the hardest to find;
+ * now it is a slot of its own, right after the demo that proves the
+ * component works.
  *
- * Conditional (grammar predicate `hasSemanticDom`): a page that states
- * neither half has no DOM semantics to document.
- */
-function SemanticDom({ doc }: { doc: ComponentDoc }) {
-  const rows = doc.anatomy ?? [];
-  const aria = doc.aria ?? [];
-  if (rows.length === 0 && aria.length === 0) return null;
-  return (
-    <section className="flex flex-col gap-4">
-      <Heading id="semantic-dom">Semantic DOM</Heading>
-      <p className={PROSE}>
-        What this family renders as — the parts it is built from and the roles
-        assistive tech is handed.
-      </p>
-      {rows.length > 0 ? (
-        <div className={`${CARD} flex flex-col gap-3 p-5`}>
-          <Heading id="anatomy" level={3}>
-            Anatomy
-          </Heading>
-          <ul className="m-0 flex list-none flex-col gap-2 p-0">
-            {rows.map((part, index) => (
-              <AnatomyRow key={part.name} part={part} index={index} />
-            ))}
-          </ul>
-        </div>
-      ) : null}
-      {aria.length > 0 && (
-        <div className={`${CARD} flex flex-col gap-3 p-5`}>
-          <Heading id="contract" level={3}>
-            Roles
-          </Heading>
-          <ul className={`m-0 flex flex-col gap-2 pl-5 ${BODY}`}>
-            {aria.map((line) => (
-              <li key={line}>{line}</li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </section>
-  );
-}
-
-/**
- * One anatomy part, numbered — the M3 anatomy figure's honest web form.
- * Every family gets the numbered callout rhythm (1. Container, 2. Label…)
- * without an invented SVG of geometry the data does not carry: the number
- * orders the tree, the name is the part id, the role is what it does.
- */
-function AnatomyRow({ part, index }: { part: PartRow; index: number }) {
-  return (
-    <li className="flex flex-col gap-1.5 rounded-(--sys-shape-corner-large) bg-(--sys-color-surface-container) px-4 py-3 sm:flex-row sm:items-center sm:gap-4">
-      <span
-        aria-hidden="true"
-        className={`inline-flex size-6 shrink-0 items-center justify-center rounded-full bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container) ${TINY}`}
-      >
-        {index + 1}
-      </span>
-      <code
-        className={`shrink-0 rounded-(--sys-shape-corner-extra-small) bg-(--sys-color-surface-container-high) px-2 py-0.5 font-mono ${SMALL} text-(--sys-color-on-surface)`}
-      >
-        {part.name}
-      </code>
-      <span className={`${SMALL} ${INK_SOFT}`}>{part.role}</span>
-    </li>
-  );
-}
-
-/* ------------------------------------------------- usage (in lede + demo) */
-
-/**
- * The features prose is the ONLY section allowed to persuade, and persuasion
- * belongs in the lede: it renders in the page header under the one-liner, not
- * as a section of its own. (The old "Usage" h2 was the features paragraph
- * plus these cards; the paragraph moved up, the cards moved into Demo.)
+ * The fences come from the showcase registry, keyed by the family's parts
+ * (`useShowcaseRegistry` — the registry is async, see `demos/lazy`). SSR and
+ * prerender emit the heading plus a fixed-height skeleton; the client swaps
+ * in the fences and the configurator when the chunk lands.
  *
- * Part 3b note, preserved: content authors still write this as `features`,
- * and the anchor stays `#features` nowhere — the lede carries no heading, so
- * there is no anchor to keep. Deep links to `#features` resolve against the
- * page top instead; nothing in the repo links there (verified when the
- * section moved — check-headings would fail a straggler).
+ * A family with no registered example renders the GAP, never an empty
+ * section: "no coded example yet" is a fact about the site, and saying so
+ * is the honest state. A heading over nothing is noise; a heading over an
+ * admission is a report.
  */
-
-/**
- * Grammar slot — Usage, its own top-level section (v2). The Do/Don't cards
- * used to close Demo as nested h3s, where the "On this page" rail could not
- * see them — M3's Guidelines pattern demoted to a subsection. Now Usage is
- * an h2 slot with the cards inside, so every reader lands on the contrast
- * that is the argument for reaching for this component at all.
- *
- * Conditional via `hasUsage(doc)`: a page with no written rule cuts the
- * section (the template applies the shared predicate, never an inline
- * condition of its own).
- */
-function Usage({ doc }: { doc: ComponentDoc }) {
-  return (
-    <section className="flex flex-col gap-4">
-      <Heading id="usage">Usage</Heading>
-      <p className={PROSE}>
-        When to reach for this family — the M3 Guidelines pattern: every rule as
-        a Do and a Don&rsquo;t, side by side, so the contrast is the argument.
-      </p>
-      <WhenToUse doc={doc} />
-    </section>
-  );
-}
-
-/**
- * Do/Don't cards — the M3 Guidelines pattern, and the clearest way to state a
- * usage rule: the two sit side by side so the contrast is the argument.
- *
- * m2 — a half-pair used to return `null`, which made a written rule vanish
- * silently. Now the written half renders with a visible note about the
- * missing one, and `check:docs` reports the half-pair. A rule that exists is
- * never hidden; a rule that is incomplete says so.
- */
-function WhenToUse({ doc }: { doc: ComponentDoc }) {
-  const use = doc.usage;
-  if (!use) return null;
-  const hasDo = use.do.length > 0;
-  const hasDont = use.dont.length > 0;
-  if (!hasDo && !hasDont) return null;
-  return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-      {hasDo ? (
-        <div className={`${CARD} overflow-hidden`}>
-          <div className="h-1.5 w-full bg-(--sys-color-success)" />
-          <div className="p-5">
-            <Heading id="do" level={3}>
-              <span
-                className="mr-1.5 inline-flex size-6 items-center justify-center rounded-full bg-(--sys-color-success-container) text-(--sys-color-on-success-container)"
-                aria-hidden="true"
-              >
-                ✓
-              </span>{" "}
-              Do
-            </Heading>
-            <ul
-              className={`m-0 mt-3 flex list-disc flex-col gap-2 pl-5 ${SMALL} ${INK_SOFT}`}
-            >
-              {use.do.map((line) => (
-                <li key={line}>{line}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      ) : null}
-      {hasDont ? (
-        <div className={`${CARD} overflow-hidden`}>
-          <div className="h-1.5 w-full bg-(--sys-color-error)" />
-          <div className="p-5">
-            <Heading id="dont" level={3}>
-              <span
-                className="mr-1.5 inline-flex size-6 items-center justify-center rounded-full bg-(--sys-color-error-container) text-(--sys-color-on-error-container)"
-                aria-hidden="true"
-              >
-                ✕
-              </span>{" "}
-              Don&rsquo;t
-            </Heading>
-            <ul
-              className={`m-0 mt-3 flex list-disc flex-col gap-2 pl-5 ${SMALL} ${INK_SOFT}`}
-            >
-              {use.dont.map((line) => (
-                <li key={line}>{line}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      ) : null}
-      {!hasDo || !hasDont ? (
-        <div className={`${CARD} p-5`}>
-          <p className={`m-0 ${SMALL} ${INK_SOFT}`}>
-            This rule is one-sided: the {hasDo ? "Don’t" : "Do"} half is not
-            written yet.{" "}
-            {hasDo
-              ? "A Do without a Don’t leaves the reader to guess the boundary."
-              : "A Don’t without a Do states what to avoid but not what to do instead."}{" "}
-            The gap is reported by the docs gate rather than hidden here.
-          </p>
-        </div>
-      ) : null}
-    </div>
-  );
-}
-
-/* ------------------------------------------------- examples (in demo) */
-
-/**
- * Examples, as an h3 inside Demo: the reasoning-carrying companions to the
- * live demo — each example shows the component doing one job, with the why
- * attached. Conditional like Anatomy: pages without registered examples
- * render no subsection, rather than an empty promise.
- */
-function ExamplesBlock({ doc }: { doc: ComponentDoc }) {
-  // The showcase registry (every configurator + example, plus the barrel
-  // `<Icon>` the configurator stages render) arrives async with the demos —
-  // see `demos/lazy`. SSR and prerender emit the heading with a fixed-height
-  // skeleton; the client swaps in examples/configurator when the chunk lands.
-  const showcase = useShowcaseRegistry();
+function Example({ doc, platform }: { doc: ComponentDoc; platform: Platform }) {
+  // The platform's own registry: a web page must never download the native
+  // bundle (and through it the icon registry) just because the mobile tab
+  // exists — see `demos/lazy.ts`.
+  const showcase = useShowcaseRegistry(platform);
   if (!showcase) {
     return (
-      <>
-        <Heading id="examples" level={3}>
-          Examples
-        </Heading>
+      <section className="flex flex-col gap-4">
+        <Heading id="example">Example</Heading>
         <div
           className="flex min-h-40 flex-col items-center justify-center gap-2"
           aria-hidden="true"
@@ -775,324 +594,99 @@ function ExamplesBlock({ doc }: { doc: ComponentDoc }) {
           <div className="h-8 w-2/3 rounded-(--sys-shape-corner-small) bg-(--sys-color-surface-container-high)" />
           <div className="h-8 w-1/2 rounded-(--sys-shape-corner-small) bg-(--sys-color-surface-container-high)" />
         </div>
-      </>
+      </section>
     );
   }
+  // Every part of the family gets a look: a compound family's example may be
+  // registered against the part, not the root.
   const examples = doc.parts.flatMap((part) => showcase.examplesFor(part));
   // First registered configurator across the family's parts, if any —
   // flagships only, so most pages see nothing here.
-  const configurator = doc.parts
-    .map((part) => showcase.configuratorFor(part))
-    .find((c) => c !== undefined);
-  if (examples.length === 0 && !configurator) return null;
+  const configurator =
+    "configuratorFor" in showcase
+      ? doc.parts
+          .map((part) => showcase.configuratorFor(part))
+          .find((c) => c !== undefined)
+      : undefined;
   return (
-    <>
-      <Heading id="examples" level={3}>
-        Examples
-      </Heading>
+    <section className="flex flex-col gap-4">
+      <Heading id="example">Example</Heading>
       {configurator ? <Configurator spec={configurator} /> : null}
       {!configurator && examples.length > 0 ? (
         <p className={SMALL}>
           Interactive knob panels ship for a flagship subset only (
-          {Object.keys(showcase.CONFIGURATORS).length} components) — knobs are a
-          teaching extra, not the contract. Every component carries live demos
-          and examples regardless.
+          {"CONFIGURATORS" in showcase
+            ? Object.keys(showcase.CONFIGURATORS).length
+            : 0}{" "}
+          components) — knobs are a teaching extra, not the contract. Every
+          component carries live demos and examples regardless.
         </p>
       ) : null}
-      <ExampleList examples={examples} />
-    </>
-  );
-}
-
-/* ------------------------------------------------- grammar: tokens */
-
-/**
- * Grammar slot — Tokens, the auto-token contract. Where "strict M3" becomes visible
- * per component: which tokens it consumes, at what resting elevation, with
- * which shape. Generated where the token module can supply the table,
- * transcribed where it cannot — and where neither exists yet, the section
- * falls back to stating the resting elevation, which is always true. A
- * heading over nothing is noise; a fallback sentence is not.
- */
-/**
- * Token kind detection for the visual showcase. M3 token names encode their
- * kind: color roles reference `--sys-color-*`, shapes reference corner
- * tokens or carry px radii, elevations reference levels, type references
- * typescale roles, and opacities carry percentages. Unknown rows fall back
- * to the table.
- */
-type TokenKind = "color" | "shape" | "elevation" | "type" | "opacity" | "other";
-
-function tokenKindOf(row: { token: string; value: string }): TokenKind {
-  const hay = `${row.token} ${row.value}`.toLowerCase();
-  if (
-    hay.includes("--sys-color-") ||
-    hay.includes("primary") ||
-    hay.includes("secondary") ||
-    hay.includes("tertiary") ||
-    hay.includes("surface") ||
-    hay.includes("error") ||
-    hay.includes("outline") ||
-    hay.includes("inverse")
-  )
-    return "color";
-  if (
-    hay.includes("corner") ||
-    hay.includes("shape") ||
-    hay.includes("radius") ||
-    hay.includes("9999px") ||
-    /\b\d+px\b/.test(hay)
-  )
-    return "shape";
-  if (
-    hay.includes("elevation") ||
-    hay.includes("level") ||
-    hay.includes("shadow")
-  )
-    return "elevation";
-  if (
-    hay.includes("typescale") ||
-    hay.includes("label-large") ||
-    hay.includes("body-") ||
-    hay.includes("font") ||
-    hay.includes("tracking") ||
-    hay.includes("line-height")
-  )
-    return "type";
-  if (hay.includes("%") || hay.includes("opacity")) return "opacity";
-  return "other";
-}
-
-/** Resolve a color-role value to a CSS color for swatch painting. */
-function swatchStyle(value: string): React.CSSProperties | undefined {
-  const m = value.match(/--sys-color-[a-z-]+/);
-  if (m) return { backgroundColor: `var(${m[0]})` };
-  const hex = value.match(/#[0-9a-fA-F]{3,8}\b/);
-  if (hex) return { backgroundColor: hex[0] };
-  return undefined;
-}
-
-/** Resolve a radius value for shape previews. */
-function radiusStyle(value: string): React.CSSProperties | undefined {
-  if (value.includes("9999px")) return { borderRadius: "9999px" };
-  const m = value.match(/(\d+)px/);
-  if (m) return { borderRadius: `${m[1]}px` };
-  const token = value.match(/--sys-shape-corner-[a-z-]+/);
-  if (token) return { borderRadius: `var(${token[0]})` };
-  return undefined;
-}
-
-/** Resolve an elevation level for shadow previews. */
-function elevationStyle(value: string): React.CSSProperties | undefined {
-  const m = value.match(/level([0-5])/);
-  if (m) return { boxShadow: `var(--sys-elevation-level${m[1]})` };
-  if (value.toLowerCase().includes("level")) return {};
-  return undefined;
-}
-
-/**
- * Visual token showcase — M3 shows tokens as swatches, shapes, shadows, and
- * specimens, not as a wall of text. Rows group by detected kind; each card
- * paints the value it names. The full table follows inside a disclosure for
- * the exact token strings.
- */
-function TokenShowcase({
-  tokens,
-}: {
-  tokens: NonNullable<ComponentDoc["tokens"]>;
-}) {
-  const groups = new Map<TokenKind, typeof tokens>();
-  for (const row of tokens) {
-    const kind = tokenKindOf(row);
-    const list = groups.get(kind) ?? [];
-    list.push(row);
-    groups.set(kind, list);
-  }
-  const order: TokenKind[] = ["color", "shape", "elevation", "type", "opacity"];
-  const shown = order.filter((k) => (groups.get(k)?.length ?? 0) > 0);
-  if (shown.length === 0) return null;
-  return (
-    <div className="flex flex-col gap-4">
-      {shown.map((kind) => (
-        <div key={kind} className="flex flex-col gap-2">
-          <p
-            className={`m-0 ${LABEL} text-(--sys-color-on-surface-variant) uppercase`}
-          >
-            {kind === "color"
-              ? "Colors"
-              : kind === "shape"
-                ? "Shapes"
-                : kind === "elevation"
-                  ? "Elevation"
-                  : kind === "type"
-                    ? "Typography"
-                    : "State layers"}
-          </p>
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
-            {(groups.get(kind) ?? []).map((row) => (
-              <div
-                key={`${row.element}-${row.state}-${row.token}`}
-                className={`flex flex-col gap-1.5 rounded-(--sys-shape-corner-medium) bg-(--sys-color-surface-container-low) p-3`}
-              >
-                {kind === "color" ? (
-                  <span
-                    aria-hidden="true"
-                    className="h-10 w-full rounded-(--sys-shape-corner-small)"
-                    style={swatchStyle(row.value)}
-                  />
-                ) : null}
-                {kind === "shape" ? (
-                  <span
-                    aria-hidden="true"
-                    className="h-10 w-full bg-(--sys-color-secondary-container)"
-                    style={radiusStyle(row.value)}
-                  />
-                ) : null}
-                {kind === "elevation" ? (
-                  <span
-                    aria-hidden="true"
-                    className="h-10 w-full rounded-(--sys-shape-corner-small) bg-(--sys-color-surface)"
-                    style={elevationStyle(row.value)}
-                  />
-                ) : null}
-                {kind === "type" ? (
-                  <span
-                    aria-hidden="true"
-                    className={`text-(--sys-color-on-surface) ${ts("label-large")}`}
-                  >
-                    Ag
-                  </span>
-                ) : null}
-                {kind === "opacity" ? (
-                  <span
-                    aria-hidden="true"
-                    className="flex h-10 w-full items-center justify-center rounded-(--sys-shape-corner-small) bg-(--sys-color-surface-container-high)"
-                  >
-                    <span
-                      className="h-6 w-6 rounded-full bg-(--sys-color-primary)"
-                      style={{
-                        opacity: row.value.match(/(\d+)%/)?.[1]
-                          ? Number(row.value.match(/(\d+)%/)?.[1]) / 100
-                          : undefined,
-                      }}
-                    />
-                  </span>
-                ) : null}
-                <span className={`${TINY} text-(--sys-color-on-surface)`}>
-                  {row.element}
-                </span>
-                <span
-                  className={`${TINY} text-(--sys-color-on-surface-variant)`}
-                >
-                  {row.state} · <code>{row.token}</code>
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function Theming({ doc }: { doc: ComponentDoc }) {
-  const tokens = doc.tokens;
-  return (
-    <section className="flex flex-col gap-3">
-      <Heading id="tokens">Tokens</Heading>
-      <p className={PROSE}>
-        What this component reads from the theme. Change the token and every
-        instance changes — that is the point of the token layer.
-      </p>
-      {tokens && tokens.length > 0 ? (
-        <>
-          <TokenShowcase tokens={tokens} />
-          <details className="group">
-            <summary
-              className={`cursor-pointer ${LABEL} text-(--sys-color-on-surface-variant) uppercase`}
-            >
-              Full token table
-            </summary>
-            <div className="mt-2 overflow-x-auto">
-              <table className={`w-full border-collapse ${SMALL}`}>
-                <thead>
-                  <tr className="border-b border-(--sys-color-outline-variant)">
-                    <th className={TH}>Element</th>
-                    <th className={TH}>State</th>
-                    <th className={TH}>Token</th>
-                    <th className={TH}>Value</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {tokens.map((row) => (
-                    <tr
-                      key={`${row.element}-${row.state}-${row.token}`}
-                      className="border-b border-(--sys-color-outline-variant)"
-                    >
-                      <td className={TD}>{row.element}</td>
-                      <td
-                        className={`${TD} text-(--sys-color-on-surface-variant)`}
-                      >
-                        {row.state}
-                      </td>
-                      <td
-                        className={`${TD} font-mono text-(--sys-color-primary) [font-size:var(--sys-typescale-label-small-font-size)] [line-height:var(--sys-typescale-label-small-line-height)]`}
-                      >
-                        {row.token}
-                      </td>
-                      <td
-                        className={`${TD} font-mono text-(--sys-color-on-surface-variant) [font-size:var(--sys-typescale-label-small-font-size)] [line-height:var(--sys-typescale-label-small-line-height)]`}
-                      >
-                        {row.value}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </details>
-        </>
-      ) : (
+      {examples.length === 0 && !configurator ? (
         <p className={PROSE}>
-          No per-component token table is generated for this one yet. Its
-          resting elevation is{" "}
-          <strong className="text-(--sys-color-on-surface)">
-            {
-              elevationLabel(
-                doc.meta.elevation,
-                doc.meta.elevationBacked !== false,
-              ).text
-            }
-          </strong>
-          .
+          No coded example is registered for {doc.name} yet. That is a gap in
+          the site, not in the package — it is tracked rather than hidden here.
         </p>
+      ) : (
+        <ExampleList examples={examples} />
       )}
-      <Customization doc={doc} />
     </section>
   );
 }
 
+/* ------------------------------------------ grammar: customization */
+
 /**
- * Customization's supported half, folded into Tokens. The "not supported"
- * half is the point of the Limitations section and lives there — one home
- * per half, so the boundary reads in exactly one place.
+ * Grammar slot — Customization. The escape hatch: what this family lets you
+ * change, and what it does not. Both halves live HERE, so the boundary reads
+ * in exactly one place — the "not supported" half used to sit in the
+ * Limitations section, where the reader had to hold the same list in two
+ * places at once.
+ *
+ * Conditional: the section renders when the page names at least one real
+ * extension surface (a prop, a part, a token, a variant axis). A family that
+ * is fully closed has no customization to document, and a heading over
+ * nothing is noise.
  */
 function Customization({ doc }: { doc: ComponentDoc }) {
   const custom = doc.customization;
-  if (!custom) return null;
+  const supported = custom?.supported ?? [];
+  const notSupported = custom?.notSupported ?? [];
+  if (supported.length === 0 && notSupported.length === 0) return null;
   return (
-    <div className="flex flex-col gap-3">
-      <Heading id="customization" level={3}>
-        Customization
-      </Heading>
-      <ul className={`m-0 flex flex-col gap-2 pl-5 ${BODY}`}>
-        {custom.supported.map((line) => (
-          <li key={line}>{line}</li>
-        ))}
-      </ul>
-    </div>
+    <section className="flex flex-col gap-3">
+      <Heading id="customization">Customization</Heading>
+      <p className={PROSE}>
+        What this family lets you change — and the traps it does not cover.
+      </p>
+      {supported.length > 0 ? (
+        <>
+          <Heading id="customization-supported" level={3}>
+            Supported
+          </Heading>
+          <ul className={`m-0 flex flex-col gap-2 pl-5 ${BODY}`}>
+            {supported.map((line) => (
+              <li key={line}>{line}</li>
+            ))}
+          </ul>
+        </>
+      ) : null}
+      {notSupported.length > 0 ? (
+        <>
+          <Heading id="customization-not-supported" level={3}>
+            Not supported
+          </Heading>
+          <ul className={`m-0 flex flex-col gap-2 pl-5 ${BODY}`}>
+            {notSupported.map((line) => (
+              <li key={line}>{line}</li>
+            ))}
+          </ul>
+        </>
+      ) : null}
+    </section>
   );
 }
+
 /**
  * Per-demo axe expectations (Part 7). One entry per demo (export): the rule,
  * whether axe should pass/gap/fail it, and the provenance mark that keeps
@@ -1185,10 +779,13 @@ function DemoExpectations({ page }: { page: A11yPage | undefined }) {
 /* -------------------------------------------- grammar: accessibility */
 
 /**
- * Grammar slot — Accessibility. The keyboard contract plus the Part 7
- * per-demo expectations. The ARIA contract lives in Semantic DOM (it
- * describes the rendered tree) and known gaps live in Limitations (they are
- * boundaries) — this section states behaviour, not vocabulary or caveats.
+ * Grammar slot — Accessibility. Two contracts and the Part 7 per-demo
+ * expectations: the KEYBOARD contract (what each key does) and the
+ * SCREEN-READER contract (the `aria` notes — roles, states and names
+ * handed to assistive tech). The ARIA half used to live in the Semantic DOM
+ * slot, which is dissolved: the anatomy half moved to the guidance file and
+ * the roles half belongs to the contract, not to a separate section.
+ * Known gaps stay in Limitations — they are boundaries, not behaviour.
  */
 function Accessibility({
   doc,
@@ -1199,6 +796,7 @@ function Accessibility({
 }) {
   const a11y = A11Y[`${platform}/${doc.slug}`];
   const keyboard = doc.keyboard;
+  const aria = doc.aria ?? [];
   const hasContent = !!keyboard?.length;
 
   // M2 — the section never silently vanishes. A reader cannot tell "this is
@@ -1215,9 +813,10 @@ function Accessibility({
         <Heading id="accessibility">Accessibility</Heading>
         <p className={PROSE}>
           {doc.nonInteractive
-            ? "Not applicable. This is a non-interactive part — it takes no focus, has no keyboard interaction and exposes no ARIA state of its own, so there is no behaviour to contract for. Anything it does for assistive technology comes from the primitives it renders."
-            : "Not yet documented. This component is interactive, so it does have keyboard and ARIA behaviour — the contract just has not been written up here yet. Treat this section as a gap, not as an absence of requirements."}
+            ? "Not applicable. This is a non-interactive part — it takes no focus and has no keyboard interaction, so there is no keyboard contract to write. What it hands to assistive tech is stated below; everything else comes from the primitives it renders."
+            : "Not yet documented. This component is interactive, so it does have keyboard behaviour — the contract just has not been written up here yet. Treat this as a gap, not as an absence of requirements."}
         </p>
+        <ScreenReaderContract notes={aria} />
         <DemoExpectations page={a11y} />
       </section>
     );
@@ -1266,8 +865,39 @@ function Accessibility({
         </div>
       ) : null}
 
+      <ScreenReaderContract notes={aria} />
       <DemoExpectations page={a11y} />
     </section>
+  );
+}
+
+/**
+ * The screen-reader contract — the `aria` notes as a list.
+ *
+ * These are the assertions assistive technology actually receives: the role
+ * the component exposes, the states it reports, the name it must carry. They
+ * are the page's contract with a non-visual reader, so they sit next to the
+ * keyboard table rather than in a section of their own — one accessibility
+ * section, two halves, one reader.
+ *
+ * The notes are written per family and are universal (every family states
+ * them), so this block renders whenever the family has any — a missing note
+ * is a gap in the content, and a gap in the content is not a reason to hide
+ * the contract.
+ */
+function ScreenReaderContract({ notes }: { notes: string[] }) {
+  if (notes.length === 0) return null;
+  return (
+    <div className={`${CARD} flex flex-col gap-3 p-5`}>
+      <Heading id="contract" level={3}>
+        Screen reader contract
+      </Heading>
+      <ul className={`m-0 flex list-disc flex-col gap-2 pl-5 ${BODY}`}>
+        {notes.map((line) => (
+          <li key={line}>{line}</li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
@@ -1275,18 +905,21 @@ function Accessibility({
 
 /**
  * Grammar slot — Limitations. The honest boundary: what this family does
- * NOT do, stated so nobody discovers it by accident. Three sources, one home:
- * unsupported customization (moved out of Tokens), known accessibility gaps
- * (moved out of Accessibility), and the grammar-exemption notice for pages
- * that cannot meet the strict order.
+ * NOT do, stated so nobody discovers it by accident. Two sources, one home:
+ * known accessibility gaps (moved out of Accessibility) and the
+ * grammar-exemption notice for pages that cannot meet the strict order.
  *
- * Conditional (grammar predicate `hasLimitations`).
+ * The "not supported" half of the customization is NOT here any more: it
+ * lives in Customization, so the boundary reads in exactly one place
+ * instead of twice, in two sections that a reader could land in either.
+ *
+ * Conditional: a page with no recorded boundary has no Limitations section —
+ * a heading over nothing is noise.
  */
 function Limitations({ doc }: { doc: ComponentDoc }) {
-  const notSupported = doc.customization?.notSupported ?? [];
   const gaps = doc.accessibilityGaps ?? [];
   const exempt = doc.grammarExempt?.trim();
-  if (notSupported.length === 0 && gaps.length === 0 && !exempt) return null;
+  if (gaps.length === 0 && !exempt) return null;
   return (
     <section className="flex flex-col gap-3">
       <Heading id="limitations">Limitations</Heading>
@@ -1302,18 +935,6 @@ function Limitations({ doc }: { doc: ComponentDoc }) {
           {exempt}
         </p>
       ) : null}
-      {notSupported.length > 0 && (
-        <>
-          <Heading id="not-supported" level={3}>
-            Not supported
-          </Heading>
-          <ul className={`m-0 flex flex-col gap-2 pl-5 ${BODY}`}>
-            {notSupported.map((line) => (
-              <li key={line}>{line}</li>
-            ))}
-          </ul>
-        </>
-      )}
       {gaps.length > 0 && (
         <div className="rounded-(--sys-shape-corner-medium) border border-(--sys-color-error) bg-(--sys-color-error-container) p-4">
           <Heading
@@ -1336,52 +957,22 @@ function Limitations({ doc }: { doc: ComponentDoc }) {
   );
 }
 
-/* --------------------------------------------------- grammar: faq */
-
 /**
- * Grammar slot — FAQ. Questions readers actually ask, answered in the
- * page's own facts. Conditional (grammar predicate `hasFaq`): an invented
- * FAQ is fabrication, so pages with nothing real to answer render no
- * section rather than a reassuring one.
- */
-function Faq({ doc }: { doc: ComponentDoc }) {
-  const rows = doc.faq ?? [];
-  if (rows.length === 0) return null;
-  return (
-    <section className="flex flex-col gap-3">
-      <Heading id="faq">FAQ</Heading>
-      <div className="flex flex-col gap-1.5">
-        {rows.map((row) => (
-          <details
-            key={row.q}
-            className="group rounded-(--sys-shape-corner-medium) bg-(--sys-color-surface-container-low) px-4 py-3"
-          >
-            <summary className={`cursor-pointer list-none ${SMALL} ${INK}`}>
-              {row.q}
-            </summary>
-            <p className={`m-0 mt-1.5 ${SMALL} ${INK_SOFT}`}>{row.a}</p>
-          </details>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-/**
- * Grammar slot — Spec. The kern signature, last: strict to the Material 3
- * spec by default, and every departure declared with a registered id so it
- * can be audited rather than discovered.
+ * Grammar slot — Spec. The kern signature: strict to the Material 3 spec by
+ * default. The departures themselves moved to the guidance file with the
+ * rest of the teaching half — they are decision records, not page reference —
+ * so what stays here is the SOURCE: the spec link, the resting elevation the
+ * component rests at, and whether a Material 3 source is recorded at all.
  */
 function Conformance({ doc }: { doc: ComponentDoc }) {
-  const rows = doc.deviations;
   const specUrl = doc.meta.specUrl;
   return (
     <section className="flex flex-col gap-3">
       <Heading id="spec">Spec</Heading>
       <p className={PROSE}>
-        Strict to Material 3 by default. Anything below is a deliberate kern
-        decision, registered with an id so it can be audited rather than
-        discovered.
+        Strict to Material 3 by default. Every deliberate kern departure is
+        registered with an id and recorded in the family&rsquo;s M3 guidance
+        file, so it can be audited rather than discovered.
       </p>
       {specUrl && specUrl !== "none" ? (
         <p className={PROSE}>
@@ -1396,21 +987,6 @@ function Conformance({ doc }: { doc: ComponentDoc }) {
         </p>
       ) : null}
       <p className={CHIP}>{conformanceLine(doc)}</p>
-      {!rows || rows.length === 0 ? (
-        <p className={PROSE}>
-          {doc.meta.specUrl === "none"
-            ? "No Material 3 source — this is a kern extension."
-            : doc.meta.specUrl
-              ? "No registered deviations from the Material 3 spec."
-              : "Material 3 source not recorded for this page yet."}
-        </p>
-      ) : (
-        <ul className="m-0 flex flex-col gap-4">
-          {rows.map((row) => (
-            <DeviationRow key={row.id} row={row} />
-          ))}
-        </ul>
-      )}
     </section>
   );
 }
@@ -1418,48 +994,24 @@ function Conformance({ doc }: { doc: ComponentDoc }) {
 /**
  * The conformance status line. States only what is CHECKABLE — a count of
  * variant axes is an inventory fact, not a conformance signal, and it already
- * renders honestly in the metadata strip above. Deviation IDS are rendered,
- * not counts: an id is auditable, a number is not.
+ * renders honestly in the metadata strip above. The DEPARTURES are not
+ * listed here any more (they moved to the guidance file), so the line states
+ * the two facts the page still owns: the resting elevation, and whether a
+ * Material 3 source is recorded. It never claims "no deviations" — the page
+ * no longer holds the evidence for that claim.
  */
 function conformanceLine(doc: ComponentDoc): string {
   const elev = elevationLabel(
     doc.meta.elevation,
     doc.meta.elevationBacked !== false,
   );
-  const ids = (doc.deviations ?? []).map((row) => row.id);
-  // m5 — this line is READ, not parsed. "deviations: none" and "elevation:
-  // Level 2" are the vocabulary of the gate that produced them; a reader
-  // landing on the Material 3 conformance section does not know what a
-  // deviation is yet. Say what the fact means, and only then name the ids
-  // that make it auditable.
-  return [
-    `Resting elevation: ${elev.text}`,
-    ids.length
-      ? `Deliberate kern departures from Material 3: ${ids.join(", ")}`
-      : "No registered departures from Material 3",
-  ].join(" · ");
-}
-
-function DeviationRow({ row }: { row: Deviation }) {
-  return (
-    <li className={`${CARD} flex flex-col gap-2 p-4`}>
-      <div className="flex items-center gap-2">
-        <span
-          className={`rounded-full bg-(--sys-color-secondary-container) px-2.5 py-0.5 font-mono text-(--sys-color-on-secondary-container) [font-size:var(--sys-typescale-label-small-font-size)] [line-height:var(--sys-typescale-label-small-line-height)]`}
-        >
-          {row.id}
-        </span>
-      </div>
-      <dl className="m-0 grid grid-cols-1 gap-2 sm:grid-cols-[7rem_1fr]">
-        <dt className={`m-0 ${LABEL} ${INK}`}>Material 3</dt>
-        <dd className={`m-0 ${SMALL} ${INK_SOFT}`}>{row.spec}</dd>
-        <dt className={`m-0 ${LABEL} ${INK}`}>kern</dt>
-        <dd className={`m-0 ${SMALL} ${INK_SOFT}`}>{row.kern}</dd>
-        <dt className={`m-0 ${LABEL} ${INK}`}>Why</dt>
-        <dd className={`m-0 ${SMALL} ${INK_SOFT}`}>{row.why}</dd>
-      </dl>
-    </li>
-  );
+  const source =
+    doc.meta.specUrl === "none"
+      ? "No Material 3 source — a kern extension"
+      : doc.meta.specUrl
+        ? "Material 3 source recorded"
+        : "Material 3 source not recorded for this page yet";
+  return [`Resting elevation: ${elev.text}`, source].join(" · ");
 }
 
 /* ------------------------------------------------- grammar: props */
@@ -1837,8 +1389,8 @@ function Footer({
 /**
  * The page. Article only — the right TOC ("On this page") lives in the
  * site layout's three-column docs shell, not here. Sections render in the
- * grammar's order and no other order (lede → demo → props → tokens →
- * semantic-dom → accessibility → limitations → faq → spec).
+ * one standard's order and no other order (lede → demo → example → props →
+ * accessibility → limitations → spec → customization).
  *
  * One page per component family (`/components/m3/<name>`, 018): the header
  * carries the family name with its system chip and the Web/Native tabs,
@@ -1910,20 +1462,36 @@ export function ComponentPage({
           </p>
         ) : null}
         <p className={`m-0 max-w-[65ch] ${LEDE} ${INK}`}>{doc.oneLiner}</p>
-        <p className={`m-0 ${PROSE}`}>{doc.features}</p>
+        {/*
+          The one guidance line. The teaching half of this page — features,
+          the Do/Don't, the token table, the FAQ, the departures, the anatomy
+          — lives in `docs/m3-guidance/<family>.md`, one file per family, and
+          this is the ONLY pointer to it on the page: a page that repeated
+          the teaching would let the two copies drift, and the guidance file
+          is the copy that is checked.
+        */}
+        <p className={`m-0 ${SMALL} ${INK_SOFT}`}>
+          M3 guidance →{" "}
+          <a
+            href={`${GITHUB}/blob/${REPO_BRANCH}/docs/m3-guidance/${doc.slug}.md`}
+            rel="noreferrer"
+            target="_blank"
+            className="text-(--sys-color-secondary) no-underline hover:underline"
+          >
+            read the M3 guidance for {doc.name}
+          </a>
+        </p>
         <HeaderLinks doc={doc} platform={platform} />
       </header>
 
-      {/* lede above; then the v2 grammar, in order */}
+      {/* lede above; then the one standard, in order */}
       <Demo doc={doc} platform={platform} />
-      {hasUsage(doc) ? <Usage doc={doc} /> : null}
-      {hasSemanticDom(doc) ? <SemanticDom doc={doc} /> : null}
-      <Accessibility doc={doc} platform={platform} />
+      <Example doc={doc} platform={platform} />
       <ApiReference doc={doc} />
-      <Theming doc={doc} />
+      <Accessibility doc={doc} platform={platform} />
       {hasLimitations(doc) ? <Limitations doc={doc} /> : null}
-      {hasFaq(doc) ? <Faq doc={doc} /> : null}
       <Conformance doc={doc} />
+      {hasCustomization(doc) ? <Customization doc={doc} /> : null}
 
       <Footer doc={doc} platform={platform} prev={prev} next={next} />
     </article>

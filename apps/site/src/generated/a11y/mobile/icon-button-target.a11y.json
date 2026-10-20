@@ -7,10 +7,10 @@
       "hasLiveDemo": true,
       "expectations": [
         {
-          "rule": "keyboard-operable",
-          "expect": "gap",
+          "rule": "focusable",
+          "expect": "pass",
           "provenance": "derived",
-          "basis": "icon-button-target.ts documents no keyboard rows for IconButtonTarget — the contract is unwritten, treat as a gap not a pass"
+          "basis": "IconButtonTarget is a non-interactive part (icon-button-target.ts: nonInteractive) — takes no focus, so no keyboard trap or missing-focus-indicator finding can apply"
         },
         {
           "rule": "aria-contract",

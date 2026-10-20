@@ -5,8 +5,6 @@ export const iconButton: ComponentDoc = {
   name: "Icon button",
   oneLiner:
     "Icon buttons are buttons whose only content is an icon, so their name must be supplied.",
-  features:
-    "Reach for an icon button where the action is unmistakable from its glyph and space is tight: a close, a favourite, an overflow. The one rule is in the type: `label` is REQUIRED, because there is no visible text to supply a name. That is the whole accessibility contract and it is enforced rather than documented — an icon-only button with no name is the most common inaccessible control there is, and here you cannot ship one. There is also a toggle form with controlled `pressed`, so a favourite button is the same component as a close button rather than a second thing to learn.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,18 @@ export const iconButton: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["IconButton"],
+  keyboard: [
+    {
+      key: "Enter / Space",
+      action:
+        "Activates the button when it is reached with an external keyboard or switch control.",
+    },
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "Moves to the button and activates it; in the toggle form the press flips the state that `aria-selected` carries.",
+    },
+  ],
   customization: {
     supported: [
       "`label` is required and is the accessible name.",

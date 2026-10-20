@@ -5,8 +5,6 @@ export const menuScreen: ComponentDoc = {
   name: "Menu screen",
   oneLiner:
     "The menu screen is a full-height list of grouped destinations and actions — a settings-style page, not a menu.",
-  features:
-    "Reach for a menu screen when the content IS a set of grouped destinations or commands and it belongs in the page: a settings list, an admin index, a workspace switcher's alternatives. It is deliberately not a menu — it is not modal, it does not take the interaction lock and it carries no elevation token, the same docked-versus-dialog reasoning the `DockSheet` uses. The groups are the shared menu data (`MenuGroup`), the same shape the `MenuSheet` takes, so an action can live on the page today and in a sheet tomorrow without being rewritten. Groups without a heading render as one flat list; a heading makes the group a named group.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -17,6 +15,20 @@ export const menuScreen: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["MenuScreen"],
+  // The contract, read off the rows: a menu screen is page content, so it
+  // takes no interaction lock and traps nothing.
+  keyboard: [
+    {
+      key: "Tab / Shift+Tab",
+      action:
+        "Moves through the action rows one at a time. The screen is page content rather than a dialog, so focus is never trapped and the rest of the page stays reachable.",
+    },
+    {
+      key: "Enter / Space",
+      action:
+        "Runs the focused action. Each action is a real button, and a disabled one is out of the tab order entirely.",
+    },
+  ],
   customization: {
     supported: [
       "`groups` is the shared menu data: `{ heading?, actions }` per group, actions carrying label, supporting line, icon, disabled and destructive flags.",

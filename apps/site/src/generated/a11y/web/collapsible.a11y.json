@@ -8,9 +8,9 @@
       "expectations": [
         {
           "rule": "keyboard-operable",
-          "expect": "gap",
+          "expect": "pass",
           "provenance": "derived",
-          "basis": "collapsible.ts documents no keyboard rows for Collapsible — the contract is unwritten, treat as a gap not a pass"
+          "basis": "keyboard contract carries 2 row(s) in collapsible.ts — every operable action has a documented key"
         },
         {
           "rule": "aria-contract",
@@ -25,9 +25,9 @@
       "expectations": [
         {
           "rule": "keyboard-operable",
-          "expect": "gap",
+          "expect": "pass",
           "provenance": "derived",
-          "basis": "collapsible.ts documents no keyboard rows for CollapsibleRoot — the contract is unwritten, treat as a gap not a pass"
+          "basis": "keyboard contract carries 2 row(s) in collapsible.ts — every operable action has a documented key"
         },
         {
           "rule": "aria-contract",
@@ -42,9 +42,9 @@
       "expectations": [
         {
           "rule": "keyboard-operable",
-          "expect": "gap",
+          "expect": "pass",
           "provenance": "derived",
-          "basis": "collapsible.ts documents no keyboard rows for CollapsibleTrigger — the contract is unwritten, treat as a gap not a pass"
+          "basis": "keyboard contract carries 2 row(s) in collapsible.ts — every operable action has a documented key"
         },
         {
           "rule": "aria-contract",
@@ -59,9 +59,9 @@
       "expectations": [
         {
           "rule": "keyboard-operable",
-          "expect": "gap",
+          "expect": "pass",
           "provenance": "derived",
-          "basis": "collapsible.ts documents no keyboard rows for CollapsiblePanel — the contract is unwritten, treat as a gap not a pass"
+          "basis": "keyboard contract carries 2 row(s) in collapsible.ts — every operable action has a documented key"
         },
         {
           "rule": "aria-contract",

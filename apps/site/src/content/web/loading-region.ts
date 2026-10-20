@@ -5,8 +5,6 @@ export const loadingRegion: ComponentDoc = {
   name: "Loading region",
   oneLiner:
     "Loading regions swap between content and a loading state as work starts and finishes.",
-  features:
-    "Reach for a loading region when a piece of the interface alternates between ready and waiting: a panel that refetches, a widget that refreshes, a step that recomputes. It is the switch rather than the spinner — you give it what to show while loading and what to show when ready, and it moves between them. Keeping the fallback as a prop rather than hard-coding a spinner is what lets the wait be a skeleton, a shimmer, or nothing at all. If the whole page is arriving, that is a page loader; if you only need a spinner somewhere, that is a loader.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -17,6 +15,10 @@ export const loadingRegion: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["LoadingRegion"],
+  // The region is a SLOT for content, not a control: it takes no focus and
+  // handles no keys. The busy state is announced through `aria-busy`, and
+  // the fallback's own contract is the fallback's.
+  nonInteractive: true,
   customization: {
     supported: [
       "`children` is what shows when ready and `fallback` is what shows while loading, so the wait can be a skeleton or anything else rather than one fixed spinner.",

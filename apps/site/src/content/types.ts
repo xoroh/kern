@@ -14,6 +14,17 @@
  * Section order is not a preference — it is the order a reader needs the
  * information, and it is what lets a page be checked by a gate instead of by
  * eye. See the convention for the rationale.
+ *
+ * WHAT IS NOT HERE ANY MORE (ADR-115, the one standard page). The teaching
+ * half of a component page — `features`, the usage Do/Don't, the token table,
+ * the FAQ, the deviations and the anatomy — moved VERBATIM to
+ * `docs/m3-guidance/<family>.md`, one file per family. Those fields are
+ * guidance, not page reference, and a page that repeated them would let the
+ * two copies drift. The page keeps what a reader cannot get anywhere else:
+ * the demo, the coded example, the props, the accessibility contract, the
+ * boundaries, the spec link and the customization escape hatch. The types
+ * those sections are written in (`Usage`, `TokenRow`, `FaqItem`, `Deviation`,
+ * `PartRow`) stay exported — the guidance schema is written in them.
  */
 
 /**
@@ -181,6 +192,9 @@ export type KeyRow = {
  * side so the contrast is the argument. A half pair renders its written half
  * plus a one-sided gap note naming what's missing (never silently dropped);
  * the docs gate fails the half to drive completion.
+ *
+ * RETIRED as a page field — it lives in `docs/m3-guidance/<family>.md` now.
+ * The type stays exported: the guidance schema is written in it.
  */
 export type Usage = {
   do: string[];
@@ -216,6 +230,10 @@ export type PropRow = {
  * `packages/kern-tokens/src/m3-roles.ts` (`KERN_EXTRA_ROLES`) or
  * `m3-elevation.ts` (`KERN_UNASSIGNED_ELEVATION`). A deviation with no id is
  * not a deviation, it is an undocumented fork — so the validator rejects it.
+ *
+ * RETIRED as a page field — the deviations moved to
+ * `docs/m3-guidance/<family>.md` with the rest of the teaching half. The type
+ * stays exported: the guidance schema is written in it.
  */
 export type Deviation = {
   /** e.g. `"K6"`. Registered with the roles/elevation it justifies. */
@@ -240,6 +258,10 @@ export type Customization = {
  * Section 6 — one part of a compound component's anatomy. Parts are documented
  * on the parent's page (consistency rule 1), so this is where a reader learns
  * what `DialogContent` is for relative to `DialogRoot`.
+ *
+ * RETIRED as a page field — the anatomy moved to
+ * `docs/m3-guidance/<family>.md` with the rest of the teaching half. The type
+ * stays exported: the guidance schema is written in it.
  */
 export type PartRow = {
   name: string;
@@ -256,6 +278,10 @@ export type PartRow = {
  * Omit the whole section when there is nothing real to put in it — an
  * invented FAQ is the fabrication class this rebuild exists to prevent, and
  * the grammar gate fails malformed rows (empty question or answer).
+ *
+ * RETIRED as a page field — the FAQ moved to `docs/m3-guidance/<family>.md`
+ * with the rest of the teaching half. The type stays exported: the guidance
+ * schema is written in it.
  */
 export type FaqItem = {
   /** The question, as the reader would ask it. Non-empty. */
@@ -276,12 +302,6 @@ export type ComponentDoc = {
   name: string;
   /** One sentence, no more. What it is. */
   oneLiner: string;
-  /**
-   * Section 3 — Features. Two to five sentences, second person, present
-   * tense. The only section allowed to persuade. If the honest answer is "this
-   * wraps a Base UI primitive", say so and link it.
-   */
-  features: string;
   meta: MetadataStrip;
   /**
    * Every export that belongs to this family, including the root. The first
@@ -292,36 +312,23 @@ export type ComponentDoc = {
   parts: string[];
   /** Section 4. Omit when the component is fully closed. */
   customization?: Customization;
-  /** Section 5. Omit when the component is conformant with no caveats. */
-  deviations?: Deviation[];
-  /**
-   * Section 6. `anatomy` and `aria` are parts of the same section, not extra
-   * ones — the convention puts the props table, the events and the ARIA
-   * contract together as the reference tail.
-   */
-  anatomy?: PartRow[];
   /** Section 6 — the props table for the whole family. */
   api: PropRow[];
   /**
    * Section 6 — the ARIA contract: roles set, keys handled, what is handed to
    * assistive tech. Sourced from the parity contract's assertions; a page that
-   * contradicts them is a defect in the page.
+   * contradicts them is a defect in the page. Renders as the Accessibility
+   * section's screen-reader contract.
    */
   aria?: string[];
 
   /**
-   * Section 5 — the Do/Don't pair. Optional; a half pair renders with a
-   * gap note, and the docs gate fails it until completed. Tasks before
-   * reference (Diátaxis), and the clearest way to state a usage rule.
+   * The states this family registers — `resting`, `hover`, `focus`,
+   * `disabled` … The state list came off the token table when that table
+   * moved to `docs/m3-guidance/<family>.md`; the Demo section's state strip
+   * still names the states the component has, so they are carried here.
    */
-  usage?: Usage;
-
-  /**
-   * Section 6 — the token table. Optional today: generated where the token
-   * module can supply it, transcribed where it cannot. Absent, the section
-   * falls back to stating the resting elevation, which is always true.
-   */
-  tokens?: TokenRow[];
+  states?: string[];
 
   /**
    * Section 7 — the keyboard contract. Optional: a component with no keyboard
@@ -351,12 +358,6 @@ export type ComponentDoc = {
    * section was vanishing on every page that had no content yet.
    */
   nonInteractive?: boolean;
-
-  /**
-   * Phase 3 grammar — the FAQ section. Optional; renders only when non-empty,
-   * per the cut-empty-sections convention. See `FaqItem` for what belongs.
-   */
-  faq?: FaqItem[];
 
   /**
    * Phase 3 grammar — the limitation-frontmatter.

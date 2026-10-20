@@ -1,25 +1,35 @@
 /**
- * Per-page markdown emission (Phase 3 grammar).
+ * Per-page markdown emission (the one standard).
  *
  * Shared by generate-page-md (the emitter: writes public/md/**) and
  * check-page-md (the gate: every docs page emits its .md). One function with
  * two callers, so the gate can never disagree with the emitter about what a
  * page's .md contains.
  *
- * Data-only: everything here comes from the content docs and the foundations
- * registry. Nothing is invented — a section with no content records is cut,
- * the same rule the template follows, and demo/install lines are derived from
- * the metadata strip exactly the way the page derives them.
+ * Data-only: everything here comes from the content docs, the guidance
+ * manifest and the foundations registry. Nothing is invented — a section with
+ * no content record is cut, the same rule the template follows, and
+ * demo/install lines are derived from the metadata strip exactly the way the
+ * page derives them.
+ *
+ * THE GUIDANCE SECTION
+ *
+ * The page carries the REFERENCE; the teaching half (features prose, the
+ * Do/Don't pair, the token table, the anatomy, the deviations, the FAQ) lives
+ * in `docs/m3-guidance/<family>.md`. A `.md` that carried only the reference
+ * would be a worse machine surface than the page it mirrors — an agent
+ * reading it would get the props table and none of the guidance. So the
+ * family's guidance is appended here, rendered from the same manifest the
+ * guidance gate re-renders the file from: one content, two surfaces.
  */
 
 import {
   exemptionReason,
   expectedSections,
-  hasFaq,
+  hasCustomization,
   hasLimitations,
-  hasSemanticDom,
-  hasUsage,
 } from "../../src/systems/grammar.ts";
+import { guidanceFor, renderPlatformSection } from "./guidance.mjs";
 
 /**
  * The npm target you can actually install. `meta.package` is an IMPORT PATH
@@ -35,28 +45,31 @@ export function installTarget(pkg) {
 /**
  * The grammar section ids to the h2 titles their .md carries.
  *
- * `usage` was MISSING here while `expectedSections()` had included it since the
- * grammar gained the section, so every page with a Do/Don't list rendered a
- * `## Usage` heading that the gate mapped to `undefined` — and the comparison
- * then failed on 197 families for a reason the message showed as an empty slot.
- * A label map that is not derivable from the order list is exactly the kind of
- * second source of truth that drifts; the test below pins them together.
+ * A label map that is not derivable from the order list is exactly the kind
+ * of second source of truth that drifts; the test in check-page-md pins them
+ * together (a grammar id with no title here throws rather than emitting
+ * `undefined`).
  */
 const H2 = {
   demo: "Demo",
-  usage: "Usage",
+  example: "Example",
   props: "Props",
-  tokens: "Tokens",
-  "semantic-dom": "Semantic DOM",
   accessibility: "Accessibility",
   limitations: "Limitations",
-  faq: "FAQ",
   spec: "Spec",
+  customization: "Customization",
 };
+
+/**
+ * The h2 the guidance section carries. NOT a grammar slot: the guidance is
+ * the moved teaching, appended to the machine surface so an agent reading
+ * the `.md` gets the whole page — reference AND guidance — from one file.
+ */
+const GUIDANCE_HEADING = "M3 guidance";
 
 /** The h2 titles a doc's .md must carry, in order (non-exempt pages). */
 export function expectedHeadings(doc) {
-  return expectedSections(doc).map((id) => {
+  const headings = expectedSections(doc).map((id) => {
     const title = H2[id];
     if (!title) {
       throw new Error(
@@ -66,6 +79,8 @@ export function expectedHeadings(doc) {
     }
     return title;
   });
+  headings.push(GUIDANCE_HEADING);
+  return headings;
 }
 
 function stripBackticks(s) {
@@ -76,6 +91,19 @@ function elevationText(meta) {
   if (meta.elevation === "none") return "n/a (no visual form)";
   if (meta.elevation === "surface") return "Surface (no elevation token)";
   return `Level ${meta.elevation}`;
+}
+
+/**
+ * The family's guidance for one platform, rendered from the manifest.
+ *
+ * `null` when the platform carried no guidance — the caller then says so
+ * honestly instead of rendering an empty heading.
+ */
+function guidanceBody(slug, platform) {
+  const moved = guidanceFor(slug, platform);
+  if (!moved) return null;
+  const body = renderPlatformSection(moved);
+  return body.length > 0 ? body : null;
 }
 
 /**
@@ -92,20 +120,18 @@ export function pageMarkdown(doc, platform, { liveDemo = false } = {}) {
   // lede
   out.push(`# ${doc.name} (${renderer})`, "");
   out.push(doc.oneLiner, "");
-  out.push(stripBackticks(doc.features), "");
   out.push(
     `Package: ${meta.package} · Status: ${meta.status} · Native peer: ${meta.nativePeer} · Elevation: ${elevationText(meta)}`,
     "",
   );
 
-  // GRAMMAR ORDER — demo → usage → semantic-dom → accessibility → props →
-  // tokens → limitations → faq → spec. The predicates are the SHARED ones from
+  // GRAMMAR ORDER — demo → example → props → accessibility → limitations →
+  // spec → customization. The predicates are the SHARED ones from
   // src/systems/grammar.ts, so the .md and the rendered page cannot disagree.
   //
-  // This used to emit demo → props → tokens → semantic-dom → accessibility,
-  // which the gate flagged on all 197 families. The order is not cosmetic: a
-  // reader (human or model) landing on a page reads top to bottom, and the
-  // grammar puts the contract before the reference.
+  // The order is not cosmetic: a reader (human or model) landing on a page
+  // reads top to bottom, and the grammar puts the contract before the
+  // reference.
 
   // demo
   out.push("## Demo", "");
@@ -120,33 +146,33 @@ export function pageMarkdown(doc, platform, { liveDemo = false } = {}) {
     "",
   );
 
-  // usage — conditional, cut when empty, exactly as the template does.
-  if (hasUsage(doc)) {
-    out.push("## Usage", "");
-    for (const line of doc.usage?.do ?? [])
-      out.push(`- Do: ${stripBackticks(line)}`);
-    for (const line of doc.usage?.dont ?? [])
-      out.push(`- Don't: ${stripBackticks(line)}`);
-    out.push("");
-  }
+  // example — the runnable usage example. The page renders it live; the .md
+  // says where it is rather than transcribing a fence it cannot keep in
+  // step (a copied fence is a second thing to rot, and the gate's own rule
+  // is that nothing is invented here).
+  out.push("## Example", "");
+  out.push(
+    `The runnable usage example for \`${doc.parts[0]}\` is on the page — ` +
+      `\`/components/m3/${doc.slug}?tab=${platform}\`. It is a live component, so it is ` +
+      `linked rather than copied: a transcription here would be a second thing to keep in step.`,
+    "",
+  );
 
-  // semantic DOM — the mental model before the contract.
-  if (hasSemanticDom(doc)) {
-    out.push("## Semantic DOM", "");
-    if ((doc.anatomy?.length ?? 0) > 0) {
-      out.push("### Anatomy", "");
-      for (const part of doc.anatomy)
-        out.push(`- \`${part.name}\` — ${stripBackticks(part.role)}`);
-      out.push("");
-    }
-    if ((doc.aria?.length ?? 0) > 0) {
-      out.push("### Roles", "");
-      for (const line of doc.aria) out.push(`- ${stripBackticks(line)}`);
-      out.push("");
-    }
+  // props
+  out.push("## Props", "");
+  out.push("| Prop | Type | Default | Notes |");
+  out.push("| --- | --- | --- | --- |");
+  for (const row of doc.api) {
+    out.push(
+      `| \`${row.name}\` | \`${row.type}\` | ${row.default ? `\`${row.default}\`` : "—"} | ${stripBackticks(row.note ?? "")} |`,
+    );
   }
+  out.push("");
 
-  // accessibility
+  // accessibility — the keyboard contract and the screen-reader contract.
+  // The ARIA notes moved INTO this section: the old semantic-dom slot was
+  // dissolved, and "what it hands to assistive tech" is a contract, not a
+  // mental model.
   out.push("## Accessibility", "");
   if ((doc.keyboard?.length ?? 0) > 0) {
     out.push("| Key | Action |");
@@ -163,63 +189,26 @@ export function pageMarkdown(doc, platform, { liveDemo = false } = {}) {
     );
   }
   out.push("");
-
-  // props
-  out.push("## Props", "");
-  out.push("| Prop | Type | Default | Notes |");
-  out.push("| --- | --- | --- | --- |");
-  for (const row of doc.api) {
-    out.push(
-      `| \`${row.name}\` | \`${row.type}\` | ${row.default ? `\`${row.default}\`` : "—"} | ${stripBackticks(row.note ?? "")} |`,
-    );
+  if ((doc.aria?.length ?? 0) > 0) {
+    out.push("### Screen reader", "");
+    for (const line of doc.aria) out.push(`- ${stripBackticks(line)}`);
+    out.push("");
   }
-  out.push("");
 
-  // tokens
-  out.push("## Tokens", "");
-  if (doc.tokens && doc.tokens.length > 0) {
-    out.push("| Element | State | Token | Value |");
-    out.push("| --- | --- | --- | --- |");
-    for (const row of doc.tokens) {
-      out.push(
-        `| ${row.element} | ${row.state} | \`${row.token}\` | \`${row.value}\` |`,
-      );
-    }
-  } else {
-    out.push(
-      `No per-component token table is recorded yet. Resting elevation: ${elevationText(meta)}.`,
-    );
-  }
-  if (doc.customization && doc.customization.supported.length > 0) {
-    out.push("", "### Customization");
-    for (const line of doc.customization.supported)
-      out.push(`- ${stripBackticks(line)}`);
-  }
-  out.push("");
-
-  // limitations
+  // limitations — the honest edges: a known accessibility gap, or the
+  // exemption notice. What the component does NOT let you change is the
+  // customization section's own subject.
   if (hasLimitations(doc)) {
     out.push("## Limitations", "");
     const exempt = exemptionReason(doc);
     if (exempt) out.push(`Grammar exemption: ${stripBackticks(exempt)}`, "");
-    for (const line of doc.customization?.notSupported ?? []) {
-      out.push(`- Not supported: ${stripBackticks(line)}`);
-    }
     for (const line of doc.accessibilityGaps ?? []) {
       out.push(`- Known gap: ${stripBackticks(line)}`);
     }
     out.push("");
   }
 
-  // faq
-  if (hasFaq(doc)) {
-    out.push("## FAQ", "");
-    for (const row of doc.faq) {
-      out.push(`**${stripBackticks(row.q)}**`, "", stripBackticks(row.a), "");
-    }
-  }
-
-  // spec
+  // spec — the source link. The deviations themselves are guidance now.
   out.push("## Spec", "");
   if (typeof meta.specUrl === "string" && meta.specUrl !== "none") {
     out.push(`Material 3 spec: ${meta.specUrl}`);
@@ -228,19 +217,31 @@ export function pageMarkdown(doc, platform, { liveDemo = false } = {}) {
   } else {
     out.push("Material 3 source not recorded for this page yet.");
   }
-  for (const d of doc.deviations ?? []) {
+  out.push("");
+
+  // customization — what the component lets you change, and the traps.
+  if (hasCustomization(doc)) {
+    out.push("## Customization", "");
+    for (const line of doc.customization?.supported ?? [])
+      out.push(`- ${stripBackticks(line)}`);
+    for (const line of doc.customization?.notSupported ?? [])
+      out.push(`- Not supported: ${stripBackticks(line)}`);
+    out.push("");
+  }
+
+  // M3 guidance — the teaching half, moved to docs/m3-guidance/<family>.md
+  // and carried here so the machine surface is the whole page.
+  out.push(`## ${GUIDANCE_HEADING}`, "");
+  const guidance = guidanceBody(doc.slug, platform);
+  if (guidance) {
+    out.push(guidance, "");
+  } else {
     out.push(
+      `No ${renderer.toLowerCase()} guidance has been written for this family yet — ` +
+        `it belongs in \`docs/m3-guidance/${doc.slug}.md\`.`,
       "",
-      `### ${d.id}`,
-      "",
-      `Spec: ${stripBackticks(d.spec)}`,
-      "",
-      `kern: ${stripBackticks(d.kern)}`,
-      "",
-      `Why: ${stripBackticks(d.why)}`,
     );
   }
-  out.push("");
 
   return `${out
     .join("\n")
@@ -290,7 +291,7 @@ export function themeMarkdown(theme, catalog, counts) {
     "Seed, presets, contrast levels, radius authoring and preset export " +
       "live in the theme configurator (/theme-configurator). What the roles " +
       "mean and where each one goes lives on /foundations/color. Every " +
-      "token is also a CSS variable, so a project can read one without " +
+      "token is also a CSS variable, so a project can read it without " +
       "importing anything, e.g. `--sys-color-primary`.",
     "",
   );

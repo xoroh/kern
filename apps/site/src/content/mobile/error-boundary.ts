@@ -5,8 +5,6 @@ export const errorBoundary: ComponentDoc = {
   name: "Error boundary",
   oneLiner:
     "Error boundaries catch a thrown render so one broken screen does not blank the whole app.",
-  features:
-    "Reach for an error boundary around a screen or a route, so a crash in one place leaves the rest of the app standing. It is the native analogue of the web `ErrorBoundary` and works the same way: children render normally, and if they throw, the boundary catches and renders your fallback instead. The fallback receives both the error and a `reset` callback, so recovery is yours to design — and the source is explicit that recovery differs per route, which is why the fallback is app-specific rather than a default kern screen. Keep it high enough to matter and low enough to be specific.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",

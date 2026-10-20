@@ -5,8 +5,6 @@ export const menuScreen: ComponentDoc = {
   name: "Menu screen",
   oneLiner:
     "Menu screens present grouped actions inline — the settings-style page of a menu.",
-  features:
-    "Reach for a menu screen when the grouped actions belong ON the screen rather than over it: a settings page, a per-item action list, anywhere the list is the page. It takes exactly the same `groups` data that `MenuSheet` does, so a host can move an action from a screen into a sheet without rewriting it — the two differ in presentation only, which is the whole reason the data shape is shared. The screen is a scrolling list over the surface colour, built from `MenuGroupList`, so it inherits that component's rules about headings and rows.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -17,6 +15,15 @@ export const menuScreen: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["MenuScreen"],
+  // The touch contract: the screen is inline content, so it is part of the
+  // page the reader is on — no trap, no dismissal.
+  keyboard: [
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "Moves through the group headings and the actions under them in order; double-tap runs the focused action, which announces as a `menuitem` named by its label.",
+    },
+  ],
   customization: {
     supported: [
       "`groups` are data, identical to `MenuSheet`'s, so moving content between the two is a hosting decision rather than a rewrite.",

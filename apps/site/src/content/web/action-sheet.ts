@@ -5,8 +5,6 @@ export const actionSheet: ComponentDoc = {
   name: "Action sheet",
   oneLiner:
     'The action sheet is a titled list of actions in a bottom sheet — the one surface for "what do you want to do with this?"',
-  features:
-    "Reach for an action sheet when the next step is a choice among a short list of actions on one subject: share, duplicate, archive, delete. The actions are data — id, label, the callback and a disabled flag — so the list renders identically wherever the sheet opens, and a disabled action stays visible and inert rather than vanishing. `children` is there for the case where the list is not the whole body, and the sheet hosts through `SheetSurface` like the rest of the family: scrim, Escape and focus return are inherited, not re-implemented.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -22,6 +20,25 @@ export const actionSheet: ComponentDoc = {
     elevation: 1,
   },
   parts: ["ActionSheet"],
+  // The keyboard contract, read off the dialog shell the sheet hosts
+  // through: the popup traps focus and inerts the page, so Tab stays inside
+  // the sheet and Escape is the way out.
+  keyboard: [
+    {
+      key: "Tab / Shift+Tab",
+      action:
+        "Cycles focus among the sheet's own controls — the action buttons — while the page behind it is inert.",
+    },
+    {
+      key: "Enter / Space",
+      action: "Activates the focused action button.",
+    },
+    {
+      key: "Escape",
+      action:
+        "Closes the sheet and returns focus to the trigger, the same path a scrim press takes.",
+    },
+  ],
   customization: {
     supported: [
       "`actions` is data: `{ id, label, onSelect, disabled? }` per row.",

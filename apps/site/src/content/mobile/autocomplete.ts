@@ -5,8 +5,6 @@ export const autocomplete: ComponentDoc = {
   name: "Autocomplete",
   oneLiner:
     "Autocomplete suggests completions as you type, with a filter you can replace and a message for when nothing matches.",
-  features:
-    "Reach for autocomplete when typing is faster than choosing and the set is large enough to need narrowing: an address, a name, a tag. It reports three different things and keeping them apart is the whole wiring — `onValueChange` as the text changes, `onSelect` when a suggestion is COMMITTED, and `onOpenChange` when the popup opens or closes including dismissal by blur. That last one matters more than it looks: blur is a dismissal like any other, and a popup state that ignores it leaves the interface thinking it is open. The `filter` is replaceable and its default is honest about being local — case-insensitive substring matching, which a host with server-side or fuzzy matching swaps out.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,12 +14,16 @@ export const autocomplete: ComponentDoc = {
     elevation: 2,
   },
   parts: ["Autocomplete"],
-  deviations: [
+  keyboard: [
     {
-      id: "K6",
-      spec: 'M3\'s component elevation table names no autocomplete. It tabulates "menu" at level 2 and search at level 3; neither describes a completion list attached to a text field.',
-      kern: "The suggestion list rests at elevation level 2.",
-      why: "The suggestions float above the page beside the field, so they need the same lift as the other anchored overlays. Borrowing a neighbouring row would assert M3 described this surface. Registered as K6 in the elevation inventory so the level is a recorded decision.",
+      key: "Return",
+      action:
+        "Closes the suggestion list — there is no Escape key on a touch device, so the return key is the dismissal path, and it reports `onOpenChange(false)`.",
+    },
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "Moves through the suggestions in order; double-tap commits the suggestion into the field and closes the list.",
     },
   ],
   customization: {

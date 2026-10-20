@@ -4,8 +4,6 @@ export const buttonGroup: ComponentDoc = {
   slug: "button-group",
   name: "Button group",
   oneLiner: "Button groups join buttons into one segmented control.",
-  features:
-    "Reach for a button group when several buttons are really one control with several answers: a set of view modes, a run of related commands that belong together. The join is the value — the buttons stop reading as separate targets and start reading as one thing with options. Each button keeps its own variant, so the group changes the shape without deciding the emphasis. If only one option can be selected, `SegmentedButton` is the more precise tool; this one is for actions that happen to sit together.",
   meta: {
     // Canonical M3 spec page — title identity-verified live; gate re-checks.
     specUrl: "https://m3.material.io/components/button-groups",
@@ -19,6 +17,10 @@ export const buttonGroup: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["ButtonGroup"],
+  // M2: the group is a `role="group"` wrapper, not a control. It takes no
+  // focus and answers no key — the buttons inside it are the tab stops, and
+  // the join between them is visual, not behavioural.
+  nonInteractive: true,
   customization: {
     supported: [
       "`className` is passed through and merged after the group's own classes.",

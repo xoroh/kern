@@ -5,8 +5,6 @@ export const shape: ComponentDoc = {
   name: "Shape",
   oneLiner:
     "Shapes are the six basic forms in the kern radius language, drawn from the shape scale rather than freehand.",
-  features:
-    "Reach for a shape when you want one of the kern forms as a mark or a placeholder: a brand glyph, a loading shape, a decorative element. The radii come from the shape SCALE rather than being typed, so a shape is kern's shape and not a rounded square someone guessed at — and the diamond is a rotated rounded square, which is how it stays on the same scale as the rest. `color` is deliberately restricted to classification hues, so a shape can carry meaning but cannot be painted an arbitrary colour outside the system.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,10 @@ export const shape: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Shape"],
+  // A shape is a static mark: a view with no role, no state and no focus, so
+  // there is no keyboard contract to write. The aria contract below says what
+  // it means instead.
+  nonInteractive: true,
   customization: {
     supported: [
       "`kind` is one of the six forms in the kern radius language.",

@@ -5,8 +5,6 @@ export const countrySelect: ComponentDoc = {
   name: "Country select",
   oneLiner:
     "Country selects pick a country from a list, showing its flag and dial code alongside its name.",
-  features:
-    "Reach for a country select when the answer is a country and the list is long enough to need one: a shipping address, a phone number's prefix, a locale preference. It is a select with the country's shape already accounted for — the flag, the name and the dial code all render from one option. Pass the names in the locale your interface is written in, because a list of countries in the wrong language is a list nobody can search. If the answer is a language rather than a country, those are not the same thing and should not share a list.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -27,42 +25,33 @@ export const countrySelect: ComponentDoc = {
     "CountrySelectItem",
     "CountrySelectLabel",
   ],
-  deviations: [
+  // The country select IS a select: it is the same popup primitive with a
+  // country-shaped data set, so it inherits the select's keyboard contract
+  // rather than inventing one of its own.
+  keyboard: [
     {
-      id: "K6",
-      spec: 'M3\'s component elevation table names no select. It tabulates "menu" at level 2, and kern maps that row to `navigation-menu`, so there is no spec row a country select could conform to.',
-      kern: "The country list rests at elevation level 2.",
-      why: "The open list behaves as an overlay above the page and needs the same lift a menu has, but claiming the menu row would assert that M3 said something about selects it never said. Registered as K6 in the elevation inventory so the level is a recorded decision rather than a value in a stylesheet.",
-    },
-  ],
-  anatomy: [
-    {
-      name: "CountrySelectRoot",
-      role: "Owns the open state and the chosen country. Takes the countries as `options`.",
+      key: "Enter / Space / ArrowDown",
+      action: "Opens the country list when the trigger is focused.",
     },
     {
-      name: "CountrySelectTrigger",
-      role: "The closed control showing the chosen country. Opens the list.",
+      key: "Arrow keys",
+      action:
+        "Moves the highlight through the countries once the list is open. Home and End jump to the first or the last one, and typing jumps by the typed text.",
     },
     {
-      name: "CountrySelectValue",
-      role: "Renders the chosen country inside the trigger.",
+      key: "Enter / Space",
+      action:
+        "Chooses the highlighted country and closes the list; the trigger then announces the country by name.",
     },
     {
-      name: "CountrySelectContent",
-      role: "The list surface. Scrollable and capped in height, since a country list is long by nature.",
+      key: "Escape",
+      action:
+        "Closes the list without choosing; focus returns to the trigger and the current country is unchanged.",
     },
     {
-      name: "CountrySelectItem",
-      role: "One country: flag, name and dial code.",
-    },
-    {
-      name: "CountrySelectLabel",
-      role: "Names the field, or a run of countries.",
-    },
-    {
-      name: "CountrySelect",
-      role: "The namespace object: all of the parts above.",
+      key: "Tab / Shift+Tab",
+      action:
+        "Moves on from the trigger. Inside the open list, a disabled country is skipped as the highlight moves past it.",
     },
   ],
   customization: {

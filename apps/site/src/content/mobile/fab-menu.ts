@@ -5,8 +5,6 @@ export const fabMenu: ComponentDoc = {
   name: "Fab menu",
   oneLiner:
     "Fab menus are a floating button that opens a short list of actions, with the icon swapping while open.",
-  features:
-    "Reach for a fab menu when there are a few related primary actions and one floating button should carry them: create, add, share. The trigger opens the list and the icon can change while it is open — `openIcon` swaps in for `icon`, so a plus becomes a close rather than leaving the same glyph to mean two things. The open state is the controllable pattern (`open`, `defaultOpen`, `onOpenChange`), matching the other overlays in the family. Note there are two names: `label` names the trigger and defaults to the FIRST action's label, while `menuLabel` overrides the trigger's name and therefore the menu's.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,18 @@ export const fabMenu: ComponentDoc = {
     elevation: 3,
   },
   parts: ["FabMenu"],
+  keyboard: [
+    {
+      key: "Android back button",
+      action:
+        "Dismisses the open menu through the modal's request-close path, which reports `onOpenChange(false)`.",
+    },
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "Moves through the actions in order; double-tap runs the action and closes the menu.",
+    },
+  ],
   customization: {
     supported: [
       "`actions` are data, and `label` names the trigger — defaulting to the first action's label.",

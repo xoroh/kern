@@ -5,8 +5,6 @@ export const bottomSheet: ComponentDoc = {
   name: "Bottom sheet",
   oneLiner:
     "Bottom sheets slide up from the bottom edge to hold a short, self-contained step.",
-  features:
-    "Reach for a bottom sheet when someone needs to do one thing without leaving the screen they are on: choose a date, confirm a payment method, apply filters. It anchors to the bottom edge where a thumb already is, which is the whole reason it exists on a compact screen. Keep the task to one decision — a sheet that grows into a form has outgrown itself. Material 3 caps the action row at two actions; a third one means the choice is bigger than a sheet. If the task needs the whole screen, it is a route.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -21,6 +19,18 @@ export const bottomSheet: ComponentDoc = {
     elevation: 0,
   },
   parts: ["BottomSheet"],
+  keyboard: [
+    {
+      key: "Android hardware back",
+      action:
+        "Dismisses the sheet. The drag handle is the visual affordance; back is the system's, and both reach the same dismissal.",
+    },
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        'The scrim reads as a button named "Dismiss <title>" and the close control as "Close <title>" — the close control is rendered when the sheet is given a dismissal handler; double-tap on either dismisses the sheet.',
+    },
+  ],
   customization: {
     supported: [
       "`size` picks between the two sheet heights, so a short decision and a longer one do not share a box.",

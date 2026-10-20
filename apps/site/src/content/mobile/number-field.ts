@@ -5,8 +5,6 @@ export const numberField: ComponentDoc = {
   name: "Number field",
   oneLiner:
     "Number fields hold a number with steppers that clamp at their bound rather than wrapping.",
-  features:
-    "Reach for a number field when the answer is a number within limits and the bounds matter: a quantity, a duration, a count. `min` and `max` are enforced by clamping, and the behaviour worth knowing is that a press at the bound does nothing — it does not wrap and does not fire a change. That is deliberate: a bound press that reports an edit makes every host persisting on change write a value nobody chose. Display and parsing go through `Intl` (`locale` + `format`), so what is shown and what is read stay the same number.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,25 @@ export const numberField: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["NumberField"],
+  // The contract, read off the component: a numeric text input between two
+  // named stepper pressables, both of which refuse at a bound.
+  keyboard: [
+    {
+      key: "0–9",
+      action:
+        "Types into the field. The value is reported as it is typed, and it is clamped to `min` and `max` when it commits on blur.",
+    },
+    {
+      key: "Enter / Space via external keyboard",
+      action:
+        'Activates the focused stepper — the two steppers are pressables named "Decrease" and "Increase".',
+    },
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "Moves between the field and the two steppers; double-tap presses a stepper, which steps the value by `step` — and does nothing at a bound, where the stepper reads disabled.",
+    },
+  ],
   customization: {
     supported: [
       "`value`/`defaultValue`/`onValueChange` make it controlled or uncontrolled; `null` is the empty value.",

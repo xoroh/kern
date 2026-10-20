@@ -5,8 +5,6 @@ export const iconButtonTarget: ComponentDoc = {
   name: "Icon button target",
   oneLiner:
     "Icon button targets are the touch-target wrapper that brings a small button up to the platform minimum.",
-  features:
-    "Reach for an icon button target wherever an icon button sits in a toolbar or a tight row and needs its full touch area. It exists for one reason and the source states it: the platform minimum touch target is larger than the icon button's own box, so a toolbar needs this to guarantee the rest of the target. That gap is exactly the kind of failure nobody notices until they try to tap it — the button looks right, and the part of it that responds is smaller than the part that looks tappable. Wrapping is cheap and the alternative is a control that misses one tap in several.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -17,6 +15,10 @@ export const iconButtonTarget: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["IconButtonTarget"],
+  // M2: the wrapper is a LAYOUT box, not a control. It takes no focus and
+  // answers no key — it enlarges the AREA, and the control inside keeps its
+  // own name, role and keyboard behaviour.
+  nonInteractive: true,
   customization: {
     supported: [
       "`children` is the control being given a full target.",

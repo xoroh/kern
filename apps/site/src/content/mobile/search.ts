@@ -5,8 +5,6 @@ export const search: ComponentDoc = {
   name: "Search",
   oneLiner:
     "Search is the text field that reports every change and, separately, when to search.",
-  features:
-    "Reach for search when the input IS a query: filtering a list, finding a record, looking something up. It keeps two callbacks apart, which is the part worth understanding before you wire it. `onValueChange` fires as the text changes and `onSearch` fires when the query should RUN — so a live filter and a submit-on-enter UI are the same component, and neither has to guess at the other's timing. `label` is the field's name. Note the underlying `value`/`onChangeText` are omitted from the inherited props: this component owns them and renames them.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -17,6 +15,9 @@ export const search: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Search"],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting", "focused"],
   keyboard: [
     {
       key: "External keyboard",
@@ -28,46 +29,10 @@ export const search: ComponentDoc = {
       action:
         "The bar announces as search with its label; the clear control reads as a button and double-tap clears the query.",
     },
-  ],
-  usage: {
-    do: [
-      "`label` names the field — the placeholder is separate and defaults to the same wording.",
-      "Keep `onValueChange` (live change) and `onSearch` (the query to run) separate — they are two different moments.",
-      "Use the docked bar for in-screen search; full search with results wants its own route.",
-    ],
-    dont: [
-      "Don't submit from `onValueChange` — wait for `onSearch`, or every keystroke runs a query.",
-      "Don't hide the clear control's label — it is the only control in the bar besides entry.",
-    ],
-  },
-  tokens: [
     {
-      element: "Bar",
-      state: "resting",
-      token: "theme.color.surfaceContainerHigh",
-      value: "surfaceContainerHigh stadium, full pill, minHeight 56",
-    },
-    {
-      element: "Bar border",
-      state: "focused",
-      token: "theme.color.primary",
-      value: "1px primary border only while focused",
-    },
-    {
-      element: "Query text",
-      state: "resting",
-      token: "theme.color.onSurface",
-      value: "onSurface; placeholder is onSurfaceVariant",
-    },
-  ],
-  faq: [
-    {
-      q: "Search or text field?",
-      a: "A query that runs (`onSearch`) with a clear control means search. Free entry with validation means a text field.",
-    },
-    {
-      q: "How does this differ from the web search?",
-      a: "Same contract (`label`, live change vs run, `onSubmit`/`onChange` stripped in favor of `onSearch`/`onValueChange`). The docked stadium and the focus-only border are drawn to the same roles natively.",
+      key: "Enter (external keyboard)",
+      action:
+        "Submits the query — the field's submit key is wired to `onSearch`, and the platform's search key is what sends it.",
     },
   ],
   customization: {

@@ -5,8 +5,6 @@ export const dialog: ComponentDoc = {
   name: "Dialog",
   oneLiner:
     "A dialog asks people to complete a focused task before they carry on with the rest of the app.",
-  features:
-    "Reach for a dialog when the next step needs a decision and the decision is short: confirming a deletion, choosing between two paths, entering one value. It interrupts on purpose, so keep it to a title, enough description to make the decision safe, and one or two actions. If the task has more than a few fields, or people need to see the screen behind it while they work, use a full-height route instead — an interrupted screen is the wrong place for long work. Everything else on the page is inert while it is open.",
   meta: {
     // Canonical M3 spec page — title identity-verified live; gate re-checks.
     specUrl: "https://m3.material.io/components/dialogs",
@@ -29,26 +27,9 @@ export const dialog: ComponentDoc = {
     "DialogDescription",
     "DialogClose",
   ],
-  anatomy: [
-    {
-      name: "DialogRoot",
-      role: "Owns the open state. Accepts `open`/`onOpenChange` to control it from outside.",
-    },
-    {
-      name: "DialogTrigger",
-      role: "The element that opens the dialog. Carries the expanded state for assistive tech.",
-    },
-    {
-      name: "DialogContent",
-      role: "The surface itself. Portals to the end of the document, renders the backdrop, traps focus and marks the rest of the page inert.",
-    },
-    { name: "DialogTitle", role: "The accessible name of the dialog." },
-    {
-      name: "DialogDescription",
-      role: "The body text. Wired to `aria-describedby` so it is announced with the title.",
-    },
-    { name: "DialogClose", role: "Closes the dialog from inside it." },
-  ],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
   keyboard: [
     {
       key: "Escape",
@@ -57,55 +38,6 @@ export const dialog: ComponentDoc = {
     {
       key: "Tab / Shift+Tab",
       action: "Trapped inside the modal dialog; the page behind is inert.",
-    },
-  ],
-  usage: {
-    do: [
-      "Use for blocking prompts and critical information requiring a decision or acknowledgement.",
-      "Keep headlines to brief specific questions — never apologies, alarm, or ambiguity.",
-      "Max two actions: single acknowledgement, or confirm plus dismiss with confirm closest to the trailing edge.",
-      "Disable confirm until prerequisites hold; dismissive actions are never disabled.",
-    ],
-    dont: [
-      "Don't use for low-priority information — that is a snackbar.",
-      "Don't add a third navigating action — use inline expansion instead.",
-      "Don't obscure the dialog or let it scroll the page behind it.",
-    ],
-  },
-  tokens: [
-    {
-      element: "Container",
-      state: "resting",
-      token: "comp.dialog.container",
-      value: "surface-container-high, 28px, 280-560px, 24px padding",
-    },
-    {
-      element: "Headline",
-      state: "resting",
-      token: "comp.dialog.headline",
-      value: "on-surface, headline-small 24px/32px",
-    },
-    {
-      element: "Supporting text",
-      state: "resting",
-      token: "comp.dialog.supporting",
-      value: "on-surface-variant, body-medium",
-    },
-    {
-      element: "Scrim",
-      state: "resting",
-      token: "sys.color.scrim",
-      value: "32%",
-    },
-  ],
-  faq: [
-    {
-      q: "Dialog or snackbar?",
-      a: "High importance plus required action means dialog; low importance with optional action and auto-dismiss means snackbar.",
-    },
-    {
-      q: "How many actions?",
-      a: "Max two: one acknowledgement, or confirm plus dismiss. Never a third navigating action.",
     },
   ],
   customization: {

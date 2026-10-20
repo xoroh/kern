@@ -5,8 +5,6 @@ export const inputOtp: ComponentDoc = {
   name: "Input OTP",
   oneLiner:
     "OTP inputs take a short numeric code one character at a time, as it is typed.",
-  features:
-    "Reach for an OTP input when the code is short, numeric and read off a device or a message: a login code, a confirmation digit, a pairing pin. Splitting it into cells makes the length obvious and stops anyone pasting in the wrong thing. Keep the code length to what the sender actually issues, because a field that asks for six digits when the message sends eight is a dead end. If the value is a password or anything a person invents, that is a plain input — the OTP pattern is for codes someone else generates.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -16,16 +14,32 @@ export const inputOtp: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["InputOTP", "InputOTPRoot", "InputOTPInput"],
-  anatomy: [
+  // The keyboard contract, read off the cells: the code is ONE field, so the
+  // arrow keys move within it rather than out of it.
+  keyboard: [
     {
-      name: "InputOTPRoot",
-      role: "The field. Owns the code as one value, and lays out one cell per character.",
+      key: "0–9",
+      action:
+        "Fills the cell and moves the focus to the next one — the code advances as it is typed, so nobody has to go back and find the next box. A code that allows letters types the same way.",
     },
     {
-      name: "InputOTPInput",
-      role: "One character cell. Focus and typing move through the cells while the value stays a single string.",
+      key: "ArrowLeft / ArrowRight",
+      action:
+        "Moves the focus to the previous or the next cell. The cells are one field, so the arrow keys travel within the code instead of out of it.",
     },
-    { name: "InputOTP", role: "The namespace object: Root and Input." },
+    {
+      key: "Home / End",
+      action: "Jumps to the first cell, or to the last filled one.",
+    },
+    {
+      key: "Backspace",
+      action:
+        "Steps the focus back one cell, clearing a character on the way: the current cell's if it has one, the previous cell's if it is already empty.",
+    },
+    {
+      key: "Delete",
+      action: "Removes the character in this cell without moving the focus.",
+    },
   ],
   customization: {
     supported: [

@@ -5,8 +5,6 @@ export const toggle: ComponentDoc = {
   name: "Toggle",
   oneLiner:
     "Toggles are pressable buttons that hold a pressed state, and they call it `pressed`.",
-  features:
-    "Reach for a toggle when a button should stay down: bold in a toolbar, a filter that stays on, a bookmark. It is a pressable with `children` required, and its state is named `pressed`/`onPressedChange` — which is worth knowing before you start, because `Switch`, `Checkbox` and `Select` all say `value`/`onValueChange` for the same idea. The naming matches the mental model: a toggle is a button that stays pressed, not a value that is set. Use `ToggleGroup` when several toggles behave as one.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,13 @@ export const toggle: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Toggle"],
+  keyboard: [
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "The toggle reads as a button that reports whether it is selected; double-tap flips it and the new state is announced.",
+    },
+  ],
   customization: {
     supported: [
       "`children` is the button's content and is required.",

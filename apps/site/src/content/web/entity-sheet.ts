@@ -5,8 +5,6 @@ export const entitySheet: ComponentDoc = {
   name: "Entity sheet",
   oneLiner:
     "The entity sheet is the read-mostly detail surface for one record — a title, its fields, and at most one action.",
-  features:
-    "Reach for an entity sheet when the reader asked to inspect something, not to edit it: one record's identity, status and key values, presented and then dismissed. The fields are data — label, value, and a `data` flag for machine-shaped values — and each value sits on the highest container rung so the eye lands on the VALUE rather than the label, the same hierarchy the native sheet uses. The action slot takes at most one primary action, per the spec's guidance: a detail surface with a row of buttons is a dialog in disguise. It hosts through `SheetSurface`, so dismissal and focus behaviour are the family's, not this sheet's own.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -20,6 +18,26 @@ export const entitySheet: ComponentDoc = {
     elevation: 1,
   },
   parts: ["EntitySheet"],
+  // The entity sheet is a MODAL sheet: it is hosted in the shared dialog
+  // shell, so it traps focus, takes Escape and returns focus to whatever
+  // opened it. The fields themselves are text — the one action slot is the
+  // only control the sheet contributes.
+  keyboard: [
+    {
+      key: "Escape",
+      action: "Closes the sheet; focus returns to the element that opened it.",
+    },
+    {
+      key: "Tab / Shift+Tab",
+      action:
+        "Trapped inside the sheet while it is open; the page behind it is inert.",
+    },
+    {
+      key: "Enter / Space",
+      action:
+        "Activates the focused control — the one action slot, and the close control the shell renders.",
+    },
+  ],
   customization: {
     supported: [
       "`title` and `subtitle` are the record's identity; `fields` is the data, rendered as a description list.",

@@ -5,8 +5,6 @@ export const navigationBarItem: ComponentDoc = {
   name: "Navigation bar item",
   oneLiner:
     "Navigation bar items are one destination row for vertical containers — a drawer, a rail or a sidebar list.",
-  features:
-    "Reach for a navigation bar item when you are building a vertical destination list of your own rather than using the horizontal bar or the drawer. It takes the same destination data that `NavigationBar` does, and only the container differs — which is what lets one declaration of your places serve a bottom bar, a drawer and a sidebar. It draws the same Material 3 active indicator, the pill behind the icon, when selected. The row has a fixed minimum height so a list of them reads as even rather than as rows that grew to fit their labels.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -18,6 +16,14 @@ export const navigationBarItem: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["NavigationBarItem"],
+  // The touch contract: one row of a vertical list, and a real pressable.
+  keyboard: [
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "Moves between the rows in the container; double-tap presses the focused row. The row is a `button` pressable named by its label, and the selected one announces as selected.",
+    },
+  ],
   customization: {
     supported: [
       "`label` is required, and `icon`/`badge` are slots.",

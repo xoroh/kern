@@ -5,8 +5,6 @@ export const bootSplash: ComponentDoc = {
   name: "Boot splash",
   oneLiner:
     "Boot splashes cover the first moment of an app, with your mark and optional milestone steps.",
-  features:
-    "Reach for a boot splash while the app is getting ready and there is nothing yet to show. It covers the boot and swaps to your content when `ready` turns true — one flag, no timing to manage. The design decision worth knowing is what it does NOT ship: kern has NO brand mark. `mark` is host-owned, so the logo is yours and the splash cannot quietly become someone else's brand. And rather than only a spinner, `milestones` shows named steps with `currentMilestone`, which turns an anonymous wait into a visible sequence.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",

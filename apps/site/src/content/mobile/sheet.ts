@@ -5,8 +5,6 @@ export const sheet: ComponentDoc = {
   name: "Sheet",
   oneLiner:
     "The native sheet is a titled panel over the current screen, with a body and a dismissal path.",
-  features:
-    "Reach for the sheet when a titled surface should come up over what someone is doing and be leavable: a short form, a set of details, a confirmation. It is the plain member of the family — no snap points, no fixed action row, no picker semantics. Visibility is `open` with `onOpenChange` reporting state, like every other sheet in the family and like the dialog.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -18,6 +16,9 @@ export const sheet: ComponentDoc = {
     elevation: 0,
   },
   parts: ["Sheet"],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
   keyboard: [
     {
       key: "Android back button",
@@ -28,41 +29,6 @@ export const sheet: ComponentDoc = {
       key: "Swipe + double-tap (TalkBack / VoiceOver)",
       action:
         "The `title` announces when the panel appears; the dismiss control reads as a button and double-tap leaves.",
-    },
-  ],
-  usage: {
-    do: [
-      "Name the panel with `title` — it is the accessible label.",
-      "Drive `open` from state and mirror `onOpenChange` so dismiss paths (scrim, back, close control) stay in sync.",
-      "Reach for `BottomSheet` or `SnapSheet` when the panel needs snap points or an action row — this one is the plain panel.",
-    ],
-    dont: [
-      "Don't load a full task into a sheet — a route owns long work, a sheet owns a decision.",
-      "Don't hide the only dismissal in a custom child — the close control must stay reachable.",
-    ],
-  },
-  tokens: [
-    {
-      element: "Surface",
-      state: "resting",
-      token: "theme.color.surfaceContainerLow",
-      value: "surfaceContainerLow",
-    },
-    {
-      element: "Dismiss control",
-      state: "resting",
-      token: "theme.color.onSurfaceVariant",
-      value: "onSurfaceVariant, minHeight 48, minWidth 48",
-    },
-  ],
-  faq: [
-    {
-      q: "`open` or `onDismiss` — which owns the state?",
-      a: "`open`/`onOpenChange` own the state. `onDismiss` is the dismissal action, fired alongside the `false` report on every dismissal path.",
-    },
-    {
-      q: "Sheet, BottomSheet, or SnapSheet?",
-      a: "Sheet is the plain titled panel. BottomSheet adds the action row; SnapSheet adds snap-point detents. Pick the smallest member that carries the content.",
     },
   ],
   customization: {

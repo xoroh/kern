@@ -5,8 +5,6 @@ export const checkboxGroup: ComponentDoc = {
   name: "Checkbox group",
   oneLiner:
     "A checkbox group collects several independent choices into one value you can read at once.",
-  features:
-    "Reach for a checkbox group when a set of options is one question with several right answers — which notifications to receive, which roles to grant, which columns to show. The group owns the aggregate value, so you get one change event carrying the whole selection instead of tracking each box yourself. Each item takes its label as a required prop, because an unnamed option in a list is worse than a missing one. For a set where only one answer is allowed, use a radio group instead.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -21,16 +19,24 @@ export const checkboxGroup: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["CheckboxGroup", "CheckboxGroupRoot", "CheckboxGroupItem"],
-  anatomy: [
+  // The contract, read off the checkboxes: a set of independent controls, so
+  // each option is its own stop and Space is the key that changes them.
+  keyboard: [
     {
-      name: "CheckboxGroupRoot",
-      role: "The group. Owns the aggregate selection and emits one change carrying the whole value.",
+      key: "Space",
+      action:
+        "Ticks or unticks the focused option. Every option is a real checkbox, and the group reports the whole selected list through `onValueChange`.",
     },
     {
-      name: "CheckboxGroupItem",
-      role: "One option. Takes `label` as a required prop and renders its own `<label>`, so each item is named by construction.",
+      key: "Enter",
+      action:
+        "Does not toggle the option — a checkbox is toggled with Space, so Enter is left to the form the group sits in.",
     },
-    { name: "CheckboxGroup", role: "The namespace object: Root and Item." },
+    {
+      key: "Tab / Shift+Tab",
+      action:
+        "Moves between the options, one stop each: a checkbox group is a set of independent controls, not one roving stop.",
+    },
   ],
   customization: {
     supported: [

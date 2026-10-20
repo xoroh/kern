@@ -5,8 +5,6 @@ export const fieldset: ComponentDoc = {
   name: "Fieldset",
   oneLiner:
     "Fieldsets group related controls under one legend and give them a shared disabled state.",
-  features:
-    'Reach for a fieldset when several controls answer one question and belong to each other: a radio group\'s options, a filter\'s checkbox set, a schedule\'s day pickers. The legend is the question, so write it as one — a legend that says "Options" has grouped nothing. The value over plain markup is the shared disabled state: one flag dims and disables the whole group, which is what you want when the answer to the question is "not yet". Use it around any set where disabling one control alone would leave the set half-answered.',
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -16,17 +14,10 @@ export const fieldset: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Fieldset", "FieldsetRoot", "FieldsetLegend"],
-  anatomy: [
-    {
-      name: "FieldsetRoot",
-      role: "The group. Carries the shared disabled state down to everything inside it.",
-    },
-    {
-      name: "FieldsetLegend",
-      role: "The question the group answers. Becomes the group's accessible name.",
-    },
-    { name: "Fieldset", role: "The namespace object: Root and Legend." },
-  ],
+  // M2: a fieldset is a GROUPING, not a control. It takes no focus and
+  // answers no key of its own — the controls inside it are the tab stops,
+  // and `disabled` on the root is what takes them out of the tab order.
+  nonInteractive: true,
   customization: {
     supported: [
       "`className` on the root and on the legend, merged after their own classes.",

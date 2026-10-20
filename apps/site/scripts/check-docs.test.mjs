@@ -57,43 +57,50 @@ describe("check-docs orphan gate", () => {
 });
 
 /**
- * Regression: the thin-page contract (013/D-DOCS-DEPTH, second half).
+ * Regression: the ONE STANDARD (ADR-115) has no tiers.
  *
- * Every family outside the top-20 list carries a thin-but-correct page:
- * the THIN_PAGE_CONTRACT sections in lib/top-families.mjs (API table +
- * a11y notes; the API half is also required of every page by checkSections).
- * These two tests pin both halves:
+ * Decision 013 split the families into a top-20 that carried full pages and
+ * every other family that carried a thin-but-correct page. The one standard
+ * replaced that with ONE page shape: the depth bar is gone — its family list
+ * and its thin-page contract are gone with it — and what replaced them is the
+ * guidance corpus, the teaching half of every page, moved verbatim to
+ * `docs/m3-guidance/<family>.md`.
  *
- *   1. the current tree passes the contract (fails BEFORE the two mobile
- *      toggles gained aria notes);
- *   2. a thin page with its aria notes taken away fails naming the page
- *      (fails if anyone weakens the contract back to prose).
+ * These two tests pin that replacement:
+ *
+ *   1. the guidance corpus passes on the real tree (every family has its
+ *      file, the file equals a fresh render from the manifest, and no page
+ *      still carries a moved field);
+ *   2. a page that still carries a moved field FAILS the run, naming the
+ *      page — so the split cannot quietly reverse itself, which is the
+ *      failure the tiers' replacement has to prevent.
  */
-describe("check-docs thin-page contract", () => {
-  test("every non-top-20 family carries the thin-page contract", () => {
+describe("check-docs one standard (guidance corpus)", () => {
+  test("the guidance corpus is present, verbatim, and the pages carry none of it", () => {
     const run = runGate();
     expect(run.status).toBe(0);
-    expect(run.stderr).not.toContain("not a thin page");
+    expect(run.stdout).toContain("check-docs: guidance corpus");
   }, 60_000);
 
-  test("a thin page without a11y notes fails the run, not just reports", () => {
-    const page = join(site, "src", "content", "mobile", "theme-toggle.ts");
+  test("a page that still carries a moved field fails the run, naming the page", () => {
+    const page = join(site, "src", "content", "web", "separator.ts");
     const aside = `${page}.gated-aside`;
     expect(existsSync(page)).toBe(true);
-    renameSync(page, aside);
+    const src = readFileSync(page, "utf8");
+    const anchor = src.indexOf("  meta: {");
+    expect(anchor).toBeGreaterThan(-1);
+    writeFileSync(
+      page,
+      `${src.slice(0, anchor)}  features: "A pitch that moved.",\n${src.slice(anchor)}`,
+    );
     try {
-      const src = readFileSync(aside, "utf8");
-      const start = src.indexOf("  aria: [");
-      expect(start).toBeGreaterThan(-1);
-      const end = src.indexOf("],", start) + 2;
-      writeFileSync(page, src.slice(0, start) + src.slice(end));
       const run = runGate();
       expect(run.status).toBe(1);
-      expect(run.stderr).toContain(
-        "thin-page mobile/theme-toggle: not a thin page — missing aria",
-      );
+      expect(run.stderr).toContain("still carries `features`");
+      expect(run.stderr).toContain("separator.ts");
     } finally {
-      renameSync(aside, page);
+      writeFileSync(page, src);
+      expect(existsSync(aside)).toBe(false);
     }
   }, 60_000);
 });

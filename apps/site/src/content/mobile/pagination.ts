@@ -5,8 +5,6 @@ export const pagination: ComponentDoc = {
   name: "Pagination",
   oneLiner:
     "Pagination moves through pages of content, with a windowed row and no wrapping at the ends.",
-  features:
-    "Reach for pagination when the content is a list too long to show and too structured to scroll: search results, a table, an archive. The page is 1-based and the row is a WINDOW — a short list shows every page, a long one keeps the first two, a window around the current page and the last two, with inert gaps where pages are elided. Prev and next clamp at the ends rather than wrapping, because a pager that jumps from the last page to the first is a different component from the one Material 3 describes. `accessibilityLabel` names the navigation landmark, which is what makes the row a place rather than a pile of numbers.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,21 @@ export const pagination: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Pagination"],
+  // The contract, read off the component: the pager is a `navigation`
+  // landmark of real pressables, and the gap markers are hidden from the
+  // accessibility tree so they are never read as pages.
+  keyboard: [
+    {
+      key: "Double-tap (TalkBack / VoiceOver)",
+      action:
+        'Activates a page. Every page is a real pressable labelled "Page N", and the current one reports its selected state.',
+    },
+    {
+      key: "Swipe (TalkBack / VoiceOver)",
+      action:
+        "Moves through the page buttons in order. The gaps between them are decoration and are hidden from the accessibility tree, so they are never announced as pages.",
+    },
+  ],
   customization: {
     supported: [
       "`count` sets the total and `value`/`defaultValue`/`onValueChange` make it controlled or uncontrolled, 1-based.",

@@ -5,8 +5,6 @@ export const siteFooter: ComponentDoc = {
   name: "SiteFooter",
   oneLiner:
     "SiteFooter closes a site page with a brand summary, grouped navigation, and optional legal content.",
-  features:
-    "Reach for SiteFooter when several pages share the same closing navigation and project information. You provide the brand, summary, and data-driven groups; internal `to` links use the host `LinkProvider`, while external links use `href`. Optional legal and trailing slots sit below the navigation without making any project-specific claims for you.",
   meta: {
     specUrl: "none",
     status: "real",
@@ -77,14 +75,4 @@ export const siteFooter: ComponentDoc = {
       action: "Follows the focused internal or external link.",
     },
   ],
-  usage: {
-    do: [
-      "Group related destinations under short headings so each footer navigation landmark has a meaningful name.",
-      "Use `to` for internal routes when a host router is injected and `href` for external destinations.",
-    ],
-    dont: [
-      "Don't add links that do not resolve in the host site; the footer is a route surface, not placeholder navigation.",
-      "Don't put the same group of destinations in multiple footer navs on a page.",
-    ],
-  },
 };

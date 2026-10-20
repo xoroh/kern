@@ -5,8 +5,6 @@ export const selectGroup: ComponentDoc = {
   name: "Select group",
   oneLiner:
     "Select groups collect related options under one label inside the open list.",
-  features:
-    "Reach for a select group when the option list is long enough to need landmarks: sizes, cuisines, countries. It renders its children with `SelectGroupLabel` naming them, so the set reads as sections rather than as one undifferentiated run. It owns no value and no open state — grouping is presentation, and the select owns everything else.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -18,38 +16,29 @@ export const selectGroup: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["SelectGroup"],
-  anatomy: [
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
+  keyboard: [
     {
-      name: "SelectGroup",
-      role: "The group. Renders its options with the label above them.",
+      key: "Tab",
+      action:
+        'Never lands on the group. It is a `role="group"` container rather than a control, so it is not in the tab order at all — its label is read with the options it names.',
     },
     {
-      name: "SelectGroupLabel",
-      role: "The group's name. Read with the options it heads.",
+      key: "Arrow keys",
+      action:
+        "Move the highlight between the options while the list is open. The group label is skipped — only options are selectable, so a group boundary is not a stop.",
     },
-  ],
-  usage: {
-    do: [
-      "Group options that share a meaning — the label is what makes the group scannable.",
-      "Keep every option inside exactly one group or none; half-grouped lists read as accidents.",
-    ],
-    dont: [
-      "Don't nest groups — one level of sections is the whole pattern.",
-      "Don't put the selected value in the label — the field already shows the choice.",
-    ],
-  },
-  tokens: [
     {
-      element: "Group",
-      state: "resting",
-      token: "transparent",
-      value: "no surface of its own — the list surface carries the paint",
+      key: "Enter / Space",
+      action:
+        "Commits the highlighted option and closes the list; focus returns to the trigger.",
     },
-  ],
-  faq: [
     {
-      q: "Group or flat list?",
-      a: "More than a screenful of unsorted options means groups; a short set reads better flat.",
+      key: "Escape",
+      action:
+        "Closes the list without changing the value; focus returns to the trigger.",
     },
   ],
   customization: {

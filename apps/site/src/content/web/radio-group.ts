@@ -5,8 +5,6 @@ export const radioGroup: ComponentDoc = {
   name: "Radio group",
   oneLiner:
     "Radio groups let people pick exactly one option from a set they can see all at once.",
-  features:
-    "Reach for a radio group when the choices are few enough to show together and only one may be chosen: a plan, a delivery speed, a severity. Showing the whole set at once is the point — if the list is long enough to need scrolling or searching, that is a select, and if the answer is really a series of independent switches, that is a checkbox group. Give the set a question with a Fieldset and legend, because the group itself has no label slot and an unlabelled set of options is a list of guesses.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -16,16 +14,9 @@ export const radioGroup: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["RadioGroup", "RadioGroupItem"],
-  anatomy: [
-    {
-      name: "RadioGroup",
-      role: "The set. Owns the selected value and enforces that only one is chosen at a time.",
-    },
-    {
-      name: "RadioGroupItem",
-      role: "One option. Renders its own `<label>` around the control and the label text, so the name is associated without wiring.",
-    },
-  ],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting", "hover"],
   keyboard: [
     {
       key: "Arrow keys",
@@ -40,50 +31,6 @@ export const radioGroup: ComponentDoc = {
     {
       key: "Space",
       action: "Checks the focused radio when using manual activation.",
-    },
-  ],
-  usage: {
-    do: [
-      "Use when exactly one option in a set may be chosen — grouped by shared name.",
-      "Place the group in a `radiogroup` with a visible label.",
-      "Give every radio an `aria-label` — radios are never auto-labelled.",
-    ],
-    dont: [
-      "Don't wrap radios inside a `<label>` — it stops screen readers announcing the group count.",
-      "Don't use for independent multi-choices — that is a checkbox.",
-      "Don't use for a single on/off — that is a switch.",
-    ],
-  },
-  tokens: [
-    {
-      element: "Control",
-      state: "resting",
-      token: "comp.radio.icon-size",
-      value: "20px",
-    },
-    {
-      element: "Unselected ring",
-      state: "resting",
-      token: "comp.radio.icon-color",
-      value: "--sys-color-on-surface-variant",
-    },
-    {
-      element: "Selected dot and ring",
-      state: "resting",
-      token: "comp.radio.selected-icon-color",
-      value: "--sys-color-primary",
-    },
-    {
-      element: "State layer",
-      state: "hover",
-      token: "sys.state.hover-state-layer-opacity",
-      value: "8%",
-    },
-  ],
-  faq: [
-    {
-      q: "Radio or select?",
-      a: "Radio shows every option at once (2–5 visible choices). Select hides options behind a menu — better for 6+ options or tight space.",
     },
   ],
   customization: {

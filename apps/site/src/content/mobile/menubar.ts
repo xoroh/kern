@@ -5,8 +5,6 @@ export const menubar: ComponentDoc = {
   name: "Menubar",
   oneLiner:
     "Menubars hold several named menus in one bar, each opening its own list of actions.",
-  features:
-    "Reach for a menubar when there are several groups of actions and each group has a name people already know: File, Edit, View. It is the horizontal container of menus, and it reuses the same `NativeMenuItem` shape that a single `Menu` does, so an action can move from one menu into another without changing its data. Each menu in the bar carries its own `label`, which is what makes the bar legible as a row of named destinations rather than a row of buttons.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -17,6 +15,21 @@ export const menubar: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Menubar"],
+  // The contract, read off the component: the bar is a menubar of
+  // menuitem pressables, and the open menu is a modal — so the hardware
+  // back button is the way out of it.
+  keyboard: [
+    {
+      key: "Hardware back (Android)",
+      action:
+        "Closes the open menu. The modal's request-close is wired to the same dismiss path as picking an item.",
+    },
+    {
+      key: "Double-tap (TalkBack / VoiceOver)",
+      action:
+        "Opens a menu in the bar. Each entry is a `menuitem` pressable named by its menu, and the items in the open menu are pressables too.",
+    },
+  ],
   customization: {
     supported: [
       "`menus` are data — a `label` and an `items` list per menu.",

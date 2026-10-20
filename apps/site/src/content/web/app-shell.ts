@@ -5,8 +5,6 @@ export const appShell: ComponentDoc = {
   name: "App shell",
   oneLiner:
     "The app shell is the frame around everything else — top bar, rail, drawer, status bar — with every region optional.",
-  features:
-    "Reach for the app shell when you are laying out an application rather than a page. Its rule is that every region is optional, and that is the whole design: `topBar`, `rail`, `drawer` and `statusBar` are slots, and omitting them yields every shell shape there is — a docs shell, a rail-only tool, a full multi-region app — from one component. Recipes for those shapes live in the README rather than in forked components, so there is exactly one shell to maintain and to learn. `Document` is the page-level counterpart for the document it wraps.",
   meta: {
     status: "real",
     package: "@xoroh/kern/start",
@@ -16,6 +14,10 @@ export const appShell: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["AppShell", "Document"],
+  // M2: the shell is a FRAME — named regions around the content. It takes
+  // no focus and answers no key; what is inside each region is what the
+  // keyboard reaches.
+  nonInteractive: true,
   customization: {
     supported: [
       "Every region is a slot: `topBar`, `rail`, `drawer`, `statusBar`. Omit what you do not have.",

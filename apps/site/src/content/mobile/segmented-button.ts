@@ -5,8 +5,6 @@ export const segmentedButton: ComponentDoc = {
   name: "Segmented button",
   oneLiner:
     "Segmented buttons are a joined row of choices where the selection is shown by a check, not a fill.",
-  features:
-    "Reach for a segmented button when the choices are few, mutually visible and worth showing together: a view mode, a range, a filter of two or three. Material 3's rule is the one to understand — the selection is carried by a CHECK on the selected segment, not by a separate fill. The row reads as one control rather than as several buttons, which is what distinguishes it from a row of toggles. `variants` here means SELECTION BEHAVIOUR — single versus multiple — matching Material 3, so the same row can be a one-of-many or a any-of-many without changing shape.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -18,6 +16,9 @@ export const segmentedButton: ComponentDoc = {
     elevation: 0,
   },
   parts: ["SegmentedButton"],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting", "selected", "disabled"],
   keyboard: [
     {
       key: "Enter / Space via external keyboard",
@@ -29,52 +30,10 @@ export const segmentedButton: ComponentDoc = {
       action:
         "The group reads as a radio group (single) or checkboxes (multiple); each segment announces its label and selected state; double-tap chooses.",
     },
-  ],
-  usage: {
-    do: [
-      "Use single mode for mutually exclusive views or aspects; plural props (`values`/`defaultValues`) switch to multiple mode.",
-      "Keep two to five options with one-word labels — segments are a switchboard, not a menu.",
-      "Let the check mark carry selection in multiple mode — it is the only treatment that reads unambiguously.",
-    ],
-    dont: [
-      "Don't use a segmented button for navigation between screens — that is tabs or the navigation bar.",
-      "Don't mix single and plural props — which axis was used IS the mode.",
-    ],
-  },
-  tokens: [
     {
-      element: "Bar",
-      state: "resting",
-      token: "theme.color.outline",
-      value: "1px outline joined row, full pill, minHeight 40 per segment",
-    },
-    {
-      element: "Selected segment",
-      state: "selected",
-      token: "theme.color.secondaryContainer",
-      value: "secondaryContainer fill with check mark",
-    },
-    {
-      element: "Selected label",
-      state: "selected",
-      token: "theme.color.onSecondaryContainer",
-      value: "onSecondaryContainer, semibold (unselected: onSurface, medium)",
-    },
-    {
-      element: "Disabled segment",
-      state: "disabled",
-      token: "opacity 0.38",
-      value: "whole segment dims to 38%",
-    },
-  ],
-  faq: [
-    {
-      q: "Segmented button, tabs, or chips?",
-      a: "A value switch inside one view means segmented button; switching views means tabs; selecting among visible peers means chips or filter rows.",
-    },
-    {
-      q: "How does this differ from the web segmented button?",
-      a: "Same contract: single mode is radio semantics (activating never deselects), multiple mode is checkboxes, and the plural-props axis is the mode. Selection reads through the secondary fill plus the check on both renderers.",
+      key: "Swipe over a disabled segment (TalkBack / VoiceOver)",
+      action:
+        "A disabled segment reports itself as unavailable and cannot be chosen — it stays in the row, so the set still reads as the full range of options.",
     },
   ],
   customization: {

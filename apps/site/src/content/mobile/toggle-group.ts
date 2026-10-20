@@ -5,8 +5,6 @@ export const toggleGroup: ComponentDoc = {
   name: "Toggle group",
   oneLiner:
     "Toggle groups hold several toggles and report either one selection or several, depending on `multiple`.",
-  features:
-    "Reach for a toggle group when several toggles behave as one control: a toolbar of formatting switches, a set of filters. The group owns the selection and the options are data. The one thing to understand before you start is `value`: it is a `string` for an exclusive group and a `string[]` when `multiple` is set, and the type says `string | string[]` because the prop genuinely changes shape with that flag. That means your `onValueChange` handler has to handle both unless you know which mode you are in — and you should know, because it is one boolean away.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,20 @@ export const toggleGroup: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["ToggleGroup"],
+  // The contract, read off the component: the group is a radiogroup and
+  // each option is a radio-role pressable that reports its selected state.
+  keyboard: [
+    {
+      key: "Double-tap (TalkBack / VoiceOver)",
+      action:
+        "Activates a toggle. Each option is a real pressable, and whether the group is exclusive or multi decides what the selection becomes.",
+    },
+    {
+      key: "Swipe (TalkBack / VoiceOver)",
+      action:
+        "Moves between the toggles in order, and the selected one announces as selected — the state is not carried by colour.",
+    },
+  ],
   customization: {
     supported: [
       "`options` are data, so the group is a declaration.",

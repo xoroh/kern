@@ -5,8 +5,6 @@ export const supportingPane: ComponentDoc = {
   name: "Supporting pane",
   oneLiner:
     "Supporting panes hold the secondary panel beside main content, and hide it entirely on a compact screen.",
-  features:
-    "Reach for a supporting pane when the main content has a companion that is useful but not essential: an inspector, a preview, a summary. `supporting` is the companion and `children` is the main content. The behaviour worth knowing is the compact rule: below `compactBreakpoint` the pane hides ENTIRELY rather than squeezing — Material 3's compact breakpoint is 600 — because a secondary panel that survives by stealing half a phone screen stops being secondary. `currentWidth` is supplied by the host, since the component cannot measure the window reliably on its own.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",

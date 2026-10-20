@@ -44,6 +44,16 @@ export type ExampleSpec = {
    * shown under the demo so the reader can copy the real thing.
    */
   code?: string;
+  /**
+   * The package the fence's components are imported from. Defaults to
+   * `@xoroh/kern` — the web barrel every web component comes from. A NATIVE
+   * example declares `@xoroh/kern-native` here, so the copyable export
+   * imports from the package that actually exports the component: without
+   * it the Export button would hand a reader a module that does not
+   * compile, because the fence's tags would be resolved against the web
+   * barrel, which has no native-only export.
+   */
+  package?: string;
 };
 
 /**

@@ -5,8 +5,6 @@ export const aspectRatio: ComponentDoc = {
   name: "Aspect ratio",
   oneLiner:
     "Aspect ratio boxes keep a fixed width-to-height ratio, whatever width they are given.",
-  features:
-    "Reach for an aspect ratio box when something must not jump as it loads or resize: an image, a video, a map, a thumbnail. The `ratio` is width divided by height — `16/9` for widescreen, `4/3` for the older frame, `1` for a square — so the number means what it says rather than being a named format you have to remember. The box reserves its space up front, which is what stops the layout shifting when the content arrives. That is the whole reason to reach for it rather than setting a height: the height is derived, so it stays right at every width.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -17,6 +15,9 @@ export const aspectRatio: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["AspectRatio"],
+  // The box is LAYOUT: it keeps a ratio and takes no focus, so there is no
+  // keyboard contract to write. The content inside it owns its own.
+  nonInteractive: true,
   customization: {
     supported: [
       "`ratio` is width divided by height, so `16/9` is widescreen and `1` is square.",

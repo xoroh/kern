@@ -5,8 +5,6 @@ export const hero: ComponentDoc = {
   name: "Hero",
   oneLiner:
     "Hero opens a page with its main heading, supporting copy, actions, and optional art.",
-  features:
-    "Reach for Hero when a page needs one clear opening statement and a next step. It gives you slots for the eyebrow, heading, supporting copy, actions, and optional art, while the host supplies the actual content and controls. The layout stacks on narrow screens and places the art beside the message at wider widths.",
   meta: {
     specUrl: "none",
     status: "real",
@@ -78,14 +76,4 @@ export const hero: ComponentDoc = {
         "Moves through any interactive content supplied in `actions` or `art` in DOM order.",
     },
   ],
-  usage: {
-    do: [
-      "Use one Hero for the primary opening on a page, with a concise heading and a next step.",
-      "Keep decorative art decorative, and provide alternative text for meaningful images in the art slot.",
-    ],
-    dont: [
-      "Don't use Hero for a section heading halfway down a page; use a heading and ordinary layout instead.",
-      "Don't put essential copy only in the art slot, where it may be visually hidden or harder to scan.",
-    ],
-  },
 };

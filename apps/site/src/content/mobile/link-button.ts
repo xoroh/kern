@@ -5,8 +5,6 @@ export const linkButton: ComponentDoc = {
   name: "LinkButton",
   oneLiner:
     "The button treatment on a navigation control: five Material 3 treatments, the link role, one press to a destination.",
-  features:
-    "Reach for a link button when the destination should wear the button treatment — opening docs, jumping to settings, going outward. It bridges onto the same Button style kernel, so every axis (`variant`, `color`, `size`, `shape`, `block`, `toggle`, `icon`) resolves through the one treatment map and the link can never drift from the button. What differs is the role and the press: `accessibilityRole` is `link`, and without an `onPress` the tap opens `href` via `Linking`, so routing composes by URL on both renderers. `href` is required — a link without one is a button wearing link paint, so use `Button` for that. Trailing icons are coerced to the inline start with a dev warning, matching the web rule.",
   meta: {
     specUrl: "https://m3.material.io/components/buttons",
     status: "real",
@@ -22,6 +20,9 @@ export const linkButton: ComponentDoc = {
     elevation: 0,
   },
   parts: ["LinkButton"],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
   keyboard: [
     {
       key: "Enter / Space",
@@ -32,32 +33,6 @@ export const linkButton: ComponentDoc = {
       key: "Swipe + double-tap (TalkBack / VoiceOver)",
       action:
         "Moves through links in order; double-tap opens the destination. Disabled links are skipped.",
-    },
-  ],
-  usage: {
-    do: [
-      "Give every LinkButton an `href` — the destination is the point of the control.",
-      "Let the default press open the URL, and pass `onPress` only to add behaviour around navigation.",
-      "Keep labels to a few words — the link resolves its height from the `kern.button.size` scale and truncates long text.",
-    ],
-    dont: [
-      "Don't use a LinkButton for in-place actions — saving, sending and opening dialogs are `Button` jobs.",
-      "Don't put the icon at the end — M3 link buttons cannot carry trailing icons.",
-      "Don't stack multiple filled links — demote the rest to tonal, outlined, or text.",
-    ],
-  },
-  tokens: [
-    {
-      element: "Filled container",
-      state: "resting",
-      token: "theme.color.primary",
-      value: "primary",
-    },
-    {
-      element: "Label",
-      state: "resting",
-      token: "theme.color.onPrimary",
-      value: "onPrimary",
     },
   ],
   customization: {
@@ -72,14 +47,6 @@ export const linkButton: ComponentDoc = {
       "There is no `asChild` takeover — compose routers by URL through `href`.",
     ],
   },
-  deviations: [
-    {
-      id: "K11",
-      spec: 'M3\'s component elevation table names no link-button row. It tabulates "menu" and "rich tooltip" at level 2 and "dialogs (modal)" at level 3, but no row describes a link resting elevation.',
-      kern: "The link button rests at elevation level 0 — text on surface, no shadow token; level 0 is shadow: none.",
-      why: "A link has no container; elevation would put a shadow under text. The level-0 claim is registered in the elevation inventory so it is asserted rather than assumed.",
-    },
-  ],
   api: [
     {
       name: "href",

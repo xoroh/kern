@@ -5,8 +5,6 @@ export const settingsRow: ComponentDoc = {
   name: "Settings row",
   oneLiner:
     "Settings rows pair a label and supporting text with the control that owns them.",
-  features:
-    "Reach for a settings row when a setting needs a label, an explanation, and its control in one scannable line: a toggle with its name, a stepper with its unit, a chevron with its destination. The row itself is not pressable — activation belongs to the trailing control, so the row carries no accessibility role beyond its label. What the web blocks catalog composes from parts, native ships as one row.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -17,31 +15,14 @@ export const settingsRow: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["SettingsRow"],
-  usage: {
-    do: [
-      "Name the setting in `label` and explain it in `supporting` — one line each, truncated, never wrapped into paragraphs.",
-      "Own exactly one control in `trailing` — the row names, the control acts.",
-      "Keep rows uniform: same `56dp` height and `16dp` insets down the whole screen.",
-    ],
-    dont: [
-      "Don't make the row itself pressable — the press belongs to the trailing control, and a pressable row with a pressable child is two targets wearing one label.",
-      "Don't stack two controls in `trailing` — split the row instead.",
-    ],
-  },
-  tokens: [
-    {
-      element: "Row",
-      state: "resting",
-      token: "theme.color.surface",
-      value: "surface, minHeight 56, 16dp horizontal insets",
-    },
-  ],
-  faq: [
-    {
-      q: "Settings row or list item?",
-      a: "A setting owned by a trailing control means settings row; navigation to another screen means list item. Control in the row, destination out of it.",
-    },
-  ],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
+  // M2: the row is a `summary`, not a control — it has no `onPress` by
+  // design, because pressability would steal the trailing control's
+  // activation. It takes no focus and answers no key; the control in the
+  // trailing slot is what the screen reader reaches.
+  nonInteractive: true,
   customization: {
     supported: [
       "`label` is required and becomes the accessible name; `supporting` is the second line.",

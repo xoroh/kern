@@ -5,8 +5,6 @@ export const popover: ComponentDoc = {
   name: "Popover",
   oneLiner:
     "Popovers surface a small panel of content or controls next to whatever opened them.",
-  features:
-    "Reach for a popover when a secondary control belongs beside its trigger but has no business taking the whole screen: a colour picker, a link's edit fields, a filter's options. It anchors to its trigger, so the connection between what you pressed and what appeared is obvious. It is not for information a person must read — a tooltip already covers a sentence, and anything longer is a panel or a dialog. It is not for navigation, which is a menu. If the panel has actions that commit something, keep them inside it and give it a title so the panel announces itself.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -33,57 +31,23 @@ export const popover: ComponentDoc = {
     "PopoverDescription",
     "PopoverClose",
   ],
-  deviations: [
-    {
-      id: "K6",
-      spec: 'M3\'s component elevation table names no popover. It tabulates "menu" and "rich tooltip" at level 2, which kern maps to `navigation-menu` and `tooltip` respectively — neither row describes a popover.',
-      kern: "The popover surface rests at elevation level 2.",
-      why: "The panel floats above the page and needs the same lift the other overlays at that height have, but borrowing the menu row would claim M3 said something about popovers it never said. The level is registered as K6 in m3-elevation.ts so the choice is a recorded decision rather than a number sitting in a stylesheet.",
-    },
-  ],
-  anatomy: [
-    {
-      name: "PopoverRoot",
-      role: "Owns the open state. Accepts `open`/`onOpenChange` to control it.",
-    },
-    { name: "PopoverTrigger", role: "The element the panel is anchored to." },
-    {
-      name: "PopoverContent",
-      role: "The panel. Portals to the end of the document and positions itself against its trigger.",
-    },
-    {
-      name: "PopoverTitle",
-      role: "Names the panel, so it announces what appeared rather than just that something did.",
-    },
-    { name: "PopoverDescription", role: "Supporting line under the title." },
-    { name: "PopoverClose", role: "Closes the panel from inside it." },
-    { name: "Popover", role: "The namespace object: all of the parts above." },
-  ],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
   keyboard: [
     {
       key: "Escape",
       action: "Closes the popover; focus returns to the trigger.",
     },
-  ],
-  usage: {
-    do: [
-      "Anchor to triggers for transient content and small menus.",
-      "Dismiss on outside tap and Escape alike.",
-    ],
-    dont: ["Don't use for blocking decisions — that is a dialog."],
-  },
-  tokens: [
     {
-      element: "Container",
-      state: "resting",
-      token: "comp.menu.container",
-      value: "surface-container, 4px, level2",
+      key: "Enter / Space",
+      action:
+        "Opens the panel from the trigger. The trigger is a real button, so the press is the browser's own.",
     },
-  ],
-  faq: [
     {
-      q: "Popover or menu?",
-      a: "Popover for free content anchored to a trigger; menu for choice lists with keyboard traversal.",
+      key: "Tab",
+      action:
+        "Moves focus into the panel when it opens — onto the first focusable inside it — and then on through the page. A popover does not trap focus, because the content behind it stays operable.",
     },
   ],
   customization: {

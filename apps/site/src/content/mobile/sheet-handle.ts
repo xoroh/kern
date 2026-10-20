@@ -5,8 +5,6 @@ export const sheetHandle: ComponentDoc = {
   name: "Sheet handle",
   oneLiner:
     "Sheet handles are the small drag affordance drawn at the top of a sheet.",
-  features:
-    "Reach for a sheet handle when the sheet can be dragged and the affordance should say so. It is a fixed pill at the Material 3 handle size on the reduced-emphasis variant colour — Material 3's handle, drawn as it is specified rather than approximated. The one rule that matters is the same one the rest of the family follows: only show the handle where dragging actually dismisses the sheet. A handle on a sheet that will not drag is a promise the interface does not keep, and every sheet in the family exposes a way to hide it for exactly that reason.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -17,6 +15,10 @@ export const sheetHandle: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["SheetHandle"],
+  // The handle is an AFFORDANCE, not a control: it is hidden from
+  // assistive tech entirely and handles no keys. The drag belongs to the
+  // sheet and the host.
+  nonInteractive: true,
   customization: {
     supported: [
       "`className` is not the model here — the handle's look is Material 3's and comes from the resolved scheme.",

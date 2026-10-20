@@ -5,8 +5,6 @@ export const circularProgress: ComponentDoc = {
   name: "Circular progress",
   oneLiner:
     "Circular progress is the ring — measured when it has a value, looping when it does not.",
-  features:
-    "Reach for circular progress when the wait is a ring: an inline spinner, a determinate arc, a branded loading moment. It is the one progress component that does BOTH jobs — pass `value` and it draws a measured arc, omit it and it runs the indeterminate loop. The rule the component enforces is worth knowing: determinate renders the Material 3 circular arc regardless of the style you ask for, because known progress means determinate. The decorative styles are for the unmeasured wait, and some of them are reserved — defined in the spec but not rendered yet, and they throw rather than silently falling back, which is the honest failure.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,10 @@ export const circularProgress: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["CircularProgress"],
+  // A progress ring is a STATUS, not a control: it takes no focus and
+  // handles no keys, so there is no keyboard contract to write. What it
+  // announces is the aria contract below.
+  nonInteractive: true,
   customization: {
     supported: [
       "`value` in 0–1 picks determinate; omitting it runs the indeterminate loop.",

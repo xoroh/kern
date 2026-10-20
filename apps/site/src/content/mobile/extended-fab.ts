@@ -5,8 +5,6 @@ export const extendedFab: ComponentDoc = {
   name: "Extended fab",
   oneLiner:
     "Extended fabs are floating action buttons that carry a label and can collapse to an icon on demand.",
-  features:
-    "Reach for an extended fab when the primary action needs saying as well as showing: create, compose, add. It is a floating button with a visible label, and the label doubles as the accessible name when it collapses — which is the detail that makes collapsing safe. The collapse is imperative rather than a prop: a handle exposes `collapse`, `expand` and `toggle`, so the HOST decides when it happens — typically when the screen scrolls and the button needs to get out of the way. That keeps the timing with whoever knows about the scroll rather than guessing at it inside the button.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,13 @@ export const extendedFab: ComponentDoc = {
     elevation: 3,
   },
   parts: ["ExtendedFab"],
+  keyboard: [
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "The fab reads as a button named by its label — the same name in the expanded and the collapsed form, so collapsing never silences it. Double-tap runs the action.",
+    },
+  ],
   customization: {
     supported: [
       "`label` is visible and doubles as the accessible name when collapsed.",

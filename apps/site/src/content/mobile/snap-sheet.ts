@@ -5,8 +5,6 @@ export const snapSheet: ComponentDoc = {
   name: "Snap sheet",
   oneLiner:
     "Snap sheets settle at one of a few fixed heights, so a panel can be half open or fully open.",
-  features:
-    "Reach for a snap sheet when the content wants two or three resting heights rather than one: a map's list that grows, a player that expands, a filter that opens wider. The snap points are declared as fractions of the viewport with their own labels, so the heights are a decision made once rather than a drag gesture discovered by accident. The host drives which point is showing, which keeps the sheet honest about what it can and cannot do — and leaves room for a gesture engine later without changing the interface.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -20,6 +18,20 @@ export const snapSheet: ComponentDoc = {
     elevation: 0,
   },
   parts: ["SnapSheet"],
+  // The contract, read off the component: the handle is an adjustable that
+  // advances the snap point, and the sheet is hosted in the shared modal.
+  keyboard: [
+    {
+      key: "Double-tap (TalkBack / VoiceOver)",
+      action:
+        "Presses the handle, which advances to the next snap point. The handle is an adjustable that announces the current point by its label, so where the sheet is resting is spoken rather than shown.",
+    },
+    {
+      key: "Android hardware back",
+      action:
+        "Closes the sheet, through the same dismissal a scrim press uses — the modal's request-close is wired to the sheet's own dismissal handler.",
+    },
+  ],
   customization: {
     supported: [
       "`snapPoints` declares the resting heights as viewport fractions with labels, so the set is a decision rather than a guess.",

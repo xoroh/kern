@@ -5,8 +5,6 @@ export const navigationDrawer: ComponentDoc = {
   name: "Navigation drawer",
   oneLiner:
     "The navigation drawer is the modal panel that lists an app's top-level destinations on larger screens.",
-  features:
-    "Reach for a navigation drawer when the app has more destinations than a navigation bar can hold, or when a compact screen needs the full list rather than five icons. It shares one destination list with the bar and the rail, so you declare your places once. It is the modal variant: a scrim, a focus trap and Escape to dismiss, and picking a destination closes the drawer — a modal panel that stays open after you choose is a trap. M3 only forbids the bar and the modal drawer being visible at once, and that is the host's call to make, not the component's.",
   meta: {
     // Canonical M3 spec page — title identity-verified live; gate re-checks.
     specUrl: "https://m3.material.io/components/navigation-drawer",
@@ -22,6 +20,9 @@ export const navigationDrawer: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["NavigationDrawer"],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
   keyboard: [
     {
       key: "Escape",
@@ -30,43 +31,6 @@ export const navigationDrawer: ComponentDoc = {
     {
       key: "Tab / Shift+Tab",
       action: "Trapped inside the drawer while open; the page behind is inert.",
-    },
-  ],
-  usage: {
-    do: [
-      "Use for many destinations or modal navigation contexts.",
-      "Close the drawer on item activation — the reader chose somewhere to go.",
-      "Keep the trigger visible so the drawer can be reopened.",
-    ],
-    dont: [
-      "Don't use where a bar or rail fits — drawers hide navigation behind a gesture.",
-      "Don't leave focus behind on close — it returns to the trigger.",
-    ],
-  },
-  tokens: [
-    {
-      element: "Panel",
-      state: "resting",
-      token: "comp.navigation-drawer.container",
-      value: "360px (80vw cap), surface-container-low, large end rounding",
-    },
-    {
-      element: "Selected item",
-      state: "resting",
-      token: "comp.navigation-drawer.selected",
-      value: "secondary-container pill + on-secondary-container",
-    },
-    {
-      element: "Scrim",
-      state: "resting",
-      token: "sys.color.scrim",
-      value: "40%",
-    },
-  ],
-  faq: [
-    {
-      q: "When does the drawer close?",
-      a: "On item activation, Escape, or scrim tap — always with focus returning to the trigger.",
     },
   ],
   customization: {

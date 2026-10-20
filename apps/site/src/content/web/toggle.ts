@@ -5,8 +5,6 @@ export const toggle: ComponentDoc = {
   name: "Toggle",
   oneLiner:
     "Toggles are buttons that stay pressed, for a setting you switch on and off.",
-  features:
-    "Reach for a toggle when the thing is a button first and a state second: bold in a toolbar, a pinned item, a starred row. It is pressed or it is not, and it looks like the button you pressed to get there. Inside a ToggleGroup it becomes one option in a set — pass it a `value` and it joins the group's selection. If the control applies a setting immediately and has no button identity, that is a switch; if it picks one of several, that is a segmented control or a radio group.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -16,6 +14,18 @@ export const toggle: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Toggle"],
+  keyboard: [
+    {
+      key: "Enter / Space",
+      action:
+        "Flips the toggle. It is a real button carrying `aria-pressed`, so the press is the browser's and the state is announced rather than implied by colour.",
+    },
+    {
+      key: "Tab / Shift+Tab",
+      action:
+        "Moves focus into and out of the toggle. A disabled toggle is skipped in the tab order.",
+    },
+  ],
   customization: {
     supported: [
       "`className` is passed through and merged after the toggle's own classes.",

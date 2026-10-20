@@ -5,8 +5,6 @@ export const fab: ComponentDoc = {
   name: "Fab",
   oneLiner:
     "The floating action button is the one primary action of a screen, raised and always within thumb reach.",
-  features:
-    "Reach for a fab when a screen has exactly one action that matters most — compose, add, navigate — and that action should be available without scrolling. Material 3's fab variants are a SIZE axis, not an emphasis axis, so `size` walks small 40, default 56, medium 80 and large 96 plus kern's compact `icon`; `color` walks the seven expressive styles with the container/ink pairing resolved per style. The fab rests at elevation level 3 — it is one of the few components that genuinely floats — and `fabStyles` is exported so the same raised surface can back a custom pressable.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -20,6 +18,9 @@ export const fab: ComponentDoc = {
     elevation: 3,
   },
   parts: ["Fab"],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
   keyboard: [
     {
       key: "Enter / Space via external keyboard",
@@ -29,54 +30,6 @@ export const fab: ComponentDoc = {
       key: "Swipe + double-tap (TalkBack / VoiceOver)",
       action:
         "Announces as a button with its `label`; double-tap runs the action. Keep `label` in step with the visible content.",
-    },
-  ],
-  usage: {
-    do: [
-      "Give a screen exactly one fab for its one primary action — compose, add, go.",
-      "Pick the size by emphasis context: default 56 for the standard case, small 40 for compact, medium 80 / large 96 for expressive emphasis.",
-      "`color` defaults to the primary treatment; the six other styles retint without changing the elevation.",
-    ],
-    dont: [
-      "Don't put two fabs on one screen — one primary action means one fab.",
-      "Don't use a fab for navigation between destinations — that is the navigation bar's job.",
-      "Don't ship a fab with no `onPress` — a floating decoration in the wrong place.",
-    ],
-  },
-  tokens: [
-    {
-      element: "Container",
-      state: "resting",
-      token: "theme.color.primaryContainer",
-      value: "primaryContainer (default `primary`), level 3",
-    },
-    {
-      element: "Ink",
-      state: "resting",
-      token: "theme.color.onPrimaryContainer",
-      value: "onPrimaryContainer label and glyph",
-    },
-    {
-      element: "Container shape",
-      state: "resting",
-      token: "theme.shape.large",
-      value: "large corners (lowered rests at level 1)",
-    },
-    {
-      element: "Surface option",
-      state: "resting",
-      token: "theme.color.surfaceContainerHigh",
-      value: "surfaceContainerHigh with primary ink for the `surface` style",
-    },
-  ],
-  faq: [
-    {
-      q: "Which size?",
-      a: "Default 56 is the standard fab. Small 40 is compact-only (deprecated for general use); medium 80 and large 96 are expressive emphasis; icon is the 56 square for rails.",
-    },
-    {
-      q: "How does this differ from the web fab?",
-      a: "Same size axis, same seven color styles, same level-3 resting elevation (Android elevation 3dp, iOS quartet to match). The `lowered` treatment rests at level 1 on both renderers.",
     },
   ],
   customization: {

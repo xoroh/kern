@@ -5,8 +5,6 @@ export const topAppBar: ComponentDoc = {
   name: "Top app bar",
   oneLiner:
     "Top app bars name the screen and hold the actions that belong to it, along its top edge.",
-  features:
-    "Reach for a top app bar on a native screen that has a title and one or two screen-level actions. It is the screen's header: where you are, and the things you can do from here. The size axis is the point — a small bar for most screens, a medium one when the title should carry weight. Keep the leading slot to one thing, usually back or menu, and the trailing slot to the actions that genuinely belong to the screen rather than to the app. If the screen has no actions and no need to say where you are, the bar is taking space for nothing.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -17,66 +15,19 @@ export const topAppBar: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["TopAppBar", "TopAppBarAction", "TopAppBarToggle"],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
   keyboard: [
     {
       key: "Swipe + double-tap (TalkBack / VoiceOver)",
       action:
         "The title announces the screen; each action reads as a button with its required label and double-tap runs it.",
     },
-  ],
-  usage: {
-    do: [
-      "Give every screen that has actions a bar that names it — the title is the screen's identity.",
-      "Pick the size by title weight: small for most screens, medium when the title should carry the screen.",
-      "Keep the leading slot to one thing (back or menu) and the trailing slot to screen-level actions.",
-    ],
-    dont: [
-      "Don't put app-level navigation in the trailing slot — that belongs to the drawer or rail, not the bar.",
-      "Don't render a bar on a screen with no title and no actions — it takes space for nothing.",
-    ],
-  },
-  tokens: [
     {
-      element: "Bar",
-      state: "resting",
-      token: "theme.color.surface",
-      value: "surface, 1px outlineVariant base rule",
-    },
-    {
-      element: "Bar height",
-      state: "resting",
-      token: "fixed 64 / 112",
-      value: "small and center fix 64dp, medium fixes 112dp",
-    },
-    {
-      element: "Action",
-      state: "resting",
-      token: "theme.color.onSurfaceVariant",
-      value: "48dp touch target with a required label",
-    },
-  ],
-  faq: [
-    {
-      q: "Which size?",
-      a: "Small is the default screen header. Medium drops the title large across two lines for top-level screens. Center centers a small bar's title.",
-    },
-    {
-      q: "How does this differ from the web top app bar?",
-      a: "Same family, different member: the web bar is the shell composition with menus (`@xoroh/kern/start`), this one is the compact bar with leading/trailing slots. Both name the screen and hold its actions — switch tabs, not patterns.",
-    },
-  ],
-  anatomy: [
-    {
-      name: "TopAppBar",
-      role: "The bar. Holds the title and the two slots, and fixes the screen's header height per size.",
-    },
-    {
-      name: "TopAppBarAction",
-      role: "An icon action sized to Material 3's minimum touch target. Its `label` is required — it is the action's name, not optional decoration.",
-    },
-    {
-      name: "TopAppBarToggle",
-      role: "The leading button that opens and closes the shell's rail or drawer. Its accessible name says what the press does (`Open navigation` while closed), and `expanded` carries the open state.",
+      key: "Swipe over a disabled action (TalkBack / VoiceOver)",
+      action:
+        "A disabled action reports itself as unavailable and cannot be run — the bar never presents a dead control as a live one.",
     },
   ],
   customization: {

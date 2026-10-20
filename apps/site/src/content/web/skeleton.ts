@@ -5,8 +5,6 @@ export const skeleton: ComponentDoc = {
   name: "Skeleton",
   oneLiner:
     "Skeletons stand in for content that is still loading, in the shape it will have.",
-  features:
-    "Reach for a skeleton when you know the shape of what is coming and want the layout to hold still while it arrives: an article, a card, a list of rows. The value over a spinner is that nothing jumps when the content lands. Match the shape to what will replace it — a skeleton that is the wrong size is worse than none, because the layout moves anyway. Do not skeleton everything; a long shimmer across a whole page is harder to read than a short wait.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -15,30 +13,12 @@ export const skeleton: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Skeleton"],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
   // M2: a skeleton takes no focus and exposes no ARIA state — an empty
   // accessibility section is a FACT here, not a gap.
   nonInteractive: true,
-  usage: {
-    do: [
-      "Name what loads via aria-label so the wait announces.",
-      "Mirror the incoming layout so content does not jump.",
-    ],
-    dont: ["Do not leave skeletons unnamed."],
-  },
-  tokens: [
-    {
-      element: "Shimmer",
-      state: "resting",
-      token: "kern.skeleton.shimmer",
-      value: "Kern pattern beyond M3",
-    },
-  ],
-  faq: [
-    {
-      q: "Skeleton or spinner?",
-      a: "Skeleton for layout-shaped waits; spinner for indeterminate action waits.",
-    },
-  ],
   customization: {
     supported: [
       "`className` is passed through and merged after the skeleton's own classes, which is how its size and shape are chosen.",

@@ -5,8 +5,6 @@ export const drawer: ComponentDoc = {
   name: "Drawer",
   oneLiner:
     "A drawer is a panel that slides up from the bottom edge for a short, self-contained step.",
-  features:
-    "Reach for a drawer when someone needs to pick, filter or confirm without losing their place: choosing a date, setting filters, confirming a payment method. It anchors to the bottom edge, so it works with one hand and does not fight the content above it. Keep the task to one decision — a drawer that grows into a form has outgrown itself and should become a route. It is not for navigation between places; that is the navigation drawer's job.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -33,26 +31,9 @@ export const drawer: ComponentDoc = {
     "DrawerDescription",
     "DrawerClose",
   ],
-  anatomy: [
-    {
-      name: "DrawerRoot",
-      role: "Owns the open state. Accepts `open`/`onOpenChange` to control it.",
-    },
-    {
-      name: "DrawerTrigger",
-      role: "The element that opens the drawer.",
-    },
-    {
-      name: "DrawerContent",
-      role: "The panel. Portals to the end of the document, renders the backdrop and anchors to the bottom edge.",
-    },
-    { name: "DrawerTitle", role: "The accessible name of the drawer." },
-    {
-      name: "DrawerDescription",
-      role: "The body text, wired to `aria-describedby`.",
-    },
-    { name: "DrawerClose", role: "Closes the drawer from inside it." },
-  ],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
   keyboard: [
     {
       key: "Escape",
@@ -62,32 +43,10 @@ export const drawer: ComponentDoc = {
       key: "Tab / Shift+Tab",
       action: "Trapped inside while modal; the page behind is inert.",
     },
-  ],
-  usage: {
-    do: [
-      "Use modal sheets for tasks that need focus — the scrim marks the interruption.",
-      "Let content scroll inside with titles pinned where applicable.",
-    ],
-    dont: ["Don't trap focus without announcing modality."],
-  },
-  tokens: [
     {
-      element: "Container",
-      state: "resting",
-      token: "comp.sheet.container",
-      value: "surface-container-low, 28px leading edge, level3",
-    },
-    {
-      element: "Scrim",
-      state: "resting",
-      token: "sys.color.scrim",
-      value: "32%",
-    },
-  ],
-  faq: [
-    {
-      q: "Bottom drawer or side sheet?",
-      a: "Bottom drawers rise for compact flows; side sheets dock for persistent panels.",
+      key: "Enter / Space",
+      action:
+        "Activates the focused control inside the panel — the close control among them.",
     },
   ],
   customization: {

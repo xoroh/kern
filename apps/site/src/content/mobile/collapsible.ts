@@ -5,8 +5,6 @@ export const collapsible: ComponentDoc = {
   name: "Collapsible",
   oneLiner:
     "The collapsible is one disclosure: a title row that reveals or hides the content beneath it.",
-  features:
-    "Reach for a collapsible when a single block of content is optional to the task in front of the reader: advanced options, a legal footnote, the detail behind a summary. The title is a prop and the content is children, so the trigger layout stays the accordion's sibling's — and stays consistent — while what is revealed is entirely yours. Open state is the usual controlled-uncontrolled pair, and the content is unmounted while closed rather than hidden.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,13 @@ export const collapsible: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Collapsible"],
+  keyboard: [
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "The title row reads as a button and announces whether the section is open; double-tap reveals or hides the content, which is mounted only while it is open.",
+    },
+  ],
   customization: {
     supported: [
       "`title` is the whole trigger row; `children` is the revealed content.",

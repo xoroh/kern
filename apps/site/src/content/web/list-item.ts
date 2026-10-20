@@ -5,8 +5,6 @@ export const listItem: ComponentDoc = {
   name: "List item",
   oneLiner:
     "List items are rows in a list — a headline, optional supporting text, and optional leading and trailing slots.",
-  features:
-    "Reach for a list item when the data is a set of records read one at a time rather than compared across columns: a message list, a set of contacts, a search result set. The headline is the thing you would scan for and the supporting line is what confirms it. The interesting part is that the row is static until you say otherwise — passing `onPress` or `href` turns it into a real control rather than a row that merely looks clickable, which is the difference between a list a keyboard can use and one it cannot.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -19,6 +17,9 @@ export const listItem: ComponentDoc = {
     elevation: 0,
   },
   parts: ["ListItem"],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting", "hover"],
   keyboard: [
     {
       key: "Tab / Shift+Tab",
@@ -27,33 +28,6 @@ export const listItem: ComponentDoc = {
     {
       key: "Enter / Space",
       action: "Activates the focused row control.",
-    },
-  ],
-  usage: {
-    do: [
-      "Use the `kern.list-item.container` row height with the shape-scale gutter between rows and state layers on interaction.",
-      "Keep supporting text and icons in their roles and sizes.",
-    ],
-    dont: ["Don't shrink rows below one-line metrics to save space."],
-  },
-  tokens: [
-    {
-      element: "Row",
-      state: "resting",
-      token: "comp.list.one-line",
-      value: "56px, body-large on-surface",
-    },
-    {
-      element: "Row",
-      state: "hover",
-      token: "comp.list.hover-layer",
-      value: "on-surface 8%",
-    },
-  ],
-  faq: [
-    {
-      q: "Row or card?",
-      a: "Rows for homogeneous lists; cards for heterogeneous subjects with media and actions.",
     },
   ],
   customization: {

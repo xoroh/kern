@@ -5,8 +5,6 @@ export const tooltip: ComponentDoc = {
   name: "Tooltip",
   oneLiner:
     "Tooltips name or explain a control the moment someone hovers or focuses it.",
-  features:
-    "Reach for a tooltip to label an icon-only control, or to add one short line of context that is useful but not worth permanent space. It appears on hover and on keyboard focus, and it must be dismissible without precision pointing — if the content is only reachable by hovering, it is unreachable on touch. Never put an action inside a tooltip, and never put information there that is not available some other way. If the explanation is long enough to need paragraphs, it is a help panel, not a tooltip.",
   meta: {
     // Canonical M3 spec page — title identity-verified live; gate re-checks.
     specUrl: "https://m3.material.io/components/tooltips",
@@ -27,6 +25,9 @@ export const tooltip: ComponentDoc = {
     "TooltipContent",
     "TooltipProvider",
   ],
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting"],
   keyboard: [
     {
       key: "Tab / Shift+Tab",
@@ -36,45 +37,6 @@ export const tooltip: ComponentDoc = {
     {
       key: "Escape",
       action: "Dismisses the open tooltip without moving focus.",
-    },
-  ],
-  anatomy: [
-    {
-      name: "TooltipProvider",
-      role: "Shares open/close timing across a group of tooltips, so one does not fire while another is still fading. Wrap a group once.",
-    },
-    {
-      name: "TooltipRoot",
-      role: "Owns the open state for one tooltip. Accepts `open`/`onOpenChange` to control it.",
-    },
-    {
-      name: "TooltipTrigger",
-      role: "The control the tooltip describes. Hover and focus on it open the tooltip.",
-    },
-    {
-      name: "TooltipContent",
-      role: "The label itself. Portals to the end of the document and positions itself against the trigger.",
-    },
-  ],
-  usage: {
-    do: [
-      "Name icon-only controls on hover and focus.",
-      "Keep text to a few words.",
-    ],
-    dont: ["Don't duplicate visible labels — tooltips name the unnamed."],
-  },
-  tokens: [
-    {
-      element: "Container",
-      state: "resting",
-      token: "comp.tooltip.container",
-      value: "inverse-surface, 4px, level2",
-    },
-  ],
-  faq: [
-    {
-      q: "Tooltip or label?",
-      a: "Visible labels win; tooltips cover icon-only and truncated cases.",
     },
   ],
   customization: {
@@ -89,14 +51,6 @@ export const tooltip: ComponentDoc = {
       "There is no `arrow` prop. The pointer toward the trigger is not part of this component.",
     ],
   },
-  deviations: [
-    {
-      id: "K11",
-      spec: "M3's component elevation table tabulates only the RICH tooltip at level 2; it names no plain tooltip.",
-      kern: "The (plain) tooltip popup rests at elevation level 2.",
-      why: "review-m3 ruled the plain-tooltip level a kern choice sharing the rich row's height, not a transcription of M3 (K11); the citation is the registry, not the spec row.",
-    },
-  ],
   api: [
     {
       name: "open",

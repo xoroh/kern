@@ -5,8 +5,6 @@ export const nativeSelect: ComponentDoc = {
   name: "Native select",
   oneLiner:
     "Native selects are the browser's own dropdown, styled to sit with the rest of a form.",
-  features:
-    "Reach for a native select when the platform's own picker is better than a custom one: on mobile the browser's wheel or sheet is faster and more familiar than anything drawn on top of it. It is a real `<select>`, so autofill, validation and the mobile picker all work without help. The trade is the opposite of `Select` — you get the platform's behaviour and lose control of how the list looks. Choose it deliberately: for a short list on a phone, the native picker usually wins.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -17,6 +15,18 @@ export const nativeSelect: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["NativeSelect"],
+  keyboard: [
+    {
+      key: "Arrow keys / typing",
+      action:
+        "The platform select owns them: the arrows move through the options and typed letters jump to the option that starts with them.",
+    },
+    {
+      key: "Space / Enter",
+      action:
+        "Open the platform's own dropdown — its list, its rendering and its keys are the browser's.",
+    },
+  ],
   customization: {
     supported: [
       "`className` is passed through and merged after the select's own classes.",

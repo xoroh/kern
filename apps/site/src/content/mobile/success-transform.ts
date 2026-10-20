@@ -5,8 +5,6 @@ export const successTransform: ComponentDoc = {
   name: "Success transform",
   oneLiner:
     "Success transforms are the completion moment — a disc and a tick, or the loader that precedes it.",
-  features:
-    "Reach for a success transform when finishing should look like finishing: a form submitted, a payment taken, a step done. It has exactly two states and that is the design — `loading` and `success` — so the moment of completion is one component rather than a loader swapped for a tick by hand. The tick is drawn with the border trick rather than an icon, and the radii come from the shape scale, so it belongs to the same family as `Shape` and the loading indicators around it. The two colours are separate props (`color` and `successColor`), so the wait and the outcome can be told apart.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,6 +14,10 @@ export const successTransform: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["SuccessTransform"],
+  // A completion moment is a STATUS, not a control: the success disc takes no
+  // focus and answers no key — the change from `loading` to `success` is
+  // announced, not operated. The aria contract below is the whole story.
+  nonInteractive: true,
   customization: {
     supported: [
       "`state` is the two moments, `loading` and `success`.",

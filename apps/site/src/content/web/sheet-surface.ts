@@ -5,8 +5,6 @@ export const sheetSurface: ComponentDoc = {
   name: "Sheet surface",
   oneLiner:
     "Sheet surface is the shared modal and scrim shell — the one place a kern sheet gets its dismissal path.",
-  features:
-    "Reach for SheetSurface when you are building a bottom-anchored modal that should behave like every other kern sheet: scrim press, Escape and focus return are the dialog primitive's, and every sheet in the family hosts through this shell rather than re-implementing them. It is a KERN name for that shell, not a Material 3 component — it claims no spec source and no shape of its own; the hosts supply the rounded top edge, the width and the shadow. Composed on the same Base UI dialog primitive the drawer uses: one behaviour layer, two surfaces.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -17,6 +15,18 @@ export const sheetSurface: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["SheetSurface"],
+  keyboard: [
+    {
+      key: "Escape",
+      action:
+        "Closes the surface and reports it through `onOpenChange`; focus returns to whatever opened it.",
+    },
+    {
+      key: "Tab / Shift+Tab",
+      action:
+        "Trapped inside the surface while it is open. The surface is a modal dialog — the page behind it is inert and it says so with `aria-modal`.",
+    },
+  ],
   customization: {
     supported: [
       "`open` / `defaultOpen` / `onOpenChange` are the controlled-uncontrolled pair for the modal.",

@@ -24,6 +24,11 @@ type DemoSource = {
   id: string;
   title: string;
   code?: string;
+  /**
+   * The package the fence's components live in. Defaults to the web barrel;
+   * a native example declares `@xoroh/kern-native`. See `ExampleSpec.package`.
+   */
+  package?: string;
 };
 
 /** Capitalized JSX tags used in a fence, minus Icon (its own package). */
@@ -58,11 +63,11 @@ function indent(code: string, spaces: number): string {
     .join("\n");
 }
 
-function importLines(code: string): string[] {
+function importLines(code: string, pkg: string): string[] {
   const lines: string[] = [];
   const imports = usedComponents(code);
   if (imports.length > 0) {
-    lines.push(`import { ${imports.join(", ")} } from "@xoroh/kern";`);
+    lines.push(`import { ${imports.join(", ")} } from "${pkg}";`);
   }
   if (usesIcon(code)) {
     lines.push(`import { Icon } from "@xoroh/kern-icons";`);
@@ -70,10 +75,17 @@ function importLines(code: string): string[] {
   return lines;
 }
 
-function installComment(code: string): string[] {
+function installComment(code: string, pkg: string): string[] {
+  // The installable package, not the import path: `@xoroh/kern/start` is an
+  // EXPORT SUBPATH of the `@xoroh/kern` package, and `bun add @xoroh/kern/start`
+  // is a command that fails. The comment teaches a command that works.
+  const segments = pkg.split("/");
+  const installable = pkg.startsWith("@")
+    ? segments.slice(0, 2).join("/")
+    : segments[0];
   return [
     `// Paste into a React + Tailwind project with the packages installed:`,
-    `//   bun add @xoroh/kern${usesIcon(code) ? " @xoroh/kern-icons" : ""}`,
+    `//   bun add ${installable}${usesIcon(code) ? " @xoroh/kern-icons" : ""}`,
     `// and \`@import "@xoroh/kern/theme";\` once in your CSS entry.`,
   ];
 }
@@ -82,14 +94,20 @@ function installComment(code: string): string[] {
  * One demo as a standalone module: derived imports plus the fence as the
  * body of a named function. Sibling roots are wrapped in a fragment, so what
  * copies is what renders.
+ *
+ * The import line follows the spec's `package`: the web barrel by default,
+ * `@xoroh/kern-native` for a native example. Resolving the fence's tags
+ * against the web barrel alone would hand a reader a module that does not
+ * compile, because the web barrel exports no native-only component.
  */
 export function demoExportSource(spec: DemoSource): string {
   const code = (spec.code ?? "").trim();
   if (!code) return "";
+  const pkg = spec.package ?? "@xoroh/kern";
   return [
     `// ${spec.title} — kern docs demo export (example "${spec.id}").`,
-    ...installComment(code),
-    ...importLines(code),
+    ...installComment(code, pkg),
+    ...importLines(code, pkg),
     ``,
     `export function ${componentName(spec.id)}() {`,
     `  return (`,
@@ -110,13 +128,14 @@ export function demoExportSource(spec: DemoSource): string {
 export function demoReproSource(spec: DemoSource): string {
   const code = (spec.code ?? "").trim();
   if (!code) return "";
+  const pkg = spec.package ?? "@xoroh/kern";
   return [
     `// Minimal repro — ${spec.title} (example "${spec.id}").`,
     `// 1. Fresh Vite + React + Tailwind app; install + theme import as below.`,
     `// 2. Render <Repro /> instead of <App />; confirm the bug is still visible.`,
     `// 3. Fill in Expected / Actual / Environment, then paste this whole file into the issue.`,
-    ...installComment(code),
-    ...importLines(code),
+    ...installComment(code, pkg),
+    ...importLines(code, pkg),
     ``,
     `export function Repro() {`,
     `  return (`,

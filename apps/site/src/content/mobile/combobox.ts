@@ -5,8 +5,6 @@ export const combobox: ComponentDoc = {
   name: "Combobox",
   oneLiner:
     "Comboboxes pick one value from a set, either from the list or by typing to narrow it.",
-  features:
-    "Reach for a combobox when the answer is one of many known values and typing is quicker than scrolling. The trigger is a read-only field display; the popup holds the filter field and the option list, so one editable field is on screen at a time. Typing narrows the full list, committing reports and closes, and dismissing drops the transient query. It is the wrong tool when the answer is free text (an input) or the set is short enough to read (a radio group or select).",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -19,53 +17,28 @@ export const combobox: ComponentDoc = {
     elevation: 2,
   },
   parts: ["Combobox"],
-  deviations: [
+  // The states this component registers, carried from the token table
+  // that now lives in docs/m3-guidance/<family>.md.
+  states: ["resting", "selected"],
+  // The contract, read off the component: the trigger is a button that
+  // reports its expanded state, the popup is a modal with a real filter
+  // field in it, and the options are pressables carrying their selected
+  // state.
+  keyboard: [
     {
-      id: "K6",
-      spec: "M3's component elevation table names no combobox. It tabulates menus at level 2 — neither row describes a type-to-filter popup.",
-      kern: "The combobox popup rests at elevation level 2.",
-      why: "The open list floats above the page and needs the same lift the other anchored overlays have. The native popup renders `3dp`, which is M3 level 2 — the same resting height as the web popup.",
-    },
-  ],
-  usage: {
-    do: [
-      "Declare options as `{ value, label }[]` — the trigger shows the chosen label, the popup shows the list.",
-      "Keep the default substring filter unless matching is server-side or fuzzy; the default is the honest local behaviour.",
-      "Drive `value`/`onValueChange` when the choice feeds state elsewhere; let it hold its own otherwise.",
-    ],
-    dont: [
-      "Don't use it for free text — a query with no option to commit is an input.",
-      "Don't duplicate the popup's filter field outside it — one editable field on screen at a time.",
-    ],
-  },
-  tokens: [
-    {
-      element: "Field trigger",
-      state: "resting",
-      token: "theme.color.surface",
-      value: "surface, outline border, minHeight 56",
+      key: "Type in the filter field",
+      action:
+        "Narrows the list as you type. The field is a real text input inside the popup, and it reports how many options are available.",
     },
     {
-      element: "Popup",
-      state: "resting",
-      token: "theme.color.surfaceContainer",
-      value: "surfaceContainer, medium corners, level 2 (3dp)",
+      key: "Hardware back (Android)",
+      action:
+        "Closes the popup and discards the query. The modal's request-close is wired to the same dismiss path as the scrim.",
     },
     {
-      element: "Selected option",
-      state: "selected",
-      token: "theme.color.surfaceTonal",
-      value: "surfaceTonal wash behind the chosen row",
-    },
-  ],
-  faq: [
-    {
-      q: "Combobox, select, or autocomplete?",
-      a: "Type-to-narrow plus browse means combobox. A fixed set with no typing means select. The web autocomplete is a different surface; natively the combobox covers both jobs.",
-    },
-    {
-      q: "How does this differ from the web combobox?",
-      a: "Same contract (filter narrows, commit reports value plus option, dismiss drops the query). Web is multipart over Base UI with the input as the trigger; native is one flat component with the filter field inside the popup — the `Select`/`SegmentedButton` data convention.",
+      key: "Double-tap (TalkBack / VoiceOver)",
+      action:
+        "Chooses an option. Each one is a pressable carrying the `option` role and its selected state, and choosing it closes the popup.",
     },
   ],
   customization: {

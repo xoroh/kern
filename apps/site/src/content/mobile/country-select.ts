@@ -5,8 +5,6 @@ export const countrySelect: ComponentDoc = {
   name: "Country select",
   oneLiner:
     "Country selects choose a country from data you supply — kern ships no country list.",
-  features:
-    "Reach for a country select when the answer is a country and you want the shape of the choice done for you. The design decision to know is what it does NOT do: kern ships NO country dataset. The options arrive as a prop, so the host stays the source of truth — which is what keeps the list yours to curate, localise, restrict or keep current, rather than frozen inside a component library. The `code` is an ISO 3166-1 alpha-2 or alpha-3 identifier and is deliberately OPAQUE to the component: it passes it back and never interprets it.",
   meta: {
     status: "real",
     package: "@xoroh/kern-native",
@@ -16,12 +14,20 @@ export const countrySelect: ComponentDoc = {
     elevation: 2,
   },
   parts: ["CountrySelect"],
-  deviations: [
+  // The native country select is a SINGLE control, not a list you browse: it
+  // exposes itself as a combobox carrying the chosen country, and one press
+  // takes the first available country. That is the shipped behaviour, so the
+  // contract says it rather than describing a list that does not exist.
+  keyboard: [
     {
-      id: "K6",
-      spec: 'M3\'s component elevation table names no select. It tabulates "menu" at level 2, and kern maps that row to `navigation-menu`, so there is no spec row a country select could conform to.',
-      kern: "The country list rests at elevation level 2.",
-      why: "The open list behaves as an overlay above the page and needs the same lift a menu has, but claiming the menu row would assert that M3 said something about selects it never said. Registered as K6 in the elevation inventory so the level is a recorded decision rather than a value in a stylesheet.",
+      key: "Enter / Space via external keyboard or switch control",
+      action:
+        "Takes the first available country in the list — the same press a touch makes.",
+    },
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        'The control reads as a combobox carrying the chosen country by name, or "Select country" while nothing is chosen; double-tap takes the first available country.',
     },
   ],
   customization: {

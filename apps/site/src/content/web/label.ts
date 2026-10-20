@@ -4,8 +4,6 @@ export const label: ComponentDoc = {
   slug: "label",
   name: "Label",
   oneLiner: "Labels name the control they sit beside.",
-  features:
-    "Reach for a label whenever a control needs a name you can see: a field, a checkbox, a slider. A visible label is not decoration — it is how anyone who cannot see the placeholder, or who has already typed past it, knows what the control is for. Associate it with its control rather than merely placing it nearby, or it names nothing as far as assistive tech is concerned. If the control is part of a group answering one question, the question belongs to the group's legend and the label names the individual control.",
   meta: {
     status: "real",
     package: "@xoroh/kern",
@@ -14,6 +12,10 @@ export const label: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["Label"],
+  // A label names a control; it is not a control itself. It takes no focus
+  // and handles no keys of its own, so there is no keyboard contract to
+  // write — the control it names owns that.
+  nonInteractive: true,
   customization: {
     supported: [
       "`className` is passed through and merged after the label's own classes.",
