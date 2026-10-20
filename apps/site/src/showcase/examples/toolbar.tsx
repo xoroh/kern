@@ -23,28 +23,28 @@ export const TOOLBAR_EXAMPLES: ExampleSpec[] = [
       <Toolbar.Root aria-label="Text formatting">
         <Toolbar.Group>
           <Toolbar.Button aria-label="Bold">
-            <Icon name="format_bold" />
+            <Icon name="format-bold" />
           </Toolbar.Button>
           <Toolbar.Button aria-label="Italic">
-            <Icon name="format_italic" />
+            <Icon name="format-italic" />
           </Toolbar.Button>
         </Toolbar.Group>
         <Toolbar.Separator />
         <Toolbar.Group>
           <Toolbar.Button aria-label="Copy">
-            <Icon name="content_copy" />
+            <Icon name="content-copy" />
           </Toolbar.Button>
         </Toolbar.Group>
       </Toolbar.Root>
     ),
     code: `<Toolbar.Root aria-label="Text formatting">
   <Toolbar.Group>
-    <Toolbar.Button aria-label="Bold"><Icon name="format_bold" /></Toolbar.Button>
-    <Toolbar.Button aria-label="Italic"><Icon name="format_italic" /></Toolbar.Button>
+    <Toolbar.Button aria-label="Bold"><Icon name="format-bold" /></Toolbar.Button>
+    <Toolbar.Button aria-label="Italic"><Icon name="format-italic" /></Toolbar.Button>
   </Toolbar.Group>
   <Toolbar.Separator />
   <Toolbar.Group>
-    <Toolbar.Button aria-label="Copy"><Icon name="content_copy" /></Toolbar.Button>
+    <Toolbar.Button aria-label="Copy"><Icon name="content-copy" /></Toolbar.Button>
   </Toolbar.Group>
 </Toolbar.Root>`,
   },
