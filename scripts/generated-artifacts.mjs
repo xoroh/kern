@@ -255,4 +255,17 @@ export const GENERATORS = [
     cmd: ["bun", "packages/kern-icons/tools/generate.ts"],
     outputs: ["packages/kern-icons/src/sets"],
   },
+  {
+    // The M3 guidance corpus (ADR-115): the teaching half of every component
+    // page, rendered from `docs/m3-guidance/manifest.json`. The manifest holds
+    // the moved values verbatim; these files are what a reader and an agent
+    // read. The renderer is git-free on purpose — it reads the manifest and
+    // writes the files — so it runs identically in a shallow CI checkout.
+    //
+    // The path is a PREFIX, so one entry owns the whole corpus (122 files)
+    // plus the manifest beside it.
+    name: "site render-guidance (manifest -> docs/m3-guidance/**)",
+    cmd: ["bun", "--cwd", "apps/site", "scripts/render-guidance.mjs"],
+    outputs: ["docs/m3-guidance"],
+  },
 ];
