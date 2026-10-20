@@ -39,24 +39,26 @@ export function Loader({
   return (
     <AxisProgressRoot
       value={null}
-      accessibilityLabel={label}
+      // ADR-112: Axis takes its accessible name as `aria-label`.
+      aria-label={label}
       testID={testID ?? "kern-loader"}
       style={style}
       render={(slotProps: Record<string, unknown>) => (
-        // Axis reports its indeterminate progress through its own slot prop;
+        // Axis reports its indeterminate progress through its own slot props;
         // Loader is always indeterminate (`value={null}`), so the busy state
         // is constant here and lands directly on the aria-* half of the pair.
+        // ADR-112: the slot carries `role` / `aria-label` / `aria-busy` —
+        // never the legacy RN a11y trio — so the host reads the new keys
+        // and keeps the RN vocabulary the native contract names.
         <View
           accessible={slotProps.accessible as boolean | undefined}
           accessibilityRole={
-            slotProps.accessibilityRole as
+            slotProps.role as
               | React.ComponentProps<typeof View>["accessibilityRole"]
               | undefined
           }
-          aria-busy
-          accessibilityLabel={
-            slotProps.accessibilityLabel as string | undefined
-          }
+          aria-busy={slotProps["aria-busy"] as boolean | undefined}
+          accessibilityLabel={slotProps["aria-label"] as string | undefined}
           testID={slotProps.testID as string | undefined}
           style={slotProps.style as React.ComponentProps<typeof View>["style"]}
         >

@@ -258,7 +258,11 @@ describe("native Progress render", () => {
   it("exposes its value", async () => {
     await render(<Progress value={40} max={100} />);
     const bar = screen.getByTestId("kern-progress");
-    expect(bar.props.accessibilityValue).toEqual({ now: 40, min: 0, max: 100 });
+    // ADR-112: the Axis part owns the host, so the range is announced as
+    // `aria-value*`, not as the legacy `accessibilityValue` object.
+    expect(bar.props["aria-valuenow"]).toBe(40);
+    expect(bar.props["aria-valuemin"]).toBe(0);
+    expect(bar.props["aria-valuemax"]).toBe(100);
   });
 });
 

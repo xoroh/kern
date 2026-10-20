@@ -14,7 +14,13 @@ import {
 } from "@xoroh/axis";
 import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import type { TextStyle, ViewStyle } from "react-native";
-import { Pressable, type StyleProp, TextInput, View } from "react-native";
+import {
+  Pressable,
+  type PressableProps,
+  type StyleProp,
+  TextInput,
+  View,
+} from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
 import { inputStyles } from "./input";
 import { DISABLED_CONTENT_OPACITY } from "./state-layer";
@@ -154,6 +160,11 @@ export function NumberField({
         // `onX?:` declarations, and these are not declared props.
         onPressIn: (() => void) | undefined;
         onPressOut: (() => void) | undefined;
+        // ADR-112: the Axis stepper hands the consumer its role and its
+        // accessible name as `role` / `aria-label` (never the legacy
+        // `accessibilityRole` / `accessibilityLabel`).
+        role: PressableProps["accessibilityRole"] | undefined;
+        "aria-label"?: string;
         style?: ViewStyle;
       };
       const atBound =
@@ -166,8 +177,8 @@ export function NumberField({
         state.disabled === true || state.readOnly === true || atBound;
       return (
         <Pressable
-          accessibilityRole="button"
-          accessibilityLabel={label}
+          accessibilityRole={slot.role}
+          accessibilityLabel={slot["aria-label"] ?? label}
           aria-disabled={terminal}
           disabled={terminal}
           hitSlop={{ top: 4, bottom: 4, left: 4, right: 4 }}
@@ -206,11 +217,11 @@ export function NumberField({
       >
         <AxisGroup>
           <AxisDecrement
-            accessibilityLabel={decrementLabel}
+            aria-label={decrementLabel}
             render={stepperRender(-1, decrementLabel)}
           />
           <AxisInput
-            accessibilityLabel={accessibilityLabel}
+            aria-label={accessibilityLabel}
             testID="kern-number-field-input"
             style={[inputStyles(false, false, scheme), styles.input]}
             render={(slotProps, state) => {
@@ -221,7 +232,9 @@ export function NumberField({
                 onChangeText: ((text: string) => void) | undefined;
                 onBlur: (() => void) | undefined;
                 editable?: boolean;
-                accessibilityLabel?: string;
+                // ADR-112: the Axis input hands the consumer its accessible
+                // name as `aria-label` (never `accessibilityLabel`).
+                "aria-label"?: string;
                 testID?: string;
                 style?: TextStyle;
               };
@@ -230,7 +243,7 @@ export function NumberField({
               };
               return (
                 <TextInput
-                  accessibilityLabel={slot.accessibilityLabel}
+                  accessibilityLabel={slot["aria-label"]}
                   accessibilityValue={{
                     now: fieldState.value ?? undefined,
                     min,
@@ -249,7 +262,7 @@ export function NumberField({
             }}
           />
           <AxisIncrement
-            accessibilityLabel={incrementLabel}
+            aria-label={incrementLabel}
             render={stepperRender(1, incrementLabel)}
           />
         </AxisGroup>

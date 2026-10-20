@@ -131,8 +131,9 @@ export function Checkbox({
       }}
       disabled={disabled}
       testID={testID ?? "kern-checkbox"}
+      // ADR-112: Axis takes its accessible name as `aria-label` — the
+      // legacy `accessibilityLabel` prop no longer exists on the part.
       aria-label={accessibilityLabel ?? label}
-      accessibilityLabel={accessibilityLabel ?? label}
       style={[
         { minHeight: 48, flexDirection: "row", alignItems: "center", gap: 8 },
         typeof style === "function" ? undefined : style,

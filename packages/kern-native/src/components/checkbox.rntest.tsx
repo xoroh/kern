@@ -32,7 +32,10 @@ describe("Checkbox on Axis", () => {
     );
 
     const checkbox = screen.getByRole("checkbox", { name: "Select all" });
-    expect(checkbox.props.accessibilityState.checked).toBe("mixed");
+    // ADR-112: the Axis part announces the state as `aria-checked`
+    // ("mixed" for indeterminate) — never as the legacy checked-state
+    // object.
+    expect(checkbox).toBePartiallyChecked();
     expect(checkbox).toBeTruthy();
     expect(screen.getByText("−")).toBeTruthy();
   });

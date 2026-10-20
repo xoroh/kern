@@ -132,6 +132,16 @@ const kernPortalRegistry = createPortalRegistry();
 /** Scoped ids for owned portals: `kern-portal-1`, never `kern-portal-0`. */
 const kernPortalIds = createIdScope("kern-portal");
 
+/**
+ * The default portal host id Kern owns.
+ *
+ * Axis's `resolvePortalTarget` defaults to its own neutral name
+ * (`axis-portal-root`). A host element named `kern-portal-root` is what the
+ * Kern docs and the native binding use, so the default is passed explicitly
+ * rather than inherited from the upstream default.
+ */
+const KERN_PORTAL_ROOT = "kern-portal-root";
+
 export function getKernPortalRegistry() {
   return kernPortalRegistry;
 }
@@ -159,8 +169,14 @@ export function KernPortal({ id: idProp, children }: KernPortalProps) {
   const [target, setTarget] = useState<HTMLElement | null>(null);
   useEffect(() => {
     kernPortalRegistry.mount(id);
+    // Axis's `resolvePortalTarget` defaults to its own neutral name
+    // (`axis-portal-root`); Kern's binding keeps the Kern vocabulary its
+    // scoped ids already use (`kern-portal-root`), so the default is passed
+    // explicitly rather than inherited from the upstream default.
     const host =
-      document.getElementById(resolvePortalTarget({})) ?? document.body;
+      document.getElementById(
+        resolvePortalTarget({ defaultTarget: KERN_PORTAL_ROOT }),
+      ) ?? document.body;
     setTarget(host);
     return () => {
       kernPortalRegistry.unmount(id);

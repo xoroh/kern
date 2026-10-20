@@ -166,7 +166,7 @@ export function Menu({
         onDismiss={onDismiss}
       >
         <AxisMenuTrigger
-          accessibilityLabel={triggerLabel}
+          aria-label={triggerLabel}
           style={{ minHeight: 48, justifyContent: "center" }}
         >
           {trigger}
@@ -178,7 +178,7 @@ export function Menu({
               {items.map((item) => (
                 <AxisMenuItem
                   key={item.label}
-                  accessibilityLabel={item.label}
+                  aria-label={item.label}
                   disabled={item.disabled}
                   onClick={() => {
                     item.onSelect?.();

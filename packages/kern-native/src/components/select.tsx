@@ -160,7 +160,7 @@ export function Select({
         items={options}
       >
         <AxisSelectTrigger
-          accessibilityLabel={accessibilityLabel}
+          aria-label={accessibilityLabel}
           disabled={disabled}
           style={[
             selectStyles(scheme).trigger,
@@ -187,7 +187,7 @@ export function Select({
                   key={option.value}
                   value={option.value}
                   label={option.label}
-                  accessibilityLabel={option.label}
+                  aria-label={option.label}
                   style={({ selected }) => ({
                     minHeight: 48,
                     flexDirection: "row",

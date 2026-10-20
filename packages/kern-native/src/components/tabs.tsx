@@ -89,7 +89,7 @@ export function Tabs({
             <AxisTabsTrigger
               key={tab.value}
               value={tab.value}
-              accessibilityLabel={tab.label}
+              aria-label={tab.label}
               style={[
                 {
                   minHeight: 48,

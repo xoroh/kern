@@ -44,8 +44,13 @@ describe("foundation adoption: Progress is an Axis determinate Progress", () => 
   it("passes value/max through with Kern track styling", async () => {
     await render(<Progress value={40} max={100} />);
     const bar = screen.getByTestId("kern-progress");
-    expect(bar.props.accessibilityRole).toBe("progressbar");
-    expect(bar.props.accessibilityValue).toEqual({ now: 40, min: 0, max: 100 });
+    // ADR-112: the Axis part owns the host, so it announces the role and
+    // the range as `role` / `aria-value*` — never `accessibilityRole` /
+    // `accessibilityValue`.
+    expect(bar.props.role).toBe("progressbar");
+    expect(bar.props["aria-valuenow"]).toBe(40);
+    expect(bar.props["aria-valuemin"]).toBe(0);
+    expect(bar.props["aria-valuemax"]).toBe(100);
   });
 
   it("defaults an omitted value to determinate 0% (no indeterminate mode)", async () => {
@@ -54,7 +59,9 @@ describe("foundation adoption: Progress is an Axis determinate Progress", () => 
     // Determinate-only per the component contract: unknown waits use
     // Loader, so an omitted value reads 0%, never indeterminate-busy.
     expect(bar.props["aria-busy"]).toBeFalsy();
-    expect(bar.props.accessibilityValue).toEqual({ now: 0, min: 0, max: 100 });
+    expect(bar.props["aria-valuenow"]).toBe(0);
+    expect(bar.props["aria-valuemin"]).toBe(0);
+    expect(bar.props["aria-valuemax"]).toBe(100);
   });
 });
 

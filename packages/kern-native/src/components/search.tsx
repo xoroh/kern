@@ -96,7 +96,8 @@ export function Search({
         editable={editable}
         multiline={multiline}
         numberOfLines={numberOfLines}
-        accessibilityLabel={label}
+        // ADR-112: Axis takes its accessible name as `aria-label`.
+        aria-label={label}
         style={{
           flex: 1,
           minHeight: 56,
@@ -143,7 +144,7 @@ export function Search({
               editable={slot.editable as boolean | undefined}
               multiline={slot.multiline as boolean | undefined}
               numberOfLines={slot.numberOfLines as number | undefined}
-              accessibilityLabel={slot.accessibilityLabel as string | undefined}
+              accessibilityLabel={slot["aria-label"] as string | undefined}
               testID={slot.testID as string | undefined}
               style={slot.style as TextInputProps["style"]}
             />
@@ -152,7 +153,7 @@ export function Search({
       />
       {query ? (
         <AxisButton
-          accessibilityLabel="Clear search"
+          aria-label="Clear search"
           onPress={clear}
           style={staticStyles.clear}
         >

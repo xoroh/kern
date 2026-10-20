@@ -100,10 +100,23 @@ export function nextKernPortalId(): string {
   return kernPortalIds.nextId();
 }
 
+/**
+ * The default portal target name Kern owns.
+ *
+ * Axis's `resolvePortalTarget` defaults to its own neutral name
+ * (`axis-portal-root`); Kern's binding keeps the Kern vocabulary its scoped
+ * ids already use (`kern-portal-1`, `kern-portal-N`), so the default is
+ * passed explicitly rather than inherited from the upstream default.
+ */
+const KERN_PORTAL_ROOT = "kern-portal-root";
+
 export function resolveKernPortalTarget(options?: {
   ownerProvided?: string;
 }): string {
-  return resolvePortalTarget({ ownerProvided: options?.ownerProvided });
+  return resolvePortalTarget({
+    ownerProvided: options?.ownerProvided,
+    defaultTarget: KERN_PORTAL_ROOT,
+  });
 }
 
 /**

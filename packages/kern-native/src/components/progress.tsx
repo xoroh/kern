@@ -58,7 +58,8 @@ export function Progress({
       {...props}
       value={value}
       max={max}
-      accessibilityLabel={accessibilityLabel}
+      // ADR-112: Axis takes its accessible name as `aria-label`.
+      aria-label={accessibilityLabel}
       testID={testID ?? "kern-progress"}
       style={[styles.track, style]}
     >

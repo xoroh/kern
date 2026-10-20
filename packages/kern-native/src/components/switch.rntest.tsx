@@ -11,9 +11,9 @@ describe("Switch on Axis", () => {
 
     const toggle = screen.getByTestId("my-switch");
     expect(toggle.props.accessibilityRole).toBe("switch");
-    expect(
-      toggle.props.accessibilityState?.checked ?? toggle.props["aria-checked"],
-    ).toBe(false);
+    // ADR-112: the checked state is announced as `aria-checked`, never as
+    // the legacy checked-state object.
+    expect(toggle).not.toBeChecked();
 
     await act(async () => {
       fireEvent.press(toggle);
@@ -33,9 +33,7 @@ describe("Switch on Axis", () => {
     );
 
     const toggle = screen.getByTestId("controlled-switch");
-    expect(
-      toggle.props.accessibilityState?.checked ?? toggle.props["aria-checked"],
-    ).toBe(true);
+    expect(toggle).toBeChecked();
 
     await act(async () => {
       fireEvent.press(toggle);
