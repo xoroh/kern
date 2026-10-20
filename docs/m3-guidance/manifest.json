@@ -189,9 +189,7 @@
             "Show the person or entity image; fall back to initials on primary.",
             "Keep full-circle geometry at every size."
           ],
-          "dont": [
-            "Don't stretch non-square sources — crop to the circle."
-          ]
+          "dont": ["Don't stretch non-square sources — crop to the circle."]
         },
         "tokens": [
           {
@@ -1445,9 +1443,7 @@
             "Use modal sheets for tasks that need focus — the scrim marks the interruption.",
             "Let content scroll inside with titles pinned where applicable."
           ],
-          "dont": [
-            "Don't trap focus without announcing modality."
-          ]
+          "dont": ["Don't trap focus without announcing modality."]
         },
         "tokens": [
           {
@@ -2179,9 +2175,7 @@
             "Use the `kern.list-item.container` row height with the shape-scale gutter between rows and state layers on interaction.",
             "Keep supporting text and icons in their roles and sizes."
           ],
-          "dont": [
-            "Don't shrink rows below one-line metrics to save space."
-          ]
+          "dont": ["Don't shrink rows below one-line metrics to save space."]
         },
         "tokens": [
           {
@@ -2520,9 +2514,7 @@
             "Label what is measured and show the value beside the bar.",
             "Report progress semantics to assistive tech."
           ],
-          "dont": [
-            "Do not use for unknown waits."
-          ]
+          "dont": ["Do not use for unknown waits."]
         },
         "tokens": [
           {
@@ -2740,9 +2732,7 @@
             "Use for site navigation with grouped destinations.",
             "Keep trigger labels short."
           ],
-          "dont": [
-            "Do not nest menus deeper than one level."
-          ]
+          "dont": ["Do not nest menus deeper than one level."]
         },
         "tokens": [
           {
@@ -2894,9 +2884,7 @@
             "Anchor to triggers for transient content and small menus.",
             "Dismiss on outside tap and Escape alike."
           ],
-          "dont": [
-            "Don't use for blocking decisions — that is a dialog."
-          ]
+          "dont": ["Don't use for blocking decisions — that is a dialog."]
         },
         "tokens": [
           {
@@ -3678,9 +3666,7 @@
             "Use modal sheets for tasks that need focus — the scrim marks the interruption.",
             "Let content scroll inside with titles pinned where applicable."
           ],
-          "dont": [
-            "Don't trap focus without announcing modality."
-          ]
+          "dont": ["Don't trap focus without announcing modality."]
         },
         "tokens": [
           {
@@ -3809,9 +3795,7 @@
             "Name what loads via aria-label so the wait announces.",
             "Mirror the incoming layout so content does not jump."
           ],
-          "dont": [
-            "Do not leave skeletons unnamed."
-          ]
+          "dont": ["Do not leave skeletons unnamed."]
         },
         "tokens": [
           {
@@ -4193,9 +4177,7 @@
             "Use tonal head rows over data rows for scan order.",
             "Let wide tables scroll horizontally inside their wrapper."
           ],
-          "dont": [
-            "Don't center data text - start-align for scanning."
-          ]
+          "dont": ["Don't center data text - start-align for scanning."]
         },
         "tokens": [
           {

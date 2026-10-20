@@ -81,7 +81,12 @@ const write = process.argv.includes("--write");
  *    without the site.
  * ------------------------------------------------------------------ */
 
-const BASE = process.env.KERN_GUIDANCE_BASE ?? "HEAD";
+/**
+ * The commit the move was made FROM: the last main commit before the
+ * migration landed. It is pinned on purpose — "the pre-migration content"
+ * is a moment, and after the move lands HEAD no longer holds it.
+ */
+const BASE = process.env.KERN_GUIDANCE_BASE ?? "78891c04";
 
 function gitShow(path) {
   return execFileSync("git", ["show", `${BASE}:${path}`], {
@@ -361,6 +366,20 @@ for (const [slug, entry] of families) {
 
 if (write) {
   writeFileSync(MANIFEST, `${JSON.stringify(manifest, null, 2)}\n`);
+  // The repository formats every file it ships; the manifest is generated,
+  // so the generator hands it to the same formatter the lint gate reads.
+  // Without this the file is written in whatever shape JSON.stringify
+  // produces, and the lint gate — which is a gate like any other — fails
+  // the commit that lands it.
+  try {
+    execFileSync("bunx", ["biome", "format", "--write", MANIFEST], {
+      cwd: REPO,
+      stdio: "ignore",
+    });
+  } catch {
+    // Biome is optional here: the lint gate is the authority, and it will
+    // say so plainly if the file is not formatted.
+  }
 }
 
 console.log(
