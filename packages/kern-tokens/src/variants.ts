@@ -86,11 +86,17 @@ export function resolveThemeLayers(
   return { scheme: resolved.color, deltas };
 }
 
-/** Fail loud on incomplete schemes (tenant tables, migrations). */
+/**
+ * Fail loud on incomplete schemes (tenant tables, migrations). The probe
+ * defaults to `material-3`; pass another registered base id when the tenant
+ * extends a different system — a whitelabel scheme is complete against its
+ * own base, never against M3 by assumption.
+ */
 export function assertCompleteScheme(
   scheme: Partial<RoleTable>,
+  base: ThemeSelection = "material-3",
 ): asserts scheme is RoleTable {
-  const probe = resolveThemeDetails("light", "standard", "material-3").color;
+  const probe = resolveThemeDetails("light", "standard", base).color;
   const missing = (Object.keys(probe) as ColorRole[]).filter(
     (role) => typeof scheme[role] !== "string",
   );
