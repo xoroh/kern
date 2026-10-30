@@ -352,6 +352,13 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
       "Web fixes for the three tranche-2 behaviour divergences ruled in .team/reports/reviews/m3/2026-10-01-p2b4-tranche2-divergence-rulings.md (M3 compliance review). All three were FAIL-as-shipped contract violations: behaviour that existed on one renderer and not the other, or semantics a sighted user got and a screen-reader user did not. The fourth divergence (the native dialog's accessibilityRole) is kern-lead's and is not touched here.",
   },
   {
+    id: "u5-table-density-pinning",
+    packages: ["@xoroh/kern"],
+    bump: "minor",
+    summary:
+      'Table density + header pinning (U5): Table.Root accepts density="comfortable" | "compact" (default comfortable, byte-identical) and stickyHeader to pin the head row. Header/cell padding follows density via context; data-density and data-sticky-header are exposed for styling hooks.',
+  },
+  {
     id: "variant-and-resting-elevation-kern-verification",
     packages: ["@xoroh/kern", "@xoroh/kern-native", "@xoroh/kern-tokens"],
     bump: "minor",

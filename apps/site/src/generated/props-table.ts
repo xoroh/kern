@@ -7701,7 +7701,18 @@ export const PROPS_TABLE: Record<
     curated: [],
   },
   Table: {
-    rows: [],
+    rows: [
+      {
+        name: "density",
+        type: "TableDensity | undefined",
+        required: false,
+      },
+      {
+        name: "stickyHeader",
+        type: "boolean | undefined",
+        required: false,
+      },
+    ],
     curated: ["className", "ref"],
   },
   TableHead: {
