@@ -6,7 +6,6 @@ import {
 import type { ReactNode } from "react";
 import { type ElementRef, useRef } from "react";
 import {
-  AccessibilityInfo,
   findNodeHandle,
   Modal,
   Pressable,
@@ -16,6 +15,7 @@ import {
   type ViewStyle,
 } from "react-native";
 import { useKernScheme } from "../theme";
+import { focusAccessibilityNode } from "../utils/accessibility";
 import { bottomScrimStyle, scrimStyle } from "../utils/overlay-styles";
 import { useKernOverlay } from "./overlay-surfaces";
 import { describeAutofocus, useKernPortalRegistration } from "./presentation";
@@ -185,7 +185,7 @@ export function SheetSurface({
       ? (closeRef.current ?? cardRef.current)
       : cardRef.current;
     const tag = node ? findNodeHandle(node) : null;
-    if (tag) AccessibilityInfo.setAccessibilityFocus(tag);
+    focusAccessibilityNode(tag);
   };
   return (
     <Modal

@@ -1,7 +1,6 @@
 import { type ResolvedTheme, tokens } from "@xoroh/kern-tokens";
 import { useEffect, useRef, useState } from "react";
 import {
-  AccessibilityInfo,
   Animated,
   Easing,
   Text as RNText,
@@ -11,6 +10,7 @@ import {
   type ViewStyle,
 } from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
+import { reduceMotionEnabled } from "../utils/accessibility";
 
 /**
  * M3 Loading indicator — indeterminate activity feedback.
@@ -93,8 +93,10 @@ function useReduceMotion(): boolean {
   const [reduce, setReduce] = useState(false);
   useEffect(() => {
     let mounted = true;
-    AccessibilityInfo.isReduceMotionEnabled?.()
-      .then((enabled) => {
+    // Absent API (getter dropped by the bundler/mock) reads as unavailable,
+    // and unavailable is not reduced-motion: keep the animation.
+    reduceMotionEnabled()
+      ?.then((enabled) => {
         if (mounted) setReduce(Boolean(enabled));
       })
       .catch(() => {

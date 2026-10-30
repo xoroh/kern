@@ -47,9 +47,9 @@ export const Animated = {
     start: (cb?: (r: { finished: boolean }) => void) =>
       cb?.({ finished: true }),
   }),
-  loop: () => ({ start: () => {} }),
-  sequence: () => ({ start: () => {} }),
-  parallel: () => ({ start: () => {} }),
+  loop: () => ({ start: () => {}, stop: () => {} }),
+  sequence: () => ({ start: () => {}, stop: () => {} }),
+  parallel: () => ({ start: () => {}, stop: () => {} }),
 };
 
 export const Easing = {
@@ -63,7 +63,15 @@ export const Platform = {
   select: (o: Record<string, unknown>) => o.ios ?? o.default,
 };
 export const useColorScheme = () => "light";
-export const AccessibilityInfo = { isScreenReaderEnabled: async () => false };
+// U-K1: the double must expose the AccessibilityInfo methods vendor code
+// calls, so suites exercise the real paths instead of the absent-API
+// fallback. (A consumer mock that drops the getter-based export entirely is
+// covered separately by accessibility-absence.test.tsx.)
+export const AccessibilityInfo = {
+  isScreenReaderEnabled: async () => false,
+  isReduceMotionEnabled: async () => false,
+  setAccessibilityFocus: () => {},
+};
 
 export default {
   View,

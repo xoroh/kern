@@ -650,6 +650,13 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
       "assertCompleteScheme accepts an optional tenant base id for its completeness probe (defaults to material-3). Whitelabel tenants extending another system can now guard their own role space instead of asserting against M3 by assumption.",
   },
   {
+    id: "uk1-accessibility-info-tolerance",
+    packages: ["@xoroh/kern-native"],
+    bump: "patch",
+    summary:
+      "Tolerate a missing AccessibilityInfo export (U-K1). sheet-surface and loading-indicator read it through a getter-tolerant helper that no-ops when the API is absent, instead of touching the binding directly — bun 1.3.8 CJS interop drops the getter, which crashed mocks built by spreading the module. Device behaviour is unchanged.",
+  },
+  {
     id: "web-button-base-ui",
     packages: ["@xoroh/kern"],
     bump: "patch",
