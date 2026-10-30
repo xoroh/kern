@@ -629,6 +629,13 @@ export const RECENT_CHANGES: readonly ChangeEntry[] = [
     summary: "Test-selector contract: testID on Button, DialogContent, Switch.",
   },
   {
+    id: "u2-use-themed-styles",
+    packages: ["@xoroh/kern-native"],
+    bump: "patch",
+    summary:
+      "Add useThemedStyles(factory) (U2): run a hoisted style builder once per scheme identity and return the memoized result, so screens sharing one provider stop rebuilding style objects on every render.",
+  },
+  {
     id: "u3-assert-complete-scheme-base",
     packages: ["@xoroh/kern-tokens"],
     bump: "patch",

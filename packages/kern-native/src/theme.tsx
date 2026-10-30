@@ -126,6 +126,21 @@ export function useKernScheme(): ResolvedTheme {
   return context?.scheme ?? defaultScheme();
 }
 
+/**
+ * U2 themed-styles factory (D221 pattern): `useThemedStyles(stylesFor)` where
+ * `stylesFor` is a module-scope style builder `(scheme) => styles`.
+ *
+ * Runs the factory once per scheme identity and returns the memoized result,
+ * so a screen of components sharing one provider does not rebuild style
+ * objects on every render — only when the theme itself changes. Memoized on
+ * scheme + factory identity: hoist the factory (like every component's
+ * `xxxStyles`); an inline arrow rebuilds every render by React's rules.
+ */
+export function useThemedStyles<T>(factory: (scheme: ResolvedTheme) => T): T {
+  const scheme = useKernScheme();
+  return useMemo(() => factory(scheme), [scheme, factory]);
+}
+
 /** Read the active scheme; outside a provider, follow the OS appearance. */
 export function useKernTheme(): NativeThemeContextValue {
   const context = useContext(ThemeContext);

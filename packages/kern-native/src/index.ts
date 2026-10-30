@@ -500,4 +500,5 @@ export {
   useKernMotion,
   useKernScheme,
   useKernTheme,
+  useThemedStyles,
 } from "./theme";
