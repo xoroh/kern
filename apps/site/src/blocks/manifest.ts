@@ -125,4 +125,15 @@ export const BLOCKS: BlockEntry[] = [
     registryDependencies: ["Card", "InputOTP", "Button"],
     dependencies: ["@xoroh/kern", "@xoroh/kern-native", "react"],
   },
+  {
+    name: "invite",
+    title: "Invite accept",
+    category: "Auth",
+    description:
+      "A workspace invite accept flow: who invited you, which workspace and role, accept and decline. Reach for it when invites arrive out of band.",
+    file: "invite.tsx",
+    files: [],
+    registryDependencies: ["InviteAccept"],
+    dependencies: ["@xoroh/kern", "@xoroh/kern-native", "react"],
+  },
 ];

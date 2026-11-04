@@ -16,6 +16,8 @@ import { DashboardPageBlock } from "../../blocks/dashboard";
 import dashboardSource from "../../blocks/dashboard.tsx?raw";
 import { EmptySearch } from "../../blocks/empty-search";
 import emptySearchSource from "../../blocks/empty-search.tsx?raw";
+import { InviteBlock } from "../../blocks/invite";
+import inviteSource from "../../blocks/invite.tsx?raw";
 import type { BlockEntry } from "../../blocks/manifest";
 import { BLOCKS } from "../../blocks/manifest";
 import { OtpBlock } from "../../blocks/otp";
@@ -39,6 +41,7 @@ const RENDERS: Record<string, () => ReactNode> = {
   dashboard: () => <DashboardPageBlock />,
   signup: () => <SignupBlock />,
   otp: () => <OtpBlock />,
+  invite: () => <InviteBlock />,
 };
 
 const SOURCES: Record<string, string> = {
@@ -49,6 +52,7 @@ const SOURCES: Record<string, string> = {
   dashboard: dashboardSource,
   signup: signupSource,
   otp: otpSource,
+  invite: inviteSource,
 };
 
 export const BLOCK_VIEWS: BlockView[] = BLOCKS.map((entry) => ({

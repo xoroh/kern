@@ -6262,4 +6262,13 @@ export const BUNDLED_BLOCKS: BundledBlock[] = [
     files: ["otp.tsx"],
     components: ["Card", "InputOTP", "Button"],
   },
+  {
+    name: "invite",
+    title: "Invite accept",
+    category: "Auth",
+    description:
+      "A workspace invite accept flow: who invited you, which workspace and role, accept and decline. Reach for it when invites arrive out of band.",
+    files: ["invite.tsx"],
+    components: ["InviteAccept"],
+  },
 ];

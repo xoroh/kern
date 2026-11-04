@@ -148,5 +148,25 @@
       "otp.tsx": "/**\n * OTP block — one-time code entry with verify action, wired with mock\n * completion.\n *\n * A block is a real source file composed ONLY from shipped packages\n * (`@xoroh/kern`, `react`). Six boxed inputs in a filled card with a\n * verify button — copy it, then replace the mock `onComplete` with a real\n * verification call.\n */\nimport { Button, Card, InputOTP } from \"@xoroh/kern\";\nimport { useState } from \"react\";\n\nexport function OtpBlock({\n  onComplete,\n}: {\n  onComplete?: (code: string) => void;\n}) {\n  const [code, setCode] = useState(\"\");\n  return (\n    <Card variant=\"filled\" style={{ padding: 24, maxWidth: 400 }}>\n      <div style={{ display: \"flex\", flexDirection: \"column\", gap: 16 }}>\n        <p className=\"text-(--sys-typescale-title-medium-font-size) font-(--sys-typescale-title-medium-font-weight)\">\n          Check your email\n        </p>\n        <p className=\"text-(--sys-typescale-body-small-font-size) opacity-70\">\n          Enter the 6-digit code we sent you.\n        </p>\n        <InputOTP.Root\n          length={6}\n          aria-label=\"One-time code\"\n          value={code}\n          onValueChange={setCode}\n        >\n          <InputOTP.Input />\n          <InputOTP.Input />\n          <InputOTP.Input />\n          <InputOTP.Input />\n          <InputOTP.Input />\n          <InputOTP.Input />\n        </InputOTP.Root>\n        <Button disabled={code.length < 6} onClick={() => onComplete?.(code)}>\n          Verify\n        </Button>\n      </div>\n    </Card>\n  );\n}\n",
       "otp.native.tsx": "/**\n * OTP block, native variant — one-time code entry with verify action.\n *\n * Same contract as `otp.tsx`: real source composed ONLY from shipped\n * packages (`@xoroh/kern-native`, `react`), installed by\n * `kern add otp --platform native`.\n */\nimport { Button, Card, InputOTP, Text } from \"@xoroh/kern-native\";\nimport { useState } from \"react\";\n\nexport function OtpBlock({\n  onComplete,\n}: {\n  onComplete?: (code: string) => void;\n}) {\n  const [code, setCode] = useState(\"\");\n  return (\n    <Card variant=\"filled\">\n      <Text>Check your email</Text>\n      <Text>Enter the 6-digit code we sent you.</Text>\n      <InputOTP\n        length={6}\n        value={code}\n        onValueChange={setCode}\n        onComplete={onComplete}\n      />\n      <Button disabled={code.length < 6} onPress={() => onComplete?.(code)}>\n        Verify\n      </Button>\n    </Card>\n  );\n}\n"
     }
+  },
+  {
+    "name": "invite",
+    "title": "Invite accept",
+    "category": "Auth",
+    "description": "A workspace invite accept flow: who invited you, which workspace and role, accept and decline. Reach for it when invites arrive out of band.",
+    "file": "invite.tsx",
+    "files": [],
+    "registryDependencies": [
+      "InviteAccept"
+    ],
+    "dependencies": [
+      "@xoroh/kern",
+      "@xoroh/kern-native",
+      "react"
+    ],
+    "contents": {
+      "invite.tsx": "/**\n * Invite block — workspace invite accept flow, wired with mock invite.\n *\n * A block is a real source file composed ONLY from shipped packages\n * (`@xoroh/kern`, `react`). It renders the shipped `InviteAccept` with a\n * realistic invite (workspace, inviter, role, expiry) — copy it, then\n * replace the mock invite and the accept/decline handlers with real calls.\n */\nimport { InviteAccept } from \"@xoroh/kern\";\n\nexport function InviteBlock({\n  onAccept,\n  onDecline,\n}: {\n  onAccept?: () => void;\n  onDecline?: () => void;\n}) {\n  return (\n    <InviteAccept\n      defaultOpen\n      invite={{\n        workspaceName: \"Acme Taxi\",\n        inviterName: \"Faroeq\",\n        role: \"Dispatcher\",\n        expiresAt: \"Dec 31\",\n      }}\n      roleOptions={[{ value: \"dispatcher\", label: \"Dispatcher\" }]}\n      defaultRoleValue=\"dispatcher\"\n      onAccept={onAccept}\n      onDecline={onDecline}\n    />\n  );\n}\n",
+      "invite.native.tsx": "/**\n * Invite block, native variant — workspace invite accept flow.\n *\n * Same contract as `invite.tsx`: real source composed ONLY from shipped\n * packages (`@xoroh/kern-native`, `react`), installed by\n * `kern add invite --platform native`.\n */\nimport { InviteAccept } from \"@xoroh/kern-native\";\n\nexport function InviteBlock({\n  onAccept,\n  onDecline,\n}: {\n  onAccept?: () => void;\n  onDecline?: () => void;\n}) {\n  return (\n    <InviteAccept\n      defaultOpen\n      invite={{\n        workspaceName: \"Acme Taxi\",\n        inviterName: \"Faroeq\",\n        role: \"Dispatcher\",\n        expiresAt: \"Dec 31\",\n      }}\n      roleOptions={[{ value: \"dispatcher\", label: \"Dispatcher\" }]}\n      defaultRoleValue=\"dispatcher\"\n      onAccept={onAccept}\n      onDecline={onDecline}\n    />\n  );\n}\n"
+    }
   }
 ]
