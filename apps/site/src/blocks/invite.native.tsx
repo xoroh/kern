@@ -3,9 +3,11 @@
  *
  * Same contract as `invite.tsx`: real source composed ONLY from shipped
  * packages (`@xoroh/kern-native`, `react`), installed by
- * `kern add invite --platform native`.
+ * `kern add invite --platform native`. The sheet opens from its trigger
+ * (never on mount), so embedding this block never hijacks the host screen.
  */
-import { InviteAccept } from "@xoroh/kern-native";
+import { Button, InviteAccept } from "@xoroh/kern-native";
+import { useState } from "react";
 
 export function InviteBlock({
   onAccept,
@@ -14,19 +16,30 @@ export function InviteBlock({
   onAccept?: () => void;
   onDecline?: () => void;
 }) {
+  const [open, setOpen] = useState(false);
   return (
-    <InviteAccept
-      defaultOpen
-      invite={{
-        workspaceName: "Acme Taxi",
-        inviterName: "Faroeq",
-        role: "Dispatcher",
-        expiresAt: "Dec 31",
-      }}
-      roleOptions={[{ value: "dispatcher", label: "Dispatcher" }]}
-      defaultRoleValue="dispatcher"
-      onAccept={onAccept}
-      onDecline={onDecline}
-    />
+    <>
+      <Button onPress={() => setOpen(true)}>View invite</Button>
+      <InviteAccept
+        open={open}
+        onOpenChange={setOpen}
+        invite={{
+          workspaceName: "Acme Taxi",
+          inviterName: "Faroeq",
+          role: "Dispatcher",
+          expiresAt: "Dec 31",
+        }}
+        roleOptions={[{ value: "dispatcher", label: "Dispatcher" }]}
+        defaultRoleValue="dispatcher"
+        onAccept={() => {
+          setOpen(false);
+          onAccept?.();
+        }}
+        onDecline={() => {
+          setOpen(false);
+          onDecline?.();
+        }}
+      />
+    </>
   );
 }
