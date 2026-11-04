@@ -144,7 +144,7 @@ export function BlockViewer({
       >
         {prev ? (
           <Link
-            to="/showcase/$block"
+            to="/blocks/$block"
             params={{ block: prev.entry.name }}
             className={`no-underline hover:underline ${T_BODY_SM} ${LINK}`}
           >
@@ -155,7 +155,7 @@ export function BlockViewer({
         )}
         {next ? (
           <Link
-            to="/showcase/$block"
+            to="/blocks/$block"
             params={{ block: next.entry.name }}
             className={`no-underline hover:underline ${T_BODY_SM} ${LINK}`}
           >

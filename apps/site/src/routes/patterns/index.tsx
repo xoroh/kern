@@ -1,17 +1,13 @@
 /**
- * /patterns — moved to `domains/blocks/patterns.tsx`. Redirect-free thin
- * route: the Blocks domain owns the page, this file owns the URL (same
- * split as `domains/components/reference.tsx` + `routes/reference.tsx`).
+ * /patterns — moved to /blocks/patterns. Redirect stub, not a page: the
+ * Blocks domain owns patterns (D1003/D1004), and one page gets one URL.
+ * check-nav reads the `throw redirect` below and treats this file as an
+ * alias rather than an orphan route.
  */
-import { createFileRoute } from "@tanstack/react-router";
-import { PatternsHub } from "../../domains/blocks/patterns";
-import { routeHead } from "../../domains/shared/systems/seo";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/patterns/")({
-  head: () =>
-    routeHead(
-      "Patterns",
-      "Recurring product shapes composed from shipped components — app shell, forms, dialogs, search, settings, empty states.",
-    ),
-  component: PatternsHub,
+  beforeLoad: () => {
+    throw redirect({ to: "/blocks/patterns" });
+  },
 });

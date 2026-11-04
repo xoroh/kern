@@ -1,19 +1,21 @@
 /**
- * /patterns — the Patterns page (Blocks domain).
+ * /blocks/patterns — the Patterns page (Blocks domain).
  *
  * kern ships components, not templates: no mock screens, no concept shots.
  * A pattern is therefore a pointer — a real composition of shipped
  * components that solves a recurring product shape — with the component
  * pages as the reference. Each card names what it composes and links to the
  * page that documents it. Blocks (installable composed sections) live under
- * /showcase; this page stays a pointer by design (D8: real-only).
+ * /blocks; this page stays a pointer by design (D8: real-only).
  *
- * The route registration (`createFileRoute("/patterns/")`, head, component
- * wiring) lives in `routes/patterns/index.tsx` — TanStack file-based routing
- * only picks up route files under `routes/`, so the domain owns the page and
- * the route file owns the URL.
+ * The route registration (`createFileRoute("/blocks/patterns")`, head,
+ * component wiring) lives in `routes/blocks/patterns.tsx` — TanStack
+ * file-based routing only picks up route files under `routes/`, so the
+ * domain owns the page and the route file owns the URL. /patterns 301s
+ * here.
  */
 import { Link } from "@tanstack/react-router";
+import { familyHref } from "../../systems/tier-nav";
 import { PageCard } from "../shared/chrome/page-card";
 import { SiteLayout } from "../shared/chrome/site-layout";
 import {
@@ -39,7 +41,7 @@ const PATTERNS: {
     title: "App shell",
     body: "Top bar, navigation, and a content slot.",
     composes: "AppShell with top-app-bar and navigation-drawer slots",
-    to: "/components/m3/app-shell",
+    to: familyHref("app-shell"),
     cta: "Read the app-shell reference",
   },
   {
@@ -47,7 +49,7 @@ const PATTERNS: {
     title: "Form with validation",
     body: "Labels, inputs, and error text wired for screen readers.",
     composes: "Form, fieldset, field, and error text",
-    to: "/components/m3/form",
+    to: familyHref("form"),
     cta: "Read the form reference",
   },
   {
@@ -55,7 +57,7 @@ const PATTERNS: {
     title: "Decision dialog",
     body: "One question, two buttons, focus trapped until decided.",
     composes: "Dialog with focus trap and labelled actions",
-    to: "/components/m3/dialog",
+    to: familyHref("dialog"),
     cta: "Read the dialog reference",
   },
   {
@@ -63,7 +65,7 @@ const PATTERNS: {
     title: "Command palette and search",
     body: "⌘K search over every registry, ranked and grouped.",
     composes: "Search-bar over the static search index",
-    to: "/components/m3/search-bar",
+    to: familyHref("search-bar"),
     cta: "Read the search-bar reference",
   },
   {
@@ -71,7 +73,7 @@ const PATTERNS: {
     title: "Settings list",
     body: "Icon, label, control — rows that scan as decisions.",
     composes: "List-item rows with switch and checkbox controls",
-    to: "/components/m3/list-item",
+    to: familyHref("list-item"),
     cta: "Read the list-item reference",
   },
   {
@@ -79,7 +81,7 @@ const PATTERNS: {
     title: "Empty states",
     body: "Name what is missing, show the one action that fills it.",
     composes: "Empty-state with a single primary action",
-    to: "/components/m3/empty-state",
+    to: familyHref("empty-state"),
     cta: "Read the empty-state reference",
   },
 ];
@@ -126,8 +128,8 @@ export function PatternsHub() {
         <p className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
           Installable composed sections — blocks with live previews and a{" "}
           <code className={T_CODE}>kern add</code> install — live under{" "}
-          <Link to="/showcase" className={LINK}>
-            /showcase
+          <Link to="/blocks" className={LINK}>
+            /blocks
           </Link>
           .
         </p>

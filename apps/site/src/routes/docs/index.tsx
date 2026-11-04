@@ -106,7 +106,7 @@ const SECTIONS = [
   {
     title: "Blocks",
     why: "Composed work built from kern, ready to lift into a product.",
-    links: [{ label: "Open blocks", to: "/showcase" }],
+    links: [{ label: "Open blocks", to: "/blocks" }],
   },
 ];
 

@@ -48,7 +48,11 @@ export const PRIMARY_TABS: PrimaryTab[] = [
   },
   { href: "/components", label: "Components", match: ["/components"] },
   { href: "/core", label: "Core", match: ["/core"] },
-  { href: "/showcase", label: "Blocks", match: ["/showcase", "/patterns"] },
+  {
+    href: "/blocks",
+    label: "Blocks",
+    match: ["/blocks", "/showcase", "/patterns"],
+  },
   { href: "/playground", label: "Studio", match: ["/playground"] },
 ];
 

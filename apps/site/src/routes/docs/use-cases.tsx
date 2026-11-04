@@ -151,7 +151,7 @@ ${KERN} add chip card     # vendor several (receipt merges)`}</Code>
               <p className={`m-0 ${T_BODY_SM} ${INK_SOFT}`}>
                 <code>kern add settings-screen</code> vendors a whole block (all
                 its files) under <code>blocks/</code> — the same source the{" "}
-                <a href="/showcase" className={LINK}>
+                <a href="/blocks" className={LINK}>
                   Blocks catalog
                 </a>{" "}
                 previews live.

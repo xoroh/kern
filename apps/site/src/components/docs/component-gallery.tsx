@@ -136,7 +136,7 @@ export function TierTabs({
   const items = [
     { label: "Core", to: "/core", active: active === "core" },
     { label: "Components", to: "/components", active: active === "components" },
-    { label: "Blocks", to: "/showcase", active: active === "blocks" },
+    { label: "Blocks", to: "/blocks", active: active === "blocks" },
   ];
   return (
     <nav
