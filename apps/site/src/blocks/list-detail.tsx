@@ -8,7 +8,14 @@
  * copy it, then replace the mock tickets and the select handler with host
  * data.
  */
-import { Button, Card, EmptyState, ListItem, Search, StatusPill } from "@xoroh/kern";
+import {
+  Button,
+  Card,
+  EmptyState,
+  ListItem,
+  Search,
+  StatusPill,
+} from "@xoroh/kern";
 import { ListDetail } from "@xoroh/kern/start";
 import { useState } from "react";
 
@@ -75,7 +82,12 @@ export function ListDetailBlock({
     <ListDetail
       list={
         <div
-          style={{ display: "flex", flexDirection: "column", gap: 8, padding: 8 }}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 8,
+            padding: 8,
+          }}
         >
           <Search
             label="Search tickets"
@@ -137,9 +149,7 @@ export function ListDetailBlock({
                 <p className="text-(--sys-typescale-title-large-font-size) font-(--sys-typescale-title-large-font-weight)">
                   {selected.subject}
                 </p>
-                <StatusPill tone={selected.tone}>
-                  {selected.status}
-                </StatusPill>
+                <StatusPill tone={selected.tone}>{selected.status}</StatusPill>
               </div>
               <p className="text-(--sys-typescale-body-small-font-size) opacity-70">
                 {selected.id} · {selected.requester} · {selected.updated}

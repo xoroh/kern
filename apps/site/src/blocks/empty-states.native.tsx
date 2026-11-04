@@ -21,11 +21,11 @@ export function EmptyStatesBlock({
         variant="page"
         title="No projects yet"
         description="Create your first project and it will show up here, ready to track."
-        primaryAction={
-          <Button onPress={onCreate}>Create project</Button>
-        }
+        primaryAction={<Button onPress={onCreate}>Create project</Button>}
         secondaryAction={
-          <LinkButton href="#support">Talk to support</LinkButton>
+          <LinkButton href="mailto:support@example.com">
+            Talk to support
+          </LinkButton>
         }
       />
       <EmptyState

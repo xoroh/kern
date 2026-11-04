@@ -202,4 +202,4 @@ export const BLOCKS: BlockEntry[] = [
       "react",
     ],
   },
-];;
+];
