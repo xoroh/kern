@@ -146,6 +146,31 @@ describe("system flag (decision 009)", () => {
     });
   });
 
+  it("filters one IA tier at a time (D1003/D1004)", async () => {
+    const core = await listComponents(undefined, "kern-m3", "core");
+    expect("error" in core).toBe(false);
+    if ("error" in core) return;
+    expect(core.count).toBeGreaterThan(0);
+    expect(core.components.every((c) => c.tier === "core")).toBe(true);
+    const composite = await listComponents(undefined, "kern-m3", "component");
+    expect("error" in composite).toBe(false);
+    if ("error" in composite) return;
+    expect(composite.count).toBeGreaterThan(0);
+    expect(composite.components.every((c) => c.tier === "component")).toBe(
+      true,
+    );
+    expect(composite.components.some((c) => c.export === "DataTable")).toBe(
+      true,
+    );
+    const all = await listComponents();
+    if ("error" in all) return;
+    expect(core.count + composite.count).toBe(all.count);
+    const bad = await listComponents(undefined, "kern-m3", "blocks" as never);
+    expect(bad).toMatchObject({
+      error: expect.stringContaining('unknown tier "blocks"'),
+    });
+  });
+
   it("gets default to kern-m3 and refuses unknown systems", async () => {
     const hit = await getComponent("button");
     expect("error" in hit).toBe(false);

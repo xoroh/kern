@@ -27,6 +27,8 @@ export type ListOptions = {
   platform?: "web" | "native" | "all";
   /** Design system to list (decision 009). Default: the only current system. */
   system?: string;
+  /** IA tier to list (D1003/D1004). Default: all tiers. */
+  tier?: "core" | "component" | "all";
 };
 
 export function listComponents(
@@ -34,21 +36,25 @@ export function listComponents(
     root?: string;
     platform?: "web" | "native" | "all";
     system?: string;
+    tier?: "core" | "component" | "all";
   } = {},
 ): string[] {
   const root =
     opts.root ?? (process.env.KERN_WORKSPACE as string) ?? WORKSPACE_ROOT;
   const platform = opts.platform ?? "all";
+  const tier = opts.tier ?? "all";
   const { rows } = loadRegistry(root);
   const system = resolveSystem(rows, opts.system);
   return rows
     .filter(
       (r) =>
-        (platform === "all" || r.platform === platform) && r.system === system,
+        (platform === "all" || r.platform === platform) &&
+        r.system === system &&
+        (tier === "all" || r.tier === tier),
     )
     .map(
       (r) =>
-        `${r.name} — ${r.export} (${r.platform}, ${r.entrypoint}, ${r.status}, ${r.system})`,
+        `${r.name} — ${r.export} (${r.platform}, ${r.entrypoint}, ${r.status}, ${r.system}, ${r.tier})`,
     )
     .sort();
 }

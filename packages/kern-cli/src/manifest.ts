@@ -31,6 +31,10 @@ export type ManifestRow = {
   entrypoint: string;
   path: string;
   status: "real" | "stub";
+  /** IA tier (D1003/D1004) — carried by registry.json since step 1. */
+  tier: "core" | "component";
+  builtFrom: string[];
+  usedBy: string[];
 };
 
 export type Registry = {
@@ -80,11 +84,33 @@ export function resolveSystem(
 }
 
 const ROW_RE =
-  /\{\s*name:\s*"([^"]+)",\s*export:\s*"([^"]+)",\s*platform:\s*"(web|native)",\s*system:\s*"([^"]+)",\s*entrypoint:\s*"([^"]+)",\s*path:\s*"([^"]+)",\s*status:\s*"(real|stub)"[^}]*\}/gs;
+  /\{\s*name:\s*"([^"]+)",\s*export:\s*"([^"]+)",\s*platform:\s*"(web|native)",\s*system:\s*"([^"]+)",\s*entrypoint:\s*"([^"]+)",\s*path:\s*"([^"]+)",\s*status:\s*"(real|stub)",\s*tier:\s*"(core|component)",\s*builtFrom:\s*(\[[^\]]*\]),\s*usedBy:\s*(\[[^\]]*\]),?\s*\}/gs;
+
+function parseList(src: string): string[] {
+  const m = src.match(/\[([^\]]*)\]/s);
+  if (!m) return [];
+  // Generated rows render arrays JSON-style with an optional trailing comma
+  // (biome format) — tolerate it: the match is generated code, never prose.
+  return [...m[0].replace(/,\s*\]/, "]").matchAll(/"([^"]+)"/g)].map(
+    ([, s]) => s,
+  );
+}
 
 function parseManifestSource(src: string): ManifestRow[] {
   return [...src.matchAll(ROW_RE)].map(
-    ([, name, exportName, platform, system, entrypoint, path, status]) => ({
+    ([
+      ,
+      name,
+      exportName,
+      platform,
+      system,
+      entrypoint,
+      path,
+      status,
+      tier,
+      builtFrom,
+      usedBy,
+    ]) => ({
       name,
       export: exportName,
       platform: platform as "web" | "native",
@@ -92,6 +118,9 @@ function parseManifestSource(src: string): ManifestRow[] {
       entrypoint,
       path,
       status: status as "real" | "stub",
+      tier: tier as "core" | "component",
+      builtFrom: parseList(builtFrom),
+      usedBy: parseList(usedBy),
     }),
   );
 }

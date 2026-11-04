@@ -44,6 +44,25 @@ function platformFlag(): AddPlatform | undefined {
   return value;
 }
 
+function tierFlag(): "core" | "component" | "blocks" | "all" {
+  const value = flagValue("--tier");
+  if (value === undefined) return "all";
+  // "components" is the index name (the /components door); the row value is
+  // "component". Accept both, resolve to the row value downstream.
+  if (
+    value !== "core" &&
+    value !== "component" &&
+    value !== "components" &&
+    value !== "blocks"
+  ) {
+    console.error(
+      `kern: --tier is "core", "component(s)" or "blocks", not "${value}".`,
+    );
+    process.exit(1);
+  }
+  return value as "core" | "component" | "blocks" | "all";
+}
+
 function systemFlag(): string | undefined {
   const value = flagValue("--system");
   if (value === undefined) return undefined;
@@ -83,8 +102,8 @@ function usage(): never {
   kern add <name> [--dest <dir>] [--platform web|native] [--system <id>] [--self-contained]
       vendor a component or block + closure (transactional: a late failure
       writes nothing)
-  kern list [--platform web|native|all] [--system <id>]
-      what the registry holds, with platform, entrypoint and status
+  kern list [--platform web|native|all] [--system <id>] [--tier core|components|blocks]
+      what the registry holds, with platform, entrypoint, status and tier
   kern diff [--dest <dir>]
       receipt vs destination: current, customized, removed
   kern upgrade <name> [--dest <dir>] [--apply]
@@ -107,6 +126,7 @@ Options:
   --preset <id>      design-system preset pinned into kern.json (default: material-3)
   --dest <dir>       where vendored code lands (default: ./components/kern)
   --platform <p>     web (default) or native; native selects the native row first
+  --tier <t>         list only one IA tier: core, components (composites) or blocks
   --system <id>      design system to install from (default: kern-m3, the only current system)
   --self-contained   vendor the token CSS snapshot too (default: hybrid — values stayed depended)
   --apply            kern upgrade: perform the plan (default is dry-run)
@@ -203,9 +223,19 @@ try {
   } else if (cmd === "list") {
     const platform = platformFlag() ?? "all";
     const system = systemFlag();
-    for (const line of listComponents({ platform, system })) console.log(line);
-    console.log("--- blocks ---");
-    for (const line of listBlocks()) console.log(line);
+    const tier = tierFlag();
+    if (tier === "blocks") {
+      for (const line of listBlocks()) console.log(line);
+    } else {
+      const rowTier =
+        tier === "components" ? "component" : (tier as "core" | "all");
+      for (const line of listComponents({ platform, system, tier: rowTier }))
+        console.log(line);
+      if (tier === "all") {
+        console.log("--- blocks ---");
+        for (const line of listBlocks()) console.log(line);
+      }
+    }
   } else if (cmd === "diff") {
     const dest = flagValue("--dest") ?? "components/kern";
     console.log(formatDiff(diffDest(dest)));

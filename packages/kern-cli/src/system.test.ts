@@ -63,7 +63,9 @@ describe("system flag (decision 009)", () => {
     });
     expect(def).toEqual(explicit);
     expect(def.length).toBe(rows.length);
-    expect(def.every((l) => l.endsWith(", kern-m3)"))).toBe(true);
+    expect(def.every((l) => /, kern-m3, (core|component)\)$/.test(l))).toBe(
+      true,
+    );
   });
 
   it("list refuses an unknown system", () => {

@@ -135,12 +135,21 @@ async function readNativeFile(rel: string): Promise<string | null> {
   ]);
 }
 
-export async function listComponents(platform?: Platform, system?: string) {
+export async function listComponents(
+  platform?: Platform,
+  system?: string,
+  tier?: "core" | "component",
+) {
   const resolved = resolveSystem(system);
   if ("error" in resolved) return resolved;
+  if (tier !== undefined && tier !== "core" && tier !== "component") {
+    return { error: `unknown tier "${tier}" — "core" or "component".` };
+  }
   const list = COMPONENTS.filter(
     (c) =>
-      (!platform || c.platform === platform) && c.system === resolved.system,
+      (!platform || c.platform === platform) &&
+      c.system === resolved.system &&
+      (!tier || c.tier === tier),
   ).map((c) => ({
     name: c.name,
     export: c.export,
@@ -151,6 +160,8 @@ export async function listComponents(platform?: Platform, system?: string) {
     // compile. Both fields ride together, always.
     entrypoint: c.entrypoint,
     status: c.status,
+    // IA tier (D1003/D1004): core primitives vs composites built from them.
+    tier: c.tier,
     import:
       c.platform === "web"
         ? `@xoroh/kern${c.entrypoint === "./start" ? "/start" : ""}`

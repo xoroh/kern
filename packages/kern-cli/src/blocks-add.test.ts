@@ -79,6 +79,9 @@ export function Root() {
     entrypoint: ".",
     path: "src/components/button.tsx",
     status: "real",
+    tier: "core",
+    builtFrom: [],
+    usedBy: [],
   },
 ];
 `,
@@ -88,6 +91,107 @@ export function Root() {
 
 function freshDest(): string {
   return mkdtempSync(join(tmpdir(), "kern-add-"));
+}
+
+/**
+ * A fixture workspace with a native-capable block: the declared root has a
+ * `.native.tsx` sibling, and the registry carries the native Button row the
+ * block closes over. Proves the native vendor path without touching the
+ * real workspace (whose blocks are web-only until steps 9-10 land).
+ */
+function fixtureNativeWorkspace(): string {
+  const root = mkdtempSync(join(tmpdir(), "kern-blocks-native-"));
+  const dir = join(root, "apps", "site", "src", "blocks");
+  mkdirSync(dir, { recursive: true });
+  writeFileSync(
+    join(dir, "manifest.ts"),
+    `export const BLOCKS = [
+  {
+    name: "one-file-native",
+    title: "One file native block",
+    category: "Settings",
+    description: "Root with a native sibling.",
+    file: "root.tsx",
+    files: [],
+    registryDependencies: ["Button"],
+    dependencies: ["@xoroh/kern", "react"],
+  },
+];
+`,
+  );
+  writeFileSync(
+    join(dir, "root.tsx"),
+    `import { Button } from "@xoroh/kern";
+export function Root() {
+  return <Button>Go</Button>;
+}
+`,
+  );
+  writeFileSync(
+    join(dir, "root.native.tsx"),
+    `import { Button } from "@xoroh/kern-native";
+export function NativeRoot() {
+  return <Button>Go</Button>;
+}
+`,
+  );
+  const pkgDir = join(root, "packages", "kern");
+  mkdirSync(pkgDir, { recursive: true });
+  writeFileSync(
+    join(pkgDir, "package.json"),
+    `${JSON.stringify({ name: "@xoroh/kern", version: "0.0.0" }, null, 2)}\n`,
+  );
+  const compDir = join(pkgDir, "src", "components");
+  mkdirSync(compDir, { recursive: true });
+  writeFileSync(
+    join(compDir, "button.tsx"),
+    `export function Button() {\n  return null;\n}\n`,
+  );
+  const nativePkgDir = join(root, "packages", "kern-native");
+  mkdirSync(nativePkgDir, { recursive: true });
+  writeFileSync(
+    join(nativePkgDir, "package.json"),
+    `${JSON.stringify({ name: "@xoroh/kern-native", version: "0.0.0" }, null, 2)}\n`,
+  );
+  const nativeCompDir = join(nativePkgDir, "src", "components");
+  mkdirSync(nativeCompDir, { recursive: true });
+  writeFileSync(
+    join(nativeCompDir, "button.tsx"),
+    `export function Button() {\n  return null;\n}\n`,
+  );
+  const mcpDir = join(root, "packages", "mcp", "src");
+  mkdirSync(mcpDir, { recursive: true });
+  writeFileSync(
+    join(mcpDir, "manifest.ts"),
+    `export const COMPONENTS = [
+  {
+    name: "button",
+    export: "Button",
+    platform: "web",
+    system: "kern-m3",
+    entrypoint: ".",
+    path: "src/components/button.tsx",
+    status: "real",
+    tier: "core",
+    builtFrom: [],
+    usedBy: [],
+  },
+  {
+    name: "button",
+    export: "Button",
+    platform: "native",
+    system: "kern-m3",
+    entrypoint: ".",
+    path: "src/components/button.tsx",
+    status: "real",
+    tier: "core",
+    builtFrom: [],
+    usedBy: [],
+  },
+];
+`,
+  );
+  return root;
 }
 
 describe("kern add <block> (multi-file)", () => {
@@ -147,6 +251,35 @@ describe("kern add <block> (multi-file)", () => {
     expect(() =>
       addBlock("does-not-exist", { root: WORKSPACE_ROOT, dest: freshDest() }),
     ).toThrow(/unknown block/);
+  });
+
+  it("refuses native install when a variant is missing (no stubs)", () => {
+    expect(() =>
+      addBlock("settings-screen", {
+        root: WORKSPACE_ROOT,
+        dest: freshDest(),
+        platform: "native",
+      }),
+    ).toThrow(/no native variant for "settings-screen\.tsx"/);
+  });
+
+  it("vendors a native variant with a native closure when present", () => {
+    const root = fixtureNativeWorkspace();
+    const dest = freshDest();
+    try {
+      const r = addBlock("one-file-native", {
+        root,
+        dest,
+        platform: "native",
+      });
+      expect(r.files).toContain("blocks/root.native.tsx");
+      expect(existsSync(join(dest, "blocks/root.native.tsx"))).toBe(true);
+      const bytes = readFileSync(join(dest, "blocks/root.native.tsx"), "utf8");
+      expect(bytes).toContain("NativeRoot");
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+      rmSync(dest, { recursive: true, force: true });
+    }
   });
 
   it("identical re-add is a no-op; edited re-add refuses (upgrade instead)", {

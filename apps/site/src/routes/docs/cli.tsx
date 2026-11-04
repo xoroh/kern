@@ -53,7 +53,8 @@ const INIT = `kern init .                   # configure an existing project with
 # + kern.json (renderer, pinned preset, package manager, mode)`;
 
 const LIST = `kern list                     # components + blocks, all platforms
-kern list --platform native    # filter the component inventory`;
+kern list --platform native    # filter the component inventory
+kern list --tier core          # M3 primitives only (components|blocks also work)`;
 
 const ADD = `kern add button               # vendor one component + its import closure
 kern add chip card            # vendor several (the receipt merges)
@@ -64,7 +65,8 @@ const DIFF_UPGRADE = `kern diff                     # current, customized, remov
 kern upgrade button           # plan only, no writes
 kern upgrade button --apply   # update everything except your customized files`;
 
-const NATIVE = `kern add button --platform native   # select the native manifest row first`;
+const NATIVE = `kern add button --platform native   # select the native manifest row first
+kern add settings-screen --platform native   # needs every .native.tsx variant (refused aloud when missing)`;
 
 const FEEDBACK = `kern feedback --category bug \\
   --title "Contrast toggle skips RTL" \\
@@ -131,9 +133,10 @@ function Cli() {
         <section className="flex flex-col gap-3">
           <H2 id="list">list — browse the registry</H2>
           <p className={`m-0 max-w-[62ch] ${T_BODY_SM} ${INK_SOFT}`}>
-            Lists components with platform and status, then the available
-            blocks. Use the platform filter when you are choosing a native or
-            web row.
+            Lists components with platform, status and IA tier (Core primitives
+            vs composite Components), then the available blocks. Use the
+            platform filter when you are choosing a native or web row, and the
+            tier filter when you want one layer of the system.
           </p>
           <Code language="bash">{LIST}</Code>
         </section>
@@ -150,7 +153,9 @@ function Cli() {
             <code>--platform native</code> selects the native manifest row
             before lookup and prints the peer-dependency and Metro notes. A name
             with no row for the requested platform is refused rather than
-            resolved to the wrong renderer.
+            resolved to the wrong renderer. Blocks install natively only when
+            every declared file ships a <code>.native.tsx</code> sibling — a
+            missing variant is refused aloud, never faked with web source.
           </p>
           <Code language="bash">{ADD}</Code>
           <Code language="bash">{NATIVE}</Code>

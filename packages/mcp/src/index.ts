@@ -33,22 +33,27 @@ function text(payload: unknown) {
 
 server.tool(
   "list_components",
-  "List Kern UI components with build status. Filter by platform and design system.",
+  "List Kern UI components with build status. Filter by platform, tier (core primitives vs composites) and design system.",
   {
     platform: z
       .enum(["web", "native"])
       .optional()
       .describe("web (React) or native (React Native)"),
+    tier: z
+      .enum(["core", "component"])
+      .optional()
+      .describe("IA tier: core M3 primitives or composites built from them"),
     system: z
       .string()
       .default(DEFAULT_SYSTEM)
       .describe("design system id (kern-m3, the only current system)"),
   },
-  async ({ platform, system }) => {
+  async ({ platform, system, tier }) => {
     return text(
       await listComponents(
         platform as Platform | undefined,
         system ?? DEFAULT_SYSTEM,
+        tier as "core" | "component" | undefined,
       ),
     );
   },

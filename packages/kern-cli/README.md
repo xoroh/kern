@@ -31,8 +31,9 @@ Mode 1 (`kern add`) vendors component installs — `add.ts` (copy +
 receipt), `closure.ts` (transitive relative-import closure), `manifest.ts`
 (registry seam over `packages/mcp/src/manifest.ts`), `kern.ts` (CLI entry).
 Web is the default; `--platform native` vendors the native row (Metro and
-font setup ride in the printed instructions). Blocks are web-only in this
-release — a block with no native manifest is refused aloud. Components
+font setup ride in the printed instructions). A block installs natively only
+when every declared file has a `.native.tsx` sibling — a missing variant is
+refused aloud (no web source vendored as native). Components
 upgrade through the component planner, blocks through the block planner.
 Customized files are preserved, never overwritten.
 

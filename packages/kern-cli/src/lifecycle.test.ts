@@ -123,6 +123,22 @@ describe("list and diff", () => {
     expect(listBlocks({ root: WORKSPACE_ROOT }).length).toBeGreaterThan(0);
   });
 
+  it("lists one IA tier at a time (D1003/D1004)", () => {
+    const core = listComponents({ root: WORKSPACE_ROOT, tier: "core" });
+    expect(core.length).toBeGreaterThan(0);
+    expect(core.every((l) => l.endsWith(", core)"))).toBe(true);
+    const composite = listComponents({
+      root: WORKSPACE_ROOT,
+      tier: "component",
+    });
+    expect(composite.length).toBeGreaterThan(0);
+    expect(composite.every((l) => l.endsWith(", component)"))).toBe(true);
+    expect(composite.some((l) => l.startsWith("button —"))).toBe(true);
+    // The tiers partition the registry: no row is listed twice, none lost.
+    const all = listComponents({ root: WORKSPACE_ROOT });
+    expect(core.length + composite.length).toBe(all.length);
+  });
+
   it("diff reports current, then customized after an owned edit", () => {
     const dest = freshDest();
     try {

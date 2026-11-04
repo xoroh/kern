@@ -35,7 +35,12 @@ import {
 } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
-import { blockFileBytes, blockFileList, loadBlocks } from "./blocks.js";
+import {
+  blockFileBytes,
+  blockFileList,
+  blockNativeFileList,
+  loadBlocks,
+} from "./blocks.js";
 import { resolveClosure } from "./closure.js";
 import {
   loadRegistry,
@@ -450,7 +455,7 @@ export function addComponent(name: string, opts: AddOptions = {}): AddResult {
 /**
  * `kern add <block>` — declared block files PLUS the closure of every
  * `registryDependencies` export, planned and committed in the same two
- * phases. Component closures resolve against the web manifest rows; a block
+ * phases. Component closures resolve against the platform's manifest rows; a block
  * dependency with no row fails naming it rather than installing half a block.
  */
 export function planBlock(
@@ -468,11 +473,6 @@ export function planBlock(
   const cwd = opts.cwd ?? process.cwd();
   const project = readProjectConfig(cwd);
   const platform = opts.platform ?? project.platform ?? "web";
-  if (platform !== "web") {
-    fail(
-      `blocks are web-only in this release — "${name}" has no native block manifest.`,
-    );
-  }
 
   const rows = loadBlocks(root);
   const row = rows.find((r) => r.name === name);
@@ -481,7 +481,24 @@ export function planBlock(
       `unknown block "${name}" — block names come from apps/site/src/blocks/manifest.ts.`,
     );
   }
-  const list = blockFileList(row, root);
+
+  // Native variants (D1003/D1004 step 7): a block installs natively only
+  // when EVERY declared file has a `.native.tsx` sibling. A missing
+  // variant refuses honestly — vendoring web source as native would ship a
+  // component that renders nothing on the device.
+  const native = platform === "native";
+  let list: string[] | null;
+  if (native) {
+    const resolved = blockNativeFileList(row, root);
+    if ("missing" in resolved) {
+      fail(
+        `block "${name}" has no native variant for "${resolved.missing}" — web-only in this release (native variants land per block; refusing rather than vendoring web source as native).`,
+      );
+    }
+    list = resolved.files;
+  } else {
+    list = blockFileList(row, root);
+  }
   if (!list) {
     fail(
       `block "${name}": a declared file is missing on disk — run \`bun --cwd apps/site scripts/check-blocks.mjs\`.`,
@@ -490,7 +507,7 @@ export function planBlock(
 
   const registry = loadRegistry(root);
   // Decision 009: the system flag validates even for blocks (blocks are
-  // web-only M3 compositions with no system of their own) — installing M3
+  // M3 compositions with no system of their own) — installing M3
   // bytes under a foreign system name must fail, not silently succeed.
   const system = resolveSystem(registry.rows, opts.system);
   const files: PlannedFile[] = [];
@@ -503,16 +520,20 @@ export function planBlock(
   }
   // The component closure the old code left behind: every registryDependency
   // export resolves to its manifest row, whose closure vendors alongside.
-  const pkgDir = pkgDirFor(root, "web");
+  // Native blocks close over NATIVE rows (a native block rendering a web
+  // Button would not compile) — the platform rides the whole resolution.
+  const pkgDir = pkgDirFor(root, platform);
   const seen = new Set<string>();
   for (const exportName of row.registryDependencies) {
     const dep = registry.rows.find(
       (r) =>
-        r.export === exportName && r.platform === "web" && r.system === system,
+        r.export === exportName &&
+        r.platform === platform &&
+        r.system === system,
     );
     if (!dep) {
       fail(
-        `block "${name}" needs "${exportName}" but the registry has no web row for it — refusing a half-block.`,
+        `block "${name}" needs "${exportName}" but the registry has no ${platform} row for it — refusing a half-block.`,
       );
     }
     const { vendor, mirror } = resolveClosure(pkgDir, dep.path);

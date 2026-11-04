@@ -115,6 +115,37 @@ export function blockFileList(
   return all;
 }
 
+/**
+ * Native variants of a block's declared files (D1003/D1004 step 7).
+ *
+ * A native variant is a sibling file named `<base>.native.tsx` next to each
+ * declared file. Returns the native file list, or `{ missing }` naming the
+ * first declared file with no native counterpart — the caller refuses
+ * honestly (D1004: honest refusal where absent, no stubs) rather than
+ * vendoring web source as native.
+ */
+export function blockNativeFileList(
+  row: BlockRow,
+  root: string = WORKSPACE_ROOT,
+): { files: string[] } | { missing: string } {
+  const dir = blocksDir(root);
+  const nativeOf = (f: string) => f.replace(/\.tsx$/, ".native.tsx");
+  const out: string[] = [];
+  for (const f of [row.file, ...row.files]) {
+    const native = nativeOf(f);
+    if (existsSync(join(dir, native))) {
+      out.push(native);
+      continue;
+    }
+    if (row.contents?.[native] !== undefined) {
+      out.push(native);
+      continue;
+    }
+    return { missing: f };
+  }
+  return { files: out };
+}
+
 /** Read one block file: disk in a checkout, payload in a packed install. */
 export function blockFileBytes(
   row: BlockRow,
