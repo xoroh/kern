@@ -61,6 +61,16 @@ export function successTransformStyles(
  * SuccessTransform — trio → check on completion.
  * Tightly scoped celebration for task-done / payment-sent / ticket-solved.
  * The one place a shape is allowed to become a glyph.
+ *
+ * WP9 Part E decision (2026-11-04, generic-vs-product): GENERIC, native-only.
+ * The two states (`loading` | `success`) and the split wait/outcome colors
+ * carry no product strings — the doc examples above are usage moments, not
+ * coupled flows — and the render is generic M3 material only (loader style
+ * from the shared spec, disc/tick radii from the shape scale, timing from
+ * `feedbackTiming`). There is no `error` state by design: a failure is a
+ * message, not a transform. No web twin: web composes the same moment from
+ * `CircularProgress` at the app layer, and no in-repo caller needs a shared
+ * twin. The site already records this as a NATIVE-ONLY export.
  */
 export function SuccessTransform({
   state,

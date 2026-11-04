@@ -21,6 +21,7 @@ variants, auditing conformance, or writing component docs.
 10. [Kern overrides](#10-kern-overrides)
 11. [Usage guidance](#11-usage-guidance-from-m3materialio-tabs)
 12. [Cross-implementation notes](#12-cross-implementation-notes)
+13. [WP9 Part E decisions](#13-wp9-part-e-decisions-2026-11-04)
 
 ---
 
@@ -221,3 +222,59 @@ reports `status`. Determinate value changes animate `stroke-dashoffset` over
 - **Snackbar elevation**: M3 does not tabulate snackbar in the elevation
   table (stays K11 unassigned); level3 chosen as the floating-surface value
   matching dialog/FAB prominence.
+
+---
+
+## 13. WP9 Part E decisions (2026-11-04)
+
+### 13.1 Milestone-trio + success-transform: both GENERIC, native-only
+
+| Component | Verdict | Evidence |
+| --------- | ------- | -------- |
+| `MilestoneTrio` (`kern-native`) | Generic, keep; no web twin | Props are product-free: arbitrary `steps: readonly string[]` + completed-count `progress`, states derived per index (done = full shape, current = pulsing loader, todo = dim). Composes generic M3 primitives only (`Shape`, `CircularProgress`, `FEEDBACK_SIZE_DP`, scheme color/shape roles). Sole in-repo caller is `BootSplash`, which passes caller-owned milestone strings (`shell.tsx`). |
+| `SuccessTransform` (`kern-native`) | Generic, keep; no web twin | Two states (`loading` \| `success`) plus split wait/outcome colors (`color`, `successColor`); doc examples (task-done / payment-sent / ticket-solved) are usage moments, not coupled flows. Zero in-repo product callers (showcase only). Disc/tick radii come from the shape scale, timing from `feedbackTiming`. No `error` state by design — a failure is a message, not a transform. |
+
+No product split was needed: neither file contains product-specific code to
+split out, so there is no generic side to implement separately. No web twins:
+web covers the same moments with `BootIndicator` (boot), the determinate
+`CircularProgress`, and `PageLoader` (in-content) — a twin would add API
+surface with no caller. The site already records both as NATIVE-ONLY
+(`nativePeer: "none"`, package-pinned showcase fences). Rationale is also
+pinned in each component's JSDoc. No new exports; manifest count unchanged.
+
+### 13.2 Shape / shape-art token wiring: nothing missing
+
+The "token part" (waiting WP0/G0) is already wired end to end, so no change
+was made:
+
+- Canonical scale: `kern-tokens` `tokens.json` `shape` table (10 roles,
+  `none` → `full`) resolves into `scheme.shape` for native and
+  `--sys-shape-corner-*` variables for web.
+- Native consumes the scale everywhere shapes are drawn: `Shape`
+  (`full`/`small`/`extra-small`), `ShapeArt` (`large`), `SuccessTransform`
+  (`full`/`extra-small`), `CircularProgress` ring/bar/dots (`full`),
+  `Carousel` (`extra-large`/`full`). No hardcoded radii in these files.
+- Web consumes `--sys-shape-corner-*` in `Carousel` (`extra-large` viewport,
+  `full` controls/indicators). The one hardcoded radius in the shape path
+  (`ShapeGlyph` `rx` in `CircularProgress`) lives in a Part E EXCLUDED file
+  and is out of scope — recorded, not fixed.
+- No component-token layer is missing: `comp-tokens.css` carries only
+  `--comp-progress-*` color/track entries for the feedback family; shape
+  consumers read `sys` roles directly, consistent with their siblings.
+
+### 13.3 Carousel VERIFY (both renderers): PASS, no edits
+
+- Web (`kern/src/components/carousel.tsx`, tests in `carousel.test.tsx` +
+  `kern-gaps.test.tsx` + `parity/web-parity-navigation.test.tsx`): PASS.
+  Pinned — `aria-roledescription="carousel"`/`"slide"`, one-current invariant,
+  controlled/uncontrolled + clamp, wrap/clamp, disabled (controls + dots +
+  `aria-live="off"`), no auto-advance, mounted-but-`inert` slides,
+  per-slide labels.
+- Native (`kern-native/src/components/carousel.tsx`, tests in
+  `carousel.rntest.tsx`): PASS. Pinned — named group, exactly-one-selected
+  roving stop, press-to-move, controlled + `defaultValue`, clamp-by-default,
+  `loop` opt-in, position in dot names, disabled items keep position,
+  `carouselStyles` active/inactive dimming. The two deliberate platform
+  substitutions (no roledescription → `role="group"`; touch press instead of
+  arrow keys over the shared `@xoroh/axis` roving model) are documented in
+  the component header.

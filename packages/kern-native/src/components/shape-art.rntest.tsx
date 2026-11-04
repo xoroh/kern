@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react-native";
 import { expressiveShapePath } from "@xoroh/kern-m3";
 import { defaultScheme } from "../theme";
-import { ExpressiveShape } from "./shape-art";
+import { ExpressiveShape, ShapeArt, shapeArtStyles } from "./shape-art";
 
 // The root hides itself from accessibility (decorative-only art), which also
 // hides the subtree from RNTL queries — opt back in explicitly.
@@ -42,6 +42,49 @@ describe("native ExpressiveShape render", () => {
   it("fails loud on an unknown form", async () => {
     await expect(render(<ExpressiveShape shape="nope" />)).rejects.toThrow(
       "Unknown expressive shape: nope",
+    );
+  });
+});
+
+describe("native ShapeArt compositions", () => {
+  it.each([
+    ["scatter", 4],
+    ["stack", 3],
+    ["arch", 2],
+  ] as const)(
+    "renders the %s layout as its piece count",
+    async (layout, pieces) => {
+      await render(<ShapeArt layout={layout} />);
+      expect(screen.getByTestId("kern-shape-art")).toBeTruthy();
+      expect(screen.getAllByTestId("kern-shape")).toHaveLength(pieces);
+    },
+  );
+
+  it("scales the whole mark by size and opacity", async () => {
+    await render(<ShapeArt layout="stack" size={200} opacity={0.5} />);
+    expect(screen.getByTestId("kern-shape-art")).toHaveStyle({
+      width: 200,
+      height: 200,
+      opacity: 0.5,
+    });
+  });
+});
+
+describe("shapeArtStyles", () => {
+  it("keeps the scatter band short and positions every piece absolutely", () => {
+    const scheme = defaultScheme();
+    const styles = shapeArtStyles("scatter", 120, scheme);
+    expect(styles.root).toMatchObject({ width: 120, height: 120 * 0.6 });
+    expect(styles.pieces).toHaveLength(4);
+    for (const piece of styles.pieces) {
+      expect(piece.position).toBe("absolute");
+    }
+  });
+
+  it("draws the root from the large corner token", () => {
+    const scheme = defaultScheme();
+    expect(shapeArtStyles("arch", 100, scheme).root.borderRadius).toBe(
+      Number.parseFloat(scheme.shape.large),
     );
   });
 });

@@ -60,6 +60,17 @@ export function milestoneStepStyles(
  * MilestoneTrio — determinate waiting as information.
  * One shape per step: done = full, current = pulsing loader, todo = dim.
  * M3 law: switch indeterminate → determinate as soon as progress is known.
+ *
+ * WP9 Part E decision (2026-11-04, generic-vs-product): GENERIC, native-only.
+ * Props carry no product vocabulary — arbitrary `steps` labels plus a
+ * completed-count `progress` with states derived, never per-step styled —
+ * and the only composition is generic M3 primitives (`Shape`,
+ * `CircularProgress`, `FEEDBACK_SIZE_DP`, scheme color/shape roles). The sole
+ * in-repo caller (`BootSplash`) passes caller-owned milestone strings. No web
+ * twin: web covers the same moments with `BootIndicator` (boot) and the
+ * determinate `CircularProgress` / `PageLoader` (in-content), so a twin would
+ * add API surface with no caller. The site already records `nativePeer:
+ * "none"` with NATIVE-ONLY showcase fences.
  */
 export function MilestoneTrio({
   steps,

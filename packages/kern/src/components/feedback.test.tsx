@@ -209,6 +209,76 @@ describe("PageLoader", () => {
     expect(page).toHaveAttribute("aria-label", "Fetching rides");
     expect(page).toHaveTextContent("Fetching rides");
   });
+
+  it("announces status with the default Loading name when unlabeled", () => {
+    render(<PageLoader />);
+    const page = screen.getByTestId("page-loader");
+    expect(page).toHaveAttribute("role", "status");
+    expect(page).toHaveAttribute("aria-label", "Loading");
+    // No label prop, no label paragraph — the name lives on the status only.
+    expect(page.textContent).toBe("");
+  });
+
+  it("renders the heritage trio by default", () => {
+    const { container } = render(<PageLoader />);
+    const glyphs = container.querySelectorAll(".kern-circular-progress-shape");
+    expect(glyphs.length).toBe(3);
+    expect(glyphs[0].firstElementChild?.tagName).toBe("polygon");
+    expect(glyphs[1].firstElementChild?.tagName).toBe("circle");
+    expect(glyphs[2].firstElementChild?.tagName).toBe("rect");
+  });
+
+  it("honors loaderStyle and shapes overrides", () => {
+    const { container, unmount } = render(
+      <PageLoader loaderStyle="dots" label="Dots" />,
+    );
+    expect(
+      container.querySelectorAll(".kern-circular-progress-dot").length,
+    ).toBe(3);
+    unmount();
+
+    const custom = render(<PageLoader shapes={["pill"]} label="Custom" />);
+    const glyphs = custom.container.querySelectorAll(
+      ".kern-circular-progress-shape",
+    );
+    expect(glyphs.length).toBe(1);
+    expect(glyphs[0].firstElementChild?.tagName).toBe("rect");
+  });
+
+  it("paints the surface tone by default and the inverse tone on request", () => {
+    const { unmount } = render(<PageLoader label="Surface" />);
+    expect(screen.getByTestId("page-loader").className).toContain(
+      "bg-(--sys-color-surface)",
+    );
+    unmount();
+
+    render(<PageLoader label="Inverse" tone="inverse" />);
+    expect(screen.getByTestId("page-loader").className).toContain(
+      "bg-(--sys-color-inverse-surface)",
+    );
+  });
+
+  it("resolves a registered tenant variant and fails loud on unknown ids", () => {
+    registerFeedbackVariant("page-loader-part-e", {
+      shapes: ["diamond", "pill"],
+      style: "dots",
+      tone: "inverse",
+    });
+    const { container, unmount } = render(
+      <PageLoader tenantId="page-loader-part-e" label="Tenant" />,
+    );
+    expect(
+      container.querySelectorAll(".kern-circular-progress-dot").length,
+    ).toBe(3);
+    expect(screen.getByTestId("page-loader").className).toContain(
+      "bg-(--sys-color-inverse-surface)",
+    );
+    unmount();
+
+    expect(() => render(<PageLoader tenantId="page-loader-nope" />)).toThrow(
+      "Unknown feedback variant: page-loader-nope",
+    );
+  });
 });
 
 describe("app-ready handoff", () => {
