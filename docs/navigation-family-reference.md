@@ -240,3 +240,75 @@ pagination; menubar follows platform conventions):
   reference for the full segmented spec; do not confuse with chips
   (assist/filter/input/suggestion), which are dynamic groups, not exclusive
   choices.
+
+---
+
+## 14. KernNavigation — one navigation (CL-002+CL-003, WP2a)
+
+`KernNavigation` (`packages/kern/src/components/kern-navigation.tsx`;
+native twin `packages/kern-native/src/components/kern-navigation.tsx`)
+unifies `drawer-modal` / `rail` / `bar` (compact) / `sidebar-pane` (desk) on
+one destination contract (`NavigationDestination`, the CMP-3140 shape —
+converged, not forked). Slots: `header` (switcher) / nav-item
+(icon/label/badge per destination) / `footer` (user row). Adapter:
+`routeManifestToSections` turns `{ path, label, section?, … }[]` into
+sections; `flattenSections` feeds the single-list surfaces (`bar`,
+`drawer-modal` — M3 modal drawers carry one list, section headings belong to
+persistent surfaces).
+
+Usage:
+
+```tsx
+import { KernNavigation, routeManifestToSections } from "@xoroh/kern";
+
+const sections = routeManifestToSections([
+  { path: "/home", label: "Home" },
+  { path: "/dispatch", label: "Dispatch", section: "Operations" },
+]);
+
+<KernNavigation
+  variant="sidebar-pane"
+  sections={sections}
+  value={route}
+  onValueChange={navigate}
+  header={<WorkspaceSwitcher />}
+  footer={<UserRow />}
+  detail={<DispatchPane />}
+/>;
+```
+
+Props (S contract; platform splits noted):
+
+| Prop | Type | Notes |
+| --- | --- | --- |
+| `variant` | `drawer-modal \| rail \| bar \| sidebar-pane` | default W `sidebar-pane`, N `bar` |
+| `sections` | `KernNavSection[]` | `{ key, title?, destinations[] }` |
+| `value` / `defaultValue` / `onValueChange` | selection | N falls back to the first enabled destination (never nothing current) |
+| `header` / `footer` | slots | W: all variants (drawer headline = header). N: `rail` + `sidebar-pane`; drawer takes `title`/`subtitle` strings |
+| `open` / `defaultOpen` / `onOpenChange` | `boolean` | `drawer-modal`; select-then-dismiss both renderers |
+| `railMode` | `collapsed \| expanded` | 80dp icons / 240dp sidebar presentation (== what a sidebar is) |
+| `floating` | slot | `bar` FAB dock (M3: above the bar, never inside) |
+| `detail` | slot | `sidebar-pane` drill pane (W 3-pane; N: leave unset, detail goes in a sheet) |
+| `label` / `testID` | landmark name | roving tabindex + `aria-current="page"` (W); `tab` + `selected` (N) |
+
+P0 parity decisions (WP2a, rationale recorded):
+
+- `navigation-rail` web twin NEW: `packages/kern/src/components/navigation-rail.tsx`
+  (data-driven, same contract as native). `start/navigation.tsx`
+  `NavigationRail`/`Sidebar`/`SectionDrawer` remain the untyped composition
+  shells; transfer converges them onto this contract (not rewritten here —
+  core never depends on blocks).
+- `top-app-bar` web twin: EXISTS (`start/top-app-bar.tsx`: small/medium/large
+  + `TopAppBarToggle`); no new file. N twin exists. `KernNavigation` docs the
+  pairing (toggle ↔ drawer/rail). Native `top-app-bar-toggle` stays N-only
+  (pairs the native bar; W uses `TopAppBarToggle`).
+- Bottom app bar NEW (both renderers): `bottom-app-bar.tsx` — actions
+  leading, FAB trailing, 80dp, `surface-container`. Not a nav bar (< 3
+  destinations or actions + FAB alone).
+- `command` (cmd-K) is W-only by design (N: inline search + sheet results);
+  `focus-ring` is W-only (N: `state-layer`); `pressable`/`state-layer` stay
+  N-only primitives. `app-shell`/`layouts`/`shell` converge onto
+  `sidebar-pane` + `detail` at transfer (not rewritten here).
+- `menus.tsx` vs `menu-family.tsx`, `sheets.tsx` vs `sheet-family.tsx`:
+  shared contracts, platform-split renderers — kept, drift-checked per
+  target (D925 convergence = one contract, not one file across renderers).

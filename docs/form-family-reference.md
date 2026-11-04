@@ -254,3 +254,75 @@ menu events. Options carry `value`, `selected`, `disabled`, headline slot.
 - **material-web source**: text-field container tokens, checkbox 2px shape, switch exact handle/track/dimensions, slider 6 tokens, select filled/outlined mirroring text-field — all values above are verbatim from `tokens/versions/v0_192/`.
 - **No motion page** on material-web.dev (404) and no `motion.md` in theming docs — motion tokens come from `_md-sys-motion.scss` directly (short 50–200ms, medium 250–400ms, long 450–600ms, extra-long 700–1000ms; standard/emphasized/legacy/linear easings).
 - **Segmented buttons live in `labs/`** (experimental, no docs page) — `md-outlined-segmented-button`, 40px, 1px outline, `secondary-container` selected. Distinct from chips (assist/filter/input/suggestion), which are dynamic groups, not exclusive choices.
+
+---
+
+## 13. KernPicker — one picker (CL-008, WP2a)
+
+`KernPicker` (`packages/kern/src/components/kern-picker.tsx`; native twin
+`packages/kern-native/src/components/kern-picker.tsx`) unifies sheets,
+dialogs, and selects: modes `date` / `time` / `date-time` / `country` /
+`option-list` / `assignee` / `status` / `plan`, variants `dialog` (W) /
+`bottom-sheet` (N) / `inline-popover` (anchored W; inline non-modal list N —
+no floating anchored popover exists on N). Slots: `trigger` (element AS the
+trigger) / panel (per-mode, overridable) / `footer` (footer-actions).
+Single-select closes on pick (select-then-dismiss, same rule as the modal
+drawer); multi-select stays open and reports the array.
+
+Visuals + contracts only (Q3 split): data wiring lives in service-catalog-1.
+`plan` consumes `catalog: ServiceCatalogEntry[]` through
+`serviceCatalogToOptions` — the CMP-1320 vs 2455 PlanSelector merge point,
+no second plan selector. `ReasonPicker` (MS-020) is generic over the
+injected `ReasonDataAdapter` (QUEUE-145 reasons system): rows derive from
+the adapter on every render; the picker owns NO local reasons copy in any
+context (asserted in test: only the injected context rows render).
+
+Usage:
+
+```tsx
+import { KernPicker, ReasonPicker } from "@xoroh/kern";
+
+<KernPicker
+  mode="plan"
+  variant="bottom-sheet"
+  label="Service"
+  catalog={catalogEntries}
+  onSelect={setService}
+/>;
+
+<ReasonPicker
+  label="Cancellation reason"
+  reasons={{ reasons: reasonRows, context: "cancel" }}
+  onSelect={setReason}
+/>;
+```
+
+Props (S contract; platform splits noted):
+
+| Prop | Type | Notes |
+| --- | --- | --- |
+| `mode` | `date \| time \| date-time \| country \| option-list \| assignee \| status \| plan` | default `option-list` |
+| `variant` | `dialog \| bottom-sheet \| inline-popover` | N dialog = centered modal; N popover = inline list |
+| `open` / `defaultOpen` / `onOpenChange` | `boolean` | owned when uncontrolled |
+| `label` / `placeholder` | `string` | accessible name + trigger text |
+| `options` / `value` / `defaultValue` / `onSelect` / `onMultiSelect` / `multiple` | option modes | `PickerOption` = the single sheet-family row type (re-exported, never re-declared) |
+| `dateValue` / `onDateChange` / `minDate` / `maxDate` | `Date` | `date`, `date-time` (Axis calendar model both renderers) |
+| `timeValue` / `onTimeChange` / `timeFormat` / `timeStep` | time | `time`, `date-time`; state stays 24-hour |
+| `countries` / `countryCode` / `onCountryChange` | `CountryOption[]` | `country`; Kern ships no country dataset (consumer passes options) |
+| `catalog` | `ServiceCatalogEntry[]` | `plan` primary input (preferred over `options`) |
+| `reasons` | `ReasonDataAdapter` | reason input (`ReasonPicker` requires it) |
+| `trigger` / `panel` / `footer` / `testID` | slots | |
+
+P0 parity decisions (WP2a, rationale recorded):
+
+- `country-select` (W-only file): converged as `KernPicker mode="country"` +
+  consumer-supplied countries — no separate native country-select (N uses
+  the option-list presentation with dial-code supporting lines).
+- `native-select` is W-only by design (the platform `<select>` element); N
+  uses the sheet selector.
+- `select` / `combobox` / `autocomplete` stay as the entry primitives;
+  `KernPicker` composes them per mode, it does not replace closed-list
+  (`select`), filter-as-you-type (`combobox`), or free-text (`autocomplete`)
+  usage — see §Slider / select above.
+- Calendar range + docked-modal variants (P3): NOT built — `Calendar` stays
+  single-date; range/docked land via the WP6 addendum, no half-built props.

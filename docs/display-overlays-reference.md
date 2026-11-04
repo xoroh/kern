@@ -210,3 +210,65 @@ fills) and the 38%/30% disabled split.
   from the m3 spec tabs; tooltip inverse roles from system tokens.
 - **Avatar/meter/table** have no M3 source; values are Kern decisions
   recorded here, not conformance claims.
+
+---
+
+## 13. KernOverlay — one overlay system (CL-015, WP2a)
+
+`KernOverlay` (`packages/kern/src/components/kern-overlay.tsx`; native twin
+`packages/kern-native/src/components/kern-overlay.tsx`) replaces per-surface
+one-off composition with one variant contract: `modal` / `sheet` / `drawer` /
+`side-sheet` / `alert` / `tabbed-dialog` / `dock`. Slots: `trigger` (an
+element rendered AS the trigger, Base UI `render` model) / panel
+(title + description + children) / `footer` (footer-actions).
+
+Usage:
+
+```tsx
+import { KernOverlay } from "@xoroh/kern";
+
+<KernOverlay
+  variant="tabbed-dialog"
+  title="Workspace"
+  tabs={[
+    { key: "general", label: "General", panel: <GeneralPane /> },
+    { key: "members", label: <MemberTabLabel />, panel: <MembersPane /> },
+  ]}
+  trigger={<button type="button">Open settings</button>}
+  footer={<button type="button">Done</button>}
+/>;
+```
+
+Props (S contract; platform splits noted):
+
+| Prop | Type | Notes |
+| --- | --- | --- |
+| `variant` | `modal \| sheet \| drawer \| side-sheet \| alert \| tabbed-dialog \| dock` | default `modal` |
+| `open` / `defaultOpen` / `onOpenChange` | `boolean` | owned state when uncontrolled |
+| `title` | W `ReactNode`, N `string` | required; the accessible name |
+| `description` | W `ReactNode`, N `string` | supporting line |
+| `size` | `sm \| md \| lg \| full` | dialog widths (24/35/48rem, full) |
+| `dismissible` | `boolean`, default `true` | scrim dismissal (W dialog roots); Escape always dismisses (M3); N scrim/back always dismiss (platform-owned), `false` removes the × only |
+| `onClose` | `() => void` | renders the ×; explicit dismissal always lands |
+| `side` | `left \| right` | `side-sheet` edge (W); N converges onto the bottom surface |
+| `modal` | `boolean`, default `true` | `side-sheet` root modality (W) |
+| `snapPoints` / `snapIndex` / `defaultSnapIndex` / `onSnapIndexChange` | `readonly number[]` + index | `sheet` + points renders the snap surface; N real detents, W largest-detent cap |
+| `tabs` / `activeTab` / `defaultActiveTab` / `onActiveTabChange` | `KernOverlayTab[]` | `tabbed-dialog` scaffold (avatar-tab copies converge here); N labels are strings |
+| `footer` / `trigger` / `label` / `testID` | slots | alert keeps the M3 2-action law |
+
+P0 parity decisions (WP2a, rationale recorded):
+
+- `command` / `popover` / `drawer` / `scroll-area` / `menu-family` /
+  `sheet-family` stay as the composed primitives/harnesses — `KernOverlay`
+  composes them, it does not re-implement them (D925: converge, don't fork).
+- `popover` is W-only as a floating surface; N uses the inline
+  (`KernPicker` inline-popover) and sheet presentations instead.
+- `scroll-area` is W-only (native `ScrollView` + labelled region covers it).
+- `drawer.tsx` (bottom-anchored) vs `sheet.tsx` (edge-anchored): kept, mapped
+  to `drawer` vs `side-sheet` variants respectively.
+- Side sheets (P3 ask): landed as the `side-sheet` variant — no new
+  component. W splits edge/bottom; N converges both onto the bottom surface
+  (a phone has no usable edge panel).
+- Full-screen dialog (P3 verify item): `size="full"` is the near-viewport
+  form; a true edge-to-edge immersive dialog stays open pending the WP6
+  addendum (no silently half-built variant).
