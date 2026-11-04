@@ -9,7 +9,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/accordion.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "accordion-item",
@@ -18,7 +21,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/accordion.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "accordion-header",
@@ -27,7 +33,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/accordion.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "accordion-trigger",
@@ -36,7 +45,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/accordion.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "accordion-panel",
@@ -45,7 +57,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/accordion.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "accordion",
@@ -54,7 +69,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/accordion.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "alert-dialog-root",
@@ -63,7 +81,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/alert-dialog.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernOverlay"
+      ]
     },
     {
       "name": "alert-dialog-trigger",
@@ -72,7 +95,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/alert-dialog.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernOverlay"
+      ]
     },
     {
       "name": "alert-dialog-content",
@@ -81,7 +109,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/alert-dialog.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernOverlay"
+      ]
     },
     {
       "name": "alert-dialog-title",
@@ -90,7 +123,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/alert-dialog.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernOverlay"
+      ]
     },
     {
       "name": "alert-dialog-description",
@@ -99,7 +137,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/alert-dialog.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernOverlay"
+      ]
     },
     {
       "name": "alert-dialog-close",
@@ -108,7 +151,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/alert-dialog.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernOverlay"
+      ]
     },
     {
       "name": "alert-dialog",
@@ -117,7 +165,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/alert-dialog.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "autocomplete-root",
@@ -126,7 +177,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/autocomplete.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "autocomplete-label",
@@ -135,7 +189,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/autocomplete.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "autocomplete-input",
@@ -144,7 +201,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/autocomplete.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "autocomplete-content",
@@ -153,7 +213,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/autocomplete.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "autocomplete-item",
@@ -162,7 +225,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/autocomplete.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "autocomplete-empty",
@@ -171,7 +237,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/autocomplete.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "autocomplete",
@@ -180,7 +249,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/autocomplete.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "avatar-root",
@@ -189,7 +261,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/avatar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "ContactCard",
+        "ContactDirectory",
+        "ContactGroupList",
+        "ContactRow"
+      ]
     },
     {
       "name": "avatar-image",
@@ -198,7 +278,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/avatar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "ContactCard",
+        "ContactDirectory",
+        "ContactGroupList",
+        "ContactRow"
+      ]
     },
     {
       "name": "avatar-fallback",
@@ -207,7 +295,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/avatar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "ContactCard",
+        "ContactDirectory",
+        "ContactGroupList",
+        "ContactRow"
+      ]
     },
     {
       "name": "avatar",
@@ -216,7 +312,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/avatar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "badge",
@@ -225,7 +324,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/badge.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "banner",
@@ -234,7 +336,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/banner.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "banner-action",
@@ -243,7 +348,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/banner.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "billing-page",
@@ -252,7 +360,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/billing-page.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Card",
+        "DataTable",
+        "EmptyState",
+        "KernLoading"
+      ],
+      "usedBy": []
     },
     {
       "name": "boot-indicator",
@@ -261,7 +377,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/boot-indicator.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "CircularProgress"
+      ],
+      "usedBy": []
     },
     {
       "name": "bottom-app-bar",
@@ -270,7 +391,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/bottom-app-bar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "button-group",
@@ -279,7 +403,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/button-group.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "button",
@@ -288,7 +415,19 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/button.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "CircularProgress"
+      ],
+      "usedBy": [
+        "CsvExportButton",
+        "EmptySearch",
+        "FilterBar",
+        "LinkButton",
+        "OnboardingServiceStep",
+        "OnboardingWizard"
+      ]
     },
     {
       "name": "calendar",
@@ -297,7 +436,13 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/calendar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernPicker",
+        "ReasonPicker"
+      ]
     },
     {
       "name": "card",
@@ -306,7 +451,20 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/card.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "BillingPage",
+        "CtaBanner",
+        "DashboardPage",
+        "FeatureGrid",
+        "MapMarker",
+        "MapPanel",
+        "MarketingSections",
+        "PricingTable",
+        "TestimonialList"
+      ]
     },
     {
       "name": "card-header",
@@ -315,7 +473,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/card.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "card-content",
@@ -324,7 +485,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/card.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "card-actions",
@@ -333,7 +497,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/card.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "carousel",
@@ -342,7 +509,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/carousel.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "checkbox-group-root",
@@ -351,7 +521,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/checkbox-group.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "checkbox-group-item",
@@ -360,7 +533,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/checkbox-group.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "checkbox-group",
@@ -369,7 +545,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/checkbox-group.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "checkbox",
@@ -378,7 +557,13 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/checkbox.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "DataTable",
+        "List"
+      ]
     },
     {
       "name": "chip",
@@ -387,7 +572,13 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/chip.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "DataTable",
+        "FilterBar"
+      ]
     },
     {
       "name": "circular-progress",
@@ -396,7 +587,16 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/circular-progress.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "BootIndicator",
+        "Button",
+        "IconButton",
+        "LoadingButton",
+        "PageLoader"
+      ]
     },
     {
       "name": "collapsible-root",
@@ -405,7 +605,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/collapsible.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "collapsible-trigger",
@@ -414,7 +617,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/collapsible.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "collapsible-panel",
@@ -423,7 +629,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/collapsible.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "collapsible",
@@ -432,7 +641,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/collapsible.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "combobox-root",
@@ -441,7 +653,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/combobox.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "combobox-label",
@@ -450,7 +665,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/combobox.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "combobox-input",
@@ -459,7 +677,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/combobox.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "combobox-trigger",
@@ -468,7 +689,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/combobox.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "combobox-clear",
@@ -477,7 +701,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/combobox.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "combobox-content",
@@ -486,7 +713,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/combobox.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "combobox-item",
@@ -495,7 +725,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/combobox.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "combobox-empty",
@@ -504,7 +737,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/combobox.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "combobox",
@@ -513,7 +749,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/combobox.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "command-root",
@@ -522,7 +761,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/command.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "command-input",
@@ -531,7 +773,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/command.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "command-content",
@@ -540,7 +785,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/command.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "command-list",
@@ -549,7 +797,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/command.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "command-item",
@@ -558,7 +809,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/command.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "command-empty",
@@ -567,7 +821,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/command.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "command-separator",
@@ -576,7 +833,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/command.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "command-group-label",
@@ -585,7 +845,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/command.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "command",
@@ -594,7 +857,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/command.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "context-menu-root",
@@ -603,7 +869,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/context-menu.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "context-menu-trigger",
@@ -612,7 +881,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/context-menu.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "context-menu-content",
@@ -621,7 +893,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/context-menu.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "context-menu-item",
@@ -630,7 +905,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/context-menu.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "context-menu-separator",
@@ -639,7 +917,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/context-menu.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "context-menu",
@@ -648,7 +929,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/context-menu.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "country-select-root",
@@ -657,7 +941,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/country-select.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "country-select-label",
@@ -666,7 +953,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/country-select.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "country-select-trigger",
@@ -675,7 +965,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/country-select.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "country-select-value",
@@ -684,7 +977,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/country-select.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "country-select-content",
@@ -693,7 +989,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/country-select.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "country-select-item",
@@ -702,7 +1001,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/country-select.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "country-select",
@@ -711,7 +1013,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/country-select.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "csv-export-button",
@@ -720,7 +1025,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/csv-export-button.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Button"
+      ],
+      "usedBy": []
     },
     {
       "name": "dashboard-page",
@@ -729,7 +1039,16 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/dashboard-page.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Card",
+        "DataTable",
+        "EmptyState",
+        "KernLoading",
+        "List"
+      ],
+      "usedBy": []
     },
     {
       "name": "data-table",
@@ -738,7 +1057,20 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/data-table.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Checkbox",
+        "Chip",
+        "EmptyState",
+        "Menu",
+        "Pagination",
+        "Table"
+      ],
+      "usedBy": [
+        "BillingPage",
+        "DashboardPage"
+      ]
     },
     {
       "name": "dialog-root",
@@ -747,7 +1079,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/dialog.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "dialog-trigger",
@@ -756,7 +1091,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/dialog.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "dialog-content",
@@ -765,7 +1103,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/dialog.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "dialog-title",
@@ -774,7 +1115,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/dialog.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "dialog-description",
@@ -783,7 +1127,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/dialog.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "dialog-close",
@@ -792,7 +1139,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/dialog.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "dialog",
@@ -801,7 +1151,13 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/dialog.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernOverlay",
+        "SearchView"
+      ]
     },
     {
       "name": "drawer-root",
@@ -810,7 +1166,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/drawer.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "drawer-trigger",
@@ -819,7 +1178,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/drawer.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "drawer-content",
@@ -828,7 +1190,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/drawer.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "drawer-title",
@@ -837,7 +1202,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/drawer.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "drawer-description",
@@ -846,7 +1214,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/drawer.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "drawer-close",
@@ -855,7 +1226,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/drawer.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "drawer",
@@ -864,7 +1238,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/drawer.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernOverlay"
+      ]
     },
     {
       "name": "empty-search",
@@ -873,7 +1252,16 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/empty-search.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Button",
+        "EmptyState"
+      ],
+      "usedBy": [
+        "ListWithSearchAndFilters",
+        "SearchView"
+      ]
     },
     {
       "name": "empty-state",
@@ -882,7 +1270,21 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/empty-state.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "BillingPage",
+        "ContactCard",
+        "ContactDirectory",
+        "ContactGroupList",
+        "ContactRow",
+        "DashboardPage",
+        "DataTable",
+        "EmptySearch",
+        "List",
+        "ListWithSearchAndFilters"
+      ]
     },
     {
       "name": "kern-error-boundary",
@@ -891,7 +1293,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/error-boundary.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "extended-fab",
@@ -900,7 +1305,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/extended-fab.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "fab-menu",
@@ -909,7 +1317,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/fab-menu.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "fab",
@@ -918,7 +1329,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/fab.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "field-message",
@@ -927,7 +1341,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/field-message.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "Input"
+      ]
     },
     {
       "name": "field-root",
@@ -936,7 +1355,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/field.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Input"
+      ],
+      "usedBy": []
     },
     {
       "name": "field-label",
@@ -945,7 +1369,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/field.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Input"
+      ],
+      "usedBy": []
     },
     {
       "name": "field-description",
@@ -954,7 +1383,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/field.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Input"
+      ],
+      "usedBy": []
     },
     {
       "name": "field-error",
@@ -963,7 +1397,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/field.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Input"
+      ],
+      "usedBy": []
     },
     {
       "name": "field",
@@ -972,7 +1411,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/field.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Input"
+      ],
+      "usedBy": []
     },
     {
       "name": "fieldset-root",
@@ -981,7 +1425,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/fieldset.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "fieldset-legend",
@@ -990,7 +1437,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/fieldset.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "fieldset",
@@ -999,7 +1449,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/fieldset.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "filter-bar",
@@ -1008,7 +1461,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/filter-bar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Button",
+        "Chip"
+      ],
+      "usedBy": [
+        "ListWithSearchAndFilters"
+      ]
     },
     {
       "name": "focus-ring",
@@ -1017,7 +1478,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/focus-ring.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "form",
@@ -1026,7 +1490,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/form.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "icon-button",
@@ -1035,7 +1502,14 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/icon-button.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "CircularProgress"
+      ],
+      "usedBy": [
+        "ThemeToggle"
+      ]
     },
     {
       "name": "input-otp-root",
@@ -1044,7 +1518,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/input-otp.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "input-otp-input",
@@ -1053,7 +1530,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/input-otp.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "input-otp",
@@ -1062,7 +1542,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/input-otp.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "input",
@@ -1071,7 +1554,19 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/input.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "FieldMessage"
+      ],
+      "usedBy": [
+        "Field",
+        "FieldDescription",
+        "FieldError",
+        "FieldLabel",
+        "FieldRoot",
+        "Search"
+      ]
     },
     {
       "name": "kbd",
@@ -1080,7 +1575,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kbd.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "composer-mode-bar",
@@ -1089,7 +1587,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-composer.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "KernOverlay",
+        "KernPicker",
+        "StatusPill",
+        "Textarea"
+      ],
+      "usedBy": []
     },
     {
       "name": "composer-reply-bar",
@@ -1098,7 +1604,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-composer.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "KernOverlay",
+        "KernPicker",
+        "StatusPill",
+        "Textarea"
+      ],
+      "usedBy": []
     },
     {
       "name": "composer-attachment-tray",
@@ -1107,7 +1621,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-composer.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "KernOverlay",
+        "KernPicker",
+        "StatusPill",
+        "Textarea"
+      ],
+      "usedBy": []
     },
     {
       "name": "composer-canned-picker",
@@ -1116,7 +1638,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-composer.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "KernOverlay",
+        "KernPicker",
+        "StatusPill",
+        "Textarea"
+      ],
+      "usedBy": []
     },
     {
       "name": "kern-composer",
@@ -1125,7 +1655,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-composer.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "KernOverlay",
+        "KernPicker",
+        "StatusPill",
+        "Textarea"
+      ],
+      "usedBy": []
     },
     {
       "name": "invite-accept",
@@ -1134,7 +1672,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-composer.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "KernOverlay",
+        "KernPicker",
+        "StatusPill",
+        "Textarea"
+      ],
+      "usedBy": []
     },
     {
       "name": "share-link-row",
@@ -1143,7 +1689,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-composer.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "KernOverlay",
+        "KernPicker",
+        "StatusPill",
+        "Textarea"
+      ],
+      "usedBy": []
     },
     {
       "name": "contact-row",
@@ -1152,7 +1706,16 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-contact.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "AvatarFallback",
+        "AvatarImage",
+        "AvatarRoot",
+        "EmptyState",
+        "Search"
+      ],
+      "usedBy": []
     },
     {
       "name": "contact-card",
@@ -1161,7 +1724,16 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-contact.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "AvatarFallback",
+        "AvatarImage",
+        "AvatarRoot",
+        "EmptyState",
+        "Search"
+      ],
+      "usedBy": []
     },
     {
       "name": "contact-group-list",
@@ -1170,7 +1742,16 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-contact.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "AvatarFallback",
+        "AvatarImage",
+        "AvatarRoot",
+        "EmptyState",
+        "Search"
+      ],
+      "usedBy": []
     },
     {
       "name": "contact-directory",
@@ -1179,7 +1760,16 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-contact.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "AvatarFallback",
+        "AvatarImage",
+        "AvatarRoot",
+        "EmptyState",
+        "Search"
+      ],
+      "usedBy": []
     },
     {
       "name": "kern-loading",
@@ -1188,7 +1778,17 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-loading.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "LinearProgress",
+        "LoadingIndicator",
+        "Skeleton"
+      ],
+      "usedBy": [
+        "BillingPage",
+        "DashboardPage"
+      ]
     },
     {
       "name": "map-marker",
@@ -1197,7 +1797,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-maps.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Card"
+      ],
+      "usedBy": []
     },
     {
       "name": "map-panel",
@@ -1206,7 +1811,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-maps.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Card"
+      ],
+      "usedBy": []
     },
     {
       "name": "kern-navigation",
@@ -1215,7 +1825,19 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-navigation.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "NavigationBar",
+        "NavigationBarItem",
+        "NavigationDrawer",
+        "NavigationRail"
+      ],
+      "usedBy": [
+        "KernSettingsRow",
+        "KernSettingsScreen",
+        "KernSettingsSection"
+      ]
     },
     {
       "name": "kern-overlay",
@@ -1224,7 +1846,36 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-overlay.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "AlertDialogClose",
+        "AlertDialogContent",
+        "AlertDialogDescription",
+        "AlertDialogRoot",
+        "AlertDialogTitle",
+        "AlertDialogTrigger",
+        "BottomSheet",
+        "Dialog",
+        "DockSheet",
+        "Drawer",
+        "Sheet",
+        "SnapSheet",
+        "Tabs"
+      ],
+      "usedBy": [
+        "ComposerAttachmentTray",
+        "ComposerCannedPicker",
+        "ComposerModeBar",
+        "ComposerReplyBar",
+        "InviteAccept",
+        "KernComposer",
+        "KernPicker",
+        "OnboardingServiceStep",
+        "OnboardingWizard",
+        "ReasonPicker",
+        "ShareLinkRow"
+      ]
     },
     {
       "name": "kern-picker",
@@ -1233,7 +1884,26 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-picker.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Calendar",
+        "formatClock",
+        "KernOverlay",
+        "Popover",
+        "TimePicker"
+      ],
+      "usedBy": [
+        "ComposerAttachmentTray",
+        "ComposerCannedPicker",
+        "ComposerModeBar",
+        "ComposerReplyBar",
+        "InviteAccept",
+        "KernComposer",
+        "OnboardingServiceStep",
+        "OnboardingWizard",
+        "ShareLinkRow"
+      ]
     },
     {
       "name": "reason-picker",
@@ -1242,7 +1912,16 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-picker.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Calendar",
+        "formatClock",
+        "KernOverlay",
+        "Popover",
+        "TimePicker"
+      ],
+      "usedBy": []
     },
     {
       "name": "kern-settings-row",
@@ -1251,7 +1930,23 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-settings.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "KernNavigation",
+        "KernTabs",
+        "routeManifestToSections",
+        "SegmentedButtonItem",
+        "SegmentedButtonRoot",
+        "SelectContent",
+        "SelectItem",
+        "SelectItemText",
+        "SelectRoot",
+        "SelectTrigger",
+        "SelectValue",
+        "Switch"
+      ],
+      "usedBy": []
     },
     {
       "name": "kern-settings-section",
@@ -1260,7 +1955,23 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-settings.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "KernNavigation",
+        "KernTabs",
+        "routeManifestToSections",
+        "SegmentedButtonItem",
+        "SegmentedButtonRoot",
+        "SelectContent",
+        "SelectItem",
+        "SelectItemText",
+        "SelectRoot",
+        "SelectTrigger",
+        "SelectValue",
+        "Switch"
+      ],
+      "usedBy": []
     },
     {
       "name": "kern-settings-screen",
@@ -1269,7 +1980,23 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-settings.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "KernNavigation",
+        "KernTabs",
+        "routeManifestToSections",
+        "SegmentedButtonItem",
+        "SegmentedButtonRoot",
+        "SelectContent",
+        "SelectItem",
+        "SelectItemText",
+        "SelectRoot",
+        "SelectTrigger",
+        "SelectValue",
+        "Switch"
+      ],
+      "usedBy": []
     },
     {
       "name": "kern-tabs",
@@ -1278,7 +2005,17 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-tabs.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernSettingsRow",
+        "KernSettingsScreen",
+        "KernSettingsSection",
+        "OnboardingServiceStep",
+        "OnboardingWizard",
+        "SecondaryTabs"
+      ]
     },
     {
       "name": "label",
@@ -1287,7 +2024,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/label.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "linear-progress",
@@ -1296,7 +2036,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/linear-progress.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernLoading"
+      ]
     },
     {
       "name": "link-button",
@@ -1305,7 +2050,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/link-button.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Button"
+      ],
+      "usedBy": []
     },
     {
       "name": "list-item",
@@ -1314,7 +2064,13 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/list-item.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "List",
+        "SearchView"
+      ]
     },
     {
       "name": "list-with-search-and-filters",
@@ -1323,7 +2079,18 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/list-with-search-and-filters.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "applyFilterDefs",
+        "EmptySearch",
+        "EmptyState",
+        "FilterBar",
+        "filterListRows",
+        "List",
+        "Search"
+      ],
+      "usedBy": []
     },
     {
       "name": "list",
@@ -1332,7 +2099,18 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/list.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Checkbox",
+        "EmptyState",
+        "ListItem",
+        "Skeleton"
+      ],
+      "usedBy": [
+        "DashboardPage",
+        "ListWithSearchAndFilters"
+      ]
     },
     {
       "name": "loader",
@@ -1341,7 +2119,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/loader.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "loading-button",
@@ -1350,7 +2131,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/loading-button.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "CircularProgress"
+      ],
+      "usedBy": []
     },
     {
       "name": "loading-indicator",
@@ -1359,7 +2145,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/loading-indicator.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernLoading"
+      ]
     },
     {
       "name": "loading-region",
@@ -1368,7 +2159,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/loading-indicator.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "menu-screen",
@@ -1377,7 +2171,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menu-family.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "SheetSurface"
+      ],
+      "usedBy": []
     },
     {
       "name": "menu-sheet",
@@ -1386,7 +2185,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menu-family.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "SheetSurface"
+      ],
+      "usedBy": []
     },
     {
       "name": "filter-chip-row",
@@ -1395,7 +2199,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menu-family.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "SheetSurface"
+      ],
+      "usedBy": []
     },
     {
       "name": "menu-root",
@@ -1404,7 +2213,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menu.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "menu-trigger",
@@ -1413,7 +2225,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menu.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "menu-content",
@@ -1422,7 +2237,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menu.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "menu-item",
@@ -1431,7 +2249,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menu.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "menu-separator",
@@ -1440,7 +2261,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menu.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "menu-group-label",
@@ -1449,7 +2273,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menu.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "menu",
@@ -1458,7 +2285,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menu.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "DataTable"
+      ]
     },
     {
       "name": "menubar-root",
@@ -1467,7 +2299,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menubar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "menubar-menu",
@@ -1476,7 +2311,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menubar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "menubar-trigger",
@@ -1485,7 +2323,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menubar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "menubar-content",
@@ -1494,7 +2335,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menubar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "menubar-item",
@@ -1503,7 +2347,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menubar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "menubar",
@@ -1512,7 +2359,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menubar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "meter-root",
@@ -1521,7 +2371,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/meter.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "meter-label",
@@ -1530,7 +2383,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/meter.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "meter-value",
@@ -1539,7 +2395,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/meter.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "meter",
@@ -1548,7 +2407,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/meter.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "native-select",
@@ -1557,7 +2419,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/native-select.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "navigation-bar",
@@ -1566,7 +2431,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/navigation-bar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernNavigation"
+      ]
     },
     {
       "name": "navigation-bar-item",
@@ -1575,7 +2445,13 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/navigation-bar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernNavigation",
+        "NavigationDrawer"
+      ]
     },
     {
       "name": "navigation-drawer",
@@ -1584,7 +2460,14 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/navigation-drawer.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "NavigationBarItem"
+      ],
+      "usedBy": [
+        "KernNavigation"
+      ]
     },
     {
       "name": "navigation-menu-root",
@@ -1593,7 +2476,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/navigation-menu.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "navigation-menu-list",
@@ -1602,7 +2488,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/navigation-menu.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "navigation-menu-item",
@@ -1611,7 +2500,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/navigation-menu.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "navigation-menu-trigger",
@@ -1620,7 +2512,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/navigation-menu.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "navigation-menu-content",
@@ -1629,7 +2524,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/navigation-menu.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "navigation-menu-link",
@@ -1638,7 +2536,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/navigation-menu.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "navigation-menu",
@@ -1647,7 +2548,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/navigation-menu.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "navigation-rail",
@@ -1656,7 +2560,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/navigation-rail.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernNavigation"
+      ]
     },
     {
       "name": "number-field-root",
@@ -1665,7 +2574,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/number-field.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "number-field-input",
@@ -1674,7 +2586,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/number-field.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "number-field",
@@ -1683,7 +2598,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/number-field.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "onboarding-wizard",
@@ -1692,7 +2610,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/onboarding-wizard.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Button",
+        "KernOverlay",
+        "KernPicker",
+        "KernTabs"
+      ],
+      "usedBy": []
     },
     {
       "name": "onboarding-service-step",
@@ -1701,7 +2627,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/onboarding-wizard.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Button",
+        "KernOverlay",
+        "KernPicker",
+        "KernTabs"
+      ],
+      "usedBy": []
     },
     {
       "name": "page-loader",
@@ -1710,7 +2644,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/page-loader.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "CircularProgress"
+      ],
+      "usedBy": []
     },
     {
       "name": "pagination",
@@ -1719,7 +2658,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/pagination.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "DataTable"
+      ]
     },
     {
       "name": "popover-root",
@@ -1728,7 +2672,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/popover.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "popover-trigger",
@@ -1737,7 +2684,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/popover.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "popover-content",
@@ -1746,7 +2696,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/popover.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "popover-title",
@@ -1755,7 +2708,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/popover.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "popover-description",
@@ -1764,7 +2720,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/popover.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "popover-close",
@@ -1773,7 +2732,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/popover.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "popover",
@@ -1782,7 +2744,13 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/popover.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernPicker",
+        "ReasonPicker"
+      ]
     },
     {
       "name": "preview-card-root",
@@ -1791,7 +2759,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/preview-card.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "preview-card-trigger",
@@ -1800,7 +2771,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/preview-card.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "preview-card-content",
@@ -1809,7 +2783,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/preview-card.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "preview-card",
@@ -1818,7 +2795,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/preview-card.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "progress-root",
@@ -1827,7 +2807,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/progress.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "progress-label",
@@ -1836,7 +2819,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/progress.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "progress-value",
@@ -1845,7 +2831,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/progress.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "progress",
@@ -1854,7 +2843,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/progress.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "radio-group",
@@ -1863,7 +2855,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/radio-group.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "radio-group-item",
@@ -1872,7 +2867,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/radio-group.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "scroll-area-root",
@@ -1881,7 +2879,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/scroll-area.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "scroll-area-viewport",
@@ -1890,7 +2891,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/scroll-area.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "scroll-area-scrollbar",
@@ -1899,7 +2903,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/scroll-area.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "scroll-area",
@@ -1908,7 +2915,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/scroll-area.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "search-view",
@@ -1917,7 +2927,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/search-view.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Dialog",
+        "EmptySearch",
+        "ListItem",
+        "Search"
+      ],
+      "usedBy": []
     },
     {
       "name": "search",
@@ -1926,7 +2944,19 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/search.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Input"
+      ],
+      "usedBy": [
+        "ContactCard",
+        "ContactDirectory",
+        "ContactGroupList",
+        "ContactRow",
+        "ListWithSearchAndFilters",
+        "SearchView"
+      ]
     },
     {
       "name": "secondary-tabs",
@@ -1935,7 +2965,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/secondary-tabs.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "KernTabs"
+      ],
+      "usedBy": []
     },
     {
       "name": "segmented-button-root",
@@ -1944,7 +2979,14 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/segmented-button.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernSettingsRow",
+        "KernSettingsScreen",
+        "KernSettingsSection"
+      ]
     },
     {
       "name": "segmented-button-item",
@@ -1953,7 +2995,14 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/segmented-button.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernSettingsRow",
+        "KernSettingsScreen",
+        "KernSettingsSection"
+      ]
     },
     {
       "name": "segmented-button",
@@ -1962,7 +3011,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/segmented-button.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "select-root",
@@ -1971,7 +3023,14 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/select.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernSettingsRow",
+        "KernSettingsScreen",
+        "KernSettingsSection"
+      ]
     },
     {
       "name": "select-trigger",
@@ -1980,7 +3039,14 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/select.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernSettingsRow",
+        "KernSettingsScreen",
+        "KernSettingsSection"
+      ]
     },
     {
       "name": "select-value",
@@ -1989,7 +3055,14 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/select.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernSettingsRow",
+        "KernSettingsScreen",
+        "KernSettingsSection"
+      ]
     },
     {
       "name": "select-content",
@@ -1998,7 +3071,14 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/select.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernSettingsRow",
+        "KernSettingsScreen",
+        "KernSettingsSection"
+      ]
     },
     {
       "name": "select-item",
@@ -2007,7 +3087,14 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/select.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernSettingsRow",
+        "KernSettingsScreen",
+        "KernSettingsSection"
+      ]
     },
     {
       "name": "select-item-text",
@@ -2016,7 +3103,14 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/select.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernSettingsRow",
+        "KernSettingsScreen",
+        "KernSettingsSection"
+      ]
     },
     {
       "name": "select-item-indicator",
@@ -2025,7 +3119,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/select.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "select-separator",
@@ -2034,7 +3131,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/select.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "select-group",
@@ -2043,7 +3143,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/select.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "select-group-label",
@@ -2052,7 +3155,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/select.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "select",
@@ -2061,7 +3167,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/select.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "separator",
@@ -2070,7 +3179,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/separator.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "sheet-surface",
@@ -2079,7 +3191,17 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheet-family.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "KernPortal",
+        "VisuallyHidden"
+      ],
+      "usedBy": [
+        "FilterChipRow",
+        "MenuScreen",
+        "MenuSheet"
+      ]
     },
     {
       "name": "bottom-sheet",
@@ -2088,7 +3210,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheet-family.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "KernPortal",
+        "VisuallyHidden"
+      ],
+      "usedBy": [
+        "KernOverlay"
+      ]
     },
     {
       "name": "dock-sheet",
@@ -2097,7 +3227,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheet-family.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "KernPortal",
+        "VisuallyHidden"
+      ],
+      "usedBy": [
+        "KernOverlay"
+      ]
     },
     {
       "name": "snap-sheet",
@@ -2106,7 +3244,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheet-family.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "KernPortal",
+        "VisuallyHidden"
+      ],
+      "usedBy": [
+        "KernOverlay"
+      ]
     },
     {
       "name": "entity-sheet",
@@ -2115,7 +3261,13 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheet-family.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "KernPortal",
+        "VisuallyHidden"
+      ],
+      "usedBy": []
     },
     {
       "name": "bottom-sheet-picker",
@@ -2124,7 +3276,13 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheet-family.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "KernPortal",
+        "VisuallyHidden"
+      ],
+      "usedBy": []
     },
     {
       "name": "action-sheet",
@@ -2133,7 +3291,13 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheet-family.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "KernPortal",
+        "VisuallyHidden"
+      ],
+      "usedBy": []
     },
     {
       "name": "sheet-root",
@@ -2142,7 +3306,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheet.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "sheet-trigger",
@@ -2151,7 +3318,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheet.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "sheet-content",
@@ -2160,7 +3330,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheet.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "sheet-title",
@@ -2169,7 +3342,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheet.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "sheet-description",
@@ -2178,7 +3354,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheet.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "sheet-close",
@@ -2187,7 +3366,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheet.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "sheet",
@@ -2196,7 +3378,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheet.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernOverlay"
+      ]
     },
     {
       "name": "skeleton",
@@ -2205,7 +3392,13 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/skeleton.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernLoading",
+        "List"
+      ]
     },
     {
       "name": "slider-root",
@@ -2214,7 +3407,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/slider.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "slider-thumb",
@@ -2223,7 +3419,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/slider.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "slider-label",
@@ -2232,7 +3431,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/slider.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "slider-value",
@@ -2241,7 +3443,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/slider.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "slider",
@@ -2250,7 +3455,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/slider.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "snackbar-provider",
@@ -2259,7 +3467,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/snackbar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "snackbar-viewport",
@@ -2268,7 +3479,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/snackbar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "snackbar-root",
@@ -2277,7 +3491,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/snackbar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "snackbar-title",
@@ -2286,7 +3503,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/snackbar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "snackbar-description",
@@ -2295,7 +3515,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/snackbar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "snackbar-action",
@@ -2304,7 +3527,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/snackbar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "snackbar-close",
@@ -2313,7 +3539,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/snackbar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "snackbar-list",
@@ -2322,7 +3551,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/snackbar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "snackbar",
@@ -2331,7 +3563,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/snackbar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "split-button",
@@ -2340,7 +3575,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/split-button.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "split",
@@ -2349,7 +3587,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/split.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "status-pill",
@@ -2358,7 +3599,23 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/status-pill.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "ComposerAttachmentTray",
+        "ComposerCannedPicker",
+        "ComposerModeBar",
+        "ComposerReplyBar",
+        "CtaBanner",
+        "FeatureGrid",
+        "InviteAccept",
+        "KernComposer",
+        "MarketingSections",
+        "PricingTable",
+        "ShareLinkRow",
+        "TestimonialList"
+      ]
     },
     {
       "name": "switch",
@@ -2367,7 +3624,14 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/switch.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernSettingsRow",
+        "KernSettingsScreen",
+        "KernSettingsSection"
+      ]
     },
     {
       "name": "table-root",
@@ -2376,7 +3640,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/table.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "table-head",
@@ -2385,7 +3652,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/table.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "table-body",
@@ -2394,7 +3664,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/table.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "table-row",
@@ -2403,7 +3676,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/table.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "table-header",
@@ -2412,7 +3688,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/table.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "table-cell",
@@ -2421,7 +3700,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/table.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "table-caption",
@@ -2430,7 +3712,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/table.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "table",
@@ -2439,7 +3724,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/table.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "DataTable"
+      ]
     },
     {
       "name": "tabs-root",
@@ -2448,7 +3738,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/tabs.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "tabs-list",
@@ -2457,7 +3750,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/tabs.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "tabs-tab",
@@ -2466,7 +3762,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/tabs.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "tabs-panel",
@@ -2475,7 +3774,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/tabs.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "tabs",
@@ -2484,7 +3786,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/tabs.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernOverlay"
+      ]
     },
     {
       "name": "text",
@@ -2493,7 +3800,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/text.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "textarea",
@@ -2502,7 +3812,18 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/textarea.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "ComposerAttachmentTray",
+        "ComposerCannedPicker",
+        "ComposerModeBar",
+        "ComposerReplyBar",
+        "InviteAccept",
+        "KernComposer",
+        "ShareLinkRow"
+      ]
     },
     {
       "name": "theme-toggle",
@@ -2511,7 +3832,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/theme-toggle.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "IconButton"
+      ],
+      "usedBy": []
     },
     {
       "name": "time-picker",
@@ -2520,7 +3846,13 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/time-picker.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernPicker",
+        "ReasonPicker"
+      ]
     },
     {
       "name": "toggle-group-root",
@@ -2529,7 +3861,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/toggle-group.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "toggle-group-item",
@@ -2538,7 +3873,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/toggle-group.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "toggle-group",
@@ -2547,7 +3885,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/toggle-group.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "toggle",
@@ -2556,7 +3897,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/toggle.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "toolbar-root",
@@ -2565,7 +3909,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/toolbar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "toolbar-group",
@@ -2574,7 +3921,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/toolbar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "toolbar-button",
@@ -2583,7 +3933,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/toolbar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "toolbar-separator",
@@ -2592,7 +3945,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/toolbar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "toolbar",
@@ -2601,7 +3957,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/toolbar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "tooltip-provider",
@@ -2610,7 +3969,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/tooltip.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "tooltip-root",
@@ -2619,7 +3981,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/tooltip.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "tooltip-trigger",
@@ -2628,7 +3993,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/tooltip.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "tooltip-content",
@@ -2637,7 +4005,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/tooltip.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "rich-tooltip-content",
@@ -2646,7 +4017,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/tooltip.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "rich-tooltip-title",
@@ -2655,7 +4029,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/tooltip.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "rich-tooltip-actions",
@@ -2664,7 +4041,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/tooltip.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "tooltip",
@@ -2673,7 +4053,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/tooltip.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "rich-tooltip",
@@ -2682,7 +4065,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/tooltip.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "search-bar",
@@ -2691,7 +4077,10 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/blocks.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "settings-row",
@@ -2700,7 +4089,10 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/blocks.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "status-bar",
@@ -2709,7 +4101,10 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/blocks.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "contrast-toggle",
@@ -2718,7 +4113,10 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/blocks.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "link-provider",
@@ -2727,7 +4125,10 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/link.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "link",
@@ -2736,7 +4137,29 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/link.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "AppsMenu",
+        "AppTopBar",
+        "HelpMenu",
+        "Hero",
+        "NotificationsMenu",
+        "SectionDrawer",
+        "Sidebar",
+        "SidebarContent",
+        "SidebarFooter",
+        "SidebarHeader",
+        "SidebarItem",
+        "SidebarProvider",
+        "SiteFooter",
+        "TopAppBar",
+        "TopAppBarToggle",
+        "TopBar",
+        "TopBarMenu",
+        "UserMenu"
+      ]
     },
     {
       "name": "feature-grid",
@@ -2745,7 +4168,13 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/marketing-sections.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Card",
+        "StatusPill"
+      ],
+      "usedBy": []
     },
     {
       "name": "pricing-table",
@@ -2754,7 +4183,13 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/marketing-sections.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Card",
+        "StatusPill"
+      ],
+      "usedBy": []
     },
     {
       "name": "testimonial-list",
@@ -2763,7 +4198,13 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/marketing-sections.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Card",
+        "StatusPill"
+      ],
+      "usedBy": []
     },
     {
       "name": "cta-banner",
@@ -2772,7 +4213,13 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/marketing-sections.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Card",
+        "StatusPill"
+      ],
+      "usedBy": []
     },
     {
       "name": "marketing-sections",
@@ -2781,7 +4228,13 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/marketing-sections.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Card",
+        "StatusPill"
+      ],
+      "usedBy": []
     },
     {
       "name": "hero",
@@ -2790,7 +4243,12 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/marketing.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Link"
+      ],
+      "usedBy": []
     },
     {
       "name": "top-bar",
@@ -2799,7 +4257,12 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/marketing.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Link"
+      ],
+      "usedBy": []
     },
     {
       "name": "site-footer",
@@ -2808,7 +4271,12 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/marketing.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Link"
+      ],
+      "usedBy": []
     },
     {
       "name": "sidebar-provider",
@@ -2817,7 +4285,13 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/navigation.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "*navigation-rail*",
+        "Link"
+      ],
+      "usedBy": []
     },
     {
       "name": "sidebar",
@@ -2826,7 +4300,13 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/navigation.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "*navigation-rail*",
+        "Link"
+      ],
+      "usedBy": []
     },
     {
       "name": "sidebar-header",
@@ -2835,7 +4315,13 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/navigation.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "*navigation-rail*",
+        "Link"
+      ],
+      "usedBy": []
     },
     {
       "name": "sidebar-content",
@@ -2844,7 +4330,13 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/navigation.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "*navigation-rail*",
+        "Link"
+      ],
+      "usedBy": []
     },
     {
       "name": "sidebar-footer",
@@ -2853,7 +4345,13 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/navigation.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "*navigation-rail*",
+        "Link"
+      ],
+      "usedBy": []
     },
     {
       "name": "sidebar-item",
@@ -2862,7 +4360,13 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/navigation.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "*navigation-rail*",
+        "Link"
+      ],
+      "usedBy": []
     },
     {
       "name": "section-drawer",
@@ -2871,7 +4375,13 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/navigation.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "*navigation-rail*",
+        "Link"
+      ],
+      "usedBy": []
     },
     {
       "name": "pane",
@@ -2880,7 +4390,10 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/panes.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "page",
@@ -2889,7 +4402,10 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/panes.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "split-grid",
@@ -2898,7 +4414,10 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/panes.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "split-panel",
@@ -2907,7 +4426,10 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/panes.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "list-detail",
@@ -2916,7 +4438,10 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/panes.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "inspector",
@@ -2925,7 +4450,10 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/panes.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "app-shell",
@@ -2934,7 +4462,10 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/scaffolds.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "document",
@@ -2943,7 +4474,10 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/scaffolds.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "top-app-bar",
@@ -2952,7 +4486,12 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/top-app-bar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Link"
+      ],
+      "usedBy": []
     },
     {
       "name": "top-app-bar-toggle",
@@ -2961,7 +4500,12 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/top-app-bar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Link"
+      ],
+      "usedBy": []
     },
     {
       "name": "app-top-bar",
@@ -2970,7 +4514,12 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/top-app-bar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Link"
+      ],
+      "usedBy": []
     },
     {
       "name": "top-bar-menu",
@@ -2979,7 +4528,12 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/top-app-bar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Link"
+      ],
+      "usedBy": []
     },
     {
       "name": "apps-menu",
@@ -2988,7 +4542,12 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/top-app-bar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Link"
+      ],
+      "usedBy": []
     },
     {
       "name": "help-menu",
@@ -2997,7 +4556,12 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/top-app-bar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Link"
+      ],
+      "usedBy": []
     },
     {
       "name": "notifications-menu",
@@ -3006,7 +4570,12 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/top-app-bar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Link"
+      ],
+      "usedBy": []
     },
     {
       "name": "user-menu",
@@ -3015,7 +4584,12 @@
       "system": "kern-m3",
       "entrypoint": "./start",
       "path": "src/start/top-app-bar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Link"
+      ],
+      "usedBy": []
     },
     {
       "name": "accordion",
@@ -3024,7 +4598,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/accordion.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "alert-dialog",
@@ -3033,7 +4610,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/alert-dialog.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernOverlay"
+      ]
     },
     {
       "name": "app-shell",
@@ -3042,7 +4624,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/app-shell.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "aspect-ratio",
@@ -3051,7 +4636,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/aspect-ratio.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "autocomplete",
@@ -3060,7 +4648,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/autocomplete.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "avatar",
@@ -3069,7 +4660,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/avatar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "ContactCard",
+        "ContactDirectory",
+        "ContactGroupList",
+        "ContactRow"
+      ]
     },
     {
       "name": "badge",
@@ -3078,7 +4677,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/badge.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "billing-page",
@@ -3087,7 +4689,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/billing-page.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Card",
+        "DataTable",
+        "EmptyState",
+        "KernLoading"
+      ],
+      "usedBy": []
     },
     {
       "name": "bottom-app-bar",
@@ -3096,7 +4706,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/bottom-app-bar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "button-group",
@@ -3105,7 +4718,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/button-group.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "button",
@@ -3114,7 +4730,18 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/button.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "CircularProgress"
+      ],
+      "usedBy": [
+        "CsvExportButton",
+        "EmptySearch",
+        "FilterBar",
+        "OnboardingServiceStep",
+        "OnboardingWizard"
+      ]
     },
     {
       "name": "calendar",
@@ -3123,7 +4750,13 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/calendar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernPicker",
+        "ReasonPicker"
+      ]
     },
     {
       "name": "card",
@@ -3132,7 +4765,21 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/card.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "BillingPage",
+        "CtaBanner",
+        "DashboardPage",
+        "DataTable",
+        "FeatureGrid",
+        "MapMarker",
+        "MapPanel",
+        "MarketingSections",
+        "PricingTable",
+        "TestimonialList"
+      ]
     },
     {
       "name": "card-header",
@@ -3141,7 +4788,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/card.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "card-content",
@@ -3150,7 +4800,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/card.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "card-actions",
@@ -3159,7 +4812,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/card.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "carousel",
@@ -3168,7 +4824,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/carousel.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "checkbox-group",
@@ -3177,7 +4836,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/checkbox-group.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "checkbox-group-item",
@@ -3186,7 +4848,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/checkbox-group.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "checkbox",
@@ -3195,7 +4860,13 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/checkbox.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "DataTable",
+        "List"
+      ]
     },
     {
       "name": "chip",
@@ -3204,7 +4875,18 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/chip.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "DataTable",
+        "FilterBar",
+        "FilterChipRow",
+        "ListDetail",
+        "Pane",
+        "SecondaryTabs",
+        "SupportingPane"
+      ]
     },
     {
       "name": "circular-progress",
@@ -3213,7 +4895,17 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/circular-progress.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Shape"
+      ],
+      "usedBy": [
+        "Button",
+        "LoadingButton",
+        "MilestoneTrio",
+        "SuccessTransform"
+      ]
     },
     {
       "name": "collapsible",
@@ -3222,7 +4914,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/collapsible.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "combobox",
@@ -3231,7 +4926,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/combobox.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "context-menu",
@@ -3240,7 +4938,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/context-menu.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "contrast-toggle",
@@ -3249,7 +4950,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/contrast-toggle.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "csv-export-button",
@@ -3258,7 +4962,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/csv-export-button.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Button"
+      ],
+      "usedBy": []
     },
     {
       "name": "dashboard-page",
@@ -3267,7 +4976,16 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/dashboard-page.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Card",
+        "DataTable",
+        "EmptyState",
+        "KernLoading",
+        "List"
+      ],
+      "usedBy": []
     },
     {
       "name": "data-table",
@@ -3276,7 +4994,19 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/data-table.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Card",
+        "Checkbox",
+        "Chip",
+        "EmptyState",
+        "Pagination"
+      ],
+      "usedBy": [
+        "BillingPage",
+        "DashboardPage"
+      ]
     },
     {
       "name": "dialog",
@@ -3285,7 +5015,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/dialog.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernOverlay"
+      ]
     },
     {
       "name": "empty-search",
@@ -3294,7 +5029,16 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/empty-search.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Button",
+        "EmptyState"
+      ],
+      "usedBy": [
+        "ListWithSearchAndFilters",
+        "SearchView"
+      ]
     },
     {
       "name": "empty-state",
@@ -3303,7 +5047,21 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/empty-state.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "BillingPage",
+        "ContactCard",
+        "ContactDirectory",
+        "ContactGroupList",
+        "ContactRow",
+        "DashboardPage",
+        "DataTable",
+        "EmptySearch",
+        "List",
+        "ListWithSearchAndFilters"
+      ]
     },
     {
       "name": "extended-fab",
@@ -3312,7 +5070,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/extended-fab.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "fab-menu",
@@ -3321,7 +5082,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/fab-menu.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "fab",
@@ -3330,7 +5094,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/fab.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "field-message",
@@ -3339,7 +5106,13 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/field-message.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "Field",
+        "FieldRoot"
+      ]
     },
     {
       "name": "field",
@@ -3348,7 +5121,13 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/field.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "FieldMessage",
+        "Input"
+      ],
+      "usedBy": []
     },
     {
       "name": "field-root",
@@ -3357,7 +5136,13 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/field.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "FieldMessage",
+        "Input"
+      ],
+      "usedBy": []
     },
     {
       "name": "fieldset",
@@ -3366,7 +5151,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/fieldset.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "fieldset-legend",
@@ -3375,7 +5163,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/fieldset.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "fieldset-item",
@@ -3384,7 +5175,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/fieldset.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "filter-bar",
@@ -3393,7 +5187,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/filter-bar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Button",
+        "Chip"
+      ],
+      "usedBy": [
+        "ListWithSearchAndFilters"
+      ]
     },
     {
       "name": "form",
@@ -3402,7 +5204,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/form.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "icon-button",
@@ -3411,7 +5216,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/icon-button.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "icon-button-target",
@@ -3420,7 +5228,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/icon-button.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "input-otp",
@@ -3429,7 +5240,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/input-otp.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "input",
@@ -3438,7 +5252,25 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/input.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "ComposerAttachmentTray",
+        "ComposerCannedPicker",
+        "ComposerModeBar",
+        "ComposerReplyBar",
+        "ContactCard",
+        "ContactDirectory",
+        "ContactGroupList",
+        "ContactRow",
+        "Field",
+        "FieldRoot",
+        "InviteAccept",
+        "KernComposer",
+        "ShareLinkRow",
+        "Textarea"
+      ]
     },
     {
       "name": "kbd",
@@ -3447,7 +5279,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kbd.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "composer-mode-bar",
@@ -3456,7 +5291,16 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-composer.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Input",
+        "KernOverlay",
+        "KernPicker",
+        "StatusPill",
+        "Switch"
+      ],
+      "usedBy": []
     },
     {
       "name": "composer-reply-bar",
@@ -3465,7 +5309,16 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-composer.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Input",
+        "KernOverlay",
+        "KernPicker",
+        "StatusPill",
+        "Switch"
+      ],
+      "usedBy": []
     },
     {
       "name": "composer-attachment-tray",
@@ -3474,7 +5327,16 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-composer.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Input",
+        "KernOverlay",
+        "KernPicker",
+        "StatusPill",
+        "Switch"
+      ],
+      "usedBy": []
     },
     {
       "name": "composer-canned-picker",
@@ -3483,7 +5345,16 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-composer.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Input",
+        "KernOverlay",
+        "KernPicker",
+        "StatusPill",
+        "Switch"
+      ],
+      "usedBy": []
     },
     {
       "name": "kern-composer",
@@ -3492,7 +5363,16 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-composer.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Input",
+        "KernOverlay",
+        "KernPicker",
+        "StatusPill",
+        "Switch"
+      ],
+      "usedBy": []
     },
     {
       "name": "invite-accept",
@@ -3501,7 +5381,16 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-composer.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Input",
+        "KernOverlay",
+        "KernPicker",
+        "StatusPill",
+        "Switch"
+      ],
+      "usedBy": []
     },
     {
       "name": "share-link-row",
@@ -3510,7 +5399,16 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-composer.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Input",
+        "KernOverlay",
+        "KernPicker",
+        "StatusPill",
+        "Switch"
+      ],
+      "usedBy": []
     },
     {
       "name": "contact-row",
@@ -3519,7 +5417,14 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-contact.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Avatar",
+        "EmptyState",
+        "Input"
+      ],
+      "usedBy": []
     },
     {
       "name": "contact-card",
@@ -3528,7 +5433,14 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-contact.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Avatar",
+        "EmptyState",
+        "Input"
+      ],
+      "usedBy": []
     },
     {
       "name": "contact-group-list",
@@ -3537,7 +5449,14 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-contact.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Avatar",
+        "EmptyState",
+        "Input"
+      ],
+      "usedBy": []
     },
     {
       "name": "contact-directory",
@@ -3546,7 +5465,14 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-contact.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Avatar",
+        "EmptyState",
+        "Input"
+      ],
+      "usedBy": []
     },
     {
       "name": "kern-loading",
@@ -3555,7 +5481,17 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-loading.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "LinearProgress",
+        "LoadingIndicator",
+        "Skeleton"
+      ],
+      "usedBy": [
+        "BillingPage",
+        "DashboardPage"
+      ]
     },
     {
       "name": "map-marker",
@@ -3564,7 +5500,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-maps.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Card"
+      ],
+      "usedBy": []
     },
     {
       "name": "map-panel",
@@ -3573,7 +5514,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-maps.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Card"
+      ],
+      "usedBy": []
     },
     {
       "name": "kern-navigation",
@@ -3582,7 +5528,14 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-navigation.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "NavigationBar",
+        "NavigationDrawer",
+        "NavigationRail"
+      ],
+      "usedBy": []
     },
     {
       "name": "kern-overlay",
@@ -3591,7 +5544,29 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-overlay.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "AlertDialog",
+        "BottomSheet",
+        "Dialog",
+        "DockSheet",
+        "SnapSheet",
+        "Tabs"
+      ],
+      "usedBy": [
+        "ComposerAttachmentTray",
+        "ComposerCannedPicker",
+        "ComposerModeBar",
+        "ComposerReplyBar",
+        "InviteAccept",
+        "KernComposer",
+        "KernPicker",
+        "OnboardingServiceStep",
+        "OnboardingWizard",
+        "ReasonPicker",
+        "ShareLinkRow"
+      ]
     },
     {
       "name": "kern-picker",
@@ -3600,7 +5575,28 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-picker.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "BottomSheetPicker",
+        "Calendar",
+        "KernOverlay",
+        "TimePicker"
+      ],
+      "usedBy": [
+        "ComposerAttachmentTray",
+        "ComposerCannedPicker",
+        "ComposerModeBar",
+        "ComposerReplyBar",
+        "InviteAccept",
+        "KernComposer",
+        "KernSettingsRow",
+        "KernSettingsScreen",
+        "KernSettingsSection",
+        "OnboardingServiceStep",
+        "OnboardingWizard",
+        "ShareLinkRow"
+      ]
     },
     {
       "name": "reason-picker",
@@ -3609,7 +5605,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-picker.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "BottomSheetPicker",
+        "Calendar",
+        "KernOverlay",
+        "TimePicker"
+      ],
+      "usedBy": []
     },
     {
       "name": "kern-settings-row",
@@ -3618,7 +5622,13 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-settings.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "KernPicker",
+        "Switch"
+      ],
+      "usedBy": []
     },
     {
       "name": "kern-settings-section",
@@ -3627,7 +5637,13 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-settings.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "KernPicker",
+        "Switch"
+      ],
+      "usedBy": []
     },
     {
       "name": "kern-settings-screen",
@@ -3636,7 +5652,13 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-settings.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "KernPicker",
+        "Switch"
+      ],
+      "usedBy": []
     },
     {
       "name": "kern-tabs",
@@ -3645,7 +5667,18 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-tabs.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "FilterChipRow",
+        "ListDetail",
+        "OnboardingServiceStep",
+        "OnboardingWizard",
+        "Pane",
+        "SecondaryTabs",
+        "SupportingPane"
+      ]
     },
     {
       "name": "label",
@@ -3654,7 +5687,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/label.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "filter-chip-row",
@@ -3663,7 +5699,13 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/layouts.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Chip",
+        "KernTabs"
+      ],
+      "usedBy": []
     },
     {
       "name": "secondary-tabs",
@@ -3672,7 +5714,13 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/layouts.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Chip",
+        "KernTabs"
+      ],
+      "usedBy": []
     },
     {
       "name": "pane",
@@ -3681,7 +5729,13 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/layouts.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [
+        "Chip",
+        "KernTabs"
+      ],
+      "usedBy": []
     },
     {
       "name": "list-detail",
@@ -3690,7 +5744,13 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/layouts.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [
+        "Chip",
+        "KernTabs"
+      ],
+      "usedBy": []
     },
     {
       "name": "supporting-pane",
@@ -3699,7 +5759,13 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/layouts.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Chip",
+        "KernTabs"
+      ],
+      "usedBy": []
     },
     {
       "name": "linear-progress",
@@ -3708,7 +5774,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/linear-progress.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernLoading"
+      ]
     },
     {
       "name": "link-button",
@@ -3717,7 +5788,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/link-button.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "list-item",
@@ -3726,7 +5800,13 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/list-item.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "List",
+        "SearchView"
+      ]
     },
     {
       "name": "list-with-search-and-filters",
@@ -3735,7 +5815,18 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/list-with-search-and-filters.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "applyFilterDefs",
+        "EmptySearch",
+        "EmptyState",
+        "FilterBar",
+        "filterListRows",
+        "List",
+        "Search"
+      ],
+      "usedBy": []
     },
     {
       "name": "list",
@@ -3744,7 +5835,18 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/list.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Checkbox",
+        "EmptyState",
+        "ListItem",
+        "Skeleton"
+      ],
+      "usedBy": [
+        "DashboardPage",
+        "ListWithSearchAndFilters"
+      ]
     },
     {
       "name": "loader",
@@ -3753,7 +5855,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/loader.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "loading-button",
@@ -3762,7 +5867,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/loading-button.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "CircularProgress"
+      ],
+      "usedBy": []
     },
     {
       "name": "loading-indicator",
@@ -3771,7 +5881,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/loading-indicator.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernLoading"
+      ]
     },
     {
       "name": "feature-grid",
@@ -3780,7 +5895,13 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/marketing-sections.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Card",
+        "StatusPill"
+      ],
+      "usedBy": []
     },
     {
       "name": "pricing-table",
@@ -3789,7 +5910,13 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/marketing-sections.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Card",
+        "StatusPill"
+      ],
+      "usedBy": []
     },
     {
       "name": "testimonial-list",
@@ -3798,7 +5925,13 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/marketing-sections.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Card",
+        "StatusPill"
+      ],
+      "usedBy": []
     },
     {
       "name": "cta-banner",
@@ -3807,7 +5940,13 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/marketing-sections.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Card",
+        "StatusPill"
+      ],
+      "usedBy": []
     },
     {
       "name": "marketing-sections",
@@ -3816,7 +5955,13 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/marketing-sections.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Card",
+        "StatusPill"
+      ],
+      "usedBy": []
     },
     {
       "name": "menu",
@@ -3825,7 +5970,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menu.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "menubar",
@@ -3834,7 +5982,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menubar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "menu-group-list",
@@ -3843,7 +5994,14 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menus.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "NavigationBarItem",
+        "SheetHandle",
+        "SheetSurface"
+      ],
+      "usedBy": []
     },
     {
       "name": "menu-screen",
@@ -3852,7 +6010,14 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menus.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "NavigationBarItem",
+        "SheetHandle",
+        "SheetSurface"
+      ],
+      "usedBy": []
     },
     {
       "name": "menu-sheet",
@@ -3861,7 +6026,14 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menus.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "NavigationBarItem",
+        "SheetHandle",
+        "SheetSurface"
+      ],
+      "usedBy": []
     },
     {
       "name": "action-sheet",
@@ -3870,7 +6042,14 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/menus.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "NavigationBarItem",
+        "SheetHandle",
+        "SheetSurface"
+      ],
+      "usedBy": []
     },
     {
       "name": "meter",
@@ -3879,7 +6058,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/meter.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "milestone-trio",
@@ -3888,7 +6070,16 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/milestone-trio.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "CircularProgress",
+        "Shape"
+      ],
+      "usedBy": [
+        "BootSplash",
+        "ErrorBoundary"
+      ]
     },
     {
       "name": "navigation-bar",
@@ -3897,7 +6088,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/navigation-bar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernNavigation"
+      ]
     },
     {
       "name": "navigation-bar-item",
@@ -3906,7 +6102,16 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/navigation-bar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "ActionSheet",
+        "MenuGroupList",
+        "MenuScreen",
+        "MenuSheet",
+        "NavigationDrawer"
+      ]
     },
     {
       "name": "navigation-drawer",
@@ -3915,7 +6120,14 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/navigation-drawer.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "NavigationBarItem"
+      ],
+      "usedBy": [
+        "KernNavigation"
+      ]
     },
     {
       "name": "navigation-menu",
@@ -3924,7 +6136,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/navigation-menu.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "navigation-rail",
@@ -3933,7 +6148,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/navigation-rail.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernNavigation"
+      ]
     },
     {
       "name": "number-field",
@@ -3942,7 +6162,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/number-field.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "onboarding-wizard",
@@ -3951,7 +6174,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/onboarding-wizard.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Button",
+        "KernOverlay",
+        "KernPicker",
+        "KernTabs"
+      ],
+      "usedBy": []
     },
     {
       "name": "onboarding-service-step",
@@ -3960,7 +6191,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/onboarding-wizard.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Button",
+        "KernOverlay",
+        "KernPicker",
+        "KernTabs"
+      ],
+      "usedBy": []
     },
     {
       "name": "overlay-modality-provider",
@@ -3969,7 +6208,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/overlay-surfaces.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "drawer",
@@ -3978,7 +6220,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/overlay-surfaces.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "popover",
@@ -3987,7 +6232,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/overlay-surfaces.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "scroll-area",
@@ -3996,7 +6244,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/overlay-surfaces.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "pagination",
@@ -4005,7 +6256,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/pagination.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "DataTable"
+      ]
     },
     {
       "name": "kern-pressable",
@@ -4014,7 +6270,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/pressable.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "progress",
@@ -4023,7 +6282,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/progress.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "radio-group",
@@ -4032,7 +6294,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/radio-group.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "radio-group-item",
@@ -4041,7 +6306,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/radio-group.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "search-view",
@@ -4050,7 +6318,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/search-view.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "EmptySearch",
+        "ListItem",
+        "Search",
+        "Sheet"
+      ],
+      "usedBy": []
     },
     {
       "name": "search",
@@ -4059,7 +6335,13 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/search.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "ListWithSearchAndFilters",
+        "SearchView"
+      ]
     },
     {
       "name": "select",
@@ -4068,7 +6350,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/select.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "separator",
@@ -4077,7 +6362,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/separator.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "settings-row",
@@ -4086,7 +6374,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/settings-row.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "shape-art",
@@ -4095,7 +6386,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/shape-art.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Shape"
+      ],
+      "usedBy": []
     },
     {
       "name": "expressive-shape",
@@ -4104,7 +6400,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/shape-art.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Shape"
+      ],
+      "usedBy": []
     },
     {
       "name": "shape",
@@ -4113,7 +6414,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/shape.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "CircularProgress",
+        "ExpressiveShape",
+        "MilestoneTrio",
+        "ShapeArt"
+      ]
     },
     {
       "name": "sheet-surface",
@@ -4122,7 +6431,21 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheet-surface.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "ActionSheet",
+        "BottomSheet",
+        "BottomSheetPicker",
+        "DockSheet",
+        "EntitySheet",
+        "MenuGroupList",
+        "MenuScreen",
+        "MenuSheet",
+        "SheetHandle",
+        "SnapSheet"
+      ]
     },
     {
       "name": "sheet",
@@ -4131,7 +6454,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheet.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "SearchView"
+      ]
     },
     {
       "name": "sheet-handle",
@@ -4140,7 +6468,21 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheets.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "SheetSurface"
+      ],
+      "usedBy": [
+        "ActionSheet",
+        "Banner",
+        "Command",
+        "CountrySelect",
+        "MenuGroupList",
+        "MenuScreen",
+        "MenuSheet",
+        "SegmentedButton"
+      ]
     },
     {
       "name": "bottom-sheet",
@@ -4149,7 +6491,14 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheets.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "SheetSurface"
+      ],
+      "usedBy": [
+        "KernOverlay"
+      ]
     },
     {
       "name": "snap-sheet",
@@ -4158,7 +6507,14 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheets.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "SheetSurface"
+      ],
+      "usedBy": [
+        "KernOverlay"
+      ]
     },
     {
       "name": "dock-sheet",
@@ -4167,7 +6523,14 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheets.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "SheetSurface"
+      ],
+      "usedBy": [
+        "KernOverlay"
+      ]
     },
     {
       "name": "bottom-sheet-picker",
@@ -4176,7 +6539,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheets.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "SheetSurface"
+      ],
+      "usedBy": [
+        "KernPicker",
+        "ReasonPicker"
+      ]
     },
     {
       "name": "entity-sheet",
@@ -4185,7 +6556,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/sheets.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "SheetSurface"
+      ],
+      "usedBy": []
     },
     {
       "name": "boot-splash",
@@ -4194,7 +6570,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/shell.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "MilestoneTrio"
+      ],
+      "usedBy": []
     },
     {
       "name": "error-boundary",
@@ -4203,7 +6584,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/shell.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "MilestoneTrio"
+      ],
+      "usedBy": []
     },
     {
       "name": "skeleton",
@@ -4212,7 +6598,13 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/skeleton.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernLoading",
+        "List"
+      ]
     },
     {
       "name": "slider",
@@ -4221,7 +6613,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/slider.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "snackbar-provider",
@@ -4230,7 +6625,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/snackbar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "snackbar-viewport",
@@ -4239,7 +6637,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/snackbar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "split-button",
@@ -4248,7 +6649,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/split-button.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "split",
@@ -4257,7 +6661,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/split.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "state-layer",
@@ -4266,7 +6673,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/state-layer.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "status-bar",
@@ -4275,7 +6685,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/status-bar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "status-pill",
@@ -4284,7 +6697,23 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/status-pill.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "ComposerAttachmentTray",
+        "ComposerCannedPicker",
+        "ComposerModeBar",
+        "ComposerReplyBar",
+        "CtaBanner",
+        "FeatureGrid",
+        "InviteAccept",
+        "KernComposer",
+        "MarketingSections",
+        "PricingTable",
+        "ShareLinkRow",
+        "TestimonialList"
+      ]
     },
     {
       "name": "success-transform",
@@ -4293,7 +6722,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/success-transform.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "CircularProgress"
+      ],
+      "usedBy": []
     },
     {
       "name": "switch",
@@ -4302,7 +6736,21 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/switch.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "ComposerAttachmentTray",
+        "ComposerCannedPicker",
+        "ComposerModeBar",
+        "ComposerReplyBar",
+        "InviteAccept",
+        "KernComposer",
+        "KernSettingsRow",
+        "KernSettingsScreen",
+        "KernSettingsSection",
+        "ShareLinkRow"
+      ]
     },
     {
       "name": "table",
@@ -4311,7 +6759,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/table.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "tabs",
@@ -4320,7 +6771,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/tabs.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernOverlay"
+      ]
     },
     {
       "name": "text",
@@ -4329,7 +6785,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/text.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "textarea",
@@ -4338,7 +6797,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/textarea.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "Input"
+      ],
+      "usedBy": []
     },
     {
       "name": "theme-toggle",
@@ -4347,7 +6811,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/theme-toggle.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "time-picker",
@@ -4356,7 +6823,13 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/time-picker.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": [
+        "KernPicker",
+        "ReasonPicker"
+      ]
     },
     {
       "name": "toggle-group",
@@ -4365,7 +6838,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/toggle-group.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "toggle",
@@ -4374,7 +6850,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/toggle.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "toolbar",
@@ -4383,7 +6862,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/toolbar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "tooltip",
@@ -4392,7 +6874,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/tooltip.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "rich-tooltip",
@@ -4401,7 +6886,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/tooltip.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "top-app-bar-toggle",
@@ -4410,7 +6898,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/top-app-bar-toggle.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "top-app-bar",
@@ -4419,7 +6910,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/top-app-bar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "top-app-bar-action",
@@ -4428,7 +6922,10 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/top-app-bar.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
     },
     {
       "name": "command",
@@ -4437,7 +6934,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/web-parity.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "component",
+      "builtFrom": [
+        "SheetHandle"
+      ],
+      "usedBy": []
     },
     {
       "name": "segmented-button",
@@ -4446,7 +6948,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/web-parity.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [
+        "SheetHandle"
+      ],
+      "usedBy": []
     },
     {
       "name": "country-select",
@@ -4455,7 +6962,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/web-parity.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [
+        "SheetHandle"
+      ],
+      "usedBy": []
     },
     {
       "name": "banner",
@@ -4464,7 +6976,12 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/web-parity.tsx",
-      "status": "real"
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [
+        "SheetHandle"
+      ],
+      "usedBy": []
     }
   ]
 }

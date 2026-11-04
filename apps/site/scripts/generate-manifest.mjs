@@ -25,6 +25,40 @@ const PLATFORMS = {
 
 const source = readFileSync(DOCS, "utf8");
 
+// IA TIERS (D1003/D1004). The upstream registry
+// (`packages/mcp/src/manifest.ts`, rewritten by `generate:components`) is the
+// only tier source: join tier/builtFrom/usedBy on platform+export. A row with
+// no upstream match fails LOUDLY — inventing a tier here would let the two
+// manifests drift while both look fresh.
+const MCP_MANIFEST = join(ROOT, "packages", "mcp", "src", "manifest.ts");
+let mcpSrc;
+try {
+  mcpSrc = readFileSync(MCP_MANIFEST, "utf8");
+} catch {
+  console.error(
+    `generate-manifest: cannot read ${MCP_MANIFEST} — run \`bun run generate:components\` from the repo root first`,
+  );
+  process.exit(1);
+}
+const upstream = new Map();
+for (const block of mcpSrc.matchAll(/\{([^{}]*)\}/gs)) {
+  const body = block[1];
+  if (!/export:\s*"/.test(body) || !/tier:\s*"/.test(body)) continue;
+  const get = (field) => body.match(new RegExp(`${field}:\\s*"([^"]*)"`))?.[1];
+  const list = (field) => {
+    const m = body.match(new RegExp(`${field}:\\s*(\\[[^\\]]*\\])`));
+    // Biome formats multiline arrays with a trailing comma — strip it: the
+    // match is generated code, never hand-written, so this is exact.
+    return m ? JSON.parse(m[1].replace(/,\s*\]/, "]")) : null;
+  };
+  upstream.set(`${get("platform")}/${get("export")}`, {
+    path: get("path"),
+    tier: get("tier"),
+    builtFrom: list("builtFrom") ?? [],
+    usedBy: list("usedBy") ?? [],
+  });
+}
+
 const entries = [];
 for (const block of source.split(/^## /m).slice(1)) {
   const heading = block.slice(0, block.indexOf("\n")).trim();
@@ -121,13 +155,28 @@ const PARITY_COUNTS = {
   shared: Number(countsMatch[3]),
 };
 
-const toEntry = (platform) => (c) => ({
-  slug: `${platform}/${c.name}`,
-  name: c.name,
-  export: c.export,
-  platform,
-  status: c.status,
-});
+const toEntry = (platform) => (c) => {
+  // The upstream registry calls the second platform "native"; the site
+  // calls it "mobile" (route slugs are platform-qualified either way).
+  const upstreamPlatform = platform === "mobile" ? "native" : platform;
+  const up = upstream.get(`${upstreamPlatform}/${c.export}`);
+  if (!up) {
+    console.error(
+      `generate-manifest: no upstream tier row for ${platform}/${c.export} — run \`bun run generate:components\` from the repo root first`,
+    );
+    process.exit(1);
+  }
+  return {
+    slug: `${platform}/${c.name}`,
+    name: c.name,
+    export: c.export,
+    platform,
+    status: c.status,
+    tier: up.tier,
+    builtFrom: up.builtFrom,
+    usedBy: up.usedBy,
+  };
+};
 
 /** Union of both renderers' family names, sorted once (see FAMILIES). */
 const familyOrder = await loadFamilySlugs();
@@ -178,6 +227,12 @@ export type ComponentEntry = {
   export: string;
   platform: Platform;
   status: ComponentStatus;
+  /** IA tier (D1003/D1004), joined from the upstream registry. */
+  tier: "core" | "component";
+  /** Sibling-component symbols this row's file composes (import evidence). */
+  builtFrom: string[];
+  /** Same-platform exports composing THIS export (reverse index). */
+  usedBy: string[];
 };
 
 export const COMPONENTS: ComponentEntry[] = ${JSON.stringify(all, null, 2)};

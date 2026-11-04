@@ -80,7 +80,7 @@ export function resolveSystem(
 }
 
 const ROW_RE =
-  /\{\s*name:\s*"([^"]+)",\s*export:\s*"([^"]+)",\s*platform:\s*"(web|native)",\s*system:\s*"([^"]+)",\s*entrypoint:\s*"([^"]+)",\s*path:\s*"([^"]+)",\s*status:\s*"(real|stub)",\s*\}/gs;
+  /\{\s*name:\s*"([^"]+)",\s*export:\s*"([^"]+)",\s*platform:\s*"(web|native)",\s*system:\s*"([^"]+)",\s*entrypoint:\s*"([^"]+)",\s*path:\s*"([^"]+)",\s*status:\s*"(real|stub)"[^}]*\}/gs;
 
 function parseManifestSource(src: string): ManifestRow[] {
   return [...src.matchAll(ROW_RE)].map(
