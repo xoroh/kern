@@ -63,6 +63,11 @@ export const badge: ComponentDoc = {
       type: "number | undefined",
       note: "Truncation ceiling for numeric counts. Past `max` the badge shows `{max}+` (M3: 99+) while the accessible name keeps the full count. Non-numeric children render untouched.",
     },
+    {
+      name: "tone",
+      type: '"primary" | "secondary" | "success" | "warning" | "error" | "info" | "neutral"',
+      note: "Registry tone for the status-chip cell pattern; a selected filter chip still resolves to the M3 secondary-container selection treatment.",
+    },
   ],
   aria: [
     'The badge is `role="img"`, so a label on it is announced as a single unit rather than as loose text.',

@@ -82,6 +82,18 @@ export const table: ComponentDoc = {
       type: "React.Ref<HTMLTableElement>",
       note: "Forwarded to the underlying element. Each part forwards to its own element type.",
     },
+    {
+      name: "density",
+      for: ["Table"],
+      type: "TableDensity",
+      note: "`comfortable` keeps the default cell rhythm; `compact` tightens header/cell padding for dense ops queues. Defaults to comfortable.",
+    },
+    {
+      name: "stickyHeader",
+      for: ["Table"],
+      type: "boolean",
+      note: "Pins the header row on vertical scroll; the head keeps its tonal fill so stuck headers stay legible over rows.",
+    },
   ],
   aria: [
     "Every part renders the HTML table element it names, so the table semantics come from real elements rather than from ARIA roles bolted onto divs.",

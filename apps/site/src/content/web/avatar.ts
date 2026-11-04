@@ -96,6 +96,12 @@ export const avatar: ComponentDoc = {
       type: "number | undefined",
       note: "Milliseconds to wait before showing the fallback. Hides the flash on fast loads.",
     },
+    {
+      name: "tone",
+      for: ["AvatarFallback"],
+      type: '"primary" | "secondary" | "success" | "warning" | "error" | "info" | "neutral"',
+      note: "On `AvatarFallback`: explicit disc tone. Absent, the tone derives from the contact id.",
+    },
   ],
   aria: [
     "The avatar is decorative when the person's name is already next to it, and should be hidden from assistive tech in that case — otherwise the name is announced twice.",

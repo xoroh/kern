@@ -63,6 +63,21 @@ export const emptyState: ComponentDoc = {
       type: "string",
       note: "Merged after the empty state's own classes.",
     },
+    {
+      name: "primaryAction",
+      type: "ReactNode",
+      note: "Primary recovery action — `action` stays as its alias. Pair with `secondaryAction` for retry/contact-support compositions.",
+    },
+    {
+      name: "secondaryAction",
+      type: "ReactNode",
+      note: "Secondary action rendered beside the primary (usually a ghost LinkButton).",
+    },
+    {
+      name: "variant",
+      type: '"page" | "section" | "list-row" | "chat"',
+      note: "Placement variant. Only metrics change — one component, not four.",
+    },
   ],
   aria: [
     "The title and description are ordinary text, so they are read in order like any other copy.",

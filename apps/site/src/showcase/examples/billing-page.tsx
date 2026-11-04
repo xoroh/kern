@@ -20,8 +20,12 @@ export const BILLING_PAGE_EXAMPLES: ExampleSpec[] = [
         plan={
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
-              <p className="text-lg font-semibold">Growth plan</p>
-              <p className="text-sm opacity-70">Monthly · renews Dec 1</p>
+              <p className="text-(--sys-typescale-title-large-font-size) font-(--sys-typescale-title-large-font-weight)">
+                Growth plan
+              </p>
+              <p className="text-(--sys-typescale-body-small-font-size) opacity-70">
+                Monthly · renews Dec 1
+              </p>
             </div>
             <StatusPill tone="success">Active</StatusPill>
           </div>

@@ -52,14 +52,13 @@ export const KERN_SETTINGS_ROW_EXAMPLES: ExampleSpec[] = [
           label="Email"
           supporting="Sign-in and receipts"
           control="button"
-          href="#settings-email"
         />
       </div>
     ),
     code: `<KernSettingsRow label="Push notifications" control="switch" defaultChecked />
 <KernSettingsRow label="Theme" control="segmented" segmentedOptions={[]} />
 <KernSettingsRow label="Language" control="select" selectOptions={[]} />
-<KernSettingsRow label="Email" control="button" href="#settings-email" />`,
+<KernSettingsRow label="Email" control="button" />`,
   },
 ];
 export const KERN_SETTINGS_SCREEN_EXAMPLES: ExampleSpec[] = [

@@ -61,5 +61,15 @@ export const statusPill: ComponentDoc = {
       type: "ReactNode",
       required: true,
     },
+    {
+      name: "emphasis",
+      type: '"soft" | "solid"',
+      note: "`soft` fills with container roles (quiet default); `solid` fills with the tone roles for counts that must read at a glance.",
+    },
+    {
+      name: "density",
+      type: '"compact" | "medium"',
+      note: "`compact` fits table status-chip cells; `medium` is the default row height.",
+    },
   ],
 };

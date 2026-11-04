@@ -94,6 +94,11 @@ export const chip: ComponentDoc = {
       type: "boolean | undefined",
       note: "M3 elevated treatment (assist + filter): level1 shadow on the surface-container-low fill. Ignored for input/suggestion chips, which have no elevated treatment.",
     },
+    {
+      name: "tone",
+      type: '"primary" | "secondary" | "success" | "warning" | "error" | "info" | "neutral"',
+      note: "Registry tone for the status-chip cell pattern; a selected filter chip still resolves to the M3 secondary-container selection treatment.",
+    },
   ],
   aria: [
     "The chip renders a real `<button>`, so it is reachable and activatable by keyboard without extra wiring.",
