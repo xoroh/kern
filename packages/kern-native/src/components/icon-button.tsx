@@ -12,6 +12,8 @@ import {
   type Ref,
 } from "react";
 import {
+  ActivityIndicator,
+  I18nManager,
   Pressable,
   type PressableProps,
   type StyleProp,
@@ -22,57 +24,63 @@ import {
 import { defaultScheme, useKernScheme } from "../theme";
 import { DISABLED_CONTENT_OPACITY, StateLayer } from "./state-layer";
 
-/**
- * M3 icon button — the canonical square, icon-only action.
- *
- * ## Why this is not `Button` with no children
- *
- * The container is square and icon-only, but the behaviour that matters is the
- * TOGGLE form, and a toggle button is a different contract from a button:
- *
- *   Button     "do this"            -> activation performs an action
- *   IconButton "this is on/off"     -> activation changes state
- *
- * A toggle icon button that does not report its state is "a plain button
- * wearing a selected colour" — precisely the state a screen reader cannot see.
- * That is why `selected` is carried in `aria-selected` even when the
- * button is used as a plain action, and why the state is controllable.
- *
- * ## The accessible name is mandatory, not optional
- *
- * There is no visible text, so nothing names the button but what we are told. An
- * unnamed icon button is announced as an unlabelled control, which is not an
- * action anyone can take. `label` is therefore required by the type, and it
- * drives BOTH the announced name and any tooltip the host renders from it —
- * one prop, so a sighted hover and an announced name cannot drift apart.
- *
- * `aria-selected` (not `aria-checked`) mirrors `Toggle`: on a
- * `role="button"`, `selected` is the axis RN exposes for pressed state. This is
- * the same axis `CheckboxGroupItem` deliberately does NOT use — a checkbox
- * reports `aria-checked`, a button reports `aria-selected`.
- *
- * ## Touch target
- *
- * The visual box is 40dp; the hit area is pushed out to 48dp via `hitSlop`,
- * matching the `Toggle` precedent, because an icon-only control has no text
- * giving it incidental size.
- */
-
 export type IconButtonVariant = "standard" | "filled" | "tonal" | "outlined";
 
 /**
- * M3 Expressive icon-button sizes: XS 32dp, S 40dp (default), M 56dp,
- * L 96dp, XL 136dp. Narrow/wide widths are a web layout concern; the native
- * box is always square.
+ * M3 Expressive icon-button size ladder:
+ * XS 32dp · S 40dp (default) · M 56dp · lg 96dp · xl 136dp · 2xl 96dp · 3xl 136dp.
  */
-export type NativeIconButtonSize = "xs" | "default" | "md" | "lg" | "xl";
+export type NativeIconButtonSize =
+  | "xs"
+  | "sm"
+  | "default"
+  | "md"
+  | "lg"
+  | "xl"
+  | "2xl"
+  | "3xl";
+
+export type NativeIconButtonShape = "pill" | "square";
+export type NativeIconButtonWidth = "default" | "narrow" | "wide";
 
 const ICON_BUTTON_BOX: Record<NativeIconButtonSize, number> = {
   xs: 32,
+  sm: 36,
   default: 40,
   md: 56,
   lg: 96,
   xl: 136,
+  "2xl": 96,
+  "3xl": 136,
+};
+
+const ICON_BUTTON_SQUARE_RADIUS: Record<NativeIconButtonSize, number> = {
+  xs: 8,
+  sm: 8,
+  default: 12,
+  md: 12,
+  lg: 16,
+  xl: 28,
+  "2xl": 28,
+  "3xl": 28,
+};
+
+const ICON_BUTTON_PRESSED_RADIUS: Record<NativeIconButtonSize, number> = {
+  xs: 4,
+  sm: 4,
+  default: 8,
+  md: 8,
+  lg: 12,
+  xl: 16,
+  "2xl": 16,
+  "3xl": 16,
+};
+
+export type NativeIconButtonStyleOptions = {
+  shape?: NativeIconButtonShape;
+  width?: NativeIconButtonWidth;
+  toggle?: boolean;
+  activePress?: boolean;
 };
 
 export function iconButtonStyles(
@@ -81,23 +89,42 @@ export function iconButtonStyles(
   disabled: boolean,
   scheme: ResolvedTheme = defaultScheme(),
   size: NativeIconButtonSize = "default",
+  options: NativeIconButtonStyleOptions = {},
 ): ViewStyle {
+  const {
+    shape = "pill",
+    width = "default",
+    toggle = true,
+    activePress = false,
+  } = options;
   const box = ICON_BUTTON_BOX[size];
+  const widthFactor = width === "narrow" ? 0.75 : width === "wide" ? 4 / 3 : 1;
+  const pillRadius = Number.parseFloat(scheme.shape.full);
+  const squareRadius = ICON_BUTTON_SQUARE_RADIUS[size];
+  const pressedRadius = ICON_BUTTON_PRESSED_RADIUS[size];
+
+  const isSelected = toggle && pressed;
+  const restingRadius =
+    shape === "square"
+      ? isSelected
+        ? pillRadius
+        : squareRadius
+      : isSelected
+        ? squareRadius
+        : pillRadius;
+  const borderRadius = activePress && !disabled ? pressedRadius : restingRadius;
+
   const base: ViewStyle = {
-    width: box,
+    width: Math.round(box * widthFactor),
     height: box,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: Number.parseFloat(scheme.shape.full),
+    borderRadius,
     overflow: "hidden",
     opacity: disabled ? DISABLED_CONTENT_OPACITY : 1,
   };
 
-  // M3 toggle-selected treatments per style (mirrors the web compounds):
-  // standard gains the primary icon with no fill; filled lands on the
-  // primary fill; tonal on the secondary container; outlined on the
-  // inverse surface with no border.
-  if (pressed) {
+  if (isSelected) {
     switch (variant) {
       case "filled":
         return {
@@ -123,12 +150,17 @@ export function iconButtonStyles(
     case "filled":
       return {
         ...base,
-        backgroundColor: scheme.color.surfaceContainerHighest,
+        // Toggle-unselected filled uses surfaceContainerHighest; non-toggle filled uses primary!
+        backgroundColor: toggle
+          ? scheme.color.surfaceContainerHighest
+          : scheme.color.primary,
       };
     case "tonal":
       return {
         ...base,
-        backgroundColor: scheme.color.secondaryContainer,
+        backgroundColor: toggle
+          ? scheme.color.surfaceContainerHighest
+          : scheme.color.secondaryContainer,
       };
     case "outlined":
       return {
@@ -150,8 +182,10 @@ export function iconButtonIconColor(
   variant: IconButtonVariant,
   pressed: boolean,
   scheme: ResolvedTheme = defaultScheme(),
+  toggle = true,
 ): string {
-  if (pressed) {
+  const isSelected = toggle && pressed;
+  if (isSelected) {
     switch (variant) {
       case "filled":
         return scheme.color.onPrimary;
@@ -165,25 +199,16 @@ export function iconButtonIconColor(
   }
   switch (variant) {
     case "filled":
-      return scheme.color.primary;
+      return toggle ? scheme.color.primary : scheme.color.onPrimary;
+    case "tonal":
+      return toggle
+        ? scheme.color.onSurfaceVariant
+        : scheme.color.onSecondaryContainer;
     default:
       return scheme.color.onSurfaceVariant;
   }
 }
 
-/**
- * Whether a host cancelled this press.
- *
- * Extracted as a named predicate so it can be tested honestly. React Native's
- * Testing Library synthesises a press event that exposes both
- * `preventDefault()` and `isDefaultPrevented()`, but the latter is a no-op stub
- * that returns `false` even after `preventDefault()` — so `fireEvent.press`
- * cannot exercise an `isDefaultPrevented()` guard at all. Testing the predicate
- * directly is the only way this contract is actually covered.
- *
- * Unknown/absent events are treated as NOT cancelled: a press with no event
- * object is a press we have no reason to suppress.
- */
 export function pressIsCancelled(event?: {
   isDefaultPrevented?: () => boolean;
 }): boolean {
@@ -198,22 +223,35 @@ export type NativeIconButtonProps = Omit<
 > & {
   /** REQUIRED. The accessible name — there is no visible text to supply one. */
   label: string;
-  /**
-   * Explicit ref to the underlying pressable (focus management, measurement).
-   * React 19 ref-as-prop — destructured so it cannot be lost in the spread.
-   * Typed exactly as Pressable declares it; do not widen.
-   */
+  /** Accessible name when the toggle is selected. */
+  selectedLabel?: string;
   ref?: Ref<ElementRef<typeof Pressable>>;
   /** Container variant. */
   variant?: IconButtonVariant;
   /** M3 Expressive size: XS 32dp up to XL 136dp. Defaults to the 40dp S. */
   size?: NativeIconButtonSize;
+  /** Container shape: pill (default) or square. */
+  shape?: NativeIconButtonShape;
+  /** Horizontal proportion: narrow (3/4), default (square), wide (4/3). */
+  width?: NativeIconButtonWidth;
+  /** Icon content (alias for children, matching Web IconButton). */
+  icon?: ReactNode;
+  /** Alternate icon rendered when toggle is selected. */
+  selectedIcon?: ReactNode;
   /** The icon element. */
   children?: ReactNode;
+  /** Explicit toggle mode flag (also auto-enabled when pressed/defaultPressed/onPressedChange is passed). */
+  toggle?: boolean;
   /** Toggle form: controlled pressed state. */
   pressed?: boolean;
   defaultPressed?: boolean;
   onPressedChange?: (pressed: boolean) => void;
+  /** Soft-disabled: paints disabled treatment while staying discoverable. */
+  softDisabled?: boolean;
+  /** Shows an inline loading indicator and blocks interaction. */
+  loading?: boolean;
+  /** Mirrors the icon horizontally in RTL contexts. */
+  flipIcon?: boolean;
   disabled?: boolean;
   onPress?: PressableProps["onPress"];
   style?: PressableProps["style"];
@@ -222,12 +260,21 @@ export type NativeIconButtonProps = Omit<
 
 export function IconButton({
   label,
+  selectedLabel,
   variant = "standard",
   size = "default",
+  shape = "pill",
+  width = "default",
+  icon,
+  selectedIcon,
   children,
+  toggle: toggleProp,
   pressed: pressedProp,
-  defaultPressed = false,
+  defaultPressed,
   onPressedChange,
+  softDisabled = false,
+  loading = false,
+  flipIcon = false,
   disabled = false,
   onPress,
   hitSlop,
@@ -237,31 +284,45 @@ export function IconButton({
   ...props
 }: NativeIconButtonProps) {
   const scheme = useKernScheme();
+  // Backward compatible: if caller passes toggle, pressed, defaultPressed, or onPressedChange, it acts as a toggle.
+  const isToggle =
+    toggleProp ??
+    (pressedProp !== undefined ||
+      defaultPressed !== undefined ||
+      onPressedChange !== undefined);
+
   const [isPressedRaw, setPressed] = useControllableState<boolean>(
     pressedProp,
-    defaultPressed,
+    defaultPressed ?? false,
     (next) => {
       onPressedChange?.(next);
     },
   );
-  // `useControllableState` is typed `boolean | undefined` because it also serves
-  // string/number state; with a defaultValue this is never undefined in
-  // practice, but the type says it can be, and `selected: undefined` would ship
-  // an indeterminate state to assistive tech.
-  const isPressed = isPressedRaw ?? false;
+  const isPressed = isToggle ? (isPressedRaw ?? false) : false;
+  const blocked = disabled || loading || softDisabled;
   const box = ICON_BUTTON_BOX[size];
-  const styles = iconButtonStyles(variant, isPressed, disabled, scheme, size);
-  // The icon always pairs with its container (M3 tonal pairing): an
-  // explicitly-colored icon is untouched, a bare one tints with the role.
-  const tinted = isValidElement<{ style?: StyleProp<TextStyle> }>(children)
+  const styles = iconButtonStyles(variant, isPressed, blocked, scheme, size, {
+    shape,
+    width,
+    toggle: isToggle,
+  });
+  const ink = iconButtonIconColor(variant, isPressed, scheme, isToggle);
+  const rawGlyph =
+    isToggle && isPressed && selectedIcon ? selectedIcon : (icon ?? children);
+  const rtlStyle =
+    flipIcon && I18nManager.isRTL ? { transform: [{ scaleX: -1 }] } : undefined;
+  const tinted = isValidElement<{ style?: StyleProp<TextStyle> }>(rawGlyph)
     ? cloneElement(
-        children,
+        rawGlyph,
         mergeSlotProps<SlotProps>(
-          { style: { color: iconButtonIconColor(variant, isPressed, scheme) } },
-          children.props,
+          { style: [{ color: ink }, rtlStyle] },
+          rawGlyph.props,
         ),
       )
-    : children;
+    : rawGlyph;
+
+  const activeLabel =
+    isToggle && isPressed && selectedLabel ? selectedLabel : label;
 
   return (
     <Pressable
@@ -270,13 +331,12 @@ export function IconButton({
       testID={testID ?? "kern-icon-button"}
       role="button"
       accessibilityRole="button"
-      // Mandatory: without this the control is announced with no name at all.
-      accessibilityLabel={label}
+      accessibilityLabel={activeLabel}
       aria-selected={isPressed}
-      aria-disabled={disabled}
-      disabled={disabled}
-      // Visual box per size; hitSlop widens the small boxes out to the 48dp
-      // minimum, larger boxes already clear it.
+      aria-pressed={isToggle ? isPressed : undefined}
+      aria-disabled={blocked}
+      aria-busy={loading || undefined}
+      disabled={disabled || loading}
       hitSlop={
         hitSlop ?? {
           top: Math.max(0, (48 - box) / 2),
@@ -286,23 +346,31 @@ export function IconButton({
         }
       }
       onPress={(event) => {
+        if (blocked) return;
         onPress?.(event);
-        // Honour the preventDefault contract the rest of kern uses: a host that
-        // cancels the press must not change state.
-        if (!disabled && !pressIsCancelled(event)) setPressed(!isPressed);
+        if (isToggle && !pressIsCancelled(event)) setPressed(!isPressed);
       }}
       style={({ pressed: pressedNow }) => [
-        styles,
+        pressedNow && !blocked
+          ? iconButtonStyles(variant, isPressed, blocked, scheme, size, {
+              shape,
+              width,
+              toggle: isToggle,
+              activePress: true,
+            })
+          : styles,
         typeof style === "function" ? style({ pressed: pressedNow }) : style,
       ]}
     >
       {({ pressed: pressedNow }) => (
         <>
-          {tinted}
+          {loading ? <ActivityIndicator size="small" color={ink} /> : tinted}
           <StateLayer
-            ink={iconButtonIconColor(variant, isPressed, scheme)}
-            radius={Number.parseFloat(scheme.shape.full)}
-            visible={pressedNow && !disabled}
+            ink={ink}
+            radius={Number(
+              styles.borderRadius ?? Number.parseFloat(scheme.shape.full),
+            )}
+            visible={pressedNow && !blocked}
           />
         </>
       )}
@@ -310,12 +378,6 @@ export function IconButton({
   );
 }
 
-/**
- * A wrapper that guarantees the 48dp minimum around a 40dp control.
- *
- * Exported because a host composing icon buttons into a toolbar needs the
- * spacing guarantee to hold without re-deriving it.
- */
 export function IconButtonTarget({
   children,
   style,
@@ -329,8 +391,6 @@ export function IconButtonTarget({
     <View
       testID={testID ?? "kern-icon-button-target"}
       style={[
-        // 48dp is the minimum touch target; the icon button's own box is 40dp,
-        // so a toolbar needs this to guarantee the rest of the target.
         {
           minWidth: 48,
           minHeight: 48,

@@ -1,77 +1,18 @@
 import type { ResolvedTheme } from "@xoroh/kern-tokens";
 import { type ReactNode, useState } from "react";
-import { Modal, Pressable, StyleSheet, View } from "react-native";
+import {
+  Modal,
+  Pressable,
+  StyleSheet,
+  View,
+  type ViewStyle,
+} from "react-native";
 import { defaultScheme, useKernScheme } from "../theme";
 import { scrimStyle } from "../utils/overlay-styles";
 import { menuStyles } from "./menu";
 import { DISABLED_CONTENT_OPACITY, StateLayer } from "./state-layer";
 import { Text } from "./text";
 
-const staticStyles = StyleSheet.create({
-  row: {
-    flexDirection: "row",
-    alignItems: "stretch",
-  },
-  primary: {
-    minHeight: 40,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 8,
-    paddingHorizontal: 16,
-  },
-  overflow: {
-    minHeight: 40,
-    minWidth: 32,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 8,
-  },
-  // The M3 1dp outline between the halves. Without it two visibly separate
-  // buttons would read as a button group, which is a different component.
-  divider: {
-    width: StyleSheet.hairlineWidth,
-    alignSelf: "stretch",
-  },
-  item: {
-    minHeight: 48,
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-    paddingHorizontal: 12,
-  },
-});
-
-/**
- * M3 split button — one action, plus an overflow menu for its siblings. The
- * primary action is the *most likely* one and stays a plain button; the overflow
- * is a second, separate control. M3 is explicit that the two must not be one
- * button with two hit regions: a single element that opens a menu on part of
- * itself can be announced as neither control.
- *
- * What kern owns:
- *
- * - **Two tab stops, two names.** The primary button is named by `label`; the
- *   overflow trigger is named by `menuLabel` (defaulting to `` `${label} more` ``)
- *   and carries `aria-expanded`, the press half of
- *   `aria-haspopup` + `aria-expanded`. A split button built as one element is
- *   announced as one button, so the overflow action is unreachable by name.
- * - **Geometry that reads as one control** — the primary carries the full
- *   `corner-full` on its leading side, the overflow the trailing side, and the
- *   hairline divider between them is the M3 1dp `outline`.
- * - **The primary action does not open the menu.** Pressing it fires `onPress`
- *   and leaves the overflow closed; that separation is the entire reason the
- *   component exists.
- *
- * R2 lexicon, platform split (kept): `onPress` is the press-intent callback
- * (RN Pressable has no `onClick`), NOT a lexicon violation — there is no DOM
- * event here to split from. The host's press handler and the menu's
- * open/defaultOpen/onOpenChange state are different axes and stay separate.
- * - **Selecting an overflow action dismisses the menu**, so the host never has
- *   to close it and cannot forget to.
- * - **Disabled** disables both halves, because a split button whose overflow is
- *   live while its primary is dead is a trap.
- */
 export type NativeSplitButtonAction = {
   key: string;
   label: string;
@@ -81,18 +22,27 @@ export type NativeSplitButtonAction = {
   onSelect?: () => void;
 };
 
+export type NativeSplitButtonVariant = "filled" | "tonal" | "outlined";
+export type NativeSplitButtonSize =
+  | "xs"
+  | "sm"
+  | "default"
+  | "md"
+  | "lg"
+  | "xl";
+
 export type NativeSplitButtonProps = {
   /** Primary action. Also the primary button's accessible name. */
   label: string;
-  /**
-   * R2 lexicon: `onPress` is correct here (RN Pressable, no DOM `onClick`
-   * exists on this renderer) — not a rename candidate.
-   */
   onPress?: () => void;
   /** Icon inside the primary button, hidden from assistive tech. */
   icon?: ReactNode;
   /** Overflow actions. An empty list renders no overflow half. */
   actions: NativeSplitButtonAction[];
+  /** Visual emphasis shared by both halves. */
+  variant?: NativeSplitButtonVariant;
+  /** M3 Expressive size step shared by both halves. */
+  size?: NativeSplitButtonSize;
   /** Accessible name of the overflow trigger. */
   menuLabel?: string;
   disabled?: boolean;
@@ -100,29 +50,90 @@ export type NativeSplitButtonProps = {
   testID?: string;
 };
 
-export function splitButtonStyles(scheme: ResolvedTheme = defaultScheme()): {
-  row: object;
-  primary: object;
-  overflow: object;
-  divider: object;
+const SPLIT_HEIGHT: Record<NativeSplitButtonSize, number> = {
+  xs: 32,
+  sm: 36,
+  default: 40,
+  md: 56,
+  lg: 96,
+  xl: 136,
+};
+
+const SPLIT_OVERFLOW_WIDTH: Record<NativeSplitButtonSize, number> = {
+  xs: 32,
+  sm: 36,
+  default: 40,
+  md: 48,
+  lg: 64,
+  xl: 88,
+};
+
+const SPLIT_INNER_RADIUS: Record<NativeSplitButtonSize, number> = {
+  xs: 4,
+  sm: 4,
+  default: 4,
+  md: 4,
+  lg: 8,
+  xl: 12,
+};
+
+export function splitButtonStyles(
+  scheme: ResolvedTheme = defaultScheme(),
+  variant: NativeSplitButtonVariant = "filled",
+  size: NativeSplitButtonSize = "default",
+): {
+  row: ViewStyle;
+  primary: ViewStyle;
+  overflow: ViewStyle;
+  divider: ViewStyle;
+  ink: string;
 } {
+  const pill = Number.parseFloat(scheme.shape.full);
+  const inner = SPLIT_INNER_RADIUS[size];
+  const bg =
+    variant === "tonal"
+      ? scheme.color.secondaryContainer
+      : variant === "outlined"
+        ? "transparent"
+        : scheme.color.primary;
+  const ink =
+    variant === "tonal"
+      ? scheme.color.onSecondaryContainer
+      : variant === "outlined"
+        ? scheme.color.onSurfaceVariant
+        : scheme.color.onPrimary;
+  const border: ViewStyle =
+    variant === "outlined"
+      ? { borderWidth: 1, borderColor: scheme.color.outline }
+      : {};
+
   return {
     row: {
-      borderRadius: Number.parseFloat(scheme.shape.full),
-      backgroundColor: scheme.color.primary,
+      borderRadius: pill,
+      backgroundColor: bg,
       overflow: "hidden",
     },
-    // Leading half carries the pill on its left, trailing half on its right:
-    // two halves of one pill, not two pills.
     primary: {
-      borderTopLeftRadius: Number.parseFloat(scheme.shape.full),
-      borderBottomLeftRadius: Number.parseFloat(scheme.shape.full),
+      minHeight: SPLIT_HEIGHT[size],
+      borderTopLeftRadius: pill,
+      borderBottomLeftRadius: pill,
+      borderTopRightRadius: inner,
+      borderBottomRightRadius: inner,
+      backgroundColor: bg,
+      ...border,
     },
     overflow: {
-      borderTopRightRadius: Number.parseFloat(scheme.shape.full),
-      borderBottomRightRadius: Number.parseFloat(scheme.shape.full),
+      minHeight: SPLIT_HEIGHT[size],
+      minWidth: SPLIT_OVERFLOW_WIDTH[size],
+      borderTopRightRadius: pill,
+      borderBottomRightRadius: pill,
+      borderTopLeftRadius: inner,
+      borderBottomLeftRadius: inner,
+      backgroundColor: bg,
+      ...border,
     },
     divider: { backgroundColor: scheme.color.outline },
+    ink,
   };
 }
 
@@ -131,57 +142,54 @@ export function SplitButton({
   onPress,
   icon,
   actions,
+  variant = "filled",
+  size = "default",
   menuLabel,
   disabled = false,
   style,
   testID,
 }: NativeSplitButtonProps) {
   const scheme = useKernScheme();
-  const styles = splitButtonStyles(scheme);
+  const styles = splitButtonStyles(scheme, variant, size);
   const card = menuStyles(scheme);
   const [open, setOpen] = useState(false);
-  const overflowName = menuLabel ?? `${label} more`;
+
   const hasOverflow = actions.length > 0;
+  const overflowName = menuLabel ?? `${label} more`;
 
   return (
-    <View>
-      <View
-        testID={testID ?? "kern-split-button"}
-        style={[staticStyles.row, styles.row, style]}
-        aria-disabled={disabled || undefined}
-      >
+    <View testID={testID ?? "kern-split-button"} style={style}>
+      <View style={[staticStyles.row, styles.row]}>
         <Pressable
           role="button"
           accessibilityRole="button"
           aria-disabled={disabled || undefined}
           accessibilityLabel={label}
           disabled={disabled}
-          hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
-          onPress={() => {
-            // Deliberately does not touch `open`: the primary must not open the
-            // menu. That separation is the component's whole reason to exist.
-            onPress?.();
-          }}
+          hitSlop={{ top: 4, bottom: 4, left: 4, right: 0 }}
+          onPress={() => onPress?.()}
           style={[
             staticStyles.primary,
             styles.primary,
+            !hasOverflow && {
+              borderTopRightRadius: Number.parseFloat(scheme.shape.full),
+              borderBottomRightRadius: Number.parseFloat(scheme.shape.full),
+            },
             { opacity: disabled ? DISABLED_CONTENT_OPACITY : 1 },
           ]}
         >
           {({ pressed: isPressed }) => (
             <>
-              <View
-                accessible={false}
-                importantForAccessibility="no"
-                style={{ flexDirection: "row", alignItems: "center" }}
-              >
-                {icon}
-              </View>
-              <Text variant="label" style={{ color: scheme.color.onPrimary }}>
+              {icon ? (
+                <View accessible={false} importantForAccessibility="no">
+                  {icon}
+                </View>
+              ) : null}
+              <Text variant="label" style={{ color: styles.ink }}>
                 {label}
               </Text>
               <StateLayer
-                ink={scheme.color.onPrimary}
+                ink={styles.ink}
                 radius={Number.parseFloat(scheme.shape.full)}
                 visible={isPressed && !disabled}
               />
@@ -197,25 +205,25 @@ export function SplitButton({
               style={[staticStyles.divider, styles.divider]}
             />
             <Pressable
-              testID="kern-split-button-overflow"
               role="button"
               accessibilityRole="button"
-              aria-disabled={disabled || undefined}
               aria-expanded={open}
+              aria-disabled={disabled || undefined}
               accessibilityLabel={overflowName}
               disabled={disabled}
-              hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
-              onPress={() => setOpen(!open)}
+              hitSlop={{ top: 4, bottom: 4, left: 0, right: 4 }}
+              onPress={() => setOpen((current) => !current)}
               style={[
                 staticStyles.overflow,
                 styles.overflow,
+                open && {
+                  borderRadius: Number.parseFloat(scheme.shape.full),
+                },
                 { opacity: disabled ? DISABLED_CONTENT_OPACITY : 1 },
               ]}
             >
               {({ pressed: isPressed }) => (
                 <>
-                  {/* The chevron is decoration: the half's accessible name comes
-                      from `overflowName`, so announcing it too would double it. */}
                   <View
                     accessible={false}
                     importantForAccessibility="no"
@@ -224,12 +232,12 @@ export function SplitButton({
                       height: 10,
                       borderRightWidth: 2,
                       borderBottomWidth: 2,
-                      borderColor: scheme.color.onPrimary,
-                      transform: [{ rotate: "45deg" }],
+                      borderColor: styles.ink,
+                      transform: [{ rotate: open ? "225deg" : "45deg" }],
                     }}
                   />
                   <StateLayer
-                    ink={scheme.color.onPrimary}
+                    ink={styles.ink}
                     radius={Number.parseFloat(scheme.shape.full)}
                     visible={(isPressed || open) && !disabled}
                   />
@@ -270,8 +278,6 @@ export function SplitButton({
                     hitSlop={{ top: 4, bottom: 4, left: 4, right: 4 }}
                     onPress={() => {
                       action.onSelect?.();
-                      // Select-then-dismiss: the host never has to close it, and
-                      // cannot forget to.
                       setOpen(false);
                     }}
                     style={[
@@ -287,6 +293,14 @@ export function SplitButton({
                   >
                     {({ pressed: isPressed }) => (
                       <>
+                        {action.icon ? (
+                          <View
+                            accessible={false}
+                            importantForAccessibility="no"
+                          >
+                            {action.icon}
+                          </View>
+                        ) : null}
                         <Text variant="label">{action.label}</Text>
                         <StateLayer
                           ink={scheme.color.onSurface}
@@ -307,3 +321,39 @@ export function SplitButton({
     </View>
   );
 }
+
+const staticStyles = StyleSheet.create({
+  row: {
+    flexDirection: "row",
+    alignSelf: "flex-start",
+    alignItems: "stretch",
+  },
+  primary: {
+    minHeight: 40,
+    paddingHorizontal: 16,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
+    overflow: "hidden",
+  },
+  overflow: {
+    minHeight: 40,
+    minWidth: 40,
+    paddingHorizontal: 12,
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden",
+  },
+  divider: {
+    width: StyleSheet.hairlineWidth,
+  },
+  item: {
+    minHeight: 44,
+    paddingHorizontal: 16,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    overflow: "hidden",
+  },
+});

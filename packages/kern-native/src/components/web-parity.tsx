@@ -246,6 +246,9 @@ export type SegmentedButtonOption = {
  * from Tabs, and tabs own panels while segments own a value. Promotion
  * to a first-class file is a transfer-phase call, not a design-phase one.
  */
+export type SegmentedButtonDensity = 0 | -1 | -2 | -3;
+export type SegmentedButtonSize = "default" | "sm" | "xs";
+
 export function SegmentedButton({
   options,
   value: controlledValue,
@@ -254,6 +257,8 @@ export function SegmentedButton({
   defaultValues,
   onValueChange,
   onValuesChange,
+  density = 0,
+  size = "default",
   style,
   testID,
 }: {
@@ -264,9 +269,19 @@ export function SegmentedButton({
   defaultValues?: string[];
   onValueChange?: (value: string) => void;
   onValuesChange?: (values: string[]) => void;
+  density?: SegmentedButtonDensity;
+  size?: SegmentedButtonSize;
   style?: StyleProp<ViewStyle>;
   testID?: string;
 }) {
+  const segHeight =
+    size === "xs" || density === -3
+      ? 28
+      : size === "sm" || density === -2
+        ? 32
+        : density === -1
+          ? 36
+          : 40;
   const scheme = useKernScheme();
   // Which axis the caller used IS the mode: a SegmentedButton that was given
   // plural props is a multi-select. One `useSelection` call rather than two
@@ -326,7 +341,7 @@ export function SegmentedButton({
             onPress={() => select(option.value)}
             style={{
               flex: 1,
-              minHeight: 40,
+              minHeight: segHeight,
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "center",

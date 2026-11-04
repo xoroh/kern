@@ -1,8 +1,18 @@
+import { mergeSlotProps, type SlotProps } from "@xoroh/axis";
 import type { LoadingIndicatorStyle } from "@xoroh/kern-m3";
-import { type GestureResponderEvent, Pressable, Text } from "react-native";
+import { cloneElement, isValidElement } from "react";
+import {
+  type GestureResponderEvent,
+  I18nManager,
+  Pressable,
+  type StyleProp,
+  Text,
+  type TextStyle,
+} from "react-native";
 import { useKernScheme } from "../theme";
 import { buttonStyles, type NativeButtonProps } from "./button";
 import { CircularProgress } from "./circular-progress";
+import { StateLayer } from "./state-layer";
 
 export type LoadingButtonProps = NativeButtonProps & {
   /** Shows the embedded progress indicator and blocks interaction. */
@@ -23,7 +33,14 @@ export function LoadingButton({
   value,
   loaderStyle,
   variant = "filled",
+  color = "primary",
   size = "default",
+  shape = "pill",
+  block = false,
+  softDisabled = false,
+  flipIcon = false,
+  icon,
+  iconPosition = "start",
   children,
   onPress,
   style,
@@ -33,8 +50,33 @@ export function LoadingButton({
   ...props
 }: LoadingButtonProps) {
   const scheme = useKernScheme();
-  const blocked = Boolean(disabled) || loading;
-  const styles = buttonStyles(variant, size, blocked, scheme);
+  const blocked = Boolean(disabled) || loading || softDisabled;
+  const styles = buttonStyles(variant, size, blocked, scheme, {
+    color,
+    shape,
+    block,
+  });
+  const inkColor = String(styles.label.color ?? scheme.color.onPrimary);
+  const rtlFlipStyle =
+    flipIcon && I18nManager.isRTL ? { transform: [{ scaleX: -1 }] } : undefined;
+  const iconSlot = isValidElement<{ style?: StyleProp<TextStyle> }>(icon)
+    ? cloneElement(
+        icon,
+        mergeSlotProps<SlotProps>(
+          {
+            style: [
+              {
+                color: styles.label.color,
+                opacity: styles.label.opacity,
+              },
+              rtlFlipStyle,
+            ],
+          },
+          icon.props,
+        ),
+      )
+    : (icon ?? null);
+
   return (
     <Pressable
       {...props}
@@ -43,33 +85,51 @@ export function LoadingButton({
       accessibilityRole="button"
       aria-disabled={blocked || undefined}
       aria-busy={loading || undefined}
-      disabled={blocked}
-      hitSlop={size === "sm" ? 8 : 4}
-      onPress={(event: GestureResponderEvent) => onPress?.(event)}
+      disabled={Boolean(disabled) || loading}
+      hitSlop={size === "xs" ? 10 : size === "sm" ? 8 : 4}
+      onPress={(event: GestureResponderEvent) => {
+        if (!blocked) onPress?.(event);
+      }}
       style={({ pressed }) => [
-        styles.container,
+        pressed && !blocked
+          ? buttonStyles(variant, size, blocked, scheme, {
+              color,
+              shape,
+              block,
+              pressed: true,
+            }).container
+          : styles.container,
         loading ? { gap: 8 } : undefined,
-        pressed && !blocked ? { opacity: 0.82 } : undefined,
         typeof style === "function" ? style({ pressed }) : style,
       ]}
     >
-      {loading ? (
-        <CircularProgress
-          value={value}
-          loaderStyle={loaderStyle}
-          size="sm"
-          label="Loading"
-          color={
-            variant === "filled"
-              ? scheme.color.onPrimary
-              : scheme.color.onSurface
-          }
-        />
-      ) : null}
-      {typeof children === "string" || typeof children === "number" ? (
-        <Text style={[styles.label, labelStyle]}>{children}</Text>
-      ) : (
-        children
+      {({ pressed: pressedNow }) => (
+        <>
+          {loading ? (
+            <CircularProgress
+              value={value}
+              loaderStyle={loaderStyle}
+              size="sm"
+              label="Loading"
+              color={inkColor}
+            />
+          ) : null}
+          {!loading && iconPosition === "start" ? iconSlot : null}
+          {typeof children === "string" || typeof children === "number" ? (
+            <Text style={[styles.label, labelStyle]}>{children}</Text>
+          ) : (
+            children
+          )}
+          {!loading && iconPosition === "end" ? iconSlot : null}
+          <StateLayer
+            ink={inkColor}
+            radius={Number(
+              styles.container.borderRadius ??
+                Number.parseFloat(scheme.shape.full),
+            )}
+            visible={pressedNow && !blocked}
+          />
+        </>
       )}
     </Pressable>
   );

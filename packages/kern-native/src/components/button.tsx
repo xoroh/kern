@@ -4,308 +4,126 @@ import {
   type SlotProps,
 } from "@xoroh/axis";
 import type { LoadingIndicatorStyle } from "@xoroh/kern-m3";
-import { cssLengthToDp, type ResolvedTheme } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
 import { cloneElement, isValidElement, useRef, useState } from "react";
 import {
   type GestureResponderEvent,
+  I18nManager,
   Pressable,
   type PressableProps,
   type StyleProp,
   Text,
   type TextStyle,
-  type ViewStyle,
 } from "react-native";
-import { defaultScheme, useKernTheme } from "../theme";
+import { useKernTheme } from "../theme";
+import {
+  BUTTON_SPRING_TOKENS,
+  buttonSpringConfig,
+  buttonStyles,
+  NATIVE_BUTTON_EXPRESSIVE_SIZE_LADDER,
+  NATIVE_BUTTON_SIZE_TO_KERN_SIZE,
+  type NativeButtonColor,
+  type NativeButtonIconPosition,
+  type NativeButtonShape,
+  type NativeButtonSize,
+  type NativeButtonStyleOptions,
+  type NativeButtonToggleOptions,
+  type NativeButtonVariant,
+} from "./button-shared";
 import { CircularProgress } from "./circular-progress";
 import { useKernPress } from "./presentation";
 import { StateLayer } from "./state-layer";
 
-// M3: elevated, filled, tonal, outlined, text (m3.material.io/components/buttons/overview).
-// Mirrors the web union exactly — one name per variant on both renderers (014, hard cut per 020).
-export type NativeButtonVariant =
-  | "elevated"
-  | "filled"
-  | "tonal"
-  | "outlined"
-  | "text";
-export type NativeButtonSize = "xs" | "default" | "sm" | "xl" | "icon";
-
-/** The color axis, mirroring web: M3 emphasis or the error treatment. */
-export type NativeButtonColor = "primary" | "danger";
-
-/** The shape axis, mirroring web: M3 pill, stepped-down corner, or none. */
-export type NativeButtonShape = "pill" | "rounded" | "square";
-
-/** Which side of the label the `icon` slot renders on. */
-export type NativeButtonIconPosition = "start" | "end";
-
-/**
- * R2 size foundation, re-homed (T1): Button sizes onto `KernSize`.
- * `default` renders at md metrics, `sm` is `sm`; `xs` compacts inside the
- * `sm` band and `xl` steps into `lg`. `icon` is shape, not scale, and is
- * intentionally absent — same rule as the platform source.
- */
-export const NATIVE_BUTTON_SIZE_TO_KERN_SIZE = {
-  xs: "sm",
-  default: "md",
-  sm: "sm",
-  xl: "lg",
-} as const;
-
-const HEIGHTS: Record<NativeButtonSize, number> = {
-  xs: 28,
-  default: 40,
-  sm: 32,
-  xl: 48,
-  icon: 40,
+export {
+  BUTTON_SPRING_TOKENS,
+  buttonSpringConfig,
+  buttonStyles,
+  NATIVE_BUTTON_EXPRESSIVE_SIZE_LADDER,
+  NATIVE_BUTTON_SIZE_TO_KERN_SIZE,
+  type NativeButtonColor,
+  type NativeButtonIconPosition,
+  type NativeButtonShape,
+  type NativeButtonSize,
+  type NativeButtonStyleOptions,
+  type NativeButtonToggleOptions,
+  type NativeButtonVariant,
 };
 
-const PADDING_HORIZONTAL: Record<NativeButtonSize, number> = {
-  xs: 12,
-  default: 16,
-  sm: 16,
-  xl: 24,
-  icon: 0,
-};
-
-const LABEL_FONT_SIZE: Record<NativeButtonSize, number> = {
-  xs: 12,
-  default: 14,
-  sm: 13,
-  xl: 16,
-  icon: 14,
-};
-
-/** Static treatment options, so positional callers keep working. */
-export type NativeButtonStyleOptions = {
-  color?: NativeButtonColor;
-  shape?: NativeButtonShape;
-  block?: boolean;
-};
-
-/**
- * Append an alpha channel to a 6-digit hex color (`#RRGGBB` → `#RRGGBBAA`).
- * Non-hex colors pass through untouched. Used for the M3 disabled split
- * (container 12%, label 38%) without a container `opacity` that would also
- * dim the label — the wash lives in the color itself, matching
- * react-native-paper's overlay approach without restructuring the tree.
- */
-function withAlpha(color: string, alpha: number): string {
-  if (/^#[0-9a-fA-F]{6}$/.test(color)) {
-    const byte = Math.round(alpha * 255)
-      .toString(16)
-      .padStart(2, "0");
-    return `${color}${byte}`;
-  }
-  return color;
-}
-
-export type NativeButtonToggleOptions = {
-  /** M3 Expressive toggle mode. No toggle text button — text renders unselected. */
-  toggle?: boolean;
-  /** Selected state. Only meaningful with `toggle`. */
-  selected?: boolean;
-};
-
-export function buttonStyles(
-  variant: NativeButtonVariant,
-  size: NativeButtonSize,
-  disabled: boolean,
-  theme: ResolvedTheme = defaultScheme(),
-  options: NativeButtonStyleOptions & NativeButtonToggleOptions = {},
-): { container: ViewStyle; label: TextStyle } {
-  const {
-    color = "primary",
-    shape = "pill",
-    block = false,
-    toggle = false,
-    selected = false,
-  } = options;
-  const toggled = toggle && selected && variant !== "text";
-  const toggleUnselected = toggle && !selected && variant !== "text";
-  const danger = color === "danger";
-  const hasFill =
-    variant === "filled" || variant === "tonal" || variant === "elevated";
-  // M3 Expressive square radii per size (12/12/12/16); selected toggles
-  // morph pill to square, square back to pill. A button-container-shape
-  // override redefines "pill" wherever the full radius is read.
-  const squareRadius = size === "xl" ? 16 : 12;
-  const pillRadius = cssLengthToDp(
-    theme.comp?.["button-container-shape"],
-    Number.parseFloat(theme.shape.full),
-  );
-  const container: ViewStyle = {
-    height: HEIGHTS[size],
-    minWidth: size === "icon" ? HEIGHTS[size] : 64,
-    borderRadius:
-      shape === "pill"
-        ? toggled
-          ? squareRadius
-          : pillRadius
-        : shape === "rounded"
-          ? Number.parseFloat(theme.shape.large)
-          : toggled
-            ? pillRadius
-            : squareRadius,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    // The 8dp M3 icon spacing, always on: a lone label never feels it, and
-    // an icon beside a label always gets it — same rule as web's flex gap.
-    gap: 8,
-    paddingHorizontal: PADDING_HORIZONTAL[size],
-    backgroundColor: disabled
-      ? hasFill || toggled
-        ? withAlpha(theme.color.onSurface, 0.12)
-        : "transparent"
-      : danger
-        ? variant === "filled"
-          ? theme.color.error
-          : variant === "tonal"
-            ? theme.color.errorContainer
-            : variant === "elevated"
-              ? theme.color.surfaceContainerLow
-              : "transparent"
-        : toggled
-          ? variant === "elevated"
-            ? theme.color.primary
-            : variant === "filled"
-              ? theme.color.primary
-              : variant === "tonal"
-                ? theme.color.secondary
-                : theme.color.inverseSurface
-          : toggleUnselected && variant === "filled"
-            ? theme.color.surfaceContainer
-            : variant === "filled"
-              ? theme.color.primary
-              : variant === "tonal"
-                ? theme.color.secondaryContainer
-                : variant === "elevated"
-                  ? theme.color.surfaceContainerLow
-                  : "transparent",
-    borderWidth: variant === "outlined" && !toggled ? 1 : 0,
-    borderColor:
-      variant === "outlined" && !toggled
-        ? disabled
-          ? withAlpha(theme.color.onSurface, 0.12)
-          : danger
-            ? theme.color.error
-            : theme.color.outline
-        : "transparent",
-    ...(block ? { alignSelf: "stretch" as const } : null),
-  };
-  // M3 label-large: 14px/20px, tracking 0.1px, weight 500. Line height
-  // scales with size (1.43x); letter spacing holds at 0.1px. Disabled labels
-  // dim to 38% on the text itself (the container carries no opacity, so the
-  // two washes never compound).
-  const labelFontSize = LABEL_FONT_SIZE[size];
-  const label: TextStyle = {
-    fontSize: labelFontSize,
-    lineHeight: Math.round(labelFontSize * 1.43),
-    letterSpacing: 0.1,
-    fontWeight: "500",
-    opacity: disabled ? 0.38 : 1,
-    color: disabled
-      ? theme.color.onSurface
-      : danger
-        ? variant === "filled"
-          ? theme.color.onError
-          : variant === "tonal"
-            ? theme.color.onErrorContainer
-            : theme.color.error
-        : toggled
-          ? variant === "elevated"
-            ? theme.color.onPrimary
-            : variant === "filled"
-              ? theme.color.onPrimary
-              : variant === "tonal"
-                ? theme.color.onSecondary
-                : theme.color.inverseOnSurface
-          : toggleUnselected && variant === "filled"
-            ? theme.color.onSurfaceVariant
-            : variant === "filled"
-              ? theme.color.onPrimary
-              : variant === "tonal"
-                ? theme.color.onSecondaryContainer
-                : variant === "elevated" ||
-                    variant === "outlined" ||
-                    variant === "text"
-                  ? theme.color.primary
-                  : theme.color.onSurface,
-  };
-  return { container, label };
-}
-
-export type NativeButtonProps = Omit<
-  PressableProps,
-  "onPress" | "accessibilityRole"
-> & {
+export type NativeButtonProps = Omit<PressableProps, "children"> & {
   variant?: NativeButtonVariant;
-  size?: NativeButtonSize;
   color?: NativeButtonColor;
+  size?: NativeButtonSize;
   shape?: NativeButtonShape;
-  /** Full-width block button. */
   block?: boolean;
-  /** Shows the embedded progress indicator and blocks interaction. */
-  loading?: boolean;
-  /** 0–1 determinate progress while loading. Omit for the loop. */
-  loadingValue?: number;
-  /** Style of the embedded indicator. Defaults to the M3 ring (`spinner`). */
-  loaderStyle?: LoadingIndicatorStyle;
-  /** Leading (or trailing, with `iconPosition`) icon. */
-  icon?: ReactNode;
-  iconPosition?: NativeButtonIconPosition;
-  /**
-   * Renders an M3 Expressive toggle: binary selection with round-to-square
-   * morph and per-variant selected colors. No toggle text button — `text`
-   * renders unselected.
-   */
+  /** M3 Expressive toggle mode. No toggle text button — `text` renders unselected. */
   toggle?: boolean;
   /** Controlled selected state. Only meaningful with `toggle`. */
   pressed?: boolean;
   /** Initial selected state for the uncontrolled toggle case. */
   defaultPressed?: boolean;
   onPressedChange?: (pressed: boolean) => void;
-  children: ReactNode;
-  onPress?: PressableProps["onPress"];
-  style?: PressableProps["style"];
+  /**
+   * Soft-disabled: paints the disabled treatment and reports `aria-disabled`,
+   * while keeping focus/discoverability in toolbars.
+   */
+  softDisabled?: boolean;
+  /** Mirrors the icon horizontally in RTL contexts (`scaleX: -1`). */
+  flipIcon?: boolean;
+  loading?: boolean;
+  /** 0–1 determinate progress while loading. Omit for the loop. */
+  loadingValue?: number;
+  /** Style of the embedded indicator. Defaults to the M3 ring (`spinner`). */
+  loaderStyle?: LoadingIndicatorStyle;
+  /**
+   * Icon rendered beside the label, separated by the 8dp M3 spacing.
+   * For icon-only buttons, pass the icon as `children` with `size="icon"`
+   * and an `aria-label`.
+   */
+  icon?: ReactNode;
+  iconPosition?: NativeButtonIconPosition;
+  children?: ReactNode;
   labelStyle?: StyleProp<TextStyle>;
 };
 
 export function Button({
   variant = "filled",
-  size = "default",
   color = "primary",
+  size = "default",
   shape = "pill",
   block = false,
+  toggle = false,
+  pressed,
+  defaultPressed = false,
+  onPressedChange,
+  softDisabled = false,
+  flipIcon = false,
   loading = false,
   loadingValue,
   loaderStyle,
   icon,
   iconPosition = "start",
-  toggle = false,
-  pressed,
-  defaultPressed = false,
-  onPressedChange,
+  disabled,
   children,
   onPress,
   style,
   labelStyle,
-  disabled,
   testID,
   ...props
 }: NativeButtonProps) {
   const { scheme } = useKernTheme();
-  const blocked = Boolean(disabled) || loading;
+  const press = useKernPress();
+  const blocked = Boolean(disabled) || loading || softDisabled;
   const [uncontrolledPressed, setUncontrolledPressed] =
     useState(defaultPressed);
   const isPressed =
-    toggle && pressed !== undefined
-      ? pressed
-      : toggle
-        ? uncontrolledPressed
-        : false;
+    toggle && variant !== "text" ? (pressed ?? uncontrolledPressed) : false;
+
+  if (process.env.NODE_ENV !== "production" && toggle && variant === "text") {
+    console.warn(
+      'Button: M3 does not define a toggle text button (`variant="text"` with `toggle`). Use `filled`, `tonal`, `elevated`, or `outlined`.',
+    );
+  }
+
   const styles = buttonStyles(variant, size, blocked, scheme, {
     color,
     shape,
@@ -313,36 +131,16 @@ export function Button({
     toggle,
     selected: isPressed,
   });
-  // G8: press reporting routes through the kernel model. useKernPress binds
-  // usePress to the gesture trio; the binder's onPress is wired INSTEAD of
-  // the consumer's (the one rule). The consumer keeps its
-  // GestureResponderEvent contract via the captured gesture event, and live
-  // refs defeat the mount-once options capture (usePress reads options at
-  // mount; the wrapper below always reads current values). A press dispatch
-  // without a preceding pressIn (synthetic events, assistive tech) falls back
-  // to the press event itself so the tap is never swallowed.
+
+  const gestureEvent = useRef<GestureResponderEvent | null>(null);
   const onPressRef = useRef(onPress);
   onPressRef.current = onPress;
   const onPressedChangeRef = useRef(onPressedChange);
   onPressedChangeRef.current = onPressedChange;
   const blockedRef = useRef(blocked);
   blockedRef.current = blocked;
-  const gestureEvent = useRef<GestureResponderEvent | null>(null);
-  const press = useKernPress({
-    disabled: blocked,
-    onPress: () => {
-      if (!blockedRef.current && gestureEvent.current) {
-        if (toggle && pressed === undefined) setUncontrolledPressed(!isPressed);
-        if (toggle) onPressedChangeRef.current?.(!isPressed);
-        onPressRef.current?.(gestureEvent.current);
-      }
-    },
-  });
-  // Icon order, not margin — `iconPosition` only chooses which side renders
-  // first, so the pair flips automatically under RTL with no insets.
-  // G8: the icon slot merges through the kernel (mergeSlotProps). Part props
-  // contribute the label color; the consumer's own props win per key — a bare
-  // icon tints with the label, an explicitly-colored icon is untouched.
+
+  const inkColor = String(styles.label.color ?? scheme.color.onPrimary);
   const iconSlot = isValidElement<{ style?: StyleProp<TextStyle> }>(icon)
     ? cloneElement(
         icon,
@@ -351,12 +149,29 @@ export function Button({
             style: {
               color: styles.label.color,
               opacity: styles.label.opacity,
+              ...(flipIcon && I18nManager.isRTL
+                ? { transform: [{ scaleX: -1 }] }
+                : null),
             },
           },
           icon.props,
         ),
       )
     : (icon ?? null);
+
+  const hitSlop =
+    size === "xs"
+      ? 10
+      : size === "sm"
+        ? 8
+        : size === "md" ||
+            size === "xl" ||
+            size === "lg" ||
+            size === "2xl" ||
+            size === "3xl"
+          ? 0
+          : 4;
+
   return (
     <AxisButton
       testID={testID ?? "kern-button"}
@@ -365,11 +180,14 @@ export function Button({
       aria-label={props["aria-label"]}
       aria-labelledby={props["aria-labelledby"]}
       onPress={() => {
-        if (!blockedRef.current && gestureEvent.current) {
-          if (toggle && pressed === undefined)
+        if (!blockedRef.current) {
+          if (toggle && variant !== "text" && pressed === undefined)
             setUncontrolledPressed(!isPressed);
-          if (toggle) onPressedChangeRef.current?.(!isPressed);
-          onPressRef.current?.(gestureEvent.current);
+          if (toggle && variant !== "text")
+            onPressedChangeRef.current?.(!isPressed);
+          onPressRef.current?.(
+            gestureEvent.current ?? ({} as GestureResponderEvent),
+          );
         }
       }}
       render={(axisProps) => (
@@ -381,12 +199,10 @@ export function Button({
           aria-disabled={blocked || undefined}
           aria-busy={loading || undefined}
           aria-pressed={toggle ? isPressed : undefined}
-          disabled={blocked}
-          hitSlop={
-            size === "xs" ? 10 : size === "sm" ? 8 : size === "xl" ? 0 : 4
-          }
+          disabled={Boolean(disabled) || loading}
+          hitSlop={hitSlop}
           android_ripple={{
-            color: `${variant === "filled" ? scheme.color.onPrimary : scheme.color.onSurface}20`,
+            color: `${inkColor}20`,
             borderless: size === "icon",
           }}
           onPressIn={(event: GestureResponderEvent) => {
@@ -394,64 +210,87 @@ export function Button({
             press.onPressIn();
           }}
           onPressOut={press.onPressOut}
-          onPress={(event: GestureResponderEvent) => {
-            if (!gestureEvent.current) gestureEvent.current = event;
-            press.onPress();
+          onPress={(event?: GestureResponderEvent) => {
+            if (event) gestureEvent.current = event;
+            if (!blockedRef.current) {
+              press.onPress();
+              // RNTL fireEvent.press triggers Pressable.onPress directly without onPressIn
+              if (!press.pressed) {
+                if (toggle && variant !== "text" && pressed === undefined)
+                  setUncontrolledPressed(!isPressed);
+                if (toggle && variant !== "text")
+                  onPressedChangeRef.current?.(!isPressed);
+                onPressRef.current?.(
+                  event ??
+                    gestureEvent.current ??
+                    ({} as GestureResponderEvent),
+                );
+              }
+            }
           }}
-          style={({ pressed: pressedNow }) => [
-            styles.container,
-            typeof style === "function"
-              ? style({ pressed: pressedNow })
-              : style,
-          ]}
+          style={({ pressed: pressedNow }) => {
+            const activeStyles =
+              pressedNow && !blocked
+                ? buttonStyles(variant, size, blocked, scheme, {
+                    color,
+                    shape,
+                    block,
+                    toggle,
+                    selected: isPressed,
+                    pressed: true,
+                  })
+                : styles;
+            return [
+              activeStyles.container,
+              typeof style === "function"
+                ? style({ pressed: pressedNow })
+                : style,
+            ];
+          }}
         >
-          {({ pressed: pressedNow }) => (
-            <>
-              {loading ? (
-                <CircularProgress
-                  value={loadingValue}
-                  loaderStyle={loaderStyle}
-                  size="sm"
-                  label="Loading"
-                  color={
-                    color === "danger"
-                      ? variant === "filled"
-                        ? scheme.color.onError
-                        : scheme.color.error
-                      : variant === "filled"
-                        ? scheme.color.onPrimary
-                        : scheme.color.onSurface
-                  }
+          {({ pressed: pressedNow }) => {
+            const activeContainer =
+              pressedNow && !blocked
+                ? buttonStyles(variant, size, blocked, scheme, {
+                    color,
+                    shape,
+                    block,
+                    toggle,
+                    selected: isPressed,
+                    pressed: true,
+                  }).container
+                : styles.container;
+            const currentRadius = Number(
+              activeContainer.borderRadius ??
+                Number.parseFloat(scheme.shape.full),
+            );
+            return (
+              <>
+                {loading ? (
+                  <CircularProgress
+                    value={loadingValue}
+                    loaderStyle={loaderStyle}
+                    size="sm"
+                    label="Loading"
+                    color={inkColor}
+                  />
+                ) : null}
+                {iconPosition === "start" ? iconSlot : null}
+                {typeof children === "string" ||
+                typeof children === "number" ? (
+                  <Text style={[styles.label, labelStyle]}>{children}</Text>
+                ) : (
+                  children
+                )}
+                {iconPosition === "end" ? iconSlot : null}
+                <StateLayer
+                  ink={inkColor}
+                  radius={currentRadius}
+                  visible={pressedNow && !blocked}
                 />
-              ) : null}
-              {iconPosition === "start" ? iconSlot : null}
-              {typeof children === "string" || typeof children === "number" ? (
-                <Text style={[styles.label, labelStyle]}>{children}</Text>
-              ) : (
-                children
-              )}
-              {iconPosition === "end" ? iconSlot : null}
-              <StateLayer
-                ink={
-                  color === "danger"
-                    ? variant === "filled"
-                      ? scheme.color.onError
-                      : scheme.color.error
-                    : variant === "filled"
-                      ? scheme.color.onPrimary
-                      : scheme.color.onSurface
-                }
-                radius={
-                  shape === "pill"
-                    ? Number.parseFloat(scheme.shape.full)
-                    : shape === "square"
-                      ? Number.parseFloat(scheme.shape.none)
-                      : Number.parseFloat(scheme.shape.small)
-                }
-                visible={pressedNow && !blocked}
-              />
-            </>
-          )}
+              </>
+            );
+          }}
         </Pressable>
       )}
     />

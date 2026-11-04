@@ -50,6 +50,9 @@ export type NativeExtendedFabHandle = {
   toggle: () => void;
 };
 
+/** Alias matching web `ExtendedFabHandle` for cross-renderer consumers. */
+export type ExtendedFabHandle = NativeExtendedFabHandle;
+
 export type NativeExtendedFabSize = "small" | "medium" | "large";
 
 export type NativeExtendedFabProps = Omit<
@@ -189,7 +192,9 @@ export const ExtendedFab = forwardRef<
           )}
           <StateLayer
             ink={roles.ink}
-            radius={Number.parseFloat(scheme.shape.full)}
+            radius={Number(
+              base.borderRadius ?? Number.parseFloat(scheme.shape.large),
+            )}
             visible={isPressed && !disabled}
           />
         </>

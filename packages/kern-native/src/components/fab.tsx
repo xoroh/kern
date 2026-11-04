@@ -81,15 +81,25 @@ export function fabStyles(
   // (expressive), large 96dp.
   const dimension =
     size === "small" ? 40 : size === "medium" ? 80 : size === "large" ? 96 : 56;
+  // M3 Expressive FAB corner radii: small=12dp (medium), default=16dp (large),
+  // medium=20dp (large-increased), large=28dp (extra-large).
+  const cornerRadius =
+    size === "small"
+      ? Number.parseFloat(scheme.shape.medium)
+      : size === "medium"
+        ? 20
+        : size === "large"
+          ? Number.parseFloat(scheme.shape["extra-large"])
+          : Number.parseFloat(scheme.shape.large);
   const roles = fabColorRoles(color, scheme);
   return {
     minHeight: dimension,
-    minWidth: size === "icon" ? dimension : 56,
+    minWidth: size === "icon" ? dimension : dimension,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     gap: 8,
-    borderRadius: Number.parseFloat(scheme.shape.large),
+    borderRadius: cornerRadius,
     paddingHorizontal: size === "icon" ? 0 : 20,
     // 6dp = M3 LEVEL 3, the level the registry declares for `fab`/
     // `extended-fab` (`variants: [3]`) and the level web binds via
@@ -188,7 +198,15 @@ export function Fab({
           </Text>
           <StateLayer
             ink={roles.ink}
-            radius={Number.parseFloat(scheme.shape.large)}
+            radius={
+              size === "small"
+                ? Number.parseFloat(scheme.shape.medium)
+                : size === "medium"
+                  ? 20
+                  : size === "large"
+                    ? Number.parseFloat(scheme.shape["extra-large"])
+                    : Number.parseFloat(scheme.shape.large)
+            }
             visible={isPressed && !disabled}
           />
         </>
