@@ -13,7 +13,8 @@ export type BlockCategory =
   | "Settings"
   | "Dashboard"
   | "Sidebar"
-  | "Billing";
+  | "Billing"
+  | "Contacts";
 
 export const BLOCK_CATEGORIES: readonly BlockCategory[] = [
   "Auth",
@@ -21,6 +22,7 @@ export const BLOCK_CATEGORIES: readonly BlockCategory[] = [
   "Dashboard",
   "Sidebar",
   "Billing",
+  "Contacts",
 ];
 
 export type BlockEntry = {
@@ -150,6 +152,17 @@ export const BLOCKS: BlockEntry[] = [
     file: "settings.tsx",
     files: [],
     registryDependencies: ["KernSettingsScreen"],
+    dependencies: ["@xoroh/kern", "@xoroh/kern-native", "react"],
+  },
+  {
+    name: "contacts",
+    title: "Contacts directory",
+    category: "Contacts",
+    description:
+      "A searchable contacts directory: inline search over grouped rows with an empty state. Reach for it when people are rows to find and pick.",
+    file: "contacts.tsx",
+    files: [],
+    registryDependencies: ["ContactDirectory"],
     dependencies: ["@xoroh/kern", "@xoroh/kern-native", "react"],
   },
 ];

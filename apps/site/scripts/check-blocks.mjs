@@ -69,7 +69,14 @@ for (const d of new Set(dupes)) fail(`duplicate block name "${d}"`);
 const categories = [...manifestSrc.matchAll(/category:\s*"([^"]+)"/g)].map(
   (m) => m[1],
 );
-const allowed = ["Auth", "Settings", "Dashboard", "Sidebar", "Billing"];
+const allowed = [
+  "Auth",
+  "Settings",
+  "Dashboard",
+  "Sidebar",
+  "Billing",
+  "Contacts",
+];
 for (const c of new Set(categories)) {
   if (!allowed.includes(c))
     fail(`unknown category "${c}" — must be one of ${allowed.join(", ")}`);

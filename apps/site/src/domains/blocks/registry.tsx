@@ -12,6 +12,8 @@ import { AuthForm } from "../../blocks/auth-form";
 import authFormSource from "../../blocks/auth-form.tsx?raw";
 import { BillingPageBlock } from "../../blocks/billing";
 import billingSource from "../../blocks/billing.tsx?raw";
+import { ContactsBlock } from "../../blocks/contacts";
+import contactsSource from "../../blocks/contacts.tsx?raw";
 import { DashboardPageBlock } from "../../blocks/dashboard";
 import dashboardSource from "../../blocks/dashboard.tsx?raw";
 import { EmptySearch } from "../../blocks/empty-search";
@@ -45,6 +47,7 @@ const RENDERS: Record<string, () => ReactNode> = {
   otp: () => <OtpBlock />,
   invite: () => <InviteBlock />,
   settings: () => <SettingsBlock />,
+  contacts: () => <ContactsBlock />,
 };
 
 const SOURCES: Record<string, string> = {
@@ -57,6 +60,7 @@ const SOURCES: Record<string, string> = {
   otp: otpSource,
   invite: inviteSource,
   settings: settingsSource,
+  contacts: contactsSource,
 };
 
 export const BLOCK_VIEWS: BlockView[] = BLOCKS.map((entry) => ({

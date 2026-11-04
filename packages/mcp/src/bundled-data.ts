@@ -6280,4 +6280,13 @@ export const BUNDLED_BLOCKS: BundledBlock[] = [
     files: ["settings.tsx"],
     components: ["KernSettingsScreen"],
   },
+  {
+    name: "contacts",
+    title: "Contacts directory",
+    category: "Contacts",
+    description:
+      "A searchable contacts directory: inline search over grouped rows with an empty state. Reach for it when people are rows to find and pick.",
+    files: ["contacts.tsx"],
+    components: ["ContactDirectory"],
+  },
 ];

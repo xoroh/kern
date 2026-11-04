@@ -266,6 +266,7 @@ Prefer these machine surfaces over scraping HTML:
 
 - [Sign-in form](/blocks/auth-form): A sign-in card: labelled email field with helper text, password input, submit action. Reach for it when sign-in is one card, not a page. Category: Auth. Install: `kern add auth-form`.
 - [Billing page](/blocks/billing): A billing page: Growth-plan slot with status pill plus a display-only invoice ledger. Reach for it when billing is plan display plus invoice history, never payment actions. Category: Billing. Install: `kern add billing`.
+- [Contacts directory](/blocks/contacts): A searchable contacts directory: inline search over grouped rows with an empty state. Reach for it when people are rows to find and pick. Category: Contacts. Install: `kern add contacts`.
 - [Dashboard page](/blocks/dashboard): A dashboard page: stat cards, activity feed and an ops queue table. Reach for it when the page is figures plus feed plus queue. Category: Dashboard. Install: `kern add dashboard`.
 - [Empty search state](/blocks/empty-search): A no-results state: titled empty state with a clear-search action. Reach for it when a search or filter yields nothing. Category: Dashboard. Install: `kern add empty-search`.
 - [Invite accept](/blocks/invite): A workspace invite accept flow: who invited you, which workspace and role, accept and decline. Reach for it when invites arrive out of band. Category: Auth. Install: `kern add invite`.

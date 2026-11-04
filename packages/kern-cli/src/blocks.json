@@ -192,5 +192,25 @@
       "settings.tsx": "/**\n * Settings block — full settings page with section presets.\n *\n * A block is a real source file composed ONLY from shipped packages\n * (`@xoroh/kern`, `react`). It renders the shipped `KernSettingsScreen`\n * with the profile, notification and preference preset sections — copy it,\n * then replace the preset sections with the host's own section defs.\n */\nimport {\n  KernSettingsScreen,\n  notificationSettingsSection,\n  preferenceSettingsSection,\n  profileSettingsSection,\n} from \"@xoroh/kern\";\n\nexport function SettingsBlock() {\n  return (\n    <KernSettingsScreen\n      label=\"Settings\"\n      sections={[\n        profileSettingsSection,\n        notificationSettingsSection,\n        preferenceSettingsSection,\n      ]}\n    />\n  );\n}\n",
       "settings.native.tsx": "/**\n * Settings block, native variant — grouped settings list with presets.\n *\n * Same contract as `settings.tsx`: real source composed ONLY from shipped\n * packages (`@xoroh/kern-native`, `react`), installed by\n * `kern add settings --platform native`. One data contract with the web\n * twin (sections + density); a phone shows every group, section switching\n * is the host navigator's job.\n */\nimport {\n  KernSettingsScreen,\n  notificationSettingsSection,\n  preferenceSettingsSection,\n  profileSettingsSection,\n} from \"@xoroh/kern-native\";\n\nexport function SettingsBlock() {\n  return (\n    <KernSettingsScreen\n      sections={[\n        profileSettingsSection,\n        notificationSettingsSection,\n        preferenceSettingsSection,\n      ]}\n    />\n  );\n}\n"
     }
+  },
+  {
+    "name": "contacts",
+    "title": "Contacts directory",
+    "category": "Contacts",
+    "description": "A searchable contacts directory: inline search over grouped rows with an empty state. Reach for it when people are rows to find and pick.",
+    "file": "contacts.tsx",
+    "files": [],
+    "registryDependencies": [
+      "ContactDirectory"
+    ],
+    "dependencies": [
+      "@xoroh/kern",
+      "@xoroh/kern-native",
+      "react"
+    ],
+    "contents": {
+      "contacts.tsx": "/**\n * Contacts block — searchable contact directory, wired with mock people.\n *\n * A block is a real source file composed ONLY from shipped packages\n * (`@xoroh/kern`, `react`). It renders the shipped `ContactDirectory`:\n * inline search over grouped rows with an empty state — copy it, then\n * replace the mock contacts and the select handler with host data.\n */\nimport { ContactDirectory } from \"@xoroh/kern\";\n\nconst CONTACTS = [\n  { id: \"ada\", name: \"Ada Lovelace\", detail: \"Dispatcher · on shift\" },\n  { id: \"faroeq\", name: \"Faroeq\", detail: \"Owner · on shift\" },\n  { id: \"grace\", name: \"Grace Hopper\", detail: \"Driver · off shift\" },\n];\n\nexport function ContactsBlock({\n  onSelect,\n}: {\n  onSelect?: (id: string) => void;\n}) {\n  return (\n    <ContactDirectory\n      contacts={CONTACTS}\n      searchLabel=\"Search contacts\"\n      searchPlaceholder=\"Search\"\n      emptyTitle=\"No contacts\"\n      emptyDescription=\"Try a different search.\"\n      onSelect={(contact) => onSelect?.(contact.id)}\n    />\n  );\n}\n",
+      "contacts.native.tsx": "/**\n * Contacts block, native variant — searchable contact directory.\n *\n * Same contract as `contacts.tsx`: real source composed ONLY from shipped\n * packages (`@xoroh/kern-native`, `react`), installed by\n * `kern add contacts --platform native`.\n */\nimport { ContactDirectory } from \"@xoroh/kern-native\";\n\nconst CONTACTS = [\n  { id: \"ada\", name: \"Ada Lovelace\", detail: \"Dispatcher · on shift\" },\n  { id: \"faroeq\", name: \"Faroeq\", detail: \"Owner · on shift\" },\n  { id: \"grace\", name: \"Grace Hopper\", detail: \"Driver · off shift\" },\n];\n\nexport function ContactsBlock({\n  onSelect,\n}: {\n  onSelect?: (id: string) => void;\n}) {\n  return (\n    <ContactDirectory\n      contacts={CONTACTS}\n      searchLabel=\"Search contacts\"\n      searchPlaceholder=\"Search\"\n      emptyTitle=\"No contacts\"\n      emptyDescription=\"Try a different search.\"\n      onSelect={(contact) => onSelect?.(contact.id)}\n    />\n  );\n}\n"
+    }
   }
 ]
