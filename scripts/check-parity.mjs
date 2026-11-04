@@ -83,9 +83,12 @@ const src = readFileSync(MANIFEST, "utf8");
 // order (decision 009). A row-shape regex that does not carry it parses ZERO
 // rows and reports "run bun run generate:components first" about a registry
 // that is perfectly fresh — the gate blames the tree for its own drift.
+// Tier tail (D1003/D1004 step 1): rows carry `tier`/`builtFrom`/`usedBy`
+// after `status`, so the shape carries them as an optional group instead of
+// demanding `}` right after `status` (same zero-rows failure otherwise).
 const rows = [
   ...src.matchAll(
-    /\{\s*name:\s*"([^"]+)",\s*export:\s*"([^"]+)",\s*platform:\s*"(web|native)",\s*system:\s*"([^"]+)",\s*entrypoint:\s*"([^"]+)",\s*path:\s*"([^"]+)",\s*status:\s*"(real|stub)",\s*\}/gs,
+    /\{\s*name:\s*"([^"]+)",\s*export:\s*"([^"]+)",\s*platform:\s*"(web|native)",\s*system:\s*"([^"]+)",\s*entrypoint:\s*"([^"]+)",\s*path:\s*"([^"]+)",\s*status:\s*"(real|stub)"(?:\s*,\s*tier:\s*"[^"]+",\s*builtFrom:\s*\[[^\]]*\],\s*usedBy:\s*\[[^\]]*\],?)?\s*\}/gs,
   ),
 ].map(([, name, exportName, platform, system, entrypoint, path, status]) => ({
   name,

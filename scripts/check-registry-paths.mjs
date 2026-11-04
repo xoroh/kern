@@ -32,10 +32,12 @@ const src = readFileSync(join(ROOT, "packages/mcp/src/manifest.ts"), "utf8");
 // `system` sits between `platform` and `entrypoint` in the generator's
 // render order (decision 009). A row regex that omits it parses zero rows,
 // and this gate then exits 0 having verified nothing — the "passes because
-// it did not look" shape.
+// it did not look" shape. The tier tail (D1003/D1004 step 1:
+// `tier`/`builtFrom`/`usedBy` after `status`) rides as an optional group for
+// the same reason — demanding `}` after `status` parses zero rows.
 const rows = [
   ...src.matchAll(
-    /\{\s*name:\s*"([^"]+)",\s*export:\s*"([^"]+)",\s*platform:\s*"(web|native)",\s*system:\s*"([^"]+)",\s*entrypoint:\s*"([^"]+)",\s*path:\s*"([^"]+)",\s*status:\s*"(real|stub)",\s*\}/gs,
+    /\{\s*name:\s*"([^"]+)",\s*export:\s*"([^"]+)",\s*platform:\s*"(web|native)",\s*system:\s*"([^"]+)",\s*entrypoint:\s*"([^"]+)",\s*path:\s*"([^"]+)",\s*status:\s*"(real|stub)"(?:\s*,\s*tier:\s*"[^"]+",\s*builtFrom:\s*\[[^\]]*\],\s*usedBy:\s*\[[^\]]*\],?)?\s*\}/gs,
   ),
 ].map(([, name, exportName, platform, system, entrypoint, path, status]) => ({
   name,
