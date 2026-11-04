@@ -419,26 +419,33 @@ const releaseSet =
     .slice(0, 16);
 writeFileSync(
   join(ROOT, "packages/kern-cli/src/registry.json"),
-  `${JSON.stringify(
-    {
-      version: kernPkg.version,
-      releaseSet,
-      rows: entries.map((e) => ({
-        name: e.name,
-        export: e.export,
-        platform: e.platform,
-        system: e.system,
-        entrypoint: e.entrypoint,
-        path: e.path,
-        status: e.status,
-        tier: e.tier,
-        builtFrom: e.builtFrom,
-        usedBy: e.usedBy,
-      })),
-    },
-    null,
-    2,
-  )}\n`,
+  formatText({
+    root: ROOT,
+    // F-02: raw JSON.stringify bytes are biome-dirty once rows carry long
+    // tier arrays (usedBy), so the gate flags the artifact, not the source.
+    text: `${JSON.stringify(
+      {
+        version: kernPkg.version,
+        releaseSet,
+        rows: entries.map((e) => ({
+          name: e.name,
+          export: e.export,
+          platform: e.platform,
+          system: e.system,
+          entrypoint: e.entrypoint,
+          path: e.path,
+          status: e.status,
+          tier: e.tier,
+          builtFrom: e.builtFrom,
+          usedBy: e.usedBy,
+        })),
+      },
+      null,
+      2,
+    )}\n`,
+    stdinFilePath: "registry.json",
+    label: "generate-manifest (mcp): registry.json",
+  }),
 );
 console.log(`wrote CLI registry payload (${releaseSet})`);
 

@@ -84,9 +84,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernOverlay"
-      ]
+      "usedBy": ["KernOverlay"]
     },
     {
       "name": "alert-dialog-trigger",
@@ -98,9 +96,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernOverlay"
-      ]
+      "usedBy": ["KernOverlay"]
     },
     {
       "name": "alert-dialog-content",
@@ -112,9 +108,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernOverlay"
-      ]
+      "usedBy": ["KernOverlay"]
     },
     {
       "name": "alert-dialog-title",
@@ -126,9 +120,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernOverlay"
-      ]
+      "usedBy": ["KernOverlay"]
     },
     {
       "name": "alert-dialog-description",
@@ -140,9 +132,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernOverlay"
-      ]
+      "usedBy": ["KernOverlay"]
     },
     {
       "name": "alert-dialog-close",
@@ -154,9 +144,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernOverlay"
-      ]
+      "usedBy": ["KernOverlay"]
     },
     {
       "name": "alert-dialog",
@@ -362,12 +350,7 @@
       "path": "src/components/billing-page.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Card",
-        "DataTable",
-        "EmptyState",
-        "KernLoading"
-      ],
+      "builtFrom": ["Card", "DataTable", "EmptyState", "KernLoading"],
       "usedBy": []
     },
     {
@@ -379,9 +362,7 @@
       "path": "src/components/boot-indicator.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "CircularProgress"
-      ],
+      "builtFrom": ["CircularProgress"],
       "usedBy": []
     },
     {
@@ -417,9 +398,7 @@
       "path": "src/components/button.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "CircularProgress"
-      ],
+      "builtFrom": ["CircularProgress"],
       "usedBy": [
         "CsvExportButton",
         "EmptySearch",
@@ -439,10 +418,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernPicker",
-        "ReasonPicker"
-      ]
+      "usedBy": ["KernPicker", "ReasonPicker"]
     },
     {
       "name": "card",
@@ -560,10 +536,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "DataTable",
-        "List"
-      ]
+      "usedBy": ["DataTable", "List"]
     },
     {
       "name": "chip",
@@ -575,10 +548,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "DataTable",
-        "FilterBar"
-      ]
+      "usedBy": ["DataTable", "FilterBar"]
     },
     {
       "name": "circular-progress",
@@ -1027,9 +997,7 @@
       "path": "src/components/csv-export-button.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Button"
-      ],
+      "builtFrom": ["Button"],
       "usedBy": []
     },
     {
@@ -1041,13 +1009,7 @@
       "path": "src/components/dashboard-page.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Card",
-        "DataTable",
-        "EmptyState",
-        "KernLoading",
-        "List"
-      ],
+      "builtFrom": ["Card", "DataTable", "EmptyState", "KernLoading", "List"],
       "usedBy": []
     },
     {
@@ -1067,10 +1029,7 @@
         "Pagination",
         "Table"
       ],
-      "usedBy": [
-        "BillingPage",
-        "DashboardPage"
-      ]
+      "usedBy": ["BillingPage", "DashboardPage"]
     },
     {
       "name": "dialog-root",
@@ -1154,10 +1113,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernOverlay",
-        "SearchView"
-      ]
+      "usedBy": ["KernOverlay", "SearchView"]
     },
     {
       "name": "drawer-root",
@@ -1241,9 +1197,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernOverlay"
-      ]
+      "usedBy": ["KernOverlay"]
     },
     {
       "name": "empty-search",
@@ -1254,14 +1208,8 @@
       "path": "src/components/empty-search.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Button",
-        "EmptyState"
-      ],
-      "usedBy": [
-        "ListWithSearchAndFilters",
-        "SearchView"
-      ]
+      "builtFrom": ["Button", "EmptyState"],
+      "usedBy": ["ListWithSearchAndFilters", "SearchView"]
     },
     {
       "name": "empty-state",
@@ -1344,9 +1292,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "Input"
-      ]
+      "usedBy": ["Input"]
     },
     {
       "name": "field-root",
@@ -1357,9 +1303,7 @@
       "path": "src/components/field.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Input"
-      ],
+      "builtFrom": ["Input"],
       "usedBy": []
     },
     {
@@ -1371,9 +1315,7 @@
       "path": "src/components/field.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Input"
-      ],
+      "builtFrom": ["Input"],
       "usedBy": []
     },
     {
@@ -1385,9 +1327,7 @@
       "path": "src/components/field.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Input"
-      ],
+      "builtFrom": ["Input"],
       "usedBy": []
     },
     {
@@ -1399,9 +1339,7 @@
       "path": "src/components/field.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Input"
-      ],
+      "builtFrom": ["Input"],
       "usedBy": []
     },
     {
@@ -1413,9 +1351,7 @@
       "path": "src/components/field.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Input"
-      ],
+      "builtFrom": ["Input"],
       "usedBy": []
     },
     {
@@ -1463,13 +1399,8 @@
       "path": "src/components/filter-bar.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Button",
-        "Chip"
-      ],
-      "usedBy": [
-        "ListWithSearchAndFilters"
-      ]
+      "builtFrom": ["Button", "Chip"],
+      "usedBy": ["ListWithSearchAndFilters"]
     },
     {
       "name": "focus-ring",
@@ -1504,12 +1435,8 @@
       "path": "src/components/icon-button.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "CircularProgress"
-      ],
-      "usedBy": [
-        "ThemeToggle"
-      ]
+      "builtFrom": ["CircularProgress"],
+      "usedBy": ["ThemeToggle"]
     },
     {
       "name": "input-otp-root",
@@ -1556,9 +1483,7 @@
       "path": "src/components/input.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "FieldMessage"
-      ],
+      "builtFrom": ["FieldMessage"],
       "usedBy": [
         "Field",
         "FieldDescription",
@@ -1589,12 +1514,7 @@
       "path": "src/components/kern-composer.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "KernOverlay",
-        "KernPicker",
-        "StatusPill",
-        "Textarea"
-      ],
+      "builtFrom": ["KernOverlay", "KernPicker", "StatusPill", "Textarea"],
       "usedBy": []
     },
     {
@@ -1606,12 +1526,7 @@
       "path": "src/components/kern-composer.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "KernOverlay",
-        "KernPicker",
-        "StatusPill",
-        "Textarea"
-      ],
+      "builtFrom": ["KernOverlay", "KernPicker", "StatusPill", "Textarea"],
       "usedBy": []
     },
     {
@@ -1623,12 +1538,7 @@
       "path": "src/components/kern-composer.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "KernOverlay",
-        "KernPicker",
-        "StatusPill",
-        "Textarea"
-      ],
+      "builtFrom": ["KernOverlay", "KernPicker", "StatusPill", "Textarea"],
       "usedBy": []
     },
     {
@@ -1640,12 +1550,7 @@
       "path": "src/components/kern-composer.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "KernOverlay",
-        "KernPicker",
-        "StatusPill",
-        "Textarea"
-      ],
+      "builtFrom": ["KernOverlay", "KernPicker", "StatusPill", "Textarea"],
       "usedBy": []
     },
     {
@@ -1657,12 +1562,7 @@
       "path": "src/components/kern-composer.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "KernOverlay",
-        "KernPicker",
-        "StatusPill",
-        "Textarea"
-      ],
+      "builtFrom": ["KernOverlay", "KernPicker", "StatusPill", "Textarea"],
       "usedBy": []
     },
     {
@@ -1674,12 +1574,7 @@
       "path": "src/components/kern-composer.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "KernOverlay",
-        "KernPicker",
-        "StatusPill",
-        "Textarea"
-      ],
+      "builtFrom": ["KernOverlay", "KernPicker", "StatusPill", "Textarea"],
       "usedBy": []
     },
     {
@@ -1691,12 +1586,7 @@
       "path": "src/components/kern-composer.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "KernOverlay",
-        "KernPicker",
-        "StatusPill",
-        "Textarea"
-      ],
+      "builtFrom": ["KernOverlay", "KernPicker", "StatusPill", "Textarea"],
       "usedBy": []
     },
     {
@@ -1780,15 +1670,8 @@
       "path": "src/components/kern-loading.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "LinearProgress",
-        "LoadingIndicator",
-        "Skeleton"
-      ],
-      "usedBy": [
-        "BillingPage",
-        "DashboardPage"
-      ]
+      "builtFrom": ["LinearProgress", "LoadingIndicator", "Skeleton"],
+      "usedBy": ["BillingPage", "DashboardPage"]
     },
     {
       "name": "map-marker",
@@ -1799,9 +1682,7 @@
       "path": "src/components/kern-maps.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Card"
-      ],
+      "builtFrom": ["Card"],
       "usedBy": []
     },
     {
@@ -1813,9 +1694,7 @@
       "path": "src/components/kern-maps.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Card"
-      ],
+      "builtFrom": ["Card"],
       "usedBy": []
     },
     {
@@ -1833,11 +1712,7 @@
         "NavigationDrawer",
         "NavigationRail"
       ],
-      "usedBy": [
-        "KernSettingsRow",
-        "KernSettingsScreen",
-        "KernSettingsSection"
-      ]
+      "usedBy": ["KernSettingsRow", "KernSettingsScreen", "KernSettingsSection"]
     },
     {
       "name": "kern-overlay",
@@ -2039,9 +1914,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernLoading"
-      ]
+      "usedBy": ["KernLoading"]
     },
     {
       "name": "link-button",
@@ -2052,9 +1925,7 @@
       "path": "src/components/link-button.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Button"
-      ],
+      "builtFrom": ["Button"],
       "usedBy": []
     },
     {
@@ -2067,10 +1938,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "List",
-        "SearchView"
-      ]
+      "usedBy": ["List", "SearchView"]
     },
     {
       "name": "list-with-search-and-filters",
@@ -2101,16 +1969,8 @@
       "path": "src/components/list.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Checkbox",
-        "EmptyState",
-        "ListItem",
-        "Skeleton"
-      ],
-      "usedBy": [
-        "DashboardPage",
-        "ListWithSearchAndFilters"
-      ]
+      "builtFrom": ["Checkbox", "EmptyState", "ListItem", "Skeleton"],
+      "usedBy": ["DashboardPage", "ListWithSearchAndFilters"]
     },
     {
       "name": "loader",
@@ -2133,9 +1993,7 @@
       "path": "src/components/loading-button.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "CircularProgress"
-      ],
+      "builtFrom": ["CircularProgress"],
       "usedBy": []
     },
     {
@@ -2148,9 +2006,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernLoading"
-      ]
+      "usedBy": ["KernLoading"]
     },
     {
       "name": "loading-region",
@@ -2173,9 +2029,7 @@
       "path": "src/components/menu-family.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "SheetSurface"
-      ],
+      "builtFrom": ["SheetSurface"],
       "usedBy": []
     },
     {
@@ -2187,9 +2041,7 @@
       "path": "src/components/menu-family.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "SheetSurface"
-      ],
+      "builtFrom": ["SheetSurface"],
       "usedBy": []
     },
     {
@@ -2201,9 +2053,7 @@
       "path": "src/components/menu-family.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "SheetSurface"
-      ],
+      "builtFrom": ["SheetSurface"],
       "usedBy": []
     },
     {
@@ -2288,9 +2138,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "DataTable"
-      ]
+      "usedBy": ["DataTable"]
     },
     {
       "name": "menubar-root",
@@ -2434,9 +2282,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernNavigation"
-      ]
+      "usedBy": ["KernNavigation"]
     },
     {
       "name": "navigation-bar-item",
@@ -2448,10 +2294,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernNavigation",
-        "NavigationDrawer"
-      ]
+      "usedBy": ["KernNavigation", "NavigationDrawer"]
     },
     {
       "name": "navigation-drawer",
@@ -2462,12 +2305,8 @@
       "path": "src/components/navigation-drawer.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "NavigationBarItem"
-      ],
-      "usedBy": [
-        "KernNavigation"
-      ]
+      "builtFrom": ["NavigationBarItem"],
+      "usedBy": ["KernNavigation"]
     },
     {
       "name": "navigation-menu-root",
@@ -2563,9 +2402,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernNavigation"
-      ]
+      "usedBy": ["KernNavigation"]
     },
     {
       "name": "number-field-root",
@@ -2612,12 +2449,7 @@
       "path": "src/components/onboarding-wizard.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Button",
-        "KernOverlay",
-        "KernPicker",
-        "KernTabs"
-      ],
+      "builtFrom": ["Button", "KernOverlay", "KernPicker", "KernTabs"],
       "usedBy": []
     },
     {
@@ -2629,12 +2461,7 @@
       "path": "src/components/onboarding-wizard.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Button",
-        "KernOverlay",
-        "KernPicker",
-        "KernTabs"
-      ],
+      "builtFrom": ["Button", "KernOverlay", "KernPicker", "KernTabs"],
       "usedBy": []
     },
     {
@@ -2646,9 +2473,7 @@
       "path": "src/components/page-loader.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "CircularProgress"
-      ],
+      "builtFrom": ["CircularProgress"],
       "usedBy": []
     },
     {
@@ -2661,9 +2486,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "DataTable"
-      ]
+      "usedBy": ["DataTable"]
     },
     {
       "name": "popover-root",
@@ -2747,10 +2570,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernPicker",
-        "ReasonPicker"
-      ]
+      "usedBy": ["KernPicker", "ReasonPicker"]
     },
     {
       "name": "preview-card-root",
@@ -2941,12 +2761,7 @@
       "path": "src/components/search-view.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Dialog",
-        "EmptySearch",
-        "ListItem",
-        "Search"
-      ],
+      "builtFrom": ["Dialog", "EmptySearch", "ListItem", "Search"],
       "usedBy": []
     },
     {
@@ -2958,9 +2773,7 @@
       "path": "src/components/search.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Input"
-      ],
+      "builtFrom": ["Input"],
       "usedBy": [
         "ContactCard",
         "ContactDirectory",
@@ -2979,9 +2792,7 @@
       "path": "src/components/secondary-tabs.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "KernTabs"
-      ],
+      "builtFrom": ["KernTabs"],
       "usedBy": []
     },
     {
@@ -2994,11 +2805,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernSettingsRow",
-        "KernSettingsScreen",
-        "KernSettingsSection"
-      ]
+      "usedBy": ["KernSettingsRow", "KernSettingsScreen", "KernSettingsSection"]
     },
     {
       "name": "segmented-button-item",
@@ -3010,11 +2817,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernSettingsRow",
-        "KernSettingsScreen",
-        "KernSettingsSection"
-      ]
+      "usedBy": ["KernSettingsRow", "KernSettingsScreen", "KernSettingsSection"]
     },
     {
       "name": "segmented-button",
@@ -3038,11 +2841,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernSettingsRow",
-        "KernSettingsScreen",
-        "KernSettingsSection"
-      ]
+      "usedBy": ["KernSettingsRow", "KernSettingsScreen", "KernSettingsSection"]
     },
     {
       "name": "select-trigger",
@@ -3054,11 +2853,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernSettingsRow",
-        "KernSettingsScreen",
-        "KernSettingsSection"
-      ]
+      "usedBy": ["KernSettingsRow", "KernSettingsScreen", "KernSettingsSection"]
     },
     {
       "name": "select-value",
@@ -3070,11 +2865,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernSettingsRow",
-        "KernSettingsScreen",
-        "KernSettingsSection"
-      ]
+      "usedBy": ["KernSettingsRow", "KernSettingsScreen", "KernSettingsSection"]
     },
     {
       "name": "select-content",
@@ -3086,11 +2877,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernSettingsRow",
-        "KernSettingsScreen",
-        "KernSettingsSection"
-      ]
+      "usedBy": ["KernSettingsRow", "KernSettingsScreen", "KernSettingsSection"]
     },
     {
       "name": "select-item",
@@ -3102,11 +2889,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernSettingsRow",
-        "KernSettingsScreen",
-        "KernSettingsSection"
-      ]
+      "usedBy": ["KernSettingsRow", "KernSettingsScreen", "KernSettingsSection"]
     },
     {
       "name": "select-item-text",
@@ -3118,11 +2901,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernSettingsRow",
-        "KernSettingsScreen",
-        "KernSettingsSection"
-      ]
+      "usedBy": ["KernSettingsRow", "KernSettingsScreen", "KernSettingsSection"]
     },
     {
       "name": "select-item-indicator",
@@ -3205,15 +2984,8 @@
       "path": "src/components/sheet-family.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "KernPortal",
-        "VisuallyHidden"
-      ],
-      "usedBy": [
-        "FilterChipRow",
-        "MenuScreen",
-        "MenuSheet"
-      ]
+      "builtFrom": ["KernPortal", "VisuallyHidden"],
+      "usedBy": ["FilterChipRow", "MenuScreen", "MenuSheet"]
     },
     {
       "name": "bottom-sheet",
@@ -3224,13 +2996,8 @@
       "path": "src/components/sheet-family.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "KernPortal",
-        "VisuallyHidden"
-      ],
-      "usedBy": [
-        "KernOverlay"
-      ]
+      "builtFrom": ["KernPortal", "VisuallyHidden"],
+      "usedBy": ["KernOverlay"]
     },
     {
       "name": "dock-sheet",
@@ -3241,13 +3008,8 @@
       "path": "src/components/sheet-family.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "KernPortal",
-        "VisuallyHidden"
-      ],
-      "usedBy": [
-        "KernOverlay"
-      ]
+      "builtFrom": ["KernPortal", "VisuallyHidden"],
+      "usedBy": ["KernOverlay"]
     },
     {
       "name": "snap-sheet",
@@ -3258,13 +3020,8 @@
       "path": "src/components/sheet-family.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "KernPortal",
-        "VisuallyHidden"
-      ],
-      "usedBy": [
-        "KernOverlay"
-      ]
+      "builtFrom": ["KernPortal", "VisuallyHidden"],
+      "usedBy": ["KernOverlay"]
     },
     {
       "name": "entity-sheet",
@@ -3275,10 +3032,7 @@
       "path": "src/components/sheet-family.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "KernPortal",
-        "VisuallyHidden"
-      ],
+      "builtFrom": ["KernPortal", "VisuallyHidden"],
       "usedBy": []
     },
     {
@@ -3290,10 +3044,7 @@
       "path": "src/components/sheet-family.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "KernPortal",
-        "VisuallyHidden"
-      ],
+      "builtFrom": ["KernPortal", "VisuallyHidden"],
       "usedBy": []
     },
     {
@@ -3305,10 +3056,7 @@
       "path": "src/components/sheet-family.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "KernPortal",
-        "VisuallyHidden"
-      ],
+      "builtFrom": ["KernPortal", "VisuallyHidden"],
       "usedBy": []
     },
     {
@@ -3393,9 +3141,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernOverlay"
-      ]
+      "usedBy": ["KernOverlay"]
     },
     {
       "name": "skeleton",
@@ -3407,10 +3153,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernLoading",
-        "List"
-      ]
+      "usedBy": ["KernLoading", "List"]
     },
     {
       "name": "slider-root",
@@ -3639,11 +3382,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernSettingsRow",
-        "KernSettingsScreen",
-        "KernSettingsSection"
-      ]
+      "usedBy": ["KernSettingsRow", "KernSettingsScreen", "KernSettingsSection"]
     },
     {
       "name": "table-root",
@@ -3739,9 +3478,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "DataTable"
-      ]
+      "usedBy": ["DataTable"]
     },
     {
       "name": "tabs-root",
@@ -3801,9 +3538,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernOverlay"
-      ]
+      "usedBy": ["KernOverlay"]
     },
     {
       "name": "text",
@@ -3846,9 +3581,7 @@
       "path": "src/components/theme-toggle.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "IconButton"
-      ],
+      "builtFrom": ["IconButton"],
       "usedBy": []
     },
     {
@@ -3861,10 +3594,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernPicker",
-        "ReasonPicker"
-      ]
+      "usedBy": ["KernPicker", "ReasonPicker"]
     },
     {
       "name": "toggle-group-root",
@@ -4182,10 +3912,7 @@
       "path": "src/start/marketing-sections.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Card",
-        "StatusPill"
-      ],
+      "builtFrom": ["Card", "StatusPill"],
       "usedBy": []
     },
     {
@@ -4197,10 +3924,7 @@
       "path": "src/start/marketing-sections.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Card",
-        "StatusPill"
-      ],
+      "builtFrom": ["Card", "StatusPill"],
       "usedBy": []
     },
     {
@@ -4212,10 +3936,7 @@
       "path": "src/start/marketing-sections.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Card",
-        "StatusPill"
-      ],
+      "builtFrom": ["Card", "StatusPill"],
       "usedBy": []
     },
     {
@@ -4227,10 +3948,7 @@
       "path": "src/start/marketing-sections.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Card",
-        "StatusPill"
-      ],
+      "builtFrom": ["Card", "StatusPill"],
       "usedBy": []
     },
     {
@@ -4242,10 +3960,7 @@
       "path": "src/start/marketing-sections.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Card",
-        "StatusPill"
-      ],
+      "builtFrom": ["Card", "StatusPill"],
       "usedBy": []
     },
     {
@@ -4257,9 +3972,7 @@
       "path": "src/start/marketing.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Link"
-      ],
+      "builtFrom": ["Link"],
       "usedBy": []
     },
     {
@@ -4271,9 +3984,7 @@
       "path": "src/start/marketing.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Link"
-      ],
+      "builtFrom": ["Link"],
       "usedBy": []
     },
     {
@@ -4285,9 +3996,7 @@
       "path": "src/start/marketing.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Link"
-      ],
+      "builtFrom": ["Link"],
       "usedBy": []
     },
     {
@@ -4299,10 +4008,7 @@
       "path": "src/start/navigation.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "*navigation-rail*",
-        "Link"
-      ],
+      "builtFrom": ["*navigation-rail*", "Link"],
       "usedBy": []
     },
     {
@@ -4314,10 +4020,7 @@
       "path": "src/start/navigation.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "*navigation-rail*",
-        "Link"
-      ],
+      "builtFrom": ["*navigation-rail*", "Link"],
       "usedBy": []
     },
     {
@@ -4329,10 +4032,7 @@
       "path": "src/start/navigation.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "*navigation-rail*",
-        "Link"
-      ],
+      "builtFrom": ["*navigation-rail*", "Link"],
       "usedBy": []
     },
     {
@@ -4344,10 +4044,7 @@
       "path": "src/start/navigation.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "*navigation-rail*",
-        "Link"
-      ],
+      "builtFrom": ["*navigation-rail*", "Link"],
       "usedBy": []
     },
     {
@@ -4359,10 +4056,7 @@
       "path": "src/start/navigation.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "*navigation-rail*",
-        "Link"
-      ],
+      "builtFrom": ["*navigation-rail*", "Link"],
       "usedBy": []
     },
     {
@@ -4374,10 +4068,7 @@
       "path": "src/start/navigation.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "*navigation-rail*",
-        "Link"
-      ],
+      "builtFrom": ["*navigation-rail*", "Link"],
       "usedBy": []
     },
     {
@@ -4389,10 +4080,7 @@
       "path": "src/start/navigation.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "*navigation-rail*",
-        "Link"
-      ],
+      "builtFrom": ["*navigation-rail*", "Link"],
       "usedBy": []
     },
     {
@@ -4500,9 +4188,7 @@
       "path": "src/start/top-app-bar.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Link"
-      ],
+      "builtFrom": ["Link"],
       "usedBy": []
     },
     {
@@ -4514,9 +4200,7 @@
       "path": "src/start/top-app-bar.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Link"
-      ],
+      "builtFrom": ["Link"],
       "usedBy": []
     },
     {
@@ -4528,9 +4212,7 @@
       "path": "src/start/top-app-bar.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Link"
-      ],
+      "builtFrom": ["Link"],
       "usedBy": []
     },
     {
@@ -4542,9 +4224,7 @@
       "path": "src/start/top-app-bar.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Link"
-      ],
+      "builtFrom": ["Link"],
       "usedBy": []
     },
     {
@@ -4556,9 +4236,7 @@
       "path": "src/start/top-app-bar.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Link"
-      ],
+      "builtFrom": ["Link"],
       "usedBy": []
     },
     {
@@ -4570,9 +4248,7 @@
       "path": "src/start/top-app-bar.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Link"
-      ],
+      "builtFrom": ["Link"],
       "usedBy": []
     },
     {
@@ -4584,9 +4260,7 @@
       "path": "src/start/top-app-bar.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Link"
-      ],
+      "builtFrom": ["Link"],
       "usedBy": []
     },
     {
@@ -4598,9 +4272,7 @@
       "path": "src/start/top-app-bar.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Link"
-      ],
+      "builtFrom": ["Link"],
       "usedBy": []
     },
     {
@@ -4625,9 +4297,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernOverlay"
-      ]
+      "usedBy": ["KernOverlay"]
     },
     {
       "name": "app-shell",
@@ -4703,12 +4373,7 @@
       "path": "src/components/billing-page.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Card",
-        "DataTable",
-        "EmptyState",
-        "KernLoading"
-      ],
+      "builtFrom": ["Card", "DataTable", "EmptyState", "KernLoading"],
       "usedBy": []
     },
     {
@@ -4744,9 +4409,7 @@
       "path": "src/components/button.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "CircularProgress"
-      ],
+      "builtFrom": ["CircularProgress"],
       "usedBy": [
         "CsvExportButton",
         "EmptySearch",
@@ -4765,10 +4428,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernPicker",
-        "ReasonPicker"
-      ]
+      "usedBy": ["KernPicker", "ReasonPicker"]
     },
     {
       "name": "card",
@@ -4875,10 +4535,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "DataTable",
-        "List"
-      ]
+      "usedBy": ["DataTable", "List"]
     },
     {
       "name": "chip",
@@ -4909,15 +4566,8 @@
       "path": "src/components/circular-progress.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Shape"
-      ],
-      "usedBy": [
-        "Button",
-        "LoadingButton",
-        "MilestoneTrio",
-        "SuccessTransform"
-      ]
+      "builtFrom": ["Shape"],
+      "usedBy": ["Button", "LoadingButton", "MilestoneTrio", "SuccessTransform"]
     },
     {
       "name": "collapsible",
@@ -4976,9 +4626,7 @@
       "path": "src/components/csv-export-button.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Button"
-      ],
+      "builtFrom": ["Button"],
       "usedBy": []
     },
     {
@@ -4990,13 +4638,7 @@
       "path": "src/components/dashboard-page.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Card",
-        "DataTable",
-        "EmptyState",
-        "KernLoading",
-        "List"
-      ],
+      "builtFrom": ["Card", "DataTable", "EmptyState", "KernLoading", "List"],
       "usedBy": []
     },
     {
@@ -5008,17 +4650,8 @@
       "path": "src/components/data-table.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Card",
-        "Checkbox",
-        "Chip",
-        "EmptyState",
-        "Pagination"
-      ],
-      "usedBy": [
-        "BillingPage",
-        "DashboardPage"
-      ]
+      "builtFrom": ["Card", "Checkbox", "Chip", "EmptyState", "Pagination"],
+      "usedBy": ["BillingPage", "DashboardPage"]
     },
     {
       "name": "dialog",
@@ -5030,9 +4663,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernOverlay"
-      ]
+      "usedBy": ["KernOverlay"]
     },
     {
       "name": "empty-search",
@@ -5043,14 +4674,8 @@
       "path": "src/components/empty-search.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Button",
-        "EmptyState"
-      ],
-      "usedBy": [
-        "ListWithSearchAndFilters",
-        "SearchView"
-      ]
+      "builtFrom": ["Button", "EmptyState"],
+      "usedBy": ["ListWithSearchAndFilters", "SearchView"]
     },
     {
       "name": "empty-state",
@@ -5121,10 +4746,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "Field",
-        "FieldRoot"
-      ]
+      "usedBy": ["Field", "FieldRoot"]
     },
     {
       "name": "field",
@@ -5135,10 +4757,7 @@
       "path": "src/components/field.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "FieldMessage",
-        "Input"
-      ],
+      "builtFrom": ["FieldMessage", "Input"],
       "usedBy": []
     },
     {
@@ -5150,10 +4769,7 @@
       "path": "src/components/field.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "FieldMessage",
-        "Input"
-      ],
+      "builtFrom": ["FieldMessage", "Input"],
       "usedBy": []
     },
     {
@@ -5201,13 +4817,8 @@
       "path": "src/components/filter-bar.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Button",
-        "Chip"
-      ],
-      "usedBy": [
-        "ListWithSearchAndFilters"
-      ]
+      "builtFrom": ["Button", "Chip"],
+      "usedBy": ["ListWithSearchAndFilters"]
     },
     {
       "name": "form",
@@ -5431,11 +5042,7 @@
       "path": "src/components/kern-contact.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Avatar",
-        "EmptyState",
-        "Input"
-      ],
+      "builtFrom": ["Avatar", "EmptyState", "Input"],
       "usedBy": []
     },
     {
@@ -5447,11 +5054,7 @@
       "path": "src/components/kern-contact.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Avatar",
-        "EmptyState",
-        "Input"
-      ],
+      "builtFrom": ["Avatar", "EmptyState", "Input"],
       "usedBy": []
     },
     {
@@ -5463,11 +5066,7 @@
       "path": "src/components/kern-contact.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Avatar",
-        "EmptyState",
-        "Input"
-      ],
+      "builtFrom": ["Avatar", "EmptyState", "Input"],
       "usedBy": []
     },
     {
@@ -5479,11 +5078,7 @@
       "path": "src/components/kern-contact.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Avatar",
-        "EmptyState",
-        "Input"
-      ],
+      "builtFrom": ["Avatar", "EmptyState", "Input"],
       "usedBy": []
     },
     {
@@ -5495,15 +5090,8 @@
       "path": "src/components/kern-loading.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "LinearProgress",
-        "LoadingIndicator",
-        "Skeleton"
-      ],
-      "usedBy": [
-        "BillingPage",
-        "DashboardPage"
-      ]
+      "builtFrom": ["LinearProgress", "LoadingIndicator", "Skeleton"],
+      "usedBy": ["BillingPage", "DashboardPage"]
     },
     {
       "name": "map-marker",
@@ -5514,9 +5102,7 @@
       "path": "src/components/kern-maps.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Card"
-      ],
+      "builtFrom": ["Card"],
       "usedBy": []
     },
     {
@@ -5528,9 +5114,7 @@
       "path": "src/components/kern-maps.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Card"
-      ],
+      "builtFrom": ["Card"],
       "usedBy": []
     },
     {
@@ -5542,11 +5126,7 @@
       "path": "src/components/kern-navigation.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "NavigationBar",
-        "NavigationDrawer",
-        "NavigationRail"
-      ],
+      "builtFrom": ["NavigationBar", "NavigationDrawer", "NavigationRail"],
       "usedBy": []
     },
     {
@@ -5636,10 +5216,7 @@
       "path": "src/components/kern-settings.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "KernPicker",
-        "Switch"
-      ],
+      "builtFrom": ["KernPicker", "Switch"],
       "usedBy": []
     },
     {
@@ -5651,10 +5228,7 @@
       "path": "src/components/kern-settings.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "KernPicker",
-        "Switch"
-      ],
+      "builtFrom": ["KernPicker", "Switch"],
       "usedBy": []
     },
     {
@@ -5666,10 +5240,7 @@
       "path": "src/components/kern-settings.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "KernPicker",
-        "Switch"
-      ],
+      "builtFrom": ["KernPicker", "Switch"],
       "usedBy": []
     },
     {
@@ -5713,10 +5284,7 @@
       "path": "src/components/layouts.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Chip",
-        "KernTabs"
-      ],
+      "builtFrom": ["Chip", "KernTabs"],
       "usedBy": []
     },
     {
@@ -5728,10 +5296,7 @@
       "path": "src/components/layouts.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Chip",
-        "KernTabs"
-      ],
+      "builtFrom": ["Chip", "KernTabs"],
       "usedBy": []
     },
     {
@@ -5743,10 +5308,7 @@
       "path": "src/components/layouts.tsx",
       "status": "real",
       "tier": "core",
-      "builtFrom": [
-        "Chip",
-        "KernTabs"
-      ],
+      "builtFrom": ["Chip", "KernTabs"],
       "usedBy": []
     },
     {
@@ -5758,10 +5320,7 @@
       "path": "src/components/layouts.tsx",
       "status": "real",
       "tier": "core",
-      "builtFrom": [
-        "Chip",
-        "KernTabs"
-      ],
+      "builtFrom": ["Chip", "KernTabs"],
       "usedBy": []
     },
     {
@@ -5773,10 +5332,7 @@
       "path": "src/components/layouts.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Chip",
-        "KernTabs"
-      ],
+      "builtFrom": ["Chip", "KernTabs"],
       "usedBy": []
     },
     {
@@ -5789,9 +5345,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernLoading"
-      ]
+      "usedBy": ["KernLoading"]
     },
     {
       "name": "link-button",
@@ -5815,10 +5369,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "List",
-        "SearchView"
-      ]
+      "usedBy": ["List", "SearchView"]
     },
     {
       "name": "list-with-search-and-filters",
@@ -5849,16 +5400,8 @@
       "path": "src/components/list.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Checkbox",
-        "EmptyState",
-        "ListItem",
-        "Skeleton"
-      ],
-      "usedBy": [
-        "DashboardPage",
-        "ListWithSearchAndFilters"
-      ]
+      "builtFrom": ["Checkbox", "EmptyState", "ListItem", "Skeleton"],
+      "usedBy": ["DashboardPage", "ListWithSearchAndFilters"]
     },
     {
       "name": "loader",
@@ -5881,9 +5424,7 @@
       "path": "src/components/loading-button.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "CircularProgress"
-      ],
+      "builtFrom": ["CircularProgress"],
       "usedBy": []
     },
     {
@@ -5896,9 +5437,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernLoading"
-      ]
+      "usedBy": ["KernLoading"]
     },
     {
       "name": "feature-grid",
@@ -5909,10 +5448,7 @@
       "path": "src/components/marketing-sections.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Card",
-        "StatusPill"
-      ],
+      "builtFrom": ["Card", "StatusPill"],
       "usedBy": []
     },
     {
@@ -5924,10 +5460,7 @@
       "path": "src/components/marketing-sections.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Card",
-        "StatusPill"
-      ],
+      "builtFrom": ["Card", "StatusPill"],
       "usedBy": []
     },
     {
@@ -5939,10 +5472,7 @@
       "path": "src/components/marketing-sections.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Card",
-        "StatusPill"
-      ],
+      "builtFrom": ["Card", "StatusPill"],
       "usedBy": []
     },
     {
@@ -5954,10 +5484,7 @@
       "path": "src/components/marketing-sections.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Card",
-        "StatusPill"
-      ],
+      "builtFrom": ["Card", "StatusPill"],
       "usedBy": []
     },
     {
@@ -5969,10 +5496,7 @@
       "path": "src/components/marketing-sections.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Card",
-        "StatusPill"
-      ],
+      "builtFrom": ["Card", "StatusPill"],
       "usedBy": []
     },
     {
@@ -6008,11 +5532,7 @@
       "path": "src/components/menus.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "NavigationBarItem",
-        "SheetHandle",
-        "SheetSurface"
-      ],
+      "builtFrom": ["NavigationBarItem", "SheetHandle", "SheetSurface"],
       "usedBy": []
     },
     {
@@ -6024,11 +5544,7 @@
       "path": "src/components/menus.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "NavigationBarItem",
-        "SheetHandle",
-        "SheetSurface"
-      ],
+      "builtFrom": ["NavigationBarItem", "SheetHandle", "SheetSurface"],
       "usedBy": []
     },
     {
@@ -6040,11 +5556,7 @@
       "path": "src/components/menus.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "NavigationBarItem",
-        "SheetHandle",
-        "SheetSurface"
-      ],
+      "builtFrom": ["NavigationBarItem", "SheetHandle", "SheetSurface"],
       "usedBy": []
     },
     {
@@ -6056,11 +5568,7 @@
       "path": "src/components/menus.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "NavigationBarItem",
-        "SheetHandle",
-        "SheetSurface"
-      ],
+      "builtFrom": ["NavigationBarItem", "SheetHandle", "SheetSurface"],
       "usedBy": []
     },
     {
@@ -6084,14 +5592,8 @@
       "path": "src/components/milestone-trio.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "CircularProgress",
-        "Shape"
-      ],
-      "usedBy": [
-        "BootSplash",
-        "ErrorBoundary"
-      ]
+      "builtFrom": ["CircularProgress", "Shape"],
+      "usedBy": ["BootSplash", "ErrorBoundary"]
     },
     {
       "name": "navigation-bar",
@@ -6103,9 +5605,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernNavigation"
-      ]
+      "usedBy": ["KernNavigation"]
     },
     {
       "name": "navigation-bar-item",
@@ -6134,12 +5634,8 @@
       "path": "src/components/navigation-drawer.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "NavigationBarItem"
-      ],
-      "usedBy": [
-        "KernNavigation"
-      ]
+      "builtFrom": ["NavigationBarItem"],
+      "usedBy": ["KernNavigation"]
     },
     {
       "name": "navigation-menu",
@@ -6163,9 +5659,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernNavigation"
-      ]
+      "usedBy": ["KernNavigation"]
     },
     {
       "name": "number-field",
@@ -6188,12 +5682,7 @@
       "path": "src/components/onboarding-wizard.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Button",
-        "KernOverlay",
-        "KernPicker",
-        "KernTabs"
-      ],
+      "builtFrom": ["Button", "KernOverlay", "KernPicker", "KernTabs"],
       "usedBy": []
     },
     {
@@ -6205,12 +5694,7 @@
       "path": "src/components/onboarding-wizard.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Button",
-        "KernOverlay",
-        "KernPicker",
-        "KernTabs"
-      ],
+      "builtFrom": ["Button", "KernOverlay", "KernPicker", "KernTabs"],
       "usedBy": []
     },
     {
@@ -6271,9 +5755,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "DataTable"
-      ]
+      "usedBy": ["DataTable"]
     },
     {
       "name": "kern-pressable",
@@ -6344,12 +5826,7 @@
       "path": "src/components/search-view.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "EmptySearch",
-        "ListItem",
-        "Search",
-        "Sheet"
-      ],
+      "builtFrom": ["EmptySearch", "ListItem", "Search", "Sheet"],
       "usedBy": []
     },
     {
@@ -6362,10 +5839,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "ListWithSearchAndFilters",
-        "SearchView"
-      ]
+      "usedBy": ["ListWithSearchAndFilters", "SearchView"]
     },
     {
       "name": "select",
@@ -6412,9 +5886,7 @@
       "path": "src/components/shape-art.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Shape"
-      ],
+      "builtFrom": ["Shape"],
       "usedBy": []
     },
     {
@@ -6426,9 +5898,7 @@
       "path": "src/components/shape-art.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Shape"
-      ],
+      "builtFrom": ["Shape"],
       "usedBy": []
     },
     {
@@ -6481,9 +5951,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "SearchView"
-      ]
+      "usedBy": ["SearchView"]
     },
     {
       "name": "sheet-handle",
@@ -6494,9 +5962,7 @@
       "path": "src/components/sheets.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "SheetSurface"
-      ],
+      "builtFrom": ["SheetSurface"],
       "usedBy": [
         "ActionSheet",
         "Banner",
@@ -6517,12 +5983,8 @@
       "path": "src/components/sheets.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "SheetSurface"
-      ],
-      "usedBy": [
-        "KernOverlay"
-      ]
+      "builtFrom": ["SheetSurface"],
+      "usedBy": ["KernOverlay"]
     },
     {
       "name": "snap-sheet",
@@ -6533,12 +5995,8 @@
       "path": "src/components/sheets.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "SheetSurface"
-      ],
-      "usedBy": [
-        "KernOverlay"
-      ]
+      "builtFrom": ["SheetSurface"],
+      "usedBy": ["KernOverlay"]
     },
     {
       "name": "dock-sheet",
@@ -6549,12 +6007,8 @@
       "path": "src/components/sheets.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "SheetSurface"
-      ],
-      "usedBy": [
-        "KernOverlay"
-      ]
+      "builtFrom": ["SheetSurface"],
+      "usedBy": ["KernOverlay"]
     },
     {
       "name": "bottom-sheet-picker",
@@ -6565,13 +6019,8 @@
       "path": "src/components/sheets.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "SheetSurface"
-      ],
-      "usedBy": [
-        "KernPicker",
-        "ReasonPicker"
-      ]
+      "builtFrom": ["SheetSurface"],
+      "usedBy": ["KernPicker", "ReasonPicker"]
     },
     {
       "name": "entity-sheet",
@@ -6582,9 +6031,7 @@
       "path": "src/components/sheets.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "SheetSurface"
-      ],
+      "builtFrom": ["SheetSurface"],
       "usedBy": []
     },
     {
@@ -6596,9 +6043,7 @@
       "path": "src/components/shell.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "MilestoneTrio"
-      ],
+      "builtFrom": ["MilestoneTrio"],
       "usedBy": []
     },
     {
@@ -6610,9 +6055,7 @@
       "path": "src/components/shell.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "MilestoneTrio"
-      ],
+      "builtFrom": ["MilestoneTrio"],
       "usedBy": []
     },
     {
@@ -6625,10 +6068,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernLoading",
-        "List"
-      ]
+      "usedBy": ["KernLoading", "List"]
     },
     {
       "name": "slider",
@@ -6748,9 +6188,7 @@
       "path": "src/components/success-transform.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "CircularProgress"
-      ],
+      "builtFrom": ["CircularProgress"],
       "usedBy": []
     },
     {
@@ -6798,9 +6236,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernOverlay"
-      ]
+      "usedBy": ["KernOverlay"]
     },
     {
       "name": "text",
@@ -6823,9 +6259,7 @@
       "path": "src/components/textarea.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "Input"
-      ],
+      "builtFrom": ["Input"],
       "usedBy": []
     },
     {
@@ -6850,10 +6284,7 @@
       "status": "real",
       "tier": "core",
       "builtFrom": [],
-      "usedBy": [
-        "KernPicker",
-        "ReasonPicker"
-      ]
+      "usedBy": ["KernPicker", "ReasonPicker"]
     },
     {
       "name": "toggle-group",
@@ -6960,9 +6391,7 @@
       "path": "src/components/web-parity.tsx",
       "status": "real",
       "tier": "component",
-      "builtFrom": [
-        "SheetHandle"
-      ],
+      "builtFrom": ["SheetHandle"],
       "usedBy": []
     },
     {
@@ -6974,9 +6403,7 @@
       "path": "src/components/web-parity.tsx",
       "status": "real",
       "tier": "core",
-      "builtFrom": [
-        "SheetHandle"
-      ],
+      "builtFrom": ["SheetHandle"],
       "usedBy": []
     },
     {
@@ -6988,9 +6415,7 @@
       "path": "src/components/web-parity.tsx",
       "status": "real",
       "tier": "core",
-      "builtFrom": [
-        "SheetHandle"
-      ],
+      "builtFrom": ["SheetHandle"],
       "usedBy": []
     },
     {
@@ -7002,9 +6427,7 @@
       "path": "src/components/web-parity.tsx",
       "status": "real",
       "tier": "core",
-      "builtFrom": [
-        "SheetHandle"
-      ],
+      "builtFrom": ["SheetHandle"],
       "usedBy": []
     }
   ]
