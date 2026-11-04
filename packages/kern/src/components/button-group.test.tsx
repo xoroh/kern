@@ -41,4 +41,16 @@ describe("ButtonGroup", () => {
     expect(group).toHaveAttribute("data-orientation", "vertical");
     expect(group.className).toContain("rounded-b-none");
   });
+  it("joins button, pulse-button, icon-button, and toggle child slots in connected mode", () => {
+    render(
+      <ButtonGroup data-testid="group">
+        <Button>One</Button>
+        <Button>Two</Button>
+      </ButtonGroup>,
+    );
+    const group = screen.getByTestId("group");
+    expect(group.className).toContain("pulse-button");
+    expect(group.className).toContain("icon-button");
+    expect(group.className).toContain("toggle");
+  });
 });

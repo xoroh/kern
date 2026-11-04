@@ -186,4 +186,28 @@ describe("M3 Expressive toggle", () => {
         .container.borderRadius,
     ).toBe(Number.parseFloat(light.shape.large));
   });
+
+  it("supports md (56dp), lg (48dp), 2xl (96dp), 3xl (136dp) and active corner morph", () => {
+    const light = defaultScheme();
+    expect(buttonStyles("filled", "md", false, light).container.height).toBe(
+      56,
+    );
+    expect(buttonStyles("filled", "lg", false, light).container.height).toBe(
+      64,
+    );
+    expect(buttonStyles("filled", "2xl", false, light).container.height).toBe(
+      96,
+    );
+    expect(buttonStyles("filled", "3xl", false, light).container.height).toBe(
+      136,
+    );
+    expect(
+      buttonStyles("filled", "default", false, light, { pressed: true })
+        .container.borderRadius,
+    ).toBe(8);
+    expect(
+      buttonStyles("filled", "2xl", false, light, { pressed: true }).container
+        .borderRadius,
+    ).toBe(16);
+  });
 });

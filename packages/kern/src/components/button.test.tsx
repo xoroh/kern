@@ -276,4 +276,36 @@ describe("Button", () => {
     const { container } = render(<Button>Plain</Button>);
     expect(container.querySelector("[data-testid]")).toBeNull();
   });
+
+  it("applies M3 Expressive 2xl (96dp) and 3xl (136dp) size classes and active corner morph", () => {
+    const { rerender } = render(<Button size="2xl">Large</Button>);
+    expect(screen.getByRole("button").className).toContain("h-24");
+    expect(screen.getByRole("button").className).toContain(
+      "active:rounded-(--sys-shape-corner-large)",
+    );
+    rerender(<Button size="3xl">Extra Large</Button>);
+    expect(screen.getByRole("button").className).toContain("h-34");
+    expect(screen.getByRole("button").className).toContain(
+      "active:rounded-(--sys-shape-corner-large)",
+    );
+  });
+
+  it("sets data-selected on uncontrolled toggle clicks and styles outlined toggle unselected ink", async () => {
+    const user = userEvent.setup();
+    const { unmount } = render(<Button toggle>Bookmark</Button>);
+    const btn = screen.getByRole("button", { name: "Bookmark" });
+    expect(btn).not.toHaveAttribute("data-selected");
+    await user.click(btn);
+    expect(btn).toHaveAttribute("data-selected", "");
+    unmount();
+
+    render(
+      <Button variant="outlined" toggle>
+        Filter
+      </Button>,
+    );
+    expect(screen.getByRole("button", { name: "Filter" }).className).toContain(
+      "text-(--sys-color-on-surface)",
+    );
+  });
 });

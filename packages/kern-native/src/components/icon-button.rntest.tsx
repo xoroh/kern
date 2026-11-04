@@ -262,4 +262,25 @@ describe("iconButton M3 sizes + selected treatments", () => {
       scheme.color.primary,
     );
   });
+
+  it("non-toggle filled IconButton uses primary fill at rest and swaps selectedIcon in toggle mode", async () => {
+    const scheme = defaultScheme();
+    expect(
+      iconButtonStyles("filled", false, false, scheme, "default", {
+        toggle: false,
+      }).backgroundColor,
+    ).toBe(scheme.color.primary);
+
+    await render(
+      <IconButton
+        label="Bookmark"
+        toggle
+        pressed
+        icon={<RNText>off</RNText>}
+        selectedIcon={<RNText>on</RNText>}
+      />,
+    );
+    expect(screen.getByText("on")).toBeTruthy();
+    expect(screen.queryByText("off")).toBeNull();
+  });
 });

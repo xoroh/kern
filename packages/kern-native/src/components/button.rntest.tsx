@@ -55,4 +55,17 @@ describe("native Button render", () => {
     expect(screen.getByText("Save")).toBeOnTheScreen();
     expect(screen.getByText("*")).toBeOnTheScreen();
   });
+
+  it("softDisabled keeps focusability while blocking onPress", async () => {
+    const onPress = jest.fn();
+    await render(
+      <Button softDisabled onPress={onPress}>
+        Save
+      </Button>,
+    );
+    const btn = screen.getByRole("button", { name: "Save" });
+    expect(btn).not.toBeDisabled();
+    fireEvent.press(btn);
+    expect(onPress).not.toHaveBeenCalled();
+  });
 });

@@ -234,4 +234,24 @@ describe("SplitButton", () => {
     );
     expect(container.querySelector("[aria-hidden='true']")).not.toBeNull();
   });
+
+  it("applies variant and size to both segments and rotates chevron on open", () => {
+    const { container } = render(
+      <SplitButton
+        label="Deploy"
+        onClick={vi.fn()}
+        actions={ACTIONS}
+        variant="tonal"
+        size="lg"
+      />,
+    );
+    const root = container.querySelector('[data-slot="split-button"]');
+    expect(root).toHaveAttribute("data-variant", "tonal");
+    expect(root).toHaveAttribute("data-size", "lg");
+    const trigger = container.querySelector(
+      '[data-slot="split-button-trigger"]',
+    );
+    expect(trigger).not.toBeNull();
+    expect(trigger?.innerHTML).toContain("group-data-[open]:rotate-180");
+  });
 });

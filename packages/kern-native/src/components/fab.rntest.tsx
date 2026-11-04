@@ -75,4 +75,11 @@ describe("Fab colors (native)", () => {
     fireEvent.press(screen.getByRole("button", { name: "Create" }));
     expect(onPress).toHaveBeenCalledTimes(1);
   });
+
+  it("applies per-size M3 Expressive corner radii (12 / 16 / 20 / 28)", () => {
+    expect(fabStyles("small", light).borderRadius).toBe(12);
+    expect(fabStyles("default", light).borderRadius).toBe(16);
+    expect(fabStyles("medium", light).borderRadius).toBe(20);
+    expect(fabStyles("large", light).borderRadius).toBe(28);
+  });
 });

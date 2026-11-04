@@ -49,12 +49,12 @@ describe("ButtonGroup (native)", () => {
     );
   });
 
-  it("announces nothing itself", async () => {
+  it("exposes role=group for assistive technology", async () => {
     await render(
       <ButtonGroup testID="group">
         <Text>A</Text>
       </ButtonGroup>,
     );
-    expect(screen.getByTestId("group").props.accessibilityRole).toBe("none");
+    expect(screen.getByTestId("group").props.role).toBe("group");
   });
 });

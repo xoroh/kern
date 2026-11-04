@@ -122,4 +122,22 @@ describe("LoadingButton states (P1)", () => {
       "button",
     );
   });
+  it("forwards color, shape, block, softDisabled, and iconPosition to Button", () => {
+    render(
+      <LoadingButton
+        color="danger"
+        shape="square"
+        block
+        softDisabled
+        iconPosition="end"
+        icon={<span data-testid="end-ic" />}
+      >
+        Delete
+      </LoadingButton>,
+    );
+    const button = screen.getByTestId("loading-button");
+    expect(button).toHaveAttribute("aria-disabled", "true");
+    expect(button.className).toContain("w-full");
+    expect(screen.getByTestId("end-ic")).toBeInTheDocument();
+  });
 });

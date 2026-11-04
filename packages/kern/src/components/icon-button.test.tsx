@@ -249,4 +249,35 @@ describe("IconButton", () => {
     expect(ref.current).toBeInstanceOf(HTMLButtonElement);
     expect(ref.current).toHaveAccessibleName("Add booking");
   });
+
+  it("swaps to selectedIcon when toggle is pressed and supports 3xl size + xs/sm press morph", () => {
+    const { rerender } = render(
+      <IconButton
+        icon={<svg data-testid="unselected-ic" />}
+        selectedIcon={<svg data-testid="selected-ic" />}
+        label="Bookmark"
+        toggle
+        pressed={false}
+        size="xs"
+      />,
+    );
+    expect(screen.getByTestId("unselected-ic")).toBeInTheDocument();
+    expect(screen.queryByTestId("selected-ic")).toBeNull();
+    expect(screen.getByRole("button").className).toContain(
+      "active:rounded-(--sys-shape-corner-small)",
+    );
+
+    rerender(
+      <IconButton
+        icon={<svg data-testid="unselected-ic" />}
+        selectedIcon={<svg data-testid="selected-ic" />}
+        label="Bookmark"
+        toggle
+        pressed
+        size="3xl"
+      />,
+    );
+    expect(screen.getByTestId("selected-ic")).toBeInTheDocument();
+    expect(screen.getByRole("button").className).toContain("size-34");
+  });
 });

@@ -157,4 +157,16 @@ describe("SplitButton states (native P1)", () => {
     });
     expect(screen.getByRole("button", { name: "Save" })).toBeTruthy();
   });
+
+  it("supports tonal and outlined variants and size ladder", async () => {
+    await render(
+      <SplitButton
+        label="Deploy"
+        actions={ACTIONS}
+        variant="tonal"
+        size="lg"
+      />,
+    );
+    expect(screen.getByRole("button", { name: "Deploy" })).toBeTruthy();
+  });
 });
