@@ -22,7 +22,10 @@ import {
   redirect,
 } from "@tanstack/react-router";
 import { Kicker } from "../../../components/chrome/kicker";
-import { ComponentPage as ComponentDocPage } from "../../../components/docs/component-page";
+import {
+  ComponentPage as ComponentDocPage,
+  familyTier,
+} from "../../../components/docs/component-page";
 import { docForExport, getDoc, type Platform } from "../../../content";
 import { PageCard } from "../../../domains/shared/chrome/page-card";
 import { SiteLayout } from "../../../domains/shared/chrome/site-layout";
@@ -146,6 +149,7 @@ function ComponentBody({
               name: e.name,
               export: e.export,
               status: e.status,
+              tier: e.tier,
             }))}
             pkg={pkg}
           />
@@ -197,6 +201,10 @@ function ComponentBody({
           systemLabel={label}
           tabs={available}
           peerNote={peerNote}
+          tiers={{
+            web: webDoc ? familyTier(webDoc.parts, "web") : null,
+            mobile: mobileDoc ? familyTier(mobileDoc.parts, "mobile") : null,
+          }}
           prev={prev}
           next={next}
         />
@@ -217,7 +225,7 @@ function Undocumented({
   entries,
   pkg,
 }: {
-  entries: { name: string; export: string; status: string }[];
+  entries: { name: string; export: string; status: string; tier: string }[];
   pkg: string;
 }) {
   const first = entries[0];
@@ -228,6 +236,12 @@ function Undocumented({
           <code>{first?.export ?? "Unknown export"}</code>
         </h1>
         <p className={`m-0 ${T_CODE} text-(--sys-color-secondary)`}>{pkg}</p>
+        <p className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}>
+          Tier:{" "}
+          {first?.tier === "component"
+            ? "Component (composite)"
+            : "Core (M3 primitive)"}
+        </p>
         <p className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}>
           {first?.status === "real"
             ? "Implemented and exported from the platform entry point."

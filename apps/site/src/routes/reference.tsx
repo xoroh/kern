@@ -8,6 +8,14 @@ import { ApiIndex } from "../domains/components/reference";
 import { routeHead } from "../domains/shared/systems/seo";
 
 export const Route = createFileRoute("/reference")({
+  validateSearch: (
+    search: Record<string, unknown>,
+  ): { tier?: "core" | "component" } => ({
+    tier:
+      search.tier === "core" || search.tier === "component"
+        ? search.tier
+        : undefined,
+  }),
   head: () =>
     routeHead(
       "API reference",

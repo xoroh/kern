@@ -31,6 +31,7 @@
 
 import { STATE_LAYER_OPACITIES } from "@xoroh/kern-tokens";
 import type { Platform } from "../../content/index";
+import { docForExport } from "../../content/index";
 import type {
   ComponentDoc,
   PropRow,
@@ -46,6 +47,7 @@ import {
 import { TRANSITION } from "../../domains/shared/systems/ui";
 import type { A11yPage } from "../../generated/a11y";
 import { A11Y } from "../../generated/a11y";
+import { COMPONENTS } from "../../generated/manifest";
 import { PROPS_TABLE } from "../../generated/props-table";
 import { Configurator } from "../../showcase/configurator";
 import { CopyButton } from "../../showcase/copy-button";
@@ -185,6 +187,119 @@ function elevationLabel(
 }
 
 /* ---------------------------------------------------------- 1. header */
+
+/**
+ * IA tier strip (D1003/D1004). Every family page carries its tier badge plus
+ * the two derivation-backed relations, rendered from the generated manifest
+ * (never hand-written):
+ *
+ *   - tier: "core" (M3 primitive) or "component" (composite built from core
+ *     or other components). The family tier is the max of its parts' rows.
+ *   - Built from: lower-tier symbols this family composes (linked).
+ *   - Used by: higher-tier symbols composing this family (linked).
+ *
+ * Deliberately NOT a grammar section: check-grammar owns every h2 on this
+ * page, so this renders as chips + linked prose inside the header, with no
+ * new headings. When the renderers diverge (e.g. web Search is a composite,
+ * native Search is self-contained), the badge names the active renderer's
+ * tier and the note names the other.
+ */
+export type TierLink = { label: string; href?: string };
+export type FamilyTier = {
+  tier: "core" | "component";
+  builtFrom: TierLink[];
+  usedBy: TierLink[];
+};
+
+export function familyTier(
+  parts: string[],
+  platform: Platform,
+): FamilyTier | null {
+  const rows = COMPONENTS.filter(
+    (c) => c.platform === platform && parts.includes(c.export),
+  );
+  if (rows.length === 0) return null;
+  const linkFor = (name: string): TierLink => {
+    const target = docForExport(platform, name);
+    return target
+      ? { label: name, href: `/components/m3/${target.slug}` }
+      : { label: name };
+  };
+  const union = (lists: string[][]) =>
+    [...new Set(lists.flat())].sort((a, b) => a.localeCompare(b));
+  return {
+    tier: rows.some((r) => r.tier === "component") ? "component" : "core",
+    builtFrom: union(rows.map((r) => r.builtFrom)).map(linkFor),
+    usedBy: union(rows.map((r) => r.usedBy)).map(linkFor),
+  };
+}
+
+const TIER_BADGE: Record<FamilyTier["tier"], string> = {
+  core: "Core · M3 primitive",
+  component: "Component · composite",
+};
+
+function TierStrip({
+  tiers,
+  active,
+}: {
+  tiers: { web: FamilyTier | null; mobile: FamilyTier | null };
+  active: Platform;
+}) {
+  const mine = active === "web" ? tiers.web : tiers.mobile;
+  if (!mine) return null;
+  const other = active === "web" ? tiers.mobile : tiers.web;
+  const otherLabel = active === "web" ? "Native" : "Web";
+  const showLinks = (links: TierLink[], cap = 8) => {
+    const shown = links.slice(0, cap);
+    const rest = links.length - shown.length;
+    return (
+      <>
+        {shown.map((l, i) => (
+          <span key={l.label}>
+            {i > 0 ? ", " : null}
+            {l.href ? (
+              <a
+                href={l.href}
+                className="text-(--sys-color-secondary) no-underline hover:underline"
+              >
+                <code className="font-mono">{l.label}</code>
+              </a>
+            ) : (
+              <code className="font-mono">{l.label}</code>
+            )}
+          </span>
+        ))}
+        {rest > 0 ? <span> (+{rest} more)</span> : null}
+      </>
+    );
+  };
+  return (
+    <div className={`flex flex-col gap-1.5 ${SMALL}`}>
+      <p className={`m-0 flex flex-wrap items-center gap-2 ${INK_SOFT}`}>
+        <a
+          href={`/reference?tier=${mine.tier}`}
+          className="rounded-full bg-(--sys-color-tertiary-container) px-3 py-1 font-mono text-(--sys-color-on-tertiary-container) no-underline"
+        >
+          {TIER_BADGE[mine.tier]}
+        </a>
+        {other && other.tier !== mine.tier ? (
+          <span>
+            ({otherLabel}: {other.tier === "core" ? "Core" : "Component"})
+          </span>
+        ) : null}
+      </p>
+      {mine.builtFrom.length > 0 ? (
+        <p className={`m-0 ${INK_SOFT}`}>
+          Built from {showLinks(mine.builtFrom)}
+        </p>
+      ) : null}
+      {mine.usedBy.length > 0 ? (
+        <p className={`m-0 ${INK_SOFT}`}>Used by {showLinks(mine.usedBy)}</p>
+      ) : null}
+    </div>
+  );
+}
 
 /**
  * Section 1 — Header + metadata strip. Facts before prose: this is what makes
@@ -1408,6 +1523,7 @@ export function ComponentPage({
   systemLabel,
   tabs,
   peerNote,
+  tiers,
   prev,
   next,
 }: {
@@ -1421,6 +1537,8 @@ export function ComponentPage({
   tabs: Platform[];
   /** Same component under another name on the other renderer, if any. */
   peerNote?: { label: string; href: string };
+  /** IA tiers for both renderers (null where the family is undocumented). */
+  tiers: { web: FamilyTier | null; mobile: FamilyTier | null };
   prev?: { href: string; title: string };
   next?: { href: string; title: string };
 }) {
@@ -1482,6 +1600,7 @@ export function ComponentPage({
           </a>
         </p>
         <HeaderLinks doc={doc} platform={platform} />
+        <TierStrip tiers={tiers} active={platform} />
       </header>
 
       {/* lede above; then the one standard, in order */}
