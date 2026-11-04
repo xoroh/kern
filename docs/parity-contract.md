@@ -52,13 +52,13 @@ again. Measured from the generated registry instead:
 
 | Measure | Value |
 |---|---|
-| Registry rows | **497** (web 336, native 161) |
+| Registry rows | **496** (web 335, native 161) |
 | **Shared** (already both sides) | **131** |
 | **Native-only → needs a web version** | **13** in **10 files** |
-| **Web-only → needs a native version** | **36** in **18 files** |
+| **Web-only → needs a native version** | **35** in **18 files** |
 | Stub rows | **0** |
 
-<!-- gate:counts 131 13 36 0 -->
+<!-- gate:counts 131 13 35 0 -->
 
 Machine-readable line above: `check:parity` (`scripts/check-parity.mjs`) re-derives
 these from the registry and fails if they drift, so the prose above cannot quietly
@@ -401,7 +401,7 @@ were restored from backup afterwards.
 
 ---
 
-## Web-only concepts → need a native version (36)
+## Web-only concepts → need a native version (35)
 
 The heading previously read **34** while the machine gate read **42** — the
 `gate:counts` line was right and the sentence a human reads was stale, which is
@@ -470,12 +470,11 @@ native and the count fell 42 → 39, and again in **tranche 2**, when
 | 28 | `table-head` | Header region of a table (compound part) | `TableHead` — columnheader group | **covered, not separate work** — native `Table` renders this from its `columns`/`rows` model; web's composable subpart is an API-shape difference, not a behavioural gap (ruled 2026-10-02) | M3 · Data tables | GAP |
 | 29 | `top-bar-menu` | Generic menu slot in a top bar | `TopBarMenu` — a `menu` | **covered, not separate work** — native `Menubar` takes `menus: {label, items}[]`; web composes with children, native parameterises with items. API-shape difference, not a behavioural gap (ruled 2026-10-02, P2b-3 start tranche) | M3 · Menus | GAP |
 | 30 | `user-menu` | User/account menu in a top bar | `UserMenu` — a `menu` | **covered, not separate work** — native `Menubar` — web is a preset fixing the label; web composes with children, native parameterises with items. API-shape difference, not a behavioural gap (ruled 2026-10-02, P2b-3 start tranche) | M3 · Menus | GAP |
-| 31 | `navigation-rail-button` | One destination in a navigation rail | `NavigationRailButton` — a `role=tab` with a selected axis | **covered, not separate work** — native `NavigationRail` renders each destination as a `tab` with the same selected axis; web's separate export is an API-shape difference, and the family is ONE component by ruling (ruled 2026-10-02) | M3 · Navigation rail | `navigation-rail.rntest.tsx` |
-| 32 | `split-grid` | Equal-column grid at the composition tier | `SplitGrid` — 2- or 3-column CSS grid the caller fills with `SplitPanel`s; **no role and no label of its own** | **covered, not separate work** — native `Split` (shared, row 482 below) is the accessible N-column region and renders the columns itself; `SplitGrid` is the web grid recipe for the same division. A native `SplitGrid` would be a second name for the shape `Split` already has. Renamed from `Split` on 2026-10-03 so it does not collide with the `Split` primitive — see `.team/reports/kern-split-ruling.md` | M3 · Lists → Pane | `start.test.tsx` (composition tier) |
-| 33 | `focus-ring` | One-off focus-visible ring wrapper | `FocusRing` — `data-slot="focus-ring"` span owning the `FOCUS_RING_CLASS` treatment (`ring-2` + `secondary` role, geometry from `@xoroh/kern-tokens` `FOCUS_RING_*`); the host gives focus, the span never owns the tab stop | no native peer yet — focus styling on this platform is platform-owned; GAP (records the debt, not a ruling) | M3 · States | `focus-ring.test.tsx` |
-| 34 | `hero` | Page-opening composition | `Hero` — eyebrow/title/lede/actions/art slots; stacks on narrow screens, art beside the message at wider widths; section labelled by its `h1` | no native peer yet — marketing page pattern; GAP (composition tier, no native counterpart ruled yet) | — (composition tier; no M3 source, kern extension) | `marketing.test.tsx` (composition tier) |
-| 35 | `site-footer` | Multi-column site footer | `SiteFooter` — brand/summary slots, data-driven link groups (`to` via host `LinkProvider`, `href` anchors), legal/trailing slots; each group a nav landmark labelled by its heading | no native peer yet — marketing site pattern; GAP (composition tier, no native counterpart ruled yet) | — (composition tier; no M3 source, kern extension) | `marketing.test.tsx` (composition tier) |
-| 36 | `top-bar` | Responsive site header | `TopBar` — brand link, host-owned `activePath` with `aria-current`, actions slot, mobile disclosure with Escape-to-close and focus return | no native peer yet — marketing site pattern; GAP (composition tier, no native counterpart ruled yet) | — (composition tier; no M3 source, kern extension) | `marketing.test.tsx` (composition tier) |
+| 31 | `split-grid` | Equal-column grid at the composition tier | `SplitGrid` — 2- or 3-column CSS grid the caller fills with `SplitPanel`s; **no role and no label of its own** | **covered, not separate work** — native `Split` (shared, row 482 below) is the accessible N-column region and renders the columns itself; `SplitGrid` is the web grid recipe for the same division. A native `SplitGrid` would be a second name for the shape `Split` already has. Renamed from `Split` on 2026-10-03 so it does not collide with the `Split` primitive — see `.team/reports/kern-split-ruling.md` | M3 · Lists → Pane | `start.test.tsx` (composition tier) |
+| 32 | `focus-ring` | One-off focus-visible ring wrapper | `FocusRing` — `data-slot="focus-ring"` span owning the `FOCUS_RING_CLASS` treatment (`ring-2` + `secondary` role, geometry from `@xoroh/kern-tokens` `FOCUS_RING_*`); the host gives focus, the span never owns the tab stop | no native peer yet — focus styling on this platform is platform-owned; GAP (records the debt, not a ruling) | M3 · States | `focus-ring.test.tsx` |
+| 33 | `hero` | Page-opening composition | `Hero` — eyebrow/title/lede/actions/art slots; stacks on narrow screens, art beside the message at wider widths; section labelled by its `h1` | no native peer yet — marketing page pattern; GAP (composition tier, no native counterpart ruled yet) | — (composition tier; no M3 source, kern extension) | `marketing.test.tsx` (composition tier) |
+| 34 | `site-footer` | Multi-column site footer | `SiteFooter` — brand/summary slots, data-driven link groups (`to` via host `LinkProvider`, `href` anchors), legal/trailing slots; each group a nav landmark labelled by its heading | no native peer yet — marketing site pattern; GAP (composition tier, no native counterpart ruled yet) | — (composition tier; no M3 source, kern extension) | `marketing.test.tsx` (composition tier) |
+| 35 | `top-bar` | Responsive site header | `TopBar` — brand link, host-owned `activePath` with `aria-current`, actions slot, mobile disclosure with Escape-to-close and focus return | no native peer yet — marketing site pattern; GAP (composition tier, no native counterpart ruled yet) | — (composition tier; no M3 source, kern extension) | `marketing.test.tsx` (composition tier) |
 
 
 | 37 | `snackbar` | Transient confirmation, web compound parts | `Snackbar` + `SnackbarAction/Close/Description/List/Provider/Root/Title/Viewport` — Base UI-backed compound family | **ruled API split, not a gap** — native ships the Axis-backed queue (`useSnackbar` + `SnackbarProvider/Viewport`) under the same M3 concept; bare `Snackbar` is web-only since the single-shot compat was removed (ADR-020, PR #71) | M3 · Snackbars | `disclosure.test.tsx` (Snackbar suite) |
@@ -534,6 +533,11 @@ navigate inside.
 persistent presentation. `sidebar` is covered by that same family — it is the
 expanded rail, not a separate component, so building a `Sidebar` would have
 produced a second component differing only in width.
+
+Polish (2026-11-04): the web `start/` children-composed `NavigationRail` /
+`NavigationRailButton` pair is retired — `start/navigation` re-exports the ONE
+data-driven component, so the duplicate registry row is gone and the family is
+a single export on both renderers.
 
 These rows left the table rather than being annotated in place: a row that is no
 longer work must not sit in the table that dispatches work.

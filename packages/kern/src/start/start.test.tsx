@@ -6,12 +6,11 @@ import {
   AppTopBar,
   ContrastToggle,
   Inspector,
+  KERN_NAVIGATION_RAIL_WIDTH,
   Link,
   LinkProvider,
   ListDetail,
-  NAVIGATION_RAIL_WIDTH,
   NavigationRail,
-  NavigationRailButton,
   NotificationsMenu,
   Page,
   Pane,
@@ -176,14 +175,17 @@ describe("navigation", () => {
     expect(SIDEBAR_WIDTHS.default).toBe(256);
   });
 
-  it("renders the rail at rail width", () => {
+  it("renders the converged rail at rail width", () => {
     render(
-      <NavigationRail header={<span>H</span>}>
-        <NavigationRailButton icon="◆" label="Mail" active href="/mail" />
-      </NavigationRail>,
+      <NavigationRail
+        destinations={[{ key: "mail", label: "Mail" }]}
+        defaultValue="mail"
+      />,
     );
-    expect(screen.getByRole("link", { name: /Mail/ })).toBeTruthy();
-    expect(NAVIGATION_RAIL_WIDTH).toBe(80);
+    expect(
+      screen.getByRole("button", { name: "Mail" }).getAttribute("aria-current"),
+    ).toBe("page");
+    expect(KERN_NAVIGATION_RAIL_WIDTH).toBe(80);
   });
 
   it("opens and closes the section drawer", () => {

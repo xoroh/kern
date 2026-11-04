@@ -62,17 +62,19 @@ export function AppearanceToggle() {
 const WEB_QUICKSTART = `import {
   AppShell,
   NavigationRail,
-  NavigationRailButton,
 } from "@xoroh/kern/start";
 
 export function App() {
   return (
     <AppShell
       rail={
-        <NavigationRail>
-          <NavigationRailButton href="/" label="Home" icon={<span />} />
-          <NavigationRailButton href="/docs" label="Docs" icon={<span />} />
-        </NavigationRail>
+        <NavigationRail
+          destinations={[
+            { key: "home", label: "Home" },
+            { key: "docs", label: "Docs" },
+          ]}
+          defaultValue="home"
+        />
       }
     >
       <h1>Kern app</h1>

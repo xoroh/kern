@@ -13,7 +13,6 @@ export const SIDEBAR_WIDTHS = {
   default: 256,
   expanded: 320,
 } as const;
-export const NAVIGATION_RAIL_WIDTH = 80;
 export const SECTION_DRAWER_WIDTH = 360;
 
 type SidebarState = {
@@ -183,90 +182,19 @@ export function SidebarItem({
   );
 }
 
-/** M3 navigation rail: top-aligned menu + destinations. */
-export function NavigationRail({
-  header,
-  className,
-  children,
-  ...props
-}: ComponentPropsWithRef<"nav"> & { header?: ReactNode }) {
-  return (
-    <nav
-      data-slot="navigation-rail"
-      style={{ width: NAVIGATION_RAIL_WIDTH }}
-      className={cn(
-        "kern-navigation-rail flex h-full shrink-0 flex-col items-center gap-2 border-e border-(--sys-color-outline-variant) bg-(--sys-color-surface) py-3 text-(--sys-color-on-surface)",
-        className,
-      )}
-      {...props}
-    >
-      {header ? <div className="mb-2 flex justify-center">{header}</div> : null}
-      {children}
-    </nav>
-  );
-}
-
-/** Rail destination: icon + label + active indicator pill. */
-export function NavigationRailButton({
-  icon,
-  label,
-  active = false,
-  href,
-  onSelect,
-  className,
-  ...props
-}: Omit<ComponentPropsWithRef<"a">, "href" | "onSelect"> & {
-  icon: ReactNode;
-  label: ReactNode;
-  active?: boolean;
-  href?: string;
-  onSelect?: () => void;
-}) {
-  const body = (
-    <>
-      <span
-        className={cn(
-          "flex h-8 w-14 items-center justify-center rounded-(--sys-shape-corner-full) transition-colors",
-          active
-            ? "bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container)"
-            : "hover:bg-(--sys-color-surface-tonal)",
-        )}
-      >
-        <span aria-hidden="true" className="flex items-center">
-          {icon}
-        </span>
-      </span>
-      <span className="text-xs">{label}</span>
-    </>
-  );
-  const cls = cn(
-    "kern-navigation-rail-button flex w-16 min-h-14 flex-col items-center justify-center gap-1 rounded-(--sys-shape-corner-medium)",
-    className,
-  );
-  if (href) {
-    return (
-      <Link
-        to={href}
-        aria-current={active ? "page" : undefined}
-        className={cls}
-        {...props}
-      >
-        {body}
-      </Link>
-    );
-  }
-  return (
-    <button
-      type="button"
-      aria-current={active ? "page" : undefined}
-      onClick={onSelect}
-      className={cls}
-      {...(props as ComponentPropsWithRef<"button">)}
-    >
-      {body}
-    </button>
-  );
-}
+/**
+ * M3 navigation rail — converged on the ONE data-driven component (D925,
+ * polish): the `start/` children-composed shell is retired; import the rail
+ * from `@xoroh/kern` (same contract both renderers share). Re-exported here
+ * so existing `start` import paths keep working with the new API.
+ */
+export {
+  KERN_NAVIGATION_RAIL_EXPANDED_WIDTH,
+  KERN_NAVIGATION_RAIL_WIDTH,
+  type KernNavigationRailMode,
+  NavigationRail,
+  type NavigationRailProps,
+} from "../components/navigation-rail";
 
 /** M3 section drawer (modal): sections list + optional drill-in panel. */
 export function SectionDrawer({

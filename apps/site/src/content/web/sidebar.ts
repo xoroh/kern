@@ -26,7 +26,6 @@ export const sidebar: ComponentDoc = {
     "SidebarFooter",
     "SidebarItem",
     "NavigationRail",
-    "NavigationRailButton",
     "SectionDrawer",
   ],
   // The sidebar is a NAVIGATION LANDMARK: it takes no focus of its own, and
@@ -52,7 +51,7 @@ export const sidebar: ComponentDoc = {
     ],
     notSupported: [
       "There is no `variant` prop on `Sidebar`. The narrower forms are different components — `NavigationRail` and `SectionDrawer`.",
-      "Widths are fixed exported constants (`SIDEBAR_WIDTHS`, `NAVIGATION_RAIL_WIDTH`, `SECTION_DRAWER_WIDTH`), not per-instance props.",
+      "Widths are fixed exported constants (`SIDEBAR_WIDTHS`, `KERN_NAVIGATION_RAIL_WIDTH`, `SECTION_DRAWER_WIDTH`), not per-instance props.",
     ],
   },
   api: [
