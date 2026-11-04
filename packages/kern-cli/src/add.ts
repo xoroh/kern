@@ -548,13 +548,17 @@ export function planBlock(
     }
   }
 
-  // npm peers ride the platform: a web install never lists the native
-  // package and vice versa. "react" is ambient (checked out or host-owned),
-  // never a peer to install.
-  const otherRenderer =
-    platform === "native" ? "@xoroh/kern" : "@xoroh/kern-native";
+  // npm peers ride the platform AND the files: only declared dependencies
+  // the installed block files actually import (minus react, which is
+  // ambient). A native install never lists the web package and vice versa.
+  const importedPkgs = new Set<string>();
+  for (const f of files) {
+    for (const m of f.bytes.matchAll(/from\s*"([^"./][^"]*)"/g)) {
+      importedPkgs.add(m[1]);
+    }
+  }
   const npm = row.dependencies.filter(
-    (d) => d !== "react" && d !== otherRenderer,
+    (d) => d !== "react" && importedPkgs.has(d),
   );
   return {
     platform,

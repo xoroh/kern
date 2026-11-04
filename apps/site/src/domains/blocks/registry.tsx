@@ -22,6 +22,8 @@ import type { BlockEntry } from "../../blocks/manifest";
 import { BLOCKS } from "../../blocks/manifest";
 import { OtpBlock } from "../../blocks/otp";
 import otpSource from "../../blocks/otp.tsx?raw";
+import { SettingsBlock } from "../../blocks/settings";
+import settingsSource from "../../blocks/settings.tsx?raw";
 import { SettingsScreen } from "../../blocks/settings-screen";
 import settingsScreenSource from "../../blocks/settings-screen.tsx?raw";
 import { SignupBlock } from "../../blocks/signup";
@@ -42,6 +44,7 @@ const RENDERS: Record<string, () => ReactNode> = {
   signup: () => <SignupBlock />,
   otp: () => <OtpBlock />,
   invite: () => <InviteBlock />,
+  settings: () => <SettingsBlock />,
 };
 
 const SOURCES: Record<string, string> = {
@@ -53,6 +56,7 @@ const SOURCES: Record<string, string> = {
   signup: signupSource,
   otp: otpSource,
   invite: inviteSource,
+  settings: settingsSource,
 };
 
 export const BLOCK_VIEWS: BlockView[] = BLOCKS.map((entry) => ({

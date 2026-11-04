@@ -16,10 +16,12 @@
     "dependencies": [
       "@xoroh/kern",
       "@xoroh/kern/start",
+      "@xoroh/kern-native",
       "react"
     ],
     "contents": {
-      "settings-screen.tsx": "/**\n * Block: settings-screen — a settings page composed from shipped components.\n *\n * Category: Settings. Install with `kern add settings-screen`.\n * Dependencies: @xoroh/kern, @xoroh/kern/start, react.\n */\nimport { Card, Separator, Switch } from \"@xoroh/kern\";\nimport { SettingsRow, ThemeToggle } from \"@xoroh/kern/start\";\nimport { useState } from \"react\";\n\nexport function SettingsScreen() {\n  const [notifications, setNotifications] = useState(true);\n  const [mode, setMode] = useState<\"light\" | \"dark\">(\"light\");\n  return (\n    <Card variant=\"filled\" style={{ padding: 8, maxWidth: 480 }}>\n      <SettingsRow\n        label=\"Notifications\"\n        supporting=\"Badges, sounds and banners\"\n        trailing={\n          <Switch\n            aria-label=\"Notifications\"\n            checked={notifications}\n            onCheckedChange={setNotifications}\n          />\n        }\n      />\n      <Separator />\n      <SettingsRow\n        label=\"Appearance\"\n        supporting={mode === \"light\" ? \"Light theme\" : \"Dark theme\"}\n        trailing={\n          <ThemeToggle\n            mode={mode}\n            onToggle={() => setMode((m) => (m === \"light\" ? \"dark\" : \"light\"))}\n          />\n        }\n      />\n    </Card>\n  );\n}\n"
+      "settings-screen.tsx": "/**\n * Block: settings-screen — a settings page composed from shipped components.\n *\n * Category: Settings. Install with `kern add settings-screen`.\n * Dependencies: @xoroh/kern, @xoroh/kern/start, react.\n */\nimport { Card, Separator, Switch } from \"@xoroh/kern\";\nimport { SettingsRow, ThemeToggle } from \"@xoroh/kern/start\";\nimport { useState } from \"react\";\n\nexport function SettingsScreen() {\n  const [notifications, setNotifications] = useState(true);\n  const [mode, setMode] = useState<\"light\" | \"dark\">(\"light\");\n  return (\n    <Card variant=\"filled\" style={{ padding: 8, maxWidth: 480 }}>\n      <SettingsRow\n        label=\"Notifications\"\n        supporting=\"Badges, sounds and banners\"\n        trailing={\n          <Switch\n            aria-label=\"Notifications\"\n            checked={notifications}\n            onCheckedChange={setNotifications}\n          />\n        }\n      />\n      <Separator />\n      <SettingsRow\n        label=\"Appearance\"\n        supporting={mode === \"light\" ? \"Light theme\" : \"Dark theme\"}\n        trailing={\n          <ThemeToggle\n            mode={mode}\n            onToggle={() => setMode((m) => (m === \"light\" ? \"dark\" : \"light\"))}\n          />\n        }\n      />\n    </Card>\n  );\n}\n",
+      "settings-screen.native.tsx": "/**\n * Settings-screen block, native variant — labelled rows with controls.\n *\n * Same contract as `settings-screen.tsx`: real source composed ONLY from\n * shipped packages (`@xoroh/kern-native`, `react`), installed by\n * `kern add settings-screen --platform native`.\n */\nimport {\n  Card,\n  Separator,\n  SettingsRow,\n  Switch,\n  ThemeToggle,\n} from \"@xoroh/kern-native\";\nimport { useState } from \"react\";\n\nexport function SettingsScreen() {\n  const [notifications, setNotifications] = useState(true);\n  return (\n    <Card variant=\"filled\">\n      <SettingsRow\n        label=\"Notifications\"\n        supporting=\"Badges, sounds and banners\"\n        trailing={\n          <Switch\n            aria-label=\"Notifications\"\n            value={notifications}\n            onValueChange={setNotifications}\n          />\n        }\n      />\n      <Separator />\n      <SettingsRow\n        label=\"Appearance\"\n        supporting=\"Light or dark theme\"\n        trailing={<ThemeToggle />}\n      />\n    </Card>\n  );\n}\n"
     }
   },
   {
@@ -167,6 +169,26 @@
     "contents": {
       "invite.tsx": "/**\n * Invite block — workspace invite accept flow, wired with mock invite.\n *\n * A block is a real source file composed ONLY from shipped packages\n * (`@xoroh/kern`, `react`). It renders the shipped `InviteAccept` with a\n * realistic invite (workspace, inviter, role, expiry) — copy it, then\n * replace the mock invite and the accept/decline handlers with real calls.\n */\nimport { InviteAccept } from \"@xoroh/kern\";\n\nexport function InviteBlock({\n  onAccept,\n  onDecline,\n}: {\n  onAccept?: () => void;\n  onDecline?: () => void;\n}) {\n  return (\n    <InviteAccept\n      defaultOpen\n      invite={{\n        workspaceName: \"Acme Taxi\",\n        inviterName: \"Faroeq\",\n        role: \"Dispatcher\",\n        expiresAt: \"Dec 31\",\n      }}\n      roleOptions={[{ value: \"dispatcher\", label: \"Dispatcher\" }]}\n      defaultRoleValue=\"dispatcher\"\n      onAccept={onAccept}\n      onDecline={onDecline}\n    />\n  );\n}\n",
       "invite.native.tsx": "/**\n * Invite block, native variant — workspace invite accept flow.\n *\n * Same contract as `invite.tsx`: real source composed ONLY from shipped\n * packages (`@xoroh/kern-native`, `react`), installed by\n * `kern add invite --platform native`.\n */\nimport { InviteAccept } from \"@xoroh/kern-native\";\n\nexport function InviteBlock({\n  onAccept,\n  onDecline,\n}: {\n  onAccept?: () => void;\n  onDecline?: () => void;\n}) {\n  return (\n    <InviteAccept\n      defaultOpen\n      invite={{\n        workspaceName: \"Acme Taxi\",\n        inviterName: \"Faroeq\",\n        role: \"Dispatcher\",\n        expiresAt: \"Dec 31\",\n      }}\n      roleOptions={[{ value: \"dispatcher\", label: \"Dispatcher\" }]}\n      defaultRoleValue=\"dispatcher\"\n      onAccept={onAccept}\n      onDecline={onDecline}\n    />\n  );\n}\n"
+    }
+  },
+  {
+    "name": "settings",
+    "title": "Settings page",
+    "category": "Settings",
+    "description": "A full settings page: profile, notification and preference preset sections in a sidebar layout. Reach for it when settings need sections, not rows.",
+    "file": "settings.tsx",
+    "files": [],
+    "registryDependencies": [
+      "KernSettingsScreen"
+    ],
+    "dependencies": [
+      "@xoroh/kern",
+      "@xoroh/kern-native",
+      "react"
+    ],
+    "contents": {
+      "settings.tsx": "/**\n * Settings block — full settings page with section presets.\n *\n * A block is a real source file composed ONLY from shipped packages\n * (`@xoroh/kern`, `react`). It renders the shipped `KernSettingsScreen`\n * with the profile, notification and preference preset sections — copy it,\n * then replace the preset sections with the host's own section defs.\n */\nimport {\n  KernSettingsScreen,\n  notificationSettingsSection,\n  preferenceSettingsSection,\n  profileSettingsSection,\n} from \"@xoroh/kern\";\n\nexport function SettingsBlock() {\n  return (\n    <KernSettingsScreen\n      label=\"Settings\"\n      sections={[\n        profileSettingsSection,\n        notificationSettingsSection,\n        preferenceSettingsSection,\n      ]}\n    />\n  );\n}\n",
+      "settings.native.tsx": "/**\n * Settings block, native variant — grouped settings list with presets.\n *\n * Same contract as `settings.tsx`: real source composed ONLY from shipped\n * packages (`@xoroh/kern-native`, `react`), installed by\n * `kern add settings --platform native`. One data contract with the web\n * twin (sections + density); a phone shows every group, section switching\n * is the host navigator's job.\n */\nimport {\n  KernSettingsScreen,\n  notificationSettingsSection,\n  preferenceSettingsSection,\n  profileSettingsSection,\n} from \"@xoroh/kern-native\";\n\nexport function SettingsBlock() {\n  return (\n    <KernSettingsScreen\n      sections={[\n        profileSettingsSection,\n        notificationSettingsSection,\n        preferenceSettingsSection,\n      ]}\n    />\n  );\n}\n"
     }
   }
 ]

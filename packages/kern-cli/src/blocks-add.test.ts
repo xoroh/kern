@@ -255,12 +255,12 @@ describe("kern add <block> (multi-file)", () => {
 
   it("refuses native install when a variant is missing (no stubs)", () => {
     expect(() =>
-      addBlock("settings-screen", {
+      addBlock("empty-search", {
         root: WORKSPACE_ROOT,
         dest: freshDest(),
         platform: "native",
       }),
-    ).toThrow(/no native variant for "settings-screen\.tsx"/);
+    ).toThrow(/no native variant for "empty-search\.tsx"/);
   });
 
   it("vendors the promoted billing block on both renderers", () => {

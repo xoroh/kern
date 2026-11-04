@@ -57,7 +57,7 @@ export const BLOCKS: BlockEntry[] = [
       "SettingsRow",
       "ThemeToggle",
     ],
-    dependencies: ["@xoroh/kern", "@xoroh/kern/start", "react"],
+    dependencies: ["@xoroh/kern", "@xoroh/kern/start", "@xoroh/kern-native", "react"],
   },
   {
     name: "auth-form",
@@ -134,6 +134,17 @@ export const BLOCKS: BlockEntry[] = [
     file: "invite.tsx",
     files: [],
     registryDependencies: ["InviteAccept"],
+    dependencies: ["@xoroh/kern", "@xoroh/kern-native", "react"],
+  },
+  {
+    name: "settings",
+    title: "Settings page",
+    category: "Settings",
+    description:
+      "A full settings page: profile, notification and preference preset sections in a sidebar layout. Reach for it when settings need sections, not rows.",
+    file: "settings.tsx",
+    files: [],
+    registryDependencies: ["KernSettingsScreen"],
     dependencies: ["@xoroh/kern", "@xoroh/kern-native", "react"],
   },
 ];

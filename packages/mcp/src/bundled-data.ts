@@ -6271,4 +6271,13 @@ export const BUNDLED_BLOCKS: BundledBlock[] = [
     files: ["invite.tsx"],
     components: ["InviteAccept"],
   },
+  {
+    name: "settings",
+    title: "Settings page",
+    category: "Settings",
+    description:
+      "A full settings page: profile, notification and preference preset sections in a sidebar layout. Reach for it when settings need sections, not rows.",
+    files: ["settings.tsx"],
+    components: ["KernSettingsScreen"],
+  },
 ];
