@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { createRef } from "react";
 import { describe, expect, it, vi } from "vitest";
 import { IconButton } from "./icon-button";
 
@@ -240,5 +241,12 @@ describe("IconButton", () => {
   it("defaults type to button so it cannot submit a form by accident", () => {
     render(<IconButton icon={<svg />} label="Add" />);
     expect(screen.getByRole("button")).toHaveAttribute("type", "button");
+  });
+
+  it("forwards ref to the underlying button element", () => {
+    const ref = createRef<HTMLButtonElement>();
+    render(<IconButton icon={<svg />} label="Add booking" ref={ref} />);
+    expect(ref.current).toBeInstanceOf(HTMLButtonElement);
+    expect(ref.current).toHaveAccessibleName("Add booking");
   });
 });

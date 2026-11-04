@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react-native";
-import { act } from "react";
-import { Text as RNText } from "react-native";
+import { act, createRef, type ElementRef, type Ref } from "react";
+import { type Pressable, Text as RNText } from "react-native";
 import { defaultScheme } from "../theme";
 import {
   IconButton,
@@ -20,6 +20,12 @@ describe("IconButton", () => {
     const el = screen.getByLabelText("Bold");
     expect(el.props.accessibilityRole).toBe("button");
     expect(el.props.accessibilityLabel).toBe("Bold");
+  });
+
+  it("forwards ref to the underlying pressable", async () => {
+    const ref = createRef<NonNullable<Ref<ElementRef<typeof Pressable>>>>();
+    await render(<IconButton label="Bold" ref={ref} />);
+    expect(ref.current).toBeTruthy();
   });
 
   it("renders its icon as children", async () => {

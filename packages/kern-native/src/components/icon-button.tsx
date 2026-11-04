@@ -4,7 +4,13 @@ import {
   useControllableState,
 } from "@xoroh/axis";
 import type { ResolvedTheme } from "@xoroh/kern-tokens";
-import { cloneElement, isValidElement, type ReactNode } from "react";
+import {
+  cloneElement,
+  type ElementRef,
+  isValidElement,
+  type ReactNode,
+  type Ref,
+} from "react";
 import {
   Pressable,
   type PressableProps,
@@ -188,10 +194,16 @@ export function pressIsCancelled(event?: {
 
 export type NativeIconButtonProps = Omit<
   PressableProps,
-  "children" | "style" | "onPress" | "accessibilityRole" | "testID"
+  "children" | "style" | "onPress" | "accessibilityRole" | "testID" | "ref"
 > & {
   /** REQUIRED. The accessible name — there is no visible text to supply one. */
   label: string;
+  /**
+   * Explicit ref to the underlying pressable (focus management, measurement).
+   * React 19 ref-as-prop — destructured so it cannot be lost in the spread.
+   * Typed exactly as Pressable declares it; do not widen.
+   */
+  ref?: Ref<ElementRef<typeof Pressable>>;
   /** Container variant. */
   variant?: IconButtonVariant;
   /** M3 Expressive size: XS 32dp up to XL 136dp. Defaults to the 40dp S. */
@@ -221,6 +233,7 @@ export function IconButton({
   hitSlop,
   style,
   testID,
+  ref,
   ...props
 }: NativeIconButtonProps) {
   const scheme = useKernScheme();
@@ -253,6 +266,7 @@ export function IconButton({
   return (
     <Pressable
       {...props}
+      ref={ref}
       testID={testID ?? "kern-icon-button"}
       role="button"
       accessibilityRole="button"

@@ -1908,6 +1908,13 @@ export const GENERATED_PROPS: Record<
       required: false,
       src: "packages/kern/src/components/checkbox.tsx:7",
     },
+    {
+      name: "aria-label",
+      type: "string | undefined",
+      required: false,
+      src: "packages/kern/src/components/checkbox.tsx:13",
+      note: "Accessible name for label-less usage (icon-only/star toggles). When\n`label` is absent, pass this — it forwards to the primitive root.\nPrefer visible `label` whenever layout allows it.",
+    },
   ],
   Chip: [
     {

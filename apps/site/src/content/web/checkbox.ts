@@ -54,6 +54,11 @@ export const checkbox: ComponentDoc = {
       note: "The visible label. When present it wraps the control in a `<label>`, which supplies both the accessible name and click-to-toggle. When absent the control renders bare and unnamed.",
     },
     {
+      name: "aria-label",
+      type: "string",
+      note: "Accessible name for label-less usage (icon-only/star toggles). Forwards to the primitive root. Prefer visible `label` whenever layout allows it.",
+    },
+    {
       name: "checked",
       type: "boolean",
       note: "Controlled state. Omit for uncontrolled.",

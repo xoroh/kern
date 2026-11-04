@@ -5,6 +5,12 @@ import { FOCUS_RING_CLASS } from "./focus-ring";
 
 export type CheckboxProps = ComponentProps<typeof CheckboxPrimitive.Root> & {
   label?: ReactNode;
+  /**
+   * Accessible name for label-less usage (icon-only/star toggles). When
+   * `label` is absent, pass this — it forwards to the primitive root.
+   * Prefer visible `label` whenever layout allows it.
+   */
+  "aria-label"?: string;
 };
 
 function CheckboxControl({

@@ -1,5 +1,5 @@
 import { cva, type VariantProps } from "class-variance-authority";
-import type { ComponentPropsWithRef, ReactNode } from "react";
+import type { ComponentPropsWithRef, ReactNode, Ref } from "react";
 import { useId, useState } from "react";
 import { cn } from "../utils/cn";
 import { CircularProgress } from "./circular-progress";
@@ -291,8 +291,9 @@ export function IconButton({
   loading = false,
   flipIcon = false,
   className,
+  ref,
   ...props
-}: IconButtonProps) {
+}: IconButtonProps & { ref?: Ref<HTMLButtonElement> }) {
   const controlled = pressed !== undefined;
   const [uncontrolled, setUncontrolled] = useState(defaultPressed);
   const isPressed = toggle
@@ -343,6 +344,7 @@ export function IconButton({
       // The spread comes FIRST. Spread last, it would overwrite the composed
       // onClick with the host's raw handler and the toggle would stop firing —
       // the kind of bug that only shows up once a consumer passes onClick.
+      ref={ref}
       {...props}
       onClick={(event) => {
         if (softDisabled || loading) {

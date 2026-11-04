@@ -44,4 +44,11 @@ describe("Checkbox", () => {
     );
     expect(box.className).not.toContain("hover:opacity-");
   });
+
+  it("announces an explicit accessible name without a visible label", () => {
+    render(<Checkbox aria-label="Star this conversation" />);
+    expect(
+      screen.getByRole("checkbox", { name: "Star this conversation" }),
+    ).toBeInTheDocument();
+  });
 });

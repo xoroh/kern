@@ -1532,6 +1532,11 @@ export const PROPS_TABLE: Record<
         type: "ReactNode",
         required: false,
       },
+      {
+        name: "aria-label",
+        type: "string | undefined",
+        required: false,
+      },
     ],
     curated: [],
   },
