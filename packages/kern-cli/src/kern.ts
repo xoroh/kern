@@ -44,7 +44,7 @@ function platformFlag(): AddPlatform | undefined {
   return value;
 }
 
-function tierFlag(): "core" | "component" | "blocks" | "all" {
+function tierFlag(): "core" | "component" | "components" | "blocks" | "all" {
   const value = flagValue("--tier");
   if (value === undefined) return "all";
   // "components" is the index name (the /components door); the row value is
