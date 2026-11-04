@@ -1,4 +1,9 @@
-import { fireEvent, render, screen } from "@testing-library/react-native";
+import {
+  fireEvent,
+  render,
+  screen,
+  within,
+} from "@testing-library/react-native";
 import { act } from "react";
 import { Text } from "react-native";
 import { defaultScheme } from "../theme";
@@ -80,6 +85,52 @@ describe("SegmentedButton native twin (P0 KEEP)", () => {
     });
     expect(value).toBe("");
   });
+
+  it("does not deselect on re-press in single mode (radio semantics)", async () => {
+    const seen: string[] = [];
+    await render(
+      <SegmentedButton
+        options={OPTIONS}
+        defaultValue="day"
+        onValueChange={(next) => {
+          seen.push(next);
+        }}
+      />,
+    );
+    await act(async () => {
+      fireEvent.press(screen.getByLabelText("Day"));
+    });
+    expect(seen).toEqual([]);
+  });
+
+  it("toggles a segment off in multi mode", async () => {
+    let values: string[] = ["day", "week"];
+    await render(
+      <SegmentedButton
+        options={OPTIONS}
+        values={values}
+        onValuesChange={(next) => {
+          values = next;
+        }}
+      />,
+    );
+    await act(async () => {
+      fireEvent.press(screen.getByLabelText("Week"));
+    });
+    expect(values).toEqual(["day"]);
+  });
+
+  it("carries selection on the check mark", async () => {
+    await render(<SegmentedButton options={OPTIONS} value="day" />);
+    // The selected segment renders the M3 check glyph beside the label;
+    // unselected segments render label only.
+    expect(
+      within(screen.getByLabelText("Day")).getByText("\u2713"),
+    ).toBeTruthy();
+    expect(
+      within(screen.getByLabelText("Week")).queryByText("\u2713"),
+    ).toBeNull();
+  });
 });
 
 describe("Banner native twin (P0 KEEP)", () => {
@@ -130,5 +181,36 @@ describe("Banner native twin (P0 KEEP)", () => {
       </Banner>,
     );
     expect(screen.getByTestId("banner-action")).toBeTruthy();
+  });
+
+  it("stays hidden with open={false} (web visibility contract)", async () => {
+    await render(
+      <Banner variant="info" title="Heads up" open={false}>
+        Body
+      </Banner>,
+    );
+    expect(screen.queryByText("Heads up")).toBeNull();
+  });
+
+  it("dismiss drives onOpenChange(false) plus onDismiss", async () => {
+    const onOpenChange = jest.fn();
+    const onDismiss = jest.fn();
+    await render(
+      <Banner
+        variant="info"
+        title="Heads up"
+        defaultOpen
+        onOpenChange={onOpenChange}
+        onDismiss={onDismiss}
+      >
+        Body
+      </Banner>,
+    );
+    await act(async () => {
+      fireEvent.press(screen.getByLabelText("Dismiss Heads up"));
+    });
+    expect(onOpenChange).toHaveBeenCalledWith(false);
+    expect(onDismiss).toHaveBeenCalled();
+    expect(screen.queryByText("Heads up")).toBeNull();
   });
 });

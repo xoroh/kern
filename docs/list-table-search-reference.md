@@ -147,8 +147,14 @@ by design, recorded here.
 
 - `preview-card` (web-only hover preview): stays a web-only utility —
   hover-preview has no touch equivalent; no WP1a action. (Readiness P0.)
+  D977 C3 CONFIRMED: web-only (hover-driven desktop popup has no RN hover
+  idiom; native Tooltip / RichTooltip / Popover already cover it). Controlled
+  `open`/`onOpenChange` pinned by test; no native twin planned.
 - `aspect-ratio` (N-only): layout primitive, not list/table/search; no
   WP1a action. (Readiness P0.)
+  D977 C4 CONFIRMED: N-only (RN `aspectRatio` style primitive; web uses CSS
+  `aspect-ratio` directly). Rationale recorded on the component; existing
+  `library.rntest.tsx` coverage verified.
 - Native table = list-cards fallback under the shared contract (plan
   mandate) — implemented in `kern-native` `DataTable`.
 - Web `command` stays the palette primitive; `SearchView` composes

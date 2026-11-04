@@ -13,7 +13,13 @@ export type NativeAspectRatioProps = Omit<ViewProps, "children" | "style"> & {
   style?: StyleProp<ViewStyle>;
 };
 
-/** Box that keeps a fixed width-to-height ratio. */
+/**
+ * Box that keeps a fixed width-to-height ratio.
+ *
+ * D977 C4 decision: N-ONLY. This is an RN layout primitive over the
+ * `aspectRatio` style prop; web layouts use CSS `aspect-ratio` directly, so
+ * no web counterpart is planned — a platform-shape difference, not a gap.
+ */
 export function AspectRatio({
   children,
   ratio = 1,

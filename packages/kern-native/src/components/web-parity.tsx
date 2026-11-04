@@ -1,6 +1,7 @@
 import { useControllableState, useSelection } from "@xoroh/axis";
 import { type ResolvedTheme, tokens } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
+import { useState } from "react";
 import {
   Pressable,
   Text as RNText,
@@ -516,6 +517,9 @@ export function Banner({
   children,
   action,
   onDismiss,
+  open,
+  defaultOpen = true,
+  onOpenChange,
   style,
   testID,
 }: {
@@ -524,11 +528,28 @@ export function Banner({
   children?: ReactNode;
   action?: ReactNode;
   onDismiss?: () => void;
+  /**
+   * Visibility, converged with the web `Banner` contract (D977 C1): `open`
+   * wins, otherwise uncontrolled from `defaultOpen` (default visible — a
+   * banner is persistent, in-flow content). Dismiss drives
+   * `onOpenChange(false)` plus `onDismiss()`.
+   */
+  open?: boolean;
+  defaultOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
   style?: StyleProp<ViewStyle>;
   testID?: string;
 }) {
   const scheme = useKernScheme();
   const styles = bannerStyles(variant, scheme);
+  const [uncontrolled, setUncontrolled] = useState(defaultOpen);
+  const visible = open ?? uncontrolled;
+  if (!visible) return null;
+  const dismiss = () => {
+    setUncontrolled(false);
+    onOpenChange?.(false);
+    onDismiss?.();
+  };
   return (
     <View
       testID={testID ?? "kern-banner"}
@@ -540,11 +561,11 @@ export function Banner({
         {children ? <RNText style={styles.body}>{children}</RNText> : null}
       </View>
       {action}
-      {onDismiss ? (
+      {onDismiss || onOpenChange ? (
         <Pressable
           accessibilityRole="button"
           accessibilityLabel={`Dismiss ${title}`}
-          onPress={onDismiss}
+          onPress={dismiss}
           style={{
             minWidth: 48,
             minHeight: 48,

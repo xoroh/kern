@@ -49,7 +49,14 @@ export function PreviewCardContent({
   );
 }
 
-/** Hover preview card for links and references. */
+/**
+ * Hover preview card for links and references.
+ *
+ * D977 C3 decision: WEB-ONLY. A hover-driven desktop popup has no RN hover
+ * idiom; the native equivalents already shipped as Tooltip / RichTooltip /
+ * Popover. No native twin is planned — this is a platform-shape difference,
+ * not a parity gap.
+ */
 export const PreviewCard = {
   Root: PreviewCardRoot,
   Trigger: PreviewCardTrigger,

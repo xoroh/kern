@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { PreviewCard } from "./preview-card";
 
 /**
@@ -61,5 +61,24 @@ describe("PreviewCard states (P1)", () => {
     expect(await screen.findByText("Preview body")).toBeInTheDocument();
     await user.keyboard("{Escape}");
     await waitFor(() => expect(screen.queryByText("Preview body")).toBeNull());
+  });
+
+  it("pins controlled open/onOpenChange (D977 C3)", async () => {
+    const onOpenChange = vi.fn();
+    const { rerender } = render(
+      <PreviewCard.Root open onOpenChange={onOpenChange}>
+        <PreviewCard.Trigger>Docs</PreviewCard.Trigger>
+        <PreviewCard.Content>Preview body</PreviewCard.Content>
+      </PreviewCard.Root>,
+    );
+    expect(await screen.findByText("Preview body")).toBeInTheDocument();
+    rerender(
+      <PreviewCard.Root open={false} onOpenChange={onOpenChange}>
+        <PreviewCard.Trigger>Docs</PreviewCard.Trigger>
+        <PreviewCard.Content>Preview body</PreviewCard.Content>
+      </PreviewCard.Root>,
+    );
+    await waitFor(() => expect(screen.queryByText("Preview body")).toBeNull());
+    expect(onOpenChange).not.toHaveBeenCalled();
   });
 });
