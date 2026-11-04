@@ -108,10 +108,32 @@ export { ContextMenu } from "./components/context-menu";
 export type { NativeContrastToggleProps } from "./components/contrast-toggle";
 export { ContrastToggle } from "./components/contrast-toggle";
 export type {
+  NativeCsvColumn,
+  NativeCsvExportButtonProps,
+  NativeCsvRow,
+} from "./components/csv-export-button";
+export { buildCsv, CsvExportButton } from "./components/csv-export-button";
+export type {
+  NativeDataTableAction,
+  NativeDataTableColumn,
+  NativeDataTableColumnKind,
+  NativeDataTableProps,
+  NativeDataTableRow,
+  NativeDataTableVariant,
+  NativeSortDirection,
+} from "./components/data-table";
+export {
+  DataTable,
+  filterTableRows,
+  sortTableRows,
+} from "./components/data-table";
+export type {
   NativeDialogAction,
   NativeDialogProps,
 } from "./components/dialog";
 export { Dialog, dialogStyles } from "./components/dialog";
+export type { NativeEmptySearchProps } from "./components/empty-search";
+export { EmptySearch } from "./components/empty-search";
 export type { NativeEmptyStateProps } from "./components/empty-state";
 export { EmptyState } from "./components/empty-state";
 export type {
@@ -147,6 +169,19 @@ export {
   useFieldsetDisabled,
 } from "./components/fieldset";
 export type {
+  NativeActiveFilters,
+  NativeFilterBarProps,
+  NativeFilterDef,
+  NativeFilterOption,
+  NativeSavedView,
+} from "./components/filter-bar";
+export {
+  applyFilterDefs,
+  FilterBar,
+  fromFilterQuery,
+  toFilterQuery,
+} from "./components/filter-bar";
+export type {
   FormActions,
   FormState,
   NativeFormProps,
@@ -171,6 +206,53 @@ export type { NativeInputOTPProps } from "./components/input-otp";
 export { InputOTP, inputOTPStyles } from "./components/input-otp";
 export type { NativeKbdProps } from "./components/kbd";
 export { Kbd } from "./components/kbd";
+export type {
+  KernLoadingKind,
+  NativeKernLoadingProps,
+} from "./components/kern-loading";
+export { KernLoading } from "./components/kern-loading";
+export type {
+  KernNavigationVariant,
+  KernNavSection,
+  NativeKernNavigationProps,
+  RouteManifestEntry,
+} from "./components/kern-navigation";
+export {
+  flattenSections,
+  KernNavigation,
+  routeManifestToSections,
+} from "./components/kern-navigation";
+export type {
+  KernOverlaySize,
+  KernOverlayTab,
+  KernOverlayVariant,
+  NativeKernOverlayProps,
+} from "./components/kern-overlay";
+export { KernOverlay } from "./components/kern-overlay";
+export type {
+  KernPickerMode,
+  KernPickerVariant,
+  NativeCountryOption,
+  NativeKernPickerProps,
+  ReasonDataAdapter,
+  ReasonEntry,
+  ReasonPickerProps,
+  ServiceCatalogEntry,
+} from "./components/kern-picker";
+export {
+  KernPicker,
+  ReasonPicker,
+  reasonAdapterToOptions,
+  serviceCatalogToOptions,
+} from "./components/kern-picker";
+export type {
+  KernTabItem,
+  KernTabsDensity,
+  KernTabsOrientation,
+  KernTabsVariant,
+  NativeKernTabsProps,
+} from "./components/kern-tabs";
+export { KernTabs, kernTabsStyles } from "./components/kern-tabs";
 export type { LabelProps } from "./components/label";
 export { Label } from "./components/label";
 export type {
@@ -198,8 +280,28 @@ export {
 } from "./components/linear-progress";
 export type { LinkButtonProps } from "./components/link-button";
 export { LinkButton } from "./components/link-button";
+export type {
+  NativeListDensity,
+  NativeListHapticEvent,
+  NativeListProps,
+  NativeListRow,
+  NativeListSection,
+  NativeListSelectionMode,
+  NativeListVariant,
+} from "./components/list";
+export {
+  filterListRows,
+  List,
+  paginateListRows,
+  sectionListRows,
+  useListQuery,
+  usePagination,
+  virtualWindow,
+} from "./components/list";
 export type { NativeListItemProps } from "./components/list-item";
 export { ListItem } from "./components/list-item";
+export type { NativeListWithSearchAndFiltersProps } from "./components/list-with-search-and-filters";
+export { ListWithSearchAndFilters } from "./components/list-with-search-and-filters";
 export type { NativeLoaderProps, NativeLoaderSize } from "./components/loader";
 export { Loader } from "./components/loader";
 export type { LoadingButtonProps } from "./components/loading-button";
@@ -316,6 +418,11 @@ export { RadioGroup, RadioGroupItem } from "./components/radio-group";
 export type { NativeSearchProps } from "./components/search";
 export { Search } from "./components/search";
 export type {
+  NativeSearchSuggestion,
+  NativeSearchViewProps,
+} from "./components/search-view";
+export { filterSuggestions, SearchView } from "./components/search-view";
+export type {
   NativeSelectOption,
   NativeSelectProps,
 } from "./components/select";
@@ -401,6 +508,12 @@ export {
 } from "./components/state-layer";
 export type { NativeStatusBarProps } from "./components/status-bar";
 export { StatusBar } from "./components/status-bar";
+export type {
+  NativeStatusPillDensity,
+  NativeStatusPillProps,
+  StatusTone,
+} from "./components/status-pill";
+export { StatusPill, statusPillStyles } from "./components/status-pill";
 export type {
   SuccessState,
   SuccessTransformProps,

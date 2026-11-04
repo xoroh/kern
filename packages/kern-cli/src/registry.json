@@ -1,6 +1,6 @@
 {
   "version": "0.0.0",
-  "releaseSet": "kern@0.0.0+417.516de6ba57cba905",
+  "releaseSet": "kern@0.0.0+446.88b6d19467fa4e59",
   "rows": [
     {
       "name": "accordion-root",
@@ -252,6 +252,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/boot-indicator.tsx",
+      "status": "real"
+    },
+    {
+      "name": "bottom-app-bar",
+      "export": "BottomAppBar",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/bottom-app-bar.tsx",
       "status": "real"
     },
     {
@@ -696,6 +705,24 @@
       "status": "real"
     },
     {
+      "name": "csv-export-button",
+      "export": "CsvExportButton",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/csv-export-button.tsx",
+      "status": "real"
+    },
+    {
+      "name": "data-table",
+      "export": "DataTable",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/data-table.tsx",
+      "status": "real"
+    },
+    {
       "name": "dialog-root",
       "export": "DialogRoot",
       "platform": "web",
@@ -819,6 +846,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/drawer.tsx",
+      "status": "real"
+    },
+    {
+      "name": "empty-search",
+      "export": "EmptySearch",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/empty-search.tsx",
       "status": "real"
     },
     {
@@ -948,6 +984,15 @@
       "status": "real"
     },
     {
+      "name": "filter-bar",
+      "export": "FilterBar",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/filter-bar.tsx",
+      "status": "real"
+    },
+    {
       "name": "focus-ring",
       "export": "FocusRing",
       "platform": "web",
@@ -1020,6 +1065,60 @@
       "status": "real"
     },
     {
+      "name": "kern-loading",
+      "export": "KernLoading",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-loading.tsx",
+      "status": "real"
+    },
+    {
+      "name": "kern-navigation",
+      "export": "KernNavigation",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-navigation.tsx",
+      "status": "real"
+    },
+    {
+      "name": "kern-overlay",
+      "export": "KernOverlay",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-overlay.tsx",
+      "status": "real"
+    },
+    {
+      "name": "kern-picker",
+      "export": "KernPicker",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-picker.tsx",
+      "status": "real"
+    },
+    {
+      "name": "reason-picker",
+      "export": "ReasonPicker",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-picker.tsx",
+      "status": "real"
+    },
+    {
+      "name": "kern-tabs",
+      "export": "KernTabs",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-tabs.tsx",
+      "status": "real"
+    },
+    {
       "name": "label",
       "export": "Label",
       "platform": "web",
@@ -1053,6 +1152,24 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/list-item.tsx",
+      "status": "real"
+    },
+    {
+      "name": "list-with-search-and-filters",
+      "export": "ListWithSearchAndFilters",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/list-with-search-and-filters.tsx",
+      "status": "real"
+    },
+    {
+      "name": "list",
+      "export": "List",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/list.tsx",
       "status": "real"
     },
     {
@@ -1371,6 +1488,15 @@
       "status": "real"
     },
     {
+      "name": "navigation-rail",
+      "export": "NavigationRail",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/navigation-rail.tsx",
+      "status": "real"
+    },
+    {
       "name": "number-field-root",
       "export": "NumberFieldRoot",
       "platform": "web",
@@ -1602,6 +1728,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/scroll-area.tsx",
+      "status": "real"
+    },
+    {
+      "name": "search-view",
+      "export": "SearchView",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/search-view.tsx",
       "status": "real"
     },
     {
@@ -2034,6 +2169,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/split.tsx",
+      "status": "real"
+    },
+    {
+      "name": "status-pill",
+      "export": "StatusPill",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/status-pill.tsx",
       "status": "real"
     },
     {
@@ -2496,15 +2640,6 @@
       "status": "real"
     },
     {
-      "name": "navigation-rail",
-      "export": "NavigationRail",
-      "platform": "web",
-      "system": "kern-m3",
-      "entrypoint": "./start",
-      "path": "src/start/navigation.tsx",
-      "status": "real"
-    },
-    {
       "name": "navigation-rail-button",
       "export": "NavigationRailButton",
       "platform": "web",
@@ -2883,12 +3018,39 @@
       "status": "real"
     },
     {
+      "name": "csv-export-button",
+      "export": "CsvExportButton",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/csv-export-button.tsx",
+      "status": "real"
+    },
+    {
+      "name": "data-table",
+      "export": "DataTable",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/data-table.tsx",
+      "status": "real"
+    },
+    {
       "name": "dialog",
       "export": "Dialog",
       "platform": "native",
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/dialog.tsx",
+      "status": "real"
+    },
+    {
+      "name": "empty-search",
+      "export": "EmptySearch",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/empty-search.tsx",
       "status": "real"
     },
     {
@@ -2982,6 +3144,15 @@
       "status": "real"
     },
     {
+      "name": "filter-bar",
+      "export": "FilterBar",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/filter-bar.tsx",
+      "status": "real"
+    },
+    {
       "name": "form",
       "export": "Form",
       "platform": "native",
@@ -3033,6 +3204,60 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kbd.tsx",
+      "status": "real"
+    },
+    {
+      "name": "kern-loading",
+      "export": "KernLoading",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-loading.tsx",
+      "status": "real"
+    },
+    {
+      "name": "kern-navigation",
+      "export": "KernNavigation",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-navigation.tsx",
+      "status": "real"
+    },
+    {
+      "name": "kern-overlay",
+      "export": "KernOverlay",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-overlay.tsx",
+      "status": "real"
+    },
+    {
+      "name": "kern-picker",
+      "export": "KernPicker",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-picker.tsx",
+      "status": "real"
+    },
+    {
+      "name": "reason-picker",
+      "export": "ReasonPicker",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-picker.tsx",
+      "status": "real"
+    },
+    {
+      "name": "kern-tabs",
+      "export": "KernTabs",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-tabs.tsx",
       "status": "real"
     },
     {
@@ -3114,6 +3339,24 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/list-item.tsx",
+      "status": "real"
+    },
+    {
+      "name": "list-with-search-and-filters",
+      "export": "ListWithSearchAndFilters",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/list-with-search-and-filters.tsx",
+      "status": "real"
+    },
+    {
+      "name": "list",
+      "export": "List",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/list.tsx",
       "status": "real"
     },
     {
@@ -3351,6 +3594,15 @@
       "status": "real"
     },
     {
+      "name": "search-view",
+      "export": "SearchView",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/search-view.tsx",
+      "status": "real"
+    },
+    {
       "name": "search",
       "export": "Search",
       "platform": "native",
@@ -3573,6 +3825,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/status-bar.tsx",
+      "status": "real"
+    },
+    {
+      "name": "status-pill",
+      "export": "StatusPill",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/status-pill.tsx",
       "status": "real"
     },
     {

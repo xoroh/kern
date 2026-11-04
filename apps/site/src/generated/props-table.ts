@@ -756,6 +756,11 @@ export const PROPS_TABLE: Record<
         type: "number | undefined",
         required: false,
       },
+      {
+        name: "tone",
+        type: "StatusTone | undefined",
+        required: false,
+      },
     ],
     curated: ["children", "ref"],
   },
@@ -772,6 +777,11 @@ export const PROPS_TABLE: Record<
         type: "number | undefined",
         required: false,
       },
+      {
+        name: "tone",
+        type: "StatusTone | undefined",
+        required: false,
+      },
     ],
     curated: ["aria-label", "className"],
   },
@@ -779,7 +789,7 @@ export const PROPS_TABLE: Record<
     rows: [
       {
         name: "variant",
-        type: '"error" | "info" | "success" | "warning" | null | undefined',
+        type: '"error" | "success" | "warning" | "info" | null | undefined',
         required: false,
         default: '"info"',
       },
@@ -859,6 +869,41 @@ export const PROPS_TABLE: Record<
       },
     ],
     curated: ["className"],
+  },
+  BottomAppBar: {
+    rows: [
+      {
+        name: "actions",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "fab",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "children",
+        type: "ReactNode",
+        required: false,
+      },
+    ],
+    curated: [],
   },
   ButtonGroup: {
     rows: [
@@ -1445,6 +1490,11 @@ export const PROPS_TABLE: Record<
       {
         name: "elevated",
         type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "tone",
+        type: "StatusTone | undefined",
         required: false,
       },
       {
@@ -2861,6 +2911,161 @@ export const PROPS_TABLE: Record<
     ],
     curated: [],
   },
+  CsvExportButton: {
+    rows: [
+      {
+        name: "columns",
+        type: "CsvColumn[]",
+        required: true,
+      },
+      {
+        name: "rows",
+        type: "Record<string, string | number | boolean | null | undefined>[]",
+        required: true,
+      },
+      {
+        name: "filename",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "onExport",
+        type: "((csv: string, filename: string) => void) | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  DataTable: {
+    rows: [
+      {
+        name: "columns",
+        type: "DataTableColumn[]",
+        required: true,
+      },
+      {
+        name: "rows",
+        type: "DataTableRow[]",
+        required: true,
+      },
+      {
+        name: "variant",
+        type: "DataTableVariant | undefined",
+        required: false,
+      },
+      {
+        name: "caption",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "query",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "getRowId",
+        type: "((row: DataTableRow, index: number) => string) | undefined",
+        required: false,
+      },
+      {
+        name: "sortKey",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "defaultSortKey",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "sortDirection",
+        type: "SortDirection | undefined",
+        required: false,
+      },
+      {
+        name: "defaultSortDirection",
+        type: "SortDirection | undefined",
+        required: false,
+      },
+      {
+        name: "onSortChange",
+        type: "((key: string | undefined, direction: SortDirection) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "page",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "defaultPage",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "pageSize",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "onPageChange",
+        type: "((page: number) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "selectedIds",
+        type: "string[] | undefined",
+        required: false,
+      },
+      {
+        name: "defaultSelectedIds",
+        type: "string[] | undefined",
+        required: false,
+      },
+      {
+        name: "onSelectedChange",
+        type: "((ids: string[]) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "rowActions",
+        type: "DataTableAction[] | undefined",
+        required: false,
+      },
+      {
+        name: "density",
+        type: "TableDensity | undefined",
+        required: false,
+      },
+      {
+        name: "stickyHeader",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "selectable",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "emptyState",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
   DialogRoot: {
     rows: [
       {
@@ -3291,6 +3496,46 @@ export const PROPS_TABLE: Record<
     ],
     curated: [],
   },
+  EmptySearch: {
+    rows: [
+      {
+        name: "query",
+        type: "string",
+        required: true,
+      },
+      {
+        name: "onClear",
+        type: "() => void",
+        required: true,
+      },
+      {
+        name: "title",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "description",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "clearLabel",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "suggestions",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
   EmptyState: {
     rows: [
       {
@@ -3311,6 +3556,21 @@ export const PROPS_TABLE: Record<
       {
         name: "action",
         type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "primaryAction",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "secondaryAction",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "variant",
+        type: "EmptyStateVariant | undefined",
         required: false,
       },
     ],
@@ -3440,7 +3700,7 @@ export const PROPS_TABLE: Record<
     rows: [
       {
         name: "color",
-        type: '"surface" | "primary" | "secondary" | "tertiary" | "primary-fill" | "secondary-fill" | "tertiary-fill" | null | undefined',
+        type: '"primary" | "secondary" | "surface" | "tertiary" | "primary-fill" | "secondary-fill" | "tertiary-fill" | null | undefined',
         required: false,
         default: '"surface"',
       },
@@ -3648,6 +3908,56 @@ export const PROPS_TABLE: Record<
       },
     ],
     curated: ["children"],
+  },
+  FilterBar: {
+    rows: [
+      {
+        name: "filters",
+        type: "FilterDef[]",
+        required: true,
+      },
+      {
+        name: "savedViews",
+        type: "SavedView[] | undefined",
+        required: false,
+      },
+      {
+        name: "activeViewId",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "onSavedViewSelect",
+        type: "((view: SavedView | undefined) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onFiltersChange",
+        type: "((active: ActiveFilters) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenFilters",
+        type: "(() => void) | undefined",
+        required: false,
+      },
+      {
+        name: "openFiltersLabel",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
   },
   FocusRing: {
     rows: [],
@@ -3978,6 +4288,656 @@ export const PROPS_TABLE: Record<
     rows: [],
     curated: ["children", "className", "ref"],
   },
+  KernLoading: {
+    rows: [
+      {
+        name: "kind",
+        type: "KernLoadingKind | undefined",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "count",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "number | null | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  KernNavigation: {
+    rows: [
+      {
+        name: "variant",
+        type: "KernNavigationVariant | undefined",
+        required: false,
+      },
+      {
+        name: "sections",
+        type: "readonly KernNavSection[]",
+        required: true,
+      },
+      {
+        name: "value",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: "((key: string) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "header",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "footer",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "open",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultOpen",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChange",
+        type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "railMode",
+        type: "KernNavigationRailMode | undefined",
+        required: false,
+      },
+      {
+        name: "floating",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "detail",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "title",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  KernOverlay: {
+    rows: [
+      {
+        name: "variant",
+        type: "KernOverlayVariant | undefined",
+        required: false,
+      },
+      {
+        name: "open",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultOpen",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChange",
+        type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "title",
+        type: "ReactNode",
+        required: true,
+      },
+      {
+        name: "description",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "size",
+        type: "KernOverlaySize | undefined",
+        required: false,
+      },
+      {
+        name: "dismissible",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onClose",
+        type: "(() => void) | undefined",
+        required: false,
+      },
+      {
+        name: "side",
+        type: '"left" | "right" | undefined',
+        required: false,
+      },
+      {
+        name: "modal",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "snapPoints",
+        type: "readonly number[] | undefined",
+        required: false,
+      },
+      {
+        name: "snapIndex",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "defaultSnapIndex",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "onSnapIndexChange",
+        type: "((index: number) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "tabs",
+        type: "readonly KernOverlayTab[] | undefined",
+        required: false,
+      },
+      {
+        name: "activeTab",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "defaultActiveTab",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "onActiveTabChange",
+        type: "((key: string) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "footer",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "trigger",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | undefined",
+        required: false,
+      },
+      {
+        name: "children",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  KernPicker: {
+    rows: [
+      {
+        name: "mode",
+        type: "KernPickerMode | undefined",
+        required: false,
+      },
+      {
+        name: "variant",
+        type: "KernPickerVariant | undefined",
+        required: false,
+      },
+      {
+        name: "open",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultOpen",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChange",
+        type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "string",
+        required: true,
+      },
+      {
+        name: "placeholder",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "options",
+        type: "readonly PickerOption[] | undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "string | string[] | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "string | string[] | undefined",
+        required: false,
+      },
+      {
+        name: "onSelect",
+        type: "((value: string) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onMultiSelect",
+        type: "((values: string[]) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "multiple",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "dateValue",
+        type: "Date | undefined",
+        required: false,
+      },
+      {
+        name: "defaultDateValue",
+        type: "Date | undefined",
+        required: false,
+      },
+      {
+        name: "onDateChange",
+        type: "((date: Date) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "minDate",
+        type: "Date | undefined",
+        required: false,
+      },
+      {
+        name: "maxDate",
+        type: "Date | undefined",
+        required: false,
+      },
+      {
+        name: "timeValue",
+        type: "TimePickerValue | undefined",
+        required: false,
+      },
+      {
+        name: "defaultTimeValue",
+        type: "TimePickerValue | undefined",
+        required: false,
+      },
+      {
+        name: "onTimeChange",
+        type: "((value: TimePickerValue) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "timeFormat",
+        type: "TimePickerFormat | undefined",
+        required: false,
+      },
+      {
+        name: "timeStep",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "countries",
+        type: "readonly CountryOption[] | undefined",
+        required: false,
+      },
+      {
+        name: "countryCode",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "defaultCountryCode",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "onCountryChange",
+        type: "((country: CountryOption | null) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "catalog",
+        type: "readonly ServiceCatalogEntry[] | undefined",
+        required: false,
+      },
+      {
+        name: "reasons",
+        type: "ReasonDataAdapter | undefined",
+        required: false,
+      },
+      {
+        name: "trigger",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | undefined",
+        required: false,
+      },
+      {
+        name: "panel",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "footer",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  ReasonPicker: {
+    rows: [
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "string | string[] | undefined",
+        required: false,
+      },
+      {
+        name: "footer",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "string",
+        required: true,
+      },
+      {
+        name: "onSelect",
+        type: "((value: string) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "string | string[] | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChange",
+        type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "open",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultOpen",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "multiple",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "placeholder",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "variant",
+        type: "KernPickerVariant | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "options",
+        type: "readonly PickerOption[] | undefined",
+        required: false,
+      },
+      {
+        name: "onMultiSelect",
+        type: "((values: string[]) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "dateValue",
+        type: "Date | undefined",
+        required: false,
+      },
+      {
+        name: "defaultDateValue",
+        type: "Date | undefined",
+        required: false,
+      },
+      {
+        name: "onDateChange",
+        type: "((date: Date) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "minDate",
+        type: "Date | undefined",
+        required: false,
+      },
+      {
+        name: "maxDate",
+        type: "Date | undefined",
+        required: false,
+      },
+      {
+        name: "timeValue",
+        type: "TimePickerValue | undefined",
+        required: false,
+      },
+      {
+        name: "defaultTimeValue",
+        type: "TimePickerValue | undefined",
+        required: false,
+      },
+      {
+        name: "onTimeChange",
+        type: "((value: TimePickerValue) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "timeFormat",
+        type: "TimePickerFormat | undefined",
+        required: false,
+      },
+      {
+        name: "timeStep",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "countries",
+        type: "readonly CountryOption[] | undefined",
+        required: false,
+      },
+      {
+        name: "countryCode",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "defaultCountryCode",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "onCountryChange",
+        type: "((country: CountryOption | null) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "catalog",
+        type: "readonly ServiceCatalogEntry[] | undefined",
+        required: false,
+      },
+      {
+        name: "trigger",
+        type: "ReactElement<unknown, string | JSXElementConstructor<any>> | undefined",
+        required: false,
+      },
+      {
+        name: "panel",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "reasons",
+        type: "ReasonDataAdapter",
+        required: true,
+      },
+    ],
+    curated: [],
+  },
+  KernTabs: {
+    rows: [
+      {
+        name: "items",
+        type: "KernTabItem[]",
+        required: true,
+      },
+      {
+        name: "value",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: "((value: string) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "variant",
+        type: "KernTabsVariant | undefined",
+        required: false,
+      },
+      {
+        name: "orientation",
+        type: "KernTabsOrientation | undefined",
+        required: false,
+      },
+      {
+        name: "density",
+        type: "KernTabsDensity | undefined",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "children",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
   Label: {
     rows: [],
     curated: ["htmlFor", "className", "children"],
@@ -4081,6 +5041,206 @@ export const PROPS_TABLE: Record<
       },
     ],
     curated: ["className"],
+  },
+  ListWithSearchAndFilters: {
+    rows: [
+      {
+        name: "rows",
+        type: "ListRow[]",
+        required: true,
+      },
+      {
+        name: "filterDefs",
+        type: "FilterDef[] | undefined",
+        required: false,
+      },
+      {
+        name: "savedViews",
+        type: "SavedView[] | undefined",
+        required: false,
+      },
+      {
+        name: "filterable",
+        type: "((row: ListRow, key: string) => string | string[] | null | undefined) | undefined",
+        required: false,
+      },
+      {
+        name: "searchable",
+        type: "((row: ListRow) => string[]) | undefined",
+        required: false,
+      },
+      {
+        name: "query",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "defaultQuery",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "onQueryChange",
+        type: "((query: string) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "searchLabel",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "searchPlaceholder",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "variant",
+        type: "ListVariant | undefined",
+        required: false,
+      },
+      {
+        name: "density",
+        type: "ListDensity | undefined",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "loading",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "loadingRows",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "onRowPress",
+        type: "((id: string) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onFiltersChange",
+        type: "((active: ActiveFilters) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenFilters",
+        type: "(() => void) | undefined",
+        required: false,
+      },
+      {
+        name: "emptyState",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  List: {
+    rows: [
+      {
+        name: "rows",
+        type: "ListRow[] | undefined",
+        required: false,
+      },
+      {
+        name: "sections",
+        type: "ListSection[] | undefined",
+        required: false,
+      },
+      {
+        name: "variant",
+        type: "ListVariant | undefined",
+        required: false,
+      },
+      {
+        name: "density",
+        type: "ListDensity | undefined",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "selectedIds",
+        type: "string[] | undefined",
+        required: false,
+      },
+      {
+        name: "defaultSelectedIds",
+        type: "string[] | undefined",
+        required: false,
+      },
+      {
+        name: "onSelectedChange",
+        type: "((ids: string[]) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "selectionMode",
+        type: "ListSelectionMode | undefined",
+        required: false,
+      },
+      {
+        name: "expandedIds",
+        type: "string[] | undefined",
+        required: false,
+      },
+      {
+        name: "defaultExpandedIds",
+        type: "string[] | undefined",
+        required: false,
+      },
+      {
+        name: "onExpandedChange",
+        type: "((ids: string[]) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onRowPress",
+        type: "((id: string) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "loading",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "loadingRows",
+        type: "number | undefined",
+        required: false,
+      },
+      {
+        name: "emptyState",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "renderRow",
+        type: "((row: ListRow, index: number) => ReactNode) | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
   },
   Loader: {
     rows: [
@@ -5245,6 +6405,61 @@ export const PROPS_TABLE: Record<
     ],
     curated: ["href"],
   },
+  NavigationRail: {
+    rows: [
+      {
+        name: "destinations",
+        type: "readonly NavigationDestination[]",
+        required: true,
+      },
+      {
+        name: "value",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: "((key: string) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "mode",
+        type: "KernNavigationRailMode | undefined",
+        required: false,
+      },
+      {
+        name: "header",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "footer",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
   NumberFieldRoot: {
     rows: [
       {
@@ -6019,6 +7234,76 @@ export const PROPS_TABLE: Record<
       },
     ],
     curated: ["children", "ref"],
+  },
+  SearchView: {
+    rows: [
+      {
+        name: "suggestions",
+        type: "SearchSuggestion[]",
+        required: true,
+      },
+      {
+        name: "open",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultOpen",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChange",
+        type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "query",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "defaultQuery",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "onQueryChange",
+        type: "((query: string) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onSelect",
+        type: "((suggestion: SearchSuggestion) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onSearch",
+        type: "((query: string) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "hotkey",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "placeholder",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
   },
   Search: {
     rows: [
@@ -7609,6 +8894,41 @@ export const PROPS_TABLE: Record<
       },
     ],
     curated: ["className"],
+  },
+  StatusPill: {
+    rows: [
+      {
+        name: "tone",
+        type: "StatusTone | undefined",
+        required: false,
+      },
+      {
+        name: "emphasis",
+        type: '"soft" | "solid" | undefined',
+        required: false,
+      },
+      {
+        name: "icon",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "dot",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "density",
+        type: '"compact" | "medium" | undefined',
+        required: false,
+      },
+      {
+        name: "children",
+        type: "ReactNode",
+        required: true,
+      },
+    ],
+    curated: [],
   },
   Switch: {
     rows: [

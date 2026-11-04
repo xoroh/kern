@@ -78,6 +78,92 @@ const REGISTERED_ALIASES: Record<string, string[]> = {
   "packages/kern-native/src/components/number-field.tsx:onValueCommitted": [
     "value",
   ],
+  // WP2a overlay/picker state pairs: each is a second value-channel beside
+  // the canonical `value`/`open` (an overlay carries open-state, a snap
+  // index, AND a tab id; a picker carries an option value, a date, AND a
+  // time), so collapsing them onto one `value` would collide. Partners
+  // accompany each: the controlled prop plus its default.
+  "packages/kern/src/components/kern-overlay.tsx:onSnapIndexChange": [
+    "snapIndex",
+  ],
+  "packages/kern-native/src/components/kern-overlay.tsx:onSnapIndexChange": [
+    "snapIndex",
+  ],
+  "packages/kern/src/components/kern-overlay.tsx:onActiveTabChange": [
+    "activeTab",
+  ],
+  "packages/kern-native/src/components/kern-overlay.tsx:onActiveTabChange": [
+    "activeTab",
+  ],
+  "packages/kern/src/components/kern-picker.tsx:onDateChange": ["dateValue"],
+  "packages/kern-native/src/components/kern-picker.tsx:onDateChange": [
+    "dateValue",
+  ],
+  "packages/kern/src/components/kern-picker.tsx:onTimeChange": ["timeValue"],
+  "packages/kern-native/src/components/kern-picker.tsx:onTimeChange": [
+    "timeValue",
+  ],
+  "packages/kern/src/components/kern-picker.tsx:onMultiSelect": ["multiple"],
+  "packages/kern-native/src/components/kern-picker.tsx:onMultiSelect": [
+    "multiple",
+  ],
+  // WP1a list/table/search state pairs: each is a second value-channel beside
+  // the canonical `value` (a table carries sort, page, AND selection; a list
+  // carries selection AND expansion; a search block carries a query), so
+  // collapsing them onto one `value` would collide. Partners accompany each:
+  // the controlled prop plus its default.
+  "packages/kern/src/components/list.tsx:onSelectedChange": [
+    "selectedIds",
+    "defaultSelectedIds",
+  ],
+  "packages/kern-native/src/components/list.tsx:onSelectedChange": [
+    "selectedIds",
+    "defaultSelectedIds",
+  ],
+  "packages/kern/src/components/list.tsx:onExpandedChange": [
+    "expandedIds",
+    "defaultExpandedIds",
+  ],
+  "packages/kern-native/src/components/list.tsx:onExpandedChange": [
+    "expandedIds",
+    "defaultExpandedIds",
+  ],
+  "packages/kern/src/components/data-table.tsx:onSortChange": [
+    "sortKey",
+    "defaultSortKey",
+  ],
+  "packages/kern-native/src/components/data-table.tsx:onSortChange": [
+    "sortKey",
+    "defaultSortKey",
+  ],
+  "packages/kern/src/components/data-table.tsx:onPageChange": [
+    "page",
+    "defaultPage",
+  ],
+  "packages/kern-native/src/components/data-table.tsx:onPageChange": [
+    "page",
+    "defaultPage",
+  ],
+  "packages/kern/src/components/data-table.tsx:onSelectedChange": [
+    "selectedIds",
+    "defaultSelectedIds",
+  ],
+  "packages/kern-native/src/components/data-table.tsx:onSelectedChange": [
+    "selectedIds",
+    "defaultSelectedIds",
+  ],
+  "packages/kern/src/components/search-view.tsx:onQueryChange": [
+    "query",
+    "defaultQuery",
+  ],
+  "packages/kern-native/src/components/search-view.tsx:onQueryChange": [
+    "query",
+    "defaultQuery",
+  ],
+  "packages/kern/src/components/list-with-search-and-filters.tsx:onQueryChange":
+    ["query", "defaultQuery"],
+  "packages/kern-native/src/components/list-with-search-and-filters.tsx:onQueryChange":
+    ["query", "defaultQuery"],
 };
 
 /** Action callbacks: state-free by definition, never renamed. */
@@ -96,6 +182,18 @@ const ACTION_ALLOWLIST = new Set([
   "onCancel",
   "onAction",
   "onToggle",
+  // WP1a list/table/search event notifications: state-free by definition, never
+  // renamed. `onRowPress`/`onHaptic`/`onOpenFilters`/`onExport`/
+  // `onSavedViewSelect` are fire-and-forget events (cf. `onPress`/`onSelect`/
+  // `onClose`); `onFiltersChange` is a derived-model notification whose state
+  // lives in the controlled `FilterDef[]` (each facet carries canonical
+  // `value`/`defaultValue`/`onValueChange`), so it owns no channel itself.
+  "onRowPress",
+  "onHaptic",
+  "onOpenFilters",
+  "onExport",
+  "onFiltersChange",
+  "onSavedViewSelect",
 ]);
 
 async function tsxFiles(dir: string, out: string[] = []): Promise<string[]> {

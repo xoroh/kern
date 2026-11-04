@@ -1,4 +1,5 @@
 import { type ResolvedTheme, tokens } from "@xoroh/kern-tokens";
+import type { ReactNode } from "react";
 import {
   Pressable,
   type PressableProps,
@@ -50,6 +51,17 @@ export type NativeListItemProps = Omit<
 > & {
   title: string;
   supporting?: string;
+  /**
+   * Leading media slot (avatar, icon, …). WP1a 10-way list variants:
+   * unlike web's decorative leading span, native renders the slot visibly
+   * with no aria-hidden wrapper — the row's accessible name already comes
+   * from `title`/`supporting`, and hiding slotted MEDIA would also hide
+   * nothing informative either way. Interactive controls still do NOT
+   * belong here (use the selectable `List` variant's labelled rows).
+   */
+  leading?: ReactNode;
+  /** Trailing metadata/action slot. */
+  trailing?: ReactNode;
   onPress?: PressableProps["onPress"];
   accessibilityLabel?: string;
   accessibilityRole?: PressableProps["accessibilityRole"];
@@ -66,6 +78,8 @@ export type NativeListItemProps = Omit<
 export function ListItem({
   title,
   supporting,
+  leading,
+  trailing,
   contentStyle,
   titleStyle,
   testID,
@@ -97,12 +111,14 @@ export function ListItem({
     >
       {({ pressed: pressedNow }) => (
         <>
+          {leading}
           <View style={[{ flex: 1 }, contentStyle]}>
             <Text style={[styles.title, titleStyle]}>{title}</Text>
             {supporting ? (
               <Text style={styles.supporting}>{supporting}</Text>
             ) : null}
           </View>
+          {trailing}
           <StateLayer
             ink={scheme.color.onSurface}
             radius={radius}

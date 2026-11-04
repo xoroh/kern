@@ -68,6 +68,8 @@ export type { BannerActionProps, BannerProps } from "./banner";
 export { Banner, BannerAction, bannerVariants } from "./banner";
 export type { BootIndicatorProps } from "./boot-indicator";
 export { BootIndicator } from "./boot-indicator";
+export type { BottomAppBarProps } from "./bottom-app-bar";
+export { BOTTOM_APP_BAR_HEIGHT, BottomAppBar } from "./bottom-app-bar";
 export type {
   ButtonAnchorProps,
   ButtonButtonProps,
@@ -199,6 +201,26 @@ export {
   CountrySelectValue,
 } from "./country-select";
 export type {
+  CsvColumn,
+  CsvExportButtonProps,
+} from "./csv-export-button";
+export { buildCsv, CsvExportButton, downloadCsv } from "./csv-export-button";
+export type {
+  CellValue,
+  DataTableAction,
+  DataTableColumn,
+  DataTableColumnKind,
+  DataTableProps,
+  DataTableRow,
+  DataTableVariant,
+  SortDirection,
+} from "./data-table";
+export {
+  DataTable,
+  filterTableRows,
+  sortTableRows,
+} from "./data-table";
+export type {
   DialogCloseProps,
   DialogContentProps,
   DialogDescriptionProps,
@@ -232,6 +254,8 @@ export {
   DrawerTitle,
   DrawerTrigger,
 } from "./drawer";
+export type { EmptySearchProps } from "./empty-search";
+export { EmptySearch } from "./empty-search";
 export type { EmptyStateProps } from "./empty-state";
 export { EmptyState } from "./empty-state";
 export type {
@@ -266,6 +290,19 @@ export type { FieldMessageProps } from "./field-message";
 export { FieldMessage, fieldMessageVariants } from "./field-message";
 export type { FieldsetLegendProps, FieldsetRootProps } from "./fieldset";
 export { Fieldset, FieldsetLegend, FieldsetRoot } from "./fieldset";
+export type {
+  ActiveFilters,
+  FilterBarProps,
+  FilterDef,
+  FilterOption,
+  SavedView,
+} from "./filter-bar";
+export {
+  applyFilterDefs,
+  FilterBar,
+  fromFilterQuery,
+  toFilterQuery,
+} from "./filter-bar";
 export type { FocusRingProps } from "./focus-ring";
 export { FOCUS_RING_CLASS, FocusRing } from "./focus-ring";
 export type { FormProps } from "./form";
@@ -278,14 +315,79 @@ export type { InputOTPInputProps, InputOTPRootProps } from "./input-otp";
 export { InputOTP, InputOTPInput, InputOTPRoot } from "./input-otp";
 export type { KbdProps } from "./kbd";
 export { Kbd } from "./kbd";
+export type {
+  KernLoadingKind,
+  KernLoadingProps,
+} from "./kern-loading";
+export { KernLoading } from "./kern-loading";
+export type {
+  KernNavigationProps,
+  KernNavigationVariant,
+  KernNavSection,
+  RouteManifestEntry,
+} from "./kern-navigation";
+export {
+  flattenSections,
+  KernNavigation,
+  routeManifestToSections,
+} from "./kern-navigation";
+export type {
+  KernOverlayProps,
+  KernOverlaySize,
+  KernOverlayTab,
+  KernOverlayVariant,
+} from "./kern-overlay";
+export { KernOverlay } from "./kern-overlay";
+export type {
+  KernPickerMode,
+  KernPickerProps,
+  KernPickerVariant,
+  ReasonDataAdapter,
+  ReasonEntry,
+  ReasonPickerProps,
+  ServiceCatalogEntry,
+} from "./kern-picker";
+export {
+  KernPicker,
+  ReasonPicker,
+  reasonAdapterToOptions,
+  serviceCatalogToOptions,
+} from "./kern-picker";
+export type {
+  KernTabItem,
+  KernTabsDensity,
+  KernTabsOrientation,
+  KernTabsProps,
+  KernTabsVariant,
+} from "./kern-tabs";
+export { KernTabs } from "./kern-tabs";
 export type { LabelProps } from "./label";
 export { Label } from "./label";
 export type { LinearProgressProps } from "./linear-progress";
 export { LinearProgress } from "./linear-progress";
 export type { LinkButtonProps } from "./link-button";
 export { LinkButton } from "./link-button";
+export type {
+  ListDensity,
+  ListProps,
+  ListRow,
+  ListSection,
+  ListSelectionMode,
+  ListVariant,
+} from "./list";
+export {
+  filterListRows,
+  List,
+  paginateListRows,
+  sectionListRows,
+  useListQuery,
+  usePagination,
+  virtualWindow,
+} from "./list";
 export type { ListItemProps } from "./list-item";
 export { ListItem } from "./list-item";
+export type { ListWithSearchAndFiltersProps } from "./list-with-search-and-filters";
+export { ListWithSearchAndFilters } from "./list-with-search-and-filters";
 export type { LoaderProps } from "./loader";
 export { Loader, loaderVariants } from "./loader";
 export type { LoadingButtonProps } from "./loading-button";
@@ -378,6 +480,15 @@ export {
   NavigationMenuTrigger,
 } from "./navigation-menu";
 export type {
+  KernNavigationRailMode,
+  NavigationRailProps,
+} from "./navigation-rail";
+export {
+  KERN_NAVIGATION_RAIL_EXPANDED_WIDTH,
+  KERN_NAVIGATION_RAIL_WIDTH,
+  NavigationRail,
+} from "./navigation-rail";
+export type {
   NumberFieldInputProps,
   NumberFieldRootProps,
 } from "./number-field";
@@ -435,6 +546,8 @@ export {
 } from "./scroll-area";
 export type { SearchProps } from "./search";
 export { Search } from "./search";
+export type { SearchSuggestion, SearchViewProps } from "./search-view";
+export { filterSuggestions, SearchView } from "./search-view";
 export type { SecondaryTab, SecondaryTabsProps } from "./secondary-tabs";
 export { SecondaryTabs } from "./secondary-tabs";
 export type {
@@ -551,6 +664,12 @@ export type { SplitProps } from "./split";
 export { Split } from "./split";
 export type { SplitButtonAction, SplitButtonProps } from "./split-button";
 export { SplitButton } from "./split-button";
+export type { StatusPillProps, StatusTone } from "./status-pill";
+export {
+  StatusPill,
+  statusToneClassNames,
+  statusToneDotClassName,
+} from "./status-pill";
 export type { SwitchProps } from "./switch";
 export { Switch } from "./switch";
 export type {
