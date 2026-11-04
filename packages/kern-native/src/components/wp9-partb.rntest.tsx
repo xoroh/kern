@@ -2,6 +2,7 @@ import { fireEvent, render, screen } from "@testing-library/react-native";
 import { PortalHost } from "@xoroh/axis";
 import React, { act, type ReactElement } from "react";
 import { Pressable, Text } from "react-native";
+import { defaultScheme } from "../theme";
 import { Avatar } from "./avatar";
 import { Badge } from "./badge";
 import { Chip } from "./chip";
@@ -10,14 +11,9 @@ import { Loader } from "./loader";
 import { Meter } from "./meter";
 import { Progress, progressStyles } from "./progress";
 import { Skeleton } from "./skeleton";
-import {
-  SnackbarProvider,
-  SnackbarViewport,
-  useSnackbar,
-} from "./snackbar";
+import { SnackbarProvider, SnackbarViewport, useSnackbar } from "./snackbar";
 import { Toggle } from "./toggle";
 import { ToggleGroup } from "./toggle-group";
-import { defaultScheme } from "../theme";
 
 /**
  * WP9 Part B P1 — progress-primitive gaps + pure-behavior badge/chip/avatar.
@@ -87,16 +83,12 @@ describe("CircularProgress gaps", () => {
 
   it("renders three dots for the dots style", async () => {
     await render(<CircularProgress loaderStyle="dots" label="Loading" />);
-    expect(
-      screen.getAllByTestId("kern-circular-progress-dot"),
-    ).toHaveLength(3);
+    expect(screen.getAllByTestId("kern-circular-progress-dot")).toHaveLength(3);
   });
 
   it("renders four bars for the bar style", async () => {
     await render(<CircularProgress loaderStyle="bar" label="Loading" />);
-    expect(
-      screen.getAllByTestId("kern-circular-progress-bar"),
-    ).toHaveLength(4);
+    expect(screen.getAllByTestId("kern-circular-progress-bar")).toHaveLength(4);
   });
 
   it("renders one glyph per shape for the shapes style", async () => {
@@ -107,16 +99,16 @@ describe("CircularProgress gaps", () => {
         label="Loading"
       />,
     );
-    expect(
-      screen.getAllByTestId("kern-circular-progress-shape"),
-    ).toHaveLength(3);
+    expect(screen.getAllByTestId("kern-circular-progress-shape")).toHaveLength(
+      3,
+    );
   });
 
   it("announces the indeterminate wait by its text value", async () => {
     await render(<CircularProgress label="Syncing" />);
-    expect(
-      screen.getByLabelText("Syncing").props.accessibilityValue,
-    ).toEqual({ text: "Syncing" });
+    expect(screen.getByLabelText("Syncing").props.accessibilityValue).toEqual({
+      text: "Syncing",
+    });
   });
 
   it("honours a testID override", async () => {
@@ -192,9 +184,9 @@ describe("Skeleton gaps", () => {
     const style = Array.isArray(node?.props?.style)
       ? Object.assign({}, ...(node.props.style as object[]))
       : node?.props?.style;
-    expect(
-      (style as { borderRadius?: number } | undefined)?.borderRadius,
-    ).toBe(Number.parseFloat(scheme.shape["extra-small"]));
+    expect((style as { borderRadius?: number } | undefined)?.borderRadius).toBe(
+      Number.parseFloat(scheme.shape["extra-small"]),
+    );
   });
 
   it("merges a custom style onto the placeholder", async () => {
@@ -206,13 +198,7 @@ describe("Skeleton gaps", () => {
 });
 
 describe("Snackbar gaps", () => {
-  function Adder({
-    addLabel,
-    message,
-  }: {
-    addLabel: string;
-    message: string;
-  }) {
+  function Adder({ addLabel, message }: { addLabel: string; message: string }) {
     const sb = useSnackbar();
     return (
       <Pressable
@@ -360,11 +346,7 @@ describe("ToggleGroup gaps", () => {
   it("reports the selection array through onValueChange", async () => {
     const onValueChange = jest.fn();
     await render(
-      <ToggleGroup
-        options={OPTIONS}
-        multiple
-        onValueChange={onValueChange}
-      />,
+      <ToggleGroup options={OPTIONS} multiple onValueChange={onValueChange} />,
     );
     await act(async () => {
       fireEvent.press(screen.getByLabelText("Day"));
@@ -485,9 +467,7 @@ describe("Avatar pure-behavior (no tone props — avatar.tsx is G1-pending)", ()
 
 describe("Meter default value text", () => {
   it("announces the bare number when no valueText is given", async () => {
-    await render(
-      <Meter value={40} accessibilityLabel="Storage" showValue />,
-    );
+    await render(<Meter value={40} accessibilityLabel="Storage" showValue />);
     expect(screen.getByText("40")).toBeTruthy();
   });
 });
