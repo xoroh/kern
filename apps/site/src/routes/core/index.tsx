@@ -10,7 +10,7 @@
  * Platform filtering is view state on this one route (`?platform=`, 018),
  * same as the components gallery: one index URL, not one route per filter.
  */
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ComponentGallery,
   type GalleryPlatform,
@@ -20,8 +20,20 @@ import {
 import { PageCard } from "../../domains/shared/chrome/page-card";
 import { SiteLayout } from "../../domains/shared/chrome/site-layout";
 import { routeHead } from "../../domains/shared/systems/seo";
-import { T_BODY, T_PAGE } from "../../domains/shared/systems/type-scale";
-import { INK, INK_SOFT } from "../../domains/shared/systems/ui";
+import {
+  T_BODY,
+  T_BODY_SM,
+  T_KICKER,
+  T_LABEL_LG,
+  T_PAGE,
+} from "../../domains/shared/systems/type-scale";
+import {
+  CARD,
+  FOCUS_RING,
+  INK,
+  INK_SOFT,
+  TRANSITION,
+} from "../../domains/shared/systems/ui";
 
 export const Route = createFileRoute("/core/")({
   validateSearch: (
@@ -58,6 +70,27 @@ function CoreIndex() {
           <TierTabs active="core" />
           <PlatformSwitcher platform={platform} base="/core" />
         </header>
+        <Link
+          to="/core/buttons"
+          className={`${CARD} flex flex-col justify-between gap-3 p-6 no-underline hover:bg-(--sys-color-surface-container) sm:flex-row sm:items-center ${TRANSITION} ${FOCUS_RING}`}
+        >
+          <div className="flex flex-col gap-1">
+            <span
+              className={`uppercase text-(--sys-color-primary) ${T_KICKER}`}
+            >
+              Flagship Category Showcase · M3 Expressive
+            </span>
+            <span className={`${T_LABEL_LG} ${INK}`}>
+              Buttons &amp; PulseButton Interactive Showcase →
+            </span>
+            <span className={`${T_BODY_SM} ${INK_SOFT}`}>
+              Explore the 5-step M3 Expressive size ladder (32px–136px),
+              corner-morphing Button vs shape-locked PulseButton, 5×5
+              variant/color state matrix, SplitButton, ButtonGroup, and FAB
+              family in one interactive workbench.
+            </span>
+          </div>
+        </Link>
         <ComponentGallery platform={platform} tier="core" />
       </PageCard>
     </SiteLayout>

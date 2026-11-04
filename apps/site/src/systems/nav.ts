@@ -201,6 +201,12 @@ export const COMPONENTS_NAV: NavSection[] = [
         group: "Pages",
       },
       {
+        label: "Buttons showcase",
+        href: "/core/buttons",
+        hint: "Flagship M3 Expressive buttons & PulseButton interactive showcase",
+        group: "Pages",
+      },
+      {
         label: "All components",
         href: "/components",
         hint: "Composite components built from the core primitives, filterable by platform in place",

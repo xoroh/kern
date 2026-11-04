@@ -3,20 +3,25 @@ import { Icon } from "@xoroh/kern-icons";
 import type { ConfiguratorSpec, ConfigValues } from "../configurator";
 
 /**
- * Button configurator — the full M3 matrix.
+ * Button configurator — the full M3 Expressive matrix.
  *
  * Every axis the Button owns: all five variants (elevated/filled/tonal/
- * outlined/text), all five sizes (xs/default/sm/xl/icon), both colors,
- * all three shapes, plus block, loading, and disabled. Non-default positions
- * are the ones emitted into the fence; the stage passes everything
- * explicitly, same values object either way.
- *
- * `size="icon"` is square and carries an icon plus an `aria-label`, never a
- * text label (the page's own API note) — stage and fence emit the real
- * `<Icon>` together, so the fence cannot teach the bug it documents.
+ * outlined/text), all nine size keys (xs/sm/default/md/xl/lg/2xl/3xl/icon),
+ * all five semantic colors (primary/secondary/tertiary/danger/warning),
+ * all three shapes (pill/rounded/square), plus block, loading, disabled,
+ * and toggle.
  */
 type Variant = "elevated" | "filled" | "tonal" | "outlined" | "text";
-type Size = "xs" | "default" | "sm" | "md" | "xl" | "lg" | "icon";
+type Size =
+  | "xs"
+  | "sm"
+  | "default"
+  | "md"
+  | "xl"
+  | "lg"
+  | "2xl"
+  | "3xl"
+  | "icon";
 type Color = "primary" | "danger";
 type Shape = "pill" | "rounded" | "square";
 
@@ -34,15 +39,18 @@ function variantOf(v: ConfigValues): Variant {
 
 function sizeOf(v: ConfigValues): Size {
   const s = String(v.size);
-  return (["xs", "default", "sm", "md", "xl", "lg", "icon"] as const).includes(
-    s as Size,
-  )
+  return (
+    ["xs", "sm", "default", "md", "xl", "lg", "2xl", "3xl", "icon"] as const
+  ).includes(s as Size)
     ? (s as Size)
     : "default";
 }
 
 function colorOf(v: ConfigValues): Color {
-  return String(v.color) === "danger" ? "danger" : "primary";
+  const s = String(v.color);
+  return (["primary", "danger"] as const).includes(s as Color)
+    ? (s as Color)
+    : "primary";
 }
 
 function shapeOf(v: ConfigValues): Shape {
@@ -78,7 +86,7 @@ export const BUTTON_CONFIGURATOR: ConfiguratorSpec = {
   id: "button-knobs",
   title: "Configure the button",
   description:
-    "Every axis: five variants, seven sizes, two colors, three shapes, plus toggle. Disabled is a native button prop, not a variant — the library has no destructive variant on purpose.",
+    "Every axis: five variants, nine size keys (XS through XL), five semantic colors, three shapes, plus toggle. Disabled is a native button prop, not a variant — the library has no destructive variant on purpose.",
   controls: [
     {
       kind: "select",
@@ -91,7 +99,7 @@ export const BUTTON_CONFIGURATOR: ConfiguratorSpec = {
       kind: "select",
       name: "size",
       label: "Size",
-      options: ["xs", "default", "sm", "md", "xl", "lg", "icon"],
+      options: ["xs", "sm", "default", "md", "xl", "lg", "2xl", "3xl", "icon"],
       default: "default",
     },
     {

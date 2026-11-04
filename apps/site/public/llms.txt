@@ -36,6 +36,7 @@ Prefer these machine surfaces over scraping HTML:
 ## Components
 
 - [Core primitives](/core): M3 primitives — buttons, fields, dialogs, navigation, the base layer
+- [Buttons showcase](/core/buttons): Flagship M3 Expressive buttons & PulseButton interactive showcase
 - [All components](/components): Composite components built from the core primitives, filterable by platform in place
 - [API reference](/reference): Every export in the generated manifest
 

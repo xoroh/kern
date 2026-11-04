@@ -87,12 +87,17 @@ export function ButtonDemo() {
           </Button>
         </Row>
       </Preview>
-      <Preview label="size — xs · default · sm · xl · icon" span={3}>
+      <Preview
+        label="size — xs · sm · default · md · xl · lg · 2xl · 3xl · icon"
+        span={3}
+      >
         <Row>
           <Button size="xs">XS</Button>
-          <Button>Default</Button>
           <Button size="sm">Small</Button>
-          <Button size="xl">XL</Button>
+          <Button>Default</Button>
+          <Button size="md">Medium</Button>
+          <Button size="lg">Large</Button>
+          <Button size="2xl">2XL</Button>
           <Button size="icon" aria-label="Settings">
             <Gear />
           </Button>
@@ -568,33 +573,74 @@ export function BootIndicatorDemo() {
 
 export function IconButtonDemo() {
   return (
-    <Preview
-      label="IconButton — variant: standard · filled · tonal · outlined"
-      span={3}
-    >
-      <Row>
-        <IconButton
-          label="Add"
-          variant="standard"
-          icon={<Plus className="size-5" />}
-        />
-        <IconButton
-          label="Add"
-          variant="filled"
-          icon={<Plus className="size-5" />}
-        />
-        <IconButton
-          label="Add"
-          variant="tonal"
-          icon={<Plus className="size-5" />}
-        />
-        <IconButton
-          label="Add"
-          variant="outlined"
-          icon={<Plus className="size-5" />}
-        />
-      </Row>
-    </Preview>
+    <PreviewStack>
+      <Preview
+        label="IconButton — variant: standard · filled · tonal · outlined"
+        span={3}
+      >
+        <Row>
+          <IconButton
+            label="Add"
+            variant="standard"
+            icon={<Plus className="size-5" />}
+          />
+          <IconButton
+            label="Add"
+            variant="filled"
+            icon={<Plus className="size-5" />}
+          />
+          <IconButton
+            label="Add"
+            variant="tonal"
+            icon={<Plus className="size-5" />}
+          />
+          <IconButton
+            label="Add"
+            variant="outlined"
+            icon={<Plus className="size-5" />}
+          />
+        </Row>
+      </Preview>
+      <Preview
+        label="IconButton — width (narrow · default · wide) · shape (round · square) · toggle"
+        span={3}
+      >
+        <Row>
+          <IconButton
+            label="Narrow"
+            variant="tonal"
+            width="narrow"
+            icon={<Plus className="size-5" />}
+          />
+          <IconButton
+            label="Default"
+            variant="tonal"
+            width="default"
+            icon={<Plus className="size-5" />}
+          />
+          <IconButton
+            label="Wide"
+            variant="tonal"
+            width="wide"
+            icon={<Plus className="size-5" />}
+          />
+          <IconButton
+            label="Square"
+            variant="outlined"
+            shape="square"
+            icon={<Plus className="size-5" />}
+          />
+          <IconButton
+            label="Toggle"
+            variant="filled"
+            toggle
+            defaultPressed
+            icon={<Plus className="size-5" />}
+            selectedIcon={<Gear className="size-5" />}
+          />
+        </Row>
+      </Preview>
+    </PreviewStack>
   );
 }
 

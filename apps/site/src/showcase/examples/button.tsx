@@ -35,11 +35,13 @@ export const BUTTON_EXAMPLES: ExampleSpec[] = [
     id: "sizes",
     title: "Size is a separate axis",
     description:
-      "Sizing is not emphasis. `default`, `sm` and `icon` change the box, never which variant you are looking at.",
+      "Sizing is not emphasis. The M3 Expressive ladder spans `sm` (XS), `default` (S), `md` (M), `2xl` (L), and `3xl` (XL), plus `icon` for square icon-only actions.",
     render: () => (
       <>
         <Button size="sm">Small</Button>
         <Button>Default</Button>
+        <Button size="md">Medium</Button>
+        <Button size="2xl">Large</Button>
         <Button size="icon" aria-label="Add">
           <Icon name="add" />
         </Button>
@@ -47,22 +49,28 @@ export const BUTTON_EXAMPLES: ExampleSpec[] = [
     ),
     code: `<Button size="sm">Small</Button>
 <Button>Default</Button>
+<Button size="md">Medium</Button>
+<Button size="2xl">Large</Button>
 <Button size="icon" aria-label="Add"><Icon name="add" /></Button>`,
   },
   {
     id: "error-actions",
-    title: "Destructive actions, without a destructive variant",
+    title: 'Destructive actions via color="danger", not a destructive variant',
     description:
-      'There is no `variant="destructive"` — the library rejects it. An irreversible action is a button painted with the error roles, which is why this is a class and not a variant.',
+      'There is no `variant="destructive"` — the library rejects it. Destructive intent is orthogonal to emphasis and uses `color="danger"` across any variant.',
     render: () => (
-      <Button className="bg-(--sys-color-error) text-(--sys-color-on-error) hover:bg-(--sys-color-error)/90">
-        Delete project
-      </Button>
+      <>
+        <Button color="danger">Delete project</Button>
+        <Button variant="tonal" color="danger">
+          Remove member
+        </Button>
+        <Button variant="outlined" color="danger">
+          Discard draft
+        </Button>
+      </>
     ),
-    code: `<Button
-  className="bg-(--sys-color-error) text-(--sys-color-on-error) hover:bg-(--sys-color-error)/90"
->
-  Delete project
-</Button>`,
+    code: `<Button color="danger">Delete project</Button>
+<Button variant="tonal" color="danger">Remove member</Button>
+<Button variant="outlined" color="danger">Discard draft</Button>`,
   },
 ];

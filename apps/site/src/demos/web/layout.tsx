@@ -806,13 +806,34 @@ export function TimePickerDemo() {
 
 export function SplitButtonDemo() {
   return (
-    <Preview label="SplitButton — primary action + overflow" span={3}>
-      <SplitButton
-        label="Save"
-        menuLabel="More save options"
-        actions={[{ key: "draft", label: "Save as draft", onSelect: () => {} }]}
-        onClick={() => {}}
-      />
+    <Preview
+      label="SplitButton — primary action + overflow (filled · tonal · outlined)"
+      span={3}
+    >
+      <Row>
+        <SplitButton
+          label="Save"
+          menuLabel="More save options"
+          actions={[
+            { key: "draft", label: "Save as draft", onSelect: () => {} },
+          ]}
+          onClick={() => {}}
+        />
+        <SplitButton
+          label="Schedule"
+          variant="tonal"
+          actions={[
+            { key: "later", label: "Send tomorrow", onSelect: () => {} },
+          ]}
+          onClick={() => {}}
+        />
+        <SplitButton
+          label="Export"
+          variant="outlined"
+          actions={[{ key: "csv", label: "Export CSV", onSelect: () => {} }]}
+          onClick={() => {}}
+        />
+      </Row>
     </Preview>
   );
 }
