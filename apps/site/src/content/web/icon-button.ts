@@ -74,8 +74,8 @@ export const iconButton: ComponentDoc = {
     },
     {
       name: "size",
-      type: '"sm" | "default" | "lg" | "md" | "xs" | "xl" | "2xl" | null | undefined',
-      note: "Density size from `xs` to `2xl`; default is the standard control. `2xl` is the Expressive L size — already past the minimum touch target, so it carries no extra target inset.",
+      type: '"xs" | "sm" | "default" | "md" | "lg" | "xl" | "2xl" | "3xl" | null | undefined',
+      note: "Density size from `xs` (32dp) to `3xl` (136dp); default is the 40dp standard control. `2xl` (96dp) and `3xl` (136dp) are the Expressive L and XL sizes — already past the minimum touch target, so they carry no extra target inset.",
     },
     {
       name: "width",
@@ -96,6 +96,11 @@ export const iconButton: ComponentDoc = {
       name: "icon",
       type: "ReactNode",
       note: "Icon content. Hidden from assistive tech; the name comes from `label`.",
+    },
+    {
+      name: "selectedIcon",
+      type: "ReactNode | undefined",
+      note: "Alternate icon rendered when a toggle icon button is selected (for example, a filled glyph replacing an outlined glyph).",
     },
     {
       name: "label",

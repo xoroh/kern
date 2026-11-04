@@ -15,9 +15,9 @@ export type ButtonGroupProps = ComponentPropsWithRef<"div"> & {
 };
 
 /**
- * M3 Expressive button group. Joins Button (and icon-button) children into
- * one control. Children keep their own variants; the group removes inner
- * radii and doubles borders collapse.
+ * M3 Expressive button group. Joins Button, PulseButton, IconButton, and Toggle
+ * children into one control. Children keep their own variants; the group removes
+ * inner radii and double borders collapse.
  */
 export function ButtonGroup({
   orientation = "horizontal",
@@ -39,9 +39,12 @@ export function ButtonGroup({
         connected
           ? [
               "[&>[data-slot=button]:not(:first-child):not(:last-child)]:rounded-none",
+              "[&>[data-slot=pulse-button]:not(:first-child):not(:last-child)]:rounded-none",
+              "[&>[data-slot=icon-button]:not(:first-child):not(:last-child)]:rounded-none",
+              "[&>[data-slot=toggle]:not(:first-child):not(:last-child)]:rounded-none",
               orientation === "horizontal"
-                ? "[&>[data-slot=button]:first-child]:rounded-r-none [&>[data-slot=button]:last-child]:rounded-l-none [&>[data-slot=button]+[data-slot=button]]:-ml-px"
-                : "[&>[data-slot=button]:first-child]:rounded-b-none [&>[data-slot=button]:last-child]:rounded-t-none [&>[data-slot=button]+[data-slot=button]]:-mt-px",
+                ? "[&>[data-slot=button]:first-child]:rounded-r-none [&>[data-slot=button]:last-child]:rounded-l-none [&>[data-slot=button]+[data-slot=button]]:-ml-px [&>[data-slot=pulse-button]:first-child]:rounded-r-none [&>[data-slot=pulse-button]:last-child]:rounded-l-none [&>[data-slot=pulse-button]+[data-slot=pulse-button]]:-ml-px [&>[data-slot=icon-button]:first-child]:rounded-r-none [&>[data-slot=icon-button]:last-child]:rounded-l-none [&>[data-slot=icon-button]+[data-slot=icon-button]]:-ml-px [&>[data-slot=toggle]:first-child]:rounded-r-none [&>[data-slot=toggle]:last-child]:rounded-l-none [&>[data-slot=toggle]+[data-slot=toggle]]:-ml-px"
+                : "[&>[data-slot=button]:first-child]:rounded-b-none [&>[data-slot=button]:last-child]:rounded-t-none [&>[data-slot=button]+[data-slot=button]]:-mt-px [&>[data-slot=pulse-button]:first-child]:rounded-b-none [&>[data-slot=pulse-button]:last-child]:rounded-t-none [&>[data-slot=pulse-button]+[data-slot=pulse-button]]:-mt-px [&>[data-slot=icon-button]:first-child]:rounded-b-none [&>[data-slot=icon-button]:last-child]:rounded-t-none [&>[data-slot=icon-button]+[data-slot=icon-button]]:-mt-px [&>[data-slot=toggle]:first-child]:rounded-b-none [&>[data-slot=toggle]:last-child]:rounded-t-none [&>[data-slot=toggle]+[data-slot=toggle]]:-mt-px",
             ]
           : [
               orientation === "horizontal"

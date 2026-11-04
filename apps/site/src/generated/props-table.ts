@@ -1150,7 +1150,7 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "variant",
-        type: '"elevated" | "filled" | "outlined" | null | undefined',
+        type: '"filled" | "elevated" | "outlined" | null | undefined',
         required: false,
         default: '"filled"',
       },
@@ -1171,7 +1171,7 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "variant",
-        type: '"elevated" | "filled" | "outlined" | null | undefined',
+        type: '"filled" | "elevated" | "outlined" | null | undefined',
         required: false,
         default: '"filled"',
       },
@@ -1192,7 +1192,7 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "variant",
-        type: '"elevated" | "filled" | "outlined" | null | undefined',
+        type: '"filled" | "elevated" | "outlined" | null | undefined',
         required: false,
         default: '"filled"',
       },
@@ -1213,7 +1213,7 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "variant",
-        type: '"elevated" | "filled" | "outlined" | null | undefined',
+        type: '"filled" | "elevated" | "outlined" | null | undefined',
         required: false,
         default: '"filled"',
       },
@@ -4148,7 +4148,7 @@ export const PROPS_TABLE: Record<
       },
       {
         name: "size",
-        type: '"sm" | "default" | "lg" | "md" | "xs" | "xl" | "2xl" | null | undefined',
+        type: '"sm" | "default" | "lg" | "md" | "2xl" | "3xl" | "xs" | "xl" | null | undefined',
         required: false,
         default: '"default"',
       },
@@ -4182,6 +4182,11 @@ export const PROPS_TABLE: Record<
         required: true,
       },
       {
+        name: "selectedIcon",
+        type: "ReactNode",
+        required: false,
+      },
+      {
         name: "label",
         type: "string | undefined",
         required: false,
@@ -4189,21 +4194,6 @@ export const PROPS_TABLE: Record<
       {
         name: "selectedLabel",
         type: "string | undefined",
-        required: false,
-      },
-      {
-        name: "softDisabled",
-        type: "boolean | undefined",
-        required: false,
-      },
-      {
-        name: "loading",
-        type: "boolean | undefined",
-        required: false,
-      },
-      {
-        name: "flipIcon",
-        type: "boolean | undefined",
         required: false,
       },
       {
@@ -4219,6 +4209,21 @@ export const PROPS_TABLE: Record<
       {
         name: "onPressedChange",
         type: "((pressed: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "loading",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "softDisabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "flipIcon",
+        type: "boolean | undefined",
         required: false,
       },
     ],
@@ -10005,6 +10010,16 @@ export const PROPS_TABLE: Record<
       {
         name: "menuLabel",
         type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "variant",
+        type: "SplitButtonVariant | undefined",
+        required: false,
+      },
+      {
+        name: "size",
+        type: "SplitButtonSize | undefined",
         required: false,
       },
       {

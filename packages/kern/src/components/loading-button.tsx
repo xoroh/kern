@@ -28,6 +28,14 @@ export function LoadingButton({
   loaderStyle,
   variant,
   size,
+  color,
+  shape,
+  block,
+  icon,
+  iconPosition = "start",
+  flipIcon = false,
+  softDisabled = false,
+  testID,
   type = "button",
   className,
   disabled,
@@ -35,32 +43,56 @@ export function LoadingButton({
   ref,
   ...props
 }: LoadingButtonProps) {
-  // LoadingButton is button-only by type (ButtonButtonProps): anchor props
-  // cannot arrive here, so there is nothing to strip. No anchor branch.
+  const blocked = disabled || loading || softDisabled;
+  const iconNode = loading ? (
+    <CircularProgress
+      value={value}
+      loaderStyle={loaderStyle}
+      size="sm"
+      label="Loading"
+      aria-hidden="true"
+    />
+  ) : icon ? (
+    <span
+      data-slot="button-icon"
+      aria-hidden="true"
+      className={cn(
+        "inline-flex items-center justify-center",
+        flipIcon && "rtl:scale-x-[-1]",
+      )}
+    >
+      {icon}
+    </span>
+  ) : null;
+
   return (
     <button
       data-slot="loading-button"
-      data-testid="loading-button"
+      data-testid={testID ?? "loading-button"}
       data-loading={loading ? "" : undefined}
       aria-busy={loading ? true : undefined}
-      className={cn(buttonVariants({ variant, size }), className)}
+      aria-disabled={softDisabled ? true : undefined}
+      className={cn(
+        buttonVariants({ variant, size, color, shape, block }),
+        className,
+      )}
       disabled={disabled || loading}
       type={type}
       ref={(node) => {
         assignRef(ref, node);
       }}
       {...props}
+      onClick={(event) => {
+        if (blocked) {
+          event.preventDefault();
+          return;
+        }
+        props.onClick?.(event);
+      }}
     >
-      {loading ? (
-        <CircularProgress
-          value={value}
-          loaderStyle={loaderStyle}
-          size="sm"
-          label="Loading"
-          aria-hidden="true"
-        />
-      ) : null}
+      {iconPosition === "start" || loading ? iconNode : null}
       {children}
+      {!loading && iconPosition === "end" ? iconNode : null}
     </button>
   );
 }

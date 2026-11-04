@@ -7,40 +7,6 @@ import {
   menuSeparatorClass,
 } from "./menu-classes";
 
-/**
- * M3 split button — one action, plus an overflow menu for its siblings. The
- * primary action is the *most likely* one and stays a plain button; the overflow
- * is a second, separate control. M3 is explicit that the two must not be one
- * button with two hit regions: a single element that opens a menu on part of
- * itself cannot be announced as either control.
- *
- * Composed on the Base UI menu root, so item traversal, Escape, typeahead and
- * focus-return are the primitive's. What kern owns:
- *
- * - **Two tab stops, two names.** The primary button is named by `label`; the
- *   overflow trigger is named by `menuLabel` and carries `aria-haspopup="menu"`
- *   and `aria-expanded`. A split button implemented as one element is announced
- *   as one button, so the overflow action is unreachable by name.
- * - **Geometry that reads as one control** — the primary carries the full
- *   `corner-full` on its leading side, the overflow the trailing side, and the
- *   divider between them is the M3 1dp `outline`. Two visibly separate buttons
- *   with a seam would be a button group, which is a different component.
- *
- *   CORRECTION: this comment claimed the outline divider while NO border was
- *   rendered anywhere in the file — the two halves were one solid primary pill
- *   with no seam, which is not M3's split button. The 1dp `outline` divider is
- *   now actually applied (`border-s border-(--sys-color-outline)` on the
- *   trigger), and `split-button.test.tsx` pins it so the claim and the
- *   implementation cannot drift apart again.
- * - **The primary action does not open the menu.** Pressing it fires
- *   `onClick` and leaves the overflow closed; that separation is the entire
- *   reason the component exists.
- * - **Selecting an overflow action dismisses the menu**, so the host never has
- *   to close it and cannot forget to.
- * - **Disabled** disables both halves, because a split button whose overflow is
- *   live while its primary is dead is a trap.
- */
-
 export type SplitButtonAction = {
   key: string;
   label: string;
@@ -48,6 +14,69 @@ export type SplitButtonAction = {
   disabled?: boolean;
   separated?: boolean;
   onSelect?: () => void;
+};
+
+export type SplitButtonVariant = "filled" | "tonal" | "outlined";
+export type SplitButtonSize = "xs" | "sm" | "default" | "md" | "lg" | "xl";
+
+const SPLIT_VARIANT_CLASSES: Record<
+  SplitButtonVariant,
+  { primary: string; trigger: string }
+> = {
+  filled: {
+    primary:
+      "bg-(--sys-color-primary) text-(--sys-color-on-primary) before:bg-(--sys-color-on-primary)",
+    trigger:
+      "bg-(--sys-color-primary) text-(--sys-color-on-primary) border-s border-(--sys-color-outline) before:bg-(--sys-color-on-primary)",
+  },
+  tonal: {
+    primary:
+      "bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container) before:bg-(--sys-color-on-secondary-container)",
+    trigger:
+      "bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container) border-s border-(--sys-color-outline) before:bg-(--sys-color-on-secondary-container)",
+  },
+  outlined: {
+    primary:
+      "border border-e-0 border-(--sys-color-outline) bg-transparent text-(--sys-color-primary) before:bg-(--sys-color-primary)",
+    trigger:
+      "border border-(--sys-color-outline) border-s bg-transparent text-(--sys-color-primary) before:bg-(--sys-color-primary)",
+  },
+};
+
+const SPLIT_SIZE_CLASSES: Record<
+  SplitButtonSize,
+  { root: string; primary: string; trigger: string }
+> = {
+  xs: {
+    root: "h-8",
+    primary: "h-8 px-3 text-xs [&_svg]:size-4",
+    trigger: "h-8 ps-1.5 pe-2.5 [&_svg]:size-4",
+  },
+  sm: {
+    root: "h-9",
+    primary: "h-9 px-3.5 text-xs [&_svg]:size-[18px]",
+    trigger: "h-9 ps-2 pe-2.5 [&_svg]:size-[18px]",
+  },
+  default: {
+    root: "h-10",
+    primary: "h-10 pr-4 pl-4 text-sm [&_svg]:size-[18px]",
+    trigger: "h-10 ps-2 pe-3 [&_svg]:size-[18px]",
+  },
+  md: {
+    root: "h-12",
+    primary: "h-12 px-5 text-base [&_svg]:size-5",
+    trigger: "h-12 ps-2.5 pe-3.5 [&_svg]:size-5",
+  },
+  lg: {
+    root: "h-14",
+    primary: "h-14 px-6 text-base [&_svg]:size-6",
+    trigger: "h-14 ps-3 pe-4 [&_svg]:size-6",
+  },
+  xl: {
+    root: "h-24",
+    primary: "h-24 px-10 text-xl [&_svg]:size-8",
+    trigger: "h-24 ps-5 pe-6 [&_svg]:size-8",
+  },
 };
 
 export type SplitButtonProps = {
@@ -60,6 +89,10 @@ export type SplitButtonProps = {
   actions: SplitButtonAction[];
   /** Accessible name of the overflow trigger. */
   menuLabel?: string;
+  /** M3 split button emphasis (`filled` default, `tonal`, `outlined`). */
+  variant?: SplitButtonVariant;
+  /** M3 Expressive split button size (`default` 40dp). */
+  size?: SplitButtonSize;
   disabled?: boolean;
   className?: string;
   testID?: string;
@@ -71,12 +104,16 @@ export function SplitButton({
   icon,
   actions,
   menuLabel,
+  variant = "filled",
+  size = "default",
   disabled = false,
   className,
   testID,
 }: SplitButtonProps) {
   const [open, setOpen] = useState(false);
   const overflowName = menuLabel ?? `${label} more`;
+  const variantCls = SPLIT_VARIANT_CLASSES[variant];
+  const sizeCls = SPLIT_SIZE_CLASSES[size];
 
   return (
     <MenuPrimitive.Root
@@ -87,9 +124,12 @@ export function SplitButton({
     >
       <div
         data-slot="split-button"
+        data-variant={variant}
+        data-size={size}
         data-testid={testID ?? "kern-split-button"}
         className={cn(
-          "kern-split-button inline-flex h-10 shrink-0 items-stretch overflow-hidden rounded-(--sys-shape-corner-full)",
+          "kern-split-button inline-flex shrink-0 items-stretch overflow-hidden rounded-(--sys-shape-corner-full)",
+          sizeCls.root,
           disabled && "pointer-events-none",
           className,
         )}
@@ -100,7 +140,11 @@ export function SplitButton({
           aria-label={label}
           disabled={disabled}
           onClick={onClick}
-          className="kern-split-button-primary relative inline-flex h-10 items-center gap-2 rounded-s-(--sys-shape-corner-full) bg-(--sys-color-primary) pr-4 pl-4 text-sm leading-5 font-medium tracking-[0.1px] text-(--sys-color-on-primary) transition-[color,background-color] duration-200 ease-(--sys-motion-easing-standard) outline-none select-none focus-visible:ring-[3px] focus-visible:ring-(--sys-color-secondary) focus-visible:ring-inset disabled:pointer-events-none disabled:bg-(--sys-color-on-surface)/12 disabled:text-(--sys-color-on-surface)/38 before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--sys-color-on-primary) hover:before:opacity-[var(--sys-state-hover)] focus-visible:before:opacity-[var(--sys-state-focus)] active:before:opacity-[var(--sys-state-press)] disabled:before:opacity-0 [[&_svg]:size-[18px]_svg]:size-5 [&_svg]:shrink-0"
+          className={cn(
+            "kern-split-button-primary relative inline-flex items-center gap-2 rounded-s-(--sys-shape-corner-full) leading-5 font-medium tracking-[0.1px] transition-[color,background-color] duration-200 ease-(--sys-motion-easing-standard) outline-none select-none focus-visible:ring-[3px] focus-visible:ring-(--sys-color-secondary) focus-visible:ring-inset disabled:pointer-events-none disabled:bg-(--sys-color-on-surface)/12 disabled:text-(--sys-color-on-surface)/38 before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 hover:before:opacity-[var(--sys-state-hover)] focus-visible:before:opacity-[var(--sys-state-focus)] active:before:opacity-[var(--sys-state-press)] disabled:before:opacity-0 [&_svg]:shrink-0",
+            variantCls.primary,
+            sizeCls.primary,
+          )}
         >
           {icon ? (
             <span aria-hidden="true" className="flex items-center">
@@ -117,9 +161,16 @@ export function SplitButton({
             data-open={open || undefined}
             aria-label={overflowName}
             disabled={disabled}
-            className="kern-split-button-trigger relative inline-flex h-10 items-center justify-center rounded-e-(--sys-shape-corner-full) bg-(--sys-color-primary) ps-2 pe-3 text-(--sys-color-on-primary) border-s border-(--sys-color-outline) transition-[color,background-color] duration-200 ease-(--sys-motion-easing-standard) outline-none select-none focus-visible:ring-[3px] focus-visible:ring-(--sys-color-secondary) focus-visible:ring-inset disabled:pointer-events-none disabled:bg-(--sys-color-on-surface)/12 disabled:text-(--sys-color-on-surface)/38 before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--sys-color-on-primary) hover:before:opacity-[var(--sys-state-hover)] focus-visible:before:opacity-[var(--sys-state-focus)] active:before:opacity-[var(--sys-state-press)] disabled:before:opacity-0 data-[open]:before:opacity-[var(--sys-state-press)] [[&_svg]:size-[18px]_svg]:size-5"
+            className={cn(
+              "kern-split-button-trigger group relative inline-flex items-center justify-center rounded-e-(--sys-shape-corner-full) transition-[color,background-color] duration-200 ease-(--sys-motion-easing-standard) outline-none select-none focus-visible:ring-[3px] focus-visible:ring-(--sys-color-secondary) focus-visible:ring-inset disabled:pointer-events-none disabled:bg-(--sys-color-on-surface)/12 disabled:text-(--sys-color-on-surface)/38 before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 hover:before:opacity-[var(--sys-state-hover)] focus-visible:before:opacity-[var(--sys-state-focus)] active:before:opacity-[var(--sys-state-press)] disabled:before:opacity-0 data-[open]:before:opacity-[var(--sys-state-press)] [&_svg]:shrink-0",
+              variantCls.trigger,
+              sizeCls.trigger,
+            )}
           >
-            <span aria-hidden="true" className="flex items-center">
+            <span
+              aria-hidden="true"
+              className="flex items-center transition-transform duration-200 ease-(--sys-motion-easing-standard) group-data-[open]:rotate-180"
+            >
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path
                   d="M7 10l5 5 5-5"
@@ -141,9 +192,6 @@ export function SplitButton({
             align="end"
             className="kern-split-button-positioner"
           >
-            {/* No `aria-label` here: the root already points `aria-labelledby`
-                at the trigger, so a second name would compete with it. The menu
-                announces as the control that opened it. */}
             <MenuPrimitive.Popup
               data-slot="split-button-menu"
               className={menuPopupClass}

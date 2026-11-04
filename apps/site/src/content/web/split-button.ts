@@ -46,11 +46,11 @@ export const splitButton: ComponentDoc = {
   customization: {
     supported: [
       "`className` is passed through and merged after the control's own classes.",
+      "`variant` (`filled`, `tonal`, `outlined`) and `size` (`xs` through `xl`) scale both halves in lockstep.",
       "Actions are data — `key`, `label`, optional `icon`, `disabled`, `separated`, `onSelect`.",
       "`separated` draws a divider before an action, so the one that is unlike the others can be fenced off.",
     ],
     notSupported: [
-      "There is no `variant` or `size` prop.",
       "There is no `placement` prop for the menu. It opens under the overflow half, where an overflow belongs.",
       "There is no `primary` flag on the actions. The primary is `label` and `onClick`; the rest are the menu.",
     ],
@@ -70,6 +70,18 @@ export const splitButton: ComponentDoc = {
       name: "actions",
       type: "SplitButtonAction[]",
       note: "The alternatives, as data. An EMPTY LIST RENDERS NO OVERFLOW HALF — so a split button with nothing to split degrades to a plain button rather than a dead second half.",
+    },
+    {
+      name: "variant",
+      type: '"filled" | "tonal" | "outlined"',
+      default: '"filled"',
+      note: "Visual emphasis shared by the leading action half and trailing menu trigger.",
+    },
+    {
+      name: "size",
+      type: '"xs" | "sm" | "default" | "md" | "lg" | "xl"',
+      default: '"default"',
+      note: "M3 Expressive size step shared by both halves, scaling height, inner corner gap, and trailing chevron.",
     },
     {
       name: "icon",

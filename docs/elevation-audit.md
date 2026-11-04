@@ -6,8 +6,8 @@ Web concepts in the registry: **335** (the ladder's "68 components" is stale).
 
 | verdict | count | meaning |
 |---|---:|---|
-| ASSERTED | 22 | carries a token; M3 names a level; `check:kern` covers it |
-| ABSENT-0 | 5 | M3 puts it at resting level 0 — `level0` is `shadow: none`, so **no token is the conformant state** |
+| ASSERTED | 21 | carries a token; M3 names a level; `check:kern` covers it |
+| ABSENT-0 | 6 | M3 puts it at resting level 0 — `level0` is `shadow: none`, so **no token is the conformant state** |
 | GAP | 0 | **M3 names a level but the component carries no token** — the only real defect class |
 | NO-SPEC | 308 | M3 specifies no resting level — kern extension, CSS wrapper, or sub-part |
 | MISMATCH | 0 | carries a level M3 does not assign to it — an UNEARNED shadow; this fails the audit |
@@ -61,7 +61,7 @@ conformant state, and `check:kern` gates it that way — a row permitting 0 is c
 | `bottom-app-bar` | 2 | — | — | NO-SPEC |
 | `bottom-sheet` | 1 | 0/1 | bottom sheet (modal) | ASSERTED |
 | `bottom-sheet-picker` | 1 | 0/1 | bottom sheet (modal) | ASSERTED |
-| `button` | 1/2 | 0/1/2 | button (elevated); buttons (filled, tonal, outlined) | ASSERTED |
+| `button` | — | 0/1/2 | button (elevated); buttons (filled, tonal, outlined) | ABSENT-0 |
 | `button-group` | — | — | — | NO-SPEC |
 | `calendar` | — | — | — | NO-SPEC |
 | `card` | 1 | 0/1 | card (elevated); cards (filled, outlined) | ASSERTED |
@@ -119,7 +119,7 @@ conformant state, and `check:kern` gates it that way — a row permitting 0 is c
 | `country-select-root` | — | — | — | NO-SPEC |
 | `country-select-trigger` | — | — | — | NO-SPEC |
 | `country-select-value` | — | — | — | NO-SPEC |
-| `csv-export-button` | 1/2 | — | — | NO-SPEC |
+| `csv-export-button` | — | — | — | NO-SPEC |
 | `cta-banner` | — | — | — | NO-SPEC |
 | `dashboard-page` | 1 | — | — | NO-SPEC |
 | `data-table` | 1 | — | — | NO-SPEC |
@@ -139,7 +139,7 @@ conformant state, and `check:kern` gates it that way — a row permitting 0 is c
 | `drawer-root` | — | — | — | NO-SPEC |
 | `drawer-title` | — | — | — | NO-SPEC |
 | `drawer-trigger` | — | — | — | NO-SPEC |
-| `empty-search` | 1/2 | — | — | NO-SPEC |
+| `empty-search` | — | — | — | NO-SPEC |
 | `empty-state` | — | — | — | NO-SPEC |
 | `entity-sheet` | 1 | 0/1 | bottom sheet (modal) | ASSERTED |
 | `extended-fab` | 3/4 | 3/4 | extended fab | ASSERTED |
@@ -155,7 +155,7 @@ conformant state, and `check:kern` gates it that way — a row permitting 0 is c
 | `fieldset` | — | — | — | NO-SPEC |
 | `fieldset-legend` | — | — | — | NO-SPEC |
 | `fieldset-root` | — | — | — | NO-SPEC |
-| `filter-bar` | 1/2 | — | — | NO-SPEC |
+| `filter-bar` | 1 | — | — | NO-SPEC |
 | `filter-chip-row` | — | — | — | NO-SPEC |
 | `focus-ring` | — | — | — | NO-SPEC |
 | `form` | — | — | — | NO-SPEC |
@@ -182,14 +182,14 @@ conformant state, and `check:kern` gates it that way — a row permitting 0 is c
 | `label` | — | — | — | NO-SPEC |
 | `linear-progress` | — | — | — | NO-SPEC |
 | `link` | — | — | — | NO-SPEC |
-| `link-button` | 1/2 | — | — | NO-SPEC |
+| `link-button` | — | — | — | NO-SPEC |
 | `link-provider` | — | — | — | NO-SPEC |
 | `list` | — | — | — | NO-SPEC |
 | `list-detail` | — | — | — | NO-SPEC |
 | `list-item` | — | 0 | list | ABSENT-0 |
-| `list-with-search-and-filters` | 1/2 | — | — | NO-SPEC |
+| `list-with-search-and-filters` | 1 | — | — | NO-SPEC |
 | `loader` | — | — | — | NO-SPEC |
-| `loading-button` | 1/2 | — | — | NO-SPEC |
+| `loading-button` | — | — | — | NO-SPEC |
 | `loading-indicator` | — | — | — | NO-SPEC |
 | `loading-region` | — | — | — | NO-SPEC |
 | `map-marker` | — | — | — | NO-SPEC |
@@ -265,7 +265,7 @@ conformant state, and `check:kern` gates it that way — a row permitting 0 is c
 | `scroll-area-viewport` | — | — | — | NO-SPEC |
 | `search` | — | — | — | NO-SPEC |
 | `search-bar` | — | — | — | NO-SPEC |
-| `search-view` | 1/2/3 | — | — | NO-SPEC |
+| `search-view` | 3 | — | — | NO-SPEC |
 | `secondary-tabs` | — | — | — | NO-SPEC |
 | `section-drawer` | — | — | — | NO-SPEC |
 | `segmented-button` | — | 0 | segmented button | ABSENT-0 |
