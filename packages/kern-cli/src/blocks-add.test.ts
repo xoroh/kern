@@ -263,6 +263,31 @@ describe("kern add <block> (multi-file)", () => {
     ).toThrow(/no native variant for "settings-screen\.tsx"/);
   });
 
+  it("vendors the promoted billing block on both renderers", () => {
+    for (const platform of ["web", "native"] as const) {
+      const dest = freshDest();
+      try {
+        const r = addBlock("billing", {
+          root: WORKSPACE_ROOT,
+          dest,
+          platform,
+        });
+        const file =
+          platform === "native"
+            ? "blocks/billing.native.tsx"
+            : "blocks/billing.tsx";
+        expect(r.files).toContain(file);
+        expect(existsSync(join(dest, file))).toBe(true);
+        const receipt = JSON.parse(readFileSync(r.receipt, "utf8"));
+        expect(
+          receipt.files.find((f: { path: string }) => f.path === file),
+        ).toBeDefined();
+      } finally {
+        rmSync(dest, { recursive: true, force: true });
+      }
+    }
+  });
+
   it("vendors a native variant with a native closure when present", () => {
     const root = fixtureNativeWorkspace();
     const dest = freshDest();

@@ -61,5 +61,47 @@
     "contents": {
       "empty-search.tsx": "/**\n * Block: empty-search — a no-results state composed from shipped components.\n *\n * Category: Dashboard. Install with `kern add empty-search`.\n * Dependencies: @xoroh/kern, react.\n */\nimport { Button, EmptyState } from \"@xoroh/kern\";\n\nexport function EmptySearch({\n  query,\n  onClear,\n}: {\n  query: string;\n  onClear: () => void;\n}) {\n  return (\n    <EmptyState\n      title={`No results for “${query}”`}\n      description=\"Try a different spelling, or clear the search to browse everything.\"\n      action={\n        <Button variant=\"tonal\" onClick={onClear}>\n          Clear search\n        </Button>\n      }\n    />\n  );\n}\n"
     }
+  },
+  {
+    "name": "billing",
+    "title": "Billing page",
+    "category": "Billing",
+    "description": "A billing page: Growth-plan slot with status pill plus a display-only invoice ledger. Reach for it when billing is plan display plus invoice history, never payment actions.",
+    "file": "billing.tsx",
+    "files": [],
+    "registryDependencies": [
+      "BillingPage",
+      "StatusPill"
+    ],
+    "dependencies": [
+      "@xoroh/kern",
+      "@xoroh/kern-native",
+      "react"
+    ],
+    "contents": {
+      "billing.tsx": "/**\n * Billing block — plan display slot + invoice ledger, wired with mock data.\n *\n * A block is a real source file composed ONLY from shipped packages\n * (`@xoroh/kern`, `react`). It renders the shipped `BillingPage` with a\n * realistic Growth-plan slot and two ledger rows — copy it, then replace\n * the mock plan/invoices with host data. Display-only: no pay action, no\n * top-up action, no payment logic (the component refuses actions by\n * construction; so does this block).\n */\nimport { BillingPage, StatusPill } from \"@xoroh/kern\";\n\nexport function BillingPageBlock() {\n  return (\n    <BillingPage\n      title=\"Billing\"\n      description=\"Plan, invoices, and usage — display only.\"\n      plan={\n        <div className=\"flex flex-wrap items-center justify-between gap-3\">\n          <div>\n            <p className=\"text-(--sys-typescale-title-large-font-size) font-(--sys-typescale-title-large-font-weight)\">\n              Growth plan\n            </p>\n            <p className=\"text-(--sys-typescale-body-small-font-size) opacity-70\">\n              Monthly · renews Dec 1\n            </p>\n          </div>\n          <StatusPill tone=\"success\">Active</StatusPill>\n        </div>\n      }\n      invoiceColumns={[\n        { key: \"id\", title: \"Invoice\" },\n        { key: \"total\", title: \"Total\", kind: \"numeric\" },\n      ]}\n      invoiceRows={[\n        { id: \"INV-003\", total: 2900 },\n        { id: \"INV-002\", total: 2900 },\n      ]}\n    />\n  );\n}\n",
+      "billing.native.tsx": "/**\n * Billing block, native variant — plan display slot + invoice ledger, wired\n * with mock data.\n *\n * Same contract as `billing.tsx`: real source composed ONLY from shipped\n * packages (`@xoroh/kern-native`, `react`), installed by\n * `kern add billing --platform native`. Display-only: no pay action, no\n * top-up action, no payment logic.\n */\nimport { BillingPage, StatusPill, Text } from \"@xoroh/kern-native\";\n\nexport function BillingPageBlock() {\n  return (\n    <BillingPage\n      title=\"Billing\"\n      description=\"Plan, invoices, and usage — display only.\"\n      planLabel=\"Current plan\"\n      plan={\n        <>\n          <Text>Growth plan · Monthly · renews Dec 1</Text>\n          <StatusPill tone=\"success\">Active</StatusPill>\n        </>\n      }\n      invoicesLabel=\"Invoices\"\n      invoiceColumns={[\n        { key: \"id\", title: \"Invoice\" },\n        { key: \"total\", title: \"Total\", kind: \"numeric\" },\n      ]}\n      invoiceRows={[\n        { id: \"INV-003\", total: 2900 },\n        { id: \"INV-002\", total: 2900 },\n      ]}\n    />\n  );\n}\n"
+    }
+  },
+  {
+    "name": "dashboard",
+    "title": "Dashboard page",
+    "category": "Dashboard",
+    "description": "A dashboard page: stat cards, activity feed and an ops queue table. Reach for it when the page is figures plus feed plus queue.",
+    "file": "dashboard.tsx",
+    "files": [],
+    "registryDependencies": [
+      "DashboardPage",
+      "StatusPill"
+    ],
+    "dependencies": [
+      "@xoroh/kern",
+      "@xoroh/kern-native",
+      "react"
+    ],
+    "contents": {
+      "dashboard.tsx": "/**\n * Dashboard block — stat-card grid + activity feed + ops queue, wired with\n * mock data.\n *\n * A block is a real source file composed ONLY from shipped packages\n * (`@xoroh/kern`, `react`). It renders the shipped `DashboardPage` with\n * two stat cards, two activity rows and a two-row bookings queue — copy\n * it, then replace the mock stats/activity/queue with host data.\n */\nimport { DashboardPage, StatusPill } from \"@xoroh/kern\";\n\nexport function DashboardPageBlock() {\n  return (\n    <DashboardPage\n      title=\"Overview\"\n      description=\"Today at a glance.\"\n      stats={[\n        {\n          id: \"active\",\n          label: \"Active trips\",\n          value: \"128\",\n          delta: <StatusPill tone=\"success\">+12%</StatusPill>,\n          tone: \"success\",\n        },\n        { id: \"queue\", label: \"Waiting\", value: \"6\", href: \"#queue\" },\n      ]}\n      activityRows={[\n        { id: \"a\", headline: \"Trip 12 completed\", supporting: \"14:02\" },\n        { id: \"b\", headline: \"Driver went online\", supporting: \"13:58\" },\n      ]}\n      queueTable={{\n        columns: [\n          { key: \"id\", title: \"Trip\" },\n          { key: \"status\", title: \"Status\", kind: \"status\" },\n        ],\n        rows: [\n          { id: \"t-1\", status: \"waiting\" },\n          { id: \"t-2\", status: \"live\" },\n        ],\n      }}\n    />\n  );\n}\n",
+      "dashboard.native.tsx": "/**\n * Dashboard block, native variant — stat cards + activity feed + ops\n * queue, wired with mock data.\n *\n * Same contract as `dashboard.tsx`: real source composed ONLY from shipped\n * packages (`@xoroh/kern-native`, `react`), installed by\n * `kern add dashboard --platform native`.\n */\nimport { DashboardPage, StatusPill } from \"@xoroh/kern-native\";\n\nexport function DashboardPageBlock() {\n  return (\n    <DashboardPage\n      title=\"Overview\"\n      description=\"Today at a glance.\"\n      stats={[\n        {\n          id: \"active\",\n          label: \"Active trips\",\n          value: \"128\",\n          delta: <StatusPill tone=\"success\">+12%</StatusPill>,\n          tone: \"success\",\n        },\n        { id: \"queue\", label: \"Waiting\", value: \"6\" },\n      ]}\n      activityRows={[\n        { id: \"a\", title: \"Trip 12 completed\", supporting: \"14:02\" },\n        { id: \"b\", title: \"Driver went online\", supporting: \"13:58\" },\n      ]}\n      queueTable={{\n        columns: [\n          { key: \"id\", title: \"Trip\" },\n          { key: \"status\", title: \"Status\", kind: \"status\" },\n        ],\n        rows: [\n          { id: \"t-1\", status: \"waiting\" },\n          { id: \"t-2\", status: \"live\" },\n        ],\n      }}\n    />\n  );\n}\n"
+    }
   }
 ]

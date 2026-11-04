@@ -8,13 +8,19 @@
  * categories from the fixed set, every registry dependency a real barrel
  * export); the CLI reads the same file to resolve `kern add <block>`.
  */
-export type BlockCategory = "Auth" | "Settings" | "Dashboard" | "Sidebar";
+export type BlockCategory =
+  | "Auth"
+  | "Settings"
+  | "Dashboard"
+  | "Sidebar"
+  | "Billing";
 
 export const BLOCK_CATEGORIES: readonly BlockCategory[] = [
   "Auth",
   "Settings",
   "Dashboard",
   "Sidebar",
+  "Billing",
 ];
 
 export type BlockEntry = {
@@ -74,5 +80,27 @@ export const BLOCKS: BlockEntry[] = [
     files: [],
     registryDependencies: ["Button", "EmptyState"],
     dependencies: ["@xoroh/kern", "react"],
+  },
+  {
+    name: "billing",
+    title: "Billing page",
+    category: "Billing",
+    description:
+      "A billing page: Growth-plan slot with status pill plus a display-only invoice ledger. Reach for it when billing is plan display plus invoice history, never payment actions.",
+    file: "billing.tsx",
+    files: [],
+    registryDependencies: ["BillingPage", "StatusPill"],
+    dependencies: ["@xoroh/kern", "@xoroh/kern-native", "react"],
+  },
+  {
+    name: "dashboard",
+    title: "Dashboard page",
+    category: "Dashboard",
+    description:
+      "A dashboard page: stat cards, activity feed and an ops queue table. Reach for it when the page is figures plus feed plus queue.",
+    file: "dashboard.tsx",
+    files: [],
+    registryDependencies: ["DashboardPage", "StatusPill"],
+    dependencies: ["@xoroh/kern", "@xoroh/kern-native", "react"],
   },
 ];

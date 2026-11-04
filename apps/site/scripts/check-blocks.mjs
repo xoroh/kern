@@ -69,7 +69,7 @@ for (const d of new Set(dupes)) fail(`duplicate block name "${d}"`);
 const categories = [...manifestSrc.matchAll(/category:\s*"([^"]+)"/g)].map(
   (m) => m[1],
 );
-const allowed = ["Auth", "Settings", "Dashboard", "Sidebar"];
+const allowed = ["Auth", "Settings", "Dashboard", "Sidebar", "Billing"];
 for (const c of new Set(categories)) {
   if (!allowed.includes(c))
     fail(`unknown category "${c}" — must be one of ${allowed.join(", ")}`);
@@ -106,7 +106,17 @@ for (const chunk of chunks) {
   // own siblings). Anything else — a site-chrome import, a `../` escape —
   // makes the file uninstallable standalone, which is the one thing a block
   // must be.
+  //
+  // Native variants (`<base>.native.tsx`, D1003/D1004) ride along when
+  // present: they are validated with the same import rule, so a native
+  // block file cannot smuggle site chrome past the gate either.
   const declaredFiles = new Set([file, ...siblings]);
+  for (const rel of [file, ...siblings]) {
+    const native = rel.replace(/\.tsx$/, ".native.tsx");
+    if (existsSync(join(BLOCKS_DIR, native)) && !declaredFiles.has(native)) {
+      declaredFiles.add(native);
+    }
+  }
   const declaredStems = new Set(
     [...declaredFiles].map((f) => f.replace(/\.tsx?$/, "")),
   );

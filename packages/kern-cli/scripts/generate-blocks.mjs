@@ -22,6 +22,14 @@ for (const chunk of chunks) {
     return [...body.matchAll(/"([^"]+)"/g)].map((m) => m[1]);
   };
   const files = [file, ...strList("files")];
+  // Native variants (D1003/D1004) ride in the payload when present: a packed
+  // install has no checkout to read them from, and without the bytes a
+  // packed `kern add <block> --platform native` could only refuse. Absent
+  // variants stay absent — the planner refuses those aloud either way.
+  for (const rel of [...files]) {
+    const native = rel.replace(/\.tsx$/, ".native.tsx");
+    if (existsSync(join(DIR, native))) files.push(native);
+  }
   // File contents ride in the payload (KERN-034): a packed install has no
   // checkout, and a block payload without its bytes is an install plan that
   // cannot install. ~10KB total — the honest offline graph, not a reference.

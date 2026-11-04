@@ -6226,4 +6226,22 @@ export const BUNDLED_BLOCKS: BundledBlock[] = [
     files: ["empty-search.tsx"],
     components: ["Button", "EmptyState"],
   },
+  {
+    name: "billing",
+    title: "Billing page",
+    category: "Billing",
+    description:
+      "A billing page: Growth-plan slot with status pill plus a display-only invoice ledger. Reach for it when billing is plan display plus invoice history, never payment actions.",
+    files: ["billing.tsx"],
+    components: ["BillingPage", "StatusPill"],
+  },
+  {
+    name: "dashboard",
+    title: "Dashboard page",
+    category: "Dashboard",
+    description:
+      "A dashboard page: stat cards, activity feed and an ops queue table. Reach for it when the page is figures plus feed plus queue.",
+    files: ["dashboard.tsx"],
+    components: ["DashboardPage", "StatusPill"],
+  },
 ];

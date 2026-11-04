@@ -548,7 +548,14 @@ export function planBlock(
     }
   }
 
-  const npm = row.dependencies.filter((d) => d !== "react");
+  // npm peers ride the platform: a web install never lists the native
+  // package and vice versa. "react" is ambient (checked out or host-owned),
+  // never a peer to install.
+  const otherRenderer =
+    platform === "native" ? "@xoroh/kern" : "@xoroh/kern-native";
+  const npm = row.dependencies.filter(
+    (d) => d !== "react" && d !== otherRenderer,
+  );
   return {
     platform,
     files,

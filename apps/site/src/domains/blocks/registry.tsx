@@ -10,6 +10,10 @@
 import type { ReactNode } from "react";
 import { AuthForm } from "../../blocks/auth-form";
 import authFormSource from "../../blocks/auth-form.tsx?raw";
+import { BillingPageBlock } from "../../blocks/billing";
+import billingSource from "../../blocks/billing.tsx?raw";
+import { DashboardPageBlock } from "../../blocks/dashboard";
+import dashboardSource from "../../blocks/dashboard.tsx?raw";
 import { EmptySearch } from "../../blocks/empty-search";
 import emptySearchSource from "../../blocks/empty-search.tsx?raw";
 import type { BlockEntry } from "../../blocks/manifest";
@@ -27,12 +31,16 @@ const RENDERS: Record<string, () => ReactNode> = {
   "settings-screen": () => <SettingsScreen />,
   "auth-form": () => <AuthForm />,
   "empty-search": () => <EmptySearch query="invoices" onClear={() => {}} />,
+  billing: () => <BillingPageBlock />,
+  dashboard: () => <DashboardPageBlock />,
 };
 
 const SOURCES: Record<string, string> = {
   "settings-screen": settingsScreenSource,
   "auth-form": authFormSource,
   "empty-search": emptySearchSource,
+  billing: billingSource,
+  dashboard: dashboardSource,
 };
 
 export const BLOCK_VIEWS: BlockView[] = BLOCKS.map((entry) => ({
