@@ -106,7 +106,15 @@ import { INPUT_OTP_EXAMPLES } from "./examples/input-otp";
 import { KBD_EXAMPLES } from "./examples/kbd";
 import { KERN_COMPOSER_EXAMPLES } from "./examples/kern-composer";
 import { KERN_CONTACT_EXAMPLES } from "./examples/kern-contact";
+import { KERN_LOADING_EXAMPLES } from "./examples/kern-loading";
+import { KERN_NAVIGATION_EXAMPLES } from "./examples/kern-navigation";
+import { KERN_OVERLAY_EXAMPLES } from "./examples/kern-overlay";
+import {
+  KERN_PICKER_EXAMPLES,
+  REASON_PICKER_EXAMPLES,
+} from "./examples/kern-picker";
 import { KERN_SETTINGS_EXAMPLES } from "./examples/kern-settings";
+import { KERN_TABS_EXAMPLES } from "./examples/kern-tabs";
 import { LABEL_EXAMPLES } from "./examples/label";
 import { LINEAR_PROGRESS_EXAMPLES } from "./examples/linear-progress";
 import { LINK_BUTTON_EXAMPLES } from "./examples/link-button";
@@ -153,6 +161,7 @@ import { SNACKBAR_EXAMPLES } from "./examples/snackbar";
 import { SNAP_SHEET_EXAMPLES } from "./examples/snap-sheet";
 import { SPLIT_EXAMPLES } from "./examples/split";
 import { SPLIT_BUTTON_EXAMPLES } from "./examples/split-button";
+import { STATUS_PILL_EXAMPLES } from "./examples/status-pill";
 import { SWITCH_EXAMPLES } from "./examples/switch";
 import { TABLE_EXAMPLES } from "./examples/table";
 import { TABS_EXAMPLES } from "./examples/tabs";
@@ -214,7 +223,13 @@ export const EXAMPLES: Record<string, ExampleSpec[]> = {
   Checkbox: CHECKBOX_EXAMPLES,
   Kbd: KBD_EXAMPLES,
   KernComposer: KERN_COMPOSER_EXAMPLES,
+  KernLoading: KERN_LOADING_EXAMPLES,
+  KernNavigation: KERN_NAVIGATION_EXAMPLES,
+  KernOverlay: KERN_OVERLAY_EXAMPLES,
+  KernPicker: KERN_PICKER_EXAMPLES,
+  ReasonPicker: REASON_PICKER_EXAMPLES,
   KernSettingsScreen: KERN_SETTINGS_EXAMPLES,
+  KernTabs: KERN_TABS_EXAMPLES,
   Label: LABEL_EXAMPLES,
   LinearProgress: LINEAR_PROGRESS_EXAMPLES,
   LinkButton: LINK_BUTTON_EXAMPLES,
@@ -262,6 +277,7 @@ export const EXAMPLES: Record<string, ExampleSpec[]> = {
   SnapSheet: SNAP_SHEET_EXAMPLES,
   SplitButton: SPLIT_BUTTON_EXAMPLES,
   Split: SPLIT_EXAMPLES,
+  StatusPill: STATUS_PILL_EXAMPLES,
   Switch: SWITCH_EXAMPLES,
   Table: TABLE_EXAMPLES,
   Tabs: TABS_EXAMPLES,
