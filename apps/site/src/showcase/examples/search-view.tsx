@@ -40,14 +40,10 @@ export const SEARCH_VIEW_EXAMPLES: ExampleSpec[] = [
         </div>
       );
     },
-    code: `<Button variant="outlined" onClick={() => setOpen(true)}>
-  Search or jump to…
-</Button>
-<SearchView
-  open={open}
-  onOpenChange={setOpen}
+    code: `<SearchView
+  defaultOpen
   suggestions={[{ id: "b", title: "Bookings", keywords: ["queue"] }]}
-  onSelect={(suggestion) => {}}
+  onSelect={() => {}}
 />`,
   },
 ];

@@ -38,9 +38,17 @@ export const BILLING_PAGE_EXAMPLES: ExampleSpec[] = [
     ),
     code: `<BillingPage
   title="Billing"
-  plan={<PlanSummary />}
-  invoiceColumns={columns}
-  invoiceRows={rows}
+  plan={
+    <div>
+      <p>Growth plan</p>
+      <StatusPill tone="success">Active</StatusPill>
+    </div>
+  }
+  invoiceColumns={[
+    { key: "id", title: "Invoice" },
+    { key: "total", title: "Total", kind: "numeric" },
+  ]}
+  invoiceRows={[{ id: "INV-003", total: 2900 }]}
 />`,
   },
 ];

@@ -21,6 +21,10 @@ export const featureGrid: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["FeatureGrid"],
+  // M2: this export renders no focusable element of its own — it takes
+  // no focus and answers no key — so an empty keyboard contract
+  // is a fact, not a gap.
+  nonInteractive: true,
   customization: {
     supported: [
       "`items` are data — id, title, description, icon — rendered as cards.",

@@ -47,8 +47,8 @@ export const FILTER_BAR_EXAMPLES: ExampleSpec[] = [
     ),
     code: `<FilterBar
   filters={[
-    { key: "status", label: "Status", options: [...] },
-    { key: "plan", label: "Plan", multi: false, options: [...] },
+    { key: "status", label: "Status", options: [] },
+    { key: "plan", label: "Plan", multi: false, options: [] },
   ]}
   savedViews={[{ id: "live", label: "Live now", filters: { status: ["live"] } }]}
   onOpenFilters={() => {}}

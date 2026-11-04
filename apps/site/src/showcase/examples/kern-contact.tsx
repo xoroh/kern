@@ -1,6 +1,7 @@
 import {
   ContactCard,
   ContactDirectory,
+  ContactGroupList,
   ContactRow,
   StatusPill,
 } from "@xoroh/kern";
@@ -11,14 +12,14 @@ import type { ExampleSpec } from "../example";
  * (user / driver / group → row), one tone contract for every disc, the
  * directory composing search + grouped rows + empty state.
  */
-export const KERN_CONTACT_EXAMPLES: ExampleSpec[] = [
+export const CONTACT_ROW_EXAMPLES: ExampleSpec[] = [
   {
-    id: "kern-contact-trio",
-    title: "Row, card, and tone",
+    id: "contact-row",
+    title: "Identity row",
     description:
-      "The disc tone is deterministic per contact on the status registry — photo or initials, row or card, the identity contract never forks.",
+      "Photo or initials disc in the deterministic registry tone, name plus detail line; a row with `onSelect` is one real button.",
     render: () => (
-      <div className="flex w-full max-w-xl flex-col gap-4">
+      <div className="w-full max-w-xl">
         <div className="flex flex-col gap-px overflow-hidden rounded-(--sys-shape-corner-small) bg-(--sys-color-surface-container)">
           <ContactRow
             contact={{
@@ -35,6 +36,19 @@ export const KERN_CONTACT_EXAMPLES: ExampleSpec[] = [
             }}
           />
         </div>
+      </div>
+    ),
+    code: `<ContactRow contact={{ id: "ada", name: "Ada Lovelace", detail: "Driver" }} />`,
+  },
+];
+export const CONTACT_CARD_EXAMPLES: ExampleSpec[] = [
+  {
+    id: "contact-card",
+    title: "Identity card",
+    description:
+      "The row's contract as a card — disc, name, detail, host status slot.",
+    render: () => (
+      <div className="w-full max-w-xl">
         <ContactCard
           contact={{
             id: "ada",
@@ -45,14 +59,15 @@ export const KERN_CONTACT_EXAMPLES: ExampleSpec[] = [
         />
       </div>
     ),
-    code: `<ContactRow contact={{ id: "ada", name: "Ada Lovelace", detail: "Driver" }} />
-<ContactCard
+    code: `<ContactCard
   contact={{ id: "ada", name: "Ada Lovelace" }}
   status={<StatusPill tone="success">Online</StatusPill>}
 />`,
   },
+];
+export const CONTACT_DIRECTORY_EXAMPLES: ExampleSpec[] = [
   {
-    id: "kern-contact-directory",
+    id: "contact-directory",
     title: "Directory with search",
     description:
       "Type to filter across names and details; groups follow the contact `group` field and the empty state recovers with clear text.",
@@ -82,6 +97,46 @@ export const KERN_CONTACT_EXAMPLES: ExampleSpec[] = [
         />
       </div>
     ),
-    code: `<ContactDirectory contacts={contacts} onSelect={setActive} />`,
+    code: `<ContactDirectory
+  contacts={[{ id: "ada", name: "Ada Lovelace", detail: "Driver" }]}
+  onSelect={() => {}}
+/>`,
+  },
+];
+export const CONTACT_GROUP_LIST_EXAMPLES: ExampleSpec[] = [
+  {
+    id: "contact-group-list",
+    title: "Grouped pick list",
+    description:
+      "Sections own their titles; selection is one contact id across every group, rows activate beside it.",
+    render: () => (
+      <div className="w-full max-w-xl">
+        <ContactGroupList
+          groups={[
+            {
+              id: "drivers",
+              title: "Drivers",
+              contacts: [
+                { id: "ada", name: "Ada Lovelace", detail: "online" },
+                { id: "alan", name: "Alan Turing", detail: "on trip" },
+              ],
+            },
+            {
+              id: "staff",
+              title: "Staff",
+              contacts: [
+                { id: "grace", name: "Grace Hopper", detail: "Dispatcher" },
+              ],
+            },
+          ]}
+          defaultValue="ada"
+        />
+      </div>
+    ),
+    code: `<ContactGroupList
+  groups={[{ id: "drivers", title: "Drivers", contacts: [{ id: "ada", name: "Ada" }] }]}
+  defaultValue="ada"
+  onValueChange={() => {}}
+/>`,
   },
 ];

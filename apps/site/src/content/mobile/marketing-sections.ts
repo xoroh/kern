@@ -22,6 +22,13 @@ export const marketingSections: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["MarketingSections"],
+  keyboard: [
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "Reaches the plan selects, CTA actions, and hero-slot controls — each keeps its own control's press behavior, composed rather than replaced.",
+    },
+  ],
   customization: {
     supported: [
       "`hero` slots the start Hero — composed, never re-implemented.",

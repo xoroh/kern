@@ -20,6 +20,10 @@ export const kernLoading: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["KernLoading"],
+  // M2: this export renders no focusable element of its own — it takes
+  // no focus and answers no key — so an empty keyboard contract
+  // is a fact, not a gap.
+  nonInteractive: true,
   customization: {
     supported: [
       "`kind` picks the treatment: `skeleton-list` rows with `count`, `spinner`, determinate-or-loop `progress`, or the `shimmer-card` dashboard composition.",

@@ -47,7 +47,10 @@ export const DASHBOARD_PAGE_EXAMPLES: ExampleSpec[] = [
   title="Overview"
   stats={[{ id: "active", label: "Active trips", value: "128" }]}
   activityRows={[{ id: "a", headline: "Trip 12 completed" }]}
-  queueTable={{ columns, rows }}
+  queueTable={{
+    columns: [{ key: "id", title: "Queue" }],
+    rows: [{ id: "q1" }],
+  }}
 />`,
   },
   {

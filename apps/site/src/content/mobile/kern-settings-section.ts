@@ -22,6 +22,13 @@ export const kernSettingsSection: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["KernSettingsSection"],
+  keyboard: [
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "Moves through the rows' controls — switches, selects, navigation chevrons — each a real control, so every stop is the control's own. The section adds no stops.",
+    },
+  ],
   customization: {
     supported: [
       "`id` and `title` are required: identity for the screen's switching, a name for the reader.",

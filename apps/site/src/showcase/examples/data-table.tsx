@@ -42,7 +42,7 @@ export const DATA_TABLE_EXAMPLES: ExampleSpec[] = [
     { key: "status", title: "Status", kind: "status" },
     { key: "more", title: "More", kind: "actions" },
   ]}
-  rows={[...]}
+  rows={[]}
   rowActions={[{ label: "Refund", onSelect: () => {} }]}
 />`,
   },
@@ -73,7 +73,7 @@ export const DATA_TABLE_EXAMPLES: ExampleSpec[] = [
     { key: "ref", title: "Reference", sortable: true },
     { key: "amount", title: "Amount", kind: "numeric" },
   ]}
-  rows={[...]}
+  rows={[]}
 />`,
   },
 ];

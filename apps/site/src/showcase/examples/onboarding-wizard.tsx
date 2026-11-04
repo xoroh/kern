@@ -39,10 +39,38 @@ export const ONBOARDING_WIZARD_EXAMPLES: ExampleSpec[] = [
     code: `<OnboardingWizard
   steps={[
     { id: "services", title: "Services", content: (
-      <OnboardingServiceStep services={catalog} />
+      <OnboardingServiceStep
+        services={[{ id: "taxi", name: "Taxi", priceLabel: "metered" }]}
+      />
     ) },
   ]}
-  onComplete={…}
+  onComplete={() => {}}
+/>`,
+  },
+];
+export const ONBOARDING_SERVICE_STEP_EXAMPLES: ExampleSpec[] = [
+  {
+    id: "onboarding-service-step",
+    title: "Service catalog step",
+    description:
+      "MS-018 service pick — the plan picker's option buttons over the host-injected catalog, no local copy.",
+    render: () => (
+      <div className="w-full max-w-xl">
+        <OnboardingServiceStep
+          services={[
+            { id: "taxi", name: "Taxi", priceLabel: "metered" },
+            {
+              id: "tour",
+              name: "City tour",
+              description: "2-hour loop",
+            },
+          ]}
+        />
+      </div>
+    ),
+    code: `<OnboardingServiceStep
+  services={[{ id: "taxi", name: "Taxi", priceLabel: "metered" }]}
+  onValueChange={() => {}}
 />`,
   },
 ];

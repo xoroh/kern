@@ -86,7 +86,7 @@ export const LIST_EXAMPLES: ExampleSpec[] = [
   label="Selectable rows"
   variant="selectable"
   defaultSelectedIds={["a"]}
-  rows={[...]}
+  rows={[]}
 />
 <List
   label="Expandable rows"
@@ -122,7 +122,7 @@ export const LIST_EXAMPLES: ExampleSpec[] = [
     code: `<List
   label="Grouped rows"
   variant="grouped"
-  sections={[{ id: "today", title: "Today", rows: [...] }]}
+  sections={[{ id: "today", title: "Today", rows: [] }]}
 />`,
   },
 ];

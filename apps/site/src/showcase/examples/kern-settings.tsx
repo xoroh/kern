@@ -16,7 +16,7 @@ import type { ExampleSpec } from "../example";
  * The screen composes the sidebar-pane navigation (full page) or the
  * vertical tab pills (dialog-tabs pattern) over the same sections.
  */
-export const KERN_SETTINGS_EXAMPLES: ExampleSpec[] = [
+export const KERN_SETTINGS_ROW_EXAMPLES: ExampleSpec[] = [
   {
     id: "kern-settings-rows",
     title: "One row, four controls",
@@ -57,10 +57,12 @@ export const KERN_SETTINGS_EXAMPLES: ExampleSpec[] = [
       </div>
     ),
     code: `<KernSettingsRow label="Push notifications" control="switch" defaultChecked />
-<KernSettingsRow label="Theme" control="segmented" segmentedOptions={[...]} />
-<KernSettingsRow label="Language" control="select" selectOptions={[...]} />
+<KernSettingsRow label="Theme" control="segmented" segmentedOptions={[]} />
+<KernSettingsRow label="Language" control="select" selectOptions={[]} />
 <KernSettingsRow label="Email" control="button" href="#settings-email" />`,
   },
+];
+export const KERN_SETTINGS_SCREEN_EXAMPLES: ExampleSpec[] = [
   {
     id: "kern-settings-screen",
     title: "Settings page, two layouts",
@@ -84,8 +86,28 @@ export const KERN_SETTINGS_EXAMPLES: ExampleSpec[] = [
     ),
     code: `<KernSettingsScreen
   layout="tabs"
-  sections={[profileSettingsSection, securitySettingsSection]}
-/>
-<KernSettingsSection {...poolAutoClaimSection} />`,
+  sections={[
+    { id: "profile", title: "Profile", rows: [] },
+    { id: "security", title: "Security", rows: [] },
+  ]}
+/>`,
+  },
+];
+export const KERN_SETTINGS_SECTION_EXAMPLES: ExampleSpec[] = [
+  {
+    id: "kern-settings-section",
+    title: "One section",
+    description:
+      "Title plus rows — the unit the screen switches between. Presets ship as data, rows stay components.",
+    render: () => (
+      <div className="w-full max-w-xl">
+        <KernSettingsSection {...poolAutoClaimSection} />
+      </div>
+    ),
+    code: `<KernSettingsSection
+  id="notifications"
+  title="Notifications"
+  rows={[{ label: "Push", control: "switch", defaultChecked: true }]}
+/>`,
   },
 ];

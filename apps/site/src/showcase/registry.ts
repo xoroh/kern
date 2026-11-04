@@ -68,6 +68,7 @@ import { AVATAR_EXAMPLES } from "./examples/avatar";
 import { BADGE_EXAMPLES } from "./examples/badge";
 import { BANNER_EXAMPLES } from "./examples/banner";
 import { BILLING_PAGE_EXAMPLES } from "./examples/billing-page";
+import { BOTTOM_APP_BAR_EXAMPLES } from "./examples/bottom-app-bar";
 import { BOTTOM_SHEET_EXAMPLES } from "./examples/bottom-sheet";
 import { BOTTOM_SHEET_PICKER_EXAMPLES } from "./examples/bottom-sheet-picker";
 import { BUTTON_EXAMPLES } from "./examples/button";
@@ -104,8 +105,21 @@ import { ICON_BUTTON_EXAMPLES } from "./examples/icon-button";
 import { CHECKBOX_EXAMPLES, INPUT_EXAMPLES } from "./examples/input";
 import { INPUT_OTP_EXAMPLES } from "./examples/input-otp";
 import { KBD_EXAMPLES } from "./examples/kbd";
-import { KERN_COMPOSER_EXAMPLES } from "./examples/kern-composer";
-import { KERN_CONTACT_EXAMPLES } from "./examples/kern-contact";
+import {
+  COMPOSER_ATTACHMENT_TRAY_EXAMPLES,
+  COMPOSER_CANNED_PICKER_EXAMPLES,
+  COMPOSER_MODE_BAR_EXAMPLES,
+  COMPOSER_REPLY_BAR_EXAMPLES,
+  INVITE_ACCEPT_EXAMPLES,
+  KERN_COMPOSER_EXAMPLES,
+  SHARE_LINK_ROW_EXAMPLES,
+} from "./examples/kern-composer";
+import {
+  CONTACT_CARD_EXAMPLES,
+  CONTACT_DIRECTORY_EXAMPLES,
+  CONTACT_GROUP_LIST_EXAMPLES,
+  CONTACT_ROW_EXAMPLES,
+} from "./examples/kern-contact";
 import { KERN_LOADING_EXAMPLES } from "./examples/kern-loading";
 import { KERN_NAVIGATION_EXAMPLES } from "./examples/kern-navigation";
 import { KERN_OVERLAY_EXAMPLES } from "./examples/kern-overlay";
@@ -113,7 +127,11 @@ import {
   KERN_PICKER_EXAMPLES,
   REASON_PICKER_EXAMPLES,
 } from "./examples/kern-picker";
-import { KERN_SETTINGS_EXAMPLES } from "./examples/kern-settings";
+import {
+  KERN_SETTINGS_ROW_EXAMPLES,
+  KERN_SETTINGS_SCREEN_EXAMPLES,
+  KERN_SETTINGS_SECTION_EXAMPLES,
+} from "./examples/kern-settings";
 import { KERN_TABS_EXAMPLES } from "./examples/kern-tabs";
 import { LABEL_EXAMPLES } from "./examples/label";
 import { LINEAR_PROGRESS_EXAMPLES } from "./examples/linear-progress";
@@ -127,7 +145,13 @@ import { LOADING_INDICATOR_EXAMPLES } from "./examples/loading-indicator";
 import { LOADING_REGION_EXAMPLES } from "./examples/loading-region";
 import { MAP_MARKER_EXAMPLES } from "./examples/map-marker";
 import { MAP_PANEL_EXAMPLES } from "./examples/map-panel";
-import { MARKETING_SECTIONS_EXAMPLES } from "./examples/marketing-sections";
+import {
+  CTA_BANNER_EXAMPLES,
+  FEATURE_GRID_EXAMPLES,
+  MARKETING_SECTIONS_EXAMPLES,
+  PRICING_TABLE_EXAMPLES,
+  TESTIMONIAL_LIST_EXAMPLES,
+} from "./examples/marketing-sections";
 import { MENU_EXAMPLES, MENUBAR_EXAMPLES } from "./examples/menu";
 import { MENU_SCREEN_EXAMPLES } from "./examples/menu-screen";
 import { MENU_SHEET_EXAMPLES } from "./examples/menu-sheet";
@@ -137,7 +161,10 @@ import { NAVIGATION_BAR_EXAMPLES } from "./examples/navigation-bar";
 import { NAVIGATION_DRAWER_EXAMPLES } from "./examples/navigation-drawer";
 import { NAVIGATION_MENU_EXAMPLES } from "./examples/navigation-menu";
 import { NUMBER_FIELD_EXAMPLES } from "./examples/number-field";
-import { ONBOARDING_WIZARD_EXAMPLES } from "./examples/onboarding-wizard";
+import {
+  ONBOARDING_SERVICE_STEP_EXAMPLES,
+  ONBOARDING_WIZARD_EXAMPLES,
+} from "./examples/onboarding-wizard";
 import { PAGINATION_EXAMPLES } from "./examples/pagination";
 import { PANE_EXAMPLES } from "./examples/pane";
 import { POPOVER_EXAMPLES } from "./examples/popover";
@@ -184,6 +211,7 @@ export const EXAMPLES: Record<string, ExampleSpec[]> = {
   Badge: BADGE_EXAMPLES,
   Banner: BANNER_EXAMPLES,
   BillingPage: BILLING_PAGE_EXAMPLES,
+  BottomAppBar: BOTTOM_APP_BAR_EXAMPLES,
   BottomSheetPicker: BOTTOM_SHEET_PICKER_EXAMPLES,
   BottomSheet: BOTTOM_SHEET_EXAMPLES,
   ButtonGroup: BUTTON_GROUP_EXAMPLES,
@@ -197,10 +225,18 @@ export const EXAMPLES: Record<string, ExampleSpec[]> = {
   Collapsible: COLLAPSIBLE_EXAMPLES,
   Combobox: COMBOBOX_EXAMPLES,
   Command: COMMAND_EXAMPLES,
-  ContactDirectory: KERN_CONTACT_EXAMPLES,
+  ComposerAttachmentTray: COMPOSER_ATTACHMENT_TRAY_EXAMPLES,
+  ComposerCannedPicker: COMPOSER_CANNED_PICKER_EXAMPLES,
+  ComposerModeBar: COMPOSER_MODE_BAR_EXAMPLES,
+  ComposerReplyBar: COMPOSER_REPLY_BAR_EXAMPLES,
+  ContactCard: CONTACT_CARD_EXAMPLES,
+  ContactDirectory: CONTACT_DIRECTORY_EXAMPLES,
+  ContactGroupList: CONTACT_GROUP_LIST_EXAMPLES,
+  ContactRow: CONTACT_ROW_EXAMPLES,
   ContextMenu: CONTEXT_MENU_EXAMPLES,
   CountrySelect: COUNTRY_SELECT_EXAMPLES,
   CsvExportButton: CSV_EXPORT_BUTTON_EXAMPLES,
+  CtaBanner: CTA_BANNER_EXAMPLES,
   DataTable: DATA_TABLE_EXAMPLES,
   DashboardPage: DASHBOARD_PAGE_EXAMPLES,
   Dialog: DIALOG_EXAMPLES,
@@ -212,6 +248,7 @@ export const EXAMPLES: Record<string, ExampleSpec[]> = {
   ExtendedFab: EXTENDED_FAB_EXAMPLES,
   FabMenu: FAB_MENU_EXAMPLES,
   Fab: FAB_EXAMPLES,
+  FeatureGrid: FEATURE_GRID_EXAMPLES,
   Field: FIELD_EXAMPLES,
   Fieldset: FIELDSET_EXAMPLES,
   FilterBar: FILTER_BAR_EXAMPLES,
@@ -221,6 +258,7 @@ export const EXAMPLES: Record<string, ExampleSpec[]> = {
   InputOTP: INPUT_OTP_EXAMPLES,
   Input: INPUT_EXAMPLES,
   Checkbox: CHECKBOX_EXAMPLES,
+  InviteAccept: INVITE_ACCEPT_EXAMPLES,
   Kbd: KBD_EXAMPLES,
   KernComposer: KERN_COMPOSER_EXAMPLES,
   KernLoading: KERN_LOADING_EXAMPLES,
@@ -228,7 +266,9 @@ export const EXAMPLES: Record<string, ExampleSpec[]> = {
   KernOverlay: KERN_OVERLAY_EXAMPLES,
   KernPicker: KERN_PICKER_EXAMPLES,
   ReasonPicker: REASON_PICKER_EXAMPLES,
-  KernSettingsScreen: KERN_SETTINGS_EXAMPLES,
+  KernSettingsRow: KERN_SETTINGS_ROW_EXAMPLES,
+  KernSettingsScreen: KERN_SETTINGS_SCREEN_EXAMPLES,
+  KernSettingsSection: KERN_SETTINGS_SECTION_EXAMPLES,
   KernTabs: KERN_TABS_EXAMPLES,
   Label: LABEL_EXAMPLES,
   LinearProgress: LINEAR_PROGRESS_EXAMPLES,
@@ -253,10 +293,12 @@ export const EXAMPLES: Record<string, ExampleSpec[]> = {
   NavigationDrawer: NAVIGATION_DRAWER_EXAMPLES,
   NavigationMenu: NAVIGATION_MENU_EXAMPLES,
   NumberField: NUMBER_FIELD_EXAMPLES,
+  OnboardingServiceStep: ONBOARDING_SERVICE_STEP_EXAMPLES,
   OnboardingWizard: ONBOARDING_WIZARD_EXAMPLES,
   Pagination: PAGINATION_EXAMPLES,
   Pane: PANE_EXAMPLES,
   Popover: POPOVER_EXAMPLES,
+  PricingTable: PRICING_TABLE_EXAMPLES,
   Progress: PROGRESS_EXAMPLES,
   RadioGroup: RADIO_GROUP_EXAMPLES,
   RichTooltip: RICH_TOOLTIP_EXAMPLES,
@@ -268,6 +310,7 @@ export const EXAMPLES: Record<string, ExampleSpec[]> = {
   SelectGroup: SELECT_GROUP_EXAMPLES,
   Select: SELECT_EXAMPLES,
   Separator: SEPARATOR_EXAMPLES,
+  ShareLinkRow: SHARE_LINK_ROW_EXAMPLES,
   SheetSurface: SHEET_SURFACE_EXAMPLES,
   Sheet: SHEET_EXAMPLES,
   Sidebar: SIDEBAR_EXAMPLES,
@@ -281,6 +324,7 @@ export const EXAMPLES: Record<string, ExampleSpec[]> = {
   Switch: SWITCH_EXAMPLES,
   Table: TABLE_EXAMPLES,
   Tabs: TABS_EXAMPLES,
+  TestimonialList: TESTIMONIAL_LIST_EXAMPLES,
   Text: TEXT_EXAMPLES,
   Textarea: TEXTAREA_EXAMPLES,
   ThemeToggle: THEME_TOGGLE_EXAMPLES,

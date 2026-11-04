@@ -1,4 +1,12 @@
-import { Hero, MarketingSections } from "@xoroh/kern/start";
+import { Button } from "@xoroh/kern";
+import {
+  CtaBanner,
+  FeatureGrid,
+  Hero,
+  MarketingSections,
+  PricingTable,
+  TestimonialList,
+} from "@xoroh/kern/start";
 import type { ExampleSpec } from "../example";
 
 /**
@@ -11,6 +19,7 @@ export const MARKETING_SECTIONS_EXAMPLES: ExampleSpec[] = [
     title: "Hero, features, pricing, testimonials, CTA",
     description:
       "Sections render only when given data; the hero is always the host-composed start Hero — never re-implemented.",
+    package: "@xoroh/kern/start",
     render: () => (
       <MarketingSections
         hero={
@@ -74,9 +83,115 @@ export const MARKETING_SECTIONS_EXAMPLES: ExampleSpec[] = [
       />
     ),
     code: `<MarketingSections
-  hero={<Hero eyebrow="…" title="…" lede="…" />}
-  features={[…]}
-  plans={[…]}
+  hero={<Hero eyebrow="Kern" title="One" lede="M3 structure." />}
+  features={[{ id: "a", title: "Tokens" }]}
+  plans={[{ id: "pro", name: "Pro", price: "€29 / mo", features: [] }]}
+/>`,
+  },
+];
+export const FEATURE_GRID_EXAMPLES: ExampleSpec[] = [
+  {
+    id: "marketing-feature-grid",
+    title: "Feature grid",
+    description:
+      "Items are data — id, title, description, icon — rendered as cards. No items, no section.",
+    package: "@xoroh/kern/start",
+    render: () => (
+      <FeatureGrid
+        title="Everything runs on tokens"
+        items={[
+          { id: "a", title: "Tokens", description: "One role table." },
+          {
+            id: "b",
+            title: "Parity",
+            description: "Web and native share contracts.",
+          },
+        ]}
+      />
+    ),
+    code: `<FeatureGrid
+  title="Features"
+  items={[{ id: "a", title: "Tokens", description: "One role table." }]}
+/>`,
+  },
+];
+export const PRICING_TABLE_EXAMPLES: ExampleSpec[] = [
+  {
+    id: "marketing-pricing-table",
+    title: "Pricing table",
+    description:
+      "Plans are data with an optional highlighted plan; picking is a notification, checkout stays host-owned.",
+    package: "@xoroh/kern/start",
+    render: () => (
+      <PricingTable
+        title="Plans"
+        plans={[
+          {
+            id: "base",
+            name: "Base",
+            price: "€0 / mo",
+            features: ["Dispatch"],
+          },
+          {
+            id: "pro",
+            name: "Pro",
+            price: "€29 / mo",
+            features: ["Dispatch", "Analytics"],
+            highlighted: true,
+          },
+        ]}
+      />
+    ),
+    code: `<PricingTable
+  title="Plans"
+  plans={[{ id: "pro", name: "Pro", price: "€29 / mo", features: ["Analytics"] }]}
+  onSelect={() => {}}
+/>`,
+  },
+];
+export const TESTIMONIAL_LIST_EXAMPLES: ExampleSpec[] = [
+  {
+    id: "marketing-testimonial-list",
+    title: "Testimonials",
+    description:
+      "Quotes are data — id, quote, author, role — rendered as figure cards.",
+    package: "@xoroh/kern/start",
+    render: () => (
+      <TestimonialList
+        title="Operators"
+        items={[
+          {
+            id: "q1",
+            quote: "Dispatch got quiet.",
+            author: "Ada",
+            role: "Owner",
+          },
+        ]}
+      />
+    ),
+    code: `<TestimonialList
+  title="Operators"
+  items={[{ id: "q1", quote: "Quiet dispatch.", author: "Ada", role: "Owner" }]}
+/>`,
+  },
+];
+export const CTA_BANNER_EXAMPLES: ExampleSpec[] = [
+  {
+    id: "marketing-cta-banner",
+    title: "CTA banner",
+    description:
+      "Title plus host-owned actions. The banner positions controls, never builds them.",
+    package: "@xoroh/kern/start",
+    render: () => (
+      <CtaBanner
+        title="Start today"
+        description="Free trial, no card."
+        actions={<Button variant="filled">Get started</Button>}
+      />
+    ),
+    code: `<CtaBanner
+  title="Start today"
+  actions={<button type="button">Get started</button>}
 />`,
   },
 ];

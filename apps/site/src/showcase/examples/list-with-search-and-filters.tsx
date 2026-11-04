@@ -40,7 +40,7 @@ export const LIST_WITH_SEARCH_AND_FILTERS_EXAMPLES: ExampleSpec[] = [
     code: `<ListWithSearchAndFilters
   label="Trips"
   rows={[{ id: "a", headline: "Airport pickup" }]}
-  filterDefs={[{ key: "status", label: "Status", options: [...] }]}
+  filterDefs={[{ key: "status", label: "Status", options: [] }]}
 />`,
   },
 ];

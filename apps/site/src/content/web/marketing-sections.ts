@@ -22,6 +22,18 @@ export const marketingSections: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["MarketingSections"],
+  keyboard: [
+    {
+      key: "Tab / Shift+Tab",
+      action:
+        "Reaches the plan selects, CTA actions, and hero-slot controls — each keeps its own control's keyboard, composed rather than replaced.",
+    },
+    {
+      key: "Enter / Space",
+      action:
+        "Operates the focused plan select or CTA action — each a real button, so the press is the browser's own.",
+    },
+  ],
   customization: {
     supported: [
       "`hero` slots the start Hero — composed, never re-implemented.",

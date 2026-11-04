@@ -22,6 +22,13 @@ export const billingPage: ComponentDoc = {
     elevation: "surface",
   },
   parts: ["BillingPage"],
+  keyboard: [
+    {
+      key: "Swipe + double-tap (TalkBack / VoiceOver)",
+      action:
+        "Reaches whatever controls the host placed in the plan slot and ledger rows — the skeleton owns no stops of its own, so every stop is the hosted control's own.",
+    },
+  ],
   customization: {
     supported: [
       "`plan`, `invoiceColumns` and `invoiceRows` are display slots: the page shows plan and invoice data, never money movement.",
