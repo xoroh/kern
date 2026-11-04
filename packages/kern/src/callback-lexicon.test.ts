@@ -164,6 +164,85 @@ const REGISTERED_ALIASES: Record<string, string[]> = {
     ["query", "defaultQuery"],
   "packages/kern-native/src/components/list-with-search-and-filters.tsx:onQueryChange":
     ["query", "defaultQuery"],
+  // WP2b settings/contact/composer state pairs: each is a second
+  // value-channel beside the canonical `value`/`open` (a settings row
+  // carries a switch, a segment set, AND a select; a composer carries
+  // text, a mode, a schedule, AND an OOO flag; a directory carries a
+  // query; an invite carries a role AND a note), so collapsing them onto
+  // one `value` would collide. Partners accompany each: the controlled
+  // prop plus its default.
+  "packages/kern/src/components/kern-settings.tsx:onCheckedChange": [
+    "checked",
+    "defaultChecked",
+  ],
+  "packages/kern-native/src/components/kern-settings.tsx:onCheckedChange": [
+    "checked",
+    "defaultChecked",
+  ],
+  "packages/kern/src/components/kern-settings.tsx:onSegmentedChange": [
+    "segmentedValue",
+    "defaultSegmentedValue",
+  ],
+  "packages/kern-native/src/components/kern-settings.tsx:onSegmentedChange": [
+    "segmentedValue",
+    "defaultSegmentedValue",
+  ],
+  "packages/kern/src/components/kern-settings.tsx:onSelectChange": [
+    "selectValue",
+    "defaultSelectValue",
+  ],
+  "packages/kern-native/src/components/kern-settings.tsx:onSelectChange": [
+    "selectValue",
+    "defaultSelectValue",
+  ],
+  "packages/kern/src/components/kern-contact.tsx:onQueryChange": [
+    "query",
+    "defaultQuery",
+  ],
+  "packages/kern-native/src/components/kern-contact.tsx:onQueryChange": [
+    "query",
+    "defaultQuery",
+  ],
+  "packages/kern/src/components/kern-composer.tsx:onModeChange": [
+    "mode",
+    "defaultMode",
+  ],
+  "packages/kern-native/src/components/kern-composer.tsx:onModeChange": [
+    "mode",
+    "defaultMode",
+  ],
+  "packages/kern/src/components/kern-composer.tsx:onScheduledChange": [
+    "scheduledFor",
+    "defaultScheduledFor",
+  ],
+  "packages/kern-native/src/components/kern-composer.tsx:onScheduledChange": [
+    "scheduledFor",
+    "defaultScheduledFor",
+  ],
+  "packages/kern/src/components/kern-composer.tsx:onOutOfOfficeChange": [
+    "outOfOffice",
+    "defaultOutOfOffice",
+  ],
+  "packages/kern-native/src/components/kern-composer.tsx:onOutOfOfficeChange": [
+    "outOfOffice",
+    "defaultOutOfOffice",
+  ],
+  "packages/kern/src/components/kern-composer.tsx:onRoleChange": [
+    "roleValue",
+    "defaultRoleValue",
+  ],
+  "packages/kern-native/src/components/kern-composer.tsx:onRoleChange": [
+    "roleValue",
+    "defaultRoleValue",
+  ],
+  "packages/kern/src/components/kern-composer.tsx:onMessageChange": [
+    "messageValue",
+    "defaultMessageValue",
+  ],
+  "packages/kern-native/src/components/kern-composer.tsx:onMessageChange": [
+    "messageValue",
+    "defaultMessageValue",
+  ],
 };
 
 /** Action callbacks: state-free by definition, never renamed. */
@@ -194,6 +273,24 @@ const ACTION_ALLOWLIST = new Set([
   "onExport",
   "onFiltersChange",
   "onSavedViewSelect",
+  // WP2b settings/contact/composer event notifications: state-free by
+  // definition, never renamed. `onSend`/`onCannedSelect`/`onDismissReply`/
+  // `onSaveDraft`/`onDiscardDraft`/`onRemoveAttachment` (composer),
+  // `onAccept`/`onDecline` (invite), `onCopy`/`onRevoke`/`onScopeSelect`
+  // (share row) are fire-and-forget events (cf. `onPress`/`onSelect`/
+  // `onClose`): the state they touch lives in a controlled pair beside
+  // them (text/mode/schedule/role/message), so they own no channel.
+  "onSend",
+  "onCannedSelect",
+  "onDismissReply",
+  "onSaveDraft",
+  "onDiscardDraft",
+  "onRemoveAttachment",
+  "onAccept",
+  "onDecline",
+  "onCopy",
+  "onRevoke",
+  "onScopeSelect",
 ]);
 
 async function tsxFiles(dir: string, out: string[] = []): Promise<string[]> {

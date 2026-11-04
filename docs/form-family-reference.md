@@ -326,3 +326,113 @@ P0 parity decisions (WP2a, rationale recorded):
   usage — see §Slider / select above.
 - Calendar range + docked-modal variants (P3): NOT built — `Calendar` stays
   single-date; range/docked land via the WP6 addendum, no half-built props.
+
+---
+
+## 14. KernSettings — one settings row + SettingsPage block (CL-014, WP2b)
+
+`KernSettingsRow` / `KernSettingsSection` / `KernSettingsScreen`
+(`packages/kern/src/components/kern-settings.tsx`; native twin
+`packages/kern-native/src/components/kern-settings.tsx`) unify the
+switch/segmented/select/button sub-rows (CMP-3112/3152/3173 dialects, desk
+per-section re-implemented item rows, CMP-0596 settings dialog tabs,
+CMP-0674 `SettingsSectionPage` + 16 ITEM_PANELS).
+
+One row contract: `label` (required — names the row and its control) +
+`supporting` + `icon` (KernIcon-registry node) + ONE `control`:
+
+| `control` | Renders | State |
+| --- | --- | --- |
+| `switch` | `Switch` (Base UI passthrough W / Axis N) | `checked` / `defaultChecked` / `onCheckedChange` |
+| `segmented` | `SegmentedButton` compound W / pressable pills N | `segmentedValue` / `defaultSegmentedValue` / `onSegmentedChange` |
+| `select` | `Select` compound W / row-owned trigger + sheet picker N | `selectValue` / `defaultSelectValue` / `onSelectChange` |
+| `button` | ONE navigational control (whole row activates, chevron + `badge`) | `href` or `onPress` (action) |
+| `custom` | `trailing` slot (the `start/blocks` contract) | host-owned |
+
+Activation rule: navigational rows activate on the row; every other kind
+keeps activation on the trailing control — never nested controls.
+
+`KernSettingsScreen` (the SettingsPage block): `sections` +
+`value` / `defaultValue` / `onValueChange` (active section, canonical) +
+`layout`: `sidebar` (default — `KernNavigation` `sidebar-pane`, detail
+pane carries the active section's rows) or `tabs` (`KernTabs` vertical
+pills — the CMP-0596 dialog-tabs pattern for dialogs/narrow widths).
+Named-routes builder `settingsRoutesToSections` delegates to the
+navigation adapter (one implementation, D925). D786 setting-def →
+`settingDefToRow` (`toggle`/`choice`/`select`/`link`).
+
+Section presets are DATA (`KernSettingsSectionDef`, spread into
+`sections`): `profileSettingsSection`, `securitySettingsSection`,
+`preferenceSettingsSection`, `notificationSettingsSection`, plus the
+WP6 A-004 pair — `poolAutoClaimSection` (MS-003: off/limited/auto
+segmented + bound select; bound rows are placeholders the dispatch lane
+wires to real platform bounds) and `partnerAutoClaimSection` (MS-004:
+bounded choice naming the platform ceiling).
+
+Usage:
+
+```tsx
+import { KernSettingsRow, KernSettingsScreen, poolAutoClaimSection } from "@xoroh/kern";
+
+<KernSettingsScreen layout="tabs" sections={[profileSettingsSection, poolAutoClaimSection]} />;
+```
+
+P0 parity decisions (WP2b, rationale recorded):
+
+- `start/blocks.tsx` `SettingsRow` converges onto this contract at
+  transfer (not rewritten here — core never depends on blocks; same rule
+  as WP2a's navigation-rail note).
+- N screen is ALWAYS the grouped list (M3 N settings pattern): no
+  `layout` prop, no active-section value — a phone shows every group and
+  section switching is the host navigator's job.
+- N `select` rows own a trigger + controlled sheet: the sheet picker is
+  triggerless by contract (host-owned `open`), so the row drives it —
+  sheet physics stay the picker's (recorded, not drifted).
+- Density: `compact` (48) / `medium` (56) on section/screen (M3 list
+  heights); W keyboard via the composed primitives; N 48dp targets.
+
+---
+
+## 15. KernComposer — one composer + InviteAccept + ShareLinkRow (CL-016, WP2b)
+
+`KernComposer` (`packages/kern/src/components/kern-composer.tsx`;
+native twin `packages/kern-native/src/components/kern-composer.tsx`)
+merges the desk `ConversationComposer` + `ComposerModeBar` (+
+Article/Canned pickers CMP-0576/0577/0578), the mobile
+`ConversationFooter` internal/locked/panel states (CMP-2603) and the
+Kern chat composers (CMP-3125/3202): `value` + `onSend` + `panels[]` +
+`replyTo` + `mode` (`public` / `internal` / `note`) + `cannedInserts` +
+`knowledge` flyout — the inventory slots, verbatim.
+
+Slots (all exported): `ComposerModeBar` (real radios, arrow keys free),
+`ComposerAttachmentTray`, `ComposerReplyBar`, `ComposerCannedPicker`
+(composes `KernPicker` option-list — inline-popover W, owned-trigger
+sheet N — never a second option list). Input composes `Textarea`
+(W keyboard proof: Enter sends, Shift+Enter newlines); N uses the
+multiline `Input` (software keyboards own return — send is the Send
+pressable only).
+
+Opt-in affordances (absent props = absent UI): scheduling
+(`scheduledFor` pair — datetime-local W, sheet date-time picker N),
+draft state (`draftStatus` + `onSaveDraft`/`onDiscardDraft`), OOO
+(`outOfOffice` pair + banner). Passing state, a default, OR the change
+callback renders the row.
+
+Blocks (compose composer + overlay + picker, no re-implementation):
+
+| Block | Need | Composes |
+| --- | --- | --- |
+| `InviteAccept` | MS-037 invitation acceptance | `KernOverlay` modal W / sheet N + role `KernPicker` (inline, never a nested modal) + `KernComposer` note for the accept message; `onAccept(note?)` / `onDecline` |
+| `ShareLinkRow` | MS-005 mint/revoke-any, MS-024 per-recipient scope | scope `KernPicker` (inline) + copy/revoke actions + revoke `KernOverlay` alert (W `footer`, N `confirmLabel`/`onConfirm` expression) + `StatusPill` Active/Copied/Revoked |
+
+MS-038 stays by-design excluded (plan Q7).
+
+Usage:
+
+```tsx
+import { InviteAccept, KernComposer, ShareLinkRow } from "@xoroh/kern";
+
+<KernComposer replyTo={{ author: "Ada", excerpt: "ETA?" }} onSend={send} />;
+<InviteAccept defaultOpen invite={invite} onAccept={accept} />;
+<ShareLinkRow link={link} onCopy={copy} onRevoke={revoke} />;
+```

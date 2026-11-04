@@ -157,3 +157,50 @@ by design, recorded here.
   central regen at the end (untouched here, per instructions).
 - CLI `empty-search` block file (`apps/site/src/blocks/empty-search.tsx`)
   left untouched — WP7/docs pass repoints installables after regen.
+
+## 6. KernContact trio + ContactDirectory block (CL-006, WP2b)
+
+`ContactRow` / `ContactCard` / `ContactGroupList` / `ContactDirectory`
+(`packages/kern/src/components/kern-contact.tsx`; native twin
+`packages/kern-native/src/components/kern-contact.tsx`) replace the
+raw-hex / light-dark-forked copies (CMP-2524/2525 avatar + line,
+CMP-2537 web ContactPicker, CMP-2499 CountryPickerScreen, CMP-2526
+ContactGroupPicker, desk-mobile directory rows): the web headless span
+vs native HSL disc fork is gone — both renderers disc through the
+KernStatus tone registry (CL-010).
+
+Adapter: `ContactAdapter` (`id`, `name`, `detail?`, `photoUrl?`,
+`tone?`, `group?`) maps user / driver / group records to one row shape.
+`contactToneFor(key)` picks the disc tone deterministically (FNV-1a over
+`STATUS_TONES` minus neutral — a NAME-level pick, so both renderers
+agree with no scheme object; stable within Kern, explicitly NOT
+`avatarToneFor`'s ramp pick, which needs a resolved RoleTable the web
+never holds). `contactInitials(name)` takes the first two words.
+`filterContacts` (name + detail, case-insensitive) and `groupContacts`
+(order-preserving, ungrouped under "Contacts") are shared pure helpers.
+
+| Target | Contract |
+| --- | --- |
+| `ContactRow` | avatar (photo or initials disc) + name + meta + `trailing` (default chevron); `onSelect` (action) makes it one button, otherwise a `div` — never nested controls |
+| `ContactCard` | large disc + identity + `status` (`StatusPill`) + `actions` slot |
+| `ContactGroupList` | `groups[]` + `value` / `defaultValue` / `onValueChange` (selected id, canonical) + `onSelect` (fires beside selection) |
+| `ContactDirectory` | `contacts` + `query` / `defaultQuery` / `onQueryChange` + `onSelect`; composes `Search` (docked W / inline N — never cmd-K) + grouped rows + `EmptyState` recovery |
+
+Usage:
+
+```tsx
+import { ContactCard, ContactDirectory, StatusPill } from "@xoroh/kern";
+
+<ContactDirectory contacts={contacts} onSelect={setActive} />;
+<ContactCard contact={ada} status={<StatusPill tone="success">Online</StatusPill>} />;
+```
+
+P0 parity decisions (WP2b, rationale recorded):
+
+- The trio owns row markup: `KernList` is NOT composed under it (contact
+  rows carry avatar+action affordances the generic row does not model —
+  CL-006 names the trio the target, D925).
+- Default English strings follow the WP1a precedent (overridable props:
+  `searchLabel`/`searchPlaceholder`/`emptyTitle`/`emptyDescription`).
+- Base UI `Avatar.Image` renders nothing until load (jsdom never loads):
+  rows stay complete on the initials fallback — asserted in test.
