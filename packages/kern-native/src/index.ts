@@ -41,6 +41,8 @@ export type { NativeAvatarProps, NativeAvatarSize } from "./components/avatar";
 export { Avatar, avatarStyles } from "./components/avatar";
 export type { NativeBadgeProps } from "./components/badge";
 export { Badge } from "./components/badge";
+export type { NativeBillingPageProps } from "./components/billing-page";
+export { BillingPage } from "./components/billing-page";
 export { bottomSheetSurface } from "./components/bottom-sheet-surface";
 export type {
   NativeButtonColor,
@@ -113,6 +115,11 @@ export type {
   NativeCsvRow,
 } from "./components/csv-export-button";
 export { buildCsv, CsvExportButton } from "./components/csv-export-button";
+export type {
+  DashboardStat,
+  NativeDashboardPageProps,
+} from "./components/dashboard-page";
+export { DashboardPage } from "./components/dashboard-page";
 export type {
   NativeDataTableAction,
   NativeDataTableColumn,
@@ -207,10 +214,64 @@ export { InputOTP, inputOTPStyles } from "./components/input-otp";
 export type { NativeKbdProps } from "./components/kbd";
 export { Kbd } from "./components/kbd";
 export type {
+  CannedInsert,
+  ComposerAttachment,
+  ComposerDraftStatus,
+  ComposerMode,
+  InviteDetails,
+  NativeComposerAttachmentTrayProps,
+  NativeComposerCannedPickerProps,
+  NativeComposerModeBarProps,
+  NativeComposerReplyBarProps,
+  NativeInviteAcceptProps,
+  NativeKernComposerProps,
+  NativeShareLinkRowProps,
+  ShareLink,
+} from "./components/kern-composer";
+export {
+  ComposerAttachmentTray,
+  ComposerCannedPicker,
+  ComposerModeBar,
+  ComposerReplyBar,
+  InviteAccept,
+  KernComposer,
+  ShareLinkRow,
+} from "./components/kern-composer";
+export type {
+  ContactAdapter,
+  ContactGroup,
+  NativeContactCardProps,
+  NativeContactDirectoryProps,
+  NativeContactGroupListProps,
+  NativeContactRowProps,
+} from "./components/kern-contact";
+export {
+  ContactCard,
+  ContactDirectory,
+  ContactGroupList,
+  ContactRow,
+  contactInitials,
+  contactToneFor,
+  filterContacts,
+  groupContacts,
+} from "./components/kern-contact";
+export type {
   KernLoadingKind,
   NativeKernLoadingProps,
 } from "./components/kern-loading";
 export { KernLoading } from "./components/kern-loading";
+export type {
+  MapMarkerDatum,
+  MapMarkerKind,
+  MapPanelPosition,
+  NativeMapMarkerProps,
+  NativeMapPanelProps,
+} from "./components/kern-maps";
+export {
+  MapMarker,
+  MapPanel,
+  mapMarkerDatumToProps,
+} from "./components/kern-maps";
 export type {
   KernNavigationVariant,
   KernNavSection,
@@ -245,6 +306,28 @@ export {
   reasonAdapterToOptions,
   serviceCatalogToOptions,
 } from "./components/kern-picker";
+export type {
+  KernSettingsSectionDef,
+  NativeKernSettingsRowProps,
+  NativeKernSettingsScreenProps,
+  NativeKernSettingsSectionProps,
+  SettingDef,
+  SettingsControlKind,
+  SettingsSegmentOption,
+  SettingsSelectOption,
+} from "./components/kern-settings";
+export {
+  KernSettingsRow,
+  KernSettingsScreen,
+  KernSettingsSection,
+  notificationSettingsSection,
+  partnerAutoClaimSection,
+  poolAutoClaimSection,
+  preferenceSettingsSection,
+  profileSettingsSection,
+  securitySettingsSection,
+  settingDefToRow,
+} from "./components/kern-settings";
 export type {
   KernTabItem,
   KernTabsDensity,
@@ -314,6 +397,23 @@ export {
   LoadingIndicator,
   loadingIndicatorStyles,
 } from "./components/loading-indicator";
+export type {
+  MarketingFeature,
+  MarketingPlan,
+  MarketingTestimonial,
+  NativeCtaBannerProps,
+  NativeFeatureGridProps,
+  NativeMarketingSectionsProps,
+  NativePricingTableProps,
+  NativeTestimonialListProps,
+} from "./components/marketing-sections";
+export {
+  CtaBanner,
+  FeatureGrid,
+  MarketingSections,
+  PricingTable,
+  TestimonialList,
+} from "./components/marketing-sections";
 export type { NativeMenuItem, NativeMenuProps } from "./components/menu";
 export { Menu, menuStyles } from "./components/menu";
 export type {
@@ -380,6 +480,16 @@ export {
 export type { NativeNumberFieldProps } from "./components/number-field";
 // `NumberField` only; `clampToRange` is a pure clamp, not a component.
 export { NumberField, numberFieldStyles } from "./components/number-field";
+export type {
+  NativeOnboardingServiceStepProps,
+  NativeOnboardingWizardProps,
+  OnboardingStep,
+  OnboardingWizardVariant,
+} from "./components/onboarding-wizard";
+export {
+  OnboardingServiceStep,
+  OnboardingWizard,
+} from "./components/onboarding-wizard";
 // Drawer, Popover and ScrollArea were implemented and tested but never
 // re-exported from the package index, so no consumer could import them — while
 // the registry counted all three as SHARED concepts and the parity rows recorded

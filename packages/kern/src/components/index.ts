@@ -66,6 +66,8 @@ export type { BadgeProps } from "./badge";
 export { Badge, badgeVariants } from "./badge";
 export type { BannerActionProps, BannerProps } from "./banner";
 export { Banner, BannerAction, bannerVariants } from "./banner";
+export type { BillingPageProps } from "./billing-page";
+export { BillingPage } from "./billing-page";
 export type { BootIndicatorProps } from "./boot-indicator";
 export { BootIndicator } from "./boot-indicator";
 export type { BottomAppBarProps } from "./bottom-app-bar";
@@ -205,6 +207,8 @@ export type {
   CsvExportButtonProps,
 } from "./csv-export-button";
 export { buildCsv, CsvExportButton, downloadCsv } from "./csv-export-button";
+export type { DashboardPageProps, DashboardStat } from "./dashboard-page";
+export { DashboardPage } from "./dashboard-page";
 export type {
   CellValue,
   DataTableAction,
@@ -316,10 +320,60 @@ export { InputOTP, InputOTPInput, InputOTPRoot } from "./input-otp";
 export type { KbdProps } from "./kbd";
 export { Kbd } from "./kbd";
 export type {
+  CannedInsert,
+  ComposerAttachment,
+  ComposerAttachmentTrayProps,
+  ComposerCannedPickerProps,
+  ComposerDraftStatus,
+  ComposerMode,
+  ComposerModeBarProps,
+  ComposerReplyBarProps,
+  InviteAcceptProps,
+  InviteDetails,
+  KernComposerProps,
+  ShareLink,
+  ShareLinkRowProps,
+} from "./kern-composer";
+export {
+  ComposerAttachmentTray,
+  ComposerCannedPicker,
+  ComposerModeBar,
+  ComposerReplyBar,
+  InviteAccept,
+  KernComposer,
+  ShareLinkRow,
+} from "./kern-composer";
+export type {
+  ContactAdapter,
+  ContactCardProps,
+  ContactDirectoryProps,
+  ContactGroup,
+  ContactGroupListProps,
+  ContactRowProps,
+} from "./kern-contact";
+export {
+  ContactCard,
+  ContactDirectory,
+  ContactGroupList,
+  ContactRow,
+  contactInitials,
+  contactToneFor,
+  filterContacts,
+  groupContacts,
+} from "./kern-contact";
+export type {
   KernLoadingKind,
   KernLoadingProps,
 } from "./kern-loading";
 export { KernLoading } from "./kern-loading";
+export type {
+  MapMarkerDatum,
+  MapMarkerKind,
+  MapMarkerProps,
+  MapPanelPosition,
+  MapPanelProps,
+} from "./kern-maps";
+export { MapMarker, MapPanel, mapMarkerDatumToProps } from "./kern-maps";
 export type {
   KernNavigationProps,
   KernNavigationVariant,
@@ -353,6 +407,30 @@ export {
   reasonAdapterToOptions,
   serviceCatalogToOptions,
 } from "./kern-picker";
+export type {
+  KernSettingsRowProps,
+  KernSettingsScreenLayout,
+  KernSettingsScreenProps,
+  KernSettingsSectionDef,
+  KernSettingsSectionProps,
+  SettingDef,
+  SettingsControlKind,
+  SettingsSegmentOption,
+  SettingsSelectOption,
+} from "./kern-settings";
+export {
+  KernSettingsRow,
+  KernSettingsScreen,
+  KernSettingsSection,
+  notificationSettingsSection,
+  partnerAutoClaimSection,
+  poolAutoClaimSection,
+  preferenceSettingsSection,
+  profileSettingsSection,
+  securitySettingsSection,
+  settingDefToRow,
+  settingsRoutesToSections,
+} from "./kern-settings";
 export type {
   KernTabItem,
   KernTabsDensity,
@@ -493,6 +571,13 @@ export type {
   NumberFieldRootProps,
 } from "./number-field";
 export { NumberField, NumberFieldInput, NumberFieldRoot } from "./number-field";
+export type {
+  OnboardingServiceStepProps,
+  OnboardingStep,
+  OnboardingWizardProps,
+  OnboardingWizardVariant,
+} from "./onboarding-wizard";
+export { OnboardingServiceStep, OnboardingWizard } from "./onboarding-wizard";
 export type { PageLoaderProps } from "./page-loader";
 export { PageLoader } from "./page-loader";
 export type { PaginationProps } from "./pagination";

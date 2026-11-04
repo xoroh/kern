@@ -1,14 +1,18 @@
 import { render } from "@testing-library/react";
 import axe from "axe-core";
 import { describe, expect, it } from "vitest";
+import { BillingPage } from "./billing-page";
 import { Button } from "./button";
 import { Checkbox } from "./checkbox";
+import { DashboardPage } from "./dashboard-page";
 import { EmptyState } from "./empty-state";
 import { Field } from "./field";
 import { KernLoading } from "./kern-loading";
+import { MapMarker, MapPanel } from "./kern-maps";
 import { KernTabs } from "./kern-tabs";
 import { LinkButton } from "./link-button";
 import { Meter } from "./meter";
+import { OnboardingWizard } from "./onboarding-wizard";
 import { Progress } from "./progress";
 import { RadioGroup, RadioGroupItem } from "./radio-group";
 import { StatusPill } from "./status-pill";
@@ -127,6 +131,83 @@ describe("WP1b tabs/status/empty/loading accessibility", () => {
           <Progress.Label>Upload</Progress.Label>
         </Progress.Root>
         <LinkButton href="https://example.com">Details</LinkButton>
+      </main>,
+    );
+    const result = await axe.run(container, {
+      runOnly: {
+        type: "tag",
+        values: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"],
+      },
+    });
+    expect(result.violations).toEqual([]);
+  });
+});
+
+/**
+ * WP4 P4 a11y gate (maps visuals + dashboard/onboarding/billing/marketing
+ * templates): zero WCAG A/AA violations on the new surfaces. Lives in this
+ * file — the single axe file — because axe-core serializes runs
+ * process-wide ("Axe is already running" under parallel workers).
+ */
+describe("WP4 maps/templates accessibility", () => {
+  it("has no violations on MapMarker + MapPanel", async () => {
+    const { container } = render(
+      <main>
+        <MapMarker kind="vehicle" tone="info" label="12" />
+        <MapMarker kind="guest" live consentLabel="Sharing until 14:30" />
+        <MapPanel
+          title="Trip 12"
+          description="Airport pickup"
+          meta={<StatusPill tone="info">En route</StatusPill>}
+          actions={<button type="button">Message driver</button>}
+          footer="ETA 14:32"
+          onClose={() => {}}
+        />
+      </main>,
+    );
+    const result = await axe.run(container, {
+      runOnly: {
+        type: "tag",
+        values: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"],
+      },
+    });
+    expect(result.violations).toEqual([]);
+  });
+
+  it("has no violations on DashboardPage + BillingPage (display-only)", async () => {
+    const { container } = render(
+      <main>
+        <DashboardPage
+          title="Overview"
+          stats={[{ id: "a", label: "Active trips", value: "128" }]}
+          activityRows={[{ id: "a", headline: "Trip 12 completed" }]}
+        />
+        <BillingPage
+          title="Billing"
+          plan={<p>Growth plan</p>}
+          invoiceColumns={[{ key: "id", title: "Invoice" }]}
+          invoiceRows={[{ id: "INV-001" }]}
+        />
+      </main>,
+    );
+    const result = await axe.run(container, {
+      runOnly: {
+        type: "tag",
+        values: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"],
+      },
+    });
+    expect(result.violations).toEqual([]);
+  });
+
+  it("has no violations on OnboardingWizard", async () => {
+    const { container } = render(
+      <main>
+        <OnboardingWizard
+          steps={[
+            { id: "org", title: "Workspace", content: "Org form" },
+            { id: "services", title: "Services", content: "Picker" },
+          ]}
+        />
       </main>,
     );
     const result = await axe.run(container, {

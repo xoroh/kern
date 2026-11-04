@@ -830,6 +830,61 @@ export const PROPS_TABLE: Record<
     rows: [],
     curated: ["className"],
   },
+  BillingPage: {
+    rows: [
+      {
+        name: "title",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "description",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "plan",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "planLabel",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "invoiceColumns",
+        type: "DataTableColumn[] | undefined",
+        required: false,
+      },
+      {
+        name: "invoiceRows",
+        type: "DataTableRow[] | undefined",
+        required: false,
+      },
+      {
+        name: "invoicesLabel",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "invoicesEmpty",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "loading",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "children",
+        type: "ReactNode",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
   BootIndicator: {
     rows: [
       {
@@ -2941,6 +2996,76 @@ export const PROPS_TABLE: Record<
     ],
     curated: [],
   },
+  DashboardPage: {
+    rows: [
+      {
+        name: "title",
+        type: "ReactNode",
+        required: true,
+      },
+      {
+        name: "description",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "actions",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "stats",
+        type: "DashboardStat[] | undefined",
+        required: false,
+      },
+      {
+        name: "statsLabel",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "activityRows",
+        type: "ListRow[] | undefined",
+        required: false,
+      },
+      {
+        name: "activityLabel",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "onRowPress",
+        type: "((id: string) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "queueTable",
+        type: "DataTableProps | undefined",
+        required: false,
+      },
+      {
+        name: "queueLabel",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "loading",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "emptyState",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "children",
+        type: "ReactNode",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
   DataTable: {
     rows: [
       {
@@ -4288,6 +4413,576 @@ export const PROPS_TABLE: Record<
     rows: [],
     curated: ["children", "className", "ref"],
   },
+  ComposerModeBar: {
+    rows: [
+      {
+        name: "mode",
+        type: "ComposerMode | undefined",
+        required: false,
+      },
+      {
+        name: "defaultMode",
+        type: "ComposerMode | undefined",
+        required: false,
+      },
+      {
+        name: "onModeChange",
+        type: "((mode: ComposerMode) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  ComposerReplyBar: {
+    rows: [
+      {
+        name: "replyTo",
+        type: "{ author: string; excerpt: string; }",
+        required: true,
+      },
+      {
+        name: "onDismissReply",
+        type: "(() => void) | undefined",
+        required: false,
+      },
+      {
+        name: "dismissLabel",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  ComposerAttachmentTray: {
+    rows: [
+      {
+        name: "attachments",
+        type: "readonly ComposerAttachment[]",
+        required: true,
+      },
+      {
+        name: "onRemoveAttachment",
+        type: "((id: string) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "removeLabel",
+        type: "((label: string) => string) | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  ComposerCannedPicker: {
+    rows: [
+      {
+        name: "inserts",
+        type: "readonly CannedInsert[]",
+        required: true,
+      },
+      {
+        name: "onCannedSelect",
+        type: "((insert: CannedInsert) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  KernComposer: {
+    rows: [
+      {
+        name: "value",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: "((value: string) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onSend",
+        type: "((text: string) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "mode",
+        type: "ComposerMode | undefined",
+        required: false,
+      },
+      {
+        name: "defaultMode",
+        type: "ComposerMode | undefined",
+        required: false,
+      },
+      {
+        name: "onModeChange",
+        type: "((mode: ComposerMode) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "replyTo",
+        type: "{ author: string; excerpt: string; } | undefined",
+        required: false,
+      },
+      {
+        name: "onDismissReply",
+        type: "(() => void) | undefined",
+        required: false,
+      },
+      {
+        name: "panels",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "attachments",
+        type: "readonly ComposerAttachment[] | undefined",
+        required: false,
+      },
+      {
+        name: "onRemoveAttachment",
+        type: "((id: string) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "cannedInserts",
+        type: "readonly CannedInsert[] | undefined",
+        required: false,
+      },
+      {
+        name: "onCannedSelect",
+        type: "((insert: CannedInsert) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "knowledge",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "knowledgeLabel",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "scheduledFor",
+        type: "Date | null | undefined",
+        required: false,
+      },
+      {
+        name: "defaultScheduledFor",
+        type: "Date | null | undefined",
+        required: false,
+      },
+      {
+        name: "onScheduledChange",
+        type: "((date: Date | null) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "draftStatus",
+        type: "ComposerDraftStatus | undefined",
+        required: false,
+      },
+      {
+        name: "onSaveDraft",
+        type: "(() => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onDiscardDraft",
+        type: "(() => void) | undefined",
+        required: false,
+      },
+      {
+        name: "outOfOffice",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultOutOfOffice",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onOutOfOfficeChange",
+        type: "((next: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "sending",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "placeholder",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "sendLabel",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  InviteAccept: {
+    rows: [
+      {
+        name: "invite",
+        type: "InviteDetails",
+        required: true,
+      },
+      {
+        name: "open",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultOpen",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChange",
+        type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "roleOptions",
+        type: "readonly PickerOption[] | undefined",
+        required: false,
+      },
+      {
+        name: "roleValue",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "defaultRoleValue",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "onRoleChange",
+        type: "((role: string) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "messageEnabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "messageValue",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "defaultMessageValue",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "onMessageChange",
+        type: "((message: string) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onAccept",
+        type: "((note?: string | undefined) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onDecline",
+        type: "(() => void) | undefined",
+        required: false,
+      },
+      {
+        name: "acceptLabel",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "declineLabel",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  ShareLinkRow: {
+    rows: [
+      {
+        name: "link",
+        type: "ShareLink",
+        required: true,
+      },
+      {
+        name: "onCopy",
+        type: "((link: ShareLink) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onRevoke",
+        type: "((link: ShareLink) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "scopes",
+        type: "readonly PickerOption[] | undefined",
+        required: false,
+      },
+      {
+        name: "onScopeSelect",
+        type: "((scope: string) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "copied",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "copyLabel",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "revokeLabel",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  ContactRow: {
+    rows: [
+      {
+        name: "contact",
+        type: "ContactAdapter",
+        required: true,
+      },
+      {
+        name: "onSelect",
+        type: "((contact: ContactAdapter) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "trailing",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "selected",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  ContactCard: {
+    rows: [
+      {
+        name: "contact",
+        type: "ContactAdapter",
+        required: true,
+      },
+      {
+        name: "actions",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "status",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  ContactGroupList: {
+    rows: [
+      {
+        name: "groups",
+        type: "readonly ContactGroup[]",
+        required: true,
+      },
+      {
+        name: "value",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: "((id: string) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onSelect",
+        type: "((contact: ContactAdapter) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  ContactDirectory: {
+    rows: [
+      {
+        name: "contacts",
+        type: "readonly ContactAdapter[]",
+        required: true,
+      },
+      {
+        name: "query",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "defaultQuery",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "onQueryChange",
+        type: "((query: string) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onSelect",
+        type: "((contact: ContactAdapter) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "searchLabel",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "searchPlaceholder",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "emptyTitle",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "emptyDescription",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
   KernLoading: {
     rows: [
       {
@@ -4308,6 +5003,96 @@ export const PROPS_TABLE: Record<
       {
         name: "value",
         type: "number | null | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  MapMarker: {
+    rows: [
+      {
+        name: "kind",
+        type: "MapMarkerKind | undefined",
+        required: false,
+      },
+      {
+        name: "tone",
+        type: "StatusTone | undefined",
+        required: false,
+      },
+      {
+        name: "icon",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "selected",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "live",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "consentLabel",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "consentExpired",
+        type: "boolean | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  MapPanel: {
+    rows: [
+      {
+        name: "title",
+        type: "ReactNode",
+        required: true,
+      },
+      {
+        name: "description",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "media",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "meta",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "actions",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "footer",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "onClose",
+        type: "(() => void) | undefined",
+        required: false,
+      },
+      {
+        name: "position",
+        type: "MapPanelPosition | undefined",
         required: false,
       },
     ],
@@ -4874,6 +5659,226 @@ export const PROPS_TABLE: Record<
         name: "reasons",
         type: "ReasonDataAdapter",
         required: true,
+      },
+    ],
+    curated: [],
+  },
+  KernSettingsRow: {
+    rows: [
+      {
+        name: "label",
+        type: "ReactNode",
+        required: true,
+      },
+      {
+        name: "supporting",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "icon",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "control",
+        type: "SettingsControlKind | undefined",
+        required: false,
+      },
+      {
+        name: "checked",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultChecked",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onCheckedChange",
+        type: "((checked: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "segmentedOptions",
+        type: "readonly SettingsSegmentOption[] | undefined",
+        required: false,
+      },
+      {
+        name: "segmentedValue",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "defaultSegmentedValue",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "onSegmentedChange",
+        type: "((value: string) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "selectOptions",
+        type: "readonly SettingsSelectOption[] | undefined",
+        required: false,
+      },
+      {
+        name: "selectValue",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "defaultSelectValue",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "onSelectChange",
+        type: "((value: string) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "selectPlaceholder",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "href",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "onPress",
+        type: "(() => void) | undefined",
+        required: false,
+      },
+      {
+        name: "badge",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "trailing",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  KernSettingsSection: {
+    rows: [
+      {
+        name: "id",
+        type: "string",
+        required: true,
+      },
+      {
+        name: "title",
+        type: "ReactNode",
+        required: true,
+      },
+      {
+        name: "description",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "rows",
+        type: "readonly KernSettingsRowProps[]",
+        required: true,
+      },
+      {
+        name: "density",
+        type: '"compact" | "medium" | undefined',
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  KernSettingsScreen: {
+    rows: [
+      {
+        name: "sections",
+        type: "readonly KernSettingsSectionDef[]",
+        required: true,
+      },
+      {
+        name: "value",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: "((id: string) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "layout",
+        type: "KernSettingsScreenLayout | undefined",
+        required: false,
+      },
+      {
+        name: "header",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "footer",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "density",
+        type: '"compact" | "medium" | undefined',
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
       },
     ],
     curated: [],
@@ -6609,6 +7614,146 @@ export const PROPS_TABLE: Record<
       },
     ],
     curated: ["value", "step", "min", "max", "disabled"],
+  },
+  OnboardingWizard: {
+    rows: [
+      {
+        name: "steps",
+        type: "OnboardingStep[]",
+        required: true,
+      },
+      {
+        name: "value",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: "((step: string) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "variant",
+        type: "OnboardingWizardVariant | undefined",
+        required: false,
+      },
+      {
+        name: "open",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultOpen",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onOpenChange",
+        type: "((open: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onClose",
+        type: "(() => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onBack",
+        type: "((step: string) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onComplete",
+        type: "(() => void) | undefined",
+        required: false,
+      },
+      {
+        name: "onCancel",
+        type: "(() => void) | undefined",
+        required: false,
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "backLabel",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "continueLabel",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "finishLabel",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "cancelLabel",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  OnboardingServiceStep: {
+    rows: [
+      {
+        name: "services",
+        type: "readonly ServiceCatalogEntry[]",
+        required: true,
+      },
+      {
+        name: "label",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "placeholder",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "value",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "defaultValue",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "onValueChange",
+        type: "((service: string) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "description",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
   },
   PageLoader: {
     rows: [
@@ -9804,6 +10949,146 @@ export const PROPS_TABLE: Record<
     rows: [
       {
         name: "to",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  FeatureGrid: {
+    rows: [
+      {
+        name: "title",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "description",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "items",
+        type: "MarketingFeature[]",
+        required: true,
+      },
+    ],
+    curated: [],
+  },
+  PricingTable: {
+    rows: [
+      {
+        name: "title",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "description",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "plans",
+        type: "MarketingPlan[]",
+        required: true,
+      },
+      {
+        name: "onSelect",
+        type: "((plan: string) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "selectLabel",
+        type: "string | undefined",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  TestimonialList: {
+    rows: [
+      {
+        name: "title",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "items",
+        type: "MarketingTestimonial[]",
+        required: true,
+      },
+    ],
+    curated: [],
+  },
+  CtaBanner: {
+    rows: [
+      {
+        name: "title",
+        type: "ReactNode",
+        required: true,
+      },
+      {
+        name: "description",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "actions",
+        type: "ReactNode",
+        required: false,
+      },
+    ],
+    curated: [],
+  },
+  MarketingSections: {
+    rows: [
+      {
+        name: "hero",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "features",
+        type: "MarketingFeature[] | undefined",
+        required: false,
+      },
+      {
+        name: "featuresTitle",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "plans",
+        type: "MarketingPlan[] | undefined",
+        required: false,
+      },
+      {
+        name: "pricingTitle",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "onSelect",
+        type: "((plan: string) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "testimonials",
+        type: "MarketingTestimonial[] | undefined",
+        required: false,
+      },
+      {
+        name: "testimonialsTitle",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "cta",
+        type: '(Omit<CtaBannerProps, "title"> & { title?: ReactNode; }) | undefined',
+        required: false,
+      },
+      {
+        name: "className",
         type: "string | undefined",
         required: false,
       },

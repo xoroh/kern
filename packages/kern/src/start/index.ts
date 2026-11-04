@@ -5,6 +5,7 @@
 export * from "./blocks";
 export * from "./link";
 export * from "./marketing";
+export * from "./marketing-sections";
 export * from "./navigation";
 export * from "./panes";
 export * from "./scaffolds";

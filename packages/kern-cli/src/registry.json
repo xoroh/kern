@@ -1,6 +1,6 @@
 {
   "version": "0.0.0",
-  "releaseSet": "kern@0.0.0+446.88b6d19467fa4e59",
+  "releaseSet": "kern@0.0.0+496.cdf0e1876db1c906",
   "rows": [
     {
       "name": "accordion-root",
@@ -243,6 +243,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/banner.tsx",
+      "status": "real"
+    },
+    {
+      "name": "billing-page",
+      "export": "BillingPage",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/billing-page.tsx",
       "status": "real"
     },
     {
@@ -714,6 +723,15 @@
       "status": "real"
     },
     {
+      "name": "dashboard-page",
+      "export": "DashboardPage",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/dashboard-page.tsx",
+      "status": "real"
+    },
+    {
       "name": "data-table",
       "export": "DataTable",
       "platform": "web",
@@ -1065,12 +1083,129 @@
       "status": "real"
     },
     {
+      "name": "composer-mode-bar",
+      "export": "ComposerModeBar",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-composer.tsx",
+      "status": "real"
+    },
+    {
+      "name": "composer-reply-bar",
+      "export": "ComposerReplyBar",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-composer.tsx",
+      "status": "real"
+    },
+    {
+      "name": "composer-attachment-tray",
+      "export": "ComposerAttachmentTray",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-composer.tsx",
+      "status": "real"
+    },
+    {
+      "name": "composer-canned-picker",
+      "export": "ComposerCannedPicker",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-composer.tsx",
+      "status": "real"
+    },
+    {
+      "name": "kern-composer",
+      "export": "KernComposer",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-composer.tsx",
+      "status": "real"
+    },
+    {
+      "name": "invite-accept",
+      "export": "InviteAccept",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-composer.tsx",
+      "status": "real"
+    },
+    {
+      "name": "share-link-row",
+      "export": "ShareLinkRow",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-composer.tsx",
+      "status": "real"
+    },
+    {
+      "name": "contact-row",
+      "export": "ContactRow",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-contact.tsx",
+      "status": "real"
+    },
+    {
+      "name": "contact-card",
+      "export": "ContactCard",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-contact.tsx",
+      "status": "real"
+    },
+    {
+      "name": "contact-group-list",
+      "export": "ContactGroupList",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-contact.tsx",
+      "status": "real"
+    },
+    {
+      "name": "contact-directory",
+      "export": "ContactDirectory",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-contact.tsx",
+      "status": "real"
+    },
+    {
       "name": "kern-loading",
       "export": "KernLoading",
       "platform": "web",
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-loading.tsx",
+      "status": "real"
+    },
+    {
+      "name": "map-marker",
+      "export": "MapMarker",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-maps.tsx",
+      "status": "real"
+    },
+    {
+      "name": "map-panel",
+      "export": "MapPanel",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-maps.tsx",
       "status": "real"
     },
     {
@@ -1107,6 +1242,33 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-picker.tsx",
+      "status": "real"
+    },
+    {
+      "name": "kern-settings-row",
+      "export": "KernSettingsRow",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-settings.tsx",
+      "status": "real"
+    },
+    {
+      "name": "kern-settings-section",
+      "export": "KernSettingsSection",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-settings.tsx",
+      "status": "real"
+    },
+    {
+      "name": "kern-settings-screen",
+      "export": "KernSettingsScreen",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-settings.tsx",
       "status": "real"
     },
     {
@@ -1521,6 +1683,24 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/number-field.tsx",
+      "status": "real"
+    },
+    {
+      "name": "onboarding-wizard",
+      "export": "OnboardingWizard",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/onboarding-wizard.tsx",
+      "status": "real"
+    },
+    {
+      "name": "onboarding-service-step",
+      "export": "OnboardingServiceStep",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/onboarding-wizard.tsx",
       "status": "real"
     },
     {
@@ -2559,6 +2739,51 @@
       "status": "real"
     },
     {
+      "name": "feature-grid",
+      "export": "FeatureGrid",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": "./start",
+      "path": "src/start/marketing-sections.tsx",
+      "status": "real"
+    },
+    {
+      "name": "pricing-table",
+      "export": "PricingTable",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": "./start",
+      "path": "src/start/marketing-sections.tsx",
+      "status": "real"
+    },
+    {
+      "name": "testimonial-list",
+      "export": "TestimonialList",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": "./start",
+      "path": "src/start/marketing-sections.tsx",
+      "status": "real"
+    },
+    {
+      "name": "cta-banner",
+      "export": "CtaBanner",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": "./start",
+      "path": "src/start/marketing-sections.tsx",
+      "status": "real"
+    },
+    {
+      "name": "marketing-sections",
+      "export": "MarketingSections",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": "./start",
+      "path": "src/start/marketing-sections.tsx",
+      "status": "real"
+    },
+    {
       "name": "hero",
       "export": "Hero",
       "platform": "web",
@@ -2865,6 +3090,15 @@
       "status": "real"
     },
     {
+      "name": "billing-page",
+      "export": "BillingPage",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/billing-page.tsx",
+      "status": "real"
+    },
+    {
       "name": "button-group",
       "export": "ButtonGroup",
       "platform": "native",
@@ -3024,6 +3258,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/csv-export-button.tsx",
+      "status": "real"
+    },
+    {
+      "name": "dashboard-page",
+      "export": "DashboardPage",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/dashboard-page.tsx",
       "status": "real"
     },
     {
@@ -3207,12 +3450,129 @@
       "status": "real"
     },
     {
+      "name": "composer-mode-bar",
+      "export": "ComposerModeBar",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-composer.tsx",
+      "status": "real"
+    },
+    {
+      "name": "composer-reply-bar",
+      "export": "ComposerReplyBar",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-composer.tsx",
+      "status": "real"
+    },
+    {
+      "name": "composer-attachment-tray",
+      "export": "ComposerAttachmentTray",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-composer.tsx",
+      "status": "real"
+    },
+    {
+      "name": "composer-canned-picker",
+      "export": "ComposerCannedPicker",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-composer.tsx",
+      "status": "real"
+    },
+    {
+      "name": "kern-composer",
+      "export": "KernComposer",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-composer.tsx",
+      "status": "real"
+    },
+    {
+      "name": "invite-accept",
+      "export": "InviteAccept",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-composer.tsx",
+      "status": "real"
+    },
+    {
+      "name": "share-link-row",
+      "export": "ShareLinkRow",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-composer.tsx",
+      "status": "real"
+    },
+    {
+      "name": "contact-row",
+      "export": "ContactRow",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-contact.tsx",
+      "status": "real"
+    },
+    {
+      "name": "contact-card",
+      "export": "ContactCard",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-contact.tsx",
+      "status": "real"
+    },
+    {
+      "name": "contact-group-list",
+      "export": "ContactGroupList",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-contact.tsx",
+      "status": "real"
+    },
+    {
+      "name": "contact-directory",
+      "export": "ContactDirectory",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-contact.tsx",
+      "status": "real"
+    },
+    {
       "name": "kern-loading",
       "export": "KernLoading",
       "platform": "native",
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-loading.tsx",
+      "status": "real"
+    },
+    {
+      "name": "map-marker",
+      "export": "MapMarker",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-maps.tsx",
+      "status": "real"
+    },
+    {
+      "name": "map-panel",
+      "export": "MapPanel",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-maps.tsx",
       "status": "real"
     },
     {
@@ -3249,6 +3609,33 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/kern-picker.tsx",
+      "status": "real"
+    },
+    {
+      "name": "kern-settings-row",
+      "export": "KernSettingsRow",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-settings.tsx",
+      "status": "real"
+    },
+    {
+      "name": "kern-settings-section",
+      "export": "KernSettingsSection",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-settings.tsx",
+      "status": "real"
+    },
+    {
+      "name": "kern-settings-screen",
+      "export": "KernSettingsScreen",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/kern-settings.tsx",
       "status": "real"
     },
     {
@@ -3387,6 +3774,51 @@
       "status": "real"
     },
     {
+      "name": "feature-grid",
+      "export": "FeatureGrid",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/marketing-sections.tsx",
+      "status": "real"
+    },
+    {
+      "name": "pricing-table",
+      "export": "PricingTable",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/marketing-sections.tsx",
+      "status": "real"
+    },
+    {
+      "name": "testimonial-list",
+      "export": "TestimonialList",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/marketing-sections.tsx",
+      "status": "real"
+    },
+    {
+      "name": "cta-banner",
+      "export": "CtaBanner",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/marketing-sections.tsx",
+      "status": "real"
+    },
+    {
+      "name": "marketing-sections",
+      "export": "MarketingSections",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/marketing-sections.tsx",
+      "status": "real"
+    },
+    {
       "name": "menu",
       "export": "Menu",
       "platform": "native",
@@ -3510,6 +3942,24 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/number-field.tsx",
+      "status": "real"
+    },
+    {
+      "name": "onboarding-wizard",
+      "export": "OnboardingWizard",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/onboarding-wizard.tsx",
+      "status": "real"
+    },
+    {
+      "name": "onboarding-service-step",
+      "export": "OnboardingServiceStep",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/onboarding-wizard.tsx",
       "status": "real"
     },
     {

@@ -67,6 +67,7 @@ import { AUTOCOMPLETE_EXAMPLES } from "./examples/autocomplete";
 import { AVATAR_EXAMPLES } from "./examples/avatar";
 import { BADGE_EXAMPLES } from "./examples/badge";
 import { BANNER_EXAMPLES } from "./examples/banner";
+import { BILLING_PAGE_EXAMPLES } from "./examples/billing-page";
 import { BOTTOM_SHEET_EXAMPLES } from "./examples/bottom-sheet";
 import { BOTTOM_SHEET_PICKER_EXAMPLES } from "./examples/bottom-sheet-picker";
 import { BUTTON_EXAMPLES } from "./examples/button";
@@ -83,6 +84,7 @@ import { COMMAND_EXAMPLES } from "./examples/command";
 import { CONTEXT_MENU_EXAMPLES } from "./examples/context-menu";
 import { COUNTRY_SELECT_EXAMPLES } from "./examples/country-select";
 import { CSV_EXPORT_BUTTON_EXAMPLES } from "./examples/csv-export-button";
+import { DASHBOARD_PAGE_EXAMPLES } from "./examples/dashboard-page";
 import { DATA_TABLE_EXAMPLES } from "./examples/data-table";
 import { DIALOG_EXAMPLES } from "./examples/dialog";
 import { DOCK_SHEET_EXAMPLES } from "./examples/dock-sheet";
@@ -102,6 +104,9 @@ import { ICON_BUTTON_EXAMPLES } from "./examples/icon-button";
 import { CHECKBOX_EXAMPLES, INPUT_EXAMPLES } from "./examples/input";
 import { INPUT_OTP_EXAMPLES } from "./examples/input-otp";
 import { KBD_EXAMPLES } from "./examples/kbd";
+import { KERN_COMPOSER_EXAMPLES } from "./examples/kern-composer";
+import { KERN_CONTACT_EXAMPLES } from "./examples/kern-contact";
+import { KERN_SETTINGS_EXAMPLES } from "./examples/kern-settings";
 import { LABEL_EXAMPLES } from "./examples/label";
 import { LINEAR_PROGRESS_EXAMPLES } from "./examples/linear-progress";
 import { LINK_BUTTON_EXAMPLES } from "./examples/link-button";
@@ -112,6 +117,9 @@ import { LOADER_EXAMPLES } from "./examples/loader";
 import { LOADING_BUTTON_EXAMPLES } from "./examples/loading-button";
 import { LOADING_INDICATOR_EXAMPLES } from "./examples/loading-indicator";
 import { LOADING_REGION_EXAMPLES } from "./examples/loading-region";
+import { MAP_MARKER_EXAMPLES } from "./examples/map-marker";
+import { MAP_PANEL_EXAMPLES } from "./examples/map-panel";
+import { MARKETING_SECTIONS_EXAMPLES } from "./examples/marketing-sections";
 import { MENU_EXAMPLES, MENUBAR_EXAMPLES } from "./examples/menu";
 import { MENU_SCREEN_EXAMPLES } from "./examples/menu-screen";
 import { MENU_SHEET_EXAMPLES } from "./examples/menu-sheet";
@@ -121,6 +129,7 @@ import { NAVIGATION_BAR_EXAMPLES } from "./examples/navigation-bar";
 import { NAVIGATION_DRAWER_EXAMPLES } from "./examples/navigation-drawer";
 import { NAVIGATION_MENU_EXAMPLES } from "./examples/navigation-menu";
 import { NUMBER_FIELD_EXAMPLES } from "./examples/number-field";
+import { ONBOARDING_WIZARD_EXAMPLES } from "./examples/onboarding-wizard";
 import { PAGINATION_EXAMPLES } from "./examples/pagination";
 import { PANE_EXAMPLES } from "./examples/pane";
 import { POPOVER_EXAMPLES } from "./examples/popover";
@@ -165,6 +174,7 @@ export const EXAMPLES: Record<string, ExampleSpec[]> = {
   Avatar: AVATAR_EXAMPLES,
   Badge: BADGE_EXAMPLES,
   Banner: BANNER_EXAMPLES,
+  BillingPage: BILLING_PAGE_EXAMPLES,
   BottomSheetPicker: BOTTOM_SHEET_PICKER_EXAMPLES,
   BottomSheet: BOTTOM_SHEET_EXAMPLES,
   ButtonGroup: BUTTON_GROUP_EXAMPLES,
@@ -178,10 +188,12 @@ export const EXAMPLES: Record<string, ExampleSpec[]> = {
   Collapsible: COLLAPSIBLE_EXAMPLES,
   Combobox: COMBOBOX_EXAMPLES,
   Command: COMMAND_EXAMPLES,
+  ContactDirectory: KERN_CONTACT_EXAMPLES,
   ContextMenu: CONTEXT_MENU_EXAMPLES,
   CountrySelect: COUNTRY_SELECT_EXAMPLES,
   CsvExportButton: CSV_EXPORT_BUTTON_EXAMPLES,
   DataTable: DATA_TABLE_EXAMPLES,
+  DashboardPage: DASHBOARD_PAGE_EXAMPLES,
   Dialog: DIALOG_EXAMPLES,
   DockSheet: DOCK_SHEET_EXAMPLES,
   Drawer: DRAWER_EXAMPLES,
@@ -201,6 +213,8 @@ export const EXAMPLES: Record<string, ExampleSpec[]> = {
   Input: INPUT_EXAMPLES,
   Checkbox: CHECKBOX_EXAMPLES,
   Kbd: KBD_EXAMPLES,
+  KernComposer: KERN_COMPOSER_EXAMPLES,
+  KernSettingsScreen: KERN_SETTINGS_EXAMPLES,
   Label: LABEL_EXAMPLES,
   LinearProgress: LINEAR_PROGRESS_EXAMPLES,
   LinkButton: LINK_BUTTON_EXAMPLES,
@@ -211,6 +225,9 @@ export const EXAMPLES: Record<string, ExampleSpec[]> = {
   LoadingButton: LOADING_BUTTON_EXAMPLES,
   LoadingIndicator: LOADING_INDICATOR_EXAMPLES,
   LoadingRegion: LOADING_REGION_EXAMPLES,
+  MapMarker: MAP_MARKER_EXAMPLES,
+  MapPanel: MAP_PANEL_EXAMPLES,
+  MarketingSections: MARKETING_SECTIONS_EXAMPLES,
   MenuScreen: MENU_SCREEN_EXAMPLES,
   MenuSheet: MENU_SHEET_EXAMPLES,
   Menu: MENU_EXAMPLES,
@@ -221,6 +238,7 @@ export const EXAMPLES: Record<string, ExampleSpec[]> = {
   NavigationDrawer: NAVIGATION_DRAWER_EXAMPLES,
   NavigationMenu: NAVIGATION_MENU_EXAMPLES,
   NumberField: NUMBER_FIELD_EXAMPLES,
+  OnboardingWizard: ONBOARDING_WIZARD_EXAMPLES,
   Pagination: PAGINATION_EXAMPLES,
   Pane: PANE_EXAMPLES,
   Popover: POPOVER_EXAMPLES,
