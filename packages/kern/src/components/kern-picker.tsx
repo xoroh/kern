@@ -210,10 +210,9 @@ function OptionList({
             disabled={option.disabled}
             onClick={() => onPick(option.value)}
             className={cn(
-              "flex min-h-12 w-full flex-col items-start gap-0.5 rounded-(--sys-shape-corner-medium) p-3 text-left outline-none transition-colors",
+              "relative flex min-h-12 w-full flex-col items-start gap-0.5 rounded-(--sys-shape-corner-medium) p-3 text-left outline-none transition-colors",
               FOCUS_RING_CLASS,
-              "hover:opacity-[var(--sys-state-hover)]",
-              "active:opacity-[var(--sys-state-press)]",
+              "before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--sys-color-on-surface) hover:before:opacity-[var(--sys-state-hover)] active:before:opacity-[var(--sys-state-press)]",
               isSelected
                 ? "bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container)"
                 : "text-(--sys-color-on-surface)",

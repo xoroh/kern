@@ -1,3 +1,4 @@
+import type { StatusTone } from "@xoroh/kern-tokens";
 import { type ReactNode, useMemo, useState } from "react";
 import { cn } from "../utils/cn";
 import { Checkbox } from "./checkbox";
@@ -51,6 +52,12 @@ export type DataTableColumn = {
   /** Custom cell rendering. Defaults to text. */
   render?: (value: CellValue, row: DataTableRow) => ReactNode;
   kind?: DataTableColumnKind;
+  /**
+   * Status-tone mapping for `status`-kind cells (KernStatus registry).
+   * The cell renders an assist Chip in the returned tone; absent, `neutral`.
+   * Tones are host-assigned — the table never guesses meaning from strings.
+   */
+  statusTone?: (value: CellValue, row: DataTableRow) => StatusTone;
 };
 
 export type DataTableAction = {
@@ -361,7 +368,14 @@ export function DataTable({
     }
     if (column.render) return column.render(value, row);
     if (column.kind === "status" && value !== null && value !== undefined) {
-      return <Chip variant="assist">{String(value)}</Chip>;
+      return (
+        <Chip
+          variant="assist"
+          tone={column.statusTone?.(value, row) ?? "neutral"}
+        >
+          {String(value)}
+        </Chip>
+      );
     }
     if (column.kind === "numeric" && typeof value === "number") {
       return (

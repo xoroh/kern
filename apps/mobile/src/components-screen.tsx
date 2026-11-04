@@ -18,6 +18,11 @@ import {
   FieldRoot,
   FilterChipRow,
   Input,
+  KernLoading,
+  KernNavigation,
+  KernOverlay,
+  KernPicker,
+  KernTabs,
   LinearProgress,
   ListDetail,
   ListItem,
@@ -31,6 +36,7 @@ import {
   Slider,
   SnackbarProvider,
   SnackbarViewport,
+  StatusPill,
   SuccessTransform,
   Switch,
   Tabs,
@@ -80,6 +86,9 @@ function ComponentsScreenBody() {
   const [radio, setRadio] = useState("standard");
   const [slider, setSlider] = useState(0.4);
   const [tab, setTab] = useState("all");
+  const [unifiedTab, setUnifiedTab] = useState("rides");
+  const [unifiedSheet, setUnifiedSheet] = useState(false);
+  const [unifiedPick, setUnifiedPick] = useState("taxi");
 
   return (
     <ShowcaseScroll>
@@ -253,6 +262,61 @@ function ComponentsScreenBody() {
           detail={<Text>Trip detail pane</Text>}
         />
       </ShowcaseSection>
+
+      <ShowcaseSection title="Unified (D951 systems)">
+        <Row>
+          <KernTabs
+            items={[
+              { value: "rides", label: "Rides" },
+              { value: "ledger", label: "Ledger" },
+            ]}
+            value={unifiedTab}
+            onValueChange={setUnifiedTab}
+          />
+          <View style={{ flexDirection: "row", gap: 8, flexWrap: "wrap" }}>
+            <StatusPill tone="success">Live</StatusPill>
+            <StatusPill tone="warning">Delayed</StatusPill>
+            <StatusPill tone="neutral">Done</StatusPill>
+          </View>
+          <KernLoading kind="spinner" label="Loading queue" />
+          <KernNavigation
+            variant="bar"
+            value={unifiedTab}
+            onValueChange={setUnifiedTab}
+            sections={[
+              {
+                key: "main",
+                destinations: [
+                  { key: "rides", label: "Rides" },
+                  { key: "ledger", label: "Ledger" },
+                ],
+              },
+            ]}
+          />
+          <Button variant="tonal" onPress={() => setUnifiedSheet(true)}>
+            Unified sheet
+          </Button>
+          <KernPicker
+            label="Service"
+            options={[
+              { value: "taxi", label: "Taxi" },
+              { value: "tour", label: "City tour" },
+            ]}
+            value={unifiedPick}
+            onSelect={setUnifiedPick}
+          />
+        </Row>
+      </ShowcaseSection>
+
+      <KernOverlay
+        variant="sheet"
+        open={unifiedSheet}
+        onOpenChange={setUnifiedSheet}
+        title="Unified sheet"
+        description="One overlay system across modal, sheet, drawer and alert."
+      >
+        <Text>Sheet body</Text>
+      </KernOverlay>
 
       <ShowcaseSection title="Overlays">
         <View style={{ flexDirection: "row", gap: 8, flexWrap: "wrap" }}>

@@ -60,9 +60,8 @@ function MenuActionRow({
       disabled={action.disabled}
       onClick={action.onPress ?? onPress}
       className={cn(
-        "flex min-h-12 w-full items-center gap-3 rounded-(--sys-shape-corner-medium) px-3 py-2 text-left",
-        "hover:opacity-[var(--sys-state-hover)]",
-        "active:opacity-[var(--sys-state-press)]",
+        "relative flex min-h-12 w-full items-center gap-3 rounded-(--sys-shape-corner-medium) px-3 py-2 text-left",
+        "before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--sys-color-on-surface) hover:before:opacity-[var(--sys-state-hover)] active:before:opacity-[var(--sys-state-press)]",
         action.disabled && "opacity-[var(--sys-state-disabled)]",
         // Destructive is a ROLE (error on errorContainer), not a variant name,
         // so the component count does not grow a "danger" axis.
@@ -303,9 +302,8 @@ export function FilterChipRow({
             aria-pressed={pressed}
             onClick={() => toggle(option)}
             className={cn(
-              "min-h-8 shrink-0 rounded-(--sys-shape-corner-small) px-3 text-(--sys-typescale-label-large-font-size)",
-              "hover:opacity-[var(--sys-state-hover)]",
-              "active:opacity-[var(--sys-state-press)]",
+              "relative min-h-8 shrink-0 rounded-(--sys-shape-corner-small) px-3 text-(--sys-typescale-label-large-font-size)",
+              "before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--sys-color-on-surface) hover:before:opacity-[var(--sys-state-hover)] active:before:opacity-[var(--sys-state-press)]",
               pressed
                 ? "bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container)"
                 : "border border-(--sys-color-outline) text-(--sys-color-on-surface-variant)",

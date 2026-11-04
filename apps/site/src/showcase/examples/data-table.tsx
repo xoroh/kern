@@ -22,7 +22,12 @@ export const DATA_TABLE_EXAMPLES: ExampleSpec[] = [
           caption="Today's queue"
           columns={[
             { key: "booking", title: "Booking", sortable: true },
-            { key: "status", title: "Status", kind: "status" },
+            {
+              key: "status",
+              title: "Status",
+              kind: "status",
+              statusTone: (value) => (value === "Live" ? "success" : "neutral"),
+            },
             { key: "amount", title: "Amount", kind: "numeric", sortable: true },
             { key: "more", title: "More", kind: "actions" },
           ]}
@@ -39,7 +44,12 @@ export const DATA_TABLE_EXAMPLES: ExampleSpec[] = [
   caption="Today's queue"
   columns={[
     { key: "booking", title: "Booking", sortable: true },
-    { key: "status", title: "Status", kind: "status" },
+    {
+      key: "status",
+      title: "Status",
+      kind: "status",
+      statusTone: (value) => (value === "Live" ? "success" : "neutral"),
+    },
     { key: "more", title: "More", kind: "actions" },
   ]}
   rows={[]}

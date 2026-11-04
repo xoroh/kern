@@ -174,7 +174,7 @@ function CloseButton({
       }}
       aria-label="Close"
       className={
-        "kern-overlay-close absolute end-4 top-4 grid size-12 place-items-center rounded-(--sys-shape-corner-full) text-(--sys-color-on-surface-variant) hover:opacity-[var(--sys-state-hover)] " +
+        "kern-overlay-close absolute end-4 top-4 grid size-12 place-items-center rounded-(--sys-shape-corner-full) text-(--sys-color-on-surface-variant) before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--sys-color-on-surface-variant) hover:before:opacity-[var(--sys-state-hover)] " +
         FOCUS_RING_CLASS +
         " outline-none"
       }

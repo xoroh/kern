@@ -205,7 +205,7 @@ export function BottomSheet({
             if (shouldDismissOn("close", surface.open ?? true, branches))
               onClose?.();
           }}
-          className="absolute right-4 top-4 grid size-12 place-items-center rounded-(--sys-shape-corner-full) text-(--sys-color-on-surface-variant) hover:opacity-[var(--sys-state-hover)]"
+          className="absolute right-4 top-4 grid size-12 place-items-center rounded-(--sys-shape-corner-full) text-(--sys-color-on-surface-variant) before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--sys-color-on-surface-variant) hover:before:opacity-[var(--sys-state-hover)]"
         >
           {/*
             The name comes from screen-reader-only content via the shared
@@ -506,9 +506,8 @@ export function BottomSheetPicker({
                 disabled={option.disabled}
                 onClick={() => onSelect(option.value)}
                 className={cn(
-                  "flex min-h-12 w-full flex-col items-start gap-0.5 rounded-(--sys-shape-corner-medium) p-3 text-left",
-                  "hover:opacity-[var(--sys-state-hover)]",
-                  "active:opacity-[var(--sys-state-press)]",
+                  "relative flex min-h-12 w-full flex-col items-start gap-0.5 rounded-(--sys-shape-corner-medium) p-3 text-left",
+                  "before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--sys-color-on-surface) hover:before:opacity-[var(--sys-state-hover)] active:before:opacity-[var(--sys-state-press)]",
                   selected
                     ? "bg-(--sys-color-secondary-container) text-(--sys-color-on-secondary-container)"
                     : "text-(--sys-color-on-surface)",
@@ -578,9 +577,8 @@ export function ActionSheet({
               disabled={action.disabled}
               onClick={action.onSelect}
               className={cn(
-                "min-h-12 w-full rounded-(--sys-shape-corner-medium) px-3 text-left text-(--sys-typescale-body-large-font-size) text-(--sys-color-on-surface)",
-                "hover:opacity-[var(--sys-state-hover)]",
-                "active:opacity-[var(--sys-state-press)]",
+                "relative min-h-12 w-full rounded-(--sys-shape-corner-medium) px-3 text-left text-(--sys-typescale-body-large-font-size) text-(--sys-color-on-surface)",
+                "before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--sys-color-on-surface) hover:before:opacity-[var(--sys-state-hover)] active:before:opacity-[var(--sys-state-press)]",
                 action.disabled && "opacity-[var(--sys-state-disabled)]",
               )}
             >

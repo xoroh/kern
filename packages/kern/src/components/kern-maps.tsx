@@ -306,7 +306,7 @@ export function MapPanel({
           type="button"
           onClick={onClose}
           aria-label="Close panel"
-          className="kern-map-panel-close absolute end-2 top-2 grid size-10 place-items-center rounded-(--sys-shape-corner-full) text-(--sys-color-on-surface-variant) hover:opacity-[var(--sys-state-hover)] focus-visible:opacity-[var(--sys-state-focus)]"
+          className="kern-map-panel-close absolute end-2 top-2 grid size-10 place-items-center rounded-(--sys-shape-corner-full) text-(--sys-color-on-surface-variant) before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--sys-color-on-surface-variant) hover:before:opacity-[var(--sys-state-hover)] focus-visible:before:opacity-[var(--sys-state-focus)]"
         >
           <span aria-hidden="true" className="text-xl leading-none">
             ×

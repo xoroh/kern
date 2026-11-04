@@ -78,6 +78,31 @@ describe("native DataTable (list-cards fallback)", () => {
     expect(selected[0]).toMatchObject({ id: "BK-002" });
   });
 
+  it("renders status cells through the tone mapping when given", async () => {
+    const seen: Array<string | undefined> = [];
+    await render(
+      <DataTable
+        columns={columns.map((column) =>
+          column.kind === "status"
+            ? {
+                ...column,
+                statusTone: (
+                  value: string | number | boolean | null | undefined,
+                ) => {
+                  seen.push(typeof value === "string" ? value : undefined);
+                  return value === "Live" ? "success" : "neutral";
+                },
+              }
+            : column,
+        )}
+        rows={rows}
+      />,
+    );
+    expect(screen.getAllByText("Live")).toHaveLength(2);
+    expect(screen.getByText("Done")).toBeTruthy();
+    expect(seen).toEqual(["Live", "Done", "Live"]);
+  });
+
   it("shows the empty state when the query matches nothing", async () => {
     await render(<DataTable columns={columns} rows={rows} query="zzz" />);
     expect(screen.queryByTestId("kern-data-table")).toBeNull();

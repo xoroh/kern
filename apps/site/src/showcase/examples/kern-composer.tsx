@@ -1,4 +1,5 @@
 import {
+  Button,
   ComposerAttachmentTray,
   ComposerCannedPicker,
   ComposerModeBar,
@@ -7,6 +8,7 @@ import {
   KernComposer,
   ShareLinkRow,
 } from "@xoroh/kern";
+import { useState } from "react";
 import type { ExampleSpec } from "../example";
 
 /**
@@ -45,24 +47,30 @@ export const INVITE_ACCEPT_EXAMPLES: ExampleSpec[] = [
     title: "Invite review",
     description:
       "MS-037 invite review — role picker plus an optional note, composed on the overlay.",
-    render: () => (
-      <div className="w-full max-w-xl">
-        <InviteAccept
-          defaultOpen
-          invite={{
-            workspaceName: "Acme Taxis",
-            inviterName: "Faroeq",
-            role: "Dispatcher",
-          }}
-          roleOptions={[
-            { value: "dispatcher", label: "Dispatcher" },
-            { value: "driver", label: "Driver" },
-          ]}
-        />
-      </div>
-    ),
+    render: function InviteAcceptDemo() {
+      const [open, setOpen] = useState(false);
+      return (
+        <div className="w-full max-w-xl">
+          <Button variant="tonal" onClick={() => setOpen(true)}>
+            Review invite
+          </Button>
+          <InviteAccept
+            open={open}
+            onOpenChange={setOpen}
+            invite={{
+              workspaceName: "Acme Taxis",
+              inviterName: "Faroeq",
+              role: "Dispatcher",
+            }}
+            roleOptions={[
+              { value: "dispatcher", label: "Dispatcher" },
+              { value: "driver", label: "Driver" },
+            ]}
+          />
+        </div>
+      );
+    },
     code: `<InviteAccept
-  defaultOpen
   invite={{ workspaceName: "Acme", inviterName: "Faroeq", role: "Dispatcher" }}
   roleOptions={[{ value: "driver", label: "Driver" }]}
   onAccept={() => {}}

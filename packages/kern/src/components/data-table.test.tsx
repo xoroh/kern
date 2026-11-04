@@ -95,6 +95,40 @@ describe("DataTable", () => {
     expect(screen.getByText("Showing 21–25 of 25")).toBeTruthy();
   });
 
+  it("paints status cells in the mapped KernStatus tone", () => {
+    const toned = columns.map((column) =>
+      column.kind === "status"
+        ? {
+            ...column,
+            statusTone: (
+              value: string | number | boolean | null | undefined,
+            ) => (value === "Live" ? "success" : "neutral"),
+          }
+        : column,
+    );
+    render(<DataTable columns={toned} rows={rows} />);
+    for (const cell of screen.getAllByText("Live")) {
+      expect(cell.closest("[data-tone]")?.getAttribute("data-tone")).toBe(
+        "success",
+      );
+    }
+    expect(
+      screen
+        .getByText("Done")
+        .closest("[data-tone]")
+        ?.getAttribute("data-tone"),
+    ).toBe("neutral");
+  });
+
+  it("paints status cells neutral without a tone mapping", () => {
+    render(<DataTable columns={columns} rows={rows} />);
+    for (const cell of screen.getAllByText("Live")) {
+      expect(cell.closest("[data-tone]")?.getAttribute("data-tone")).toBe(
+        "neutral",
+      );
+    }
+  });
+
   it("paints negative ledger amounts in the error role", () => {
     render(<DataTable columns={columns} rows={rows} variant="ledger" />);
     expect(screen.getByText("-120").className).toContain(

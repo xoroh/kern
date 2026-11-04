@@ -1,3 +1,4 @@
+import type { StatusTone } from "@xoroh/kern-tokens";
 import { type ReactNode, useMemo, useState } from "react";
 import {
   Pressable,
@@ -44,6 +45,12 @@ export type NativeDataTableColumn = {
   sortValue?: (row: NativeDataTableRow) => string | number | boolean | null;
   render?: (value: NativeCellValue, row: NativeDataTableRow) => ReactNode;
   kind?: NativeDataTableColumnKind;
+  /**
+   * Status-tone mapping for `status`-kind cells (KernStatus registry).
+   * The cell renders an assist Chip in the returned tone; absent, `neutral`.
+   * Tones are host-assigned — the table never guesses meaning from strings.
+   */
+  statusTone?: (value: NativeCellValue, row: NativeDataTableRow) => StatusTone;
 };
 
 export type NativeDataTableAction = {
@@ -228,7 +235,14 @@ export function DataTable({
     const value = row[column.key];
     if (column.render) return column.render(value, row);
     if (column.kind === "status" && value !== null && value !== undefined) {
-      return <Chip variant="assist">{String(value)}</Chip>;
+      return (
+        <Chip
+          variant="assist"
+          tone={column.statusTone?.(value, row) ?? "neutral"}
+        >
+          {String(value)}
+        </Chip>
+      );
     }
     if (column.kind === "numeric" && typeof value === "number") {
       return (
