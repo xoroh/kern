@@ -14,14 +14,14 @@ import type { ComponentPropsWithRef } from "react";
 import { cn } from "../utils/cn";
 
 const buttonVariants = cva(
-  "kern-button relative inline-flex items-center justify-center rounded-(--md-sys-shape-corner-full) focus-visible:ring-2 focus-visible:ring-(--md-sys-color-secondary)",
+  "kern-button relative inline-flex items-center justify-center rounded-(--sys-shape-corner-full) focus-visible:ring-2 focus-visible:ring-(--sys-color-secondary)",
   {
     variants: {
       variant: {
         primary:
-          "bg-(--md-sys-color-primary) text-(--md-sys-color-on-primary)",
+          "bg-(--sys-color-primary) text-(--sys-color-on-primary)",
         tonal:
-          "bg-(--md-sys-color-surface-tonal) text-(--md-sys-color-on-surface)",
+          "bg-(--sys-color-surface-tonal) text-(--sys-color-on-surface)",
       },
     },
     defaultVariants: { variant: "primary" },
@@ -43,7 +43,7 @@ export function Button({ variant, className, ...props }: ButtonProps) {
 ```
 
 Note what is in the class string: **roles only**
-(`--md-sys-color-primary`, `--md-sys-shape-corner-full`). No raw hex, no
+(`--sys-color-primary`, `--sys-shape-corner-full`). No raw hex, no
 `text-gray-700`. That is what makes dark mode and the contrast levels work
 without a single conditional.
 
@@ -57,7 +57,7 @@ Bind state styling to the `data-*` attributes the primitive already emits,
 never to JS state:
 
 ```tsx
-className="hover:bg-(--md-sys-color-primary)/90 disabled:opacity-50"
+className="hover:bg-(--sys-color-primary)/90 disabled:opacity-50"
 ```
 
 Behavior lives in the primitive; appearance reacts to what it emits.

@@ -71,8 +71,8 @@ Three variants: Filled (`surface-container-highest`), Outlined (`surface` + `out
 ```html
 <div class="kern-card">
   <div class="kern-card__content">
-    <h3 style="font: var(--md-sys-typescale-title-medium)">Title</h3>
-    <p style="font: var(--md-sys-typescale-body-medium); color: var(--md-sys-color-on-surface-variant)">
+    <h3 style="font: var(--sys-typescale-title-medium)">Title</h3>
+    <p style="font: var(--sys-typescale-body-medium); color: var(--sys-color-on-surface-variant)">
       Supporting text
     </p>
   </div>
@@ -81,8 +81,8 @@ Three variants: Filled (`surface-container-highest`), Outlined (`surface` + `out
 
 ```css
 .kern-card {
-  background: var(--md-sys-color-surface);
-  border-radius: var(--md-sys-shape-corner-small); /* 8px */
+  background: var(--sys-color-surface);
+  border-radius: var(--sys-shape-corner-small); /* 8px */
   box-shadow: rgba(0,0,0,0.12) 0px 4px 16px;
   overflow: hidden;
 }

@@ -37,7 +37,7 @@ realistic risk surface is narrow:
 
 - **Style injection.** A component that interpolated untrusted input into a
   class name or inline style could escape its token binding. Kern binds
-  styling to token roles (`--md-sys-*`) rather than to caller strings;
+  styling to token roles (`--sys-*`) rather than to caller strings;
   report anything that reintroduces raw caller-controlled styling.
 - **The MCP server** (`@xoroh/kern-mcp`) is a node process that reads files
   under `KERN_REPO_ROOT`. Treat it as a local tool, not a service: do not

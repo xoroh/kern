@@ -21,7 +21,7 @@ import { Icon } from "@xoroh/kern-icons";
 <Icon name="search" />; // default set (material)
 <Icon name="back" />; // semantic alias → material:arrow_back
 <Icon name="material:search" />; // qualified name
-<Icon name="close" filled size={20} color="var(--md-sys-color-primary)" />;
+<Icon name="close" filled size={20} color="var(--sys-color-primary)" />;
 ```
 
 - Sizes: `16 | 18 | 20 | 24 | 32 | 40 | 48` dp (or number), default 24.

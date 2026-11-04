@@ -94,7 +94,7 @@ Expanded (840dp+):  Navigation Drawer (side, standard)  ← Kern default
 ### Responsive Shell (Kern-flavored)
 
 ```css
-.kern-app { display: flex; min-height: 100vh; background: var(--md-sys-color-surface); color: var(--md-sys-color-on-surface); }
+.kern-app { display: flex; min-height: 100vh; background: var(--sys-color-surface); color: var(--sys-color-on-surface); }
 .kern-main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
 .kern-body { flex: 1; padding: 32px 24px; overflow-y: auto; }
 

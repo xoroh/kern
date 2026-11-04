@@ -6,7 +6,7 @@ Complete reference for Material Design 3's color system: roles, tonal palettes, 
 
 ## Color Roles
 
-MD3 defines 26 standard color roles organized into 6 groups (primary, secondary, tertiary, error, surface, outline), plus add-ons (inverse, fixed-accent, surface dim/bright). **Jetpack Compose:** map to `MaterialTheme.colorScheme` (e.g. `primary`, `onPrimary`). **Web:** each role exists as a CSS custom property `--md-sys-color-{role-name}`.
+MD3 defines 26 standard color roles organized into 6 groups (primary, secondary, tertiary, error, surface, outline), plus add-ons (inverse, fixed-accent, surface dim/bright). **Jetpack Compose:** map to `MaterialTheme.colorScheme` (e.g. `primary`, `onPrimary`). **Web:** each role exists as a CSS custom property `--sys-color-{role-name}`.
 
 **Role semantics (M3 canon):** `surface` = backgrounds; accent (`primary`/`secondary`/`tertiary`) = emphasis; `container` = fill only — never use a `*-container` role for text or icons; `on-*` = text/icons on the parent fill; `variant` = lower-emphasis version.
 
@@ -16,18 +16,18 @@ Three accent groups (primary, secondary, tertiary) each have 4 roles:
 
 | Role | CSS Token | Purpose |
 |------|-----------|---------|
-| Primary | `--md-sys-color-primary` | High-emphasis fills, text, icons against surface |
-| On Primary | `--md-sys-color-on-primary` | Text and icons on primary |
-| Primary Container | `--md-sys-color-primary-container` | Standout fill for key components (FAB, etc.) |
-| On Primary Container | `--md-sys-color-on-primary-container` | Text and icons on primary-container |
-| Secondary | `--md-sys-color-secondary` | Less prominent fills, text, icons |
-| On Secondary | `--md-sys-color-on-secondary` | Text and icons on secondary |
-| Secondary Container | `--md-sys-color-secondary-container` | Recessive components (tonal buttons) |
-| On Secondary Container | `--md-sys-color-on-secondary-container` | Text and icons on secondary-container |
-| Tertiary | `--md-sys-color-tertiary` | Complementary fills, text, icons |
-| On Tertiary | `--md-sys-color-on-tertiary` | Text and icons on tertiary |
-| Tertiary Container | `--md-sys-color-tertiary-container` | Complementary container fill |
-| On Tertiary Container | `--md-sys-color-on-tertiary-container` | Text and icons on tertiary-container |
+| Primary | `--sys-color-primary` | High-emphasis fills, text, icons against surface |
+| On Primary | `--sys-color-on-primary` | Text and icons on primary |
+| Primary Container | `--sys-color-primary-container` | Standout fill for key components (FAB, etc.) |
+| On Primary Container | `--sys-color-on-primary-container` | Text and icons on primary-container |
+| Secondary | `--sys-color-secondary` | Less prominent fills, text, icons |
+| On Secondary | `--sys-color-on-secondary` | Text and icons on secondary |
+| Secondary Container | `--sys-color-secondary-container` | Recessive components (tonal buttons) |
+| On Secondary Container | `--sys-color-on-secondary-container` | Text and icons on secondary-container |
+| Tertiary | `--sys-color-tertiary` | Complementary fills, text, icons |
+| On Tertiary | `--sys-color-on-tertiary` | Text and icons on tertiary |
+| Tertiary Container | `--sys-color-tertiary-container` | Complementary container fill |
+| On Tertiary Container | `--sys-color-on-tertiary-container` | Text and icons on tertiary-container |
 
 **Usage guidance:**
 - **Primary**: Most prominent components — FABs, high-emphasis buttons, active states
@@ -40,10 +40,10 @@ Static colors that don't change with dynamic color schemes:
 
 | Role | CSS Token | Purpose |
 |------|-----------|---------|
-| Error | `--md-sys-color-error` | Attention-grabbing color for urgent elements |
-| On Error | `--md-sys-color-on-error` | Text and icons on error |
-| Error Container | `--md-sys-color-error-container` | Error container fill |
-| On Error Container | `--md-sys-color-on-error-container` | Text and icons on error-container |
+| Error | `--sys-color-error` | Attention-grabbing color for urgent elements |
+| On Error | `--sys-color-on-error` | Text and icons on error |
+| Error Container | `--sys-color-error-container` | Error container fill |
+| On Error Container | `--sys-color-on-error-container` | Text and icons on error-container |
 
 ### Kern Static Colors (success / warning / info)
 
@@ -64,16 +64,16 @@ Static colors that don't change with dynamic color schemes:
 
 | Role | CSS Token | Purpose |
 |------|-----------|---------|
-| Surface | `--md-sys-color-surface` | Default background color |
-| On Surface | `--md-sys-color-on-surface` | Text and icons on any surface |
-| On Surface Variant | `--md-sys-color-on-surface-variant` | Lower-emphasis text/icons on surface |
-| Surface Container Lowest | `--md-sys-color-surface-container-lowest` | Lowest-emphasis container |
-| Surface Container Low | `--md-sys-color-surface-container-low` | Low-emphasis container |
-| Surface Container | `--md-sys-color-surface-container` | Default container (navigation areas) |
-| Surface Container High | `--md-sys-color-surface-container-high` | High-emphasis container |
-| Surface Container Highest | `--md-sys-color-surface-container-highest` | Highest-emphasis container |
-| Surface Dim | `--md-sys-color-surface-dim` | Dimmest surface in both themes |
-| Surface Bright | `--md-sys-color-surface-bright` | Brightest surface in both themes |
+| Surface | `--sys-color-surface` | Default background color |
+| On Surface | `--sys-color-on-surface` | Text and icons on any surface |
+| On Surface Variant | `--sys-color-on-surface-variant` | Lower-emphasis text/icons on surface |
+| Surface Container Lowest | `--sys-color-surface-container-lowest` | Lowest-emphasis container |
+| Surface Container Low | `--sys-color-surface-container-low` | Low-emphasis container |
+| Surface Container | `--sys-color-surface-container` | Default container (navigation areas) |
+| Surface Container High | `--sys-color-surface-container-high` | High-emphasis container |
+| Surface Container Highest | `--sys-color-surface-container-highest` | Highest-emphasis container |
+| Surface Dim | `--sys-color-surface-dim` | Dimmest surface in both themes |
+| Surface Bright | `--sys-color-surface-bright` | Brightest surface in both themes |
 
 **Surface container hierarchy**: Use `surface` for background, `surface-container` for navigation. The 5 container levels create visual hierarchy and nesting depth, especially useful for expanded layouts with multiple panes.
 
@@ -85,16 +85,16 @@ For elements that contrast against the surrounding UI (e.g., snackbars):
 
 | Role | CSS Token | Purpose |
 |------|-----------|---------|
-| Inverse Surface | `--md-sys-color-inverse-surface` | Background for contrasting elements |
-| Inverse On Surface | `--md-sys-color-inverse-on-surface` | Text on inverse-surface |
-| Inverse Primary | `--md-sys-color-inverse-primary` | Actionable text on inverse-surface |
+| Inverse Surface | `--sys-color-inverse-surface` | Background for contrasting elements |
+| Inverse On Surface | `--sys-color-inverse-on-surface` | Text on inverse-surface |
+| Inverse Primary | `--sys-color-inverse-primary` | Actionable text on inverse-surface |
 
 ### Outline Colors
 
 | Role | CSS Token | Purpose |
 |------|-----------|---------|
-| Outline | `--md-sys-color-outline` | Important boundaries (text field borders, 3:1 contrast) |
-| Outline Variant | `--md-sys-color-outline-variant` | Decorative elements (dividers, card borders) |
+| Outline | `--sys-color-outline` | Important boundaries (text field borders, 3:1 contrast) |
+| Outline Variant | `--sys-color-outline-variant` | Decorative elements (dividers, card borders) |
 
 **Important**: Don't use `outline` for dividers — use `outline-variant`. Don't use `outline-variant` for interactive boundaries that need 3:1 contrast — use `outline`.
 
@@ -106,18 +106,18 @@ These maintain the same color in both light and dark themes (unlike regular cont
 
 | Role | CSS Token |
 |------|-----------|
-| Primary Fixed | `--md-sys-color-primary-fixed` |
-| Primary Fixed Dim | `--md-sys-color-primary-fixed-dim` |
-| On Primary Fixed | `--md-sys-color-on-primary-fixed` |
-| On Primary Fixed Variant | `--md-sys-color-on-primary-fixed-variant` |
-| Secondary Fixed | `--md-sys-color-secondary-fixed` |
-| Secondary Fixed Dim | `--md-sys-color-secondary-fixed-dim` |
-| On Secondary Fixed | `--md-sys-color-on-secondary-fixed` |
-| On Secondary Fixed Variant | `--md-sys-color-on-secondary-fixed-variant` |
-| Tertiary Fixed | `--md-sys-color-tertiary-fixed` |
-| Tertiary Fixed Dim | `--md-sys-color-tertiary-fixed-dim` |
-| On Tertiary Fixed | `--md-sys-color-on-tertiary-fixed` |
-| On Tertiary Fixed Variant | `--md-sys-color-on-tertiary-fixed-variant` |
+| Primary Fixed | `--sys-color-primary-fixed` |
+| Primary Fixed Dim | `--sys-color-primary-fixed-dim` |
+| On Primary Fixed | `--sys-color-on-primary-fixed` |
+| On Primary Fixed Variant | `--sys-color-on-primary-fixed-variant` |
+| Secondary Fixed | `--sys-color-secondary-fixed` |
+| Secondary Fixed Dim | `--sys-color-secondary-fixed-dim` |
+| On Secondary Fixed | `--sys-color-on-secondary-fixed` |
+| On Secondary Fixed Variant | `--sys-color-on-secondary-fixed-variant` |
+| Tertiary Fixed | `--sys-color-tertiary-fixed` |
+| Tertiary Fixed Dim | `--sys-color-tertiary-fixed-dim` |
+| On Tertiary Fixed | `--sys-color-on-tertiary-fixed` |
+| On Tertiary Fixed Variant | `--sys-color-on-tertiary-fixed-variant` |
 
 **Caution**: Fixed colors don't adapt to theme, so they may cause contrast issues. Use regular accent roles for elements where contrast is critical.
 
@@ -213,37 +213,37 @@ A seed color is extracted from in-app content (album art, book cover, etc.) to c
 ### Light Theme
 ```css
 :root {
-  --md-sys-color-primary: #6750A4;
-  --md-sys-color-on-primary: #FFFFFF;
-  --md-sys-color-primary-container: #EADDFF;
-  --md-sys-color-on-primary-container: #21005D;
-  --md-sys-color-secondary: #625B71;
-  --md-sys-color-on-secondary: #FFFFFF;
-  --md-sys-color-secondary-container: #E8DEF8;
-  --md-sys-color-on-secondary-container: #1D192B;
-  --md-sys-color-tertiary: #7D5260;
-  --md-sys-color-on-tertiary: #FFFFFF;
-  --md-sys-color-tertiary-container: #FFD8E4;
-  --md-sys-color-on-tertiary-container: #31111D;
-  --md-sys-color-error: #B3261E;
-  --md-sys-color-on-error: #FFFFFF;
-  --md-sys-color-error-container: #F9DEDC;
-  --md-sys-color-on-error-container: #410E0B;
-  --md-sys-color-surface: #FEF7FF;
-  --md-sys-color-on-surface: #1D1B20;
-  --md-sys-color-on-surface-variant: #49454F;
-  --md-sys-color-surface-container-lowest: #FFFFFF;
-  --md-sys-color-surface-container-low: #F7F2FA;
-  --md-sys-color-surface-container: #F3EDF7;
-  --md-sys-color-surface-container-high: #ECE6F0;
-  --md-sys-color-surface-container-highest: #E6E0E9;
-  --md-sys-color-surface-dim: #DED8E1;
-  --md-sys-color-surface-bright: #FEF7FF;
-  --md-sys-color-outline: #79747E;
-  --md-sys-color-outline-variant: #CAC4D0;
-  --md-sys-color-inverse-surface: #322F35;
-  --md-sys-color-inverse-on-surface: #F5EFF7;
-  --md-sys-color-inverse-primary: #D0BCFF;
+  --sys-color-primary: #6750A4;
+  --sys-color-on-primary: #FFFFFF;
+  --sys-color-primary-container: #EADDFF;
+  --sys-color-on-primary-container: #21005D;
+  --sys-color-secondary: #625B71;
+  --sys-color-on-secondary: #FFFFFF;
+  --sys-color-secondary-container: #E8DEF8;
+  --sys-color-on-secondary-container: #1D192B;
+  --sys-color-tertiary: #7D5260;
+  --sys-color-on-tertiary: #FFFFFF;
+  --sys-color-tertiary-container: #FFD8E4;
+  --sys-color-on-tertiary-container: #31111D;
+  --sys-color-error: #B3261E;
+  --sys-color-on-error: #FFFFFF;
+  --sys-color-error-container: #F9DEDC;
+  --sys-color-on-error-container: #410E0B;
+  --sys-color-surface: #FEF7FF;
+  --sys-color-on-surface: #1D1B20;
+  --sys-color-on-surface-variant: #49454F;
+  --sys-color-surface-container-lowest: #FFFFFF;
+  --sys-color-surface-container-low: #F7F2FA;
+  --sys-color-surface-container: #F3EDF7;
+  --sys-color-surface-container-high: #ECE6F0;
+  --sys-color-surface-container-highest: #E6E0E9;
+  --sys-color-surface-dim: #DED8E1;
+  --sys-color-surface-bright: #FEF7FF;
+  --sys-color-outline: #79747E;
+  --sys-color-outline-variant: #CAC4D0;
+  --sys-color-inverse-surface: #322F35;
+  --sys-color-inverse-on-surface: #F5EFF7;
+  --sys-color-inverse-primary: #D0BCFF;
 }
 ```
 
@@ -251,37 +251,37 @@ A seed color is extracted from in-app content (album art, book cover, etc.) to c
 ```css
 @media (prefers-color-scheme: dark) {
   :root {
-    --md-sys-color-primary: #D0BCFF;
-    --md-sys-color-on-primary: #381E72;
-    --md-sys-color-primary-container: #4F378B;
-    --md-sys-color-on-primary-container: #EADDFF;
-    --md-sys-color-secondary: #CCC2DC;
-    --md-sys-color-on-secondary: #332D41;
-    --md-sys-color-secondary-container: #4A4458;
-    --md-sys-color-on-secondary-container: #E8DEF8;
-    --md-sys-color-tertiary: #EFB8C8;
-    --md-sys-color-on-tertiary: #492532;
-    --md-sys-color-tertiary-container: #633B48;
-    --md-sys-color-on-tertiary-container: #FFD8E4;
-    --md-sys-color-error: #F2B8B5;
-    --md-sys-color-on-error: #601410;
-    --md-sys-color-error-container: #8C1D18;
-    --md-sys-color-on-error-container: #F9DEDC;
-    --md-sys-color-surface: #141218;
-    --md-sys-color-on-surface: #E6E0E9;
-    --md-sys-color-on-surface-variant: #CAC4D0;
-    --md-sys-color-surface-container-lowest: #0F0D13;
-    --md-sys-color-surface-container-low: #1D1B20;
-    --md-sys-color-surface-container: #211F26;
-    --md-sys-color-surface-container-high: #2B2930;
-    --md-sys-color-surface-container-highest: #36343B;
-    --md-sys-color-surface-dim: #141218;
-    --md-sys-color-surface-bright: #3B383E;
-    --md-sys-color-outline: #938F99;
-    --md-sys-color-outline-variant: #49454F;
-    --md-sys-color-inverse-surface: #E6E0E9;
-    --md-sys-color-inverse-on-surface: #322F35;
-    --md-sys-color-inverse-primary: #6750A4;
+    --sys-color-primary: #D0BCFF;
+    --sys-color-on-primary: #381E72;
+    --sys-color-primary-container: #4F378B;
+    --sys-color-on-primary-container: #EADDFF;
+    --sys-color-secondary: #CCC2DC;
+    --sys-color-on-secondary: #332D41;
+    --sys-color-secondary-container: #4A4458;
+    --sys-color-on-secondary-container: #E8DEF8;
+    --sys-color-tertiary: #EFB8C8;
+    --sys-color-on-tertiary: #492532;
+    --sys-color-tertiary-container: #633B48;
+    --sys-color-on-tertiary-container: #FFD8E4;
+    --sys-color-error: #F2B8B5;
+    --sys-color-on-error: #601410;
+    --sys-color-error-container: #8C1D18;
+    --sys-color-on-error-container: #F9DEDC;
+    --sys-color-surface: #141218;
+    --sys-color-on-surface: #E6E0E9;
+    --sys-color-on-surface-variant: #CAC4D0;
+    --sys-color-surface-container-lowest: #0F0D13;
+    --sys-color-surface-container-low: #1D1B20;
+    --sys-color-surface-container: #211F26;
+    --sys-color-surface-container-high: #2B2930;
+    --sys-color-surface-container-highest: #36343B;
+    --sys-color-surface-dim: #141218;
+    --sys-color-surface-bright: #3B383E;
+    --sys-color-outline: #938F99;
+    --sys-color-outline-variant: #49454F;
+    --sys-color-inverse-surface: #E6E0E9;
+    --sys-color-inverse-on-surface: #322F35;
+    --sys-color-inverse-primary: #6750A4;
   }
 }
 ```

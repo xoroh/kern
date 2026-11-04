@@ -167,16 +167,13 @@ No shape morphing, no spring physics, no bounce, no entrance animation on conten
 
 ## 6. CSS token bridge
 
-Kern ships two token vocabularies. Author against either; keep them in sync.
-
-- **MD3 roles:** `--md-sys-color-*`, `--md-sys-shape-corner-*`, `--md-sys-typescale-*` (portable MD3 layer).
-- **Kern app tokens:** `--background`, `--foreground`, `--primary`, `--secondary`, `--muted`, `--accent`, `--border`, `--destructive`, `--radius`, plus the `--sidebar*` set (`--sidebar`, `--sidebar-primary`, `--sidebar-accent`, `--sidebar-border`, and their `-foreground` pairs). Each is a `var(--md-sys-*)` alias generated into `tokens.css` — they carry no values of their own.
+Kern ships one token vocabulary: `--sys-*` (`--sys-color-*`, `--sys-shape-corner-*`, `--sys-typescale-*`, `--sys-state-*`, `--sys-motion-*`, `--sys-elevation-*`), generated from `tokens.json` into `tokens.css`. Author against these roles directly; keep usages in sync with the generated file. (The pre-rename `--md-sys-*` names and the old `--background`/`--primary`/sidebar alias set no longer exist — do not reintroduce them.)
 
 ## 7. Theme system
 
 Values live in `packages/kern-tokens/src/` (`tokens.json` source → `tokens.ts` + generated `tokens.css`); the **mechanism** is `resolveThemeDetails(mode, contrast, variant)` in `resolve.ts`, with role tables in `themes/kern.json` and override-only presets (`sharp`, `brand`, `compact`) catalogued in `themes/index.json`. The stages are named in `pipeline.ts` (`seedStage` / `mapStage` / `aliasStage` / `componentStage`), and every mode × contrast × preset context is flattened into the checked-in `themes/matrix.json` (`check:theme-matrix` holds it in sync — read it before running the app to review a preset). `applyKernTheme()` + `useKernTheme()` (web) live in `packages/kern/src/web-theme.ts`; `KernThemeProvider` + `useKernScheme()` (native) live in `packages/kern-native/src/theme.tsx`. Web projects the table as CSS vars (`@xoroh/kern/theme` stylesheet + `.dark` class); native resolves the same table to objects. Both take the identical `(mode, contrast, variant)` triple, so one selection renders identically on both. Full architecture: [`theming-and-dynamic-color.md`](theming-and-dynamic-color.md); authoring: [`theme-variants.md`](theme-variants.md).
 
-The app-token bridge mirrors the same roles. Mapping:
+The old app-token bridge (removed in the rename) mirrored the same roles. Mapping, for reading old code only — do not author these names:
 
 | Kern app token | MD3 role |
 |----------------|----------|

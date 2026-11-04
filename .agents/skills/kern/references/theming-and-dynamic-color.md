@@ -13,7 +13,7 @@ The same **semantic roles** (primary, onSurface, surface containers, etc.) appea
 | Platform | Theme surface |
 |----------|----------------|
 | **Jetpack Compose** | `MaterialTheme(colorScheme, typography, shapes, …)` |
-| **Web** | CSS custom properties `--md-sys-*` on `:root`, `.dark` redefines them; `applyKernTheme()` layers variant/contrast deltas inline |
+| **Web** | CSS custom properties `--sys-*` on `:root`, `.dark` redefines them; `applyKernTheme()` layers variant/contrast deltas inline |
 | **Native** | `KernThemeProvider` + `useKernScheme()` from `@xoroh/kern-native` |
 
 All three resolve the same registry (`resolveThemeDetails(mode, contrast, variant)`) — one role table, three projections. Web CSS and the TS role tables are generated from the same `tokens.json` source so they cannot drift; native derives values from the same tables.
@@ -28,19 +28,19 @@ Contexts are conditions overriding values: dark mode, dense, form-factor, RTL, T
 
 ## Web: CSS Custom Properties (Kern's approach)
 
-Kern defines its fixed scheme directly as CSS custom properties — no runtime generation. Author against `--md-sys-color-*` roles (or the `md-sys-*` Tailwind utilities mapped via `@theme inline`). Concrete values are generated from `tokens.json` into `tokens.ts` + `tokens.css`; see [`kern-tokens.md`](kern-tokens.md).
+Kern defines its fixed scheme directly as CSS custom properties — no runtime generation. Author against `--sys-color-*` roles (or the `sys-*` Tailwind utilities mapped via `@theme inline`). Concrete values are generated from `tokens.json` into `tokens.ts` + `tokens.css`; see [`kern-tokens.md`](kern-tokens.md). (Upstream Google spec text calls this namespace `--md-sys-*`; in Kern it is `--sys-*`.)
 
 ```css
 /* Light (default) — TS ramp values; page canvas is the surface-container role */
 :root {
-  --md-sys-color-primary: #000000;
-  --md-sys-color-on-primary: #ffffff;
-  --md-sys-color-secondary: #2563eb;
-  --md-sys-color-surface: #ffffff;
-  --md-sys-color-on-surface: #262626;
-  --md-sys-color-surface-container: #f5f5f5;
-  --md-sys-color-outline-variant: #e5e5e5;
-  --md-sys-color-error: #dc2626;
+  --sys-color-primary: #000000;
+  --sys-color-on-primary: #ffffff;
+  --sys-color-secondary: #2563eb;
+  --sys-color-surface: #ffffff;
+  --sys-color-on-surface: #262626;
+  --sys-color-surface-container: #f5f5f5;
+  --sys-color-outline-variant: #e5e5e5;
+  --sys-color-error: #dc2626;
   /* …full set in tokens.css (generated from tokens.json) */
 }
 
@@ -49,14 +49,14 @@ Kern defines its fixed scheme directly as CSS custom properties — no runtime g
  * once as the default, then the class is the source of truth. */
 @media (prefers-color-scheme: dark) {
   :root {
-    --md-sys-color-primary: #FFFFFF;
-    --md-sys-color-on-primary: #000000;
-    --md-sys-color-secondary: #60a5fa;
-    --md-sys-color-surface: #000000;
-    --md-sys-color-on-surface: #ffffff;
-    --md-sys-color-surface-container: #171717;
-    --md-sys-color-outline-variant: #262626;
-    --md-sys-color-error: #f87171;
+    --sys-color-primary: #FFFFFF;
+    --sys-color-on-primary: #000000;
+    --sys-color-secondary: #60a5fa;
+    --sys-color-surface: #000000;
+    --sys-color-on-surface: #ffffff;
+    --sys-color-surface-container: #171717;
+    --sys-color-outline-variant: #262626;
+    --sys-color-error: #f87171;
   }
 }
 ```
@@ -91,14 +91,14 @@ Override individual `@material/web` component appearance with component-specific
 
 ```css
 md-filled-button {
-  --md-filled-button-container-color: var(--md-sys-color-primary);       /* black */
-  --md-filled-button-label-text-color: var(--md-sys-color-on-primary);   /* white */
-  --md-filled-button-container-shape: var(--md-sys-shape-corner-full);    /* pill */
+  --md-filled-button-container-color: var(--sys-color-primary);       /* black */
+  --md-filled-button-label-text-color: var(--sys-color-on-primary);   /* white */
+  --md-filled-button-container-shape: var(--sys-shape-corner-full);    /* pill */
 }
 
 md-outlined-text-field {
-  --md-outlined-text-field-container-shape: var(--md-sys-shape-corner-small);
-  --md-outlined-text-field-focus-outline-color: var(--md-sys-color-primary);
+  --md-outlined-text-field-container-shape: var(--sys-shape-corner-small);
+  --md-outlined-text-field-focus-outline-color: var(--sys-color-primary);
 }
 ```
 
@@ -108,8 +108,8 @@ CSS custom properties cascade, so a subtree can override roles. Kern uses this s
 
 ```css
 .kern-inverse-panel {
-  --md-sys-color-surface: #000000;
-  --md-sys-color-on-surface: #ffffff;
+  --sys-color-surface: #000000;
+  --sys-color-on-surface: #ffffff;
 }
 ```
 

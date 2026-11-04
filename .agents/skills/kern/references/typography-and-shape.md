@@ -63,18 +63,18 @@ Each type style maps to individual axis tokens:
 
 ```css
 /* Example: Body Large (Kern: font = Inter) */
---md-sys-typescale-body-large-font: 'Inter', sans-serif;
---md-sys-typescale-body-large-weight: 400;
---md-sys-typescale-body-large-size: 1rem;        /* 16sp */
---md-sys-typescale-body-large-line-height: 1.5rem; /* 24sp */
---md-sys-typescale-body-large-tracking: 0.03125rem; /* 0.5px */
+--sys-typescale-body-large-font: 'Inter', sans-serif;
+--sys-typescale-body-large-weight: 400;
+--sys-typescale-body-large-size: 1rem;        /* 16sp */
+--sys-typescale-body-large-line-height: 1.5rem; /* 24sp */
+--sys-typescale-body-large-tracking: 0.03125rem; /* 0.5px */
 
 /* Example: Label Large (used for buttons) */
---md-sys-typescale-label-large-font: 'Inter', sans-serif;
---md-sys-typescale-label-large-weight: 500;
---md-sys-typescale-label-large-size: 0.875rem;
---md-sys-typescale-label-large-line-height: 1.25rem;
---md-sys-typescale-label-large-tracking: 0.00625rem;
+--sys-typescale-label-large-font: 'Inter', sans-serif;
+--sys-typescale-label-large-weight: 500;
+--sys-typescale-label-large-size: 0.875rem;
+--sys-typescale-label-large-line-height: 1.25rem;
+--sys-typescale-label-large-tracking: 0.00625rem;
 ```
 
 ### Typeface Customization
@@ -144,16 +144,16 @@ Examples: 10sp = 0.625rem, 12sp = 0.75rem, 14sp = 0.875rem, 16sp = 1rem, 24sp = 
 
 ```css
 :root {
-  --md-sys-shape-corner-none: 0px;
-  --md-sys-shape-corner-extra-small: 4px;
-  --md-sys-shape-corner-small: 8px;
-  --md-sys-shape-corner-medium: 12px;
-  --md-sys-shape-corner-large: 16px;
-  --md-sys-shape-corner-large-increased: 20px;
-  --md-sys-shape-corner-extra-large: 28px;
-  --md-sys-shape-corner-extra-large-increased: 32px;
-  --md-sys-shape-corner-extra-extra-large: 48px;
-  --md-sys-shape-corner-full: 9999px;
+  --sys-shape-corner-none: 0px;
+  --sys-shape-corner-extra-small: 4px;
+  --sys-shape-corner-small: 8px;
+  --sys-shape-corner-medium: 12px;
+  --sys-shape-corner-large: 16px;
+  --sys-shape-corner-large-increased: 20px;
+  --sys-shape-corner-extra-large: 28px;
+  --sys-shape-corner-extra-large-increased: 32px;
+  --sys-shape-corner-extra-extra-large: 48px;
+  --sys-shape-corner-full: 9999px;
 }
 ```
 
@@ -265,14 +265,14 @@ Spatial tokens move position/rotation/size/corners (may overshoot); effects toke
 
 ```css
 :root {
-  --md-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
-  --md-sys-motion-duration-short2: 100ms;
-  --md-sys-motion-duration-short4: 200ms;
+  --sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --sys-motion-duration-short2: 100ms;
+  --sys-motion-duration-short4: 200ms;
 }
 
 /* Kern state change (hover/focus/open) */
 .kern-interactive {
-  transition: background-color var(--md-sys-motion-duration-short2)
-              var(--md-sys-motion-easing-standard);
+  transition: background-color var(--sys-motion-duration-short2)
+              var(--sys-motion-easing-standard);
 }
 ```

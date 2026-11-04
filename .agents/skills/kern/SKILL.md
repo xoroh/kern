@@ -117,7 +117,7 @@ Shape: `full` = 9999px (interactive), `small` = 8px (cards), `medium` = 12px (dr
 
 Kern inherits MD3's anti-patterns and adds its own:
 
-- **Don't hardcode colors** — use `var(--md-sys-color-*)` roles or the Kern app tokens (`--primary`, `--secondary`, `--muted`). Raw hex breaks dark mode and contrast. Except for specific category icons where distinct, colorful branding is required.
+- **Don't hardcode colors** — use `var(--sys-color-*)` roles or the Kern app tokens (`--primary`, `--secondary`, `--muted`). Raw hex breaks dark mode and contrast. Except for specific category icons where distinct, colorful branding is required.
 - **Closed set (max colors)** — every shipped color must exist in `packages/kern-tokens/src/tokens.json` (the single source: 220 spectrum swatches — 11 hues × 10 steps × light/dark — from which `tokens.ts` is generated). Roles for chrome/status; spectrum mirrors (gray, red, orange, amber, yellow, lime, green, teal, blue, purple, magenta) for icons/illustrations/charts/badges only. A hue with no palette entry doesn't ship.
 - **Don't introduce hue into the chrome background** — the backgrounds, app bars, and structural chrome stay neutral (black / white / gray). Functional color follows M3 roles: `primary` blue for links, focus, and active accents; status roles for error / success / warning / info; plus color for icons, badges, charts, and data elements.
 - **Don't break tonal pairing** — only pair a fill with its `on-*` color.
@@ -132,7 +132,7 @@ When asked to audit/review a screen, score 0–10 across these categories and pr
 
 | Category | Kern check |
 |----------|-----------|
-| Color roles | Uses `--md-sys-color-*` / Kern tokens; neutral base + correct `on-*` pairing; containers never text/icons; same region→role across breakpoints; hue only via M3 roles (`primary`, status, categorization) |
+| Color roles | Uses `--sys-color-*` / Kern tokens; neutral base + correct `on-*` pairing; containers never text/icons; same region→role across breakpoints; hue only via M3 roles (`primary`, status, categorization) |
 | Typography | Inter; correct MD3 scale role for the element; emphasized opt-in only; subset with size contrast |
 | Shape | `full` on buttons/nav pills, `20–28px` on card group items, `small` cards, `medium` dropdowns — no magic radii; inner = outer − padding |
 | Elevation | M3 levels + dp heights (0/1/3/6/8/12); resting max 3, hover +1; surfaces decoupled from levels; scrim 30%; no shadow stacks |
