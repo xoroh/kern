@@ -2893,15 +2893,6 @@ export const MATURITY: readonly MaturityRow[] = [
     version: "0.0.0",
   },
   {
-    name: "navigation-rail-button",
-    export: "NavigationRailButton",
-    platform: "web",
-    system: "kern-m3",
-    entrypoint: "./start",
-    state: "Preview",
-    version: "0.0.0",
-  },
-  {
     name: "section-drawer",
     export: "SectionDrawer",
     platform: "web",
@@ -4720,7 +4711,6 @@ export const MATURITY_BY_STATE: Readonly<
     "navigation-menu-root",
     "navigation-menu-trigger",
     "navigation-rail",
-    "navigation-rail-button",
     "notifications-menu",
     "number-field",
     "number-field-input",

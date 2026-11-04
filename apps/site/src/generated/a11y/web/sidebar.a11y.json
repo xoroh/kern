@@ -109,10 +109,6 @@
       "hasLiveDemo": false,
       "expectations": []
     },
-    "NavigationRailButton": {
-      "hasLiveDemo": false,
-      "expectations": []
-    },
     "SectionDrawer": {
       "hasLiveDemo": false,
       "expectations": []

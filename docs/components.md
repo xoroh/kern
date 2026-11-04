@@ -210,7 +210,6 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `navigation-menu-root` | `NavigationMenuRoot` | real |
 | `navigation-menu-trigger` | `NavigationMenuTrigger` | real |
 | `navigation-rail` | `NavigationRail` | real |
-| `navigation-rail-button` | `NavigationRailButton` | real |
 | `notifications-menu` | `NotificationsMenu` | real |
 | `number-field` | `NumberField` | real |
 | `number-field-input` | `NumberFieldInput` | real |

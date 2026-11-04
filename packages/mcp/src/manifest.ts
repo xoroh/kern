@@ -2877,15 +2877,6 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
-    name: "navigation-rail-button",
-    export: "NavigationRailButton",
-    platform: "web",
-    system: "kern-m3",
-    entrypoint: "./start",
-    path: "src/start/navigation.tsx",
-    status: "real",
-  },
-  {
     name: "section-drawer",
     export: "SectionDrawer",
     platform: "web",

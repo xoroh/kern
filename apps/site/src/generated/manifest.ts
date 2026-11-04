@@ -1424,13 +1424,6 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
-    slug: "web/navigation-rail-button",
-    name: "navigation-rail-button",
-    export: "NavigationRailButton",
-    platform: "web",
-    status: "real",
-  },
-  {
     slug: "web/notifications-menu",
     name: "notifications-menu",
     export: "NotificationsMenu",
@@ -3506,7 +3499,7 @@ export const COMPONENT_COUNT = COMPONENTS.length;
  * different units, do not compare them.
  */
 export const PARITY_COUNTS = {
-  web: 336,
+  web: 335,
   native: 161,
   shared: 131,
 };

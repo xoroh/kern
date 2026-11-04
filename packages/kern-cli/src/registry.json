@@ -1,6 +1,6 @@
 {
   "version": "0.0.0",
-  "releaseSet": "kern@0.0.0+497.9bd949dfb318e783",
+  "releaseSet": "kern@0.0.0+496.cbb0927c4e1a5e36",
   "rows": [
     {
       "name": "accordion-root",
@@ -2858,15 +2858,6 @@
     {
       "name": "sidebar-item",
       "export": "SidebarItem",
-      "platform": "web",
-      "system": "kern-m3",
-      "entrypoint": "./start",
-      "path": "src/start/navigation.tsx",
-      "status": "real"
-    },
-    {
-      "name": "navigation-rail-button",
-      "export": "NavigationRailButton",
       "platform": "web",
       "system": "kern-m3",
       "entrypoint": "./start",

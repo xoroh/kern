@@ -5276,10 +5276,6 @@ export const A11Y: Record<string, A11yPage> = {
         hasLiveDemo: false,
         expectations: [],
       },
-      NavigationRailButton: {
-        hasLiveDemo: false,
-        expectations: [],
-      },
       SectionDrawer: {
         hasLiveDemo: false,
         expectations: [],
