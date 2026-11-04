@@ -110,6 +110,11 @@ const C = [
     ([name, value]) => `  --sys-motion-duration-${name}: ${value};`,
   ),
   ...Object.entries(T.motion.spring ?? {}).flatMap(([name, spring]) => [
+    `  --sys-motion-spring-${name}: ${
+      name.startsWith("spatial")
+        ? "var(--sys-motion-easing-emphasized-decelerate)"
+        : "var(--sys-motion-easing-standard)"
+    };`,
     `  --sys-motion-spring-${name}-stiffness: ${spring.stiffness};`,
     `  --sys-motion-spring-${name}-damping: ${spring.damping};`,
   ]),

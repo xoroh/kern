@@ -25,7 +25,7 @@
   --comp-banner-elevation-level: var(--sys-elevation-level1);
   --comp-bottom-sheet-container-color: var(--sys-color-surface-container-low);
   --comp-bottom-sheet-container-shape: var(--sys-shape-corner-extra-large);
-  --comp-button-container-height: var(--sys-spacing-space-300);
+  --comp-button-container-height: var(--sys-spacing-space-500);
   --comp-button-container-shape: var(--sys-shape-corner-full);
   --comp-button-group-container-shape: var(--sys-shape-corner-full);
   --comp-button-group-divider-color: var(--sys-color-outline);
@@ -98,7 +98,7 @@
   --comp-elevated-button-container-color: var(
     --sys-color-surface-container-low
   );
-  --comp-elevated-button-container-height: var(--sys-spacing-space-300);
+  --comp-elevated-button-container-height: var(--sys-spacing-space-500);
   --comp-elevated-button-container-on-color: var(--sys-color-on-surface);
   --comp-elevated-button-label-typography-font-family: var(
     --sys-typescale-label-large-font-family
@@ -155,7 +155,7 @@
   --comp-fab-menu-container-color: var(--sys-color-surface-container);
   --comp-fab-menu-container-shape: var(--sys-shape-corner-large);
   --comp-filled-button-container-color: var(--sys-color-primary);
-  --comp-filled-button-container-height: var(--sys-spacing-space-300);
+  --comp-filled-button-container-height: var(--sys-spacing-space-500);
   --comp-filled-button-container-on-color: var(--sys-color-on-primary);
   --comp-filled-button-label-typography-font-family: var(
     --sys-typescale-label-large-font-family
@@ -257,7 +257,7 @@
   --comp-navigationbar-active-indicator-shape: var(--sys-shape-corner-full);
   --comp-navigationbar-container-color: var(--sys-color-surface-container);
   --comp-navigationbar-container-height: var(--sys-spacing-space-400);
-  --comp-outlined-button-container-height: var(--sys-spacing-space-300);
+  --comp-outlined-button-container-height: var(--sys-spacing-space-500);
   --comp-outlined-button-container-outline-color: var(--sys-color-outline);
   --comp-outlined-button-label-typography-font-family: var(
     --sys-typescale-label-large-font-family
@@ -287,7 +287,7 @@
   --comp-search-container-height: var(--sys-spacing-space-400);
   --comp-search-container-shape: var(--sys-shape-corner-full);
   --comp-search-leading-icon-size: 24px;
-  --comp-segmented-button-container-height: var(--sys-spacing-space-300);
+  --comp-segmented-button-container-height: var(--sys-spacing-space-500);
   --comp-segmented-button-container-shape: var(--sys-shape-corner-full);
   --comp-segmented-button-label-typography-font-family: var(
     --sys-typescale-label-large-font-family
@@ -316,7 +316,7 @@
   --comp-snackbar-container-color: var(--sys-color-inverse-surface);
   --comp-snackbar-container-on-color: var(--sys-color-inverse-on-surface);
   --comp-snackbar-container-shape: var(--sys-shape-corner-extra-small);
-  --comp-split-button-container-height: var(--sys-spacing-space-300);
+  --comp-split-button-container-height: var(--sys-spacing-space-500);
   --comp-split-button-container-shape: var(--sys-shape-corner-full);
   --comp-split-button-label-typography-font-family: var(
     --sys-typescale-label-large-font-family
@@ -357,7 +357,7 @@
   --comp-tabs-label-typography-line-height: var(
     --sys-typescale-title-small-line-height
   );
-  --comp-text-button-container-height: var(--sys-spacing-space-300);
+  --comp-text-button-container-height: var(--sys-spacing-space-500);
   --comp-text-button-label-typography-font-family: var(
     --sys-typescale-label-large-font-family
   );

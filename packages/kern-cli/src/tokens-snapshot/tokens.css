@@ -370,16 +370,28 @@
   --sys-motion-duration-extra-long2: 800ms;
   --sys-motion-duration-extra-long3: 900ms;
   --sys-motion-duration-extra-long4: 1000ms;
+  --sys-motion-spring-spatial-fast: var(
+    --sys-motion-easing-emphasized-decelerate
+  );
   --sys-motion-spring-spatial-fast-stiffness: 1200;
   --sys-motion-spring-spatial-fast-damping: 90;
+  --sys-motion-spring-spatial-default: var(
+    --sys-motion-easing-emphasized-decelerate
+  );
   --sys-motion-spring-spatial-default-stiffness: 700;
   --sys-motion-spring-spatial-default-damping: 45;
+  --sys-motion-spring-spatial-slow: var(
+    --sys-motion-easing-emphasized-decelerate
+  );
   --sys-motion-spring-spatial-slow-stiffness: 300;
   --sys-motion-spring-spatial-slow-damping: 35;
+  --sys-motion-spring-effects-fast: var(--sys-motion-easing-standard);
   --sys-motion-spring-effects-fast-stiffness: 3800;
   --sys-motion-spring-effects-fast-damping: 1400;
+  --sys-motion-spring-effects-default: var(--sys-motion-easing-standard);
   --sys-motion-spring-effects-default-stiffness: 1600;
   --sys-motion-spring-effects-default-damping: 700;
+  --sys-motion-spring-effects-slow: var(--sys-motion-easing-standard);
   --sys-motion-spring-effects-slow-stiffness: 800;
   --sys-motion-spring-effects-slow-damping: 550;
   --sys-motion-scheme-standard-easing: var(--sys-motion-easing-standard);

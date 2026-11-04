@@ -29,7 +29,7 @@ const M3 = readTheme("material-3.json");
  */
 const COMPONENTS = {
   button: {
-    container: { height: "space-300", shape: "shape-corner-full" },
+    container: { height: "space-500", shape: "shape-corner-full" },
     label: { typography: "label-large" },
     "leading-icon": { size: "icon-24" },
     "trailing-icon": { size: "icon-24" },
@@ -38,7 +38,7 @@ const COMPONENTS = {
     container: {
       color: "primary",
       "on-color": "on-primary",
-      height: "space-300",
+      height: "space-500",
     },
     label: { typography: "label-large" },
   },
@@ -109,7 +109,7 @@ const COMPONENTS = {
   "outlined-button": {
     container: {
       "outline-color": "outline",
-      height: "space-300",
+      height: "space-500",
     },
     label: { typography: "label-large" },
   },
@@ -117,12 +117,12 @@ const COMPONENTS = {
     container: {
       color: "surface-container-low",
       "on-color": "on-surface",
-      height: "space-300",
+      height: "space-500",
     },
     label: { typography: "label-large" },
   },
   "text-button": {
-    container: { height: "space-300" },
+    container: { height: "space-500" },
     label: { typography: "label-large" },
   },
   banner: {
@@ -144,7 +144,7 @@ const COMPONENTS = {
     "active-indicator": { color: "primary", height: "space-50" },
   },
   "segmented-button": {
-    container: { shape: "shape-corner-full", height: "space-300" },
+    container: { shape: "shape-corner-full", height: "space-500" },
     label: { typography: "label-large" },
     "selected-container": { color: "secondary-container" },
   },
@@ -246,7 +246,7 @@ const COMPONENTS = {
     // M3 side sheets rest at level 0 — absence is conformant; no slot.
   },
   "split-button": {
-    container: { shape: "shape-corner-full", height: "space-300" },
+    container: { shape: "shape-corner-full", height: "space-500" },
     label: { typography: "label-large" },
   },
   "text-field": {

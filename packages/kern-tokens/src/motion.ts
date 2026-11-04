@@ -23,6 +23,39 @@ const SPRING_KINDS: readonly SpringKind[] = [
   "effects-slow",
 ];
 
+/**
+ * Canonical M3 Expressive button interaction spring tokens (D1024 C4).
+ * Lives once in `@xoroh/kern-tokens` so neither `@xoroh/kern` nor
+ * `@xoroh/kern-native` ever hardcodes stiffness/damping or transition vars.
+ */
+export const BUTTON_SPRING_TOKENS = {
+  /** Fast spatial spring for press-in scale and corner-radius morph. */
+  pressIn: "spatial-fast",
+  /** Default spatial spring for release rebound back to resting silhouette. */
+  pressOut: "spatial-default",
+  /** Default effects spring for radial state-layer bloom and opacity decay. */
+  bloom: "effects-default",
+  /** Fast effects spring for colour/state-layer swaps on hover/toggle. */
+  state: "effects-fast",
+} as const satisfies Record<string, SpringKind>;
+
+export type ButtonSpringStage = keyof typeof BUTTON_SPRING_TOKENS;
+
+/**
+ * Canonical CSS custom-property references for M3 Expressive button motion.
+ * Consumed by the shared Web button style module (`button-shared.ts`) and
+ * `PulseButton`.
+ */
+export const BUTTON_MOTION_CSS = {
+  pressInEasing: "var(--sys-motion-spring-spatial-fast)",
+  pressOutEasing: "var(--sys-motion-spring-spatial-default)",
+  bloomEasing: "var(--sys-motion-spring-effects-default)",
+  stateEasing: "var(--sys-motion-spring-effects-fast)",
+  pressDuration: "var(--sys-motion-duration-short3)",
+  releaseDuration: "var(--sys-motion-duration-medium2)",
+  bloomDuration: "var(--sys-motion-duration-medium1)",
+} as const;
+
 export type ResolvedMotionScheme = {
   /** Algorithm id (`standard` | `expressive` | `reduced`). */
   id: MotionAlgorithmId;
@@ -87,6 +120,14 @@ export function springConfig(kind: SpringKind): SpringConfig {
     );
   }
   return { ...found };
+}
+
+/**
+ * Resolve a button interaction stage (`pressIn` | `pressOut` | `bloom` | `state`)
+ * directly to its canonical M3 Expressive `{ stiffness, damping }` spring pair.
+ */
+export function buttonSpringConfig(stage: ButtonSpringStage): SpringConfig {
+  return springConfig(BUTTON_SPRING_TOKENS[stage]);
 }
 
 /**

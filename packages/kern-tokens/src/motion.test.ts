@@ -1,5 +1,8 @@
 import { describe, expect, it } from "vitest";
 import {
+  BUTTON_MOTION_CSS,
+  BUTTON_SPRING_TOKENS,
+  buttonSpringConfig,
   motionCssVars,
   prefersReducedMotion,
   resolveMotionScheme,
@@ -40,7 +43,7 @@ describe("resolveMotionScheme", () => {
   });
 });
 
-describe("springConfig", () => {
+describe("springConfig & buttonSpringConfig", () => {
   it("returns stiffness/damping pairs from the token source", () => {
     expect(springConfig("spatial-default")).toEqual({
       stiffness: 700,
@@ -50,6 +53,22 @@ describe("springConfig", () => {
       stiffness: 3800,
       damping: 1400,
     });
+  });
+
+  it("resolves canonical button spring stages from tokens.motion.spring", () => {
+    expect(BUTTON_SPRING_TOKENS.pressIn).toBe("spatial-fast");
+    expect(buttonSpringConfig("pressIn")).toEqual(
+      tokens.motion.spring["spatial-fast"],
+    );
+    expect(buttonSpringConfig("pressOut")).toEqual(
+      tokens.motion.spring["spatial-default"],
+    );
+    expect(buttonSpringConfig("bloom")).toEqual(
+      tokens.motion.spring["effects-default"],
+    );
+    expect(BUTTON_MOTION_CSS.pressInEasing).toBe(
+      "var(--sys-motion-spring-spatial-fast)",
+    );
   });
 
   it("fails loud on unknown springs", () => {
