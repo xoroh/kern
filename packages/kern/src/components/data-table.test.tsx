@@ -117,7 +117,9 @@ describe("DataTable", () => {
         rowActions={[{ label: "Refund", onSelect }]}
       />,
     );
-    await user.click(screen.getByRole("button", { name: "Actions for row BK-002" }));
+    await user.click(
+      screen.getByRole("button", { name: "Actions for row BK-002" }),
+    );
     // The overflow menu portals in a tick after the trigger press.
     await user.click(await screen.findByRole("menuitem", { name: "Refund" }));
     expect(onSelect).toHaveBeenCalledTimes(1);
