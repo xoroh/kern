@@ -3,6 +3,12 @@ import type { ComponentProps } from "react";
 import { cnState } from "../utils/cnState";
 import { FOCUS_RING_CLASS } from "./focus-ring";
 
+/**
+ * Primitive primary tabs on Base UI. New code prefers the data-driven
+ * `KernTabs` (see `kern-tabs.tsx` — the ONE tabs contract, CL-009);
+ * these parts stay for callers that compose panels by hand.
+ */
+
 export type TabsRootProps = ComponentProps<typeof TabsPrimitive.Root>;
 export type TabsListProps = ComponentProps<typeof TabsPrimitive.List>;
 export type TabsTabProps = ComponentProps<typeof TabsPrimitive.Tab>;

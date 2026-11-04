@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import { Avatar } from "./avatar";
+import { Avatar, AvatarFallback } from "./avatar";
 
 describe("Avatar", () => {
   it("renders the caller fallback when there is no image", () => {
@@ -44,5 +44,34 @@ describe("Avatar", () => {
     const lg = screen.getByText("XO").closest("[data-slot='avatar']");
     expect(lg).toHaveClass("size-14");
     expect(lg).not.toHaveClass("size-10");
+  });
+});
+
+describe("Avatar tone registry (KernStatus, CL-010)", () => {
+  it("keeps the primary fallback disc by default", () => {
+    render(
+      <Avatar.Root>
+        <AvatarFallback>XO</AvatarFallback>
+      </Avatar.Root>,
+    );
+    const fallback = screen
+      .getByText("XO")
+      .closest("[data-slot='avatar-fallback']");
+    expect(fallback).toHaveAttribute("data-tone", "primary");
+    expect(fallback?.className).toContain("bg-(--sys-color-primary)");
+    expect(fallback?.className).toContain("text-(--sys-color-on-primary)");
+  });
+
+  it("resolves any registry tone on the fallback disc", () => {
+    render(
+      <Avatar.Root>
+        <AvatarFallback tone="success">XO</AvatarFallback>
+      </Avatar.Root>,
+    );
+    const fallback = screen
+      .getByText("XO")
+      .closest("[data-slot='avatar-fallback']");
+    expect(fallback?.className).toContain("bg-(--sys-color-success)");
+    expect(fallback?.className).toContain("text-(--sys-color-on-success)");
   });
 });

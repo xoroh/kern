@@ -6,6 +6,9 @@ import { cn } from "../utils/cn";
 /**
  * `variants` = intent, the same axis as `FieldMessage` (informative,
  * positive, cautionary, negative). One prop name, one meaning across the set.
+ *
+ * WP1b P0 note (D951): the native twin already exists (`web-parity.tsx`
+ * `Banner`, same 4 intents on the tone registry) — KEEP + test, not build.
  */
 const bannerVariants = cva(
   "kern-banner flex items-start gap-3 rounded-(--sys-shape-corner-medium) border border-(--sys-color-outline-variant) bg-(--sys-color-surface) px-4 py-3 text-sm shadow-(--sys-elevation-level1)",

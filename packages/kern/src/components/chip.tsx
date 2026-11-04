@@ -1,8 +1,10 @@
+import type { StatusTone } from "@xoroh/kern-tokens";
 import { cva } from "class-variance-authority";
 import type { ComponentPropsWithRef, MouseEvent } from "react";
 import { useState } from "react";
 import { cn } from "../utils/cn";
 import { FOCUS_RING_CLASS } from "./focus-ring";
+import { statusToneClassNames } from "./status-pill";
 
 const chipVariants = cva(
   `kern-chip relative inline-flex h-8 shrink-0 items-center gap-1.5 rounded-[var(--comp-chip-container-shape,var(--sys-shape-corner-small))] px-4 text-sm leading-5 font-medium tracking-[0.00625rem] transition-[color,background-color,border-color] duration-200 ease-(--sys-motion-easing-standard) outline-none select-none ${FOCUS_RING_CLASS} disabled:pointer-events-none disabled:text-(--sys-color-on-surface)/38 aria-disabled:pointer-events-none aria-disabled:text-(--sys-color-on-surface)/38 after:absolute after:-inset-2 after:content-[''] before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--sys-color-on-surface) hover:before:opacity-[var(--sys-state-hover)] focus-visible:before:opacity-[var(--sys-state-focus)] active:before:opacity-[var(--sys-state-press)] disabled:before:opacity-0 [&_svg]:size-[18px] [&_svg]:shrink-0`,
@@ -43,6 +45,14 @@ type CommonChipProps = Omit<
    * no elevated treatment.
    */
   elevated?: boolean;
+  /**
+   * Registry tone (KernStatus, CL-010). Unset by default — the chip keeps
+   * its M3 kind styling (outline + on-surface). When set, the chip renders
+   * in that tone's soft container roles (the status-chip cell pattern);
+   * a selected filter chip still resolves to the M3 secondary-container
+   * selection treatment.
+   */
+  tone?: StatusTone;
 };
 
 export type FilterChipProps = CommonChipProps & {
@@ -63,6 +73,7 @@ export function Chip(props: ChipProps) {
   const {
     variant = "assist",
     elevated = false,
+    tone,
     className,
     disabled,
     type = "button",
@@ -103,6 +114,7 @@ export function Chip(props: ChipProps) {
   return (
     <button
       data-slot="chip"
+      data-tone={tone}
       aria-pressed={isFilter ? selected : undefined}
       aria-disabled={disabled || undefined}
       data-selected={isFilter && selected ? "" : undefined}
@@ -111,6 +123,9 @@ export function Chip(props: ChipProps) {
           variant,
           elevated: elevated && (variant === "assist" || variant === "filter"),
         }),
+        // Tone fill replaces the kind outline: border-transparent must win
+        // over the variant's border-(--sys-color-outline) via tailwind-merge.
+        tone ? cn(statusToneClassNames(tone), "border-transparent") : undefined,
         className,
       )}
       type={type}

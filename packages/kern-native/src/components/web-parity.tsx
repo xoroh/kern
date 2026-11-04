@@ -238,6 +238,12 @@ export type SegmentedButtonOption = {
  * M3 segmented button: a joined row where the selection is carried by a
  * check on the selected segment, not by a separate fill. `variants` here
  * means selection behavior (single vs multiple), matching M3.
+ *
+ * WP1b P0 decision (D951): this IS the segmented-button native twin the
+ * readiness matrix asked for — no new component needed. It stays here
+ * (not merged into `KernTabs`): M3 lists Segmented buttons separately
+ * from Tabs, and tabs own panels while segments own a value. Promotion
+ * to a first-class file is a transfer-phase call, not a design-phase one.
  */
 export function SegmentedButton({
   options,
@@ -499,6 +505,10 @@ export function bannerStyles(
 /**
  * Banner: a persistent, in-flow message for the whole region. Unlike a
  * snackbar it does not dismiss itself and carries at most one action.
+ *
+ * WP1b P0 decision (D951): this IS the banner native twin — same 4
+ * intents on the tone registry as the web `Banner`. KEEP + test, not
+ * build. Promotion to a first-class file is a transfer-phase call.
  */
 export function Banner({
   variant = "info",

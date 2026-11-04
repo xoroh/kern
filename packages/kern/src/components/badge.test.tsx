@@ -37,3 +37,21 @@ describe("Badge", () => {
     expect(screen.getByText("5")).toBeInTheDocument();
   });
 });
+
+describe("Badge tone registry (KernStatus, CL-010)", () => {
+  it("stays on the error fill by default (M3 badge mapping)", () => {
+    render(<Badge>3</Badge>);
+    const badge = screen.getByText("3");
+    expect(badge).toHaveAttribute("data-tone", "error");
+    expect(badge.className).toContain("bg-(--sys-color-error)");
+    expect(badge.className).toContain("text-(--sys-color-on-error)");
+  });
+
+  it("resolves any registry tone to --sys-* roles (no raw hex)", () => {
+    render(<Badge tone="success">3</Badge>);
+    const badge = screen.getByText("3");
+    expect(badge).toHaveAttribute("data-tone", "success");
+    expect(badge.className).toContain("bg-(--sys-color-success)");
+    expect(badge.className).not.toMatch(/#[0-9a-f]{3,8}/i);
+  });
+});

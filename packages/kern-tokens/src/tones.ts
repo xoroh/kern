@@ -202,6 +202,35 @@ export function statusTone(
   return { bg: scheme[roles.bg], fg: scheme[roles.fg], dot: scheme[roles.dot] };
 }
 
+/**
+ * Solid-tone roles: the filled mark (badge dot, avatar disc, solid pill)
+ * rather than the soft container. Same 7 tones, one registry — native
+ * Badge/Avatar/StatusPill resolve here, web mirrors it in
+ * `status-pill.tsx` as literal classes (Tailwind-scan rule).
+ */
+export const SOLID_TONE_ROLES: StatusToneRoles = {
+  primary: { bg: "primary", fg: "onPrimary", dot: "primary" },
+  secondary: { bg: "secondary", fg: "onSecondary", dot: "secondary" },
+  success: { bg: "success", fg: "onSuccess", dot: "success" },
+  warning: { bg: "warning", fg: "onWarning", dot: "warning" },
+  error: { bg: "error", fg: "onError", dot: "error" },
+  info: { bg: "info", fg: "onInfo", dot: "info" },
+  neutral: {
+    bg: "surfaceContainerHighest",
+    fg: "onSurface",
+    dot: "outline",
+  },
+};
+
+/** Filled-mark colors for a tone (badge/avatar/solid pill). */
+export function statusToneSolid(
+  scheme: RoleTable,
+  tone: StatusTone,
+): StatusToneColors {
+  const roles = SOLID_TONE_ROLES[tone];
+  return { bg: scheme[roles.bg], fg: scheme[roles.fg], dot: scheme[roles.dot] };
+}
+
 /** Tonal classification tone. Light: 100/900/700. Dark: 800/100/300. */
 export function spectrumTone(hue: string, mode: Mode): SpectrumTone {
   const ramp = registry.get(hue);

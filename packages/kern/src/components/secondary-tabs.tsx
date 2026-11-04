@@ -1,29 +1,15 @@
-import { type KeyboardEvent, type ReactNode, useId, useState } from "react";
-import { cn } from "../utils/cn";
-import { FOCUS_RING_CLASS } from "./focus-ring";
+import type { ReactNode } from "react";
+import { KernTabs } from "./kern-tabs";
 
 /**
- * M3 secondary tabs — the sub-section switcher inside a primary view. Distinct
- * from `Tabs` (the primary set) in weight and placement, not in behaviour:
- * both own a tablist with one active tab and a panel bound to it.
+ * M3 secondary tabs — the sub-section switcher inside a primary view.
  *
- * Behaviour this component owns:
- *
- * - **Controlled or uncontrolled selection** (`value` / `defaultValue`), with
- *   the change reported through `onValueChange` in both cases.
- * - **Roving tabindex** — one tab stop for the whole set, arrow keys move and
- *   activate, Home/End jump to the ends, and traversal wraps.
- * - **Disabled tabs** — skipped by traversal, `aria-disabled`, inert to
- *   activation, and never made the active tab.
- * - **Panel association** — the active tab is `aria-controls` the panel and
- *   the panel is `role="tabpanel"` labelled by its tab, generated through
- *   `useId` so two instances on a page cannot collide.
- * - **No tabs is not a tablist** — with an empty `tabs` array nothing renders,
- *   rather than an empty `role="tablist"` for a screen reader to land in.
- *
- * A `tab` that declares `content` is rendered as this component's panel, which
- * is how the native `SecondaryTabs` works: one data array, no panel plumbing.
- * Pass `children` instead when the panel is composed by the caller.
+ * WP1b merge (D951, CL-009): this is now a thin wrapper over `KernTabs`
+ * at `variant="secondary"` — same 2px indicator, same on-surface active
+ * label, same roving-tabindex keyboard model, same mount-only-the-active-
+ * panel rule. The wrapper stays so existing imports keep compiling;
+ * retirement happens in transfer, never in design. New code reaches for
+ * `KernTabs` directly.
  */
 
 export type SecondaryTab = {
@@ -56,155 +42,16 @@ export function SecondaryTabs({
   className,
   testID,
 }: SecondaryTabsProps) {
-  const baseId = useId();
-  const controlled = value !== undefined;
-  const [uncontrolled, setUncontrolled] = useState(defaultValue);
-  const requested = controlled ? value : uncontrolled;
-  const found = tabs.findIndex((tab) => tab.value === requested);
-  // Default to the first tab that is not disabled; an empty or all-disabled
-  // set renders no tablist at all (below).
-  const fallback = tabs.findIndex((tab) => !tab.disabled);
-  const activeIndex = found !== -1 ? found : fallback;
-  const active = tabs[activeIndex];
-
-  if (!active) return null;
-
-  const select = (next: string) => {
-    if (!controlled) setUncontrolled(next);
-    onValueChange?.(next);
-  };
-
-  const focusTab = (index: number) => {
-    const tab = tabs[index];
-    if (!tab) return;
-    const el = document.getElementById(`${baseId}-tab-${tab.value}`);
-    el?.focus();
-  };
-
-  const enabledNeighbour = (from: number, step: number) => {
-    const total = tabs.length;
-    if (total === 0) return -1;
-    for (let hop = 1; hop <= total; hop++) {
-      const index = (((from + step * hop) % total) + total) % total;
-      if (!tabs[index]?.disabled) return index;
-    }
-    return -1;
-  };
-
-  const move = (step: number) => {
-    const index = enabledNeighbour(activeIndex, step);
-    if (index === -1) return;
-    const next = tabs[index];
-    if (!next) return;
-    select(next.value);
-    focusTab(index);
-  };
-
-  const onKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
-    switch (event.key) {
-      case "ArrowRight":
-      case "ArrowDown":
-        event.preventDefault();
-        move(1);
-        break;
-      case "ArrowLeft":
-      case "ArrowUp":
-        event.preventDefault();
-        move(-1);
-        break;
-      case "Home": {
-        event.preventDefault();
-        const first = tabs.findIndex((tab) => !tab.disabled);
-        if (first !== -1) {
-          const tab = tabs[first];
-          if (tab) {
-            select(tab.value);
-            focusTab(first);
-          }
-        }
-        break;
-      }
-      case "End": {
-        event.preventDefault();
-        let last = -1;
-        for (let i = tabs.length - 1; i >= 0; i--) {
-          if (!tabs[i]?.disabled) {
-            last = i;
-            break;
-          }
-        }
-        if (last !== -1) {
-          const tab = tabs[last];
-          if (tab) {
-            select(tab.value);
-            focusTab(last);
-          }
-        }
-        break;
-      }
-      default:
-        break;
-    }
-  };
-
   return (
-    <div
-      data-slot="secondary-tabs"
-      data-testid={testID ?? "kern-secondary-tabs"}
-      className={cn("flex flex-col", className)}
-    >
-      <div
-        role="tablist"
-        aria-label={label}
-        className="flex items-stretch gap-1 border-b border-(--sys-color-outline-variant)"
-      >
-        {tabs.map((tab, index) => {
-          const selected = index === activeIndex;
-          const tabId = `${baseId}-tab-${tab.value}`;
-          return (
-            <button
-              key={tab.value}
-              type="button"
-              id={tabId}
-              role="tab"
-              data-slot="secondary-tab"
-              data-active={selected || undefined}
-              aria-selected={selected}
-              aria-controls={`${baseId}-panel-${tab.value}`}
-              aria-disabled={tab.disabled || undefined}
-              disabled={tab.disabled}
-              tabIndex={selected ? 0 : -1}
-              onClick={() => select(tab.value)}
-              onKeyDown={onKeyDown}
-              className={cn(
-                "kern-secondary-tab relative flex min-h-12 cursor-pointer items-center px-4 text-sm leading-5 font-medium tracking-[0.00625rem] text-(--sys-color-on-surface-variant) outline-none select-none transition-colors duration-200 ease-(--sys-motion-easing-standard) after:absolute after:inset-x-0 after:bottom-0 after:h-[2px] after:rounded-full after:bg-transparent after:content-[''] before:absolute before:inset-0 before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 before:bg-(--sys-color-on-surface) hover:before:opacity-[var(--sys-state-hover)] hover:text-(--sys-color-on-surface) focus-visible:before:opacity-[var(--sys-state-focus)] focus-visible:text-(--sys-color-on-surface) active:before:opacity-[var(--sys-state-press)] active:text-(--sys-color-on-surface) " +
-                  FOCUS_RING_CLASS,
-                tab.disabled ? "pointer-events-none opacity-38" : "",
-                selected &&
-                  "text-(--sys-color-on-surface) after:bg-(--sys-color-primary)",
-              )}
-            >
-              {tab.label}
-            </button>
-          );
-        })}
-      </div>
-      {/*
-        Only the active tab's panel is mounted. Inactive panels are removed
-        rather than hidden: a hidden panel is still reachable by assistive tech
-        and still announced, which reads as duplicated content.
-      */}
-      <div
-        key={active.value}
-        id={`${baseId}-panel-${active.value}`}
-        role="tabpanel"
-        aria-labelledby={`${baseId}-tab-${active.value}`}
-        // biome-ignore lint/a11y/noNoninteractiveTabindex: WAI-ARIA APG requires a tabpanel in the tab order so a keyboard user can reach the panel content directly; it is the panel, not a control.
-        tabIndex={0}
-        className="kern-secondary-tabpanel py-4 outline-none"
-      >
-        {active.content}
-      </div>
-    </div>
+    <KernTabs
+      items={tabs}
+      value={value}
+      defaultValue={defaultValue}
+      onValueChange={onValueChange}
+      variant="secondary"
+      label={label}
+      className={className}
+      testID={testID ?? "kern-secondary-tabs"}
+    />
   );
 }

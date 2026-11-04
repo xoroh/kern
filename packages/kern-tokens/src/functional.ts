@@ -41,8 +41,13 @@ export const functional = {
     chat: { hue: "teal", bg: "100", fg: "700" },
     email: "secondary",
     call: "warning",
-    whatsapp: { static: { bg: "#dcfce7", fg: "#25d366" } },
-    messenger: { static: { bg: "#dbeafe", fg: "#0084ff" } },
+    // WP1b tone merge (D951): the last two `static` raw-hex entries died
+    // here. whatsapp/messenger keep their brand-hue identity (green/blue)
+    // but now resolve through the spectrum registry like every other
+    // hue-pair entry — no parallel raw-hex scale. `tones.css` is the
+    // generated projection of this map (coordinator regens centrally).
+    whatsapp: { hue: "green", bg: "100", fg: "800" },
+    messenger: { hue: "blue", bg: "100", fg: "800" },
     phone: { hue: "orange", bg: "100", fg: "800" },
     internal: "neutral",
   },

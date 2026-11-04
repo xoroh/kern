@@ -107,3 +107,53 @@ describe("Chip elevated (M3)", () => {
     expect(chip.className).not.toContain("rounded-(--sys-shape-corner-small)");
   });
 });
+
+describe("Chip M3 four types (P3 verification)", () => {
+  it("renders assist, filter, input and suggestion kinds", () => {
+    const { unmount } = render(<Chip variant="assist">Assist</Chip>);
+    expect(screen.getByRole("button", { name: "Assist" })).toBeInTheDocument();
+    unmount();
+    const second = render(
+      <Chip variant="filter" value>
+        Filter
+      </Chip>,
+    );
+    expect(screen.getByRole("button", { name: "Filter" })).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+    second.unmount();
+    const third = render(<Chip variant="input">file.pdf</Chip>);
+    expect(
+      screen.getByRole("button", { name: "file.pdf" }),
+    ).toBeInTheDocument();
+    third.unmount();
+    render(<Chip variant="suggestion">Suggested</Chip>);
+    expect(
+      screen.getByRole("button", { name: "Suggested" }),
+    ).not.toHaveAttribute("aria-pressed");
+  });
+});
+
+describe("Chip tone registry (KernStatus, CL-010)", () => {
+  it("keeps kind styling by default (no tone fill)", () => {
+    render(<Chip variant="assist">Search</Chip>);
+    const chip = screen.getByRole("button", { name: "Search" });
+    expect(chip).not.toHaveAttribute("data-tone");
+    expect(chip.className).toContain("border-(--sys-color-outline)");
+  });
+
+  it("fills the tone container when a tone is set (status-chip cells)", () => {
+    render(
+      <Chip variant="assist" tone="warning">
+        On hold
+      </Chip>,
+    );
+    const chip = screen.getByRole("button", { name: "On hold" });
+    expect(chip).toHaveAttribute("data-tone", "warning");
+    expect(chip.className).toContain("bg-(--sys-color-warning-container)");
+    expect(chip.className).toContain("text-(--sys-color-on-warning-container)");
+    expect(chip.className).toContain("border-transparent");
+    expect(chip.className).not.toContain("border-(--sys-color-outline)");
+  });
+});

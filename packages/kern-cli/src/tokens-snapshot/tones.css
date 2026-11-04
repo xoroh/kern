@@ -123,13 +123,13 @@
 }
 
 .tone-channel-whatsapp {
-  background-color: #dcfce7;
-  color: #25d366;
+  background-color: var(--ref-palette-green-100);
+  color: var(--ref-palette-green-800);
 }
 
 .tone-channel-messenger {
-  background-color: #dbeafe;
-  color: #0084ff;
+  background-color: var(--ref-palette-blue-100);
+  color: var(--ref-palette-blue-800);
 }
 
 .tone-channel-phone {

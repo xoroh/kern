@@ -1,8 +1,10 @@
 import { Avatar as AvatarPrimitive } from "@base-ui/react/avatar";
+import type { StatusTone } from "@xoroh/kern-tokens";
 import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentProps } from "react";
 import { cn } from "../utils/cn";
 import { cnState } from "../utils/cnState";
+import { statusToneClassNames } from "./status-pill";
 
 const avatarVariants = cva(
   "kern-avatar relative flex shrink-0 overflow-hidden",
@@ -23,7 +25,15 @@ export type AvatarRootProps = ComponentProps<typeof AvatarPrimitive.Root> &
 export type AvatarImageProps = ComponentProps<typeof AvatarPrimitive.Image>;
 export type AvatarFallbackProps = ComponentProps<
   typeof AvatarPrimitive.Fallback
->;
+> & {
+  /**
+   * Registry tone (KernStatus, CL-010) for the initials disc. Default
+   * `primary` preserves the existing look; deterministic per-user color
+   * comes from `avatarToneFor` in `@xoroh/kern-tokens` mapped onto this
+   * prop by the host. Replaces per-app HSL-disc copies.
+   */
+  tone?: StatusTone;
+};
 
 export function AvatarRoot({ size, className, ...props }: AvatarRootProps) {
   return (
@@ -48,12 +58,18 @@ export function AvatarImage({ className, ...props }: AvatarImageProps) {
   );
 }
 
-export function AvatarFallback({ className, ...props }: AvatarFallbackProps) {
+export function AvatarFallback({
+  tone = "primary",
+  className,
+  ...props
+}: AvatarFallbackProps) {
   return (
     <AvatarPrimitive.Fallback
       data-slot="avatar-fallback"
+      data-tone={tone}
       className={cnState(
-        "kern-avatar-fallback flex size-full items-center justify-center bg-(--sys-color-primary) font-medium text-(--sys-color-on-primary)",
+        "kern-avatar-fallback flex size-full items-center justify-center font-medium",
+        statusToneClassNames(tone, "solid"),
         className,
       )}
       {...props}

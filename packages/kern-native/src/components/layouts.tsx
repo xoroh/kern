@@ -3,7 +3,6 @@ import { type ResolvedTheme, tokens } from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
 import {
   Pressable,
-  Text as RNText,
   ScrollView,
   type StyleProp,
   View,
@@ -11,6 +10,7 @@ import {
 } from "react-native";
 import { defaultScheme, useKernScheme, useKernTheme } from "../theme";
 import { Chip } from "./chip";
+import { KernTabs } from "./kern-tabs";
 import { StateLayer } from "./state-layer";
 import { Text } from "./text";
 
@@ -85,6 +85,14 @@ export function FilterChipRow({
  * M3 secondary tabs: a row of text tabs with a 2dp indicator under the
  * selected one. Primary tabs (filled pill) belong to {@link Tabs}; these are
  * the flat, top-of-screen variant.
+ *
+ * WP1b merge (D951, CL-009): this delegates to `KernTabs` at
+ * `variant="secondary"` — one behaviour implementation per renderer. The
+ * exports stay so existing imports keep compiling; retirement happens in
+ * transfer, never in design. New code reaches for `KernTabs` directly.
+ *
+ * Drift fixed in the merge: the indicator is now the *primary* role (M3 +
+ * web parity), where this row previously used the secondary role.
  */
 export type SecondaryTab = {
   value: string;
@@ -133,61 +141,16 @@ export function SecondaryTabs({
   style,
   testID,
 }: SecondaryTabsProps) {
-  const [current, setCurrent] = useControllableState<string>(
-    value,
-    defaultValue ?? tabs[0]?.value ?? "",
-    onValueChange,
-  );
-  const scheme = useKernScheme();
-  const styles = secondaryTabsStyles(scheme);
-  const active = current ?? tabs[0]?.value;
-  const panel = tabs.find((tab) => tab.value === active)?.content;
   return (
-    <View testID={testID ?? "kern-secondary-tabs"} style={style}>
-      <View style={styles.row} accessibilityRole="tablist">
-        {tabs.map((tab) => {
-          const selected = tab.value === active;
-          return (
-            <Pressable
-              key={tab.value}
-              role="tab"
-              accessibilityRole="tab"
-              aria-selected={selected}
-              accessibilityLabel={tab.label}
-              onPress={() => setCurrent(tab.value)}
-              style={[styles.tab, { overflow: "hidden" as const }]}
-            >
-              {({ pressed: isPressed }) => (
-                <>
-                  <RNText
-                    style={{
-                      fontSize: 14,
-                      fontWeight: selected ? "600" : "500",
-                      color: selected
-                        ? scheme.color.onSurface
-                        : scheme.color.onSurfaceVariant,
-                    }}
-                  >
-                    {tab.label}
-                  </RNText>
-                  <View
-                    style={[
-                      styles.indicator,
-                      { marginTop: 2, opacity: selected ? 1 : 0 },
-                    ]}
-                  />
-                  <StateLayer
-                    ink={scheme.color.onSurface}
-                    visible={isPressed}
-                  />
-                </>
-              )}
-            </Pressable>
-          );
-        })}
-      </View>
-      {panel}
-    </View>
+    <KernTabs
+      items={tabs}
+      value={value}
+      defaultValue={defaultValue}
+      onValueChange={onValueChange}
+      variant="secondary"
+      style={style}
+      testID={testID ?? "kern-secondary-tabs"}
+    />
   );
 }
 

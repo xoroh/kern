@@ -1,5 +1,11 @@
 import { useControllableState } from "@xoroh/axis";
-import { cssLengthToDp, type ResolvedTheme, tokens } from "@xoroh/kern-tokens";
+import {
+  cssLengthToDp,
+  type ResolvedTheme,
+  type StatusTone,
+  statusTone,
+  tokens,
+} from "@xoroh/kern-tokens";
 import type { ReactNode } from "react";
 import {
   Pressable,
@@ -20,9 +26,13 @@ export function chipStyles(
   selected: boolean,
   scheme: ResolvedTheme = defaultScheme(),
   elevated = false,
+  tone?: StatusTone,
 ): { container: ViewStyle; label: TextStyle } {
   const isFilter = variant === "filter";
-  const canElevate = elevated && (variant === "assist" || isFilter);
+  const canElevate = elevated && (variant === "assist" || isFilter) && !tone;
+  // Tone fill (KernStatus, CL-010) replaces the kind outline — the
+  // status-chip cell pattern. Unset by default: M3 kind styling.
+  const toned = tone !== undefined ? statusTone(scheme.color, tone) : null;
   const container: ViewStyle = {
     minHeight: 32,
     borderRadius: cssLengthToDp(
@@ -34,13 +44,14 @@ export function chipStyles(
     flexDirection: "row",
     alignItems: "center",
     gap: 8,
-    backgroundColor:
-      isFilter && selected
+    backgroundColor: toned
+      ? toned.bg
+      : isFilter && selected
         ? scheme.color.secondaryContainer
         : canElevate
           ? scheme.color.surfaceContainerLow
           : "transparent",
-    borderWidth: canElevate ? 0 : 1,
+    borderWidth: canElevate || toned ? 0 : 1,
     borderColor: scheme.color.outline,
     ...(canElevate ? { elevation: tokens.elevation.level1.dp } : null),
   };
@@ -51,8 +62,9 @@ export function chipStyles(
       lineHeight: 20,
       letterSpacing: 0.1,
       fontWeight: "500",
-      color:
-        isFilter && selected
+      color: toned
+        ? toned.fg
+        : isFilter && selected
           ? scheme.color.onSecondaryContainer
           : scheme.color.onSurface,
     },
@@ -72,6 +84,12 @@ type CommonChipProps = Omit<
    * surface-container-low fill. Ignored elsewhere.
    */
   elevated?: boolean;
+  /**
+   * Registry tone (KernStatus, CL-010). Unset by default — M3 kind
+   * styling. When set, the chip renders in that tone's soft container
+   * roles (the status-chip cell pattern).
+   */
+  tone?: StatusTone;
 };
 
 export type FilterChipProps = CommonChipProps & {
@@ -86,7 +104,9 @@ export type FilterChipProps = CommonChipProps & {
 };
 
 export type ActionChipProps = CommonChipProps & {
-  variant?: "assist" | "suggestion";
+  // All three M3 action kinds (P3 chip-4-types): `input` was missing from
+  // this union while chipStyles already rendered it.
+  variant?: "assist" | "input" | "suggestion";
 };
 
 export type ChipProps = FilterChipProps | ActionChipProps;
@@ -95,6 +115,7 @@ export function Chip(props: ChipProps) {
   const {
     variant = "assist",
     elevated = false,
+    tone,
     children,
     onPress,
     style,
@@ -114,7 +135,7 @@ export function Chip(props: ChipProps) {
     },
   );
   const selected = variant === "filter" && Boolean(selectedValue);
-  const styles = chipStyles(variant, selected, scheme, elevated);
+  const styles = chipStyles(variant, selected, scheme, elevated, tone);
   const radius = cssLengthToDp(
     scheme.comp?.["chip-container-shape"],
     Number.parseFloat(scheme.shape.small),
