@@ -44,6 +44,10 @@ const REGISTERED_ALIASES: Record<string, string[]> = {
   // Native mirrors the same contract.
   "packages/kern/src/components/button.tsx:onPressedChange": ["pressed"],
   "packages/kern-native/src/components/button.tsx:onPressedChange": ["pressed"],
+  "packages/kern/src/components/pulse-button.tsx:onPressedChange": ["pressed"],
+  "packages/kern-native/src/components/pulse-button.tsx:onPressedChange": [
+    "pressed",
+  ],
   // Toggle-form controls use `pressed` (not `value`), so `onPressedChange`
   // is canonical here, not an alias.
   "packages/kern/src/components/icon-button.tsx:onPressedChange": ["pressed"],

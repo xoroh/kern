@@ -152,13 +152,11 @@ export const BUTTON_SIZES_ORDERED = [
  */
 export const BUTTON_SIZE_TO_KERN_SIZE = {
   xs: "sm",
-  sm: "sm",
   default: "md",
+  sm: "sm",
   md: "md",
   xl: "lg",
   lg: "lg",
-  "2xl": "lg",
-  "3xl": "lg",
 } as const;
 
 export const buttonBaseClass = `kern-button relative inline-flex min-w-16 shrink-0 cursor-pointer items-center justify-center gap-2 rounded-[var(--comp-button-container-shape,var(--sys-shape-corner-full))] text-sm leading-5 font-medium tracking-[0.1px] whitespace-nowrap transition-[color,background-color,border-color,box-shadow,border-radius] duration-200 ease-(--sys-motion-easing-standard) outline-none select-none ${FOCUS_RING_CLASS} disabled:pointer-events-none disabled:cursor-not-allowed disabled:shadow-none aria-disabled:cursor-not-allowed aria-disabled:shadow-none after:absolute after:content-[''] before:absolute before:inset-0 before:rounded-[inherit] before:content-[''] before:opacity-0 before:transition-opacity before:duration-150 hover:before:opacity-[var(--sys-state-hover)] focus-visible:before:opacity-[var(--sys-state-focus)] active:before:opacity-[var(--sys-state-press)] disabled:before:opacity-0 aria-disabled:before:opacity-0 [&_svg]:size-5 [&_svg]:shrink-0`;

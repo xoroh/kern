@@ -271,26 +271,21 @@ export function PulseButton({
                 : style,
             ]}
           >
-            {({ pressed: pressedNow }) => (
-              <>
-                {loading ? (
-                  <ActivityIndicator size="small" color={inkColor} />
-                ) : null}
-                {iconPosition === "start" ? iconSlot : null}
-                {typeof children === "string" ||
-                typeof children === "number" ? (
-                  <Text style={[styles.label, labelStyle]}>{children}</Text>
-                ) : (
-                  children
-                )}
-                {iconPosition === "end" ? iconSlot : null}
-                <StateLayer
-                  ink={inkColor}
-                  radius={lockedRadius}
-                  visible={pressedNow && !blocked}
-                />
-              </>
+            {loading ? (
+              <ActivityIndicator size="small" color={inkColor} />
+            ) : null}
+            {iconPosition === "start" ? iconSlot : null}
+            {typeof children === "string" || typeof children === "number" ? (
+              <Text style={[styles.label, labelStyle]}>{children}</Text>
+            ) : (
+              children
             )}
+            {iconPosition === "end" ? iconSlot : null}
+            <StateLayer
+              ink={inkColor}
+              radius={lockedRadius}
+              visible={press.pressed && !blocked}
+            />
           </Pressable>
         </Animated.View>
       )}

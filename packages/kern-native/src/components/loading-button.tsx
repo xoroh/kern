@@ -1,6 +1,6 @@
 import { mergeSlotProps, type SlotProps } from "@xoroh/axis";
 import type { LoadingIndicatorStyle } from "@xoroh/kern-m3";
-import { cloneElement, isValidElement } from "react";
+import { cloneElement, isValidElement, useState } from "react";
 import {
   type GestureResponderEvent,
   I18nManager,
@@ -50,6 +50,7 @@ export function LoadingButton({
   ...props
 }: LoadingButtonProps) {
   const scheme = useKernScheme();
+  const [pressedNow, setPressedNow] = useState(false);
   const blocked = Boolean(disabled) || loading || softDisabled;
   const styles = buttonStyles(variant, size, blocked, scheme, {
     color,
@@ -87,11 +88,17 @@ export function LoadingButton({
       aria-busy={loading || undefined}
       disabled={Boolean(disabled) || loading}
       hitSlop={size === "xs" ? 10 : size === "sm" ? 8 : 4}
+      onPressIn={() => {
+        if (!blocked) setPressedNow(true);
+      }}
+      onPressOut={() => {
+        setPressedNow(false);
+      }}
       onPress={(event: GestureResponderEvent) => {
         if (!blocked) onPress?.(event);
       }}
       style={({ pressed }) => [
-        pressed && !blocked
+        (pressed || pressedNow) && !blocked
           ? buttonStyles(variant, size, blocked, scheme, {
               color,
               shape,
@@ -100,37 +107,35 @@ export function LoadingButton({
             }).container
           : styles.container,
         loading ? { gap: 8 } : undefined,
-        typeof style === "function" ? style({ pressed }) : style,
+        typeof style === "function"
+          ? style({ pressed: pressed || pressedNow })
+          : style,
       ]}
     >
-      {({ pressed: pressedNow }) => (
-        <>
-          {loading ? (
-            <CircularProgress
-              value={value}
-              loaderStyle={loaderStyle}
-              size="sm"
-              label="Loading"
-              color={inkColor}
-            />
-          ) : null}
-          {!loading && iconPosition === "start" ? iconSlot : null}
-          {typeof children === "string" || typeof children === "number" ? (
-            <Text style={[styles.label, labelStyle]}>{children}</Text>
-          ) : (
-            children
-          )}
-          {!loading && iconPosition === "end" ? iconSlot : null}
-          <StateLayer
-            ink={inkColor}
-            radius={Number(
-              styles.container.borderRadius ??
-                Number.parseFloat(scheme.shape.full),
-            )}
-            visible={pressedNow && !blocked}
-          />
-        </>
+      {loading ? (
+        <CircularProgress
+          value={value}
+          loaderStyle={loaderStyle}
+          size="sm"
+          label="Loading"
+          color={inkColor}
+        />
+      ) : null}
+      {!loading && iconPosition === "start" ? iconSlot : null}
+      {typeof children === "string" || typeof children === "number" ? (
+        <Text style={[styles.label, labelStyle]}>{children}</Text>
+      ) : (
+        children
       )}
+      {!loading && iconPosition === "end" ? iconSlot : null}
+      <StateLayer
+        ink={inkColor}
+        radius={Number(
+          styles.container.borderRadius ??
+            Number.parseFloat(scheme.shape.full),
+        )}
+        visible={pressedNow && !blocked}
+      />
     </Pressable>
   );
 }

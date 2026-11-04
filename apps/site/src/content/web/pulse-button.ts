@@ -7,7 +7,6 @@ export const pulseButton: ComponentDoc = {
     "Pulse buttons keep a locked corner silhouette across every interaction state, replacing M3 corner morphing with a spring-driven scale pulse, radial state-layer bloom, and kinetic icon nudge.",
   meta: {
     freshness: { owner: "kern-lead", reviewed: "2026-11-04" },
-    specUrl: "https://m3.material.io/components/buttons",
     status: "real",
     package: "@xoroh/kern",
     nativePeer: "PulseButton",

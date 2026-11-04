@@ -230,7 +230,7 @@ export function Button({
           }}
           style={({ pressed: pressedNow }) => {
             const activeStyles =
-              pressedNow && !blocked
+              (pressedNow || press.pressed) && !blocked
                 ? buttonStyles(variant, size, blocked, scheme, {
                     color,
                     shape,
@@ -243,14 +243,31 @@ export function Button({
             return [
               activeStyles.container,
               typeof style === "function"
-                ? style({ pressed: pressedNow })
+                ? style({ pressed: pressedNow || press.pressed })
                 : style,
             ];
           }}
         >
-          {({ pressed: pressedNow }) => {
-            const activeContainer =
-              pressedNow && !blocked
+          {loading ? (
+            <CircularProgress
+              value={loadingValue}
+              loaderStyle={loaderStyle}
+              size="sm"
+              label="Loading"
+              color={inkColor}
+            />
+          ) : null}
+          {iconPosition === "start" ? iconSlot : null}
+          {typeof children === "string" || typeof children === "number" ? (
+            <Text style={[styles.label, labelStyle]}>{children}</Text>
+          ) : (
+            children
+          )}
+          {iconPosition === "end" ? iconSlot : null}
+          <StateLayer
+            ink={inkColor}
+            radius={Number(
+              (press.pressed && !blocked
                 ? buttonStyles(variant, size, blocked, scheme, {
                     color,
                     shape,
@@ -259,38 +276,11 @@ export function Button({
                     selected: isPressed,
                     pressed: true,
                   }).container
-                : styles.container;
-            const currentRadius = Number(
-              activeContainer.borderRadius ??
-                Number.parseFloat(scheme.shape.full),
-            );
-            return (
-              <>
-                {loading ? (
-                  <CircularProgress
-                    value={loadingValue}
-                    loaderStyle={loaderStyle}
-                    size="sm"
-                    label="Loading"
-                    color={inkColor}
-                  />
-                ) : null}
-                {iconPosition === "start" ? iconSlot : null}
-                {typeof children === "string" ||
-                typeof children === "number" ? (
-                  <Text style={[styles.label, labelStyle]}>{children}</Text>
-                ) : (
-                  children
-                )}
-                {iconPosition === "end" ? iconSlot : null}
-                <StateLayer
-                  ink={inkColor}
-                  radius={currentRadius}
-                  visible={pressedNow && !blocked}
-                />
-              </>
-            );
-          }}
+                : styles.container
+              ).borderRadius ?? Number.parseFloat(scheme.shape.full),
+            )}
+            visible={press.pressed && !blocked}
+          />
         </Pressable>
       )}
     />

@@ -7,7 +7,6 @@ export const pulseButton: ComponentDoc = {
     "Shape-stable native button that keeps its corner radius locked while animating press feedback with M3 Expressive spring scale physics.",
   meta: {
     freshness: { owner: "kern-lead", reviewed: "2026-11-04" },
-    specUrl: "https://m3.material.io/components/buttons",
     status: "real",
     package: "@xoroh/kern-native",
     nativePeer: "PulseButton",

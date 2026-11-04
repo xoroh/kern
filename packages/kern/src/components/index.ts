@@ -628,6 +628,7 @@ export type {
   PulseButtonVariant,
 } from "./pulse-button";
 export {
+  BUTTON_SPRING_TOKENS,
   PulseButton,
   pulseButtonVariants,
 } from "./pulse-button";
