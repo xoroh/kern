@@ -131,8 +131,7 @@ export function LoadingButton({
       <StateLayer
         ink={inkColor}
         radius={Number(
-          styles.container.borderRadius ??
-            Number.parseFloat(scheme.shape.full),
+          styles.container.borderRadius ?? Number.parseFloat(scheme.shape.full),
         )}
         visible={pressedNow && !blocked}
       />
