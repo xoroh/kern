@@ -1,6 +1,6 @@
 {
   "version": "0.0.0",
-  "releaseSet": "kern@0.0.0+496.cdf0e1876db1c906",
+  "releaseSet": "kern@0.0.0+497.9bd949dfb318e783",
   "rows": [
     {
       "name": "accordion-root",
@@ -3096,6 +3096,15 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/billing-page.tsx",
+      "status": "real"
+    },
+    {
+      "name": "bottom-app-bar",
+      "export": "BottomAppBar",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/bottom-app-bar.tsx",
       "status": "real"
     },
     {

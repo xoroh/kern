@@ -361,6 +361,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `banner` | `Banner` | real |
 | `billing-page` | `BillingPage` | real |
 | `boot-splash` | `BootSplash` | real |
+| `bottom-app-bar` | `BottomAppBar` | real |
 | `bottom-sheet` | `BottomSheet` | real |
 | `bottom-sheet-picker` | `BottomSheetPicker` | real |
 | `button` | `Button` | real |

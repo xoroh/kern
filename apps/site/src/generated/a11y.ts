@@ -631,6 +631,17 @@ export const A11Y: Record<string, A11yPage> = {
       },
     },
   },
+  "web/billing-page": {
+    page: "web/billing-page",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      BillingPage: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
   "web/search-bar": {
     page: "web/search-bar",
     measured: false,
@@ -692,6 +703,17 @@ export const A11Y: Record<string, A11yPage> = {
               "aria contract carries 4 line(s) in boot-indicator.ts — roles, names and states are stated, not assumed",
           },
         ],
+      },
+    },
+  },
+  "web/bottom-app-bar": {
+    page: "web/bottom-app-bar",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      BottomAppBar: {
+        hasLiveDemo: false,
+        expectations: [],
       },
     },
   },
@@ -1470,6 +1492,94 @@ export const A11Y: Record<string, A11yPage> = {
       },
     },
   },
+  "web/composer-attachment-tray": {
+    page: "web/composer-attachment-tray",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      ComposerAttachmentTray: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "web/composer-canned-picker": {
+    page: "web/composer-canned-picker",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      ComposerCannedPicker: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "web/composer-mode-bar": {
+    page: "web/composer-mode-bar",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      ComposerModeBar: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "web/composer-reply-bar": {
+    page: "web/composer-reply-bar",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      ComposerReplyBar: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "web/contact-card": {
+    page: "web/contact-card",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      ContactCard: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "web/contact-directory": {
+    page: "web/contact-directory",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      ContactDirectory: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "web/contact-group-list": {
+    page: "web/contact-group-list",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      ContactGroupList: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "web/contact-row": {
+    page: "web/contact-row",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      ContactRow: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
   "web/context-menu": {
     page: "web/context-menu",
     measured: false,
@@ -1728,6 +1838,50 @@ export const A11Y: Record<string, A11yPage> = {
               "aria contract carries 4 line(s) in country-select.ts — roles, names and states are stated, not assumed",
           },
         ],
+      },
+    },
+  },
+  "web/csv-export-button": {
+    page: "web/csv-export-button",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      CsvExportButton: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "web/cta-banner": {
+    page: "web/cta-banner",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      CtaBanner: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "web/dashboard-page": {
+    page: "web/dashboard-page",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      DashboardPage: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "web/data-table": {
+    page: "web/data-table",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      DataTable: {
+        hasLiveDemo: false,
+        expectations: [],
       },
     },
   },
@@ -2037,6 +2191,17 @@ export const A11Y: Record<string, A11yPage> = {
       },
     },
   },
+  "web/empty-search": {
+    page: "web/empty-search",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      EmptySearch: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
   "web/empty-state": {
     page: "web/empty-state",
     measured: false,
@@ -2164,6 +2329,17 @@ export const A11Y: Record<string, A11yPage> = {
               "aria contract carries 3 line(s) in fab.ts — roles, names and states are stated, not assumed",
           },
         ],
+      },
+    },
+  },
+  "web/feature-grid": {
+    page: "web/feature-grid",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      FeatureGrid: {
+        hasLiveDemo: false,
+        expectations: [],
       },
     },
   },
@@ -2349,6 +2525,17 @@ export const A11Y: Record<string, A11yPage> = {
               "aria contract carries 3 line(s) in fieldset.ts — roles, names and states are stated, not assumed",
           },
         ],
+      },
+    },
+  },
+  "web/filter-bar": {
+    page: "web/filter-bar",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      FilterBar: {
+        hasLiveDemo: false,
+        expectations: [],
       },
     },
   },
@@ -2572,6 +2759,17 @@ export const A11Y: Record<string, A11yPage> = {
       },
     },
   },
+  "web/invite-accept": {
+    page: "web/invite-accept",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      InviteAccept: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
   "web/kbd": {
     page: "web/kbd",
     measured: false,
@@ -2598,6 +2796,17 @@ export const A11Y: Record<string, A11yPage> = {
       },
     },
   },
+  "web/kern-composer": {
+    page: "web/kern-composer",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      KernComposer: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
   "web/kern-error-boundary": {
     page: "web/kern-error-boundary",
     measured: false,
@@ -2621,6 +2830,94 @@ export const A11Y: Record<string, A11yPage> = {
               "aria contract carries 3 line(s) in kern-error-boundary.ts — roles, names and states are stated, not assumed",
           },
         ],
+      },
+    },
+  },
+  "web/kern-loading": {
+    page: "web/kern-loading",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      KernLoading: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "web/kern-navigation": {
+    page: "web/kern-navigation",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      KernNavigation: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "web/kern-overlay": {
+    page: "web/kern-overlay",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      KernOverlay: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "web/kern-picker": {
+    page: "web/kern-picker",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      KernPicker: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "web/kern-settings-row": {
+    page: "web/kern-settings-row",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      KernSettingsRow: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "web/kern-settings-screen": {
+    page: "web/kern-settings-screen",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      KernSettingsScreen: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "web/kern-settings-section": {
+    page: "web/kern-settings-section",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      KernSettingsSection: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "web/kern-tabs": {
+    page: "web/kern-tabs",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      KernTabs: {
+        hasLiveDemo: false,
+        expectations: [],
       },
     },
   },
@@ -2773,6 +3070,28 @@ export const A11Y: Record<string, A11yPage> = {
       },
     },
   },
+  "web/list-with-search-and-filters": {
+    page: "web/list-with-search-and-filters",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      ListWithSearchAndFilters: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "web/list": {
+    page: "web/list",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      List: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
   "web/loader": {
     page: "web/loader",
     measured: false,
@@ -2874,6 +3193,39 @@ export const A11Y: Record<string, A11yPage> = {
               "aria contract carries 3 line(s) in loading-region.ts — roles, names and states are stated, not assumed",
           },
         ],
+      },
+    },
+  },
+  "web/map-marker": {
+    page: "web/map-marker",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      MapMarker: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "web/map-panel": {
+    page: "web/map-panel",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      MapPanel: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "web/marketing-sections": {
+    page: "web/marketing-sections",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      MarketingSections: {
+        hasLiveDemo: false,
+        expectations: [],
       },
     },
   },
@@ -3574,6 +3926,28 @@ export const A11Y: Record<string, A11yPage> = {
       },
     },
   },
+  "web/onboarding-service-step": {
+    page: "web/onboarding-service-step",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      OnboardingServiceStep: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "web/onboarding-wizard": {
+    page: "web/onboarding-wizard",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      OnboardingWizard: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
   "web/page-loader": {
     page: "web/page-loader",
     measured: false,
@@ -3925,6 +4299,17 @@ export const A11Y: Record<string, A11yPage> = {
       },
     },
   },
+  "web/pricing-table": {
+    page: "web/pricing-table",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      PricingTable: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
   "web/progress": {
     page: "web/progress",
     measured: false,
@@ -4050,6 +4435,17 @@ export const A11Y: Record<string, A11yPage> = {
               "aria contract carries 4 line(s) in radio-group.ts — roles, names and states are stated, not assumed",
           },
         ],
+      },
+    },
+  },
+  "web/reason-picker": {
+    page: "web/reason-picker",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      ReasonPicker: {
+        hasLiveDemo: false,
+        expectations: [],
       },
     },
   },
@@ -4216,6 +4612,17 @@ export const A11Y: Record<string, A11yPage> = {
               "aria contract carries 4 line(s) in scroll-area.ts — roles, names and states are stated, not assumed",
           },
         ],
+      },
+    },
+  },
+  "web/search-view": {
+    page: "web/search-view",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      SearchView: {
+        hasLiveDemo: false,
+        expectations: [],
       },
     },
   },
@@ -4566,6 +4973,17 @@ export const A11Y: Record<string, A11yPage> = {
               "aria contract carries 3 line(s) in separator.ts — roles, names and states are stated, not assumed",
           },
         ],
+      },
+    },
+  },
+  "web/share-link-row": {
+    page: "web/share-link-row",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      ShareLinkRow: {
+        hasLiveDemo: false,
+        expectations: [],
       },
     },
   },
@@ -5278,6 +5696,17 @@ export const A11Y: Record<string, A11yPage> = {
       },
     },
   },
+  "web/status-pill": {
+    page: "web/status-pill",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      StatusPill: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
   "web/switch": {
     page: "web/switch",
     measured: false,
@@ -5562,6 +5991,17 @@ export const A11Y: Record<string, A11yPage> = {
               "aria contract carries 3 line(s) in tabs.ts — roles, names and states are stated, not assumed",
           },
         ],
+      },
+    },
+  },
+  "web/testimonial-list": {
+    page: "web/testimonial-list",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      TestimonialList: {
+        hasLiveDemo: false,
+        expectations: [],
       },
     },
   },
@@ -6262,12 +6702,34 @@ export const A11Y: Record<string, A11yPage> = {
       },
     },
   },
+  "mobile/billing-page": {
+    page: "mobile/billing-page",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      BillingPage: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
   "mobile/boot-splash": {
     page: "mobile/boot-splash",
     measured: false,
     note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
     demos: {
       BootSplash: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "mobile/bottom-app-bar": {
+    page: "mobile/bottom-app-bar",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      BottomAppBar: {
         hasLiveDemo: false,
         expectations: [],
       },
@@ -6638,6 +7100,94 @@ export const A11Y: Record<string, A11yPage> = {
       },
     },
   },
+  "mobile/composer-attachment-tray": {
+    page: "mobile/composer-attachment-tray",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      ComposerAttachmentTray: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "mobile/composer-canned-picker": {
+    page: "mobile/composer-canned-picker",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      ComposerCannedPicker: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "mobile/composer-mode-bar": {
+    page: "mobile/composer-mode-bar",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      ComposerModeBar: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "mobile/composer-reply-bar": {
+    page: "mobile/composer-reply-bar",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      ComposerReplyBar: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "mobile/contact-card": {
+    page: "mobile/contact-card",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      ContactCard: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "mobile/contact-directory": {
+    page: "mobile/contact-directory",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      ContactDirectory: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "mobile/contact-group-list": {
+    page: "mobile/contact-group-list",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      ContactGroupList: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "mobile/contact-row": {
+    page: "mobile/contact-row",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      ContactRow: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
   "mobile/context-menu": {
     page: "mobile/context-menu",
     measured: false,
@@ -6701,6 +7251,50 @@ export const A11Y: Record<string, A11yPage> = {
       },
     },
   },
+  "mobile/csv-export-button": {
+    page: "mobile/csv-export-button",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      CsvExportButton: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "mobile/cta-banner": {
+    page: "mobile/cta-banner",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      CtaBanner: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "mobile/dashboard-page": {
+    page: "mobile/dashboard-page",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      DashboardPage: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "mobile/data-table": {
+    page: "mobile/data-table",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      DataTable: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
   "mobile/dialog": {
     page: "mobile/dialog",
     measured: false,
@@ -6733,6 +7327,17 @@ export const A11Y: Record<string, A11yPage> = {
         expectations: [],
       },
       OverlayModalityProvider: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "mobile/empty-search": {
+    page: "mobile/empty-search",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      EmptySearch: {
         hasLiveDemo: false,
         expectations: [],
       },
@@ -6879,6 +7484,17 @@ export const A11Y: Record<string, A11yPage> = {
       },
     },
   },
+  "mobile/feature-grid": {
+    page: "mobile/feature-grid",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      FeatureGrid: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
   "mobile/field": {
     page: "mobile/field",
     measured: false,
@@ -6974,6 +7590,17 @@ export const A11Y: Record<string, A11yPage> = {
               "aria contract carries 4 line(s) in fieldset.ts — roles, names and states are stated, not assumed",
           },
         ],
+      },
+    },
+  },
+  "mobile/filter-bar": {
+    page: "mobile/filter-bar",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      FilterBar: {
+        hasLiveDemo: false,
+        expectations: [],
       },
     },
   },
@@ -7133,6 +7760,17 @@ export const A11Y: Record<string, A11yPage> = {
       },
     },
   },
+  "mobile/invite-accept": {
+    page: "mobile/invite-accept",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      InviteAccept: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
   "mobile/kbd": {
     page: "mobile/kbd",
     measured: false,
@@ -7159,6 +7797,61 @@ export const A11Y: Record<string, A11yPage> = {
       },
     },
   },
+  "mobile/kern-composer": {
+    page: "mobile/kern-composer",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      KernComposer: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "mobile/kern-loading": {
+    page: "mobile/kern-loading",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      KernLoading: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "mobile/kern-navigation": {
+    page: "mobile/kern-navigation",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      KernNavigation: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "mobile/kern-overlay": {
+    page: "mobile/kern-overlay",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      KernOverlay: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "mobile/kern-picker": {
+    page: "mobile/kern-picker",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      KernPicker: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
   "mobile/kern-pressable": {
     page: "mobile/kern-pressable",
     measured: false,
@@ -7182,6 +7875,50 @@ export const A11Y: Record<string, A11yPage> = {
               "aria contract carries 3 line(s) in kern-pressable.ts — roles, names and states are stated, not assumed",
           },
         ],
+      },
+    },
+  },
+  "mobile/kern-settings-row": {
+    page: "mobile/kern-settings-row",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      KernSettingsRow: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "mobile/kern-settings-screen": {
+    page: "mobile/kern-settings-screen",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      KernSettingsScreen: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "mobile/kern-settings-section": {
+    page: "mobile/kern-settings-section",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      KernSettingsSection: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "mobile/kern-tabs": {
+    page: "mobile/kern-tabs",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      KernTabs: {
+        hasLiveDemo: false,
+        expectations: [],
       },
     },
   },
@@ -7315,6 +8052,28 @@ export const A11Y: Record<string, A11yPage> = {
       },
     },
   },
+  "mobile/list-with-search-and-filters": {
+    page: "mobile/list-with-search-and-filters",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      ListWithSearchAndFilters: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "mobile/list": {
+    page: "mobile/list",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      List: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
   "mobile/loader": {
     page: "mobile/loader",
     measured: false,
@@ -7390,6 +8149,39 @@ export const A11Y: Record<string, A11yPage> = {
               "aria contract carries 3 line(s) in loading-indicator.ts — roles, names and states are stated, not assumed",
           },
         ],
+      },
+    },
+  },
+  "mobile/map-marker": {
+    page: "mobile/map-marker",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      MapMarker: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "mobile/map-panel": {
+    page: "mobile/map-panel",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      MapPanel: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "mobile/marketing-sections": {
+    page: "mobile/marketing-sections",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      MarketingSections: {
+        hasLiveDemo: false,
+        expectations: [],
       },
     },
   },
@@ -7626,6 +8418,28 @@ export const A11Y: Record<string, A11yPage> = {
       },
     },
   },
+  "mobile/onboarding-service-step": {
+    page: "mobile/onboarding-service-step",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      OnboardingServiceStep: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
+  "mobile/onboarding-wizard": {
+    page: "mobile/onboarding-wizard",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      OnboardingWizard: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
   "mobile/pagination": {
     page: "mobile/pagination",
     measured: false,
@@ -7704,6 +8518,17 @@ export const A11Y: Record<string, A11yPage> = {
       },
     },
   },
+  "mobile/pricing-table": {
+    page: "mobile/pricing-table",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      PricingTable: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
   "mobile/progress": {
     page: "mobile/progress",
     measured: false,
@@ -7775,6 +8600,17 @@ export const A11Y: Record<string, A11yPage> = {
       },
     },
   },
+  "mobile/reason-picker": {
+    page: "mobile/reason-picker",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      ReasonPicker: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
   "mobile/rich-tooltip": {
     page: "mobile/rich-tooltip",
     measured: false,
@@ -7824,6 +8660,17 @@ export const A11Y: Record<string, A11yPage> = {
               "aria contract carries 3 line(s) in scroll-area.ts — roles, names and states are stated, not assumed",
           },
         ],
+      },
+    },
+  },
+  "mobile/search-view": {
+    page: "mobile/search-view",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      SearchView: {
+        hasLiveDemo: false,
+        expectations: [],
       },
     },
   },
@@ -8021,6 +8868,17 @@ export const A11Y: Record<string, A11yPage> = {
               "aria contract carries 3 line(s) in shape.ts — roles, names and states are stated, not assumed",
           },
         ],
+      },
+    },
+  },
+  "mobile/share-link-row": {
+    page: "mobile/share-link-row",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      ShareLinkRow: {
+        hasLiveDemo: false,
+        expectations: [],
       },
     },
   },
@@ -8269,6 +9127,17 @@ export const A11Y: Record<string, A11yPage> = {
       },
     },
   },
+  "mobile/status-pill": {
+    page: "mobile/status-pill",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      StatusPill: {
+        hasLiveDemo: false,
+        expectations: [],
+      },
+    },
+  },
   "mobile/success-transform": {
     page: "mobile/success-transform",
     measured: false,
@@ -8381,6 +9250,17 @@ export const A11Y: Record<string, A11yPage> = {
               "aria contract carries 3 line(s) in tabs.ts — roles, names and states are stated, not assumed",
           },
         ],
+      },
+    },
+  },
+  "mobile/testimonial-list": {
+    page: "mobile/testimonial-list",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      TestimonialList: {
+        hasLiveDemo: false,
+        expectations: [],
       },
     },
   },

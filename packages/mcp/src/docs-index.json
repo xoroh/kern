@@ -5,7 +5,7 @@
     "map": "/llms.txt",
     "mdPattern": "per-page markdown at /md/{web|mobile}/<slug>.md and /md/foundations/<slug>.md"
   },
-  "count": 130,
+  "count": 170,
   "pages": [
     {
       "kind": "family",
@@ -142,6 +142,21 @@
     },
     {
       "kind": "family",
+      "slug": "billing-page",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Billing page",
+      "oneLiner": "Billing page renders plan and invoice display slots with no payment actions.",
+      "page": "/components/m3/billing-page",
+      "md": [
+        "/md/web/billing-page.md",
+        "/md/mobile/billing-page.md"
+      ]
+    },
+    {
+      "kind": "family",
       "slug": "boot-indicator",
       "platforms": [
         "web"
@@ -164,6 +179,21 @@
       "page": "/components/m3/boot-splash",
       "md": [
         "/md/mobile/boot-splash.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "bottom-app-bar",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Bottom app bar",
+      "oneLiner": "Bottom app bar docks actions leading with a trailing FAB on compact screens.",
+      "page": "/components/m3/bottom-app-bar",
+      "md": [
+        "/md/web/bottom-app-bar.md",
+        "/md/mobile/bottom-app-bar.md"
       ]
     },
     {
@@ -378,6 +408,126 @@
     },
     {
       "kind": "family",
+      "slug": "composer-attachment-tray",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Composer attachment tray",
+      "oneLiner": "Composer attachment tray lists draft attachments with removal.",
+      "page": "/components/m3/composer-attachment-tray",
+      "md": [
+        "/md/web/composer-attachment-tray.md",
+        "/md/mobile/composer-attachment-tray.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "composer-canned-picker",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Composer canned picker",
+      "oneLiner": "Composer canned picker inserts canned responses through the picker.",
+      "page": "/components/m3/composer-canned-picker",
+      "md": [
+        "/md/web/composer-canned-picker.md",
+        "/md/mobile/composer-canned-picker.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "composer-mode-bar",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Composer mode bar",
+      "oneLiner": "Composer mode bar is the message-visibility radio group.",
+      "page": "/components/m3/composer-mode-bar",
+      "md": [
+        "/md/web/composer-mode-bar.md",
+        "/md/mobile/composer-mode-bar.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "composer-reply-bar",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Composer reply bar",
+      "oneLiner": "Composer reply bar names the message being answered with a dismiss control.",
+      "page": "/components/m3/composer-reply-bar",
+      "md": [
+        "/md/web/composer-reply-bar.md",
+        "/md/mobile/composer-reply-bar.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "contact-card",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Contact card",
+      "oneLiner": "Contact card is the identity card with status pill and action slots.",
+      "page": "/components/m3/contact-card",
+      "md": [
+        "/md/web/contact-card.md",
+        "/md/mobile/contact-card.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "contact-directory",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Contact directory",
+      "oneLiner": "Contact directory composes search with grouped rows and empty recovery.",
+      "page": "/components/m3/contact-directory",
+      "md": [
+        "/md/web/contact-directory.md",
+        "/md/mobile/contact-directory.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "contact-group-list",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Contact group list",
+      "oneLiner": "Contact group list is the selectable grouped list over contact groups.",
+      "page": "/components/m3/contact-group-list",
+      "md": [
+        "/md/web/contact-group-list.md",
+        "/md/mobile/contact-group-list.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "contact-row",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Contact row",
+      "oneLiner": "Contact row is the avatar-plus-meta row that becomes one button when selectable.",
+      "page": "/components/m3/contact-row",
+      "md": [
+        "/md/web/contact-row.md",
+        "/md/mobile/contact-row.md"
+      ]
+    },
+    {
+      "kind": "family",
       "slug": "context-menu",
       "platforms": [
         "web",
@@ -417,6 +567,66 @@
       "md": [
         "/md/web/country-select.md",
         "/md/mobile/country-select.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "csv-export-button",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "CSV export button",
+      "oneLiner": "CSV export button downloads rows as a CSV file, or hands the text to an interceptor.",
+      "page": "/components/m3/csv-export-button",
+      "md": [
+        "/md/web/csv-export-button.md",
+        "/md/mobile/csv-export-button.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "cta-banner",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Call to action banner",
+      "oneLiner": "Call to action banner is the primary-container closing section with title and actions.",
+      "page": "/components/m3/cta-banner",
+      "md": [
+        "/md/web/cta-banner.md",
+        "/md/mobile/cta-banner.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "dashboard-page",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Dashboard page",
+      "oneLiner": "Dashboard page composes stat cards, activity rows and an ops queue into one page.",
+      "page": "/components/m3/dashboard-page",
+      "md": [
+        "/md/web/dashboard-page.md",
+        "/md/mobile/dashboard-page.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "data-table",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Data table",
+      "oneLiner": "Data table is the sortable, pageable grid over columns and rows with four density presets.",
+      "page": "/components/m3/data-table",
+      "md": [
+        "/md/web/data-table.md",
+        "/md/mobile/data-table.md"
       ]
     },
     {
@@ -462,6 +672,21 @@
       "md": [
         "/md/web/drawer.md",
         "/md/mobile/drawer.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "empty-search",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Empty search",
+      "oneLiner": "Empty search is the no-results recovery block that echoes the query and offers to clear it.",
+      "page": "/components/m3/empty-search",
+      "md": [
+        "/md/web/empty-search.md",
+        "/md/mobile/empty-search.md"
       ]
     },
     {
@@ -554,6 +779,21 @@
     },
     {
       "kind": "family",
+      "slug": "feature-grid",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Feature grid",
+      "oneLiner": "Feature grid is the card grid of product features.",
+      "page": "/components/m3/feature-grid",
+      "md": [
+        "/md/web/feature-grid.md",
+        "/md/mobile/feature-grid.md"
+      ]
+    },
+    {
+      "kind": "family",
       "slug": "field",
       "platforms": [
         "web",
@@ -580,6 +820,21 @@
       "md": [
         "/md/web/fieldset.md",
         "/md/mobile/fieldset.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "filter-bar",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Filter bar",
+      "oneLiner": "Filter bar turns facet definitions into chips with saved views and a host-owned overflow trigger.",
+      "page": "/components/m3/filter-bar",
+      "md": [
+        "/md/web/filter-bar.md",
+        "/md/mobile/filter-bar.md"
       ]
     },
     {
@@ -698,6 +953,21 @@
     },
     {
       "kind": "family",
+      "slug": "invite-accept",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Invite accept",
+      "oneLiner": "Invite accept is the invitation acceptance block over overlay, role picker and composer note.",
+      "page": "/components/m3/invite-accept",
+      "md": [
+        "/md/web/invite-accept.md",
+        "/md/mobile/invite-accept.md"
+      ]
+    },
+    {
+      "kind": "family",
       "slug": "kbd",
       "platforms": [
         "web",
@@ -709,6 +979,21 @@
       "md": [
         "/md/web/kbd.md",
         "/md/mobile/kbd.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "kern-composer",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Kern composer",
+      "oneLiner": "Kern composer is the message composer with modes, panels, reply and draft affordances.",
+      "page": "/components/m3/kern-composer",
+      "md": [
+        "/md/web/kern-composer.md",
+        "/md/mobile/kern-composer.md"
       ]
     },
     {
@@ -726,6 +1011,66 @@
     },
     {
       "kind": "family",
+      "slug": "kern-loading",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Kern loading",
+      "oneLiner": "Kern loading composes the four loading treatments behind one kind prop.",
+      "page": "/components/m3/kern-loading",
+      "md": [
+        "/md/web/kern-loading.md",
+        "/md/mobile/kern-loading.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "kern-navigation",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Kern navigation",
+      "oneLiner": "Kern navigation unifies drawer, rail, bar and sidebar pane on one destination contract.",
+      "page": "/components/m3/kern-navigation",
+      "md": [
+        "/md/web/kern-navigation.md",
+        "/md/mobile/kern-navigation.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "kern-overlay",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Kern overlay",
+      "oneLiner": "Kern overlay is the one variant contract over modal, sheet, drawer, side-sheet, alert, tabbed dialog and dock.",
+      "page": "/components/m3/kern-overlay",
+      "md": [
+        "/md/web/kern-overlay.md",
+        "/md/mobile/kern-overlay.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "kern-picker",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Kern picker",
+      "oneLiner": "Kern picker unifies sheets, dialogs and selects behind modes with per-mode panels.",
+      "page": "/components/m3/kern-picker",
+      "md": [
+        "/md/web/kern-picker.md",
+        "/md/mobile/kern-picker.md"
+      ]
+    },
+    {
+      "kind": "family",
       "slug": "kern-pressable",
       "platforms": [
         "mobile"
@@ -735,6 +1080,66 @@
       "page": "/components/m3/kern-pressable",
       "md": [
         "/md/mobile/kern-pressable.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "kern-settings-row",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Kern settings row",
+      "oneLiner": "Kern settings row is the one row contract pairing a label with a single control.",
+      "page": "/components/m3/kern-settings-row",
+      "md": [
+        "/md/web/kern-settings-row.md",
+        "/md/mobile/kern-settings-row.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "kern-settings-screen",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Kern settings screen",
+      "oneLiner": "Kern settings screen is the settings page block over section presets with sidebar or tab layout.",
+      "page": "/components/m3/kern-settings-screen",
+      "md": [
+        "/md/web/kern-settings-screen.md",
+        "/md/mobile/kern-settings-screen.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "kern-settings-section",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Kern settings section",
+      "oneLiner": "Kern settings section groups rows under a titled, describable block.",
+      "page": "/components/m3/kern-settings-section",
+      "md": [
+        "/md/web/kern-settings-section.md",
+        "/md/mobile/kern-settings-section.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "kern-tabs",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Kern tabs",
+      "oneLiner": "Kern tabs is the one tab strip with primary and secondary levels over a data contract.",
+      "page": "/components/m3/kern-tabs",
+      "md": [
+        "/md/web/kern-tabs.md",
+        "/md/mobile/kern-tabs.md"
       ]
     },
     {
@@ -797,6 +1202,21 @@
     },
     {
       "kind": "family",
+      "slug": "list",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "List",
+      "oneLiner": "List renders rows as a list with ten layout presets over one row model.",
+      "page": "/components/m3/list",
+      "md": [
+        "/md/web/list.md",
+        "/md/mobile/list.md"
+      ]
+    },
+    {
+      "kind": "family",
       "slug": "list-detail",
       "platforms": [
         "mobile"
@@ -821,6 +1241,21 @@
       "md": [
         "/md/web/list-item.md",
         "/md/mobile/list-item.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "list-with-search-and-filters",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "List with search and filters",
+      "oneLiner": "List with search and filters is the block that owns query and filter state over rows.",
+      "page": "/components/m3/list-with-search-and-filters",
+      "md": [
+        "/md/web/list-with-search-and-filters.md",
+        "/md/mobile/list-with-search-and-filters.md"
       ]
     },
     {
@@ -879,6 +1314,51 @@
       "page": "/components/m3/loading-region",
       "md": [
         "/md/web/loading-region.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "map-marker",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Map marker",
+      "oneLiner": "Map marker paints the positioned marker visual for the host engine.",
+      "page": "/components/m3/map-marker",
+      "md": [
+        "/md/web/map-marker.md",
+        "/md/mobile/map-marker.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "map-panel",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Map panel",
+      "oneLiner": "Map panel is the anchored card surface for a selected map feature.",
+      "page": "/components/m3/map-panel",
+      "md": [
+        "/md/web/map-panel.md",
+        "/md/mobile/map-panel.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "marketing-sections",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Marketing sections",
+      "oneLiner": "Marketing sections composes hero, features, pricing, testimonials and call-to-action slots.",
+      "page": "/components/m3/marketing-sections",
+      "md": [
+        "/md/web/marketing-sections.md",
+        "/md/mobile/marketing-sections.md"
       ]
     },
     {
@@ -1083,6 +1563,36 @@
     },
     {
       "kind": "family",
+      "slug": "onboarding-service-step",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Onboarding service step",
+      "oneLiner": "Onboarding service step is the service-catalog preset step over the picker plan mode.",
+      "page": "/components/m3/onboarding-service-step",
+      "md": [
+        "/md/web/onboarding-service-step.md",
+        "/md/mobile/onboarding-service-step.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "onboarding-wizard",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Onboarding wizard",
+      "oneLiner": "Onboarding wizard walks steps inline or in a modal with canonical step state.",
+      "page": "/components/m3/onboarding-wizard",
+      "md": [
+        "/md/web/onboarding-wizard.md",
+        "/md/mobile/onboarding-wizard.md"
+      ]
+    },
+    {
+      "kind": "family",
       "slug": "page-loader",
       "platforms": [
         "web"
@@ -1154,6 +1664,21 @@
     },
     {
       "kind": "family",
+      "slug": "pricing-table",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Pricing table",
+      "oneLiner": "Pricing table compares plans with an outlined highlight and per-plan selection.",
+      "page": "/components/m3/pricing-table",
+      "md": [
+        "/md/web/pricing-table.md",
+        "/md/mobile/pricing-table.md"
+      ]
+    },
+    {
+      "kind": "family",
       "slug": "progress",
       "platforms": [
         "web",
@@ -1180,6 +1705,21 @@
       "md": [
         "/md/web/radio-group.md",
         "/md/mobile/radio-group.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "reason-picker",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Reason picker",
+      "oneLiner": "Reason picker is the generic reason selector over an injected data adapter.",
+      "page": "/components/m3/reason-picker",
+      "md": [
+        "/md/web/reason-picker.md",
+        "/md/mobile/reason-picker.md"
       ]
     },
     {
@@ -1238,6 +1778,21 @@
       "page": "/components/m3/search-bar",
       "md": [
         "/md/web/search-bar.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "search-view",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Search view",
+      "oneLiner": "Search view is the command-palette dialog over suggestions with an optional global hotkey.",
+      "page": "/components/m3/search-view",
+      "md": [
+        "/md/web/search-view.md",
+        "/md/mobile/search-view.md"
       ]
     },
     {
@@ -1350,6 +1905,21 @@
       "page": "/components/m3/shape-art",
       "md": [
         "/md/mobile/shape-art.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "share-link-row",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Share link row",
+      "oneLiner": "Share link row mints, copies and revokes scoped share links.",
+      "page": "/components/m3/share-link-row",
+      "md": [
+        "/md/web/share-link-row.md",
+        "/md/mobile/share-link-row.md"
       ]
     },
     {
@@ -1550,6 +2120,21 @@
     },
     {
       "kind": "family",
+      "slug": "status-pill",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Status pill",
+      "oneLiner": "Status pill is the one-line status label on the tone registry.",
+      "page": "/components/m3/status-pill",
+      "md": [
+        "/md/web/status-pill.md",
+        "/md/mobile/status-pill.md"
+      ]
+    },
+    {
+      "kind": "family",
       "slug": "success-transform",
       "platforms": [
         "mobile"
@@ -1617,6 +2202,21 @@
       "md": [
         "/md/web/tabs.md",
         "/md/mobile/tabs.md"
+      ]
+    },
+    {
+      "kind": "family",
+      "slug": "testimonial-list",
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "title": "Testimonial list",
+      "oneLiner": "Testimonial list renders figure cards of customer quotes.",
+      "page": "/components/m3/testimonial-list",
+      "md": [
+        "/md/web/testimonial-list.md",
+        "/md/mobile/testimonial-list.md"
       ]
     },
     {

@@ -3111,6 +3111,15 @@ export const COMPONENTS: ComponentEntry[] = [
     status: "real",
   },
   {
+    name: "bottom-app-bar",
+    export: "BottomAppBar",
+    platform: "native",
+    system: "kern-m3",
+    entrypoint: ".",
+    path: "src/components/bottom-app-bar.tsx",
+    status: "real",
+  },
+  {
     name: "button-group",
     export: "ButtonGroup",
     platform: "native",
