@@ -5,6 +5,16 @@
  * vendors — so the fence cannot describe a block that does not install. The
  * install command and the npm peers come from the manifest entry, which
  * `check-blocks` proves matches the imports in that source.
+ *
+ * Preview chrome (D1003/D1004 step 6): the width is a real dimension, not
+ * three presets — preset buttons (Desktop / Tablet / Phone) and a slider
+ * share one `width` state, and the frame follows the width (phone frame
+ * under 500px, tablet frame under 900px, full-bleed above). Same web render
+ * in every frame: blocks are web-only until native variants land
+ * (steps 9-10), so there is no renderer toggle to fake. Density rides the
+ * theme presets in Studio (compact shape scale); a per-preview density
+ * toggle would fake a control consumers cannot reproduce, so there isn't
+ * one — revisit when blocks take density props.
  */
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
@@ -31,6 +41,11 @@ const LINK = "text-(--sys-color-secondary)";
  */
 const CHIP = `inline-flex items-center rounded-(--sys-shape-corner-full) border border-(--sys-color-outline-variant) bg-(--sys-color-surface) px-3 py-1 ${T_CODE} ${INK}`;
 
+const TABLET_PX = 768;
+const PHONE_PX = 375;
+const MIN_PX = 320;
+const MAX_PX = 1100;
+
 export function BlockViewer({
   view,
   prev,
@@ -40,9 +55,7 @@ export function BlockViewer({
   prev?: BlockView;
   next?: BlockView;
 }) {
-  const [viewport, setViewport] = useState<"desktop" | "tablet" | "phone">(
-    "desktop",
-  );
+  const [width, setWidth] = useState<number | "full">("full");
   const spec: ExampleSpec = {
     id: view.entry.name,
     title: view.entry.title,
@@ -50,12 +63,14 @@ export function BlockViewer({
     render: view.render,
     code: view.code,
   };
-  const viewportMax =
-    viewport === "phone"
-      ? "max-w-[375px]"
-      : viewport === "tablet"
-        ? "max-w-[768px]"
+  const px = width === "full" ? null : width;
+  const frame =
+    px !== null && px < 500
+      ? "rounded-[3rem] border border-(--sys-color-outline-variant) bg-(--sys-color-surface) p-3 pt-8"
+      : px !== null && px < 900
+        ? "rounded-[2rem] border border-(--sys-color-outline-variant) bg-(--sys-color-surface) p-3"
         : "";
+  const readout = width === "full" ? "Full width" : `${width}px`;
   return (
     <section className="flex flex-col gap-10">
       <header className="flex flex-col gap-3">
@@ -78,28 +93,49 @@ export function BlockViewer({
         </code>
         <CopyButton text={installCommand(view.entry.name)} label="Copy" />
         {/*
-          Viewport switch — a pill row of 48dp targets (MIN_TARGET floor) on
-          the one outlined container; selected segment wears the selected
-          pair, the rest carry the state layers.
+          Viewport switch — preset buttons (Desktop / Tablet / Phone) and a
+          width slider sharing one state: buttons jump, the slider drags.
+          48dp pill targets (MIN_TARGET floor) on the one outlined
+          container; the selected segment wears the selected pair.
         */}
-        <div className="ml-auto flex items-center gap-1 rounded-(--sys-shape-corner-full) border border-(--sys-color-outline-variant) p-0.5">
-          {(["desktop", "tablet", "phone"] as const).map((v) => (
-            <button
-              key={v}
-              type="button"
-              onClick={() => setViewport(v)}
-              aria-pressed={viewport === v}
-              className={`inline-flex min-h-12 cursor-pointer items-center rounded-(--sys-shape-corner-full) px-4 ${T_LABEL_LG} ${TRANSITION} ${
-                viewport === v ? PILL_ACTIVE : PILL_REST
-              }`}
-            >
-              {v === "desktop"
-                ? "Desktop"
-                : v === "tablet"
-                  ? "Tablet"
-                  : "Phone"}
-            </button>
-          ))}
+        <div className="ml-auto flex flex-wrap items-center gap-3">
+          <span
+            className={`font-mono ${T_BODY_SM} ${INK_SOFT}`}
+            aria-live="polite"
+          >
+            {readout}
+          </span>
+          <input
+            type="range"
+            min={MIN_PX}
+            max={MAX_PX}
+            step={8}
+            value={px ?? MAX_PX}
+            onChange={(e) => setWidth(Number(e.target.value))}
+            aria-label="Preview width in pixels"
+            className="w-36 cursor-pointer accent-(--sys-color-primary)"
+          />
+          <div className="flex items-center gap-1 rounded-(--sys-shape-corner-full) border border-(--sys-color-outline-variant) p-0.5">
+            {(
+              [
+                { id: "full", label: "Desktop" },
+                { id: TABLET_PX, label: "Tablet" },
+                { id: PHONE_PX, label: "Phone" },
+              ] as const
+            ).map((v) => (
+              <button
+                key={v.label}
+                type="button"
+                onClick={() => setWidth(v.id)}
+                aria-pressed={width === v.id}
+                className={`inline-flex min-h-12 cursor-pointer items-center rounded-(--sys-shape-corner-full) px-4 ${T_LABEL_LG} ${TRANSITION} ${
+                  width === v.id ? PILL_ACTIVE : PILL_REST
+                }`}
+              >
+                {v.label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -126,10 +162,13 @@ export function BlockViewer({
         </p>
       </div>
 
-      <div
-        className={`mx-auto w-full transition-[max-width] ease-(--sys-motion-easing-standard) [transition-duration:var(--sys-motion-duration-short3)] ${viewportMax}`}
-      >
-        <Example spec={spec} />
+      <div className="mx-auto w-full">
+        <div
+          className={`mx-auto w-full transition-[max-width] ease-(--sys-motion-easing-standard) [transition-duration:var(--sys-motion-duration-short3)] ${frame}`}
+          style={px !== null ? { maxWidth: px } : undefined}
+        >
+          <Example spec={spec} />
+        </div>
       </div>
 
       <Admonition intent="note" title="You own the code">
