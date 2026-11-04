@@ -6253,4 +6253,13 @@ export const BUNDLED_BLOCKS: BundledBlock[] = [
     files: ["signup.tsx"],
     components: ["Card", "Field", "Input", "Button"],
   },
+  {
+    name: "otp",
+    title: "One-time code",
+    category: "Auth",
+    description:
+      "A one-time code card: six boxed inputs with a verify action that enables at full length. Reach for it for email/SMS code verification.",
+    files: ["otp.tsx"],
+    components: ["Card", "InputOTP", "Button"],
+  },
 ];

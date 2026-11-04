@@ -114,4 +114,15 @@ export const BLOCKS: BlockEntry[] = [
     registryDependencies: ["Card", "Field", "Input", "Button"],
     dependencies: ["@xoroh/kern", "@xoroh/kern-native", "react"],
   },
+  {
+    name: "otp",
+    title: "One-time code",
+    category: "Auth",
+    description:
+      "A one-time code card: six boxed inputs with a verify action that enables at full length. Reach for it for email/SMS code verification.",
+    file: "otp.tsx",
+    files: [],
+    registryDependencies: ["Card", "InputOTP", "Button"],
+    dependencies: ["@xoroh/kern", "@xoroh/kern-native", "react"],
+  },
 ];
