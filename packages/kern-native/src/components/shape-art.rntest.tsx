@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react-native";
 import { expressiveShapePath } from "@xoroh/kern-m3";
+import { defaultScheme } from "../theme";
 import { ExpressiveShape } from "./shape-art";
 
 // The root hides itself from accessibility (decorative-only art), which also
@@ -16,12 +17,12 @@ describe("native ExpressiveShape render", () => {
   });
 
   it("draws a named form in a square box with a custom fill", async () => {
-    await render(
-      <ExpressiveShape shape="cookie-4" size={64} color="#16a34a" />,
-    );
+    // Custom fills come from the scheme roles, never raw hex in-repo.
+    const fill = defaultScheme().color.primary;
+    await render(<ExpressiveShape shape="cookie-4" size={64} color={fill} />);
     expect(byHiddenTestId("kern-expressive-shape-path").props).toMatchObject({
       d: expressiveShapePath("cookie-4", 100),
-      fill: "#16a34a",
+      fill,
     });
     expect(byHiddenTestId("kern-expressive-shape")).toHaveStyle({
       width: 64,
