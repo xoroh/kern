@@ -57,7 +57,12 @@ export const BLOCKS: BlockEntry[] = [
       "SettingsRow",
       "ThemeToggle",
     ],
-    dependencies: ["@xoroh/kern", "@xoroh/kern/start", "@xoroh/kern-native", "react"],
+    dependencies: [
+      "@xoroh/kern",
+      "@xoroh/kern/start",
+      "@xoroh/kern-native",
+      "react",
+    ],
   },
   {
     name: "auth-form",
@@ -68,7 +73,7 @@ export const BLOCKS: BlockEntry[] = [
     file: "auth-form.tsx",
     files: [],
     registryDependencies: ["Button", "Card", "Field", "Input"],
-    dependencies: ["@xoroh/kern", "react"],
+    dependencies: ["@xoroh/kern", "@xoroh/kern-native", "react"],
   },
   {
     name: "empty-search",
