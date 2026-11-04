@@ -14,7 +14,8 @@ export type BlockCategory =
   | "Dashboard"
   | "Sidebar"
   | "Billing"
-  | "Contacts";
+  | "Contacts"
+  | "ListDetail";
 
 export const BLOCK_CATEGORIES: readonly BlockCategory[] = [
   "Auth",
@@ -23,6 +24,7 @@ export const BLOCK_CATEGORIES: readonly BlockCategory[] = [
   "Sidebar",
   "Billing",
   "Contacts",
+  "ListDetail",
 ];
 
 export type BlockEntry = {
@@ -165,4 +167,28 @@ export const BLOCKS: BlockEntry[] = [
     registryDependencies: ["ContactDirectory"],
     dependencies: ["@xoroh/kern", "@xoroh/kern-native", "react"],
   },
-];
+  {
+    name: "list-detail",
+    title: "List-detail queue",
+    category: "ListDetail",
+    description:
+      "A searchable queue beside its detail pane: filter rows, pick one to read the thread. Reach for it when work is a list of things each with its own detail.",
+    file: "list-detail.tsx",
+    files: [],
+    registryDependencies: [
+      "ListDetail",
+      "ListItem",
+      "Search",
+      "EmptyState",
+      "Card",
+      "StatusPill",
+      "Button",
+    ],
+    dependencies: [
+      "@xoroh/kern",
+      "@xoroh/kern/start",
+      "@xoroh/kern-native",
+      "react",
+    ],
+  },
+];;

@@ -76,6 +76,7 @@ const allowed = [
   "Sidebar",
   "Billing",
   "Contacts",
+  "ListDetail",
 ];
 for (const c of new Set(categories)) {
   if (!allowed.includes(c))

@@ -20,6 +20,8 @@ import { EmptySearch } from "../../blocks/empty-search";
 import emptySearchSource from "../../blocks/empty-search.tsx?raw";
 import { InviteBlock } from "../../blocks/invite";
 import inviteSource from "../../blocks/invite.tsx?raw";
+import { ListDetailBlock } from "../../blocks/list-detail";
+import listDetailSource from "../../blocks/list-detail.tsx?raw";
 import type { BlockEntry } from "../../blocks/manifest";
 import { BLOCKS } from "../../blocks/manifest";
 import { OtpBlock } from "../../blocks/otp";
@@ -48,6 +50,7 @@ const RENDERS: Record<string, () => ReactNode> = {
   invite: () => <InviteBlock />,
   settings: () => <SettingsBlock />,
   contacts: () => <ContactsBlock />,
+  "list-detail": () => <ListDetailBlock />,
 };
 
 const SOURCES: Record<string, string> = {
@@ -61,6 +64,7 @@ const SOURCES: Record<string, string> = {
   invite: inviteSource,
   settings: settingsSource,
   contacts: contactsSource,
+  "list-detail": listDetailSource,
 };
 
 export const BLOCK_VIEWS: BlockView[] = BLOCKS.map((entry) => ({

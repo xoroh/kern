@@ -6289,4 +6289,21 @@ export const BUNDLED_BLOCKS: BundledBlock[] = [
     files: ["contacts.tsx"],
     components: ["ContactDirectory"],
   },
+  {
+    name: "list-detail",
+    title: "List-detail queue",
+    category: "ListDetail",
+    description:
+      "A searchable queue beside its detail pane: filter rows, pick one to read the thread. Reach for it when work is a list of things each with its own detail.",
+    files: ["list-detail.tsx"],
+    components: [
+      "ListDetail",
+      "ListItem",
+      "Search",
+      "EmptyState",
+      "Card",
+      "StatusPill",
+      "Button",
+    ],
+  },
 ];
