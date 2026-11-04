@@ -236,6 +236,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `progress-label` | `ProgressLabel` | real |
 | `progress-root` | `ProgressRoot` | real |
 | `progress-value` | `ProgressValue` | real |
+| `pulse-button` | `PulseButton` | real |
 | `radio-group` | `RadioGroup` | real |
 | `radio-group-item` | `RadioGroupItem` | real |
 | `reason-picker` | `ReasonPicker` | real |
@@ -465,6 +466,7 @@ Real = implemented and exported from the platform entry. Tests may live beside a
 | `popover` | `Popover` | real |
 | `pricing-table` | `PricingTable` | real |
 | `progress` | `Progress` | real |
+| `pulse-button` | `PulseButton` | real |
 | `radio-group` | `RadioGroup` | real |
 | `radio-group-item` | `RadioGroupItem` | real |
 | `reason-picker` | `ReasonPicker` | real |

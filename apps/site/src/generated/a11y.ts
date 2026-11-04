@@ -4393,6 +4393,32 @@ export const A11Y: Record<string, A11yPage> = {
       },
     },
   },
+  "web/pulse-button": {
+    page: "web/pulse-button",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      PulseButton: {
+        hasLiveDemo: true,
+        expectations: [
+          {
+            rule: "keyboard-operable",
+            expect: "pass",
+            provenance: "derived",
+            basis:
+              "keyboard contract carries 2 row(s) in pulse-button.ts — every operable action has a documented key",
+          },
+          {
+            rule: "aria-contract",
+            expect: "pass",
+            provenance: "derived",
+            basis:
+              "aria contract carries 3 line(s) in pulse-button.ts — roles, names and states are stated, not assumed",
+          },
+        ],
+      },
+    },
+  },
   "web/radio-group": {
     page: "web/radio-group",
     measured: false,
@@ -8546,6 +8572,32 @@ export const A11Y: Record<string, A11yPage> = {
             provenance: "derived",
             basis:
               "aria contract carries 3 line(s) in progress.ts — roles, names and states are stated, not assumed",
+          },
+        ],
+      },
+    },
+  },
+  "mobile/pulse-button": {
+    page: "mobile/pulse-button",
+    measured: false,
+    note: "Expectations, not measurements: no axe runner exists in this repo, so nothing here was observed in a browser. derived = mechanical restatement of a claim the page already makes (basis names the source). authored = new human judgment from src/a11y-overrides/. Run axe against the live demo to measure.",
+    demos: {
+      PulseButton: {
+        hasLiveDemo: true,
+        expectations: [
+          {
+            rule: "keyboard-operable",
+            expect: "pass",
+            provenance: "derived",
+            basis:
+              "keyboard contract carries 2 row(s) in pulse-button.ts — every operable action has a documented key",
+          },
+          {
+            rule: "aria-contract",
+            expect: "pass",
+            provenance: "derived",
+            basis:
+              "aria contract carries 2 line(s) in pulse-button.ts — roles, names and states are stated, not assumed",
           },
         ],
       },

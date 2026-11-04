@@ -89,7 +89,7 @@ export const button: ComponentDoc = {
       name: "size",
       type: '"xs" | "sm" | "default" | "md" | "xl" | "lg" | "2xl" | "3xl" | "icon"',
       default: '"default"',
-      note: "`icon` is square and expects an icon plus an `aria-label`; a text label inside `icon` is a bug. Sizes step through the M3 Expressive ladder (`xs`/`sm`=32dp XS, `default`=40dp S, `md`/`xl`=56dp M, `lg`=64dp, `2xl`=96dp L, `3xl`=136dp XL); icons come from the icon-size role, sized against the label.",
+      note: "`icon` is square and expects an icon plus an `aria-label`; a text label inside `icon` is a bug. Sizes step through the `kern.button.size` M3 Expressive ladder (`xs`/`sm` XS, `default` S, `md`/`xl` M, `lg`/`2xl` L, `3xl` XL); icons come from the icon-size role, sized against the label.",
     },
     {
       name: "shape",

@@ -1,6 +1,6 @@
 {
   "version": "0.0.0",
-  "releaseSet": "kern@0.0.0+496.cbb0927c4e1a5e36",
+  "releaseSet": "kern@0.0.0+498.fd002cd2772bce21",
   "rows": [
     {
       "name": "accordion-root",
@@ -2843,6 +2843,18 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/progress.tsx",
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
+    },
+    {
+      "name": "pulse-button",
+      "export": "PulseButton",
+      "platform": "web",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/pulse-button.tsx",
       "status": "real",
       "tier": "core",
       "builtFrom": [],
@@ -6282,6 +6294,18 @@
       "system": "kern-m3",
       "entrypoint": ".",
       "path": "src/components/progress.tsx",
+      "status": "real",
+      "tier": "core",
+      "builtFrom": [],
+      "usedBy": []
+    },
+    {
+      "name": "pulse-button",
+      "export": "PulseButton",
+      "platform": "native",
+      "system": "kern-m3",
+      "entrypoint": ".",
+      "path": "src/components/pulse-button.tsx",
       "status": "real",
       "tier": "core",
       "builtFrom": [],

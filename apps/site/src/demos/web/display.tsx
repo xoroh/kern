@@ -31,6 +31,7 @@ import {
   LoadingIndicator,
   LoadingRegion,
   PageLoader,
+  PulseButton,
   Separator,
   Skeleton,
   Text,
@@ -218,6 +219,45 @@ export function FabDemo() {
           <Fab size="icon" aria-label="Add">
             <Plus />
           </Fab>
+        </Row>
+      </Preview>
+    </PreviewStack>
+  );
+}
+
+export function PulseButtonDemo() {
+  return (
+    <PreviewStack>
+      <Preview
+        label="PulseButton — shape-stable spring pulse (filled · tonal · outlined · elevated · text)"
+        span={3}
+      >
+        <Row>
+          <PulseButton variant="filled" icon={<Plus />}>
+            Confirm order
+          </PulseButton>
+          <PulseButton variant="tonal">Save draft</PulseButton>
+          <PulseButton variant="outlined" shape="square">
+            Square locked
+          </PulseButton>
+          <PulseButton variant="elevated">Elevated pulse</PulseButton>
+          <PulseButton variant="text">Learn more</PulseButton>
+        </Row>
+      </Preview>
+      <Preview
+        label="toggle & danger — locked silhouette across binary selection"
+        span={3}
+      >
+        <Row>
+          <PulseButton toggle defaultPressed variant="filled">
+            Pinned
+          </PulseButton>
+          <PulseButton toggle variant="tonal" shape="square">
+            Filter active
+          </PulseButton>
+          <PulseButton color="danger" variant="filled">
+            Delete
+          </PulseButton>
         </Row>
       </Preview>
     </PreviewStack>

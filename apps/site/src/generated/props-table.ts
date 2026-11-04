@@ -8220,6 +8220,86 @@ export const PROPS_TABLE: Record<
     ],
     curated: ["children"],
   },
+  PulseButton: {
+    rows: [
+      {
+        name: "toggle",
+        type: "boolean | undefined",
+        required: false,
+        default: "false",
+      },
+      {
+        name: "pressed",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "defaultPressed",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "onPressedChange",
+        type: "((pressed: boolean) => void) | undefined",
+        required: false,
+      },
+      {
+        name: "softDisabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "flipIcon",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "loading",
+        type: "boolean | undefined",
+        required: false,
+      },
+      {
+        name: "icon",
+        type: "ReactNode",
+        required: false,
+      },
+      {
+        name: "iconPosition",
+        type: "PulseButtonIconPosition | undefined",
+        required: false,
+      },
+      {
+        name: "onHaptic",
+        type: '((phase: "pressIn" | "pressOut") => void) | undefined',
+        required: false,
+      },
+      {
+        name: "testID",
+        type: "string | undefined",
+        required: false,
+      },
+      {
+        name: "href",
+        type: "undefined",
+        required: false,
+      },
+      {
+        name: "disabled",
+        type: "boolean | undefined",
+        required: false,
+      },
+    ],
+    curated: [
+      "variant",
+      "color",
+      "size",
+      "shape",
+      "block",
+      "className",
+      "ref",
+      "type",
+    ],
+  },
   RadioGroup: {
     rows: [
       {

@@ -169,6 +169,7 @@ import { PAGINATION_EXAMPLES } from "./examples/pagination";
 import { PANE_EXAMPLES } from "./examples/pane";
 import { POPOVER_EXAMPLES } from "./examples/popover";
 import { PROGRESS_EXAMPLES } from "./examples/progress";
+import { PULSE_BUTTON_EXAMPLES } from "./examples/pulse-button";
 import { RADIO_GROUP_EXAMPLES } from "./examples/radio-group";
 import { RICH_TOOLTIP_EXAMPLES } from "./examples/rich-tooltip";
 import { SCROLL_AREA_EXAMPLES } from "./examples/scroll-area";
@@ -300,6 +301,7 @@ export const EXAMPLES: Record<string, ExampleSpec[]> = {
   Popover: POPOVER_EXAMPLES,
   PricingTable: PRICING_TABLE_EXAMPLES,
   Progress: PROGRESS_EXAMPLES,
+  PulseButton: PULSE_BUTTON_EXAMPLES,
   RadioGroup: RADIO_GROUP_EXAMPLES,
   RichTooltip: RICH_TOOLTIP_EXAMPLES,
   ScrollArea: SCROLL_AREA_EXAMPLES,

@@ -75,7 +75,7 @@ export const iconButton: ComponentDoc = {
     {
       name: "size",
       type: '"xs" | "sm" | "default" | "md" | "lg" | "xl" | "2xl" | "3xl" | null | undefined',
-      note: "Density size from `xs` (32dp) to `3xl` (136dp); default is the 40dp standard control. `2xl` (96dp) and `3xl` (136dp) are the Expressive L and XL sizes — already past the minimum touch target, so they carry no extra target inset.",
+      note: "Density size from `xs` to `3xl`; default is the standard control. `2xl` and `3xl` are the Expressive L and XL sizes — already past the minimum touch target, so they carry no extra target inset.",
     },
     {
       name: "width",

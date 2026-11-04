@@ -83,7 +83,9 @@ export type {
   ButtonVariant,
 } from "./button";
 export {
+  BUTTON_EXPRESSIVE_SIZE_LADDER,
   BUTTON_SIZE_TO_KERN_SIZE,
+  BUTTON_SIZES_ORDERED,
   Button,
   buttonVariants,
 } from "./button";
@@ -617,6 +619,18 @@ export {
   ProgressRoot,
   ProgressValue,
 } from "./progress";
+export type {
+  PulseButtonColor,
+  PulseButtonIconPosition,
+  PulseButtonProps,
+  PulseButtonShape,
+  PulseButtonSize,
+  PulseButtonVariant,
+} from "./pulse-button";
+export {
+  PulseButton,
+  pulseButtonVariants,
+} from "./pulse-button";
 export type { RadioGroupItemProps, RadioGroupProps } from "./radio-group";
 export { RadioGroup, RadioGroupItem } from "./radio-group";
 export type {

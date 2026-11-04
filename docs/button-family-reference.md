@@ -517,3 +517,26 @@ focus 3 / pressed 3 — identical to kern.
 - **FABs disappear; they never disable.** Disabled toolbars stay focusable via `soft-disabled` for discoverability.
 - **Labels are sentence-case actions.** "Save", "Send message", "Delete" — never "Click here".
 - **Trailing icons** go at the inline end (`iconPosition="end"`); they flip automatically in RTL. Directional icons opt into `flip-icon-in-rtl`.
+
+---
+
+## 21. PulseButton & M3 Expressive Size Ladder (D1022 / D1024)
+
+### Canonical M3 Expressive Size Ladder (C2)
+
+| M3 Expressive Step | Height | Square Corner | Pressed Corner | Kern Size Keys |
+| --- | --- | --- | --- | --- |
+| **XS** | 32dp | 12dp (`corner-medium`) | 8dp (`corner-small`) | `xs` (28dp compact), `sm` (32dp) |
+| **S** | 40dp | 12dp (`corner-medium`) | 8dp (`corner-small`) | `default` (40dp) |
+| **M** | 56dp | 16dp (`corner-large`) | 12dp (`corner-medium`) | `md` (56dp), `xl` (48dpweb/56dp) |
+| **L** | 96dp | 28dp (`corner-extra-large`) | 16dp (`corner-large`) | `lg` (64dp step), `2xl` (96dp) |
+| **XL** | 136dp | 28dp (`corner-extra-large`) | 16dp (`corner-large`) | `3xl` (136dp) |
+
+### Shape-Stable Animated Button (`PulseButton`)
+
+`PulseButton` shares the single `button-shared.ts` style and size engine with `Button` (D1024 C1) and reads spring physics from `@xoroh/kern-tokens` (`BUTTON_SPRING_TOKENS` / `buttonSpringConfig`, D1024 C4).
+
+- **Locked Silhouette**: `border-radius` never mutates across rest, hover, active press, or toggle selection (`data-shape-stable="true"`).
+- **Spring Scale Pulse**: Compresses to `0.97` on press via `--sys-motion-spring-fast-spatial` (`stiffness: 1400, damping: 67.3`) and rebounds on release via `--sys-motion-spring-default-spatial` (`stiffness: 700, damping: 47.6`).
+- **Radial State-Layer Bloom**: `[data-slot="pulse-bloom"]` expands from `scale(0.75)` to `scale(1)` with `--sys-motion-spring-fast-effects`.
+- **Kinetic Icon Nudge**: Leading/trailing icons shift `1.5px` and scale `1.08` on active press.

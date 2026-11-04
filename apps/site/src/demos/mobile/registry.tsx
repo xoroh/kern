@@ -66,6 +66,7 @@ import {
   Pane,
   Popover,
   Progress,
+  PulseButton,
   RadioGroup,
   RadioGroupItem,
   RichTooltip,
@@ -1112,6 +1113,22 @@ export function NativeNavigationRailDemo() {
   );
 }
 
+export function NativePulseButtonDemo() {
+  return (
+    <PhonePreview label="PulseButton — locked corner radius with M3 spring scale pulse">
+      <View style={{ gap: 12, flexDirection: "row", flexWrap: "wrap" }}>
+        <PulseButton variant="filled">Confirm</PulseButton>
+        <PulseButton variant="tonal" shape="square">
+          Square locked
+        </PulseButton>
+        <PulseButton variant="outlined" toggle defaultPressed>
+          Pinned
+        </PulseButton>
+      </View>
+    </PhonePreview>
+  );
+}
+
 export function NativeLinkButtonDemo() {
   return (
     <PhonePreview label="LinkButton — the button treatment on a navigation control">
@@ -1809,6 +1826,7 @@ const byExport: Record<string, MobileDemo> = {
   Pane: NativePaneDemo,
   Popover: NativePopoverDemo,
   Progress: NativeProgressDemo,
+  PulseButton: NativePulseButtonDemo,
   RadioGroup: NativeRadioGroupDemo,
   RadioGroupItem: NativeRadioGroupDemo,
   RichTooltip: NativeRichTooltipDemo,

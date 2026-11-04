@@ -18,7 +18,7 @@ export const button: ComponentDoc = {
     variants: [
       "variant: elevated · filled · tonal · outlined · text",
       "color: primary · danger",
-      "size: xs · default · sm · xl · icon",
+      "size: xs · sm · default · md · xl · lg · 2xl · 3xl · icon",
       "shape: pill · rounded · square",
     ],
     // M3 tabulates two rows: `button (elevated)` at level 1 and `buttons

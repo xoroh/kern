@@ -58,7 +58,13 @@ export type {
   NativeButtonStyleOptions,
   NativeButtonVariant,
 } from "./components/button";
-export { Button, NATIVE_BUTTON_SIZE_TO_KERN_SIZE } from "./components/button";
+export {
+  BUTTON_SPRING_TOKENS,
+  Button,
+  buttonSpringConfig,
+  NATIVE_BUTTON_EXPRESSIVE_SIZE_LADDER,
+  NATIVE_BUTTON_SIZE_TO_KERN_SIZE,
+} from "./components/button";
 export type { NativeButtonGroupProps } from "./components/button-group";
 export { ButtonGroup } from "./components/button-group";
 export type { NativeCalendarProps } from "./components/calendar";
@@ -525,6 +531,15 @@ export type {
 export { KernPressable } from "./components/pressable";
 export type { NativeProgressProps } from "./components/progress";
 export { Progress, progressStyles } from "./components/progress";
+export type {
+  NativePulseButtonColor,
+  NativePulseButtonIconPosition,
+  NativePulseButtonProps,
+  NativePulseButtonShape,
+  NativePulseButtonSize,
+  NativePulseButtonVariant,
+} from "./components/pulse-button";
+export { PulseButton, pulseButtonStyles } from "./components/pulse-button";
 export type {
   RadioGroupItemProps,
   RadioGroupProps,
