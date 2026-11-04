@@ -47,6 +47,7 @@ export const PRIMARY_TABS: PrimaryTab[] = [
     ],
   },
   { href: "/components", label: "Components", match: ["/components"] },
+  { href: "/core", label: "Core", match: ["/core"] },
   { href: "/showcase", label: "Blocks", match: ["/showcase", "/patterns"] },
   { href: "/playground", label: "Studio", match: ["/playground"] },
 ];
@@ -61,6 +62,7 @@ export const RAIL_ITEMS: {
   icon: IconNameInput;
 }[] = [
   { href: "/docs", label: "Docs", icon: "menu-book" },
+  { href: "/core", label: "Core", icon: "manufacturing" },
   { href: "/components", label: "Components", icon: "work" },
   { href: "/showcase", label: "Blocks", icon: "image" },
   { href: "/playground", label: "Studio", icon: "science" },

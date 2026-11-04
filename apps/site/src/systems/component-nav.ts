@@ -20,6 +20,35 @@ import { FAMILIES } from "../generated/manifest.ts";
 
 export type SiblingLink = { href: string; title: string };
 
+/**
+ * Tier-scoped prev/next (D1003/D1004): same contract as `siblingNavSystem`
+ * but over an explicit slug list with an explicit URL base, so /core pages
+ * walk core families at /core/<slug> while /components pages keep walking
+ * the full FAMILIES order at /components/m3/<slug> (pinned by
+ * check-component-nav). Node-safe like its sibling: no content imports.
+ */
+export function siblingNavTier(
+  base: string,
+  slugs: string[],
+  slug: string,
+  titleFor: (slug: string) => string = (s) => s,
+): {
+  prev?: SiblingLink;
+  next?: SiblingLink;
+} {
+  const index = slugs.indexOf(slug);
+  const linkFor = (s: string): SiblingLink => ({
+    href: `${base}/${s}`,
+    title: titleFor(s),
+  });
+  return {
+    ...(index > 0 ? { prev: linkFor(slugs[index - 1]) } : {}),
+    ...(index >= 0 && index < slugs.length - 1
+      ? { next: linkFor(slugs[index + 1]) }
+      : {}),
+  };
+}
+
 export function siblingNavSystem(
   system: string,
   slug: string,

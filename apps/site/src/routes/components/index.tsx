@@ -1,5 +1,5 @@
 /**
- * /components — the component gallery.
+ * /components — the Components tier index (D1003/D1004).
  *
  * Registry-driven (Q5.7/Q7.5): the cards come from the content registry and
  * the generated manifest, grouped by the M3 purpose each family serves. This
@@ -17,6 +17,7 @@ import {
   GalleryLede,
   type GalleryPlatform,
   PlatformSwitcher,
+  TierTabs,
 } from "../../components/docs/component-gallery";
 import { PageCard } from "../../domains/shared/chrome/page-card";
 import { SiteLayout } from "../../domains/shared/chrome/site-layout";
@@ -36,7 +37,7 @@ export const Route = createFileRoute("/components/")({
   head: () =>
     routeHead(
       "Components",
-      "One page per component family — metadata, preview, usage, props, theming.",
+      "Composite components built from the Core primitives — one page per family.",
     ),
   component: ComponentsGallery,
 });
@@ -51,9 +52,10 @@ function ComponentsGallery() {
             <h1 className={`m-0 ${T_PAGE} ${INK}`}>Components</h1>
             <GalleryLede />
           </div>
+          <TierTabs active="components" />
           <PlatformSwitcher platform={platform} />
         </header>
-        <ComponentGallery platform={platform} />
+        <ComponentGallery platform={platform} tier="component" />
       </PageCard>
     </SiteLayout>
   );

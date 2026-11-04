@@ -43,6 +43,7 @@ import {
   STATE_LAYERS,
   TRANSITION,
 } from "../../domains/shared/systems/ui";
+import { familyHref, familyTierOfSlug } from "../../systems/tier-nav";
 
 /**
  * Platform switcher — All / Web / Native, on the one gallery route.
@@ -56,23 +57,30 @@ import {
  */
 export type GalleryPlatform = "web" | "mobile";
 
-export function PlatformSwitcher({ platform }: { platform?: GalleryPlatform }) {
+export function PlatformSwitcher({
+  platform,
+  base = "/components",
+}: {
+  platform?: GalleryPlatform;
+  /** Index route the switcher links within ("/components" or "/core"). */
+  base?: string;
+}) {
   const items = [
     {
       label: "All",
-      to: "/components",
+      to: base,
       search: {},
       active: !platform,
     },
     {
       label: "Web",
-      to: "/components",
+      to: base,
       search: { platform: "web" },
       active: platform === "web",
     },
     {
       label: "Native",
-      to: "/components",
+      to: base,
       search: { platform: "mobile" },
       active: platform === "mobile",
     },
@@ -110,6 +118,50 @@ type GalleryCard = {
   web?: ComponentDoc;
   mobile?: ComponentDoc;
 };
+
+/**
+ * Tier switcher — Core / Components / Blocks, across the tier indexes.
+ *
+ * One switcher, three destinations: the tier a family belongs to is a
+ * different index, not a filter on this one (D1003 — one system, no
+ * duplicate galleries). Rendered on each tier index with that index active.
+ * Blocks lives at /showcase until step 5 moves it to /blocks; the tab
+ * already points at the door the Blocks catalog is behind.
+ */
+export function TierTabs({
+  active,
+}: {
+  active: "core" | "components" | "blocks";
+}) {
+  const items = [
+    { label: "Core", to: "/core", active: active === "core" },
+    { label: "Components", to: "/components", active: active === "components" },
+    { label: "Blocks", to: "/showcase", active: active === "blocks" },
+  ];
+  return (
+    <nav
+      aria-label="Tier"
+      className="flex w-fit flex-wrap items-center gap-1 rounded-full border border-(--sys-color-outline-variant) p-1"
+    >
+      {items.map((item) => (
+        <Link
+          key={item.label}
+          to={item.to}
+          aria-current={item.active ? "page" : undefined}
+          className={cn(
+            `inline-flex min-h-10 items-center gap-1.5 rounded-(--sys-shape-corner-full) px-4 no-underline ${T_LABEL_LG} ${TRANSITION} ${FOCUS_RING}`,
+            item.active
+              ? `${PILL_ACTIVE}`
+              : `text-(--sys-color-on-surface-variant) ${STATE_LAYERS} hover:text-(--sys-color-on-surface)`,
+          )}
+        >
+          {item.active ? <Icon name="check" size={16} /> : null}
+          {item.label}
+        </Link>
+      ))}
+    </nav>
+  );
+}
 
 /**
  * Width-fit wrapper for gallery thumbnails.
@@ -326,10 +378,19 @@ function previewReason(
 
 export function ComponentGallery({
   platform,
+  tier,
 }: {
   platform?: "web" | "mobile";
+  /**
+   * Tier lock (D1003): "core" keeps pure-core families (every manifest row
+   * for the slug is core), "component" keeps composite families. Absent,
+   * the gallery is the full catalog gateway.
+   */
+  tier?: "core" | "component";
 }) {
-  const cards = collect(platform);
+  const cards = collect(platform).filter((card) =>
+    tier ? familyTierOfSlug(card.slug) === tier : true,
+  );
   // Demo registries arrive async (see `demos/lazy`): the card text, chips
   // and links are server-rendered regardless, and the preview well keeps its
   // fixed height with a skeleton until the chunk lands — no layout shift.
@@ -467,11 +528,7 @@ function GalleryCardView({
       </div>
       <div className="flex flex-col gap-1 px-1">
         <Link
-          to="/components/$system/$component"
-          params={{
-            system: "m3",
-            component: card.slug,
-          }}
+          to={familyHref(card.slug)}
           className={`m-0 ${T_SUB} ${INK} w-fit no-underline group-hover:underline ${TRANSITION} ${FOCUS_RING}`}
         >
           {primary?.name ?? card.name}

@@ -87,6 +87,7 @@ function SearchPaletteMount() {
 const SIDEBAR_PREFIXES = [
   "/docs",
   "/components",
+  "/core",
   "/foundations",
   "/primitives",
   "/styles",
@@ -275,7 +276,9 @@ export function SiteLayout({
     SIDEBAR_PREFIXES.some(
       (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
     );
-  const isComponents = !fullScreen && pathname.startsWith("/components");
+  const isComponents =
+    !fullScreen &&
+    (pathname.startsWith("/components") || pathname.startsWith("/core"));
   return (
     <>
       <a

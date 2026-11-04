@@ -58,6 +58,7 @@ import {
   registrySearchHref,
   THEME_CONFIGURATOR_HREF,
 } from "../../systems/playground-links";
+import { familyHref } from "../../systems/tier-nav";
 import { CopyMarkdownButton } from "../chrome/copy-markdown-button";
 import { HighlightedCode } from "./highlight";
 import { InstallTabs } from "./install-tabs";
@@ -221,8 +222,10 @@ export function familyTier(
   if (rows.length === 0) return null;
   const linkFor = (name: string): TierLink => {
     const target = docForExport(platform, name);
+    // Canonical home per tier (D1003): pure-core targets link to /core,
+    // composites stay on the components route. One family, one URL.
     return target
-      ? { label: name, href: `/components/m3/${target.slug}` }
+      ? { label: name, href: familyHref(target.slug) }
       : { label: name };
   };
   const union = (lists: string[][]) =>
@@ -1524,6 +1527,8 @@ export function ComponentPage({
   tabs,
   peerNote,
   tiers,
+  door,
+  familyBase,
   prev,
   next,
 }: {
@@ -1539,17 +1544,24 @@ export function ComponentPage({
   peerNote?: { label: string; href: string };
   /** IA tiers for both renderers (null where the family is undocumented). */
   tiers: { web: FamilyTier | null; mobile: FamilyTier | null };
+  /**
+   * Tier door chrome (D1003): the nav door this page belongs to and the URL
+   * base its tab links use. Components pages pass Components + components/m3;
+   * core pages pass Core + core. Required — a family page must know its door.
+   */
+  door: { label: string; href: string };
+  familyBase: string;
   prev?: { href: string; title: string };
   next?: { href: string; title: string };
 }) {
   const crumbs: Crumb[] = [
-    { label: "Components", href: "/components" },
+    { label: door.label, href: door.href },
     { label: doc.name },
   ];
   const platformTabs = tabs.map((id) => ({
     id,
     label: id === "web" ? "Web" : "React Native",
-    href: `/components/m3/${familySlug}?tab=${id}`,
+    href: `/${familyBase}/${familySlug}?tab=${id}`,
   }));
   return (
     <article className="flex min-w-0 flex-col gap-16" data-copy-md-root>
