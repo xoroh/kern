@@ -72,4 +72,28 @@ describe("hct tonal engine (ADR-016, ADR-021)", () => {
     expect(customLight.secondary).not.toBe(defaultLight.secondary);
     expect(customLight.tertiary).not.toBe(defaultLight.tertiary);
   });
+
+  it("defaults to the tonal-spot variant (no behavior change)", () => {
+    const implicit = hctSchemeRoles(SEED, "light");
+    const explicit = hctSchemeRoles(SEED, "light", 0, { variant: "tonalSpot" });
+    expect(explicit).toEqual(implicit);
+  });
+
+  it("resolves the vibrant variant to valid hex for every role", () => {
+    for (const mode of ["light", "dark"] as const) {
+      const roles = hctSchemeRoles(SEED, mode, 0, { variant: "vibrant" });
+      for (const role of Object.keys(roles)) {
+        expect(roles[role as keyof typeof roles]).toMatch(HEX);
+      }
+    }
+  });
+
+  it("vibrant differs from tonal-spot on a saturated seed", () => {
+    const tonal = hctSchemeRoles("#ff0000", "light");
+    const vibrant = hctSchemeRoles("#ff0000", "light", 0, {
+      variant: "vibrant",
+    });
+    expect(vibrant.primary).toMatch(HEX);
+    expect(vibrant.primary).not.toBe(tonal.primary);
+  });
 });

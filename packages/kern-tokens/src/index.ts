@@ -23,3 +23,4 @@ export * from "./token-schema";
 export * from "./tokens";
 export * from "./tones";
 export * from "./variants";
+export * from "./waveform";

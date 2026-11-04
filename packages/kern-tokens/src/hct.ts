@@ -17,6 +17,7 @@ import {
   Hct,
   hexFromArgb,
   SchemeTonalSpot,
+  SchemeVibrant,
   TonalPalette,
 } from "@material/material-color-utilities";
 
@@ -119,6 +120,14 @@ export type HctSchemeRole = (typeof SCHEME_GETTERS)[number];
 export type HctSchemeOptions = {
   secondarySeed?: string;
   tertiarySeed?: string;
+  /**
+   * Dynamic-color variant (WP6 A-005, D989). `tonalSpot` is the M3 baseline
+   * and the default — existing callers resolve byte-identically. `vibrant`
+   * selects MCU `SchemeVibrant` (maximum colorfulness on the primary palette,
+   * raised elsewhere; java/scheme/SchemeVibrant.java @ material-foundation/
+   * material-color-utilities 4578d0a1d40f1d17f1ca6f34cc9c484bea8f0a9d).
+   */
+  variant?: "tonalSpot" | "vibrant";
 };
 
 /**
@@ -135,11 +144,18 @@ export function hctSchemeRoles(
   opts?: HctSchemeOptions,
 ): Record<HctSchemeRole, string> {
   assertHex(seedHex);
-  const scheme = new SchemeTonalSpot(
-    Hct.fromInt(argbFromHex(seedHex)),
-    mode === "dark",
-    contrastLevel,
-  );
+  const scheme =
+    opts?.variant === "vibrant"
+      ? new SchemeVibrant(
+          Hct.fromInt(argbFromHex(seedHex)),
+          mode === "dark",
+          contrastLevel,
+        )
+      : new SchemeTonalSpot(
+          Hct.fromInt(argbFromHex(seedHex)),
+          mode === "dark",
+          contrastLevel,
+        );
   if (opts?.secondarySeed) {
     assertHex(opts.secondarySeed);
     (scheme as unknown as { secondaryPalette: TonalPalette }).secondaryPalette =
@@ -152,7 +168,9 @@ export function hctSchemeRoles(
   }
   const roles = {} as Record<HctSchemeRole, string>;
   for (const role of SCHEME_GETTERS) {
-    roles[role] = hexFromArgb(scheme[role as keyof SchemeTonalSpot] as number);
+    roles[role] = hexFromArgb(
+      (scheme as SchemeTonalSpot)[role as keyof SchemeTonalSpot] as number,
+    );
   }
   return roles;
 }
