@@ -103,4 +103,15 @@ export const BLOCKS: BlockEntry[] = [
     registryDependencies: ["DashboardPage", "StatusPill"],
     dependencies: ["@xoroh/kern", "@xoroh/kern-native", "react"],
   },
+  {
+    name: "signup",
+    title: "Sign-up page",
+    category: "Auth",
+    description:
+      "A sign-up page: name, email and password fields in a filled card with a submit action. Reach for it when sign-up is one card, not a flow.",
+    file: "signup.tsx",
+    files: [],
+    registryDependencies: ["Card", "Field", "Input", "Button"],
+    dependencies: ["@xoroh/kern", "@xoroh/kern-native", "react"],
+  },
 ];

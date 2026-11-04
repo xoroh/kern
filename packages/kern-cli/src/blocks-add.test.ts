@@ -9,8 +9,8 @@ import {
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { addBlock, addComponent } from "./add";
-import { blockFileList, loadBlocks } from "./blocks";
+import { addBlock, addComponent, planBlock } from "./add";
+import { blockFileList, blocksDir, loadBlocks } from "./blocks";
 import { WORKSPACE_ROOT } from "./manifest";
 
 /** A fixture workspace with a two-file block (root + sibling). */
@@ -284,6 +284,35 @@ describe("kern add <block> (multi-file)", () => {
         ).toBeDefined();
       } finally {
         rmSync(dest, { recursive: true, force: true });
+      }
+    }
+  });
+
+  it("every declared block installs on web, and natively or refuses honestly (D1004)", {
+    timeout: 120_000,
+  }, () => {
+    for (const row of loadBlocks(WORKSPACE_ROOT)) {
+      // Web always installs: the declared root file exists by gate.
+      const web = planBlock(row.name, { root: WORKSPACE_ROOT });
+      expect(web.files.length).toBeGreaterThan(0);
+      expect(web.files[0].out).toBe(`blocks/${row.file}`);
+      // Native installs when every declared file has a `.native.tsx`
+      // sibling, and refuses naming the missing variant otherwise.
+      const nativeFiles = [row.file, ...row.files].map((f) =>
+        f.replace(/\.tsx$/, ".native.tsx"),
+      );
+      if (
+        nativeFiles.every((f) => existsSync(join(blocksDir(WORKSPACE_ROOT), f)))
+      ) {
+        const native = planBlock(row.name, {
+          root: WORKSPACE_ROOT,
+          platform: "native",
+        });
+        expect(native.files[0].out).toBe(`blocks/${nativeFiles[0]}`);
+      } else {
+        expect(() =>
+          planBlock(row.name, { root: WORKSPACE_ROOT, platform: "native" }),
+        ).toThrow(/no native variant/);
       }
     }
   });

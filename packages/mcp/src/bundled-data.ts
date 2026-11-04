@@ -6244,4 +6244,13 @@ export const BUNDLED_BLOCKS: BundledBlock[] = [
     files: ["dashboard.tsx"],
     components: ["DashboardPage", "StatusPill"],
   },
+  {
+    name: "signup",
+    title: "Sign-up page",
+    category: "Auth",
+    description:
+      "A sign-up page: name, email and password fields in a filled card with a submit action. Reach for it when sign-up is one card, not a flow.",
+    files: ["signup.tsx"],
+    components: ["Card", "Field", "Input", "Button"],
+  },
 ];

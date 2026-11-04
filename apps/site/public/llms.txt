@@ -269,3 +269,4 @@ Prefer these machine surfaces over scraping HTML:
 - [Dashboard page](/blocks/dashboard): A dashboard page: stat cards, activity feed and an ops queue table. Reach for it when the page is figures plus feed plus queue. Category: Dashboard. Install: `kern add dashboard`.
 - [Empty search state](/blocks/empty-search): A no-results state: titled empty state with a clear-search action. Reach for it when a search or filter yields nothing. Category: Dashboard. Install: `kern add empty-search`.
 - [Settings screen](/blocks/settings-screen): A settings page: labelled rows with supporting text and trailing controls, in a filled card. Reach for it when settings are rows of label plus control. Category: Settings. Install: `kern add settings-screen`.
+- [Sign-up page](/blocks/signup): A sign-up page: name, email and password fields in a filled card with a submit action. Reach for it when sign-up is one card, not a flow. Category: Auth. Install: `kern add signup`.

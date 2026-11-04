@@ -20,6 +20,8 @@ import type { BlockEntry } from "../../blocks/manifest";
 import { BLOCKS } from "../../blocks/manifest";
 import { SettingsScreen } from "../../blocks/settings-screen";
 import settingsScreenSource from "../../blocks/settings-screen.tsx?raw";
+import { SignupBlock } from "../../blocks/signup";
+import signupSource from "../../blocks/signup.tsx?raw";
 
 export type BlockView = {
   entry: BlockEntry;
@@ -33,6 +35,7 @@ const RENDERS: Record<string, () => ReactNode> = {
   "empty-search": () => <EmptySearch query="invoices" onClear={() => {}} />,
   billing: () => <BillingPageBlock />,
   dashboard: () => <DashboardPageBlock />,
+  signup: () => <SignupBlock />,
 };
 
 const SOURCES: Record<string, string> = {
@@ -41,6 +44,7 @@ const SOURCES: Record<string, string> = {
   "empty-search": emptySearchSource,
   billing: billingSource,
   dashboard: dashboardSource,
+  signup: signupSource,
 };
 
 export const BLOCK_VIEWS: BlockView[] = BLOCKS.map((entry) => ({
