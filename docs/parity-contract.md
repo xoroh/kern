@@ -52,13 +52,13 @@ again. Measured from the generated registry instead:
 
 | Measure | Value |
 |---|---|
-| Registry rows | **417** (web 296, native 121) |
-| **Shared** (already both sides) | **92** |
+| Registry rows | **497** (web 336, native 161) |
+| **Shared** (already both sides) | **131** |
 | **Native-only → needs a web version** | **13** in **10 files** |
 | **Web-only → needs a native version** | **36** in **18 files** |
 | Stub rows | **0** |
 
-<!-- gate:counts 92 13 36 0 -->
+<!-- gate:counts 131 13 36 0 -->
 
 Machine-readable line above: `check:parity` (`scripts/check-parity.mjs`) re-derives
 these from the registry and fails if they drift, so the prose above cannot quietly

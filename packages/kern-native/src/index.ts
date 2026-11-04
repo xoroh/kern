@@ -43,6 +43,11 @@ export type { NativeBadgeProps } from "./components/badge";
 export { Badge } from "./components/badge";
 export type { NativeBillingPageProps } from "./components/billing-page";
 export { BillingPage } from "./components/billing-page";
+export type { NativeBottomAppBarProps } from "./components/bottom-app-bar";
+export {
+  BOTTOM_APP_BAR_HEIGHT,
+  BottomAppBar,
+} from "./components/bottom-app-bar";
 export { bottomSheetSurface } from "./components/bottom-sheet-surface";
 export type {
   NativeButtonColor,
