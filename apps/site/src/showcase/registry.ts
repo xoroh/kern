@@ -82,9 +82,12 @@ import { COMBOBOX_EXAMPLES } from "./examples/combobox";
 import { COMMAND_EXAMPLES } from "./examples/command";
 import { CONTEXT_MENU_EXAMPLES } from "./examples/context-menu";
 import { COUNTRY_SELECT_EXAMPLES } from "./examples/country-select";
+import { CSV_EXPORT_BUTTON_EXAMPLES } from "./examples/csv-export-button";
+import { DATA_TABLE_EXAMPLES } from "./examples/data-table";
 import { DIALOG_EXAMPLES } from "./examples/dialog";
 import { DOCK_SHEET_EXAMPLES } from "./examples/dock-sheet";
 import { DRAWER_EXAMPLES } from "./examples/drawer";
+import { EMPTY_SEARCH_EXAMPLES } from "./examples/empty-search";
 import { EMPTY_STATE_EXAMPLES } from "./examples/empty-state";
 import { ENTITY_SHEET_EXAMPLES } from "./examples/entity-sheet";
 import { EXTENDED_FAB_EXAMPLES } from "./examples/extended-fab";
@@ -92,6 +95,7 @@ import { FAB_EXAMPLES } from "./examples/fab";
 import { FAB_MENU_EXAMPLES } from "./examples/fab-menu";
 import { FIELD_EXAMPLES } from "./examples/field";
 import { FIELDSET_EXAMPLES } from "./examples/fieldset";
+import { FILTER_BAR_EXAMPLES } from "./examples/filter-bar";
 import { FILTER_CHIP_ROW_EXAMPLES } from "./examples/filter-chip-row";
 import { FORM_EXAMPLES } from "./examples/form";
 import { ICON_BUTTON_EXAMPLES } from "./examples/icon-button";
@@ -101,7 +105,9 @@ import { KBD_EXAMPLES } from "./examples/kbd";
 import { LABEL_EXAMPLES } from "./examples/label";
 import { LINEAR_PROGRESS_EXAMPLES } from "./examples/linear-progress";
 import { LINK_BUTTON_EXAMPLES } from "./examples/link-button";
+import { LIST_EXAMPLES } from "./examples/list";
 import { LIST_ITEM_EXAMPLES } from "./examples/list-item";
+import { LIST_WITH_SEARCH_AND_FILTERS_EXAMPLES } from "./examples/list-with-search-and-filters";
 import { LOADER_EXAMPLES } from "./examples/loader";
 import { LOADING_BUTTON_EXAMPLES } from "./examples/loading-button";
 import { LOADING_INDICATOR_EXAMPLES } from "./examples/loading-indicator";
@@ -123,6 +129,7 @@ import { RADIO_GROUP_EXAMPLES } from "./examples/radio-group";
 import { RICH_TOOLTIP_EXAMPLES } from "./examples/rich-tooltip";
 import { SCROLL_AREA_EXAMPLES } from "./examples/scroll-area";
 import { SEARCH_EXAMPLES } from "./examples/search";
+import { SEARCH_VIEW_EXAMPLES } from "./examples/search-view";
 import { SECONDARY_TABS_EXAMPLES } from "./examples/secondary-tabs";
 import { SEGMENTED_BUTTON_EXAMPLES } from "./examples/segmented-button";
 import { SELECT_EXAMPLES } from "./examples/select";
@@ -173,16 +180,20 @@ export const EXAMPLES: Record<string, ExampleSpec[]> = {
   Command: COMMAND_EXAMPLES,
   ContextMenu: CONTEXT_MENU_EXAMPLES,
   CountrySelect: COUNTRY_SELECT_EXAMPLES,
+  CsvExportButton: CSV_EXPORT_BUTTON_EXAMPLES,
+  DataTable: DATA_TABLE_EXAMPLES,
   Dialog: DIALOG_EXAMPLES,
   DockSheet: DOCK_SHEET_EXAMPLES,
   Drawer: DRAWER_EXAMPLES,
   EmptyState: EMPTY_STATE_EXAMPLES,
+  EmptySearch: EMPTY_SEARCH_EXAMPLES,
   EntitySheet: ENTITY_SHEET_EXAMPLES,
   ExtendedFab: EXTENDED_FAB_EXAMPLES,
   FabMenu: FAB_MENU_EXAMPLES,
   Fab: FAB_EXAMPLES,
   Field: FIELD_EXAMPLES,
   Fieldset: FIELDSET_EXAMPLES,
+  FilterBar: FILTER_BAR_EXAMPLES,
   FilterChipRow: FILTER_CHIP_ROW_EXAMPLES,
   Form: FORM_EXAMPLES,
   IconButton: ICON_BUTTON_EXAMPLES,
@@ -194,6 +205,8 @@ export const EXAMPLES: Record<string, ExampleSpec[]> = {
   LinearProgress: LINEAR_PROGRESS_EXAMPLES,
   LinkButton: LINK_BUTTON_EXAMPLES,
   ListItem: LIST_ITEM_EXAMPLES,
+  List: LIST_EXAMPLES,
+  ListWithSearchAndFilters: LIST_WITH_SEARCH_AND_FILTERS_EXAMPLES,
   Loader: LOADER_EXAMPLES,
   LoadingButton: LOADING_BUTTON_EXAMPLES,
   LoadingIndicator: LOADING_INDICATOR_EXAMPLES,
@@ -216,6 +229,7 @@ export const EXAMPLES: Record<string, ExampleSpec[]> = {
   RichTooltip: RICH_TOOLTIP_EXAMPLES,
   ScrollArea: SCROLL_AREA_EXAMPLES,
   Search: SEARCH_EXAMPLES,
+  SearchView: SEARCH_VIEW_EXAMPLES,
   SecondaryTabs: SECONDARY_TABS_EXAMPLES,
   SegmentedButton: SEGMENTED_BUTTON_EXAMPLES,
   SelectGroup: SELECT_GROUP_EXAMPLES,
