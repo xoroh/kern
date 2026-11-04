@@ -18,6 +18,8 @@ import { DashboardPageBlock } from "../../blocks/dashboard";
 import dashboardSource from "../../blocks/dashboard.tsx?raw";
 import { EmptySearch } from "../../blocks/empty-search";
 import emptySearchSource from "../../blocks/empty-search.tsx?raw";
+import { EmptyStatesBlock } from "../../blocks/empty-states";
+import emptyStatesSource from "../../blocks/empty-states.tsx?raw";
 import { InviteBlock } from "../../blocks/invite";
 import inviteSource from "../../blocks/invite.tsx?raw";
 import { ListDetailBlock } from "../../blocks/list-detail";
@@ -43,6 +45,7 @@ const RENDERS: Record<string, () => ReactNode> = {
   "settings-screen": () => <SettingsScreen />,
   "auth-form": () => <AuthForm />,
   "empty-search": () => <EmptySearch query="invoices" onClear={() => {}} />,
+  "empty-states": () => <EmptyStatesBlock />,
   billing: () => <BillingPageBlock />,
   dashboard: () => <DashboardPageBlock />,
   signup: () => <SignupBlock />,
@@ -57,6 +60,7 @@ const SOURCES: Record<string, string> = {
   "settings-screen": settingsScreenSource,
   "auth-form": authFormSource,
   "empty-search": emptySearchSource,
+  "empty-states": emptyStatesSource,
   billing: billingSource,
   dashboard: dashboardSource,
   signup: signupSource,

@@ -91,6 +91,17 @@ export const BLOCKS: BlockEntry[] = [
     dependencies: ["@xoroh/kern", "react"],
   },
   {
+    name: "empty-states",
+    title: "Empty states",
+    category: "Dashboard",
+    description:
+      "The three zero-data placements: full page, card section and list row, each with a recovery action. Reach for it when an empty view needs its placement variant, not a new component.",
+    file: "empty-states.tsx",
+    files: [],
+    registryDependencies: ["Button", "EmptyState", "LinkButton"],
+    dependencies: ["@xoroh/kern", "@xoroh/kern-native", "react"],
+  },
+  {
     name: "billing",
     title: "Billing page",
     category: "Billing",
