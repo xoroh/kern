@@ -168,6 +168,24 @@ function Contributing() {
             domain-free: auth, routing, and tenancy arrive as props and slots,
             never as dependencies.
           </p>
+          <p className={`m-0 max-w-[62ch] ${T_BODY} ${INK_SOFT}`}>
+            The IA tier law (D1003/D1004) is derived from the import graph, not
+            hand-assigned, and{" "}
+            <code className={CODE}>node scripts/check-tiers.mjs</code> (wired
+            into <code className={CODE}>check:docs</code>) enforces it: a
+            component file that imports a sibling component is{" "}
+            <code className={CODE}>component</code>, otherwise{" "}
+            <code className={CODE}>core</code>; composites may compose
+            composites. Blocks are declared, never derived — a block lives in{" "}
+            <code className={CODE}>apps/site/src/blocks/</code> with one row in{" "}
+            <code className={CODE}>src/blocks/manifest.ts</code> and may import
+            only from its own or lower tiers. Web/native tier parity holds per
+            export; the accepted divergences and mixed-module pins live in{" "}
+            <code className={CODE}>scripts/lib/tier-overrides.mjs</code>, each
+            citing its evidence — a divergence that is not listed there fails
+            the gate. Never edit a tier by hand in a manifest: fix the imports,
+            or curate the override map.
+          </p>
         </div>
 
         <div className="flex flex-col gap-3">

@@ -195,9 +195,15 @@ export const COMPONENTS_NAV: NavSection[] = [
     label: "Components",
     leaves: [
       {
+        label: "Core primitives",
+        href: "/core",
+        hint: "M3 primitives — buttons, fields, dialogs, navigation, the base layer",
+        group: "Pages",
+      },
+      {
         label: "All components",
         href: "/components",
-        hint: "Documented family by family, filterable by platform in place",
+        hint: "Composite components built from the core primitives, filterable by platform in place",
         group: "Pages",
       },
       {
@@ -217,13 +223,13 @@ export const BLOCKS_NAV: NavSection[] = [
     leaves: [
       {
         label: "All blocks",
-        href: "/showcase",
+        href: "/blocks",
         hint: "Blocks, templates, and example apps built from kern",
         group: "Pages",
       },
       {
         label: "Patterns",
-        href: "/patterns",
+        href: "/blocks/patterns",
         hint: "Product shapes composed from shipped components",
         group: "Pages",
       },

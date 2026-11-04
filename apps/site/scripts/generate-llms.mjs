@@ -21,6 +21,8 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { FOUNDATIONS } from "../src/foundations/shell.tsx";
 import { NAV_SECTIONS } from "../src/systems/nav.ts";
+import { familyHref, familyTierOfSlug } from "../src/systems/tier-nav.ts";
+import { loadBlockEntries } from "./lib/blocks.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const APP = join(HERE, "..");
@@ -89,8 +91,10 @@ const families = {
   web: await loadDocs("web"),
   mobile: await loadDocs("mobile"),
 };
-// One page per family (018): the map lists the family URL once, with the
-// per-renderer .md files named beside it for agents that fetch source.
+// One page per family (018): the map lists the family's CANONICAL tier home
+// (D1003 — pure-core families at /core, everything else at /components/m3),
+// with the per-renderer .md files named beside it for agents that fetch
+// source. Tier sections, not shards: one file, three lists.
 const bySlug = new Map();
 for (const [platform, docs] of Object.entries(families)) {
   for (const doc of docs) {
@@ -99,10 +103,7 @@ for (const [platform, docs] of Object.entries(families)) {
     bySlug.get(doc.slug)[platform] = doc;
   }
 }
-lines.push(`## Component families (M3)`, "");
-for (const [slug, pair] of [...bySlug.entries()].sort((a, b) =>
-  a[0].localeCompare(b[0]),
-)) {
+const familyLink = ([slug, pair]) => {
   const primary = pair.web ?? pair.mobile;
   const renders = [pair.web && "Web", pair.mobile && "Native"]
     .filter(Boolean)
@@ -113,11 +114,32 @@ for (const [slug, pair] of [...bySlug.entries()].sort((a, b) =>
   ]
     .filter(Boolean)
     .join(", ");
+  const tier = familyTierOfSlug(slug) ?? "component";
+  return link(
+    primary.name,
+    familyHref(slug),
+    `${primary.oneLiner} Tier: ${tier === "core" ? "Core (M3 primitive)" : "Component (composite)"}. Renders: ${renders}. Markdown: ${md}.`,
+  );
+};
+const sorted = [...bySlug.entries()].sort((a, b) => a[0].localeCompare(b[0]));
+lines.push(`## Core primitives`, "");
+for (const entry of sorted.filter(([s]) => familyTierOfSlug(s) === "core"))
+  lines.push(familyLink(entry));
+lines.push("");
+lines.push(`## Composite components`, "");
+for (const entry of sorted.filter(([s]) => familyTierOfSlug(s) !== "core"))
+  lines.push(familyLink(entry));
+lines.push("");
+
+// Blocks (declared in apps/site/src/blocks/manifest.ts — tier "block" by
+// declaration, never by derivation). Installable as a unit: `kern add <name>`.
+lines.push(`## Blocks`, "");
+for (const block of loadBlockEntries(APP)) {
   lines.push(
     link(
-      primary.name,
-      `/components/m3/${slug}`,
-      `${primary.oneLiner} Renders: ${renders}. Markdown: ${md}.`,
+      block.title,
+      `/blocks/${block.name}`,
+      `${block.description} Category: ${block.category}. Install: \`kern add ${block.name}\`.`,
     ),
   );
 }

@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Kicker } from "../../components/chrome/kicker";
 import { Code, Step } from "../../components/docs/code";
 import { IconGallery } from "../../components/icons/icon-gallery";
@@ -177,6 +177,26 @@ function Guides() {
             the registry.
           </p>
           <Code>{CDN_PLAIN_HTML}</Code>
+        </Step>
+
+        <Step n={6} title="Which tier do I need — Core, Components, or Blocks?">
+          <p
+            className={`m-0 ${T_BODY_MD} text-(--sys-color-on-surface-variant)`}
+          >
+            Three layers, one rule: a layer may only import from its own or a
+            lower layer. <strong>Core</strong> primitives (button, dialog,
+            navigation bar) compose nothing — start here when you are building a
+            new pattern. <strong>Components</strong> (data table, composer,
+            settings screen) are built only from core — reach for them when the
+            pattern already exists. <strong>Blocks</strong> (sign-in form,
+            settings page) are complete, copy-ready sections built only from
+            core and components — install one with{" "}
+            <code>kern add &lt;block&gt;</code> when you want the whole page.
+            Every family page carries its tier badge with built-from and used-by
+            links; the tier indexes are <Link to="/core">Core</Link>,{" "}
+            <Link to="/components">Components</Link> and{" "}
+            <Link to="/blocks">Blocks</Link>.
+          </p>
         </Step>
       </PageCard>
     </SiteLayout>

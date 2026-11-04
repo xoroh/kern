@@ -10,14 +10,18 @@
  * registry, and the hand-edited nav (for the theme reference page's
  * title/one-liner — the same source llms.txt reads, never a copy). Nothing
  * is invented — page URLs are the routes the site serves, md URLs are the
- * files generate-page-md emits.
+ * files generate-page-md emits, and family tiers come from the import-graph
+ * derivation (scripts/lib/tiers.mjs) via the canonical tier home.
  */
+import { familyHref, familyTierOfSlug } from "../../src/systems/tier-nav.ts";
 
 /** The full index document the emitter writes and the gate re-derives. */
 export function buildMcpIndex(families, foundations, theme) {
   // One page per family (018): the union of both renderers' slugs, each
-  // with its renderer list and per-renderer .md files. The page URL is the
-  // system address; the md URLs are the files generate-page-md emits.
+  // with its renderer list, per-renderer .md files, and IA tier. The page
+  // URL is the family's canonical tier home (D1003 — pure-core families
+  // live at /core, everything else at /components/m3); the md URLs are the
+  // files generate-page-md emits.
   const bySlug = new Map();
   for (const [platform, docs] of Object.entries(families)) {
     for (const doc of docs) {
@@ -37,7 +41,8 @@ export function buildMcpIndex(families, foundations, theme) {
       platforms: [pair.web && "web", pair.mobile && "mobile"].filter(Boolean),
       title: primary.name,
       oneLiner: primary.oneLiner,
-      page: `/components/m3/${slug}`,
+      page: familyHref(slug),
+      tier: familyTierOfSlug(slug),
       md: [
         pair.web && `/md/web/${slug}.md`,
         pair.mobile && `/md/mobile/${slug}.md`,

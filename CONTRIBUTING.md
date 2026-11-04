@@ -57,6 +57,17 @@ Composition (blocks, scaffolds) belongs in `@xoroh/kern/start` and stays
 domain-free: auth, routing, and tenancy arrive as props and slots, never as
 dependencies.
 
+The IA tier law (D1003/D1004) is derived from the import graph, not
+hand-assigned, and `node scripts/check-tiers.mjs` (wired into `check:docs`)
+enforces it: a component file that imports a sibling component is
+`component`, otherwise `core`; composites may compose composites. Blocks are
+declared, never derived — a block lives in `apps/site/src/blocks/` with one
+row in `src/blocks/manifest.ts` and may import only from its own or lower
+tiers. Web/native tier parity holds per export; the accepted divergences and
+mixed-module pins live in `scripts/lib/tier-overrides.mjs`, each citing its
+evidence — a divergence that is not listed there fails the gate. Never edit
+a tier by hand in a manifest: fix the imports, or curate the override map.
+
 ## Generated files
 
 Never hand-edit these; fix the generator.

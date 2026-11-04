@@ -23,6 +23,7 @@
  * guidance gate re-renders the file from: one content, two surfaces.
  */
 
+import { COMPONENTS } from "../../src/generated/manifest.ts";
 import {
   exemptionReason,
   expectedSections,
@@ -30,6 +31,20 @@ import {
   hasLimitations,
 } from "../../src/systems/grammar.ts";
 import { guidanceFor, renderPlatformSection } from "./guidance.mjs";
+
+/**
+ * IA tier of one family's parts on one renderer (D1003/D1004) — the max
+ * over the generated manifest rows, same derivation the site header badge
+ * renders. Null when no row matches (never for shipped families; the gate
+ * below would already have failed on the missing part).
+ */
+function platformTier(parts, platform) {
+  const rows = COMPONENTS.filter(
+    (c) => c.platform === platform && parts.includes(c.export),
+  );
+  if (rows.length === 0) return null;
+  return rows.some((r) => r.tier === "component") ? "component" : "core";
+}
 
 /**
  * The npm target you can actually install. `meta.package` is an IMPORT PATH
@@ -120,8 +135,9 @@ export function pageMarkdown(doc, platform, { liveDemo = false } = {}) {
   // lede
   out.push(`# ${doc.name} (${renderer})`, "");
   out.push(doc.oneLiner, "");
+  const tier = platformTier(doc.parts, platform);
   out.push(
-    `Package: ${meta.package} · Status: ${meta.status} · Native peer: ${meta.nativePeer} · Elevation: ${elevationText(meta)}`,
+    `Package: ${meta.package} · Status: ${meta.status} · Native peer: ${meta.nativePeer} · Elevation: ${elevationText(meta)}${tier ? ` · Tier: ${tier === "component" ? "Component (composite)" : "Core (M3 primitive)"}` : ""}`,
     "",
   );
 
